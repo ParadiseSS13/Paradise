@@ -46007,17 +46007,16 @@
 	name = "E.V.A. Storage"
 	})
 "bUO" = (
-/obj/machinery/camera{
-	c_tag = "Arrivals - Aft Arm - Far";
-	dir = 1
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 2;
+	height = 11;
+	id = "specops_home";
+	name = "port bay 2";
+	width = 5
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry{
-	name = "Arrivals"
-	})
+/turf/space,
+/area/space)
 "bUP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -76418,16 +76417,12 @@
 	},
 /area/medical/research)
 "fwO" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 2;
-	height = 11;
-	id = "specops_home";
-	name = "port bay 2";
-	width = 5
+/obj/machinery/door/airlock/external{
+	id_tag = "specops_home";
+	locked = 1
 	},
-/turf/space,
-/area/space)
+/turf/simulated/floor/plating,
+/area/hallway/secondary/entry)
 "fxB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -77227,6 +77222,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/armoury)
+"hIZ" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 9;
+	height = 18;
+	id = "admin_home";
+	name = "port bay 1";
+	timid = 1;
+	width = 19
+	},
+/turf/space,
+/area/space)
 "hKu" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -77363,17 +77370,14 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "ibR" = (
-/obj/item/twohanded/required/kirbyplants{
-	level = 4.1
+/obj/structure/chair,
+/obj/effect/landmark/start{
+	name = "Civilian"
 	},
-/obj/effect/decal/warning_stripes/northwest,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_y = 32
+/obj/machinery/light{
+	dir = 1
 	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry{
 	name = "Arrivals"
@@ -77794,6 +77798,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/library)
+"juN" = (
+/obj/effect/decal/warning_stripes/southeast,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "jwh" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -77836,14 +77844,13 @@
 	},
 /area/hallway/primary/central)
 "jGE" = (
-/obj/structure/chair,
-/obj/effect/landmark/start{
-	name = "Civilian"
-	},
-/obj/machinery/light{
+/obj/machinery/camera{
+	c_tag = "Arrivals - Aft Arm - Far";
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry{
 	name = "Arrivals"
@@ -78339,17 +78346,9 @@
 	},
 /area/crew_quarters/locker)
 "lfm" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 9;
-	height = 18;
-	id = "admin_home";
-	name = "port bay 1";
-	timid = 1;
-	width = 19
-	},
-/turf/space,
-/area/space)
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "lfV" = (
 /obj/structure/chair/stool/bar,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -78396,8 +78395,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "lio" = (
-/obj/effect/decal/warning_stripes/southwest,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "ljZ" = (
@@ -79404,8 +79402,7 @@
 	},
 /area/hallway/primary/central)
 "oZX" = (
-/obj/effect/decal/warning_stripes/southeast,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "pad" = (
@@ -80126,12 +80123,21 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "rdz" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "specops_home";
-	locked = 1
+/obj/item/twohanded/required/kirbyplants{
+	level = 4.1
 	},
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry)
+/obj/effect/decal/warning_stripes/northwest,
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK";
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry{
+	name = "Arrivals"
+	})
 "rfg" = (
 /obj/structure/chair/stool/bar,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -91440,7 +91446,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+bUO
 aaa
 aaa
 aaa
@@ -91696,10 +91702,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
+kmF
 fwO
-aaa
-aaa
+kmF
+abq
 aaa
 aaa
 aaa
@@ -91954,12 +91960,12 @@ aaa
 aaa
 aaa
 kmF
-rdz
+bOx
 kmF
 abq
-aaa
-aaa
-aaa
+abq
+abq
+abq
 aaa
 aaa
 aaa
@@ -92211,12 +92217,12 @@ aaa
 aaa
 aaa
 kmF
-bOx
+fwO
 kmF
-abq
-abq
-abq
-aaa
+aUN
+aUN
+kmF
+aUN
 aaa
 aaa
 aaa
@@ -92467,13 +92473,13 @@ aaa
 aaa
 aaa
 aaa
-kmF
+aWD
 rdz
-kmF
-aUN
-aUN
-aUN
-aaa
+uWq
+rnY
+lfm
+oZX
+rnY
 aaa
 aaa
 aaa
@@ -92724,14 +92730,14 @@ aaa
 aaa
 aaa
 aaa
-aWD
-ibR
-uWq
+aUN
+baI
+bBt
 rnY
 lio
+juN
 rnY
-aaa
-aaa
+hIZ
 aaa
 aaa
 aaa
@@ -92981,13 +92987,13 @@ aaa
 aaa
 aaa
 aaa
-aUN
-baI
+bhR
+ibR
 bBt
-rnY
-oZX
-rnY
-lfm
+aWD
+aUN
+kmF
+aUN
 aaa
 aaa
 aaa
@@ -93238,12 +93244,12 @@ aaa
 aaa
 aaa
 aaa
-bhR
+aUN
+baJ
 jGE
-bBt
 aWD
-aUN
-aUN
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -93495,9 +93501,9 @@ aaa
 aaa
 aaa
 aaa
-aUN
+aWD
 baJ
-bUO
+bUS
 aWD
 aaa
 aaa
