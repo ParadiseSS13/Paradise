@@ -6966,6 +6966,9 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
+/obj/structure/sign/nosmoking_2{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "ayp" = (
@@ -7329,10 +7332,11 @@
 /area/janitor)
 "azm" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/structure/sign/nosmoking_2{
-	pixel_x = 32
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 28
+	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "azn" = (
@@ -7886,11 +7890,15 @@
 	},
 /area/janitor)
 "aAx" = (
-/obj/item/reagent_containers/glass/bucket,
-/obj/structure/janitorialcart,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 28
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/window/westleft{
+	name = "Janitoral Delivery";
+	req_access_txt = "26"
 	},
 /turf/simulated/floor/plating,
 /area/janitor)
@@ -8418,6 +8426,8 @@
 /obj/machinery/light_switch{
 	pixel_y = -26
 	},
+/obj/item/reagent_containers/glass/bucket,
+/obj/structure/janitorialcart,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},
@@ -94823,7 +94833,7 @@
 	dir = 8;
 	location = "Janitor"
 	},
-/turf/simulated/wall,
+/turf/simulated/floor/plating,
 /area/janitor)
 "gpX" = (
 /obj/effect/landmark{
@@ -95492,7 +95502,7 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/turf/simulated/wall,
+/turf/simulated/floor/plating,
 /area/toxins/misc_lab)
 "iiM" = (
 /obj/structure/window/reinforced{
