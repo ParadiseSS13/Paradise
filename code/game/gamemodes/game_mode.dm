@@ -463,7 +463,7 @@
 	var/jobtext = ""
 	if(ply.assigned_role)
 		jobtext = " the <b>[ply.assigned_role]</b>"
-	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext] and"
+	var/text = "<b>[ply.get_display_key()]</b> was <b>[ply.name]</b>[jobtext] and"
 	if(ply.current)
 		if(ply.current.stat == DEAD)
 			text += " <span class='redtext'>died</span>"
@@ -480,7 +480,7 @@
 	return text
 
 /proc/printeventplayer(datum/mind/ply)
-	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>"
+	var/text = "<b>[ply.get_display_key()]</b> was <b>[ply.name]</b>"
 	if(ply.special_role != SPECIAL_ROLE_EVENTMISC)
 		text += " the [ply.special_role]"
 	text += " and"

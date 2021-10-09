@@ -1384,6 +1384,7 @@
 #include "code\modules\client\login_processing\37-alts_ip.dm"
 #include "code\modules\client\login_processing\38-alts_cid.dm"
 #include "code\modules\client\login_processing\39-cid_count.dm"
+#include "code\modules\client\login_processing\40-pai_save.dm"
 #include "code\modules\client\login_processing\__client_login_processor.dm"
 #include "code\modules\client\preference\character.dm"
 #include "code\modules\client\preference\link_processing.dm"
