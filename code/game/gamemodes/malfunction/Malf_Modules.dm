@@ -806,4 +806,4 @@
 			continue
 		R.module.malfhacked = TRUE
 		R.module.rebuild_modules()
-		to_chat(R, "<span class='notice'>New firmwear downloaded. Emitter is now online.</span>")
+		to_chat(R, "<span class='notice'>New firmware downloaded. Emitter is now online.</span>")
