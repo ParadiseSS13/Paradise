@@ -26,6 +26,18 @@
 	icon_state = "solarpanel"
 	},
 /area/maintenance/auxsolarstarboard)
+"abO" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_x = 25
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "abQ" = (
 /turf/simulated/floor/plating,
 /area/security/permabrig)
@@ -242,6 +254,7 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/northwest,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "adx" = (
@@ -268,6 +281,12 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/northeast,
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_x = 25
+	},
+/obj/item/decorations/sticky_decorations/flammable/spider{
+	pixel_x = 25
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "adL" = (
@@ -428,6 +447,9 @@
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/east,
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_x = 21
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "aeP" = (
@@ -477,6 +499,8 @@
 	pixel_x = -32
 	},
 /obj/effect/decal/warning_stripes/northwest,
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "afd" = (
@@ -548,6 +572,10 @@
 "afj" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/northeast,
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_x = 25
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "afk" = (
@@ -963,6 +991,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_x = 25
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "agJ" = (
@@ -1132,6 +1163,7 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "aip" = (
@@ -1240,6 +1272,7 @@
 "ajy" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "ajD" = (
@@ -1361,6 +1394,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "akw" = (
@@ -1778,6 +1812,9 @@
 /area/hallway/secondary/entry)
 "amz" = (
 /obj/effect/decal/warning_stripes/southwest,
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "amA" = (
@@ -2019,6 +2056,10 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/ghost{
+	pixel_x = 25
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "anA" = (
@@ -2053,6 +2094,9 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
+/obj/item/decorations/sticky_decorations/flammable/spider{
+	pixel_x = -25
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "arrival"
@@ -2232,6 +2276,9 @@
 	},
 /area/hallway/secondary/entry)
 "anZ" = (
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_y = -25
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "arrival"
@@ -2272,6 +2319,12 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/newscaster{
 	pixel_x = 32
+	},
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_y = -30
+	},
+/obj/item/decorations/sticky_decorations/flammable/spider{
+	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -2366,6 +2419,7 @@
 /area/hallway/secondary/entry)
 "aow" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -2398,6 +2452,7 @@
 /area/hallway/secondary/entry)
 "aoA" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -2649,6 +2704,9 @@
 "api" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_x = -21
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
@@ -2758,6 +2816,9 @@
 "apv" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/item/decorations/sticky_decorations/flammable/spider{
+	pixel_x = 21
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -3015,6 +3076,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -3036,6 +3098,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -4601,6 +4664,7 @@
 /obj/machinery/newscaster{
 	pixel_y = -32
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -5134,6 +5198,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/item/clothing/head/hardhat/pumpkinhead,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -5298,6 +5363,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_x = -21
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -5305,6 +5373,7 @@
 /area/hallway/secondary/entry)
 "avc" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -5353,6 +5422,7 @@
 /area/maintenance/fore)
 "avg" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -5829,6 +5899,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -5924,6 +5995,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -6322,6 +6394,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -6339,6 +6412,9 @@
 "axi" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_x = 21
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -6662,6 +6738,9 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_y = 25
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -7009,6 +7088,9 @@
 "ayu" = (
 /obj/machinery/vending/snack,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/decorations/sticky_decorations/flammable/ghost{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -8499,6 +8581,9 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 8
+	},
+/obj/item/decorations/sticky_decorations/flammable/spider{
+	pixel_x = 21
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -10828,6 +10913,9 @@
 /obj/machinery/disposal,
 /obj/structure/sign/poster/official/high_class_martini{
 	pixel_y = 32
+	},
+/obj/item/decorations/sticky_decorations/flammable/ghost{
+	pixel_x = 21
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -13895,6 +13983,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -14562,6 +14651,7 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -15192,6 +15282,7 @@
 	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -15981,6 +16072,7 @@
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/item/clothing/head/hardhat/pumpkinhead,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -17557,6 +17649,7 @@
 /area/crew_quarters/bar/atrium)
 "aUI" = (
 /obj/structure/table/wood,
+/obj/item/clothing/head/hardhat/pumpkinhead,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -19895,6 +19988,10 @@
 	c_tag = "Atrium";
 	dir = 4
 	},
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/cauldron{
+	pixel_x = -25
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -19908,6 +20005,7 @@
 	pixel_x = 28
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -20856,6 +20954,7 @@
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -20875,6 +20974,9 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
+	},
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_x = 25
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -30437,6 +30539,8 @@
 	pixel_x = 4;
 	pixel_y = 24
 	},
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bud" = (
@@ -50523,6 +50627,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/decal/leaves,
+/obj/item/clothing/head/hardhat/pumpkinhead,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -50535,6 +50641,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -52073,6 +52181,9 @@
 /obj/machinery/camera{
 	c_tag = "Central Ring Hallway Center"
 	},
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_y = 25
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -52710,6 +52821,10 @@
 /area/hallway/primary/central/south)
 "cny" = (
 /obj/structure/disposalpipe/segment,
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_x = 21
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -52845,6 +52960,9 @@
 "cnO" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_y = 25
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -53173,6 +53291,10 @@
 /area/hallway/primary/central/south)
 "coD" = (
 /obj/structure/disposalpipe/segment,
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/ghost{
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -53305,6 +53427,9 @@
 "coT" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/scrubber,
+/obj/item/decorations/sticky_decorations/flammable/spider{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "escape"
@@ -55472,6 +55597,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -55562,6 +55688,13 @@
 /area/maintenance/starboard)
 "ctw" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/ghost{
+	pixel_y = 21
+	},
+/obj/item/decorations/sticky_decorations/flammable/cauldron{
+	pixel_x = -25
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -55919,6 +56052,7 @@
 	icon_state = "4-8"
 	},
 /obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -56056,6 +56190,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -56083,6 +56218,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -56156,6 +56293,9 @@
 /area/crew_quarters/locker)
 "cuD" = (
 /obj/structure/closet/wardrobe/black,
+/obj/item/decorations/sticky_decorations/flammable/ghost{
+	pixel_x = 21
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -56257,6 +56397,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -56715,6 +56856,14 @@
 	},
 /area/hallway/primary/central/south)
 "cvF" = (
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_y = -25
+	},
+/obj/item/decorations/sticky_decorations/flammable/spider{
+	pixel_y = -25
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -56843,6 +56992,9 @@
 /area/crew_quarters/locker)
 "cvW" = (
 /obj/machinery/light,
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -56853,6 +57005,7 @@
 	dir = 1;
 	pixel_y = -24
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -56869,6 +57022,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -57525,6 +57679,9 @@
 /area/crew_quarters/locker)
 "cxw" = (
 /obj/structure/closet/wardrobe/green,
+/obj/item/decorations/sticky_decorations/flammable/cauldron{
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -58136,6 +58293,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/closet/wardrobe/white,
+/obj/item/decorations/sticky_decorations/flammable/spider{
+	pixel_x = -25
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -58201,6 +58361,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/table,
+/obj/item/clothing/head/hardhat/pumpkinhead,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -58358,6 +58519,9 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_x = -21
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -58980,6 +59144,9 @@
 /area/crew_quarters/locker)
 "cAm" = (
 /obj/structure/closet/wardrobe/mixed,
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_x = 21
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -60253,6 +60420,9 @@
 /area/crew_quarters/locker/locker_toilet)
 "cDi" = (
 /obj/machinery/vending/clothing,
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_y = -25
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -60271,6 +60441,9 @@
 /area/crew_quarters/locker)
 "cDl" = (
 /obj/machinery/vending/autodrobe,
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_y = -25
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -60279,6 +60452,9 @@
 /obj/item/paper_bin,
 /obj/structure/table,
 /obj/item/pen,
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_y = -21
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -60296,6 +60472,8 @@
 "cDo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -61048,6 +61226,9 @@
 	dir = 4;
 	pixel_y = -22
 	},
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_x = -25
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "arrival"
@@ -61107,6 +61288,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/item/decorations/sticky_decorations/flammable/cauldron{
+	pixel_y = 21
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -61196,6 +61380,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -62171,6 +62356,7 @@
 	dir = 1;
 	initialize_directions = 11
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -62220,6 +62406,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -62629,6 +62816,9 @@
 /area/crew_quarters/sleep)
 "cIb" = (
 /obj/machinery/washing_machine,
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "arrival"
@@ -62642,6 +62832,7 @@
 /area/crew_quarters/sleep)
 "cId" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -62649,6 +62840,9 @@
 "cIg" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
+	},
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_y = -25
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -63910,6 +64104,7 @@
 	pixel_x = 26;
 	pixel_y = 28
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/sleep)
 "cLr" = (
@@ -63928,6 +64123,9 @@
 "cLs" = (
 /obj/machinery/vending/cola,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/item/decorations/sticky_decorations/flammable/ghost{
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -65367,6 +65565,7 @@
 /area/crew_quarters/fitness)
 "cOu" = (
 /obj/structure/table,
+/obj/item/clothing/head/hardhat/pumpkinhead,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -66091,6 +66290,10 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/clothing/head/hardhat/pumpkinhead,
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_x = -21
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -66155,6 +66358,11 @@
 /area/crew_quarters/fitness)
 "cQs" = (
 /obj/effect/decal/warning_stripes/northwest,
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "cQu" = (
@@ -66169,6 +66377,7 @@
 	pixel_x = -32
 	},
 /obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "cQw" = (
@@ -68301,6 +68510,7 @@
 	dir = 4
 	},
 /obj/structure/table,
+/obj/item/clothing/head/hardhat/pumpkinhead,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -68504,6 +68714,7 @@
 	dir = 1;
 	icon_state = "pipe-y"
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "cVd" = (
@@ -68916,6 +69127,10 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
+	},
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_x = -21
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -69680,6 +69895,13 @@
 "cXM" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_y = -30
+	},
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_x = -25
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -69697,6 +69919,7 @@
 /area/crew_quarters/fitness)
 "cXO" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -71507,6 +71730,7 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/disposalpipe/segment,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -72325,6 +72549,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -85468,6 +85693,7 @@
 	dir = 1;
 	pixel_y = 28
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -85478,6 +85704,9 @@
 	},
 /obj/effect/landmark/start{
 	name = "Civilian"
+	},
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_y = 21
 	},
 /turf/simulated/floor/carpet,
 /area/hallway/primary/aft)
@@ -85496,6 +85725,9 @@
 "dEW" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
+	},
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_y = 30
 	},
 /turf/simulated/floor/carpet,
 /area/hallway/primary/aft)
@@ -85538,6 +85770,7 @@
 /obj/machinery/newscaster{
 	pixel_x = 32
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "dFc" = (
@@ -85910,6 +86143,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/item/decorations/sticky_decorations/flammable/ghost{
+	pixel_x = -21
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -85926,6 +86162,9 @@
 /obj/machinery/vending/snack,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/item/decorations/sticky_decorations/flammable/spider{
+	pixel_y = -21
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
@@ -86203,6 +86442,7 @@
 /obj/machinery/ai_status_display{
 	pixel_x = -32
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -86740,6 +86980,10 @@
 	dir = 8
 	},
 /obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/cauldron{
+	pixel_x = -21
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "dHQ" = (
@@ -86796,6 +87040,10 @@
 	dir = 8
 	},
 /obj/machinery/disposal,
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_x = 25
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "dHX" = (
@@ -87503,6 +87751,10 @@
 "dJH" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/spider{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dJI" = (
@@ -88404,6 +88656,7 @@
 	desc = "NanoTrasen Science Station Kerberos: Comissioned in 2557.";
 	name = "NSS Kerberos dedication plaque"
 	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dLP" = (
@@ -88588,6 +88841,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dMp" = (
@@ -88962,6 +89216,7 @@
 "dNa" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -89589,6 +89844,7 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dOw" = (
@@ -89604,6 +89860,7 @@
 /obj/item/folder,
 /obj/item/pen,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/item/clothing/head/hardhat/pumpkinhead,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -89838,6 +90095,10 @@
 "dPb" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_x = -25
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dPg" = (
@@ -90384,6 +90645,9 @@
 "dQo" = (
 /obj/machinery/vending/snack,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/item/decorations/sticky_decorations/flammable/ghost{
+	pixel_x = -25
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dQp" = (
@@ -91354,6 +91618,14 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_x = -25
+	},
+/obj/item/decorations/sticky_decorations/flammable/spider{
+	pixel_x = -25
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dSp" = (
@@ -91390,6 +91662,9 @@
 /obj/machinery/camera{
 	c_tag = "Departure Lounge North";
 	dir = 1
+	},
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_y = -21
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
@@ -91881,6 +92156,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -92109,6 +92385,7 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -92145,6 +92422,7 @@
 /obj/structure/table,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/item/storage/fancy/donut_box,
+/obj/item/clothing/head/hardhat/pumpkinhead,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -92400,6 +92678,14 @@
 /area/maintenance/apmaint)
 "dUT" = (
 /obj/effect/decal/warning_stripes/southwest,
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/obj/item/decorations/sticky_decorations/flammable/ghost{
+	pixel_y = -30
+	},
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_x = -21
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dUY" = (
@@ -92425,6 +92711,7 @@
 /area/hallway/secondary/exit)
 "dVc" = (
 /obj/effect/decal/warning_stripes/southeast,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dVd" = (
@@ -92523,6 +92810,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/item/clothing/head/hardhat/pumpkinhead,
 /turf/simulated/floor/carpet,
 /area/hallway/primary/aft)
 "dVy" = (
@@ -92535,6 +92823,11 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)
+"dVD" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/leaves,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "dWa" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -93438,11 +93731,20 @@
 /obj/machinery/newscaster{
 	pixel_y = -30
 	},
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/cauldron{
+	pixel_x = -21
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dXQ" = (
 /obj/machinery/light,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_y = -25
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dXS" = (
@@ -94266,6 +94568,15 @@
 	},
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
+"eIC" = (
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_x = -21
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark"
+	},
+/area/crew_quarters/bar)
 "eLI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -94278,6 +94589,15 @@
 	icon_state = "red"
 	},
 /area/security/brig)
+"eLM" = (
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_y = 21
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "eNm" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -94384,6 +94704,9 @@
 "eYL" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/south,
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_x = -21
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "faB" = (
@@ -94459,6 +94782,15 @@
 	icon_state = "white"
 	},
 /area/hallway/primary/central)
+"ffO" = (
+/obj/item/decorations/sticky_decorations/flammable/cauldron{
+	pixel_x = -25
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/fitness)
 "fhF" = (
 /turf/space,
 /area/shuttle/gamma/station)
@@ -94470,6 +94802,13 @@
 /mob/living/simple_animal/pet/dog/pug,
 /turf/simulated/floor/engine,
 /area/toxins/explab)
+"fjB" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/leaves,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/crew_quarters/bar)
 "fjJ" = (
 /obj/machinery/camera{
 	c_tag = "Security Armory";
@@ -94479,6 +94818,14 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
+"fmj" = (
+/obj/item/decorations/sticky_decorations/flammable/spider{
+	pixel_y = -25
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "fou" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -94516,8 +94863,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
+"fpu" = (
+/obj/item/decorations/sticky_decorations/flammable/ghost{
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "fqy" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -94547,6 +94904,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/seceqstorage)
+"fus" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/leaves,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "fuR" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -94558,6 +94921,10 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/item/decorations/sticky_decorations/flammable/cauldron{
+	pixel_x = 21
+	},
+/obj/effect/decal/leaves,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "fxr" = (
@@ -94762,6 +95129,16 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/surgery1)
+"fZX" = (
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_y = 21
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "gcN" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -94947,6 +95324,13 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry)
+"gAe" = (
+/obj/effect/decal/leaves,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/fitness)
 "gBV" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -95202,6 +95586,18 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
+"hhJ" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/item/decorations/sticky_decorations/flammable/spider{
+	pixel_x = 21
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "hjo" = (
 /obj/structure/closet/crate,
 /obj/effect/landmark/costume/random,
@@ -95210,6 +95606,7 @@
 /area/maintenance/starboard)
 "hly" = (
 /obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -95237,6 +95634,15 @@
 /obj/machinery/message_server,
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
+"hnD" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/leaves,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
 "hos" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -95306,6 +95712,14 @@
 	},
 /turf/space,
 /area/space)
+"hGL" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
 "hHr" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/light{
@@ -95377,6 +95791,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/medical/virology)
+"hNf" = (
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/portable_atmospherics/pump,
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/crew_quarters/locker)
 "hOL" = (
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
@@ -95543,6 +95968,7 @@
 /area/security/permabrig)
 "iuU" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/leaves,
 /turf/simulated/floor/wood,
 /area/crew_quarters/sleep)
 "iwQ" = (
@@ -95570,6 +95996,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
+"izd" = (
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_y = -25
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/sleep)
 "iBK" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance{
@@ -95603,6 +96038,15 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
+"iDE" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/south)
 "iFx" = (
 /obj/structure/sink{
 	dir = 8;
@@ -95697,6 +96141,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"iTz" = (
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/portable_atmospherics/scrubber,
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_x = 30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "escape"
+	},
+/area/crew_quarters/locker)
 "iTV" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -95838,6 +96293,12 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/surgery1)
+"jon" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "jqB" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -95878,6 +96339,20 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
+"jxu" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/sleep)
 "jAm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -95900,6 +96375,15 @@
 	icon_state = "dark"
 	},
 /area/security/processing)
+"jBr" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/effect/decal/leaves,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "jBy" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -95956,6 +96440,11 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/sleep)
+"jIg" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/leaves,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "jIs" = (
 /turf/simulated/wall/r_wall,
 /area/security/evidence)
@@ -96066,6 +96555,19 @@
 	icon_state = "white"
 	},
 /area/medical/medbay)
+"kbN" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_x = -30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/crew_quarters/locker)
 "kdR" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
@@ -96075,6 +96577,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/port)
+"kfN" = (
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_y = -21
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/south)
 "khY" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -96190,6 +96701,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"ktx" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_y = -25
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "kxq" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -96245,6 +96770,14 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
+"kHj" = (
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/fitness)
 "kOC" = (
 /obj/structure/table,
 /obj/item/storage/fancy/crayons,
@@ -96297,6 +96830,15 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/surgery2)
+"kVO" = (
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/sleep)
 "kWO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -96346,6 +96888,14 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
+"ldS" = (
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_y = -21
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/sleep)
 "lee" = (
 /obj/structure/table/glass,
 /obj/item/grown/sunflower{
@@ -96393,6 +96943,13 @@
 	icon_state = "red"
 	},
 /area/security/seceqstorage)
+"lqo" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_x = -21
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "lso" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -96486,6 +97043,20 @@
 "lBR" = (
 /turf/simulated/wall,
 /area/hallway/primary/starboard)
+"lEf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_y = -25
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "lEr" = (
 /obj/machinery/light{
 	dir = 4
@@ -96562,6 +97133,13 @@
 	icon_state = "grimy"
 	},
 /area/chapel/office)
+"lSK" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/item/decorations/sticky_decorations/flammable/ghost{
+	pixel_x = 21
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "lVO" = (
 /obj/machinery/turretid/lethal{
 	control_area = "\improper Telecoms Central Compartment";
@@ -96603,6 +97181,32 @@
 /obj/item/mop,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"maW" = (
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/south)
+"mce" = (
+/obj/structure/closet/secure_closet/personal,
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_y = 21
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/crew_quarters/locker)
+"mdd" = (
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "meB" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -96843,6 +97447,14 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/surgery2)
+"mwt" = (
+/obj/structure/table/wood,
+/obj/item/clothing/head/hardhat/pumpkinhead,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark"
+	},
+/area/crew_quarters/bar)
 "myN" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -96887,6 +97499,16 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
+"mDV" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/spider{
+	pixel_x = 21
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/secondary/entry)
 "mEk" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -97044,6 +97666,8 @@
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -97152,6 +97776,16 @@
 /obj/item/reagent_containers/spray/pestspray,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
+"nib" = (
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/ghost{
+	pixel_y = 21
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "nit" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -97178,6 +97812,23 @@
 	icon_state = "barber"
 	},
 /area/security/permabrig)
+"nkz" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_y = -25
+	},
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_x = -25
+	},
+/obj/item/decorations/sticky_decorations/flammable/spider{
+	pixel_y = -21
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/secondary/entry)
 "nli" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/cleanliness{
@@ -97281,6 +97932,15 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/civilian/barber)
+"nGe" = (
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "nGA" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
@@ -97468,6 +98128,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
+"ogf" = (
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_y = 21
+	},
+/obj/item/decorations/sticky_decorations/flammable/spider{
+	pixel_y = 21
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "ohh" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -97597,6 +98269,14 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/courtroom)
+"oIR" = (
+/obj/structure/disposalpipe/segment,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/obj/effect/decal/leaves,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/crew_quarters/bar)
 "oMO" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -97789,6 +98469,20 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/sleep)
+"pmj" = (
+/obj/effect/decal/warning_stripes/southeast,
+/obj/item/decorations/sticky_decorations/flammable/spider{
+	pixel_x = 21
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
+"pmJ" = (
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/fitness)
 "pnF" = (
 /obj/structure/window/reinforced,
 /turf/space,
@@ -97811,6 +98505,12 @@
 	icon_state = "redfull"
 	},
 /area/security/seceqstorage)
+"pAo" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/obj/effect/decal/leaves,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "pAC" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -97886,6 +98586,16 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research)
+"pOe" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/leaves,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "pOq" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -97902,6 +98612,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
+"pPb" = (
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_x = -30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/fitness)
 "pPC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -98030,6 +98749,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/permasolitary)
+"qaW" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_y = 21
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/south)
 "qcA" = (
 /obj/docking_port/stationary{
 	dwidth = 4;
@@ -98062,6 +98795,18 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/surgery1)
+"qjt" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_x = 21
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "qli" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -98107,9 +98852,27 @@
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
+"qrS" = (
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/aft)
 "qrT" = (
 /turf/simulated/wall/r_wall,
 /area/tcommsat/chamber)
+"qwn" = (
+/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_y = 25
+	},
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_x = 30
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "qxp" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -98138,6 +98901,13 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/south)
+"qAu" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/leaves,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/crew_quarters/sleep)
 "qHs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10;
@@ -98195,6 +98965,11 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
+"qSZ" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/leaves,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "qVp" = (
 /obj/structure/table/reinforced,
 /obj/machinery/alarm{
@@ -98236,6 +99011,18 @@
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
+"qWK" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/decorations/sticky_decorations/flammable/ghost{
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "qXF" = (
 /obj/machinery/alarm{
 	pixel_y = 24
@@ -98419,6 +99206,15 @@
 	icon_state = "solarpanel"
 	},
 /area/maintenance/starboardsolar)
+"rqr" = (
+/obj/item/decorations/sticky_decorations/flammable/ghost{
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "rsF" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -98450,6 +99246,13 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/exit)
+"rzv" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/item/decorations/sticky_decorations/flammable/ghost{
+	pixel_x = 21
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "rBP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -98538,6 +99341,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"rMh" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_x = 25
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "rNi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -98640,6 +99451,11 @@
 	},
 /turf/simulated/floor/carpet,
 /area/assembly/showroom)
+"rZm" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/effect/decal/leaves,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "rZK" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -98757,6 +99573,13 @@
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"smp" = (
+/obj/effect/decal/leaves,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
 "soN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -98911,6 +99734,15 @@
 	icon_state = "neutralfull"
 	},
 /area/atmos)
+"sIp" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/south)
 "sMj" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
@@ -98969,6 +99801,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"sRk" = (
+/obj/effect/decal/warning_stripes/southeast,
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_x = 30
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "sTz" = (
 /obj/structure/closet/secure_closet/security,
 /turf/simulated/floor/plasteel{
@@ -99234,6 +100073,14 @@
 /obj/item/lipstick/random,
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
+"tJp" = (
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_y = -21
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "tJH" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -99405,6 +100252,13 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
+"tXC" = (
+/obj/effect/decal/warning_stripes/southwest,
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_x = -25
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "uil" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -99573,6 +100427,12 @@
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
+"uAT" = (
+/obj/effect/decal/leaves,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/crew_quarters/fitness)
 "uCE" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/r_wall,
@@ -99607,6 +100467,17 @@
 	icon_state = "white"
 	},
 /area/security/medbay)
+"uPR" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "uQK" = (
 /obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
@@ -99812,6 +100683,14 @@
 /obj/item/clothing/under/color/orange/prison,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"vqS" = (
+/obj/item/decorations/sticky_decorations/flammable/ghost{
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/sleep)
 "vrp" = (
 /obj/structure/chair/office/light{
 	dir = 8
@@ -99863,6 +100742,13 @@
 	icon_state = "red"
 	},
 /area/security/brig)
+"vyF" = (
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/secondary/entry)
 "vzs" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
@@ -100087,6 +100973,13 @@
 /obj/item/reagent_containers/glass/beaker/large,
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
+"vVi" = (
+/obj/effect/decal/leaves,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/fitness)
 "vXX" = (
 /turf/space,
 /area/space/nearstation)
@@ -100096,6 +100989,15 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/misc_lab)
+"wcH" = (
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	pixel_y = 21
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "wdH" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
@@ -100158,6 +101060,15 @@
 	icon_state = "white"
 	},
 /area/medical/medbay)
+"wli" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/spiderweb{
+	pixel_x = -25
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "wmQ" = (
 /obj/item/radio/intercom{
 	pixel_y = 28
@@ -100195,11 +101106,27 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"wuJ" = (
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_y = -25
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "wvH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
+"wwx" = (
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/fitness)
 "wAE" = (
 /obj/structure/dresser,
 /turf/simulated/floor/plating,
@@ -100209,6 +101136,20 @@
 /obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
+"wFU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/decal/leaves,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/south)
 "wGL" = (
 /obj/machinery/newscaster/security_unit{
 	pixel_x = -32
@@ -100231,6 +101172,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
+"wJe" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/decal/leaves,
+/obj/item/decorations/sticky_decorations/flammable/jack_o_lantern{
+	pixel_x = 21
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "wMd" = (
 /obj/structure/table/reinforced,
 /obj/structure/reagent_dispensers/peppertank{
@@ -100471,6 +101421,15 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/surgery1)
+"xxx" = (
+/obj/item/decorations/sticky_decorations/flammable/skull{
+	pixel_x = -25
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/fitness)
 "xAc" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -134708,7 +135667,7 @@ aaa
 aaa
 aaa
 adb
-ant
+rqr
 anL
 aoo
 aoo
@@ -134966,7 +135925,7 @@ alW
 abj
 acC
 ant
-anP
+ktx
 aoo
 aoT
 apL
@@ -135480,7 +136439,7 @@ abj
 amx
 ajy
 ant
-anP
+lEf
 aoo
 aoV
 apM
@@ -137278,7 +138237,7 @@ aaa
 aaa
 aaa
 adb
-ant
+wcH
 anP
 aoo
 apc
@@ -137772,7 +138731,7 @@ adL
 aey
 acC
 afc
-adZ
+dVD
 adZ
 agg
 aip
@@ -137824,7 +138783,7 @@ hly
 aRA
 aRd
 aRA
-hly
+mwt
 aIZ
 aYZ
 aYZ
@@ -137925,18 +138884,18 @@ dbp
 dHL
 dIH
 dJH
-dJH
+fus
 dKP
 dLA
 dMo
-dKP
-dKP
+lqo
+pAo
 dOv
 dPb
 dPY
 dQo
 dRl
-dJH
+wli
 dSo
 dKP
 dTh
@@ -138072,7 +139031,7 @@ aDt
 aFA
 aGA
 aMg
-aIZ
+eIC
 aKr
 aQt
 aNh
@@ -138285,7 +139244,7 @@ add
 adL
 aeA
 acC
-afj
+wJe
 aeb
 aeb
 agh
@@ -138304,7 +139263,7 @@ alt
 aly
 aeb
 aeb
-amB
+pmj
 amL
 ant
 mOF
@@ -138712,7 +139671,7 @@ dKo
 dXJ
 dKo
 dUj
-dSP
+qSZ
 dUT
 dIH
 abj
@@ -138970,7 +139929,7 @@ dXJ
 dKo
 dKo
 dWA
-dVb
+rZm
 dIO
 aaa
 aaa
@@ -139334,7 +140293,7 @@ aaa
 aaa
 aaa
 adb
-ann
+qWK
 anQ
 aou
 api
@@ -139346,7 +140305,7 @@ asY
 awh
 avb
 awi
-aoA
+nkz
 axe
 aCP
 aAD
@@ -139618,13 +140577,13 @@ aJb
 aBE
 aZZ
 aNj
-aWk
-aWk
+oIR
+fjB
 aWk
 aRx
 aUL
-aWk
-aWk
+fjB
+oIR
 aZc
 baT
 aZa
@@ -139666,7 +140625,7 @@ ciI
 cku
 clQ
 coD
-coD
+iDE
 cpY
 crC
 csO
@@ -139921,7 +140880,7 @@ drp
 bYv
 ciJ
 bYv
-clS
+qaW
 ckv
 ckv
 cqc
@@ -139974,13 +140933,13 @@ dql
 dBH
 dCX
 dfu
-dHT
+qrS
 dcV
 dGU
 dWL
 dWM
 dIK
-dQI
+jBr
 dKo
 dKo
 dLG
@@ -140176,7 +141135,7 @@ cca
 cfK
 cfK
 chn
-cpT
+wFU
 csW
 clS
 ckv
@@ -140185,7 +141144,7 @@ cqc
 crE
 csQ
 cuc
-cvE
+kfN
 cxa
 cyl
 czO
@@ -140237,13 +141196,13 @@ dGU
 dGU
 dHS
 dIH
-dJF
-dPa
+qwn
+rMh
 dPa
 dLH
 dMr
 dPa
-dPa
+lSK
 dPa
 uFa
 dKo
@@ -140699,7 +141658,7 @@ cqc
 crG
 csS
 cue
-cvG
+maW
 cxa
 cyn
 czQ
@@ -141145,7 +142104,7 @@ aea
 aeJ
 aea
 awo
-ayy
+vyF
 ayA
 azx
 aAJ
@@ -141208,7 +142167,7 @@ ciO
 ckw
 clV
 cny
-cny
+sIp
 cqd
 crI
 csU
@@ -141277,12 +142236,12 @@ dKP
 dKP
 dKP
 dLK
+jon
 dKP
 dKP
 dKP
 dKP
-dKP
-dKP
+jIg
 dXQ
 dIH
 abj
@@ -141402,7 +142361,7 @@ asZ
 axi
 avh
 awp
-aow
+mDV
 ayA
 ayA
 ayA
@@ -142416,7 +143375,7 @@ agA
 alG
 adZ
 adZ
-amz
+tXC
 amL
 ant
 anW
@@ -142912,25 +143871,25 @@ adh
 acC
 afj
 aeb
-aeb
+rzv
 afN
 agn
 agH
+pOe
+uPR
+pOe
+abO
 aiT
 aiT
-aiT
-aiT
-aiT
-aiT
-aiT
+qjt
 akb
-aiT
+uPR
 fuR
 aiT
 alK
-aiT
+hhJ
 ajH
-amB
+sRk
 amL
 ant
 anY
@@ -143189,7 +144148,7 @@ axm
 awY
 axm
 axm
-anv
+fZX
 anZ
 axm
 app
@@ -145837,9 +146796,9 @@ cvu
 coI
 cqq
 bYH
-cEL
+fpu
 cuu
-bIX
+wuJ
 cxn
 cyB
 cAc
@@ -146610,7 +147569,7 @@ cqr
 bYK
 cFa
 cuu
-bIX
+tJp
 cxn
 cxn
 cAe
@@ -146865,9 +147824,9 @@ ccq
 coK
 cqr
 bYH
-cFa
+eLM
 cuu
-bIX
+fmj
 cxn
 cyF
 bBu
@@ -147638,7 +148597,7 @@ cqt
 bYH
 cFa
 cuu
-bwm
+mdd
 cxn
 czU
 bBu
@@ -147893,7 +148852,7 @@ cnL
 coN
 cqt
 bYH
-cFa
+ogf
 cuu
 bwm
 cxn
@@ -148150,7 +149109,7 @@ cnM
 coO
 cqt
 bYH
-cFa
+nGe
 cuu
 cvW
 cxn
@@ -148664,7 +149623,7 @@ cnN
 coP
 cqu
 bYH
-cFa
+nib
 cuv
 cvX
 cxn
@@ -149175,7 +150134,7 @@ bYM
 ckR
 coX
 chG
-cDn
+kbN
 cqv
 crV
 ctl
@@ -149689,7 +150648,7 @@ bYM
 ckT
 bqj
 cnP
-coR
+mce
 cqw
 crW
 ctn
@@ -150460,7 +151419,7 @@ bYM
 ckW
 cmr
 cnP
-coS
+hNf
 cqy
 crY
 ctq
@@ -150731,7 +151690,7 @@ cDn
 cuJ
 cFm
 cGQ
-cIc
+kVO
 aFx
 dlw
 bng
@@ -151231,7 +152190,7 @@ bqj
 ckW
 cqI
 cnP
-coT
+iTz
 cqB
 csa
 coW
@@ -151245,7 +152204,7 @@ cDp
 cvV
 cFv
 cGS
-cIk
+vqS
 aFx
 cLn
 cbm
@@ -152268,10 +153227,10 @@ brS
 aFx
 cyV
 cAn
-aFw
+qAu
 aHA
 aFx
-bEY
+jxu
 cGV
 cIh
 aFx
@@ -152787,7 +153746,7 @@ fqy
 nFX
 bEY
 cGV
-cIc
+izd
 aFx
 cLp
 cMN
@@ -153301,7 +154260,7 @@ aKk
 nFX
 cFv
 cGV
-cIk
+ldS
 aFx
 cLq
 cLp
@@ -154834,8 +155793,8 @@ aaa
 csi
 ctw
 cuK
-ctx
-ctx
+pPb
+xxx
 czb
 cAt
 cBZ
@@ -154843,14 +155802,14 @@ jHa
 mYH
 cFx
 cGX
-cJz
-cJz
+vVi
+kHj
 cLs
 cMQ
 cOs
 cQk
 cRA
-cJz
+ffO
 cUE
 cWe
 cXM
@@ -155089,7 +156048,7 @@ cjr
 abj
 abj
 csj
-ctx
+wwx
 cuL
 cIo
 cxx
@@ -155110,7 +156069,7 @@ cRB
 cIo
 cUF
 coQ
-cJz
+vVi
 csj
 abj
 cqJ
@@ -155607,7 +156566,7 @@ cty
 cuM
 cLt
 cxA
-cze
+uAT
 cAu
 cuM
 cDr
@@ -155864,7 +156823,7 @@ ctz
 cuM
 cLt
 cxA
-cze
+uAT
 cAu
 cuM
 cDr
@@ -155875,7 +156834,7 @@ cze
 cJB
 cLu
 cuM
-cOu
+hGL
 cQm
 cuM
 cuM
@@ -156632,7 +157591,7 @@ aaa
 aaa
 csj
 ctB
-cuM
+smp
 cuM
 cxC
 czg
@@ -156647,12 +157606,12 @@ bOp
 czg
 czg
 czg
-czg
-czg
+hnD
+hnD
 czg
 cUL
 cuM
-cWh
+pmJ
 csj
 abj
 aaa
@@ -156889,7 +157848,7 @@ dij
 abj
 csj
 ctB
-ctB
+gAe
 ctB
 ctB
 czh
