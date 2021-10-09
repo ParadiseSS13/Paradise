@@ -2,14 +2,6 @@
 
 GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler for pAI candidates
 
-/datum/paiCandidate
-	var/name
-	var/key
-	var/description
-	var/role
-	var/comments
-	var/ready = 0
-
 /datum/paiController
 	var/list/pai_candidates = list()
 	var/list/asked = list()
@@ -18,7 +10,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 
 /datum/paiController/Topic(href, href_list[])
 
-	var/datum/paiCandidate/candidate = locateUID(href_list["candidate"])
+	var/datum/pai_save/candidate = locateUID(href_list["candidate"])
 
 	if(candidate)
 		if(!istype(candidate))
@@ -32,14 +24,14 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 			return
 		if(usr.incapacitated() || isobserver(usr) || !card.Adjacent(usr))
 			return
-		if(istype(card, /obj/item/paicard) && istype(candidate, /datum/paiCandidate))
+		if(istype(card, /obj/item/paicard) && istype(candidate, /datum/pai_save))
 			var/mob/living/silicon/pai/pai = new(card)
-			if(!candidate.name)
+			if(!candidate.pai_name)
 				pai.name = pick(GLOB.ninja_names)
 			else
-				pai.name = candidate.name
+				pai.name = candidate.pai_name
 			pai.real_name = pai.name
-			pai.key = candidate.key
+			pai.key = candidate.owner.ckey
 
 			card.setPersonality(pai)
 			card.looking_for_personality = 0
@@ -64,7 +56,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		return
 
 	if(candidate)
-		if(candidate.key && usr.key && candidate.key != usr.key)
+		if(candidate.owner.ckey && usr.ckey && candidate.owner.ckey != usr.ckey)
 			message_admins("Warning: possible href exploit by [key_name_admin(usr)] (paiController/Topic, candidate and usr have different keys)")
 			log_debug("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate and usr have different keys)")
 			return
@@ -75,9 +67,9 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 
 		switch(option)
 			if("name")
-				t = input("Enter a name for your pAI", "pAI Name", candidate.name) as text
+				t = input("Enter a name for your pAI", "pAI Name", candidate.pai_name) as text
 				if(t)
-					candidate.name = sanitize(copytext(t,1,MAX_NAME_LEN))
+					candidate.pai_name = sanitize(copytext(t,1,MAX_NAME_LEN))
 			if("desc")
 				t = input("Enter a description for your pAI", "pAI Description", candidate.description) as message
 				if(t)
@@ -87,26 +79,26 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				if(t)
 					candidate.role = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 			if("ooc")
-				t = input("Enter any OOC comments", "pAI OOC Comments", candidate.comments) as message
+				t = input("Enter any OOC comments", "pAI OOC Comments", candidate.ooc_comments) as message
 				if(t)
-					candidate.comments = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
+					candidate.ooc_comments = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 			if("save")
-				candidate.savefile_save(usr)
-			if("load")
-				candidate.savefile_load(usr)
+				candidate.save_to_db(usr)
+			if("reload")
+				candidate.reload_save(usr)
 				//In case people have saved unsanitized stuff.
-				if(candidate.name)
-					candidate.name = sanitize(copytext(candidate.name,1,MAX_NAME_LEN))
+				if(candidate.pai_name)
+					candidate.pai_name = sanitize(copytext(candidate.pai_name, 1, MAX_NAME_LEN))
 				if(candidate.description)
-					candidate.description = sanitize(copytext(candidate.description,1,MAX_MESSAGE_LEN))
+					candidate.description = sanitize(copytext(candidate.description, 1, MAX_MESSAGE_LEN))
 				if(candidate.role)
-					candidate.role = sanitize(copytext(candidate.role,1,MAX_MESSAGE_LEN))
-				if(candidate.comments)
-					candidate.comments = sanitize(copytext(candidate.comments,1,MAX_MESSAGE_LEN))
+					candidate.role = sanitize(copytext(candidate.role, 1, MAX_MESSAGE_LEN))
+				if(candidate.ooc_comments)
+					candidate.ooc_comments = sanitize(copytext(candidate.ooc_comments, 1, MAX_MESSAGE_LEN))
 
 			if("submit")
 				if(candidate)
-					candidate.ready = 1
+					GLOB.paiController.pai_candidates |= candidate
 					for(var/obj/item/paicard/p in world)
 						if(p.looking_for_personality == 1)
 							p.alertUpdate()
@@ -114,18 +106,8 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				return
 		recruitWindow(usr)
 
-/datum/paiController/proc/recruitWindow(mob/M as mob)
-	var/datum/paiCandidate/candidate
-	for(var/datum/paiCandidate/c in pai_candidates)
-		if(!istype(c) || !istype(M))
-			break
-		if(c.key == M.key)
-			candidate = c
-	if(!candidate)
-		candidate = new /datum/paiCandidate()
-		candidate.key = M.key
-		pai_candidates.Add(candidate)
-
+/datum/paiController/proc/recruitWindow(mob/M)
+	var/datum/pai_save/candidate = M.client.pai_save
 
 	var/dat = ""
 	dat += {"
@@ -194,7 +176,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		<table>
 			<tr class="d0">
 				<th rowspan="2"><a href='byond://?src=[UID()];option=name;new=1;candidate=[candidate.UID()]'>Name</a>:</th>
-				<td class="desc">[candidate.name]&nbsp;</td>
+				<td class="desc">[candidate.pai_name]&nbsp;</td>
 			</tr>
 			<tr class="d1">
 				<td>What you plan to call yourself. Suggestions: Any character name you would choose for a station character OR an AI.</td>
@@ -215,7 +197,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 			</tr>
 			<tr class="d0">
 				<th rowspan="2"><a href='byond://?src=[UID()];option=ooc;new=1;candidate=[candidate.UID()]'>OOC Comments</a>:</th>
-				<td class="desc">[candidate.comments]&nbsp;</td>
+				<td class="desc">[candidate.ooc_comments]&nbsp;</td>
 			</tr>
 			<tr class="d1">
 				<td>Anything you'd like to address specifically to the player reading this in an OOC manner. \"I prefer more serious RP.\", \"I'm still learning the interface!\", etc. Feel free to leave this blank if you want.</td>
@@ -230,7 +212,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 			</tr>
 			<tr>
 				<td class="button">
-					<a href='byond://?src=[UID()];option=load;new=1;candidate=[candidate.UID()]' class="button">Load Personality</a>
+					<a href='byond://?src=[UID()];option=reload;new=1;candidate=[candidate.UID()]' class="button">Reload Personality</a>
 				</td>
 			</tr>
 		</table><br>
@@ -246,14 +228,13 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 /datum/paiController/proc/findPAI(obj/item/paicard/p, mob/user)
 	requestRecruits(p, user)
 	var/list/available = list()
-	for(var/datum/paiCandidate/c in GLOB.paiController.pai_candidates)
-		if(c.ready)
-			var/found = 0
-			for(var/mob/o in GLOB.respawnable_list)
-				if(o.key == c.key)
-					found = 1
-			if(found)
-				available.Add(c)
+	for(var/datum/pai_save/c in GLOB.paiController.pai_candidates)
+		var/found = 0
+		for(var/mob/o in GLOB.respawnable_list)
+			if(o.ckey == c.owner.ckey)
+				found = 1
+		if(found)
+			available.Add(c)
 	var/dat = ""
 
 	dat += {"
@@ -325,12 +306,12 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 	"}
 	dat += "<p>Displaying available AI personalities from central database... If there are no entries, or if a suitable entry is not listed, check again later as more personalities may be added.</p>"
 
-	for(var/datum/paiCandidate/c in available)
+	for(var/datum/pai_save/c in available)
 		dat += {"
 				<table class="desc">
 					<tr class="d0">
 						<th>Name:</th>
-						<td>[c.name]</td>
+						<td>[c.pai_name]</td>
 					</tr>
 					<tr class="d1">
 						<th>Description:</th>
@@ -342,11 +323,11 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 					</tr>
 					<tr class="d1">
 						<th>OOC Comments:</th>
-						<td>[c.comments]</td>
+						<td>[c.ooc_comments]</td>
 					</tr>
 				</table>
 				<table class="download">
-					<td class="download"><a href='byond://?src=[UID()];download=1;candidate=[c.UID()];device=\ref[p]' class="button"><b>Download [c.name]</b></a>
+					<td class="download"><a href='byond://?src=[UID()];download=1;candidate=[c.UID()];device=\ref[p]' class="button"><b>Download [c.pai_name]</b></a>
 					</td>
 				</table>
 				<br>
