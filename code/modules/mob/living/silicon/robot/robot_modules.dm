@@ -174,11 +174,10 @@
 	R.uneq_all()
 	modules = list()
 
-	if(!malfhacked)
-		if(R.connected_ai)
-			for(var/I in R.connected_ai.purchased_modules)
-				if(istype(src, I))
-					malfhacked = TRUE
+	if(!malfhacked && R.connected_ai)
+		for(var/I in R.connected_ai.purchased_modules)
+			if(istype(src, I))
+				malfhacked = TRUE
 
 	// By this point these lists should only contain items. It's safe to use typeless loops here.
 	for(var/item in basic_modules)

@@ -790,11 +790,11 @@
 /datum/AI_Module/large/engi_upgrade
 	module_name = "Engineering Cyborg Emitter Upgrade"
 	mod_pick_name = "emitter"
-	description = "Downloads firmwear that activates the built in emitter in all enginering cyborgs linked to you. Cyborgs built after this upgrade will have it."
+	description = "Downloads firmwear that activates the built in emitter in all enginering cyborgs linked to you. Cyborgs built after this upgrade will have it pre-installed."
 	cost = 50 // IDK look into this
 	one_purchase = TRUE
 	upgrade = TRUE
-	unlock_text = "<span class='notice'>Firmwear downloaded. Bugs removed. Built in emitters operating at 73% efficency.</span>"
+	unlock_text = "<span class='notice'>Firmwear downloaded. Bugs removed. Built in emitters operating at 73% efficiency.</span>"
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/AI_Module/large/engi_upgrade/upgrade(mob/living/silicon/ai/AI)
