@@ -46007,16 +46007,12 @@
 	name = "E.V.A. Storage"
 	})
 "bUO" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 2;
-	height = 11;
-	id = "specops_home";
-	name = "port bay 2";
-	width = 5
+/obj/machinery/door/airlock/external{
+	id_tag = "specops_home";
+	locked = 1
 	},
-/turf/space,
-/area/space)
+/turf/simulated/floor/plating,
+/area/hallway/secondary/entry)
 "bUP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -76417,12 +76413,21 @@
 	},
 /area/medical/research)
 "fwO" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "specops_home";
-	locked = 1
+/obj/item/twohanded/required/kirbyplants{
+	level = 4.1
 	},
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry)
+/obj/effect/decal/warning_stripes/northwest,
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK";
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry{
+	name = "Arrivals"
+	})
 "fxB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -77224,13 +77229,12 @@
 /area/security/armoury)
 "hIZ" = (
 /obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 9;
-	height = 18;
-	id = "admin_home";
-	name = "port bay 1";
-	timid = 1;
-	width = 19
+	dir = 8;
+	dwidth = 2;
+	height = 11;
+	id = "specops_home";
+	name = "port bay 2";
+	width = 5
 	},
 /turf/space,
 /area/space)
@@ -77799,9 +77803,17 @@
 /turf/simulated/floor/wood,
 /area/library)
 "juN" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/machinery/camera{
+	c_tag = "Arrivals - Aft Arm - Far";
+	dir = 1
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry)
+/area/hallway/secondary/entry{
+	name = "Arrivals"
+	})
 "jwh" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -77844,17 +77856,9 @@
 	},
 /area/hallway/primary/central)
 "jGE" = (
-/obj/machinery/camera{
-	c_tag = "Arrivals - Aft Arm - Far";
-	dir = 1
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry{
-	name = "Arrivals"
-	})
+/area/hallway/secondary/entry)
 "jGU" = (
 /obj/structure/table/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -78346,7 +78350,7 @@
 	},
 /area/crew_quarters/locker)
 "lfm" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "lfV" = (
@@ -78395,7 +78399,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "lio" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "ljZ" = (
@@ -79402,7 +79406,7 @@
 	},
 /area/hallway/primary/central)
 "oZX" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "pad" = (
@@ -80123,21 +80127,17 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "rdz" = (
-/obj/item/twohanded/required/kirbyplants{
-	level = 4.1
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 9;
+	height = 18;
+	id = "admin_home";
+	name = "port bay 1";
+	timid = 1;
+	width = 19
 	},
-/obj/effect/decal/warning_stripes/northwest,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry{
-	name = "Arrivals"
-	})
+/turf/space,
+/area/space)
 "rfg" = (
 /obj/structure/chair/stool/bar,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -91189,7 +91189,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+hIZ
 aaa
 aaa
 aaa
@@ -91445,10 +91445,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
+kmF
 bUO
-aaa
-aaa
+kmF
+abq
 aaa
 aaa
 aaa
@@ -91703,12 +91703,12 @@ aaa
 aaa
 aaa
 kmF
-fwO
+bOx
 kmF
 abq
-aaa
-aaa
-aaa
+abq
+abq
+abq
 aaa
 aaa
 aaa
@@ -91960,12 +91960,12 @@ aaa
 aaa
 aaa
 kmF
-bOx
+bUO
 kmF
-abq
-abq
-abq
-abq
+aUN
+aUN
+kmF
+aUN
 aaa
 aaa
 aaa
@@ -92216,13 +92216,13 @@ aaa
 aaa
 aaa
 aaa
-kmF
+aWD
 fwO
-kmF
-aUN
-aUN
-kmF
-aUN
+uWq
+rnY
+jGE
+lio
+rnY
 aaa
 aaa
 aaa
@@ -92473,14 +92473,14 @@ aaa
 aaa
 aaa
 aaa
-aWD
-rdz
-uWq
+aUN
+baI
+bBt
 rnY
 lfm
 oZX
 rnY
-aaa
+rdz
 aaa
 aaa
 aaa
@@ -92730,14 +92730,14 @@ aaa
 aaa
 aaa
 aaa
-aUN
-baI
+bhR
+ibR
 bBt
-rnY
-lio
-juN
-rnY
-hIZ
+aWD
+aUN
+kmF
+aUN
+aaa
 aaa
 aaa
 aaa
@@ -92987,13 +92987,13 @@ aaa
 aaa
 aaa
 aaa
-bhR
-ibR
-bBt
+aUN
+baJ
+juN
 aWD
-aUN
-kmF
-aUN
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -93244,9 +93244,9 @@ aaa
 aaa
 aaa
 aaa
-aUN
+aWD
 baJ
-jGE
+bUS
 aWD
 aaa
 aaa
