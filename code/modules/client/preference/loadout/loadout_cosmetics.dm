@@ -1,37 +1,24 @@
-/*
-######################################################################################
-##																					##
-##								IMPORTANT README									##
-##																					##
-##	  Changing any /datum/gear typepaths --WILL-- break people's loadouts.			##
-##	The typepaths are stored directly in the `characters.gear` column of the DB.	##
-##		Please inform the server host if you wish to modify any of these.			##
-##																					##
-######################################################################################
-*/
-
-
 /datum/gear/lipstick
-	display_name = "Lipstick, red"
+	display_name = "lipstick, red"
 	path = /obj/item/lipstick
 	sort_category = "Cosmetics"
 
 /datum/gear/lipstick/black
-	display_name = "Lipstick, black"
+	display_name = "lipstick, black"
 	path = /obj/item/lipstick/black
 
 /datum/gear/lipstick/jade
-	display_name = "Lipstick, jade"
+	display_name = "lipstick, jade"
 	path = /obj/item/lipstick/jade
 
 /datum/gear/lipstick/purple
-	display_name = "Lipstick, purple"
+	display_name = "lipstick, purple"
 	path = /obj/item/lipstick/purple
 
 /datum/gear/lipstick/blue
-	display_name = "Lipstick, blue"
+	display_name = "lipstick, blue"
 	path = /obj/item/lipstick/blue
 
 /datum/gear/lipstick/lime
-	display_name = "Lipstick, lime"
+	display_name = "lipstick, lime"
 	path = /obj/item/lipstick/lime

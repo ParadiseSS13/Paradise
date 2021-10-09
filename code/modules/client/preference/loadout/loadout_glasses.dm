@@ -1,23 +1,10 @@
-/*
-######################################################################################
-##																					##
-##								IMPORTANT README									##
-##																					##
-##	  Changing any /datum/gear typepaths --WILL-- break people's loadouts.			##
-##	The typepaths are stored directly in the `characters.gear` column of the DB.	##
-##		Please inform the server host if you wish to modify any of these.			##
-##																					##
-######################################################################################
-*/
-
-
 /datum/gear/glasses
-	main_typepath = /datum/gear/glasses
+	subtype_path = /datum/gear/glasses
 	slot = slot_glasses
 	sort_category = "Glasses"
 
 /datum/gear/glasses/sunglasses
-	display_name = "Cheap sunglasses"
+	display_name = "cheap sunglasses"
 	path = /obj/item/clothing/glasses/sunglasses_fake
 
 /datum/gear/glasses/eyepatch

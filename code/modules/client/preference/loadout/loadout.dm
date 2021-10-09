@@ -10,27 +10,17 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	..()
 
 /datum/gear
-	/// Displayed name of the item listing.
-	var/display_name
-	/// Description of the item listing. If left blank will default to the description of the pathed item.
-	var/description
-	/// Typepath of the item.
-	var/path
-	/// Loadout points cost to select the item listing.
-	var/cost = 1
-	/// Slot to equip the item to.
-	var/slot
-	/// List of job roles which can spawn with the item.
-	var/list/allowed_roles
-	/// Loadout category of the item listing.
+	var/display_name       //Name/index. Must be unique.
+	var/description        //Description of this gear. If left blank will default to the description of the pathed item.
+	var/path               //Path to item.
+	var/cost = 1           //Number of points used. Items in general cost 1 point, storage/armor/gloves/special use costs 2 points.
+	var/slot               //Slot to equip to.
+	var/list/allowed_roles //Roles that can spawn with this item.
+	var/whitelisted        //Term to check the whitelist for..
 	var/sort_category = "General"
-	/// List of datums which will alter the item after it has been spawned. (NYI)
-	var/list/gear_tweaks = list()
-	/// Set on empty category datums to skip them being added to the list. (/datum/gear/accessory, /datum/gear/suit/coat/job, etc.)
-	var/main_typepath = /datum/gear
-	/// Does selecting a second item with the same `main_typepath` cost loadout points.
-	var/subtype_selection_cost = TRUE
-	/// Patreon donator tier needed to select this item listing.
+	var/list/gear_tweaks = list() //List of datums which will alter the item after it has been spawned.
+	var/subtype_path = /datum/gear //for skipping organizational subtypes (optional)
+	var/subtype_cost_overlap = TRUE //if subtypes can take points at the same time
 	var/donator_tier = 0
 
 /datum/gear/New()
