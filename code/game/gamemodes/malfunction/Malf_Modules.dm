@@ -790,7 +790,7 @@
 /datum/AI_Module/large/engi_upgrade
 	module_name = "Engineering Cyborg Emitter Upgrade"
 	mod_pick_name = "emitter"
-	description = "Downloads firmwear that activates the built in emitter in all engineering cyborgs linked to you. Cyborgs built after this upgrade will have it pre-installed."
+	description = "Downloads firmware that activates the built in emitter in all engineering cyborgs linked to you. Cyborgs built after this upgrade will have it pre-installed."
 	cost = 50 // IDK look into this
 	one_purchase = TRUE
 	upgrade = TRUE
