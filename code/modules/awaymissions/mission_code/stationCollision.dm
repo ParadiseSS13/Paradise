@@ -87,7 +87,7 @@
 //Lasers
 /obj/item/gun/energy/laser/practice/sc_laser
 	name = "old laser"
-	desc = "A once potent weapon, years of dust have collected in the chamber and lens of this weapon, weakening the beam significantly."
+	desc = "A once potent weapon, years of dust have collected in the chamber and lens, weakening the beam significantly."
 	clumsy_check = 0
 
 /*
