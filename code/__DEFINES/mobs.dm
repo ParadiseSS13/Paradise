@@ -290,3 +290,4 @@
 
 #define MAX_EYE_BLURRY_FILTER_SIZE 2
 #define EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER 0.1
+#define isashwalker(A) (is_species(A, /datum/species/unathi/ashwalker))
