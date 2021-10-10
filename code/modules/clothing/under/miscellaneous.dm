@@ -411,6 +411,7 @@
 	desc = "A simple, tight fitting green dress."
 	icon_state = "dress_green"
 	item_color = "dress_green"
+	over_shoe = TRUE
 
 /obj/item/clothing/under/dress/dress_orange
 	name = "orange dress"
@@ -507,6 +508,7 @@
 	icon_state = "bride_red"
 	item_color = "bride_red"
 	flags_inv = HIDESHOES
+	over_shoe = TRUE
 
 /obj/item/clothing/under/wedding/bride_white
 	name = "white wedding dress"
@@ -514,6 +516,7 @@
 	icon_state = "bride_white"
 	item_color = "bride_white"
 	flags_inv = HIDESHOES
+	over_shoe = TRUE
 
 /obj/item/clothing/under/sundress
 	name = "sundress"
@@ -681,6 +684,7 @@
 	icon_state = "black_tango"
 	item_state = "wcoat"
 	item_color = "black_tango"
+	over_shoe = TRUE
 
 /obj/item/clothing/under/stripeddress
 	name = "striped dress"
@@ -702,6 +706,7 @@
 	icon_state = "red_evening_gown"
 	item_state = "redeveninggown"
 	item_color = "red_evening_gown"
+	over_shoe = TRUE
 
 /obj/item/clothing/under/suit_jacket/checkered
 	name = "checkered suit"
@@ -777,6 +782,7 @@
 	item_state = "victorianblackdress"
 	item_color = "victorianblackdress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	over_shoe = TRUE
 
 /obj/item/clothing/under/victdress/red
 	name = "red victorian dress"

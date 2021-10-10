@@ -625,3 +625,27 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 
 /obj/machinery/vending/snack
 	hispa_premium = list(/obj/item/reagent_containers/food/snacks/choco_mre/barcardine = 1)
+
+/obj/machinery/vending/walldrobe/chap
+	name = "\improper Chaplain's Walldrobe"
+	req_access = list(ACCESS_CHAPEL_OFFICE)
+	products = list(/obj/item/clothing/under/rank/chaplain = 1,
+					/obj/item/clothing/shoes/black = 1,
+					/obj/item/clothing/suit/hooded/nun = 1,
+					/obj/item/clothing/suit/hooded/chaplain_hoodie = 1,
+					/obj/item/clothing/suit/hooded/monk = 1,
+					/obj/item/clothing/suit/witchhunter = 1,
+					/obj/item/clothing/head/witchhunter_hat = 1,
+					/obj/item/clothing/suit/holidaypriest = 1,
+					/obj/item/clothing/under/wedding/bride_white = 1,
+					/obj/item/clothing/suit/storage/labcoat = 1,
+					/obj/item/clothing/under/rank/chaplain/elzra = 1,
+					/obj/item/clothing/under/rank/chaplain/elzra/female = 1,
+					/obj/item/clothing/under/rank/chaplain/alt = 1,
+					/obj/item/clothing/under/rank/chaplain/alt/blue = 1,		
+					/obj/item/clothing/under/rank/chaplain/cassock = 1,
+					/obj/item/clothing/suit/chasuble = 1,
+					/obj/item/clothing/suit/chasuble/elzra = 1,
+					/obj/item/clothing/head/helmet/riot/knight/templar = 1,
+					/obj/item/clothing/suit/armor/riot/knight/templar = 1,
+					/obj/item/clothing/head/elzrahat = 1)

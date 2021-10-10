@@ -694,6 +694,7 @@ BLIND     // can't see anything
 	var/displays_id = 1
 	var/rolled_down = 0
 	var/basecolor
+	var/over_shoe // HISPANIA
 
 /obj/item/clothing/under/New()
 	..()
