@@ -26620,7 +26620,7 @@
 	name = "display case library";
 	pixel_y = -4;
 	req_access_txt = "37";
-	start_showpiece_type = /obj/item/fakeartefact
+	start_showpiece_type = /obj/item/stack/spacecash/c5000
 	},
 /turf/simulated/floor/wood,
 /area/library)
