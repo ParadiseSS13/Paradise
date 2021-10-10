@@ -210,7 +210,7 @@
 	payload = /obj/item/toy/random
 
 /obj/item/grenade/clusterbuster/banquet
-	name = "Bork Bork Bonanza"
+	name = "\improper Bork Bork Bonanza"
 	desc = "Bork bork bork."
 	payload = /obj/item/grenade/clusterbuster/banquet/child
 
@@ -218,12 +218,12 @@
 	payload = /obj/item/grenade/chem_grenade/large/feast
 
 /obj/item/grenade/clusterbuster/aviary
-	name = "Poly-Poly Grenade"
+	name = "\improper Poly-Poly Grenade"
 	desc = "That's an uncomfortable number of birds."
 	payload = /mob/living/simple_animal/parrot
 
 /obj/item/grenade/clusterbuster/monkey
-	name = "Barrel of Monkeys"
+	name = "\improper Barrel of Monkeys"
 	desc = "Not really that much fun."
 	payload = /mob/living/carbon/human/monkey
 
