@@ -55,11 +55,10 @@
 	sleep(jaunt_in_time)
 	qdel(holder)
 	if(!QDELETED(target))
-		if(mobloc.density)
+		if(!(target.Move(mobloc)))
 			for(var/turf/T in orange(7))
-				if(T)
-					if(target.Move(T))
-						break
+				if(T && target.Move(T))
+					break
 		target.canmove = 1
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/proc/jaunt_steam(mobloc)
