@@ -70,7 +70,7 @@
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
 		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
 	if(istype(P, /obj/item/projectile/beam/pulse))
-		src.ex_act(2)
+		ex_act(2)
 
 ///Called to get the damage that hulks will deal to the obj.
 /obj/proc/hulk_damage()
