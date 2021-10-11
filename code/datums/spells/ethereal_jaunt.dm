@@ -57,9 +57,15 @@
 	if(!QDELETED(target))
 		if(!(target.Move(mobloc)))
 			for(var/turf/T in orange(7))
+				if(istype(T, /turf/space))
+					continue
 				if(T && target.Move(T))
-					break
-		target.canmove = 1
+					target.canmove = 1
+					return
+			for(var/turf/space/S in orange(7)) //loop for space turfs in case there were no normal ones last loop
+				if(target.Move(S))
+					target.canmove = 1
+				return
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/proc/jaunt_steam(mobloc)
 	var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()
