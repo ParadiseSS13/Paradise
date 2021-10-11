@@ -108,7 +108,7 @@
 			else
 				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 		if(C?.mind?.vampire)
-			C.adjust_nutrition(1)
+			C.adjust_nutrition(10)
 
 /datum/reagent/blood/on_new(list/data)
 	if(istype(data))
