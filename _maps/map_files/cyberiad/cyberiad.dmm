@@ -63354,10 +63354,6 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
-"cEY" = (
-/obj/structure/falsewall/reinforced,
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint)
 "cFa" = (
 /turf/simulated/wall/r_wall,
 /area/hallway/primary/aft)
@@ -103007,7 +103003,7 @@ cwz
 cBf
 oBH
 fmN
-cEY
+cvp
 cEv
 cEK
 cIK
