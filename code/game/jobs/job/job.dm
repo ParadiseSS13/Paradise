@@ -127,7 +127,7 @@
 		return 0
 	if(minimal_character_age)
 		return 0
-	if(C.prefs.age < 18)
+	if(C.prefs.active_character.age < 18)
 		return 1
 
 /datum/job/proc/command_age_restringed(client/C)
@@ -135,7 +135,7 @@
 		return 0
 	if(minimal_command_character_age)
 		return 0
-	if(C.prefs.age < 25)
+	if(C.prefs.active_character.age < 25)
 		return 1
 
 /datum/job/proc/captain_age_restringed(client/C)
@@ -143,7 +143,7 @@
 		return 0
 	if(minimal_captain_character_age)
 		return 0
-	if(C.prefs.age < 30)
+	if(C.prefs.active_character.age < 30)
 		return 1
 ///Fin restriccion de edad
 
