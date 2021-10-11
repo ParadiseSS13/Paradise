@@ -649,12 +649,11 @@ GLOBAL_VAR_INIT(nologevent, 0)
   *
   * Arguments:
   * * M - the mob you're checking
-  * *
   */
 /proc/get_antag_type_strings_list(mob/M) // return an array of all the antag types they are with name
 	var/list/antag_list = list()
 
-	if(!SSticker.mode || !istype(M))
+	if(!SSticker.mode || !istype(M) || !M.mind)
 		return FALSE
 
 	if(M.mind in SSticker.mode.head_revolutionaries)
