@@ -314,7 +314,6 @@
 		owner.remove_status_effect(STATUS_EFFECT_SPEEDLEGS)
 	else
 		stacks++
-		message_admins("stacks increased to [stacks]")
 		owner.mind.changeling.chem_charges -= stacks * 3 //At first the changeling may regenerate chemicals fast enough to nullify fatigue, but it will stack
 		if(stacks == 7) //Warning message that the stacks are getting too high
 			to_chat(owner, "<span class='warning'>Our legs are really starting to hurt...</span>")
