@@ -92,7 +92,7 @@
 		C.apply_damage(dmg, BRUTE)
 		if(prob(stun_chance)) 
 			C.Weaken(5)
-	if(!dmg == 0)
+	if(dmg)
 		add_attack_logs(src, C, "sliced")
 	if(declare_arrests)
 		var/area/location = get_area(src)
