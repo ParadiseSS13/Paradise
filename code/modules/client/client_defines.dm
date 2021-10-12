@@ -114,6 +114,9 @@
 	/// Is the client watchlisted
 	var/watchlisted = FALSE
 
+	/// Client's pAI save
+	var/datum/pai_save/pai_save
+
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS

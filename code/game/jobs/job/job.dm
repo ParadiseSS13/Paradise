@@ -175,7 +175,7 @@
 
 	if(allow_loadout && H.client && length(H.client.prefs.active_character.loadout_gear))
 		for(var/gear in H.client.prefs.active_character.loadout_gear)
-			var/datum/gear/G = GLOB.gear_datums[gear]
+			var/datum/gear/G = GLOB.gear_datums[text2path(gear) || gear]
 			if(G)
 				var/permitted = FALSE
 
@@ -185,16 +185,13 @@
 				else
 					permitted = TRUE
 
-				if(G.whitelisted && (G.whitelisted != H.dna.species.name || !is_alien_whitelisted(H, G.whitelisted)))
-					permitted = FALSE
-
 				if(!permitted)
-					to_chat(H, "<span class='warning'>Your current job or whitelist status does not permit you to spawn with [gear]!</span>")
+					to_chat(H, "<span class='warning'>Your current job or whitelist status does not permit you to spawn with [G.display_name]!</span>")
 					continue
 
 				if(G.slot)
 					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot, TRUE))
-						to_chat(H, "<span class='notice'>Equipping you with [gear]!</span>")
+						to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")
 					else
 						gear_leftovers += G
 				else
@@ -217,7 +214,7 @@
 				if(isturf(placed_in))
 					to_chat(H, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
 				else
-					to_chat(H, "<span class='notice'>Placing [G.display_name] in [placed_in.name].</span>")
+					to_chat(H, "<span class='notice'>Placing [G.display_name] in your [placed_in.name].</span>")
 				continue
 			if(H.equip_to_appropriate_slot(G))
 				to_chat(H, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")

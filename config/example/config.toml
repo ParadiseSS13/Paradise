@@ -183,8 +183,11 @@ admin_webhook_urls = [
 	"https://admin.webhook.two"
 ]
 # Role ID for the admin role on the discord. Set to "" to disable.
-# THIS MUST BE A STRING. BYOND DOESNT LIKE NUMBERS THIS BIG
+# THESE MUST BOTH BE STRINGS. BYOND DOESNT LIKE NUMBERS THIS BIG
 admin_role_id = ""
+# Role ID for the mentor role on the discord. Set to "" to disable.
+mentor_role_id = ""
+
 # Forward all ahelps to the discord? If disabled, ahelps are only forwarded if admins are AFK/Offline
 forward_all_ahelps = true
 
