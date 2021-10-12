@@ -1,5 +1,4 @@
 GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effects/fire.dmi', "icon_state" = "fire"))
-
 /obj/item
 	name = "item"
 	icon = 'icons/obj/items.dmi'
@@ -7,7 +6,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	move_resist = null // Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers
 	var/image/blood_overlay = null //this saves our blood splatter overlay, which will be processed not to go over the edges of the sprite
-	var/blood_overlay_color = null
 	var/item_state = null
 	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -123,6 +121,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/in_inventory = FALSE //is this item equipped into an inventory slot or hand of a mob?
 	var/tip_timer = 0
 
+	// item hover FX
+	/// Is this item inside a storage object?
+	var/in_storage = FALSE
+	/// Holder var for the item outline filter, null when no outline filter on the item.
+
 /obj/item/New()
 	..()
 	for(var/path in actions_types)
@@ -136,6 +139,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	LAZYINITLIST(attack_verb)
 	if(!move_resist)
 		determine_move_resist()
+
+	icon = (hispania_icon ? 'icons/hispania/obj/items.dmi' : icon)
+	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/items_lefthand.dmi' : lefthand_file)
+	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/items_righthand.dmi' : righthand_file)
+
+/obj/item/Initialize(mapload)
+	. = ..()
+	if(istype(loc, /obj/item/storage)) //marks all items in storage as being such
+		in_storage = TRUE
 
 /obj/item/proc/determine_move_resist()
 	switch(w_class)
@@ -151,11 +163,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 			move_resist = MOVE_FORCE_NORMAL
 		if(WEIGHT_CLASS_GIGANTIC)
 			move_resist = MOVE_FORCE_NORMAL
-
-	icon = (hispania_icon ? 'icons/hispania/obj/items.dmi' : icon)
-	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/items_lefthand.dmi' : lefthand_file)
-	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/items_righthand.dmi' : righthand_file)
-
 
 /obj/item/Destroy()
 	flags &= ~DROPDEL	//prevent reqdels
@@ -390,7 +397,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, args)
 	if(prob(final_block_chance))
 		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
-		playsound(owner.loc, 'sound/hispania/effects/shieldactivehand.ogg', 50, 1)
 		return 1
 	return 0
 
@@ -418,6 +424,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if((flags & NODROP) && !(initial(flags) & NODROP)) //Remove NODROP is dropped
 		flags &= ~NODROP
 	in_inventory = FALSE
+	remove_outline()
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 	if(!silent)
 		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
@@ -429,11 +436,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	in_inventory = TRUE
 
 // called when this item is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
-/obj/item/proc/on_exit_storage(obj/item/storage/S as obj, mob/usr)
+/obj/item/proc/on_exit_storage(obj/item/storage/S as obj)
+	in_storage = FALSE
 	return
 
 // called when this item is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.
-/obj/item/proc/on_enter_storage(obj/item/storage/S as obj, mob/usr)
+/obj/item/proc/on_enter_storage(obj/item/storage/S as obj)
+	in_storage = TRUE
 	return
 
 /**
@@ -641,15 +650,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
 	thrownby = thrower
-	callback = CALLBACK(src, .proc/after_throw, callback, thrower) //replace their callback with our own
+	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force)
 
-/obj/item/proc/after_throw(datum/callback/callback, mob/thrower)
+/obj/item/proc/after_throw(datum/callback/callback)
 	if(callback) //call the original callback
 		. = callback.Invoke()
 	throw_speed = initial(throw_speed) //explosions change this.
 	in_inventory = FALSE
-	return
 
 /obj/item/proc/pwr_drain()
 	return 0 // Process Kill
@@ -704,14 +712,19 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	openToolTip(user, src, params, title = name, content = "[desc]", theme = "")
 
 /obj/item/MouseEntered(location, control, params)
-	if(in_inventory)
-		var/mob/living/L = usr
-		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, usr), 8, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
-		if(usr.client?.prefs.itemoutline_pref)
-			if(istype(L) && L.incapacitated())
-				apply_outline(COLOR_RED_GRAY) //if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
-			else
-				apply_outline() //if the player's alive and well we send the command with no color set, so it uses the theme's color
+	if(in_inventory || in_storage)
+		var/timedelay = 8
+		var/mob/user = usr
+		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)
+		if(QDELETED(src))
+			return
+		var/mob/living/L = user
+		if(!(user.client.prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES))
+			return
+		if(istype(L) && L.incapacitated(ignore_lying = TRUE))
+			apply_outline(L, COLOR_RED_GRAY) //if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
+		else
+			apply_outline(L) //if the player's alive and well we send the command with no color set, so it uses the theme's color
 
 /obj/item/MouseExited()
 	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
@@ -725,7 +738,42 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(loc && I.loc == loc && istype(loc, /obj/item/storage) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
 		var/obj/item/storage/S = loc
 		S.swap_items(src, I, user)
+	remove_outline() //get rid of the hover effect in case the mouse exit isn't called if someone drags and drops an item and somthing goes wrong
+/*Definicion duplicada, dejo la de hispania
+/obj/item/proc/apply_outline(mob/user, outline_color = null)
+	if(!(in_inventory || in_storage) || QDELETED(src) || isobserver(user)) //cancel if the item isn't in an inventory, is being deleted, or if the person hovering is a ghost (so that people spectating you don't randomly make your items glow)
+		return
+	var/theme = lowertext(user.client.prefs.UI_style)
+	if(!outline_color) //if we weren't provided with a color, take the theme's color
+		switch(theme) //yeah it kinda has to be this way
+			if("midnight")
+				outline_color = COLOR_THEME_MIDNIGHT
+			if("plasmafire")
+				outline_color = COLOR_THEME_PLASMAFIRE
+			if("retro")
+				outline_color = COLOR_THEME_RETRO //just as garish as the rest of this theme
+			if("slimecore")
+				outline_color = COLOR_THEME_SLIMECORE
+			if("operative")
+				outline_color = COLOR_THEME_OPERATIVE
+			if("clockwork")
+				outline_color = COLOR_THEME_CLOCKWORK //if you want free gbp go fix the fact that clockwork's tooltip css is glass'
+			if("glass")
+				outline_color = COLOR_THEME_GLASS
+			else //this should never happen, hopefully
+				outline_color = COLOR_WHITE
+	if(color)
+		outline_color = COLOR_WHITE //if the item is recolored then the outline will be too, let's make the outline white so it becomes the same color instead of some ugly mix of the theme and the tint
+	if(outline_filter)
+		filters -= outline_filter
+	outline_filter = filter(type = "outline", size = 1, color = outline_color)
+	filters += outline_filter
 
+/obj/item/proc/remove_outline()
+	if(outline_filter)
+		filters -= outline_filter
+		outline_filter = null
+*/
 // Returns a numeric value for sorting items used as parts in machines, so they can be replaced by the rped
 /obj/item/proc/get_part_rating()
 	return 0

@@ -13,6 +13,7 @@
 	return 0
 
 /mob/proc/get_screen_colour()
+	return
 
 /mob/proc/update_client_colour(time = 10) //Update the mob's client.color with an animation the specified time in length.
 	if(!client) //No client_colour without client. If the player logs back in they'll be back through here anyway.
@@ -30,6 +31,19 @@
 		return worn_glasses.color_view
 	else if(eyes) //If they're not, check to see if their eyes got one of them there colour matrices. Will be null if eyes are robotic/the mob isn't colourblind and they have no default colour matrix.
 		return eyes.get_colourmatrix()
+
+/**
+  * Flash up a color as an overlay on a player's screen, then fade back to normal.
+  *
+  * Arguments:
+  * * flash_color - The color to overlay on the screen.
+  * * flash_time - The time it takes for the color to fade back to normal.
+  */
+/mob/proc/flash_screen_color(flash_color, flash_time)
+	if(!client)
+		return
+	client.color = flash_color
+	INVOKE_ASYNC(client, /client/.proc/colour_transition, get_screen_colour(), flash_time)
 
 /proc/ismindshielded(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
 	for(var/obj/item/implant/mindshield/L in A)
@@ -670,13 +684,13 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 /mob/proc/has_valid_preferences()
 	if(!client)
 		return FALSE //Not sure how this would get run without the mob having a client, but let's just be safe.
-	if(client.prefs.alternate_option != RETURN_TO_LOBBY)
+	if(client.prefs.active_character.alternate_option != RETURN_TO_LOBBY)
 		return TRUE
 	// If they have antags enabled, they're potentially doing this on purpose instead of by accident. Notify admins if so.
 	var/has_antags = FALSE
 	if(client.prefs.be_special.len > 0)
 		has_antags = TRUE
-	if(!client.prefs.check_any_job())
+	if(!client.prefs.active_character.check_any_job())
 		to_chat(src, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
 		if(has_antags)
 			log_admin("[src.ckey] just got booted back to lobby with no jobs, but antags enabled.")

@@ -127,7 +127,7 @@
 		return 0
 	if(minimal_character_age)
 		return 0
-	if(C.prefs.age < 18)
+	if(C.prefs.active_character.age < 18)
 		return 1
 
 /datum/job/proc/command_age_restringed(client/C)
@@ -135,7 +135,7 @@
 		return 0
 	if(minimal_command_character_age)
 		return 0
-	if(C.prefs.age < 25)
+	if(C.prefs.active_character.age < 25)
 		return 1
 
 /datum/job/proc/captain_age_restringed(client/C)
@@ -143,7 +143,7 @@
 		return 0
 	if(minimal_captain_character_age)
 		return 0
-	if(C.prefs.age < 30)
+	if(C.prefs.active_character.age < 30)
 		return 1
 ///Fin restriccion de edad
 
@@ -155,7 +155,7 @@
 	var/list/prohibited_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	for(var/i = 1, i < prohibited_disabilities.len, i++)
 		var/this_disability = prohibited_disabilities[i]
-		if(C.prefs.disabilities & this_disability)
+		if(C.prefs.active_character.disabilities & this_disability)
 			return 1
 	return 0
 
@@ -205,8 +205,8 @@
 	if(box && H.dna.species.speciesbox)
 		box = H.dna.species.speciesbox
 
-	if(allow_loadout && H.client && (H.client.prefs.loadout_gear && H.client.prefs.loadout_gear.len))
-		for(var/gear in H.client.prefs.loadout_gear)
+	if(allow_loadout && H.client && length(H.client.prefs.active_character.loadout_gear))
+		for(var/gear in H.client.prefs.active_character.loadout_gear)
 			var/datum/gear/G = GLOB.gear_datums[gear]
 			if(G)
 				var/permitted = FALSE
@@ -244,7 +244,7 @@
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
-			var/atom/placed_in = H.equip_or_collect(G.spawn_item(null, H.client.prefs.loadout_gear[G.display_name]))
+			var/atom/placed_in = H.equip_or_collect(G.spawn_item(null, H.client.prefs.active_character.loadout_gear[G.display_name]))
 			if(istype(placed_in))
 				if(isturf(placed_in))
 					to_chat(H, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")

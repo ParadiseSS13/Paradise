@@ -58,7 +58,7 @@
 	var/knife_x_offset = 0
 	var/knife_y_offset = 0
 
-	var/can_holster = TRUE
+	var/can_holster = FALSE  // Anything that can be holstered should be manually set
 
 	var/list/upgrades = list()
 
@@ -417,7 +417,7 @@
 	return TRUE
 
 /obj/item/gun/extinguish_light()
-	if(gun_light.on)
+	if(gun_light?.on)
 		toggle_gunlight()
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 

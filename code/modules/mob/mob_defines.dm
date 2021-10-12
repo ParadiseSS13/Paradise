@@ -110,8 +110,7 @@
 	var/list/faction = list("neutral") //Used for checking whether hostile simple animals will attack you, possibly more stuff later
 
 	var/move_on_shuttle = 1 // Can move on the shuttle.
-	//HISPANIA
-	var/messagereal
+
 	/// Whether antagHUD has been enabled previously.
 	var/has_enabled_antagHUD = FALSE
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
@@ -202,5 +201,6 @@
 
 	/// Overrides the health HUD element state if set.
 	var/health_hud_override = HEALTH_HUD_OVERRIDE_NONE
-	/// The location our runechat message should appear. Should be src by default.
-	var/atom/runechat_msg_location
+	/// A soft reference to the location where this mob's runechat message will appear. Uses `UID()`.
+	var/runechat_msg_location
+	var/messagereal //HISPANIA

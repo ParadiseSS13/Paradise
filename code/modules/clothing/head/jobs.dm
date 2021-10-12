@@ -16,7 +16,7 @@
 	icon_state = "captain"
 	desc = "It's good being the king."
 	item_state = "caphat"
-	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
 
@@ -32,7 +32,7 @@
 	name = "head of personnel's cap"
 	icon_state = "hopcap"
 	desc = "The symbol of true bureaucratic micromanagement."
-	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	dog_fashion = /datum/dog_fashion/head/hop
 
 //Nanotrasen Representative
@@ -78,11 +78,11 @@
 	desc = "Someone who wears this will look very smart."
 	icon_state = "detective"
 	allowed = list(/obj/item/reagent_containers/food/snacks/candy/candy_corn, /obj/item/pen)
-	armor = list("melee" = 25, "bullet" = 5, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 50)
+	armor = list(MELEE = 25, BULLET = 5, LASER = 25, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 50)
 	dog_fashion = /datum/dog_fashion/head/detective
 
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/head.dmi'
+	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
 //Mime
@@ -96,16 +96,15 @@
 	name = "durathread beret"
 	desc =  "A beret made from durathread, its resilient fibres provide some protection to the wearer."
 	icon_state = "beretdurathread"
-	item_state = "beretdurathread"
 	item_color = null
-	armor = list("melee" = 15, "bullet" = 5, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 5)
+	armor = list(MELEE = 15, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 5)
 
 //Security
 /obj/item/clothing/head/HoS
 	name = "head of security's cap"
 	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
 	icon_state = "hoscap"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 10, RAD = 0, FIRE = 50, ACID = 60)
 	strip_delay = 80
 	dog_fashion = /datum/dog_fashion/head/HoS
 
@@ -119,7 +118,7 @@
 	name = "warden's police hat"
 	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
 	icon_state = "policehelm"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 60)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 30, ACID = 60)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
 
@@ -128,14 +127,14 @@
 	desc = "A red cap with an old-fashioned badge on the front for establishing that you are, in fact, the law."
 	icon_state = "customshelm"
 	item_state = "customshelm"
-	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/sec
 	name = "security beret"
 	desc = "A beret with the security insignia emblazoned on it. For officers that are more inclined towards style than safety."
 	icon_state = "beret_officer"
-	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/beret/sec
 
@@ -143,7 +142,7 @@
 	name = "warden's beret"
 	desc = "A special beret with the Warden's insignia emblazoned on it. For wardens with class."
 	icon_state = "beret_warden"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 50)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 30, ACID = 50)
 
 /obj/item/clothing/head/beret/eng
 	name = "engineering beret"
@@ -172,25 +171,28 @@
 	icon_state = "beret_med"
 
 /obj/item/clothing/head/surgery
-	name = "surgical cap"
+	name = "blue surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs."
 	icon_state = "surgcap_blue"
 	flags = BLOCKHEADHAIR
 	sprite_sheets = list(
-		"Drask" = 'icons/mob/species/drask/head.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
 		)
 
 /obj/item/clothing/head/surgery/purple
+	name = "purple surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is deep purple."
 	icon_state = "surgcap_purple"
 	dog_fashion = /datum/dog_fashion/head/surgery
 
 /obj/item/clothing/head/surgery/blue
+	name = "blue surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is baby blue."
 	icon_state = "surgcap_blue"
 	dog_fashion = /datum/dog_fashion/head/surgery
 
 /obj/item/clothing/head/surgery/green
+	name = "green surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is dark green."
 	icon_state = "surgcap_green"
 	dog_fashion = /datum/dog_fashion/head/surgery
@@ -207,13 +209,13 @@
 	icon_state = "solgovcberet"
 	item_color = "solgovc"
 	dog_fashion = null
-	armor = list("melee" = 20, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
+	armor = list(MELEE = 20, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 10, RAD = 0, FIRE = 50, ACID = 60)
 	strip_delay = 80
 
 /obj/item/clothing/head/beret/solgov/command/elite
 	name = "\improper Trans-Solar Federation Specops Lieutenant's beret"
 	desc = "A beret worn by marines of the Trans-Solar Federation Specops division. The insignia signifies the wearer bears the rank of a Lieutenant."
-	armor = list("melee" = 35, "bullet" = 60, "laser" = 10, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 50, "fire" = 80, "acid" = 80)
+	armor = list(MELEE = 35, BULLET = 60, LASER = 10, ENERGY = 10, BOMB = 25, BIO = 10, RAD = 50, FIRE = 80, ACID = 80)
 	icon_state = "solgovceliteberet"
 	item_color = "solgovcelite"
 	resistance_flags = FIRE_PROOF

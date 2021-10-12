@@ -106,10 +106,8 @@
 		return TRUE
 	to_chat(user, "<span class='notice'>You install the items on [target] based on the kit blueprints and repair all damage to the pod.</span>")
 	pod.name = new_name
-	pod.maxhealth = vida
 	pod.health = vida
 	pod.move_delay = peso
-	pod.spacepod_base = modelo
 	pod.pod_paint_effect = null
 	pod.update_icons()
 	qdel(src)

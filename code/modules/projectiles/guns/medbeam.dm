@@ -89,7 +89,7 @@
 	else if(!istype(user_turf))
 		return FALSE
 	var/obj/dummy = new(user_turf)
-	dummy.pass_flags |= PASSTABLE & PASSGLASS & PASSGRILLE //Grille/Glass so it can be used through common windows
+	dummy.pass_flags |= PASSTABLE & PASSGLASS & PASSGRILLE & PASSFENCE //Grille/Glass so it can be used through common windows
 	for(var/turf/turf in getline(user_turf,target))
 		if(mounted && turf == user_turf)
 			continue //Mechs are dense and thus fail the check

@@ -41,6 +41,12 @@ SUBSYSTEM_DEF(tickets)
 
 	var/ticketCounter = 1
 
+/datum/controller/subsystem/tickets/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["tickets"] = length(allTickets) // Not a perf metric but I want to see a graph where SSair usage spikes and 20 tickets come in
+	.["custom"] = cust
+
 /datum/controller/subsystem/tickets/Initialize()
 	if(!close_messages)
 		close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",

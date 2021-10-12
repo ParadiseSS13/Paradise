@@ -86,7 +86,7 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c46x30mm/ap
-	projectile_type = /obj/item/projectile/bullet/armourpiercing
+	projectile_type = /obj/item/projectile/bullet/armourpiercing/wt550
 
 /obj/item/ammo_casing/c46x30mm/tox
 	projectile_type = /obj/item/projectile/bullet/toxinbullet

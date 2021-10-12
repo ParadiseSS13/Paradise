@@ -72,7 +72,7 @@ SUBSYSTEM_DEF(ticker)
 	'sound/music/space.ogg',\
 	'sound/music/title1.ogg',\
 	'sound/music/title2.ogg',\
-	'sound/music/title13.ogg',) //Hispa Music
+	'sound/music/title3.ogg',)
 
 	return ..()
 
@@ -266,7 +266,7 @@ SUBSYSTEM_DEF(ticker)
 			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
 
-	SSdiscord.send2discord_simple("**\[Info]** Round has started") //El _noadmins al final de SSdiscord.send2discord_simple hacia que mencione a los admins cada vez que comenzaba una ronda, lo cual era innecesario
+	SSdiscord.send2discord_simple_noadmins("**\[Info]** Round has started")
 	auto_toggle_ooc(FALSE) // Turn it off
 	time_game_started = world.time
 
@@ -287,7 +287,7 @@ SUBSYSTEM_DEF(ticker)
 	else
 		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
 
-	SSnightshift.check_nightshift()
+	SSnightshift.check_nightshift(TRUE)
 
 	#ifdef UNIT_TESTS
 	RunUnitTests()
@@ -409,7 +409,9 @@ SUBSYSTEM_DEF(ticker)
 				SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
 				SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
 				EquipCustomItems(player)
+				// HISPANIA
 				SSquirks.AssignQuirks(player, player.client, TRUE)
+				// HISPANIA END
 	if(captainless)
 		for(var/mob/M in GLOB.player_list)
 			if(!isnewplayer(M))

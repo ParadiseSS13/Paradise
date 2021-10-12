@@ -168,39 +168,21 @@
 				var/list/part_list = list()
 
 				//Assemble a list of current parts, then sort them by their rating!
-				for(var/obj/item/co in replacer)
+				for(var/obj/item/stock_parts/co in replacer)
 					part_list += co
-				//Sort the parts. This ensures that higher tier items are applied first.
-				part_list = sortTim(part_list, /proc/cmp_rped_sort)
 
 				for(var/path in req_components)
 					while(req_components[path] > 0 && (locate(path) in part_list))
 						var/obj/item/part = (locate(path) in part_list)
+						added_components[part] = path
+						replacer.remove_from_storage(part, src)
+						req_components[path]--
 						part_list -= part
-						if(istype(part,/obj/item/stack))
-							var/obj/item/stack/S = part
-							var/used_amt = min(round(S.get_amount()), req_components[path])
-							if(!used_amt || !S.use(used_amt))
-								continue
-							var/NS = new S.merge_type(src, used_amt)
-							added_components[NS] = path
-							req_components[path] -= used_amt
-						else
-							added_components[part] = path
-							replacer.remove_from_storage(part, src)
-							req_components[path]--
 
-				for(var/obj/item/part in added_components)
-					if(istype(part,/obj/item/stack))
-						var/obj/item/stack/S = part
-						var/obj/item/stack/NS = locate(S.merge_type) in components //find a stack to merge with
-						if(NS)
-							S.merge(NS)
-					if(!QDELETED(part)) //If we're a stack and we merged we might not exist anymore
-						components += part
+				for(var/obj/item/stock_parts/part in added_components)
+					components += part
 					to_chat(user, "<span class='notice'>[part.name] applied.</span>")
-				if(added_components.len)
-					replacer.play_rped_sound()
+				replacer.play_rped_sound()
 
 				update_req_desc()
 				return
@@ -275,7 +257,21 @@ to destroy them and players will be able to make replacements.
 		"Robco Tool Maker" =					/obj/machinery/vending/engineering,
 		"BODA" =								/obj/machinery/vending/sovietsoda,
 		"SecTech" =								/obj/machinery/vending/security,
-		"CritterCare" =							/obj/machinery/vending/crittercare)
+		"CritterCare" =							/obj/machinery/vending/crittercare,
+		"SecDrobe" =							/obj/machinery/vending/secdrobe,
+		"DetDrobe" =							/obj/machinery/vending/detdrobe,
+		"MediDrobe" =							/obj/machinery/vending/medidrobe,
+		"ViroDrobe" =							/obj/machinery/vending/virodrobe,
+		"ChemDrobe" =							/obj/machinery/vending/chemdrobe,
+		"GeneDrobe" =							/obj/machinery/vending/genedrobe,
+		"SciDrobe" =							/obj/machinery/vending/scidrobe,
+		"RoboDrobe" =							/obj/machinery/vending/robodrobe,
+		"EngiDrobe" =							/obj/machinery/vending/engidrobe,
+		"AtmosDrobe" =							/obj/machinery/vending/atmosdrobe,
+		"CargoDrobe" =							/obj/machinery/vending/cargodrobe,
+		"ChefDrobe" =							/obj/machinery/vending/chefdrobe,
+		"BarDrobe" =							/obj/machinery/vending/bardrobe,
+		"HydroDrobe" =							/obj/machinery/vending/hydrodrobe)
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

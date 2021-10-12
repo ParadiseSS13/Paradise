@@ -344,7 +344,7 @@
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.sprite_sheets = list(
-			"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
+			"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
 			)
 		user.update_icons()
 		qdel(src)
@@ -935,7 +935,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "k3_webbing"
 
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/suit.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 	ignore_suitadjust = 0
 	actions_types = list(/datum/action/item_action/toggle)
 	suit_adjusted = 0
@@ -1109,7 +1109,7 @@
 	icon_state = "elishirt"
 	item_state = "elishirt"
 	item_color = "elishirt"
-	displays_id = TRUE
+	displays_id = 0
 
 /obj/item/clothing/under/fluff/jay_turtleneck // Jayfeather: Jay Wingler
 	name = "Mar's Pattern Custom Turtleneck"
@@ -1118,7 +1118,7 @@
 	icon_state = "jaywingler"
 	item_state = "jaywingler"
 	item_color = "jaywingler"
-	displays_id = TRUE
+	displays_id = 0
 
 /obj/item/clothing/under/psysuit/fluff/isaca_sirius_1 // Xilia: Isaca Sirius
 	name = "Isaca's suit"
@@ -1172,7 +1172,7 @@
 	icon_state = "aegisuniform"
 	item_state = "aegisuniform"
 	item_color = "aegisuniform"
-	displays_id = TRUE
+	displays_id = 0
 
 /obj/item/clothing/under/fluff/elo_turtleneck // vforcebomber: E.L.O.
 	name = "E.L.O's Turtleneck"
@@ -1181,7 +1181,7 @@
 	icon_override = 'icons/obj/custom_items.dmi' // for the mob sprite
 	icon_state = "eloturtleneckfloor"
 	item_color = "eloturtleneck"
-	displays_id = TRUE
+	displays_id = FALSE
 
 //////////// Masks ////////////
 
@@ -1354,10 +1354,6 @@
 	icon_state = "vest_black"
 	item_state = "vest_black"
 	sprite_sheets = null
-	hispania_icon = FALSE
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/under/pants/fluff/combat
 	name = "combat pants"
@@ -1488,262 +1484,7 @@
 	icon_state = "victorianlightfire"
 	item_state = "victorianvest"
 	item_color = "victorianlightfire"
-	displays_id = TRUE
-
-
-/obj/item/fluff/lighty_plasman_modkit // LightFire53: Ikelos
-	name = "plasmaman suit modkit"
-	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
-	icon_state = "modkit"
-	w_class = WEIGHT_CLASS_SMALL
-
-/obj/item/fluff/lighty_plasman_modkit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated() || !isitem(target))
-		return
-	var/mob/living/carbon/human/H = user
-
-	if(istype(target, /obj/item/clothing/head/helmet/space/plasmaman))
-		if(used & USED_MOD_HELM)
-			to_chat(H, "<span class='warning'>The kit's helmet modifier has already been used!</span>")
-			return
-
-		var/obj/item/clothing/head/helmet/space/plasmaman/P = target
-		used |= USED_MOD_HELM
-		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
-		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
-		var/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff/F = new(P.loc)
-		if(P == H.head)
-			H.unEquip(P, TRUE, TRUE)
-			H.equip_to_slot(F, slot_head, TRUE)
-			H.update_inv_head()
-		qdel(P)
-
-	else if(istype(target, /obj/item/clothing/under/plasmaman))
-		if(used & USED_MOD_SUIT)
-			to_chat(user, "<span class='warning'>The kit's suit modifier has already been used!</span>")
-			return
-
-		var/obj/item/clothing/under/plasmaman/P = target
-		used |= USED_MOD_SUIT
-		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
-		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
-		P.icon_state = "ikelos_envirosuit"
-		P.item_color = "ikelos_envirosuit"
-		P.icon = 'icons/obj/custom_items.dmi'
-
-		if(P == H.w_uniform)
-			H.update_inv_w_uniform()
-
-	else
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
-/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff // LightFire53: Ikelos
-	icon_state = "ikelos_envirohelm" // New item needed because `initial(icon_state)` is used.
-	icon = 'icons/obj/custom_items.dmi'
-
-
-/obj/item/fluff/lighty_plasman_modkit // LightFire53: Ikelos
-	name = "plasmaman suit modkit"
-	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
-	icon_state = "modkit"
-	w_class = WEIGHT_CLASS_SMALL
-
-/obj/item/fluff/lighty_plasman_modkit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated() || !isitem(target))
-		return
-	var/mob/living/carbon/human/H = user
-
-	if(istype(target, /obj/item/clothing/head/helmet/space/plasmaman))
-		if(used & USED_MOD_HELM)
-			to_chat(H, "<span class='warning'>The kit's helmet modifier has already been used!</span>")
-			return
-
-		var/obj/item/clothing/head/helmet/space/plasmaman/P = target
-		used |= USED_MOD_HELM
-		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
-		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
-		var/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff/F = new(P.loc)
-		if(P == H.head)
-			H.unEquip(P, TRUE, TRUE)
-			H.equip_to_slot(F, slot_head, TRUE)
-			H.update_inv_head()
-		qdel(P)
-
-	else if(istype(target, /obj/item/clothing/under/plasmaman))
-		if(used & USED_MOD_SUIT)
-			to_chat(user, "<span class='warning'>The kit's suit modifier has already been used!</span>")
-			return
-
-		var/obj/item/clothing/under/plasmaman/P = target
-		used |= USED_MOD_SUIT
-		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
-		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
-		P.icon_state = "ikelos_envirosuit"
-		P.item_color = "ikelos_envirosuit"
-		P.icon = 'icons/obj/custom_items.dmi'
-
-		if(P == H.w_uniform)
-			H.update_inv_w_uniform()
-
-	else
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
-/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff // LightFire53: Ikelos
-	icon_state = "ikelos_envirohelm" // New item needed because `initial(icon_state)` is used.
-	icon = 'icons/obj/custom_items.dmi'
-
-
-/obj/item/fluff/lighty_plasman_modkit // LightFire53: Ikelos
-	name = "plasmaman suit modkit"
-	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
-	icon_state = "modkit"
-	w_class = WEIGHT_CLASS_SMALL
-
-/obj/item/fluff/lighty_plasman_modkit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated() || !isitem(target))
-		return
-	var/mob/living/carbon/human/H = user
-
-	if(istype(target, /obj/item/clothing/head/helmet/space/plasmaman))
-		if(used & USED_MOD_HELM)
-			to_chat(H, "<span class='warning'>The kit's helmet modifier has already been used!</span>")
-			return
-
-		var/obj/item/clothing/head/helmet/space/plasmaman/P = target
-		used |= USED_MOD_HELM
-		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
-		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
-		var/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff/F = new(P.loc)
-		if(P == H.head)
-			H.unEquip(P, TRUE, TRUE)
-			H.equip_to_slot(F, slot_head, TRUE)
-			H.update_inv_head()
-		qdel(P)
-
-	else if(istype(target, /obj/item/clothing/under/plasmaman))
-		if(used & USED_MOD_SUIT)
-			to_chat(user, "<span class='warning'>The kit's suit modifier has already been used!</span>")
-			return
-
-		var/obj/item/clothing/under/plasmaman/P = target
-		used |= USED_MOD_SUIT
-		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
-		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
-		P.icon_state = "ikelos_envirosuit"
-		P.item_color = "ikelos_envirosuit"
-		P.icon = 'icons/obj/custom_items.dmi'
-
-		if(P == H.w_uniform)
-			H.update_inv_w_uniform()
-
-	else
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
-/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff // LightFire53: Ikelos
-	icon_state = "ikelos_envirohelm" // New item needed because `initial(icon_state)` is used.
-	icon = 'icons/obj/custom_items.dmi'
-
-
-/obj/item/fluff/lighty_plasman_modkit // LightFire53: Ikelos
-	name = "plasmaman suit modkit"
-	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
-	icon_state = "modkit"
-	w_class = WEIGHT_CLASS_SMALL
-
-/obj/item/fluff/lighty_plasman_modkit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated() || !isitem(target))
-		return
-	var/mob/living/carbon/human/H = user
-
-	if(istype(target, /obj/item/clothing/head/helmet/space/plasmaman))
-		if(used & USED_MOD_HELM)
-			to_chat(H, "<span class='warning'>The kit's helmet modifier has already been used!</span>")
-			return
-
-		var/obj/item/clothing/head/helmet/space/plasmaman/P = target
-		used |= USED_MOD_HELM
-		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
-		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
-		var/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff/F = new(P.loc)
-		if(P == H.head)
-			H.unEquip(P, TRUE, TRUE)
-			H.equip_to_slot(F, slot_head, TRUE)
-			H.update_inv_head()
-		qdel(P)
-
-	else if(istype(target, /obj/item/clothing/under/plasmaman))
-		if(used & USED_MOD_SUIT)
-			to_chat(user, "<span class='warning'>The kit's suit modifier has already been used!</span>")
-			return
-
-		var/obj/item/clothing/under/plasmaman/P = target
-		used |= USED_MOD_SUIT
-		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
-		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
-		P.icon_state = "ikelos_envirosuit"
-		P.item_color = "ikelos_envirosuit"
-		P.icon = 'icons/obj/custom_items.dmi'
-
-		if(P == H.w_uniform)
-			H.update_inv_w_uniform()
-
-	else
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
-/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff // LightFire53: Ikelos
-	icon_state = "ikelos_envirohelm" // New item needed because `initial(icon_state)` is used.
-	icon = 'icons/obj/custom_items.dmi'
-
-
-/obj/item/fluff/lighty_plasman_modkit // LightFire53: Ikelos
-	name = "plasmaman suit modkit"
-	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
-	icon_state = "modkit"
-	w_class = WEIGHT_CLASS_SMALL
-
-/obj/item/fluff/lighty_plasman_modkit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated() || !isitem(target))
-		return
-	var/mob/living/carbon/human/H = user
-
-	if(istype(target, /obj/item/clothing/head/helmet/space/plasmaman))
-		if(used & USED_MOD_HELM)
-			to_chat(H, "<span class='warning'>The kit's helmet modifier has already been used!</span>")
-			return
-
-		var/obj/item/clothing/head/helmet/space/plasmaman/P = target
-		used |= USED_MOD_HELM
-		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
-		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
-		var/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff/F = new(P.loc)
-		if(P == H.head)
-			H.unEquip(P, TRUE, TRUE)
-			H.equip_to_slot(F, slot_head, TRUE)
-			H.update_inv_head()
-		qdel(P)
-
-	else if(istype(target, /obj/item/clothing/under/plasmaman))
-		if(used & USED_MOD_SUIT)
-			to_chat(user, "<span class='warning'>The kit's suit modifier has already been used!</span>")
-			return
-
-		var/obj/item/clothing/under/plasmaman/P = target
-		used |= USED_MOD_SUIT
-		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
-		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
-		P.icon_state = "ikelos_envirosuit"
-		P.item_color = "ikelos_envirosuit"
-		P.icon = 'icons/obj/custom_items.dmi'
-
-		if(P == H.w_uniform)
-			H.update_inv_w_uniform()
-
-	else
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
-/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff // LightFire53: Ikelos
-	icon_state = "ikelos_envirohelm" // New item needed because `initial(icon_state)` is used.
-	icon = 'icons/obj/custom_items.dmi'
+	displays_id = FALSE
 
 
 /obj/item/fluff/lighty_plasman_modkit // LightFire53: Ikelos
@@ -1816,7 +1557,7 @@
 	pod.icon_state = "pod_dece"
 	pod.name = "sleek spacepod"
 	pod.desc = "A modified varient of a space pod."
-	//pod.can_paint = FALSE FUCK YOU
+	pod.can_paint = FALSE
 	used = 1
 	qdel(src)
 
@@ -1907,11 +1648,11 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon_state = "kiaoutfit"
 	item_state = "kiaoutfit"
 	item_color = "kiaoutfit"
-	displays_id = TRUE
+	displays_id = FALSE
 	species_restricted = list("Vox")
 
 /obj/item/clothing/head/fluff/kiahat //FullOfSkittles: Kiachi
@@ -1930,7 +1671,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/mask.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
 	icon_state = "kiamask"
 	item_state = "kiamask"
 	item_color = "kiamask"
@@ -1963,12 +1704,24 @@
 	desc = "A simple black dress with a white undercoat, tied with a blue ribbon."
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kikeridress"
 	item_state = "kikeridress"
 	item_color = "kikeridress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	species_restricted = list("Vox")
+
+/obj/item/clothing/mask/gas/fluff/kikerimask //Gangelwaefre: Kikeri
+	name = "Kikeri's Mask"
+	desc = "A light grey mask with masquerade-esque blue details."
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
+	icon_state = "kikerimask"
+	item_state = "kikerimask"
+	item_color = "kikerimask"
 	species_restricted = list("Vox")
 
 #undef USED_MOD_HELM

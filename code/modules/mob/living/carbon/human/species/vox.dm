@@ -22,7 +22,7 @@
 
 	eyes = "vox_eyes_s"
 
-	species_traits = list(NO_CLONESCAN, IS_WHITELISTED, NOTRANSSTING)
+	species_traits = list(NO_CLONESCAN, IS_WHITELISTED)
 	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
 	dietflags = DIET_OMNI
@@ -61,7 +61,7 @@
 		"lungs" =    /obj/item/organ/internal/lungs/vox,
 		"liver" =    /obj/item/organ/internal/liver/vox,
 		"kidneys" =  /obj/item/organ/internal/kidneys/vox,
-		"cortical stack" =    /obj/item/organ/internal/brain/vox,
+		"brain" =    /obj/item/organ/internal/brain/vox,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/vox, //Default darksight of 2.
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
@@ -83,7 +83,7 @@
 		H.unEquip(H.wear_mask)
 
 	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
-	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.speciesprefs : null
+	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.active_character.speciesprefs : null
 	var/obj/item/tank/internal_tank
 	if(tank_pref)//Diseasel, here you go
 		internal_tank = new /obj/item/tank/internals/nitrogen(H)

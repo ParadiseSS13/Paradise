@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT
 	origin_tech = "magnets=2;biotech=2"
-	materials = list(MAT_METAL=30, MAT_GLASS=20)
+	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
 
 // *************************************
 // Hydroponics Tools
@@ -111,9 +111,9 @@
 	flags = NONE
 
 /obj/item/scythe
-	icon_state = "scythe0"
 	name = "scythe"
 	desc = "A sharp and curved blade on a long fibremetal handle, this tool makes it easy to reap what you sow."
+	icon_state = "scythe0"
 	force = 13
 	throwforce = 5
 	throw_speed = 2
@@ -128,6 +128,14 @@
 	sharp = 1
 	var/extend = 1
 	var/swiping = FALSE
+
+/obj/item/scythe/bone
+	name = "bone scythe"
+	desc = "Perfect for harvesting. And it's not about plants."
+	icon_state = "bone_scythe"
+	force = 14
+	throw_range = 4
+	origin_tech = "materials=1;combat=2"
 
 /obj/item/scythe/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is beheading [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -155,10 +163,10 @@
 		swiping = FALSE
 
 /obj/item/scythe/tele
-	icon_state = "tscythe0"
-	item_state = null	//no sprite for folded version, like a tele-baton
 	name = "telescopic scythe"
 	desc = "A sharp and curved blade on a collapsable fibre metal handle, this tool is the pinnacle of covert reaping technology."
+	icon_state = "tscythe0"
+	item_state = null	//no sprite for folded version, like a tele-baton
 	force = 3
 	sharp = 0
 	w_class = WEIGHT_CLASS_SMALL
@@ -198,16 +206,28 @@
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
 	add_fingerprint(user)
-	if(!blood_DNA)
-		return
-	if(blood_overlay && (blood_DNA.len >= 1))	//updated blood overlay, if any
-		overlays.Cut()	//this might delete other item overlays as well but eeeeeh
+	if(blood_overlay)	//updated blood overlay, if any
+		var/blood_color = blood_overlay.color
+		cut_overlay(blood_overlay)
+		qdel(blood_overlay)
+		add_blood_overlay(blood_color)
 
-		var/icon/I = new /icon(icon, icon_state)
-		I.Blend(new /icon('icons/effects/blood.dmi', rgb(255,255,255)), ICON_ADD)
-		I.Blend(new /icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY)
-		blood_overlay = I
-		overlays += blood_overlay
+/obj/item/scythe/tele/blood_splatter_index()
+	return "\ref[icon]-[icon_state]"
+
+/obj/item/scythe/tele/add_blood_overlay(color)
+	var/index = blood_splatter_index()
+	var/icon/blood_splatter_icon = GLOB.blood_splatter_icons[index]
+	if(!blood_splatter_icon)
+		blood_splatter_icon = icon(icon, icon_state)
+		blood_splatter_icon.Blend("#ffffff", ICON_ADD)
+		blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY)
+		blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
+		GLOB.blood_splatter_icons[index] = blood_splatter_icon
+
+	blood_overlay = image(blood_splatter_icon)
+	blood_overlay.color = color
+	add_overlay(blood_overlay)
 
 
 // *************************************

@@ -1,5 +1,5 @@
 #define DAMAGE			1
-#define FIRE			2
+#define POD_FIRE		2
 #define POD_LIGHT		1
 #define WINDOW			2
 #define RIM	    		3
@@ -14,12 +14,12 @@
 /obj/spacepod
 	name = "\improper space pod"
 	desc = "A space pod meant for space travel."
-	icon = 'icons/hispania/goonstation/48x48/pods.dmi'
+	icon = 'icons/goonstation/48x48/pods.dmi'
 	density = 1 //Dense. To raise the heat.
 	opacity = 0
 
 	anchored = 1
-	resistance_flags = LAVA_PROOF | ACID_PROOF
+	resistance_flags = ACID_PROOF
 
 	layer = 3.9
 	infra_luminosity = 15
@@ -42,14 +42,13 @@
 
 	var/next_firetime = 0
 
+	var/has_paint = 0
+
 	var/list/pod_overlays
 	var/list/pod_paint_effect
 	var/list/colors = new/list(4)
 	var/health = 250
-	var/maxhealth = 250
 	var/empcounter = 0 //Used for disabling movement when hit by an EMP
-
-	var/spacepod_base = SPACEPOD_STANDARD
 
 	var/lights = 0
 	var/lights_power = 6
@@ -64,9 +63,13 @@
 
 	var/move_delay = 2
 	var/next_move = 0
+	var/can_paint = TRUE
 
 /obj/spacepod/proc/apply_paint(mob/user as mob)
 	var/part_type
+	if(!can_paint)
+		to_chat(user, "<span class='warning'>You can't repaint this type of pod!</span>")
+		return
 
 	var/part = input(user, "Choose part", null) as null|anything in list("Lights","Rim","Paint","Windows")
 	switch(part)
@@ -81,6 +84,8 @@
 		else
 	var/coloradd = input(user, "Choose a color", "Color") as color
 	colors[part_type] = coloradd
+	if(!has_paint)
+		has_paint = 1
 	update_icons()
 
 /obj/spacepod/get_cell()
@@ -88,8 +93,17 @@
 
 /obj/spacepod/Initialize(mapload)
 	. = ..()
-	colors[POD_LIGHT] = "#FFCC00"
-	colors[WINDOW] = "#4793ff"
+	if(!pod_overlays)
+		pod_overlays = new/list(2)
+		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
+		pod_overlays[POD_FIRE] = image(icon, icon_state="pod_fire")
+
+	if(!pod_paint_effect)
+		pod_paint_effect = new/list(4)
+		pod_paint_effect[POD_LIGHT] = image(icon,icon_state = "LIGHTS")
+		pod_paint_effect[WINDOW] = image(icon,icon_state = "Windows")
+		pod_paint_effect[RIM] = image(icon,icon_state = "RIM")
+		pod_paint_effect[PAINT] = image(icon,icon_state = "PAINT")
 
 	bound_width = 64
 	bound_height = 64
@@ -111,7 +125,6 @@
 	cargo_hold.max_w_class = 5		//fit almost anything
 	cargo_hold.max_combined_w_class = 0 //you can optimize your stash with larger items
 
-	update_icons()
 	START_PROCESSING(SSobj, src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/create_trail)
 
@@ -164,47 +177,42 @@
 /obj/spacepod/proc/update_icons()
 	if(!pod_overlays)
 		pod_overlays = new/list(2)
-		pod_overlays[DAMAGE] = image(icon, "pod_damage")
-		pod_overlays[FIRE] = image(icon, "pod_fire")
+		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
+		pod_overlays[POD_FIRE] = image(icon, icon_state="pod_fire")
 
 	if(!pod_paint_effect)
 		pod_paint_effect = new/list(4)
-		pod_paint_effect[POD_LIGHT] = image(icon,"[spacepod_base]_LIGHTS")
-		pod_paint_effect[WINDOW] = image(icon,"[spacepod_base]_Windows")
-		pod_paint_effect[RIM] = image(icon,"[spacepod_base]_RIM")
-		pod_paint_effect[PAINT] = image(icon,"[spacepod_base]_PAINT")
+		pod_paint_effect[POD_LIGHT] = image(icon,icon_state = "LIGHTS")
+		pod_paint_effect[WINDOW] = image(icon,icon_state = "Windows")
+		pod_paint_effect[RIM] = image(icon,icon_state = "RIM")
+		pod_paint_effect[PAINT] = image(icon,icon_state = "PAINT")
 	overlays.Cut()
 
-	var/image/to_add
-	if(!isnull(pod_paint_effect[POD_LIGHT]))
-		var/image/to_add2 = pod_paint_effect[POD_LIGHT]
-		to_add2.color = colors[POD_LIGHT]
-		to_add2.plane = ABOVE_LIGHTING_PLANE
-		overlays += to_add2
-	if(!isnull(pod_paint_effect[WINDOW]))
-		to_add = pod_paint_effect[WINDOW]
-		to_add.color = colors[WINDOW]
-		overlays += to_add
-	if(!isnull(pod_paint_effect[RIM]))
-		to_add = pod_paint_effect[RIM]
-		to_add.color = colors[RIM]
-		overlays += to_add
-	if(!isnull(pod_paint_effect[PAINT]))
-		to_add = pod_paint_effect[PAINT]
-		to_add.color = colors[PAINT]
-		overlays += to_add
-
-	if(equipment_system.weapon_system)
-		var/image/to_add3 = image(icon,"pod_[equipment_system.weapon_system.icon_state]")
-		to_add3.layer = 3.91
-		overlays += to_add3
-
-	if(health <= round(maxhealth/2))
+	if(has_paint)
+		var/image/to_add
+		if(!isnull(pod_paint_effect[POD_LIGHT]))
+			to_add = pod_paint_effect[POD_LIGHT]
+			to_add.color = colors[POD_LIGHT]
+			overlays += to_add
+		if(!isnull(pod_paint_effect[WINDOW]))
+			to_add = pod_paint_effect[WINDOW]
+			to_add.color = colors[WINDOW]
+			overlays += to_add
+		if(!isnull(pod_paint_effect[RIM]))
+			to_add = pod_paint_effect[RIM]
+			to_add.color = colors[RIM]
+			overlays += to_add
+		if(!isnull(pod_paint_effect[PAINT]))
+			to_add = pod_paint_effect[PAINT]
+			to_add.color = colors[PAINT]
+			overlays += to_add
+	if(health <= round(initial(health)/2))
 		overlays += pod_overlays[DAMAGE]
-		if(health <= round(maxhealth/4))
-			overlays += pod_overlays[FIRE]
+		if(health <= round(initial(health)/4))
+			overlays += pod_overlays[POD_FIRE]
 
-	light_color = colors[POD_LIGHT]
+
+	light_color = icon_light_color[src.icon_state]
 
 /obj/spacepod/bullet_act(obj/item/projectile/P)
 	if(P.damage_type == BRUTE || P.damage_type == BURN)
@@ -254,7 +262,7 @@
 /obj/spacepod/proc/deal_damage(damage)
 	var/oldhealth = health
 	health = max(0, health - damage)
-	var/percentage = (health / maxhealth) * 100
+	var/percentage = (health / initial(health)) * 100
 	occupant_sanity_check()
 	if(oldhealth > health && percentage <= 25 && percentage > 0)
 		play_sound_to_riders('sound/effects/engine_alert2.ogg')
@@ -281,7 +289,7 @@
 
 /obj/spacepod/proc/repair_damage(repair_amount)
 	if(health)
-		health = min(maxhealth, health + repair_amount)
+		health = min(initial(health), health + repair_amount)
 		update_icons()
 
 
@@ -336,9 +344,6 @@
 		to_chat(M, mymessage)
 
 /obj/spacepod/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/pod_paint_bucket))
-		apply_paint(user)
-		return
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(!hatch_open)
 			to_chat(user, "<span class='warning'>The maintenance hatch is closed!</span>")
@@ -430,7 +435,7 @@
 	if(!hatch_open)
 		to_chat(user, "<span class='warning'>You must open the maintenance hatch before attempting repairs.</span>")
 		return
-	if(health >= maxhealth)
+	if(health >= initial(health))
 		to_chat(user, "<span class='boldnotice'>[src] is fully repaired!</span>")
 		return
 	if(!I.tool_use_check(user, 0))
@@ -456,7 +461,6 @@
 		max_passengers += SPE.occupant_mod
 		cargo_hold.storage_slots += SPE.storage_mod["slots"]
 		cargo_hold.max_combined_w_class += SPE.storage_mod["w_class"]
-		update_icons()
 
 /obj/spacepod/attack_hand(mob/user as mob)
 	if(user.a_intent == INTENT_GRAB && unlocked)
@@ -549,9 +553,9 @@
 		SPE.removed(user)
 		SPE.my_atom = null
 		equipment_system.vars[slot] = null
-		update_icons()
 		return
 	to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
+
 
 /obj/spacepod/hear_talk/hear_talk(mob/M, list/message_pieces)
 	cargo_hold.hear_talk(M, message_pieces)
@@ -577,32 +581,39 @@
 	return L
 
 /obj/spacepod/civilian
+	icon_state = "pod_civ"
 	desc = "A sleek civilian space pod."
+
+/obj/spacepod/civilian/attackby(obj/item/W as obj, mob/user as mob, params)
+	..()
+	if(istype(W, /obj/item/pod_paint_bucket))
+		apply_paint(user)
+		return
+
+/obj/spacepod/random
+	icon_state = "pod_civ"
+// placeholder
 
 /obj/spacepod/sec
 	name = "\improper security spacepod"
 	desc = "An armed security spacepod with reinforced armor plating."
+	icon_state = "pod_mil"
+	health = 400
 
 /obj/spacepod/syndi
 	name = "syndicate spacepod"
 	desc = "A spacepod painted in syndicate colors."
-	unlocked = FALSE //no tiene sistema de llames, como va a estar locked lol
-
-/obj/spacepod/syndi/Initialize(mapload)
-	. = ..()
-	colors[POD_LIGHT] = "#00FF00"
-	colors[WINDOW] = "#00FF00"
-	colors[PAINT] = "#DE2C2C"
-	colors[RIM] = "#5F5F5F"
-
-	update_icons()
+	icon_state = "pod_synd"
+	health = 400
+	unlocked = FALSE
 
 /obj/spacepod/syndi/unlocked
 	unlocked = TRUE
 
 /obj/spacepod/sec/Initialize(mapload)
 	. = ..()
-	var/obj/item/spacepod_equipment/weaponry/burst_disabler/T = new /obj/item/spacepod_equipment/weaponry/disabler
+
+	var/obj/item/spacepod_equipment/weaponry/burst_disabler/T = new /obj/item/spacepod_equipment/weaponry/burst_disabler
 	T.loc = equipment_system
 	equipment_system.weapon_system = T
 	equipment_system.weapon_system.my_atom = src
@@ -628,44 +639,22 @@
 	equipment_system.lock_system.id = 100000
 	equipment_system.installed_modules += K
 
-	colors[POD_LIGHT] = "#FF0066"
-	colors[WINDOW] = "#FF0000"
-	update_icons()
-
 /obj/spacepod/random/Initialize(mapload)
 	. = ..()
-	var/skin_state = pick("pod_civ", "pod_black", "pod_mil", "pod_synd", "pod_gold", "pod_industrial")
-	switch(skin_state)
+	icon_state = pick("pod_civ", "pod_black", "pod_mil", "pod_synd", "pod_gold", "pod_industrial")
+	switch(icon_state)
 		if("pod_civ")
 			desc = "A sleek civilian space pod."
 		if("pod_black")
 			desc = "An all black space pod with no insignias."
-			colors[POD_LIGHT] = "#4793ff"
-			colors[PAINT] = "#1C1C1C"
-			colors[RIM] = "#1C1C1C"
 		if("pod_mil")
-			desc = "A space pod brandishing the Nanotrasen Military insignia"
-			colors[POD_LIGHT] = "#00FF00"
-			colors[WINDOW] = "#00FF00"
-			colors[PAINT] = "#5F5F5F"
-			colors[RIM] = "#808080"
+			desc = "A dark grey space pod brandishing the Nanotrasen Military insignia"
 		if("pod_synd")
 			desc = "A menacing military space pod with Fuck NT stenciled onto the side"
-			colors[POD_LIGHT] = "#00FF00"
-			colors[WINDOW] = "#00FF00"
-			colors[PAINT] = "#DE2C2C"
-			colors[RIM] = "#5F5F5F"
 		if("pod_gold")
 			desc = "A civilian space pod with a gold body, must have cost somebody a pretty penny"
-			colors[POD_LIGHT] = "#FFCC00"
-			colors[PAINT] = "#FFCC00"
-			colors[RIM] = "#FFCC00"
 		if("pod_industrial")
 			desc = "A rough looking space pod meant for industrial work"
-			colors[POD_LIGHT] = "#FFFF00"
-			colors[WINDOW] = "#FFFF00"
-			colors[PAINT] = "#333333"
-			colors[RIM] = "#333333"
 	update_icons()
 
 /obj/spacepod/verb/toggle_internal_tank()
@@ -1126,7 +1115,7 @@
 	next_move = world.time + move_delay
 
 #undef DAMAGE
-#undef FIRE
+#undef POD_FIRE
 #undef WINDOW
 #undef POD_LIGHT
 #undef RIM

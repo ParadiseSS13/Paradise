@@ -74,8 +74,8 @@
 	return 0
 
 /datum/theft_objective/defib
-	name = "a compact defibrillator"
-	typepath = /obj/item/defibrillator/compact
+	name = "the chief medical officer's advanced compact defibrillator"
+	typepath = /obj/item/defibrillator/compact/advanced
 	protected_jobs = list("Chief Medical Officer", "Paramedic")
 	location_override = "the Chief Medical Officer's Office"
 
@@ -115,7 +115,7 @@
 
 /datum/theft_objective/reactive
 	name = "the reactive teleport armor"
-	typepath = /obj/item/clothing/suit/armor/reactive/teleport/rd
+	typepath = /obj/item/clothing/suit/armor/reactive/teleport
 	protected_jobs = list("Research Director")
 	location_override = "the Research Director's Office"
 
@@ -130,14 +130,9 @@
 	protected_jobs = list("Chief Medical Officer")
 	location_override = "the Chief Medical Officer's Office"
 
-/datum/theft_objective/magistrategun
-	name = "the magistrate's personal disabler"
-	typepath = /obj/item/gun/energy/disabler/magistrate
-	protected_jobs = list("Magistrate")
-
 /datum/theft_objective/ablative
-	name = "an ablative trenchcoat"
-	typepath = /obj/item/clothing/suit/hooded/ablative
+	name = "an ablative armor vest"
+	typepath = /obj/item/clothing/suit/armor/laserproof
 	protected_jobs = list("Head of Security", "Warden")
 	location_override = "the Armory"
 
@@ -150,8 +145,8 @@
 /datum/theft_objective/supermatter_sliver
 	name = "a supermatter sliver"
 	typepath = /obj/item/nuke_core/supermatter_sliver
-	protected_jobs = list("Chief Engineer", "Engineer", "Atmospheric Technician") //Unlike other steal objectives, all jobs in the department have easy access, and would not be noticed at all stealing this
-	location_override = "Engineering. You can use the box and instructions provided to harvest the sliver"
+	protected_jobs = list("Chief Engineer", "Station Engineer", "Life Support Specialist") //Unlike other steal objectives, all jobs in the department have easy access, and would not be noticed at all stealing this
+	location_override = "Engineering. You can use the box and instructions provided to harvest the sliver."
 	special_equipment = /obj/item/storage/box/syndie_kit/supermatter
 	job_possession = FALSE //The CE / engineers / atmos techs do not carry around supermater slivers.
 

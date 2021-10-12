@@ -183,7 +183,7 @@
 	new /obj/item/clothing/shoes/brown	(src)*/
 	new /obj/item/radio/headset/heads/cmo(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
-	new /obj/item/defibrillator/compact/loaded(src)
+	new /obj/item/defibrillator/compact/advanced/loaded(src)
 	new /obj/item/handheld_defibrillator(src)
 	new /obj/item/flash(src)
 	new /obj/item/reagent_containers/hypospray/CMO(src)

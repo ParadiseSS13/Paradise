@@ -196,10 +196,8 @@ SUBSYSTEM_DEF(vote)
 
 /datum/controller/subsystem/vote/proc/submit_vote(ckey, vote)
 	if(mode)
-		/*
 		if(GLOB.configuration.vote.prevent_dead_voting && usr.stat == DEAD && !usr.client.holder)
 			return 0
-		*///Ghost Vote Hispania
 		if(current_votes[ckey])
 			choices[choices[current_votes[ckey]]]--
 		if(vote && 1<=vote && vote<=choices.len)
@@ -211,7 +209,7 @@ SUBSYSTEM_DEF(vote)
 
 /datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key, code_invoked = FALSE)
 	if(!mode)
-		if(started_time != null && !check_rights(R_ADMIN))
+		if(usr && started_time != null && !check_rights(R_ADMIN)) // Allow the game to call votes whenever. But check other callers
 			var/next_allowed_time = (started_time + GLOB.configuration.vote.vote_delay)
 			if(next_allowed_time > world.time)
 				return 0

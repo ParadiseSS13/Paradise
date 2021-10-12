@@ -16,7 +16,6 @@
 # - afk_configuration
 # - custom_sprites_configuration
 # - database_configuration
-# - debug_configuration
 # - discord_configuration
 # - event_configuration
 # - gamemode_configuration
@@ -25,6 +24,8 @@
 # - ipintel_configuration
 # - job_configuration
 # - logging_configuration
+# - mc_configuration
+# - metrics_configuration
 # - movement_configuration
 # - overflow_configuration
 # - ruin_configuration
@@ -301,8 +302,6 @@ allow_character_metadata = true
 lobby_time = 240
 # Forbid people without a BYOND account joining the server
 guest_ban = true
-# Player threshold before the automatic panic bunker engages
-panic_bunker_threshold = 150
 # Allow players to use antagHUD?
 allow_antag_hud = true
 # Forbid players from rejoining if they use antag hud
@@ -518,6 +517,22 @@ enable_debug_logging = true
 ################################################################
 
 
+[metrics_configuration]
+# This section contains values for all metrics storing.
+# This is designed for ElasticSearch but you might be able to make it work with other things.
+# Metrics form a JSON body which is sent by POST to a HTTP/HTTPS endpoint with API key authentication
+
+# Do we want to enable metrics sending
+enable_metrics = false
+# Metrics endpoint. Include protocol, host and ingest path
+metrics_endpoint = "http://elastic-host:9200/your_index/_doc"
+# Metrics API token. Placed into the auth header
+metrics_api_token = "your_base64_encoded_thingy=="
+
+
+################################################################
+
+
 [mc_configuration]
 # This section is settings for the MC
 # Dont change these unless you know what you are doing
@@ -704,6 +719,9 @@ shutdown_on_reboot = false
 #_2fa_auth_host = "http://127.0.0.1:8080"
 # List of IP addresses to be ignored by the world/Topic rate limiting. Useful if you have other services
 topic_ip_ratelimit_bypass = ["127.0.0.1"]
+# Turn this to true if you are running a production server
+is_production = false
+
 
 ################################################################
 

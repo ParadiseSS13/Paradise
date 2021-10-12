@@ -2,7 +2,7 @@
 	name = "Blue Flame"
 	block_chance = 85 // BLUE SHIELD? 85% DE PROTECCION
 	has_explaination_verb = TRUE
-	block_color = COLOR_BLUE
+//	block_color = COLOR_BLUE
 
 /datum/martial_art/bscqc/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK

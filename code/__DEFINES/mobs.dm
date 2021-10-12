@@ -1,5 +1,8 @@
 ///////////////////ORGAN DEFINES///////////////////
 
+// Roundstart trait system - HISPANIA
+#define MAX_QUIRKS 6 //The maximum amount of quirks one character can have at roundstart
+
 // Organ defines.
 #define ORGAN_BROKEN     1
 #define ORGAN_ROBOT      2
@@ -13,9 +16,6 @@
 #define DROPLIMB_BLUNT 1
 #define DROPLIMB_BURN 2
 
-#define AGE_MIN 15			//youngest a character can be
-#define AGE_MAX 85			//oldest a character can be
-
 //Mob bio-types flags
 #define MOB_ORGANIC 	(1 << 0)
 #define MOB_MINERAL		(1 << 1)
@@ -28,6 +28,10 @@
 #define MOB_REPTILE		(1 << 8)
 #define MOB_SPIRIT		(1 << 9)
 #define MOB_PLANT		(1 << 10)
+
+#define AGE_MIN 17			//youngest a character can be
+#define AGE_MAX 85			//oldest a character can be
+
 
 #define LEFT 1
 #define RIGHT 2
@@ -72,9 +76,6 @@
 // By defining the effect multiplier this way, it'll exactly adjust
 // all effects according to how they originally were with the 0.4 metabolism
 #define REAGENTS_EFFECT_MULTIPLIER REAGENTS_METABOLISM / 0.4
-
-// Roundstart trait system
-#define MAX_QUIRKS 6 //The maximum amount of quirks one character can have at roundstart
 
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
@@ -224,7 +225,6 @@
 #define isdiona(A) (is_species(A, /datum/species/diona))
 #define ismachineperson(A) (is_species(A, /datum/species/machine))
 #define isdrask(A) (is_species(A, /datum/species/drask))
-#define isashwalker(A) (is_species(A, /datum/species/unathi/ashwalker))
 #define iswryn(A) (is_species(A, /datum/species/wryn))
 
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
@@ -280,9 +280,6 @@
 #define HEARING_PROTECTION_MAJOR	2
 #define HEARING_PROTECTION_TOTAL	3
 
-// HISPANIA
-#define EYE_CONTACT_RANGE	5
-
 // Defines used in /mob/living/carbon/human/update_health_hud to override the health status
 #define HEALTH_HUD_OVERRIDE_NONE 0
 #define HEALTH_HUD_OVERRIDE_CRIT 1
@@ -296,3 +293,4 @@
 
 #define MAX_EYE_BLURRY_FILTER_SIZE 2
 #define EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER 0.1
+#define isashwalker(A) (is_species(A, /datum/species/unathi/ashwalker))

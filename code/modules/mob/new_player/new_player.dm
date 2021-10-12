@@ -42,7 +42,7 @@
 
 
 /mob/new_player/proc/new_player_panel_proc()
-	var/real_name = client.prefs.real_name
+	var/real_name = client.prefs.active_character.real_name
 	if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 		real_name = "Random Character Slot"
 	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
@@ -98,8 +98,8 @@
 
 		if(SSticker.current_state == GAME_STATE_PREGAME)
 			stat("Players:", "[totalPlayers]")
-			//if(check_rights(R_ADMIN, 0, src)) Readys Global
-			stat("Players Ready:", "[totalPlayersReady]")
+			if(check_rights(R_ADMIN, 0, src))
+				stat("Players Ready:", "[totalPlayersReady]")
 			totalPlayers = 0
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in GLOB.player_list)
@@ -184,13 +184,13 @@
 			to_chat(src, "<span class='notice'>Now teleporting.</span>")
 			observer.forceMove(O.loc)
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
-			client.prefs.update_preview_icon(1)
-			observer.icon = client.prefs.preview_icon
+			client.prefs.active_character.update_preview_icon(1)
+			observer.icon = client.prefs.active_character.preview_icon
 			observer.alpha = 127
 
-			if(client.prefs.be_random_name)
-				client.prefs.real_name = random_name(client.prefs.gender,client.prefs.species)
-			observer.real_name = client.prefs.real_name
+			if(client.prefs.active_character.be_random_name)
+				client.prefs.active_character.real_name = random_name(client.prefs.active_character.gender,client.prefs.active_character.species)
+			observer.real_name = client.prefs.active_character.real_name
 			observer.name = observer.real_name
 			observer.key = key
 			QDEL_NULL(mind)
@@ -212,10 +212,10 @@
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return
-		if(client.prefs.species in GLOB.whitelisted_species)
+		if(client.prefs.active_character.species in GLOB.whitelisted_species)
 
-			if(!is_alien_whitelisted(src, client.prefs.species))
-				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
+			if(!is_alien_whitelisted(src, client.prefs.active_character.species))
+				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
 				return FALSE
 
 		LateChoices()
@@ -232,12 +232,12 @@
 		if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 			client.prefs.load_random_character_slot(client)
 
-		if(client.prefs.species in GLOB.whitelisted_species)
-			if(!is_alien_whitelisted(src, client.prefs.species))
-				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
+		if(client.prefs.active_character.species in GLOB.whitelisted_species)
+			if(!is_alien_whitelisted(src, client.prefs.active_character.species))
+				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
 				return FALSE
 
-		AttemptLateSpawn(href_list["SelectedJob"],client.prefs.spawnpoint)
+		AttemptLateSpawn(href_list["SelectedJob"],client.prefs.active_character.spawnpoint)
 		return
 
 	if(!ready && href_list["preference"])
@@ -307,17 +307,7 @@
 	if(thisjob.barred_by_disability(client))
 		to_chat(src, alert("[rank] is not available due to your character's disability. Please try another."))
 		return 0
-	///Restricciones de edad
-	if(thisjob.age_restringed(client))
-		to_chat(src, alert("[rank] is not available due to your character's age. Please try another."))
-		return 0
-	if(thisjob.command_age_restringed(client))
-		to_chat(src, alert("[rank] is not available due to your character's age. Please try another."))
-		return 0
-	if(thisjob.captain_age_restringed(client))
-		to_chat(src, alert("[rank] is not available due to your character's age. Please try another."))
-		return 0
-	///Fin restricciones de edad
+
 	SSjobs.AssignRole(src, rank, 1)
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
@@ -389,11 +379,13 @@
 
 	if(!thisjob.is_position_available() && (thisjob in SSjobs.prioritized_jobs))
 		SSjobs.prioritized_jobs -= thisjob
+	// HISPANIA
 	var/mob/living/carbon/human/humanc
 	if(ishuman(character))
 		humanc = character	//Let's retypecast the var to be human,
 	if(humanc)
 		SSquirks.AssignQuirks(humanc, humanc.client, TRUE)
+	// HISPANIA END
 	qdel(src)
 
 
@@ -495,7 +487,7 @@
 		"Supply" = list(jobs = list(), titles = GLOB.supply_positions, color = "#ead4ae"),
 		)
 	for(var/datum/job/job in SSjobs.occupations)
-		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client) && !job.age_restringed(client) && !job.command_age_restringed(client) && !job.captain_age_restringed(client))///Restricción de edad
+		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
 			num_jobs_available++
 			activePlayers[job] = 0
 			var/categorized = 0
@@ -558,9 +550,9 @@
 	new_character.lastarea = get_area(loc)
 
 	if(SSticker.random_players || appearance_isbanned(new_character))
-		client.prefs.random_character()
-		client.prefs.real_name = random_name(client.prefs.gender)
-	client.prefs.copy_to(new_character)
+		client.prefs.active_character.randomise()
+		client.prefs.active_character.real_name = random_name(client.prefs.active_character.gender)
+	client.prefs.active_character.copy_to(new_character)
 
 	stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
@@ -584,19 +576,19 @@
 // This is to check that the player only has preferences set that they're supposed to
 /mob/new_player/proc/check_prefs_are_sane()
 	var/datum/species/chosen_species
-	if(client.prefs.species)
-		chosen_species = GLOB.all_species[client.prefs.species]
+	if(client.prefs.active_character.species)
+		chosen_species = GLOB.all_species[client.prefs.active_character.species]
 	if(!(chosen_species && (is_species_whitelisted(chosen_species) || has_admin_rights())))
 		// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
-		log_runtime(EXCEPTION("[src] had species [client.prefs.species], though they weren't supposed to. Setting to Human."), src)
-		client.prefs.species = "Human"
+		log_runtime(EXCEPTION("[src] had species [client.prefs.active_character.species], though they weren't supposed to. Setting to Human."), src)
+		client.prefs.active_character.species = "Human"
 
 	var/datum/language/chosen_language
-	if(client.prefs.language)
-		chosen_language = GLOB.all_languages[client.prefs.language]
-	if((chosen_language == null && client.prefs.language != "None") || (chosen_language && chosen_language.flags & RESTRICTED))
-		log_runtime(EXCEPTION("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None."), src)
-		client.prefs.language = "None"
+	if(client.prefs.active_character.language)
+		chosen_language = GLOB.all_languages[client.prefs.active_character.language]
+	if((chosen_language == null && client.prefs.active_character.language != "None") || (chosen_language && chosen_language.flags & RESTRICTED))
+		log_runtime(EXCEPTION("[src] had language [client.prefs.active_character.language], though they weren't supposed to. Setting to None."), src)
+		client.prefs.active_character.language = "None"
 
 /mob/new_player/proc/ViewManifest()
 	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.always_state)
@@ -622,7 +614,7 @@
 
 /mob/new_player/get_gender()
 	if(!client || !client.prefs) ..()
-	return client.prefs.gender
+	return client.prefs.active_character.gender
 
 /mob/new_player/is_ready()
 	return ready && ..()
