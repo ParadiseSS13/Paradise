@@ -125,8 +125,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	/// Is this item inside a storage object?
 	var/in_storage = FALSE
 	/// Holder var for the item outline filter, null when no outline filter on the item.
-	var/outline_filter
-	var/hispania_icon = FALSE
 
 /obj/item/New()
 	..()
