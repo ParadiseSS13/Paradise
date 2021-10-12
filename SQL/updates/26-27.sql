@@ -9,3 +9,22 @@ CREATE TABLE `instance_data_cache` (
 	PRIMARY KEY (`server_id`, `key_name`) USING HASH
 ) COLLATE='utf8mb4_general_ci' ENGINE=MEMORY;
 
+ALTER TABLE `ban`
+	ADD COLUMN `server_id` VARCHAR(50) NULL DEFAULT NULL AFTER `serverip`;
+
+ALTER TABLE `connection_log`
+	ADD COLUMN `server_id` VARCHAR(50) NULL DEFAULT NULL AFTER `computerid`;
+
+ALTER TABLE `death`
+	ADD COLUMN `server_id` TEXT NULL AFTER `tod`;
+
+ALTER TABLE `karma`
+	ADD COLUMN `server_id` TEXT NULL AFTER `spenderip`;
+
+ALTER TABLE `legacy_population`
+	ADD COLUMN `server_id` VARCHAR(50) NULL DEFAULT NULL AFTER `admincount`;
+
+# Notes already has a column for this
+
+ALTER TABLE `round`
+	ADD COLUMN `server_id` VARCHAR(50) NULL DEFAULT NULL AFTER `station_name`;
