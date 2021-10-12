@@ -3560,12 +3560,6 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/grass,
 /area/centcom/control)
-"nb" = (
-/obj/machinery/autolathe/upgraded/gamma,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma/space)
 "nc" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Gamma Armory";
@@ -4100,9 +4094,9 @@
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
-/obj/item/gun/projectile/automatic/proto,
-/obj/item/gun/projectile/automatic/proto,
+/obj/machinery/computer/telescience/proto,
+/obj/machinery/computer/telescience/proto,
+/obj/machinery/computer/telescience/proto,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "oN" = (
@@ -4536,11 +4530,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
-"qf" = (
-/obj/structure/closet/secure_closet/guncabinet,
-/obj/item/gun/medbeam,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma/space)
 "qh" = (
 /obj/structure/holowindow,
 /turf/simulated/floor/holofloor{
@@ -6628,6 +6617,12 @@
 /obj/item/ammo_casing/shotgun/dart,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
+"wq" = (
+/obj/machinery/autolathe/upgraded/gamma,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma/space)
 "ws" = (
 /obj/structure/rack,
 /obj/item/ammo_box/magazine/m10mm,
@@ -6656,8 +6651,8 @@
 /obj/item/ammo_box/magazine/smgm45,
 /obj/item/ammo_box/magazine/smgm45,
 /obj/item/ammo_box/magazine/smgm45,
-/obj/item/gun/projectile/automatic/c20r,
-/obj/item/gun/projectile/automatic/c20r{
+/obj/item/gun/projectile/automatic/fullauto/twomode/c20r,
+/obj/item/gun/projectile/automatic/fullauto/twomode/c20r{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -6812,8 +6807,8 @@
 /obj/item/ammo_box/magazine/mm556x45,
 /obj/item/ammo_box/magazine/mm556x45,
 /obj/item/ammo_box/magazine/mm556x45,
-/obj/item/gun/projectile/automatic/l6_saw,
-/obj/item/gun/projectile/automatic/l6_saw{
+/obj/item/gun/projectile/automatic/fullauto/l6_saw,
+/obj/item/gun/projectile/automatic/fullauto/l6_saw{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -6831,8 +6826,8 @@
 /obj/item/ammo_box/a40mm,
 /obj/item/ammo_box/a40mm,
 /obj/item/ammo_box/a40mm,
-/obj/item/gun/projectile/automatic/m90,
-/obj/item/gun/projectile/automatic/m90{
+/obj/item/gun/projectile/automatic/fullauto/twomode/m90,
+/obj/item/gun/projectile/automatic/fullauto/twomode/m90{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -6843,8 +6838,8 @@
 /area/centcom/evac)
 "wL" = (
 /obj/structure/rack,
-/obj/item/gun/projectile/automatic/proto,
-/obj/item/gun/projectile/automatic/proto{
+/obj/machinery/computer/telescience/proto,
+/obj/machinery/computer/telescience/proto{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -8254,8 +8249,8 @@
 /obj/item/ammo_box/magazine/smgm45,
 /obj/item/ammo_box/magazine/smgm45,
 /obj/item/ammo_box/magazine/smgm45,
-/obj/item/gun/projectile/automatic/c20r,
-/obj/item/gun/projectile/automatic/c20r,
+/obj/item/gun/projectile/automatic/fullauto/twomode/c20r,
+/obj/item/gun/projectile/automatic/fullauto/twomode/c20r,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "BI" = (
@@ -9426,6 +9421,12 @@
 /obj/structure/closet,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
+"Ie" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_x = -24
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma/space)
 "Ii" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
@@ -10035,12 +10036,6 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_knightarena)
-"LN" = (
-/obj/machinery/recharger/wallcharger{
-	pixel_x = -24
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma/space)
 "LO" = (
 /obj/machinery/autolathe/upgraded{
 	hacked = 1
@@ -11015,6 +11010,11 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_sit)
+"RI" = (
+/obj/structure/closet/secure_closet/guncabinet,
+/obj/item/gun/medbeam,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma/space)
 "RJ" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -25547,8 +25547,8 @@ th
 fm
 of
 oB
-LN
-nb
+Ie
+wq
 pf
 fV
 of
@@ -26062,7 +26062,7 @@ fm
 of
 oW
 pf
-qf
+RI
 pf
 pu
 of
