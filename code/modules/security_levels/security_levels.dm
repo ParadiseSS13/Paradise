@@ -78,18 +78,11 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				GLOB.security_announcement_up.Announce("El Comando Central ha ordenado el nivel de seguridad Gamma en la estación. Seguridad debe tener armas equipadas en todo momento, y toda la tripulacion debe buscar a los jefes de departamento para el transporte a un lugar seguro. El arsenal Gamma de la estación se ha desbloqueado y está listo para usar.","¡Atención! ¡Nivel de seguridad Gamma activado!", new_sound = sound('sound/effects/new_siren.ogg'))
 				GLOB.security_level = SEC_LEVEL_GAMMA
 
-				move_gamma_ship()
-
 				if(GLOB.security_level < SEC_LEVEL_RED)
 					for(var/obj/machinery/door/airlock/highsecurity/red/R in GLOB.airlocks)
 						if(is_station_level(R.z))
 							R.locked = 0
 							R.update_icon()
-
-				for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
-					if(is_station_level(H.z))
-						H.locked = 0
-						H.update_icon()
 
 				post_status("alert", "gammaalert")
 

@@ -90,7 +90,6 @@
 "as" = (
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
-	icon_state = "remains";
 	name = "Human remains"
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -103,13 +102,10 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
 	dir = 1
 	},
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
-	icon_state = "remains";
 	name = "Human remains"
 	},
 /obj/structure/chair/comfy/shuttle,
@@ -118,7 +114,6 @@
 "au" = (
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
-	icon_state = "remains";
 	name = "Human remains"
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -135,8 +130,6 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
 	dir = 1
 	},
 /turf/simulated/floor/engine/cult,
@@ -147,7 +140,6 @@
 	},
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
-	icon_state = "remains";
 	name = "Human remains"
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -172,7 +164,6 @@
 "aB" = (
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
-	icon_state = "remains";
 	name = "Human remains"
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -183,12 +174,10 @@
 "aC" = (
 /obj/item/radio/intercom{
 	dir = 4;
-	name = "station intercom (General)";
 	pixel_x = 28
 	},
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
-	icon_state = "remains";
 	name = "Human remains"
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -204,7 +193,6 @@
 /area/shuttle/escape)
 "aE" = (
 /obj/docking_port/mobile/emergency{
-	dir = 4;
 	dwidth = 11;
 	height = 13;
 	name = "Shuttle 667";
@@ -221,12 +209,9 @@
 "aG" = (
 /obj/item/radio/intercom{
 	dir = 8;
-	name = "station intercom (General)";
 	pixel_x = -28
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
-	icon_state = "tube1";
 	dir = 8
 	},
 /obj/item/flag/cult,
@@ -245,8 +230,6 @@
 	pixel_x = 28
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
-	icon_state = "tube1";
 	dir = 4
 	},
 /turf/simulated/floor/engine/cult,
@@ -278,8 +261,6 @@
 /obj/item/extinguisher,
 /obj/item/crowbar,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
-	icon_state = "tube1";
 	dir = 8
 	},
 /turf/simulated/floor/engine/cult,
@@ -340,8 +321,6 @@
 /area/shuttle/escape)
 "bb" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
-	icon_state = "tube1";
 	dir = 4
 	},
 /turf/simulated/floor/engine/cult,
@@ -367,9 +346,8 @@
 /area/shuttle/escape)
 "bg" = (
 /obj/machinery/sleeper{
-	tag = "icon-sleeper (NORTH)";
-	icon_state = "sleeper";
-	dir = 1
+	dir = 1;
+	icon_state = "sleeper"
 	},
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/engine/cult,

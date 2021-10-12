@@ -531,6 +531,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_w_uniform()
 	remove_overlay(UNIFORM_LAYER)
+	remove_overlay(OVER_SHOE_LAYER)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_w_uniform]
 		if(inv)
@@ -558,6 +559,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			bloodsies.color = w_uniform.blood_color
 			standing.overlays += bloodsies
 
+		var/obj/item/clothing/under/U = w_uniform
+		if(istype(U) && U.over_shoe)
+			standing.layer = -OVER_SHOE_LAYER
+			overlays_standing[OVER_SHOE_LAYER] = standing
+			apply_overlay(OVER_SHOE_LAYER)		
+
 		if(w_uniform.accessories.len)	//WE CHECKED THE TYPE ABOVE. THIS REALLY SHOULD BE FINE. // oh my god kys whoever made this if statement jfc :gun:
 			for(var/obj/item/clothing/accessory/A in w_uniform:accessories)
 				var/tie_color = A.item_color
@@ -572,9 +579,22 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		standing.alpha = w_uniform.alpha
 		standing.color = w_uniform.color
 		overlays_standing[UNIFORM_LAYER] = standing
-	else
+	else if(!dna.species.nojumpsuit)
+		var/list/uniform_slots = list()
+		var/obj/item/organ/external/L = get_organ(BODY_ZONE_L_LEG)
+		if(!(L?.status & ORGAN_ROBOT))
+			uniform_slots += l_store
+		var/obj/item/organ/external/R = get_organ(BODY_ZONE_R_LEG)
+		if(!(R?.status & ORGAN_ROBOT))
+			uniform_slots += r_store
+		var/obj/item/organ/external/C = get_organ(BODY_ZONE_CHEST)
+		if(!(C?.status & ORGAN_ROBOT))
+			uniform_slots += wear_id
+			uniform_slots += wear_pda
+			uniform_slots += belt
+
 		// Automatically drop anything in store / id / belt if you're not wearing a uniform.	//CHECK IF NECESARRY
-		for(var/obj/item/thing in list(r_store, l_store, wear_id, wear_pda, belt))				// whoever made this
+		for(var/obj/item/thing in uniform_slots)												// whoever made this
 			if(thing)																			// you're a piece of fucking garbage
 				unEquip(thing)																	// why the fuck would you goddamn do this motherfucking shit
 				if(client)																		// INVENTORY CODE IN FUCKING ICON CODE
@@ -811,6 +831,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		standing.alpha = head.alpha
 		standing.color = head.color
 		overlays_standing[HEAD_LAYER] = standing
+		standing.pixel_y = head.pixelYoffset
 	apply_overlay(HEAD_LAYER)
 
 /mob/living/carbon/human/update_inv_belt()

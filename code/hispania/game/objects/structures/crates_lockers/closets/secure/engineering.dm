@@ -8,3 +8,7 @@
 /obj/structure/closet/secure_closet/engineering_chief/populate_contents()
 	..()
 	new /obj/item/whistle(src)
+
+/obj/structure/closet/secure_closet/engineering_welding/populate_contents()
+	..()
+	new /obj/item/storage/backpack/welderpack(src)

@@ -92,6 +92,9 @@
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 			return TRUE
 
+		if(pulledby == L && a_intent != INTENT_HELP) //prevents boosting the person pulling you, but you can still move through them on help intent
+			return TRUE
+
 		if(L.pulling)
 			if(ismob(L.pulling))
 				var/mob/P = L.pulling
@@ -519,22 +522,6 @@
 /mob/living/proc/UpdateDamageIcon()
 	return
 
-
-/mob/living/proc/Examine_OOC()
-	set name = "Examine Meta-Info (OOC)"
-	set category = "OOC"
-	set src in view()
-
-	if(config.allow_Metadata)
-		if(client)
-			to_chat(usr, "[src]'s Metainfo:<br>[client.prefs.metadata]")
-		else
-			to_chat(usr, "[src] does not have any stored infomation!")
-	else
-		to_chat(usr, "OOC Metadata is not supported by this server!")
-
-	return
-
 /mob/living/Move(atom/newloc, direct, movetime)
 	if(buckled && buckled.loc != newloc) //not updating position
 		if(!buckled.anchored)
@@ -928,15 +915,15 @@
 	if(forced_look)
 		. += 3
 	if(ignorewalk)
-		. += config.run_speed
+		. += GLOB.configuration.movement.base_run_speed
 	else
 		switch(m_intent)
 			if(MOVE_INTENT_RUN)
 				if(drowsyness > 0)
 					. += 6
-				. += config.run_speed
+				. += GLOB.configuration.movement.base_run_speed
 			if(MOVE_INTENT_WALK)
-				. += config.walk_speed
+				. += GLOB.configuration.movement.base_walk_speed
 
 
 /mob/living/proc/can_use_guns(obj/item/gun/G)

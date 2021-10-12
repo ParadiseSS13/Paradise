@@ -29,6 +29,18 @@
 	drink_desc = "A crystal clear glass of 400 Conejos with a little worm inside."
 	taste_description = "tasty worm"
 
+/datum/reagent/consumable/ethanol/hispania/white_wine
+	name = "White Wine"
+	id = "whitewine"
+	description = "A fancy version of your regular whine, plus is white."
+	color = "#EEEDC4"
+	dizzy_adj = 2
+	alcohol_perc = 0.2
+	drink_icon = "whitewhineglass"
+	drink_name = "Glass of white wine"
+	drink_desc = "A classy glass of white wine."
+	taste_description = "vibrant"
+
 /datum/reagent/consumable/ethanol/hispania/fernetcola
 	name= "Fernet with cola"
 	id = "fernetcola"

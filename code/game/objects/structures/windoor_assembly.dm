@@ -203,6 +203,7 @@
 			windoor.req_one_access = electronics.selected_accesses
 		else
 			windoor.req_access = electronics.selected_accesses
+		windoor.unres_sides = electronics.unres_access_from
 		windoor.electronics = src.electronics
 		electronics.forceMove(windoor)
 		electronics = null

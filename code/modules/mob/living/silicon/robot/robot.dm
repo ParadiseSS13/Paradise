@@ -139,6 +139,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio = new /obj/item/radio/borg(src)
 	common_radio = radio
 
+	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
+		cell = new default_cell_type(src)
+
 	init(alien, connect_to_AI, ai_to_sync_to)
 
 	if(has_camera && !camera)
@@ -157,9 +160,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else if(mmi == null)
 		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
 		mmi.icon_state = "boris"
-
-	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
-		cell = new default_cell_type(src)
 
 	initialize_components()
 	//if(!unfinished)
@@ -224,20 +224,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		//Check for custom sprite
 		if(!custom_sprite)
-			var/file = file2text("config/custom_sprites.txt")
-			var/lines = splittext(file, "\n")
-
-			for(var/line in lines)
-			// split & clean up
-				var/list/Entry = splittext(line, ":")
-				for(var/i = 1 to Entry.len)
-					Entry[i] = trim(Entry[i])
-
-				if(Entry.len < 2 || Entry[1] != "cyborg")		//ignore incorrectly formatted entries or entries that aren't marked for cyborg
-					continue
-
-				if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
-					custom_sprite = 1
+			if(ckey in GLOB.configuration.custom_sprites.cyborg_ckeys)
+				custom_sprite = TRUE
 
 	if(mmi && mmi.brainmob)
 		mmi.brainmob.name = newname
@@ -308,7 +296,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			to_chat(src, "<span class='boldannounce'>Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug.</span>")
 			ghostize()
-			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
+			log_runtime(EXCEPTION("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey]."), src)
 		mmi = null
 	if(connected_ai)
 		connected_ai.connected_robots -= src
@@ -318,6 +306,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	QDEL_NULL(cell)
 	QDEL_NULL(robot_suit)
 	QDEL_NULL(spark_system)
+	QDEL_NULL(self_diagnosis)
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module()
@@ -537,7 +526,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Wisewill-JN"] = "wisewill-Janitor"
 			module_sprites["Desolateg-JN"] = "desolateg-Janitor"
 			module_sprites["Ravensdale-JN"] = "ravensdale-Janitor"
-			module_sprites["Sigholtstarsong-JN"] = "sigholtstarsong-Janitor"
 			module_sprites["Sniperfairy-JN"] = "sniperfairy-Janitor"
 			module_sprites["Driker-JN"] = "driker-Janitor"
 			module_sprites["Fullofskittles-JN"] = "fullofskittles-Janitor"
@@ -627,30 +615,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set category = "Robot Commands"
 	set name = "Show Station Manifest"
 	show_station_manifest()
-
-/mob/living/silicon/robot/proc/self_diagnosis()
-	if(!is_component_functioning("diagnosis unit"))
-		return null
-
-	var/dat = "<HEAD><TITLE>[src.name] Self-Diagnosis Report</TITLE></HEAD><BODY>\n"
-	for(var/V in components)
-		var/datum/robot_component/C = components[V]
-		if(C.installed == 0)
-			dat += "<b>[C.name]</b><br>MISSING<br>"
-		else
-			dat += "<b>[C.name]</b>[C.installed == -1 ? "<br>DESTROYED" : ""]<br><table><tr><td>Brute Damage:</td><td>[C.brute_damage]</td></tr><tr><td>Electronics Damage:</td><td>[C.electronics_damage]</td></tr><tr><td>Powered:</td><td>[C.is_powered() ? "Yes" : "No"]</td></tr><tr><td>Toggled:</td><td>[ C.toggled ? "Yes" : "No"]</td></table><br>"
-	return dat
-
-/mob/living/silicon/robot/verb/self_diagnosis_verb()
-	set category = "Robot Commands"
-	set name = "Self Diagnosis"
-
-	if(!is_component_functioning("diagnosis unit"))
-		to_chat(src, "<span class='warning'>Your self-diagnosis component isn't functioning.</span>")
-
-	var/dat = self_diagnosis()
-	src << browse(dat, "window=robotdiagnosis")
-
 
 /mob/living/silicon/robot/verb/toggle_component()
 	set category = "Robot Commands"
@@ -779,6 +743,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(module)
 		show_gps_coords()
 		show_stack_energy()
+		show_inducer_charge()
 
 /mob/living/silicon/robot/restrained()
 	return 0
@@ -1337,12 +1302,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				var/floor_only = TRUE
 				for(var/A in tile)
 					if(istype(A, /obj/effect))
-						if(is_cleanable(A))
-							var/obj/effect/decal/cleanable/blood/B = A
+						var/obj/effect/E = A
+						if(E.is_cleanable())
+							var/obj/effect/decal/cleanable/blood/B = E
 							if(istype(B) && B.off_floor)
 								floor_only = FALSE
 							else
-								qdel(A)
+								qdel(E)
 					else if(istype(A, /obj/item))
 						var/obj/item/cleaned_item = A
 						cleaned_item.clean_blood()

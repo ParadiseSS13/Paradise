@@ -385,17 +385,18 @@
 		/obj/item/holosign_creator/engineering,
 		/obj/item/gripper,
 		/obj/item/matter_decompiler,
-		/obj/item/floor_painter,
+		/obj/item/painter,
 		/obj/item/areaeditor/blueprints/cyborg,
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/cable_coil/cyborg,
 		/obj/item/stack/sheet/glass/cyborg,
-		/obj/item/stack/sheet/rglass/cyborg
+		/obj/item/stack/sheet/rglass/cyborg,
+		/obj/item/inducer/apc/borg
 	)
 	emag_modules = list(/obj/item/borg/stun)
-	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg)
+	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg, /obj/item/inducer/apc/borg)
 
 /obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
@@ -416,7 +417,11 @@
 		/obj/item/clothing/mask/gas/sechailer/cyborg
 	)
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
-	special_rechargables = list(/obj/item/melee/baton/loaded, /obj/item/gun/energy/disabler/cyborg)
+	special_rechargables = list(
+		/obj/item/melee/baton/loaded,
+		/obj/item/gun/energy/disabler/cyborg,
+		/obj/item/gun/energy/laser/cyborg
+	)
 
 /obj/item/robot_module/security/update_cells(unlink_cell = FALSE)
 	var/obj/item/melee/baton/B = locate(/obj/item/melee/baton/loaded) in modules
@@ -566,6 +571,7 @@
 		/obj/item/gun/energy/pulse/cyborg,
 		/obj/item/crowbar/cyborg
 	)
+	special_rechargables = list(/obj/item/gun/energy/pulse/cyborg)
 
 // Sydicate assault cyborg module.
 /obj/item/robot_module/syndicate
@@ -658,7 +664,10 @@
 		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
 		/obj/item/borg/destroyer/mobility
 	)
-	special_rechargables = list(/obj/item/melee/baton/loaded)
+	special_rechargables = list(
+		/obj/item/melee/baton/loaded,
+		/obj/item/gun/energy/immolator/multi/cyborg
+	)
 
 /obj/item/robot_module/combat
 	name = "combat robot module"
@@ -674,7 +683,10 @@
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
 		/obj/item/pickaxe/drill/jackhammer // for breaking walls to execute flanking moves
 	)
-	special_rechargables = list(/obj/item/melee/baton/loaded)
+	special_rechargables = list(
+		/obj/item/melee/baton/loaded,
+		/obj/item/gun/energy/immolator/multi/cyborg
+	)
 
 // Xenomorph cyborg module.
 /obj/item/robot_module/alien/hunter
@@ -716,6 +728,7 @@
 		/obj/item/soap,
 		/obj/item/t_scanner,
 		/obj/item/rpd,
+		/obj/item/analyzer,
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,

@@ -32,6 +32,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	item_state = "elzramale"
 	item_color = "elzramale"
 	hispania_icon = TRUE
+	over_shoe = TRUE
 	species_restricted = list("exclude", "Grey", "Vox")
 
 /obj/item/clothing/under/rank/chaplain/elzra/female
@@ -40,3 +41,31 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	icon_state = "elzrafem"
 	item_state = "elzrafem"
 	item_color = "elzrafem"
+	over_shoe = TRUE
+
+/obj/item/clothing/under/rank/chaplain/alt
+	name = "Priest's Uniform"
+	icon = 'icons/hispania/mob/uniform.dmi'
+	desc = "A set of special shirt, pants and clergyman worn by priests. Made by D&N Corp."
+	icon_state = "chapalt"
+	item_state = "chapalt"
+	item_color = "chapalt"
+	species_restricted = list("exclude", "Grey", "Vox")
+	hispania_icon = TRUE	
+
+/obj/item/clothing/under/rank/chaplain/alt/blue
+	name = "Priest's Blue Uniform"
+	desc = "A set of special shirt, pants and clergyman worn by priests. Made by D&N Corp."
+	icon_state = "chapaltblue"
+	item_state = "chapaltblue"
+	item_color = "chapaltblue"
+
+/obj/item/clothing/under/rank/chaplain/cassock
+	name = "Cassock"
+	desc = "a long black garment worn by christian priests. Made by D&N Corp."
+	icon_state = "cassock"
+	item_state = "cassock"	
+	item_color = "cassock"
+	species_restricted = list("exclude", "Grey", "Vox")
+	over_shoe = TRUE
+	hispania_icon = TRUE
