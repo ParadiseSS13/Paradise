@@ -1,5 +1,8 @@
 ///////////////////ORGAN DEFINES///////////////////
 
+// Roundstart trait system - HISPANIA
+#define MAX_QUIRKS 6 //The maximum amount of quirks one character can have at roundstart
+
 // Organ defines.
 #define ORGAN_BROKEN     1
 #define ORGAN_ROBOT      2

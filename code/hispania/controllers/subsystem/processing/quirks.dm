@@ -42,4 +42,4 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			badquirk = TRUE
 	user.med_record += " / " + user.get_trait_string(TRUE) // HOLA MAMAAAAA RECORDS MEDICOS
 	if(badquirk)
-		cli.prefs.save_character()
+		cli.prefs.active_character.save(cli)

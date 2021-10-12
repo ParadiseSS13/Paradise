@@ -132,7 +132,6 @@
 	cooldown = 0
 	busy = 0
 	var/obj/item/defibrillator/compact/kotiro
-	custom = 1
 
 /obj/item/twohanded/shockpaddles/kotiro/update_icon()
 	icon_state = "kdefibpaddles1[wielded]"

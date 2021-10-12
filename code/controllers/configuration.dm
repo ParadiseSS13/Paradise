@@ -241,8 +241,6 @@
 	// Makes gamemodes respect player limits
 	var/enable_gamemode_player_limit = 0
 
-	var/roundstart_traits = TRUE //TRAITS
-	var/disable_human_mood = FALSE //TRAITS
 	/// BYOND account age limit for notifcations of new accounts (Any accounts older than this value will not send notifications on first join)
 	var/byond_account_age_threshold = 7
 

@@ -409,6 +409,9 @@ SUBSYSTEM_DEF(ticker)
 				SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
 				SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
 				EquipCustomItems(player)
+				// HISPANIA
+				SSquirks.AssignQuirks(player, player.client, TRUE)
+				// HISPANIA END
 	if(captainless)
 		for(var/mob/M in GLOB.player_list)
 			if(!isnewplayer(M))

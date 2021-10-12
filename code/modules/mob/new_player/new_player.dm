@@ -379,6 +379,13 @@
 
 	if(!thisjob.is_position_available() && (thisjob in SSjobs.prioritized_jobs))
 		SSjobs.prioritized_jobs -= thisjob
+	// HISPANIA
+	var/mob/living/carbon/human/humanc
+	if(ishuman(character))
+		humanc = character	//Let's retypecast the var to be human,
+	if(humanc)
+		SSquirks.AssignQuirks(humanc, humanc.client, TRUE)
+	// HISPANIA END
 	qdel(src)
 
 

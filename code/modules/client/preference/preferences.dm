@@ -61,7 +61,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	//non-preference stuff
 	var/last_ip
 	var/last_id
-
+	//Quirk list - HISPANIA
+	var/list/all_quirks = list()
 	//game-preferences
 	var/lastchangelog = "1"				//Saved changlog timestamp (unix epoch) to detect if there was a change. Dont set this to 0 unless you want the last changelog date to be 4x longer than the expected lifespan of the universe.
 	var/exp
@@ -263,7 +264,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>You are banned from using character records.</b><br>"
 			else
 				dat += "<a href=\"byond://?_src_=prefs;preference=records;record=1\">Character Records</a><br>"
-
+			// HISPANIA
+			dat += "<h2>Quirk Setup</h2>"
+			dat += "<a href='?_src_=prefs;preference=trait;task=menu'>Configure Quirks</a><br>"
+			dat += "<b>Current Quirks:</b> [all_quirks.len ? all_quirks.Join(", ") : "None"]</b><br>"
+			// HISPANIA END
 			dat += "<h2>Limbs</h2>"
 			if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
 				dat += "<b>Alternate Head:</b> "
