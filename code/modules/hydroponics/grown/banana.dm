@@ -50,6 +50,14 @@
 	throw_speed = 3
 	throw_range = 7
 
+/obj/item/grown/bananapeel/Initialize(mapload)
+	. = ..()
+	if(prob(40))
+		if(prob(60))
+			icon_state = "[icon_state]_2"
+		else
+			icon_state = "[icon_state]_3"
+
 /obj/item/grown/bananapeel/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is deliberately slipping on [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)
@@ -101,7 +109,7 @@
 /obj/item/reagent_containers/food/snacks/grown/banana/bluespace
 	seed = /obj/item/seeds/banana/bluespace
 	name = "bluespace banana"
-	icon_state = "banana_blue"
+	icon_state = "bluenana"
 	trash = /obj/item/grown/bananapeel/bluespace
 	filling_color = "#0000FF"
 	origin_tech = "biotech=3;bluespace=5"
@@ -112,7 +120,7 @@
 	seed = /obj/item/seeds/banana/bluespace
 	name = "bluespace banana peel"
 	desc = "A peel from a bluespace banana."
-	icon_state = "banana_peel_blue"
+	icon_state = "bluenana_peel"
 
 // Other
 /obj/item/grown/bananapeel/specialpeel     //used by /obj/item/clothing/shoes/clown_shoes/banana_shoes
