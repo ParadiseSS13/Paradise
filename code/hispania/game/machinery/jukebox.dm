@@ -19,7 +19,7 @@
 	var/list/sparkles = list()
 	var/list/songs = list(
 		"Play/Pause", // POR NADA DEL MUNDO QUITAR A ESTE
-		"Lo-Fi Chill || Fly me to the moon - Frank Sinatra"    = new /datum/track('sound/hispania/hispaniabox/Fly_Me_To_The_Moon.ogg',	1340,	5,	"moon", "Fly me to the moon - Frank Sinatra"),
+		"Lo-Fi Chill • Fly me to the moon - Frank Sinatra"    = new /datum/track('sound/hispania/hispaniabox/Fly_Me_To_The_Moon.ogg',	1340,	5,	"moon", "Fly me to the moon - Frank Sinatra"),
 		"Lo-Fi Chill • Interstellar Main Theme - Hans Zimmer"  = new /datum/track('sound/music/title11.ogg',		2540,	5,	"zimmer", "Interstellar Main Theme - Hans Zimmer"),
 		"Jazz • Porco Rosso Main Theme"  					   = new /datum/track('sound/hispania/hispaniabox/PorcoRosso.ogg',		5000,	5,	"porco", "Porco Rosso Main Theme"),
 		"Eurodance Trance • Better Off Alone - SALEM Remix"    = new /datum/track('sound/music/title12.ogg',					1750,	5,	"euro", "Better Off Alone - SALEM Remix"),
@@ -62,6 +62,16 @@
 	song_beat = beat
 	song_icon = icon
 	song_name = name
+
+/obj/machinery/hispaniabox/vv_get_dropdown()
+	. = ..()
+	. += "--- "
+	. += "HISPANIA "
+	. += "--- "
+	.["Emaggear"] = "?_src_=vars;emag=[UID()]"
+	.["Insertar Nueva Cancion"] = "?_src_=vars;nuevacancion=[UID()]"
+	.["Borrar Cancion"] = "?_src_=vars;borrarcancion=[UID()]"
+	.["Borrar TODAS Las Canciones"] = "?_src_=vars;borrartodascanciones=[UID()]"
 
 /obj/machinery/hispaniabox/power_change()
 	..()
@@ -113,6 +123,17 @@
 				set_light(0)
 			playsound(src, O.usesound, 50, 1)
 			return
+	if(istype(O,/obj/item/vinyldiscojukebox))
+		var/obj/item/vinyldiscojukebox/I = O
+		if(!I.used) return // Si no esta listo, pues no amigo.
+		var/datum/track/nueva_cancion = I.track
+
+		songs[nueva_cancion.song_name] = nueva_cancion
+		qdel(I)
+
+		user.visible_message("<span class='warning'>[user] inserts a vinyl in the [src]!</span>", "<span class='notice'>You insert the vinyl in the [src].</span>")
+		playsound(src,'sound/hispania/machines/dvd_working.ogg',50,1)
+		message_admins("[key_name(usr)] ha agregado una nueva cancion: \"[nueva_cancion.song_name]\" a la hispaniabox del tile ([x], [y], [z]).")
 	return ..()
 
 /obj/machinery/hispaniabox/emag_act(mob/user)
@@ -256,6 +277,51 @@
 		icon_state = "[initial(icon_state)]-running"
 	else
 		icon_state = "[initial(icon_state)]"
+
+/obj/item/vinyldiscojukebox
+	name = "vinyl"
+	desc = "A bluespace vinyl capable of reaching music from other dimension." // Me da risa, lo siento
+	icon = 'icons/hispania/obj/hispaniabox.dmi'
+	icon_state = "creation"
+	lefthand_file = 'icons/hispania/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/hispania/mob/inhands/items_righthand.dmi'
+	item_state = "vinyl"
+	var/datum/track
+	var/used = FALSE
+
+/obj/item/vinyldiscojukebox/attack_self(mob/user)
+	if(used) return // No hay rembolsos.
+	add_fingerprint(user) // TODOS SABEN QUIEN ERES
+	var/rutacancion = input(usr, "Escoje tu archivo de musica para la nueva cancion","Nueva Cancion Hispaniabox") as null|file
+	if(!rutacancion) return
+	rutacancion = file(rutacancion)
+
+	var/tiempo = input(usr, "Lapso de tiempo de la cancion en decisegundos, ejemplo: Cancion de 4:30 minutos pasaria a \"4300\"", "Tiempo de la Cancion") as num|null
+	if(!tiempo || !Adjacent(user, src)) return
+
+	var/genero = input(usr, "Escribe el genero muscial de la cancion", "Genero Musical") as text|null
+	if(!genero || !Adjacent(user, src)) return
+
+	var/nombre = input(usr, "Escribe el nombre de la cancion, y no, no te dare vista previa", "Nombre de la Cancion") as text|null
+	if(!nombre || !Adjacent(user, src)) return
+
+	var/iconosaelegir = list("hispania","experimental","weird","admin","event","smuggy","trash","face?","game","calm","classical","smuggy","rock","actualrock") // Si quieren mas iconos solo pongan el nombre del icon state aqui
+	var/icono = input(usr, "Eligue el icono del vinilo", "Icono de la Cancion") as null|anything in iconosaelegir
+	if(!icono || !Adjacent(user, src)) return
+
+	used = TRUE
+
+	var/cancionreal = genero + " • " + nombre
+	if(!GLOB.sounds_cache.Find(rutacancion))
+		GLOB.sounds_cache += rutacancion
+	track = new /datum/track(rutacancion, tiempo, 5, icono, cancionreal) // Aqui ocurre la magia
+	icon_state = icono
+	name = nombre + " vinyl"
+	desc = "A vinyl holder of spessman tunes, bring it to a jukebox."
+
+	playsound(src,'sound/items/change_jaws.ogg',50,1)
+
+	message_admins("[key_name(usr)] ha creado una nueva cancion: \"[nombre]\"")
 
 /obj/machinery/hispaniabox/boombox
 	name = "boombox"

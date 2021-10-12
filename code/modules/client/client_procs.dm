@@ -5,7 +5,7 @@
 //#define TOPIC_DEBUGGING 1
 
 #define TOPIC_SPAM_DELAY	2		//2 ticks is about 2/10ths of a second; it was 4 ticks, but that caused too many clicks to be lost due to lag
-#define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
+#define UPLOAD_LIMIT		3485760	//Restricts client uploads to the server to 3MB //Boosted this thing. What's the worst that can happen? // Por que subirias el tamaño, ni un mapa pasa de los 3MB, less admin lag, compriman su mierda.
 #define MIN_CLIENT_VERSION	513		// Minimum byond major version required to play.
 									//I would just like the code ready should it ever need to be used.
 #define SUGGESTED_CLIENT_VERSION	514		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1542
