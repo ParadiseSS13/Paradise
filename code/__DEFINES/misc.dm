@@ -172,6 +172,7 @@
 #define MUTATIONS_LAYER			32
 #define H_DAMAGE_LAYER			31
 #define UNIFORM_LAYER			30
+#define OVER_SHOE_LAYER			27 // HISPANIA
 #define ID_LAYER				29
 #define SHOES_LAYER				28
 #define GLOVES_LAYER			27

@@ -63,3 +63,28 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	icon_state = "sechat_red"
 	item_state = "sechat_red"
 	hispania_icon = TRUE
+
+// Chaplain Hats
+
+/obj/item/clothing/head/lady_elzra
+	name = "Lady Elzra's Hat"
+	desc = "a Lady Elzra's Hat worn by high religious priests of the order of the great lady (lady elzra) made of silk. Made by D&N Corp."
+	icon = 'icons/hispania/mob/head.dmi'
+	icon_state = "elzrahat"
+	item_state = "elzrahat"
+	strip_delay = 40
+	hispania_icon = TRUE
+	flags = BLOCKHEADHAIR
+	species_restricted = list("exclude", "Grey")
+
+/obj/item/clothing/head/miter
+	name = "Bishop Miter"
+	desc = "A miter used by Christian Bishops. Made by D&N Corp."
+	icon = 'icons/hispania/mob/head.dmi'
+	icon_state = "miter"
+	item_state = "miter"
+	strip_delay = 40
+	hispania_icon = TRUE
+	species_restricted = list("exclude", "Grey")
+
+
