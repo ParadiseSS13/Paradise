@@ -371,6 +371,7 @@
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "tray"
 	desc = "A metal tray to lay food on."
+	storage_slots = 7
 	force = 5
 	throwforce = 10
 	throw_speed = 3
