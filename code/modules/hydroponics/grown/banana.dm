@@ -51,12 +51,7 @@
 	throw_range = 7
 
 /obj/item/grown/bananapeel/Initialize(mapload)
-	. = ..()
-	if(prob(40))
-		if(prob(60))
-			icon_state = "[icon_state]_2"
-		else
-			icon_state = "[icon_state]_3"
+	icon_state = "[icon_state]_[rand(1, 3)]"
 
 /obj/item/grown/bananapeel/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is deliberately slipping on [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
