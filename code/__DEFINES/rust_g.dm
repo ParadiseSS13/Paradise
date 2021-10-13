@@ -41,6 +41,8 @@
 /// Gets the version of rust_g
 /proc/rustg_get_version() return call(RUST_G, "get_version")()
 
+// Cellular Noise Operations //
+
 /**
  * This proc generates a cellular automata noise grid which can be used in procedural generation methods.
  *
@@ -57,10 +59,12 @@
 #define rustg_cnoise_generate(percentage, smoothing_iterations, birth_limit, death_limit, width, height) \
 	call(RUST_G, "cnoise_generate")(percentage, smoothing_iterations, birth_limit, death_limit, width, height)
 
+// DMI Operations //
 #define rustg_dmi_strip_metadata(fname) call(RUST_G, "dmi_strip_metadata")(fname)
 #define rustg_dmi_create_png(path, width, height, data) call(RUST_G, "dmi_create_png")(path, width, height, data)
 #define rustg_dmi_resize_png(path, width, height, resizetype) call(RUST_G, "dmi_resize_png")(path, width, height, resizetype)
 
+// File Operations //
 #define rustg_file_read(fname) call(RUST_G, "file_read")(fname)
 #define rustg_file_exists(fname) call(RUST_G, "file_exists")(fname)
 #define rustg_file_write(text, fname) call(RUST_G, "file_write")(text, fname)
@@ -71,9 +75,11 @@
 	#define text2file(text, fname) rustg_file_append(text, "[fname]")
 #endif
 
+// Git Operations //
 #define rustg_git_revparse(rev) call(RUST_G, "rg_git_revparse")(rev)
 #define rustg_git_commit_date(rev) call(RUST_G, "rg_git_commit_date")(rev)
 
+// Hashing Operations //
 #define rustg_hash_string(algorithm, text) call(RUST_G, "hash_string")(algorithm, text)
 #define rustg_hash_file(algorithm, fname) call(RUST_G, "hash_file")(algorithm, fname)
 #define rustg_hash_generate_totp(seed) call(RUST_G, "generate_totp")(seed)
@@ -90,6 +96,7 @@
 	#define md5(thing) (isfile(thing) ? rustg_hash_file(RUSTG_HASH_MD5, "[thing]") : rustg_hash_string(RUSTG_HASH_MD5, thing))
 #endif
 
+// HTTP Operations //
 #define RUSTG_HTTP_METHOD_GET "get"
 #define RUSTG_HTTP_METHOD_PUT "put"
 #define RUSTG_HTTP_METHOD_DELETE "delete"
@@ -100,17 +107,22 @@
 #define rustg_http_request_async(method, url, body, headers, options) call(RUST_G, "http_request_async")(method, url, body, headers, options)
 #define rustg_http_check_request(req_id) call(RUST_G, "http_check_request")(req_id)
 
+// Jobs Subsystem Operations //
 #define RUSTG_JOB_NO_RESULTS_YET "NO RESULTS YET"
 #define RUSTG_JOB_NO_SUCH_JOB "NO SUCH JOB"
 #define RUSTG_JOB_ERROR "JOB PANICKED"
 
+// JSON Operations //
 #define rustg_json_is_valid(text) (call(RUST_G, "json_is_valid")(text) == "true")
 
+// Logging Operations //
 #define rustg_log_write(fname, text) call(RUST_G, "log_write")(fname, text)
 /proc/rustg_log_close_all() return call(RUST_G, "log_close_all")()
 
+// Noise Operations //
 #define rustg_noise_get_at_coordinates(seed, x, y) call(RUST_G, "noise_get_at_coordinates")(seed, x, y)
 
+// SQL Opeartions //
 #define rustg_sql_connect_pool(options) call(RUST_G, "sql_connect_pool")(options)
 #define rustg_sql_query_async(handle, query, params) call(RUST_G, "sql_query_async")(handle, query, params)
 #define rustg_sql_query_blocking(handle, query, params) call(RUST_G, "sql_query_blocking")(handle, query, params)
@@ -118,11 +130,14 @@
 #define rustg_sql_disconnect_pool(handle) call(RUST_G, "sql_disconnect_pool")(handle)
 #define rustg_sql_check_query(job_id) call(RUST_G, "sql_check_query")("[job_id]")
 
+// TOML Operations //
 #define rustg_read_toml_file(path) json_decode(call(RUST_G, "toml_file_to_json")(path) || "null")
 
+// Unzip Operations //
 #define rustg_unzip_download_async(url, unzip_directory) call(RUST_G, "unzip_download_async")(url, unzip_directory)
 #define rustg_unzip_check(job_id) call(RUST_G, "unzip_check")("[job_id]")
 
+// URL Encoder/Decoder Operations //
 #define rustg_url_encode(text) call(RUST_G, "url_encode")("[text]")
 #define rustg_url_decode(text) call(RUST_G, "url_decode")(text)
 
