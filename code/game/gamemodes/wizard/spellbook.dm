@@ -355,7 +355,7 @@
 	active = TRUE
 	to_chat(user, "<span class='notice'>You have silenced all ghosts!</span>")
 	playsound(get_turf(user), 'sound/effects/ghost.ogg', 50, 1)
-	message_admins("[key_name_admin(usr)] silenced all ghosts as a wizard! (Deadchat is now DISABLED)", 1)
+	message_admins("[key_name_admin(usr)] silenced all ghosts as a wizard! (Deadchat is now DISABLED)")
 	return TRUE
 
 /datum/spellbook_entry/summon/guns
