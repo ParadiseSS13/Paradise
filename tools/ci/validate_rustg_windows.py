@@ -37,7 +37,7 @@ else:
     fail("RUSTG DM header file does NOT exist")
 
 # Parse the version from the DM file
-f = open("code/__DEFINES/rust_g.dm", "r")
+f = open("code/__DEFINES/_versions.dm", "r")
 lines = f.readlines()
 f.close()
 dm_version = None
