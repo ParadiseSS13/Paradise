@@ -98,7 +98,7 @@ rustg_dll.toml2json.restype = c_char_p
 
 try:
     # Run it
-    output_json = rustg_dll.toml2json(1, sa).decode()
+    output_json = rustg_dll.toml_file_to_json(1, sa).decode()
     json.loads(output_json)
     success("toml2json conversion successful")
 except Exception:
