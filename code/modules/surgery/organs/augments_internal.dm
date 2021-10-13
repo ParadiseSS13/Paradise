@@ -335,13 +335,13 @@
 	if(!owner || emp_proof)
 		return
 	owner.vomit(100, FALSE, TRUE, 3, FALSE)	// because when else do we ever use projectile vomiting
-	owner.loc.visible_message("<span class='warning'>The contents of [owner]'s stomach erupt violently from [owner.p_their()] mouth!</span>",
-	"<span class='warning'>You hear vomiting and a sickening splattering against the floor!")
+	owner.visible_message("<span class='warning'>The contents of [owner]'s stomach erupt violently from [owner.p_their()] mouth!</span>",
+		"<span class='warning'>You feel like your insides are burning as you vomit profusely!</span>",
+		"<span class='warning'>You hear vomiting and a sickening splattering against the floor!")
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
 	disabled_by_emp = TRUE		// Disable the implant for a little bit so this effect actually matters
 	synthesizing = FALSE
 	addtimer(CALLBACK(src, .proc/emp_cool), 60 SECONDS)
-	to_chat(owner, "<span class='warning'>You feel like your insides are burning!</span>")
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
