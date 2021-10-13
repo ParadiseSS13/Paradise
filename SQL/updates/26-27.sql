@@ -25,6 +25,8 @@ ALTER TABLE `legacy_population`
 	ADD COLUMN `server_id` VARCHAR(50) NULL DEFAULT NULL AFTER `admincount`;
 
 # Notes already has a column for this
+ALTER TABLE `notes`
+	CHANGE COLUMN `server` `server` VARCHAR(50) NULL COLLATE 'utf8mb4_general_ci' AFTER `edits`;
 
 ALTER TABLE `round`
 	ADD COLUMN `server_id` VARCHAR(50) NULL DEFAULT NULL AFTER `station_name`;
