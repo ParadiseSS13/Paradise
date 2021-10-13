@@ -55,5 +55,8 @@
 /obj/item/stack/spacecash/c1000
 	amount = 1000
 
+/obj/item/stack/spacecash/c5000
+	amount = 5000
+
 /obj/item/stack/spacecash/c1000000
 	amount = 1000000
