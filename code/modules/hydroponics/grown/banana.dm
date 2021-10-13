@@ -51,6 +51,7 @@
 	throw_range = 7
 
 /obj/item/grown/bananapeel/Initialize(mapload)
+	. = ..()
 	icon_state = "[icon_state]_[rand(1, 3)]"
 
 /obj/item/grown/bananapeel/suicide_act(mob/user)
