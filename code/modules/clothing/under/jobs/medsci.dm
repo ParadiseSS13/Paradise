@@ -4,9 +4,9 @@
 /obj/item/clothing/under/rank/research_director
 	desc = "It's a jumpsuit worn by those with the know-how to achieve the position of \"Research Director\". Its fabric provides minor protection from biological contaminants."
 	name = "research director's jumpsuit"
-	icon_state = "director"
+	/*icon_state = "director"
 	item_state = "g_suit"
-	item_color = "director"
+	item_color = "director"*/ /// Sprites propios en Hispania
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 10, RAD = 0, FIRE = 0, ACID = 35)
 
 /obj/item/clothing/under/rank/scientist
