@@ -243,18 +243,20 @@
 		set_ready_state(1)
 		return
 	var/h_boost = health_boost
-	var/repaired = 0
+	var/repaired = FALSE
 	if(chassis.internal_damage & MECHA_INT_SHORT_CIRCUIT)
-		h_boost *= -2
+		h_boost = 0
+		chassis.take_damage(2, BURN) //short circuiting droids do damage
+		repaired = TRUE
 	else if(chassis.internal_damage && prob(15))
 		for(var/int_dam_flag in repairable_damage)
 			if(chassis.internal_damage & int_dam_flag)
 				chassis.clearInternalDamage(int_dam_flag)
-				repaired = 1
+				repaired = TRUE
 				break
-	if(h_boost<0 || chassis.obj_integrity < chassis.max_integrity)
+	if(chassis.obj_integrity < chassis.max_integrity && h_boost > 0)
 		chassis.obj_integrity += min(h_boost, chassis.max_integrity-chassis.obj_integrity)
-		repaired = 1
+		repaired = TRUE
 	if(repaired)
 		if(!chassis.use_power(energy_drain))
 			STOP_PROCESSING(SSobj, src)
