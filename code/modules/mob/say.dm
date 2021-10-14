@@ -46,7 +46,7 @@
 
 /mob/proc/say_dead(message)
 	if(client)
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_ADMIN, FALSE))
 			if(!GLOB.dsay_enabled)
 				to_chat(src, "<span class='danger'>Deadchat is globally muted.</span>")
 				return
