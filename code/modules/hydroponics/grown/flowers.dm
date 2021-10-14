@@ -35,6 +35,8 @@
 	icon_state = "seed-lily"
 	species = "lily"
 	plantname = "Lily Plants"
+	icon_grow = "lily-grow"
+	icon_dead = "lily-dead"
 	product = /obj/item/reagent_containers/food/snacks/grown/poppy/lily
 	mutatelist = list()
 
@@ -53,6 +55,8 @@
 	icon_state = "seed-geranium"
 	species = "geranium"
 	plantname = "Geranium Plants"
+	icon_grow = "geranium-grow"
+	icon_dead = "geranium-dead"
 	product = /obj/item/reagent_containers/food/snacks/grown/poppy/geranium
 	mutatelist = list()
 
