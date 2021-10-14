@@ -490,8 +490,8 @@
 		if((. >= 5 || prob(33)) && !(. == 1 && leg_overload_mode)) //If it takes 1 damage and leg_overload_mode is true, do not say TAKING DAMAGE! to the user several times a second.
 			occupant_message("<span class='userdanger'>Taking damage!</span>")
 		log_message("Took [damage_amount] points of damage. Damage type: [damage_type]")
-	if(obj_integrity <= 0) //Because sometimes mechs get random negative integrity and are unkillable, go figure
-		Destroy()
+	if(obj_integrity < 0) //Because sometimes mechs get random negative integrity and are unkillable, go figure
+		qdel(src)
 
 /obj/mecha/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	. = ..()
