@@ -14,7 +14,7 @@ SUBSYSTEM_DEF(http)
 
 /datum/controller/subsystem/http/PreInit()
 	. = ..()
-	//rustg_create_async_http_client() // Open the door
+	rustg_create_async_http_client() // Open the door
 
 /datum/controller/subsystem/http/Initialize(start_timeofday)
 	active_async_requests = list()
