@@ -22,7 +22,7 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
-	AddComponent(/datum/components/beaker_nosplash)
+	AddComponent(/datum/component/beaker_nosplash)
 
 /obj/machinery/chem_heater/RefreshParts()
 	speed_increase = initial(speed_increase)
