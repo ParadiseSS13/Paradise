@@ -35,18 +35,16 @@
 	icon_state = "seed-lily"
 	species = "lily"
 	plantname = "Lily Plants"
-	icon_grow = "lily-grow"
-	icon_dead = "lily-dead"
 	product = /obj/item/reagent_containers/food/snacks/grown/poppy/lily
 	mutatelist = list()
 
 /obj/item/reagent_containers/food/snacks/grown/poppy/lily
 	seed = /obj/item/seeds/poppy/lily
 	name = "lily"
-	desc = "A beautiful white flower"
+	desc = "A beautiful orange flower"
 	icon_state = "lily"
 	tastes = list("lily" = 1)
-	filling_color = "#C7BBAD"
+	filling_color = "#FFA500"
 
 // Geranium
 /obj/item/seeds/poppy/geranium
@@ -55,18 +53,16 @@
 	icon_state = "seed-geranium"
 	species = "geranium"
 	plantname = "Geranium Plants"
-	icon_grow = "geranium-grow"
-	icon_dead = "geranium-dead"
 	product = /obj/item/reagent_containers/food/snacks/grown/poppy/geranium
 	mutatelist = list()
 
 /obj/item/reagent_containers/food/snacks/grown/poppy/geranium
 	seed = /obj/item/seeds/poppy/geranium
 	name = "geranium"
-	desc = "A beautiful purple flower"
+	desc = "A beautiful blue flower"
 	icon_state = "geranium"
 	tastes = list("geranium" = 1)
-	filling_color = "#A463FB"
+	filling_color = "#008B8B"
 
 
 // Harebell
