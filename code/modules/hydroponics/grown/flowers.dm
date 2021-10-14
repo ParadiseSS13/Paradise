@@ -41,10 +41,10 @@
 /obj/item/reagent_containers/food/snacks/grown/poppy/lily
 	seed = /obj/item/seeds/poppy/lily
 	name = "lily"
-	desc = "A beautiful orange flower"
+	desc = "A beautiful white flower"
 	icon_state = "lily"
 	tastes = list("lily" = 1)
-	filling_color = "#FFA500"
+	filling_color = "#C7BBAD"
 
 // Geranium
 /obj/item/seeds/poppy/geranium
@@ -59,10 +59,10 @@
 /obj/item/reagent_containers/food/snacks/grown/poppy/geranium
 	seed = /obj/item/seeds/poppy/geranium
 	name = "geranium"
-	desc = "A beautiful blue flower"
+	desc = "A beautiful purple flower"
 	icon_state = "geranium"
 	tastes = list("geranium" = 1)
-	filling_color = "#008B8B"
+	filling_color = "#A463FB"
 
 
 // Harebell
