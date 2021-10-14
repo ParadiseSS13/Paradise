@@ -103,6 +103,7 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
+	AddComponent(/datum/components/beaker_nosplash)
 
 /obj/machinery/reagentgrinder/RefreshParts()
 	var/H

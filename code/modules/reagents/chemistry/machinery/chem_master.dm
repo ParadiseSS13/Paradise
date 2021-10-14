@@ -38,6 +38,7 @@
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	RefreshParts()
 	update_icon()
+	AddComponent(/datum/component/beaker_nosplash)
 
 /obj/machinery/chem_master/Destroy()
 	QDEL_NULL(beaker)

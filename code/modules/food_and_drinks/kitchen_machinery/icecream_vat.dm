@@ -27,6 +27,7 @@
 /obj/machinery/icemachine/New()
 	..()
 	create_reagents(500)
+	AddComponent(/datum/components/beaker_nosplash)
 
 /obj/machinery/icemachine/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass))

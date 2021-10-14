@@ -31,6 +31,7 @@
 	if(payload_name)
 		payload_name += " " // formatting, ignore me
 	update_icon()
+	AddComponent(/datum/components/beaker_nosplash)  // Don't accidentally splash it with your mixture
 
 /obj/item/grenade/chem_grenade/Destroy()
 	QDEL_NULL(nadeassembly)

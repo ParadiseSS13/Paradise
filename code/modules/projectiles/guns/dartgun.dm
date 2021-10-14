@@ -53,6 +53,7 @@
 			B.reagents.add_reagent(chem, 50)
 			beakers += B
 	cartridge = new /obj/item/dart_cartridge(src)
+	AddComponent(/datum/components/beaker_nosplash)
 	update_icon()
 
 /obj/item/gun/dartgun/examine(mob/user)

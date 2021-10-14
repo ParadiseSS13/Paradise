@@ -17,6 +17,7 @@
 /obj/machinery/computer/pandemic/New()
 	..()
 	update_icon()
+	AddComponent(/datum/components/beaker_nosplash)
 
 /obj/machinery/computer/pandemic/set_broken()
 	icon_state = (beaker ? "mixer1_b" : "mixer0_b")

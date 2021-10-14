@@ -78,6 +78,8 @@
 		/obj/item/grown,
 	))
 
+	AddComponent(/datum/components/beaker_nosplash)
+
 /obj/machinery/smartfridge/RefreshParts()
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		max_n_of_items = 1500 * B.rating
