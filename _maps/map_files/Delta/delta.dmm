@@ -49762,6 +49762,9 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/machinery/computer/message_monitor{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -64347,7 +64350,6 @@
 /obj/machinery/door/airlock/research/glass{
 	autoclose = 0;
 	frequency = null;
-	icon_state = "door_locked";
 	id_tag = "tox_airlock_exterior";
 	locked = 1;
 	name = "Xenobiology Kill Room";
@@ -73164,11 +73166,12 @@
 	pixel_x = -24
 	},
 /obj/structure/table/reinforced,
-/obj/item/paicard,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 28
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -73867,10 +73870,10 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "dhP" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/computer/message_monitor{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -76044,6 +76047,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/paicard,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -97077,6 +97081,7 @@
 /area/security/permasolitary)
 "qcA" = (
 /obj/docking_port/stationary{
+	dir = 8;
 	dwidth = 4;
 	height = 11;
 	id = "trade_dock";
