@@ -24,7 +24,7 @@
 
 /obj/effect/proc_holder/spell/self/vampire/overwhelming_force/cast(list/targets, mob/user)
 	if(!HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
-		to_chat(user,"<span class='warning'>You feel MIGHTY!</span>")
+		to_chat(user, "<span class='warning'>You feel MIGHTY!</span>")
 		ADD_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
 		user.status_flags &= ~CANPUSH
 		user.move_resist = MOVE_FORCE_STRONG

@@ -107,7 +107,7 @@
 				C.reagents.add_reagent("toxin", volume * 0.5)
 			else
 				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
-		if(C?.mind?.vampire)
+		if(C.mind?.vampire)
 			C.adjust_nutrition(10)
 
 /datum/reagent/blood/on_new(list/data)

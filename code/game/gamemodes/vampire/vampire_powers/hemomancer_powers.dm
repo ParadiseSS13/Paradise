@@ -217,24 +217,26 @@
 	var/beam_number = 0
 	var/turf/T = get_turf(owner)
 	for(var/mob/living/carbon/human/H in view(7, T))
-		if(beam_number >= max_beams)
-			break
-
 		if(NO_BLOOD in H.dna.species.species_traits)
 			continue
 
-		if(H.affects_vampire(owner) && !H.stat)
-			var/drain_amount = rand(5, 10)
-			beam_number++
-			H.bleed(drain_amount)
-			H.Beam(owner, icon_state = "drainbeam", time = 2 SECONDS)
-			H.adjustBruteLoss(2)
-			owner.heal_overall_damage(8, 2, TRUE)
-			owner.adjustStaminaLoss(-15)
-			owner.AdjustStunned(-1)
-			owner.AdjustWeakened(-1)
-			if(drain_amount == 10)
-				to_chat(H, "<span class='warning'>You feel your life force draining!</b></span>")
+		if(!H.affects_vampire(owner) || H.stat)
+			continue
+
+		var/drain_amount = rand(5, 10)
+		beam_number++
+		H.bleed(drain_amount)
+		H.Beam(owner, icon_state = "drainbeam", time = 2 SECONDS)
+		H.adjustBruteLoss(2)
+		owner.heal_overall_damage(8, 2, TRUE)
+		owner.adjustStaminaLoss(-15)
+		owner.AdjustStunned(-1)
+		owner.AdjustWeakened(-1)
+		if(drain_amount == 10)
+			to_chat(H, "<span class='warning'>You feel your life force draining!</b></span>")
+
+		if(beam_number >= max_beams)
+			break
 	owner.mind.vampire.bloodusable = max(owner.mind.vampire.bloodusable - 10, 0)
 	if(!owner.mind.vampire.bloodusable || owner.stat == DEAD)
 		owner.mind.vampire.remove_ability(src)

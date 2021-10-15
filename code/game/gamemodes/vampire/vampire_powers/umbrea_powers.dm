@@ -60,13 +60,14 @@
 	if(!iscarbon(AM) || !armed)
 		return
 	var/mob/living/carbon/C = AM
-	if(C.affects_vampire()) // no parameter here so holy always protects
-		C.extinguish_light()
-		C.EyeBlind(10)
-		STOP_PROCESSING(SSobj, src) // won't wither away once you are trapped
-		..()
-		if(!iscarbon(loc)) // if it fails to latch onto someone for whatever reason, delete itself, we don't want unarmed ones lying around.
-			qdel(src)
+	if(!C.affects_vampire()) // no parameter here so holy always protects
+		return
+	C.extinguish_light()
+	C.EyeBlind(10)
+	STOP_PROCESSING(SSobj, src) // won't wither away once you are trapped
+	..()
+	if(!iscarbon(loc)) // if it fails to latch onto someone for whatever reason, delete itself, we don't want unarmed ones lying around.
+		qdel(src)
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/attack_hand(mob/user)
 	Crossed(user)
