@@ -11,3 +11,16 @@
 /datum/component/beaker_nosplash/Initialize()
 	if(!isatom(parent) || ismob(parent))  // Don't stick this on mobs
 		return COMPONENT_INCOMPATIBLE
+
+/datum/component/beaker_nosplash/RegisterWithParent()
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/on_attack_by)
+
+/datum/component/beaker_nosplash/UnregisterFromParent()
+	UnregisterSignal(parent, COMSIG_PARENT_ATTACKBY)
+
+/datum/component/beaker_nosplash/proc/on_attack_by(datum/host, obj/item/weapon, obj/item/target, mob/living/attacker, params)
+	SIGNAL_HANDLER
+
+	if(istype(weapon, /obj/item/reagent_containers/glass))
+		// Spilling happens in afterattack, returning this makes afterattacks not be called
+		return COMPONENT_NO_AFTERATTACK
