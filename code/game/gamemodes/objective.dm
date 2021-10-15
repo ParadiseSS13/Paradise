@@ -209,12 +209,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(owner?.current)
 		to_chat(owner.current, "<BR><span class='userdanger'>You notice that your master has cryo'd, and revert to your normal self, until they return again. You are no longer a mindslave!</span>")
 		SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
-		owner.objectives -= src
-		GLOB.all_objectives -= src
 		owner.remove_antag_datum(/datum/antagonist/mindslave)
 		SSticker.mode.implanted.Remove(owner)
-		log_admin("[key_name(usr)] mindslave master has cryo'd, and is no longer a mindslave.")
-		message_admins("[key_name_admin(usr)] mindslave master has cryo'd, and is no longer a mindslave.") //Since they were on antag hud earlier, this feels important to log
+		log_admin("[key_name(owner.current)]'s mindslave master has cryo'd, and is no longer a mindslave.")
+		message_admins("[key_name_admin(owner.current)]'s mindslave master has cryo'd, and is no longer a mindslave.") //Since they were on antag hud earlier, this feels important to log
 		qdel(src)
 
 /datum/objective/hijack
