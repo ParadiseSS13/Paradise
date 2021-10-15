@@ -1,6 +1,7 @@
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
 	if(!tool_attack_chain(user, target) && pre_attack(target, user, params))
 		// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
+		// Also signal components in case any of them want to cancel an afterattack
 		var/resolved = target.attackby(src, user, params)
 		if(!(SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY, src, target, user, params) & COMPONENT_NO_AFTERATTACK) && !resolved && target && !QDELETED(src))
 			afterattack(target, user, 1, params) // 1: clicking something Adjacent
