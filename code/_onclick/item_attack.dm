@@ -2,7 +2,7 @@
 	if(!tool_attack_chain(user, target) && pre_attack(target, user, params))
 		// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
 		var/resolved = target.attackby(src, user, params)
-		if(!resolved && target && !QDELETED(src))
+		if(!(SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY, user, target, params) & COMPONENT_NO_AFTERATTACK) && !resolved && target && !QDELETED(src))
 			afterattack(target, user, 1, params) // 1: clicking something Adjacent
 
 //Checks if the item can work as a tool, calling the appropriate tool behavior on the target
