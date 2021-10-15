@@ -77,13 +77,12 @@
 	for(var/geartype in subtypesof(/datum/gear))
 		var/datum/gear/G = geartype
 
-		var/use_name = initial(G.display_name)
 		var/use_category = initial(G.sort_category)
 
-		if(G == initial(G.subtype_path))
+		if(G == initial(G.main_typepath))
 			continue
 
-		if(!use_name)
+		if(!initial(G.display_name))
 			stack_trace("Loadout - Missing display name: [G]")
 			continue
 		if(!initial(G.cost))
@@ -96,8 +95,8 @@
 		if(!GLOB.loadout_categories[use_category])
 			GLOB.loadout_categories[use_category] = new /datum/loadout_category(use_category)
 		var/datum/loadout_category/LC = GLOB.loadout_categories[use_category]
-		GLOB.gear_datums[use_name] = new geartype
-		LC.gear[use_name] = GLOB.gear_datums[use_name]
+		GLOB.gear_datums[geartype] = new geartype
+		LC.gear[geartype] = GLOB.gear_datums[geartype]
 
 	GLOB.loadout_categories = sortAssoc(GLOB.loadout_categories)
 	for(var/loadout_category in GLOB.loadout_categories)

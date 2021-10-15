@@ -629,7 +629,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
   *
   * Arguments:
   * * M - the mob you're checking
-  * *
   */
 /proc/is_special_character(mob/M)
 	if(!SSticker.mode)
@@ -640,7 +639,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		var/mob/living/silicon/robot/R = M
 		if(R.emagged)
 			return TRUE
-	if(M.mind.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
+	if(M.mind?.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
 		return TRUE
 	return FALSE
 
@@ -649,12 +648,11 @@ GLOBAL_VAR_INIT(nologevent, 0)
   *
   * Arguments:
   * * M - the mob you're checking
-  * *
   */
 /proc/get_antag_type_strings_list(mob/M) // return an array of all the antag types they are with name
 	var/list/antag_list = list()
 
-	if(!SSticker.mode || !istype(M))
+	if(!SSticker.mode || !istype(M) || !M.mind)
 		return FALSE
 
 	if(M.mind in SSticker.mode.head_revolutionaries)
