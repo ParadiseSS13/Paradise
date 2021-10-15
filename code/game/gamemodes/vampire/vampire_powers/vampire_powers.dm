@@ -1,13 +1,13 @@
 //This should hold all the vampire related powers
 /mob/living/proc/affects_vampire(mob/user)
 	//Other vampires aren't affected
-	if(mind && mind.vampire)
+	if(mind?.vampire)
 		return FALSE
 	//Vampires who have reached their full potential can affect nearly everything
-	if(user && user.mind.vampire.get_ability(/datum/vampire_passive/full))
+	if(user?.mind.vampire.get_ability(/datum/vampire_passive/full))
 		return TRUE
 	//Holy characters are resistant to vampire powers
-	if(mind && mind.isholy)
+	if(mind.isholy)
 		return FALSE
 	return TRUE
 
@@ -94,7 +94,7 @@
 		INVOKE_ASYNC(src, .proc/heal, U, rejuv_bonus)
 
 /obj/effect/proc_holder/spell/self/vampire/rejuvenate/proc/heal(mob/living/user, rejuv_bonus)
-	for(var/i = 1 to 5)
+	for(var/i in 1 to 5)
 		user.adjustBruteLoss(-2 * rejuv_bonus)
 		user.adjustOxyLoss(-5 * rejuv_bonus)
 		user.adjustToxLoss(-2 * rejuv_bonus)
@@ -226,7 +226,6 @@
 
 /obj/effect/proc_holder/spell/mob_aoe/glare/proc/calculate_deviation(mob/victim, mob/attacker)
 	// Are they on the same tile? We'll return partial deviation. This may be someone flashing while lying down
-	// or flashing someone they're stood on the same turf as, or a borg flashing someone buckled to them.
 	if(victim.loc == attacker.loc)
 		return DEVIATION_PARTIAL
 

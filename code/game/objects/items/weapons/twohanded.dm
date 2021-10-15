@@ -46,7 +46,7 @@
 	if(user)
 		user.update_inv_r_hand()
 		user.update_inv_l_hand()
-	if(flags & ABSTRACT)
+	if(!(flags & ABSTRACT))
 		if(isrobot(user))
 			to_chat(user, "<span class='notice'>You free up your module.</span>")
 		else

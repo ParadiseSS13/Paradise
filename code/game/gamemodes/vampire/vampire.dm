@@ -309,7 +309,6 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 				to_chat(owner, "<span class='warning'>You have drained most of the life force from [H]'s blood, and you will get no more useable blood from them!</span>")
 				H.blood_volume = max(H.blood_volume - 25, 0)
 				owner.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.nutrition + 5))
-				H.blood_volume = max(H.blood_volume - 25, 0)
 				continue
 
 
@@ -481,12 +480,12 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 		return
 
 	if(light_available <= 2)
-		owner.alpha = round((255 * 0.15))
+		owner.alpha = 38 // round(255 * 0.15)
 		ADD_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
 		return
 
 	REMOVE_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
-	owner.alpha = round((255 * 0.80))
+	owner.alpha = 204 // 255 * 0.80
 
 /datum/vampire/proc/adjust_blood(mob/living/carbon/C, blood_amount = 0)
 	if(C)

@@ -43,12 +43,13 @@
 	var/blood_absorbed_amount = 5
 
 /obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity)
-	if(user.mind?.vampire)
-		if(iscarbon(target))
-			var/mob/living/carbon/C = target
-			if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
-				C.bleed(blood_drain_amount)
-				user.mind.vampire.adjust_blood(C, blood_absorbed_amount)
+	if(!user.mind?.vampire)
+		return
+	if(iscarbon(target))
+		var/mob/living/carbon/C = target
+		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
+			C.bleed(blood_drain_amount)
+			user.mind.vampire.adjust_blood(C, blood_absorbed_amount)
 	durability -= 1
 	if(durability <= 0)
 		qdel(src)

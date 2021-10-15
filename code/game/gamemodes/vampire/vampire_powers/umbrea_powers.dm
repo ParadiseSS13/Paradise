@@ -79,7 +79,7 @@
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/process()
 	var/turf/T = get_turf(src)
-	var/lightingcount = T.get_lumcount(0.5) * 20
+	var/lightingcount = T.get_lumcount(0.5) * 10
 	if(lightingcount > 1)
 		obj_integrity -= 50
 
@@ -87,7 +87,7 @@
 		visible_message("<span class='notice'>[src] withers away.</span>")
 		qdel(src)
 
-/obj/item/restraints/legcuffs/beartrap/shadow_snare/New()
+/obj/item/restraints/legcuffs/beartrap/shadow_snare/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
