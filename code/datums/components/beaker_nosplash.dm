@@ -11,22 +11,3 @@
 /datum/component/beaker_nosplash/Initialize()
 	if(!isatom(parent) || ismob(parent))  // Don't stick this on mobs
 		return COMPONENT_INCOMPATIBLE
-
-/datum/component/beaker_nosplash/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/on_attack)
-
-/datum/component/beaker_nosplash/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_PARENT_ATTACKBY)
-
-/datum/component/beaker_nosplash/proc/on_attack(obj/item/attacked_by, mob/living/attacker, params)
-	SIGNAL_HANDLER
-
-	// Returning COMPONENT_NO_AFTERATTACK cancels the afterattack, which is when post-damage effects
-	// (like beaker spilling) take place.
-	if(attacker.i_select)
-	if(istype(attacked_by, /obj/item/reagent_containers/glass/))
-		return COMPONENT_NO_AFTERATTACK
-
-
-
-

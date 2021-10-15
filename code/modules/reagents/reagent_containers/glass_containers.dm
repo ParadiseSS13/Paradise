@@ -42,8 +42,12 @@
 		var/contained = english_list(transferred)
 
 		if(user.a_intent == INTENT_HARM)
-			// Would splash here, return FALSE since we might need to after-attack.
-			return FALSE
+			M.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [M]!</span>", \
+							"<span class='userdanger'>[user] splashes the contents of [src] onto [M]!</span>")
+			add_attack_logs(user, M, "Splashed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
+
+			reagents.reaction(M, REAGENT_TOUCH)
+			reagents.clear_reagents()
 		else
 			if(!iscarbon(M)) // Non-carbons can't process reagents
 				to_chat(user, "<span class='warning'>You cannot find a way to feed [M].</span>")
@@ -99,21 +103,11 @@
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] unit\s of the contents of [target].</span>")
 
 	else if(reagents.total_volume)
-		var/list/transferred = list()
-		for(var/datum/reagent/R in reagents.reagent_list)
-			transferred += R.name
-		var/contained = english_list(transferred)
 
 		if(user.a_intent == INTENT_HARM)
 			user.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
 								"<span class='notice'>You splash the contents of [src] onto [target].</span>")
 			var/logtype = null
-			if(ismob(target))
-				var/mob/T = target
-				if (T.ckey)
-					logtype = ATKLOG_ALL
-			add_attack_logs(user, target, "Splashed with [name] containing [contained]", logtype)
-
 			reagents.reaction(target, REAGENT_TOUCH)
 			reagents.clear_reagents()
 
