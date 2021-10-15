@@ -207,7 +207,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/protect/mindslave/on_target_cryo()
 	if(owner?.current)
-		to_chat(owner.current, "<BR><span class='userdanger'>You notice that your master has cryoed, and revert to your normal self, untill they return again. You are no longer a mindslave!</span>")
+		to_chat(owner.current, "<BR><span class='userdanger'>You notice that your master has cryo'd, and revert to your normal self, until they return again. You are no longer a mindslave!</span>")
 		SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
 		owner.objectives -= src
 		GLOB.all_objectives -= src
