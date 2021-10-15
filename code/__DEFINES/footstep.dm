@@ -181,7 +181,7 @@ GLOBAL_LIST_INIT(clawfootstep, list(
 		'sound/effects/footstep/lava3.ogg'), 100, 0),
 	FOOTSTEP_MEAT = list(list(
 		'sound/effects/meatslap.ogg'), 100, 0),
-	FOOTSTEP_GLASS = list(list(
+	FOOTSTEP_GLASS_BAREFOOT = list(list(
 		'sound/effects/footstep/glassbarefoot1.ogg',
 		'sound/effects/footstep/glassbarefoot2.ogg',
 		'sound/effects/footstep/glassbarefoot3.ogg'), 100, 1),
