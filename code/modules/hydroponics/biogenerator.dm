@@ -29,7 +29,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
-	AddComponent(/datum/component/beaker_nosplash)
+	AddComponent(/datum/components/beaker_nosplash)
 
 /obj/machinery/biogenerator/Destroy()
 	QDEL_NULL(beaker)

@@ -37,7 +37,7 @@ Note: Must be placed west/left of and R&D console to function.
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	create_reagents()
 	RefreshParts()
-	AddComponent(/datum/component/beaker_nosplash)
+	AddComponent(/datum/components/beaker_nosplash)
 
 /obj/machinery/r_n_d/protolathe/upgraded/New()
 	..()

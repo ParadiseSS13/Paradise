@@ -33,7 +33,7 @@
 /obj/machinery/juicer/New()
 	. = ..()
 	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
-	AddComponent(/datum/component/beaker_nosplash)
+	AddComponent(/datum/components/beaker_nosplash)
 
 /obj/machinery/juicer/update_icon()
 	icon_state = "juicer"+num2text(!isnull(beaker))
