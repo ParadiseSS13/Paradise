@@ -978,7 +978,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Experimental gloves with installed nanochips that teach you Krav Maga when worn, great as a cheap backup weapon. Warning, the nanochips will override any other fighting styles such as CQC. Do not look as fly as the Warden's"
 	reference = "CGM"
 	item = /obj/item/clothing/gloves/color/black/krav_maga
-	cost = 5
+	cost = 10
 	excludefrom = list(/datum/game_mode/nuclear)
 
 // GRENADES AND EXPLOSIVES
