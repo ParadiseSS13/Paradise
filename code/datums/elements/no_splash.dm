@@ -3,7 +3,7 @@
 /datum/element/beaker_nosplash/Attach(datum/target)
 	. = ..()
 	if(!isatom(target) || ismob(target))  // Don't stick this on mobs
-		return COMPONENT_INCOMPATIBLE
+		return ELEMENT_INCOMPATIBLE
 	RegisterSignal(target, COMSIG_PARENT_ATTACKBY, .proc/on_attack_by)
 
 /datum/element/beaker_nosplash/Detach(datum/target, force)
