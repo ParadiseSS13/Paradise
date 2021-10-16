@@ -63,7 +63,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
-	AddComponent(/datum/component/beaker_nosplash)
+	AddElement(/datum/element/beaker_nosplash)
 
 /obj/machinery/atmospherics/unary/cryo_cell/upgraded/New()
 	..()

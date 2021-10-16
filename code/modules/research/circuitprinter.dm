@@ -33,7 +33,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	create_reagents()
 	RefreshParts()
-	AddComponent(/datum/component/beaker_nosplash)
+	AddElement(/datum/element/beaker_nosplash)
 
 /obj/machinery/r_n_d/circuit_imprinter/upgraded/New()
 	..()

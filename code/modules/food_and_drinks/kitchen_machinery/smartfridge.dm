@@ -77,7 +77,7 @@
 		/obj/item/seeds,
 		/obj/item/grown,
 	))
-	AddComponent(/datum/component/beaker_nosplash)
+	AddElement(/datum/element/beaker_nosplash)
 
 /obj/machinery/smartfridge/RefreshParts()
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)

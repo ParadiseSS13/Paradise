@@ -84,7 +84,7 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
-	AddComponent(/datum/component/beaker_nosplash)
+	AddElement(/datum/element/beaker_nosplash)
 
 /obj/machinery/dna_scannernew/upgraded/New()
 	..()

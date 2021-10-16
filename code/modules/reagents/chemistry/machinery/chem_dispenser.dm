@@ -40,7 +40,7 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 	dispensable_reagents = sortList(dispensable_reagents)
-	AddComponent(/datum/component/beaker_nosplash)
+	AddElement(/datum/element/beaker_nosplash)
 
 /obj/machinery/chem_dispenser/upgraded/New()
 	..()
