@@ -28498,7 +28498,6 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/obj/machinery/hologram/holopad,
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=hall15";
 	location = "hall14"
@@ -29398,6 +29397,7 @@
 /obj/effect/landmark{
 	name = "Observer-Start"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -69945,9 +69945,7 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/hologram/holopad{
-	pixel_x = -16
-	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
