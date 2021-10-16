@@ -71560,27 +71560,21 @@
 "dcJ" = (
 /obj/structure/dresser,
 /obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/maintenance/starboard)
 "dcK" = (
 /obj/structure/table/wood,
 /obj/item/clothing/suit/toggle/owlwings,
 /obj/item/clothing/under/owl,
 /obj/item/clothing/mask/gas/owl_mask,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/maintenance/starboard)
 "dcL" = (
 /obj/structure/table/wood,
 /obj/item/storage/briefcase,
 /obj/item/restraints/handcuffs,
 /obj/item/grenade/smokebomb,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/maintenance/starboard)
 "dcM" = (
 /obj/machinery/light/small{
@@ -72377,9 +72371,7 @@
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/maintenance/starboard)
 "dex" = (
 /obj/structure/chair/office/dark{
@@ -72388,16 +72380,12 @@
 /obj/effect/landmark{
 	name = "revenantspawn"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/maintenance/starboard)
 "dey" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/maintenance/starboard)
 "dez" = (
 /obj/structure/bookcase,
@@ -76453,10 +76441,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "dmQ" = (
-/obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
+/obj/structure/chair/stool{
+	dir = 8
 	},
+/turf/simulated/floor/wood,
 /area/maintenance/gambling_den)
 "dmR" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -78412,9 +78400,7 @@
 /area/maintenance/gambling_den)
 "drd" = (
 /obj/structure/table/wood/poker,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/maintenance/gambling_den)
 "dre" = (
 /obj/structure/table/wood/poker,
@@ -79649,9 +79635,7 @@
 /area/maintenance/gambling_den)
 "dtK" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/maintenance/gambling_den)
 "dtL" = (
 /obj/machinery/light/small,
@@ -81906,9 +81890,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/security/detectives_office)
 "dyn" = (
 /turf/simulated/wall/r_wall,
@@ -92086,7 +92068,9 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -92882,7 +92866,9 @@
 	},
 /area/medical/genetics)
 "dYm" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -92936,9 +92922,7 @@
 /area/medical/research)
 "dYy" = (
 /obj/structure/chair/stool/bar,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/maintenance/gambling_den)
 "dYz" = (
 /obj/structure/chair/stool/bar,
@@ -97006,12 +96990,6 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/storage)
-"oQs" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
-/area/maintenance/gambling_den)
 "oSH" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
@@ -98464,9 +98442,7 @@
 /area/security/permabrig)
 "tgs" = (
 /obj/structure/chair/office/dark,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/security/detectives_office)
 "tgE" = (
 /turf/simulated/wall/r_wall,
@@ -98511,9 +98487,7 @@
 	},
 /area/medical/research)
 "tks" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/security/detectives_office)
 "tmo" = (
 /obj/structure/closet/secure_closet/security,
@@ -99657,11 +99631,6 @@
 	icon_state = "vault"
 	},
 /area/security/securearmoury)
-"wMv" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
-/area/maintenance/gambling_den)
 "wPI" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -122627,8 +122596,8 @@ dhw
 diY
 dkr
 dYt
-oQs
-oQs
+dYu
+dYu
 dcX
 dqZ
 aMY
@@ -122885,7 +122854,7 @@ dfM
 dfM
 dfM
 dmN
-wMv
+aRm
 dcX
 dra
 dbz
@@ -123143,8 +123112,8 @@ dfN
 aUp
 dmO
 aSP
-wMv
-wMv
+aRm
+aRm
 aUp
 aUp
 dbz
@@ -123913,10 +123882,10 @@ dfN
 dcX
 dcX
 dmO
-wMv
+aRm
 dYy
 drd
-wMv
+aRm
 dtL
 aMW
 abj
@@ -124170,7 +124139,7 @@ aUp
 dcX
 dfN
 dmO
-oQs
+dYu
 dYz
 drc
 aUp
@@ -124684,7 +124653,7 @@ dja
 aSP
 aRm
 dmQ
-wMv
+aRm
 dcX
 drf
 aMW
