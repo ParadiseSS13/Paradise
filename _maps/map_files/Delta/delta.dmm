@@ -350,6 +350,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Escape Pod Hatch"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "aee" = (
@@ -456,6 +457,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Escape Pod Hatch"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_4)
 "afa" = (
@@ -21212,6 +21214,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Escape Pod Hatch"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_3)
 "bbJ" = (
@@ -62398,6 +62401,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Escape Pod Hatch"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_2)
 "cIv" = (
@@ -99058,6 +99062,10 @@
 	icon_state = "redcorner"
 	},
 /area/security/permasolitary)
+"uZo" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plating,
+/area/security/permabrig)
 "vbN" = (
 /obj/machinery/camera{
 	c_tag = "Exterior Armory";
@@ -158758,7 +158766,7 @@ abj
 aJx
 bac
 abQ
-abQ
+uZo
 aJx
 aaa
 aaa
