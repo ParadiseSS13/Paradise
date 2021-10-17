@@ -149,8 +149,6 @@
 							karma_purchase(karma,30,"job","Nanotrasen Representative")
 						if("4")
 							karma_purchase(karma,30,"job","Blueshield")
-						if("5")
-							karma_purchase(karma,45,"job","Magistrate")
 					return
 				if(href_list["KarmaBuy2"])
 					var/karma=verify_karma()

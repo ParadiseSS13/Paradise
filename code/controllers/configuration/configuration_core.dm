@@ -97,7 +97,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/config_file = "config/config.toml"
 	if(!fexists(config_file))
 		config_file = "config/example/config.toml" // Fallback to example if user hasnt setup config properly
-	var/raw_json = rustg_toml2json(config_file)
+	var/raw_json = rustg_read_toml_file(config_file)
 	raw_data = json_decode(raw_json)
 
 	// Now pass through all our stuff
@@ -141,7 +141,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	DIRECT_OUTPUT(world.log, "Overrides found for this instance. Loading them.")
 	var/start = start_watch() // Time tracking
 
-	var/raw_json = rustg_toml2json(override_file)
+	var/raw_json = rustg_read_toml_file(override_file)
 	raw_data = json_decode(raw_json)
 
 	// Now safely load our overrides.

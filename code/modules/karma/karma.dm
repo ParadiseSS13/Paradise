@@ -275,10 +275,6 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=4'>Unlock Blueshield -- 30KP</a><br>"
 			else
 				dat += "Blueshield - <font color='green'>Unlocked</font><br>"
-			if(!("Magistrate" in joblist))
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=5'>Unlock Magistrate -- 45KP</a><br>"
-			else
-				dat+= "Magistrate - <font color='green'>Unlocked</font><br>"
 
 		if(1) // Species Unlocks
 			if(!("Machine" in specieslist))
@@ -349,6 +345,9 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			if("Security Pod Pilot" in purchased)
 				refundable += "Security Pod Pilot"
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Security Pod Pilot;KarmaRefundType=job;KarmaRefundCost=30'>Refund Security Pod Pilot -- 30KP</a><br>"
+			if("Magistrate" in purchased)
+				refundable += "Magistrate"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Magistrate;KarmaRefundType=job;KarmaRefundCost=45'>Refund Magistrate -- 45KP</a><br>"
 
 			if(!refundable.len)
 				dat += "You do not have any refundable karma purchases.<br>"
@@ -515,6 +514,8 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			cost = 30
 		if("Nanotrasen Recruiter")
 			cost = 10
+		if("Magistrate")
+			cost = 45
 		else
 			to_chat(usr, "<span class='warning'>That job is not refundable.</span>")
 			return
