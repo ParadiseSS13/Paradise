@@ -8,6 +8,7 @@
 
 /datum/event/wizard/ghost_mute/start()
 	GLOB.dsay_enabled = FALSE
+	var/sound/S = sound('sound/hallucinations/wail.ogg')
 	for(var/mob/dead/observer/silenced in GLOB.player_list)
 		to_chat(silenced, "<span class='warning'>Magical forces wrap around your spectral form. You can no longer speak to other ghosts!</span>")
-		SEND_SOUND(silenced, 'sound/hallucinations/wail.ogg')
+		SEND_SOUND(silenced, S)
