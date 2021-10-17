@@ -89,6 +89,15 @@
 /obj/machinery/suit_storage_unit/ce/secure
 	secure = TRUE
 
+/obj/machinery/suit_storage_unit/rd
+	name = "research director's suit storage unit"
+	suit_type	= /obj/item/clothing/suit/space/hardsuit/rd
+	mask_type	= /obj/item/clothing/mask/gas
+	req_access	= list(ACCESS_RD)
+
+/obj/machinery/suit_storage_unit/rd/secure
+	secure = TRUE
+
 /obj/machinery/suit_storage_unit/security
 	name = "security suit storage unit"
 	suit_type	= /obj/item/clothing/suit/space/hardsuit/security
