@@ -3,7 +3,7 @@
   *
   * Holder for CUIs
   *
-  * This datum is a older that is essentially a "model" of the `customuseritems`
+  * This datum is a holder that is essentially a "model" of the `customuseritems`
   * database table, and is used for giving people their CUIs on spawn.
   * It is instanced as part of the client data loading framework on the client.
   *
@@ -16,7 +16,7 @@
 	/// Are all jobs allowed?
 	var/all_jobs_allowed = FALSE
 	/// List of allowed jobs
-	var/allowed_jobs = list()
+	var/list/allowed_jobs = list()
 	/// Custom item typepath
 	var/object_typepath
 	/// Custom item name override

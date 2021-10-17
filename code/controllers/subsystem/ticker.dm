@@ -437,25 +437,25 @@ SUBSYSTEM_DEF(ticker)
 		var/name_override = cui.item_name_override
 		var/desc_override = cui.item_desc_override
 
+		if(name_override)
+			I.name = name_override
+		if(desc_override)
+			I.desc = desc_override
+
 		if(istype(H.back, /obj/item/storage)) // Try to place it in something on the mob's back
 			var/obj/item/storage/S = H.back
-			if(S.contents.len < S.storage_slots)
+			if(length(S.contents) < S.storage_slots)
 				I.forceMove(H.back)
 				ok = TRUE
 				to_chat(H, "<span class='notice'>Your [I.name] has been added to your [H.back.name].</span>")
 
 		if(!ok)
 			for(var/obj/item/storage/S in H.contents) // Try to place it in any item that can store stuff, on the mob.
-				if(S.contents.len < S.storage_slots)
+				if(length(S.contents) < S.storage_slots)
 					I.forceMove(S)
 					ok = TRUE
 					to_chat(H, "<span class='notice'>Your [I.name] has been added to your [S.name].</span>")
 					break
-
-		if(name_override)
-			I.name = name_override
-		if(desc_override)
-			I.desc = desc_override
 
 		if(!ok) // Finally, since everything else failed, place it on the ground
 			var/turf/T = get_turf(H)
@@ -464,8 +464,7 @@ SUBSYSTEM_DEF(ticker)
 				to_chat(H, "<span class='notice'>Your [I.name] is on the [T.name] below you.</span>")
 			else
 				to_chat(H, "<span class='notice'>Your [I.name] couldnt spawn anywhere on you or even on the floor below you. Please file a bug report.</span>")
-
-		H.regenerate_icons()
+				qdel(I)
 
 
 /datum/controller/subsystem/ticker/proc/send_tip_of_the_round()
