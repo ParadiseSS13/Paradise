@@ -649,7 +649,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 				to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
 			return FALSE
 		//chapel check
-		if(istype(loc.loc, /area/chapel) && !fullpower)
+		if(istype(get_area(user), /area/chapel) && !fullpower)
 			if(show_message)
 				to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
 			return FALSE
