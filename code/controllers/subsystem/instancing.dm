@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(instancing)
 	if(optional_ckey)
 		ckeys += optional_ckey
 	// Note: We dont have to sort the list here. The only time this is read for is a search,
-	// and since BYOND lists are linked lists internally, order doesnt matter
+	// and order doesnt matter for that.
 	var/ckey_json = json_encode(ckeys)
 
 	// Yes I care about performance savings this much here to mass execute this shit
@@ -108,7 +108,6 @@ SUBSYSTEM_DEF(instancing)
   *
   * Arguments:
   * * message - Message to send to the other servers
-  * * include_offline - Whether to topic offline servers on the off chance they came online
   */
 /datum/controller/subsystem/instancing/proc/message_all_peers(message)
 	if(!SSdbcore.IsConnected())
@@ -123,7 +122,6 @@ SUBSYSTEM_DEF(instancing)
   *
   * Arguments:
   * * raw_topic - The raw topic to send to the other servers
-  * * include_offline - Whether to topic offline servers on the off chance they came online
   */
 /datum/controller/subsystem/instancing/proc/topic_all_peers(raw_topic)
 	// Someone here is going to say "AA you shouldnt put load on the DB server you can do sorting in BYOND"
@@ -163,7 +161,7 @@ SUBSYSTEM_DEF(instancing)
   * ckey - The ckey to check if they are logged into another server
   */
 /datum/controller/subsystem/instancing/proc/check_player(ckey)
-	// Please see above rant on L133
+	// Please see above rant on L127
 	var/datum/db_query/dbq1 = SSdbcore.NewQuery({"
 		SELECT server_id, key_value FROM instance_data_cache WHERE server_id IN
 		(SELECT server_id FROM instance_data_cache WHERE server_id != :sid AND
