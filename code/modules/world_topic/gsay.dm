@@ -9,7 +9,7 @@
 
 	var/message = input["msg"]
 	var/user = input["usr"]
-	var/source = input["source"]
+	var/source = input["src"]
 
 	// Send to online admins
 	for(var/client/C in GLOB.admins)
