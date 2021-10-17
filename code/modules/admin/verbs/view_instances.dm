@@ -7,20 +7,27 @@
 		return
 
 	to_chat(usr, "<b>Server instances info</b>")
-	to_chat(usr, "<b>AA you need to finish this you lazy oaf</b>")
-	/*
-	for(var/datum/peer_server/PS in GLOB.configuration.instancing.peers)
-		// We havnt even been discovered, so we cant even be online
-		if(!PS.discovered)
-			to_chat(usr, "#[PS.server_port] (Undiscovered) - <font color='red'><b>OFFLINE</b></font>")
-			continue
+	var/datum/db_query/dbq1 = SSdbcore.NewQuery({"
+		SELECT server_id, key_name, key_value FROM instance_data_cache WHERE server_id IN
+		(SELECT server_id FROM instance_data_cache WHERE
+		key_name='heartbeat' AND last_updated BETWEEN NOW() - INTERVAL 60 SECOND AND NOW())
+		AND key_name IN ("playercount")"})
+	if(!dbq1.warn_execute())
+		qdel(dbq1)
+		return
 
-		// We exist but arent online at the moment
-		if(!PS.online)
-			to_chat(usr, "ID [PS.server_id] - <font color='red'><b>OFFLINE</b></font>")
-			continue
+	var/servers_outer = list()
+	while(dbq1.NextRow())
+		if(!servers_outer[dbq1.item[1]])
+			servers_outer[dbq1.item[1]] = list()
 
-		// If we are here, we are online, so we can do a rich report
-		to_chat(usr, "ID [PS.server_id] - <font color='green'><b>ONLINE</b></font> (Players: [PS.playercount])")
-	*/
+		servers_outer[dbq1.item[1]][dbq1.item[2]] = dbq1.item[3] // This should assoc load our data
 
+	qdel(dbq1)
+
+	for(var/server in servers_outer)
+		var/server_data = servers_outer[server]
+		var/players = text2num(server_data["playercount"])
+
+		to_chat(usr, "<code>[server]</code> - [players] player[players == 1 ? "" : "s"] online.")
+	to_chat(usr, "<i>Offline instances are not reported</i>")

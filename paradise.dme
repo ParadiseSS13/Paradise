@@ -1162,6 +1162,7 @@
 #include "code\game\verbs\ooc.dm"
 #include "code\game\verbs\randomtip.dm"
 #include "code\game\verbs\suicide.dm"
+#include "code\game\verbs\switch_server.dm"
 #include "code\game\verbs\webmap.dm"
 #include "code\game\verbs\who.dm"
 #include "code\modules\admin\admin.dm"
