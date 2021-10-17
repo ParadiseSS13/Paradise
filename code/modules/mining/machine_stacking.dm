@@ -7,21 +7,29 @@
 	desc = "Controls a stacking machine... in theory."
 	density = FALSE
 	anchored = TRUE
-	var/obj/machinery/mineral/stacking_machine/machine = null
+	var/obj/machinery/mineral/stacking_machine/machine
 	var/machinedir = SOUTHEAST
 
-/obj/machinery/mineral/stacking_unit_console/New()
-	..()
+/obj/machinery/mineral/stacking_unit_console/Initialize(mapload)
+	. = ..()
 	machine = locate(/obj/machinery/mineral/stacking_machine, get_step(src, machinedir))
 	if(machine)
-		machine.CONSOLE = src
+		machine.console = src
 	else
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
+
+/obj/machinery/mineral/stacking_unit_console/Destroy()
+	if(machine)
+		machine.console = null
+	machine = null
+	return ..()
 
 /obj/machinery/mineral/stacking_unit_console/attack_hand(mob/user)
-
 	var/obj/item/stack/sheet/s
 	var/dat
+
+	if(!machine)
+		return
 
 	dat += text("<b>Stacking unit console</b><br><br>")
 
@@ -60,14 +68,19 @@
 	desc = "A machine that automatically stacks acquired materials. Controlled by a nearby console."
 	density = TRUE
 	anchored = TRUE
-	var/obj/machinery/mineral/stacking_unit_console/CONSOLE
-	var/stk_types = list()
-	var/stk_amt   = list()
-	var/stack_list[0] //Key: Type.  Value: Instance of type.
-	var/stack_amt = 50; //ammount to stack before releassing
+	var/obj/machinery/mineral/stacking_unit_console/console
+	var/list/stack_list = list() //Key: Type.  Value: Instance of type.
+	var/stack_amt = 50 //ammount to stack before releassing
 	input_dir = EAST
 	output_dir = WEST
 	speed_process = TRUE
+
+/obj/machinery/mineral/stacking_machine/Destroy()
+	QDEL_LIST(stack_list)
+	if(console)
+		console.machine = null
+	console = null
+	return ..()
 
 /obj/machinery/mineral/stacking_machine/process()
 	var/turf/T = get_step(src, input_dir)

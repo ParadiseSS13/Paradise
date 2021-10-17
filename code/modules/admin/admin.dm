@@ -13,12 +13,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!GLOB.nologevent)
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in GLOB.admins)
-			if(R_ADMIN & C.holder.rights)
-				if(C.prefs.atklog == ATKLOG_NONE)
-					continue
-				var/msg = rendered
-				if(C.prefs.atklog <= loglevel)
-					to_chat(C, msg)
+			if((C.holder.rights & R_ADMIN) && (C.prefs?.atklog <= loglevel))
+				to_chat(C, rendered)
 
 /**
  * Sends a message to the staff able to see admin tickets
@@ -629,7 +625,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
   *
   * Arguments:
   * * M - the mob you're checking
-  * *
   */
 /proc/is_special_character(mob/M)
 	if(!SSticker.mode)
@@ -640,7 +635,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		var/mob/living/silicon/robot/R = M
 		if(R.emagged)
 			return TRUE
-	if(M.mind.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
+	if(M.mind?.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
 		return TRUE
 	return FALSE
 
