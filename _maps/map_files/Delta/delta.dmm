@@ -35924,9 +35924,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/cyan,
 /area/security/brig)
 "bEz" = (
 /obj/structure/cable{
@@ -35937,9 +35935,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/cyan,
 /area/security/brig)
 "bEA" = (
 /obj/effect/spawner/window/reinforced,
@@ -36665,18 +36661,14 @@
 "bGi" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/cyan,
 /area/security/brig)
 "bGj" = (
 /obj/machinery/flasher{
 	id = "Cell 3";
 	pixel_y = -26
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/cyan,
 /area/security/brig)
 "bGk" = (
 /obj/structure/cable,
@@ -46434,14 +46426,14 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_y = 32
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "cad" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "NT Representative's Office"
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "cae" = (
 /obj/structure/bookcase,
@@ -46478,18 +46470,14 @@
 "caj" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "cak" = (
 /obj/machinery/computer/crew,
 /obj/machinery/newscaster/security_unit{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "cal" = (
 /obj/structure/closet/secure_closet/blueshield,
@@ -47390,7 +47378,7 @@
 	pixel_x = -5;
 	pixel_y = 12
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "cbY" = (
 /obj/structure/chair/office/dark{
@@ -47399,7 +47387,7 @@
 /obj/effect/landmark/start{
 	name = "Nanotrasen Representative"
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "cbZ" = (
 /obj/structure/chair/comfy/black{
@@ -47450,9 +47438,7 @@
 /area/blueshield)
 "cce" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "ccf" = (
 /obj/structure/chair/office/dark{
@@ -47461,9 +47447,7 @@
 /obj/effect/landmark/start{
 	name = "Blueshield"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "ccg" = (
 /turf/simulated/floor/wood,
@@ -48164,12 +48148,12 @@
 /obj/structure/table/wood,
 /obj/item/folder,
 /obj/item/pen/multi/fountain,
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "cdK" = (
 /obj/structure/table/wood,
 /obj/item/stamp/rep,
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "cdL" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -48210,9 +48194,7 @@
 	},
 /obj/item/book/manual/sop_command,
 /obj/item/paper/blueshield,
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "cdR" = (
 /obj/structure/table/wood,
@@ -48224,9 +48206,7 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "cdS" = (
 /obj/machinery/door/window{
@@ -48960,10 +48940,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "cfH" = (
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "cfI" = (
 /obj/structure/cable{
@@ -49004,14 +48984,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "cfO" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "cfP" = (
 /obj/machinery/light{
@@ -49554,7 +49530,7 @@
 /area/ntrep)
 "chl" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "chm" = (
 /obj/structure/cable{
@@ -49620,9 +49596,7 @@
 /area/blueshield)
 "chr" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "chs" = (
 /obj/structure/closet{
@@ -85719,7 +85693,9 @@
 	name = "Virology Lab Internal Airlock";
 	req_access_txt = "39"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
 /area/medical/virology)
 "dHb" = (
 /obj/structure/cable{
@@ -85736,7 +85712,9 @@
 	tag_exterior_door = "viro_lab_airlock_exterior";
 	tag_interior_door = "viro_lab_airlock_interior"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
 /area/medical/virology)
 "dHc" = (
 /obj/structure/cable{
@@ -85760,7 +85738,9 @@
 /obj/structure/sign/vacuum{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
 /area/medical/virology)
 "dHd" = (
 /obj/structure/cable{
@@ -85778,7 +85758,9 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
 /area/medical/virology)
 "dHe" = (
 /obj/structure/cable{
@@ -85791,7 +85773,9 @@
 	name = "Virology";
 	req_access_txt = "39"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
 /area/medical/virology)
 "dHf" = (
 /obj/structure/cable{
@@ -85858,7 +85842,8 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkgreen"
 	},
 /area/medical/virology)
 "dHp" = (
@@ -85887,7 +85872,8 @@
 	},
 /obj/machinery/computer/med_data/laptop,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/medical/virology)
 "dHr" = (
@@ -86354,7 +86340,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/medical/virology)
 "dIm" = (
 /obj/structure/cable{
@@ -86370,7 +86358,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitegreencorner"
+	icon_state = "darkgreencorners"
 	},
 /area/medical/virology)
 "dIn" = (
@@ -86388,7 +86376,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "dark"
 	},
 /area/medical/virology)
 "dIo" = (
@@ -86403,7 +86391,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitegreencorner"
+	icon_state = "darkgreencorners"
 	},
 /area/medical/virology)
 "dIp" = (
@@ -86595,7 +86583,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/medical/virology)
 "dJb" = (
 /obj/structure/cable{
@@ -86676,7 +86666,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitegreencorner"
+	icon_state = "darkgreencorners"
 	},
 /area/medical/virology)
 "dJi" = (
@@ -86694,8 +86684,7 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitegreencorner"
+	icon_state = "darkgreencorners"
 	},
 /area/medical/virology)
 "dJk" = (
@@ -86944,7 +86933,8 @@
 	},
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "whitegreencorner"
 	},
 /area/medical/virology)
 "dJT" = (
@@ -86955,7 +86945,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "whitegreencorner"
 	},
 /area/medical/virology)
 "dJU" = (
@@ -86969,14 +86960,16 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "whitegreencorner"
 	},
 /area/medical/virology)
 "dJV" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "whitegreencorner"
 	},
 /area/medical/virology)
 "dJW" = (
@@ -86986,7 +86979,8 @@
 "dJX" = (
 /obj/structure/dresser,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkgreen"
 	},
 /area/medical/virology)
 "dJY" = (
@@ -87002,7 +86996,8 @@
 "dJZ" = (
 /obj/machinery/vending/virodrobe,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/medical/virology)
 "dKa" = (
@@ -87412,7 +87407,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
 /area/medical/virology)
 "dLb" = (
 /obj/structure/cable{
@@ -87439,7 +87436,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
 /area/medical/virology)
 "dLd" = (
 /obj/structure/sink{
@@ -87450,7 +87449,9 @@
 	pixel_x = -32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
 /area/medical/virology)
 "dLe" = (
 /turf/simulated/floor/plasteel{
@@ -87867,7 +87868,9 @@
 	dir = 4;
 	network = list("Medical","SS13")
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
 /area/medical/virology)
 "dMa" = (
 /obj/machinery/light/small,
@@ -87876,7 +87879,9 @@
 	},
 /obj/structure/closet/l3closet/virology,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
 /area/medical/virology)
 "dMc" = (
 /obj/machinery/alarm{
@@ -87998,7 +88003,9 @@
 "dMv" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
 /area/medical/virology)
 "dMw" = (
 /obj/structure/cable{
@@ -92261,7 +92268,9 @@
 /obj/effect/decal/warning_stripes/arrow,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/medical/virology)
 "dWW" = (
 /obj/machinery/door/airlock/medical/glass{
@@ -92273,7 +92282,9 @@
 /obj/effect/decal/warning_stripes/arrow,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/medical/virology)
 "dWX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -92331,8 +92342,7 @@
 	level = 2
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitegreencorner"
+	icon_state = "white"
 	},
 /area/medical/virology)
 "dXd" = (
@@ -92362,7 +92372,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
 /area/medical/virology)
 "dXg" = (
 /obj/structure/table/glass,
@@ -92372,7 +92384,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
 /area/medical/virology)
 "dXh" = (
 /obj/structure/cable{
@@ -92384,8 +92398,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitegreencorner"
+	icon_state = "white"
 	},
 /area/medical/virology)
 "dXi" = (
@@ -151413,7 +151426,7 @@ abj
 dFH
 dHp
 dIn
-dJi
+dJY
 dJY
 dIc
 aaa
