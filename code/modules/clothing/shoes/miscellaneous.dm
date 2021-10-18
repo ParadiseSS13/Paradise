@@ -96,6 +96,9 @@
 	if(user.get_active_hand() != src)
 		to_chat(user, "You must hold [src] in your hand to do this.")
 		return
+	toggle_waddle(user)
+
+/obj/item/clothing/shoes/clown_shoes/proc/toggle_waddle(mob/living/user)
 	if(!enabled_waddle)
 		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
 		enabled_waddle = TRUE
@@ -110,6 +113,45 @@
 	name = "magical clown shoes"
 	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And powerful! Somehow."
 	magical = TRUE
+
+/obj/item/clothing/shoes/clown_shoes/slippers
+	actions_types = list(/datum/action/item_action/slipping)
+	var/slide_distance = 6
+	var/recharging_rate = 8 SECONDS
+	var/recharging_time = 0
+
+/obj/item/clothing/shoes/clown_shoes/slippers/item_action_slot_check(slot, mob/user)
+	if(slot == slot_shoes)
+		return TRUE
+
+/obj/item/clothing/shoes/clown_shoes/slippers/ui_action_click(mob/user, action)
+	if(recharging_time > world.time)
+		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
+		return
+	var/prev_dir = user.dir
+	var/prev_pass_flags = user.pass_flags
+	user.pass_flags |= PASSMOB
+	user.Weaken(2)
+	user.dir = prev_dir
+	playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
+	recharging_time = world.time + recharging_rate
+	user.visible_message("<span class='warning'>[user] slips forward!</span>")
+	for(var/i in 1 to slide_distance)
+		step(user, user.dir)
+		sleep(1)
+	user.SetWeakened(0)
+	user.pass_flags = prev_pass_flags
+
+
+/obj/item/clothing/shoes/clown_shoes/slippers/toggle_waddle(mob/living/user)
+	if(!enabled_waddle)
+		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		enabled_waddle = TRUE
+		slowdown = initial(slowdown)
+	else
+		to_chat(user, "<span class='notice'>You switch on the waddle dampeners, [src] no longer slow you down!</span>")
+		enabled_waddle = FALSE
+		slowdown = SHOES_SLOWDOWN
 
 /obj/item/clothing/shoes/jackboots
 	name = "jackboots"

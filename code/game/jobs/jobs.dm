@@ -96,8 +96,7 @@ GLOBAL_LIST_INIT(whitelisted_positions, list(
 	"Blueshield",
 	"Nanotrasen Representative",
 	"Barber",
-	"Brig Physician",
-	"Magistrate"
+	"Brig Physician"
 ))
 
 

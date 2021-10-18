@@ -68,6 +68,9 @@
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()
 
+
+//Carpets
+
 /turf/simulated/floor/carpet
 	name = "carpet"
 	icon = 'icons/turf/floors/carpet.dmi'
@@ -111,6 +114,48 @@
 	icon = 'icons/turf/floors/carpet_black.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/black
 	canSmoothWith = list(/turf/simulated/floor/carpet/black)
+
+/turf/simulated/floor/carpet/blue
+	icon = 'icons/turf/floors/carpet_blue.dmi'
+	floor_tile = /obj/item/stack/tile/carpet/blue
+	canSmoothWith = list(/turf/simulated/floor/carpet/blue)
+
+/turf/simulated/floor/carpet/cyan
+	icon = 'icons/turf/floors/carpet_cyan.dmi'
+	floor_tile = /obj/item/stack/tile/carpet/cyan
+	canSmoothWith = list(/turf/simulated/floor/carpet/cyan)
+
+/turf/simulated/floor/carpet/green
+	icon = 'icons/turf/floors/carpet_green.dmi'
+	floor_tile = /obj/item/stack/tile/carpet/green
+	canSmoothWith = list(/turf/simulated/floor/carpet/green)
+
+/turf/simulated/floor/carpet/orange
+	icon = 'icons/turf/floors/carpet_orange.dmi'
+	floor_tile = /obj/item/stack/tile/carpet/orange
+	canSmoothWith = list(/turf/simulated/floor/carpet/orange)
+
+/turf/simulated/floor/carpet/purple
+	icon = 'icons/turf/floors/carpet_purple.dmi'
+	floor_tile = /obj/item/stack/tile/carpet/purple
+	canSmoothWith = list(/turf/simulated/floor/carpet/purple)
+
+/turf/simulated/floor/carpet/red
+	icon = 'icons/turf/floors/carpet_red.dmi'
+	floor_tile = /obj/item/stack/tile/carpet/red
+	canSmoothWith = list(/turf/simulated/floor/carpet/red)
+
+/turf/simulated/floor/carpet/royalblack
+	icon = 'icons/turf/floors/carpet_royalblack.dmi'
+	floor_tile = /obj/item/stack/tile/carpet/royalblack
+	canSmoothWith = list(/turf/simulated/floor/carpet/royalblack)
+
+/turf/simulated/floor/carpet/royalblue
+	icon = 'icons/turf/floors/carpet_royalblue.dmi'
+	floor_tile = /obj/item/stack/tile/carpet/royalblue
+	canSmoothWith = list(/turf/simulated/floor/carpet/royalblue)
+
+//End of carpets
 
 /turf/simulated/floor/fakespace
 	icon = 'icons/turf/space.dmi'
