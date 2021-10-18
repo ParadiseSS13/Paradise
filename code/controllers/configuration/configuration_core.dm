@@ -85,8 +85,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/config_file = "config/config.toml"
 	if(!fexists(config_file))
 		config_file = "config/example/config.toml" // Fallback to example if user hasnt setup config properly
-	var/raw_json = rustg_toml2json(config_file)
-	var/list/raw_config_data = json_decode(raw_json)
+	var/raw_config_data = rustg_read_toml_file(config_file)
 
 	// Now pass through all our stuff
 	admin.load_data(raw_config_data["admin_configuration"])

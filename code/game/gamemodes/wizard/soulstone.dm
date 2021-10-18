@@ -83,6 +83,10 @@
 	if(!ishuman(M)) //If target is not a human
 		return ..()
 
+	if(!M.mind)
+		to_chat(user, "<span class='warning'>This being has no soul!</span>")
+		return ..()
+
 	if(M.has_brain_worms()) //Borer stuff - RR
 		to_chat(user, "<span class='warning'>This being is corrupted by an alien intelligence and cannot be soul trapped.</span>")
 		return ..()

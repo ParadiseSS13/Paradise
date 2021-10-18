@@ -47,16 +47,8 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of"
 			SSdiscord.send2discord_simple_noadmins("**\[Adminhelp]** [key_name(src)]: [msg]", check_send_always = TRUE)
 
 		if("Mentorhelp")
-			var/alerttext
 			var/list/mentorcount = staff_countup(R_MENTOR)
 			var/active_mentors = mentorcount[1]
-			var/inactive_mentors = mentorcount[3]
-
-			if(active_mentors <= 0)
-				if(inactive_mentors)
-					alerttext = " | **ALL MENTORS AFK**"
-				else
-					alerttext = " | **NO MENTORS ONLINE**"
 
 			log_admin("[selected_type]: [key_name(src)]: [msg] - heard by [active_mentors] non-AFK mentors.")
-			SSdiscord.send2discord_simple(DISCORD_WEBHOOK_MENTOR, "[key_name(src)]: [msg][alerttext]")
+			SSdiscord.send2discord_simple_mentor("[key_name(src)]: [msg]")
