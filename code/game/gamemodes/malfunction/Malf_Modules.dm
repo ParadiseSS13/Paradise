@@ -786,3 +786,24 @@
 /datum/AI_Module/large/cameracrack/upgrade(mob/living/silicon/ai/AI)
 	if(AI.builtInCamera)
 		QDEL_NULL(AI.builtInCamera)
+
+/datum/AI_Module/large/engi_upgrade
+	module_name = "Engineering Cyborg Emitter Upgrade"
+	mod_pick_name = "emitter"
+	description = "Downloads firmware that activates the built in emitter in all engineering cyborgs linked to you. Cyborgs built after this upgrade will have it pre-installed."
+	cost = 50 // IDK look into this
+	one_purchase = TRUE
+	upgrade = TRUE
+	unlock_text = "<span class='notice'>Firmware downloaded. Bugs removed. Built in emitters operating at 73% efficiency.</span>"
+	unlock_sound = 'sound/items/rped.ogg'
+
+/datum/AI_Module/large/engi_upgrade/upgrade(mob/living/silicon/ai/AI)
+	AI.purchased_modules += /obj/item/robot_module/engineering
+	log_game("[key_name(usr)] purchased emitters for all engineering cyborgs.")
+	message_admins("<span class='notice'>[key_name_admin(usr)] purchased emitters for all engineering cyborgs!</span>")
+	for(var/mob/living/silicon/robot/R in AI.connected_robots)
+		if(!istype(R.module, /obj/item/robot_module/engineering))
+			continue
+		R.module.malfhacked = TRUE
+		R.module.rebuild_modules()
+		to_chat(R, "<span class='notice'>New firmware downloaded. Emitter is now online.</span>")

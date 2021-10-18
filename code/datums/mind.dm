@@ -86,7 +86,7 @@
 	return ..()
 
 /datum/mind/proc/get_display_key()
-	var/clientKey = current?.client.get_display_key()
+	var/clientKey = current?.client?.get_display_key()
 	return clientKey ? clientKey : key
 
 /datum/mind/proc/transfer_to(mob/living/new_character)

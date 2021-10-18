@@ -390,8 +390,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(usr, "Not when you're not dead!")
 		return
 	var/target = input("Area to teleport to", "Teleport to a location") as null|anything in SSmapping.ghostteleportlocs
-	var/area/A = SSmapping.teleportlocs[target]
-	teleport(A)
+	teleport(SSmapping.ghostteleportlocs[target])
 
 /mob/dead/observer/proc/teleport(area/A)
 	if(!A || !isobserver(usr))

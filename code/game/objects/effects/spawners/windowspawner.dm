@@ -61,7 +61,7 @@
 
 /obj/effect/spawner/window/reinforced/polarized
 	name = "electrochromic reinforced window spawner"
-	icon_state = "pwindow_spawner"
+	icon_state = "ewindow_spawner"
 	window_to_spawn_regular = /obj/structure/window/reinforced/polarized
 	window_to_spawn_full = /obj/structure/window/full/reinforced/polarized
 

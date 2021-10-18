@@ -55,12 +55,17 @@
 	sleep(jaunt_in_time)
 	qdel(holder)
 	if(!QDELETED(target))
-		if(mobloc.density)
+		if(!(target.Move(mobloc)))
 			for(var/turf/T in orange(7))
-				if(T)
-					if(target.Move(T))
-						break
-		target.canmove = 1
+				if(isspaceturf(T))
+					continue
+				if(T && target.Move(T))
+					target.canmove = TRUE
+					return
+			for(var/turf/space/S in orange(7)) //loop for space turfs in case there were no normal ones last loop
+				if(S && target.Move(S))
+					break
+		target.canmove = TRUE //if there are no valid tiles in a range of 7, just let them spawn wherever they are currently
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/proc/jaunt_steam(mobloc)
 	var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()

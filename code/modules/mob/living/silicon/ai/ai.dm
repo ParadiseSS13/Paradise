@@ -79,6 +79,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/machinery/power/apc/malfhack = null
 	var/explosive = 0 //does the AI explode when it dies?
 
+	/// List of modules the AI has purchased malf upgrades for.
+	var/list/purchased_modules = list()
+
 	var/mob/living/silicon/ai/parent = null
 	var/camera_light_on = 0
 	var/list/obj/machinery/camera/lit_cameras = list()
