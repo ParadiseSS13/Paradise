@@ -36,19 +36,17 @@ const compareNumberedText = (a, b) => {
 };
 
 const BasicSection = (props, context) => {
-  const { act } = useBackend(context);
-  const { searchText, source, title } = props;
+  const { searchText, source, title, color, sorted } = props;
   const things = source.filter(searchFor(searchText));
-  things.sort(compareNumberedText);
+  if (sorted) { things.sort(compareNumberedText); }
   return source.length > 0 && (
     <Section title={`${title} - (${source.length})`}>
       {things.map(thing => (
-        <Button
+        <OrbitedButton
           key={thing.name}
-          content={thing.name}
-          onClick={() => act("orbit", {
-            ref: thing.ref,
-          })} />
+          thing={thing}
+          color={color}
+        />
       ))}
     </Section>
   );
@@ -170,60 +168,40 @@ export const Orbit = (props, context) => {
           </Section>
         )}
 
-        <Section title={`Alive - (${alive.length})`}>
-          {alive
-            .filter(searchFor(searchText))
-            .sort(compareNumberedText)
-            .map(thing => (
-              <OrbitedButton
-                key={thing.name}
-                color="good"
-                thing={thing} />
-            ))}
-        </Section>
+        <BasicSection
+          title="Alive"
+          source={alive}
+          searchText={searchText}
+          color={"good"}
+        />
 
-        <Section title={`Ghosts - (${ghosts.length})`}>
-          {ghosts
-            .filter(searchFor(searchText))
-            .sort(compareNumberedText)
-            .map(thing => (
-              <OrbitedButton
-                key={thing.name}
-                color="grey"
-                thing={thing} />
-            ))}
-        </Section>
+        <BasicSection
+          title="Ghosts"
+          source={ghosts}
+          searchText={searchText}
+          color={"grey"}
+        />
 
-        <Section title={`Dead - (${dead.length})`}>
-          {dead
-            // No need to sort the dead, NPCs or misc
-            .filter(searchFor(searchText))
-            .map(thing => (
-              <OrbitedButton
-                key={thing.name}
-                thing={thing} />
-            ))}
-        </Section>
+        <BasicSection
+          title="Dead"
+          source={dead}
+          searchText={searchText}
+          sorted={false}
+        />
 
-        <Section title={`NPCs - (${npcs.length})`}>
-          {npcs
-            .filter(searchFor(searchText))
-            .map(thing => (
-              <OrbitedButton
-                key={thing.name}
-                thing={thing} />
-            ))}
-        </Section>
+        <BasicSection
+          title="NPCs"
+          source={npcs}
+          searchText={searchText}
+          sorted={false}
+        />
 
-        <Section title={`Misc - (${misc.length})`}>
-          {misc
-            .filter(searchFor(searchText))
-            .map(thing => (
-              <OrbitedButton
-                key={thing.name}
-                thing={thing} />
-            ))}
-        </Section>
+        <BasicSection
+          title="Misc"
+          source={misc}
+          searchText={searchText}
+          sorted={false}
+        />
       </Window.Content>
     </Window>
   );
