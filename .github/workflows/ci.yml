@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        maptype: ['/datum/map/cyberiad', '/datum/map/delta', '/datum/map/metastation']
+        maptype: ['/datum/map/cyberiad', '/datum/map/delta', '/datum/map/metastation', '/datum/map/cere_station']
     services:
       mariadb:
         image: mariadb:latest
