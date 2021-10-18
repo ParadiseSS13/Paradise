@@ -304,11 +304,10 @@
 	slot = "stomach"
 	origin_tech = "materials=2;powerstorage=2;biotech=2"
 
-/obj/item/organ/internal/cyberimp/chest/nutriment/Initialize(mapload)
+/obj/item/organ/internal/cyberimp/chest/nutriment/examine(mob/user)
 	. = ..()
-	// Define this here so it doesn't need to be redefined for each sub-implant
 	if(emp_proof)
-		desc += " The implant has been hardened. It is invulnerable to EMPs."
+		. += " The implant has been hardened. It is invulnerable to EMPs."
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/on_life()
 	if(!owner)
