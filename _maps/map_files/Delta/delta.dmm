@@ -4168,17 +4168,18 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "innerdisposal"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "asS" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/southeast,
-/obj/effect/decal/warning_stripes/north,
 /obj/machinery/mass_driver{
 	dir = 4;
-	id_tag = "toxinsdriver"
+	id_tag = "trash"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -4186,8 +4187,7 @@
 /obj/structure/fans/tiny,
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/door/poddoor{
-	id_tag = "disposal_door";
-	name = "disposals blast door"
+	id_tag = "trash"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -4700,22 +4700,14 @@
 /turf/space,
 /area/maintenance/auxsolarport)
 "atV" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/obj/structure/chair/stool{
+	dir = 1
 	},
-/obj/structure/chair/stool,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/driver_button{
 	id_tag = "trash";
 	name = "Trash Ejector Button";
-	pixel_x = -26;
-	pixel_y = -6
-	},
-/obj/machinery/door_control{
-	id = "disposal_door";
-	pixel_x = -26;
-	pixel_y = 6
+	pixel_x = -26
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -4723,19 +4715,18 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/disposal)
 "atW" = (
-/obj/structure/disposalpipe/segment{
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
-/area/maintenance/disposal)
-"atX" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel,
 /area/maintenance/disposal)
 "atY" = (
 /obj/machinery/power/solar{
@@ -4912,9 +4903,6 @@
 	},
 /area/maintenance/fore)
 "aus" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/conveyor_switch/oneway{
 	dir = 8;
@@ -4994,40 +4982,18 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "auB" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/obj/machinery/disposal/deliveryChute{
-	dir = 4
-	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/structure/window/reinforced,
+/obj/machinery/door_control{
+	id = "innerdisposal";
+	name = "Disposal Blast door control";
+	pixel_x = -26
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/disposal)
 "auC" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "garbage"
-	},
-/obj/machinery/door/window/eastright{
-	base_state = "left";
-	dir = 1;
-	icon_state = "left";
-	name = "Danger: Conveyor Access";
-	req_access_txt = "12"
-	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel,
-/area/maintenance/disposal)
-"auD" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
-	},
 /area/maintenance/disposal)
 "auE" = (
 /turf/simulated/wall/rust,
@@ -5189,17 +5155,7 @@
 /area/maintenance/fore)
 "auZ" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/machinery/mineral/stacking_machine{
-	input_dir = 2;
-	stack_amt = 10
-	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel,
 /area/maintenance/disposal)
 "ava" = (
@@ -5370,22 +5326,16 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "avu" = (
-/obj/effect/decal/warning_stripes/west,
-/obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/warning_stripes/northeastcorner,
 /obj/machinery/conveyor{
 	dir = 9;
 	id = "garbage"
 	},
+/obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "avv" = (
-/obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/mineral/stacking_unit_console{
-	machinedir = 8;
-	pixel_x = 32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -5925,18 +5875,6 @@
 "awx" = (
 /turf/simulated/wall/rust,
 /area/security/checkpoint2)
-"awy" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/wall,
-/area/maintenance/fore2)
-"awz" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/wall,
-/area/maintenance/disposal)
 "awA" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -5947,18 +5885,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "awB" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/disposal)
 "awC" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5966,7 +5898,7 @@
 /area/maintenance/disposal)
 "awD" = (
 /obj/structure/disposalpipe/trunk{
-	dir = 8
+	dir = 2
 	},
 /obj/structure/disposaloutlet{
 	dir = 4
@@ -6001,7 +5933,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "awF" = (
-/obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -6379,10 +6310,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "axv" = (
-/obj/structure/disposalpipe/junction{
-	dir = 8;
-	icon_state = "pipe-j2";
-	tag = null
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -6400,9 +6330,6 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/fore2)
 "axw" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -6414,14 +6341,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
 /area/maintenance/fore2)
 "axx" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -6437,14 +6364,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
 /area/maintenance/disposal)
 "axy" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -6456,12 +6383,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/disposal)
-"axz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/turf/simulated/floor/plating,
+/area/maintenance/disposal)
+"axz" = (
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -6474,12 +6401,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
-/area/maintenance/disposal)
-"axA" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/disposal)
+"axA" = (
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -6492,12 +6419,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
-/area/maintenance/disposal)
-"axB" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/disposal)
+"axB" = (
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -6507,14 +6434,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
 /area/maintenance/disposal)
 "axC" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -6531,9 +6459,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "axD" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -6542,15 +6467,15 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
 /area/maintenance/disposal)
 "axE" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -7084,13 +7009,6 @@
 	icon_state = "neutralfull"
 	},
 /area/engine/controlroom)
-"ayS" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/wall,
-/area/maintenance/fore2)
 "ayT" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
@@ -7164,9 +7082,6 @@
 /turf/simulated/floor/wood,
 /area/maintenance/fore)
 "azf" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/warning_stripes/northwest,
@@ -8559,9 +8474,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "aBZ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -8572,14 +8484,14 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "aCd" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -8590,6 +8502,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -8658,9 +8573,6 @@
 /turf/simulated/wall,
 /area/hydroponics/abandoned_garden)
 "aCm" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -96812,9 +96724,9 @@
 /area/space/nearstation)
 "osS" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	icon_state = "pipe-c"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -144581,7 +144493,7 @@ asM
 atR
 asK
 qWs
-ayS
+axm
 osS
 wXI
 ixB
@@ -144838,7 +144750,7 @@ asN
 auJ
 asJ
 avn
-awy
+axm
 aBZ
 ayD
 azM
@@ -145095,7 +145007,7 @@ amG
 auO
 apo
 avq
-awy
+axm
 axw
 ayD
 azN
@@ -145352,7 +145264,7 @@ asO
 atS
 auy
 avr
-awy
+axm
 aCd
 ayD
 azO
@@ -145609,7 +145521,7 @@ amh
 amh
 are
 asd
-awz
+asd
 axx
 asd
 azP
@@ -146895,7 +146807,7 @@ asd
 asd
 avw
 aqG
-axB
+atW
 auE
 abj
 abj
@@ -147662,7 +147574,7 @@ aaa
 abj
 asd
 asR
-atW
+asc
 auZ
 awE
 azS
@@ -147919,9 +147831,9 @@ aaa
 abj
 asd
 asS
-atX
+asc
 avv
-auD
+avv
 awF
 axE
 asd
