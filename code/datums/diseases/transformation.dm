@@ -17,6 +17,7 @@
 	var/list/stage5 = list("Oh the humanity!")
 	var/transformation_text = null
 	var/new_form = /mob/living/carbon/human
+	var/job_role = null
 
 /datum/disease/transformation/stage_act()
 	..()
@@ -40,8 +41,8 @@
 	if(istype(affected_mob, /mob/living/carbon) && affected_mob.stat != DEAD)
 		if(stage5)
 			to_chat(affected_mob, pick(stage5))
-		if(jobban_isbanned(affected_mob, new_form))
-			affected_mob.death(1)
+		if(jobban_isbanned(affected_mob, job_role))
+			affected_mob.death()
 			return
 		if(affected_mob.notransform)
 			return
@@ -133,6 +134,7 @@
 	stage4	= list("<span class='danger'>Your skin feels very loose.</span>", "<span class='danger'>You can feel... something...inside you.</span>")
 	stage5	= list("<span class='danger'>Your skin feels as if it's about to burst off!</span>")
 	new_form = /mob/living/silicon/robot
+	job_role = "Cyborg"
 
 
 /datum/disease/transformation/robot/stage_act()
@@ -165,6 +167,7 @@
 	stage4	= list("<span class='danger'>Your skin feels very tight.</span>", "<span class='danger'>Your blood boils!</span>", "<span class='danger'>You can feel... something...inside you.</span>")
 	stage5	= list("<span class='danger'>Your skin feels as if it's about to burst off!</span>")
 	new_form = /mob/living/carbon/alien/humanoid/hunter
+	job_role = ROLE_ALIEN
 
 /datum/disease/transformation/xeno/stage_act()
 	..()
@@ -248,3 +251,4 @@
 	stage5	= list("<span class='danger'>You have become a morph.</span>")
 	transformation_text = "<span class='userdanger'>This transformation does NOT make you an antagonist if you were not one already. If you were not an antagonist, you should not eat any steal objectives or the contents of the armory.</span>"
 	new_form = /mob/living/simple_animal/hostile/morph
+	job_role = ROLE_MORPH

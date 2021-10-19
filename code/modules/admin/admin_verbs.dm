@@ -362,17 +362,20 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	if(!check_rights(R_ADMIN))
 		return
+	if(!isliving(mob))
+		return
 
-	if(mob)
-		if(mob.invisibility == INVISIBILITY_OBSERVER)
-			mob.invisibility = initial(mob.invisibility)
-			to_chat(mob, "<span class='danger'>Invisimin off. Invisibility reset.</span>")
-			mob.add_to_all_human_data_huds()
-			//TODO: Make some kind of indication for the badmin that they are currently invisible
-		else
-			mob.invisibility = INVISIBILITY_OBSERVER
-			to_chat(mob, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>")
-			mob.remove_from_all_data_huds()
+	if(mob.invisibility == INVISIBILITY_OBSERVER)
+		mob.invisibility = initial(mob.invisibility)
+		mob.add_to_all_human_data_huds()
+		to_chat(mob, "<span class='danger'>Invisimin off. Invisibility reset.</span>")
+		log_admin("[key_name(mob)] has turned Invisimin OFF")
+	else
+		mob.invisibility = INVISIBILITY_OBSERVER
+		mob.remove_from_all_data_huds()
+		to_chat(mob, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>")
+		log_admin("[key_name(mob)] has turned Invisimin ON")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Invisimin")
 
 /client/proc/player_panel_new()
 	set name = "Player Panel"
@@ -701,8 +704,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 				if(istext(flags))
 					flags = text2num(flags)
+				var/client/check_client = GLOB.directory[ckey]
 				// Do a little check here
-				if(GLOB.configuration.system.is_production && (flags & R_ADMIN) && prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
+				if(GLOB.configuration.system.is_production && (flags & R_ADMIN) && check_client.prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
 					to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
 					qdel(admin_read)
 					return

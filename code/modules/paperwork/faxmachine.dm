@@ -56,21 +56,23 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/longrange
 	name = "long range fax machine"
-	icon_state = "longfax"
-	insert_anim = "longfaxsend"
-	receive_anim = "longfaxreceive"
 	fax_network = "Central Command Quantum Entanglement Network"
 	long_range_enabled = TRUE
 
+/obj/machinery/photocopier/faxmachine/longrange/Initialize(mapload)
+	. = ..()
+	add_overlay("longfax")
+
 /obj/machinery/photocopier/faxmachine/longrange/syndie
 	name = "syndicate long range fax machine"
-	icon_state = "fax"
-	insert_anim = "faxsend"
-	receive_anim = "faxsend"
 	emagged = TRUE
 	syndie_restricted = TRUE
 	req_one_access = list(ACCESS_SYNDICATE)
 	//No point setting fax network, being emagged overrides that anyway.
+
+/obj/machinery/photocopier/faxmachine/longrange/syndie/Initialize(mapload)
+	. = ..()
+	add_overlay("syndiefax")
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie/update_network()
 	if(department != "Unknown")
