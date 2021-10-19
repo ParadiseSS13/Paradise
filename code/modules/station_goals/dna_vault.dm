@@ -264,8 +264,9 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 
 	switch(action)
 		if("gene")
-			upgrade(usr, params["choice"])
-			return TRUE
+			if(isliving(usr))
+				upgrade(usr, params["choice"])
+				return TRUE
 
 /obj/machinery/dna_vault/proc/check_goal()
 	if(plants.len >= plants_max && animals.len >= animals_max && dna.len >= dna_max)
