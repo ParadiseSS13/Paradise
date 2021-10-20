@@ -20,6 +20,7 @@
 		atklog = text2num(query.item[14])
 		fuid = text2num(query.item[15])
 		parallax = text2num(query.item[16])
+		all_quirks = params2list(query.item[53])
 		_2fa_status = query.item[17]
 
 	//Sanitize

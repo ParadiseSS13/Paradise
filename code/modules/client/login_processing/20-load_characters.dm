@@ -56,6 +56,7 @@
 		body_accessory,
 		gear,
 		autohiss,
+		quirks,
 		slot
 		FROM characters WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
