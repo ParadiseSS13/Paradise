@@ -103,6 +103,7 @@ emp_act
 			break
 		nrembrute = max(rembrute - E.brute_dam, 0)
 		E.heal_damage(rembrute,0,0,1)
+		UpdateDamageIcon()
 		rembrute = nrembrute
 		user.visible_message("<span class='alert'>[user] patches some dents on [src]'s [E.name] with [I].</span>")
 	if(bleed_rate && ismachineperson(src))
