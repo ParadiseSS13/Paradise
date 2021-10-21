@@ -20,12 +20,12 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/Initialize(timeofday)
 	if(!occupations.len)
 		SetupOccupations()
-	LoadJobs("config/jobs.txt")
+	LoadJobs(FALSE)
 	return ..()
 
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
-	if(!SSdbcore.IsConnected() || !config.use_exp_tracking)
+	if(!SSdbcore.IsConnected() || !GLOB.configuration.jobs.enable_exp_tracking)
 		return
 	batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
 
@@ -65,7 +65,7 @@ SUBSYSTEM_DEF(jobs)
 	return type_occupations[jobtype]
 
 /datum/controller/subsystem/jobs/proc/GetPlayerAltTitle(mob/new_player/player, rank)
-	return player.client.prefs.GetPlayerAltTitle(GetJob(rank))
+	return player.client.prefs.active_character.GetPlayerAltTitle(GetJob(rank))
 
 /datum/controller/subsystem/jobs/proc/AssignRole(mob/new_player/player, rank, latejoin = 0)
 	Debug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
@@ -80,12 +80,6 @@ SUBSYSTEM_DEF(jobs)
 		if(job.available_in_playtime(player.client))
 			return 0
 		if(job.barred_by_disability(player.client))
-			return 0
-		if(job.age_restringed(player.client))//Restriccion de edad
-			return 0
-		if(job.command_age_restringed(player.client))//Restriccion de edad
-			return 0
-		if(job.captain_age_restringed(player.client))//Restriccion de edad
 			return 0
 		if(!is_job_whitelisted(player, rank))
 			return 0
@@ -127,7 +121,7 @@ SUBSYSTEM_DEF(jobs)
 	Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 	var/list/candidates = list()
 	for(var/mob/new_player/player in unassigned)
-		Debug(" - Player: [player] Banned: [jobban_isbanned(player, job.title)] Old Enough: [!job.player_old_enough(player.client)] AvInPlaytime: [job.available_in_playtime(player.client)] Flag && Be Special: [flag] && [player.client.prefs.be_special] Job Department: [player.client.prefs.GetJobDepartment(job, level)] Job Flag: [job.flag] Job Department Flag = [job.department_flag]")
+		Debug(" - Player: [player] Banned: [jobban_isbanned(player, job.title)] Old Enough: [!job.player_old_enough(player.client)] AvInPlaytime: [job.available_in_playtime(player.client)] Flag && Be Special: [flag] && [player.client.prefs.be_special] Job Department: [player.client.prefs.active_character.GetJobDepartment(job, level)] Job Flag: [job.flag] Job Department Flag = [job.department_flag]")
 		if(jobban_isbanned(player, job.title))
 			Debug("FOC isbanned failed, Player: [player]")
 			continue
@@ -140,22 +134,13 @@ SUBSYSTEM_DEF(jobs)
 		if(job.barred_by_disability(player.client))
 			Debug("FOC player has disability rendering them ineligible for job, Player: [player]")
 			continue
-		if(job.age_restringed(player.client))
-			Debug("FOC player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
-			continue
-		if(job.command_age_restringed(player.client))
-			Debug("FOC player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
-			continue
-		if(job.captain_age_restringed(player.client))
-			Debug("FOC player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
-			continue
 		if(flag && !(flag in player.client.prefs.be_special))
 			Debug("FOC flag failed, Player: [player], Flag: [flag], ")
 			continue
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
-		if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
+		if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
 			Debug("FOC pass, Player: [player], Level:[level]")
 			candidates += player
 	return candidates
@@ -192,18 +177,6 @@ SUBSYSTEM_DEF(jobs)
 
 		if(job.barred_by_disability(player.client))
 			Debug("GRJ player has disability rendering them ineligible for job, Player: [player]")
-			continue
-
-		if(job.age_restringed(player.client))
-			Debug("GRJ player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
-			continue
-
-		if(job.command_age_restringed(player.client))
-			Debug("GRJ player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
-			continue
-
-		if(job.captain_age_restringed(player.client))
-			Debug("GRJ player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
 			continue
 
 		if(player.mind && (job.title in player.mind.restricted_roles))
@@ -269,8 +242,8 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/FillAIPosition()
-	if(config && !config.allow_ai)
-		return 0
+	if(!GLOB.configuration.jobs.allow_ai)
+		return FALSE
 
 	var/ai_selected = 0
 	var/datum/job/job = GetJob("AI")
@@ -385,18 +358,6 @@ SUBSYSTEM_DEF(jobs)
 					Debug("DO player has disability rendering them ineligible for job, Player: [player], Job:[job.title]")
 					continue
 
-				if(job.age_restringed(player.client))
-					Debug("DO player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
-					continue
-
-				if(job.command_age_restringed(player.client))
-					Debug("DO player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
-					continue
-
-				if(job.captain_age_restringed(player.client))
-					Debug("DO player's character is underage rendering them ineligible for job, Player: [player]")//Restriccion de edad
-					continue
-
 				if(player.mind && (job.title in player.mind.restricted_roles))
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
@@ -406,12 +367,12 @@ SUBSYSTEM_DEF(jobs)
 					continue
 
 				// If the player wants that job on this level, then try give it to him.
-				if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
+				if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
 
 					// If the job isn't filled
 					if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
 						Debug("DO pass, Player: [player], Level:[level], Job:[job.title]")
-						Debug(" - Job Flag: [job.flag] Job Department: [player.client.prefs.GetJobDepartment(job, level)] Job Current Pos: [job.current_positions] Job Spawn Positions = [job.spawn_positions]")
+						Debug(" - Job Flag: [job.flag] Job Department: [player.client.prefs.active_character.GetJobDepartment(job, level)] Job Current Pos: [job.current_positions] Job Spawn Positions = [job.spawn_positions]")
 						AssignRole(player, job.title)
 						unassigned -= player
 						break
@@ -419,7 +380,7 @@ SUBSYSTEM_DEF(jobs)
 	// Hand out random jobs to the people who didn't get any in the last check
 	// Also makes sure that they got their preference correct
 	for(var/mob/new_player/player in unassigned)
-		if(player.client.prefs.alternate_option == GET_RANDOM_JOB)
+		if(player.client.prefs.active_character.alternate_option == GET_RANDOM_JOB)
 			GiveRandomJob(player)
 
 	Debug("DO, Standard Check end")
@@ -429,7 +390,7 @@ SUBSYSTEM_DEF(jobs)
 	// Antags, who have to get in, come first
 	for(var/mob/new_player/player in unassigned)
 		if(player.mind.special_role)
-			if(player.client.prefs.alternate_option != BE_ASSISTANT)
+			if(player.client.prefs.active_character.alternate_option != BE_ASSISTANT)
 				GiveRandomJob(player)
 				if(player in unassigned)
 					AssignRole(player, "Civilian")
@@ -438,10 +399,10 @@ SUBSYSTEM_DEF(jobs)
 
 	// Then we assign what we can to everyone else.
 	for(var/mob/new_player/player in unassigned)
-		if(player.client.prefs.alternate_option == BE_ASSISTANT)
+		if(player.client.prefs.active_character.alternate_option == BE_ASSISTANT)
 			Debug("AC2 Assistant located, Player: [player]")
 			AssignRole(player, "Civilian")
-		else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
+		else if(player.client.prefs.active_character.alternate_option == RETURN_TO_LOBBY)
 			player.ready = 0
 			unassigned -= player
 
@@ -553,39 +514,29 @@ SUBSYSTEM_DEF(jobs)
 
 
 
-/datum/controller/subsystem/jobs/proc/LoadJobs(jobsfile) //ran during round setup, reads info from jobs.txt -- Urist
-	if(!config.load_jobs_from_txt)
-		return 0
+/datum/controller/subsystem/jobs/proc/LoadJobs(highpop = FALSE) //ran during round setup, reads info from jobs list
+	if(!GLOB.configuration.jobs.enable_job_amount_overrides)
+		return FALSE
 
-	var/list/jobEntries = file2list(jobsfile)
+	var/list/joblist = list()
 
-	for(var/job in jobEntries)
-		if(!job)
+	if(highpop)
+		joblist = GLOB.configuration.jobs.highpop_job_map.Copy()
+	else
+		joblist = GLOB.configuration.jobs.lowpop_job_map.Copy()
+
+	for(var/job in joblist)
+		// Key: name | Value: Amount
+		var/datum/job/J = GetJob(job)
+		if(!J)
 			continue
+		J.total_positions = text2num(joblist[job])
+		J.spawn_positions = text2num(joblist[job])
 
-		job = trim(job)
-		if(!length(job))
-			continue
+		if(job == "AI" || job == "Cyborg") //I dont like this here but it will do for now
+			J.total_positions = 0
 
-		var/pos = findtext(job, "=")
-		var/name = null
-		var/value = null
-
-		if(pos)
-			name = copytext(job, 1, pos)
-			value = copytext(job, pos + 1)
-		else
-			continue
-
-		if(name && value)
-			var/datum/job/J = GetJob(name)
-			if(!J)	continue
-			J.total_positions = text2num(value)
-			J.spawn_positions = text2num(value)
-			if(name == "AI" || name == "Cyborg")//I dont like this here but it will do for now
-				J.total_positions = 0
-
-	return 1
+	return TRUE
 
 
 /datum/controller/subsystem/jobs/proc/HandleFeedbackGathering()
@@ -613,20 +564,11 @@ SUBSYSTEM_DEF(jobs)
 			if(job.barred_by_disability(player.client))
 				disabled++
 				continue
-			if(job.age_restringed(player.client))
-				disabled++
-				continue
-			if(job.command_age_restringed(player.client))
-				disabled++
-				continue
-			if(job.captain_age_restringed(player.client))
-				disabled++
-				continue
-			if(player.client.prefs.GetJobDepartment(job, 1) & job.flag)
+			if(player.client.prefs.active_character.GetJobDepartment(job, 1) & job.flag)
 				high++
-			else if(player.client.prefs.GetJobDepartment(job, 2) & job.flag)
+			else if(player.client.prefs.active_character.GetJobDepartment(job, 2) & job.flag)
 				medium++
-			else if(player.client.prefs.GetJobDepartment(job, 3) & job.flag)
+			else if(player.client.prefs.active_character.GetJobDepartment(job, 3) & job.flag)
 				low++
 			else never++ //not selected
 
@@ -640,7 +582,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	var/datum/money_account/M = create_account(H.real_name, rand(150,400)*10, null)
+	var/datum/money_account/M = create_account(H.real_name, rand(50,500)*10, null)
 	var/remembered_info = ""
 
 	remembered_info += "<b>Your account number is:</b> #[M.account_number]<br>"
@@ -798,7 +740,7 @@ SUBSYSTEM_DEF(jobs)
 			continue // If a client logs out in the middle of this
 
 		var/datum/db_query/exp_read = SSdbcore.NewQuery(
-			"SELECT exp FROM [format_table_name("player")] WHERE ckey=:ckey",
+			"SELECT exp FROM player WHERE ckey=:ckey",
 			list("ckey" = C.ckey)
 		)
 
@@ -882,7 +824,7 @@ SUBSYSTEM_DEF(jobs)
 		C.prefs.exp = new_exp
 
 		var/datum/db_query/update_query = SSdbcore.NewQuery(
-			"UPDATE [format_table_name("player")] SET exp =:newexp, lastseen=NOW() WHERE ckey=:ckey",
+			"UPDATE player SET exp =:newexp, lastseen=NOW() WHERE ckey=:ckey",
 			list(
 				"newexp" = new_exp,
 				"ckey" = C.ckey
@@ -892,7 +834,7 @@ SUBSYSTEM_DEF(jobs)
 		player_update_queries += update_query
 
 		var/datum/db_query/update_query_history = SSdbcore.NewQuery({"
-			INSERT INTO [format_table_name("playtime_history")] (ckey, date, time_living, time_ghost)
+			INSERT INTO playtime_history (ckey, date, time_living, time_ghost)
 			VALUES (:ckey, CURDATE(), :addedliving, :addedghost)
 			ON DUPLICATE KEY UPDATE time_living=time_living + VALUES(time_living), time_ghost=time_ghost + VALUES(time_ghost)"},
 			list(

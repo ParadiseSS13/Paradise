@@ -31,6 +31,18 @@
 
 	light_color = LIGHT_COLOR_CYAN
 
+/obj/machinery/sleeper/detailed_examine()
+	return "The sleeper allows you to clean the blood by means of dialysis, and to administer medication in a controlled environment.<br>\
+			<br>\
+			Click your target with Grab intent, then click on the sleeper to place them in it. Click the green console, with an empty hand, to open the menu. \
+			Click 'Start Dialysis' to begin filtering unwanted chemicals from the occupant's blood. The beaker contained will begin to fill with their \
+			contaminated blood, and will need to be emptied when full.<br>\
+			<br>\
+			You can also inject common medicines directly into their bloodstream.\
+			<br>\
+			Right-click the cell and click 'Eject Occupant' to remove them. You can enter the cell yourself by right clicking and selecting 'Enter Sleeper'. \
+			Note that you cannot control the sleeper while inside of it."
+
 /obj/machinery/sleeper/power_change()
 	..()
 	if(!(stat & (BROKEN|NOPOWER)))
@@ -500,7 +512,7 @@
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
+		to_chat(user, "<span class='boldnotice'>Subject may not hold anything in their hands.</span>")
 		return
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")

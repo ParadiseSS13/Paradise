@@ -293,6 +293,12 @@
 	charge = 0
 	update_icon()
 
+/obj/item/stock_parts/cell/bluespace/charging
+	name = "self-charging bluespace power cell"
+	desc = "An experimental, self-charging, transdimensional power cell."
+	origin_tech =  "powerstorage=10;bluespace=10"
+	self_recharge = TRUE
+
 /obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell!"
 	icon_state = "icell"
@@ -365,3 +371,9 @@
 	desc = "A standard ninja-suit power cell."
 	maxcharge = 10000
 	materials = list(MAT_GLASS = 60)
+
+/obj/item/stock_parts/cell/bsg
+	name = "\improper B.S.G power cell"
+	desc = "A high capacity, slow charging cell for the B.S.G."
+	maxcharge = 40000
+	chargerate = 2600 // about 30 seconds to charge with a default recharger

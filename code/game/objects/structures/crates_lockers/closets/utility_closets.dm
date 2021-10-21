@@ -51,10 +51,6 @@
 		if("delete")
 			qdel(src)
 
-		//If you want to re-add fire, just add "fire" = 15 to the pick list.
-		/*if("fire")
-			new /obj/structure/closet/firecloset(src.loc)
-			qdel(src)*/
 
 /obj/structure/closet/emcloset/legacy/populate_contents()
 	new /obj/item/tank/internals/oxygen(src)
@@ -71,18 +67,18 @@
 	icon_opened = "fireclosetopen"
 
 /obj/structure/closet/firecloset/populate_contents()
+	new /obj/item/extinguisher(src)
 	new /obj/item/clothing/suit/fire/firefighter(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/tank/internals/oxygen/red(src)
-	new /obj/item/extinguisher(src)
 	new /obj/item/clothing/head/hardhat/red(src)
 
 /obj/structure/closet/firecloset/full/populate_contents()
+	new /obj/item/extinguisher(src)
 	new /obj/item/clothing/suit/fire/firefighter(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/flashlight(src)
 	new /obj/item/tank/internals/oxygen/red(src)
-	new /obj/item/extinguisher(src)
 	new /obj/item/clothing/head/hardhat/red(src)
 
 

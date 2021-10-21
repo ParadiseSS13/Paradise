@@ -10,7 +10,7 @@
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
 	level = 3
-	armor = list("melee" = 50, "bullet" = 70, "laser" = 70, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 0, ACID = 0)
 	max_integrity = 50
 	integrity_failure = 20
 	var/rods_type = /obj/item/stack/rods
@@ -20,6 +20,10 @@
 	var/broken_type = /obj/structure/grille/broken
 	var/shockcooldown = 0
 	var/my_shockcooldown = 1 SECONDS
+
+/obj/structure/grille/detailed_examine()
+	return "A powered and knotted wire underneath this will cause the grille to shock anyone not wearing insulated gloves.<br>\
+			Wirecutters will turn the grille into metal rods instantly. Grilles are made with metal rods."
 
 /obj/structure/grille/fence
 	var/width = 3
@@ -65,7 +69,7 @@
 /obj/structure/grille/attack_animal(mob/user)
 	. = ..()
 	if(. && !QDELETED(src) && !shock(user, 70))
-		take_damage(rand(5,10), BRUTE, "melee", 1)
+		take_damage(rand(5,10), BRUTE, MELEE, 1)
 
 /obj/structure/grille/hulk_damage()
 	return 60
@@ -84,14 +88,14 @@
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message("<span class='warning'>[user] hits [src].</span>")
 	if(!shock(user, 70))
-		take_damage(rand(5,10), BRUTE, "melee", 1)
+		take_damage(rand(5,10), BRUTE, MELEE, 1)
 
 /obj/structure/grille/attack_alien(mob/living/user)
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("<span class='warning'>[user] mangles [src].</span>")
 	if(!shock(user, 70))
-		take_damage(20, BRUTE, "melee", 1)
+		take_damage(20, BRUTE, MELEE, 1)
 
 /obj/structure/grille/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)

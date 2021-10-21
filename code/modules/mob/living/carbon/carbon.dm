@@ -418,6 +418,10 @@
 /mob/living/carbon/proc/tintcheck()
 	return 0
 
+/mob/living/carbon/proc/create_dna()
+	if(!dna)
+		dna = new()
+
 /mob/living/carbon/proc/getDNA()
 	return dna
 
@@ -1057,7 +1061,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(!forceFed(toEat, user, fullness))
 			return 0
 	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
-	GLOB.score_foodeaten++
+	SSticker.score.score_food_eaten++
 	return 1
 
 /mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
@@ -1141,8 +1145,6 @@ so that different stomachs can handle things in different ways VB*/
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
 /mob/living/carbon/proc/update_tint()
-	if(!GLOB.tinted_weldhelh)
-		return
 	var/tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
 		overlay_fullscreen("tint", /obj/screen/fullscreen/blind)
@@ -1215,6 +1217,14 @@ so that different stomachs can handle things in different ways VB*/
 	if(HAS_TRAIT(src, TRAIT_XRAY_VISION))
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		see_in_dark = max(see_in_dark, 8)
+
+	if(HAS_TRAIT(src, TRAIT_MESON_VISION))
+		sight |= SEE_TURFS
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(src, TRAIT_NIGHT_VISION))
+		see_in_dark = max(see_in_dark, 8)
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()

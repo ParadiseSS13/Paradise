@@ -14,7 +14,7 @@
 	throw_range = 5
 	hitsound = "swing_hit"
 	w_class = WEIGHT_CLASS_SMALL
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	materials = list(MAT_METAL = 70, MAT_GLASS = 20)
 	origin_tech = "engineering=1;plasmatech=1"
@@ -51,6 +51,13 @@
 /obj/item/weldingtool/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return FIRELOSS
+
+/obj/item/weldingtool/can_enter_storage(obj/item/storage/S, mob/user)
+	if(tool_enabled)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		return FALSE
+	else
+		return TRUE
 
 /obj/item/weldingtool/process()
 	if(tool_enabled)

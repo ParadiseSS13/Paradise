@@ -236,7 +236,9 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/holosign_creator/security,
 		/obj/item/melee/classic_baton/telescopic,
-		/obj/item/restraints/legcuffs/bola)
+		/obj/item/restraints/legcuffs/bola,
+		/obj/item/clothing/mask/gas/sechailer,
+		/obj/item/spacepod_key)
 
 /obj/item/storage/belt/security/sec/populate_contents()
 	new /obj/item/flashlight/seclite(src)
@@ -413,7 +415,6 @@
 	new /obj/item/soap(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
-	new /obj/item/melee/flyswatter(src)
 	update_icon()
 
 /obj/item/storage/belt/lazarus
@@ -453,6 +454,7 @@
 	item_state = "bandolier"
 	storage_slots = 8
 	can_hold = list(/obj/item/ammo_casing/shotgun)
+	display_contents_with_number = TRUE
 
 /obj/item/storage/belt/bandolier/Initialize(mapload)
 	. = ..()
@@ -720,7 +722,6 @@
 	new /obj/item/stack/cable_coil(src)
 
 	new /obj/item/restraints/handcuffs(src)
-	new /obj/item/dnainjector/xraymut(src)
 	new /obj/item/dnainjector/firemut(src)
 	new /obj/item/dnainjector/telemut(src)
 	new /obj/item/dnainjector/hulkmut(src)

@@ -169,7 +169,7 @@
 	var/sparks = "securecratesparks"
 	var/emag = "securecrateemag"
 	max_integrity = 500
-	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
 	var/tamperproof = FALSE
 	broken = FALSE
@@ -366,6 +366,23 @@
 	else
 		newgas.temperature = target_temp
 	return newgas
+
+/obj/structure/closet/crate/freezer/iv_storage
+	name = "IV storage freezer"
+	desc = "A freezer used to store IV bags containing various blood types."
+
+/obj/structure/closet/crate/freezer/iv_storage/populate_contents()
+	new /obj/item/reagent_containers/iv_bag/blood/OMinus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/OPlus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/AMinus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/APlus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/BMinus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/BPlus(src)
+	new /obj/item/reagent_containers/iv_bag/blood/random(src)
+	new /obj/item/reagent_containers/iv_bag/blood/random(src)
+	new /obj/item/reagent_containers/iv_bag/blood/random(src)
+	new /obj/item/reagent_containers/iv_bag/salglu(src)
+	new /obj/item/reagent_containers/iv_bag/slime(src)
 
 /obj/structure/closet/crate/can
 	desc = "A large can, looks like a bin to me."

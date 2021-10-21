@@ -14,38 +14,47 @@
 	. = ..()
 
 /mob/living/carbon/human/Initialize(mapload, datum/species/new_species = /datum/species/human)
-	if(!dna)
-		dna = new /datum/dna(null)
-		// Species name is handled by set_species()
+	create_dna()
 
 	. = ..()
 
-	set_species(new_species, 1, delay_icon_update = 1, skip_same_check = TRUE)
-
-	if(dna.species)
-		real_name = dna.species.get_random_name(gender)
-		name = real_name
-		if(mind)
-			mind.name = real_name
-
-	create_reagents(330)
-
-	handcrafting = new()
-
-	// Set up DNA.
-	if(dna)
-		dna.ready_dna(src)
-		dna.real_name = real_name
-		sync_organ_dna(1)
-
-	physiology = new()
-
-	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
+	setup_dna(new_species)
+	setup_other()
 
 	UpdateAppearance()
 	GLOB.human_list += src
 
+/**
+  * Sets up DNA and species.
+  *
+  * Arguments:
+  * * new_species - The new species to assign.
+  */
+/mob/living/carbon/human/proc/setup_dna(datum/species/new_species)
+	set_species(new_species, use_default_color = TRUE, delay_icon_update = TRUE, skip_same_check = TRUE)
+	// Name
+	real_name = dna.species.get_random_name(gender)
+	name = real_name
+	if(mind)
+		mind.name = real_name
+	// DNA ready
+	dna.ready_dna(src)
+	dna.real_name = real_name
+	sync_organ_dna()
+
+/**
+  * Sets up other variables and components that may be needed for gameplay.
+  */
+/mob/living/carbon/human/proc/setup_other()
+	create_reagents(330)
+	physiology = new()
+
+/mob/living/carbon/human/ComponentInitialize()
+	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
+
 /mob/living/carbon/human/OpenCraftingMenu()
+	if(!handcrafting)
+		handcrafting = new()
 	handcrafting.ui_interact(src)
 
 /mob/living/carbon/human/prepare_data_huds()
@@ -205,7 +214,7 @@
 	if(istype(loc, /obj/spacepod)) // Spacdpods!
 		var/obj/spacepod/S = loc
 		stat("Spacepod Charge", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "No cell detected"]")
-		stat("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / S.maxhealth) * 100]"]%") //Hispania Spacepods
+		stat("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
 
 /mob/living/carbon/human/ex_act(severity)
 	if(status_flags & GODMODE)
@@ -213,7 +222,7 @@
 
 	var/brute_loss = 0
 	var/burn_loss = 0
-	var/bomb_armor = getarmor(null, "bomb")
+	var/bomb_armor = getarmor(null, BOMB)
 	var/list/valid_limbs = list("l_arm", "l_leg", "r_arm", "r_leg")
 	var/limbs_amount = 1
 	var/limb_loss_chance = 50
@@ -255,7 +264,7 @@
 		var/obj/item/organ/external/BP = get_organ(X)
 		if(!BP) //limb already blown off, move to the next one without counting it
 			continue
-		if(prob(limb_loss_chance) && !prob(getarmor(BP, "bomb")))
+		if(prob(limb_loss_chance) && !prob(getarmor(BP, BOMB)))
 			BP.droplimb(TRUE, DROPLIMB_SHARP, FALSE, TRUE)
 		limbs_amount--
 		if(!limbs_amount)
@@ -271,7 +280,7 @@
 	show_message("<span class='userdanger'>The blob attacks you!</span>")
 	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
-	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, "melee"))
+	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, MELEE))
 
 /mob/living/carbon/human/get_restraining_item()
 	. = ..()
@@ -1163,6 +1172,10 @@
 	set src in view(1)
 	var/self = 0
 
+	if (!ishuman(src))
+		to_chat(usr, "<span class='notice'>You do not know how to check someone's pulse!</span>")
+		return
+
 	if(usr.stat == 1 || usr.restrained() || !isliving(usr) || usr.is_dead()) return
 
 	if(usr == src)
@@ -1192,8 +1205,10 @@
 
 /mob/living/carbon/human/proc/change_dna(datum/dna/new_dna, include_species_change = FALSE, keep_flavor_text = FALSE)
 	if(include_species_change)
-		set_species(new_dna.species.type, retain_damage = TRUE)
+		set_species(new_dna.species.type, retain_damage = TRUE, transformation = TRUE)
 	dna = new_dna.Clone()
+	if (include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
+		dna.species.on_species_gain(src)
 	real_name = new_dna.real_name
 	domutcheck(src, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 	if(!keep_flavor_text)
@@ -1205,7 +1220,7 @@
 	sec_hud_set_ID()
 
 
-/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE)
+/mob/living/carbon/human/proc/set_species(datum/species/new_species, use_default_color = FALSE, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, transformation = FALSE)
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
 			return
@@ -1240,7 +1255,7 @@
 	hunger_drain = dna.species.hunger_drain
 	digestion_ratio = dna.species.digestion_ratio
 
-	if(dna.species.base_color && default_colour)
+	if(dna.species.base_color && use_default_color)
 		//Apply colour.
 		skin_colour = dna.species.base_color
 	else
@@ -1362,7 +1377,8 @@
 
 	dna.real_name = real_name
 
-	dna.species.on_species_gain(src)
+	if (!transformation) //Distinguish between creating a mob and switching species
+		dna.species.on_species_gain(src)
 
 	update_sight()
 
@@ -1663,9 +1679,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	return md5(dna.uni_identity)
 
-/mob/living/carbon/human/can_see_reagents()
-	for(var/obj/item/clothing/C in src) //If they have some clothing equipped that lets them see reagents, they can see reagents
-		if(C.scan_reagents)
+/mob/living/carbon/human/can_see_reagents() //If they have some glasses or helmet equipped that lets them see reagents, they can see reagents
+	if(istype(head, /obj/item/clothing/head))
+		var/obj/item/clothing/head/hat = head
+		if(hat.scan_reagents)
+			return 1
+	if(istype(glasses, /obj/item/clothing/glasses))
+		var/obj/item/clothing/rscan = glasses
+		if(rscan.scan_reagents)
 			return 1
 
 /mob/living/carbon/human/can_eat(flags = 255)
@@ -1737,7 +1758,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
 		if(HAS_TRAIT(src, TRAIT_CHUNKYFINGERS))
-			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
+			to_chat(src, "<span class='warning'>Your meaty finger is far too large for the trigger guard!</span>")
 			return FALSE
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
@@ -1923,6 +1944,19 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/update_runechat_msg_location()
 	if(ismecha(loc))
-		runechat_msg_location = loc
+		runechat_msg_location = loc.UID()
 	else
-		runechat_msg_location = src
+		return ..()
+
+/mob/living/carbon/human/verb/Examine_OOC()
+	set name = "Examine Meta-Info (OOC)"
+	set category = "OOC"
+	set src in view()
+
+	if(GLOB.configuration.general.allow_character_metadata)
+		if(client)
+			to_chat(usr, "[src]'s Metainfo:<br>[sanitize(client.prefs.active_character.metadata)]")
+		else
+			to_chat(usr, "[src] does not have any stored infomation!")
+	else
+		to_chat(usr, "OOC Metadata is not supported by this server!")

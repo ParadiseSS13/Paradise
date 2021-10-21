@@ -7,9 +7,9 @@
 	icon = 'icons/obj/pneumaticCannon.dmi'
 	icon_state = "pneumaticCannon"
 	item_state = "bulldog"
-	lefthand_file = 'icons/hispania/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/hispania/mob/inhands/guns_righthand.dmi'
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 50)
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
 	var/maxWeightClass = 20 //The max weight of items that can fit into the cannon
 	var/loadedWeightClass = 0 //The weight of items currently in the cannon
 	var/obj/item/tank/internals/tank = null //The gas tank that is drawn from to fire things
@@ -61,6 +61,9 @@
 		return
 	if(istype(W, /obj/item))
 		var/obj/item/IW = W
+		if(IW.flags & (ABSTRACT | NODROP | DROPDEL))
+			to_chat(user, "<span class='warning'>You can't put [IW] into [src]!</span>")
+			return
 		if((loadedWeightClass + IW.w_class) > maxWeightClass)
 			to_chat(user, "<span class='warning'>\The [IW] won't fit into \the [src]!</span>")
 			return

@@ -80,7 +80,7 @@
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
 	max_integrity = 250
 	integrity_failure = 80
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	siemens_strength = 1
 	frequency = ATMOS_VENTSCRUB
@@ -112,6 +112,7 @@
 
 	var/target_temperature = T20C
 	var/regulating_temperature = 0
+	var/thermostat_state = FALSE
 
 	var/list/TLV = list()
 
@@ -197,13 +198,7 @@
 		apply_mode()
 
 /obj/machinery/alarm/New(loc, direction, building = 0)
-	. = ..()
-	GLOB.air_alarms += src
-	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
-
-	wires = new(src)
-
-	if(building)
+	if(building) // Do this first since the Init uses this later on. TODO refactor to just use an Init
 		if(loc)
 			src.loc = loc
 
@@ -213,10 +208,15 @@
 		buildstage = 0
 		wiresexposed = 1
 		set_pixel_offsets_from_dir(-24, 24, -24, 24)
-		update_icon()
-		return
 
-	first_run()
+	. = ..()
+	GLOB.air_alarms += src
+	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
+
+	wires = new(src)
+
+	if(!building)
+		first_run()
 
 /obj/machinery/alarm/Destroy()
 	SStgui.close_uis(wires)
@@ -329,8 +329,8 @@
 			var/datum/gas_mixture/gas = location.remove_air(0.25 * environment.total_moles())
 			if(!gas)
 				return
-			if(!regulating_temperature)
-				regulating_temperature = 1
+			if(!regulating_temperature && thermostat_state == TRUE)
+				regulating_temperature = TRUE
 				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
 
 			if(target_temperature > MAX_TEMPERATURE)
@@ -339,24 +339,25 @@
 			if(target_temperature < MIN_TEMPERATURE)
 				target_temperature = MIN_TEMPERATURE
 
-			var/heat_capacity = gas.heat_capacity()
-			var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
+			if(thermostat_state == TRUE)
+				var/heat_capacity = gas.heat_capacity()
+				var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
 
-			//Use power.  Assuming that each power unit represents 1000 watts....
-			use_power(energy_used/1000, ENVIRON)
+				//Use power.  Assuming that each power unit represents 1000 watts....
+				use_power(energy_used / 1000, ENVIRON)
 
-			//We need to cool ourselves.
-			if(heat_capacity)
-				if(environment.temperature > target_temperature)
-					gas.temperature -= energy_used / heat_capacity
-				else
-					gas.temperature += energy_used / heat_capacity
+				//We need to cool ourselves.
+				if(heat_capacity)
+					if(environment.temperature > target_temperature)
+						gas.temperature -= energy_used / heat_capacity
+					else
+						gas.temperature += energy_used / heat_capacity
+
+				if(abs(environment.temperature - target_temperature) <= 0.5)
+					regulating_temperature = FALSE
+					visible_message("[src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
 
 			environment.merge(gas)
-
-			if(abs(environment.temperature - target_temperature) <= 0.5)
-				regulating_temperature = 0
-				visible_message("\The [src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
 
 /obj/machinery/alarm/update_icon()
 	overlays.Cut()
@@ -648,6 +649,7 @@
 	data["pressure"] = environment_pressure
 	data["temperature"] = environment.temperature
 	data["temperature_c"] = round(environment.temperature - T0C, 0.1)
+	data["thermostat_state"] = thermostat_state
 
 	var/list/percentages = list()
 	percentages["oxygen"] = oxygen_percent
@@ -937,6 +939,8 @@
 			else
 				target_temperature = input_temperature
 
+		if("thermostat_state")
+			thermostat_state = !thermostat_state
 
 /obj/machinery/alarm/emag_act(mob/user)
 	if(!emagged)

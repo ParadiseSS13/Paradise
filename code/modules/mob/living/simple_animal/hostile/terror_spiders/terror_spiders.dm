@@ -40,6 +40,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 	// Movement
 	pass_flags = PASSTABLE
+	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	turns_per_move = 3 // number of turns before AI-controlled spiders wander around. No effect on actual player or AI movement speed!
 	move_to_delay = 6
 	// AI spider speed at chasing down targets. Higher numbers mean slower speed. Divide 20 (server tick rate / second) by this to get tiles/sec.
@@ -136,6 +137,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/killcount = 0
 	var/busy = 0 // leave this alone!
 	var/spider_tier = TS_TIER_1 // 1 for red,gray,green. 2 for purple,black,white, 3 for prince, mother. 4 for queen
+	/// Does this terror speak loudly on the terror hivemind?
+	var/loudspeaker = FALSE
 	var/hasdied = 0
 	var/list/spider_special_drops = list()
 	var/attackstep = 0
@@ -311,6 +314,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
 	GLOB.ts_spiderlist -= src
+	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	U.remove_hud_from(src)
 	handle_dying()
 	return ..()
 

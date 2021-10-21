@@ -221,8 +221,25 @@
 		return
 	var/mob/living/carbon/human/H = user
 	var/immune = istype(H.glasses, /obj/item/clothing/glasses/meson)
-	if(!immune && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
+	if(!immune && !HAS_TRAIT(H, TRAIT_MESON_VISION) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 		. += "<span class='danger'>You get headaches just from looking at it.</span>"
+
+/obj/machinery/power/supermatter_crystal/detailed_examine()
+	return "When energized by a laser (or something hitting it), it emits radiation and heat. If the heat reaches above 7000 kelvin, it will send an alert and start taking damage. \
+			After integrity falls to zero percent, it will delaminate, causing a massive explosion, station-wide radiation spikes, and hallucinations. \
+			Supermatter reacts badly to oxygen in the atmosphere. It'll also heat up really quick if it is in vacuum.<br>\
+			<br>\
+			Supermatter cores are extremely dangerous to be close to, and requires protection to handle properly. The protection you will need is:<br>\
+			Optical meson scanners on your eyes, to prevent hallucinations when looking at the supermatter.<br>\
+			Radiation helmet and suit, as the supermatter is radioactive.<br>\
+			<br>\
+			Touching the supermatter will result in *instant death*, with no corpse left behind! You can drag the supermatter, but anything else will kill you. \
+			It is advised to obtain a genetic backup before trying to drag it."
+
+/obj/machinery/power/supermatter_crystal/detailed_examine_antag()
+	return "Exposing the supermatter to oxygen or vacuum will cause it to start rapidly heating up. Sabotaging the supermatter and making it explode will \
+			cause a period of lag as the explosion is processed by the server, as well as irradiating the entire station and causing hallucinations to happen. \
+			Wearing radiation equipment will protect you from most of the delamination effects sans explosion."
 
 /obj/machinery/power/supermatter_crystal/proc/get_status()
 	var/turf/T = get_turf(src)
@@ -520,7 +537,7 @@
 
 	//Makes em go mad and accumulate rads.
 	for(var/mob/living/carbon/human/l in view(src, HALLUCINATION_RANGE(power))) // If they can see it without mesons on.  Bad on them.
-		if(!istype(l.glasses, /obj/item/clothing/glasses/meson))
+		if(!istype(l.glasses, /obj/item/clothing/glasses/meson) && !HAS_TRAIT(l, TRAIT_MESON_VISION))
 			var/D = sqrt(1 / max(1, get_dist(l, src)))
 			l.hallucination += power * hallucination_power * D
 			l.hallucination = clamp(l.hallucination, 0, 200)
@@ -622,7 +639,7 @@
 		return FALSE
 	if(!istype(Proj.firer, /obj/machinery/power/emitter) && power_changes)
 		investigate_log("has been hit by [Proj] fired by [key_name(Proj.firer)]", "supermatter")
-	if(Proj.flag != "bullet")
+	if(Proj.flag != BULLET)
 		if(power_changes) //This needs to be here I swear
 			power += Proj.damage * bullet_energy
 			if(!has_been_powered)
@@ -713,7 +730,20 @@
 		return
 	if(moveable && default_unfasten_wrench(user, I, time = 20))
 		return
-	if(user.drop_item())
+	if(istype(I, /obj/item/scalpel/supermatter))
+		var/obj/item/scalpel/supermatter/scalpel = I
+		to_chat(user, "<span class='notice'>You carefully begin to scrape [src] with [I]...</span>")
+		if(I.use_tool(src, user, 10 SECONDS, volume = 100))
+			if(scalpel.uses_left)
+				to_chat(user, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
+				new /obj/item/nuke_core/supermatter_sliver(drop_location())
+				matter_power += 800
+				scalpel.uses_left--
+				if(!scalpel.uses_left)
+					to_chat(user, "<span class='boldwarning'>A tiny piece of [I] falls off, rendering it useless!</span>")
+			else
+				to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")
+	else if(user.drop_item())
 		user.visible_message("<span class='danger'>As [user] touches [src] with \a [I], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch [src] with [I], and everything suddenly goes silent.</span>\n<span class='notice'>[I] flashes into dust as you flinch away from [src].</span>",\
 			"<span class='italics'>Everything suddenly goes silent.</span>")
@@ -756,6 +786,12 @@
 				suspicion = "last touched by [AM.fingerprintslast]"
 			message_admins("[src] has consumed [AM], [suspicion] [ADMIN_JMP(src)].")
 			investigate_log("has consumed [AM] - [suspicion].", "supermatter")
+			if(istype(AM, /obj/machinery/power/supermatter_crystal))
+				power += 5000//releases A LOT of power
+				matter_power += 500000
+				damage += 180//drops the integrety by 20%
+				AM.visible_message("<span class='danger'>[AM] smacks into [src], rapidly flashing blasts of pure energy. The energy inside [src] undergoes superradiance scattering!</span>", null,\
+				"<span class='italics'>You hear a loud crack as a wave of heat washes over you.</span>")
 		qdel(AM)
 	if(!iseffect(AM) && power_changes)
 		matter_power += 200

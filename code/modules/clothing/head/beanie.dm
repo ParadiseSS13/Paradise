@@ -9,7 +9,7 @@
 	icon_state = "beanie" //Default white
 	item_color = "beanie"
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		)
 
 /obj/item/clothing/head/beanie/black
@@ -85,7 +85,7 @@
 	icon_state = "beaniedurathread"
 	item_state = "beaniedurathread"
 	item_color = null
-	armor = list("melee" = 15, "bullet" = 5, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 5)
+	armor = list(MELEE = 15, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 5)
 
 /obj/item/clothing/head/beanie/waldo
 	name = "red striped bobble hat"

@@ -165,7 +165,7 @@
 		if(istype(firer, /mob))
 			add_attack_logs(firer, M, "Mecha-shot with <b>[src]</b>")
 		else
-			add_attack_logs(null, M, "Mecha-shot with <b>[src]</b>")
+			add_attack_logs(src, M, "Mecha-shot with <b>[src]</b> (no firer)")
 	if(life <= 0)
 		qdel(src)
 	return

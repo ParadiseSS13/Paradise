@@ -241,8 +241,6 @@
 	// Makes gamemodes respect player limits
 	var/enable_gamemode_player_limit = 0
 
-	var/roundstart_traits = TRUE //TRAITS
-	var/disable_human_mood = FALSE //TRAITS
 	/// BYOND account age limit for notifcations of new accounts (Any accounts older than this value will not send notifications on first join)
 	var/byond_account_age_threshold = 7
 
@@ -264,15 +262,6 @@
 	/// Webhook URLs for the mentor webhook
 	var/list/discord_mentor_webhook_urls = list()
 
-	/// Webhook URLs for the bans webhook
-	var/list/discord_bans_webhook_urls = list() // Toma el valor del archivo config.txt, esta es una variable hispania, TotoMC was here
-
-	/// Webhook URLs for the notes webhook
-	var/list/discord_notes_webhook_urls = list() // Toma el valor del archivo config.txt, esta es una variable hispania, TotoMC was here
-
-	/// Webhook URLs for the OOC webhook
-	var/list/discord_ooc_webhook_urls = list() // Toma el valor del archivo config.tx, esta es una variable hispania, TotoMC was here
-
 	/// Do we want to forward all adminhelps to the discord or just ahelps when admins are offline.
 	/// (This does not mean all ahelps are pinged, only ahelps sent when staff are offline get the ping, regardless of this setting)
 	var/discord_forward_all_ahelps = FALSE
@@ -291,13 +280,6 @@
 
 	/// Enable auto profiler of rounds
 	var/auto_profile = FALSE
-
-	// Enable map voting
-	var/map_voting_enabled = TRUE
-
-	// 2FA auth host
-	var/_2fa_auth_host = null
-
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
@@ -790,12 +772,6 @@
 					discord_admin_webhook_urls = splittext(value, "|")
 				if("discord_webhooks_mentor_url")
 					discord_mentor_webhook_urls = splittext(value, "|")
-				if("discord_webhooks_bans_url")
-					discord_bans_webhook_urls = splittext(value, "|") // Variable de hispania
-				if("discord_webhooks_notes_url")
-					discord_notes_webhook_urls = splittext(value, "|") // Variable de hispania
-				if("discord_webhooks_ooc_url")
-					discord_ooc_webhook_urls = splittext(value, "|") // Variable de hispania
 				if("discord_forward_all_ahelps")
 					discord_forward_all_ahelps = TRUE
 				// End discord stuff
@@ -805,10 +781,6 @@
 					max_client_cid_history = text2num(value)
 				if("enable_auto_profiler")
 					auto_profile = TRUE
-				if("enable_map_voting")
-					map_voting_enabled = TRUE
-				if("2fa_host")
-					_2fa_auth_host = value
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
@@ -964,34 +936,3 @@
 			runnable_modes[M] = probabilities[M.config_tag]
 //			to_chat(world, "DEBUG: runnable_mode\[[runnable_modes.len]\] = [M.config_tag]")
 	return runnable_modes
-
-/datum/configuration/proc/load_rank_colour_map()
-	var/list/lines = file2list("config/rank_colours.txt")
-
-	for(var/line in lines)
-		// Skip newlines
-		if(!length(line))
-			continue
-		// Skip comments
-		if(line[1] == "#")
-			continue
-
-		//Split the line at every " - "
-		var/list/split_holder = splittext(line, " - ")
-		if(!length(split_holder))
-			continue
-
-		// Rank is before the " - "
-		var/rank = split_holder[1]
-		if(!rank)
-			continue
-
-		// Color is after the " - "
-		var/colour = ""
-		if(length(split_holder) >= 2)
-			colour = split_holder[2]
-
-		if(rank && colour)
-			GLOB.rank_colour_map[rank] = colour
-		else
-			stack_trace("Invalid colour for rank '[rank]' in config/rank_colours.txt")

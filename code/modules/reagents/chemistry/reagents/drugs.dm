@@ -569,21 +569,21 @@
 /datum/reagent/fliptonium/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(current_cycle == 5)
-		M.SpinAnimation(speed = 11, loops = -1)
+		M.SpinAnimation(speed = 11, loops = -1, parallel = FALSE)
 	if(current_cycle == 10)
-		M.SpinAnimation(speed = 10, loops = -1)
+		M.SpinAnimation(speed = 10, loops = -1, parallel = FALSE)
 	if(current_cycle == 15)
-		M.SpinAnimation(speed = 9, loops = -1)
+		M.SpinAnimation(speed = 9, loops = -1, parallel = FALSE)
 	if(current_cycle == 20)
-		M.SpinAnimation(speed = 8, loops = -1)
+		M.SpinAnimation(speed = 8, loops = -1, parallel = FALSE)
 	if(current_cycle == 25)
-		M.SpinAnimation(speed = 7, loops = -1)
+		M.SpinAnimation(speed = 7, loops = -1, parallel = FALSE)
 	if(current_cycle == 30)
-		M.SpinAnimation(speed = 6, loops = -1)
+		M.SpinAnimation(speed = 6, loops = -1, parallel = FALSE)
 	if(current_cycle == 40)
-		M.SpinAnimation(speed = 5, loops = -1)
+		M.SpinAnimation(speed = 5, loops = -1, parallel = FALSE)
 	if(current_cycle == 50)
-		M.SpinAnimation(speed = 4, loops = -1)
+		M.SpinAnimation(speed = 4, loops = -1, parallel = FALSE)
 
 	M.AdjustDrowsy(-6)
 	update_flags |= M.AdjustParalysis(-1.5, FALSE)
@@ -595,11 +595,11 @@
 
 /datum/reagent/fliptonium/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST || method == REAGENT_TOUCH)
-		M.SpinAnimation(speed = 12, loops = -1)
+		M.SpinAnimation(speed = 12, loops = -1, parallel = FALSE)
 	..()
 
 /datum/reagent/fliptonium/on_mob_delete(mob/living/M)
-	M.SpinAnimation(speed = 12, loops = -1)
+	M.SpinAnimation(speed = 12, loops = -1, parallel = FALSE)
 
 /datum/reagent/fliptonium/overdose_process(mob/living/M, severity)
 	var/list/overdose_info = ..()
@@ -641,18 +641,18 @@
 /datum/reagent/rotatium/on_mob_life(mob/living/carbon/M)
 	if(M.hud_used)
 		if(current_cycle >= 20 && current_cycle % 20 == 0)
-			var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
+			var/atom/movable/plane_master_controller/pm_controller = M.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 			var/rotation = min(round(current_cycle / 20), 89) // By this point the player is probably puking and quitting anyway
-			for(var/whole_screen in screens)
-				animate(whole_screen, transform = matrix(rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING, loop = -1)
+			for(var/key in pm_controller.controlled_planes)
+				animate(pm_controller.controlled_planes[key], transform = matrix(rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING, loop = -1)
 				animate(transform = matrix(-rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING)
 	return ..()
 
 /datum/reagent/rotatium/on_mob_delete(mob/living/M)
-	if(M && M.hud_used)
-		var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
-		for(var/whole_screen in screens)
-			animate(whole_screen, transform = matrix(), time = 5, easing = QUAD_EASING)
+	if(M?.hud_used)
+		var/atom/movable/plane_master_controller/pm_controller = M.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
+		for(var/key in pm_controller.controlled_planes)
+			animate(pm_controller.controlled_planes[key], transform = matrix(), time = 5, easing = QUAD_EASING)
 	..()
 
 //////////////////////////////

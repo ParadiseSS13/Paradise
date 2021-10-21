@@ -3,6 +3,7 @@
 	desc = "A cart for storing engineering items."
 	icon = 'icons/obj/engicart.dmi'
 	icon_state = "cart"
+	face_while_pulling = FALSE
 	anchored = 0
 	density = 1
 	buckle_offset = 0

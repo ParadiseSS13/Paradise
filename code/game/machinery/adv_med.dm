@@ -11,6 +11,15 @@
 	var/mob/living/carbon/human/occupant
 	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
 
+/obj/machinery/bodyscanner/detailed_examine()
+	return "The advanced scanner detects and reports internal injuries such as bone fractures, internal bleeding, and organ damage. \
+			This is useful if you are about to perform surgery.<br>\
+			<br>\
+			Click your target with Grab intent, then click on the scanner to place them in it. Click the red terminal to operate. \
+			Right-click the scanner and click 'Eject Occupant' to remove them. You can enter the scanner yourself in a similar way, using the 'Enter Body Scanner' \
+			verb."
+
+
 /obj/machinery/bodyscanner/Destroy()
 	go_out()
 	return ..()
@@ -58,7 +67,7 @@
 			return
 		var/mob/living/carbon/human/M = TYPECAST_YOUR_SHIT.affecting
 		if(M.abiotic())
-			to_chat(user, "<span class='notice'>Subject cannot have abiotic items on.</span>")
+			to_chat(user, "<span class='notice'>Subject may not hold anything in their hands.</span>")
 			return
 		M.forceMove(src)
 		occupant = M
@@ -113,7 +122,7 @@
 	if(H.buckled)
 		return FALSE
 	if(H.abiotic())
-		to_chat(user, "<span class='notice'>Subject cannot have abiotic items on.</span>")
+		to_chat(user, "<span class='notice'>Subject may not hold anything in their hands.</span>")
 		return FALSE
 	if(H.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[H] will not fit into [src] because [H.p_they()] [H.p_have()] a slime latched onto [H.p_their()] head.</span>")

@@ -277,6 +277,8 @@
 
 	var/obj/item/paper/reqform = new /obj/item/paper(_loc)
 	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	reqform.pixel_y = rand(-10, -8) // HISPANIA ILUSION
+	reqform.pixel_x = rand(-9, 9)
 	reqform.name = "Requisition Form - [crates] '[object.name]' for [orderedby]"
 	reqform.info += "<h3>[station_name()] Supply Requisition Form</h3><hr>"
 	reqform.info += "INDEX: #[SSshuttle.ordernum]<br>"
@@ -315,7 +317,7 @@
 	var/packagesAmt = SSshuttle.shoppinglist.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
 	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
-	slip.info = "<h3>[command_name()] Shipping Manifest</h3><hr><br>"
+	slip.info = "<h3>NAS Trurl Shipping Manifest</h3><hr><br>"
 	slip.info +="Order: #[ordernum]<br>"
 	slip.info +="Destination: [stationName]<br>"
 	slip.info +="Requested By: [orderedby]<br>"
@@ -340,6 +342,8 @@
 	for(var/typepath in contains)
 		if(!typepath)	continue
 		var/atom/A = new typepath(Crate)
+		A.pixel_y = rand(-3, 3) // HISPANIA LIFEHACK
+		A.pixel_x = rand(-3, 3)
 		if(object.amount && A.vars.Find("amount") && A:amount)
 			A:amount = object.amount
 		slip.info += "<li>[A.name]</li>"	//add the item to the manifest (even if it was misplaced)

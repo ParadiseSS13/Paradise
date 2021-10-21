@@ -41,10 +41,8 @@
 		new /obj/effect/temp_visual/resonance(T, user, src, burst_time)
 		user.changeNext_move(CLICK_CD_MELEE)
 
-/obj/item/resonator/afterattack(atom/target, mob/user, proximity, params)
-	var/distance = 0
-	distance = get_dist(user, target)
-	if(check_allowed_items(target, 1) && distance <= 2)
+/obj/item/resonator/pre_attack(atom/target, mob/user, params)
+	if(check_allowed_items(target, 1))
 		CreateResonance(target, user)
 
 //resonance field, crushes rock, damages mobs

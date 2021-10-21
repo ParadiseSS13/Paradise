@@ -309,3 +309,24 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/reagent_containers/syringe/capulettium_plus(src)
 	new /obj/item/reagent_containers/syringe/sarin(src)
 	new /obj/item/reagent_containers/syringe/pancuronium(src)
+
+/obj/item/storage/box/syndie_kit/nuke
+	name = "box"  //Bit of stealth, since you spawn with it
+	desc = "It's just an ordinary box."
+	icon_state = "box"
+
+/obj/item/storage/box/syndie_kit/nuke/populate_contents()
+	new /obj/item/screwdriver/nuke(src)
+	new /obj/item/nuke_core_container(src)
+	new /obj/item/paper/guides/antag/nuke_instructions(src)
+
+/obj/item/storage/box/syndie_kit/supermatter
+	name = "box"
+	desc = "It's just an ordinary box."
+	icon_state = "box"
+
+/obj/item/storage/box/syndie_kit/supermatter/populate_contents()
+	new /obj/item/scalpel/supermatter(src)
+	new /obj/item/retractor/supermatter(src)
+	new /obj/item/nuke_core_container/supermatter(src)
+	new /obj/item/paper/guides/antag/supermatter_sliver(src)

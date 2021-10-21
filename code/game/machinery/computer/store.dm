@@ -31,7 +31,7 @@
 	var/dat = {"
 <html>
 	<head>
-		<title>[command_name()] Merchandise</title>
+		<title>Nanotrasen Merchandise</title>
 		<style type="text/css">
 * {
 	font-family:sans-serif;
@@ -85,10 +85,10 @@ th.cost.toomuch {background:maroon;}
 	</head>
 	<body>
 	<p style="float:right"><a href='byond://?src=[UID()];refresh=1'>Refresh</a> | <b>Balance: $[balance]</b></p>
-	<h1>[command_name()] Merchandise</h1>
+	<h1>Nanotrasen Merchandise</h1>
 	<p>
 		<b>Doing your job and not getting any recognition at work?</b>  Well, welcome to the
-		merch shop!  Here, you can buy cool things in exchange for money you earn when you've
+		merch shop! Here, you can buy cool things in exchange for money you earn when you've
 		completed your Job Objectives.
 	</p>
 	<p>Work hard. Get cash. Acquire bragging rights.</p>

@@ -11,14 +11,14 @@
 	name = "traitor"
 	config_tag = "traitor"
 	restricted_jobs = list("Cyborg")//They are part of the AI if he is traitor so are they, they use to get double chances
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Research Director", "Chief Engineer", "Chief Medical Officer", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Internal Affairs Agent", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
-	required_players = 8
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Internal Affairs Agent", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General")
+	required_players = 0
 	required_enemies = 1
-	recommended_enemies = 3
+	recommended_enemies = 4
 
 	var/list/datum/mind/pre_traitors = list()
-	var/traitors_possible = 2 //hard limit on traitors if scaling is turned off
-	var/const/traitor_scaling_coeff = 10.0 //how much does the amount of players get divided by to determine traitors
+	var/traitors_possible = 4 //hard limit on traitors if scaling is turned off
+	var/const/traitor_scaling_coeff = 5.0 //how much does the amount of players get divided by to determine traitors
 	var/antag_datum = /datum/antagonist/traitor //what type of antag to create
 
 /datum/game_mode/traitor/announce()
@@ -28,7 +28,7 @@
 
 /datum/game_mode/traitor/pre_setup()
 
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs += protected_jobs
 
 	var/list/possible_traitors = get_players_for_role(ROLE_TRAITOR)
@@ -39,7 +39,7 @@
 
 	var/num_traitors = 1
 
-	if(config.traitor_scaling)
+	if(GLOB.configuration.gamemode.traitor_scaling)
 		num_traitors = max(1, round((num_players())/(traitor_scaling_coeff)))
 	else
 		num_traitors = max(1, min(num_players(), traitors_possible))

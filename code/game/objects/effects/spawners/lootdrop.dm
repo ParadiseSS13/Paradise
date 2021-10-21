@@ -135,6 +135,7 @@
 				/obj/item/stack/tape_roll = 10,
 				/obj/item/storage/bag/plasticbag = 20,
 				/obj/item/caution = 10,
+				/obj/item/fluff/kans_winter_coat_kit = 1,
 				////////////////CONTRABAND STUFF//////////////////
 				/obj/item/grenade/clown_grenade = 3,
 				/obj/item/seeds/ambrosia/cruciatus = 3,
@@ -147,6 +148,8 @@
 				/obj/item/stamp/chameleon = 2,
 				/obj/item/clothing/shoes/chameleon/noslip = 5,
 				/obj/item/clothing/mask/chameleon = 2,
+				/obj/item/clothing/mask/gas/voice_modulator = 2,
+				/obj/item/clothing/mask/gas/voice_modulator/chameleon = 2,
 				/obj/item/dnascrambler = 1,
 				/obj/item/storage/backpack/satchel_flat = 2,
 				/obj/item/storage/toolbox/syndicate = 2,
@@ -159,7 +162,7 @@
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
-				"" = 68
+				"" = 64 // Reduce this number if you add things above. Make sure all the numbers in the list add to 100 EXACTLY 
 				)
 
 /obj/effect/spawner/lootdrop/crate_spawner // for ruins

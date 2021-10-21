@@ -47,7 +47,7 @@ Made by Xhuis
 	var/list/datum/mind/shadows = list()
 	var/list/datum/mind/shadowling_thralls = list()
 	var/list/shadow_objectives = list()
-	var/required_thralls = 10 //How many thralls are needed (hardcoded for now)
+	var/required_thralls = 15 //How many thralls are needed (hardcoded for now)
 	var/shadowling_ascended = 0 //If at least one shadowling has ascended
 	var/shadowling_dead = 0 //is shadowling kill
 	var/objective_explanation
@@ -70,18 +70,18 @@ Made by Xhuis
 /datum/game_mode/shadowling
 	name = "shadowling"
 	config_tag = "shadowling"
-	required_players = 15
-	required_enemies = 1
-	recommended_enemies = 1
+	required_players = 30
+	required_enemies = 2
+	recommended_enemies = 2
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Captain", "Head of Personnel", "Research Director", "Chief Engineer", "Chief Medical Officer", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Research Director", "Chief Engineer", "Chief Medical Officer", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General")
 
 /datum/game_mode/shadowling/announce()
 	to_chat(world, "<b>The current game mode is - Shadowling!</b>")
 	to_chat(world, "<b>There are alien <span class='deadsay'>shadowlings</span> on the station. Crew: Kill the shadowlings before they can eat or enthrall the crew. Shadowlings: Enthrall the crew while remaining in hiding.</b>")
 
 /datum/game_mode/shadowling/pre_setup()
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs += protected_jobs
 
 	var/list/datum/mind/possible_shadowlings = get_players_for_role(ROLE_SHADOWLING)
@@ -89,7 +89,7 @@ Made by Xhuis
 	if(!possible_shadowlings.len)
 		return 0
 
-	var/shadowlings = max(2, round(num_players()/14))
+	var/shadowlings = max(3, round(num_players()/14))
 
 	while(shadowlings)
 		var/datum/mind/shadow = pick(possible_shadowlings)
@@ -123,10 +123,10 @@ Made by Xhuis
 	..()
 
 /datum/game_mode/proc/greet_shadow(datum/mind/shadow)
-	to_chat(shadow.current, "<b>Currently, you are disguised as an employee aboard [world.name].</b>")
+	to_chat(shadow.current, "<b>Currently, you are disguised as an employee aboard [station_name()].</b>")
 	to_chat(shadow.current, "<b>In your limited state, you have two abilities: Hatch and Shadowling Hivemind (:8).</b>")
 	to_chat(shadow.current, "<b>Any other shadowlings are your allies. You must assist them as they shall assist you.</b>")
-	to_chat(shadow.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Shadowling)</span>")
+	to_chat(shadow.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Shadowling)</span>")
 
 
 /datum/game_mode/proc/process_shadow_objectives(datum/mind/shadow_mind)
@@ -168,7 +168,7 @@ Made by Xhuis
 		to_chat(new_thrall_mind.current, "<span class='shadowling'>Your body has been irreversibly altered. The attentive can see this - you may conceal it by wearing a mask.</span>")
 		to_chat(new_thrall_mind.current, "<span class='shadowling'>Though not nearly as powerful as your masters, you possess some weak powers. These can be found in the Thrall Abilities tab.</span>")
 		to_chat(new_thrall_mind.current, "<span class='shadowling'>You may communicate with your allies by speaking in the Shadowling Hivemind (:8).</span>")
-		to_chat(new_thrall_mind.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Shadowling)</span>")
+		to_chat(new_thrall_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Shadowling)</span>")
 		if(jobban_isbanned(new_thrall_mind.current, ROLE_SHADOWLING) || jobban_isbanned(new_thrall_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(new_thrall_mind.current, ROLE_SHADOWLING)
 		if(!victory_warning_announced && (length(shadowling_thralls) >= warning_threshold))//are the slings very close to winning?
@@ -216,13 +216,13 @@ Made by Xhuis
 		if(shadow.current.stat == DEAD)
 			continue
 		shadows_alive++
-		if(shadow.special_role == SPECIAL_ROLE_SHADOWLING && config.shadowling_max_age)
+		if(shadow.special_role == SPECIAL_ROLE_SHADOWLING && GLOB.configuration.gamemode.shadowling_max_age)
 			if(ishuman(shadow.current))
 				var/mob/living/carbon/human/H = shadow.current
 				if(!isshadowling(H))
 					for(var/obj/effect/proc_holder/spell/targeted/shadowling_hatch/hatch_ability in shadow.spell_list)
 						hatch_ability.cycles_unused++
-						if(!H.stunned && prob(20) && hatch_ability.cycles_unused > config.shadowling_max_age)
+						if(!H.stunned && prob(20) && hatch_ability.cycles_unused > GLOB.configuration.gamemode.shadowling_max_age)
 							var/shadow_nag_messages = list("You can barely hold yourself in this lesser form!", "The urge to become something greater is overwhelming!", "You feel a burning passion to hatch free of this shell and assume godhood!")
 							H.take_overall_damage(0, 3)
 							to_chat(H, "<span class='userdanger'>[pick(shadow_nag_messages)]</span>")

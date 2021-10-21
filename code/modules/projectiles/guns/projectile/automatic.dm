@@ -245,7 +245,7 @@
 	item_state = "arg"
 	slot_flags = 0
 	origin_tech = "combat=6;engineering=4"
-	mag_type = /obj/item/ammo_box/magazine/m556/arg
+	mag_type = /obj/item/ammo_box/magazine/m556
 	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'

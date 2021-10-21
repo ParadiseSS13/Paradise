@@ -72,7 +72,21 @@
 				queue_smooth_neighbors(src)
 				to_chat(user, "<span class='notice'>You repair the last of the damage.</span>")
 			return
-	else
+			// Upgrading To Coate
+	else if(d_state == RWALL_INTACT && istype(I, /obj/item/stack/sheet/plasteel))
+		var/obj/item/stack/sheet/plasteel/MS = I
+		if(!can_be_reinforced)
+			to_chat(user, "<span class='notice'>The wall is already coated!</span>")
+		else if (can_be_reinforced == 1)
+			to_chat(user, "<span class='notice'>You begin adding an additional layer of coating to the wall with \a [MS].</span>")
+			if(do_after(user, 40, target = src))
+				if(!MS.use(2))
+					to_chat(user, "<span class='warning'>You don't have enough plasteel for that!</span>")
+				else
+					to_chat(user, "<span class='notice'>You add an additional layer of coating to the wall!</span>")
+					ChangeTurf(/turf/simulated/wall/r_wall/coated)
+					update_icon()
+					can_be_reinforced = 0
 		return ..()
 
 /turf/simulated/wall/r_wall/welder_act(mob/user, obj/item/I)

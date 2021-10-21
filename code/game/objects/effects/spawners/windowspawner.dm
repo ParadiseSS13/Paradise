@@ -59,6 +59,12 @@
 	window_to_spawn_regular = /obj/structure/window/reinforced/tinted
 	window_to_spawn_full = /obj/structure/window/full/reinforced/tinted
 
+/obj/effect/spawner/window/reinforced/polarized
+	name = "electrochromic reinforced window spawner"
+	icon_state = "pwindow_spawner"
+	window_to_spawn_regular = /obj/structure/window/reinforced/polarized
+	window_to_spawn_full = /obj/structure/window/full/reinforced/polarized
+
 /obj/effect/spawner/window/shuttle
 	name = "shuttle window spawner"
 	icon_state = "swindow_spawner"

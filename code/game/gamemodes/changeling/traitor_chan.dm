@@ -16,14 +16,14 @@
 
 
 /datum/game_mode/traitor/changeling/pre_setup()
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs += protected_jobs
 
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
 	secondary_enemies = CEILING((secondary_enemies_scaling * num_players()), 1)
 
 	for(var/mob/new_player/player in GLOB.player_list)
-		if((player.mind in possible_changelings) && (player.client.prefs.species in secondary_protected_species))
+		if((player.mind in possible_changelings) && (player.client.prefs.active_character.species in secondary_protected_species))
 			possible_changelings -= player.mind
 
 	if(possible_changelings.len > 0)

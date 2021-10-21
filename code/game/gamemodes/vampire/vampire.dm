@@ -9,11 +9,11 @@
 	name = "vampire"
 	config_tag = "vampire"
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Research Director", "Chief Engineer", "Chief Medical Officer", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Research Director", "Chief Engineer", "Chief Medical Officer", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General")
 	protected_species = list("Machine")
-	required_players = 10
+	required_players = 15
 	required_enemies = 1
-	recommended_enemies = 2
+	recommended_enemies = 4
 
 	var/const/prob_int_murder_target = 50 // intercept names the assassination target half the time
 	var/const/prob_right_murder_target_l = 25 // lower bound on probability of naming right assassination target
@@ -32,7 +32,7 @@
 	var/const/prob_right_objective_l = 25 //lower bound on probability of determining the objective correctly
 	var/const/prob_right_objective_h = 50 //upper bound on probability of determining the objective correctly
 
-	var/vampire_amount = 2
+	var/vampire_amount = 4
 
 /datum/game_mode/vampire/announce()
 	to_chat(world, "<B>The current game mode is - Vampires!</B>")
@@ -40,12 +40,12 @@
 
 /datum/game_mode/vampire/pre_setup()
 
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs += protected_jobs
 
 	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
 
-	vampire_amount = 1 + round(num_players() / 12)
+	vampire_amount = 1 + round(num_players() / 10)
 
 	if(possible_vampires.len>0)
 		for(var/i = 0, i < vampire_amount, i++)
@@ -193,7 +193,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	for(var/datum/objective/objective in vampire.objectives)
 		to_chat(vampire.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
-	to_chat(vampire.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Vampire)</span>")
+	to_chat(vampire.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Vampire)</span>")
 	return
 /datum/vampire
 	var/bloodtotal = 0 // CHANGE TO ZERO WHEN PLAYTESTING HAPPENS
@@ -290,7 +290,6 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		draining = null
 		return
 	add_attack_logs(owner, H, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
-	playsound(owner.loc, 'sound/hispania/effects/drain_blood_new.ogg', 50, 1)
 	owner.visible_message("<span class='danger'>[owner] grabs [H]'s neck harshly and sinks in [owner.p_their()] fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain [H.p_their()] blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
 	if(!iscarbon(owner))
 		H.LAssailant = null
@@ -314,7 +313,6 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		if(old_bloodtotal != bloodtotal)
 			if(H.ckey || H.player_ghosted) // Requires ckey regardless if monkey or human, and has not ghosted, otherwise no power
 				to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>")
-				playsound(owner.loc, 'sound/hispania/effects/drain_blood_new.ogg', 50, 1)
 		check_vampire_upgrade()
 		H.blood_volume = max(H.blood_volume - 25, 0)
 		//Blood level warnings (Code 'borrowed' from Fulp)
