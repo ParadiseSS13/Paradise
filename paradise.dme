@@ -97,6 +97,7 @@
 #include "code\__HELPERS\_logging.dm"
 #include "code\__HELPERS\_string_lists.dm"
 #include "code\__HELPERS\AnimationLibrary.dm"
+#include "code\__HELPERS\api.dm"
 #include "code\__HELPERS\cmp.dm"
 #include "code\__HELPERS\constants.dm"
 #include "code\__HELPERS\debugger.dm"
