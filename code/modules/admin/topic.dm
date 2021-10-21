@@ -2414,23 +2414,25 @@
 				to_chat(owner, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 				return
 
-			var/reason = input(owner, "Please enter a reason for denying [key_name(H)]'s ERT request.", "Outgoing message from CentComm", "")
+			var/reason = input(owner, "Please enter a reason for denying [key_name(H)]'s ERT request.", "Outgoing message from CentComm") as null|message
 			if(!reason)
 				return
 			var/announce_to_crew = alert(owner, "Announce ERT request denial to crew or only to the sender [key_name(H)]?", "Send reason to who", "Crew", "Sender") == "Crew"
 			GLOB.ert_request_answered = TRUE
 			log_admin("[owner] denied [key_name(H)]'s ERT request with the message [reason]. Announced to [announce_to_crew ? "the entire crew." : "only the sender"].")
+
 			if(announce_to_crew)
 				GLOB.event_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time. Your ERT request has been denied for the following reasons:\n[reason]", "ERT Unavailable")
-			else
-				if(H.stat != CONSCIOUS)
-					to_chat(owner, "<span class='warning'>The person you are trying to contact is not conscious. ERT denied but no message has been sent.</span>")
-					return
-				if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
-					to_chat(owner, "<span class='warning'>The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent.</span>")
-					return
-				to_chat(owner, "<span class='notice'>You sent [reason] to [H] via a secure channel.</span>")
-				to_chat(H, "<span class='specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [reason].</span>")
+				return
+
+			if(H.stat != CONSCIOUS)
+				to_chat(owner, "<span class='warning'>The person you are trying to contact is not conscious. ERT denied but no message has been sent.</span>")
+				return
+			if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
+				to_chat(owner, "<span class='warning'>The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent.</span>")
+				return
+			to_chat(owner, "<span class='notice'>You sent [reason] to [H] via a secure channel.</span>")
+			to_chat(H, "<span class='specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [reason].</span>")
 		else
 			owner.response_team()
 
