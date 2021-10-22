@@ -45,10 +45,7 @@
 					stop_pulling()
 				return
 			if("Insert", "G")
-				a_intent_change(INTENT_HOTKEY_RIGHT)
-				return
-			if("F")
-				a_intent_change(INTENT_HOTKEY_LEFT)
+				giveto()
 				return
 			if("X", "Northeast") // Northeast is Page-up
 				swap_hand()
