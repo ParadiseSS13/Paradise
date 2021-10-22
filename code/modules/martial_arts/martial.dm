@@ -49,6 +49,9 @@
 	return act(MARTIAL_COMBO_STEP_HELP, A, D)
 
 /datum/martial_art/proc/can_use(mob/living/carbon/human/H)
+	if(HAS_TRAIT(H, TRAIT_PACIFISM))
+		to_chat(H, "<span class='warning'>Despite your knowledge of the martial art, your body refuses to execute the move!</span>")
+		return FALSE
 	return TRUE
 
 /datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
@@ -222,6 +225,9 @@
 		return
 	if(slot == slot_belt)
 		var/mob/living/carbon/human/H = user
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat("<span class='warning'>In spite of the grandiosity of the belt, you don't feel like getting into any fights.</span>")
+			return
 		style.teach(H,1)
 		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the Recall teaching verb in the wrestling tab.</span>")
 	return
@@ -265,12 +271,15 @@
 /obj/item/sleeping_carp_scroll/attack_self(mob/living/carbon/human/user as mob)
 	if(!istype(user) || !user)
 		return
-	if(user.mind && (user.mind.changeling || user.mind.vampire)) //Prevents changelings and vampires from being able to learn it
-		if(user.mind && user.mind.changeling) //Changelings
+	if(user.mind) //Prevents changelings and vampires from being able to learn it
+		if(user.mind.changeling) //Changelings
 			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
-		else //Vampires
+		else if(user.mind.vampire) //Vampires
 			to_chat(user, "<span class ='warning'>Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!</span>")
+			return
+		else if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='warning'>The scroll's whispers of violence don't agree with you at all; you can't concentrate enough to understand what it truly means!</span>")
 			return
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
@@ -295,6 +304,9 @@
 			return
 		else if(user.mind.vampire) //Vampires
 			to_chat(user, "<span class='warning'>Your blood lust distracts you from the basics of CQC!</span>")
+			return
+		else if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='warning'>The mere thought of combat, let alone CQC, makes your head spin!</span>")
 			return
 
 	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
@@ -342,12 +354,16 @@
 	if(C.stat)
 		to_chat(user, "<span class='warning'>It would be dishonorable to attack a foe while [C.p_they()] cannot retaliate.</span>")
 		return
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You feel violence is not the answer.</span>")
+		return
 	switch(user.a_intent)
 		if(INTENT_DISARM)
 			if(!wielded)
 				return ..()
 			if(!ishuman(target))
 				return ..()
+
 			var/mob/living/carbon/human/H = target
 			var/list/fluffmessages = list("[user] clubs [H] with [src]!", \
 										  "[user] smacks [H] with the butt of [src]!", \
