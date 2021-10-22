@@ -34869,7 +34869,7 @@
 /area/turret_protected/ai)
 "bCW" = (
 /obj/machinery/turretid/lethal{
-	check_synth = 1;
+	control_area = "\improper AI Chamber";
 	name = "AI Chamber Turret Control";
 	pixel_x = 5;
 	pixel_y = -24;
@@ -37269,7 +37269,7 @@
 	control_area = "\improper AI Upload Chamber";
 	name = "AI Upload Turret Control";
 	pixel_y = -24;
-	req_access = list(75)
+	req_one_access_txt = "75"
 	},
 /turf/simulated/floor/carpet,
 /area/bridge)
@@ -44104,7 +44104,7 @@
 	pixel_y = -22
 	},
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Antechamber";
+	control_area = "\improper AI Satellite";
 	name = "AI Antechamber Turret Control";
 	pixel_x = -28;
 	req_access_txt = "75"
@@ -107019,7 +107019,7 @@ bms
 bms
 bpu
 bms
-aaa
+vXX
 bNM
 bPH
 bSr
@@ -107541,7 +107541,7 @@ hzl
 bXI
 chE
 bNM
-aaa
+vXX
 bpu
 bms
 bms
@@ -107778,7 +107778,7 @@ aaa
 ops
 bpo
 brs
-aaa
+vXX
 btd
 btd
 btd
@@ -108292,7 +108292,7 @@ oBS
 adM
 bpo
 brs
-aaa
+vXX
 btd
 bvz
 bwH
@@ -109834,7 +109834,7 @@ oMO
 fPS
 bJP
 brs
-aaa
+vXX
 btd
 bvz
 bwH
@@ -110348,7 +110348,7 @@ aaa
 pnF
 bJP
 brs
-aaa
+vXX
 btd
 btd
 btd
@@ -110625,7 +110625,7 @@ bTL
 bXI
 bXM
 bNM
-aaa
+vXX
 bpm
 bmo
 bmo
@@ -111131,7 +111131,7 @@ bmo
 bmo
 bpm
 bmo
-aaa
+vXX
 bNM
 bRt
 bXI
