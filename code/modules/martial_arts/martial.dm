@@ -49,9 +49,6 @@
 	return act(MARTIAL_COMBO_STEP_HELP, A, D)
 
 /datum/martial_art/proc/can_use(mob/living/carbon/human/H)
-	if(HAS_TRAIT(H, TRAIT_PACIFISM))
-		to_chat(H, "<span class='warning'>Despite your knowledge of the martial art, your body refuses to execute the move!</span>")
-		return FALSE
 	return TRUE
 
 /datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
@@ -62,7 +59,11 @@
 	last_hit = world.time
 
 	if(HAS_COMBOS)
-		return check_combos(step, user, target)
+		var/completed_combo = check_combos(step, user, target)
+		if(HAS_TRAIT(user, TRAIT_PACIFISM) && completed_combo)
+			to_chat(user, "<span class='warning'>Despite your knowledge of the martial art, your body refuses to execute the move!</span>")
+			return FALSE
+		return completed_combo
 	return FALSE
 
 /datum/martial_art/proc/reset_combos()
@@ -277,9 +278,6 @@
 			return
 		else if(user.mind.vampire) //Vampires
 			to_chat(user, "<span class ='warning'>Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!</span>")
-			return
-		else if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>The scroll's whispers of violence don't agree with you at all; you can't concentrate enough to understand what it truly means!</span>")
 			return
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
