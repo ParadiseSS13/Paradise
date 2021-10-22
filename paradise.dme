@@ -1357,6 +1357,7 @@
 #include "code\hispania\modules\mining\equipment\kinetic_crusher.dm"
 #include "code\hispania\modules\mob\language.dm"
 #include "code\hispania\modules\mob\living\status_procs.dm"
+#include "code\hispania\modules\mob\living\carbon\give.dm"
 #include "code\hispania\modules\mob\living\carbon\human\human.dm"
 #include "code\hispania\modules\mob\living\carbon\human\human_defense.dm"
 #include "code\hispania\modules\mob\living\carbon\human\species\monkey_combat.dm"
