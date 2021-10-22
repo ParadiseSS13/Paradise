@@ -49,7 +49,7 @@
 	return act(MARTIAL_COMBO_STEP_HELP, A, D)
 
 /datum/martial_art/proc/can_use(mob/living/carbon/human/H)
-	return TRUE
+	return !HAS_TRAIT(H, TRAIT_PACIFISM)
 
 /datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(!can_use(user))
@@ -59,11 +59,7 @@
 	last_hit = world.time
 
 	if(HAS_COMBOS)
-		var/completed_combo = check_combos(step, user, target)
-		if(HAS_TRAIT(user, TRAIT_PACIFISM) && completed_combo)
-			to_chat(user, "<span class='warning'>Despite your knowledge of the martial art, your body refuses to execute the move!</span>")
-			return FALSE
-		return completed_combo
+		return check_combos(step, user, target)
 	return FALSE
 
 /datum/martial_art/proc/reset_combos()

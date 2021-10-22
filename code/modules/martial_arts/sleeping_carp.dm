@@ -36,7 +36,7 @@
 	to_chat(H, "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! \
 					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you when in throw mode. \
 					However, you are also unable to use any ranged weaponry. \
-					You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>"
+					You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>")
 	if(HAS_TRAIT(H, TRAIT_PACIFISM))
 		to_chat(H, "<span class='warning'>You feel the knowledge of the scroll in your mind, yet reject its more violent teachings. \
 					You will instead deflect projectiles into the ground.")
