@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(discord)
 			webhook_urls = GLOB.configuration.discord.mentor_webhook_urls
 
 	var/datum/discord_webhook_payload/dwp = new()
-	dwp.webhook_content = content
+	dwp.webhook_content = "**\[[GLOB.configuration.system.instance_id]]** [content]"
 	for(var/url in webhook_urls)
 		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
@@ -73,7 +73,7 @@ SUBSYSTEM_DEF(discord)
 	var/message = "[content] [alerttext] [add_ping ? handle_administrator_ping() : ""]"
 
 	var/datum/discord_webhook_payload/dwp = new()
-	dwp.webhook_content = message
+	dwp.webhook_content = "**\[[GLOB.configuration.system.instance_id]]** [message]"
 	for(var/url in GLOB.configuration.discord.admin_webhook_urls)
 		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
@@ -94,7 +94,7 @@ SUBSYSTEM_DEF(discord)
 	var/message = "[content] [alerttext][add_ping ? handle_mentor_ping() : ""]"
 
 	var/datum/discord_webhook_payload/dwp = new()
-	dwp.webhook_content = message
+	dwp.webhook_content = "**\[[GLOB.configuration.system.instance_id]]** [message]"
 	for(var/url in GLOB.configuration.discord.mentor_webhook_urls)
 		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
