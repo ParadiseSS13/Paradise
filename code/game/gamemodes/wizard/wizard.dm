@@ -18,7 +18,7 @@
 	to_chat(world, "<B>There is a <font color='red'>SPACE WIZARD</font> on the station. You can't let him achieve his objective!</B>")
 
 /datum/game_mode/wizard/can_start()//This could be better, will likely have to recode it later
-	if(!..())
+	if(!..() && GLOB.master_mode == "secret")
 		return 0
 	var/list/datum/mind/possible_wizards = get_players_for_role(ROLE_WIZARD)
 	if(possible_wizards.len==0)
