@@ -29,8 +29,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 /datum/game_mode/heist/can_start()
 
 	if(!..())
-		message_admins("(<font color='#ffcc00'><b>No se alcanzaron los readys Minimos.Se recomienda revisar que la ronda no este desbalanceada</b></font>)\n")
-//		return 0
+		return 0
 
 	var/list/candidates = get_players_for_role(ROLE_RAIDER)
 	var/raider_num = 0

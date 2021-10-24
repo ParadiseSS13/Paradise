@@ -27,10 +27,7 @@
 
 /datum/game_mode/nuclear/can_start()//This could be better, will likely have to recode it later
 	if(!..())
-		message_admins("(<font color='#ffcc00'><b>No se alcanzaron los readys Minimos.Se recomienda revisar que la ronda no este desbalanceada</b></font>)\n")
-		required_enemies = required_enemies / 2  //si no hubo readys suficientes se divide por 2 la cantidad de antags redondeando
-		if(GLOB.player_list.len <= 10) //un caso extremo que haya muy pocos conectados solo habra 1 nuke
-			required_enemies = 1
+		return 0
 
 	var/list/possible_syndicates = get_players_for_role(ROLE_OPERATIVE)
 	var/agent_number = 0
