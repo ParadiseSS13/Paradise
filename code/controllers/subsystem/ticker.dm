@@ -172,13 +172,14 @@ SUBSYSTEM_DEF(ticker)
 		mode = GLOB.configuration.gamemode.pick_mode(GLOB.master_mode)
 
 	if(!mode.can_start())
-		to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players needed. Reverting to pre-game lobby.")
-		mode = null
-		current_state = GAME_STATE_PREGAME
-		force_start = FALSE
-		SSjobs.ResetOccupations()
-		Master.SetRunLevel(RUNLEVEL_LOBBY)
-		return FALSE
+		if(!mode.can_start_solo_readys() && GLOB.configuration.gamemode.enable_gamemode_player_limit)
+			to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players needed. Reverting to pre-game lobby.")
+			mode = null
+			current_state = GAME_STATE_PREGAME
+			force_start = FALSE
+			SSjobs.ResetOccupations()
+			Master.SetRunLevel(RUNLEVEL_LOBBY)
+			return FALSE
 
 	//Configure mode and assign player to special mode stuff
 	mode.pre_pre_setup()
