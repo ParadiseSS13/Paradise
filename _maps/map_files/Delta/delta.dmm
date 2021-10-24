@@ -39172,11 +39172,11 @@
 	},
 /area/security/brig)
 "bLy" = (
+/obj/structure/disposalpipe/segment,
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -24
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -40937,8 +40937,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/machinery/newscaster/security_unit{
-	pixel_y = -32
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -26
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -43023,6 +43024,10 @@
 	},
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -48952,6 +48957,10 @@
 /obj/structure/table/reinforced,
 /obj/item/megaphone,
 /obj/item/taperecorder,
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -26
+	},
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "cgg" = (
@@ -49091,6 +49100,10 @@
 	dir = 8
 	},
 /obj/structure/closet,
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -26
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -49602,6 +49615,10 @@
 /area/lawoffice)
 "chN" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -26
+	},
 /turf/simulated/floor/wood,
 /area/lawoffice)
 "chO" = (
@@ -93351,6 +93368,10 @@
 /obj/item/shield/riot,
 /obj/item/shield/riot,
 /obj/item/shield/riot,
+/obj/machinery/light_switch{
+	dir = 8;
+	pixel_x = 26
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -95568,10 +95589,7 @@
 	req_access = null;
 	req_access_txt = "1"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/security/brig)
 "lmR" = (
 /obj/machinery/vending/security,
@@ -98094,6 +98112,16 @@
 	icon_state = "white"
 	},
 /area/toxins/misc_lab)
+"szk" = (
+/obj/structure/closet/secure_closet/security,
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -26
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/security/seceqstorage)
 "sAW" = (
 /obj/structure/closet/secure_closet/medical2,
 /turf/simulated/floor/plasteel{
@@ -149934,10 +149962,10 @@ eSX
 bFX
 bFX
 bEr
-bFX
+bLy
 bMc
 bFX
-bLy
+bFX
 bFX
 bFX
 bRd
@@ -156366,7 +156394,7 @@ rNi
 iVV
 miL
 frI
-tmo
+szk
 jQY
 aaa
 abj
