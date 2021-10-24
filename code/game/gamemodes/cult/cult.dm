@@ -61,6 +61,14 @@ GLOBAL_LIST_EMPTY(all_cults)
 	to_chat(world, "<B>The current game mode is - Cult!</B>")
 	to_chat(world, "<B>Some crewmembers are attempting to start a cult!<BR>\nCultists - complete your objectives. Convert crewmembers to your cause by using the offer rune. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with holy water reverts them to whatever CentComm-allowed faith they had.</B>")
 
+/datum/game_mode/cult/can_start()
+	if(!..())
+		required_enemies = required_enemies / 2
+		if(GLOB.player_list.len <= 10) //un caso extremo que haya muy pocos conectados solo habra 2 cultistas (el minimo)
+			required_enemies = 2
+		message_admins("(<font color='#ffcc00'><b>No se alcanzaron los readys Minimos.Se recomienda revisar que la ronda no este desbalanceada</b></font>)\n")
+
+
 /datum/game_mode/cult/pre_setup()
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs += protected_jobs

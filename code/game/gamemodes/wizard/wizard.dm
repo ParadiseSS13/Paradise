@@ -19,7 +19,8 @@
 
 /datum/game_mode/wizard/can_start()//This could be better, will likely have to recode it later
 	if(!..())
-		return 0
+		message_admins("(<font color='#ffcc00'><b>No se alcanzaron los readys Minimos.Se recomienda revisar que la ronda no este desbalanceada</b></font>)\n")
+//		return 0
 	var/list/datum/mind/possible_wizards = get_players_for_role(ROLE_WIZARD)
 	if(possible_wizards.len==0)
 		return 0
