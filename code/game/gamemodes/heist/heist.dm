@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 /datum/game_mode/heist/can_start()
 
-	if(!..())
+	if(!..() && GLOB.master_mode == "secret")
 		return 0
 
 	var/list/candidates = get_players_for_role(ROLE_RAIDER)

@@ -57,7 +57,18 @@
 		if((player.client)&&(player.ready))
 			playerC++
 
-	if(!GLOB.configuration.gamemode.enable_gamemode_player_limit || (playerC >= required_players))
+	if(playerC >= required_players)
+		return 1
+	return 0
+
+///can_start_solo_readys()
+///Chequea si no pudo comenzar unicamente porque no hubo readys
+/datum/game_mode/proc/can_start_solo_readys()
+	var/playerC = 0
+	for(var/mob/new_player/player in GLOB.player_list)
+		if((player.client)&&(player.ready))
+			playerC++
+	if(playerC >= required_players)
 		return 1
 	return 0
 
