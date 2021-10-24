@@ -995,6 +995,21 @@
 	name = "tuxedo cat plushie"
 	icon_state = "tuxedocat"
 
+/obj/item/toy/plushie/greyplushie
+	name = "grey plushie"
+	desc = "A pajama wearing plushie of a grey. As a part of the 'The Alien' series, the doll features a small bodie, oversized head, and cartoonish eyes."
+	icon_state = "plushie_grey"
+	item_state = "plushie_grey"
+	var/cooldown = 0
+
+/obj/item/toy/plushie/greyplushie/attack_self(mob/user)
+	if(!cooldown)
+		visible_message("<span class='danger'>☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎</span>")
+		cooldown = 1
+		spawn(30) cooldown = 0
+		return
+	..()
+
 /obj/item/toy/plushie/voxplushie
 	name = "vox plushie"
 	desc = "A stitched-together vox, fresh from the skipjack. Press its belly to hear it skree!"
