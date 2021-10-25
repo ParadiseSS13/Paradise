@@ -1002,7 +1002,7 @@
 	item_state = "plushie_grey"
 	var/cooldown = 0    //refers to the cooldown proc for attack_self.
 
-obj/item/toy/plushie/greyplushie/water_act(volume, temperature, source, method = REAGENT_TOUCH)//If the plushie gets wet at all this runs.
+/obj/item/toy/plushie/greyplushie/water_act(volume, temperature, source, method = REAGENT_TOUCH)//If the plushie gets wet at all this runs.
 	. = ..()
 	if(!cooldown)
 		cooldown = 300
@@ -1012,8 +1012,6 @@ obj/item/toy/plushie/greyplushie/water_act(volume, temperature, source, method =
 		desc = "A ruined plushie of a grey. It looks like someone ran it under some water."
 		playsound(source, 'sound/goonstation/voice/male_scream.ogg', 10, 0)//If the plushie gets wet it screams and "AAAAAH!" appears overhead.
 		visible_message("<span class='danger'>AAAAAAH!</span>")
-		return
-	..()
 
 /obj/item/toy/plushie/greyplushie/attack_self(mob/user)//code for talking when hugged.
 	if(!cooldown)
