@@ -79,6 +79,13 @@
 	for(var/obj/item/organ/internal/I in internal_organs)
 		if(I.hidden_pain)
 			continue
-		if(I.damage > 2 && prob(2))
+		if(prob(2) && I.damage > 2)
 			var/obj/item/organ/external/parent = get_organ(I.parent_organ)
-			custom_pain("You feel a sharp pain in your [parent.limb_name]")
+			if(I.damage <= 10)
+				custom_pain("You feel a dull pain in your [parent.limb_name].")
+			else if(I.damage <= 30)
+				custom_pain("You feel a nagging pain in your [parent.limb_name], it's hard to ignore.")
+			else if(I.damage <= 50)
+				custom_pain("You feel a sharp pain in your [parent.limb_name]!")
+			else
+				custom_pain("You feel a stabbing pain in your [parent.limb_name]!")
