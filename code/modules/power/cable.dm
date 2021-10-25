@@ -568,7 +568,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 				use(1)
 				cable_used += 1
 				E.heal_damage(0, HEALPERCABLE, 0, TRUE)
-				H.UpdateDamageIcon()
+			H.UpdateDamageIcon()
 			user.visible_message("<span class='alert'>[user] repairs some burn damage on [M]'s [E.name] with [src].</span>")
 		return 1
 
