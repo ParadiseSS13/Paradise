@@ -126,7 +126,7 @@
 	if(status >= min_status)
 		if(!current_state)
 			log_and_message_admins(message)
-			SSdiscord.send2discord_simple_noadmins(message)
+			// SSdiscord.send2discord_simple_noadmins(message)
 		return TRUE
 	else
 		return FALSE
