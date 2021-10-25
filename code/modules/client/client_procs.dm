@@ -6,7 +6,7 @@
 
 #define TOPIC_SPAM_DELAY	2		//2 ticks is about 2/10ths of a second; it was 4 ticks, but that caused too many clicks to be lost due to lag
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
-#define MIN_CLIENT_VERSION	513		// Minimum byond major version required to play.
+#define MIN_CLIENT_VERSION	514		// Minimum byond major version required to play.
 									//I would just like the code ready should it ever need to be used.
 #define SUGGESTED_CLIENT_VERSION	514		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
 #define SUGGESTED_CLIENT_BUILD	1568		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
