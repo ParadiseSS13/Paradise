@@ -997,16 +997,32 @@
 
 /obj/item/toy/plushie/greyplushie
 	name = "grey plushie"
-	desc = "A pajama wearing plushie of a grey. As a part of the 'The Alien' series, the doll features a small bodie, oversized head, and cartoonish eyes."
+	desc = "A plushie of a grey wearing a sweatshirt. As a part of the 'The Alien' series, the doll features a sweater, an oversized head, and cartoonish eyes."
 	icon_state = "plushie_grey"
 	item_state = "plushie_grey"
-	var/cooldown = 0
+	var/cooldown = 0    //refers to the cooldown proc for attack_self.
 
-/obj/item/toy/plushie/greyplushie/attack_self(mob/user)
+obj/item/toy/plushie/greyplushie/water_act(volume, temperature, source, method = REAGENT_TOUCH)//If the plushie gets wet at all this runs.
+	. = ..()
 	if(!cooldown)
-		visible_message("<span class='danger'>☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎</span>")
+		cooldown = 300
+		spawn(300) cooldown = 0
+		icon_state = "grey_singed"
+		item_state = "grey_singed"//If the plushie gets wet the sprite changes to a singed version.
+		desc = "A ruined plushie of a grey. It looks like someone ran it under some water."
+		playsound(source, 'sound/goonstation/voice/male_scream.ogg', 10, 0)//If the plushie gets wet it screams and "AAAAAH!" appears overhead.
+		visible_message("<span class='danger'>AAAAAAH!</span>")
+		return
+	..()
+
+/obj/item/toy/plushie/greyplushie/attack_self(mob/user)//code for talking when hugged.
+	if(!cooldown)
 		cooldown = 1
 		spawn(30) cooldown = 0
+		if(icon_state == "grey_singed")//If the plushie is water damaged it refers to this first bit.
+			visible_message("<span class='danger'>Ow...</span>")
+		else//If the plushie is not water damaged this plays instead!
+			visible_message("<span class='danger'>☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎</span>")
 		return
 	..()
 
