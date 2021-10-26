@@ -3529,7 +3529,6 @@
 	pixel_x = 32
 	},
 /obj/structure/closet/secure_closet/hos,
-/obj/item/reagent_containers/food/drinks/flask/barflask,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -10155,18 +10154,6 @@
 /turf/space,
 /area/space/nearstation)
 "axp" = (
-/obj/structure/bookcase,
-/obj/item/book/manual/sop_engineering,
-/obj/item/book/manual/sop_medical,
-/obj/item/book/manual/sop_science{
-	pixel_y = -14
-	},
-/obj/item/book/manual/sop_security,
-/obj/item/book/manual/sop_service,
-/obj/item/book/manual/sop_supply,
-/obj/item/book/manual/sop_general,
-/obj/item/book/manual/sop_legal,
-/obj/item/book/manual/sop_command,
 /obj/machinery/requests_console{
 	department = "Internal Affairs Office";
 	name = "Internal Affairs Requests Console";
@@ -10175,6 +10162,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/bookcase/sop,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -11888,21 +11876,6 @@
 	},
 /area/lawoffice)
 "aAE" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/storage/briefcase{
-	pixel_x = -2;
-	pixel_y = -5
-	},
-/obj/item/storage/briefcase{
-	pixel_x = 3
-	},
-/obj/item/storage/secure/briefcase{
-	pixel_x = 5;
-	pixel_y = -5
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -11913,6 +11886,7 @@
 	dir = 1;
 	pixel_y = -24
 	},
+/obj/structure/closet/secure_closet/iaa,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -50173,16 +50147,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/bookcase,
-/obj/item/book/manual/sop_engineering,
-/obj/item/book/manual/sop_medical,
-/obj/item/book/manual/sop_science,
-/obj/item/book/manual/sop_security,
-/obj/item/book/manual/sop_service,
-/obj/item/book/manual/sop_supply,
-/obj/item/book/manual/sop_general,
-/obj/item/book/manual/sop_legal,
-/obj/item/book/manual/sop_command,
+/obj/structure/bookcase/sop,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "ccM" = (
@@ -52498,8 +52463,6 @@
 /area/medical/cmo)
 "chA" = (
 /obj/structure/closet/secure_closet/CMO,
-/obj/item/clothing/mask/gas,
-/obj/item/storage/briefcase,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -60283,9 +60246,6 @@
 /area/medical/virology)
 "cvR" = (
 /obj/structure/closet/secure_closet/psychiatrist,
-/obj/item/clipboard{
-	pixel_x = -5
-	},
 /obj/machinery/door_control{
 	id = "psychoffice";
 	name = "Privacy Shutters Control";
