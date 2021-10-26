@@ -1018,13 +1018,14 @@
 
 /obj/item/toy/plushie/greyplushie/attack_self(mob/user)//code for talking when hugged.
 	. = ..()
-	if(!on_cooldown)
-		on_cooldown = TRUE
-		addtimer(CALLBACK(src, .proc/reset_cooldown), 5 SECONDS) //Hug interactions only put the plushie on a 5 second cooldown.
-		if(icon_state == "grey_singed")//If the plushie is water damaged it'll say Ow instead of talking in wingdings.
-			visible_message("<span class='danger'>Ow...</span>")
-		else//If the plushie has not touched water they'll say Greetings in wingdings.
-			visible_message("<span class='danger'>☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎</span>")
+	if(on_cooldown)
+		return
+	on_cooldown = TRUE
+	addtimer(CALLBACK(src, .proc/reset_cooldown), 5 SECONDS) //Hug interactions only put the plushie on a 5 second cooldown.
+	if(icon_state == "grey_singed")//If the plushie is water damaged it'll say Ow instead of talking in wingdings.
+		visible_message("<span class='danger'>Ow...</span>")
+	else//If the plushie has not touched water they'll say Greetings in wingdings.
+		visible_message("<span class='danger'>☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎</span>")
 
 /obj/item/toy/plushie/voxplushie
 	name = "vox plushie"
