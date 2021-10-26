@@ -69,7 +69,7 @@
 /obj/item/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag)
 	if(!flag)
 		return
-	if(ismob(AM))
+	if(iscarbon(AM))
 		to_chat(user, "<span class='warning'>You can't get the [src] to stick to [AM]!</span>")
 		return
 	to_chat(user, "<span class='notice'>You start planting [src]. The timer is set to [det_time]...</span>")
@@ -132,7 +132,7 @@
 	desc = "Used to put holes in specific areas without too much extra hole. A saboteurs favourite."
 	var/shaped = FALSE //If set to true, the explosive will damage one tile behind the wall/object it's set on for a targeted breach and entry.
 	var/aim_dir //Set when installing the charge.
-	var/ex_devastate = 0 //Values given to the explosion proc when primed
+	var/ex_devastate = 0 //Range values given to the explosion proc when primed
 	var/ex_heavy = 0
 	var/ex_light = 3
 	var/ex_breach = FALSE //Will the explosion cause a breach. C4 placed on floors will always cause a breach, regardless of this value.
