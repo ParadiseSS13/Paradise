@@ -1,0 +1,194 @@
+#define COCOON_WEAVE_DELAY 15 SECONDS
+#define COCOON_EMERGE_DELAY 45 SECONDS
+
+/datum/species/moth
+	name = "Moth"
+	name_plural = "Moths"
+	language = "Moffic"
+	icobase = 'icons/mob/human_races/r_moth.dmi'
+	inherent_factions = list("moth")
+	species_traits = list(IS_WHITELISTED, NO_HAIR)
+	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
+	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_TAIL
+	reagent_tag = PROCESS_ORG
+	dietflags = DIET_HERB
+	tox_mod = 1.5
+	blood_color = "#b9ae9c"
+	unarmed_type = /datum/unarmed_attack/claws
+	scream_verb = "buzzes"
+	male_scream_sound = 'sound/voice/scream_moth.ogg'
+	female_scream_sound = 'sound/voice/scream_moth.ogg'
+
+	default_headacc = "Plain Antennae"
+	tail = "plain"
+	eyes = "moth_eyes_s"
+	butt_sprite = "kidan"
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/moth
+		)
+
+	var/datum/action/innate/cocoon/cocoon
+	var/cocooned
+	var/burnt_wings
+	var/pre_burn_antennae //keeps track of what wings where before being burnt off
+	var/pre_burn_wings
+
+	suicide_messages = list(
+		"is attempting to nibble their antenna off!",
+		"is jamming their legs into their eye sockets!",
+		"is twisting their own neck!",
+		"is cracking their exoskeleton!",
+		"is ripping their wings off!",
+		"is holding their breath!")
+
+
+/datum/species/moth/on_species_gain(mob/living/carbon/human/H)
+	..()
+	cocoon = new()
+	cocoon.Grant(H)
+
+/datum/species/moth/on_species_loss(mob/living/carbon/human/H)
+	..()
+	if(cocoon)
+		cocoon.Remove(H)
+
+/datum/species/moth/handle_life(mob/living/carbon/human/H)
+	. = ..()
+	addtimer(CALLBACK(src, .proc/get_lamp, H), 5 SECONDS, TIMER_UNIQUE)
+
+/datum/species/moth/proc/get_lamp(mob/living/carbon/human/H)
+	if(H.confused != 0)
+		return
+	var/turf/simulated/T = get_turf(H)
+	if(!istype(T))
+		return
+	var/light_available = T.get_lumcount(maxlum = 5) * 10
+	if(light_available > 3) //too close to lamp friend!
+		H.AdjustConfused(rand(4, 8))
+		to_chat(H, "<span class='danger'>The lamp friends are too bright, and dazzle you!</span>")
+
+/datum/species/moth/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	..()
+	if(cocooned)
+		if(!R.harmless)
+			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM*2)
+	if(R.id == "pestkiller")
+		H.adjustToxLoss(3)
+		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+
+/datum/species/moth/get_species_runechat_color(mob/living/carbon/human/H)
+	return H.m_colours["body"]
+
+/datum/species/moth/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
+	if(istype(I, /obj/item/melee/flyswatter) && I.force)
+		apply_damage(I.force*9, I.damtype, affecting, FALSE, H) //making flyswatters do 10x damage to moff
+
+/datum/species/moth/spec_handle_fire(mob/living/carbon/human/H) //do not go into the extremely hot light. you will not survive
+	if(H.on_fire && !(burnt_wings) && H.bodytemperature >= 800 && H.fire_stacks > 0)
+		to_chat(H, "<span class='warning'>Your precious wings burn to a crisp!</span>")
+		destroywings(H)
+
+/datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/H)
+	var/turf/A = get_turf(H)
+	if(isspaceturf(A))
+		return FALSE
+	if(burnt_wings)
+		return FALSE
+	var/datum/gas_mixture/current = A.return_air()
+	if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85))//as long as there's reasonable pressure and no gravity, flight is possible
+		return TRUE
+
+/datum/species/moth/proc/backupwings(mob/living/carbon/human/H)
+	var/obj/item/organ/external/head/A = H.get_organ("head")
+	pre_burn_antennae = A.ha_style
+	pre_burn_wings = H.body_accessory.name
+
+/datum/species/moth/proc/destroywings(mob/living/carbon/human/H)
+	burnt_wings = TRUE
+	var/obj/item/organ/external/head/A = H.get_organ("head")
+	pre_burn_antennae = A.ha_style
+	pre_burn_wings = H.body_accessory.name
+	H.change_body_accessory("Burnt Off Wings")
+	H.change_head_accessory("Burnt Off Antennae")
+
+/datum/species/moth/proc/restorewings(mob/living/carbon/human/H)
+	burnt_wings = FALSE
+	H.change_head_accessory(pre_burn_antennae)
+	H.change_body_accessory(pre_burn_wings)
+	pre_burn_antennae = null
+	pre_burn_wings = null
+
+/datum/action/innate/cocoon
+	name = "Cocoon"
+	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
+	check_flags = AB_CHECK_CONSCIOUS
+	icon_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "cocoon1"
+
+/datum/action/innate/cocoon/Activate()
+	var/mob/living/carbon/human/moth/H = owner
+	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on weaving a cocoon...</span>", "<span class='notice'>You begin to focus on weaving a cocoon... (This will take [round(COCOON_WEAVE_DELAY/10)] seconds, and you must hold still.)</span>")
+	if(do_after(H, COCOON_WEAVE_DELAY, FALSE, H))
+		if(H.incapacitated(ignore_lying = TRUE))
+			to_chat(H, "<span class='warning'>You cannot weave a cocoon in your current state.</span>")
+			return
+		H.visible_message("<span class='notice'>[H] finishes weaving a cocoon!</span>", "<span class='notice'>You finish weaving your cocoon.</span>")
+		var/obj/structure/moth/cocoon/C = new(get_turf(H))
+		H.forceMove(C)
+		C.preparing_to_emerge = TRUE
+		var/datum/species/moth/M = H.dna.species
+		M.cocooned = TRUE
+		H.KnockOut()
+		addtimer(CALLBACK(src, .proc/emerge, C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
+	else
+		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
+
+/datum/action/innate/cocoon/proc/emerge(obj/structure/moth/cocoon/C)
+	for(var/mob/living/carbon/human/H in C.contents)
+		var/datum/species/moth/M = H.dna.species
+		M.cocooned = FALSE
+		H.adjustBruteLoss(-75)
+		H.adjustFireLoss(-75)
+		if(M.burnt_wings)
+			M.restorewings(H)
+	C.preparing_to_emerge = FALSE
+	qdel(C)
+
+/obj/structure/moth/cocoon
+	name = "moth cocoon"
+	desc = "Someone wrapped in a moth cocoon"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "cocoon1"
+	color = COLOR_PALE_YELLOW
+	max_integrity = 60
+	var/preparing_to_emerge
+
+/obj/structure/moth/cocoon/Initialize(mapload)
+	. = ..()
+	icon_state = pick("cocoon1","cocoon2","cocoon3")
+
+/obj/structure/moth/cocoon/Destroy()
+	if(!preparing_to_emerge)
+		visible_message("<span class='danger'>[src] splits open from within.</span>")
+	else
+		visible_message("<span class='danger'>[src] is smashed open, harming the moth within!</span>")
+		for(var/mob/living/carbon/human/H in contents)
+			H.adjustBruteLoss(75)
+			H.adjustFireLoss(75)
+			H.AdjustWeakened(5)
+	for(var/mob/living/carbon/human/H in contents)
+		H.WakeUp()
+		H.forceMove(loc)
+	return ..()
+
+
+#undef COCOON_WEAVE_DELAY
+#undef COCOON_EMERGE_DELAY

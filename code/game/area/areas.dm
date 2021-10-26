@@ -506,6 +506,9 @@
 		if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP))
 			return
 
+	if(ismoth(M))
+		return
+
 	if(M.buckled) //Cam't fall down if you are buckled
 		return
 

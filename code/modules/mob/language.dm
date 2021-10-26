@@ -353,6 +353,21 @@
 	new_name += "-[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
 	return new_name
 
+/datum/language/moth
+	name = "Moffic"
+	desc = "The language of the Mothpeople borders on complete unintelligibility."
+	speech_verb = "flutters"
+	ask_verb = "flaps"
+	exclaim_verbs = list("flusters")
+	colour = "moth"
+	key = "m"
+	flags = RESTRICTED | WHITELISTED
+	syllables = list("år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le", "lit", "ygg", "van", "dår", "næ", "møt", "idd", "hvo", "ja", "på", "han", "så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två", "må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei", "huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön")
+
+/datum/language/moth/get_random_name()
+	var/new_name = "[pick(list("Acantharctia","Acco","Acherontia","Actias","Aemilia","Aethria","Antheraea","Aphomia","Argema","Ascalapha","Asota","Athrypsiastis","Attacus","Autochloris","Axylia","Bombyx","Callosamia","Callhistia","Capricornia","Catocala","Cheliosea","Chloroclystis","Cochylimorpha","Cryphia","Cryptophasa","Cucullia","Cydia","Diarsia","Diaphora","Dolichohedya","Dyspyralis","Eacles","Eclipsea","Electresia","Elysius","Enarmonia","Eriomastyx","Epiphyas","Eugnorisma","Eupithecia","Euplexia","Eurosia","Falcatula","Fangarctia","Fulcrifera","Glyphidoptera","Gracillina","Gravitarmata","Haemanota","Halysidota","Helicoverpa","Heliomata","Hyalophora","Hypomartyria","Icelita","Isanthrene","Isochorista","Izatha","Kodiosoma","Lacida","Leguminivora","Leucoptera","Lymantria","Macrobathra","Maruca","Mecodina","Megalonycta","Metacrisia","Mythimna","Naenia","Naenia","Neuroxena","Nodaria","Nymphicula","Obscurior","Ochropleura","Opodiphthera","Ostrinia","Pacificulla","Philomusaea","Phragmataecia","Plodia","Plutella","Rachiplusia","Sarobela","Selenarctia","Shiragasane","Sphingidae","Socioplana","Spodoptera","Syllomatia","Thaumetopoea","Timandra","Toxoproctis","Uranophora","Vestura","Vietteria","Xanthorhoe","Xestia","Zomaria"))]"
+	new_name += " [pick(list("Accurata","Adultera","Albipuncta","Albostriata","Albovenosa","Argentea","Bicolorata","Bifasciata","Cameroni","Chiangmai","Combinata","Convecta","Cuneilinea","Curvata","Dentata","Empyrea","Eucrossa","Ferrilinea","Fraterna","Goniosigma","Hamifera","Hirashimai","Hypophaea","Ignita","Impura","Insularis","Infrargyrea","Intermediata","Intolerabilis","Laevusta","Languida","Liebherri","Lineatipes","Lucida","Maxima","Mediana","Modesta","Monticola","Naumanni","Nepalina","Obscura","Osseogrisea","Pastellina","Phlebitis ","Pyrausta","Radiata","Riparia","Rufulosa","Semicana","Separata","Siamensis","Simplex","Toumodi","Undicilia","Uruma","Vittata","Yuennana"))]"
+	return new_name
 /datum/language/common
 	name = "Galactic Common"
 	desc = "The common galactic tongue."

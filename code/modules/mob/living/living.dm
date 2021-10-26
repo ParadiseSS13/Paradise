@@ -493,7 +493,9 @@
 			human_mob.restore_blood()
 			human_mob.decaylevel = 0
 			human_mob.remove_all_embedded_objects()
-
+		if(ismoth(src))
+			var/datum/species/moth/M = dna.species
+			M.restorewings(src)
 	restore_all_organs()
 	surgeries.Cut() //End all surgeries.
 	if(stat == DEAD)

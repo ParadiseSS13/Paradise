@@ -454,7 +454,6 @@
 				continue
 			if(dna.species.name in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
 				valid_body_accessories += B
-
 	return sortTim(valid_body_accessories, /proc/cmp_text_asc)
 
 /mob/living/carbon/human/proc/generate_valid_alt_heads()

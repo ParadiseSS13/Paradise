@@ -265,7 +265,8 @@
 					. += (health_deficiency / 75)
 				else
 					. += (health_deficiency / 25)
-		. += 2 * H.stance_damage //damaged/missing feet or legs is slow
+		if(!ismoth(H) || (ismoth(H) && istype(H.body_accessory, /datum/body_accessory/tail/moth/burnt_off))) //moths with working wings take no slowdown
+			. += 2 * H.stance_damage //damaged/missing feet or legs is slow
 
 		if((hungry >= 70) && !flight)
 			. += hungry/50
@@ -942,6 +943,12 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
 	if(istype(ears) && !HAS_TRAIT(H, TRAIT_DEAF))
 		. = TRUE
+
+/datum/species/proc/spec_handle_fire(mob/living/carbon/human/H)
+	return FALSE
+
+/datum/species/proc/spec_Process_Spacemove(mob/living/carbon/human/H)
+	return FALSE
 
 /**
   * Species-specific runechat colour handler

@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 	animated_icon_state = "null"
 
 /datum/body_accessory/tail/try_restrictions(mob/living/carbon/human/H)
-	if(!H.wear_suit || !(H.wear_suit.flags_inv & HIDETAIL))
+	if(!H.wear_suit || !(H.wear_suit.flags_inv & HIDETAIL) || ismoth(H))
 		return TRUE
 	return FALSE
 
@@ -121,4 +121,84 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 	name = "Bee Tail"
 	icon_state = "wryntail"
 	allowed_species = list("Wryn")
-	
+
+//Moth
+//Wings
+/datum/body_accessory/tail/moth
+	icon = 'icons/mob/sprite_accessories/moth/moth_wings.dmi'
+	animated_icon = null
+	name = "Plain Wings"
+	icon_state = "plain"
+	allowed_species = list("Moth")
+
+/datum/body_accessory/tail/moth/monarch
+	name = "Monarch Wings"
+	icon_state = "monarch"
+
+/datum/body_accessory/tail/moth/luna
+	name = "Luna Wings"
+	icon_state = "luna"
+
+/datum/body_accessory/tail/moth/atlas
+	name = "Atlas Wings"
+	icon_state = "atlas"
+
+/datum/body_accessory/tail/moth/reddish
+	name = "Reddish Wings"
+	icon_state = "redish"
+
+/datum/body_accessory/tail/moth/royal
+	name = "Royal Wings"
+	icon_state = "royal"
+
+/datum/body_accessory/tail/moth/gothic
+	name = "Gothic Wings"
+	icon_state = "gothic"
+
+/datum/body_accessory/tail/moth/lovers
+	name = "Lovers Wings"
+	icon_state = "lovers"
+
+/datum/body_accessory/tail/moth/whitefly
+	name = "White Fly Wings"
+	icon_state = "whitefly"
+
+/datum/body_accessory/tail/moth/burnt_off
+	name = "Burnt Off Wings"
+	icon_state = "burnt_off"
+
+/datum/body_accessory/tail/moth/firewatch
+	name = "Firewatch Wings"
+	icon_state = "firewatch"
+
+/datum/body_accessory/tail/moth/deathhead
+	name = "Deathshead Wings"
+	icon_state = "deathhead"
+
+/datum/body_accessory/tail/moth/poison
+	name = "Poison Wings"
+	icon_state = "poison"
+
+/datum/body_accessory/tail/moth/ragged
+	name = "Ragged Wings"
+	icon_state = "ragged"
+
+/datum/body_accessory/tail/moth/moonfly
+	name = "Moon Fly Wings"
+	icon_state = "moonfly"
+
+/datum/body_accessory/tail/moth/snow
+	name = "Snow Wings"
+	icon_state = "snow"
+
+/datum/body_accessory/tail/moth/oakworm
+	name = "Oak Worm Wings"
+	icon_state = "oakworm"
+
+/datum/body_accessory/tail/moth/jungle
+	name = "Jungle Wings"
+	icon_state = "jungle"
+
+/datum/body_accessory/tail/moth/witchwing
+	name = "Witch Wing Wings"
+	icon_state = "witchwing"

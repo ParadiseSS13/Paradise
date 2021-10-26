@@ -305,6 +305,10 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 45KP</a><br>"
 			else
 				dat += "Plasmaman - <font color='green'>Unlocked</font><br>"
+			if(!("Moth" in specieslist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Moth -- 30KP</a><br>"
+			else
+				dat += "Moth - <font color='green'>Unlocked</font><br>"
 
 		if(2) // Karma Refunds
 			var/list/refundable = list()

@@ -290,8 +290,10 @@
 
 						active_character.alt_head = "None" //No alt heads on species that don't have them.
 						active_character.speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
-
-						active_character.body_accessory = null //no vulptail on humans damnit
+						if(active_character.species == "Moth")
+							active_character.body_accessory = random_body_accessory("Moth") //wingless moths begone
+						else
+							active_character.body_accessory = null //no vulptail on humans damnit
 
 						//Reset prosthetics.
 						active_character.organ_data = list()
@@ -526,6 +528,8 @@
 								continue
 							if(active_character.species in accessory.allowed_species)
 								possible_body_accessories += B
+					if(active_character.species == "Moth")
+						possible_body_accessories.Remove(null, "None")
 					sortTim(possible_body_accessories, /proc/cmp_text_asc)
 					var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories
 					if(new_body_accessory)
