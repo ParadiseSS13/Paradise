@@ -70473,13 +70473,6 @@
 	pixel_y = 24
 	},
 /obj/structure/table/reinforced,
-/obj/item/rcd,
-/obj/item/rcd_ammo,
-/obj/item/rcd_ammo,
-/obj/item/rcd_ammo,
-/obj/item/rcd_ammo,
-/obj/item/rcd_ammo,
-/obj/item/rcd_ammo,
 /obj/item/stock_parts/cell/high{
 	charge = 100;
 	maxcharge = 15000
