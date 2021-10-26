@@ -1218,7 +1218,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/organic/bunny
 	name = "Bunny Crate"
-	cost = 1 // for testin init bruv
+	cost = 20
 	containertype = /obj/structure/closet/critter/bunny
 	containername = "bunny crate"
 
