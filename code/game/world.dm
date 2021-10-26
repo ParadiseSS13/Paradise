@@ -22,11 +22,15 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 
 	//temporary file used to record errors with loading config and the database, moved to log directory once logging is set up
 	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = GLOB.sql_log = "data/logs/config_error.log"
-	GLOB.configuration.load_configuration()
+	GLOB.configuration.load_configuration() // Load up the base config.toml
+	// Load up overrides for this specific instance, based on port
+	// If this instance is listening on port 6666, the server will look for config/overrides_6666.toml
+	GLOB.configuration.load_overrides()
 
 	// Right off the bat, load up the DB
 	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
 	SSdbcore.SetRoundID() // Set the round ID here
+	SSinstancing.seed_data() // Set us up in the DB
 
 	// Setup all log paths and stamp them with startups, including round IDs
 	SetupLogs()

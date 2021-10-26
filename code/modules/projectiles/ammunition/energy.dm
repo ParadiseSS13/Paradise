@@ -271,6 +271,17 @@
 	delay = 50
 	select_name = "snipe"
 
+/obj/item/ammo_casing/energy/emitter
+	projectile_type = /obj/item/projectile/beam/emitter
+	muzzle_flash_color = LIGHT_COLOR_GREEN
+	fire_sound = 'sound/weapons/emitter.ogg'
+	e_cost = 100
+	delay = 2 SECONDS // Lasers fire twice every second for 40 dps, this fires every 2 seconds for 15 dps. Seems fair, since every cyborg will have this with more shots?
+	select_name = "emitter"
+
+/obj/item/ammo_casing/energy/emitter/cyborg
+	e_cost = 500 // about 28 shots on an engineering borg from a borging machine, assuming some power is used for lights / movement. May need to change.
+
 /obj/item/ammo_casing/energy/bsg
 	projectile_type = /obj/item/projectile/energy/bsg
 	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
