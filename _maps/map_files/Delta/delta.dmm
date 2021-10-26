@@ -26016,7 +26016,7 @@
 	},
 /area/security/permabrig)
 "blf" = (
-/obj/structure/foodcart,
+/obj/machinery/smartfridge/foodcart,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/firealarm{
 	dir = 1;
