@@ -83,11 +83,11 @@
 			var/obj/item/organ/external/parent = get_organ(I.parent_organ)
 			var/intensity = ""
 			if(I.damage <= 10)
-				intensity = "dull"
+				intensity = "a dull"
 			else if(I.damage <= 30)
-				intensity = "nagging"
+				intensity = "a nagging"
 			else if(I.damage <= 50)
-				intensity = "sharp"
+				intensity = "a sharp"
 			else
-				intensity = "stabbing"
-			custom_pain("You feel a [intensity] pain in your [parent.limb_name].")
+				intensity = "a stabbing"
+			custom_pain("You feel [intensity] pain in your [parent.limb_name]!")
