@@ -81,11 +81,13 @@
 			continue
 		if(prob(2) && I.damage > 2)
 			var/obj/item/organ/external/parent = get_organ(I.parent_organ)
+			var/intensity = ""
 			if(I.damage <= 10)
-				custom_pain("You feel a dull pain in your [parent.limb_name].")
+				intensity = "dull"
 			else if(I.damage <= 30)
-				custom_pain("You feel a nagging pain in your [parent.limb_name], it's hard to ignore.")
+				intensity = "nagging"
 			else if(I.damage <= 50)
-				custom_pain("You feel a sharp pain in your [parent.limb_name]!")
+				intensity = "sharp"
 			else
-				custom_pain("You feel a stabbing pain in your [parent.limb_name]!")
+				intensity = "stabbing"
+			custom_pain("You feel a [intensity] pain in your [parent.limb_name].")
