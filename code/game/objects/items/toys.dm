@@ -1010,7 +1010,7 @@
 		icon_state = "grey_singed"
 		item_state = "grey_singed"//If the plushie gets wet the sprite changes to a singed version.
 		desc = "A ruined plushie of a grey. It looks like someone ran it under some water."
-		playsound(source, 'sound/goonstation/voice/male_scream.ogg', 10, 0)//If the plushie gets wet it screams and "AAAAAH!" appears in chat.
+		playsound(src, 'sound/goonstation/voice/male_scream.ogg', 10, FALSE)//If the plushie gets wet it screams and "AAAAAH!" appears in chat.
 		visible_message("<span class='danger'>AAAAAAH!</span>")
 
 /obj/item/toy/plushie/greyplushie/proc/reset_cooldown()
