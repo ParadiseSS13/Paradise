@@ -79,8 +79,8 @@
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/process()
 	var/turf/T = get_turf(src)
-	var/lightingcount = T.get_lumcount(0.5) * 10
-	if(lightingcount > 1)
+	var/lighting_count = T.get_lumcount() * 10
+	if(lighting_count > 2)
 		obj_integrity -= 50
 
 	if(obj_integrity <= 0)

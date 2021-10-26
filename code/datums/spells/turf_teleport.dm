@@ -27,8 +27,8 @@
 			if(T.x>world.maxx-outer_tele_radius || T.x<outer_tele_radius)	continue	//putting them at the edge is dumb
 			if(T.y>world.maxy-outer_tele_radius || T.y<outer_tele_radius)	continue
 			if(!include_light_turfs)
-				var/lightingcount = T.get_lumcount(0.5) * 10
-				if(lightingcount > 1)
+				var/lightingcount = T.get_lumcount() * 10
+				if(lightingcount > 2)
 					continue
 			turfs += T
 
