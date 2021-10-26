@@ -118,7 +118,7 @@
 
 /obj/item/storage/lockbox/t4/populate_contents()
 	for(var/i in 0 to 2)
-		new /obj/item/grenade/plastic/x4/thermite(src)
+		new /obj/item/grenade/plastic/c4/thermite(src)
 
 /obj/item/storage/lockbox/research
 

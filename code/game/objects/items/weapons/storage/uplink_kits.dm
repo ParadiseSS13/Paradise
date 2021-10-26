@@ -53,7 +53,7 @@
 		/obj/item/storage/box/syndie_kit/space, // 4TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/static/list/payday = list( // 35TC + four 0TC
+	var/static/list/payday = list( // 36TC + four 0TC
 		/obj/item/gun/projectile/revolver, // 13TC
 		/obj/item/ammo_box/a357, // 3TC
 		/obj/item/ammo_box/a357, // 3TC
@@ -64,6 +64,7 @@
 		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, //0TC
 		/obj/item/clothing/gloves/color/latex/nitrile, //0 TC
 		/obj/item/clothing/mask/gas/clown_hat, // 0TC
+		/obj/item/grenade/plastic/c4, //1TC
 		/obj/item/thermal_drill/diamond_drill, // 1TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 

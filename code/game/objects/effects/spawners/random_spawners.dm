@@ -288,7 +288,7 @@
 		/obj/item/clothing/glasses/thermal = 1,
 		/obj/item/chameleon = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
-		/obj/item/grenade/plastic/x4 = 1)
+		/obj/item/grenade/plastic/c4/x4 = 1)
 
 
 // Layout-affecting spawns
