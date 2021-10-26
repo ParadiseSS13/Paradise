@@ -150,8 +150,7 @@
 			if(!ex_breach && istype(target, /turf/simulated/wall)) //Walls get dismantled instead of destroyed to avoid making unwanted holes to space.
 				var/turf/simulated/wall/W = target
 				W.dismantle_wall(TRUE, TRUE)
-			else if(!ismob(target))
-				target.ex_act(EXPLODE_DEVASTATE)
+			target.ex_act(EXPLODE_DEVASTATE)
 	else
 		location = get_turf(src)
 	if(location)
