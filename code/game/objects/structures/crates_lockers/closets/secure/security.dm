@@ -126,6 +126,7 @@
 	new /obj/item/reagent_containers/food/drinks/mug/hos(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
 	new /obj/item/clothing/accessory/medal/security(src)
+	new /obj/item/reagent_containers/food/drinks/flask/barflask(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"
@@ -449,8 +450,33 @@
 	new /obj/item/clothing/under/rank/centcom/magistrate(src)
 	new /obj/item/clothing/suit/judgerobe(src)
 	new /obj/item/clothing/head/powdered_wig(src)
+	new /obj/item/clothing/head/justice_wig(src)
+	new /obj/item/radio/headset/heads/magistrate(src)
 	new /obj/item/gavelblock(src)
 	new /obj/item/gavelhammer(src)
-	new /obj/item/clothing/head/justice_wig(src)
 	new /obj/item/clothing/accessory/medal/legal(src)
+	new /obj/item/clothing/accessory/lawyers_badge(src)
+
+/obj/structure/closet/secure_closet/iaa
+	name = "internal affairs locker"
+	req_access = list(ACCESS_LAWYER)
+	icon_state = "iaasecure1"
+	icon_closed = "iaasecure"
+	icon_locked = "iaasecure1"
+	icon_opened = "iaasecureopen"
+	icon_broken = "iaasecurebroken"
+	icon_off = "iaasecureoff"
+
+/obj/structure/closet/secure_closet/iaa/populate_contents()
+	new /obj/item/book/manual/faxes(src)
+	new /obj/item/storage/box/tapes(src)
+	new /obj/item/storage/secure/briefcase(src)
+	new /obj/item/storage/briefcase(src)
+	new /obj/item/storage/briefcase(src)
+	new /obj/item/radio/headset/headset_iaa(src)
+	new /obj/item/clothing/under/rank/internalaffairs(src)
+	new /obj/item/clothing/suit/storage/internalaffairs(src)
+	new /obj/item/clothing/glasses/sunglasses/big(src)
+	new /obj/item/clothing/glasses/sunglasses/big(src)
+	new /obj/item/clothing/accessory/lawyers_badge(src)
 	new /obj/item/clothing/accessory/lawyers_badge(src)
