@@ -1990,6 +1990,7 @@
 #include "code\modules\mob\living\simple_animal\bot\mulebot.dm"
 #include "code\modules\mob\living\simple_animal\bot\secbot.dm"
 #include "code\modules\mob\living\simple_animal\bot\syndicate.dm"
+#include "code\modules\mob\living\simple_animal\friendly\bunny.dm"
 #include "code\modules\mob\living\simple_animal\friendly\butterfly.dm"
 #include "code\modules\mob\living\simple_animal\friendly\cat.dm"
 #include "code\modules\mob\living\simple_animal\friendly\cockroach.dm"
