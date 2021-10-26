@@ -1000,29 +1000,31 @@
 	desc = "A plushie of a grey wearing a sweatshirt. As a part of the 'The Alien' series, the doll features a sweater, an oversized head, and cartoonish eyes."
 	icon_state = "plushie_grey"
 	item_state = "plushie_grey"
-	var/cooldown = 0    //refers to the cooldown proc for attack_self.
+	var/on_cooldown = FALSE //Defaults the plushie to being off cooldown. Sets the on_cooldown var.
 
-/obj/item/toy/plushie/greyplushie/water_act(volume, temperature, source, method = REAGENT_TOUCH)//If the plushie gets wet at all this runs.
+/obj/item/toy/plushie/greyplushie/water_act(volume, temperature, source, method = REAGENT_TOUCH) //If water touches the plushie the following code executes.
 	. = ..()
-	if(!cooldown)
-		cooldown = 300
-		spawn(300) cooldown = 0
+	if(!on_cooldown)
+		on_cooldown = TRUE //water_act executes the on_cooldown var, setting it on cooldown.
+		addtimer(CALLBACK(src, .proc/reset_cooldown), 30 SECONDS) //After 30 seconds the reset_coolodown() proc will execute, resetting the cooldown. The hug dialogue will also be on cooldown when this happens.
 		icon_state = "grey_singed"
 		item_state = "grey_singed"//If the plushie gets wet the sprite changes to a singed version.
 		desc = "A ruined plushie of a grey. It looks like someone ran it under some water."
-		playsound(source, 'sound/goonstation/voice/male_scream.ogg', 10, 0)//If the plushie gets wet it screams and "AAAAAH!" appears overhead.
+		playsound(source, 'sound/goonstation/voice/male_scream.ogg', 10, 0)//If the plushie gets wet it screams and "AAAAAH!" appears in chat.
 		visible_message("<span class='danger'>AAAAAAH!</span>")
 
+/obj/item/toy/plushie/greyplushie/proc/reset_cooldown()
+	on_cooldown = FALSE //Resets the interaction cooldown.
+
 /obj/item/toy/plushie/greyplushie/attack_self(mob/user)//code for talking when hugged.
-	if(!cooldown)
-		cooldown = 1
-		spawn(30) cooldown = 0
-		if(icon_state == "grey_singed")//If the plushie is water damaged it refers to this first bit.
+	. = ..()
+	if(!on_cooldown)
+		on_cooldown = TRUE
+		addtimer(CALLBACK(src, .proc/reset_cooldown), 5 SECONDS) //Hug interactions only put the plushie on a 5 second cooldown.
+		if(icon_state == "grey_singed")//If the plushie is water damaged it'll say Ow instead of talking in wingdings.
 			visible_message("<span class='danger'>Ow...</span>")
-		else//If the plushie is not water damaged this plays instead!
+		else//If the plushie has not touched water they'll say Greetings in wingdings.
 			visible_message("<span class='danger'>☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎</span>")
-		return
-	..()
 
 /obj/item/toy/plushie/voxplushie
 	name = "vox plushie"
