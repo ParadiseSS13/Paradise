@@ -23,11 +23,12 @@ SUBSYSTEM_DEF(metrics)
 	var/list/out = list()
 	out["@timestamp"] = time_stamp() // This is required by ElasticSearch, complete with this name. DO NOT REMOVE THIS.
 	out["cpu"] = world.cpu
-	// out["maptick"] = world.map_cpu // TODO: 514
+	out["maptick"] = world.map_cpu
 	out["elapsed_processed"] = world.time
 	out["elapsed_real"] = (REALTIMEOFDAY - world_init_time)
 	out["client_count"] = length(GLOB.clients)
 	out["round_id"] = text2num(GLOB.round_id) // This is so we can filter the metrics by a single round ID
+	out["server_id"] = GLOB.configuration.system.instance_id // And this is so we can filter by instance ID
 
 	// Funnel in all SS metrics
 	var/list/ss_data = list()

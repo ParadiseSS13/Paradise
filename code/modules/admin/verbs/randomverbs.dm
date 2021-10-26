@@ -230,19 +230,19 @@
 
 	if(automute)
 		muteunmute = "auto-muted"
-		M.client.prefs.muted |= mute_type
+		force_add_mute(M.client.ckey, mute_type)
 		log_admin("SPAM AUTOMUTE: [muteunmute] [key_name(M)] from [mute_string]")
 		message_admins("SPAM AUTOMUTE: [muteunmute] [key_name_admin(M)] from [mute_string].", 1)
 		to_chat(M, "You have been [muteunmute] from [mute_string] by the SPAM AUTOMUTE system. Contact an admin.")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Automute") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		return
 
-	if(M.client.prefs.muted & mute_type)
-		muteunmute = "unmuted"
-		M.client.prefs.muted &= ~mute_type
-	else
+	toggle_mute(M.client.ckey, mute_type)
+
+	if(check_mute(M.client.ckey, mute_type))
 		muteunmute = "muted"
-		M.client.prefs.muted |= mute_type
+	else
+		muteunmute = "unmuted"
 
 	log_admin("[key_name(usr)] has [muteunmute] [key_name(M)] from [mute_string]")
 	message_admins("[key_name_admin(usr)] has [muteunmute] [key_name_admin(M)] from [mute_string].", 1)
@@ -396,10 +396,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.age = record_found.fields["age"]
 		new_character.dna.blood_type = record_found.fields["blood_type"]
 	else
+		// We make a random character
 		new_character.change_gender(pick(MALE,FEMALE))
-		var/datum/preferences/A = new()
-		A.real_name = G_found.real_name
-		A.copy_to(new_character)
+		var/datum/character_save/S = new
+		S.randomise()
+		S.real_name = G_found.real_name
+		S.copy_to(new_character)
 
 	if(!new_character.real_name)
 		new_character.real_name = random_name(new_character.gender)
@@ -606,7 +608,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		"Custom" = "Cryptic Message")
 
 	var/list/MsgSound = list("Beep" = 'sound/misc/notice2.ogg',
-		"Enemy Communications Intercepted" = 'sound/AI/intercept2.ogg',
+		"Enemy Communications Intercepted" = 'sound/AI/intercept.ogg',
 		"New Command Report Created" = 'sound/AI/commandreport.ogg')
 
 	var/type = input(usr, "Pick a type of report to send", "Report Type", "") as anything in MsgType

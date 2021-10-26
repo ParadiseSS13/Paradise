@@ -8,7 +8,8 @@
 	name = "navigation beacon"
 	desc = "A radio beacon used for bot navigation."
 	level = 1		// underfloor
-	layer = 2.5
+	layer = WIRE_LAYER
+	plane = FLOOR_PLANE
 	anchored = 1
 	max_integrity = 500
 	armor = list(melee = 70, bullet = 70, laser = 70, energy = 70, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
@@ -26,7 +27,8 @@
 	set_codes()
 
 	var/turf/T = loc
-	hide(T.intact)
+	if(!T.transparent_floor)
+		hide(T.intact)
 	if(!codes || !codes.len)
 		log_runtime(EXCEPTION("Empty codes datum at ([x],[y],[z])"), src, list("codes_txt: '[codes_txt]'"))
 	if("patrol" in codes)

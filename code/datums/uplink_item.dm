@@ -167,18 +167,19 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 //Clown
 /datum/uplink_item/jobspecific/clowngrenade
 	name = "Banana Grenade"
-	desc = "A grenade that explodes into HONK! brand banana peels that are genetically modified to be extra slippery and extrude caustic acid when stepped on"
+	desc = "A grenade that explodes into HONK! brand banana peels that are genetically modified to be extra slippery and extrude caustic acid when stepped on."
 	reference = "BG"
 	item = /obj/item/grenade/clown_grenade
 	cost = 5
 	job = list("Clown")
 
-/datum/uplink_item/jobspecific/clownmagboots
-	name = "Clown Magboots"
-	desc = "A pair of modified clown shoes fitted with an advanced magnetic traction system. Look and sound exactly like regular clown shoes unless closely inspected."
-	reference = "CM"
-	item = /obj/item/clothing/shoes/magboots/clown
+/datum/uplink_item/jobspecific/clownslippers
+	name = "Clown Acrobatic Shoes"
+	desc = "A pair of modified clown shoes fitted with a built-in propulsion system that allows the user to perform a short slip below anyone. Turning on the waddle dampeners removes the slowdown on the shoes."
+	reference = "CAS"
+	item = /obj/item/clothing/shoes/clown_shoes/slippers
 	cost = 3
+	surplus = 75
 	job = list("Clown")
 
 /datum/uplink_item/jobspecific/trick_revolver
@@ -257,10 +258,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Chaplain")
 
 /datum/uplink_item/jobspecific/artistic_toolbox
-	name = "Artistic Toolbox"
-	desc = "An accursed toolbox that grants its followers extreme power at the cost of requiring repeated sacrifices to it. If sacrifices are not provided, it will turn on its follower."
-	reference = "HGAT"
-	item = /obj/item/storage/toolbox/green/memetic
+	name = "His Grace"
+	desc = "An incredibly dangerous weapon recovered from a station overcome by the grey tide. Once activated, He will thirst for blood and must be used to kill to sate that thirst. \
+	His Grace grants gradual regeneration and complete stun immunity to His wielder, but be wary: if He gets too hungry, He will become impossible to drop and eventually kill you if not fed. \
+	However, if left alone for long enough, He will fall back to slumber. \
+	To activate His Grace, simply unlatch Him."
+	reference = "HG"
+	item = /obj/item/his_grace
 	cost = 20
 	job = list("Chaplain")
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
@@ -1171,6 +1175,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 4
 	excludefrom = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/stealthy_tools/voice_modulator
+	name = "Chameleon Voice Modulator Mask"
+	desc = "A syndicate tactical mask equipped with chameleon technology and a sound modulator for disguising your voice. \
+			While the mask is active, your voice will sound unrecognizable to others"
+	reference = "CVMM"
+	item = /obj/item/clothing/mask/gas/voice_modulator/chameleon
+	cost = 1
+	excludefrom = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/stealthy_tools/chameleon/nuke
 	reference = "NCHAM"
 	cost = 6
@@ -1524,7 +1537,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/implants/freedom
 	name = "Freedom Implant"
-	desc = "An implant injected into the body and later activated manually to break out of any restraints. Can be activated up to 4 times."
+	desc = "An implant injected into the body and later activated manually to break out of any restraints or grabs. Can be activated up to 4 times."
 	reference = "FI"
 	item = /obj/item/implanter/freedom
 	cost = 5

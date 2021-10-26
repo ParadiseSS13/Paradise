@@ -32,7 +32,7 @@
 	if(M.stat || !M.mind || M.mind.special_role || M.mind.offstation_role)
 		return FALSE
 	if(temp)
-		if((M.mind.assigned_role in temp.restricted_jobs) || (M.client.prefs.species in temp.protected_species))
+		if((M.mind.assigned_role in temp.restricted_jobs) || (M.client.prefs.active_character.species in temp.protected_species))
 			return FALSE
 	if(role) // Don't even bother evaluating if there's no role
 		if(player_old_enough_antag(M.client,role) && (role in M.client.prefs.be_special) && !M.client.skip_antag && (!jobban_isbanned(M, role)))
@@ -138,7 +138,7 @@
 	if(confirm != "Yes")
 		return 0
 	var/image/I = new('icons/mob/simple_human.dmi', "wizard")
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Wizard Foundation 'diplomat'?", "wizard", source = I)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", "wizard", source = I)
 
 	log_admin("[key_name(owner)] tried making a Wizard with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a Wizard with One-Click-Antag")
@@ -374,8 +374,8 @@
 	//First we spawn a dude.
 	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))//The mob being spawned.
 
-	var/datum/preferences/A = new(G_found.client)
-	A.copy_to(new_character)
+	// Then clone stuff over
+	G_found.client.prefs.active_character.copy_to(new_character)
 
 	new_character.dna.ready_dna(new_character)
 	new_character.key = G_found.key
@@ -388,13 +388,14 @@
 	var/syndicate_commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
 	var/syndicate_commando_name = pick(GLOB.last_names)
 
-	var/datum/preferences/A = new()//Randomize appearance for the commando.
+	var/datum/character_save/S = new //Randomize appearance for the commando.
+	S.randomise()
 	if(syndicate_leader_selected)
-		A.real_name = "[syndicate_commando_leader_rank] [syndicate_commando_name]"
-		A.age = rand(35,45)
+		S.real_name = "[syndicate_commando_leader_rank] [syndicate_commando_name]"
+		S.age = rand(35, 45)
 	else
-		A.real_name = "[syndicate_commando_rank] [syndicate_commando_name]"
-	A.copy_to(new_syndicate_commando)
+		S.real_name = "[syndicate_commando_rank] [syndicate_commando_name]"
+	S.copy_to(new_syndicate_commando)
 
 	new_syndicate_commando.dna.ready_dna(new_syndicate_commando)//Creates DNA.
 
@@ -576,7 +577,8 @@
 	if(candidates.len)
 		var/teamOneMembers = 5
 		var/teamTwoMembers = 5
-		var/datum/preferences/A = new()
+		var/datum/character_save/S = new
+		S.randomise()
 		for(var/thing in GLOB.landmarks_list)
 			var/obj/effect/landmark/L = thing
 			if(L.name == "tdome1")
@@ -585,7 +587,7 @@
 
 				var/mob/living/carbon/human/newMember = new(L.loc)
 
-				A.copy_to(newMember)
+				S.copy_to(newMember)
 
 				newMember.dna.ready_dna(newMember)
 
@@ -607,7 +609,7 @@
 
 				var/mob/living/carbon/human/newMember = new(L.loc)
 
-				A.copy_to(newMember)
+				S.copy_to(newMember)
 
 				newMember.dna.ready_dna(newMember)
 

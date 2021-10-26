@@ -79,8 +79,6 @@
 				ADD_TRAIT(user, TRAIT_LASEREYES, "ww_wishgranter")
 				user.dna.SetSEState(GLOB.fireblock, TRUE)
 				singlemutcheck(user, GLOB.fireblock, MUTCHK_FORCED)
-				user.dna.SetSEState(GLOB.xrayblock, TRUE)
-				singlemutcheck(user, GLOB.xrayblock, MUTCHK_FORCED)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(!isshadowperson(human))
@@ -215,9 +213,6 @@
 			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Oh really now?' You hear a clicking sound. 'Team, get back here. We have trouble'. Then the line goes dead.</span>")
 			for(var/thing in GLOB.landmarks_list)
 				var/obj/effect/landmark/L = thing
-				if(L.name == "wildwest_syndipod")
-					var/obj/spacepod/syndi/P = new /obj/spacepod/syndi(get_turf(L))
-					P.name = "Syndi Recon Pod"
 				if(L.name == "wildwest_syndibackup")
 					var/mob/living/simple_animal/hostile/syndicate/ranged/space/R = new /mob/living/simple_animal/hostile/syndicate/ranged/space(get_turf(L))
 					R.name = "Syndi Recon Team"
