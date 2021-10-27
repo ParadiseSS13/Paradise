@@ -1292,7 +1292,7 @@ About the new airlock wires panel:
 		return
 	switch(severity)
 		if(EXPLODE_DEVASTATE) //Destroy the airlock completely.
-			Destroy()
+			qdel(src)
 		if(EXPLODE_HEAVY) //Deconstruct the airlock, leaving damaged airlock frame and parts behind
 			deconstruct(FALSE, null)
 		if(EXPLODE_LIGHT) //Deconstruct the airlock, leaving parts behind, unless protected by metal/plasteel.

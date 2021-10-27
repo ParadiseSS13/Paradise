@@ -130,7 +130,7 @@
 /obj/item/grenade/plastic/c4
 	name = "C4"
 	desc = "Used to put holes in specific areas without too much extra hole. A saboteurs favourite."
-	var/shaped = FALSE //If set to true, the explosive will damage one tile behind the wall/object it's set on for a targeted breach and entry.
+	var/shaped = FALSE //If set to true, the secondary explosion will be centered two tiles behind the wall/object it's set on for a targeted breach and entry.
 	var/aim_dir //Set when installing the charge.
 	var/ex_devastate = 0 //Range values given to the explosion proc when primed
 	var/ex_heavy = 0
