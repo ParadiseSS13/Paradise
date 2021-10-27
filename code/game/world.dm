@@ -8,6 +8,8 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 	// Right off the bat
 	enable_auxtools_debugger()
 
+	SSmetrics.world_init_time = REALTIMEOFDAY
+
 	// Do sanity checks to ensure RUST actually exists
 	if(!fexists(RUST_G))
 		DIRECT_OUTPUT(world.log, "ERROR: RUSTG was not found and is required for the game to function. Server will now exit.")
@@ -20,11 +22,15 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 
 	//temporary file used to record errors with loading config and the database, moved to log directory once logging is set up
 	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = GLOB.sql_log = "data/logs/config_error.log"
-	GLOB.configuration.load_configuration()
+	GLOB.configuration.load_configuration() // Load up the base config.toml
+	// Load up overrides for this specific instance, based on port
+	// If this instance is listening on port 6666, the server will look for config/overrides_6666.toml
+	GLOB.configuration.load_overrides()
 
 	// Right off the bat, load up the DB
 	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
 	SSdbcore.SetRoundID() // Set the round ID here
+	SSinstancing.seed_data() // Set us up in the DB
 
 	// Setup all log paths and stamp them with startups, including round IDs
 	SetupLogs()
@@ -85,15 +91,16 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	TGS_TOPIC
 	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
 
-	// Handle spam prevention
-	if(!GLOB.world_topic_spam_prevention_handlers[address])
-		GLOB.world_topic_spam_prevention_handlers[address] = new /datum/world_topic_spam_prevention_handler
+	// Handle spam prevention, if their IP isnt in the whitelist
+	if(!(addr in GLOB.configuration.system.topic_ip_ratelimit_bypass))
+		if(!GLOB.world_topic_spam_prevention_handlers[addr])
+			GLOB.world_topic_spam_prevention_handlers[addr] = new /datum/world_topic_spam_prevention_handler(addr)
 
-	var/datum/world_topic_spam_prevention_handler/sph = GLOB.world_topic_spam_prevention_handlers[address]
+		var/datum/world_topic_spam_prevention_handler/sph = GLOB.world_topic_spam_prevention_handlers[addr]
 
-	// Lock the user out and cancel their topic if needed
-	if(sph.check_lockout())
-		return
+		// Lock the user out and cancel their topic if needed
+		if(sph.check_lockout())
+			return
 
 	var/list/input = params2list(T)
 

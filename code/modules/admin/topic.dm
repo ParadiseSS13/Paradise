@@ -446,9 +446,6 @@
 				alert(usr, "This ban has already been lifted / does not exist.", "Error", "Ok")
 				unbanpanel()
 
-	else if(href_list["warn"])
-		usr.client.warn(href_list["warn"])
-
 	else if(href_list["unbane"])
 		if(!check_rights(R_BAN))	return
 
@@ -985,7 +982,8 @@
 
 	else if(href_list["removenote"])
 		var/note_id = href_list["removenote"]
-		remove_note(note_id)
+		if(alert("Do you really want to delete this note?", "Note deletion confirmation", "Yes", "No") == "Yes")
+			remove_note(note_id)
 
 	else if(href_list["editnote"])
 		var/note_id = href_list["editnote"]
@@ -1363,7 +1361,7 @@
 			to_chat(usr, "<span class='warning'>[M] doesn't seem to have an active client.</span>")
 			return
 
-		if(M.flavor_text == "" && M.client.prefs.flavor_text == "")
+		if(M.flavor_text == "" && M.client.prefs.active_character.flavor_text == "")
 			to_chat(usr, "<span class='warning'>[M] has no flavor text set.</span>")
 			return
 
@@ -1377,8 +1375,8 @@
 		M.flavor_text = ""
 
 		// Clear and save the DB character's flavor text
-		M.client.prefs.flavor_text = ""
-		M.client.prefs.save_character(M.client)
+		M.client.prefs.active_character.flavor_text = ""
+		M.client.prefs.active_character.save(M.client)
 
 	else if(href_list["userandomname"])
 		if(!check_rights(R_ADMIN))
@@ -1401,12 +1399,12 @@
 		message_admins("[key_name_admin(usr)] has forced [key_name_admin(M)] to use a random name.")
 
 		// Update the mob's name with a random one straight away
-		var/random_name = random_name(M.client.prefs.gender, M.client.prefs.species)
+		var/random_name = random_name(M.client.prefs.active_character.gender, M.client.prefs.active_character.species)
 		M.rename_character(M.real_name, random_name)
 
 		// Save that random name for next rounds
-		M.client.prefs.real_name = random_name
-		M.client.prefs.save_character(M.client)
+		M.client.prefs.active_character.real_name = random_name
+		M.client.prefs.active_character.save(M.client)
 
 	else if(href_list["asays"])
 		if(!check_rights(R_ADMIN))
@@ -2300,26 +2298,40 @@
 	else if(href_list["cryossd"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/mob/living/carbon/human/H = locateUID(href_list["cryossd"])
-		if(!istype(H))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
+		var/mob/living/M = locateUID(href_list["cryossd"])
+		var/human = ishuman(M)
+		if(!human && !issilicon(M))
+			to_chat(usr, "<span class='warning'>This can only be used on humans and silicons.</span>")
 			return
-		if(!href_list["cryoafk"] && !isLivingSSD(H))
+		if(!href_list["cryoafk"] && !isLivingSSD(M))
 			to_chat(usr, "<span class='warning'>This can only be used on living, SSD players.</span>")
 			return
-		if(istype(H.loc, /obj/machinery/cryopod))
-			var/obj/machinery/cryopod/P = H.loc
+		if(isAI(M))
+			var/mob/living/silicon/ai/A = M
+			A.cryo_AI()
+		if(istype(M.loc, /obj/machinery/cryopod))
+			var/obj/machinery/cryopod/P = M.loc
 			P.despawn_occupant()
-			log_admin("[key_name(usr)] despawned [H.job] [H] in cryo.")
-			message_admins("[key_name_admin(usr)] despawned [H.job] [H] in cryo.")
-		else if(cryo_ssd(H))
-			log_admin("[key_name(usr)] sent [H.job] [H] to cryo.")
-			message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
+			if(human)
+				var/mob/living/carbon/human/H = M
+				log_admin("[key_name(usr)] despawned [H.job] [H] in cryo.")
+				message_admins("[key_name_admin(usr)] despawned [H.job] [H] in cryo.")
+			else //robot
+				log_admin("[key_name(usr)] despawned [M] in cryo.")
+				message_admins("[key_name_admin(usr)] despawned [M] in cryo.")
+		else if(cryo_ssd(M))
+			if(human)
+				var/mob/living/carbon/human/H = M
+				log_admin("[key_name(usr)] sent [H.job] [H] to cryo.")
+				message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
+			else
+				log_admin("[key_name(usr)] sent [M] to cryo.")
+				message_admins("[key_name_admin(usr)] sent [M] to cryo.")
 			if(href_list["cryoafk"]) // Warn them if they are send to storage and are AFK
-				to_chat(H, "<span class='danger'>The admins have moved you to cryo storage for being AFK. Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned.</span>")
-				SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
-				if(H.client)
-					window_flash(H.client)
+				to_chat(M, "<span class='danger'>The admins have moved you to cryo storage for being AFK. Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned.</span>")
+				SEND_SOUND(M, sound('sound/effects/adminhelp.ogg'))
+				if(M.client)
+					window_flash(M.client)
 	else if(href_list["FaxReplyTemplate"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2509,7 +2521,7 @@
 			if("Central Command")
 				stamptype = "icon"
 				stampvalue = "cent"
-				sendername = command_name()
+				sendername = "NAS Trurl"
 			if("Syndicate")
 				stamptype = "icon"
 				stampvalue = "syndicate"
@@ -3213,7 +3225,7 @@
 				if(!SSshuttle.toggleShuttle("ferry","ferry_home","ferry_away"))
 					message_admins("[key_name_admin(usr)] moved the centcom ferry")
 					log_admin("[key_name(usr)] moved the centcom ferry")
-					
+
 			if("gammashuttle")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Gamma Armory")
 				message_admins("[key_name_admin(usr)] moved the gamma armory")
@@ -3378,7 +3390,7 @@
 			if(!newname)
 				return
 			G.name = newname
-			var/description = input("Enter [command_name()] message contents:") as message|null
+			var/description = input("Enter NAS Trurl message contents:") as message|null
 			if(!description)
 				return
 			G.report_message = description

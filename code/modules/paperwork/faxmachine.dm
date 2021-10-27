@@ -10,6 +10,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
+	var/receive_anim = "faxsend"
 	pass_flags = PASSTABLE
 	var/fax_network = "Local Fax Network"
 	/// If true, prevents fax machine from sending messages to NT machines
@@ -39,10 +40,14 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	/// Target department to send outgoing faxes to
 	var/destination
 
-/obj/machinery/photocopier/faxmachine/New()
-	..()
+/obj/machinery/photocopier/faxmachine/Initialize(mapload)
+	. = ..()
 	GLOB.allfaxes += src
 	update_network()
+
+/obj/machinery/photocopier/faxmachine/Destroy()
+	GLOB.allfaxes -= src
+	return ..()
 
 /obj/machinery/photocopier/faxmachine/proc/update_network()
 	if(department != "Unknown")
@@ -54,12 +59,20 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	fax_network = "Central Command Quantum Entanglement Network"
 	long_range_enabled = TRUE
 
+/obj/machinery/photocopier/faxmachine/longrange/Initialize(mapload)
+	. = ..()
+	add_overlay("longfax")
+
 /obj/machinery/photocopier/faxmachine/longrange/syndie
 	name = "syndicate long range fax machine"
 	emagged = TRUE
 	syndie_restricted = TRUE
 	req_one_access = list(ACCESS_SYNDICATE)
 	//No point setting fax network, being emagged overrides that anyway.
+
+/obj/machinery/photocopier/faxmachine/longrange/syndie/Initialize(mapload)
+	. = ..()
+	add_overlay("syndiefax")
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie/update_network()
 	if(department != "Unknown")
@@ -293,7 +306,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(department == "Unknown")
 		return FALSE //You can't send faxes to "Unknown"
 
-	flick("faxreceive", src)
+	flick(receive_anim, src)
 
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 

@@ -320,7 +320,7 @@
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return
-	
+
 	if(!isnull(style))
 		H.h_grad_style = style
 	if(!isnull(offset_raw))

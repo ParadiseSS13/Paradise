@@ -87,6 +87,8 @@
 /datum/job/proc/get_access()
 	if(!GLOB?.configuration?.jobs)	//Needed for robots.
 		// AA TODO: Remove this once mulebots and stuff use Initialize()
+		// Update: Now that the map is loaded after SSjobs this might not be needed
+		// However, I dont want to take that chance
 		return src.minimal_access.Copy()
 
 	if(GLOB.configuration.jobs.jobs_have_minimal_access)
@@ -121,7 +123,7 @@
 	var/list/prohibited_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	for(var/i = 1, i < prohibited_disabilities.len, i++)
 		var/this_disability = prohibited_disabilities[i]
-		if(C.prefs.disabilities & this_disability)
+		if(C.prefs.active_character.disabilities & this_disability)
 			return 1
 	return 0
 
@@ -171,9 +173,9 @@
 	if(box && H.dna.species.speciesbox)
 		box = H.dna.species.speciesbox
 
-	if(allow_loadout && H.client && (H.client.prefs.loadout_gear && H.client.prefs.loadout_gear.len))
-		for(var/gear in H.client.prefs.loadout_gear)
-			var/datum/gear/G = GLOB.gear_datums[gear]
+	if(allow_loadout && H.client && length(H.client.prefs.active_character.loadout_gear))
+		for(var/gear in H.client.prefs.active_character.loadout_gear)
+			var/datum/gear/G = GLOB.gear_datums[text2path(gear) || gear]
 			if(G)
 				var/permitted = FALSE
 
@@ -183,16 +185,13 @@
 				else
 					permitted = TRUE
 
-				if(G.whitelisted && (G.whitelisted != H.dna.species.name || !is_alien_whitelisted(H, G.whitelisted)))
-					permitted = FALSE
-
 				if(!permitted)
-					to_chat(H, "<span class='warning'>Your current job or whitelist status does not permit you to spawn with [gear]!</span>")
+					to_chat(H, "<span class='warning'>Your current job or whitelist status does not permit you to spawn with [G.display_name]!</span>")
 					continue
 
 				if(G.slot)
 					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot, TRUE))
-						to_chat(H, "<span class='notice'>Equipping you with [gear]!</span>")
+						to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")
 					else
 						gear_leftovers += G
 				else
@@ -210,12 +209,12 @@
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
-			var/atom/placed_in = H.equip_or_collect(G.spawn_item(null, H.client.prefs.loadout_gear[G.display_name]))
+			var/atom/placed_in = H.equip_or_collect(G.spawn_item(null, H.client.prefs.active_character.loadout_gear[G.display_name]))
 			if(istype(placed_in))
 				if(isturf(placed_in))
 					to_chat(H, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
 				else
-					to_chat(H, "<span class='notice'>Placing [G.display_name] in [placed_in.name].</span>")
+					to_chat(H, "<span class='notice'>Placing [G.display_name] in your [placed_in.name].</span>")
 				continue
 			if(H.equip_to_appropriate_slot(G))
 				to_chat(H, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")

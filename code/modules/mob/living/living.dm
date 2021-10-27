@@ -92,6 +92,9 @@
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 			return TRUE
 
+		if(pulledby == L && a_intent != INTENT_HELP) //prevents boosting the person pulling you, but you can still move through them on help intent
+			return TRUE
+
 		if(L.pulling)
 			if(ismob(L.pulling))
 				var/mob/P = L.pulling
@@ -757,7 +760,7 @@
 
 //called when the mob receives a bright flash
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
-	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)))
+	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)) && !HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
 		return 1
@@ -843,10 +846,6 @@
 	if(istype(loc, /obj/mecha))
 		var/obj/mecha/M = loc
 		loc_temp =  M.return_temperature()
-
-	else if(istype(loc, /obj/spacepod))
-		var/obj/spacepod/S = loc
-		loc_temp = S.return_temperature()
 
 	else if(istype(loc, /obj/structure/transit_tube_pod))
 		loc_temp = environment.temperature
@@ -989,9 +988,7 @@
 
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
 
-	amount *= RAD_DOSAGE_MULTIPLIER
-
-	var/blocked = getarmor(null, "rad")
+	var/blocked = getarmor(null, RAD)
 
 	if(amount > RAD_BURN_THRESHOLD)
 		apply_damage(RAD_BURN_CURVE(amount), BURN, null, blocked)

@@ -26,7 +26,8 @@
 		"Parrot" = "parrot",
 		"Box Bot" = "boxbot",
 		"Spider Bot" = "spiderbot",
-		"Fairy" = "fairy"
+		"Fairy" = "fairy",
+		"Snake" = "snake"
 		)
 
 	var/global/list/possible_say_verbs = list(
@@ -35,7 +36,8 @@
 		"Beep" = list("beeps","beeps loudly","boops"),
 		"Chirp" = list("chirps","chirrups","cheeps"),
 		"Feline" = list("purrs","yowls","meows"),
-		"Canine" = list("yaps","barks","growls")
+		"Canine" = list("yaps","barks","growls"),
+		"Hiss" = list("hisses","hisses","hisses")
 		)
 
 
@@ -520,6 +522,6 @@
 
 /mob/living/silicon/pai/update_runechat_msg_location()
 	if(istype(loc, /obj/item/paicard))
-		runechat_msg_location = loc
+		runechat_msg_location = loc.UID()
 	else
-		runechat_msg_location = src
+		return ..()

@@ -113,7 +113,7 @@
 
 		if("hair_gradient_alpha")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
-				var/new_alpha = input("Please enter gradient alpha.", "Hair Gradient", head_organ.h_grad_alpha) as null|num
+				var/new_alpha = input("Please enter gradient alpha (0-255).", "Hair Gradient", head_organ.h_grad_alpha) as null|num
 				if(!isnull(new_alpha))
 					owner.change_hair_gradient(alpha = new_alpha)
 

@@ -16,15 +16,16 @@
 		return
 
 	var/datum/db_query/log_query = SSdbcore.NewQuery({"
-		INSERT INTO karma (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time)
-		VALUES (:sname, :skey, :rname, :rkey, :rrole, :rspecial, :sip, Now())"}, list(
+		INSERT INTO karma (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time, server_id)
+		VALUES (:sname, :skey, :rname, :rkey, :rrole, :rspecial, :sip, Now(), :server_id)"}, list(
 			"sname" = spender.name,
 			"skey" = spender.ckey,
 			"rname" = receiver.name,
 			"rkey" = receiver.ckey,
 			"rrole" = receiverrole,
 			"rspecial" = receiverspecial,
-			"sip" = spender.client.address
+			"sip" = spender.client.address,
+			"server_id" = GLOB.configuration.system.instance_id
 		))
 
 	if(!log_query.warn_execute())
@@ -160,21 +161,19 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	if(!can_give_karma_to_mob(M))
 		return // Check again, just in case things changed while the alert box was up
 
-	M.client.karma++
 	to_chat(usr, "Good karma spent on [M.name].")
 	client.karma_spent = TRUE
 	GLOB.karma_spenders += ckey
 
 	var/special_role = "None"
 	var/assigned_role = "None"
-	var/karma_diary = file("[GLOB.log_directory]/karma.log")
 	if(M.mind)
 		if(M.mind.special_role)
 			special_role = M.mind.special_role
 		if(M.mind.assigned_role)
 			assigned_role = M.mind.assigned_role
-	// AA TODO: Make this use proper RUSTG logging. Why is this a normal file write these are so expensive aaaaaaaaa
-	karma_diary << "[M.name] ([M.key]) [assigned_role]/[special_role]: [M.client.karma] - [time2text(world.timeofday, "hh:mm:ss")] given by [key]"
+
+	rustg_log_write("[GLOB.log_directory]/karma.log", "Karma awarded to [M.name] ([M.key]) (Role: [assigned_role] | Special: [special_role]) - Awarded by [ckey]")
 
 	sql_report_karma(src, M)
 
@@ -273,21 +272,9 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			else
 				dat += "Nanotrasen Representative - <font color='green'>Unlocked</font><br>"
 			if(!("Blueshield" in joblist))
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 30KP</a><br>"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=4'>Unlock Blueshield -- 30KP</a><br>"
 			else
 				dat += "Blueshield - <font color='green'>Unlocked</font><br>"
-			if(!("Security Pod Pilot" in joblist))
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 30KP</a><br>"
-			else
-				dat += "Security Pod Pilot - <font color='green'>Unlocked</font><br>"
-			if(!("Mechanic" in joblist))
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 30KP</a><br>"
-			else
-				dat += "Mechanic - <font color='green'>Unlocked</font><br>"
-			if(!("Magistrate" in joblist))
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 45KP</a><br>"
-			else
-				dat+= "Magistrate - <font color='green'>Unlocked</font><br>"
 
 		if(1) // Species Unlocks
 			if(!("Machine" in specieslist))
@@ -352,6 +339,15 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			if("Nanotrasen Recruiter" in purchased)
 				refundable += "Nanotrasen Recruiter"
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Nanotrasen Recruiter;KarmaRefundType=job;KarmaRefundCost=10'>Refund Nanotrasen Recruiter -- 10KP</a><br>"
+			if("Mechanic" in purchased)
+				refundable += "Mechanic"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Mechanic;KarmaRefundType=job;KarmaRefundCost=30'>Refund Mechanic -- 30KP</a><br>"
+			if("Security Pod Pilot" in purchased)
+				refundable += "Security Pod Pilot"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Security Pod Pilot;KarmaRefundType=job;KarmaRefundCost=30'>Refund Security Pod Pilot -- 30KP</a><br>"
+			if("Magistrate" in purchased)
+				refundable += "Magistrate"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Magistrate;KarmaRefundType=job;KarmaRefundCost=45'>Refund Magistrate -- 45KP</a><br>"
 
 			if(!refundable.len)
 				dat += "You do not have any refundable karma purchases.<br>"
@@ -514,10 +510,12 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 /client/proc/karmarefund(type, name, cost)
 	switch(name)
 		if("Tajaran Ambassador","Unathi Ambassador","Skrell Ambassador","Diona Ambassador","Kidan Ambassador",
-		"Slime People Ambassador","Grey Ambassador","Vox Ambassador","Customs Officer")
+		"Slime People Ambassador","Grey Ambassador","Vox Ambassador","Customs Officer", "Mechanic", "Security Pod Pilot")
 			cost = 30
 		if("Nanotrasen Recruiter")
 			cost = 10
+		if("Magistrate")
+			cost = 45
 		else
 			to_chat(usr, "<span class='warning'>That job is not refundable.</span>")
 			return

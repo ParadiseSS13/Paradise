@@ -90,13 +90,11 @@
 
 /atom/movable/proc/stop_pulling()
 	if(pulling)
-		pulling.pulledby = null
 		var/mob/living/ex_pulled = pulling
+		pulling.pulledby = null
 		pulling = null
-		pulledby = null
-		if(isliving(ex_pulled))
-			var/mob/living/L = ex_pulled
-			L.update_canmove()// mob gets up if it was lyng down in a chokehold
+		if(!QDELETED(ex_pulled) && istype(ex_pulled))
+			ex_pulled.update_canmove()// mob gets up if it was lyng down in a chokehold
 
 /atom/movable/proc/check_pulling()
 	if(pulling)
@@ -420,6 +418,7 @@
 	if(spin && !no_spin && !no_spin_thrown)
 		SpinAnimation(5, 1)
 
+	SEND_SIGNAL(src, COMSIG_MOVABLE_POST_THROW, TT, spin)
 	SSthrowing.processing[src] = TT
 	TT.tick()
 
