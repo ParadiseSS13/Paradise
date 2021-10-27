@@ -149,8 +149,6 @@
 							karma_purchase(karma,30,"job","Nanotrasen Representative")
 						if("4")
 							karma_purchase(karma,30,"job","Blueshield")
-						if("5")
-							karma_purchase(karma,45,"job","Magistrate")
 					return
 				if(href_list["KarmaBuy2"])
 					var/karma=verify_karma()
@@ -329,11 +327,15 @@
 	if(length(related_accounts_cid))
 		log_admin("[key_name(src)] Alts by CID: [jointext(related_accounts_cid, " ")]")
 
+	// This sleeps so it has to go here. Dont fucking move it.
+	SSinstancing.update_playercache(ckey)
+
 	// This has to go here to avoid issues
 	// If you sleep past this point, you will get SSinput errors as well as goonchat errors
 	// DO NOT STUFF RANDOM SQL QUERIES BELOW THIS POINT WITHOUT USING `INVOKE_ASYNC()` OR SIMILAR
 	// YOU WILL BREAK STUFF. SERIOUSLY. -aa07
 	GLOB.clients += src
+
 
 	spawn() // Goonchat does some non-instant checks in start()
 		chatOutput.start()
@@ -450,6 +452,7 @@
 		GLOB.admins -= src
 	GLOB.directory -= ckey
 	GLOB.clients -= src
+	SSinstancing.update_playercache() // Clear us out
 	QDEL_NULL(chatOutput)
 	QDEL_NULL(pai_save)
 	if(movingmob)

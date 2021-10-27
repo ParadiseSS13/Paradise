@@ -200,11 +200,12 @@
 	deckshuffle()
 
 /obj/item/deck/verb/verb_shuffle()
-	set category = "Object"
-	set name = "Shuffle"
-	set desc = "Shuffle the cards in the deck."
-	set src in view(1)
-	deckshuffle()
+	if(!isobserver(usr))
+		set category = "Object"
+		set name = "Shuffle"
+		set desc = "Shuffle the cards in the deck."
+		set src in view(1)
+		deckshuffle()
 
 /obj/item/deck/proc/deckshuffle()
 	var/mob/living/user = usr

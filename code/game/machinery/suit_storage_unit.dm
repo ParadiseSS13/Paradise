@@ -89,6 +89,15 @@
 /obj/machinery/suit_storage_unit/ce/secure
 	secure = TRUE
 
+/obj/machinery/suit_storage_unit/rd
+	name = "research director's suit storage unit"
+	suit_type	= /obj/item/clothing/suit/space/hardsuit/rd
+	mask_type	= /obj/item/clothing/mask/gas
+	req_access	= list(ACCESS_RD)
+
+/obj/machinery/suit_storage_unit/rd/secure
+	secure = TRUE
+
 /obj/machinery/suit_storage_unit/security
 	name = "security suit storage unit"
 	suit_type	= /obj/item/clothing/suit/space/hardsuit/security
@@ -313,6 +322,8 @@
 		if(shock(user, 100))
 			return
 	if(!is_operational())
+		if(user.a_intent != INTENT_HELP)
+			return ..()
 		if(panel_open)
 			to_chat(usr, "<span class='warning'>Close the maintenance panel first.</span>")
 		else
