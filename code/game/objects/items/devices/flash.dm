@@ -86,6 +86,8 @@
 
 
 /obj/item/flash/proc/flash_carbon(mob/living/carbon/M, mob/user = null, power = 5, targeted = 1)
+	if(ismoth(M)) //BURN THE MOTH EYES
+		power *= 2
 	if(user)
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(targeted)
