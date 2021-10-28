@@ -113,9 +113,7 @@
 
 /datum/species/moth/proc/destroywings(mob/living/carbon/human/H)
 	burnt_wings = TRUE
-	var/obj/item/organ/external/head/A = H.get_organ("head")
-	pre_burn_antennae = A.ha_style
-	pre_burn_wings = H.body_accessory.name
+	backupwings(H)
 	H.change_body_accessory("Burnt Off Wings")
 	H.change_head_accessory("Burnt Off Antennae")
 
@@ -155,8 +153,8 @@
 	for(var/mob/living/carbon/human/H in C.contents)
 		var/datum/species/moth/M = H.dna.species
 		M.cocooned = FALSE
-		H.adjustBruteLoss(-75)
-		H.adjustFireLoss(-75)
+		H.adjustBruteLoss(-55)
+		H.adjustFireLoss(-55)
 		if(M.burnt_wings)
 			M.restorewings(H)
 	C.preparing_to_emerge = FALSE

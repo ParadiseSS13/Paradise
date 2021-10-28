@@ -283,6 +283,8 @@
 			m_type = 1
 
 		if("wag", "wags")
+			if(ismoth(src)) //no wagging moths, please!
+				return
 			if(body_accessory)
 				if(body_accessory.try_restrictions(src))
 					message = "<B>[src]</B> starts wagging [p_their()] tail."

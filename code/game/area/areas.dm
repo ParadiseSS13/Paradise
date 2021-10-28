@@ -507,7 +507,9 @@
 			return
 
 	if(ismoth(M))
-		return
+		var/datum/species/moth/MO = M.dna.species
+		if(!MO.burnt_wings)
+			return
 
 	if(M.buckled) //Cam't fall down if you are buckled
 		return
