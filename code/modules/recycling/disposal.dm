@@ -95,7 +95,7 @@
 
 // attack by item places it in to disposal
 /obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
-	if(stat & BROKEN || !I || !user)
+	if(stat & BROKEN || !I || !user || I.flags & ABSTRACT)
 		return
 
 	src.add_fingerprint(user)
