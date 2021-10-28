@@ -1264,6 +1264,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		connected_ai = AI
 		connected_ai.connected_robots |= src
 		notify_ai(1)
+		if(module)
+			module.rebuild_modules() //This way, if a borg gets linked to a malf AI that has upgrades, they get their upgrades.
 		sync()
 
 /mob/living/silicon/robot/adjustOxyLoss(amount)

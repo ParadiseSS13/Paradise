@@ -27,6 +27,12 @@
 		if(A && (A.rights & R_ADMIN))
 			admin = 1
 
+	// Lets see if they are logged in on another paradise server
+	if(SSdbcore.IsConnected())
+		var/other_server_login = SSinstancing.check_player(ckey)
+		if(other_server_login)
+			return list("reason"="duplicate login", "desc"="\nReason: You are already logged in on server '[other_server_login]'. Please contact the server host if you believe this is an error.")
+
 	//Guest Checking
 	if(GLOB.configuration.general.guest_ban && IsGuestKey(key))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Guests not allowed")

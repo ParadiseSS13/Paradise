@@ -6,12 +6,17 @@
 	item_state = "electronic"
 	flags = CONDUCT
 
+	/// Has the AI hacked the borg module, allowing access to the malf AI exclusive item.
+	var/malfhacked = FALSE
+
 	/// A list of all currently usable and created modules the robot currently has access too.
 	var/list/modules = list()
 	/// A list of module-specific, non-emag modules the borg will gain when this module is chosen.
 	var/list/basic_modules = list()
 	/// A list of modules the robot gets when emagged.
 	var/list/emag_modules = list()
+	/// A list of modules that the robot gets when malf AI buys it.
+	var/list/malf_modules = list()
 	/// A list of modules that require special recharge handling. Examples include things like flashes, sprays and welding tools.
 	var/list/special_rechargables = list()
 	/// A list of all "energy stacks", i.e metal, glass, brute kits, splints, etc.
@@ -43,12 +48,17 @@
 		emag_modules += I
 		emag_modules -= i
 
+	for(var/i in malf_modules)
+		var/obj/item/I = new i(src)
+		malf_modules += I
+		malf_modules -= i
+
 	// Flashes need a special recharge, and since basically every module uses it, add it here.
 	// Even if the module doesn't use a flash, it wont cause any issues to have it in this list.
 	special_rechargables += /obj/item/flash/cyborg
 
 	// This is done so we can loop through this list later and call cyborg_recharge() on the items while the borg is recharging.
-	var/all_modules = basic_modules | emag_modules
+	var/all_modules = basic_modules | emag_modules | malf_modules
 	for(var/path in special_rechargables)
 		var/obj/item/I = locate(path) in all_modules
 		if(I) // If it exists, add the object reference.
@@ -70,6 +80,7 @@
 	QDEL_LIST(modules)
 	QDEL_LIST(basic_modules)
 	QDEL_LIST(emag_modules)
+	QDEL_LIST(malf_modules)
 	QDEL_LIST(storages)
 	QDEL_LIST(special_rechargables)
 	return ..()
@@ -88,6 +99,7 @@
 	var/list/lists = list(
 		basic_modules,
 		emag_modules,
+		malf_modules,
 		storages,
 		special_rechargables
 	)
@@ -155,12 +167,16 @@
 	return I
 
 /**
- * Builds the usable module list from the modules we have in `basic_modules` and `emag_modules`
+ * Builds the usable module list from the modules we have in `basic_modules`, `emag_modules` and `malf_modules`
  */
 /obj/item/robot_module/proc/rebuild_modules()
 	var/mob/living/silicon/robot/R = loc
 	R.uneq_all()
 	modules = list()
+
+	if(!malfhacked && R.connected_ai)
+		if(type in R.connected_ai.purchased_modules)
+			malfhacked = TRUE
 
 	// By this point these lists should only contain items. It's safe to use typeless loops here.
 	for(var/item in basic_modules)
@@ -168,6 +184,10 @@
 
 	if(R.emagged || R.weapons_unlock)
 		for(var/item in emag_modules)
+			add_module(item, FALSE)
+
+	if(malfhacked)
+		for(var/item in malf_modules)
 			add_module(item, FALSE)
 
 	if(R.hud_used)
@@ -354,8 +374,9 @@
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg
 	)
-	emag_modules = list(/obj/item/borg/stun)
-	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg)
+	emag_modules = list(/obj/item/borg/stun, /obj/item/restraints/handcuffs/cable/zipties/cyborg)
+	malf_modules = list(/obj/item/gun/energy/emitter/cyborg)
+	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg, /obj/item/gun/energy/emitter/cyborg)
 
 /obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
@@ -400,7 +421,7 @@
 		/obj/item/holosign_creator,
 		/obj/item/extinguisher/mini
 	)
-	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_lube)
+	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_lube, /obj/item/restraints/handcuffs/cable/zipties/cyborg)
 	special_rechargables = list(
 		/obj/item/lightreplacer,
 		/obj/item/reagent_containers/spray/cyborg_lube,
@@ -471,7 +492,7 @@
 		/obj/item/storage/bag/tray/cyborg,
 		/obj/item/reagent_containers/food/drinks/shaker
 	)
-	emag_modules = list(/obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer)
+	emag_modules = list(/obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer, /obj/item/restraints/handcuffs/cable/zipties/cyborg)
 	special_rechargables = list(
 		/obj/item/reagent_containers/food/condiment/enzyme,
 		/obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer
@@ -530,7 +551,7 @@
 		/obj/item/gun/energy/kinetic_accelerator/cyborg,
 		/obj/item/gps/cyborg
 	)
-	emag_modules = list(/obj/item/borg/stun, /obj/item/pickaxe/drill/cyborg/diamond)
+	emag_modules = list(/obj/item/borg/stun, /obj/item/pickaxe/drill/cyborg/diamond, /obj/item/restraints/handcuffs/cable/zipties/cyborg)
 	special_rechargables = list(/obj/item/extinguisher/mini, /obj/item/weldingtool/mini)
 
 // Replace their normal drill with a diamond drill.

@@ -18,6 +18,10 @@
 	var/_2fa_auth_host = null
 	/// List of IP addresses which bypass world topic rate limiting
 	var/list/topic_ip_ratelimit_bypass = list()
+	/// Server instance ID
+	var/instance_id = "paradise_main"
+	/// Server internal IP
+	var/internal_ip = "127.0.0.1"
 
 /datum/configuration_section/system_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
@@ -31,3 +35,6 @@
 	CONFIG_LOAD_STR(_2fa_auth_host, data["_2fa_auth_host"])
 
 	CONFIG_LOAD_LIST(topic_ip_ratelimit_bypass, data["topic_ip_ratelimit_bypass"])
+
+	CONFIG_LOAD_STR(instance_id, data["instance_id"])
+	CONFIG_LOAD_STR(internal_ip, data["internal_ip"])

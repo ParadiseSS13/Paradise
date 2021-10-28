@@ -162,6 +162,16 @@
 	build_path = /obj/item/circuitboard/med_data
 	category = list("Computer Boards")
 
+/datum/design/mining_shuttle
+	name = "Console Board (Mining Shuttle)"
+	desc = "Allows for the construction of circuit boards used to build a mining shuttle control console."
+	id = "mining_shuttle"
+	req_tech = list("programming" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mining_shuttle
+	category = list("Computer Boards")
+
 /datum/design/message_monitor
 	name = "Console Board (Messaging Monitor Console)"
 	desc = "Allows for the construction of circuit boards used to build a messaging monitor console."
