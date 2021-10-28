@@ -93,6 +93,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	else
 		return ..()
 
+/obj/machinery/photocopier/MouseDrop_T()
+	return //you should not be able to fax your ass without first copying it at an actual photocopier
+
 /obj/machinery/photocopier/faxmachine/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
@@ -314,7 +317,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	sleep(20)
 
 	if(istype(incoming, /obj/item/paper))
-		copy(incoming)
+		papercopy(incoming)
 	else if(istype(incoming, /obj/item/photo))
 		photocopy(incoming)
 	else if(istype(incoming, /obj/item/paper_bundle))
