@@ -183,7 +183,7 @@
 	desc = "Someone wrapped in a moth cocoon"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cocoon1"
-	color = COLOR_PALE_YELLOW
+	color = COLOR_PALE_YELLOW //So tiders (hopefully) don't decide to immediately bust them open
 	max_integrity = 60
 	var/preparing_to_emerge
 
