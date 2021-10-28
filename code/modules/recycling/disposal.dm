@@ -132,10 +132,9 @@
 	if(QDELETED(I) || !user.drop_item())
 		return
 
-	if(!QDELETED(I))
-		I.forceMove(src)
-		user.visible_message("[user] places [I] into [src].", "You place [I] into [src].")
-		update()
+	I.forceMove(src)
+	user.visible_message("[user] places [I] into [src].", "You place [I] into [src].")
+	update()
 
 
 
