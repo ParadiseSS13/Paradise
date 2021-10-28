@@ -13,6 +13,9 @@ export const Photocopier = (props, context) => {
             <LabeledList.Item label="Copies">
               <Box bold>{data.copynumber}</Box><CopyAmount />
             </LabeledList.Item>
+            <LabeledList.Item label="Toner">
+              <Box bold>{data.toner}</Box>
+            </LabeledList.Item>
             <LabeledList.Item label="Inserted Document">
               <Button
                 fluid
