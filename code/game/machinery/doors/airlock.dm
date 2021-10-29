@@ -1295,11 +1295,8 @@ About the new airlock wires panel:
 			qdel(src)
 		if(EXPLODE_HEAVY) //Deconstruct the airlock, leaving damaged airlock frame and parts behind
 			deconstruct(FALSE, null)
-		if(EXPLODE_LIGHT) //Deconstruct the airlock, leaving parts behind, unless protected by metal/plasteel.
-			if(security_level > AIRLOCK_SECURITY_NONE)
-				security_level = AIRLOCK_SECURITY_NONE
-			else
-				deconstruct(FALSE, null)
+		if(EXPLODE_LIGHT) //Deals 150 damage to the airlock, half a standard airlock's integrity
+			take_damage(150)
 
 /obj/machinery/door/airlock/attack_alien(mob/living/carbon/alien/humanoid/user)
 	add_fingerprint(user)

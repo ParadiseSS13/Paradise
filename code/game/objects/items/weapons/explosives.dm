@@ -160,10 +160,8 @@
 		location = get_turf(src)
 	if(location)
 		if(shaped && aim_dir)
-			var/turf/T = get_step(location, aim_dir) //Take a first step in the direction we're aiming here, then another step in the proc call below.
-			explosion(get_step(T, aim_dir), ex_devastate, ex_heavy, ex_light, breach = ex_breach) //We end up exploding two tiles away from initial target when using shaped c4
-		else
-			explosion(location, ex_devastate, ex_heavy, ex_light, breach = ex_breach)
+			location = get_step(get_step(location, aim_dir), aim_dir) //Move the explosion location two steps away from the target when using a shaped c4
+		explosion(location, ex_devastate, ex_heavy, ex_light, breach = ex_breach)
 
 	qdel(src)
 
