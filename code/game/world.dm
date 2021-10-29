@@ -174,11 +174,13 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		..(0)
 
 /world/proc/load_mode()
-	var/list/Lines = file2list("data/mode.txt")
+	log_game("Ignorando saved mode, fijando extended")
+	GLOB.master_mode = "extended"  // por si queda un modo puesto y la pop cae a 0
+/*	var/list/Lines = file2list("data/mode.txt")
 	if(Lines.len)
 		if(Lines[1])
 			GLOB.master_mode = Lines[1]
-			log_game("Saved mode is '[GLOB.master_mode]'")
+			log_game("Saved mode is '[GLOB.master_mode]'") */
 
 /world/proc/save_mode(the_mode)
 	var/F = file("data/mode.txt")
