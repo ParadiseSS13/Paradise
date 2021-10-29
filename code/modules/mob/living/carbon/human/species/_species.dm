@@ -265,7 +265,7 @@
 					. += (health_deficiency / 75)
 				else
 					. += (health_deficiency / 25)
-		if(!ismoth(H) || (ismoth(H) && istype(H.body_accessory, /datum/body_accessory/tail/moth/burnt_off))) //moths with working wings take no slowdown
+		if(H.dna.species.spec_movement_delay(H)) //Species overrides for slowdown due to feet/legs
 			. += 2 * H.stance_damage //damaged/missing feet or legs is slow
 
 		if((hungry >= 70) && !flight)
@@ -949,6 +949,18 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 /datum/species/proc/spec_Process_Spacemove(mob/living/carbon/human/H)
 	return FALSE
+
+/datum/species/proc/spec_rejuvenate(mob/living/carbon/human/H)
+	return FALSE
+
+/datum/species/proc/spec_flash_carbon(mob/living/carbon/H, mob/user, power, targeted)
+	return FALSE
+
+/datum/species/proc/spec_thunk()
+	return FALSE
+
+/datum/species/proc/spec_movement_delay(mob/living/carbon/H)
+	return TRUE
 
 /**
   * Species-specific runechat colour handler

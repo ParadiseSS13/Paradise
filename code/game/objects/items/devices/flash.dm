@@ -86,8 +86,8 @@
 
 
 /obj/item/flash/proc/flash_carbon(mob/living/carbon/M, mob/user = null, power = 5, targeted = 1)
-	if(ismoth(M)) //BURN THE MOTH EYES
-		power *= 2
+	if(M.dna?.species?.spec_flash_carbon(M, user, power, targeted)) //species level overrides
+		return
 	if(user)
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(targeted)

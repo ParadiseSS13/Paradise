@@ -44,6 +44,7 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 	var/pixel_y_offset = 0
 
 	var/list/allowed_species = list()
+	var/is_wing
 
 /datum/body_accessory/proc/try_restrictions(mob/living/carbon/human/H)
 	return TRUE
@@ -74,7 +75,7 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 	animated_icon_state = "null"
 
 /datum/body_accessory/tail/try_restrictions(mob/living/carbon/human/H)
-	if(!H.wear_suit || !(H.wear_suit.flags_inv & HIDETAIL) || ismoth(H))
+	if(!H.wear_suit || !(H.wear_suit.flags_inv & HIDETAIL) || is_wing)
 		return TRUE
 	return FALSE
 
@@ -130,6 +131,7 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 	name = "Plain Wings"
 	icon_state = "plain"
 	allowed_species = list("Moth")
+	is_wing = TRUE
 
 /datum/body_accessory/tail/moth/monarch
 	name = "Monarch Wings"
