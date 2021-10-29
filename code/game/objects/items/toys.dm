@@ -1007,6 +1007,8 @@
 /obj/item/toy/plushie/greyplushie/water_act(volume, temperature, source, method = REAGENT_TOUCH) //If water touches the plushie the following code executes.
 	. = ..()
 	singed = TRUE
+	if(!singed)
+		return
 	icon_state = "grey_singed"
 	item_state = "grey_singed"//If the plushie gets wet the sprite changes to a singed version.
 	desc = "A ruined plushie of a grey. It looks like someone ran it under some water."
