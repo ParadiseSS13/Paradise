@@ -360,7 +360,7 @@
 	ask_verb = "flaps"
 	exclaim_verbs = list("flusters")
 	colour = "moth"
-	key = "m"
+	key = "mt"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le", "lit", "ygg", "van", "dår", "næ", "møt", "idd", "hvo", "ja", "på", "han", "så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två", "må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei", "huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön")
 
