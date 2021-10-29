@@ -300,12 +300,23 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Engineering", "Medical", "Miner", "Janitor", "Service")
+	var/list/modules = list("Engineering" = "Engineering",
+							"Medical" = "Medbot",
+							"Miner" = "Miner_old",
+							"Janitor" = "JanBot2",
+							"Service" = "Service2")
+
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
 	if(mmi != null && mmi.alien)
-		modules = list("Hunter")
-	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
+		modules["Hunter"] = "xenoborg-state-a"
+	var/list/skins = list()
+	for(var/I in modules)
+		var/skin_icon = modules[I] // Get the accociated list
+		var/image/image = image(icon, icon_state = skin_icon)
+		skins[I] = image
+	var/modtype = show_radial_menu(src, src, skins, null, 40, null, TRUE)
+	
 	if(!modtype)
 		return
 	designation = modtype
@@ -326,6 +337,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Standard"] = "Standard-Serv"
 			module_sprites["Noble-SRV"] = "Noble-SRV"
 			module_sprites["Cricket"] = "Cricket-SERV"
+			module_sprites["FalloutBot"] = "mrgutsy"
+			module_sprites["Knight-SRV"] = "sleekservice"
+			module_sprites["Kodiak-SRV"] = "kodiak-service"
+			module_sprites["LLoyd"] = "lloyd"
+			module_sprites["Marina-SRV"] = "marinaSV"
+			module_sprites["Servbot-SRV"] = "servbot-service"
 			see_reagents = TRUE
 
 		if("Miner")
@@ -340,6 +357,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Noble-DIG"] = "Noble-DIG"
 			module_sprites["Cricket"] = "Cricket-MINE"
 			module_sprites["Lavaland"] = "lavaland"
+			module_sprites["FalloutBot"] = "mrgutsy"
+			module_sprites["Noble-SUP-Hulk"] = "Noble-SUP-H"
+			module_sprites["Ishimura"] = "ishimura"
+			module_sprites["Kodiak-DIG"] = "kodiak-miner"
+			module_sprites["Servbot-DIG"] = "servbot-miner"
+			module_sprites["Knight_DIG"] = "sleekminer"
+			module_sprites["Marina-DIG"] = "marinaMN"
+			module_sprites["Wall-E"] = "wall-e"
+			module_sprites["HAN-D"] = "han-d"
 
 		if("Medical")
 			module = new /obj/item/robot_module/medical(src)
@@ -353,6 +379,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Standard"] = "Standard-Medi"
 			module_sprites["Noble-MED"] = "Noble-MED"
 			module_sprites["Cricket"] = "Cricket-MEDI"
+			module_sprites["Noble-MED-H"] = "Noble-MED-H"
+			module_sprites["Gibbs"] = "gibbs"
+			module_sprites["Servbot-MED"] = "servbot-medi"
+			module_sprites["Knight-MED"] = "sleekmedic"
+			module_sprites["Marina-MED"] = "marina"
+			module_sprites["FalloutBot"] = "mrgutsy"
 			status_flags &= ~CANPUSH
 			see_reagents = TRUE
 
@@ -379,6 +411,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Standard"] = "Standard-Engi"
 			module_sprites["Noble-ENG"] = "Noble-ENG"
 			module_sprites["Cricket"] = "Cricket-ENGI"
+			module_sprites["Noble-ENG-Hulk"] = "Noble-ENG-H"
+			module_sprites["Conagher"] = "conagher"
+			module_sprites["Kodiak-ENGI"] = "kodiak-eng"
+			module_sprites["Knight-ENGI"] = "sleekengineer"
+			module_sprites["Servbot-ENGI"] = "servbot-engi"
+			module_sprites["Marina-ENGI"] = "marinaEN"
+			module_sprites["Engiseer"] = "engiseer"
 			magpulse = 1
 
 		if("Janitor")
@@ -423,7 +462,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat")
 		status_flags &= ~CANPUSH
 
-	choose_icon(6,module_sprites)
+	choose_icon(module_sprites)
 	if(!static_radio_channels)
 		radio.config(module.channels)
 	notify_ai(2)
@@ -1199,47 +1238,35 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	lockcharge = state
 	update_canmove()
 
-/mob/living/silicon/robot/proc/choose_icon(triesleft, list/module_sprites)
+/mob/living/silicon/robot/proc/choose_icon(list/module_sprites)
 
-	if(triesleft<1 || !module_sprites.len)
-		return
-	else
-		triesleft--
+	var/list/skins = list()
+	for(var/I in module_sprites)
+		var/skin_icon = module_sprites[I] // Get the accociated list
+		var/image/image = image(icon, icon_state = skin_icon)
+		skins[I] = image
 
-	var/icontype
 	lockcharge = 1  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
-	icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
 
-	if(icontype)
-		if(icontype == "Custom")
-			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
-		else
-			icon = 'icons/mob/robots.dmi'
-		icon_state = module_sprites[icontype]
-		if(icontype == "Bro")
-			module.module_type = "Brobot"
-			update_module_icon()
-		lockcharge = null
-		var/list/names = splittext(icontype, "-")
-		custom_panel = trim(names[1])
-	else
-		to_chat(src, "Something is badly wrong with the sprite selection. Harass a coder.")
-		icon_state = module_sprites[1]
-		lockcharge = null
+	var/icontype = show_radial_menu(src, src, skins, null, 40, null, TRUE)
+	if(!icontype)
+		choose_icon(module_sprites)
 		return
+
+	if(icontype == "Custom")
+		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+	else
+		icon = 'icons/hispania/mob/robots.dmi'
+	icon_state = module_sprites[icontype]
+	if(icontype == "Bro")
+		module.module_type = "Brobot"
+		update_module_icon()
+	lockcharge = null
+	var/list/names = splittext(icontype, "-")
+	custom_panel = trim(names[1])
 
 	update_icons()
-
-	if(triesleft >= 1)
-		var/choice = input("Look at your icon - is this what you want?") in list("Yes","No")
-		if(choice=="No")
-			choose_icon(triesleft, module_sprites)
-			return
-		else
-			triesleft = 0
-			return
-	else
-		to_chat(src, "Your icon has been set. You now require a module reset to change it.")
+	to_chat(src, "Your icon has been set. You now require a module reset to change it.")
 
 /mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)
@@ -1330,7 +1357,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scrambledcodes = 1
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
-	force_modules = list("Engineering", "Medical")
+	force_modules = list("Engineering" = "Engineering", "Medical" = "Medbot")
 	static_radio_channels = 1
 	allow_rename = FALSE
 	weapons_unlock = TRUE
@@ -1369,7 +1396,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/ert/gamma
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
-	force_modules = list("Combat", "Engineering", "Medical")
+	force_modules = list("Combat" = "ertgamma ", "Engineering" = "Miner_old", "Medical" = "Medbot")
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
 	magpulse = 1
