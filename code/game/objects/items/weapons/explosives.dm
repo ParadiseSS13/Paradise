@@ -130,12 +130,16 @@
 /obj/item/grenade/plastic/c4
 	name = "C4"
 	desc = "Used to put holes in specific areas without too much extra hole. A saboteurs favourite."
-	var/shaped = FALSE //If set to true, the secondary explosion will be centered two tiles behind the wall/object it's set on for a targeted breach and entry.
-	var/aim_dir //Set when installing the charge.
-	var/ex_devastate = 0 //Range values given to the explosion proc when primed
+	/// If set to true, the secondary explosion will be centered two tiles behind the wall/object it's set on for a targeted breach and entry.
+	var/shaped = FALSE
+	/// Set when installing the charge, to know which direction to explode to when setting up a shaped c4
+	var/aim_dir
+	/// Range values given to the explosion proc when primed
+	var/ex_devastate = 0
 	var/ex_heavy = 0
 	var/ex_light = 3
-	var/ex_breach = FALSE //Will the explosion cause a breach. C4 placed on floors will always cause a breach, regardless of this value.
+	/// Will the explosion cause a breach. C4 placed on floors will always cause a breach, regardless of this value.
+	var/ex_breach = FALSE
 
 /obj/item/grenade/plastic/c4/afterattack(atom/movable/AM, mob/user, flag)
 	aim_dir = get_dir(user, AM)
@@ -150,7 +154,8 @@
 			if(!ex_breach && istype(target, /turf/simulated/wall)) //Walls get dismantled instead of destroyed to avoid making unwanted holes to space.
 				var/turf/simulated/wall/W = target
 				W.dismantle_wall(TRUE, TRUE)
-			target.ex_act(EXPLODE_DEVASTATE)
+			else
+				target.ex_act(EXPLODE_DEVASTATE)
 	else
 		location = get_turf(src)
 	if(location)
