@@ -129,13 +129,12 @@
 				add_attack_logs(usr, GM, "Disposal'ed", !!GM.ckey ? null : ATKLOG_ALL)
 		return
 
-	if(QDELETED(I) || !user.drop_item())
+	if(!user.drop_item() || QDELETED(I))
 		return
 
-	if(!QDELETED(I)) // checking if user.drop_item() didn't delete I
-		I.forceMove(src)
-		user.visible_message("[user] places [I] into [src].", "You place [I] into [src].")
-		update()
+	I.forceMove(src)
+	user.visible_message("[user] places [I] into [src].", "You place [I] into [src].")
+	update()
 
 
 
