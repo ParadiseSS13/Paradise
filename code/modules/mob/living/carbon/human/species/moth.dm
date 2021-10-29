@@ -2,6 +2,7 @@
 #define COCOON_EMERGE_DELAY 25 SECONDS
 #define COCOON_HEAL_AMOUNT -50
 #define COCOON_HARM_AMOUNT 75
+#define FLYSWATTER_DAMAGE_MULTIPLIER 9
 
 /datum/species/moth
 	name = "Moth"
@@ -67,27 +68,29 @@
 
 /datum/species/moth/handle_life(mob/living/carbon/human/H)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/get_lamp, H), 5 SECONDS, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, .proc/get_lamp_level, H), 5 SECONDS, TIMER_UNIQUE)
 
 /**
  * Checks for light levels on current turf and cause confusion if too high
  */
-/datum/species/moth/proc/get_lamp(mob/living/carbon/human/H)
+/datum/species/moth/proc/get_lamp_level(mob/living/carbon/human/H)
 	if(H.confused != 0)
 		return
 	var/turf/simulated/T = get_turf(H)
 	if(!istype(T))
 		return
 	var/light_available = T.get_lumcount(maxlum = 5) * 10
-	if(light_available > 3) //too close to lamp friends!
-		H.AdjustConfused(rand(4, 8))
-		to_chat(H, "<span class='danger'>The lamp friends are too bright, and dazzle you!</span>")
+	if(light_available < 3) //too close to lamp friends!
+		return
+	H.AdjustConfused(rand(5, 10))
+	to_chat(H, "<span class='danger'>The lamp friends are too bright, and dazzle you!</span>")
 
 /datum/species/moth/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	..()
 	if(cocooned)
 		if(!R.harmless)
-			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM*2)
+			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM * 2)
+			return
 	if(R.id == "pestkiller")
 		H.adjustToxLoss(3)
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
@@ -97,7 +100,7 @@
 
 /datum/species/moth/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
 	if(istype(I, /obj/item/melee/flyswatter) && I.force)
-		apply_damage(I.force*9, I.damtype, affecting, FALSE, H) //making flyswatters do 10x damage to moff
+		apply_damage(I.force * FLYSWATTER_DAMAGE_MULTIPLIER, I.damtype, affecting, FALSE, H) //making flyswatters do 10x damage to moff
 
 /datum/species/moth/spec_handle_fire(mob/living/carbon/human/H) //do not go into the extremely hot light. you will not survive
 	if(H.on_fire && !(burnt_wings) && H.bodytemperature >= 800 && H.fire_stacks > 0)
@@ -161,7 +164,7 @@
 
 /datum/action/innate/cocoon/Activate()
 	var/mob/living/carbon/human/moth/H = owner
-	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on weaving a cocoon...</span>", "<span class='notice'>You begin to focus on weaving a cocoon... (This will take [round(COCOON_WEAVE_DELAY/10)] seconds, and you must hold still.)</span>")
+	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on weaving a cocoon...</span>", "<span class='notice'>You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY] seconds, and you must hold still.)</span>")
 	if(do_after(H, COCOON_WEAVE_DELAY, FALSE, H))
 		if(H.incapacitated(ignore_lying = TRUE))
 			to_chat(H, "<span class='warning'>You cannot weave a cocoon in your current state.</span>")
@@ -223,3 +226,4 @@
 #undef COCOON_EMERGE_DELAY
 #undef COCOON_HARM_AMOUNT
 #undef COCOON_HEAL_AMOUNT
+#undef FLYSWATTER_DAMAGE_MULTIPLIER
