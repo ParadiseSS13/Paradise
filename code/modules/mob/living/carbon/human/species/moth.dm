@@ -114,21 +114,6 @@
 	if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
 		return TRUE
 
-/datum/species/moth/spec_flash_carbon(mob/living/carbon/H, user, power, targeted, obj/item/flash/I)
-	power *= 2
-	if(user)
-		add_attack_logs(user, H, "Flashed with [src]")
-		if(targeted)
-			H.AdjustConfused(power)
-			I.terrible_conversion_proc(H, user)
-			H.Stun(1)
-			I.visible_message("<span class='disarm'>[user] blinds [H] with the flash!</span>")
-			to_chat(user, "<span class='danger'>You blind [H] with the flash!</span>")
-			to_chat(H, "<span class='userdanger'>[user] blinds you with the flash!</span>")
-	else
-		H.AdjustConfused(power)
-	return TRUE
-
 /datum/species/moth/spec_thunk()
 	if(burnt_wings)
 		return TRUE

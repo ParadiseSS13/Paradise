@@ -953,9 +953,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/spec_rejuvenate(mob/living/carbon/human/H)
 	return FALSE
 
-/datum/species/proc/spec_flash_carbon(mob/living/carbon/H, mob/user, power, targeted, obj/item/flash/I)
-	return FALSE
-
 /datum/species/proc/spec_thunk()
 	return FALSE
 
