@@ -7,6 +7,8 @@
 	var/window_to_spawn_regular = /obj/structure/window/basic
 	var/window_to_spawn_full = /obj/structure/window/full/basic
 	anchored = TRUE // No sliding out while you prime
+	/// Used to link electrochromic windows to buttons
+	var/id
 
 /obj/effect/spawner/window/Initialize(mapload)
 	. = ..()
@@ -25,8 +27,14 @@
 				continue
 			var/obj/structure/window/WI = new window_to_spawn_regular(get_turf(src))
 			WI.dir = cdir
+			if(id)
+				var/obj/structure/window/reinforced/polarized/WIP = WI
+				WIP.id = id
 	else
-		new window_to_spawn_full(get_turf(src))
+		var/obj/structure/window/WI = new window_to_spawn_full(get_turf(src))
+		if(id)
+			var/obj/structure/window/full/reinforced/polarized/WIP = WI
+			WIP.id = id
 
 	if(useGrille)
 		new /obj/structure/grille(get_turf(src))
