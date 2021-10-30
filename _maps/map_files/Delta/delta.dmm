@@ -14714,12 +14714,12 @@
 	},
 /area/security/permabrig)
 "aPb" = (
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -15332,6 +15332,11 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "aQk" = (
@@ -15372,9 +15377,6 @@
 "aQo" = (
 /obj/structure/chair/comfy/lime{
 	dir = 4
-	},
-/obj/machinery/computer/med_data/laptop{
-	dir = 1
 	},
 /turf/simulated/floor/carpet,
 /area/medical/psych)
@@ -69674,7 +69676,7 @@
 	dir = 9
 	},
 /obj/machinery/hologram/holopad{
-	pixel_y = -16
+	pixel_y = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -77644,6 +77646,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -78359,6 +78366,7 @@
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
 	name = "Surgery Cleaner"
 	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -80580,9 +80588,9 @@
 /area/medical/cmo)
 "duw" = (
 /obj/machinery/camera{
-	c_tag = "Mini Satellite Access";
+	c_tag = "Medbay Southeast Hallway";
 	dir = 4;
-	network = list("SS13","MiniSat")
+	network = list("Medical","SS13")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -88182,8 +88190,9 @@
 	pixel_x = 28
 	},
 /obj/machinery/camera{
-	c_tag = "Mining Dock External";
-	dir = 8
+	c_tag = "Virology Hallway";
+	dir = 8;
+	network = list("Medical","SS13")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -89802,16 +89811,17 @@
 	},
 /obj/structure/table/glass,
 /obj/item/paper_bin,
-/obj/machinery/camera{
-	c_tag = "Mining Dock External";
-	dir = 8
-	},
 /obj/item/storage/box/monkeycubes,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/machinery/newscaster{
 	pixel_x = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Virology Observation Room";
+	dir = 8;
+	network = list("Medical","SS13")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -98910,6 +98920,9 @@
 /area/security/permabrig)
 "sak" = (
 /obj/structure/table/wood,
+/obj/machinery/computer/med_data/laptop{
+	dir = 2
+	},
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "scA" = (
