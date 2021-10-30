@@ -45,7 +45,7 @@
 # If the database fails, this file will be used as fallback
 use_database_admins = false
 # Auto authenticate localhost users as admin? Useful for test servers, disable in producation
-enable_localhost_autoadmin = true
+enable_localhost_autoadmin = false
 # List of admin rank assignments and their permissions
 # These names ARE CASE SENSITIVE
 # +BUILD (or +BUILDMODE) = the ability to use buildmode
