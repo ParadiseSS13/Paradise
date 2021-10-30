@@ -671,7 +671,7 @@ responsible for properly tagging new pull requests and issues, moderating commen
 pull requests/issues, and merging/closing pull requests.
 
 ### Maintainer List
-* [AffectedArc07](https://github.com/AffectedArc07)
+
 * [Ansari](https://github.com/variableundefined)
 * [Crazy Lemon](https://github.com/Crazylemon64)
 * [Fox P McCloud](https://github.com/Fox-McCloud)
