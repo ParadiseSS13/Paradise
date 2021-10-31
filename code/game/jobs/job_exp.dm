@@ -48,6 +48,15 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		return
 
 	to_chat(src, "<span class='notice'>Your [EXP_TYPE_CREW] playtime is [get_exp_type(EXP_TYPE_CREW)].</span>")
+	to_chat(src, "<span class='notice'>From these hours, [get_exp_type(EXP_TYPE_COMMAND)] are from working as Command.</span>")
+	to_chat(src, "<span class='notice'>From these hours, [get_exp_type(EXP_TYPE_ENGINEERING)] are from working as Engineering.</span>")
+	to_chat(src, "<span class='notice'>From these hours, [get_exp_type(EXP_TYPE_MEDICAL)] are from working as Medical.</span>")
+	to_chat(src, "<span class='notice'>From these hours, [get_exp_type(EXP_TYPE_SCIENCE)] are from working as Science.</span>")
+	to_chat(src, "<span class='notice'>From these hours, [get_exp_type(EXP_TYPE_SUPPLY)] are from working as Supply.</span>")
+	to_chat(src, "<span class='notice'>From these hours, [get_exp_type(EXP_TYPE_SECURITY)] are from working as Security.</span>")
+	to_chat(src, "<span class='notice'>From these hours, [get_exp_type(EXP_TYPE_SILICON)] are from working as Silicon.</span>")
+	to_chat(src, "<span class='notice'>From these hours, [get_exp_type(EXP_TYPE_SERVICE)] are from working as Service.</span>")
+
 
 // Admin Verbs
 
