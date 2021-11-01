@@ -20,7 +20,6 @@ dreamchecker.exe @AffectedArc07
 rust_g.dll @AffectedArc07
 
 
-
 ### Fox-McCloud
 /code/controllers/subsystem/air.dm @Fox-McCloud
 /code/controllers/subsystem/garbage.dm @Fox-McCloud

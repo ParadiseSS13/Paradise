@@ -35,6 +35,14 @@
 
 	var/desc = input("Please select a location to lock in.", "Telegun Target Interface") in L
 	teleport_target = L[desc]
+	to_chat(user, "<span class='notice'>The [src] is now set to [desc].</span>")
+	//Process the shot without draining the cell
+	if(chambered)
+		if(chambered.BB)
+			qdel(chambered.BB)
+			chambered.BB = null
+		chambered = null
+	newshot()
 
 /obj/item/gun/energy/telegun/newshot()
 	var/obj/item/ammo_casing/energy/teleport/T = ammo_type[select]
