@@ -26,6 +26,7 @@
 	tail = "plain"
 	eyes = "moth_eyes_s"
 	butt_sprite = "kidan"
+	has_wings = TRUE
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
@@ -41,10 +42,6 @@
 	var/cocooned
 	/// Are the wings burnt off? Used to negate some buffs if TRUE
 	var/burnt_wings
-	/// Stores name of antennae when backupwings() is called
-	var/pre_burn_antennae
-	/// Stores name of wings when backupwings() is called
-	var/pre_burn_wings
 
 	suicide_messages = list(
 		"is attempting to nibble their antenna off!",
@@ -62,8 +59,7 @@
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
-	if(cocoon)
-		cocoon.Remove(H)
+	cocoon.Remove(H)
 
 /datum/species/moth/handle_life(mob/living/carbon/human/H)
 	. = ..()
@@ -134,15 +130,17 @@
 /**
  * Copies wing and antennae names to species datum vars
  */
-/datum/species/moth/proc/backupwings(mob/living/carbon/human/H)
+/datum/species/moth/backupwings(mob/living/carbon/human/H)
 	var/obj/item/organ/external/head/A = H.get_organ("head")
-	pre_burn_antennae = A.ha_style
-	pre_burn_wings = H.body_accessory.name
+	if(A.ha_style)
+		backed_up_antennae = A.ha_style
+	if(H.body_accessory)
+		backed_up_wings = H.body_accessory.name
 
 /**
  * Sets wings and antennae to burnt variants, removing some species buffs
  */
-/datum/species/moth/proc/destroywings(mob/living/carbon/human/H)
+/datum/species/moth/destroywings(mob/living/carbon/human/H)
 	burnt_wings = TRUE
 	backupwings(H)
 	H.change_body_accessory("Burnt Off Wings")
@@ -151,29 +149,27 @@
 /**
  * Restores wings and antennae from values in species datum vars
  */
-/datum/species/moth/proc/restorewings(mob/living/carbon/human/H)
+/datum/species/moth/restorewings(mob/living/carbon/human/H)
 	burnt_wings = FALSE
-	H.change_head_accessory(pre_burn_antennae)
-	H.change_body_accessory(pre_burn_wings)
-	pre_burn_antennae = null
-	pre_burn_wings = null
+	H.change_head_accessory(backed_up_antennae)
+	H.change_body_accessory(backed_up_wings)
 
 /**
  * Gives wings and antennae if none exist
  */
 
-/datum/species/moth/proc/givewings(mob/living/carbon/human/H)
+/datum/species/moth/givewings(mob/living/carbon/human/H)
 	if(!H.body_accessory)
-		H.change_body_accessory(random_head_accessory("Moth"))
+		H.change_head_accessory(random_body_accessory("Moth"))
 	var/obj/item/organ/external/head/HE = H.get_organ("head")
 	if(HE && !HE.ha_style)
-		H.change_head_accessory(random_body_accessory("Moth"))
+		H.change_body_accessory(random_head_accessory("Moth"))
 	backupwings(H)
 
 /**
  * Ramdomises wings and antennae
  */
-/datum/species/moth/proc/randomwings(mob/living/carbon/human/H)
+/datum/species/moth/randomwings(mob/living/carbon/human/H)
 	H.change_body_accessory(random_head_accessory("Moth"))
 	H.change_head_accessory(random_body_accessory("Moth"))
 	backupwings(H)

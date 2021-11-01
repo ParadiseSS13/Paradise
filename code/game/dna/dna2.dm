@@ -56,6 +56,11 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	new_dna.blood_type = blood_type
 	new_dna.real_name = real_name
 	new_dna.species = new species.type
+	if(species.has_wings)
+		new_dna.species.has_wings = species.has_wings
+		new_dna.species.backed_up_wings = species.backed_up_wings
+		new_dna.species.backed_up_antennae = species.backed_up_antennae
+
 	for(var/b=1;b<=DNA_SE_LENGTH;b++)
 		new_dna.SE[b]=SE[b]
 		if(b<=DNA_UI_LENGTH)
