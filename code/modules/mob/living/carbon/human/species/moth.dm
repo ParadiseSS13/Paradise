@@ -22,7 +22,6 @@
 	scream_verb = "buzzes"
 	male_scream_sound = 'sound/voice/scream_moth.ogg'
 	female_scream_sound = 'sound/voice/scream_moth.ogg'
-
 	default_headacc = "Plain Antennae"
 	tail = "plain"
 	eyes = "moth_eyes_s"
@@ -88,7 +87,7 @@
 /datum/species/moth/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	..()
 	if(cocooned)
-		if(!R.harmless)
+		if(!R.harmless && R.id != "pestkiller")
 			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM * 2)
 			return
 	if(R.id == "pestkiller")
@@ -125,8 +124,12 @@
 	if(burnt_wings)
 		restorewings(H)
 
-/datum/species/moth/spec_movement_delay(mob/living/carbon/H)
+/datum/species/moth/spec_movement_delay()
 	return FALSE
+
+/datum/species/moth/spec_WakeUp()
+	if(cocooned)
+		return TRUE //Cocooned mobs dont get to wake up
 
 /**
  * Copies wing and antennae names to species datum vars
@@ -154,6 +157,26 @@
 	H.change_body_accessory(pre_burn_wings)
 	pre_burn_antennae = null
 	pre_burn_wings = null
+
+/**
+ * Gives wings and antennae if none exist
+ */
+
+/datum/species/moth/proc/givewings(mob/living/carbon/human/H)
+	if(!H.body_accessory)
+		H.change_body_accessory(random_head_accessory("Moth"))
+	var/obj/item/organ/external/head/HE = H.get_organ("head")
+	if(HE && !HE.ha_style)
+		H.change_head_accessory(random_body_accessory("Moth"))
+	backupwings(H)
+
+/**
+ * Ramdomises wings and antennae
+ */
+/datum/species/moth/proc/randomwings(mob/living/carbon/human/H)
+	H.change_body_accessory(random_head_accessory("Moth"))
+	H.change_head_accessory(random_body_accessory("Moth"))
+	backupwings(H)
 
 /datum/action/innate/cocoon
 	name = "Cocoon"
@@ -217,6 +240,8 @@
 			H.adjustFireLoss(COCOON_HARM_AMOUNT)
 			H.AdjustWeakened(5)
 	for(var/mob/living/carbon/human/H in contents)
+		var/datum/species/moth/M = H.dna.species
+		M.cocooned = FALSE
 		H.WakeUp()
 		H.forceMove(loc)
 	return ..()

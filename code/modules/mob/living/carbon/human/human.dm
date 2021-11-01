@@ -173,7 +173,7 @@
 /mob/living/carbon/human/moth/Initialize(mapload)
 	. = ..(mapload, /datum/species/moth)
 	var/datum/species/moth/M = dna.species
-	M.backupwings(src)
+	M.givewings(src)
 
 /mob/living/carbon/human/Stat()
 	..()
@@ -1931,6 +1931,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/proc/get_perceived_trauma()
 	return min(health, maxHealth - getStaminaLoss())
+
+/mob/living/carbon/human/WakeUp(updating = 1)
+	if(dna.species.spec_WakeUp())
+		return
+	..()
 
 /**
   * Helper to get the mobs runechat colour span

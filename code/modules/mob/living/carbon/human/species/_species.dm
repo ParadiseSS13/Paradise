@@ -265,7 +265,7 @@
 					. += (health_deficiency / 75)
 				else
 					. += (health_deficiency / 25)
-		if(H.dna.species.spec_movement_delay(H)) //Species overrides for slowdown due to feet/legs
+		if(H.dna.species.spec_movement_delay()) //Species overrides for slowdown due to feet/legs
 			. += 2 * H.stance_damage //damaged/missing feet or legs is slow
 
 		if((hungry >= 70) && !flight)
@@ -956,8 +956,11 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/spec_thunk()
 	return FALSE
 
-/datum/species/proc/spec_movement_delay(mob/living/carbon/H)
+/datum/species/proc/spec_movement_delay()
 	return TRUE
+
+/datum/species/proc/spec_WakeUp()
+	return FALSE
 
 /**
   * Species-specific runechat colour handler
