@@ -14,7 +14,7 @@ When that's installed, right click in any folder and click on "Git Bash".
 When that opens, type in:
 
 ```sh
-    git clone https://github.com/ParadiseSS13/Paradise.git
+    git clone https://github.com/ParadiseSS13/Paradise.git --depth 1
 ```
 
 (hint: hold down ctrl and press insert to paste into git bash)
