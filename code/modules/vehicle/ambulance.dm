@@ -43,7 +43,7 @@
 
 	if(A.soundloop.muted)
 		// Go faster when we're using the alarm, we're in a hurry!
-		A.vehicle_move_delay = 0
+		A.vehicle_move_delay = 0.5
 		A.soundloop.start()
 		A.set_light(4,3,"#F70027")
 	else
@@ -69,6 +69,8 @@
 /obj/vehicle/ambulance/post_unbuckle_mob(mob/living/M)
 	AA.Remove(M)
 	return ..()
+
+/obj/vehicle/ambulance/
 
 /obj/item/key/ambulance
 	name = "ambulance key"
