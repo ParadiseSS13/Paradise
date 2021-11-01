@@ -1,6 +1,6 @@
 #define COCOON_WEAVE_DELAY 5 SECONDS
 #define COCOON_EMERGE_DELAY 25 SECONDS
-#define COCOON_HEAL_AMOUNT -50
+#define COCOON_HEAL_AMOUNT 50
 #define COCOON_HARM_AMOUNT 75
 #define FLYSWATTER_DAMAGE_MULTIPLIER 9
 
@@ -206,8 +206,7 @@
 	for(var/mob/living/carbon/human/H in C.contents)
 		var/datum/species/moth/M = H.dna.species
 		M.cocooned = FALSE
-		H.adjustBruteLoss(COCOON_HEAL_AMOUNT)
-		H.adjustFireLoss(COCOON_HEAL_AMOUNT)
+		H.heal_overall_damage(COCOON_HEAL_AMOUNT, COCOON_HEAL_AMOUNT)
 		if(M.burnt_wings)
 			M.restorewings(H)
 	C.preparing_to_emerge = FALSE
