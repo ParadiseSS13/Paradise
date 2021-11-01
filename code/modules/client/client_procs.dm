@@ -119,6 +119,29 @@
 		cmd_admin_discord_pm()
 		return
 
+	if(href_list["hublist"])
+		switch(href_list["hublist"])
+			if("7726")
+				src << browse(null, "window=privacy_consent")
+				src << link("byond://play.ss220.space:7726")
+				return
+			if("7721")
+				src << browse(null, "window=privacy_consent")
+				src << link("byond://play.ss220.space:7721")
+				return
+			if("7723")
+				src << browse(null, "window=privacy_consent")
+				src << link("byond://play.ss220.space:7723")
+				return
+			if("7724")
+				src << browse(null, "window=privacy_consent")
+				src << link("byond://ex.ss220.space:7724")
+				return
+			if("7725")
+				src << browse(null, "window=privacy_consent")
+				src << link("byond://play.ss220.space:7725")
+				return
+		return
 
 
 	//Logs all hrefs
@@ -1265,6 +1288,23 @@
 	qdel(query)
 	// If we are here, they have not accepted, and need to read it
 	return FALSE
+
+/client/proc/hublistpanel()
+	var/dat = {"<html><meta charset="UTF-8"><body>"}
+	var/tally = length(GLOB.clients)
+	if(tally > 90)
+		dat += "Игроков на этом сервере уже <b>[tally]</b>. Пожалуйста, выберите другой сервер.<br>Это поможет обеспечить комфортную игру другим на текущем сервере. Но мы вас не заставляем переходить, это окно можно просто закрыть. Спасибо за понимание!<br><HR><br>"
+	dat += "<a href='?src=[UID()];hublist=7721'>Подключиться</a> <b>Paradise Main</b> (НСН Керберос) — Основной сервер<br><br>"
+	dat += "<a href='?src=[UID()];hublist=7726'>Подключиться</a> <b>Paradise Secondary</b> (НСН Керберос) <b style='color: #2ecc71'>(новый)</b> — Второй сервер, копия основного для равномерного распределения онлайна<br><br><HR><br>"
+	dat += "<a href='?src=[UID()];hublist=7724'>Подключиться</a> <b>Paradise Extended eXperimental</b> (НСН Кибериада) — очень долгие раунды без раундстартовых антагов<br><br>"
+	dat += "<a href='?src=[UID()];hublist=7723'>Подключиться</a> <b>Paradise WL</b> (НСН Керберос/НСН Кибериада) — вайтлист, без временных ограничений по профессиям, самозапись через команду <b>/заявка</b> в Discord (Требуется суммарно 30+ часов игрового опыта на EX/Main/Secondary)<br><br>"
+	dat += "<a href='?src=[UID()];hublist=7725'>Подключиться</a> <b>Bay12 Sierra</b> (ИКН Сьерра) — атмосферное и более требовательное РП, билд Infinity<br><br><HR>"
+	dat += "<i>После нажатия кнопки подключения может показаться будто всё зависло, но это не так. Следует подождать пока загрузиться другой сервер.</i><br>"
+	dat += "</body></html>"
+
+	var/datum/browser/popup = new(usr, "hublist", "<div align='center'>Сервера проекта SS220</div>", 600, 550)
+	popup.set_content(dat)
+	popup.open(0)
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

@@ -86,6 +86,14 @@
 	else
 		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
 
+/client/verb/hublist()
+	set name = "hublist"
+	set desc = "Зацените игровые сервера проекта SS220"
+	set hidden = TRUE
+	log_admin("[key_name(src)] has pressed the \'СЕРВЕРА\' button!")
+	message_admins("[key_name_admin(src)] <span class='red'>has pressed the \'СЕРВЕРА\' button!</span>")
+	hublistpanel()
+
 /client/verb/hotkeys_help()
 	set name = "Hotkey Help"
 	set category = "OOC"

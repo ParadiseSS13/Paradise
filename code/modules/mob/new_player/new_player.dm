@@ -22,6 +22,8 @@
 /mob/new_player/verb/new_player_panel()
 	set src = usr
 
+	if(length(GLOB.clients) > 100)
+		client.hublistpanel()
 	if(client.tos_consent)
 		new_player_panel_proc()
 	else
