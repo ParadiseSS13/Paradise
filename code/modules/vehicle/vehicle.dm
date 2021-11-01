@@ -150,6 +150,12 @@
 			var/mob/living/buckled_mob = m
 			buckled_mob.bullet_act(Proj)
 
+/*
+Perform the calculation that determines the actual move delay.
+*/
+/obj/vehicle/proc/actual_movedelay()
+	return (last_move_diagonal? 2 : 1) * (vehicle_move_delay + GLOB.configuration.movement.human_delay)
+
 //MOVEMENT
 /obj/vehicle/relaymove(mob/user, direction)
 	if(key_type && !is_key(inserted_key))
@@ -160,7 +166,7 @@
 		unbuckle_mob(user)
 		return
 
-	var/delay = (last_move_diagonal? 2 : 1) * (vehicle_move_delay + GLOB.configuration.movement.human_delay)
+	var/delay = actual_movedelay()
 	if(world.time < last_vehicle_move + delay)
 		return
 	last_vehicle_move = world.time

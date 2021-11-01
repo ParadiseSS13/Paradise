@@ -6,6 +6,7 @@
 	var/obj/structure/bed/amb_trolley/bed = null
 	var/datum/action/ambulance_alarm/AA
 	var/datum/looping_sound/ambulance_alarm/soundloop
+	vehicle_move_delay = 1
 
 /obj/vehicle/ambulance/Initialize(mapload)
 	. = ..()
@@ -41,9 +42,12 @@
 	cooldown = world.time
 
 	if(A.soundloop.muted)
+		// Go faster when we're using the alarm, we're in a hurry!
+		A.vehicle_move_delay = 0
 		A.soundloop.start()
 		A.set_light(4,3,"#F70027")
 	else
+		A.vehicle_move_delay = 1
 		A.soundloop.stop()
 		A.set_light(0)
 
@@ -97,7 +101,7 @@
 		bed = null
 	. = ..()
 	if(bed && get_dist(oldloc, loc) <= 2)
-		bed.Move(oldloc, get_dir(bed, oldloc), (last_move_diagonal? 2 : 1) * (vehicle_move_delay + GLOB.configuration.movement.human_delay))
+		bed.Move(oldloc, get_dir(bed, oldloc), actual_movedelay())
 		bed.dir = Dir
 		if(bed.has_buckled_mobs())
 			for(var/m in bed.buckled_mobs)
