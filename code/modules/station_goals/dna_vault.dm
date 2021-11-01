@@ -264,8 +264,9 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 
 	switch(action)
 		if("gene")
-			upgrade(usr, params["choice"])
-			return TRUE
+			if(isliving(usr))
+				upgrade(usr, params["choice"])
+				return TRUE
 
 /obj/machinery/dna_vault/proc/check_goal()
 	if(plants.len >= plants_max && animals.len >= animals_max && dna.len >= dna_max)
@@ -325,7 +326,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			ADD_TRAIT(H, TRAIT_PIERCEIMMUNE, "dna_vault")
 		if(VAULT_SPEED)
 			to_chat(H, "<span class='notice'>You feel very fast and agile.</span>")
-			S.speed_mod = -1
+			ADD_TRAIT(H, TRAIT_GOTTAGOFAST, "dna_vault")
 		if(VAULT_QUICK)
 			to_chat(H, "<span class='notice'>Your arms move as fast as lightning.</span>")
 			H.next_move_modifier = 0.5

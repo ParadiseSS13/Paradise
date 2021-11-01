@@ -140,6 +140,7 @@
 	var/on = 0
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
+	armour_penetration = 20
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)

@@ -343,6 +343,21 @@
 	playsound(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
 	return TRUE
 
+/datum/spellbook_entry/summon/slience_ghosts
+	name = "Silence Ghosts"
+	desc = "Tired of people talking behind your back, and spooking you? Why not silence them, and make the dead deader."
+	cost = 2
+	log_name = "SLG"
+	is_ragin_restricted = TRUE //Salt needs to flow here, to be honest
+
+/datum/spellbook_entry/summon/slience_ghosts/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	new /datum/event/wizard/ghost_mute()
+	active = TRUE
+	to_chat(user, "<span class='notice'>You have silenced all ghosts!</span>")
+	playsound(get_turf(user), 'sound/effects/ghost.ogg', 50, 1)
+	message_admins("[key_name_admin(usr)] silenced all ghosts as a wizard! (Deadchat is now DISABLED)")
+	return TRUE
+
 /datum/spellbook_entry/summon/guns
 	name = "Summon Guns"
 	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. There is a good chance that they will shoot each other first."
