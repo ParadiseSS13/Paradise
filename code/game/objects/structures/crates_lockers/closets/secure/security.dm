@@ -378,12 +378,9 @@
 /obj/structure/closet/secure_closet/iaa
 	name = "internal affairs locker"
 	req_access = list(ACCESS_LAWYER)
-	icon_state = "iaasecure1"
-	icon_closed = "iaasecure"
-	icon_locked = "iaasecure1"
-	icon_opened = "iaasecureopen"
-	icon_broken = "iaasecurebroken"
-	icon_off = "iaasecureoff"
+	icon_opened = "magi_open"
+	icon_state = "iaa"
+	open_door_sprite = "chaplain_door"
 
 /obj/structure/closet/secure_closet/iaa/populate_contents()
 	new /obj/item/book/manual/faxes(src)
