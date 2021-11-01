@@ -1086,6 +1086,7 @@
 	icon_state = "suragi_jacket_sec"
 	item_state = "suragi_jacket_sec"
 	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
 
 /obj/item/clothing/suit/storage/suragi_jacket/cargo
 	name = "Cargo Suragi Jacket"
@@ -1093,6 +1094,7 @@
 	icon_state = "suragi_jacket_carg"
 	item_state = "suragi_jacket_carg"
 	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	allowed = list(/obj/item/pen, /obj/item/paper, /obj/item/stamp, /obj/item/destTagger, /obj/item/rcs)
 
 /obj/item/clothing/suit/storage/suragi_jacket/atmos
 	name = "Atmospherics Suragi Jacket"
@@ -1100,6 +1102,7 @@
 	icon_state = "suragi_jacket_atmos"
 	item_state = "suragi_jacket_atmos"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 5, "acid" = 0)
+	allowed = list (/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/emergency_oxygen, /obj/item/rcd, /obj/item/rpd, /obj/item/holosign_creator/atmos)
 
 /obj/item/clothing/suit/storage/suragi_jacket/eng
 	name = "Engineering Suragi Jacket"
@@ -1107,6 +1110,7 @@
 	icon_state = "suragi_jacket_eng"
 	item_state = "suragi_jacket_eng"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	allowed = list (/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/emergency_oxygen, /obj/item/rcd, /obj/item/rpd)
 
 /obj/item/clothing/suit/storage/suragi_jacket/botany
 	name = "Botany Suragi Jacket"
@@ -1114,6 +1118,7 @@
 	icon_state = "suragi_jacket_botan"
 	item_state = "suragi_jacket_botan"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 0)
+	allowed = list(/obj/item/reagent_containers/spray/plantbgone,/obj/item/plant_analyzer,/obj/item/seeds,/obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/cultivator,/obj/item/reagent_containers/spray/pestspray,/obj/item/hatchet,/obj/item/storage/bag/plants)
 
 /obj/item/clothing/suit/storage/suragi_jacket/medic
 	name = "Medical Suragi Jacket"
@@ -1121,6 +1126,7 @@
 	icon_state = "suragi_jacket_med"
 	item_state = "suragi_jacket_med"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 0)
+	allowed = list(/obj/item/analyzer, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
 
 /obj/item/clothing/suit/storage/suragi_jacket/medsec
 	name = "Medical Security Suragi Jacket"
@@ -1128,6 +1134,7 @@
 	icon_state = "suragi_jacket_brigmed"
 	item_state = "suragi_jacket_brigmed"
 	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 0)
+	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe, /obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/emergency_oxygen, /obj/item/rad_laser)
 
 /obj/item/clothing/suit/storage/suragi_jacket/virus
 	name = "Virology Suragi Jacket"
@@ -1135,6 +1142,7 @@
 	icon_state = "suragi_jacket_virus"
 	item_state = "suragi_jacket_virus"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 5, "rad" = 0, "fire" = 0, "acid" = 0)
+	allowed = list(/obj/item/analyzer, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper)
 
 /obj/item/clothing/suit/storage/suragi_jacket/chem
 	name = "Chemistry Suragi Jacket"
@@ -1142,6 +1150,7 @@
 	icon_state = "suragi_jacket_chem"
 	item_state = "suragi_jacket_chem"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 5, "acid" = 5)
+	allowed = list(/obj/item/analyzer, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/applicator, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper)
 
 /obj/item/clothing/suit/storage/suragi_jacket/genetics
 	name = "Genetics Suragi Jacket"
@@ -1149,6 +1158,7 @@
 	icon_state = "suragi_jacket_genet"
 	item_state = "suragi_jacket_genet"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 5, "fire" = 0, "acid" = 0)
+	allowed = list(/obj/item/analyzer, /obj/item/reagent_containers/syringe, /obj/item/dnainjector, /obj/item/paper)
 
 /obj/item/clothing/suit/storage/suragi_jacket/robot
 	name = "Robotiscist Suragi Jacket"
@@ -1156,6 +1166,7 @@
 	icon_state = "suragi_jacket_robotist"
 	item_state = "suragi_jacket_robotist"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 5,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	allowed = list(/obj/item/robotanalyzer, /obj/item/clothing/glasses/welding)
 
 /obj/item/clothing/suit/storage/suragi_jacket/sci
 	name = "Science Suragi Jacket"
@@ -1163,6 +1174,7 @@
 	icon_state = "suragi_jacket_scien"
 	item_state = "suragi_jacket_scien"
 	armor = list("melee" = 1, "bullet" = 1, "laser" = 1, "energy" = 1, "bomb" = 1, "bio" = 1, "rad" = 1, "fire" = 1, "acid" = 1)
+	allowed = list(/obj/item/analyzer, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/glass/bottle)
 
 /obj/item/clothing/suit/storage/suragi_jacket/janitor
 	name = "Janitor Suragi Jacket"
@@ -1170,4 +1182,5 @@
 	icon_state = "suragi_jacket_jan"
 	item_state = "suragi_jacket_jan"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 3, "rad" = 0, "fire" = 0, "acid" = 3)
+	allowed = list(/obj/item/soap, /obj/item/reagent_containers/spray/cleaner, /obj/item/storage/bag/trash, /obj/item/lightreplacer)
 // Suragi end
