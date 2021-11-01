@@ -92,6 +92,7 @@
 	var/datum/announcement/priority/emergency_shuttle_recalled = new(0, new_sound = sound('sound/AI/shuttlerecalled.ogg'))
 
 	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
+	var/forceHijacked = FALSE // forced change of arrival at the syndicate base
 
 
 /obj/docking_port/mobile/emergency/register()
@@ -281,7 +282,7 @@
 				// now move the actual emergency shuttle to centcomm
 				// unless the shuttle is "hijacked"
 				var/destination_dock = "emergency_away"
-				if(is_hijacked())
+				if(is_hijacked() || forceHijacked)
 					destination_dock = "emergency_syndicate"
 					GLOB.priority_announcement.Announce("Corruption detected in shuttle navigation protocols. Please contact your supervisor.")
 
