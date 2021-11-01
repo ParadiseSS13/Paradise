@@ -45,9 +45,9 @@
 
 /obj/machinery/photocopier/proc/papercopy(obj/item/paper/copy, scanning = FALSE)
 	var/obj/item/paper/c = new /obj/item/paper (loc)
-	if (scanning)
+	if(scanning)
 		c.forceMove(src)
-	else if (folder)
+	else if(folder)
 		c.forceMove(folder)
 	c.header = copy.header
 	c.info = copy.info
@@ -81,9 +81,9 @@
 
 /obj/machinery/photocopier/proc/photocopy(obj/item/photo/photocopy, scanning = FALSE)
 	var/obj/item/photo/p = new /obj/item/photo (loc)
-	if (scanning)
+	if(scanning)
 		p.forceMove(src)
-	else if (folder)
+	else if(folder)
 		p.forceMove(folder)
 	p.name = photocopy.name
 	p.icon = photocopy.icon
@@ -127,9 +127,9 @@
 	else
 		return
 	var/obj/item/photo/p = new /obj/item/photo (loc)
-	if (scanning)
+	if(scanning)
 		p.forceMove(src)
-	else if (folder)
+	else if(folder)
 		p.forceMove(folder)
 	p.desc = "You see [copymob]'s ass on the photo."
 	p.pixel_x = rand(-10, 10)
@@ -150,9 +150,9 @@
 //If need_toner is 0, the copies will still be lightened when low on toner, however it will not be prevented from printing. TODO: Implement print queues for fax machines and get rid of need_toner
 /obj/machinery/photocopier/proc/bundlecopy(obj/item/paper_bundle/bundle, need_toner=1, scanning = FALSE)
 	var/obj/item/paper_bundle/P = new /obj/item/paper_bundle (src, default_papers = FALSE)
-	if (scanning)
+	if(scanning)
 		P.forceMove(src)
-	else if (folder)
+	else if(folder)
 		P.forceMove(folder)
 	for(var/obj/item/W in bundle)
 		if(toner <= 0 && need_toner)
@@ -242,7 +242,7 @@
 	if(istype(C, /obj/item/paper))
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 		for(var/i = copies; i > 0; i--)
-			if (toner > 0)
+			if(toner > 0)
 				papercopy(C)
 				use_power(active_power_usage)
 				sleep(PHOTOCOPIER_DELAY)
@@ -252,7 +252,7 @@
 	else if(istype(C, /obj/item/photo))
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 		for(var/i = copies; i > 0; i--)
-			if (toner > 4)
+			if(toner > 4)
 				photocopy(C)
 				use_power(active_power_usage)
 				sleep(PHOTOCOPIER_DELAY)
@@ -287,7 +287,7 @@
 /obj/machinery/photocopier/proc/scan_document() //scan a document into a file
 	if(!cancopy())
 		return
-	if(saved_documents.len >= max_saved_documents)
+	if(length(saved_documents) >= max_saved_documents)
 		to_chat(usr, "<span class='warning'>\The [copyitem] can't be scanned because the max file limit has been reached. Please delete a file to make room.</span>")
 		return
 	copying = TRUE
@@ -321,7 +321,7 @@
 /obj/machinery/photocopier/proc/file_copy(uid)
 	var/document = locateUID(uid)
 	if(document in saved_documents)
-		copy(document, scancopy=TRUE)
+		copy(document, scancopy = TRUE)
 
 
 /obj/machinery/photocopier/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -359,10 +359,10 @@
 		if("removefolder")
 			remove_folder()
 		if("add")
-			if(copies<maxcopies)
+			if(copies < maxcopies)
 				copies++
 		if("minus")
-			if(copies>0)
+			if(copies > 0)
 				copies--
 		if("scandocument")
 			scan_document()
@@ -373,8 +373,10 @@
 	update_icon()
 
 /obj/machinery/photocopier/proc/aipic()
-	if(!istype(usr,/mob/living/silicon)) return
-	if(stat & (BROKEN|NOPOWER)) return
+	if(!issilicon(usr))
+		return
+	if(stat & (BROKEN|NOPOWER))
+		return
 
 	if(toner >= 5)
 		var/mob/living/silicon/tempAI = usr
@@ -387,7 +389,7 @@
 			return
 
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-		var/obj/item/photo/p = new /obj/item/photo (src.loc)
+		var/obj/item/photo/p = new /obj/item/photo(loc)
 		p.construct(selection)
 		if(p.desc == "")
 			p.desc += "Copied by [tempAI.name]"
@@ -397,7 +399,7 @@
 		SStgui.update_uis(src)
 		sleep(15)
 
-/obj/machinery/photocopier/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/machinery/photocopier/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo) || istype(O, /obj/item/paper_bundle))
 		if(!copyitem)
 			user.drop_item()
@@ -451,9 +453,9 @@
 			toner = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/user)
-	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai) || istype(src, /obj/machinery/photocopier/faxmachine))
+	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai))
 		return
-	if (check_mob()) //is target mob or another mob on this photocopier already?
+	if(check_mob()) //is target mob or another mob on this photocopier already?
 		return
 	src.add_fingerprint(user)
 	if(target == user && !user.incapacitated())
