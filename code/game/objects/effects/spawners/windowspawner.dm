@@ -27,12 +27,12 @@
 				continue
 			var/obj/structure/window/WI = new window_to_spawn_regular(get_turf(src))
 			WI.dir = cdir
-			if(id)
+			if(istype(src, /obj/effect/spawner/window/reinforced/polarized) && id)
 				var/obj/structure/window/reinforced/polarized/WIP = WI
 				WIP.id = id
 	else
 		var/obj/structure/window/WI = new window_to_spawn_full(get_turf(src))
-		if(id)
+		if(istype(src, /obj/effect/spawner/window/reinforced/polarized) && id)
 			var/obj/structure/window/full/reinforced/polarized/WIP = WI
 			WIP.id = id
 
