@@ -6,12 +6,19 @@
 	var/obj/structure/bed/amb_trolley/bed = null
 	var/datum/action/ambulance_alarm/AA
 	var/datum/looping_sound/ambulance_alarm/soundloop
-	vehicle_move_delay = 1
+	/// Base move delay
+	var/base_move_delay = 1
+	/// Delay when boosting
+	var/boost_move_delay = 0.5
+	/// Delay when emped
+	var/emp_move_delay = 5
+	var/emped = FALSE
 
 /obj/vehicle/ambulance/Initialize(mapload)
 	. = ..()
 	AA = new(src)
 	soundloop = new(list(src), FALSE)
+	vehicle_move_delay = base_move_delay
 
 /obj/vehicle/ambulance/Destroy()
 	QDEL_NULL(AA)
@@ -36,21 +43,32 @@
 	if(!istype(A) || !A.soundloop)
 		return FALSE
 
+	if(A.emped)
+		return FALSE
+
 	if(world.time < cooldown + toggle_cooldown)
 		return FALSE
 
 	cooldown = world.time
 
+	toggle()
+
+/// Force-toggle the ambulance alarm
+/datum/action/ambulance_alarm/proc/toggle()
+	var/obj/vehicle/ambulance/A = target
+
+	if(!istype(A) || !A.soundloop)
+		return FALSE
+
 	if(A.soundloop.muted)
 		// Go faster when we're using the alarm, we're in a hurry!
-		A.vehicle_move_delay = 0.5
+		A.vehicle_move_delay = A.boost_move_delay
 		A.soundloop.start()
 		A.set_light(4,3,"#F70027")
 	else
-		A.vehicle_move_delay = 1
+		A.vehicle_move_delay = A.base_move_delay
 		A.soundloop.stop()
 		A.set_light(0)
-
 
 /datum/looping_sound/ambulance_alarm
     start_length = 0
@@ -69,6 +87,32 @@
 /obj/vehicle/ambulance/post_unbuckle_mob(mob/living/M)
 	AA.Remove(M)
 	return ..()
+
+/obj/vehicle/ambulance/proc/emp_restore()
+	emped = FALSE
+	vehicle_move_delay = base_move_delay
+
+/obj/vehicle/ambulance/emp_act(severity)
+	if(emped)
+		// Might as well make it stack
+		vehicle_move_delay += 1
+		visible_message("<span class='warning'>The slight whine from [src] only grows louder!</span>",
+		"<span class='warning'>An electrical whine seems to have grown louder.</span>")
+		return
+
+	emped = TRUE
+
+	// Turn the lights off
+	if(!soundloop.muted)
+		AA.toggle()
+
+	vehicle_move_delay = emp_move_delay
+
+	visible_message("<span class='warning'>You hear an electrical whine from [src], its motors locking up!</span>",
+		"<span class='warning'>You hear an electrical whine, like a motor being jammed.</span>")
+
+	addtimer(CALLBACK(src, .proc/emp_restore), 30 SECONDS)
+
 
 /obj/item/key/ambulance
 	name = "ambulance key"
