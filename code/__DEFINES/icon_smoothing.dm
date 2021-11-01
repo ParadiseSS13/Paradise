@@ -50,8 +50,15 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_GLASS_FLOOR_TITANIUM S_TURF(9)		///turf/simulated/floor/transparent/glass/titanium and subtypes
 
 #define SMOOTH_GROUP_CARPET S_TURF(10)					///turf/simulated/floor/carpet
-#define SMOOTH_GROUP_CARPET_BLACK S_TURF(11)			///turf/simulated/floor/carpet/black
-#define SMOOTH_GROUP_CARPET_BLUE S_TURF(12)				///turf/simulated/floor/carpet/blue
+#define SMOOTH_GROUP_CARPET_BLACK S_TURF(11)
+#define SMOOTH_GROUP_CARPET_BLUE S_TURF(12)
+#define SMOOTH_GROUP_CARPET_CYAN S_TURF(13)
+#define SMOOTH_GROUP_CARPET_GREEN S_TURF(14)
+#define SMOOTH_GROUP_CARPET_ROYALBLACK S_TURF(15)
+#define SMOOTH_GROUP_CARPET_ROYALBLUE S_TURF(17)
+#define SMOOTH_GROUP_CARPET_RED S_TURF(17)
+#define SMOOTH_GROUP_CARPET_ORANGE S_TURF(18)
+#define SMOOTH_GROUP_CARPET_PURPLE S_TURF(19)
 
 #define SMOOTH_GROUP_SIMULATED_TURFS S_TURF(24)			///turf/simulated
 #define SMOOTH_GROUP_MATERIAL_WALLS S_TURF(25)			///turf/simulated/wall/material
