@@ -209,7 +209,7 @@
 				I.throw_at(I.thrownby, 20, 20, owner)
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
-					lastdeflect = world.time + 3000
+					lastdeflect = world.time + 600
 				return TRUE
 			else if(prob(30))
 				visible_message("<span class='warning'>[owner] swings! And [p_they()] miss[p_es()]! How embarassing.</span>", "<span class='warning'>You swing! You miss! Oh no!</span>")
@@ -217,7 +217,7 @@
 				do_attack_animation(get_step(owner, pick(GLOB.alldirs)), ATTACK_EFFECT_DISARM)
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
-					lastdeflect = world.time + 3000
+					lastdeflect = world.time + 600
 				return FALSE
 			else
 				visible_message("<span class='warning'>[owner] swings and deflects [I]!</span>", "<span class='warning'>You swing and deflect the [I]!</span>")
@@ -226,7 +226,7 @@
 				I.throw_at(get_edge_target_turf(owner, pick(GLOB.cardinal)), rand(8,10), 14, owner)
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
-					lastdeflect = world.time + 3000
+					lastdeflect = world.time + 600
 				return TRUE
 
 /obj/item/melee/baseball_bat/attack_self(mob/user)
@@ -238,7 +238,7 @@
 			to_chat(user, "<span class='notice'>You no longer deflect objects thrown at you. You can attack during this time</span>")
 			deflectmode = FALSE
 		else
-			to_chat(user, "<span class='warning'>You need to wait until you can deflect again. The ability will be ready in [time2text(lastdeflect - world.time, "m:ss")]</span>")
+			to_chat(user, "<span class='warning'>You need to wait until you can deflect again. The ability will be ready in [time2text(lastdeflect - world.time, "mm:ss")]</span>")
 		return ..()
 	if(homerun_ready)
 		to_chat(user, "<span class='notice'>You're already ready to do a home run!</span>")
