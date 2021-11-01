@@ -48,6 +48,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		return
 
 	to_chat(src, "<span class='notice'>Your [EXP_TYPE_CREW] playtime is [get_exp_type(EXP_TYPE_CREW)].</span>")
+	to_chat(src, "<span class='notice'>From these hours, [get_exp_type(EXP_TYPE_GHOST)] are from observing/as ghost.</span>")
 	to_chat(src, "<span class='notice'>From these hours, [get_exp_type(EXP_TYPE_COMMAND)] are from working as Command.</span>")
 	to_chat(src, "<span class='notice'>From these hours, [get_exp_type(EXP_TYPE_ENGINEERING)] are from working as Engineering.</span>")
 	to_chat(src, "<span class='notice'>From these hours, [get_exp_type(EXP_TYPE_MEDICAL)] are from working as Medical.</span>")
