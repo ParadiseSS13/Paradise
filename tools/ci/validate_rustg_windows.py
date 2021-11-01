@@ -37,7 +37,7 @@ else:
     fail("RUSTG DM header file does NOT exist")
 
 # Parse the version from the DM file
-f = open("code/__DEFINES/rust_g.dm", "r")
+f = open("code/__DEFINES/_versions.dm", "r")
 lines = f.readlines()
 f.close()
 dm_version = None
@@ -92,16 +92,16 @@ else:
 # Make sure we can parse TOML
 string_array = c_char_p * 1
 sa = string_array(bytes(ci_toml_file_location, "ascii"))
-rustg_dll.toml2json.argtypes = [c_int, c_char_p * 1]
+rustg_dll.toml_file_to_json.argtypes = [c_int, c_char_p * 1]
 # Set args for JSON retrieval
-rustg_dll.toml2json.restype = c_char_p
+rustg_dll.toml_file_to_json.restype = c_char_p
 
 try:
     # Run it
-    output_json = rustg_dll.toml2json(1, sa).decode()
+    output_json = rustg_dll.toml_file_to_json(1, sa).decode()
     json.loads(output_json)
-    success("toml2json conversion successful")
+    success("toml_file_to_json successful")
 except Exception:
-    fail("Failed to convert toml2json")
+    fail("Failed to run toml_file_to_json")
 
 exit(0) # Success

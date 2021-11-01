@@ -158,7 +158,7 @@
 		deductcharge(hitcost)
 		return
 
-	if(isrobot(M)) // Can't stunbaton borgs
+	if(issilicon(M)) // Can't stunbaton borgs and AIs
 		return ..()
 
 	if(!isliving(M))

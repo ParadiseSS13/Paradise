@@ -179,6 +179,8 @@ About the new airlock wires panel:
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+		diag_hud.remove_from_hud(src)
 	return ..()
 
 /obj/machinery/door/airlock/handle_atom_del(atom/A)

@@ -147,14 +147,8 @@
 							karma_purchase(karma,5,"job","Brig Physician")
 						if("3")
 							karma_purchase(karma,30,"job","Nanotrasen Representative")
-						if("5")
+						if("4")
 							karma_purchase(karma,30,"job","Blueshield")
-						if("6")
-							karma_purchase(karma,30,"job","Mechanic")
-						if("7")
-							karma_purchase(karma,45,"job","Magistrate")
-						if("9")
-							karma_purchase(karma,30,"job","Security Pod Pilot")
 					return
 				if(href_list["KarmaBuy2"])
 					var/karma=verify_karma()
@@ -201,6 +195,11 @@
 			src << link(href_list["link"])
 
 	..()	//redirect to hsrc.Topic()
+
+
+/client/proc/get_display_key()
+	var/fakekey = src?.holder?.fakekey
+	return fakekey ? fakekey : key
 
 /client/proc/is_content_unlocked()
 	if(!prefs.unlock_content)
@@ -286,6 +285,8 @@
 
 	log_client_to_db(tdata) // Make sure our client exists in the DB
 
+	pai_save = new(src)
+
 	// This is where we load all of the clients stuff from the DB
 	if(SSdbcore.IsConnected())
 		// Load in all our client data from the DB
@@ -326,11 +327,15 @@
 	if(length(related_accounts_cid))
 		log_admin("[key_name(src)] Alts by CID: [jointext(related_accounts_cid, " ")]")
 
+	// This sleeps so it has to go here. Dont fucking move it.
+	SSinstancing.update_playercache(ckey)
+
 	// This has to go here to avoid issues
 	// If you sleep past this point, you will get SSinput errors as well as goonchat errors
 	// DO NOT STUFF RANDOM SQL QUERIES BELOW THIS POINT WITHOUT USING `INVOKE_ASYNC()` OR SIMILAR
 	// YOU WILL BREAK STUFF. SERIOUSLY. -aa07
 	GLOB.clients += src
+
 
 	spawn() // Goonchat does some non-instant checks in start()
 		chatOutput.start()
@@ -447,7 +452,9 @@
 		GLOB.admins -= src
 	GLOB.directory -= ckey
 	GLOB.clients -= src
+	SSinstancing.update_playercache() // Clear us out
 	QDEL_NULL(chatOutput)
+	QDEL_NULL(pai_save)
 	if(movingmob)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)

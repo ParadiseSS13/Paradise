@@ -109,8 +109,6 @@
 	icon_closed = "blue"
 
 /obj/structure/closet/lawcloset/populate_contents()
-	new /obj/item/storage/box/tapes(src)
-	new /obj/item/book/manual/faxes(src)
 	new /obj/item/clothing/under/lawyer/female(src)
 	new /obj/item/clothing/under/lawyer/black(src)
 	new /obj/item/clothing/under/lawyer/red(src)
@@ -120,10 +118,6 @@
 	new /obj/item/clothing/suit/storage/lawyer/purpjacket(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/clothing/glasses/sunglasses/big(src)
-	new /obj/item/clothing/glasses/sunglasses/big(src)
-	new /obj/item/clothing/accessory/lawyers_badge(src)
-	new /obj/item/clothing/accessory/lawyers_badge(src)
 
 //Paramedic
 

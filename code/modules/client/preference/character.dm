@@ -115,7 +115,7 @@
 	if(!isemptylist(player_alt_titles))
 		playertitlelist = list2params(player_alt_titles)
 	if(!isemptylist(loadout_gear))
-		gearlist = list2params(loadout_gear)
+		gearlist = json_encode(loadout_gear)
 
 	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM characters WHERE ckey=:ckey ORDER BY slot", list(
 		"ckey" = C.ckey
@@ -438,7 +438,7 @@
 	//socks
 	socks = query.item[49]
 	body_accessory = query.item[50]
-	loadout_gear = params2list(query.item[51])
+	loadout_gear = query.item[51]
 	autohiss_mode = text2num(query.item[52])
 
 	//Sanitize
@@ -507,6 +507,7 @@
 
 	socks			= sanitize_text(socks, initial(socks))
 	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
+	loadout_gear	= sanitize_json(loadout_gear)
 
 	if(!player_alt_titles)
 		player_alt_titles = new()
@@ -1379,29 +1380,6 @@
 					clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 	else if(job_karma_high)
 		switch(job_karma_high)
-			if(JOB_MECHANIC)
-				clothes_s = new /icon(uniform_dmi, "mechanic_s")
-				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "orange"), ICON_UNDERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/belt.dmi', "utility"), ICON_OVERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "hardhat0_yellow"), ICON_OVERLAY)
-				switch(backbag)
-					if(2)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "engiepack"), ICON_OVERLAY)
-					if(3)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-eng"), ICON_OVERLAY)
-					if(4)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
-			if(JOB_PILOT)
-				clothes_s = new /icon(uniform_dmi, "secred_s")
-				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "bomber"), ICON_OVERLAY)
-				switch(backbag)
-					if(2)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "securitypack"), ICON_OVERLAY)
-					if(3)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-sec"), ICON_OVERLAY)
-					if(4)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 			if(JOB_BRIGDOC)
 				clothes_s = new /icon(uniform_dmi, "medical_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
@@ -1480,11 +1458,11 @@
 
 
 
-/datum/character_save/proc/get_gear_metadata(datum/gear/G)
-	. = loadout_gear[G.display_name]
+/datum/character_save/proc/get_gear_metadata(datum/gear/G) // NYI
+	. = loadout_gear[G.type]
 	if(!.)
 		. = list()
-		loadout_gear[G.display_name] = .
+		loadout_gear[G.type] = .
 
 /datum/character_save/proc/get_tweak_metadata(datum/gear/G, datum/gear_tweak/tweak)
 	var/list/metadata = get_gear_metadata(G)
