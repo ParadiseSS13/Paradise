@@ -24,7 +24,7 @@
 	var/toner = 60 //how much toner is left! woooooo~
 	var/toner_requirement = 1 //How much toner will be required for this operation
 	var/maxcopies = 10	//how many copies can be copied at once- idea shamelessly stolen from bs12's copier!
-	var/mob/living/M = null //Whose ass are we copying? This is important information, hence why there is a var for it.
+	var/mob/living/copymob = null //Whose ass are we copying? This is important information, hence why there is a var for it.
 
 	var/list/saved_documents = list()
 	var/max_saved_documents = 5
@@ -107,22 +107,22 @@
 	if(!check_mob()) //You have to be sitting on the copier and either be a xeno or a human without clothes on.
 		return
 	if(emagged)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
+		if(ishuman(copymob))
+			var/mob/living/carbon/human/H = copymob
 			var/obj/item/organ/external/G = H.get_organ("groin")
 			G.receive_damage(0, 30)
 			H.emote("scream")
 		else
-			M.apply_damage(30, BURN)
-		to_chat(M, "<span class='notice'>Something smells toasty...</span>")
-	if(ishuman(M)) //Suit checks are in check_mob
-		var/mob/living/carbon/human/H = M
+			copymob.apply_damage(30, BURN)
+		to_chat(copymob, "<span class='notice'>Something smells toasty...</span>")
+	if(ishuman(copymob)) //Suit checks are in check_mob
+		var/mob/living/carbon/human/H = copymob
 		temp_img = icon('icons/obj/butts.dmi', H.dna.species.butt_sprite)
-	else if(istype(M,/mob/living/silicon/robot/drone))
+	else if(istype(copymob,/mob/living/silicon/robot/drone))
 		temp_img = icon('icons/obj/butts.dmi', "drone")
-	else if(istype(M,/mob/living/simple_animal/diona))
+	else if(istype(copymob,/mob/living/simple_animal/diona))
 		temp_img = icon('icons/obj/butts.dmi', "nymph")
-	else if(isalien(M) || istype(M,/mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
+	else if(isalien(copymob) || istype(copymob,/mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
 		temp_img = icon('icons/obj/butts.dmi', "xeno")
 	else
 		return
@@ -131,7 +131,7 @@
 		p.forceMove(src)
 	else if (folder)
 		p.forceMove(folder)
-	p.desc = "You see [M]'s ass on the photo."
+	p.desc = "You see [copymob]'s ass on the photo."
 	p.pixel_x = rand(-10, 10)
 	p.pixel_y = rand(-10, 10)
 	p.img = temp_img
@@ -196,7 +196,7 @@
 		copyitem = null
 		SStgui.update_uis(src)
 	else if(check_mob())
-		to_chat(M, "<span class='notice'>You feel a slight pressure on your ass.</span>")
+		to_chat(copymob, "<span class='notice'>You feel a slight pressure on your ass.</span>")
 		atom_say("Attention: Unable to remove large object!")
 
 /obj/machinery/photocopier/proc/remove_folder()
@@ -227,7 +227,7 @@
 	if(copying) //are we in the process of copying something already?
 		to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
 		return
-	if((!M || !check_mob()) && (!copyitem && !scancopy)) //is there anything in or ontop of the machine? If not, is this a scanned file?
+	if((!copymob || !check_mob()) && (!copyitem && !scancopy)) //is there anything in or ontop of the machine? If not, is this a scanned file?
 		visible_message("<span class='notice'>A red light on [src] flashes, indicating there's nothing in [src] to copy.</span>")
 		return
 	return TRUE
@@ -270,7 +270,7 @@
 			if(!B) //B returned null because it was partial
 				break
 			sleep(PHOTOCOPIER_DELAY*B.amount)
-	else if(M && M.loc == src.loc)
+	else if(copymob && copymob.loc == loc)
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 		for(var/i = copies; i > 0; i--)
 			if(toner > 4)
@@ -298,7 +298,7 @@
 		O = photocopy(copyitem, scanning = TRUE)
 	else if(istype(copyitem, /obj/item/paper_bundle))
 		O = bundlecopy(copyitem, scanning = TRUE)
-	else if(M && M.loc == src.loc)
+	else if(copymob && copymob.loc == loc)
 		O = copyass(scanning = TRUE)
 	else
 		to_chat(usr, "<span class='warning'>\The [copyitem] can't be scanned by \the [src].</span>")
@@ -337,7 +337,7 @@
 	data["toner"] = toner
 	data["copyitem"] = (copyitem ? copyitem.name : null)
 	data["folder"] = (folder ? folder.name : null)
-	data["mob"] = (M ? M.name : null)
+	data["mob"] = (copymob ? copymob.name : null)
 	data["files"] = list()
 	for(var/obj/item/O in saved_documents)
 		var/list/document_data = list(
@@ -428,11 +428,11 @@
 			to_chat(user, "<span class='notice'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
 	else if(istype(O, /obj/item/grab)) //For ass-copying.
 		var/obj/item/grab/G = O
-		if(ismob(G.affecting) && G.affecting != M)
+		if(ismob(G.affecting) && G.affecting != copymob)
 			var/mob/GM = G.affecting
 			visible_message("<span class='warning'>[usr] drags [GM.name] onto the photocopier!</span>")
 			GM.forceMove(get_turf(src))
-			M = GM
+			copymob = GM
 			if(copyitem)
 				copyitem.forceMove(get_turf(src))
 				copyitem = null
@@ -463,19 +463,19 @@
 		if(!ishuman(user)) return
 		visible_message("<span class='warning'>[usr] drags [target.name] onto [src]!</span>")
 	target.forceMove(get_turf(src))
-	M = target
+	copymob = target
 	if(copyitem)
 		copyitem.forceMove(get_turf(src))
-		visible_message("<span class='notice'>[copyitem] is shoved out of the way by [M]!</span>")
+		visible_message("<span class='notice'>[copyitem] is shoved out of the way by [copymob]!</span>")
 		copyitem = null
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 	atom_say("Attention: Posterior Placed on Printing Plaque!")
 
 /obj/machinery/photocopier/proc/check_mob()
-	if(!M)
+	if(!copymob)
 		return FALSE
-	if(M.loc != src.loc) //Is there a mob ontop of the photocopier?
-		M = null
+	if(copymob.loc != loc) //Is there a mob ontop of the photocopier?
+		copymob = null
 		return FALSE
 	else
 		return TRUE

@@ -93,7 +93,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	else
 		return ..()
 
-/obj/machinery/photocopier/MouseDrop_T()
+/obj/machinery/photocopier/faxmachine/MouseDrop_T()
 	return //you should not be able to fax your ass without first copying it at an actual photocopier
 
 /obj/machinery/photocopier/faxmachine/emag_act(mob/user)
