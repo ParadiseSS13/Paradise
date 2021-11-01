@@ -16,7 +16,7 @@
 
 /obj/item/organ/external/leg/unbreakable
 	cannot_break = TRUE
-	convertable_children = list(/obj/item/organ/external/foot/right/unbreakable)
+	convertable_children = list(/obj/item/organ/external/foot/unbreakable)
 
 /obj/item/organ/external/leg/right/unbreakable
 	cannot_break = TRUE
@@ -41,21 +41,26 @@
 // Cannot dismember or break
 /obj/item/organ/external/chest/unbreakable/sturdy
 	cannot_amputate = TRUE
+	convertable_children = list(/obj/item/organ/external/groin/unbreakable/sturdy)
 
 /obj/item/organ/external/groin/unbreakable/sturdy
 	cannot_amputate = TRUE
 
 /obj/item/organ/external/arm/unbreakable/sturdy
 	cannot_amputate = TRUE
+	convertable_children = list(/obj/item/organ/external/hand/unbreakable/sturdy)
 
 /obj/item/organ/external/arm/right/unbreakable/sturdy
 	cannot_amputate = TRUE
+	convertable_children = list(/obj/item/organ/external/hand/right/unbreakable/sturdy)
 
 /obj/item/organ/external/leg/unbreakable/sturdy
 	cannot_amputate = TRUE
+	convertable_children = list(/obj/item/organ/external/foot/unbreakable/sturdy)
 
 /obj/item/organ/external/leg/right/unbreakable/sturdy
 	cannot_amputate = TRUE
+	convertable_children = list(/obj/item/organ/external/foot/right/unbreakable/sturdy)
 
 /obj/item/organ/external/foot/unbreakable/sturdy
 	cannot_amputate = TRUE

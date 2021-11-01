@@ -121,6 +121,7 @@
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/reagent_containers/syringe(src)
 	new /obj/item/reagent_containers/glass/bottle/ether(src)
+	new /obj/item/clipboard(src)
 	new /obj/item/storage/fancy/cigarettes/cigpack_med(src)
 	new /obj/item/storage/fancy/cigarettes/cigpack_med(src)
 	new /obj/item/storage/fancy/cigarettes/cigpack_med(src)
@@ -170,6 +171,8 @@
 	new /obj/item/door_remote/chief_medical_officer(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cmo(src)
 	new /obj/item/clothing/accessory/medal/medical(src)
+	new /obj/item/storage/briefcase(src)
+	new /obj/item/clothing/mask/gas(src)
 
 
 /obj/structure/closet/secure_closet/animal

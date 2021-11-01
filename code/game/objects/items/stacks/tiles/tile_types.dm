@@ -88,6 +88,70 @@
 /obj/item/stack/tile/carpet/black/twenty
 	amount = 20
 
+/obj/item/stack/tile/carpet/blue
+	name = "blue carpet"
+	icon_state = "tile-carpet-blue"
+	turf_type = /turf/simulated/floor/carpet/blue
+
+/obj/item/stack/tile/carpet/blue/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/cyan
+	name = "cyan carpet"
+	icon_state = "tile-carpet-cyan"
+	turf_type = /turf/simulated/floor/carpet/cyan
+
+/obj/item/stack/tile/carpet/cyan/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/green
+	name = "green carpet"
+	icon_state = "tile-carpet-green"
+	turf_type = /turf/simulated/floor/carpet/green
+
+/obj/item/stack/tile/carpet/green/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/orange
+	name = "orange carpet"
+	icon_state = "tile-carpet-orange"
+	turf_type = /turf/simulated/floor/carpet/orange
+
+/obj/item/stack/tile/carpet/orange/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/purple
+	name = "purple carpet"
+	icon_state = "tile-carpet-purple"
+	turf_type = /turf/simulated/floor/carpet/purple
+
+/obj/item/stack/tile/carpet/purple/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/red
+	name = "red carpet"
+	icon_state = "tile-carpet-red"
+	turf_type = /turf/simulated/floor/carpet/red
+
+/obj/item/stack/tile/carpet/red/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/royalblack
+	name = "royal black carpet"
+	icon_state = "tile-carpet-royalblack"
+	turf_type = /turf/simulated/floor/carpet/royalblack
+
+/obj/item/stack/tile/carpet/royalblack/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/royalblue
+	name = "royal blue carpet"
+	icon_state = "tile-carpet-royalblue"
+	turf_type = /turf/simulated/floor/carpet/royalblue
+
+/obj/item/stack/tile/carpet/royalblue/twenty
+	amount = 20
+
 //Plasteel
 /obj/item/stack/tile/plasteel
 	name = "floor tiles"

@@ -48,9 +48,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/judge,
 		/datum/job/blueshield,
 		/datum/job/nanotrasenrep,
-		/datum/job/pilot,
 		/datum/job/brigdoc,
-		/datum/job/mechanic,
 		/datum/job/barber,
 		/datum/job/chaplain
 	)
