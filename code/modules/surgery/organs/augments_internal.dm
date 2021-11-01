@@ -292,6 +292,10 @@
 		return
 	if(owner.stat == DEAD)
 		return
+	if(owner.mind != null && owner.mind.vampire != null)
+		return
+	if(ismachineperson(owner))
+		return
 	if(owner.nutrition <= hunger_threshold)
 		synthesizing = TRUE
 		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
