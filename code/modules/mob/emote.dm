@@ -75,6 +75,18 @@
 			if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
 				M.show_message(message)
 
+		// Coloring text for runechat
+		var/speaker_name = src.name
+		if(ishuman(src))
+			var/mob/living/carbon/human/H = src
+			speaker_name = H.GetVoice()
+
+		if(isobserver(src))
+			if(speaker_name != src.real_name && src.real_name)
+				speaker_name = "[src.real_name] ([speaker_name])"
+
+		colorize_name(src, speaker_name)
+
 		// Type 1 (Visual) emotes are sent to anyone in view of the item
 		if(m_type & EMOTE_VISUAL)
 			var/list/can_see = get_mobs_in_view(1,src)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
@@ -90,6 +102,8 @@
 						M.show_message(message, m_type)
 
 				O.show_message(message, m_type)
+				if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+					O.create_chat_message(src, input, FALSE, TRUE, TRUE)
 
 		// Type 2 (Audible) emotes are sent to anyone in hear range
 		// of the *LOCATION* -- this is important for pAIs to be heard
@@ -105,6 +119,9 @@
 						M.show_message(message, m_type)
 
 				O.show_message(message, m_type)
+				if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+					O.create_chat_message(src, input, FALSE, TRUE, TRUE)
+		return 1
 
 /mob/proc/emote_dead(var/message)
 	if(client.prefs.muted & MUTE_DEADCHAT)

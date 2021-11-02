@@ -155,94 +155,94 @@
 		if("howl", "howls")
 			var/M = handle_emote_param(param)
 			if(miming)
-				message = "<B>[src]</B> делает вид что воет[M ? " на [M]" : ""]!"
+				message = "делает вид что воет[M ? " на [M]" : ""]!"
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> воет[M ? " на [M]" : ""]!"
+					message = "воет[M ? " на [M]" : ""]!"
 					playsound(loc, 'sound/goonstation/voice/howl.ogg', 100, 1, 10, frequency = get_age_pitch())
 					m_type = 2
 				else
-					message = "<B>[src]</B> издает очень громкий шум[M ? " на [M]" : ""]."
+					message = "издает очень громкий шум[M ? " на [M]" : ""]."
 					playsound(loc, 'sound/goonstation/voice/howl.ogg', 25, 1, 10, frequency = get_age_pitch())
 					m_type = 2
 
 		if("growl", "growls")
 			var/M = handle_emote_param(param)
-			message = "<B>[src]</B> рычит[M ? " на [M]" : ""]."
+			message = "рычит[M ? " на [M]" : ""]."
 			playsound(loc, "growls", !muzzled ? 80:25, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("purr", "purrs")
-			message = "<B>[src]</B> мурчит."
+			message = "мурчит."
 			playsound(src, 'sound/voice/cat_purr.ogg', 80, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("purrl")
-			message = "<B>[src]</B> мурчит."
+			message = "мурчит."
 			playsound(src, 'sound/voice/cat_purr_long.ogg', 80, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("ping", "pings")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> звенит[M ? " на [M]" : ""]."
+			message = "звенит[M ? " на [M]" : ""]."
 			playsound(loc, 'sound/machines/ping.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("buzz2")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> издает раздраженный жужжащий звук[M ? " на [M]" : ""]."
+			message = "издает раздраженный жужжащий звук[M ? " на [M]" : ""]."
 			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("buzz", "buzzes")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> жужжит[M ? " на [M]" : ""]."
+			message = "жужжит[M ? " на [M]" : ""]."
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("beep", "beeps")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> пищит[M ? " на [M]" : ""]."
+			message = "пищит[M ? " на [M]" : ""]."
 			playsound(loc, 'sound/machines/twobeep.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("drone", "drones", "hum", "hums", "rumble", "rumbles")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> [M ? "грохочет на [M]" : "грохочет"]."
+			message = "[M ? "грохочет на [M]" : "грохочет"]."
 			playsound(loc, 'sound/voice/drasktalk.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("squish", "squishes")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> хлюпает[M ? " на [M]" : ""]."
+			message = "хлюпает[M ? " на [M]" : ""]."
 			playsound(loc, 'sound/effects/slime_squish.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
 		if("clack", "clacks")
 			var/M = handle_emote_param(param)
 			mineral_scan_pulse(get_turf(src), range = world.view)
-			message = "<B>[src]</B> трещит своей нижней челюстью[M ? " на [M]" : ""]."
+			message = "трещит своей нижней челюстью[M ? " на [M]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
 		if("click", "clicks")
 			var/M = handle_emote_param(param)
 			mineral_scan_pulse(get_turf(src), range = world.view)
-			message = "<B>[src]</B> щелкает своей нижней челюстью[M ? " на [M]" : ""]."
+			message = "щелкает своей нижней челюстью[M ? " на [M]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
 		if("creaks", "creak")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> скрипит[M ? " на [M]" : ""]."
+			message = "скрипит[M ? " на [M]" : ""]."
 			playsound(loc, 'sound/voice/dionatalk1.ogg', 50, 1, frequency = get_age_pitch()) //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 			m_type = 2
 
@@ -250,50 +250,50 @@
 			var/M = handle_emote_param(param)
 
 			if(!muzzled)
-				message = "<B>[src]</B> шипит[M ? " на [M]" : ""]."
+				message = "шипит[M ? " на [M]" : ""]."
 				playsound(loc, 'sound/effects/unathihiss.ogg', 50, 1, frequency = get_age_pitch()) //Credit to Jamius (freesound.org) for the sound.
 				m_type = 2
 			else
-				message = "<B>[src]</B> тихо шипит."
+				message = "тихо шипит."
 				m_type = 2
 
 		if("quill", "quills")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> шуршит своими перьями[M ? " на [M]" : ""]."
+			message = "шуршит своими перьями[M ? " на [M]" : ""]."
 			playsound(loc, 'sound/effects/voxrustle.ogg', 50, 1, frequency = get_age_pitch()) //Credit to sound-ideas (freesfx.co.uk) for the sound.
 			m_type = 2
 
 		if("warble", "warbles")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> издает трель[M ? " на [M]" : ""]."
+			message = "издает трель[M ? " на [M]" : ""]."
 			playsound(loc, 'sound/effects/warble.ogg', 50, 1, frequency = get_age_pitch()) // Copyright CC BY 3.0 alienistcog (freesound.org) for the sound.
 			m_type = 2
 
 		if("yes")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> испускает утвердительный сигнал[M ? " для [M]" : ""]."
+			message = "испускает утвердительный сигнал[M ? " для [M]" : ""]."
 			playsound(loc, 'sound/machines/synth_yes.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("no")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> испускает отрицательный сигнал[M ? " для [M]" : ""]."
+			message = "испускает отрицательный сигнал[M ? " для [M]" : ""]."
 			playsound(loc, 'sound/machines/synth_no.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("wag", "wags")
 			if(body_accessory)
 				if(body_accessory.try_restrictions(src))
-					message = "<B>[src]</B> начинает махать хвостом."
+					message = "начинает махать хвостом."
 					start_tail_wagging()
 
 			else if(dna.species.bodyflags & TAIL_WAGGING)
 				if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL))
-					message = "<B>[src]</B> начинает махать хвостом."
+					message = "начинает махать хвостом."
 					start_tail_wagging()
 				else
 					return
@@ -303,7 +303,7 @@
 
 		if("swag", "swags")
 			if(dna.species.bodyflags & TAIL_WAGGING || body_accessory)
-				message = "<B>[src]</B> прекращает махать хвостом."
+				message = "прекращает махать хвостом."
 				stop_tail_wagging()
 			else
 				return
@@ -311,77 +311,77 @@
 
 		if("scratch")
 			if(!restrained())
-				message = "<B>[src]</B> чешется."
+				message = "чешется."
 				m_type = 1
 
 		if("airguitar")
 			if(!restrained())
-				message = "<B>[src]</B> делает невероятный запил на воображаемой гитаре!"
+				message = "делает невероятный запил на воображаемой гитаре!"
 				m_type = 1
 
 		if("dance")
 			if(!restrained())
-				message = "<B>[src]</B> радостно танцует!"
+				message = "радостно танцует!"
 				m_type = 1
 
 		if("jump")
 			if(!restrained())
-				message = "<B>[src]</B> прыгает!"
+				message = "прыгает!"
 				m_type = 1
 
 		if("blink", "blinks")
-			message = "<B>[src]</B> моргает."
+			message = "моргает."
 			m_type = 1
 
 		if("blink_r", "blinks_r")
-			message = "<B>[src]</B> быстро моргает."
+			message = "быстро моргает."
 			m_type = 1
 
 		if("bow", "bows")
 			if(!restrained())
 				var/M = handle_emote_param(param)
 
-				message = "<B>[src]</B> делает поклон[M ? " [M]" : ""]."
+				message = "делает поклон[M ? " [M]" : ""]."
 			m_type = 1
 
 		if("salute", "salutes")
 			if(!restrained())
 				var/M = handle_emote_param(param)
 
-				message = "<B>[src]</B> салютует[M ? " [M]" : ""]!"
+				message = "салютует[M ? " [M]" : ""]!"
 				playsound(loc, 'sound/effects/salute.ogg', 50, 0)
 			m_type = 1
 
 		if("choke", "chokes")
 			if(miming)
-				message = "<B>[src]</B> отчаяно хватается за свое горло!"
+				message = "отчаяно хватается за свое горло!"
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> подавился!"
+					message = "подавился!"
 					if(gender == FEMALE)
 						playsound(src, pick('sound/voice/gasp_female1.ogg','sound/voice/gasp_female2.ogg','sound/voice/gasp_female3.ogg','sound/voice/gasp_female4.ogg','sound/voice/gasp_female5.ogg','sound/voice/gasp_female6.ogg','sound/voice/gasp_female7.ogg'), 50, 1, frequency = get_age_pitch())
 					else
 						playsound(src, pick('sound/voice/gasp_male1.ogg','sound/voice/gasp_male2.ogg','sound/voice/gasp_male3.ogg','sound/voice/gasp_male4.ogg','sound/voice/gasp_male5.ogg','sound/voice/gasp_male6.ogg','sound/voice/gasp_male7.ogg'), 50, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
-					message = "<B>[src]</B> издает сильный шум."
+					message = "издает сильный шум."
 					m_type = 2
 
 		if("burp", "burps")
 			if(miming)
-				message = "<B>[src]</B> мерзко разевает рот."
+				message = "мерзко разевает рот."
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> рыгает."
+					message = "рыгает."
 					m_type = 2
 				else
-					message = "<B>[src]</B> издает своеобразный шум."
+					message = "издает своеобразный шум."
 					m_type = 2
 		if("clap", "claps")
 			if(miming)
-				message = "<B>[src]</B> бесшумно хлопает."
+				message = "бесшумно хлопает."
 				m_type = 1
 			else
 				m_type = 2
@@ -397,7 +397,7 @@
 					right_hand_good = TRUE
 
 				if(left_hand_good && right_hand_good)
-					message = "<b>[src]</b> хлопает."
+					message = "хлопает."
 					var/clap = pick('sound/misc/clap1.ogg', 'sound/misc/clap2.ogg', 'sound/misc/clap3.ogg', 'sound/misc/clap4.ogg')
 					playsound(loc, clap, 50, 1, -1)
 
@@ -406,7 +406,7 @@
 
 		if("flap", "flaps")
 			if(!restrained())
-				message = "<B>[src]</B> машет крыльями."
+				message = "машет крыльями."
 				m_type = 2
 				if(miming)
 					m_type = 1
@@ -425,13 +425,13 @@
 
 				if(M)
 					if(lying)
-						message = "<B>[src]</B> упал на пол и кружится."
+						message = "упал на пол и кружится."
 					else
-						message = "<B>[src]</B> кувыркается в направлении [M]."
+						message = "кувыркается в направлении [M]."
 						SpinAnimation(5,1)
 				else
 					if(lying || IsWeakened())
-						message = "<B>[src]</B> кружится лежа."
+						message = "кружится лежа."
 					else
 						var/obj/item/grab/G
 						if(istype(get_active_hand(), /obj/item/grab))
@@ -447,54 +447,54 @@
 								forceMove(newloc)
 								G.glide_for(6)
 								G.affecting.forceMove(oldloc)
-								message = "<B>[src]</B> делает кувырок через [G.affecting]!"
+								message = "делает кувырок через [G.affecting]!"
 						else
 							if(prob(5))
-								message = "<B>[src]</B> пытается кувыркнуться и с грохотом падает на пол!"
+								message = "пытается кувыркнуться и с грохотом падает на пол!"
 								SpinAnimation(5,1)
 								sleep(3)
 								Weaken(2)
 							else
-								message = "<B>[src]</B> делает кувырок!"
+								message = "делает кувырок!"
 								SpinAnimation(5,1)
 
 		if("aflap", "aflaps")
 			if(!restrained())
-				message = "<B>[src]</B> агрессивно машет крыльями!"
+				message = "агрессивно машет крыльями!"
 				m_type = 2
 				if(miming)
 					m_type = 1
 
 		if("drool", "drools")
-			message = "<B>[src]</B> неразборчиво бурчит."
+			message = "неразборчиво бурчит."
 			m_type = 1
 
 		if("eyebrow")
-			message = "<B>[src]</B> приподнимает бровь."
+			message = "приподнимает бровь."
 			m_type = 1
 
 		if("chuckle", "chuckles")
 			if(miming)
-				message = "<B>[src]</B> кажется усмехается."
+				message = "кажется усмехается."
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> усмехается."
+					message = "усмехается."
 					m_type = 2
 				else
-					message = "<B>[src]</B> издает шум."
+					message = "издает шум."
 					m_type = 2
 
 		if("twitch", "twitches")
-			message = "<B>[src]</B> сильно дергается!"
+			message = "сильно дергается!"
 			m_type = 1
 
 		if("twitch_s", "twitches_s")
-			message = "<B>[src]</B> дергается."
+			message = "дергается."
 			m_type = 1
 
 		if("faint", "faints")
-			message = "<B>[src]</B> падает в обморок!"
+			message = "падает в обморок!"
 			if(sleeping)
 				return //Can't faint while asleep
 			AdjustSleeping(2)
@@ -502,11 +502,11 @@
 
 		if("cough", "coughs")
 			if(miming)
-				message = "<B>[src]</B> кажется кашляет!"
+				message = "кажется кашляет!"
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> кашляет!"
+					message = "кашляет!"
 					m_type = 2
 					if(gender == FEMALE)
 						if(dna.species.female_cough_sounds)
@@ -515,42 +515,42 @@
 						if(dna.species.male_cough_sounds)
 							playsound(src, pick(dna.species.male_cough_sounds), 120, 1, frequency = get_age_pitch())
 				else
-					message = "<B>[src]</B> издает сильный шум."
+					message = "издает сильный шум."
 					m_type = 2
 
 		if("frown", "frowns")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> хмурится[M ? " на [M]" : ""]."
+			message = "хмурится[M ? " на [M]" : ""]."
 			m_type = 1
 
 		if("nod", "nods")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> кивает[M ? " на [M]" : ""]."
+			message = "кивает[M ? " на [M]" : ""]."
 			m_type = 1
 
 		if("blush", "blushes")
-			message = "<B>[src]</B> краснеет..."
+			message = "краснеет..."
 			m_type = 1
 
 		if("wave", "waves")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> машет[M ? " [M]" : ""]."
+			message = "машет[M ? " [M]" : ""]."
 			m_type = 1
 
 		if("quiver", "quivers")
-			message = "<B>[src]</B> трепещет."
+			message = "трепещет."
 			m_type = 1
 
 		if("gasp", "gasps")
 			if(miming)
-				message = "<B>[src]</B> кажется задыхается!"
+				message = "кажется задыхается!"
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> задыхается!"
+					message = "задыхается!"
 					if(health <= 0)
 						if(gender == FEMALE)
 							playsound(loc, pick(dna.species.female_dying_gasp_sounds), 100, 1, frequency = get_age_pitch())
@@ -561,113 +561,113 @@
 						playsound(loc, dna.species.gasp_sound, 50, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
-					message = "<B>[src]</B> издает слабый шум."
+					message = "издает слабый шум."
 					m_type = 2
 
 		if("deathgasp", "deathgasps")
-			message = "<B>[src]</B> [dna.species.death_message]"
+			message = "[dna.species.death_message]"
 			playsound(loc, pick(dna.species.death_sounds), 50, 1, frequency = get_age_pitch())
 			m_type = 1
 
 		if("giggle", "giggles")
 			if(miming)
-				message = "<B>[src]</B> бесшумно хихикает!"
+				message = "бесшумно хихикает!"
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> хихикает."
+					message = "хихикает."
 					if(gender == FEMALE)
 						playsound(src, pick('sound/voice/giggle_female_1.ogg','sound/voice/giggle_female_2.ogg','sound/voice/giggle_female_3.ogg'), 70, 1, frequency = get_age_pitch())
 					else
 						playsound(src, pick('sound/voice/giggle_male_1.ogg','sound/voice/giggle_male_2.ogg'), 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
-					message = "<B>[src]</B> издает шум."
+					message = "издает шум."
 					m_type = 2
 
 		if("glare", "glares")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> недовольно смотрит[M ? " на [M]" : ""]."
+			message = "недовольно смотрит[M ? " на [M]" : ""]."
 			m_type = 1
 
 		if("stare", "stares")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> пялится[M ? " на [M]" : ""]."
+			message = "пялится[M ? " на [M]" : ""]."
 			m_type = 1
 
 		if("look", "looks")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> смотрит[M ? " на [M]" : ""]."
+			message = "смотрит[M ? " на [M]" : ""]."
 			m_type = 1
 
 		if("grin", "grins")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> скалится в улыбке[M ? " на [M]" : ""]."
+			message = "скалится в улыбке[M ? " на [M]" : ""]."
 			m_type = 1
 
 		if("cry", "cries")
 			if(miming)
-				message = "<B>[src]</B> плачет."
+				message = "плачет."
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> плачет."
+					message = "плачет."
 					if(gender == FEMALE)
 						playsound(src, pick('sound/voice/cry_female_1.ogg','sound/voice/cry_female_2.ogg','sound/voice/cry_female_3.ogg'), 70, 1, frequency = get_age_pitch())
 					else
 						playsound(src, pick('sound/voice/cry_male_1.ogg','sound/voice/cry_male_2.ogg'), 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
-					message = "<B>[src]</B> издает слабый шум и хмурится."
+					message = "издает слабый шум и хмурится."
 					m_type = 2
 
 		if("sigh", "sighs")
 			if(miming)
-				message = "<B>[src]</B> вздыхает."
+				message = "вздыхает."
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> вздыхает."
+					message = "вздыхает."
 					if(gender == FEMALE)
 						playsound(src, 'sound/voice/sigh_female.ogg', 70, 1, frequency = get_age_pitch())
 					else
 						playsound(src, 'sound/voice/sigh_male.ogg', 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
-					message = "<B>[src]</B> издает слабый шум."
+					message = "издает слабый шум."
 					m_type = 2
 
 		if("hsigh", "hsighs")
 			if(!muzzled)
-				message = "<B>[src]</B> удовлетворенно вздыхает."
+				message = "удовлетворенно вздыхает."
 				m_type = 2
 			else
-				message = "<B>[src]</B> издает [pick("спокойный", "расслабленный")] шум."
+				message = "издает [pick("спокойный", "расслабленный")] шум."
 				m_type = 2
 
 		if("laugh", "laughs")
 			var/M = handle_emote_param(param)
 			if(miming)
-				message = "<B>[src]</B> бесшумно смеется[M ? " над [M]" : ""]."
+				message = "бесшумно смеется[M ? " над [M]" : ""]."
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> смеется[M ? " над [M]" : ""]."
+					message = "смеется[M ? " над [M]" : ""]."
 					if(gender == FEMALE)
 						playsound(src, pick('sound/voice/laugh_female_1.ogg','sound/voice/laugh_female_2.ogg','sound/voice/laugh_female_3.ogg'), 70, 1, frequency = get_age_pitch())
 					else
 						playsound(src, pick('sound/voice/laugh_male_1.ogg','sound/voice/laugh_male_2.ogg','sound/voice/laugh_male_3.ogg'), 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
-					message = "<B>[src]</B> издает шум."
+					message = "издает шум."
 					m_type = 2
 
 		if("mumble", "mumbles")
-			message = "<B>[src]</B> бормочет!"
+			message = "бормочет!"
 			m_type = 2
 			if(miming)
 				m_type = 1
@@ -675,37 +675,37 @@
 		if("grumble", "grumbles")
 			var/M = handle_emote_param(param)
 			if(miming)
-				message = "<B>[src]</B> бесшумно ворчит[M ? " на [M]" : ""]!"
+				message = "бесшумно ворчит[M ? " на [M]" : ""]!"
 				m_type = 1
 			if(!muzzled)
-				message = "<B>[src]</B> ворчит[M ? " на [M]" : ""]!"
+				message = "ворчит[M ? " на [M]" : ""]!"
 				m_type = 2
 			else
-				message = "<B>[src]</B> издает шум."
+				message = "издает шум."
 				m_type = 2
 
 		if("groan", "groans")
 			if(miming)
-				message = "<B>[src]</B> кажется болезненно вздыхает!"
+				message = "кажется болезненно вздыхает!"
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> болезненно вздыхает!"
+					message = "болезненно вздыхает!"
 					m_type = 2
 				else
-					message = "<B>[src]</B> издает громкий звук."
+					message = "издает громкий звук."
 					m_type = 2
 
 		if("moan", "moans")
 			if(miming)
-				message = "<B>[src]</B> кажется стонет!"
+				message = "кажется стонет!"
 				if(gender == FEMALE)
 					playsound(src, pick('sound/voice/moan_female_1.ogg','sound/voice/moan_female_2.ogg','sound/voice/moan_female_3.ogg'), 70, 1, frequency = get_age_pitch())
 				else
 					playsound(src, pick('sound/voice/moan_male_1.ogg','sound/voice/moan_male_2.ogg','sound/voice/moan_male_3.ogg'), 70, 1, frequency = get_age_pitch())
 				m_type = 1
 			else
-				message = "<B>[src]</B> стонет!"
+				message = "стонет!"
 				m_type = 2
 
 		if("johnny")
@@ -716,10 +716,10 @@
 				param = null
 			else
 				if(miming)
-					message = "<B>[src]</B> takes a drag from a cigarette and blows \"[M]\" out in smoke."
+					message = "takes a drag from a cigarette and blows \"[M]\" out in smoke."
 					m_type = 1
 				else
-					message = "<B>[src]</B> says, \"[M], please. They had a family.\" [name] takes a drag from a cigarette and blows [p_their()] name out in smoke."
+					message = "says, \"[M], please. They had a family.\" [name] takes a drag from a cigarette and blows [p_their()] name out in smoke."
 					m_type = 2
 
 		if("point", "points")
@@ -732,24 +732,24 @@
 							break
 
 				if(!M)
-					message = "<B>[src]</B> показывает пальцем."
+					message = "показывает пальцем."
 				else
 					pointed(M)
 			m_type = 1
 
 		if("raise", "raises")
 			if(!restrained())
-				message = "<B>[src]</B> поднимает руку."
+				message = "поднимает руку."
 			m_type = 1
 
 		if("shake", "shakes")
 			var/M = handle_emote_param(param, 1) //Check to see if the param is valid (mob with the param name is in view) but exclude ourselves.
 
-			message = "<B>[src]</B> трясет головой[M ? " на [M]" : ""]."
+			message = "трясет головой[M ? " на [M]" : ""]."
 			m_type = 1
 
 		if("shrug", "shrugs")
-			message = "<B>[src]</B> пожимает плечами."
+			message = "пожимает плечами."
 			m_type = 1
 
 		if("signal", "signals")
@@ -757,101 +757,101 @@
 				var/t1 = round(text2num(param))
 				if(isnum(t1))
 					if(t1 < 5 && t1 > 1 && (!r_hand || !l_hand))
-						message = "<B>[src]</B> показывает [t1] пальца."
+						message = "показывает [t1] пальца."
 					else if(t1 == 1 && (!r_hand || !l_hand))
-						message = "<B>[src]</B> показывает 1 палец."
+						message = "показывает 1 палец."
 					else if(t1 == 5 && (!r_hand || !l_hand))
-						message = "<B>[src]</B> показывает 5 пальцев."
+						message = "показывает 5 пальцев."
 					else if(t1 <= 10 && t1 >= 1 && (!r_hand && !l_hand))
-						message = "<B>[src]</B> показывает [t1] пальцев."
+						message = "показывает [t1] пальцев."
 			m_type = 1
 
 		if("smile", "smiles")
 			var/M = handle_emote_param(param, 1)
 
-			message = "<B>[src]</B> улыбается[M ? " [M]" : ""]."
+			message = "улыбается[M ? " [M]" : ""]."
 			m_type = 1
 
 		if("shiver", "shivers")
-			message = "<B>[src]</B> дрожит."
+			message = "дрожит."
 			m_type = 2
 			if(miming)
 				m_type = 1
 
 		if("pale", "pales")
-			message = "<B>[src]</B> на секунду бледнеет...."
+			message = "на секунду бледнеет...."
 			m_type = 1
 
 		if("tremble", "trembles")
-			message = "<B>[src]</B> дрожит в ужасе!"
+			message = "дрожит в ужасе!"
 			m_type = 1
 
 		if("shudder", "shudders")
-			message = "<B>[src]</B> содрогается."
+			message = "содрогается."
 			m_type = 1
 
 		if("bshake", "bshakes")
-			message = "<B>[src]</B> трясется."
+			message = "трясется."
 			m_type = 1
 
 		if("sneeze", "sneezes")
 			if(miming)
-				message = "<B>[src]</B> чихает."
+				message = "чихает."
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> чихает."
+					message = "чихает."
 					if(gender == FEMALE)
 						playsound(src, dna.species.female_sneeze_sound, 70, 1, frequency = get_age_pitch())
 					else
 						playsound(src, dna.species.male_sneeze_sound, 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
-					message = "<B>[src]</B> издает странный шум."
+					message = "издает странный шум."
 					m_type = 2
 
 		if("sniff", "sniffs")
 			var/M = handle_emote_param(param, 1)
 
-			message = "<B>[src]</B> нюхает[M ? " [M]" : ""]."
+			message = "нюхает[M ? " [M]" : ""]."
 			m_type = 2
 			if(miming)
 				m_type = 1
 
 		if("snore", "snores")
 			if(miming)
-				message = "<B>[src]</B> крепко спит."
+				message = "крепко спит."
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> храпит."
+					message = "храпит."
 					playsound(src, pick('sound/voice/snore_1.ogg', 'sound/voice/snore_2.ogg','sound/voice/snore_3.ogg', 'sound/voice/snore_4.ogg','sound/voice/snore_5.ogg', 'sound/voice/snore_6.ogg','sound/voice/snore_7.ogg'), 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
-					message = "<B>[src]</B> издает шум."
+					message = "издает шум."
 					m_type = 2
 
 		if("whimper", "whimpers")
 			if(miming)
-				message = "<B>[src]</B> кажется ранен."
+				message = "кажется ранен."
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> хнычет."
+					message = "хнычет."
 					m_type = 2
 				else
-					message = "<B>[src]</B> издает слабый шум."
+					message = "издает слабый шум."
 					m_type = 2
 
 		if("wink", "winks")
 			var/M = handle_emote_param(param, 1)
 
-			message = "<B>[src]</B> подмигивает[M ? " [M]" : ""]."
+			message = "подмигивает[M ? " [M]" : ""]."
 			m_type = 1
 
 		if("yawn", "yawns")
 			if(!muzzled)
-				message = "<B>[src]</B> зевает."
+				message = "зевает."
 				if(gender == FEMALE)
 					playsound(src, pick('sound/voice/yawn_female_1.ogg', 'sound/voice/yawn_female_2.ogg','sound/voice/yawn_female_3.ogg'), 70, 1, frequency = get_age_pitch())
 				else
@@ -862,7 +862,7 @@
 
 		if("collapse", "collapses")
 			Paralyse(2)
-			message = "<B>[src]</B> падает!"
+			message = "падает!"
 			m_type = 2
 			if(miming)
 				m_type = 1
@@ -873,9 +873,9 @@
 				var/M = handle_emote_param(param, 1, 1) //Check to see if the param is valid (mob with the param name is in view) but exclude ourselves and only check mobs in our immediate vicinity (1 tile distance).
 
 				if(M)
-					message = "<B>[src]</B> обнимает [M]."
+					message = "обнимает [M]."
 				else
-					message = "<B>[src]</B> обнимает сам себя."
+					message = "обнимает сам себя."
 
 		if("handshake")
 			m_type = 1
@@ -884,9 +884,9 @@
 
 				if(M)
 					if(M.canmove && !M.r_hand && !M.restrained())
-						message = "<B>[src]</B> пожимает руку [M]."
+						message = "пожимает руку [M]."
 					else
-						message = "<B>[src]</B> протягивает руку [M]."
+						message = "протягивает руку [M]."
 
 		if("dap", "daps")
 			m_type = 1
@@ -894,9 +894,9 @@
 				var/M = handle_emote_param(param, null, 1)
 
 				if(M)
-					message = "<B>[src]</B> gives daps to [M]."
+					message = "gives daps to [M]."
 				else
-					message = "<B>[src]</B> sadly can't find anybody to give daps to, and daps [p_them()]self. Shameful."
+					message = "sadly can't find anybody to give daps to, and daps [p_them()]self. Shameful."
 
 		if("slap", "slaps")
 			m_type = 1
@@ -906,13 +906,13 @@
 				if(M)
 					for(var/mob/living/carbon/human/A in view(1, null))
 						if(lowertext(M) == lowertext(A.name))
-							message = "<span class='danger'>[src] шлепает [M]. Оу!</span>"
+							message = "<span class='danger'>шлепает [M]. Оу!</span>"
 							playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 							var/obj/item/organ/external/O = A.get_organ(src.zone_selected)
 							if(O.brute_dam < 5)
 								O.receive_damage(1)
 				else
-					message = "<span class='danger'>[src] шлепает себя!</span>"
+					message = "<span class='danger'>шлепает себя!</span>"
 					playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 					var/obj/item/organ/external/O = src.get_organ(src.zone_selected)
 					if(O.brute_dam < 5)
@@ -921,11 +921,11 @@
 		if("scream", "screams")
 			var/M = handle_emote_param(param)
 			if(miming)
-				message = "<B>[src]</B> делает вид что кричит[M ? " на [M]" : ""]!"
+				message = "делает вид что кричит[M ? " на [M]" : ""]!"
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> [dna.species.scream_verb][M ? " на [M]" : ""]!"
+					message = "[dna.species.scream_verb][M ? " на [M]" : ""]!"
 					m_type = 2
 					if(gender == FEMALE)
 						playsound(loc, dna.species.female_scream_sound, 80, 1, frequency = get_age_pitch())
@@ -933,20 +933,20 @@
 						playsound(loc, dna.species.male_scream_sound, 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
 
 				else
-					message = "<B>[src]</B> издает очень громкий шум[M ? " в сторону [M]" : ""]."
+					message = "издает очень громкий шум[M ? " в сторону [M]" : ""]."
 					m_type = 2
 
 		if("whistle", "whistles")
 			if(miming)
-				message = "<B>[src]</B> бесшумно свистит."
+				message = "бесшумно свистит."
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> свистит."
+					message = "свистит."
 					playsound(src, 'sound/voice/whistle.ogg', 70)
 					m_type = 2
 				else
-					message = "<B>[src]</B> издает шум."
+					message = "издает шум."
 					m_type = 2
 
 		if("snap", "snaps")
@@ -968,10 +968,10 @@
 
 				var/M = handle_emote_param(param)
 
-				message = "<b>[src]</b> щелкает пальцами[M ? " в сторону [M]" : ""]."
+				message = "щелкает пальцами[M ? " в сторону [M]" : ""]."
 				playsound(loc, 'sound/effects/fingersnap.ogg', 50, 1, -3)
 			else
-				message = "<span class='danger'><b>[src]</b> ломает себе палец!</span>"
+				message = "<span class='danger'>ломает себе палец!</span>"
 				playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 
 		if("fart", "farts")
@@ -979,11 +979,11 @@
 			for(var/atom/A in get_turf(src))
 				farted_on_thing += A.fart_act(src)
 			if(!farted_on_thing)
-				message = "<b>[src]</b> [pick("пускает газы", "пердит")]."
+				message = "[pick("пускает газы", "пердит")]."
 			m_type = 2
 
 		if("hem")
-			message = "<b>[src]</b> хмыкает."
+			message = "хмыкает."
 
 		if("highfive")
 			if(restrained())
@@ -1055,26 +1055,11 @@
 			to_chat(src, "<span class='notice'>Неизвестный эмоут '[act]'. Введи *help для отображения списка.</span>")
 
 	if(message) //Humans are special fucking snowflakes and have 800 lines of emotes, they get to handle their own emotes, not call the parent.
-		log_emote(message, src)
-
- //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
- // Maybe some people are okay with that.
-
-		for(var/mob/M in GLOB.dead_mob_list)
-			if(!M.client)
-				continue
-
-			if(isnewplayer(M))
-				continue
-
-			if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
-				M.show_message(message)
-
 		switch(m_type)
 			if(1)
-				visible_message(message)
+				custom_emote(EMOTE_VISUAL, message)
 			if(2)
-				audible_message(message)
+				custom_emote(EMOTE_SOUND, message)
 
 /mob/living/carbon/human/verb/pose()
 	set name = "Set Pose"

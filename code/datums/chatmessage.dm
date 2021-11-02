@@ -57,7 +57,7 @@
   * * italics - Should we use italics or not
   * * lifespan - The lifespan of the message in deciseconds
   */
-/datum/chatmessage/New(text, atom/target, mob/owner, radio_speech, italics, lifespan = CHAT_MESSAGE_LIFESPAN)
+/datum/chatmessage/New(text, atom/target, mob/owner, radio_speech, italics, emote, lifespan = CHAT_MESSAGE_LIFESPAN)
 	. = ..()
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
@@ -65,7 +65,7 @@
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)
 		return
-	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner, radio_speech, lifespan, italics)
+	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner, radio_speech, lifespan, italics, emote)
 
 /datum/chatmessage/Destroy()
 	if (owned_by)
@@ -95,7 +95,7 @@
   * * lifespan - The lifespan of the message in deciseconds
   * * italics - Just copy and paste, sir
   */
-/datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, radio_speech, lifespan, italics)
+/datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, radio_speech, lifespan, italics, emote)
 	if(!owner && !owner.client)
 		qdel(src)
 		return
@@ -131,6 +131,10 @@
 	if (radio_speech)
 		var/image/r_icon = image('icons/effects/chat_icons.dmi', icon_state = "radio")
 		text =  "\icon[r_icon]&nbsp;" + text
+	// Append emote icon
+	if (emote)
+		var/image/e_icon = image('icons/effects/chat_icons.dmi', icon_state = "emote")
+		text =  "\icon[e_icon]&nbsp;" + text
 
 	// We dim italicized text to make it more distinguishable from regular text
 	var/tgt_color = radio_speech ? target.chat_color_darkened : target.chat_color
@@ -199,10 +203,10 @@
   * * italics - Vacuum and other things
   * * radio_speech - Should we use radio speech icon
   */
-/mob/proc/create_chat_message(atom/movable/speaker, raw_message, radio_speech, italics = FALSE)
+/mob/proc/create_chat_message(atom/movable/speaker, raw_message, radio_speech, italics = FALSE, emote = FALSE)
 	if(SStimer.can_fire && SSrunechat.can_fire) // Disable Runechat if SSTimer or SSRunechat stopped
 		// Display visual above source
-		new /datum/chatmessage(raw_message, speaker, src, radio_speech, italics)
+		new /datum/chatmessage(raw_message, speaker, src, radio_speech, italics, emote)
 
 /*
 // Tweak these defines to change the available color ranges
