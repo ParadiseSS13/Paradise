@@ -377,7 +377,7 @@
 	category = CAT_MISC
 
 /datum/crafting_recipe/bluecarpet
-	name = "Black Carpet"
+	name = "Blue Carpet"
 	result = list(/obj/item/stack/tile/carpet/blue)
 	time = 20
 	reqs = list(/obj/item/stack/tile/carpet = 1)
@@ -386,7 +386,7 @@
 
 /datum/crafting_recipe/cyancarpet
 	name = "Cyan Carpet"
-	result = list(/obj/item/stack/tile/carpet/blue)
+	result = list(/obj/item/stack/tile/carpet/cyan)
 	time = 20
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/blue, /obj/item/toy/crayon/green)
@@ -418,7 +418,7 @@
 
 /datum/crafting_recipe/redcarpet
 	name = "Red Carpet"
-	result = list(/obj/item/stack/tile/carpet/purple)
+	result = list(/obj/item/stack/tile/carpet/red)
 	time = 20
 	reqs = list(/obj/item/stack/tile/carpet = 1)
 	pathtools = list(/obj/item/toy/crayon/red)

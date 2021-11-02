@@ -5,6 +5,7 @@
 
 ### AffectedArc07
 # Actual Code
+/code/controllers/subsystem/instancing.dm @AffectedArc07
 /code/controllers/subsystem/mapping.dm @AffectedArc07
 /code/controllers/subsystem/ticker.dm @AffectedArc07
 /tgui/ @AffectedArc07
@@ -17,7 +18,6 @@
 # Executables that need to be security-cleared
 dreamchecker.exe @AffectedArc07
 rust_g.dll @AffectedArc07
-
 
 
 ### Fox-McCloud

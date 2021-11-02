@@ -2483,6 +2483,10 @@
 		var/destination
 		var/notify
 		var/obj/item/paper/P
+
+		if(sender)
+			message_admins("[key_name_admin(owner)] has started replying to a fax message from [key_name_admin(sender)]")
+
 		var/use_letterheard = alert("Use letterhead? If so, do not add your own header or a footer. Type and format only your actual message.",,"Nanotrasen","Syndicate", "No")
 		switch(use_letterheard)
 			if("Nanotrasen")

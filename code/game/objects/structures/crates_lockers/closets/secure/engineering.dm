@@ -41,6 +41,7 @@
 	new /obj/item/organ/internal/eyes/cybernetic/meson(src)
 	new /obj/item/clothing/accessory/medal/engineering(src)
 	new /obj/item/holosign_creator/atmos(src)
+	new /obj/item/rcd/preloaded(src)
 
 
 /obj/structure/closet/secure_closet/engineering_electrical

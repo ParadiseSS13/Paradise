@@ -104,3 +104,9 @@
 	desc = "It's a small, disease-ridden rodent."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "mouse_gray"
+
+/obj/item/holder/bunny
+	name = "bunny"
+	desc = "Awww a cute bunny"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "m_bunny"
