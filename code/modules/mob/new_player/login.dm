@@ -5,6 +5,7 @@
 	if(config.player_overflow_cap && config.overflow_server_url)
 		if(!whitelist_check())
 			if(config.player_overflow_cap == 1 || length(GLOB.clients) > config.player_overflow_cap)
+				src << browse(null, "window=privacy_consent")
 				src << link(config.overflow_server_url)
 
 	if(GLOB.join_motd)
