@@ -30,10 +30,14 @@
 	icon_state = SSticker.cultdat?.entity_icon_state
 	name = SSticker.cultdat?.entity_name
 
-	for(var/mob/living/player in GLOB.player_list)
-		if(!isnewplayer(player))
-			to_chat(player, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
-			SEND_SOUND(player, sound(pick('sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg')))
+	var/sound/cry = sound(pick('sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg'))
+
+	for (var/mob/living/player in GLOB.player_list)
+		if (isnewplayer(player))
+			continue
+
+		to_chat(player, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
+		SEND_SOUND(player, cry)
 
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(gamemode)
