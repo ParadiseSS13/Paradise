@@ -191,9 +191,7 @@
 	var/glass_type = null
 
 /obj/item/solar_assembly/attack_hand(mob/user)
-	if(in_storage) // you can always pick it up if it is in storage
-		..()
-	if(!anchored && isturf(loc)) // You can't pick it up
+	if(in_storage || (!anchored && isturf(loc))) // You can't pick it up
 		..()
 
 // Give back the glass type we were supplied with
