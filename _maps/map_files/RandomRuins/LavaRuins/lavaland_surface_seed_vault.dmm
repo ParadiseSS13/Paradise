@@ -141,6 +141,11 @@
 	pixel_x = -12;
 	pixel_y = 2
 	},
+/obj/structure/mirror{
+	dir = 4;
+	pixel_x = -28;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "v" = (
@@ -426,7 +431,7 @@ h
 h
 u
 R
-u
+h
 Q
 a
 a

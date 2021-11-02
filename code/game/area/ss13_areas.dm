@@ -718,18 +718,22 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "yellow"
 
 /area/maintenance/abandonedbar
-	name = "Maintenance Bar"
+	name = "Abandoned Bar"
 	icon_state = "yellow"
 	power_equip = 0
 	power_light = 0
 	power_environ = 0
 
 /area/maintenance/electrical_shop
-	name ="Electronics Den"
+	name = "Electronics Den"
 	icon_state = "yellow"
 
 /area/maintenance/gambling_den
-	name = "Gambling Den"
+	name = "Abandoned Fight Club"
+	icon_state = "yellow"
+
+/area/maintenance/gambling_den/casino
+	name = "Abandoned Casino"
 	icon_state = "yellow"
 
 /area/maintenance/consarea
@@ -737,7 +741,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "yellow"
 
 /area/maintenance/engrooms
-	name = "Abadoned Engineers Rooms"
+	name = "Abandoned Engineers Rooms"
 	icon_state = "yellow"
 
 /area/maintenance/xenozoo
@@ -1204,7 +1208,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "engine"
 
 /area/engine/chiefs_office
-	name = "\improper Chief Engineer's office"
+	name = "\improper Chief Engineer's Office"
 	icon_state = "engine_control"
 
 /area/engine/mechanic_workshop
@@ -1298,13 +1302,18 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "teleporter"
 	ambientsounds = ENGINEERING_SOUNDS
 
+/area/teleporter/abandoned
+    name = "\improper Abandoned Teleporter"
+    icon_state = "teleporter"
+    ambientsounds = ENGINEERING_SOUNDS
+
 /area/gateway
 	name = "\improper Gateway"
 	icon_state = "teleporter"
 	ambientsounds = ENGINEERING_SOUNDS
 
 /area/AIsattele
-	name = "\improper Abandoned Teleporter"
+	name = "\improper Unknown Teleporter"
 	icon_state = "teleporter"
 	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
 	there_can_be_many = TRUE
@@ -1377,7 +1386,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "medbayisoaccess"
 
 /area/medical/cmo
-	name = "\improper Chief Medical Officer's office"
+	name = "\improper Chief Medical Officer's Office"
 	icon_state = "CMO"
 
 /area/medical/cmostore
