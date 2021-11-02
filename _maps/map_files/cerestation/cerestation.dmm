@@ -13761,12 +13761,12 @@
 /turf/simulated/floor/plating,
 /area/quartermaster/miningdock)
 "bmo" = (
-/obj/structure/foodcart,
 /obj/machinery/door_control{
 	id = "kitchen1";
 	name = "Privacy Shutters";
 	pixel_y = -24
 	},
+/obj/machinery/smartfridge/foodcart,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
