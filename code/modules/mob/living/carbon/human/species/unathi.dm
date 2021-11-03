@@ -64,11 +64,13 @@
 	..()
 	lash = new
 	lash.Grant(H)
+	H.mind.offstation_role = TRUE
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	..()
 	if(lash)
 		lash.Remove(H)
+	H.mind.offstation_role = FALSE
 
 /datum/action/innate/tail_lash
 	name = "Tail lash"
