@@ -1,3 +1,5 @@
+#define ORBIT_LOCK_IN 1
+#define ORBIT_FORCE_MOVE 2
 /datum/component/orbiter
 	can_transfer = TRUE
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
@@ -28,11 +30,13 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 
 /datum/component/orbiter/RegisterWithParent()
 	var/atom/target = parent
+	RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/parent_move_react)
 	if (!target.orbiters)
 		target.orbiters = src
 
 /datum/component/orbiter/UnregisterFromParent()
 	var/atom/target = parent
+	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 	if (target.orbiters == src)
 		target.orbiters = null
 
@@ -89,7 +93,12 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	// Save the orbiter's transform so we can restore it when they stop orbiting
 	transform_cache[orbiter] = orbiter.transform
 
-	var/lastloc = orbiter.loc
+	if(lock_in_orbit)
+		orbiter.orbit_params |= ORBIT_LOCK_IN
+	if(force_move)
+		orbiter.orbit_params |= ORBIT_FORCE_MOVE
+
+	RegisterSignal(orbiter, COMSIG_MOVABLE_MOVED, .proc/orbiter_move_react)
 
 	//Head first!
 	if(pre_rotation)
@@ -110,23 +119,11 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	if (!was_orbiting)
 		orbiter.SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
 
-	while(orbiter.orbiting && orbiter.orbiting == src && orbiter.loc)
-		var/targetloc = get_turf(parent)
-		if(!lock_in_orbit && orbiter.loc != lastloc && orbiter.loc != targetloc)
-			break
-		if(force_move)
-			orbiter.forceMove(targetloc)
-		else
-			orbiter.loc = targetloc
-		lastloc = orbiter.loc
-		sleep(0.6)
-
-	// If we start orbiting something else, the cleanup happens at the start of this proc, not here.
-	// This should only happen if we manually stop orbiting, rather than moving to some other target.
-	if(orbiter.orbiting == src)
-		// Only end the spin animation when we're actually ending an orbit, not just changing targets
-		orbiter.SpinAnimation(0, 0, parallel = FALSE)
-		end_orbit(orbiter)
+	var/target_loc = get_turf(parent)
+	if(force_move)
+		orbiter.forceMove(target_loc)
+	else
+		orbiter.loc = target_loc
 
 /**
 * End the orbit and clean up our transformation.
@@ -142,7 +139,9 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	orbiter.transform = cached_transform
 
 	orbiter.orbiting = null
+	orbiter.orbit_params = 0
 	orbiter.stop_orbit()
+	UnregisterSignal(orbiter, COMSIG_MOVABLE_MOVED)
 
 	SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, orbiter)
 
@@ -152,12 +151,52 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	if (!orbiter_list && !QDELING(src) && !refreshing)
 		qdel(src)
 
+/// Called when the orbited user moves
+/datum/component/orbiter/proc/parent_move_react(atom/movable/orbited, atom/old_loc, direction)
+
+	set waitfor = FALSE // Transfer calls this directly and it doesnt care if the ghosts arent done moving
+
+	if(orbited.loc == old_loc)
+		return
+
+	var/turf/new_turf = get_turf(orbited)
+	if(!new_turf)
+		qdel(src)
+
+	var/atom/cur_loc = orbited.loc
+	for(var/atom/movable/movable_orbiter in orbiter_list)
+		if(QDELETED(movable_orbiter) || movable_orbiter.loc == new_turf)
+			continue
+
+		if(movable_orbiter.orbit_params & ORBIT_FORCE_MOVE)
+			movable_orbiter.forceMove(cur_loc)
+		else
+			movable_orbiter.loc = cur_loc
+
+		if(CHECK_TICK && orbited.loc != cur_loc)
+			// We moved again during the checktick, cancel current operation
+			break
+
+/**
+* Called when the orbiter themselves moves
+*/
+/datum/component/orbiter/proc/orbiter_move_react(atom/movable/orbiter, atom/oldloc, direction)
+	SIGNAL_HANDLER
+
+	if(orbiter.loc == get_turf(parent))
+		return
+
+	// Only end the spin animation when we're actually ending an orbit, not just changing targets
+	orbiter.SpinAnimation(0, 0, parallel = FALSE)
+	end_orbit(orbiter)
+	return
 /////////////////////////////////////////
 
 // Atom procs/vars
 
 /// Who the current atom is orbiting
 /atom/movable/var/datum/component/orbiter/orbiting = null
+/atom/movable/var/orbit_params = 0
 
 /// who's orbiting the current atom
 /atom/var/datum/component/orbiter/orbiters = null
@@ -184,7 +223,7 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 		return null
 
 /**
- * Recursive getter method to return a list of all ghosts orbitting this atom
+ * Recursive getter method to return a list of all ghosts orbiting this atom
  *
  * This will work fine without manually passing arguments.
  */
@@ -194,7 +233,9 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 		processed = list()
 	if (src in processed)
 		return output
-	processed += src
+
+	if(isobserver(src))
+		processed += src
 	// Make sure we don't shadow outer orbiters
 	var/datum/component/orbiter/atom_orbiters = orbiters
 	if (atom_orbiters)
@@ -202,3 +243,6 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 		for (var/atom/atom_orbiter as anything in atom_orbiters.orbiter_list)
 			output += atom_orbiter.get_all_orbiters(processed, source = FALSE)
 	return output
+
+#undef ORBIT_LOCK_IN
+#undef ORBIT_FORCE_MOVE
