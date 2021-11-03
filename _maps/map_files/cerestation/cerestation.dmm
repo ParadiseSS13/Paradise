@@ -3362,7 +3362,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
 /area/security/brig)
 "asu" = (
@@ -3963,11 +3963,11 @@
 /turf/simulated/floor/wood,
 /area/security/hos)
 "avd" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/turret_protected/ai)
 "avi" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/security/permabrig)
 "avj" = (
@@ -5087,7 +5087,7 @@
 /turf/simulated/floor/plating,
 /area/quartermaster/miningdock)
 "aBy" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/security/prisonershuttle)
 "aBG" = (
@@ -5527,7 +5527,7 @@
 	},
 /area/security/main)
 "aEo" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/security/execution{
 	name = "Prisoner Transfer Lounge"
@@ -5755,7 +5755,7 @@
 	},
 /area/civilian/barber)
 "aFM" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/disposal/north)
 "aGc" = (
@@ -6186,7 +6186,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "aIC" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/turret_protected/aisat_interior)
 "aID" = (
@@ -6832,7 +6832,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "aLY" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/disposal/northeast)
 "aMa" = (
@@ -7713,7 +7713,7 @@
 	},
 /area/bridge)
 "aQy" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/security/prisonlockers)
 "aQz" = (
@@ -7770,7 +7770,7 @@
 	req_access_txt = "74"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/wood,
 /area/magistrateoffice)
 "aQR" = (
@@ -7999,7 +7999,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "aRG" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/security/hos)
 "aRH" = (
@@ -8164,7 +8164,7 @@
 /turf/simulated/wall,
 /area/lawoffice)
 "aSA" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/security/interrogation)
 "aSC" = (
@@ -10899,7 +10899,7 @@
 /turf/simulated/floor/carpet,
 /area/medical/psych)
 "bcM" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/mineral/ancient,
 /area/maintenance/fore2)
 "bcN" = (
@@ -12877,7 +12877,7 @@
 	},
 /area/medical/surgery)
 "biT" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/tcommsat/chamber)
 "biU" = (
@@ -13097,7 +13097,7 @@
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/captain)
 "bjP" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/tcommsat/computer)
 "bjT" = (
@@ -14386,7 +14386,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "boB" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/auxsolarport)
 "boC" = (
@@ -14774,7 +14774,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitegreen"
@@ -15390,7 +15390,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "brv" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/mineral/ancient,
 /area/mine/unexplored{
 	name = "Civilian Asteroid"
@@ -15981,7 +15981,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/range)
 "bsY" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/fore)
 "btd" = (
@@ -16716,7 +16716,7 @@
 /turf/simulated/floor/plating,
 /area/security/checkpoint/medical)
 "bvx" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/quartermaster/miningdock)
 "bvz" = (
@@ -17946,7 +17946,7 @@
 	},
 /area/medical/reception)
 "bzL" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/disposal/northwest)
 "bzN" = (
@@ -18245,7 +18245,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bAt" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/captain)
 "bAv" = (
@@ -18489,7 +18489,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "bBp" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/quartermaster/office)
 "bBs" = (
@@ -19031,7 +19031,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/checkpoint/engineering)
 "bDg" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/security/evidence)
 "bDh" = (
@@ -19067,7 +19067,7 @@
 	},
 /area/medical/genetics_cloning)
 "bDx" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/security/main)
 "bDy" = (
@@ -20780,7 +20780,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "bHl" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/security/medbay)
 "bHp" = (
@@ -21773,7 +21773,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "bKG" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/security/range)
 "bKH" = (
@@ -23582,7 +23582,7 @@
 /turf/simulated/floor/carpet/green,
 /area/library)
 "bPk" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/crew_quarters/arcade)
 "bPo" = (
@@ -24426,7 +24426,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
 /area/atmos/distribution)
 "bRC" = (
@@ -25557,7 +25557,7 @@
 	},
 /area/security/securearmoury)
 "bVo" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/mineral/ancient,
 /area/maintenance/fsmaint)
 "bVp" = (
@@ -26332,7 +26332,7 @@
 	},
 /area/bridge)
 "bXT" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/fpmaint)
 "bXV" = (
@@ -26559,7 +26559,7 @@
 	},
 /area/ai_monitored/storage/eva)
 "bYK" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/crew_quarters/locker)
 "bYO" = (
@@ -26708,7 +26708,7 @@
 /turf/simulated/floor/carpet/black,
 /area/chapel/office)
 "bZn" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/quartermaster/storage)
 "bZp" = (
@@ -26821,7 +26821,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "bZV" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/medical/cmo)
 "bZX" = (
@@ -27827,7 +27827,7 @@
 	},
 /area/assembly/chargebay)
 "cec" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/heads/chief)
 "ced" = (
@@ -28776,7 +28776,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/checkpoint2)
 "cii" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/security/processing)
 "cij" = (
@@ -28821,7 +28821,7 @@
 	},
 /area/maintenance/fore)
 "ciu" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/security/detectives_office)
 "ciw" = (
@@ -29176,7 +29176,7 @@
 	},
 /area/hallway/secondary/entry)
 "cjI" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/security/seceqstorage)
 "cjL" = (
@@ -29189,7 +29189,7 @@
 	opacity = 0
 	},
 /obj/effect/spawner/window/reinforced/plasma,
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
 "cjM" = (
@@ -30121,7 +30121,7 @@
 	},
 /area/security/warden)
 "coe" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/bridge)
 "cof" = (
@@ -31601,7 +31601,7 @@
 	},
 /area/security/checkpoint/science)
 "cuk" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/security/securearmoury)
 "cul" = (
@@ -32089,7 +32089,7 @@
 	},
 /area/maintenance/apmaint)
 "cwD" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/crew_quarters/sleep{
 	name = "\improper Arcade Cyrogenic Dormitories"
@@ -32268,7 +32268,7 @@
 	},
 /area/toxins/misc_lab)
 "cxs" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/crew_quarters/courtroom)
 "cxv" = (
@@ -32730,7 +32730,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "czL" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/crew_quarters/heads/hos)
 "czM" = (
@@ -34235,7 +34235,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/toilet)
 "cGj" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/heads/hor)
 "cGn" = (
@@ -36278,7 +36278,7 @@
 	},
 /area/crew_quarters/theatre)
 "cNx" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/security/warden)
 "cNz" = (
@@ -37326,7 +37326,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/maintcentral)
 "cQO" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/crew_quarters/dorms)
 "cQP" = (
@@ -37501,14 +37501,14 @@
 "cRX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
 	},
 /area/security/lobby)
 "cRY" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/fsmaint)
 "cRZ" = (
@@ -37674,7 +37674,7 @@
 	},
 /area/maintenance/fsmaint)
 "cSv" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/quartermaster/qm)
 "cSx" = (
@@ -37873,7 +37873,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "cSX" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/disposal)
 "cSY" = (
@@ -39732,7 +39732,7 @@
 	},
 /area/hallway/primary/central)
 "dcL" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -40437,7 +40437,7 @@
 	},
 /area/atmos)
 "deQ" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/quartermaster/qm)
 "deS" = (
@@ -44060,7 +44060,7 @@
 	},
 /area/hallway/primary/fore)
 "dzm" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/crew_quarters/toilet)
 "dzn" = (
@@ -44912,7 +44912,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/fore/east)
 "dCF" = (
@@ -45953,7 +45953,7 @@
 	},
 /area/security/brig)
 "dUL" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/lawoffice)
 "dUO" = (
@@ -46055,7 +46055,7 @@
 	},
 /area/hallway/primary/fore)
 "dWJ" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -46180,7 +46180,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/east)
 "eaY" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/crew_quarters/heads/hop)
 "ebf" = (
@@ -46412,7 +46412,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -47674,7 +47674,7 @@
 	},
 /area/hallway/primary/fore)
 "eKa" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/teleporter/quantum/cargo)
 "eKm" = (
@@ -47735,7 +47735,7 @@
 /obj/machinery/status_display{
 	layer = 4
 	},
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/toxins/launch)
 "eLU" = (
@@ -48153,7 +48153,7 @@
 /turf/space,
 /area/space/nearstation)
 "eVI" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/hallway/primary/fore)
 "eVJ" = (
@@ -48360,7 +48360,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "fbd" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/toxins/test_chamber)
 "fbs" = (
@@ -48862,7 +48862,7 @@
 	},
 /area/hallway/primary/port/south)
 "fng" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/hor)
 "fnu" = (
@@ -49015,7 +49015,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -49214,7 +49214,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/checkpoint2)
 "fvy" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/toxins/xenobiology)
 "fvI" = (
@@ -49429,7 +49429,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "fCr" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/disposal/west)
 "fCt" = (
@@ -49468,7 +49468,7 @@
 /area/maintenance/fsmaint)
 "fDu" = (
 /obj/structure/lattice,
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/mineral/ancient/outer,
 /area/mine/unexplored{
 	name = "Near Station Asteroids"
@@ -50037,7 +50037,7 @@
 	req_access_txt = "63"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel,
 /area/security/checkpoint/science)
 "fOR" = (
@@ -50905,7 +50905,7 @@
 	},
 /area/gateway)
 "gkq" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/maintenance/auxsolarstarboard{
 	name = "\improper Cargo Solar Maintenance"
@@ -51474,7 +51474,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore/west)
 "gwE" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/teleporter/quantum/science)
 "gwO" = (
@@ -51541,7 +51541,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -52089,11 +52089,11 @@
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "gIL" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/janitor)
 "gIT" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/blueshield)
 "gJa" = (
@@ -52391,7 +52391,7 @@
 /turf/simulated/wall/r_wall,
 /area/security/nuke_storage)
 "gNt" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/ntrep)
 "gNx" = (
@@ -53317,7 +53317,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
 /area/hydroponics)
 "hjR" = (
@@ -53596,7 +53596,7 @@
 	},
 /area/medical/medbay)
 "hpG" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/security/nuke_storage)
 "hqL" = (
@@ -53646,7 +53646,7 @@
 /turf/simulated/wall/r_wall,
 /area/security/interrogation)
 "hrQ" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/disposal/westalt)
 "hrT" = (
@@ -53877,7 +53877,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "hxT" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/hallway/secondary/construction{
 	name = "\improper Garden";
@@ -54031,7 +54031,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology)
 "hAB" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/port)
 "hAI" = (
@@ -54133,7 +54133,7 @@
 	},
 /area/medical/medbay)
 "hBM" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/hallway/primary/central)
 "hBQ" = (
@@ -54531,7 +54531,7 @@
 	},
 /area/engine/engine_smes)
 "hLu" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/rust,
 /area/maintenance/port2)
 "hLz" = (
@@ -54854,7 +54854,7 @@
 	},
 /area/hallway/primary/fore/west)
 "hSL" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/hallway/primary/starboard/north)
 "hSM" = (
@@ -55209,7 +55209,7 @@
 /turf/simulated/floor/wood,
 /area/maintenance/starboard)
 "icN" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/portsolar{
 	name = "\improper Science Solar Maintenance"
@@ -55391,7 +55391,7 @@
 /turf/simulated/floor/wood,
 /area/library)
 "ihu" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/crew_quarters/kitchen)
 "ihJ" = (
@@ -55650,7 +55650,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/fpmaint)
 "ipO" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/ai_monitored/storage/eva)
 "ipR" = (
@@ -56162,7 +56162,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "iCg" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/medical/psych)
 "iCo" = (
@@ -56335,7 +56335,7 @@
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "iGS" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/auxsolarstarboard{
 	name = "\improper Medical Solar Maintenance"
@@ -56353,7 +56353,7 @@
 	},
 /area/maintenance/maintcentral)
 "iGZ" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/crew_quarters/theatre)
 "iHo" = (
@@ -57418,7 +57418,7 @@
 	},
 /area/library)
 "jeU" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/starboard)
 "jeX" = (
@@ -57477,7 +57477,7 @@
 	},
 /area/toxins/mixing)
 "jgO" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/medical/surgery)
 "jho" = (
@@ -57570,7 +57570,7 @@
 	name = "Quarantine Lockdown";
 	opacity = 0
 	},
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
 /area/medical/cmo)
 "jiI" = (
@@ -58153,7 +58153,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/maintcentral)
 "jvg" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/medical/surgery1)
 "jvl" = (
@@ -58820,7 +58820,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/south)
 "jJg" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/medical/surgery2)
 "jJn" = (
@@ -58983,7 +58983,7 @@
 	},
 /area/engine/gravitygenerator)
 "jNi" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
 "jNl" = (
@@ -59000,7 +59000,7 @@
 /turf/simulated/floor/plating,
 /area/magistrateoffice)
 "jNJ" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/medical/virology)
 "jNL" = (
@@ -59262,7 +59262,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore/west)
 "jST" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/security/checkpoint/medical)
 "jTp" = (
@@ -59595,7 +59595,7 @@
 	},
 /area/toxins/mixing)
 "kas" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/medical/genetics_cloning)
 "kax" = (
@@ -60209,7 +60209,7 @@
 	name = "\improper Arrivals Solar Array"
 	})
 "knQ" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/civilian/barber)
 "knU" = (
@@ -60675,7 +60675,7 @@
 /turf/simulated/floor/carpet/black,
 /area/chapel/office)
 "kyL" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/crew_quarters/bar)
 "kyQ" = (
@@ -61181,7 +61181,7 @@
 /area/security/nuke_storage)
 "kIU" = (
 /obj/machinery/status_display,
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "kIV" = (
@@ -61294,7 +61294,7 @@
 	sound_environment = 15
 	})
 "kMw" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel,
 /area/security/checkpoint/supply)
 "kMN" = (
@@ -61521,7 +61521,7 @@
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "kSs" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/engine/break_room)
 "kSz" = (
@@ -62120,7 +62120,7 @@
 	},
 /area/medical/cmostore)
 "lfZ" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/teleporter)
 "lgq" = (
@@ -62167,7 +62167,7 @@
 	},
 /area/maintenance/port)
 "lhx" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/toxins/misc_lab)
 "lhA" = (
@@ -62382,7 +62382,7 @@
 	},
 /area/hallway/secondary/exit)
 "llF" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/security/checkpoint/engineering)
 "llH" = (
@@ -62684,7 +62684,7 @@
 	},
 /area/hallway/secondary/entry/north)
 "lrI" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/medical/morgue)
 "lrO" = (
@@ -63094,7 +63094,7 @@
 	},
 /area/security/permabrig)
 "lAj" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/maintcentral)
 "lAk" = (
@@ -63253,7 +63253,7 @@
 /obj/machinery/status_display{
 	layer = 4
 	},
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/hallway/primary/aft/east)
 "lEI" = (
@@ -63349,7 +63349,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/hallway/spacebridge/scidock)
 "lHz" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/toxins/server)
 "lHB" = (
@@ -63799,7 +63799,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -64393,7 +64393,7 @@
 	},
 /area/security/securearmoury)
 "mgV" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/medical/paramedic)
 "mhe" = (
@@ -64533,7 +64533,7 @@
 	id = "private"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
 /area/medical/patients_rooms)
 "mkY" = (
@@ -64567,7 +64567,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/east)
 "mmk" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/medical/chemistry)
 "mmx" = (
@@ -64742,7 +64742,7 @@
 "moQ" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "moY" = (
@@ -64766,7 +64766,7 @@
 /turf/simulated/floor/grass,
 /area/hallway/spacebridge/scidock)
 "mpE" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/atmos)
 "mpT" = (
@@ -64820,7 +64820,7 @@
 	},
 /area/hallway/spacebridge/medcargo)
 "mqJ" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/crew_quarters/fitness)
 "mqT" = (
@@ -64982,7 +64982,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/westalt)
 "mvK" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/medical/genetics)
 "mwy" = (
@@ -65310,7 +65310,7 @@
 	},
 /area/maintenance/apmaint)
 "mGF" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/disposal/east)
 "mGK" = (
@@ -65892,7 +65892,7 @@
 	},
 /area/hallway/spacebridge/comeng)
 "mTI" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/library)
 "mUe" = (
@@ -65966,7 +65966,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "mWg" = (
@@ -66470,7 +66470,7 @@
 	name = "\improper Medical Solar Array"
 	})
 "nhf" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/engine/gravitygenerator)
 "nhh" = (
@@ -66534,7 +66534,7 @@
 	},
 /area/crew_quarters/fitness)
 "nim" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/storage)
 "njh" = (
@@ -66634,7 +66634,7 @@
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
 "nkn" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/toxins/hallway)
 "nkv" = (
@@ -67802,7 +67802,7 @@
 	},
 /area/turret_protected/ai_upload)
 "nHq" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/atmos/control)
 "nHI" = (
@@ -68216,7 +68216,7 @@
 	},
 /area/engine/engineering)
 "nOI" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/toxins/explab_chamber)
 "nPp" = (
@@ -68256,7 +68256,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/southwest)
 "nPR" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/medical/medbreak)
 "nQk" = (
@@ -68299,7 +68299,7 @@
 	},
 /area/security/brig)
 "nRc" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/engine/chiefs_office)
 "nRq" = (
@@ -68428,7 +68428,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "nUT" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/engine/engine_smes)
 "nVj" = (
@@ -69403,7 +69403,7 @@
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
 "orp" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/crew_quarters/sleep{
 	name = "\improper Civilian Cyrogenic Dormitories"
@@ -70872,7 +70872,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical_shop)
 "oZC" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/medical/cmostore)
 "oZD" = (
@@ -71137,7 +71137,7 @@
 	},
 /area/maintenance/asmaint)
 "pfl" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/chapel/main)
 "pfm" = (
@@ -71286,7 +71286,7 @@
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
 "piZ" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/toxins/storage)
 "pje" = (
@@ -71707,7 +71707,7 @@
 	},
 /area/crew_quarters/theatre)
 "pqz" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/engine{
 	name = "Holodeck Projector Floor"
 	},
@@ -72275,7 +72275,7 @@
 /area/crew_quarters/theatre)
 "pAD" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/wood,
 /area/maintenance/asmaint)
 "pAF" = (
@@ -73615,7 +73615,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "escape"
@@ -74974,7 +74974,7 @@
 	},
 /area/assembly/chargebay)
 "qAK" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/security/checkpoint2)
 "qAO" = (
@@ -76767,7 +76767,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/south)
 "roh" = (
@@ -77023,7 +77023,7 @@
 	},
 /area/hallway/secondary/exit)
 "rvA" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/chapel/office)
 "rvN" = (
@@ -77122,7 +77122,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "ryw" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/rust,
 /area/maintenance/disposal/southwest)
 "ryQ" = (
@@ -77845,7 +77845,7 @@
 	},
 /area/gateway)
 "rPQ" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/turbine)
 "rQx" = (
@@ -77897,7 +77897,7 @@
 	},
 /area/medical/surgery2)
 "rQV" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/mineral/ancient,
 /area/crew_quarters/theatre{
 	name = "Top Secret Clown HQ"
@@ -79280,7 +79280,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port2)
 "sst" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/hallway/secondary/entry/north)
 "ssD" = (
@@ -79797,7 +79797,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
 "sDm" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/mimeoffice)
 "sDE" = (
@@ -80216,7 +80216,7 @@
 	},
 /area/security/securearmoury)
 "sOM" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/clownoffice)
 "sOO" = (
@@ -80433,7 +80433,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/medical/surgery)
 "sUg" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/mineral/ancient,
 /area/maintenance/asmaint)
 "sUB" = (
@@ -80800,7 +80800,7 @@
 	},
 /area/hallway/secondary/entry/south)
 "tbW" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/hallway/secondary/exit)
 "tcs" = (
@@ -80899,7 +80899,7 @@
 	},
 /area/hallway/primary/aft/east)
 "teU" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/maintenance/starboardsolar{
 	name = "\improper Arrivals Solar Maintenance"
@@ -81663,7 +81663,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -81676,11 +81676,11 @@
 /turf/simulated/floor/plasteel,
 /area/security/checkpoint2)
 "tsT" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/gateway)
 "tsU" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/maintenance/apmaint)
 "tsV" = (
@@ -82422,7 +82422,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "tIs" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/turret_protected/ai_upload)
 "tIt" = (
@@ -83449,7 +83449,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/south)
 "uec" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/hallway/primary/aft/west)
 "uep" = (
@@ -83490,7 +83490,7 @@
 	},
 /area/toxins/hallway)
 "ufB" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/assembly/chargebay)
 "ufW" = (
@@ -83641,7 +83641,7 @@
 /turf/simulated/wall,
 /area/medical/medbreak)
 "uhG" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/assembly/robotics)
 "uhJ" = (
@@ -83816,7 +83816,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
 /area/maintenance/electrical_shop)
 "uko" = (
@@ -83869,7 +83869,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/maintcentral)
 "ulF" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/security/vacantoffice)
 "ulG" = (
@@ -84260,7 +84260,7 @@
 /turf/simulated/wall,
 /area/hallway/spacebridge/scidock)
 "uwl" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/toxins/lab)
 "uwq" = (
@@ -85248,7 +85248,7 @@
 	name = "External airlock";
 	req_access_txt = "13"
 	},
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "uSv" = (
@@ -87008,7 +87008,7 @@
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "vEG" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/toilet)
@@ -89344,7 +89344,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "wAy" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/toxins/server_coldroom)
 "wAB" = (
@@ -89477,7 +89477,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/south)
 "wDm" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -90889,7 +90889,7 @@
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "xgl" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/rust,
 /area/maintenance/disposal/south)
 "xgq" = (
@@ -91686,7 +91686,7 @@
 	},
 /area/medical/patients_rooms)
 "xzT" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall,
 /area/teleporter/quantum/docking)
 "xzY" = (
@@ -92620,7 +92620,7 @@
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
 "xTF" = (
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/r_wall,
 /area/toxins/misc_lab)
 "xTL" = (
@@ -93055,7 +93055,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/baseturf_helper/asteroid/airless,
+/obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
