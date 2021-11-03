@@ -62,7 +62,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	/// For scheduling different subsystems for different stages of the round
 	var/current_runlevel
 	/// Do we want to sleep until players log in?
-	var/sleep_offline_after_initializations = TRUE
+	var/sleep_offline_after_initializations = FALSE // No we dont
 
 	var/static/restart_clear = 0
 	var/static/restart_timeout = 0

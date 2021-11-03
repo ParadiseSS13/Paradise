@@ -781,17 +781,6 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_wormhole_gen
-	name = "Exosuit Module (Localized Wormhole Generator)"
-	desc = "An exosuit module that allows generating of small quasi-stable wormholes."
-	id = "mech_wormhole_gen"
-	build_type = MECHFAB
-	req_tech = list("bluespace" = 4, "magnets" = 4, "plasmatech" = 3)
-	build_path = /obj/item/mecha_parts/mecha_equipment/wormhole_generator
-	materials = list(MAT_METAL=10000)
-	construction_time = 100
-	category = list("Exosuit Equipment")
-
 /datum/design/mech_rcd
 	name = "Exosuit Module (RCD Module)"
 	desc = "An exosuit-mounted Rapid Construction Device."
