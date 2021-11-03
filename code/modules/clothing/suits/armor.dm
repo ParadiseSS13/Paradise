@@ -373,6 +373,7 @@
 			if(C != owner)
 				C.fire_stacks += 8
 				C.IgniteMob()
+				add_attack_logs(owner, C, "[C] was ignited by [owner]'s [src]", ATKLOG_ALMOSTALL) //lord have mercy on almost_all attack log admins
 		return TRUE
 	return FALSE
 
