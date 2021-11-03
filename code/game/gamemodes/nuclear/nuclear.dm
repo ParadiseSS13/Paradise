@@ -279,14 +279,6 @@
 	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
 
 	if(synd_mob.dna.species)
-
-		/*
-		Incase anyone ever gets the burning desire to have nukeops with randomized apperances. -- Dave
-		synd_mob.gender = pick(MALE, FEMALE) // Randomized appearances for the nukeops.
-		var/datum/preferences/pref = new()
-		A.randomize_appearance_for(synd_mob)
-		*/
-
 		var/race = synd_mob.dna.species.name
 
 		switch(race)

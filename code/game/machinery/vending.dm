@@ -122,7 +122,7 @@
 	for(var/datum/data/vending_product/R in (product_records + coin_records + hidden_records))
 		var/obj/item/I = R.product_path
 		var/pp = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")
-		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state)))]"
+		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
 	if(LAZYLEN(slogan_list))
 		// So not all machines speak at the exact same time.
 		// The first time this machine says something will be at slogantime + this random value,
@@ -1120,10 +1120,26 @@
 	ads_list = list("Probably not bad for you!","Don't believe the scientists!","It's good for you!","Don't quit, buy more!","Smoke!","Nicotine heaven.","Best cigarettes since 2150.","Award-winning cigs.")
 	vend_delay = 34
 	icon_state = "cigs"
-	products = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 12, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 6, /obj/item/storage/fancy/cigarettes/cigpack_random = 6, /obj/item/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 4,/obj/item/storage/fancy/rollingpapers = 5)
+	products = list(
+		/obj/item/storage/fancy/cigarettes/cigpack_robust = 12,
+		/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
+		/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
+		/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
+		/obj/item/reagent_containers/food/pill/patch/nicotine = 10,
+		/obj/item/storage/box/matches = 10,
+		/obj/item/lighter/random = 4,
+		/obj/item/storage/fancy/rollingpapers = 5)
 	contraband = list(/obj/item/lighter/zippo = 4)
-	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2, /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1)
-	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 60, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 80, /obj/item/storage/fancy/cigarettes/cigpack_random = 120, /obj/item/reagent_containers/food/pill/patch/nicotine = 70, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 60, /obj/item/storage/fancy/rollingpapers = 20)
+	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,
+		/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1)
+	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 60,
+		/obj/item/storage/fancy/cigarettes/cigpack_uplift = 80,
+		/obj/item/storage/fancy/cigarettes/cigpack_midori = 100,
+		/obj/item/storage/fancy/cigarettes/cigpack_random = 120,
+		/obj/item/reagent_containers/food/pill/patch/nicotine = 70,
+		/obj/item/storage/box/matches = 10,
+		/obj/item/lighter/random = 60,
+		/obj/item/storage/fancy/rollingpapers = 20)
 	refill_canister = /obj/item/vending_refill/cigarette
 
 /obj/machinery/vending/cigarette/free
@@ -1798,7 +1814,7 @@
 					/obj/item/clothing/head/soft/sec = 4,
 					/obj/item/clothing/head/soft/sec/corp = 4,
 					/obj/item/clothing/suit/armor/secjacket = 4,
-					/obj/item/clothing/suit/jacket/pilot = 2,
+					/obj/item/clothing/suit/jacket/secbomber = 2,
 					/obj/item/clothing/suit/hooded/wintercoat/security = 4,
 					/obj/item/clothing/gloves/color/black = 4,
 					/obj/item/clothing/accessory/armband/sec = 6,

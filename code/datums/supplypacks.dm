@@ -193,14 +193,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "special ops crate"
 	hidden = 1
 
-/datum/supply_packs/emergency/syndicate
-	name = "ERROR_NULL_ENTRY"
-	contains = list(/obj/item/storage/box/syndicate)
-	cost = 140
-	containertype = /obj/structure/closet/crate
-	containername = "crate"
-	hidden = 1
-
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Security ////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -411,28 +403,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/storage/belt/bandolier)
 	cost = 80
 	containername = "combat shotgun crate"
-
-/datum/supply_packs/security/armory/buckshotammo
-	name = "Buckshot Ammo Crate"
-	contains = list(/obj/item/ammo_box/shotgun/buck,
-					/obj/item/storage/box/buck,
-					/obj/item/storage/box/buck,
-					/obj/item/storage/box/buck,
-					/obj/item/storage/box/buck,
-					/obj/item/storage/box/buck)
-	cost = 45
-	containername = "buckshot ammo crate"
-
-/datum/supply_packs/security/armory/slugammo
-	name = "Slug Ammo Crate"
-	contains = list(/obj/item/ammo_box/shotgun,
-					/obj/item/storage/box/slug,
-					/obj/item/storage/box/slug,
-					/obj/item/storage/box/slug,
-					/obj/item/storage/box/slug,
-					/obj/item/storage/box/slug)
-	cost = 45
-	containername = "slug ammo crate"
 
 /datum/supply_packs/security/armory/expenergy
 	name = "Energy Guns Crate"
@@ -1246,6 +1216,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/critter/deer
 	containername = "deer crate"
 
+/datum/supply_packs/organic/bunny
+	name = "Bunny Crate"
+	cost = 20
+	containertype = /obj/structure/closet/critter/bunny
+	containername = "bunny crate"
+
 ////// hippy gear
 
 /datum/supply_packs/organic/hydroponics // -- Skie
@@ -1485,6 +1461,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/storage/backpack/duffel/mining_conscript)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "shaft miner starter kit"
+
+/datum/supply_packs/misc/carpet
+	name = "Carpet Crate"
+	cost = 20
+	contains = list(/obj/item/stack/tile/carpet/twenty)
+	containername = "carpet crate"
 
 
 ///////////// Paper Work

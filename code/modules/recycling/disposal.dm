@@ -95,7 +95,7 @@
 
 // attack by item places it in to disposal
 /obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
-	if(stat & BROKEN || !I || !user)
+	if(stat & BROKEN || !user || I.flags & ABSTRACT)
 		return
 
 	src.add_fingerprint(user)
@@ -127,16 +127,11 @@
 				add_attack_logs(usr, GM, "Disposal'ed", !!GM.ckey ? null : ATKLOG_ALL)
 		return
 
-	if(!I)
+	if(!user.drop_item() || QDELETED(I))
 		return
 
-	if(!user.drop_item())
-		return
-	if(I)
-		I.forceMove(src)
-
+	I.forceMove(src)
 	user.visible_message("[user] places [I] into [src].", "You place [I] into [src].")
-
 	update()
 
 

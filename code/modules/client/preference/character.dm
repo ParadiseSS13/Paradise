@@ -1,6 +1,534 @@
-/datum/preferences
-	//The mob should have a gender you want before running this proc. Will run fine without H
-/datum/preferences/proc/random_character(gender_override)
+// PSA To anyone who opens this:
+// Good fucking luck. You will need this: https://www.youtube.com/watch?v=W9GaIbECisQ
+
+
+/datum/character_save
+	var/real_name							//our character's name
+	var/be_random_name = FALSE				//whether we are a random name every round
+	var/gender = MALE						//gender of character (well duh)
+	var/age = 30							//age of character
+	var/spawnpoint = "Arrivals Shuttle" 	//where this character will spawn (0-2).
+	var/b_type = "A+"						//blood type (not-chooseable)
+	var/underwear = "Nude"					//underwear type
+	var/undershirt = "Nude"					//undershirt type
+	var/socks = "Nude"						//socks type
+	var/backbag = GBACKPACK					//backpack type
+	var/ha_style = "None"					//Head accessory style
+	var/hacc_colour = "#000000"				//Head accessory colour. If this line looks badly indented in vscode, its because of the shitty colour square
+	var/list/m_styles = list(
+		"head" = "None",
+		"body" = "None",
+		"tail" = "None"
+		)			//Marking styles.
+	var/list/m_colours = list(
+		"head" = "#000000",
+		"body" = "#000000",
+		"tail" = "#000000"
+		)		//Marking colours.
+	var/h_style = "Bald"				//Hair type
+	var/h_colour = "#000000"			//Hair color
+	var/h_sec_colour = "#000000"		//Secondary hair color
+	var/f_style = "Shaved"				//Facial hair type
+	var/f_colour = "#000000"			//Facial hair color
+	var/f_sec_colour = "#000000"		//Secondary facial hair color
+	var/s_tone = 0						//Skin tone
+	var/s_colour = "#000000"			//Skin color
+	var/e_colour = "#000000"			//Eye color
+	var/alt_head = "None"				//Alt head style.
+	var/species = "Human"
+	var/language = "None"				//Secondary language
+	var/autohiss_mode = AUTOHISS_OFF	//Species autohiss level. OFF, BASIC, FULL.
+
+	var/body_accessory = null
+
+	var/speciesprefs = 0 //I hate having to do this, I really do (Using this for oldvox code, making names universal I guess
+
+	//Mob preview
+	var/icon/preview_icon = null
+	var/icon/preview_icon_front = null
+	var/icon/preview_icon_side = null
+
+	//Jobs, uses bitflags
+	var/job_support_high = 0
+	var/job_support_med = 0
+	var/job_support_low = 0
+
+	var/job_medsci_high = 0
+	var/job_medsci_med = 0
+	var/job_medsci_low = 0
+
+	var/job_engsec_high = 0
+	var/job_engsec_med = 0
+	var/job_engsec_low = 0
+
+	var/job_karma_high = 0
+	var/job_karma_med = 0
+	var/job_karma_low = 0
+
+	//Keeps track of preferrence for not getting any wanted jobs
+	var/alternate_option = 2
+
+	// maps each organ to either null(intact), "cyborg" or "amputated"
+	// will probably not be able to do this for head and torso ;)
+	var/list/organ_data = list()
+	var/list/rlimb_data = list()
+
+	var/list/player_alt_titles = new()		// the default name of a job like "Medical Doctor"
+	var/flavor_text = ""
+	var/med_record = ""
+	var/sec_record = ""
+	var/gen_record = ""
+	var/disabilities = 0
+
+	var/nanotrasen_relation = "Neutral"
+
+	// OOC Metadata:
+	var/metadata = ""
+
+	//Gear stuff
+	var/list/loadout_gear = list()
+
+	/// Is this character from the DB?
+	var/from_db = FALSE
+	/// Is this character valid to be picked? This is necessary to avoid someone getting a bald human called "Character 30"
+	var/valid_save = FALSE
+	/// Character slot number, used for saves and stuff.
+	var/slot_number = 0
+
+// Fuckery to prevent null characters
+/datum/character_save/New()
+	randomise()
+	real_name = random_name(gender, species)
+
+/datum/character_save/proc/save(client/C)
+	var/organlist
+	var/rlimblist
+	var/playertitlelist
+	var/gearlist
+
+	var/markingcolourslist = list2params(m_colours)
+	var/markingstyleslist = list2params(m_styles)
+	if(!isemptylist(organ_data))
+		organlist = list2params(organ_data)
+	if(!isemptylist(rlimb_data))
+		rlimblist = list2params(rlimb_data)
+	if(!isemptylist(player_alt_titles))
+		playertitlelist = list2params(player_alt_titles)
+	if(!isemptylist(loadout_gear))
+		gearlist = json_encode(loadout_gear)
+
+	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM characters WHERE ckey=:ckey ORDER BY slot", list(
+		"ckey" = C.ckey
+	))
+	if(!firstquery.warn_execute())
+		qdel(firstquery)
+		return
+	while(firstquery.NextRow())
+		if(text2num(firstquery.item[1]) == slot_number) // Check if the character exists
+			var/datum/db_query/query = SSdbcore.NewQuery({"UPDATE characters
+				SET
+					OOC_Notes=:metadata,
+					real_name=:real_name,
+					name_is_always_random=:be_random_name,
+					gender=:gender,
+					age=:age,
+					species=:species,
+					language=:language,
+					hair_colour=:h_colour,
+					secondary_hair_colour=:h_sec_colour,
+					facial_hair_colour=:f_colour,
+					secondary_facial_hair_colour=:f_sec_colour,
+					skin_tone=:s_tone,
+					skin_colour=:s_colour,
+					marking_colours=:markingcolourslist,
+					head_accessory_colour=:hacc_colour,
+					hair_style_name=:h_style,
+					facial_style_name=:f_style,
+					marking_styles=:markingstyleslist,
+					head_accessory_style_name=:ha_style,
+					alt_head_name=:alt_head,
+					eye_colour=:e_colour,
+					underwear=:underwear,
+					undershirt=:undershirt,
+					backbag=:backbag,
+					b_type=:b_type,
+					alternate_option=:alternate_option,
+					job_support_high=:job_support_high,
+					job_support_med=:job_support_med,
+					job_support_low=:job_support_low,
+					job_medsci_high=:job_medsci_high,
+					job_medsci_med=:job_medsci_med,
+					job_medsci_low=:job_medsci_low,
+					job_engsec_high=:job_engsec_high,
+					job_engsec_med=:job_engsec_med,
+					job_engsec_low=:job_engsec_low,
+					job_karma_high=:job_karma_high,
+					job_karma_med=:job_karma_med,
+					job_karma_low=:job_karma_low,
+					flavor_text=:flavor_text,
+					med_record=:med_record,
+					sec_record=:sec_record,
+					gen_record=:gen_record,
+					player_alt_titles=:playertitlelist,
+					disabilities=:disabilities,
+					organ_data=:organlist,
+					rlimb_data=:rlimblist,
+					nanotrasen_relation=:nanotrasen_relation,
+					speciesprefs=:speciesprefs,
+					socks=:socks,
+					body_accessory=:body_accessory,
+					gear=:gearlist,
+					autohiss=:autohiss_mode
+					WHERE ckey=:ckey
+					AND slot=:slot"}, list(
+						// OH GOD SO MANY PARAMETERS
+						"metadata" = metadata,
+						"real_name" = real_name,
+						"be_random_name" = be_random_name,
+						"gender" = gender,
+						"age" = age,
+						"species" = species,
+						"language" = language,
+						"h_colour" = h_colour,
+						"h_sec_colour" = h_sec_colour,
+						"f_colour" = f_colour,
+						"f_sec_colour" = f_sec_colour,
+						"s_tone" = s_tone,
+						"s_colour" = s_colour,
+						"markingcolourslist" = markingcolourslist,
+						"hacc_colour" = hacc_colour,
+						"h_style" = h_style,
+						"f_style" = f_style,
+						"markingstyleslist" = markingstyleslist,
+						"ha_style" = ha_style,
+						"alt_head" = (alt_head ? alt_head : ""), // This it intentional. It wont work without it!
+						"e_colour" = e_colour,
+						"underwear" = underwear,
+						"undershirt" = undershirt,
+						"backbag" = backbag,
+						"b_type" = b_type,
+						"alternate_option" = alternate_option,
+						"job_support_high" = job_support_high,
+						"job_support_med" = job_support_med,
+						"job_support_low" = job_support_low,
+						"job_medsci_high" = job_medsci_high,
+						"job_medsci_med" = job_medsci_med,
+						"job_medsci_low" = job_medsci_low,
+						"job_engsec_high" = job_engsec_high,
+						"job_engsec_med" = job_engsec_med,
+						"job_engsec_low" = job_engsec_low,
+						"job_karma_high" = job_karma_high,
+						"job_karma_med" = job_karma_med,
+						"job_karma_low" = job_karma_low,
+						"flavor_text" = flavor_text,
+						"med_record" = med_record,
+						"sec_record" = sec_record,
+						"gen_record" = gen_record,
+						"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentnional. It wont work without it!
+						"disabilities" = disabilities,
+						"organlist" = (organlist ? organlist : ""),
+						"rlimblist" = (rlimblist ? rlimblist : ""),
+						"nanotrasen_relation" = nanotrasen_relation,
+						"speciesprefs" = speciesprefs,
+						"socks" = socks,
+						"body_accessory" = (body_accessory ? body_accessory : ""),
+						"gearlist" = (gearlist ? gearlist : ""),
+						"autohiss_mode" = autohiss_mode,
+						"ckey" = C.ckey,
+						"slot" = slot_number
+					))
+
+			if(!query.warn_execute())
+				qdel(firstquery)
+				qdel(query)
+				return
+			qdel(firstquery)
+			qdel(query)
+			return 1
+
+	qdel(firstquery)
+
+	var/datum/db_query/query = SSdbcore.NewQuery({"
+		INSERT INTO characters (ckey, slot, OOC_Notes, real_name, name_is_always_random, gender,
+			age, species, language,
+			hair_colour, secondary_hair_colour,
+			facial_hair_colour, secondary_facial_hair_colour,
+			skin_tone, skin_colour,
+			marking_colours,
+			head_accessory_colour,
+			hair_style_name,
+			facial_style_name,
+			marking_styles,
+			head_accessory_style_name,
+			alt_head_name,
+			eye_colour,
+			underwear, undershirt,
+			backbag, b_type, alternate_option,
+			job_support_high, job_support_med, job_support_low,
+			job_medsci_high, job_medsci_med, job_medsci_low,
+			job_engsec_high, job_engsec_med, job_engsec_low,
+			job_karma_high, job_karma_med, job_karma_low,
+			flavor_text,
+			med_record,
+			sec_record,
+			gen_record,
+			player_alt_titles,
+			disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
+			socks, body_accessory, gear, autohiss)
+		VALUES
+			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
+			:age, :species, :language,
+			:h_colour, :h_sec_colour,
+			:f_colour, :f_sec_colour,
+			:s_tone, :s_colour,
+			:markingcolourslist,
+			:hacc_colour,
+			:h_style,
+			:f_style,
+			:markingstyleslist,
+			:ha_style,
+			:alt_head,
+			:e_colour,
+			:underwear, :undershirt,
+			:backbag, :b_type, :alternate_option,
+			:job_support_high, :job_support_med, :job_support_low,
+			:job_medsci_high, :job_medsci_med, :job_medsci_low,
+			:job_engsec_high, :job_engsec_med, :job_engsec_low,
+			:job_karma_high, :job_karma_med, :job_karma_low,
+			:flavor_text,
+			:med_record,
+			:sec_record,
+			:gen_record,
+			:playertitlelist,
+			:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
+			:socks, :body_accessory, :gearlist, :autohiss_mode)
+	"}, list(
+		// This has too many params for anyone to look at this without going insae
+		"ckey" = C.ckey,
+		"slot" = slot_number,
+		"metadata" = metadata,
+		"name" = real_name,
+		"be_random_name" = be_random_name,
+		"gender" = gender,
+		"age" = age,
+		"species" = species,
+		"language" = language,
+		"h_colour" = h_colour,
+		"h_sec_colour" = h_sec_colour,
+		"f_colour" = f_colour,
+		"f_sec_colour" = f_sec_colour,
+		"s_tone" = s_tone,
+		"s_colour" = s_colour,
+		"markingcolourslist" = markingcolourslist,
+		"hacc_colour" = hacc_colour,
+		"h_style" = h_style,
+		"f_style" = f_style,
+		"markingstyleslist" = markingstyleslist,
+		"ha_style" = ha_style,
+		"alt_head" = (alt_head ? alt_head : "None"), // bane of my fucking life
+		"e_colour" = e_colour,
+		"underwear" = underwear,
+		"undershirt" = undershirt,
+		"backbag" = backbag,
+		"b_type" = b_type,
+		"alternate_option" = alternate_option,
+		"job_support_high" = job_support_high,
+		"job_support_med" = job_support_med,
+		"job_support_low" = job_support_low,
+		"job_medsci_high" = job_medsci_high,
+		"job_medsci_med" = job_medsci_med,
+		"job_medsci_low" = job_medsci_low,
+		"job_engsec_high" = job_engsec_high,
+		"job_engsec_med" = job_engsec_med,
+		"job_engsec_low" = job_engsec_low,
+		"job_karma_high" = job_karma_high,
+		"job_karma_med" = job_karma_med,
+		"job_karma_low" = job_karma_low,
+		"flavor_text" = flavor_text,
+		"med_record" = med_record,
+		"sec_record" = sec_record,
+		"gen_record" = gen_record,
+		"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentional. It wont work without it!
+		"disabilities" = disabilities,
+		"organlist" = (organlist ? organlist : ""),
+		"rlimblist" = (rlimblist ? rlimblist : ""),
+		"nanotrasen_relation" = nanotrasen_relation,
+		"speciesprefs" = speciesprefs,
+		"socks" = socks,
+		"body_accessory" = (body_accessory ? body_accessory : ""),
+		"gearlist" = (gearlist ? gearlist : ""),
+		"autohiss_mode" = autohiss_mode
+	))
+
+	if(!query.warn_execute())
+		qdel(query)
+		return
+
+	qdel(query)
+	from_db = TRUE
+	return 1
+
+
+/datum/character_save/proc/load(datum/db_query/query)
+	//Character
+	metadata = query.item[1]
+	real_name = query.item[2]
+	be_random_name = text2num(query.item[3])
+	gender = query.item[4]
+	age = text2num(query.item[5])
+	species = query.item[6]
+	language = query.item[7]
+
+	h_colour = query.item[8]
+	h_sec_colour = query.item[9]
+	f_colour = query.item[10]
+	f_sec_colour = query.item[11]
+	s_tone = text2num(query.item[12])
+	s_colour = query.item[13]
+	m_colours = params2list(query.item[14])
+	hacc_colour = query.item[15]
+	h_style = query.item[16]
+	f_style = query.item[17]
+	m_styles = params2list(query.item[18])
+	ha_style = query.item[19]
+	alt_head = query.item[20]
+	e_colour = query.item[21]
+	underwear = query.item[22]
+	undershirt = query.item[23]
+	backbag = query.item[24]
+	b_type = query.item[25]
+
+
+	//Jobs
+	alternate_option = text2num(query.item[26])
+	job_support_high = text2num(query.item[27])
+	job_support_med = text2num(query.item[28])
+	job_support_low = text2num(query.item[29])
+	job_medsci_high = text2num(query.item[30])
+	job_medsci_med = text2num(query.item[31])
+	job_medsci_low = text2num(query.item[32])
+	job_engsec_high = text2num(query.item[33])
+	job_engsec_med = text2num(query.item[34])
+	job_engsec_low = text2num(query.item[35])
+	job_karma_high = text2num(query.item[36])
+	job_karma_med = text2num(query.item[37])
+	job_karma_low = text2num(query.item[38])
+
+	//Miscellaneous
+	flavor_text = query.item[39]
+	med_record = query.item[40]
+	sec_record = query.item[41]
+	gen_record = query.item[42]
+	// Apparently, the preceding vars weren't always encoded properly...
+	if(findtext(flavor_text, "<")) // ... so let's clumsily check for tags!
+		flavor_text = html_encode(flavor_text)
+	if(findtext(med_record, "<"))
+		med_record = html_encode(med_record)
+	if(findtext(sec_record, "<"))
+		sec_record = html_encode(sec_record)
+	if(findtext(gen_record, "<"))
+		gen_record = html_encode(gen_record)
+	disabilities = text2num(query.item[43])
+	player_alt_titles = params2list(query.item[44])
+	organ_data = params2list(query.item[45])
+	rlimb_data = params2list(query.item[46])
+	nanotrasen_relation = query.item[47]
+	speciesprefs = text2num(query.item[48])
+
+	//socks
+	socks = query.item[49]
+	body_accessory = query.item[50]
+	loadout_gear = query.item[51]
+	autohiss_mode = text2num(query.item[52])
+
+	//Sanitize
+	var/datum/species/SP = GLOB.all_species[species]
+	metadata = sanitize_text(metadata, initial(metadata))
+	real_name = reject_bad_name(real_name, TRUE)
+
+	if(isnull(species))
+		species = "Human"
+
+	if(isnull(language))
+		language = "None"
+
+	if(isnull(nanotrasen_relation))
+		nanotrasen_relation = initial(nanotrasen_relation)
+
+	if(isnull(speciesprefs))
+		speciesprefs = initial(speciesprefs)
+
+	if(!real_name)
+		real_name = random_name(gender, species)
+
+	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
+	gender			= sanitize_gender(gender, FALSE, !SP.has_gender)
+	age				= sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
+	h_colour		= sanitize_hexcolor(h_colour)
+	h_sec_colour	= sanitize_hexcolor(h_sec_colour)
+	f_colour		= sanitize_hexcolor(f_colour)
+	f_sec_colour	= sanitize_hexcolor(f_sec_colour)
+	s_tone			= sanitize_integer(s_tone, -185, 34, initial(s_tone))
+	s_colour		= sanitize_hexcolor(s_colour)
+
+	for(var/marking_location in m_colours)
+		m_colours[marking_location] = sanitize_hexcolor(m_colours[marking_location], DEFAULT_MARKING_COLOURS[marking_location])
+
+	hacc_colour		= sanitize_hexcolor(hacc_colour)
+	h_style			= sanitize_inlist(h_style, GLOB.hair_styles_public_list, initial(h_style))
+	f_style			= sanitize_inlist(f_style, GLOB.facial_hair_styles_list, initial(f_style))
+
+	for(var/marking_location in m_styles)
+		m_styles[marking_location] = sanitize_inlist(m_styles[marking_location], GLOB.marking_styles_list, DEFAULT_MARKING_STYLES[marking_location])
+
+	ha_style		= sanitize_inlist(ha_style, GLOB.head_accessory_styles_list, initial(ha_style))
+	alt_head		= sanitize_inlist(alt_head, GLOB.alt_heads_list, initial(alt_head))
+	e_colour		= sanitize_hexcolor(e_colour)
+	underwear		= sanitize_text(underwear, initial(underwear))
+	undershirt		= sanitize_text(undershirt, initial(undershirt))
+	backbag			= sanitize_text(backbag, initial(backbag))
+	b_type			= sanitize_text(b_type, initial(b_type))
+	autohiss_mode	= sanitize_integer(autohiss_mode, 0, 2, initial(autohiss_mode))
+
+	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
+	job_support_high = sanitize_integer(job_support_high, 0, 65535, initial(job_support_high))
+	job_support_med = sanitize_integer(job_support_med, 0, 65535, initial(job_support_med))
+	job_support_low = sanitize_integer(job_support_low, 0, 65535, initial(job_support_low))
+	job_medsci_high = sanitize_integer(job_medsci_high, 0, 65535, initial(job_medsci_high))
+	job_medsci_med = sanitize_integer(job_medsci_med, 0, 65535, initial(job_medsci_med))
+	job_medsci_low = sanitize_integer(job_medsci_low, 0, 65535, initial(job_medsci_low))
+	job_engsec_high = sanitize_integer(job_engsec_high, 0, 65535, initial(job_engsec_high))
+	job_engsec_med = sanitize_integer(job_engsec_med, 0, 65535, initial(job_engsec_med))
+	job_engsec_low = sanitize_integer(job_engsec_low, 0, 65535, initial(job_engsec_low))
+	job_karma_high = sanitize_integer(job_karma_high, 0, 65535, initial(job_karma_high))
+	job_karma_med = sanitize_integer(job_karma_med, 0, 65535, initial(job_karma_med))
+	job_karma_low = sanitize_integer(job_karma_low, 0, 65535, initial(job_karma_low))
+	disabilities = sanitize_integer(disabilities, 0, 65535, initial(disabilities))
+
+	socks			= sanitize_text(socks, initial(socks))
+	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
+	loadout_gear	= sanitize_json(loadout_gear)
+
+	if(!player_alt_titles)
+		player_alt_titles = new()
+	if(!organ_data)
+		src.organ_data = list()
+	if(!rlimb_data)
+		src.rlimb_data = list()
+	if(!loadout_gear)
+		loadout_gear = list()
+
+	// Check if the current body accessory exists
+	if(!GLOB.body_accessory_by_name[body_accessory])
+		body_accessory = null
+
+	from_db = TRUE
+	valid_save = TRUE
+
+	return TRUE
+
+/datum/character_save/proc/randomise(gender_override)
+	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 	var/datum/species/S = GLOB.all_species[species]
 	if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
 		species = initial(species)
@@ -48,7 +576,7 @@
 	age = rand(AGE_MIN, AGE_MAX)
 
 
-/datum/preferences/proc/randomize_hair_color(target = "hair")
+/datum/character_save/proc/randomize_hair_color(target = "hair")
 	if(prob (75) && target == "facial") // Chance to inherit hair color
 		f_colour = h_colour
 		return
@@ -102,7 +630,7 @@
 		if("facial")
 			f_colour = rgb(red, green, blue)
 
-/datum/preferences/proc/randomize_eyes_color()
+/datum/character_save/proc/randomize_eyes_color()
 	var/red
 	var/green
 	var/blue
@@ -148,7 +676,7 @@
 
 	e_colour = rgb(red, green, blue)
 
-/datum/preferences/proc/randomize_skin_color(pass_on)
+/datum/character_save/proc/randomize_skin_color(pass_on)
 	var/red
 	var/green
 	var/blue
@@ -197,7 +725,7 @@
 	else
 		s_colour = rgb(red, green, blue)
 
-/datum/preferences/proc/blend_backpack(icon/clothes_s, backbag, satchel, backpack="backpack")
+/datum/character_save/proc/blend_backpack(icon/clothes_s, backbag, satchel, backpack="backpack")
 	switch(backbag)
 		if(2)
 			clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', backpack), ICON_OVERLAY)
@@ -207,7 +735,7 @@
 			clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 	return clothes_s
 
-/datum/preferences/proc/update_preview_icon(for_observer=0)		//seriously. This is horrendous.
+/datum/character_save/proc/update_preview_icon(for_observer=0)		//seriously. This is horrendous.
 	qdel(preview_icon_front)
 	qdel(preview_icon_side)
 	qdel(preview_icon)
@@ -852,29 +1380,6 @@
 					clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 	else if(job_karma_high)
 		switch(job_karma_high)
-			if(JOB_MECHANIC)
-				clothes_s = new /icon(uniform_dmi, "mechanic_s")
-				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "orange"), ICON_UNDERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/belt.dmi', "utility"), ICON_OVERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "hardhat0_yellow"), ICON_OVERLAY)
-				switch(backbag)
-					if(2)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "engiepack"), ICON_OVERLAY)
-					if(3)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-eng"), ICON_OVERLAY)
-					if(4)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
-			if(JOB_PILOT)
-				clothes_s = new /icon(uniform_dmi, "secred_s")
-				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "bomber"), ICON_OVERLAY)
-				switch(backbag)
-					if(2)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "securitypack"), ICON_OVERLAY)
-					if(3)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-sec"), ICON_OVERLAY)
-					if(4)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 			if(JOB_BRIGDOC)
 				clothes_s = new /icon(uniform_dmi, "medical_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
@@ -950,3 +1455,653 @@
 	qdel(undershirt_s)
 	qdel(socks_s)
 	qdel(clothes_s)
+
+
+
+/datum/character_save/proc/get_gear_metadata(datum/gear/G) // NYI
+	. = loadout_gear[G.type]
+	if(!.)
+		. = list()
+		loadout_gear[G.type] = .
+
+/datum/character_save/proc/get_tweak_metadata(datum/gear/G, datum/gear_tweak/tweak)
+	var/list/metadata = get_gear_metadata(G)
+	. = metadata["[tweak]"]
+	if(!.)
+		. = tweak.get_default()
+		metadata["[tweak]"] = .
+
+/datum/character_save/proc/set_tweak_metadata(datum/gear/G, datum/gear_tweak/tweak, new_metadata)
+	var/list/metadata = get_gear_metadata(G)
+	metadata["[tweak]"] = new_metadata
+
+
+/datum/character_save/proc/SetJobPreferenceLevel(datum/job/job, level)
+	if(!job)
+		return 0
+
+	if(level == 1) // to high
+		// remove any other job(s) set to high
+		job_support_med |= job_support_high
+		job_engsec_med |= job_engsec_high
+		job_medsci_med |= job_medsci_high
+		job_karma_med |= job_karma_high
+		job_support_high = 0
+		job_engsec_high = 0
+		job_medsci_high = 0
+		job_karma_high = 0
+
+	if(job.department_flag == JOBCAT_SUPPORT)
+		job_support_low &= ~job.flag
+		job_support_med &= ~job.flag
+		job_support_high &= ~job.flag
+
+		switch(level)
+			if(1)
+				job_support_high |= job.flag
+			if(2)
+				job_support_med |= job.flag
+			if(3)
+				job_support_low |= job.flag
+
+		return 1
+	else if(job.department_flag == JOBCAT_ENGSEC)
+		job_engsec_low &= ~job.flag
+		job_engsec_med &= ~job.flag
+		job_engsec_high &= ~job.flag
+
+		switch(level)
+			if(1)
+				job_engsec_high |= job.flag
+			if(2)
+				job_engsec_med |= job.flag
+			if(3)
+				job_engsec_low |= job.flag
+
+		return 1
+	else if(job.department_flag == JOBCAT_MEDSCI)
+		job_medsci_low &= ~job.flag
+		job_medsci_med &= ~job.flag
+		job_medsci_high &= ~job.flag
+
+		switch(level)
+			if(1)
+				job_medsci_high |= job.flag
+			if(2)
+				job_medsci_med |= job.flag
+			if(3)
+				job_medsci_low |= job.flag
+
+		return 1
+	else if(job.department_flag == JOBCAT_KARMA)
+		job_karma_low &= ~job.flag
+		job_karma_med &= ~job.flag
+		job_karma_high &= ~job.flag
+
+		switch(level)
+			if(1)
+				job_karma_high |= job.flag
+			if(2)
+				job_karma_med |= job.flag
+			if(3)
+				job_karma_low |= job.flag
+
+		return 1
+
+	return 0
+
+/datum/character_save/proc/ShowDisabilityState(mob/user, flag, label)
+	return "<li><b>[label]:</b> <a href=\"?_src_=prefs;task=input;preference=disabilities;disability=[flag]\">[disabilities & flag ? "Yes" : "No"]</a></li>"
+
+/datum/character_save/proc/SetDisabilities(mob/user)
+	var/datum/species/S = GLOB.all_species[species]
+	var/HTML = "<body>"
+	HTML += "<tt><center>"
+
+	if(CAN_WINGDINGS in S.species_traits)
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_WINGDINGS, "Speak in Wingdings")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NEARSIGHTED, "Nearsighted")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_COLOURBLIND, "Colourblind")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_BLIND, "Blind")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DEAF, "Deaf")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_MUTE, "Mute")
+	if(!(TRAIT_NOFAT in S.inherent_traits))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_FAT, "Obese")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NERVOUS, "Stutter")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Swedish accent")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_CHAV, "Chav accent")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_LISP, "Lisp")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DIZZY, "Dizziness")
+
+
+	HTML += {"</ul>
+		<a href=\"?_src_=prefs;task=close;preference=disabilities\">\[Done\]</a>
+		<a href=\"?_src_=prefs;task=reset;preference=disabilities\">\[Reset\]</a>
+		</center></tt>"}
+
+	var/datum/browser/popup = new(user, "disabil", "<div align='center'>Choose Disabilities</div>", 350, 380)
+	popup.set_content(HTML)
+	popup.open(0)
+
+/datum/character_save/proc/SetRecords(mob/user)
+	var/HTML = "<body>"
+	HTML += "<tt><center>"
+
+	HTML += "<a href=\"byond://?_src_=prefs;preference=records;task=med_record\">Medical Records</a><br>"
+
+	if(length(med_record) <= 40)
+		HTML += "[med_record]"
+	else
+		HTML += "[copytext(med_record, 1, 37)]..."
+
+	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=gen_record\">Employment Records</a><br>"
+
+	if(length(gen_record) <= 40)
+		HTML += "[gen_record]"
+	else
+		HTML += "[copytext(gen_record, 1, 37)]..."
+
+	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=sec_record\">Security Records</a><br>"
+
+	if(length(sec_record) <= 40)
+		HTML += "[sec_record]<br>"
+	else
+		HTML += "[copytext(sec_record, 1, 37)]...<br>"
+
+	HTML += "<a href=\"byond://?_src_=prefs;preference=records;records=-1\">\[Done\]</a>"
+	HTML += "</center></tt>"
+
+	var/datum/browser/popup = new(user, "records", "<div align='center'>Character Records</div>", 350, 300)
+	popup.set_content(HTML)
+	popup.open(0)
+
+/datum/character_save/proc/GetPlayerAltTitle(datum/job/job)
+	return player_alt_titles.Find(job.title) > 0 \
+		? player_alt_titles[job.title] \
+		: job.title
+
+/datum/character_save/proc/SetPlayerAltTitle(datum/job/job, new_title)
+	// remove existing entry
+	if(player_alt_titles.Find(job.title))
+		player_alt_titles -= job.title
+	// add one if it's not default
+	if(job.title != new_title)
+		player_alt_titles[job.title] = new_title
+
+/datum/character_save/proc/ResetJobs()
+	job_support_high = 0
+	job_support_med = 0
+	job_support_low = 0
+
+	job_medsci_high = 0
+	job_medsci_med = 0
+	job_medsci_low = 0
+
+	job_engsec_high = 0
+	job_engsec_med = 0
+	job_engsec_low = 0
+
+	job_karma_high = 0
+	job_karma_med = 0
+	job_karma_low = 0
+
+
+/datum/character_save/proc/GetJobDepartment(datum/job/job, level)
+	if(!job || !level)	return 0
+	switch(job.department_flag)
+		if(JOBCAT_SUPPORT)
+			switch(level)
+				if(1)
+					return job_support_high
+				if(2)
+					return job_support_med
+				if(3)
+					return job_support_low
+		if(JOBCAT_MEDSCI)
+			switch(level)
+				if(1)
+					return job_medsci_high
+				if(2)
+					return job_medsci_med
+				if(3)
+					return job_medsci_low
+		if(JOBCAT_ENGSEC)
+			switch(level)
+				if(1)
+					return job_engsec_high
+				if(2)
+					return job_engsec_med
+				if(3)
+					return job_engsec_low
+		if(JOBCAT_KARMA)
+			switch(level)
+				if(1)
+					return job_karma_high
+				if(2)
+					return job_karma_med
+				if(3)
+					return job_karma_low
+	return 0
+
+/datum/character_save/proc/SetJobDepartment(datum/job/job, level)
+	if(!job || !level)	return 0
+	switch(level)
+		if(1)//Only one of these should ever be active at once so clear them all here
+			job_support_high = 0
+			job_medsci_high = 0
+			job_engsec_high = 0
+			job_karma_high = 0
+			return 1
+		if(2)//Set current highs to med, then reset them
+			job_support_med |= job_support_high
+			job_medsci_med |= job_medsci_high
+			job_engsec_med |= job_engsec_high
+			job_karma_med |= job_karma_high
+			job_support_high = 0
+			job_medsci_high = 0
+			job_engsec_high = 0
+			job_karma_high = 0
+
+	switch(job.department_flag)
+		if(JOBCAT_SUPPORT)
+			switch(level)
+				if(2)
+					job_support_high = job.flag
+					job_support_med &= ~job.flag
+				if(3)
+					job_support_med |= job.flag
+					job_support_low &= ~job.flag
+				else
+					job_support_low |= job.flag
+		if(JOBCAT_MEDSCI)
+			switch(level)
+				if(2)
+					job_medsci_high = job.flag
+					job_medsci_med &= ~job.flag
+				if(3)
+					job_medsci_med |= job.flag
+					job_medsci_low &= ~job.flag
+				else
+					job_medsci_low |= job.flag
+		if(JOBCAT_ENGSEC)
+			switch(level)
+				if(2)
+					job_engsec_high = job.flag
+					job_engsec_med &= ~job.flag
+				if(3)
+					job_engsec_med |= job.flag
+					job_engsec_low &= ~job.flag
+				else
+					job_engsec_low |= job.flag
+		if(JOBCAT_KARMA)
+			switch(level)
+				if(2)
+					job_karma_high = job.flag
+					job_karma_med &= ~job.flag
+				if(3)
+					job_karma_med |= job.flag
+					job_karma_low &= ~job.flag
+				else
+					job_karma_low |= job.flag
+	return 1
+
+/datum/character_save/proc/copy_to(mob/living/carbon/human/character)
+	var/datum/species/S = GLOB.all_species[species]
+	character.set_species(S.type) // Yell at me if this causes everything to melt
+	if(be_random_name)
+		real_name = random_name(gender, species)
+
+	character.add_language(language)
+
+
+	character.real_name = real_name
+	character.dna.real_name = real_name
+	character.name = character.real_name
+
+	character.flavor_text = flavor_text
+	character.med_record = med_record
+	character.sec_record = sec_record
+	character.gen_record = gen_record
+
+	character.change_gender(gender)
+	character.age = age
+
+	//Head-specific
+	var/obj/item/organ/external/head/H = character.get_organ("head")
+
+	H.hair_colour = h_colour
+
+	H.sec_hair_colour = h_sec_colour
+
+	H.facial_colour = f_colour
+
+	H.sec_facial_colour = f_sec_colour
+
+	H.h_style = h_style
+	H.f_style = f_style
+
+	H.alt_head = alt_head
+	//End of head-specific.
+
+	character.skin_colour = s_colour
+
+	character.s_tone = s_tone
+
+	// Destroy/cyborgize organs
+	for(var/name in organ_data)
+
+		var/status = organ_data[name]
+		var/obj/item/organ/external/O = character.bodyparts_by_name[name]
+		if(O)
+			if(status == "amputated")
+				qdel(O.remove(character))
+
+			else if(status == "cyborg")
+				if(rlimb_data[name])
+					O.robotize(rlimb_data[name], convert_all = 0)
+				else
+					O.robotize()
+		else
+			var/obj/item/organ/internal/I = character.get_int_organ_tag(name)
+			if(I)
+				if(status == "cybernetic")
+					I.robotize()
+
+	character.dna.blood_type = b_type
+
+	// Wheelchair necessary?
+	var/obj/item/organ/external/l_foot = character.get_organ("l_foot")
+	var/obj/item/organ/external/r_foot = character.get_organ("r_foot")
+	if(!l_foot && !r_foot)
+		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(character.loc)
+		W.buckle_mob(character, TRUE)
+
+	character.underwear = underwear
+	character.undershirt = undershirt
+	character.socks = socks
+
+	if(character.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
+		H.headacc_colour = hacc_colour
+		H.ha_style = ha_style
+	if(character.dna.species.bodyflags & HAS_MARKINGS)
+		character.m_colours = m_colours
+		character.m_styles = m_styles
+
+	if(body_accessory)
+		character.body_accessory = GLOB.body_accessory_by_name[body_accessory]
+
+	character.backbag = backbag
+
+	//Debugging report to track down a bug, which randomly assigned the plural gender to people.
+	if(character.dna.species.has_gender && (character.gender in list(PLURAL, NEUTER)))
+		if(isliving(src)) //Ghosts get neuter by default
+			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
+			character.change_gender(MALE)
+
+	character.change_eye_color(e_colour)
+	character.original_eye_color = e_colour
+
+	if(disabilities & DISABILITY_FLAG_FAT)
+		character.dna.SetSEState(GLOB.fatblock, TRUE, TRUE)
+		character.overeatduration = 600
+		character.dna.default_blocks.Add(GLOB.fatblock)
+
+	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
+		character.dna.SetSEState(GLOB.glassesblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.glassesblock)
+
+	if(disabilities & DISABILITY_FLAG_BLIND)
+		character.dna.SetSEState(GLOB.blindblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.blindblock)
+
+	if(disabilities & DISABILITY_FLAG_DEAF)
+		character.dna.SetSEState(GLOB.deafblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.deafblock)
+
+	if(disabilities & DISABILITY_FLAG_COLOURBLIND)
+		character.dna.SetSEState(GLOB.colourblindblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.colourblindblock)
+
+	if(disabilities & DISABILITY_FLAG_MUTE)
+		character.dna.SetSEState(GLOB.muteblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.muteblock)
+
+	if(disabilities & DISABILITY_FLAG_NERVOUS)
+		character.dna.SetSEState(GLOB.nervousblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.nervousblock)
+
+	if(disabilities & DISABILITY_FLAG_SWEDISH)
+		character.dna.SetSEState(GLOB.swedeblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.swedeblock)
+
+	if(disabilities & DISABILITY_FLAG_CHAV)
+		character.dna.SetSEState(GLOB.chavblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.chavblock)
+
+	if(disabilities & DISABILITY_FLAG_LISP)
+		character.dna.SetSEState(GLOB.lispblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.lispblock)
+
+	if(disabilities & DISABILITY_FLAG_DIZZY)
+		character.dna.SetSEState(GLOB.dizzyblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.dizzyblock)
+
+	if(disabilities & DISABILITY_FLAG_WINGDINGS && (CAN_WINGDINGS in character.dna.species.species_traits))
+		character.dna.SetSEState(GLOB.wingdingsblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.wingdingsblock)
+
+	character.dna.species.handle_dna(character)
+
+	if(character.dna.dirtySE)
+		character.dna.UpdateSE()
+	domutcheck(character, MUTCHK_FORCED) //'Activates' all the above disabilities.
+
+	character.dna.ready_dna(character, flatten_SE = FALSE)
+	character.sync_organ_dna(assimilate = TRUE)
+	character.UpdateAppearance()
+
+	// Do the initial caching of the player's body icons.
+	character.force_update_limbs()
+	character.update_eyes()
+	character.regenerate_icons()
+
+//Check if the user has ANY job selected.
+/datum/character_save/proc/check_any_job()
+	return(job_support_high || job_support_med || job_support_low || job_medsci_high || job_medsci_med || job_medsci_low || job_engsec_high || job_engsec_med || job_engsec_low || job_karma_high || job_karma_med || job_karma_low)
+
+
+/datum/character_save/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Head of Security", "Bartender"), widthPerColumn = 400, height = 700)
+	if(!SSjobs)
+		return
+
+	//limit - The amount of jobs allowed per column. Defaults to 17 to make it look nice.
+	//splitJobs - Allows you split the table by job. You can make different tables for each department by including their heads. Defaults to CE to make it look nice.
+	//widthPerColumn - Screen's width for every column.
+	//height - Screen's height.
+	var/width = widthPerColumn
+
+
+	var/list/html = list()
+	html += "<body>"
+	if(!length(SSjobs.occupations))
+		html += "The Jobs subsystem is not yet finished creating jobs, please try again later"
+		html += "<center><a href='?_src_=prefs;preference=job;task=close'>Done</a></center><br>" // Easier to press up here.
+	else
+		html += "<tt><center>"
+		html += "<b>Choose occupation chances</b><br>Unavailable occupations are crossed out.<br><br>"
+		html += "<center><a href='?_src_=prefs;preference=job;task=close'>Save</a></center><br>" // Easier to press up here.
+		html += "<div align='center'>Left-click to raise an occupation preference, right-click to lower it.<br></div>"
+		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
+		html += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
+		html += "<table width='100%' cellpadding='1' cellspacing='0'>"
+		var/index = -1
+
+		//The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
+		var/datum/job/lastJob
+		if(!SSjobs)
+			return
+		for(var/J in SSjobs.occupations)
+			var/datum/job/job = J
+
+			if(job.admin_only)
+				continue
+
+			if(job.hidden_from_job_prefs)
+				continue
+
+			index += 1
+			if((index >= limit) || (job.title in splitJobs))
+				if((index < limit) && (lastJob != null))
+					// Dynamic window width
+					width += widthPerColumn
+					//If the cells were broken up by a job in the splitJob list then it will fill in the rest of the cells with
+					//the last job's selection color. Creating a rather nice effect.
+					for(var/i in 1 to limit - index)
+						html += "<tr bgcolor='[lastJob.selection_color]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
+				html += "</table></td><td width='20%'><table width='100%' cellpadding='1' cellspacing='0'>"
+				index = 0
+
+			html += "<tr bgcolor='[job.selection_color]'><td width='60%' align='right'>"
+			var/rank
+			if(job.alt_titles)
+				rank = "<a href=\"?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">[GetPlayerAltTitle(job)]</a>"
+			else
+				rank = job.title
+			lastJob = job
+			if(!is_job_whitelisted(user, job.title))
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[KARMA]</b></td></tr>"
+				continue
+			if(jobban_isbanned(user, job.title))
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[BANNED]</b></td></tr>"
+				continue
+			var/available_in_playtime = job.available_in_playtime(user.client)
+			if(available_in_playtime)
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[get_exp_format(available_in_playtime)] as [job.get_exp_req_type()]\]</b></td></tr>"
+				continue
+			if(job.barred_by_disability(user.client))
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td></tr>"
+				continue
+			if(!job.player_old_enough(user.client))
+				var/available_in_days = job.available_in_days(user.client)
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[IN [(available_in_days)] DAYS]</b></td></tr>"
+				continue
+			if((job_support_low & JOB_CIVILIAN) && (job.title != "Civilian"))
+				html += "<font color=orange>[rank]</font></td><td></td></tr>"
+				continue
+			if((job.title in GLOB.command_positions) || (job.title == "AI"))//Bold head jobs
+				html += "<b><span class='dark'>[rank]</span></b>"
+			else
+				html += "<span class='dark'>[rank]</span>"
+
+			html += "</td><td width='40%'>"
+
+			var/prefLevelLabel = "ERROR"
+			var/prefLevelColor = "pink"
+			var/prefUpperLevel = -1 // level to assign on left click
+			var/prefLowerLevel = -1 // level to assign on right click
+
+			if(GetJobDepartment(job, 1) & job.flag)
+				prefLevelLabel = "High"
+				prefLevelColor = "slateblue"
+				prefUpperLevel = 4
+				prefLowerLevel = 2
+			else if(GetJobDepartment(job, 2) & job.flag)
+				prefLevelLabel = "Medium"
+				prefLevelColor = "green"
+				prefUpperLevel = 1
+				prefLowerLevel = 3
+			else if(GetJobDepartment(job, 3) & job.flag)
+				prefLevelLabel = "Low"
+				prefLevelColor = "orange"
+				prefUpperLevel = 2
+				prefLowerLevel = 4
+			else
+				prefLevelLabel = "NEVER"
+				prefLevelColor = "red"
+				prefUpperLevel = 3
+				prefLowerLevel = 1
+
+
+			html += "<a class='white' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job.title]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[job.title]\");'>"
+
+	//			HTML += "<a href='?_src_=prefs;preference=job;task=input;text=[rank]'>"
+
+			if(job.title == "Civilian")//Civilian is special
+				if(job_support_low & JOB_CIVILIAN)
+					html += " <font color=green>Yes</font></a>"
+				else
+					html += " <font color=red>No</font></a>"
+				html += "</td></tr>"
+				continue
+	/*
+			if(GetJobDepartment(job, 1) & job.flag)
+				HTML += " <font color=blue>\[High]</font>"
+			else if(GetJobDepartment(job, 2) & job.flag)
+				HTML += " <font color=green>\[Medium]</font>"
+			else if(GetJobDepartment(job, 3) & job.flag)
+				HTML += " <font color=orange>\[Low]</font>"
+			else
+				HTML += " <font color=red>\[NEVER]</font>"
+				*/
+			html += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
+
+			html += "</td></tr>"
+
+		for(var/i in 1 to limit - index) // Finish the column so it is even
+			html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
+
+		html += "</td></tr></table>"
+		html += "</center></table>"
+
+		switch(alternate_option)
+			if(GET_RANDOM_JOB)
+				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
+			if(BE_ASSISTANT)
+				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Be a civilian if preferences unavailable</font></a></u></center><br>"
+			if(RETURN_TO_LOBBY)
+				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
+
+		html += "<center><a href='?_src_=prefs;preference=job;task=reset'>Reset</a></center>"
+		html += "<center><br><a href='?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a></center>"
+		html += "</tt>"
+
+	user << browse(null, "window=preferences")
+//		user << browse(HTML, "window=mob_occupation;size=[width]x[height]")
+	var/datum/browser/popup = new(user, "mob_occupation", "<div align='center'>Occupation Preferences</div>", width, height)
+	popup.set_window_options("can_close=0")
+	var/html_string = html.Join()
+	popup.set_content(html_string)
+	popup.open(FALSE)
+
+
+/datum/character_save/proc/clear_character_slot(client/C)
+	. = FALSE
+	// Is there a character in that slot?
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM characters WHERE ckey=:ckey AND slot=:slot", list(
+		"ckey" = C.ckey,
+		"slot" = slot_number
+	))
+
+	if(!query.warn_execute())
+		qdel(query)
+		return
+
+	if(!query.NextRow())
+		qdel(query)
+		return
+
+	qdel(query)
+
+	var/datum/db_query/delete_query = SSdbcore.NewQuery("DELETE FROM characters WHERE ckey=:ckey AND slot=:slot", list(
+		"ckey" = C.ckey,
+		"slot" = slot_number
+	))
+
+	if(!delete_query.warn_execute())
+		qdel(delete_query)
+		return
+
+	qdel(delete_query)
+
+	from_db = FALSE
+	return TRUE

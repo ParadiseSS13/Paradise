@@ -464,12 +464,15 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			if(GLOB.stealthminID[P] == txt)
 				return P
 
-// Returns the atom sitting on the turf.
-// For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
-/proc/get_atom_on_turf(atom/movable/M)
+//Returns the atom sitting on the turf.
+//For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
+//Optional arg 'type' to stop once it reaches a specific type instead of a turf.
+/proc/get_atom_on_turf(atom/movable/M, stop_type)
 	var/atom/loc = M
-	while(loc && loc.loc && !istype(loc.loc, /turf/))
+	while(loc?.loc && !isturf(loc.loc))
 		loc = loc.loc
+		if(stop_type && istype(loc, stop_type))
+			break
 	return loc
 
 /*
@@ -1536,7 +1539,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	shift.Translate(0,radius)
 	transform = shift
 
-	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments)
+	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
 
 	while(orbiting && orbiting == A && A.loc)
 		var/targetloc = get_turf(A)
@@ -1551,7 +1554,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	if(orbiting == A) //make sure we haven't started orbiting something else.
 		orbiting = null
-		SpinAnimation(0, 0)
+		SpinAnimation(0, 0, parallel = FALSE)
 		transform = cached_transform
 
 
@@ -1774,8 +1777,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/item/robot_parts = "ROBOT_PARTS",
 			/obj/item/seeds = "SEED",
 			/obj/item/slime_extract = "SLIME_CORE",
-			/obj/item/spacepod_equipment/weaponry = "POD_WEAPON",
-			/obj/item/spacepod_equipment = "POD_EQUIP",
 			/obj/item/stack/sheet/mineral = "MINERAL",
 			/obj/item/stack/sheet = "SHEET",
 			/obj/item/stack/tile = "TILE",
@@ -2060,11 +2061,12 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 /proc/log_connection(ckey, ip, cid, connection_type)
 	ASSERT(connection_type in list(CONNECTION_TYPE_ESTABLISHED, CONNECTION_TYPE_DROPPED_IPINTEL, CONNECTION_TYPE_DROPPED_BANNED, CONNECTION_TYPE_DROPPED_INVALID))
-	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO connection_log (`datetime`, `ckey`, `ip`, `computerid`, `result`) VALUES(Now(), :ckey, :ip, :cid, :result)", list(
+	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO connection_log (`datetime`, `ckey`, `ip`, `computerid`, `result`, `server_id`) VALUES(Now(), :ckey, :ip, :cid, :result, :server_id)", list(
 		"ckey" = ckey,
 		"ip" = "[ip ? ip : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
 		"cid" = cid,
-		"result" = connection_type
+		"result" = connection_type,
+		"server_id" = GLOB.configuration.system.instance_id
 	))
 	query_accesslog.warn_execute()
 	qdel(query_accesslog)

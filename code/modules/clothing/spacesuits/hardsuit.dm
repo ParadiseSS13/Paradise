@@ -512,8 +512,8 @@
 			var/mob/living/carbon/human/U = user
 			if(istype(U.glasses, /obj/item/clothing/glasses/hud/diagnostic)) // If they are for some reason wearing a diagnostic hud when they put the helmet on
 				return // already have a hud
-			var/datum/atom_hud/H = GLOB.huds[DATA_HUD_DIAGNOSTIC]
-			H.add_hud_to(U)
+			var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
+			DHUD.add_hud_to(user)
 			hud_active = TRUE
 
 
@@ -521,8 +521,8 @@
 	..()
 	if((user.head == src) && hud_active)
 		GLOB.doppler_arrays -= src
-		var/datum/atom_hud/H = GLOB.huds[DATA_HUD_DIAGNOSTIC]
-		H.remove_hud_from(user)
+		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
+		DHUD.remove_hud_from(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/proc/sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range,
 		light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)

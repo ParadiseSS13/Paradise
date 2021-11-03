@@ -408,11 +408,64 @@ SUBSYSTEM_DEF(ticker)
 			if(player.mind.assigned_role != player.mind.special_role)
 				SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
 				SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
-				EquipCustomItems(player)
+				equip_cuis(player)
+
 	if(captainless)
 		for(var/mob/M in GLOB.player_list)
 			if(!isnewplayer(M))
 				to_chat(M, "Captainship not forced on anyone.")
+
+/datum/controller/subsystem/ticker/proc/equip_cuis(mob/living/carbon/human/H)
+	if(!H.client)
+		return // If they are spawning without a client (somehow), they *cant* have a CUI list
+	for(var/datum/custom_user_item/cui in H.client.cui_entries)
+		// Skip items with invalid character names
+		if((cui.characer_name != H.real_name) && !cui.all_characters_allowed)
+			continue
+
+		var/ok = FALSE
+
+		if(!cui.all_jobs_allowed)
+			var/alt_blocked = FALSE
+			if(H.mind.role_alt_title)
+				if(!(H.mind.role_alt_title in cui.allowed_jobs))
+					alt_blocked = TRUE
+			if(!(H.mind.assigned_role in cui.allowed_jobs) || alt_blocked)
+				continue
+
+		var/obj/item/I = new cui.object_typepath()
+		var/name_override = cui.item_name_override
+		var/desc_override = cui.item_desc_override
+
+		if(name_override)
+			I.name = name_override
+		if(desc_override)
+			I.desc = desc_override
+
+		if(istype(H.back, /obj/item/storage)) // Try to place it in something on the mob's back
+			var/obj/item/storage/S = H.back
+			if(length(S.contents) < S.storage_slots)
+				I.forceMove(H.back)
+				ok = TRUE
+				to_chat(H, "<span class='notice'>Your [I.name] has been added to your [H.back.name].</span>")
+
+		if(!ok)
+			for(var/obj/item/storage/S in H.contents) // Try to place it in any item that can store stuff, on the mob.
+				if(length(S.contents) < S.storage_slots)
+					I.forceMove(S)
+					ok = TRUE
+					to_chat(H, "<span class='notice'>Your [I.name] has been added to your [S.name].</span>")
+					break
+
+		if(!ok) // Finally, since everything else failed, place it on the ground
+			var/turf/T = get_turf(H)
+			if(T)
+				I.forceMove(T)
+				to_chat(H, "<span class='notice'>Your [I.name] is on the [T.name] below you.</span>")
+			else
+				to_chat(H, "<span class='notice'>Your [I.name] couldnt spawn anywhere on you or even on the floor below you. Please file a bug report.</span>")
+				qdel(I)
+
 
 /datum/controller/subsystem/ticker/proc/send_tip_of_the_round()
 	var/m

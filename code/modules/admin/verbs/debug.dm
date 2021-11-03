@@ -357,8 +357,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	pai.real_name = pai.name
 	pai.key = choice.key
 	card.setPersonality(pai)
-	for(var/datum/paiCandidate/candidate in GLOB.paiController.pai_candidates)
-		if(candidate.key == choice.key)
+	for(var/datum/pai_save/candidate in GLOB.paiController.pai_candidates)
+		if(candidate.owner.ckey == choice.ckey)
 			GLOB.paiController.pai_candidates.Remove(candidate)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make pAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
