@@ -83,9 +83,9 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 		if (orbiter.orbiting == src)
 			// If we're just orbiting the same thing, we need to reset the previous state
 			// before we set it again (especially for transforms)
+			was_refreshing = TRUE
 			end_orbit(orbiter, TRUE)
 		else
-			was_refreshing = TRUE
 			// Let the original orbiter clean up as needed
 			orbiter.orbiting.end_orbit(orbiter)
 
@@ -118,7 +118,7 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_BEGIN, orbiter)
 
 	// If we changed orbits, we didn't stop our rotation, and don't need to start it up again
-	if (was_refreshing)
+	if (!was_refreshing)
 		orbiter.SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
 
 	var/target_loc = get_turf(parent)
