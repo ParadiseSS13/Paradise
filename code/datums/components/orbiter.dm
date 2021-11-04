@@ -76,7 +76,7 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	if(!istype(orbiter))
 		return
 
-	var/was_orbiting = orbiter.orbiting != null
+	var/was_refreshing = FALSE
 
 	if(orbiter.orbiting)
 		if (orbiter.orbiting == src)
@@ -84,6 +84,7 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 			// before we set it again (especially for transforms)
 			end_orbit(orbiter, TRUE)
 		else
+			was_refreshing = TRUE
 			// Let the original orbiter clean up as needed
 			orbiter.orbiting.end_orbit(orbiter)
 
@@ -116,7 +117,7 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_BEGIN, orbiter)
 
 	// If we changed orbits, we didn't stop our rotation, and don't need to start it up again
-	if (!was_orbiting)
+	if (was_refreshing)
 		orbiter.SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
 
 	var/target_loc = get_turf(parent)
@@ -186,12 +187,13 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	if(orbiter.loc == get_turf(parent))
 		return
 
-	// Only end the spin animation when we're actually ending an orbit, not just changing targets
-	orbiter.SpinAnimation(0, 0, parallel = FALSE)
-	end_orbit(orbiter)
-	return
-/////////////////////////////////////////
+	if(orbiter.orbiting && orbiter.orbiting == src)
+		// Only end the spin animation when we're actually ending an orbit, not just changing targets
+		orbiter.SpinAnimation(0, 0, parallel = FALSE)
+		end_orbit(orbiter)
 
+
+/////////////////////////////////////////
 // Atom procs/vars
 
 /// Who the current atom is orbiting
@@ -234,13 +236,13 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	if (src in processed)
 		return output
 
-	if(isobserver(src))
-		processed += src
+	processed += src
 	// Make sure we don't shadow outer orbiters
 	var/datum/component/orbiter/atom_orbiters = orbiters
-	if (atom_orbiters)
-		output += atom_orbiters.orbiter_list
+	if (atom_orbiters && atom_orbiters.orbiter_list)
 		for (var/atom/atom_orbiter as anything in atom_orbiters.orbiter_list)
+			if(isobserver(atom_orbiter))
+				output += atom_orbiter
 			output += atom_orbiter.get_all_orbiters(processed, source = FALSE)
 	return output
 
