@@ -147,7 +147,7 @@
 	new /obj/item/ammo_box/a357(src)
 
 /obj/item/storage/box/syndie_kit/boolets
-	name = "Shotgun shells"
+	name = "shotgun shells"
 
 /obj/item/storage/box/syndie_kit/boolets/populate_contents()
 	for(var/I in 1 to 6)
@@ -162,7 +162,7 @@
 	new /obj/item/implanter/emp/(src)
 
 /obj/item/storage/box/syndie_kit/c4
-	name = "Pack of C-4 Explosives"
+	name = "pack of C-4 explosives"
 
 /obj/item/storage/box/syndie_kit/c4/populate_contents()
 	for(var/I in 1 to 5)
@@ -181,7 +181,7 @@
 	new /obj/item/restraints/legcuffs/bola/tactical(src)
 
 /obj/item/storage/box/syndie_kit/sarin
-	name = "Sarin Gas Grenades"
+	name = "sarin gas grenades"
 
 /obj/item/storage/box/syndie_kit/sarin/populate_contents()
 	new /obj/item/grenade/chem_grenade/saringas(src)
@@ -220,7 +220,7 @@
 
 
 /obj/item/storage/box/syndie_kit/atmosn2ogrenades
-	name = "Atmos N2O Grenades"
+	name = "atmos N2O grenades"
 
 /obj/item/storage/box/syndie_kit/atmosn2ogrenades/populate_contents()
 	new /obj/item/grenade/clusterbuster/n2o(src)
@@ -228,7 +228,7 @@
 
 
 /obj/item/storage/box/syndie_kit/atmosfiregrenades
-	name = "Plasma Fire Grenades"
+	name = "plasma fire grenades"
 
 /obj/item/storage/box/syndie_kit/atmosfiregrenades/populate_contents()
 	new /obj/item/grenade/clusterbuster/plasma(src)
