@@ -11,7 +11,25 @@ export const Photocopier = (props, context) => {
         <Section title="Photocopier" color="silver">
           <LabeledList>
             <LabeledList.Item label="Copies">
-              <Box bold>{data.copynumber}</Box><CopyAmount />
+              <Flex>
+                <Box width="2em" bold>{data.copynumber}</Box>
+                <Fragment float="right">
+                  <Button
+                    fluid
+                    icon="minus"
+                    textAlign="center"
+                    content=""
+                    onClick={() => act('minus')}
+                  />
+                  <Button
+                    fluid
+                    icon="plus"
+                    textAlign="center"
+                    content=""
+                    onClick={() => act('add')}
+                  />
+                </Fragment>
+              </Flex>
             </LabeledList.Item>
             <LabeledList.Item label="Toner">
               <Box bold>{data.toner}</Box>
@@ -41,28 +59,6 @@ export const Photocopier = (props, context) => {
         <Files />
       </Window.Content>
     </Window>
-  );
-};
-
-const CopyAmount = (props, context) => {
-  const { act, data } = useBackend(context);
-  return (
-    <Flex >
-      <Button
-        fluid
-        icon="minus"
-        textAlign="center"
-        content=""
-        onClick={() => act('minus')}
-      />
-      <Button
-        fluid
-        icon="plus"
-        textAlign="center"
-        content=""
-        onClick={() => act('add')}
-      />
-    </Flex>
   );
 };
 

@@ -175,7 +175,6 @@
 		if(!folder)
 			P.forceMove(get_turf(src))
 	P.update_icon()
-	SStgui.update_uis(src)
 
 	P.icon_state = "paper_words"
 	P.name = bundle.name
@@ -194,7 +193,7 @@
 				usr.put_in_hands(copyitem)
 		to_chat(usr, "<span class='notice'>You take \the [copyitem] out of \the [src].</span>")
 		copyitem = null
-		SStgui.update_uis(src)
+
 	else if(check_mob())
 		to_chat(copymob, "<span class='notice'>You feel a slight pressure on your ass.</span>")
 		atom_say("Attention: Unable to remove large object!")
@@ -210,7 +209,6 @@
 				usr.put_in_hands(folder)
 		to_chat(usr, "<span class='notice'>You take \the [folder] out of \the [src].</span>")
 		folder = null
-		SStgui.update_uis(src)
 
 /obj/machinery/photocopier/proc/cancopy(scancopy = FALSE) //are we able to make a copy of a doc?
 	if(stat & (BROKEN|NOPOWER))
@@ -282,7 +280,6 @@
 	else
 		to_chat(usr, "<span class='warning'>\The [copyitem] can't be copied by \the [src].</span>")
 	copying = FALSE
-	SStgui.update_uis(src)
 
 /obj/machinery/photocopier/proc/scan_document() //scan a document into a file
 	if(!cancopy())
@@ -316,7 +313,6 @@
 	if(document in saved_documents)
 		saved_documents.Remove(document)
 		qdel(document)
-		SStgui.update_uis(src)
 
 /obj/machinery/photocopier/proc/file_copy(uid)
 	var/document = locateUID(uid)
@@ -396,7 +392,6 @@
 		else
 			p.desc += " - Copied by [tempAI.name]"
 		toner -= 5
-		SStgui.update_uis(src)
 		sleep(15)
 
 /obj/machinery/photocopier/attackby(obj/item/O, mob/user, params)
@@ -407,7 +402,6 @@
 			O.forceMove(src)
 			to_chat(user, "<span class='notice'>You insert \the [O] into \the [src].</span>")
 			flick(insert_anim, src)
-			SStgui.update_uis(src)
 		else
 			to_chat(user, "<span class='notice'>There is already something in \the [src].</span>")
 	else if(istype(O, /obj/item/toner))
@@ -425,7 +419,6 @@
 			to_chat(user, "<span class='notice'>You slide the [O] into \the [src].</span>")
 			folder = O
 			O.forceMove(src)
-			SStgui.update_uis(src)
 		else
 			to_chat(user, "<span class='notice'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
 	else if(istype(O, /obj/item/grab)) //For ass-copying.
@@ -438,7 +431,6 @@
 			if(copyitem)
 				copyitem.forceMove(get_turf(src))
 				copyitem = null
-			SStgui.update_uis(src)
 	else
 		return ..()
 
