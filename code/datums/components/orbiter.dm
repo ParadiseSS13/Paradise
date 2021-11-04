@@ -1,5 +1,6 @@
 #define ORBIT_LOCK_IN 1
 #define ORBIT_FORCE_MOVE 2
+
 /datum/component/orbiter
 	can_transfer = TRUE
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
