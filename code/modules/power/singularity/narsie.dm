@@ -32,8 +32,8 @@
 
 	var/sound/cry = sound(pick('sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg'))
 
-	for (var/mob/living/player in GLOB.player_list)
-		if (isnewplayer(player))
+	for(var/mob/living/player in GLOB.player_list)
+		if(isnewplayer(player))
 			continue
 
 		to_chat(player, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
