@@ -8,7 +8,6 @@
 /code/controllers/subsystem/instancing.dm @AffectedArc07
 /code/controllers/subsystem/mapping.dm @AffectedArc07
 /code/controllers/subsystem/ticker.dm @AffectedArc07
-/tgui/ @AffectedArc07
 
 # CI + Tooling
 /.github/workflows/ @AffectedArc07
@@ -19,6 +18,8 @@
 dreamchecker.exe @AffectedArc07
 rust_g.dll @AffectedArc07
 
+### dearmochi
+/tgui/ @dearmochi
 
 ### Fox-McCloud
 /code/controllers/subsystem/air.dm @Fox-McCloud
