@@ -103,6 +103,7 @@
 
 /obj/machinery/vending/Initialize(mapload)
 	. = ..()
+	make_products() // HISPANIA
 	var/build_inv = FALSE
 	if(!refill_canister)
 		build_inv = TRUE
