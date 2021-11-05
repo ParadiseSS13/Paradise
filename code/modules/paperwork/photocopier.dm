@@ -39,8 +39,8 @@
 	return attack_hand(user)
 
 /obj/machinery/photocopier/attack_hand(mob/user)
-	if(..() || (stat & NOPOWER))
-		return
+	if(..())
+		return TRUE
 	ui_interact(user)
 
 /obj/machinery/photocopier/proc/papercopy(obj/item/paper/copy, scanning = FALSE)
@@ -189,8 +189,7 @@
 	if(copyitem)
 		copyitem.forceMove(get_turf(src))
 		if(ishuman(usr))
-			if(!usr.get_active_hand())
-				usr.put_in_hands(copyitem)
+			usr.put_in_hands(copyitem)
 		to_chat(usr, "<span class='notice'>You take \the [copyitem] out of \the [src].</span>")
 		copyitem = null
 
@@ -205,8 +204,7 @@
 	if(folder)
 		folder.forceMove(get_turf(src))
 		if(ishuman(usr))
-			if(!usr.get_active_hand())
-				usr.put_in_hands(folder)
+			usr.put_in_hands(folder)
 		to_chat(usr, "<span class='notice'>You take \the [folder] out of \the [src].</span>")
 		folder = null
 
