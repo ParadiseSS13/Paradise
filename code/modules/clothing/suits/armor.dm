@@ -205,8 +205,9 @@
 /obj/item/clothing/suit/armor/riot
 	name = "riot suit"
 	desc = "A suit of armor with heavy padding to protect against melee attacks. Looks like it might impair movement."
-	icon_state = "riot"
-	item_state = "riot"
+	icon = 'icons/hispania/obj/clothing/suits.dmi' // Ayuda a la hora de editar mapas y ver nuestras sprites
+	icon_state = "riotsuit"
+	item_state = "riotsuit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS

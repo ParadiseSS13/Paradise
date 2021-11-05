@@ -1,6 +1,6 @@
 /obj/item/shield/attack(mob/target, mob/living/user)
 	if(user.a_intent == INTENT_DISARM)
-		if(!target.incapacitated() || !target.lying)
+		if(!target.incapacitated() || !target.lying || target != user)
 			var/atom/throw_target = get_edge_target_turf(target, user.dir)
 			target.throw_at(throw_target, 1, 14, user, FALSE)
 			user.do_attack_animation(target)
