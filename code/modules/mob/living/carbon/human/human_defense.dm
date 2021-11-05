@@ -409,7 +409,7 @@ emp_act
 	if(!I || !user)
 		return 0
 
-	if((istype(I, /obj/item/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/twohanded/chainsaw)) && stat == DEAD && user.a_intent == INTENT_HARM)
+	if(HAS_TRAIT(I, TRAIT_BUTCHERS_HUMANS) && stat == DEAD && user.a_intent == INTENT_HARM)
 		var/obj/item/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/reagent_containers/food/snacks/meat/human(get_turf(loc))
 		newmeat.name = real_name + newmeat.name
 		newmeat.subjectname = real_name

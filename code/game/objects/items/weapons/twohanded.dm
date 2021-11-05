@@ -639,6 +639,10 @@
 	if(.)
 		flags &= ~NODROP
 
+/obj/item/twohanded/chainsaw/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_BUTCHERS_HUMANS, ROUNDSTART_TRAIT)
+
 // SINGULOHAMMER
 /obj/item/twohanded/singularityhammer
 	name = "singularity hammer"
