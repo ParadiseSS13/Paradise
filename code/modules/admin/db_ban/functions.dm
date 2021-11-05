@@ -146,8 +146,8 @@
 		qdel(adm_query)
 
 	var/datum/db_query/query_insert = SSdbcore.NewQuery({"
-		INSERT INTO ban (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`,`ban_round_id`,`unbanned_round_id`)
-		VALUES (null, Now(), :serverip, :bantype_str, :reason, :job, :duration, :rounds, Now() + INTERVAL :duration MINUTE, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null, :roundid, null)
+		INSERT INTO ban (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`,`ban_round_id`,`unbanned_round_id`, `server_id`)
+		VALUES (null, Now(), :serverip, :bantype_str, :reason, :job, :duration, :rounds, Now() + INTERVAL :duration MINUTE, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null, :roundid, null, :server_id)
 	"}, list(
 		// Get ready for parameters
 		"serverip" = serverip,
@@ -164,7 +164,8 @@
 		"a_ip" = a_ip,
 		"who" = who,
 		"adminwho" = adminwho,
-		"roundid" = GLOB.round_id
+		"roundid" = GLOB.round_id,
+		"server_id" = GLOB.configuration.system.instance_id
 	))
 	if(!query_insert.warn_execute())
 		qdel(query_insert)

@@ -114,6 +114,7 @@ CREATE TABLE `death` (
   `pod` text NOT NULL COMMENT 'Place of death',
   `coord` text NOT NULL COMMENT 'X, Y, Z POD',
   `tod` datetime NOT NULL COMMENT 'Time of death',
+  `server_id` TEXT NULL DEFAULT NULL,
   `job` text NOT NULL,
   `special` text NOT NULL,
   `name` text NOT NULL,
@@ -197,6 +198,7 @@ CREATE TABLE `ban` (
   `bantime` datetime NOT NULL,
   `ban_round_id` INT(11) NULL DEFAULT NULL,
   `serverip` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `server_id` VARCHAR(50) NULL DEFAULT NULL COLLATE utf8mb4_general_ci,
   `bantype` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `reason` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `job` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -320,6 +322,7 @@ CREATE TABLE `karma` (
   `receiverspecial` text,
   `isnegative` tinyint(1) DEFAULT NULL,
   `spenderip` text NOT NULL,
+  `server_id` TEXT NULL DEFAULT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=73614 DEFAULT CHARSET=utf8mb4;
@@ -374,6 +377,7 @@ CREATE TABLE `legacy_population` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `playercount` int(11) DEFAULT NULL,
   `admincount` int(11) DEFAULT NULL,
+  `server_id` VARCHAR(50) NULL DEFAULT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2550 DEFAULT CHARSET=utf8mb4;
@@ -532,6 +536,7 @@ CREATE TABLE `connection_log` (
   `ckey` varchar(32) NOT NULL,
   `ip` varchar(32) NOT NULL,
   `computerid` varchar(32) NOT NULL,
+  `server_id` VARCHAR(50) NULL DEFAULT NULL,
   `result` ENUM('ESTABLISHED','DROPPED - IPINTEL','DROPPED - BANNED','DROPPED - INVALID') NOT NULL DEFAULT 'ESTABLISHED' COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`),
@@ -584,6 +589,7 @@ CREATE TABLE `round` (
   `shuttle_name` VARCHAR(64) NULL,
   `map_name` VARCHAR(32) NULL,
   `station_name` VARCHAR(80) NULL,
+  `server_id` VARCHAR(50) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -612,3 +618,14 @@ CREATE TABLE `pai_saves` (
 	PRIMARY KEY (`id`) USING BTREE,
 	UNIQUE INDEX `ckey` (`ckey`) USING BTREE
 ) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
+
+--
+-- Table structure for table `instance_data_cache`
+--
+CREATE TABLE `instance_data_cache` (
+	`server_id` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`key_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`key_value` VARCHAR(12345) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`last_updated` TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+	PRIMARY KEY (`server_id`, `key_name`) USING HASH
+) COLLATE='utf8mb4_general_ci' ENGINE=MEMORY;

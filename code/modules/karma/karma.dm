@@ -16,15 +16,16 @@
 		return
 
 	var/datum/db_query/log_query = SSdbcore.NewQuery({"
-		INSERT INTO karma (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time)
-		VALUES (:sname, :skey, :rname, :rkey, :rrole, :rspecial, :sip, Now())"}, list(
+		INSERT INTO karma (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time, server_id)
+		VALUES (:sname, :skey, :rname, :rkey, :rrole, :rspecial, :sip, Now(), :server_id)"}, list(
 			"sname" = spender.name,
 			"skey" = spender.ckey,
 			"rname" = receiver.name,
 			"rkey" = receiver.ckey,
 			"rrole" = receiverrole,
 			"rspecial" = receiverspecial,
-			"sip" = spender.client.address
+			"sip" = spender.client.address,
+			"server_id" = GLOB.configuration.system.instance_id
 		))
 
 	if(!log_query.warn_execute())

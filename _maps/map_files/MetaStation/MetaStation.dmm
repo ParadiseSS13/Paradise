@@ -43751,7 +43751,7 @@
 	name = "\improper Secure Lab"
 	})
 "bPO" = (
-/obj/structure/foodcart,
+/obj/machinery/smartfridge/foodcart,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},

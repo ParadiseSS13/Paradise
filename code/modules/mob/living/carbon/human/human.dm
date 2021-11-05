@@ -1588,6 +1588,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	..()
 
+#define CPR_CHEST_COMPRESSION_ONLY	0.75
+#define CPR_RESCUE_BREATHS			1
+
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
 	if(H == src)
 		to_chat(src, "<span class='warning'>You cannot perform CPR on yourself!</span>")
@@ -1595,38 +1598,39 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH))
 		to_chat(src, "<span class='warning'>[H.name] is dead!</span>")
 		return
-	if(!check_has_mouth())
-		to_chat(src, "<span class='danger'>You don't have a mouth, you cannot perform CPR!</span>")
-		return
-	if(!H.check_has_mouth())
-		to_chat(src, "<span class='danger'>They don't have a mouth, you cannot perform CPR!</span>")
-		return
-	if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
-		to_chat(src, "<span class='warning'>Remove your mask first!</span>")
-		return
-	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.mask_adjusted))
-		to_chat(src, "<span class='warning'>Remove [H.p_their()] mask first!</span>")
-		return
 	if(H.receiving_cpr) // To prevent spam stacking
 		to_chat(src, "<span class='warning'>They are already receiving CPR!</span>")
 		return
-	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", "<span class='danger'>You try to perform CPR on [H.name]!</span>")
 	H.receiving_cpr = TRUE
-	if(do_mob(src, H, 40))
+	var/cpr_modifier = get_cpr_mod(H)
+	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", "<span class='danger'>You try to perform CPR on [H.name]!</span>")
+
+	if(do_mob(src, H, 4 SECONDS))
 		if(H.health <= HEALTH_THRESHOLD_CRIT)
-			H.adjustOxyLoss(-15)
+			H.adjustOxyLoss(-15 * cpr_modifier)
 			H.SetLoseBreath(0)
 			H.AdjustParalysis(-1)
 			H.updatehealth("cpr")
 			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
 
-			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
+			if(cpr_modifier == CPR_RESCUE_BREATHS)
+				to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
 			H.receiving_cpr = FALSE
 			add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
 			return TRUE
 	else
 		H.receiving_cpr = FALSE
 		to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
+
+/mob/living/carbon/human/proc/get_cpr_mod(mob/living/carbon/human/H)
+	if(is_mouth_covered() || H.is_mouth_covered())
+		return CPR_CHEST_COMPRESSION_ONLY
+	if(!H.check_has_mouth() || !check_has_mouth())
+		return CPR_CHEST_COMPRESSION_ONLY
+	return CPR_RESCUE_BREATHS
+
+#undef CPR_CHEST_COMPRESSION_ONLY
+#undef CPR_RESCUE_BREATHS
 
 /mob/living/carbon/human/canBeHandcuffed()
 	if(get_num_arms() >= 2)
