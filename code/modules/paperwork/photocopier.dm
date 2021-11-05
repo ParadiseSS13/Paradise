@@ -5,7 +5,7 @@
 	name = "photocopier"
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
-	var/insert_anim = "bigscanner1"
+
 	anchored = 1
 	density = 1
 	use_power = IDLE_POWER_USE
@@ -14,22 +14,29 @@
 	power_channel = EQUIP
 	max_integrity = 300
 	integrity_failure = 100
-	var/copying = FALSE //are we copying right now?
 	atom_say_verb = "bleeps"
 
-	var/obj/item/copyitem = null	//what's in the copier!
-	var/obj/item/folder = null   //Folder in the copier
+	var/insert_anim = "bigscanner1"
+	///Is the photocopier performing an action currently?
+	var/copying = FALSE
 
-	var/copies = 1	//how many copies to print!
-	var/toner = 60 //how much toner is left! woooooo~
-	var/toner_requirement = 1 //How much toner will be required for this operation
+	///Current obj stored in the copier to be copied
+	var/obj/item/copyitem = null
+	///Curren folder obj stored in the copier to copy into
+	var/obj/item/folder = null
+	///Mob that is currently on the photocopier
+	var/mob/living/copymob = null
+
+	var/copies = 1
+	var/toner = 60
+	///Number of copies that can be made at one time
 	var/maxcopies = 10	//how many copies can be copied at once- idea shamelessly stolen from bs12's copier!
-	var/mob/living/copymob = null //Whose ass are we copying? This is important information, hence why there is a var for it.
-
-	var/list/saved_documents = list()
 	var/max_saved_documents = 5
 
-	var/static/total_copies = 0 //Global tracking of total copied items
+	var/list/saved_documents = list()
+
+	///Total copies printed from copymachines globally
+	var/static/total_copies = 0
 	var/static/max_copies_reached = FALSE
 
 /obj/machinery/photocopier/attack_ai(mob/user)
