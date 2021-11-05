@@ -611,7 +611,7 @@
 #include "code\game\gamemodes\vampire\vampire_subclasses.dm"
 #include "code\game\gamemodes\vampire\vampire_powers\gargantua_powers.dm"
 #include "code\game\gamemodes\vampire\vampire_powers\hemomancer_powers.dm"
-#include "code\game\gamemodes\vampire\vampire_powers\umbrea_powers.dm"
+#include "code\game\gamemodes\vampire\vampire_powers\umbrae_powers.dm"
 #include "code\game\gamemodes\vampire\vampire_powers\vampire_powers.dm"
 #include "code\game\gamemodes\wizard\artefact.dm"
 #include "code\game\gamemodes\wizard\godhand.dm"
