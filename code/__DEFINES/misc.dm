@@ -496,3 +496,6 @@
 
 // Runechat symbol types
 #define RUNECHAT_SYMBOL_EMOTE 1
+
+/// Waits at a line of code until X is true
+#define UNTIL(X) while(!(X)) sleep(world.tick_lag)

@@ -72,7 +72,7 @@
 	can_holster = TRUE
 
 /obj/item/gun/energy/gun/blueshield/pdw9
-	name = "PDW-9 taser pistol"
+	name = "\improper PDW-9 taser pistol"
 	desc = "A military grade sidearm, used by many militia forces throughout the local sector."
 	icon_state = "pdw9pistol"
 

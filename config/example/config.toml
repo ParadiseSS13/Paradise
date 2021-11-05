@@ -718,8 +718,10 @@ lavaland_ruin_budget = 60
 shutdown_on_reboot = false
 # If true to above, an optional shell command can be ran. Defaults to killing DD on windows
 #shutdown_shell_command = "taskkill /im dreamdaemon.exe /f"
-# URL for the 2FA backend HTTP host. Do not use https:// or a trailing slash. Comment out to disable
-#_2fa_auth_host = "http://127.0.0.1:8080"
+# URL for the internal API host. See https://github.com/ParadiseSS13/ParadiseInternalAPI Do not use https:// or a trailing slash. Comment out to disable
+#api_host = "http://127.0.0.1:8080"
+# Access key for the internal API.
+#api_key = "your_secret_here"
 # List of IP addresses to be ignored by the world/Topic rate limiting. Useful if you have other services
 topic_ip_ratelimit_bypass = ["127.0.0.1"]
 # Turn this to true if you are running a production server

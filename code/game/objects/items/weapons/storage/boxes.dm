@@ -157,7 +157,7 @@
 		new /obj/item/dnainjector/h2m(src)
 
 /obj/item/storage/box/slug
-	name = "Ammunition Box (Slug)"
+	name = "ammunition box (Slug)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "slugbox"
 
@@ -166,7 +166,7 @@
 		new /obj/item/ammo_casing/shotgun(src)
 
 /obj/item/storage/box/buck
-	name = "Ammunition Box (Buckshot)"
+	name = "ammunition box (Buckshot)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "buckshotbox"
 
@@ -175,7 +175,7 @@
 		new /obj/item/ammo_casing/shotgun/buckshot(src)
 
 /obj/item/storage/box/dragonsbreath
-	name = "Ammunition Box (Dragonsbreath)"
+	name = "ammunition box (Dragonsbreath)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "dragonsbreathbox"
 
@@ -184,7 +184,7 @@
 		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
 
 /obj/item/storage/box/stun
-	name = "Ammunition Box (Stun shells)"
+	name = "ammunition box (Stun shells)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "stunbox"
 
@@ -193,7 +193,7 @@
 		new /obj/item/ammo_casing/shotgun/stunslug(src)
 
 /obj/item/storage/box/beanbag
-	name = "Ammunition Box (Beanbag shells)"
+	name = "ammunition box (Beanbag shells)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "beanbagbox"
 
@@ -202,7 +202,7 @@
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
 
 /obj/item/storage/box/rubbershot
-	name = "Ammunition Box (Rubbershot shells)"
+	name = "ammunition box (Rubbershot shells)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "rubbershotbox"
 
@@ -211,7 +211,7 @@
 		new /obj/item/ammo_casing/shotgun/rubbershot(src)
 
 /obj/item/storage/box/tranquilizer
-	name = "Ammunition Box (Tranquilizer darts)"
+	name = "ammunition box (Tranquilizer darts)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "tranqbox"
 
@@ -512,8 +512,8 @@
 	new /obj/item/clothing/suit/syndicatefake(src)
 
 /obj/item/storage/box/enforcer_rubber
-	name = "enforcer pistol kit (rubber)"
-	desc = "A box marked with pictures of an enforcer pistol, two ammo clips, and the word 'NON-LETHAL'."
+	name = "\improper Enforcer pistol kit (rubber)"
+	desc = "A box marked with pictures of an Enforcer pistol, two ammo clips, and the word 'NON-LETHAL'."
 	icon_state = "box_ert"
 
 /obj/item/storage/box/enforcer_rubber/populate_contents()
@@ -522,8 +522,8 @@
 	new /obj/item/ammo_box/magazine/enforcer(src)
 
 /obj/item/storage/box/enforcer_lethal
-	name = "enforcer pistol kit (lethal)"
-	desc = "A box marked with pictures of an enforcer pistol, two ammo clips, and the word 'LETHAL'."
+	name = "\improper Enforcer pistol kit (lethal)"
+	desc = "A box marked with pictures of an Enforcer pistol, two ammo clips, and the word 'LETHAL'."
 	icon_state = "box_ert"
 
 /obj/item/storage/box/enforcer_lethal/populate_contents()

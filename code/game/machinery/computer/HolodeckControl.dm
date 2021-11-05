@@ -420,7 +420,7 @@
 	item_state = "claymorered"
 
 /obj/item/holo/esword
-	name = "Holographic Energy Sword"
+	name = "holographic energy sword"
 	desc = "This looks like a real energy sword!"
 	icon_state = "sword0"
 	hitsound = "swing_hit"
