@@ -46524,8 +46524,8 @@
 /area/lawoffice)
 "caK" = (
 /obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
+	dir = 8;
+	pixel_x = 26
 	},
 /obj/structure/closet/secure_closet/iaa,
 /obj/machinery/alarm{
@@ -48179,10 +48179,12 @@
 /area/crew_quarters/courtroom)
 "cem" = (
 /obj/machinery/light_switch{
+	dir = 4;
 	pixel_x = -24;
 	pixel_y = -6
 	},
 /obj/machinery/button/windowtint{
+	dir = 4;
 	id = "IAA";
 	pixel_x = -24;
 	pixel_y = 6
@@ -49207,7 +49209,7 @@
 "cgS" = (
 /obj/machinery/photocopier,
 /obj/machinery/camera{
-	c_tag = "Magistrate's Office";
+	c_tag = "Law Office";
 	dir = 8
 	},
 /obj/item/storage/secure/safe{
