@@ -1,4 +1,5 @@
 #define PHOTOCOPIER_DELAY 15
+
 #define MAX_COPIES_PRINTABLE 300
 
 /obj/machinery/photocopier
@@ -22,17 +23,18 @@
 
 	///Current obj stored in the copier to be copied
 	var/obj/item/copyitem = null
-	///Curren folder obj stored in the copier to copy into
+	///Current folder obj stored in the copier to copy into
 	var/obj/item/folder = null
 	///Mob that is currently on the photocopier
 	var/mob/living/copymob = null
 
 	var/copies = 1
 	var/toner = 60
-	///Number of copies that can be made at one time
-	var/maxcopies = 10	//how many copies can be copied at once- idea shamelessly stolen from bs12's copier!
+	///Max number of copies that can be made at one time
+	var/maxcopies = 10
 	var/max_saved_documents = 5
 
+	///Objs currently saved inside the photocopier for printing later
 	var/list/saved_documents = list()
 
 	///Total copies printed from copymachines globally
@@ -50,9 +52,24 @@
 		return TRUE
 	ui_interact(user)
 
-/obj/machinery/photocopier/proc/papercopy(obj/item/paper/copy, scanning = FALSE)
+/**
+  * Public proc for copying paper objs
+  *
+  * Takes a paper object and makes a copy of it. This proc specifically does not change toner which allows more versatile use for child objects
+  * returns null if paper failed to be copied and returns the new copied paper obj if succesful
+  * Arguments:
+  * * obj/item/paper/copy - The paper obj to be copied
+  * * scanning -  If true, the photo is stored inside the photocopier and we do not check for toner
+  * * bundled - If true the photo is stored inside the photocopier, used by bundlecopy() to construct paper bundles
+  */
+/obj/machinery/photocopier/proc/papercopy(obj/item/paper/copy, scanning = FALSE, bundled = FALSE)
+	if(!scanning)
+		if(toner < 1)
+			visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner to finish the operation.</span>")
+			return null
+		total_copies++
 	var/obj/item/paper/c = new /obj/item/paper (loc)
-	if(scanning)
+	if(scanning || bundled)
 		c.forceMove(src)
 	else if(folder)
 		c.forceMove(folder)
@@ -80,15 +97,27 @@
 			img.pixel_y = copy.offset_y[j]
 			c.overlays += img
 	c.updateinfolinks()
-	if(!scanning)
-		toner--
-		total_copies++
 	return c
 
+/**
+  * Public proc for copying photo objs
+  *
+  * Takes a photo object and makes a copy of it. This proc specifically does not change toner which allows more versatile use for child objects
+  * returns null if photo failed to be copied and returns the new copied photo object if succesful
+  * Arguments:
+  * * obj/item/photo/photocopy - The photo obj to be copied
+  * * scanning -  If true, the photo is stored inside the photocopier and we do not check for toner
+  * * bundled - If true the photo is stored inside the photocopier, used by bundlecopy() to construct paper bundles
+  */
+/obj/machinery/photocopier/proc/photocopy(obj/item/photo/photocopy, scanning = FALSE, bundled = FALSE)
+	if(!scanning) //If we're just storing this as a file inside the copier then we don't expend toner
+		if(toner < 5)
+			visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner to finish the operation.</span>")
+			return null
+		total_copies++
 
-/obj/machinery/photocopier/proc/photocopy(obj/item/photo/photocopy, scanning = FALSE)
 	var/obj/item/photo/p = new /obj/item/photo (loc)
-	if(scanning)
+	if(scanning || bundled)
 		p.forceMove(src)
 	else if(folder)
 		p.forceMove(folder)
@@ -97,22 +126,22 @@
 	p.tiny = photocopy.tiny
 	p.img = photocopy.img
 	p.desc = photocopy.desc
-	p.pixel_x = photocopy.pixel_x
-	p.pixel_y = photocopy.pixel_y
+	p.pixel_x = rand(-10, 10)
+	p.pixel_y = rand(-10, 10)
 	if(photocopy.scribble)
 		p.scribble = photocopy.scribble
-	if(!scanning)
-		toner -= 5
-		total_copies++
-	if(toner < 0)
-		toner = 0
 	return p
 
 
 /obj/machinery/photocopier/proc/copyass(scanning = FALSE)
+	if(!scanning) //If we're just storing this as a file inside the copier then we don't expend toner
+		if(toner < 5)
+			visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner to finish the operation.</span>")
+			return null
+		total_copies++
+
 	var/icon/temp_img
-	if(!check_mob()) //You have to be sitting on the copier and either be a xeno or a human without clothes on.
-		return
+
 	if(emagged)
 		if(ishuman(copymob))
 			var/mob/living/carbon/human/H = copymob
@@ -147,40 +176,44 @@
 	small_img.Scale(8, 8)
 	ic.Blend(small_img,ICON_OVERLAY, 10, 13)
 	p.icon = ic
-	if(!scanning)
-		toner -= 5
-		total_copies++
-	if(toner < 0)
-		toner = 0
 	return p
 
-//If need_toner is 0, the copies will still be lightened when low on toner, however it will not be prevented from printing. TODO: Implement print queues for fax machines and get rid of need_toner
-/obj/machinery/photocopier/proc/bundlecopy(obj/item/paper_bundle/bundle, need_toner=1, scanning = FALSE)
+/**
+  * A public proc for copying bundles of paper
+  *
+  * It iterates through each object in the bundle and calls papercopy() and photocopy() and stores the produce photo/paper in the bundle
+  * Arguments:
+  * * bundle - The paper bundle object being copied
+  * * scanning - If true, the paper bundle is stored inside the photocopier
+  * * use_toner - If true, this operation uses toner, this is not done in copy() because partial bundles would be impossible otherwise
+  */
+/obj/machinery/photocopier/proc/bundlecopy(obj/item/paper_bundle/bundle, scanning = FALSE, use_toner = FALSE)
 	var/obj/item/paper_bundle/P = new /obj/item/paper_bundle (src, default_papers = FALSE)
-	if(scanning)
-		P.forceMove(src)
-	else if(folder)
-		P.forceMove(folder)
+	P.forceMove(src) //Bundle is initially inside copier to give copier time to build the bundle before the player can pick it up
 	for(var/obj/item/W in bundle)
-		if(toner <= 0 && need_toner)
-			toner = 0
-			break
-
 		if(istype(W, /obj/item/paper))
-			W = papercopy(W, scanning)
+			W = papercopy(W, bundled = TRUE)
+			if(use_toner && W)
+				toner-- //In order to allow partial bundles we have to handle toner +- inside the proc
 		else if(istype(W, /obj/item/photo))
-			W = photocopy(W, scanning)
+			W = photocopy(W, bundled = TRUE)
+			if(use_toner && W)
+				toner -= 5
+		if (!W)
+			break
 		W.forceMove(P)
 		P.amount++
-	if(!P.amount)
+	P.amount-- //amount variable should be the number of pages in addition to the first (#pages - 1) this avoids runtimes from index errors
+	if(!P.amount) //if we did not have enough toner to complete the second page, delete the bundle
 		qdel(P)
-		return null
-	P.amount--
+		return FALSE
 	if(!scanning)
-		toner-= P.amount
 		total_copies++
-		if(!folder)
-			P.forceMove(get_turf(src))
+		if(folder) //Since bundle is still inside the copier, we need to finally move it out
+			P.forceMove(folder)
+		else
+			P.forceMove(loc)
+
 	P.update_icon()
 
 	P.icon_state = "paper_words"
@@ -215,10 +248,24 @@
 		to_chat(usr, "<span class='notice'>You take \the [folder] out of \the [src].</span>")
 		folder = null
 
+/**
+  * An internal proc for checking if a photocopier is able to copy an object
+  *
+  * It performs early checks/returns to see if the copier has any toner, if the copier is powered/working,
+  * if the copier is currently perfoming an action, or if we've hit the global copy limit. Used to inform
+  * the player in-game if they're using the photocopier incorrectly (no toner, no item inside, etc)
+  * Arguments:
+  * * scancopy - If TRUE, cancopy does not check for an item on/inside the copier to copy, used for copying stored files
+  */
 /obj/machinery/photocopier/proc/cancopy(scancopy = FALSE) //are we able to make a copy of a doc?
 	if(stat & (BROKEN|NOPOWER))
 		return
-
+	if(copying) //are we in the process of copying something already?
+		to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
+		return
+	if(!scancopy && toner <= 0) //if we're not scanning lets check early that we actually have toner
+		visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner for the operation.</span>")
+		return
 	if(max_copies_reached)
 		visible_message("<span class='warning'>The printer screen reads \"MAX COPIES REACHED, PHOTOCOPIER NETWORK OFFLINE: PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
 		return
@@ -226,64 +273,55 @@
 		visible_message("<span class='warning'>The printer screen reads \"MAX COPIES REACHED, PHOTOCOPIER NETWORK OFFLINE: PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
 		message_admins("Photocopier cap of [MAX_COPIES_PRINTABLE] paper copies reached, all photocopiers are now disabled.")
 		max_copies_reached = TRUE
-
-	if(copying) //are we in the process of copying something already?
-		to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
-		return
-	if((!copymob || !check_mob()) && (!copyitem && !scancopy)) //is there anything in or ontop of the machine? If not, is this a scanned file?
+	if(!check_mob() && (!copyitem && !scancopy)) //is there anything in or ontop of the machine? If not, is this a scanned file?
 		visible_message("<span class='notice'>A red light on [src] flashes, indicating there's nothing in [src] to copy.</span>")
 		return
 	return TRUE
 
+/**
+  * Public proc for copying items
+  *
+  * Determines what item needs to be copied whether it's a mob's ass, paper, bundle, or photo and then calls the respective
+  * proc for it. Most toner var changing happens here so that the faxmachine child obj does not need to worry about toner
+  * Arguments:
+  * * obj/item/C - The item stored inside the photocopier to be copied (obj/paper, obj/photo, obj/paper_bundle)
+  * * scancopy - Indicates that obj/item/C is a stored file, we need to pass this on to cancopy() so it passes the check
+  */
 /obj/machinery/photocopier/proc/copy(obj/item/C, scancopy = FALSE)
 	if(!cancopy(scancopy))
 		return
-	if(toner <= 0)
-		visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner for the operation.</span>")
-		return
 	copying = TRUE
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 	if(istype(C, /obj/item/paper))
-		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 		for(var/i = copies; i > 0; i--)
-			if(toner > 0)
-				papercopy(C)
-				use_power(active_power_usage)
-				sleep(PHOTOCOPIER_DELAY)
-			else
-				visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner to finish the operation.</span>")
+			if(!papercopy(C))
 				break
+			toner -= 1
+			use_power(active_power_usage)
+			sleep(PHOTOCOPIER_DELAY)
 	else if(istype(C, /obj/item/photo))
-		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 		for(var/i = copies; i > 0; i--)
-			if(toner > 4)
-				photocopy(C)
-				use_power(active_power_usage)
-				sleep(PHOTOCOPIER_DELAY)
-			else
-				visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner to finish the operation.</span>")
+			if(!photocopy(C))
 				break
+			toner -= 5
+			use_power(active_power_usage)
+			sleep(PHOTOCOPIER_DELAY)
 	else if(istype(C, /obj/item/paper_bundle))
-		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-		var/obj/item/paper_bundle/I = copyitem
+		var/obj/item/paper_bundle/B = C
 		for(var/i = copies; i > 0; i--)
-			if(toner < (I.amount + 1))
-				visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner to finish the operation.</span>")
-				return // It is better to prevent partial bundle than to produce broken paper bundle
-			var/obj/item/paper_bundle/B = bundlecopy(C)
-			if(!B) //B returned null because it was partial
+			if(!bundlecopy(C, use_toner = TRUE))
 				break
-			sleep(PHOTOCOPIER_DELAY*B.amount)
-	else if(copymob && copymob.loc == loc)
-		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+			use_power(active_power_usage)
+			sleep(PHOTOCOPIER_DELAY * (B.amount + 1))
+	else if(check_mob()) //Once we've scanned the copy_mob's ass we do not need to again
 		for(var/i = copies; i > 0; i--)
-			if(toner > 4)
-				copyass()
-				sleep(PHOTOCOPIER_DELAY)
-			else
-				visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner to finish the operation.</span>")
+			if(!copyass())
 				break
+			toner -= 5
 	else
 		to_chat(usr, "<span class='warning'>\The [copyitem] can't be copied by \the [src].</span>")
+		copyitem.forceMove(loc) //fuckery detected! get off my photocopier... shitbird!
+
 	copying = FALSE
 
 /obj/machinery/photocopier/proc/scan_document() //scan a document into a file
@@ -294,12 +332,13 @@
 		return
 	copying = TRUE
 	var/obj/item/O
+	//Instead of calling copy() we jump ahead and use the procs that do the heavy lifting to avoid using toner since we're only scanning
 	if(istype(copyitem, /obj/item/paper))
 		O = papercopy(copyitem, scanning = TRUE)
 	else if(istype(copyitem, /obj/item/photo))
 		O = photocopy(copyitem, scanning = TRUE)
 	else if(istype(copyitem, /obj/item/paper_bundle))
-		O = bundlecopy(copyitem, scanning = TRUE)
+		O = bundlecopy(copyitem, scanning = TRUE, use_toner = FALSE)
 	else if(copymob && copymob.loc == loc)
 		O = copyass(scanning = TRUE)
 	else
@@ -329,7 +368,6 @@
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Photocopier", name, 402, 368, master_ui, state)
-		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /obj/machinery/photocopier/ui_data(mob/user)
@@ -470,10 +508,14 @@
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 	atom_say("Attention: Posterior Placed on Printing Plaque!")
 
+/**
+  * Internal proc for checking the Mob on top of the copier
+  * Reports FALSE if there is no copymob or if the copymob is in a diff location than the copy machine, otherwise reports TRUE
+  */
 /obj/machinery/photocopier/proc/check_mob()
 	if(!copymob)
 		return FALSE
-	if(copymob.loc != loc) //Is there a mob ontop of the photocopier?
+	if(copymob.loc != loc)
 		copymob = null
 		return FALSE
 	else
