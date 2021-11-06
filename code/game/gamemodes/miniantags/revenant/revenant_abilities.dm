@@ -85,6 +85,7 @@
 					target.visible_message("<span class='warning'>[target] slumps onto the ground.</span>", \
  										   "<span class='revenwarning'>Violets lights, dancing in your vision, getting clo--</span>")
 					drained_mobs.Add(target)
+					add_attack_logs(src, target, "revenant harvested soul")
 					target.death(0)
 				else
 					to_chat(src, "<span class='revenwarning'>[target ? "[target] has":"They have"] been drawn out of your grasp. The link has been broken.</span>")
