@@ -77251,17 +77251,6 @@
 	icon_state = "purplecorner"
 	},
 /area/hallway/primary/aft)
-"dpb" = (
-/obj/machinery/light_switch{
-	dir = 1;
-	pixel_x = 26;
-	pixel_y = -26
-	},
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/assembly/chargebay)
 "dpc" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research{
@@ -78459,6 +78448,10 @@
 	pixel_x = 26
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -26
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -79622,8 +79615,8 @@
 	pixel_y = 24
 	},
 /obj/machinery/light_switch{
-	pixel_x = 26;
-	pixel_y = 26
+	pixel_x = 22;
+	pixel_y = 36
 	},
 /obj/item/flash,
 /obj/item/flash,
@@ -138961,7 +138954,7 @@ dmf
 dnz
 dnz
 dnz
-dpb
+dnz
 drF
 dqp
 drJ
