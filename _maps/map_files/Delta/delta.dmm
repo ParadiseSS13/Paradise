@@ -74141,9 +74141,6 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "dit" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -74151,6 +74148,10 @@
 	pixel_x = 32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/cryopod/robot,
+/obj/machinery/computer/cryopod/robot{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -74948,13 +74949,6 @@
 "djS" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
-/area/assembly/chargebay)
-"djT" = (
-/obj/structure/filingcabinet/chestdrawer,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
 /area/assembly/chargebay)
 "djV" = (
 /obj/structure/cable{
@@ -138963,7 +138957,7 @@ dbU
 cVz
 dfo
 dit
-djT
+dmf
 dnz
 dnz
 dnz
