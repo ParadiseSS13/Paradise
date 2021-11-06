@@ -84,5 +84,5 @@
 	name = "mining car (not for rails)"
 	icon_state = "miningcar"
 	density = 1
-	icon_opened = "miningcaropen"
+	icon_opened = "miningcar_open"
 	icon_closed = "miningcar"
