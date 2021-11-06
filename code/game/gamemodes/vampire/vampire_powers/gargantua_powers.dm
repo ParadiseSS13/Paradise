@@ -40,15 +40,13 @@
 	charge_max = 30 SECONDS
 	required_blood = 30
 	action_icon_state = "blood_rush"
-	var/duration = 10 SECONDS
 
 /obj/effect/proc_holder/spell/self/vampire/blood_rush/cast(list/targets, mob/user)
-	ADD_TRAIT(user, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
-	to_chat(user, "<span class='notice'>You feel a rush of energy!</span>")
-	addtimer(CALLBACK(user, /mob/living/carbon/human/.proc/remove_speed), duration)
-
-/mob/living/carbon/human/proc/remove_speed()
-	REMOVE_TRAIT(src, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
+	var/mob/living/target = targets[1]
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		to_chat(H, "<span class='notice'>You feel a rush of energy!</span>")
+		H.apply_status_effect(STATUS_EFFECT_BLOOD_RUSH)
 
 /obj/effect/proc_holder/spell/targeted/click/charge
 	name = "Charge(30)"

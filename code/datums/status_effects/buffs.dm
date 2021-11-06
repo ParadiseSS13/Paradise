@@ -176,6 +176,17 @@
 		H.physiology.melee_bonus -= 10
 		H.dna.species.punchstunthreshold -= 8
 
+/datum/status_effect/blood_rush
+	alert_type = null
+	duration = 10 SECONDS
+
+/datum/status_effect/blood_rush/on_apply()
+	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
+	return TRUE
+
+/datum/status_effect/blood_rush/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
+
 /datum/status_effect/exercised
 	id = "Exercised"
 	duration = 1200
