@@ -1006,18 +1006,18 @@
 
 /obj/item/toy/plushie/greyplushie/water_act(volume, temperature, source, method = REAGENT_TOUCH) //If water touches the plushie the following code executes.
 	. = ..()
-	if(singed)
-		return
-	singed = TRUE
-	icon_state = "grey_singed"
-	item_state = "grey_singed"//If the plushie gets wet the sprite changes to a singed version.
-	desc = "A ruined plushie of a grey. It looks like someone ran it under some water."
 	if(scream_cooldown)
 		return
 	scream_cooldown = TRUE //water_act executes the scream_cooldown var, setting it on cooldown.
 	addtimer(CALLBACK(src, .proc/reset_screamdown), 30 SECONDS) //After 30 seconds the reset_coolodown() proc will execute, resetting the cooldown. Hug interaction is unnaffected by this.
 	playsound(src, 'sound/goonstation/voice/male_scream.ogg', 10, FALSE)//If the plushie gets wet it screams and "AAAAAH!" appears in chat.
 	visible_message("<span class='danger'>AAAAAAH!</span>")
+	if(singed)
+		return
+	singed = TRUE
+	icon_state = "grey_singed"
+	item_state = "grey_singed"//If the plushie gets wet the sprite changes to a singed version.
+	desc = "A ruined plushie of a grey. It looks like someone ran it under some water."
 
 /obj/item/toy/plushie/greyplushie/proc/reset_screamdown()
 	scream_cooldown = FALSE //Resets the scream interaction cooldown.
