@@ -506,7 +506,8 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/gun/projectile/automatic/pistol,
-		/obj/item/gun/projectile/revolver/detective
+		/obj/item/gun/projectile/revolver/detective,
+		/obj/item/gun/projectile/automatic/toy/pistol
 		)
 
 /obj/item/storage/belt/wands
