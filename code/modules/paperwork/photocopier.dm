@@ -1,5 +1,5 @@
 #define PHOTOCOPIER_DELAY 15
-
+///Global limit on copied papers and photos, bundles are counted as a sum of their parts
 #define MAX_COPIES_PRINTABLE 300
 
 /obj/machinery/photocopier
