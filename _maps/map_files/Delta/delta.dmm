@@ -47045,6 +47045,15 @@
 	},
 /turf/simulated/wall,
 /area/maintenance/port)
+"cbC" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/aft)
 "cbE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -79831,7 +79840,9 @@
 	},
 /area/medical/cmo)
 "duw" = (
-/obj/effect/spawner/window/reinforced/polarized,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "Chapel"
+	},
 /turf/simulated/floor/plating,
 /area/chapel/main)
 "dux" = (
@@ -93697,17 +93708,6 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
-"frd" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cult"
-	},
-/area/magistrateoffice)
 "frp" = (
 /obj/structure/flora/ausbushes/sunnybush,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -94390,6 +94390,17 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"hki" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cult"
+	},
+/area/magistrateoffice)
 "hly" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
@@ -94446,6 +94457,19 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay)
+"hxT" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/security/brig)
 "hzb" = (
 /obj/machinery/light{
 	dir = 4
@@ -95091,6 +95115,22 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/surgery1)
+"joQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cult"
+	},
+/area/magistrateoffice)
 "jqB" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -95317,22 +95357,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
-"jXS" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cult"
-	},
-/area/magistrateoffice)
 "jYK" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -96042,22 +96066,6 @@
 	icon_state = "redcorner"
 	},
 /area/security/permabrig)
-"mnq" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cult"
-	},
-/area/magistrateoffice)
 "mnG" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/disposalpipe/segment{
@@ -96502,15 +96510,6 @@
 	icon_state = "barber"
 	},
 /area/security/permabrig)
-"nke" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/carpet,
-/area/magistrateoffice)
 "nli" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/cleanliness{
@@ -96932,19 +96931,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/crew_quarters/sleep)
-"oGZ" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/security/brig)
 "oHv" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
@@ -97780,6 +97766,22 @@
 	icon_state = "red"
 	},
 /area/hallway/secondary/exit)
+"rnG" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cult"
+	},
+/area/magistrateoffice)
 "rnO" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable,
@@ -98122,15 +98124,6 @@
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"snX" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/hallway/primary/aft)
 "soN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -99622,6 +99615,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
+"wxH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/magistrateoffice)
 "wAE" = (
 /obj/structure/dresser,
 /turf/simulated/floor/plating,
@@ -99993,12 +99995,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"xTd" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "Chapel"
-	},
-/turf/simulated/floor/plating,
-/area/chapel/main)
 "xUI" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/teargas,
@@ -137071,15 +137067,15 @@ dku
 dHA
 ddy
 dJx
-xTd
+duw
 dKr
 dKO
-xTd
+duw
 dJx
 duw
 dJx
 dJx
-xTd
+duw
 dJx
 dJx
 dJx
@@ -139379,7 +139375,7 @@ dCX
 dfu
 dHT
 dcV
-snX
+cbC
 dWL
 dWM
 dIK
@@ -150883,7 +150879,7 @@ hTV
 hTV
 hTV
 iDa
-nke
+wxH
 hOL
 cgi
 hTV
@@ -151141,7 +151137,7 @@ bXV
 hTV
 jCU
 ccG
-frd
+hki
 cgj
 hTV
 cjp
@@ -151396,8 +151392,8 @@ hTV
 bWs
 bXW
 bYU
-jXS
-mnq
+rnG
+joQ
 bXW
 cgk
 hTV
@@ -152168,7 +152164,7 @@ bGe
 bGe
 dTi
 caO
-oGZ
+hxT
 cey
 cgm
 chQ
