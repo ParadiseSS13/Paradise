@@ -1076,11 +1076,11 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "ais" = (
+/obj/machinery/vending/snack,
+/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/vending/snack,
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "aiE" = (
@@ -1317,6 +1317,9 @@
 /area/maintenance/fore2)
 "akG" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -10011,17 +10014,20 @@
 /turf/simulated/wall,
 /area/crew_quarters/bar)
 "aFB" = (
-/obj/machinery/light{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
-/area/hallway/primary/fore)
+/area/hallway/secondary/entry)
 "aFC" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 25
@@ -14047,7 +14053,9 @@
 /turf/simulated/floor/plating,
 /area/atmos)
 "aOc" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -15117,7 +15125,9 @@
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "aQt" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
@@ -17127,7 +17137,9 @@
 /turf/simulated/floor/engine/air,
 /area/atmos)
 "aUo" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -17189,7 +17201,9 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/fore)
 "aUw" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -17237,7 +17251,9 @@
 	},
 /area/clownoffice)
 "aUB" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -29243,11 +29259,14 @@
 	},
 /area/hallway/primary/central)
 "bsi" = (
-/obj/machinery/light/small,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/hallway/primary/central)
+/area/hallway/primary/fore)
 "bsj" = (
 /obj/machinery/door/firedoor,
 /obj/structure/sign/poster/official/nanotrasen_logo{
@@ -29273,11 +29292,11 @@
 	},
 /area/hallway/primary/central)
 "bsn" = (
-/obj/machinery/light/small,
 /obj/machinery/camera{
 	c_tag = "Central Ring Hallway North";
 	dir = 1
 	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -29291,12 +29310,13 @@
 	},
 /area/library)
 "bsq" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
+/obj/structure/chair/stool/bar{
+	dir = 1
 	},
-/area/hallway/primary/central)
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/crew_quarters/bar)
 "bsr" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -39107,6 +39127,9 @@
 "bLl" = (
 /obj/structure/closet/toolcloset,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "cautioncorner"
@@ -40031,9 +40054,6 @@
 /obj/item/multitool,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -25
-	},
-/obj/machinery/light{
-	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -48291,6 +48311,12 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/button/windowtint{
+	dir = 4;
+	id = "IAA";
+	pixel_x = -24;
+	pixel_y = 6
+	},
 /turf/simulated/floor/wood,
 /area/lawoffice)
 "cen" = (
@@ -61914,7 +61940,7 @@
 	},
 /area/hallway/primary/central)
 "cHH" = (
-/obj/machinery/light/small,
+/obj/machinery/light,
 /obj/machinery/camera{
 	c_tag = "Central Ring Hallway South";
 	dir = 1
@@ -61963,7 +61989,7 @@
 	},
 /area/hallway/primary/central)
 "cHL" = (
-/obj/machinery/light/small,
+/obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -69877,9 +69903,6 @@
 	},
 /area/medical/medbay3)
 "cZR" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -78395,10 +78418,6 @@
 	pixel_x = 26
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/light_switch{
-	dir = 1;
-	pixel_y = -26
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -83842,7 +83861,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "dCX" = (
-/obj/machinery/light/small,
+/obj/machinery/light,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/cable{
 	d1 = 4;
@@ -83876,7 +83895,7 @@
 	},
 /area/assembly/robotics)
 "dDa" = (
-/obj/machinery/light/small,
+/obj/machinery/light,
 /obj/structure/closet/firecloset,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -87579,10 +87598,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/plaque{
-	desc = "NanoTrasen Science Station Kerberos: Comissioned in 2557.";
-	name = "NSS Kerberos dedication plaque"
-	},
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dLP" = (
@@ -90675,10 +90691,6 @@
 	},
 /area/hallway/secondary/exit)
 "dSV" = (
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -24
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -93847,6 +93859,17 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/surgery1)
+"fZU" = (
+/obj/effect/landmark/start{
+	name = "Civilian"
+	},
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/crew_quarters/bar)
 "gcN" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -94571,6 +94594,16 @@
 	icon_state = "neutralfull"
 	},
 /area/security/permabrig)
+"iaD" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/light_switch{
+	dir = 8;
+	pixel_x = 26
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/chargebay)
 "ibc" = (
 /obj/machinery/atm{
 	pixel_y = 32
@@ -94868,6 +94901,14 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
+"iUO" = (
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/crew_quarters/bar)
 "iVO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -97650,6 +97691,14 @@
 	icon_state = "red"
 	},
 /area/hallway/secondary/exit)
+"rnA" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/crew_quarters/bar)
 "rnO" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable,
@@ -97922,6 +97971,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/brig)
+"shP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "shS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -98422,6 +98483,17 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/fitness)
+"twX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "txW" = (
 /obj/machinery/newscaster{
 	pixel_y = -30
@@ -134756,7 +134828,7 @@ caN
 chc
 bpT
 bOW
-bOW
+twX
 bOW
 cGC
 tVa
@@ -134768,7 +134840,7 @@ bsf
 bsf
 bsf
 bsf
-bsf
+shP
 bsf
 bst
 cGx
@@ -136785,7 +136857,7 @@ blk
 aYZ
 boo
 bqu
-bsi
+bhX
 bsv
 abj
 abj
@@ -137535,13 +137607,13 @@ aGB
 aMi
 aJa
 aKs
-aTp
+bsq
 aOG
 aOG
-aWj
-aWj
+iUO
+iUO
 aRe
-aWj
+iUO
 aLS
 aUj
 aOG
@@ -137792,7 +137864,7 @@ aGC
 aMg
 aIZ
 aKs
-aTp
+bsq
 aOG
 aWj
 aQb
@@ -138306,7 +138378,7 @@ aGE
 aIZ
 aMk
 aKs
-aVQ
+fZU
 aOG
 aWj
 aQd
@@ -138563,14 +138635,14 @@ aGF
 aIZ
 aMl
 aKs
-aTp
+bsq
 aOG
 aOG
-aWj
-aWj
+rnA
+rnA
 aRs
-aWj
-aWj
+rnA
+rnA
 aXI
 aOG
 aTp
@@ -138902,7 +138974,7 @@ dbU
 cVz
 dfo
 dit
-dmf
+iaD
 dnz
 dnz
 dnz
@@ -139098,7 +139170,7 @@ aYZ
 bna
 boo
 bqu
-bsi
+bhX
 bsv
 abj
 bwf
@@ -139329,10 +139401,10 @@ bhO
 bhO
 bhO
 bhO
-aFB
+aWq
 aGH
 bhO
-bhO
+bsi
 aKt
 bhO
 bhO
@@ -139421,7 +139493,7 @@ dnC
 doS
 dnC
 dHT
-doY
+dgC
 dft
 drL
 cVA
@@ -139429,7 +139501,7 @@ cVA
 cVA
 cZR
 doY
-doY
+dgC
 doY
 doY
 doY
@@ -139840,7 +139912,7 @@ aBU
 azw
 aAH
 aEF
-aEF
+aRK
 aEF
 aEF
 aFC
@@ -141864,7 +141936,7 @@ aaa
 aaa
 aaa
 acC
-agJ
+aFB
 ajZ
 ajZ
 cMP
@@ -142439,7 +142511,7 @@ blz
 bfq
 bov
 aXY
-bsq
+cvW
 bsv
 abj
 abj
