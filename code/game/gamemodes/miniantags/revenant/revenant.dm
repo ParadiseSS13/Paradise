@@ -52,8 +52,9 @@
 	var/unstun_time = 0 //How long the revenant is stunned for, is about 2 seconds times this var.
 	var/inhibited = 0 //If the revenant's abilities are blocked by a chaplain's power.
 	var/essence_drained = 0 //How much essence the revenant has drained.
-	var/draining = 0 //If the revenant is draining someone.
-	var/list/drained_mobs = list() //Cannot harvest the same mob twice
+	var/draining = FALSE //If the revenant is draining someone.
+	/// contains a list of UIDs of mobs who have been drained. cannot drain the same mob twice.
+	var/list/drained_mobs = list()
 	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has.
 
 
@@ -232,25 +233,21 @@
 	..()
 
 /mob/living/simple_animal/revenant/proc/castcheck(essence_cost)
-	if(!src)
-		return
 	if(holy_check(src))
 		return
 	var/turf/T = get_turf(src)
 	if(istype(T, /turf/simulated/wall))
 		to_chat(src, "<span class='revenwarning'>You cannot use abilities from inside of a wall.</span>")
 		return 0
-	if(src.inhibited)
+	if(inhibited)
 		to_chat(src, "<span class='revenwarning'>Your powers have been suppressed by nulling energy!</span>")
 		return 0
-	if(!src.change_essence_amount(essence_cost, 1))
+	if(!change_essence_amount(essence_cost, 1))
 		to_chat(src, "<span class='revenwarning'>You lack the essence to use that ability.</span>")
 		return 0
 	return 1
 
 /mob/living/simple_animal/revenant/proc/change_essence_amount(essence_amt, silent = 0, source = null)
-	if(!src)
-		return
 	if(essence + essence_amt <= 0)
 		return
 	essence = max(0, essence+essence_amt)
@@ -264,8 +261,6 @@
 	return 1
 
 /mob/living/simple_animal/revenant/proc/reveal(time)
-	if(!src)
-		return
 	if(time <= 0)
 		return
 	revealed = 1
@@ -280,8 +275,6 @@
 	update_spooky_icon()
 
 /mob/living/simple_animal/revenant/proc/stun(time)
-	if(!src)
-		return
 	if(time <= 0)
 		return
 	notransform = 1
