@@ -57508,6 +57508,11 @@
 /obj/item/book/manual/sop_security,
 /obj/item/book/manual/sop_service,
 /obj/item/book/manual/sop_supply,
+/obj/machinery/requests_console{
+	department = "Internal Affairs Office";
+	name = "Internal Affairs Requests Console";
+	pixel_x = 30
+	},
 /turf/simulated/floor/wood,
 /area/lawoffice)
 "cyM" = (
