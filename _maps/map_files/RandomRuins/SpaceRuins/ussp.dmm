@@ -7135,14 +7135,6 @@
 	icon_state = "hydrofloor"
 	},
 /area/derelict/crew_quarters)
-"pg" = (
-/obj/structure/closet/walllocker{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "orangefull"
-	},
-/area/derelict/crew_quarters)
 "ph" = (
 /obj/structure/holohoop{
 	dir = 1
@@ -14333,7 +14325,7 @@ ok
 oB
 ok
 pb
-pg
+nV
 bm
 py
 dJ
