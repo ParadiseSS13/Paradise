@@ -259,7 +259,7 @@
 		for(var/turf/T in targets)
 			INVOKE_ASYNC(src, .proc/effect, user, T)
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/proc/effect(mob/living/simple_animal/revenant/user, var/turf/T)
+/obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/proc/effect(mob/living/simple_animal/revenant/user, turf/T)
 	T.rev_malfunction()
 	for(var/atom/A in T.contents)
 		A.rev_malfunction()
