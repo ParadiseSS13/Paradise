@@ -294,52 +294,52 @@
 	for(var/mob/living/carbon/human/H in targets)
 		T.Beam(H, "sendbeam", 'icons/effects/effects.dmi', time = 30, maxdistance = 7, beam_type = /obj/effect/ebeam)
 		new /obj/effect/temp_visual/cult/sparks(H.loc)
-		H.raise_vampire(user)
+		raise_vampire(user, H)
 
 
-/mob/living/carbon/human/proc/raise_vampire(mob/M)
-	if(!istype(M))
-		log_debug("human/proc/raise_vampire called with invalid argument.")
+/obj/effect/proc_holder/spell/targeted/raise_vampires/proc/raise_vampire(mob/M, mob/living/carbon/human/H)
+	if(!istype(M) || !istype(H))
 		return
-	if(!mind)
-		visible_message("[src] looks to be too stupid to understand what is going on.")
+	if(!H.mind)
+		visible_message("[H] looks to be too stupid to understand what is going on.")
 		return
-	if(dna && (NO_BLOOD in dna.species.species_traits) || dna.species.exotic_blood || !blood_volume)
-		visible_message("[src] looks unfazed!")
+	if(H.dna && (NO_BLOOD in H.dna.species.species_traits) || H.dna.species.exotic_blood || !H.blood_volume)
+		visible_message("[H] looks unfazed!")
 		return
-	if(mind.vampire || mind.special_role == SPECIAL_ROLE_VAMPIRE || mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
-		visible_message("<span class='notice'>[src] looks refreshed!</span>")
-		adjustBruteLoss(-60)
-		adjustFireLoss(-60)
-		for(var/obj/item/organ/external/E in bodyparts)
+	if(H.mind.vampire || H.mind.special_role == SPECIAL_ROLE_VAMPIRE || H.mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
+		visible_message("<span class='notice'>[H] looks refreshed!</span>")
+		H.adjustBruteLoss(-60)
+		H.adjustFireLoss(-60)
+		for(var/obj/item/organ/external/E in H.bodyparts)
 			if(prob(25))
 				E.mend_fracture()
+				E.internal_bleeding = FALSE
 
 		return
-	if(stat != DEAD)
-		if(IsWeakened())
-			visible_message("<span class='warning'>[src] looks to be in pain!</span>")
-			adjustBrainLoss(60)
+	if(H.stat != DEAD)
+		if(H.IsWeakened())
+			visible_message("<span class='warning'>[H] looks to be in pain!</span>")
+			H.adjustBrainLoss(60)
 		else
-			visible_message("<span class='warning'>[src] looks to be stunned by the energy!</span>")
-			Weaken(20)
+			visible_message("<span class='warning'>[H] looks to be stunned by the energy!</span>")
+			H.Weaken(20)
 		return
-	for(var/obj/item/implant/mindshield/L in src)
+	for(var/obj/item/implant/mindshield/L in H)
 		if(L && L.implanted)
 			qdel(L)
-	for(var/obj/item/implant/traitor/T in src)
+	for(var/obj/item/implant/traitor/T in H)
 		if(T && T.implanted)
 			qdel(T)
-	visible_message("<span class='warning'>[src] gets an eerie red glow in their eyes!</span>")
+	visible_message("<span class='warning'>[H] gets an eerie red glow in their eyes!</span>")
 	var/datum/objective/protect/protect_objective = new
-	protect_objective.owner = mind
+	protect_objective.owner = H.mind
 	protect_objective.target = M.mind
 	protect_objective.explanation_text = "Protect [M.real_name]."
-	mind.objectives += protect_objective
-	add_attack_logs(M, src, "Vampire-sired")
-	mind.make_vampire()
-	revive()
-	Weaken(20)
+	H.mind.objectives += protect_objective
+	add_attack_logs(M, H, "Vampire-sired")
+	H.mind.make_vampire()
+	H.revive()
+	H.Weaken(20)
 
 /obj/effect/proc_holder/spell/targeted/turf_teleport/shadow_step
 	name = "Shadow Step (30)"

@@ -49,7 +49,7 @@
 		H.apply_status_effect(STATUS_EFFECT_BLOOD_RUSH)
 
 /obj/effect/proc_holder/spell/targeted/click/charge
-	name = "Charge(30)"
+	name = "Charge (30)"
 	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning and destroying walls and other objects."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
 	required_blood = 30
