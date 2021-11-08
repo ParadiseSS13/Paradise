@@ -1,12 +1,8 @@
 /obj/structure/closet/secure_closet/cargotech
 	name = "cargo technician's locker"
 	req_access = list(ACCESS_CARGO)
-	icon_state = "securecargo1"
-	icon_closed = "securecargo"
-	icon_locked = "securecargo1"
-	icon_opened = "securecargoopen"
-	icon_broken = "securecargobroken"
-	icon_off = "securecargooff"
+	icon_state = "cargo"
+	open_door_sprite = "mining_door"
 
 /obj/structure/closet/secure_closet/cargotech/populate_contents()
 	new /obj/item/clothing/under/rank/cargotech(src)
@@ -21,12 +17,8 @@
 /obj/structure/closet/secure_closet/quartermaster
 	name = "quartermaster's locker"
 	req_access = list(ACCESS_QM)
-	icon_state = "secureqm1"
-	icon_closed = "secureqm"
-	icon_locked = "secureqm1"
-	icon_opened = "secureqmopen"
-	icon_broken = "secureqmbroken"
-	icon_off = "secureqmoff"
+	icon_state = "qm"
+	open_door_sprite = "mining_door"
 
 /obj/structure/closet/secure_closet/quartermaster/populate_contents()
 	new /obj/item/clothing/under/rank/cargo(src)

@@ -81,6 +81,10 @@
 	display_name = "Carp plushie"
 	path = /obj/item/toy/carpplushie
 
+/datum/gear/greyplushie
+	display_name = "Grey Plushie"
+	path = /obj/item/toy/plushie/greyplushie
+
 /datum/gear/sechud
 	display_name = "Classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security

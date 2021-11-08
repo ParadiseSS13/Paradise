@@ -73056,6 +73056,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "daT" = (
