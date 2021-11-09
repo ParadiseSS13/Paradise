@@ -31,7 +31,7 @@
 	tastes = list("waffles" = 10)
 
 /obj/item/reagent_containers/food/snacks/monkeysdelight
-	consume_sound = 'sound/hispania/misc/monke_eat.wav'
+	consume_sound = 'sound/hispania/misc/monke_eat.ogg'
 	name = "monkey's delight"
 	desc = "Eeee Eee!"
 	icon_state = "monkeysdelight"

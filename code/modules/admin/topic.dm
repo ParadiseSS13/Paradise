@@ -2614,7 +2614,7 @@
 		A.reply_to = reply_to
 		A.sent_by = usr
 		A.sent_at = world.time
-		playsound(src, 'sound/hispania/machines/keycard_succes.wav', 30, 1)
+		playsound(src, 'sound/hispania/machines/keycard_succes.ogg', 30, 1)
 		to_chat(src.owner, "<span class='notice'>Message transmitted successfully.</span>")
 		if(notify == "Yes")
 			var/mob/living/carbon/human/H = sender
