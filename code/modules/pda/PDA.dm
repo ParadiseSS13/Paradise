@@ -354,7 +354,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/t = input("Please enter new ringtone", name, ttone) as text
 	if(in_range(src, usr) && loc == usr)
 		if(t)
-			if(hidden_uplink && hidden_uplink.check_trigger(usr, lowertext(t), lowertext(lock_code)))
+			if(hidden_uplink && hidden_uplink.check_trigger(usr, trim(lowertext(t)), lowertext(lock_code)))
 				to_chat(usr, "The PDA softly beeps.")
 				close(usr)
 			else
