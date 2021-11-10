@@ -1309,7 +1309,6 @@
 #include "code\hispania\modules\clothing\suits\reactive_armour.dm"
 #include "code\hispania\modules\clothing\suits\winter.dm"
 #include "code\hispania\modules\clothing\under\miscellaneous.dm"
-#include "code\hispania\modules\clothing\under\accessories\accesory.dm"
 #include "code\hispania\modules\clothing\under\accessories\accessory.dm"
 #include "code\hispania\modules\clothing\under\jobs\civilian.dm"
 #include "code\hispania\modules\clothing\under\jobs\medsci.dm"
