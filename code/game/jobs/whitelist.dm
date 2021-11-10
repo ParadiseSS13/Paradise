@@ -10,7 +10,7 @@
 
 	return FALSE
 
-/proc/is_species_whitelisted(mob/M, species)
+/proc/can_use_species(mob/M, species)
 	if(!GLOB.configuration.general.enable_karma)
 		return TRUE
 	if(species == "human" || species == "Human")

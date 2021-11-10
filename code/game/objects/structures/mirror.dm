@@ -115,7 +115,7 @@
 		if("Body")
 			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
 			for(var/species in GLOB.whitelisted_species)
-				if(is_species_whitelisted(H, species))
+				if(can_use_species(H, species))
 					race_list += species
 
 			var/datum/ui_module/appearance_changer/AC = ui_users[user]
