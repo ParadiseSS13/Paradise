@@ -136,9 +136,9 @@
 	popup.open(FALSE)
 
 // Reloads the values from the DB to ensure they havnt been gamed
-/datum/karma_holder/proc/sync_karma()
+/datum/karma_holder/proc/sync_karma(mob/M = usr)
 	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT karma, karmaspent FROM karmatotals WHERE byondkey=:ckey", list(
-		"ckey" = usr.ckey
+		"ckey" = M.ckey
 	))
 
 	if(!select_query.warn_execute())

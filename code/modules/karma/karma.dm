@@ -73,7 +73,7 @@
 
 		qdel(update_query)
 
-	receiver?.client.karmaholder.sync_karma() // Refresh their end
+	receiver?.client.karmaholder.sync_karma(receiver) // Refresh their end
 
 GLOBAL_LIST_EMPTY(karma_spenders)
 
