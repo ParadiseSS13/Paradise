@@ -611,6 +611,7 @@
 	item_state = "gold_id"
 	registered_name = "Captain"
 	assignment = "Captain"
+	var/confirmacion_pickeo = FALSE
 
 /obj/item/card/id/captains_spare/New()
 	var/datum/job/captain/J = new/datum/job/captain
