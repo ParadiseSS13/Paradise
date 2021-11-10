@@ -53,6 +53,7 @@
 		return attack_hand(user)
 
 /obj/machinery/door_control/attack_hand(mob/user as mob)
+	playsound(src, 'sound/hispania/machines/button.ogg', 30, 1)
 	add_fingerprint(usr)
 	if(stat & (NOPOWER|BROKEN))
 		return

@@ -165,12 +165,13 @@
 			revoke_station_all_access()
 		if("Emergency Response Team")
 			if(is_ert_blocked())
+				playsound(src, 'sound/hispania/machines/keycard_denied.ogg', 30, 1)
 				atom_say("All Emergency Response Teams are dispatched and can not be called at this time.")
 				return
 			atom_say("ERT request transmitted!")
+			playsound(src, 'sound/hispania/machines/keycard_succes.ogg', 30, 1)
 			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name)
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
-
 			var/fullmin_count = 0
 			for(var/client/C in GLOB.admins)
 				if(check_rights(R_EVENT, 0, C.mob))

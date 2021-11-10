@@ -140,6 +140,7 @@
 		return
 	if(charging)
 		if(using_power)
+			playsound(src, 'sound/hispania/machines/reloading_charger.ogg', 30, 1)
 			icon_state = icon_state_charging
 		else
 			icon_state = icon_state_charged
