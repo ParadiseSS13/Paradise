@@ -578,7 +578,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "warndark";
-	tag = "icon-warndark"
+	tag = ""
 	},
 /area/ruin/dababy/basesecreta{
 	lightswitch = 0
@@ -732,7 +732,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "warndark";
-	tag = "icon-warndark"
+	tag = ""
 	},
 /area/ruin/dababy/basesecreta{
 	lightswitch = 0

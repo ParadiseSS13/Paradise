@@ -7,14 +7,14 @@
 /area/template_noop)
 "c" = (
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken";
+	tag = "";
 	icon_state = "wood-broken"
 	},
 /area/dababyruin)
 "d" = (
 /obj/item/clothing/under/sl_suit,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken";
+	tag = "";
 	icon_state = "wood-broken"
 	},
 /area/dababyruin)
@@ -49,14 +49,14 @@
 "k" = (
 /obj/item/ammo_casing/a357,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
+	tag = "";
 	icon_state = "wood-broken3"
 	},
 /area/dababyruin)
 "l" = (
 /obj/item/clothing/accessory/medal/gold/sheriff,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken7";
+	tag = "";
 	icon_state = "wood-broken7"
 	},
 /area/dababyruin)
@@ -96,14 +96,14 @@
 /obj/structure/table/holotable/wood,
 /obj/item/gun/projectile/revolver/cowboy,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken6";
+	tag = "";
 	icon_state = "wood-broken6"
 	},
 /area/dababyruin)
 "r" = (
 /obj/item/clothing/head/cowboyhat/black,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken6";
+	tag = "";
 	icon_state = "wood-broken6"
 	},
 /area/dababyruin)

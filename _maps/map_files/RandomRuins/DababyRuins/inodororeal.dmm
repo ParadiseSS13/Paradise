@@ -21,7 +21,7 @@
 /area/dababyruin)
 "e" = (
 /obj/structure/toilet{
-	tag = "icon-toilet00 (WEST)";
+	tag = "";
 	icon_state = "toilet00";
 	dir = 8
 	},
