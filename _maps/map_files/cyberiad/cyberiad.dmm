@@ -26,6 +26,29 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
+"aae" = (
+/obj/structure/closet/crate{
+	icon_state = "crate_open";
+	name = "Gold Crate";
+	opened = 1
+	},
+/obj/effect/decal/cleanable/cobweb,
+/obj/item/storage/belt/fannypack/yellow,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
+"aaf" = (
+/obj/structure/closet/crate{
+	icon_state = "crate_open";
+	name = "Silver Crate";
+	opened = 1
+	},
+/obj/item/paper{
+	info = "I.O.U. some shinies - Mr V. Ox"
+	},
+/mob/living/simple_animal/hostile/scarybat,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "aaQ" = (
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
@@ -81273,18 +81296,6 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
-"kXY" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	name = "Silver Crate";
-	opened = 1
-	},
-/obj/item/paper{
-	info = "I.O.U. some shinies - Mr V. Ox"
-	},
-/mob/living/simple_animal/hostile/scarybat,
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint)
 "kYw" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -81890,17 +81901,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"pZQ" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	name = "Gold Crate";
-	opened = 1
-	},
-/obj/effect/decal/cleanable/cobweb,
-/obj/item/storage/belt/fannypack/yellow,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint)
 "qcg" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -103062,7 +103062,7 @@ cgQ
 ctV
 coL
 cvp
-pZQ
+aae
 cwz
 cBf
 oBH
@@ -104094,7 +104094,7 @@ sZe
 hvi
 lMw
 iui
-kXY
+aaf
 cvp
 cEJ
 cFM
