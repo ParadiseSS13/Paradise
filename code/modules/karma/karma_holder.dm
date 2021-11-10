@@ -169,8 +169,10 @@
 	switch(category)
 		if("job")
 			DB_job_unlock(name, price)
+			usr.client.karmaholder.unlocked_jobs += name
 		if("species")
 			DB_species_unlock(name, price)
+			usr.client.karmaholder.unlocked_species += name
 		else
 			message_admins("Invalid category used in karma shop by [key_name_admin(usr)] | Possible href exploit.")
 
@@ -299,7 +301,7 @@
 		return
 
 	to_chat(usr, "You have been [refund ? "refunded" : "charged"] [cost] karma.")
-	message_admins("[key_name(usr)] has been [refund ? "refunded" : "charged"] [cost] karma.")
+	log_karma("[key_name(usr)] has been [refund ? "refunded" : "charged"] [cost] karma.")
 	qdel(update_query)
 
 /datum/karma_holder/proc/karmarefund(type, name, cost)
@@ -357,7 +359,12 @@
 				return
 			else
 				to_chat(usr, "You have been refunded [cost] karma for [type] [name].")
-				message_admins("[key_name(usr)] has been refunded [cost] karma for [type] [name].")
+				log_karma("[key_name(usr)] has been refunded [cost] karma for [type] [name].")
+				switch(type)
+					if("job")
+						usr.client.karmaholder.unlocked_jobs -= name
+					if("species")
+						usr.client.karmaholder.unlocked_species -= name
 				qdel(update_query)
 				karmacharge(text2num(cost), TRUE)
 		else
@@ -379,40 +386,38 @@
 				open_shop_menu()
 				return
 			if("shop")
-				// Ensure its up to date
-				sync_karma()
-				var/karma_available = karma_earned - karma_spent
 				if(href_list["KarmaBuy"])
 					switch(href_list["KarmaBuy"])
 						if("1")
-							karma_purchase(karma_available, 5, "job", "Barber")
+							karma_purchase(5, "job", "Barber")
 						if("2")
-							karma_purchase(karma_available, 5, "job", "Brig Physician")
+							karma_purchase(5, "job", "Brig Physician")
 						if("3")
-							karma_purchase(karma_available, 30, "job", "Nanotrasen Representative")
+							karma_purchase(30, "job", "Nanotrasen Representative")
 						if("4")
-							karma_purchase(karma_available, 30, "job", "Blueshield")
+							karma_purchase(30, "job", "Blueshield")
 					return
 				if(href_list["KarmaBuy2"])
 					switch(href_list["KarmaBuy2"])
 						if("1")
-							karma_purchase(karma_available, 15, "species", "Machine People", "Machine")
+							karma_purchase(15, "species", "Machine People", "Machine")
 						if("2")
-							karma_purchase(karma_available, 30, "species", "Kidan")
+							karma_purchase(30, "species", "Kidan")
 						if("3")
-							karma_purchase(karma_available, 30, "species", "Grey")
+							karma_purchase(30, "species", "Grey")
 						if("4")
-							karma_purchase(karma_available, 45, "species", "Vox")
+							karma_purchase(45, "species", "Vox")
 						if("5")
-							karma_purchase(karma_available, 45, "species", "Slime People")
+							karma_purchase(45, "species", "Slime People")
 						if("6")
-							karma_purchase(karma_available, 45, "species", "Plasmaman")
+							karma_purchase(45, "species", "Plasmaman")
 						if("7")
-							karma_purchase(karma_available, 30, "species", "Drask")
+							karma_purchase(30, "species", "Drask")
 					return
 				if(href_list["KarmaRefund"])
 					var/type = href_list["KarmaRefundType"]
 					var/job = href_list["KarmaRefund"]
 					var/cost = href_list["KarmaRefundCost"]
 					karmarefund(type, job, cost)
+					open_shop_menu()
 					return
