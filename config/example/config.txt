@@ -254,6 +254,9 @@ CHECK_RANDOMIZER
 ## Prevent jobbanned to pass through whitelist
 #USEWHITELIST_NOJOBBANNED
 
+## Minimum age of byond account that allowed to play withoud discord verification
+#MINIMUM_BYONDACC_AGE 0
+
 ## set a server location for world reboot. Don't include the byond://, just give the address and port.
 # SERVER server.net:port
 

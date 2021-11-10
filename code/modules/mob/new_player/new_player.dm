@@ -149,6 +149,12 @@
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
+		if(config.minimum_byondacc_age && client.byondacc_age <= config.minimum_byondacc_age)
+			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
+				client.prefs.load_preferences(client)
+				to_chat(usr, "<span class='danger'>Вам необходимо привязать дискорд-профиль к аккаунту!</span>")
+				to_chat(usr, "<span class='warning'>Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций.</span>")
+				return FALSE
 		if(!is_used_species_available(client.prefs.species))
 			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
 			return FALSE
@@ -170,6 +176,12 @@
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
+		if(config.minimum_byondacc_age && client.byondacc_age <= config.minimum_byondacc_age)
+			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
+				client.prefs.load_preferences(client)
+				to_chat(usr, "<span class='danger'>Вам необходимо привязать дискорд-профиль к аккаунту!</span>")
+				to_chat(usr, "<span class='warning'>Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций.</span>")
+				return FALSE
 		if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
 			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
 			return FALSE
@@ -215,6 +227,12 @@
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
+		if(config.minimum_byondacc_age && client.byondacc_age <= config.minimum_byondacc_age)
+			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
+				client.prefs.load_preferences(client)
+				to_chat(usr, "<span class='danger'>Вам необходимо привязать дискорд-профиль к аккаунту!</span>")
+				to_chat(usr, "<span class='warning'>Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций.</span>")
+				return FALSE
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return

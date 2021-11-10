@@ -6,6 +6,8 @@
 
 	var/minimum_client_build = 1421		// Build 1421 due to the middle mouse button exploit
 
+	var/minimum_byondacc_age = 0
+
 	var/nudge_script_path = "nudge.py"  // where the nudge.py script is located
 
 	var/twitch_censor = FALSE
@@ -571,6 +573,9 @@
 
 				if("usewhitelist_nojobbanned")
 					config.usewhitelist_nojobbanned = TRUE
+
+				if("minimum_byondacc_age")
+					config.minimum_byondacc_age = text2num(value)
 
 				if("feature_object_spell_system")
 					config.feature_object_spell_system = 1
