@@ -107,7 +107,7 @@
 
 	bound_width = 64
 	bound_height = 64
-	dir = EAST
+	//dir = EAST Por que, por que harias eso.
 	battery = new battery_type(src)
 
 	add_cabin()
@@ -917,7 +917,7 @@
 
 	for(var/obj/machinery/door/poddoor/multi_tile/P in orange(3,src))
 		var/mob/living/carbon/human/L = usr
-		if(P.check_access(L.get_active_hand()) || P.check_access(L.wear_id))
+		if(P.check_access(L.get_active_hand()) || P.check_access(L.wear_id) && P.can_open_spacepod) // HISPANIA
 			if(P.density)
 				P.open()
 				return 1

@@ -1,0 +1,88 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/wall,
+/area/dababyruin)
+"b" = (
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"c" = (
+/turf/simulated/floor/plating/burnt,
+/area/dababyruin)
+"d" = (
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"e" = (
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"f" = (
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/plating/burnt,
+/area/dababyruin)
+"g" = (
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"h" = (
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"i" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating/burnt,
+/area/dababyruin)
+"j" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+
+(1,1,1) = {"
+a
+f
+a
+"}
+(2,1,1) = {"
+a
+f
+i
+"}
+(3,1,1) = {"
+a
+c
+a
+"}
+(4,1,1) = {"
+a
+g
+a
+"}
+(5,1,1) = {"
+e
+c
+a
+"}
+(6,1,1) = {"
+c
+b
+a
+"}
+(7,1,1) = {"
+a
+g
+a
+"}
+(8,1,1) = {"
+a
+d
+b
+"}
+(9,1,1) = {"
+a
+g
+j
+"}
+(10,1,1) = {"
+a
+h
+a
+"}

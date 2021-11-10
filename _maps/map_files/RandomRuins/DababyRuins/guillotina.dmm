@@ -1,0 +1,83 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"b" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"c" = (
+/turf/simulated/wall,
+/area/dababyruin)
+"d" = (
+/obj/structure/table,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"e" = (
+/obj/structure/guillotine,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"f" = (
+/obj/effect/decal/cleanable/blood/footprints{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"g" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"h" = (
+/obj/item/clothing/head/human_head,
+/obj/structure/table,
+/obj/item/clothing/head/human_head{
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/obj/item/clothing/head/human_head{
+	pixel_x = 8;
+	pixel_y = -8
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"i" = (
+/turf/template_noop,
+/area/template_noop)
+
+(1,1,1) = {"
+c
+i
+a
+g
+c
+"}
+(2,1,1) = {"
+i
+b
+a
+d
+i
+"}
+(3,1,1) = {"
+a
+e
+f
+f
+f
+"}
+(4,1,1) = {"
+i
+b
+b
+h
+i
+"}
+(5,1,1) = {"
+c
+g
+a
+i
+c
+"}

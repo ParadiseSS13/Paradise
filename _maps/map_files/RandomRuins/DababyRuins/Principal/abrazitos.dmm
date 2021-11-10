@@ -1,0 +1,289 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/item/clothing/mask/facehugger,
+/obj/structure/stone_tile/surrounding,
+/obj/effect/decal/cleanable/blood,
+/obj/structure/closet/crate/miningcar,
+/turf/simulated/floor/plating/burnt,
+/area/dababybigzone)
+"b" = (
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
+/area/dababybigzone)
+"c" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/stone_tile/slab/cracked{
+	icon_state = "cracked_slab1";
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"d" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"e" = (
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"f" = (
+/obj/structure/stone_tile/center/burnt,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"g" = (
+/obj/structure/stone_tile/slab/cracked{
+	icon_state = "cracked_slab1";
+	dir = 4
+	},
+/obj/effect/decal/cleanable/confetti,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"h" = (
+/obj/structure/stone_tile/center/burnt,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"i" = (
+/obj/structure/stone_tile/slab/burnt,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"j" = (
+/obj/structure/stone_tile/slab/cracked,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"k" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/item/clothing/head/helmet/skull,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"l" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"m" = (
+/obj/structure/stone_tile/slab/cracked{
+	icon_state = "cracked_slab1";
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"n" = (
+/obj/structure/stone_tile/block/cracked{
+	icon_state = "cracked_block1";
+	dir = 10
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"o" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"p" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"q" = (
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"r" = (
+/obj/structure/stone_tile/block/cracked{
+	icon_state = "cracked_block1";
+	dir = 5
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"s" = (
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"t" = (
+/obj/structure/stone_tile/burnt,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"u" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"v" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+"w" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/dababybigzone)
+
+(1,1,1) = {"
+a
+g
+k
+f
+h
+h
+t
+d
+r
+j
+b
+"}
+(2,1,1) = {"
+b
+b
+b
+b
+b
+b
+b
+b
+b
+m
+b
+"}
+(3,1,1) = {"
+c
+h
+d
+b
+o
+o
+u
+b
+b
+i
+b
+"}
+(4,1,1) = {"
+d
+b
+l
+b
+q
+b
+u
+b
+u
+j
+b
+"}
+(5,1,1) = {"
+e
+b
+l
+o
+o
+b
+u
+b
+v
+b
+b
+"}
+(6,1,1) = {"
+e
+b
+b
+b
+b
+b
+u
+b
+d
+b
+v
+"}
+(7,1,1) = {"
+e
+i
+i
+m
+r
+b
+u
+b
+e
+b
+v
+"}
+(8,1,1) = {"
+b
+b
+b
+b
+f
+b
+u
+b
+e
+b
+h
+"}
+(9,1,1) = {"
+d
+j
+m
+b
+f
+b
+j
+b
+j
+b
+j
+"}
+(10,1,1) = {"
+e
+b
+n
+d
+s
+b
+l
+l
+w
+b
+f
+"}
+(11,1,1) = {"
+e
+b
+b
+b
+b
+b
+b
+b
+b
+b
+q
+"}
+(12,1,1) = {"
+f
+i
+l
+p
+l
+p
+p
+l
+i
+i
+f
+"}

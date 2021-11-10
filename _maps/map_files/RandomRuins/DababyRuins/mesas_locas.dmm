@@ -1,0 +1,224 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"b" = (
+/turf/simulated/wall,
+/area/dababyruin)
+"c" = (
+/obj/structure/table,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"d" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"e" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"f" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"g" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/candy/cash,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"h" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"i" = (
+/obj/item/chair/stool,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"j" = (
+/obj/item/clothing/gloves/ring/gold,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"k" = (
+/obj/structure/table,
+/obj/item/ashtray/glass,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"l" = (
+/obj/structure/table,
+/obj/item/storage/bag/cash,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"m" = (
+/obj/structure/table,
+/obj/item/clothing/mask/cigarette/cigar,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"n" = (
+/obj/structure/chair/stool,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"o" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"p" = (
+/obj/effect/decal/redspacesthings,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"q" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"r" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/table,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"s" = (
+/obj/structure/table,
+/obj/item/cigbutt/cigarbutt,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"t" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"u" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"v" = (
+/obj/structure/chair/stool,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"w" = (
+/turf/template_noop,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+a
+w
+w
+b
+b
+w
+a
+a
+w
+"}
+(2,1,1) = {"
+w
+h
+a
+a
+b
+b
+b
+r
+c
+a
+"}
+(3,1,1) = {"
+a
+d
+h
+h
+u
+b
+b
+b
+r
+a
+"}
+(4,1,1) = {"
+w
+a
+d
+s
+o
+u
+b
+b
+b
+w
+"}
+(5,1,1) = {"
+f
+a
+e
+t
+p
+q
+i
+b
+b
+b
+"}
+(6,1,1) = {"
+b
+b
+n
+m
+n
+j
+q
+v
+b
+b
+"}
+(7,1,1) = {"
+b
+b
+f
+g
+i
+a
+k
+s
+l
+b
+"}
+(8,1,1) = {"
+b
+b
+b
+f
+a
+q
+a
+e
+a
+w
+"}
+(9,1,1) = {"
+r
+b
+b
+b
+f
+a
+a
+a
+a
+w
+"}
+(10,1,1) = {"
+a
+r
+b
+b
+b
+w
+a
+w
+a
+w
+"}

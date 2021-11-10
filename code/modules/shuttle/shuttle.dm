@@ -229,6 +229,8 @@
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
 
+	var/disable_landing_helper = FALSE // HISPANIA - Desactiva el intercambio de piso dependiendo del tile al que caiga permitiendo landear en tierra y salir sin dejar un hueco de espacio.
+
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
@@ -524,6 +526,12 @@
 		T1.postDock(S1)
 		for(var/atom/movable/M in T1)
 			M.postDock(S1)
+
+	if(!disable_landing_helper && S0)
+		for(var/i in 1 to L1.len)
+			var/turf/leturf = L1[i]
+			if(turf_type != /turf/space/transit && (istype(leturf, /turf/simulated/floor/plating/asteroid) || istype(leturf, /turf/space)))
+				leturf.ChangeTurf(turf_type)
 
 	loc = S1.loc
 	dir = S1.dir
@@ -953,6 +961,8 @@
 		T.icon_state = icon_state
 	if(T.icon != icon)
 		T.icon = icon
+	if(T.overlays != overlays)
+		T.overlays = overlays
 	if(color)
 		T.atom_colours = atom_colours.Copy()
 		T.update_atom_colour()

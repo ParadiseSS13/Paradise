@@ -1,0 +1,163 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/wall,
+/area/dababyruin)
+"b" = (
+/obj/machinery/vending/accesories,
+/obj/effect/spawner/random_spawners/cobweb_left_frequent,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"c" = (
+/obj/machinery/vending/syndicigs,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"d" = (
+/obj/machinery/vending/toyliberationstation,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"e" = (
+/obj/machinery/vending/sovietsoda,
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"f" = (
+/obj/machinery/vending/engineering,
+/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"g" = (
+/turf/template_noop,
+/area/template_noop)
+"h" = (
+/obj/machinery/vending/dinnerware,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"i" = (
+/obj/machinery/vending/cart,
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"j" = (
+/obj/machinery/vending/tool,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"k" = (
+/obj/machinery/vending/crittercare,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"l" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"m" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"n" = (
+/obj/machinery/vending/assist,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"o" = (
+/obj/machinery/vending/artvend,
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"p" = (
+/obj/machinery/vending/shoedispenser,
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"q" = (
+/obj/machinery/vending/chinese,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"r" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall,
+/area/dababyruin)
+"s" = (
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"t" = (
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"u" = (
+/turf/simulated/floor/plating/burnt,
+/area/dababyruin)
+"v" = (
+/obj/effect/spawner/random_spawners/oil_maybe,
+/turf/simulated/floor/plating/burnt,
+/area/dababyruin)
+"w" = (
+/obj/structure/falsewall,
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+
+(1,1,1) = {"
+g
+g
+g
+g
+g
+s
+"}
+(2,1,1) = {"
+a
+a
+a
+a
+a
+t
+"}
+(3,1,1) = {"
+a
+b
+h
+m
+r
+s
+"}
+(4,1,1) = {"
+a
+c
+i
+n
+r
+t
+"}
+(5,1,1) = {"
+a
+d
+j
+o
+w
+v
+"}
+(6,1,1) = {"
+a
+e
+k
+p
+r
+s
+"}
+(7,1,1) = {"
+a
+f
+l
+q
+r
+t
+"}
+(8,1,1) = {"
+a
+a
+a
+a
+a
+s
+"}
+(9,1,1) = {"
+g
+g
+g
+g
+g
+u
+"}

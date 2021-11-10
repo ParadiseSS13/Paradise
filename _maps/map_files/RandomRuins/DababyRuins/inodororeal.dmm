@@ -1,0 +1,232 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"b" = (
+/obj/structure/toilet{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"c" = (
+/obj/structure/toilet,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"d" = (
+/obj/structure/toilet{
+	dir = 8;
+	pixel_y = 2
+	},
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"e" = (
+/obj/structure/toilet{
+	tag = "";
+	icon_state = "toilet00";
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"f" = (
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/dababyruin)
+"g" = (
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"h" = (
+/obj/structure/toilet,
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"j" = (
+/obj/structure/toilet{
+	dir = 8;
+	pixel_y = 2
+	},
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"k" = (
+/obj/structure/toilet{
+	dir = 4
+	},
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"l" = (
+/obj/structure/toilet{
+	dir = 1
+	},
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"m" = (
+/obj/item/trash/waffles,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"n" = (
+/obj/item/trash/gum,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"o" = (
+/obj/item/trash/donitos,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"p" = (
+/obj/item/trash/can,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"q" = (
+/obj/item/trash/danbar,
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"r" = (
+/obj/item/trash/can,
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"s" = (
+/obj/item/trash/spacetwinkie,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"t" = (
+/obj/item/trash/liquidfood,
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"u" = (
+/obj/structure/toilet,
+/obj/item/immortality_talisman,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"v" = (
+/obj/structure/spider/eggcluster/terror_eggcluster{
+	time_to_born = 500
+	},
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"w" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"x" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+
+(1,1,1) = {"
+a
+a
+e
+e
+a
+p
+a
+b
+a
+b
+"}
+(2,1,1) = {"
+b
+m
+a
+g
+x
+h
+g
+b
+n
+w
+"}
+(3,1,1) = {"
+f
+f
+a
+j
+f
+f
+v
+x
+a
+a
+"}
+(4,1,1) = {"
+f
+n
+x
+g
+f
+f
+f
+g
+h
+t
+"}
+(5,1,1) = {"
+a
+a
+h
+f
+f
+u
+f
+f
+f
+g
+"}
+(6,1,1) = {"
+w
+o
+g
+f
+f
+f
+f
+f
+f
+x
+"}
+(7,1,1) = {"
+c
+a
+v
+f
+f
+f
+j
+v
+x
+l
+"}
+(8,1,1) = {"
+a
+d
+q
+g
+k
+r
+g
+f
+s
+a
+"}
+(9,1,1) = {"
+a
+p
+a
+a
+w
+a
+w
+f
+f
+a
+"}
+(10,1,1) = {"
+w
+a
+a
+e
+e
+a
+n
+a
+a
+b
+"}

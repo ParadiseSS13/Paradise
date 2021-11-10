@@ -19,7 +19,7 @@
 	if(dir == SOUTH)
 		layer = ABOVE_MOB_LAYER
 	else if(corner || dir == NORTH)
-		layer = BELOW_MOB_LAYER
+		layer = DOOR_HELPER_LAYER
 
 /obj/structure/platform/setDir(newdir)
 	. = ..()

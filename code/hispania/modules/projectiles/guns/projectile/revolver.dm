@@ -11,3 +11,9 @@
 		user.Stun(3)
 		return FALSE
 	..()
+
+/obj/item/gun/projectile/revolver/cowboy
+	name = "\improper .357 cowboy revolver"
+	desc = "An old brown wood revolver. Uses .357 ammo."
+	icon_state = "revolvercowboy"
+	item_state = "revolver"

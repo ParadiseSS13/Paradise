@@ -33,10 +33,10 @@
 	unsuitable_atmos_damage = 10
 	footstep_type = FOOTSTEP_MOB_SHOE
 
-/mob/living/simple_animal/hostile/retaliate/clown/goblin
+/mob/living/simple_animal/hostile/clowngoblin
 	icon = 'icons/mob/animal.dmi'
-	name = "clown goblin"
-	desc = "A tiny walking mask and clown shoes. You want to honk his nose!"
+	name = "maint clown goblin"
+	desc = "A tiny walking mask and clown shoes. He WILL honk your nose!"
 	icon_state = "clowngoblin"
 	icon_living = "clowngoblin"
 	icon_dead = null

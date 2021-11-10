@@ -261,7 +261,7 @@
 			if(prob(2))
 				break_light_tube(TRUE)
 		if("bulb")
-			brightness_range = 4
+			//brightness_range = 4 Innecesario.
 			brightness_color = "#a0a080"
 			if(prob(5))
 				break_light_tube(TRUE)

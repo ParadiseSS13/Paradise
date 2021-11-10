@@ -323,7 +323,7 @@
 /obj/machinery/computer/scan_consolenew
 	name = "\improper DNA Modifier access console"
 	desc = "Allows you to scan and modify DNA."
-	icon = 'icons/obj/computer.dmi'
+	//icon = 'icons/obj/computer.dmi'
 	icon_screen = "dna"
 	icon_keyboard = "med_key"
 	density = TRUE

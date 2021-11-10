@@ -19,7 +19,7 @@
 
 /obj/effect/tear/honk/spew_critters()
 	for(var/i in 1 to 6)
-		var/mob/living/simple_animal/hostile/retaliate/clown/goblin/G = new(get_turf(src))
+		var/mob/living/simple_animal/hostile/clowngoblin/G = new(get_turf(src))
 		if(prob(50))
 			for(var/j = 1, j <= rand(1, 3), j++)
 				step(G, pick(NORTH, SOUTH, EAST, WEST))

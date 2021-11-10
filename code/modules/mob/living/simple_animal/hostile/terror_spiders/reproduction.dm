@@ -200,6 +200,7 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/spider_mymother = null
 	var/spiderling_type = null
 	var/spiderling_number = 1
+	var/time_to_born = 100
 	var/list/enemies = list()
 
 /obj/structure/spider/eggcluster/terror_eggcluster/Initialize(mapload, lay_type)
@@ -233,7 +234,7 @@
 
 /obj/structure/spider/eggcluster/terror_eggcluster/process()
 	amount_grown += rand(0,2)
-	if(amount_grown >= 100)
+	if(amount_grown >= time_to_born)
 		var/num = spiderling_number
 		for(var/i=0, i<num, i++)
 			var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))

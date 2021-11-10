@@ -1,0 +1,318 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"b" = (
+/turf/template_noop,
+/area/template_noop)
+"c" = (
+/turf/simulated/floor/wood{
+	tag = "";
+	icon_state = "wood-broken"
+	},
+/area/dababyruin)
+"d" = (
+/obj/item/clothing/under/sl_suit,
+/turf/simulated/floor/wood{
+	tag = "";
+	icon_state = "wood-broken"
+	},
+/area/dababyruin)
+"e" = (
+/obj/structure/table/holotable/wood,
+/obj/machinery/computer/security/wooden_tv{
+	desc = "An old TV hooked into the news network.";
+	name = "old tv";
+	network = list("news")
+	},
+/turf/simulated/floor/wood,
+/area/dababyruin)
+"f" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"g" = (
+/obj/item/clothing/suit/poncho/red,
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/dababyruin)
+"i" = (
+/obj/item/chair/wood,
+/turf/simulated/floor/wood,
+/area/dababyruin)
+"j" = (
+/obj/structure/sign/poster/contraband/revolver,
+/turf/simulated/wall/mineral/wood,
+/area/dababyruin)
+"k" = (
+/obj/item/ammo_casing/a357,
+/turf/simulated/floor/wood{
+	tag = "";
+	icon_state = "wood-broken3"
+	},
+/area/dababyruin)
+"l" = (
+/obj/item/clothing/accessory/medal/gold/sheriff,
+/turf/simulated/floor/wood{
+	tag = "";
+	icon_state = "wood-broken7"
+	},
+/area/dababyruin)
+"m" = (
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"n" = (
+/obj/item/reagent_containers/glass/bucket/wooden,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"o" = (
+/obj/structure/table/holotable/wood,
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/handcuffs{
+	pixel_x = 4;
+	pixel_y = -8
+	},
+/obj/item/restraints/handcuffs{
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/dababyruin)
+"p" = (
+/obj/structure/table/holotable/wood,
+/obj/item/restraints/legcuffs/bola/tactical,
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/dababyruin)
+"q" = (
+/obj/structure/table/holotable/wood,
+/obj/item/gun/projectile/revolver/cowboy,
+/turf/simulated/floor/wood{
+	tag = "";
+	icon_state = "wood-broken6"
+	},
+/area/dababyruin)
+"r" = (
+/obj/item/clothing/head/cowboyhat/black,
+/turf/simulated/floor/wood{
+	tag = "";
+	icon_state = "wood-broken6"
+	},
+/area/dababyruin)
+"s" = (
+/obj/item/clothing/shoes/cowboy/black,
+/turf/simulated/floor/wood,
+/area/dababyruin)
+"t" = (
+/turf/simulated/wall/mineral/wood,
+/area/dababyruin)
+"u" = (
+/obj/item/ammo_casing/a357,
+/obj/item/ammo_casing/a357{
+	pixel_x = 12;
+	pixel_y = -6
+	},
+/turf/simulated/floor/wood,
+/area/dababyruin)
+"v" = (
+/obj/item/ammo_casing/a357{
+	pixel_x = 2;
+	pixel_y = -4
+	},
+/obj/item/ammo_casing/a357{
+	pixel_x = -12;
+	pixel_y = -12
+	},
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/dababyruin)
+"w" = (
+/obj/item/ammo_casing/a357,
+/obj/item/ammo_casing/a357{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/turf/simulated/floor/wood,
+/area/dababyruin)
+"x" = (
+/obj/item/clothing/accessory/holster/waist,
+/turf/simulated/floor/wood,
+/area/dababyruin)
+"y" = (
+/turf/simulated/floor/wood,
+/area/dababyruin)
+"z" = (
+/turf/simulated/floor/plating/burnt,
+/area/dababyruin)
+"A" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"B" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"C" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"D" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating/burnt,
+/area/dababyruin)
+"E" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating/burnt,
+/area/dababyruin)
+"F" = (
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"G" = (
+/obj/structure/grille{
+	density = 0;
+	icon_state = "brokengrille"
+	},
+/turf/simulated/floor/plating/burnt,
+/area/dababyruin)
+"H" = (
+/obj/structure/grille{
+	density = 0;
+	icon_state = "brokengrille"
+	},
+/turf/simulated/floor/plating/damaged,
+/area/dababyruin)
+"I" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating/burnt,
+/area/dababyruin)
+
+(1,1,1) = {"
+b
+b
+B
+b
+b
+D
+D
+b
+b
+b
+"}
+(2,1,1) = {"
+b
+B
+G
+a
+A
+a
+a
+f
+b
+b
+"}
+(3,1,1) = {"
+b
+a
+f
+f
+u
+k
+m
+a
+t
+b
+"}
+(4,1,1) = {"
+b
+z
+D
+y
+v
+w
+y
+n
+B
+b
+"}
+(5,1,1) = {"
+z
+F
+D
+c
+r
+s
+g
+z
+H
+A
+"}
+(6,1,1) = {"
+C
+a
+H
+e
+i
+l
+x
+F
+E
+F
+"}
+(7,1,1) = {"
+b
+j
+B
+o
+q
+p
+d
+m
+B
+b
+"}
+(8,1,1) = {"
+b
+b
+B
+a
+a
+a
+a
+f
+b
+b
+"}
+(9,1,1) = {"
+b
+f
+f
+t
+G
+I
+z
+D
+b
+b
+"}
+(10,1,1) = {"
+b
+b
+b
+B
+B
+D
+D
+b
+b
+b
+"}

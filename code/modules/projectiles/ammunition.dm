@@ -116,12 +116,14 @@
 	var/icon_prefix // boxes with multiple sprites use this as their base
 	var/caliber
 	var/multiload = 1
+	var/load_start = TRUE // HISPANIA, MAPPING HELPER
 	var/list/initial_mats //For calculating refund values.
 
 /obj/item/ammo_box/New()
 	..()
-	for(var/i in 1 to max_ammo)
-		stored_ammo += new ammo_type(src)
+	if(load_start)
+		for(var/i in 1 to max_ammo)
+			stored_ammo += new ammo_type(src)
 	update_icon()
 	initial_mats = materials.Copy()
 	update_mat_value()

@@ -1,0 +1,1782 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"ab" = (
+/obj/effect/spawner/random_spawners/fungus_probably,
+/turf/simulated/wall,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"ac" = (
+/obj/structure/rack,
+/obj/item/weldingtool,
+/obj/item/screwdriver{
+	pixel_y = 16
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"ad" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"ae" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"af" = (
+/obj/structure/closet/crate,
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"ag" = (
+/obj/structure/rack,
+/obj/item/stack/cable_coil{
+	pixel_x = -1;
+	pixel_y = -3
+	},
+/obj/item/stack/cable_coil,
+/obj/item/wirecutters,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"ah" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/beach_ball/holoball/baseball,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"ai" = (
+/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/plasma/full{
+	pixel_x = 5
+	},
+/obj/effect/spawner/random_spawners/oil_maybe,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aj" = (
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"ak" = (
+/obj/effect/spawner/random_spawners/oil_maybe,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"al" = (
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"am" = (
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"an" = (
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"ao" = (
+/obj/machinery/computer/mech_bay_power_console,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"ap" = (
+/obj/item/beach_ball/holoball/baseball,
+/obj/effect/spawner/random_spawners/oil_maybe,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aq" = (
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"ar" = (
+/obj/item/storage/bag/plasticbag/mre,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"as" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"at" = (
+/turf/simulated/wall,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"au" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/newscaster{
+	layer = 4;
+	pixel_y = 32
+	},
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"av" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"aw" = (
+/obj/item/melee/baseball_bat/ablative,
+/mob/living/simple_animal/hostile/poison/giant_spider,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"ax" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/newscaster{
+	layer = 4;
+	pixel_y = 32
+	},
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"ay" = (
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/obj/item/poster/random_contraband,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"az" = (
+/obj/structure/table,
+/obj/item/folder/white,
+/obj/item/folder/white,
+/obj/item/pen{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -30
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aA" = (
+/obj/item/reagent_containers/glass/bottle/radium{
+	pixel_x = 5
+	},
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aB" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
+/obj/machinery/light_construct,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aC" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/sofa{
+	dir = 1
+	},
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aD" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/chair/sofa{
+	dir = 1
+	},
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aE" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/ash,
+/obj/structure/chair/sofa{
+	dir = 1
+	},
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aF" = (
+/obj/structure/disposaloutlet{
+	dir = 1;
+	pixel_y = -6
+	},
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aG" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Storage Room";
+	req_access_txt = "12"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aH" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aI" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/spawner/lootdrop/maintenance,
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aJ" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/ash,
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/lootdrop/maintenance,
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aK" = (
+/obj/structure/closet,
+/obj/item/stack/sheet/metal{
+	amount = 34
+	},
+/obj/item/extinguisher/mini,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aL" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aM" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aN" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aO" = (
+/obj/structure/closet/cardboard,
+/obj/item/pickaxe,
+/obj/item/flashlight/lantern,
+/obj/item/device/binoculars/mining,
+/obj/item/t_scanner/adv_mining_scanner/lesser,
+/obj/item/storage/bag/ore,
+/obj/item/storage/bag/ore,
+/obj/item/pickaxe,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aP" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aQ" = (
+/obj/structure/rack,
+/obj/item/screwdriver{
+	pixel_y = 16
+	},
+/obj/item/hand_labeler,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/light_construct{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aR" = (
+/obj/structure/rack,
+/obj/item/stack/cable_coil{
+	pixel_x = -1;
+	pixel_y = -3
+	},
+/obj/item/wrench,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aS" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/ash,
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aT" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/ash,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aV" = (
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"aW" = (
+/obj/structure/closet,
+/obj/item/stack/sheet/glass{
+	amount = 12
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aX" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aY" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"aZ" = (
+/obj/effect/decal/cleanable/ants,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"ba" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bb" = (
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bc" = (
+/obj/effect/decal/cleanable/glass,
+/obj/machinery/light/small,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bd" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/spawner/lootdrop/maintenance,
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"be" = (
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bf" = (
+/obj/effect/decal/cleanable/blood,
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bg" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bh" = (
+/obj/effect/decal/cleanable/glass,
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bi" = (
+/obj/structure/rack,
+/obj/item/stack/rods{
+	amount = 23
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bj" = (
+/obj/structure/table,
+/obj/item/folder/white,
+/obj/item/folder/white,
+/obj/item/pen{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/item/paper_bin,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bk" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24;
+	shock_proof = 0
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bl" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bm" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "hiddenbaserobo";
+	name = "Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "warndark";
+	tag = ""
+	},
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bo" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/ash,
+/obj/machinery/computer/security/telescreen/entertainment{
+	layer = 4;
+	pixel_y = 32
+	},
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 8;
+	name = "8maintenance loot spawner"
+	},
+/obj/structure/closet,
+/obj/item/storage/bag/plasticbag/mre,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bp" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	pixel_y = 0
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
+	},
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bq" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "???";
+	req_access_txt = "12"
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 4;
+	icon_state = "open";
+	id_tag = "hiddenbaserobo";
+	name = "Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"br" = (
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bs" = (
+/obj/effect/spawner/random_spawners/grille_maybe,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bt" = (
+/obj/effect/spawner/random_spawners/grille_often,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"bu" = (
+/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/machinery/light/small,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bv" = (
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bw" = (
+/obj/effect/spawner/random_spawners/grille_often,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bx" = (
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"by" = (
+/obj/structure/sign/poster/contraband/hispania/fucktajarans{
+	pixel_y = 32
+	},
+/obj/structure/sign/poster/contraband/hispania/skulllevatationg{
+	pixel_y = -32
+	},
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bz" = (
+/obj/machinery/door_control{
+	id = "hiddenbaserobo";
+	name = "Shutters Control";
+	pixel_x = 24;
+	pixel_y = 12;
+	req_access_txt = "29"
+	},
+/obj/machinery/light_switch{
+	pixel_x = -23;
+	pixel_y = 0
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	pixel_y = 0
+	},
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bA" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "hiddenbaserobo";
+	name = "Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "warndark";
+	tag = ""
+	},
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bB" = (
+/obj/effect/decal/cleanable/spiderling_remains,
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bC" = (
+/obj/effect/decal/cleanable/ants,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bD" = (
+/obj/structure/closet/bombcloset,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bE" = (
+/obj/structure/closet/firecloset,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bF" = (
+/turf/template_noop,
+/area/template_noop)
+"bG" = (
+/obj/item/reagent_containers/glass/bottle/chlorine{
+	pixel_x = -3
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bH" = (
+/obj/item/reagent_containers/glass/bottle/sulfur{
+	pixel_x = 5
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bI" = (
+/obj/item/reagent_containers/glass/bottle/radium{
+	pixel_x = 5
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bJ" = (
+/obj/item/reagent_containers/glass/bottle/iron{
+	pixel_x = 5
+	},
+/obj/effect/spawner/random_spawners/oil_maybe,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bK" = (
+/obj/item/reagent_containers/glass/bottle/potassium{
+	pixel_x = -3
+	},
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bL" = (
+/obj/structure/sink{
+	icon_state = "sink";
+	dir = 1;
+	pixel_x = 11
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bM" = (
+/obj/effect/decal/cleanable/spiderling_remains,
+/obj/item/robotanalyzer,
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bN" = (
+/obj/item/mmi,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bO" = (
+/obj/item/book/manual/robotics_cyborgs{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bP" = (
+/obj/machinery/mecha_part_fabricator,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bQ" = (
+/obj/item/reagent_containers/glass/bottle/sugar{
+	pixel_x = -3
+	},
+/obj/structure/closet/crate,
+/obj/item/reagent_containers/glass/bottle/potassium{
+	pixel_x = -3
+	},
+/obj/item/stack/sheet/mineral/uranium{
+	amount = 50
+	},
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bR" = (
+/obj/effect/spawner/random_spawners/oil_maybe,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bS" = (
+/obj/item/reagent_containers/glass/bottle/iron{
+	pixel_x = 5
+	},
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
+/obj/structure/closet/crate,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bT" = (
+/obj/item/storage/firstaid/machine{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/mmi,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bU" = (
+/obj/effect/decal/cleanable/shreds,
+/obj/item/picket_sign,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
+	},
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bV" = (
+/obj/item/reagent_containers/glass/bottle/carbon{
+	pixel_x = 5
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	pixel_y = 0
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bW" = (
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/mineral/plasma/fifty{
+	pixel_x = 5
+	},
+/obj/item/stack/sheet/mineral/plasma/fifty{
+	pixel_x = -5
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bX" = (
+/obj/structure/closet/cardboard,
+/obj/item/clothing/suit/space/nasavoid/green,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/head/helmet/space/nasavoid/green,
+/obj/item/tank/internals/oxygen/red,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bY" = (
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/structure/bonfire,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"bZ" = (
+/obj/item/mmi/robotic_brain,
+/obj/item/clothing/head/welding{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"ca" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/glass,
+/obj/item/flash,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cb" = (
+/obj/item/reagent_containers/glass/bottle/bromine{
+	pixel_x = -3
+	},
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cc" = (
+/obj/item/reagent_containers/glass/bottle/fluorine{
+	pixel_x = -3
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
+	},
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cd" = (
+/obj/item/reagent_containers/glass/bottle/iodine{
+	pixel_x = -3
+	},
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"ce" = (
+/obj/effect/decal/cleanable/spiderling_remains,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cf" = (
+/obj/structure/cable,
+/obj/machinery/power/port_gen/pacman,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cg" = (
+/obj/item/wirecutters,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"ch" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/silicon{
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/glass/bottle/sacid{
+	pixel_x = -3
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cj" = (
+/obj/effect/spawner/lootdrop/animals4maint,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"ck" = (
+/obj/item/storage/toolbox/electrical{
+	pixel_x = 1;
+	pixel_y = 6
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cl" = (
+/obj/effect/spawner/random_spawners/grille_maybe,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"cm" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/clothing/glasses/welding,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cn" = (
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"co" = (
+/obj/machinery/disposal,
+/obj/machinery/light/small,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cp" = (
+/obj/structure/table,
+/obj/item/storage/box/beakers,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/taperecorder{
+	pixel_y = -12
+	},
+/obj/item/tape/random{
+	pixel_x = 3;
+	pixel_y = -12
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cq" = (
+/obj/structure/chair/office/light,
+/obj/effect/landmark/start{
+	name = "Scientist"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cr" = (
+/obj/item/reagent_containers/glass/bottle/hydrogen{
+	pixel_x = 5
+	},
+/obj/effect/spawner/random_spawners/oil_maybe,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cs" = (
+/obj/effect/spawner/random_spawners/dirt_rare,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"ct" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/aluminum{
+	pixel_x = 4
+	},
+/obj/item/reagent_containers/glass/bottle/bromine{
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/glass/bottle/water{
+	pixel_y = 6
+	},
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cu" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/copper{
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/glass/bottle/ethanol{
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/glass/bottle/lithium{
+	pixel_y = 6
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cv" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/glass/bottle/phosphorus{
+	pixel_x = -5;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/glass/bottle/oxygen{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/glass/bottle/nitrogen{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/glass/bottle/mercury{
+	pixel_x = -5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cw" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cx" = (
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 4;
+	name = "4maintenance loot spawner"
+	},
+/obj/structure/table,
+/obj/item/clothing/glasses/welding,
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cy" = (
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 4;
+	name = "4maintenance loot spawner"
+	},
+/obj/structure/table,
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cz" = (
+/obj/structure/table,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/reagent_containers/dropper/precision,
+/obj/item/reagent_containers/dropper/precision,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/dropper,
+/obj/item/storage/box/syringes,
+/obj/item/storage/box/syringes,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cA" = (
+/obj/machinery/chem_dispenser,
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cB" = (
+/obj/machinery/chem_master,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cC" = (
+/obj/structure/table,
+/obj/item/radio/intercom{
+	dir = 1;
+	name = "station intercom (General)";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cD" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/welding_fuel{
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/glass/bottle/radium{
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/glass/bottle/potassium{
+	pixel_x = -3
+	},
+/turf/simulated/floor/plating,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cF" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/wirecutters,
+/turf/simulated/floor/plating,
+/area/dababyruin)
+"cH" = (
+/obj/structure/mecha_wreckage/ripley,
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cI" = (
+/obj/machinery/disposal/big,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for monitoring of the ENTRADA.";
+	dir = 1;
+	layer = 4;
+	name = "entrada monitor";
+	network = list("entrada");
+	pixel_x = -30;
+	pixel_y = 0
+	},
+/turf/simulated/floor/engine,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cJ" = (
+/obj/structure/falsewall,
+/turf/simulated/floor/plating/damaged,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cK" = (
+/obj/structure/mecha_wreckage/durand/old,
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+"cL" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "???";
+	req_access_txt = "12"
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 4;
+	icon_state = "open";
+	id_tag = "hiddenbaserobo";
+	name = "Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/plating/damaged,
+/area/ruin/dababy/basesecreta{
+	lightswitch = 0
+	})
+
+(1,1,1) = {"
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+"}
+(2,1,1) = {"
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+bF
+at
+at
+at
+at
+at
+at
+at
+bF
+bF
+bF
+"}
+(3,1,1) = {"
+bF
+bF
+bF
+at
+at
+at
+at
+at
+at
+at
+cI
+at
+bB
+bK
+ca
+at
+at
+bF
+bF
+"}
+(4,1,1) = {"
+bF
+bF
+bF
+at
+al
+am
+am
+aL
+aX
+bk
+bp
+bz
+bC
+bR
+cb
+co
+at
+at
+bF
+"}
+(5,1,1) = {"
+bF
+bF
+bF
+at
+am
+am
+aF
+aM
+aY
+bl
+bq
+bl
+bD
+aj
+cc
+cp
+cz
+at
+bF
+"}
+(6,1,1) = {"
+bF
+bF
+bF
+at
+an
+am
+am
+aL
+aZ
+bm
+br
+bA
+bE
+aq
+bR
+cq
+cA
+at
+bF
+"}
+(7,1,1) = {"
+bF
+at
+at
+at
+at
+at
+at
+at
+ba
+bm
+aj
+bA
+bG
+bQ
+cd
+cr
+cB
+at
+bF
+"}
+(8,1,1) = {"
+bF
+at
+ac
+ah
+ao
+ay
+at
+aN
+bb
+bm
+br
+bA
+bH
+bU
+ce
+cj
+cC
+at
+bF
+"}
+(9,1,1) = {"
+bF
+at
+ad
+ai
+cK
+az
+at
+aO
+bc
+ab
+bq
+bl
+bI
+bV
+cf
+ct
+cD
+at
+bF
+"}
+(10,1,1) = {"
+bF
+at
+ae
+bR
+aq
+ap
+aG
+aP
+bd
+bl
+bs
+bl
+bJ
+aq
+bS
+cu
+at
+at
+bF
+"}
+(11,1,1) = {"
+bF
+at
+af
+aw
+ar
+cH
+at
+at
+be
+bl
+bu
+ab
+aA
+bW
+ch
+cv
+at
+bF
+bF
+"}
+(12,1,1) = {"
+bF
+at
+ag
+ak
+as
+aB
+at
+aQ
+bf
+bl
+bv
+bl
+aq
+bX
+at
+at
+at
+bF
+bF
+"}
+(13,1,1) = {"
+bF
+at
+at
+at
+at
+at
+at
+aR
+bg
+bl
+bw
+bl
+bL
+at
+at
+at
+bF
+bF
+bF
+"}
+(14,1,1) = {"
+bF
+bF
+bF
+at
+au
+aC
+aH
+aS
+bh
+ab
+bx
+bl
+bM
+bT
+bY
+at
+at
+bF
+bF
+"}
+(15,1,1) = {"
+bF
+bF
+bF
+at
+bo
+aD
+aI
+aT
+bi
+ab
+cL
+bl
+bN
+bZ
+cj
+cw
+at
+bF
+bF
+"}
+(16,1,1) = {"
+bF
+bF
+bF
+at
+ax
+aE
+aJ
+aU
+bj
+bl
+bw
+bl
+bO
+aq
+ck
+cx
+at
+bF
+bF
+"}
+(17,1,1) = {"
+bF
+bF
+bF
+at
+at
+at
+aK
+aW
+at
+at
+cJ
+at
+bP
+bN
+cm
+cy
+at
+bF
+bF
+"}
+(18,1,1) = {"
+aa
+cg
+aa
+aa
+av
+at
+at
+at
+at
+at
+by
+at
+at
+at
+at
+at
+at
+aV
+cF
+"}
+(19,1,1) = {"
+aa
+aa
+aa
+av
+aV
+bt
+bt
+bt
+cl
+cn
+cs
+cn
+aa
+cl
+bt
+bt
+bt
+bt
+av
+"}
