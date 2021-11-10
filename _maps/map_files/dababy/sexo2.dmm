@@ -5676,6 +5676,11 @@
 	icon_state = "asteroid";
 	tag = "icon-asteroid (NORTH)"
 	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "siding1";
+	tag = "icon-siding1 (NORTH)"
+	},
 /area/crew_quarters/kitchen)
 "aiR" = (
 /obj/structure/table/glass,
@@ -5829,6 +5834,11 @@
 	dir = 2;
 	icon_state = "asteroid";
 	tag = "icon-asteroid (NORTH)"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "siding1";
+	tag = "icon-siding1 (NORTH)"
 	},
 /area/crew_quarters/kitchen)
 "ajf" = (
@@ -11818,6 +11828,11 @@
 	random_hispania_icon = 0
 	},
 /turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "siding2";
+	tag = "icon-siding2 (NORTH)"
+	},
 /area/crew_quarters/kitchen)
 "arY" = (
 /obj/structure/reagent_dispensers/water_cooler,
@@ -24885,6 +24900,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "siding2";
+	tag = "icon-siding2 (NORTH)"
+	},
 /area/crew_quarters/kitchen)
 "aLB" = (
 /obj/effect/spawner/window/reinforced,
@@ -30543,6 +30563,11 @@
 /area/toxins/xenobiology)
 "aUP" = (
 /turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "siding2";
+	tag = "icon-siding2 (NORTH)"
+	},
 /area/crew_quarters/kitchen)
 "aUQ" = (
 /obj/effect/turf_decal/stripes,
@@ -69907,7 +69932,7 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
-"lPM" = (
+"dVv" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
 	initialize_directions = 7
@@ -105474,7 +105499,7 @@ azo
 aBU
 azp
 aAY
-lPM
+dVv
 bUh
 atx
 aHb
