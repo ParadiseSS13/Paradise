@@ -61561,9 +61561,9 @@
 	},
 /area/crew_quarters/fitness)
 "cGR" = (
+/obj/machinery/vending/suitdispenser,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
+	icon_state = "dark"
 	},
 /area/crew_quarters/locker)
 "cGS" = (
@@ -148643,7 +148643,7 @@ crW
 crW
 crW
 cBP
-cDp
+cGR
 cnP
 cFi
 cGM
@@ -149156,7 +149156,7 @@ cjk
 cxr
 cyN
 crJ
-cGR
+cBP
 cDl
 cnP
 cFk
