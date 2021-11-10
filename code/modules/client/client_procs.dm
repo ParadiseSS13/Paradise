@@ -1290,6 +1290,9 @@
 	return FALSE
 
 /client/proc/hublistpanel()
+	if(holder)
+		return FALSE
+
 	var/dat = {"<html><meta charset="UTF-8"><body>"}
 	var/tally = length(GLOB.clients)
 	if(tally > 90)
