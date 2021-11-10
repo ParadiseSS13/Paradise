@@ -8,7 +8,12 @@
 [![forthebadge](http://forthebadge.com/images/badges/contains-technical-debt.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
 
-# Useful Links
+# Ссылки
+
+- [Website](https://ss220.space/)
+- [Discord](https://discord.ss220.space)
+
+# Original useful Links
 
 - [Website](https://www.paradisestation.org/)
 - [Discord](https://discordapp.com/invite/YJDsXFE)
