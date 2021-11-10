@@ -1,0 +1,22 @@
+"a" = (/turf/simulated/wall,/area/dababyruin)
+"b" = (/turf/simulated/floor/plating,/area/dababyruin)
+"c" = (/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"d" = (/turf/simulated/floor/plating/burnt,/area/dababyruin)
+"e" = (/obj/effect/spawner/random_spawners/blood_often,/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"f" = (/obj/effect/spawner/random_spawners/blood_often,/turf/simulated/floor/plating,/area/dababyruin)
+"g" = (/obj/effect/spawner/random_spawners/blood_often,/turf/simulated/floor/plating/burnt,/area/dababyruin)
+"h" = (/obj/structure/closet/crate/secure/loot,/turf/simulated/floor/plating/burnt,/area/dababyruin)
+"i" = (/obj/effect/spawner/lootdrop/maintenance,/turf/simulated/floor/plating/burnt,/area/dababyruin)
+
+(1,1,1) = {"
+aea
+ifa
+aca
+afa
+aba
+aba
+hga
+add
+iga
+aga
+"}

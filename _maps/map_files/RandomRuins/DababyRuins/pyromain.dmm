@@ -1,0 +1,31 @@
+"a" = (/turf/template_noop,/area/template_noop)
+"b" = (/turf/simulated/wall,/area/dababyruin)
+"c" = (/obj/structure/falsewall,/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"d" = (/obj/effect/spawner/random_spawners/oil_maybe,/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"e" = (/obj/item/stack/sheet/mineral/plasma/fifty,/turf/simulated/floor/plating,/area/dababyruin)
+"f" = (/obj/effect/decal/cleanable/glass/plasma,/obj/item/tank/internals/plasma/full,/turf/simulated/floor/plating,/area/dababyruin)
+"g" = (/obj/item/coin/plasma,/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"h" = (/obj/item/stack/sheet/mineral/plasma/fifty,/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"i" = (/obj/item/shard/plasma,/obj/item/flamethrower/full/tank,/turf/simulated/floor/plating,/area/dababyruin)
+"j" = (/obj/effect/decal/cleanable/glass/plasma,/obj/effect/spawner/lootdrop/crate_spawner,/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"k" = (/obj/item/coin/plasma,/obj/effect/spawner/random_spawners/cobweb_left_frequent,/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"l" = (/obj/machinery/portable_atmospherics/canister/toxins,/turf/simulated/floor/plating/burnt,/area/dababyruin)
+"m" = (/obj/effect/spawner/random_spawners/oil_maybe,/turf/simulated/floor/plating/burnt,/area/dababyruin)
+"n" = (/obj/effect/mine/gas/plasma,/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"o" = (/obj/effect/decal/cleanable/glass/plasma,/obj/item/shard/plasma,/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"p" = (/obj/item/clothing/gloves/ring/plasma,/obj/effect/spawner/lootdrop/crate_spawner,/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"q" = (/obj/machinery/portable_atmospherics/canister/toxins,/obj/structure/sign/poster/contraband/smoke{pixel_x = -32; pixel_y = -32},/turf/simulated/floor/plating/burnt,/area/dababyruin)
+"r" = (/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"s" = (/obj/machinery/portable_atmospherics/canister/toxins,/obj/structure/sign/poster/contraband/rebels_unite{pixel_x = 32; pixel_y = 32},/obj/effect/spawner/random_spawners/cobweb_right_frequent,/turf/simulated/floor/plating/burnt,/area/dababyruin)
+"t" = (/obj/effect/spawner/random_spawners/wall_rusted_maybe,/turf/simulated/wall,/area/dababyruin)
+
+(1,1,1) = {"
+aaadmaaa
+abtcctba
+atkhjsta
+mclinecd
+dcoplfcm
+atqogrta
+abtcctba
+aaamdaaa
+"}

@@ -318,7 +318,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"Delta_nanomap_z1.png"			= 'icons/_nanomaps/Delta_nanomap_z1.png',
 		"Hispania_nanomap_z1.png"		= 'icons/_nanomaps/Hispania_nanomap_z1.png',
 		"MetaStation_nanomap_z1.png"	= 'icons/_nanomaps/MetaStation_nanomap_z1.png',
-		"Dababy_nanomap_z1.png"		= 'icons/_nanomaps/Dababy_nanomap_z1.png',
+		"Dababy_nanomap_z1.png"			= 'icons/_nanomaps/Dababy_nanomap_z1.png',
+		"LeBaby_nanomap_z1.png"			= 'icons/_nanomaps/LeBaby_nanomap_z1.png',
 	)
 
 /datum/asset/simple/safe

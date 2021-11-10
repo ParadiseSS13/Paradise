@@ -134,7 +134,7 @@
 
 
 /obj/machinery/computer/general_air_control
-	icon = 'icons/obj/computer.dmi'
+	//icon = 'icons/obj/computer.dmi'
 	icon_screen = "tank"
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/air_management
@@ -739,7 +739,7 @@
 
 /obj/machinery/computer/atmoscontrol
 	name = "\improper central atmospherics computer"
-	icon = 'icons/obj/computer.dmi'
+	//icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "atmos_key"
 	icon_screen = "tank"
 	light_color = LIGHT_COLOR_CYAN

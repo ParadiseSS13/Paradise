@@ -1,0 +1,22 @@
+"a" = (/obj/item/flashlight/lantern{on = 1},/turf/simulated/floor/pod/light,/area/dababybigzone)
+"b" = (/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,/area/dababybigzone)
+"c" = (/turf/simulated/floor/sepia,/area/dababybigzone)
+"d" = (/turf/simulated/floor/redgrid,/area/dababybigzone)
+"e" = (/obj/structure/table/wood,/obj/item/gun/magic/wand/slipping,/turf/simulated/floor/redgrid,/area/dababybigzone)
+"f" = (/obj/item/flag/wiz,/turf/simulated/floor/pod/dark,/area/dababybigzone)
+"g" = (/mob/living/simple_animal/hostile/scarybat,/turf/simulated/floor/sepia,/area/dababybigzone)
+"h" = (/obj/structure/table/wood,/obj/item/gun/magic/wand/door,/turf/simulated/floor/redgrid,/area/dababybigzone)
+
+(1,1,1) = {"
+bbacdehdcabb
+bbfccccccfbb
+bbbbbccbbbbb
+bbbbfggfbbbb
+bbbbbggbbbbb
+bbbbfggfbbbb
+bbbbbccbbbbb
+bbbbfggfbbbb
+bbbbbggbbbbb
+bbbbfggfbbbb
+bbbbbccbbbbb
+"}

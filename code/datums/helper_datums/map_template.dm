@@ -142,6 +142,8 @@
 		if(istype(R, /datum/map_template/ruin/space))
 			GLOB.space_ruins_templates[R.name] = R
 
+	handleDaBabyRuinsPreload()
+
 /proc/preloadShelterTemplates()
 	for(var/item in subtypesof(/datum/map_template/shelter))
 		var/datum/map_template/shelter/shelter_type = item

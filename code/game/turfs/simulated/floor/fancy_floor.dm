@@ -1,4 +1,5 @@
 /turf/simulated/floor/wood
+	icon = 'icons/hispania/turf/floors.dmi'
 	icon_state = "wood"
 	floor_tile = /obj/item/stack/tile/wood
 	prying_tool_list = list(TOOL_SCREWDRIVER)

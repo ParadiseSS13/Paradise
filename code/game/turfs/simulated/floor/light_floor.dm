@@ -19,7 +19,7 @@
 	..()
 	if(on)
 		icon_state = "light_on"
-		set_light(5, null, color)
+		set_light(light_range, null, color) // whoops parece que a alguien se le olvido el poner el light_range •_•
 	else
 		icon_state = "light_off"
 		set_light(0)

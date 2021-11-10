@@ -1,0 +1,37 @@
+"a" = (/obj/item/clothing/mask/facehugger,/obj/structure/stone_tile/surrounding,/obj/effect/decal/cleanable/blood,/obj/structure/closet/crate/miningcar,/turf/simulated/floor/plating/burnt,/area/dababybigzone)
+"b" = (/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,/area/dababybigzone)
+"c" = (/obj/effect/decal/cleanable/blood,/obj/structure/stone_tile/slab/cracked{icon_state = "cracked_slab1"; dir = 4},/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"d" = (/obj/effect/decal/cleanable/blood,/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"e" = (/obj/structure/stone_tile/block/cracked,/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"f" = (/obj/structure/stone_tile/center/burnt,/obj/effect/decal/cleanable/blood,/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"g" = (/obj/structure/stone_tile/slab/cracked{icon_state = "cracked_slab1"; dir = 4},/obj/effect/decal/cleanable/confetti,/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"h" = (/obj/structure/stone_tile/center/burnt,/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"i" = (/obj/structure/stone_tile/slab/burnt,/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"j" = (/obj/structure/stone_tile/slab/cracked,/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"k" = (/obj/structure/stone_tile/slab/burnt,/obj/item/clothing/head/helmet/skull,/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"l" = (/obj/structure/stone_tile/block/cracked{dir = 8},/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"m" = (/obj/structure/stone_tile/slab/cracked{icon_state = "cracked_slab1"; dir = 4},/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"n" = (/obj/structure/stone_tile/block/cracked{icon_state = "cracked_block1"; dir = 10},/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"o" = (/obj/structure/stone_tile/block/cracked{dir = 4},/obj/structure/stone_tile/block/cracked{dir = 8},/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"p" = (/obj/structure/stone_tile/block/cracked{dir = 8},/obj/effect/decal/cleanable/blood,/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"q" = (/obj/effect/decal/cleanable/generic,/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"r" = (/obj/structure/stone_tile/block/cracked{icon_state = "cracked_block1"; dir = 5},/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"s" = (/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"t" = (/obj/structure/stone_tile/burnt,/obj/effect/decal/cleanable/blood,/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"u" = (/obj/structure/stone_tile/block/cracked{dir = 1},/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"v" = (/obj/structure/stone_tile/block/cracked{dir = 1},/obj/effect/decal/cleanable/blood,/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+"w" = (/obj/structure/stone_tile/block/cracked{dir = 8},/obj/effect/decal/cleanable/generic,/turf/simulated/floor/plating/asteroid/basalt,/area/dababybigzone)
+
+(1,1,1) = {"
+abcdeeebdeef
+gbhbbbibjbbi
+kbdllbibmnbl
+fbbbobmbbdbp
+hboqobrffsbl
+hbobbbbbbbbp
+tbuuuuuujlbp
+dbbbbbbbblbl
+rbbuvdeejwbi
+jmijbbbbbbbi
+bbbbbvvhjfqf
+"}

@@ -60,6 +60,9 @@
 			var/turf/T = i
 			for(var/obj/structure/spawner/nest in T)
 				qdel(nest)
+			if(destroy_grilles)
+				for(var/obj/structure/grille/parrilla in T) // bye bye grilles!!!
+					qdel(parrilla)
 			for(var/mob/living/simple_animal/monster in T)
 				qdel(monster)
 			for(var/obj/structure/flora/ash/plant in T)

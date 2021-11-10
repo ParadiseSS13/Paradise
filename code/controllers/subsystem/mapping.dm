@@ -45,6 +45,9 @@ SUBSYSTEM_DEF(mapping)
 	// Load lavaland
 	loadLavaland()
 
+	if(SSmapping.map_datum.fluff_name == "NSS LeBaby") // Si toca lebaby, toca su propia inicializacion
+		handleDaBaby(level_name_to_num(MAIN_STATION))
+
 	// Pick a random away mission.
 	if(GLOB.configuration.gateway.enable_away_mission)
 		load_away_mission()

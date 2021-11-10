@@ -1,0 +1,36 @@
+"a" = (/turf/simulated/floor/plating,/area/dababyruin)
+"b" = (/obj/structure/toilet{dir = 4},/turf/simulated/floor/plating,/area/dababyruin)
+"c" = (/obj/structure/toilet,/turf/simulated/floor/plating,/area/dababyruin)
+"d" = (/obj/structure/toilet{dir = 8; pixel_y = 2},/turf/simulated/floor/plating,/area/dababyruin)
+"e" = (/obj/structure/toilet{tag = "icon-toilet00 (WEST)"; icon_state = "toilet00"; dir = 8},/turf/simulated/floor/plating,/area/dababyruin)
+"f" = (/turf/simulated/floor/beach/water{icon_state = "seadeep"},/area/dababyruin)
+"g" = (/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"h" = (/obj/structure/toilet,/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"j" = (/obj/structure/toilet{dir = 8; pixel_y = 2},/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"k" = (/obj/structure/toilet{dir = 4},/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"l" = (/obj/structure/toilet{dir = 1},/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"m" = (/obj/item/trash/waffles,/turf/simulated/floor/plating,/area/dababyruin)
+"n" = (/obj/item/trash/gum,/turf/simulated/floor/plating,/area/dababyruin)
+"o" = (/obj/item/trash/donitos,/turf/simulated/floor/plating,/area/dababyruin)
+"p" = (/obj/item/trash/can,/turf/simulated/floor/plating,/area/dababyruin)
+"q" = (/obj/item/trash/danbar,/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"r" = (/obj/item/trash/can,/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"s" = (/obj/item/trash/spacetwinkie,/turf/simulated/floor/plating,/area/dababyruin)
+"t" = (/obj/item/trash/liquidfood,/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"u" = (/obj/structure/toilet,/obj/item/immortality_talisman,/turf/simulated/floor/plating,/area/dababyruin)
+"v" = (/obj/structure/spider/eggcluster/terror_eggcluster{time_to_born = 500},/turf/simulated/floor/plating/damaged,/area/dababyruin)
+"w" = (/obj/effect/spawner/lootdrop/maintenance,/turf/simulated/floor/plating,/area/dababyruin)
+"x" = (/obj/effect/spawner/lootdrop/maintenance,/turf/simulated/floor/plating/damaged,/area/dababyruin)
+
+(1,1,1) = {"
+abffawcaaw
+amfnaoadpa
+eaaxhgvqaa
+egjgfffgae
+axfffffkwe
+phffuffraa
+agvfffjgwn
+bbxgffvffa
+anahffxsfa
+bwatgxlaab
+"}

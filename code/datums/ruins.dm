@@ -13,6 +13,7 @@
 	var/cost = 0 //Cost in ruin budget placement system
 	var/allow_duplicates = TRUE
 	var/list/never_spawn_with = null //If this ruin is spawned these will not eg list(/datum/map_template/ruin/base_alternate)
+	var/destroy_grilles = FALSE // HISPANIA
 
 	var/prefix = null
 	var/suffix = null

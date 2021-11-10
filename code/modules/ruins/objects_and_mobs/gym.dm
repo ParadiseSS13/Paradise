@@ -8,7 +8,6 @@
 	layer = WALL_OBJ_LAYER
 	var/list/hit_sounds = list('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg',\
 	'sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
-	var/list/punchingbag_hit_message = list("robusts", "punch", "hit")
 
 /obj/structure/punching_bag/attack_hand(mob/user as mob)
 	if(!istype(user))
@@ -25,7 +24,7 @@
 				user.adjust_nutrition(-rand(2,3))
 				var/mob/living/L = user
 				L.apply_status_effect(STATUS_EFFECT_EXERCISED)
-			to_chat(user, "<span class='warning'>You [pick(punchingbag_hit_message)] \the [src].</span>")
+			to_chat(user, "<span class='warning'>You robust \the [src].</span>")
 
 /obj/structure/weightmachine
 	name = "weight machine"

@@ -78,6 +78,7 @@
 	name = "large pod door"
 	layer = CLOSED_DOOR_LAYER
 	closingLayer = CLOSED_DOOR_LAYER
+	var/can_open_spacepod = TRUE
 
 /obj/machinery/door/poddoor/multi_tile/Initialize(mapload)
 	. = ..()

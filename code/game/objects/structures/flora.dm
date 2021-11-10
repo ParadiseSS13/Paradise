@@ -214,12 +214,14 @@
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
+	var/random_hispania_icon = TRUE // HISPANIA
 
 /obj/item/twohanded/required/kirbyplants/New()
 	..()
-	icon_state = "plant-[rand(1,35)]"
-	if(prob(1))
-		icon_state = "plant-36"
+	if(random_hispania_icon)
+		icon_state = "plant-[rand(1,35)]"
+		if(prob(1))
+			icon_state = "plant-36"
 
 /obj/item/twohanded/required/kirbyplants/equipped(mob/living/user)
 	. = ..()
