@@ -19,6 +19,13 @@
 	icon_state = "white"
 	},
 /area/toxins/misc_lab)
+"aad" = (
+/obj/structure/closet/emcloset{
+	icon_state = "emergency";
+	opened = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "aaQ" = (
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
@@ -23556,13 +23563,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
-"bbS" = (
-/obj/structure/closet/emcloset{
-	icon_state = "emergencyopen";
-	opened = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bbT" = (
@@ -110464,7 +110464,7 @@ aPi
 aVD
 aQl
 aMA
-bbS
+aad
 aEN
 aRw
 biM
