@@ -154,6 +154,10 @@
 	force = 25
 	throwforce = 15
 
+/obj/item/kitchen/knife/butcher/meatcleaver/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_BUTCHERS_HUMANS, ROUNDSTART_TRAIT)
+
 /obj/item/kitchen/knife/combat
 	name = "combat knife"
 	icon_state = "combatknife"

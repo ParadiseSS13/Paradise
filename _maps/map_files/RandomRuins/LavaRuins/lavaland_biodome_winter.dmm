@@ -54,7 +54,10 @@
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
 "al" = (
-/obj/effect/decal/cleanable/blood/oil,
+/obj/item/paper/crumpled/bloody/fluff/ruins/snowbiodome/cabin3,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood/innards,
+/obj/item/organ/internal/heart,
 /turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
 "am" = (
@@ -99,11 +102,12 @@
 /area/ruin/powered/snow_cabin)
 "aw" = (
 /obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/beans,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "ax" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/beans,
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "ay" = (
@@ -150,7 +154,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aH" = (
-/mob/living/simple_animal/hostile/skeleton/eskimo,
+/mob/living/simple_animal/hostile/skeleton/arctic,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aI" = (
@@ -164,6 +168,7 @@
 "aK" = (
 /obj/structure/table/wood,
 /obj/item/key,
+/obj/item/paper/fluff/ruins/snowbiodome/cabin1,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aL" = (
@@ -211,6 +216,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "bx" = (
@@ -253,15 +259,14 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
-"eb" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/pod/dark,
+"dV" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/sacrificealtar,
+/obj/item/kitchen/knife/combat/survival/bone,
+/turf/simulated/floor/mineral/silver,
 /area/ruin/powered/snow_biodome)
 "eg" = (
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/pod/dark,
+/turf/simulated/wall/mineral/silver,
 /area/ruin/powered/snow_biodome)
 "gh" = (
 /obj/machinery/light/small{
@@ -280,6 +285,36 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
+"iA" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"iE" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"jL" = (
+/obj/effect/decal/cleanable/blood/writing,
+/obj/effect/decal/cleanable/blood/writing,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"ks" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"mh" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"mt" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
 "qt" = (
 /obj/machinery/door/airlock/silver,
 /obj/structure/fans/tiny,
@@ -289,28 +324,56 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
+"th" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
 "tl" = (
 /turf/simulated/floor/pod/light,
 /area/ruin/powered/snow_biodome)
+"tI" = (
+/obj/item/paper/fluff/ruins/snowbiodome/cabin2,
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
 "vf" = (
 /obj/machinery/door/airlock/multi_tile/glass,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_cabin)
 "xU" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
-"zT" = (
-/obj/machinery/door/airlock/silver,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
+"zD" = (
+/obj/effect/mob_spawn/human/skeleton,
+/turf/simulated/floor/mineral/silver,
+/area/ruin/powered/snow_biodome)
+"zH" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/mineral/silver,
+/area/ruin/powered/snow_biodome)
+"AJ" = (
+/obj/item/twohanded/required/chainsaw,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
 "AM" = (
-/obj/structure/table,
-/obj/item/pen,
-/obj/item/paper,
+/obj/machinery/vending/coffee/free,
 /turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"BI" = (
+/obj/effect/spawner/window,
+/obj/structure/barricade/wooden/crude/snow,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"CD" = (
+/obj/structure/closet/secure_closet/freezer/fridge/open,
+/turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
 "Dd" = (
 /obj/structure/rack,
@@ -320,8 +383,8 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "Ef" = (
-/obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/pod/dark,
+/obj/structure/flora/rock/icy,
+/turf/simulated/floor/mineral/silver,
 /area/ruin/powered/snow_biodome)
 "Ez" = (
 /obj/structure/fans/tiny,
@@ -331,40 +394,47 @@
 "HP" = (
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
-"HR" = (
-/obj/structure/closet/secure_closet/freezer/fridge/open,
-/turf/simulated/floor/pod/dark,
+"JB" = (
+/obj/structure/barricade/wooden,
+/obj/structure/barricade/wooden/crude/snow,
+/turf/simulated/floor/mineral/silver,
 /area/ruin/powered/snow_biodome)
 "JZ" = (
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave,
-/turf/simulated/floor/pod/dark,
+/turf/simulated/floor/mineral/silver,
 /area/ruin/powered/snow_biodome)
-"KS" = (
-/obj/structure/closet,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/item/twohanded/required/chainsaw,
-/turf/simulated/floor/pod/dark,
+"LO" = (
+/obj/item/paper/fluff/ruins/snowbiodome/altar,
+/turf/simulated/floor/mineral/silver,
 /area/ruin/powered/snow_biodome)
 "Mp" = (
 /obj/item/clothing/mask/balaclava,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
+"NO" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
 "Oj" = (
-/obj/structure/table,
-/turf/simulated/floor/pod/dark,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/silver,
 /area/ruin/powered/snow_biodome)
 "PD" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
+"PI" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood/footprints,
+/turf/simulated/floor/mineral/silver,
+/area/ruin/powered/snow_biodome)
 "PK" = (
 /obj/structure/table,
 /obj/item/pen,
-/obj/item/paper_bin,
+/obj/item/paper/fluff/ruins/snowbiodome/entrance,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "Qa" = (
@@ -378,6 +448,8 @@
 "QK" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes/cigpack_carp,
+/obj/item/paper,
+/obj/item/pen,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "QN" = (
@@ -385,8 +457,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
 "Sj" = (
-/obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor/pod/dark,
+/turf/simulated/wall/mineral/wood/nonmetal,
 /area/ruin/powered/snow_biodome)
 "Ub" = (
 /obj/structure/filingcabinet,
@@ -441,7 +512,7 @@ Wg
 Wg
 Wg
 Dd
-gh
+xU
 HP
 tl
 gh
@@ -478,7 +549,7 @@ HP
 tl
 PK
 gz
-HP
+iA
 Wg
 ak
 ak
@@ -499,9 +570,9 @@ aa
 Wg
 Wg
 ak
-aC
 ak
 ak
+az
 ak
 Wg
 QN
@@ -513,7 +584,7 @@ QN
 QN
 Wg
 ak
-ak
+az
 ak
 ak
 ak
@@ -574,7 +645,7 @@ ak
 ak
 ak
 ak
-ak
+az
 ak
 aQ
 ak
@@ -605,7 +676,7 @@ ak
 ak
 az
 ak
-aC
+ak
 ak
 ak
 aI
@@ -674,7 +745,7 @@ ak
 ak
 ak
 ak
-aC
+ak
 ak
 ak
 ak
@@ -687,7 +758,7 @@ tb
 (10,1,1) = {"
 Wg
 Wg
-af
+CD
 Wg
 ak
 ak
@@ -754,9 +825,9 @@ ad
 af
 ar
 bw
-at
+tI
 aD
-at
+mh
 aL
 aq
 ak
@@ -783,12 +854,12 @@ tb
 (13,1,1) = {"
 Wg
 ae
-af
+ks
 aq
 au
 au
 aq
-at
+th
 bz
 aq
 ak
@@ -814,7 +885,7 @@ tb
 "}
 (14,1,1) = {"
 Wg
-af
+ks
 al
 aq
 aq
@@ -823,7 +894,7 @@ aE
 at
 at
 aq
-ak
+ap
 ak
 aC
 ak
@@ -855,7 +926,7 @@ at
 aH
 aM
 vf
-ap
+ak
 ak
 ak
 ak
@@ -917,7 +988,7 @@ ax
 aK
 aF
 at
-at
+mh
 aq
 ak
 aI
@@ -953,8 +1024,8 @@ bz
 aq
 aR
 ak
-ak
-ak
+NO
+jL
 ak
 ab
 ak
@@ -986,7 +1057,7 @@ aq
 ak
 ak
 ak
-az
+iE
 ak
 ak
 ak
@@ -1011,8 +1082,8 @@ af
 aq
 aq
 aq
-aq
-aq
+BI
+BI
 aq
 aq
 bD
@@ -1049,7 +1120,7 @@ ak
 ak
 ak
 ak
-ak
+mt
 ak
 aC
 ak
@@ -1080,12 +1151,12 @@ ak
 ap
 ak
 ak
+aC
 ak
 ak
+mt
 ak
-ak
-ak
-ak
+aI
 ak
 ak
 ak
@@ -1114,11 +1185,11 @@ ak
 ak
 ak
 ak
-az
 ak
-aQ
+iE
 ak
-aC
+ak
+ak
 ak
 aI
 ak
@@ -1137,7 +1208,7 @@ aa
 Wg
 Wg
 ak
-ak
+AJ
 aB
 ak
 ak
@@ -1145,12 +1216,12 @@ aC
 ak
 ak
 ak
+eg
 ak
-aI
+iE
 ak
-ap
-ak
-ak
+eg
+aC
 ak
 ak
 ak
@@ -1177,13 +1248,13 @@ ak
 aQ
 ak
 ak
+Ef
+mt
+JZ
 ak
-aI
+aB
 ak
-ak
-ak
-ak
-aQ
+JZ
 ak
 ak
 aB
@@ -1207,18 +1278,18 @@ az
 ak
 ak
 ak
-bB
+JZ
+bM
+Sj
+Sj
+JB
+Sj
+Sj
+bD
 ak
 ak
 ak
 ak
-ak
-az
-ak
-bB
-ak
-ak
-az
 ak
 ak
 ak
@@ -1239,15 +1310,15 @@ ak
 ak
 ak
 ak
-Wg
-QN
-QN
-QN
-zT
-QN
-QN
-QN
-Wg
+aC
+eg
+Sj
+JZ
+PI
+zD
+Sj
+eg
+aC
 ak
 ak
 ak
@@ -1270,16 +1341,16 @@ Wg
 Wg
 ak
 bB
+JZ
 ak
-Wg
-eg
-HP
-tl
-tl
-tl
+aB
 Sj
-xU
-Wg
+zD
+dV
+LO
+Sj
+ak
+ak
 ak
 bB
 ak
@@ -1304,13 +1375,13 @@ Wg
 Wg
 Wg
 Wg
-HR
-eb
-gz
+JZ
+Sj
+zH
 Oj
 JZ
-KS
-Ef
+Sj
+ap
 Wg
 Wg
 Wg
