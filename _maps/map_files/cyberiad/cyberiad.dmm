@@ -38617,6 +38617,23 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
+<<<<<<< HEAD
+=======
+"bUA" = (
+/obj/structure/table,
+/obj/item/tank/internals/emergency_oxygen/plasma{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/tank/internals/emergency_oxygen/plasma{
+	pixel_x = -5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "blue"
+	},
+/area/medical/cmostore)
+>>>>>>> 64b32c5bcf (mapping hurts)
 "bUB" = (
 /obj/structure/chair/comfy/brown{
 	dir = 4
