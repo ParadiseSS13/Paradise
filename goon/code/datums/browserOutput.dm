@@ -96,6 +96,9 @@ var/list/chatResources = list(
 		if("ping")
 			data = ping(arglist(params))
 
+		if("pingstat")
+			data = pingstat(arglist(params))
+
 		if("analyzeClientData")
 			data = analyzeClientData(arglist(params))
 
@@ -198,6 +201,12 @@ var/list/chatResources = list(
 
 /datum/chatOutput/proc/ping()
 	return "pong"
+
+/datum/chatOutput/proc/pingstat(lastPingDuration = 0)
+	if(lastPingDuration && owner)
+		owner.last_ping_duration = lastPingDuration
+	else
+		owner.last_ping_duration = 0
 
 /datum/chatOutput/proc/debug(error)
 	error = "\[[time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")]\] Client : [owner.key ? owner.key : owner] triggered JS error: [error]"

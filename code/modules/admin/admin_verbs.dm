@@ -267,6 +267,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			verbs += GLOB.admin_verbs_mentor
 		if(holder.rights & R_PROCCALL)
 			verbs += GLOB.admin_verbs_proccall
+		if(holder.rights == R_HOST)
+			verbs += /client/proc/view_pingstat
 		if(holder.rights & R_VIEWRUNTIMES)
 			verbs += /client/proc/view_runtimes
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
@@ -285,6 +287,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		GLOB.admin_verbs_possess,
 		GLOB.admin_verbs_permissions,
 		/client/proc/stealth,
+		/client/proc/view_pingstat,
 		GLOB.admin_verbs_rejuv,
 		GLOB.admin_verbs_sounds,
 		GLOB.admin_verbs_spawn,

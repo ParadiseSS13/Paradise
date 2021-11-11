@@ -52,6 +52,7 @@ var opts = {
 	'pongTime': 0, //Timestamp of when ping received
 	'noResponse': false, //Tracks the state of the previous ping request
 	'noResponseCount': 0, //How many failed pings?
+	'lastPingDuration': 0, // Last ping duration in ms
 
 	//Clicks
 	'mouseDownX': null,
@@ -516,11 +517,13 @@ function ehjaxCallback(data) {
 		var pingDuration = Math.ceil((opts.pongTime - opts.pingTime) / 2);
 		$('#pingMs').text(pingDuration+'ms');
 		pingDuration = Math.min(pingDuration, 255);
+		opts.lastPingDuration = pingDuration;
 		var red = pingDuration;
 		var green = 255 - pingDuration;
 		var blue = 0;
 		var hex = rgbToHex(red, green, blue);
 		$('#pingDot').css('color', '#'+hex);
+		runByond('?_src_=chat&proc=pingstat&param[lastPingDuration]='+opts.lastPingDuration);
 	} else if (data == 'roundrestart') {
 		opts.restarting = true;
 		internalOutput('<div class="connectionClosed internal restarting">The connection has been closed because the server is restarting. Please wait while you automatically reconnect.</div>', 'internal');

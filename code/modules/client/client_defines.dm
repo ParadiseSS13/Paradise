@@ -102,6 +102,7 @@
 	/// Days since the client's BYOND account was created
 	var/byondacc_age = 0
 
+	var/last_ping_duration = 0
 
 	// Do not attempt to merge these vars together. They are for different things
 	/// Last world.time that a PM was send to discord by a player
