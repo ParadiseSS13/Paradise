@@ -684,7 +684,7 @@ $(function() {
 			if (!opts.noResponse) { //Only actually append a message if the previous ping didn't also fail (to prevent spam)
 				opts.noResponse = true;
 				opts.noResponseCount++;
-				internalOutput('<div class="connectionClosed internal" data-count="'+opts.noResponseCount+'">You are either AFK, experiencing lag or the connection has closed.</div>', 'internal');
+				internalOutput('<div class="connectionClosed internal" data-count="'+opts.noResponseCount+'">You are either AFK, experiencing lag or the connection has closed. <a href="byond://winset?command=.reconnect">(Reconnect)</a></div>', 'internal');
 			}
 		} else if (opts.noResponse) { //Previous ping attempt failed ohno
 			$('.connectionClosed[data-count="'+opts.noResponseCount+'"]:not(.restored)').addClass('restored').text('Your connection has been restored (probably)!');
