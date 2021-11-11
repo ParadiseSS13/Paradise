@@ -144,7 +144,7 @@
 	name = "Report this to a coder"
 	var/reveal = 80 //How long it reveals the revenant in deciseconds
 	var/stun = 20 //How long it stuns the revenant in deciseconds
-	var/locked = 1 //If it's locked and needs to be unlocked before use
+	var/locked = TRUE //If it's locked and needs to be unlocked before use
 	var/unlock_amount = 100 //How much essence it costs to unlock
 	var/cast_amount = 50 //How much essence it costs to use
 
@@ -157,36 +157,36 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/can_cast(mob/living/simple_animal/revenant/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.inhibited)
-		return 0
+		return FALSE
 	if(charge_counter < charge_max)
-		return 0
+		return FALSE
 	if(locked)
 		if(user.essence <= unlock_amount)
-			return 0
+			return FALSE
 	if(user.essence <= cast_amount)
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/proc/attempt_cast(mob/living/simple_animal/revenant/user = usr)
 	if(locked)
 		if(!user.castcheck(-unlock_amount))
 			charge_counter = charge_max
-			return 0
+			return FALSE
 		name = "[initial(name)] ([cast_amount]E)"
 		to_chat(user, "<span class='revennotice'>You have unlocked [initial(name)]!</span>")
 		panel = "Revenant Abilities"
-		locked = 0
+		locked = FALSE
 		charge_counter = charge_max
-		return 0
+		return FALSE
 	if(!user.castcheck(-cast_amount))
 		charge_counter = charge_max
-		return 0
+		return FALSE
 	name = "[initial(name)] ([cast_amount]E)"
 	user.reveal(reveal)
 	user.stun(stun)
 	if(action)
 		action.UpdateButtonIcon()
-	return 1
+	return TRUE
 
 //Overload Light: Breaks a light that's online and sends out lightning bolts to all nearby people.
 /obj/effect/proc_holder/spell/aoe_turf/revenant/overload
@@ -284,8 +284,8 @@
 /mob/living/simple_animal/bot/rev_malfunction()
 	if(!emagged)
 		new /obj/effect/temp_visual/revenant(loc)
-		locked = 0
-		open = 1
+		locked = FALSE
+		open = TRUE
 		emag_act(null)
 
 /obj/rev_malfunction()

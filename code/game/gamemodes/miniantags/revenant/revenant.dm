@@ -42,20 +42,32 @@
 	speed = 1
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
-	var/essence = 75 //The resource of revenants. Max health is equal to three times this amount
-	var/essence_regen_cap = 75 //The regeneration cap of essence (go figure); regenerates every Life() tick up to this amount.
-	var/essence_regenerating = 1 //If the revenant regenerates essence or not; 1 for yes, 0 for no
-	var/essence_regen_amount = 5 //How much essence regenerates
-	var/essence_accumulated = 0 //How much essence the revenant has stolen
-	var/revealed = 0 //If the revenant can take damage from normal sources.
-	var/unreveal_time = 0 //How long the revenant is revealed for, is about 2 seconds times this var.
-	var/unstun_time = 0 //How long the revenant is stunned for, is about 2 seconds times this var.
-	var/inhibited = 0 //If the revenant's abilities are blocked by a chaplain's power.
-	var/essence_drained = 0 //How much essence the revenant has drained.
-	var/draining = FALSE //If the revenant is draining someone.
+	///The resource of revenants. Max health is equal to three times this amount
+	var/essence = 75
+	///The regeneration cap of essence (go figure); regenerates every Life() tick up to this amount.
+	var/essence_regen_cap = 75
+	///If the revenant regenerates essence or not; 1 for yes, 0 for no
+	var/essence_regenerating = 1
+	///How much essence regenerates
+	var/essence_regen_amount = 5
+	///How much essence the revenant has stolen
+	var/essence_accumulated = 0
+	///If the revenant can take damage from normal sources.
+	var/revealed = 0
+	///How long the revenant is revealed for, is about 2 seconds times this var.
+	var/unreveal_time = 0
+	///How long the revenant is stunned for, is about 2 seconds times this var.
+	var/unstun_time = 0
+	///If the revenant's abilities are blocked by a chaplain's power.
+	var/inhibited = 0
+	///How much essence the revenant has drained.
+	var/essence_drained = 0
+	///If the revenant is draining someone.
+	var/draining = FALSE
 	/// contains a list of UIDs of mobs who have been drained. cannot drain the same mob twice.
 	var/list/drained_mobs = list()
-	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has.
+	//How many perfect, regen-cap increasing souls the revenant has.
+	var/perfectsouls = 0
 
 
 /mob/living/simple_animal/revenant/Life(seconds, times_fired)
