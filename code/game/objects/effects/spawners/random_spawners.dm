@@ -267,7 +267,6 @@
 		/obj/item/ammo_box/magazine/m10mm/hp = 1,
 		/obj/item/rad_laser = 1,
 		/obj/item/storage/box/syndie_kit/emp = 1,
-		/obj/item/batterer = 1,
 		/obj/item/toy/carpplushie/dehy_carp = 1,
 		/obj/item/clothing/glasses/hud/security/chameleon = 1)
 
