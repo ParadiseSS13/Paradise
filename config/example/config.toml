@@ -234,6 +234,10 @@ gamemode_probabilities = [
 	{gamemode = "cult", probability = 3},
 	{gamemode = "extend-a-traitormongous", probability = 2}, # Autotraitor
 	{gamemode = "extended", probability = 3},
+<<<<<<< HEAD
+=======
+	{gamemode = "meteor", probability = 0},
+>>>>>>> 7a719bc730 (config fix)
 	{gamemode = "nuclear", probability = 2},
 	{gamemode = "raginmages", probability = 0},
 	{gamemode = "revolution", probability = 0},
