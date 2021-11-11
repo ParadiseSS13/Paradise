@@ -43,6 +43,8 @@
 		flash_protect ^= initial(flash_protect)
 	if(visor_vars_to_toggle & VISOR_TINT)
 		tint ^= initial(tint)
+	if(on)
+		toggle_light()
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_welding_screen(mob/living/user)
 	if(weldingvisortoggle(user))
@@ -65,14 +67,15 @@
 	toggle_light(user)
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_light(mob/user)
-	on = !on
-	icon_state = "[initial(icon_state)][on ? "-light":""]"
-	item_state = icon_state
-
+	if(up)
+		on = !on
+		icon_state = "[initial(icon_state)][on ? "-light":""]"
+		item_state = icon_state
+	if(isnull(user))
+		user = loc
 	var/mob/living/carbon/human/H = user
 	if(istype(H))
 		H.update_inv_head()
-
 	if(on)
 		if(!up)
 			if(istype(H))
@@ -88,11 +91,8 @@
 		A.UpdateButtonIcon()
 
 /obj/item/clothing/head/helmet/space/plasmaman/extinguish_light()
-	var/mob/living/carbon/human/H = null
-	if(ishuman(loc))
-		H = loc
 	if(on)
-		toggle_light(H)
+		toggle_light()
 
 /obj/item/clothing/head/helmet/space/plasmaman/security
 	name = "security plasma envirosuit helmet"
