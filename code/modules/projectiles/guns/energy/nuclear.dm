@@ -73,11 +73,6 @@
 	shaded_charge = TRUE
 	can_holster = TRUE
 
-/obj/item/gun/energy/gun/blueshield/pdw9
-	name = "\improper PDW-9 taser pistol"
-	desc = "A military grade sidearm, used by many militia forces throughout the local sector."
-	icon_state = "pdw9pistol"
-
 /obj/item/gun/energy/gun/turret
 	name = "hybrid turret gun"
 	desc = "A heavy hybrid energy cannon with two settings: Stun and kill."

@@ -77,7 +77,7 @@
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
-	belt = /obj/item/gun/energy/gun/blueshield/pdw9
+	belt = /obj/item/gun/energy/gun
 
 	backpack_contents = list(
 		/obj/item/camera_bug/ert = 1,
@@ -96,7 +96,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/commander/gamma
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
+	suit_store = /obj/item/gun/energy/gun
 	belt = /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 
 	backpack_contents = list(
@@ -152,7 +152,7 @@
 
 	shoes = /obj/item/clothing/shoes/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/security
-	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
+	suit_store = /obj/item/gun/energy/gun
 	glasses = /obj/item/clothing/glasses/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer
 
@@ -267,7 +267,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	belt = /obj/item/storage/belt/utility/chief/full
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
-	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
+	suit_store = /obj/item/gun/energy/gun
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 
@@ -367,7 +367,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical/gamma
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
+	suit_store = /obj/item/gun/energy/gun
 
 	belt = /obj/item/defibrillator/compact/advanced/loaded
 
