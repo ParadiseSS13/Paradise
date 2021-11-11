@@ -200,28 +200,33 @@
 	var/shock_damage = 20
 	action_icon_state = "overload_lights"
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/overload/cast(list/targets, mob/living/simple_animal/revenant/user = usr) // todo: make this not as gross
+/obj/effect/proc_holder/spell/aoe_turf/revenant/overload/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
 		for(var/turf/T in targets)
-			spawn(0)
-				for(var/obj/machinery/light/L in T.contents)
-					spawn(0)
-						if(!L.on)
-							continue
-						L.visible_message("<span class='warning'><b>\The [L] suddenly flares brightly and begins to spark!</span>")
-						do_sparks(4, 0, L)
-						new/obj/effect/temp_visual/revenant(L.loc)
-						sleep(2 SECONDS)
-						if(!L.on) //wait, wait, don't shock me
-							continue
-						flick("[L.base_state]2", L)
-						for(var/mob/living/M in view(shock_range, L))
-							if(M == user)
-								return
-							M.Beam(L,icon_state="purple_lightning",icon='icons/effects/effects.dmi',time=5)
-							M.electrocute_act(shock_damage, L, flags = SHOCK_NOGLOVES)
-							do_sparks(4, 0, M)
-							playsound(M, 'sound/machines/defib_zap.ogg', 50, 1, -1)
+			select_lights(T, user)
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/overload/proc/select_lights(turf/T, mob/living/simple_animal/revenant/user)
+	for(var/obj/machinery/light/L in T.contents)
+		INVOKE_ASYNC(src, .proc/shock_lights, L, user)
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/overload/proc/shock_lights(obj/machinery/light/L, mob/living/simple_animal/revenant/user)
+	if(!L.on)
+		return
+	L.visible_message("<span class='warning'><b>\The [L] suddenly flares brightly and begins to spark!</span>")
+	do_sparks(4, 0, L)
+	new /obj/effect/temp_visual/revenant(L.loc)
+	sleep(2 SECONDS)
+	if(!L.on) //wait, wait, don't shock me
+		return
+	flick("[L.base_state]2", L)
+	var/sound_cashe = 'sound/machines/defib_zap.ogg'
+	for(var/mob/living/M in view(shock_range, L))
+		if(M == user)
+			continue
+		M.Beam(L, icon_state = "purple_lightning" , icon = 'icons/effects/effects.dmi' , time = 0.5 SECONDS)
+		M.electrocute_act(shock_damage, L, flags = SHOCK_NOGLOVES)
+		do_sparks(4, 0, M)
+		playsound(M, sound_cashe, 50, 1, -1)
 
 //Defile: Corrupts nearby stuff, unblesses floor tiles.
 /obj/effect/proc_holder/spell/aoe_turf/revenant/defile
