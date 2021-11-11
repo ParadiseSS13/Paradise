@@ -84,12 +84,15 @@
 		set_light(0)
 
 	for(var/X in actions)
-		var/datum/action/A=X
+		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
 /obj/item/clothing/head/helmet/space/plasmaman/extinguish_light()
+	var/mob/living/carbon/human/H = null
+	if(ishuman(loc))
+		H = loc
 	if(on)
-		toggle_light()
+		toggle_light(H)
 
 /obj/item/clothing/head/helmet/space/plasmaman/security
 	name = "security plasma envirosuit helmet"
