@@ -43,7 +43,6 @@
 	var/number = 0 // Used to understand when someone is talking to it
 
 	var/mob/living/Target = null // AI variable - tells the slime to hunt this down
-	var/mob/living/Leader = null // AI variable - tells the slime to follow this person
 
 	var/attacked = 0 // Determines if it's been attacked recently. Can be any number, is a cooloff-ish variable
 	var/rabid = 0 // If set to 1, the slime will attack and eat anything it comes in contact with
@@ -101,7 +100,6 @@
 		var/datum/action/AC = A
 		AC.Remove(src)
 	Target = null
-	Leader = null
 	Friends.Cut()
 	speech_buffer.Cut()
 	return ..()

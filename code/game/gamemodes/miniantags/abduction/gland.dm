@@ -140,7 +140,6 @@
 
 	var/mob/living/simple_animal/slime/Slime = new(get_turf(owner), "grey")
 	Slime.Friends = list(owner)
-	Slime.Leader = owner
 
 /obj/item/organ/internal/heart/gland/mindshock
 	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"

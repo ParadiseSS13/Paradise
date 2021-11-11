@@ -358,14 +358,8 @@
 					target_patience += 3
 
 		if(!Target) // If we have no target, we are wandering or following orders
-			if (Leader)
+			if(hungry)
 				if(holding_still)
-					holding_still = max(holding_still - 1, 0)
-				else if(canmove && isturf(loc))
-					step_to(src, Leader)
-
-			else if(hungry)
-				if (holding_still)
 					holding_still = max(holding_still - hungry, 0)
 				else if(canmove && isturf(loc) && prob(50))
 					step(src, pick(GLOB.cardinal))
@@ -410,101 +404,7 @@
 		regenerate_icons()
 
 /mob/living/simple_animal/slime/proc/handle_speech()
-	//Speech understanding starts here
-	var/to_say
-	if(speech_buffer.len > 0)
-		var/who = speech_buffer[1] // Who said it?
-		var/phrase = speech_buffer[2] // What did they say?
-		if((findtext(phrase, num2text(number)) || findtext(phrase, "slimes"))) // Talking to us
-			if(findtext(phrase, "hello") || findtext(phrase, "hi"))
-				to_say = pick("Hello...", "Hi...")
-			else if(findtext(phrase, "follow"))
-				if(Leader)
-					if(Leader == who) // Already following him
-						to_say = pick("Yes...", "Lead...", "Follow...")
-					else if(Friends[who] > Friends[Leader]) // VIVA
-						Leader = who
-						to_say = "Yes... I follow [who]..."
-					else
-						to_say = "No... I follow [Leader]..."
-				else
-					if(Friends[who] >= SLIME_FRIENDSHIP_FOLLOW)
-						Leader = who
-						to_say = "I follow..."
-					else // Not friendly enough
-						to_say = pick("No...", "I no follow...")
-			else if(findtext(phrase, "stop"))
-				if(buckled) // We are asked to stop feeding
-					if (Friends[who] >= SLIME_FRIENDSHIP_STOPEAT)
-						Feedstop()
-						Target = null
-						if (Friends[who] < SLIME_FRIENDSHIP_STOPEAT_NOANGRY)
-							--Friends[who]
-							to_say = "Grrr..." // I'm angry but I do it
-						else
-							to_say = "Fine..."
-				else if(Target) // We are asked to stop chasing
-					if(Friends[who] >= SLIME_FRIENDSHIP_STOPCHASE)
-						Target = null
-						if(Friends[who] < SLIME_FRIENDSHIP_STOPCHASE_NOANGRY)
-							--Friends[who]
-							to_say = "Grrr..." // I'm angry but I do it
-						else
-							to_say = "Fine..."
-				else if(Leader) // We are asked to stop following
-					if(Leader == who)
-						to_say = "Yes... I stay..."
-						Leader = null
-					else
-						if(Friends[who] > Friends[Leader])
-							Leader = null
-							to_say = "Yes... I stop..."
-						else
-							to_say = "No... keep follow..."
-			else if(findtext(phrase, "stay"))
-				if(Leader)
-					if (Leader == who)
-						holding_still = Friends[who] * 10
-						to_say = "Yes... stay..."
-					else if(Friends[who] > Friends[Leader])
-						holding_still = (Friends[who] - Friends[Leader]) * 10
-						to_say = "Yes... stay..."
-					else
-						to_say = "No... keep follow..."
-				else
-					if(Friends[who] >= SLIME_FRIENDSHIP_STAY)
-						holding_still = Friends[who] * 10
-						to_say = "Yes... stay..."
-					else
-						to_say = "No... won't stay..."
-			else if(findtext(phrase, "attack"))
-				if(rabid && prob(20))
-					Target = who
-					AIprocess() //Wake up the slime's Target AI, needed otherwise this doesn't work
-					to_say = "ATTACK!?!?"
-				else if(Friends[who] >= SLIME_FRIENDSHIP_ATTACK)
-					for(var/mob/living/L in view(7,src)-list(src,who))
-						if(findtext(phrase, lowertext(L.name)))
-							if(isslime(L))
-								to_say = "NO... [L] slime friend"
-								--Friends[who] //Don't ask a slime to attack its friend
-							else if(!Friends[L] || Friends[L] < 1)
-								Target = L
-								AIprocess()//Wake up the slime's Target AI, needed otherwise this doesn't work
-								to_say = "Ok... I attack [Target]"
-							else
-								to_say = "No... like [L] ..."
-								--Friends[who] //Don't ask a slime to attack its friend
-							break
-				else
-					to_say = "No... no listen"
-
-		speech_buffer = list()
-
-	//Speech starts here
-	if(to_say)
-		say (to_say)
-	else if(prob(1))
+	if(prob(1))
 		emote(pick("bounce", "sway", "light", "vibrate", "jiggle"))
 	else
 		var/t = 10
@@ -610,8 +510,6 @@
 		return 0
 	if(hunger == 2 || rabid || attacked)
 		return 1
-	if(Leader)
-		return 0
 	if(holding_still)
 		return 0
 	return 1
