@@ -293,16 +293,12 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 30KP</a><br>"
 			else
 				dat += "Drask - <font color='green'>Unlocked</font><br>"
-			if(!("Vox" in specieslist))
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>"
-			else
-				dat += "Vox - <font color='green'>Unlocked</font><br>"
 			if(!("Slime People" in specieslist))
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 45KP</a><br>"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=4'>Unlock Slime People -- 45KP</a><br>"
 			else
 				dat += "Slime People - <font color='green'>Unlocked</font><br>"
 			if(!("Plasmaman" in specieslist))
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 45KP</a><br>"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=5'>Unlock Plasmaman -- 45KP</a><br>"
 			else
 				dat += "Plasmaman - <font color='green'>Unlocked</font><br>"
 
@@ -348,6 +344,9 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			if("Magistrate" in purchased)
 				refundable += "Magistrate"
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Magistrate;KarmaRefundType=job;KarmaRefundCost=45'>Refund Magistrate -- 45KP</a><br>"
+			if("Vox" in purchased)
+				refundable += "Vox"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Vox;KarmaRefundType=species;KarmaRefundCost=45'>Refund Vox -- 45KP</a><br>"
 
 			if(!refundable.len)
 				dat += "You do not have any refundable karma purchases.<br>"
@@ -514,7 +513,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			cost = 30
 		if("Nanotrasen Recruiter")
 			cost = 10
-		if("Magistrate")
+		if("Magistrate", "Vox")
 			cost = 45
 		else
 			to_chat(usr, "<span class='warning'>That job is not refundable.</span>")

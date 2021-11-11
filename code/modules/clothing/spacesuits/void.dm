@@ -10,8 +10,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi')
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
 
 /obj/item/clothing/suit/space/nasavoid
 	name = "NASA Void Suit"
@@ -22,8 +21,7 @@
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi')
 
 //Colors!!!
 /obj/item/clothing/head/helmet/space/nasavoid/green

@@ -11,9 +11,6 @@
 	/obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen,/obj/item/rad_laser)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 10, fire = 50, acid = 50)
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 //Brig Physician
 /obj/item/clothing/suit/storage/brigdoc
@@ -26,9 +23,6 @@
 	/obj/item/radio, /obj/item/tank/internals/emergency_oxygen,/obj/item/rad_laser)
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 50, acid = 50)
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 //Botanist
 /obj/item/clothing/suit/apron
@@ -40,10 +34,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list(/obj/item/reagent_containers/spray/plantbgone,/obj/item/plant_analyzer,/obj/item/seeds,/obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/cultivator,/obj/item/reagent_containers/spray/pestspray,/obj/item/hatchet,/obj/item/storage/bag/plants)
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
-
 //Captain
 /obj/item/clothing/suit/captunic
 	name = "captain's parade tunic"
@@ -54,9 +44,6 @@
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/food/drinks/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/flash, /obj/item/storage/box/matches, /obj/item/lighter, /obj/item/clothing/mask/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/internals/emergency_oxygen)
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/captunic/capjacket
 	name = "captain's uniform jacket"
@@ -66,9 +53,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/mantle/armor/captain
 	name = "captain's cloak"
@@ -87,10 +71,6 @@
 	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood
 	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
-
 //Chaplain
 /obj/item/clothing/suit/hooded/nun
 	name = "nun robe"
@@ -102,9 +82,6 @@
 	hoodtype = /obj/item/clothing/head/hooded/nun_hood
 	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 //Chaplain
 /obj/item/clothing/suit/hooded/monk
@@ -142,9 +119,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list (/obj/item/kitchen/knife)
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 //Chef
 /obj/item/clothing/suit/chef/classic
@@ -184,10 +158,6 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
-
 //Forensics
 /obj/item/clothing/suit/storage/det_suit/forensics
 	name = "jacket"
@@ -220,9 +190,6 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 //Engineering
 /obj/item/clothing/suit/storage/hazardvest
@@ -234,16 +201,8 @@
 	allowed = list (/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/rcd, /obj/item/rpd)
 	resistance_flags = NONE
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 //Lawyer
-/obj/item/clothing/suit/storage/lawyer
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
-
 /obj/item/clothing/suit/storage/lawyer/blackjacket
 	name = "black suit jacket"
 	desc = "A snappy dress jacket."
@@ -312,9 +271,6 @@
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/storage/ntrep
 	name = "\improper Nanotrasen Representative jacket"
@@ -327,9 +283,6 @@
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 //Medical
 /obj/item/clothing/suit/storage/fr_jacket
@@ -345,10 +298,6 @@
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
-
 //Mime
 /obj/item/clothing/suit/suspenders
 	name = "suspenders"
@@ -357,9 +306,6 @@
 	icon_state = "suspenders"
 	blood_overlay_type = "armor" //it's the less thing that I can put here
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/suspenders/nodrop
 	flags = NODROP

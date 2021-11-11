@@ -178,32 +178,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "book_berner_1"
 
-/obj/item/clothing/glasses/sunglasses_fake/fluff/kaki //Rapidvalj: Kakicharakiti
-	name = "broken thermonocle"
-	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
-	icon_state = "thermoncle"
-
-/obj/item/fluff/rapid_wheelchair_kit //Rapidvalj: Hakikarahiti
-	name = "wheelchair conversion kit"
-	desc = "An assorted set of exchangable parts for a wheelchair."
-	icon_state = "modkit"
-
-/obj/item/fluff/rapid_wheelchair_kit/afterattack(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.incapacitated())
-		return
-
-	if(istype(target, /obj/structure/chair/wheelchair) && !istype(target, /obj/structure/chair/wheelchair/bike))
-		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
-		var/obj/structure/chair/wheelchair/chair = target
-		chair.icon = 'icons/obj/custom_items.dmi'
-		chair.icon_state = "vox_wheelchair"
-		chair.name = "vox wheelchair"
-		chair.desc = "A luxurious Vox Wheelchair, weathered from use."
-		chair.handle_rotation()
-		qdel(src)
-		return
-
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
 /obj/item/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
 	name = "purple engraved zippo"
@@ -443,31 +417,6 @@
 	else
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-/obj/item/fluff/k3_webbing_modkit //IK3I: Yakikatachi
-	name = "webbing modkit"
-	desc = "A modkit that can be used to turn certain vests and labcoats into lightweight webbing"
-	icon_state = "modkit"
-	w_class = 2
-	force = 0
-	throwforce = 0
-
-/obj/item/fluff/k3_webbing_modkit/afterattack(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.incapacitated())
-		return
-
-	if(istype(target, /obj/item/clothing/suit/storage/labcoat) || istype(target, /obj/item/clothing/suit/storage/hazardvest))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/clothing/suit/storage/S = target
-		var/obj/item/clothing/suit/storage/fluff/k3_webbing/webbing = new(get_turf(target))
-		webbing.allowed = S.allowed
-		to_chat(user, "<span class='notice'>You modify [S] with [src].</span>")
-		H.update_inv_wear_suit()
-		qdel(S)
-		qdel(src)
-	else
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
-
 /obj/item/fluff/pyro_wintersec_kit //DarkLordpyro: Valthorne Haliber
 	name = "winter sec conversion kit"
 	desc = "A securirty hardsuit conversion kit."
@@ -594,11 +543,6 @@
 	icon_state = "eyepro"
 	item_state = "eyepro"
 
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud //LP Spartan: Kaskreyarawkta
-	name = "VoxxyHUD"
-	desc = "A worn down visor from a vox raider's gear, crudely ripped from its helmet and linked into the security systems of the station. The word 'Kask' is scratched into the side."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "hud-spartan"
 
 //////////// Hats ////////////
 /obj/item/clothing/head/fluff/heather_winceworth // Regens: Heather Winceworth
@@ -608,12 +552,6 @@
 	icon_state = "hairflowerp"
 	item_state = "hairflowerp"
 
-/obj/item/clothing/head/valkyriehelmet //R3Valkyrie: Rikki
-	name = "charred visor"
-	desc = "A visor of alien origin, charred by fire and completely non-functioning. It's been impeccably polished, shiny!"
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "charred_visor"
-	species_restricted = list("Vox")
 
 /obj/item/clothing/head/bearpelt/fluff/polar //Gibson1027: Sploosh
 	name = "polar bear pelt hat"
@@ -658,12 +596,6 @@
 	desc = "A beret, an artist's favorite headwear. This one has two holes cut on the edges."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "linda_beret"
-
-/obj/item/clothing/head/fluff/kaki //Rapidvalj: Kakicharakiti
-	name = "sleek fancy leader hat"
-	desc = "A uniquely colored vox leader hat. Has some signs of wear."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "kakicharakiti"
 
 /obj/item/clothing/head/helmet/fluff/merchant_sallet //Travelling Merchant: Trav Noble. This >>IS NOT<< what they spawn in with
 	name = "Shellguard Helmet"
@@ -929,37 +861,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shodancoat"
 
-/obj/item/clothing/suit/storage/fluff/k3_webbing
-	name = "vox tactical webbing"
-	desc = "A somewhat worn but well kept set of vox tactical webbing. It has a couple of pouches attached."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "k3_webbing"
-
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
-	ignore_suitadjust = 0
-	actions_types = list(/datum/action/item_action/toggle)
-	suit_adjusted = 0
-
-/obj/item/clothing/suit/storage/fluff/k3_webbing/adjustsuit(mob/user)
-	if(!user.incapacitated())
-		var/flavour
-		if(suit_adjusted)
-			flavour = "off"
-			icon_state = copytext(icon_state, 1, findtext(icon_state, "_on"))
-			item_state = copytext(item_state, 1, findtext(item_state, "_on"))
-			suit_adjusted = 0 //Lights Off
-		else
-			flavour = "on"
-			icon_state += "_on"
-			item_state += "_on"
-			suit_adjusted = 1 //Lights On
-
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtonIcon()
-		to_chat(user, "You turn [src]'s lighting system [flavour].")
-		user.update_inv_wear_suit()
-
 /obj/item/clothing/suit/hooded/hoodie/fluff/xantholne // Xantholne: Meex Zwichsnicrur
 	name = "stripped winter coat"
 	desc = "A velvety smooth black winter coat with white and red stripes on the side."
@@ -1191,13 +1092,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "bandcamo"
 
-/obj/item/clothing/mask/gas/sechailer/fluff/spartan //LP Spartan: Kaskreyarawkta
-	name = "minimal gasmask"
-	desc = "Designed to cover as little of face as possible while still being a functional gasmask."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "spartan_mask"
-	item_state = "spartan_mask"
-	species_restricted = list("Vox")
 
 //////////// Shoes ////////////
 
@@ -1378,11 +1272,6 @@
 	icon_state = "rawk_satchel"
 	sprite_sheets = null
 
-/obj/item/storage/backpack/fluff/krich_back //lizardzsi: Krichahka
-	name = "Voxcaster"
-	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "voxcaster_fluff"
 
 /obj/item/storage/backpack/fluff/ssscratches_back //Ssscratches: Lasshy-Bot
 	name = "CatPack"
@@ -1618,42 +1507,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "danpack"
 
-/obj/item/clothing/under/fluff/kiaoutfit //FullOfSkittles: Kiachi
-	name = "Suspicious Outfit"
-	desc = "A very expensive top with intricate details tailored to fit a vox and paired with a glittery blue skirt, probably illegal."
-	icon = 'icons/obj/custom_items.dmi'
-	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
-	icon_state = "kiaoutfit"
-	item_state = "kiaoutfit"
-	item_color = "kiaoutfit"
-	displays_id = FALSE
-	species_restricted = list("Vox")
-
-/obj/item/clothing/head/fluff/kiahat //FullOfSkittles: Kiachi
-	name = "Suspicious Witch Hat"
-	desc = "A black witch hat with a blue sash decorated with tiny glimmering stars and a gold squid-like medallion, probably possessed."
-	icon = 'icons/obj/custom_items.dmi'
-	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	icon_state = "kiahat"
-	item_state = "kiahat"
-	item_color = "kiahat"
-
-/obj/item/clothing/mask/gas/fluff/kiamask //FullOfSkittles: Kiachi
-	name = "Suspicious Mask"
-	desc = "A sleek mask that blends in with the owner's existing quills using strange technology. It might even be magic..."
-	icon = 'icons/obj/custom_items.dmi'
-	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
-	icon_state = "kiamask"
-	item_state = "kiamask"
-	item_color = "kiamask"
-	species_restricted = list("Vox")
-
-
 
 /obj/item/clothing/gloves/ring/fluff
 	name = "fluff ring"
@@ -1675,30 +1528,6 @@
 	icon_state = "benjaminfallout_ring"
 
 
-/obj/item/clothing/under/fluff/kikeridress //Gangelwaefre: Kikeri
-	name = "Kikeri's Dress"
-	desc = "A simple black dress with a white undercoat, tied with a blue ribbon."
-	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "kikeridress"
-	item_state = "kikeridress"
-	item_color = "kikeridress"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	species_restricted = list("Vox")
-
-/obj/item/clothing/mask/gas/fluff/kikerimask //Gangelwaefre: Kikeri
-	name = "Kikeri's Mask"
-	desc = "A light grey mask with masquerade-esque blue details."
-	icon = 'icons/obj/custom_items.dmi'
-	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
-	icon_state = "kikerimask"
-	item_state = "kikerimask"
-	item_color = "kikerimask"
-	species_restricted = list("Vox")
 
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT

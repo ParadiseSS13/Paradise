@@ -36,7 +36,6 @@
 	examine_extensions = list(EXAMINE_HUD_MEDICAL)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 		)
@@ -67,7 +66,6 @@
 	HUDType = DATA_HUD_DIAGNOSTIC_BASIC
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 		)
@@ -100,7 +98,6 @@
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 		)
@@ -137,7 +134,6 @@
 	prescription_upgradable = 1
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 	)
@@ -152,7 +148,6 @@
 	HUDType = DATA_HUD_HYDROPONIC
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 		)
@@ -176,10 +171,6 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi'
-		)
-
 /obj/item/clothing/glasses/hud/security/tajblind/attack_self()
 	toggle_veil()
 
@@ -193,7 +184,6 @@
 	up = 0
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
 		)
@@ -211,7 +201,6 @@
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey"  = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi'
 	)
 
 /obj/item/clothing/glasses/hud/skills/sunglasses
@@ -225,5 +214,4 @@
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey"  = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi'
 	)

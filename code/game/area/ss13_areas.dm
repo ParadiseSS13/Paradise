@@ -293,14 +293,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/shuttle/research/outpost
 	icon_state = "shuttle"
 
-/area/shuttle/vox
-	name = "\improper Vox Skipjack"
-	icon_state = "shuttle"
-
-/area/shuttle/vox/station
-	name = "\improper Vox Skipjack"
-	icon_state = "yellow"
-
 /area/shuttle/salvage
 	name = "\improper Salvage Ship"
 	icon_state = "yellow"
@@ -556,13 +548,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/ninja/holding
 	name = "\improper SpiderClan Holding Facility"
-
-/area/vox_station
-	name = "\improper Vox Base"
-	icon_state = "yellow"
-	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	no_teleportlocs = TRUE
 
 /area/trader_station
 	name = "Trade Base"

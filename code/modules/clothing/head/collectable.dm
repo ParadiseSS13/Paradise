@@ -66,7 +66,6 @@
 	item_state = "welding"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
@@ -140,7 +139,3 @@
 	desc = "Now you can be in the Deathsquad too!"
 	icon_state = "swat"
 	item_state = "swat"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi'
-		)

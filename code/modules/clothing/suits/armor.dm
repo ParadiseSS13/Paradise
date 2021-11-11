@@ -10,9 +10,6 @@
 	max_integrity = 250
 	resistance_flags = NONE
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		)
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/suit/armor/vest
@@ -183,7 +180,6 @@
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 80
 	put_on_delay = 60
-	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
@@ -490,7 +486,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 3
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/tdome
 	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90)
@@ -499,7 +494,6 @@
 	flags = THICKMATERIAL
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/tdome/red
 	name = "red Thunderdome armor"

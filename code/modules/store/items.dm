@@ -141,12 +141,6 @@
 	typepath = /obj/item/flag/species/skrell
 	cost = 500
 
-/datum/storeitem/flag_vox
-	name = "Vox Flag"
-	desc = "A flag proudly proclaiming the superior heritage of Vox."
-	typepath = /obj/item/flag/species/vox
-	cost = 500
-
 /datum/storeitem/flag_machine
 	name = "Synthetics Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Synthetics."

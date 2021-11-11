@@ -1,6 +1,6 @@
 /datum/sprite_accessory/body_markings/none
 	name = "None"
-	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Vox", "Kidan")
+	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Kidan")
 	icon_state = "none"
 
 /datum/sprite_accessory/body_markings/tiger

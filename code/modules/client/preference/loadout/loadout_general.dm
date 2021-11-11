@@ -65,10 +65,6 @@
 	display_name = "Black cat plushie"
 	path = /obj/item/toy/plushie/black_cat
 
-/datum/gear/voxplushie
-	display_name = "Vox plushie"
-	path = /obj/item/toy/plushie/voxplushie
-
 /datum/gear/lizardplushie
 	display_name = "Lizard plushie"
 	path = /obj/item/toy/plushie/lizardplushie

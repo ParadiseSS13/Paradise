@@ -35,9 +35,6 @@
 	icon_state = "firesuit"
 	item_state = "firefighter"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/fire/heavy
 	name = "firesuit"
@@ -54,9 +51,6 @@
 	item_state = "firesuit_atmos"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /*
  * Bomb protection
@@ -79,7 +73,6 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 		)
 
@@ -104,9 +97,6 @@
 	put_on_delay = 70
 	resistance_flags = NONE
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/head/bomb_hood/security
 	icon_state = "bombsuitsec"
@@ -133,7 +123,6 @@
 	resistance_flags = NONE
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 		)
 
@@ -155,6 +144,3 @@
 	put_on_delay = 60
 	resistance_flags = NONE
 	flags_2 = RAD_PROTECT_CONTENTS_2
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)

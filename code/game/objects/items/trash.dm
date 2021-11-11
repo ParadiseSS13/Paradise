@@ -60,18 +60,6 @@
 	name = "snack bowl"
 	icon_state	= "snack_bowl"
 
-/obj/item/trash/fried_vox
-	name = "Kentucky Fried Vox"
-	icon_state = "fried_vox_empty"
-	item_state = "fried_vox_empty"
-	slot_flags = SLOT_HEAD
-	dog_fashion = /datum/dog_fashion/head/fried_vox_empty
-	sprite_sheets = list(
-	"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
-	"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
-	"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
-	)
-
 /obj/item/trash/pistachios
 	name = "Pistachios pack"
 	icon_state = "pistachios_pack"

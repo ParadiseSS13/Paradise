@@ -71,7 +71,6 @@
 	prescription_upgradable = 1
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
@@ -121,7 +120,6 @@
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
 		)
@@ -146,9 +144,6 @@
 	icon_state = "purple"
 	item_state = "glasses"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/night
 	name = "night vision goggles"
@@ -160,7 +155,6 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 		)
@@ -172,7 +166,6 @@
 	item_state = "eyepatch"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
 		)
@@ -185,7 +178,6 @@
 	prescription_upgradable = 1
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 		)
@@ -199,7 +191,6 @@
 	vision_flags = SEE_OBJS
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 		)
@@ -229,7 +220,6 @@
 	prescription = 1
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
 		)
@@ -247,7 +237,6 @@
 	item_state = "3d"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
 		)
@@ -259,7 +248,6 @@
 	item_state = "gglasses"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
 		)
@@ -276,7 +264,6 @@
 	prescription_upgradable = 1
 	dog_fashion = /datum/dog_fashion/head
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 		)
@@ -290,7 +277,6 @@
 	flash_protect = 0
 	tint = 0
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 		)
@@ -344,7 +330,6 @@
 	tint = 1
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 		)
@@ -370,7 +355,6 @@
 	tint = 2
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 		)
@@ -420,7 +404,6 @@
 	flash_protect = -1
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
 		)
@@ -469,7 +452,6 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
 		)
@@ -499,7 +481,6 @@
 	tint = 0
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
 		)

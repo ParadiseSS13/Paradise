@@ -13,9 +13,6 @@
 	origin_tech = "biotech=4"
 	actions_types = list(/datum/action/item_action/toggle_paddles)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/back.dmi'
-		)
 
 	var/paddles_on_defib = TRUE //if the paddles are on the defib (TRUE)
 	var/powered = FALSE //if there's a cell in the defib with enough power for a revive, blocks paddles from reviving otherwise
@@ -215,7 +212,7 @@
 	desc = "A belt-mounted defibrillator that can be rapidly deployed."
 	icon_state = "defibcompact"
 	item_state = "defibcompact"
-	sprite_sheets = null //Because Vox had the belt defibrillator sprites in back.dm
+	sprite_sheets = null
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = SLOT_BELT
 	origin_tech = "biotech=5"

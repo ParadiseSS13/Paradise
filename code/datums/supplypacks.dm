@@ -155,16 +155,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	access = ACCESS_HYDROPONICS
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 
-/datum/supply_packs/emergency/voxsupport
-	name = "Vox Life Support Supplies"
-	contains = list(/obj/item/clothing/mask/breath/vox,
-					/obj/item/clothing/mask/breath/vox,
-					/obj/item/tank/internals/emergency_oxygen/double/vox,
-					/obj/item/tank/internals/emergency_oxygen/double/vox)
-	cost = 50
-	containertype = /obj/structure/closet/crate/medical
-	containername = "vox life support supplies crate"
-
 /datum/supply_packs/emergency/plasmamansupport
 	name = "Plasmaman Supply Kit"
 	contains = list(/obj/item/clothing/under/plasmaman,

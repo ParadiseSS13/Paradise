@@ -49,7 +49,6 @@ LINEN BINS
 	icon_state = "sheetblue"
 	item_color = "blue"
 	dream_messages = list("blue")
-	nightmare_messages = list("vox blood")
 
 /obj/item/bedsheet/green
 	icon_state = "sheetgreen"

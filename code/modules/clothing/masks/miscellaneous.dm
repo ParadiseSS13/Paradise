@@ -12,10 +12,6 @@
 	var/security_lock = FALSE // Requires brig access to remove 0 - Remove as normal
 	var/locked = FALSE //Indicates if a mask is locked, should always start as 0.
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi'
-		)
-
 // Clumsy folks can't take the mask off themselves.
 /obj/item/clothing/mask/muzzle/attack_hand(mob/user as mob)
 	if(user.wear_mask == src && !user.IsAdvancedToolUser())
@@ -91,7 +87,6 @@
 	flags = DROPDEL
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
@@ -119,7 +114,6 @@
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
@@ -216,7 +210,6 @@
 	actions_types = list(/datum/action/item_action/adjust)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
@@ -237,7 +230,6 @@
 	dog_fashion = /datum/dog_fashion/head/not_ian
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
@@ -431,7 +423,6 @@
 	icon_state = "bandbotany"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',

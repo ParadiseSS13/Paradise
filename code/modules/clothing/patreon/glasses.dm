@@ -8,10 +8,6 @@
 	icon_state = "gar"
 	item_state = "gar"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi'
-		)
-
 
 //Green Kamina shades
 /obj/item/clothing/glasses/fluff/kamina/green

@@ -48,15 +48,6 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
-/obj/item/storage/box/survival_vox
-	icon_state = "box_vox"
-
-/obj/item/storage/box/survival_vox/populate_contents()
-	new /obj/item/clothing/mask/breath/vox(src)
-	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-
 /obj/item/storage/box/survival_plasmaman
 	icon_state = "box_plasma"
 

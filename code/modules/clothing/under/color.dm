@@ -108,9 +108,6 @@
 	icon_state = "psyche"
 	item_color = "psyche"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/lightblue
 	name = "light blue jumpsuit"

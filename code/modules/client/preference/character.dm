@@ -41,7 +41,7 @@
 
 	var/body_accessory = null
 
-	var/speciesprefs = 0 //I hate having to do this, I really do (Using this for oldvox code, making names universal I guess
+	var/speciesprefs = 0 //I hate having to do this, I really do (Using this for grey translator implants, making names universal I guess
 
 	//Mob preview
 	var/icon/preview_icon = null
@@ -553,7 +553,7 @@
 		s_tone = random_skin_tone(species)
 	h_style = random_hair_style(gender, species, robohead)
 	f_style = random_facial_hair_style(gender, species, robohead)
-	if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+	if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin"))
 		randomize_hair_color("hair")
 		randomize_hair_color("facial")
 	if(S.bodyflags & HAS_HEAD_ACCESSORY)

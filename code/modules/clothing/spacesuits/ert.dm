@@ -13,7 +13,6 @@
 
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize()
@@ -60,7 +59,6 @@
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 //Commander
@@ -213,7 +211,6 @@
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
@@ -227,10 +224,9 @@
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
-	hide_tail_by_species = list("Unathi, Tajaran, Vox, Vulpkanin")
+	hide_tail_by_species = list("Unathi, Tajaran, Vulpkanin")
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/New()
 	..()

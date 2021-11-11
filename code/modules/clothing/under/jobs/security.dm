@@ -84,9 +84,6 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	strip_delay = 50
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi'
-		)
 
 /*
  * Head of Security

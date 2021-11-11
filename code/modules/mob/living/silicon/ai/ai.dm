@@ -184,7 +184,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language("Siik'tajr", 1)
 	add_language("Canilunzt", 1)
 	add_language("Skrellian", 1)
-	add_language("Vox-pidgin", 1)
 	add_language("Orluum", 1)
 	add_language("Rootspeak", 1)
 	add_language("Trinary", 1)

@@ -231,10 +231,6 @@
 	resistance_flags = NONE
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-	)
-
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/suit/chameleon/Initialize(mapload)
@@ -267,7 +263,6 @@
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 	)
@@ -366,10 +361,6 @@
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-	)
-
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/head/chameleon/Initialize(mapload)
@@ -406,7 +397,6 @@
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
@@ -482,10 +472,6 @@
 
 /obj/item/storage/backpack/chameleon
 	name = "backpack"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/back.dmi'
-	)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 

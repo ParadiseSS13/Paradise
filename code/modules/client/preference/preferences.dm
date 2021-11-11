@@ -12,7 +12,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_REVENANT = 14,
 	ROLE_OPERATIVE = 21,
 	ROLE_CULTIST = 21,
-	ROLE_RAIDER = 21,
 	ROLE_ALIEN = 21,
 	ROLE_DEMON = 21,
 	ROLE_SENTIENT = 21,
@@ -183,8 +182,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[active_character.age]</a><br>"
 			dat += "<b>Body:</b> <a href='?_src_=prefs;preference=all;task=random'>(&reg;)</a><br>"
 			dat += "<b>Species:</b> <a href='?_src_=prefs;preference=species;task=input'>[active_character.species]</a><br>"
-			if(active_character.species == "Vox") // Purge these bastards
-				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
 			if(active_character.species == "Grey")
 				dat += "<b>Wingdings:</b> Set in disabilities<br>"
 				dat += "<b>Voice Translator:</b> <a href ='?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Yes" : "No"]</a><br>"

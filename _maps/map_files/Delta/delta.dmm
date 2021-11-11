@@ -62578,13 +62578,6 @@
 /area/assembly/chargebay)
 "cJr" = (
 /obj/structure/table/glass,
-/obj/item/tank/internals/emergency_oxygen/nitrogen{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/tank/internals/emergency_oxygen/nitrogen{
-	pixel_x = 5
-	},
 /obj/item/tank/internals/emergency_oxygen/plasma{
 	pixel_x = -5;
 	pixel_y = 5
@@ -92411,7 +92404,6 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/trash/fried_vox,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"

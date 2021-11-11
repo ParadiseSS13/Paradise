@@ -105,13 +105,6 @@
 			if(isunathi(src)) //Only Unathi can hiss.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
-				return
-
-		if("quill", "quills")
-			if(isvox(src)) //Only Vox can rustle their quills.
-				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
-			else								//Everyone else fails, skip the emote attempt
-				return
 
 		if("warble", "warbles")
 			if(isskrell(src)) //Only Skrell can warble.
@@ -247,13 +240,6 @@
 			else
 				message = "<B>[src]</B> makes a weak hissing noise."
 				m_type = 2
-
-		if("quill", "quills")
-			var/M = handle_emote_param(param)
-
-			message = "<B>[src]</B> rustles [p_their()] quills[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/effects/voxrustle.ogg', 50, 1, frequency = get_age_pitch()) //Credit to sound-ideas (freesfx.co.uk) for the sound.
-			m_type = 2
 
 		if("warble", "warbles")
 			var/M = handle_emote_param(param)
@@ -978,8 +964,6 @@
 					emotelist += "\n<u>Tajaran specifc emotes</u> :- wag(s), swag(s)"
 				if("Unathi")
 					emotelist += "\n<u>Unathi specific emotes</u> :- wag(s), swag(s), hiss(es)"
-				if("Vox")
-					emotelist += "\n<u>Vox specific emotes</u> :- wag(s), swag(s), quill(s)"
 				if("Vulpkanin")
 					emotelist += "\n<u>Vulpkanin specific emotes</u> :- wag(s), swag(s), growl(s)-none/mob, howl(s)-none/mob"
 				if("Plasmaman")

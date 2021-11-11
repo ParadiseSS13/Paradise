@@ -625,14 +625,6 @@
 	item_state = "bane"
 	item_color = "bane"
 
-/obj/item/clothing/under/vox
-	name = "ripped jumpsuit"
-	desc = "A jumpsuit that looks like it's been shredded by some talons. Who could wear this now?"
-	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
-	icon_state = "vgrey"
-	item_state = "vgrey"
-	item_color = "vgrey"
-
 /obj/item/clothing/under/psyjump
 	name = "psychic amp jumpsuit"
 	desc = "A suit made of strange materials."
