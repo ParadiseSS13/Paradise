@@ -9,6 +9,10 @@ GLOBAL_LIST_INIT(antag_roles, list(
 	ROLE_CULTIST,
 	ROLE_BLOB,
 	ROLE_NINJA,
+<<<<<<< HEAD
+=======
+	ROLE_SHADOWLING,
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 	ROLE_VAMPIRE,
 	ROLE_DEMON,
 	ROLE_REVENANT,

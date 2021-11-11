@@ -353,6 +353,7 @@
 	suit = /obj/item/clothing/suit/pirate_black
 	head = /obj/item/clothing/head/pirate
 
+<<<<<<< HEAD
 /datum/outfit/admin/vox
 	name = "Vox Raider"
 	uniform = /obj/item/clothing/under/vox/vox_robes
@@ -383,6 +384,8 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Vox Armalis", "syndie")
 
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 /datum/outfit/admin/tunnel_clown
 	name = "Tunnel Clown"
 

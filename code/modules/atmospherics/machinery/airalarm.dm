@@ -40,10 +40,15 @@
 #define AALARM_MODE_FLOOD 9 //Emagged mode; turns off scrubbers and pressure checks on vents
 
 #define AALARM_PRESET_HUMAN     1 // Default
+<<<<<<< HEAD
 #define AALARM_PRESET_VOX       2 // Support Vox
 #define AALARM_PRESET_COLDROOM  3 // Kitchen coldroom
 #define AALARM_PRESET_SERVER    4 // Server coldroom
 #define AALARM_PRESET_DISABLED  5 // Disables all alarms
+=======
+#define AALARM_PRESET_COLDROOM  2 // Kitchen coldroom
+#define AALARM_PRESET_SERVER    3 // Server coldroom
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 
 #define AALARM_REPORT_TIMEOUT 100
 
@@ -133,9 +138,6 @@
 /obj/machinery/alarm/server
 	preset = AALARM_PRESET_SERVER
 
-/obj/machinery/alarm/vox
-	preset = AALARM_PRESET_VOX
-
 /obj/machinery/alarm/kitchen_cold_room
 	preset = AALARM_PRESET_COLDROOM
 
@@ -159,16 +161,6 @@
 		"temperature"    = new/datum/tlv(T0C, T0C+10, T0C+40, T0C+66), // K
 	)
 	switch(preset)
-		if(AALARM_PRESET_VOX)
-			TLV = list(
-				"oxygen"         = new/datum/tlv(-1.0, -1.0, 1, 2), // Partial pressure, kpa
-				"nitrogen"       = new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
-				"carbon dioxide" = new/datum/tlv(-1.0, -1.0, 5,  10), // Partial pressure, kpa
-				"plasma"         = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
-				"other"          = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
-				"pressure"       = new/datum/tlv(ONE_ATMOSPHERE*0.80,ONE_ATMOSPHERE*0.90,ONE_ATMOSPHERE*1.10,ONE_ATMOSPHERE*1.20), /* kpa */
-				"temperature"    = new/datum/tlv(T0C, T0C+10, T0C+40, T0C+66), // K
-			)
 		if(AALARM_PRESET_COLDROOM)
 			TLV = list(
 				"oxygen"         = new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
@@ -396,6 +388,7 @@
 /obj/machinery/alarm/proc/apply_mode()
 	switch(mode)
 		if(AALARM_MODE_SCRUBBING)
+<<<<<<< HEAD
 			for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
 				if(S.stat & (NOPOWER|BROKEN))
 					continue
@@ -418,6 +411,25 @@
 				P.update_icon(UPDATE_ICON_STATE)
 
 
+=======
+			for(var/device_id in alarm_area.air_scrub_names)
+				send_signal(device_id, list(
+					"power" = TRUE,
+					"o2_scrub" = FALSE,
+					"n2_scrub" = FALSE,
+					"co2_scrub" = TRUE,
+					"tox_scrub" = FALSE,
+					"n2o_scrub" = FALSE,
+					"scrubbing" = TRUE,
+					"widenet" = FALSE,
+				))
+			for(var/device_id in alarm_area.air_vent_names)
+				send_signal(device_id, list(
+					"power" = TRUE,
+					"checks" = TRUE,
+					"set_external_pressure" = ONE_ATMOSPHERE
+				))
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 		if(AALARM_MODE_CONTAMINATED)
 			for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
 				if(S.stat & (NOPOWER|BROKEN))
@@ -679,7 +691,6 @@
 	data["mode"] = mode
 	data["presets"] = list(
 		AALARM_PRESET_HUMAN		= list("name"="Human",     	 "desc"="Checks for oxygen and nitrogen", "id" = AALARM_PRESET_HUMAN),\
-		AALARM_PRESET_VOX 		= list("name"="Vox",       	 "desc"="Checks for nitrogen only", "id" = AALARM_PRESET_VOX),\
 		AALARM_PRESET_COLDROOM 	= list("name"="Coldroom", 	 "desc"="For freezers", "id" = AALARM_PRESET_COLDROOM),\
 		AALARM_PRESET_SERVER 	= list("name"="Server Room", "desc"="For server rooms", "id" = AALARM_PRESET_SERVER),\
 		AALARM_PRESET_DISABLED 	= list("name"="Disabled", "desc"="Disables all alarms", "id" = AALARM_PRESET_DISABLED)

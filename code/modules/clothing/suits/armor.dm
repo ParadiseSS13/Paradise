@@ -9,10 +9,14 @@
 	put_on_delay = 40
 	max_integrity = 250
 	resistance_flags = NONE
+<<<<<<< HEAD
 	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		)
+=======
+	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/suit/armor/vest
@@ -233,6 +237,7 @@
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 80
 	put_on_delay = 60
+<<<<<<< HEAD
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -244,6 +249,8 @@
 	desc = "A suit of armor with heavy padding to protect against melee attacks. Looks like it might impair movement. This one has security markings on it."
 	icon_state = "riot-sec"
 	item_state = "swat_suit"
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
@@ -613,7 +620,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 3
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/tdome
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
@@ -622,7 +628,6 @@
 	flags = THICKMATERIAL
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/tdome/red
 	name = "red Thunderdome armor"

@@ -364,27 +364,24 @@
 	desc = "Someone wearing this definitely makes them cool"
 	icon_state = "fedora"
 
-	sprite_sheets = list(
-	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-	)
 
 /obj/item/clothing/head/fedora/whitefedora
 	name = "white fedora"
 	icon_state = "wfedora"
 
-	sprite_sheets = list(
-	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-	)
-
 /obj/item/clothing/head/fedora/brownfedora
 	name = "brown fedora"
 	icon_state = "bfedora"
 
+<<<<<<< HEAD:code/modules/clothing/head/misc_hats.dm
 	sprite_sheets = list(
 	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
 /obj/item/clothing/head/stalhelm //Why do these exist - Because they aren't specifically Nazi Germany
+=======
+/obj/item/clothing/head/stalhelm //Why do these exist
+>>>>>>> 2529442b50 (Removes vox & Vox raiders):code/modules/clothing/head/misc.dm
 	name = "clown stalhelm"
 	desc = "The typical clown soldier's helmet."
 	icon_state = "stalhelm"

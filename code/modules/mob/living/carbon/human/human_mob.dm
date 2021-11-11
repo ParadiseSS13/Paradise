@@ -85,12 +85,6 @@
 /mob/living/carbon/human/unathi/Initialize(mapload)
 	. = ..(mapload, /datum/species/unathi)
 
-/mob/living/carbon/human/vox/Initialize(mapload)
-	. = ..(mapload, /datum/species/vox)
-
-/mob/living/carbon/human/voxarmalis/Initialize(mapload)
-	. = ..(mapload, /datum/species/vox/armalis)
-
 /mob/living/carbon/human/skeleton/Initialize(mapload)
 	. = ..(mapload, /datum/species/skeleton)
 

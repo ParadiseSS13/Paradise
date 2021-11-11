@@ -20,10 +20,6 @@
 	allowed = list (/obj/item/gun/energy/laser/tag/blue)
 	resistance_flags = NONE
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
-
 /obj/item/clothing/suit/redtag
 	name = "red laser tag armour"
 	desc = "Pew pew pew."
@@ -35,10 +31,6 @@
 	allowed = list (/obj/item/gun/energy/laser/tag/red)
 	resistance_flags = NONE
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
-
 /*
  * Costume
  */
@@ -48,9 +40,6 @@
 	icon_state = "pirate_old"
 	item_state = "pirate_old"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/pirate_black
 	name = "black pirate coat"
@@ -58,9 +47,6 @@
 	icon_state = "pirate"
 	item_state = "pirate"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/hgpirate
 	name = "pirate captain coat"
@@ -113,10 +99,6 @@
 	item_state = "wcoat"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/apron/overalls
 	name = "coveralls"
@@ -265,9 +247,6 @@
 	icon_state = "classicponcho"
 	item_state = "classicponcho"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/poncho/green
 	name = "green poncho"
@@ -372,8 +351,6 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 5, RAD = 0, FIRE = 0, ACID = 0)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
-
 /obj/item/clothing/head/hooded/winterhood
 	name = "winter hood"
 	desc = "A hood attached to a heavy winter jacket."
@@ -384,6 +361,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
+<<<<<<< HEAD:code/modules/clothing/suits/misc_suits.dm
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/suit/furcoat
@@ -397,6 +375,8 @@
 	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders):code/modules/clothing/suits/miscellaneous.dm
 /obj/item/clothing/suit/hooded/wintercoat/captain
 	name = "captain's winter coat"
 	icon_state = "wintercoat_captain"
@@ -562,9 +542,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen)
 	hoodtype = /obj/item/clothing/head/hooded/hood
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+
 
 /obj/item/clothing/head/hooded/hood
 	name = "black hood"
@@ -575,9 +553,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+
 
 /obj/item/clothing/head/hooded/hood/blue
 	icon_state = "bluehood"
@@ -645,9 +621,6 @@
 	icon_state = "ianshirt"
 	item_state = "ianshirt"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 //coats
 
@@ -680,9 +653,6 @@
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/blacktrenchcoat
 	name = "black trench coat"
@@ -694,9 +664,6 @@
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 //trackjackets
 
@@ -710,10 +677,6 @@
 	suit_adjusted = 1
 	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unzip"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/tracksuit/green
 	name = "green tracksuit"
@@ -805,9 +768,6 @@
 	actions_types = list(/datum/action/item_action/zipper)
 	adjust_flavour = "unzip"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/jacket/syndicatebomber
 	name = "suspicious bomber jacket"
@@ -920,7 +880,6 @@
 	adjust_flavour = "unzip"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
@@ -941,10 +900,6 @@
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
-
 /obj/item/clothing/suit/soldiercoat
 	name = "clown soldier's coat"
 	desc = "An overcoat for the clown soldier, to keep him warm during those cold winter nights on the front."
@@ -954,9 +909,6 @@
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/suit/toggle/owlwings
 	name = "owl cloak"

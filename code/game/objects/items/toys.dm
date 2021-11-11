@@ -669,22 +669,6 @@
 	else//If the plushie has not touched water they'll say Greetings in wingdings.
 		visible_message("<span class='danger'>☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎</span>")
 
-/obj/item/toy/plushie/voxplushie
-	name = "vox plushie"
-	desc = "A stitched-together vox, fresh from the skipjack. Press its belly to hear it skree!"
-	icon_state = "plushie_vox"
-	item_state = "plushie_vox"
-	var/cooldown = 0
-
-/obj/item/toy/plushie/voxplushie/attack_self(mob/user)
-	if(!cooldown)
-		playsound(user, 'sound/voice/shriek1.ogg', 10, 0)
-		visible_message("<span class='danger'>Skreee!</span>")
-		cooldown = 1
-		spawn(30) cooldown = 0
-		return
-	..()
-
 /obj/item/toy/plushie/ipcplushie
 	name = "IPC plushie"
 	desc = "An adorable IPC plushie, straight from New Canaan. Arguably more durable than the real deal. Toaster functionality included."

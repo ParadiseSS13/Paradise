@@ -190,6 +190,7 @@
 /datum/deepfryer_special/onionrings
 	input = /obj/item/reagent_containers/food/snacks/onion_slice
 	output = /obj/item/reagent_containers/food/snacks/onionrings
+<<<<<<< HEAD
 
 /datum/deepfryer_special/fried_vox
 	input = /obj/item/organ/external
@@ -206,3 +207,5 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	default_unfasten_wrench(user, I, 30)
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)

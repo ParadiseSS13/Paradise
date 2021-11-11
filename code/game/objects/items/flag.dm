@@ -81,11 +81,6 @@
 	desc = "A flag proudly proclaiming the superior heritage of Skrell."
 	icon_state = "skrellflag"
 
-/obj/item/flag/species/vox
-	name = "\improper Vox flag"
-	desc = "A flag proudly proclaiming the superior heritage of Vox."
-	icon_state = "voxflag"
-
 /obj/item/flag/species/machine
 	name = "\improper Synthetics flag"
 	desc = "A flag proudly proclaiming the superior heritage of Synthetics."

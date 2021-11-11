@@ -79,7 +79,6 @@
 	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
@@ -130,7 +129,6 @@
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 200, ACID = INFINITY)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -156,9 +154,6 @@
 	icon_state = "purple"
 	item_state = "glasses"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/night
 	name = "night vision goggles"
@@ -170,7 +165,6 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -183,7 +177,6 @@
 	item_state = "eyepatch"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -197,7 +190,6 @@
 	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -212,7 +204,6 @@
 	vision_flags = SEE_OBJS
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -243,7 +234,6 @@
 	prescription = 1
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -262,7 +252,6 @@
 	item_state = "3d"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -275,7 +264,6 @@
 	item_state = "gglasses"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -293,7 +281,6 @@
 	prescription_upgradable = TRUE
 	dog_fashion = /datum/dog_fashion/head
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -308,7 +295,6 @@
 	flash_protect = FLASH_PROTECTION_NONE
 	tint = FLASH_PROTECTION_NONE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -363,7 +349,6 @@
 	tint = FLASH_PROTECTION_FLASH
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -391,7 +376,6 @@
 	can_toggle = TRUE
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -442,7 +426,6 @@
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -477,6 +460,42 @@
 	item_state = "eyepatch"
 	flags = NODROP
 
+<<<<<<< HEAD
+=======
+
+/obj/item/clothing/glasses/godeye
+	name = "eye of god"
+	desc = "A strange eye, said to have been torn from an omniscient creature that used to roam the wastes."
+	icon_state = "godeye"
+	item_state = "godeye"
+	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
+	see_in_dark = 8
+	scan_reagents = 1
+	prescription = TRUE
+	flags = NODROP
+	flags_cover = null
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
+		)
+
+/obj/item/clothing/glasses/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, src) && W != src && W.loc == user)
+		if(W.icon_state == "godeye")
+			W.icon_state = "doublegodeye"
+			W.item_state = "doublegodeye"
+			W.desc = "A pair of strange eyes, said to have been torn from an omniscient creature that used to roam the wastes. There's no real reason to have two, but that isn't stopping you."
+			if(iscarbon(user))
+				var/mob/living/carbon/C = user
+				C.update_inv_wear_mask()
+		else
+			to_chat(user, "<span class='notice'>The eye winks at you and vanishes into the abyss, you feel really unlucky.</span>")
+		qdel(src)
+	..()
+
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 /obj/item/clothing/glasses/tajblind
 	name = "embroidered veil"
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes."
@@ -488,7 +507,6 @@
 	tint = FLASH_PROTECTION_NONE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
 		)

@@ -108,6 +108,10 @@
 	icon_state = "psyche"
 	item_color = "psyche"
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 /obj/item/clothing/under/color/lightblue
 	name = "light blue jumpsuit"
 	icon_state = "lightblue"

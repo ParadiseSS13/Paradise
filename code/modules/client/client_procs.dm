@@ -123,6 +123,59 @@
 	if(GLOB.configuration.logging.href_logging)
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
+<<<<<<< HEAD
+=======
+	if(href_list["karmashop"])
+		if(!GLOB.configuration.general.enable_karma)
+			to_chat(src, "Karma is disabled on this server.")
+			return
+
+		switch(href_list["karmashop"])
+			if("tab")
+				karma_tab = text2num(href_list["tab"])
+				karmashopmenu()
+				return
+			if("shop")
+				if(href_list["KarmaBuy"])
+					var/karma=verify_karma()
+					if(isnull(karma)) //Doesn't display anything if karma database is down.
+						return
+					switch(href_list["KarmaBuy"])
+						if("1")
+							karma_purchase(karma,5,"job","Barber")
+						if("2")
+							karma_purchase(karma,5,"job","Brig Physician")
+						if("3")
+							karma_purchase(karma,30,"job","Nanotrasen Representative")
+						if("4")
+							karma_purchase(karma,30,"job","Blueshield")
+					return
+				if(href_list["KarmaBuy2"])
+					var/karma=verify_karma()
+					if(isnull(karma)) //Doesn't display anything if karma database is down.
+						return
+					switch(href_list["KarmaBuy2"])
+						if("1")
+							karma_purchase(karma,15,"species","Machine People","Machine")
+						if("2")
+							karma_purchase(karma,30,"species","Kidan")
+						if("3")
+							karma_purchase(karma,30,"species","Grey")
+						if("4")
+							karma_purchase(karma,45,"species","Slime People")
+						if("5")
+							karma_purchase(karma,45,"species","Plasmaman")
+						if("6")
+							karma_purchase(karma,30,"species","Drask")
+					return
+				if(href_list["KarmaRefund"])
+					var/type = href_list["KarmaRefundType"]
+					var/job = href_list["KarmaRefund"]
+					var/cost = href_list["KarmaRefundCost"]
+					karmarefund(type,job,cost)
+					return
+
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder
 		if("usr")		hsrc = mob

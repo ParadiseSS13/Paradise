@@ -25,7 +25,6 @@
 		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
 		"Skrell" = 'icons/mob/clothing/species/skrell/helmet.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
@@ -34,7 +33,6 @@
 		"Unathi" = 'icons/obj/clothing/species/unathi/hats.dmi',
 		"Tajaran" = 'icons/obj/clothing/species/tajaran/hats.dmi',
 		"Skrell" = 'icons/obj/clothing/species/skrell/hats.dmi',
-		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
 		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
 		)
 
@@ -153,12 +151,16 @@
 	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
 	var/obj/item/tank/jetpack/suit/jetpack = null
 
+<<<<<<< HEAD
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
+=======
+	hide_tail_by_species = list("Vulpkanin" , "Unathi" , "Tajaran")
+	species_restricted = list("exclude", "Wryn")
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Skrell" = 'icons/mob/clothing/species/skrell/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
 		)
@@ -166,7 +168,6 @@
 		"Unathi" = 'icons/obj/clothing/species/unathi/suits.dmi',
 		"Tajaran" = 'icons/obj/clothing/species/tajaran/suits.dmi',
 		"Skrell" = 'icons/obj/clothing/species/skrell/suits.dmi',
-		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi',
 		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
 		)
 

@@ -8,10 +8,13 @@
 	desc = "A stylish beanie. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their heads."
 	icon_state = "beanie" //Default white
 	item_color = "beanie"
+<<<<<<< HEAD
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		)
 	dyeable = TRUE
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 
 /obj/item/clothing/head/beanie/black
 	name = "black beanie"

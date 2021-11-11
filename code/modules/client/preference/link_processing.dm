@@ -137,18 +137,32 @@
 				if("age")
 					active_character.age = rand(AGE_MIN, AGE_MAX)
 				if("hair")
+<<<<<<< HEAD
 					if(!(S.bodyflags & BALD))
 						active_character.h_colour = rand_hex_color()
 				if("secondary_hair")
 					if(!(S.bodyflags & BALD))
+=======
+					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin"))
+						active_character.h_colour = rand_hex_color()
+				if("secondary_hair")
+					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin"))
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 						active_character.h_sec_colour = rand_hex_color()
 				if("h_style")
 					active_character.h_style = random_hair_style(active_character.gender, active_character.species, robohead)
 				if("facial")
+<<<<<<< HEAD
 					if(!(S.bodyflags & SHAVED))
 						active_character.f_colour = rand_hex_color()
 				if("secondary_facial")
 					if(!(S.bodyflags & SHAVED))
+=======
+					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin"))
+						active_character.f_colour = rand_hex_color()
+				if("secondary_facial")
+					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin"))
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 						active_character.f_sec_colour = rand_hex_color()
 				if("f_style")
 					active_character.f_style = random_facial_hair_style(active_character.gender, active_character.species, robohead)
@@ -289,8 +303,14 @@
 							active_character.s_colour = "#000000"
 
 						active_character.alt_head = "None" //No alt heads on species that don't have them.
+<<<<<<< HEAD
 						active_character.speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
 						active_character.body_accessory = random_body_accessory(NS.name, NS.optional_body_accessory)
+=======
+						active_character.speciesprefs = 0 // dont break stuff
+
+						active_character.body_accessory = null //no vulptail on humans damnit
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 
 						//Reset prosthetics.
 						active_character.organ_data = list()
@@ -328,14 +348,22 @@
 						active_character.b_type = new_b_type
 
 				if("hair")
+<<<<<<< HEAD
 					if(!(S.bodyflags & BALD))
+=======
+					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin")) //Species that have hair. (No HAS_HAIR flag)
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 						var/input = "Choose your character's hair colour:"
 						var/new_hair = input(user, input, "Character Preference", active_character.h_colour) as color|null
 						if(new_hair)
 							active_character.h_colour = new_hair
 
 				if("secondary_hair")
+<<<<<<< HEAD
 					if(!(S.bodyflags & BALD))
+=======
+					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin"))
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 						var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[active_character.h_style]
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 							var/new_hair = input(user, "Choose your character's secondary hair colour:", "Character Preference", active_character.h_sec_colour) as color|null
@@ -558,13 +586,21 @@
 						active_character.body_accessory = (new_body_accessory == "None") ? null : new_body_accessory
 
 				if("facial")
+<<<<<<< HEAD
 					if(!(S.bodyflags & SHAVED))
+=======
+					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin")) //Species that have facial hair. (No HAS_HAIR_FACIAL flag)
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 						var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference", active_character.f_colour) as color|null
 						if(new_facial)
 							active_character.f_colour = new_facial
 
 				if("secondary_facial")
+<<<<<<< HEAD
 					if(!(S.bodyflags & SHAVED))
+=======
+					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin"))
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 						var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[active_character.f_style]
 						if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
 							var/new_facial = input(user, "Choose your character's secondary facial-hair colour:", "Character Preference", active_character.f_sec_colour) as color|null

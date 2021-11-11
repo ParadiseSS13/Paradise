@@ -131,6 +131,7 @@
 	cost = 500
 	category = MERCH_CAT_DECORATION
 
+<<<<<<< HEAD:code/modules/economy/merch_items.dm
 /datum/merch_item/flag_vox
 	name = "Vox Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Vox."
@@ -139,6 +140,9 @@
 	category = MERCH_CAT_DECORATION
 
 /datum/merch_item/flag_machine
+=======
+/datum/storeitem/flag_machine
+>>>>>>> 2529442b50 (Removes vox & Vox raiders):code/modules/store/items.dm
 	name = "Synthetics Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Synthetics."
 	typepath = /obj/item/flag/species/machine

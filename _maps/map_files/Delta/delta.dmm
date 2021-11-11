@@ -56406,13 +56406,6 @@
 /area/assembly/chargebay)
 "cJr" = (
 /obj/structure/table/glass,
-/obj/item/tank/internals/emergency_oxygen/nitrogen{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/tank/internals/emergency_oxygen/nitrogen{
-	pixel_x = 5
-	},
 /obj/item/tank/internals/emergency_oxygen/plasma{
 	pixel_x = -5;
 	pixel_y = 5
@@ -80310,6 +80303,19 @@
 	icon_state = "chapel"
 	},
 /area/chapel/main)
+<<<<<<< HEAD
+=======
+"dXy" = (
+/obj/structure/table/wood,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
+	},
+/area/maintenance/apmaint)
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "dXz" = (
 /obj/item/radio/intercom{
 	name = "south bump";

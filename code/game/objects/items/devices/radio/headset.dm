@@ -4,11 +4,15 @@
 	var/radio_desc = ""
 	icon_state = "headset"
 	item_state = "headset"
+<<<<<<< HEAD
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
 		"Vox Armalis" = 'icons/mob/clothing/species/armalis/ears.dmi'
 		) //We read you loud and skree-er.
 	materials = list(MAT_METAL = 200)
+=======
+	materials = list(MAT_METAL=75)
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 	canhear_range = 0 // can't hear headsets from very far away
 
 	slot_flags = SLOT_EARS

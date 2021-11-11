@@ -282,12 +282,15 @@
 		var/race = synd_mob.dna.species.name
 
 		switch(race)
+<<<<<<< HEAD
 			if("Vox", "Vox Armalis")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
 				synd_mob.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(synd_mob), slot_l_hand)
 				synd_mob.internal = synd_mob.l_hand
 				synd_mob.update_action_buttons_icon()
 
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 			if("Plasmaman")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
 				synd_mob.equip_or_collect(new /obj/item/tank/internals/plasmaman(synd_mob), slot_s_store)
@@ -296,7 +299,7 @@
 				synd_mob.internal = synd_mob.get_item_by_slot(slot_s_store)
 				synd_mob.update_action_buttons_icon()
 
-	synd_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
+	synd_mob.rejuvenate() //fix any damage taken by naked plasmamen while round setups
 	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(synd_mob)
 	E.implant(synd_mob)
 	synd_mob.faction |= "syndicate"

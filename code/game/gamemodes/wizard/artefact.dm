@@ -642,8 +642,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 	W.SetOwnerInfo(M)
 	M.equip_to_slot_or_del(W, slot_wear_id)
 
-	if(isvox(M))
-		M.dna.species.after_equip_job(null, M) //Nitrogen tanks
 	if(isplasmaman(M))
 		M.dna.species.after_equip_job(null, M) //No fireballs from other dimensions.
 

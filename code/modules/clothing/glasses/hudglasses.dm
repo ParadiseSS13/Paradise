@@ -36,7 +36,6 @@
 	examine_extensions = list(EXAMINE_HUD_MEDICAL)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -68,7 +67,6 @@
 	HUDType = DATA_HUD_DIAGNOSTIC_BASIC
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -102,7 +100,6 @@
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -140,7 +137,6 @@
 	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -156,7 +152,6 @@
 	HUDType = DATA_HUD_HYDROPONIC
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
@@ -181,10 +176,6 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	up = FALSE
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi'
-		)
-
 /obj/item/clothing/glasses/hud/security/tajblind/attack_self()
 	toggle_veil()
 
@@ -198,7 +189,6 @@
 	up = FALSE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
 		)
@@ -216,8 +206,11 @@
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey"  = 'icons/mob/clothing/species/grey/eyes.dmi',
+<<<<<<< HEAD:code/modules/clothing/glasses/hudglasses.dm
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders):code/modules/clothing/glasses/hud.dm
 	)
 
 /obj/item/clothing/glasses/hud/skills/sunglasses
@@ -231,6 +224,9 @@
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey"  = 'icons/mob/clothing/species/grey/eyes.dmi',
+<<<<<<< HEAD:code/modules/clothing/glasses/hudglasses.dm
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders):code/modules/clothing/glasses/hud.dm
 	)

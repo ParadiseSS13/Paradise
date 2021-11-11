@@ -427,10 +427,7 @@
 	if(istype(H))
 		var/obj/item/tank/internals/emergency_oxygen/tank
 		var/obj/item/clothing/mask/breath/mask
-		if(isvox(H))
-			tank = new /obj/item/tank/internals/emergency_oxygen/nitrogen(H)
-			mask = new /obj/item/clothing/mask/breath/vox(H)
-		else if(isplasmaman(H))
+		if(isplasmaman(H))
 			tank = new /obj/item/tank/internals/emergency_oxygen/plasma(H)
 			mask = new /obj/item/clothing/mask/breath(H)
 

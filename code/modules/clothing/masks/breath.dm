@@ -12,8 +12,6 @@
 	actions_types = list(/datum/action/item_action/adjust)
 	resistance_flags = NONE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
@@ -38,18 +36,3 @@
 	item_state = "medical"
 	permeability_coefficient = 0.01
 	put_on_delay = 10
-
-/obj/item/clothing/mask/breath/vox
-	name = "vox breath mask"
-	desc = "A weirdly-shaped breath mask."
-	icon_state = "voxmask"
-	item_state = "voxmask"
-	permeability_coefficient = 0.01
-	species_restricted = list("Vox", "Vox Armalis") //These should fit the "Mega Vox" just fine.
-	actions_types = list()
-
-/obj/item/clothing/mask/breath/vox/attack_self(mob/user)
-	return
-
-/obj/item/clothing/mask/breath/vox/AltClick(mob/user)
-	return

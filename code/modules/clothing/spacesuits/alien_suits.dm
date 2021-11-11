@@ -70,6 +70,7 @@
 	icon_state = "unathi_breacher"
 	item_state = "unathi_breacher"
 	item_color = "unathi_breacher"
+<<<<<<< HEAD:code/modules/clothing/spacesuits/alien_suits.dm
 
 // Vox space gear (vaccuum suit, low pressure armour)
 // Can't be equipped by any other species due to bone structure and vox cybernetics.
@@ -235,3 +236,5 @@
 	. = ..()
 	if(magpulse)
 		. += "It would be hard to take these off without relaxing your grip first."//theoretically this message should only be seen by the wearer when the claws are equipped.
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders):code/modules/clothing/spacesuits/alien.dm

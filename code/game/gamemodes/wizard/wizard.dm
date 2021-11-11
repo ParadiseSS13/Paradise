@@ -131,7 +131,7 @@
 		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), slot_w_uniform)
 		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(wizard_mob), slot_head)
 		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
-	wizard_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
+	wizard_mob.rejuvenate() //fix any damage taken by naked plasmamen while round setups
 	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), slot_l_ear)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), slot_shoes)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(wizard_mob), slot_wear_suit)

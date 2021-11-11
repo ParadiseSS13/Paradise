@@ -10,7 +10,7 @@
 		Sprites used when the clothing item is refit. This is done by setting icon_override.
 		For best results, if this is set then sprite_sheets should be null and vice versa, but that is by no means necessary.
 		Ideally, sprite_sheets_refit should be used for "hard" clothing items that can't change shape very well to fit the wearer (e.g. helmets, hardsuits),
-		while sprite_sheets should be used for "flexible" clothing items that do not need to be refitted (e.g. vox wearing jumpsuits).
+		while sprite_sheets should be used for "flexible" clothing items that do not need to be refitted (e.g. kidan wearing jumpsuits).
 	*/
 	var/list/sprite_sheets_refit = null
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
@@ -114,7 +114,11 @@
 	//Set species_restricted list
 	switch(target_species)
 		if("Human", "Skrell")	//humanoid bodytypes
+<<<<<<< HEAD
 			species_restricted = list("exclude","Unathi","Tajaran","Diona","Vox","Drask")
+=======
+			species_restricted = list("exclude","Unathi","Tajaran","Diona","Wryn","Drask")
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 		else
 			species_restricted = list(target_species)
 
@@ -142,10 +146,6 @@
 	throwforce = 2
 	slot_flags = SLOT_EARS
 	resistance_flags = NONE
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/ears.dmi'
-		) //We read you loud and skree-er.
 
 /obj/item/clothing/ears/attack_hand(mob/user)
 	if(!user)
@@ -275,7 +275,6 @@
 	put_on_delay = 40
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi'
 		)
 
@@ -482,7 +481,6 @@
 	slowdown = SHOES_SLOWDOWN
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/shoes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/shoes.dmi'
 		)
 
@@ -668,9 +666,13 @@
 	put_on_delay = 80
 	resistance_flags = NONE
 	hide_tail_by_species = null
+<<<<<<< HEAD
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
+=======
+	species_restricted = list("exclude","Wryn")
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 
 //Under clothing
 /obj/item/clothing/under
@@ -685,9 +687,14 @@
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 	sprite_sheets = list(
+<<<<<<< HEAD
 		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi'
+=======
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi'
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 		)
 
 	///For the crew computer 2 = unable to change mode

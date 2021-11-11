@@ -107,6 +107,7 @@
 	},
 /area/holodeck/source_knightarena)
 "at" = (
+<<<<<<< HEAD
 /turf/simulated/wall/indestructible/fakedoor,
 /area/ninja/outpost)
 "au" = (
@@ -115,6 +116,10 @@
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
+=======
+/turf/simulated/wall/indestructible/riveted,
+/area/trader_station/sol)
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "av" = (
 /obj/structure/table/holotable/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -134,12 +139,15 @@
 	name = "Holodeck Projector Floor"
 	},
 /area/holodeck/source_wildlife)
+<<<<<<< HEAD
 "ay" = (
 /obj/machinery/abductor/experiment{
 	team = 4
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "az" = (
 /turf/simulated/floor/holofloor{
 	icon_state = "engine";
@@ -182,6 +190,7 @@
 /turf/simulated/floor/holofloor/grass,
 /area/holodeck/source_picnicarea)
 "aH" = (
+<<<<<<< HEAD
 /obj/structure/table/reinforced,
 /obj/item/storage/box/permits,
 /turf/simulated/floor/plasteel/dark,
@@ -193,6 +202,14 @@
 	icon_state = "darkred"
 	},
 /area/centcom/specops)
+=======
+/obj/structure/chair/stool/holostool,
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon_state = "carpet7-3"
+	},
+/area/holodeck/source_theatre)
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "aL" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/holofloor{
@@ -312,17 +329,38 @@
 /obj/machinery/abductor/pad{
 	team = 4
 	},
+<<<<<<< HEAD
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
+=======
+/area/holodeck/source_meetinghall)
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "bj" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+<<<<<<< HEAD
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
+=======
+/area/holodeck/source_meetinghall)
+"bm" = (
+/obj/structure/chair/stool/holostool,
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon_state = "carpet15-0"
+	},
+/area/holodeck/source_meetinghall)
+"bn" = (
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon_state = "carpet6-2"
+	},
+/area/holodeck/source_theatre)
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "bo" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -782,6 +820,7 @@
 	icon_state = "snow"
 	},
 /area/holodeck/source_snowfield)
+<<<<<<< HEAD
 "dl" = (
 /obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -795,6 +834,8 @@
 /obj/item/bonegel/alien,
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "dp" = (
 /turf/simulated/floor/holofloor{
 	icon_state = "red"
@@ -2803,10 +2844,99 @@
 /obj/structure/closet/secure_closet{
 	req_access_txt = "150"
 	},
+<<<<<<< HEAD
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "km" = (
 /obj/machinery/dna_scannernew/upgraded,
+=======
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
+"hn" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
+"hq" = (
+/obj/item/disk/plantgene,
+/turf/simulated/floor/plating/asteroid/snow/airless,
+/area/syndicate_mothership)
+"hv" = (
+/turf/simulated/floor/beach/away/water,
+/area/ninja/holding)
+"hw" = (
+/obj/machinery/light/spot,
+/turf/simulated/floor/beach/away/water,
+/area/ninja/holding)
+"hx" = (
+/obj/effect/decal/warning_stripes/southwestcorner,
+/turf/simulated/floor/plating/airless,
+/area/syndicate_mothership)
+"hA" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Shuttle Dock"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"hB" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
+"hC" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ninja/holding)
+"hD" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
+"hF" = (
+/obj/effect/landmark{
+	name = "Holding Facility"
+	},
+/turf/simulated/floor/engine,
+/area/ninja/holding)
+"hG" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/syndicate_mothership)
+"hN" = (
+/obj/structure/sign/double/map/left{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"hO" = (
+/obj/machinery/washing_machine,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"hP" = (
+/obj/machinery/computer/communications{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"hQ" = (
+/obj/structure/table,
+/obj/item/storage/fancy/crayons,
+/obj/item/storage/fancy/crayons,
+/turf/simulated/floor/plasteel/freezer,
+/area/syndicate_mothership)
+"hV" = (
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "kn" = (
@@ -3027,6 +3157,322 @@
 /obj/item/multitool,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
+<<<<<<< HEAD
+=======
+"jG" = (
+/obj/machinery/light/spot,
+/obj/structure/table/reinforced,
+/obj/item/radio/beacon/syndicate/bomb{
+	pixel_y = 8
+	},
+/obj/item/radio/beacon/syndicate/bomb{
+	pixel_y = 4
+	},
+/obj/item/radio/beacon/syndicate/bomb,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"jH" = (
+/obj/machinery/door/window{
+	name = "Infirmary";
+	req_access_txt = "150"
+	},
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"jI" = (
+/turf/space,
+/area/adminconstruction)
+"jJ" = (
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plating/airless,
+/area/syndicate_mothership)
+"jK" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/light,
+/turf/simulated/floor/plating/airless,
+/area/syndicate_mothership)
+"jM" = (
+/obj/machinery/door/window{
+	name = "Uplink Management Control";
+	req_access_txt = "151"
+	},
+/turf/simulated/floor/wood,
+/area/syndicate_mothership)
+"jO" = (
+/obj/structure/sign/double/map/right{
+	pixel_y = -32
+	},
+/obj/structure/rack/skeletal_bar/right,
+/obj/item/reagent_containers/food/drinks/bottle/gin,
+/turf/simulated/floor/wood,
+/area/syndicate_mothership)
+"jP" = (
+/turf/simulated/wall/indestructible/abductor{
+	icon_state = "alien21"
+	},
+/area/abductor_ship)
+"jQ" = (
+/turf/simulated/wall/indestructible/abductor{
+	icon_state = "alien20"
+	},
+/area/abductor_ship)
+"jR" = (
+/turf/simulated/wall/indestructible/abductor{
+	icon_state = "alien23"
+	},
+/area/abductor_ship)
+"jS" = (
+/turf/simulated/wall/indestructible/abductor{
+	icon_state = "alien22"
+	},
+/area/abductor_ship)
+"jT" = (
+/turf/simulated/wall/indestructible/abductor{
+	icon_state = "alien24"
+	},
+/area/abductor_ship)
+"jU" = (
+/turf/simulated/wall/indestructible/abductor{
+	icon_state = "alien16"
+	},
+/area/abductor_ship)
+"jV" = (
+/obj/machinery/abductor/experiment{
+	team = 1
+	},
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"jW" = (
+/turf/simulated/wall/indestructible/abductor{
+	icon_state = "alien17"
+	},
+/area/abductor_ship)
+"jX" = (
+/obj/machinery/abductor/pad{
+	team = 1
+	},
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"jY" = (
+/obj/machinery/abductor/console{
+	team = 1
+	},
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"jZ" = (
+/turf/simulated/wall/indestructible/abductor{
+	icon_state = "alien19"
+	},
+/area/abductor_ship)
+"ka" = (
+/turf/simulated/wall/indestructible/abductor{
+	icon_state = "alien18"
+	},
+/area/abductor_ship)
+"kb" = (
+/obj/machinery/door/airlock/multi_tile/glass{
+	name = "Equipment Room";
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
+"kd" = (
+/turf/simulated/floor/plasteel,
+/area/centcom/gamma)
+"ke" = (
+/obj/structure/rack,
+/turf/simulated/floor/wood,
+/area/wizard_station)
+"kf" = (
+/obj/machinery/light/spot,
+/turf/simulated/floor/wood,
+/area/wizard_station)
+"kh" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	req_access_txt = "19"
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"kj" = (
+/turf/simulated/floor/plasteel/stairs/old,
+/area/syndicate_mothership)
+"kk" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "sst_tele";
+	name = "Teleporter"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"kl" = (
+/obj/machinery/vending/tool,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"km" = (
+/obj/machinery/door/airlock/centcom{
+	aiControlDisabled = 1;
+	name = "Assault Pod";
+	opacity = 1;
+	req_one_access_txt = "150"
+	},
+/obj/docking_port/mobile/assault_pod,
+/turf/simulated/floor/plating,
+/area/shuttle/assault_pod)
+"kn" = (
+/obj/machinery/sleeper/syndie{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"kp" = (
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/obj/machinery/sleeper/syndie{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"kr" = (
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"ks" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"kt" = (
+/obj/machinery/abductor/experiment{
+	team = 4
+	},
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"ku" = (
+/obj/machinery/abductor/pad{
+	team = 4
+	},
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"kv" = (
+/obj/machinery/abductor/console{
+	team = 4
+	},
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"kw" = (
+/turf/simulated/wall/indestructible/abductor{
+	icon_state = "alien14"
+	},
+/area/abductor_ship)
+"kx" = (
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"ky" = (
+/obj/machinery/computer/camera_advanced/abductor{
+	team = 1
+	},
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"kz" = (
+/turf/simulated/wall/indestructible/abductor{
+	icon_state = "alien15"
+	},
+/area/abductor_ship)
+"kA" = (
+/obj/structure/closet/abductor,
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"kD" = (
+/obj/machinery/computer/camera_advanced/abductor{
+	team = 4
+	},
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"kE" = (
+/turf/simulated/wall/indestructible/abductor{
+	icon_state = "alien12"
+	},
+/area/abductor_ship)
+"kF" = (
+/obj/effect/landmark/abductor/scientist,
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"kG" = (
+/obj/structure/table/abductor,
+/obj/item/retractor/alien,
+/obj/item/hemostat/alien,
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"kH" = (
+/obj/effect/landmark/abductor/agent,
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"kI" = (
+/obj/machinery/optable/abductor,
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"kJ" = (
+/obj/structure/closet/syndicate/personal,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"kK" = (
+/obj/structure/table,
+/obj/item/storage/fancy/crayons,
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"kL" = (
+/obj/structure/table,
+/obj/item/gun/energy/ionrifle/carbine,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"kM" = (
+/turf/simulated/wall/indestructible/abductor{
+	icon_state = "alien13"
+	},
+/area/abductor_ship)
+"kN" = (
+/obj/structure/table/abductor,
+/obj/item/storage/box/alienhandcuffs,
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"kO" = (
+/obj/effect/landmark/abductor/scientist{
+	team = 4
+	},
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"kP" = (
+/obj/effect/landmark/abductor/agent{
+	team = 4
+	},
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"kQ" = (
+/turf/simulated/wall/indestructible/abductor{
+	icon_state = "alien10"
+	},
+/area/abductor_ship)
+"kR" = (
+/obj/structure/table/abductor,
+/obj/item/paper/abductor,
+/obj/item/scalpel/alien,
+/obj/item/cautery/alien,
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"kS" = (
+/turf/simulated/wall/indestructible/abductor{
+	icon_state = "alien11"
+	},
+/area/abductor_ship)
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "kT" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel/dark,
@@ -3064,6 +3510,7 @@
 "kZ" = (
 /obj/structure/bed,
 /turf/simulated/floor/plasteel/dark,
+<<<<<<< HEAD
 /area/syndicate_mothership/jail)
 "la" = (
 /obj/structure/toilet{
@@ -3074,6 +3521,189 @@
 "lb" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "SST Ready Room"
+=======
+/area/syndicate_mothership)
+"mu" = (
+/obj/machinery/vending/dinnerware{
+	req_access_txt = "102"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/centcom/control)
+"mv" = (
+/obj/machinery/light/spot,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"mw" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/food/condiment/enzyme,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/centcom/control)
+"mx" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave/upgraded,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/centcom/control)
+"my" = (
+/obj/structure/filingcabinet/filingcabinet,
+/turf/simulated/floor/carpet,
+/area/centcom/control)
+"mA" = (
+/obj/machinery/door/poddoor{
+	id_tag = "ASSAULT2";
+	name = "Launch Bay #2"
+	},
+/turf/simulated/floor/plating,
+/area/centcom/specops)
+"mB" = (
+/obj/machinery/mass_driver{
+	dir = 8;
+	id_tag = "ASSAULT2";
+	name = "gravpult"
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"mC" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Commander Quarters";
+	opacity = 1;
+	req_access_txt = "114"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/centcom/control)
+"mD" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/centcom/control)
+"mF" = (
+/obj/machinery/light/spot,
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"mG" = (
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1441;
+	master_tag = "syndicate_jail_airlock_control";
+	name = "Syndicate Jail Access Button";
+	pixel_y = 24;
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"mH" = (
+/obj/structure/table,
+/obj/machinery/door_control{
+	id = "syndieshutters";
+	name = "remote shutter control";
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"mI" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass,
+/area/centcom/control)
+"mK" = (
+/obj/structure/flora/ausbushes/reedbush,
+/turf/simulated/floor/grass,
+/area/centcom/control)
+"mM" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_y = 5
+	},
+/obj/item/pen/multi,
+/turf/simulated/floor/carpet,
+/area/centcom/control)
+"mN" = (
+/obj/machinery/computer/bsa_control/admin,
+/turf/simulated/floor/carpet,
+/area/centcom/control)
+"mO" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/centcom/control)
+"mP" = (
+/obj/machinery/computer/pod/deathsquad{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
+"mR" = (
+/obj/machinery/sleeper/upgraded,
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/centcom/control)
+"mT" = (
+/obj/structure/mirror{
+	pixel_y = 28
+	},
+/turf/simulated/floor/wood,
+/area/centcom/control)
+"mU" = (
+/turf/simulated/floor/wood,
+/area/centcom/control)
+"mV" = (
+/obj/machinery/computer/card/centcom{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/centcom/control)
+"mW" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/centcom/control)
+"mX" = (
+/obj/structure/flora/ausbushes/fernybush,
+/turf/simulated/floor/grass,
+/area/centcom/control)
+"mY" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/grass,
+/area/centcom/control)
+"mZ" = (
+/obj/structure/flora/ausbushes/stalkybush,
+/turf/simulated/floor/grass,
+/area/centcom/control)
+"na" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass,
+/area/centcom/control)
+"nb" = (
+/obj/machinery/autolathe/upgraded/gamma,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma/space)
+"nc" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Gamma Armory";
+	opacity = 1;
+	req_access_txt = "114"
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 	},
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "sst_ready"
@@ -3179,6 +3809,7 @@
 /obj/effect/landmark/abductor/scientist{
 	team = 3
 	},
+<<<<<<< HEAD
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "lz" = (
@@ -3186,6 +3817,223 @@
 /area/abductor_ship)
 "lA" = (
 /obj/machinery/door/poddoor/shutters{
+=======
+/area/holodeck/source_thunderdomecourt)
+"qk" = (
+/obj/item/gun/projectile/automatic/pistol/m1911,
+/obj/item/ammo_box/magazine/m45,
+/obj/item/ammo_box/magazine/m45,
+/obj/item/ammo_box/magazine/m45,
+/obj/structure/closet{
+	icon_closed = "cabinet_closed";
+	icon_opened = "cabinet_open";
+	icon_state = "cabinet_closed"
+	},
+/obj/item/clothing/head/helmet/space/deathsquad/beret,
+/obj/item/clothing/shoes/combat,
+/obj/item/clothing/under/syndicate/combat,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/suit/space/deathsquad/officer,
+/obj/item/clothing/under/rank/centcom/captain,
+/obj/item/storage/box/handcuffs,
+/obj/item/storage/box/flashbangs,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/radio/headset/ert{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/turf/simulated/floor/plasteel/grimy,
+/area/centcom/specops)
+"ql" = (
+/obj/structure/bookcase/random,
+/turf/simulated/floor/plasteel/grimy,
+/area/centcom/specops)
+"qo" = (
+/turf/simulated/floor/plasteel/white,
+/area/centcom/evac)
+"qq" = (
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "green"
+	},
+/area/centcom/control)
+"qr" = (
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "green"
+	},
+/area/centcom/control)
+"qs" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/centcom/evac)
+"qu" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Bathroom";
+	opacity = 1
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/centcom/specops)
+"qv" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/centcom/evac)
+"qw" = (
+/obj/machinery/door/airlock/centcom{
+	name = "General Access";
+	opacity = 1;
+	req_access_txt = "101"
+	},
+/turf/simulated/floor/plasteel,
+/area/centcom/control)
+"qx" = (
+/obj/effect/forcefield{
+	desc = "You can't get in. Heh.";
+	layer = 1;
+	name = "Blocker"
+	},
+/turf/simulated/wall/indestructible/fakeglass,
+/area/centcom/specops)
+"qy" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Unit 4";
+	opacity = 1
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/centcom/bathroom)
+"qz" = (
+/obj/structure/toilet{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/centcom/bathroom)
+"qA" = (
+/obj/structure/mirror{
+	pixel_y = 32
+	},
+/obj/structure/sink{
+	pixel_y = 15
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/centcom/bathroom)
+"qB" = (
+/obj/structure/sink{
+	pixel_y = 15
+	},
+/obj/structure/mirror{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/centcom/bathroom)
+"qC" = (
+/obj/machinery/shower{
+	dir = 4;
+	pixel_x = 5
+	},
+/obj/structure/curtain/open/shower/centcom,
+/turf/simulated/floor/plasteel/freezer,
+/area/centcom/bathroom)
+"qD" = (
+/obj/machinery/shower{
+	dir = 8;
+	pixel_x = -5
+	},
+/obj/structure/curtain/open/shower/centcom,
+/turf/simulated/floor/plasteel/freezer,
+/area/centcom/bathroom)
+"qE" = (
+/turf/simulated/floor/plasteel/freezer,
+/area/centcom/bathroom)
+"qF" = (
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/syndicate_mothership)
+"qG" = (
+/obj/machinery/computer/mech_bay_power_console,
+/turf/simulated/floor/plating,
+/area/syndicate_mothership)
+"qH" = (
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "green"
+	},
+/area/centcom/evac)
+"qI" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/centcom/suppy)
+"qJ" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "greencorner"
+	},
+/area/centcom/evac)
+"qK" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/centcom)
+"qL" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "green"
+	},
+/area/centcom/evac)
+"qM" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "greencorner"
+	},
+/area/centcom/evac)
+"qO" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/centcom)
+"qP" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/centcom)
+"qQ" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/centcom/specops)
+"qR" = (
+/obj/effect/landmark{
+	name = "prisonwarp"
+	},
+/turf/simulated/floor/plating,
+/area/centcom)
+"qS" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Prison Cell";
+	opacity = 1;
+	req_access_txt = "104"
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"qT" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating,
+/area/centcom)
+"qU" = (
+/turf/simulated/floor/plating,
+/area/centcom)
+"qX" = (
+/obj/machinery/door/poddoor{
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 	density = 0;
 	dir = 2;
 	icon_state = "open";
@@ -5713,7 +6561,2595 @@
 /obj/machinery/optable,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
+<<<<<<< HEAD
 "ul" = (
+=======
+"wP" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/syndicate,
+/obj/item/shard,
+/obj/item/kitchen/knife,
+/obj/item/storage/firstaid/tactical,
+/turf/simulated/floor/plasteel/freezer,
+/area/admin)
+"wQ" = (
+/turf/simulated/floor/carpet,
+/area/admin)
+"wR" = (
+/obj/structure/table,
+/obj/item/gun/energy/pulse/pistol,
+/obj/machinery/door_control{
+	desc = "A remote control switch to lock down the admin lab.";
+	id = "ADMINCHEMLOCKDOWN";
+	name = "Lockdown";
+	pixel_y = 24
+	},
+/turf/simulated/floor/carpet,
+/area/admin)
+"wS" = (
+/obj/item/paper/sop,
+/obj/machinery/computer/secure_data{
+	dir = 8
+	},
+/turf/simulated/floor/carpet,
+/area/admin)
+"wT" = (
+/obj/structure/rack,
+/obj/item/gun/energy/lasercannon,
+/obj/item/gun/energy/lasercannon{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"wV" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/freezer,
+/area/admin)
+"wW" = (
+/obj/structure/table,
+/obj/item/stack/cable_coil,
+/obj/item/stack/rods,
+/obj/item/pen,
+/turf/simulated/floor/plasteel/freezer,
+/area/admin)
+"wX" = (
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/carpet,
+/area/admin)
+"wY" = (
+/obj/machinery/computer/communications{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/admin)
+"wZ" = (
+/obj/machinery/computer/med_data{
+	dir = 8
+	},
+/turf/simulated/floor/carpet,
+/area/admin)
+"xa" = (
+/obj/structure/rack,
+/obj/item/shield/energy,
+/obj/item/shield/energy{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"xb" = (
+/obj/structure/rack,
+/obj/item/melee/energy/sword/saber,
+/obj/item/melee/energy/sword/saber{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"xc" = (
+/obj/structure/rack,
+/obj/item/katana{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/katana,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"xd" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/centcom/evac)
+"xe" = (
+/obj/structure/rack,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 30
+	},
+/obj/item/gun/energy/xray,
+/obj/item/gun/energy/xray{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"xf" = (
+/obj/structure/table,
+/obj/random/toolbox,
+/obj/random/bomb_supply,
+/obj/machinery/syndicatebomb/badmin/clown,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"xg" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/syndicate,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"xh" = (
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"xi" = (
+/obj/structure/table,
+/obj/item/rcd,
+/obj/item/rcd_ammo,
+/obj/item/rcd_ammo,
+/obj/item/storage/pill_bottle/random_drug_bottle,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"xj" = (
+/obj/structure/table,
+/obj/item/scalpel,
+/obj/item/bonesetter,
+/obj/item/bonegel,
+/turf/simulated/floor/plasteel/freezer,
+/area/admin)
+"xk" = (
+/obj/structure/table,
+/obj/item/kitchen/utensil/fork,
+/obj/item/lighter,
+/obj/item/restraints/handcuffs/cable/red,
+/obj/item/storage/box/mousetraps,
+/obj/item/storage/fancy/cigarettes,
+/obj/item/pen,
+/turf/simulated/floor/plasteel/freezer,
+/area/admin)
+"xl" = (
+/obj/structure/table,
+/obj/machinery/door/window/southleft{
+	name = "security checkpoint"
+	},
+/turf/simulated/floor/carpet,
+/area/admin)
+"xm" = (
+/obj/structure/table,
+/obj/structure/window/reinforced,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/simulated/floor/carpet,
+/area/admin)
+"xn" = (
+/obj/structure/table,
+/obj/structure/window/reinforced,
+/obj/machinery/recharger,
+/turf/simulated/floor/carpet,
+/area/admin)
+"xo" = (
+/obj/structure/rack,
+/obj/item/gun/energy/laser/instakill/blue{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/gun/energy/laser/instakill/red{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"xp" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 30
+	},
+/obj/structure/rack,
+/obj/item/gun/energy/pulse/pistol/m1911,
+/obj/item/gun/energy/pulse/pistol/m1911{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"xq" = (
+/obj/structure/table,
+/obj/item/tank/internals/oxygen/yellow,
+/obj/random/bomb_supply,
+/obj/item/clothing/under/rebeloutfit,
+/obj/item/clothing/suit/poncho/ponchoshame,
+/obj/item/clothing/head/sombrero/shamebrero,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"xr" = (
+/obj/machinery/door/airlock/hatch{
+	name = "Tool Storage"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"xs" = (
+/obj/structure/table,
+/obj/item/FixOVein,
+/obj/item/retractor,
+/obj/item/cautery,
+/turf/simulated/floor/plasteel/freezer,
+/area/admin)
+"xt" = (
+/obj/structure/kitchenspike,
+/turf/simulated/floor/plasteel/freezer,
+/area/admin)
+"xx" = (
+/obj/structure/rack,
+/obj/item/gun/energy/meteorgun,
+/obj/item/gun/energy/meteorgun{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"xy" = (
+/obj/structure/rack,
+/obj/item/gun/energy/kinetic_accelerator/crossbow,
+/obj/item/gun/energy/kinetic_accelerator/crossbow{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"xA" = (
+/obj/structure/rack,
+/obj/item/twohanded/knighthammer{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/twohanded/mjollnir,
+/obj/item/twohanded/singularityhammer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"xB" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 30
+	},
+/obj/structure/rack,
+/obj/item/gun/energy/pulse,
+/obj/item/gun/energy/pulse{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"xC" = (
+/obj/structure/table,
+/obj/random/tool,
+/obj/item/clothing/gloves/color/yellow,
+/obj/item/pinpointer/advpinpointer,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"xD" = (
+/obj/structure/table,
+/obj/item/grenade/syndieminibomb{
+	pixel_x = 4;
+	pixel_y = 2
+	},
+/obj/item/grenade/syndieminibomb{
+	pixel_x = -1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"xE" = (
+/obj/structure/table,
+/obj/machinery/recharger,
+/obj/item/toy/cards/deck/syndicate/black,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"xF" = (
+/obj/structure/table,
+/obj/item/surgicaldrill,
+/obj/item/stack/medical/bruise_pack/advanced,
+/turf/simulated/floor/plasteel/freezer,
+/area/admin)
+"xG" = (
+/obj/structure/table,
+/obj/item/hemostat,
+/obj/item/circular_saw,
+/turf/simulated/floor/plasteel/freezer,
+/area/admin)
+"xH" = (
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "ADMINCHEMLOCKDOWN";
+	name = "Security Doors";
+	opacity = 0
+	},
+/obj/machinery/door/airlock/hatch{
+	desc = "Uh oh.";
+	name = "Operating Theater"
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/admin)
+"xJ" = (
+/turf/simulated/floor/wood,
+/area/admin)
+"xL" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/adminconstruction)
+"xO" = (
+/obj/machinery/door/airlock/hatch{
+	desc = "You've heard rumors of the horrors that go on within this lab.";
+	name = "Laboratory (DANGER!)"
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"xQ" = (
+/turf/simulated/wall/indestructible/fakeglass,
+/area/trader_station/sol)
+"xU" = (
+/obj/machinery/computer/crew,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"xV" = (
+/obj/machinery/computer/supplycomp/public,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"xW" = (
+/obj/machinery/computer/rdservercontrol{
+	badmin = 1;
+	name = "Master R&amp;D Server Controller"
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"xX" = (
+/obj/machinery/computer/security{
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"xY" = (
+/obj/structure/table,
+/obj/item/card/id/silver{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/card/id/captains_spare,
+/obj/item/card/id/lifetime{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"xZ" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel,
+/area/centcom/evac)
+"ya" = (
+/obj/machinery/r_n_d/server/centcom,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"yb" = (
+/obj/structure/table,
+/obj/item/card/id/centcom{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/card/id,
+/obj/item/card/id/admin{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"yd" = (
+/obj/structure/chair/comfy/black,
+/turf/simulated/floor/wood,
+/area/admin)
+"ye" = (
+/obj/machinery/computer/shuttle/trade/sol,
+/turf/simulated/floor/plasteel,
+/area/trader_station/sol)
+"yf" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/centcom/bathroom)
+"yg" = (
+/obj/effect/decal/warning_stripes/southeastcorner,
+/turf/simulated/floor/plasteel,
+/area/centcom/evac)
+"yh" = (
+/obj/machinery/vending/snack,
+/turf/simulated/floor/plasteel,
+/area/trader_station/sol)
+"yi" = (
+/obj/machinery/computer/card/centcom,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"yj" = (
+/obj/machinery/computer/card,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"yk" = (
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"yl" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Computer Hub"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "ADMINLOCKDOWN";
+	name = "Security Doors";
+	opacity = 0
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"ym" = (
+/obj/effect/landmark{
+	name = "aroomwarp";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"yn" = (
+/obj/machinery/door/airlock/hatch{
+	desc = "For all your shady business needs";
+	name = "Gambling Den"
+	},
+/turf/simulated/floor/wood,
+/area/admin)
+"yo" = (
+/obj/structure/table/wood,
+/obj/item/toy/cards/deck/syndicate,
+/turf/simulated/floor/wood,
+/area/admin)
+"yp" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/admin)
+"yq" = (
+/obj/item/flag/nt,
+/turf/simulated/floor/plasteel,
+/area/centcom/evac)
+"yr" = (
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/plasteel,
+/area/centcom/evac)
+"ys" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss,
+/turf/simulated/floor/wood,
+/area/admin)
+"yv" = (
+/turf/simulated/floor/plating,
+/area/centcom/evac)
+"yw" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/trader_station/sol)
+"yx" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "browncorner"
+	},
+/area/trader_station/sol)
+"yy" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"yz" = (
+/obj/structure/chair/comfy/black{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"yA" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/wood,
+/area/admin)
+"yB" = (
+/obj/structure/table/wood,
+/obj/item/lighter/zippo/engraved,
+/obj/item/storage/fancy/cigarettes/dromedaryco,
+/turf/simulated/floor/wood,
+/area/admin)
+"yD" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "trade_sol_base";
+	name = "Docking Port"
+	},
+/turf/simulated/floor/plating,
+/area/trader_station/sol)
+"yE" = (
+/obj/machinery/door/poddoor{
+	id_tag = "nukeop_ready";
+	name = "Shuttle Dock Door"
+	},
+/turf/simulated/floor/plasteel,
+/area/syndicate_mothership)
+"yF" = (
+/turf/simulated/floor/plasteel,
+/area/trader_station/sol)
+"yG" = (
+/obj/machinery/door/airlock/external{
+	name = "Arrival Airlock"
+	},
+/turf/simulated/floor/plating,
+/area/centcom/evac)
+"yH" = (
+/obj/effect/decal/warning_stripes/northeastcorner,
+/turf/simulated/floor/plasteel,
+/area/centcom/evac)
+"yI" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
+/area/trader_station/sol)
+"yJ" = (
+/obj/machinery/computer/communications{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"yK" = (
+/obj/structure/chair/comfy/black,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"yM" = (
+/turf/simulated/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"yO" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "browncorner"
+	},
+/area/trader_station/sol)
+"yP" = (
+/obj/machinery/computer/atmos_alert{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"yQ" = (
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/centcom/evac)
+"yR" = (
+/obj/item/paper/monitorkey,
+/obj/machinery/computer/message_monitor{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"yS" = (
+/obj/machinery/computer/account_database{
+	dir = 1;
+	name = "Admin Accounts Database"
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"yT" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	req_access_txt = "106"
+	},
+/turf/simulated/floor/plating,
+/area/centcom/evac)
+"yU" = (
+/obj/machinery/computer/secure_data{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"yV" = (
+/obj/structure/table,
+/obj/machinery/door_control{
+	desc = "A remote control switch to lock down external access to the admin room.";
+	id = "ADMINLOCKDOWN";
+	name = "Lockdown"
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"yW" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/centcom/evac)
+"yX" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/centcom/evac)
+"yY" = (
+/obj/structure/table/reinforced,
+/obj/item/pen,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/centcom/evac)
+"yZ" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/centcom/evac)
+"za" = (
+/obj/structure/table,
+/obj/item/gun/projectile/automatic/pistol,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"zb" = (
+/obj/structure/table,
+/obj/item/storage/fancy/cigarettes/syndicate,
+/obj/item/reagent_containers/food/drinks/cans/adminbooze,
+/obj/item/reagent_containers/food/drinks/cans/badminbrew,
+/obj/item/reagent_containers/food/drinks/cans/madminmalt,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"zc" = (
+/obj/machinery/computer/arcade{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"zd" = (
+/obj/machinery/door/airlock/hatch{
+	desc = "Danger: May contain robustness";
+	name = "Dojo"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"ze" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Shuttle Bay"
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"zf" = (
+/obj/structure/showcase,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"zh" = (
+/obj/machinery/computer/card{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/centcom/evac)
+"zi" = (
+/obj/structure/table/holotable,
+/obj/item/clothing/gloves/boxing/hologlove{
+	icon_state = "boxinggreen";
+	item_state = "boxinggreen"
+	},
+/turf/simulated/floor/holofloor{
+	dir = 10;
+	icon_state = "green"
+	},
+/area/holodeck/source_boxingcourt)
+"zj" = (
+/obj/structure/chair/comfy/brown,
+/obj/effect/landmark{
+	name = "traderstart_sol"
+	},
+/turf/simulated/floor/plasteel,
+/area/trader_station/sol)
+"zk" = (
+/obj/structure/table/reinforced,
+/obj/item/clipboard,
+/obj/item/stamp/granted,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/centcom/evac)
+"zl" = (
+/obj/item/storage/toolbox/syndicate{
+	desc = "A powerful relic many men worked long and hard to keep safe and away from the forces of evil.";
+	force = 1e+008;
+	name = "toolbox of robustness"
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"zm" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/grenade/clusterbuster/smoke,
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"zr" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/centcom/evac)
+"zs" = (
+/obj/effect/spawner/lootdrop/trade_sol/largeitem,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
+"zt" = (
+/obj/structure/table/wood,
+/obj/item/dice/d20,
+/turf/simulated/floor/plasteel,
+/area/trader_station/sol)
+"zu" = (
+/obj/structure/chair/comfy/brown{
+	dir = 4
+	},
+/obj/effect/landmark{
+	name = "traderstart_sol"
+	},
+/turf/simulated/floor/plasteel,
+/area/trader_station/sol)
+"zv" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/obj/structure/table/wood,
+/obj/item/sleeping_carp_scroll,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"zw" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/structure/table/wood,
+/obj/item/twohanded/bostaff,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"zx" = (
+/obj/structure/table,
+/obj/item/storage/box/handcuffs,
+/obj/item/flash,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/centcom/evac)
+"zy" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/simulated/floor/plasteel,
+/area/trader_station/sol)
+"zz" = (
+/obj/structure/ninjatele{
+	pixel_x = -28
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"zA" = (
+/obj/structure/ninjatele{
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"zC" = (
+/obj/structure/chair/comfy/brown{
+	dir = 1
+	},
+/obj/effect/landmark{
+	name = "traderstart_sol"
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/trader_station/sol)
+"zH" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"zI" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"zJ" = (
+/obj/structure/bed,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"zK" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall/indestructible/syndicate,
+/area/admin)
+"zL" = (
+/obj/item/flag/syndi,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"zM" = (
+/obj/machinery/door/window{
+	dir = 1;
+	name = "Suit Storage"
+	},
+/turf/simulated/floor/engine,
+/area/admin)
+"zN" = (
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "commandcenter";
+	name = "Privacy Shutters"
+	},
+/turf/simulated/wall/indestructible/opsglass,
+/area/syndicate_mothership)
+"zO" = (
+/obj/structure/closet/secure_closet/personal/patient,
+/turf/simulated/floor/mineral/titanium,
+/area/centcom/evac)
+"zP" = (
+/obj/machinery/door/airlock{
+	name = "Toilet"
+	},
+/turf/simulated/floor/plasteel,
+/area/trader_station/sol)
+"zQ" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/centcom/evac)
+"zR" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"zS" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/trader_station/sol)
+"zU" = (
+/obj/machinery/door/window/southleft{
+	name = "Cell B";
+	req_access_txt = "101"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"zW" = (
+/turf/simulated/floor/mineral/titanium,
+/area/centcom/evac)
+"zY" = (
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"zZ" = (
+/obj/structure/urinal{
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/trader_station/sol)
+"Aa" = (
+/obj/item/mop,
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/trader_station/sol)
+"Ab" = (
+/obj/structure/mopbucket,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/soap,
+/turf/simulated/floor/plasteel/freezer,
+/area/trader_station/sol)
+"Ac" = (
+/obj/machinery/iv_drip,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"Ad" = (
+/obj/machinery/vending/medical,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"Ae" = (
+/obj/structure/chair,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"Ah" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/suit/straight_jacket,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"Ai" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/handcuffs,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"Aj" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/mask/muzzle,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"Al" = (
+/turf/simulated/floor/plasteel/freezer,
+/area/trader_station/sol)
+"Am" = (
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/trader_station/sol)
+"Ap" = (
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_elite)
+"As" = (
+/obj/machinery/door/airlock/hatch{
+	desc = "Uh oh. You'd better hope you aren't going in here!";
+	name = "Prisoner Treatment"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"At" = (
+/obj/machinery/door/airlock/hatch{
+	desc = "Uh oh. You'd better hope you aren't going in here!";
+	name = "Detainment"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"Av" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/obj/structure/window/reinforced/tinted{
+	dir = 1
+	},
+/obj/machinery/door/window{
+	dir = 8;
+	name = "Toilet";
+	opacity = 1
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/trader_station/sol)
+"Aw" = (
+/turf/simulated/wall/indestructible/syndicate,
+/area/centcom)
+"Ax" = (
+/obj/structure/window/reinforced,
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_elite)
+"Ay" = (
+/obj/structure/table/reinforced,
+/obj/item/melee/classic_baton/telescopic,
+/obj/item/paper/Court,
+/obj/item/pen,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"Az" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/mousetraps,
+/obj/item/storage/box/trackimp,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"AA" = (
+/obj/structure/table/reinforced,
+/obj/item/scalpel,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"AB" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/grenades,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"AC" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/flashbangs,
+/obj/item/storage/box/flashes,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"AD" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/teargas,
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"AE" = (
+/obj/machinery/door/window{
+	dir = 1;
+	name = "Cell A";
+	req_access_txt = "101"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"AF" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"AG" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
+"AI" = (
+/obj/machinery/door/airlock/hatch{
+	name = "Teleporter Access"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "ADMINLOCKDOWN";
+	name = "Security Doors";
+	opacity = 0
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"AJ" = (
+/obj/structure/rack,
+/obj/item/tank/jetpack/oxygen,
+/obj/item/tank/jetpack/oxygen,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"AK" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/space,
+/obj/item/clothing/suit/space,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/head/helmet/space,
+/obj/item/clothing/head/helmet/space,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"AL" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/space/hardsuit/syndi,
+/obj/item/clothing/suit/space/hardsuit/syndi/elite{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"AM" = (
+/obj/structure/table,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"AN" = (
+/obj/structure/table,
+/obj/item/hand_labeler,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"AO" = (
+/obj/structure/table,
+/obj/random/powercell,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"AP" = (
+/obj/structure/table,
+/obj/random/tool,
+/obj/random/bomb_supply,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"AQ" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"AR" = (
+/obj/structure/table,
+/obj/random/technology_scanner,
+/obj/random/tech_supply,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"AS" = (
+/obj/machinery/computer/teleporter{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
+"AT" = (
+/obj/structure/table,
+/obj/item/clothing/gloves/color/yellow,
+/obj/random/bomb_supply,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"AU" = (
+/obj/machinery/teleport/hub/upgraded{
+	admin_usage = 1
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"AV" = (
+/obj/machinery/teleport/station,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"AW" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/electrical,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"AX" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "commandcenter"
+	},
+/obj/machinery/door/airlock/hatch/syndicate/command,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"AY" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/machinery/pdapainter,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"AZ" = (
+/obj/structure/table,
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/item/storage/backpack/satchel,
+/obj/item/storage/backpack/satchel,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Ba" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/machinery/vending/tool,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Bb" = (
+/obj/machinery/computer/crew{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"Bc" = (
+/obj/machinery/computer/communications{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"Bd" = (
+/obj/machinery/vending/coffee/free,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Be" = (
+/obj/structure/table,
+/obj/item/storage/backpack/industrial,
+/obj/item/storage/backpack/industrial,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Bf" = (
+/obj/structure/table,
+/obj/item/radio,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"Bg" = (
+/obj/structure/table/wood,
+/obj/item/syndicatedetonator,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Bh" = (
+/obj/structure/table,
+/obj/item/storage/backpack/medic,
+/obj/item/storage/backpack/medic,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Bi" = (
+/obj/structure/table,
+/obj/item/stamp/captain,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"Bj" = (
+/obj/machinery/computer{
+	dir = 1;
+	name = "EMERGENCY SHUTTLE COMPUTER"
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"Bk" = (
+/obj/structure/table,
+/obj/item/clipboard,
+/obj/item/pen,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"Bl" = (
+/obj/structure/table,
+/obj/item/paper_bin,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"Bm" = (
+/obj/structure/table,
+/obj/item/storage/backpack/science,
+/obj/item/storage/backpack/science,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Bn" = (
+/obj/machinery/door/airlock/hatch/syndicate,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/syndicate_mothership)
+"Bo" = (
+/obj/structure/table/wood,
+/obj/item/radio/intercom/syndicate,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Bp" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Br" = (
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Bt" = (
+/obj/structure/chair/comfy/red{
+	dir = 1
+	},
+/obj/effect/landmark{
+	name = "Syndicate Officer"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Bu" = (
+/obj/structure/table/wood,
+/obj/machinery/door_control{
+	id = "commandcenter";
+	name = "Privacy Shutters";
+	req_access_txt = "153"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Bv" = (
+/obj/machinery/computer/camera_advanced{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Bw" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Bx" = (
+/obj/structure/chair/stool,
+/obj/effect/landmark{
+	name = "Syndicate-Commando";
+	tag = "Commando"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"By" = (
+/obj/machinery/computer/shuttle/syndicate{
+	dir = 1;
+	name = "Nuclear Operatives Shuttle Console"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Bz" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "nukeop_base";
+	name = "Nuclear Base Access";
+	pixel_x = -6;
+	pixel_y = 6;
+	req_access_txt = "153"
+	},
+/obj/machinery/door_control{
+	id = "nukeop_ready";
+	name = "Nuclear Shuttle Access";
+	pixel_x = 6;
+	pixel_y = 6;
+	req_access_txt = "153"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BA" = (
+/obj/structure/displaycase/stechkin,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BB" = (
+/obj/structure/closet/secure_closet/syndicate_officer,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BC" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "sst_mechbay";
+	name = "Mech Bay"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BD" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Holding Cell"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BE" = (
+/obj/structure/rack,
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
+/obj/item/gun/projectile/automatic/shotgun/bulldog,
+/obj/item/gun/projectile/automatic/shotgun/bulldog,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BF" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "sst_armory";
+	name = "Armory"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BG" = (
+/obj/mecha/combat/gygax/dark/loaded,
+/obj/effect/decal/warning_stripes/red/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BH" = (
+/obj/structure/rack,
+/obj/item/ammo_box/magazine/smgm45,
+/obj/item/ammo_box/magazine/smgm45,
+/obj/item/ammo_box/magazine/smgm45,
+/obj/item/ammo_box/magazine/smgm45,
+/obj/item/ammo_box/magazine/smgm45,
+/obj/item/ammo_box/magazine/smgm45,
+/obj/item/ammo_box/magazine/smgm45,
+/obj/item/ammo_box/magazine/smgm45,
+/obj/item/gun/projectile/automatic/c20r,
+/obj/item/gun/projectile/automatic/c20r,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BI" = (
+/obj/structure/rack,
+/obj/item/ammo_box/magazine/sniper_rounds,
+/obj/item/ammo_box/magazine/sniper_rounds,
+/obj/item/ammo_box/magazine/sniper_rounds/penetrator,
+/obj/item/ammo_box/magazine/sniper_rounds/haemorrhage,
+/obj/item/gun/projectile/automatic/sniper_rifle/syndicate,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BJ" = (
+/obj/structure/rack,
+/obj/item/gun/medbeam,
+/obj/item/clothing/glasses/hud/health/night,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BK" = (
+/obj/structure/rack,
+/obj/item/ammo_casing/rocket,
+/obj/item/ammo_casing/rocket,
+/obj/item/ammo_casing/rocket,
+/obj/item/ammo_casing/rocket,
+/obj/item/ammo_casing/rocket,
+/obj/item/gun/rocketlauncher,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BL" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BM" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "SIT Ready Room"
+	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "sit_ready"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BN" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "SST Ready Room"
+	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "sst_ready"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BO" = (
+/obj/machinery/bluespace_beacon/syndicate/infiltrator,
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BQ" = (
+/obj/machinery/mech_bay_recharge_port/upgraded/unsimulated,
+/turf/simulated/floor/plating,
+/area/syndicate_mothership)
+"BR" = (
+/obj/machinery/mech_bay_recharge_port/upgraded/unsimulated,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"BS" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BT" = (
+/obj/machinery/door/window/northleft{
+	name = "cell door";
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BU" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/computer/arcade/orion_trail,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BV" = (
+/obj/structure/chair,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BW" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BX" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/pen/red,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BY" = (
+/obj/structure/bed,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"BZ" = (
+/obj/structure/closet/secure_closet{
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Ca" = (
+/obj/machinery/door/window/northleft{
+	name = "Out";
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Cb" = (
+/obj/machinery/door/window/northright{
+	name = "In";
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Cc" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "nukeop_base"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Cd" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1331;
+	icon_state = "door_locked";
+	id_tag = "synd_outer";
+	name = "Ship External Access";
+	req_access = null;
+	req_access_txt = "150"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "smindicate";
+	name = "Outer Airlock";
+	opacity = 0
+	},
+/obj/machinery/door_control{
+	id = "smindicate";
+	name = "External Door Control";
+	pixel_x = -26;
+	pixel_y = -2;
+	req_access_txt = "150"
+	},
+/obj/docking_port/mobile{
+	dheight = 9;
+	dir = 2;
+	dwidth = 5;
+	height = 22;
+	id = "syndicate";
+	name = "syndicate infiltrator";
+	roundstart_move = null;
+	width = 18
+	},
+/obj/docking_port/stationary{
+	area_type = /area/syndicate_mothership;
+	dheight = 9;
+	dir = 2;
+	dwidth = 5;
+	height = 22;
+	id = "syndicate_away";
+	name = "syndicate base";
+	turf_type = /turf/simulated/floor/plating/asteroid/snow/airless;
+	width = 18
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/syndicate)
+"Cf" = (
+/obj/structure/kitchenspike,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"Ch" = (
+/obj/structure/table,
+/obj/item/storage/box/chemimp{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/storage/box/trackimp,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Cl" = (
+/obj/structure/table,
+/obj/item/assembly/prox_sensor{
+	pixel_x = -8;
+	pixel_y = 4
+	},
+/obj/item/assembly/prox_sensor{
+	pixel_x = -8;
+	pixel_y = 4
+	},
+/obj/item/assembly/signaler,
+/obj/item/assembly/signaler,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Cm" = (
+/obj/structure/table/holotable,
+/turf/simulated/floor/holofloor{
+	dir = 5;
+	icon_state = "red"
+	},
+/area/holodeck/source_thunderdomecourt)
+"Cz" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
+/area/shuttle/escape)
+"CD" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"CF" = (
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon_state = "blue"
+	},
+/area/holodeck/source_knightarena)
+"CG" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/drinkingglasses,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"CH" = (
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/shuttle/escape)
+"CO" = (
+/obj/machinery/door/window{
+	base_state = "right";
+	icon_state = "right";
+	name = "Equipment Room";
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"CR" = (
+/turf/simulated/floor/holofloor{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/holodeck/source_boxingcourt)
+"CV" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/gloves/color/latex/nitrile,
+/obj/item/clothing/mask/breath,
+/turf/simulated/floor/plasteel{
+	icon_state = "cmo"
+	},
+/area/shuttle/escape)
+"De" = (
+/obj/effect/landmark{
+	name = "Nuclear-Bomb"
+	},
+/obj/machinery/light/spot,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Dg" = (
+/obj/structure/computerframe,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Dk" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "browncorner"
+	},
+/area/shuttle/escape)
+"Dl" = (
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Medbay";
+	opacity = 1;
+	req_access_txt = "101"
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"Dp" = (
+/obj/structure/table/holotable,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/clothing/suit/armor/tdome/red,
+/obj/item/clothing/under/color/red,
+/obj/item/holo/esword/red,
+/turf/simulated/floor/holofloor{
+	dir = 1;
+	icon_state = "red"
+	},
+/area/holodeck/source_thunderdomecourt)
+"Dr" = (
+/obj/machinery/teleport/station,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Du" = (
+/obj/machinery/door_control{
+	id = "adminshuttleblast";
+	name = "blast door control";
+	pixel_x = -30;
+	req_access_txt = "101"
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Dv" = (
+/turf/space,
+/area/admin)
+"Dx" = (
+/obj/structure/extinguisher_cabinet,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/escape)
+"Dy" = (
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Workshop";
+	opacity = 1;
+	req_access_txt = "101"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Dz" = (
+/obj/structure/closet/syndicate/nuclear,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"DB" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"DC" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"DF" = (
+/obj/structure/table,
+/obj/item/bonegel,
+/obj/item/bonesetter,
+/obj/item/hemostat,
+/obj/item/cautery,
+/obj/item/surgicaldrill,
+/obj/item/circular_saw,
+/obj/item/scalpel,
+/obj/item/retractor,
+/obj/item/FixOVein,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"DG" = (
+/obj/machinery/embedded_controller/radio/airlock/access_controller{
+	frequency = 1441;
+	id_tag = "syndicate_jail_airlock_control";
+	name = "Syndicate Jail Access Controller";
+	pixel_y = 24;
+	req_access_txt = "150";
+	tag_exterior_door = "syndicate_jail_airlock_external";
+	tag_interior_door = "syndicate_jail_airlock_internal"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"DH" = (
+/obj/machinery/sleeper{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cmo"
+	},
+/area/shuttle/escape)
+"DI" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "propulsion_r"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/administration)
+"DK" = (
+/obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor/east{
+	id = "QMLoad2"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/supply)
+"DP" = (
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/trade_sol/donksoft,
+/obj/structure/closet,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
+"DW" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/escape)
+"DX" = (
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/admin)
+"DY" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Torture Room"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"Ea" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 28
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whiteblue"
+	},
+/area/shuttle/escape)
+"Ef" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/shuttle/escape)
+"Eh" = (
+/obj/machinery/light,
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/escape)
+"Ei" = (
+/obj/structure/holohoop{
+	dir = 1
+	},
+/turf/simulated/floor/holofloor{
+	icon_state = "green"
+	},
+/area/holodeck/source_basketball)
+"Eo" = (
+/obj/machinery/chem_master,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"Es" = (
+/obj/machinery/iv_drip,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Et" = (
+/obj/structure/shuttle/engine/propulsion{
+	icon_state = "propulsion_r"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate)
+"Ew" = (
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon_state = "carpet2-0"
+	},
+/area/holodeck/source_theatre)
+"Ex" = (
+/obj/structure/shuttle/engine/propulsion{
+	icon_state = "burst_r"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/supply)
+"Ez" = (
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon_state = "carpet8-0"
+	},
+/area/holodeck/source_meetinghall)
+"EA" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/soda,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"ED" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"EE" = (
+/obj/structure/closet/crate/internals,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"EF" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	icon_state = "propulsion_r"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_sit)
+"EG" = (
+/obj/machinery/computer/cloning,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"EI" = (
+/obj/structure/dispenser,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"EK" = (
+/obj/item/radio/intercom/syndicate{
+	pixel_x = -28
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"EL" = (
+/obj/machinery/sleeper/syndie,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_elite)
+"EM" = (
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = -28
+	},
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"EP" = (
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "synd_airlock";
+	pixel_x = 25;
+	req_access_txt = "150";
+	tag_airpump = "synd_pump";
+	tag_chamber_sensor = "synd_sensor";
+	tag_exterior_door = "synd_outer";
+	tag_interior_door = "synd_inner"
+	},
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "synd_sensor";
+	pixel_x = 25;
+	pixel_y = 12;
+	req_access_txt = "150"
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"ET" = (
+/obj/structure/closet/crate,
+/obj/machinery/light/spot,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/transport)
+"EU" = (
+/obj/structure/table,
+/obj/item/stack/cable_coil,
+/obj/item/crowbar/red,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"EV" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"EX" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"EY" = (
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "soltradeship_south";
+	name = "Security Doors";
+	opacity = 0
+	},
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "soltrader_south";
+	name = "trader shuttle airlock";
+	req_access_txt = "160";
+	security_level = 6
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/trade/sol)
+"Fb" = (
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "adminshuttleblast";
+	name = "Blast Doors";
+	req_access_txt = "101"
+	},
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "General Access";
+	opacity = 1;
+	req_access_txt = "101"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Fc" = (
+/obj/machinery/door/window{
+	name = "Equipment Room";
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Fd" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/escape)
+"Fe" = (
+/obj/structure/table/holotable,
+/turf/simulated/floor/holofloor{
+	dir = 10;
+	icon_state = "blue"
+	},
+/area/holodeck/source_knightarena)
+"Fg" = (
+/obj/machinery/flasher{
+	id = "soltraderflash";
+	pixel_y = -28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/trade/sol)
+"Fk" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"Fn" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle{
+	icon_state = "17"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"Fo" = (
+/obj/structure/closet/crate/internals,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Fp" = (
+/obj/machinery/door/airlock/titanium{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"Ft" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "burst_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/specops)
+"Fx" = (
+/obj/structure/table/holotable,
+/turf/simulated/floor/holofloor{
+	dir = 5;
+	icon_state = "red"
+	},
+/area/holodeck/source_knightarena)
+"Fy" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"FA" = (
+/obj/machinery/chem_dispenser,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"FF" = (
+/obj/structure/table/holotable,
+/turf/simulated/floor/holofloor{
+	dir = 10;
+	icon_state = "green"
+	},
+/area/holodeck/source_thunderdomecourt)
+"FG" = (
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/supply)
+"FJ" = (
+/obj/machinery/computer/secure_data{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkred"
+	},
+/area/shuttle/escape)
+"FL" = (
+/turf/simulated/wall/indestructible/syndicate,
+/area/adminconstruction)
+"FM" = (
+/obj/machinery/light,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"FP" = (
+/obj/structure/table,
+/obj/item/screwdriver{
+	pixel_y = 9
+	},
+/obj/item/assembly/voice{
+	pixel_y = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"FR" = (
+/obj/machinery/door/window/northright{
+	name = "bar"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"FZ" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/shuttle/escape)
+"Ga" = (
+/obj/machinery/computer/shuttle/ert{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"Gd" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/shuttle/engine/heater,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/supply)
+"Ge" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Gf" = (
+/obj/machinery/computer/communications,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/shuttle/escape)
+"Gg" = (
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid11"
+	},
+/area/holodeck/source_desert)
+"Gn" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "burst_r"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/specops)
+"Gs" = (
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "synd_airlock";
+	name = "interior access button";
+	pixel_x = 25;
+	pixel_y = 25
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Gu" = (
+/obj/structure/bed,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"Gv" = (
+/obj/item/stack/sheet/metal,
+/obj/structure/table,
+/obj/item/stack/sheet/glass{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Gy" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/shuttle/escape)
+"GA" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/syndicate_sit)
+"GD" = (
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sst{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_elite)
+"GJ" = (
+/obj/effect/spawner/lootdrop/trade_sol/civ,
+/obj/structure/closet,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
+"GL" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/reagent_containers/food/drinks/mug/med,
+/turf/simulated/floor/plasteel{
+	icon_state = "cmo"
+	},
+/area/shuttle/escape)
+"GU" = (
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"GX" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"GY" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"GZ" = (
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the Special Ops team.";
+	name = "Spec Ops Monitor";
+	network = list("ERT");
+	pixel_y = 30
+	},
+/obj/machinery/computer/shuttle/ert,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/specops)
+"Ha" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Hb" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/admin)
+"He" = (
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/transport)
+"Hf" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"Hg" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/space/space_ninja,
+/turf/simulated/floor/engine,
+/area/admin)
+"Hh" = (
+/turf/simulated/floor/engine,
+/area/admin)
+"Hi" = (
+/obj/structure/rack,
+/obj/item/clothing/head/helmet/space/space_ninja,
+/turf/simulated/floor/engine,
+/area/admin)
+"Hj" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/tdome)
+"Hk" = (
+/obj/machinery/door_control{
+	id = "adminshuttleblast";
+	name = "blast door control";
+	pixel_x = -30;
+	req_access_txt = "101"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Ho" = (
+/obj/machinery/teleport/hub/upgraded,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Hp" = (
+/turf/simulated/floor/holofloor{
+	icon_state = "rampbottom"
+	},
+/area/holodeck/source_theatre)
+"Hq" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/shuttle/escape)
+"Hr" = (
+/turf/simulated/wall/indestructible/syndicate,
+/area/syndicate_mothership/jail)
+"Hu" = (
+/obj/structure/rack,
+/obj/item/clothing/gloves/space_ninja,
+/turf/simulated/floor/engine,
+/area/admin)
+"Hv" = (
+/obj/structure/rack,
+/obj/item/katana/energy,
+/obj/item/clothing/mask/gas/space_ninja,
+/turf/simulated/floor/engine,
+/area/admin)
+"Hw" = (
+/obj/structure/rack,
+/obj/item/clothing/shoes/space_ninja,
+/turf/simulated/floor/engine,
+/area/admin)
+"Hx" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_elite)
+"Hy" = (
+/turf/simulated/floor/plasteel/white,
+/area/tdome)
+"Hz" = (
+/obj/machinery/gibber,
+/turf/simulated/floor/plasteel/white,
+/area/tdome)
+"HG" = (
+/obj/structure/table,
+/obj/item/weldingtool/largetank,
+/obj/item/multitool,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"HH" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"HJ" = (
+/obj/structure/table/holotable,
+/obj/item/clothing/suit/armor/riot/knight/red,
+/obj/item/clothing/head/helmet/riot/knight/red,
+/obj/item/holo/claymore/red,
+/turf/simulated/floor/holofloor{
+	dir = 1;
+	icon_state = "red"
+	},
+/area/holodeck/source_knightarena)
+"HM" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/syndicate)
+"HN" = (
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"HP" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Escape Shuttle Cell";
+	req_access_txt = "63"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"HR" = (
+/obj/structure/closet/secure_closet/freezer/meat{
+	req_access_txt = "112"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/tdome)
+"HS" = (
+/obj/structure/closet/secure_closet/freezer/fridge{
+	req_access_txt = "112"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/tdome)
+"HU" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"HW" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/supply)
+"HY" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave/upgraded,
+/turf/simulated/floor/plasteel/white,
+/area/tdome)
+"HZ" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel/white,
+/area/tdome)
+"Ic" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"Id" = (
+/obj/effect/spawner/lootdrop/trade_sol/med,
+/obj/structure/closet,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
+"Ii" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/brown,
+/obj/item/clothing/suit/armor/tdome/red,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/melee/energy/sword/saber/red,
+/turf/simulated/floor/plasteel/dark,
+/area/tdome/arena)
+"Ij" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"Ik" = (
+/turf/simulated/floor/plating,
+/area/tdome/tdome2)
+"Il" = (
+/obj/item/radio/intercom/specops{
+	pixel_y = -28
+	},
+/obj/machinery/computer/communications{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/specops)
+"Io" = (
+/turf/simulated/floor/plating,
+/area/tdome/tdome1)
+"Ip" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/green,
+/obj/item/clothing/shoes/brown,
+/obj/item/clothing/suit/armor/tdome/green,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/melee/energy/sword/saber/green,
+/turf/simulated/floor/plasteel/dark,
+/area/tdome/arena)
+"Ir" = (
+/obj/effect/landmark{
+	name = "tdome2"
+	},
+/turf/simulated/floor/plating,
+/area/tdome/tdome2)
+"Is" = (
+/obj/effect/landmark{
+	name = "tdome1"
+	},
+/turf/simulated/floor/plating,
+/area/tdome/tdome1)
+"Iz" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"IA" = (
+/obj/structure/table/wood,
+/obj/machinery/door_control{
+	id = "syndicate_jail_cell";
+	name = "Bolt Cell Doors";
+	normaldoorcontrol = 1;
+	pixel_x = 6;
+	req_access_txt = "150";
+	specialfunctions = 4
+	},
+/obj/machinery/door_control{
+	id = "syndicate_jail";
+	name = "Bolt Jail Door";
+	normaldoorcontrol = 1;
+	pixel_x = -5;
+	req_access_txt = "150";
+	specialfunctions = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"IE" = (
+/obj/structure/holowindow{
+	dir = 1
+	},
+/turf/simulated/floor/holofloor{
+	icon_state = "asteroid7"
+	},
+/area/holodeck/source_knightarena)
+"IF" = (
+/obj/machinery/vending/boozeomat,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"IH" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/o2{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteblue"
+	},
+/area/shuttle/escape)
+"II" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Living Quarters";
+	opacity = 1;
+	req_access_txt = "102"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/centcom/control)
+"IK" = (
+/obj/structure/table/holotable,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/clothing/suit/armor/tdome/green,
+/obj/item/clothing/under/color/green,
+/obj/item/holo/esword/green,
+/turf/simulated/floor/holofloor{
+	icon_state = "green"
+	},
+/area/holodeck/source_thunderdomecourt)
+"IO" = (
+/obj/structure/table,
+/obj/item/grenade/syndieminibomb{
+	pixel_x = 4;
+	pixel_y = 2
+	},
+/obj/item/grenade/syndieminibomb{
+	pixel_x = -1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"IP" = (
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"IR" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "browncorner"
+	},
+/area/shuttle/escape)
+"IS" = (
+/turf/simulated/floor/plasteel,
+/area/tdome/tdomeadmin)
+"IU" = (
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon_state = "carpet10-8"
+	},
+/area/holodeck/source_theatre)
+"IV" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"IW" = (
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 /obj/structure/table/glass,
 /obj/item/storage/backpack/duffel/syndie/med/surgery_fake,
 /obj/item/circular_saw,
@@ -5721,6 +9157,7 @@
 /obj/item/clothing/gloves/color/latex/nitrile,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+<<<<<<< HEAD
 "um" = (
 /obj/machinery/iv_drip,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -5740,6 +9177,988 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "uo" = (
+=======
+"IZ" = (
+/obj/structure/table,
+/obj/item/storage/lockbox/mindshield,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Jb" = (
+/obj/item/radio/intercom{
+	dir = 4;
+	name = "Station Intercom (General)";
+	pixel_x = 29;
+	pixel_y = -60
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/escape)
+"Jg" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/trade/sol)
+"Ji" = (
+/obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor/west{
+	id = "QMLoad"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/supply)
+"Jn" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Jo" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "redcorner"
+	},
+/area/shuttle/escape)
+"Jr" = (
+/obj/machinery/atmospherics/pipe/manifold4w/hidden,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Jw" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"Jx" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "cmo"
+	},
+/area/shuttle/escape)
+"JC" = (
+/obj/structure/chair/stool,
+/obj/item/clothing/head/bandana{
+	pixel_y = -10
+	},
+/obj/item/clothing/glasses/sunglasses,
+/turf/simulated/floor/beach/away/sand,
+/area/ninja/holding)
+"JD" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/beach/away/sand,
+/area/ninja/holding)
+"JH" = (
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sit{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_sit)
+"JM" = (
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Bridge";
+	opacity = 1;
+	req_access_txt = "101"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"JO" = (
+/obj/machinery/computer/security{
+	dir = 1;
+	network = list("SS13","Research Outpost","Mining Outpost")
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/specops)
+"JU" = (
+/obj/structure/holowindow{
+	dir = 1
+	},
+/turf/simulated/floor/holofloor{
+	dir = 8;
+	icon_state = "blue"
+	},
+/area/holodeck/source_knightarena)
+"JV" = (
+/obj/machinery/computer/camera_advanced/shuttle_docker/ert,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/specops)
+"Kb" = (
+/obj/machinery/light/spot,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/trade/sol)
+"Kc" = (
+/obj/machinery/bodyscanner,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Kd" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/shuttle/escape)
+"Kp" = (
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/trade/sol)
+"Kr" = (
+/obj/structure/table,
+/obj/item/aicard,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Ku" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/beer,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Kw" = (
+/obj/structure/table,
+/obj/machinery/recharger,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Kx" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"Ky" = (
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	icon_state = "open";
+	id_tag = "adminshuttleshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"KA" = (
+/obj/structure/chair/sofa/left,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/escape)
+"KB" = (
+/obj/structure/table/wood,
+/obj/machinery/kitchen_machine/microwave,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"KF" = (
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = -28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"KJ" = (
+/obj/effect/spawner/lootdrop/trade_sol/minerals,
+/obj/structure/closet,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
+"KK" = (
+/obj/machinery/tcomms/relay/cc,
+/turf/simulated/floor/plasteel,
+/area/centcom/control)
+"KL" = (
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"KM" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_elite)
+"KN" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 4;
+	pixel_y = 32
+	},
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/specops)
+"KQ" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_elite)
+"KR" = (
+/obj/machinery/light/small,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/assault_pod)
+"KS" = (
+/obj/item/storage/toolbox/mechanical,
+/obj/item/multitool,
+/obj/structure/table,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"KW" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/assault_pod)
+"KX" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/assault_pod)
+"KY" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/assault_pod)
+"KZ" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/transport)
+"Lb" = (
+/obj/item/radio/intercom/syndicate{
+	pixel_y = -28
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Lc" = (
+/obj/structure/computerframe,
+/obj/item/paper/synditele,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Ld" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Lf" = (
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid8"
+	},
+/area/holodeck/source_desert)
+"Li" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Lj" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Ll" = (
+/turf/simulated/floor/holofloor{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/holodeck/source_emptycourt)
+"Ln" = (
+/obj/machinery/door/airlock/titanium/glass{
+	name = "trader shuttle airlock";
+	req_access_txt = "160";
+	security_level = 6
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/trade/sol)
+"Lp" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
+	},
+/area/shuttle/escape)
+"Lt" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/specops)
+"Lx" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	icon_state = "propulsion_r"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_elite)
+"Lz" = (
+/obj/structure/holowindow{
+	dir = 1
+	},
+/turf/simulated/floor/holofloor{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/holodeck/source_thunderdomecourt)
+"LB" = (
+/obj/structure/table,
+/obj/item/storage/box/handcuffs,
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"LD" = (
+/obj/structure/table,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"LF" = (
+/obj/machinery/door/window/brigdoor/westleft{
+	color = "#d70000";
+	req_access_txt = "104"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"LG" = (
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon_state = "carpet1-0"
+	},
+/area/holodeck/source_theatre)
+"LH" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/backpack/medic,
+/obj/item/storage/belt/medical,
+/turf/simulated/floor/plasteel{
+	icon_state = "cmo"
+	},
+/area/shuttle/escape)
+"LL" = (
+/obj/structure/holowindow,
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon_state = "red"
+	},
+/area/holodeck/source_knightarena)
+"LN" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_x = -24
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma/space)
+"LO" = (
+/obj/machinery/autolathe/upgraded{
+	hacked = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"LR" = (
+/obj/machinery/computer/emergency_shuttle,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/shuttle/escape)
+"LZ" = (
+/obj/mecha/combat/marauder/seraph/loaded,
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"Mc" = (
+/obj/structure/closet/crate/medical,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/o2{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/item/storage/firstaid/toxin{
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"Mi" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_sit)
+"Mo" = (
+/obj/structure/table,
+/obj/item/circular_saw,
+/obj/item/surgicaldrill{
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"Mq" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Airlock";
+	req_access_txt = "150"
+	},
+/obj/machinery/door_control{
+	id = "syndicate_elite";
+	name = "Blast Doors";
+	pixel_x = -25;
+	req_access_txt = "150"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "syndicate_elite";
+	name = "Front Hull Door";
+	opacity = 0;
+	req_access_txt = "150"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/shuttle/syndicate_elite)
+"Mt" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	req_access_txt = "109"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/shuttle/specops)
+"Mu" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/syndicate)
+"My" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/shuttle/escape)
+"Mz" = (
+/obj/structure/table,
+/obj/item/stack/sheet/metal,
+/obj/item/clothing/glasses/welding,
+/obj/item/weldingtool,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_sit)
+"MB" = (
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/trade/sol)
+"ME" = (
+/obj/structure/chair/stool/bar,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"MF" = (
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Holding Cell";
+	opacity = 1;
+	req_access_txt = "104"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"MG" = (
+/obj/effect/landmark{
+	name = "syndieprisonwarp"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"MH" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate)
+"MI" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"MP" = (
+/obj/machinery/door/airlock/titanium/glass{
+	name = "Shuttle Cargo Hatch"
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"MR" = (
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid1"
+	},
+/area/holodeck/source_desert)
+"MT" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blue"
+	},
+/area/shuttle/escape)
+"MV" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"MZ" = (
+/obj/machinery/light/spot,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/transport)
+"Nb" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_sit)
+"Nd" = (
+/turf/simulated/wall/indestructible/rock/snow,
+/area/syndicate_mothership)
+"Ng" = (
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Nl" = (
+/obj/machinery/clonepod/upgraded,
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"Nn" = (
+/obj/machinery/computer/crew,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/shuttle/escape)
+"Nr" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Nv" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"Nx" = (
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/fernybush,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/grass,
+/area/shuttle/escape)
+"Ny" = (
+/obj/machinery/optable,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"Nz" = (
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/plating/airless,
+/area/centcom/control)
+"NA" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/shuttle/escape)
+"NC" = (
+/obj/item/ashtray/glass,
+/obj/structure/table,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"ND" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
+/area/shuttle/escape)
+"NF" = (
+/obj/machinery/bsa/full/admin/east,
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plating/airless,
+/area/centcom/control)
+"NG" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/landmark{
+	name = "syndieprisonwarp"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"NI" = (
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plating/airless,
+/area/centcom/control)
+"NJ" = (
+/obj/effect/decal/warning_stripes/northeast,
+/turf/simulated/floor/plating/airless,
+/area/centcom/control)
+"NL" = (
+/obj/machinery/porta_turret/syndicate{
+	dir = 9
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/syndicate)
+"NM" = (
+/obj/structure/table,
+/obj/item/storage/box/syndidonkpockets,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"NP" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/specops)
+"NW" = (
+/turf/simulated/wall/indestructible/opsglass,
+/area/syndicate_mothership/jail)
+"NY" = (
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/transport)
+"NZ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Oe" = (
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"Of" = (
+/obj/machinery/door/airlock/titanium/glass{
+	name = "Emergency Airlock Access";
+	req_access_txt = "63"
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"Oh" = (
+/obj/effect/decal/warning_stripes/southwest,
+/turf/simulated/floor/plating/airless,
+/area/centcom/control)
+"Oj" = (
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Ok" = (
+/obj/structure/closet/crate,
+/obj/item/storage/toolbox/emergency,
+/obj/item/storage/toolbox/emergency,
+/obj/item/flashlight/flare,
+/obj/item/flashlight/flare,
+/obj/item/crowbar,
+/obj/item/wrench,
+/obj/item/radio,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"Ol" = (
+/obj/structure/holohoop,
+/turf/simulated/floor/holofloor{
+	dir = 1;
+	icon_state = "red"
+	},
+/area/holodeck/source_basketball)
+"Om" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	autoclose = 0;
+	frequency = 1441;
+	id_tag = "syndicate_jail_airlock_internal";
+	locked = 1;
+	name = "Syndicate Jail Internal Airlock"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"Oq" = (
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plating/airless,
+/area/centcom/control)
+"Or" = (
+/obj/effect/decal/warning_stripes/southeast,
+/turf/simulated/floor/plating/airless,
+/area/centcom/control)
+"Ot" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	autoclose = 0;
+	frequency = 1441;
+	id_tag = "syndicate_jail_airlock_external";
+	locked = 1;
+	name = "Syndicate Jail External Airlock"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"Ov" = (
+/obj/structure/kitchenspike,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"Ow" = (
+/obj/machinery/iv_drip,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"Oy" = (
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = null;
+	name = "Escape Shuttle Infirmary"
+	},
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"Oz" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"OA" = (
+/obj/structure/table,
+/obj/item/storage/firstaid,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"OE" = (
+/obj/structure/closet/syndicate/personal,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"OF" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "burst_r"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"OJ" = (
+/obj/machinery/light,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/escape)
+"OP" = (
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/arrow{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"OQ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_elite)
+"OT" = (
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid2"
+	},
+/area/holodeck/source_desert)
+"OZ" = (
+/obj/machinery/light/spot,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/supply)
+"Pg" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -28
+	},
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"Ph" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_sit)
+"Pj" = (
+/obj/machinery/kitchen_machine/microwave/upgraded,
+/obj/structure/table,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Pl" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/machinery/suit_storage_unit/syndicate/secure,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Pn" = (
+/obj/mecha/combat/marauder/loaded,
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"Pq" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "redcorner"
+	},
+/area/shuttle/escape)
+"Pr" = (
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"Px" = (
+/obj/machinery/door/airlock/public/glass,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"PD" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"PE" = (
+/obj/structure/table,
+/obj/item/stack/sheet/glass{
+	amount = 10
+	},
+/obj/item/multitool,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"PJ" = (
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plating,
+/area/centcom/specops)
+"PM" = (
+/obj/machinery/status_display,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/escape)
+"PN" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	req_access_txt = "101"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"PO" = (
+/obj/structure/table,
+/obj/item/stock_parts/cell/high{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/stock_parts/cell/high,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"PS" = (
+/obj/effect/spawner/lootdrop/trade_sol/eng,
+/obj/structure/closet,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
+"PT" = (
+/obj/structure/closet/crate/engineering,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/storage/toolbox/emergency,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"PU" = (
+/obj/machinery/computer/shuttle/sit{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_sit)
+"PX" = (
+/obj/item/radio/intercom{
+	dir = 4;
+	name = "Station Intercom (General)";
+	pixel_x = 29;
+	pixel_y = -30
+	},
+/obj/structure/bed/roller,
+/turf/simulated/floor/plasteel{
+	icon_state = "cmo"
+	},
+/area/shuttle/escape)
+"Qa" = (
+/obj/machinery/mech_bay_recharge_port,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"Qe" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	icon_state = "propulsion_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_elite)
+"Qf" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_elite)
+"Qm" = (
+/obj/machinery/door/window{
+	dir = 8;
+	name = "Tool Storage";
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Qr" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/administration)
+"Qt" = (
+/obj/machinery/poolcontroller/invisible,
+/turf/simulated/floor/beach/away/water,
+/area/ninja/holding)
+"Qu" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"Qv" = (
+/obj/machinery/door/window/westleft,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"Qw" = (
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 /obj/structure/table,
 /obj/item/reagent_containers/syringe/charcoal,
 /obj/item/reagent_containers/syringe/charcoal{
@@ -5754,7 +10173,516 @@
 /obj/item/storage/box/syndie_kit/bonerepair,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+<<<<<<< HEAD
 "up" = (
+=======
+"Qy" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_sit)
+"QB" = (
+/obj/structure/table/holotable,
+/obj/item/clothing/gloves/boxing/hologlove,
+/turf/simulated/floor/holofloor{
+	dir = 5;
+	icon_state = "red"
+	},
+/area/holodeck/source_boxingcourt)
+"QD" = (
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = null;
+	name = "Escape Shuttle Infirmary"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/shuttle/escape)
+"QE" = (
+/obj/structure/chair/sofa/right,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/escape)
+"QG" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/shuttle/escape)
+"QH" = (
+/obj/structure/reagent_dispensers/fueltank/chem{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"QI" = (
+/obj/structure/chair/sofa,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/escape)
+"QK" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/specops)
+"QL" = (
+/obj/structure/table,
+/obj/item/kitchen/knife/butcher,
+/obj/item/melee/baseball_bat,
+/obj/item/clothing/mask/muzzle{
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"QQ" = (
+/turf/simulated/floor/holofloor{
+	icon = 'icons/turf/floors/plating.dmi';
+	icon_state = "asteroid6"
+	},
+/area/holodeck/source_desert)
+"QR" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	frequency = 1331;
+	id_tag = "synd_pump"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"QT" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/holofloor/grass,
+/area/holodeck/source_picnicarea)
+"QU" = (
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "syndieshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/shuttle/syndicate)
+"QV" = (
+/obj/item/clothing/under/rainbow,
+/obj/item/clothing/glasses/sunglasses_fake,
+/turf/simulated/floor/beach/sand,
+/area/holodeck/source_beach)
+"Rb" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"Rc" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Re" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/machinery/sleeper/syndie{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Rf" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"Rg" = (
+/obj/structure/window/reinforced,
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_sit)
+"Rj" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/holofloor/grass,
+/area/holodeck/source_picnicarea)
+"Rk" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 4;
+	pixel_y = 32
+	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/specops)
+"Rl" = (
+/obj/machinery/porta_turret/syndicate{
+	dir = 5
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/syndicate)
+"Rn" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/machinery/door_control{
+	id = "QMLoaddoor2";
+	layer = 3;
+	name = "Loading Doors";
+	pixel_x = 24;
+	pixel_y = 8
+	},
+/obj/machinery/door_control{
+	id = "QMLoaddoor";
+	layer = 3;
+	name = "Loading Doors";
+	pixel_x = 24;
+	pixel_y = -8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/supply)
+"Rp" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/administration)
+"Rs" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/escape)
+"Rw" = (
+/obj/structure/table/reinforced,
+/obj/item/folder/red,
+/obj/item/restraints/handcuffs,
+/obj/item/flash,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/escape)
+"Ry" = (
+/obj/machinery/bodyscanner,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"RD" = (
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plasteel,
+/area/centcom/control)
+"RF" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_sit)
+"RJ" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/shuttle/escape)
+"RL" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/shuttle/escape)
+"RO" = (
+/obj/machinery/light/spot,
+/obj/effect/spawner/lootdrop/trade_sol/serv,
+/obj/structure/closet,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
+"RR" = (
+/obj/machinery/door/window/brigdoor{
+	dir = 2;
+	name = "Cell Door";
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_sit)
+"RU" = (
+/obj/effect/overlay/palmtree_l,
+/obj/effect/overlay/coconut,
+/turf/simulated/floor/beach/sand,
+/area/holodeck/source_beach)
+"RY" = (
+/obj/machinery/vending/medical,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"RZ" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "trader_privacy";
+	name = "Privacy Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/trade/sol)
+"Sa" = (
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"Sb" = (
+/obj/machinery/sleeper/upgraded{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"Sf" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/escape)
+"Sj" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/space/syndicate/black/red,
+/obj/item/clothing/head/helmet/space/syndicate/black/red,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
+	frequency = 1331;
+	id_tag = "synd_pump"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Sn" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK"
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/syndicate)
+"So" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/syndicate_elite)
+"Sp" = (
+/obj/item/flag/med,
+/turf/simulated/floor/plasteel{
+	icon_state = "cmo"
+	},
+/area/shuttle/escape)
+"Sq" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_sit)
+"Ss" = (
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon_state = "red"
+	},
+/area/holodeck/source_knightarena)
+"St" = (
+/obj/machinery/computer/mech_bay_power_console,
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"Su" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"Sv" = (
+/obj/machinery/atmospherics/unary/tank/air,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/syndicate)
+"Sy" = (
+/obj/machinery/porta_turret/syndicate{
+	dir = 10
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/syndicate)
+"SB" = (
+/obj/structure/table,
+/obj/item/wrench,
+/obj/item/assembly/infra,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"SF" = (
+/obj/machinery/computer/scan_consolenew,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"SH" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/supply)
+"SI" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	damage_deflection = 75;
+	id_tag = "syndicate_jail";
+	locked = 1;
+	name = "Syndicate Jail"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"SJ" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"SN" = (
+/obj/machinery/sleeper/syndie{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_elite)
+"SP" = (
+/obj/structure/shuttle/engine/propulsion{
+	icon_state = "burst_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/supply)
+"ST" = (
+/obj/effect/spawner/lootdrop/trade_sol/sci,
+/obj/structure/closet,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
+"SY" = (
+/obj/structure/table/holotable,
+/obj/item/clothing/suit/armor/riot/knight/blue,
+/obj/item/clothing/head/helmet/riot/knight/blue,
+/obj/item/holo/claymore/blue,
+/turf/simulated/floor/holofloor{
+	icon_state = "blue"
+	},
+/area/holodeck/source_knightarena)
+"Te" = (
+/obj/machinery/teleport/hub/upgraded{
+	admin_usage = 1
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"Tf" = (
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"Tg" = (
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"Ti" = (
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/centcom/control)
+"Tk" = (
+/obj/structure/holowindow,
+/turf/simulated/floor/holofloor,
+/area/holodeck/source_thunderdomecourt)
+"Tl" = (
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/plasteel,
+/area/centcom/control)
+"Tm" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/centcom/control)
+"Tn" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"To" = (
+/obj/structure/table,
+/obj/item/grenade/plastic/c4{
+	pixel_x = 2;
+	pixel_y = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Tw" = (
+/obj/structure/statue/uranium/nuke,
+/turf/simulated/floor/plating/asteroid/snow/airless,
+/area/syndicate_mothership)
+"Ty" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Tz" = (
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon_state = "red"
+	},
+/area/holodeck/source_thunderdomecourt)
+"TA" = (
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = -32
+	},
+/obj/machinery/computer/security{
+	dir = 4;
+	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/shuttle/escape)
+"TC" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/transport)
+"TF" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "burst_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"TQ" = (
+/obj/structure/holowindow,
+/turf/simulated/floor/holofloor{
+	icon_state = "asteroid7"
+	},
+/area/holodeck/source_knightarena)
+"TR" = (
+/obj/machinery/recharge_station/upgraded,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"TT" = (
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/grass,
+/area/shuttle/escape)
+"TU" = (
+/obj/machinery/ai_status_display,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/escape)
+"TX" = (
+/turf/simulated/floor/holofloor{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/holodeck/source_thunderdomecourt)
+"TY" = (
+/obj/structure/shuttle/engine/heater,
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -5782,6 +10710,7 @@
 "us" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/syndicate,
+<<<<<<< HEAD
 /obj/item/shard,
 /obj/item/kitchen/knife,
 /obj/item/storage/firstaid/tactical,
@@ -5790,6 +10719,303 @@
 "uu" = (
 /obj/structure/table,
 /obj/item/grenade/syndieminibomb{
+=======
+/obj/item/crowbar/red,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"UA" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"UC" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_sit)
+"UD" = (
+/obj/machinery/door/window{
+	base_state = "right";
+	icon_state = "right";
+	name = "Infirmary";
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"UG" = (
+/obj/effect/spawner/lootdrop/trade_sol/sec,
+/obj/structure/closet,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
+"UH" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/grimy,
+/area/centcom/specops)
+"UI" = (
+/turf/simulated/floor/holofloor{
+	dir = 8;
+	icon_state = "blue"
+	},
+/area/holodeck/source_knightarena)
+"UJ" = (
+/obj/machinery/computer/shuttle/sst{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_elite)
+"UK" = (
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon_state = "carpet3-0"
+	},
+/area/holodeck/source_theatre)
+"UM" = (
+/obj/structure/flora/grass/brown,
+/turf/simulated/floor/holofloor{
+	icon_state = "snow"
+	},
+/area/holodeck/source_snowfield)
+"UN" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"UP" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/trade/sol)
+"UT" = (
+/obj/machinery/recharge_station/upgraded,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"UV" = (
+/obj/structure/holowindow,
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon_state = "red"
+	},
+/area/holodeck/source_thunderdomecourt)
+"Va" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Special Ops. Shuttle";
+	network = list("ERT","CentComm")
+	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/specops)
+"Vc" = (
+/obj/structure/closet/crate/medical,
+/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/storage/box/beakers,
+/obj/item/robot_parts/l_arm,
+/obj/item/robot_parts/r_arm,
+/obj/item/clothing/mask/surgical,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/tank/internals/anesthetic,
+/obj/item/clothing/mask/breath/medical,
+/obj/item/robot_parts/l_leg,
+/obj/item/robot_parts/r_leg,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Vd" = (
+/obj/machinery/door/window/westright{
+	name = "Tool Storage";
+	req_access_txt = "150"
+	},
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Ve" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
+"Vi" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	icon_state = "propulsion_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_sit)
+"Vj" = (
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"Vm" = (
+/obj/structure/table/wood,
+/obj/item/storage/box/donkpockets,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
+"Vn" = (
+/obj/item/storage/firstaid/o2,
+/obj/structure/table,
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"Vo" = (
+/obj/machinery/suit_storage_unit/syndicate/secure,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Vq" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/escape)
+"Vr" = (
+/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
+	dir = 8;
+	name = "NTV Argos shuttle navigation computer"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Vs" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/escape)
+"VA" = (
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"VB" = (
+/obj/effect/decal/warning_stripes/northeast,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"VC" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"VD" = (
+/obj/effect/decal/warning_stripes/southwest,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"VE" = (
+/obj/effect/decal/warning_stripes/southeast,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"VH" = (
+/obj/machinery/dna_scannernew/upgraded,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"VI" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/specops)
+"VJ" = (
+/obj/structure/chair,
+/turf/simulated/floor/plasteel,
+/area/centcom/evac)
+"VN" = (
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/trade/sol)
+"VO" = (
+/obj/structure/chair/comfy/purp{
+	dir = 1
+	},
+/turf/simulated/floor/engine/cult,
+/area/wizard_station)
+"VP" = (
+/obj/machinery/computer/card,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"VQ" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/shuttle/escape)
+"VS" = (
+/obj/machinery/computer/atmos_alert{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkyellow"
+	},
+/area/shuttle/escape)
+"VU" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/shuttle/syndicate)
+"VY" = (
+/obj/machinery/light/spot,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"VZ" = (
+/turf/simulated/floor/holofloor{
+	icon_state = "asteroid7"
+	},
+/area/holodeck/source_knightarena)
+"Wa" = (
+/obj/structure/bed,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"Wc" = (
+/obj/machinery/computer/shuttle/admin{
+	dir = 8;
+	name = "NTV Argos shuttle console"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Wd" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/centcom/evac)
+"We" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/centcom/evac)
+"Wf" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/centcom/evac)
+"Wh" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	req_access_txt = "63"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/shuttle/escape)
+"Wk" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/centcom/evac)
+"Wl" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/centcom/evac)
+"Wm" = (
+/obj/structure/table,
+/obj/item/weldingtool/largetank{
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 	pixel_x = 4;
 	pixel_y = 2
 	},
@@ -5833,6 +11059,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 1
 	},
+<<<<<<< HEAD
 /turf/simulated/floor/carpet,
 /area/centcom/control)
 "uD" = (
@@ -5888,6 +11115,13 @@
 "uM" = (
 /obj/structure/computerframe,
 /obj/item/paper/synditele,
+=======
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/transport)
+"Wz" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "uN" = (
@@ -5909,16 +11143,22 @@
 /obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
+<<<<<<< HEAD
 /area/shuttle/gamma/space)
 "uT" = (
 /obj/machinery/teleport/hub/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "uU" = (
+=======
+/area/shuttle/syndicate_sit)
+"Xx" = (
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "propulsion_l"
 	},
 /turf/simulated/floor/plating/airless,
+<<<<<<< HEAD
 /area/shuttle/syndicate)
 "uV" = (
 /obj/structure/shuttle/engine/propulsion,
@@ -5926,15 +11166,64 @@
 /area/shuttle/syndicate)
 "uX" = (
 /obj/structure/chair/office/dark{
+=======
+/area/shuttle/administration)
+"XC" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"XG" = (
+/obj/structure/bed/roller,
+/turf/simulated/floor/plasteel{
+	icon_state = "cmo"
+	},
+/area/shuttle/escape)
+"XH" = (
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/supply)
+"XJ" = (
+/obj/machinery/light/spot{
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 	dir = 8
 	},
 /obj/effect/landmark/spawner/ds,
 /obj/effect/landmark/spawner/ert,
 /turf/simulated/floor/plasteel/dark,
+<<<<<<< HEAD
 /area/centcom/specops)
 "uY" = (
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "propulsion_r"
+=======
+/area/syndicate_mothership/jail)
+"XL" = (
+/obj/structure/table/abductor,
+/obj/item/bonegel/alien,
+/obj/item/bonesetter/alien,
+/obj/item/FixOVein/alien,
+/obj/item/surgicaldrill/alien,
+/obj/item/circular_saw/alien,
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"XM" = (
+/obj/structure/bed/abductor,
+/turf/simulated/floor/plating/abductor,
+/area/abductor_ship)
+"XT" = (
+/turf/simulated/floor/holofloor{
+	dir = 4;
+	icon_state = "carpet4-0"
+	},
+/area/holodeck/source_meetinghall)
+"XW" = (
+/turf/simulated/floor/plating,
+/area/centcom/specops)
+"Ya" = (
+/obj/machinery/atm{
+	pixel_y = 32
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate)
@@ -5957,6 +11246,7 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
+<<<<<<< HEAD
 "vf" = (
 /obj/effect/landmark/spawner/soltrader,
 /obj/structure/chair/comfy/brown,
@@ -5974,6 +11264,21 @@
 "vh" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken2"
+=======
+"YK" = (
+/turf/simulated/wall/indestructible/opsglass,
+/area/centcom)
+"YM" = (
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/supply)
+"YR" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"YU" = (
+/obj/machinery/status_display{
+	pixel_y = -32
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 	},
 /area/centcom/evac)
 "vj" = (
@@ -8433,6 +13738,7 @@
 	icon_state = "darkyellow"
 	},
 /area/shuttle/escape)
+<<<<<<< HEAD
 "GK" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/indestructible/riveted,
@@ -8478,6 +13784,11 @@
 "GR" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
+=======
+"Zn" = (
+/obj/structure/table,
+/obj/item/radio/beacon/syndicate/bomb{
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 	pixel_y = 5
 	},
 /obj/item/pen/multi,
@@ -8508,6 +13819,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
+<<<<<<< HEAD
 /area/shuttle/administration)
 "GV" = (
 /obj/structure/table/reinforced,
@@ -8766,6 +14078,11 @@
 /area/centcom/evac)
 "HY" = (
 /obj/machinery/economy/vending/cigarette,
+=======
+/area/shuttle/syndicate)
+"Zu" = (
+/obj/machinery/vending/cola,
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Ia" = (
@@ -8870,6 +14187,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
+<<<<<<< HEAD
 /area/shuttle/escape)
 "Iy" = (
 /obj/item/trash/sosjerky,
@@ -10881,6 +16199,10 @@
 /turf/simulated/floor/grass,
 /area/tdome/tdomeobserve)
 "PQ" = (
+=======
+/area/shuttle/syndicate)
+"ZK" = (
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 /obj/machinery/light/spot{
 	dir = 8
 	},
@@ -42959,6 +48281,35 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+xQ
+ye
+yw
+yF
+yF
+yF
+yF
+yF
+yF
+yF
+yF
+yF
+yF
+yF
+at
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -43210,12 +48561,43 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+at
+at
+at
+at
+at
+at
+at
+mr
+mr
+mr
+mr
+mr
+at
+at
+at
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 aN
 aN
 aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 aN
 aN
 aN
@@ -43473,6 +48855,34 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 aN
 aN
 aN
@@ -43730,6 +49140,34 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 aN
 aN
 aN
@@ -43987,6 +49425,34 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 aN
 aN
 aN
@@ -44233,6 +49699,25 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+<<<<<<< HEAD
+=======
 aN
 aN
 aN
@@ -44247,6 +49732,20 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 aN
 "}
 (121,1,1) = {"
@@ -44505,6 +50004,61 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "}
 (122,1,1) = {"
 aN
@@ -44584,6 +50138,7 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
 lz
 au
 bq
@@ -44591,6 +50146,8 @@ bB
 bq
 cj
 lz
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 aN
 aN
 aN
@@ -44598,6 +50155,7 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
 lz
 gN
 bq
@@ -44605,6 +50163,8 @@ kc
 bq
 cj
 lz
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 aN
 aN
 aN
@@ -44642,6 +50202,7 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
 Hg
 KF
 Ng
@@ -44671,6 +50232,8 @@ iP
 gI
 uO
 Hg
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 aN
 aN
 aN
@@ -44730,6 +50293,37 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+od
+od
+Ui
+od
+od
+od
+EV
+Kd
+FZ
+Ub
+od
+Qa
+QH
+Oe
+Oe
+Fy
+EM
+Pg
+od
+DH
+YX
+Ef
+Ef
+cP
+GL
+LH
+od
+Sf
+Sf
 aN
 aN
 aN
@@ -44753,11 +50347,65 @@ aN
 aN
 aN
 aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 aN
 aN
 aN
 aN
 aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 aN
 aN
 aN
@@ -45019,6 +50667,64 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "}
 (124,1,1) = {"
 aN
@@ -45276,6 +50982,66 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "}
 (125,1,1) = {"
 aN
@@ -45533,6 +51299,68 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "}
 (126,1,1) = {"
 aN
@@ -45790,6 +51618,63 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "}
 (127,1,1) = {"
 aN
@@ -46047,6 +51932,77 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "}
 (128,1,1) = {"
 aN
@@ -46304,6 +52260,76 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "}
 (129,1,1) = {"
 aN
@@ -46561,6 +52587,78 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "}
 (130,1,1) = {"
 aN
@@ -46818,6 +52916,87 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "}
 (131,1,1) = {"
 aN
@@ -47075,6 +53254,88 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "}
 (132,1,1) = {"
 aN
@@ -47332,6 +53593,87 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "}
 (133,1,1) = {"
 aN
@@ -47589,6 +53931,89 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "}
 (134,1,1) = {"
 aN
@@ -47846,6 +54271,94 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "}
 (135,1,1) = {"
 aN
@@ -48103,6 +54616,101 @@ aN
 aN
 aN
 aN
+<<<<<<< HEAD
+=======
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 "}
 (136,1,1) = {"
 aN

@@ -170,29 +170,10 @@
 	name = "nitrogen tank"
 	desc = "A tank of nitrogen."
 	icon_state = "oxygen_fr"
-	sprite_sheets = list("Vox Armalis" = 'icons/mob/clothing/species/armalis/back.dmi') //Do it for Big Bird.
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 
 /obj/item/tank/internals/nitrogen/populate_gas()
 	air_contents.nitrogen = (6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
-
-/obj/item/tank/internals/emergency_oxygen/nitrogen
-	name = "emergency nitrogen tank"
-	desc = "An emergency tank designed specifically for Vox."
-	icon_state = "emergency_nitrogen"
-
-/obj/item/tank/internals/emergency_oxygen/nitrogen/populate_gas()
-	air_contents.nitrogen = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
-
-/obj/item/tank/internals/emergency_oxygen/double/vox
-	name = "vox specialized nitrogen tank"
-	desc = "A high-tech nitrogen tank designed specifically for Vox."
-	icon_state = "emergency_vox"
-	sprite_sheets = list("Vox Armalis" = 'icons/mob/clothing/species/armalis/belt.dmi') //Do it for Big Bird.
-	volume = 35
-
-/obj/item/tank/internals/emergency_oxygen/double/vox/populate_gas()
-	air_contents.nitrogen = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
 
 /*
  * Air Mix

@@ -708,7 +708,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		else
 			return FALSE
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.
 

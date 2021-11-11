@@ -7,10 +7,14 @@
 	var/flipped = FALSE
 	actions_types = list(/datum/action/item_action/flip_cap)
 	dog_fashion = /datum/dog_fashion/head/cargo_tech
+<<<<<<< HEAD
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
 	dyeable = TRUE
+=======
+
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 
 /obj/item/clothing/head/soft/dropped()
 	icon_state = "[item_color]soft"

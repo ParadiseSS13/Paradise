@@ -3,7 +3,7 @@
 		alert("The game hasn't started yet!")
 		return
 
-	var/list/incompatible_species = list(/datum/species/plasmaman, /datum/species/vox)
+	var/list/incompatible_species = list(/datum/species/plasmaman)
 	var/team_toggle = 0
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(H.stat == DEAD || !(H.client))

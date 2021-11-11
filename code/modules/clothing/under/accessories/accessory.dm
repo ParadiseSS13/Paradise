@@ -133,10 +133,6 @@
 	item_state = "waistcoat"
 	item_color = "waistcoat"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
-
 /obj/item/clothing/accessory/stethoscope
 	name = "stethoscope"
 	desc = "An outdated medical apparatus for listening to the sounds of the human body. It also makes you look like you know what you're doing."
@@ -539,9 +535,6 @@
 	item_state = "cowboyshirt"
 	item_color = "cowboyshirt"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/accessory/cowboyshirt/short_sleeved
 	name = "shortsleeved black cowboy shirt"
@@ -550,9 +543,6 @@
 	item_state = "cowboyshirt_s"
 	item_color = "cowboyshirt_s"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/accessory/cowboyshirt/white
 	name = "white cowboy shirt"
@@ -561,9 +551,6 @@
 	item_state = "cowboyshirt_white"
 	item_color = "cowboyshirt_white"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/accessory/cowboyshirt/white/short_sleeved
 	name = "short sleeved white cowboy shirt"
@@ -572,9 +559,6 @@
 	item_state = "cowboyshirt_whites"
 	item_color = "cowboyshirt_whites"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/accessory/cowboyshirt/pink
 	name = "pink cowboy shirt"
@@ -583,9 +567,6 @@
 	item_state = "cowboyshirt_pink"
 	item_color = "cowboyshirt_pink"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/accessory/cowboyshirt/pink/short_sleeved
 	name = "short sleeved pink cowboy shirt"
@@ -594,10 +575,6 @@
 	item_state = "cowboyshirt_pinks"
 	item_color = "cowboyshirt_pinks"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
-
 /obj/item/clothing/accessory/cowboyshirt/navy
 	name = "navy cowboy shirt"
 	desc = "Now yer a real cowboy. Looks like it can clip on to a uniform."
@@ -605,9 +582,6 @@
 	item_state = "cowboyshirt_navy"
 	item_color = "cowboyshirt_navy"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
 	name = "short sleeved navy cowboy shirt"
@@ -616,9 +590,7 @@
 	item_state = "cowboyshirt_navys"
 	item_color = "cowboyshirt_navys"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+
 
 /obj/item/clothing/accessory/cowboyshirt/red
 	name = "red cowboy shirt"
@@ -626,10 +598,6 @@
 	icon_state = "cowboyshirt_red"
 	item_state = "cowboyshirt_red"
 	item_color = "cowboyshirt_red"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/accessory/cowboyshirt/red/short_sleeved
 	name = "short sleeved red cowboy shirt"
@@ -639,7 +607,6 @@
 	item_color = "cowboyshirt_reds"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)

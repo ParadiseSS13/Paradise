@@ -9,18 +9,13 @@
 	armor = list(MELEE = 35, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 50, BIO = INFINITY, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/capspace/equipped(mob/living/carbon/human/user, slot)
 	if(ishuman(user) && slot == slot_head)
-		if(isvox(user))
-			if(flags & BLOCKHAIR)
-				flags &= ~BLOCKHAIR
-		else
-			if((initial(flags) & BLOCKHAIR) && !(flags & BLOCKHAIR))
-				flags |= BLOCKHAIR
+		if((initial(flags) & BLOCKHAIR) && !(flags & BLOCKHAIR))
+			flags |= BLOCKHAIR
 
 /obj/item/clothing/suit/space/captain
 	name = "captain's space suit"
@@ -30,10 +25,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	allowed = list(/obj/item/tank/internals, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton,/obj/item/restraints/handcuffs)
 	armor = list(MELEE = 35, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 50, BIO = INFINITY, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 	//Deathsquad space suit, not hardsuits because no flashlight!
 /obj/item/clothing/head/helmet/space/deathsquad
@@ -74,9 +65,6 @@
 	strip_delay = 120
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer beret"
@@ -178,16 +166,12 @@
 	item_state = "paramedic-eva-helmet"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
 		"Skrell" = 'icons/mob/clothing/species/skrell/helmet.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-		)
-	sprite_sheets_obj = list(
-		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi'
 		)
 
 /obj/item/clothing/suit/space/eva/paramedic
@@ -197,15 +181,11 @@
 	desc = "A brand new paramedic EVA suit. The nitrile seems a bit too thin to be space proof. Used for retrieving bodies in space."
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Skrell" = 'icons/mob/clothing/species/skrell/suit.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		)
-	sprite_sheets_obj = list(
-		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi'
 		)
 
 /obj/item/clothing/suit/space/eva
@@ -218,13 +198,11 @@
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		)
 	sprite_sheets_obj = list(
 		"Tajaran" = 'icons/obj/clothing/species/tajaran/suits.dmi',
 		"Unathi" = 'icons/obj/clothing/species/unathi/suits.dmi',
-		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi',
 		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
 		)
 
@@ -240,12 +218,10 @@
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
 	sprite_sheets_obj = list(
-		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
 		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
 		)
 
@@ -256,8 +232,12 @@
 	desc = ". . ."
 	icon_state = "spacemimehelmet"
 	item_state = "spacemimehelmet"
+<<<<<<< HEAD:code/modules/clothing/spacesuits/misc_spacesuits.dm
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi')
+=======
+	species_restricted = list("exclude","Wryn")
+>>>>>>> 2529442b50 (Removes vox & Vox raiders):code/modules/clothing/spacesuits/miscellaneous.dm
 	sprite_sheets_obj = null
 
 /obj/item/clothing/suit/space/eva/mime
@@ -266,8 +246,12 @@
 	desc = ". . ."
 	icon_state = "spacemime_suit"
 	item_state = "spacemime_items"
+<<<<<<< HEAD:code/modules/clothing/spacesuits/misc_spacesuits.dm
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+=======
+	species_restricted = list("exclude","Wryn")
+>>>>>>> 2529442b50 (Removes vox & Vox raiders):code/modules/clothing/spacesuits/miscellaneous.dm
 	sprite_sheets_obj = null
 
 /obj/item/clothing/head/helmet/space/eva/clown
@@ -276,8 +260,12 @@
 	desc = "An EVA helmet specifically designed for the clown. SPESSHONK!"
 	icon_state = "clownhelmet"
 	item_state = "clownhelmet"
+<<<<<<< HEAD:code/modules/clothing/spacesuits/misc_spacesuits.dm
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi')
+=======
+	species_restricted = list("exclude","Wryn")
+>>>>>>> 2529442b50 (Removes vox & Vox raiders):code/modules/clothing/spacesuits/miscellaneous.dm
 	sprite_sheets_obj = null
 
 /obj/item/clothing/suit/space/eva/clown
@@ -286,6 +274,10 @@
 	desc = "An EVA suit specifically designed for the clown. SPESSHONK!"
 	icon_state = "spaceclown_suit"
 	item_state = "spaceclown_items"
+<<<<<<< HEAD:code/modules/clothing/spacesuits/misc_spacesuits.dm
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+=======
+	species_restricted = list("exclude","Wryn")
+>>>>>>> 2529442b50 (Removes vox & Vox raiders):code/modules/clothing/spacesuits/miscellaneous.dm
 	sprite_sheets_obj = null

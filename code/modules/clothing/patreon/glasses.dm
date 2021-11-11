@@ -8,11 +8,14 @@
 	icon_state = "gar"
 	item_state = "gar"
 
+<<<<<<< HEAD
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 
 //Green Kamina shades
 /obj/item/clothing/glasses/fluff/kamina/green

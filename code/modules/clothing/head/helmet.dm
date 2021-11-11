@@ -15,7 +15,6 @@
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/helmet
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
@@ -220,10 +219,6 @@
 	item_state = "blobhat"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi'
-		)
 
 /obj/item/clothing/head/helmet/riot/knight/blue
 	icon_state = "knight_blue"

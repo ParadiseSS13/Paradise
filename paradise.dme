@@ -2019,7 +2019,6 @@
 #include "code\modules\mob\living\carbon\human\species\slimepeople.dm"
 #include "code\modules\mob\living\carbon\human\species\tajaran.dm"
 #include "code\modules\mob\living\carbon\human\species\unathi.dm"
-#include "code\modules\mob\living\carbon\human\species\vox.dm"
 #include "code\modules\mob\living\carbon\human\species\vulpkanin.dm"
 #include "code\modules\mob\living\silicon\silicon_death.dm"
 #include "code\modules\mob\living\silicon\silicon_defense.dm"
@@ -2238,10 +2237,6 @@
 #include "code\modules\mob\new_player\sprite_accessories\unathi\unathi_hair.dm"
 #include "code\modules\mob\new_player\sprite_accessories\unathi\unathi_head_accessories.dm"
 #include "code\modules\mob\new_player\sprite_accessories\unathi\unathi_head_markings.dm"
-#include "code\modules\mob\new_player\sprite_accessories\vox\vox_body_markings.dm"
-#include "code\modules\mob\new_player\sprite_accessories\vox\vox_facial_hair.dm"
-#include "code\modules\mob\new_player\sprite_accessories\vox\vox_hair.dm"
-#include "code\modules\mob\new_player\sprite_accessories\vox\vox_tail_markings.dm"
 #include "code\modules\mob\new_player\sprite_accessories\vulpkanin\vulpkanin_body_markings.dm"
 #include "code\modules\mob\new_player\sprite_accessories\vulpkanin\vulpkanin_facial_hair.dm"
 #include "code\modules\mob\new_player\sprite_accessories\vulpkanin\vulpkanin_hair.dm"
@@ -2347,9 +2342,15 @@
 #include "code\modules\projectiles\ammunition\boxes.dm"
 #include "code\modules\projectiles\ammunition\energy_lens.dm"
 #include "code\modules\projectiles\ammunition\magazines.dm"
+<<<<<<< HEAD
 #include "code\modules\projectiles\ammunition\special_ammo.dm"
 #include "code\modules\projectiles\guns\alien_guns.dm"
 #include "code\modules\projectiles\guns\energy_guns.dm"
+=======
+#include "code\modules\projectiles\ammunition\special.dm"
+#include "code\modules\projectiles\guns\dartgun.dm"
+#include "code\modules\projectiles\guns\energy.dm"
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 #include "code\modules\projectiles\guns\grenade_launcher.dm"
 #include "code\modules\projectiles\guns\magic.dm"
 #include "code\modules\projectiles\guns\medbeam.dm"
@@ -2505,7 +2506,11 @@
 #include "code\modules\shuttle\shuttle_manipulator.dm"
 #include "code\modules\shuttle\shuttle_rotate.dm"
 #include "code\modules\shuttle\supply.dm"
+<<<<<<< HEAD
 #include "code\modules\shuttle\syndicate_shuttles.dm"
+=======
+#include "code\modules\shuttle\syndicate.dm"
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 #include "code\modules\space_management\heap_space_level.dm"
 #include "code\modules\space_management\level_check.dm"
 #include "code\modules\space_management\level_traits.dm"
@@ -2586,7 +2591,11 @@
 #include "code\modules\surgery\organs\subtypes\standard.dm"
 #include "code\modules\surgery\organs\subtypes\tajaran.dm"
 #include "code\modules\surgery\organs\subtypes\unathi.dm"
+<<<<<<< HEAD
 #include "code\modules\surgery\organs\subtypes\vox.dm"
+=======
+#include "code\modules\surgery\organs\subtypes\unbreakable.dm"
+>>>>>>> 2529442b50 (Removes vox & Vox raiders)
 #include "code\modules\surgery\organs\subtypes\vulpkanin.dm"
 #include "code\modules\surgery\organs\subtypes\xenos.dm"
 #include "code\modules\telesci\bscrystal.dm"

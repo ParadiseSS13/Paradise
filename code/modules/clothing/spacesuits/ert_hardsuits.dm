@@ -14,11 +14,14 @@
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+<<<<<<< HEAD:code/modules/clothing/spacesuits/ert_hardsuits.dm
 		"Skrell" = 'icons/mob/clothing/species/skrell/helmet.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders):code/modules/clothing/spacesuits/ert.dm
 		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize()
@@ -69,10 +72,13 @@
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+<<<<<<< HEAD:code/modules/clothing/spacesuits/ert_hardsuits.dm
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+=======
+>>>>>>> 2529442b50 (Removes vox & Vox raiders):code/modules/clothing/spacesuits/ert.dm
 		)
 
 //Commander
@@ -227,7 +233,6 @@
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
@@ -241,10 +246,9 @@
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
-	hide_tail_by_species = list("Unathi, Tajaran, Vox, Vulpkanin")
+	hide_tail_by_species = list("Unathi, Tajaran, Vulpkanin")
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/Initialize(mapload)
 	. = ..()

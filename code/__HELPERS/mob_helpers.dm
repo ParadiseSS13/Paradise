@@ -200,9 +200,6 @@
 			if("albino")		. = 34
 			else				. = rand(-185, 34)
 		return min(max(. + rand(-25, 25), -185), 34)
-	else if(species == "Vox")
-		. = rand(1, 6)
-		return .
 
 /proc/skintone2racedescription(tone, species = "Human")
 	if(species == "Human")
@@ -216,14 +213,6 @@
 			if(-65 to -45)			return "brown"
 			if(-INFINITY to -65)	return "black"
 			else					return "unknown"
-	else if(species == "Vox")
-		switch(tone)
-			if(2)					return "dark green"
-			if(3)					return "brown"
-			if(4)					return "gray"
-			if(5)					return "emerald"
-			if(6)					return "azure"
-			else					return "green"
 	else
 		return "unknown"
 
