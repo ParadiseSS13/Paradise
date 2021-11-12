@@ -1,5 +1,8 @@
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
+/proc/enable_debugging(mode, port)
+	CRASH("auxtools not loaded")
+
 /world/New()
 	// IMPORTANT
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
@@ -8,7 +11,13 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	//temporary file used to record errors with loading config and the database, moved to log directory once logging is set up
 	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = GLOB.sql_log = "data/logs/config_error.log"
 	load_configuration()
-	enable_debugger() // Enable the extools debugger
+
+	// Proc to enable the extools debugger, which allows breakpoints, live var checking, and many other useful tools
+	// The DLL is injected into the env by visual studio code. If not running VSCode, the proc will not call the initialization
+	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
+	if(debug_server)
+		call(debug_server, "auxtools_init")()
+		enable_debugging()
 
 	// Right off the bat, load up the DB
 	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
@@ -269,14 +278,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	fdel(F)
 	F << GLOB.log_directory
 
-// Proc to enable the extools debugger, which allows breakpoints, live var checking, and many other useful tools
-// The DLL is injected into the env by visual studio code. If not running VSCode, the proc will not call the initialization
-/world/proc/enable_debugger()
-    var/dll = world.GetConfig("env", "EXTOOLS_DLL")
-    if (dll)
-        call(dll, "debug_initialize")()
-
 
 /world/Del()
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
+	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
+	if (debug_server)
+		call(debug_server, "auxtools_shutdown")()
 	..()
