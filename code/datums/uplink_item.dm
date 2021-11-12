@@ -317,7 +317,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "PG"
 	item = /obj/item/clothing/gloves/color/black/thief
 	cost = 6
-	job = list("Civilian")
+	job = list("Assistant")
 
 //Bartender
 

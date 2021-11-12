@@ -253,8 +253,8 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_centcom_access("NT Undercover Operative"), "Civilian")
-	H.sec_hud_set_ID() // Force it to show as Civ on sec huds
+		apply_to_card(I, H, get_centcom_access("NT Undercover Operative"), "Assistant")
+	H.sec_hud_set_ID() // Force it to show as assistant on sec huds
 
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
