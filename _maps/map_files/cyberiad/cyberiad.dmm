@@ -53743,14 +53743,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cmg" = (
-/obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
-	},
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/wood,
 /area/blueshield)
 "cmh" = (
