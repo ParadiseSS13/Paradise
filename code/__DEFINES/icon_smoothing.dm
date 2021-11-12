@@ -45,7 +45,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 
 #define SMOOTH_GROUP_FLOOR_GRASS S_TURF(5)				///turf/simulated/floor/plating/grass
 #define SMOOTH_GROUP_FLOOR_ICE S_TURF(6)				///turf/simulated/floor/plating/ice
-#define SMOOTH_GROUP_BEACH S_TURF(7)					///turf/simulated/floor/beach/away/water/
+#define SMOOTH_GROUP_BEACH_WATER S_TURF(7)					///turf/simulated/floor/beach/away/water/
 #define SMOOTH_GROUP_GLASS_FLOOR S_TURF(8)				///turf/simulated/floor/transparent/glass and subtypes
 #define SMOOTH_GROUP_GLASS_FLOOR_TITANIUM S_TURF(9)		///turf/simulated/floor/transparent/glass/titanium and subtypes
 
@@ -68,7 +68,10 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_BOSS_WALLS S_TURF(29)				///turf/simulated/indestructible/riveted/boss
 #define SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS S_TURF(30)	///turf/simulated/wall/mineral/titanium/survival
 
-#define MAX_S_TURF SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS //Always match this value with the one above it.
+#define SMOOTH_GROUP_GRASS S_TURF(31)					///turf/simulated/floor/grass
+#define SMOOTH_GROUP_JUNGLE_GRASS S_TURF(32)			///turf/simulated/floor/grass/jungle
+
+#define MAX_S_TURF SMOOTH_GROUP_JUNGLE_GRASS //Always match this value with the one above it.
 
 
 #define S_OBJ(num) (MAX_S_TURF + 1 + num)
@@ -119,3 +122,5 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_SHUTTLE_PARTS S_OBJ(66)			///obj/structure/window/shuttle, /obj/structure/window/plasma/reinforced/plastitanium, /turf/simulated/indestructible/opsglass, /obj/structure/shuttle
 
 #define SMOOTH_GROUP_CLEANABLE_DIRT	S_OBJ(67)			///obj/effect/decal/cleanable/dirt
+
+#define SMOOTH_GROUP_RIPPLE	S_OBJ(68)				///obj/effect/temp_visual/ripple

@@ -86,6 +86,7 @@
 	barefootstep = FOOTSTEP_WATER
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
+	smoothing_groups = list(SMOOTH_GROUP_BEACH_WATER)
 
 /turf/simulated/floor/beach/away/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()
@@ -120,11 +121,11 @@
 /turf/simulated/floor/beach/away/water/drop
 	name = "Water"
 	icon = 'icons/turf/floors/seadrop.dmi'
-	icon_state = "seadrop"
+	icon_state = "seadrop-0"
+	base_icon_state = "seadrop"
 	water_overlay_image = null
-	smoothing_flags = SMOOTH_CORNERS
-	smoothing_groups = list(SMOOTH_GROUP_BEACH)
-	canSmoothWith = list(SMOOTH_GROUP_BEACH)
+	smoothing_flags = SMOOTH_BITMASK
+	canSmoothWith = list(SMOOTH_GROUP_BEACH_WATER)
 	var/obj/effect/beach_drop_overlay/water_overlay
 	baseturf = /turf/simulated/floor/beach/away/water/drop
 
@@ -139,11 +140,11 @@
 /obj/effect/beach_drop_overlay
 	name = "Water"
 	icon = 'icons/turf/floors/seadrop-o.dmi'
+	base_icon_state = "seadrop-o"
 	layer = MOB_LAYER + 0.1
-	smoothing_flags = SMOOTH_CORNERS
+	smoothing_flags = SMOOTH_BITMASK
+	canSmoothWith = list(SMOOTH_GROUP_BEACH_WATER)
 	anchored = 1
-	smoothing_groups = list(SMOOTH_GROUP_BEACH)
-	canSmoothWith = list(SMOOTH_GROUP_BEACH)
 
 /turf/simulated/floor/beach/away/water/drop/dense
 	density = TRUE
@@ -151,6 +152,7 @@
 
 /turf/simulated/floor/beach/away/water/deep
 	name = "Deep Water"
+	smoothing_groups = list()
 	icon_state = "seadeep"
 	water_overlay_image = "water_deep"
 	baseturf = /turf/simulated/floor/beach/away/water/deep

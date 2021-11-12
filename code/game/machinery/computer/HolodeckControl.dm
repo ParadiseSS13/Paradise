@@ -329,17 +329,16 @@
 	icon_state = "plating"
 /turf/simulated/floor/holofloor/grass
 	name = "Lush Grass"
-	icon_state = "grass1"
+	icon = 'icons/turf/floors/grass.dmi'
+	icon_state = "grass-0"
+	base_icon_state = "grass"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_GRASS)
+	canSmoothWith = list(SMOOTH_GROUP_GRASS, SMOOTH_GROUP_JUNGLE_GRASS)
+	pixel_x = -9
+	pixel_y = -9
+	layer = ABOVE_OPEN_TURF_LAYER
 	floor_tile = /obj/item/stack/tile/grass
-
-/turf/simulated/floor/holofloor/grass/Initialize(mapload)
-	. = ..()
-	update_icon()
-
-/turf/simulated/floor/holofloor/grass/update_icon()
-	..()
-	if(!(icon_state in list("grass1", "grass2", "grass3", "grass4", "sand")))
-		icon_state = "grass[pick("1","2","3","4")]"
 
 /turf/simulated/floor/holofloor/attackby(obj/item/W as obj, mob/user as mob, params)
 	return
