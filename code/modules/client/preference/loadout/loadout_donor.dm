@@ -1,7 +1,20 @@
+/*
+######################################################################################
+##																					##
+##								IMPORTANT README									##
+##																					##
+##	  Changing any /datum/gear typepaths --WILL-- break people's loadouts.			##
+##	The typepaths are stored directly in the `characters.gear` column of the DB.	##
+##		Please inform the server host if you wish to modify any of these.			##
+##																					##
+######################################################################################
+*/
+
+
 /datum/gear/donor
 	donator_tier = 2
 	sort_category = "Donor"
-	subtype_path = /datum/gear/donor
+	main_typepath = /datum/gear/donor
 
 /datum/gear/donor/furgloves
 	display_name = "Fur Gloves"

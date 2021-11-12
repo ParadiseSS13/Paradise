@@ -178,6 +178,8 @@ About the new airlock wires panel:
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+		diag_hud.remove_from_hud(src)
 	return ..()
 
 /obj/machinery/door/airlock/handle_atom_del(atom/A)
@@ -1284,6 +1286,17 @@ About the new airlock wires panel:
 		var/duration = world.time + (30 / severity) SECONDS
 		if(duration > electrified_until)
 			electrify(duration)
+
+/obj/machinery/door/airlock/ex_act(severity)
+	if(resistance_flags & INDESTRUCTIBLE)
+		return
+	switch(severity)
+		if(EXPLODE_DEVASTATE) //Destroy the airlock completely.
+			qdel(src)
+		if(EXPLODE_HEAVY) //Deconstruct the airlock, leaving damaged airlock frame and parts behind
+			deconstruct(FALSE, null)
+		if(EXPLODE_LIGHT) //Deals 150 damage to the airlock, half a standard airlock's integrity
+			take_damage(150)
 
 /obj/machinery/door/airlock/attack_alien(mob/living/carbon/alien/humanoid/user)
 	add_fingerprint(user)

@@ -67,9 +67,10 @@
 		to_chat(user, "Timer set for [det_time] seconds.")
 
 /obj/item/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag)
-	if (!flag)
+	if(!flag)
 		return
-	if (istype(AM, /mob/living/carbon))
+	if(iscarbon(AM))
+		to_chat(user, "<span class='warning'>You can't get the [src] to stick to [AM]!</span>")
 		return
 	to_chat(user, "<span class='notice'>You start planting [src]. The timer is set to [det_time]...</span>")
 
@@ -129,104 +130,67 @@
 /obj/item/grenade/plastic/c4
 	name = "C4"
 	desc = "Used to put holes in specific areas without too much extra hole. A saboteurs favourite."
+	/// If set to true, the secondary explosion will be centered two tiles behind the wall/object it's set on for a targeted breach and entry.
+	var/shaped = FALSE
+	/// Set when installing the charge, to know which direction to explode to when setting up a shaped c4
+	var/aim_dir
+	/// Range values given to the explosion proc when primed
+	var/ex_devastate = 0
+	var/ex_heavy = 0
+	var/ex_light = 3
+	/// Will the explosion cause a breach. C4 placed on floors will always cause a breach, regardless of this value.
+	var/ex_breach = FALSE
+
+/obj/item/grenade/plastic/c4/afterattack(atom/movable/AM, mob/user, flag)
+	aim_dir = get_dir(user, AM)
+	..()
 
 /obj/item/grenade/plastic/c4/prime()
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))
-			if(istype(target, /turf/))
-				location = get_turf(target)	// Set the explosion location to turf if planted directly on a wall or floor
-			else
-				location = get_atom_on_turf(target)	// Otherwise, make sure we're blowing up what's on top of the turf
+			location = get_turf(target)
 			target.overlays -= image_overlay
+			if(!ex_breach && istype(target, /turf/simulated/wall)) //Walls get dismantled instead of destroyed to avoid making unwanted holes to space.
+				var/turf/simulated/wall/W = target
+				W.dismantle_wall(TRUE, TRUE)
+			else
+				target.ex_act(EXPLODE_DEVASTATE)
 	else
-		location = get_atom_on_turf(src)
+		location = get_turf(src)
 	if(location)
-		explosion(location,0,0,3)
-		location.ex_act(2, target)
-	if(istype(target, /mob))
-		var/mob/M = target
-		M.gib()
+		if(shaped && aim_dir)
+			location = get_step(get_step(location, aim_dir), aim_dir) //Move the explosion location two steps away from the target when using a shaped c4
+		explosion(location, ex_devastate, ex_heavy, ex_light, breach = ex_breach)
+
 	qdel(src)
 
 // X4 is an upgraded directional variant of c4 which is relatively safe to be standing next to. And much less safe to be standing on the other side of.
 // C4 is intended to be used for infiltration, and destroying tech. X4 is intended to be used for heavy breaching and tight spaces.
 // Intended to replace C4 for nukeops, and to be a randomdrop in surplus/random traitor purchases.
 
-/obj/item/grenade/plastic/x4
+/obj/item/grenade/plastic/c4/x4
 	name = "X4"
 	desc = "A specialized shaped high explosive breaching charge. Designed to be safer for the user, and less so, for the wall."
-	var/aim_dir = NORTH
 	icon_state = "plasticx40"
 	item_state = "plasticx4"
-
-/obj/item/grenade/plastic/x4/prime()
-	var/turf/location
-	if(target)
-		if(!QDELETED(target))
-			if(istype(target, /turf/))
-				location = get_turf(target)
-			else
-				location = get_atom_on_turf(target)
-			target.overlays -= image_overlay
-	else
-		location = get_atom_on_turf(src)
-	if(location)
-		if(target && target.density)
-			var/turf/T = get_step(location, aim_dir)
-			explosion(get_step(T, aim_dir),0,0,3)
-			explosion(T,0,2,0)
-			location.ex_act(2, target)
-		else
-			explosion(location, 0, 2, 3)
-			location.ex_act(2, target)
-	if(istype(target, /mob))
-		var/mob/M = target
-		M.gib()
-	qdel(src)
-
-/obj/item/grenade/plastic/x4/afterattack(atom/movable/AM, mob/user, flag)
-	aim_dir = get_dir(user,AM)
-	..()
+	shaped = TRUE
+	ex_heavy = 2
+	ex_breach = TRUE
 
 // Shaped charge
 // Same blasting power as C4, but with the same idea as the X4 -- Everyone on one side of the wall is safe.
 
-/obj/item/grenade/plastic/c4_shaped
+/obj/item/grenade/plastic/c4/shaped
 	name = "C4 (shaped)"
 	desc = "A brick of C4 shaped to allow more precise breaching."
-	var/aim_dir = NORTH
+	shaped = TRUE
 
-/obj/item/grenade/plastic/c4_shaped/prime()
-	var/turf/location
-	if(target)
-		if(!QDELETED(target))
-			location = get_turf(target)
-			target.overlays -= image_overlay
-	else
-		location = get_turf(src)
-	if(location)
-		if(target && target.density)
-			var/turf/T = get_step(location, aim_dir)
-			explosion(get_step(T, aim_dir),0,0,3)
-			location.ex_act(2, target)
-		else
-			explosion(location, 0, 0, 3)
-			location.ex_act(2, target)
-	if(istype(target, /mob))
-		var/mob/M = target
-		M.gib()
-	qdel(src)
-
-/obj/item/grenade/plastic/c4_shaped/afterattack(atom/movable/AM, mob/user, flag)
-	aim_dir = get_dir(user,AM)
-	..()
-
-/obj/item/grenade/plastic/c4_shaped/flash
+/obj/item/grenade/plastic/c4/shaped/flash
 	name = "C4 (flash)"
 	desc = "A C4 charge with an altered chemical composition, designed to blind and deafen the occupants of a room before breaching."
 
-/obj/item/grenade/plastic/c4_shaped/flash/prime()
+/obj/item/grenade/plastic/c4/shaped/flash/prime()
 	var/turf/T
 	if(target && target.density)
 		T = get_step(get_turf(target), aim_dir)
@@ -240,14 +204,14 @@
 
 	..()
 
-/obj/item/grenade/plastic/x4/thermite
+/obj/item/grenade/plastic/c4/thermite
 	name = "T4"
 	desc = "A wall breaching charge, containing fuel, metal oxide and metal powder mixed in just the right way. One hell of a combination. Effective against walls, ineffective against airlocks..."
 	det_time = 2
 	icon_state = "t4breach0"
 	item_state = "t4breach"
 
-/obj/item/grenade/plastic/x4/thermite/prime()
+/obj/item/grenade/plastic/c4/thermite/prime()
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))
@@ -268,7 +232,6 @@
 			var/turf/T = get_step(location, aim_dir)
 			addtimer(CALLBACK(null, .proc/explosion, T, 0, 0, 2), 3)
 			addtimer(CALLBACK(smoke, /datum/effect_system/smoke_spread/.proc/start), 3)
-
 
 	if(isliving(target))
 		var/mob/living/M = target

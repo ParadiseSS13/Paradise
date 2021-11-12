@@ -107,13 +107,13 @@
 	return ..()
 
 /obj/structure/reagent_dispensers/fueltank/bullet_act(obj/item/projectile/P)
+	var/will_explode = !QDELETED(src) && !P.nodamage && (P.damage_type == BURN || P.damage_type == BRUTE)
+
+	if(will_explode) // Log here while you have the information needed
+		add_attack_logs(P.firer, src, "shot with [P.name]", ATKLOG_FEW)
+		log_game("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]")
+		investigate_log("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]", INVESTIGATE_BOMB)
 	..()
-	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
-		if(!P.nodamage && ((P.damage_type == BURN) || (P.damage_type == BRUTE)))
-			add_attack_logs(P.firer, src, "shot with [P.name]", ATKLOG_FEW)
-			log_game("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]")
-			investigate_log("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]", INVESTIGATE_BOMB)
-			boom()
 
 /obj/structure/reagent_dispensers/fueltank/do_boom(rigtrigger = FALSE, log_attack = FALSE) // Prevent case where someone who rigged the tank is blamed for the explosion when the rig isn't what triggered the explosion
 	if(rigtrigger) // If the explosion is triggered by an assembly holder

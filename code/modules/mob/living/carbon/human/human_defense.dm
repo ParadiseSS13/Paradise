@@ -39,8 +39,17 @@ emp_act
 	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
 		if(!lying && !HAS_TRAIT(src, TRAIT_HULK) && mind.martial_art.try_deflect(src)) //But only if they're not lying down, and hulks can't do it
 			add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by martial arts '[mind.martial_art]'")
-			visible_message("<span class='danger'>[src] deflects the projectile!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 			playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
+			if(HAS_TRAIT(src, TRAIT_PACIFISM))
+				// Pacifists can deflect projectiles, but not reflect them.
+				// Instead, they deflect them into the ground below them.
+				var/turf/T = get_turf(src)
+				P.firer = src
+				T.bullet_act(P)
+				visible_message("<span class='danger'>[src] deflects the projectile into the ground!</span>", "<span class='userdanger'>You deflect the projectile towards the ground beneath your feet!</span>")
+				return FALSE
+
+			visible_message("<span class='danger'>[src] deflects the projectile!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 			if(mind.martial_art.reroute_deflection)
 				P.firer = src
 				P.setAngle(rand(0, 360))
@@ -103,6 +112,7 @@ emp_act
 			break
 		nrembrute = max(rembrute - E.brute_dam, 0)
 		E.heal_damage(rembrute,0,0,1)
+		UpdateDamageIcon()
 		rembrute = nrembrute
 		user.visible_message("<span class='alert'>[user] patches some dents on [src]'s [E.name] with [I].</span>")
 	if(bleed_rate && ismachineperson(src))
@@ -408,7 +418,7 @@ emp_act
 	if(!I || !user)
 		return 0
 
-	if((istype(I, /obj/item/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/twohanded/chainsaw)) && stat == DEAD && user.a_intent == INTENT_HARM)
+	if(HAS_TRAIT(I, TRAIT_BUTCHERS_HUMANS) && stat == DEAD && user.a_intent == INTENT_HARM)
 		var/obj/item/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/reagent_containers/food/snacks/meat/human(get_turf(loc))
 		newmeat.name = real_name + newmeat.name
 		newmeat.subjectname = real_name

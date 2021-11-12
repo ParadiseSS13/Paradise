@@ -112,7 +112,7 @@
 						antag_serialized["antag"] = antag_name
 						antagonists += list(antag_serialized)
 
-				// Player terror spiders have their own category to help see how much there are.
+				// Player terror spiders (and other hostile player-controlled event mobs) have their own category to help see how much there are.
 				// Not in the above block because terrors can be known whether AHUD is on or not.
 				if(isterrorspider(M))
 					var/list/antag_serialized = serialized.Copy()
@@ -121,6 +121,10 @@
 				else if(istype(M, /mob/living/simple_animal/revenant))
 					var/list/antag_serialized = serialized.Copy()
 					antag_serialized["antag"] = "Revenant"
+					antagonists += list(antag_serialized)
+				else if(isalien(M))
+					var/list/antag_serialized = serialized.Copy()
+					antag_serialized["antag"] = "Xenomorph"
 					antagonists += list(antag_serialized)
 		else
 			misc += list(serialized)

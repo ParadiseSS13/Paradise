@@ -10,6 +10,8 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/head_accessory, GLOB.head_accessory_styles_list)
 	//hair
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, GLOB.hair_styles_public_list, GLOB.hair_styles_male_list, GLOB.hair_styles_female_list, GLOB.hair_styles_full_list)
+	//hair gradients
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair_gradient, GLOB.hair_gradients_list)
 	//facial hair
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, GLOB.facial_hair_styles_list, GLOB.facial_hair_styles_male_list, GLOB.facial_hair_styles_female_list)
 	//underwear
@@ -77,13 +79,12 @@
 	for(var/geartype in subtypesof(/datum/gear))
 		var/datum/gear/G = geartype
 
-		var/use_name = initial(G.display_name)
 		var/use_category = initial(G.sort_category)
 
-		if(G == initial(G.subtype_path))
+		if(G == initial(G.main_typepath))
 			continue
 
-		if(!use_name)
+		if(!initial(G.display_name))
 			stack_trace("Loadout - Missing display name: [G]")
 			continue
 		if(!initial(G.cost))
@@ -96,8 +97,8 @@
 		if(!GLOB.loadout_categories[use_category])
 			GLOB.loadout_categories[use_category] = new /datum/loadout_category(use_category)
 		var/datum/loadout_category/LC = GLOB.loadout_categories[use_category]
-		GLOB.gear_datums[use_name] = new geartype
-		LC.gear[use_name] = GLOB.gear_datums[use_name]
+		GLOB.gear_datums[geartype] = new geartype
+		LC.gear[geartype] = GLOB.gear_datums[geartype]
 
 	GLOB.loadout_categories = sortAssoc(GLOB.loadout_categories)
 	for(var/loadout_category in GLOB.loadout_categories)
