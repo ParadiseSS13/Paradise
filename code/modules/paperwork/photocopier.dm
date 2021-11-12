@@ -319,7 +319,7 @@
 				break
 			toner -= 5
 	else
-		to_chat(usr, "<span class='warning'>\The [copyitem] can't be copied by \the [src].</span>")
+		to_chat(usr, "<span class='warning'>\The [copyitem] can't be copied by \the [src], ejecting.</span>")
 		copyitem.forceMove(loc) //fuckery detected! get off my photocopier... shitbird!
 
 	copying = FALSE
@@ -509,6 +509,12 @@
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 	atom_say("Attention: Posterior Placed on Printing Plaque!")
 	SStgui.update_uis(src)
+
+/obj/machinery/photocopier/Destroy()
+	if(saved_documents)
+		for(/obj/item/O in saved_documents)
+  			qdel(O)
+	return ..()
 
 /**
   * Internal proc for checking the Mob on top of the copier
