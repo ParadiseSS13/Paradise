@@ -47,26 +47,26 @@
 	///The regeneration cap of essence (go figure); regenerates every Life() tick up to this amount.
 	var/essence_regen_cap = 75
 	///If the revenant regenerates essence or not; 1 for yes, 0 for no
-	var/essence_regenerating = 1
+	var/essence_regenerating = TRUE
 	///How much essence regenerates
 	var/essence_regen_amount = 5
 	///How much essence the revenant has stolen
 	var/essence_accumulated = 0
 	///If the revenant can take damage from normal sources.
-	var/revealed = 0
+	var/revealed = FALSE
 	///How long the revenant is revealed for, is about 2 seconds times this var.
 	var/unreveal_time = 0
 	///How long the revenant is stunned for, is about 2 seconds times this var.
 	var/unstun_time = 0
 	///If the revenant's abilities are blocked by a chaplain's power.
-	var/inhibited = 0
+	var/inhibited = TRUE
 	///How much essence the revenant has drained.
 	var/essence_drained = 0
 	///If the revenant is draining someone.
 	var/draining = FALSE
 	/// contains a list of UIDs of mobs who have been drained. cannot drain the same mob twice.
 	var/list/drained_mobs = list()
-	//How many perfect, regen-cap increasing souls the revenant has.
+	///How many perfect, regen-cap increasing souls the revenant has.
 	var/perfectsouls = 0
 
 

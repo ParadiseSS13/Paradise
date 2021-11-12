@@ -31,8 +31,7 @@
 	if(draining)
 		to_chat(src, "<span class='revenwarning'>You are already siphoning the essence of a soul!</span>")
 		return
-	var/mob_UID = target.UID()
-	if(mob_UID in drained_mobs)
+	if(target.UID() in drained_mobs)
 		to_chat(src, "<span class='revenwarning'>[target]'s soul is dead and empty.</span>")
 		return
 	if(!target.stat)
@@ -219,14 +218,13 @@
 	if(!L.on) //wait, wait, don't shock me
 		return
 	flick("[L.base_state]2", L)
-	var/sound_cashe = 'sound/machines/defib_zap.ogg'
 	for(var/mob/living/M in view(shock_range, L))
 		if(M == user)
 			continue
-		M.Beam(L, icon_state = "purple_lightning" , icon = 'icons/effects/effects.dmi' , time = 0.5 SECONDS)
+		M.Beam(L, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 		M.electrocute_act(shock_damage, L, flags = SHOCK_NOGLOVES)
 		do_sparks(4, 0, M)
-		playsound(M, sound_cashe, 50, 1, -1)
+		playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 
 //Defile: Corrupts nearby stuff, unblesses floor tiles.
 /obj/effect/proc_holder/spell/aoe_turf/revenant/defile
