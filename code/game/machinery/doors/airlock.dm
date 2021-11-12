@@ -1287,6 +1287,17 @@ About the new airlock wires panel:
 		if(duration > electrified_until)
 			electrify(duration)
 
+/obj/machinery/door/airlock/ex_act(severity)
+	if(resistance_flags & INDESTRUCTIBLE)
+		return
+	switch(severity)
+		if(EXPLODE_DEVASTATE) //Destroy the airlock completely.
+			qdel(src)
+		if(EXPLODE_HEAVY) //Deconstruct the airlock, leaving damaged airlock frame and parts behind
+			deconstruct(FALSE, null)
+		if(EXPLODE_LIGHT) //Deals 150 damage to the airlock, half a standard airlock's integrity
+			take_damage(150)
+
 /obj/machinery/door/airlock/attack_alien(mob/living/carbon/alien/humanoid/user)
 	add_fingerprint(user)
 	if(isElectrified())

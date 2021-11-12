@@ -228,6 +228,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		msg += "*--------*"
 		. += msg
 
+	if(HAS_TRAIT(src, TRAIT_BUTCHERS_HUMANS))
+		. += "<span class='warning'>Can be used to butcher dead people into meat while on harm intent.</span>"
+
 /obj/item/burn()
 	if(!QDELETED(src))
 		var/turf/T = get_turf(src)

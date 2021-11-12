@@ -267,6 +267,9 @@ REAGENT SCANNER
 	if(HAS_TRAIT(H, TRAIT_HUSK))
 		to_chat(user, "<span class='danger'>Subject is husked. Application of synthflesh is recommended.</span>")
 
+	if(H.radiation > RAD_MOB_SAFE)
+		to_chat(user, "<span class='danger'>Subject is irradiated.</span>")
+
 /obj/item/healthanalyzer/attack_self(mob/user)
 	toggle_mode()
 
