@@ -31,7 +31,8 @@
 	if(draining)
 		to_chat(src, "<span class='revenwarning'>You are already siphoning the essence of a soul!</span>")
 		return
-	if(target.UID() in drained_mobs)
+	var/mob_UID = target.UID()
+	if(mob_UID in drained_mobs)
 		to_chat(src, "<span class='revenwarning'>[target]'s soul is dead and empty.</span>")
 		return
 	if(!target.stat)
