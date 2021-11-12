@@ -74,16 +74,18 @@
 			to_chat(user, "<span class='notice'>Вы начинаете заваривать болты мода Sibyl System от [src]...</span>")
 			if(!I.use_tool(src, user, 160, volume = I.tool_volume))
 				return
-			sibyl_mod.install(src, user)
-			to_chat(user, "<span class='notice'>Вы заварили болты мода Sibyl System в [src].</span>")
+			if(sibyl_mod.integrity == 1)
+				sibyl_mod.install(src, user)
+				to_chat(user, "<span class='notice'>Вы заварили болты мода Sibyl System в [src].</span>")
 			return
 		if(sibyl_mod.integrity == 2)
 			to_chat(user, "<span class='notice'>Вы начинаете разваривать болты мода Sibyl System от [src]...</span>")
 			if(!I.use_tool(src, user, 160, volume = I.tool_volume))
 				return
 			if(prob(70))
-				sibyl_mod.uninstall(src, user)
-				to_chat(user, "<span class='notice'>Вы успешно разварили болты мода Sibyl System от [src].</span>")
+				if(sibyl_mod.integrity == 2)
+					sibyl_mod.uninstall(src, user)
+					to_chat(user, "<span class='notice'>Вы успешно разварили болты мода Sibyl System от [src].</span>")
 			else
 				var/mob/living/carbon/human/H = user
 				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? "l_hand" : "r_hand")
@@ -100,8 +102,9 @@
 			if(!I.use_tool(src, user, 160, volume = I.tool_volume))
 				return
 			if(prob(95))
-				sibyl_mod.uninstall(src, user)
-				to_chat(user, "<span class='notice'>Вы успешно отковыряли болты мода Sibyl System от [src].</span>")
+				if(sibyl_mod.integrity == 1)
+					sibyl_mod.uninstall(src, user)
+					to_chat(user, "<span class='notice'>Вы успешно отковыряли болты мода Sibyl System от [src].</span>")
 			else
 				var/mob/living/carbon/human/H = user
 				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? "l_hand" : "r_hand")
