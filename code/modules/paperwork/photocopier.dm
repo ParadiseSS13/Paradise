@@ -410,6 +410,7 @@
 		if("deletefile")
 			delete_file(params["uid"])
 	update_icon()
+	return TRUE
 
 /obj/machinery/photocopier/proc/aipic()
 	if(!issilicon(usr))
@@ -507,6 +508,7 @@
 		copyitem = null
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 	atom_say("Attention: Posterior Placed on Printing Plaque!")
+	SStgui.update_uis(src)
 
 /**
   * Internal proc for checking the Mob on top of the copier
