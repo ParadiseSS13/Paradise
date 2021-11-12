@@ -372,6 +372,29 @@
 					var/new_h_style = input(user, "Choose your character's hair style:", "Character Preference") as null|anything in valid_hairstyles
 					if(new_h_style)
 						active_character.h_style = new_h_style
+		
+				if("h_grad_style")
+					var/result = input(user, "Choose your character's hair gradient style:", "Character Preference") as null|anything in GLOB.hair_gradients_list
+					if(result)
+						active_character.h_grad_style = result
+
+				if("h_grad_offset")
+					var/result = input(user, "Enter your character's hair gradient offset as a comma-separated value (x,y). Example:\n0,0 (no offset)\n5,0 (5 pixels to the right)", "Character Preference") as null|text
+					if(result)
+						var/list/expl = splittext(result, ",")
+						if(length(expl) == 2)
+							active_character.h_grad_offset_x = clamp(text2num(expl[1]) || 0, -16, 16)
+							active_character.h_grad_offset_y = clamp(text2num(expl[2]) || 0, -16, 16)
+
+				if("h_grad_colour")
+					var/result = input(user, "Choose your character's hair gradient colour:", "Character Preference", active_character.h_grad_colour) as color|null
+					if(result)
+						active_character.h_grad_colour = result
+
+				if("h_grad_alpha")
+					var/result = input(user, "Choose your character's hair gradient alpha (0-255):", "Character Preference", active_character.h_grad_alpha) as num|null
+					if(!isnull(result))
+						active_character.h_grad_alpha = clamp(result, 0, 255)
 
 				if("headaccessory")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species with head accessories.
