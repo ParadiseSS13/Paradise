@@ -512,7 +512,7 @@ function ehjaxCallback(data) {
 		opts.pingTime = Date.now();
 		runByond('?_src_=chat&proc=ping');
 	} else if (data == 'pong') {
-		if (opts.pingDisabled) {return;}
+		// if (opts.pingDisabled) {return;}
 		opts.pongTime = Date.now();
 		var pingDuration = Math.ceil((opts.pongTime - opts.pingTime) / 2);
 		$('#pingMs').text(pingDuration+'ms');
