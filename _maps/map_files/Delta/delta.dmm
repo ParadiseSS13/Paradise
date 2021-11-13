@@ -49423,7 +49423,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "chk" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
