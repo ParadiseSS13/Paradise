@@ -128,7 +128,7 @@
 			if(!length(refundable))
 				dat += "You do not have any refundable karma purchases.<br>"
 
-	dat += "<br><b>Please note that people who attempt to game the karma system will be banned from the system and have all their unlocks revoked. \"Gameing\" the system includes, but is not limited to:<ul><li>- Karma trading</li><li>- OOC Karma begging</li><li>- Code exploits</li></ul></b>"
+	dat += "<br><b>Please note that people who attempt to game the karma system will be banned from the system and have all their unlocks revoked. \"Gaming\" the system includes, but is not limited to:<ul><li>- Karma trading</li><li>- OOC Karma begging</li><li>- Code exploits</li></ul></b>"
 	dat += "</center></body></html>"
 
 	var/datum/browser/popup = new(usr, "karmashop", "<div align='center'>Karma Shop</div>", 400, 500)
