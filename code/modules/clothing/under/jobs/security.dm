@@ -88,6 +88,20 @@
 		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi'
 		)
 
+/obj/item/clothing/under/det/disco
+	name = "superstar cop suit"
+	desc = "Flare cut trousers and a dirty shirt that might have been classy once."
+	icon_state = "jamrock_suit"
+	item_state = "jamrock_suit"
+	item_color = "jamrock_suit"
+
+/obj/item/clothing/under/det/kim
+	name = "aerostatic suit"
+	desc = "A crisp and well-pressed suit; professional, comfortable and curiously authoritative."
+	icon_state = "aerostatic_suit"
+	item_state = "aerostatic_suit"
+	item_color = "aerostatic_suit"
+
 /*
  * Head of Security
  */

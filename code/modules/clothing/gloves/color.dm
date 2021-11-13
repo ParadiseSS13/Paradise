@@ -226,6 +226,11 @@
 /obj/item/clothing/gloves/color/white/redcoat
 	item_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
 
+/obj/item/clothing/gloves/kim
+	name = "aerostatic gloves"
+	desc = "Breathable red gloves for expert handling of a pen and notebook."
+	icon_state = "aerostatic_gloves"
+	item_state = "aerostatic_gloves"
 
 /obj/item/clothing/gloves/color/captain
 	name = "captain's gloves"

@@ -346,6 +346,18 @@
 		/obj/item/clothing/shoes/cowboy/lizard = 7,
 		/obj/item/clothing/shoes/cowboy/lizardmasterwork = 1)
 
+/obj/item/clothing/shoes/disco
+	name = "green lizardskin shoes"
+	desc = "They may have lost some of their lustre over the years, but these green lizardskin shoes fit you perfectly."
+	icon_state = "lizardskin_shoes"
+	item_state = "lizardskin_shoes"
+
+/obj/item/clothing/shoes/kim
+	name = "aerostatic boots"
+	desc = "A crisp, clean set of boots for working long hours on the beat."
+	icon_state = "aerostatic_boots"
+	item_state = "aerostatic_boots"
+
 /obj/item/clothing/shoes/footwraps
  	name = "cloth footwraps"
  	desc = "A roll of treated canvas used for wrapping claws or paws."

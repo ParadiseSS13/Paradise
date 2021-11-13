@@ -116,6 +116,12 @@
 	icon_state = "horribletie"
 	item_color = "horribletie"
 
+/obj/item/clothing/accessory/discotie
+	name = "horrific necktie"
+	desc = "The necktie is adorned with a garish pattern. It's disturbingly vivid. Somehow you feel as if it would be wrong to ever take it off. It's your friend now. You will betray it if you change it for some boring scarf."
+	icon_state = "eldritchtie"
+	item_color = "eldritchtie"
+
 /obj/item/clothing/accessory/waistcoat // No overlay
 	name = "waistcoat"
 	desc = "For some classy, murderous fun."

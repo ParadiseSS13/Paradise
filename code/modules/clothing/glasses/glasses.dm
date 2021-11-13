@@ -240,6 +240,12 @@
 	icon_state = "hipster_glasses"
 	item_state = "hipster_glasses"
 
+/obj/item/clothing/glasses/regular/kim
+	name = "round glasses"
+	desc = "Binoclard glasses. At least you can aim when it counts."
+	icon_state = "round"
+	item_state = "round"
+
 /obj/item/clothing/glasses/threedglasses
 	name = "\improper 3D glasses"
 	desc = "A long time ago, people used these glasses to makes images from screens threedimensional."

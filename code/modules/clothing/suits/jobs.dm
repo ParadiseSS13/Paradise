@@ -188,6 +188,24 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
+/obj/item/clothing/suit/storage/det_suit/disco
+	name = "disco blazer"
+	desc = "Looks like someone skinned this blazer off some long extinct disco-animal."
+	icon_state = "jamrock_blazer"
+	item_state = "jamrock_blazer"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+
+/obj/item/clothing/suit/storage/det_suit/kim
+	name = "aerostatic bomber jacket"
+	desc = "A clean and stylish armoured orange bomber jacket."
+	icon_state = "aerostatic_bomber_jacket"
+	item_state = "aerostatic_bomber_jacket"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+
 //Forensics
 /obj/item/clothing/suit/storage/det_suit/forensics
 	name = "jacket"
@@ -206,6 +224,7 @@
 	name = "blue jacket"
 	desc = "A blue forensics technician jacket."
 	icon_state = "forensics_blue"
+
 
 //Blueshield
 /obj/item/clothing/suit/storage/blueshield
