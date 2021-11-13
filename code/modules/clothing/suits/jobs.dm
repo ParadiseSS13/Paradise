@@ -225,7 +225,6 @@
 	desc = "A blue forensics technician jacket."
 	icon_state = "forensics_blue"
 
-
 //Blueshield
 /obj/item/clothing/suit/storage/blueshield
 	name = "blueshield's coat"
