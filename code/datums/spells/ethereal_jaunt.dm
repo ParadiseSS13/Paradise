@@ -53,9 +53,10 @@
 	new jaunt_in_type(mobloc, holder.dir)
 	target.setDir(holder.dir)
 	sleep(jaunt_in_time)
+	var/turf/new_loc = get_turf(target)
 	qdel(holder)
 	if(!QDELETED(target))
-		if(!(target.Move(mobloc)))
+		if(!(target.Move(new_loc)))
 			for(var/turf/T in orange(7))
 				if(isspaceturf(T))
 					continue
