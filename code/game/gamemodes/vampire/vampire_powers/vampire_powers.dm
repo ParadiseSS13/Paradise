@@ -45,6 +45,7 @@
 		if(!deduct_blood_on_cast) //don't take the blood yet if this is false!
 			return
 		vampire.bloodusable -= blood_cost
+		SSblackbox.record_feedback("tally", "vampire_powers_used", 1, "[name]")
 		to_chat(usr, "<span class='boldnotice'>You have [vampire.bloodusable] left to use.</span>")
 		return TRUE
 	else
