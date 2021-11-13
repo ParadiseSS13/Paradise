@@ -115,6 +115,12 @@
 	speed = 0
 	boost = world.time + 60
 
+// Midround slaughter demon, less tanky
+
+/mob/living/simple_animal/slaughter/lesser
+	maxHealth = 130
+	health = 130
+
 // Cult slaughter demon
 /mob/living/simple_animal/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
 	name = "harbinger of the slaughter"

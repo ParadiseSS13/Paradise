@@ -14,8 +14,10 @@
 	var/is_production = FALSE
 	/// If above is true, you can run a shell command
 	var/shutdown_shell_command = null
-	/// 2FA backend server host
-	var/_2fa_auth_host = null
+	/// Internal API host
+	var/api_host = null
+	/// Internal API key
+	var/api_key = null
 	/// List of IP addresses which bypass world topic rate limiting
 	var/list/topic_ip_ratelimit_bypass = list()
 	/// Server instance ID
@@ -32,7 +34,8 @@
 	CONFIG_LOAD_STR(medal_hub_address, data["medal_hub_address"])
 	CONFIG_LOAD_STR(medal_hub_password, data["medal_hub_password"])
 	CONFIG_LOAD_STR(shutdown_shell_command, data["shutdown_shell_command"])
-	CONFIG_LOAD_STR(_2fa_auth_host, data["_2fa_auth_host"])
+	CONFIG_LOAD_STR(api_host, data["api_host"])
+	CONFIG_LOAD_STR(api_key, data["api_key"])
 
 	CONFIG_LOAD_LIST(topic_ip_ratelimit_bypass, data["topic_ip_ratelimit_bypass"])
 

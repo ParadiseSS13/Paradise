@@ -518,7 +518,7 @@
 
 /obj/item/twohanded/spear/kidan
 	icon_state = "kidanspear0"
-	name = "Kidan spear"
+	name = "\improper Kidan spear"
 	desc = "A spear brought over from the Kidan homeworld."
 
 // DIY CHAINSAW
@@ -589,7 +589,7 @@
 ///CHAINSAW///
 /obj/item/twohanded/chainsaw
 	icon_state = "chainsaw0"
-	name = "Chainsaw"
+	name = "chainsaw"
 	desc = "Perfect for felling trees or fellow spacemen."
 	force = 15
 	throwforce = 15
@@ -638,6 +638,10 @@
 	. = ..()
 	if(.)
 		flags &= ~NODROP
+
+/obj/item/twohanded/chainsaw/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_BUTCHERS_HUMANS, ROUNDSTART_TRAIT)
 
 // SINGULOHAMMER
 /obj/item/twohanded/singularityhammer

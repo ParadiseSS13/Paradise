@@ -294,7 +294,7 @@
 
 // HONK Rifle //
 /obj/item/gun/energy/clown
-	name = "HONK Rifle"
+	name = "\improper HONK rifle"
 	desc = "Clown Planet's finest."
 	icon_state = "disabler"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
@@ -314,26 +314,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
 	shaded_charge = 1
 	can_holster = TRUE
-
-// Energy Sniper //
-/obj/item/gun/energy/sniperrifle
-	name = "L.W.A.P. Sniper Rifle"
-	desc = "A rifle constructed of lightweight materials, fitted with a SMART aiming-system scope."
-	icon_state = "esniper"
-	origin_tech = "combat=6;materials=5;powerstorage=4"
-	ammo_type = list(/obj/item/ammo_casing/energy/sniper)
-	item_state = null
-	weapon_weight = WEAPON_HEAVY
-	slot_flags = SLOT_BACK
-	w_class = WEIGHT_CLASS_BULKY
-	can_holster = FALSE
-	zoomable = TRUE
-	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
-	shaded_charge = 1
-
-/obj/item/gun/energy/sniperrifle/detailed_examine()
-	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. To recharge this weapon, use a weapon recharger. \
-			To use the scope, use the appropriate verb in the object tab."
 
 /obj/item/gun/energy/bsg
 	name = "\improper B.S.G"
