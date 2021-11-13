@@ -10626,7 +10626,7 @@
 	name = "Internal Affairs Privacy Shutters Control";
 	pixel_x = -25
 	},
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -14070,7 +14070,7 @@
 /turf/simulated/floor/carpet,
 /area/maintenance/fpmaint)
 "aGp" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
 	},
@@ -14460,7 +14460,7 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/fpmaint2)
 "aHj" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/wood,
 /area/maintenance/fpmaint2)
 "aHk" = (
@@ -15277,7 +15277,7 @@
 	},
 /area/security/detectives_office)
 "aJl" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/machinery/light_switch{
 	dir = 1;
 	pixel_y = -24
