@@ -149,6 +149,23 @@
 				B.door_opened(src)
 		else
 			do_animate("deny")
+			if(HAS_TRAIT(user, TRAIT_FORCE_DOORS))
+				if(user.mind?.vampire && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+					if(!user.mind.vampire.bloodusable)
+						REMOVE_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
+						return
+				if(welded)
+					to_chat(user, "<span class='warning'>The door is welded.</span>")
+					return
+				if(locked)
+					to_chat(user, "<span class='warning'>The door is bolted.</span>")
+					return
+				if(density)
+					visible_message("<span class='danger'>[user] forces the door open!</span>")
+					playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+					open(TRUE)
+				if(user.mind?.vampire && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+					user.mind.vampire.bloodusable = max(user.mind.vampire.bloodusable - 5, 0)
 
 /obj/machinery/door/attack_ai(mob/user)
 	return attack_hand(user)
@@ -377,11 +394,6 @@
 /obj/machinery/door/proc/disable_lockdown()
 	if(!stat) //Opens only powered doors.
 		open() //Open everything!
-
-/obj/machinery/door/ex_act(severity)
-	//if it blows up a wall it should blow up a door
-	..(severity ? max(1, severity - 1) : 0)
-
 
 /obj/machinery/door/GetExplosionBlock()
 	return density ? real_explosion_block : 0

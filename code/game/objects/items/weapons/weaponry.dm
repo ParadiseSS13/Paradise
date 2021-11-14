@@ -107,7 +107,7 @@
 	attack_verb = list("jabbed","stabbed","ripped")
 
 /obj/item/wirerod
-	name = "Wired rod"
+	name = "wired rod"
 	desc = "A rod with some wire wrapped around the top. It'd be easy to attach something to the top bit."
 	icon_state = "wiredrod"
 	item_state = "rods"
@@ -167,7 +167,7 @@
 
 /obj/item/spear/kidan
 	icon_state = "kidanspear"
-	name = "Kidan spear"
+	name = "\improper Kidan spear"
 	desc = "A one-handed spear brought over from the Kidan homeworld."
 	icon_state = "kidanspear"
 	item_state = "kidanspear"

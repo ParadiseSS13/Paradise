@@ -64,6 +64,7 @@
 /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
 	name = "finger gun cylinder"
 	desc = "Wait, what?"
+	max_ammo = 3
 	ammo_type = /obj/item/ammo_casing/c38/invisible
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
@@ -290,7 +291,7 @@
 	icon_state = "uzi9mm-[round(ammo_count(),4)]"
 
 /obj/item/ammo_box/magazine/smgm9mm
-	name = "SMG magazine (9mm)"
+	name = "\improper SMG magazine (9mm)"
 	icon_state = "smg9mm"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
@@ -298,17 +299,17 @@
 	materials = list(MAT_METAL = 2000)
 
 /obj/item/ammo_box/magazine/smgm9mm/ap
-	name = "SMG magazine (Armour Piercing 9mm)"
+	name = "\improper SMG magazine (Armour Piercing 9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm/ap
 	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/smgm9mm/toxin
-	name = "SMG magazine (Toxin Tipped 9mm)"
+	name = "\improper SMG magazine (Toxin Tipped 9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm/tox
 	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/smgm9mm/fire
-	name = "SMG Magazine (Incendiary 9mm)"
+	name = "\improper SMG Magazine (Incendiary 9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm/inc
 	materials = list(MAT_METAL = 3000)
 
@@ -328,7 +329,7 @@
 	icon_state = "9x19p-[ammo_count() ? "8" : "0"]"
 
 /obj/item/ammo_box/magazine/smgm45
-	name = "SMG magazine (.45)"
+	name = "\improper SMG magazine (.45)"
 	icon_state = "c20r45"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c45
@@ -373,7 +374,7 @@
 	multiple_sprites = 2
 
 /obj/item/ammo_box/magazine/m556/arg
-	name = "ARG magazine (5.56mm)"
+	name = "\improper ARG magazine (5.56mm)"
 	icon_state = "arg"
 
 /obj/item/ammo_box/magazine/m12g
@@ -407,10 +408,10 @@
 	icon_state = "m12gt"
 	ammo_type = /obj/item/ammo_casing/shotgun/dart/bioterror
 
-/obj/item/ammo_box/magazine/m12g/breach
-	name = "shotgun magazine (12g breacher slugs)"
+/obj/item/ammo_box/magazine/m12g/meteor
+	name = "shotgun magazine (12g meteor slugs)"
 	icon_state = "m12gbc"
-	ammo_type = /obj/item/ammo_casing/shotgun/breaching
+	ammo_type = /obj/item/ammo_casing/shotgun/meteorslug
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg
 	name = "\improper XL shotgun magazine (12g slugs)"
@@ -457,7 +458,7 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/toy/enforcer
-	name = "Enforcer Foam magazine"
+	name = "\improper Enforcer foam magazine"
 	icon_state = "enforcer"
 	max_ammo = 8
 	multiple_sprites = 1

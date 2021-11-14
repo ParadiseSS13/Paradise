@@ -20,7 +20,7 @@
 	desc = "A wall mounted locker with emergency supplies"
 	icon_state = "emerg"
 	icon_closed = "emerg"
-	icon_opened = "emergopen"
+	icon_opened = "emerg_open"
 
 /obj/structure/closet/walllocker/emerglocker/populate_contents()
 	new /obj/item/tank/internals/emergency_oxygen(src)

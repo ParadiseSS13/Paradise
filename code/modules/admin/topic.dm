@@ -1295,8 +1295,9 @@
 		if(!prison_cell)	return
 
 		var/obj/structure/closet/secure_closet/brig/locker = new /obj/structure/closet/secure_closet/brig(prison_cell)
-		locker.opened = 0
-		locker.locked = 1
+		locker.opened = FALSE
+		locker.locked = TRUE
+		locker.update_icon()
 
 		//strip their stuff and stick it in the crate
 		for(var/obj/item/I in M)
@@ -2408,26 +2409,33 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(alert(src.owner, "Accept or Deny ERT request?", "CentComm Response", "Accept", "Deny") == "Deny")
+		if(alert(owner, "Accept or Deny ERT request?", "CentComm Response", "Accept", "Deny") == "Deny")
 			var/mob/living/carbon/human/H = locateUID(href_list["ErtReply"])
 			if(!istype(H))
-				to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
-				return
-			if(H.stat != 0)
-				to_chat(usr, "<span class='warning'>The person you are trying to contact is not conscious.</span>")
-				return
-			if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
-				to_chat(usr, "<span class='warning'>The person you are trying to contact is not wearing a headset</span>")
+				to_chat(owner, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 				return
 
-			var/input = input(src.owner, "Please enter a reason for denying [key_name(H)]'s ERT request.","Outgoing message from CentComm", "")
-			if(!input)	return
+			var/reason = input(owner, "Please enter a reason for denying [key_name(H)]'s ERT request.", "Outgoing message from CentComm") as null|message
+			if(!reason)
+				return
+			var/announce_to_crew = alert(owner, "Announce ERT request denial to crew or only to the sender [key_name(H)]?", "Send reason to who", "Crew", "Sender") == "Crew"
 			GLOB.ert_request_answered = TRUE
-			to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
-			log_admin("[src.owner] denied [key_name(H)]'s ERT request with the message [input].")
-			to_chat(H, "<span class='specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [input].</span>")
+			log_admin("[owner] denied [key_name(H)]'s ERT request with the message [reason]. Announced to [announce_to_crew ? "the entire crew." : "only the sender"].")
+
+			if(announce_to_crew)
+				GLOB.event_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time. Your ERT request has been denied for the following reasons:\n[reason]", "ERT Unavailable")
+				return
+
+			if(H.stat != CONSCIOUS)
+				to_chat(owner, "<span class='warning'>The person you are trying to contact is not conscious. ERT denied but no message has been sent.</span>")
+				return
+			if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
+				to_chat(owner, "<span class='warning'>The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent.</span>")
+				return
+			to_chat(owner, "<span class='notice'>You sent [reason] to [H] via a secure channel.</span>")
+			to_chat(H, "<span class='specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [reason].</span>")
 		else
-			src.owner.response_team()
+			owner.response_team()
 
 
 	else if(href_list["AdminFaxView"])

@@ -19,6 +19,36 @@
 	icon_state = "white"
 	},
 /area/toxins/misc_lab)
+"aad" = (
+/obj/structure/closet/emcloset{
+	icon_state = "emergency";
+	opened = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
+"aae" = (
+/obj/structure/closet/crate{
+	icon_state = "crate_open";
+	name = "Gold Crate";
+	opened = 1
+	},
+/obj/effect/decal/cleanable/cobweb,
+/obj/item/storage/belt/fannypack/yellow,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
+"aaf" = (
+/obj/structure/closet/crate{
+	icon_state = "crate_open";
+	name = "Silver Crate";
+	opened = 1
+	},
+/obj/item/paper{
+	info = "I.O.U. some shinies - Mr V. Ox"
+	},
+/mob/living/simple_animal/hostile/scarybat,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "aaQ" = (
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
@@ -2881,12 +2911,12 @@
 "ajr" = (
 /obj/structure/rack,
 /obj/structure/window/reinforced,
-/obj/item/gun/energy/gun/advtaser{
+/obj/item/gun/energy/disabler{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/energy/gun/advtaser,
-/obj/item/gun/energy/gun/advtaser{
+/obj/item/gun/energy/disabler,
+/obj/item/gun/energy/disabler{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -23556,13 +23586,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
-"bbS" = (
-/obj/structure/closet/emcloset{
-	icon_state = "emergencyopen";
-	opened = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bbT" = (
@@ -53720,14 +53743,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cmg" = (
-/obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
-	},
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/wood,
 /area/blueshield)
 "cmh" = (
@@ -73056,6 +73075,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "daT" = (
@@ -81272,18 +81292,6 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
-"kXY" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	name = "Silver Crate";
-	opened = 1
-	},
-/obj/item/paper{
-	info = "I.O.U. some shinies - Mr V. Ox"
-	},
-/mob/living/simple_animal/hostile/scarybat,
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint)
 "kYw" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -81889,17 +81897,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"pZQ" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	name = "Gold Crate";
-	opened = 1
-	},
-/obj/effect/decal/cleanable/cobweb,
-/obj/item/storage/belt/fannypack/yellow,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint)
 "qcg" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -103061,7 +103058,7 @@ cgQ
 ctV
 coL
 cvp
-pZQ
+aae
 cwz
 cBf
 oBH
@@ -104093,7 +104090,7 @@ sZe
 hvi
 lMw
 iui
-kXY
+aaf
 cvp
 cEJ
 cFM
@@ -110463,7 +110460,7 @@ aPi
 aVD
 aQl
 aMA
-bbS
+aad
 aEN
 aRw
 biM

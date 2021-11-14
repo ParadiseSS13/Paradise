@@ -141,6 +141,8 @@
 		handle_drunk()
 	if(cultslurring)
 		AdjustCultSlur(-1)
+	if(confused)
+		AdjustConfused(-1)
 
 /mob/living/proc/update_damage_hud()
 	return

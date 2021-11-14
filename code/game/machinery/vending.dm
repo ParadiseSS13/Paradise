@@ -1804,30 +1804,31 @@
 	icon_state = "secdrobe"
 	ads_list = list("Beat perps in style!", "It's red so you can't see the blood!", "You have the right to be fashionable!", "Now you can be the fashion police you always wanted to be!")
 	vend_reply = "Thank you for using the SecDrobe!"
-	products = list(/obj/item/clothing/under/rank/security = 4,
+	products = list(/obj/item/clothing/under/rank/security/corp = 4,
+					/obj/item/clothing/under/rank/dispatch = 4,
+					/obj/item/clothing/under/rank/security/skirt = 4,
+					/obj/item/clothing/under/rank/security = 4,
 					/obj/item/clothing/under/rank/security2 = 4,
 					/obj/item/clothing/under/rank/security/formal = 4,
-					/obj/item/clothing/under/rank/security/skirt = 4,
-					/obj/item/clothing/under/rank/security/corp = 4,
-					/obj/item/clothing/under/rank/dispatch = 4,
+					/obj/item/clothing/head/soft/sec/corp = 4,
+					/obj/item/clothing/head/officer = 4,
 					/obj/item/clothing/head/beret/sec = 4,
 					/obj/item/clothing/head/soft/sec = 4,
-					/obj/item/clothing/head/soft/sec/corp = 4,
-					/obj/item/clothing/suit/armor/secjacket = 4,
 					/obj/item/clothing/suit/jacket/secbomber = 2,
+					/obj/item/clothing/suit/armor/secjacket = 4,
 					/obj/item/clothing/suit/hooded/wintercoat/security = 4,
-					/obj/item/clothing/gloves/color/black = 4,
-					/obj/item/clothing/accessory/armband/sec = 6,
-					/obj/item/clothing/shoes/laceup = 4,
 					/obj/item/clothing/shoes/jackboots = 4,
 					/obj/item/clothing/shoes/jackboots/jacksandals = 4,
+					/obj/item/clothing/shoes/laceup = 4,
+					/obj/item/storage/backpack/duffel/security = 2,
 					/obj/item/storage/backpack/security = 2,
 					/obj/item/storage/backpack/satchel_sec = 2,
-					/obj/item/storage/backpack/duffel/security = 2)
-	premium = list(/obj/item/clothing/mask/gas/sechailer/swat = 2,
-				   /obj/item/clothing/mask/balaclava = 1)
-	contraband = list(/obj/item/toy/figure/crew/secofficer = 1,
-					  /obj/item/toy/figure/crew/hos = 1)
+					/obj/item/clothing/gloves/color/black = 4,
+					/obj/item/clothing/accessory/armband/sec = 6)
+	premium = list(/obj/item/clothing/mask/balaclava = 1,
+				   /obj/item/clothing/mask/gas/sechailer/swat = 2)
+	contraband = list(/obj/item/toy/figure/crew/hos = 1,
+					  /obj/item/toy/figure/crew/secofficer = 1)
 	refill_canister = /obj/item/vending_refill/secdrobe
 
 /obj/machinery/vending/detdrobe

@@ -1,7 +1,7 @@
 // Telegun for Tator RDs
 
 /obj/item/gun/energy/telegun
-	name = "Teleporter Gun"
+	name = "teleporter gun"
 	desc = "An extremely high-tech bluespace energy gun capable of teleporting targets to far off locations."
 	icon_state = "telegun"
 	item_state = "ionrifle"
