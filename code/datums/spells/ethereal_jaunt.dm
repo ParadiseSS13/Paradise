@@ -60,6 +60,10 @@
 				if(isspaceturf(T))
 					continue
 				if(target.Move(T))
+					target.remove_CC()
+					return
+			for(var/turf/space/S in orange(7))
+				if(target.Move(S))
 					break
 		target.remove_CC()
 
