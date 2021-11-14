@@ -13,6 +13,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
+	face_while_pulling = TRUE
 	/// The maximum number of items the fridge can hold. Multiplicated by the matter bin component's rating.
 	var/max_n_of_items = 1500
 	/// Associative list (/text => /number) tracking the amounts of a specific item held by the fridge.
@@ -236,7 +237,7 @@
 		var/K = item_quants[i]
 		var/count = item_quants[K]
 		if(count > 0)
-			items.Add(list(list("display_name" = html_encode(capitalize(K)), "vend" = i, "quantity" = count)))
+			items.Add(list(list("display_name" = capitalize(K), "vend" = i, "quantity" = count)))
 
 	if(length(items))
 		data["contents"] = items
@@ -394,6 +395,44 @@
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/seeds
 	))
+
+/**
+  * # Food and Drink Cart
+  *
+  * Variant of the [Smart Fridge][/obj/machinery/smartfridge] that holds food and drinks in a mobile form
+  */
+/obj/machinery/smartfridge/foodcart
+	name = "\improper Food and Drink Cart"
+	desc = "A portable cart for hawking your food and drink wares around the station"
+	icon = 'icons/obj/foodcart.dmi'
+	icon_state = "cart"
+	anchored = FALSE
+	use_power = NO_POWER_USE
+	visible_contents = FALSE
+	face_while_pulling = FALSE
+
+
+/obj/machinery/smartfridge/foodcart/Initialize(mapload)
+	. = ..()
+	accepted_items_typecache = typecacheof(list(
+		/obj/item/reagent_containers/food/snacks,
+		/obj/item/reagent_containers/food/drinks,
+		/obj/item/reagent_containers/food/condiment,
+	))
+
+/obj/machinery/smartfridge/foodcart/screwdriver_act(mob/living/user, obj/item/I)
+	return
+
+/obj/machinery/smartfridge/foodcart/crowbar_act(mob/living/user, obj/item/I)
+	return
+
+/obj/machinery/smartfridge/foodcart/exchange_parts()
+	return
+
+/obj/machinery/smartfridge/foodcart/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 4)
+	qdel(src)
 
 /**
   * # Circuit Boards Storage

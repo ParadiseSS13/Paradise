@@ -164,6 +164,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BLOODCRAWL_EAT	"bloodcrawl_eat"
 #define TRAIT_DWARF				"dwarf"
 #define TRAIT_SILENT_FOOTSTEPS	"silent_footsteps" //makes your footsteps completely silent
+#define TRAIT_MESON_VISION		"meson_vision"
+#define TRAIT_FLASH_PROTECTION	"flash_protection"
+#define TRAIT_NIGHT_VISION		"night_vision"
 
 #define TRAIT_NO_BONES 			"no_bones"
 #define TRAIT_STURDY_LIMBS		"sturdy_limbs"
@@ -183,6 +186,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //***** ITEM TRAITS *****//
 /// Show what machine/door wires do when held.
 #define TRAIT_SHOW_WIRE_INFO "show_wire_info"
+#define TRAIT_BUTCHERS_HUMANS "butchers_humans"
 
 //
 // common trait sources

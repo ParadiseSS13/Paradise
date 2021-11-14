@@ -651,7 +651,9 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "cH" = (
-/obj/machinery/computer/shuttle/ferry,
+/obj/machinery/computer/shuttle/ferry{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/centcom/evac)
 "cI" = (
@@ -661,7 +663,9 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/specops)
 "cK" = (
-/obj/machinery/computer/shuttle/admin,
+/obj/machinery/computer/shuttle/admin{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/centcom/evac)
 "cL" = (
@@ -1387,7 +1391,9 @@
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "fi" = (
-/obj/machinery/computer/shuttle/syndicate/recall,
+/obj/machinery/computer/shuttle/syndicate/recall{
+	dir = 1
+	},
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "fj" = (
@@ -1411,8 +1417,8 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/gamma)
 "fn" = (
-/obj/machinery/computer/library/checkout,
 /obj/structure/table/wood,
+/obj/machinery/computer/library/checkout,
 /turf/simulated/floor/engine/cult,
 /area/wizard_station)
 "fo" = (
@@ -1620,6 +1626,7 @@
 /obj/structure/sign/securearea{
 	pixel_x = -32
 	},
+/obj/machinery/suit_storage_unit/gamma,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "fW" = (
@@ -2027,7 +2034,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "hP" = (
-/obj/machinery/computer/communications,
+/obj/machinery/computer/communications{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "hQ" = (
@@ -3499,7 +3508,9 @@
 /turf/simulated/floor/carpet,
 /area/centcom/control)
 "mP" = (
-/obj/machinery/computer/pod/deathsquad,
+/obj/machinery/computer/pod/deathsquad{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark{
 	dir = 1;
 	icon_state = "vault"
@@ -3522,7 +3533,9 @@
 /turf/simulated/floor/wood,
 /area/centcom/control)
 "mV" = (
-/obj/machinery/computer/card/centcom,
+/obj/machinery/computer/card/centcom{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
 "mW" = (
@@ -3547,6 +3560,12 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/grass,
 /area/centcom/control)
+"nb" = (
+/obj/machinery/autolathe/upgraded/gamma,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma/space)
 "nc" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Gamma Armory";
@@ -3581,7 +3600,9 @@
 /turf/simulated/floor/carpet,
 /area/centcom/control)
 "nh" = (
-/obj/machinery/computer/communications,
+/obj/machinery/computer/communications{
+	dir = 8
+	},
 /turf/simulated/floor/carpet,
 /area/centcom/control)
 "nj" = (
@@ -4006,9 +4027,9 @@
 /area/syndicate_mothership)
 "oB" = (
 /obj/structure/closet/secure_closet/guncabinet,
-/obj/item/ammo_box/shotgun/buck,
-/obj/item/ammo_box/shotgun/buck,
-/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/beanbag,
+/obj/item/ammo_box/shotgun/beanbag,
+/obj/item/ammo_box/shotgun/beanbag,
 /obj/item/gun/projectile/shotgun/automatic/combat,
 /obj/item/gun/projectile/shotgun/automatic/combat,
 /obj/item/gun/projectile/shotgun/automatic/combat,
@@ -4023,9 +4044,9 @@
 /area/shuttle/gamma/space)
 "oC" = (
 /obj/structure/closet/secure_closet/guncabinet,
-/obj/item/gun/energy/sniperrifle,
-/obj/item/gun/energy/sniperrifle,
-/obj/item/gun/energy/sniperrifle,
+/obj/item/gun/energy/ionrifle,
+/obj/item/gun/energy/ionrifle,
+/obj/item/gun/energy/ionrifle,
 /obj/machinery/light/spot{
 	dir = 4
 	},
@@ -4076,18 +4097,12 @@
 /area/centcom/gamma)
 "oJ" = (
 /obj/structure/closet/secure_closet/guncabinet,
-/obj/item/ammo_box/magazine/m10mm,
-/obj/item/ammo_box/magazine/m10mm,
-/obj/item/ammo_box/magazine/m10mm,
-/obj/item/gun/projectile/automatic/pistol{
-	name = "pistol"
-	},
-/obj/item/gun/projectile/automatic/pistol{
-	name = "pistol"
-	},
-/obj/item/gun/projectile/automatic/pistol{
-	name = "pistol"
-	},
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/proto,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "oN" = (
@@ -4258,14 +4273,6 @@
 /obj/structure/flora/ausbushes,
 /turf/simulated/floor/grass,
 /area/centcom/specops)
-"pk" = (
-/obj/structure/closet/secure_closet/guncabinet,
-/obj/item/ammo_casing/rocket,
-/obj/item/ammo_casing/rocket,
-/obj/item/ammo_casing/rocket,
-/obj/item/gun/rocketlauncher,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma/space)
 "pl" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -4313,13 +4320,13 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/computer/mech_bay_power_console,
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 1
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "pu" = (
-/obj/mecha/combat/durand/loaded{
-	operation_req_access = list(1)
-	},
+/obj/mecha/combat/marauder/ares/loaded,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -4426,12 +4433,12 @@
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
 "pP" = (
+/obj/structure/table/wood,
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the Special Ops.";
 	name = "Special Ops. Monitor";
 	network = list("ERT")
 	},
-/obj/structure/table/wood,
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
 "pQ" = (
@@ -4439,9 +4446,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "pR" = (
-/obj/machinery/computer/station_alert,
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = 32
+	},
+/obj/machinery/computer/station_alert{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -4527,6 +4536,11 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"qf" = (
+/obj/structure/closet/secure_closet/guncabinet,
+/obj/item/gun/medbeam,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma/space)
 "qh" = (
 /obj/structure/holowindow,
 /turf/simulated/floor/holofloor{
@@ -4544,11 +4558,6 @@
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
-/obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
-	},
 /obj/item/clothing/head/helmet/space/deathsquad/beret,
 /obj/item/clothing/shoes/combat,
 /obj/item/clothing/under/syndicate/combat,
@@ -4563,6 +4572,7 @@
 	pixel_x = 6;
 	pixel_y = -6
 	},
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/plasteel/grimy,
 /area/centcom/specops)
 "ql" = (
@@ -4944,7 +4954,9 @@
 	},
 /area/centcom/evac)
 "rz" = (
-/obj/machinery/computer/communications,
+/obj/machinery/computer/communications{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "rA" = (
@@ -5189,9 +5201,11 @@
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "sy" = (
-/obj/machinery/computer/secure_data,
 /obj/machinery/light/spot{
 	dir = 8
+	},
+/obj/machinery/computer/secure_data{
+	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/centcom/evac)
@@ -6172,7 +6186,9 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/centcom/specops)
 "vf" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/secure_data{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/centcom/control)
 "vg" = (
@@ -6189,7 +6205,9 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "vi" = (
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/med_data{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/centcom/control)
 "vj" = (
@@ -6239,11 +6257,11 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "vp" = (
-/obj/machinery/computer/mech_bay_power_console,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/computer/mech_bay_power_console,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "vr" = (
@@ -6261,24 +6279,33 @@
 /area/admin)
 "vs" = (
 /obj/machinery/computer/security{
+	dir = 1;
 	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/plasteel,
 /area/centcom/control)
 "vt" = (
-/obj/machinery/computer/station_alert,
+/obj/machinery/computer/station_alert{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/centcom/control)
 "vu" = (
-/obj/machinery/computer/communications,
+/obj/machinery/computer/communications{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/centcom/control)
 "vv" = (
-/obj/machinery/computer/robotics,
+/obj/machinery/computer/robotics{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/centcom/control)
 "vw" = (
-/obj/machinery/computer/crew,
+/obj/machinery/computer/crew{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/centcom/control)
 "vx" = (
@@ -6856,8 +6883,10 @@
 /turf/simulated/floor/carpet,
 /area/admin)
 "wS" = (
-/obj/machinery/computer/secure_data,
 /obj/item/paper/sop,
+/obj/machinery/computer/secure_data{
+	dir = 8
+	},
 /turf/simulated/floor/carpet,
 /area/admin)
 "wT" = (
@@ -6885,11 +6914,15 @@
 /turf/simulated/floor/carpet,
 /area/admin)
 "wY" = (
-/obj/machinery/computer/communications,
+/obj/machinery/computer/communications{
+	dir = 4
+	},
 /turf/simulated/floor/carpet,
 /area/admin)
 "wZ" = (
-/obj/machinery/computer/med_data,
+/obj/machinery/computer/med_data{
+	dir = 8
+	},
 /turf/simulated/floor/carpet,
 /area/admin)
 "xa" = (
@@ -7367,7 +7400,9 @@
 	},
 /area/trader_station/sol)
 "yJ" = (
-/obj/machinery/computer/communications,
+/obj/machinery/computer/communications{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/admin)
 "yK" = (
@@ -7384,7 +7419,9 @@
 	},
 /area/trader_station/sol)
 "yP" = (
-/obj/machinery/computer/atmos_alert,
+/obj/machinery/computer/atmos_alert{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/admin)
 "yQ" = (
@@ -7394,12 +7431,15 @@
 	},
 /area/centcom/evac)
 "yR" = (
-/obj/machinery/computer/message_monitor,
 /obj/item/paper/monitorkey,
+/obj/machinery/computer/message_monitor{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/admin)
 "yS" = (
 /obj/machinery/computer/account_database{
+	dir = 1;
 	name = "Admin Accounts Database"
 	},
 /turf/simulated/floor/plasteel,
@@ -7411,7 +7451,9 @@
 /turf/simulated/floor/plating,
 /area/centcom/evac)
 "yU" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/secure_data{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/admin)
 "yV" = (
@@ -7456,7 +7498,9 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "zc" = (
-/obj/machinery/computer/arcade,
+/obj/machinery/computer/arcade{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/centcom/evac)
 "zd" = (
@@ -7477,7 +7521,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "zh" = (
-/obj/machinery/computer/card,
+/obj/machinery/computer/card{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/centcom/evac)
 "zi" = (
@@ -7948,7 +7994,9 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "AS" = (
-/obj/machinery/computer/teleporter,
+/obj/machinery/computer/teleporter{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/admin)
 "AT" = (
@@ -8004,11 +8052,15 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "Bb" = (
-/obj/machinery/computer/crew,
+/obj/machinery/computer/crew{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/centcom/evac)
 "Bc" = (
-/obj/machinery/computer/communications,
+/obj/machinery/computer/communications{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/centcom/evac)
 "Bd" = (
@@ -8044,6 +8096,7 @@
 /area/centcom/evac)
 "Bj" = (
 /obj/machinery/computer{
+	dir = 1;
 	name = "EMERGENCY SHUTTLE COMPUTER"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -8104,7 +8157,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "Bv" = (
-/obj/machinery/computer/camera_advanced,
+/obj/machinery/computer/camera_advanced{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "Bw" = (
@@ -8121,6 +8176,7 @@
 /area/syndicate_mothership)
 "By" = (
 /obj/machinery/computer/shuttle/syndicate{
+	dir = 1;
 	name = "Nuclear Operatives Shuttle Console"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -9004,7 +9060,9 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
 "FJ" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/secure_data{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -9047,7 +9105,9 @@
 	},
 /area/shuttle/escape)
 "Ga" = (
-/obj/machinery/computer/shuttle/ert,
+/obj/machinery/computer/shuttle/ert{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Gd" = (
@@ -9123,7 +9183,9 @@
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate_sit)
 "GD" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sst,
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sst{
+	dir = 1
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_elite)
 "GJ" = (
@@ -9380,9 +9442,11 @@
 /turf/simulated/floor/plating,
 /area/tdome/tdome2)
 "Il" = (
-/obj/machinery/computer/communications,
 /obj/item/radio/intercom/specops{
 	pixel_y = -28
+	},
+/obj/machinery/computer/communications{
+	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
@@ -9626,7 +9690,9 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
 "JH" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sit,
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sit{
+	dir = 1
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
 "JM" = (
@@ -9640,6 +9706,7 @@
 /area/shuttle/administration)
 "JO" = (
 /obj/machinery/computer/security{
+	dir = 1;
 	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -9964,6 +10031,12 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_knightarena)
+"LN" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_x = -24
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma/space)
 "LO" = (
 /obj/machinery/autolathe/upgraded{
 	hacked = 1
@@ -10626,7 +10699,9 @@
 	},
 /area/shuttle/escape)
 "PU" = (
-/obj/machinery/computer/shuttle/sit,
+/obj/machinery/computer/shuttle/sit{
+	dir = 1
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
 "PX" = (
@@ -11188,11 +11263,12 @@
 	},
 /area/holodeck/source_thunderdomecourt)
 "TA" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
-	},
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
+	},
+/obj/machinery/computer/security{
+	dir = 4;
+	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -11377,7 +11453,9 @@
 	},
 /area/holodeck/source_knightarena)
 "UJ" = (
-/obj/machinery/computer/shuttle/sst,
+/obj/machinery/computer/shuttle/sst{
+	dir = 1
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_elite)
 "UK" = (
@@ -11493,6 +11571,7 @@
 /area/shuttle/escape)
 "Vr" = (
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin{
+	dir = 8;
 	name = "NTV Argos shuttle navigation computer"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -11566,7 +11645,9 @@
 	},
 /area/shuttle/escape)
 "VS" = (
-/obj/machinery/computer/atmos_alert,
+/obj/machinery/computer/atmos_alert{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkyellow"
@@ -11598,6 +11679,7 @@
 /area/shuttle/vox)
 "Wc" = (
 /obj/machinery/computer/shuttle/admin{
+	dir = 8;
 	name = "NTV Argos shuttle console"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -12041,7 +12123,6 @@
 	},
 /area/shuttle/escape)
 "YV" = (
-/obj/machinery/computer/shuttle/trade/sol,
 /obj/machinery/door_control{
 	id = "soltrader_south";
 	name = "Trade Deposits Door";
@@ -12054,6 +12135,9 @@
 	id = "soltraderflash";
 	pixel_x = 24;
 	pixel_y = -8
+	},
+/obj/machinery/computer/shuttle/trade/sol{
+	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
@@ -25459,8 +25543,8 @@ th
 fm
 of
 oB
-pf
-pf
+LN
+nb
 pf
 fV
 of
@@ -25717,7 +25801,7 @@ fm
 of
 oJ
 pf
-pk
+po
 pf
 pq
 of
@@ -25974,7 +26058,7 @@ fm
 of
 oW
 pf
-po
+qf
 pf
 pu
 of

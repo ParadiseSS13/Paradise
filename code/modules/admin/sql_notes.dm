@@ -1,5 +1,4 @@
-// Do not attemtp to remove the blank string from the server arg. It will break DB saving.
-/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, server = "", checkrights = 1, show_after = TRUE, automated = FALSE)
+/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, checkrights = 1, show_after = TRUE, automated = FALSE)
 	if(checkrights && !check_rights(R_ADMIN|R_MOD))
 		return
 	if(!SSdbcore.IsConnected())
@@ -53,10 +52,6 @@
 	else if(usr && (usr.ckey == ckey(adminckey))) // Don't ckeyize special note sources
 		adminckey = ckey(adminckey)
 
-	if(!server)
-		if(GLOB.configuration.general.server_name)
-			server = GLOB.configuration.general.server_name
-
 	// Force cast this to 1/0 incase someone tries to feed bad data
 	automated = !!automated
 
@@ -67,7 +62,7 @@
 		"targetckey" = target_ckey,
 		"notetext" = notetext,
 		"adminkey" = adminckey,
-		"server" = server,
+		"server" = GLOB.configuration.system.instance_id,
 		"crewnum" = crew_number,
 		"roundid" = GLOB.round_id,
 		"automated" = automated

@@ -34,6 +34,24 @@
 
 	light_color = LIGHT_COLOR_DARKGREEN
 
+/obj/machinery/computer/message_monitor/Initialize()
+	..()
+	return INITIALIZE_HINT_LATELOAD // Give the message server time to initialize
+
+/obj/machinery/computer/message_monitor/LateInitialize()
+	//If the monitor isn't linked to a server, and there's a server available, default it to the first one in the list.
+	if(!linkedServer && length(GLOB.message_servers))
+		linkedServer = GLOB.message_servers[1]
+		RegisterSignal(linkedServer, COMSIG_PARENT_QDELETING, .proc/unlink_server)
+
+/obj/machinery/computer/message_monitor/proc/unlink_server()
+	SIGNAL_HANDLER
+	linkedServer = null
+
+/obj/machinery/computer/message_monitor/Destroy()
+	customrecepient = null
+	linkedServer = null
+	return ..()
 
 /obj/machinery/computer/message_monitor/screwdriver_act(mob/user, obj/item/I)
 	if(emag) //Stops people from just unscrewing the monitor and putting it back to get the console working again.
@@ -70,14 +88,6 @@
 		icon_screen = normal_icon
 
 	..()
-
-/obj/machinery/computer/message_monitor/Initialize()
-	..()
-	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.
-	if(!linkedServer)
-		if(GLOB.message_servers && GLOB.message_servers.len > 0)
-			linkedServer = GLOB.message_servers[1]
-	return
 
 /obj/machinery/computer/message_monitor/attack_hand(mob/user as mob)
 	if(..())
@@ -490,18 +500,18 @@
 
 
 /obj/item/paper/monitorkey
-	//..()
 	name = "Monitor Decryption Key"
 	var/obj/machinery/message_server/server = null
 
-/obj/item/paper/monitorkey/New()
+/obj/item/paper/monitorkey/Initialize(mapload)
 	..()
-	spawn(10)
-		if(GLOB.message_servers)
-			for(var/obj/machinery/message_server/server in GLOB.message_servers)
-				if(!isnull(server))
-					if(!isnull(server.decryptkey))
-						info = "<center><h2>Daily Key Reset</h2></center>\n\t<br>The new message monitor key is '[server.decryptkey]'.<br>Please keep this a secret and away from the clown.<br>If necessary, change the password to a more secure one."
-						info_links = info
-						overlays += "paper_words"
-						break
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/item/paper/monitorkey/LateInitialize()
+	for(var/obj/machinery/message_server/server in GLOB.message_servers)
+		if(!isnull(server))
+			if(!isnull(server.decryptkey))
+				info = "<center><h2>Daily Key Reset</h2></center>\n\t<br>The new message monitor key is '[server.decryptkey]'.<br>Please keep this a secret and away from the clown.<br>If necessary, change the password to a more secure one."
+				info_links = info
+				overlays += "paper_words"
+				break

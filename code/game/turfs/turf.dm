@@ -6,6 +6,7 @@
 	var/intact = TRUE
 	var/turf/baseturf = /turf/space
 	var/slowdown = 0 //negative for faster, positive for slower
+	var/transparent_floor = FALSE //used to check if pipes should be visible under the turf or not
 
 	///Properties for open tiles (/floor)
 	/// All the gas vars, on the turf, are meant to be utilized for initializing a gas datum and setting its first gas values; the turf vars are never further modified at runtime; it is never directly used for calculations by the atmospherics system.
@@ -283,10 +284,10 @@
 		var/asleep = 0
 		var/ab = 0
 		var/atemp = 0
+
 		var/turf_count = 0
 
-		for(var/direction in GLOB.cardinal)//Only use cardinals to cut down on lag
-			var/turf/T = get_step(src, direction)
+		for(var/turf/T in atmos_adjacent_turfs)
 			if(istype(T, /turf/space))//Counted as no air
 				turf_count++//Considered a valid turf for air calcs
 				continue

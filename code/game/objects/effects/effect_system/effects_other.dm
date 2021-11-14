@@ -1,4 +1,4 @@
-/// Ion trails for spacepods and other space-flying things
+/// Ion trails for jetpacks, ion thrusters and other space-flying things
 /obj/effect/particle_effect/ion_trails
 	name = "ion trails"
 	icon_state = "ion_trails"

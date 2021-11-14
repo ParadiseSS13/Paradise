@@ -67,7 +67,7 @@
 			return
 		var/mob/living/carbon/human/M = TYPECAST_YOUR_SHIT.affecting
 		if(M.abiotic())
-			to_chat(user, "<span class='notice'>Subject cannot have abiotic items on.</span>")
+			to_chat(user, "<span class='notice'>Subject may not hold anything in their hands.</span>")
 			return
 		M.forceMove(src)
 		occupant = M
@@ -122,7 +122,7 @@
 	if(H.buckled)
 		return FALSE
 	if(H.abiotic())
-		to_chat(user, "<span class='notice'>Subject cannot have abiotic items on.</span>")
+		to_chat(user, "<span class='notice'>Subject may not hold anything in their hands.</span>")
 		return FALSE
 	if(H.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[H] will not fit into [src] because [H.p_they()] [H.p_have()] a slime latched onto [H.p_their()] head.</span>")

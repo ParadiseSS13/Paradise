@@ -109,7 +109,7 @@
 	item_color = "psyche"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi'
 		)
 
 /obj/item/clothing/under/color/lightblue

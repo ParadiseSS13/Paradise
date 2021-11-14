@@ -5,8 +5,8 @@
 	icon_state = "headset"
 	item_state = "headset"
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/ears.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/ears.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/ears.dmi'
 		) //We read you loud and skree-er.
 	materials = list(MAT_METAL=75)
 	canhear_range = 0 // can't hear headsets from very far away
@@ -133,12 +133,18 @@
 	ks1type = /obj/item/encryptionkey/headset_med
 
 /obj/item/radio/headset/headset_iaa
+	name = "internal affairs radio headset"
+	desc = "This is used by your elite legal team."
+	icon_state = "sec_headset"
+	item_state = "sec_headset"
+	ks2type = /obj/item/encryptionkey/headset_iaa
+
+/obj/item/radio/headset/headset_iaa/alt
 	name = "internal affairs bowman headset"
 	desc = "This is used by your elite legal team. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
-	ks2type = /obj/item/encryptionkey/headset_iaa
 
 /obj/item/radio/headset/headset_eng
 	name = "engineering radio headset"

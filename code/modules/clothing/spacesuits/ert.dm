@@ -5,15 +5,15 @@
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "helm-command"
 	item_color = "ert_commander"
-	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 50, fire = 80, acid = 80)
+	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 50, FIRE = 80, ACID = 80)
 	resistance_flags = FIRE_PROOF
 	var/obj/machinery/camera/camera
 	var/has_camera = TRUE
 	strip_delay = 130
 
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/helmet.dmi',
-		"Vox" = 'icons/mob/species/vox/helmet.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize()
@@ -50,7 +50,7 @@
 	item_state = "suit-command"
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
-	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 50, fire = 80, acid = 80)
+	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 50, FIRE = 80, ACID = 80)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
 	/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, \
 	/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
@@ -59,8 +59,8 @@
 	strip_delay = 130
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
-		"Drask" = 'icons/mob/species/drask/suit.dmi',
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 //Commander
@@ -121,6 +121,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer
 	name = "emergency response team engineer helmet"
 	desc = "A helmet worn by engineers of a Nanotrasen Emergency Response Team. Has yellow highlights. Armoured and space ready."
+	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 75, FIRE = 80, ACID = 80)
 	icon_state = "hardsuit0-ert_engineer"
 	item_state = "helm-orange"
 	item_color = "ert_engineer"
@@ -129,6 +130,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
 	name = "elite emergency response team engineer helmet"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 80)
 	icon_state = "hardsuit0-gammaengineer"
 	item_color = "gammaengineer"
 
@@ -137,12 +139,14 @@
 	desc = "A suit worn by the engineers of a Nanotrasen Emergency Response Team. Has yellow highlights. Armoured, space ready, and fire resistant."
 	icon_state = "ert_engineer"
 	item_state = "suit-orange"
+	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 75, FIRE = 80, ACID = 80)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer
 
 /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
 	name = "elite emergency response team engineer suit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gengineer"
+	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 80)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
 
 //Medical
@@ -206,11 +210,11 @@
 	resistance_flags = FIRE_PROOF
 	has_camera = FALSE
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/helmet.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
-		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal
@@ -221,10 +225,10 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
-		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 	hide_tail_by_species = list("Unathi, Tajaran, Vox, Vulpkanin")
 
@@ -269,7 +273,7 @@
 	icon_state = "hardsuit0-solgovmarine"
 	item_state = "hardsuit0-solgovmarine"
 	item_color = "solgovmarine"
-	armor = list("melee" = 35, "bullet" = 60, "laser" = 15, "energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 35, BULLET = 60, LASER = 15, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/suit/space/hardsuit/ert/solgov
 	name = "\improper Trans-Solar Federation Specops Marine hardsuit"
@@ -279,7 +283,7 @@
 	item_state = "ert_solgov_marine"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov
 	slowdown = 0
-	armor = list("melee" = 35, "bullet" = 60, "laser" = 15, "energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 35, BULLET = 60, LASER = 15, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov/command
 	name = "\improper Trans-Solar Federation Specops Lieutenant helmet"
