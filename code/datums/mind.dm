@@ -107,6 +107,8 @@
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		var/datum/antagonist/A = a
 		A.on_body_transfer(old_current, current)
+	if(vampire)
+		vampire.update_owner(new_character)
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
 	if(martial_art)
@@ -1544,14 +1546,15 @@
 
 		SSticker.mode.equip_syndicate(current)
 
-/datum/mind/proc/make_Vampire()
+/datum/mind/proc/make_vampire(ancient_vampire = FALSE)
 	if(!(src in SSticker.mode.vampires))
 		SSticker.mode.vampires += src
 		SSticker.mode.grant_vampire_powers(current)
 		special_role = SPECIAL_ROLE_VAMPIRE
-		SSticker.mode.forge_vampire_objectives(src)
 		SSticker.mode.greet_vampire(src)
 		SSticker.mode.update_vampire_icons_added(src)
+		if(!ancient_vampire)
+			SSticker.mode.forge_vampire_objectives(src)
 
 /datum/mind/proc/make_Changeling()
 	if(!(src in SSticker.mode.changelings))

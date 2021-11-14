@@ -109,20 +109,6 @@
 		M.ForceContractDisease(new /datum/disease/kuru(0))
 	return ..()
 
-/datum/reagent/grave_dust
-	name = "Grave Dust"
-	id = "grave_dust"
-	description = "Moldy old dust taken from a grave site."
-	reagent_state = LIQUID
-	color = "#465046"
-	can_synth = FALSE
-	taste_mult = 0
-
-/datum/reagent/grave_dust/on_mob_life(mob/living/carbon/M)
-	if(volume > 4.5)
-		M.ForceContractDisease(new /datum/disease/vampire(0))
-	return ..()
-
 /datum/reagent/bacon_grease
 	name = "Pure bacon grease"
 	id = "bacon_grease"
