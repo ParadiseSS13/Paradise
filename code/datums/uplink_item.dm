@@ -167,18 +167,19 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 //Clown
 /datum/uplink_item/jobspecific/clowngrenade
 	name = "Banana Grenade"
-	desc = "A grenade that explodes into HONK! brand banana peels that are genetically modified to be extra slippery and extrude caustic acid when stepped on"
+	desc = "A grenade that explodes into HONK! brand banana peels that are genetically modified to be extra slippery and extrude caustic acid when stepped on."
 	reference = "BG"
 	item = /obj/item/grenade/clown_grenade
 	cost = 5
 	job = list("Clown")
 
-/datum/uplink_item/jobspecific/clownmagboots
-	name = "Clown Magboots"
-	desc = "A pair of modified clown shoes fitted with an advanced magnetic traction system. Look and sound exactly like regular clown shoes unless closely inspected."
-	reference = "CM"
-	item = /obj/item/clothing/shoes/magboots/clown
+/datum/uplink_item/jobspecific/clownslippers
+	name = "Clown Acrobatic Shoes"
+	desc = "A pair of modified clown shoes fitted with a built-in propulsion system that allows the user to perform a short slip below anyone. Turning on the waddle dampeners removes the slowdown on the shoes."
+	reference = "CAS"
+	item = /obj/item/clothing/shoes/clown_shoes/slippers
 	cost = 3
+	surplus = 75
 	job = list("Clown")
 
 /datum/uplink_item/jobspecific/trick_revolver
@@ -560,13 +561,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/twohanded/chainsaw
 	cost = 13
 
-/datum/uplink_item/dangerous/batterer
-	name = "Mind Batterer"
-	desc = "A device that has a chance of knocking down people around you for a long amount of time. 50% chance per person. The user is unaffected. Has 5 charges."
-	reference = "BTR"
-	item = /obj/item/batterer
-	cost = 5
-
 // SUPPORT AND MECHAS
 
 /datum/uplink_item/support
@@ -707,12 +701,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	gamemodes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/ammo/bullstun
-	name = "Bulldog - 12g Stun Slug Magazine"
-	desc = "An alternative 8-round stun slug magazine for use in the Bulldog shotgun. Saying that they're completely non-lethal would be lying."
-	reference = "12SS"
-	item = /obj/item/ammo_box/magazine/m12g/stun
-	cost = 3
+/datum/uplink_item/ammo/bullmeteor
+	name = "12g Meteorslug Shells"
+	desc = "An alternative 8-round meteorslug magazine for use in the Bulldog shotgun. Great for blasting airlocks off their frames and knocking down enemies."
+	reference = "12MS"
+	item = /obj/item/ammo_box/magazine/m12g/meteor
+	cost = 2
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/bulldragon
@@ -876,6 +870,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/CQC_manual
 	cost = 13
 	cant_discount = TRUE
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -972,6 +967,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 	gamemodes = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/stealthy_weapons/combat_minus
+	name = "Experimental Krav Gloves"
+	desc = "Experimental gloves with installed nanochips that teach you Krav Maga when worn, great as a cheap backup weapon. Warning, the nanochips will override any other fighting styles such as CQC. Do not look as fly as the Warden's"
+	reference = "CGM"
+	item = /obj/item/clothing/gloves/color/black/krav_maga
+	cost = 10
+	excludefrom = list(/datum/game_mode/nuclear)
+
 // GRENADES AND EXPLOSIVES
 
 /datum/uplink_item/explosives
@@ -979,7 +982,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/explosives/plastic_explosives
 	name = "Composition C-4"
-	desc = "C-4 is plastic explosive of the common variety Composition C. You can use it to breach walls or connect an assembly to its wiring to make it remotely detonable. It has a modifiable timer with a minimum setting of 10 seconds."
+	desc = "C-4 is plastic explosive of the common variety Composition C. Reliably destroys the object it's placed on, assuming it isn't bomb resistant. Does not stick to crewmembers. Will only destroy station floors if placed directly on it. It has a modifiable timer with a minimum setting of 10 seconds."
 	reference = "C4"
 	item = /obj/item/grenade/plastic/c4
 	cost = 1
@@ -1004,7 +1007,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Composition X-4"
 	desc = "X-4 is a shaped charge designed to be safe to the user while causing maximum damage to the occupants of the room beach breached. It has a modifiable timer with a minimum setting of 10 seconds."
 	reference = "X4"
-	item = /obj/item/grenade/plastic/x4
+	item = /obj/item/grenade/plastic/c4/x4
 	cost = 2
 	gamemodes = list(/datum/game_mode/nuclear)
 

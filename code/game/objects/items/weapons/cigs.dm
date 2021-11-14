@@ -170,6 +170,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(flavor_text)
 			var/turf/T = get_turf(src)
 			T.visible_message(flavor_text)
+		if(iscarbon(loc))
+			var/mob/living/carbon/C = loc
+			if(C.wear_mask == src) // Don't update if it's just in their hand
+				C.wear_mask_update(src)
 		set_light(2, 0.25, "#E38F46")
 		START_PROCESSING(SSobj, src)
 

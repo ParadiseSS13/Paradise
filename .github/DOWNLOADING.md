@@ -14,7 +14,7 @@ When that's installed, right click in any folder and click on "Git Bash".
 When that opens, type in:
 
 ```sh
-    git clone https://github.com/ParadiseSS13/Paradise.git
+    git clone https://github.com/ParadiseSS13/Paradise.git --depth 1
 ```
 
 (hint: hold down ctrl and press insert to paste into git bash)
@@ -88,7 +88,7 @@ and then copy the `config` and `data` folders over.
 If you used the git method, you simply need to type this in to git bash:
 
 ```sh
-    git pull
+    git pull --depth 1
 ```
 
 When you have done this, you'll need to recompile the code, but then it should work fine and be up to date with the live server.

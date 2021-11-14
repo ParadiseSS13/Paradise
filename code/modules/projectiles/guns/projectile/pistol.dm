@@ -31,7 +31,7 @@
 
 //Enforcer//
 /obj/item/gun/projectile/automatic/pistol/enforcer
-	name = "Enforcer"
+	name = "\improper Enforcer"
 	desc = "A pistol of modern design."
 	icon_state = "enforcer_grey"
 	force = 10
@@ -78,7 +78,7 @@
 
 //Desert Eagle//
 /obj/item/gun/projectile/automatic/pistol/deagle
-	name = "desert eagle"
+	name = "\improper Desert Eagle"
 	desc = "A robust .50 AE handgun."
 	icon_state = "deagle"
 	force = 14.0
@@ -93,7 +93,7 @@
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/pistol/deagle/gold
-	desc = "A gold plated desert eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
+	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
 	icon_state = "deagleg"
 	item_state = "deagleg"
 

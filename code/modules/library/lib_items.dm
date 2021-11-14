@@ -126,6 +126,21 @@
 	new /obj/item/book/manual/research_and_development(src)
 	update_icon()
 
+/obj/structure/bookcase/sop
+	name = "bookcase (Standard Operating Procedures)"
+
+/obj/structure/bookcase/sop/Initialize()
+	. = ..()
+	new /obj/item/book/manual/sop_command(src)
+	new /obj/item/book/manual/sop_engineering(src)
+	new /obj/item/book/manual/sop_general(src)
+	new /obj/item/book/manual/sop_legal(src)
+	new /obj/item/book/manual/sop_medical(src)
+	new /obj/item/book/manual/sop_science(src)
+	new /obj/item/book/manual/sop_security(src)
+	new /obj/item/book/manual/sop_service(src)
+	new /obj/item/book/manual/sop_supply(src)
+	update_icon()
 
 /*
  * Book

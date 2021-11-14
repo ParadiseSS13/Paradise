@@ -165,6 +165,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	..()
 
 	add_robot_verbs()
+	
+	// Remove inherited verbs that effectively do nothing for cyborgs, or lead to unintended behaviour.
+	verbs -= /mob/living/verb/lay_down
+	verbs -= /mob/living/verb/mob_sleep
 
 	if(cell)
 		var/datum/robot_component/cell_component = components["power cell"]
@@ -277,7 +281,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	SStgui.close_uis(wires)
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
-		if(T)	mmi.loc = T
+		if(T)
+			mmi.forceMove(T)
 		if(mmi.brainmob)
 			mind.transfer_to(mmi.brainmob)
 			mmi.update_icon()
@@ -1264,6 +1269,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		connected_ai = AI
 		connected_ai.connected_robots |= src
 		notify_ai(1)
+		if(module)
+			module.rebuild_modules() //This way, if a borg gets linked to a malf AI that has upgrades, they get their upgrades.
 		sync()
 
 /mob/living/silicon/robot/adjustOxyLoss(amount)

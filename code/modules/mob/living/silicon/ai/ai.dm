@@ -79,6 +79,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/machinery/power/apc/malfhack = null
 	var/explosive = 0 //does the AI explode when it dies?
 
+	/// List of modules the AI has purchased malf upgrades for.
+	var/list/purchased_modules = list()
+
 	var/mob/living/silicon/ai/parent = null
 	var/camera_light_on = 0
 	var/list/obj/machinery/camera/lit_cameras = list()
@@ -169,6 +172,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(isturf(loc))
 		add_ai_verbs(src)
+	
+	// Remove inherited verbs that effectively do nothing for AIs, or lead to unintended behaviour.
+	verbs -= /mob/living/verb/lay_down
+	verbs -= /mob/living/verb/mob_sleep
+	verbs -= /mob/living/verb/resist
+	verbs -= /mob/living/verb/stop_pulling1
+	verbs -= /mob/living/silicon/verb/pose
+	verbs -= /mob/living/silicon/verb/set_flavor
 
 	//Languages
 	add_language("Robot Talk", 1)
