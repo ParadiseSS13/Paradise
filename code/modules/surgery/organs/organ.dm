@@ -96,15 +96,12 @@
 	if(status & ORGAN_DEAD)
 		return
 
-	if(is_preserved())
-		return
-
 	//Process infections
 	if(is_robotic() || sterile || (owner && HAS_TRAIT(owner, TRAIT_NOGERMS)))
 		germ_level = 0
 		return
 
-	if(!owner)
+	if(!owner && !is_preserved())
 		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
 		// Another mercy for surgeons preparing transplant organs
 		germ_level++
