@@ -135,7 +135,7 @@
 		if("Blueshield")
 			O = new /datum/outfit/plasmaman/blueshield
 
-		if("Assistant", "Tourist", "Businessman", "Trader")
+		if("Assistant")
 			O = new /datum/outfit/plasmaman/assistant
 
 	H.equipOutfit(O, visualsOnly)

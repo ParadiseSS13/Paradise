@@ -23,11 +23,8 @@
 		"Cyborg" = "airadio",
 		"Personal AI" = "airadio",
 		"Robot" = "airadio",
-		// Assistant + Varients
+		// Assistant
 		"Assistant" = "radio",
-		"Businessman" = "radio",
-		"Tourist" = "radio",
-		"Trader" = "radio",
 		// Command (Solo command, not department heads)
 		"Blueshield" = "comradio",
 		"Captain" = "comradio",
