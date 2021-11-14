@@ -396,6 +396,8 @@
 	if(!geoip)
 		geoip = new(src, address)
 
+	url = winget(src, null, "url")
+
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)

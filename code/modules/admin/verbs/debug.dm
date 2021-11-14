@@ -993,7 +993,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	var/msg = {"<html><meta charset="UTF-8"><head><title>Pingstat Report</title></head><body>"}
-	var/url
 	var/color
 	msg += "<TABLE border ='1'><TR>"
 	msg += "<TH>Player</TH>"
@@ -1020,8 +1019,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		color = "rgb([C.last_ping_duration], [255 - text2num(C.last_ping_duration)], 0)"
 		msg += "<TD bgcolor='[color]' >&nbsp;</TD>"
 		msg += "<TD><b>[C.last_ping_duration]<b></TD>"
-		url = winget(C, null, "url")
-		msg += "<TD>[url]</TD>"
+		msg += "<TD>[C.url]</TD>"
 
 		if(C.geoip.status != "updated")
 			C.geoip.try_update_geoip(C, C.address)
