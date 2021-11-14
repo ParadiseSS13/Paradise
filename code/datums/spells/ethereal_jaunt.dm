@@ -55,8 +55,10 @@
 	sleep(jaunt_in_time)
 	qdel(holder)
 	if(!QDELETED(target))
-		if(mobloc.density)
+		if(is_blocked_turf(mobloc, TRUE))
 			for(var/turf/T in orange(7))
+				if(isspaceturf(T))
+					continue
 				if(target.Move(T))
 					break
 		target.remove_CC()
