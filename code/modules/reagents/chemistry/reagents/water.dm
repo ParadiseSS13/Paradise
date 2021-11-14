@@ -107,6 +107,8 @@
 				C.reagents.add_reagent("toxin", volume * 0.5)
 			else
 				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
+		if(C.mind?.vampire)
+			C.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, C.nutrition + 10))
 
 /datum/reagent/blood/on_new(list/data)
 	if(istype(data))
@@ -268,19 +270,20 @@
 			update_flags |= M.adjustStaminaLoss(5, FALSE)
 			if(prob(20))
 				M.emote("scream")
-			M.mind.vampire.adjust_nullification(5, 2)
+			M.mind.vampire.adjust_nullification(20, 4)
 			M.mind.vampire.bloodusable = max(M.mind.vampire.bloodusable - 3,0)
 			if(M.mind.vampire.bloodusable)
-				V.vomit(0,1)
+				V.vomit(0, TRUE, FALSE)
+				V.adjustBruteLoss(3)
 			else
 				holder.remove_reagent(id, volume)
-				V.vomit(0,0)
+				V.vomit(0, FALSE, FALSE)
 				return
 		else
 			switch(current_cycle)
 				if(1 to 4)
 					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
-					M.mind.vampire.adjust_nullification(5, 2)
+					M.mind.vampire.adjust_nullification(20, 4)
 				if(5 to 12)
 					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
 					update_flags |= M.adjustFireLoss(1, FALSE)
@@ -288,19 +291,18 @@
 					M.Jitter(20)
 					if(prob(20))
 						M.emote("scream")
-					M.mind.vampire.adjust_nullification(5, 2)
+					M.mind.vampire.adjust_nullification(20, 4)
 				if(13 to INFINITY)
-					to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
-					for(var/mob/O in viewers(M, null))
-						O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!</span>", M), 1)
-					M.fire_stacks = min(5,M.fire_stacks + 3)
-					M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
-					update_flags |= M.adjustFireLoss(3, FALSE)		//Hence the other damages... ain't I a bastard?
+					M.visible_message("<span class='danger'>[M] suddenly bursts into flames!</span>",
+									"<span class='danger'>You suddenly ignite in a holy fire!</span>")
+					M.fire_stacks = min(5, M.fire_stacks + 3)
+					M.IgniteMob()
+					update_flags |= M.adjustFireLoss(3, FALSE)
 					M.Stuttering(1)
 					M.Jitter(30)
 					if(prob(40))
 						M.emote("scream")
-					M.mind.vampire.adjust_nullification(5, 2)
+					M.mind.vampire.adjust_nullification(20, 4)
 	return ..() | update_flags
 
 

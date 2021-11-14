@@ -134,6 +134,59 @@
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
 		owner.stun_absorption -= "blooddrunk"
 
+/datum/status_effect/bloodswell
+	id = "bloodswell"
+	duration = 30 SECONDS
+	tick_interval = 0
+	alert_type = /obj/screen/alert/status_effect/blood_swell
+	var/bonus_damage_applied = FALSE
+
+/obj/screen/alert/status_effect/blood_swell
+	name = "Blood Swell"
+	desc = "Your body has been infused with crimson magics, your resistance to attacks has greatly increased!"
+	icon = 'icons/mob/actions/actions.dmi'
+	icon_state = "blood_swell_status"
+
+/datum/status_effect/bloodswell/on_apply()
+	. = ..()
+	if(!. || !ishuman(owner))
+		return FALSE
+	ADD_TRAIT(owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
+	var/mob/living/carbon/human/H = owner
+	H.physiology.brute_mod *= 0.5
+	H.physiology.burn_mod *= 0.8
+	H.physiology.stamina_mod *= 0.5
+	H.physiology.stun_mod *= 0.5
+	if(owner.mind.vampire.get_ability(/datum/vampire_passive/blood_swell_upgrade))
+		bonus_damage_applied = TRUE
+		H.physiology.melee_bonus += 10
+		H.dna.species.punchstunthreshold += 8 //higher chance to stun but not 100%
+
+/datum/status_effect/bloodswell/on_remove()
+	if(!ishuman(owner))
+		return
+	REMOVE_TRAIT(owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
+	var/mob/living/carbon/human/H = owner
+	H.physiology.brute_mod /= 0.5
+	H.physiology.burn_mod /= 0.8
+	H.physiology.stamina_mod /= 0.5
+	H.physiology.stun_mod /= 0.5
+	if(bonus_damage_applied)
+		bonus_damage_applied = FALSE
+		H.physiology.melee_bonus -= 10
+		H.dna.species.punchstunthreshold -= 8
+
+/datum/status_effect/blood_rush
+	alert_type = null
+	duration = 10 SECONDS
+
+/datum/status_effect/blood_rush/on_apply()
+	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
+	return TRUE
+
+/datum/status_effect/blood_rush/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
+
 /datum/status_effect/exercised
 	id = "Exercised"
 	duration = 1200

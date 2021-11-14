@@ -461,7 +461,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 
 	if(!is_level_reachable(user.z))
-		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
+		to_chat(user, "<span class='cultitalic'>You are too far away from the station to teleport!</span>")
 		log_game("Teleport rune failed - user in away mission")
 		fail_invoke()
 		return
