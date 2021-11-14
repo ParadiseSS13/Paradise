@@ -101,7 +101,9 @@
 		germ_level = 0
 		return
 
-	if(!owner && !is_preserved())
+	if(!owner)
+		if(is_preserved())
+			return
 		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
 		// Another mercy for surgeons preparing transplant organs
 		germ_level++
