@@ -34,6 +34,10 @@
 
 #define STATUS_EFFECT_BLOODDRUNK /datum/status_effect/blooddrunk //Stun immunity and greatly reduced damage taken
 
+#define STATUS_EFFECT_BLOOD_SWELL /datum/status_effect/bloodswell //stun resistance and halved damage for gargantua vampires
+
+#define STATUS_EFFECT_BLOOD_RUSH /datum/status_effect/blood_rush // speed boost for gargantua vampires
+
 /////////////
 // DEBUFFS //
 /////////////
@@ -77,6 +81,8 @@
 /////////////
 
 #define STATUS_EFFECT_HIGHFIVE /datum/status_effect/high_five
+
+#define STATUS_EFFECT_CHARGING /datum/status_effect/charging
 
 //#define STATUS_EFFECT_SIGILMARK /datum/status_effect/sigil_mark
 

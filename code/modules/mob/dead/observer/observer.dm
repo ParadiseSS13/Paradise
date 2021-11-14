@@ -745,10 +745,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(mind)
 		mind.active = TRUE
 		mind.transfer_to(new_char)
-		if(mind.vampire)
-			mind.vampire.owner = new_char
-			mind.vampire.powers.Cut()
-			mind.vampire.check_vampire_upgrade(FALSE)
 	else
 		new_char.key = key
 

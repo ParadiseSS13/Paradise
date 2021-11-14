@@ -33,6 +33,10 @@
 
 	var/list/possible_traitors = get_players_for_role(ROLE_TRAITOR)
 
+	for(var/datum/mind/candidate in possible_traitors)
+		if(candidate.special_role == SPECIAL_ROLE_VAMPIRE) // no traitor vampires
+			possible_traitors.Remove(candidate)
+
 	// stop setup if no possible traitors
 	if(!possible_traitors.len)
 		return 0
