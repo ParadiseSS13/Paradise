@@ -165,6 +165,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	..()
 
 	add_robot_verbs()
+	
+	// Remove inherited verbs that effectively do nothing for cyborgs, or lead to unintended behaviour.
+	verbs -= /mob/living/verb/lay_down
+	verbs -= /mob/living/verb/mob_sleep
 
 	if(cell)
 		var/datum/robot_component/cell_component = components["power cell"]

@@ -172,6 +172,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(isturf(loc))
 		add_ai_verbs(src)
+	
+	// Remove inherited verbs that effectively do nothing for AIs, or lead to unintended behaviour.
+	verbs -= /mob/living/verb/lay_down
+	verbs -= /mob/living/verb/mob_sleep
+	verbs -= /mob/living/verb/resist
+	verbs -= /mob/living/verb/stop_pulling1
+	verbs -= /mob/living/silicon/verb/pose
+	verbs -= /mob/living/silicon/verb/set_flavor
 
 	//Languages
 	add_language("Robot Talk", 1)
