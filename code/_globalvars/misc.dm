@@ -43,11 +43,6 @@ GLOBAL_VAR_INIT(fileaccess_timer, 0)
 
 GLOBAL_VAR_INIT(gametime_offset, 432000) // 12:00 in seconds
 
-//printers shutdown if too much shit printed
-GLOBAL_VAR_INIT(copier_items_printed, 0)
-GLOBAL_VAR_INIT(copier_max_items, 300)
-GLOBAL_VAR_INIT(copier_items_printed_logged, FALSE)
-
 GLOBAL_DATUM_INIT(data_core, /datum/datacore, new) // Station datacore, manifest, etc
 
 GLOBAL_LIST_EMPTY(ability_verbs) // Create-level abilities
