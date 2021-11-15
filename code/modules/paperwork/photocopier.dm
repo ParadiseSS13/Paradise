@@ -293,14 +293,14 @@
 	copying = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 	if(istype(C, /obj/item/paper))
-		for(var/i = copies; i > 0; i--)
+		for(var/i in copies to 1 step -1)
 			if(!papercopy(C))
 				break
 			toner -= 1
 			use_power(active_power_usage)
 			sleep(PHOTOCOPIER_DELAY)
 	else if(istype(C, /obj/item/photo))
-		for(var/i = copies; i > 0; i--)
+		for(var/i in copies to 1 step -1)
 			if(!photocopy(C))
 				break
 			toner -= 5
@@ -308,13 +308,13 @@
 			sleep(PHOTOCOPIER_DELAY)
 	else if(istype(C, /obj/item/paper_bundle))
 		var/obj/item/paper_bundle/B = C
-		for(var/i = copies; i > 0; i--)
+		for(var/i in copies to 1 step -1)
 			if(!bundlecopy(C, use_toner = TRUE))
 				break
 			use_power(active_power_usage)
 			sleep(PHOTOCOPIER_DELAY * (B.amount + 1))
 	else if(check_mob()) //Once we've scanned the copy_mob's ass we do not need to again
-		for(var/i = copies; i > 0; i--)
+		for(var/i in copies to 1 step -1)
 			if(!copyass())
 				break
 			toner -= 5
@@ -347,21 +347,20 @@
 		return
 	use_power(active_power_usage)
 	sleep(PHOTOCOPIER_DELAY)
-	LAZYINITLIST(saved_documents)
-	saved_documents.Add(O)
+	LAZYADD(saved_documents, O)
 	copying = FALSE
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 	atom_say("Document succesfully scanned!")
 
 /obj/machinery/photocopier/proc/delete_file(uid)
 	var/document = locateUID(uid)
-	if(document in saved_documents)
-		saved_documents.Remove(document)
+	if(LAZYIN(saved_documents, document)) //double checking that the list exists b4 we find document
+		LAZYREMOVE(saved_documents, document)
 		qdel(document)
 
 /obj/machinery/photocopier/proc/file_copy(uid)
 	var/document = locateUID(uid)
-	if(document in saved_documents)
+	if(LAZYIN(saved_documents, document))
 		copy(document, scancopy = TRUE)
 
 
@@ -379,12 +378,13 @@
 	data["folder"] = (folder ? folder.name : null)
 	data["mob"] = (copymob ? copymob.name : null)
 	data["files"] = list()
-	for(var/obj/item/O in saved_documents)
-		var/list/document_data = list(
-			name = O.name,
-			uid = O.UID()
-		)
-		data["files"] += list(document_data)
+	if(LAZYLEN(saved_documents))
+		for(var/obj/item/O in saved_documents)
+			var/list/document_data = list(
+				name = O.name,
+				uid = O.UID()
+			)
+			data["files"] += list(document_data)
 	return data
 
 /obj/machinery/photocopier/ui_act(action, list/params)
