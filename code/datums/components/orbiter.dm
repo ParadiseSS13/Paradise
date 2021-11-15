@@ -25,8 +25,6 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	orbiter_list = list()
 	transform_cache = list()
 
-	// This isn't always called on initialization
-	RegisterWithParent()
 	begin_orbit(orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lock_in_orbit, force_move)
 
 /datum/component/orbiter/RegisterWithParent()
@@ -55,7 +53,7 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	// No transfer happening
 	if(!new_comp)
 		// Make sure we clean up anything that the new component might have messed up
-		// In particular, new components probably messed up our parent
+		// In particular, the new component probably messed up our parent
 		RegisterWithParent()
 		begin_orbit(arglist(args.Copy(3)))
 		return
@@ -212,18 +210,6 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 
 /atom/movable/proc/stop_orbit(datum/component/orbiter/orbits)
 	return // We're just a simple hook
-
-/atom/proc/transfer_observers_to(atom/target)
-	if(!orbiters || !istype(target) || !get_turf(target) || target == src)
-		return
-	target.TakeComponent(orbiters)
-
-/// Get the atom currently being orbited by src
-/atom/movable/proc/orbited_atom()
-	if (orbiting)
-		return orbiting.parent
-	else
-		return null
 
 /**
  * Recursive getter method to return a list of all ghosts orbiting this atom
