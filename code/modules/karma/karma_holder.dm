@@ -169,10 +169,8 @@
 	switch(category)
 		if("job")
 			DB_job_unlock(name, price)
-			usr.client.karmaholder.unlocked_jobs += name
 		if("species")
 			DB_species_unlock(name, price)
-			usr.client.karmaholder.unlocked_species += name
 		else
 			message_admins("Invalid category used in karma shop by [key_name_admin(usr)] | Possible href exploit.")
 
@@ -211,8 +209,9 @@
 
 			to_chat(usr, "You have unlocked [job].")
 			log_karma("[key_name(usr)] has unlocked [job].")
-			karmacharge(cost)
 			qdel(update_query)
+			karmacharge(cost)
+			usr.client.karmaholder.unlocked_jobs += job
 		else
 			to_chat(usr, "You already have this job unlocked!")
 
@@ -267,6 +266,7 @@
 			log_karma("[key_name(usr)] has unlocked [species].")
 			qdel(update_query)
 			karmacharge(cost)
+			usr.client.karmaholder.unlocked_species += species
 		else
 			to_chat(usr, "You already have this species unlocked!")
 
