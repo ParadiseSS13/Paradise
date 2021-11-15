@@ -34,8 +34,8 @@
 	var/maxcopies = 10
 	var/max_saved_documents = 5
 
-	///Objs currently saved inside the photocopier for printing later
-	var/list/saved_documents = list()
+	///Lazy init list, Objs currently saved inside the photocopier for printing later
+	var/list/saved_documents
 
 	///Total copies printed from copymachines globally
 	var/static/total_copies = 0
@@ -347,6 +347,7 @@
 		return
 	use_power(active_power_usage)
 	sleep(PHOTOCOPIER_DELAY)
+	LAZYINITLIST(saved_documents)
 	saved_documents.Add(O)
 	copying = FALSE
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
