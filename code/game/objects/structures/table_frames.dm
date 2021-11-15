@@ -49,7 +49,7 @@
 		if(do_after(user, 20, target = src) && G.use(1))
 			make_new_table(/obj/structure/table/glass)
 
-	if(istype(I, /obj/item/stack/tile/carpet))
+	else if(istype(I, /obj/item/stack/tile/carpet))
 		var/obj/item/stack/tile/carpet/C = I
 		if(C.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one [C.name] sheet to do this!</span>")
