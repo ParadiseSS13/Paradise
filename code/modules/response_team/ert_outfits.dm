@@ -75,7 +75,7 @@
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/chest/nutriment
+		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 	belt = /obj/item/gun/energy/gun/blueshield/pdw9
 
@@ -108,7 +108,7 @@
 		)
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/arm/flash
@@ -134,7 +134,7 @@
 	name = "RT Security (Amber)"
 	shoes = /obj/item/clothing/shoes/combat
 	suit = /obj/item/clothing/suit/armor/vest/ert/security
-	suit_store = /obj/item/gun/energy/gun/advtaser
+	suit_store = /obj/item/gun/energy/disabler
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer
 
@@ -160,7 +160,7 @@
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/flash,
-		/obj/item/organ/internal/cyberimp/chest/nutriment,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security
 	)
 
@@ -196,7 +196,7 @@
 	)
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/arm/telebaton,
@@ -247,7 +247,7 @@
 	mask = /obj/item/clothing/mask/gas
 	cybernetic_implants = list(
 	 /obj/item/organ/internal/eyes/cybernetic/shield,
-	 /obj/item/organ/internal/cyberimp/chest/nutriment
+	 /obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 	l_pocket = /obj/item/t_scanner
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -280,7 +280,7 @@
 	)
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/eyes/cybernetic/shield,
@@ -338,7 +338,7 @@
 	suit_store = /obj/item/gun/energy/gun
 	cybernetic_implants = list(
 	 /obj/item/organ/internal/cyberimp/arm/surgery,
-	 /obj/item/organ/internal/cyberimp/chest/nutriment
+	 /obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 	belt = /obj/item/defibrillator/compact/advanced/loaded
 
@@ -387,7 +387,7 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/surgery/l,
 		/obj/item/organ/internal/cyberimp/arm/medibeam,
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/hud/medical,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
 	)
@@ -425,7 +425,7 @@
 	name = "RT Paranormal (Amber)"
 	suit = /obj/item/clothing/suit/armor/vest/ert/security/paranormal
 	head = /obj/item/clothing/head/helmet/ert/security/paranormal
-	suit_store = /obj/item/gun/energy/gun/advtaser
+	suit_store = /obj/item/gun/energy/disabler
 	r_pocket = /obj/item/nullrod
 
 /datum/outfit/job/centcom/response_team/paranormal/red
@@ -437,7 +437,7 @@
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/chest/nutriment
+		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 
 	implants = list(/obj/item/implant/mindshield,
@@ -454,7 +454,7 @@
 	r_pocket = /obj/item/nullrod/ert
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
 	)
@@ -505,7 +505,7 @@
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/janitorial,
-		/obj/item/organ/internal/cyberimp/chest/nutriment
+		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 
 /datum/outfit/job/centcom/response_team/janitorial/gamma
@@ -526,7 +526,7 @@
 	)
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
 		/obj/item/organ/internal/cyberimp/arm/advmop,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
 	)

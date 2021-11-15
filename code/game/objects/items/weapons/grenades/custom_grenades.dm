@@ -275,7 +275,7 @@
 // --------------------------------------
 
 /obj/item/storage/box/syndie_kit/remotegrenade
-	name = "Remote Grenade Kit"
+	name = "remote grenade kit"
 
 /obj/item/storage/box/syndie_kit/remotegrenade/New()
 	..()
@@ -285,7 +285,7 @@
 	return
 
 /obj/item/storage/box/syndie_kit/remoteemp
-	name = "Remote EMP Kit"
+	name = "remote EMP kit"
 
 /obj/item/storage/box/syndie_kit/remoteemp/New()
 	..()
@@ -295,7 +295,7 @@
 	return
 
 /obj/item/storage/box/syndie_kit/remotelube
-	name = "Remote Lube Kit"
+	name = "remote lube kit"
 
 /obj/item/storage/box/syndie_kit/remotelube/New()
 	..()

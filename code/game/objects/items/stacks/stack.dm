@@ -209,7 +209,7 @@
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
 			return FALSE
 
-		if(R.no_cult_structure)
+		if(R.cult_structure)
 			if(usr.holy_check())
 				return
 			if(!is_level_reachable(usr.z))
@@ -222,7 +222,11 @@
 		if(R.time)
 			to_chat(usr, "<span class='notice'>Building [R.title]...</span>")
 			if(!do_after(usr, R.time, target = loc))
-				return 0
+				return FALSE
+
+		if(R.cult_structure && locate(/obj/structure/cult) in get_turf(src)) //Check again after do_after to prevent queuing construction exploit.
+			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+			return FALSE
 
 		if(get_amount() < R.req_amount * multiplier)
 			return

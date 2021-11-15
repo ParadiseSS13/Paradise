@@ -2,7 +2,7 @@
 	name = "traitor+vampire"
 	config_tag = "traitorvamp"
 	traitors_possible = 3 //hard limit on traitors if scaling is turned off
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Solar Federation General")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Solar Federation General")
 	restricted_jobs = list("Cyborg")
 	secondary_restricted_jobs = list("AI")
 	required_players = 10
@@ -13,7 +13,7 @@
 
 /datum/game_mode/traitor/vampire/announce()
 	to_chat(world, "<B>The current game mode is - Traitor+Vampire!</B>")
-	to_chat(world, "<B>There is a Vampire from Space Transylvania on the station along with some syndicate operatives out for their own gain! Do not let the vampire and the traitors succeed!</B>")
+	to_chat(world, "<B>There are Bluespace Vampires infesting your fellow crew on the station along with some syndicate operatives out for their own gain! Do not let the vampires and the traitors succeed!</B>")
 
 
 /datum/game_mode/traitor/vampire/pre_setup()

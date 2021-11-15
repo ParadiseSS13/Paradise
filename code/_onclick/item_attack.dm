@@ -72,6 +72,7 @@
 		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
 	else
 		SEND_SIGNAL(M, COMSIG_ITEM_ATTACK)
+		add_attack_logs(user, M, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)])", (M.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 		if(hitsound)
 			playsound(loc, hitsound, get_clamped_volume(), TRUE, extrarange = stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
 
@@ -80,8 +81,6 @@
 
 	user.do_attack_animation(M)
 	. = M.attacked_by(src, user, def_zone)
-
-	add_attack_logs(user, M, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)])", (M.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 
 	add_fingerprint(user)
 
@@ -100,14 +99,22 @@
 	return
 
 /obj/attacked_by(obj/item/I, mob/living/user)
+	var/damage = I.force
 	if(I.force)
 		user.visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>", "<span class='danger'>You hit [src] with [I]!</span>")
-	take_damage(I.force, I.damtype, MELEE, 1)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		damage += H.physiology.melee_bonus
+	take_damage(damage, I.damtype, MELEE, 1)
 
 /mob/living/attacked_by(obj/item/I, mob/living/user, def_zone)
 	send_item_attack_message(I, user)
 	if(I.force)
-		apply_damage(I.force, I.damtype, def_zone)
+		var/bonus_damage = 0
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			bonus_damage = H.physiology.melee_bonus
+		apply_damage(I.force + bonus_damage, I.damtype, def_zone)
 		if(I.damtype == BRUTE)
 			if(prob(33))
 				I.add_mob_blood(src)

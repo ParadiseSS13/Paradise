@@ -68,6 +68,9 @@
 
 /datum/martial_art/krav_maga/teach(mob/living/carbon/human/H, make_temporary=0)
 	..()
+	if(HAS_TRAIT(H, TRAIT_PACIFISM))
+		to_chat(H, "<span class='warning'>The arts of Krav Maga echo uselessly in your head, the thought of their violence repulsive to you!</span>")
+		return
 	to_chat(H, "<span class = 'userdanger'>You know the arts of Krav Maga!</span>")
 	to_chat(H, "<span class = 'danger'>Place your cursor over a move at the top of the screen to see what it does.</span>")
 	neutral.Grant(H)
@@ -104,6 +107,7 @@
 
 /datum/martial_art/krav_maga/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
+	A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
 	var/obj/item/I = D.get_active_hand()
 	if(prob(60) && D.unEquip(I))
 		if(!(QDELETED(I) || (I.flags & ABSTRACT)))

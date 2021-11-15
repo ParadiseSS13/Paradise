@@ -33,16 +33,16 @@
 	desc = "A .38 bullet casing."
 	caliber = "38"
 	icon_state = "r-casing"
-	projectile_type = /obj/item/projectile/bullet/weakbullet2
+	projectile_type = /obj/item/projectile/bullet/c38
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c38/invisible
-	projectile_type = /obj/item/projectile/bullet/weakbullet2/invisible
+	projectile_type = /obj/item/projectile/bullet/mime
 	muzzle_flash_effect = null // invisible eh
 
 /obj/item/ammo_casing/c38/invisible/fake
-	projectile_type = /obj/item/projectile/bullet/weakbullet2/invisible/fake
+	projectile_type = /obj/item/projectile/bullet/mime/fake
 
 /obj/item/ammo_casing/c10mm
 	desc = "A 10mm bullet casing."
@@ -206,17 +206,11 @@
 	muzzle_flash_color = "#FFFF00"
 
 
-/obj/item/ammo_casing/shotgun/meteorshot
-	name = "meteorshot shell"
+/obj/item/ammo_casing/shotgun/meteorslug
+	name = "meteorslug shell"
 	desc = "A shotgun shell rigged with CMC technology, which launches a massive slug when fired."
 	icon_state = "mshell"
 	projectile_type = /obj/item/projectile/bullet/meteorshot
-
-/obj/item/ammo_casing/shotgun/breaching
-	name = "breaching shell"
-	desc = "An economic version of the meteorshot, utilizing similar technologies. Great for busting down doors."
-	icon_state = "mshell"
-	projectile_type = /obj/item/projectile/bullet/meteorshot/weak
 
 /obj/item/ammo_casing/shotgun/pulseslug
 	name = "pulse slug"
@@ -235,7 +229,7 @@
 	muzzle_flash_color = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/shotgun/frag12
-	name = "FRAG-12 slug"
+	name = "\improper FRAG-12 slug"
 	desc = "A high explosive breaching round for a 12 gauge shotgun."
 	icon_state = "heshell"
 	projectile_type = /obj/item/projectile/bullet/frag12

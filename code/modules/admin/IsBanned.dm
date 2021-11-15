@@ -27,6 +27,12 @@
 		if(A && (A.rights & R_ADMIN))
 			admin = 1
 
+	// Lets see if they are logged in on another paradise server
+	if(SSdbcore.IsConnected())
+		var/other_server_login = SSinstancing.check_player(ckey)
+		if(other_server_login)
+			return list("reason"="duplicate login", "desc"="\nReason: You are already logged in on server '[other_server_login]'. Please contact the server host if you believe this is an error.")
+
 	//Guest Checking
 	if(GLOB.configuration.general.guest_ban && IsGuestKey(key))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Guests not allowed")
@@ -45,7 +51,7 @@
 
 
 	// If 2FA is enabled, makes sure they were authed within the last minute
-	if(check_2fa && GLOB.configuration.system._2fa_auth_host)
+	if(check_2fa && GLOB.configuration.system.api_host)
 		// First see if they exist at all
 		var/datum/db_query/check_query = SSdbcore.NewQuery("SELECT 2fa_status, ip FROM player WHERE ckey=:ckey", list("ckey" = ckey(key)))
 

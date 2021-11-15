@@ -96,6 +96,7 @@
 	// Maybe later add encryption key support, but that's a pain in the neck atm
 
 	if(brainmob)
+		user.changeNext_move(CLICK_CD_MELEE)
 		O.attack(brainmob, user)//Oh noooeeeee
 		// Brainmobs can take damage, but they can't actually die. Maybe should fix.
 		return
@@ -286,5 +287,16 @@
 	return user.shared_living_ui_distance()
 
 /obj/item/mmi/forceMove(atom/destination)
+	if(!brainmob)
+		return ..()
+
+	var/atom/old_loc = loc
+	if(issilicon(old_loc) && !issilicon(destination))
+		var/mob/living/silicon/S = old_loc
+		brainmob.weather_immunities -= S.weather_immunities
+	else if(issilicon(destination))
+		var/mob/living/silicon/S = destination
+		brainmob.weather_immunities |= S.weather_immunities
+
 	. = ..()
-	brainmob?.update_runechat_msg_location()
+	brainmob.update_runechat_msg_location()

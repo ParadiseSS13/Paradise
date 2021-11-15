@@ -1777,8 +1777,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/item/robot_parts = "ROBOT_PARTS",
 			/obj/item/seeds = "SEED",
 			/obj/item/slime_extract = "SLIME_CORE",
-			/obj/item/spacepod_equipment/weaponry = "POD_WEAPON",
-			/obj/item/spacepod_equipment = "POD_EQUIP",
 			/obj/item/stack/sheet/mineral = "MINERAL",
 			/obj/item/stack/sheet = "SHEET",
 			/obj/item/stack/tile = "TILE",
@@ -2049,9 +2047,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	)
 	return _list
 
-/// Waits at a line of code until X is true
-#define UNTIL(X) while(!(X)) sleep(world.tick_lag)
-
 // Check if the source atom contains another atom
 /atom/proc/contains(atom/location)
 	if(!location)
@@ -2063,11 +2058,12 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 /proc/log_connection(ckey, ip, cid, connection_type)
 	ASSERT(connection_type in list(CONNECTION_TYPE_ESTABLISHED, CONNECTION_TYPE_DROPPED_IPINTEL, CONNECTION_TYPE_DROPPED_BANNED, CONNECTION_TYPE_DROPPED_INVALID))
-	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO connection_log (`datetime`, `ckey`, `ip`, `computerid`, `result`) VALUES(Now(), :ckey, :ip, :cid, :result)", list(
+	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO connection_log (`datetime`, `ckey`, `ip`, `computerid`, `result`, `server_id`) VALUES(Now(), :ckey, :ip, :cid, :result, :server_id)", list(
 		"ckey" = ckey,
 		"ip" = "[ip ? ip : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
 		"cid" = cid,
-		"result" = connection_type
+		"result" = connection_type,
+		"server_id" = GLOB.configuration.system.instance_id
 	))
 	query_accesslog.warn_execute()
 	qdel(query_accesslog)

@@ -339,7 +339,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
  * * user - A reference to the ghost's old mob. This argument is required since `src` does not have a `client` at this point.
  */
 /mob/dead/observer/proc/toggle_all_huds_on(mob/user)
-	show_me_the_hud(DATA_HUD_DIAGNOSTIC)
+	show_me_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
 	show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
 	show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 	if(!check_rights((R_ADMIN | R_MOD), FALSE, user))
@@ -389,23 +389,21 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!isobserver(usr))
 		to_chat(usr, "Not when you're not dead!")
 		return
+	var/target = input("Area to teleport to", "Teleport to a location") as null|anything in SSmapping.ghostteleportlocs
+	teleport(SSmapping.ghostteleportlocs[target])
 
-	var/datum/async_input/A = input_autocomplete_async(usr, "Area to jump to: ", SSmapping.ghostteleportlocs)
-	A.on_close(CALLBACK(src, .proc/teleport))
-
-/mob/dead/observer/proc/teleport(area/thearea)
-	if(!thearea || !isobserver(usr))
+/mob/dead/observer/proc/teleport(area/A)
+	if(!A || !isobserver(usr))
 		return
 
-	var/list/L = list()
-	for(var/turf/T in get_area_turfs(thearea.type))
-		L += T
+	var/list/turfs = list()
+	for(var/turf/T in get_area_turfs(A.type))
+		turfs += T
 
-	if(!L || !L.len)
-		to_chat(usr, "<span class='warning'>No area available.</span>")
+	if(!length(turfs))
+		to_chat(src, "<span class='warning'>Nowhere to jump to!</span>")
 		return
-
-	forceMove(pick(L))
+	forceMove(pick(turfs))
 	update_parallax_contents()
 
 /mob/dead/observer/verb/follow()
@@ -747,10 +745,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(mind)
 		mind.active = TRUE
 		mind.transfer_to(new_char)
-		if(mind.vampire)
-			mind.vampire.owner = new_char
-			mind.vampire.powers.Cut()
-			mind.vampire.check_vampire_upgrade(FALSE)
 	else
 		new_char.key = key
 
