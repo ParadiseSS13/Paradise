@@ -511,9 +511,7 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/photocopier/Destroy()
-	if(saved_documents)
-		for(/obj/item/O in saved_documents)
-  			qdel(O)
+	QDEL_LIST(saved_documents)
 	return ..()
 
 /**
