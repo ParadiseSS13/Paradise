@@ -1102,6 +1102,21 @@
 				I = new organ(H) //Create the organ inside the player.
 				I.insert(H)
 
+/**
+ * Regrows a given external limb if it is missing. Does not add internal organs back in.
+ * Returns whether or not it regrew the limb
+ *
+ * * limb_name - The name of the limb being added. "l_arm" for example
+ */
+/mob/living/carbon/human/proc/regrow_external_limb_if_missing(limb_name)
+	if(has_organ(limb_name))
+		return FALSE// Already there
+
+	var/list/organ_data = dna.species.has_limbs[limb_name]
+	var/limb_path = organ_data["path"]
+	new limb_path(src)
+	return TRUE
+
 /mob/living/carbon/human/revive()
 	//Fix up all organs and replace lost ones.
 	restore_all_organs() //Rejuvenate and reset all existing organs.
