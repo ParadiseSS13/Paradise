@@ -32,7 +32,7 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 /datum/component/orbiter/RegisterWithParent()
 	var/atom/target = parent
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/parent_move_react)
-	if (!target.orbiters)
+	if(!target.orbiters)
 		target.orbiters = src
 
 /datum/component/orbiter/UnregisterFromParent()
