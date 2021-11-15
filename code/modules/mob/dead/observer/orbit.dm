@@ -59,7 +59,7 @@
 
 		serialized["ref"] = "\ref[M]"
 		var/list/orbiters = M.get_all_orbiters()
-		if (length(orbiters) > 0)
+		if(length(orbiters) > 0)
 			serialized["orbiters"] = length(orbiters)
 
 		if(istype(M))

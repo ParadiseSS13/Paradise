@@ -38,7 +38,7 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 /datum/component/orbiter/UnregisterFromParent()
 	var/atom/target = parent
 	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
-	if (target.orbiters == src)
+	if(target.orbiters == src)
 		target.orbiters = null
 
 /datum/component/orbiter/Destroy()
@@ -80,7 +80,7 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	var/was_refreshing = FALSE
 
 	if(orbiter.orbiting)
-		if (orbiter.orbiting == src)
+		if(orbiter.orbiting == src)
 			// If we're just orbiting the same thing, we need to reset the previous state
 			// before we set it again (especially for transforms)
 			was_refreshing = TRUE
@@ -118,7 +118,7 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_BEGIN, orbiter)
 
 	// If we changed orbits, we didn't stop our rotation, and don't need to start it up again
-	if (!was_refreshing)
+	if(!was_refreshing)
 		orbiter.SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
 
 	var/target_loc = get_turf(parent)
@@ -132,7 +132,7 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 * If this removes the last atom orbiting us, then qdel ourselves.
 * If refreshing == TRUE, variables will be cleaned up as necessary, but src won't be qdeled.
 */
-/datum/component/orbiter/proc/end_orbit(atom/movable/orbiter, refreshing=FALSE)
+/datum/component/orbiter/proc/end_orbit(atom/movable/orbiter, refreshing = FALSE)
 	if(!(orbiter in orbiter_list))
 		return
 
@@ -150,7 +150,7 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	orbiter_list -= orbiter
 	transform_cache -= orbiter
 
-	if (!orbiter_list && !QDELING(src) && !refreshing)
+	if(!length(orbiter_list) && !QDELING(src) && !refreshing)
 		qdel(src)
 
 /// Called when the orbited user moves
@@ -232,16 +232,16 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
  */
 /atom/proc/get_all_orbiters(list/processed, source = TRUE)
 	var/list/output = list()
-	if (!processed)
+	if(!processed)
 		processed = list()
-	if (src in processed)
+	if(src in processed)
 		return output
 
 	processed += src
 	// Make sure we don't shadow outer orbiters
 	var/datum/component/orbiter/atom_orbiters = orbiters
-	if (atom_orbiters && atom_orbiters.orbiter_list)
-		for (var/atom/atom_orbiter as anything in atom_orbiters.orbiter_list)
+	if(atom_orbiters && atom_orbiters.orbiter_list)
+		for(var/atom/atom_orbiter as anything in atom_orbiters.orbiter_list)
 			if(isobserver(atom_orbiter))
 				output += atom_orbiter
 			output += atom_orbiter.get_all_orbiters(processed, source = FALSE)
