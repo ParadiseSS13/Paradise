@@ -1106,6 +1106,7 @@
  * Regrows a given external limb if it is missing. Does not add internal organs back in.
  * Returns whether or not it regrew the limb
  *
+ * Arguments:
  * * limb_name - The name of the limb being added. "l_arm" for example
  */
 /mob/living/carbon/human/proc/regrow_external_limb_if_missing(limb_name)

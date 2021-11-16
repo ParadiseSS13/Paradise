@@ -158,6 +158,7 @@
 //Rod of Asclepius
 #define RIGHT_HAND 0
 #define LEFT_HAND 1
+
 /obj/item/rod_of_asclepius
 	name = "\improper Rod of Asclepius"
 	desc = "A wooden rod about the size of your forearm with a snake carved around it, winding its way up the sides of the rod. Something about it seems to inspire in you the responsibilty and duty to help others."
@@ -254,7 +255,7 @@
 	activated = TRUE
 
 	owner.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
-	RegisterSignal(owner, .proc/deactivate, COMSIG_PARENT_QDELETING)
+	RegisterSignal(owner, COMSIG_PARENT_QDELETING, .proc/deactivate)
 
 /obj/item/rod_of_asclepius/proc/deactivate()
 	if(owner)
