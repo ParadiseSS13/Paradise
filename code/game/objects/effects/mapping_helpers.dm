@@ -61,7 +61,7 @@
 
 /obj/effect/mapping_helpers/Initialize(mapload)
 	..()
-	
+
 	return late ? INITIALIZE_HINT_LATELOAD : qdel(src) // INITIALIZE_HINT_QDEL <-- Doesn't work
 
 /obj/effect/mapping_helpers/no_lava
@@ -91,3 +91,15 @@
 	else
 		log_world("### MAP WARNING, [src] failed to find an airlock at [AREACOORD(src)]")
 	..()
+
+/obj/effect/map_label
+	name = "Map label"
+	desc = "If this exists ingame, something has gone very wrong"
+	icon = 'icons/obj/map_icons.dmi'
+	icon_state = "a" // No, I am not making 26 subtypes. Use map instances
+	layer = INFINITY // yes
+	plane = 1000 // and this. These should be visible regardless.
+
+/obj/effect/map_label/Initialize(mapload)
+	..()
+	return INITIALIZE_HINT_QDEL
