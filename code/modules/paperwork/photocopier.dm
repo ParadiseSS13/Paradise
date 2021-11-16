@@ -390,28 +390,33 @@
 /obj/machinery/photocopier/ui_act(action, list/params)
 	if(..())
 		return
+	. = FALSE
 	add_fingerprint(usr)
 	switch(action)
 		if("copy")
 			copy(copyitem)
 		if("removedocument")
 			remove_document()
+			. = TRUE
 		if("removefolder")
 			remove_folder()
+			. = TRUE
 		if("add")
 			if(copies < maxcopies)
 				copies++
+				. = TRUE
 		if("minus")
 			if(copies > 0)
 				copies--
+				. = TRUE
 		if("scandocument")
 			scan_document()
 		if("filecopy")
 			file_copy(params["uid"])
 		if("deletefile")
 			delete_file(params["uid"])
+			. = TRUE
 	update_icon()
-	return TRUE
 
 /obj/machinery/photocopier/proc/aipic()
 	if(!issilicon(usr))
