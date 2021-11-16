@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(whitelisted_positions, list(
 ))
 
 
-/proc/guest_jobbans(job)
+/proc/check_job_karma(job)
 	return (job in GLOB.whitelisted_positions)
 
 /proc/get_job_datums()
