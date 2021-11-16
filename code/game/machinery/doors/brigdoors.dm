@@ -93,7 +93,7 @@
 	// Announcing it on radio isn't enough, as they're unlikely to have sec radio.
 	notify_prisoner("You have been incarcerated for [timetext] for the crime of: '[crimes]'.")
 
-	if(prisoner_trank != "unknown" && prisoner_trank != "Civilian")
+	if(prisoner_trank != "unknown" && prisoner_trank != "Assistant")
 		SSjobs.notify_dept_head(prisoner_trank, announcetext)
 
 	if(R)

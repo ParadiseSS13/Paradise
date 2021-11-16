@@ -646,8 +646,8 @@
 		else
 			to_chat(missionary, "<span class='notice'>You successfully convert [target] to your cause. The following grows because of your faith!</span>")
 			faith -= 100
-	else if(target.mind.assigned_role == "Civilian")
-		if(prob(55))	//55% chance to take LESS faith than normal, because civies are stupid and easily manipulated
+	else if(target.mind.assigned_role == "Assistant")
+		if(prob(55))	//55% chance to take LESS faith than normal, because assistants are stupid and easily manipulated
 			to_chat(missionary, "<span class='notice'>Your message seems to resound well with [target]; converting [target.p_them()] was much easier than expected.</span>")
 			faith -= 50
 		else		//45% chance to take the normal 100 faith cost

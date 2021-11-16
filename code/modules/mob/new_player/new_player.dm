@@ -258,7 +258,7 @@
 		return 0
 
 	if(GLOB.configuration.jobs.assistant_limit)
-		if(job.title == "Civilian")
+		if(job.title == "Assistant")
 			var/count = 0
 			var/datum/job/officer = SSjobs.GetJob("Security Officer")
 			var/datum/job/warden = SSjobs.GetJob("Warden")
