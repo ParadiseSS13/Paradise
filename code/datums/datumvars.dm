@@ -1144,6 +1144,21 @@
 		else
 			to_chat(usr, "Mob doesn't know that language.")
 
+	else if(href_list["grantalllanguage"])
+		if(!check_rights(R_SPAWN))	return
+
+		var/mob/H = locateUID(href_list["grantalllanguage"])
+
+		if(!istype(H))
+			to_chat(usr, "This can only be done to instances of type /mob")
+			return
+
+		H.grant_all_languages()
+
+		to_chat(usr, "Added all languages to [H].")
+		message_admins("[key_name_admin(usr)] has given [key_name_admin(H)] all languages")
+		log_admin("[key_name(usr)] has given [key_name(H)] all languages")
+
 	else if(href_list["addverb"])
 		if(!check_rights(R_DEBUG))			return
 

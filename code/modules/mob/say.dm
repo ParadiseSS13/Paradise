@@ -157,11 +157,11 @@
 
 /mob/proc/find_valid_prefixes(message)
 	var/list/prefixes = list() // [["Common", start, end], ["Gutter", start, end]]
-	for(var/i in 1 to length(message))
-		var/selection = trim_right(lowertext(copytext(message, i, i + 3)))
+	for(var/i in 1 to length_char(message))
+		var/selection = trim_right(lowertext(copytext_char(message, i, i + 3)))
 		var/datum/language/L = GLOB.language_keys[selection]
 		if(L != null && can_speak_language(L)) // What the fuck... remove the L != null check if you ever find out what the fuck is adding `null` to the languages list on absolutely random mobs... seriously what the hell...
-			prefixes[++prefixes.len] = list(L, i, i + length(selection))
+			prefixes[++prefixes.len] = list(L, i, i + length_char(selection))
 		else if(!L && i == 1)
 			prefixes[++prefixes.len] = list(get_default_language(), i, i)
 		else
@@ -170,14 +170,14 @@
 /proc/strip_prefixes(message)
 	. = ""
 	var/last_index = 1
-	for(var/i in 1 to length(message))
-		var/selection = trim_right(lowertext(copytext(message, i, i + 3)))
+	for(var/i in 1 to length_char(message))
+		var/selection = trim_right(lowertext(copytext_char(message, i, i + 3)))
 		var/datum/language/L = GLOB.language_keys[selection]
 		if(L)
-			. += copytext(message, last_index, i)
+			. += copytext_char(message, last_index, i)
 			last_index = i + 3
-		if(i + 1 > length(message))
-			. += copytext(message, last_index)
+		if(i + 1 > length_char(message))
+			. += copytext_char(message, last_index)
 
 // this returns a structured message with language sections
 // list(/datum/multilingual_say_piece(common, "hi"), /datum/multilingual_say_piece(farwa, "squik"), /datum/multilingual_say_piece(common, "meow!"))
@@ -203,11 +203,11 @@
 			break
 
 		if(i + 1 > length(prefix_locations)) // We are out of lookaheads, that means the rest of the message is in cur lang
-			var/spoke_message = handle_autohiss(trim(copytext(message, current[3])), L)
+			var/spoke_message = handle_autohiss(trim(copytext_char(message, current[3])), L)
 			. += new /datum/multilingual_say_piece(current[1], spoke_message)
 		else
 			var/next = prefix_locations[i + 1] // We look ahead at the next message to see where we need to stop.
-			var/spoke_message = handle_autohiss(trim(copytext(message, current[3], next[2])), L)
+			var/spoke_message = handle_autohiss(trim(copytext_char(message, current[3], next[2])), L)
 			. += new /datum/multilingual_say_piece(current[1], spoke_message)
 
 /* These are here purely because it would be hell to try to convert everything over to using the multi-lingual system at once */

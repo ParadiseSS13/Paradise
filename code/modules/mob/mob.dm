@@ -1365,6 +1365,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	.["Regenerate Icons"] = "?_src_=vars;regenerateicons=[UID()]"
 	.["Add Language"] = "?_src_=vars;addlanguage=[UID()]"
 	.["Remove Language"] = "?_src_=vars;remlanguage=[UID()]"
+	.["Grant All Language"] = "?_src_=vars;grantalllanguage=[UID()]"
 	.["Add Organ"] = "?_src_=vars;addorgan=[UID()]"
 	.["Remove Organ"] = "?_src_=vars;remorgan=[UID()]"
 

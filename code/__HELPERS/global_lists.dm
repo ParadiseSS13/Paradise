@@ -45,6 +45,9 @@
 			GLOB.language_keys[":[lowertext(L.key)]"] = L
 			GLOB.language_keys[".[lowertext(L.key)]"] = L
 			GLOB.language_keys["#[lowertext(L.key)]"] = L
+			GLOB.language_keys[":[sanitize_english_string_to_russian(L.key)]"] = L
+			GLOB.language_keys[".[sanitize_english_string_to_russian(L.key)]"] = L
+			GLOB.language_keys["#[sanitize_english_string_to_russian(L.key)]"] = L
 
 	var/rkey = 0
 	for(var/spath in subtypesof(/datum/species))

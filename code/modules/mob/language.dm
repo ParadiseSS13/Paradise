@@ -2,6 +2,17 @@
 
 /*
 	Datum based languages. Easily editable and modular.
+
+	Busy letters for language:
+	a b d f g j k o q v x y
+	aa as bo db fa fm fn fs vu
+
+	Busy symbols for language:
+	0 1 2 3 4 5 6 7 8 9
+	% ? ^
+
+	CAUTION! The key must not repeat the key of the radio channel
+	and must not contain prohibited characters
 */
 
 /datum/language
@@ -482,7 +493,7 @@
 	ask_verb = "chitters"
 	exclaim_verbs = list("chitters")
 	colour = "terrorspider"
-	key = "ts"
+	key = "as"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
@@ -527,7 +538,7 @@
 	ask_verb = "gibbers"
 	exclaim_verbs = list("gibbers")
 	colour = "abductor"
-	key = "zw" //doesn't matter, this is their default and only language
+	key = "aa" //doesn't matter, this is their default and only language
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
@@ -640,7 +651,7 @@
 	speech_verb = "states"
 	ask_verb = "queries"
 	exclaim_verbs = list("declares")
-	key = "]"
+	key = "db"
 	flags = RESTRICTED
 	follow = TRUE
 	syllables = list ("beep", "boop")
@@ -652,7 +663,7 @@
 	ask_verb = "tones"
 	exclaim_verbs = list("tones")
 	colour = "say_quote"
-	key = "z"//Zwarmer...Or Zerg!
+	key = "as"//Zwarmer...Or Zerg!
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
@@ -730,17 +741,17 @@
 	speech_verb = "chimpers"
 	ask_verb = "chimpers"
 	exclaim_verbs = list("screeches")
-	key = "mo"
+	key = "fm"
 
 /datum/language/skrell/monkey
 	name = "Neara"
 	desc = "Squik squik squik."
-	key = "ne"
+	key = "fn"
 
 /datum/language/unathi/monkey
 	name = "Stok"
 	desc = "Hiss hiss hiss."
-	key = "st"
+	key = "fs"
 
 /datum/language/tajaran/monkey
 	name = "Farwa"
@@ -758,5 +769,9 @@
 		if(new_language.flags & NOBABEL)
 			continue
 		languages |= new_language
+
+/mob/proc/grant_all_languages()
+	for(var/la in GLOB.all_languages)
+		add_language(la)
 
 #undef SCRAMBLE_CACHE_LEN
