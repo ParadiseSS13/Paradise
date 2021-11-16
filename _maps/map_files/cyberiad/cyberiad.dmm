@@ -3495,7 +3495,6 @@
 	pixel_y = 30
 	},
 /obj/structure/closet/secure_closet/hos,
-/obj/item/reagent_containers/food/drinks/flask/barflask,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
 	},
