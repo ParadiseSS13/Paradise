@@ -63,8 +63,6 @@
 	/// For when you want your projectile to have a chain coming out of the gun
 	var/chain = null
 
-	/// Last world.time the projectile was process()ed
-	var/last_process = 0
 	/// Last world.time the projectile proper moved
 	var/last_projectile_move = 0
 	/// Left over ticks in movement calculation
@@ -243,11 +241,10 @@
 	return 1 //Bullets don't drift in space
 
 /obj/item/projectile/process()
-	last_process = world.time
 	if(!loc || !trajectory)
 		return PROCESS_KILL
 	if(paused || !isturf(loc))
-		last_projectile_move += world.time - last_process
+		last_projectile_move = world.time
 		return
 	var/elapsed_time_deciseconds = (world.time - last_projectile_move) + time_offset
 	time_offset = 0
