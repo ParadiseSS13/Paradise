@@ -31,7 +31,7 @@
 	P.xo = reflect_turf.x - reflector_turf.x
 	P.ignore_source_check = TRUE		//If shot by a laser, will now hit the mob that fired it
 	var/reflect_angle = dir2angle(new_dir)
-	P.setAngle(reflect_angle)
+	P.set_angle_centered(reflect_angle)
 
 	new_dir = 0
 	return -1
