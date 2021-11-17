@@ -622,6 +622,13 @@ so as to remain in compliance with the most up-to-date laws."
 	stone = null
 	return ..()
 
+/obj/screen/alert/notify_mapvote
+	name = "Map Vote"
+	desc = "Vote on which map you would like to play on next!"
+	icon_state = "map_vote"
+
+/obj/screen/alert/notify_mapvote/Click()
+	SSvote.browse_to(usr.client)
 
 //OBJECT-BASED
 

@@ -209,7 +209,7 @@ SUBSYSTEM_DEF(vote)
 
 /datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key, code_invoked = FALSE)
 	if(!mode)
-		if(started_time != null && !check_rights(R_ADMIN))
+		if(usr && started_time != null && !check_rights(R_ADMIN)) // Allow the game to call votes whenever. But check other callers
 			var/next_allowed_time = (started_time + GLOB.configuration.vote.vote_delay)
 			if(next_allowed_time > world.time)
 				return 0
@@ -266,8 +266,12 @@ SUBSYSTEM_DEF(vote)
 			<a href='?src=[UID()];vote=open'>Click here or type vote to place your vote.</a>
 			You have [GLOB.configuration.vote.vote_time / 10] seconds to vote.</font>"})
 		switch(vote_type)
-			if("crew transfer", "gamemode", "custom", "map")
+			if("crew transfer", "gamemode", "custom")
 				SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
+			if("map")
+				SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
+				for(var/mob/M in GLOB.player_list)
+					M.throw_alert("Map Vote", /obj/screen/alert/notify_mapvote, timeout_override = GLOB.configuration.vote.vote_time)
 		if(mode == "gamemode" && SSticker.ticker_going)
 			SSticker.ticker_going = FALSE
 			to_chat(world, "<font color='red'><b>Round start has been delayed.</b></font>")

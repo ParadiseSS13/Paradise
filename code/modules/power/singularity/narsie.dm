@@ -29,8 +29,15 @@
 	. = ..()
 	icon_state = SSticker.cultdat?.entity_icon_state
 	name = SSticker.cultdat?.entity_name
-	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
-	SEND_SOUND(world, sound(pick('sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg')))
+
+	var/sound/cry = sound(pick('sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg'))
+
+	for(var/mob/living/player in GLOB.player_list)
+		if(isnewplayer(player))
+			continue
+
+		to_chat(player, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
+		SEND_SOUND(player, cry)
 
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(gamemode)
@@ -60,7 +67,8 @@
 				to_chat(cult_mind.current, "<span class='cult'>Current goal: Slaughter the heretics!</span>")
 	..()
 
-/obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user)
+/obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
+	user.forceMove(get_turf(src)) //make_new_construct spawns harvesters at observers locations, could be used to get into admin rooms/CC
 	make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, user, cult_override = TRUE)
 	new /obj/effect/particle_effect/smoke/sleeping(user.loc)
 

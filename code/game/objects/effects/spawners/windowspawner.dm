@@ -11,6 +11,7 @@
 /obj/effect/spawner/window/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
+	var/obj/structure/window/WI
 	for(var/obj/structure/grille/G in get_turf(src))
 		// Complain noisily
 		log_runtime(EXCEPTION("Extra grille on turf: ([T.x],[T.y],[T.z])"), src)
@@ -23,17 +24,17 @@
 				break
 			if(!cdir)
 				continue
-			var/obj/structure/window/WI = new window_to_spawn_regular(get_turf(src))
+			WI = new window_to_spawn_regular(get_turf(src))
 			WI.dir = cdir
 	else
-		new window_to_spawn_full(get_turf(src))
+		WI = new window_to_spawn_full(get_turf(src))
+	synchronize_variables(WI)
 
 	if(useGrille)
 		new /obj/structure/grille(get_turf(src))
 
 	air_update_turf(TRUE) //atmos can pass otherwise
 	return INITIALIZE_HINT_QDEL
-
 
 /obj/effect/spawner/window/reinforced
 	name = "reinforced window spawner"
@@ -61,9 +62,19 @@
 
 /obj/effect/spawner/window/reinforced/polarized
 	name = "electrochromic reinforced window spawner"
-	icon_state = "pwindow_spawner"
+	icon_state = "ewindow_spawner"
 	window_to_spawn_regular = /obj/structure/window/reinforced/polarized
 	window_to_spawn_full = /obj/structure/window/full/reinforced/polarized
+	/// Used to link electrochromic windows to buttons
+	var/id
+
+/obj/effect/spawner/window/reinforced/polarized/synchronize_variables(atom/a)
+	if(useFull)
+		var/obj/structure/window/full/reinforced/polarized/p = a
+		p.id = id
+	else
+		var/obj/structure/window/reinforced/polarized/p = a
+		p.id = id
 
 /obj/effect/spawner/window/shuttle
 	name = "shuttle window spawner"

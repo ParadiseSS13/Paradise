@@ -35,7 +35,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/New()
 	if (!armor)
-		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 70)
+		armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
 	..()
 
 	if(!pipe_color)
@@ -71,7 +71,7 @@ Pipelines + Other Objects -> Pipe network
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()
 	var/turf/T = get_turf(loc)
-	if(T.transparent_floor)
+	if(T && T.transparent_floor)
 		plane = FLOOR_PLANE
 	else
 		if(!T || level == 2 || !T.intact)

@@ -141,7 +141,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 25
+sql_version = 28
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -182,8 +182,11 @@ admin_webhook_urls = [
 	"https://admin.webhook.two"
 ]
 # Role ID for the admin role on the discord. Set to "" to disable.
-# THIS MUST BE A STRING. BYOND DOESNT LIKE NUMBERS THIS BIG
+# THESE MUST BOTH BE STRINGS. BYOND DOESNT LIKE NUMBERS THIS BIG
 admin_role_id = ""
+# Role ID for the mentor role on the discord. Set to "" to disable.
+mentor_role_id = ""
+
 # Forward all ahelps to the discord? If disabled, ahelps are only forwarded if admins are AFK/Offline
 forward_all_ahelps = true
 
@@ -715,10 +718,21 @@ lavaland_ruin_budget = 60
 shutdown_on_reboot = false
 # If true to above, an optional shell command can be ran. Defaults to killing DD on windows
 #shutdown_shell_command = "taskkill /im dreamdaemon.exe /f"
-# URL for the 2FA backend HTTP host. Do not use https:// or a trailing slash. Comment out to disable
-#_2fa_auth_host = "http://127.0.0.1:8080"
+# URL for the internal API host. See https://github.com/ParadiseSS13/ParadiseInternalAPI Do not use https:// or a trailing slash. Comment out to disable
+#api_host = "http://127.0.0.1:8080"
+# Access key for the internal API.
+#api_key = "your_secret_here"
 # List of IP addresses to be ignored by the world/Topic rate limiting. Useful if you have other services
 topic_ip_ratelimit_bypass = ["127.0.0.1"]
+# Turn this to true if you are running a production server
+is_production = false
+# Server instance ID. This is used for tagging the server in the database
+# You do NOT want to change this once you are running in production
+instance_id = "paradise_main"
+# Server internal IP. Used if you are splitting instances over multiple internal IPs.
+# In most cases this is just 127.0.0.1
+internal_ip = "127.0.0.1"
+
 
 ################################################################
 

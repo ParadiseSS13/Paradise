@@ -52,7 +52,8 @@
 			L.visible_message("<span class='danger'>\the [src] scares \the [L]!</span>")
 
 
-/mob/living/simple_animal/hostile/scarybat/batswarm
+//This mob is for the admin-only ancient vampire, DO NOT USE ELSEWHERE
+/mob/living/simple_animal/hostile/scarybat/adminvampire
 	name = "bat swarm"
 	desc = "A swarm of vicious, angry-looking space bats."
 	speed = 1

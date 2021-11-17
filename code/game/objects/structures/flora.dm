@@ -41,6 +41,23 @@
 	icon_state = pick("palm1","palm2")
 	pixel_x = 0
 
+/obj/structure/flora/tree/jungle
+	name = "tree"
+	icon_state = "tree"
+	desc = "It's seriously hampering your view of the jungle."
+	icon = 'icons/obj/flora/jungletrees.dmi'
+	pixel_x = -48
+	pixel_y = -20
+
+/obj/structure/flora/tree/jungle/Initialize(mapload)
+	icon_state = "[icon_state][rand(1, 6)]"
+	. = ..()
+
+/obj/structure/flora/tree/jungle/small
+	pixel_y = 0
+	pixel_x = -32
+	icon = 'icons/obj/flora/jungletreesmall.dmi'
+
 //grass
 /obj/structure/flora/grass
 	name = "grass"
@@ -207,7 +224,7 @@
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-1"
 	anchored = 0
-	layer = 5
+	layer = ABOVE_MOB_LAYER
 	w_class = WEIGHT_CLASS_HUGE
 	force = 10
 	force_wielded = 10
@@ -345,3 +362,69 @@
 						qdel(src)
 	else
 		return ..()
+
+//Jungle grass
+
+/obj/structure/flora/grass/jungle
+	name = "jungle grass"
+	desc = "Thick alien flora."
+	icon = 'icons/obj/flora/jungleflora.dmi'
+	icon_state = "grassa"
+
+
+/obj/structure/flora/grass/jungle/Initialize(mapload)
+	icon_state = "[icon_state][rand(1, 5)]"
+	. = ..()
+
+/obj/structure/flora/grass/jungle/b
+	icon_state = "grassb"
+
+//Jungle rocks
+
+/obj/structure/flora/rock/jungle
+	icon_state = "rock"
+	desc = "A pile of rocks."
+	icon = 'icons/obj/flora/jungleflora.dmi'
+	density = FALSE
+
+/obj/structure/flora/rock/jungle/Initialize(mapload)
+	. = ..()
+	icon_state = "[initial(icon_state)][rand(1,5)]"
+
+
+//Jungle bushes
+
+/obj/structure/flora/junglebush
+	name = "bush"
+	desc = "A wild plant that is found in jungles."
+	icon = 'icons/obj/flora/jungleflora.dmi'
+	icon_state = "busha"
+
+/obj/structure/flora/junglebush/Initialize(mapload)
+	icon_state = "[icon_state][rand(1, 3)]"
+	. = ..()
+
+/obj/structure/flora/junglebush/b
+	icon_state = "bushb"
+
+/obj/structure/flora/junglebush/c
+	icon_state = "bushc"
+
+/obj/structure/flora/junglebush/large
+	icon_state = "bush"
+	icon = 'icons/obj/flora/largejungleflora.dmi'
+	pixel_x = -16
+	pixel_y = -12
+	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/structure/flora/rock/pile/largejungle
+	name = "rocks"
+	icon_state = "rocks"
+	icon = 'icons/obj/flora/largejungleflora.dmi'
+	density = FALSE
+	pixel_x = -16
+	pixel_y = -16
+
+/obj/structure/flora/rock/pile/largejungle/Initialize(mapload)
+	. = ..()
+	icon_state = "[initial(icon_state)][rand(1,3)]"

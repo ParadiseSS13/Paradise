@@ -192,8 +192,8 @@
 	name = "UO45 Central Hall"
 	})
 "aE" = (
-/obj/structure/closet/emcloset,
 /obj/item/clothing/mask/breath,
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -258,11 +258,11 @@
 	name = "UO45 Central Hall"
 	})
 "aL" = (
-/obj/structure/closet/emcloset,
 /obj/item/clothing/mask/breath,
 /obj/structure/sign/poster/official/safety_internals{
 	pixel_x = -32
 	},
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1082,8 +1082,8 @@
 	name = "UO45 Central Hall"
 	})
 "cw" = (
-/obj/structure/closet,
 /obj/item/storage/box/lights/mixed,
+/obj/structure/closet,
 /turf/simulated/floor/plating,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1119,19 +1119,8 @@
 	})
 "cz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "201"
-	},
 /obj/item/clothing/under/pj/blue,
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1141,19 +1130,8 @@
 	dir = 8;
 	initialize_directions = 7
 	},
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "201"
-	},
 /obj/item/clothing/under/suit_jacket/female,
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1196,8 +1174,8 @@
 	name = "UO45 Central Hall"
 	})
 "cE" = (
-/obj/structure/closet/emcloset,
 /obj/item/clothing/mask/breath,
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1434,8 +1412,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/structure/closet,
 /obj/item/poster/random_contraband,
+/obj/structure/closet,
 /turf/simulated/floor/plating,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -1801,20 +1779,10 @@
 	name = "UO45 Central Hall"
 	})
 "dM" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "hydrosecurebroken";
-	icon_closed = "hydrosecure";
-	icon_locked = "hydrosecure1";
-	icon_off = "hydrosecureoff";
-	icon_opened = "hydrosecureopen";
-	icon_state = "hydrosecure";
-	locked = 0;
-	name = "botanist's locker";
-	req_access_txt = "201"
-	},
 /obj/item/plant_analyzer,
 /obj/item/clothing/mask/bandana,
 /obj/item/hatchet,
+/obj/structure/closet/secure_closet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -1861,19 +1829,10 @@
 	name = "UO45 Central Hall"
 	})
 "dQ" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "secbroken";
-	icon_closed = "sec";
-	icon_locked = "sec1";
-	icon_off = "secoff";
-	icon_opened = "secopen";
-	icon_state = "sec1";
-	name = "security officer's locker";
-	req_access_txt = "201"
-	},
 /obj/item/storage/belt/security,
 /obj/item/flash,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -2009,20 +1968,10 @@
 	name = "UO45 Central Hall"
 	})
 "ee" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "hydrosecurebroken";
-	icon_closed = "hydrosecure";
-	icon_locked = "hydrosecure1";
-	icon_off = "hydrosecureoff";
-	icon_opened = "hydrosecureopen";
-	icon_state = "hydrosecure";
-	locked = 0;
-	name = "botanist's locker";
-	req_access_txt = "201"
-	},
 /obj/item/clothing/suit/apron,
 /obj/item/clothing/mask/bandana,
 /obj/item/cultivator,
+/obj/structure/closet/secure_closet,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -2475,7 +2424,6 @@
 	name = "UO45 Central Hall"
 	})
 "eW" = (
-/obj/structure/closet/emcloset,
 /obj/item/clothing/mask/breath,
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
@@ -2749,11 +2697,11 @@
 	name = "UO45 Central Hall"
 	})
 "fu" = (
-/obj/structure/closet/crate/hydroponics,
 /obj/item/shovel/spade,
 /obj/item/wrench,
 /obj/item/screwdriver,
 /obj/item/reagent_containers/glass/bucket,
+/obj/structure/closet/crate/hydroponics,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3211,13 +3159,13 @@
 	name = "UO45 Crew Quarters"
 	})
 "gn" = (
+/obj/item/storage/box/mousetraps,
+/obj/item/clothing/under/waiter,
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate{
 	desc = "It's a storage unit for kitchen clothes and equipment.";
 	name = "Kitchen Crate"
 	},
-/obj/item/storage/box/mousetraps,
-/obj/item/clothing/under/waiter,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -3225,21 +3173,11 @@
 	name = "UO45 Crew Quarters"
 	})
 "go" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "fridgebroken";
-	icon_closed = "fridge";
-	icon_locked = "fridge1";
-	icon_off = "fridgeoff";
-	icon_opened = "fridgeopen";
-	icon_state = "fridge";
-	locked = 0;
-	name = "meat fridge";
-	req_access_txt = "201"
-	},
 /obj/item/reagent_containers/food/snacks/meat/monkey,
 /obj/item/reagent_containers/food/snacks/meat/monkey,
 /obj/item/reagent_containers/food/snacks/meat/monkey,
 /obj/item/reagent_containers/food/snacks/meat/monkey,
+/obj/structure/closet/secure_closet/freezer/meat,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -3867,12 +3805,12 @@
 	name = "UO45 Gateway"
 	})
 "hz" = (
-/obj/structure/closet/emcloset,
 /obj/item/clothing/mask/breath,
 /obj/structure/sign/poster/official/safety_internals{
 	pixel_y = 32
 	},
 /obj/effect/landmark/burnturf,
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -4229,8 +4167,8 @@
 	name = "UO45 Gateway"
 	})
 "if" = (
-/obj/structure/closet/emcloset,
 /obj/item/clothing/mask/breath,
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -4569,22 +4507,12 @@
 	name = "UO45 Crew Quarters"
 	})
 "iM" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "fridgebroken";
-	icon_closed = "fridge";
-	icon_locked = "fridge1";
-	icon_off = "fridgeoff";
-	icon_opened = "fridgeopen";
-	icon_state = "fridge";
-	locked = 0;
-	name = "refrigerator";
-	req_access_txt = "201"
-	},
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/storage/fancy/egg_box,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet/freezer/fridge,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -4611,9 +4539,9 @@
 	name = "UO45 Central Hall"
 	})
 "iO" = (
-/obj/structure/closet/emcloset,
 /obj/item/clothing/mask/breath,
 /obj/effect/landmark/damageturf,
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -4664,8 +4592,8 @@
 	name = "UO45 Gateway"
 	})
 "iT" = (
-/obj/structure/closet/l3closet/scientist,
 /obj/effect/decal/warning_stripes/north,
+/obj/structure/closet/l3closet/scientist,
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -4821,16 +4749,15 @@
 	name = "UO45 Crew Quarters"
 	})
 "jg" = (
-/obj/structure/closet/secure_closet{
-	icon_state = "secure";
-	locked = 0;
-	name = "kitchen Cabinet";
-	req_access_txt = "201"
-	},
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/sugar,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet{
+	locked = 0;
+	name = "kitchen Cabinet";
+	req_access_txt = "271"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -4849,8 +4776,8 @@
 	name = "UO45 Gateway"
 	})
 "ji" = (
-/obj/structure/closet/l3closet/scientist,
 /obj/effect/decal/warning_stripes/northeast,
+/obj/structure/closet/l3closet/scientist,
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a6{
 	name = "UO45 Gateway"
@@ -5091,17 +5018,6 @@
 	name = "UO45 Central Hall"
 	})
 "jG" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "secureresbroken";
-	icon_closed = "secureres";
-	icon_locked = "secureres1";
-	icon_off = "secureresoff";
-	icon_opened = "secureresopen";
-	icon_state = "secureres";
-	locked = 0;
-	name = "scientist's locker";
-	req_access_txt = "201"
-	},
 /obj/item/tank/internals/air,
 /obj/item/clothing/mask/gas,
 /obj/effect/decal/cleanable/dirt,
@@ -5114,17 +5030,6 @@
 "jH" = (
 /obj/machinery/light/small{
 	dir = 1
-	},
-/obj/structure/closet/secure_closet{
-	icon_broken = "secureresbroken";
-	icon_closed = "secureres";
-	icon_locked = "secureres1";
-	icon_off = "secureresoff";
-	icon_opened = "secureresopen";
-	icon_state = "secureres";
-	locked = 0;
-	name = "scientist's locker";
-	req_access_txt = "201"
 	},
 /obj/item/clothing/gloves/color/latex,
 /turf/simulated/floor/plasteel{
@@ -5629,13 +5534,13 @@
 	name = "UO45 Research"
 	})
 "kx" = (
-/obj/structure/closet/crate,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -2;
 	pixel_y = -1
 	},
 /obj/item/multitool,
+/obj/structure/closet/crate,
 /turf/simulated/floor/plating,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -6729,7 +6634,6 @@
 	name = "UO45 Engineering"
 	})
 "lZ" = (
-/obj/structure/closet/crate,
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 26
 	},
@@ -6742,6 +6646,7 @@
 	maxcharge = 15000
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
 /turf/simulated/floor/plating,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -6876,12 +6781,12 @@
 	name = "UO45 Research"
 	})
 "mm" = (
-/obj/structure/closet/firecloset,
 /obj/machinery/light/small,
 /obj/structure/sign/securearea{
 	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "warnwhite"
 	},
@@ -6987,19 +6892,8 @@
 	name = "UO45 Crew Quarters"
 	})
 "mw" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "201"
-	},
 /obj/item/clothing/under/pj/red,
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -7051,7 +6945,6 @@
 	name = "UO45 Engineering"
 	})
 "mB" = (
-/obj/structure/closet/crate,
 /obj/item/stack/sheet/metal{
 	amount = 50
 	},
@@ -7061,6 +6954,7 @@
 /obj/item/stack/rods{
 	amount = 50
 	},
+/obj/structure/closet/crate,
 /turf/simulated/floor/plating,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -7135,20 +7029,11 @@
 	name = "UO45 Gateway"
 	})
 "mI" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "rdsecurebroken";
-	icon_closed = "rdsecure";
-	icon_locked = "rdsecure1";
-	icon_off = "rdsecureoff";
-	icon_opened = "rdsecureopen";
-	icon_state = "rdsecure1";
-	name = "research director's locker";
-	req_access_txt = "201"
-	},
 /obj/item/storage/backpack/satchel_tox,
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/suit/storage/labcoat/science,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -7334,19 +7219,8 @@
 	name = "UO45 Crew Quarters"
 	})
 "mZ" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "201"
-	},
 /obj/item/clothing/under/suit_jacket/navy,
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -7657,6 +7531,7 @@
 	})
 "nz" = (
 /obj/machinery/vending/coffee,
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8474,6 +8349,7 @@
 	pixel_x = -30
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -8893,16 +8769,6 @@
 	name = "UO45 Research"
 	})
 "pi" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "secbroken";
-	icon_closed = "sec";
-	icon_locked = "sec1";
-	icon_off = "secoff";
-	icon_opened = "secopen";
-	icon_state = "sec1";
-	name = "security officer's locker";
-	req_access_txt = "201"
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/item/restraints/handcuffs,
 /obj/item/flash,
@@ -9369,7 +9235,6 @@
 	name = "UO45 Engineering"
 	})
 "qa" = (
-/obj/structure/closet/crate,
 /obj/item/storage/box/lights/mixed,
 /obj/item/poster/random_contraband,
 /obj/effect/decal/cleanable/dirt,
@@ -9553,6 +9418,7 @@
 	})
 "qq" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/l3closet/general,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitehall"
@@ -9729,12 +9595,12 @@
 	dir = 4;
 	layer = 2.9
 	},
-/obj/structure/closet/secure_closet/engineering_personal{
-	req_access = list(201)
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 4
+	},
+/obj/structure/closet/secure_closet/engineering_personal{
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9759,16 +9625,6 @@
 	name = "UO45 Engineering"
 	})
 "qH" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "secureengbroken";
-	icon_closed = "secureeng";
-	icon_locked = "secureeng1";
-	icon_off = "secureengoff";
-	icon_opened = "secureengopen";
-	icon_state = "secureeng1";
-	name = "engineer's locker";
-	req_access_txt = "201"
-	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -9778,6 +9634,9 @@
 /obj/item/clothing/glasses/meson,
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 4
+	},
+/obj/structure/closet/secure_closet/engineering_personal{
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10989,7 +10848,6 @@
 	name = "UO45 Engineering"
 	})
 "sr" = (
-/obj/structure/closet/l3closet/general,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11045,7 +10903,6 @@
 	name = "UO45 Research"
 	})
 "sw" = (
-/obj/structure/closet/l3closet/general,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11355,9 +11212,9 @@
 	name = "UO45 Engineering"
 	})
 "sU" = (
-/obj/structure/closet,
 /obj/item/storage/belt/utility,
 /obj/effect/landmark/burnturf,
+/obj/structure/closet,
 /turf/simulated/floor/plating,
 /area/awaycontent/a2{
 	name = "UO45 Crew Quarters"
@@ -11447,7 +11304,6 @@
 	name = "UO45 Engineering"
 	})
 "te" = (
-/obj/structure/closet/emcloset,
 /obj/item/clothing/mask/breath,
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
@@ -11733,7 +11589,6 @@
 	name = "UO45 Engineering"
 	})
 "tA" = (
-/obj/structure/closet/firecloset,
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plating,
 /area/awaycontent/a5{
@@ -12057,18 +11912,9 @@
 	pixel_y = 6;
 	req_access_txt = "201"
 	},
-/obj/structure/closet/secure_closet{
-	icon_broken = "secbroken";
-	icon_closed = "sec";
-	icon_locked = "sec1";
-	icon_off = "secoff";
-	icon_opened = "secopen";
-	icon_state = "sec1";
-	name = "security officer's locker";
-	req_access_txt = "201"
-	},
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet,
+/obj/structure/closet/secure_closet,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -12256,6 +12102,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/west,
+/obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
 /area/awaycontent/a5{
 	name = "UO45 Research"
@@ -12666,22 +12513,22 @@
 	name = "UO45 Engineering"
 	})
 "vc" = (
-/obj/structure/closet/emcloset,
 /obj/item/clothing/mask/breath,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
 	})
 "vd" = (
-/obj/structure/closet/firecloset,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -12739,11 +12586,11 @@
 	name = "UO45 Engineering"
 	})
 "vi" = (
-/obj/structure/closet/firecloset,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a3{
 	name = "UO45 Engineering"
@@ -13138,10 +12985,10 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/structure/closet/secure_closet/miner{
-	req_access = list(201)
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet/miner{
+	req_access = list(271)
+	},
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a4{
 	name = "UO45 Mining"
@@ -13428,18 +13275,7 @@
 	name = "UO45 Mining"
 	})
 "wq" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "201"
-	},
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaycontent/a4{
 	name = "UO45 Mining"
@@ -13806,19 +13642,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/closet/secure_closet/engineering_personal{
-	icon_broken = "miningsecbroken";
-	icon_closed = "miningsec";
-	icon_locked = "miningsec1";
-	icon_off = "miningsecoff";
-	icon_opened = "miningsecopen";
-	icon_state = "miningsec";
-	locked = 0;
-	name = "miner's equipment";
-	req_access = list(201)
-	},
 /obj/item/storage/backpack/satchel_eng,
 /obj/item/clothing/gloves/fingerless,
+/obj/structure/closet/secure_closet/miner{
+	req_access = list(271)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
@@ -13848,18 +13676,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "201"
-	},
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaycontent/a4{
 	name = "UO45 Mining"
@@ -14045,7 +13862,6 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/obj/structure/closet/crate,
 /obj/item/stack/sheet/metal{
 	amount = 26
 	},
@@ -14053,6 +13869,7 @@
 	amount = 19
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a4{
 	name = "UO45 Mining"
@@ -14091,7 +13908,6 @@
 	dir = 4;
 	pixel_x = 24
 	},
-/obj/structure/closet/crate,
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 6
 	},
@@ -14148,17 +13964,15 @@
 	name = "UO45 Mining"
 	})
 "xv" = (
-/obj/machinery/alarm/monitor{
-	dir = 4;
-	locked = 0;
-	pixel_x = -23;
-	req_access = null
-	},
-/obj/structure/closet/emcloset,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/awaycontent/a4{
-	name = "UO45 Mining"
+/obj/structure/closet/cabinet,
+/turf/simulated/mineral/random/labormineral,
+/area/awaycontent/a7{
+	always_unpowered = 1;
+	name = "UO45 Caves";
+	power_environ = 0;
+	power_equip = 0;
+	power_light = 0;
+	poweralm = 0
 	})
 "xw" = (
 /obj/structure/table,
@@ -14512,15 +14326,10 @@
 	poweralm = 0
 	})
 "yn" = (
-/obj/structure/closet/crate,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
+/obj/structure/closet/emcloset,
+/turf/simulated/wall/r_wall/rust,
+/area/awaycontent/a4{
+	name = "UO45 Mining"
 	})
 "yo" = (
 /obj/structure/alien/weeds{
@@ -24626,11 +24435,11 @@ aB
 aB
 aC
 aC
+xv
 ac
 ac
 ac
-ac
-ac
+xv
 ac
 ac
 bQ
@@ -25901,7 +25710,7 @@ yl
 fo
 fo
 fo
-yn
+fo
 ac
 ac
 ac
@@ -26044,7 +25853,7 @@ xG
 xO
 xn
 wx
-xv
+vy
 xB
 wx
 ev
@@ -26496,7 +26305,7 @@ vJ
 vJ
 vJ
 vJ
-vJ
+yn
 yl
 fo
 fo
@@ -29954,7 +29763,7 @@ ac
 ac
 ac
 ac
-ac
+xv
 ac
 ac
 ac

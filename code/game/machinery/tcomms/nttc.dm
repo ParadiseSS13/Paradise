@@ -23,12 +23,8 @@
 		"Cyborg" = "airadio",
 		"Personal AI" = "airadio",
 		"Robot" = "airadio",
-		// Civilian + Varients
+		// Assistant
 		"Assistant" = "radio",
-		"Businessman" = "radio",
-		"Civilian" = "radio",
-		"Tourist" = "radio",
-		"Trader" = "radio",
 		// Command (Solo command, not department heads)
 		"Blueshield" = "comradio",
 		"Captain" = "comradio",
@@ -41,7 +37,6 @@
 		"Engine Technician" = "engradio",
 		"Life Support Specialist" = "engradio",
 		"Maintenance Technician" = "engradio",
-		"Mechanic" = "engradio",
 		"Station Engineer" = "engradio",
 		// Central Command
 		"Emergency Response Team Engineer" = "dsquadradio", // I know this says deathsquad but the class for responseteam is neon green. No.
@@ -92,7 +87,6 @@
 		"Internal Affairs Agent" = "secradio",
 		"Magistrate" = "secradio",
 		"Security Officer" = "secradio",
-		"Security Pod Pilot" = "secradio",
 		"Warden" = "secradio",
 		// Supply
 		"Quartermaster" = "supradio",

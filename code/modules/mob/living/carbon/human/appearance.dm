@@ -153,6 +153,12 @@
 	else
 		//this shouldn't happen
 		H.h_style = "Bald"
+	// Gradient
+	H.h_grad_style = "None"
+	H.h_grad_offset_x = 0
+	H.h_grad_offset_y = 0
+	H.h_grad_colour = "#000000"
+	H.h_grad_alpha = 255
 
 	update_hair()
 
@@ -310,6 +316,25 @@
 	update_body()
 	return 1
 
+/mob/living/carbon/human/proc/change_hair_gradient(style, offset_raw, color, alpha)
+	var/obj/item/organ/external/head/H = get_organ("head")
+	if(!H)
+		return
+
+	if(!isnull(style))
+		H.h_grad_style = style
+	if(!isnull(offset_raw))
+		var/list/expl = splittext(offset_raw, ",")
+		if(length(expl) == 2)
+			H.h_grad_offset_x = clamp(text2num(expl[1]) || 0, -16, 16)
+			H.h_grad_offset_y = clamp(text2num(expl[2]) || 0, -16, 16)
+	if(!isnull(color))
+		H.h_grad_colour = color
+	if(!isnull(alpha))
+		H.h_grad_alpha = clamp(alpha, 0, 255)
+
+	update_hair()
+
 /mob/living/carbon/human/proc/update_dna()
 	check_dna()
 	dna.ready_dna(src)
@@ -325,7 +350,7 @@
 				continue
 			if(blacklist.len && (current_species_name in blacklist))
 				continue
-			if((IS_WHITELISTED in current_species.species_traits) && !is_alien_whitelisted(src, current_species_name))
+			if((IS_WHITELISTED in current_species.species_traits) && !can_use_species(src, current_species_name))
 				continue
 
 		valid_species += current_species_name

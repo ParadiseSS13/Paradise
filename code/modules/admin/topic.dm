@@ -982,7 +982,8 @@
 
 	else if(href_list["removenote"])
 		var/note_id = href_list["removenote"]
-		remove_note(note_id)
+		if(alert("Do you really want to delete this note?", "Note deletion confirmation", "Yes", "No") == "Yes")
+			remove_note(note_id)
 
 	else if(href_list["editnote"])
 		var/note_id = href_list["editnote"]
@@ -1294,8 +1295,9 @@
 		if(!prison_cell)	return
 
 		var/obj/structure/closet/secure_closet/brig/locker = new /obj/structure/closet/secure_closet/brig(prison_cell)
-		locker.opened = 0
-		locker.locked = 1
+		locker.opened = FALSE
+		locker.locked = TRUE
+		locker.update_icon()
 
 		//strip their stuff and stick it in the crate
 		for(var/obj/item/I in M)
@@ -1360,7 +1362,7 @@
 			to_chat(usr, "<span class='warning'>[M] doesn't seem to have an active client.</span>")
 			return
 
-		if(M.flavor_text == "" && M.client.prefs.flavor_text == "")
+		if(M.flavor_text == "" && M.client.prefs.active_character.flavor_text == "")
 			to_chat(usr, "<span class='warning'>[M] has no flavor text set.</span>")
 			return
 
@@ -1374,8 +1376,8 @@
 		M.flavor_text = ""
 
 		// Clear and save the DB character's flavor text
-		M.client.prefs.flavor_text = ""
-		M.client.prefs.save_character(M.client)
+		M.client.prefs.active_character.flavor_text = ""
+		M.client.prefs.active_character.save(M.client)
 
 	else if(href_list["userandomname"])
 		if(!check_rights(R_ADMIN))
@@ -1398,12 +1400,12 @@
 		message_admins("[key_name_admin(usr)] has forced [key_name_admin(M)] to use a random name.")
 
 		// Update the mob's name with a random one straight away
-		var/random_name = random_name(M.client.prefs.gender, M.client.prefs.species)
+		var/random_name = random_name(M.client.prefs.active_character.gender, M.client.prefs.active_character.species)
 		M.rename_character(M.real_name, random_name)
 
 		// Save that random name for next rounds
-		M.client.prefs.real_name = random_name
-		M.client.prefs.save_character(M.client)
+		M.client.prefs.active_character.real_name = random_name
+		M.client.prefs.active_character.save(M.client)
 
 	else if(href_list["asays"])
 		if(!check_rights(R_ADMIN))
@@ -2407,26 +2409,33 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(alert(src.owner, "Accept or Deny ERT request?", "CentComm Response", "Accept", "Deny") == "Deny")
+		if(alert(owner, "Accept or Deny ERT request?", "CentComm Response", "Accept", "Deny") == "Deny")
 			var/mob/living/carbon/human/H = locateUID(href_list["ErtReply"])
 			if(!istype(H))
-				to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
-				return
-			if(H.stat != 0)
-				to_chat(usr, "<span class='warning'>The person you are trying to contact is not conscious.</span>")
-				return
-			if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
-				to_chat(usr, "<span class='warning'>The person you are trying to contact is not wearing a headset</span>")
+				to_chat(owner, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 				return
 
-			var/input = input(src.owner, "Please enter a reason for denying [key_name(H)]'s ERT request.","Outgoing message from CentComm", "")
-			if(!input)	return
+			var/reason = input(owner, "Please enter a reason for denying [key_name(H)]'s ERT request.", "Outgoing message from CentComm") as null|message
+			if(!reason)
+				return
+			var/announce_to_crew = alert(owner, "Announce ERT request denial to crew or only to the sender [key_name(H)]?", "Send reason to who", "Crew", "Sender") == "Crew"
 			GLOB.ert_request_answered = TRUE
-			to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
-			log_admin("[src.owner] denied [key_name(H)]'s ERT request with the message [input].")
-			to_chat(H, "<span class='specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [input].</span>")
+			log_admin("[owner] denied [key_name(H)]'s ERT request with the message [reason]. Announced to [announce_to_crew ? "the entire crew." : "only the sender"].")
+
+			if(announce_to_crew)
+				GLOB.event_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time. Your ERT request has been denied for the following reasons:\n[reason]", "ERT Unavailable")
+				return
+
+			if(H.stat != CONSCIOUS)
+				to_chat(owner, "<span class='warning'>The person you are trying to contact is not conscious. ERT denied but no message has been sent.</span>")
+				return
+			if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
+				to_chat(owner, "<span class='warning'>The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent.</span>")
+				return
+			to_chat(owner, "<span class='notice'>You sent [reason] to [H] via a secure channel.</span>")
+			to_chat(H, "<span class='specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [reason].</span>")
 		else
-			src.owner.response_team()
+			owner.response_team()
 
 
 	else if(href_list["AdminFaxView"])
@@ -2482,6 +2491,10 @@
 		var/destination
 		var/notify
 		var/obj/item/paper/P
+
+		if(sender)
+			message_admins("[key_name_admin(owner)] has started replying to a fax message from [key_name_admin(sender)]")
+
 		var/use_letterheard = alert("Use letterhead? If so, do not add your own header or a footer. Type and format only your actual message.",,"Nanotrasen","Syndicate", "No")
 		switch(use_letterheard)
 			if("Nanotrasen")
@@ -3509,51 +3522,22 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/target_ckey = href_list["viewkarma"]
-
-		var/total_karma = 0
-		var/spent_karma = 0
-		var/unlocked_jobs = ""
-		var/unlocked_species = ""
-		// Get their totals
-		var/datum/db_query/query_get_totals = SSdbcore.NewQuery("SELECT karma, karmaspent FROM karmatotals WHERE byondkey=:ckey", list(
-			"ckey" = target_ckey
-		))
-		if(!query_get_totals.warn_execute())
-			qdel(query_get_totals)
+		var/client/C = GLOB.directory[href_list["viewkarma"]]
+		if(!C)
 			return
-		// Even if there aint a row, we can still assume the defaults of 0 above
-		if(query_get_totals.NextRow())
-			total_karma = query_get_totals.item[1]
-			spent_karma = query_get_totals.item[2]
-
-		qdel(query_get_totals)
-
-		// Now get their unlocks
-		var/datum/db_query/query_get_unlocks = SSdbcore.NewQuery("SELECT job, species FROM whitelist WHERE ckey=:ckey", list(
-			"ckey" = target_ckey
-		))
-		if(!query_get_unlocks.warn_execute())
-			qdel(query_get_unlocks)
-			return
-		if(query_get_unlocks.NextRow())
-			unlocked_jobs = query_get_unlocks.item[1]
-			unlocked_species = query_get_unlocks.item[2]
-
-		qdel(query_get_unlocks)
 
 		// Pack it into a dat
 		var/dat = {"
 		<ul>
-		<li>Total Karma: [total_karma]</li>
-		<li>Spent Karma: [spent_karma]</li>
-		<li>Available Karma: [total_karma - spent_karma]</li>
-		<li>Unlocked Jobs: [unlocked_jobs]</li>
-		<li>Unlocked Species: [unlocked_species]</li>
+		<li>Total Karma: [C.karmaholder.karma_earned]</li>
+		<li>Spent Karma: [C.karmaholder.karma_spent]</li>
+		<li>Available Karma: [C.karmaholder.karma_earned - C.karmaholder.karma_spent]</li>
+		<li>Unlocked Jobs: [C.karmaholder.unlocked_jobs.Join(", ")]</li>
+		<li>Unlocked Species: [C.karmaholder.unlocked_species.Join(", ")]</li>
 		</ul>
 		"}
 
-		var/datum/browser/popup = new(usr, "view_karma", "Karma stats for [target_ckey]", 600, 300)
+		var/datum/browser/popup = new(usr, "view_karma", "Karma stats for [C.ckey]", 600, 300)
 		popup.set_content(dat)
 		popup.open(FALSE)
 	else if(href_list["who_advanced"])

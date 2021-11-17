@@ -23,7 +23,7 @@
 
 
 /obj/machinery/power/emitter/energycannon
-	name = "Energy Cannon"
+	name = "energy cannon"
 	desc = "A heavy duty industrial laser"
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "emitter"

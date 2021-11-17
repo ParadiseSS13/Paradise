@@ -44,7 +44,7 @@
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer
 	name = "foam Enforcer"
-	desc = "A foam-shooting version of the Enforcer meant to be used for training new cadets who can't be trusted with rubber bullets."
+	desc = "A toy inspired by the popular Enforcer pistol. Ages 8 and up!"
 	icon_state = "enforcer"
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer
 	can_flashlight = TRUE

@@ -33,7 +33,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 	if(!M || !rank)
 		return 0
 
-	if(GLOB.configuration.jobs.guest_job_ban && guest_jobbans(rank))
+	if(GLOB.configuration.jobs.guest_job_ban && check_job_karma(rank))
 		if(IsGuestKey(M.key))
 			return "Guest Job-ban"
 
@@ -46,7 +46,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 	if(!ckey || !rank)
 		return null
 
-	if(GLOB.configuration.jobs.guest_job_ban && guest_jobbans(rank))
+	if(GLOB.configuration.jobs.guest_job_ban && check_job_karma(rank))
 		if(IsGuestKey(ckey))
 			return "Guest Job-ban"
 

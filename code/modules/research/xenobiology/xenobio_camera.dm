@@ -155,7 +155,7 @@
 			current_potion = O
 			to_chat(user, "<span class='notice'>You load [O] in the console's potion slot[replaced ? ", replacing the one that was there before" : ""].</span>")
 		return
-	else if(istype(O, /obj/item/storage/bag))
+	else if(istype(O, /obj/item/storage/bag) || istype(O, /obj/item/storage/box))
 		var/obj/item/storage/P = O
 		var/loaded = 0
 		for(var/obj/item/reagent_containers/food/snacks/monkeycube/MC in P.contents)
@@ -191,7 +191,10 @@
 	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
-	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
+	if(iswallturf(remote_eye.loc))
+		to_chat(owner, "You can't place slime here.")
+		return
+	else if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/simple_animal/slime/S in X.stored_slimes)
 			S.forceMove(remote_eye.loc)
 			S.visible_message("[S] warps in!")
@@ -237,6 +240,12 @@
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		if(LAZYLEN(SSmobs.cubemonkeys) >= GLOB.configuration.general.monkey_cube_cap)
 			to_chat(owner, "<span class='warning'>Bluespace harmonics prevent the spawning of more than [GLOB.configuration.general.monkey_cube_cap] monkeys on the station at one time!</span>")
+			return
+		else if(iswallturf(remote_eye.loc))
+			to_chat(owner, "You can't place monkey here.")
+			return
+		else if(!X.monkeys)
+			to_chat(owner, "[X] doesn't have monkeys.")
 			return
 		else if(X.monkeys >= 1)
 			var/mob/living/carbon/human/monkey/food = new /mob/living/carbon/human/monkey(remote_eye.loc)
@@ -323,6 +332,8 @@
 	to_chat(owner, "Ctrl-click a slime to scan it.")
 	to_chat(owner, "Alt-click a slime to feed it a potion.")
 	to_chat(owner, "Ctrl-click or a dead monkey to recycle it, or the floor to place a new monkey.")
+	var/obj/machinery/computer/camera_advanced/xenobio/X = owner.machine
+	to_chat(owner, "[X] now has [X.monkeys] monkeys left.")
 
 //
 // Alternate clicks for slime, monkey and open turf if using a xenobio console
@@ -415,7 +426,10 @@
 	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/turfarea = get_area(T)
-	if(turfarea.name == E.allowed_area || turfarea.xenobiology_compatible)
+	if(iswallturf(T))
+		to_chat(user, "You can't place slime here.")
+		return
+	else if(turfarea.name == E.allowed_area || turfarea.xenobiology_compatible)
 		for(var/mob/living/simple_animal/slime/S in X.stored_slimes)
 			S.forceMove(T)
 			S.visible_message("<span class='notice'>[S] warps in!</span>")
@@ -430,8 +444,10 @@
 	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/turfarea = get_area(T)
-
-	if(turfarea.name == E.allowed_area || turfarea.xenobiology_compatible)
+	if(iswallturf(T))
+		to_chat(user, "You can't place monkey here.")
+		return
+	else if(turfarea.name == E.allowed_area || turfarea.xenobiology_compatible)
 		if(X.monkeys >= 1)
 			var/mob/living/carbon/human/monkey/food = new /mob/living/carbon/human/monkey(T)
 			food.LAssailant = C

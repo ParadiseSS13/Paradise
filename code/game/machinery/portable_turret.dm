@@ -511,7 +511,7 @@
 
 	var/list/targets = list()			//list of primary targets
 	var/list/secondarytargets = list()	//targets that are least important
-	var/static/things_to_scan = typecacheof(list(/obj/mecha, /obj/spacepod, /obj/vehicle, /mob/living))
+	var/static/things_to_scan = typecacheof(list(/obj/mecha, /obj/vehicle, /mob/living))
 
 	for(var/A in typecache_filter_list(view(scan_range, src), things_to_scan))
 		var/atom/AA = A
@@ -522,10 +522,6 @@
 		if(istype(A, /obj/mecha))
 			var/obj/mecha/ME = A
 			assess_and_assign(ME.occupant, targets, secondarytargets)
-
-		if(istype(A, /obj/spacepod))
-			var/obj/spacepod/SP = A
-			assess_and_assign(SP.pilot, targets, secondarytargets)
 
 		if(istype(A, /obj/vehicle))
 			var/obj/vehicle/T = A
@@ -719,7 +715,7 @@
 	return A
 
 /obj/machinery/porta_turret/centcom
-	name = "Centcom Turret"
+	name = "\improper Centcomm turret"
 	enabled = FALSE
 	ailock = TRUE
 	check_synth	 = FALSE
@@ -731,7 +727,7 @@
 	region_max = REGION_CENTCOMM // Non-turretcontrolled turrets at CC can have their access customized to check for CC accesses.
 
 /obj/machinery/porta_turret/centcom/pulse
-	name = "Pulse Turret"
+	name = "pulse turret"
 	health = 200
 	enabled = TRUE
 	lethal = TRUE

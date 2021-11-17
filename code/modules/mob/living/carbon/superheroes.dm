@@ -146,7 +146,7 @@
 //The Griffin's special recruit abilitiy
 /obj/effect/proc_holder/spell/targeted/click/recruit
 	name = "Recruit Greyshirt"
-	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic human to be part of the Greyshirts, your personal henchmen. This works on Civilians only and you can recruit a maximum of 3!."
+	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic human to be part of the Greyshirts, your personal henchmen. This works on Assistants only and you can recruit a maximum of 3!."
 	charge_max = 450
 	clothes_req = FALSE
 	range = 1 //Adjacent to user
@@ -177,8 +177,8 @@
 
 /obj/effect/proc_holder/spell/targeted/click/recruit/cast(list/targets,mob/living/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
-	if(target.mind.assigned_role != "Civilian")
-		to_chat(user, "<span class='warning'>You can only recruit Civilians.</span>")
+	if(target.mind.assigned_role != "Assistant")
+		to_chat(user, "<span class='warning'>You can only recruit Assistants.</span>")
 		revert_cast(user)
 		return
 	recruiting = TRUE
