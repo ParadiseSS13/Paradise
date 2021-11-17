@@ -120,7 +120,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		body += "<A href='?_src_=holder;boot2=[M.UID()]'>Kick</A> | "
 		body += "<A href='?_src_=holder;newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</A> | "
 		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
-		body += "<A href='?_src_=holder;appearanceban=[M.UID()];dbbanaddckey=[M.ckey]'>Appearance Ban</A> | "
 		body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
 		body += "<A href='?_src_=holder;viewkarma=[M.ckey]'>View Karma</A> | "
 		if(GLOB.configuration.url.forum_playerinfo_url)

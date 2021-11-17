@@ -37,10 +37,6 @@
 			bantype_str = "JOB_TEMPBAN"
 			bantype_pass = 1
 			isjobban = 1
-		if(BANTYPE_APPEARANCE)
-			bantype_str = "APPEARANCE_BAN"
-			duration = -1
-			bantype_pass = 1
 		if(BANTYPE_ADMIN_PERMA)
 			bantype_str = "ADMIN_PERMABAN"
 			duration = -1
@@ -214,9 +210,6 @@
 				bantype_str = "JOB_TEMPBAN"
 				bantype_pass = 1
 				isjobban = 1
-			if(BANTYPE_APPEARANCE)
-				bantype_str = "APPEARANCE_BAN"
-				bantype_pass = 1
 			if(BANTYPE_ADMIN_PERMA)
 				bantype_str = "ADMIN_PERMABAN"
 				bantype_pass = 1
@@ -459,7 +452,6 @@
 	output += "<option value='[BANTYPE_TEMP]'>TEMPBAN</option>"
 	output += "<option value='[BANTYPE_JOB_PERMA]'>JOB PERMABAN</option>"
 	output += "<option value='[BANTYPE_JOB_TEMP]'>JOB TEMPBAN</option>"
-	output += "<option value='[BANTYPE_APPEARANCE]'>APPEARANCE BAN</option>"
 	output += "<option value='[BANTYPE_ADMIN_PERMA]'>ADMIN PERMABAN</option>"
 	output += "<option value='[BANTYPE_ADMIN_TEMP]'>ADMIN TEMPBAN</option>"
 	output += "</select></td>"
@@ -501,7 +493,6 @@
 	output += "<option value='[BANTYPE_TEMP]'>TEMPBAN</option>"
 	output += "<option value='[BANTYPE_JOB_PERMA]'>JOB PERMABAN</option>"
 	output += "<option value='[BANTYPE_JOB_TEMP]'>JOB TEMPBAN</option>"
-	output += "<option value='[BANTYPE_APPEARANCE]'>APPEARANCE BAN</option>"
 	output += "<option value='[BANTYPE_ADMIN_PERMA]'>ADMIN PERMABAN</option>"
 	output += "<option value='[BANTYPE_ADMIN_TEMP]'>ADMIN TEMPBAN</option>"
 	output += "</select></td></tr></table>"
@@ -576,8 +567,6 @@
 						bantypesearch += "'JOB_PERMABAN' "
 					if(BANTYPE_JOB_TEMP)
 						bantypesearch += "'JOB_TEMPBAN' "
-					if(BANTYPE_APPEARANCE)
-						bantypesearch += "'APPEARANCE_BAN' "
 					if(BANTYPE_ADMIN_PERMA)
 						bantypesearch = "'ADMIN_PERMABAN' "
 					if(BANTYPE_ADMIN_TEMP)
@@ -629,8 +618,6 @@
 						typedesc = "<b>JOBBAN</b><br><font size='2'>([job])"
 					if("JOB_TEMPBAN")
 						typedesc = "<b>TEMP JOBBAN</b><br><font size='2'>([job])<br>([duration] minutes<br>Expires [expiration]"
-					if("APPEARANCE_BAN")
-						typedesc = "<b>APPEARANCE/NAME BAN</b>"
 					if("ADMIN_PERMABAN")
 						typedesc = "<b>ADMIN PERMABAN</b>"
 					if("ADMIN_TEMPBAN")
