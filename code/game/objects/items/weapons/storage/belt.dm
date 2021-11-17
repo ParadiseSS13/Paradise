@@ -230,10 +230,15 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/holosign_creator/security,
 		/obj/item/melee/classic_baton/telescopic,
-		/obj/item/restraints/legcuffs/bola)
+		/obj/item/restraints/legcuffs/bola,
+		/obj/item/clothing/mask/gas/sechailer)
 
-/obj/item/storage/belt/security/sec/populate_contents()
-	new /obj/item/flashlight/seclite(src)
+/obj/item/storage/belt/security/full/populate_contents()
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/grenade/flashbang(src)
+	new /obj/item/flash(src)
+	new /obj/item/melee/baton/loaded(src)
 	update_icon()
 
 /obj/item/storage/belt/security/response_team/populate_contents()
@@ -366,6 +371,22 @@
 	item_state = "assault"
 	storage_slots = 6
 
+/obj/item/storage/belt/military/assault/marines/full/populate_contents()
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	update_icon()
+
+/obj/item/storage/belt/military/assault/marines/elite/full/populate_contents()
+	new /obj/item/ammo_box/magazine/m556/arg(src)
+	new /obj/item/ammo_box/magazine/m556/arg(src)
+	new /obj/item/ammo_box/magazine/m556/arg(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	update_icon()
 /obj/item/storage/belt/janitor
 	name = "janibelt"
 	desc = "A belt used to hold most janitorial supplies."
@@ -391,7 +412,6 @@
 	new /obj/item/soap(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
-	new /obj/item/melee/flyswatter(src)
 	update_icon()
 
 /obj/item/storage/belt/lazarus
@@ -431,6 +451,7 @@
 	item_state = "bandolier"
 	storage_slots = 8
 	can_hold = list(/obj/item/ammo_casing/shotgun)
+	display_contents_with_number = TRUE
 
 /obj/item/storage/belt/bandolier/Initialize(mapload)
 	. = ..()
@@ -698,7 +719,6 @@
 	new /obj/item/stack/cable_coil(src)
 
 	new /obj/item/restraints/handcuffs(src)
-	new /obj/item/dnainjector/xraymut(src)
 	new /obj/item/dnainjector/firemut(src)
 	new /obj/item/dnainjector/telemut(src)
 	new /obj/item/dnainjector/hulkmut(src)

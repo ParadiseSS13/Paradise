@@ -122,12 +122,12 @@
 	icon_state = "too_much_oxy"
 
 /obj/screen/alert/not_enough_nitro
-    name = "Choking (No N)"
+    name = "Choking (No N2)"
     desc = "You're not getting enough nitrogen. Find some good air before you pass out!"
     icon_state = "not_enough_nitro"
 
 /obj/screen/alert/too_much_nitro
-    name = "Choking (N)"
+    name = "Choking (N2)"
     desc = "There's too much nitrogen in the air, and you're breathing it in! Find some good air before you pass out!"
     icon_state = "too_much_nitro"
 
@@ -308,6 +308,11 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 		var/mob/living/L = usr
 		return L.resist()
 
+//Constructs
+/obj/screen/alert/holy_fire
+	name = "Holy Fire"
+	desc = "Your body is crumbling from the holy energies. Get out."
+	icon_state = "fire"
 
 //ALIENS
 
@@ -611,12 +616,19 @@ so as to remain in compliance with the most up-to-date laws."
 	if(stone)
 		if(alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
 		impossible for you to get back into the game as your regular character.",, "No", "Yes") ==  "Yes")
-			stone.opt_in = TRUE
+			stone?.opt_in = TRUE
 
 /obj/screen/alert/notify_soulstone/Destroy()
 	stone = null
 	return ..()
 
+/obj/screen/alert/notify_mapvote
+	name = "Map Vote"
+	desc = "Vote on which map you would like to play on next!"
+	icon_state = "map_vote"
+
+/obj/screen/alert/notify_mapvote/Click()
+	SSvote.browse_to(usr.client)
 
 //OBJECT-BASED
 

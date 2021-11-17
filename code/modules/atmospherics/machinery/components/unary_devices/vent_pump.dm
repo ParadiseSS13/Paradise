@@ -20,7 +20,6 @@
 
 	req_one_access_txt = "24;10"
 
-	var/on = 0
 	var/pump_direction = 1 //0 = siphoning, 1 = releasing
 
 	var/external_pressure_bound = EXTERNAL_PRESSURE_BOUND
@@ -46,6 +45,9 @@
 	var/radio_filter_in
 
 	connect_types = list(1,2) //connects to regular and supply pipes
+
+/obj/machinery/atmospherics/unary/vent_pump/detailed_examine()
+	return "This pumps the contents of the attached pipe out into the atmosphere, if needed. It can be controlled from an Air Alarm."
 
 /obj/machinery/atmospherics/unary/vent_pump/on
 	on = 1
@@ -128,6 +130,9 @@
 	..()
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
+	var/turf/T = loc
+	if(T.density) //No, you should not be able to get free air from walls
+		return
 	if(!node)
 		on = FALSE
 	//broadcast_status() // from now air alarm/control computer should request update purposely --rastaf0
@@ -379,7 +384,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/interact(mob/user as mob)
 	update_multitool_menu(user)
 
-/obj/machinery/atmospherics/unary/vent_pump/multitool_menu(var/mob/user,var/obj/item/multitool/P)
+/obj/machinery/atmospherics/unary/vent_pump/multitool_menu(mob/user, obj/item/multitool/P)
 	return {"
 	<ul>
 		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ATMOS_VENTSCRUB]">Reset</a>)</li>
@@ -387,7 +392,7 @@
 		</ul>
 	"}
 
-/obj/machinery/atmospherics/unary/vent_pump/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
+/obj/machinery/atmospherics/unary/vent_pump/multitool_topic(mob/user, list/href_list, obj/O)
 	if("set_id" in href_list)
 		var/newid = copytext(reject_bad_text(input(usr, "Specify the new ID tag for this machine", src, src.id_tag) as null|text), 1, MAX_MESSAGE_LEN)
 		if(!newid)

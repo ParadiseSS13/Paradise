@@ -5,7 +5,7 @@
 	dangerous_existence = TRUE //So so much
 	//language = "Clatter"
 
-	species_traits = list(IS_WHITELISTED, NO_BLOOD, NOTRANSSTING)
+	species_traits = list(IS_WHITELISTED, NO_BLOOD, NO_HAIR)
 	inherent_traits = list(TRAIT_RADIMMUNE, TRAIT_NOHUNGER)
 	inherent_biotypes = MOB_HUMANOID | MOB_MINERAL
 	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
@@ -69,7 +69,7 @@
 		if("Chef")
 			O = new /datum/outfit/plasmaman/chef
 
-		if("Security Officer", "Security Pod Pilot", "Special Operations Officer")
+		if("Security Officer", "Special Operations Officer")
 			O = new /datum/outfit/plasmaman/security
 
 		if("Detective")
@@ -111,7 +111,7 @@
 		if("Research Director")
 			O = new /datum/outfit/plasmaman/rd
 
-		if("Station Engineer", "Mechanic")
+		if("Station Engineer")
 			O = new /datum/outfit/plasmaman/engineering
 
 		if("Chief Engineer")
@@ -135,7 +135,7 @@
 		if("Blueshield")
 			O = new /datum/outfit/plasmaman/blueshield
 
-		if("Assistant", "Tourist", "Civilian", "Businessman", "Trader")
+		if("Assistant")
 			O = new /datum/outfit/plasmaman/assistant
 
 	H.equipOutfit(O, visualsOnly)

@@ -83,7 +83,6 @@ GLOBAL_LIST_INIT(bananium_recipes, list ( \
 	null, \
 	new/datum/stack_recipe("Clown Statue", /obj/structure/statue/bananium/clown, 5, one_per_turf = 1, on_floor = 1), \
 	null, \
-	new/datum/stack_recipe("bananium computer frame", /obj/structure/computerframe/HONKputer, 50, time = 25, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("bananium grenade casing", /obj/item/grenade/bananade/casing, 4, on_floor = 1), \
 	))
 
@@ -97,7 +96,7 @@ GLOBAL_LIST_INIT(tranquillite_recipes, list ( \
 
 GLOBAL_LIST_INIT(abductor_recipes, list ( \
 	new/datum/stack_recipe("alien bed", /obj/structure/bed/abductor, 2, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("alien locker", /obj/structure/closet/abductor, 1, time = 15, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("alien locker", /obj/structure/closet/abductor, 2, time = 15, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("alien table frame", /obj/structure/table_frame/abductor, 1, time = 15, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("alien airlock assembly", /obj/structure/door_assembly/door_assembly_abductor, 4, time = 20, one_per_turf = 1, on_floor = 1), \
 	null, \

@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `feedback` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `feedback`;
+CREATE DATABASE  IF NOT EXISTS `paradise_gamedb` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `paradise_gamedb`;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,7 +24,7 @@ CREATE TABLE `characters` (
   `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slot` int(2) NOT NULL,
   `OOC_Notes` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `real_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `real_name` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name_is_always_random` tinyint(1) NOT NULL,
   `gender` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
   `age` smallint(4) NOT NULL,
@@ -75,6 +75,10 @@ CREATE TABLE `characters` (
   `body_accessory` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `gear` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `autohiss` tinyint(1) NOT NULL,
+  `hair_gradient` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hair_gradient_offset` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0,0',
+  `hair_gradient_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000',
+  `hair_gradient_alpha` tinyint(3) UNSIGNED NOT NULL DEFAULT '255',
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -99,7 +103,7 @@ CREATE TABLE `customuseritems` (
   `cuiJobMask` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `cuiCKey` (`cuiCKey`)
-) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,6 +118,7 @@ CREATE TABLE `death` (
   `pod` text NOT NULL COMMENT 'Place of death',
   `coord` text NOT NULL COMMENT 'X, Y, Z POD',
   `tod` datetime NOT NULL COMMENT 'Time of death',
+  `server_id` TEXT NULL DEFAULT NULL,
   `job` text NOT NULL,
   `special` text NOT NULL,
   `name` text NOT NULL,
@@ -126,7 +131,7 @@ CREATE TABLE `death` (
   `fireloss` int(11) NOT NULL,
   `oxyloss` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=166546 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=166546 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -197,6 +202,7 @@ CREATE TABLE `ban` (
   `bantime` datetime NOT NULL,
   `ban_round_id` INT(11) NULL DEFAULT NULL,
   `serverip` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `server_id` VARCHAR(50) NULL DEFAULT NULL COLLATE utf8mb4_general_ci,
   `bantype` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `reason` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `job` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -241,7 +247,7 @@ CREATE TABLE `feedback` (
   `version` tinyint(3) UNSIGNED NOT NULL,
   `json` LONGTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=257638 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=257638 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -277,6 +283,7 @@ CREATE TABLE `player` (
   `fupdate` smallint(4) DEFAULT '0',
   `parallax` tinyint(1) DEFAULT '8',
   `byond_date` DATE DEFAULT NULL,
+  `2fa_status` ENUM('DISABLED','ENABLED_IP','ENABLED_ALWAYS') NOT NULL DEFAULT 'DISABLED' COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
@@ -319,9 +326,10 @@ CREATE TABLE `karma` (
   `receiverspecial` text,
   `isnegative` tinyint(1) DEFAULT NULL,
   `spenderip` text NOT NULL,
+  `server_id` TEXT NULL DEFAULT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=73614 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=73614 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -338,7 +346,7 @@ CREATE TABLE `karmatotals` (
   `karmaspent` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `byondkey` (`byondkey`)
-) ENGINE=MyISAM AUTO_INCREMENT=25715 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25715 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -359,7 +367,7 @@ CREATE TABLE `library` (
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`),
   KEY `flagged` (`flagged`)
-) ENGINE=MyISAM AUTO_INCREMENT=4537 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4537 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -373,9 +381,10 @@ CREATE TABLE `legacy_population` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `playercount` int(11) DEFAULT NULL,
   `admincount` int(11) DEFAULT NULL,
+  `server_id` VARCHAR(50) NULL DEFAULT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2550 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2550 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -392,7 +401,7 @@ CREATE TABLE `whitelist` (
   `species` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
-) ENGINE=MyISAM AUTO_INCREMENT=4080 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4080 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -531,6 +540,7 @@ CREATE TABLE `connection_log` (
   `ckey` varchar(32) NOT NULL,
   `ip` varchar(32) NOT NULL,
   `computerid` varchar(32) NOT NULL,
+  `server_id` VARCHAR(50) NULL DEFAULT NULL,
   `result` ENUM('ESTABLISHED','DROPPED - IPINTEL','DROPPED - BANNED','DROPPED - INVALID') NOT NULL DEFAULT 'ESTABLISHED' COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`),
@@ -583,5 +593,43 @@ CREATE TABLE `round` (
   `shuttle_name` VARCHAR(64) NULL,
   `map_name` VARCHAR(32) NULL,
   `station_name` VARCHAR(80) NULL,
+  `server_id` VARCHAR(50) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+--
+-- Table structure for table `2fa_secrets`
+--
+CREATE TABLE `2fa_secrets` (
+	`ckey` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`secret` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`date_setup` DATETIME NOT NULL DEFAULT current_timestamp(),
+	`last_time` DATETIME NULL DEFAULT NULL,
+	PRIMARY KEY (`ckey`) USING BTREE
+) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
+
+--
+-- Table structure for table `pai_saves`
+--
+CREATE TABLE `pai_saves` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`ckey` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`pai_name` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`description` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`preferred_role` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`ooc_comments` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`id`) USING BTREE,
+	UNIQUE INDEX `ckey` (`ckey`) USING BTREE
+) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
+
+--
+-- Table structure for table `instance_data_cache`
+--
+CREATE TABLE `instance_data_cache` (
+	`server_id` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`key_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`key_value` VARCHAR(12345) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`last_updated` TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+	PRIMARY KEY (`server_id`, `key_name`) USING HASH
+) COLLATE='utf8mb4_general_ci' ENGINE=MEMORY;

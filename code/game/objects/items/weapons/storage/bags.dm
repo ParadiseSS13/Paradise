@@ -41,7 +41,7 @@
 	cant_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] puts the [name] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
+	user.visible_message("<span class='suicide'>[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
 	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
 	return TOXLOSS
 
@@ -314,7 +314,7 @@
 	//Therefore, make a new stack internally that has the remainder.
 	// -Sayu
 
-	if(S.amount > S.max_amount)
+	if(S.get_amount() > S.max_amount)
 		var/obj/item/stack/sheet/temp = new S.type(src)
 		temp.amount = S.amount - S.max_amount
 		S.amount = S.max_amount
@@ -371,6 +371,7 @@
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "tray"
 	desc = "A metal tray to lay food on."
+	storage_slots = 8
 	force = 5
 	throwforce = 10
 	throw_speed = 3

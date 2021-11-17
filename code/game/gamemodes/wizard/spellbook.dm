@@ -88,7 +88,7 @@
 	if(!S)
 		S = new spell_type()
 	var/dat =""
-	dat += "<b>[initial(S.name)]</b>"
+	dat += "<b>[name]</b>"
 	if(S.charge_type == "recharge")
 		dat += " Cooldown:[S.charge_max/10]"
 	dat += " Cost:[cost]<br>"
@@ -227,6 +227,25 @@
 	log_name = "TS"
 	category = "Defensive"
 
+/datum/spellbook_entry/sacred_flame
+	name = "Sacred Flame and Fire Immunity"
+	spell_type = /obj/effect/proc_holder/spell/targeted/sacred_flame
+	cost = 1
+	log_name = "SF"
+	category = "Defensive"
+
+/datum/spellbook_entry/sacred_flame/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
+	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
+	ADD_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
+	ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
+	return ..()
+
+/datum/spellbook_entry/sacred_flame/Refund(mob/living/carbon/human/user, obj/item/spellbook/book)
+	to_chat(user, "<span class='warning'>You no longer feel fireproof.</span>")
+	REMOVE_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
+	REMOVE_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
+	return ..()
+
 //Mobility
 /datum/spellbook_entry/knock
 	name = "Knock"
@@ -324,6 +343,21 @@
 	playsound(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
 	return TRUE
 
+/datum/spellbook_entry/summon/slience_ghosts
+	name = "Silence Ghosts"
+	desc = "Tired of people talking behind your back, and spooking you? Why not silence them, and make the dead deader."
+	cost = 2
+	log_name = "SLG"
+	is_ragin_restricted = TRUE //Salt needs to flow here, to be honest
+
+/datum/spellbook_entry/summon/slience_ghosts/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	new /datum/event/wizard/ghost_mute()
+	active = TRUE
+	to_chat(user, "<span class='notice'>You have silenced all ghosts!</span>")
+	playsound(get_turf(user), 'sound/effects/ghost.ogg', 50, 1)
+	message_admins("[key_name_admin(usr)] silenced all ghosts as a wizard! (Deadchat is now DISABLED)")
+	return TRUE
+
 /datum/spellbook_entry/summon/guns
 	name = "Summon Guns"
 	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. There is a good chance that they will shoot each other first."
@@ -357,10 +391,14 @@
 	name = "Buy Item"
 	refundable = 0
 	buy_word = "Summon"
+	var/spawn_on_floor = FALSE
 	var/item_path = null
 
 /datum/spellbook_entry/item/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	user.put_in_hands(new item_path)
+	if(spawn_on_floor == FALSE)
+		user.put_in_hands(new item_path)
+	else
+		new item_path(user.loc)
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	return 1
 
@@ -406,6 +444,30 @@
 	log_name = "WA"
 	category = "Artefacts"
 
+/datum/spellbook_entry/item/cursed_heart
+	name = "Cursed Heart"
+	desc = "A heart that has been empowered with magic to heal the user. The user must ensure the heart is manually beaten or their blood circulation will suffer, but every beat heals their injuries. It must beat every 6 seconds. Not reccomended for first time wizards."
+	item_path = /obj/item/organ/internal/heart/cursed/wizard
+	log_name = "CH"
+	cost = 1
+	category = "Artefacts"
+
+/datum/spellbook_entry/item/voice_of_god
+	name = "Voice of God"
+	desc = "A magical vocal cord that can be used to yell out with the voice of a god, be it to harm, help, or confuse the target."
+	item_path = /obj/item/organ/internal/vocal_cords/colossus/wizard
+	log_name = "VG"
+	category = "Artefacts"
+
+/datum/spellbook_entry/item/warp_cubes
+	name = "Warp Cubes"
+	desc = "Two magic cubes, that when they are twisted in hand, teleports the user to the location of the other cube instantly. Great for silently teleporting to a fixed location, or teleporting you to an apprentice, or vice versa. Do not leave on the wizard den, it will not work."
+	item_path = /obj/item/warp_cube/red
+	log_name = "WC"
+	cost = 1
+	spawn_on_floor = TRUE // breaks if spawned in hand
+	category = "Artefacts"
+
 //Weapons and Armors
 /datum/spellbook_entry/item/battlemage
 	name = "Battlemage Armour"
@@ -432,9 +494,24 @@
 
 /datum/spellbook_entry/item/singularity_hammer
 	name = "Singularity Hammer"
-	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everthing nearby to the point of impact."
+	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everything nearby to the point of impact."
 	item_path = /obj/item/twohanded/singularityhammer
 	log_name = "SI"
+	category = "Weapons and Armors"
+
+/datum/spellbook_entry/item/spell_blade //Yes spellblade is technicaly a staff, but you can melee with it and it is not called a staff so I am putting it here
+	name = "Spellblade"
+	desc = "A magical sword that is quite good at slashing people, but is even better at shooting magical projectiles that can potentialy delimb at range."
+	item_path = /obj/item/gun/magic/staff/spellblade
+	log_name = "SB"
+	category = "Weapons and Armors"
+
+/datum/spellbook_entry/item/meat_hook
+	name = "Meat hook"
+	desc = "An enchanted hook, that can be used to hook people, hurt them, and bring them right to you. Quite bulky, works well as a belt though."
+	item_path = /obj/item/gun/magic/hook
+	cost = 1
+	log_name = "MH"
 	category = "Weapons and Armors"
 
 //Staves
@@ -721,7 +798,7 @@
 		owner = user
 		return
 	if(user != owner)
-		to_chat(user, "<span class='warning'>The [name] does not recognize you as it's owner and refuses to open!</span>")
+		to_chat(user, "<span class='warning'>[src] does not recognize you as it's owner and refuses to open!</span>")
 		return
 	user.set_machine(src)
 	var/dat = ""
@@ -967,7 +1044,7 @@
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
 		magichead.flags |= NODROP | DROPDEL	//curses!
 		magichead.flags_inv = null	//so you can still see their face
-		magichead.voicechange = 1	//NEEEEIIGHH
+		magichead.voicechange = TRUE	//NEEEEIIGHH
 		if(!user.unEquip(user.wear_mask))
 			qdel(user.wear_mask)
 		user.equip_to_slot_if_possible(magichead, slot_wear_mask, TRUE, TRUE)

@@ -35,6 +35,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				subject.attack_ai(M)
 	return is_in_use
 
+#define TEXT_ANNOUNCEMENT_COOLDOWN 1 MINUTES
+
 /mob/living/silicon/ai
 	name = "AI"
 	icon = 'icons/mob/ai.dmi'//
@@ -42,6 +44,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	move_resist = MOVE_FORCE_NORMAL
 	density = 1
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
+	d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED
 	mob_size = MOB_SIZE_LARGE
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	see_in_dark = 8
@@ -51,7 +54,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/connected_robots = list()
 	var/aiRestorePowerRoutine = 0
 	//var/list/laws = list()
-	alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Camera", "Burglar")
+	alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Burglar")
 	var/viewalerts = 0
 	var/icon/holo_icon//Default is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
@@ -75,6 +78,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/obj/machinery/power/apc/malfhack = null
 	var/explosive = 0 //does the AI explode when it dies?
+
+	/// List of modules the AI has purchased malf upgrades for.
+	var/list/purchased_modules = list()
 
 	var/mob/living/silicon/ai/parent = null
 	var/camera_light_on = 0
@@ -109,6 +115,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
 	var/list/all_eyes = list()
+	var/next_text_announcement
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
@@ -118,7 +125,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	verbs -= GLOB.ai_verbs_default
 	verbs -= silicon_subsystems
 
-/mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/mmi/B, var/safety = 0)
+/mob/living/silicon/ai/New(loc, datum/ai_laws/L, obj/item/mmi/B, safety = 0)
 	announcement = new()
 	announcement.title = "A.I. Announcement"
 	announcement.announcement_type = "A.I. Announcement"
@@ -165,6 +172,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(isturf(loc))
 		add_ai_verbs(src)
+	
+	// Remove inherited verbs that effectively do nothing for AIs, or lead to unintended behaviour.
+	verbs -= /mob/living/verb/lay_down
+	verbs -= /mob/living/verb/mob_sleep
+	verbs -= /mob/living/verb/resist
+	verbs -= /mob/living/verb/stop_pulling1
+	verbs -= /mob/living/silicon/verb/pose
+	verbs -= /mob/living/silicon/verb/set_flavor
 
 	//Languages
 	add_language("Robot Talk", 1)
@@ -208,6 +223,20 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	GLOB.ai_list += src
 	GLOB.shuttle_caller_list += src
 	..()
+
+/mob/living/silicon/ai/Destroy()
+	GLOB.ai_list -= src
+	GLOB.shuttle_caller_list -= src
+	SSshuttle.autoEvac()
+	if(malfhacking)
+		deltimer(malfhacking)
+		malfhacking = null
+	QDEL_NULL(eyeobj) // No AI, no Eye
+	QDEL_NULL(aiPDA)
+	QDEL_NULL(aiMulti)
+	QDEL_NULL(aiRadio)
+	QDEL_NULL(builtInCamera)
+	return ..()
 
 /mob/living/silicon/ai/proc/on_mob_init()
 	to_chat(src, "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>")
@@ -311,17 +340,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	return TRUE
 
-/mob/living/silicon/ai/Destroy()
-	GLOB.ai_list -= src
-	GLOB.shuttle_caller_list -= src
-	SSshuttle.autoEvac()
-	QDEL_NULL(eyeobj) // No AI, no Eye
-	if(malfhacking)
-		deltimer(malfhacking)
-		malfhacking = null
-	malfhack = null
-	return ..()
-
 
 /*
 	The AI Power supply is a dummy object used for powering the AI since only machinery should be using power.
@@ -362,20 +380,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(stat || aiRestorePowerRoutine)
 		return
 	if(!custom_sprite) //Check to see if custom sprite time, checking the appopriate file to change a var
-		var/file = file2text("config/custom_sprites.txt")
-		var/lines = splittext(file, "\n")
-
-		for(var/line in lines)
-		// split & clean up
-			var/list/Entry = splittext(line, ":")
-			for(var/i = 1 to Entry.len)
-				Entry[i] = trim(Entry[i])
-
-			if(Entry.len < 2 || Entry[1] != "ai")			//ignore incorrectly formatted entries or entries that aren't marked for AI
-				continue
-
-			if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
-				custom_sprite = 1
+		if(ckey in GLOB.configuration.custom_sprites.ai_core_ckeys)
+			custom_sprite = TRUE
 
 	var/display_choices = list(
 		"Monochrome",
@@ -508,7 +514,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	show_station_manifest()
 
-/mob/living/silicon/ai/var/message_cooldown = 0
 /mob/living/silicon/ai/proc/ai_announcement_text()
 	set category = "AI Commands"
 	set name = "Make Station Announcement"
@@ -516,7 +521,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	if(message_cooldown)
+	if(world.time < next_text_announcement)
 		to_chat(src, "<span class='warning'>Please allow one minute to pass between announcements.</span>")
 		return
 
@@ -528,9 +533,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	announcement.Announce(input)
-	message_cooldown = 1
-	spawn(600)//One minute cooldown
-		message_cooldown = 0
+	next_text_announcement = world.time + TEXT_ANNOUNCEMENT_COOLDOWN
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
 	set name = "Call Emergency Shuttle"
@@ -539,7 +542,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/input = clean_input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","")
+	var/input = input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.") as null|message
 	if(!input || stat)
 		return
 
@@ -752,7 +755,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(target)
 			open_nearest_door(target)
 
-/mob/living/silicon/ai/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/ai/bullet_act(obj/item/projectile/Proj)
 	..(Proj)
 	return 2
 
@@ -963,21 +966,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(check_unable())
 		return
-	if(!custom_hologram) //Check to see if custom sprite time, checking the appopriate file to change a var
-		var/file = file2text("config/custom_sprites.txt")
-		var/lines = splittext(file, "\n")
-
-		for(var/line in lines)
-		// split & clean up
-			var/list/Entry = splittext(line, ":")
-			for(var/i = 1 to Entry.len)
-				Entry[i] = trim(Entry[i])
-
-			if(Entry.len < 2 || Entry[1] != "hologram")
-				continue
-
-			if (Entry[2] == ckey) //Custom holograms
-				custom_hologram = 1  // option is given in hologram menu
+	if(!custom_hologram)
+		if(ckey in GLOB.configuration.custom_sprites.ai_hologram_ckeys)
+			custom_hologram = TRUE
 
 	var/input
 	switch(alert("Would you like to select a hologram based on a crew member, an animal, or switch to a unique avatar?",,"Crew Member","Unique","Animal"))
@@ -1275,7 +1266,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
 	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 		var/message_clean = combine_message(message_pieces, null, M)
-		create_chat_message(M.runechat_msg_location, message_clean)
+		create_chat_message(locateUID(M.runechat_msg_location), message_clean)
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
@@ -1318,6 +1309,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/open_nearest_door(mob/living/target)
 	if(!istype(target))
+		return
+
+	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
 	if(target && target.can_track())
@@ -1392,6 +1386,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/update_runechat_msg_location()
 	if(istype(loc, /obj/item/aicard) || ismecha(loc))
-		runechat_msg_location = loc
+		runechat_msg_location = loc.UID()
 	else
-		runechat_msg_location = src
+		return ..()
+
+#undef TEXT_ANNOUNCEMENT_COOLDOWN

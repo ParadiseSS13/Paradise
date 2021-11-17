@@ -8,7 +8,7 @@
 	opacity = 0
 	anchored = 1
 	max_integrity = 30
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
 	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
 	var/health_timestamp = 0
 	var/brute_resist = 0.5 //multiplies brute damage by this
@@ -73,7 +73,7 @@
 		health_timestamp = world.time + 10 // 1 seconds
 
 
-/obj/structure/blob/proc/Pulse(var/pulse = 0, var/origin_dir = 0, var/a_color)//Todo: Fix spaceblob expand
+/obj/structure/blob/proc/Pulse(pulse = 0, origin_dir = 0, a_color)//Todo: Fix spaceblob expand
 	RegenHealth()
 
 	if(run_action())//If we can do something here then we dont need to pulse more
@@ -110,7 +110,7 @@
 	if(iswallturf(loc))
 		loc.blob_act(src) //don't ask how a wall got on top of the core, just eat it
 
-/obj/structure/blob/proc/expand(var/turf/T = null, var/prob = 1, var/a_color)
+/obj/structure/blob/proc/expand(turf/T = null, prob = 1, a_color)
 	if(prob && !prob(obj_integrity))
 		return
 	if(istype(T, /turf/space) && prob(75)) 	return
@@ -139,12 +139,12 @@
 		A.blob_act(src)
 	return 1
 
-/obj/structure/blob/Crossed(var/mob/living/L, oldloc)
+/obj/structure/blob/Crossed(mob/living/L, oldloc)
 	..()
 	L.blob_act(src)
 
 /obj/structure/blob/zap_act(power, zap_flags)
-	take_damage(power * 0.0025, BURN, "energy")
+	take_damage(power * 0.0025, BURN, ENERGY)
 	power -= power * 0.0025 //You don't get to do it for free
 	return ..() //You don't get to do it for free
 
@@ -188,7 +188,7 @@
 	if(. && obj_integrity > 0)
 		update_icon()
 
-/obj/structure/blob/proc/change_to(var/type)
+/obj/structure/blob/proc/change_to(type)
 	if(!ispath(type))
 		error("[type] is an invalid type for the blob.")
 	var/obj/structure/blob/B = new type(src.loc)
@@ -198,7 +198,7 @@
 		B.adjustcolors(color)
 	qdel(src)
 
-/obj/structure/blob/proc/adjustcolors(var/a_color)
+/obj/structure/blob/proc/adjustcolors(a_color)
 	if(a_color)
 		color = a_color
 	return

@@ -21,7 +21,7 @@
 	Reset()
 
 
-/obj/machinery/computer/arcade/proc/prizevend(var/score)
+/obj/machinery/computer/arcade/proc/prizevend(score)
 	if(!contents.len)
 		var/prize_amount
 		if(score)
@@ -257,6 +257,7 @@
 		enemy_name = "Cuban Pete"
 		name = "Outbomb Cuban Pete"
 
+		add_hiddenprint(user)
 		updateUsrDialog()
 
 // *** THE ORION TRAIL ** //
@@ -907,7 +908,7 @@
 
 
 //Add Random/Specific crewmember
-/obj/machinery/computer/arcade/orion_trail/proc/add_crewmember(var/specific = "")
+/obj/machinery/computer/arcade/orion_trail/proc/add_crewmember(specific = "")
 	var/newcrew = ""
 	if(specific)
 		newcrew = specific
@@ -923,7 +924,7 @@
 
 
 //Remove Random/Specific crewmember
-/obj/machinery/computer/arcade/orion_trail/proc/remove_crewmember(var/specific = "", var/dont_remove = "")
+/obj/machinery/computer/arcade/orion_trail/proc/remove_crewmember(specific = "", dont_remove = "")
 	var/list/safe2remove = settlers
 	var/removed = ""
 	if(dont_remove)
@@ -962,6 +963,7 @@
 		to_chat(user, "<span class='notice'>You override the cheat code menu and skip to Cheat #[rand(1, 50)]: Realism Mode.</span>")
 		name = "The Orion Trail: Realism Edition"
 		desc = "Learn how our ancestors got to Orion, and try not to die in the process!"
+		add_hiddenprint(user)
 		newgame()
 		emagged = 1
 

@@ -38,7 +38,7 @@
 		Die()
 
 /obj/item/clothing/mask/facehugger/attackby(obj/item/O, mob/user, params)
-	return O.attack_obj(src, user)
+	return O.attack_obj(src, user, params)
 
 /obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
 	return attack_hand(user)

@@ -80,7 +80,7 @@
 /datum/mutation/noprints
 	name = "No Prints"
 	activation_messages = list("Your fingers feel numb.")
-	deactivation_messages = list("your fingers no longer feel numb.")
+	deactivation_messages = list("Your fingers no longer feel numb.")
 	instability = GENE_INSTABILITY_MINOR
 	traits_to_add = list(TRAIT_NOFINGERPRINTS)
 
@@ -158,33 +158,12 @@
 		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH //temporary fix until the problem can be solved.
 		to_chat(M, "<span class='danger'>You suddenly feel very weak.</span>")
 
-/datum/mutation/xray
-	name = "X-Ray Vision"
-	activation_messages = list("The walls suddenly disappear.")
-	deactivation_messages = list("the walls around you re-appear.")
-	instability = GENE_INSTABILITY_MAJOR
-	traits_to_add = list(TRAIT_XRAY_VISION)
-	activation_prob = 15
-
-/datum/mutation/xray/New()
-	..()
-	block = GLOB.xrayblock
-
-/datum/mutation/xray/activate(mob/living/M)
-	..()
-	M.update_sight()
-	M.update_icons() //Apply eyeshine as needed.
-
-/datum/mutation/xray/deactivate(mob/living/M)
-	..()
-	M.update_sight()
-	M.update_icons() //Remove eyeshine as needed.
-
 /datum/mutation/tk
 	name = "Telekenesis"
 	activation_messages = list("You feel smarter.")
 	deactivation_messages = list("You feel dumber.")
 	instability = GENE_INSTABILITY_MAJOR
+	traits_to_add = list(TRAIT_TELEKINESIS)
 	activation_prob = 15
 
 /datum/mutation/tk/New()
@@ -821,9 +800,10 @@
 		else
 			M.change_gender(FEMALE)
 
-	var/new_eyes = input("Please select eye color.", "Character Generation", eyes_organ.eye_color) as null|color
-	if(new_eyes)
-		M.change_eye_color(new_eyes)
+	if(eyes_organ)
+		var/new_eyes = input("Please select eye color.", "Character Generation", eyes_organ.eye_color) as null|color
+		if(new_eyes)
+			M.change_eye_color(new_eyes)
 
 	//Alt heads.
 	if(head_organ.dna.species.bodyflags & HAS_ALT_HEADS)
@@ -1179,3 +1159,58 @@
 	else
 		H.remoteview_target = null
 		H.reset_perspective()
+
+/datum/mutation/meson_vision
+	name = "Meson Vision"
+	activation_messages = list("More information seems to reach your eyes...")
+	deactivation_messages = list("The amount of information reaching your eyes fades...")
+	instability = GENE_INSTABILITY_MINOR
+	traits_to_add = list(TRAIT_MESON_VISION)
+
+/datum/mutation/meson_vision/New()
+	..()
+	block = GLOB.mesonblock
+
+/datum/mutation/meson_vision/activate(mob/living/M)
+	..()
+	M.update_sight()
+
+/datum/mutation/meson_vision/deactivate(mob/living/M)
+	..()
+	M.update_sight()
+
+/datum/mutation/night_vision
+	name = "Night Vision"
+	activation_messages = list("Were the lights always that bright?")
+	deactivation_messages = list("The ambient light level returns to normal...")
+	instability = GENE_INSTABILITY_MODERATE
+	traits_to_add = list(TRAIT_NIGHT_VISION)
+
+/datum/mutation/night_vision/New()
+	..()
+	block = GLOB.nightvisionblock
+
+/datum/mutation/night_vision/activate(mob/living/M)
+	..()
+	M.update_sight()
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.update_misc_effects()
+
+/datum/mutation/night_vision/deactivate(mob/living/M)
+	..()
+	M.update_sight()
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.update_misc_effects()
+
+/datum/mutation/flash_protection
+	name = "Flash Protection"
+	activation_messages = list("You stop noticing the glare from lights...")
+	deactivation_messages = list("Lights begin glaring again...")
+	instability = GENE_INSTABILITY_MINOR
+	traits_to_add = list(TRAIT_FLASH_PROTECTION)
+
+/datum/mutation/flash_protection/New()
+	..()
+	block = GLOB.noflashblock

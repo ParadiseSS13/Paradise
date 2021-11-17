@@ -133,13 +133,19 @@
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	taste_description = "a CPU"
 
-
 /datum/reagent/copper
 	name = "Copper"
 	id = "copper"
 	description = "A highly ductile metal."
 	color = "#6E3B08" // rgb: 110, 59, 8
 	taste_description = "copper"
+
+/datum/reagent/copper/reaction_obj(obj/O, volume)
+	if(istype(O, /obj/item/stack/sheet/metal))
+		var/obj/item/stack/sheet/metal/M = O
+		volume = round(min(volume, M.amount), 1)
+		new /obj/item/stack/tile/brass(get_turf(M), volume)
+		M.use(volume)
 
 /datum/reagent/chromium
 	name = "Chromium"
@@ -204,14 +210,17 @@
 	if(exposed_temperature > T0C + 600)
 		var/turf/T = get_turf(holder.my_atom)
 		holder.my_atom.visible_message("<b>The oil burns!</b>")
-		fireflash(T, min(max(0, volume / 40), 8))
+		var/datum/reagents/old_holder = holder
 		fire_flash_log(holder, id)
+		if(holder)
+			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
+
+		fireflash(T, min(max(0, volume / 40), 8))
 		var/datum/effect_system/smoke_spread/bad/BS = new
 		BS.set_up(1, 0, T)
 		BS.start()
-		if(holder)
-			holder.add_reagent("ash", round(volume * 0.5))
-			holder.del_reagent(id)
+		if(!QDELETED(old_holder))
+			old_holder.add_reagent("ash", round(volume * 0.5))
 
 /datum/reagent/oil/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
@@ -442,7 +451,7 @@
 	if(!istype(C))
 		return
 	if(C.mind)
-		if(C.mind.assigned_role == "Clown" || C.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
+		if(C.mind.assigned_role == "Clown")
 			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
 		else if(C.mind.assigned_role == "Mime")
 			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
@@ -460,7 +469,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
 		M.emote("giggle")
-	if(M?.mind.assigned_role == "Clown" || M?.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
+	if(M?.mind.assigned_role == "Clown")
 		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
 	else
 		M.AdjustDizzy(10, 0, 500)
@@ -491,7 +500,7 @@
 	M.RemoveElement(/datum/element/waddling)
 
 /datum/reagent/royal_bee_jelly
-	name = "royal bee jelly"
+	name = "Royal bee jelly"
 	id = "royal_bee_jelly"
 	description = "Royal Bee Jelly, if injected into a Queen Space Bee said bee will split into two bees."
 	color = "#00ff80"
@@ -689,7 +698,7 @@
 
 /datum/reagent/spraytan/proc/set_skin_color(mob/living/carbon/human/H)
 	if(H.dna.species.bodyflags & HAS_SKIN_TONE)
-		H.change_skin_tone(-30)
+		H.change_skin_tone(max(H.s_tone - 10, -195))
 
 	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
 		H.change_skin_color("#9B7653")

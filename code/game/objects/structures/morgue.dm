@@ -161,7 +161,7 @@
 		QDEL_NULL(connected)
 	return ..()
 
-/obj/structure/morgue/container_resist(var/mob/living/L)
+/obj/structure/morgue/container_resist(mob/living/L)
 	var/mob/living/carbon/CM = L
 	if(!istype(CM))
 		return
@@ -391,7 +391,7 @@
 		QDEL_NULL(connected)
 	return ..()
 
-/obj/structure/crematorium/container_resist(var/mob/living/L)
+/obj/structure/crematorium/container_resist(mob/living/L)
 	var/mob/living/carbon/CM = L
 	if(!istype(CM))
 		return

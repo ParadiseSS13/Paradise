@@ -86,8 +86,8 @@
 
 //Lasers
 /obj/item/gun/energy/laser/practice/sc_laser
-	name = "Old laser"
-	desc = "A once potent weapon, years of dust have collected in the chamber and lens of this weapon, weakening the beam significantly."
+	name = "old laser"
+	desc = "A once potent weapon, years of dust have collected in the chamber and lens, weakening the beam significantly."
 	clumsy_check = 0
 
 /*
@@ -176,7 +176,7 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 	if(prob(25))
 		mezzer()
 
-/obj/singularity/narsie/sc_Narsie/consume(var/atom/A)
+/obj/singularity/narsie/sc_Narsie/consume(atom/A)
 	if(!A.simulated)
 		return FALSE
 	if(is_type_in_list(A, uneatable))

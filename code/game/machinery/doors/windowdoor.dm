@@ -12,7 +12,7 @@
 	dir = EAST
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
-	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100)
+	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100)
 	var/obj/item/airlock_electronics/electronics
 	var/base_state = "left"
 	var/reinf = 0
@@ -84,6 +84,13 @@
 		open_and_close()
 	else
 		do_animate("deny")
+
+/obj/machinery/door/window/unrestricted_side(mob/M)
+	var/mob_dir = get_dir(src, M)
+	if(mob_dir == 0) // If the mob is inside the tile
+		mob_dir = GetOppositeDir(dir) // Set it to the inside direction of the windoor
+
+	return mob_dir & unres_sides
 
 /obj/machinery/door/window/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
@@ -195,11 +202,6 @@
 /obj/machinery/door/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
 
-/obj/machinery/door/window/ratvar_act()
-	var/obj/machinery/door/window/clockwork/C = new(loc, dir)
-	C.name = name
-	qdel(src)
-
 /obj/machinery/door/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > T0C + (reinf ? 1600 : 800))
@@ -219,6 +221,7 @@
 	if(!operating && density && !emagged)
 		emagged = TRUE
 		operating = TRUE
+		electronics = new /obj/item/airlock_electronics/destroyed()
 		flick("[base_state]spark", src)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		sleep(6)
@@ -278,11 +281,6 @@
 				WA.ini_dir = dir
 				WA.update_icon()
 				WA.created_name = name
-
-				if(emagged)
-					to_chat(user, "<span class='warning'>You discard the damaged electronics.</span>")
-					qdel(src)
-					return
 
 				to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 
@@ -361,9 +359,6 @@
 /obj/machinery/door/window/clockwork/emp_act(severity)
 	if(prob(80/severity))
 		open()
-
-/obj/machinery/door/window/clockwork/ratvar_act()
-	obj_integrity = max_integrity
 
 /obj/machinery/door/window/clockwork/hasPower()
 	return TRUE //yup that's power all right

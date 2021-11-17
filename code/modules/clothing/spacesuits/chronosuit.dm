@@ -1,10 +1,10 @@
 /obj/item/clothing/head/helmet/space/chronos
-	name = "Chronosuit Helmet"
+	name = "chronosuit helmet"
 	desc = "A white helmet with an opaque blue visor."
 	icon_state = "chronohelmet"
 	item_state = "chronohelmet"
 	slowdown = 1
-	armor = list("melee" = 60, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 30, "bio" = 90, "rad" = 90, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 60, BULLET = 60, LASER = 60, ENERGY = 60, BOMB = 30, BIO = 90, RAD = 90, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/suit/space/chronos/suit = null
 
@@ -19,12 +19,12 @@
 
 
 /obj/item/clothing/suit/space/chronos
-	name = "Chronosuit"
+	name = "chronosuit"
 	desc = "An advanced spacesuit equipped with teleportation and anti-compression technology"
 	icon_state = "chronosuit"
 	item_state = "chronosuit"
 	actions_types = list(/datum/action/item_action/toggle)
-	armor = list("melee" = 60, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 30, "bio" = 90, "rad" = 90, "fire" = 100, "acid" = 1000)
+	armor = list(MELEE = 60, BULLET = 60, LASER = 60, ENERGY = 60, BOMB = 30, BIO = 90, RAD = 90, FIRE = 100, ACID = 1000)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/head/helmet/space/chronos/helmet = null
 	var/obj/effect/chronos_cam/camera = null
@@ -34,7 +34,7 @@
 	var/teleporting = 0
 
 
-/obj/item/clothing/suit/space/chronos/proc/new_camera(var/mob/user)
+/obj/item/clothing/suit/space/chronos/proc/new_camera(mob/user)
 	if(camera)
 		qdel(camera)
 	camera = new /obj/effect/chronos_cam(get_turf(user))
@@ -65,7 +65,7 @@
 				to_chat(user, "<span class='userdanger'>Elecrtromagnetic pulse detected, shutting down systems to preserve integrity...</span>")
 			deactivate()
 
-/obj/item/clothing/suit/space/chronos/proc/chronowalk(var/mob/living/carbon/human/user)
+/obj/item/clothing/suit/space/chronos/proc/chronowalk(mob/living/carbon/human/user)
 	if(!teleporting && user && (user.stat == CONSCIOUS))
 		teleporting = 1
 		var/turf/from_turf = get_turf(user)
@@ -178,7 +178,7 @@
 
 
 /obj/effect/chronos_cam
-	name = "Chronosuit View"
+	name = "chronosuit view"
 	density = 0
 	anchored = 1
 	invisibility = 101
@@ -192,7 +192,7 @@
 /obj/effect/chronos_cam/singularity_pull()
 	return
 
-/obj/effect/chronos_cam/relaymove(var/mob/user, direction)
+/obj/effect/chronos_cam/relaymove(mob/user, direction)
 	if(holder)
 		if(user == holder)
 			if(user.client && user.client.eye != src)

@@ -2,36 +2,29 @@
 	name = "secure locker"
 	desc = "It's an immobile card-locked storage unit."
 	icon = 'icons/obj/closet.dmi'
-	icon_state = "secure1"
-	density = 1
-	opened = 0
-	locked = 1
-	broken = 0
+	icon_state = "secure"
+	open_door_sprite = "secure_door"
+	opened = FALSE
+	locked = TRUE
 	can_be_emaged = TRUE
 	max_integrity = 250
-	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 20
-	icon_closed = "secure"
-	var/icon_locked = "secure1"
-	icon_opened = "secureopen"
-	var/icon_broken = "securebroken"
-	var/icon_off = "secureoff"
-	wall_mounted = 0 //never solid (You can always pass over it)
 
 /obj/structure/closet/secure_closet/can_open()
 	if(!..())
-		return 0
+		return FALSE
 	if(locked)
-		return 0
+		return FALSE
 	return ..()
 
 /obj/structure/closet/secure_closet/close()
 	if(..())
 		if(broken)
-			icon_state = icon_off
-		return 1
+			update_icon()
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 /obj/structure/closet/secure_closet/emp_act(severity)
 	for(var/obj/O in src)
@@ -69,7 +62,8 @@
 	togglelock(user)
 
 /obj/structure/closet/secure_closet/AltClick(mob/user)
-	..()
+	if(opened)
+		return ..()
 	if(Adjacent(user))
 		togglelock(user)
 
@@ -77,9 +71,9 @@
 	if(!broken)
 		broken = TRUE
 		locked = FALSE
-		icon_state = icon_off
-		flick(icon_broken, src)
-		to_chat(user, "<span class='notice'>You break the lock on \the [src].</span>")
+		add_overlay("sparking")
+		to_chat(user, "<span class='notice'>You break the lock on [src].</span>")
+		addtimer(CALLBACK(src, .proc/update_icon), 1 SECONDS)
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user)
 	add_fingerprint(user)
@@ -102,19 +96,21 @@
 	else
 		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
-/obj/structure/closet/secure_closet/update_icon()//Putting the welded stuff in updateicon() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
-	overlays.Cut()
-	if(!opened)
-		if(locked)
-			icon_state = icon_locked
-		else
-			icon_state = icon_closed
-		if(welded)
-			overlays += "welded"
+/obj/structure/closet/secure_closet/update_overlays() //Putting the welded stuff in update_overlays() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
+	cut_overlays()
+	if(opened)
+		add_overlay(open_door_sprite)
+		return
+	if(welded)
+		add_overlay("welded")
+	if(broken)
+		return
+	if(locked)
+		add_overlay("locked")
 	else
-		icon_state = icon_opened
+		add_overlay("unlocked")
 
-/obj/structure/closet/secure_closet/container_resist(var/mob/living/L)
+/obj/structure/closet/secure_closet/container_resist(mob/living/L)
 	var/breakout_time = 2 //2 minutes by default
 	if(opened)
 		if(L.loc == src)
@@ -126,7 +122,7 @@
 	//okay, so the closet is either welded or locked... resist!!!
 	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>")
 	for(var/mob/O in viewers(src))
-		O.show_message("<span class='danger'>The [src] begins to shake violently!</span>", 1)
+		O.show_message("<span class='danger'>[src] begins to shake violently!</span>", 1)
 
 
 	spawn(0)
@@ -140,14 +136,9 @@
 
 			//Well then break it!
 			desc = "It appears to be broken."
-			icon_state = icon_off
-			flick(icon_broken, src)
-			sleep(10)
-			flick(icon_broken, src)
-			sleep(10)
-			broken = 1
-			locked = 0
-			welded = 0
+			broken = TRUE
+			locked = FALSE
+			welded = FALSE
 			update_icon()
 			to_chat(usr, "<span class='warning'>You successfully break out!</span>")
 			for(var/mob/O in viewers(L.loc))

@@ -263,7 +263,7 @@
 /mob/living/simple_animal/hostile/morph/LoseAggro()
 	vision_range = initial(vision_range)
 
-/mob/living/simple_animal/hostile/morph/AIShouldSleep(var/list/possible_targets)
+/mob/living/simple_animal/hostile/morph/AIShouldSleep(list/possible_targets)
 	. = ..()
 	if(. && !morphed)
 		var/list/things = list()
@@ -305,6 +305,8 @@
 	to_chat(src, "<span class='specialnotice'>From this form you can however <span class='specialnoticebold'>Prepare an Ambush</span> using your ability.</span>")
 	to_chat(src, "<span class='specialnotice'>This will allow you to deal a lot of damage the first hit. And if they touch you then even more.</span>")
 	to_chat(src, "<span class='specialnotice'>Finally, you can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health and will add to your stored food while eating items will reduce your stored food</span>.")
+	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Morph)</span>")
+	SEND_SOUND(src, sound('sound/magic/mutate.ogg'))
 	if(give_default_objectives)
 		var/datum/objective/eat = new /datum/objective
 		eat.owner = mind
@@ -317,7 +319,6 @@
 		procreate.completed = TRUE
 		mind.objectives += procreate
 		mind.announce_objectives()
-		playsound_local(get_turf(src), 'sound/magic/mutate.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 #undef MORPHED_SPEED
 #undef ITEM_EAT_COST

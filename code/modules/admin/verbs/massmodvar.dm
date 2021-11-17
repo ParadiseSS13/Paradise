@@ -1,4 +1,4 @@
-/client/proc/cmd_mass_modify_object_variables(atom/A, var/var_name)
+/client/proc/cmd_mass_modify_object_variables(atom/A, var_name)
 	set category = "Debug"
 	set name = "Mass Edit Variables"
 	set desc="(target) Edit all instances of a target item's variables"
@@ -203,9 +203,9 @@
 
 	log_world("### MassVarEdit by [src]: [O.type] (A/R [accepted]/[rejected]) [variable]=[html_encode("[O.vars[variable]]")]([list2params(value)])")
 	log_admin("[key_name(src)] mass modified [original_name]'s [variable] to [O.vars[variable]] ([accepted] objects modified)")
-	message_admins("[key_name_admin(src)] mass modified [original_name]'s [variable] to [O.vars[variable]] ([accepted] objects modified)")
+	message_admins("[key_name_admin(src)] mass modified [original_name]'s [variable] to [html_encode("[O.vars[variable]]")] ([accepted] objects modified)")
 
-/proc/get_all_of_type(var/T, subtypes = TRUE)
+/proc/get_all_of_type(T, subtypes = TRUE)
 	var/list/typecache = list()
 	typecache[T] = 1
 	if(subtypes)

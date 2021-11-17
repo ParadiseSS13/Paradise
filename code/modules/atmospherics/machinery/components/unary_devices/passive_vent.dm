@@ -2,6 +2,7 @@
 	icon = 'icons/atmos/vent_pump.dmi'
 	icon_state = "map_vent"
 	plane = FLOOR_PLANE
+	layer = GAS_SCRUBBER_LAYER
 	name = "passive vent"
 	desc = "A large air vent"
 
@@ -22,6 +23,10 @@
 
 	if(!node)
 		return 0
+
+	var/turf/T = loc
+	if(T.density) //No, you should not be able to get free air from walls
+		return
 
 	var/datum/gas_mixture/environment = loc.return_air()
 

@@ -54,7 +54,7 @@
 		L = list()
 	return check_access_list(L)
 
-/obj/proc/check_access_list(var/list/L)
+/obj/proc/check_access_list(list/L)
 	generate_req_lists()
 
 	if(!L)
@@ -63,7 +63,7 @@
 		return 0
 	return has_access(req_access, req_one_access, L)
 
-/proc/has_access(var/list/req_access, var/list/req_one_access, var/list/accesses)
+/proc/has_access(list/req_access, list/req_one_access, list/accesses)
 	for(var/req in req_access)
 		if(!(req in accesses)) //doesn't have this access
 			return 0
@@ -100,6 +100,8 @@
 			return get_all_centcom_access() + get_all_accesses()
 		if("Special Operations Officer")
 			return get_all_centcom_access() + get_all_accesses()
+		if("Solar Federation General")
+			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Representative")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Officer")
@@ -131,9 +133,9 @@
 				ACCESS_HEADS, ACCESS_CAPTAIN, ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_CHAPEL_OFFICE, ACCESS_CE, ACCESS_CHEMISTRY, ACCESS_CLOWN, ACCESS_CMO,
 				ACCESS_COURT, ACCESS_CONSTRUCTION, ACCESS_CREMATORIUM, ACCESS_JANITOR, ACCESS_ENGINE, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_FORENSICS_LOCKERS,
 				ACCESS_GENETICS, ACCESS_GATEWAY, ACCESS_BRIG, ACCESS_HOP, ACCESS_HOS, ACCESS_HYDROPONICS, ACCESS_CHANGE_IDS, ACCESS_KEYCARD_AUTH, ACCESS_KITCHEN,
-				ACCESS_LAWYER, ACCESS_LIBRARY, ACCESS_MAGISTRATE, ACCESS_MAINT_TUNNELS, ACCESS_HEADS_VAULT, ACCESS_MEDICAL, ACCESS_MECHANIC, ACCESS_MIME,
+				ACCESS_LAWYER, ACCESS_LIBRARY, ACCESS_MAGISTRATE, ACCESS_MAINT_TUNNELS, ACCESS_HEADS_VAULT, ACCESS_MEDICAL, ACCESS_MIME,
 				ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_MORGUE, ACCESS_NETWORK, ACCESS_NTREP, ACCESS_PARAMEDIC,  ACCESS_ALL_PERSONAL_LOCKERS,
-				ACCESS_ENGINE_EQUIP, ACCESS_PSYCHIATRIST, ACCESS_QM, ACCESS_RD, ACCESS_RC_ANNOUNCE, ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_RESEARCH, ACCESS_SECURITY, ACCESS_PILOT,
+				ACCESS_ENGINE_EQUIP, ACCESS_PSYCHIATRIST, ACCESS_QM, ACCESS_RD, ACCESS_RC_ANNOUNCE, ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_RESEARCH, ACCESS_SECURITY,
 				ACCESS_SURGERY, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_THEATRE, ACCESS_TCOMSAT, ACCESS_TOX_STORAGE, ACCESS_VIROLOGY, ACCESS_WEAPONS, ACCESS_XENOBIOLOGY,
 				ACCESS_XENOARCH)
 
@@ -156,13 +158,13 @@
 		if(REGION_GENERAL) //station general
 			return list(ACCESS_KITCHEN, ACCESS_BAR, ACCESS_HYDROPONICS, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_LIBRARY, ACCESS_THEATRE, ACCESS_LAWYER, ACCESS_MAGISTRATE, ACCESS_CLOWN, ACCESS_MIME)
 		if(REGION_SECURITY) //security
-			return list(ACCESS_SEC_DOORS, ACCESS_WEAPONS, ACCESS_SECURITY, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_FORENSICS_LOCKERS, ACCESS_COURT, ACCESS_PILOT, ACCESS_HOS)
+			return list(ACCESS_SEC_DOORS, ACCESS_WEAPONS, ACCESS_SECURITY, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_FORENSICS_LOCKERS, ACCESS_COURT, ACCESS_HOS)
 		if(REGION_MEDBAY) //medbay
 			return list(ACCESS_MEDICAL, ACCESS_GENETICS, ACCESS_MORGUE, ACCESS_CHEMISTRY, ACCESS_PSYCHIATRIST, ACCESS_VIROLOGY, ACCESS_SURGERY, ACCESS_CMO, ACCESS_PARAMEDIC)
 		if(REGION_RESEARCH) //research
 			return list(ACCESS_RESEARCH, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_GENETICS, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_RD, ACCESS_NETWORK)
 		if(REGION_ENGINEERING) //engineering and maintenance
-			return list(ACCESS_CONSTRUCTION, ACCESS_MAINT_TUNNELS, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_TECH_STORAGE, ACCESS_ATMOSPHERICS, ACCESS_MINISAT, ACCESS_CE, ACCESS_MECHANIC)
+			return list(ACCESS_CONSTRUCTION, ACCESS_MAINT_TUNNELS, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_TECH_STORAGE, ACCESS_ATMOSPHERICS, ACCESS_MINISAT, ACCESS_CE)
 		if(REGION_SUPPLY) //supply
 			return list(ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO, ACCESS_QM)
 		if(REGION_COMMAND) //command
@@ -332,10 +334,6 @@
 			return "Nanotrasen Rep."
 		if(ACCESS_PARAMEDIC)
 			return "Paramedic"
-		if(ACCESS_MECHANIC)
-			return "Mechanic Workshop"
-		if(ACCESS_PILOT)
-			return "Security Pod Pilot"
 		if(ACCESS_MAGISTRATE)
 			return "Magistrate"
 		if(ACCESS_MINERAL_STOREROOM)
@@ -400,6 +398,9 @@
 /proc/get_all_centcom_jobs()
 	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer","Nanotrasen Navy Captain","Supreme Commander")
 
+/proc/get_all_solgov_jobs()
+	return list("Solar Federation Lieutenant","Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader","Solar Federation General")
+
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds
 /obj/proc/GetJobRealName()
@@ -424,26 +425,8 @@
 
 	return "Unknown"
 
-//gets the alt title, failing that the actual job rank
-//this is unused
-// THEN WHY IS IT STILL HERE?? -AA07, 2020-07-31
-/obj/proc/sdsdsd()	//GetJobDisplayName
-	if(!istype(src, /obj/item/pda) && !istype(src,/obj/item/card/id))
-		return
 
-	var/assignment
-	if(istype(src, /obj/item/pda))
-		if(src:id)
-			assignment = src:id:assignment
-	else if(istype(src, /obj/item/card/id))
-		assignment = src:assignment
-
-	if(assignment)
-		return assignment
-
-	return "Unknown"
-
-/proc/GetIdCard(var/mob/living/carbon/human/H)
+/proc/GetIdCard(mob/living/carbon/human/H)
 	if(H.wear_id)
 		var/id = H.wear_id.GetID()
 		if(id)
@@ -452,7 +435,7 @@
 		var/obj/item/I = H.get_active_hand()
 		return I.GetID()
 
-/proc/FindNameFromID(var/mob/living/carbon/human/H)
+/proc/FindNameFromID(mob/living/carbon/human/H)
 	ASSERT(istype(H))
 	var/obj/item/card/id/C = H.get_active_hand()
 	if( istype(C) || istype(C, /obj/item/pda) )
@@ -499,11 +482,17 @@
 
 	var/job_icons = get_all_job_icons()
 	var/centcom = get_all_centcom_jobs()
+	var/solgov = get_all_solgov_jobs()
 
 	if(assignmentName in centcom) //Return with the NT logo if it is a Centcom job
 		return "Centcom"
 	if(rankName in centcom)
 		return "Centcom"
+
+	if(assignmentName in solgov) //Return with the SolGov logo if it is a SolGov job
+		return "solgov"
+	if(rankName in solgov)
+		return "solgov"
 
 	if(assignmentName	in job_icons) //Check if the job has a hud icon
 		return assignmentName

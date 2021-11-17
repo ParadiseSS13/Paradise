@@ -203,7 +203,7 @@ Class Procs:
 		stat &= ~BROKEN
 
 //sets the use_power var and then forces an area power update
-/obj/machinery/proc/update_use_power(var/new_use_power)
+/obj/machinery/proc/update_use_power(new_use_power)
 	use_power = new_use_power
 
 /obj/machinery/proc/auto_use_power()
@@ -241,7 +241,7 @@ Class Procs:
 			return TRUE
 	return FALSE
 
-/obj/machinery/proc/handle_multitool_topic(var/href, var/list/href_list, var/mob/user)
+/obj/machinery/proc/handle_multitool_topic(href, list/href_list, mob/user)
 	if(!allowed(user))//no, not even HREF exploits
 		return FALSE
 	var/obj/item/multitool/P = get_multitool(usr)
@@ -313,7 +313,7 @@ Class Procs:
 			update_multitool_menu(usr)
 			return TRUE
 
-/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/ui_state/state = GLOB.default_state)
+/obj/machinery/Topic(href, href_list, nowindow = 0, datum/ui_state/state = GLOB.default_state)
 	if(..(href, href_list, nowindow, state))
 		return 1
 
@@ -321,10 +321,10 @@ Class Procs:
 	add_fingerprint(usr)
 	return 0
 
-/obj/machinery/proc/operable(var/additional_flags = 0)
+/obj/machinery/proc/operable(additional_flags = 0)
 	return !inoperable(additional_flags)
 
-/obj/machinery/proc/inoperable(var/additional_flags = 0)
+/obj/machinery/proc/inoperable(additional_flags = 0)
 	return (stat & (NOPOWER|BROKEN|additional_flags))
 
 /obj/machinery/ui_status(mob/user, datum/ui_state/state)
@@ -339,11 +339,11 @@ Class Procs:
 
 	return ..()
 
-/obj/machinery/CouldUseTopic(var/mob/user)
+/obj/machinery/CouldUseTopic(mob/user)
 	..()
 	user.set_machine(src)
 
-/obj/machinery/CouldNotUseTopic(var/mob/user)
+/obj/machinery/CouldNotUseTopic(mob/user)
 	usr.unset_machine()
 
 /obj/machinery/proc/dropContents()//putting for swarmers, occupent code commented out, someone can use later.
@@ -502,6 +502,7 @@ Class Procs:
 			"<span class='notice'>You apply some [O] at [src]'s damaged areas.</span>")
 	else
 		return ..()
+
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
 	if((flags & NODECONSTRUCT))
@@ -519,15 +520,23 @@ Class Procs:
 						break
 				for(var/obj/item/stock_parts/B in W.contents)
 					if(istype(B, P) && istype(A, P))
-						if(B.rating > A.rating)
-							W.remove_from_storage(B, src)
-							W.handle_item_insertion(A, 1)
-							component_parts -= A
-							component_parts += B
-							B.loc = null
-							to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
-							shouldplaysound = 1
-							break
+						//If it's cell - check: 1) Max charge is better? 2) Max charge same but current charge better? - If both NO -> next content
+						if(ispath(B.type, /obj/item/stock_parts/cell))
+							var/obj/item/stock_parts/cell/tA = A
+							var/obj/item/stock_parts/cell/tB = B
+							if(!(tB.maxcharge > tA.maxcharge) && !((tB.maxcharge == tA.maxcharge) && (tB.charge > tA.charge)))
+								continue
+						//If it's not cell and not better -> next content
+						else if(B.rating <= A.rating)
+							continue
+						W.remove_from_storage(B, src)
+						W.handle_item_insertion(A, 1)
+						component_parts -= A
+						component_parts += B
+						B.loc = null
+						to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
+						shouldplaysound = 1
+						break
 			RefreshParts()
 		else
 			to_chat(user, display_parts(user))
@@ -567,7 +576,7 @@ Class Procs:
 /obj/machinery/proc/is_assess_emagged()
 	return emagged
 
-/obj/machinery/proc/assess_perp(mob/living/carbon/human/perp, var/check_access, var/auth_weapons, var/check_records, var/check_arrest)
+/obj/machinery/proc/assess_perp(mob/living/carbon/human/perp, check_access, auth_weapons, check_records, check_arrest)
 	var/threatcount = 0	//the integer returned
 
 	if(is_assess_emagged())
@@ -637,7 +646,7 @@ Class Procs:
 	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
 		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE)
 	else if(zap_flags & ZAP_OBJ_DAMAGE)
-		take_damage(power * 0.0005, BURN, "energy")
+		take_damage(power * 0.0005, BURN, ENERGY)
 		if(prob(40))
 			emp_act(EMP_LIGHT)
 		power -= power * 0.0005
@@ -650,3 +659,19 @@ Class Procs:
 	. = . % 9
 	AM.pixel_x = -8 + ((.%3)*8)
 	AM.pixel_y = -8 + (round( . / 3)*8)
+
+/**
+ * Makes sure the user is allowed to interact with the machine when they use a shortcut, like Control or Alt-clicking.
+ *
+ * Arguments:
+ * * user - the mob who is trying to interact with the machine.
+ */
+/obj/machinery/proc/can_use_shortcut(mob/living/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return FALSE
+	if(ishuman(user) && in_range(src, user))
+		return TRUE
+	if(issilicon(user))
+		return TRUE
+	return FALSE

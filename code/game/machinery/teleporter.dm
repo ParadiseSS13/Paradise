@@ -41,10 +41,7 @@
 /obj/machinery/computer/teleporter/proc/link_power_station()
 	if(power_station)
 		return
-	for(dir in list(NORTH,EAST,SOUTH,WEST))
-		power_station = locate(/obj/machinery/teleport/station, get_step(src, dir))
-		if(power_station)
-			break
+	power_station = locate(/obj/machinery/teleport/station, orange(1, src))
 	return power_station
 
 /obj/machinery/computer/teleporter/attackby(obj/item/I, mob/living/user, params)
@@ -56,7 +53,7 @@
 				return
 			L.forceMove(src)
 			locked = L
-			to_chat(user, "<span class='caution'>You insert the GPS device into the [src]'s slot.</span>")
+			to_chat(user, "<span class='caution'>You insert the GPS device into [src]'s slot.</span>")
 	else
 		return ..()
 
@@ -156,7 +153,8 @@
 */
 /obj/machinery/computer/teleporter/proc/resetPowerstation()
 	power_station.engaged = FALSE
-	power_station.teleporter_hub.calibrated = FALSE
+	if(power_station.teleporter_hub.accurate < 3)
+		power_station.teleporter_hub.calibrated = FALSE
 	power_station.teleporter_hub.update_icon()
 
 /**
@@ -313,7 +311,7 @@
 	name = "teleporter hub"
 	desc = "It's the hub of a teleporting machine."
 	icon_state = "tele0"
-	var/accurate = FALSE
+	var/accurate = 0
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
@@ -353,6 +351,8 @@
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		A += M.rating
 	accurate = A
+	if(accurate >= 3)
+		calibrated = TRUE
 
 /obj/machinery/teleport/hub/proc/link_power_station()
 	if(power_station)
@@ -368,7 +368,7 @@
 	if(!is_teleport_allowed(z) && !admin_usage)
 		to_chat(M, "You can't use this here.")
 		return
-	if(power_station && power_station.engaged && !panel_open && !blockAI(M) && !istype(M, /obj/spacepod))
+	if(power_station && power_station.engaged && !panel_open && !blockAI(M))
 		if(!teleport(M) && isliving(M)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
 			visible_message("<span class='warning'>[src] emits a loud buzz, as its teleport portal flickers and fails!</span>")
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
@@ -401,12 +401,13 @@
 		if(!calibrated && com.cc_beacon)
 			visible_message("<span class='alert'>Cannot lock on target. Please calibrate the teleporter before attempting long range teleportation.</span>")
 		else if(!calibrated && prob(25 - ((accurate) * 10)) && !com.cc_beacon) //oh dear a problem
-			var/list/target_z = levels_by_trait(REACHABLE)
+			var/list/target_z = levels_by_trait(SPAWN_RUINS)
 			target_z -= M.z //Where to sir? Anywhere but here.
 			. = do_teleport(M, locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), pick(target_z)), 2, bypass_area_flag = com.area_bypass)
 		else
 			. = do_teleport(M, com.target, bypass_area_flag = com.area_bypass)
-		calibrated = FALSE
+		if(accurate < 3)
+			calibrated = FALSE
 
 /obj/machinery/teleport/hub/update_icon()
 	if(panel_open)

@@ -56,7 +56,7 @@
 /datum/hud/human
 	var/hud_alpha = 255
 
-/datum/hud/human/New(mob/living/carbon/human/owner, var/ui_style = 'icons/mob/screen_white.dmi', var/ui_color = "#ffffff", var/ui_alpha = 255)
+/datum/hud/human/New(mob/living/carbon/human/owner, ui_style = 'icons/mob/screen_white.dmi', ui_color = "#ffffff", ui_alpha = 255)
 	..()
 	owner.overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
 
@@ -376,7 +376,7 @@
 	for(var/obj/screen/craft/crafting in static_inventory)
 		if(!S.can_craft)
 			crafting.invisibility = INVISIBILITY_ABSTRACT
-			H.handcrafting.close(H)
+			H.handcrafting?.close(H)
 		else
 			crafting.invisibility = initial(crafting.invisibility)
 

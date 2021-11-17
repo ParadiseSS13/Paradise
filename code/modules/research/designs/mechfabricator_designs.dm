@@ -672,12 +672,12 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_taser
-	name = "Exosuit Weapon (PBT \"Pacifier\" Mounted Taser)"
-	id = "mech_taser"
+/datum/design/mech_disabler
+	name = "Exosuit Weapon (CH-DS \"Peacemaker\" Disabler)"
+	id = "mech_disabler"
 	build_type = MECHFAB
 	req_tech = list("combat" = 3)
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
@@ -777,17 +777,6 @@
 	build_type = MECHFAB
 	req_tech = list("bluespace" = 4, "magnets" = 3, "engineering" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/gravcatapult
-	materials = list(MAT_METAL=10000)
-	construction_time = 100
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_wormhole_gen
-	name = "Exosuit Module (Localized Wormhole Generator)"
-	desc = "An exosuit module that allows generating of small quasi-stable wormholes."
-	id = "mech_wormhole_gen"
-	build_type = MECHFAB
-	req_tech = list("bluespace" = 4, "magnets" = 4, "plasmatech" = 3)
-	build_path = /obj/item/mecha_parts/mecha_equipment/wormhole_generator
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
@@ -899,17 +888,6 @@
 	build_type = MECHFAB
 	req_tech = list("combat" = 3, "magnets" = 3, "engineering" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
-	materials = list(MAT_METAL=10000)
-	construction_time = 100
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_disabler
-	name = "Exosuit Weapon (CH-PD Disabler)"
-	desc = "Allows for the construction of CH-PD Disabler."
-	id = "mech_disabler"
-	build_type = MECHFAB
-	req_tech = list("combat" = 3)
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
@@ -1056,7 +1034,7 @@
 	id = "borg_upgrade_disablercooler"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/disablercooler
-	req_tech = list("combat" = 5, "powerstorage" = 4, "engineering" = 4)
+	req_tech = list("combat" = 7, "powerstorage" = 7, "engineering" = 7)
 	materials = list(MAT_METAL=80000 , MAT_GLASS=6000 , MAT_GOLD= 2000, MAT_DIAMOND = 500)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")

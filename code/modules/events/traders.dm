@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	else
 		GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
 
-/datum/event/traders/proc/greet_trader(var/mob/living/carbon/human/M)
+/datum/event/traders/proc/greet_trader(mob/living/carbon/human/M)
 	to_chat(M, "<span class='boldnotice'>You are a trader!</span>")
 	to_chat(M, "<span class='notice'>You are currently docked at [get_area(M)].</span>")
 	to_chat(M, "<span class='notice'>You are about to trade with [station_name()].</span>")

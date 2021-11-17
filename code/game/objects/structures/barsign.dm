@@ -6,7 +6,7 @@
 	req_access = list(ACCESS_BAR)
 	max_integrity = 500
 	integrity_failure = 250
-	armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	var/list/barsigns=list()
 	var/list/hiddensigns
 	var/state = 0
@@ -25,7 +25,7 @@
 	//randomly assigning a sign
 	set_sign(pick(barsigns))
 
-/obj/structure/sign/barsign/proc/set_sign(var/datum/barsign/sign)
+/obj/structure/sign/barsign/proc/set_sign(datum/barsign/sign)
 	if(!istype(sign))
 		return
 	icon_state = sign.icon
@@ -68,7 +68,7 @@
 
 
 
-/obj/structure/sign/barsign/attackby(var/obj/item/I, var/mob/user)
+/obj/structure/sign/barsign/attackby(obj/item/I, mob/user)
 	if( istype(I, /obj/item/screwdriver))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")

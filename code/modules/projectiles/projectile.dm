@@ -35,7 +35,7 @@
 	var/tile_dropoff_s = 0	//same as above but for stamina
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
-	var/flag = "bullet" //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
+	var/flag = BULLET //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
 	var/projectile_type = "/obj/item/projectile"
 	var/range = 50 //This will de-increment every step. When 0, it will delete the projectile.
 	var/is_reflectable = FALSE // Can it be reflected or not?
@@ -59,6 +59,9 @@
 	var/ricochet_chance = 30
 
 	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary
+
+	/// For when you want your projectile to have a chain coming out of the gun
+	var/chain = null
 
 /obj/item/projectile/New()
 	permutated = list()
@@ -162,7 +165,7 @@
 		add_attack_logs(firer, L, "Shot with a [type][additional_log_text]")
 	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
-/obj/item/projectile/proc/get_splatter_blockage(var/turf/step_over, var/atom/target, var/splatter_dir, var/target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
+/obj/item/projectile/proc/get_splatter_blockage(turf/step_over, atom/target, splatter_dir, target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
 	var/turf/step_cardinal = !(splatter_dir in list(NORTH, SOUTH, EAST, WEST)) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null
 
 	if(step_over.density && !step_over.CanPass(target, step_over, 1)) //Preliminary simple check.
@@ -226,10 +229,10 @@
 				picked_mob.bullet_act(src, def_zone)
 	qdel(src)
 
-/obj/item/projectile/Process_Spacemove(var/movement_dir = 0)
+/obj/item/projectile/Process_Spacemove(movement_dir = 0)
 	return 1 //Bullets don't drift in space
 
-/obj/item/projectile/proc/fire(var/setAngle)
+/obj/item/projectile/proc/fire(setAngle)
 	set waitfor = FALSE
 	if(setAngle)
 		Angle = setAngle
@@ -239,7 +242,7 @@
 			if((!current || loc == current))
 				current = locate(clamp(x + xo, 1, world.maxx), clamp(y + yo, 1, world.maxy), z)
 			if(isnull(Angle))
-				Angle = round(Get_Angle(src, current))
+				Angle = round(get_angle(src, current))
 			if(spread)
 				Angle += (rand() - 0.5) * spread
 			var/matrix/M = new
@@ -273,6 +276,8 @@
 
 			speed = round(speed)
 			step_towards(src, locate(new_x, new_y, z))
+			if(QDELETED(src)) // It hit something during the move
+				return
 			if(speed <= 1)
 				pixel_x = pixel_x_offset
 				pixel_y = pixel_y_offset
@@ -314,7 +319,7 @@
 	ammo_casing = null
 	return ..()
 
-/obj/item/projectile/proc/dumbfire(var/dir)
+/obj/item/projectile/proc/dumbfire(dir)
 	current = get_ranged_target_turf(src, dir, world.maxx) //world.maxx is the range. Not sure how to handle this better.
 	fire()
 

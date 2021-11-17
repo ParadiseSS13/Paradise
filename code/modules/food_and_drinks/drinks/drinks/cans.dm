@@ -1,4 +1,5 @@
 /obj/item/reagent_containers/food/drinks/cans
+	container_type = NONE
 	var/canopened = FALSE
 	var/is_glass = 0
 	var/is_plastic = 0
@@ -6,10 +7,6 @@
 	var/can_shake = TRUE
 	var/can_burst = FALSE
 	var/burst_chance = 0
-
-/obj/item/reagent_containers/food/drinks/cans/New()
-	..()
-	flags &= ~OPENCONTAINER
 
 /obj/item/reagent_containers/food/drinks/cans/examine(mob/user)
 	. = ..()
@@ -26,7 +23,7 @@
 		return ..()
 	playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), 1)
 	canopened = TRUE
-	flags |= OPENCONTAINER
+	container_type |= OPENCONTAINER
 	to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
 	return ..()
 
@@ -57,7 +54,7 @@
 		addtimer(CALLBACK(src, .proc/reset_shakable), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 		to_chat(H, "<span class='notice'>You start shaking up [src].</span>")
 		if(do_after(H, 1 SECONDS, target = H))
-			visible_message("<span class='warning'>[user] shakes up the [name]!</span>")
+			visible_message("<span class='warning'>[user] shakes up [src]!</span>")
 			if(times_shaken == 0)
 				times_shaken++
 				addtimer(CALLBACK(src, .proc/reset_shaken), 1 MINUTES, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
@@ -111,7 +108,7 @@
 /obj/item/reagent_containers/food/drinks/cans/proc/fizzy_open(mob/user, burstopen = FALSE)
 	playsound(loc, 'sound/effects/canopenfizz.ogg', rand(10, 50), 1)
 	canopened = TRUE
-	flags |= OPENCONTAINER
+	container_type |= OPENCONTAINER
 
 	if(!burstopen && user)
 		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")

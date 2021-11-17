@@ -49,6 +49,10 @@
 			var/mat_path = possible_mats[id]
 			materials[id] = new mat_path()
 
+/datum/component/material_container/Destroy(force, silent)
+	QDEL_LIST_ASSOC_VAL(materials)
+	return ..()
+
 /datum/component/material_container/proc/OnExamine(datum/source, mob/user, list/examine_list)
 	if(show_on_examine)
 		for(var/I in materials)
@@ -130,13 +134,13 @@
 
 /datum/component/material_container/proc/insert_stack(obj/item/stack/S, amt, multiplier = 1)
 	if(isnull(amt))
-		amt = S.amount
+		amt = S.get_amount()
 
 	if(amt <= 0)
 		return FALSE
 
-	if(amt > S.amount)
-		amt = S.amount
+	if(amt > S.get_amount())
+		amt = S.get_amount()
 
 	var/material_amt = get_item_material_amount(S)
 	if(!material_amt)
@@ -205,7 +209,7 @@
 			return amt
 	return FALSE
 
-/datum/component/material_container/proc/transer_amt_to(var/datum/component/material_container/T, amt, id)
+/datum/component/material_container/proc/transer_amt_to(datum/component/material_container/T, amt, id)
 	if((amt==0)||(!T)||(!id))
 		return FALSE
 	if(amt<0)

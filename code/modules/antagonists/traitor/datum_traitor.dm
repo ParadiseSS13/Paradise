@@ -117,7 +117,7 @@
 		objective_count += 1					//Exchange counts towards number of objectives
 
 
-	var/objective_amount = config.traitor_objectives_amount
+	var/objective_amount = GLOB.configuration.gamemode.traitor_objectives_amount
 
 	if(is_hijacker && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
 		if (!(locate(/datum/objective/hijack) in objectives))
@@ -154,7 +154,7 @@
 
 	objective_count += forge_single_objective()
 
-	for(var/i = objective_count, i < config.traitor_objectives_amount)
+	for(var/i = objective_count, i < GLOB.configuration.gamemode.traitor_objectives_amount)
 		var/datum/objective/assassinate/kill_objective = new
 		kill_objective.owner = owner
 		kill_objective.find_target()
@@ -248,6 +248,7 @@
 		owner.announce_objectives()
 	if(should_give_codewords)
 		give_codewords()
+	to_chat(owner.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Traitor)</span>")
 
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
@@ -361,7 +362,7 @@
 	return 1
 
 
-/datum/antagonist/traitor/proc/assign_exchange_role(var/datum/mind/owner)
+/datum/antagonist/traitor/proc/assign_exchange_role(datum/mind/owner)
 	//set faction
 	var/faction = "red"
 	if(owner == SSticker.mode.exchange_blue)

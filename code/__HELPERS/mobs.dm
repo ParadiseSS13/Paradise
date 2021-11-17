@@ -1,4 +1,4 @@
-/proc/GetOppositeDir(var/dir)
+/proc/GetOppositeDir(dir)
 	switch(dir)
 		if(NORTH)     return SOUTH
 		if(SOUTH)     return NORTH
@@ -46,7 +46,7 @@
 
 	return pick(valid_picks)
 
-/proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
+/proc/random_hair_style(gender, species = "Human", datum/robolimb/robohead)
 	var/h_style = "Bald"
 	var/list/valid_hairstyles = list()
 	for(var/hairstyle in GLOB.hair_styles_public_list)
@@ -75,7 +75,7 @@
 
 	return h_style
 
-/proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
+/proc/random_facial_hair_style(gender, species = "Human", datum/robolimb/robohead)
 	var/f_style = "Shaved"
 	var/list/valid_facial_hairstyles = list()
 	for(var/facialhairstyle in GLOB.facial_hair_styles_list)
@@ -119,7 +119,7 @@
 
 	return ha_style
 
-/proc/random_marking_style(var/location = "body", species = "Human", var/datum/robolimb/robohead, var/body_accessory, var/alt_head)
+/proc/random_marking_style(location = "body", species = "Human", datum/robolimb/robohead, body_accessory, alt_head)
 	var/m_style = "None"
 	var/list/valid_markings = list()
 	for(var/marking in GLOB.marking_styles_list)
@@ -272,15 +272,19 @@
 	update_all_mob_security_hud()
 	return 1
 
-/*
-Proc for attack log creation, because really why not
-1 argument is the actor
-2 argument is the target of action
-3 is the full description of the action
-4 is whether or not to message admins
-This is always put in the attack log.
-*/
-
+/**
+ * Creates attack (old and new) logs for the user and defense logs for the target.
+ * Will message admins depending on the custom_level, user and target.
+ *
+ * custom_level will determine the log level set. Unless the target is SSD and there is a user doing it
+ * If custom_level is not set then the log level will be determined using the user and the target.
+ *
+ * * Arguments:
+ * * user - The thing doing it. Can be null
+ * * target - The target of the attack
+ * * what_done - What has happened
+ * * custom_level - The log level override
+ */
 /proc/add_attack_logs(atom/user, target, what_done, custom_level)
 	if(islist(target)) // Multi-victim adding
 		var/list/targets = target
@@ -323,7 +327,7 @@ This is always put in the attack log.
 				loglevel = ATKLOG_ALMOSTALL
 	else
 		loglevel = ATKLOG_ALL // Hitting an object. Not a mob
-	if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
+	if(user && isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
 		loglevel = ATKLOG_FEW
 
 

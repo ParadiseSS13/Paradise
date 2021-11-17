@@ -92,7 +92,7 @@
 		. += "The charge meter reads [round(percent() )]%."
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of the [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return FIRELOSS
 
 /obj/item/stock_parts/cell/attackby(obj/item/W, mob/user, params)
@@ -206,6 +206,10 @@
 	charge = 0
 	update_icon()
 
+/obj/item/stock_parts/cell/hos_gun
+	name = "\improper X-01 multiphase energy gun power cell"
+	maxcharge = 1200
+
 /obj/item/stock_parts/cell/pulse //200 pulse shots
 	name = "pulse rifle power cell"
 	maxcharge = 40000
@@ -284,6 +288,12 @@
 	charge = 0
 	update_icon()
 
+/obj/item/stock_parts/cell/bluespace/charging
+	name = "self-charging bluespace power cell"
+	desc = "An experimental, self-charging, transdimensional power cell."
+	origin_tech =  "powerstorage=10;bluespace=10"
+	self_recharge = TRUE
+
 /obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell!"
 	icon_state = "icell"
@@ -294,7 +304,7 @@
 	chargerate = 30000
 
 /obj/item/stock_parts/cell/infinite/use()
-	return 1
+	return TRUE
 
 /obj/item/stock_parts/cell/infinite/abductor
 	name = "void core"
@@ -354,3 +364,9 @@
 	desc = "A standard ninja-suit power cell."
 	maxcharge = 10000
 	materials = list(MAT_GLASS = 60)
+
+/obj/item/stock_parts/cell/bsg
+	name = "\improper B.S.G power cell"
+	desc = "A high capacity, slow charging cell for the B.S.G."
+	maxcharge = 40000
+	chargerate = 2600 // about 30 seconds to charge with a default recharger

@@ -3,13 +3,14 @@
 # This script is invoked by GitHub actions as part of CI to validate that the windows DLL for RUSTG works and creates proper formats
 
 # Imports
-import os, sys
+import os, json
 from ctypes import *
 from datetime import datetime, timedelta
 
 # Initial vars
 ci_log_file = "ci_log.log"
 ci_testing_text = "This is a test message"
+ci_toml_file_location = "config/example/config.toml"
 
 # Helpers
 def success(msg):
@@ -36,7 +37,7 @@ else:
     fail("RUSTG DM header file does NOT exist")
 
 # Parse the version from the DM file
-f = open("code/__DEFINES/rust_g.dm", "r")
+f = open("code/__DEFINES/_versions.dm", "r")
 lines = f.readlines()
 f.close()
 dm_version = None
@@ -87,5 +88,20 @@ if logline in valid_results:
     success("Log timestamp is valid 8601")
 else:
     fail("Log timestamp is not valid 8601. Got {}".format(logline))
+
+# Make sure we can parse TOML
+string_array = c_char_p * 1
+sa = string_array(bytes(ci_toml_file_location, "ascii"))
+rustg_dll.toml_file_to_json.argtypes = [c_int, c_char_p * 1]
+# Set args for JSON retrieval
+rustg_dll.toml_file_to_json.restype = c_char_p
+
+try:
+    # Run it
+    output_json = rustg_dll.toml_file_to_json(1, sa).decode()
+    json.loads(output_json)
+    success("toml_file_to_json successful")
+except Exception:
+    fail("Failed to run toml_file_to_json")
 
 exit(0) # Success

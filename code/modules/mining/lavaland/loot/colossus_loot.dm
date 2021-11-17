@@ -82,23 +82,6 @@
 	new random_crystal(loc)
 	qdel(src)
 
-/obj/machinery/anomalous_crystal/honk //Strips and equips you as a clown. I apologize for nothing
-	activation_method = "mob_bump"
-	activation_sound = 'sound/items/bikehorn.ogg'
-
-/obj/machinery/anomalous_crystal/honk/ActivationReaction(mob/user)
-	if(..() && ishuman(user) && !(user in affected_targets))
-		var/mob/living/carbon/human/H = user
-		for(var/obj/item/W in H)
-			H.unEquip(W)
-		var/datum/job/clown/C = SSjobs.GetJob("Clown")
-		C.equip(H)
-		affected_targets.Add(H)
-
-/obj/machinery/anomalous_crystal/honk/New()
-	..()
-	activation_method = pick("mob_bump","speech")
-
 /obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one
 	activation_method = "touch"
 	cooldown_add = 200
@@ -156,7 +139,7 @@
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
 						continue
-					if(iswallturf(T) && NewTerrainWalls)
+					if(iswallturf(T) && NewTerrainWalls && !istype(T, /turf/simulated/wall/indestructible))
 						T.ChangeTurf(NewTerrainWalls)
 						continue
 				if(istype(Stuff, /obj/structure/chair) && NewTerrainChairs)
@@ -232,8 +215,17 @@
 /obj/machinery/anomalous_crystal/helpers/attack_ghost(mob/dead/observer/user)
 	..()
 	if(ready_to_deploy)
+		if(!istype(user)) // No revs allowed
+			return
+		if(cannotPossess(user))
+			to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+			return
 		var/be_helper = alert("Become a Lightgeist? (Warning, You can no longer be cloned!)",,"Yes","No")
 		if(be_helper == "No")
+			return
+		if(!loc || QDELETED(src) || QDELETED(user))
+			if(user)
+				to_chat(user, "<span class='warning'>[src] is no longer usable!</span>")
 			return
 		var/mob/living/simple_animal/hostile/lightgeist/W = new /mob/living/simple_animal/hostile/lightgeist(get_turf(loc))
 		W.key = user.key
@@ -377,7 +369,7 @@
 		holder_animal.mind.AddSpell(P)
 		holder_animal.verbs -= /mob/living/verb/pulled
 
-/obj/structure/closet/stasis/dump_contents(var/kill = 1)
+/obj/structure/closet/stasis/dump_contents(kill = 1)
 	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
 		REMOVE_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)

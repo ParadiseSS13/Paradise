@@ -47,7 +47,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		return 0
 
 	var/player_age_check = check_client_age(client, GLOB.responseteam_age)
-	if(player_age_check && config.use_age_restriction_for_antags)
+	if(player_age_check && GLOB.configuration.gamemode.antag_account_age_restriction)
 		to_chat(src, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
 		return 0
 
@@ -234,7 +234,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 /datum/response_team/proc/check_slot_available(role)
 	return slots[role]
 
-/datum/response_team/proc/equip_officer(var/officer_type, var/mob/living/carbon/human/M)
+/datum/response_team/proc/equip_officer(officer_type, mob/living/carbon/human/M)
 	switch(officer_type)
 		if("Engineer")
 			M.equipOutfit(engineering_outfit)
@@ -312,6 +312,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	id = /obj/item/card/id/ert
 	l_ear = /obj/item/radio/headset/ert/alt
 	box = /obj/item/storage/box/responseteam
+	gloves = /obj/item/clothing/gloves/combat
 
 	implants = list(/obj/item/implant/mindshield)
 

@@ -10,6 +10,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
+	var/receive_anim = "faxsend"
 	pass_flags = PASSTABLE
 	var/fax_network = "Local Fax Network"
 	/// If true, prevents fax machine from sending messages to NT machines
@@ -39,10 +40,14 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	/// Target department to send outgoing faxes to
 	var/destination
 
-/obj/machinery/photocopier/faxmachine/New()
-	..()
+/obj/machinery/photocopier/faxmachine/Initialize(mapload)
+	. = ..()
 	GLOB.allfaxes += src
 	update_network()
+
+/obj/machinery/photocopier/faxmachine/Destroy()
+	GLOB.allfaxes -= src
+	return ..()
 
 /obj/machinery/photocopier/faxmachine/proc/update_network()
 	if(department != "Unknown")
@@ -54,12 +59,20 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	fax_network = "Central Command Quantum Entanglement Network"
 	long_range_enabled = TRUE
 
+/obj/machinery/photocopier/faxmachine/longrange/Initialize(mapload)
+	. = ..()
+	add_overlay("longfax")
+
 /obj/machinery/photocopier/faxmachine/longrange/syndie
 	name = "syndicate long range fax machine"
 	emagged = TRUE
 	syndie_restricted = TRUE
 	req_one_access = list(ACCESS_SYNDICATE)
 	//No point setting fax network, being emagged overrides that anyway.
+
+/obj/machinery/photocopier/faxmachine/longrange/syndie/Initialize(mapload)
+	. = ..()
+	add_overlay("syndiefax")
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie/update_network()
 	if(department != "Unknown")
@@ -79,6 +92,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		SStgui.update_uis(src)
 	else
 		return ..()
+
+/obj/machinery/photocopier/faxmachine/MouseDrop_T()
+	return //you should not be able to fax your ass without first copying it at an actual photocopier
 
 /obj/machinery/photocopier/faxmachine/emag_act(mob/user)
 	if(!emagged)
@@ -226,7 +242,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(.)
 		add_fingerprint(usr)
 
-/obj/machinery/photocopier/faxmachine/proc/scan(var/obj/item/card/id/card = null)
+/obj/machinery/photocopier/faxmachine/proc/scan(obj/item/card/id/card = null)
 	if(scan) // Card is in machine
 		if(ishuman(usr))
 			scan.forceMove(get_turf(src))
@@ -266,7 +282,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	else
 		to_chat(usr, "There is nothing to remove from [src].")
 
-/obj/machinery/photocopier/faxmachine/proc/sendfax(var/destination,var/mob/sender)
+/obj/machinery/photocopier/faxmachine/proc/sendfax(destination, mob/sender)
 	use_power(active_power_usage)
 	var/success = 0
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
@@ -286,14 +302,14 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	else
 		visible_message("[src] beeps, \"Error transmitting message.\"")
 
-/obj/machinery/photocopier/faxmachine/proc/receivefax(var/obj/item/incoming)
+/obj/machinery/photocopier/faxmachine/proc/receivefax(obj/item/incoming)
 	if(stat & (BROKEN|NOPOWER))
 		return FALSE
 
 	if(department == "Unknown")
 		return FALSE //You can't send faxes to "Unknown"
 
-	flick("faxreceive", src)
+	flick(receive_anim, src)
 
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 
@@ -301,7 +317,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	sleep(20)
 
 	if(istype(incoming, /obj/item/paper))
-		copy(incoming)
+		papercopy(incoming)
 	else if(istype(incoming, /obj/item/photo))
 		photocopy(incoming)
 	else if(istype(incoming, /obj/item/paper_bundle))
@@ -312,7 +328,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	use_power(active_power_usage)
 	return TRUE
 
-/obj/machinery/photocopier/faxmachine/proc/send_admin_fax(var/mob/sender, var/destination)
+/obj/machinery/photocopier/faxmachine/proc/send_admin_fax(mob/sender, destination)
 	use_power(active_power_usage)
 
 	if(!(istype(copyitem, /obj/item/paper) || istype(copyitem, /obj/item/paper_bundle) || istype(copyitem, /obj/item/photo)))
@@ -344,7 +360,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return 0
 	return round((sendcooldown - world.time) / 10)
 
-/obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/faxtype, var/obj/item/sent, font_colour="#9A04D1")
+/obj/machinery/photocopier/faxmachine/proc/message_admins(mob/sender, faxname, faxtype, obj/item/sent, font_colour="#9A04D1")
 	var/msg = "<span class='boldnotice'><font color='[font_colour]'>[faxname]: </font> [key_name_admin(sender)] | REPLY: (<A HREF='?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : "CentcommReply"]=[sender.UID()]'>RADIO</A>) (<a href='?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<A HREF='?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</A>) ([ADMIN_BSA(sender,"BSA")]) (<A HREF='?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</A>) </span>: Receiving '[sent.name]' via secure connection... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
 	var/fax_sound = sound('sound/effects/adminhelp.ogg')
 	for(var/client/C in GLOB.admins)

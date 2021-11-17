@@ -22,14 +22,14 @@
 	/// A list of extension kinds added to the examine text. Things like medical or security records.
 	var/list/examine_extensions = null
 
-/obj/item/organ/internal/cyberimp/eyes/hud/insert(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/cyberimp/eyes/hud/insert(mob/living/carbon/M, special = 0)
 	..()
 	if(HUD_type)
 		var/datum/atom_hud/H = GLOB.huds[HUD_type]
 		H.add_hud_to(M)
 		M.permanent_huds |= H
 
-/obj/item/organ/internal/cyberimp/eyes/hud/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/cyberimp/eyes/hud/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(HUD_type)
 		var/datum/atom_hud/H = GLOB.huds[HUD_type]
@@ -51,7 +51,7 @@
 	implant_color = "#ff9000"
 	origin_tech = "materials=4;engineering=4;biotech=4"
 	aug_message = "You see the diagnostic information of the synthetics around you..."
-	HUD_type = DATA_HUD_DIAGNOSTIC
+	HUD_type = DATA_HUD_DIAGNOSTIC_ADVANCED
 
 /obj/item/organ/internal/cyberimp/eyes/hud/security
 	name = "Security HUD implant"

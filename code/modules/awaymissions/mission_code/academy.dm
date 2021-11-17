@@ -94,7 +94,7 @@
 	smoke.set_up(amount, 0, drop_location())
 	smoke.start()
 
-/obj/item/dice/d20/fate/proc/effect(var/mob/living/carbon/human/user, roll)
+/obj/item/dice/d20/fate/proc/effect(mob/living/carbon/human/user, roll)
 	var/turf/T = get_turf(src)
 	switch(roll)
 		if(1)
@@ -194,7 +194,7 @@
 			servant_mind.transfer_to(H)
 
 			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the servant of [user.real_name]?", ROLE_WIZARD, poll_time = 30 SECONDS, source = H)
-			if(LAZYLEN(candidates))
+			if(length(candidates) && !QDELETED(H))
 				var/mob/dead/observer/C = pick(candidates)
 				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")
 				H.key = C.key

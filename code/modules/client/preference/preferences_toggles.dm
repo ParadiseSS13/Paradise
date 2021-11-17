@@ -340,3 +340,27 @@
 	prefs.toggles2 ^= PREFTOGGLE_2_REVERB_DISABLE
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_REVERB_DISABLE) ? "no longer" : "now"] get reverb on ingame sounds.")
+
+/client/verb/toggle_forced_white_runechat()
+	set name = "Toggle Runechat Colour Forcing"
+	set category = "Preferences"
+	set desc = "Toggles forcing your runechat colour to white"
+	prefs.toggles2 ^= PREFTOGGLE_2_FORCE_WHITE_RUNECHAT
+	prefs.save_preferences(src)
+	to_chat(src, "Your runechats will [(prefs.toggles2 & PREFTOGGLE_2_FORCE_WHITE_RUNECHAT) ? "now" : "no longer"] be forced to be white.")
+
+/client/verb/toggle_simple_stat_panel()
+	set name = "Toggle Simple Status Panel"
+	set category = "Preferences"
+	set desc = "Toggles detailed information on the status panel"
+	prefs.toggles2 ^= PREFTOGGLE_2_SIMPLE_STAT_PANEL
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL) ? "no longer" : "now"] get detailed information on the status panel.")
+
+/client/verb/toggle_item_outlines()
+	set name = "Toggle Item Outlines"
+	set category = "Preferences"
+	set desc = "Toggles seeing item outlines on hover."
+	prefs.toggles2 ^= PREFTOGGLE_2_SEE_ITEM_OUTLINES
+	prefs.save_preferences(src)
+	to_chat(usr, "You will [(prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES) ? "now" : "no longer"] see item outlines on hover.")

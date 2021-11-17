@@ -51,10 +51,6 @@
 		if(0 to 40)
 			return "<span class='danger'>It looks heavily damaged.</span>"
 
-/obj/structure/falsewall/ratvar_act()
-	new /obj/structure/falsewall/brass(loc)
-	qdel(src)
-
 /obj/structure/falsewall/Destroy()
 	density = 0
 	air_update_turf(1)
@@ -98,9 +94,9 @@
 	if(density)
 		smooth = SMOOTH_FALSE
 		clear_smooth_overlays()
-		icon_state = "fwall_opening"
+		flick("fwall_opening", src)
 	else
-		icon_state = "fwall_closing"
+		flick("fwall_closing", src)
 
 /obj/structure/falsewall/update_icon()
 	if(density)
@@ -301,6 +297,7 @@
 /obj/structure/falsewall/sandstone
 	name = "sandstone wall"
 	desc = "A wall with sandstone plating."
+	icon = 'icons/turf/walls/sandstone_wall.dmi'
 	icon_state = "sandstone"
 	mineral = /obj/item/stack/sheet/mineral/sandstone
 	walltype = /turf/simulated/wall/mineral/sandstone

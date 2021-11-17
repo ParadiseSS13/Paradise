@@ -85,6 +85,10 @@
 	original = null
 	return ..()
 
+/datum/mind/proc/get_display_key()
+	var/clientKey = current?.client?.get_display_key()
+	return clientKey ? clientKey : key
+
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
@@ -103,6 +107,8 @@
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		var/datum/antagonist/A = a
 		A.on_body_transfer(old_current, current)
+	if(vampire)
+		vampire.update_owner(new_character)
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
 	if(martial_art)
@@ -1375,46 +1381,20 @@
 		switch(href_list["silicon"])
 			if("unemag")
 				var/mob/living/silicon/robot/R = current
-				if(istype(R))
-					R.emagged = 0
-					if(R.module)
-						if(R.activated(R.module.emag))
-							R.module_active = null
-						if(R.module_state_1 == R.module.emag)
-							R.module_state_1 = null
-							R.contents -= R.module.emag
-						else if(R.module_state_2 == R.module.emag)
-							R.module_state_2 = null
-							R.contents -= R.module.emag
-						else if(R.module_state_3 == R.module.emag)
-							R.module_state_3 = null
-							R.contents -= R.module.emag
-					R.clear_supplied_laws()
-					R.laws = new /datum/ai_laws/crewsimov
-					log_admin("[key_name(usr)] has un-emagged [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has un-emagged [key_name_admin(current)]")
+				if(!istype(R))
+					return
+				R.unemag()
+				log_admin("[key_name(usr)] has un-emagged [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has un-emagged [key_name_admin(current)]")
 
 			if("unemagcyborgs")
-				if(isAI(current))
-					var/mob/living/silicon/ai/ai = current
-					for(var/mob/living/silicon/robot/R in ai.connected_robots)
-						R.emagged = 0
-						if(R.module)
-							if(R.activated(R.module.emag))
-								R.module_active = null
-							if(R.module_state_1 == R.module.emag)
-								R.module_state_1 = null
-								R.contents -= R.module.emag
-							else if(R.module_state_2 == R.module.emag)
-								R.module_state_2 = null
-								R.contents -= R.module.emag
-							else if(R.module_state_3 == R.module.emag)
-								R.module_state_3 = null
-								R.contents -= R.module.emag
-						R.clear_supplied_laws()
-						R.laws = new /datum/ai_laws/crewsimov
-					log_admin("[key_name(usr)] has unemagged [key_name(ai)]'s cyborgs")
-					message_admins("[key_name_admin(usr)] has unemagged [key_name_admin(ai)]'s cyborgs")
+				if(!isAI(current))
+					return
+				var/mob/living/silicon/ai/ai = current
+				for(var/mob/living/silicon/robot/R in ai.connected_robots)
+					R.unemag()
+				log_admin("[key_name(usr)] has unemagged [key_name(ai)]'s cyborgs")
+				message_admins("[key_name_admin(usr)] has unemagged [key_name_admin(ai)]'s cyborgs")
 
 	else if(href_list["common"])
 		switch(href_list["common"])
@@ -1566,14 +1546,15 @@
 
 		SSticker.mode.equip_syndicate(current)
 
-/datum/mind/proc/make_Vampire()
+/datum/mind/proc/make_vampire(ancient_vampire = FALSE)
 	if(!(src in SSticker.mode.vampires))
 		SSticker.mode.vampires += src
 		SSticker.mode.grant_vampire_powers(current)
 		special_role = SPECIAL_ROLE_VAMPIRE
-		SSticker.mode.forge_vampire_objectives(src)
 		SSticker.mode.greet_vampire(src)
 		SSticker.mode.update_vampire_icons_added(src)
+		if(!ancient_vampire)
+			SSticker.mode.forge_vampire_objectives(src)
 
 /datum/mind/proc/make_Changeling()
 	if(!(src in SSticker.mode.changelings))
@@ -1802,7 +1783,7 @@
 /mob/living/carbon/human/mind_initialize()
 	..()
 	if(!mind.assigned_role)
-		mind.assigned_role = "Civilian"	//defualt
+		mind.assigned_role = "Assistant"	//defualt
 
 /mob/proc/sync_mind()
 	mind_initialize()  //updates the mind (or creates and initializes one if one doesn't exist)

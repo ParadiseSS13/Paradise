@@ -376,7 +376,7 @@
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && (M.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Brig Physician", "Internal Affairs Agent", "Magistrate")))
+	if(ishuman(M) && (M.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Brig Physician", "Internal Affairs Agent", "Magistrate")))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -447,7 +447,7 @@
 	return ..()
 
 /datum/reagent/consumable/flour
-	name = "flour"
+	name = "Flour"
 	id = "flour"
 	description = "This is what you rub all over yourself to pretend to be a ghost."
 	reagent_state = SOLID
@@ -794,6 +794,21 @@
 	color = "#B4641B"
 	taste_description = "gravy"
 
+/datum/reagent/consumable/wasabi
+	name = "Wasabi"
+	id = "wasabi"
+	description = "A pungent green paste often served with sushi. Consuming too much causes an uncomfortable burning sensation in the nostrils."
+	reagent_state = LIQUID
+	color = "#80942F"
+	taste_description = "pungency"
+
+/datum/reagent/consumable/wasabi/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST)
+		if(volume <= 1)
+			to_chat(M, "<span class='notice'>Your nostrils tingle briefly.</span>")
+		else
+			to_chat(M, "<span class='warning'>Your nostrils burn uncomfortably!</span>")
+			M.adjustFireLoss(1)
 
 ///Food Related, but non-nutritious
 
@@ -837,7 +852,7 @@
 	return ..() | update_flags
 
 /datum/reagent/cholesterol
-	name = "cholesterol"
+	name = "Cholesterol"
 	id = "cholesterol"
 	description = "Pure cholesterol. Probably not very good for you."
 	reagent_state = LIQUID

@@ -119,7 +119,7 @@
 		return
 
 	var/mob/living/carbon/human/H = user
-	var/random = rand(1,3)
+	var/random = rand(1, 3)
 
 	switch(random)
 		if(1)
@@ -134,7 +134,7 @@
 			to_chat(user, "<span class='danger'>You feel like you could walk straight through lava now.</span>")
 			H.weather_immunities |= "lava"
 
-	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
+	playsound(user.loc, 'sound/items/drink.ogg', rand(10, 50), 1)
 	qdel(src)
 
 /datum/disease/transformation/dragon

@@ -10,7 +10,7 @@
 	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
-	armor = list("melee" = 25, "bullet" = 25, "laser" = 25, "energy" = 25, "bomb" = 50, "bio" = 10, "rad" = 0, "fire" = 70, "acid" = 50)
+	armor = list(MELEE = 25, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 10, RAD = 0, FIRE = 70, ACID = 50)
 	strip_delay = 70
 	resistance_flags = NONE
 
@@ -18,20 +18,20 @@
 	name = "\improper SWAT shoes"
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 25, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 90, "acid" = 50)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 30, RAD = 30, FIRE = 90, ACID = 50)
 	flags = NOSLIP
 
 /obj/item/clothing/shoes/sandal
-	desc = "A pair of rather plain, wooden sandals."
 	name = "sandals"
+	desc = "A pair of rather plain, wooden sandals."
 	icon_state = "wizard"
 	strip_delay = 50
 	put_on_delay = 50
 	magical = TRUE
 
 /obj/item/clothing/shoes/sandal/marisa
-	desc = "A pair of magic, black shoes."
 	name = "magic shoes"
+	desc = "A pair of magic, black shoes."
 	icon_state = "black"
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
 
@@ -41,8 +41,8 @@
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
 
 /obj/item/clothing/shoes/galoshes
-	desc = "A pair of yellow rubber boots, designed to prevent slipping on wet surfaces."
 	name = "galoshes"
+	desc = "A pair of yellow rubber boots, designed to prevent slipping on wet surfaces."
 	icon_state = "galoshes"
 	permeability_coefficient = 0.05
 	flags = NOSLIP
@@ -50,7 +50,7 @@
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = NONE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 75)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 75)
 
 /obj/item/clothing/shoes/galoshes/dry
 	name = "absorbent galoshes"
@@ -69,8 +69,8 @@
 		t_loc.MakeDry(TURF_WET_WATER)
 
 /obj/item/clothing/shoes/clown_shoes
-	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
 	name = "clown shoes"
+	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
 	icon_state = "clown"
 	item_state = "clown_shoes"
 	slowdown = SHOES_SLOWDOWN+1
@@ -96,6 +96,9 @@
 	if(user.get_active_hand() != src)
 		to_chat(user, "You must hold [src] in your hand to do this.")
 		return
+	toggle_waddle(user)
+
+/obj/item/clothing/shoes/clown_shoes/proc/toggle_waddle(mob/living/user)
 	if(!enabled_waddle)
 		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
 		enabled_waddle = TRUE
@@ -110,6 +113,45 @@
 	name = "magical clown shoes"
 	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And powerful! Somehow."
 	magical = TRUE
+
+/obj/item/clothing/shoes/clown_shoes/slippers
+	actions_types = list(/datum/action/item_action/slipping)
+	var/slide_distance = 6
+	var/recharging_rate = 8 SECONDS
+	var/recharging_time = 0
+
+/obj/item/clothing/shoes/clown_shoes/slippers/item_action_slot_check(slot, mob/user)
+	if(slot == slot_shoes)
+		return TRUE
+
+/obj/item/clothing/shoes/clown_shoes/slippers/ui_action_click(mob/user, action)
+	if(recharging_time > world.time)
+		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
+		return
+	var/prev_dir = user.dir
+	var/prev_pass_flags = user.pass_flags
+	user.pass_flags |= PASSMOB
+	user.Weaken(2)
+	user.dir = prev_dir
+	playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
+	recharging_time = world.time + recharging_rate
+	user.visible_message("<span class='warning'>[user] slips forward!</span>")
+	for(var/i in 1 to slide_distance)
+		step(user, user.dir)
+		sleep(1)
+	user.SetWeakened(0)
+	user.pass_flags = prev_pass_flags
+
+
+/obj/item/clothing/shoes/clown_shoes/slippers/toggle_waddle(mob/living/user)
+	if(!enabled_waddle)
+		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		enabled_waddle = TRUE
+		slowdown = initial(slowdown)
+	else
+		to_chat(user, "<span class='notice'>You switch on the waddle dampeners, [src] no longer slow you down!</span>")
+		enabled_waddle = FALSE
+		slowdown = SHOES_SLOWDOWN
 
 /obj/item/clothing/shoes/jackboots
 	name = "jackboots"
@@ -215,13 +257,13 @@
 	item_state = "noble_boot"
 
 /obj/item/clothing/shoes/sandal/white
-	name = "White Sandals"
+	name = "white sandals"
 	desc = "Medical sandals that nerds wear."
 	icon_state = "medsandal"
 	item_color = "medsandal"
 
 /obj/item/clothing/shoes/sandal/fancy
-	name = "Fancy Sandals"
+	name = "fancy sandals"
 	desc = "FANCY!!."
 	icon_state = "fancysandal"
 	item_color = "fancysandal"
@@ -288,7 +330,7 @@
 	name = "lizard skin boots"
 	desc = "You can hear a faint hissing from inside the boots; you hope it is just a mournful ghost."
 	icon_state = "lizardboots_green"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 0) //lizards like to stay warm
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 0) //lizards like to stay warm
 
 /obj/item/clothing/shoes/cowboy/lizardmasterwork
 	name = "\improper Hugs-The-Feet lizard skin boots"
@@ -326,6 +368,10 @@
 	var/jumpspeed = 3
 	var/recharging_rate = 60 //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
+
+/obj/item/clothing/shoes/bhop/item_action_slot_check(slot)
+	if(slot == slot_shoes)
+		return TRUE
 
 /obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)
 	if(!isliving(user))

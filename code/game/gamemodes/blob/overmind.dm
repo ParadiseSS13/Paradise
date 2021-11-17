@@ -55,21 +55,21 @@
 	if(blob_core && hud_used)
 		hud_used.blobhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#e36600'>[round(blob_core.obj_integrity)]</font></div>"
 
-/mob/camera/blob/proc/add_points(var/points)
+/mob/camera/blob/proc/add_points(points)
 	if(points != 0)
 		blob_points = clamp(blob_points + points, 0, max_blob_points)
 		if(hud_used)
 			hud_used.blobpwrdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#82ed00'>[round(src.blob_points)]</font></div>"
 
-/mob/camera/blob/say(var/message)
+/mob/camera/blob/say(message)
 	if(!message)
 		return
 
 	if(src.client)
-		if(client.prefs.muted & MUTE_IC)
+		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, "You cannot send IC messages (muted).")
 			return
-		if(src.client.handle_spam_prevention(message,MUTE_IC))
+		if(src.client.handle_spam_prevention(message, MUTE_IC))
 			return
 
 	if(stat)
@@ -105,7 +105,7 @@
 			stat(null, "Core Health: [blob_core.obj_integrity]")
 		stat(null, "Power Stored: [blob_points]/[max_blob_points]")
 
-/mob/camera/blob/Move(var/NewLoc, var/Dir = 0)
+/mob/camera/blob/Move(NewLoc, Dir = 0)
 	var/obj/structure/blob/B = locate() in range("3x3", NewLoc)
 	if(B)
 		loc = NewLoc

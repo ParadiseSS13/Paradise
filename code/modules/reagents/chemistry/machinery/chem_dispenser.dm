@@ -16,7 +16,6 @@
 	var/recharge_counter = 0
 	var/hackedcheck = FALSE
 	var/obj/item/reagent_containers/beaker = null
-	var/image/icon_beaker = null //cached overlay
 	var/list/dispensable_reagents = list("hydrogen", "lithium", "carbon", "nitrogen", "oxygen", "fluorine",
 	"sodium", "aluminum", "silicon", "phosphorus", "sulfur", "chlorine", "potassium", "iron",
 	"copper", "mercury", "plasma", "radium", "water", "ethanol", "sugar", "iodine", "bromine", "silver", "chromium")
@@ -128,8 +127,16 @@
 	if(powered())
 		stat &= ~NOPOWER
 	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
+		stat |= NOPOWER
+
+/obj/machinery/chem_dispenser/update_icon()
+	if(panel_open)
+		icon_state = "[initial(icon_state)]-o"
+		return
+	if(!powered() && !is_drink)
+		icon_state = "dispenser_nopower"
+		return
+	icon_state = "[initial(icon_state)][beaker ? "_working" : ""]"
 
 /obj/machinery/chem_dispenser/ex_act(severity)
 	if(severity < 3)
@@ -141,7 +148,6 @@
 	..()
 	if(A == beaker)
 		beaker = null
-		overlays.Cut()
 
 /obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	// update the ui if it exists, returns null if no ui is passed/found
@@ -205,11 +211,6 @@
 				atom_say("Not enough energy to complete operation!")
 				return
 			R.add_reagent(params["reagent"], actual)
-			overlays.Cut()
-			if(!icon_beaker)
-				icon_beaker = mutable_appearance('icons/obj/chemical.dmi', "disp_beaker") //randomize beaker overlay position.
-			icon_beaker.pixel_x = rand(-10, 5)
-			overlays += icon_beaker
 		if("remove")
 			var/amount = text2num(params["amount"])
 			if(!beaker || !amount)
@@ -227,7 +228,7 @@
 			if(Adjacent(usr) && !issilicon(usr))
 				usr.put_in_hands(beaker)
 			beaker = null
-			overlays.Cut()
+			update_icon()
 		else
 			return FALSE
 
@@ -256,10 +257,7 @@
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
 		SStgui.update_uis(src) // update all UIs attached to src
-		if(!icon_beaker)
-			icon_beaker = mutable_appearance('icons/obj/chemical.dmi', "disp_beaker") //randomize beaker overlay position.
-		icon_beaker.pixel_x = rand(-10, 5)
-		overlays += icon_beaker
+		update_icon()
 		return
 	return ..()
 
@@ -320,6 +318,19 @@
 	if(stat & BROKEN)
 		return
 	ui_interact(user)
+
+/obj/machinery/chem_dispenser/AltClick(mob/user)
+	if(!is_drink || !Adjacent(user))
+		return
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(anchored)
+		to_chat(user, "<span class='warning'>[src] is anchored to the floor!</span>")
+		return
+	pixel_x = 0
+	pixel_y = 0
+	setDir(turn(dir, 90))
 
 /obj/machinery/chem_dispenser/soda
 	icon_state = "soda_dispenser"
@@ -437,24 +448,26 @@
 	switch(mode)
 		if("dispense")
 			var/free = target.reagents.maximum_volume - target.reagents.total_volume
-			var/actual = min(amount, cell.charge / efficiency, free)
-			target.reagents.add_reagent(current_reagent, actual)
-			cell.charge -= actual / efficiency
+			var/actual = min(amount, round(cell.charge * efficiency), free)
 			if(actual)
-				to_chat(user, "<span class='notice'>You dispense [amount] units of [current_reagent] into the [target].</span>")
-			update_icon()
+				target.reagents.add_reagent(current_reagent, actual)
+				cell.charge -= actual / efficiency
+				to_chat(user, "<span class='notice'>You dispense [actual] unit\s of [current_reagent] into [target].</span>")
+				update_icon()
+			else if(free) // If actual is nil and there's still free space, it means we're out of juice
+				to_chat(user, "<span class='warning'>Insufficient energy to complete operation.</span>")
 		if("remove")
 			if(!target.reagents.remove_reagent(current_reagent, amount))
-				to_chat(user, "<span class='notice'>You remove [amount] units of [current_reagent] from the [target].</span>")
+				to_chat(user, "<span class='notice'>You remove [amount] unit\s of [current_reagent] from [target].</span>")
 		if("isolate")
 			if(!target.reagents.isolate_reagent(current_reagent))
-				to_chat(user, "<span class='notice'>You remove all but the [current_reagent] from the [target].</span>")
+				to_chat(user, "<span class='notice'>You remove all but [current_reagent] from [target].</span>")
 
 /obj/item/handheld_chem_dispenser/attack_self(mob/user)
 	if(cell)
 		ui_interact(user)
 	else
-		to_chat(user, "<span class='warning'>The [src] lacks a power cell!</span>")
+		to_chat(user, "<span class='warning'>[src] lacks a power cell!</span>")
 
 
 /obj/item/handheld_chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
@@ -494,7 +507,7 @@
 	. = TRUE
 	switch(action)
 		if("amount")
-			amount = clamp(round(text2num(params["amount"])), 0, 50) // round to nearest 1 and clamp to 0 - 50
+			amount = clamp(round(text2num(params["amount"])), 1, 50) // round to nearest 1 and clamp to 1 - 50
 		if("dispense")
 			if(params["reagent"] in dispensable_reagents)
 				current_reagent = params["reagent"]
@@ -570,7 +583,7 @@
 		cell.update_icon()
 		cell.loc = get_turf(src)
 		cell = null
-		to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
+		to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
 		update_icon()
 		return
 	..()

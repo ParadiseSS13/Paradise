@@ -65,7 +65,7 @@
 /datum/action/innate/diona/evolve
 	name = "Evolve"
 	icon_icon = 'icons/obj/cloning.dmi'
-	button_icon_state = "pod_1"
+	button_icon_state = "pod_cloning"
 
 /datum/action/innate/diona/evolve/Activate()
 	var/mob/living/simple_animal/diona/user = owner
@@ -90,7 +90,7 @@
 	evolve_action.Grant(src)
 	steal_blood_action.Grant(src)
 
-/mob/living/simple_animal/diona/UnarmedAttack(var/atom/A)
+/mob/living/simple_animal/diona/UnarmedAttack(atom/A)
 	if(isdiona(A) && (src in A.contents)) //can't attack your gestalt
 		visible_message("[src] wiggles around a bit.")
 	else
@@ -108,6 +108,8 @@
 			to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
 			throw_alert(gestalt_alert, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
 			forceMove(M)
+		else if(isrobot(M))
+			M.visible_message("<span class='notice'>[M] playfully boops [src] on the head!</span>", "<span class='notice'>You playfully boop [src] on the head!</span>")
 		else
 			get_scooped(M)
 	else

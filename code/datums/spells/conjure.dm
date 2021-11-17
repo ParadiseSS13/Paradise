@@ -44,9 +44,7 @@
 				summoned_object.admin_spawned = TRUE
 
 				if(summon_lifespan)
-					spawn(summon_lifespan)
-						if(summoned_object)
-							qdel(summoned_object)
+					QDEL_IN(summoned_object, summon_lifespan)
 	else
 		switch(charge_type)
 			if("recharge")

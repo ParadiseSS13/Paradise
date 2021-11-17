@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 	new/datum/stack_recipe("bloated human costume head", /obj/item/clothing/head/human_head, 5, on_floor = TRUE), \
 	))
 
-/obj/item/stack/sheet/animalhide/human/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/animalhide/human/New(loc, amount=null)
 	recipes = GLOB.human_recipes
 	return ..()
 
@@ -144,7 +144,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	new/datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/sinew, 1, on_floor = 1), \
 	))
 
-/obj/item/stack/sheet/sinew/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/sinew/New(loc, amount=null)
 	recipes = GLOB.sinew_recipes
 	return ..()
 
@@ -170,8 +170,8 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	if(is_type_in_typecache(target, goliath_platable_armor_typecache))
 		var/obj/item/clothing/C = target
 		var/datum/armor/current_armor = C.armor
-		if(current_armor.getRating("melee") < 60)
-			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating("melee") + 10, 60))
+		if(current_armor.getRating(MELEE) < 60)
+			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 10, 60))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			use(1)
 		else
@@ -180,9 +180,9 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		var/obj/mecha/working/ripley/D = target
 		if(D.hides < 3)
 			D.hides++
-			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating("melee") + 10, 70))
-			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating("bullet") + 5, 50))
-			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating("laser") + 5, 50))
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
+			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 5, 50))
+			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 5, 50))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			D.update_icon()
 			if(D.hides == 3)

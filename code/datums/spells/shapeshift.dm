@@ -73,13 +73,21 @@
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/dragon
 	name = "Dragon Form"
-	desc = "Take on the shape a lesser ash drake."
-	invocation = "RAAAAAAAAWR!"
+	desc = "Take on the shape a lesser ash drake after a short delay."
+	invocation = "*scream"
 
 	shapeshift_type = /mob/living/simple_animal/hostile/megafauna/dragon/lesser
 	current_shapes = list(/mob/living/simple_animal/hostile/megafauna/dragon/lesser)
 	current_casters = list()
 	possible_shapes = list(/mob/living/simple_animal/hostile/megafauna/dragon/lesser)
+
+/obj/effect/proc_holder/spell/targeted/shapeshift/dragon/Shapeshift(mob/living/caster)
+	caster.visible_message("<span class='danger'>[caster] screams in agony as bones and claws erupt out of their flesh!</span>",
+		"<span class='danger'>You begin channeling the transformation.</span>")
+	if(!do_after(caster, 5 SECONDS, FALSE, caster))
+		to_chat(caster, "<span class='warning'>You lose concentration of the spell!</span>")
+		return
+	return ..()
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/bats
 	name = "Bat Form"
@@ -87,11 +95,12 @@
 	invocation = "none"
 	invocation_type = "none"
 	action_icon_state = "vampire_bats"
+	gain_desc = "You have gained the ability to shapeshift into bat form. This is a weak form with no abilities, only useful for stealth."
 
-	shapeshift_type = /mob/living/simple_animal/hostile/scarybat/batswarm
-	current_shapes = list(/mob/living/simple_animal/hostile/scarybat/batswarm)
+	shapeshift_type = /mob/living/simple_animal/hostile/scarybat/adminvampire
+	current_shapes = list(/mob/living/simple_animal/hostile/scarybat/adminvampire)
 	current_casters = list()
-	possible_shapes = list(/mob/living/simple_animal/hostile/scarybat/batswarm)
+	possible_shapes = list(/mob/living/simple_animal/hostile/scarybat/adminvampire)
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/hellhound
 	name = "Lesser Hellhound Form"
@@ -100,6 +109,7 @@
 	invocation_type = "none"
 	action_background_icon_state = "bg_demon"
 	action_icon_state = "glare"
+	gain_desc = "You have gained the ability to shapeshift into lesser hellhound form. This is a combat form with different abilities, tough but not invincible. It can regenerate itself over time by resting."
 
 	shapeshift_type = /mob/living/simple_animal/hostile/hellhound
 	current_shapes = list(/mob/living/simple_animal/hostile/hellhound)

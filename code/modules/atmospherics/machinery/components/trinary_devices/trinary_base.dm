@@ -3,7 +3,6 @@
 	initialize_directions = SOUTH|NORTH|WEST
 	use_power = IDLE_POWER_USE
 
-	var/on = 0
 	layer = GAS_FILTER_LAYER
 
 	var/datum/gas_mixture/air1
@@ -190,7 +189,7 @@
 	else if(Old == parent3)
 		parent3 = New
 
-/obj/machinery/atmospherics/trinary/unsafe_pressure_release(var/mob/user,var/pressures)
+/obj/machinery/atmospherics/trinary/unsafe_pressure_release(mob/user, pressures)
 	..()
 
 	var/turf/T = get_turf(src)

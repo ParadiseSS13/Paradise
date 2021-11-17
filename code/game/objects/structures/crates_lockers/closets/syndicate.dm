@@ -2,9 +2,7 @@
 	name = "armoury closet"
 	desc = "Why is this here?"
 	icon_state = "syndicate"
-	icon_closed = "syndicate"
-	icon_opened = "syndicateopen"
-
+	open_door_sprite = "syndicate_door"
 
 /obj/structure/closet/syndicate/personal
 	desc = "It's a storage unit for operative gear."
@@ -23,7 +21,7 @@
 /obj/structure/closet/syndicate/suits/populate_contents()
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/clothing/suit/space/hardsuit/syndi(src)
-	new /obj/item/tank/jetpack/oxygen/harness(src)
+	new /obj/item/tank/internals/oxygen/red(src)
 
 /obj/structure/closet/syndicate/nuclear
 	desc = "It's a storage unit for a Syndicate boarding party."
@@ -37,6 +35,7 @@
 	new /obj/item/storage/box/teargas(src)
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/storage/backpack/duffel/syndie/med(src)
+	new /obj/item/tank/jetpack/oxygen/harness(src)
 	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
 	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
 	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
@@ -50,7 +49,7 @@
 /obj/structure/closet/syndicate/sst/populate_contents()
 	new /obj/item/ammo_box/magazine/mm556x45(src)
 	new /obj/item/gun/projectile/automatic/l6_saw(src)
-	new /obj/item/tank/jetpack/oxygen/harness(src)
+	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/storage/belt/military/sst(src)
 	new /obj/item/clothing/glasses/thermal(src)
 	new /obj/item/clothing/shoes/magboots/syndie/advance(src)

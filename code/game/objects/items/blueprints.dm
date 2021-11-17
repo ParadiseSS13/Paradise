@@ -28,10 +28,10 @@
 				<small>[fluffnotice]</small><hr>"
 	switch(get_area_type())
 		if(AREA_SPACE)
-			text += "<p>According to the [src.name], you are now in <b>outer space</b>.  Hold your breath.</p> \
+			text += "<p>According to [src], you are now in <b>outer space</b>. Hold your breath.</p> \
 			<p><a href='?src=[UID()];create_area=1'>Mark this place as new area.</a></p>"
 		if(AREA_SPECIAL)
-			text += "<p>This place is not noted on the [src.name].</p>"
+			text += "<p>This place is not noted on [src].</p>"
 	return text
 
 
@@ -57,7 +57,7 @@
 	. = ..()
 	var/area/A = get_area()
 	if(get_area_type() == AREA_STATION)
-		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
+		. += "<p>According to [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
 	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
 	popup.set_content(.)
 	popup.open()
@@ -79,7 +79,7 @@
 	. = ..()
 	var/area/A = get_area()
 	if(get_area_type() == AREA_STATION)
-		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
+		. += "<p>According to [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
 	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
 	popup.set_content(.)
 	popup.open()
@@ -106,7 +106,7 @@
 	. = ..()
 	var/area/A = get_area()
 	if(get_area_type() == AREA_STATION)
-		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
+		. += "<p>According to [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
 		. += "<p>You may <a href='?src=[UID()];edit_area=1'> move an amendment</a> to the drawing.</p>"
 	if(!viewing)
 		. += "<p><a href='?src=[UID()];view_blueprints=1'>View structural data</a></p>"
@@ -169,7 +169,7 @@
 	return A
 
 
-/obj/item/areaeditor/proc/get_area_type(var/area/A = get_area())
+/obj/item/areaeditor/proc/get_area_type(area/A = get_area())
 	if(A.outdoors)
 		return AREA_SPACE
 	var/list/SPECIALS = list(
@@ -228,8 +228,8 @@
 		FD.CalculateAffectingAreas()
 
 	interact()
-	message_admins("A new room was made by [ADMIN_LOOKUPFLW(usr)] at [ADMIN_VERBOSEJMP(src)] with the name [str]")
-	log_game("A new room was made by [key_name(usr)] at [AREACOORD(src)] with the name [str]")
+	message_admins("A new room was made by [key_name_admin(usr)] at [ADMIN_VERBOSEJMP(usr)] with the name [str]")
+	log_game("A new room was made by [key_name(usr)] at [AREACOORD(usr)] with the name [str]")
 	area_created = TRUE
 	return area_created
 
@@ -250,12 +250,12 @@
 			FD.CalculateAffectingAreas()
 	to_chat(usr, "<span class='notice'>You rename the '[prevname]' to '[str]'.</span>")
 	interact()
-	message_admins("A room was renamed by [ADMIN_LOOKUPFLW(usr)] at [ADMIN_VERBOSEJMP(usr)] changing the name from [prevname] to [str]")
+	message_admins("A room was renamed by [key_name_admin(usr)] at [ADMIN_VERBOSEJMP(usr)] changing the name from [prevname] to [str]")
 	log_game("A room was renamed by [key_name(usr)] at [AREACOORD(usr)] changing the name from [prevname] to [str] ")
 	return 1
 
 
-/obj/item/areaeditor/proc/set_area_machinery_title(var/area/A,var/title,var/oldtitle)
+/obj/item/areaeditor/proc/set_area_machinery_title(area/A, title, oldtitle)
 	if(!oldtitle) // or replacetext goes to infinite loop
 		return
 	for(var/obj/machinery/alarm/M in A)
@@ -270,7 +270,7 @@
 		M.name = replacetext(M.name,oldtitle,title)
 	//TODO: much much more. Unnamed airlocks, cameras, etc.
 
-/obj/item/areaeditor/proc/check_tile_is_border(var/turf/T2,var/dir)
+/obj/item/areaeditor/proc/check_tile_is_border(turf/T2, dir)
 	if(istype(T2, /turf/space))
 		return BORDER_SPACE //omg hull breach we all going to die here
 	if(get_area_type(T2.loc)!=AREA_SPACE)
@@ -298,7 +298,7 @@
 	return BORDER_NONE
 
 
-/obj/item/areaeditor/proc/detect_room(var/turf/first)
+/obj/item/areaeditor/proc/detect_room(turf/first)
 	var/list/turf/found = new
 	var/list/turf/pending = list(first)
 	while(pending.len)
@@ -341,4 +341,3 @@
 	fluffnotice = "Intellectual Property of Nanotrasen. For use in engineering cyborgs only. Wipe from memory upon departure from the station."
 
 /obj/item/areaeditor/blueprints/ce
-

@@ -1,6 +1,6 @@
 #define EMPOWERED_THRALL_LIMIT 5
 
-/obj/effect/proc_holder/spell/proc/shadowling_check(var/mob/living/carbon/human/H)
+/obj/effect/proc_holder/spell/proc/shadowling_check(mob/living/carbon/human/H)
 	if(!H || !istype(H))
 		return
 	if(H.incorporeal_move == 1)
@@ -418,7 +418,7 @@
 		qdel(B)
 
 /datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowlings/thralls
-	name = "odd black liquid"
+	name = "Odd black liquid"
 	id = "blindness_smoke"
 	description = "<::ERROR::> CANNOT ANALYZE REAGENT <::ERROR::>"
 	color = "#000000" //Complete black (RGB: 0, 0, 0)
@@ -513,7 +513,7 @@
 	target_apc.operating = 0
 	target_apc.update()
 	target_apc.update_icon()
-	target_apc.visible_message("<span class='warning'>The [target_apc] flickers and begins to grow dark.</span>")
+	target_apc.visible_message("<span class='warning'>[target_apc] flickers and begins to grow dark.</span>")
 
 	to_chat(user, "<span class='shadowling'>You dim the APC's screen and carefully begin siphoning its power into the void.</span>")
 	if(!do_after(user, 200, target=target_apc))
@@ -522,7 +522,7 @@
 		target_apc.operating = 1
 		target_apc.update()
 		target_apc.update_icon()
-		target_apc.visible_message("<span class='warning'>The [target_apc] begins glowing brightly!</span>")
+		target_apc.visible_message("<span class='warning'>[target_apc] begins glowing brightly!</span>")
 	else
 		//We did it!
 		to_chat(user, "<span class='shadowling'>You sent the APC's power to the void while overloading all it's lights!</span>")

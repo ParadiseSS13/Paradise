@@ -4,7 +4,7 @@
 	name = "necropolis chest"
 	desc = "It's watching you closely."
 	icon_state = "necrocrate"
-	icon_opened = "necrocrateopen"
+	icon_opened = "necrocrate_open"
 	icon_closed = "necrocrate"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
@@ -12,7 +12,7 @@
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/populate_contents()
-	var/loot = rand(1, 27)
+	var/loot = rand(1, 26)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
@@ -32,9 +32,9 @@
 			new /obj/item/bedsheet/cult(src)
 		if(8)
 			if(prob(50))
-				new /obj/item/disk/design_disk/modkit_disc/resonator_blast(src)
+				new /obj/item/disk/design_disk/modkit_disk/resonator_blast(src)
 			else
-				new /obj/item/disk/design_disk/modkit_disc/rapid_repeater(src)
+				new /obj/item/disk/design_disk/modkit_disk/rapid_repeater(src)
 		if(9)
 			new /obj/item/rod_of_asclepius(src)
 		if(10)
@@ -44,38 +44,36 @@
 		if(12)
 			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/berserker(src)
 		if(13)
-			new /obj/item/jacobs_ladder(src)
-		if(14)
 			new /obj/item/nullrod/scythe/talking(src)
+		if(14)
+			new /obj/item/nullrod/armblade/mining(src)
 		if(15)
-			new /obj/item/nullrod/armblade(src)
-		if(16)
 			new /obj/item/guardiancreator(src)
-		if(17)
+		if(16)
 			if(prob(50))
-				new /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe(src)
+				new /obj/item/disk/design_disk/modkit_disk/mob_and_turf_aoe(src)
 			else
-				new /obj/item/disk/design_disk/modkit_disc/bounty(src)
-		if(18)
+				new /obj/item/disk/design_disk/modkit_disk/bounty(src)
+		if(17)
 			new /obj/item/warp_cube/red(src)
-		if(19)
+		if(18)
 			new /obj/item/wisp_lantern(src)
-		if(20)
+		if(19)
 			new /obj/item/immortality_talisman(src)
-		if(21)
+		if(20)
 			new /obj/item/gun/magic/hook(src)
-		if(22)
+		if(21)
 			new /obj/item/voodoo(src)
-		if(23)
+		if(22)
 			new /obj/item/grenade/clusterbuster/inferno(src)
-		if(24)
+		if(23)
 			new /obj/item/reagent_containers/food/drinks/bottle/holywater/hell(src)
 			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor(src)
-		if(25)
+		if(24)
 			new /obj/item/spellbook/oneuse/summonitem(src)
-		if(26)
+		if(25)
 			new /obj/item/book_of_babel(src)
-		if(27)
+		if(26)
 			new /obj/item/borg/upgrade/modkit/lifesteal(src)
 			new /obj/item/bedsheet/cult(src)
 
@@ -93,30 +91,30 @@
 			new /obj/item/prisoncube(src)
 
 //KA modkit design discs
-/obj/item/disk/design_disk/modkit_disc
-	name = "KA Mod Disk"
-	desc = "A design disc containing the design for a unique kinetic accelerator modkit. It's compatible with a research console."
+/obj/item/disk/design_disk/modkit_disk
+	name = "\improper KA mod disk"
+	desc = "A design disk containing the design for a unique kinetic accelerator modkit. It's compatible with a research console."
 	icon_state = "datadisk1"
 	var/modkit_design = /datum/design/unique_modkit
 
-/obj/item/disk/design_disk/modkit_disc/New()
+/obj/item/disk/design_disk/modkit_disk/New()
 	. = ..()
 	blueprint = new modkit_design
 
-/obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe
-	name = "Offensive Mining Explosion Mod Disk"
+/obj/item/disk/design_disk/modkit_disk/mob_and_turf_aoe
+	name = "\improper KA mod disk (Offensive mining explosion)"
 	modkit_design = /datum/design/unique_modkit/offensive_turf_aoe
 
-/obj/item/disk/design_disk/modkit_disc/rapid_repeater
-	name = "Rapid Repeater Mod Disk"
+/obj/item/disk/design_disk/modkit_disk/rapid_repeater
+	name = "\improper KA mod disk (Rapid repeater)"
 	modkit_design = /datum/design/unique_modkit/rapid_repeater
 
-/obj/item/disk/design_disk/modkit_disc/resonator_blast
-	name = "Resonator Blast Mod Disk"
+/obj/item/disk/design_disk/modkit_disk/resonator_blast
+	name = "\improper KA mod disk (Resonator blast)"
 	modkit_design = /datum/design/unique_modkit/resonator_blast
 
-/obj/item/disk/design_disk/modkit_disc/bounty
-	name = "Death Syphon Mod Disk"
+/obj/item/disk/design_disk/modkit_disk/bounty
+	name = "\improper KA mod disk (Death syphon)"
 	modkit_design = /datum/design/unique_modkit/bounty
 
 /datum/design/unique_modkit

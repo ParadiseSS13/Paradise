@@ -311,7 +311,7 @@
 	var/packagesAmt = SSshuttle.shoppinglist.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
 	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
-	slip.info = "<h3>[command_name()] Shipping Manifest</h3><hr><br>"
+	slip.info = "<h3>NAS Trurl Shipping Manifest</h3><hr><br>"
 	slip.info +="Order: #[ordernum]<br>"
 	slip.info +="Destination: [stationName]<br>"
 	slip.info +="Requested By: [orderedby]<br>"
@@ -399,10 +399,10 @@
 	req_access = list()
 	is_public = TRUE
 
-/obj/machinery/computer/supplycomp/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/supplycomp/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/supplycomp/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/supplycomp/attack_hand(mob/user as mob)
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return 1
@@ -528,7 +528,6 @@
 					return
 				amount = clamp(round(num_input), 1, 20)
 
-
 			var/datum/supply_packs/P = locateUID(params["crate"])
 			if(!istype(P))
 				return
@@ -607,7 +606,7 @@
 			ccmsg_browser.set_content(SSshuttle.centcom_message)
 			ccmsg_browser.open()
 
-/obj/machinery/computer/supplycomp/proc/post_signal(var/command)
+/obj/machinery/computer/supplycomp/proc/post_signal(command)
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
 
 	if(!frequency) return

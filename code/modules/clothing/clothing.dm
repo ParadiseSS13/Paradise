@@ -101,7 +101,7 @@
 
 	return 1
 
-/obj/item/clothing/proc/refit_for_species(var/target_species)
+/obj/item/clothing/proc/refit_for_species(target_species)
 	//Set species_restricted list
 	switch(target_species)
 		if("Human", "Skrell")	//humanoid bodytypes
@@ -134,8 +134,8 @@
 	slot_flags = SLOT_EARS
 	resistance_flags = NONE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/ears.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/ears.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/ears.dmi'
 		) //We read you loud and skree-er.
 
 /obj/item/clothing/ears/attack_hand(mob/user)
@@ -181,7 +181,7 @@
 	icon_state = "block"
 	slot_flags = SLOT_EARS | SLOT_TWOEARS
 
-/obj/item/clothing/ears/offear/New(var/obj/O)
+/obj/item/clothing/ears/offear/New(obj/O)
 	. = ..()
 	name = O.name
 	desc = O.desc
@@ -262,8 +262,8 @@ BLIND     // can't see anything
 	put_on_delay = 40
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/gloves.dmi',
-		"Drask" = 'icons/mob/species/drask/gloves.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi'
 		)
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
@@ -379,7 +379,7 @@ BLIND     // can't see anything
 	put_on_delay = 40
 
 //Proc that moves gas/breath masks out of the way
-/obj/item/clothing/mask/proc/adjustmask(var/mob/user)
+/obj/item/clothing/mask/proc/adjustmask(mob/user)
 	var/mob/living/carbon/human/H = usr //Used to check if the mask is on the head, to check if the hands are full, and to turn off internals if they were on when the mask was pushed out of the way.
 	if(user.incapacitated()) //This check allows you to adjust your masks while you're buckled into chairs or beds.
 		return
@@ -403,8 +403,7 @@ BLIND     // can't see anything
 			if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
 				user.unEquip(src)
 			else //Otherwise, put it in an available hand, the active one preferentially.
-				src.loc = user
-				H.head = null
+				user.unEquip(src)
 				user.put_in_hands(src)
 	else
 		icon_state += "_up"
@@ -429,8 +428,7 @@ BLIND     // can't see anything
 			if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
 				user.unEquip(src)
 			else //Otherwise, put it in an available hand, the active one preferentially.
-				src.loc = user
-				user.wear_mask = null
+				user.unEquip(src)
 				user.put_in_hands(src)
 	H.wear_mask_update(src, toggle_off = mask_adjusted)
 	usr.update_inv_wear_mask()
@@ -438,6 +436,10 @@ BLIND     // can't see anything
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+
+// Changes the speech verb when wearing a mask if a value is returned
+/obj/item/clothing/mask/proc/change_speech_verb()
+    return
 
 //Shoes
 /obj/item/clothing/shoes
@@ -458,18 +460,20 @@ BLIND     // can't see anything
 	slowdown = SHOES_SLOWDOWN
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/shoes.dmi',
-		"Drask" = 'icons/mob/species/drask/shoes.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/shoes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/shoes.dmi'
 		)
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
 		var/obj/item/match/M = I
-		if(M.matchignite()) // Match isn't lit, but isn't burnt.
-			user.visible_message("<span class='warning'>[user] strikes a [M] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike the [M] on the bottom of [src] to light it.</span>")
+		if(!M.lit && !M.burnt) // Match isn't lit, but isn't burnt.
+			user.visible_message("<span class='warning'>[user] strikes a [M] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike [M] on the bottom of [src] to light it.</span>")
+			M.matchignite()
 			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
-		else
-			user.visible_message("<span class='warning'>[user] crushes the [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush the [M] into the bottom of [src], extinguishing it.</span>")
+			return
+		if(M.lit && !M.burnt)
+			user.visible_message("<span class='warning'>[user] crushes [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush [M] into the bottom of [src], extinguishing it.</span>")
 			M.dropped()
 		return
 
@@ -495,11 +499,11 @@ BLIND     // can't see anything
 
 //Suit
 /obj/item/clothing/suit
-	icon = 'icons/obj/clothing/suits.dmi'
 	name = "suit"
+	icon = 'icons/obj/clothing/suits.dmi'
 	var/fire_resist = T0C+100
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	slot_flags = SLOT_OCLOTHING
@@ -511,7 +515,7 @@ BLIND     // can't see anything
 	var/list/hide_tail_by_species = null
 
 //Proc that opens and closes jackets.
-/obj/item/clothing/suit/proc/adjustsuit(var/mob/user)
+/obj/item/clothing/suit/proc/adjustsuit(mob/user)
 	if(!ignore_suitadjust)
 		if(!user.incapacitated())
 			if(!HAS_TRAIT(user, TRAIT_HULK))
@@ -559,7 +563,7 @@ BLIND     // can't see anything
 	else
 		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how foolish you are.</span>")
 
-/obj/item/clothing/suit/equipped(var/mob/living/carbon/human/user, var/slot) //Handle tail-hiding on a by-species basis.
+/obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot) //Handle tail-hiding on a by-species basis.
 	..()
 	if(ishuman(user) && hide_tail_by_species && slot == slot_wear_suit)
 		if(user.dna.species.name in hide_tail_by_species)
@@ -582,7 +586,7 @@ BLIND     // can't see anything
 //Note: Everything in modules/clothing/spacesuits should have the entire suit grouped together.
 //      Meaning the the suit is defined directly after the corrisponding helmet. Just like below!
 /obj/item/clothing/head/helmet/space
-	name = "Space helmet"
+	name = "space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
 	w_class = WEIGHT_CLASS_NORMAL
@@ -590,7 +594,7 @@ BLIND     // can't see anything
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	item_state = "s_helmet"
 	permeability_coefficient = 0.01
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -605,7 +609,7 @@ BLIND     // can't see anything
 
 
 /obj/item/clothing/suit/space
-	name = "Space suit"
+	name = "space suit"
 	desc = "A suit that protects against low pressure environments. Has a big 13 on the back."
 	icon_state = "space"
 	item_state = "s_suit"
@@ -616,7 +620,7 @@ BLIND     // can't see anything
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	slowdown = 1
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -627,7 +631,9 @@ BLIND     // can't see anything
 	resistance_flags = NONE
 	hide_tail_by_species = null
 	species_restricted = list("exclude","Wryn")
-
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
 
 //Under clothing
 /obj/item/clothing/under
@@ -636,15 +642,15 @@ BLIND     // can't see anything
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
 	slot_flags = SLOT_ICLOTHING
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi',
-		"Drask" = 'icons/mob/species/drask/uniform.dmi',
-		"Grey" = 'icons/mob/species/grey/uniform.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi'
 		)
 
 	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode
@@ -737,7 +743,7 @@ BLIND     // can't see anything
 	if(!usr.incapacitated())
 		if(copytext(item_color,-2) != "_d")
 			basecolor = item_color
-		if((basecolor + "_d_s") in icon_states('icons/mob/uniform.dmi'))
+		if((basecolor + "_d_s") in icon_states('icons/mob/clothing/uniform.dmi'))
 			item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 			usr.update_inv_w_uniform()
 		else
@@ -791,7 +797,7 @@ BLIND     // can't see anything
 	handle_accessories_removal()
 
 /obj/item/clothing/obj_destruction(damage_flag)
-	if(damage_flag == "bomb" || damage_flag == "melee")
+	if(damage_flag == BOMB || damage_flag == MELEE)
 		var/turf/T = get_turf(src)
 		spawn(1) //so the shred survives potential turf change from the explosion.
 			var/obj/effect/decal/cleanable/shreds/Shreds = new(T)

@@ -6,7 +6,7 @@
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = ACID_PROOF
-	armor = list("melee" = 30, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 100)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 100)
 	max_integrity = 200
 	integrity_failure = 50
 	var/obj/item/showpiece = null
@@ -35,10 +35,20 @@
 	QDEL_NULL(showpiece)
 	return ..()
 
+/obj/structure/displaycase/emag_act(mob/user)
+	if(!emagged)
+		to_chat(user, "<span class='warning'>You override the ID lock on [src].</span>")
+		trigger_alarm()
+
+		emagged = TRUE
+		toggle_lock()
+
 /obj/structure/displaycase/examine(mob/user)
 	. = ..()
 	if(alert)
 		. += "<span class='notice'>Hooked up with an anti-theft system.</span>"
+	if(emagged)
+		. += "<span class='warning'>The ID lock has been shorted out.</span>"
 	if(showpiece)
 		. += "<span class='notice'>There's [showpiece] inside.</span>"
 	if(trophy_message)
@@ -100,13 +110,13 @@
 
 /obj/structure/displaycase/attackby(obj/item/I, mob/user, params)
 	if(I.GetID() && !broken && openable)
-		if(allowed(user))
-			to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
-			toggle_lock(user)
+		if(allowed(user) || emagged)
+			to_chat(user, "<span class='notice'>You [open ? "close":"open"] [src].</span>")
+			toggle_lock()
 		else
-			to_chat(user,  "<span class='warning'>Access denied.</span>")
+			to_chat(user, "<span class='warning'>Access denied.</span>")
 	else if(open && !showpiece)
-		if(user.drop_item())
+		if(!(I.flags & (ABSTRACT | DROPDEL)) && user.drop_item())
 			I.forceMove(src)
 			showpiece = I
 			to_chat(user, "<span class='notice'>You put [I] on display</span>")
@@ -142,14 +152,14 @@
 		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 			return
 		to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
-		toggle_lock(user)
+		toggle_lock()
 
 /obj/structure/displaycase/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(default_welder_repair(user, I))
 		broken = FALSE
 
-/obj/structure/displaycase/proc/toggle_lock(mob/user)
+/obj/structure/displaycase/proc/toggle_lock()
 	open = !open
 	update_icon()
 

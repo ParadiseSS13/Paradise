@@ -9,7 +9,7 @@
 	throwforce = 7
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	/// How many life ticks does the stun last for
 	var/stunforce = 7
 	/// Is the baton currently turned on
@@ -25,16 +25,30 @@
 	update_icon()
 
 /obj/item/melee/baton/loaded/Initialize(mapload) //this one starts with a cell pre-installed.
-	if(isrobot(loc.loc)) // First loc would be the module
+	link_new_cell()
+	return ..()
+
+/obj/item/melee/baton/Destroy()
+	if(cell?.loc == src)
+		QDEL_NULL(cell)
+	return ..()
+
+/**
+ * Updates the linked power cell on the baton.
+ *
+ * If the baton is held by a cyborg, link it to their internal cell.
+ * Else, spawn a new cell and use that instead.
+ * Arguments:
+ * * unlink - If TRUE, sets the `cell` variable to `null` rather than linking it to a new one.
+ */
+/obj/item/melee/baton/proc/link_new_cell(unlink = FALSE)
+	if(unlink)
+		cell = null
+	else if(isrobot(loc.loc)) // First loc is the module
 		var/mob/living/silicon/robot/R = loc.loc
 		cell = R.cell
 	else
 		cell = new(src)
-	return ..()
-
-/obj/item/melee/baton/Destroy()
-	QDEL_NULL(cell)
-	return ..()
 
 /obj/item/melee/baton/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -57,6 +71,11 @@
 	else
 		. += "<span class='warning'>The baton does not have a power source installed.</span>"
 
+/obj/item/melee/baton/detailed_examine()
+	return "The baton needs to be turned on to apply the stunning effect. Use it in your hand to toggle it on or off.  If your intent is \
+			set to 'harm', you will inflict damage when using it, regardless if it is on or not. Each stun reduces the baton's charge, which can be replenished by \
+			putting it inside a weapon recharger."
+
 /obj/item/melee/baton/get_cell()
 	return cell
 
@@ -76,6 +95,10 @@
 	if(!cell)
 		return
 	cell.use(amount)
+	if(cell.rigged)
+		cell = null
+		turned_on = FALSE
+		update_icon()
 	if(cell.charge < (hitcost)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 		turned_on = FALSE
 		update_icon()
@@ -135,7 +158,7 @@
 		deductcharge(hitcost)
 		return
 
-	if(isrobot(M)) // Can't stunbaton borgs
+	if(issilicon(M)) // Can't stunbaton borgs and AIs
 		return ..()
 
 	if(!isliving(M))

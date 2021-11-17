@@ -84,10 +84,6 @@
 	new /obj/structure/table/wood(loc)
 	qdel(src)
 
-/obj/structure/table/ratvar_act()
-	new /obj/structure/table/reinforced/brass(loc)
-	qdel(src)
-
 /obj/structure/table/do_climb(mob/living/user)
 	. = ..()
 	item_placed(user)
@@ -112,25 +108,27 @@
 
 /obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
-		return 1
+		return TRUE
 	if(istype(mover,/obj/item/projectile))
 		return (check_cover(mover,target))
 	if(ismob(mover))
 		var/mob/M = mover
 		if(M.flying)
-			return 1
+			return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
-		return 1
+		return TRUE
 	if(mover.throwing)
-		return 1
+		return TRUE
 	if(length(get_atoms_of_type(get_turf(mover), /obj/structure/table) - mover))
-		return 1
+		var/obj/structure/table/T = locate(/obj/structure/table) in get_turf(mover)
+		if(!T.flipped)
+			return TRUE
 	if(flipped)
 		if(get_dir(loc, target) == dir)
 			return !density
 		else
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/structure/table/CanAStarPass(ID, dir, caller)
 	. = !density
@@ -391,7 +389,7 @@
 	canSmoothWith = null
 	max_integrity = 70
 	resistance_flags = ACID_PROOF
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
 	var/list/debris = list()
 
 /obj/structure/table/glass/Initialize(mapload)
@@ -410,6 +408,10 @@
 		return
 	if(!isliving(AM))
 		return
+	var/mob/living/L = AM
+	if(L.incorporeal_move || L.flying || L.floating)
+		return
+
 	// Don't break if they're just flying past
 	if(AM.throwing)
 		addtimer(CALLBACK(src, .proc/throw_check, AM), 5)
@@ -496,24 +498,85 @@
 /obj/structure/table/wood/fancy
 	name = "fancy table"
 	desc = "A standard metal table frame covered with an amazingly fancy, patterned cloth."
-	icon = 'icons/obj/structures.dmi'
+	icon = 'icons/obj/smooth_structures/fancy_table.dmi'
 	icon_state = "fancy_table"
 	frame = /obj/structure/table_frame
 	framestack = /obj/item/stack/rods
 	buildstack = /obj/item/stack/tile/carpet
-	canSmoothWith = list(/obj/structure/table/wood/fancy, /obj/structure/table/wood/fancy/black)
+	canSmoothWith = list(/obj/structure/table/wood/fancy,
+						/obj/structure/table/wood/fancy/black,
+						/obj/structure/table/wood/fancy/blue,
+						/obj/structure/table/wood/fancy/cyan,
+						/obj/structure/table/wood/fancy/green,
+						/obj/structure/table/wood/fancy/orange,
+						/obj/structure/table/wood/fancy/purple,
+						/obj/structure/table/wood/fancy/red,
+						/obj/structure/table/wood/fancy/royalblack,
+						/obj/structure/table/wood/fancy/royalblue)
+	var/smooth_icon = 'icons/obj/smooth_structures/fancy_table.dmi'
 
-/obj/structure/table/wood/fancy/Initialize(mapload)
+/obj/structure/table/wood/fancy/flip(direction)
+	return FALSE
+
+/obj/structure/table/wood/fancy/Initialize()
 	. = ..()
-	icon = 'icons/obj/smooth_structures/fancy_table.dmi' //so that the tables place correctly in the map editor
+	icon = smooth_icon
 
 /obj/structure/table/wood/fancy/black
 	icon_state = "fancy_table_black"
 	buildstack = /obj/item/stack/tile/carpet/black
+	icon = 'icons/obj/smooth_structures/fancy_table_black.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_black.dmi'
 
-/obj/structure/table/wood/fancy/black/Initialize(mapload)
-	. = ..()
-	icon = 'icons/obj/smooth_structures/fancy_table_black.dmi' //so that the tables place correctly in the map editor
+
+/obj/structure/table/wood/fancy/blue
+	icon_state = "fancy_table_blue"
+	buildstack = /obj/item/stack/tile/carpet/blue
+	icon = 'icons/obj/smooth_structures/fancy_table_blue.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_blue.dmi'
+
+/obj/structure/table/wood/fancy/cyan
+	icon_state = "fancy_table_cyan"
+	buildstack = /obj/item/stack/tile/carpet/cyan
+	icon = 'icons/obj/smooth_structures/fancy_table_cyan.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_cyan.dmi'
+
+/obj/structure/table/wood/fancy/green
+	icon_state = "fancy_table_green"
+	buildstack = /obj/item/stack/tile/carpet/green
+	icon = 'icons/obj/smooth_structures/fancy_table_green.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_green.dmi'
+
+/obj/structure/table/wood/fancy/orange
+	icon_state = "fancy_table_orange"
+	buildstack = /obj/item/stack/tile/carpet/orange
+	icon = 'icons/obj/smooth_structures/fancy_table_orange.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_orange.dmi'
+
+/obj/structure/table/wood/fancy/purple
+	icon_state = "fancy_table_purple"
+	buildstack = /obj/item/stack/tile/carpet/purple
+	icon = 'icons/obj/smooth_structures/fancy_table_purple.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_purple.dmi'
+
+/obj/structure/table/wood/fancy/red
+	icon_state = "fancy_table_red"
+	buildstack = /obj/item/stack/tile/carpet/red
+	icon = 'icons/obj/smooth_structures/fancy_table_red.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_red.dmi'
+
+/obj/structure/table/wood/fancy/royalblack
+	icon_state = "fancy_table_royalblack"
+	buildstack = /obj/item/stack/tile/carpet/royalblack
+	icon = 'icons/obj/smooth_structures/fancy_table_royalblack.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_royalblack.dmi'
+
+
+/obj/structure/table/wood/fancy/royalblue
+	icon_state = "fancy_table_royalblue"
+	buildstack = /obj/item/stack/tile/carpet/royalblue
+	icon = 'icons/obj/smooth_structures/fancy_table_royalblue.dmi'
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_royalblue.dmi'
 
 /*
  * Reinforced tables
@@ -528,7 +591,7 @@
 	canSmoothWith = list(/obj/structure/table/reinforced, /obj/structure/table)
 	max_integrity = 200
 	integrity_failure = 50
-	armor = list("melee" = 10, "bullet" = 30, "laser" = 30, "energy" = 100, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 10, BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 20, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
 
 /obj/structure/table/reinforced/deconstruction_hints(mob/user)
 	if(deconstruction_ready)
@@ -571,9 +634,6 @@
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
 
-/obj/structure/table/reinforced/brass/ratvar_act()
-	obj_integrity = max_integrity
-
 /obj/structure/table/tray
 	name = "surgical tray"
 	desc = "A small metal tray with wheels."
@@ -591,7 +651,7 @@
 	verbs -= /obj/structure/table/verb/do_flip
 	typecache_can_hold = typecacheof(typecache_can_hold)
 	for(var/atom/movable/held in get_turf(src))
-		if(is_type_in_typecache(held, typecache_can_hold))
+		if(!held.anchored && held.move_resist != INFINITY && is_type_in_typecache(held, typecache_can_hold))
 			held_items += held.UID()
 
 /obj/structure/table/tray/Move(NewLoc, direct)
@@ -635,9 +695,6 @@
 	return 0
 
 /obj/structure/table/tray/narsie_act()
-	return 0
-
-/obj/structure/table/tray/ratvar_act()
 	return 0
 
 /*
@@ -712,7 +769,7 @@
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message("<span class='warning'>[user] kicks [src].</span>", \
 							 "<span class='danger'>You kick [src].</span>")
-	take_damage(rand(4,8), BRUTE, "melee", 1)
+	take_damage(rand(4,8), BRUTE, MELEE, 1)
 
 /obj/structure/rack/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

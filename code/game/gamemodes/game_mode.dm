@@ -1,3 +1,6 @@
+#define NUKE_INTACT 0
+#define NUKE_CORE_MISSING 1
+#define NUKE_MISSING 2
 /*
  * GAMEMODES (by Rastaf0)
  *
@@ -54,7 +57,7 @@
 		if((player.client)&&(player.ready))
 			playerC++
 
-	if(!config.enable_gamemode_player_limit || (playerC >= required_players))
+	if(!GLOB.configuration.gamemode.enable_gamemode_player_limit || (playerC >= required_players))
 		return 1
 	return 0
 
@@ -92,7 +95,7 @@
 // I wonder what this could do guessing by the name
 /datum/game_mode/proc/set_mode_in_db()
 	if(SSticker?.mode && SSdbcore.IsConnected())
-		var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery("UPDATE [format_table_name("round")] SET game_mode=:gm WHERE id=:rid", list(
+		var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery("UPDATE round SET game_mode=:gm WHERE id=:rid", list(
 			"gm" = SSticker.mode.name,
 			"rid" = GLOB.round_id
 		))
@@ -132,15 +135,15 @@
 						msg="Task #[count] completed! "
 				if(pay>0)
 					if(M.mind.initial_account)
-						M.mind.initial_account.credit(pay, "Payment", "\[CLASSIFIED\] Terminal #[rand(111,333)]", "[command_name()] Payroll")
+						M.mind.initial_account.credit(pay, "Payment", "\[CLASSIFIED\] Terminal #[rand(111,333)]", "NAS Trurl Payroll")
 						msg += "You have been sent the $[pay], as agreed."
 					else
 						msg += "However, we were unable to send you the $[pay] you're entitled."
 					if(useMS && P)
-						useMS.send_pda_message("[P.owner]", "[command_name()] Payroll", msg)
+						useMS.send_pda_message("[P.owner]", "NAS Trurl Payroll", msg)
 
 						var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
-						PM.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
+						PM.notify("<b>Message from NAS Trurl (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
 					break
 
 /datum/game_mode/proc/check_finished() //to be called by ticker
@@ -227,7 +230,7 @@
 /datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
 	return 0
 
-/datum/game_mode/proc/get_players_for_role(var/role, override_jobbans=0)
+/datum/game_mode/proc/get_players_for_role(role, override_jobbans=0)
 	var/list/players = list()
 	var/list/candidates = list()
 	//var/list/drafted = list()
@@ -238,7 +241,7 @@
 	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.client && player.ready && player.has_valid_preferences())
-			if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext))
+			if(!jobban_isbanned(player, ROLE_SYNDICATE) && !jobban_isbanned(player, roletext))
 				if(player_old_enough_antag(player.client,role))
 					players += player
 
@@ -248,7 +251,7 @@
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
 		if(!player.client.skip_antag)
-			if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
+			if((role in player.client.prefs.be_special) && !(player.client.prefs.active_character.species in protected_species))
 				player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
 				candidates += player.mind
 				players -= player
@@ -276,10 +279,10 @@
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
 
-/datum/game_mode/proc/latespawn(var/mob)
+/datum/game_mode/proc/latespawn(mob)
 
 /*
-/datum/game_mode/proc/check_player_role_pref(var/role, var/mob/player)
+/datum/game_mode/proc/check_player_role_pref(role, mob/player)
 	if(player.preferences.be_special & role)
 		return 1
 	return 0
@@ -406,7 +409,7 @@
 			to_chat(M, msg)
 
 //Announces objectives/generic antag text.
-/proc/show_generic_antag_text(var/datum/mind/player)
+/proc/show_generic_antag_text(datum/mind/player)
 	if(player.current)
 		to_chat(player.current, "You are an antagonist! <font color=blue>Within the rules,</font> \
 		try to act as an opposing force to the crew. Further RP and try to make sure \
@@ -415,7 +418,7 @@
 		Think through your actions and make the roleplay immersive! <b>Please remember all \
 		rules aside from those without explicit exceptions apply to antagonists.</b>")
 
-/proc/show_objectives(var/datum/mind/player)
+/proc/show_objectives(datum/mind/player)
 	if(!player || !player.current) return
 
 	var/obj_count = 1
@@ -424,7 +427,7 @@
 		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 
-/proc/get_roletext(var/role)
+/proc/get_roletext(role)
 	return role
 
 /proc/get_nuke_code()
@@ -433,6 +436,15 @@
 		if(bomb && bomb.r_code && is_station_level(bomb.z))
 			nukecode = bomb.r_code
 	return nukecode
+
+/proc/get_nuke_status()
+	var/nuke_status = NUKE_MISSING
+	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+		if(is_station_level(bomb.z))
+			nuke_status = NUKE_CORE_MISSING
+			if(bomb.core)
+				nuke_status = NUKE_INTACT
+	return nuke_status
 
 /datum/game_mode/proc/replace_jobbanned_player(mob/living/M, role_type)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [role_type]?", role_type, FALSE, 10 SECONDS)
@@ -451,7 +463,7 @@
 	var/jobtext = ""
 	if(ply.assigned_role)
 		jobtext = " the <b>[ply.assigned_role]</b>"
-	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext] and"
+	var/text = "<b>[ply.get_display_key()]</b> was <b>[ply.name]</b>[jobtext] and"
 	if(ply.current)
 		if(ply.current.stat == DEAD)
 			text += " <span class='redtext'>died</span>"
@@ -468,7 +480,7 @@
 	return text
 
 /proc/printeventplayer(datum/mind/ply)
-	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>"
+	var/text = "<b>[ply.get_display_key()]</b> was <b>[ply.name]</b>"
 	if(ply.special_role != SPECIAL_ROLE_EVENTMISC)
 		text += " the [ply.special_role]"
 	text += " and"
@@ -510,7 +522,7 @@
 
 /datum/game_mode/proc/send_station_goals_message()
 	var/message_text = "<div style='text-align:center;'><img src='ntlogo.png'>"
-	message_text += "<h3>[command_name()] Orders</h3></div><hr>"
+	message_text += "<h3>NAS Trurl Orders</h3></div><hr>"
 	message_text += "<b>Special Orders for [station_name()]:</b><br><br>"
 
 	for(var/datum/station_goal/G in station_goals)
@@ -518,7 +530,7 @@
 		message_text += G.get_report()
 		message_text += "<hr>"
 
-	print_command_report(message_text, "[command_name()] Orders", FALSE)
+	print_command_report(message_text, "NAS Trurl Orders", FALSE)
 
 /datum/game_mode/proc/declare_station_goal_completion()
 	for(var/V in station_goals)
@@ -534,3 +546,7 @@
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)
+
+#undef NUKE_INTACT
+#undef NUKE_CORE_MISSING
+#undef NUKE_MISSING

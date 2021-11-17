@@ -1,60 +1,65 @@
-/*
-		name
-		key
-		description
-		role
-		comments
-		ready = 0
-*/
+/datum/pai_save
+	/// Client that owns the pAI
+	var/client/owner
+	/// pAI's name
+	var/pai_name
+	/// pAI's description
+	var/description
+	/// pAI's role
+	var/role
+	/// pAI's OOC comments
+	var/ooc_comments
 
-/datum/paiCandidate/proc/savefile_path(mob/user)
-	return "data/player_saves/[copytext(user.ckey, 1, 2)]/[user.ckey]/pai.sav"
+/datum/pai_save/New(client/C)
+	..()
+	owner = C
 
-/datum/paiCandidate/proc/savefile_save(mob/user)
-	if(IsGuestKey(user.key))
-		return 0
+/datum/pai_save/Destroy(force, ...)
+	owner = null
+	GLOB.paiController.pai_candidates -= src
+	return ..()
 
-	var/savefile/F = new /savefile(src.savefile_path(user))
+// This proc seems useless but its used by client data loading
+/datum/pai_save/proc/get_query()
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT pai_name, description, preferred_role, ooc_comments FROM pai_saves WHERE ckey=:ckey", list(
+		"ckey" = owner.ckey
+	))
+	return query
 
+// Loads our data up
+/datum/pai_save/proc/load_data(datum/db_query/Q)
+	while(Q.NextRow())
+		pai_name = Q.item[1]
+		description = Q.item[2]
+		role = Q.item[3]
+		ooc_comments = Q.item[4]
 
-	F["name"] << src.name
-	F["description"] << src.description
-	F["role"] << src.role
-	F["comments"] << src.comments
+// Reload save from DB if the user edits it
+/datum/pai_save/proc/reload_save()
+	var/datum/db_query/Q = get_query()
+	if(!Q.warn_execute())
+		qdel(Q)
+		return
+	load_data(Q)
+	qdel(Q)
 
-	F["version"] << 1
+// Save their save to the DB
+/datum/pai_save/proc/save_to_db()
+	var/datum/db_query/query = SSdbcore.NewQuery({"
+		INSERT INTO pai_saves (ckey, pai_name, description, preferred_role, ooc_comments)
+			VALUES (:ckey, :pai_name, :description, :preferred_role, :ooc_comments)
+			ON DUPLICATE KEY UPDATE pai_name=:pai_name2, description=:description2, preferred_role=:preferred_role2, ooc_comments=:ooc_comments2
+		"}, list(
+		"ckey" = owner.ckey,
+		"pai_name" = pai_name,
+		"description" = description,
+		"preferred_role" = role,
+		"ooc_comments" = ooc_comments,
+		"pai_name2" = pai_name,
+		"description2" = description,
+		"preferred_role2" = role,
+		"ooc_comments2" = ooc_comments
+	))
 
-	return 1
-
-// loads the savefile corresponding to the mob's ckey
-// if silent=true, report incompatible savefiles
-// returns 1 if loaded (or file was incompatible)
-// returns 0 if savefile did not exist
-
-/datum/paiCandidate/proc/savefile_load(mob/user, var/silent = 1)
-	if(IsGuestKey(user.key))
-		return 0
-
-	var/path = savefile_path(user)
-
-	if(!fexists(path))
-		return 0
-
-	var/savefile/F = new /savefile(path)
-
-	if(!F) return //Not everyone has a pai savefile.
-
-	var/version = null
-	F["version"] >> version
-
-	if(isnull(version) || version != 1)
-		fdel(path)
-		if(!silent)
-			alert(user, "Your savefile was incompatible with this version and was deleted.")
-		return 0
-
-	F["name"] >> src.name
-	F["description"] >> src.description
-	F["role"] >> src.role
-	F["comments"] >> src.comments
-	return 1
+	query.warn_execute()
+	qdel(query)

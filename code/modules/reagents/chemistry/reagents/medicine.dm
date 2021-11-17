@@ -774,6 +774,10 @@
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					M.delayed_gib()
 					return
+				if(!M.ghost_can_reenter())
+					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")
+					return
+
 				if(!M.suiciding && !HAS_TRAIT(M, TRAIT_HUSK) && !HAS_TRAIT(M, TRAIT_BADDNA))
 					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
@@ -1006,7 +1010,7 @@
 	reagent_state = LIQUID
 	color = "#FFDCFF"
 	taste_description = "stability"
-	var/list/drug_list = list("crank","methamphetamine","space_drugs","psilocybin","ephedrine","epinephrine","stimulants","bath_salts","lsd","thc")
+	var/list/drug_list = list("crank", "methamphetamine", "space_drugs", "synaptizine", "psilocybin", "ephedrine", "epinephrine", "stimulants", "stimulative_agent", "bath_salts", "lsd", "thc")
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1201,26 +1205,48 @@
 	description = "Ichor from an extremely powerful plant. Great for restoring wounds, but it's a little heavy on the brain."
 	color = "#FFAF00"
 	overdose_threshold = 25
+	addiction_threshold = 50
+	addiction_chance = 5
 	harmless = FALSE
 	taste_description = "a gift from nature"
 
 /datum/reagent/medicine/earthsblood/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustOxyLoss(-15 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustToxLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER, FALSE) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
-	update_flags |= M.adjustCloneLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustStaminaLoss(-30 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	M.SetJitter(min(max(0, M.jitteriness + 3), 30))
+	if(current_cycle <= 25) //10u has to be processed before u get into THE FUN ZONE
+		update_flags |= M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustOxyLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustToxLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustCloneLoss(-0.1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustStaminaLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBrainLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
+	else
+		update_flags |= M.adjustBruteLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustOxyLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustToxLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustCloneLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustStaminaLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		M.SetJitter(min(max(0, M.jitteriness + 3), 30))
+		update_flags |= M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER, FALSE) //See above
 	update_flags |= M.SetDruggy(min(max(0, M.druggy + 10), 15), FALSE) //See above
 	return ..() | update_flags
 
+/datum/reagent/medicine/earthsblood/on_mob_add(mob/living/M)
+	..()
+	ADD_TRAIT(M, TRAIT_PACIFISM, type)
+
+/datum/reagent/medicine/earthsblood/on_mob_delete(mob/living/M)
+	REMOVE_TRAIT(M, TRAIT_PACIFISM, type)
+	..()
+
 /datum/reagent/medicine/earthsblood/overdose_process(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.SetHallucinate(min(max(0, M.hallucination + 10), 50))
-	update_flags |= M.adjustToxLoss(5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	M.SetHallucinate(min(max(0, M.hallucination + 5), 60))
+	if(current_cycle > 25)
+		update_flags |= M.adjustToxLoss(4 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		if(current_cycle > 100) //podpeople get out reeeeeeeeeeeeeeeeeeeee
+			update_flags |= M.adjustToxLoss(6 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return list(0, update_flags)
 
 /datum/reagent/medicine/corazone

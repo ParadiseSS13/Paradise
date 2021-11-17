@@ -144,6 +144,8 @@
 				/obj/item/stamp/chameleon = 2,
 				/obj/item/clothing/shoes/chameleon/noslip = 5,
 				/obj/item/clothing/mask/chameleon = 2,
+				/obj/item/clothing/mask/gas/voice_modulator = 2,
+				/obj/item/clothing/mask/gas/voice_modulator/chameleon = 2,
 				/obj/item/dnascrambler = 1,
 				/obj/item/storage/backpack/satchel_flat = 2,
 				/obj/item/storage/toolbox/syndicate = 2,
@@ -156,7 +158,7 @@
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
-				"" = 68
+				"" = 64 // Reduce this number if you add things above. Make sure all the numbers in the list add to 100 EXACTLY
 				)
 
 /obj/effect/spawner/lootdrop/crate_spawner // for ruins
@@ -221,7 +223,6 @@
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/minerals/New()
-	. = ..()
 	if(loot && loot.len)
 		for(var/i = lootcount, i > 0, i--)
 			if(!loot.len)
@@ -232,6 +233,7 @@
 			if(lootspawn)
 				var/obj/item/stack/sheet/S = new lootspawn(get_turf(src))
 				S.amount = 25
+	. = ..()
 	qdel(src)
 
 
@@ -255,10 +257,10 @@
 	loot = list(
 				// Robotics
 				/obj/item/mmi/robotic_brain = 50, // Low-value, but we want to encourage getting more players back in the round.
-				/obj/item/assembly/signaler/anomaly = 50, // anomaly core
+				/obj/item/assembly/signaler/anomaly/random = 50, // anomaly core
 				/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 25, // mecha x-ray laser
 				/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 25, // upgraded mecha teleporter
-				/obj/item/autosurgeon = 50,
+				/obj/item/autosurgeon/organ = 50,
 
 				// Research / Experimentor
 				/obj/item/paper/researchnotes = 150, // papers that give random R&D levels
@@ -347,13 +349,13 @@
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/vehicle/New()
-	. = ..()
 	if(!loot.len)
 		return
 	var/lootspawn = pickweight(loot)
 	var/obj/vehicle/V = new lootspawn(get_turf(src))
 	if(V.key_type)
 		new V.key_type(get_turf(src))
+	. = ..()
 	qdel(src)
 
 
@@ -388,11 +390,11 @@
 	lootcount = 3
 	lootdoubles = FALSE
 	var/soups = list(
-			/obj/item/reagent_containers/food/snacks/beetsoup,
-			/obj/item/reagent_containers/food/snacks/stew,
-			/obj/item/reagent_containers/food/snacks/hotchili,
-			/obj/item/reagent_containers/food/snacks/nettlesoup,
-			/obj/item/reagent_containers/food/snacks/meatballsoup)
+			/obj/item/reagent_containers/food/snacks/soup/beetsoup,
+			/obj/item/reagent_containers/food/snacks/soup/stew,
+			/obj/item/reagent_containers/food/snacks/soup/hotchili,
+			/obj/item/reagent_containers/food/snacks/soup/nettlesoup,
+			/obj/item/reagent_containers/food/snacks/soup/meatballsoup)
 	var/salads = list(
 			/obj/item/reagent_containers/food/snacks/herbsalad,
 			/obj/item/reagent_containers/food/snacks/validsalad,

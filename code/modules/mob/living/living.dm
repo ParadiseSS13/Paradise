@@ -92,6 +92,9 @@
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 			return TRUE
 
+		if(pulledby == L && a_intent != INTENT_HELP) //prevents boosting the person pulling you, but you can still move through them on help intent
+			return TRUE
+
 		if(L.pulling)
 			if(ismob(L.pulling))
 				var/mob/P = L.pulling
@@ -308,7 +311,7 @@
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
 //affects them once clothing is factored in. ~Errorage
-/mob/living/proc/calculate_affecting_pressure(var/pressure)
+/mob/living/proc/calculate_affecting_pressure(pressure)
 	return 0
 
 /mob/living/proc/adjustBodyTemp(actual, desired, incrementboost)
@@ -336,7 +339,7 @@
 
 
 //Recursive function to find everything a mob is holding.
-/mob/living/get_contents(var/obj/item/storage/Storage = null)
+/mob/living/get_contents(obj/item/storage/Storage = null)
 	var/list/L = list()
 
 	if(Storage) //If it called itself
@@ -517,22 +520,6 @@
 		update_canmove()
 
 /mob/living/proc/UpdateDamageIcon()
-	return
-
-
-/mob/living/proc/Examine_OOC()
-	set name = "Examine Meta-Info (OOC)"
-	set category = "OOC"
-	set src in view()
-
-	if(config.allow_Metadata)
-		if(client)
-			to_chat(usr, "[src]'s Metainfo:<br>[client.prefs.metadata]")
-		else
-			to_chat(usr, "[src] does not have any stored infomation!")
-	else
-		to_chat(usr, "OOC Metadata is not supported by this server!")
-
 	return
 
 /mob/living/Move(atom/newloc, direct, movetime)
@@ -773,7 +760,7 @@
 
 //called when the mob receives a bright flash
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
-	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)))
+	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)) && !HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
 		return 1
@@ -785,7 +772,7 @@
 
 // The src mob is trying to strip an item from someone
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
-/mob/living/stripPanelUnequip(obj/item/what, mob/who, where, var/silent = 0)
+/mob/living/stripPanelUnequip(obj/item/what, mob/who, where, silent = 0)
 	if(what.flags & NODROP)
 		to_chat(src, "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>")
 		return
@@ -802,7 +789,7 @@
 
 // The src mob is trying to place an item on someone
 // Override if a certain mob should be behave differently when placing items (can't, for example)
-/mob/living/stripPanelEquip(obj/item/what, mob/who, where, var/silent = 0)
+/mob/living/stripPanelEquip(obj/item/what, mob/who, where, silent = 0)
 	what = get_active_hand()
 	if(what && (what.flags & NODROP))
 		to_chat(src, "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>")
@@ -840,6 +827,8 @@
 /mob/living/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!used_item)
 		used_item = get_active_hand()
+		if(!visual_effect_icon && used_item?.attack_effect_override)
+			visual_effect_icon = used_item.attack_effect_override
 	..()
 	floating = FALSE // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
@@ -847,10 +836,8 @@
 	var/amplitude = min(4, (jitteriness / 100) + 1)
 	var/pixel_x_diff = rand(-amplitude, amplitude)
 	var/pixel_y_diff = rand(-amplitude / 3, amplitude / 3)
-	var/final_pixel_x = get_standard_pixel_x_offset(lying)
-	var/final_pixel_y = get_standard_pixel_y_offset(lying)
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = loop_amount)
-	animate(pixel_x = final_pixel_x , pixel_y = final_pixel_y , time = 2)
+	animate(src, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff , time = 2, loop = loop_amount, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+	animate(pixel_x = -pixel_x_diff , pixel_y = -pixel_y_diff , time = 2, flags = ANIMATION_RELATIVE)
 	floating = FALSE // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
 
@@ -859,10 +846,6 @@
 	if(istype(loc, /obj/mecha))
 		var/obj/mecha/M = loc
 		loc_temp =  M.return_temperature()
-
-	else if(istype(loc, /obj/spacepod))
-		var/obj/spacepod/S = loc
-		loc_temp = S.return_temperature()
 
 	else if(istype(loc, /obj/structure/transit_tube_pod))
 		loc_temp = environment.temperature
@@ -928,18 +911,18 @@
 	if(forced_look)
 		. += 3
 	if(ignorewalk)
-		. += config.run_speed
+		. += GLOB.configuration.movement.base_run_speed
 	else
 		switch(m_intent)
 			if(MOVE_INTENT_RUN)
 				if(drowsyness > 0)
 					. += 6
-				. += config.run_speed
+				. += GLOB.configuration.movement.base_run_speed
 			if(MOVE_INTENT_WALK)
-				. += config.walk_speed
+				. += GLOB.configuration.movement.base_walk_speed
 
 
-/mob/living/proc/can_use_guns(var/obj/item/gun/G)
+/mob/living/proc/can_use_guns(obj/item/gun/G)
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !issmall(src))
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return 0
@@ -973,7 +956,7 @@
 			M.LAssailant = usr
 
 /mob/living/proc/check_pull()
-	if(pulling && !(pulling in orange(1)))
+	if(pulling && !pulling.Adjacent(src))
 		stop_pulling()
 
 /mob/living/proc/update_z(new_z) // 1+ to register, null to unregister
@@ -1005,7 +988,7 @@
 
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
 
-	var/blocked = getarmor(null, "rad")
+	var/blocked = getarmor(null, RAD)
 
 	if(amount > RAD_BURN_THRESHOLD)
 		apply_damage(RAD_BURN_CURVE(amount), BURN, null, blocked)
@@ -1048,3 +1031,7 @@
 			update_transform()
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
+
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force)
+	stop_pulling()
+	return ..()

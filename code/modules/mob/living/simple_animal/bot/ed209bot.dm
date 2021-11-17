@@ -40,7 +40,7 @@
 	var/weaponscheck = 1 //If true, arrest people for weapons if they don't have access
 	var/check_records = 1 //Does it check security records?
 	var/arrest_type = 0 //If true, don't handcuff
-	var/projectile = /obj/item/projectile/energy/electrode //Holder for projectile type
+	var/projectile = /obj/item/projectile/beam/disabler //Holder for projectile type
 	var/shoot_sound = 'sound/weapons/taser.ogg'
 
 
@@ -379,7 +379,7 @@
 		else
 			continue
 
-/mob/living/simple_animal/bot/ed209/proc/check_for_weapons(var/obj/item/slot_item)
+/mob/living/simple_animal/bot/ed209/proc/check_for_weapons(obj/item/slot_item)
 	if(slot_item && slot_item.needs_permit)
 		return 1
 	return 0
@@ -396,7 +396,7 @@
 	new /obj/item/assembly/prox_sensor(Tsec)
 
 	if(!lasercolor)
-		var/obj/item/gun/energy/gun/advtaser/G = new /obj/item/gun/energy/gun/advtaser(Tsec)
+		var/obj/item/gun/energy/disabler/G = new /obj/item/gun/energy/disabler(Tsec)
 		G.cell.charge = 0
 		G.update_icon()
 	else if(lasercolor == "b")
@@ -437,8 +437,7 @@
 			projectile = /obj/item/projectile/beam
 	else
 		if(!lasercolor)
-			shoot_sound = 'sound/weapons/taser.ogg'
-			projectile = /obj/item/projectile/energy/electrode
+			projectile = /obj/item/projectile/beam/disabler
 		else if(lasercolor == "b")
 			projectile = /obj/item/projectile/beam/lasertag/bluetag
 		else if(lasercolor == "r")

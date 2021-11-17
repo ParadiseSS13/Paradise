@@ -9,7 +9,7 @@
 	if(!src.mob)
 		return
 
-	if(prefs.muted & MUTE_DEADCHAT)
+	if(check_mute(ckey, MUTE_DEADCHAT))
 		to_chat(src, "<span class='warning'>You cannot send DSAY messages (muted).</span>")
 		return
 

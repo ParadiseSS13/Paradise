@@ -3,7 +3,7 @@
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 65, "acid" = 90)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 65, ACID = 90)
 	point_return = 18
 
 /obj/structure/blob/node/Initialize(mapload)
@@ -11,7 +11,7 @@
 	GLOB.blob_nodes += src
 	START_PROCESSING(SSobj, src)
 
-/obj/structure/blob/node/adjustcolors(var/a_color)
+/obj/structure/blob/node/adjustcolors(a_color)
 	overlays.Cut()
 	color = null
 	var/image/I = new('icons/mob/blob.dmi', "blob")

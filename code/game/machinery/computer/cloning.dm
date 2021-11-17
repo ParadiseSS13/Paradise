@@ -338,7 +338,7 @@
 						set_temp("Error: Not enough biomass.", "danger")
 					else if(pod.mess)
 						set_temp("Error: The cloning pod is malfunctioning.", "danger")
-					else if(!config.revival_cloning)
+					else if(!GLOB.configuration.general.enable_cloning)
 						set_temp("Error: Unable to initiate cloning cycle.", "danger")
 					else
 						cloneresult = pod.growclone(C)
@@ -372,7 +372,7 @@
 
 	src.add_fingerprint(usr)
 
-/obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob, var/scan_brain = 0)
+/obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob, scan_brain = 0)
 	if(stat & NOPOWER)
 		return
 	if(scanner.stat & (NOPOWER|BROKEN))
@@ -459,7 +459,7 @@
 	SStgui.update_uis(src)
 
 //Find a specific record by key.
-/obj/machinery/computer/cloning/proc/find_record(var/find_key)
+/obj/machinery/computer/cloning/proc/find_record(find_key)
 	var/selected_record = null
 	for(var/datum/dna2/record/R in src.records)
 		if(R.ckey == find_key)

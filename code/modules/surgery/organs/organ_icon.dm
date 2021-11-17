@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 
 	icobase = new_icobase ? new_icobase : icobase
 
-/obj/item/organ/external/proc/sync_colour_to_human(var/mob/living/carbon/human/H)
+/obj/item/organ/external/proc/sync_colour_to_human(mob/living/carbon/human/H)
 	if(is_robotic() && !istype(dna.species, /datum/species/machine)) //machine people get skin color
 		return
 	if(dna.species && H.dna.species && dna.species.name != H.dna.species.name)
@@ -52,7 +52,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		s_tone = null
 		s_col = rgb(dna.GetUIValue(DNA_UI_SKIN_R), dna.GetUIValue(DNA_UI_SKIN_G), dna.GetUIValue(DNA_UI_SKIN_B))
 
-/obj/item/organ/external/head/sync_colour_to_human(var/mob/living/carbon/human/H)
+/obj/item/organ/external/head/sync_colour_to_human(mob/living/carbon/human/H)
 	..()
 	var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)//owner.internal_bodyparts_by_name["eyes"]
 	if(eyes) eyes.update_colour()

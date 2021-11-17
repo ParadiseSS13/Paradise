@@ -76,7 +76,7 @@
 			owner.emote("cough")		//respitory tract infection
 
 	if(is_bruised())
-		if(prob(2))
+		if(prob(2) && !(NO_BLOOD in owner.dna.species.species_traits))
 			owner.custom_emote(1, "coughs up blood!")
 			owner.bleed(1)
 		if(prob(4))
@@ -304,8 +304,9 @@
 
 /obj/item/organ/internal/lungs/prepare_eat()
 	var/obj/S = ..()
-	S.reagents.add_reagent("salbutamol", 5)
-	return S
+	if(S)
+		S.reagents.add_reagent("salbutamol", 5)
+		return S
 
 /obj/item/organ/internal/lungs/plasmaman
 	name = "plasma filter"
