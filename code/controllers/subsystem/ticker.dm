@@ -312,6 +312,18 @@ SUBSYSTEM_DEF(ticker)
 		for(var/mob/M in GLOB.mob_list)
 			if(M.client)
 				M.client.screen += cinematic	//show every client the cinematic
+	else if(override == "AI malfunction")
+		for(var/mob/M in GLOB.mob_list)
+			var/turf/T = get_turf(M)
+			if(T && is_station_level(T.z) && !issilicon(M))
+				to_chat(M, "<span class='danger'><B>The blast wave from [src] tears you atom from atom!</B></span>")
+				var/mob/ghost = M.ghostize()
+				M.dust()
+				if(ghost && ghost.client)
+					ghost.client.screen += cinematic
+				CHECK_TICK
+			if(M && M.client)
+				M.client.screen += cinematic
 	else	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
 		for(var/mob/M in GLOB.mob_list)
 			if(M.stat != DEAD)
