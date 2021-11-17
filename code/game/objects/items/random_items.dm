@@ -233,7 +233,7 @@
 	name = "unlabelled booze closet"
 	req_access = list(ACCESS_BAR)
 	icon_state = "cabinet"
-	open_door_sprite = "cabient_door"
+	open_door_sprite = "cabinet_door"
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25

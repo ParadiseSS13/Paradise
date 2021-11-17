@@ -347,3 +347,42 @@
 
 /datum/status_effect/regenerative_core/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
+
+
+/datum/status_effect/speedlegs
+	duration = -1
+	status_type = STATUS_EFFECT_UNIQUE
+	tick_interval = 4 SECONDS
+	alert_type = null
+	var/stacks = 0
+
+/datum/status_effect/speedlegs/on_apply()
+	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, "changeling")
+	return TRUE
+
+/datum/status_effect/speedlegs/tick()
+	if(owner.stat || owner.staminaloss >= 90 || owner.mind.changeling.chem_charges <= (stacks + 1) * 3)
+		to_chat(owner, "<span class='danger'>Our muscles relax without the energy to strengthen them.</span>")
+		owner.Weaken(3)
+		owner.remove_status_effect(STATUS_EFFECT_SPEEDLEGS)
+	else
+		stacks++
+		owner.mind.changeling.chem_charges -= stacks * 3 //At first the changeling may regenerate chemicals fast enough to nullify fatigue, but it will stack
+		if(stacks == 7) //Warning message that the stacks are getting too high
+			to_chat(owner, "<span class='warning'>Our legs are really starting to hurt...</span>")
+
+/datum/status_effect/speedlegs/before_remove()
+	if(stacks < 3 && !(owner.stat || owner.staminaloss >= 90 || owner.mind.changeling.chem_charges <= (stacks + 1) * 3)) //We don't want people to turn it on and off fast, however, we need it forced off if the 3 later conditions are met.
+		to_chat(owner, "<span class='notice'>Our muscles just tensed up, they will not relax so fast.</span>")
+		return FALSE
+	return TRUE
+
+/datum/status_effect/speedlegs/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, "changeling")
+	if(!owner.weakened)
+		to_chat(owner, "<span class='notice'>Our muscles relax.</span>")
+		if(stacks >= 7)
+			to_chat(owner, "<span class='danger'>We collapse in exhaustion.</span>")
+			owner.Weaken(3)
+			owner.emote("gasp")
+	owner.mind.changeling.geneticdamage += stacks
