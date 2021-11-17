@@ -266,7 +266,7 @@
 /datum/job/proc/would_accept_job_transfer_from_player(mob/player)
 	if(!transfer_allowed)
 		return FALSE
-	if(!guest_jobbans(title)) // actually checks if job is a whitelisted position
+	if(!check_job_karma(title))
 		return TRUE
 	if(!istype(player))
 		return FALSE
