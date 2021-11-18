@@ -100,7 +100,7 @@
 	selection_deactivated_message = "<span class='notice'>Your magics subside.</span>"
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils/create_new_targeting()
-	var/datum/spell_targeting/click/T = new // TODO check
+	var/datum/spell_targeting/click/T = new
 	T.allowed_type = /atom
 	T.try_auto_target = FALSE
 	return T
