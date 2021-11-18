@@ -412,17 +412,6 @@
 	flag_account_for_forum_sync(pckey)
 
 
-/client/proc/DB_ban_panel()
-	set category = "Admin"
-	set name = "Banning Panel"
-	set desc = "DB Ban Panel"
-
-	if(!check_rights(R_BAN))
-		return
-
-	holder.DB_ban_panel()
-
-
 /datum/admins/proc/DB_ban_panel(playerckey = null, adminckey = null, playerip = null, playercid = null, dbbantype = null, match = null)
 
 	if(!usr.client)
