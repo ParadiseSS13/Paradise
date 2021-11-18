@@ -11,7 +11,7 @@
 	flags = BLOCKHAIR
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
 
 //gold top hat and recolours
@@ -22,7 +22,7 @@
 	item_state = "goldtophat"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
 
 
@@ -47,7 +47,7 @@
 	flags = BLOCKHAIR
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
 
 //black sombrero
@@ -59,5 +59,5 @@
 	flags = BLOCKHAIR
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)

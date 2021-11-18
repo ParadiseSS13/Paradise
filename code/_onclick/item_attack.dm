@@ -1,5 +1,5 @@
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
-	if(!tool_attack_chain(user, target) && pre_attackby(target, user, params))
+	if(!tool_attack_chain(user, target) && pre_attack(target, user, params))
 		// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
 		var/resolved = target.attackby(src, user, params)
 		if(!resolved && target && !QDELETED(src))
@@ -18,7 +18,7 @@
 		return
 	return
 
-/obj/item/proc/pre_attackby(atom/A, mob/living/user, params) //do stuff before attackby!
+/obj/item/proc/pre_attack(atom/A, mob/living/user, params) //do stuff before attackby!
 	if(is_hot(src) && A.reagents && !ismob(A))
 		to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
 		A.reagents.temperature_reagents(is_hot(src))

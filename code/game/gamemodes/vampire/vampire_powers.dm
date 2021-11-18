@@ -7,9 +7,11 @@
 	range = 1
 	charge_max = 1800
 	action_background_icon_state = "bg_vampire"
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	var/required_blood = 0
 	var/gain_desc = null
 	var/deduct_blood_on_cast = TRUE  //Do we want to take the blood when this is cast, or at a later point?
+
 
 /obj/effect/proc_holder/spell/vampire/New()
 	..()
@@ -39,10 +41,6 @@
 		return 0
 	if(vampire.bloodusable < required_blood)
 		to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
-		return 0
-	//chapel check
-	if(istype(loc.loc, /area/chapel) && !fullpower)
-		to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
 		return 0
 	return ..()
 
@@ -220,9 +218,13 @@
 
 /obj/effect/proc_holder/spell/vampire/mob_aoe/glare/cast(list/targets, mob/user = usr)
 	user.visible_message("<span class='warning'>[user]'s eyes emit a blinding flash!</span>")
-	if(istype(user:glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
-		to_chat(user, "<span class='warning'>You're blindfolded!</span>")
-		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
+			var/obj/item/clothing/glasses/sunglasses/blindfold/B = H.glasses
+			if(B.tint)
+				to_chat(user, "<span class='warning'>You're blindfolded!</span>")
+				return
 	for(var/mob/living/target in targets)
 		if(!affects(target))
 			continue
@@ -452,11 +454,10 @@
 		animation.loc = mobloc
 		user.canmove = 0
 		sleep(20)
-		flick("mist_reappear",animation)
+		flick("mist_reappear", animation)
 		sleep(5)
 		if(!user.Move(mobloc))
-			for(var/direction in list(1,2,4,8,5,6,9,10))
-				var/turf/T = get_step(mobloc, direction)
+			for(var/turf/T in orange(7, mobloc))
 				if(T)
 					if(user.Move(T))
 						break

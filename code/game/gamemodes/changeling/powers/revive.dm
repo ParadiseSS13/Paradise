@@ -7,8 +7,8 @@
 
 //Revive from regenerative stasis
 /datum/action/changeling/revive/sting_action(mob/living/carbon/user)
-	user.revive()
 	REMOVE_TRAIT(user, TRAIT_FAKEDEATH, "changeling")
+	user.revive()
 	user.updatehealth("revive sting")
 	user.update_blind_effects()
 	user.update_blurry_effects()

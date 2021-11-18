@@ -137,8 +137,9 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/toggle_antagHUD_restrictions,
 	/client/proc/set_ooc,
 	/client/proc/reset_ooc,
-	/client/proc/toggledrones,
-	/client/proc/set_next_map
+	/client/proc/set_next_map,
+	/client/proc/manage_queue,
+	/client/proc/add_queue_server_bypass
 	))
 GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/cmd_admin_list_open_jobs,
@@ -403,7 +404,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_BAN))
 		return
 
-	if(config.ban_legacy_system)
+	if(!GLOB.configuration.general.use_database_bans)
 		holder.unbanpanel()
 	else
 		holder.DB_ban_panel()
@@ -612,7 +613,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 /client/proc/make_sound(obj/O in view()) // -- TLE
 	set category = "Event"
-	set name = "Make Sound"
+	set name = "\[Admin\] Make Sound"
 	set desc = "Display a message to everyone who can hear the target"
 
 	if(!check_rights(R_EVENT))
@@ -679,28 +680,20 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	var/datum/admins/D = GLOB.admin_datums[ckey]
 	var/rank = null
-	if(config.admin_legacy_system)
-		//load text from file
-		var/list/Lines = file2list("config/admins.txt")
-		for(var/line in Lines)
-			if(findtext(line, "#")) // Skip comments
+	if(!GLOB.configuration.admin.use_database_admins)
+		for(var/iterator_key in GLOB.configuration.admin.ckey_rank_map)
+			var/_ckey = ckey(iterator_key) // Snip out formatting
+			if(ckey != _ckey)
 				continue
-
-			var/list/splitline = splittext(line, " - ")
-			if(length(splitline) != 2) // Always 'ckey - rank'
-				continue
-			if(lowertext(splitline[1]) == ckey)
-				rank = ckeyEx(splitline[2])
-				break
-			continue
-
+			rank = GLOB.configuration.admin.ckey_rank_map[iterator_key]
+			break
 	else
 		if(!SSdbcore.IsConnected())
 			to_chat(src, "Warning, MYSQL database is not connected.")
 			return
 
 		var/datum/db_query/rank_read = SSdbcore.NewQuery(
-			"SELECT admin_rank FROM [format_table_name("admin")] WHERE ckey=:ckey",
+			"SELECT admin_rank FROM admin WHERE ckey=:ckey",
 			list("ckey" = ckey)
 		)
 
@@ -713,7 +706,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 		qdel(rank_read)
 	if(!D)
-		if(config.admin_legacy_system)
+		if(!GLOB.configuration.admin.use_database_admins)
 			if(GLOB.admin_ranks[rank] == null)
 				error("Error while re-adminning [src], admin rank ([rank]) does not exist.")
 				to_chat(src, "Error while re-adminning, admin rank ([rank]) does not exist.")
@@ -726,7 +719,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 				return
 
 			var/datum/db_query/admin_read = SSdbcore.NewQuery(
-				"SELECT ckey, admin_rank, flags FROM [format_table_name("admin")] WHERE ckey=:ckey",
+				"SELECT ckey, admin_rank, flags FROM admin WHERE ckey=:ckey",
 				list("ckey" = ckey)
 			)
 
@@ -773,13 +766,13 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_SERVER))
 		return
 
-	if(config)
-		if(config.log_hrefs)
-			config.log_hrefs = 0
-			to_chat(src, "<b>Stopped logging hrefs</b>")
-		else
-			config.log_hrefs = 1
-			to_chat(src, "<b>Started logging hrefs</b>")
+	// Why would we ever turn this off?
+	if(GLOB.configuration.logging.href_logging)
+		GLOB.configuration.logging.href_logging = FALSE
+		to_chat(src, "<b>Stopped logging hrefs</b>")
+	else
+		GLOB.configuration.logging.href_logging = TRUE
+		to_chat(src, "<b>Started logging hrefs</b>")
 
 /client/proc/check_ai_laws()
 	set name = "Check AI Laws"
@@ -806,7 +799,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Silicon Laws") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/change_human_appearance_admin(mob/living/carbon/human/H in GLOB.mob_list)
-	set name = "C.M.A. - Admin"
+	set name = "\[Admin\] C.M.A. - Admin"
 	set desc = "Allows you to change the mob appearance"
 	set category = null
 
@@ -832,7 +825,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/change_human_appearance_self(mob/living/carbon/human/H in GLOB.mob_list)
-	set name = "C.M.A. - Self"
+	set name = "\[Admin\] C.M.A. - Self"
 	set desc = "Allows the mob to change its appearance"
 	set category = null
 
@@ -956,17 +949,6 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	else
 		to_chat(usr, "You now will get admin ticket messages.")
 
-/client/proc/toggledrones()
-	set name = "Toggle Maintenance Drones"
-	set category = "Server"
-
-	if(!check_rights(R_SERVER))
-		return
-
-	config.allow_drone_spawn = !(config.allow_drone_spawn)
-	log_admin("[key_name(usr)] has [config.allow_drone_spawn ? "enabled" : "disabled"] maintenance drones.")
-	message_admins("[key_name_admin(usr)] has [config.allow_drone_spawn ? "enabled" : "disabled"] maintenance drones.")
-
 /client/proc/toggledebuglogs()
 	set name = "Toggle Debug Log Messages"
 	set category = "Preferences"
@@ -983,7 +965,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 /client/proc/man_up(mob/T as mob in GLOB.player_list)
 	set category = null
-	set name = "Man Up"
+	set name = "\[Admin\] Man Up"
 	set desc = "Tells mob to man up and deal with it."
 
 	if(!check_rights(R_ADMIN))

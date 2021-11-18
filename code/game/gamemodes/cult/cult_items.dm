@@ -23,13 +23,16 @@
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	sprite_sheets_inhand = list("Skrell" = 'icons/mob/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
+	sprite_sheets_inhand = list("Skrell" = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
 
 /obj/item/melee/cultblade/New()
 	if(SSticker.mode)
 		icon_state = SSticker.cultdat.sword_icon
 		item_state = SSticker.cultdat.sword_icon
 	..()
+
+/obj/item/melee/cultblade/detailed_examine()
+	return "This blade is a powerful weapon, capable of severing limbs easily, if they are targeted. Nonbelievers are unable to use this weapon."
 
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))
@@ -159,7 +162,7 @@
 		user.Weaken(5)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(current_charges)
+	if(current_charges && !owner.holy_check())
 		owner.visible_message("<span class='danger'>[attack_text] is deflected in a burst of blood-red sparks!</span>")
 		current_charges--
 		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -184,9 +187,9 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list("melee" = -50, "bullet" = -50, "laser" = -50,"energy" = -50, "bomb" = -50, "bio" = -50, "rad" = -50, "fire" = 0, "acid" = 0)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Drask" = 'icons/mob/species/drask/suit.dmi',
-		"Grey" = 'icons/mob/species/grey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
 	hoodtype = /obj/item/clothing/head/hooded/flagellant_hood
 
@@ -217,9 +220,9 @@
 	flags_cover = HEADCOVERSEYES
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
-		"Drask" = 'icons/mob/species/drask/head.dmi',
-		"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 		)
 
 /obj/item/whetstone/cult
@@ -321,6 +324,7 @@
 		. = pulled
 
 /obj/item/cult_shift/attack_self(mob/user)
+
 	if(!uses || !iscarbon(user))
 		to_chat(user, "<span class='warning'>[src] is dull and unmoving in your hands.</span>")
 		return
@@ -329,7 +333,8 @@
 		step(src, pick(GLOB.alldirs))
 		to_chat(user, "<span class='warning'>[src] flickers out of your hands, too eager to move!</span>")
 		return
-
+	if(user.holy_check())
+		return
 	var/outer_tele_radius = 9
 
 	var/mob/living/carbon/C = user
@@ -439,7 +444,7 @@
   * The illusion has a 60% chance to be hostile and attack non-cultists, and a 40% chance to just run away from the user.
   */
 /obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(iscultist(owner)) // Cultist holding the shield
+	if(iscultist(owner) && !owner.holy_check()) // Cultist holding the shield
 
 		// Hit by a projectile
 		if(istype(hitby, /obj/item/projectile))
@@ -514,6 +519,10 @@
 
 /obj/item/shield/mirror/IsReflect()
 	if(prob(reflect_chance))
+		if(istype(loc, /mob))
+			var/mob/user = loc
+			if(user.holy_check())
+				return FALSE
 		return TRUE
 	return FALSE
 
@@ -599,7 +608,7 @@
 	spear = blood_spear
 
 /datum/action/innate/cult/spear/Activate()
-	if(owner == spear.loc || cooldown > world.time)
+	if(owner == spear.loc || cooldown > world.time || owner.holy_check())
 		return
 	var/ST = get_turf(spear)
 	var/OT = get_turf(owner)
@@ -624,6 +633,12 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 	flags = NOBLUDGEON | DROPDEL
+
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood/afterattack(atom/target, mob/living/user, flag, params)
+	if(user.holy_check())
+		return
+	..()
+
 
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood
