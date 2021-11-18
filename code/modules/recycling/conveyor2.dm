@@ -41,8 +41,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	update_move_direction()
 	for(var/I in GLOB.conveyor_switches)
 		var/obj/machinery/conveyor_switch/S = I
-		if(id == S.id)
-			S.conveyors += src
+		S.link_conveyers(src)
 
 /obj/machinery/conveyor/Destroy()
 	GLOB.conveyor_belts -= src
@@ -270,8 +269,16 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		id = new_id
 	for(var/I in GLOB.conveyor_belts)
 		var/obj/machinery/conveyor/C = I
-		if(C.id == id)
-			conveyors += C
+		link_conveyers(C)
+
+/obj/machinery/conveyor_switch/proc/link_conveyers(obj/machinery/conveyor/C)
+	if(C.id != id)
+		return
+	conveyors += C
+	RegisterSignal(C, COMSIG_PARENT_QDELETING, .proc/unlink_conveyer) // so it GCs properly
+
+/obj/machinery/conveyor_switch/proc/unlink_conveyer(obj/machinery/conveyor/C)
+	conveyors -= C
 
 /obj/machinery/conveyor_switch/Destroy()
 	GLOB.conveyor_switches -= src
