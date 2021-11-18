@@ -25,7 +25,6 @@
 			"Locker Toilets",
 			"Maintenance Bar",
 			"Medical Secondary Storage",
-			"Mechanic Workshop",
 			"Port Emergency Storage",
 			"Psych Room",
 			"Toxins Launch Room",
@@ -237,8 +236,7 @@
   * Returns whether the extraction process can be started.
   *
   * Arguments:
-  * * M - The contractor.
-  * * target - The target.
+  * * caller - The person trying to call the extraction.
   */
-/datum/objective/contract/proc/can_start_extraction_process(mob/living/carbon/human/M, mob/living/carbon/human/target)
-	return get_area(M) == extraction_zone && get_area(target) == extraction_zone
+/datum/objective/contract/proc/can_start_extraction_process(mob/living/carbon/human/caller)
+	return get_area(caller) == extraction_zone && get_area(target.current) == extraction_zone

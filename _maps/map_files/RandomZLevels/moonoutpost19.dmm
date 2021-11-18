@@ -2091,19 +2091,8 @@
 	name = "Syndicate Outpost"
 	})
 "dr" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective_locked";
-	name = "personal closet";
-	req_access_txt = "150"
-	},
 /obj/item/ammo_box/magazine/m10mm,
-/obj/item/ammo_box/magazine/m10mm,
+/obj/structure/closet/cabinet,
 /obj/item/suppressor,
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
@@ -2114,18 +2103,7 @@
 	name = "Syndicate Outpost"
 	})
 "ds" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "150"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/stack/spacecash/c50,
 /turf/simulated/floor/wood,
 /area/awaycontent/a4{
@@ -3954,16 +3932,6 @@
 /turf/simulated/floor/plating,
 /area/awaycontent/a7)
 "gj" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "secbroken";
-	icon_closed = "sec";
-	icon_locked = "sec1";
-	icon_off = "secoff";
-	icon_opened = "secopen";
-	icon_state = "sec1";
-	name = "security officer's locker";
-	req_access_txt = "271"
-	},
 /obj/item/clothing/suit/armor/vest,
 /obj/item/reagent_containers/spray/pepper,
 /obj/item/grenade/flashbang,
@@ -3977,6 +3945,7 @@
 	pixel_y = 23;
 	req_access = null
 	},
+/obj/structure/closet/secure_closet,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -5142,18 +5111,8 @@
 	name = "MO19 Arrivals"
 	})
 "hX" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "secureresbroken";
-	icon_closed = "secureres";
-	icon_locked = "secureres1";
-	icon_off = "secureresoff";
-	icon_opened = "secureresopen";
-	icon_state = "secureres";
-	locked = 0;
-	name = "scientist's locker";
-	req_access_txt = "271"
-	},
 /obj/item/clothing/suit/storage/labcoat,
+/obj/structure/closet/secure_closet,
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -5392,20 +5351,11 @@
 	})
 "iq" = (
 /obj/structure/window/reinforced,
-/obj/structure/closet/secure_closet{
-	icon_broken = "secureresbroken";
-	icon_closed = "secureres";
-	icon_locked = "secureres1";
-	icon_off = "secureresoff";
-	icon_opened = "secureresopen";
-	icon_state = "secureres1";
-	name = "scientist's locker";
-	req_access_txt = "271"
-	},
 /obj/item/clothing/suit/storage/labcoat,
 /obj/item/tank/internals/air,
 /obj/item/clothing/mask/gas,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet,
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -5961,18 +5911,9 @@
 	name = "MO19 Arrivals"
 	})
 "jr" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "rdsecurebroken";
-	icon_closed = "rdsecure";
-	icon_locked = "rdsecure1";
-	icon_off = "rdsecureoff";
-	icon_opened = "rdsecureopen";
-	icon_state = "rdsecure1";
-	name = "research director's locker";
-	req_access_txt = "271"
-	},
 /obj/item/storage/backpack/satchel_tox,
 /obj/item/clothing/gloves/color/latex,
+/obj/structure/closet/secure_closet,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -8696,18 +8637,7 @@
 	name = "MO19 Arrivals"
 	})
 "oA" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/clothing/under/suit_jacket/navy,
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
@@ -8817,21 +8747,11 @@
 	name = "MO19 Arrivals"
 	})
 "oK" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "fridgebroken";
-	icon_closed = "fridge";
-	icon_locked = "fridge1";
-	icon_off = "fridgeoff";
-	icon_opened = "fridgeopen";
-	icon_state = "fridge";
-	locked = 0;
-	name = "meat fridge";
-	req_access_txt = "271"
-	},
 /obj/item/reagent_containers/food/snacks/meat/monkey,
 /obj/item/reagent_containers/food/snacks/meat/monkey,
 /obj/item/reagent_containers/food/snacks/meat/monkey,
 /obj/item/reagent_containers/food/snacks/meat/monkey,
+/obj/structure/closet/secure_closet/freezer/meat,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -8841,7 +8761,6 @@
 	})
 "oL" = (
 /obj/structure/closet/secure_closet{
-	icon_state = "secure";
 	locked = 0;
 	name = "kitchen Cabinet";
 	req_access_txt = "271"
@@ -8858,21 +8777,11 @@
 	name = "MO19 Arrivals"
 	})
 "oM" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "fridgebroken";
-	icon_closed = "fridge";
-	icon_locked = "fridge1";
-	icon_off = "fridgeoff";
-	icon_opened = "fridgeopen";
-	icon_state = "fridge";
-	locked = 0;
-	name = "refrigerator";
-	req_access_txt = "271"
-	},
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/storage/fancy/egg_box,
+/obj/structure/closet/secure_closet/freezer/fridge,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -8981,18 +8890,7 @@
 	name = "MO19 Arrivals"
 	})
 "oZ" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/clothing/under/assistantformal,
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
@@ -9015,18 +8913,7 @@
 	name = "MO19 Arrivals"
 	})
 "pg" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/clothing/under/suit_jacket/burgundy,
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{

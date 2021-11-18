@@ -210,14 +210,17 @@
 	if(exposed_temperature > T0C + 600)
 		var/turf/T = get_turf(holder.my_atom)
 		holder.my_atom.visible_message("<b>The oil burns!</b>")
-		fireflash(T, min(max(0, volume / 40), 8))
+		var/datum/reagents/old_holder = holder
 		fire_flash_log(holder, id)
+		if(holder)
+			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
+
+		fireflash(T, min(max(0, volume / 40), 8))
 		var/datum/effect_system/smoke_spread/bad/BS = new
 		BS.set_up(1, 0, T)
 		BS.start()
-		if(holder)
-			holder.add_reagent("ash", round(volume * 0.5))
-			holder.del_reagent(id)
+		if(!QDELETED(old_holder))
+			old_holder.add_reagent("ash", round(volume * 0.5))
 
 /datum/reagent/oil/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
@@ -497,7 +500,7 @@
 	M.RemoveElement(/datum/element/waddling)
 
 /datum/reagent/royal_bee_jelly
-	name = "royal bee jelly"
+	name = "Royal bee jelly"
 	id = "royal_bee_jelly"
 	description = "Royal Bee Jelly, if injected into a Queen Space Bee said bee will split into two bees."
 	color = "#00ff80"
@@ -695,7 +698,7 @@
 
 /datum/reagent/spraytan/proc/set_skin_color(mob/living/carbon/human/H)
 	if(H.dna.species.bodyflags & HAS_SKIN_TONE)
-		H.change_skin_tone(-30)
+		H.change_skin_tone(max(H.s_tone - 10, -195))
 
 	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
 		H.change_skin_color("#9B7653")

@@ -3,7 +3,7 @@
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
 	max_integrity = 400
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 90)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 75, ACID = 90)
 	fire_resist = 2
 	point_return = -1
 	var/overmind_get_delay = 0 // we don't want to constantly try to find an overmind, do it every 5 minutes
@@ -48,7 +48,7 @@
 
 /obj/structure/blob/core/ex_act(severity)
 	var/damage = 50 - 10 * severity //remember, the core takes half brute damage, so this is 20/15/10 damage based on severity
-	take_damage(damage, BRUTE, "bomb", 0)
+	take_damage(damage, BRUTE, BOMB, 0)
 
 /obj/structure/blob/core/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, overmind_reagent_trigger = 1)
 	. = ..()

@@ -82,23 +82,6 @@
 	new random_crystal(loc)
 	qdel(src)
 
-/obj/machinery/anomalous_crystal/honk //Strips and equips you as a clown. I apologize for nothing
-	activation_method = "mob_bump"
-	activation_sound = 'sound/items/bikehorn.ogg'
-
-/obj/machinery/anomalous_crystal/honk/ActivationReaction(mob/user)
-	if(..() && ishuman(user) && !(user in affected_targets))
-		var/mob/living/carbon/human/H = user
-		for(var/obj/item/W in H)
-			H.unEquip(W)
-		var/datum/job/clown/C = SSjobs.GetJob("Clown")
-		C.equip(H)
-		affected_targets.Add(H)
-
-/obj/machinery/anomalous_crystal/honk/New()
-	..()
-	activation_method = pick("mob_bump","speech")
-
 /obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one
 	activation_method = "touch"
 	cooldown_add = 200

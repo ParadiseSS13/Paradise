@@ -253,8 +253,8 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_centcom_access("NT Undercover Operative"), "Civilian")
-	H.sec_hud_set_ID() // Force it to show as Civ on sec huds
+		apply_to_card(I, H, get_centcom_access("NT Undercover Operative"), "Assistant")
+	H.sec_hud_set_ID() // Force it to show as assistant on sec huds
 
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
@@ -1103,21 +1103,15 @@
 
 	if(H.mind)
 		if(!H.mind.vampire)
-			H.make_vampire()
-			if(H.mind.vampire)
-				H.mind.vampire.bloodusable = 9999
-				H.mind.vampire.bloodtotal = 9999
-				H.mind.vampire.check_vampire_upgrade(0)
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/bats)
-				to_chat(H, "You have gained the ability to shapeshift into bat form. This is a weak form with no abilities, only useful for stealth.")
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/hellhound)
-				to_chat(H, "You have gained the ability to shapeshift into lesser hellhound form. This is a combat form with different abilities, tough but not invincible. It can regenerate itself over time by resting.")
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/raise_vampires)
-				to_chat(H, "You have gained the ability to Raise Vampires. This extremely powerful AOE ability affects all humans near you. Vampires/thralls are healed. Corpses are raised as vampires. Others are stunned, then brain damaged, then killed.")
-				H.dna.SetSEState(GLOB.jumpblock, 1)
-				singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
-				H.update_mutations()
-				H.gene_stability = 100
+			H.mind.make_vampire(TRUE)
+		H.mind.vampire.bloodusable = 9999
+		H.mind.vampire.bloodtotal = 9999
+		H.mind.offstation_role = TRUE
+		H.mind.vampire.add_subclass(SUBCLASS_ANCIENT, FALSE)
+		H.dna.SetSEState(GLOB.jumpblock, TRUE)
+		singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
+		H.update_mutations()
+		H.gene_stability = 100
 
 /datum/outfit/admin/wizard
 	name = "Blue Wizard"

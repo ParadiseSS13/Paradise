@@ -191,7 +191,7 @@
 	var/glass_type = null
 
 /obj/item/solar_assembly/attack_hand(mob/user)
-	if(!anchored && isturf(loc)) // You can't pick it up
+	if(!anchored)
 		..()
 
 // Give back the glass type we were supplied with
@@ -352,8 +352,6 @@
 		overlays += "[icon_state]_broken"
 	else
 		overlays += icon_screen
-	if(cdir > -1)
-		overlays += image('icons/obj/computer.dmi', "solcon-o", FLY_LAYER, angle2dir(cdir))
 
 /obj/machinery/power/solar_control/attack_ai(mob/user as mob)
 	add_hiddenprint(user)

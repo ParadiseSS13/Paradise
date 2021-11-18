@@ -1,5 +1,28 @@
 //OTHER DEBUFFS
 
+/datum/status_effect/his_wrath //does minor damage over time unless holding His Grace
+	id = "his_wrath"
+	duration = -1
+	tick_interval = 4
+	alert_type = /obj/screen/alert/status_effect/his_wrath
+
+/obj/screen/alert/status_effect/his_wrath
+	name = "His Wrath"
+	desc = "You fled from His Grace instead of feeding Him, and now you suffer."
+	icon_state = "his_grace"
+	alerttooltipstyle = "hisgrace"
+
+/datum/status_effect/his_wrath/tick()
+	var/list/held_items = list()
+	held_items += owner.l_hand
+	held_items += owner.r_hand
+	for(var/obj/item/his_grace/HG in held_items)
+		qdel(src)
+		return
+	owner.adjustBruteLoss(0.1)
+	owner.adjustFireLoss(0.1)
+	owner.adjustToxLoss(0.2)
+
 /datum/status_effect/cultghost //is a cult ghost and can't use manifest runes
 	id = "cult_ghost"
 	duration = -1

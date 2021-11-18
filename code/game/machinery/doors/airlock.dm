@@ -55,6 +55,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
 	autoclose = TRUE
 	explosion_block = 1
+	hud_possible = list(DIAG_AIRLOCK_HUD)
 	assemblytype = /obj/structure/door_assembly
 	siemens_strength = 1
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
@@ -149,6 +150,10 @@ About the new airlock wires panel:
 	if(damage_deflection == AIRLOCK_DAMAGE_DEFLECTION_N && security_level > AIRLOCK_SECURITY_METAL)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
 	update_icon()
+	prepare_huds()
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+		diag_hud.add_to_hud(src)
+	diag_hud_set_electrified()
 
 /obj/machinery/door/airlock/proc/update_other_id()
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
@@ -173,6 +178,8 @@ About the new airlock wires panel:
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+		diag_hud.remove_from_hud(src)
 	return ..()
 
 /obj/machinery/door/airlock/handle_atom_del(atom/A)
@@ -292,6 +299,7 @@ About the new airlock wires panel:
 			electrified_timer = addtimer(CALLBACK(src, .proc/electrify, 0), duration SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
 	if(feedback && message)
 		to_chat(user, message)
+	diag_hud_set_electrified()
 
 // shock user with probability prb (if all connections & power are working)
 // returns 1 if shocked, 0 otherwise
@@ -814,12 +822,7 @@ About the new airlock wires panel:
 				safe = 1
 				to_chat(usr, "<span class='notice'>The door safeties have been enabled.</span>")
 		if("speed-toggle")
-			if(wires.is_cut(WIRE_SPEED))
-				to_chat(usr, "<span class='warning'>The timing wire is cut - Cannot alter timing.</span>")
-			else if(normalspeed)
-				normalspeed = 0
-			else
-				normalspeed = 1
+			toggle_speed(usr)
 		if("open-close")
 			open_close(usr)
 		else
@@ -851,10 +854,16 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/proc/toggle_bolt(mob/user)
 	if(wires.is_cut(WIRE_DOOR_BOLTS))
 		to_chat(user, "<span class='warning'>The door bolt control wire has been cut - Door bolts permanently dropped.</span>")
-	else if(lock())
-		to_chat(user, "<span class='notice'>The door bolts have been dropped.</span>")
-	else if(unlock())
+		return
+
+	if(unlock()) // Trying to unbolt
 		to_chat(user, "<span class='notice'>The door bolts have been raised.</span>")
+		return
+
+	if(lock()) // Trying to bolt
+		to_chat(user, "<span class='notice'>The door bolts have been dropped.</span>")
+		user.create_log(MISC_LOG, "Bolted", src)
+		add_hiddenprint(user)
 
 /obj/machinery/door/airlock/proc/toggle_emergency_status(mob/user)
 	emergency = !emergency
@@ -863,6 +872,17 @@ About the new airlock wires panel:
 	else
 		to_chat(user, "<span class='notice'>Emergency access has been disabled.</span>")
 	update_icon()
+
+/obj/machinery/door/airlock/proc/toggle_speed(mob/user)
+	if(wires.is_cut(WIRE_SPEED))
+		to_chat(user, "<span class='warning'>The timing wire has been cut - Cannot alter timing.</span>")
+		return
+	normalspeed = !normalspeed
+
+	if(normalspeed)
+		to_chat(user, "<span class='notice'>The door is now in <b>normal</b> mode.</span>")
+	else
+		to_chat(user, "<span class='notice'>The door is now in <b>fast</b> mode.</span>")
 
 /obj/machinery/door/airlock/attackby(obj/item/C, mob/user, params)
 	add_fingerprint(user)
@@ -1266,6 +1286,17 @@ About the new airlock wires panel:
 		var/duration = world.time + (30 / severity) SECONDS
 		if(duration > electrified_until)
 			electrify(duration)
+
+/obj/machinery/door/airlock/ex_act(severity)
+	if(resistance_flags & INDESTRUCTIBLE)
+		return
+	switch(severity)
+		if(EXPLODE_DEVASTATE) //Destroy the airlock completely.
+			qdel(src)
+		if(EXPLODE_HEAVY) //Deconstruct the airlock, leaving damaged airlock frame and parts behind
+			deconstruct(FALSE, null)
+		if(EXPLODE_LIGHT) //Deals 150 damage to the airlock, half a standard airlock's integrity
+			take_damage(150)
 
 /obj/machinery/door/airlock/attack_alien(mob/living/carbon/alien/humanoid/user)
 	add_fingerprint(user)

@@ -15,7 +15,7 @@
 	anchored = 1
 	density = 1
 	on_blueprints = TRUE
-	armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30)
 	max_integrity = 200
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	resistance_flags = FIRE_PROOF
@@ -95,7 +95,7 @@
 
 // attack by item places it in to disposal
 /obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
-	if(stat & BROKEN || !I || !user)
+	if(stat & BROKEN || !user || I.flags & ABSTRACT)
 		return
 
 	src.add_fingerprint(user)
@@ -129,20 +129,11 @@
 				add_attack_logs(usr, GM, "Disposal'ed", !!GM.ckey ? null : ATKLOG_ALL)
 		return
 
-	if(!I)
+	if(!user.drop_item() || QDELETED(I))
 		return
 
-	if(!user.drop_item())
-		return
-	if(I)
-		I.forceMove(src)
-
-	to_chat(user, "You place [I] into [src].")
-	for(var/mob/M in viewers(src))
-		if(M == user)
-			continue
-		M.show_message("[user.name] places [I] into [src].", 3)
-
+	I.forceMove(src)
+	user.visible_message("[user] places [I] into [src].", "You place [I] into [src].")
 	update()
 
 
@@ -688,9 +679,10 @@
 	dir = 0				// dir will contain dominant direction for junction pipes
 	var/health = 10 	// health points 0-10
 	max_integrity = 200
-	armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30)
 	damage_deflection = 10
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	plane = FLOOR_PLANE
 	layer = DISPOSAL_PIPE_LAYER				// slightly lower than wires and other pipes
 	var/base_icon_state	// initial icon state on map
 
@@ -757,6 +749,9 @@
 // update the icon_state to reflect hidden status
 /obj/structure/disposalpipe/proc/update()
 	var/turf/T = get_turf(src)
+	if(T.transparent_floor)
+		update_icon()
+		return
 	hide(T.intact && !istype(T, /turf/space))	// space never hides pipes
 	update_icon()
 
@@ -889,14 +884,19 @@
 
 /obj/structure/disposalpipe/attackby(obj/item/I, mob/user, params)
 	var/turf/T = get_turf(src)
-	if(T.intact)
-		return		// prevent interaction with T-scanner revealed pipes
+	if(T.intact || T.transparent_floor)
+		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		return 		// prevent interaction with T-scanner revealed pipes and pipes under glass
 
 	add_fingerprint(user)
 
 /obj/structure/disposalpipe/welder_act(mob/user, obj/item/I)
 	. = TRUE
+	var/turf/T = get_turf(src)
 	if(!I.tool_use_check(user, 0))
+		return
+	if(T.transparent_floor)
+		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
@@ -1201,7 +1201,7 @@
 		return
 
 	var/turf/T = src.loc
-	if(T.intact)
+	if(T.intact || T.transparent_floor)
 		return		// prevent interaction with T-scanner revealed pipes
 	src.add_fingerprint(user)
 

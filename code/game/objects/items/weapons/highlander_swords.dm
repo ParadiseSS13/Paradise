@@ -13,7 +13,7 @@
 //	Grants the wielder the Highlander Style Martial Art
 
 /obj/item/claymore/highlander
-	name = "Highlander Claymore"
+	name = "\improper Highlander claymore"
 	desc = "Imbues the wielder with legendary martial prowress and a nigh-unquenchable thirst for glorious battle!"
 	var/datum/martial_art/highlander/style = new
 

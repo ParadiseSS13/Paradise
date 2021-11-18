@@ -44,6 +44,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	move_resist = MOVE_FORCE_NORMAL
 	density = 1
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
+	d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED
 	mob_size = MOB_SIZE_LARGE
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	see_in_dark = 8
@@ -77,6 +78,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/obj/machinery/power/apc/malfhack = null
 	var/explosive = 0 //does the AI explode when it dies?
+
+	/// List of modules the AI has purchased malf upgrades for.
+	var/list/purchased_modules = list()
 
 	var/mob/living/silicon/ai/parent = null
 	var/camera_light_on = 0
@@ -168,6 +172,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(isturf(loc))
 		add_ai_verbs(src)
+	
+	// Remove inherited verbs that effectively do nothing for AIs, or lead to unintended behaviour.
+	verbs -= /mob/living/verb/lay_down
+	verbs -= /mob/living/verb/mob_sleep
+	verbs -= /mob/living/verb/resist
+	verbs -= /mob/living/verb/stop_pulling1
+	verbs -= /mob/living/silicon/verb/pose
+	verbs -= /mob/living/silicon/verb/set_flavor
 
 	//Languages
 	add_language("Robot Talk", 1)
@@ -211,6 +223,20 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	GLOB.ai_list += src
 	GLOB.shuttle_caller_list += src
 	..()
+
+/mob/living/silicon/ai/Destroy()
+	GLOB.ai_list -= src
+	GLOB.shuttle_caller_list -= src
+	SSshuttle.autoEvac()
+	if(malfhacking)
+		deltimer(malfhacking)
+		malfhacking = null
+	QDEL_NULL(eyeobj) // No AI, no Eye
+	QDEL_NULL(aiPDA)
+	QDEL_NULL(aiMulti)
+	QDEL_NULL(aiRadio)
+	QDEL_NULL(builtInCamera)
+	return ..()
 
 /mob/living/silicon/ai/proc/on_mob_init()
 	to_chat(src, "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>")
@@ -313,17 +339,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			aiPDA.set_name_and_job(newname, "AI")
 
 	return TRUE
-
-/mob/living/silicon/ai/Destroy()
-	GLOB.ai_list -= src
-	GLOB.shuttle_caller_list -= src
-	SSshuttle.autoEvac()
-	QDEL_NULL(eyeobj) // No AI, no Eye
-	if(malfhacking)
-		deltimer(malfhacking)
-		malfhacking = null
-	malfhack = null
-	return ..()
 
 
 /*
@@ -1251,7 +1266,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
 	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 		var/message_clean = combine_message(message_pieces, null, M)
-		create_chat_message(M.runechat_msg_location, message_clean)
+		create_chat_message(locateUID(M.runechat_msg_location), message_clean)
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
@@ -1371,8 +1386,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/update_runechat_msg_location()
 	if(istype(loc, /obj/item/aicard) || ismecha(loc))
-		runechat_msg_location = loc
+		runechat_msg_location = loc.UID()
 	else
-		runechat_msg_location = src
+		return ..()
 
 #undef TEXT_ANNOUNCEMENT_COOLDOWN

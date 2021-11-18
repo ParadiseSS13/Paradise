@@ -89,6 +89,15 @@
 /obj/machinery/suit_storage_unit/ce/secure
 	secure = TRUE
 
+/obj/machinery/suit_storage_unit/rd
+	name = "research director's suit storage unit"
+	suit_type	= /obj/item/clothing/suit/space/hardsuit/rd
+	mask_type	= /obj/item/clothing/mask/gas
+	req_access	= list(ACCESS_RD)
+
+/obj/machinery/suit_storage_unit/rd/secure
+	secure = TRUE
+
 /obj/machinery/suit_storage_unit/security
 	name = "security suit storage unit"
 	suit_type	= /obj/item/clothing/suit/space/hardsuit/security
@@ -98,15 +107,12 @@
 /obj/machinery/suit_storage_unit/security/secure
 	secure = TRUE
 
-/obj/machinery/suit_storage_unit/security/pod_pilot
-	req_access = list(ACCESS_PILOT)
-	
 /obj/machinery/suit_storage_unit/security/hos
 	name = "Head of Security's suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
 	mask_type = /obj/item/clothing/mask/gas/sechailer/hos
 	req_access = list(ACCESS_HOS)
-	
+
 /obj/machinery/suit_storage_unit/security/hos/secure
 	secure = TRUE
 
@@ -284,11 +290,6 @@
 
 /obj/machinery/suit_storage_unit/Destroy()
 	SStgui.close_uis(wires)
-	QDEL_NULL(suit)
-	QDEL_NULL(helmet)
-	QDEL_NULL(mask)
-	QDEL_NULL(boots)
-	QDEL_NULL(storage)
 	QDEL_NULL(wires)
 	return ..()
 
@@ -321,6 +322,8 @@
 		if(shock(user, 100))
 			return
 	if(!is_operational())
+		if(user.a_intent != INTENT_HELP)
+			return ..()
 		if(panel_open)
 			to_chat(usr, "<span class='warning'>Close the maintenance panel first.</span>")
 		else

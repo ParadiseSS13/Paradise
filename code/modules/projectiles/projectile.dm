@@ -35,7 +35,7 @@
 	var/tile_dropoff_s = 0	//same as above but for stamina
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
-	var/flag = "bullet" //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
+	var/flag = BULLET //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
 	var/projectile_type = "/obj/item/projectile"
 	var/range = 50 //This will de-increment every step. When 0, it will delete the projectile.
 	var/is_reflectable = FALSE // Can it be reflected or not?
@@ -276,6 +276,8 @@
 
 			speed = round(speed)
 			step_towards(src, locate(new_x, new_y, z))
+			if(QDELETED(src)) // It hit something during the move
+				return
 			if(speed <= 1)
 				pixel_x = pixel_x_offset
 				pixel_y = pixel_y_offset

@@ -22,7 +22,7 @@
 	else if(prob(50))
 		msg = "Contact has been lost with a combat drone wing operating out of the NSV Icarus. If any are sighted in the area, approach with caution."
 	else
-		msg = "Unidentified hackers have targetted a combat drone wing deployed from the NSV Icarus. If any are sighted in the area, approach with caution."
+		msg = "Unidentified hackers have targeted a combat drone wing deployed from the NSV Icarus. If any are sighted in the area, approach with caution."
 	GLOB.event_announcement.Announce(msg, "Rogue drone alert")
 
 /datum/event/rogue_drone/tick()

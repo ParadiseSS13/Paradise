@@ -126,6 +126,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/special_availability_check = 0//Whether the spell needs to bypass the action button's IsAvailable()
 
 	var/sound = null //The sound the spell makes when it is cast
+	/// If the ability is for vampires
+	var/vampire_ability = FALSE
+	var/required_blood = 0
+	var/gain_desc = null
+	var/deduct_blood_on_cast = TRUE
 
 	/// The message displayed when a click based spell gets activated
 	var/selection_activated_message		= "<span class='notice'>Click on a target to cast the spell.</span>"
@@ -220,6 +225,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		charge_counter = charge_max
 	else
 		start_recharge()
+	if(!gain_desc)
+		gain_desc = "You can now use [src]."
 
 	if(!targeting_datums[type])
 		targeting_datums[type] = create_new_targeting()
@@ -314,7 +321,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  * * user - The caster of the spell
  */
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = 1, mob/user = usr) //if recharge is started is important for the trigger spells
-	before_cast(targets)
+	before_cast(targets, user)
 	invocation()
 	if(user && user.ckey)
 		if(create_custom_logs)
@@ -346,7 +353,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/write_custom_logs(list/targets, mob/user)
 	return
 
-/obj/effect/proc_holder/spell/proc/before_cast(list/targets)
+
+/obj/effect/proc_holder/spell/proc/before_cast(list/targets, mob/user)
+	if(vampire_ability) // TODO remove this
+		if(!before_cast_vampire(targets))
+			return
+
 	if(overlay)
 		for(var/atom/target in targets)
 			var/location
@@ -476,11 +488,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.mob_spell_list))
 		if(show_message)
 			to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
-		return 0
+		return FALSE
 
-	var/turf/T = get_turf(user)
-	if(is_admin_level(T.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
-		return 0
+	if(!centcom_cancast) //Certain spells are not allowed on the centcom zlevel
+		var/turf/T = get_turf(user)
+		if(T && is_admin_level(T.z))
+			return FALSE
 
 	if(!holy_area_cancast && user.holy_check())
 		return FALSE
@@ -491,45 +504,75 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 				if(charge_counter < charge_max)
 					if(show_message)
 						to_chat(user, still_recharging_msg)
-					return 0
+					return FALSE
 			if("charges")
 				if(!charge_counter)
 					if(show_message)
 						to_chat(user, "<span class='notice'>[name] has no charges left.</span>")
-					return 0
+					return FALSE
 	if(!ghost)
 		if(user.stat && !stat_allowed)
 			if(show_message)
 				to_chat(user, "<span class='notice'>You can't cast this spell while incapacitated.</span>")
-			return 0
+			return FALSE
 		if(ishuman(user) && (invocation_type == "whisper" || invocation_type == "shout") && user.is_muzzled())
 			if(show_message)
 				to_chat(user, "Mmmf mrrfff!")
-			return 0
+			return FALSE
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/clothcheck = locate(/obj/effect/proc_holder/spell/noclothes) in user.mob_spell_list
 		var/clothcheck2 = user.mind && (locate(/obj/effect/proc_holder/spell/noclothes) in user.mind.spell_list)
-		if(clothes_req && !clothcheck && !clothcheck2) //clothes check
+		if(clothes_req && !clothcheck && !clothcheck2 && !vampire_ability) //clothes check
 			var/obj/item/clothing/robe = H.wear_suit
 			var/obj/item/clothing/hat = H.head
 			var/obj/item/clothing/shoes = H.shoes
 			if(!robe || !hat || !shoes)
 				if(show_message)
 					to_chat(user, "<span class='notice'>Your outfit isn't complete, you should put on your robe and wizard hat, as well as sandals.</span>")
-				return 0
+				return FALSE
 			if(!robe.magical || !hat.magical || !shoes.magical)
 				if(show_message)
 					to_chat(user, "<span class='notice'>Your outfit isn't magical enough, you should put on your robe and wizard hat, as well as your sandals.</span>")
-				return 0
+				return FALSE
 	else
-		if(clothes_req  || human_req)
+		if(clothes_req || human_req || vampire_ability)
 			if(show_message)
 				to_chat(user, "<span class='notice'>This spell can only be cast by humans!</span>")
-			return 0
+			return FALSE
 		if(nonabstract_req && (isbrain(user) || ispAI(user)))
 			if(show_message)
 				to_chat(user, "<span class='notice'>This spell can only be cast by physical beings!</span>")
-			return 0
-	return 1
+			return FALSE
+
+	if(vampire_ability)
+
+		var/datum/vampire/vampire = user.mind.vampire
+
+		if(!vampire)
+			return FALSE
+
+		var/fullpower = vampire.get_ability(/datum/vampire_passive/full)
+
+		if(user.stat >= DEAD)
+			if(show_message)
+				to_chat(user, "<span class='warning'>Not while you're dead!</span>")
+			return FALSE
+
+		if(vampire.nullified >= VAMPIRE_COMPLETE_NULLIFICATION && !fullpower) // above 100 nullification vampire powers are useless
+			if(show_message)
+				to_chat(user, "<span class='warning'>Something is blocking your powers!</span>")
+			return FALSE
+		if(vampire.bloodusable < required_blood)
+			if(show_message)
+				to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
+			return FALSE
+		//chapel check
+		if(istype(get_area(user), /area/chapel) && !fullpower)
+			if(show_message)
+				to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
+			return FALSE
+
+	return TRUE
+

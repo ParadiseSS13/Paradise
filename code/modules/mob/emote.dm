@@ -77,6 +77,9 @@
 
 		// Type 1 (Visual) emotes are sent to anyone in view of the item
 		if(m_type & EMOTE_VISUAL)
+			var/runechat_text = input
+			if(length(input) > 100)
+				runechat_text = "[copytext(input, 1, 101)]..."
 			var/list/can_see = get_mobs_in_view(1,src)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
 			can_see |= viewers(src,null)
 			for(var/mob/O in can_see)
@@ -91,7 +94,7 @@
 
 				O.show_message(message, m_type)
 				if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-					O.create_chat_message(src, input, symbol = RUNECHAT_SYMBOL_EMOTE)
+					O.create_chat_message(src, runechat_text, symbol = RUNECHAT_SYMBOL_EMOTE)
 
 		// Type 2 (Audible) emotes are sent to anyone in hear range
 		// of the *LOCATION* -- this is important for pAIs to be heard
@@ -109,7 +112,7 @@
 				O.show_message(message, m_type)
 
 /mob/proc/emote_dead(message)
-	if(client.prefs.muted & MUTE_DEADCHAT)
+	if(check_mute(client.ckey, MUTE_DEADCHAT))
 		to_chat(src, "<span class='warning'>You cannot send deadchat emotes (muted).</span>")
 		return
 
