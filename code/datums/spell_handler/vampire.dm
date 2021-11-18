@@ -45,8 +45,9 @@
 	return blood_cost
 
 /datum/spell_handler/vampire/after_cast(list/targets, mob/user, obj/effect/proc_holder/spell/spell)
-	SSblackbox.record_feedback("tally", "vampire_powers_used", 1, "[spell]")
-	if(required_blood)
-		var/datum/vampire/vampire = user.mind.vampire
-		to_chat(user, "<span class='boldnotice'>You have [vampire.bloodusable] left to use.</span>")
+	if(!required_blood)
+		return
+	var/datum/vampire/vampire = user.mind.vampire
+	to_chat(user, "<span class='boldnotice'>You have [vampire.bloodusable] left to use.</span>")
+	SSblackbox.record_feedback("tally", "vampire_powers_used", 1, "[spell]") // Only log abilities which require blood
 
