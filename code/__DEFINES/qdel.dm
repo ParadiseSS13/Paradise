@@ -4,11 +4,10 @@
 #define QDEL_HINT_QUEUE 		0 //qdel should queue the object for deletion.
 #define QDEL_HINT_LETMELIVE		1 //qdel should let the object live after calling destory.
 #define QDEL_HINT_IWILLGC		2 //functionally the same as the above. qdel should assume the object will gc on its own, and not check it.
-#define QDEL_HINT_HARDDEL		3 //qdel should assume this object won't gc, and queue a hard delete using a hard reference.
-#define QDEL_HINT_HARDDEL_NOW	4 //qdel should assume this object won't gc, and hard del it post haste.
-#define QDEL_HINT_FINDREFERENCE	5 //functionally identical to QDEL_HINT_QUEUE if TESTING is not enabled in _compiler_options.dm.
+#define QDEL_HINT_HARDDEL_NOW	3 //qdel should assume this object won't gc, and hard del it post haste.
+#define QDEL_HINT_FINDREFERENCE	4 //functionally identical to QDEL_HINT_QUEUE if TESTING is not enabled in _compiler_options.dm.
 								  //if TESTING is enabled, qdel will call this object's find_references() verb.
-#define QDEL_HINT_IFFAIL_FINDREFERENCE 6		//Above but only if gc fails.
+#define QDEL_HINT_IFFAIL_FINDREFERENCE 5		//Above but only if gc fails.
 //defines for the gc_destroyed var
 
 #define GC_QUEUE_CHECK 1
