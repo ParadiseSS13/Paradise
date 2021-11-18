@@ -27362,9 +27362,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "bjx" = (
-/mob/living/simple_animal/cow{
-	name = "Betsy"
-	},
+/mob/living/simple_animal/cow/betsy,
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "bjy" = (
@@ -78461,9 +78459,7 @@
 /area/hydroponics)
 "dnE" = (
 /obj/machinery/hydroponics/soil,
-/mob/living/simple_animal/chicken{
-	name = "Commander Clucky"
-	},
+/mob/living/simple_animal/chicken/clucky,
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "dnF" = (
