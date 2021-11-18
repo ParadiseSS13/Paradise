@@ -137,12 +137,6 @@
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and job)</span>")
 					return
 				job_ban = TRUE
-			if(BANTYPE_APPEARANCE)
-				if(!banckey || !banreason)
-					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey and reason)</span>")
-					return
-				banduration = null
-				banjob = null
 			if(BANTYPE_ADMIN_PERMA)
 				if(!banckey || !banreason)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey and reason)</span>")
@@ -492,55 +486,6 @@
 		to_chat(GLOB.banlist_savefile["bannedby"], usr.ckey)
 		GLOB.banlist_savefile.cd = "/base"
 		unbanpanel()
-
-	/////////////////////////////////////new ban stuff
-
-	else if(href_list["appearanceban"])
-		if(!check_rights(R_BAN))
-			return
-		var/mob/M = locateUID(href_list["appearanceban"])
-		if(!istype(M, /mob))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
-			return
-		if(!M.ckey)	//sanity
-			to_chat(usr, "<span class='warning'>This mob has no ckey</span>")
-			return
-		var/ban_ckey_param = href_list["dbbanaddckey"]
-
-		var/banreason = appearance_isbanned(M)
-		if(banreason)
-	/*		if(!config.ban_legacy_system)
-				to_chat(usr, "<span class='warning'>Unfortunately, database based unbanning cannot be done through this panel</span>")
-				DB_ban_panel(M.ckey)
-				return	*/
-			switch(alert("Reason: '[banreason]' Remove appearance ban?","Please Confirm","Yes","No"))
-				if("Yes")
-					log_admin("[key_name(usr)] removed [key_name(M)]'s appearance ban")
-					DB_ban_unban(M.ckey, BANTYPE_APPEARANCE)
-					appearance_unban(M)
-					message_admins("<span class='notice'>[key_name_admin(usr)] removed [key_name_admin(M)]'s appearance ban</span>", 1)
-					to_chat(M, "<span class='warning'><big><b>[usr.client.ckey] has removed your appearance ban.</b></big></span>")
-
-		else switch(alert("Appearance ban [M.ckey]?",,"Yes","No", "Cancel"))
-			if("Yes")
-				var/reason = input(usr,"Please state the reason","Reason") as message|null
-				if(!reason)
-					return
-				M = admin_ban_mobsearch(M, ban_ckey_param, usr)
-				log_admin("[key_name(usr)] appearance banned [key_name(M)]. \nReason: [reason]")
-				DB_ban_record(BANTYPE_APPEARANCE, M, -1, reason)
-				appearance_fullban(M, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
-				add_note(M.ckey, "Appearance banned - [reason]", null, usr.ckey, 0)
-				message_admins("<span class='notice'>[key_name_admin(usr)] appearance banned [key_name_admin(M)]</span>", 1)
-				to_chat(M, "<span class='warning'><big><b>You have been appearance banned by [usr.client.ckey].</b></big></span>")
-				to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
-				to_chat(M, "<span class='warning'>Appearance ban can be lifted only upon request.</span>")
-				if(GLOB.configuration.url.banappeals_url)
-					to_chat(M, "<span class='warning'>To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]</span>")
-				else
-					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
-			if("No")
-				return
 
 	else if(href_list["jobban2"])
 //		if(!check_rights(R_BAN))	return

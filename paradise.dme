@@ -1181,7 +1181,6 @@
 #include "code\modules\admin\admin_memo.dm"
 #include "code\modules\admin\admin_ranks.dm"
 #include "code\modules\admin\admin_verbs.dm"
-#include "code\modules\admin\banappearance.dm"
 #include "code\modules\admin\banjob.dm"
 #include "code\modules\admin\centcom_ban_db.dm"
 #include "code\modules\admin\cookielog.dm"
