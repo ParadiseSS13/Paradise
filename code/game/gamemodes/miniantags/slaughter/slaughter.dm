@@ -149,8 +149,7 @@
 	panel = "Demon"
 
 /obj/effect/proc_holder/spell/sense_victims/create_new_targeting()
-	var/datum/spell_targeting/alive_mob_list/A = new()
-	return A
+	return new /datum/spell_targeting/alive_mob_list
 
 /obj/effect/proc_holder/spell/sense_victims/valid_target(mob/living/target, user)
 	return target.stat == CONSCIOUS && target.key && !iscultist(target) // Only conscious, non cultist players

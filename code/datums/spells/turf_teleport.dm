@@ -14,6 +14,9 @@
 	var/sound1 = 'sound/weapons/zapbang.ogg'
 	var/sound2 = 'sound/weapons/zapbang.ogg'
 
+/obj/effect/proc_holder/spell/turf_teleport/create_new_targeting()
+	return new /datum/spell_targeting/self
+
 /obj/effect/proc_holder/spell/turf_teleport/cast(list/targets,mob/living/user = usr)
 	if(sound1)
 		playsound(get_turf(user), sound1, 50,1)

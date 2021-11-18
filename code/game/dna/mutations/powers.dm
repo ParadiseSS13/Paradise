@@ -373,8 +373,7 @@
 	action_icon_state = "genetic_eat"
 
 /obj/effect/proc_holder/spell/eat/create_new_targeting()
-	var/datum/spell_targeting/matter_eater/M = new()
-	return M
+	return new /datum/spell_targeting/matter_eater
 
 /obj/effect/proc_holder/spell/eat/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	. = ..()
@@ -919,8 +918,7 @@
 	action_icon_state = "genetic_project"
 
 /obj/effect/proc_holder/spell/remotetalk/create_new_targeting()
-	var/datum/spell_targeting/telepathic/T = new()
-	return T
+	return new /datum/spell_targeting/telepathic
 
 /obj/effect/proc_holder/spell/remotetalk/cast(list/targets, mob/user = usr)
 	if(!ishuman(user))	return
@@ -952,8 +950,7 @@
 	var/list/available_targets = list()
 
 /obj/effect/proc_holder/spell/mindscan/create_new_targeting()
-	var/datum/spell_targeting/telepathic/T = new()
-	return T
+	return new /datum/spell_targeting/telepathic
 
 /obj/effect/proc_holder/spell/mindscan/cast(list/targets, mob/user = usr)
 	if(!ishuman(user))
@@ -1028,8 +1025,7 @@
 	action_icon_state = "genetic_view"
 
 /obj/effect/proc_holder/spell/remoteview/create_new_targeting()
-	var/datum/spell_targeting/remoteview/R = new()
-	return R
+	return new /datum/spell_targeting/remoteview
 
 /obj/effect/proc_holder/spell/remoteview/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/H

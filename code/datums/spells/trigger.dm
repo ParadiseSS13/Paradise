@@ -1,5 +1,4 @@
 /obj/effect/proc_holder/spell/trigger
-	name = "Trigger"
 	desc = "This spell triggers another spell or a few."
 
 	var/list/linked_spells = list() //those are just referenced by the trigger spell and are unaffected by it directly

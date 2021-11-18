@@ -1,5 +1,4 @@
 /obj/effect/proc_holder/spell/projectile
-	name = "Projectile"
 	desc = "This spell summons projectiles which try to hit the targets."
 
 	var/proj_icon = 'icons/obj/projectiles.dmi'

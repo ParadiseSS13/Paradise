@@ -11,47 +11,27 @@
 		return FALSE
 	return TRUE
 
-/obj/effect/proc_holder/spell/self/choose_targets(mob/user = usr)
-	perform(list(user))
+/obj/effect/proc_holder/spell/vampire
+	panel = "Vampire"
+	school = "vampire"
+	action_background_icon_state = "bg_vampire"
+	human_req = TRUE
+	clothes_req = FALSE
+	/// How much blood this ability costs to use
+	var/required_blood
+	var/deduct_blood_on_cast = TRUE
 
-/obj/effect/proc_holder/spell/mob_aoe/choose_targets(mob/user = usr)
-	var/list/targets[0]
-	for(var/mob/living/L in view(range, user))
-		if(L == user)
-			continue
-		targets += L
 
-	if(!length(targets))
-		revert_cast(user)
-		return
+/obj/effect/proc_holder/spell/vampire/create_new_handler()
+	var/datum/spell_handler/vampire/H = new
+	H.required_blood = required_blood
+	H.deduct_blood_on_cast = deduct_blood_on_cast
+	return H
 
-	perform(targets, user = user)
+/obj/effect/proc_holder/spell/vampire/self
 
-/obj/effect/proc_holder/spell/proc/before_cast_vampire(list/targets)
-	// sanity check before we cast
-	if(!usr.mind || !usr.mind.vampire)
-		targets.Cut()
-		return FALSE
-
-	if(!required_blood)
-		return
-
-	// enforce blood
-	var/datum/vampire/vampire = usr.mind.vampire
-	var/blood_cost_modifier = 1 + vampire.nullified / 100
-	var/blood_cost = round(required_blood * blood_cost_modifier)
-
-	if(blood_cost <= vampire.bloodusable)
-		if(!deduct_blood_on_cast) //don't take the blood yet if this is false!
-			return
-		vampire.bloodusable -= blood_cost
-		SSblackbox.record_feedback("tally", "vampire_powers_used", 1, "[name]")
-		to_chat(usr, "<span class='boldnotice'>You have [vampire.bloodusable] left to use.</span>")
-		return TRUE
-	else
-		// stop!!
-		targets.Cut()
-		return FALSE
+/obj/effect/proc_holder/spell/vampire/self/create_new_targeting()
+	return new /datum/spell_targeting/self
 
 /datum/vampire_passive
 	var/gain_desc
@@ -66,21 +46,15 @@
 	owner = null
 	return ..()
 
-/obj/effect/proc_holder/spell/self/vampire
-	vampire_ability = TRUE
-	panel = "Vampire"
-	school = "vampire"
-	action_background_icon_state = "bg_vampire"
 
-
-/obj/effect/proc_holder/spell/self/vampire/rejuvenate
+/obj/effect/proc_holder/spell/vampire/self/rejuvenate
 	name = "Rejuvenate"
 	desc = "Use reserve blood to enliven your body, removing any incapacitating effects."
 	action_icon_state = "vampire_rejuvinate"
 	charge_max = 200
 	stat_allowed = 1
 
-/obj/effect/proc_holder/spell/self/vampire/rejuvenate/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/vampire/self/rejuvenate/cast(list/targets, mob/user = usr)
 	var/mob/living/U = user
 
 	U.SetWeakened(0)
@@ -94,7 +68,7 @@
 	if(rejuv_bonus)
 		INVOKE_ASYNC(src, .proc/heal, U, rejuv_bonus)
 
-/obj/effect/proc_holder/spell/self/vampire/rejuvenate/proc/heal(mob/living/user, rejuv_bonus)
+/obj/effect/proc_holder/spell/vampire/self/rejuvenate/proc/heal(mob/living/user, rejuv_bonus)
 	for(var/i in 1 to 5)
 		user.adjustBruteLoss(-2 * rejuv_bonus)
 		user.adjustOxyLoss(-5 * rejuv_bonus)
@@ -117,29 +91,29 @@
 	return 1
 
 
-/obj/effect/proc_holder/spell/self/vampire/specialize
+/obj/effect/proc_holder/spell/vampire/self/specialize
 	name = "Choose Specialization"
 	desc = "Choose what sub-class of vampire you want to evolve into."
 	gain_desc = "You can now choose what specialization of vampire you want to evolve into."
 	charge_max = 2 SECONDS
 	action_icon_state = "select_class"
 
-/obj/effect/proc_holder/spell/self/vampire/specialize/cast(mob/user)
+/obj/effect/proc_holder/spell/vampire/self/specialize/cast(mob/user)
 	ui_interact(user)
 
-/obj/effect/proc_holder/spell/self/vampire/specialize/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
+/obj/effect/proc_holder/spell/vampire/self/specialize/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "SpecMenu", "Specialisation Menu", 900, 600, master_ui, state)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
-/obj/effect/proc_holder/spell/self/vampire/specialize/ui_data(mob/user)
+/obj/effect/proc_holder/spell/vampire/self/specialize/ui_data(mob/user)
 	var/datum/vampire/vamp = user.mind.vampire
 	var/list/data = list("subclasses" = vamp.subclass)
 	return data
 
-/obj/effect/proc_holder/spell/self/vampire/specialize/ui_act(action, list/params)
+/obj/effect/proc_holder/spell/vampire/self/specialize/ui_act(action, list/params)
 	if(..())
 		return
 	var/datum/vampire/vamp = usr.mind.vampire
@@ -170,17 +144,18 @@
 	check_vampire_upgrade(announce)
 	SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
 
-/obj/effect/proc_holder/spell/mob_aoe/glare
+/obj/effect/proc_holder/spell/vampire/glare
 	name = "Glare"
 	desc = "Your eyes flash, stunning and silencing anyone infront of you. It has lesser effects for those around you."
 	action_icon_state = "vampire_glare"
 	charge_max = 30 SECONDS
-	stat_allowed = 1
-	range = 1
-	vampire_ability = TRUE
-	panel = "Vampire"
-	school = "vampire"
-	action_background_icon_state = "bg_vampire"
+	stat_allowed = TRUE
+
+/obj/effect/proc_holder/spell/vampire/glare/create_new_targeting()
+	var/datum/spell_targeting/aoe/T = new
+	T.allowed_type = /mob/living
+	T.range = 1
+	return T
 
 /// No deviation at all. Flashed from the front or front-left/front-right. Alternatively, flashed in direct view.
 #define DEVIATION_NONE 3
@@ -189,7 +164,7 @@
 /// Full deviation. Flashed from directly behind or behind-left/behind-rack. Not flashed at all.
 #define DEVIATION_FULL 1
 
-/obj/effect/proc_holder/spell/mob_aoe/glare/cast(list/targets, mob/living/user = usr)
+/obj/effect/proc_holder/spell/vampire/glare/cast(list/targets, mob/living/user = usr)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
@@ -225,7 +200,7 @@
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
 		add_attack_logs(user, target, "(Vampire) Glared at")
 
-/obj/effect/proc_holder/spell/mob_aoe/glare/proc/calculate_deviation(mob/victim, mob/attacker)
+/obj/effect/proc_holder/spell/vampire/glare/proc/calculate_deviation(mob/victim, mob/attacker)
 	// Are they on the same tile? We'll return partial deviation. This may be someone flashing while lying down
 	if(victim.loc == attacker.loc)
 		return DEVIATION_PARTIAL
@@ -268,7 +243,7 @@
 /datum/vampire_passive/full
 	gain_desc = "You have reached your full potential. You are no longer weak to the effects of anything holy and your vision has improved greatly."
 
-/obj/effect/proc_holder/spell/targeted/raise_vampires
+/obj/effect/proc_holder/spell/vampire/raise_vampires
 	name = "Raise Vampires"
 	desc = "Summons deadly vampires from bluespace."
 	school = "transmutation"
@@ -277,18 +252,17 @@
 	human_req = 1
 	invocation = "none"
 	invocation_type = "none"
-	max_targets = 0
-	range = 3
 	cooldown_min = 20
 	action_icon_state = "revive_thrall"
-	vampire_ability = TRUE
 	sound = 'sound/magic/wandodeath.ogg'
-	panel = "Vampire"
-	school = "vampire"
-	action_background_icon_state = "bg_vampire"
 	gain_desc = "You have gained the ability to Raise Vampires. This extremely powerful AOE ability affects all humans near you. Vampires/thralls are healed. Corpses are raised as vampires. Others are stunned, then brain damaged, then killed."
 
-/obj/effect/proc_holder/spell/targeted/raise_vampires/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/vampire/raise_vampires/create_new_targeting()
+	var/datum/spell_targeting/aoe/T = new
+	T.range = 3
+	return T
+
+/obj/effect/proc_holder/spell/vampire/raise_vampires/cast(list/targets, mob/user = usr)
 	new /obj/effect/temp_visual/cult/sparks(user.loc)
 	var/turf/T = get_turf(user)
 	to_chat(user, "<span class='warning'>You call out within bluespace, summoning more vampiric spirits to aid you!</span>")
@@ -298,7 +272,7 @@
 		raise_vampire(user, H)
 
 
-/obj/effect/proc_holder/spell/targeted/raise_vampires/proc/raise_vampire(mob/M, mob/living/carbon/human/H)
+/obj/effect/proc_holder/spell/vampire/raise_vampires/proc/raise_vampire(mob/M, mob/living/carbon/human/H)
 	if(!istype(M) || !istype(H))
 		return
 	if(!H.mind)
@@ -342,18 +316,15 @@
 	H.revive()
 	H.Weaken(20)
 
-/obj/effect/proc_holder/spell/targeted/turf_teleport/shadow_step
+/obj/effect/proc_holder/spell/turf_teleport/shadow_step
 	name = "Shadow Step (30)"
 	desc = "Teleport to a nearby dark region"
 	gain_desc = "You have gained the ability to shadowstep, which makes you disappear into nearby shadows at the cost of blood."
 	action_icon_state = "shadowblink"
 	charge_max = 20
-	required_blood = 30
+	clothes_req = FALSE
 	centcom_cancast = FALSE
-	vampire_ability = TRUE
 	include_space = FALSE
-	range = -1
-	include_user = TRUE
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
@@ -367,24 +338,33 @@
 	sound1 = null
 	sound2 = null
 
+/obj/effect/proc_holder/spell/turf_teleport/shadow_step/create_new_handler()
+	var/datum/spell_handler/vampire/H = new
+	H.required_blood = 30
+	return H
+
 // pure adminbus at the moment
 /proc/isvampirethrall(mob/living/M)
 	return istype(M) && M.mind && SSticker.mode && (M.mind in SSticker.mode.vampire_enthralled)
 
-/obj/effect/proc_holder/spell/targeted/enthrall
+/obj/effect/proc_holder/spell/vampire/enthrall
 	name = "Enthrall (150)"
 	desc = "You use a large portion of your power to sway those loyal to none to be loyal to you only."
 	gain_desc = "You have gained the ability to thrall people to your will."
 	action_icon_state = "vampire_enthrall"
 	required_blood = 150
 	deduct_blood_on_cast = FALSE
-	vampire_ability = TRUE
-	humans_only = TRUE
 	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 
-/obj/effect/proc_holder/spell/targeted/enthrall/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/vampire/enthrall/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.range = 1
+	T.click_radius = 0
+	return T
+
+/obj/effect/proc_holder/spell/vampire/enthrall/cast(list/targets, mob/user = usr)
 	var/datum/vampire/vampire = user.mind.vampire
 	for(var/mob/living/target in targets)
 		user.visible_message("<span class='warning'>[user] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
@@ -392,14 +372,14 @@
 		if(do_mob(user, target, 50))
 			if(can_enthrall(user, target))
 				handle_enthrall(user, target)
-				var/blood_cost_modifier = 1 + vampire.nullified/100
-				var/blood_cost = round(required_blood * blood_cost_modifier)
+				var/datum/spell_handler/vampire/V = custom_handler
+				var/blood_cost = V.calculate_blood_cost(vampire)
 				vampire.bloodusable -= blood_cost //we take the blood after enthralling, not before
 			else
 				revert_cast(user)
 				to_chat(user, "<span class='warning'>You or your target either moved or you dont have enough usable blood.</span>")
 
-/obj/effect/proc_holder/spell/targeted/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
+/obj/effect/proc_holder/spell/vampire/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
 	var/enthrall_safe = 0
 	for(var/obj/item/implant/mindshield/L in C)
 		if(L && L.implanted)
@@ -429,7 +409,7 @@
 		return FALSE
 	return TRUE
 
-/obj/effect/proc_holder/spell/targeted/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H)
+/obj/effect/proc_holder/spell/vampire/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H)
 	if(!istype(H))
 		return 0
 	var/ref = "\ref[user.mind]"
