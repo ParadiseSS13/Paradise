@@ -7,4 +7,4 @@
 		if(!S.targeting)
 			bad_spells += S
 	if(length(bad_spells))
-		Fail("Spells without targeting found: [bad_spells.Join(",")]")
+		Fail("Spells without targeting found: [bad_spells.Join(", ")]")
