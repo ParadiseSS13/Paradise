@@ -1134,10 +1134,7 @@
 /area/derelict/bridge)
 "cG" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/item/trash/can,
 /obj/item/trash/semki,
 /turf/simulated/floor/plasteel{
@@ -4121,10 +4118,7 @@
 /area/derelict/arrival)
 "iS" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_x = -32
 	},
@@ -5638,10 +5632,7 @@
 /area/derelict/arrival)
 "lL" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -8184,10 +8175,7 @@
 /area/derelict/arrival)
 "rJ" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/item/trash/popcorn,
 /obj/item/trash/semki,
 /obj/item/paper/crumpled{

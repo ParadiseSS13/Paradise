@@ -225,6 +225,8 @@
 //Landmarks
 // TODO: Split into seperate landmarks for prettier ships
 /obj/effect/landmark/abductor
+	icon = 'icons/effects/spawner_icons.dmi'
+	icon_state = "Abductor"
 	var/team = 1
 
 /obj/effect/landmark/abductor/agent

@@ -1079,9 +1079,7 @@
 /area/holodeck/source_beach)
 "en" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark{
-	name = "Syndicate-Spawn"
-	},
+/obj/effect/landmark/syndie,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -1318,9 +1316,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "fa" = (
-/obj/effect/landmark{
-	name = "Syndicate-Spawn"
-	},
+/obj/effect/landmark/syndie,
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "fb" = (
@@ -1500,9 +1496,7 @@
 /turf/simulated/floor/carpet,
 /area/wizard_station)
 "fz" = (
-/obj/effect/landmark/start{
-	name = "wizard"
-	},
+/obj/effect/landmark/wiz,
 /turf/simulated/floor/carpet,
 /area/wizard_station)
 "fA" = (
@@ -2382,9 +2376,7 @@
 /area/wizard_station)
 "jf" = (
 /obj/structure/chair/stool/bar,
-/obj/effect/landmark{
-	name = "Syndicate-Spawn"
-	},
+/obj/effect/landmark/syndie,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -2893,6 +2885,8 @@
 /area/abductor_ship)
 "kT" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Syndie";
 	name = "Syndicate-Infiltrator";
 	tag = "Commando"
 	},
@@ -3370,6 +3364,8 @@
 /area/centcom/control)
 "mt" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Syndie";
 	name = "Syndicate-Infiltrator";
 	tag = "Commando"
 	},
@@ -3656,6 +3652,8 @@
 	pixel_x = -28
 	},
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Syndie";
 	name = "Syndicate-Infiltrator";
 	tag = "Commando"
 	},
@@ -3875,6 +3873,8 @@
 /area/shuttle/syndicate)
 "ob" = (
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Syndie";
 	name = "Syndicate-Infiltrator-Leader";
 	tag = "Commando"
 	},
@@ -3981,28 +3981,20 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "ou" = (
-/obj/effect/landmark{
-	name = "Response Team"
-	},
-/obj/effect/landmark{
-	name = "Commando"
-	},
+/obj/effect/landmark/ds,
+/obj/effect/landmark/ert,
 /turf/simulated/floor/plasteel/dark{
 	dir = 8;
 	icon_state = "vault"
 	},
 /area/centcom/specops)
 "ov" = (
-/obj/effect/landmark{
-	name = "Response Team"
-	},
-/obj/effect/landmark{
-	name = "Commando"
-	},
 /obj/machinery/camera{
 	c_tag = "CentComm Special Ops. Starting Room";
 	network = list("ERT","CentComm")
 	},
+/obj/effect/landmark/ds,
+/obj/effect/landmark/ert,
 /turf/simulated/floor/plasteel/dark{
 	dir = 8;
 	icon_state = "vault"
@@ -7539,9 +7531,7 @@
 /area/holodeck/source_boxingcourt)
 "zj" = (
 /obj/structure/chair/comfy/brown,
-/obj/effect/landmark{
-	name = "traderstart_sol"
-	},
+/obj/effect/landmark/soltrader,
 /turf/simulated/floor/plasteel,
 /area/trader_station/sol)
 "zk" = (
@@ -7592,9 +7582,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "traderstart_sol"
-	},
+/obj/effect/landmark/soltrader,
 /turf/simulated/floor/plasteel,
 /area/trader_station/sol)
 "zv" = (
@@ -7643,12 +7631,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 1
 	},
-/obj/effect/landmark{
-	name = "traderstart_sol"
-	},
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/effect/landmark/soltrader,
 /turf/simulated/floor/plasteel,
 /area/trader_station/sol)
 "zG" = (
@@ -8169,6 +8152,8 @@
 "Bx" = (
 /obj/structure/chair/stool,
 /obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "Syndie";
 	name = "Syndicate-Commando";
 	tag = "Commando"
 	},
@@ -41578,7 +41563,7 @@ yF
 yF
 yF
 yF
-yF
+yw
 xQ
 aN
 aN
