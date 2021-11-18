@@ -180,6 +180,11 @@ SUBSYSTEM_DEF(ticker)
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 		return FALSE
 
+	// Randomise characters now. This avoids rare cases where a human is set as a changeling then they randomise to an IPC
+	for(var/mob/new_player/player in GLOB.player_list)
+		if(player.client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
+			player.client.prefs.load_random_character_slot(player.client)
+
 	//Configure mode and assign player to special mode stuff
 	mode.pre_pre_setup()
 	var/can_continue
