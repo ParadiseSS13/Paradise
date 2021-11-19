@@ -149,7 +149,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 
 /obj/machinery/photocopier/faxmachine/ui_act(action, params)
-	if(..())
+	if(!..()) // !..() here because the parent photocopier proc returns null as opposed to TRUE if the ui should not be interacted with.
 		return
 	var/is_authenticated = is_authenticated(usr)
 	. = TRUE
