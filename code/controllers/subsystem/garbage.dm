@@ -123,9 +123,7 @@ SUBSYSTEM_DEF(garbage)
 		if(!refID)
 			count++
 			if(MC_TICK_CHECK)
-				queue.Cut(1, count + 1)
-				count = 0
-				return
+				break
 			continue
 
 		var/GCd_at_time = queue[refID]
@@ -144,9 +142,7 @@ SUBSYSTEM_DEF(garbage)
 			reference_find_on_fail -= refID		//It's deleted we don't care anymore.
 			#endif
 			if(MC_TICK_CHECK)
-				queue.Cut(1, count + 1)
-				count = 0
-				return
+				break
 			continue
 
 		// Something's still referring to the qdel'd object.
@@ -176,9 +172,7 @@ SUBSYSTEM_DEF(garbage)
 			if(GC_QUEUE_HARDDELETE)
 				HardDelete(D)
 				if(MC_TICK_CHECK)
-					queue.Cut(1, count + 1)
-					count = 0
-					return
+					break
 				continue
 
 		Queue(D, level + 1)
@@ -189,9 +183,7 @@ SUBSYSTEM_DEF(garbage)
 		#endif
 
 		if(MC_TICK_CHECK)
-			queue.Cut(1, count + 1)
-			count = 0
-			return
+			break
 	if(count)
 		queue.Cut(1, count + 1)
 		count = 0
