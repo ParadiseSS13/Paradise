@@ -92,6 +92,8 @@
 	attack_verb = list("chopped", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
+	embed_chance = 70
+	embedded_ignore_throwspeed_threshold = TRUE
 
 /obj/item/hatchet/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -126,6 +128,8 @@
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
+	embed_chance = 15
+	embedded_ignore_throwspeed_threshold = TRUE
 	var/extend = 1
 	var/swiping = FALSE
 

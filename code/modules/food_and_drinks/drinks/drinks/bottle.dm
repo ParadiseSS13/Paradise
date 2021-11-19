@@ -147,6 +147,8 @@
 	attack_verb = list("stabbed", "slashed", "attacked")
 	var/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
 	sharp = 1
+	embed_chance = 10
+	embedded_ignore_throwspeed_threshold = TRUE
 
 /obj/item/broken_bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["glass"] += 3

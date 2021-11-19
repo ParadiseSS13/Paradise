@@ -254,6 +254,8 @@
 	throwforce = 25
 	armour_penetration = 10
 	sharp = TRUE
+	embed_chance = 70
+	embedded_ignore_throwspeed_threshold = TRUE
 	attack_verb = list("stabbed", "poked", "slashed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_BULKY
