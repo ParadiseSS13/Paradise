@@ -62306,7 +62306,6 @@
 /area/engine/engine_smes)
 "cIQ" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen";
 	opened = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance,
