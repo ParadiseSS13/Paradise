@@ -57,7 +57,7 @@
 /turf/space,
 /area/space)
 "abp" = (
-/obj/effect/landmark/carp,
+/obj/effect/landmark/spawner/carp,
 /turf/space,
 /area/space)
 "abM" = (
@@ -6439,7 +6439,7 @@
 /turf/simulated/wall/r_wall,
 /area/security/brig)
 "aqL" = (
-/obj/effect/landmark/carp,
+/obj/effect/landmark/spawner/carp,
 /obj/structure/lattice,
 /turf/space,
 /area/space)
@@ -11408,7 +11408,7 @@
 	},
 /area/security/interrogation)
 "aAa" = (
-/obj/effect/landmark/blob,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aAb" = (
@@ -13413,7 +13413,7 @@
 /area/maintenance/fpmaint2)
 "aEH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/xeno,
+/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -18455,7 +18455,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/landmark/blob,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
 "aQU" = (
@@ -18590,7 +18590,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aRi" = (
-/obj/effect/landmark/blob,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aRj" = (
@@ -19898,7 +19898,7 @@
 "aUe" = (
 /obj/structure/closet,
 /obj/item/reagent_containers/food/drinks/cans/badminbrew,
-/obj/effect/landmark/blob,
+/obj/effect/landmark/spawner/blob,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -21367,7 +21367,7 @@
 	c_tag = "Chapel Crematorium";
 	dir = 4
 	},
-/obj/effect/landmark/rev,
+/obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -22000,7 +22000,7 @@
 /area/crew_quarters/sleep)
 "aYx" = (
 /obj/structure/crematorium,
-/obj/effect/landmark/rev,
+/obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -22213,7 +22213,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aYZ" = (
-/obj/effect/landmark/late,
+/obj/effect/landmark/spawner/late,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
@@ -24881,7 +24881,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/port)
 "beM" = (
-/obj/effect/landmark/blob,
+/obj/effect/landmark/spawner/blob,
 /obj/structure/disposalpipe/segment{
 	dir = 8;
 	icon_state = "pipe-c"
@@ -26965,7 +26965,7 @@
 	},
 /area/crew_quarters/kitchen)
 "biV" = (
-/obj/effect/landmark/xeno,
+/obj/effect/landmark/spawner/xeno,
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
@@ -28714,7 +28714,7 @@
 	},
 /area/library)
 "bmG" = (
-/obj/effect/landmark/blob,
+/obj/effect/landmark/spawner/blob,
 /obj/structure/chair/comfy/brown{
 	dir = 1
 	},
@@ -35457,7 +35457,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bCp" = (
-/obj/effect/landmark/blob,
+/obj/effect/landmark/spawner/blob,
 /obj/item/clothing/suit/ianshirt,
 /obj/structure/closet,
 /turf/simulated/floor/plating,
@@ -35520,7 +35520,7 @@
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "bCx" = (
-/obj/effect/landmark/xeno,
+/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -36437,7 +36437,7 @@
 /area/quartermaster/storage)
 "bEI" = (
 /obj/structure/morgue,
-/obj/effect/landmark/rev,
+/obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36946,7 +36946,7 @@
 /obj/structure/morgue{
 	dir = 8
 	},
-/obj/effect/landmark/rev,
+/obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -37042,7 +37042,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bGb" = (
-/obj/effect/landmark/blob,
+/obj/effect/landmark/spawner/blob,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -39230,7 +39230,7 @@
 "bKt" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/xeno,
+/obj/effect/landmark/spawner/xeno,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
@@ -41255,7 +41255,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bOo" = (
-/obj/effect/landmark/blob,
+/obj/effect/landmark/spawner/blob,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -42405,7 +42405,7 @@
 	},
 /obj/item/soap/deluxe,
 /obj/item/bikehorn/rubberducky,
-/obj/effect/landmark/rev,
+/obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -50912,7 +50912,7 @@
 /turf/simulated/wall,
 /area/blueshield)
 "cgT" = (
-/obj/effect/landmark/blob,
+/obj/effect/landmark/spawner/blob,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
@@ -53197,7 +53197,7 @@
 	},
 /area/medical/research)
 "clo" = (
-/obj/effect/landmark/blob,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
 "clp" = (
@@ -53418,7 +53418,7 @@
 /turf/simulated/floor/wood,
 /area/blueshield)
 "clW" = (
-/obj/effect/landmark/xeno,
+/obj/effect/landmark/spawner/xeno,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -54556,7 +54556,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "coh" = (
-/obj/effect/landmark/xeno,
+/obj/effect/landmark/spawner/xeno,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -56067,7 +56067,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/blob,
+/obj/effect/landmark/spawner/blob,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -60409,7 +60409,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/xeno,
+/obj/effect/landmark/spawner/xeno,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
@@ -60470,7 +60470,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/blob,
+/obj/effect/landmark/spawner/blob,
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -61976,7 +61976,7 @@
 	},
 /area/maintenance/incinerator)
 "cCB" = (
-/obj/effect/landmark/xeno,
+/obj/effect/landmark/spawner/xeno,
 /obj/machinery/hologram/holopad,
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel{
@@ -65835,7 +65835,7 @@
 	},
 /area/toxins/xenobiology)
 "cKZ" = (
-/obj/effect/landmark/rev,
+/obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "cLa" = (
@@ -66265,7 +66265,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cMg" = (
-/obj/effect/landmark/rev,
+/obj/effect/landmark/spawner/rev,
 /mob/living/simple_animal/slime,
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
@@ -66444,7 +66444,7 @@
 /turf/space,
 /area/solar/port)
 "cMC" = (
-/obj/effect/landmark/blob,
+/obj/effect/landmark/spawner/blob,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
@@ -74139,7 +74139,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "dev" = (
-/obj/effect/landmark/blob,
+/obj/effect/landmark/spawner/blob,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel,
@@ -74986,7 +74986,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dgy" = (
-/obj/effect/landmark/blob,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dgA" = (
@@ -75477,7 +75477,7 @@
 	},
 /area/crew_quarters/kitchen)
 "dhY" = (
-/obj/effect/landmark/xeno,
+/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dhZ" = (
@@ -77210,7 +77210,7 @@
 /area/maintenance/aft)
 "dlP" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/xeno,
+/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dlQ" = (
@@ -81529,7 +81529,7 @@
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "pUZ" = (
-/obj/effect/landmark/blob,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

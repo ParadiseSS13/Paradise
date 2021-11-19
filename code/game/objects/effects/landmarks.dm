@@ -6,146 +6,158 @@
 	layer = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-/obj/effect/landmark/New()
-
-	..()
+/obj/effect/landmark/Initialize(mapload)
+	. = ..()
 	set_tag()
 	invisibility = 101
-
-	switch(name)			//some of these are probably obsolete
-		if("start")
-			GLOB.newplayer_start += loc
-			qdel(src)
-
-		if("wizard")
-			GLOB.wizardstart += loc
-			qdel(src)
-
-		if("JoinLate")
-			GLOB.latejoin += loc
-			qdel(src)
-
-		if("JoinLateGateway")
-			GLOB.latejoin_gateway += loc
-			qdel(src)
-
-		if("JoinLateCryo")
-			GLOB.latejoin_cryo += loc
-			qdel(src)
-
-		if("JoinLateCyborg")
-			GLOB.latejoin_cyborg += loc
-			qdel(src)
-
-		if("prisonwarp")
-			GLOB.prisonwarp += loc
-			qdel(src)
-
-		if("syndieprisonwarp")
-			GLOB.syndieprisonwarp += loc
-			qdel(src)
-
-		if("prisonsecuritywarp")
-			GLOB.prisonsecuritywarp += loc
-			qdel(src)
-
-		if("tdome1")
-			GLOB.tdome1	+= loc
-
-		if("tdome2")
-			GLOB.tdome2 += loc
-
-		if("tdomeadmin")
-			GLOB.tdomeadmin	+= loc
-
-		if("tdomeobserve")
-			GLOB.tdomeobserve += loc
-
-		if("aroomwarp")
-			GLOB.aroomwarp += loc
-
-		if("blobstart")
-			GLOB.blobstart += loc
-			qdel(src)
-
-		if("xeno_spawn")
-			GLOB.xeno_spawn += loc
-			qdel(src)
-
-		if("ninjastart")
-			GLOB.ninjastart += loc
-			qdel(src)
-
-		if("carpspawn")
-			GLOB.carplist += loc
-
-		if("voxstart")
-			GLOB.raider_spawn += loc
-
-		if("ERT Director")
-			GLOB.ertdirector += loc
-			qdel(src)
-
-		if("Response Team")
-			GLOB.emergencyresponseteamspawn += loc
-			qdel(src)
-
-		if("Syndicate Officer")
-			GLOB.syndicateofficer += loc
-			qdel(src)
-
 	GLOB.landmarks_list += src
-	return 1
 
-/obj/effect/landmark/soltrader
-	name = "traderstart_sol"
+/obj/effect/landmark/newplayer_start //There should only be one of these, in the lobby art area
+	name = "start"
+
+/obj/effect/landmark/newplayer_start/New() //If this isn't new, you spawn in the corner of the map
+	..()
+	GLOB.newplayer_start += loc
+	qdel(src)
+
+/obj/effect/landmark/spawner
 	icon = 'icons/effects/spawner_icons.dmi'
+	icon_state = "questionmark"
+	var/spawner_list
+
+/obj/effect/landmark/spawner/Initialize(mapload)
+	. = ..()
+	if(spawner_list)
+		GLOB.[spawner_list] += loc
+		qdel(src)
+
+/obj/effect/landmark/spawner/soltrader
+	name = "traderstart_sol"
 	icon_state = "Trader"
 
-/obj/effect/landmark/ert
+/obj/effect/landmark/spawner/ert
 	name = "Response Team"
-	icon = 'icons/effects/spawner_icons.dmi'
 	icon_state = "ERT"
+	spawner_list = "emergencyresponseteamspawn"
 
-/obj/effect/landmark/ds
+/obj/effect/landmark/spawner/ds
 	name = "Commando"
-	icon = 'icons/effects/spawner_icons.dmi'
 	icon_state = "ERT"
 
-/obj/effect/landmark/wiz
+/obj/effect/landmark/spawner/wiz
 	name = "wizard"
-	icon = 'icons/effects/spawner_icons.dmi'
 	icon_state = "Wiz"
+	spawner_list = "wizardstart"
 
-/obj/effect/landmark/xeno
+/obj/effect/landmark/spawner/xeno
 	name = "xeno_spawn"
-	icon = 'icons/effects/spawner_icons.dmi'
 	icon_state = "Xeno"
+	spawner_list = "xeno_spawn"
 
-/obj/effect/landmark/blob
+/obj/effect/landmark/spawner/blob
 	name = "blobstart"
-	icon = 'icons/effects/spawner_icons.dmi'
 	icon_state = "Blob"
+	spawner_list = "blobstart"
 
-/obj/effect/landmark/late
+/obj/effect/landmark/spawner/late
 	name = "JoinLate"
-	icon = 'icons/effects/spawner_icons.dmi'
 	icon_state = "Assistant"
+	spawner_list = "latejoin"
 
-/obj/effect/landmark/carp
+/obj/effect/landmark/spawner/carp
 	name = "carpspawn"
-	icon = 'icons/effects/spawner_icons.dmi'
 	icon_state = "Carp"
+	spawner_list = "carplist"
 
-/obj/effect/landmark/rev
+/obj/effect/landmark/spawner/rev
 	name = "revenantspawn"
-	icon = 'icons/effects/spawner_icons.dmi'
 	icon_state = "Rev"
 
-/obj/effect/landmark/syndie
+/obj/effect/landmark/spawner/syndie
 	name = "Syndicate-Spawn"
-	icon = 'icons/effects/spawner_icons.dmi'
 	icon_state = "Syndie"
+
+/obj/effect/landmark/spawner/syndicateofficer
+	name = "Syndicate Officer"
+	spawner_list = "syndicateofficer"
+
+/obj/effect/landmark/spawner/ertdirector
+	name = "ERT Director"
+	spawner_list = "ertdirector"
+
+/obj/effect/landmark/spawner/raider_spawn
+	name = "voxstart"
+	spawner_list = "raider_spawn"
+
+/obj/effect/landmark/spawner/ninjastart
+	name = "ninjastart"
+	spawner_list = "ninjastart"
+
+/obj/effect/landmark/spawner/aroomwarp
+	name = "aroomwarp"
+	spawner_list = "aroomwarp"
+
+/obj/effect/landmark/spawner/tdomeobserve
+	name = "tdomeobserve"
+	spawner_list = "tdomeobserve"
+
+/obj/effect/landmark/spawner/tdomeadmin
+	name = "tdomeadmin"
+	spawner_list = "tdomeadmin"
+
+/obj/effect/landmark/spawner/tdome2
+	name = "tdome2"
+	spawner_list = "tdome2"
+
+/obj/effect/landmark/spawner/tdome1
+	name = "tdome1"
+	spawner_list = "tdome1"
+
+/obj/effect/landmark/spawner/prisonsecuritywarp
+	name = "prisonsecuritywarp"
+	spawner_list = "prisonsecuritywarp"
+
+/obj/effect/landmark/spawner/syndieprisonwarp
+	name = "syndieprisonwarp"
+	spawner_list = "syndieprisonwarp"
+
+/obj/effect/landmark/spawner/prisonwarp
+	name = "prisonwarp"
+	spawner_list = "prisonwarp"
+
+/obj/effect/landmark/spawner/syndicate_commando
+	name = "Syndicate-Commando"
+	icon_state = "Syndie"
+
+/obj/effect/landmark/spawner/syndicate_infiltrator
+	name = "Syndicate-Infiltrator"
+	icon_state = "Syndie"
+
+/obj/effect/landmark/spawner/syndicate_infiltrator_leader
+	name = "Syndicate-Infiltrator-Leader"
+	icon_state = "Syndie"
+
+/obj/effect/landmark/spawner/atmos_test
+	name = "Atmospheric Test Start"
+
+/obj/effect/landmark/spawner/commando_manual
+	name = "Commando_Manual"
+
+/obj/effect/landmark/spawner/holding_facility
+	name = "Holding Facility"
+
+/obj/effect/landmark/spawner/holocarp
+	name = "Holocarp Spawn"
+
+/obj/effect/landmark/spawner/nuclear_bomb
+	name = "Nuclear-Bomb"
+
+/obj/effect/landmark/spawner/teleport_scroll
+	name = "Teleport-Scroll"
+
+/obj/effect/landmark/spawner/nuke_code
+	name = "nukecode"
+
 
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src

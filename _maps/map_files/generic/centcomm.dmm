@@ -199,18 +199,14 @@
 	},
 /area/holodeck/source_theatre)
 "aP" = (
-/obj/effect/landmark{
-	name = "Holocarp Spawn"
-	},
+/obj/effect/landmark/spawner/holocarp,
 /turf/simulated/floor/holofloor{
 	icon_state = "engine";
 	name = "Holodeck Projector Floor"
 	},
 /area/holodeck/source_wildlife)
 "aQ" = (
-/obj/effect/landmark{
-	name = "Atmospheric Test Start"
-	},
+/obj/effect/landmark/spawner/atmos_test,
 /turf/simulated/floor/holofloor{
 	icon_state = "engine";
 	name = "Burn-Mix Floor";
@@ -1079,7 +1075,7 @@
 /area/holodeck/source_beach)
 "en" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark/syndie,
+/obj/effect/landmark/spawner/syndie,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -1316,13 +1312,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "fa" = (
-/obj/effect/landmark/syndie,
+/obj/effect/landmark/spawner/syndie,
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "fb" = (
-/obj/effect/landmark{
-	name = "Holding Facility"
-	},
+/obj/effect/landmark/spawner/holding_facility,
 /obj/machinery/light/spot{
 	dir = 8
 	},
@@ -1496,7 +1490,7 @@
 /turf/simulated/floor/carpet,
 /area/wizard_station)
 "fz" = (
-/obj/effect/landmark/wiz,
+/obj/effect/landmark/spawner/wiz,
 /turf/simulated/floor/carpet,
 /area/wizard_station)
 "fA" = (
@@ -1517,9 +1511,7 @@
 /area/wizard_station)
 "fD" = (
 /obj/structure/table/wood,
-/obj/effect/landmark{
-	name = "Teleport-Scroll"
-	},
+/obj/effect/landmark/spawner/teleport_scroll,
 /turf/simulated/floor/carpet,
 /area/wizard_station)
 "fF" = (
@@ -1804,9 +1796,7 @@
 /turf/simulated/floor/grass,
 /area/wizard_station)
 "gP" = (
-/obj/effect/landmark{
-	name = "ninjastart"
-	},
+/obj/effect/landmark/spawner/ninjastart,
 /turf/simulated/floor/plasteel/grimy,
 /area/ninja/outpost)
 "gQ" = (
@@ -2006,9 +1996,7 @@
 	},
 /area/syndicate_mothership)
 "hF" = (
-/obj/effect/landmark{
-	name = "Holding Facility"
-	},
+/obj/effect/landmark/spawner/holding_facility,
 /turf/simulated/floor/engine,
 /area/ninja/holding)
 "hG" = (
@@ -2376,7 +2364,7 @@
 /area/wizard_station)
 "jf" = (
 /obj/structure/chair/stool/bar,
-/obj/effect/landmark/syndie,
+/obj/effect/landmark/spawner/syndie,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -2884,12 +2872,7 @@
 	},
 /area/abductor_ship)
 "kT" = (
-/obj/effect/landmark{
-	icon = 'icons/effects/spawner_icons.dmi';
-	icon_state = "Syndie";
-	name = "Syndicate-Infiltrator";
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_infiltrator,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -3363,12 +3346,7 @@
 	},
 /area/centcom/control)
 "mt" = (
-/obj/effect/landmark{
-	icon = 'icons/effects/spawner_icons.dmi';
-	icon_state = "Syndie";
-	name = "Syndicate-Infiltrator";
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_infiltrator,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "mu" = (
@@ -3651,12 +3629,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/effect/landmark{
-	icon = 'icons/effects/spawner_icons.dmi';
-	icon_state = "Syndie";
-	name = "Syndicate-Infiltrator";
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_infiltrator,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "nu" = (
@@ -3872,12 +3845,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "ob" = (
-/obj/effect/landmark{
-	icon = 'icons/effects/spawner_icons.dmi';
-	icon_state = "Syndie";
-	name = "Syndicate-Infiltrator-Leader";
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_infiltrator_leader,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "oc" = (
@@ -3981,8 +3949,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "ou" = (
-/obj/effect/landmark/ds,
-/obj/effect/landmark/ert,
+/obj/effect/landmark/spawner/ert,
+/obj/effect/landmark/spawner/ds,
 /turf/simulated/floor/plasteel/dark{
 	dir = 8;
 	icon_state = "vault"
@@ -3993,8 +3961,8 @@
 	c_tag = "CentComm Special Ops. Starting Room";
 	network = list("ERT","CentComm")
 	},
-/obj/effect/landmark/ds,
-/obj/effect/landmark/ert,
+/obj/effect/landmark/spawner/ert,
+/obj/effect/landmark/spawner/ds,
 /turf/simulated/floor/plasteel/dark{
 	dir = 8;
 	icon_state = "vault"
@@ -4504,9 +4472,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 1
 	},
-/obj/effect/landmark{
-	name = "ERT Director"
-	},
+/obj/effect/landmark/spawner/ertdirector,
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
 "qb" = (
@@ -4732,9 +4698,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/centcom/specops)
 "qR" = (
-/obj/effect/landmark{
-	name = "prisonwarp"
-	},
+/obj/effect/landmark/spawner/prisonwarp,
 /turf/simulated/floor/plating,
 /area/centcom)
 "qS" = (
@@ -4836,9 +4800,7 @@
 /area/centcom/evac)
 "rg" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/landmark{
-	name = "prisonwarp"
-	},
+/obj/effect/landmark/spawner/prisonwarp,
 /turf/simulated/floor/plating,
 /area/centcom)
 "rj" = (
@@ -4990,7 +4952,7 @@
 /turf/simulated/floor/plating,
 /area/centcom/evac)
 "rH" = (
-/obj/effect/landmark/start,
+/obj/effect/landmark/newplayer_start,
 /turf/simulated/floor/plating,
 /area/start)
 "rI" = (
@@ -5459,9 +5421,7 @@
 /area/centcom/evac)
 "tl" = (
 /obj/structure/chair,
-/obj/effect/landmark{
-	name = "tdomeobserve"
-	},
+/obj/effect/landmark/spawner/tdomeobserve,
 /turf/simulated/floor/plasteel{
 	icon_state = "redbluefull"
 	},
@@ -5679,9 +5639,7 @@
 	pixel_x = 11;
 	pixel_y = -9
 	},
-/obj/effect/landmark{
-	name = "tdome2"
-	},
+/obj/effect/landmark/spawner/tdome2,
 /turf/simulated/floor/plating,
 /area/tdome/tdome2)
 "tO" = (
@@ -5698,9 +5656,7 @@
 	pixel_x = 12;
 	pixel_y = -10
 	},
-/obj/effect/landmark{
-	name = "tdome1"
-	},
+/obj/effect/landmark/spawner/tdome1,
 /turf/simulated/floor/plating,
 /area/tdome/tdome1)
 "tQ" = (
@@ -5787,9 +5743,7 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/effect/landmark{
-	name = "tdomeadmin"
-	},
+/obj/effect/landmark/spawner/tdomeadmin,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -6061,9 +6015,7 @@
 /area/centcom/specops)
 "uP" = (
 /obj/structure/table/reinforced,
-/obj/effect/landmark{
-	name = "nukecode"
-	},
+/obj/effect/landmark/spawner/nuke_code,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "uQ" = (
@@ -6130,9 +6082,7 @@
 /area/admin)
 "va" = (
 /obj/structure/table/reinforced,
-/obj/effect/landmark{
-	name = "Commando_Manual"
-	},
+/obj/effect/landmark/spawner/commando_manual,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "vb" = (
@@ -7288,10 +7238,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "ym" = (
-/obj/effect/landmark{
-	name = "aroomwarp";
-	tag = ""
-	},
+/obj/effect/landmark/spawner/aroomwarp,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "yn" = (
@@ -7531,7 +7478,7 @@
 /area/holodeck/source_boxingcourt)
 "zj" = (
 /obj/structure/chair/comfy/brown,
-/obj/effect/landmark/soltrader,
+/obj/effect/landmark/spawner/soltrader,
 /turf/simulated/floor/plasteel,
 /area/trader_station/sol)
 "zk" = (
@@ -7582,7 +7529,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
-/obj/effect/landmark/soltrader,
+/obj/effect/landmark/spawner/soltrader,
 /turf/simulated/floor/plasteel,
 /area/trader_station/sol)
 "zv" = (
@@ -7631,7 +7578,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 1
 	},
-/obj/effect/landmark/soltrader,
+/obj/effect/landmark/spawner/soltrader,
 /turf/simulated/floor/plasteel,
 /area/trader_station/sol)
 "zG" = (
@@ -8125,9 +8072,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 1
 	},
-/obj/effect/landmark{
-	name = "Syndicate Officer"
-	},
+/obj/effect/landmark/spawner/syndicateofficer,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "Bu" = (
@@ -8151,12 +8096,7 @@
 /area/syndicate_mothership)
 "Bx" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark{
-	icon = 'icons/effects/spawner_icons.dmi';
-	icon_state = "Syndie";
-	name = "Syndicate-Commando";
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_commando,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "By" = (
@@ -8516,9 +8456,7 @@
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/vox)
 "De" = (
-/obj/effect/landmark{
-	name = "Nuclear-Bomb"
-	},
+/obj/effect/landmark/spawner/nuclear_bomb,
 /obj/machinery/light/spot,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -9448,15 +9386,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/arena)
 "Ir" = (
-/obj/effect/landmark{
-	name = "tdome2"
-	},
+/obj/effect/landmark/spawner/tdome2,
 /turf/simulated/floor/plating,
 /area/tdome/tdome2)
 "Is" = (
-/obj/effect/landmark{
-	name = "tdome1"
-	},
+/obj/effect/landmark/spawner/tdome1,
 /turf/simulated/floor/plating,
 /area/tdome/tdome1)
 "Iz" = (
@@ -9727,9 +9661,7 @@
 /area/shuttle/trade/sol)
 "Kq" = (
 /obj/structure/chair/comfy/red,
-/obj/effect/landmark{
-	name = "voxstart"
-	},
+/obj/effect/landmark/spawner/raider_spawn,
 /turf/simulated/floor/plasteel/dark/nitrogen,
 /area/vox_station)
 "Kr" = (
@@ -9744,9 +9676,7 @@
 /area/shuttle/administration)
 "Kv" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark{
-	name = "voxstart"
-	},
+/obj/effect/landmark/spawner/raider_spawn,
 /turf/simulated/floor/plasteel/dark/nitrogen,
 /area/vox_station)
 "Kw" = (
@@ -10157,9 +10087,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "MG" = (
-/obj/effect/landmark{
-	name = "syndieprisonwarp"
-	},
+/obj/effect/landmark/spawner/syndieprisonwarp,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "MH" = (
@@ -10322,9 +10250,7 @@
 /area/centcom/control)
 "NG" = (
 /obj/effect/decal/cleanable/blood,
-/obj/effect/landmark{
-	name = "syndieprisonwarp"
-	},
+/obj/effect/landmark/spawner/syndieprisonwarp,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "NI" = (
