@@ -400,6 +400,8 @@
 		next_trans = 0
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/heat_gas_contents()
+	if(!occupant)
+		return
 	var/cold_protection = 0
 	var/temperature_delta = air_contents.temperature - occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
 

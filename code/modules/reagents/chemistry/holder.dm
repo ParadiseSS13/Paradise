@@ -414,7 +414,7 @@
 					matching_container = TRUE
 
 				else
-					if(my_atom.type == C.required_container)
+					if(my_atom?.type == C.required_container)
 						matching_container = TRUE
 
 				if(!C.required_other)

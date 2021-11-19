@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(garbage)
 	name = "Garbage"
 	priority = FIRE_PRIORITY_GARBAGE
-	wait = 25 SECONDS
+	wait = 5 SECONDS
 	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_NO_INIT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	init_order = INIT_ORDER_GARBAGE // Why does this have an init order if it has SS_NO_INIT?
@@ -123,6 +123,8 @@ SUBSYSTEM_DEF(garbage)
 		if(!refID)
 			count++
 			if(MC_TICK_CHECK)
+				queue.Cut(1, count + 1)
+				count = 0
 				return
 			continue
 
@@ -142,6 +144,8 @@ SUBSYSTEM_DEF(garbage)
 			reference_find_on_fail -= refID		//It's deleted we don't care anymore.
 			#endif
 			if(MC_TICK_CHECK)
+				queue.Cut(1, count + 1)
+				count = 0
 				return
 			continue
 
@@ -172,6 +176,8 @@ SUBSYSTEM_DEF(garbage)
 			if(GC_QUEUE_HARDDELETE)
 				HardDelete(D)
 				if(MC_TICK_CHECK)
+					queue.Cut(1, count + 1)
+					count = 0
 					return
 				continue
 
@@ -183,6 +189,8 @@ SUBSYSTEM_DEF(garbage)
 		#endif
 
 		if(MC_TICK_CHECK)
+			queue.Cut(1, count + 1)
+			count = 0
 			return
 	if(count)
 		queue.Cut(1, count + 1)

@@ -550,6 +550,7 @@ SUBSYSTEM_DEF(timer)
 		stack_trace("addtimer called with a negative wait. Converting to [world.tick_lag]")
 
 	if (callback.object != GLOBAL_PROC && QDELETED(callback.object) && !QDESTROYING(callback.object))
+		SSgarbage.HardDelete(callback.object, TRUE)		//Okay, in this case we really should harddel the object
 		stack_trace("addtimer called with a callback assigned to a qdeleted object. In the future such timers will not \
 			be supported and may refuse to run or run with a 0 wait")
 

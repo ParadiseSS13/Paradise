@@ -273,7 +273,7 @@
 		air_contents.merge(removed)
 		tile.air_update_turf()
 
-	parent.update = 1
+	parent?.update = 1
 
 	return 1
 

@@ -164,12 +164,12 @@
 /obj/effect/hotspot/Destroy()
 	set_light(0)
 	SSair.hotspots -= src
-	if(!fake)
-		DestroyTurf()
 	if(istype(loc, /turf/simulated))
 		var/turf/simulated/T = loc
 		if(T.active_hotspot == src)
 			T.active_hotspot = null
+	if(!fake)
+		DestroyTurf()
 	return ..()
 
 /obj/effect/hotspot/proc/DestroyTurf()

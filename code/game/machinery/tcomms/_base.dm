@@ -275,7 +275,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/bad_connection = FALSE
 	var/datum/radio_frequency/new_connection = tcm.connection
 
-	if(tcm.connection.frequency != display_freq)
+	if(tcm?.connection?.frequency != display_freq)
 		bad_connection = is_bad_connection(tcm.connection.frequency, display_freq)
 		new_connection = SSradio.return_frequency(display_freq)
 

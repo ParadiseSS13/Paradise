@@ -157,7 +157,7 @@
 			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 			loc.assume_air(removed)
 			air_update_turf()
-			parent.update = TRUE
+			parent?.update = TRUE
 
 	else //external -> internal
 		var/pressure_delta = 10000
