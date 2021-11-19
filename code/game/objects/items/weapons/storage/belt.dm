@@ -233,7 +233,9 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/holosign_creator/security,
 		/obj/item/melee/classic_baton/telescopic,
-		/obj/item/restraints/legcuffs/bola)
+		/obj/item/restraints/legcuffs/bola,
+		/obj/item/forensics/sample_kit/powder,
+		/obj/item/forensics/sample_kit)
 
 /obj/item/storage/belt/security/sec/New()
 	..()

@@ -349,6 +349,7 @@
 	new /obj/item/clothing/accessory/black(src)
 	new /obj/item/taperecorder(src)
 	new /obj/item/storage/box/tapes(src)
+	new /obj/item/storage/belt/security(src)
 
 /obj/structure/closet/secure_closet/detective/update_icon()
 	if(broken)
