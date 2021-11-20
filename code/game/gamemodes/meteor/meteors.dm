@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 		pickedstart = spaceDebrisStartLoc(startSide, startZ)
 		pickedgoal = spaceDebrisFinishLoc(startSide, startZ)
 		max_i--
-		if(max_i<=0)
+		if(max_i <= 0)
 			return
 	var/Me = pickweight(meteortypes)
 	var/obj/effect/meteor/M = new Me(pickedstart, pickedgoal)
@@ -144,7 +144,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 			continue
 		if(isliving(thing))
 			var/mob/living/living_thing = thing
-			living_thing.visible_message("<span class='warning'>[src] slams into [living_thing].</span>", "<span class='userdanger'>[src] slams into you!.</span>")
+			living_thing.visible_message("<span class='warning'>[src] slams into [living_thing].</span>", "<span class='userdanger'>[src] slams into you!</span>")
 		A.ex_act(hitpwr)
 
 	//then, ram the turf if it still exists
@@ -192,7 +192,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 				continue
 			var/dist = get_dist(M.loc, loc)
 			shake_camera(M, dist > 20 ? 2 : 4, dist > 20 ? 1 : 3)
-			M.playsound_local(loc, null, 50, 1, random_frequency, 10, S = meteor_sound)
+			M.playsound_local(loc, null, 50, TRUE, random_frequency, 10, S = meteor_sound)
 
 ///////////////////////
 //Meteor types
