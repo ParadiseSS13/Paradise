@@ -282,7 +282,9 @@ LINEN BINS
 
 /obj/structure/bedsheetbin/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/bedsheet))
-		user.drop_item()
+		if(!user.drop_item())
+			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")
+			return
 		I.forceMove(src)
 		sheets.Add(I)
 		amount++
@@ -290,7 +292,9 @@ LINEN BINS
 	else if(amount && !hidden && I.w_class < WEIGHT_CLASS_BULKY)	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
 		if(I.flags & ABSTRACT)
 			return
-		user.drop_item()
+		if(!user.drop_item())
+			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")
+			return
 		I.forceMove(src)
 		hidden = I
 		to_chat(user, "<span class='notice'>You hide [I] among the sheets.</span>")
