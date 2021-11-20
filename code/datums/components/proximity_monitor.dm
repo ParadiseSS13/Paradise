@@ -372,24 +372,11 @@
 		return INITIALIZE_HINT_QDEL
 	. = ..()
 	monitor = P
-	RegisterSignal(monitor, COMSIG_PARENT_QDELETING, .proc/on_receiver_deletion)
 
 /obj/effect/abstract/proximity_checker/Destroy()
 	monitor.proximity_checkers -= src
 	monitor = null
 	return ..()
-
-/**
- * Called when the `hasprox_receiver` receives the `COMSIG_PARENT_QDELETING` signal. When the receiver is deleted, so is this object.
- *
- * Arugments:
- * * datum/source - this will be the `hasprox_receiver`
- * * force - the force flag taken from the qdel proc currently running on `hasprox_receiver`
- */
-/obj/effect/abstract/proximity_checker/proc/on_receiver_deletion(datum/source, force = FALSE)
-	SIGNAL_HANDLER
-
-	qdel(src)
 
 /**
  * Called when something crossed over the proximity_checker. Notifies the `hasprox_receiver` it has proximity with something.
@@ -422,6 +409,9 @@
 	advanced_monitor = P
 	return ..()
 
+/obj/effect/abstract/proximity_checker/advanced/Destroy()
+	advanced_monitor = null
+	return ..()
 
 /**
  * # Inner Field Proximity Checker
