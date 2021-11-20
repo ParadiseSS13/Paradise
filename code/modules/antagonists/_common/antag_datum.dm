@@ -21,6 +21,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/replace_banned = TRUE
 	/// List of objectives connected to this datum.
 	var/list/objectives
+	/// A list of strings which contain [targets][/datum/objective/var/target] of the antagonist's objectives. Used to prevent duplicate objectives.
+	var/list/assigned_targets
 	/// Antagonist datum specific information that appears in the player's notes. Information stored here will be removed when the datum is removed from the player.
 	var/antag_memory
 	/// The special role that will be applied to the owner's `special_role` var. i.e. `SPECIAL_ROLE_TRAITOR`, `SPECIAL_ROLE_VAMPIRE`.
@@ -41,9 +43,11 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/New()
 	GLOB.antagonists += src
 	objectives = list()
+	assigned_targets = list()
 	typecache_datum_blacklist = typecacheof(typecache_datum_blacklist)
 
 /datum/antagonist/Destroy()
+	QDEL_LIST(objectives)
 	GLOB.antagonists -= src
 	owner = null
 	return ..()
@@ -223,7 +227,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 	team?.remove_member(owner)
 	LAZYREMOVE(owner.antag_datums, src)
 	restore_last_hud_and_role()
-	QDEL_LIST(objectives)
 	qdel(src)
 
 /**

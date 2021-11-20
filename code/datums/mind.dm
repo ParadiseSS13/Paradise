@@ -159,13 +159,9 @@
 /datum/mind/proc/gen_objective_text(admin = FALSE)
 	. = ""
 	var/obj_count = 1
-	var/list/all_objectives = get_all_objectives()
 
-	if(!length(all_objectives))
-		return // They didn't have any objectives so return.
-
-	for(var/thing in all_objectives)
-		var/datum/objective/objective = thing
+	// If they don't have any objectives, "" will be returned.
+	for(var/datum/objective/objective in get_all_objectives())
 		. += "<b>Objective #[obj_count++]</b>: [objective.explanation_text]"
 		if(admin)
 			. += " <a href='?src=[UID()];obj_edit=\ref[objective]'>Edit</a> " // Edit

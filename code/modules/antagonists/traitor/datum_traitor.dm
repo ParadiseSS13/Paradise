@@ -15,8 +15,6 @@
 	var/give_codewords = TRUE
 	/// Should we give the traitor their uplink?
 	var/give_uplink = TRUE
-	/// This includes assassinate as well as steal objectives. Prevents duplicate objectives.
-	var/list/assigned_targets = list()
 
 /datum/antagonist/traitor/on_gain()
 	// Create this in case the traitor wants to mindslaves someone.
@@ -54,14 +52,14 @@
 
 /datum/antagonist/traitor/add_antag_hud(mob/living/antag_mob)
 	var/is_contractor = LAZYACCESS(GLOB.contractors, owner)
-	if(locate(/datum/objective/hijack) in owner.objectives)
+	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
 		antag_hud_name = is_contractor ? "hudhijackcontractor" : "hudhijack"
 	else
 		antag_hud_name = is_contractor ? "hudcontractor" : "hudsyndicate"
 	return ..()
 
 /datum/antagonist/traitor/give_objectives()
-	if(isAI(owner))
+	if(isAI(owner.current))
 		forge_ai_objectives()
 	else
 		forge_human_objectives()
@@ -144,7 +142,7 @@
 			var/datum/objective/destroy/destroy_objective = new
 			destroy_objective.owner = owner
 			destroy_objective.find_target()
-			if("[destroy_objective]" in assigned_targets)	        // Is this target already in their list of assigned targets? If so, don't add this objective and return
+			if("[destroy_objective.target]" in assigned_targets)	        // Is this target already in their list of assigned targets? If so, don't add this objective and return
 				return FALSE
 			else if(destroy_objective.target)					    // Is the target a real one and not null? If so, add it to our list of targets to avoid duplicate targets
 				assigned_targets.Add("[destroy_objective.target]")	// This logic is applied to all traitor objectives including steal objectives
@@ -154,7 +152,7 @@
 			var/datum/objective/debrain/debrain_objective = new
 			debrain_objective.owner = owner
 			debrain_objective.find_target()
-			if("[debrain_objective]" in assigned_targets)
+			if("[debrain_objective.target]" in assigned_targets)
 				return FALSE
 			else if(debrain_objective.target)
 				assigned_targets.Add("[debrain_objective.target]")
@@ -164,7 +162,7 @@
 			var/datum/objective/maroon/maroon_objective = new
 			maroon_objective.owner = owner
 			maroon_objective.find_target()
-			if("[maroon_objective]" in assigned_targets)
+			if("[maroon_objective.target]" in assigned_targets)
 				return FALSE
 			else if(maroon_objective.target)
 				assigned_targets.Add("[maroon_objective.target]")
