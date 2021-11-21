@@ -18,12 +18,11 @@
 
 /datum/antagonist/traitor/on_gain()
 	// Create this in case the traitor wants to mindslaves someone.
-	var/datum/mindslaves/slaved = new
-	owner.som = slaved
-	slaved.masters += owner
+	if(!owner.som)
+		owner.som = new /datum/mindslaves
 
+	owner.som.masters += owner
 	SSticker.mode.traitors |= owner
-	assigned_targets = list()
 	return ..()
 
 /datum/antagonist/traitor/on_removal()

@@ -16,8 +16,9 @@
 
 /datum/antagonist/mindslave/New(datum/mind/_master, _greet_text)
 	if(!_master)
-		stack_trace("[type] created without a master.")
+		stack_trace("[type] created without a \"_master\" argument.")
 		qdel(src)
+		return
 	master = _master
 	greet_text = _greet_text
 	return ..()

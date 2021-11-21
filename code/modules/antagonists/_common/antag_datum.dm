@@ -297,8 +297,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 /**
  * Give the antag any final information or items.
- *
- * By default, it shows the the player the wiki page for this specific antag.
  */
 /datum/antagonist/proc/finalize_antag()
 	return
