@@ -22,7 +22,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	var/job = null
 	var/temp_category
-	var/uplink_type = "traitor"
+	var/uplink_type = UPLINK_TYPE_TRAITOR
 	/// If set, the uplink will show the option to become a contractor through this variable.
 	var/datum/antagonist/traitor/contractor/contractor = null
 	/// Whether the uplink is jammed and cannot be used to order items.
@@ -31,10 +31,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/ui_host()
 	return loc
 
+/obj/item/uplink/proc/update_uplink_items()
+	uplink_items = get_uplink_items(src)
+
 /obj/item/uplink/New()
 	..()
 	uses = SSticker.mode.uplink_uses
-	uplink_items = get_uplink_items()
+	uplink_items = get_uplink_items(src)
 
 	GLOB.world_uplinks += src
 
@@ -292,7 +295,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/radio/uplink/nuclear/New()
 	..()
 	if(hidden_uplink)
-		hidden_uplink.uplink_type = "nuclear"
+		hidden_uplink.uplink_type = UPLINK_TYPE_NUCLEAR
+		hidden_uplink.update_uplink_items()
 	GLOB.nuclear_uplink_list += src
 
 /obj/item/radio/uplink/nuclear/Destroy()
@@ -302,7 +306,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/radio/uplink/sst/New()
 	..()
 	if(hidden_uplink)
-		hidden_uplink.uplink_type = "sst"
+		hidden_uplink.uplink_type = UPLINK_TYPE_SST
+		hidden_uplink.update_uplink_items()
 
 /obj/item/multitool/uplink/New()
 	..()
