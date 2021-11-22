@@ -1,3 +1,5 @@
+#define PASSIVE_GC
+
 SUBSYSTEM_DEF(garbage)
 	name = "Garbage"
 	priority = FIRE_PRIORITY_GARBAGE
@@ -5,23 +7,24 @@ SUBSYSTEM_DEF(garbage)
 	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_NO_INIT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	init_order = INIT_ORDER_GARBAGE // Why does this have an init order if it has SS_NO_INIT?
-	offline_implications = "Garbage collection is no longer functional, and objects will not be qdel'd. Immediate server restart recommended."
-
-	var/list/collection_timeout = list(150 SECONDS, 25 SECONDS)	// deciseconds to wait before moving something up in the queue to the next level
+	offline_implications = "Garbage statistics collection is no longer functional, not a big deal actually. No futher actions required."
 
 	//Stat tracking
 	var/delslasttick = 0			// number of del()'s we've done this tick
-	var/gcedlasttick = 0			// number of things that gc'ed last tick
 	var/totaldels = 0
-	var/totalgcs = 0
+
 
 	var/highest_del_time = 0
 	var/highest_del_tickusage = 0
 
+	var/list/items = list()			// Holds our qdel_item statistics datums
+
+	#ifndef PASSIVE_GC
+	var/list/collection_timeout = list(150 SECONDS, 25 SECONDS)	// deciseconds to wait before moving something up in the queue to the next level
+	var/totalgcs = 0
+	var/gcedlasttick = 0			// number of things that gc'ed last tick
 	var/list/pass_counts
 	var/list/fail_counts
-
-	var/list/items = list()			// Holds our qdel_item statistics datums
 
 	//Queue
 	var/list/queues
@@ -30,8 +33,10 @@ SUBSYSTEM_DEF(garbage)
 	var/list/reference_find_on_fail = list()
 	var/ref_search_stop = FALSE
 	#endif
+	#endif
 
 
+#ifndef PASSIVE_GC
 /datum/controller/subsystem/garbage/PreInit()
 	queues = new(GC_QUEUE_COUNT)
 	pass_counts = new(GC_QUEUE_COUNT)
@@ -40,8 +45,10 @@ SUBSYSTEM_DEF(garbage)
 		queues[i] = list()
 		pass_counts[i] = 0
 		fail_counts[i] = 0
+#endif
 
 /datum/controller/subsystem/garbage/stat_entry(msg)
+	#ifndef PASSIVE_GC
 	var/list/counts = list()
 	for(var/list/L in queues)
 		counts += length(L)
@@ -59,6 +66,9 @@ SUBSYSTEM_DEF(garbage)
 		msg += "TGR:[round((totalgcs / (totaldels + totalgcs)) * 100, 0.01)]% |"
 	msg += " Pass:[pass_counts.Join(",")]"
 	msg += " | Fail:[fail_counts.Join(",")]"
+	#else
+	msg += "del's:[delslasttick] | Total del's:[totaldels]"
+	#endif
 	..(msg)
 
 /datum/controller/subsystem/garbage/Shutdown()
@@ -85,6 +95,7 @@ SUBSYSTEM_DEF(garbage)
 			dellog += "\tNo hint: [I.no_hint] times"
 	log_qdel(dellog.Join("\n"))
 
+#ifndef PASSIVE_GC
 /datum/controller/subsystem/garbage/fire()
 	//the fact that this resets its processing each fire (rather then resume where it left off) is intentional.
 	var/queue = GC_QUEUE_CHECK
@@ -187,6 +198,10 @@ SUBSYSTEM_DEF(garbage)
 	if(count)
 		queue.Cut(1, count + 1)
 		count = 0
+#else
+/datum/controller/subsystem/garbage/fire()
+	delslasttick = 0
+#endif
 
 /datum/controller/subsystem/garbage/proc/Queue(datum/D, level = GC_QUEUE_CHECK)
 	if(isnull(D))
@@ -195,14 +210,16 @@ SUBSYSTEM_DEF(garbage)
 		HardDelete(D)
 		return
 	var/gctime = world.time
-	var/refid = "\ref[D]"
-
 	D.gc_destroyed = gctime
-	var/list/queue = queues[level]
-	if(queue[refid])
-		queue -= refid // Removing any previous references that were GC'd so that the current object will be at the end of the list.
 
-	queue[refid] = gctime
+	#ifndef PASSIVE_GC
+		var/refid = "\ref[D]"
+		var/list/queue = queues[level]
+		if(queue[refid])
+			queue -= refid // Removing any previous references that were GC'd so that the current object will be at the end of the list.
+
+		queue[refid] = gctime
+	#endif
 
 //this is mainly to separate things profile wise.
 /datum/controller/subsystem/garbage/proc/HardDelete(datum/D, need_real_del = FALSE)
@@ -237,10 +254,12 @@ SUBSYSTEM_DEF(garbage)
 		message_admins("Error: [type]([refID]) took longer than 1 second to delete (took [time / 10] seconds to delete).")
 		postpone(time)
 
+#ifndef PASSIVE_GC
 /datum/controller/subsystem/garbage/Recover()
 	if(istype(SSgarbage.queues))
 		for(var/i in 1 to SSgarbage.queues.len)
 			queues[i] |= SSgarbage.queues[i]
+#endif
 
 
 /datum/qdel_item
