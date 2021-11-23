@@ -136,6 +136,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 /obj/machinery/gravity_generator/main/set_broken()
 	..()
 	charging_state = GRAV_POWER_IDLE
+	overlay_state = null
 	charge_count = 0
 	breaker_on = FALSE
 	update_icon()
