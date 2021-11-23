@@ -35865,7 +35865,7 @@
 "bEG" = (
 /obj/machinery/gravity_generator/main/station,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/engine/gravitygenerator)
@@ -119571,7 +119571,7 @@ bwN
 bzE
 bBi
 bBj
-bBi
+bEG
 bGB
 bwN
 abj
@@ -119828,7 +119828,7 @@ bwN
 bzE
 bBj
 bDc
-bEG
+bBj
 bzE
 bwN
 abj

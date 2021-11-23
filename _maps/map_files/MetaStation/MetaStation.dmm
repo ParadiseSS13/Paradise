@@ -256,8 +256,7 @@
 	icon_state = "1-2"
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "applebush";
-	layer = 4.1
+	icon_state = "applebush"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -2823,8 +2822,7 @@
 	icon_state = "4-8"
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-16";
-	layer = 4.1
+	icon_state = "plant-16"
 	},
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'WARNING: Criminally Insane Inmates', describing the possible hazards of those contained within.";
@@ -3113,8 +3111,7 @@
 /area/security/armoury)
 "aix" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "applebush";
-	layer = 4.1
+	icon_state = "applebush"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -6606,7 +6603,7 @@
 "aqh" = (
 /obj/machinery/gravity_generator/main/station,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 4;
 	icon_state = "vault"
 	},
 /area/engine/gravitygenerator)
@@ -14833,7 +14830,6 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-20";
-	layer = 4.1;
 	pixel_y = 3
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -17871,8 +17867,7 @@
 	pixel_y = 24
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-21";
-	layer = 4.1
+	icon_state = "plant-21"
 	},
 /turf/simulated/floor/wood,
 /area/lawoffice)
@@ -22307,9 +22302,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
 	},
-/obj/item/twohanded/required/kirbyplants{
-	layer = 4.1
-	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -23806,8 +23799,7 @@
 	pixel_y = 24
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "applebush";
-	layer = 4.1
+	icon_state = "applebush"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -25440,8 +25432,7 @@
 /area/engine/chiefs_office)
 "beP" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-05";
-	layer = 4.1
+	icon_state = "plant-05"
 	},
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
@@ -25466,8 +25457,7 @@
 	pixel_x = 27
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-16";
-	layer = 4.1
+	icon_state = "plant-16"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -36041,8 +36031,7 @@
 	})
 "bzA" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-18";
-	layer = 4.1
+	icon_state = "plant-18"
 	},
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
@@ -36051,8 +36040,7 @@
 	})
 "bzB" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-10";
-	layer = 4.1
+	icon_state = "plant-10"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -36886,8 +36874,7 @@
 /area/maintenance/starboard)
 "bBr" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-20";
-	layer = 4.1
+	icon_state = "plant-20"
 	},
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
@@ -39533,8 +39520,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-16";
-	layer = 4.1
+	icon_state = "plant-16"
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing{
@@ -45353,9 +45339,7 @@
 	icon_state = "map-right-MS";
 	pixel_y = -32
 	},
-/obj/item/twohanded/required/kirbyplants{
-	layer = 4.1
-	},
+/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -47309,8 +47293,7 @@
 /area/maintenance/aft)
 "bXF" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-14";
-	layer = 4.1
+	icon_state = "plant-14"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -50196,8 +50179,7 @@
 	pixel_x = 24
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-10";
-	layer = 4.1
+	icon_state = "plant-10"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
@@ -50651,8 +50633,7 @@
 	pixel_x = -27
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "applebush";
-	layer = 4.1
+	icon_state = "applebush"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -57779,8 +57760,7 @@
 /area/medical/research)
 "cuw" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-10";
-	layer = 4.1
+	icon_state = "plant-10"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -70149,8 +70129,7 @@
 	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-24";
-	layer = 4.1
+	icon_state = "plant-24"
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
@@ -70436,8 +70415,7 @@
 	pixel_x = 27
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-14";
-	layer = 4.1
+	icon_state = "plant-14"
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -72785,8 +72763,7 @@
 /area/solar/starboard)
 "cZl" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-24";
-	layer = 4.1
+	icon_state = "plant-24"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -72971,7 +72948,6 @@
 "cZI" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-21";
-	layer = 4.1;
 	pixel_x = -3;
 	pixel_y = 3
 	},
@@ -73268,8 +73244,7 @@
 	pixel_x = 29
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-16";
-	layer = 4.1
+	icon_state = "plant-16"
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -124538,7 +124513,7 @@ abf
 amk
 anl
 aoJ
-ann
+aqh
 ank
 asg
 avR
@@ -124795,7 +124770,7 @@ abq
 amk
 apJ
 ank
-aqh
+aoJ
 ank
 asQ
 avV
