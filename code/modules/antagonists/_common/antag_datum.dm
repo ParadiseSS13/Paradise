@@ -182,6 +182,54 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/give_objectives()
 	return
 
+#define NO_TARGET_OBJECTIVES list(/datum/objective/escape, /datum/objective/hijack, /datum/objective/survive, /datum/objective/block, /datum/objective/die)
+
+/**
+ * Create and add an objective of the given type.
+ *
+ * If the given objective type needs a target, it will try to find a target which isn't already the target of different objective for this antag.
+ * If one cannot be found, it tries one more time. If one still cannot be found, it will be added as a "Free Objective" without a target.
+ *
+ * Arguments:
+ * * objective_type - A type path of an objective, for example: /datum/objective/steal
+ */
+/datum/antagonist/proc/add_objective(objective_type)
+	var/datum/objective/O = new objective_type
+	O.owner = owner
+
+	if(is_type_in_list(O, NO_TARGET_OBJECTIVES))
+		objectives += O // No need to find a target, just add the objective and return.
+		return
+
+	O.find_target()
+	var/duplicate = FALSE
+
+	// Steal objectives need snowflake handling here unfortunately.
+	if(istype(O, /datum/objective/steal))
+		var/datum/objective/steal/S = O
+		// Check if it's a duplicate.
+		if("[S.steal_target]" in assigned_targets)
+			S.find_target() // Try again.
+			if("[S.steal_target]" in assigned_targets)
+				S.steal_target = null
+				S.explanation_text = "Free Objective" // Still a duplicate, so just make it a free objective.
+				duplicate = TRUE
+		if(S.steal_target && !duplicate)
+			assigned_targets += "[S.steal_target]"
+	else
+		if("[O.target]" in assigned_targets)
+			O.find_target()
+			if("[O.target]" in assigned_targets)
+				O.target = null
+				O.explanation_text = "Free Objective"
+				duplicate = TRUE
+		if(O.target && !duplicate)
+			assigned_targets += "[O.target]"
+
+	objectives += O
+
+#undef NO_TARGET_OBJECTIVES
+
 /**
  * Announces all objectives of this datum, and only this datum.
  */

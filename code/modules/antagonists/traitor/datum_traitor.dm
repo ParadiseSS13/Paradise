@@ -69,9 +69,7 @@
 /datum/antagonist/traitor/proc/forge_human_objectives()
 	// Hijack objective.
 	if(prob(10) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
-		var/datum/objective/hijack/hijack_objective = new
-		hijack_objective.owner = owner
-		objectives += hijack_objective
+		add_objective(/datum/objective/hijack)
 		return // Hijack should be their only objective (normally), so return.
 
 	// Will give normal steal/kill/etc. type objectives.
@@ -88,106 +86,36 @@
 				break
 
 		if(martyr_compatibility)
-			var/datum/objective/die/martyr_objective = new
-			martyr_objective.owner = owner
-			objectives += martyr_objective
+			add_objective(/datum/objective/die)
 			return
 
 	// Give them an escape objective if they don't have one already.
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()))
-		var/datum/objective/escape/escape_objective = new
-		escape_objective.owner = owner
-		objectives += escape_objective
-		return
+		add_objective(/datum/objective/escape)
 
 /**
- * Create and assign a full set of randomized of AI traitor objectives.
+ * Create and assign a full set of AI traitor objectives.
  */
 /datum/antagonist/traitor/proc/forge_ai_objectives()
-	var/try_again = TRUE
-
-	// Always give the AI a block (hijack) objective.
-	var/datum/objective/block/block_objective = new
-	block_objective.owner = owner
-	objectives += block_objective
-
-	// Create some assasinate objectives.
-	for(var/i in 1 to GLOB.configuration.gamemode.traitor_objectives_amount)
-		var/datum/objective/assassinate/kill_objective = new
-		kill_objective.owner = owner
-		kill_objective.find_target()
-		if("[kill_objective.target]" in assigned_targets)	// In the rare case the game can't find a target for the AI thats not a duplicate
-			if(try_again)						            // It will attempt to location another target ONCE
-				try_again = FALSE							// This code will really only come into play on lowpop rounds where getting duplicate targets is more common
-				continue
-		assigned_targets.Add("[kill_objective.target]")
-		objectives += kill_objective
-		i++
-
-	// Always give the AI a survive until the end objective.
-	var/datum/objective/survive/survive_objective = new
-	survive_objective.owner = owner
-	objectives += survive_objective
+	add_objective(/datum/objective/block)
+	add_objective(/datum/objective/assassinate)
+	add_objective(/datum/objective/survive)
 
 /**
  * Create and assign a single randomized human traitor objective.
- *
- * Returns TRUE if an objective was added, and FALSE if it failed due to it being a duplicate.
  */
 /datum/antagonist/traitor/proc/forge_single_human_objective()
 	if(prob(50))
-		var/list/active_ais = active_ais()
-		if(length(active_ais) && prob(100 / length(GLOB.player_list)))
-			var/datum/objective/destroy/destroy_objective = new
-			destroy_objective.owner = owner
-			destroy_objective.find_target()
-			if("[destroy_objective.target]" in assigned_targets)	        // Is this target already in their list of assigned targets? If so, don't add this objective and return
-				return FALSE
-			else if(destroy_objective.target)					    // Is the target a real one and not null? If so, add it to our list of targets to avoid duplicate targets
-				assigned_targets.Add("[destroy_objective.target]")	// This logic is applied to all traitor objectives including steal objectives
-			objectives += destroy_objective
-
+		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
+			add_objective(/datum/objective/destroy)
 		else if(prob(5))
-			var/datum/objective/debrain/debrain_objective = new
-			debrain_objective.owner = owner
-			debrain_objective.find_target()
-			if("[debrain_objective.target]" in assigned_targets)
-				return FALSE
-			else if(debrain_objective.target)
-				assigned_targets.Add("[debrain_objective.target]")
-			objectives += debrain_objective
-
+			add_objective(/datum/objective/debrain)
 		else if(prob(30))
-			var/datum/objective/maroon/maroon_objective = new
-			maroon_objective.owner = owner
-			maroon_objective.find_target()
-			if("[maroon_objective.target]" in assigned_targets)
-				return FALSE
-			else if(maroon_objective.target)
-				assigned_targets.Add("[maroon_objective.target]")
-			objectives += maroon_objective
-
+			add_objective(/datum/objective/maroon)
 		else
-			var/datum/objective/assassinate/kill_objective = new
-			kill_objective.owner = owner
-			kill_objective.find_target()
-			if("[kill_objective.target]" in assigned_targets)
-				return FALSE
-			else if(kill_objective.target)
-				assigned_targets.Add("[kill_objective.target]")
-			objectives += kill_objective
-
+			add_objective(/datum/objective/assassinate)
 	else
-		var/datum/objective/steal/steal_objective = new
-		steal_objective.owner = owner
-		steal_objective.find_target()
-		if("[steal_objective.steal_target]" in assigned_targets)
-			return FALSE
-		else if(steal_objective.steal_target)
-			assigned_targets.Add("[steal_objective.steal_target]")
-		objectives += steal_objective
-
-	return TRUE
+		add_objective(/datum/objective/steal)
 
 /**
  * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.

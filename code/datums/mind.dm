@@ -715,6 +715,10 @@
 		for(var/antag in antag_datums)
 			var/datum/antagonist/A = antag
 			A.objectives -= objective
+			A.assigned_targets -= "[objective.target]"
+			if(istype(objective, /datum/objective/steal))
+				var/datum/objective/steal/S = objective
+				A.assigned_targets -= "[S.steal_target]"
 		objectives -= objective
 
 		log_admin("[key_name(usr)] has removed one of [key_name(current)]'s objectives: [objective]")
