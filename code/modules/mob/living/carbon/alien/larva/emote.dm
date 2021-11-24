@@ -29,85 +29,85 @@
 			return custom_emote(m_type, message)
 		if("sign")
 			if(!src.restrained())
-				message = text("signs[].", (text2num(param) ? text(" the number []", text2num(param)) : null))
+				message = text("<B>The alien</B> signs[].", (text2num(param) ? text(" the number []", text2num(param)) : null))
 				m_type = 1
 		if("burp")
 			if(!muzzled)
-				message = "burps."
+				message = "<B>[src]</B> burps."
 				m_type = 2
 		if("scratch")
 			if(!src.restrained())
-				message = "scratches."
+				message = "<B>The [src.name]</B> scratches."
 				m_type = 1
 		if("whimper")
 			if(!muzzled)
-				message = "whimpers."
+				message = "<B>The [src.name]</B> whimpers."
 				m_type = 2
 //		if("roar")
 //			if(!muzzled)
-//				message = "roars." Commenting out since larva shouldn't roar /N
+//				message = "<B>The [src.name]</B> roars." Commenting out since larva shouldn't roar /N
 //				m_type = 2
 		if("tail")
-			message = "waves its tail."
+			message = "<B>The [src.name]</B> waves its tail."
 			m_type = 1
 		if("gasp")
-			message = "gasps."
+			message = "<B>The [src.name]</B> gasps."
 			m_type = 2
 		if("shiver")
-			message = "shivers."
+			message = "<B>The [src.name]</B> shivers."
 			m_type = 2
 		if("drool")
-			message = "drools."
+			message = "<B>The [src.name]</B> drools."
 			m_type = 1
 		if("scretch")
 			if(!muzzled)
-				message = "scretches."
+				message = "<B>The [src.name]</B> scretches."
 				m_type = 2
 		if("choke")
-			message = "chokes."
+			message = "<B>The [src.name]</B> chokes."
 			m_type = 2
 		if("moan")
-			message = "moans!"
+			message = "<B>The [src.name]</B> moans!"
 			m_type = 2
 		if("nod")
-			message = "nods its head."
+			message = "<B>The [src.name]</B> nods its head."
 			m_type = 1
 //		if("sit")
-//			message = "sits down." //Larvan can't sit down, /N
+//			message = "<B>The [src.name]</B> sits down." //Larvan can't sit down, /N
 //			m_type = 1
 		if("sway")
-			message = "sways around dizzily."
+			message = "<B>The [src.name]</B> sways around dizzily."
 			m_type = 1
 		if("sulk")
-			message = "sulks down sadly."
+			message = "<B>The [src.name]</B> sulks down sadly."
 			m_type = 1
 		if("twitch")
-			message = "twitches violently."
+			message = "<B>The [src.name]</B> twitches violently."
 			m_type = 1
 		if("dance")
 			if(!src.restrained())
-				message = "dances around happily."
+				message = "<B>The [src.name]</B> dances around happily."
 				m_type = 1
 		if("roll")
 			if(!src.restrained())
-				message = "rolls."
+				message = "<B>The [src.name]</B> rolls."
 				m_type = 1
 		if("shake")
-			message = "shakes its head."
+			message = "<B>The [src.name]</B> shakes its head."
 			m_type = 1
 		if("gnarl")
 			if(!muzzled)
-				message = "gnarls and shows its teeth.."
+				message = "<B>The [src.name]</B> gnarls and shows its teeth.."
 				m_type = 2
 		if("jump")
-			message = "jumps!"
+			message = "<B>The [src.name]</B> jumps!"
 			m_type = 1
 		if("hiss_")
-			message = "hisses softly."
+			message = "<B>The [src.name]</B> hisses softly."
 			m_type = 1
 		if("collapse")
 			Paralyse(2)
-			message = "collapses!"
+			message = text("<B>[]</B> collapses!", src)
 			m_type = 2
 		if("help")
 			to_chat(src, "burp, choke, collapse, dance, drool, gasp, shiver, gnarl, jump, moan, nod, roll, scratch,\nscretch, shake, sign-#, sulk, sway, tail, twitch, whimper")

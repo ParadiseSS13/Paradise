@@ -172,14 +172,14 @@
 
 	switch(act)
 		if("meow")
-			message = "[pick(emote_hear)]!"
+			message = "<B>[src]</B> [pick(emote_hear)]!"
 			m_type = 2 //audible
 			playsound(src, meow_sound, 50, 0.75)
 		if("hiss")
-			message = "hisses!"
+			message = "<B>[src]</B> hisses!"
 			m_type = 2
 		if("purr")
-			message = "purrs."
+			message = "<B>[src]</B> purrs."
 			m_type = 2
 		if("help")
 			to_chat(src, "scream, meow, hiss, purr")

@@ -30,42 +30,42 @@
 		if("ping")
 			var/M = handle_emote_param(param)
 
-			message = "pings[M ? " at [M]" : ""]."
+			message = "<B>[src]</B> pings[M ? " at [M]" : ""]."
 			playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
 			m_type = 2
 
 		if("buzz")
 			var/M = handle_emote_param(param)
 
-			message = "buzzes[M ? " at [M]" : ""]."
+			message = "<B>[src]</B> buzzes[M ? " at [M]" : ""]."
 			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 			m_type = 2
 
 		if("beep")
 			var/M = handle_emote_param(param)
 
-			message = "beeps[M ? " at [M]" : ""]."
+			message = "<B>[src]</B> beeps[M ? " at [M]" : ""]."
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
 			m_type = 2
 
 		if("yes")
 			var/M = handle_emote_param(param)
 
-			message = "emits an affirmative blip[M ? " at [M]" : ""]."
+			message = "<B>[src]</B> emits an affirmative blip[M ? " at [M]" : ""]."
 			playsound(src.loc, 'sound/machines/synth_yes.ogg', 50, 0)
 			m_type = 2
 
 		if("no")
 			var/M = handle_emote_param(param)
 
-			message = "emits an negative blip[M ? " at [M]" : ""]."
+			message = "<B>[src]</B> emits an negative blip[M ? " at [M]" : ""]."
 			playsound(src.loc, 'sound/machines/synth_no.ogg', 50, 0)
 			m_type = 2
 
 		if("scream", "screams")
 			var/M = handle_emote_param(param)
 
-			message = "screams[M ? " at [M]" : ""]!"
+			message = "<B>[src]</B> screams[M ? " at [M]" : ""]!"
 			playsound(src.loc, 'sound/goonstation/voice/robot_scream.ogg', 80, 0)
 			m_type = 2
 

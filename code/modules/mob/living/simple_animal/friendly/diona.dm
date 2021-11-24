@@ -291,7 +291,7 @@
 
 	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
 		if("chirp")
-			message = "chirps!"
+			message = "<B>\The [src]</B> chirps!"
 			m_type = 2 //audible
 			playsound(src, chirp_sound, 40, 1, 1)
 		if("help")
