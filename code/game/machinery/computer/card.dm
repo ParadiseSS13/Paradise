@@ -447,6 +447,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(!modify)
 				return
 			var/t1 = params["assign_target"]
+			var/assignment = t1 // для имени профессии
 			if(target_dept)
 				if(modify.assignment == "Demoted")
 					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
@@ -482,17 +483,24 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					if(!jobdatum)
 						to_chat(usr, "<span class='warning'>No log exists for this job: [t1]</span>")
 						return
+					if(length(jobdatum.alt_titles))
+						var/list/AT = jobdatum.alt_titles
+						var/standart_Assignment = assignment
+						AT += assignment
+						assignment = input("Select a title", "Job title selection") as null|anything in AT
+						if(!assignment)
+							assignment = standart_Assignment
 
 					access = jobdatum.get_access()
 
 				var/jobnamedata = modify.getRankAndAssignment()
-				log_game("[key_name(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
+				log_game("[key_name(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".")
 				if(t1 == "Civilian")
-					message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
+					message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".")
 
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, t1, scan.registered_name, null)
-				modify.lastlog = "[station_time_timestamp()]: Reassigned by \"[scan.registered_name]\" from \"[jobnamedata]\" to \"[t1]\"."
-				SSjobs.notify_dept_head(t1, "[scan.registered_name] has transferred \"[modify.registered_name]\" the \"[jobnamedata]\" to \"[t1]\".")
+				modify.lastlog = "[station_time_timestamp()]: Reassigned by \"[scan.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\"."
+				SSjobs.notify_dept_head(t1, "[scan.registered_name] has transferred \"[modify.registered_name]\" the \"[jobnamedata]\" to \"[assignment]\".")
 				if(modify.owner_uid)
 					SSjobs.slot_job_transfer(modify.rank, t1)
 
@@ -507,7 +515,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 				modify.access = access
 				modify.rank = t1
-				modify.assignment = t1
+				modify.assignment = assignment
 			regenerate_id_name()
 			return
 		if("demote")
