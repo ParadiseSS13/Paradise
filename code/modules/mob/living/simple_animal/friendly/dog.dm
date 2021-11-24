@@ -55,15 +55,15 @@
 
 	switch(act)
 		if("bark")
-			message = "<B>[src]</B> [pick(src.speak_emote)]!"
+			message = "[pick(src.speak_emote)]!"
 			m_type = 2 //audible
 			playsound(src, pick(src.bark_sound), 50, TRUE)
 		if("yelp")
-			message = "<B>[src]</B> yelps!"
+			message = "yelps!"
 			m_type = 2 //audible
 			playsound(src, yelp_sound, 75, TRUE)
 		if("growl")
-			message = "<B>[src]</B> growls!"
+			message = "growls!"
 			m_type = 2 //audible
 		if("help")
 			to_chat(src, "scream, bark, growl")

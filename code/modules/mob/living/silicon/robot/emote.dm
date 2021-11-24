@@ -35,9 +35,9 @@
 					param = null
 
 				if(param)
-					message = "<B>[src]</B> salutes to [param]."
+					message = "salutes to [param]."
 				else
-					message = "<B>[src]</b> salutes."
+					message = "salutes."
 			m_type = 1
 		if("bow","bows")
 			if(!src.buckled)
@@ -51,39 +51,39 @@
 					param = null
 
 				if(param)
-					message = "<B>[src]</B> bows to [param]."
+					message = "bows to [param]."
 				else
-					message = "<B>[src]</B> bows."
+					message = "bows."
 			m_type = 1
 
 		if("clap","claps")
 			if(!src.restrained())
-				message = "<B>[src]</B> claps."
+				message = "claps."
 				m_type = 2
 		if("flap","flaps")
 			if(!src.restrained())
-				message = "<B>[src]</B> flaps its wings."
+				message = "flaps its wings."
 				m_type = 2
 
 		if("aflap","aflaps")
 			if(!src.restrained())
-				message = "<B>[src]</B> flaps its wings ANGRILY!"
+				message = "flaps its wings ANGRILY!"
 				m_type = 2
 
 		if("twitch")
-			message = "<B>[src]</B> twitches violently."
+			message = "twitches violently."
 			m_type = 1
 
 		if("twitch_s","twitches")
-			message = "<B>[src]</B> twitches."
+			message = "twitches."
 			m_type = 1
 
 		if("nod","nods")
-			message = "<B>[src]</B> nods."
+			message = "nods."
 			m_type = 1
 
 		if("deathgasp")
-			message = "<B>[src]</B> shudders violently for a moment, then becomes motionless, its eyes slowly darkening."
+			message = "shudders violently for a moment, then becomes motionless, its eyes slowly darkening."
 			m_type = 1
 
 		if("glare","glares")
@@ -97,9 +97,9 @@
 				param = null
 
 			if(param)
-				message = "<B>[src]</B> glares at [param]."
+				message = "glares at [param]."
 			else
-				message = "<B>[src]</B> glares."
+				message = "glares."
 
 		if("stare","stares")
 			var/M = null
@@ -112,9 +112,9 @@
 				param = null
 
 			if(param)
-				message = "<B>[src]</B> stares at [param]."
+				message = "stares at [param]."
 			else
-				message = "<B>[src]</B> stares."
+				message = "stares."
 
 		if("look","looks")
 			var/M = null
@@ -128,15 +128,15 @@
 				param = null
 
 			if(param)
-				message = "<B>[src]</B> looks at [param]."
+				message = "looks at [param]."
 			else
-				message = "<B>[src]</B> looks."
+				message = "looks."
 			m_type = 1
 
 
 		if("law")
 			if(istype(module,/obj/item/robot_module/security))
-				message = "<B>[src]</B> shows its legal authorization barcode."
+				message = "shows its legal authorization barcode."
 
 				playsound(src.loc, 'sound/voice/biamthelaw.ogg', 50, 0)
 				m_type = 2
@@ -145,7 +145,7 @@
 
 		if("halt")
 			if(istype(module,/obj/item/robot_module/security))
-				message = "<B>[src]</B>'s speakers skreech, \"Halt! Security!\"."
+				message = "'s speakers skreech, \"Halt! Security!\"."
 
 				playsound(src.loc, 'sound/voice/halt.ogg', 50, 0)
 				m_type = 2
@@ -154,7 +154,7 @@
 
 		if("flip","flips")
 			m_type = 1
-			message = "<B>[src]</B> does a flip!"
+			message = "does a flip!"
 			src.SpinAnimation(5,1)
 
 		if("help")

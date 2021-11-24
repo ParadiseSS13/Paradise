@@ -29,102 +29,99 @@
 		return
 
 	switch(act)
-
-
-
 		if("sign")
 			if(!restrained())
 				var/num = null
 				if(text2num(param))
 					num = "the number [text2num(param)]"
 				if(num)
-					message = "<B>\The [src]</B> signs [num]."
+					message = "signs [num]."
 					m_type = 1
 		if("burp")
 			if(!muzzled)
-				message = "<B>\The [src]</B> burps."
+				message = "burps."
 				m_type = 2
 		if("deathgasp")
-			message = "<B>\The [src]</B> lets out a waning guttural screech, green blood bubbling from its maw..."
+			message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 			m_type = 2
 		if("scratch")
 			if(!restrained())
-				message = "<B>\The [src]</B> scratches."
+				message = "scratches."
 				m_type = 1
 		if("whimper")
 			if(!muzzled)
-				message = "<B>\The [src]</B> whimpers."
+				message = "whimpers."
 				m_type = 2
 		if("roar")
 			if(!muzzled)
-				message = "<B>\The [src]</B> roars."
+				message = "roars."
 				m_type = 2
 		if("hiss")
 			if(!muzzled)
-				message = "<B>\The [src]</B> hisses."
+				message = "hisses."
 				m_type = 2
 		if("tail")
-			message = "<B>\The [src]</B> waves its tail."
+			message = "waves its tail."
 			m_type = 1
 		if("gasp")
-			message = "<B>\The [src]</B> gasps."
+			message = "gasps."
 			m_type = 2
 		if("shiver")
-			message = "<B>\The [src]</B> shivers."
+			message = "shivers."
 			m_type = 2
 		if("drool")
-			message = "<B>\The [src]</B> drools."
+			message = "drools."
 			m_type = 1
 		if("scretch")
 			if(!muzzled)
-				message = "<B>\The [src]</B> scretches."
+				message = "scretches."
 				m_type = 2
 		if("choke")
-			message = "<B>\The [src]</B> chokes."
+			message = "chokes."
 			m_type = 2
 		if("moan")
-			message = "<B>\The [src]</B> moans!"
+			message = "moans!"
 			m_type = 2
 		if("nod")
-			message = "<B>\The [src]</B> nods its head."
+			message = "nods its head."
 			m_type = 1
 		if("sit")
-			message = "<B>\The [src]</B> sits down."
+			message = "sits down."
 			m_type = 1
 		if("sway")
-			message = "<B>\The [src]</B> sways around dizzily."
+			message = "sways around dizzily."
 			m_type = 1
 		if("sulk")
-			message = "<B>\The [src]</B> sulks down sadly."
+			message = "sulks down sadly."
 			m_type = 1
 		if("twitch")
-			message = "<B>\The [src]</B> twitches violently."
+			message = "twitches violently."
 			m_type = 1
 		if("dance")
 			if(!restrained())
-				message = "<B>\The [src]</B> dances around happily."
+				message = "dances around happily."
 				m_type = 1
 		if("roll")
 			if(!restrained())
-				message = "<B>\The [src]</B> rolls."
+				message = "rolls."
 				m_type = 1
 		if("shake")
-			message = "<B>\The [src]</B> shakes its head."
+			message = "shakes its head."
 			m_type = 1
 		if("gnarl")
 			if(!muzzled)
-				message = "<B>\The [src]</B> gnarls and shows its teeth.."
+				message = "gnarls and shows its teeth.."
 				m_type = 2
 		if("jump")
-			message = "<B>\The [src]</B> jumps!"
+			message = "jumps!"
 			m_type = 1
 		if("collapse")
 			Paralyse(2)
-			message = "<B>\The [src]</B> collapses!"
+			message = "collapses!"
 			m_type = 2
 		if("flip")
 			m_type = 1
-			message = "<B>\The [src]</B> does a flip!"
+			message = "does a flip!"
 			SpinAnimation(5,1)
 		if("help")
 			to_chat(src, "burp, flip, deathgasp, choke, collapse, dance, drool, gasp, shiver, gnarl, jump, moan, nod, roar, roll, scratch,\nscretch, shake, sign-#, sit, sulk, sway, tail, twitch, whimper")
