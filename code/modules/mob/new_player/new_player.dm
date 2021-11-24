@@ -23,7 +23,7 @@
 	set src = usr
 
 	if(length(GLOB.clients) > 100)
-		client.hublistpanel()
+		client.hublistpanel(TRUE)
 	if(client.tos_consent)
 		new_player_panel_proc()
 	else

@@ -1291,8 +1291,8 @@
 	// If we are here, they have not accepted, and need to read it
 	return FALSE
 
-/client/proc/hublistpanel()
-	if(holder)
+/client/proc/hublistpanel(forced = FALSE)
+	if(holder && forced)
 		return FALSE
 
 	var/dat = {"<html><meta charset="UTF-8"><body>"}
@@ -1302,7 +1302,7 @@
 	dat += "<a href='?src=[UID()];hublist=7721'>Подключиться</a> <b>Paradise Main</b> (НСН Керберос) — Основной сервер<br><br>"
 	dat += "<a href='?src=[UID()];hublist=7726'>Подключиться</a> <b>Paradise Secondary</b> (НСН Керберос) <b style='color: #2ecc71'>(новый)</b> — Второй сервер, копия основного для равномерного распределения онлайна<br><br><HR><br>"
 	dat += "<a href='?src=[UID()];hublist=7724'>Подключиться</a> <b>Paradise Extended eXperimental</b> (НСН Кибериада) — очень долгие раунды без раундстартовых антагов<br><br>"
-	dat += "<a href='?src=[UID()];hublist=7723'>Подключиться</a> <b>Paradise WL</b> (НСН Керберос/НСН Кибериада) — вайтлист, без временных ограничений по профессиям, самозапись через команду <b>/заявка</b> в Discord (Требуется суммарно 30+ часов игрового опыта на EX/Main/Secondary)<br><br>"
+	dat += "<a href='?src=[UID()];hublist=7723'>Подключиться</a> <b>Paradise WL</b> (НСН Керберос/НСН Кибериада) — вайтлист, без временных ограничений по профессиям, самозапись через команду <b>/заявка</b> в Discord (Требуется суммарно 75+ часов игрового опыта на EX/Main/Secondary)<br><br>"
 	dat += "<a href='?src=[UID()];hublist=7725'>Подключиться</a> <b>Bay12 Sierra</b> (ИКН Сьерра) — атмосферное и более требовательное РП, билд Infinity<br><br><HR>"
 	dat += "<i>После нажатия кнопки подключения может показаться будто всё зависло, но это не так. Следует подождать пока загрузиться другой сервер.</i><br>"
 	dat += "</body></html>"
