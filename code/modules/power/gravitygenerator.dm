@@ -254,11 +254,11 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	..()
 	cut_overlays()
 	if(get_status() != "fix0" && get_status() != "fix1")
-		overlays += "generator_part"
+		add_overlay("generator_part")
 	if(get_status() == "off")
 		return
-	overlays += "[get_status()]" 
-	overlays += "[overlay_state]"
+	add_overlay("[get_status()]")
+	add_overlay("[overlay_state]")
 
 /**
   * Set the charging state based on external power and the breaker state.
