@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/proc/spawn_item(turf/loc, obj/item/uplink/U)
 
 	if(hijack_only && !(usr.mind.special_role == SPECIAL_ROLE_NUKEOPS))//nukies get items that regular traitors only get with hijack. If a hijack-only item is not for nukies, then exclude it via the gamemode list.
-		if(!(locate(/datum/objective/hijack) in usr.mind.objectives))
+		if(!(locate(/datum/objective/hijack) in usr.mind.get_all_objectives()))
 			to_chat(usr, "<span class='warning'>The Syndicate will only issue this extremely dangerous item to agents assigned the Hijack objective.</span>")
 			return
 
@@ -1748,7 +1748,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	CU.hub = new(mind, CU)
 	// Update their mind stuff
 	LAZYSET(GLOB.contractors, mind, CU.hub)
-	AT.update_traitor_icons_added(mind)
+	AT.add_antag_hud(mind.current)
 
 	log_game("[key_name(usr)] became a Contractor")
 	return I
