@@ -63,9 +63,6 @@
 	icon_state = null
 
 // Most of these overrides procs below are overkill, but better safe than sorry.
-/obj/effect/abstract/swarmer_act()
-	return
-
 /obj/effect/abstract/bullet_act(obj/item/projectile/P)
 	return
 

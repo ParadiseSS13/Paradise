@@ -682,7 +682,6 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk3.dmm",
 	# Re-removed 7/24/2020, I ran a month-long test of hierophant Jun-Jul and the staff was still too strong. https://github.com/ParadiseSS13/Paradise/pull/13542
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hierophant.dmm",
-	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_swarmer_crash.dmm",
 
 	##MISC
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_animal_hospital.dmm",

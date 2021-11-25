@@ -346,7 +346,9 @@ Class Procs:
 /obj/machinery/CouldNotUseTopic(mob/user)
 	usr.unset_machine()
 
-/obj/machinery/proc/dropContents()//putting for swarmers, occupent code commented out, someone can use later.
+// This needs removing since it was added for swarmers, but only SSUs use it, and its for their own drop stuff
+// - AA 2021-11-25
+/obj/machinery/proc/dropContents()
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/AM in contents)
 		AM.forceMove(T)

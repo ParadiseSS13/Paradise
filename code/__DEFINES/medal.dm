@@ -10,7 +10,6 @@
 #define BOSS_MEDAL_DRAKE	  "Drake"
 #define BOSS_MEDAL_HIEROPHANT "Hierophant"
 #define BOSS_MEDAL_LEGION	  "Legion"
-#define BOSS_MEDAL_SWARMERS	  "Swarmer Beacon"
 #define BOSS_MEDAL_TENDRIL	  "Tendril"
 
  // Score names
@@ -20,5 +19,4 @@
 #define COLOSSUS_SCORE 	     "Colossus Killed"
 #define DRAKE_SCORE 	     "Drakes Killed"
 #define LEGION_SCORE 	     "Legion Killed"
-#define SWARMER_BEACON_SCORE "Swarmer Beacons Killed"
 #define TENDRIL_CLEAR_SCORE	 "Tendrils Killed"
