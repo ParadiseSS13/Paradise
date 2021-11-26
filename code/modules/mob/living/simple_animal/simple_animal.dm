@@ -309,7 +309,7 @@
 	act = lowertext(act)
 	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
 		if("scream")
-			message = "<B>\The [src]</B> whimpers."
+			message = "whimpers."
 			m_type = 2
 		if("help")
 			to_chat(src, "scream")

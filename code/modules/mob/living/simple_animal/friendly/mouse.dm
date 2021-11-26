@@ -135,7 +135,7 @@
 
 	switch(act)
 		if("squeak")
-			message = "<B>\The [src]</B> [pick(emote_hear)]!"
+			message = "[pick(emote_hear)]!"
 			m_type = 2 //audible
 			playsound(src, squeak_sound, 40, 1)
 		if("help")
