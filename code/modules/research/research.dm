@@ -109,7 +109,7 @@ research holder datum.
 	if(!D)
 		return FALSE
 	if(!CanAddDesign2Known(D))
-		return FALSE
+		return TRUE
 	// Global datums make me nervous
 	known_designs[D.id] = D
 	return TRUE
