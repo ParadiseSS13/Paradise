@@ -6475,7 +6475,9 @@
 /turf/space,
 /area/space)
 "aqM" = (
-/obj/machinery/computer/arcade/battle,
+/obj/machinery/computer/arcade/battle{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -50328,11 +50330,11 @@
 /area/janitor)
 "cfq" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
@@ -51864,8 +51866,6 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
 "ciz" = (
@@ -53769,11 +53769,11 @@
 	dir = 4
 	},
 /obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the singularity chamber.";
+	desc = "A telescreen that connects to the engine's camera network.";
 	dir = 8;
 	layer = 4;
-	name = "Singularity Engine Telescreen";
-	network = list("Singularity");
+	name = "Engine Monitor";
+	network = list("engine");
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel,
@@ -63458,7 +63458,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/machinery/door/airlock/maintenance{
+/obj/machinery/door/airlock/engineering/glass{
 	locked = 1;
 	name = "Assembly Line Maintenance";
 	req_access_txt = "32"
@@ -63876,7 +63876,7 @@
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "cGn" = (
-/obj/machinery/door/airlock/maintenance{
+/obj/machinery/door/airlock/engineering/glass{
 	locked = 1;
 	name = "Assembly Line Maintenance";
 	req_access_txt = "32"
