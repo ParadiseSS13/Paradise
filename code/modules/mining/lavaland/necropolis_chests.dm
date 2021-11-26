@@ -93,56 +93,57 @@
 	name = "\improper KA mod disk"
 	desc = "A design disk containing the design for a unique kinetic accelerator modkit. It's compatible with a research console."
 	icon_state = "datadisk1"
-	var/modkit_design = /datum/design/unique_modkit
+	var/modkit_design
 
 /obj/item/disk/design_disk/modkit_disk/New()
 	. = ..()
-	blueprint = new modkit_design
+	if(modkit_design)
+		blueprint = new modkit_design
 
 /obj/item/disk/design_disk/modkit_disk/mob_and_turf_aoe
 	name = "\improper KA mod disk (Offensive mining explosion)"
-	modkit_design = /datum/design/unique_modkit/offensive_turf_aoe
+	modkit_design = /datum/design/offensive_turf_aoe_modkit
 
 /obj/item/disk/design_disk/modkit_disk/rapid_repeater
 	name = "\improper KA mod disk (Rapid repeater)"
-	modkit_design = /datum/design/unique_modkit/rapid_repeater
+	modkit_design = /datum/design/rapid_repeater_modkit
 
 /obj/item/disk/design_disk/modkit_disk/resonator_blast
 	name = "\improper KA mod disk (Resonator blast)"
-	modkit_design = /datum/design/unique_modkit/resonator_blast
+	modkit_design = /datum/design/resonator_blast_modkit
 
 /obj/item/disk/design_disk/modkit_disk/bounty
 	name = "\improper KA mod disk (Death syphon)"
-	modkit_design = /datum/design/unique_modkit/bounty
+	modkit_design = /datum/design/bounty_modkit
 
-/datum/design/unique_modkit
-	build_type = PROTOLATHE | MECHFAB
-
-/datum/design/unique_modkit/offensive_turf_aoe
+/datum/design/offensive_turf_aoe_modkit
 	name = "Kinetic Accelerator Offensive Mining Explosion Mod"
 	desc = "A device which causes kinetic accelerators to fire AoE blasts that destroy rock and damage creatures."
 	id = "hyperaoemod"
 	materials = list(MAT_METAL = 7000, MAT_GLASS = 3000, MAT_SILVER= 3000, MAT_GOLD = 3000, MAT_DIAMOND = 4000)
 	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
 	category = list("Mining", "Cyborg Upgrade Modules")
+	build_type = PROTOLATHE | MECHFAB
 
-/datum/design/unique_modkit/rapid_repeater
+/datum/design/rapid_repeater_modkit
 	name = "Kinetic Accelerator Rapid Repeater Mod"
 	desc = "A device which greatly reduces a kinetic accelerator's cooldown on striking a living target or rock, but greatly increases its base cooldown."
 	id = "repeatermod"
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_URANIUM = 8000, MAT_BLUESPACE = 2000)
 	build_path = /obj/item/borg/upgrade/modkit/cooldown/repeater
 	category = list("Mining", "Cyborg Upgrade Modules")
+	build_type = PROTOLATHE | MECHFAB
 
-/datum/design/unique_modkit/resonator_blast
+/datum/design/resonator_blast_modkit
 	name = "Kinetic Accelerator Resonator Blast Mod"
 	desc = "A device which causes kinetic accelerators to fire shots that leave and detonate resonator blasts."
 	id = "resonatormod"
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_SILVER= 5000, MAT_URANIUM = 5000)
 	build_path = /obj/item/borg/upgrade/modkit/resonator_blasts
 	category = list("Mining", "Cyborg Upgrade Modules")
+	build_type = PROTOLATHE | MECHFAB
 
-/datum/design/unique_modkit/bounty
+/datum/design/bounty_modkit
 	name = "Kinetic Accelerator Death Syphon Mod"
 	desc = "A device which causes kinetic accelerators to permanently gain damage against creature types killed with it."
 	id = "bountymod"
@@ -150,6 +151,7 @@
 	reagents_list = list("blood" = 40)
 	build_path = /obj/item/borg/upgrade/modkit/bounty
 	category = list("Mining", "Cyborg Upgrade Modules")
+	build_type = PROTOLATHE | MECHFAB
 
 //Spooky special loot
 
