@@ -371,8 +371,7 @@
 
 // pure adminbus at the moment
 /proc/isvampirethrall(mob/living/M)
-	return istype(M) && M.mind && SSticker.mode && (M.mind in SSticker.mode.vampire_enthralled)
-
+	return istype(M) && M.mind && M.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)
 /obj/effect/proc_holder/spell/targeted/enthrall
 	name = "Enthrall (150)"
 	desc = "You use a large portion of your power to sway those loyal to none to be loyal to you only."
@@ -431,36 +430,9 @@
 		return FALSE
 	return TRUE
 
-/obj/effect/proc_holder/spell/targeted/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H) // this proc can fuck off someone else can datumize this shit man I am mildly drunk or something have fun steel
+/obj/effect/proc_holder/spell/targeted/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H) // this proc can fuck off someone else can datumize this shit man have fun steel
 	if(!istype(H))
-		return 0
-	var/ref = "\ref[user.mind]"
-	if(!(ref in SSticker.mode.vampire_thralls))
-		SSticker.mode.vampire_thralls[ref] = list(H.mind)
-	else
-		SSticker.mode.vampire_thralls[ref] += H.mind
-	//SSticker.mode.update_vampire_icons_added(H.mind)
-	//SSticker.mode.update_vampire_icons_added(user.mind) //yooooooooooooooooooooooooo I dunno how to fix this lol
-	var/datum/mindslaves/slaved = user.mind.som
-	if(!slaved)
-		slaved = new()
-		slaved.masters = user.mind
-	H.mind.som = slaved
-	slaved.serv += H
-	slaved.add_serv_hud(user.mind, "vampire")//handles master servent icons
-	slaved.add_serv_hud(H.mind, "vampthrall")
-
-	SSticker.mode.vampire_enthralled.Add(H.mind)
-	SSticker.mode.vampire_enthralled[H.mind] = user.mind
-	H.mind.special_role = SPECIAL_ROLE_VAMPIRE_THRALL
-
-	var/datum/objective/protect/serve_objective = new
-	serve_objective.owner = user.mind
-	serve_objective.target = H.mind
-	serve_objective.explanation_text = "You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command."
-	H.mind.objectives += serve_objective
-
-	to_chat(H, "<span class='biggerdanger'>You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command.</span>")
-	to_chat(user, "<span class='warning'>You have successfully Enthralled [H]. <i>If [H.p_they()] refuse[H.p_s()] to do as you say just adminhelp.</i></span>")
+		return FALSE
+	H.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall(user.mind))
 	H.Stun(2)
 	add_attack_logs(user, H, "Vampire-thralled")
