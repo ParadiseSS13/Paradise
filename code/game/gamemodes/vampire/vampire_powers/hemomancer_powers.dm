@@ -43,13 +43,18 @@
 	var/blood_absorbed_amount = 5
 
 /obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity)
-	if(!user.mind?.vampire)
+	if(!user.mind)
 		return
+
+	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(!V)
+		return
+
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
 			C.bleed(blood_drain_amount)
-			user.mind.vampire.adjust_blood(C, blood_absorbed_amount)
+			V.adjust_blood(C, blood_absorbed_amount)
 	durability -= 1
 	if(durability <= 0)
 		qdel(src)
@@ -196,12 +201,12 @@
 	required_blood = 10
 
 /obj/effect/proc_holder/spell/self/vampire/blood_spill/cast(list/targets, mob/user)
-	var/mob/target = targets[1]
-	if(!target.mind.vampire.get_ability(/datum/vampire_passive/blood_spill))
-		target.mind.vampire.force_add_ability(/datum/vampire_passive/blood_spill)
+	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(V.get_ability(/datum/vampire_passive/blood_spill))
+		V.force_add_ability(/datum/vampire_passive/blood_spill)
 	else
-		for(var/datum/vampire_passive/blood_spill/B in target.mind.vampire.powers)
-			target.mind.vampire.remove_ability(B)
+		for(var/datum/vampire_passive/blood_spill/B in V.powers)
+			V.remove_ability(B)
 
 /datum/vampire_passive/blood_spill
 	var/max_beams = 10
@@ -217,6 +222,7 @@
 /datum/vampire_passive/blood_spill/process()
 	var/beam_number = 0
 	var/turf/T = get_turf(owner)
+	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
 	for(var/mob/living/carbon/human/H in view(7, T))
 		if(NO_BLOOD in H.dna.species.species_traits)
 			continue
@@ -238,6 +244,6 @@
 
 		if(beam_number >= max_beams)
 			break
-	owner.mind.vampire.bloodusable = max(owner.mind.vampire.bloodusable - 10, 0)
-	if(!owner.mind.vampire.bloodusable || owner.stat == DEAD)
-		owner.mind.vampire.remove_ability(src)
+	V.bloodusable = max(V.bloodusable - 10, 0)
+	if(!V.bloodusable || owner.stat == DEAD)
+		V.remove_ability(src)

@@ -64,10 +64,7 @@
 
 /datum/game_mode/vampire/post_setup()
 	for(var/datum/mind/vampire in vampires)
-		grant_vampire_powers(vampire.current)
-		forge_vampire_objectives(vampire)
-		greet_vampire(vampire)
-		update_vampire_icons_added(vampire)
+		vampire.add_antag_datum(/datum/antagonist/vampire)
 	..()
 
 /datum/game_mode/proc/auto_declare_completion_vampire()
@@ -75,15 +72,15 @@
 		var/text = "<FONT size = 2><B>The vampires were:</B></FONT>"
 		for(var/datum/mind/vampire in vampires)
 			var/traitorwin = 1
-
+			var/datum/antagonist/vampire/V = vampire.has_antag_datum(/datum/antagonist/vampire)
 			text += "<br>[vampire.key] was [vampire.name] ("
 			if(vampire.current)
 				if(vampire.current.stat == DEAD)
 					text += "died"
 				else
 					text += "survived"
-					if(vampire.vampire.subclass)
-						text += " as a [vampire.vampire.subclass.name]"
+					if(V.subclass)
+						text += " as a [V.subclass.name]"
 			else
 				text += "body destroyed"
 			text += ")"
@@ -135,81 +132,23 @@
 		to_chat(world, text)
 	return 1
 
-/datum/game_mode/proc/forge_vampire_objectives(datum/mind/vampire)
-	//Objectives are traitor objectives plus blood objectives
-
-	var/datum/objective/blood/blood_objective = new
-	blood_objective.owner = vampire
-	blood_objective.gen_amount_goal(150, 400)
-	vampire.objectives += blood_objective
-
-	var/datum/objective/assassinate/kill_objective = new
-	kill_objective.owner = vampire
-	kill_objective.find_target()
-	vampire.objectives += kill_objective
-
-	var/datum/objective/steal/steal_objective = new
-	steal_objective.owner = vampire
-	steal_objective.find_target()
-	vampire.objectives += steal_objective
-
+/datum/antagonist/vampire/give_objectives()
+	add_objective(/datum/objective/blood)
+	add_objective(/datum/objective/assassinate)
+	add_objective(/datum/objective/steal)
 
 	switch(rand(1,100))
 		if(1 to 80)
-			if(!(locate(/datum/objective/escape) in vampire.objectives))
-				var/datum/objective/escape/escape_objective = new
-				escape_objective.owner = vampire
-				vampire.objectives += escape_objective
+			add_objective(/datum/objective/survive)
 		else
-			if(!(locate(/datum/objective/survive) in vampire.objectives))
-				var/datum/objective/survive/survive_objective = new
-				survive_objective.owner = vampire
-				vampire.objectives += survive_objective
-	return
+			add_objective(/datum/objective/escape)
 
-/datum/game_mode/proc/grant_vampire_powers(mob/living/carbon/vampire_mob)
-	if(!istype(vampire_mob) || !vampire_mob.mind)
-		return
-	var/datum/vampire/vamp
-	if(!vampire_mob.mind.vampire)
-		vamp = new /datum/vampire()
-		vamp.owner = vampire_mob
-		vampire_mob.mind.vampire = vamp
-	else
-		vamp = vampire_mob.mind.vampire
-		QDEL_LIST(vamp.powers)
-
-	vamp.check_vampire_upgrade(FALSE)
-
-/datum/game_mode/proc/greet_vampire(datum/mind/vampire, you_are=1)
-	var/dat
-	if(you_are)
-		SEND_SOUND(vampire.current, sound('sound/ambience/antag/vampalert.ogg'))
-		dat = "<span class='danger'>You are a Vampire!</span><br>"
-	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
-You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
-	to_chat(vampire.current, dat)
-	to_chat(vampire.current, "<B>You must complete the following tasks:</B>")
-
-	if(vampire.current.mind)
-		if(vampire.current.mind.assigned_role == "Clown")
-			to_chat(vampire.current, "Your lust for blood has allowed you to overcome your clumsy nature allowing you to wield weapons without harming yourself.")
-			vampire.current.dna.SetSEState(GLOB.clumsyblock, FALSE)
-			singlemutcheck(vampire.current, GLOB.clumsyblock, MUTCHK_FORCED)
-			var/datum/action/innate/toggle_clumsy/A = new
-			A.Grant(vampire.current)
-	var/obj_count = 1
-	for(var/datum/objective/objective in vampire.objectives)
-		to_chat(vampire.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
-	to_chat(vampire.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Vampire)</span>")
-	return
-
-/datum/vampire
+/datum/antagonist/vampire
+	name = "Vampire"
+	antag_hud_name = "Vampire"
+	antag_hud_type = ANTAG_HUD_VAMPIRE
 	var/bloodtotal = 0
 	var/bloodusable = 0
-	/// the mob tied to the vampire
-	var/mob/living/owner = null
 	/// what vampire subclass the vampire is.
 	var/datum/vampire_subclass/subclass
 	/// handles the vampire cloak toggle
@@ -231,86 +170,82 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()
 
-/datum/vampire/Destroy(force, ...)
-	owner = null
+/datum/antagonist/mindslave/thrall
+	name = "thrall"
+	antag_hud_type = ANTAG_HUD_VAMPIRE
+
+/datum/antagonist/vampire/Destroy(force, ...)
 	draining = null
 	QDEL_NULL(subclass)
 	QDEL_LIST(powers)
 	return ..()
 
-/datum/vampire/proc/adjust_nullification(base, extra)
+/datum/antagonist/vampire/proc/adjust_nullification(base, extra)
 	// First hit should give full nullification, while subsequent hits increase the value slower
 	nullified = clamp(nullified + extra, base, VAMPIRE_NULLIFICATION_CAP)
 
-/datum/vampire/proc/force_add_ability(path)
+/datum/antagonist/vampire/proc/force_add_ability(path)
 	var/spell = new path(owner)
 	if(istype(spell, /obj/effect/proc_holder/spell))
-		owner.mind.AddSpell(spell)
+		owner.AddSpell(spell)
 	if(istype(spell, /datum/vampire_passive))
 		var/datum/vampire_passive/passive = spell
 		passive.owner = owner
 	powers += spell
-	owner.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp gets new vision based on his powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
+	owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp gets new vision based on his powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
-/datum/vampire/proc/get_ability(path)
+/datum/antagonist/vampire/proc/get_ability(path)
 	for(var/P in powers)
 		var/datum/power = P
 		if(power.type == path)
 			return power
 	return null
 
-/datum/vampire/proc/add_ability(path)
+/datum/antagonist/vampire/proc/add_ability(path)
 	if(!get_ability(path))
 		force_add_ability(path)
 
-/datum/vampire/proc/remove_ability(ability)
+/datum/antagonist/vampire/proc/remove_ability(ability)
 	if(ability && (ability in powers))
 		powers -= ability
-		owner.mind.spell_list.Remove(ability)
+		owner.spell_list.Remove(ability)
 		qdel(ability)
-		owner.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp loses his vision based powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
+		owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp loses his vision based powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
-/datum/vampire/proc/update_owner(mob/living/carbon/human/current) //Called when a vampire gets cloned. This updates vampire.owner to the new body.
-	if(current.mind && current.mind.vampire && current.mind.vampire.owner && (current.mind.vampire.owner != current))
-		current.mind.vampire.owner = current
-
-/datum/vampire/proc/remove_vampire_powers()
+/datum/antagonist/vampire/remove_innate_effects(mob/living/old_body)
 	for(var/P in powers)
 		remove_ability(P)
-	if(owner.hud_used)
-		var/datum/hud/hud = owner.hud_used
-		if(hud.vampire_blood_display)
-			hud.remove_vampire_hud()
-	owner.alpha = 255
-	REMOVE_TRAITS_IN(owner, "vampire")
+	owner.current.alpha = 255
+	REMOVE_TRAITS_IN(owner.current, "vampire")
+	return ..()
 
 #define BLOOD_GAINED_MODIFIER 0.5
 
-/datum/vampire/proc/handle_bloodsucking(mob/living/carbon/human/H, suck_rate = 5 SECONDS)
+/datum/antagonist/vampire/proc/handle_bloodsucking(mob/living/carbon/human/H, suck_rate = 5 SECONDS)
 	draining = H
 	var/unique_suck_id = H.UID()
 	var/blood = 0
 	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
-	if(owner.is_muzzled())
-		to_chat(owner, "<span class='warning'>[owner.wear_mask] prevents you from biting [H]!</span>")
+	if(owner.current.is_muzzled())
+		to_chat(owner.current, "<span class='warning'>[owner.current.wear_mask] prevents you from biting [H]!</span>")
 		draining = null
 		return
-	add_attack_logs(owner, H, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
-	owner.visible_message("<span class='danger'>[owner] grabs [H]'s neck harshly and sinks in [owner.p_their()] fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain [H.p_their()] blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
-	if(!iscarbon(owner))
+	add_attack_logs(owner.current, H, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
+	owner.current.visible_message("<span class='danger'>[owner] grabs [H]'s neck harshly and sinks in [owner.current.p_their()] fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain [H.p_their()] blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
+	if(!iscarbon(owner.current))
 		H.LAssailant = null
 	else
 		H.LAssailant = owner
 	while(do_mob(owner, H, suck_rate))
-		if(!(owner.mind in SSticker.mode.vampires))
+		if(!(owner in SSticker.mode.vampires))
 			to_chat(owner, "<span class='userdanger'>Your fangs have disappeared!</span>")
 			return
-		owner.do_attack_animation(H, ATTACK_EFFECT_BITE)
+		owner.current.do_attack_animation(H, ATTACK_EFFECT_BITE)
 		if(unique_suck_id in drained_humans)
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
 				to_chat(owner, "<span class='warning'>You have drained most of the life force from [H]'s blood, and you will get no more useable blood from them!</span>")
 				H.blood_volume = max(H.blood_volume - 25, 0)
-				owner.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.nutrition + 5))
+				owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 				continue
 
 
@@ -323,25 +258,25 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 		//Blood level warnings (Code 'borrowed' from Fulp)
 		if(H.blood_volume)
 			if(H.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
-				to_chat(owner, "<span class='danger'>Your victim's blood volume is dangerously low.</span>")
+				to_chat(owner.current, "<span class='danger'>Your victim's blood volume is dangerously low.</span>")
 			else if(H.blood_volume <= BLOOD_VOLUME_OKAY && blood_volume_warning > BLOOD_VOLUME_OKAY)
-				to_chat(owner, "<span class='warning'>Your victim's blood is at an unsafe level.</span>")
+				to_chat(owner.current, "<span class='warning'>Your victim's blood is at an unsafe level.</span>")
 			blood_volume_warning = H.blood_volume //Set to blood volume, so that you only get the message once
 		else
-			to_chat(owner, "<span class='warning'>You have bled your victim dry!</span>")
+			to_chat(owner.current, "<span class='warning'>You have bled your victim dry!</span>")
 			break
 		if(!H.ckey && !H.player_ghosted)//Only runs if there is no ckey and the body has not being ghosted while alive
-			to_chat(owner, "<span class='notice'><b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b></span>")
-			owner.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.nutrition + 5))
+			to_chat(owner.current, "<span class='notice'><b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b></span>")
+			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 		else
-			owner.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.nutrition + (blood / 2)))
+			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + (blood / 2)))
 
 	draining = null
-	to_chat(owner, "<span class='notice'>You stop draining [H.name] of blood.</span>")
+	to_chat(owner.current, "<span class='notice'>You stop draining [H.name] of blood.</span>")
 
 #undef BLOOD_GAINED_MODIFIER
 
-/datum/vampire/proc/check_vampire_upgrade(announce = TRUE)
+/datum/antagonist/vampire/proc/check_vampire_upgrade(announce = TRUE)
 	var/list/old_powers = powers.Copy()
 
 	for(var/ptype in upgrade_tiers)
@@ -359,75 +294,43 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 		announce_new_power(old_powers)
 
 
-/datum/vampire/proc/check_full_power_upgrade()
+/datum/antagonist/vampire/proc/check_full_power_upgrade()
 	if(length(drained_humans) >= FULLPOWER_DRAINED_REQUIREMENT && bloodtotal >= FULLPOWER_BLOODTOTAL_REQUIREMENT)
 		subclass.add_full_power_abilities(src)
 
 
-/datum/vampire/proc/announce_new_power(list/old_powers)
+/datum/antagonist/vampire/proc/announce_new_power(list/old_powers)
 	for(var/p in powers)
 		if(!(p in old_powers))
 			if(istype(p, /obj/effect/proc_holder/spell))
 				var/obj/effect/proc_holder/spell/power = p
-				to_chat(owner, "<span class='boldnotice'>[power.gain_desc]</span>")
+				to_chat(owner.current, "<span class='boldnotice'>[power.gain_desc]</span>")
 			else if(istype(p, /datum/vampire_passive))
 				var/datum/vampire_passive/power = p
-				to_chat(owner, "<span class='boldnotice'>[power.gain_desc]</span>")
+				to_chat(owner.current, "<span class='boldnotice'>[power.gain_desc]</span>")
 
-/datum/game_mode/proc/remove_vampire(datum/mind/vampire_mind)
-	if(vampire_mind in vampires)
-		SSticker.mode.vampires -= vampire_mind
-		vampire_mind.special_role = null
-		vampire_mind.current.create_attack_log("<span class='danger'>De-vampired</span>")
-		vampire_mind.current.create_log(CONVERSION_LOG, "De-vampired")
-		if(vampire_mind.vampire)
-			vampire_mind.vampire.remove_vampire_powers()
-			QDEL_NULL(vampire_mind.vampire)
-		if(issilicon(vampire_mind.current))
-			to_chat(vampire_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your powers fading away...</span>")
-		else
-			to_chat(vampire_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a vampire.</span>")
-		SSticker.mode.update_vampire_icons_removed(vampire_mind)
+/datum/antagonist/vampire/on_removal()
+	if(owner in SSticker.mode.vampires)
+		SSticker.mode.vampires -= owner
+		owner.current.create_log(CONVERSION_LOG, "De-vampired")
+	..()
 
-//prepare for copypaste
-/datum/game_mode/proc/update_vampire_icons_added(datum/mind/vampire_mind)
-	var/datum/atom_hud/antag/vamp_hud = GLOB.huds[ANTAG_HUD_VAMPIRE]
-	vamp_hud.join_hud(vampire_mind.current)
-	set_antag_hud(vampire_mind.current, ((vampire_mind in vampires) ? "hudvampire" : "hudvampirethrall"))
-
-/datum/game_mode/proc/update_vampire_icons_removed(datum/mind/vampire_mind)
-	var/datum/atom_hud/antag/vampire_hud = GLOB.huds[ANTAG_HUD_VAMPIRE]
-	vampire_hud.leave_hud(vampire_mind.current)
-	set_antag_hud(vampire_mind.current, null)
-
-/datum/game_mode/proc/remove_vampire_mind(datum/mind/vampire_mind, datum/mind/head)
-	//var/list/removal
-	if(!istype(head))
-		head = vampire_mind //workaround for removing a thrall's control over the enthralled
-	var/ref = "\ref[head]"
-	if(ref in vampire_thralls)
-		vampire_thralls[ref] -= vampire_mind
-	vampire_enthralled -= vampire_mind
-	vampire_mind.special_role = null
-	var/datum/mindslaves/slaved = vampire_mind.som
-	slaved.serv -= vampire_mind
-	vampire_mind.som = null
-	slaved.leave_serv_hud(vampire_mind)
-	update_vampire_icons_removed(vampire_mind)
-	vampire_mind.current.visible_message("<span class='userdanger'>[vampire_mind.current] looks as though a burden has been lifted!</span>", "<span class='userdanger'>The dark fog in your mind clears as you regain control of your own faculties, you are no longer a vampire thrall!</span>")
-	if(vampire_mind.current.hud_used)
-		vampire_mind.current.hud_used.remove_vampire_hud()
+/datum/antagonist/vampire/on_gain()
+	if(!(owner in SSticker.mode.vampires))
+		SSticker.mode.vampires += owner
+	..()
 
 
-/datum/vampire/proc/check_sun()
-	var/ax = owner.x
-	var/ay = owner.y
+
+/datum/antagonist/vampire/proc/check_sun()
+	var/ax = owner.current.x
+	var/ay = owner.current.y
 
 	for(var/i = 1 to 20)
 		ax += SSsun.dx
 		ay += SSsun.dy
 
-		var/turf/T = locate(round(ax, 0.5), round(ay, 0.5), owner.z)
+		var/turf/T = locate(round(ax, 0.5), round(ay, 0.5), owner.current.z)
 
 		if(!T)
 			return
@@ -438,19 +341,19 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 		if(T.density)
 			return
 	if(bloodusable >= 10)	//burn through your blood to tank the light for a little while
-		to_chat(owner, "<span class='warning'>The starlight saps your strength!</span>")
+		to_chat(owner.current, "<span class='warning'>The starlight saps your strength!</span>")
 		bloodusable -= 10
 		vamp_burn(10)
 	else		//You're in trouble, get out of the sun NOW
-		to_chat(owner, "<span class='userdanger'>Your body is turning to ash, get out of the light now!</span>")
-		owner.adjustCloneLoss(10)	//I'm melting!
+		to_chat(owner.current, "<span class='userdanger'>Your body is turning to ash, get out of the light now!</span>")
+		owner.current.adjustCloneLoss(10)	//I'm melting!
 		vamp_burn(85)
-		if(owner.cloneloss >= 100)
-			owner.dust()
+		if(owner.current.cloneloss >= 100)
+			owner.current.dust()
 
-/datum/vampire/proc/handle_vampire()
-	if(owner.hud_used)
-		var/datum/hud/hud = owner.hud_used
+/datum/antagonist/vampire/proc/handle_vampire()
+	if(owner.current.hud_used)
+		var/datum/hud/hud = owner.current.hud_used
 		if(!hud.vampire_blood_display)
 			hud.vampire_blood_display = new /obj/screen()
 			hud.vampire_blood_display.name = "Usable Blood"
@@ -460,36 +363,36 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 			hud.show_hud(hud.hud_version)
 		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>"
 	handle_vampire_cloak()
-	if(istype(get_turf(owner), /turf/space))
+	if(istype(get_turf(owner.current), /turf/space))
 		check_sun()
-	if(istype(get_area(owner), /area/chapel) && !get_ability(/datum/vampire_passive/full))
+	if(istype(get_area(owner.current), /area/chapel) && !get_ability(/datum/vampire_passive/full))
 		vamp_burn(7)
 	nullified = max(0, nullified - 2)
 
-/datum/vampire/proc/handle_vampire_cloak()
-	if(!ishuman(owner))
-		owner.alpha = 255
+/datum/antagonist/vampire/proc/handle_vampire_cloak()
+	if(!ishuman(owner.current))
+		owner.current.alpha = 255
 		return
-	var/turf/simulated/T = get_turf(owner)
+	var/turf/simulated/T = get_turf(owner.current)
 	var/light_available = T.get_lumcount() * 10
 
 	if(!istype(T))
 		return
 
-	if(!iscloaking || owner.on_fire)
-		owner.alpha = 255
-		REMOVE_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+	if(!iscloaking || owner.current.on_fire)
+		owner.current.alpha = 255
+		REMOVE_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
 		return
 
 	if(light_available <= 2)
-		owner.alpha = 38 // round(255 * 0.15)
-		ADD_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+		owner.current.alpha = 38 // round(255 * 0.15)
+		ADD_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
 		return
 
-	REMOVE_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
-	owner.alpha = 204 // 255 * 0.80
+	REMOVE_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+	owner.current.alpha = 204 // 255 * 0.80
 
-/datum/vampire/proc/adjust_blood(mob/living/carbon/C, blood_amount = 0)
+/datum/antagonist/vampire/proc/adjust_blood(mob/living/carbon/C, blood_amount = 0)
 	if(C)
 		var/unique_suck_id = C.UID()
 		if(!(unique_suck_id in drained_humans))
@@ -504,32 +407,38 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 		if(S.action)
 			S.action.UpdateButtonIcon()
 
-/datum/vampire/proc/vamp_burn(burn_chance)
-	if(prob(burn_chance) && owner.health >= 50)
-		switch(owner.health)
+/datum/antagonist/vampire/proc/vamp_burn(burn_chance)
+	if(prob(burn_chance) && owner.current.health >= 50)
+		switch(owner.current.health)
 			if(75 to 100)
-				to_chat(owner, "<span class='warning'>Your skin flakes away...</span>")
+				to_chat(owner.current, "<span class='warning'>Your skin flakes away...</span>")
 			if(50 to 75)
-				to_chat(owner, "<span class='warning'>Your skin sizzles!</span>")
-		owner.adjustFireLoss(3)
-	else if(owner.health < 50)
-		if(!owner.on_fire)
-			to_chat(owner, "<span class='danger'>Your skin catches fire!</span>")
-			owner.emote("scream")
+				to_chat(owner.current, "<span class='warning'>Your skin sizzles!</span>")
+		owner.current.adjustFireLoss(3)
+	else if(owner.current.health < 50)
+		if(!owner.current.on_fire)
+			to_chat(owner.current, "<span class='danger'>Your skin catches fire!</span>")
+			owner.current.emote("scream")
 		else
-			to_chat(owner, "<span class='danger'>You continue to burn!</span>")
-		owner.adjust_fire_stacks(5)
-		owner.IgniteMob()
+			to_chat(owner.current, "<span class='danger'>You continue to burn!</span>")
+		owner.current.adjust_fire_stacks(5)
+		owner.current.IgniteMob()
 	return
 
-/datum/hud/proc/remove_vampire_hud()
-	if(!vampire_blood_display)
-		return
-
-	static_inventory -= vampire_blood_display
-	QDEL_NULL(vampire_blood_display)
-	show_hud(hud_version)
-
-/datum/vampire/vv_edit_var(var_name, var_value)
+/datum/antagonist/vampire/vv_edit_var(var_name, var_value)
 	. = ..()
 	check_vampire_upgrade(TRUE)
+
+/datum/antagonist/vampire/greet()
+	var/dat
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
+	dat = "<span class='danger'>You are a Vampire!</span><br>"
+	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
+		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
+	to_chat(owner.current, dat)
+	to_chat(owner.current, "<B>You must complete the following tasks:</B>")
+	to_chat(owner.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Vampire)</span>")
+
+/datum/antagonist/vampire/apply_innate_effects(mob/living/new_body)
+	check_vampire_upgrade(FALSE)
+

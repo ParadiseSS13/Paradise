@@ -607,6 +607,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return stolen_count >= 5
 
 /datum/objective/blood
+
+/datum/objective/blood/New()
+	gen_amount_goal()
+	. = ..()
+
 /datum/objective/blood/proc/gen_amount_goal(low = 150, high = 400)
 	target_amount = rand(low,high)
 	target_amount = round(round(target_amount/5)*5)
@@ -614,10 +619,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return target_amount
 
 /datum/objective/blood/check_completion()
-	if(owner && owner.vampire && owner.vampire.bloodtotal && owner.vampire.bloodtotal >= target_amount)
-		return 1
+	var/datum/antagonist/vampire/V = owner.has_antag_datum(/datum/antagonist/vampire)
+	if(V.bloodtotal >= target_amount)
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 // /vg/; Vox Inviolate for humans :V
 /datum/objective/minimize_casualties

@@ -1,10 +1,11 @@
 //This should hold all the vampire related powers
 /mob/living/proc/affects_vampire(mob/user)
 	//Other vampires aren't affected
-	if(mind?.vampire)
+	if(mind?.has_antag_datum(/datum/antagonist/vampire))
 		return FALSE
 	//Vampires who have reached their full potential can affect nearly everything
-	if(user?.mind.vampire.get_ability(/datum/vampire_passive/full))
+	var/datum/antagonist/vampire/V = user?.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(V?.get_ability(/datum/vampire_passive/full))
 		return TRUE
 	//Holy characters are resistant to vampire powers
 	if(mind?.isholy)
@@ -29,15 +30,15 @@
 
 /obj/effect/proc_holder/spell/proc/before_cast_vampire(list/targets)
 	// sanity check before we cast
-	if(!usr.mind || !usr.mind.vampire)
+	if(!usr.mind || !usr.mind.has_antag_datum(/datum/antagonist/vampire))
 		targets.Cut()
 		return FALSE
 
 	if(!required_blood)
-		return
+		return TRUE
 
 	// enforce blood
-	var/datum/vampire/vampire = usr.mind.vampire
+	var/datum/antagonist/vampire/vampire = usr.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/blood_cost_modifier = 1 + vampire.nullified / 100
 	var/blood_cost = round(required_blood * blood_cost_modifier)
 
@@ -90,7 +91,8 @@
 	U.SetConfused(0)
 	U.adjustStaminaLoss(-100)
 	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>")
-	var/rejuv_bonus = U.mind.vampire.get_rejuv_bonus()
+	var/datum/antagonist/vampire/V = U.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/rejuv_bonus = V.get_rejuv_bonus()
 	if(rejuv_bonus)
 		INVOKE_ASYNC(src, .proc/heal, U, rejuv_bonus)
 
@@ -105,13 +107,13 @@
 				user.reagents.remove_reagent(R.id, 2 * rejuv_bonus)
 		sleep(35)
 
-/datum/vampire/proc/get_rejuv_bonus()
+/datum/antagonist/vampire/proc/get_rejuv_bonus()
 	var/rejuv_multiplier = 0
 	if(!get_ability(/datum/vampire_passive/regen))
 		return rejuv_multiplier
 
 	if(subclass?.improved_rejuv_healing)
-		rejuv_multiplier = clamp((100 - owner.health) / 20, 1, 5) // brute and burn healing between 5 and 50
+		rejuv_multiplier = clamp((100 - owner.current.health) / 20, 1, 5) // brute and burn healing between 5 and 50
 		return rejuv_multiplier
 
 	return 1
@@ -135,14 +137,14 @@
 		ui.open()
 
 /obj/effect/proc_holder/spell/self/vampire/specialize/ui_data(mob/user)
-	var/datum/vampire/vamp = user.mind.vampire
+	var/datum/antagonist/vampire/vamp = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/list/data = list("subclasses" = vamp.subclass)
 	return data
 
 /obj/effect/proc_holder/spell/self/vampire/specialize/ui_act(action, list/params)
 	if(..())
 		return
-	var/datum/vampire/vamp = usr.mind.vampire
+	var/datum/antagonist/vampire/vamp = usr.mind.has_antag_datum(/datum/antagonist/vampire)
 
 	if(vamp.subclass)
 		vamp.upgrade_tiers -= type
@@ -164,7 +166,7 @@
 			vamp.remove_ability(src)
 
 
-/datum/vampire/proc/add_subclass(subclass_to_add, announce = TRUE)
+/datum/antagonist/vampire/proc/add_subclass(subclass_to_add, announce = TRUE)
 	var/datum/vampire_subclass/new_subclass = new subclass_to_add
 	subclass = new_subclass
 	check_vampire_upgrade(announce)
@@ -307,7 +309,7 @@
 	if(H.dna && (NO_BLOOD in H.dna.species.species_traits) || H.dna.species.exotic_blood || !H.blood_volume)
 		visible_message("[H] looks unfazed!")
 		return
-	if(H.mind.vampire || H.mind.special_role == SPECIAL_ROLE_VAMPIRE || H.mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
+	if(H.mind.has_antag_datum(/datum/antagonist/vampire) || H.mind.special_role == SPECIAL_ROLE_VAMPIRE || H.mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
 		visible_message("<span class='notice'>[H] looks refreshed!</span>")
 		H.adjustBruteLoss(-60)
 		H.adjustFireLoss(-60)
@@ -385,7 +387,7 @@
 	action_background_icon_state = "bg_vampire"
 
 /obj/effect/proc_holder/spell/targeted/enthrall/cast(list/targets, mob/user = usr)
-	var/datum/vampire/vampire = user.mind.vampire
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	for(var/mob/living/target in targets)
 		user.visible_message("<span class='warning'>[user] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
 		to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>")
@@ -415,7 +417,7 @@
 	if(!C.mind)
 		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")
 		return FALSE
-	if(enthrall_safe || (C.mind in SSticker.mode.vampires) || (C.mind.vampire) || (C.mind in SSticker.mode.vampire_enthralled))
+	if(enthrall_safe || (C.mind in SSticker.mode.vampires) || (C.mind.has_antag_datum(/datum/antagonist/vampire)) || (C.mind in SSticker.mode.vampire_enthralled))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
 		return FALSE
 	if(!C.affects_vampire(user))
@@ -429,7 +431,7 @@
 		return FALSE
 	return TRUE
 
-/obj/effect/proc_holder/spell/targeted/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H)
+/obj/effect/proc_holder/spell/targeted/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H) // this proc can fuck off someone else can datumize this shit man I am mildly drunk or something have fun steel
 	if(!istype(H))
 		return 0
 	var/ref = "\ref[user.mind]"
@@ -437,8 +439,8 @@
 		SSticker.mode.vampire_thralls[ref] = list(H.mind)
 	else
 		SSticker.mode.vampire_thralls[ref] += H.mind
-	SSticker.mode.update_vampire_icons_added(H.mind)
-	SSticker.mode.update_vampire_icons_added(user.mind)
+	//SSticker.mode.update_vampire_icons_added(H.mind)
+	//SSticker.mode.update_vampire_icons_added(user.mind) //yooooooooooooooooooooooooo I dunno how to fix this lol
 	var/datum/mindslaves/slaved = user.mind.som
 	if(!slaved)
 		slaved = new()

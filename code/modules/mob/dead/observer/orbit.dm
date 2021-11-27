@@ -88,7 +88,7 @@
 					// Associative list of antag name => whether this mind is this antag
 					var/other_antags = list(
 						"Changeling" = (mind.changeling != null),
-						"Vampire" = (mind.vampire != null),
+						"Vampire" = (mind.has_antag_datum(/datum/antagonist/vampire) != null),
 					)
 					if(SSticker && SSticker.mode)
 						other_antags += list(

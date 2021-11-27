@@ -628,8 +628,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	if(vampire_ability)
 
-		var/datum/vampire/vampire = user.mind.vampire
-
+		var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 		if(!vampire)
 			return FALSE
 
