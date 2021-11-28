@@ -1,4 +1,5 @@
 GLOBAL_LIST_EMPTY(sacrificed) // A mixed list of minds and mobs
+GLOBAL_LIST_EMPTY(wall_runes) // A list of all cult shield walls
 GLOBAL_LIST_EMPTY(teleport_runes) // I'll give you two guesses
 
 /*
@@ -219,6 +220,14 @@ structure_check() searches for nearby cultist structures required for the invoca
 		visible_message("<span class='warning'>The markings pulse with a small flash of red light, then fall dark.</span>")
 	animate(src, color = rgb(255, 0, 0), time = 0)
 	animate(src, color = rune_blood_color, time = 5)
+
+
+/obj/effect/rune/proc/check_icon()
+	if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
+		var/bits = make_bit_triplet()
+		icon = get_rune(bits)
+	else
+		icon = get_rune_cult(invocation)
 
 
 //Malformed Rune: This forms if a rune is not drawn correctly. Invoking it does nothing but hurt the user.
@@ -651,10 +660,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/wall/Initialize(mapload)
 	. = ..()
+	GLOB.wall_runes += src
 	B = new /obj/machinery/shield/cult/barrier(loc)
 	B.parent_rune = src
 
 /obj/effect/rune/wall/Destroy()
+	GLOB.wall_runes -= src
 	if(B && !QDELETED(B))
 		QDEL_NULL(B)
 	return ..()
@@ -981,6 +992,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 	..()
 	cultist_name = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"]"
 	cultist_desc = "tears apart dimensional barriers, calling forth [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "your god"]."
+
+/obj/effect/rune/narsie/check_icon()
+	return
 
 /obj/effect/rune/narsie/cult_conceal() //can't hide this, and you wouldn't want to
 	return

@@ -1130,14 +1130,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
 		return
 
-#define MOUSE_RESPAWN_TIME 5 MINUTES
 
 /mob/proc/become_mouse()
 	var/timedifference = world.time - client.time_died_as_mouse
-	if(client.time_died_as_mouse && timedifference <= MOUSE_RESPAWN_TIME)
+	if(client.time_died_as_mouse && timedifference <= GLOB.mouse_respawn_time * 600)
 		var/timedifference_text
-		timedifference_text = time2text(MOUSE_RESPAWN_TIME - timedifference, "mm:ss")
-		to_chat(src, "<span class='warning'>You may only spawn again as a mouse more than [MOUSE_RESPAWN_TIME / 600] minutes after your death. You have [timedifference_text] left.</span>")
+		timedifference_text = time2text(GLOB.mouse_respawn_time * 600 - timedifference,"mm:ss")
+		to_chat(src, "<span class='warning'>You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after your death. You have [timedifference_text] left.</span>")
 		return
 
 	//find a viable mouse candidate
@@ -1149,8 +1148,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
 	else
 		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
-
-#undef MOUSE_RESPAWN_TIME
 
 /mob/proc/assess_threat() //For sec bot threat assessment
 	return 5

@@ -1,3 +1,6 @@
+GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all tribbles, not just the new one being made.
+
+
 /mob/living/simple_animal/tribble
 	name = "tribble"
 	desc = "It's a small furry creature that makes a soft trill."
@@ -19,8 +22,7 @@
 	response_harm   = "whacks"
 	harm_intent_damage = 5
 	var/gestation = 0
-	var/static/total_tribbles = 0
-	var/static/max_tribbles = 50     //change this to change the max limit
+	var/maxtribbles = 50     //change this to change the max limit
 	wander = 1
 
 
@@ -33,7 +35,7 @@
 	//random pixel offsets so they cover the floor
 	src.pixel_x = rand(-5.0, 5)
 	src.pixel_y = rand(-5.0, 5)
-	total_tribbles++
+	GLOB.totaltribbles += 1
 
 
 /mob/living/simple_animal/tribble/attack_hand(mob/user as mob)
@@ -58,7 +60,7 @@
 
 
 /mob/living/simple_animal/tribble/proc/procreate()
-	if(total_tribbles <= max_tribbles)
+	if(GLOB.totaltribbles <= maxtribbles)
 		for(var/mob/living/simple_animal/tribble/F in src.loc)
 			if(!F || F == src)
 				new /mob/living/simple_animal/tribble(src.loc)
@@ -81,7 +83,7 @@
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
-	total_tribbles--
+	GLOB.totaltribbles -= 1
 
 
 //||Item version of the trible ||

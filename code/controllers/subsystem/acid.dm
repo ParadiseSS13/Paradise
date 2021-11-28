@@ -8,14 +8,8 @@ SUBSYSTEM_DEF(acid)
 	var/list/currentrun = list()
 	var/list/processing = list()
 
-	var/acid_overlay
-
 /datum/controller/subsystem/acid/stat_entry()
-	..("P:[length(processing)]")
-
-/datum/controller/subsystem/acid/Initialize(start_timeofday)
-	acid_overlay = mutable_appearance('icons/effects/effects.dmi', "acid")
-	return ..()
+	..("P:[processing.len]")
 
 /datum/controller/subsystem/acid/get_metrics()
 	. = ..()
@@ -41,7 +35,7 @@ SUBSYSTEM_DEF(acid)
 
 		if(O.acid_level && O.acid_processing())
 		else
-			O.cut_overlay(acid_overlay, TRUE)
+			O.cut_overlay(GLOB.acid_overlay, TRUE)
 			processing -= O
 
 		if(MC_TICK_CHECK)
