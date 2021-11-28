@@ -211,16 +211,6 @@
 		return TRUE
 	return ..()
 
-GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
-	/turf/simulated/floor/engine/cult,
-	/turf/space,
-	/turf/simulated/wall/indestructible,
-	/turf/simulated/floor/plating/lava,
-	/turf/simulated/floor/chasm,
-	/turf/simulated/wall/cult,
-	/turf/simulated/wall/cult/artificer
-	)))
-
 /obj/structure/cult/functional/pylon
 	name = "pylon"
 	desc = "A floating crystal that slowly heals those faithful to a cult."
@@ -236,10 +226,22 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	var/corrupt_delay = 50
 	var/last_corrupt = 0
 
+	var/static/list/blacklisted_turfs
+
 /obj/structure/cult/functional/pylon/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 	icon_state = SSticker.cultdat?.pylon_icon_state
+	if(!blacklisted_turfs)
+		blacklisted_turfs = typecacheof(list(
+			/turf/simulated/floor/engine/cult,
+			/turf/space,
+			/turf/simulated/wall/indestructible,
+			/turf/simulated/floor/plating/lava,
+			/turf/simulated/floor/chasm,
+			/turf/simulated/wall/cult,
+			/turf/simulated/wall/cult/artificer
+		))
 
 /obj/structure/cult/functional/pylon/attack_hand(mob/living/user)//override as it should not create anything
 	return
@@ -285,7 +287,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 			if(istype(T, /turf/simulated/floor/engine/cult))
 				cultturfs |= T
 				continue
-			if(is_type_in_typecache(T, GLOB.blacklisted_pylon_turfs))
+			if(is_type_in_typecache(T, blacklisted_turfs))
 				continue
 			else
 				validturfs |= T

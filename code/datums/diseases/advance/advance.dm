@@ -8,14 +8,6 @@
 */
 GLOBAL_LIST_EMPTY(archive_diseases)
 
-// The order goes from easy to cure to hard to cure.
-GLOBAL_LIST_INIT(advance_cures, list(
-									"sodiumchloride", "sugar", "orangejuice",
-									"spaceacillin", "salglu_solution", "ethanol",
-									"teporone", "diphenhydramine", "lipolicide",
-									"silver", "gold"
-))
-
 /*
 
 	PROPERTIES
@@ -23,7 +15,6 @@ GLOBAL_LIST_INIT(advance_cures, list(
  */
 
 /datum/disease/advance
-
 	name = "Unknown" // We will always let our Virologist name our disease.
 	desc = "An engineered disease which can contain a multitude of symptoms."
 	form = "Advance Disease" // Will let med-scanners know that this disease was engineered.
@@ -37,6 +28,14 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	var/list/symptoms = list() // The symptoms of the disease.
 	var/id = ""
 	var/processing = 0
+
+	// The order goes from easy to cure to hard to cure.
+	var/static/list/advance_cures = list(
+		"sodiumchloride", "sugar", "orangejuice",
+		"spaceacillin", "salglu_solution", "ethanol",
+		"teporone", "diphenhydramine", "lipolicide",
+		"silver", "gold"
+	)
 
 /*
 
@@ -245,17 +244,14 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/advance/proc/GenerateCure(list/properties = list())
-	if(properties && properties.len)
-		var/res = clamp(properties["resistance"] - (symptoms.len / 2), 1, GLOB.advance_cures.len)
+	if(length(properties))
+		var/res = clamp(properties["resistance"] - (length(symptoms) / 2), 1, length(advance_cures))
 //		to_chat(world, "Res = [res]")
-		cures = list(GLOB.advance_cures[res])
+		cures = list(advance_cures[res])
 
 		// Get the cure name from the cure_id
 		var/datum/reagent/D = GLOB.chemical_reagents_list[cures[1]]
 		cure_text = D.name
-
-
-	return
 
 // Randomly generate a symptom, has a chance to lose or gain a symptom.
 /datum/disease/advance/proc/Evolve(min_level, max_level)

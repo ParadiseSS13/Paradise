@@ -137,19 +137,12 @@
 /obj/structure/necropolis_gate/locked
 	locked = TRUE
 
-GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 /obj/structure/necropolis_gate/legion_gate
 	desc = "A tremendous, impossibly large gateway, set into a massive tower of stone."
 	sight_blocker_distance = 2
 
-/obj/structure/necropolis_gate/legion_gate/Initialize()
-	. = ..()
-	GLOB.necropolis_gate = src
-
 /obj/structure/necropolis_gate/legion_gate/Destroy(force)
 	if(force)
-		if(GLOB.necropolis_gate == src)
-			GLOB.necropolis_gate = null
 		. = ..()
 	else
 		return QDEL_HINT_LETMELIVE

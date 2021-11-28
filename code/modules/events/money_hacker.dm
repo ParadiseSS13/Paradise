@@ -1,8 +1,6 @@
 #define MINIMUM_PERCENTAGE_LOSS 0.5
 #define VARIABLE_LOSS 2 // Invariant: 1 - VARIABLE_LOSS/10 >= MINIMUM_PERCENTAGE_LOSS
 
-GLOBAL_VAR_INIT(account_hack_attempted, 0)
-
 /datum/event/money_hacker
 	var/datum/money_account/affected_account
 	endWhen = 100
@@ -12,8 +10,6 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 	end_time = world.time + 6000
 	if(GLOB.all_money_accounts.len)
 		affected_account = pick(GLOB.all_money_accounts)
-
-		GLOB.account_hack_attempted = 1
 	else
 		kill()
 

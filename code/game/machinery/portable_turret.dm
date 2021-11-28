@@ -144,14 +144,9 @@
 			eprojectile = /obj/item/projectile/beam/pulse
 			eshot_sound = 'sound/weapons/pulse.ogg'
 
-GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/update_icon()
-	if(!GLOB.turret_icons)
-		GLOB.turret_icons = list()
-		GLOB.turret_icons["open"] = image(icon, "openTurretCover")
-
 	underlays.Cut()
-	underlays += GLOB.turret_icons["open"]
+	underlays += image(icon, "openTurretCover")
 
 	if(stat & BROKEN)
 		icon_state = "destroyed_target_prism"
