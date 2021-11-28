@@ -416,7 +416,7 @@
 	if(!C.mind)
 		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")
 		return FALSE
-	if(enthrall_safe || (C.mind in SSticker.mode.vampires) || (C.mind.has_antag_datum(/datum/antagonist/vampire)) || (C.mind in SSticker.mode.vampire_enthralled))
+	if(enthrall_safe || (C.mind.has_antag_datum(/datum/antagonist/vampire)) || (C.mind in SSticker.mode.vampire_enthralled))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
 		return FALSE
 	if(!C.affects_vampire(user))
@@ -430,7 +430,7 @@
 		return FALSE
 	return TRUE
 
-/obj/effect/proc_holder/spell/targeted/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H) // this proc can fuck off someone else can datumize this shit man have fun steel
+/obj/effect/proc_holder/spell/targeted/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H)
 	if(!istype(H))
 		return FALSE
 	H.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall(user.mind))

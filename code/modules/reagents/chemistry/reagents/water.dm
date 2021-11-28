@@ -262,10 +262,10 @@
 			M.SetStuttering(0)
 			M.SetConfused(0)
 			return
-	var/datum/antagonist/vampire/vamp = M?.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/datum/antagonist/vampire/vamp = M?.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(ishuman(M) && vamp && !vamp.get_ability(/datum/vampire_passive/full) && prob(80))
 		var/mob/living/carbon/V = M
-		if(vamp?.bloodusable)
+		if(vamp.bloodusable)
 			M.Stuttering(1)
 			M.Jitter(30)
 			update_flags |= M.adjustStaminaLoss(5, FALSE)
@@ -309,7 +309,7 @@
 
 /datum/reagent/holywater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	// Vampires have their powers weakened by holy water applied to the skin.
-	var/datum/antagonist/vampire/V = M?.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/datum/antagonist/vampire/V = M?.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(ishuman(M) && V && !V.get_ability(/datum/vampire_passive/full))
 		var/mob/living/carbon/human/H = M
 		if(method == REAGENT_TOUCH)

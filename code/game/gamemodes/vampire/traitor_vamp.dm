@@ -34,6 +34,7 @@
 				break
 			var/datum/mind/vampire = pick_n_take(possible_vampires)
 			pre_vampires += vampire
+			vampire.special_role = SPECIAL_ROLE_VAMPIRE
 			vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
 		..()
 		return 1

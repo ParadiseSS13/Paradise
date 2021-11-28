@@ -9,7 +9,7 @@
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General")
 	protected_species = list("Machine")
-	required_players = 0
+	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
 
@@ -221,9 +221,6 @@
 	else
 		H.LAssailant = owner
 	while(do_mob(owner.current, H, suck_rate))
-		if(!(owner in SSticker.mode.vampires))
-			to_chat(owner.current, "<span class='userdanger'>Your fangs have disappeared!</span>")
-			return
 		owner.current.do_attack_animation(H, ATTACK_EFFECT_BITE)
 		if(unique_suck_id in drained_humans)
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
@@ -294,17 +291,13 @@
 				to_chat(owner.current, "<span class='boldnotice'>[power.gain_desc]</span>")
 
 /datum/antagonist/vampire/on_removal()
-	if(owner in SSticker.mode.vampires)
-		SSticker.mode.vampires -= owner
-		owner.current.create_log(CONVERSION_LOG, "De-vampired")
+	SSticker.mode.vampires -= owner
+	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	..()
 
 /datum/antagonist/vampire/on_gain()
-	if(!(owner in SSticker.mode.vampires))
-		SSticker.mode.vampires += owner
+	SSticker.mode.vampires += owner
 	..()
-
-
 
 /datum/antagonist/vampire/proc/check_sun()
 	var/ax = owner.current.x

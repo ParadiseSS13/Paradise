@@ -790,7 +790,7 @@
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return
-	if(mind?.has_antag_datum(/datum/antagonist/vampire) && (mind in SSticker.mode.vampires)) //Vampires
+	if(mind?.has_antag_datum(/datum/antagonist/vampire)) //Vampires
 		switch(nutrition)
 			if(NUTRITION_LEVEL_FULL to INFINITY)
 				throw_alert("nutrition", /obj/screen/alert/fat/vampire)
