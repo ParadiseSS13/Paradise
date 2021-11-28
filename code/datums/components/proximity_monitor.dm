@@ -98,8 +98,9 @@
 	// The receiver moved inside of another atom, set the host to that atom so we can track its movement.
 	else if(always_active)
 		toggle_checkers(TRUE)
-		host = get_atom_on_turf(hasprox_receiver)
-		if(ismovable(host) && host != old_loc)
+		var/atom/new_host = get_atom_on_turf(hasprox_receiver)
+		if(ismovable(new_host) && host != new_host && host != old_loc)
+			host = new_host
 			RegisterSignal(host, COMSIG_MOVABLE_MOVED, .proc/handle_move)
 	// Deactivate the field, leave it where it is, and stop listening for movement.
 	else
@@ -181,6 +182,8 @@
  */
 /datum/component/proximity_monitor/proc/recenter_prox_checkers()
 	var/turf/parent_turf = get_turf(parent)
+	if(!parent_turf)
+		return // Need a sanity check here for certain situations like objects moving into disposal holders. Their turf will be null in these cases.
 	var/index = 1
 	for(var/T in RANGE_TURFS(radius, parent_turf))
 		var/obj/checker = proximity_checkers[index++]
