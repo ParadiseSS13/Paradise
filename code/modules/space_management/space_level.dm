@@ -143,6 +143,10 @@
 	D.register()
 	D.forceMove(locate(200, 200, zpos))
 
+GLOBAL_LIST_INIT(atmos_machine_typecache, typecacheof(/obj/machinery/atmospherics))
+GLOBAL_LIST_INIT(cable_typecache, typecacheof(/obj/structure/cable))
+GLOBAL_LIST_INIT(maploader_typecache, typecacheof(/obj/effect/landmark/map_loader))
+
 /datum/space_level/proc/resume_init()
 	if(dirt_count > 0)
 		throw EXCEPTION("Init told to resume when z-level still dirty. Z level: '[zpos]'")
@@ -152,9 +156,9 @@
 	init_list = list()
 	var/watch = start_watch()
 	listclearnulls(our_atoms)
-	var/list/late_maps = typecache_filter_list(our_atoms, typecacheof(/obj/effect/landmark/map_loader))
-	var/list/pipes = typecache_filter_list(our_atoms, typecacheof(/obj/machinery/atmospherics))
-	var/list/cables = typecache_filter_list(our_atoms, typecacheof(/obj/structure/cable))
+	var/list/late_maps = typecache_filter_list(our_atoms, GLOB.maploader_typecache)
+	var/list/pipes = typecache_filter_list(our_atoms, GLOB.atmos_machine_typecache)
+	var/list/cables = typecache_filter_list(our_atoms, GLOB.cable_typecache)
 	// If we don't carefully add dirt around the map templates, bad stuff happens
 	// so we separate them out here
 	our_atoms -= late_maps

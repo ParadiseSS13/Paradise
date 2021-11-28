@@ -23,5 +23,8 @@ GLOBAL_VAR_INIT(dooc_enabled, TRUE)
 /// Is deadchat currently enabled?
 GLOBAL_VAR_INIT(dsay_enabled, TRUE)
 
+/// Amount of time (in minutes) that must pass between a player dying as a mouse and repawning as a mouse
+GLOBAL_VAR_INIT(mouse_respawn_time, 5)
+
 /// Enable debugging of things such as job starts and other things
 GLOBAL_VAR_INIT(debug2, TRUE)

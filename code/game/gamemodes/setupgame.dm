@@ -15,6 +15,13 @@
 	return assigned
 
 /proc/setupgenetics()
+
+	if(prob(50))
+		GLOB.blockadd = rand(-300,300)
+	if(prob(75))
+		GLOB.diffmut = rand(0,20)
+
+
 //Thanks to nexis for the fancy code
 // BITCH I AIN'T DONE YET
 
