@@ -36,9 +36,8 @@
 
 /obj/structure/morgue/proc/update()
 	var/status
-	if(connected)
-		status = "extended"
-	else
+	cut_overlays()
+	if(!connected)
 		if(contents.len)
 			var/mob/living/M = locate() in contents
 			var/obj/structure/closet/body_bag/B = locate() in contents
@@ -59,8 +58,9 @@
 				status = "notbody"
 		else
 			status = "empty"
-	cut_overlays()
-	add_overlay("morgue_[status]")
+		add_overlay("morgue_[status]")
+	else
+		status = "extended"
 	desc = initial(desc) + "\n[status_descriptors[status]]"
 	if(name != initial(name))
 		add_overlay("morgue_label")
