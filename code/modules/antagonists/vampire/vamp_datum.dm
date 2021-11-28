@@ -1,125 +1,3 @@
-/datum/game_mode
-	var/list/datum/mind/vampires = list()
-	var/list/datum/mind/vampire_enthralled = list() //those controlled by a vampire
-	var/list/vampire_thralls = list() //vampires controlling somebody
-
-/datum/game_mode/vampire
-	name = "vampire"
-	config_tag = "vampire"
-	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General")
-	protected_species = list("Machine")
-	required_players = 15
-	required_enemies = 1
-	recommended_enemies = 4
-
-	///list of minds of soon to be vampires
-	var/list/datum/mind/pre_vampires = list()
-
-/datum/game_mode/vampire/announce()
-	to_chat(world, "<B>The current game mode is - Vampires!</B>")
-	to_chat(world, "<B>There are Bluespace Vampires infesting your fellow crewmates, keep your blood close and neck safe!</B>")
-
-/datum/game_mode/vampire/pre_setup()
-
-	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
-		restricted_jobs += protected_jobs
-
-	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
-
-	var/vampire_amount = 1 + round(num_players() / 10)
-
-	if(possible_vampires.len > 0)
-		for(var/i in 1 to vampire_amount)
-			var/datum/mind/vampire = pick_n_take(possible_vampires)
-			pre_vampires += vampire
-			vampire.special_role = SPECIAL_ROLE_VAMPIRE
-		..()
-		return TRUE
-	else
-		return FALSE
-
-/datum/game_mode/vampire/post_setup()
-	for(var/datum/mind/vampire in pre_vampires)
-		vampire.add_antag_datum(/datum/antagonist/vampire)
-	..()
-
-/datum/game_mode/proc/auto_declare_completion_vampire()
-	if(vampires.len)
-		var/text = "<FONT size = 2><B>The vampires were:</B></FONT>"
-		for(var/datum/mind/vampire in vampires)
-			var/traitorwin = 1
-			var/datum/antagonist/vampire/V = vampire.has_antag_datum(/datum/antagonist/vampire)
-			text += "<br>[vampire.key] was [vampire.name] ("
-			if(vampire.current)
-				if(vampire.current.stat == DEAD)
-					text += "died"
-				else
-					text += "survived"
-					if(V.subclass)
-						text += " as a [V.subclass.name]"
-			else
-				text += "body destroyed"
-			text += ")"
-
-			var/list/all_objectives = vampire.get_all_objectives()
-
-			if(length(all_objectives))//If the traitor had no objectives, don't need to process this.
-				var/count = 1
-				for(var/datum/objective/objective in all_objectives)
-					if(objective.check_completion())
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
-						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
-					else
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
-						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
-						traitorwin = 0
-					count++
-
-			var/special_role_text
-			if(vampire.special_role)
-				special_role_text = lowertext(vampire.special_role)
-			else
-				special_role_text = "antagonist"
-
-			if(traitorwin)
-				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font>"
-				SSblackbox.record_feedback("tally", "traitor_success", 1, "SUCCESS")
-			else
-				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
-				SSblackbox.record_feedback("tally", "traitor_success", 1, "FAIL")
-		to_chat(world, text)
-	return 1
-
-/datum/game_mode/proc/auto_declare_completion_enthralled()
-	if(vampire_enthralled.len)
-		var/text = "<FONT size = 2><B>The Enthralled were:</B></FONT>"
-		for(var/datum/mind/mind in vampire_enthralled)
-			text += "<br>[mind.key] was [mind.name] ("
-			if(mind.current)
-				if(mind.current.stat == DEAD)
-					text += "died"
-				else
-					text += "survived"
-				if(mind.current.real_name != mind.name)
-					text += " as [mind.current.real_name]"
-			else
-				text += "body destroyed"
-			text += ")"
-		to_chat(world, text)
-	return 1
-
-/datum/antagonist/vampire/give_objectives()
-	add_objective(/datum/objective/blood)
-	add_objective(/datum/objective/assassinate)
-	add_objective(/datum/objective/steal)
-
-	switch(rand(1,100))
-		if(1 to 80)
-			add_objective(/datum/objective/survive)
-		else
-			add_objective(/datum/objective/escape)
-
 /datum/antagonist/vampire
 	name = "Vampire"
 	antag_hud_name = "Vampire"
@@ -406,6 +284,17 @@
 	. = ..()
 	check_vampire_upgrade(TRUE)
 
+/datum/antagonist/vampire/give_objectives()
+	add_objective(/datum/objective/blood)
+	add_objective(/datum/objective/assassinate)
+	add_objective(/datum/objective/steal)
+
+	switch(rand(1,100))
+		if(1 to 80)
+			add_objective(/datum/objective/survive)
+		else
+			add_objective(/datum/objective/escape)
+
 /datum/antagonist/vampire/greet()
 	var/dat
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
@@ -426,4 +315,3 @@
 	static_inventory -= vampire_blood_display
 	QDEL_NULL(vampire_blood_display)
 	show_hud()
-
