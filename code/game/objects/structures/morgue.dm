@@ -250,9 +250,7 @@
 
 /obj/structure/crematorium/proc/update()
 	cut_overlays()
-	if(connected)
-		add_overlay("crema_open")
-	else
+	if(!connected)
 		add_overlay("crema_closed")
 		if(cremating)
 			add_overlay("crema_active")
