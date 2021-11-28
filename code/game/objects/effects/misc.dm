@@ -129,3 +129,15 @@
 	. = ..()
 	if(!ismob(loc))
 		return INITIALIZE_HINT_QDEL
+
+/obj/effect/snap_rt
+	icon = 'icons/effects/filters.dmi'
+	icon_state = "nothing"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	plane = FLOOR_PLANE
+
+/obj/effect/snap_rt/New(_loc, id)
+	..()
+	loc = _loc
+	icon_state = "snap3"
+	render_target = "*snap[id]"
