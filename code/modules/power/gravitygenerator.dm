@@ -5,10 +5,10 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 #define GRAV_POWER_UP 1
 #define GRAV_POWER_DOWN 2
 
-#define GRAV_NEEDS_WELDING 0
-#define GRAV_NEEDS_PLASTEEL 1
-#define GRAV_NEEDS_WRENCH 2
-#define GRAV_NEEDS_SCREWDRIVER 3
+#define GRAV_NEEDS_WELDING "welding"
+#define GRAV_NEEDS_PLASTEEL "plasteel"
+#define GRAV_NEEDS_WRENCH "wrench"
+#define GRAV_NEEDS_SCREWDRIVER "screwdriver"
 
 //
 // Abstract Generator
@@ -244,7 +244,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 /obj/machinery/gravity_generator/main/get_status()
 	if(stat & BROKEN)
-		return "fix[construction_state]"
+		return "generator_[construction_state]"
 	if(on || charging_state != GRAV_POWER_IDLE)
 		return "on"
 	else
@@ -253,7 +253,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 /obj/machinery/gravity_generator/main/update_icon()
 	..()
 	cut_overlays()
-	if(get_status() != "fix0" && get_status() != "fix1")
+	if(get_status() != "generator_welding" && get_status() != "generator_plasteel")
 		add_overlay("generator_part")
 	if(get_status() == "off")
 		return
