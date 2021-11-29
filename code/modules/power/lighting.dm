@@ -218,13 +218,9 @@
 	/// The colour of the light while it's in emergency mode
 	var/bulb_emergency_colour = "#FF3232"
 
-	/// Power cell for emergency lighting
-	var/obj/item/stock_parts/cell/cell
-	var/start_with_cell = TRUE	// if true, this fixture generates a very weak cell at roundstart
 	var/emergency_mode = FALSE	// if true, the light is in emergency mode
-	var/no_emergency = FALSE	// if true, this light cannot ever have an emergency mode
 	var/fire_mode = FALSE // if true, the light swaps over to emergency colour
-	var/cell_connectors = TRUE // If false, this light cannot hold a cell for emergency mode lighting
+	var/no_emergency = FALSE	// if true, this light cannot ever have an emergency mode
 
 /**
   * # Small light fixture
@@ -248,9 +244,6 @@
 	brightness_range = 12
 	brightness_power = 4
 
-/obj/machinery/light/built
-	start_with_cell = FALSE
-
 /obj/machinery/light/built/Initialize(mapload)
 	status = LIGHT_EMPTY
 	..()
@@ -262,8 +255,6 @@
 // create a new lighting fixture
 /obj/machinery/light/Initialize(mapload)
 	. = ..()
-	if(start_with_cell && !no_emergency)
-		cell = new/obj/item/stock_parts/cell/emergency_light(src)
 	var/area/A = get_area(src)
 	if(A && !A.requires_power)
 		on = TRUE
@@ -285,7 +276,6 @@
 	if(A)
 		on = FALSE
 //		A.update_lights()
-	QDEL_NULL(cell)
 	return ..()
 
 /obj/machinery/light/update_icon()
@@ -316,22 +306,22 @@
   * * play_sound - Will the lightbulb play a sound when it's turned on.
   */
 /obj/machinery/light/proc/update(trigger = TRUE, instant = FALSE, play_sound = TRUE)
+	var/area/current_area = get_area(src)
+	UnregisterSignal(current_area, COMSIG_AREA_POWER_CHANGE)
 	switch(status)
 		if(LIGHT_BROKEN, LIGHT_BURNED, LIGHT_EMPTY)
 			on = FALSE
 	emergency_mode = FALSE
 	if(fire_mode)
-		use_emergency_power()
+		set_emergency_lights()
 	if(on) // Turning on
 		if(instant)
 			_turn_on(trigger, play_sound)
 		else if(!turning_on)
 			turning_on = TRUE
 			addtimer(CALLBACK(src, .proc/_turn_on, trigger, play_sound), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
-	else if(has_emergency_power() && !turned_off())
-		use_power = IDLE_POWER_USE
-		emergency_mode = TRUE
-		process() //Force a process tick to update the light immediately
+	else if(!turned_off())
+		set_emergency_lights()
 	else // Turning off
 		use_power = IDLE_POWER_USE
 		set_light(0)
@@ -345,15 +335,6 @@
 		else
 			removeStaticPower(static_power_used, STATIC_LIGHT)
 
-/obj/machinery/light/process()
-	if(!cell || emergency_mode || status != LIGHT_OK)
-		use_emergency_power()
-		return
-	if(!has_power())
-		return
-	if(cell.charge == cell.maxcharge)
-		return
-	cell.charge = min(cell.maxcharge, cell.charge + EMERGENCY_LIGHT_POWER_USE) //Recharge emergency power automatically while not using it
 
 /**
   * The actual proc to turn on the lightbulb.
@@ -420,9 +401,6 @@
 	on = (S && status == LIGHT_OK)
 	update()
 
-/obj/machinery/light/get_cell()
-	return cell
-
 // examine verb
 /obj/machinery/light/examine(mob/user)
 	. = ..()
@@ -436,43 +414,11 @@
 				. += "The [fitting] is burnt out."
 			if(LIGHT_BROKEN)
 				. += "The [fitting] has been smashed."
-		if(cell)
-			. += "You see [cell] inside the casing."
-			. += "Its power charge meter reads [round(cell.percent())]%."
-		else
-			. += "The light has no power cell for backup power."
-
-
 
 // attack with item - insert light (if right type), otherwise try to break the light
 
 /obj/machinery/light/attackby(obj/item/W, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE) // This is an ugly hack and I hate it forever
-	//try to swap or inset a cell
-	if(istype(W, /obj/item/stock_parts/cell))
-		if(!cell_connectors)
-			to_chat(user, "<span class='warning'>This [name] can't support a power cell!</span>")
-			return
-		if(status != LIGHT_EMPTY)
-			to_chat(user, "<span class='warning'>There is a [fitting] in the way!</span>")
-			return
-		if(W.flags & NODROP)
-			to_chat(user, "<span class='warning'>[W] is stuck to your hand!</span>")
-			return
-		user.unEquip(W)
-		if(cell)
-			user.visible_message("<span class='notice'>[user] swaps [W] out for [src]'s cell.</span>", \
-			"<span class='notice'>You swap [src]'s power cells.</span>")
-			cell.forceMove(drop_location())
-			user.put_in_hands(cell)
-		else
-			user.visible_message("<span class='notice'>[user] hooks up [W] to [src].</span>", \
-			"<span class='notice'>You add [W] to [src].</span>")
-		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
-		W.forceMove(src)
-		cell = W
-		return
-
 	//Light replacer code
 	if(istype(W, /obj/item/lightreplacer))
 		var/obj/item/lightreplacer/LR = W
@@ -574,8 +520,6 @@
 				drop_light_tube()
 			new /obj/item/stack/cable_coil(loc, 1, "red")
 		transfer_fingerprints_to(newlight)
-		if(cell)
-			drop_backup_cell()
 	qdel(src)
 
 /obj/machinery/light/attacked_by(obj/item/I, mob/living/user)
@@ -616,29 +560,27 @@
 	var/area/A = get_area(src)
 	return A.lightswitch && A.power_light
 
-// returns whether this light has emergency power
-// can also return if it has access to a certain amount of that power
-/obj/machinery/light/proc/has_emergency_power(power_used)
-	if(no_emergency || !cell)
-		return FALSE
-	if(cell.charge >= power_used)
-		return TRUE
-
-// attempts to use power from the installed emergency cell, returns true if it does and false if it doesn't
-/obj/machinery/light/proc/use_emergency_power(power_used = EMERGENCY_LIGHT_POWER_USE)
-	if(!has_emergency_power(power_used) || (status == LIGHT_EMPTY || status == LIGHT_BROKEN))
-		set_light(0, 0, 0) //you, sir, are off!
-		return FALSE
-	if(cell.charge > MAXIMUM_SAFE_BACKUP_CHARGE) //it's meant to handle 120 W, ya doofus
-		visible_message("<span class='warning'>[src] short-circuits from too powerful of a power cell!</span>")
-		burnout()
-		return FALSE
-	cell.use(power_used)
+// attempts to set emergency lights
+/obj/machinery/light/proc/set_emergency_lights()
+	var/area/current_area = get_area(src)
+	var/obj/machinery/power/apc/current_apc = current_area.get_apc()
+	if(status != LIGHT_OK || !current_apc)
+		emergency_lights_off(current_area, current_apc)
+		return
+	if(current_apc.emergency_lights || !current_apc.emergency_power)
+		emergency_lights_off(current_area, current_apc)
+		return
 	if(fire_mode)
 		set_light(nightshift_light_range, nightshift_light_power, bulb_emergency_colour)
-	else
-		set_light(3, 1.7, bulb_emergency_colour)
-	return TRUE
+		return
+	emergency_mode = TRUE
+	set_light(3, 1.7, bulb_emergency_colour)
+	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/update)
+
+/obj/machinery/light/proc/emergency_lights_off(area/current_area, obj/machinery/power/apc/current_apc)
+	set_light(0, 0, 0) //you, sir, are off!
+	if(current_apc)
+		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/update)
 
 /obj/machinery/light/flicker(amount = rand(20, 30))
 	if(flickering)
@@ -686,13 +628,6 @@
 /obj/machinery/light/attack_hand(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
-	if(status == LIGHT_EMPTY)
-		if(!cell)
-			to_chat(user, "<span class='warning'>There is no power cell in this light.</span>")
-		else
-			to_chat(user, "<span class='warning'>You remove the [cell].</span>")
-			drop_backup_cell(user)
-		return
 
 	// make it burn hands if not wearing fire-insulated gloves
 	if(on)
@@ -753,16 +688,6 @@
 	status = LIGHT_EMPTY
 	update()
 	return L
-
-/obj/machinery/light/proc/drop_backup_cell(mob/user)
-	var/obj/item/stock_parts/cell/A = new/obj/item/stock_parts/cell/emergency_light()
-	A.forceMove(loc)
-	A.charge = cell.charge
-	if(user)
-		A.add_fingerprint(user)
-		user.put_in_hands(A)
-	qdel(cell)
-	cell = null
 
 /obj/machinery/light/attack_tk(mob/user)
 	if(status == LIGHT_EMPTY)

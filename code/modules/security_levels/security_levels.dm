@@ -189,7 +189,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		var/area/AR = get_area(A)
 		if(!is_station_level(A.z))
 			continue
-		A.emergency_lights = TRUE
+		A.emergency_lights = FALSE
 		AR.emergency_mode = TRUE
 		for(var/obj/machinery/light/L in A.area)
 			if(L.status)
@@ -198,7 +198,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				L.fire_mode = TRUE
 			L.on = FALSE
 			L.emergency_mode = TRUE
-			L.update()
+			INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
 
 /proc/unset_stationwide_emergency_lighting()
 	for(var/area/A as anything in GLOB.all_areas)
@@ -215,7 +215,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			L.fire_mode = FALSE
 			L.emergency_mode = FALSE
 			L.on = TRUE
-			L.update()
+			INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
 
 /proc/epsilon_process()
 	GLOB.security_announcement_up.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.", "Attention! Epsilon security level activated!", 'sound/effects/purge_siren.ogg')
