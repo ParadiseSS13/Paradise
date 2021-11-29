@@ -1,6 +1,6 @@
 /area
 	var/fire = null
-	var/emergency_mode = FALSE //When true, fire alarms cannot unset emergency lighting.
+	var/area_emergency_mode = FALSE // When true, fire alarms cannot unset emergency lighting. Not to be confused with emergency_mode var on light objects.
 	var/atmosalm = ATMOS_ALARM_NONE
 	var/poweralm = TRUE
 	var/report_alerts = TRUE // Should atmos alerts notify the AI/computers
@@ -346,7 +346,7 @@
 	for(var/alarm in firealarms)
 		var/obj/machinery/firealarm/F = alarm
 		F.update_fire_light(fire)
-	if(emergency_mode) //Fires are not legally allowed if the power is off
+	if(area_emergency_mode) //Fires are not legally allowed if the power is off
 		return
 	for(var/obj/machinery/light/L in src)
 		L.fire_mode = TRUE
@@ -359,7 +359,7 @@
 	for(var/alarm in firealarms)
 		var/obj/machinery/firealarm/F = alarm
 		F.update_fire_light(fire)
-	if(emergency_mode) //The lights stay red until the crisis is resolved
+	if(area_emergency_mode) //The lights stay red until the crisis is resolved
 		return
 	for(var/obj/machinery/light/L in src)
 		L.fire_mode = FALSE

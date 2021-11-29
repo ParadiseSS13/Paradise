@@ -190,7 +190,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		if(!is_station_level(A.z))
 			continue
 		A.emergency_lights = FALSE
-		AR.emergency_mode = TRUE
+		AR.area_emergency_mode = TRUE
 		for(var/obj/machinery/light/L in A.area)
 			if(L.status)
 				continue
@@ -204,9 +204,9 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 	for(var/area/A as anything in GLOB.all_areas)
 		if(!is_station_level(A.z))
 			continue
-		if(!A.emergency_mode)
+		if(!A.area_emergency_mode)
 			continue
-		A.emergency_mode = FALSE
+		A.area_emergency_mode = FALSE
 		for(var/obj/machinery/light/L in A)
 			if(A.fire)
 				continue
