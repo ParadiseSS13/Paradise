@@ -35,9 +35,8 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			if(SEC_LEVEL_GREEN)
 				GLOB.security_announcement_down.Announce("All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.","Attention! Security level lowered to green.", 'sound/AI/green.ogg')
 				GLOB.security_level = SEC_LEVEL_GREEN
-
+				unset_stationwide_emergency_lighting()
 				post_status("alert", "outline")
-
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
@@ -51,7 +50,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				GLOB.security_level = SEC_LEVEL_BLUE
 
 				post_status("alert", "outline")
-
+				unset_stationwide_emergency_lighting()
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
@@ -62,17 +61,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					GLOB.security_announcement_up.Announce("There is an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!", 'sound/AI/red.ogg')
 				else
 					GLOB.security_announcement_down.Announce("The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!", 'sound/AI/red.ogg')
-					for(var/area/A as anything in GLOB.all_areas)
-						if(!is_station_level(A.z))
-							continue
-						A.emergency_mode = FALSE
-						for(var/obj/machinery/light/L in A)
-							if(A.fire)
-								continue
-							L.fire_mode = FALSE
-							L.emergency_mode = FALSE
-							L.on = TRUE
-							L.update()
+					unset_stationwide_emergency_lighting()
 				GLOB.security_level = SEC_LEVEL_RED
 
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in GLOB.airlocks
@@ -81,7 +70,6 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					R.update_icon()
 
 				post_status("alert", "redalert")
-
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
@@ -198,15 +186,35 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 /proc/set_stationwide_emergency_lighting()
 	for(var/obj/machinery/power/apc/A in GLOB.apcs)
+		var/area/AR = get_area(A)
 		if(!is_station_level(A.z))
 			continue
 		A.emergency_lights = TRUE
-		A.area.emergency_mode = TRUE
+		AR.emergency_mode = TRUE
 		for(var/obj/machinery/light/L in A.area)
+			if(L.status)
+				continue
 			if(GLOB.security_level == SEC_LEVEL_DELTA)
 				L.fire_mode = TRUE
 			L.on = FALSE
 			L.emergency_mode = TRUE
+			L.update()
+
+/proc/unset_stationwide_emergency_lighting()
+	for(var/area/A as anything in GLOB.all_areas)
+		if(!is_station_level(A.z))
+			continue
+		if(!A.emergency_mode)
+			continue
+		A.emergency_mode = FALSE
+		for(var/obj/machinery/light/L in A)
+			if(A.fire)
+				continue
+			if(L.status)
+				continue
+			L.fire_mode = FALSE
+			L.emergency_mode = FALSE
+			L.on = TRUE
 			L.update()
 
 /proc/epsilon_process()
@@ -217,6 +225,8 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		if(!is_station_level(A.z))
 			continue
 		for(var/obj/machinery/light/L in A)
+			if(L.status)
+				continue
 			L.fire_mode = TRUE
 			L.update()
 	for(var/obj/machinery/firealarm/FA in GLOB.machines)
