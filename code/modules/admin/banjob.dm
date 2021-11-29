@@ -17,16 +17,12 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		return
 	GLOB.jobban_keylist.Add(text("[M.ckey] - [rank] ## [reason]"))
 	jobban_assoc_insert(M.ckey, rank, reason)
-	if(!GLOB.configuration.general.use_database_bans)
-		jobban_savebanfile()
 
 /proc/jobban_client_fullban(ckey, rank)
 	if(!ckey || !rank)
 		return
 	GLOB.jobban_keylist.Add(text("[ckey] - [rank]"))
 	jobban_assoc_insert(ckey, rank)
-	if(!GLOB.configuration.general.use_database_bans)
-		jobban_savebanfile()
 
 //returns a reason if M is banned from rank, returns 0 otherwise
 /proc/jobban_isbanned(mob/M, rank)
@@ -55,58 +51,40 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 
 	return null
 
-/proc/jobban_loadbanfile()
-	if(!GLOB.configuration.general.use_database_bans)
-		var/savefile/S=new("data/job_full.ban")
-		S["keys[0]"] >> GLOB.jobban_keylist
-		log_admin("Loading jobban_rank")
-		S["runonce"] >> GLOB.jobban_runonce
+/proc/jobban_loadbans()
+	if(!SSdbcore.IsConnected())
+		log_world("Database connection failed. Job bans not loaded.")
+		return
 
-		if(!length(GLOB.jobban_keylist))
-			GLOB.jobban_keylist=list()
-			log_admin("jobban_keylist was empty")
+	//Job permabans
+	var/datum/db_query/permabans = SSdbcore.NewQuery("SELECT ckey, job FROM ban WHERE bantype = 'JOB_PERMABAN' AND isnull(unbanned)")
 
-		for(var/s in GLOB.jobban_keylist)
-			if(GLOB.jobban_regex.Find(s))
-				jobban_assoc_insert(GLOB.jobban_regex.group[1], GLOB.jobban_regex.group[2], GLOB.jobban_regex.group[3])
-			else
-				log_runtime(EXCEPTION("Skipping malformed job ban: [s]"))
-	else
-		if(!SSdbcore.IsConnected())
-			log_world("Database connection failed. Reverting to the legacy ban system.")
-			GLOB.configuration.general.use_database_bans = FALSE
-			jobban_loadbanfile()
-			return
-
-		//Job permabans
-		var/datum/db_query/permabans = SSdbcore.NewQuery("SELECT ckey, job FROM ban WHERE bantype = 'JOB_PERMABAN' AND isnull(unbanned)")
-
-		if(!permabans.warn_execute(async=FALSE))
-			qdel(permabans)
-			return FALSE
-
-		while(permabans.NextRow())
-			var/ckey = permabans.item[1]
-			var/job = permabans.item[2]
-			GLOB.jobban_keylist.Add("[ckey] - [job]")
-			jobban_assoc_insert(ckey, job)
-
+	if(!permabans.warn_execute(async=FALSE))
 		qdel(permabans)
+		return FALSE
 
-		// Job tempbans
-		var/datum/db_query/tempbans = SSdbcore.NewQuery("SELECT ckey, job FROM ban WHERE bantype = 'JOB_TEMPBAN' AND isnull(unbanned) AND expiration_time > Now()")
+	while(permabans.NextRow())
+		var/ckey = permabans.item[1]
+		var/job = permabans.item[2]
+		GLOB.jobban_keylist.Add("[ckey] - [job]")
+		jobban_assoc_insert(ckey, job)
 
-		if(!tempbans.warn_execute(async=FALSE))
-			qdel(tempbans)
-			return FALSE
+	qdel(permabans)
 
-		while(tempbans.NextRow())
-			var/ckey = tempbans.item[1]
-			var/job = tempbans.item[2]
-			GLOB.jobban_keylist.Add("[ckey] - [job]")
-			jobban_assoc_insert(ckey, job)
+	// Job tempbans
+	var/datum/db_query/tempbans = SSdbcore.NewQuery("SELECT ckey, job FROM ban WHERE bantype = 'JOB_TEMPBAN' AND isnull(unbanned) AND expiration_time > Now()")
 
+	if(!tempbans.warn_execute(async=FALSE))
 		qdel(tempbans)
+		return FALSE
+
+	while(tempbans.NextRow())
+		var/ckey = tempbans.item[1]
+		var/job = tempbans.item[2]
+		GLOB.jobban_keylist.Add("[ckey] - [job]")
+		jobban_assoc_insert(ckey, job)
+
+	qdel(tempbans)
 
 /proc/jobban_savebanfile()
 	var/savefile/S=new("data/job_full.ban")
@@ -132,8 +110,6 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 			else
 				log_runtime(EXCEPTION("Failed to remove malformed job ban from associative list: [X]"))
 			GLOB.jobban_keylist.Remove(GLOB.jobban_keylist[i])
-			if(!GLOB.configuration.general.use_database_bans)
-				jobban_savebanfile()
 			return 1
 	return 0
 
@@ -144,45 +120,40 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 
 	if(!client || !ckey)
 		return
-	if(!GLOB.configuration.general.use_database_bans)
-		//using the legacy .txt ban system
-		to_chat(src, "The server is using the legacy ban system. Ask an administrator for help!")
 
-	else
-		//using the SQL ban system
-		var/is_actually_banned = FALSE
-		var/datum/db_query/select_query = SSdbcore.NewQuery({"
-			SELECT bantime, bantype, reason, job, duration, expiration_time, a_ckey FROM ban
-			WHERE ckey LIKE :ckey AND ((bantype like 'JOB_TEMPBAN' AND expiration_time > Now()) OR (bantype like 'JOB_PERMABAN')) AND isnull(unbanned)
-			ORDER BY bantime DESC LIMIT 100"},
-			list("ckey" = ckey)
-		)
+	var/is_actually_banned = FALSE
+	var/datum/db_query/select_query = SSdbcore.NewQuery({"
+		SELECT bantime, bantype, reason, job, duration, expiration_time, a_ckey FROM ban
+		WHERE ckey LIKE :ckey AND ((bantype like 'JOB_TEMPBAN' AND expiration_time > Now()) OR (bantype like 'JOB_PERMABAN')) AND isnull(unbanned)
+		ORDER BY bantime DESC LIMIT 100"},
+		list("ckey" = ckey)
+	)
 
-		if(!select_query.warn_execute())
-			qdel(select_query)
-			return FALSE
-
-		while(select_query.NextRow())
-
-			var/bantime = select_query.item[1]
-			var/bantype  = select_query.item[2]
-			var/reason = select_query.item[3]
-			var/job = select_query.item[4]
-			var/duration = select_query.item[5]
-			var/expiration = select_query.item[6]
-			var/ackey = select_query.item[7]
-
-			if(bantype == "JOB_PERMABAN")
-				to_chat(src, "<span class='warning'>[bantype]: [job] - REASON: [reason], by [ackey]; [bantime]</span>")
-			else if(bantype == "JOB_TEMPBAN")
-				to_chat(src, "<span class='warning'>[bantype]: [job] - REASON: [reason], by [ackey]; [bantime]; [duration]; expires [expiration]</span>")
-
-			is_actually_banned = TRUE
-
+	if(!select_query.warn_execute())
 		qdel(select_query)
+		return FALSE
 
-		if(is_actually_banned)
-			if(GLOB.configuration.url.banappeals_url)
-				to_chat(src, "<span class='warning'>You can appeal the bans at: [GLOB.configuration.url.banappeals_url]</span>")
-		else
-			to_chat(src, "<span class='warning'>You have no active jobbans!</span>")
+	while(select_query.NextRow())
+
+		var/bantime = select_query.item[1]
+		var/bantype  = select_query.item[2]
+		var/reason = select_query.item[3]
+		var/job = select_query.item[4]
+		var/duration = select_query.item[5]
+		var/expiration = select_query.item[6]
+		var/ackey = select_query.item[7]
+
+		if(bantype == "JOB_PERMABAN")
+			to_chat(src, "<span class='warning'>[bantype]: [job] - REASON: [reason], by [ackey]; [bantime]</span>")
+		else if(bantype == "JOB_TEMPBAN")
+			to_chat(src, "<span class='warning'>[bantype]: [job] - REASON: [reason], by [ackey]; [bantime]; [duration]; expires [expiration]</span>")
+
+		is_actually_banned = TRUE
+
+	qdel(select_query)
+
+	if(is_actually_banned)
+		if(GLOB.configuration.url.banappeals_url)
+			to_chat(src, "<span class='warning'>You can appeal the bans at: [GLOB.configuration.url.banappeals_url]</span>")
+	else
+		to_chat(src, "<span class='warning'>You have no active jobbans!</span>")

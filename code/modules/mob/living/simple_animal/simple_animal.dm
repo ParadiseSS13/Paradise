@@ -641,3 +641,6 @@
 /mob/living/simple_animal/Login()
 	..()
 	walk(src, 0) // if mob is moving under ai control, then stop AI movement
+
+/mob/living/simple_animal/proc/npc_safe(mob/user)
+	return FALSE

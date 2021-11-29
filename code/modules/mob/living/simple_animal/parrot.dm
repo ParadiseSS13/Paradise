@@ -680,6 +680,9 @@
 	update_held_icon()
 	I.forceMove(src)
 
+/mob/living/simple_animal/parrot/npc_safe(mob/user)
+	return TRUE
+
 /*
  * Sub-types
  */
@@ -717,6 +720,9 @@
 	available_channels = list(":e")
 	clean_speak += "Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(75, 99)]%" // Has to be here cause of the `rand()`.
 	..()
+
+/mob/living/simple_animal/parrot/Poly/npc_safe(mob/user) // Hello yes, I have universal speak and I follow people around and shout out antags
+	return FALSE
 
 /mob/living/simple_animal/parrot/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(message_mode && istype(ears))

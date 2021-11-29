@@ -1,16 +1,19 @@
+#define DEFAULT_METEOR_LIFETIME 3 MINUTES
+#define MAP_EDGE_PAD 5
+
 //Meteors probability of spawning during a given wave
-GLOBAL_LIST_INIT(meteors_normal, list(/obj/effect/meteor/dust=3, /obj/effect/meteor/medium=8, /obj/effect/meteor/big=3, \
-						  /obj/effect/meteor/flaming=1, /obj/effect/meteor/irradiated=3)) //for normal meteor event
+GLOBAL_LIST_INIT(meteors_normal, list(/obj/effect/meteor/dust = 3, /obj/effect/meteor/medium = 8, /obj/effect/meteor/big = 3,
+						  /obj/effect/meteor/flaming = 1, /obj/effect/meteor/irradiated = 3)) //for normal meteor event
 
-GLOBAL_LIST_INIT(meteors_threatening, list(/obj/effect/meteor/medium=4, /obj/effect/meteor/big=8, \
-						  /obj/effect/meteor/flaming=3, /obj/effect/meteor/irradiated=3)) //for threatening meteor event
+GLOBAL_LIST_INIT(meteors_threatening, list(/obj/effect/meteor/medium = 4, /obj/effect/meteor/big = 8,
+						  /obj/effect/meteor/flaming = 3, /obj/effect/meteor/irradiated = 3)) //for threatening meteor event
 
-GLOBAL_LIST_INIT(meteors_catastrophic, list(/obj/effect/meteor/medium=5, /obj/effect/meteor/big=75, \
-						  /obj/effect/meteor/flaming=10, /obj/effect/meteor/irradiated=10, /obj/effect/meteor/tunguska = 1)) //for catastrophic meteor event
+GLOBAL_LIST_INIT(meteors_catastrophic, list(/obj/effect/meteor/medium = 5, /obj/effect/meteor/big = 75,
+						  /obj/effect/meteor/flaming = 10, /obj/effect/meteor/irradiated = 10, /obj/effect/meteor/tunguska = 1)) //for catastrophic meteor event
+
+GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/meteor/meaty/xeno = 1)) //for meaty ore event
 
 GLOBAL_LIST_INIT(meteors_dust, list(/obj/effect/meteor/dust)) //for space dust event
-
-GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/gore)) //Meaty Gore
 
 GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
@@ -18,6 +21,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 ///////////////////////////////
 //Meteor spawning global procs
 ///////////////////////////////
+
 /proc/spawn_meteors(number = 10, list/meteortypes)
 	for(var/i = 0; i < number; i++)
 		spawn_meteor(meteortypes)
@@ -25,86 +29,82 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 /proc/spawn_meteor(list/meteortypes)
 	var/turf/pickedstart
 	var/turf/pickedgoal
-	var/max_i = 10//number of tries to spawn meteor.
-	while(!istype(pickedstart, /turf/space))
+	var/max_i = 10 //number of tries to spawn meteor.
+	while(!isspaceturf(pickedstart))
 		var/startSide = pick(GLOB.cardinal)
-		pickedstart = spaceDebrisStartLoc(startSide, level_name_to_num(MAIN_STATION))
-		pickedgoal = spaceDebrisFinishLoc(startSide, level_name_to_num(MAIN_STATION))
+		var/startZ = level_name_to_num(MAIN_STATION)
+		pickedstart = spaceDebrisStartLoc(startSide, startZ)
+		pickedgoal = spaceDebrisFinishLoc(startSide, startZ)
 		max_i--
-		if(max_i<=0)
+		if(max_i <= 0)
 			return
 	var/Me = pickweight(meteortypes)
-	var/obj/effect/meteor/M = new Me(pickedstart)
+	var/obj/effect/meteor/M = new Me(pickedstart, pickedgoal)
 	M.dest = pickedgoal
-	M.z_original = level_name_to_num(MAIN_STATION)
-	spawn(0)
-		walk_towards(M, M.dest, 1)
-	return
 
 /proc/spaceDebrisStartLoc(startSide, Z)
 	var/starty
 	var/startx
 	switch(startSide)
 		if(NORTH)
-			starty = world.maxy-(TRANSITIONEDGE+1)
-			startx = rand((TRANSITIONEDGE+1), world.maxx-(TRANSITIONEDGE+1))
+			starty = world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD)
+			startx = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD))
 		if(EAST)
-			starty = rand((TRANSITIONEDGE+1),world.maxy-(TRANSITIONEDGE+1))
-			startx = world.maxx-(TRANSITIONEDGE+1)
+			starty = rand((TRANSITIONEDGE + MAP_EDGE_PAD),world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD))
+			startx = world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD)
 		if(SOUTH)
-			starty = (TRANSITIONEDGE+1)
-			startx = rand((TRANSITIONEDGE+1), world.maxx-(TRANSITIONEDGE+1))
+			starty = (TRANSITIONEDGE + MAP_EDGE_PAD)
+			startx = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD))
 		if(WEST)
-			starty = rand((TRANSITIONEDGE+1), world.maxy-(TRANSITIONEDGE+1))
-			startx = (TRANSITIONEDGE+1)
-	var/turf/T = locate(startx, starty, Z)
-	return T
+			starty = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD))
+			startx = (TRANSITIONEDGE + MAP_EDGE_PAD)
+	. = locate(startx, starty, Z)
 
 /proc/spaceDebrisFinishLoc(startSide, Z)
 	var/endy
 	var/endx
 	switch(startSide)
 		if(NORTH)
-			endy = TRANSITIONEDGE
-			endx = rand(TRANSITIONEDGE, world.maxx-TRANSITIONEDGE)
+			endy = (TRANSITIONEDGE + MAP_EDGE_PAD)
+			endx = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD))
 		if(EAST)
-			endy = rand(TRANSITIONEDGE, world.maxy-TRANSITIONEDGE)
-			endx = TRANSITIONEDGE
+			endy = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD))
+			endx = (TRANSITIONEDGE + MAP_EDGE_PAD)
 		if(SOUTH)
-			endy = world.maxy-TRANSITIONEDGE
-			endx = rand(TRANSITIONEDGE, world.maxx-TRANSITIONEDGE)
+			endy = world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD)
+			endx = rand((TRANSITIONEDGE + MAP_EDGE_PAD), world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD))
 		if(WEST)
-			endy = rand(TRANSITIONEDGE,world.maxy-TRANSITIONEDGE)
-			endx = world.maxx-TRANSITIONEDGE
-	var/turf/T = locate(endx, endy, Z)
-	return T
+			endy = rand((TRANSITIONEDGE + MAP_EDGE_PAD),world.maxy-(TRANSITIONEDGE + MAP_EDGE_PAD))
+			endx = world.maxx-(TRANSITIONEDGE + MAP_EDGE_PAD)
+	. = locate(endx, endy, Z)
 
 ///////////////////////
 //The meteor effect
 //////////////////////
 
 /obj/effect/meteor
-	name = "the concept of meteor"
+	name = "\proper the concept of meteor"
 	desc = "You should probably run instead of gawking at this."
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	var/hits = 4
-	var/hitpwr = 2 //Level of ex_act to be called on hit.
+	var/hitpwr = EXPLODE_HEAVY //Level of ex_act to be called on hit.
 	var/dest
 	pass_flags = PASSTABLE
-	var/heavy = 0
+	var/heavy = FALSE
 	var/meteorsound = 'sound/effects/meteorimpact.ogg'
-	var/z_original = 1
-
-	var/meteordrop = /obj/item/stack/ore/iron
+	var/z_original
+	var/lifetime = DEFAULT_METEOR_LIFETIME
+	var/timerid = null
+	var/list/meteordrop = list(/obj/item/stack/ore/iron)
 	var/dropamt = 2
 
 /obj/effect/meteor/Move()
 	if(z != z_original || loc == dest)
 		qdel(src)
-		return
+		return FALSE
 
 	. = ..() //process movement...
 
@@ -112,35 +112,40 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 		var/turf/T = get_turf(loc)
 		ram_turf(T)
 
-		if(prob(10) && !istype(T, /turf/space))//randomly takes a 'hit' from ramming
+		if(prob(10) && !isspaceturf(T))//randomly takes a 'hit' from ramming
 			get_hit()
 
-	return .
-
 /obj/effect/meteor/Destroy()
+	if(timerid)
+		deltimer(timerid)
 	GLOB.meteor_list -= src
-	walk(src,0) //this cancels the walk_towards() proc
+	walk(src, 0) //this cancels the walk_towards() proc
 	return ..()
 
-/obj/effect/meteor/New()
-	..()
+/obj/effect/meteor/Initialize(mapload, target)
+	. = ..()
+	z_original = z
 	GLOB.meteor_list += src
 	SpinAnimation()
+	timerid = QDEL_IN(src, lifetime)
+	chase_target(target)
 
 /obj/effect/meteor/Bump(atom/A)
 	if(A)
 		ram_turf(get_turf(A))
-		playsound(src.loc, meteorsound, 40, 1)
+		playsound(loc, meteorsound, 40, TRUE)
 		get_hit()
-
-/obj/effect/meteor/CanPass(atom/movable/mover, turf/target, height=0)
-	return istype(mover, /obj/effect/meteor) ? 1 : ..()
 
 /obj/effect/meteor/proc/ram_turf(turf/T)
 	//first bust whatever is in the turf
-	for(var/atom/A in T)
-		if(A != src)
-			A.ex_act(hitpwr)
+	for(var/thing in T)
+		var/atom/A = thing
+		if(thing == src)
+			continue
+		if(isliving(thing))
+			var/mob/living/living_thing = thing
+			living_thing.visible_message("<span class='warning'>[src] slams into [living_thing].</span>", "<span class='userdanger'>[src] slams into you!</span>")
+		A.ex_act(hitpwr)
 
 	//then, ram the turf if it still exists
 	if(T)
@@ -152,14 +157,14 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	hits--
 	if(hits <= 0)
 		make_debris()
-		meteor_effect(heavy)
+		meteor_effect()
 		qdel(src)
 
 /obj/effect/meteor/ex_act()
 	return
 
-/obj/effect/meteor/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/pickaxe))
+/obj/effect/meteor/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/pickaxe))
 		make_debris()
 		qdel(src)
 		return
@@ -167,23 +172,27 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 /obj/effect/meteor/proc/make_debris()
 	for(var/throws = dropamt, throws > 0, throws--)
-		var/obj/item/O = new meteordrop(get_turf(src))
-		O.throw_at(dest, 5, 10)
+		var/thing_to_spawn = pick(meteordrop)
+		new thing_to_spawn(get_turf(src))
 
-/obj/effect/meteor/proc/meteor_effect(sound=1)
-	if(sound)
+/obj/effect/meteor/proc/chase_target(atom/chasing, delay = 1)
+	set waitfor = FALSE
+	if(chasing)
+		walk_towards(src, chasing, delay)
+
+/obj/effect/meteor/proc/meteor_effect()
+	if(heavy)
 		var/sound/meteor_sound = sound(meteorsound)
 		var/random_frequency = get_rand_frequency()
 
 		for(var/P in GLOB.player_list)
 			var/mob/M = P
 			var/turf/T = get_turf(M)
-			if(!T || T.z != src.z)
+			if(!T || T.z != z)
 				continue
-			var/dist = get_dist(M.loc, src.loc)
-			if(prob(50))
-				shake_camera(M, dist > 20 ? 3 : 5, dist > 20 ? 1 : 3)
-			M.playsound_local(src.loc, null, 50, 1, random_frequency, 10, S = meteor_sound)
+			var/dist = get_dist(M.loc, loc)
+			shake_camera(M, dist > 20 ? 2 : 4, dist > 20 ? 1 : 3)
+			M.playsound_local(loc, null, 50, TRUE, random_frequency, 10, S = meteor_sound)
 
 ///////////////////////
 //Meteor types
@@ -195,9 +204,9 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	icon_state = "dust"
 	pass_flags = PASSTABLE | PASSGRILLE
 	hits = 1
-	hitpwr = 3
-	meteorsound = 'sound/weapons/tap.ogg'
-	meteordrop = /obj/item/stack/ore/glass
+	hitpwr = EXPLODE_LIGHT
+	meteorsound = 'sound/weapons/gunshots/gunshot_smg.ogg'
+	meteordrop = list(/obj/item/stack/ore/glass)
 
 //Medium-sized
 /obj/effect/meteor/medium
@@ -205,45 +214,45 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	dropamt = 3
 
 /obj/effect/meteor/medium/meteor_effect()
-	..(heavy)
-	explosion(src.loc, 0, 1, 2, 3, 0)
+	..()
+	explosion(loc, 0, 1, 2, 3, 0)
 
 //Large-sized
 /obj/effect/meteor/big
-	name = "large meteor"
+	name = "big meteor"
 	icon_state = "large"
 	hits = 6
-	heavy = 1
+	heavy = TRUE
 	dropamt = 4
 
 /obj/effect/meteor/big/meteor_effect()
-	..(heavy)
-	explosion(src.loc, 1, 2, 3, 4, 0)
+	..()
+	explosion(loc, 1, 2, 3, 4, 0)
 
 //Flaming meteor
 /obj/effect/meteor/flaming
 	name = "flaming meteor"
 	icon_state = "flaming"
 	hits = 5
-	heavy = 1
+	heavy = TRUE
 	meteorsound = 'sound/effects/bamf.ogg'
-	meteordrop = /obj/item/stack/ore/plasma
+	meteordrop = list(/obj/item/stack/ore/plasma)
 
 /obj/effect/meteor/flaming/meteor_effect()
-	..(heavy)
-	explosion(src.loc, 1, 2, 3, 4, 0, 0, flame_range = 5)
+	..()
+	explosion(loc, 1, 2, 3, 4, 0, 0, 5)
 
 //Radiation meteor
 /obj/effect/meteor/irradiated
 	name = "glowing meteor"
 	icon_state = "glowing"
-	heavy = 1
-	meteordrop = /obj/item/stack/ore/uranium
+	heavy = TRUE
+	meteordrop = list(/obj/item/stack/ore/uranium)
 
 
 /obj/effect/meteor/irradiated/meteor_effect()
-	..(heavy)
-	explosion(src.loc, 0, 0, 4, 3, 0)
+	..()
+	explosion(loc, 0, 0, 4, 3, 0)
 	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
 	radiation_pulse(src, 500)
 
@@ -251,46 +260,64 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 /obj/effect/meteor/tunguska
 	name = "tunguska meteor"
 	icon_state = "flaming"
-	desc = "Your life briefly passes before your eyes the moment you lay them on this monstruosity."
+	desc = "Your life briefly passes before your eyes the moment you lay them on this monstrosity."
 	hits = 30
-	hitpwr = 1
-	heavy = 1
+	hitpwr = EXPLODE_DEVASTATE
+	heavy = TRUE
 	meteorsound = 'sound/effects/bamf.ogg'
-	meteordrop = /obj/item/stack/ore/plasma
+	meteordrop = list(/obj/item/stack/ore/plasma)
+
+/obj/effect/meteor/tunguska/Move()
+	. = ..()
+	if(.)
+		new /obj/effect/temp_visual/revenant(get_turf(src))
 
 /obj/effect/meteor/tunguska/meteor_effect()
-	..(heavy)
-	explosion(src.loc, 5, 10, 15, 20, 0)
+	..()
+	explosion(loc, 5, 10, 15, 20, 0)
 
 /obj/effect/meteor/tunguska/Bump()
 	..()
 	if(prob(20))
-		explosion(src.loc,2,4,6,8)
+		explosion(loc, 2, 4, 6, 8)
 
-
-//Gore
-/obj/effect/meteor/gore
-	name = "Oraganic Debris"
-	icon = 'icons/mob/human.dmi'
-	icon_state = "body_m_s"
-	hits = 1
-	hitpwr = 0
+//Meaty Ore
+/obj/effect/meteor/meaty
+	name = "meaty ore"
+	icon_state = "meateor"
+	desc = "Just... don't think too hard about where this thing came from."
+	hits = 2
+	heavy = TRUE
 	meteorsound = 'sound/effects/blobattack.ogg'
-	meteordrop = /obj/item/reagent_containers/food/snacks/meat
+	meteordrop = list(/obj/item/reagent_containers/food/snacks/meat/human, /obj/item/organ/internal/heart, /obj/item/organ/internal/lungs, /obj/item/organ/internal/appendix)
 	var/meteorgibs = /obj/effect/gibspawner/generic
 
-/obj/effect/meteor/gore/make_debris()
+/obj/effect/meteor/meaty/make_debris()
 	..()
 	new meteorgibs(get_turf(src))
 
 
-/obj/effect/meteor/gore/ram_turf(turf/T)
-	if(!istype(T, /turf/space))
+/obj/effect/meteor/meaty/ram_turf(turf/T)
+	if(!isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood(T)
 
-/obj/effect/meteor/gore/Bump(atom/A)
+/obj/effect/meteor/meaty/Bump(atom/A)
 	A.ex_act(hitpwr)
 	get_hit()
+
+//Meaty Ore Xeno edition
+/obj/effect/meteor/meaty/xeno
+	color = "#5EFF00"
+	meteordrop = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat)
+	meteorgibs = /obj/effect/gibspawner/xeno
+
+/obj/effect/meteor/meaty/xeno/Initialize(mapload, target)
+	meteordrop += subtypesof(/obj/item/organ/internal/xenos)
+	return ..()
+
+/obj/effect/meteor/meaty/xeno/ram_turf(turf/T)
+	if(!isspaceturf(T))
+		new /obj/effect/decal/cleanable/blood/xeno(T)
 
 //Meteor Ops
 /obj/effect/meteor/goreops
@@ -298,9 +325,9 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "syndicaterangedpsace"
 	hits = 10
-	hitpwr = 1
+	hitpwr = EXPLODE_DEVASTATE
 	meteorsound = 'sound/effects/blobattack.ogg'
-	meteordrop = /obj/item/reagent_containers/food/snacks/meat
+	meteordrop = list(/obj/item/reagent_containers/food/snacks/meat)
 	var/meteorgibs = /obj/effect/gibspawner/generic
 
 /obj/effect/meteor/goreops/make_debris()
@@ -309,9 +336,33 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 
 /obj/effect/meteor/goreops/ram_turf(turf/T)
-	if(!istype(T, /turf/space))
+	if(!isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood(T)
 
 /obj/effect/meteor/goreops/Bump(atom/A)
 	A.ex_act(hitpwr)
 	get_hit()
+
+//////////////////////////
+//Spookoween meteors
+/////////////////////////
+
+GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
+
+/obj/effect/meteor/pumpkin
+	name = "PUMPKING"
+	desc = "THE PUMPKING'S COMING!"
+	icon = 'icons/obj/meteor_spooky.dmi'
+	icon_state = "pumpkin"
+	hits = 10
+	heavy = TRUE
+	dropamt = 1
+	meteordrop = list(/obj/item/clothing/head/hardhat/pumpkinhead, /obj/item/reagent_containers/food/snacks/grown/pumpkin)
+
+/obj/effect/meteor/pumpkin/Initialize(mapload, target)
+	. = ..()
+	meteorsound = pick('sound/hallucinations/im_here1.ogg','sound/hallucinations/im_here2.ogg')
+
+//////////////////////////
+#undef DEFAULT_METEOR_LIFETIME
+#undef MAP_EDGE_PAD

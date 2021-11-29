@@ -542,7 +542,7 @@
 	var/mob/living/carbon/human/new_character = new(loc)
 	new_character.lastarea = get_area(loc)
 
-	if(SSticker.random_players || appearance_isbanned(new_character))
+	if(SSticker.random_players)
 		client.prefs.active_character.randomise()
 		client.prefs.active_character.real_name = random_name(client.prefs.active_character.gender)
 	client.prefs.active_character.copy_to(new_character)

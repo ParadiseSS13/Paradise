@@ -225,7 +225,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	charge_counter = charge_max
 
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = 1, mob/user = usr, make_attack_logs = TRUE) //if recharge is started is important for the trigger spells
-	before_cast(targets)
+	before_cast(targets, user)
 	invocation()
 	if(user && user.ckey && make_attack_logs)
 		add_attack_logs(user, targets, "cast the spell [name]", ATKLOG_ALL)
@@ -244,7 +244,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(action)
 		action.UpdateButtonIcon()
 
-/obj/effect/proc_holder/spell/proc/before_cast(list/targets)
+/obj/effect/proc_holder/spell/proc/before_cast(list/targets, mob/user)
 	if(vampire_ability)
 		if(!before_cast_vampire(targets))
 			return

@@ -10,7 +10,7 @@
 	var/sound2 = 'sound/weapons/zapbang.ogg'
 
 /obj/effect/proc_holder/spell/targeted/area_teleport/perform(list/targets, recharge = 1, mob/living/user = usr)
-	var/thearea = before_cast(targets)
+	var/thearea = before_cast(targets, user)
 	if(!thearea || !cast_check(FALSE, FALSE, user))
 		revert_cast()
 		return
@@ -21,7 +21,7 @@
 	cast(targets,thearea)
 	after_cast(targets)
 
-/obj/effect/proc_holder/spell/targeted/area_teleport/before_cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/area_teleport/before_cast(list/targets, mob/user)
 	var/A = null
 
 	if(!randomise_selection)
@@ -35,7 +35,7 @@
 	var/area/thearea = SSmapping.teleportlocs[A]
 
 	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
-		to_chat(usr, "A mysterious force disrupts your arcane spell matrix, and you remain where you are.")
+		to_chat(user, "A mysterious force disrupts your arcane spell matrix, and you remain where you are.")
 		return
 
 	return thearea
