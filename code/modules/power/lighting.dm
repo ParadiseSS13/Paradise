@@ -564,7 +564,7 @@
 /obj/machinery/light/proc/set_emergency_lights()
 	var/area/current_area = get_area(src)
 	var/obj/machinery/power/apc/current_apc = current_area.get_apc()
-	if(status != LIGHT_OK || !current_apc)
+	if(status != LIGHT_OK || !current_apc || flickering || no_emergency)
 		emergency_lights_off(current_area, current_apc)
 		return
 	if(current_apc.emergency_lights || !current_apc.emergency_power)
@@ -604,11 +604,9 @@
 			if(status != LIGHT_OK)
 				break
 			on = FALSE
-			no_emergency = TRUE
 			update(FALSE, TRUE, FALSE)
 			sleep(rand(1, 3))
 			on = (status == LIGHT_OK)
-			no_emergency = FALSE
 			update(FALSE, TRUE, FALSE)
 			sleep(rand(1, 10))
 		on = (status == LIGHT_OK)
