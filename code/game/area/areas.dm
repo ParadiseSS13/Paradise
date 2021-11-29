@@ -346,9 +346,9 @@
 	for(var/alarm in firealarms)
 		var/obj/machinery/firealarm/F = alarm
 		F.update_fire_light(fire)
+	if(emergency_mode) //Fires are not legally allowed if the power is off
+		return
 	for(var/obj/machinery/light/L in src)
-		if(emergency_mode) //Fires are not legally allowed if the power is off
-			return
 		L.fire_mode = TRUE
 		L.update(TRUE, TRUE, FALSE)
 
@@ -359,9 +359,9 @@
 	for(var/alarm in firealarms)
 		var/obj/machinery/firealarm/F = alarm
 		F.update_fire_light(fire)
+	if(emergency_mode) //The lights stay red until the crisis is resolved
+		return
 	for(var/obj/machinery/light/L in src)
-		if(emergency_mode) //The lights stay red until the crisis is resolved
-			return
 		L.fire_mode = FALSE
 		L.update(TRUE, TRUE, FALSE)
 

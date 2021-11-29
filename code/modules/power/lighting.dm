@@ -586,7 +586,7 @@
 	if(flickering)
 		return FALSE
 
-	if(!on || status != LIGHT_OK)
+	if(!on || status != LIGHT_OK || emergency_mode)
 		return FALSE
 
 	flickering = TRUE
