@@ -86,7 +86,7 @@
 
 /datum/species/diona/handle_life(mob/living/carbon/human/H)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
-	var/is_vamp = !!H.mind?.has_antag_datum(/datum/antagonist/vampire)
+	var/is_vamp = !H.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
 		light_amount = min(1, T.get_lumcount()) - 0.5
