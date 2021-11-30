@@ -50,8 +50,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_GRASS)
 	canSmoothWith = list(SMOOTH_GROUP_GRASS, SMOOTH_GROUP_JUNGLE_GRASS)
-	pixel_x = -9
-	pixel_y = -9
+	transform = matrix(1, 0, -9, 0, 1, -9)
 	layer = ABOVE_OPEN_TURF_LAYER
 	broken_states = list("damaged")
 	floor_tile = /obj/item/stack/tile/grass

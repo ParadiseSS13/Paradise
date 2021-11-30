@@ -123,11 +123,10 @@
 	icon_state = "weeds1-0"
 	base_icon_state = "weeds1"
 	max_integrity = 15
-	pixel_x = -4
-	pixel_y = -4
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS, SMOOTH_GROUP_WALLS)
+	transform = matrix(1, 0, -4, 0, 1, -4)
 	var/obj/structure/alien/weeds/node/linked_node = null
 	var/static/list/weedImageCache
 
