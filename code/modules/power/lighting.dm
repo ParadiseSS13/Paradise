@@ -575,12 +575,12 @@
 		return
 	emergency_mode = TRUE
 	set_light(3, 1.7, bulb_emergency_colour)
-	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/update)
+	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/update, override = TRUE)
 
 /obj/machinery/light/proc/emergency_lights_off(area/current_area, obj/machinery/power/apc/current_apc)
 	set_light(0, 0, 0) //you, sir, are off!
 	if(current_apc)
-		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/update)
+		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/update, override = TRUE)
 
 /obj/machinery/light/flicker(amount = rand(20, 30))
 	if(flickering)
