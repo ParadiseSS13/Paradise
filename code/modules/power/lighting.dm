@@ -925,7 +925,7 @@
 	update(FALSE)
 
 /obj/machinery/light/proc/enable_emergency_lighting()
-	visible_message("<span class='danger'>[src]'s emergency lighting flickers back to life.</span>")
+	visible_message("<span class='notice'>[src]'s emergency lighting flickers back to life.</span>")
 	no_emergency = FALSE
 	update(FALSE)
 
