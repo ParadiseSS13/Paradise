@@ -36,10 +36,10 @@
 	create_prox_checkers()
 
 	if(isturf(hasprox_receiver.loc))
+		toggle_checkers(TRUE)
 		return
-	if(!always_active)
-		toggle_checkers(FALSE)
-		return
+	else if(always_active)
+		toggle_checkers(TRUE)
 	// We only want a host to track if we're `always_active`.
 	host = get_atom_on_turf(host)
 
@@ -169,11 +169,18 @@
 	return P
 
 /**
- * Called in Initialize(). Generates a set of [/obj/effect/abstract/proximity_checker] objects around the parent, and registers signals to them.
+ * Called in Initialize(). Generates a set of [proximity checker][/obj/effect/abstract/proximity_checker] objects around the parent.
  */
 /datum/component/proximity_monitor/proc/create_prox_checkers()
 	LAZYINITLIST(proximity_checkers)
 	var/turf/parent_turf = get_turf(parent)
+	// For whatever reason their turf is null. Create the checkers in nullspace for now. When the parent moves to a valid turf, they can be recenetered.
+	if(!parent_turf)
+		// Since we can't use `in range` in nullspace, we need to calculate the number of checkers to create with the below formula.
+		var/checker_amount = (1 + radius * 2) ** 2
+		for(var/i in 1 to checker_amount)
+			create_single_prox_checker(null)
+		return
 	for(var/T in RANGE_TURFS(radius, parent_turf))
 		create_single_prox_checker(T)
 
