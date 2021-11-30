@@ -54,8 +54,7 @@
 	owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp gets new vision based on his powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
 /datum/antagonist/vampire/proc/get_ability(path)
-	for(var/P in powers)
-		var/datum/power = P
+	for(var/datum/power as anything in powers)
 		if(power.type == path)
 			return power
 	return null
@@ -278,7 +277,6 @@
 			to_chat(owner.current, "<span class='danger'>You continue to burn!</span>")
 		owner.current.adjust_fire_stacks(5)
 		owner.current.IgniteMob()
-	return
 
 /datum/antagonist/vampire/vv_edit_var(var_name, var_value)
 	. = ..()
@@ -289,7 +287,7 @@
 	add_objective(/datum/objective/assassinate)
 	add_objective(/datum/objective/steal)
 
-	switch(rand(1,100))
+	switch(rand(1, 100))
 		if(1 to 80)
 			add_objective(/datum/objective/survive)
 		else

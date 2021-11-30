@@ -48,7 +48,7 @@
 	if(vampires.len)
 		var/text = "<FONT size = 2><B>The vampires were:</B></FONT>"
 		for(var/datum/mind/vampire in vampires)
-			var/traitorwin = 1
+			var/traitorwin = TRUE
 			var/datum/antagonist/vampire/V = vampire.has_antag_datum(/datum/antagonist/vampire)
 			text += "<br>[vampire.key] was [vampire.name] ("
 			if(vampire.current)
@@ -73,7 +73,7 @@
 					else
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
 						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
-						traitorwin = 0
+						traitorwin = FALSE
 					count++
 
 			var/special_role_text
@@ -89,7 +89,7 @@
 				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
 				SSblackbox.record_feedback("tally", "traitor_success", 1, "FAIL")
 		to_chat(world, text)
-	return 1
+	return TRUE
 
 /datum/game_mode/proc/auto_declare_completion_enthralled()
 	if(vampire_enthralled.len)
