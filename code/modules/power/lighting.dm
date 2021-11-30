@@ -918,7 +918,15 @@
 
 /obj/machinery/light/extinguish_light()
 	on = FALSE
+	emergency_mode = FALSE
+	no_emergency = TRUE
+	addtimer(CALLBACK(src, .proc/enable_emergency_lighting), 5 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
 	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
+	update(FALSE)
+
+/obj/machinery/light/proc/enable_emergency_lighting()
+	visible_message("<span class='danger'>[src]'s emergency lighting flickers back to life.</span>")
+	no_emergency = FALSE
 	update(FALSE)
 
 #undef MAXIMUM_SAFE_BACKUP_CHARGE
