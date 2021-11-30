@@ -3622,7 +3622,6 @@
 /area/derelict/crew_quarters)
 "hI" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen";
 	opened = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3636,7 +3635,6 @@
 /area/derelict/arrival)
 "hJ" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen";
 	opened = 1
 	},
 /obj/effect/decal/cleanable/dirt,

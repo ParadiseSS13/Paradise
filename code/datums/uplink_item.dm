@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/proc/spawn_item(turf/loc, obj/item/uplink/U)
 
 	if(hijack_only && !(usr.mind.special_role == SPECIAL_ROLE_NUKEOPS))//nukies get items that regular traitors only get with hijack. If a hijack-only item is not for nukies, then exclude it via the gamemode list.
-		if(!(locate(/datum/objective/hijack) in usr.mind.objectives))
+		if(!(locate(/datum/objective/hijack) in usr.mind.get_all_objectives()))
 			to_chat(usr, "<span class='warning'>The Syndicate will only issue this extremely dangerous item to agents assigned the Hijack objective.</span>")
 			return
 
@@ -200,7 +200,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/jobspecific/mimery
 	name = "Guide to Advanced Mimery Series"
-	desc = "Contains two manuals to teach you advanced Mime skills. You will be able to shoot stunning bullets out of your fingers, and create large walls that can block an entire hallway!"
+	desc = "Contains two manuals to teach you advanced Mime skills. You will be able to shoot lethal bullets that silence out of your fingers, and create large walls that can block an entire hallway!"
 	reference = "AM"
 	item = /obj/item/storage/box/syndie_kit/mimery
 	cost = 10
@@ -317,7 +317,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "PG"
 	item = /obj/item/clothing/gloves/color/black/thief
 	cost = 6
-	job = list("Civilian")
+	job = list("Assistant")
 
 //Bartender
 
@@ -561,13 +561,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/twohanded/chainsaw
 	cost = 13
 
-/datum/uplink_item/dangerous/batterer
-	name = "Mind Batterer"
-	desc = "A device that has a chance of knocking down people around you for a long amount of time. 50% chance per person. The user is unaffected. Has 5 charges."
-	reference = "BTR"
-	item = /obj/item/batterer
-	cost = 5
-
 // SUPPORT AND MECHAS
 
 /datum/uplink_item/support
@@ -708,12 +701,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	gamemodes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/ammo/bullstun
-	name = "Bulldog - 12g Stun Slug Magazine"
-	desc = "An alternative 8-round stun slug magazine for use in the Bulldog shotgun. Saying that they're completely non-lethal would be lying."
-	reference = "12SS"
-	item = /obj/item/ammo_box/magazine/m12g/stun
-	cost = 3
+/datum/uplink_item/ammo/bullmeteor
+	name = "12g Meteorslug Shells"
+	desc = "An alternative 8-round meteorslug magazine for use in the Bulldog shotgun. Great for blasting airlocks off their frames and knocking down enemies."
+	reference = "12MS"
+	item = /obj/item/ammo_box/magazine/m12g/meteor
+	cost = 2
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/bulldragon
@@ -1755,7 +1748,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	CU.hub = new(mind, CU)
 	// Update their mind stuff
 	LAZYSET(GLOB.contractors, mind, CU.hub)
-	AT.update_traitor_icons_added(mind)
+	AT.add_antag_hud(mind.current)
 
 	log_game("[key_name(usr)] became a Contractor")
 	return I

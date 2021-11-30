@@ -141,7 +141,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 27
+sql_version = 28
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -297,8 +297,6 @@ server_name = "ParaCode Test"
 server_tag_line = "ParaCode Testing Server"
 # Server features. Shows in a newline
 server_features = "Medium RP, varied species/jobs."
-# Store bans in the database? If you are in production, you want this on
-use_database_bans = false
 # Allow OOC character metadata notes
 allow_character_metadata = true
 # Lobby time before roundstart (Seconds)

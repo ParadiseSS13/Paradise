@@ -98,7 +98,6 @@
 	qdel(query)
 	return 1
 
-
 /datum/preferences/proc/load_random_character_slot(client/C)
 	var/list/datum/character_save/valid_slots = list()
 	for(var/datum/character_save/CS in character_saves)

@@ -174,10 +174,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "</td></tr></table>"
 			dat += "<table width='100%'><tr><td width='405px' height='200px' valign='top'>"
 			dat += "<h2>Identity</h2>"
-			if(appearance_isbanned(user))
-				dat += "<b>You are banned from using custom names and appearances. \
-				You can continue to adjust your characters, but you will be randomised once you join the game.\
-				</b><br>"
 			dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'>[active_character.gender == MALE ? "Male" : (active_character.gender == FEMALE ? "Female" : "Genderless")]</a>"
 			dat += "<br>"
 			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[active_character.age]</a><br>"
@@ -233,6 +229,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			var/datum/sprite_accessory/temp_hair_style = GLOB.hair_styles_public_list[active_character.h_style]
 			if(temp_hair_style && temp_hair_style.secondary_theme && !temp_hair_style.no_sec_colour)
 				dat += " <a href='?_src_=prefs;preference=secondary_hair;task=input'>Color #2</a> [color_square(active_character.h_sec_colour)]"
+			// Hair gradient
+			dat += "<br>"
+			dat += "- <b>Gradient:</b>"
+			dat += " <a href='?_src_=prefs;preference=h_grad_style;task=input'>[active_character.h_grad_style]</a>"
+			dat += " <a href='?_src_=prefs;preference=h_grad_colour;task=input'>Color</a> [color_square(active_character.h_grad_colour)]"
+			dat += " <a href='?_src_=prefs;preference=h_grad_alpha;task=input'>[active_character.h_grad_alpha]</a>"
+			dat += "<br>"
+			dat += "- <b>Gradient Offset:</b> <a href='?_src_=prefs;preference=h_grad_offset;task=input'>[active_character.h_grad_offset_x],[active_character.h_grad_offset_y]</a>"
 			dat += "<br>"
 
 			dat += "<b>Facial Hair:</b> "
@@ -512,7 +516,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		ShowChoices(user)
 		return
 
-	if(role == "Civilian")
+	if(role == "Assistant")
 		if(active_character.job_support_low & job.flag)
 			active_character.job_support_low &= ~job.flag
 		else
@@ -533,7 +537,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		ShowChoices(user)
 		return
 
-	if(role == "Civilian")
+	if(role == "Assistant")
 		if(active_character.job_support_low & job.flag)
 			active_character.job_support_low &= ~job.flag
 		else

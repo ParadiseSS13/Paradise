@@ -23,7 +23,7 @@
 
 /obj/structure/closet/secure_closet/personal/cabinet
 	icon_state = "cabinet"
-	open_door_sprite = "cabient_door"
+	open_door_sprite = "cabinet_door"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	open_sound = 'sound/machines/wooden_closet_open.ogg'

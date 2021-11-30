@@ -151,7 +151,7 @@ SUBSYSTEM_DEF(jobs)
 		if(!job)
 			continue
 
-		if(istype(job, GetJob("Civilian"))) // We don't want to give him assistant, that's boring!
+		if(istype(job, GetJob("Assistant"))) // We don't want to give him assistant, that's boring!
 			continue
 
 		if(job.title in GLOB.command_positions) //If you want a command position, select it!
@@ -287,8 +287,6 @@ SUBSYSTEM_DEF(jobs)
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.ready && player.has_valid_preferences() && player.mind && !player.mind.assigned_role)
 			unassigned += player
-			if(player.client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
-				player.client.prefs.load_random_character_slot(player.client)
 
 	Debug("DO, Len: [unassigned.len]")
 	if(unassigned.len == 0)
@@ -300,14 +298,14 @@ SUBSYSTEM_DEF(jobs)
 	HandleFeedbackGathering()
 
 	//People who wants to be assistants, sure, go on.
-	Debug("DO, Running Civilian Check 1")
-	var/datum/job/civ = new /datum/job/civilian()
-	var/list/civilian_candidates = FindOccupationCandidates(civ, 3)
-	Debug("AC1, Candidates: [civilian_candidates.len]")
-	for(var/mob/new_player/player in civilian_candidates)
+	Debug("DO, Running Assistant Check 1")
+	var/datum/job/ast = new /datum/job/assistant()
+	var/list/assistant_candidates = FindOccupationCandidates(ast, 3)
+	Debug("AC1, Candidates: [assistant_candidates.len]")
+	for(var/mob/new_player/player in assistant_candidates)
 		Debug("AC1 pass, Player: [player]")
-		AssignRole(player, "Civilian")
-		civilian_candidates -= player
+		AssignRole(player, "Assistant")
+		assistant_candidates -= player
 	Debug("DO, AC1 end")
 
 	//Select one head
@@ -393,15 +391,15 @@ SUBSYSTEM_DEF(jobs)
 			if(player.client.prefs.active_character.alternate_option != BE_ASSISTANT)
 				GiveRandomJob(player)
 				if(player in unassigned)
-					AssignRole(player, "Civilian")
+					AssignRole(player, "Assistant")
 			else
-				AssignRole(player, "Civilian")
+				AssignRole(player, "Assistant")
 
 	// Then we assign what we can to everyone else.
 	for(var/mob/new_player/player in unassigned)
 		if(player.client.prefs.active_character.alternate_option == BE_ASSISTANT)
 			Debug("AC2 Assistant located, Player: [player]")
-			AssignRole(player, "Civilian")
+			AssignRole(player, "Assistant")
 		else if(player.client.prefs.active_character.alternate_option == RETURN_TO_LOBBY)
 			player.ready = 0
 			unassigned -= player
@@ -624,7 +622,7 @@ SUBSYSTEM_DEF(jobs)
 				jobs_to_formats[job.title] = "grey" // jobs which are karma-locked and not unlocked for this player are discouraged
 			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.available_in_playtime(M.client))
 				jobs_to_formats[job.title] = "grey" // command jobs which are playtime-locked and not unlocked for this player are discouraged
-			else if(job.total_positions && !job.current_positions && job.title != "Civilian")
+			else if(job.total_positions && !job.current_positions && job.title != "Assistant")
 				jobs_to_formats[job.title] = "teal" // jobs with nobody doing them at all are encouraged
 			else if(job.total_positions >= 0 && job.current_positions >= job.total_positions)
 				jobs_to_formats[job.title] = "grey" // jobs that are full (no free positions) are discouraged

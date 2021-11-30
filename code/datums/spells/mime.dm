@@ -93,11 +93,11 @@
 
 /obj/effect/proc_holder/spell/targeted/mime/fingergun
 	name = "Finger Gun"
-	desc = "Shoot stunning, invisible bullets out of your fingers! 6 bullets available per cast. Use your fingers to holster them manually."
+	desc = "Shoot lethal, silencing bullets out of your fingers! 3 bullets available per cast. Use your fingers to holster them manually."
 	school = "mime"
 	panel = "Mime"
 	clothes_req = 0
-	charge_max = 600
+	charge_max = 300
 	range = -1
 	include_user = 1
 	human_req = 1
@@ -117,7 +117,7 @@
 			revert_cast(user)
 
 /obj/effect/proc_holder/spell/targeted/mime/fingergun/fake
-	desc = "Pretend you're shooting bullets out of your fingers! 6 bullets available per cast. Use your fingers to holster them manually."
+	desc = "Pretend you're shooting bullets out of your fingers! 3 bullets available per cast. Use your fingers to holster them manually."
 	gun = /obj/item/gun/projectile/revolver/fingergun/fake
 
 // Mime Spellbooks
