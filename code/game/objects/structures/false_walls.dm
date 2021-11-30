@@ -373,9 +373,9 @@
 
 /obj/structure/falsewall/titanium
 	desc = "A light-weight titanium wall used in shuttles."
-	icon = 'icons/turf/walls/shuttle_wall.dmi'
-	icon_state = "shuttle_wall-0"
-	base_icon_state = "shuttle_wall"
+	icon = 'icons/turf/walls/plastinum_wall.dmi'
+	icon_state = "plastinum_wall-0"
+	base_icon_state = "plastinum_wall"
 	mineral = /obj/item/stack/sheet/mineral/titanium
 	walltype = /turf/simulated/wall/mineral/titanium
 	smoothing_flags = SMOOTH_BITMASK

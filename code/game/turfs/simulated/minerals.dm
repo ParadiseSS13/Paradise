@@ -2,10 +2,11 @@
 
 /turf/simulated/mineral //wall piece
 	name = "rock"
-	icon = 'icons/turf/mining.dmi'
-	icon_state = "rock"
+	icon = 'icons/turf/smoothrocks.dmi'
+	icon_state = "smoothrocks-0"
 	base_icon_state = "smoothrocks"
-	var/smooth_icon = 'icons/turf/smoothrocks.dmi'
+	pixel_x = -4
+	pixel_y = -4
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_MINERAL_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS)
@@ -28,10 +29,6 @@
 	var/defer_change = 0
 
 /turf/simulated/mineral/Initialize(mapload)
-	var/matrix/M = new
-	M.Translate(-4, -4)
-	transform = M
-	icon = smooth_icon
 	. = ..()
 	if(mineralType && mineralAmt && spread && spreadChance)
 		for(var/dir in GLOB.cardinal)
@@ -46,13 +43,6 @@
 /turf/simulated/mineral/shuttleRotate(rotation)
 	setDir(angle2dir(rotation + dir2angle(dir)))
 	QUEUE_SMOOTH(src)
-
-/turf/simulated/mineral/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	if(turf_type)
-		underlay_appearance.icon = initial(turf_type.icon)
-		underlay_appearance.icon_state = initial(turf_type.icon_state)
-		return TRUE
-	return ..()
 
 /turf/simulated/mineral/attackby(obj/item/I, mob/user, params)
 	if(!user.IsAdvancedToolUser())
