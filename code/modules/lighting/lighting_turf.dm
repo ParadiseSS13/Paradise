@@ -5,7 +5,7 @@
 	var/tmp/lighting_corners_initialised = FALSE
 
 	var/tmp/list/datum/light_source/affecting_lights       // List of light sources affecting this turf.
-	var/tmp/atom/movable/lighting_object/lighting_object // Our lighting object.
+	var/tmp/datum/lighting_object/lighting_object // Our lighting object.
 	var/tmp/list/datum/lighting_corner/corners
 	var/tmp/has_opaque_atom = FALSE // Not to be confused with opacity, this will be TRUE if there's any opaque atom on the tile.
 
@@ -41,7 +41,7 @@
 	if(!lighting_corners_initialised)
 		generate_missing_corners()
 
-	new/atom/movable/lighting_object(src)
+	new/datum/lighting_object(src)
 
 	var/thing
 	var/datum/lighting_corner/C
@@ -84,7 +84,7 @@
 	if(!lighting_object)
 		return FALSE
 
-	return !lighting_object.luminosity
+	return !luminosity
 
 // Can't think of a good name, this proc will recalculate the has_opaque_atom variable.
 /turf/proc/recalc_atom_opacity()

@@ -220,11 +220,8 @@
 	if(length(client_mobs_in_contents))
 		update_parallax_contents()
 
-	var/datum/light_source/L
-	var/thing
-	for (thing in light_sources) // Cycle through the light sources on this atom and tell them to update.
-		L = thing
-		L.source_atom.update_light()
+	for (var/datum/light_source/light as anything in light_sources) // Cycle through the light sources on this atom and tell them to update.
+		light.source_atom.update_light()
 	return TRUE
 
 // Change glide size for the duration of one movement

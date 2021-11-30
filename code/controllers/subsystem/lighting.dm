@@ -78,7 +78,7 @@ SUBSYSTEM_DEF(lighting)
 
 	queue = objects_queue
 	for(i in 1 to length(queue))
-		var/atom/movable/lighting_object/O = queue[i]
+		var/datum/lighting_object/O = queue[i]
 
 		if(QDELETED(O))
 			continue
