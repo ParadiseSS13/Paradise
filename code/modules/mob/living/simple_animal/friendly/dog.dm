@@ -23,6 +23,9 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 	var/next_spin_message = 0
 
+/mob/living/simple_animal/pet/dog/npc_safe(mob/user)
+	return TRUE
+
 /mob/living/simple_animal/pet/dog/verb/chasetail()
 	set name = "Chase your tail"
 	set desc = "d'awwww."

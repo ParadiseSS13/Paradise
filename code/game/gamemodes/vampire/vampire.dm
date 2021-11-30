@@ -88,9 +88,11 @@
 				text += "body destroyed"
 			text += ")"
 
-			if(vampire.objectives.len)//If the traitor had no objectives, don't need to process this.
+			var/list/all_objectives = vampire.get_all_objectives()
+
+			if(length(all_objectives))//If the traitor had no objectives, don't need to process this.
 				var/count = 1
-				for(var/datum/objective/objective in vampire.objectives)
+				for(var/datum/objective/objective in all_objectives)
 					if(objective.check_completion())
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
