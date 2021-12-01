@@ -10,6 +10,13 @@
  * Morgue
  */
 
+#define EXTENDED_TRAY "extended"
+#define EMPTY_MORGUE "empty"
+#define UNREVIVABLE "unrevivable"
+#define REVIVABLE "revivable"
+#define NOT_BODY "notbody"
+#define GHOST_CONNECTED "ghost"
+
 /obj/structure/morgue
 	name = "morgue"
 	desc = "Used to keep bodies in until someone fetches them."
@@ -20,12 +27,12 @@
 	dir = EAST
 	var/obj/structure/m_tray/connected = null
 	var/list/status_descriptors = list(
-	"extended" = "The tray is currently extended.",
-	"empty" = "The tray is currently empty.",
-	"unrevivable" = "The tray contains an unviable body.",
-	"revivable" = "The tray contains a body that is responsive to revival techniques.",
-	"notbody" = "The tray contains something that is not a body.",
-	"ghost" = "The tray contains a body that might be responsive."
+	EXTENDED_TRAY = "The tray is currently extended.",
+	EMPTY_MORGUE = "The tray is currently empty.",
+	UNREVIVABLE = "The tray contains an unviable body.",
+	REVIVABLE = "The tray contains a body that is responsive to revival techniques.",
+	NOT_BODY = "The tray contains something that is not a body.",
+	GHOST_CONNECTED = "The tray contains a body that might be responsive."
 	)
 	anchored = 1.0
 	var/open_sound = 'sound/items/deconstruct.ogg'
@@ -47,20 +54,20 @@
 				var/mob/dead/observer/G = M.get_ghost()
 				if(M.mind && !M.mind.suicided)
 					if(M.client)
-						status = "revivable"
+						status = REVIVABLE
 					else if(G && G.client) //There is a ghost and it is connected to the server
-						status = "ghost"
+						status = GHOST_CONNECTED
 					else
-						status = "unrevivable"
+						status = UNREVIVABLE
 				else
-					status = "unrevivable"
+					status = UNREVIVABLE
 			else
-				status = "notbody"
+				status = NOT_BODY
 		else
-			status = "empty"
+			status = EMPTY_MORGUE
 		add_overlay("morgue_[status]")
 	else
-		status = "extended"
+		status = EXTENDED_TRAY
 	if(name != initial(name))
 		add_overlay("morgue_label")
 
@@ -481,3 +488,10 @@
 			morgue = get(C.loc, /obj/structure/morgue)
 			if(morgue)
 				morgue.update()
+
+#undef EXTENDED_TRAY
+#undef EMPTY_MORGUE
+#undef UNREVIVABLE
+#undef REVIVABLE
+#undef NOT_BODY
+#undef GHOST_CONNECTED
