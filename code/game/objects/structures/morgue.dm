@@ -29,13 +29,13 @@
 	)
 	anchored = 1.0
 	var/open_sound = 'sound/items/deconstruct.ogg'
+	var/status
 
 /obj/structure/morgue/Initialize()
 	. = ..()
 	update()
 
 /obj/structure/morgue/proc/update()
-	var/status
 	cut_overlays()
 	if(!connected)
 		if(contents.len)
@@ -61,11 +61,12 @@
 		add_overlay("morgue_[status]")
 	else
 		status = "extended"
-	desc = initial(desc) + "\n[status_descriptors[status]]"
 	if(name != initial(name))
 		add_overlay("morgue_label")
-	return
 
+/obj/structure/morgue/examine(mob/user)
+	. = ..()
+	. += "[status_descriptors[status]]"
 
 /obj/structure/morgue/ex_act(severity)
 	switch(severity)
@@ -113,18 +114,19 @@
 		update()
 		add_fingerprint(user)
 		return
-	if(istype(P, /obj/item/wirecutters) && name != initial(name))
+	return ..()
+
+/obj/structure/morgue/wirecutter_act(mob/user)
+	if(name != initial(name))
 		to_chat(user, "<span class='notice'>You cut the tag off the morgue.</span>")
 		name = initial(name)
 		update()
-		return
-	return ..()
+		return TRUE
 
 /obj/structure/morgue/relaymove(mob/user as mob)
 	if(user.stat)
 		return
 	connect()
-	return
 
 /obj/structure/morgue/proc/connect()
 	connected = new /obj/structure/m_tray( loc )
@@ -257,7 +259,6 @@
 			return
 		if(contents.len)
 			add_overlay("crema_full")
-	return
 
 /obj/structure/crematorium/ex_act(severity)
 	switch(severity)
@@ -310,7 +311,6 @@
 	if(user.stat || locked)
 		return
 	connect()
-	return
 
 /obj/structure/crematorium/proc/connect()
 	connected = new /obj/structure/c_tray( loc )
