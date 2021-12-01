@@ -87,7 +87,7 @@
 		if("Shaft Miner")
 			O = new /datum/outfit/plasmaman/mining
 
-		if("Medical Doctor", "Brig Physician", "Paramedic", "Coroner")
+		if("Medical Doctor", "Paramedic", "Coroner")
 			O = new /datum/outfit/plasmaman/medical
 
 		if("Chief Medical Officer")

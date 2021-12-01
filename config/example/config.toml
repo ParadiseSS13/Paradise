@@ -452,7 +452,7 @@ job_slot_amounts = [
 	{name = "Scientist", lowpop = 6, highpop = 7},
 	# Security
 	{name = "Detective", lowpop = 1, highpop = 1},
-	{name = "Security Officer", lowpop = 7, highpop = 8},
+	{name = "Security Officer", lowpop = 8, highpop = 9},
 	{name = "Warden", lowpop = 1, highpop = 1},
 	# Service
 	{name = "Bartender", lowpop = 1, highpop = 1},

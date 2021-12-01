@@ -190,35 +190,3 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
-
-
-/datum/job/brigdoc
-	title = "Brig Physician"
-	flag = JOB_BRIGDOC
-	department_flag = JOBCAT_KARMA
-	total_positions = 1
-	spawn_positions = 1
-	is_security = 1
-	supervisors = "the head of security"
-	department_head = list("Head of Security")
-	selection_color = "#ffeeee"
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS)
-	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
-	outfit = /datum/outfit/job/brigdoc
-
-/datum/outfit/job/brigdoc
-	name = "Brig Physician"
-	jobtype = /datum/job/brigdoc
-	uniform = /obj/item/clothing/under/rank/security/brigphys
-	suit = /obj/item/clothing/suit/storage/fr_jacket
-	shoes = /obj/item/clothing/shoes/white
-	l_ear = /obj/item/radio/headset/headset_sec/alt/brig_phys
-	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
-	id = /obj/item/card/id/security
-	suit_store = /obj/item/flashlight/pen
-	l_hand = /obj/item/storage/firstaid/doctor
-	pda = /obj/item/pda/medical
-	implants = list(/obj/item/implant/mindshield)
-	backpack = /obj/item/storage/backpack/medic
-	satchel = /obj/item/storage/backpack/satchel_med
-	dufflebag = /obj/item/storage/backpack/duffel/medical
