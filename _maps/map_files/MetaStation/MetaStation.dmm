@@ -24652,9 +24652,6 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
-"bdO" = (
-/turf/space,
-/area/security/brig)
 "bdP" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -77586,6 +77583,20 @@
 	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
+"jJV" = (
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
+/area/security/brig)
 "jKJ" = (
 /obj/structure/chair{
 	dir = 1
@@ -79897,10 +79908,6 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
-"rlw" = (
-/obj/structure/lattice,
-/turf/space,
-/area/security/brig)
 "rlJ" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /obj/machinery/light,
@@ -80531,20 +80538,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"sXO" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
-	},
-/area/security/brig)
 "sYp" = (
 /obj/structure/chair{
 	dir = 1
@@ -104746,9 +104739,9 @@ aaa
 aaa
 aaa
 abq
-bdO
-bdO
-akD
+aaa
+aaa
+ajg
 aqu
 arW
 ake
@@ -105003,9 +104996,9 @@ aaa
 aaa
 abq
 abq
-rlw
-rlw
-akD
+abq
+abq
+ajg
 arP
 dhI
 aIg
@@ -105260,9 +105253,9 @@ abq
 abq
 abq
 aaa
-bdO
-bdO
-akD
+aaa
+aaa
+ajg
 arH
 apO
 aqw
@@ -105514,11 +105507,11 @@ abB
 abq
 abq
 abq
-bdO
-bdO
-bdO
-bdO
-bdO
+aaa
+aaa
+aaa
+aaa
+aaa
 amx
 aum
 amx
@@ -105771,11 +105764,11 @@ abB
 abq
 aaa
 abq
-bdO
-bdO
-bdO
-bdO
-bdO
+aaa
+aaa
+aaa
+aaa
+aaa
 amx
 azc
 amx
@@ -106028,11 +106021,11 @@ abB
 abq
 aaa
 abq
-bdO
-bdO
-bdO
-bdO
-bdO
+aaa
+aaa
+aaa
+aaa
+aaa
 amx
 aCT
 amx
@@ -106285,11 +106278,11 @@ abB
 abq
 abq
 abq
-bdO
-bdO
-bdO
-bdO
-bdO
+aaa
+aaa
+aaa
+aaa
+aaa
 amx
 azc
 amx
@@ -106797,7 +106790,7 @@ ajT
 akG
 akR
 alN
-sXO
+jJV
 vLL
 vLL
 hRw
