@@ -514,11 +514,10 @@
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/unpowered)
 "bN" = (
-/obj/effect/spawner/lootdrop/wizardcrash,
 /obj/structure/closet/crate{
-	icon_state = "crateopen";
 	opened = 1
 	},
+/obj/effect/spawner/lootdrop/wizardcrash,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "bP" = (

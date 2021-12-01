@@ -36,10 +36,10 @@
 
 /obj/item/nullrod/attack(mob/M, mob/living/carbon/user)
 	..()
-	if(ishuman(M) && M.mind?.vampire)
+	if(ishuman(M) && M.mind?.vampire && user.mind.isholy)
 		if(!M.mind.vampire.get_ability(/datum/vampire_passive/full))
 			to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
-			M.mind.vampire.adjust_nullification(5, 2)
+			M.mind.vampire.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
 
 /obj/item/nullrod/pickup(mob/living/user)
 	. = ..()
@@ -452,14 +452,6 @@
 	throwforce = 0
 	var/praying = FALSE
 
-/obj/item/nullrod/rosary/New()
-	..()
-	START_PROCESSING(SSobj, src)
-
-/obj/item/nullrod/rosary/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
 /obj/item/nullrod/rosary/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!iscarbon(M))
 		return ..()
@@ -504,16 +496,6 @@
 	else
 		to_chat(user, "<span class='notice'>Your prayer to [SSticker.Bible_deity_name] was interrupted.</span>")
 		praying = FALSE
-
-/obj/item/nullrod/rosary/process()
-	if(ishuman(loc))
-		var/mob/living/carbon/human/holder = loc
-		if(holder.l_hand == src || holder.r_hand == src) // Holding this in your hand will
-			for(var/mob/living/carbon/human/H in range(5, loc))
-				if(H.mind && H.mind.vampire && !H.mind.vampire.get_ability(/datum/vampire_passive/full))
-					H.mind.vampire.adjust_nullification(5, 2)
-					if(prob(10))
-						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
 
 /obj/item/nullrod/salt
 	name = "Holy Salt"
@@ -664,8 +646,8 @@
 		else
 			to_chat(missionary, "<span class='notice'>You successfully convert [target] to your cause. The following grows because of your faith!</span>")
 			faith -= 100
-	else if(target.mind.assigned_role == "Civilian")
-		if(prob(55))	//55% chance to take LESS faith than normal, because civies are stupid and easily manipulated
+	else if(target.mind.assigned_role == "Assistant")
+		if(prob(55))	//55% chance to take LESS faith than normal, because assistants are stupid and easily manipulated
 			to_chat(missionary, "<span class='notice'>Your message seems to resound well with [target]; converting [target.p_them()] was much easier than expected.</span>")
 			faith -= 50
 		else		//45% chance to take the normal 100 faith cost

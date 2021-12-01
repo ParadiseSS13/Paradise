@@ -1093,7 +1093,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -1156,7 +1156,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -2945,7 +2945,7 @@
 "aqd" = (
 /obj/structure/chair/comfy/brown,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -4510,7 +4510,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -10143,7 +10143,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/newscaster{
@@ -13078,7 +13078,7 @@
 "aLS" = (
 /obj/structure/chair/stool,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -17949,7 +17949,7 @@
 /area/atmos)
 "aVQ" = (
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/plasteel{
@@ -22771,7 +22771,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -25811,7 +25811,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -37177,7 +37177,7 @@
 /area/storage/primary)
 "bHd" = (
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -48788,7 +48788,7 @@
 "cfv" = (
 /obj/structure/chair/comfy/red,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -49423,7 +49423,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "chk" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
@@ -49937,7 +49937,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -54212,7 +54212,7 @@
 "crG" = (
 /obj/structure/chair/comfy/black,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -54985,7 +54985,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -55375,7 +55375,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -57620,7 +57620,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -58289,7 +58289,7 @@
 /area/crew_quarters/locker/locker_toilet)
 "cAd" = (
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/item/bikehorn/rubberducky,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -60367,7 +60367,7 @@
 	},
 /obj/machinery/light/small,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -62306,7 +62306,6 @@
 /area/engine/engine_smes)
 "cIQ" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen";
 	opened = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance,
@@ -62929,7 +62928,7 @@
 "cKA" = (
 /obj/structure/chair/sofa/corp/right,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -62975,7 +62974,7 @@
 "cKG" = (
 /obj/structure/chair,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -63013,7 +63012,7 @@
 "cKN" = (
 /obj/structure/chair/sofa/corp/left,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -63091,7 +63090,7 @@
 "cKW" = (
 /obj/structure/chair/comfy/teal,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -84634,7 +84633,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/carpet,
 /area/hallway/primary/aft)
@@ -84840,7 +84839,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -89466,7 +89465,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -93787,7 +93786,7 @@
 /area/medical/surgery1)
 "fZU" = (
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/structure/chair/stool/bar{
 	dir = 1

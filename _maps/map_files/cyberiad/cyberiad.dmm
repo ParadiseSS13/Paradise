@@ -21,14 +21,12 @@
 /area/toxins/misc_lab)
 "aad" = (
 /obj/structure/closet/emcloset{
-	icon_state = "emergency";
 	opened = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aae" = (
 /obj/structure/closet/crate{
-	icon_state = "crate_open";
 	name = "Gold Crate";
 	opened = 1
 	},
@@ -39,7 +37,6 @@
 /area/maintenance/apmaint)
 "aaf" = (
 /obj/structure/closet/crate{
-	icon_state = "crate_open";
 	name = "Silver Crate";
 	opened = 1
 	},
@@ -3495,7 +3492,6 @@
 	pixel_y = 30
 	},
 /obj/structure/closet/secure_closet/hos,
-/obj/item/reagent_containers/food/drinks/flask/barflask,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
 	},
@@ -10656,7 +10652,7 @@
 	name = "Internal Affairs Privacy Shutters Control";
 	pixel_x = -25
 	},
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -14100,7 +14096,7 @@
 /turf/simulated/floor/carpet,
 /area/maintenance/fpmaint)
 "aGp" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
 	},
@@ -14490,7 +14486,7 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/fpmaint2)
 "aHj" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/wood,
 /area/maintenance/fpmaint2)
 "aHk" = (
@@ -14912,7 +14908,7 @@
 "aIp" = (
 /obj/structure/chair/comfy/black,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -15307,7 +15303,7 @@
 	},
 /area/security/detectives_office)
 "aJl" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/machinery/light_switch{
 	dir = 1;
 	pixel_y = -24
@@ -16750,7 +16746,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
@@ -18250,7 +18246,7 @@
 "aQo" = (
 /obj/structure/chair,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
@@ -19778,7 +19774,7 @@
 	layer = 2.9
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/dorms)
@@ -19914,7 +19910,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -20056,7 +20052,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
@@ -22589,7 +22585,7 @@
 "aZD" = (
 /obj/effect/decal/warning_stripes/white,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -23294,7 +23290,7 @@
 "bbm" = (
 /obj/structure/chair/stool,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
@@ -23711,7 +23707,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/dorms)
@@ -23721,7 +23717,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/dorms)
@@ -24446,7 +24442,7 @@
 /area/atmos)
 "bdH" = (
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/construction{
@@ -27363,9 +27359,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "bjx" = (
-/mob/living/simple_animal/cow{
-	name = "Betsy"
-	},
+/mob/living/simple_animal/cow/betsy,
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "bjy" = (
@@ -30818,7 +30812,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
@@ -31614,7 +31608,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
@@ -33714,7 +33708,7 @@
 	},
 /obj/machinery/light/small,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -33728,7 +33722,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -33961,7 +33955,7 @@
 /area/crew_quarters/locker/locker_toilet)
 "byp" = (
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -34495,7 +34489,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -38893,7 +38887,7 @@
 	pixel_y = 32
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/machinery/door_control{
 	id = "toilet_unit1";
@@ -40177,7 +40171,7 @@
 /area/hallway/secondary/entry)
 "bMa" = (
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
@@ -44580,7 +44574,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -64550,7 +64544,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -70892,7 +70886,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -72588,7 +72582,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -78462,9 +78456,7 @@
 /area/hydroponics)
 "dnE" = (
 /obj/machinery/hydroponics/soil,
-/mob/living/simple_animal/chicken{
-	name = "Commander Clucky"
-	},
+/mob/living/simple_animal/chicken/clucky,
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "dnF" = (
@@ -81327,7 +81319,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Assistant"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)

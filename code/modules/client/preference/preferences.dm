@@ -174,10 +174,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "</td></tr></table>"
 			dat += "<table width='100%'><tr><td width='405px' height='200px' valign='top'>"
 			dat += "<h2>Identity</h2>"
-			if(appearance_isbanned(user))
-				dat += "<b>You are banned from using custom names and appearances. \
-				You can continue to adjust your characters, but you will be randomised once you join the game.\
-				</b><br>"
 			dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'>[active_character.gender == MALE ? "Male" : (active_character.gender == FEMALE ? "Female" : "Genderless")]</a>"
 			dat += "<br>"
 			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[active_character.age]</a><br>"
@@ -520,7 +516,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		ShowChoices(user)
 		return
 
-	if(role == "Civilian")
+	if(role == "Assistant")
 		if(active_character.job_support_low & job.flag)
 			active_character.job_support_low &= ~job.flag
 		else
@@ -541,7 +537,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		ShowChoices(user)
 		return
 
-	if(role == "Civilian")
+	if(role == "Assistant")
 		if(active_character.job_support_low & job.flag)
 			active_character.job_support_low &= ~job.flag
 		else

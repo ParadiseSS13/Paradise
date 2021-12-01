@@ -220,7 +220,7 @@
 					var/prev_species = active_character.species
 
 					for(var/_species in GLOB.whitelisted_species)
-						if(is_alien_whitelisted(user, _species))
+						if(can_use_species(user, _species))
 							new_species += _species
 
 					active_character.species = input("Please select a species", "Character Generation", null) in sortTim(new_species, /proc/cmp_text_asc)

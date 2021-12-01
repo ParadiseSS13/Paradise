@@ -59,7 +59,7 @@
 	///How long the revenant is stunned for, is about 2 seconds times this var.
 	var/unstun_time = 0
 	///If the revenant's abilities are blocked by a chaplain's power.
-	var/inhibited = TRUE
+	var/inhibited = FALSE
 	///How much essence the revenant has drained.
 	var/essence_drained = 0
 	///If the revenant is draining someone.
