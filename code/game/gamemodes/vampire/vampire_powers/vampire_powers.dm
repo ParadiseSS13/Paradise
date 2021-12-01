@@ -314,7 +314,7 @@
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			if(prob(25))
 				E.mend_fracture()
-				E.internal_bleeding = FALSE
+				E.fix_internal_bleeding()
 
 		return
 	if(H.stat != DEAD)
