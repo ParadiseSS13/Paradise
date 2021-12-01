@@ -306,7 +306,7 @@
 					for(var/obj/item/organ/external/E in H.bodyparts)
 						if(prob(10))
 							E.mend_fracture()
-							E.internal_bleeding = FALSE
+							E.fix_internal_bleeding()
 							heal_points--
 			else if(issilicon(L))
 				L.adjustBruteLoss(-3.5)
@@ -340,7 +340,7 @@
 		H.bodytemperature = H.dna.species.body_temperature
 		for(var/thing in H.bodyparts)
 			var/obj/item/organ/external/E = thing
-			E.internal_bleeding = FALSE
+			E.fix_internal_bleeding()
 			E.mend_fracture()
 	else
 		owner.bodytemperature = BODYTEMP_NORMAL

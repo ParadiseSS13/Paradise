@@ -306,7 +306,7 @@
 			if(istype(E, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
 				organData["lungRuptured"] = TRUE
 
-			if(E.internal_bleeding)
+			if(E.status & ORGAN_INT_BLEEDING)
 				organData["internalBleeding"] = TRUE
 
 			extOrganData.Add(list(organData))
@@ -454,7 +454,7 @@
 			var/splint = ""
 			var/internal_bleeding = ""
 			var/lung_ruptured = ""
-			if(e.internal_bleeding)
+			if(e.status & ORGAN_INT_BLEEDING)
 				internal_bleeding = "<br>Internal bleeding"
 			if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
 				lung_ruptured = "Lung ruptured:"
