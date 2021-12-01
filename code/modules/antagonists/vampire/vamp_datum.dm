@@ -33,6 +33,14 @@
 	antag_hud_type = ANTAG_HUD_VAMPIRE
 	antag_hud_name = "vampthrall"
 
+/datum/antagonist/mindslave/thrall/on_gain()
+	SSticker.mode.vampire_enthralled += owner
+	..()
+
+/datum/antagonist/mindslave/thrall/on_removal()
+	SSticker.mode.vampire_enthralled -= owner
+	..()
+
 /datum/antagonist/vampire/Destroy(force, ...)
 	draining = null
 	QDEL_NULL(subclass)
