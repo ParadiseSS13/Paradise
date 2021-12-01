@@ -2480,7 +2480,6 @@
 #include "code\modules\surgery\organs\subtypes\standard.dm"
 #include "code\modules\surgery\organs\subtypes\tajaran.dm"
 #include "code\modules\surgery\organs\subtypes\unathi.dm"
-#include "code\modules\surgery\organs\subtypes\unbreakable.dm"
 #include "code\modules\surgery\organs\subtypes\vox.dm"
 #include "code\modules\surgery\organs\subtypes\vulpkanin.dm"
 #include "code\modules\surgery\organs\subtypes\wryn.dm"

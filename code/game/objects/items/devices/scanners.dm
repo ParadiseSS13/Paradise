@@ -225,7 +225,7 @@ REAGENT SCANNER
 			to_chat(user, "<span class='warning'>Bone fractures detected. Advanced scanner required for location.</span>")
 			break
 	for(var/obj/item/organ/external/e in H.bodyparts)
-		if(e.internal_bleeding)
+		if(e.status & ORGAN_INT_BLEEDING)
 			to_chat(user, "<span class='warning'>Internal bleeding detected. Advanced scanner required for location.</span>")
 			break
 	var/blood_id = H.get_blood_id()
@@ -794,7 +794,7 @@ REAGENT SCANNER
 		var/splint = ""
 		var/internal_bleeding = ""
 		var/lung_ruptured = ""
-		if(e.internal_bleeding)
+		if(e.status & ORGAN_INT_BLEEDING)
 			internal_bleeding = "<br>Internal bleeding"
 		if(istype(e, /obj/item/organ/external/chest) && target.is_lung_ruptured())
 			lung_ruptured = "Lung ruptured:"

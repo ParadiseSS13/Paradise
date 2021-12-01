@@ -125,7 +125,7 @@ emp_act
 
 /mob/living/carbon/human/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
 	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
-	if(affecting && !affecting.cannot_amputate && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
+	if(affecting && !(affecting.limb_flags & CANNOT_DISMEMBER) && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
 		var/damtype = DROPLIMB_SHARP
 		if(!P.sharp)
 			switch(P.damage_type)
