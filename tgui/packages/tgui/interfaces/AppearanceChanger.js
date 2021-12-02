@@ -28,6 +28,7 @@ export const AppearanceChanger = (props, context) => {
     change_hair,
     hair_styles,
     hair_style,
+    change_hair_gradient,
     change_facial_hair,
     facial_hair_styles,
     facial_hair_style,
@@ -128,6 +129,14 @@ export const AppearanceChanger = (props, context) => {
                   }
                 />
               ))}
+            </LabeledList.Item>
+          )}
+          {!!change_hair_gradient && (
+            <LabeledList.Item label="Hair Gradient">
+              <Button content="Change Style" onClick={() => act('hair_gradient')} />
+              <Button content="Change Offset" onClick={() => act('hair_gradient_offset')} />
+              <Button content="Change Color" onClick={() => act('hair_gradient_colour')} />
+              <Button content="Change Alpha" onClick={() => act('hair_gradient_alpha')} />
             </LabeledList.Item>
           )}
           {!!change_facial_hair && (

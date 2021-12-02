@@ -276,6 +276,8 @@
 
 			speed = round(speed)
 			step_towards(src, locate(new_x, new_y, z))
+			if(QDELETED(src)) // It hit something during the move
+				return
 			if(speed <= 1)
 				pixel_x = pixel_x_offset
 				pixel_y = pixel_y_offset

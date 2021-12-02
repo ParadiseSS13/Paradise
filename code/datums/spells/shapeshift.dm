@@ -95,6 +95,7 @@
 	invocation = "none"
 	invocation_type = "none"
 	action_icon_state = "vampire_bats"
+	gain_desc = "You have gained the ability to shapeshift into bat form. This is a weak form with no abilities, only useful for stealth."
 
 	shapeshift_type = /mob/living/simple_animal/hostile/scarybat/adminvampire
 	current_shapes = list(/mob/living/simple_animal/hostile/scarybat/adminvampire)
@@ -108,6 +109,7 @@
 	invocation_type = "none"
 	action_background_icon_state = "bg_demon"
 	action_icon_state = "glare"
+	gain_desc = "You have gained the ability to shapeshift into lesser hellhound form. This is a combat form with different abilities, tough but not invincible. It can regenerate itself over time by resting."
 
 	shapeshift_type = /mob/living/simple_animal/hostile/hellhound
 	current_shapes = list(/mob/living/simple_animal/hostile/hellhound)

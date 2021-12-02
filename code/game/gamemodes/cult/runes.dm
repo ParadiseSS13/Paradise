@@ -346,7 +346,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 					"<span class='cultitalic'>Your wounds have been healed. Now spread the blood to others.</span>")
 					for(var/obj/item/organ/external/E in H.bodyparts)
 						E.mend_fracture()
-						E.internal_bleeding = FALSE
+						E.fix_internal_bleeding()
 					for(var/datum/disease/critical/crit in H.viruses) // cure all crit conditions
 						crit.cure()
 
@@ -461,7 +461,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 
 	if(!is_level_reachable(user.z))
-		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
+		to_chat(user, "<span class='cultitalic'>You are too far away from the station to teleport!</span>")
 		log_game("Teleport rune failed - user in away mission")
 		fail_invoke()
 		return

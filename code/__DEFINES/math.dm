@@ -236,3 +236,6 @@
 		return round(num--)
 	else
 		return num
+
+/// Checks if a number is an integer, or a float
+#define IS_INT(x) (x == round(x))

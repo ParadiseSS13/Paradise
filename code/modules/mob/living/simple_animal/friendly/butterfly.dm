@@ -26,3 +26,6 @@
 /mob/living/simple_animal/butterfly/New()
 	..()
 	color = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
+
+/mob/living/simple_animal/butterfly/npc_safe(mob/user)
+	return TRUE

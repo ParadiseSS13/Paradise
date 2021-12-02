@@ -77,8 +77,7 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 // This is basically a replacement for hook/startup. Please dont shove random bullshit here
 // If it doesnt need to happen IMMEDIATELY on world load, make a subsystem for it
 /world/proc/startup_procs()
-	LoadBans() // Load up who is banned and who isnt. DONT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
-	jobban_loadbanfile() // Load up jobbans. Again, DO NOT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
+	jobban_loadbans() // Load up jobbans. Again, DO NOT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
 	investigate_reset() // This is part of the admin investigate system. PLEASE DONT SS THIS EITHER
 
 /// List of all world topic spam prevention handlers. See code/modules/world_topic/_spam_prevention_handler.dm
@@ -248,6 +247,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.http_log = "[GLOB.log_directory]/http.log"
 	GLOB.sql_log = "[GLOB.log_directory]/sql.log"
 	GLOB.chat_debug_log = "[GLOB.log_directory]/chat_debug.log"
+	GLOB.karma_log = "[GLOB.log_directory]/karma.log"
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
@@ -256,6 +256,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	start_log(GLOB.http_log)
 	start_log(GLOB.sql_log)
 	start_log(GLOB.chat_debug_log)
+	start_log(GLOB.karma_log)
 
 	#ifdef REFERENCE_TRACKING
 	GLOB.gc_log = "[GLOB.log_directory]/gc_debug.log"
