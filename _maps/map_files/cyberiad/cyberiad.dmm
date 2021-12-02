@@ -21,14 +21,12 @@
 /area/toxins/misc_lab)
 "aad" = (
 /obj/structure/closet/emcloset{
-	icon_state = "emergency";
 	opened = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aae" = (
 /obj/structure/closet/crate{
-	icon_state = "crate_open";
 	name = "Gold Crate";
 	opened = 1
 	},
@@ -39,7 +37,6 @@
 /area/maintenance/apmaint)
 "aaf" = (
 /obj/structure/closet/crate{
-	icon_state = "crate_open";
 	name = "Silver Crate";
 	opened = 1
 	},
@@ -27362,9 +27359,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "bjx" = (
-/mob/living/simple_animal/cow{
-	name = "Betsy"
-	},
+/mob/living/simple_animal/cow/betsy,
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "bjy" = (
@@ -78461,9 +78456,7 @@
 /area/hydroponics)
 "dnE" = (
 /obj/machinery/hydroponics/soil,
-/mob/living/simple_animal/chicken{
-	name = "Commander Clucky"
-	},
+/mob/living/simple_animal/chicken/clucky,
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "dnF" = (

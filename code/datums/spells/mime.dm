@@ -90,7 +90,7 @@
 
 /obj/effect/proc_holder/spell/mime/fingergun
 	name = "Finger Gun"
-	desc = "Shoot stunning, invisible bullets out of your fingers! 3 bullets available per cast. Use your fingers to holster them manually."
+	desc = "Shoot lethal, silencing bullets out of your fingers! 3 bullets available per cast. Use your fingers to holster them manually."
 	school = "mime"
 	panel = "Mime"
 	clothes_req = 0
