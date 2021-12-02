@@ -485,7 +485,7 @@
 	add_fingerprint(usr)
 	return
 
-/obj/machinery/sleeper/MouseDrop_T(atom/movable/O as mob|obj, mob/user)
+/obj/machinery/sleeper/MouseDrop_T(atom/movable/O, mob/user)
 	if(!permitted_check(O, user))
 		return
 	var/mob/living/L = O
@@ -509,7 +509,7 @@
 		return
 	return
 
-/obj/machinery/sleeper/proc/permitted_check(atom/movable/O as mob|obj, mob/user)
+/obj/machinery/sleeper/proc/permitted_check(atom/movable/O, mob/user)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
 	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
