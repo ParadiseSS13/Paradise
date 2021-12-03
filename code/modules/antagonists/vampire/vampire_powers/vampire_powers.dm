@@ -434,6 +434,7 @@
 /obj/effect/proc_holder/spell/targeted/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H)
 	if(!istype(H))
 		return FALSE
-	H.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall(user.mind))
+	var/greet_text = "You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command."
+	H.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall(user.mind, greet_text))
 	H.Stun(2)
 	add_attack_logs(user, H, "Vampire-thralled")

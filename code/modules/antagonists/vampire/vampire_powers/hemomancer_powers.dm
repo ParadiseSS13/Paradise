@@ -43,10 +43,8 @@
 	var/blood_absorbed_amount = 5
 
 /obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity)
-	if(!user.mind)
-		return
+	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
 
-	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(!V)
 		return
 

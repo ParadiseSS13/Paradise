@@ -1,6 +1,5 @@
 /datum/antagonist/vampire
 	name = "Vampire"
-	antag_hud_name = "Vampire"
 	antag_hud_type = ANTAG_HUD_VAMPIRE
 	antag_hud_name = "hudvampire"
 	special_role = SPECIAL_ROLE_VAMPIRE
@@ -311,9 +310,9 @@
 
 /datum/antagonist/vampire/apply_innate_effects(mob/living/new_body)
 	. = ..()
-	var/datum/mindslaves/slaved = new()
-	slaved.masters += owner
-	owner.som = slaved //we MIGHT want to mindslave someone
+	if(!owner.som) //thralls and mindslaves
+		owner.som = new()
+		owner.som.masters += owner
 
 	check_vampire_upgrade(FALSE)
 
