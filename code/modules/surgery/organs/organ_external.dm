@@ -94,6 +94,14 @@
 
 	return ..()
 
+/obj/item/organ/external/examine(mob/user)
+	. = ..()
+
+	var/list/embedded_names = list()
+	for(var/obj/item/I in embedded_objects)
+		embedded_names += "[I]"
+	if(length(embedded_names))
+		. += "<span class='warning'>You can see [english_list(embedded_names)] embedded.</span>"
 
 /obj/item/organ/external/update_health()
 	damage = min(max_damage, (brute_dam + burn_dam))
@@ -574,6 +582,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='notice'>You begin to cut open [src]...</span>")
 		if(do_after(user, 54, target = src))
 			drop_organs(user)
+			drop_embedded_objects()
 	else
 		return ..()
 
@@ -719,8 +728,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 		victim.splinted_limbs -= src
 
 	for(var/obj/item/I in embedded_objects)
-		embedded_objects -= I
+		UnregisterSignal(I, COMSIG_MOVABLE_MOVED) // Else it gets removed from the embedded list
 		I.forceMove(src)
+		RegisterSignal(I, COMSIG_MOVABLE_MOVED, .proc/remove_embedded_object)
+
 	if(!owner.has_embedded_objects())
 		owner.clear_alert("embeddedobject")
 
@@ -799,6 +810,21 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(data["dna"])
 		sync_colour_to_dna()
 
+/obj/item/organ/external/proc/remove_embedded_object(obj/item/I)
+	embedded_objects -= I
+	UnregisterSignal(I, COMSIG_MOVABLE_MOVED)
+
+/obj/item/organ/external/proc/drop_embedded_objects()
+	var/turf/T = get_turf(src)
+	for(var/obj/item/I in embedded_objects)
+		remove_embedded_object(I)
+		forceMove(T)
+
+/obj/item/organ/external/proc/add_embedded_object(obj/item/I)
+	embedded_objects += I
+	I.forceMove(owner)
+	RegisterSignal(I, COMSIG_MOVABLE_MOVED, .proc/remove_embedded_object)
+
 //Remove all embedded objects from all limbs on the carbon mob
 /mob/living/carbon/human/proc/remove_all_embedded_objects()
 	var/turf/T = get_turf(src)
@@ -806,7 +832,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	for(var/X in bodyparts)
 		var/obj/item/organ/external/L = X
 		for(var/obj/item/I in L.embedded_objects)
-			L.embedded_objects -= I
+			L.remove_embedded_object(I)
 			I.forceMove(T)
 
 	clear_alert("embeddedobject")
