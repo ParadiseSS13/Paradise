@@ -602,7 +602,9 @@ Returns 1 if the chain up to the area contains the given typepath
 		return TRUE
 	for(var/i in T)
 		var/atom/A = i
-		if(A.density && (!exclude_mobs || !ismob(A) || isAI(A)))
+		if(isAI(A)) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
+			return TRUE
+		if(A.density && (!exclude_mobs || !ismob(A)))
 			return TRUE
 	return FALSE
 
