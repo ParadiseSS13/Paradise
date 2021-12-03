@@ -31601,9 +31601,7 @@
 	},
 /area/turret_protected/ai)
 "bwG" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
+/obj/machinery/porta_turret,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -37761,9 +37759,7 @@
 	},
 /area/turret_protected/ai)
 "bIj" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
+/obj/machinery/porta_turret,
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = 24
@@ -38180,7 +38176,7 @@
 "bJi" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "AI Upload";
-	req_access_txt = "30"
+	req_access_txt = "16"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -39417,8 +39413,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
 	name = "MiniSat External Access";
-	req_access = null;
-	req_access_txt = "75;13"
+	req_access_txt = "75"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -39450,7 +39445,7 @@
 "bLX" = (
 /obj/machinery/door/airlock/hatch{
 	name = "MiniSat Transit Tube";
-	req_one_access_txt = "32;19"
+	req_one_access_txt = "13;10;75"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -40340,7 +40335,7 @@
 	},
 /obj/machinery/door/airlock/hatch{
 	name = "MiniSat Chamber Observation";
-	req_access_txt = "75"
+	req_access_txt = "16"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -41317,9 +41312,7 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat)
 "bPI" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
+/obj/machinery/porta_turret,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -41528,7 +41521,7 @@
 "bQe" = (
 /obj/machinery/door/airlock/hatch{
 	name = "MiniSat Transit Tube";
-	req_one_access_txt = "32;19"
+	req_access_txt = "75"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "transitlock";
@@ -43388,7 +43381,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/hatch{
 	name = "MiniSat Teleporter Room";
-	req_access_txt = "17;75"
+	req_one_access_txt = "17;75"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -45358,9 +45351,7 @@
 	},
 /area/turret_protected/aisat)
 "bXL" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
+/obj/machinery/porta_turret,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 26
@@ -45957,7 +45948,7 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/turret_protected/aisat)
+/area/tcommsat/chamber)
 "bZi" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Court gallery"
@@ -49761,6 +49752,10 @@
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
+	},
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -95763,16 +95758,6 @@
 "lTi" = (
 /turf/simulated/floor/wood,
 /area/maintenance/abandonedbar)
-"lVO" = (
-/obj/machinery/turretid/lethal{
-	control_area = "\improper Telecoms Central Compartment";
-	name = "Telecommunications Turret Control";
-	pixel_y = -22
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/aisat)
 "lVT" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -96801,6 +96786,14 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
+"oMr" = (
+/obj/machinery/turretid/lethal{
+	control_area = "\improper Telecoms Central Compartment";
+	name = "Telecommunications Turret Control";
+	pixel_y = 8
+	},
+/turf/simulated/wall/r_wall,
+/area/tcommsat/chamber)
 "oMO" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -108788,7 +108781,7 @@ bVS
 bTE
 bVS
 bXI
-bNM
+qrT
 ccU
 caW
 ceP
@@ -109301,8 +109294,8 @@ bXI
 bVS
 bTE
 bVS
-lVO
-bNM
+bXI
+oMr
 caY
 ccX
 ceP
