@@ -227,7 +227,7 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	// Make sure we don't shadow outer orbiters
 	var/datum/component/orbiter/atom_orbiters = orbiters
 	if(atom_orbiters && atom_orbiters.orbiter_list)
-		for(var/atom/atom_orbiter as anything in atom_orbiters.orbiter_list)
+		for(var/atom/atom_orbiter in atom_orbiters.orbiter_list)
 			if(isobserver(atom_orbiter))
 				output += atom_orbiter
 			output += atom_orbiter.get_all_orbiters(processed, source = FALSE)
