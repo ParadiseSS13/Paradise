@@ -154,6 +154,9 @@
 //Spooky special loot
 
 //Rod of Asclepius
+#define RIGHT_HAND 0
+#define LEFT_HAND 1
+
 /obj/item/rod_of_asclepius
 	name = "\improper Rod of Asclepius"
 	desc = "A wooden rod about the size of your forearm with a snake carved around it, winding its way up the sides of the rod. Something about it seems to inspire in you the responsibilty and duty to help others."
@@ -161,6 +164,7 @@
 	icon_state = "asclepius_dormant"
 	var/activated = FALSE
 	var/usedHand
+	var/mob/living/carbon/owner
 
 /obj/item/rod_of_asclepius/attack_self(mob/user)
 	if(activated)
@@ -170,9 +174,9 @@
 		return
 	var/mob/living/carbon/itemUser = user
 	if(itemUser.l_hand == src)
-		usedHand = 1
+		usedHand = LEFT_HAND
 	if(itemUser.r_hand == src)
-		usedHand = 0
+		usedHand = RIGHT_HAND
 	if(itemUser.has_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH))
 		to_chat(user, "<span class='warning'>You can't possibly handle the responsibility of more than one rod!</span>")
 		return
@@ -199,12 +203,67 @@
 		to_chat(itemUser, failText)
 		return
 	to_chat(itemUser, "<span class='notice'>The snake, satisfied with your oath, attaches itself and the rod to your forearm with an inseparable grip. Your thoughts seem to only revolve around the core idea of helping others, and harm is nothing more than a distant, wicked memory...</span>")
-	var/datum/status_effect/hippocraticOath/effect = itemUser.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
-	effect.hand = usedHand
-	activated()
 
-/obj/item/rod_of_asclepius/proc/activated()
-	flags =  NODROP | DROPDEL
+	activated(itemUser)
+
+/obj/item/rod_of_asclepius/Destroy()
+	owner = null
+	return ..()
+
+/obj/item/rod_of_asclepius/dropped(mob/user, silent)
+	..()
+	if(!activated)
+		return
+	addtimer(CALLBACK(src, .proc/try_attach_to_owner), 0) // Do this once the drop call stack is done. The holding limb might be getting removed
+
+/obj/item/rod_of_asclepius/proc/try_attach_to_owner()
+	if(ishuman(owner) && !QDELETED(owner))
+		if(ishuman(loc))
+			var/mob/living/carbon/human/thief = loc
+			thief.unEquip(src, TRUE, TRUE) // You're not my owner!
+		if(owner.stat == DEAD)
+			qdel(src) // Oh no! Oh well a new rod will be made from the STATUS_EFFECT_HIPPOCRATIC_OATH
+			return
+		flags |= NODROP // Readd the nodrop
+		var/mob/living/carbon/human/H = owner
+		var/limb_regrown = FALSE
+		if(usedHand == LEFT_HAND)
+			limb_regrown = H.regrow_external_limb_if_missing("l_arm")
+			limb_regrown = H.regrow_external_limb_if_missing("l_hand") || limb_regrown
+			H.drop_l_hand(TRUE)
+			H.put_in_l_hand(src, TRUE)
+		else
+			limb_regrown = H.regrow_external_limb_if_missing("r_arm")
+			limb_regrown = H.regrow_external_limb_if_missing("r_hand") || limb_regrown
+			H.drop_r_hand(TRUE)
+			H.put_in_r_hand(src, TRUE)
+		if(!limb_regrown)
+			to_chat(H, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
+		else
+			H.update_body() // Update the limb sprites
+			to_chat(H, "<span class='notice'>Your arm suddenly grows back with the Rod of Asclepius still attached!</span>")
+	else
+		deactivate()
+
+/obj/item/rod_of_asclepius/proc/activated(mob/living/carbon/new_owner)
+	owner = new_owner
+	flags = NODROP
 	desc = "A short wooden rod with a mystical snake inseparably gripping itself and the rod to your forearm. It flows with a healing energy that disperses amongst yourself and those around you. "
 	icon_state = "asclepius_active"
 	activated = TRUE
+
+	owner.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
+	RegisterSignal(owner, COMSIG_PARENT_QDELETING, .proc/deactivate)
+
+/obj/item/rod_of_asclepius/proc/deactivate()
+	if(owner)
+		UnregisterSignal(owner, COMSIG_PARENT_QDELETING)
+		owner = null
+
+	flags = NONE
+	activated = FALSE
+	desc = initial(desc)
+	icon_state = initial(icon_state)
+
+#undef RIGHT_HAND
+#undef LEFT_HAND
