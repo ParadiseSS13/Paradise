@@ -135,6 +135,11 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/ui_act(action, params)
 	if(..())
 		return
+
+	// Do not let click buttons if you're ghost unless you're an admin.
+	if (isobserver(usr) && !is_admin(usr))
+		return FALSE
+
 	var/is_authenticated = is_authenticated(usr)
 	. = TRUE
 	switch(action)
