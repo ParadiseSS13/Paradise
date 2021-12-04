@@ -123,11 +123,11 @@
 		switch(href_list["hublist"])
 			if("7726")
 				src << browse(null, "window=privacy_consent")
-				src << link("byond://play.ss220.space:7726")
+				src << link("byond://game.ss220.space:7726")
 				return
 			if("7721")
 				src << browse(null, "window=privacy_consent")
-				src << link("byond://play.ss220.space:7721")
+				src << link("byond://game.ss220.space:7721")
 				return
 			if("7723")
 				src << browse(null, "window=privacy_consent")
