@@ -1,6 +1,7 @@
 #define COCOON_WEAVE_DELAY 5 SECONDS
 #define COCOON_EMERGE_DELAY 15 SECONDS
 #define COCOON_HARM_AMOUNT 50
+#define COCOON_NUTRITION_REQUIREMENT 201
 #define COCOON_NUTRITION_AMOUNT -200
 #define FLYSWATTER_DAMAGE_MULTIPLIER 9
 
@@ -179,6 +180,9 @@
 
 /datum/action/innate/cocoon/Activate()
 	var/mob/living/carbon/human/moth/H = owner
+	if(H.nutrition < COCOON_NUTRITION_REQUIREMENT)
+		to_chat(H, "<span class='warning'>You are too hungry to cocoon!</span>")
+		return
 	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on weaving a cocoon...</span>", "<span class='notice'>You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds, and you must hold still.)</span>")
 	if(do_after(H, COCOON_WEAVE_DELAY, FALSE, H))
 		if(H.incapacitated(ignore_lying = TRUE))
@@ -242,4 +246,5 @@
 #undef COCOON_EMERGE_DELAY
 #undef COCOON_HARM_AMOUNT
 #undef COCOON_NUTRITION_AMOUNT
+#undef COCOON_NUTRITION_REQUIREMENT
 #undef FLYSWATTER_DAMAGE_MULTIPLIER
