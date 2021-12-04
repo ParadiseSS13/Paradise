@@ -13,6 +13,10 @@
 	assignedrole = "Translocated Vet"
 	allow_species_pick = TRUE
 
+/obj/effect/mob_spawn/human/doctor/alive/lavaland/equip(mob/living/carbon/human/H)
+	..()
+	H.rename_self(assignedrole)
+
 /obj/effect/mob_spawn/human/doctor/alive/lavaland/Destroy()
 	var/obj/structure/fluff/empty_sleeper/S = new(drop_location())
 	S.setDir(dir)
