@@ -14,7 +14,7 @@ When that's installed, right click in any folder and click on "Git Bash".
 When that opens, type in:
 
 ```sh
-    git clone https://github.com/ParadiseSS13/Paradise.git
+    git clone https://github.com/ParadiseSS13/Paradise.git --depth 1
 ```
 
 (hint: hold down ctrl and press insert to paste into git bash)
@@ -88,7 +88,7 @@ and then copy the `config` and `data` folders over.
 If you used the git method, you simply need to type this in to git bash:
 
 ```sh
-    git pull
+    git pull --depth 1
 ```
 
 When you have done this, you'll need to recompile the code, but then it should work fine and be up to date with the live server.
@@ -98,7 +98,6 @@ When you have done this, you'll need to recompile the code, but then it should w
 The SQL backend is required for storing character saves, preferences, administrative data, and many other things.
 We recommend running a database if your server is going to be used as more than just a local test server.
 Your SQL server details go in the `database_configuration` section of `config.toml`,
-and the SQL schema is in `SQL/paradise_schema.sql` or `SQL/paradise_schema_prefix.sql`,
-depending on if you want table prefixes.
+and the SQL schema can be found in `SQL/paradise_schema.sql`.
 More detailed setup instructions are located on our wiki:
 https://www.paradisestation.org/wiki/index.php/Setting_up_the_Database

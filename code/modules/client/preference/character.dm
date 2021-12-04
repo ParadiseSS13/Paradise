@@ -95,6 +95,13 @@
 	/// Character slot number, used for saves and stuff.
 	var/slot_number = 0
 
+	// Hair gradient
+	var/h_grad_style = "None"
+	var/h_grad_offset_x = 0
+	var/h_grad_offset_y = 0
+	var/h_grad_colour = "#000000"
+	var/h_grad_alpha = 255
+
 // Fuckery to prevent null characters
 /datum/character_save/New()
 	randomise()
@@ -178,7 +185,11 @@
 					socks=:socks,
 					body_accessory=:body_accessory,
 					gear=:gearlist,
-					autohiss=:autohiss_mode
+					autohiss=:autohiss_mode,
+					hair_gradient=:h_grad_style,
+					hair_gradient_offset=:h_grad_offset,
+					hair_gradient_colour=:h_grad_colour,
+					hair_gradient_alpha=:h_grad_alpha
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
@@ -234,6 +245,10 @@
 						"body_accessory" = (body_accessory ? body_accessory : ""),
 						"gearlist" = (gearlist ? gearlist : ""),
 						"autohiss_mode" = autohiss_mode,
+						"h_grad_style" = h_grad_style,
+						"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
+						"h_grad_colour" = h_grad_colour,
+						"h_grad_alpha" = h_grad_alpha,
 						"ckey" = C.ckey,
 						"slot" = slot_number
 					))
@@ -274,7 +289,8 @@
 			gen_record,
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-			socks, body_accessory, gear, autohiss)
+			socks, body_accessory, gear, autohiss,
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -301,7 +317,8 @@
 			:gen_record,
 			:playertitlelist,
 			:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
-			:socks, :body_accessory, :gearlist, :autohiss_mode)
+			:socks, :body_accessory, :gearlist, :autohiss_mode,
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -357,7 +374,11 @@
 		"socks" = socks,
 		"body_accessory" = (body_accessory ? body_accessory : ""),
 		"gearlist" = (gearlist ? gearlist : ""),
-		"autohiss_mode" = autohiss_mode
+		"autohiss_mode" = autohiss_mode,
+		"h_grad_style" = h_grad_style,
+		"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
+		"h_grad_colour" = h_grad_colour,
+		"h_grad_alpha" = h_grad_alpha
 	))
 
 	if(!query.warn_execute())
@@ -441,6 +462,11 @@
 	loadout_gear = query.item[51]
 	autohiss_mode = text2num(query.item[52])
 
+	h_grad_style = query.item[54]
+	h_grad_offset_x = query.item[55] // parsed down below
+	h_grad_colour = query.item[56]
+	h_grad_alpha = query.item[57]
+
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
 	metadata = sanitize_text(metadata, initial(metadata))
@@ -507,6 +533,13 @@
 
 	socks			= sanitize_text(socks, initial(socks))
 	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
+	h_grad_style = sanitize_text(length(h_grad_style) ? h_grad_style : null, "None")
+	var/list/expl = splittext(h_grad_offset_x, ",")
+	if(length(expl) == 2)
+		h_grad_offset_x = text2num(expl[1]) || 0
+		h_grad_offset_y = text2num(expl[2]) || 0
+	h_grad_colour = sanitize_hexcolor(h_grad_colour)
+	h_grad_alpha = sanitize_integer(h_grad_alpha, 0, 255, initial(h_grad_alpha))
 	loadout_gear	= sanitize_json(loadout_gear)
 
 	if(!player_alt_titles)
@@ -883,6 +916,18 @@
 		else if(hair_style.do_colouration)
 			hair_s.Blend(h_colour, ICON_ADD)
 
+		var/datum/sprite_accessory/hair_gradient/gradient = GLOB.hair_gradients_list[h_grad_style]
+		if(gradient)
+			var/icon/grad_s = new/icon("icon" = gradient.icon, "icon_state" = gradient.icon_state)
+			if(h_grad_offset_x)
+				grad_s.Shift(EAST, h_grad_offset_x)
+			if(h_grad_offset_y)
+				grad_s.Shift(NORTH, h_grad_offset_y)
+			grad_s.Blend(hair_s, ICON_ADD)
+			grad_s.MapColors(COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, h_grad_colour)
+			grad_s.ChangeOpacity(h_grad_alpha / 255)
+			hair_s.Blend(grad_s, ICON_OVERLAY)
+
 		if(hair_style.secondary_theme)
 			var/icon/hair_secondary_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_[hair_style.secondary_theme]_s")
 			if(!hair_style.no_sec_colour && hair_style.do_colouration )
@@ -938,7 +983,7 @@
 
 	var/icon/clothes_s = null
 	var/uniform_dmi='icons/mob/clothing/uniform.dmi'
-	if(job_support_low & JOB_CIVILIAN)//This gives the preview icon clothes depending on which job(if any) is set to 'high'
+	if(job_support_low & JOB_ASSISTANT) //This gives the preview icon clothes depending on which job(if any) is set to 'high'
 		clothes_s = new /icon(uniform_dmi, "grey_s")
 		clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if(backbag == 2)
@@ -1625,9 +1670,10 @@
 	popup.open(0)
 
 /datum/character_save/proc/GetPlayerAltTitle(datum/job/job)
-	return player_alt_titles.Find(job.title) > 0 \
-		? player_alt_titles[job.title] \
-		: job.title
+    if(player_alt_titles.Find(job.title) > 0) // Does it exist in the list
+        if(player_alt_titles[job.title] in job.alt_titles) // Is it valid
+            return player_alt_titles[job.title]
+    return job.title // Use default
 
 /datum/character_save/proc/SetPlayerAltTitle(datum/job/job, new_title)
 	// remove existing entry
@@ -1790,6 +1836,12 @@
 	H.f_style = f_style
 
 	H.alt_head = alt_head
+
+	H.h_grad_style = h_grad_style
+	H.h_grad_offset_x = h_grad_offset_x
+	H.h_grad_offset_y = h_grad_offset_y
+	H.h_grad_colour = h_grad_colour
+	H.h_grad_alpha = h_grad_alpha
 	//End of head-specific.
 
 	character.skin_colour = s_colour
@@ -1994,7 +2046,7 @@
 				var/available_in_days = job.available_in_days(user.client)
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[IN [(available_in_days)] DAYS]</b></td></tr>"
 				continue
-			if((job_support_low & JOB_CIVILIAN) && (job.title != "Civilian"))
+			if((job_support_low & JOB_ASSISTANT) && (job.title != "Assistant"))
 				html += "<font color=orange>[rank]</font></td><td></td></tr>"
 				continue
 			if((job.title in GLOB.command_positions) || (job.title == "AI"))//Bold head jobs
@@ -2035,8 +2087,8 @@
 
 	//			HTML += "<a href='?_src_=prefs;preference=job;task=input;text=[rank]'>"
 
-			if(job.title == "Civilian")//Civilian is special
-				if(job_support_low & JOB_CIVILIAN)
+			if(job.title == "Assistant") // Assistant is special
+				if(job_support_low & JOB_ASSISTANT)
 					html += " <font color=green>Yes</font></a>"
 				else
 					html += " <font color=red>No</font></a>"
@@ -2066,7 +2118,7 @@
 			if(GET_RANDOM_JOB)
 				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
 			if(BE_ASSISTANT)
-				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Be a civilian if preferences unavailable</font></a></u></center><br>"
+				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Be an assistant if preferences unavailable</font></a></u></center><br>"
 			if(RETURN_TO_LOBBY)
 				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
 

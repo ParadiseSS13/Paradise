@@ -354,48 +354,53 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		else
 			//warning("Invalid ha_style for [species.name]: [ha_style]")
 
-
-
-//HAIR OVERLAY
+/**
+  * Generates overlays for the hair layer.
+  */
 /mob/living/carbon/human/proc/update_hair()
-	//Reset our hair
 	remove_overlay(HAIR_LAYER)
 
-	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ)
+	var/obj/item/organ/external/head/O = get_organ("head")
+	if(!O)
 		return
 
-	//masks and helmets can obscure our hair, unless we're a synthetic
-	if((head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)))
+	if((head?.flags & BLOCKHAIR) || (wear_mask?.flags & BLOCKHAIR))
 		return
 
-	//base icons
-	var/icon/hair_standing	= new /icon('icons/mob/human_face.dmi',"bald_s")
-	if(head_organ.h_style && !(head && (head.flags & BLOCKHEADHAIR) && !(ismachineperson(src))))
-		var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
-		if(hair_style && hair_style.species_allowed)
-			if((head_organ.dna.species.name in hair_style.species_allowed) || (head_organ.dna.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
-				var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-				if(istype(head_organ.dna.species, /datum/species/slime)) // I am el worstos
-					hair_s.Blend("[skin_colour]A0", ICON_AND)
-				else if(hair_style.do_colouration)
-					hair_s.Blend(head_organ.hair_colour, ICON_ADD)
+	var/mutable_appearance/MA = new()
+	MA.appearance_flags = KEEP_TOGETHER
+	MA.layer = -HAIR_LAYER
+	if(O.h_style && !(head?.flags & BLOCKHEADHAIR && !ismachineperson(src)))
+		var/datum/sprite_accessory/hair/hair = GLOB.hair_styles_full_list[O.h_style]
+		if(hair?.species_allowed && ((O.dna.species.name in hair.species_allowed) || (O.dna.species.bodyflags & ALL_RPARTS)))
+			// Base hair
+			var/mutable_appearance/img_hair = mutable_appearance(hair.icon, "[hair.icon_state]_s")
+			if(istype(O.dna.species, /datum/species/slime))
+				img_hair.color = COLOR_MATRIX_OVERLAY("[skin_colour]A0")
+			else if(hair.do_colouration)
+				img_hair.color = COLOR_MATRIX_ADD(O.hair_colour)
+			MA.overlays += img_hair
 
-				if(hair_style.secondary_theme)
-					var/icon/hair_secondary_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_[hair_style.secondary_theme]_s")
-					if(!hair_style.no_sec_colour)
-						hair_secondary_s.Blend(head_organ.sec_hair_colour, ICON_ADD)
-					hair_s.Blend(hair_secondary_s, ICON_OVERLAY)
+			// Gradient
+			var/datum/sprite_accessory/hair_gradient/gradient = GLOB.hair_gradients_list[O.h_grad_style]
+			if(gradient)
+				var/mutable_appearance/img_gradient = mutable_appearance(gradient.icon, gradient.icon_state)
+				img_gradient.alpha = O.h_grad_alpha
+				img_gradient.color = COLOR_MATRIX_OVERLAY(O.h_grad_colour)
+				img_gradient.pixel_x = O.h_grad_offset_x
+				img_gradient.pixel_y = O.h_grad_offset_y
+				img_gradient.blend_mode = BLEND_INSET_OVERLAY
+				MA.overlays += img_gradient
 
-				hair_standing = hair_s //hair_standing.Blend(hair_s, ICON_OVERLAY)
-									   //Having it this way preserves animations. Useful for IPC screens.
-		else
-			//warning("Invalid h_style for [species.name]: [h_style]")
-		//hair_standing.Blend(debrained_s, ICON_OVERLAY)//how does i overlay for fish?
+			// Secondary style
+			if(hair.secondary_theme)
+				var/mutable_appearance/img_secondary = mutable_appearance(hair.icon, "[hair.icon_state]_[hair.secondary_theme]_s")
+				if(!hair.no_sec_colour)
+					img_secondary.color = COLOR_MATRIX_ADD(O.sec_hair_colour)
+				MA.overlays += img_secondary
 
-	overlays_standing[HAIR_LAYER] = mutable_appearance(hair_standing, layer = -HAIR_LAYER)
+	overlays_standing[HAIR_LAYER] = MA
 	apply_overlay(HAIR_LAYER)
-
 
 //FACIAL HAIR OVERLAY
 /mob/living/carbon/human/proc/update_fhair()

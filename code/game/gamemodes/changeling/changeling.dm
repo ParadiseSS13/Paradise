@@ -201,9 +201,11 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			text += "<br><b>Changeling ID:</b> [changeling.changeling.changelingID]."
 			text += "<br><b>Genomes Extracted:</b> [changeling.changeling.absorbedcount]"
 
-			if(changeling.objectives.len)
+			var/list/all_objectives = changeling.get_all_objectives()
+
+			if(length(all_objectives))
 				var/count = 1
-				for(var/datum/objective/objective in changeling.objectives)
+				for(var/datum/objective/objective in all_objectives)
 					if(objective.check_completion())
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 						SSblackbox.record_feedback("nested tally", "changeling_objective", 1, list("[objective.type]", "SUCCESS"))

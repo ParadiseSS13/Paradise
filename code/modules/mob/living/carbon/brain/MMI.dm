@@ -287,5 +287,16 @@
 	return user.shared_living_ui_distance()
 
 /obj/item/mmi/forceMove(atom/destination)
+	if(!brainmob)
+		return ..()
+
+	var/atom/old_loc = loc
+	if(issilicon(old_loc) && !issilicon(destination))
+		var/mob/living/silicon/S = old_loc
+		brainmob.weather_immunities -= S.weather_immunities
+	else if(issilicon(destination))
+		var/mob/living/silicon/S = destination
+		brainmob.weather_immunities |= S.weather_immunities
+
 	. = ..()
-	brainmob?.update_runechat_msg_location()
+	brainmob.update_runechat_msg_location()

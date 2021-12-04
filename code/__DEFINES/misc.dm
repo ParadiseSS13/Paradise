@@ -366,7 +366,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 27
+#define SQL_VERSION 28
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -497,3 +497,6 @@
 
 // Runechat symbol types
 #define RUNECHAT_SYMBOL_EMOTE 1
+
+/// Waits at a line of code until X is true
+#define UNTIL(X) while(!(X)) sleep(world.tick_lag)

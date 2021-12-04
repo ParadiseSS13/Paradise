@@ -409,10 +409,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_BAN))
 		return
 
-	if(!GLOB.configuration.general.use_database_bans)
-		holder.unbanpanel()
-	else
-		holder.DB_ban_panel()
+	holder.DB_ban_panel()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Ban Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 

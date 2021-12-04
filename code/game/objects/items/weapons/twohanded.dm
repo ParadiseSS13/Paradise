@@ -46,10 +46,11 @@
 	if(user)
 		user.update_inv_r_hand()
 		user.update_inv_l_hand()
-	if(isrobot(user))
-		to_chat(user, "<span class='notice'>You free up your module.</span>")
-	else
-		to_chat(user, "<span class='notice'>You are now carrying [name] with one hand.</span>")
+	if(!(flags & ABSTRACT))
+		if(isrobot(user))
+			to_chat(user, "<span class='notice'>You free up your module.</span>")
+		else
+			to_chat(user, "<span class='notice'>You are now carrying [name] with one hand.</span>")
 	if(unwieldsound)
 		playsound(loc, unwieldsound, 50, 1)
 	var/obj/item/twohanded/offhand/O = user.get_inactive_hand()
@@ -80,10 +81,11 @@
 	if(user)
 		user.update_inv_r_hand()
 		user.update_inv_l_hand()
-	if(isrobot(user))
-		to_chat(user, "<span class='notice'>You dedicate your module to [src].</span>")
-	else
-		to_chat(user, "<span class='notice'>You grab [src] with both hands.</span>")
+	if(!(flags & ABSTRACT))
+		if(isrobot(user))
+			to_chat(user, "<span class='notice'>You dedicate your module to [src].</span>")
+		else
+			to_chat(user, "<span class='notice'>You grab [src] with both hands.</span>")
 	if(wieldsound)
 		playsound(loc, wieldsound, 50, 1)
 	var/obj/item/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
@@ -518,7 +520,7 @@
 
 /obj/item/twohanded/spear/kidan
 	icon_state = "kidanspear0"
-	name = "Kidan spear"
+	name = "\improper Kidan spear"
 	desc = "A spear brought over from the Kidan homeworld."
 
 // DIY CHAINSAW
@@ -589,7 +591,7 @@
 ///CHAINSAW///
 /obj/item/twohanded/chainsaw
 	icon_state = "chainsaw0"
-	name = "Chainsaw"
+	name = "chainsaw"
 	desc = "Perfect for felling trees or fellow spacemen."
 	force = 15
 	throwforce = 15
@@ -638,6 +640,10 @@
 	. = ..()
 	if(.)
 		flags &= ~NODROP
+
+/obj/item/twohanded/chainsaw/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_BUTCHERS_HUMANS, ROUNDSTART_TRAIT)
 
 // SINGULOHAMMER
 /obj/item/twohanded/singularityhammer

@@ -3487,7 +3487,6 @@
 "jx" = (
 /obj/structure/table,
 /obj/structure/window/reinforced,
-/obj/item/batterer,
 /turf/simulated/floor/plasteel/airless{
 	dir = 4;
 	icon_state = "whitered"

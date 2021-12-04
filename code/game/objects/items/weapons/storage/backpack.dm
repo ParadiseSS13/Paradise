@@ -433,7 +433,7 @@
 
 /obj/item/storage/backpack/duffel/syndie/x4/populate_contents()
 	for(var/i in 1 to 3)
-		new /obj/item/grenade/plastic/x4(src)
+		new /obj/item/grenade/plastic/c4/x4(src)
 
 /obj/item/storage/backpack/duffel/syndie/surgery
 	name = "surgery duffelbag"

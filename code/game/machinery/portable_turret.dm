@@ -720,7 +720,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	return A
 
 /obj/machinery/porta_turret/centcom
-	name = "Centcom Turret"
+	name = "\improper Centcomm turret"
 	enabled = FALSE
 	ailock = TRUE
 	check_synth	 = FALSE
@@ -732,7 +732,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	region_max = REGION_CENTCOMM // Non-turretcontrolled turrets at CC can have their access customized to check for CC accesses.
 
 /obj/machinery/porta_turret/centcom/pulse
-	name = "Pulse Turret"
+	name = "pulse turret"
 	health = 200
 	enabled = TRUE
 	lethal = TRUE
