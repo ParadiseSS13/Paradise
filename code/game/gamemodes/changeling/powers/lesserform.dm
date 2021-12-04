@@ -8,29 +8,40 @@
 	genetic_damage = 3
 	req_human = 1
 
-//Transform into a monkey.
+// Transform into a monkey.
 /datum/action/changeling/lesserform/sting_action(var/mob/living/carbon/human/user)
-	var/datum/changeling/changeling = user.mind.changeling
 	if(!user)
 		return 0
+
+	var/datum/changeling/changeling = user.mind.changeling
+
 	if(user.has_brain_worms())
 		to_chat(user, "<span class='warning'>We cannot perform this ability at the present time!</span>")
 		return
 
-	var/mob/living/carbon/human/H = user
-
-	if(!istype(H) || !H.dna.species.primitive_form)
-		to_chat(H, "<span class='warning'>We cannot perform this ability in this form!</span>")
+	if(!istype(user) || !user.dna.species.primitive_form)
+		to_chat(user, "<span class='warning'>We cannot perform this ability in this form!</span>")
 		return
 
-	H.visible_message("<span class='warning'>[H] transforms!</span>")
+	user.visible_message("<span class='warning'>[user] transforms!</span>")
+
+	// Add genetic damage to add cooldown.
 	changeling.geneticdamage = 30
-	to_chat(H, "<span class='warning'>Our genes cry out!</span>")
-	H.monkeyize()
+
+	to_chat(user, "<span class='warning'>Our genes cry out!</span>")
+	user.monkeyize()
+
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
+	return 1
+
+
+// Grant human form on purchase. Required to humanize if monkeyized using DNA-Injector.
+/datum/action/changeling/lesserform/on_purchase(var/mob/user)
+	..()
+	var/datum/changeling/changeling = user.mind.changeling
 
 	var/datum/action/changeling/humanform/HF = new
 	changeling.purchasedpowers += HF
 	HF.Grant(user)
 
-	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
-	return 1
+	return

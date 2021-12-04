@@ -10,7 +10,13 @@
 
 //Change our DNA to that of somebody we've absorbed.
 /datum/action/changeling/transform/sting_action(var/mob/living/carbon/human/user)
+	if(!user)
+		return 0
+
 	var/datum/changeling/changeling = user.mind.changeling
+
+	// DNA Selector.
+	// DNA is referenced directly here (careful). Changing DNA stats here will change stored DNA as well.
 	var/datum/dna/chosen_dna = changeling.select_dna("Select the target DNA: ", "Target DNA")
 
 	if(!chosen_dna)
@@ -28,8 +34,9 @@
 	for(var/datum/dna/DNA in (absorbed_dna+protected_dna))
 		names += "[DNA.real_name]"
 
-	var/chosen_name = input(prompt, title, null) as null|anything in names
+	var/chosen_name = input(prompt, title, null) as null|anything in sortList(names)
 	if(!chosen_name)
 		return
+
 	var/datum/dna/chosen_dna = GetDNA(chosen_name)
 	return chosen_dna
