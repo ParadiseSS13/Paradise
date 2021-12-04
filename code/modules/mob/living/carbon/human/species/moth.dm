@@ -1,7 +1,7 @@
 #define COCOON_WEAVE_DELAY 5 SECONDS
-#define COCOON_EMERGE_DELAY 25 SECONDS
-#define COCOON_HEAL_AMOUNT 50
-#define COCOON_HARM_AMOUNT 75
+#define COCOON_EMERGE_DELAY 15 SECONDS
+#define COCOON_HARM_AMOUNT 50
+#define COCOON_NUTRITION_AMOUNT -200
 #define FLYSWATTER_DAMAGE_MULTIPLIER 9
 
 /datum/species/moth
@@ -38,7 +38,7 @@
 		"eyes" =     /obj/item/organ/internal/eyes/moth
 		)
 	var/datum/action/innate/cocoon/cocoon
-	/// Is the moth in a cocoon? When TRUE processes additional reagents on handle_reagents()
+	/// Is the moth in a cocoon? When TRUE moths cannot wake up
 	var/cocooned
 	/// Are the wings burnt off? Used to negate some buffs if TRUE
 	var/burnt_wings
@@ -82,10 +82,6 @@
 
 /datum/species/moth/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	..()
-	if(cocooned)
-		if(!R.harmless && R.id != "pestkiller")
-			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM * 2)
-			return
 	if(R.id == "pestkiller")
 		H.adjustToxLoss(3)
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
@@ -206,7 +202,6 @@
 	for(var/mob/living/carbon/human/H in C.contents)
 		var/datum/species/moth/M = H.dna.species
 		M.cocooned = FALSE
-		H.heal_overall_damage(COCOON_HEAL_AMOUNT, COCOON_HEAL_AMOUNT)
 		if(M.burnt_wings)
 			M.restorewings(H)
 	C.preparing_to_emerge = FALSE
@@ -237,6 +232,7 @@
 	for(var/mob/living/carbon/human/H in contents)
 		var/datum/species/moth/M = H.dna.species
 		M.cocooned = FALSE
+		H.adjust_nutrition(COCOON_NUTRITION_AMOUNT)
 		H.WakeUp()
 		H.forceMove(loc)
 	return ..()
@@ -245,5 +241,5 @@
 #undef COCOON_WEAVE_DELAY
 #undef COCOON_EMERGE_DELAY
 #undef COCOON_HARM_AMOUNT
-#undef COCOON_HEAL_AMOUNT
+#undef COCOON_NUTRITION_AMOUNT
 #undef FLYSWATTER_DAMAGE_MULTIPLIER
