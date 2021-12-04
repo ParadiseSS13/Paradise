@@ -1013,6 +1013,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
 			stat("CPU:", "[Master.formatcpu()]")
+			stat("Map CPU:", "[Master.format_mapcpu()]")
 			stat("Instances:", "[num2text(world.contents.len, 10)]")
 			GLOB.stat_entry()
 			stat("Server Time:", time_stamp())

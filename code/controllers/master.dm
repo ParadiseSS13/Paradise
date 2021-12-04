@@ -628,3 +628,15 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			. = "<font color='#eb4034'>[world.cpu]</font>"
 		if(100 to INFINITY) // >100 = bold red
 			. = "<font color='#eb4034'><b>[world.cpu]</b></font>"
+
+/datum/controller/master/proc/format_mapcpu()
+	var/current_map_cpu = MAPTICK_LAST_INTERNAL_TICK_USAGE
+	switch(current_map_cpu)
+		if(0 to 30) // 0-30 = green
+			. = "<font color='#32a852'>[current_map_cpu]</font>"
+		if(30 to 60) // 30-60 = orange
+			. = "<font color='#fcba03'>[current_map_cpu]</font>"
+		if(60 to 80) // 60-80 = red
+			. = "<font color='#eb4034'>[current_map_cpu]</font>"
+		if(80 to INFINITY) // >100 = bold red
+			. = "<font color='#eb4034'><b>[current_map_cpu]</b></font>"
