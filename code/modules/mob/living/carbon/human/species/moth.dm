@@ -56,6 +56,7 @@
 	..()
 	cocoon = new()
 	cocoon.Grant(H)
+	addtimer(CALLBACK(src, .proc/backupwings, H), 5 SECONDS)
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
@@ -127,11 +128,13 @@
  * Copies wing and antennae names to species datum vars
  */
 /datum/species/moth/backupwings(mob/living/carbon/human/H)
-	var/obj/item/organ/external/head/A = H.get_organ("head")
-	if(A.ha_style)
-		backed_up_antennae = A.ha_style
 	if(H.body_accessory)
 		backed_up_wings = H.body_accessory.name
+	var/obj/item/organ/external/head/A = H.get_organ("head")
+	if(!A)
+		return
+	if(A.ha_style)
+		backed_up_antennae = A.ha_style
 
 /**
  * Sets wings and antennae to burnt variants, removing some species buffs
