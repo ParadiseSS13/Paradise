@@ -244,11 +244,28 @@
 	desc = "Beer is liquid bread, it's good for you..."
 	icon_state = "beer"
 	reagent_id = "beer"
+	var/has_lid = TRUE
 
 /obj/structure/reagent_dispensers/beerkeg/blob_act(obj/structure/blob/B)
 	explosion(loc, 0, 3, 5, 7, 10)
 	if(!QDELETED(src))
 		qdel(src)
+
+/obj/structure/reagent_dispensers/beerkeg/proc/add_lid()
+		container_type = DRAINABLE | AMOUNT_VISIBLE
+		has_lid = TRUE
+
+/obj/structure/reagent_dispensers/beerkeg/proc/remove_lid()
+		container_type = REFILLABLE | AMOUNT_VISIBLE
+		has_lid = FALSE
+
+/obj/structure/reagent_dispensers/beerkeg/attack_hand(mob/user)
+	if(has_lid)
+		to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
+		remove_lid()
+	else
+		to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
+		add_lid()
 
 /obj/structure/reagent_dispensers/beerkeg/nuke
 	name = "Nanotrasen-brand nuclear fission explosive"
