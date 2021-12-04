@@ -165,7 +165,7 @@
 
 /obj/effect/spawner/lootdrop/maintenance/two
 	name = "maintenance loot spawner (2 items)"
-	icon_state = "moreloot"
+	icon_state = "doubleloot"
 	lootcount = 2
 
 /obj/effect/spawner/lootdrop/maintenance/three
