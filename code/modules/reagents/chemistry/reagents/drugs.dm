@@ -89,8 +89,8 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 35
-	addiction_chance = 15
-	addiction_threshold = 10
+	addiction_chance = 3
+	addiction_threshold = 80
 	minor_addiction = TRUE
 	heart_rate_increase = 1
 	taste_description = "calm"
