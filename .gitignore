@@ -37,3 +37,6 @@ stddef.dm
 /tools/midi2piano/midi2piano/obj/*
 
 */node_modules/*
+
+# Ignore compiled linux libs in the root folder, e.g. librust_g.so
+/*.so
