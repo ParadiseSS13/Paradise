@@ -58,7 +58,7 @@
 /turf/simulated/floor/plating/lava/proc/burn_stuff(AM)
 	. = 0
 
-	if(is_safe())
+	if(find_safeties())
 		return FALSE
 
 	var/thing_to_check = src
