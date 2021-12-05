@@ -172,7 +172,12 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/toggle_medal_disable,
 	/client/proc/uid_log,
 	/client/proc/visualise_active_turfs,
-	/client/proc/reestablish_db_connection
+	/client/proc/reestablish_db_connection,
+	/client/proc/dmjit_debug_toggle_call_counts,
+	/client/proc/dmjit_debug_dump_call_count,
+	/client/proc/dmjit_debug_dump_opcode_count,
+	/client/proc/dmjit_debug_toggle_hooks,
+	/client/proc/dmjit_debug_dump_deopts
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,

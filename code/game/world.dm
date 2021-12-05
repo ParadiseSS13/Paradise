@@ -4,6 +4,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	CRASH("auxtools not loaded")
 
 /world/New()
+	dmjit_hook_main_init()
 	// IMPORTANT
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
 	// This is BAD.

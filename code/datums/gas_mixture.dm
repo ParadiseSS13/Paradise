@@ -30,14 +30,14 @@ What are the archived variables for?
 
 	var/last_share
 
-	var/tmp/oxygen_archived
-	var/tmp/carbon_dioxide_archived
-	var/tmp/nitrogen_archived
-	var/tmp/toxins_archived
-	var/tmp/sleeping_agent_archived
-	var/tmp/agent_b_archived
+	var/tmp/oxygen_archived = 0
+	var/tmp/carbon_dioxide_archived = 0
+	var/tmp/nitrogen_archived = 0
+	var/tmp/toxins_archived = 0
+	var/tmp/sleeping_agent_archived = 0
+	var/tmp/agent_b_archived = 0
 
-	var/tmp/temperature_archived
+	var/tmp/temperature_archived = 0
 
 	var/tmp/fuel_burnt = 0
 
