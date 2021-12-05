@@ -1141,14 +1141,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 //Update the screentip to reflect what we're hovering over
 /atom/MouseEntered(location, control, params)
-	// Statusbar
-	status_bar_set_text(usr, name)
-	// Screentips
-	if(flags & NO_SCREENTIPS || usr?.client?.prefs.toggles2 & PREFTOGGLE_2_NO_ONSCREEN_TIPS)
-		usr.hud_used.screentip_text.maptext = ""
-		return
-	usr.hud_used.screentip_text.maptext = MAPTEXT("<span style='text-align: center; font-size: 32px; color: [usr.client.prefs.screentip_color]'>[name]</span>")
-
+	var/datum/hud/active_hud = usr.hud_used
+	if(active_hud)
+		if(usr?.client?.prefs.toggles2 & PREFTOGGLE_2_NO_ONSCREEN_TIPS || (flags & NO_SCREENTIPS))
+			active_hud.screentip_text.maptext = ""
+		else
+			//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
+			active_hud.screentip_text.maptext = "<span class='maptext' style='text-align: center; font-size: 32px; color: [usr.client.prefs.screentip_color]'>[name]</span>"
 /*
 	Setter for the `density` variable.
 	Arguments:

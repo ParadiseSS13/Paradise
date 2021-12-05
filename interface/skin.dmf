@@ -2,16 +2,16 @@ macro "default"
 
 
 menu "menu"
-	elem 
+	elem
 		name = "&File"
 		command = ""
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Quick screenshot\tF2"
 		command = ".screenshot auto"
 		category = "&File"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Save screenshot as...\tShift+F2"
 		command = ".screenshot"
 		category = "&File"
@@ -21,21 +21,21 @@ menu "menu"
 		command = ".reconnect"
 		category = "&File"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = ""
 		command = ""
 		category = "&File"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Quit"
 		command = ".quit"
 		category = "&File"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Icons"
 		command = ""
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Size"
 		command = ""
 		category = "&Icons"
@@ -83,7 +83,7 @@ menu "menu"
 		can-check = true
 		group = "size"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Scaling"
 		command = ""
 		category = "&Icons"
@@ -115,25 +115,25 @@ menu "menu"
 		category = "&Icons"
 		can-check = true
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Volume"
 		command = ""
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Open Volume Mixer"
 		command = "Open-Volume-Mixer"
 		category = "&Volume"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Help"
 		command = ""
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Admin help\tF1"
 		command = "adminhelp"
 		category = "&Help"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Hotkeys"
 		command = "Hotkey-Help"
 		category = "&Help"
@@ -192,6 +192,7 @@ window "mapwindow"
 		saved-params = "pos;size;is-minimized;is-maximized"
 		title = "Map window"
 		is-pane = true
+		on-status = ".winset \"status_bar.text=[[*]]\" "
 	elem "map"
 		type = MAP
 		pos = 0,0
@@ -212,7 +213,7 @@ window "mapwindow"
 		anchor2 = -1,-1
 		text-color = #ffffff
 		background-color = #222222
-		is-visible = false
+		is-visible = true
 		border = line
 		saved-params = ""
 		text = ""
