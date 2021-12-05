@@ -57,11 +57,10 @@
 #define PREFTOGGLE_2_FORCE_WHITE_RUNECHAT	1024
 #define PREFTOGGLE_2_SIMPLE_STAT_PANEL	2048
 #define PREFTOGGLE_2_SEE_ITEM_OUTLINES 	4096
-#define PREFTOGGLE_2_NO_ONSCREEN_TIPS 8192
 
-#define TOGGLES_2_TOTAL 			16383 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_2_TOTAL 			8191 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
-#define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_EMOTE_BUBBLE|PREFTOGGLE_2_SEE_ITEM_OUTLINES|PREFTOGGLE_2_NO_ONSCREEN_TIPS)
+#define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_EMOTE_BUBBLE|PREFTOGGLE_2_SEE_ITEM_OUTLINES)
 
 // Sanity checks
 #if TOGGLES_TOTAL > 16777215
@@ -107,6 +106,12 @@
 #define PARALLAX_MED			4
 #define PARALLAX_HIGH			8
 #define PARALLAX_INSANE			16
+
+// Defines for screentip size
+#define SCREENTIP_OFF		1
+#define SCREENTIP_SMALL		2
+#define SCREENTIP_MEDIUM	4
+#define SCREENTIP_LARGE		8
 
 // 2FA Defines. These are the same as the schema DB enums //
 

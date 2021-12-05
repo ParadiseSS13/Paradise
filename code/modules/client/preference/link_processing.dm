@@ -372,7 +372,7 @@
 					var/new_h_style = input(user, "Choose your character's hair style:", "Character Preference") as null|anything in valid_hairstyles
 					if(new_h_style)
 						active_character.h_style = new_h_style
-		
+
 				if("h_grad_style")
 					var/result = input(user, "Choose your character's hair gradient style:", "Character Preference") as null|anything in GLOB.hair_gradients_list
 					if(result)
@@ -1046,6 +1046,21 @@
 					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
+
+				if("screentip_mode")
+					var/screentip_modes = list(
+						"Off" = SCREENTIP_OFF,
+						"Small" = SCREENTIP_SMALL,
+						"Medium" = SCREENTIP_MEDIUM,
+						"Large" = SCREENTIP_LARGE
+					)
+					screentip_mode = screentip_modes[input(user, "Pick a screentip size", "Screentip Size") as null|anything in screentip_modes]
+
+				if("screentip_color")
+					var/screentip_color_new = input(user, "Choose your screentip color", screentip_color) as color|null
+					if(!screentip_color_new)
+						return
+					screentip_color = screentip_color_new
 
 				if("edit_2fa")
 					// Do this async so we arent holding up a topic() call

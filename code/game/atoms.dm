@@ -1141,13 +1141,26 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 //Update the screentip to reflect what we're hovering over
 /atom/MouseEntered(location, control, params)
+	if(!usr || !usr.client)
+		return
 	var/datum/hud/active_hud = usr.hud_used
-	if(active_hud)
-		if(usr?.client?.prefs.toggles2 & PREFTOGGLE_2_NO_ONSCREEN_TIPS || (flags & NO_SCREENTIPS))
-			active_hud.screentip_text.maptext = ""
-		else
-			//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
-			active_hud.screentip_text.maptext = "<span class='maptext' style='text-align: center; font-size: 32px; color: [usr.client.prefs.screentip_color]'>[name]</span>"
+	if(!active_hud)
+		return
+	var/screentip_mode = usr.client.prefs.screentip_mode
+	if(screentip_mode == SCREENTIP_OFF || (flags & NO_SCREENTIPS))
+		active_hud.screentip_text.maptext = ""
+		return
+	var/font_size
+	switch(screentip_mode)
+		if(SCREENTIP_SMALL)
+			font_size = "8px"
+		if(SCREENTIP_MEDIUM)
+			font_size = "11px"
+		if(SCREENTIP_LARGE)
+			font_size = "15px"
+	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
+	var/screentip_color = usr.client.prefs.screentip_color
+	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [font_size]; color: [screentip_color]'>[name]</span>"
 /*
 	Setter for the `density` variable.
 	Arguments:
