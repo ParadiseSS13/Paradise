@@ -599,12 +599,14 @@ Returns 1 if the chain up to the area contains the given typepath
 
 /proc/is_blocked_turf(turf/T, exclude_mobs)
 	if(T.density)
-		return 1
+		return TRUE
 	for(var/i in T)
 		var/atom/A = i
+		if(isAI(A)) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
+			return TRUE
 		if(A.density && (!exclude_mobs || !ismob(A)))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /proc/get_step_towards2(atom/ref , atom/trg)
 	var/base_dir = get_dir(ref, get_step_towards(ref,trg))

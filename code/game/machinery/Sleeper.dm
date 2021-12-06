@@ -485,7 +485,31 @@
 	add_fingerprint(usr)
 	return
 
-/obj/machinery/sleeper/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
+/obj/machinery/sleeper/MouseDrop_T(atom/movable/O, mob/user)
+	if(!permitted_check(O, user))
+		return
+	var/mob/living/L = O
+	if(L == user)
+		visible_message("[user] starts climbing into the sleeper.")
+	else
+		visible_message("[user] starts putting [L.name] into the sleeper.")
+	if(do_after(user, 20, target = L))
+		if(!permitted_check(O, user))
+			return
+		if(!L)
+			return
+		L.forceMove(src)
+		occupant = L
+		icon_state = "[base_icon]"
+		to_chat(L, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
+		add_fingerprint(user)
+		if(user.pulling == L)
+			user.stop_pulling()
+		SStgui.update_uis(src)
+		return
+	return
+
+/obj/machinery/sleeper/proc/permitted_check(atom/movable/O, mob/user)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
 	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
@@ -498,7 +522,7 @@
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
 		return
-	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
+	if(!user.loc) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
@@ -517,26 +541,7 @@
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
 		return
-	if(L == user)
-		visible_message("[user] starts climbing into the sleeper.")
-	else
-		visible_message("[user] starts putting [L.name] into the sleeper.")
-
-	if(do_after(user, 20, target = L))
-		if(occupant)
-			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-			return
-		if(!L) return
-		L.forceMove(src)
-		occupant = L
-		icon_state = "[base_icon]"
-		to_chat(L, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
-		add_fingerprint(user)
-		if(user.pulling == L)
-			user.stop_pulling()
-		SStgui.update_uis(src)
-		return
-	return
+	return TRUE
 
 /obj/machinery/sleeper/AllowDrop()
 	return FALSE

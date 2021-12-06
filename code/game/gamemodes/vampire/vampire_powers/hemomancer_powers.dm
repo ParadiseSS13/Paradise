@@ -114,7 +114,7 @@
 	addtimer(CALLBACK(src, .proc/apply_slowdown, T, area_of_affect, 3, user), 0.5 SECONDS)
 
 /obj/effect/proc_holder/spell/targeted/click/blood_tendrils/proc/apply_slowdown(turf/T, distance, slowed_amount, mob/user)
-	for(var/mob/living/L in view(distance, T))
+	for(var/mob/living/L in range(distance, T))
 		if(L.affects_vampire(user))
 			L.AdjustSlowed(slowed_amount)
 			L.visible_message("<span class='warning'>[L] gets ensared in blood tendrils, restricting [L.p_their()] movement!</span>")

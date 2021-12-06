@@ -128,10 +128,6 @@
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
 
-/obj/item/radio/headset/headset_sec/alt/brig_phys
-	name = "brig physician bowman headset"
-	ks1type = /obj/item/encryptionkey/headset_med
-
 /obj/item/radio/headset/headset_iaa
 	name = "internal affairs radio headset"
 	desc = "This is used by your elite legal team."

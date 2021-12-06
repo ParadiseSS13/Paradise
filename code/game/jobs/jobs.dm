@@ -73,7 +73,6 @@ GLOBAL_LIST_INIT(security_positions, list(
 	"Warden",
 	"Detective",
 	"Security Officer",
-	"Brig Physician",
 	"Magistrate"
 ))
 
@@ -93,7 +92,6 @@ GLOBAL_LIST_INIT(whitelisted_positions, list(
 	"Blueshield",
 	"Nanotrasen Representative",
 	"Barber",
-	"Brig Physician"
 ))
 
 

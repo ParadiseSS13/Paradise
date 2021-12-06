@@ -35,9 +35,8 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			if(SEC_LEVEL_GREEN)
 				GLOB.security_announcement_down.Announce("All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.","Attention! Security level lowered to green.", 'sound/AI/green.ogg')
 				GLOB.security_level = SEC_LEVEL_GREEN
-
+				unset_stationwide_emergency_lighting()
 				post_status("alert", "outline")
-
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
@@ -51,7 +50,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				GLOB.security_level = SEC_LEVEL_BLUE
 
 				post_status("alert", "outline")
-
+				unset_stationwide_emergency_lighting()
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
@@ -62,6 +61,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					GLOB.security_announcement_up.Announce("There is an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!", 'sound/AI/red.ogg')
 				else
 					GLOB.security_announcement_down.Announce("The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!", 'sound/AI/red.ogg')
+					unset_stationwide_emergency_lighting()
 				GLOB.security_level = SEC_LEVEL_RED
 
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in GLOB.airlocks
@@ -70,7 +70,6 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					R.update_icon()
 
 				post_status("alert", "redalert")
-
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
@@ -95,15 +94,15 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 						FA.update_icon()
 
 			if(SEC_LEVEL_EPSILON)
-				GLOB.security_announcement_up.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.","Attention! Epsilon security level activated!", 'sound/effects/purge_siren.ogg', new_sound2 = 'sound/AI/epsilon.ogg')
-				GLOB.security_level = SEC_LEVEL_EPSILON
-
-				post_status("alert", "epsilonalert")
-
-				for(var/obj/machinery/firealarm/FA in GLOB.machines)
-					if(is_station_contact(FA.z))
-						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
+				for(var/mob/M in GLOB.player_list)
+					var/turf/T = get_turf(M)
+					if(!M.client || !is_station_level(T.z))
+						continue
+					SEND_SOUND(M, sound('sound/effects/powerloss.ogg'))
+				set_stationwide_emergency_lighting()
+				addtimer(CALLBACK(GLOBAL_PROC, .proc/epsilon_process), 15 SECONDS)
+				SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
+				return
 
 			if(SEC_LEVEL_DELTA)
 				GLOB.security_announcement_up.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!", 'sound/effects/deltaalarm.ogg', new_sound2 = 'sound/AI/delta.ogg')
@@ -115,6 +114,9 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
+				set_stationwide_emergency_lighting()
+				SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
+				return
 
 		SSnightshift.check_nightshift(TRUE)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
@@ -181,3 +183,53 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			return "<font color='blueviolet'>Epsilon</font>"
 		if(SEC_LEVEL_DELTA)
 			return "<font color='orangered'>Delta</font>"
+
+/proc/set_stationwide_emergency_lighting()
+	for(var/obj/machinery/power/apc/A in GLOB.apcs)
+		var/area/AR = get_area(A)
+		if(!is_station_level(A.z))
+			continue
+		A.emergency_lights = FALSE
+		AR.area_emergency_mode = TRUE
+		for(var/obj/machinery/light/L in A.area)
+			if(L.status)
+				continue
+			if(GLOB.security_level == SEC_LEVEL_DELTA)
+				L.fire_mode = TRUE
+			L.on = FALSE
+			L.emergency_mode = TRUE
+			INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
+
+/proc/unset_stationwide_emergency_lighting()
+	for(var/area/A as anything in GLOB.all_areas)
+		if(!is_station_level(A.z))
+			continue
+		if(!A.area_emergency_mode)
+			continue
+		A.area_emergency_mode = FALSE
+		for(var/obj/machinery/light/L in A)
+			if(A.fire)
+				continue
+			if(L.status)
+				continue
+			L.fire_mode = FALSE
+			L.emergency_mode = FALSE
+			L.on = TRUE
+			INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
+
+/proc/epsilon_process()
+	GLOB.security_announcement_up.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.", "Attention! Epsilon security level activated!", 'sound/effects/purge_siren.ogg')
+	GLOB.security_level = SEC_LEVEL_EPSILON
+	post_status("alert", "epsilonalert")
+	for(var/area/A as anything in GLOB.all_areas)
+		if(!is_station_level(A.z))
+			continue
+		for(var/obj/machinery/light/L in A)
+			if(L.status)
+				continue
+			L.fire_mode = TRUE
+			L.update()
+	for(var/obj/machinery/firealarm/FA in GLOB.machines)
+		if(is_station_contact(FA.z))
+			FA.overlays.Cut()
+			FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
