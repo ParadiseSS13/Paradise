@@ -92,6 +92,9 @@
 	set hidden = TRUE
 	log_admin("[key_name(src)] has pressed the \'СЕРВЕРА\' button!")
 	message_admins("[key_name_admin(src)] <span class='red'>has pressed the \'СЕРВЕРА\' button!</span>")
+	if(!GLOB.hublist)
+		to_chat(src, "<span class='danger'>The hublist data is not set in the server configuration.</span>")
+		return
 	hublistpanel()
 
 /client/verb/hotkeys_help()
