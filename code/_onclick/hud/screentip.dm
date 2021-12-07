@@ -4,6 +4,7 @@
 	screen_loc = "TOP,LEFT"
 	maptext_height = 480
 	maptext_width = 480
+	maptext_y = -50
 	maptext = ""
 
 /obj/screen/screentip/Initialize(mapload, _hud)
