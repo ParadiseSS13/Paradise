@@ -102,7 +102,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	/// Do we want to force our runechat colour to be white?
 	var/force_white_runechat = FALSE
 	///Screentip Mode
-	var/screentip_mode = SCREENTIP_MEDIUM
+	var/screentip_mode = SCREENTIP_SMALL
 	///Color of screentips at top of screen
 	var/screentip_color = "#ffd391"
 	/// Did we load successfully?
