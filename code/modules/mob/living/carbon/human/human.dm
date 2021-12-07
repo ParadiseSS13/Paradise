@@ -614,7 +614,7 @@
 			if(do_after(usr, time_taken, needhand = 1, target = src))
 				if(!I || !L || I.loc != src || !(I in L.embedded_objects))
 					return
-				L.embedded_objects -= I
+				L.remove_embedded_object(I)
 				L.receive_damage(I.embedded_unsafe_removal_pain_multiplier*I.w_class)//It hurts to rip it out, get surgery you dingus.
 				I.forceMove(get_turf(src))
 				usr.put_in_hands(I)
@@ -1102,6 +1102,22 @@
 			else
 				I = new organ(H) //Create the organ inside the player.
 				I.insert(H)
+
+/**
+ * Regrows a given external limb if it is missing. Does not add internal organs back in.
+ * Returns whether or not it regrew the limb
+ *
+ * Arguments:
+ * * limb_name - The name of the limb being added. "l_arm" for example
+ */
+/mob/living/carbon/human/proc/regrow_external_limb_if_missing(limb_name)
+	if(has_organ(limb_name))
+		return FALSE// Already there
+
+	var/list/organ_data = dna.species.has_limbs[limb_name]
+	var/limb_path = organ_data["path"]
+	new limb_path(src)
+	return TRUE
 
 /mob/living/carbon/human/revive()
 	//Fix up all organs and replace lost ones.

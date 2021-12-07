@@ -1451,10 +1451,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "sec_prison_lockers"
 	can_get_auto_cryod = FALSE
 
-/area/security/medbay
-	name = "\improper Security Medbay"
-	icon_state = "security_medbay"
-
 /area/security/prisonershuttle
 	name = "\improper Security Prisoner Shuttle"
 	icon_state = "security"

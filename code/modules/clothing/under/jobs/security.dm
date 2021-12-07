@@ -165,21 +165,3 @@
 	item_state = "gy_suit"
 	item_color = "hos_formal"
 
-
-//Brig Physician
-/obj/item/clothing/under/rank/security/brigphys
-	name = "brig physician's jumpsuit"
-	desc = "Jumpsuit for Brig Physician it has both medical and security protection."
-	icon_state = "brig_phys"
-	item_state = "brig_phys"
-	item_color = "brig_phys"
-	permeability_coefficient = 0.50
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 30, acid = 30)
-
-/obj/item/clothing/under/rank/security/brigphys/skirt
-	name = "brig physician's jumpskirt"
-	desc = "A skirted Brig Physician uniform. It has both security and medical protection."
-	icon_state = "brig_physf"
-	item_state = "brig_physf"
-	item_color = "brig_physf"
-	permeability_coefficient = 0.50
