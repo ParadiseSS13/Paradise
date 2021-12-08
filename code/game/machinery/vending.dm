@@ -1949,7 +1949,6 @@
 	icon_state = "genedrobe"
 	ads_list = "Perfect for the mad scientist in you!"
 	vend_reply = "Thank you for using the GeneDrobe!"
-
 	products = list(/obj/item/clothing/under/rank/geneticist = 3,
 					/obj/item/clothing/suit/storage/labcoat/genetics = 3,
 					/obj/item/clothing/shoes/laceup = 3,
@@ -2005,7 +2004,7 @@
 	desc = "A vending machine renowned for vending industrial grade clothing."
 	icon_state = "engidrobe"
 	ads_list = list("Guaranteed to protect your feet from industrial accidents!", "Afraid of radiation? Then wear yellow!")
-	vend_reply = "Thank you for using the SciDrobe!"
+	vend_reply = "Thank you for using the EngiDrobe!"
 	products = list(/obj/item/clothing/under/rank/engineer = 6,
 					/obj/item/clothing/under/rank/engineer/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering = 3,

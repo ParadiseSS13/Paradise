@@ -363,6 +363,8 @@
 		bodytemperature += 11
 	else
 		bodytemperature += (BODYTEMP_HEATING_MAX + (fire_stacks * 12))
+		if(mind?.vampire && !mind.vampire.get_ability(/datum/vampire_passive/full) && stat != DEAD)
+			mind.vampire.bloodusable = max(mind.vampire.bloodusable - 5, 0)
 
 /mob/living/carbon/human/proc/get_thermal_protection()
 	if(HAS_TRAIT(src, TRAIT_RESISTHEAT))
@@ -836,7 +838,7 @@
 
 			if(prob(I.embedded_fall_chance))
 				BP.receive_damage(I.w_class*I.embedded_fall_pain_multiplier)
-				BP.embedded_objects -= I
+				BP.remove_embedded_object(I)
 				I.forceMove(get_turf(src))
 				visible_message("<span class='danger'>[I] falls out of [name]'s [BP.name]!</span>","<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
 				if(!has_embedded_objects())

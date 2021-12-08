@@ -5,7 +5,7 @@
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 
 	species_traits = list(NO_BLOOD, NO_HAIR)
-	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN)
+	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN, TRAIT_NO_BONES, TRAIT_STURDY_LIMBS)
 	inherent_biotypes = MOB_HUMANOID | MOB_MINERAL
 	dies_at_threshold = TRUE
 	speed_mod = 2
@@ -33,18 +33,6 @@
 		"adamantine_resonator" = /obj/item/organ/internal/adamantine_resonator
 		) //Has standard darksight of 2.
 
-	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest/unbreakable/sturdy),
-		"groin" =  list("path" = /obj/item/organ/external/groin/unbreakable/sturdy),
-		"head" =   list("path" = /obj/item/organ/external/head/unbreakable/sturdy),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm/unbreakable/sturdy),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/unbreakable/sturdy),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg/unbreakable/sturdy),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/unbreakable/sturdy),
-		"l_hand" = list("path" = /obj/item/organ/external/hand/unbreakable/sturdy),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right/unbreakable/sturdy),
-		"l_foot" = list("path" = /obj/item/organ/external/foot/unbreakable/sturdy),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right/unbreakable/sturdy))
 
 	suicide_messages = list(
 		"is crumbling into dust!",
@@ -123,7 +111,7 @@
 	name = "Plasma Golem"
 	skinned_type = /obj/item/stack/ore/plasma
 	//Can burn and takes damage from heat
-	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN) //no RESISTHEAT, NOFIRE
+	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN, TRAIT_NO_BONES, TRAIT_STURDY_LIMBS) //no RESISTHEAT, NOFIRE
 	golem_colour = rgb(170, 51, 221)
 	info_text = "As a <span class='danger'>Plasma Golem</span>, you burn easily. Be careful, if you get hot enough while burning, you'll blow up!"
 	heatmod = 0 //fine until they blow up
@@ -301,7 +289,7 @@
 	golem_colour = rgb(158, 112, 75)
 	skinned_type = /obj/item/stack/sheet/wood
 	//Can burn and take damage from heat
-	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN)
+	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN, TRAIT_NO_BONES, TRAIT_STURDY_LIMBS)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
 	armor = 30
 	burn_mod = 1.25
@@ -575,7 +563,7 @@
 	prefix = "Bananium"
 	special_names = null
 	unarmed_type = /datum/unarmed_attack/golem/bananium
-	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_CHUNKYFINGERS, TRAIT_CLUMSY, TRAIT_COMIC_SANS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN)
+	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_CHUNKYFINGERS, TRAIT_CLUMSY, TRAIT_COMIC_SANS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN, TRAIT_NO_BONES, TRAIT_STURDY_LIMBS)
 	var/last_honk = 0
 	var/honkooldown = 0
 	var/last_banana = 0

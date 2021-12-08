@@ -67,18 +67,14 @@
 		else
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
 
-/turf/simulated/floor/chasm/proc/is_safe()
-	//if anything matching this typecache is found in the chasm, we don't drop things
-	var/static/list/chasm_safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/stone_tile))
-	var/list/found_safeties = typecache_filter_list(contents, chasm_safeties_typecache)
-	for(var/obj/structure/stone_tile/S in found_safeties)
-		if(S.fallen)
-			LAZYREMOVE(found_safeties, S)
-	return LAZYLEN(found_safeties)
+/turf/simulated/floor/chasm/is_safe()
+	if(find_safeties() && ..())
+		return TRUE
+	return FALSE
 
 /turf/simulated/floor/chasm/proc/drop_stuff(AM)
 	. = 0
-	if(is_safe())
+	if(find_safeties())
 		return FALSE
 	var/thing_to_check = src
 	if(AM)

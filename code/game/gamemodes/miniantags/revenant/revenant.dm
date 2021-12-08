@@ -42,19 +42,32 @@
 	speed = 1
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
-	var/essence = 75 //The resource of revenants. Max health is equal to three times this amount
-	var/essence_regen_cap = 75 //The regeneration cap of essence (go figure); regenerates every Life() tick up to this amount.
-	var/essence_regenerating = 1 //If the revenant regenerates essence or not; 1 for yes, 0 for no
-	var/essence_regen_amount = 5 //How much essence regenerates
-	var/essence_accumulated = 0 //How much essence the revenant has stolen
-	var/revealed = 0 //If the revenant can take damage from normal sources.
-	var/unreveal_time = 0 //How long the revenant is revealed for, is about 2 seconds times this var.
-	var/unstun_time = 0 //How long the revenant is stunned for, is about 2 seconds times this var.
-	var/inhibited = 0 //If the revenant's abilities are blocked by a chaplain's power.
-	var/essence_drained = 0 //How much essence the revenant has drained.
-	var/draining = 0 //If the revenant is draining someone.
-	var/list/drained_mobs = list() //Cannot harvest the same mob twice
-	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has.
+	///The resource of revenants. Max health is equal to three times this amount
+	var/essence = 75
+	///The regeneration cap of essence (go figure); regenerates every Life() tick up to this amount.
+	var/essence_regen_cap = 75
+	///If the revenant regenerates essence or not; 1 for yes, 0 for no
+	var/essence_regenerating = TRUE
+	///How much essence regenerates
+	var/essence_regen_amount = 5
+	///How much essence the revenant has stolen
+	var/essence_accumulated = 0
+	///If the revenant can take damage from normal sources.
+	var/revealed = FALSE
+	///How long the revenant is revealed for, is about 2 seconds times this var.
+	var/unreveal_time = 0
+	///How long the revenant is stunned for, is about 2 seconds times this var.
+	var/unstun_time = 0
+	///If the revenant's abilities are blocked by a chaplain's power.
+	var/inhibited = FALSE
+	///How much essence the revenant has drained.
+	var/essence_drained = 0
+	///If the revenant is draining someone.
+	var/draining = FALSE
+	/// contains a list of UIDs of mobs who have been drained. cannot drain the same mob twice.
+	var/list/drained_mobs = list()
+	///How many perfect, regen-cap increasing souls the revenant has.
+	var/perfectsouls = 0
 
 
 /mob/living/simple_animal/revenant/Life(seconds, times_fired)
@@ -232,25 +245,21 @@
 	..()
 
 /mob/living/simple_animal/revenant/proc/castcheck(essence_cost)
-	if(!src)
-		return
 	if(holy_check(src))
 		return
 	var/turf/T = get_turf(src)
 	if(istype(T, /turf/simulated/wall))
 		to_chat(src, "<span class='revenwarning'>You cannot use abilities from inside of a wall.</span>")
 		return 0
-	if(src.inhibited)
+	if(inhibited)
 		to_chat(src, "<span class='revenwarning'>Your powers have been suppressed by nulling energy!</span>")
 		return 0
-	if(!src.change_essence_amount(essence_cost, 1))
+	if(!change_essence_amount(essence_cost, 1))
 		to_chat(src, "<span class='revenwarning'>You lack the essence to use that ability.</span>")
 		return 0
 	return 1
 
 /mob/living/simple_animal/revenant/proc/change_essence_amount(essence_amt, silent = 0, source = null)
-	if(!src)
-		return
 	if(essence + essence_amt <= 0)
 		return
 	essence = max(0, essence+essence_amt)
@@ -264,8 +273,6 @@
 	return 1
 
 /mob/living/simple_animal/revenant/proc/reveal(time)
-	if(!src)
-		return
 	if(time <= 0)
 		return
 	revealed = 1
@@ -280,8 +287,6 @@
 	update_spooky_icon()
 
 /mob/living/simple_animal/revenant/proc/stun(time)
-	if(!src)
-		return
 	if(time <= 0)
 		return
 	notransform = 1
