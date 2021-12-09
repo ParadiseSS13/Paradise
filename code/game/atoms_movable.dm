@@ -32,6 +32,11 @@
 	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
 	var/list/client_mobs_in_contents
 
+	/// Either FALSE, [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
+	var/blocks_emissive = FALSE
+	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
+	var/atom/movable/emissive_blocker/em_block
+
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
 	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))
@@ -39,9 +44,26 @@
 		return
 	. = ..()
 
+/atom/movable/Initialize(mapload)
+	. = ..()
+	update_emissive_block()
+
+/atom/movable/proc/update_emissive_block()
+	switch(blocks_emissive)
+		if(EMISSIVE_BLOCK_GENERIC)
+			var/mutable_appearance/gen_emissive_blocker = emissive_blocker(icon, icon_state, alpha = src.alpha)
+			gen_emissive_blocker.dir = dir
+			gen_emissive_blocker.appearance_flags |= appearance_flags
+			add_overlay(gen_emissive_blocker)
+		if(EMISSIVE_BLOCK_UNIQUE)
+			if(!em_block || !QDELETED(src))
+				render_target = ref(src)
+				em_block = new(src, render_target)
+			add_overlay(em_block)
+
 /atom/movable/Destroy()
 	unbuckle_all_mobs(force = TRUE)
-
+	QDEL_NULL(em_block)
 	. = ..()
 	if(loc)
 		loc.handle_atom_del(src)
