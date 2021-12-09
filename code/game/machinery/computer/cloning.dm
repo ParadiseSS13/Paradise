@@ -64,8 +64,8 @@
 	var/obj/machinery/dna_scannernew/scannerf = null
 
 	//Try to find scanner on adjacent tiles first
-	for(dir in list(NORTH,EAST,SOUTH,WEST))
-		scannerf = locate(/obj/machinery/dna_scannernew, get_step(src, dir))
+	for(var/turf/t in orange(1, src))
+		scannerf = locate(/obj/machinery/dna_scannernew, t)
 		if(scannerf)
 			return scannerf
 
@@ -74,7 +74,7 @@
 		for(var/obj/machinery/dna_scannernew/S in get_area(src))
 			return S
 
-	return 0
+	return FALSE
 
 /obj/machinery/computer/cloning/proc/releasecloner()
 	for(var/obj/machinery/clonepod/P in pods)
