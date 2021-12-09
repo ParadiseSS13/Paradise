@@ -61,18 +61,13 @@
 		selected_pod = pods[1]
 
 /obj/machinery/computer/cloning/proc/findscanner()
-	var/obj/machinery/dna_scannernew/scannerf = null
-
 	//Try to find scanner on adjacent tiles first
-	for(var/turf/t in orange(1, src))
-		scannerf = locate(/obj/machinery/dna_scannernew, t)
-		if(scannerf)
-			return scannerf
+	for(var/obj/machinery/dna_scannernew/scanner in orange(1, src))
+		return scanner
 
 	//Then look for a free one in the area
-	if(!scannerf)
-		for(var/obj/machinery/dna_scannernew/S in get_area(src))
-			return S
+	for(var/obj/machinery/dna_scannernew/S in get_area(src))
+		return S
 
 	return FALSE
 

@@ -367,10 +367,9 @@
 	addtimer(CALLBACK(src, .proc/ready), 25 SECONDS)
 
 /obj/machinery/computer/scan_consolenew/proc/find_machine()
-	for(var/turf/t in orange(1, src))
-		connected = locate(/obj/machinery/dna_scannernew, t)
-		if(connected)
-			return
+	for(var/obj/machinery/dna_scannernew/scanner in orange(1, src))
+		connected = scanner
+		return
 
 /obj/machinery/computer/scan_consolenew/proc/ready()
 	injector_ready = TRUE
