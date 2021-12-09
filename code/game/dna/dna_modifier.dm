@@ -359,8 +359,8 @@
 	else
 		return ..()
 
-/obj/machinery/computer/scan_consolenew/Initialize()
-	..()
+/obj/machinery/computer/scan_consolenew/Initialize(mapload)
+	. = ..()
 	for(var/i=0;i<3;i++)
 		buffers[i+1]=new /datum/dna2/record
 	addtimer(CALLBACK(src, .proc/find_machine), 1 SECONDS)
