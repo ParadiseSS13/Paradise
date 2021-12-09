@@ -537,7 +537,7 @@
 
 	//Makes em go mad and accumulate rads.
 	for(var/mob/living/carbon/human/l in view(src, HALLUCINATION_RANGE(power))) // If they can see it without mesons on.  Bad on them.
-		if(!istype(l.glasses, /obj/item/clothing/glasses/meson) && !HAS_TRAIT(l, TRAIT_MESON_VISION))
+		if(!istype(l.glasses, /obj/item/clothing/glasses/meson) && !HAS_TRAIT(l, TRAIT_MESON_VISION) && !istype(l.get_int_organ(/obj/item/organ/internal/eyes), /obj/item/organ/internal/eyes/cybernetic/meson))
 			var/D = sqrt(1 / max(1, get_dist(l, src)))
 			l.hallucination += power * hallucination_power * D
 			l.hallucination = clamp(l.hallucination, 0, 200)
