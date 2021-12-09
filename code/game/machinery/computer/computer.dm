@@ -81,7 +81,7 @@
 	if(stat & BROKEN)
 		overlay_state = "[icon_state]_broken"
 	add_overlay("[overlay_state]")
-	if(!stat & BROKEN && light)
+	if(!(stat & BROKEN) && light)
 		underlays += emissive_appearance(icon, "[icon_state]_light_mask")
 
 	if(!icon_keyboard)
