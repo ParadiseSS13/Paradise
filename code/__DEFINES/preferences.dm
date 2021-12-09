@@ -107,12 +107,6 @@
 #define PARALLAX_HIGH			8
 #define PARALLAX_INSANE			16
 
-// Defines for screentip size, take that affected's OCD
-#define SCREENTIP_OFF		"0px"
-#define SCREENTIP_SMALL		"8px"
-#define SCREENTIP_MEDIUM	"11px"
-#define SCREENTIP_LARGE		"15px"
-
 // 2FA Defines. These are the same as the schema DB enums //
 
 /// Client has 2FA disabled

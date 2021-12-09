@@ -1147,12 +1147,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!active_hud)
 		return
 	var/screentip_mode = usr.client.prefs.screentip_mode
-	if(screentip_mode == SCREENTIP_OFF || (flags & NO_SCREENTIPS))
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
 		active_hud.screentip_text.maptext = ""
 		return
 	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
 	var/screentip_color = usr.client.prefs.screentip_color
-	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]; color: [screentip_color]'>[name]</span>"
+	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [screentip_color]'>[name]</span>"
 
 /*
 	Setter for the `density` variable.

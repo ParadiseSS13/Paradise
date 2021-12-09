@@ -1048,19 +1048,14 @@
 						parent.mob.hud_used.update_parallax_pref()
 
 				if("screentip_mode")
-					var/screentip_modes = list(
-						"Off" = SCREENTIP_OFF,
-						"Small" = SCREENTIP_SMALL,
-						"Medium" = SCREENTIP_MEDIUM,
-						"Large" = SCREENTIP_LARGE
-					)
-					screentip_mode = screentip_modes[input(user, "Pick a screentip size", "Screentip Size") as null|anything in screentip_modes]
+					var/desired_screentip_mode = clamp(input(user, "Pick a screentip size, pick 0 to disable screentips. (We suggest a number between 8 and 15):", "Screentip Size") as null|num, 0, 20)
+					if(!isnull(desired_screentip_mode))
+						screentip_mode = desired_screentip_mode
 
 				if("screentip_color")
 					var/screentip_color_new = input(user, "Choose your screentip color", screentip_color) as color|null
-					if(!screentip_color_new)
-						return
-					screentip_color = screentip_color_new
+					if(screentip_color_new)
+						screentip_color = screentip_color_new
 
 				if("edit_2fa")
 					// Do this async so we arent holding up a topic() call
