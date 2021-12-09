@@ -1267,24 +1267,6 @@
 	// If we are here, they have not accepted, and need to read it
 	return FALSE
 
-/client/proc/hublistpanel(forced = FALSE)
-	if(!GLOB.hublist)
-		return FALSE
-
-	if(holder && forced)
-		return FALSE
-
-	var/dat = {"<html><meta charset="UTF-8"><body>"}
-	var/tally = length(GLOB.clients)
-	if(tally > 90)
-		dat += "Игроков на этом сервере уже <b>[tally]</b>. Пожалуйста, выберите другой сервер.<br>Это поможет обеспечить комфортную игру другим на текущем сервере. Но мы вас не заставляем переходить, это окно можно просто закрыть. Спасибо за понимание!<br><HR><br>"
-	dat +=  GLOB.hublist
-	dat += "</body></html>"
-
-	var/datum/browser/popup = new(usr, "hublist", "<div align='center'>Сервера проекта SS220</div>", 600, 550)
-	popup.set_content(dat)
-	popup.open(0)
-
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
 #undef SECOND_COUNT

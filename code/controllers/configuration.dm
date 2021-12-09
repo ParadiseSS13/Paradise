@@ -12,6 +12,7 @@
 
 	var/twitch_censor = FALSE
 	var/list/twich_censor_list = list()
+	var/hublist_url = null
 
 	var/log_ooc = 0						// log OOC channel
 	var/log_access = 0					// log login/logout
@@ -555,6 +556,9 @@
 
 				if("repositoryurl")
 					config.repositoryurl = value
+
+				if("hublist_url")
+					config.hublist_url = value
 
 				if("guest_jobban")
 					config.guest_jobban = 1

@@ -535,3 +535,6 @@ RESPAWN_DELAY_DRONE 10
 
 # Log all timers on timer auto reset
 LOG_TIMERS_ON_BUCKET_RESET
+
+## Hublist url for dynamic servers list
+#HUBLIST_URL http://example.com
