@@ -11,9 +11,9 @@
 
 /***** All toggles for the GC ref finder *****/
 
-// #define REFERENCE_TRACKING		// Uncomment to enable ref finding
+#define REFERENCE_TRACKING		// Uncomment to enable ref finding
 
-// #define GC_FAILURE_HARD_LOOKUP	//makes paths that fail to GC call find_references before del'ing.
+#define GC_FAILURE_HARD_LOOKUP	//makes paths that fail to GC call find_references before del'ing.
 
 // #define FIND_REF_NO_CHECK_TICK	//Sets world.loop_checks to false and prevents find references from sleeping
 
