@@ -20,6 +20,9 @@
 	hublist_popup(user, response.body)
 
 /datum/proc/hublist_popup(mob/user, content)
+	if(!user)
+		return
+
 	var/dat = {"<html><meta charset="UTF-8"><body>"}
 	var/tally = length(GLOB.clients)
 	if(tally > 90)
