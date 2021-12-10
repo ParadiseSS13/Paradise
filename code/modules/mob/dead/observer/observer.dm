@@ -89,6 +89,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	//starts ghosts off with all HUDs.
 	toggle_all_huds_on(body)
+	addtimer(CALLBACK(src, .proc/set_ghost_darkness_level))
 	..()
 
 /mob/dead/observer/Destroy()
@@ -111,6 +112,12 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 /mob/dead/observer/process()
 	if(seerads)
 		show_rads(5)
+
+/mob/dead/observer/proc/set_ghost_darkness_level()
+	if(!client)
+		return
+	lighting_alpha = client.prefs.ghost_darkness_level //Remembers ghost lighting pref
+	update_sight()
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -651,19 +658,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_sight()
 	to_chat(usr, "You [(ghostvision?"now":"no longer")] have ghost vision.")
 
-/mob/dead/observer/verb/toggle_darkness()
-	set name = "Toggle Darkness"
+/mob/dead/observer/verb/pick_darkness()
+	set name = "Pick Darkness"
 	set category = "Ghost"
-	switch(lighting_alpha)
-		if (LIGHTING_PLANE_ALPHA_VISIBLE)
-			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-		if (LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
-			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		if (LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
-			lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
-		else
-			lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
-
+	var/desired_dark = input(src, "Choose how much darkness you want to see, (0 - 255). Higher numbers being darker.", "Pick Darkness", null) as null|num
+	if(isnull(desired_dark))
+		return
+	if(!client)
+		return
+	client.prefs.ghost_darkness_level = clamp(desired_dark, 0, 255)
+	client.prefs.save_preferences(src)
+	lighting_alpha = client.prefs.ghost_darkness_level
 	update_sight()
 
 /mob/dead/observer/update_sight()

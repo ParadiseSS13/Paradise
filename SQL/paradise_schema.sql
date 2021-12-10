@@ -284,6 +284,7 @@ CREATE TABLE `player` (
   `parallax` tinyint(1) DEFAULT '8',
   `byond_date` DATE DEFAULT NULL,
   `2fa_status` ENUM('DISABLED','ENABLED_IP','ENABLED_ALWAYS') NOT NULL DEFAULT 'DISABLED' COLLATE 'utf8mb4_general_ci',
+  `ghost_darkness_level` tinyint(1) UNSIGNED NOT NULL DEFAULT '255',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),

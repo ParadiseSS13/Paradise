@@ -111,6 +111,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/datum/character_save/character_saves = list()
 	/// The current active character
 	var/datum/character_save/active_character
+	/// How dark things are if client is a ghost, 0-255
+	var/ghost_darkness_level = LIGHTING_PLANE_ALPHA_VISIBLE
 
 /datum/preferences/New(client/C, datum/db_query/Q) // Process our query
 	parent = C
