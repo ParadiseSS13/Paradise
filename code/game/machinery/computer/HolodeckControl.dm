@@ -519,7 +519,6 @@
 		if(prob(50))
 			AM.forceMove(get_turf(src))
 			visible_message("<span class='notice'>Swish! [AM] lands in [src].</span>")
-			return
 		else
 			visible_message("<span class='danger'>[AM] bounces off of [src]'s rim!</span>")
 			return ..()
