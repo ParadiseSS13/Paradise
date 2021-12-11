@@ -83,7 +83,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 /world/Topic(T, addr, master, key)
 	TGS_TOPIC
-	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
+	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key == config?.comms_password ? "*secret*" : key]")
 
 	// Handle spam prevention
 	if(!GLOB.world_topic_spam_prevention_handlers[addr])
