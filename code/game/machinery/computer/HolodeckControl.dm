@@ -513,25 +513,12 @@
 		visible_message("<span class='notice'>[user] dunks [W] into [src]!</span>")
 		return
 
-/obj/structure/holohoop/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover,/obj/item) && mover.throwing)
-		var/obj/item/I = mover
-		if(istype(I, /obj/item/projectile))
-			return
-		if(prob(50))
-			I.loc = src.loc
-			visible_message("<span class='notice'>Swish! \the [I] lands in \the [src].</span>")
-		else
-			visible_message("<span class='alert'>\The [I] bounces off of \the [src]'s rim!</span>")
-		return 0
-	else
-		return ..(mover, target, height)
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isitem(AM) && !istype(AM,/obj/item/projectile))
 		if(prob(50))
 			AM.forceMove(get_turf(src))
-			visible_message("<span class='warning'>Swish! [AM] lands in [src].</span>")
+			visible_message("<span class='notice'>Swish! [AM] lands in [src].</span>")
 			return
 		else
 			visible_message("<span class='danger'>[AM] bounces off of [src]'s rim!</span>")
