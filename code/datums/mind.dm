@@ -23,7 +23,9 @@
 	var/key
 	var/name				//replaces mob/var/original_name
 	var/mob/living/current
+	/// The original mob's UID. Used for example to see if a silicon with antag status is actually malf. Or just an antag put in a borg
 	var/original_mob_UID
+	/// The original mob's name. Used in Dchat messages
 	var/original_mob_name
 	var/active = 0
 
