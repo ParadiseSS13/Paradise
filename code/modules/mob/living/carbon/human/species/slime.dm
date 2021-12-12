@@ -69,8 +69,10 @@
 	..()
 	if(grow)
 		grow.Remove(H)
+		QDEL_NULL(grow)
 	if(recolor)
 		recolor.Remove(H)
+		QDEL_NULL(recolor)
 	UnregisterSignal(H, COMSIG_HUMAN_UPDATE_DNA)
 
 /datum/species/slime/proc/blend(mob/living/carbon/human/H)
