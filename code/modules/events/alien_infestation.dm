@@ -27,7 +27,7 @@
 		var/obj/vent = pick_n_take(vents)
 		var/mob/C = pick_n_take(candidates)
 		if(C)
-			GLOB.respawnable_list -= C.client
+			C.remove_from_respawnable_list()
 			var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
 			new_xeno.amount_grown += (0.75 * new_xeno.max_grown)	//event spawned larva start off almost ready to evolve.
 			new_xeno.key = C.key

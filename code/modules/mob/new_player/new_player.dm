@@ -194,7 +194,7 @@
 			observer.name = observer.real_name
 			observer.key = key
 			QDEL_NULL(mind)
-			GLOB.respawnable_list += observer
+			observer.add_to_respawnable_list()
 			qdel(src)
 			return TRUE
 		return FALSE
