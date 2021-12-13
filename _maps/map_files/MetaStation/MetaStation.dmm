@@ -69163,7 +69163,7 @@
 	},
 /area/medical/virology)
 "cSa" = (
-/obj/structure/crematorium,
+/obj/structure/body_slab/crematorium,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

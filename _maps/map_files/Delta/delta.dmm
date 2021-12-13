@@ -88547,7 +88547,7 @@
 /turf/simulated/wall/r_wall,
 /area/chapel/office)
 "dOT" = (
-/obj/structure/crematorium,
+/obj/structure/body_slab/crematorium,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

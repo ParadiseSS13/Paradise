@@ -2367,7 +2367,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/maint)
 "hd" = (
-/obj/structure/crematorium,
+/obj/structure/body_slab/crematorium,
 /turf/simulated/floor/plasteel{
 	icon_state = "engine"
 	},
