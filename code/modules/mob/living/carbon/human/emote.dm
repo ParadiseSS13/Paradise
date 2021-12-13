@@ -32,7 +32,7 @@
 	act = lowertext(act)
 
 	switch(act)		//This switch makes sure you have air in your lungs before you scream
-		if("growl", "growls", "howl", "howls", "hiss", "hisses", "scream", "screams", "sneeze", "sneezes")
+		if("growl", "growls", "howl", "howls", "hiss", "hisses", "meow", "mews", "scream", "screams", "sneeze", "sneezes", "smeow", "smews")
 			if(getOxyLoss() > 35)		//no screaming if you don't have enough breath to scream
 				on_CD = handle_emote_CD()
 				emote("gasp")
@@ -65,6 +65,15 @@
 		if("growl", "growls")
 			if(isvulpkanin(src))		//Only Vulpkanin can growl
 				on_CD = handle_emote_CD()
+			else
+		if("meow", "mews")
+			if(istajaran(src))		//Only Tajaran can meow :3c
+				on_CD = handle_emote_CD(100)
+			else
+				return
+		if("smeow", "smews")
+			if(istajaran(src))		//Only Tajaran can scream meow >:3c
+				on_CD = handle_emote_CD(100)
 			else
 				return
 		if("squish", "squishes")
@@ -173,6 +182,34 @@
 			message = "<B>[src]</B> growls[M ? " at [M]" : ""]."
 			playsound(loc, "growls", 80, 1, frequency = get_age_pitch())
 			m_type = 2
+
+		if("meow", "mews")
+			var/M = handle_emote_param(param)
+			if(miming)
+				message = "<B>[src]</B> acts out a meow[M ? " at [M]" : ""]!"
+				m_type = 1
+			else
+				if(!muzzled)
+					message = "<B>[src]</B> meows[M ? " at [M]" : ""]!"
+					playsound(loc, 'sound/creatures/cat_meow.ogg', 100, 1, 10, frequency = get_age_pitch())
+					m_type = 2
+				else
+					message = "<B>[src]</B> meows[M ? " at [M]" : ""]."
+					m_type = 2
+
+		if("smeow", "smews")
+			var/M = handle_emote_param(param)
+			if(miming)
+				message = "<B>[src]</B> acts out an irritated meow[M ? " at [M]" : ""]!"
+				m_type = 1
+			else
+				if(!muzzled)
+					message = "<B>[src]</B> meows displeasedly[M ? " at [M]" : ""]!"
+					playsound(loc, 'sound/voice/angry_meow.ogg', 100, 1, 10, frequency = get_age_pitch())
+					m_type = 2
+				else
+					message = "<B>[src]</B> meows displeasedly[M ? " at [M]" : ""]."
+					m_type = 2
 
 		if("ping", "pings")
 			var/M = handle_emote_param(param)
