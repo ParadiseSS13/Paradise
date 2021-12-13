@@ -148,9 +148,9 @@
 	infodisplay += mymob.healths
 
 //Installed Module
-	mymob.hands = new /obj/screen/robot/module()
-	mymob.hands.screen_loc = ui_borg_module
-	static_inventory += mymob.hands
+	mymobR.hands = new /obj/screen/robot/module()
+	mymobR.hands.screen_loc = ui_borg_module
+	static_inventory += mymobR.hands
 
 	module_store_icon = new /obj/screen/robot/store()
 	module_store_icon.screen_loc = ui_borg_store
@@ -175,6 +175,17 @@
 	using.screen_loc = ui_borg_thrusters
 	static_inventory += using
 	mymobR.thruster_button = using
+
+/datum/hud/robot/Destroy()
+	var/mob/living/silicon/robot/myrob = mymob
+	myrob.inv1 = null
+	myrob.hands = null
+	myrob.inv2 = null
+	myrob.inv3 = null
+	myrob.lamp_button = null
+	myrob.thruster_button = null
+
+	return ..()
 
 /datum/hud/proc/toggle_show_robot_modules()
 	if(!isrobot(mymob))
