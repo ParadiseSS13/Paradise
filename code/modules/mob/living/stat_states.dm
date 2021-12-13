@@ -54,7 +54,7 @@
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list += src
 	if(mind)
-		GLOB.respawnable_list -= src
+		remove_from_respawnable_list()
 	timeofdeath = null
 	if(updating)
 		update_canmove()
