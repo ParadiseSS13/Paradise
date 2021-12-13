@@ -11,7 +11,7 @@
  */
 
 /obj/structure/body_slab
-	name = "Slab"
+	name = "slab"
 	desc = "Used to keep bodies in until someone fetches them."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "morgue1"
@@ -30,13 +30,14 @@
 
 /** Overridable method for creating the morgue tray */
 /obj/structure/body_slab/proc/create_tray()
-	connected = new /obj/structure/morgue_tray(loc)
+	connected = new /obj/structure/morgue_tray(src)
+	connected.layer = TURF_LAYER
 	extended = FALSE
 	connected.icon_state = "morguet"
 	connected.dir = dir
 
 /obj/structure/body_slab/proc/update()
-	if(connected)
+	if(extended || !connected)
 		icon_state = "morgue0"
 		desc = initial(desc) + "\nThe tray is currently extended."
 	else
@@ -45,20 +46,20 @@
 
 /obj/structure/body_slab/ex_act(severity)
 	switch(severity)
-		if(1.0)
+		if(1)
 			for(var/atom/movable/A in src)
 				A.forceMove(loc)
 				ex_act(severity)
 			qdel(src)
 			return
-		if(2.0)
+		if(2)
 			if(prob(50))
 				for(var/atom/movable/A in src)
 					A.forceMove(loc)
 					ex_act(severity)
 				qdel(src)
 				return
-		if(3.0)
+		if(3)
 			if(prob(5))
 				for(var/atom/movable/A in src)
 					A.forceMove(loc)
@@ -68,24 +69,29 @@
 	return
 
 /obj/structure/body_slab/proc/toggle_tray(mob/user as mob)
-	if(connected && extended)
+	if(!connected)
+		return
+	if(extended)
 		// Move everything inside
 		for(var/atom/movable/A in connected.loc)
-			if(A.move_resist < INFINITY)
+			if(A.move_resist < INFINITY && !A.anchored)
 				A.forceMove(src)
+		connected.forceMove(src)
 		playsound(loc, open_sound, 50, 1)
+		connected.layer = TURF_LAYER
 		extended = FALSE
 	else
-		playsound(loc, open_sound, 50, 1)
-		step(connected, dir)
-		connected.layer = OBJ_LAYER
+		step(connected, dir)			// try to step forward
 		var/turf/T = get_step(src, dir)
-		if(T.contents.Find(connected))
+		if(T.contents.Find(connected))	// check whether the tray actually did move
+			playsound(loc, open_sound, 50, 1)
 			connected.connected = src
 			for(var/atom/movable/A in src)
 				A.forceMove(connected.loc)
 			connected.icon_state = "morguet"
 			connected.dir = dir
+			extended = TRUE
+			connected.layer = TURF_LAYER
 
 	update()
 
@@ -96,20 +102,15 @@
 /obj/structure/body_slab/relaymove(mob/user as mob)
 	if(user.stat)
 		return
-	step(connected, dir)
-	connected.layer = OBJ_LAYER
-	var/turf/T = get_step(src, dir)
-	if(connected && extended && get_turf(connected) == T)
-		for(var/atom/movable/A in src)
-			A.forceMove(connected.loc)
-		connected.icon_state = "morguet"
+	if(connected && !extended)
+		toggle_tray()
 
 /obj/structure/body_slab/Destroy()
 	if(!extended)
 		var/turf/T = loc
 		for(var/atom/movable/A in src)
 			A.forceMove(T)
-	qdel(connected)
+	QDEL_NULL(connected)
 	return ..()
 
 /obj/structure/body_slab/container_resist(mob/living/L)
@@ -137,21 +138,21 @@
 	name = "morgue"
 	desc = "Used to keep bodies in until someone fetches them."
 	var/list/status_descriptors = list(
-	"The tray is currently extended.",
-	"The tray is currently empty.",
-	"The tray contains an unviable body.",
-	"The tray contains a body that is responsive to revival techniques.",
-	"The tray contains something that is not a body.",
-	"The tray contains a body that might be responsive."
+		"The tray is currently extended.",
+		"The tray is currently empty.",
+		"The tray contains an unviable body.",
+		"The tray contains a body that is responsive to revival techniques.",
+		"The tray contains something that is not a body.",
+		"The tray contains a body that might be responsive."
 	)
 
 
-/obj/structure/body_slab/morgue/proc/update()
-	if(connected)
+/obj/structure/body_slab/morgue/update()
+	if(extended)
 		icon_state = "morgue0"
 		desc = initial(desc) + "\n[status_descriptors[1]]"
-	else
-		if(contents.len)
+	else if(connected)
+		if(contents.len - 1 > 0)  // -1 to account for morgue tray
 
 			var/mob/living/M = locate() in contents
 
@@ -201,11 +202,11 @@
  */
 /obj/structure/morgue_tray
 	name = "morgue tray"
-	desc = "Apply corpse before closing. May float away in no-gravity."
+	desc = "Apply corpse before closing."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "morguet"
 	density = 1
-	layer = 2.0
+	layer = TURF_LAYER
 	var/obj/structure/body_slab/connected = null
 	anchored = TRUE
 	pass_flags = LETPASSTHROW
@@ -214,15 +215,7 @@
 
 /obj/structure/morgue_tray/attack_hand(mob/user as mob)
 	if(connected)
-		for(var/atom/movable/A as mob|obj in loc)
-			if(A.move_resist < INFINITY)
-				A.forceMove(connected)
-		connected.connected = null
-		connected.update()
-		add_fingerprint(user)
-		qdel(src)
-		return
-	return
+		connected.toggle_tray(user)
 
 /obj/structure/morgue_tray/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
 	if((!(istype(O, /atom/movable)) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src) || user.contents.Find(O)))
@@ -244,14 +237,13 @@
 
 /obj/structure/tray/morgue_tray/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
-		return 1
-
+		return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
-		return 1
+		return TRUE
 	if(locate(/obj/structure/table) in get_turf(mover))
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 /obj/structure/tray/morgue_tray/CanAStarPass(ID, dir, caller)
 	. = !density
@@ -273,13 +265,13 @@
 
 /** Overridable method for creating the morgue tray */
 /obj/structure/body_slab/create_tray()
-	connected = new /obj/structure/morgue_tray/crematorium(loc)
+	connected = new /obj/structure/morgue_tray/crematorium(src)
 	extended = FALSE
 	connected.icon_state = "cremat"
 	connected.dir = dir
-	connected.layer = OBJ_LAYER
+	connected.layer = TURF_LAYER
 
-/obj/structure/body_slab/crematorium/proc/update()
+/obj/structure/body_slab/crematorium/update()
 	if(connected)
 		icon_state = "crema0"
 	else

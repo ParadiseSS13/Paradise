@@ -21032,7 +21032,7 @@
 	},
 /area/mimeoffice)
 "aXj" = (
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /obj/machinery/camera{
 	c_tag = "Chapel Crematorium";
 	dir = 4
@@ -36154,7 +36154,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bEI" = (
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /obj/effect/landmark{
 	name = "revenantspawn"
 	},
@@ -36634,7 +36634,7 @@
 	},
 /area/engine/gravitygenerator)
 "bFQ" = (
-/obj/structure/morgue{
+/obj/structure/body_slab/morgue{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -36663,7 +36663,7 @@
 	},
 /area/crew_quarters/toilet)
 "bFT" = (
-/obj/structure/morgue{
+/obj/structure/body_slab/morgue{
 	dir = 8
 	},
 /obj/effect/landmark{
@@ -36701,7 +36701,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "bFX" = (
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -41365,7 +41365,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

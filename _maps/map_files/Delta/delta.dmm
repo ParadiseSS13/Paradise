@@ -40648,7 +40648,7 @@
 	},
 /area/storage/tools)
 "bPi" = (
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -79812,14 +79812,14 @@
 	},
 /area/medical/morgue)
 "dvw" = (
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /obj/effect/landmark{
 	name = "revenantspawn"
 	},
 /turf/simulated/floor/plating,
 /area/medical/morgue)
 "dvx" = (
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /obj/effect/landmark{
 	name = "revenantspawn"
 	},
@@ -86221,7 +86221,7 @@
 	},
 /area/library/abandoned)
 "dJu" = (
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -89089,7 +89089,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "dQh" = (
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -24
@@ -89732,7 +89732,7 @@
 	},
 /area/maintenance/apmaint)
 "dRt" = (
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -26

@@ -380,7 +380,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered/animal_hospital)
 "aY" = (
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /turf/simulated/floor/plating,
 /area/ruin/powered/animal_hospital)
 "aZ" = (

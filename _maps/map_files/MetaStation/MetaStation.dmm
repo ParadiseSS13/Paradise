@@ -16212,7 +16212,7 @@
 	},
 /area/security/brig)
 "aKQ" = (
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -44960,7 +44960,7 @@
 /obj/machinery/alarm{
 	pixel_y = 24
 	},
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -54518,7 +54518,7 @@
 /area/medical/morgue)
 "com" = (
 /obj/machinery/light/small,
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -64215,7 +64215,7 @@
 /turf/simulated/wall,
 /area/medical/morgue)
 "cIn" = (
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -68467,7 +68467,7 @@
 	},
 /area/medical/surgeryobs)
 "cQA" = (
-/obj/structure/morgue{
+/obj/structure/body_slab/morgue{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -69935,7 +69935,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "cTy" = (
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -70740,7 +70740,7 @@
 	name = "\improper Departure Lounge"
 	})
 "cVl" = (
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -75328,7 +75328,7 @@
 	},
 /area/medical/medbay3)
 "diT" = (
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -79488,7 +79488,7 @@
 /turf/space,
 /area/space/nearstation)
 "pUh" = (
-/obj/structure/morgue{
+/obj/structure/body_slab/morgue{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{

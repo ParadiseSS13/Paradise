@@ -2566,7 +2566,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/centcomAway/hangar)
 "hI" = (
-/obj/structure/morgue,
+/obj/structure/body_slab/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "engine"
 	},
