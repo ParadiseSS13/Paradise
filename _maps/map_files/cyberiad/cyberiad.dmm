@@ -8008,12 +8008,6 @@
 "auq" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_3)
-"aur" = (
-/obj/structure/filingcabinet/employment,
-/turf/simulated/floor/plasteel{
-	icon_state = "cult"
-	},
-/area/lawoffice)
 "aut" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -80010,6 +80004,12 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
+"fpa" = (
+/obj/structure/filingcabinet,
+/turf/simulated/floor/plasteel{
+	icon_state = "cult"
+	},
+/area/lawoffice)
 "fqV" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -107460,7 +107460,7 @@ aIo
 aoa
 aKw
 asO
-aur
+fpa
 avQ
 axp
 ayH

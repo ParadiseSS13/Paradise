@@ -1,12 +1,10 @@
-/obj/effect/proc_holder/spell/targeted/rod_form
+/obj/effect/proc_holder/spell/rod_form
 	name = "Rod Form"
 	desc = "Take on the form of an immovable rod, destroying all in your path."
 	clothes_req = 1
 	human_req = 0
 	charge_max = 600
 	cooldown_min = 200
-	range = -1
-	include_user = 1
 	invocation = "CLANG!"
 	invocation_type = "shout"
 	action_icon_state = "immrod"
@@ -15,7 +13,10 @@
 	sound = 'sound/effects/whoosh.ogg'
 	var/rod_delay = 2
 
-/obj/effect/proc_holder/spell/targeted/rod_form/cast(list/targets,mob/user = usr)
+/obj/effect/proc_holder/spell/rod_form/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/rod_form/cast(list/targets,mob/user = usr)
 	for(var/mob/living/M in targets)
 		var/turf/start = get_turf(M)
 		var/obj/effect/immovablerod/wizard/W = new(start, get_ranged_target_turf(M, M.dir, (15 + spell_level * 3)), rod_delay)

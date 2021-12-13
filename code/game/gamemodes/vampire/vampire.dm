@@ -221,12 +221,12 @@ You are weak to holy things, starlight and fire. Don't go into space and avoid t
 	/// Nullrods and holywater make their abilities cost more
 	var/nullified = 0
 	/// a list of powers that all vampires unlock and at what blood level they unlock them, the rest of their powers are found in the vampire_subclass datum
-	var/list/upgrade_tiers = list(/obj/effect/proc_holder/spell/self/vampire/rejuvenate = 0,
-									/obj/effect/proc_holder/spell/mob_aoe/glare = 0,
+	var/list/upgrade_tiers = list(/obj/effect/proc_holder/spell/vampire/self/rejuvenate = 0,
+									/obj/effect/proc_holder/spell/vampire/glare = 0,
 									/datum/vampire_passive/vision = 100,
-									/obj/effect/proc_holder/spell/self/vampire/specialize = 150,
+									/obj/effect/proc_holder/spell/vampire/self/specialize = 150,
 									/datum/vampire_passive/regen = 200,
-									/obj/effect/proc_holder/spell/targeted/turf_teleport/shadow_step = 250)
+									/obj/effect/proc_holder/spell/turf_teleport/shadow_step = 250)
 
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()

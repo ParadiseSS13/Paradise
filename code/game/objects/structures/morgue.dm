@@ -87,7 +87,8 @@
 			playsound(loc, open_sound, 50, 1)
 			connected.connected = src
 			for(var/atom/movable/A in src)
-				A.forceMove(connected.loc)
+				if(A.move_resist != INFINITY)
+					A.forceMove(connected.loc)
 			connected.icon_state = "morguet"
 			connected.dir = dir
 			extended = TRUE
