@@ -665,7 +665,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 					to_chat(user, "<span class='warning'>[W] seems to be stuck in your hand!</span>")
 					return
 				C.install(W)
-				user.drop_item()
 				W.loc = null
 
 				var/obj/item/robot_parts/robot_component/WC = W
