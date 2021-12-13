@@ -1814,6 +1814,7 @@
 					/obj/item/clothing/head/officer = 4,
 					/obj/item/clothing/head/beret/sec = 4,
 					/obj/item/clothing/head/soft/sec = 4,
+					/obj/item/clothing/mask/bandana/red = 4,
 					/obj/item/clothing/suit/jacket/secbomber = 2,
 					/obj/item/clothing/suit/armor/secjacket = 4,
 					/obj/item/clothing/suit/hooded/wintercoat/security = 4,
@@ -1940,7 +1941,6 @@
 	icon_state = "genedrobe"
 	ads_list = "Perfect for the mad scientist in you!"
 	vend_reply = "Thank you for using the GeneDrobe!"
-
 	products = list(/obj/item/clothing/under/rank/geneticist = 3,
 					/obj/item/clothing/suit/storage/labcoat/genetics = 3,
 					/obj/item/clothing/shoes/laceup = 3,
@@ -1996,7 +1996,7 @@
 	desc = "A vending machine renowned for vending industrial grade clothing."
 	icon_state = "engidrobe"
 	ads_list = list("Guaranteed to protect your feet from industrial accidents!", "Afraid of radiation? Then wear yellow!")
-	vend_reply = "Thank you for using the SciDrobe!"
+	vend_reply = "Thank you for using the EngiDrobe!"
 	products = list(/obj/item/clothing/under/rank/engineer = 6,
 					/obj/item/clothing/under/rank/engineer/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering = 3,

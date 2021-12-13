@@ -350,7 +350,7 @@
 				continue
 			if(blacklist.len && (current_species_name in blacklist))
 				continue
-			if((IS_WHITELISTED in current_species.species_traits) && !is_alien_whitelisted(src, current_species_name))
+			if((IS_WHITELISTED in current_species.species_traits) && !can_use_species(src, current_species_name))
 				continue
 
 		valid_species += current_species_name

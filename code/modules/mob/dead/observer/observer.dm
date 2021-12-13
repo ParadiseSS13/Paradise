@@ -92,6 +92,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	..()
 
 /mob/dead/observer/Destroy()
+	toggle_all_huds_off()
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
@@ -164,9 +165,9 @@ Works together with spawning an observer, noted above.
 			flags &= ~GHOST_CAN_REENTER
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
 		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
-		GLOB.respawnable_list -= src
+		remove_from_respawnable_list()
 		if(ghost.can_reenter_corpse)
-			GLOB.respawnable_list += ghost
+			ghost.add_to_respawnable_list()
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
 		ghost.key = key
@@ -347,6 +348,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	antagHUD = TRUE
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
 		H.add_hud_to(src)
+
+/**
+ * Toggles off all HUDs for the ghost player.
+ */
+/mob/dead/observer/proc/toggle_all_huds_off()
+	remove_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
+	remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
+	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+	antagHUD = FALSE
+	for(var/datum/atom_hud/antag/H in GLOB.huds)
+		H.remove_hud_from(src)
 
 /mob/dead/observer/proc/set_radiation_view(enabled)
 	if (enabled)
@@ -745,10 +757,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(mind)
 		mind.active = TRUE
 		mind.transfer_to(new_char)
-		if(mind.vampire)
-			mind.vampire.owner = new_char
-			mind.vampire.powers.Cut()
-			mind.vampire.check_vampire_upgrade(FALSE)
 	else
 		new_char.key = key
 
