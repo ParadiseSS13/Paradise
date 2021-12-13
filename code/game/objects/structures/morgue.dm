@@ -114,7 +114,7 @@
 			connected.connected = src
 			icon_state = "morgue0"
 			for(var/atom/movable/A in src)
-				if(!isobserver(A))
+				if(!isobserver(A) && A.move_resist != INFINITY)
 					A.forceMove(connected.loc)
 			connected.icon_state = "morguet"
 			connected.dir = dir
