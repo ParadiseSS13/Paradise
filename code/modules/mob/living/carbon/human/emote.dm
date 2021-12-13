@@ -32,7 +32,7 @@
 	act = lowertext(act)
 
 	switch(act)		//This switch makes sure you have air in your lungs before you scream
-		if("growl", "growls", "howl", "howls", "hiss", "hisses", "meow", "mews", "scream", "screams", "sneeze", "sneezes", "smeow", "smews")
+		if("growl", "growls", "howl", "howls", "hiss", "hisses", "meow", "mews", "smeow", "smews", "scream", "screams", "sneeze", "sneezes")
 			if(getOxyLoss() > 35)		//no screaming if you don't have enough breath to scream
 				on_CD = handle_emote_CD()
 				emote("gasp")
@@ -67,13 +67,13 @@
 				on_CD = handle_emote_CD()
 			else
 		if("meow", "mews")
-			if(istajaran(src))		//Only Tajaran can meow :3c
-				on_CD = handle_emote_CD(100)
+			if(istajaran(src))		//Only Tajaran can meow
+				on_CD = handle_emote_CD(30)
 			else
 				return
 		if("smeow", "smews")
-			if(istajaran(src))		//Only Tajaran can scream meow >:3c
-				on_CD = handle_emote_CD(100)
+			if(istajaran(src))		//Only Tajaran can scream meow ">:3c"
+				on_CD = handle_emote_CD(30)
 			else
 				return
 		if("squish", "squishes")
@@ -205,7 +205,7 @@
 			else
 				if(!muzzled)
 					message = "<B>[src]</B> meows displeasedly[M ? " at [M]" : ""]!"
-					playsound(loc, 'sound/voice/angry_meow.ogg', 100, 1, 10, frequency = get_age_pitch())
+					playsound(loc, 'sound/voice/angry_meow.ogg', 100, 1, 10, frequency = get_age_pitch()) //Credit https://www.youtube.com/watch?v=yGztvJt5dRI (why did it take me an hour to find this specific sound?)
 					m_type = 2
 				else
 					message = "<B>[src]</B> meows displeasedly[M ? " at [M]" : ""]."
