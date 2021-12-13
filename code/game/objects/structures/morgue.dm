@@ -31,7 +31,6 @@
 /** Overridable method for creating the morgue tray */
 /obj/structure/body_slab/proc/create_tray()
 	connected = new /obj/structure/morgue_tray(src)
-	connected.layer = TURF_LAYER
 	extended = FALSE
 	connected.icon_state = "morguet"
 	connected.dir = dir
@@ -78,7 +77,6 @@
 				A.forceMove(src)
 		connected.forceMove(src)
 		playsound(loc, open_sound, 50, 1)
-		connected.layer = TURF_LAYER
 		extended = FALSE
 	else
 		step(connected, dir)			// try to step forward
@@ -92,7 +90,6 @@
 			connected.icon_state = "morguet"
 			connected.dir = dir
 			extended = TRUE
-			connected.layer = TURF_LAYER
 
 	update()
 
@@ -270,7 +267,6 @@
 	extended = FALSE
 	connected.icon_state = "cremat"
 	connected.dir = dir
-	connected.layer = TURF_LAYER
 
 /obj/structure/body_slab/crematorium/update()
 	if(connected)
