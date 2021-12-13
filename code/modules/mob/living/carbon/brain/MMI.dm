@@ -51,7 +51,7 @@
 			brainmob.forceMove(src)
 			brainmob.stat = CONSCIOUS
 			brainmob.see_invisible = initial(brainmob.see_invisible)
-			GLOB.respawnable_list -= brainmob
+			brainmob.remove_from_respawnable_list()
 			GLOB.dead_mob_list -= brainmob//Update dem lists
 			GLOB.alive_mob_list += brainmob
 
@@ -161,7 +161,7 @@
 
 	brainmob.container = null//Reset brainmob mmi var.
 	brainmob.forceMove(held_brain) //Throw mob into brain.
-	GLOB.respawnable_list += brainmob
+	brainmob.add_to_respawnable_list()
 	GLOB.alive_mob_list -= brainmob//Get outta here
 	held_brain.brainmob = brainmob//Set the brain to use the brainmob
 	held_brain.brainmob.cancel_camera()

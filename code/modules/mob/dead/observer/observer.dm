@@ -164,9 +164,9 @@ Works together with spawning an observer, noted above.
 			flags &= ~GHOST_CAN_REENTER
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
 		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
-		GLOB.respawnable_list -= src
+		remove_from_respawnable_list()
 		if(ghost.can_reenter_corpse)
-			GLOB.respawnable_list += ghost
+			ghost.add_to_respawnable_list()
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
 		ghost.key = key
