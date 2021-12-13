@@ -21661,7 +21661,7 @@
 	},
 /area/crew_quarters/sleep)
 "aYx" = (
-/obj/structure/crematorium,
+/obj/structure/body_slab/crematorium,
 /obj/effect/landmark{
 	name = "revenantspawn"
 	},
