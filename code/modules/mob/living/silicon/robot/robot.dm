@@ -1435,7 +1435,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		brute = borked_part.brute_damage
 		burn = borked_part.electronics_damage
 		borked_part.heal_damage(brute,burn)
-		borked_part.install(new borked_part.external_type) // TODO test seee if this works all the time
+		borked_part.install(new borked_part.external_type)
 
 /mob/living/silicon/robot/proc/check_sprite(spritename)
 	. = FALSE
