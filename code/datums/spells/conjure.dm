@@ -1,5 +1,4 @@
 /obj/effect/proc_holder/spell/aoe_turf/conjure
-	name = "Conjure"
 	desc = "This spell conjures objs of the specified types in range."
 
 	var/list/summon_type = list() //determines what exactly will be summoned
@@ -61,5 +60,9 @@
 
 	summon_type = list(/mob/living/simple_animal/bot/ed209)
 	summon_amt = 10
-	range = 3
 	newVars = list("emagged" = 1,"name" = "Wizard's Justicebot")
+
+/obj/effect/proc_holder/spell/aoe_turf/conjure/summonEdSwarm/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 3
+	return T

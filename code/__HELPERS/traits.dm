@@ -168,6 +168,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FLASH_PROTECTION	"flash_protection"
 #define TRAIT_NIGHT_VISION		"night_vision"
 
+#define TRAIT_NO_BONES 			"no_bones"
+#define TRAIT_STURDY_LIMBS		"sturdy_limbs"
+
 #define TRAIT_COMIC_SANS		"comic_sans"
 #define TRAIT_NOFINGERPRINTS	"no_fingerprints"
 #define TRAIT_SLOWDIGESTION		"slow_digestion"

@@ -645,12 +645,16 @@ Difficulty: Medium
 	sound = 'sound/magic/tail_swing.ogg'
 	charge_max = 150
 	clothes_req = FALSE
-	range = 1
 	cooldown_min = 150
 	invocation_type = "none"
 	sparkle_path = /obj/effect/temp_visual/dir_setting/tailsweep
 	action_icon_state = "tailsweep"
 	action_background_icon_state = "bg_alien"
+
+/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 1
+	return T
 
 /obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon/cast(list/targets, mob/user = usr)
 	if(iscarbon(user))
