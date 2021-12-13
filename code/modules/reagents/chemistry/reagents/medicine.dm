@@ -138,7 +138,7 @@
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head = H.get_organ("head")
 			if(head)
-				head.disfigured = FALSE
+				head.status &= ~ORGAN_DISFIGURED
 	return ..() | update_flags
 
 /datum/reagent/medicine/rezadone
@@ -161,7 +161,7 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head = H.get_organ("head")
 		if(head)
-			head.disfigured = FALSE
+			head.status &= ~ORGAN_DISFIGURED
 	return ..() | update_flags
 
 /datum/reagent/medicine/rezadone/overdose_process(mob/living/M, severity)

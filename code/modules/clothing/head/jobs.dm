@@ -198,7 +198,8 @@
 	dog_fashion = /datum/dog_fashion/head/surgery
 
 /obj/item/clothing/head/surgery/black
-	desc = "A cap coroners wear during autopsies. Keeps their hair from falling into the cadavers.  It is as dark as the coroner's humor."
+	name = "coroner's cap"
+	desc = "A cap coroners wear during autopsies. Keeps their hair from falling into the cadavers. It is as dark as the coroner's humor."
 	icon_state = "surgcap_black"
 	dog_fashion = /datum/dog_fashion/head/surgery
 

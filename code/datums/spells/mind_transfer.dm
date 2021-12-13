@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/targeted/click/mind_transfer
+/obj/effect/proc_holder/spell/mind_transfer
 	name = "Mind Transfer"
 	desc = "This spell allows the user to switch bodies with a target."
 
@@ -7,8 +7,6 @@
 	clothes_req = 0
 	invocation = "GIN'YU CAPAN"
 	invocation_type = "whisper"
-	range = 1
-	click_radius = 0		// Still gotta be pretty accurate
 	selection_activated_message = "<span class='notice'>You prepare to transfer your mind. Click on a target to cast the spell.</span>"
 	selection_deactivated_message = "<span class='notice'>You decide that your current form is good enough.</span>"
 	cooldown_min = 200 //100 deciseconds reduction per rank
@@ -17,9 +15,14 @@
 	var/paralysis_amount_victim = 20 //how much the victim is paralysed for after the spell
 	action_icon_state = "mindswap"
 
-/obj/effect/proc_holder/spell/targeted/click/mind_transfer/valid_target(mob/living/target, user)
-	if(!..())
-		return FALSE
+/obj/effect/proc_holder/spell/mind_transfer/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.allowed_type = /mob/living
+	T.range = 1
+	T.click_radius = 0
+	return T
+
+/obj/effect/proc_holder/spell/mind_transfer/valid_target(mob/living/target, mob/user)
 	return target.stat != DEAD && target.key && target.mind
 
 /*
@@ -27,9 +30,9 @@ Urist: I don't feel like figuring out how you store object spells so I'm leaving
 Make sure spells that are removed from spell_list are actually removed and deleted when mind transfering.
 Also, you never added distance checking after target is selected. I've went ahead and did that.
 */
-/obj/effect/proc_holder/spell/targeted/click/mind_transfer/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/mind_transfer/cast(list/targets, mob/user = usr)
 
-	var/mob/living/target = targets[range]
+	var/mob/living/target = targets[1]
 
 	if(user.suiciding)
 		to_chat(user, "<span class='warning'>You're killing yourself! You can't concentrate enough to do this!</span>")

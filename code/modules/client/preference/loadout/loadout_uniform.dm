@@ -173,11 +173,6 @@
 	path = /obj/item/clothing/under/rank/medical/skirt
 	allowed_roles = list("Chief Medical Officer","Medical Doctor","Psychiatrist","Paramedic","Coroner")
 
-/datum/gear/uniform/skirt/job/phys
-	display_name = "Skirt, physician"
-	path = /obj/item/clothing/under/rank/security/brigphys/skirt
-	allowed_roles = list("Brig Physician")
-
 /datum/gear/uniform/skirt/job/sci
 	display_name = "Skirt, scientist"
 	path = /obj/item/clothing/under/rank/scientist/skirt

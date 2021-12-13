@@ -50,18 +50,15 @@
 	underlay_appearance.icon_state = "basalt"
 	return TRUE
 
-/turf/simulated/floor/plating/lava/proc/is_safe()
-	var/static/list/lava_safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/stone_tile))
-	var/list/found_safeties = typecache_filter_list(contents, lava_safeties_typecache)
-	for(var/obj/structure/stone_tile/S in found_safeties)
-		if(S.fallen)
-			LAZYREMOVE(found_safeties, S)
-	return LAZYLEN(found_safeties)
+/turf/simulated/floor/plating/lava/is_safe()
+	if(find_safeties() && ..())
+		return TRUE
+	return FALSE
 
 /turf/simulated/floor/plating/lava/proc/burn_stuff(AM)
 	. = 0
 
-	if(is_safe())
+	if(find_safeties())
 		return FALSE
 
 	var/thing_to_check = src

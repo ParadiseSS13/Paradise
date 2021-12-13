@@ -94,7 +94,7 @@ jobs:
 
   windows_dll_tests:
     name: Windows RUSTG Validation
-    runs-on: windows-2016
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2

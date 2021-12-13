@@ -84,6 +84,7 @@
 	resistance_flags = FIRE_PROOF
 	siemens_strength = 1
 	frequency = ATMOS_VENTSCRUB
+	var/custom_name
 	var/alarm_id = null
 	//var/skipprocess = 0 //Experimenting
 	var/alarm_frequency = ATMOS_FIRE_FREQ
@@ -125,6 +126,7 @@
 	name = "engine air alarm"
 	locked = FALSE
 	req_access = null
+	custom_name = TRUE
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 
 /obj/machinery/alarm/syndicate //general syndicate access
@@ -235,7 +237,7 @@
 /obj/machinery/alarm/proc/first_run()
 	alarm_area = get_area(src)
 	area_uid = alarm_area.uid
-	if(name == "alarm")
+	if(!custom_name)
 		name = "[alarm_area.name] Air Alarm"
 	apply_preset(1) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
@@ -1089,6 +1091,7 @@
 	name = "all-access air alarm"
 	desc = "This particular atmos control unit appears to have no access restrictions."
 	locked = FALSE
+	custom_name = TRUE
 	req_access = null
 	req_one_access = null
 

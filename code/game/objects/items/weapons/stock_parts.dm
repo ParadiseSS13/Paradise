@@ -21,15 +21,15 @@
 	toolspeed = 1
 	usesound = 'sound/items/rped.ogg'
 
-/obj/item/storage/part_replacer/afterattack(obj/machinery/T as obj, mob/living/carbon/human/user as mob, flag, params)
-	if(flag)
-		return
-	else if(works_from_distance)
-		if(istype(T))
-			if(T.component_parts)
-				T.exchange_parts(user, src)
-				user.Beam(T,icon_state="rped_upgrade",icon='icons/effects/effects.dmi',time=5)
-	return
+/obj/item/storage/part_replacer/afterattack(obj/machinery/M, mob/user, flag, params)
+	if(!flag && works_from_distance && istype(M))
+		// Make sure its in range
+		if(M in view(user))
+			if(M.component_parts)
+				M.exchange_parts(user, src)
+				user.Beam(M,icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
+		else
+			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to upgrade machinery with a BRPED via a camera console. (Attempted range exploit)")
 
 /obj/item/storage/part_replacer/bluespace
 	name = "bluespace rapid part exchange device"
