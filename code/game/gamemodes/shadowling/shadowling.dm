@@ -141,7 +141,7 @@ Made by Xhuis
 
 /datum/game_mode/proc/finalize_shadowling(datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
-	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_hatch(null))
+	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_hatch(null))
 	spawn(0)
 		shadow_mind.current.add_language("Shadowling Hivemind")
 		update_shadow_icons_added(shadow_mind)
@@ -160,8 +160,8 @@ Made by Xhuis
 		new_thrall_mind.current.create_attack_log("<span class='danger'>Became a thrall</span>")
 		new_thrall_mind.current.create_log(CONVERSION_LOG, "Became a thrall")
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
-		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk(null))
-		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision(null))
+		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/lesser_shadow_walk(null))
+		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/shadow_vision(null))
 		to_chat(new_thrall_mind.current, "<span class='shadowling'><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b></span>")
 		to_chat(new_thrall_mind.current, "<span class='shadowling'><b>The shadowlings are your masters.</b> Serve them above all else and ensure they complete their goals.</span>")
 		to_chat(new_thrall_mind.current, "<span class='shadowling'>You may not harm other thralls or the shadowlings. However, you do not need to obey other thralls.</span>")
@@ -220,7 +220,7 @@ Made by Xhuis
 			if(ishuman(shadow.current))
 				var/mob/living/carbon/human/H = shadow.current
 				if(!isshadowling(H))
-					for(var/obj/effect/proc_holder/spell/targeted/shadowling_hatch/hatch_ability in shadow.spell_list)
+					for(var/obj/effect/proc_holder/spell/shadowling_hatch/hatch_ability in shadow.spell_list)
 						hatch_ability.cycles_unused++
 						if(!H.stunned && prob(20) && hatch_ability.cycles_unused > GLOB.configuration.gamemode.shadowling_max_age)
 							var/shadow_nag_messages = list("You can barely hold yourself in this lesser form!", "The urge to become something greater is overwhelming!", "You feel a burning passion to hatch free of this shell and assume godhood!")
