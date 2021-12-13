@@ -297,7 +297,7 @@
 		return
 	if((connected) && (locked == 0))
 		for(var/atom/movable/A in connected.loc)
-			if(!( A.anchored ))
+			if(!(A.anchored) && A.move_resist != INFINITY)
 				A.forceMove(src)
 		playsound(loc, open_sound, 50, 1)
 		QDEL_NULL(connected)
