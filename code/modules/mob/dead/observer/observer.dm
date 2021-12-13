@@ -218,8 +218,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		ghostize(1)
 
 	// If mob in morgue tray, update tray
-	var/obj/structure/morgue/Morgue = locate() in M.loc
-	if(istype(M.loc, /obj/structure/morgue))
+	var/obj/structure/body_slab/morgue/Morgue = locate() in M.loc
+	if(istype(M.loc, /obj/structure/body_slab/morgue))
 		Morgue = M.loc
 	if(Morgue)
 		Morgue.update()
@@ -284,8 +284,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	mind.current.key = key
 
-	var/obj/structure/morgue/Morgue = locate() in mind.current.loc
-	if(istype(mind.current.loc,/obj/structure/morgue))
+	var/obj/structure/body_slab/morgue/Morgue = locate() in mind.current.loc
+	if(istype(mind.current.loc, /obj/structure/body_slab/morgue))
 		Morgue = mind.current.loc
 	if(Morgue)
 		Morgue.update()
