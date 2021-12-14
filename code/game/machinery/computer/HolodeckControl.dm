@@ -327,6 +327,31 @@
 /turf/simulated/floor/holofloor/
 	thermal_conductivity = 0
 	icon_state = "plating"
+
+/turf/simulated/floor/holofloor/carpet
+	name = "carpet"
+	icon = 'icons/turf/floors/carpet.dmi'
+	icon_state = "carpet-255"
+	base_icon_state = "carpet"
+	floor_tile = /obj/item/stack/tile/carpet
+	broken_states = list("damaged")
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET)
+	footstep = FOOTSTEP_CARPET
+	barefootstep = FOOTSTEP_CARPET_BAREFOOT
+	clawfootstep = FOOTSTEP_CARPET_BAREFOOT
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+
+/turf/simulated/floor/holofloor/carpet/Initialize(mapload)
+	. = ..()
+	update_icon()
+
+/turf/simulated/floor/holofloor/carpet/update_icon()
+	if(!..())
+		return 0
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH(src)
 /turf/simulated/floor/holofloor/grass
 	name = "Lush Grass"
 	icon = 'icons/turf/floors/grass.dmi'
@@ -368,7 +393,9 @@
 	name = "wooden table"
 	desc = "A square piece of wood standing on four wooden legs. It can not move."
 	icon = 'icons/obj/smooth_structures/wood_table.dmi'
-	icon_state = "wood_table"
+	icon_state = "wood_table-0"
+	base_icon_state = "wood_table"
+	smoothing_groups = list(SMOOTH_GROUP_WOOD_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES
 	canSmoothWith = list(SMOOTH_GROUP_WOOD_TABLES)
 
 /obj/structure/chair/stool/holostool
