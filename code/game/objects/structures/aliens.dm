@@ -117,7 +117,7 @@
 	desc = "A thick resin surface covers the floor."
 	anchored = TRUE
 	density = FALSE
-	layer = TURF_LAYER
+	layer = ABOVE_OPEN_TURF_LAYER
 	plane = FLOOR_PLANE
 	icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
 	icon_state = "weeds1-0"
@@ -139,15 +139,12 @@
 		return
 	if(icon_state == "weeds")
 		icon_state = pick("weeds", "weeds1", "weeds2")
-	fullUpdateWeedOverlays()
 	spawn(rand(150, 200))
 		if(src)
 			Life()
 
 /obj/structure/alien/weeds/Destroy()
-	var/turf/T = loc
-	for(var/obj/structure/alien/weeds/W in range(1,T))
-		W.updateWeedOverlays()
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	linked_node = null
 	return ..()
 
@@ -172,40 +169,6 @@
 	..()
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
-
-/obj/structure/alien/weeds/proc/updateWeedOverlays()
-
-	overlays.Cut()
-
-	if(!weedImageCache || !weedImageCache.len)
-		weedImageCache = list()
-		weedImageCache.len = 4
-		weedImageCache[WEED_NORTH_EDGING] = image('icons/mob/alien.dmi', "weeds_side_n", layer=2.11, pixel_y = -32)
-		weedImageCache[WEED_SOUTH_EDGING] = image('icons/mob/alien.dmi', "weeds_side_s", layer=2.11, pixel_y = 32)
-		weedImageCache[WEED_EAST_EDGING] = image('icons/mob/alien.dmi', "weeds_side_e", layer=2.11, pixel_x = -32)
-		weedImageCache[WEED_WEST_EDGING] = image('icons/mob/alien.dmi', "weeds_side_w", layer=2.11, pixel_x = 32)
-
-	var/turf/N = get_step(src, NORTH)
-	var/turf/S = get_step(src, SOUTH)
-	var/turf/E = get_step(src, EAST)
-	var/turf/W = get_step(src, WEST)
-	if(!locate(/obj/structure/alien) in N.contents)
-		if(istype(N, /turf/simulated/floor))
-			overlays += weedImageCache[WEED_SOUTH_EDGING]
-	if(!locate(/obj/structure/alien) in S.contents)
-		if(istype(S, /turf/simulated/floor))
-			overlays += weedImageCache[WEED_NORTH_EDGING]
-	if(!locate(/obj/structure/alien) in E.contents)
-		if(istype(E, /turf/simulated/floor))
-			overlays += weedImageCache[WEED_WEST_EDGING]
-	if(!locate(/obj/structure/alien) in W.contents)
-		if(istype(W, /turf/simulated/floor))
-			overlays += weedImageCache[WEED_EAST_EDGING]
-
-
-/obj/structure/alien/weeds/proc/fullUpdateWeedOverlays()
-	for(var/obj/structure/alien/weeds/W in range(1,src))
-		W.updateWeedOverlays()
 
 //Weed nodes
 /obj/structure/alien/weeds/node
