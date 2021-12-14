@@ -91,8 +91,6 @@
 	// Adds the adjacent turfs to the current atmos processing
 	for(var/turf/simulated/T in atmos_adjacent_turfs)
 		SSair.add_to_active(T)
-	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
-		QUEUE_SMOOTH_NEIGHBORS(src)
 	SSair.remove_from_active(src)
 	visibilityChanged()
 	QDEL_LIST(blueprint_data)
