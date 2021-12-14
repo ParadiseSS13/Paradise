@@ -67,31 +67,23 @@
 
 	opening = 1
 	if(density)
-		do_the_flick()
-		sleep(4)
+		flick("fwall_opening", src)
 		density = 0
 		set_opacity(0)
-		update_icon(0)
+		update_icon()
 	else
 		var/srcturf = get_turf(src)
 		for(var/mob/living/obstacle in srcturf) //Stop people from using this as a shield
 			opening = 0
 			return
-		do_the_flick()
+		flick("fwall_closing", src)
 		density = 1
-		sleep(4)
 		set_opacity(1)
 		update_icon()
 	air_update_turf(1)
 	opening = 0
+	update_icon()
 
-/obj/structure/falsewall/proc/do_the_flick()
-	if(density)
-		smoothing_flags = NONE
-		clear_smooth_overlays()
-		flick("fwall_opening", src)
-	else
-		flick("fwall_closing", src)
 
 /obj/structure/falsewall/update_icon()
 	if(opening)
