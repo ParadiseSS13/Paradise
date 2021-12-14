@@ -177,7 +177,7 @@
 	return FALSE
 
 
-/obj/effect/proc_holder/spell/blood_eruption/cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/vampire/blood_eruption/cast(list/targets, mob/user)
 	for(var/mob/living/L in targets)
 		var/turf/T = get_turf(L)
 		var/obj/effect/decal/cleanable/blood/B = locate(/obj/effect/decal/cleanable/blood) in T

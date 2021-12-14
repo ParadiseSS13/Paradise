@@ -78,9 +78,10 @@
 		owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp loses his vision based powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
 /datum/antagonist/vampire/remove_innate_effects(mob/living/old_body)
+	var/mob/living/L = old_body || owner.current
 	for(var/P in powers)
 		remove_ability(P)
-	var/datum/hud/hud = owner.current.hud_used
+	var/datum/hud/hud = L.hud_used
 	if(hud?.vampire_blood_display)
 		hud.remove_vampire_hud()
 	owner.current.alpha = 255
@@ -319,4 +320,3 @@
 /datum/hud/proc/remove_vampire_hud()
 	static_inventory -= vampire_blood_display
 	QDEL_NULL(vampire_blood_display)
-	show_hud()
