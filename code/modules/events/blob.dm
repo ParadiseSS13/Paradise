@@ -30,6 +30,6 @@
 	SSticker.mode.update_blob_icons_added(B.mind)
 
 	to_chat(B, "<span class='userdanger'>Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии.</span>")
-	notify_ghosts("Заражённая мышь появилась в [get_area(B)].", source = B)
+	notify_ghosts("Заражённая мышь появилась в [get_area(B)].", source = B, action = NOTIFY_FOLLOW)
 	successSpawn = TRUE
 	processing = TRUE // Let it naturally end, if it runs successfully
