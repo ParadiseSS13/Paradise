@@ -59,6 +59,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/item/multitool/aiMulti = null
 	var/custom_sprite = 0 //For our custom sprites
 	var/custom_hologram = 0 //For our custom holograms
+	var/on_the_card = FALSE //If our ai is on the Intelicard, or not
 
 	var/obj/item/radio/headset/heads/ai_integrated/aiRadio = null
 
@@ -1235,6 +1236,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			to_chat(user, "<span class='warning'>No intelligence patterns detected.</span>")//No more magical carding of empty cores, AI RETURN TO BODY!!!11
 			return
 		new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
+		on_the_card = TRUE
 		aiRestorePowerRoutine = 0//So the AI initially has power.
 		update_blind_effects()
 		control_disabled = 1//Can't control things remotely if you're stuck in a card!

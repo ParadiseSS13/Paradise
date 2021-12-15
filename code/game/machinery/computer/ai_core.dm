@@ -300,6 +300,7 @@ That prevents a few funky behaviors.
 		AI.control_disabled = 0
 		AI.aiRadio.disabledAi = 0
 		AI.forceMove(loc)//To replace the terminal.
+		AI.on_the_card = FALSE
 		to_chat(AI, "You have been uploaded to a stationary terminal. Remote device connection restored.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.</span>")
 		qdel(src)

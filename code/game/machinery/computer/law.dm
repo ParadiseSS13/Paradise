@@ -36,6 +36,9 @@
 		if(!atoms_share_level(T, src))
 			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
 			return
+		if(current.on_the_card)
+			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: Target silicon is on an inteliCard or undergoing a repair procedure!")
+			return
 		var/obj/item/aiModule/M = O
 		M.install(src)
 		return
