@@ -141,7 +141,7 @@
 	id = /obj/item/card/id/supply
 	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/quartermaster
-
+	backpack = /obj/item/storage/backpack/cargo
 
 
 /datum/job/cargo_tech
@@ -167,7 +167,7 @@
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/cargo
-
+	backpack = /obj/item/storage/backpack/cargo
 
 
 /datum/job/mining
@@ -205,7 +205,7 @@
 	)
 
 	backpack = /obj/item/storage/backpack/explorer
-	satchel = /obj/item/storage/backpack/satchel/explorer
+	satchel = /obj/item/storage/backpack/satchel_explorer
 	box = /obj/item/storage/box/survival_mining
 
 /datum/outfit/job/mining/equipped
@@ -276,7 +276,7 @@
 	)
 
 	backpack = /obj/item/storage/backpack/clown
-	satchel = /obj/item/storage/backpack/clown
+	satchel = /obj/item/storage/backpack/satchel_clown
 	dufflebag = /obj/item/storage/backpack/duffel/clown
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -345,7 +345,6 @@
 
 	uniform = /obj/item/clothing/under/mime
 	suit = /obj/item/clothing/suit/suspenders
-	back = /obj/item/storage/backpack/mime
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/beret
@@ -358,6 +357,8 @@
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
 		/obj/item/cane = 1
 	)
+	backpack = /obj/item/storage/backpack/mime
+	satchel = /obj/item/storage/backpack/satchel_mime
 
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

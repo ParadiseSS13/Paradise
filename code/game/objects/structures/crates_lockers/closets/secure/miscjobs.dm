@@ -9,7 +9,11 @@
 	icon_off = "clownsecureoff"
 
 /obj/structure/closet/secure_closet/clown/populate_contents()
-	new /obj/item/storage/backpack/clown(src)
+	switch(rand(0, 1))
+		if(0)
+			new /obj/item/storage/backpack/clown(src)
+		if(1)
+			new /obj/item/storage/backpack/satchel_clown(src)
 	new /obj/item/clothing/under/rank/clown(src)
 	new /obj/item/clothing/shoes/clown_shoes(src)
 	new /obj/item/radio/headset/headset_service(src)
@@ -34,6 +38,11 @@
 	icon_off = "mimesecureoff"
 
 /obj/structure/closet/secure_closet/mime/populate_contents()
+	switch(rand(0, 1))
+		if(0)
+			new /obj/item/storage/backpack/mime(src)
+		if(1)
+			new /obj/item/storage/backpack/satchel_mime(src)
 	new /obj/item/clothing/head/beret(src)
 	new /obj/item/clothing/mask/gas/mime(src)
 	new /obj/item/radio/headset/headset_service(src)
@@ -41,7 +50,6 @@
 	new /obj/item/clothing/suit/suspenders(src)
 	new /obj/item/clothing/gloves/color/white(src)
 	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/storage/backpack/mime(src)
 	new /obj/item/toy/crayon/mime(src)
 	new /obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(src)
 	new /obj/item/cane(src)

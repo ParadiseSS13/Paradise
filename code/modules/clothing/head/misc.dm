@@ -297,6 +297,13 @@
 	item_state = "bearpelt"
 	flags = BLOCKHAIR
 
+/obj/item/clothing/head/corgipelt
+	name = "corgi pelt hat"
+	desc = "What have i done."
+	icon_state = "corgipelt"
+	item_state = "corgipelt"
+	flags = BLOCKHAIR
+
 /obj/item/clothing/head/xenos
 	name = "xenos helmet"
 	icon_state = "xenos"

@@ -28,7 +28,7 @@
 /obj/structure/closet/wardrobe/miner/populate_contents()
 	new /obj/item/storage/backpack/duffel(src)
 	new /obj/item/storage/backpack/explorer(src)
-	new /obj/item/storage/backpack/satchel/explorer(src)
+	new /obj/item/storage/backpack/satchel_explorer(src)
 	new /obj/item/clothing/under/rank/miner/lavaland(src)
 	new /obj/item/clothing/under/rank/miner/lavaland(src)
 	new /obj/item/clothing/under/rank/miner/lavaland(src)

@@ -165,6 +165,12 @@
 	item_state = "engiepack"
 	resistance_flags = FIRE_PROOF
 
+/obj/item/storage/backpack/cargo
+	name = "Cargo backpack"
+	desc = "It's a huge backpack for daily looting of station's stashes."
+	icon_state = "cargopack"
+	item_state = "cargopack"
+
 /obj/item/storage/backpack/explorer
 	name = "explorer bag"
 	desc = "A robust backpack for stashing your loot."
@@ -176,6 +182,12 @@
 	desc = "It's a backpack made of all-natural fibers."
 	icon_state = "botpack"
 	item_state = "botpack"
+
+/obj/item/storage/backpack/lizard
+	name = "lizard skin backpack"
+	desc = "A backpack made out of what appears to be supple green Unathi skin. A face can be vaguely seen on the front."
+	icon_state = "lizardpack"
+	item_state = "lizardpack"
 
 /obj/item/storage/backpack/chemistry
 	name = "chemistry backpack"
@@ -212,46 +224,30 @@
  * Satchel Types
  */
 
-/obj/item/storage/backpack/satchel
-	name = "leather satchel"
-	desc = "It's a very fancy satchel made with fine leather."
-	icon_state = "satchel"
-	resistance_flags = FIRE_PROOF
-	var/strap_side_straight = FALSE
-
-/obj/item/storage/backpack/satchel/verb/switch_strap()
-	set name = "Switch Strap Side"
-	set category = "Object"
-	set src in usr
-
-	if(usr.incapacitated())
-		return
-	strap_side_straight = !strap_side_straight
-	icon_state = strap_side_straight ? "satchel-flipped" : "satchel"
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		H.update_inv_back()
-
-
+/obj/item/storage/backpack/satchel_norm
+	name = "satchel"
+	desc = "A deluxe NT Satchel, made of the highest quality leather."
+	icon_state = "satchel-norm"
 
 /obj/item/storage/backpack/satcheldeluxe
 	name = "leather satchel"
 	desc = "An NT Deluxe satchel, with the finest quality leather and the company logo in a thin gold stitch"
 	icon_state = "nt_deluxe"
 
-/obj/item/storage/backpack/satchel/lizard
+/obj/item/storage/backpack/satchel_lizard
 	name = "lizard skin handbag"
 	desc = "A handbag made out of what appears to be supple green Unathi skin. A face can be vaguely seen on the front."
 	icon_state = "satchel-lizard"
 
-/obj/item/storage/backpack/satchel/withwallet/New()
-	..()
-	new /obj/item/storage/wallet/random(src)
+/obj/item/storage/backpack/satchel_clown
+	name = "Giggles Von Robuston"
+	desc = "It's a satchel made by Honk! Co."
+	icon_state = "satchel-clown"
 
-/obj/item/storage/backpack/satchel_norm
-	name = "satchel"
-	desc = "A deluxe NT Satchel, made of the highest quality leather."
-	icon_state = "satchel-norm"
+/obj/item/storage/backpack/satchel_mime
+	name = "Parcel Parobust"
+	desc = "A silent satchel made for those silent workers. Silence Co."
+	icon_state = "satchel-mime"
 
 /obj/item/storage/backpack/satchel_eng
 	name = "industrial satchel"
@@ -259,7 +255,7 @@
 	icon_state = "satchel-eng"
 	resistance_flags = FIRE_PROOF
 
-/obj/item/storage/backpack/satchel/explorer
+/obj/item/storage/backpack/satchel_explorer
 	name = "explorer satchel"
 	desc = "A robust satchel for stashing your loot."
 	icon_state = "satchel-explorer"
@@ -296,6 +292,11 @@
 	desc = "A robust satchel for security related needs."
 	icon_state = "satchel-sec"
 
+/obj/item/storage/backpack/satchel_detective
+	name = "forensic satchel"
+	desc = "For every man, who at the bottom of his heart believes that he is a born detective."
+	icon_state = "satchel-detective"
+
 /obj/item/storage/backpack/satchel_hyd
 	name = "hydroponics satchel"
 	desc = "A green satchel for plant related work."
@@ -311,6 +312,32 @@
 	name = "blueshield satchel"
 	desc = "A robust satchel issued to Nanotrasen's finest."
 	icon_state = "satchel-blueshield"
+
+//make sure to not inherit backpack/satchel if you want to create a new satchel
+/obj/item/storage/backpack/satchel
+	name = "leather satchel"
+	desc = "It's a very fancy satchel made with fine leather."
+	icon_state = "satchel"
+	resistance_flags = FIRE_PROOF
+	var/strap_side_straight = FALSE
+
+/obj/item/storage/backpack/satchel/verb/switch_strap()
+	set name = "Switch Strap Side"
+	set category = "Object"
+	set src in usr
+
+	if(usr.incapacitated())
+		return
+	strap_side_straight = !strap_side_straight
+	icon_state = strap_side_straight ? "satchel-flipped" : "satchel"
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_back()
+
+
+/obj/item/storage/backpack/satchel/withwallet/New()
+	..()
+	new /obj/item/storage/wallet/random(src)
 
 /obj/item/storage/backpack/satchel_flat
 	name = "smuggler's satchel"

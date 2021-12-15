@@ -138,6 +138,7 @@
 		/obj/item/storage/box/evidence = 1,
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
+	satchel = /obj/item/storage/backpack/satchel_detective
 
 	implants = list(/obj/item/implant/mindshield)
 

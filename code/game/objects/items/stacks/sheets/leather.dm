@@ -48,9 +48,7 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 	singular_name = "lizard skin piece"
 	icon_state = "sheet-lizard"
 
-GLOBAL_LIST_INIT(lizard_recipes, list( \
-	new/datum/stack_recipe("lizard skin handbag", /obj/item/storage/backpack/satchel/lizard, 5, on_floor = TRUE), \
-	))
+GLOBAL_LIST_INIT(lizard_recipes, list(new/datum/stack_recipe("lizard skin handbag", /obj/item/storage/backpack/satchel_lizard, 5, on_floor = TRUE), new/datum/stack_recipe("lizard skin backpack",  /obj/item/storage/backpack/lizard, 5, on_floor = TRUE)))
 
 /obj/item/stack/sheet/animalhide/lizard/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.lizard_recipes

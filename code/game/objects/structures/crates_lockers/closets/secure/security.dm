@@ -327,6 +327,7 @@
 	max_integrity = 70
 
 /obj/structure/closet/secure_closet/detective/populate_contents()
+	new /obj/item/storage/backpack/satchel_detective(src)
 	new /obj/item/clothing/under/det(src)
 	new /obj/item/clothing/suit/storage/det_suit(src)
 	new /obj/item/clothing/suit/storage/det_suit/forensics/blue(src)
