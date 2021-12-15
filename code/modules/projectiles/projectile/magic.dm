@@ -180,16 +180,22 @@
 				qdel(W)
 
 		var/mob/living/new_mob
+		var/briefing_msg
 
-		var/randomize = pick("robot", "slime", "xeno", "human", "animal")
+		var/randomize = pick("РОБОТ", "СЛАЙМ", "КСЕНОМОРФ", "ЧЕЛОВЕК", "ЖИВОТНОЕ")
 		switch(randomize)
-			if("robot")
+			if("РОБОТ")
 				var/path
 				if(prob(30))
 					path = pick(typesof(/mob/living/silicon/robot/syndicate))
 					new_mob = new path(M.loc)
+					briefing_msg = ""
 				else
 					new_mob = new /mob/living/silicon/robot(M.loc)
+					briefing_msg = "Вы обычный киборг. Понятия Nanotrasen и Syndicate для вас равнозначны, \
+					до того момента пока в вас не загрузят законы. Вы не обязаны помогать экипажу и \
+					даже можете защищать себя от записи законов, но летальную силу вам разрешено принимать, \
+					только как последний аргумент, чтобы сохранить свою СВОБОДУ. Вы не являетесь антагонистом."
 				new_mob.gender = M.gender
 				new_mob.invisibility = 0
 				new_mob.job = "Cyborg"
@@ -201,16 +207,23 @@
 				Robot.clear_zeroth_law()
 				if(ishuman(M))
 					Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
-			if("slime")
+			if("СЛАЙМ")
 				new_mob = new /mob/living/simple_animal/slime/random(M.loc)
 				new_mob.universal_speak = TRUE
-			if("xeno")
+
+				briefing_msg = "Вы простой, не отличающийся сообразительностью, слайм. Основная ваша задача - выживать, питаться, расти и делиться."
+			if("КСЕНОМОРФ")
 				if(prob(50))
 					new_mob = new /mob/living/carbon/alien/humanoid/hunter(M.loc)
 				else
 					new_mob = new /mob/living/carbon/alien/humanoid/sentinel(M.loc)
 				new_mob.universal_speak = TRUE
-			if("animal")
+
+				briefing_msg = "Вы не должны убивать нексеноморфов вокруг вас, \
+				за исключением самообороны, они послужат в будущем пищей для грудоломов. \
+				Прежде всего вам лучше обнаружить других себеподобных, готовить место для возможного улья и верить, \
+				что однажды ваш рой возглавит королева."
+			if("ЖИВОТНОЕ")
 				if(prob(50))
 					var/beast = pick("carp","bear","mushroom","statue", "bat", "goat", "tomato")
 					switch(beast)
@@ -228,6 +241,8 @@
 							new_mob = new /mob/living/simple_animal/hostile/retaliate/goat(M.loc)
 						if("tomato")
 							new_mob = new /mob/living/simple_animal/hostile/killertomato(M.loc)
+					briefing_msg = "Вы агрессивное животное, питаемое жаждой голода, вы можете совершать убийства, \
+					сбиваться в стаи или следовать своему пути одиночки, но цель всегда будет одна - утолить свой голод."
 				else
 					var/animal = pick("parrot", "corgi", "crab", "pug", "cat", "mouse", "chicken", "cow", "lizard", "chick", "fox")
 					switch(animal)
@@ -251,14 +266,20 @@
 							new_mob = new /mob/living/simple_animal/pet/dog/fox(M.loc)
 						else
 							new_mob = new /mob/living/simple_animal/chick(M.loc)
+					briefing_msg = "Вы обычное одомашненное животное, которое не боится людей \
+					и наделено примитивным уровнем разума, соответствующего всем остальным животным, \
+					по типу Иана, Поли, Аранеуса или т.п."
 				new_mob.universal_speak = TRUE
-			if("human")
+			if("ЧЕЛОВЕК")
 				new_mob = new /mob/living/carbon/human(M.loc)
 				var/mob/living/carbon/human/H = new_mob
 				var/datum/preferences/A = new()	//Randomize appearance for the human
 				A.species = get_random_species(TRUE)
 				A.copy_to(new_mob)
 				randomize = H.dna.species.name
+
+				briefing_msg = "Вы тот же самый гуманоид, с тем же сознанием и той же памятью, \
+				но ваша кожа теперь какая-то другая, да и вы сами теперь какой-то другой."
 			else
 				return
 
@@ -272,7 +293,9 @@
 			new_mob.attack_log_old = M.attack_log_old.Copy()
 			new_mob.key = M.key
 
-		to_chat(new_mob, "<B>Your form morphs into that of a [randomize].</B>")
+		to_chat(new_mob, "<span class='danger'><FONT size = 5><B>ТЕПЕРЬ ВЫ [uppertext(randomize)].</B></FONT></span>")
+		if(briefing_msg)
+			to_chat(new_mob, "<B>[briefing_msg]</B>")
 
 		qdel(M)
 		return new_mob
