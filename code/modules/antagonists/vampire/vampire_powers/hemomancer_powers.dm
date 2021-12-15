@@ -158,9 +158,6 @@
 	gain_desc = "You have gained the ability to weaponise pools of blood to damage those stood on them."
 	required_blood = 100
 	charge_max = 200 SECONDS
-	panel = "Vampire"
-	school = "vampire"
-	action_background_icon_state = "bg_vampire"
 	action_icon_state = "blood_spikes"
 
 /obj/effect/proc_holder/spell/vampire/blood_eruption/create_new_targeting()
