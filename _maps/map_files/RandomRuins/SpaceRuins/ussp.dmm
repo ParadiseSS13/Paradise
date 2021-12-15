@@ -363,7 +363,7 @@
 /area/derelict/bridge)
 "aS" = (
 /obj/machinery/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Помните! Никаких капиталистов!","Лучше всего употреблять вместе с водкой!","Затянитесь!","Девять из десяти учёных СССП считают что курение снимает стресс","Прочим сигаретам далеко до русских сигарет!","Сигареты! Теперь на 100% меньше капитализма.")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -2865,7 +2865,7 @@
 	name = "suspicious button"
 	},
 /obj/machinery/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Помните! Никаких капиталистов!","Лучше всего употреблять вместе с водкой!","Затянитесь!","Девять из десяти учёных СССП считают что курение снимает стресс","Прочим сигаретам далеко до русских сигарет!","Сигареты! Теперь на 100% меньше капитализма.")
 	},
 /turf/simulated/floor/wood{
 	broken = 1;
@@ -3810,7 +3810,7 @@
 "hM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Помните! Никаких капиталистов!","Лучше всего употреблять вместе с водкой!","Затянитесь!","Девять из десяти учёных СССП считают что курение снимает стресс","Прочим сигаретам далеко до русских сигарет!","Сигареты! Теперь на 100% меньше капитализма.")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -6454,7 +6454,7 @@
 /area/space/nearstation)
 "mY" = (
 /obj/machinery/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Помните! Никаких капиталистов!","Лучше всего употреблять вместе с водкой!","Затянитесь!","Девять из десяти учёных СССП считают что курение снимает стресс","Прочим сигаретам далеко до русских сигарет!","Сигареты! Теперь на 100% меньше капитализма.")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -7962,7 +7962,7 @@
 /area/derelict/arrival)
 "ql" = (
 /obj/machinery/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Помните! Никаких капиталистов!","Лучше всего употреблять вместе с водкой!","Затянитесь!","Девять из десяти учёных СССП считают что курение снимает стресс","Прочим сигаретам далеко до русских сигарет!","Сигареты! Теперь на 100% меньше капитализма.")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;

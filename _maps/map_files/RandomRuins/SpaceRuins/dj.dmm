@@ -445,7 +445,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	slogan_list = list("Помните! Никаких капиталистов!","Лучше всего употреблять вместе с водкой!","Затянитесь!","Девять из десяти учёных СССП считают что курение снимает стресс","Прочим сигаретам далеко до русских сигарет!","Сигареты! Теперь на 100% меньше капитализма.")
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
