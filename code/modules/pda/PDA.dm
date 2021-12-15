@@ -60,6 +60,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	var/obj/item/paicard/pai = null	// A slot for a personal AI device
 	var/retro_mode = 0
+	var/iconImage
 
 
 /*
@@ -69,6 +70,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 	. = ..()
 	GLOB.PDAs += src
 	GLOB.PDAs = sortAtom(GLOB.PDAs)
+
+	// Generate image for the pda for TGUI.
+	iconImage = "[icon2base64(icon(icon, icon_state, frame = 1))]"
+
 	update_programs()
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
