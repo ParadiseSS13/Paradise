@@ -2426,24 +2426,24 @@
 			return
 		var/obj/item/paper/P = new /obj/item/paper(null)
 		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
-		P.name = "Central Command - paper"
-		var/stypes = list("Handle it yourselves!","Illegible fax","Fax not signed","Not Right Now","You are wasting our time", "Keep up the good work", "ERT Instructions")
-		var/stype = input(src.owner, "Which type of standard reply do you wish to send to [H]?","Choose your paperwork", "") as null|anything in stypes
-		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><b>Nanotrasen Science Station [GLOB.using_map.station_short]</b></font><BR><BR><BR><font size='4'>NAS Trurl Communications Department Report</font></center><BR><BR>"
-		if(stype == "Handle it yourselves!")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention.<BR><BR><i><small>This is an automatic message.</small>"
-		else if(stype == "Illegible fax")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax's grammar, syntax and/or typography are of a sub-par level and do not allow us to understand the contents of the message.<BR><BR>Please consult your nearest dictionary and/or thesaurus and try again.<BR><BR><i><small>This is an automatic message.</small>"
-		else if(stype == "Fax not signed")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax has not been correctly signed and, as such, we cannot verify your identity.<BR><BR>Please sign your faxes before sending them so that we may verify your identity.<BR><BR><i><small>This is an automatic message.</small>"
-		else if(stype == "Not Right Now")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Due to pressing concerns of a matter above your current paygrade, we are unable to provide assistance in whatever matter your fax referenced.<BR><BR>This can be either due to a power outage, bureaucratic audit, pest infestation, Ascendance Event, corgi outbreak, or any other situation that would affect the proper functioning of the NAS Trurl.<BR><BR>Please try again later.<BR><BR><i><small>This is an automatic message.</small>"
-		else if(stype == "You are wasting our time")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>In the interest of preventing further mismanagement of company resources, please avoid wasting our time with such petty drivel.<BR><BR>Do kindly remember that we expect our workforce to maintain at least a semi-decent level of profesionalism. Do not test our patience.<BR><BR><i><small>This is an automatic message.</i></small>"
-		else if(stype == "Keep up the good work")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been received successfully by NAS Trurl Fax Registration.<BR><BR>We at the NAS Trurl appreciate the good work that you have done here, and sincerely recommend that you continue such a display of dedication to the company.<BR><BR><i><small>This is absolutely not an automated message.</i></small>"
-		else if(stype == "ERT Instructions")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Please utilize the Card Swipers if you wish to call for an ERT.<BR><BR><i><small>This is an automated message.</i></small>"
+		P.name = "Центральное командование - paper"
+		var/stypes = list("Разберитесь с этим сами!","Неразборчивый факс","Факс не подписан","Не сейчас","Вы напрасно тратите наше время", "Продолжайте в том же духе", "Инструкции ОБР")
+		var/stype = input(src.owner, "Какой тип заготовленного письма вы хотите отправить [H]?","Выберите этот документ", "") as null|anything in stypes
+		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><b>Научная станция NanoTrasen [GLOB.using_map.station_short]</b></font><BR><BR><BR><font size='4'>Отчет отдела коммуникаций УСН 'Трурль'</font></center><BR><BR>"
+		if(stype == "Разберитесь с этим сами!")
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов УСН 'Трурль'.<BR><BR>Пожалуйста, действуйте в соответствии со Стандартными Рабочими Процедурами и/или Космическим Законом. Вы полностью обучены справляться с данной ситуацией без вмешательства Центрального Командования.<BR><BR><i><small>Это автоматическое сообщение.</small>"
+		else if(stype == "Неразборчивый факс")
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов УСН 'Трурль'.<BR><BR>Грамматика, синтаксис и/или типография вашего факса находятся на низком уровне и не позволяют нам понять содержание сообщения.<BR><BR>Пожалуйста, обратитесь к ближайшему словарю и/или тезаурусу и повторите попытку.<BR><BR><i><small>Это автоматическое сообщение.</small>"
+		else if(stype == "Факс не подписан")
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов УСН 'Трурль'.<BR><BR>Ваш факс был неправильно подписан, и поэтому мы не можем подтвердить вашу личность.<BR><BR>Пожалуйста, подпишите свои факсы перед их отправкой, чтобы мы могли вас идентифицировать.<BR><BR><i><small>Это автоматическое сообщение.</small>"
+		else if(stype == "Не сейчас")
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов УСН 'Трурль'.<BR><BR>Из-за неотложных проблем, связанных с вопросом, превышающим ваш текущий уровень оплаты, мы не можем оказать помощь по любому вопросу, на который ссылается ваш факс.<BR><BR>Это может быть связано с отключением электроэнергии, бюрократическим аудитом, распространением вредителей, 'Восхождением', быстрым ростом популяции корги или любой другой ситуацией, которая может повлиять на надлежащее функционирование УСН 'Трурль'.<BR><BR>Пожалуйста, повторите попытку позднее.<BR><BR><i><small>Это автоматическое сообщение.</small>"
+		else if(stype == "Вы напрасно тратите наше время")
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов УСН 'Трурль'.<BR><BR>В интересах предотвращения дальнейшего нерационального использования ресурсов компании, пожалуйста, не тратьте наше время на такую мелкую чушь.<BR><BR>Пожалуйста, помните, что мы ожидаем, что наши сотрудники будут поддерживать, по крайней мере, полу-достойный уровень профессионализма. Не испытывайте наше терпение.<BR><BR><i><small>Это автоматическое сообщение.</i></small>"
+		else if(stype == "Продолжайте в том же духе")
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был успешно получено службой регистрации факсов УСН 'Трурль'.<BR><BR>Мы в УСН 'Трурль' искренне ценим хорошую работу, которую вы здесь проделали, и искренне рекомендуем вам продолжать демонстрировать такую преданность компании.<BR><BR><i><small>Это точно не автоматическое сообщение.</i></small>"
+		else if(stype == "Инструкции ОБР")
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов УСН 'Трурль'.<BR><BR>Пожалуйста, используйте карту, если вы хотите вызвать ОБР.<BR><BR><i><small>Это автоматическое сообщение.</i></small>"
 		else
 			return
 		tmsg += "</font>"
