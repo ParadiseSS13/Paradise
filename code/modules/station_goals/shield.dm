@@ -1,15 +1,15 @@
-//Station Shield
-// A chain of satellites encircles the station
-// Satellites be actived to generate a shield that will block unorganic matter from passing it.
+// Щиты станции
+// Цепь спутников, окружающих станцию
+// Спутники активируются, создавая щит, который будет препятствовать прохождению неорганической материи.
 /datum/station_goal/station_shield
 	name = "Station Shield"
 	var/coverage_goal = 5000
 
 /datum/station_goal/station_shield/get_report()
-	return {"<b>Station Shield construction</b><br>
-	The station is located in a zone full of space debris. We have a prototype shielding system you will deploy to reduce collision related accidents.
+	return {"<b>Сооружение щитов станции</b><br>
+	В области вокруг станции большое количество космического мусора. У нас есть прототип щитовой системы, которую вы должны установить для уменьшения числа происшествий, связанных со столкновениями.
 	<br><br>
-	You can order the satellites and control systems through the cargo shuttle."}
+	Вы можете заказать доставку спутников и системы их управления через шаттл отдела снабжения."}
 
 /datum/station_goal/station_shield/on_report()
 	//Unlock
@@ -35,13 +35,13 @@
 	return coverage.len
 
 /obj/item/circuitboard/computer/sat_control
-	name = "Satellite Network Control (Computer Board)"
+	name = "Контроллер сети спутников (Computer Board)"
 	build_path = /obj/machinery/computer/sat_control
 	origin_tech = "engineering=3"
 
 /obj/machinery/computer/sat_control
-	name = "Satellite control"
-	desc = "Used to control the satellite network."
+	name = "Управление спутниками"
+	desc = "Используется для управления спутниковой сетью."
 	circuit = /obj/item/circuitboard/computer/sat_control
 	icon_screen = "accelerator"
 	icon_keyboard = "accelerator_key"
@@ -91,13 +91,13 @@
 	for(var/obj/machinery/satellite/S in GLOB.machines)
 		if(S.id == id && atoms_share_level(src, S))
 			if(!S.toggle())
-				notice = "You can only activate satellites which are in space"
+				notice = "Вы можете активировать только находящиеся в космосе спутники"
 			else
 				notice = null
 
 
 /obj/machinery/satellite
-	name = "Defunct Satellite"
+	name = "Недействующий спутник"
 	desc = ""
 	icon = 'icons/obj/machines/satellite.dmi'
 	icon_state = "sat_inactive"
@@ -123,10 +123,10 @@
 /obj/machinery/satellite/proc/toggle(mob/user)
 	if(!active && !isinspace())
 		if(user)
-			to_chat(user, "<span class='warning'>You can only activate satellites which are in space.</span>")
+			to_chat(user, "<span class='warning'>Вы можете активировать только находящиеся в космосе спутники.</span>")
 		return FALSE
 	if(user)
-		to_chat(user, "<span class='notice'>You [active ? "deactivate": "activate"] the [src]</span>")
+		to_chat(user, "<span class='notice'>Вы [active ? "деактивировали": "активировали"] [src]</span>")
 	active = !active
 	if(active)
 		animate(src, pixel_y = 2, time = 10, loop = -1)
@@ -142,13 +142,13 @@
 
 /obj/machinery/satellite/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/multitool))
-		to_chat(user, "<span class='notice'>// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[emagged ? "DEBUG_MODE //" : ""]</span>")
+		to_chat(user, "<span class='notice'>// NTSAT-[id] // Режим : [active ? "ОСНОВНОЙ" : "ОЖИДАНИЕ"] //[emagged ? "ОТЛАДКА //" : ""]</span>")
 	else
 		return ..()
 
 /obj/machinery/satellite/meteor_shield
-	name = "Meteor Shield Satellite"
-	desc = "Meteor Point Defense Satellite"
+	name = "Спутник метеорного щита"
+	desc = "Узловой спутник метеорной защиты"
 	mode = "M-SHIELD"
 	speed_process = TRUE
 	var/kill_range = 14
@@ -193,7 +193,7 @@
 
 /obj/machinery/satellite/meteor_shield/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='danger'>You override the shield's circuits, causing it to attract meteors instead of destroying them.</span>")
+		to_chat(user, "<span class='danger'>Вы переписали схемы метеорного щита, заставив его привлекать метеоры, а не уничтожать их.</span>")
 		emagged = 1
 		if(active)
 			change_meteor_chance(2)
