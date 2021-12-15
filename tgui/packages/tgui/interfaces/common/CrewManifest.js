@@ -88,6 +88,7 @@ export const CrewManifest = (props, context) => {
 
   const {
     heads,
+    pro,
     sec,
     eng,
     med,
@@ -120,15 +121,7 @@ export const CrewManifest = (props, context) => {
           </Box>
         )}
         level={2}>
-        {ManifestTable(ser.filter(character => {
-          switch (character.rank) {
-            case "Magistrate": return true;
-            case "Internal Affairs Agent": return true;
-            case "Nanotrasen Representative": return true;
-            case "Human Resources Agent": return true;
-            default: return false;
-          }
-        }))}
+        {ManifestTable(pro)}
       </Section>
 
       <Section

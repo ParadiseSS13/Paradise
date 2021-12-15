@@ -411,7 +411,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return
 		if("modify") // inserting or removing the ID you plan to modify
 			if(modify)
-				GLOB.data_core.manifest_modify(modify.registered_name, modify.assignment)
+				GLOB.data_core.manifest_modify(modify.registered_name, modify.rank, modify.assignment)
 				regenerate_id_name()
 				if(ishuman(usr))
 					modify.forceMove(get_turf(src))
