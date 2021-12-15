@@ -307,6 +307,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	QDEL_NULL(cell)
 	QDEL_NULL(robot_suit)
 	QDEL_NULL(spark_system)
+	QDEL_NULL(self_diagnosis)
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module()
@@ -505,30 +506,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set category = "Robot Commands"
 	set name = "Show Station Manifest"
 	show_station_manifest()
-
-/mob/living/silicon/robot/proc/self_diagnosis()
-	if(!is_component_functioning("diagnosis unit"))
-		return null
-
-	var/dat = {"<meta charset="UTF-8"><HEAD><TITLE>[src.name] Self-Diagnosis Report</TITLE></HEAD><BODY>\n"}
-	for(var/V in components)
-		var/datum/robot_component/C = components[V]
-		if(C.installed == 0)
-			dat += "<b>[C.name]</b><br>MISSING<br>"
-		else
-			dat += "<b>[C.name]</b>[C.installed == -1 ? "<br>DESTROYED" : ""]<br><table><tr><td>Brute Damage:</td><td>[C.brute_damage]</td></tr><tr><td>Electronics Damage:</td><td>[C.electronics_damage]</td></tr><tr><td>Powered:</td><td>[C.is_powered() ? "Yes" : "No"]</td></tr><tr><td>Toggled:</td><td>[ C.toggled ? "Yes" : "No"]</td></table><br>"
-	return dat
-
-/mob/living/silicon/robot/verb/self_diagnosis_verb()
-	set category = "Robot Commands"
-	set name = "Self Diagnosis"
-
-	if(!is_component_functioning("diagnosis unit"))
-		to_chat(src, "<span class='warning'>Your self-diagnosis component isn't functioning.</span>")
-
-	var/dat = self_diagnosis()
-	src << browse(dat, "window=robotdiagnosis")
-
 
 /mob/living/silicon/robot/verb/toggle_component()
 	set category = "Robot Commands"

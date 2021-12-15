@@ -117,7 +117,8 @@
 	var/move_on_shuttle = 1 // Can move on the shuttle.
 
 
-	var/has_enabled_antagHUD = 0  // Whether antagHUD was ever enabled. Not a true boolean - sometimes it is set to 2, because reasons.
+	/// Whether antagHUD has been enabled previously.
+	var/has_enabled_antagHUD = FALSE
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
 	var/can_change_intents = 1 //all mobs can change intents by default.
 

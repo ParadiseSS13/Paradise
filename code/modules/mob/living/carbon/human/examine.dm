@@ -434,7 +434,7 @@
 
 	else if(isobserver(M))
 		var/mob/dead/observer/O = M
-		if(O.data_hud_seen == DATA_HUD_SECURITY_ADVANCED || O.data_hud_seen == DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)
+		if(DATA_HUD_SECURITY_ADVANCED in O.data_hud_seen)
 			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SKILLS))
 
 	return FALSE

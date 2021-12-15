@@ -45,6 +45,7 @@ const AirStatus = (props, context) => {
     locked,
     alarmActivated,
     rcon,
+    target_temp,
   } = data;
 
   let areaStatus;
@@ -113,9 +114,16 @@ const AirStatus = (props, context) => {
               <AnimatedNumber value={air.temperature} /> K / <AnimatedNumber value={air.temperature_c} /> C&nbsp;
               <Button
                 icon="thermometer-full"
-                content={air.temperature_c + " C"}
+                content={target_temp + " C"}
                 onClick={
                   () => act('temperature')
+                } />
+              <Button
+                content={air.thermostat_state ? "On" : "Off"}
+                selected={air.thermostat_state}
+                icon="power-off"
+                onClick={
+                  () => act('thermostat_state')
                 } />
             </Box>
           </LabeledList.Item>
