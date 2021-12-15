@@ -28,7 +28,12 @@
 /obj/item/stock_parts/cell/New()
 	..()
 	START_PROCESSING(SSobj, src)
-	charge = maxcharge
+	var/obj/item/I = loc
+	if(istype(I)) //Если находится в предмете, то полностью заряжен. Предназначено для оружия
+		charge = maxcharge
+	else
+		charge = round(maxcharge/10,1)
+
 	if(ratingdesc)
 		desc += " This one has a power rating of [DisplayPower(maxcharge)], and you should not swallow it."
 	update_icon()
