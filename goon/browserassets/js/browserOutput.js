@@ -414,7 +414,7 @@ function output(message, flag) {
 	}
 
 	//Stuff we can do after the message shows can go here, in the interests of responsiveness
-	if (opts.highlightTerms && opts.highlightTerms.length > 0) {
+	if ((opts.highlightTerms && opts.highlightTerms.length > 0) || (opts.codePhrases.length > 0 && opts.codeResponses.length > 0)) {
 		highlightTerms(entry);
 	}
 }
