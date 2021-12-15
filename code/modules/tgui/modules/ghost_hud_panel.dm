@@ -54,7 +54,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 				to_chat(ghost, "<span class='warning'>Admins have disabled this for this round.</span>")
 				return FALSE
 			// Check if this is the first time they're turning on Antag HUD.
-			if(check_rights(R_MENTOR, TRUE) && !ghost.has_enabled_antagHUD && config.antag_hud_restricted)
+			if(check_rights(R_MENTOR, FALSE) && !check_rights(R_ADMIN | R_MOD, FALSE) && !ghost.has_enabled_antagHUD && config.antag_hud_restricted)
 				var/response = alert(ghost, "If you turn this on, you will not be able to take any part in the round.", "Are you sure you want to enable antag HUD?", "Yes", "No")
 				if(response == "No")
 					return FALSE
