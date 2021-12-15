@@ -28,14 +28,15 @@
 
 
 /obj/item/paper/contract/employment/update_text()
-	name = "paper- [target] employment contract"
-	info = "<center>Conditions of Employment</center><BR><BR><BR><BR>This Agreement is made and entered into as of the date of last signature below, by and between [target] (hereafter referred to as SLAVE), and Nanotrasen (hereafter referred to as the omnipresent and helpful watcher of humanity).\
-	<BR>WITNESSETH:<BR>WHEREAS, SLAVE is a natural born human or humanoid, possessing skills upon which he or she can aid the omnipresent and helpful watcher of humanity, who seeks employment in the omnipresent and helpful watcher of humanity.\
-	<BR>WHEREAS, the omnipresent and helpful watcher of humanity agrees to sporadically provide payment to SLAVE, in exchange for permanent servitude.\
-	<BR>NOW THEREFORE in consideration of the mutual covenants herein contained, and other good and valuable consideration, the parties hereto mutually agree as follows:\
-	<BR>In exchange for paltry payments, SLAVE agrees to work for the omnipresent and helpful watcher of humanity, for the remainder of his or her current and future lives.\
-	<BR>Further, SLAVE agrees to transfer ownership of his or her soul to the loyalty department of the omnipresent and helpful watcher of humanity.\
-	<BR>Should transfership of a soul not be possible, a lien shall be placed instead.<BR>Signed,<BR><i>[target]</i>"
+	name = "Документ — Трудовой договор — [target]"
+	info = "<center>Условия трудоустройства</center><BR><BR><BR><BR>Настоящий Договор заключён между [target] (в дальнейшем именуемый Раб) и корпорацией НаноТрейзен (в дальнейшем именуемой Вездесущим и полезным наблюдателем за человечеством). Договор вступает в силу с момента его подписания.\
+	<BR>Преамбула \
+	<BR>Раб, будучи рождённым естественным путём человеком (или иным гуманоидом), обладает навыками, которыми он может быть полезен Вездесущему и полезному наблюдателю за человечеством. Раб ищет трудоустройства в Вездесущем и полезном наблюдателе за человечеством.\
+	<BR>При этом Вездесущий и полезный наблюдатель за человечеством согласен иногда выплачивать Рабу вознаграждение, в обмен на его постоянную службу.\
+	<BR>Настоящим, принимая во внимание вышеперечисленные взаимные выгоды и прочие соображения, стороны взаимно договариваются о нижеследующем:\
+	<BR>В обмен на незначительные выплаты Раб соглашается работать на Вездесущего и полезного наблюдателя за человечеством до конца своей нынешней и всех своих будущих жизней.\
+	<BR>Кроме того, Раб соглашается передать право на владение своей душой отделу лояльности Вездесущего и полезного наблюдателя за человечеством.\
+	<BR>В случае, если передача души Раба невозможна, Раб вносит вместо неё залог.<BR>Подписано,<BR><i>[target]</i>"
 
 /obj/item/paper/contract/employment/attack(mob/living/M, mob/living/carbon/human/user)
 	var/deconvert = 0
@@ -43,14 +44,14 @@
 		if(user.mind && (user.mind.assigned_role == "Internal Affairs Agent"))
 			deconvert = 60
 		else if (user.mind && (user.mind.assigned_role =="Head of Personnel") || (user.mind.assigned_role == "Centcom Commander") || (user.mind.assigned_role == "Magistrate"))
-			deconvert = 40 // the HoP doesn't have AS much legal training
+			deconvert = 40 // Не столь разбираются в бюрократии
 		else if(user.mind && (user.mind.assigned_role == "Captain"))
-			deconvert = 25 // Captain is not as effective as IAA or HoP/Magistrate
+			deconvert = 25 // Капитан разбирается ещё меньше
 		else
-			deconvert = 0.0001 // one out of a million
+			deconvert = 0.0001 // Один на миллион
 	if(prob(deconvert))
-		M.visible_message("<span class='notice'>[user] reminds [M] that [M]'s soul was already purchased by Nanotrasen!</span>")
-		to_chat(M,"<span class='boldnotice'>You feel that your soul has returned to its rightful owner, Nanotrasen.</span>")
+		M.visible_message("<span class='notice'>Благодаря [user] [M] вспоминает, что душа [M] уже приобретена НаноТрейзен!</span>")
+		to_chat(M,"<span class='boldnotice'>Вы чувствуете, как Ваша душа возвращается к её правомочному владельцу — НаноТрейзен.</span>")
 		M.return_soul()
 	return ..()
 
