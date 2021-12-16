@@ -26,7 +26,7 @@
 	max_integrity = 400
 	dir = EAST
 	var/obj/structure/m_tray/connected = null
-	var/list/status_descriptors = list(
+	var/static/status_descriptors = list(
 	EXTENDED_TRAY = "The tray is currently extended.",
 	EMPTY_MORGUE = "The tray is currently empty.",
 	UNREVIVABLE = "The tray contains an unviable body.",
