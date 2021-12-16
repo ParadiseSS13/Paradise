@@ -925,6 +925,17 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_scattershot
+	name = "Exosuit Weapon (LBX AC 10 \"Scattershot\")"
+	desc = "Allows for the construction of LBX AC 10."
+	id = "mech_scattershot"
+	build_type = MECHFAB
+	req_tech = list("combat" = 4)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
+	materials = list(MAT_METAL=10000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_ion
 	name = "Exosuit Weapon (MKIV Ion Heavy Cannon)"
 	desc = "Allows for the construction of MKIV Ion Heavy Cannon."
