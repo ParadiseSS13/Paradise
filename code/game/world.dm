@@ -87,14 +87,15 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key == config?.comms_password ? "*secret*" : key]")
 
 	// Handle spam prevention
-	if(!GLOB.world_topic_spam_prevention_handlers[addr])
-		GLOB.world_topic_spam_prevention_handlers[addr] = new /datum/world_topic_spam_prevention_handler
+	if(!(addr in config?.topic_filtering_whitelist))
+		if(!GLOB.world_topic_spam_prevention_handlers[addr])
+			GLOB.world_topic_spam_prevention_handlers[addr] = new /datum/world_topic_spam_prevention_handler(addr)
 
-	var/datum/world_topic_spam_prevention_handler/sph = GLOB.world_topic_spam_prevention_handlers[addr]
+		var/datum/world_topic_spam_prevention_handler/sph = GLOB.world_topic_spam_prevention_handlers[addr]
 
-	// Lock the user out and cancel their topic if needed
-	if(sph.check_lockout())
-		return
+		// Lock the user out and cancel their topic if needed
+		if(sph.check_lockout())
+			return
 
 	var/list/input = params2list(T)
 
