@@ -358,7 +358,7 @@
 		for(var/obj/A in S.return_inv())
 			if(is_type_in_typecache(A, cant_hold))
 				if(!stop_messages)
-					to_chat(usr, "<span class='warning'>[src] rejects [I] because of it's contents.</span>")
+					to_chat(usr, "<span class='warning'>[src] rejects [I] because of its contents.</span>")
 				return FALSE
 
 	if(I.w_class > max_w_class)
