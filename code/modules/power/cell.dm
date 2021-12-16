@@ -28,9 +28,7 @@
 /obj/item/stock_parts/cell/New()
 	..()
 	START_PROCESSING(SSobj, src)
-	var/obj/item/I = loc //Если находится в предмете - оружие
-	var/mob/M = loc //Если находится в монстре - роботы
-	if(istype(I) || istype(M)) //То полностью заряжена
+	if(istype(loc,/obj/item) || istype(loc,/mob) || istype(loc,/obj/mecha)) //Если оружие, борг или экзоскелет, то полность заряжен
 		charge = maxcharge
 	else
 		charge = round(maxcharge/10,1)
