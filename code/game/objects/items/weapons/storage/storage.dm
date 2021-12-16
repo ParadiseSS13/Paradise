@@ -353,7 +353,7 @@
 			to_chat(usr, "<span class='warning'>[src] cannot hold [I].</span>")
 		return FALSE
 
-	if(istype(I, /obj/item/storage)) //Checks nested storage contents for restricted objects, we don't want people sneaking the NAD in via boxes now, do we?
+	if(length(cant_hold) && istype(I, /obj/item/storage)) //Checks nested storage contents for restricted objects, we don't want people sneaking the NAD in via boxes now, do we?
 		var/obj/item/storage/S = I
 		for(var/obj/A in S.return_inv())
 			if(is_type_in_typecache(A, cant_hold))
