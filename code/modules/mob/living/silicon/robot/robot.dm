@@ -165,7 +165,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	..()
 
 	add_robot_verbs()
-	
+
 	// Remove inherited verbs that effectively do nothing for cyborgs, or lead to unintended behaviour.
 	verbs -= /mob/living/verb/lay_down
 	verbs -= /mob/living/verb/mob_sleep
@@ -1362,7 +1362,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	real_name = name
 	mind = new
 	mind.current = src
-	mind.original = src
+	mind.set_original_mob(src)
 	mind.assigned_role = SPECIAL_ROLE_ERT
 	mind.special_role = SPECIAL_ROLE_ERT
 	if(!(mind in SSticker.minds))
