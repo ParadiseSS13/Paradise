@@ -15,7 +15,8 @@
 	..()
 	if(!circuit)
 		var/choice = pick(subtypesof(/obj/machinery/computer/arcade))
-		new choice(loc)
+		var/obj/machinery/computer/arcade/chosen = new choice(loc)
+		chosen.dir = dir
 		qdel(src)
 		return
 	Reset()

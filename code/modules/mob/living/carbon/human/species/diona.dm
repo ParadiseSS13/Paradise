@@ -10,7 +10,6 @@
 
 	burn_mod = 1.25
 	heatmod = 1.5
-	brain_mod = 0
 	var/pod = FALSE //did they come from a pod? If so, they're stronger than normal Diona.
 
 	blurb = "Commonly referred to (erroneously) as 'plant people', the Dionaea are a strange space-dwelling collective \

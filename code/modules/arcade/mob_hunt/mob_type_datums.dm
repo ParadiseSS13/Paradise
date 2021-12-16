@@ -128,7 +128,6 @@
 					TYPE_POISON,
 					TYPE_FIGHTING)
 	area_blacklist = list(/area/medical,
-						/area/security/medbay,
 						/area/janitor)
 	area_whitelist = list(/area/medical/virology,
 						/area/toxins,

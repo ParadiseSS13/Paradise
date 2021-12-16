@@ -304,6 +304,7 @@ This function restores all organs.
 /mob/living/carbon/human/restore_all_organs()
 	for(var/obj/item/organ/external/current_organ in bodyparts)
 		current_organ.rejuvenate()
+		current_organ.add_limb_flags()
 
 /mob/living/carbon/human/proc/HealDamage(zone, brute, burn)
 	var/obj/item/organ/external/E = get_organ(zone)

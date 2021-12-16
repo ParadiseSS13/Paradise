@@ -187,7 +187,9 @@
 
 		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
 		var/multiplier = text2num(href_list["multiplier"])
-		if(!multiplier || multiplier <= 0 || multiplier > 50) // Href exploit checks
+		if(!multiplier || multiplier <= 0 || multiplier > 50 || !IS_INT(multiplier)) // Href exploit checks
+			if(multiplier) // It existed but they tried to fuck with it
+				message_admins("[key_name_admin(usr)] just attempted to href exploit sheet crafting with an invalid multiplier. Ban highly advised.")
 			multiplier = 1
 
 		if(get_amount() < R.req_amount * multiplier)

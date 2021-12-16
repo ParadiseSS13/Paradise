@@ -1,33 +1,32 @@
 // TODO refactor when spell code is component based instead of OO based
-/obj/effect/proc_holder/spell/targeted/click/pass_airlock
+/obj/effect/proc_holder/spell/morph_spell/pass_airlock
 	name = "Pass Airlock"
 	desc = "Reform yourself so you can fit through a non bolted airlock. Takes a while to do and can only be used in a non disguised form."
 	action_background_icon_state = "bg_morph"
 	action_icon_state = "morph_airlock"
 	clothes_req = FALSE
 	charge_max = 10 SECONDS
-	range = 1
-	allowed_type = /obj/machinery/door/airlock
 	selection_activated_message = "<span class='sinister'>Click on an airlock to try pass it.</span>"
-	click_radius = -1
 
-/obj/effect/proc_holder/spell/targeted/click/pass_airlock/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/simple_animal/hostile/morph/user = usr)
-	if(!istype(user))
-		to_chat(user, "<span class='warning'>You should not be able to use this abilty! Report this as a bug on github please.</span>")
-		stack_trace()
-		log_debug("[user] has the spell [src] while he is not a morph")
-		return FALSE
+/obj/effect/proc_holder/spell/morph_spell/pass_airlock/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.range = 1
+	T.allowed_type = /obj/machinery/door/airlock
+	T.click_radius = -1
+	return T
+
+
+/obj/effect/proc_holder/spell/morph_spell/pass_airlock/can_cast(mob/living/simple_animal/hostile/morph/user, charge_check, show_message)
+	. = ..()
+	if(!.)
+		return
+
 	if(user.morphed)
-		to_chat(user, "<span class='warning'>You can only pass through airlocks in your true form!</span>")
+		if(show_message)
+			to_chat(user, "<span class='warning'>You can only pass through airlocks in your true form!</span>")
 		return FALSE
-	return ..()
 
-/obj/effect/proc_holder/spell/targeted/click/pass_airlock/can_cast(mob/living/simple_animal/hostile/morph/user, charge_check, show_message)
-	if(!istype(user) || user.morphed)
-		return FALSE
-	return ..()
-
-/obj/effect/proc_holder/spell/targeted/click/pass_airlock/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
+/obj/effect/proc_holder/spell/morph_spell/pass_airlock/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
 	var/obj/machinery/door/airlock/A = targets[1]
 	if(A.locked)
 		to_chat(user, "<span class='warning'>[A] is bolted shut! You're unable to create a crack to pass through!</span>")
@@ -48,5 +47,5 @@
 	user.forceMove(A.loc) // Move into the turf of the airlock
 
 
-/obj/effect/proc_holder/spell/targeted/click/pass_airlock/proc/pass_check(mob/living/simple_animal/hostile/morph/user, obj/machinery/door/airlock/A)
+/obj/effect/proc_holder/spell/morph_spell/pass_airlock/proc/pass_check(mob/living/simple_animal/hostile/morph/user, obj/machinery/door/airlock/A)
 	return user.morphed || A.locked

@@ -1,17 +1,18 @@
 //In here: Hatch and Ascendance
 GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-uae", "Noaey'gief", "Mii`mahza", "Amerziox", "Gyrg-mylin", "Kanet'pruunance", "Vigistaezian")) //Unpronouncable 2: electric boogalo)
-/obj/effect/proc_holder/spell/targeted/shadowling_hatch
+/obj/effect/proc_holder/spell/shadowling_hatch
 	name = "Hatch"
 	desc = "Casts off your disguise."
 	panel = "Shadowling Evolution"
 	charge_max = 3000
 	clothes_req = 0
-	range = -1
-	include_user = 1
 	action_icon_state = "hatch"
 	var/cycles_unused = 0
 
-/obj/effect/proc_holder/spell/targeted/shadowling_hatch/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/shadowling_hatch/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/shadowling_hatch/cast(list/targets, mob/user = usr)
 	if(user.stat || !ishuman(user) || !user || !is_shadow(user || isinspace(user)))
 		return
 	if(!isturf(user.loc))
@@ -99,35 +100,36 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				sleep(10)
 				to_chat(H, "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>")
 				H.ExtinguishMob()
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/enthrall(null))
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/glare(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/enthrall(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/glare(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/veil(null))
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/shadow_walk(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flashfreeze(null))
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/collective_mind(null))
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_regenarmor(null))
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/collective_mind(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_regenarmor(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_extend_shuttle(null))
 
 				QDEL_NULL(H.hud_used)
 				H.hud_used = new /datum/hud/human(H, ui_style2icon(H.client.prefs.UI_style), H.client.prefs.UI_style_color, H.client.prefs.UI_style_alpha)
 				H.hud_used.show_hud(H.hud_used.hud_version)
 
-/obj/effect/proc_holder/spell/targeted/shadowling_ascend
+/obj/effect/proc_holder/spell/shadowling_ascend
 	name = "Ascend"
 	desc = "Enters your true form."
 	panel = "Shadowling Evolution"
 	charge_max = 3000
 	clothes_req = 0
-	range = -1
-	include_user = 1
 	action_icon_state = "ascend"
 
-/obj/effect/proc_holder/spell/targeted/shadowling_ascend/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
+/obj/effect/proc_holder/spell/shadowling_ascend/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/shadowling_ascend/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
 	if(!shadowling_check(user))
 		return FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/shadowling_ascend/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/shadowling_ascend/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/H = user
 	for(H in targets)
 		var/hatch_or_no = alert(H,"It is time to ascend. Are you sure about this?",,"Yes","No")
@@ -175,11 +177,11 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				H.mind.transfer_to(A)
 				A.name = H.real_name
 				A.languages = H.languages
-				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/annihilate(null))
-				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/hypnosis(null))
-				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_phase_shift(null))
+				A.mind.AddSpell(new /obj/effect/proc_holder/spell/annihilate(null))
+				A.mind.AddSpell(new /obj/effect/proc_holder/spell/hypnosis(null))
+				A.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_phase_shift(null))
 				A.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/ascendant_storm(null))
-				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowlingAscendantTransmit(null))
+				A.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowlingAscendantTransmit(null))
 				if(A.real_name)
 					A.real_name = H.real_name
 				H.invisibility = 60 //This is pretty bad, but is also necessary for the shuttle call to function properly

@@ -242,6 +242,12 @@ LINEN BINS
 	var/list/sheets = list()
 	var/obj/item/hidden = null
 
+/obj/structure/bedsheetbin/Destroy()
+	QDEL_LIST(sheets)
+	hidden.forceMove(get_turf(src))
+	hidden = null
+	return ..()
+
 
 /obj/structure/bedsheetbin/examine(mob/user)
 	. = ..()
@@ -255,9 +261,12 @@ LINEN BINS
 
 /obj/structure/bedsheetbin/update_icon()
 	switch(amount)
-		if(0)				icon_state = "linenbin-empty"
-		if(1 to amount / 2)	icon_state = "linenbin-half"
-		else				icon_state = "linenbin-full"
+		if(0)
+			icon_state = "linenbin-empty"
+		if(1 to amount / 2)
+			icon_state = "linenbin-half"
+		else
+			icon_state = "linenbin-full"
 
 
 /obj/structure/bedsheetbin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
@@ -271,22 +280,28 @@ LINEN BINS
 	extinguish()
 	update_icon()
 
-/obj/structure/bedsheetbin/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/structure/bedsheetbin/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/bedsheet))
-		user.drop_item()
-		I.loc = src
+		if(!user.drop_item())
+			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")
+			return
+		I.forceMove(src)
 		sheets.Add(I)
 		amount++
 		to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 	else if(amount && !hidden && I.w_class < WEIGHT_CLASS_BULKY)	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
-		user.drop_item()
-		I.loc = src
+		if(I.flags & ABSTRACT)
+			return
+		if(!user.drop_item())
+			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")
+			return
+		I.forceMove(src)
 		hidden = I
 		to_chat(user, "<span class='notice'>You hide [I] among the sheets.</span>")
 
 
 
-/obj/structure/bedsheetbin/attack_hand(mob/user as mob)
+/obj/structure/bedsheetbin/attack_hand(mob/user)
 	if(amount >= 1)
 		amount--
 
@@ -311,7 +326,7 @@ LINEN BINS
 	add_fingerprint(user)
 
 
-/obj/structure/bedsheetbin/attack_tk(mob/user as mob)
+/obj/structure/bedsheetbin/attack_tk(mob/user)
 	if(amount >= 1)
 		amount--
 

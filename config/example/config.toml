@@ -297,8 +297,6 @@ server_name = "ParaCode Test"
 server_tag_line = "ParaCode Testing Server"
 # Server features. Shows in a newline
 server_features = "Medium RP, varied species/jobs."
-# Store bans in the database? If you are in production, you want this on
-use_database_bans = false
 # Allow OOC character metadata notes
 allow_character_metadata = true
 # Lobby time before roundstart (Seconds)
@@ -454,7 +452,7 @@ job_slot_amounts = [
 	{name = "Scientist", lowpop = 6, highpop = 7},
 	# Security
 	{name = "Detective", lowpop = 1, highpop = 1},
-	{name = "Security Officer", lowpop = 7, highpop = 8},
+	{name = "Security Officer", lowpop = 8, highpop = 9},
 	{name = "Warden", lowpop = 1, highpop = 1},
 	# Service
 	{name = "Bartender", lowpop = 1, highpop = 1},

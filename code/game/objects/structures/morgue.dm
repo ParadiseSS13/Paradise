@@ -114,7 +114,8 @@
 			connected.connected = src
 			icon_state = "morgue0"
 			for(var/atom/movable/A in src)
-				A.forceMove(connected.loc)
+				if(A.move_resist != INFINITY)
+					A.forceMove(connected.loc)
 			connected.icon_state = "morguet"
 			connected.dir = dir
 		else
@@ -296,7 +297,7 @@
 		return
 	if((connected) && (locked == 0))
 		for(var/atom/movable/A in connected.loc)
-			if(!( A.anchored ))
+			if(!(A.anchored) && A.move_resist != INFINITY)
 				A.forceMove(src)
 		playsound(loc, open_sound, 50, 1)
 		QDEL_NULL(connected)

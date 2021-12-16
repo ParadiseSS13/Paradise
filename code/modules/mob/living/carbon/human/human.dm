@@ -484,7 +484,7 @@
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name()
 	var/obj/item/organ/external/head = get_organ("head")
-	if(!head || head.disfigured || cloneloss > 50 || !real_name || HAS_TRAIT(src, TRAIT_HUSK))	//disfigured. use id-name if possible
+	if(!head || (head.status & ORGAN_DISFIGURED) || cloneloss > 50 || !real_name || HAS_TRAIT(src, TRAIT_HUSK))	//disfigured. use id-name if possible
 		return "Unknown"
 	return real_name
 
@@ -613,7 +613,7 @@
 			if(do_after(usr, time_taken, needhand = 1, target = src))
 				if(!I || !L || I.loc != src || !(I in L.embedded_objects))
 					return
-				L.embedded_objects -= I
+				L.remove_embedded_object(I)
 				L.receive_damage(I.embedded_unsafe_removal_pain_multiplier*I.w_class)//It hurts to rip it out, get surgery you dingus.
 				I.forceMove(get_turf(src))
 				usr.put_in_hands(I)
@@ -1102,6 +1102,22 @@
 				I = new organ(H) //Create the organ inside the player.
 				I.insert(H)
 
+/**
+ * Regrows a given external limb if it is missing. Does not add internal organs back in.
+ * Returns whether or not it regrew the limb
+ *
+ * Arguments:
+ * * limb_name - The name of the limb being added. "l_arm" for example
+ */
+/mob/living/carbon/human/proc/regrow_external_limb_if_missing(limb_name)
+	if(has_organ(limb_name))
+		return FALSE// Already there
+
+	var/list/organ_data = dna.species.has_limbs[limb_name]
+	var/limb_path = organ_data["path"]
+	new limb_path(src)
+	return TRUE
+
 /mob/living/carbon/human/revive()
 	//Fix up all organs and replace lost ones.
 	restore_all_organs() //Rejuvenate and reset all existing organs.
@@ -1269,16 +1285,19 @@
 			item_flags[I] = I.flags
 			I.flags = 0 // Temporary set the flags to 0
 
+	if(!transformation) //Distinguish between creating a mob and switching species
+		dna.species.on_species_gain(src)
+
 	if(retain_damage)
 		//Create a list of body parts which are damaged by burn or brute and save them to apply after new organs are generated. First we just handle external organs.
 		var/bodypart_damages = list()
 		//Loop through all external organs and save the damage states for brute and burn
-		for(var/obj/item/organ/external/E in bodyparts)
-			if(E.brute_dam == 0 && E.burn_dam == 0 && E.internal_bleeding == FALSE) //If there's no damage we don't bother remembering it.
+		for(var/obj/item/organ/external/E as anything in bodyparts)
+			if(E.brute_dam == 0 && E.burn_dam == 0 && !(E.status & ORGAN_INT_BLEEDING)) //If there's no damage we don't bother remembering it.
 				continue
 			var/brute = E.brute_dam
 			var/burn = E.burn_dam
-			var/IB = E.internal_bleeding
+			var/IB = (E.status & ORGAN_INT_BLEEDING)
 			var/obj/item/organ/external/OE = new E.type()
 			var/stats = list(OE, brute, burn, IB)
 			bodypart_damages += list(stats)
@@ -1298,17 +1317,16 @@
 		dna.species.create_organs(src)
 
 		//Apply relevant damages and variables to the new organs.
-		for(var/B in bodyparts)
-			var/obj/item/organ/external/E = B
+		for(var/obj/item/organ/external/E as anything in bodyparts)
 			for(var/list/part in bodypart_damages)
 				var/obj/item/organ/external/OE = part[1]
 				if((E.type == OE.type)) // Type has to be explicit, as right limbs are a child of left ones etc.
 					var/brute = part[2]
 					var/burn = part[3]
-					var/IB = part[4]
-					//Deal the damage to the new organ and then delete the entry to prevent duplicate checks
+					var/IB = part[4] //Deal the damage to the new organ and then delete the entry to prevent duplicate checks
+					if(IB)
+						E.status |= ORGAN_INT_BLEEDING
 					E.receive_damage(brute, burn, ignore_resists = TRUE)
-					E.internal_bleeding = IB
 					qdel(part)
 
 		for(var/O in internal_organs)
@@ -1371,9 +1389,6 @@
 	body_accessory = null
 
 	dna.real_name = real_name
-
-	if (!transformation) //Distinguish between creating a mob and switching species
-		dna.species.on_species_gain(src)
 
 	update_sight()
 
