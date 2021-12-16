@@ -304,7 +304,7 @@
 	icon_state = "mecha_scatter"
 	origin_tech = "combat=4"
 	equip_cooldown = 20
-	projectile = /obj/item/projectile/bullet/midbullet
+	projectile = /obj/item/projectile/bullet/midbullet2
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	projectiles = 40
 	projectile_energy_cost = 25
