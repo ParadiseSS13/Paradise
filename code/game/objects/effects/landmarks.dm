@@ -28,7 +28,7 @@
 /obj/effect/landmark/spawner/Initialize(mapload)
 	. = ..()
 	if(spawner_list)
-		GLOB.[spawner_list] += loc
+		spawner_list += loc
 		qdel(src)
 
 /obj/effect/landmark/spawner/soltrader
@@ -38,7 +38,11 @@
 /obj/effect/landmark/spawner/ert
 	name = "Response Team"
 	icon_state = "ERT"
-	spawner_list = "emergencyresponseteamspawn"
+
+
+/obj/effect/landmark/spawner/ert/Initialize(mapload)
+	spawner_list = GLOB.emergencyresponseteamspawn
+	..()
 
 /obj/effect/landmark/spawner/ds
 	name = "Commando"
@@ -47,28 +51,38 @@
 /obj/effect/landmark/spawner/wiz
 	name = "wizard"
 	icon_state = "Wiz"
-	spawner_list = "wizardstart"
 
+/obj/effect/landmark/spawner/wiz/Initialize(mapload)
+	spawner_list = GLOB.wizardstart
+	..()
 /obj/effect/landmark/spawner/xeno
 	name = "xeno_spawn"
 	icon_state = "Xeno"
-	spawner_list = "xeno_spawn"
 
+/obj/effect/landmark/spawner/xeno/Initialize(mapload)
+	spawner_list = GLOB.xeno_spawn
+	..()
 /obj/effect/landmark/spawner/blob
 	name = "blobstart"
 	icon_state = "Blob"
-	spawner_list = "blobstart"
 
+/obj/effect/landmark/spawner/blob/Initialize(mapload)
+	spawner_list = GLOB.blobstart
+	..()
 /obj/effect/landmark/spawner/late
 	name = "JoinLate"
 	icon_state = "Assistant"
-	spawner_list = "latejoin"
 
+/obj/effect/landmark/spawner/late/Initialize(mapload)
+	spawner_list = GLOB.latejoin
+	..()
 /obj/effect/landmark/spawner/carp
 	name = "carpspawn"
 	icon_state = "Carp"
-	spawner_list = "carplist"
 
+/obj/effect/landmark/spawner/carp/Initialize(mapload)
+	spawner_list = GLOB.carplist
+	..()
 /obj/effect/landmark/spawner/rev
 	name = "revenantspawn"
 	icon_state = "Rev"
@@ -79,52 +93,76 @@
 
 /obj/effect/landmark/spawner/syndicateofficer
 	name = "Syndicate Officer"
-	spawner_list = "syndicateofficer"
 
+/obj/effect/landmark/spawner/syndicateofficer/Initialize(mapload)
+	spawner_list = GLOB.syndicateofficer
+	..()
 /obj/effect/landmark/spawner/ertdirector
 	name = "ERT Director"
-	spawner_list = "ertdirector"
 
+/obj/effect/landmark/spawner/ertdirector/Initialize(mapload)
+	spawner_list = GLOB.ertdirector
+	..()
 /obj/effect/landmark/spawner/raider_spawn
 	name = "voxstart"
-	spawner_list = "raider_spawn"
 
+/obj/effect/landmark/spawner/raider_spawn/Initialize(mapload)
+	spawner_list = GLOB.raider_spawn
+	..()
 /obj/effect/landmark/spawner/ninjastart
 	name = "ninjastart"
-	spawner_list = "ninjastart"
 
+/obj/effect/landmark/spawner/ninjastart/Initialize(mapload)
+	spawner_list = GLOB.ninjastart
+	..()
 /obj/effect/landmark/spawner/aroomwarp
 	name = "aroomwarp"
-	spawner_list = "aroomwarp"
 
+/obj/effect/landmark/spawner/aroomwarp/Initialize(mapload)
+	spawner_list = GLOB.aroomwarp
+	..()
 /obj/effect/landmark/spawner/tdomeobserve
 	name = "tdomeobserve"
-	spawner_list = "tdomeobserve"
 
+/obj/effect/landmark/spawner/tdomeobserve/Initialize(mapload)
+	spawner_list = GLOB.tdomeobserve
+	..()
 /obj/effect/landmark/spawner/tdomeadmin
 	name = "tdomeadmin"
-	spawner_list = "tdomeadmin"
 
+/obj/effect/landmark/spawner/tdomeadmin/Initialize(mapload)
+	spawner_list = GLOB.tdomeadmin
+	..()
 /obj/effect/landmark/spawner/tdome2
 	name = "tdome2"
-	spawner_list = "tdome2"
 
+/obj/effect/landmark/spawner/tdome2/Initialize(mapload)
+	spawner_list = GLOB.tdome2
+	..()
 /obj/effect/landmark/spawner/tdome1
 	name = "tdome1"
-	spawner_list = "tdome1"
 
+/obj/effect/landmark/spawner/tdome1/Initialize(mapload)
+	spawner_list = GLOB.tdome1
+	..()
 /obj/effect/landmark/spawner/prisonsecuritywarp
 	name = "prisonsecuritywarp"
-	spawner_list = "prisonsecuritywarp"
 
+/obj/effect/landmark/spawner/prisonsecuritywarp/Initialize(mapload)
+	spawner_list = GLOB.prisonsecuritywarp
+	..()
 /obj/effect/landmark/spawner/syndieprisonwarp
 	name = "syndieprisonwarp"
-	spawner_list = "syndieprisonwarp"
 
+/obj/effect/landmark/spawner/syndieprisonwarp/Initialize(mapload)
+	spawner_list = GLOB.syndieprisonwarp
+	..()
 /obj/effect/landmark/spawner/prisonwarp
 	name = "prisonwarp"
-	spawner_list = "prisonwarp"
 
+/obj/effect/landmark/spawner/prisonwarp/Initialize(mapload)
+	spawner_list = GLOB.prisonwarp
+	..()
 /obj/effect/landmark/spawner/syndicate_commando
 	name = "Syndicate-Commando"
 	icon_state = "Syndie"
