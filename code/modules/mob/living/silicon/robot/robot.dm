@@ -841,20 +841,24 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/remove = input(user, "Which component do you want to pry out?", "Remove Component") as null|anything in removable_components
 	if(!remove)
 		return
+
+	var/datum/robot_component/C = components[remove]
+	if(C.is_missing()) // Somebody else removed it during the input
+		return
+
 	if(module && module.handle_custom_removal(remove, user, I))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/datum/robot_component/C = components[remove]
 	var/obj/item/robot_parts/robot_component/thing = C.wrapped
 	to_chat(user, "You remove \the [thing].")
 	if(istype(thing))
 		thing.brute = C.brute_damage
 		thing.burn = C.electronics_damage
 
+	C.uninstall()
 	thing.loc = loc
-	if(C.installed)
-		C.uninstall()
+
 
 
 
