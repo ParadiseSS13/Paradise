@@ -425,7 +425,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	if(target != src)
-		if(orbiting && orbiting == target)
+		if(src in target.get_orbiters())
 			return
 
 		var/icon/I = icon(target.icon,target.icon_state,target.dir)

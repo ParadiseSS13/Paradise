@@ -236,10 +236,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		// As well as anything that isn't invisible.
 		for(var/atom/A in the_turf)
 			if(A.invisibility)
-				if(see_ghosts && istype(A,/mob/dead/observer))
+				if(see_ghosts && istype(A,/mob/dead/observer) && !(A.orbiting_uid))
 					var/mob/dead/observer/O = A
-					if(O.orbiting)
-						continue
 					if(user.mind && !(user.mind.assigned_role == "Chaplain"))
 						atoms.Add(image('icons/mob/mob.dmi', O.loc, pick(GLOB.SpookyGhosts), 4, SOUTH))
 					else
@@ -298,7 +296,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		if(M.invisibility)
 			if(see_ghosts && istype(M,/mob/dead/observer))
 				var/mob/dead/observer/O = M
-				if(O.orbiting)
+				if(O.orbiting_uid)
 					continue
 				if(!mob_detail)
 					mob_detail = "You can see a g-g-g-g-ghooooost! "

@@ -58,7 +58,7 @@
 			continue
 
 		serialized["ref"] = "\ref[M]"
-		var/list/orbiters = M.get_all_orbiters()
+		var/list/orbiters = M.get_orbiters_recursive()
 		if(length(orbiters) > 0)
 			serialized["orbiters"] = length(orbiters)
 

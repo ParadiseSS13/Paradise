@@ -7,7 +7,7 @@
 	/// List of observers orbiting the parent
 	var/list/orbiter_list
 	/// Cached transforms from before the orbiter started orbiting, to be restored on stopping their orbit
-	var/list/transform_cache
+	var/list/orbit_data
 
 /**
 A: atom to orbit
@@ -23,48 +23,35 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 		return COMPONENT_INCOMPATIBLE
 
 	orbiter_list = list()
-	transform_cache = list()
+	orbit_data = list()
 
 	begin_orbit(orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lock_in_orbit, force_move)
 
 /datum/component/orbiter/RegisterWithParent()
 	var/atom/target = parent
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/parent_move_react)
-	if(!target.orbiters)
-		target.orbiters = src
 
 /datum/component/orbiter/UnregisterFromParent()
 	var/atom/target = parent
 	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
-	if(target.orbiters == src)
-		target.orbiters = null
 
 /datum/component/orbiter/Destroy()
-	var/atom/owner = parent
 	for(var/i in orbiter_list)
 		end_orbit(i)
-	if(owner.orbiters == src)
-		owner.orbiters = null
 	orbiter_list = null
-	transform_cache = null
+	orbit_data = null
 	return ..()
 
 /datum/component/orbiter/InheritComponent(datum/component/orbiter/new_comp, original, atom/movable/orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
 	// No transfer happening
 	if(!new_comp)
-		// Make sure we clean up anything that the new component might have messed up
-		// In particular, the new component probably messed up our parent
 		begin_orbit(arglist(args.Copy(3)))
 		return
 
-	for(var/o in new_comp.orbiter_list)
-		var/atom/movable/incoming_orbiter = o
-		incoming_orbiter.orbiting = src
-
 	orbiter_list += new_comp.orbiter_list
-	transform_cache += new_comp.transform_cache
+	orbit_data += new_comp.orbit_data
 	new_comp.orbiter_list = list()
-	new_comp.transform_cache = list()
+	new_comp.orbit_data = list()
 
 /datum/component/orbiter/PostTransfer()
 	if(!isatom(parent) || isarea(parent) || !get_turf(parent))
@@ -75,32 +62,33 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 		return
 
 	var/was_refreshing = FALSE
+	var/atom/currently_orbiting = locateUID(orbiter.orbiting_uid)
 
-	if(orbiter.orbiting)
-		if(orbiter.orbiting == src)
-			// If we're just orbiting the same thing, we need to reset the previous state
-			// before we set it again (especially for transforms)
+	if(currently_orbiting)
+		if(orbiter in orbiter_list)
 			was_refreshing = TRUE
 			end_orbit(orbiter, TRUE)
 		else
-			// Let the original orbiter clean up as needed
-			orbiter.orbiting.end_orbit(orbiter)
+			var/datum/component/orbiter/orbit_comp = currently_orbiting.GetComponent(/datum/component/orbiter)
+			orbit_comp.end_orbit(orbiter)
 
 	orbiter_list += orbiter
-	orbiter.orbiting = src
+
+	// make sure orbits get cleaned up nicely if the parent qdels
 	RegisterSignal(orbiter, COMSIG_PARENT_QDELETING, .proc/end_orbit)
 
-	// Save the orbiter's transform so we can restore it when they stop orbiting
-	transform_cache[orbiter] = orbiter.transform
-
+	var/orbit_flags = 0
 	if(lock_in_orbit)
-		orbiter.orbit_params |= ORBIT_LOCK_IN
+		orbit_flags |= ORBIT_LOCK_IN
 	if(force_move)
-		orbiter.orbit_params |= ORBIT_FORCE_MOVE
+		orbit_flags |= ORBIT_FORCE_MOVE
+
+	orbiter.orbiting_uid = parent.UID()
+	store_orbit_data(orbiter, orbit_flags)
 
 	RegisterSignal(orbiter, COMSIG_MOVABLE_MOVED, .proc/orbiter_move_react)
 
-	//Head first!
+	// Head first!
 	if(pre_rotation)
 		var/matrix/M = matrix(orbiter.transform)
 		var/pre_rot = 90
@@ -131,28 +119,28 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 * If refreshing == TRUE, variables will be cleaned up as necessary, but src won't be qdeled.
 */
 /datum/component/orbiter/proc/end_orbit(atom/movable/orbiter, refreshing = FALSE)
+	SIGNAL_HANDLER
+
 	if(!(orbiter in orbiter_list))
 		return
 
 	if(orbiter)
-		var/matrix/cached_transform = transform_cache[orbiter]
+		SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, orbiter)
 
-		orbiter.transform = cached_transform
+		orbiter.transform = get_cached_transform(orbiter)
 
-		orbiter.orbiting = null
-		orbiter.orbit_params = 0
 		orbiter.stop_orbit()
 		UnregisterSignal(orbiter, COMSIG_MOVABLE_MOVED)
 		UnregisterSignal(orbiter, COMSIG_PARENT_QDELETING)
 
-		SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, orbiter)
+		orbiter.orbiting_uid = null
 
 		if(!refreshing)
 			orbiter.SpinAnimation(0, 0, parallel = FALSE)
 
 	// If it's null, still remove it from the list
 	orbiter_list -= orbiter
-	transform_cache -= orbiter
+	orbit_data -= orbiter
 
 	if(!length(orbiter_list) && !QDELING(src) && !refreshing)
 		qdel(src)
@@ -170,11 +158,14 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 		qdel(src)
 
 	var/atom/cur_loc = orbited.loc
+	var/orbit_params
 	for(var/atom/movable/movable_orbiter in orbiter_list)
 		if(QDELETED(movable_orbiter) || movable_orbiter.loc == new_turf)
 			continue
 
-		if(movable_orbiter.orbit_params & ORBIT_FORCE_MOVE)
+		orbit_params = get_orbit_params(movable_orbiter)
+
+		if(orbit_params & ORBIT_FORCE_MOVE)
 			movable_orbiter.forceMove(cur_loc)
 		else
 			movable_orbiter.loc = cur_loc
@@ -192,21 +183,39 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	if(orbiter.loc == get_turf(parent))
 		return
 
-	if(orbiter.orbiting && orbiter.orbiting == src)
+	if(orbiter in orbiter_list)
 		// Only end the spin animation when we're actually ending an orbit, not just changing targets
 		orbiter.SpinAnimation(0, 0, parallel = FALSE)
 		end_orbit(orbiter)
+
+
+/// Some helper functions to keep some sanity in using lists like this
+/datum/component/orbiter/proc/store_orbit_data(atom/movable/orbiter, orbit_flags)
+	var/list/new_orbit_data = list(
+		orbiter.transform,  // cached transform
+		orbit_flags			// params about the orbit
+	)
+	orbit_data[orbiter] = new_orbit_data
+	return new_orbit_data
+
+/datum/component/orbiter/proc/get_cached_transform(atom/movable/orbiter)
+	if(orbiter)
+		var/list/orbit_params = orbit_data[orbiter]
+		if(orbit_params)
+			return orbit_params[1]
+
+/datum/component/orbiter/proc/get_orbit_params(atom/movable/orbiter)
+	if(orbiter)
+		var/list/orbit_params = orbit_data[orbiter]
+		if(orbit_params)
+			return orbit_params[2]
 
 
 /////////////////////////////////////////
 // Atom procs/vars
 
 /// Who the current atom is orbiting
-/atom/movable/var/datum/component/orbiter/orbiting = null
-/atom/movable/var/orbit_params = 0
-
-/// who's orbiting the current atom
-/atom/var/datum/component/orbiter/orbiters = null
+/atom/movable/var/orbiting_uid = null
 
 /atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lock_in_orbit = FALSE, force_move = FALSE)
 	if(!istype(A) || !get_turf(A) || A == src)
@@ -218,11 +227,21 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	return // We're just a simple hook
 
 /**
- * Recursive getter method to return a list of all ghosts orbiting this atom
+ * Simple helper proc to get a list of everything directly orbiting the current atom, without checking contents, or null if nothing is.
+ */
+/atom/proc/get_orbiters()
+	var/datum/component/orbiter/C = GetComponent(/datum/component/orbiter)
+	if(C && C.orbiter_list)
+		return C.orbiter_list
+	else
+		return null
+
+/**
+ * Recursive getter method to return a list of all ghosts orbiting this atom, including any which may be orbiting other objects.
  *
  * This will work fine without manually passing arguments.
  */
-/atom/proc/get_all_orbiters(list/processed, source = TRUE)
+/atom/proc/get_orbiters_recursive(list/processed, source = TRUE)
 	var/list/output = list()
 	if(!processed)
 		processed = list()
@@ -231,12 +250,11 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 
 	processed += src
 	// Make sure we don't shadow outer orbiters
-	var/datum/component/orbiter/atom_orbiters = orbiters
 	if(atom_orbiters && atom_orbiters.orbiter_list)
-		for(var/atom/atom_orbiter in atom_orbiters.orbiter_list)
+		for(var/atom/atom_orbiter in get_orbiters())
 			if(isobserver(atom_orbiter))
 				output += atom_orbiter
-			output += atom_orbiter.get_all_orbiters(processed, source = FALSE)
+			output += atom_orbiter.get_orbiters_recursive(processed, source = FALSE)
 	return output
 
 #undef ORBIT_LOCK_IN
