@@ -79,7 +79,7 @@
 	var/mob/dead/observer/current_spirits = list()
 
 	for(var/atom/content in T.GetAllContents())
-		for(var/mob/dead/observer/O in content.get_orbiters_recursive())
+		for(var/mob/dead/observer/O in content.get_orbiters())
 			ghost_counter++
 			O.invisibility = 0
 			current_spirits |= O
