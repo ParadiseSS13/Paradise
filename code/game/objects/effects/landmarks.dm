@@ -15,8 +15,10 @@
 /obj/effect/landmark/newplayer_start //There should only be one of these, in the lobby art area
 	name = "start"
 
-/obj/effect/landmark/newplayer_start/New() //If this isn't new, you spawn in the corner of the map
-	..()
+INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you spawn in the corner of the map
+
+/obj/effect/landmark/newplayer_start/Initialize(mapload)
+	. = ..()
 	GLOB.newplayer_start += loc
 	qdel(src)
 
