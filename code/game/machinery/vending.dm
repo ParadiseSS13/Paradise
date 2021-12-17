@@ -160,6 +160,8 @@
 	cut_overlays()
 	if(panel_open)
 		add_overlay("[icon_panel ? "[icon_panel]_panel" : "[icon_state]_panel"]")
+	if(icon_addon)
+		add_overlay("[icon_addon]")
 	if((stat & (BROKEN|NOPOWER)) || force_no_power_icon_state)
 		add_overlay("[icon_off ? "[icon_off]_off" : "[icon_state]_off"]")
 		if(stat & BROKEN)
