@@ -839,7 +839,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(module)
 		removable_components += module.custom_removals
 	var/remove = input(user, "Which component do you want to pry out?", "Remove Component") as null|anything in removable_components
-	if(!remove)
+	if(!remove || !Adjacent(user))
 		return
 
 	var/datum/robot_component/C = components[remove]
