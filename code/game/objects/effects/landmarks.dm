@@ -256,10 +256,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	name = "Botanist"
 	icon_state = "Botanist"
 
-/obj/effect/landmark/start/brigphys
-	name = "Brig Physician"
-	icon_state = "BrigPhys"
-
 /obj/effect/landmark/start/chief_engineer
 	name = "Chief Engineer"
 	icon_state = "CE"
