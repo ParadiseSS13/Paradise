@@ -250,11 +250,10 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 
 	processed += src
 	// Make sure we don't shadow outer orbiters
-	if(atom_orbiters && atom_orbiters.orbiter_list)
-		for(var/atom/atom_orbiter in get_orbiters())
-			if(isobserver(atom_orbiter))
-				output += atom_orbiter
-			output += atom_orbiter.get_orbiters_recursive(processed, source = FALSE)
+	for(var/atom/movable/atom_orbiter in get_orbiters())
+		if(isobserver(atom_orbiter))
+			output += atom_orbiter
+		output += atom_orbiter.get_orbiters_recursive(processed, source = FALSE)
 	return output
 
 #undef ORBIT_LOCK_IN
