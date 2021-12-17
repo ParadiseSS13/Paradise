@@ -6,6 +6,8 @@
 	layer = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
+INITIALIZE_IMMEDIATE(/obj/effect/landmark) //Without this you spawn in the corner of the map and things break horribly
+
 /obj/effect/landmark/Initialize(mapload)
 	. = ..()
 	set_tag()
@@ -14,8 +16,6 @@
 
 /obj/effect/landmark/newplayer_start //There should only be one of these, in the lobby art area
 	name = "start"
-
-INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you spawn in the corner of the map
 
 /obj/effect/landmark/newplayer_start/Initialize(mapload)
 	. = ..()
@@ -44,7 +44,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/spawner/ert/Initialize(mapload)
 	spawner_list = GLOB.emergencyresponseteamspawn
-	..()
+	return ..()
 
 /obj/effect/landmark/spawner/ds
 	name = "Commando"
@@ -56,21 +56,21 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/spawner/wiz/Initialize(mapload)
 	spawner_list = GLOB.wizardstart
-	..()
+	return ..()
 /obj/effect/landmark/spawner/xeno
 	name = "xeno_spawn"
 	icon_state = "Xeno"
 
 /obj/effect/landmark/spawner/xeno/Initialize(mapload)
 	spawner_list = GLOB.xeno_spawn
-	..()
+	return ..()
 /obj/effect/landmark/spawner/blob
 	name = "blobstart"
 	icon_state = "Blob"
 
 /obj/effect/landmark/spawner/blob/Initialize(mapload)
 	spawner_list = GLOB.blobstart
-	..()
+	return ..()
 /obj/effect/landmark/spawner/late
 	name = "JoinLate"
 	icon_state = "Assistant"
@@ -84,7 +84,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/spawner/carp/Initialize(mapload)
 	spawner_list = GLOB.carplist
-	..()
+	return ..()
 /obj/effect/landmark/spawner/rev
 	name = "revenantspawn"
 	icon_state = "Rev"
@@ -98,73 +98,73 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/spawner/syndicateofficer/Initialize(mapload)
 	spawner_list = GLOB.syndicateofficer
-	..()
+	return ..()
 /obj/effect/landmark/spawner/ertdirector
 	name = "ERT Director"
 
 /obj/effect/landmark/spawner/ertdirector/Initialize(mapload)
 	spawner_list = GLOB.ertdirector
-	..()
+	return ..()
 /obj/effect/landmark/spawner/raider_spawn
 	name = "voxstart"
 
 /obj/effect/landmark/spawner/raider_spawn/Initialize(mapload)
 	spawner_list = GLOB.raider_spawn
-	..()
+	return ..()
 /obj/effect/landmark/spawner/ninjastart
 	name = "ninjastart"
 
 /obj/effect/landmark/spawner/ninjastart/Initialize(mapload)
 	spawner_list = GLOB.ninjastart
-	..()
+	return ..()
 /obj/effect/landmark/spawner/aroomwarp
 	name = "aroomwarp"
 
 /obj/effect/landmark/spawner/aroomwarp/Initialize(mapload)
 	spawner_list = GLOB.aroomwarp
-	..()
+	return ..()
 /obj/effect/landmark/spawner/tdomeobserve
 	name = "tdomeobserve"
 
 /obj/effect/landmark/spawner/tdomeobserve/Initialize(mapload)
 	spawner_list = GLOB.tdomeobserve
-	..()
+	return ..()
 /obj/effect/landmark/spawner/tdomeadmin
 	name = "tdomeadmin"
 
 /obj/effect/landmark/spawner/tdomeadmin/Initialize(mapload)
 	spawner_list = GLOB.tdomeadmin
-	..()
+	return ..()
 /obj/effect/landmark/spawner/tdome2
 	name = "tdome2"
 
 /obj/effect/landmark/spawner/tdome2/Initialize(mapload)
 	spawner_list = GLOB.tdome2
-	..()
+	return ..()
 /obj/effect/landmark/spawner/tdome1
 	name = "tdome1"
 
 /obj/effect/landmark/spawner/tdome1/Initialize(mapload)
 	spawner_list = GLOB.tdome1
-	..()
+	return ..()
 /obj/effect/landmark/spawner/prisonsecuritywarp
 	name = "prisonsecuritywarp"
 
 /obj/effect/landmark/spawner/prisonsecuritywarp/Initialize(mapload)
 	spawner_list = GLOB.prisonsecuritywarp
-	..()
+	return ..()
 /obj/effect/landmark/spawner/syndieprisonwarp
 	name = "syndieprisonwarp"
 
 /obj/effect/landmark/spawner/syndieprisonwarp/Initialize(mapload)
 	spawner_list = GLOB.syndieprisonwarp
-	..()
+	return ..()
 /obj/effect/landmark/spawner/prisonwarp
 	name = "prisonwarp"
 
 /obj/effect/landmark/spawner/prisonwarp/Initialize(mapload)
 	spawner_list = GLOB.prisonwarp
-	..()
+	return ..()
 /obj/effect/landmark/spawner/syndicate_commando
 	name = "Syndicate-Commando"
 	icon_state = "Syndie"
@@ -387,7 +387,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 //Costume spawner landmarks
 
-/obj/effect/landmark/costume/random/New() //costume spawner, selects a random subclass and disappears
+/obj/effect/landmark/costume/random/Initialize(mapload) //costume spawner, selects a random subclass and disappears
 	. = ..()
 	var/list/options = (typesof(/obj/effect/landmark/costume) - /obj/effect/landmark/costume/random)
 	var/PICK= options[rand(1,options.len)]
@@ -395,20 +395,20 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	qdel(src)
 
 //SUBCLASSES.  Spawn a bunch of items and disappear likewise
-/obj/effect/landmark/costume/chicken/New()
+/obj/effect/landmark/costume/chicken/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/chickensuit(src.loc)
 	new /obj/item/clothing/head/chicken(src.loc)
 	new /obj/item/reagent_containers/food/snacks/egg(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/gladiator/New()
+/obj/effect/landmark/costume/gladiator/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/gladiator(src.loc)
 	new /obj/item/clothing/head/helmet/gladiator(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/madscientist/New()
+/obj/effect/landmark/costume/madscientist/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/gimmick/rank/captain/suit(src.loc)
 	new /obj/item/clothing/head/flatcap(src.loc)
@@ -416,7 +416,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	new /obj/item/clothing/glasses/gglasses(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/elpresidente/New()
+/obj/effect/landmark/costume/elpresidente/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/gimmick/rank/captain/suit(src.loc)
 	new /obj/item/clothing/head/flatcap(src.loc)
@@ -424,12 +424,12 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	new /obj/item/clothing/shoes/jackboots(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/schoolgirl/New()
+/obj/effect/landmark/costume/schoolgirl/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/schoolgirl(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/maid/New()
+/obj/effect/landmark/costume/maid/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/blackskirt(src.loc)
 	var/CHOICE = pick( /obj/item/clothing/head/beret , /obj/item/clothing/head/rabbitears )
@@ -437,14 +437,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	new /obj/item/clothing/glasses/sunglasses/blindfold(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/butler/New()
+/obj/effect/landmark/costume/butler/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/wcoat(src.loc)
 	new /obj/item/clothing/under/suit_jacket(src.loc)
 	new /obj/item/clothing/head/that(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/scratch/New()
+/obj/effect/landmark/costume/scratch/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/gloves/color/white(src.loc)
 	new /obj/item/clothing/shoes/white(src.loc)
@@ -453,13 +453,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 		new /obj/item/clothing/head/cueball(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/highlander/New()
+/obj/effect/landmark/costume/highlander/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/kilt(src.loc)
 	new /obj/item/clothing/head/beret(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/prig/New()
+/obj/effect/landmark/costume/prig/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/wcoat(src.loc)
 	new /obj/item/clothing/glasses/monocle(src.loc)
@@ -471,19 +471,19 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	new /obj/item/clothing/mask/fakemoustache(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/plaguedoctor/New()
+/obj/effect/landmark/costume/plaguedoctor/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/bio_suit/plaguedoctorsuit(src.loc)
 	new /obj/item/clothing/head/plaguedoctorhat(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/nightowl/New()
+/obj/effect/landmark/costume/nightowl/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/owl(src.loc)
 	new /obj/item/clothing/mask/gas/owl_mask(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/waiter/New()
+/obj/effect/landmark/costume/waiter/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/waiter(src.loc)
 	var/CHOICE= pick( /obj/item/clothing/head/kitty, /obj/item/clothing/head/rabbitears)
@@ -491,7 +491,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	new /obj/item/clothing/suit/apron(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/pirate/New()
+/obj/effect/landmark/costume/pirate/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/pirate(src.loc)
 	new /obj/item/clothing/suit/pirate_black(src.loc)
@@ -500,52 +500,52 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	new /obj/item/clothing/glasses/eyepatch(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/commie/New()
+/obj/effect/landmark/costume/commie/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/soviet(src.loc)
 	new /obj/item/clothing/head/ushanka(src.loc)
 	qdel(src)
 
 
-/obj/effect/landmark/costume/imperium_monk/New()
+/obj/effect/landmark/costume/imperium_monk/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/imperium_monk(src.loc)
 	if(prob(25))
 		new /obj/item/clothing/mask/gas/cyborg(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/holiday_priest/New()
+/obj/effect/landmark/costume/holiday_priest/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/holidaypriest(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/marisawizard/fake/New()
+/obj/effect/landmark/costume/marisawizard/fake/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/head/wizard/marisa/fake(src.loc)
 	new/obj/item/clothing/suit/wizrobe/marisa/fake(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/cutewitch/New()
+/obj/effect/landmark/costume/cutewitch/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/sundress(src.loc)
 	new /obj/item/clothing/head/witchwig(src.loc)
 	new /obj/item/twohanded/staff/broom(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/fakewizard/New()
+/obj/effect/landmark/costume/fakewizard/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/wizrobe/fake(src.loc)
 	new /obj/item/clothing/head/wizard/fake(src.loc)
 	new /obj/item/twohanded/staff/(src.loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/sexyclown/New()
+/obj/effect/landmark/costume/sexyclown/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/mask/gas/clown_hat/sexy(loc)
 	new /obj/item/clothing/under/rank/clown/sexy(loc)
 	qdel(src)
 
-/obj/effect/landmark/costume/sexymime/New()
+/obj/effect/landmark/costume/sexymime/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/mask/gas/sexymime(src.loc)
 	new /obj/item/clothing/under/sexymime(src.loc)
@@ -569,8 +569,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 /obj/effect/landmark/damageturf
 	icon_state = "damaged"
 
-/obj/effect/landmark/damageturf/New()
-	..()
+/obj/effect/landmark/damageturf/Initialize(mapload)
+	. = ..()
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
 		T.break_tile()
@@ -578,11 +578,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 /obj/effect/landmark/burnturf
 	icon_state = "burned"
 
-/obj/effect/landmark/burnturf/New()
-	..()
+/obj/effect/landmark/burnturf/Initialize(mapload)
+	. = ..()
 	var/turf/simulated/T = get_turf(src)
 	T.burn_tile()
-
 
 /obj/effect/landmark/battle_mob_point
 	name = "Nanomob Battle Avatar Spawn Point"
