@@ -41,10 +41,10 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 
 /datum/component/orbiter/Destroy()
 	var/atom/owner = parent
-	if(owner.orbiters == src)
-		owner.orbiters = null
 	for(var/i in orbiter_list)
 		end_orbit(i)
+	if(owner.orbiters == src)
+		owner.orbiters = null
 	orbiter_list = null
 	transform_cache = null
 	return ..()
@@ -54,7 +54,6 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	if(!new_comp)
 		// Make sure we clean up anything that the new component might have messed up
 		// In particular, the new component probably messed up our parent
-		RegisterWithParent()
 		begin_orbit(arglist(args.Copy(3)))
 		return
 
@@ -89,6 +88,7 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 
 	orbiter_list += orbiter
 	orbiter.orbiting = src
+	RegisterSignal(orbiter, COMSIG_PARENT_QDELETING, .proc/end_orbit)
 
 	// Save the orbiter's transform so we can restore it when they stop orbiting
 	transform_cache[orbiter] = orbiter.transform
@@ -134,17 +134,23 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 	if(!(orbiter in orbiter_list))
 		return
 
-	var/matrix/cached_transform = transform_cache[orbiter]
+	if(orbiter)
+		var/matrix/cached_transform = transform_cache[orbiter]
 
-	orbiter.transform = cached_transform
+		orbiter.transform = cached_transform
 
-	orbiter.orbiting = null
-	orbiter.orbit_params = 0
-	orbiter.stop_orbit()
-	UnregisterSignal(orbiter, COMSIG_MOVABLE_MOVED)
+		orbiter.orbiting = null
+		orbiter.orbit_params = 0
+		orbiter.stop_orbit()
+		UnregisterSignal(orbiter, COMSIG_MOVABLE_MOVED)
+		UnregisterSignal(orbiter, COMSIG_PARENT_QDELETING)
 
-	SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, orbiter)
+		SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, orbiter)
 
+		if(!refreshing)
+			orbiter.SpinAnimation(0, 0, parallel = FALSE)
+
+	// If it's null, still remove it from the list
 	orbiter_list -= orbiter
 	transform_cache -= orbiter
 
