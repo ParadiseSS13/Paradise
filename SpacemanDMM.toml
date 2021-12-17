@@ -33,6 +33,4 @@ hide_invisible = [
 "/turf/simulated/wall" = -2
 
 [map_renderer.render_passes]
-icon-smoothing = false
-icon-smoothing-2016 = true
 smart-cables = false
