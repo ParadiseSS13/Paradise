@@ -1344,17 +1344,18 @@
 	alcohol_perc /= volume //Blending alcohol percentage to volume.
 	generate_data_info(data)
 
+#define MIN_WINE_PERCENT 0.15 //Percentages measured between 0 and 1.
+
 /datum/reagent/consumable/ethanol/fruit_wine/proc/generate_data_info(list/data)
-	var/minimum_percent = 0.15 //Percentages measured between 0 and 1.
 	var/list/primary_tastes = list()
 	var/list/secondary_tastes = list()
 	drink_name = "glass of [name]"
 	drink_desc = description
 	for(var/taste in tastes)
 		switch(tastes[taste])
-			if(minimum_percent*2 to INFINITY)
+			if(MIN_WINE_PERCENT*2 to INFINITY)
 				primary_tastes += taste
-			if(minimum_percent to minimum_percent*2)
+			if(MIN_WINE_PERCENT to MIN_WINE_PERCENT*2)
 				secondary_tastes += taste
 
 	var/minimum_name_percent = 0.35
@@ -1407,6 +1408,8 @@
 	taste_description = flavor
 	if(holder.my_atom)
 		holder.my_atom.on_reagent_change()
+
+#undef MIN_WINE_PERCENT
 
 /datum/reagent/consumable/ethanol/bacchus_blessing //An EXTREMELY powerful drink. Smashed in seconds, dead in minutes.
 	name = "Bacchus' Blessing"
