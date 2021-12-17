@@ -104,20 +104,27 @@
 	name = "alien wall"
 	desc = "A wall with alien alloy plating."
 	icon = 'icons/turf/walls/abductor_wall.dmi'
-	icon_state = "abductor-0"
-	base_icon_state = "abductor"
+	icon_state = "abductor_wall-0"
+	base_icon_state = "abductor_wall"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_ABDUCTOR_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_WALLS)
 
 /turf/simulated/wall/indestructible/abductor
-	icon = 'icons/turf/walls.dmi'
-	icon_state = "alien1"
+	icon = 'icons/turf/walls/abductor_wall.dmi'
+	icon_state = "abductor_wall-0"
+	base_icon_state = "abductor_wall"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_ABDUCTOR_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_WALLS)
 
 /turf/simulated/wall/indestructible/fakedoor
 	name = "CentCom Access"
 	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi'
 	icon_state = "fake_door"
+	smoothing_flags = null
+	smoothing_groups = null
+	canSmoothWith = null
 
 /turf/simulated/wall/indestructible/fakeglass
 	name = "window"
@@ -156,12 +163,18 @@
 	desc = "An extremely densely-packed rock, most mining tools or explosives would never get through this."
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rock"
+	smoothing_flags = null
+	smoothing_groups = null
+	canSmoothWith = null
 
 /turf/simulated/wall/indestructible/rock/snow
 	name = "mountainside"
 	desc = "An extremely densely-packed rock, sheeted over with centuries worth of ice and snow."
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "snowrock"
+	smoothing_flags = null
+	smoothing_groups = null
+	canSmoothWith = null
 
 /turf/simulated/wall/indestructible/riveted
 	icon = 'icons/turf/walls/riveted.dmi'
