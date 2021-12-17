@@ -49,25 +49,20 @@
 /mob/living/carbon/human/dust()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	notransform = 1
-	canmove = 0
-	icon = null
-	invisibility = 101
+	notransform = TRUE
+	canmove = FALSE
 	dust_animation()
-	QDEL_IN(src, 15)
+	QDEL_IN(src, 20)
 	return TRUE
 
 /mob/living/carbon/human/dust_animation()
-	var/atom/movable/overlay/animation = null
+	// Animate them being dusted out of existence
+	var/obj/effect/dusting_anim/dust_effect = new(loc, UID())
+	filters += filter(type = "displace", size = 256, render_source = "*snap[UID()]")
+	animate(src, alpha = 0, time = 20, easing = (EASE_IN | SINE_EASING))
 
-	animation = new(loc)
-	animation.icon_state = "blank"
-	animation.icon = 'icons/mob/mob.dmi'
-	animation.master = src
-
-	flick("dust-h", animation)
 	new dna.species.remains_type(get_turf(src))
-	QDEL_IN(animation, 15)
+	QDEL_IN(dust_effect, 20)
 	return TRUE
 
 /mob/living/carbon/human/melt()
@@ -124,7 +119,7 @@
 	var/obj/item/organ/external/head/H = get_organ("head")
 
 	if(istype(H))
-		H.disfigured = TRUE
+		H.status |= ORGAN_DISFIGURED
 		if(H.f_style)
 			H.f_style = initial(H.f_style)
 		if(H.h_style)
@@ -150,7 +145,7 @@
 		ADD_TRAIT(src, TRAIT_HUSK, source)
 		var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
 		if(istype(H))
-			H.disfigured = TRUE //makes them unknown without fucking up other stuff like admintools
+			H.status |= ORGAN_DISFIGURED //makes them unknown without fucking up other stuff like admintools
 			if(H.f_style)
 				H.f_style = "Shaved" //we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
 			if(H.h_style)
@@ -172,7 +167,7 @@
 	if(!HAS_TRAIT(src, TRAIT_HUSK))
 		var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
 		if(istype(H))
-			H.disfigured = FALSE
+			H.status &= ~ORGAN_DISFIGURED
 		update_body()
 		update_mutantrace()
 		UpdateAppearance() // reset hair from DNA

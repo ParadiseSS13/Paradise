@@ -25,8 +25,8 @@
 
 	light_color = LIGHT_COLOR_DARKBLUE
 
-/obj/machinery/computer/cloning/Initialize()
-	..()
+/obj/machinery/computer/cloning/Initialize(mapload)
+	. = ..()
 	pods = list()
 	records = list()
 	set_scan_temp("Scanner ready.", "good")
@@ -61,20 +61,15 @@
 		selected_pod = pods[1]
 
 /obj/machinery/computer/cloning/proc/findscanner()
-	var/obj/machinery/dna_scannernew/scannerf = null
-
 	//Try to find scanner on adjacent tiles first
-	for(dir in list(NORTH,EAST,SOUTH,WEST))
-		scannerf = locate(/obj/machinery/dna_scannernew, get_step(src, dir))
-		if(scannerf)
-			return scannerf
+	for(var/obj/machinery/dna_scannernew/scanner in orange(1, src))
+		return scanner
 
 	//Then look for a free one in the area
-	if(!scannerf)
-		for(var/obj/machinery/dna_scannernew/S in get_area(src))
-			return S
+	for(var/obj/machinery/dna_scannernew/S in get_area(src))
+		return S
 
-	return 0
+	return FALSE
 
 /obj/machinery/computer/cloning/proc/releasecloner()
 	for(var/obj/machinery/clonepod/P in pods)

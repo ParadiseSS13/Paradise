@@ -10,6 +10,7 @@
 #include "reagent_id_typos.dm"
 #include "rustg_version.dm"
 #include "spawn_humans.dm"
+#include "spell_targeting_test.dm"
 #include "sql.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"

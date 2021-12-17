@@ -106,10 +106,13 @@ research holder datum.
 	return TRUE
 
 /datum/research/proc/AddDesign2Known(datum/design/D)
+	if(!D)
+		return FALSE
 	if(!CanAddDesign2Known(D))
-		return
+		return TRUE
 	// Global datums make me nervous
 	known_designs[D.id] = D
+	return TRUE
 
 //Refreshes known_tech and known_designs list.
 //Input/Output: n/a
@@ -119,7 +122,8 @@ research holder datum.
 			AddTech2Known(PT)
 	for(var/datum/design/PD in possible_designs)
 		if(DesignHasReqs(PD))
-			AddDesign2Known(PD)
+			if(!AddDesign2Known(PD))
+				log_runtime(EXCEPTION("Game attempted to add a null design to list of known designs! Design: [PD] with ID: [PD.id]"), src)
 	for(var/v in known_tech)
 		var/datum/tech/T = known_tech[v]
 		T.level = clamp(T.level, 0, 20)

@@ -23,6 +23,10 @@
 	greet_text = _greet_text
 	return ..()
 
+/datum/antagonist/mindslave/Destroy()
+	master = null
+	return ..()
+
 /datum/antagonist/mindslave/on_gain()
 	SSticker.mode.implanted[owner] = master
 
@@ -53,7 +57,6 @@
 		var/datum/mindslaves/slaved = owner.som
 		slaved.serv -= owner
 		slaved.leave_serv_hud(owner)
-	master = null
 	return ..()
 
 /datum/antagonist/mindslave/greet()

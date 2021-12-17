@@ -457,8 +457,8 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			var/realname = C.mob.real_name
 			if(C.mob.mind)
 				mindname = C.mob.mind.name
-				if(C.mob.mind.original && C.mob.mind.original.real_name)
-					realname = C.mob.mind.original.real_name
+				if(C.mob.mind.original_mob_name)
+					realname = C.mob.mind.original_mob_name
 			if(mindname && mindname != realname)
 				name = "[realname] died as [mindname]"
 			else

@@ -38,10 +38,6 @@
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>"
 			else
 				dat += "Barber  - <font color='green'>Unlocked</font><br>"
-			if(!("Brig Physician" in unlocked_jobs))
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>"
-			else
-				dat += "Brig Physician - <font color='green'>Unlocked</font><br>"
 			if(!("Nanotrasen Representative" in unlocked_jobs))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 30KP</a><br>"
 			else
@@ -124,6 +120,9 @@
 			if("Magistrate" in purchased)
 				refundable += "Magistrate"
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Magistrate;KarmaRefundType=job;KarmaRefundCost=45'>Refund Magistrate -- 45KP</a><br>"
+			if("Brig Physician" in purchased)
+				refundable += "Brig Physician"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Brig Physician;KarmaRefundType=job;KarmaRefundCost=45'>Refund Brig Physician -- 5KP</a><br>"
 
 			if(!length(refundable))
 				dat += "You do not have any refundable karma purchases.<br>"
@@ -313,6 +312,8 @@
 			cost = 10
 		if("Magistrate")
 			cost = 45
+		if("Brig Physician")
+			cost = 5
 		else
 			to_chat(usr, "<span class='warning'>That job is not refundable.</span>")
 			return
@@ -390,8 +391,6 @@
 					switch(href_list["KarmaBuy"])
 						if("1")
 							karma_purchase(5, "job", "Barber")
-						if("2")
-							karma_purchase(5, "job", "Brig Physician")
 						if("3")
 							karma_purchase(30, "job", "Nanotrasen Representative")
 						if("4")

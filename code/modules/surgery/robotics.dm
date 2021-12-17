@@ -40,8 +40,8 @@
 			return 0
 		if(!affected.is_robotic())
 			return 0
-		if(affected.cannot_amputate)
-			return 0
+		if(affected.limb_flags & CANNOT_DISMEMBER)
+			return FALSE
 		return 1
 
 //to do, moar surgerys or condense down ala manipulate organs.
@@ -222,7 +222,7 @@
 
 	else if(implement_type in implements_heal_brute)
 		current_type = "brute"
-		if(!(affected.brute_dam > 0 || affected.disfigured))
+		if(!(affected.brute_dam > 0 || (affected.status & ORGAN_DISFIGURED)))
 			to_chat(user, "<span class='warning'>\The [affected] does not require welding repair!</span>")
 			return -1
 		if(tool.tool_behaviour == TOOL_WELDER)
@@ -247,7 +247,7 @@
 			user.visible_message("<span class='notice'> [user] finishes patching damage to [target]'s [affected.name] with \the [tool].</span>", \
 			"<span class='notice'> You finish patching damage to [target]'s [affected.name] with \the [tool].</span>")
 			affected.heal_damage(rand(30,50),0,1,1)
-			affected.disfigured = FALSE
+			affected.status &= ~ORGAN_DISFIGURED
 		if("burn")
 			user.visible_message("<span class='notice'> [user] finishes splicing cable into [target]'s [affected.name].</span>", \
 			"<span class='notice'> You finishes splicing new cable into [target]'s [affected.name].</span>")

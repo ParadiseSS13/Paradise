@@ -838,7 +838,7 @@
 
 			if(prob(I.embedded_fall_chance))
 				BP.receive_damage(I.w_class*I.embedded_fall_pain_multiplier)
-				BP.embedded_objects -= I
+				BP.remove_embedded_object(I)
 				I.forceMove(get_turf(src))
 				visible_message("<span class='danger'>[I] falls out of [name]'s [BP.name]!</span>","<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
 				if(!has_embedded_objects())

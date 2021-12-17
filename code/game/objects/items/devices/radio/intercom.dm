@@ -9,31 +9,38 @@
 	flags = CONDUCT
 	var/circuitry_installed = 1
 	var/buildstage = 0
+	var/custom_name
 	dog_fashion = null
 
 /obj/item/radio/intercom/custom
 	name = "station intercom (Custom)"
+	custom_name = TRUE
 	broadcasting = 0
 	listening = 0
 
 /obj/item/radio/intercom/interrogation
 	name = "station intercom (Interrogation)"
+	custom_name = TRUE
 	frequency  = AIRLOCK_FREQ
 
 /obj/item/radio/intercom/private
 	name = "station intercom (Private)"
+	custom_name = TRUE
 	frequency = AI_FREQ
 
 /obj/item/radio/intercom/command
 	name = "station intercom (Command)"
+	custom_name = TRUE
 	frequency = COMM_FREQ
 
 /obj/item/radio/intercom/specops
 	name = "\improper Special Operations intercom"
+	custom_name = TRUE
 	frequency = ERT_FREQ
 
 /obj/item/radio/intercom/department
 	canhear_range = 5
+	custom_name = TRUE
 	broadcasting = 0
 	listening = 1
 
@@ -58,6 +65,11 @@
 		on = 0
 	GLOB.global_intercoms.Add(src)
 	update_icon()
+
+/obj/item/radio/intercom/Initialize()
+	. = ..()
+	if(!custom_name)
+		name = "station intercom (General)"
 
 /obj/item/radio/intercom/department/medbay/New()
 	..()
@@ -252,6 +264,7 @@
 
 /obj/item/radio/intercom/locked
 	freqlock = TRUE
+	custom_name = TRUE
 
 /obj/item/radio/intercom/locked/ai_private
 	name = "\improper AI intercom"
