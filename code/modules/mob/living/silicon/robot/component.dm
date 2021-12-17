@@ -127,9 +127,9 @@
 	max_damage = 50
 
 /datum/robot_component/cell/install(obj/item/stock_parts/cell/C)
-	..()
 	external_type = C.type // Update the cell component's `external_type` to the path of new cell
 	owner.cell = C
+	..()
 
 /datum/robot_component/cell/uninstall()
 	..()
