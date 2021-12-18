@@ -62019,12 +62019,12 @@
 	},
 /area/crew_quarters/hor)
 "cDL" = (
-/obj/machinery/hologram/holopad,
 /obj/machinery/light,
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = -32
 	},
+/obj/machinery/suit_storage_unit/rd/secure,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -75981,6 +75981,13 @@
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
 	})
+"ffD" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "cafeteria"
+	},
+/area/crew_quarters/hor)
 "fga" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/machinery/door/window/northleft{
@@ -113789,7 +113796,7 @@ cwR
 bYY
 cBf
 czS
-cAN
+ffD
 cBT
 cDL
 cxU

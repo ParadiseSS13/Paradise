@@ -79647,7 +79647,7 @@
 	},
 /area/toxins/mixing)
 "dvc" = (
-/obj/machinery/suit_storage_unit/standard_unit,
+/obj/machinery/suit_storage_unit/rd/secure,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
