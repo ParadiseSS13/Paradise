@@ -210,7 +210,7 @@
 				"temperature"    = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // K
 			)
 
-	if(!no_cycle_after && preset != AALARM_PRESET_DISABLED)
+	if(!no_cycle_after)
 		mode = AALARM_MODE_REPLACEMENT
 		apply_mode()
 
