@@ -199,6 +199,7 @@
 				"temperature"    = new/datum/tlv(0, 0, T20C + 5, T20C + 15), // K
 			)
 		if(AALARM_PRESET_DISABLED)
+			no_cycle_after = TRUE
 			TLV = list(
 				"oxygen"         = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 				"nitrogen"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
