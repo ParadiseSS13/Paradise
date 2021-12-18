@@ -5,9 +5,9 @@
 #define FLYSWATTER_DAMAGE_MULTIPLIER 9
 
 /datum/species/moth
-	name = "Moth"
-	name_plural = "Moths"
-	language = "Moffic"
+	name = "Nian"
+	name_plural = "Nianae"
+	language = "Tkachi"
 	icobase = 'icons/mob/human_races/r_moth.dmi'
 	inherent_factions = list("moth")
 	species_traits = list(IS_WHITELISTED, NO_HAIR)
@@ -76,7 +76,7 @@
 	if(!istype(T))
 		return
 	var/light_available = T.get_lumcount(maxlum = 5) * 10
-	if(light_available < 3) //too close to lamp friends!
+	if(light_available < 4) //too close to lamp friends!
 		return
 	H.AdjustConfused(rand(5, 10))
 	to_chat(H, "<span class='danger'>The lamp friends are too bright, and dazzle you!</span>")
@@ -214,8 +214,8 @@
 	qdel(C)
 
 /obj/structure/moth/cocoon
-	name = "moth cocoon"
-	desc = "Someone wrapped in a moth cocoon"
+	name = "Nian cocoon"
+	desc = "Someone wrapped in a nian cocoon"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cocoon1"
 	color = COLOR_PALE_YELLOW //So tiders (hopefully) don't decide to immediately bust them open
@@ -230,7 +230,7 @@
 	if(!preparing_to_emerge)
 		visible_message("<span class='danger'>[src] splits open from within.</span>")
 	else
-		visible_message("<span class='danger'>[src] is smashed open, harming the moth within!</span>")
+		visible_message("<span class='danger'>[src] is smashed open, harming the nian within!</span>")
 		for(var/mob/living/carbon/human/H in contents)
 			H.adjustBruteLoss(COCOON_HARM_AMOUNT)
 			H.adjustFireLoss(COCOON_HARM_AMOUNT)
