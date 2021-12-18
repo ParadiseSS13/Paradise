@@ -6,8 +6,6 @@
 	layer = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-INITIALIZE_IMMEDIATE(/obj/effect/landmark) //Without this you spawn in the corner of the map and things break horribly
-
 /obj/effect/landmark/Initialize(mapload)
 	. = ..()
 	set_tag()
@@ -17,10 +15,23 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark) //Without this you spawn in the corne
 /obj/effect/landmark/newplayer_start //There should only be one of these, in the lobby art area
 	name = "start"
 
+INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you spawn in the corner of the map and things break horribly
+
 /obj/effect/landmark/newplayer_start/Initialize(mapload)
 	. = ..()
 	GLOB.newplayer_start += loc
 	qdel(src)
+
+/obj/effect/landmark/awaystart
+	name = "awaystart"
+	icon = 'icons/effects/spawner_icons.dmi'
+	icon_state = "Assistant"
+
+INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away missions break
+
+/obj/effect/landmark/awaystart/Initialize(mapload)
+	GLOB.awaydestinations.Add(src)
+	return ..()
 
 /obj/effect/landmark/spawner
 	icon = 'icons/effects/spawner_icons.dmi'
