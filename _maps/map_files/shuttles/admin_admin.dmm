@@ -140,7 +140,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ay" = (
-/obj/item/ashtray/glass,
+/obj/item/storage/ashtray/glass,
 /obj/structure/table,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)

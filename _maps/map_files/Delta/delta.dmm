@@ -47832,7 +47832,7 @@
 /area/blueshield)
 "cdR" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/glass{
+/obj/item/storage/ashtray/glass{
 	pixel_x = -4;
 	pixel_y = -4
 	},
@@ -91220,7 +91220,7 @@
 /area/medical/cmo)
 "dVx" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/plastic,
+/obj/item/storage/ashtray/plastic,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},

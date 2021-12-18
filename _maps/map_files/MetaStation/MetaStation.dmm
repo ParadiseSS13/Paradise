@@ -45764,7 +45764,7 @@
 	})
 "bUX" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/glass{
+/obj/item/storage/ashtray/glass{
 	pixel_x = -4;
 	pixel_y = -4
 	},

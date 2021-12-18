@@ -4249,7 +4249,7 @@
 /area/syndicate_mothership)
 "pB" = (
 /obj/structure/table/reinforced,
-/obj/item/ashtray/glass{
+/obj/item/storage/ashtray/glass{
 	icon_state = "ashtray_half_gl"
 	},
 /obj/item/cigbutt/cigarbutt{
@@ -10168,7 +10168,7 @@
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/vox)
 "NC" = (
-/obj/item/ashtray/glass,
+/obj/item/storage/ashtray/glass,
 /obj/structure/table,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)

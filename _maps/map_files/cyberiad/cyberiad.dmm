@@ -3436,7 +3436,7 @@
 /area/security/brig)
 "alp" = (
 /obj/structure/table,
-/obj/item/ashtray/bronze{
+/obj/item/storage/ashtray/bronze{
 	pixel_x = -1;
 	pixel_y = 1
 	},
@@ -12803,7 +12803,7 @@
 /area/crew_quarters/courtroom)
 "aEm" = (
 /obj/structure/table/wood/poker,
-/obj/item/ashtray/bronze,
+/obj/item/storage/ashtray/bronze,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -13424,7 +13424,7 @@
 	pixel_y = 8
 	},
 /obj/item/storage/fancy/cigarettes/dromedaryco,
-/obj/item/ashtray/bronze,
+/obj/item/storage/ashtray/bronze,
 /obj/item/radio/intercom/department/security{
 	pixel_x = 28
 	},
@@ -13559,7 +13559,7 @@
 "aFV" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes,
-/obj/item/ashtray/glass,
+/obj/item/storage/ashtray/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -20721,7 +20721,7 @@
 /area/crew_quarters/dorms)
 "aWD" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/bronze,
+/obj/item/storage/ashtray/bronze,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/dorms)
 "aWE" = (
@@ -26987,7 +26987,7 @@
 /area/chapel/main)
 "bjK" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/bronze{
+/obj/item/storage/ashtray/bronze{
 	pixel_x = -1;
 	pixel_y = 1
 	},
@@ -54670,7 +54670,7 @@
 /area/ntrep)
 "coX" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/glass{
+/obj/item/storage/ashtray/glass{
 	pixel_x = -4;
 	pixel_y = -4
 	},
@@ -64401,7 +64401,7 @@
 /area/maintenance/aft)
 "cIo" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/bronze{
+/obj/item/storage/ashtray/bronze{
 	pixel_x = -1;
 	pixel_y = 1
 	},

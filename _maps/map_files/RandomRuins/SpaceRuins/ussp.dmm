@@ -190,7 +190,7 @@
 /area/derelict/bridge)
 "aA" = (
 /obj/structure/table/reinforced,
-/obj/item/ashtray/bronze,
+/obj/item/storage/ashtray/bronze,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -727,7 +727,7 @@
 /area/derelict/bridge)
 "bI" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/glass{
+/obj/item/storage/ashtray/glass{
 	pixel_x = 6;
 	pixel_y = 3
 	},
@@ -853,7 +853,7 @@
 /area/derelict/bridge)
 "bY" = (
 /obj/structure/table/reinforced,
-/obj/item/ashtray/bronze,
+/obj/item/storage/ashtray/bronze,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -909,7 +909,7 @@
 /area/derelict/bridge)
 "cg" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/plastic,
+/obj/item/storage/ashtray/plastic,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -1423,7 +1423,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/ashtray/plastic,
+/obj/item/storage/ashtray/plastic,
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -2889,7 +2889,7 @@
 	})
 "gg" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/plastic,
+/obj/item/storage/ashtray/plastic,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -2969,7 +2969,7 @@
 /area/derelict/crew_quarters)
 "gp" = (
 /obj/structure/table/reinforced,
-/obj/item/ashtray/bronze,
+/obj/item/storage/ashtray/bronze,
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -3125,7 +3125,7 @@
 	})
 "gE" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/bronze,
+/obj/item/storage/ashtray/bronze,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -6054,7 +6054,7 @@
 	})
 "mM" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/glass,
+/obj/item/storage/ashtray/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -6088,7 +6088,7 @@
 	})
 "mP" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/plastic,
+/obj/item/storage/ashtray/plastic,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -6534,7 +6534,7 @@
 	name = "Derelict Annex"
 	})
 "nQ" = (
-/obj/item/ashtray/plastic,
+/obj/item/storage/ashtray/plastic,
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -6611,7 +6611,7 @@
 /area/derelict/crew_quarters)
 "nX" = (
 /obj/structure/table,
-/obj/item/ashtray/bronze,
+/obj/item/storage/ashtray/bronze,
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -7891,7 +7891,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/table,
-/obj/item/ashtray/plastic,
+/obj/item/storage/ashtray/plastic,
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
