@@ -1613,10 +1613,13 @@
 	icon_state = "ps_horns"
 
 /obj/item/storage/backpack/fluff/hiking //Pineapple Salad: Dan Jello
-	name = "\improper Fancy Hiking Pack"
-	desc = "A black and red hiking pack with some nice little accessories."
+	name = "\improper Fancy Dufflebag"
+	desc = "It's pretty lightweight for a dufflebag, but it only seems to have as much space as an ordinary backpack."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "danpack"
+	item_state = "danpack"
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 
 /obj/item/clothing/under/fluff/kiaoutfit //FullOfSkittles: Kiachi
 	name = "Suspicious Outfit"
