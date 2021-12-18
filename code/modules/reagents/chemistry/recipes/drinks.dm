@@ -915,8 +915,8 @@
 	name = "Gimlet"
 	id = "gimlet"
 	result = "gimlet"
-	required_reagents = list("gin" = 1, "limejuice" = 1)
-	result_amount = 2
+	required_reagents = list("gin" = 1, "limejuice" = 1, "sugar" = 1)
+	result_amount = 3
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/sidecar

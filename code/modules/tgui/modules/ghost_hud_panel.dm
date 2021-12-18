@@ -13,7 +13,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 	var/list/hud_type_lookup = list(
 		"medical" = DATA_HUD_MEDICAL_ADVANCED,
 		"security" = DATA_HUD_SECURITY_ADVANCED,
-		"diagnostic" = DATA_HUD_DIAGNOSTIC
+		"diagnostic" = DATA_HUD_DIAGNOSTIC_ADVANCED
 	)
 
 /datum/ui_module/ghost_hud_panel/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.observer_state)
@@ -69,7 +69,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 
 				ghost.has_enabled_antagHUD = TRUE
 				ghost.can_reenter_corpse = FALSE
-				GLOB.respawnable_list -= ghost
+				ghost.remove_from_respawnable_list()
 
 			ghost.antagHUD = TRUE
 			for(var/datum/atom_hud/antag/H in GLOB.huds)

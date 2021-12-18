@@ -59,6 +59,25 @@
 	/// Last color calculated for the the chatmessage overlays. Used for caching.
 	var/chat_color
 
+	///Icon-smoothing behavior.
+	var/smoothing_flags = NONE
+	///Smoothing variable
+	var/top_left_corner
+	///Smoothing variable
+	var/top_right_corner
+	///Smoothing variable
+	var/bottom_left_corner
+	///Smoothing variable
+	var/bottom_right_corner
+	///What smoothing groups does this atom belongs to, to match canSmoothWith. If null, nobody can smooth with it.
+	var/list/smoothing_groups = null
+	///List of smoothing groups this atom can smooth with. If this is null and atom is smooth, it smooths only with itself.
+	var/list/canSmoothWith = null
+	///What directions this is currently smoothing with. IMPORTANT: This uses the smoothing direction flags as defined in icon_smoothing.dm, instead of the BYOND flags.
+	var/smoothing_junction = null //This starts as null for us to know when it's first set, but after that it will hold a 8-bit mask ranging from 0 to 255.
+	///Used for changing icon states for different base sprites.
+	var/base_icon_state
+
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
@@ -107,6 +126,15 @@
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
 	ComponentInitialize()
+
+	if(length(smoothing_groups))
+		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
+		SET_BITFLAG_LIST(smoothing_groups)
+	if(length(canSmoothWith))
+		sortTim(canSmoothWith)
+		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
+			smoothing_flags |= SMOOTH_OBJ
+		SET_BITFLAG_LIST(canSmoothWith)
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -657,9 +685,6 @@
 
 GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
-/atom/proc/blood_splatter_index()
-	return "\ref[initial(icon)]-[initial(icon_state)]"
-
 //returns the mob's dna info as a list, to be inserted in an object's blood_DNA list
 /mob/living/proc/get_blood_dna_list()
 	if(get_blood_id() != "blood")
@@ -726,56 +751,52 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return add_blood(blood_dna, bloodcolor)
 
 //to add blood onto something, with blood dna info to include.
-/atom/proc/add_blood(list/blood_dna, color)
+/atom/proc/add_blood(list/blood_dna, b_color)
 	return FALSE
 
-/obj/add_blood(list/blood_dna, color)
+/obj/add_blood(list/blood_dna, b_color)
 	return transfer_blood_dna(blood_dna)
 
-/obj/item/add_blood(list/blood_dna, color)
-	var/blood_count = !blood_DNA ? 0 : blood_DNA.len
+/obj/item/add_blood(list/blood_dna, b_color)
+	var/blood_count = !blood_DNA ? 0 : length(blood_DNA)
 	if(!..())
 		return FALSE
-	if(!blood_count)//apply the blood-splatter overlay if it isn't already in there
-		add_blood_overlay(color)
+	blood_color = b_color // update the blood color
+	if(!blood_count) //apply the blood-splatter overlay if it isn't already in there
+		add_blood_overlay()
 	return TRUE //we applied blood to the item
 
-/obj/item/clothing/gloves/add_blood(list/blood_dna, color)
+/obj/item/clothing/gloves/add_blood(list/blood_dna, b_color)
 	. = ..()
 	transfer_blood = rand(2, 4)
 
-/turf/add_blood(list/blood_dna, color)
+/turf/add_blood(list/blood_dna, b_color)
 	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in src
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
 	B.transfer_blood_dna(blood_dna) //give blood info to the blood decal.
-	B.basecolor = color
+	B.basecolor = b_color
 	return TRUE //we bloodied the floor
 
-/mob/living/carbon/human/add_blood(list/blood_dna, color)
+/mob/living/carbon/human/add_blood(list/blood_dna, b_color)
 	if(wear_suit)
-		wear_suit.add_blood(blood_dna, color)
-		wear_suit.blood_color = color
+		wear_suit.add_blood(blood_dna, b_color)
 		update_inv_wear_suit()
 	else if(w_uniform)
-		w_uniform.add_blood(blood_dna, color)
-		w_uniform.blood_color = color
+		w_uniform.add_blood(blood_dna, b_color)
 		update_inv_w_uniform()
 	if(head)
-		head.add_blood(blood_dna, color)
-		head.blood_color = color
+		head.add_blood(blood_dna, b_color)
 		update_inv_head()
 	if(glasses)
-		glasses.add_blood(blood_dna, color)
-		glasses.blood_color = color
+		glasses.add_blood(blood_dna, b_color)
 		update_inv_glasses()
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
-		G.add_blood(blood_dna, color)
-		G.blood_color = color
+		G.add_blood(blood_dna, b_color)
 		verbs += /mob/living/carbon/human/proc/bloody_doodle
 	else
-		hand_blood_color = color
+		hand_blood_color = b_color
 		bloody_hands = rand(2, 4)
 		transfer_blood_dna(blood_dna)
 		verbs += /mob/living/carbon/human/proc/bloody_doodle
@@ -783,21 +804,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	update_inv_gloves()	//handles bloody hands overlays and updating
 	return TRUE
 
-/obj/item/proc/add_blood_overlay(color)
+/obj/item/proc/add_blood_overlay()
 	if(initial(icon) && initial(icon_state))
-		//try to find a pre-processed blood-splatter. otherwise, make a new one
-		var/index = blood_splatter_index()
-		var/icon/blood_splatter_icon = GLOB.blood_splatter_icons[index]
-		if(!blood_splatter_icon)
-			blood_splatter_icon = icon(initial(icon), initial(icon_state), , 1)		//we only want to apply blood-splatters to the initial icon_state for each object
-			blood_splatter_icon.Blend("#fff", ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
-			blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
-			blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
-			GLOB.blood_splatter_icons[index] = blood_splatter_icon
-
-		blood_overlay = image(blood_splatter_icon)
-		blood_overlay.color = color
-		overlays += blood_overlay
+		var/list/params = GLOB.blood_splatter_icons["[blood_color]"]
+		if(!params)
+			params = layering_filter(icon = icon('icons/effects/blood.dmi', "itemblood"), color = blood_color, blend_mode = BLEND_INSET_OVERLAY)
+			GLOB.blood_splatter_icons["[blood_color]"] = params
+		add_filter("blood_splatter", 1, params)
 
 /atom/proc/clean_blood(radiation_clean = FALSE)
 	germ_level = 0
@@ -828,8 +841,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /obj/item/clean_blood(radiation_clean = FALSE)
 	. = ..()
 	if(.)
-		if(blood_overlay)
-			overlays -= blood_overlay
+		if(initial(icon) && initial(icon_state))
+			remove_filter("blood_splatter")
 
 /obj/item/clothing/gloves/clean_blood(radiation_clean = FALSE)
 	. = ..()
@@ -1153,3 +1166,15 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(degrees)
 		appearance_flags |= PIXEL_SCALE
 	transform = M
+
+/*
+	Setter for the `density` variable.
+	Arguments:
+	* new_value - the new density you would want it to set.
+	Returns: Either null if identical to existing density, or the new density if different.
+*/
+/atom/proc/set_density(new_value)
+	if(density == new_value)
+		return
+	. = density
+	density = new_value

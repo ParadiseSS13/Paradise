@@ -175,6 +175,8 @@ GLOBAL_LIST_EMPTY(safes)
 
 /obj/structure/safe/attackby(obj/item/I, mob/user, params)
 	if(open)
+		if(I.flags && ABSTRACT)
+			return
 		if(broken && istype(I, /obj/item/safe_internals) && do_after(user, 2 SECONDS, target = src))
 			to_chat(user, "<span class='notice'>You replace the broken mechanism.</span>")
 			qdel(I)
@@ -368,7 +370,8 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/floor/Initialize()
 	. = ..()
 	var/turf/T = loc
-	hide(T.intact)
+	if(!T.transparent_floor)
+		hide(T.intact)
 
 /obj/structure/safe/floor/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0

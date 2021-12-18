@@ -1,184 +1,197 @@
+/*
+######################################################################################
+##																					##
+##								IMPORTANT README									##
+##																					##
+##	  Changing any /datum/gear typepaths --WILL-- break people's loadouts.			##
+##	The typepaths are stored directly in the `characters.gear` column of the DB.	##
+##		Please inform the server host if you wish to modify any of these.			##
+##																					##
+######################################################################################
+*/
+
+
 /datum/gear/hat
-	subtype_path = /datum/gear/hat
+	main_typepath = /datum/gear/hat
 	slot = slot_head
 	sort_category = "Headwear"
 
 /datum/gear/hat/hhat_yellow
-	display_name = "hardhat, yellow"
+	display_name = "Hardhat, yellow"
 	path = /obj/item/clothing/head/hardhat
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Mechanic", "Life Support Specialist")
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
 
 /datum/gear/hat/hhat_orange
-	display_name = "hardhat, orange"
+	display_name = "Hardhat, orange"
 	path = /obj/item/clothing/head/hardhat/orange
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Mechanic", "Life Support Specialist")
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
 
 /datum/gear/hat/hhat_blue
-	display_name = "hardhat, blue"
+	display_name = "Hardhat, blue"
 	path = /obj/item/clothing/head/hardhat/dblue
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Mechanic", "Life Support Specialist")
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
 
 /datum/gear/hat/that
-	display_name = "top hat"
+	display_name = "Top hat"
 	path = /obj/item/clothing/head/that
 
 /datum/gear/hat/flatcap
-	display_name = "flat cap"
+	display_name = "Flat cap"
 	path = /obj/item/clothing/head/flatcap
 
 /datum/gear/hat/witch
-	display_name = "witch hat"
+	display_name = "Witch hat"
 	path = /obj/item/clothing/head/wizard/marisa/fake
 
 /datum/gear/hat/piratecaphat
-	display_name = "pirate captian hat"
+	display_name = "Pirate captian hat"
 	path = /obj/item/clothing/head/pirate
 
 /datum/gear/hat/fez
-	display_name = "fez"
+	display_name = "Fez"
 	path = /obj/item/clothing/head/fez
 
 /datum/gear/hat/rasta
-	display_name = "rasta hat"
+	display_name = "Rasta hat"
 	path = /obj/item/clothing/head/beanie/rasta
 
 /datum/gear/hat/bfedora
-	display_name = "fedora, black"
+	display_name = "Fedora, black"
 	path = /obj/item/clothing/head/fedora
 
 /datum/gear/hat/wfedora
-	display_name = "fedora, white"
+	display_name = "Fedora, white"
 	path = /obj/item/clothing/head/fedora/whitefedora
 
 /datum/gear/hat/brfedora
-	display_name = "fedora, brown"
+	display_name = "Fedora, brown"
 	path = /obj/item/clothing/head/fedora/brownfedora
 
 /datum/gear/hat/capcsec
-	display_name = "security corporate cap"
+	display_name = "Security cap, corporate"
 	path = /obj/item/clothing/head/soft/sec/corp
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
 /datum/gear/hat/capsec
-	display_name = "security cap"
+	display_name = "Security cap"
 	path = /obj/item/clothing/head/soft/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
 /datum/gear/hat/capred
-	display_name = "cap, red"
+	display_name = "Cap, red"
 	path = /obj/item/clothing/head/soft/red
 
 /datum/gear/hat/capblue
-	display_name = "cap, blue"
+	display_name = "Cap, blue"
 	path = /obj/item/clothing/head/soft/blue
 
 /datum/gear/hat/capgreen
-	display_name = "cap, green"
+	display_name = "Cap, green"
 	path = /obj/item/clothing/head/soft/green
 
 /datum/gear/hat/capblack
-	display_name = "cap, black"
+	display_name = "Cap, black"
 	path = /obj/item/clothing/head/soft/black
 
 /datum/gear/hat/cappurple
-	display_name = "cap, purple"
+	display_name = "Cap, purple"
 	path = /obj/item/clothing/head/soft/purple
 
 /datum/gear/hat/capwhite
-	display_name = "cap, white"
+	display_name = "Cap, white"
 	path = /obj/item/clothing/head/soft/mime
 
 /datum/gear/hat/caporange
-	display_name = "cap, orange"
+	display_name = "Cap, orange"
 	path = /obj/item/clothing/head/soft/orange
 
 /datum/gear/hat/capgrey
-	display_name = "cap, grey"
+	display_name = "Cap, grey"
 	path = /obj/item/clothing/head/soft/grey
 
 /datum/gear/hat/capyellow
-	display_name = "cap, yellow"
+	display_name = "Cap, yellow"
 	path = /obj/item/clothing/head/soft/yellow
 
 /datum/gear/hat/cowboyhat
-	display_name = "cowboy hat, brown"
+	display_name = "Cowboy hat, brown"
 	path = /obj/item/clothing/head/cowboyhat
 
 /datum/gear/hat/cowboyhat/tan
-	display_name = "cowboy hat, tan"
+	display_name = "Cowboy hat, tan"
 	path = /obj/item/clothing/head/cowboyhat/tan
 
 /datum/gear/hat/cowboyhat/black
-	display_name = "cowboy hat, black"
+	display_name = "Cowboy hat, black"
 	path = /obj/item/clothing/head/cowboyhat/black
 
 /datum/gear/hat/cowboyhat/white
-	display_name = "cowboy hat, white"
+	display_name = "Cowboy hat, white"
 	path = /obj/item/clothing/head/cowboyhat/white
 
 /datum/gear/hat/cowboyhat/pink
-	display_name = "cowboy hat, pink"
+	display_name = "Cowboy hat, pink"
 	path = /obj/item/clothing/head/cowboyhat/pink
 
 /datum/gear/hat/beret_purple
-	display_name = "beret, purple"
+	display_name = "Beret, purple"
 	path = /obj/item/clothing/head/beret/purple_normal
 
 /datum/gear/hat/beret_black
-	display_name = "beret, black"
+	display_name = "Beret, black"
 	path = /obj/item/clothing/head/beret/black
 
 /datum/gear/hat/beret_blue
-	display_name = "beret, blue"
+	display_name = "Beret, blue"
 	path = /obj/item/clothing/head/beret/blue
 
 /datum/gear/hat/beret_red
-	display_name = "beret, red"
+	display_name = "Beret, red"
 	path = /obj/item/clothing/head/beret
 
 /datum/gear/hat/beret_job
-	subtype_path = /datum/gear/hat/beret_job
-	subtype_cost_overlap = FALSE
+	main_typepath = /datum/gear/hat/beret_job
+	subtype_selection_cost = FALSE
 
 /datum/gear/hat/beret_job/sec
-	display_name = "security beret"
+	display_name = "Beret, security"
 	path = /obj/item/clothing/head/beret/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
 /datum/gear/hat/beret_job/sci
-	display_name = "science beret"
+	display_name = "Beret, science"
 	path = /obj/item/clothing/head/beret/sci
 	allowed_roles = list("Research Director", "Scientist")
 
 /datum/gear/hat/beret_job/med
-	display_name = "medical beret"
+	display_name = "Beret, medical"
 	path = /obj/item/clothing/head/beret/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Brig Physician" , "Coroner")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Coroner")
 
 /datum/gear/hat/beret_job/eng
-	display_name = "engineering beret"
+	display_name = "Beret, engineering"
 	path = /obj/item/clothing/head/beret/eng
 	allowed_roles = list("Chief Engineer", "Station Engineer")
 
 /datum/gear/hat/beret_job/atmos
-	display_name = "atmospherics beret"
+	display_name = "Beret, atmospherics"
 	path = /obj/item/clothing/head/beret/atmos
 	allowed_roles = list("Chief Engineer", "Life Support Specialist")
 
 /datum/gear/hat/surgicalcap_purple
-	display_name = "surgical cap, purple"
+	display_name = "Surgical cap, purple"
 	path = /obj/item/clothing/head/surgery/purple
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
 
 /datum/gear/hat/surgicalcap_green
-	display_name = "surgical cap, green"
+	display_name = "Surgical cap, green"
 	path = /obj/item/clothing/head/surgery/green
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
 
 /datum/gear/hat/flowerpin
-	display_name = "hair flower"
+	display_name = "Hair flower"
 	path = /obj/item/clothing/head/hairflower
 
 /datum/gear/hat/capsolgov
-	display_name = "cap, Sol Gov"
+	display_name = "Cap, Sol Gov"
 	path = /obj/item/clothing/head/soft/solgov

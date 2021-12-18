@@ -327,19 +327,43 @@
 /turf/simulated/floor/holofloor/
 	thermal_conductivity = 0
 	icon_state = "plating"
-/turf/simulated/floor/holofloor/grass
-	name = "Lush Grass"
-	icon_state = "grass1"
-	floor_tile = /obj/item/stack/tile/grass
 
-/turf/simulated/floor/holofloor/grass/Initialize(mapload)
+/turf/simulated/floor/holofloor/carpet
+	name = "carpet"
+	icon = 'icons/turf/floors/carpet.dmi'
+	icon_state = "carpet-255"
+	base_icon_state = "carpet"
+	floor_tile = /obj/item/stack/tile/carpet
+	broken_states = list("damaged")
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET)
+	footstep = FOOTSTEP_CARPET
+	barefootstep = FOOTSTEP_CARPET_BAREFOOT
+	clawfootstep = FOOTSTEP_CARPET_BAREFOOT
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+
+/turf/simulated/floor/holofloor/carpet/Initialize(mapload)
 	. = ..()
 	update_icon()
 
-/turf/simulated/floor/holofloor/grass/update_icon()
-	..()
-	if(!(icon_state in list("grass1", "grass2", "grass3", "grass4", "sand")))
-		icon_state = "grass[pick("1","2","3","4")]"
+/turf/simulated/floor/holofloor/carpet/update_icon()
+	if(!..())
+		return 0
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH(src)
+/turf/simulated/floor/holofloor/grass
+	name = "Lush Grass"
+	icon = 'icons/turf/floors/grass.dmi'
+	icon_state = "grass-0"
+	base_icon_state = "grass"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_GRASS)
+	canSmoothWith = list(SMOOTH_GROUP_GRASS, SMOOTH_GROUP_JUNGLE_GRASS)
+	pixel_x = -9
+	pixel_y = -9
+	layer = ABOVE_OPEN_TURF_LAYER
+	floor_tile = /obj/item/stack/tile/grass
 
 /turf/simulated/floor/holofloor/attackby(obj/item/W as obj, mob/user as mob, params)
 	return
@@ -363,14 +387,16 @@
 
 /obj/structure/table/holotable
 	flags = NODECONSTRUCT
-	canSmoothWith = list(/obj/structure/table/holotable)
+	canSmoothWith = list(SMOOTH_GROUP_TABLES)
 
 /obj/structure/table/holotable/wood
 	name = "wooden table"
 	desc = "A square piece of wood standing on four wooden legs. It can not move."
 	icon = 'icons/obj/smooth_structures/wood_table.dmi'
-	icon_state = "wood_table"
-	canSmoothWith = list(/obj/structure/table/holotable/wood)
+	icon_state = "wood_table-0"
+	base_icon_state = "wood_table"
+	smoothing_groups = list(SMOOTH_GROUP_WOOD_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES
+	canSmoothWith = list(SMOOTH_GROUP_WOOD_TABLES)
 
 /obj/structure/chair/stool/holostool
 	flags = NODECONSTRUCT
@@ -420,7 +446,7 @@
 	item_state = "claymorered"
 
 /obj/item/holo/esword
-	name = "Holographic Energy Sword"
+	name = "holographic energy sword"
 	desc = "This looks like a real energy sword!"
 	icon_state = "sword0"
 	hitsound = "swing_hit"
@@ -513,26 +539,12 @@
 		visible_message("<span class='notice'>[user] dunks [W] into [src]!</span>")
 		return
 
-/obj/structure/holohoop/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover,/obj/item) && mover.throwing)
-		var/obj/item/I = mover
-		if(istype(I, /obj/item/projectile))
-			return
-		if(prob(50))
-			I.loc = src.loc
-			visible_message("<span class='notice'>Swish! \the [I] lands in \the [src].</span>")
-		else
-			visible_message("<span class='alert'>\The [I] bounces off of \the [src]'s rim!</span>")
-		return 0
-	else
-		return ..(mover, target, height)
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isitem(AM) && !istype(AM,/obj/item/projectile))
 		if(prob(50))
 			AM.forceMove(get_turf(src))
-			visible_message("<span class='warning'>Swish! [AM] lands in [src].</span>")
-			return
+			visible_message("<span class='notice'>Swish! [AM] lands in [src].</span>")
 		else
 			visible_message("<span class='danger'>[AM] bounces off of [src]'s rim!</span>")
 			return ..()

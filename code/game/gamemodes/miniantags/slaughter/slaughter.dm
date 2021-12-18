@@ -115,6 +115,12 @@
 	speed = 0
 	boost = world.time + 60
 
+// Midround slaughter demon, less tanky
+
+/mob/living/simple_animal/slaughter/lesser
+	maxHealth = 130
+	health = 130
+
 // Cult slaughter demon
 /mob/living/simple_animal/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
 	name = "harbinger of the slaughter"
@@ -131,34 +137,32 @@
 	to emerge from it. You are fast, powerful, and almost invincible. By dragging a dead or unconscious body into a blood pool with you, you will consume it after a time and fully regain \
 	your health. You may use the ability 'Sense Victims' in your Cultist tab to locate a random, living heretic.</span></b>"
 
-/obj/effect/proc_holder/spell/targeted/sense_victims
+/obj/effect/proc_holder/spell/sense_victims
 	name = "Sense Victims"
 	desc = "Sense the location of heretics"
 	charge_max = 0
 	clothes_req = 0
-	range = 20
 	cooldown_min = 0
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_cult"
 	panel = "Demon"
 
-/obj/effect/proc_holder/spell/targeted/sense_victims/cast(list/targets, mob/user)
-	var/list/victims = targets
-	for(var/mob/living/L in GLOB.alive_mob_list)
-		if(!L.stat && !iscultist(L) && L.key && L != usr)
-			victims.Add(L)
-	if(!targets.len)
-		to_chat(usr, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
-		return 0
-	var/mob/living/victim = pick(victims)
+/obj/effect/proc_holder/spell/sense_victims/create_new_targeting()
+	return new /datum/spell_targeting/alive_mob_list
+
+/obj/effect/proc_holder/spell/sense_victims/valid_target(mob/living/target, user)
+	return target.stat == CONSCIOUS && target.key && !iscultist(target) // Only conscious, non cultist players
+
+/obj/effect/proc_holder/spell/sense_victims/cast(list/targets, mob/user)
+	var/mob/living/victim = targets[1]
 	to_chat(victim, "<span class='userdanger'>You feel an awful sense of being watched...</span>")
 	victim.Stun(3) //HUE
 	var/area/A = get_area(victim)
 	if(!A)
-		to_chat(usr, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
+		to_chat(user, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
 		return 0
-	to_chat(usr, "<span class='danger'>You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b></span>")
+	to_chat(user, "<span class='danger'>You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b></span>")
 
 /mob/living/simple_animal/slaughter/cult/New()
 	..()
@@ -183,7 +187,7 @@
 		S.mind.special_role = "Harbinger of the Slaughter"
 		to_chat(S, playstyle_string)
 		SSticker.mode.add_cultist(S.mind)
-		var/obj/effect/proc_holder/spell/targeted/sense_victims/SV = new
+		var/obj/effect/proc_holder/spell/sense_victims/SV = new
 		AddSpell(SV)
 		var/datum/objective/new_objective = new /datum/objective
 		new_objective.owner = S.mind

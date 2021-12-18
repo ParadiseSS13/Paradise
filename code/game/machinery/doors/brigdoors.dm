@@ -93,7 +93,7 @@
 	// Announcing it on radio isn't enough, as they're unlikely to have sec radio.
 	notify_prisoner("You have been incarcerated for [timetext] for the crime of: '[crimes]'.")
 
-	if(prisoner_trank != "unknown" && prisoner_trank != "Civilian")
+	if(prisoner_trank != "unknown" && prisoner_trank != "Assistant")
 		SSjobs.notify_dept_head(prisoner_trank, announcetext)
 
 	if(R)
@@ -206,8 +206,9 @@
 			continue
 		if(C.opened && !C.close())
 			continue
-		C.locked = 1
-		C.icon_state = C.icon_locked
+		C.locked = TRUE
+		C.close()
+		C.update_icon()
 
 	for(var/obj/machinery/treadmill_monitor/T in targets)
 		T.total_joules = 0

@@ -40,8 +40,8 @@
 	return null
 
 //Puts the item into your l_hand if possible and calls all necessary triggers/updates. returns 1 on success.
-/mob/proc/put_in_l_hand(obj/item/W)
-	if(!put_in_hand_check(W))
+/mob/proc/put_in_l_hand(obj/item/W, skip_lying_check = FALSE)
+	if(!put_in_hand_check(W, skip_lying_check))
 		return 0
 	if(!l_hand && has_left_hand())
 		W.forceMove(src)		//TODO: move to equipped?
@@ -56,8 +56,8 @@
 	return 0
 
 //Puts the item into your r_hand if possible and calls all necessary triggers/updates. returns 1 on success.
-/mob/proc/put_in_r_hand(obj/item/W)
-	if(!put_in_hand_check(W))
+/mob/proc/put_in_r_hand(obj/item/W, skip_lying_check = FALSE)
+	if(!put_in_hand_check(W, skip_lying_check))
 		return 0
 	if(!r_hand && has_right_hand())
 		W.forceMove(src)
@@ -71,8 +71,8 @@
 		return 1
 	return 0
 
-/mob/proc/put_in_hand_check(obj/item/W)
-	if(lying && !(W.flags & ABSTRACT))	return 0
+/mob/proc/put_in_hand_check(obj/item/W, skip_lying_check)
+	if(!skip_lying_check && lying && !(W.flags & ABSTRACT))	return 0
 	if(!istype(W))	return 0
 	return 1
 
@@ -102,12 +102,12 @@
 	return 0
 
 //Drops the item in our left hand
-/mob/proc/drop_l_hand()
-	return unEquip(l_hand) //All needed checks are in unEquip
+/mob/proc/drop_l_hand(force = FALSE)
+	return unEquip(l_hand, force) //All needed checks are in unEquip
 
 //Drops the item in our right hand
-/mob/proc/drop_r_hand()
-	return unEquip(r_hand) //Why was this not calling unEquip in the first place jesus fuck.
+/mob/proc/drop_r_hand(force = FALSE)
+	return unEquip(r_hand, force) //Why was this not calling unEquip in the first place jesus fuck.
 
 //Drops the item in our active hand.
 /mob/proc/drop_item() //THIS. DOES. NOT. NEED. AN. ARGUMENT.
@@ -206,6 +206,14 @@
 		if(s_store)
 			items += s_store
 	return items
+
+/mob/living/proc/unequip_everything()
+	var/list/items = list()
+	items |= get_equipped_items(TRUE)
+	for(var/I in items)
+		unEquip(I)
+	drop_l_hand()
+	drop_r_hand()
 
 /obj/item/proc/equip_to_best_slot(mob/M)
 	if(src != M.get_active_hand())

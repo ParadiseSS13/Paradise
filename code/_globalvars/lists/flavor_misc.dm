@@ -11,7 +11,7 @@ GLOBAL_LIST_INIT(hair_styles_full_list, list()) //fluff hair styles
 GLOBAL_LIST_INIT(facial_hair_styles_list, list())	//stores /datum/sprite_accessory/facial_hair indexed by name
 GLOBAL_LIST_INIT(facial_hair_styles_male_list, list())
 GLOBAL_LIST_INIT(facial_hair_styles_female_list, list())
-GLOBAL_LIST_INIT(skin_styles_female_list, list())		//unused
+GLOBAL_LIST_EMPTY(hair_gradients_list) //stores /datum/sprite_accessory/hair_gradient indexed by name
 	//Underwear
 GLOBAL_LIST_INIT(underwear_list, list())		//stores /datum/sprite_accessory/underwear indexed by name
 GLOBAL_LIST_INIT(underwear_m, list())	//stores only underwear name
@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(TAGGERLOCATIONS, list("Disposals",
 	"Atmospherics", "HoS Office", "Security", "Medbay",
 	"CMO Office", "Chemistry", "Research", "RD Office",
 	"Robotics", "HoP Office", "Library", "Chapel", "Captain's Office",
-	"Bar", "Kitchen", "Hydroponics", "Janitor Closet","Genetics","Brig Physician"))
+	"Bar", "Kitchen", "Hydroponics", "Janitor Closet","Genetics"))
 
 GLOBAL_LIST_INIT(hit_appends, list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF"))
 

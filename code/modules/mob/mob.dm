@@ -1095,6 +1095,14 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/activate_hand(selhand)
 	return
 
+/mob/proc/add_to_respawnable_list()
+	GLOB.respawnable_list += src
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, .proc/remove_from_respawnable_list)
+
+/mob/proc/remove_from_respawnable_list()
+	GLOB.respawnable_list -= src
+	UnregisterSignal(src, COMSIG_PARENT_QDELETING)
+
 /mob/dead/observer/verb/respawn()
 	set name = "Respawn as NPC"
 	set category = "Ghost"
@@ -1107,26 +1115,21 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
-	if((usr in GLOB.respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
+	if((usr in GLOB.respawnable_list) && (stat == DEAD || isobserver(usr)))
 		var/list/creatures = list("Mouse")
-		for(var/mob/living/L in GLOB.alive_mob_list)
-			if(safe_respawn(L.type) && L.stat!=2)
-				if(!L.key)
-					creatures += L
+		for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
+			if(L.npc_safe(src) && L.stat != DEAD && !L.key)
+				creatures += L
 		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
 		switch(picked)
 			if("Mouse")
-				GLOB.respawnable_list -= usr
+				remove_from_respawnable_list()
 				become_mouse()
-				spawn(5)
-					GLOB.respawnable_list += usr
 			else
 				var/mob/living/NPC = picked
 				if(istype(NPC) && !NPC.key)
-					GLOB.respawnable_list -= usr
+					remove_from_respawnable_list()
 					NPC.key = key
-					spawn(5)
-						GLOB.respawnable_list += usr
 	else
 		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
 		return
@@ -1351,17 +1354,21 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return FALSE		//overridden in living.dm
 
 /mob/proc/spin(spintime, speed)
-	set waitfor = 0
+	set waitfor = FALSE
 	if(!spintime || !speed || spintime > 100)
 		CRASH("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
-	var/end_time = world.time + spintime
-	var/spin_dir = prob(50)
-	while(world.time <= end_time)
+	while(spintime >= speed)
 		sleep(speed)
-		if(spin_dir)
-			dir = turn(dir, 90)
-		else
-			dir = turn(dir, -90)
+		switch(dir)
+			if(NORTH)
+				setDir(EAST)
+			if(SOUTH)
+				setDir(WEST)
+			if(EAST)
+				setDir(SOUTH)
+			if(WEST)
+				setDir(NORTH)
+		spintime -= speed
 
 /mob/proc/is_literate()
 	return FALSE
@@ -1479,7 +1486,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		MA.plane = GAME_PLANE
 		pic.appearance = MA
 		flick_overlay(pic, list(client), 10)
-    
+
 
 GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	/area/chapel

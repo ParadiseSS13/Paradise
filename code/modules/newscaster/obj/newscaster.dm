@@ -65,6 +65,10 @@
 
 /obj/machinery/newscaster/Initialize(mapload)
 	. = ..()
+	if(is_security)
+		name = "security newscaster"
+	else
+		name = "newscaster"
 	if(!jobblacklist)
 		jobblacklist = list(
 			/datum/job/ai,
@@ -73,15 +77,12 @@
 			/datum/job/judge,
 			/datum/job/blueshield,
 			/datum/job/nanotrasenrep,
-			/datum/job/pilot,
-			/datum/job/brigdoc,
-			/datum/job/mechanic,
 			/datum/job/barber,
 			/datum/job/chaplain,
 			/datum/job/ntnavyofficer,
 			/datum/job/ntspecops,
 			/datum/job/ntspecops/solgovspecops,
-			/datum/job/civilian,
+			/datum/job/assistant,
 			/datum/job/syndicateofficer
 		)
 

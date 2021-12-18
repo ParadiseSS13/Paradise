@@ -44,7 +44,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		/mob/dead/observer/proc/open_spawners_menu)
 
 	// Our new boo spell.
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/click/boo(null))
+	AddSpell(new /obj/effect/proc_holder/spell/boo(null))
 
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER
@@ -92,6 +92,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	..()
 
 /mob/dead/observer/Destroy()
+	toggle_all_huds_off()
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
@@ -164,9 +165,9 @@ Works together with spawning an observer, noted above.
 			flags &= ~GHOST_CAN_REENTER
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
 		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
-		GLOB.respawnable_list -= src
+		remove_from_respawnable_list()
 		if(ghost.can_reenter_corpse)
-			GLOB.respawnable_list += ghost
+			ghost.add_to_respawnable_list()
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
 		ghost.key = key
@@ -339,7 +340,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
  * * user - A reference to the ghost's old mob. This argument is required since `src` does not have a `client` at this point.
  */
 /mob/dead/observer/proc/toggle_all_huds_on(mob/user)
-	show_me_the_hud(DATA_HUD_DIAGNOSTIC)
+	show_me_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
 	show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
 	show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 	if(!check_rights((R_ADMIN | R_MOD), FALSE, user))
@@ -347,6 +348,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	antagHUD = TRUE
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
 		H.add_hud_to(src)
+
+/**
+ * Toggles off all HUDs for the ghost player.
+ */
+/mob/dead/observer/proc/toggle_all_huds_off()
+	remove_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
+	remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
+	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+	antagHUD = FALSE
+	for(var/datum/atom_hud/antag/H in GLOB.huds)
+		H.remove_hud_from(src)
 
 /mob/dead/observer/proc/set_radiation_view(enabled)
 	if (enabled)
@@ -389,23 +401,21 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!isobserver(usr))
 		to_chat(usr, "Not when you're not dead!")
 		return
+	var/target = input("Area to teleport to", "Teleport to a location") as null|anything in SSmapping.ghostteleportlocs
+	teleport(SSmapping.ghostteleportlocs[target])
 
-	var/datum/async_input/A = input_autocomplete_async(usr, "Area to jump to: ", SSmapping.ghostteleportlocs)
-	A.on_close(CALLBACK(src, .proc/teleport))
-
-/mob/dead/observer/proc/teleport(area/thearea)
-	if(!thearea || !isobserver(usr))
+/mob/dead/observer/proc/teleport(area/A)
+	if(!A || !isobserver(usr))
 		return
 
-	var/list/L = list()
-	for(var/turf/T in get_area_turfs(thearea.type))
-		L += T
+	var/list/turfs = list()
+	for(var/turf/T in get_area_turfs(A.type))
+		turfs += T
 
-	if(!L || !L.len)
-		to_chat(usr, "<span class='warning'>No area available.</span>")
+	if(!length(turfs))
+		to_chat(src, "<span class='warning'>Nowhere to jump to!</span>")
 		return
-
-	forceMove(pick(L))
+	forceMove(pick(turfs))
 	update_parallax_contents()
 
 /mob/dead/observer/verb/follow()
@@ -743,14 +753,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	var/mob/living/carbon/human/new_char = new(get_turf(src))
-	client.prefs.copy_to(new_char)
+	client.prefs.active_character.copy_to(new_char)
 	if(mind)
 		mind.active = TRUE
 		mind.transfer_to(new_char)
-		if(mind.vampire)
-			mind.vampire.owner = new_char
-			mind.vampire.powers.Cut()
-			mind.vampire.check_vampire_upgrade(FALSE)
 	else
 		new_char.key = key
 

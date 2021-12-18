@@ -74,6 +74,14 @@
 /obj/effect/spawner
 	name = "object spawner"
 
+/**
+ * Used when we want to pass vars from a spawner to a spawned object
+ *
+ * a - The spawned object we want to pass a var to
+ */
+/obj/effect/spawner/proc/synchronize_variables(atom/a)
+	return
+
 /obj/effect/list_container
 	name = "list container"
 
@@ -121,3 +129,14 @@
 	. = ..()
 	if(!ismob(loc))
 		return INITIALIZE_HINT_QDEL
+
+/obj/effect/dusting_anim
+	icon = 'icons/effects/filters.dmi'
+	icon_state = "nothing"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	plane = FLOOR_PLANE
+
+/obj/effect/dusting_anim/Initialize(mapload, id)
+	. = ..()
+	icon_state = "snap3"
+	render_target = "*snap[id]"

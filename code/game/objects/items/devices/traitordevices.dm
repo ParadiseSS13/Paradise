@@ -1,66 +1,4 @@
 /*
-
-Miscellaneous traitor devices
-
-BATTERER
-
-
-*/
-
-/*
-
-The Batterer, like a flashbang but 50% chance to knock people over. Can be either very
-effective or pretty fucking useless.
-
-*/
-
-/obj/item/batterer
-	name = "mind batterer"
-	desc = "A strange device with twin antennas."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "batterer"
-	throwforce = 5
-	w_class = WEIGHT_CLASS_TINY
-	throw_speed = 4
-	throw_range = 10
-	flags = CONDUCT
-	item_state = "electronic"
-	origin_tech = "magnets=3;combat=3;syndicate=3"
-
-	var/times_used = 0 //Number of times it's been used.
-	var/max_uses = 5
-
-/obj/item/batterer/examine(mob/user)
-	. = ..()
-	if(times_used >= max_uses)
-		. += "<span class='notice'>[src] is out of charge.</span>"
-	if(times_used < max_uses)
-		. += "<span class='notice'>[src] has [max_uses-times_used] charges left.</span>"
-
-/obj/item/batterer/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
-	if(!user)
-		return
-	if(times_used >= max_uses)
-		to_chat(user, "<span class='danger'>The mind batterer has been burnt out!</span>")
-		return
-
-
-	for(var/mob/living/carbon/human/M in oview(7, user))
-		if(prob(50))
-			M.Weaken(rand(4,7))
-			add_attack_logs(user, M, "Stunned with [src]")
-			to_chat(M, "<span class='danger'>You feel a tremendous, paralyzing wave flood your mind.</span>")
-		else
-			to_chat(M, "<span class='danger'>You feel a sudden, electric jolt travel through your head.</span>")
-
-	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
-	times_used++
-	to_chat(user, "<span class='notice'>You trigger [src]. It has [max_uses-times_used] charges left.</span>")
-	if(times_used >= max_uses)
-		icon_state = "battererburnt"
-
-
-/*
 		The radioactive microlaser, a device disguised as a health analyzer used to irradiate people.
 
 		The strength of the radiation is determined by the 'intensity' setting, while the delay between
@@ -170,7 +108,7 @@ effective or pretty fucking useless.
 		GLOB.active_jammers -= src
 
 /obj/item/teleporter
-	name = "\improper Syndicate teleporter"
+	name = "syndicate teleporter"
 	desc = "A strange syndicate version of a cult veil shifter. Warrenty voided if exposed to EMP."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi-tele"
@@ -208,24 +146,32 @@ effective or pretty fucking useless.
 		charges++
 
 /obj/item/teleporter/emp_act(severity)
+	var/teleported_something = FALSE
 	if(prob(50 / severity))
 		if(istype(loc, /mob/living/carbon/human))
 			var/mob/living/carbon/human/user = loc
 			to_chat(user, "<span class='userdanger'>[src] buzzes and activates!</span>")
 			attempt_teleport(user, TRUE)
-		else
-			visible_message("<span class='danger'>[src] activates and blinks out of existence!</span>")
-			do_sparks(2, 1, src)
-			qdel(src)
+		else //Well, it either is on a floor / locker, and won't teleport someone, OR it's in someones bag. As such, we need to check the turf to see if people are there.
+			var/turf/teleport_turf = get_turf(src)
+			for(var/mob/living/user in teleport_turf)
+				if(!teleported_something)
+					teleport_turf.visible_message("<span class='danger'>[src] activates sporadically, teleporting everyone around it!</span>")
+					teleported_something = TRUE
+				attempt_teleport(user, TRUE)
+			if(!teleported_something)
+				visible_message("<span class='danger'>[src] activates and blinks out of existence!</span>")
+				do_sparks(2, 1, src)
+				qdel(src)
 
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
 	dir_correction(user)
-	if(!charges)
+	if(!charges && !EMP_D) //If it's empd, you are moving no matter what.
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 		return
 
-	var/mob/living/carbon/C = user
-	var/turf/mobloc = get_turf(C)
+	var/mob/living/M = user
+	var/turf/mobloc = get_turf(M)
 	var/list/turfs = new/list()
 	var/found_turf = FALSE
 	var/list/bagholding = user.search_contents_for(/obj/item/storage/backpack/holding)
@@ -233,7 +179,7 @@ effective or pretty fucking useless.
 		if(!is_teleport_allowed(T.z))
 			break
 		if(!(length(bagholding) && !flawless)) //Chaos if you have a bag of holding
-			if(get_dir(C, T) != C.dir)
+			if(get_dir(M, T) != M.dir)
 				continue
 		if(T in range(user, inner_tp_range))
 			continue
@@ -247,13 +193,14 @@ effective or pretty fucking useless.
 
 	if(found_turf)
 		if(user.loc != mobloc) // No locker / mech / sleeper teleporting, that breaks stuff
-			to_chat(C, "<span class='danger'>[src] will not work here!</span>")
-		charges--
+			to_chat(M, "<span class='danger'>[src] will not work here!</span>")
+		if(charges > 0) //While we want EMP triggered teleports to drain charge, we also do not want it to go negative charge, as such we need this check here
+			charges--
 		var/turf/destination = pick(turfs)
 		if(tile_check(destination) || flawless) // Why is there so many bloody floor types
 			var/turf/fragging_location = destination
 			telefrag(fragging_location, user)
-			C.forceMove(destination)
+			M.forceMove(destination)
 			playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 			playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -264,7 +211,7 @@ effective or pretty fucking useless.
 		else // Emp activated? Bag of holding? No saving throw for you
 			get_fragged(user, destination)
 	else
-		to_chat(C, "<span class='danger'>[src] will not work here!</span>")
+		to_chat(M, "<span class='danger'>[src] will not work here!</span>")
 
 /obj/item/teleporter/proc/tile_check(turf/T)
 	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space))
@@ -294,8 +241,8 @@ effective or pretty fucking useless.
 		else
 			saving_throw = NORTH // just in case
 
-	var/mob/living/carbon/C = user
-	var/turf/mobloc = get_turf(C)
+	var/mob/living/M = user
+	var/turf/mobloc = get_turf(M)
 	var/list/turfs = list()
 	var/found_turf = FALSE
 	for(var/turf/T in range(destination, saving_throw_distance))
@@ -314,7 +261,7 @@ effective or pretty fucking useless.
 		var/turf/new_destination = pick(turfs)
 		var/turf/fragging_location = new_destination
 		telefrag(fragging_location, user)
-		C.forceMove(new_destination)
+		M.forceMove(new_destination)
 		playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(new_destination)
@@ -332,11 +279,12 @@ effective or pretty fucking useless.
 	playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
 	destination.ex_act(rand(1,2))
-	for(var/obj/item/W in user)
-		if(istype(W, /obj/item/implant))
-			continue
-		if(!user.unEquip(W))
-			qdel(W)
+	if(iscarbon(user)) //don't want cyborgs dropping their stuff
+		for(var/obj/item/W in user)
+			if(istype(W, /obj/item/implant))
+				continue
+			if(!user.unEquip(W))
+				qdel(W)
 	to_chat(user, "<span class='biggerdanger'>You teleport into the wall, the teleporter tries to save you, but--</span>")
 	user.gib()
 

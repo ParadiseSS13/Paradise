@@ -13,8 +13,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	anchored = FALSE
 	materials = list(MAT_METAL=400, MAT_GLASS=250)
-	//	Motion, EMP-Proof, X-Ray
-	var/list/obj/item/possible_upgrades = list(/obj/item/assembly/prox_sensor, /obj/item/stack/sheet/mineral/plasma, /obj/item/analyzer)
+	//	Motion, EMP-Proof
+	var/list/obj/item/possible_upgrades = list(/obj/item/assembly/prox_sensor, /obj/item/stack/sheet/mineral/plasma)
 	var/list/upgrades = list()
 	var/state = ASSEMBLY_UNBUILT
 

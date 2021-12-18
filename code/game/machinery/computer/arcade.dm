@@ -15,7 +15,8 @@
 	..()
 	if(!circuit)
 		var/choice = pick(subtypesof(/obj/machinery/computer/arcade))
-		new choice(loc)
+		var/obj/machinery/computer/arcade/chosen = new choice(loc)
+		chosen.dir = dir
 		qdel(src)
 		return
 	Reset()
@@ -257,6 +258,7 @@
 		enemy_name = "Cuban Pete"
 		name = "Outbomb Cuban Pete"
 
+		add_hiddenprint(user)
 		updateUsrDialog()
 
 // *** THE ORION TRAIL ** //
@@ -962,6 +964,7 @@
 		to_chat(user, "<span class='notice'>You override the cheat code menu and skip to Cheat #[rand(1, 50)]: Realism Mode.</span>")
 		name = "The Orion Trail: Realism Edition"
 		desc = "Learn how our ancestors got to Orion, and try not to die in the process!"
+		add_hiddenprint(user)
 		newgame()
 		emagged = 1
 

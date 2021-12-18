@@ -346,7 +346,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 					"<span class='cultitalic'>Your wounds have been healed. Now spread the blood to others.</span>")
 					for(var/obj/item/organ/external/E in H.bodyparts)
 						E.mend_fracture()
-						E.internal_bleeding = FALSE
+						E.fix_internal_bleeding()
 					for(var/datum/disease/critical/crit in H.viruses) // cure all crit conditions
 						crit.cure()
 
@@ -384,6 +384,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 	for(var/M in invokers)
 		if(sacrifice_fulfilled)
 			to_chat(M, "<span class='cultlarge'>\"Yes! This is the one I desire! You have done well.\"</span>")
+			if(!SSticker.cultdat.mirror_shields_active) // Only show once
+				to_chat(M, "<span class='cultitalic'>You are now able to construct mirror shields inside the daemon forge.</span>")
+				SSticker.cultdat.mirror_shields_active = TRUE
 		else
 			if(ishuman(offering) && offering.mind.offstation_role && offering.mind.special_role != SPECIAL_ROLE_ERT) //If you try it on a ghost role, you get nothing
 				to_chat(M, "<span class='cultlarge'>\"This soul is of no use to either of us.\"</span>")
@@ -458,7 +461,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 
 	if(!is_level_reachable(user.z))
-		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
+		to_chat(user, "<span class='cultitalic'>You are too far away from the station to teleport!</span>")
 		log_game("Teleport rune failed - user in away mission")
 		fail_invoke()
 		return

@@ -35,6 +35,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	icon_state = "0-1"
 	var/d1 = 0
 	var/d2 = 1
+	plane = FLOOR_PLANE
 	layer = WIRE_LAYER //Just below unary stuff, which is at 2.45 and above pipes, which are at 2.4
 	color = COLOR_RED
 
@@ -68,9 +69,11 @@ By design, d1 is the smallest direction and d2 is the highest
 	d2 = text2num(copytext( icon_state, dash+1 ))
 
 	var/turf/T = get_turf(src)			// hide if turf is not intact
+	LAZYADD(GLOB.cable_list, src) //add it to the global cable list
+	if(T.transparent_floor)
+		return
 	if(level == 1)
 		hide(T.intact)
-	LAZYADD(GLOB.cable_list, src) //add it to the global cable list
 
 /obj/structure/cable/Destroy()					// called when a cable is deleted
 	if(powernet)
@@ -162,7 +165,8 @@ By design, d1 is the smallest direction and d2 is the highest
 //
 /obj/structure/cable/attackby(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
-	if(T.intact)
+	if(T.transparent_floor || T.intact)
+		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
 
 	else if(istype(W, /obj/item/stack/cable_coil))
@@ -204,7 +208,8 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
-	if(T.intact)
+	if(T.transparent_floor || T.intact)
+		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -562,8 +567,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 			while(cable_used <= MAXCABLEPERHEAL && E.burn_dam && amount >= 1)
 				use(1)
 				cable_used += 1
-				E.heal_damage(0, HEALPERCABLE, 0, 1)
-			user.visible_message("<span class='alert'>\The [user] repairs some burn damage on \the [M]'s [E.name] with \the [src].</span>")
+				E.heal_damage(0, HEALPERCABLE, 0, TRUE)
+			H.UpdateDamageIcon()
+			user.visible_message("<span class='alert'>[user] repairs some burn damage on [M]'s [E.name] with [src].</span>")
 		return 1
 
 	else
@@ -703,7 +709,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 	var/turf/T = get_turf(C)
 
-	if(!isturf(T) || T.intact)		// sanity checks, also stop use interacting with T-scanner revealed cable
+	if(!isturf(T) || T.intact || T.transparent_floor)		// sanity checks, also stop use interacting with T-scanner revealed cable
 		return
 
 	if(get_dist(C, user) > 1)		// make sure it's close enough
@@ -719,7 +725,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 	// one end of the clicked cable is pointing towards us
 	if(C.d1 == dirn || C.d2 == dirn)
-		if(U.intact)						// can't place a cable if the floor is complete
+		if(U.intact || U.transparent_floor)						// can't place a cable if the floor is complete
 			to_chat(user, "<span class='warning'>You can't lay cable there unless the floor tiles are removed!</span>")
 			return
 		else

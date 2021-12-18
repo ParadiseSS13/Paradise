@@ -4,10 +4,10 @@
 
 /mob/living/captive_brain/say(message)
 	if(client)
-		if(client.prefs.muted & MUTE_IC)
+		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, "<span class='warning'>You cannot speak in IC (muted).</span>")
 			return
-		if(client.handle_spam_prevention(message,MUTE_IC))
+		if(client.handle_spam_prevention(message, MUTE_IC))
 			return
 
 	if(istype(loc,/mob/living/simple_animal/borer))
@@ -838,6 +838,11 @@
 		to_chat(src, "Sugar nullifies your abilities, avoid it at all costs!")
 		to_chat(src, "You can speak to your fellow borers by prefixing your messages with ':bo'. Check out your Borer tab to see your abilities.")
 		to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cortical_Borer)</span>")
+
+/mob/living/simple_animal/borer/npc_safe(mob/user)
+	if(!jobban_isbanned(user, ROLE_BORER) && !jobban_isbanned(user, ROLE_SYNDICATE))
+		return TRUE
+	return FALSE
 
 /proc/create_borer_mind(key)
 	var/datum/mind/M = new /datum/mind(key)

@@ -99,7 +99,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/culthood
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
 
@@ -113,7 +113,7 @@
 	desc = "A space worthy helmet used by the followers of a cult."
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
-	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
+	armor = list(MELEE = 70, BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 40, ACID = 75)
 	magical = TRUE
 
 /obj/item/clothing/suit/space/cult
@@ -124,7 +124,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
 	slowdown = 1
-	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
+	armor = list(MELEE = 70, BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 40, ACID = 75)
 	magical = TRUE
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
@@ -133,7 +133,7 @@
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
-	armor = list("melee" = 50, "bullet" = 40, "laser" = 50, "energy" = 30, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 50, "acid" = 60)
+	armor = list(MELEE = 50, BULLET = 40, LASER = 50, ENERGY = 30, BOMB = 50, BIO = 30, RAD = 30, FIRE = 50, ACID = 60)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
@@ -145,7 +145,7 @@
 	name = "empowered cultist hood"
 	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 40,"energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
@@ -185,7 +185,7 @@
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	armor = list("melee" = -50, "bullet" = -50, "laser" = -50,"energy" = -50, "bomb" = -50, "bio" = -50, "rad" = -50, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = -50, BULLET = -50, LASER = -50, ENERGY = -50, BOMB = -50, BIO = -50, RAD = -50, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -218,7 +218,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
@@ -444,6 +444,11 @@
   * The illusion has a 60% chance to be hostile and attack non-cultists, and a 40% chance to just run away from the user.
   */
 /obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	// Incase they get one by some magic
+	if(!SSticker.cultdat.mirror_shields_active)
+		to_chat(owner, "<span class='warning'>This shield is powerless! You must perform the required sacrifice to empower it!</span>")
+		return
+
 	if(iscultist(owner) && !owner.holy_check()) // Cultist holding the shield
 
 		// Hit by a projectile
@@ -677,3 +682,109 @@
 	desc = "It's an orb of crystalized blood. Can be used to transfer blood between cultists."
 	var/blood = 50
 
+/obj/item/portal_amulet
+	name = "reality sunderer"
+	icon = 'icons/obj/cult.dmi'
+	icon_state = "amulet"
+	desc = "Some amulet made out of metal, bluespace crystals, and blood. Allows cultists to open portals over teleport runes, destroying the rune in the process."
+	w_class = WEIGHT_CLASS_SMALL
+
+
+/obj/item/portal_amulet/afterattack(atom/O, mob/user, proximity)
+	. = ..()
+	if(!iscultist(user))
+		if(!iscarbon(user))
+			return
+		var/mob/living/carbon/M = user
+		to_chat(M, "<span class='cultlarge'>\"So, you want to explore space?\"</span>")
+		to_chat(M, "<span class='warning'>Space flashes around you as you are moved somewhere else!</span>")
+		M.Confused(10)
+		M.flash_eyes(override_blindness_check = TRUE)
+		M.EyeBlind(10)
+		do_teleport(M, get_turf(M), 5, asoundin = 'sound/magic/cult_spell.ogg')
+		qdel(src)
+		return
+
+	if(istype(O, /obj/effect/rune))
+		if(!istype(O, /obj/effect/rune/teleport))
+			to_chat(user, "<span class='warning'>[src] only works on teleport runes.</span>")
+			return
+		if(!proximity)
+			to_chat(user, "<span class='warning'>You are too far away from the teleport rune.</span>")
+			return
+		var/obj/effect/rune/teleport/R = O
+		attempt_portal(R, user)
+
+/obj/item/portal_amulet/proc/attempt_portal(obj/effect/rune/teleport/R, mob/user)
+	var/list/potential_runes = list()
+	var/list/teleport_names = list()
+	var/list/duplicate_rune_count = list()
+	var/turf/T = get_turf(src) //used to tell the other rune where we came from
+
+	for(var/I in GLOB.teleport_runes)
+		var/obj/effect/rune/teleport/target = I
+		var/result_key = target.listkey
+		if(target == R || !is_level_reachable(target.z))
+			continue
+		if(result_key in teleport_names)
+			duplicate_rune_count[result_key]++
+			result_key = "[result_key] ([duplicate_rune_count[result_key]])"
+		else
+			teleport_names += result_key
+			duplicate_rune_count[result_key] = 1
+		potential_runes[result_key] = target
+
+	if(!length(potential_runes))
+		to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
+		return
+
+	if(!is_level_reachable(user.z))
+		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
+		return
+
+	var/input_rune_key = input(user, "Choose a rune to make a portal to.", "Rune to make a portal to") as null|anything in potential_runes //we know what key they picked
+	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
+	if(QDELETED(R) || QDELETED(actual_selected_rune) || !Adjacent(user) || user.incapacitated())
+		return
+
+	if(is_mining_level(R.z) && !is_mining_level(actual_selected_rune.z))
+		actual_selected_rune.handle_portal("lava")
+	else if(!is_station_level(R.z) || istype(get_area(src), /area/space))
+		actual_selected_rune.handle_portal("space", T)
+	new /obj/effect/portal/cult(get_turf(R), get_turf(actual_selected_rune), src, 4 MINUTES)
+	to_chat(user, "<span class='cultitalic'>You use the magic of the amulet to turn [R] into a portal.</span>")
+	playsound(src, 'sound/magic/cult_spell.ogg', 100, TRUE)
+	qdel(R)
+	qdel(src)
+
+/obj/effect/portal/cult
+	name = "eldritch portal"
+	desc = "An evil portal made by dark magics. Suprisingly stable."
+	icon_state = "portal1"
+	failchance = 0
+	precision = FALSE
+	var/obj/effect/cult_portal_exit/exit = null
+
+/obj/effect/portal/cult/Initialize(mapload, target, creator, lifespan)
+	. = ..()
+	if(target)
+		exit = new /obj/effect/cult_portal_exit(target)
+
+/obj/effect/portal/cult/attackby(obj/I, mob/user, params)
+	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user) || istype(I, /obj/item/nullrod) && user.mind.isholy)
+		to_chat(user, "<span class='notice'>You close the portal with your [I].</span>")
+		playsound(src, 'sound/magic/magic_missile.ogg', 100, TRUE)
+		qdel(src)
+		return
+	return ..()
+
+/obj/effect/portal/cult/Destroy()
+	QDEL_NULL(exit)
+	return ..()
+
+/obj/effect/cult_portal_exit
+	name = "eldritch rift"
+	desc = "An exit point for some cult portal. Be on guard, more things may come out of it"
+	icon = 'icons/obj/biomass.dmi'
+	icon_state = "rift"
+	color = "red"

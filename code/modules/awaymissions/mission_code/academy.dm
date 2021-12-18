@@ -200,7 +200,7 @@
 				H.key = C.key
 				to_chat(H, "<span class='notice'>You are a servant of [user.real_name]. You must do everything in your power to follow their orders.</span>")
 
-			var/obj/effect/proc_holder/spell/targeted/summonmob/S = new
+			var/obj/effect/proc_holder/spell/summonmob/S = new
 			S.target_mob = H
 			user.mind.AddSpell(S)
 
@@ -234,23 +234,24 @@
 	glasses = /obj/item/clothing/glasses/monocle
 	gloves = /obj/item/clothing/gloves/color/white
 
-/obj/effect/proc_holder/spell/targeted/summonmob
+/obj/effect/proc_holder/spell/summonmob
 	name = "Summon Servant"
 	desc = "This spell can be used to call your servant, whenever you need it."
 	charge_max = 100
 	clothes_req = 0
 	invocation = "JE VES"
 	invocation_type = "whisper"
-	range = -1
 	level_max = 0 //cannot be improved
 	cooldown_min = 100
-	include_user = 1
 
 	var/mob/living/target_mob
 
 	action_icon_state = "summons"
 
-/obj/effect/proc_holder/spell/targeted/summonmob/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/summonmob/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/summonmob/cast(list/targets, mob/user = usr)
 	if(!target_mob)
 		return
 	var/turf/Start = get_turf(user)

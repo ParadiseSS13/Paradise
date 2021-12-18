@@ -1,5 +1,6 @@
 /area
 	var/fire = null
+	var/area_emergency_mode = FALSE // When true, fire alarms cannot unset emergency lighting. Not to be confused with emergency_mode var on light objects.
 	var/atmosalm = ATMOS_ALARM_NONE
 	var/poweralm = TRUE
 	var/report_alerts = TRUE // Should atmos alerts notify the AI/computers
@@ -74,6 +75,8 @@
 	var/min_ambience_cooldown = 30 SECONDS
 	///Used to decide what the maximum time between ambience is
 	var/max_ambience_cooldown = 90 SECONDS
+
+	var/area/area_limited_icon_smoothing
 
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
@@ -345,22 +348,24 @@
 	for(var/alarm in firealarms)
 		var/obj/machinery/firealarm/F = alarm
 		F.update_fire_light(fire)
+	if(area_emergency_mode) //Fires are not legally allowed if the power is off
+		return
 	for(var/obj/machinery/light/L in src)
-		L.update()
+		L.fire_mode = TRUE
+		L.update(TRUE, TRUE, FALSE)
 
-/**
-  * unset the fire alarm visual affects in an area
-  *
-  * Updates the fire light on fire alarms in the area and sets all lights to emergency mode
-  */
+///unset the fire alarm visual affects in an area
 /area/proc/unset_fire_alarm_effects()
 	fire = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	for(var/alarm in firealarms)
 		var/obj/machinery/firealarm/F = alarm
 		F.update_fire_light(fire)
+	if(area_emergency_mode) //The lights stay red until the crisis is resolved
+		return
 	for(var/obj/machinery/light/L in src)
-		L.update()
+		L.fire_mode = FALSE
+		L.update(TRUE, TRUE, FALSE)
 
 /area/proc/updateicon()
 	var/weather_icon

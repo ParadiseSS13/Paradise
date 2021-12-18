@@ -163,6 +163,7 @@
 //TOM IS ALIVE! SQUEEEEEEEE~K :)
 /mob/living/simple_animal/mouse/brown/Tom
 	name = "Tom"
+	real_name = "Tom"
 	desc = "Jerry the cat is not amused."
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
@@ -211,9 +212,9 @@
 	var/datum/mind/blobmind = mind
 	var/client/C = client
 	if(istype(blobmind) && istype(C))
-		blobmind.special_role = SPECIAL_ROLE_BLOB
 		var/obj/structure/blob/core/core = new(T, C, 3)
 		core.lateblobtimer()
+		qdel(blobmind) // Delete the old mind. THe blob will make a new one
 	else
 		new /obj/structure/blob/core(T) // Ghosts will be prompted to control it.
 	if(ismob(loc)) // in case some taj/etc ate the mouse.
@@ -225,18 +226,6 @@
 /mob/living/simple_animal/mouse/blobinfected/get_scooped(mob/living/carbon/grabber)
 	to_chat(grabber, "<span class='warning'>You try to pick up [src], but they slip out of your grasp!</span>")
 	to_chat(src, "<span class='warning'>[src] tries to pick you up, but you wriggle free of their grasp!</span>")
-
-/mob/living/simple_animal/mouse/fluff/clockwork
-	name = "Chip"
-	real_name = "Chip"
-	mouse_color = "clockwork"
-	icon_state = "mouse_clockwork"
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "stamps on"
-	gold_core_spawnable = NO_SPAWN
-	can_collar = 0
-	butcher_results = list(/obj/item/stack/sheet/metal = 1)
 
 /mob/living/simple_animal/mouse/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!(istype(user, /mob/living/silicon/robot/drone)))

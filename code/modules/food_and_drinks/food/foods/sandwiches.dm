@@ -69,16 +69,6 @@
 	list_reagents = list("nutriment" = 6, "nanomachines" = 10, "vitamin" = 1)
 	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
 
-/obj/item/reagent_containers/food/snacks/roburgerbig
-	name = "roburger"
-	desc = "This massive patty looks like poison. Beep."
-	icon_state = "roburger"
-	filling_color = "#CCCCCC"
-	volume = 120
-	bitesize = 3
-	list_reagents = list("nutriment" = 6, "nanomachines" = 70, "vitamin" = 5)
-	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 2)
-
 /obj/item/reagent_containers/food/snacks/xenoburger
 	name = "xenoburger"
 	desc = "Smells caustic and tastes like heresy."
@@ -180,7 +170,7 @@
 /obj/item/reagent_containers/food/snacks/grilledcheese
 	name = "grilled cheese sandwich"
 	desc = "Goes great with tomato soup!"
-	icon_state = "toastedsandwich"
+	icon_state = "grilledcheese"
 	filling_color = "#D9BE29"
 	list_reagents = list("nutriment" = 7, "vitamin" = 1) //why make a regualr sandwhich when you can make grilled cheese, with this nutriment value?
 	tastes = list("toast" = 1, "grilled cheese" = 1)

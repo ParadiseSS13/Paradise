@@ -38,6 +38,11 @@ actual development.
  of a pull request needs to be removed/changed, you may simply modify that single commit.
  Due to limitations of the engine, this may not always be possible; but do try your best.
 
+  * Keep your pull requests small and reviewable whenever possible. Do not bundle unrelated
+ fixes even if not bundling them generates more pull requests. In case of mapping PRs that add features -
+ consult a maintainer on whether it would be appropriate to split up the PR to add the
+ feature to multiple maps individually.
+
  * Document and explain your pull requests thoroughly. Failure to do so will delay a PR as
   we question why changes were made. This is especially important if you're porting a PR
   from another codebase (i.e. TG) and divert from the original. Explaining with single
@@ -460,7 +465,7 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
   ```DM
   //Bad
   var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey='[target_ckey]'")
-  
+
   //Good
   var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey=:target_ckey", list(
     "target_ckey" = target_ckey
@@ -497,11 +502,13 @@ in the SQL/updates folder.
 * Queries must never specify the database, be it in code, or in text files in the repo.
 
 ### Mapping Standards
+* For map edit PRs, we do not accept 'change for the sake of change' remaps, unless you have very good reasoning to do so. Maintainers reserve the right to close your PR if we disagree with your reasoning.
+
 * Map Merge
   * The following guideline for map merging applies to people who are **NOT** using StrongDMM, please see the StrongDMM section if you are.
     * You **MUST** run Map Merge prior to opening your PR when updating existing maps to minimize the change differences (even when using third party mapping programs such as FastDMM.)
     * Failure to run Map Merge on a map after using third party mapping programs (such as FastDMM) greatly increases the risk of the map's key dictionary becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
-    
+
 * StrongDMM
   * When using StrongDMM, the following options **MUST** be enabled to avoid file bloat. They can be found under `File > Preferences > Save Options` in SDMM.
     * Map save format: This **MUST** be set to **TGM** if you do not want to run Map Merge. Enabling this setting means SDMM will automatically map merge, letting you skip manual merging.
@@ -513,6 +520,7 @@ in the SQL/updates folder.
     * Subtypes only intended to be used on away mission or ruin maps should be contained within an .dm file with a name corresponding to that map within `code\modules\awaymissions` or `code\modules\ruins` respectively. This is so in the event that the map is removed, that subtype will be removed at the same time as well to minimize leftover/unused data within the repo.
   * Please attempt to clean out any dirty variables that may be contained within items you alter through var-editing. For example, due to how DM functions, changing the `pixel_x` variable from 23 to 0 will leave a dirty record in the map's code of `pixel_x = 0`. Likewise this can happen when changing an item's icon to something else and then back. This can lead to some issues where an item's icon has changed within the code, but becomes broken on the map due to it still attempting to use the old entry.
   * Areas should not be var-edited on a map to change it's name or attributes. All areas of a single type and it's altered instances are considered the same area within the code, and editing their variables on a map can lead to issues with powernets and event subsystems which are difficult to debug.
+  * Unless they require custom placement, when placing the following items use the relevant "[direction] bump" instance, as it has predefined pixel offsets and directions that are standardised: APC, Air alarm, Fire alarm, station intercom, newscaster, extinguisher cabient, light switches.
 
 * If you are making non-minor edits to an area or room, (non-minor being anything more than moving a few objects or fixing small bugs) then you should ensure the entire area/room meets these standards.
 
@@ -521,10 +529,10 @@ in the SQL/updates folder.
   * NEVER run cables under wall turfs.
   * Keep floor turf variations to a minimum. Generally, more than 3 floor turf types in one room is bad design.
   * Run air pipes together where possible. The first example below is to be avoided, the second is optimal:
-  
+
     ![image](https://user-images.githubusercontent.com/12197162/120011088-d22c7400-bfd5-11eb-867f-7b137ac5b1b2.png) ![image](https://user-images.githubusercontent.com/12197162/120011126-dfe1f980-bfd5-11eb-96b2-c83238a9cdcf.png)
-  * Pipe layouts should be logical and predictable, easy to understand at a glance. Always avoid complex layouts like in this example: 
-    
+  * Pipe layouts should be logical and predictable, easy to understand at a glance. Always avoid complex layouts like in this example:
+
     ![image](https://user-images.githubusercontent.com/12197162/120619480-ecda6f00-c453-11eb-9d9f-abf0d1a99c34.png)
 
   * Decals are to be used sparingly. Good map design does not require warning tape around everything. Decal overuse contributes to maptick slowdown.
@@ -664,9 +672,10 @@ responsible for properly tagging new pull requests and issues, moderating commen
 pull requests/issues, and merging/closing pull requests.
 
 ### Maintainer List
-* [AffectedArc07](https://github.com/AffectedArc07)
+
 * [Ansari](https://github.com/variableundefined)
-* [Crazy Lemon](https://github.com/Crazylemon64)
+* [Crazylemon](https://github.com/marlyn-x86)
+* [dearmochi](https://github.com/dearmochi)
 * [Fox P McCloud](https://github.com/Fox-McCloud)
 
 ### Maintainer instructions

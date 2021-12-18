@@ -19,7 +19,7 @@
 	log_ghostemote(message, src)
 
 	if(src.client)
-		if(src.client.prefs.muted & MUTE_DEADCHAT)
+		if(check_mute(client.ckey, MUTE_DEADCHAT))
 			to_chat(src, "<span class='warning'>You cannot emote in deadchat (muted).</span>")
 			return
 
