@@ -10,18 +10,28 @@
  * Not super delicate, a container designed for holding retractible trays, primarily for body storage (or disposal).
  */
 
+#define EXTENDED_TRAY "extended"
+#define EMPTY_MORGUE "empty"
+#define UNREVIVABLE "unrevivable"
+#define REVIVABLE "revivable"
+#define NOT_BODY "notbody"
+#define GHOST_CONNECTED "ghost"
+
 /obj/structure/body_slab
 	name = "slab"
 	desc = "Used to keep bodies in until someone fetches them."
 	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "morgue1"
+	icon_state = "morgue"
 	density = 1
 	max_integrity = 400
 	dir = EAST
-	var/obj/structure/morgue_tray/connected = null
-	var/extended
 	anchored = TRUE
+	var/extended
+	var/obj/structure/morgue_tray/connected = null
 	var/open_sound = 'sound/items/deconstruct.ogg'
+	var/status
+
+
 
 /obj/structure/body_slab/Initialize()
 	. = ..()
@@ -37,13 +47,16 @@
 
 /obj/structure/body_slab/proc/update()
 	if(extended || !connected)
-		icon_state = "morgue0"
+		status = EXTENDED_TRAY
 		desc = initial(desc) + "\nThe tray is currently extended."
 	else
-		icon_state = "morgue1"
+		status = EMPTY_MORGUE
 		desc = initial(desc) + "\nThere is a tray inside."
 
+	add_overlay("morgue_[status]")
+
 /obj/structure/body_slab/ex_act(severity)
+
 	switch(severity)
 		if(1)
 			for(var/atom/movable/A in src)
@@ -87,7 +100,7 @@
 			for(var/atom/movable/A in src)
 				if(A.move_resist != INFINITY)
 					A.forceMove(connected.loc)
-			connected.icon_state = "morguet"
+			connected.icon_state = "morgue_tray"
 			connected.dir = dir
 			extended = TRUE
 
@@ -132,56 +145,50 @@
  * Can also be marked by pen.
  */
 /obj/structure/body_slab/morgue
-
 	name = "morgue"
 	desc = "Used to keep bodies in until someone fetches them."
-	var/list/status_descriptors = list(
-		"The tray is currently extended.",
-		"The tray is currently empty.",
-		"The tray contains an unviable body.",
-		"The tray contains a body that is responsive to revival techniques.",
-		"The tray contains something that is not a body.",
-		"The tray contains a body that might be responsive."
+
+	var/static/status_descriptors = list(
+		EXTENDED_TRAY = "The tray is currently extended.",
+		EMPTY_MORGUE = "The tray is currently empty.",
+		UNREVIVABLE = "The tray contains an unviable body.",
+		REVIVABLE = "The tray contains a body that is responsive to revival techniques.",
+		NOT_BODY = "The tray contains something that is not a body.",
+		GHOST_CONNECTED = "The tray contains a body that might be responsive."
 	)
 
-
-/obj/structure/body_slab/morgue/update()
-	if(extended)
-		icon_state = "morgue0"
-		desc = initial(desc) + "\n[status_descriptors[1]]"
-	else if(connected)
-		if(contents.len - 1 > 0)  // -1 to account for morgue tray
-
+/obj/structure/body_slab/morgue/proc/update()
+	cut_overlays()
+	if(!connected)
+		if(contents.len)
 			var/mob/living/M = locate() in contents
-
 			var/obj/structure/closet/body_bag/B = locate() in contents
 			if(M==null) M = locate() in B
 
 			if(M)
 				var/mob/dead/observer/G = M.get_ghost()
-
 				if(M.mind && !M.mind.suicided)
 					if(M.client)
-						icon_state = "morgue3"
-						desc = initial(desc) + "\n[status_descriptors[4]]"
+						status = REVIVABLE
 					else if(G && G.client) //There is a ghost and it is connected to the server
-						icon_state = "morgue5"
-						desc = initial(desc) + "\n[status_descriptors[6]]"
+						status = GHOST_CONNECTED
 					else
-						icon_state = "morgue2"
-						desc = initial(desc) + "\n[status_descriptors[3]]"
+						status = UNREVIVABLE
 				else
-					icon_state = "morgue2"
-					desc = initial(desc) + "\n[status_descriptors[3]]"
-
-
+					status = UNREVIVABLE
 			else
-				icon_state = "morgue4"
-				desc = initial(desc) + "\n[status_descriptors[5]]"
+				status = NOT_BODY
 		else
-			icon_state = "morgue1"
-			desc = initial(desc) + "\n[status_descriptors[2]]"
-	return
+			status = EMPTY_MORGUE
+		add_overlay("morgue_[status]")
+	else
+		status = EXTENDED_TRAY
+	if(name != initial(name))
+		add_overlay("morgue_label")
+
+/obj/structure/body_slab/morgue/examine(mob/user)
+	. = ..()
+	. += "[status_descriptors[status]]"
 
 /obj/structure/body_slab/morgue/attackby(P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/pen))
@@ -195,6 +202,14 @@
 		return
 	return ..()
 
+
+/obj/structure/body_slab/morgue/wirecutter_act(mob/user)
+	if(name != initial(name))
+		to_chat(user, "<span class='notice'>You cut the tag off the morgue.</span>")
+		name = initial(name)
+		update()
+		return TRUE
+
 /*
  * Morgue tray
  */
@@ -202,7 +217,7 @@
 	name = "morgue tray"
 	desc = "Apply corpse before closing."
 	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "morguet"
+	icon_state = "morgue_tray"
 	density = 1
 	layer = TURF_LAYER
 	var/obj/structure/body_slab/connected = null
@@ -233,7 +248,7 @@
 	connected = null
 	return ..()
 
-/obj/structure/tray/morgue_tray/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/morgue_tray/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
 		return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
@@ -243,7 +258,7 @@
 	else
 		return FALSE
 
-/obj/structure/tray/morgue_tray/CanAStarPass(ID, dir, caller)
+/obj/structure/morgue_tray/CanAStarPass(ID, dir, caller)
 	. = !density
 	if(ismovable(caller))
 		var/atom/movable/mover = caller
@@ -256,27 +271,32 @@
 /obj/structure/body_slab/crematorium
 	name = "crematorium"
 	desc = "A human incinerator. Works well on barbeque nights."
-	icon_state = "crema1"
 	var/cremating = FALSE
+	icon_state = "crema"
 	var/id = 1
 	dir = SOUTH
 
 /** Overridable method for creating the morgue tray */
-/obj/structure/body_slab/create_tray()
+/obj/structure/body_slab/crematorium/create_tray()
 	connected = new /obj/structure/morgue_tray/crematorium(src)
 	extended = FALSE
-	connected.icon_state = "cremat"
+	connected.icon_state = "crema_tray"
 	connected.dir = dir
 
+
+/obj/structure/body_slab/crematorium/Initialize(mapload)
+	. = ..()
+	update()
+
 /obj/structure/body_slab/crematorium/update()
-	if(connected)
-		icon_state = "crema0"
-	else
+	cut_overlays()
+	if(!connected)
+		add_overlay("crema_closed")
+		if(cremating)
+			add_overlay("crema_active")
+			return
 		if(contents.len)
-			icon_state = "crema2"
-		else
-			icon_state = "crema1"
-	return
+			add_overlay("crema_full")
 
 /obj/structure/body_slab/crematorium/attack_hand(mob/user as mob)
 	if(cremating)
@@ -295,7 +315,7 @@
 /obj/structure/body_slab/crematorium/relaymove(mob/user as mob)
 	if(user.stat || cremating)
 		return
-	..()
+	toggle_tray()
 
 /obj/structure/body_slab/crematorium/proc/cremate(mob/user as mob)
 	if(cremating)
@@ -311,7 +331,7 @@
 			M.show_message("<span class='warning'>You hear a roar as the crematorium activates.</span>", 1)
 
 		cremating = TRUE
-		icon_state = "crema_active"
+		update()
 
 		for(var/mob/living/M in search_contents_for(/mob/living))
 			if(QDELETED(M))
@@ -343,7 +363,7 @@
 /obj/structure/morgue_tray/crematorium
 	name = "crematorium tray"
 	desc = "Apply body before burning."
-	icon_state = "cremat"
+	icon_state = "crema_tray"
 	pass_flags = LETPASSTHROW
 
 // Crematorium switch
@@ -391,3 +411,10 @@
 			morgue = get(C.loc, /obj/structure/body_slab/morgue)
 			if(morgue)
 				morgue.update()
+
+#undef EXTENDED_TRAY
+#undef EMPTY_MORGUE
+#undef UNREVIVABLE
+#undef REVIVABLE
+#undef NOT_BODY
+#undef GHOST_CONNECTED

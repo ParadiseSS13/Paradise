@@ -49,25 +49,20 @@
 /mob/living/carbon/human/dust()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	notransform = 1
-	canmove = 0
-	icon = null
-	invisibility = 101
+	notransform = TRUE
+	canmove = FALSE
 	dust_animation()
-	QDEL_IN(src, 15)
+	QDEL_IN(src, 20)
 	return TRUE
 
 /mob/living/carbon/human/dust_animation()
-	var/atom/movable/overlay/animation = null
+	// Animate them being dusted out of existence
+	var/obj/effect/dusting_anim/dust_effect = new(loc, UID())
+	filters += filter(type = "displace", size = 256, render_source = "*snap[UID()]")
+	animate(src, alpha = 0, time = 20, easing = (EASE_IN | SINE_EASING))
 
-	animation = new(loc)
-	animation.icon_state = "blank"
-	animation.icon = 'icons/mob/mob.dmi'
-	animation.master = src
-
-	flick("dust-h", animation)
 	new dna.species.remains_type(get_turf(src))
-	QDEL_IN(animation, 15)
+	QDEL_IN(dust_effect, 20)
 	return TRUE
 
 /mob/living/carbon/human/melt()

@@ -356,7 +356,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/die/check_completion()
 	if(!owner.current || owner.current.stat == DEAD || isbrain(owner.current))
 		return 1
-	if(issilicon(owner.current) && owner.current != owner.original)
+	if(issilicon(owner.current) && !owner.is_original_mob(owner.current))
 		return 1
 	return 0
 
@@ -368,7 +368,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/survive/check_completion()
 	if(!owner.current || owner.current.stat == DEAD || isbrain(owner.current))
 		return 0		//Brains no longer win survive objectives. --NEO
-	if(issilicon(owner.current) && owner.current != owner.original)
+	if(issilicon(owner.current) && !owner.is_original_mob(owner.current))
 		return 0
 	return 1
 

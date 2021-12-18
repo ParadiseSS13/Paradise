@@ -24,7 +24,7 @@
 	var/safety = TRUE //if you can zap people with the defibs on harm mode
 	var/combat = FALSE //can we revive through space suits?
 	var/heart_attack = FALSE //can it give instant heart attacks when zapped on harm intent with combat?
-	var/base_icon_state = "defibpaddles"
+	base_icon_state = "defibpaddles"
 	var/obj/item/twohanded/shockpaddles/paddle_type = /obj/item/twohanded/shockpaddles
 
 /obj/item/defibrillator/get_cell()
@@ -297,7 +297,7 @@
 	var/revivecost = 1000
 	var/cooldown = FALSE
 	var/busy = FALSE
-	var/base_icon_state = "defibpaddles"
+	base_icon_state = "defibpaddles"
 	var/obj/item/defibrillator/defib
 
 /obj/item/twohanded/shockpaddles/New(mainunit)
