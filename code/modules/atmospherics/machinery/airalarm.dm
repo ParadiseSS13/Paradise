@@ -718,7 +718,7 @@
 		AALARM_PRESET_HUMAN		= list("name"="Human",     	 "desc"="Checks for oxygen and nitrogen", "id" = AALARM_PRESET_HUMAN),\
 		AALARM_PRESET_VOX 		= list("name"="Vox",       	 "desc"="Checks for nitrogen only", "id" = AALARM_PRESET_VOX),\
 		AALARM_PRESET_COLDROOM 	= list("name"="Coldroom", 	 "desc"="For freezers", "id" = AALARM_PRESET_COLDROOM),\
-		AALARM_PRESET_SERVER 	= list("name"="Server Room", "desc"="For server rooms", "id" = AALARM_PRESET_SERVER)
+		AALARM_PRESET_SERVER 	= list("name"="Server Room", "desc"="For server rooms", "id" = AALARM_PRESET_SERVER),\
 		AALARM_PRESET_DISABLED 	= list("name"="Disabled", "desc"="Disables all alarms", "id" = AALARM_PRESET_DISABLED)
 	)
 	data["preset"] = preset
