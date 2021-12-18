@@ -108,10 +108,12 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 		orbiter.SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
 
 	var/target_loc = get_turf(parent)
+	var/current_loc = orbiter.loc
 	if(force_move)
 		orbiter.forceMove(target_loc)
 	else
 		orbiter.loc = target_loc
+		SEND_SIGNAL(orbiter, COMSIG_MOVABLE_MOVED, current_loc, target_loc, null)
 
 /**
 * End the orbit and clean up our transformation.
@@ -168,7 +170,9 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 		if(orbit_params & ORBIT_FORCE_MOVE)
 			movable_orbiter.forceMove(cur_loc)
 		else
+			var/orbiter_loc = movable_orbiter.loc
 			movable_orbiter.loc = cur_loc
+			SEND_SIGNAL(movable_orbiter, COMSIG_MOVABLE_MOVED, orbiter_loc, cur_loc, null)
 
 		if(CHECK_TICK && orbited.loc != cur_loc)
 			// We moved again during the checktick, cancel current operation
