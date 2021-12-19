@@ -1397,17 +1397,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
-"agd" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_ne";
-	name = "northeast of SS13";
-	width = 19
-	},
-/turf/space,
-/area/space)
 "agk" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -140584,7 +140573,7 @@ aaa
 aaa
 aaa
 aaa
-agd
+aaa
 aaa
 aaa
 aaa

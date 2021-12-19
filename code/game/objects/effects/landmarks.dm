@@ -78,9 +78,6 @@
 		if("carpspawn")
 			GLOB.carplist += loc
 
-		if("voxstart")
-			GLOB.raider_spawn += loc
-
 		if("ERT Director")
 			GLOB.ertdirector += loc
 			qdel(src)

@@ -95,7 +95,6 @@
 //The Syndicate
 #define ACCESS_SYNDICATE 150//General Syndicate Access
 #define ACCESS_SYNDICATE_LEADER 151//Nuke Op Leader Access
-#define ACCESS_VOX 152//Vox Access
 #define ACCESS_SYNDICATE_COMMAND 153//Admin syndi officer
 
 //Trade Stations
