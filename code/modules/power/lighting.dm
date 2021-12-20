@@ -627,6 +627,9 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 
+	if(status == LIGHT_EMPTY)
+		return
+
 	// make it burn hands if not wearing fire-insulated gloves
 	if(on)
 		var/prot = 0
@@ -664,6 +667,9 @@
 // break the light and make sparks if was on
 
 /obj/machinery/light/proc/drop_light_tube(mob/user)
+	if(status == LIGHT_EMPTY)
+		return
+
 	var/obj/item/light/L = new light_type()
 	L.status = status
 	L.rigged = rigged

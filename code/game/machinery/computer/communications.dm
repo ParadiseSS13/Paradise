@@ -468,9 +468,6 @@
 
 
 /proc/cancel_call_proc(mob/user)
-	if(SSticker.mode.name == "meteor")
-		return
-
 	if(SSshuttle.cancelEvac(user))
 		log_game("[key_name(user)] has recalled the shuttle.")
 		message_admins("[key_name_admin(user)] has recalled the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)

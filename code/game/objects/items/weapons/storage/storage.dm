@@ -43,7 +43,7 @@
 	var/foldable_amt = 0
 
 	/// Lazy list of mobs which are currently viewing the storage inventory.
-	var/list/mobs_viewing 
+	var/list/mobs_viewing
 
 /obj/item/storage/Initialize(mapload)
 	. = ..()
@@ -352,6 +352,14 @@
 		if(!stop_messages)
 			to_chat(usr, "<span class='warning'>[src] cannot hold [I].</span>")
 		return FALSE
+
+	if(length(cant_hold) && istype(I, /obj/item/storage)) //Checks nested storage contents for restricted objects, we don't want people sneaking the NAD in via boxes now, do we?
+		var/obj/item/storage/S = I
+		for(var/obj/A in S.return_inv())
+			if(is_type_in_typecache(A, cant_hold))
+				if(!stop_messages)
+					to_chat(usr, "<span class='warning'>[src] rejects [I] because of its contents.</span>")
+				return FALSE
 
 	if(I.w_class > max_w_class)
 		if(!stop_messages)

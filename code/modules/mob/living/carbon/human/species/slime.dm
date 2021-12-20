@@ -52,14 +52,12 @@
 		"is turning a dull, brown color and melting into a puddle!")
 
 	var/reagent_skin_coloring = FALSE
-	var/datum/action/innate/regrow/grow
-	var/datum/action/innate/slimecolor/recolor
 
 /datum/species/slime/on_species_gain(mob/living/carbon/human/H)
 	..()
-	grow = new()
+	var/datum/action/innate/regrow/grow = new()
 	grow.Grant(H)
-	recolor = new()
+	var/datum/action/innate/slimecolor/recolor = new()
 	recolor.Grant(H)
 	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, /datum/species/slime/./proc/blend)
 	blend(H)
@@ -67,10 +65,11 @@
 
 /datum/species/slime/on_species_loss(mob/living/carbon/human/H)
 	..()
-	if(grow)
-		grow.Remove(H)
-	if(recolor)
-		recolor.Remove(H)
+	for(var/datum/action/innate/i in H.actions)
+		if(istype(i, /datum/action/innate/slimecolor))
+			i.Remove(H)
+		if(istype(i, /datum/action/innate/regrow))
+			i.Remove(H)
 	UnregisterSignal(H, COMSIG_HUMAN_UPDATE_DNA)
 
 /datum/species/slime/proc/blend(mob/living/carbon/human/H)

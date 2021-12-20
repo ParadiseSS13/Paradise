@@ -132,6 +132,10 @@
 #define rustg_sql_disconnect_pool(handle) call(RUST_G, "sql_disconnect_pool")(handle)
 #define rustg_sql_check_query(job_id) call(RUST_G, "sql_check_query")("[job_id]")
 
+#define rustg_time_microseconds(id) text2num(call(RUST_G, "time_microseconds")(id))
+#define rustg_time_milliseconds(id) text2num(call(RUST_G, "time_milliseconds")(id))
+#define rustg_time_reset(id) call(RUST_G, "time_reset")(id)
+
 // TOML Operations //
 #define rustg_read_toml_file(path) json_decode(call(RUST_G, "toml_file_to_json")(path) || "null")
 

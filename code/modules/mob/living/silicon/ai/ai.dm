@@ -163,7 +163,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	aiMulti = new(src)
 	aiRadio = new(src)
-	common_radio = aiRadio
 	aiRadio.myAi = src
 	additional_law_channels["Binary"] = ":b "
 	additional_law_channels["Holopad"] = ":h"
@@ -172,7 +171,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(isturf(loc))
 		add_ai_verbs(src)
-	
+
 	// Remove inherited verbs that effectively do nothing for AIs, or lead to unintended behaviour.
 	verbs -= /mob/living/verb/lay_down
 	verbs -= /mob/living/verb/mob_sleep
@@ -238,6 +237,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	QDEL_NULL(builtInCamera)
 	return ..()
 
+/mob/living/silicon/ai/get_radio()
+	return aiRadio
+
 /mob/living/silicon/ai/proc/on_mob_init()
 	to_chat(src, "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>")
 	to_chat(src, "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>")
@@ -247,11 +249,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	to_chat(src, "For department channels, use the following say commands:")
 
 	var/radio_text = ""
-	for(var/i = 1 to common_radio.channels.len)
-		var/channel = common_radio.channels[i]
+	for(var/i = 1 to aiRadio.channels.len)
+		var/channel = aiRadio.channels[i]
 		var/key = get_radio_key_from_channel(channel)
 		radio_text += "[key] - [channel]"
-		if(i != common_radio.channels.len)
+		if(i != aiRadio.channels.len)
 			radio_text += ", "
 
 	to_chat(src, radio_text)

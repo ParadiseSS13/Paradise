@@ -58,7 +58,7 @@
 /turf/simulated/floor/plating/lava/proc/burn_stuff(AM)
 	. = 0
 
-	if(is_safe())
+	if(find_safeties())
 		return FALSE
 
 	var/thing_to_check = src
@@ -127,9 +127,11 @@
 	name = "lava"
 	baseturf = /turf/simulated/floor/plating/lava/smooth
 	icon = 'icons/turf/floors/lava.dmi'
-	icon_state = "unsmooth"
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = list(/turf/simulated/floor/plating/lava/smooth)
+	icon_state = "lava-255"
+	base_icon_state = "lava"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_FLOOR_LAVA)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_LAVA)
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface
 	temperature = 300
