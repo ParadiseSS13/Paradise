@@ -487,9 +487,9 @@
 "fn" = (
 /obj/machinery/vending/syndichem,
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = -5;
-	pixel_y = 30;
-	name = "custom placement"
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -3061,9 +3061,9 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = -5;
-	pixel_y = 30;
-	name = "custom placement"
+	pixel_y = 30
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -3800,9 +3800,9 @@
 /area/ruin/unpowered/syndicate_space_base/virology)
 "NT" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = -5;
-	pixel_y = 30;
-	name = "custom placement"
+	pixel_y = 30
 	},
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/yellow,

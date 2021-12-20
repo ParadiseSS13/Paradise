@@ -515,8 +515,8 @@
 	})
 "bl" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -25;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = -25
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -1112,8 +1112,8 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = -30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = -30
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
@@ -1142,8 +1142,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = 30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = 30
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
@@ -2585,8 +2585,8 @@
 	tag = ""
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
@@ -2969,8 +2969,8 @@
 "fS" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_y = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -28
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
@@ -2992,8 +2992,8 @@
 	})
 "fV" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -28
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -3713,8 +3713,8 @@
 	})
 "hr" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -25;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = -25
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -5855,8 +5855,8 @@
 	})
 "kW" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = 30;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -5996,8 +5996,8 @@
 	dir = 5
 	},
 /obj/machinery/newscaster{
-	pixel_y = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -6727,8 +6727,8 @@
 /obj/structure/table,
 /obj/item/newspaper,
 /obj/machinery/newscaster{
-	pixel_x = 30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = 30
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -6866,8 +6866,8 @@
 "ms" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_y = 32;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a2{
@@ -6896,8 +6896,8 @@
 "mv" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = -30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = -30
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a2{
@@ -6983,8 +6983,8 @@
 	})
 "mD" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -28
 	},
 /obj/structure/rack{
 	dir = 8;
@@ -7155,8 +7155,8 @@
 	},
 /obj/item/pen,
 /obj/machinery/newscaster{
-	pixel_x = -30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -8427,8 +8427,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -9900,8 +9900,8 @@
 "qZ" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_y = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -28
 	},
 /obj/item/pen,
 /turf/simulated/floor/carpet,
@@ -9976,8 +9976,8 @@
 "rg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -25;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = -25
 	},
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a2{
@@ -10054,8 +10054,8 @@
 	pixel_x = 4
 	},
 /obj/machinery/newscaster{
-	pixel_y = 32;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -10712,8 +10712,8 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -30;
-	name = "south bump"
+	name = "south bump";
+	pixel_y = -30
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -13781,8 +13781,8 @@
 	on = 1
 	},
 /obj/machinery/newscaster{
-	pixel_y = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -28
 	},
 /obj/structure/cable{
 	d1 = 1;

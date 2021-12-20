@@ -3421,8 +3421,8 @@
 	})
 "fw" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -26;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = -26
 	},
 /obj/effect/decal/cleanable/blood/tracks{
 	desc = "Your instincts say you shouldn't be following these.";
@@ -4021,8 +4021,8 @@
 "gp" = (
 /obj/machinery/door/firedoor,
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -29;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -29
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5246,8 +5246,8 @@
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/hud/health,
 /obj/machinery/newscaster{
-	pixel_y = -30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5561,8 +5561,8 @@
 	})
 "iJ" = (
 /obj/machinery/newscaster{
-	pixel_y = -30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -6062,7 +6062,6 @@
 "jE" = (
 /obj/item/twohanded/required/kirbyplants{
 	desc = "A plastic potted plant.";
-	layer = 4.1;
 	pixel_y = 3
 	},
 /obj/effect/landmark/burnturf,
@@ -6215,8 +6214,8 @@
 	})
 "jU" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = 30;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 30
 	},
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/dirt,
@@ -6226,8 +6225,8 @@
 	})
 "jV" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = 30;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 30
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -6937,8 +6936,8 @@
 	})
 "lc" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 26;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = 26
 	},
 /obj/machinery/camera{
 	c_tag = "Kitchen";
@@ -7262,8 +7261,8 @@
 /obj/structure/table/wood,
 /obj/item/lighter/zippo,
 /obj/machinery/newscaster{
-	pixel_x = 30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = 30
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
@@ -7401,8 +7400,8 @@
 	})
 "me" = (
 /obj/machinery/newscaster{
-	pixel_y = 30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = 30
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -7631,8 +7630,8 @@
 	specialfunctions = 4
 	},
 /obj/machinery/newscaster{
-	pixel_y = 32;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
@@ -7931,8 +7930,8 @@
 	})
 "ni" = (
 /obj/machinery/newscaster{
-	pixel_y = -30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -30
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -8309,8 +8308,8 @@
 	})
 "nV" = (
 /obj/machinery/newscaster{
-	pixel_x = 30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = 30
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
@@ -8439,7 +8438,6 @@
 "og" = (
 /obj/item/twohanded/required/kirbyplants{
 	desc = "A plastic potted plant.";
-	layer = 4.1;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel/airless{

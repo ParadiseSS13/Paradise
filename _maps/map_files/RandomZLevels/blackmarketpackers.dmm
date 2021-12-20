@@ -894,9 +894,7 @@
 	},
 /area/awaymission/BMPship/Fore)
 "dI" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "carpet14-8"
@@ -1217,9 +1215,7 @@
 	},
 /area/awaymission/BMPship/Fore)
 "ew" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "carpetside"
@@ -2103,9 +2099,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gE" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -2166,9 +2160,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Aft)
 "gN" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)

@@ -186,8 +186,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = 30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = 30
 	},
 /obj/item/gun/energy/laser/retro,
 /obj/item/paper/terrorspiders8,
@@ -288,8 +288,8 @@
 /area/awaymission/UO71/plaza)
 "aS" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -25;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = -25
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -392,8 +392,8 @@
 "bf" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 24;
-	name = "east bump"
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -406,8 +406,8 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = 30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = 30
 	},
 /obj/item/gun/energy/laser/awaymission_aeg,
 /turf/simulated/floor/carpet,
@@ -728,8 +728,8 @@
 "ch" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = -30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = -30
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
@@ -743,8 +743,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = 30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = 30
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
@@ -983,8 +983,8 @@
 /area/awaymission/UO71/science)
 "cW" = (
 /obj/machinery/firealarm{
-	pixel_y = 24;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
@@ -1180,8 +1180,8 @@
 	dir = 4
 	},
 /obj/machinery/firealarm{
-	pixel_y = 24;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -1701,8 +1701,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
@@ -1990,8 +1990,8 @@
 "fm" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_y = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -28
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
@@ -2005,8 +2005,8 @@
 /area/awaymission/UO71/plaza)
 "fo" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -28
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -2014,8 +2014,8 @@
 "fp" = (
 /obj/machinery/firealarm{
 	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/camera{
 	c_tag = "Central Hallway";
@@ -2421,8 +2421,8 @@
 /area/awaymission/UO71/science)
 "gw" = (
 /obj/machinery/firealarm{
-	pixel_y = 24;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/item/robot_parts/l_arm,
 /obj/item/robot_parts/r_arm,
@@ -2500,8 +2500,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -24;
-	name = "west bump"
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
@@ -2576,8 +2576,8 @@
 /area/awaymission/UO71/centralhall)
 "gN" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -25;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = -25
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2954,8 +2954,8 @@
 "hD" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -24;
-	name = "west bump"
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -3050,8 +3050,8 @@
 "hP" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -24;
-	name = "west bump"
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -3620,8 +3620,8 @@
 "jt" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -24;
-	name = "west bump"
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -4131,8 +4131,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 24;
-	name = "east bump"
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4349,8 +4349,8 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_y = 30;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4471,8 +4471,8 @@
 /obj/structure/table,
 /obj/item/newspaper,
 /obj/machinery/newscaster{
-	pixel_x = 30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = 30
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -4499,8 +4499,8 @@
 "ln" = (
 /obj/machinery/firealarm{
 	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4531,8 +4531,8 @@
 	dir = 5
 	},
 /obj/machinery/newscaster{
-	pixel_y = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -4743,8 +4743,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4881,8 +4881,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -4933,8 +4933,8 @@
 "lW" = (
 /obj/machinery/firealarm{
 	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/camera{
 	c_tag = "Research Division East";
@@ -5168,8 +5168,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -24;
-	name = "west bump"
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -5203,8 +5203,8 @@
 "mE" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = -30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = -30
 	},
 /obj/item/paper/terrorspiders4,
 /obj/item/reagent_containers/food/pill/charcoal{
@@ -5304,8 +5304,8 @@
 /area/awaymission/UO71/gateway)
 "mN" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -28
 	},
 /obj/structure/rack{
 	dir = 8;
@@ -5325,8 +5325,8 @@
 /obj/item/clothing/shoes/magboots,
 /obj/machinery/firealarm{
 	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
@@ -5462,8 +5462,8 @@
 "ne" = (
 /obj/structure/table,
 /obj/machinery/newscaster{
-	pixel_x = -30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = -30
 	},
 /obj/item/book/manual/security_space_law,
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -6423,8 +6423,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -24;
-	name = "west bump"
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel,
@@ -6693,8 +6693,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -6716,8 +6716,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -6971,8 +6971,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 24;
-	name = "east bump"
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -7630,8 +7630,8 @@
 	pixel_y = 5
 	},
 /obj/machinery/firealarm{
-	pixel_y = 24;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/item/multitool,
 /obj/machinery/light/small{
@@ -7753,8 +7753,8 @@
 "rt" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_y = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -28
 	},
 /obj/item/pen,
 /turf/simulated/floor/carpet,
@@ -7768,8 +7768,8 @@
 "rv" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = -30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = -30
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
@@ -7826,8 +7826,8 @@
 "rB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -25;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = -25
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
@@ -7836,8 +7836,8 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -30;
-	name = "south bump"
+	name = "south bump";
+	pixel_y = -30
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -7865,8 +7865,8 @@
 /area/awaymission/UO71/eng)
 "rH" = (
 /obj/machinery/firealarm{
-	pixel_y = 24;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/structure/dispenser{
 	pixel_x = -1
@@ -7909,8 +7909,8 @@
 	pixel_x = 4
 	},
 /obj/machinery/newscaster{
-	pixel_y = 32;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -8040,8 +8040,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
 	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -8628,8 +8628,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
 	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
@@ -8715,8 +8715,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -9999,8 +9999,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/structure/closet/secure_closet/miner{
 	req_access = list(271)
@@ -10479,8 +10479,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10537,8 +10537,8 @@
 "wX" = (
 /obj/machinery/firealarm{
 	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/bridge)
@@ -10889,8 +10889,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 24;
-	name = "east bump"
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 6
@@ -11065,8 +11065,8 @@
 	on = 1
 	},
 /obj/machinery/newscaster{
-	pixel_y = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -28
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -11596,8 +11596,8 @@
 /area/awaymission/UO71/loot)
 "zu" = (
 /obj/machinery/newscaster{
-	pixel_x = 30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = 30
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/loot)
@@ -11733,8 +11733,8 @@
 "Ad" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -24;
-	name = "west bump"
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)

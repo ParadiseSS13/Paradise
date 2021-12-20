@@ -3410,8 +3410,8 @@
 "asF" = (
 /obj/machinery/newscaster{
 	layer = 3.3;
-	pixel_y = -27;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -27
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -3783,9 +3783,8 @@
 /area/centcom/specops)
 "auq" = (
 /obj/item/radio/intercom{
-	dir = 2;
-	pixel_x = -28;
-	name = "west bump"
+	name = "west bump";
+	pixel_x = -28
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -6940,7 +6939,6 @@
 /area/shuttle/escape)
 "aGa" = (
 /obj/item/radio/intercom{
-	dir = 2;
 	name = "custom placement";
 	pixel_x = 29;
 	pixel_y = -60
@@ -9868,8 +9866,8 @@
 "aUW" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -11158,7 +11156,6 @@
 /area/centcom/ferry)
 "hll" = (
 /obj/item/radio/intercom{
-	dir = 2;
 	name = "custom placement";
 	pixel_x = 29;
 	pixel_y = -30
@@ -11261,9 +11258,8 @@
 /area/shuttle/escape)
 "iYj" = (
 /obj/item/radio/intercom{
-	dir = 2;
-	pixel_x = -28;
-	name = "west bump"
+	name = "west bump";
+	pixel_x = -28
 	},
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
@@ -11523,8 +11519,8 @@
 /area/tdome/tdome2)
 "nFx" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = -28
 	},
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
@@ -11669,8 +11665,8 @@
 /area/shuttle/vox)
 "qrZ" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = 28
 	},
 /obj/machinery/light/small{
 	dir = 4;

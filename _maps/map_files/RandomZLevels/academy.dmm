@@ -17,9 +17,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "ae" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "af" = (

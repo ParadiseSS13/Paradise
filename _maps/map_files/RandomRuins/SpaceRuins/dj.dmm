@@ -378,8 +378,8 @@
 /area/djstation)
 "aP" = (
 /obj/machinery/light_switch{
-	pixel_y = -28;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_y = -28
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -440,8 +440,8 @@
 /area/djstation)
 "aX" = (
 /obj/machinery/newscaster{
-	pixel_y = 32;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/machinery/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
@@ -481,8 +481,8 @@
 /area/djstation)
 "bb" = (
 /obj/machinery/light_switch{
-	pixel_y = 24;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/dirt,
@@ -547,8 +547,8 @@
 /area/djstation)
 "bj" = (
 /obj/machinery/light_switch{
-	pixel_y = 24;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -757,9 +757,9 @@
 /area/djstation)
 "bJ" = (
 /obj/machinery/light_switch{
+	name = "custom placement";
 	pixel_x = 32;
-	pixel_y = 9;
-	name = "custom placement"
+	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"

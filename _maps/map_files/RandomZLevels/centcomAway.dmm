@@ -2548,9 +2548,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	pixel_y = 25;
 	name = "custom placement";
-	dir = 2
+	pixel_y = 25
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4

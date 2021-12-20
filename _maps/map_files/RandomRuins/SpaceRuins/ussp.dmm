@@ -1569,8 +1569,8 @@
 /obj/machinery/newscaster{
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
 	layer = 3.3;
-	pixel_x = 27;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -2081,8 +2081,8 @@
 /obj/machinery/newscaster{
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
 	layer = 3.3;
-	pixel_x = 30;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = 30
 	},
 /obj/item/trash/spentcasing{
 	icon_state = "762-casing"
@@ -7089,8 +7089,8 @@
 /obj/machinery/newscaster{
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
 	layer = 3.3;
-	pixel_x = 27;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -7657,8 +7657,8 @@
 /obj/machinery/newscaster{
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
 	layer = 3.3;
-	pixel_x = 27;
-	name = "custom placement"
+	name = "custom placement";
+	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
