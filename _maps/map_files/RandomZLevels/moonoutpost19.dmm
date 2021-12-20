@@ -3421,7 +3421,8 @@
 	})
 "fw" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -26
+	pixel_x = -26;
+	name = "custom placement"
 	},
 /obj/effect/decal/cleanable/blood/tracks{
 	desc = "Your instincts say you shouldn't be following these.";
@@ -4020,7 +4021,8 @@
 "gp" = (
 /obj/machinery/door/firedoor,
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -29
+	pixel_y = -29;
+	name = "custom placement"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5244,7 +5246,8 @@
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/hud/health,
 /obj/machinery/newscaster{
-	pixel_y = -30
+	pixel_y = -30;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5558,7 +5561,8 @@
 	})
 "iJ" = (
 /obj/machinery/newscaster{
-	pixel_y = -30
+	pixel_y = -30;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -6211,7 +6215,8 @@
 	})
 "jU" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = 30
+	pixel_y = 30;
+	name = "north bump"
 	},
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/dirt,
@@ -6221,7 +6226,8 @@
 	})
 "jV" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = 30
+	pixel_y = 30;
+	name = "north bump"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -6931,7 +6937,8 @@
 	})
 "lc" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 26
+	pixel_x = 26;
+	name = "custom placement"
 	},
 /obj/machinery/camera{
 	c_tag = "Kitchen";
@@ -7255,7 +7262,8 @@
 /obj/structure/table/wood,
 /obj/item/lighter/zippo,
 /obj/machinery/newscaster{
-	pixel_x = 30
+	pixel_x = 30;
+	name = "custom placement"
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
@@ -7393,7 +7401,8 @@
 	})
 "me" = (
 /obj/machinery/newscaster{
-	pixel_y = 30
+	pixel_y = 30;
+	name = "custom placement"
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -7622,7 +7631,8 @@
 	specialfunctions = 4
 	},
 /obj/machinery/newscaster{
-	pixel_y = 32
+	pixel_y = 32;
+	name = "north bump"
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
@@ -7921,7 +7931,8 @@
 	})
 "ni" = (
 /obj/machinery/newscaster{
-	pixel_y = -30
+	pixel_y = -30;
+	name = "custom placement"
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -8298,7 +8309,8 @@
 	})
 "nV" = (
 /obj/machinery/newscaster{
-	pixel_x = 30
+	pixel_x = 30;
+	name = "custom placement"
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{

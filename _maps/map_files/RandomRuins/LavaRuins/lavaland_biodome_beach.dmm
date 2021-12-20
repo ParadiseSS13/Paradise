@@ -46,7 +46,8 @@
 /area/ruin/powered/beach)
 "ai" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = 29
+	pixel_y = 29;
+	name = "custom placement"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)

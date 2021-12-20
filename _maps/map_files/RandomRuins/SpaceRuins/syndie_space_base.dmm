@@ -488,7 +488,8 @@
 /obj/machinery/vending/syndichem,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -5;
-	pixel_y = 30
+	pixel_y = 30;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -3061,7 +3062,8 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -5;
-	pixel_y = 30
+	pixel_y = 30;
+	name = "custom placement"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -3799,7 +3801,8 @@
 "NT" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -5;
-	pixel_y = 30
+	pixel_y = 30;
+	name = "custom placement"
 	},
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/yellow,

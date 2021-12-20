@@ -2548,7 +2548,9 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	pixel_y = 25
+	pixel_y = 25;
+	name = "custom placement";
+	dir = 2
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -4111,12 +4113,6 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet,
 /area/awaymission/centcomAway/general)
-"lA" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/awaymission/centcomAway/hangar)
 "lB" = (
 /obj/structure/table/wood,
 /obj/item/clothing/accessory/medal/gold,
@@ -4191,12 +4187,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
-	},
-/area/awaymission/centcomAway/hangar)
-"lL" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
 	},
 /area/awaymission/centcomAway/hangar)
 "lM" = (
@@ -10523,13 +10513,13 @@ bx
 gX
 aW
 iN
-lA
+jz
 iN
-lA
+jz
 iN
-lA
+jz
 iN
-lA
+jz
 aW
 nb
 gX
@@ -10653,12 +10643,12 @@ bx
 oc
 aW
 lo
-lA
-lA
-lA
-lA
-lA
-lA
+jz
+jz
+jz
+jz
+jz
+jz
 mF
 aW
 gX
@@ -10785,8 +10775,8 @@ aW
 iP
 gX
 gX
-lA
-lA
+jz
+jz
 gX
 gX
 gX
@@ -11175,8 +11165,8 @@ aW
 iR
 cC
 jk
-lL
-lL
+bn
+bn
 gX
 gX
 mJ
@@ -11306,7 +11296,7 @@ pT
 cC
 lK
 lW
-lL
+bn
 jI
 gX
 kX
@@ -11434,9 +11424,9 @@ gX
 iB
 cU
 lF
-lL
-lL
-lL
+bn
+bn
+bn
 gX
 gX
 mL
@@ -11565,8 +11555,8 @@ aW
 cU
 cC
 gX
-lL
-lL
+bn
+bn
 jI
 gX
 kY
@@ -11695,8 +11685,8 @@ aW
 iS
 cC
 jk
-lL
-lL
+bn
+bn
 gX
 gX
 mM

@@ -515,7 +515,8 @@
 	})
 "bl" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -25
+	pixel_x = -25;
+	name = "custom placement"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -1111,7 +1112,8 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = -30
+	pixel_x = -30;
+	name = "custom placement"
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
@@ -1140,7 +1142,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = 30
+	pixel_x = 30;
+	name = "custom placement"
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
@@ -2582,7 +2585,8 @@
 	tag = ""
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
@@ -2965,7 +2969,8 @@
 "fS" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
@@ -2987,7 +2992,8 @@
 	})
 "fV" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -3707,7 +3713,8 @@
 	})
 "hr" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -25
+	pixel_x = -25;
+	name = "custom placement"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -5848,7 +5855,8 @@
 	})
 "kW" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = 30
+	pixel_y = 30;
+	name = "north bump"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -5988,7 +5996,8 @@
 	dir = 5
 	},
 /obj/machinery/newscaster{
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -6718,7 +6727,8 @@
 /obj/structure/table,
 /obj/item/newspaper,
 /obj/machinery/newscaster{
-	pixel_x = 30
+	pixel_x = 30;
+	name = "custom placement"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -6856,7 +6866,8 @@
 "ms" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_y = 32
+	pixel_y = 32;
+	name = "north bump"
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a2{
@@ -6885,7 +6896,8 @@
 "mv" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = -30
+	pixel_x = -30;
+	name = "custom placement"
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a2{
@@ -6971,7 +6983,8 @@
 	})
 "mD" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /obj/structure/rack{
 	dir = 8;
@@ -7142,7 +7155,8 @@
 	},
 /obj/item/pen,
 /obj/machinery/newscaster{
-	pixel_x = -30
+	pixel_x = -30;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -8413,7 +8427,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -9885,7 +9900,8 @@
 "qZ" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /obj/item/pen,
 /turf/simulated/floor/carpet,
@@ -9960,7 +9976,8 @@
 "rg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -25
+	pixel_x = -25;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a2{
@@ -10037,7 +10054,8 @@
 	pixel_x = 4
 	},
 /obj/machinery/newscaster{
-	pixel_y = 32
+	pixel_y = 32;
+	name = "north bump"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -10126,6 +10144,14 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6;
 	initialize_directions = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/awaycontent/a3{
+	name = "UO45 Engineering"
+	})
+"rt" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a3{
@@ -10686,7 +10712,8 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -30
+	pixel_y = -30;
+	name = "south bump"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -11254,14 +11281,6 @@
 "sY" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/awaycontent/a3{
-	name = "UO45 Engineering"
-	})
-"sZ" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a3{
@@ -13762,7 +13781,8 @@
 	on = 1
 	},
 /obj/machinery/newscaster{
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -13962,17 +13982,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a4{
 	name = "UO45 Mining"
-	})
-"xv" = (
-/obj/structure/closet/cabinet,
-/turf/simulated/mineral/random/labormineral,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
 	})
 "xw" = (
 /obj/structure/table,
@@ -14325,12 +14334,6 @@
 	power_light = 0;
 	poweralm = 0
 	})
-"yn" = (
-/obj/structure/closet/emcloset,
-/turf/simulated/wall/r_wall/rust,
-/area/awaycontent/a4{
-	name = "UO45 Mining"
-	})
 "yo" = (
 /obj/structure/alien/weeds{
 	icon_state = "weeds1"
@@ -14658,6 +14661,23 @@
 	power_equip = 0;
 	power_light = 0;
 	poweralm = 0
+	})
+"AO" = (
+/obj/structure/closet/cabinet,
+/turf/simulated/mineral/random/labormineral,
+/area/awaycontent/a7{
+	always_unpowered = 1;
+	name = "UO45 Caves";
+	power_environ = 0;
+	power_equip = 0;
+	power_light = 0;
+	poweralm = 0
+	})
+"NE" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/wall/r_wall/rust,
+/area/awaycontent/a4{
+	name = "UO45 Mining"
 	})
 
 (1,1,1) = {"
@@ -24435,11 +24455,11 @@ aB
 aB
 aC
 aC
-xv
+AO
 ac
 ac
 ac
-xv
+AO
 ac
 ac
 bQ
@@ -26305,7 +26325,7 @@ vJ
 vJ
 vJ
 vJ
-yn
+NE
 yl
 fo
 fo
@@ -29731,7 +29751,7 @@ oS
 pB
 qc
 qF
-sZ
+rt
 sl
 sX
 tG
@@ -29763,7 +29783,7 @@ ac
 ac
 ac
 ac
-xv
+AO
 ac
 ac
 ac
@@ -30033,7 +30053,7 @@ qe
 qI
 qK
 sn
-sZ
+rt
 rl
 sd
 nj

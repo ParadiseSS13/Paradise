@@ -119,7 +119,8 @@
 /area/shuttle/freegolem)
 "z" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = 30
+	pixel_y = 30;
+	name = "north bump"
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
@@ -175,7 +176,8 @@
 /area/shuttle/freegolem)
 "E" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -30
+	pixel_y = -30;
+	name = "south bump"
 	},
 /obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/purple,
