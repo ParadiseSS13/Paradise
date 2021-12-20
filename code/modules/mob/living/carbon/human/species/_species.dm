@@ -957,13 +957,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(istype(ears) && !HAS_TRAIT(H, TRAIT_DEAF))
 		. = TRUE
 
-/datum/species/proc/spec_handle_fire(mob/living/carbon/human/H)
-	return FALSE
-
 /datum/species/proc/spec_Process_Spacemove(mob/living/carbon/human/H)
-	return FALSE
-
-/datum/species/proc/spec_rejuvenate(mob/living/carbon/human/H)
 	return FALSE
 
 /datum/species/proc/spec_thunk()

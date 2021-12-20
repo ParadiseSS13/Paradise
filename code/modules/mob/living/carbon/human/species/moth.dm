@@ -57,10 +57,14 @@
 	cocoon = new()
 	cocoon.Grant(H)
 	addtimer(CALLBACK(src, .proc/backupwings, H), 5 SECONDS)
+	RegisterSignal(H, COMSIG_LIVING_FIRE_TICK, .proc/check_burn_wings)
+	RegisterSignal(H, COMSIG_LIVING_AHEAL, .proc/restorewings)
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
 	cocoon.Remove(H)
+	UnregisterSignal(H, COMSIG_LIVING_FIRE_TICK)
+	UnregisterSignal(H, COMSIG_LIVING_AHEAL)
 
 /datum/species/moth/handle_life(mob/living/carbon/human/H)
 	. = ..()
@@ -94,11 +98,6 @@
 	if(istype(I, /obj/item/melee/flyswatter) && I.force)
 		apply_damage(I.force * FLYSWATTER_DAMAGE_MULTIPLIER, I.damtype, affecting, FALSE, H) //making flyswatters do 10x damage to moff
 
-/datum/species/moth/spec_handle_fire(mob/living/carbon/human/H) //do not go into the extremely hot light. you will not survive
-	if(H.on_fire && !(burnt_wings) && H.bodytemperature >= 800 && H.fire_stacks > 0)
-		to_chat(H, "<span class='warning'>Your precious wings burn to a crisp!</span>")
-		destroywings(H)
-
 /datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/H)
 	var/turf/A = get_turf(H)
 	if(isspaceturf(A))
@@ -112,10 +111,6 @@
 /datum/species/moth/spec_thunk()
 	if(burnt_wings)
 		return TRUE
-
-/datum/species/moth/spec_rejuvenate(mob/living/carbon/human/H)
-	if(burnt_wings)
-		restorewings(H)
 
 /datum/species/moth/spec_movement_delay()
 	return FALSE
@@ -136,6 +131,12 @@
 	if(A.ha_style)
 		backed_up_antennae = A.ha_style
 
+/datum/species/moth/proc/check_burn_wings(mob/living/carbon/human/H) //do not go into the extremely hot light. you will not survive
+	SIGNAL_HANDLER
+	if(H.on_fire && !(burnt_wings) && H.bodytemperature >= 800 && H.fire_stacks > 0)
+		to_chat(H, "<span class='warning'>Your precious wings burn to a crisp!</span>")
+		destroywings(H)
+
 /**
  * Sets wings and antennae to burnt variants, removing some species buffs
  */
@@ -149,6 +150,8 @@
  * Restores wings and antennae from values in species datum vars
  */
 /datum/species/moth/restorewings(mob/living/carbon/human/H)
+	if(!burnt_wings)
+		return
 	burnt_wings = FALSE
 	H.change_head_accessory(backed_up_antennae)
 	H.change_body_accessory(backed_up_wings)
