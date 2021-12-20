@@ -79794,9 +79794,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
-"ejU" = (
-/turf/space,
-/area/space/nearstation)
 "ema" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -91541,7 +91538,7 @@ aaa
 aaa
 aaa
 aaa
-aLd
+aaa
 aMs
 aMs
 aMs
@@ -92569,7 +92566,7 @@ aaa
 aaa
 aaa
 aaa
-aLd
+aaa
 aMs
 aMs
 aMs
@@ -93597,7 +93594,7 @@ aab
 aab
 aab
 aab
-aLd
+aab
 aMs
 aNw
 aNw
@@ -115292,11 +115289,11 @@ dfC
 dgb
 dcq
 aaa
-dcq
+aaa
 dou
 doM
 dou
-dcq
+aaa
 aaa
 aaa
 aaa
@@ -115549,11 +115546,11 @@ dfA
 dfT
 dcq
 aaa
-dcq
+aaa
 dou
 doz
 dou
-dcq
+aaa
 aaa
 aaa
 aaa
@@ -115808,7 +115805,7 @@ dgc
 aaa
 aaa
 aaa
-ejU
+aaa
 aaa
 aaa
 aaa
@@ -122113,7 +122110,7 @@ axh
 auq
 avu
 auq
-atG
+aaa
 aaa
 aaa
 aOI

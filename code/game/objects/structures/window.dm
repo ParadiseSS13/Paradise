@@ -29,6 +29,8 @@
 	var/hitsound = 'sound/effects/Glasshit.ogg'
 	/// Used to restore colours from polarised glass
 	var/old_color
+	/// Used to workaround dodgy smoothing
+	var/old_canSmoothWith
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -460,7 +462,7 @@
 			return
 		var/ratio = obj_integrity / max_integrity
 		ratio = CEILING(ratio * 4, 1) * 25
-
+		set_window_smooth_state()
 		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 			QUEUE_SMOOTH(src)
 
@@ -469,6 +471,17 @@
 			return
 		crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer+0.1))
 		add_overlay(crack_overlay)
+
+/** Sets canSmoothWith depending on anchored and constructed state of window
+ * Returns null always.
+ **/
+/obj/structure/window/proc/set_window_smooth_state()
+	if(state == WINDOW_OUT_OF_FRAME && !anchored)
+		old_canSmoothWith = canSmoothWith
+		canSmoothWith = null
+		return
+	canSmoothWith = old_canSmoothWith
+	old_canSmoothWith = null
 
 /obj/structure/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()

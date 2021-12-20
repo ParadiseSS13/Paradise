@@ -26,8 +26,11 @@
 /turf/space,
 /area/maintenance/auxsolarstarboard)
 "abQ" = (
-/turf/simulated/wall/r_wall,
-/area/maintenance/starboard2)
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/hallway/secondary/entry)
 "ace" = (
 /obj/machinery/power/solar{
 	name = "Aft Starboard Solar Panel"
@@ -393,16 +396,10 @@
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
 "aeB" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/machinery/status_display{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel,
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
 "aeC" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
 "aeI" = (
@@ -420,19 +417,39 @@
 	},
 /area/hallway/secondary/entry)
 "aeK" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
+/obj/docking_port/mobile/pod{
+	dir = 4;
+	id = "pod4";
+	name = "escape pod 4"
 	},
-/turf/simulated/wall/mineral/titanium,
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock";
+	name = "Escape Pod Hatch"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_4)
 "aeL" = (
-/turf/simulated/wall/mineral/titanium,
+/obj/item/radio/intercom{
+	pixel_y = 28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_4)
 "aeM" = (
-/obj/machinery/door/airlock/external,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry)
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
+/obj/machinery/light,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/pod_4)
 "aeN" = (
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
 "aeO" = (
@@ -448,26 +465,10 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "aeQ" = (
-/obj/docking_port/mobile/pod{
-	dir = 4;
-	id = "pod4";
-	name = "escape pod 4"
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
 	},
-/obj/machinery/door/airlock/titanium{
-	id_tag = "s_docking_airlock";
-	name = "Escape Pod Hatch"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/pod_4)
-"afa" = (
-/obj/item/radio/intercom{
-	pixel_y = 28
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_4)
 "afb" = (
 /obj/effect/decal/warning_stripes/yellow,
@@ -480,24 +481,13 @@
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
-"afd" = (
-/obj/machinery/status_display{
-	pixel_y = 32
-	},
-/obj/machinery/light,
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/pod_4)
 "afe" = (
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/pod_4)
+"aff" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/pod_4)
-"aff" = (
-/obj/structure/closet/emcloset,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry)
 "afg" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/auxsolarstarboard)
@@ -67944,9 +67934,12 @@
 	},
 /area/medical/medbay3)
 "cWk" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/maintenance/port)
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/status_display{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "cWl" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/shieldgen,
@@ -118759,7 +118752,7 @@ abj
 abj
 abj
 abj
-cWk
+abj
 dmq
 cHA
 cHA
@@ -141790,8 +141783,8 @@ aaa
 aaa
 acC
 aec
-aeB
 aeb
+cWk
 aeb
 aeb
 aeb
@@ -142047,8 +142040,8 @@ aaa
 aaa
 adb
 adb
+aeB
 adb
-aeM
 adb
 adb
 adb
@@ -142302,11 +142295,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
 adb
+abQ
 aeC
 aeN
-aff
+adb
 adb
 afk
 afz
@@ -142559,11 +142552,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
 adb
-aeK
 aeQ
 aeK
+aeQ
+adb
 adb
 afl
 afB
@@ -142816,11 +142809,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
 adb
+afe
 aeL
-afa
-aeL
+afe
+adb
 adb
 afm
 afC
@@ -143074,10 +143067,10 @@ aaa
 aaa
 aaa
 aaa
+afe
+aeM
+afe
 aaa
-aeL
-afd
-aeL
 afg
 afg
 afM
@@ -143331,10 +143324,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aeL
 afe
-aeL
+aff
+afe
+aaa
 afg
 afn
 afN
@@ -159056,11 +159049,11 @@ aaa
 aaa
 aaa
 aaa
-abQ
+aaa
 bae
 bbK
 bae
-abQ
+aaa
 aaa
 aaa
 aaa
