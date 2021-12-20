@@ -315,6 +315,11 @@ DEFINE_BITFIELD(smoothing_junction, list(
 */
 /atom/proc/bitmask_smooth()
 	var/new_junction = NONE
+	if(istype(src, /obj))
+		var/obj/a = src
+		if(!a.anchored) //unanchored objects never smooth
+			set_smoothed_icon_state(0)
+			return
 
 	for(var/direction in GLOB.cardinal) //Cardinal case first.
 		SET_ADJ_IN_DIR(src, new_junction, direction, direction)
