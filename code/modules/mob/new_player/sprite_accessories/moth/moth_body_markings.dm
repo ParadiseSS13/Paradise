@@ -1,6 +1,6 @@
 /datum/sprite_accessory/body_markings/moth
 	icon = 'icons/mob/sprite_accessories/moth/moth_body_markings.dmi'
-	species_allowed = list("Moth")
+	species_allowed = list("Nian")
 
 /datum/sprite_accessory/body_markings/moth/reddish
 	name = "Reddish Markings"

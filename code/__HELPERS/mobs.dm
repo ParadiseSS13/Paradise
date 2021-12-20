@@ -164,7 +164,7 @@
 	for(var/B in GLOB.body_accessory_by_name)
 		var/datum/body_accessory/A = GLOB.body_accessory_by_name[B]
 		if(!istype(A))
-			if(species != "Moth") //reee snowflake race
+			if(species != "Nian") //reee snowflake race
 				valid_body_accessories += "None" //The only null entry should be the "None" option.
 			continue
 		if(species in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.

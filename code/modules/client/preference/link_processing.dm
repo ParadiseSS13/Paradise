@@ -290,8 +290,8 @@
 
 						active_character.alt_head = "None" //No alt heads on species that don't have them.
 						active_character.speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
-						if(active_character.species == "Moth")
-							active_character.body_accessory = random_body_accessory("Moth") //wingless moths begone
+						if(active_character.species == "Nian")
+							active_character.body_accessory = random_body_accessory("Nian") //wingless moths begone
 						else
 							active_character.body_accessory = null //no vulptail on humans damnit
 
@@ -374,7 +374,7 @@
 					var/new_h_style = input(user, "Choose your character's hair style:", "Character Preference") as null|anything in valid_hairstyles
 					if(new_h_style)
 						active_character.h_style = new_h_style
-		
+
 				if("h_grad_style")
 					var/result = input(user, "Choose your character's hair gradient style:", "Character Preference") as null|anything in GLOB.hair_gradients_list
 					if(result)
@@ -551,7 +551,7 @@
 								continue
 							if(active_character.species in accessory.allowed_species)
 								possible_body_accessories += B
-					if(active_character.species == "Moth")
+					if(active_character.species == "Nian")
 						possible_body_accessories.Remove(null, "None")
 					sortTim(possible_body_accessories, /proc/cmp_text_asc)
 					var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories

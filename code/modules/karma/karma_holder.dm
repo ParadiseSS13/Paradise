@@ -76,10 +76,10 @@
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 45KP</a><br>"
 			else
 				dat += "Plasmaman - <font color='green'>Unlocked</font><br>"
-			if(!("Moth" in unlocked_species))
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=8'>Unlock Moths -- 30KP</a><br>"
+			if(!("Nian" in unlocked_species))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=8'>Unlock Nian -- 30KP</a><br>"
 			else
-				dat += "Moth - <font color='green'>Unlocked</font><br>"
+				dat += "Nian - <font color='green'>Unlocked</font><br>"
 
 		if(2) // Karma Refunds
 			var/list/refundable = list()
@@ -417,7 +417,7 @@
 						if("7")
 							karma_purchase(30, "species", "Drask")
 						if("8")
-							karma_purchase(30, "species", "Moth")
+							karma_purchase(30, "species", "Nian")
 					return
 				if(href_list["KarmaRefund"])
 					var/type = href_list["KarmaRefundType"]

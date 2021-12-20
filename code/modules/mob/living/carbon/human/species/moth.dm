@@ -9,7 +9,7 @@
 	name_plural = "Nianae"
 	language = "Tkachi"
 	icobase = 'icons/mob/human_races/r_moth.dmi'
-	inherent_factions = list("moth")
+	inherent_factions = list("nian")
 	species_traits = list(IS_WHITELISTED, NO_HAIR)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
@@ -162,18 +162,18 @@
 
 /datum/species/moth/givewings(mob/living/carbon/human/H)
 	if(!H.body_accessory)
-		H.change_head_accessory(random_body_accessory("Moth"))
+		H.change_head_accessory(random_body_accessory("Nian"))
 	var/obj/item/organ/external/head/HE = H.get_organ("head")
 	if(HE && !HE.ha_style)
-		H.change_body_accessory(random_head_accessory("Moth"))
+		H.change_body_accessory(random_head_accessory("Nian"))
 	backupwings(H)
 
 /**
  * Ramdomises wings and antennae
  */
 /datum/species/moth/randomwings(mob/living/carbon/human/H)
-	H.change_body_accessory(random_head_accessory("Moth"))
-	H.change_head_accessory(random_body_accessory("Moth"))
+	H.change_body_accessory(random_head_accessory("Nian"))
+	H.change_head_accessory(random_body_accessory("Nian"))
 	backupwings(H)
 
 /datum/action/innate/cocoon
