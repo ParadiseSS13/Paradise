@@ -205,7 +205,7 @@
 		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
 
 /**
- * Removes moth from cocoon, heals moth and restores burnt wings
+ * Removes moth from cocoon, restores burnt wings
  */
 /datum/action/innate/cocoon/proc/emerge(obj/structure/moth/cocoon/C)
 	for(var/mob/living/carbon/human/H in C.contents)
