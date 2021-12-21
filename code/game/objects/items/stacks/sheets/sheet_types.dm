@@ -40,13 +40,13 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe_list("comfy chairs", list(
 		new /datum/stack_recipe("beige comfy chair", /obj/structure/chair/comfy/beige, 2, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("black comfy chair", /obj/structure/chair/comfy/black, 2, one_per_turf = 1, on_floor = 1),
-		new /datum/stack_recipe("brown comfy chair", /obj/structure/chair/comfy/brown, 2, one_per_turf = 1, on_floor = 1),
-		new /datum/stack_recipe("lime comfy chair", /obj/structure/chair/comfy/lime, 2, one_per_turf = 1, on_floor = 1),
-		new /datum/stack_recipe("teal comfy chair", /obj/structure/chair/comfy/teal, 2, one_per_turf = 1, on_floor = 1),
-		new /datum/stack_recipe("red comfy chair", /obj/structure/chair/comfy/red, 2, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("blue comfy chair", /obj/structure/chair/comfy/blue, 2, one_per_turf = 1, on_floor = 1),
-		new /datum/stack_recipe("purple comfy chair", /obj/structure/chair/comfy/purp, 2, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("brown comfy chair", /obj/structure/chair/comfy/brown, 2, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("green comfy chair", /obj/structure/chair/comfy/green, 2, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("lime comfy chair", /obj/structure/chair/comfy/lime, 2, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("purple comfy chair", /obj/structure/chair/comfy/purp, 2, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("red comfy chair", /obj/structure/chair/comfy/red, 2, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("teal comfy chair", /obj/structure/chair/comfy/teal, 2, one_per_turf = 1, on_floor = 1),
 	)),
 	new /datum/stack_recipe_list("office chairs",list(
 		new /datum/stack_recipe("dark office chair", /obj/structure/chair/office/dark, 5, one_per_turf = 1, on_floor = 1),
