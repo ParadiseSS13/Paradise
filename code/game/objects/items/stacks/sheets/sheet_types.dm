@@ -89,19 +89,19 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("standard airlock assembly", /obj/structure/door_assembly, 4, time = 50, one_per_turf = 1, on_floor = 1),
 	)),
 	null,
-	new /datum/stack_recipe("mass driver button frame", /obj/item/mounted/frame/driver_button, 1, time = 50, one_per_turf = 0, on_floor = 1),
 	new /datum/stack_recipe("light switch frame", /obj/item/mounted/frame/light_switch, 1, time = 50, one_per_turf = 0, on_floor = 1),
+	new /datum/stack_recipe("mass driver button frame", /obj/item/mounted/frame/driver_button, 1, time = 50, one_per_turf = 0, on_floor = 1),
 	new /datum/stack_recipe("window tint control button frame", /obj/item/mounted/frame/light_switch/windowtint, 1, time = 50, one_per_turf = 0, on_floor = 1),
 	null,
 	new /datum/stack_recipe("grenade casing", /obj/item/grenade/chem_grenade),
 	new /datum/stack_recipe("light fixture frame", /obj/item/mounted/frame/light_fixture, 2),
 	new /datum/stack_recipe("small light fixture frame", /obj/item/mounted/frame/light_fixture/small, 1),
 	null,
-	new /datum/stack_recipe("apc frame", /obj/item/mounted/frame/apc_frame, 2),
 	new /datum/stack_recipe("air alarm frame", /obj/item/mounted/frame/alarm_frame, 2),
+	new /datum/stack_recipe("apc frame", /obj/item/mounted/frame/apc_frame, 2),
+	new /datum/stack_recipe("extinguisher cabinet frame", /obj/item/mounted/frame/extinguisher, 2),
 	new /datum/stack_recipe("fire alarm frame", /obj/item/mounted/frame/firealarm, 2),
 	new /datum/stack_recipe("intercom frame", /obj/item/mounted/frame/intercom, 2),
-	new /datum/stack_recipe("extinguisher cabinet frame", /obj/item/mounted/frame/extinguisher, 2),
 	null
 ))
 
@@ -144,9 +144,9 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 GLOBAL_LIST_INIT(plasteel_recipes, list(
 	new /datum/stack_recipe("AI core", /obj/structure/AIcore, 4, time = 50, one_per_turf = 1),
 	new /datum/stack_recipe("bomb assembly", /obj/machinery/syndicatebomb/empty, 3, time = 50),
-	new /datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 50, one_per_turf = 1, on_floor = 1),
-	new /datum/stack_recipe("Metal crate", /obj/structure/closet/crate, 10, time = 50, one_per_turf = 1),
 	new /datum/stack_recipe("Mass Driver frame", /obj/machinery/mass_driver_frame, 3, time = 50, one_per_turf = 1),
+	new /datum/stack_recipe("Metal crate", /obj/structure/closet/crate, 10, time = 50, one_per_turf = 1),
+	new /datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	null,
 	new /datum/stack_recipe_list("airlock assemblies", list(
 		new /datum/stack_recipe("high security airlock assembly", /obj/structure/door_assembly/door_assembly_highsecurity, 6, time = 50, one_per_turf = 1, on_floor = 1),
