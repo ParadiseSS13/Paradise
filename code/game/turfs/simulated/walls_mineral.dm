@@ -227,11 +227,9 @@
 
 /turf/simulated/wall/mineral/titanium/nodiagonal
 	icon_state = "map-shuttle_nd"
-	base_icon_state = "plastinum_wall"
 	smoothing_flags = SMOOTH_BITMASK
 
 /turf/simulated/wall/mineral/titanium/nosmooth
-	icon_state = "plastinum_wall"
 	smoothing_flags = NONE
 
 /turf/simulated/wall/mineral/titanium/overspace
@@ -290,13 +288,12 @@
 	fixed_underlay = list("icon"='icons/turf/floors.dmi', "icon_state"="darkredfull")
 
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal
-	smoothing_flags = SMOOTH_CORNERS
 	icon_state = "map-shuttle_nd"
+	smoothing_flags = SMOOTH_BITMASK
 
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth
+	icon_state = "plastinum_wall"
 	smoothing_flags = NONE
-	icon = 'icons/turf/shuttle.dmi'
-	icon_state = "wall"
 
 //properties for derelict sub-type to prevent said deconstruction/thermiting
 /turf/simulated/wall/mineral/titanium/nodecon/try_decon(obj/item/I, mob/user, params)
