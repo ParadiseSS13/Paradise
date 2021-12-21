@@ -328,19 +328,19 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
  */
 GLOBAL_LIST_INIT(cardboard_recipes, list (
 	new /datum/stack_recipe("box", /obj/item/storage/box),
-	new /datum/stack_recipe("large box", /obj/item/storage/box/large, 4),
-	new /datum/stack_recipe("patch pack", /obj/item/storage/pill_bottle/patch_pack, 2),
-	new /datum/stack_recipe("light tubes", /obj/item/storage/box/lights/tubes),
-	new /datum/stack_recipe("light bulbs", /obj/item/storage/box/lights/bulbs),
-	new /datum/stack_recipe("mouse traps", /obj/item/storage/box/mousetraps),
-	new /datum/stack_recipe("cardborg suit", /obj/item/clothing/suit/cardborg, 3),
+	new /datum/stack_recipe("cardboard box", /obj/structure/closet/cardboard, 4),
+	new /datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5),
+	new /datum/stack_recipe("cardboard tube", /obj/item/c_tube),
 	new /datum/stack_recipe("cardborg helmet", /obj/item/clothing/head/cardborg),
-	new /datum/stack_recipe("pizza box", /obj/item/pizzabox),
+	new /datum/stack_recipe("cardborg suit", /obj/item/clothing/suit/cardborg, 3),
 	new /datum/stack_recipe("donut box", /obj/item/storage/fancy/donut_box/empty, 1),
 	new /datum/stack_recipe("folder", /obj/item/folder),
-	new /datum/stack_recipe("cardboard tube", /obj/item/c_tube),
-	new /datum/stack_recipe("cardboard box", /obj/structure/closet/cardboard, 4),
-	new /datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5)
+	new /datum/stack_recipe("large box", /obj/item/storage/box/large, 4),
+	new /datum/stack_recipe("light bulbs", /obj/item/storage/box/lights/bulbs),
+	new /datum/stack_recipe("light tubes", /obj/item/storage/box/lights/tubes),
+	new /datum/stack_recipe("mouse traps", /obj/item/storage/box/mousetraps),
+	new /datum/stack_recipe("patch pack", /obj/item/storage/pill_bottle/patch_pack, 2),
+	new /datum/stack_recipe("pizza box", /obj/item/pizzabox)
 ))
 
 /obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
@@ -371,12 +371,12 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
  */
 
 GLOBAL_LIST_INIT(cult_recipes, list ( \
+	new /datum/stack_recipe/cult("altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
+	new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, veil shifters, and reality sunderers)", /obj/structure/cult/functional/archives, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE), \
+	new /datum/stack_recipe/cult("forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE), \
+	new /datum/stack_recipe/cult("pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE), \
 	new /datum/stack_recipe/cult("runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, 1, time = 50, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("runed girder (used to make cult walls)", /obj/structure/girder/cult, 1, time = 10, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE), \
-	new /datum/stack_recipe/cult("pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE), \
-	new /datum/stack_recipe/cult("forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE), \
-	new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, veil shifters, and reality sunderers)", /obj/structure/cult/functional/archives, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE), \
-	new /datum/stack_recipe/cult("altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	))
 
 /obj/item/stack/sheet/runed_metal
@@ -433,10 +433,10 @@ GLOBAL_LIST_INIT(brass_recipes, list (\
 	null,
 	new/datum/stack_recipe/window("brass windoor", /obj/machinery/door/window/clockwork, 2, time = 30, on_floor = TRUE, window_checks = TRUE), \
 	null,
-	new/datum/stack_recipe/window("directional brass window", /obj/structure/window/reinforced/clockwork, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe/window("fulltile brass window", /obj/structure/window/reinforced/clockwork/fulltile, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
 	new/datum/stack_recipe("brass chair", /obj/structure/chair/brass, 1, time = 0, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("brass table frame", /obj/structure/table_frame/brass, 1, time = 5, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe/window("directional brass window", /obj/structure/window/reinforced/clockwork, time = 0, on_floor = TRUE, window_checks = TRUE), \
+	new/datum/stack_recipe/window("fulltile brass window", /obj/structure/window/reinforced/clockwork/fulltile, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
 	))
 
 /obj/item/stack/tile/brass
@@ -482,26 +482,27 @@ GLOBAL_LIST_INIT(brass_recipes, list (\
 	origin_tech = "materials=2;biotech=2"
 
 GLOBAL_LIST_INIT(plastic_recipes, list(
-	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = 1, on_floor = 1, time = 40), \
-	new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2), \
-	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty), \
-	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty,3), \
-	new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = 1, on_floor = 1), \
-	new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
-	new /datum/stack_recipe("plastic fork", /obj/item/kitchen/utensil/pfork, 1, on_floor = 1), \
-	new /datum/stack_recipe("plastic spoon", /obj/item/kitchen/utensil/pspoon, 1, on_floor = 1), \
-	new /datum/stack_recipe("plastic spork", /obj/item/kitchen/utensil/pspork, 1, on_floor = 1), \
-	new /datum/stack_recipe("plastic knife", /obj/item/kitchen/knife/plastic, 1, on_floor = 1), \
-	new /datum/stack_recipe("plastic bag", /obj/item/storage/bag/plasticbag, 3, on_floor = 1), \
-	new /datum/stack_recipe("bear mould", /obj/item/kitchen/mould/bear, 1, on_floor = 1), \
-	new /datum/stack_recipe("worm mould", /obj/item/kitchen/mould/worm, 1, on_floor = 1), \
-	new /datum/stack_recipe("bean mould", /obj/item/kitchen/mould/bean, 1, on_floor = 1), \
 	new /datum/stack_recipe("ball mould", /obj/item/kitchen/mould/ball, 1, on_floor = 1), \
+	new /datum/stack_recipe("bear mould", /obj/item/kitchen/mould/bear, 1, on_floor = 1), \
+	new /datum/stack_recipe("bean mould", /obj/item/kitchen/mould/bean, 1, on_floor = 1), \
 	new /datum/stack_recipe("cane mould", /obj/item/kitchen/mould/cane, 1, on_floor = 1), \
 	new /datum/stack_recipe("cash mould", /obj/item/kitchen/mould/cash, 1, on_floor = 1), \
 	new /datum/stack_recipe("coin mould", /obj/item/kitchen/mould/coin, 1, on_floor = 1), \
+	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty,3), \
+	new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic bag", /obj/item/storage/bag/plasticbag, 3, on_floor = 1), \
+	new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = 1, on_floor = 1, time = 40), \
+	new /datum/stack_recipe("plastic fork", /obj/item/kitchen/utensil/pfork, 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic knife", /obj/item/kitchen/knife/plastic, 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic spoon", /obj/item/kitchen/utensil/pspoon, 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic spork", /obj/item/kitchen/utensil/pspork, 1, on_floor = 1), \
 	new /datum/stack_recipe("sucker mould", /obj/item/kitchen/mould/loli, 1, on_floor = 1), \
-	new /datum/stack_recipe("warning cone", /obj/item/clothing/head/cone, 5, on_floor = 1)))
+	new /datum/stack_recipe("warning cone", /obj/item/clothing/head/cone, 5, on_floor = 1), \
+	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty), \
+	new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2), \
+	new /datum/stack_recipe("worm mould", /obj/item/kitchen/mould/worm, 1, on_floor = 1)
+	))
 
 /obj/item/stack/sheet/plastic
 	name = "plastic"
