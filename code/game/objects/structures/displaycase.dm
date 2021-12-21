@@ -1,7 +1,7 @@
 /obj/structure/displaycase
 	name = "display case"
 	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "glassbox0"
+	icon_state = "glassbox"
 	desc = "A display case for prized possessions."
 	density = TRUE
 	anchored = TRUE
@@ -10,7 +10,7 @@
 	max_integrity = 200
 	integrity_failure = 50
 	var/obj/item/showpiece = null
-	var/alert = TRUE
+	var/alert
 	var/open = FALSE
 	var/openable = TRUE
 	var/obj/item/airlock_electronics/electronics
@@ -95,18 +95,16 @@
 			sleep(74) // 7.4 seconds long
 
 /obj/structure/displaycase/update_icon()
-	var/icon/I
-	if(open)
-		I = icon('icons/obj/stationobjs.dmi',"glassbox_open")
-	else
-		I = icon('icons/obj/stationobjs.dmi',"glassbox0")
+	cut_overlays()
 	if(broken)
-		I = icon('icons/obj/stationobjs.dmi',"glassboxb0")
+		add_overlay("glassbox_broken")
 	if(showpiece)
-		var/icon/S = getFlatIcon(showpiece)
-		S.Scale(17, 17)
-		I.Blend(S,ICON_UNDERLAY,8,8)
-	icon = I
+		var/mutable_appearance/showpiece_overlay = mutable_appearance(showpiece.icon, showpiece.icon_state)
+		showpiece_overlay.copy_overlays(showpiece)
+		showpiece_overlay.transform *= 0.6
+		add_overlay(showpiece_overlay)
+	if(!open && !broken)
+		add_overlay("glassbox_closed")
 
 /obj/structure/displaycase/attackby(obj/item/I, mob/user, params)
 	if(I.GetID() && !broken && openable)
@@ -135,19 +133,30 @@
 	else
 		return ..()
 
-/obj/structure/displaycase/crowbar_act(mob/user, obj/item/I) //Only applies to the lab cage and player made display cases
-	if(alert || !openable)
+/obj/structure/displaycase/crowbar_act(mob/user, obj/item/I)
+	if((alert && !open) || !openable)
+		return
+	// The user can display a crowbar if they're on that intent specifically. Otherwise they'll either take it apart, or close it if the alarm's off
+	if(open && !showpiece && user.a_intent == INTENT_HELP)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	if(broken)
+	if((open || broken) && user.a_intent == INTENT_HARM)
 		if(showpiece)
 			to_chat(user, "<span class='notice'>Remove the displayed object first.</span>")
-		if(I.use_tool(src, user, 0, volume = I.tool_volume))
-			to_chat(user, "<span class='notice'>You remove the destroyed case</span>")
-			qdel(src)
-	else
+			return
+		if(!I.use_tool(src, user, 15, volume = I.tool_volume))
+			return
+		if(!broken)
+			new /obj/item/stack/sheet/glass(get_turf(src), 10)
+		to_chat(user, "<span class='notice'>You start dismantling the case.</span>")
+		var/obj/structure/displaycase_chassis/display = new(src.loc)
+		if(electronics)
+			display.electronics = electronics
+		qdel(src)
+		return
+	if(!alert)
 		to_chat(user, "<span class='notice'>You start to [open ? "close":"open"] [src].</span>")
 		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 			return
@@ -210,6 +219,7 @@
 			if(electronics)
 				electronics.forceMove(display)
 				display.electronics = electronics
+				display.alert = TRUE
 				if(electronics.one_access)
 					display.req_one_access = electronics.selected_accesses
 				else
@@ -218,9 +228,22 @@
 	else
 		return ..()
 
+/obj/structure/displaycase_chassis/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(electronics)
+		if(I.use_tool(src, user, 0, volume = I.tool_volume))
+			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
+			new /obj/item/airlock_electronics(get_turf(src), 1)
+			electronics = null
+
 /obj/structure/displaycase_chassis/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
+		return
+	if(electronics)
+		to_chat(user, "<span class='notice'>Remove the airlock electronics first.</span>")
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
