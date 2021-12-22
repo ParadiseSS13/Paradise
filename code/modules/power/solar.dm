@@ -430,7 +430,7 @@
 	var/obj/structure/computerframe/A = new /obj/structure/computerframe(loc)
 	var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control(A)
 	for(var/obj/C in src)
-		C.loc = loc
+		C.forceMove(loc)
 	if(stat & BROKEN)
 		to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
 		A.state = 4
@@ -440,7 +440,7 @@
 	A.dir = dir
 	A.circuit = M
 	A.update_icon()
-	A.anchored = 1
+	A.anchored = TRUE
 	qdel(src)
 
 /obj/machinery/power/solar_control/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
