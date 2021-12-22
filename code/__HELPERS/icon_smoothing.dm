@@ -312,15 +312,10 @@ DEFINE_BITFIELD(smoothing_junction, list(
   *
   * Returns the previous smoothing_junction state so the previous state can be compared with the new one after the proc ends, and see the changes, if any.
   *
+  * Objects override this to prevent unanchored objects from smoothing, see /obj/bitmask_smooth()
 */
 /atom/proc/bitmask_smooth()
 	var/new_junction = NONE
-	if(istype(src, /obj))
-		var/obj/a = src
-		if(!a.anchored) //unanchored objects never smooth
-			set_smoothed_icon_state(0)
-			return
-
 	for(var/direction in GLOB.cardinal) //Cardinal case first.
 		SET_ADJ_IN_DIR(src, new_junction, direction, direction)
 
@@ -344,6 +339,12 @@ DEFINE_BITFIELD(smoothing_junction, list(
 
 	set_smoothed_icon_state(new_junction)
 
+///Object override to prevent unanchored objects from smoothing
+/obj/bitmask_smooth()
+	if(!anchored)
+		set_smoothed_icon_state(0)
+		return
+	return ..()
 
 ///Changes the icon state based on the new junction bitmask. Returns the old junction value.
 /atom/proc/set_smoothed_icon_state(new_junction)
