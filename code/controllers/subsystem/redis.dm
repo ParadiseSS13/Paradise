@@ -27,6 +27,7 @@ SUBSYSTEM_DEF(redis)
 
 /datum/controller/subsystem/redis/Initialize()
 	if(world.system_type == UNIX)
+		flags |= SS_NO_FIRE
 		return ..() // Hack to bypass CI in debug mode
 	// Connect to cappuccino
 	connect()
