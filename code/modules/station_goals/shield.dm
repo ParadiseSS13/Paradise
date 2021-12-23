@@ -3,7 +3,7 @@
 // Спутники активируются, создавая щит, который будет препятствовать прохождению неорганической материи.
 /datum/station_goal/station_shield
 	name = "Station Shield"
-	var/coverage_goal = 5000
+	var/coverage_goal = 12500
 
 /datum/station_goal/station_shield/get_report()
 	return {"<b>Сооружение щитов станции</b><br>
