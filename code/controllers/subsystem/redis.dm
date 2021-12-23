@@ -10,6 +10,7 @@ SUBSYSTEM_DEF(redis)
 	var/list/subbed_channels = list()
 	/// Message queue (If messages are sent before the SS has init'd)
 	var/list/datum/redis_message/queue = list()
+	offline_implications = "The server will no longer be able to send or receive redis messages. Shuttle call recommended (Potential server crash inbound)."
 
 // Redis operations
 // These will be moved in the final PR
@@ -37,8 +38,22 @@ SUBSYSTEM_DEF(redis)
 		for(var/datum/redis_message/RM in queue)
 			publish(RM.channel, RM.message)
 
-	// Subscribe to the debug send
-	setup_debug_callback() // TODO: Remove
+		// Setup all callbacks
+		for(var/cb in subtypesof(/datum/redis_callback))
+			var/datum/redis_callback/RCB = new cb()
+			if(isnull(RCB.channel))
+				stack_trace("[RCB.type] has no channel set!")
+				continue
+
+			if(RCB.channel in subbed_channels)
+				stack_trace("Attempted to subscribe to the channel '[RCB.channel]' from [RCB.type] twice!")
+
+			rustg_redis_subscribe(RCB.channel)
+			subbed_channels[RCB.channel] = RCB
+
+		var/amount_registered = length(subbed_channels)
+		log_startup_progress("Registered [amount_registered] callback[amount_registered == 1 ? "" : "s"].")
+
 	return ..()
 
 /datum/controller/subsystem/redis/fire()
@@ -47,39 +62,13 @@ SUBSYSTEM_DEF(redis)
 
 // Redis integration stuff
 /datum/controller/subsystem/redis/proc/connect()
-	rustg_redis_connect("redis://10.0.0.10/") // MAKE A CONFIG STRING LATER YOU DONKEY
-	connected = TRUE
-
+	if(GLOB.configuration.redis.enabled)
+		rustg_redis_connect(GLOB.configuration.redis.connstring)
+		connected = TRUE
 
 /datum/controller/subsystem/redis/proc/disconnect()
 	rustg_redis_disconnect()
 	connected = FALSE
-
-
-/**
-  * Subscribes to a redis channel
-  *
-  * This proc will have the game subscribe to a channel.
-  * In doing so, the callback given will then trigger with the channel events.
-  * Please use this, as opposed to manually invoking rustg_redis_subscribe()
-  *
-  * Arguments:
-  * * channel_name - Channel to subscribe to
-  * * proc_callback - The callback to run when a message is receievd
-  */
-/datum/controller/subsystem/redis/proc/subscribe(channel_name, datum/callback/proc_callback)
-	ASSERT(!isnull(channel_name))
-	ASSERT(!isnull(proc_callback))
-
-	if(!connected) // TODO: If redis is enabled in config, but we arent connected, throw a stack trace
-		return
-
-	if(channel_name in subbed_channels)
-		CRASH("Attempted to subscribe to the channel '[channel_name]' twice!")
-
-	rustg_redis_subscribe(channel_name)
-	subbed_channels[channel_name] = proc_callback
-
 
 /datum/controller/subsystem/redis/proc/check_messages()
 	var/raw_data = rustg_redis_get_messages()
@@ -88,23 +77,22 @@ SUBSYSTEM_DEF(redis)
 	try // Did you know byond had try catch?
 		usable_data = json_decode(raw_data)
 	catch
-		message_admins("REDIS DATA DESERIALIZATION FAILED. INFORM AA07 IMMEDIATELY.")
-		log_debug("REDIS RAW DATA: [raw_data]")
+		message_admins("Failed to deserialise a redis message | Please inform AA.")
+		log_debug("Redis raw data: [raw_data]")
 		return
 
 	for(var/channel in usable_data)
 		if(channel == RUST_REDIS_ERROR_CHANNEL)
-			message_admins("Redis error: [usable_data[channel]] | Inform AA07") // uh oh
+			message_admins("Redis error: [usable_data[channel]] | Please inform AA.") // uh oh
 			continue
 		// Check its an actual channel
 		if(!(channel in subbed_channels))
 			stack_trace("Recieved a message on the channel '[channel]' when we arent subscribed to it. What the heck?")
 			continue
 
-		var/datum/callback/CB = subbed_channels[channel]
+		var/datum/redis_callback/RCB = subbed_channels[channel]
 		for(var/message in usable_data[channel])
-			CB.InvokeAsync(channel, message)
-
+			RCB.on_message(message)
 
 /datum/controller/subsystem/redis/proc/publish(channel, message)
 	// If we arent alive, queue
@@ -119,38 +107,9 @@ SUBSYSTEM_DEF(redis)
 	rustg_redis_publish(channel, message)
 
 
-/// Holder datum for redis messages sent before the SS is online
-/datum/redis_message
-	/// Destination channel for this message
-	var/channel = null
-	/// Message for that channel
-	var/message = null
-
-
-/**
-  * Example of a redis callback
-  *
-  * The redis event SS will always send the channel the message got receievd on, as well as the message itself.
-  * Any other vars will not be used.
-  * Please use this proc as a copypaste template for future ones
-  *
-  * Arguments:
-  * * channel - Channel the message is from.
-  * * message - The message sent on the channel.
-  */
-/datum/controller/subsystem/redis/proc/debug_callback(channel, message)
-	publish("aa07.debug.in", "Message received at BYOND in channel [channel] at [time_stamp()] - '[message]'") // Send a message to the debug poker
-
-
 // Misc protection stuff
 /datum/controller/subsystem/redis/CanProcCall(procname)
 	return FALSE
 
 /datum/controller/subsystem/redis/vv_edit_var(var_name, var_value)
 	return FALSE // dont even try
-
-
-// TODO: Remove
-/datum/controller/subsystem/redis/proc/setup_debug_callback()
-	var/datum/callback/cb = CALLBACK(src, .proc/debug_callback)
-	subscribe("aa07.debug.out", cb)
