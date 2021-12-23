@@ -22,3 +22,10 @@
   */
 /datum/redis_callback/proc/on_message(message)
 	CRASH("on_message() not overriden for [type]!")
+
+// Misc protections
+/datum/redis_callback/vv_edit_var(var_name, var_value)
+	return FALSE // no
+
+/datum/redis_callback/CanProcCall(procname)
+	return FALSE // no
