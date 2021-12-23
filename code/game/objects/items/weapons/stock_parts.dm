@@ -44,6 +44,21 @@
 	alt_sound = 'sound/items/pshoom_2.ogg'
 	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.5
+	var/empty_mode = 4 //То, что выгружаем. Если меньше или равно, то выгружаем
+
+/obj/item/storage/part_replacer/bluespace/drop_inventory(mob/user)
+	if(user.a_intent == INTENT_HARM) //Меняем режим выгрузки
+		empty_mode -= 1
+		if(empty_mode < 0)
+			empty_mode = 4
+		to_chat(user, "<span class='notice'>[src.name] будет выгружать предметы рангом [empty_mode] и ниже.</span>")
+	else
+		var/turf/T = get_turf(src)
+		hide_from(user)
+		for(var/obj/item/stock_parts/I in contents)
+			if(I.rating <= empty_mode)
+				remove_from_storage(I, T)
+				CHECK_TICK
 
 /obj/item/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exchanging or installing parts.
