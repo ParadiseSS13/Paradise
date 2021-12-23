@@ -387,7 +387,7 @@
 			if("Edit")
 				switch(input(user,"What would you like to edit on \the [src]?") in list("Name", "Photo", "Appearance", "Sex", "Age", "Occupation", "Money Account", "Blood Type", "DNA Hash", "Fingerprint Hash", "Reset Access", "Delete Card Information"))
 					if("Name")
-						var/new_name = reject_bad_name(input(user,"What name would you like to put on this card?","Agent Card Name", ishuman(user) ? user.real_name : user.name))
+						var/new_name = reject_bad_name(input(user,"What name would you like to put on this card?","Agent Card Name", ishuman(user) ? user.real_name : user.name), TRUE)
 						if(!Adjacent(user))
 							return
 						src.registered_name = new_name
