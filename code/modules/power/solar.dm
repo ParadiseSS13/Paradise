@@ -433,11 +433,11 @@
 		C.forceMove(loc)
 	if(stat & BROKEN)
 		to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
-		A.state = STATE_WIRES
+		A.state = 4
 		new /obj/item/shard(drop_location())
 	else
 		to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
-		A.state = STATE_GLASS
+		A.state = 5
 	A.dir = dir
 	A.circuit = M
 	A.update_icon()
