@@ -63,7 +63,12 @@ SUBSYSTEM_DEF(redis)
 // Redis integration stuff
 /datum/controller/subsystem/redis/proc/connect()
 	if(GLOB.configuration.redis.enabled)
-		rustg_redis_connect(GLOB.configuration.redis.connstring)
+		var/conn_failed = rustg_redis_connect(GLOB.configuration.redis.connstring)
+		if(conn_failed)
+			log_startup_progress("Failed to connect to redis. Please inform the server host.")
+			SEND_TEXT(world.log, "Redis connection failure: [conn_failed]")
+			return
+
 		connected = TRUE
 
 /datum/controller/subsystem/redis/proc/disconnect()
@@ -77,13 +82,13 @@ SUBSYSTEM_DEF(redis)
 	try // Did you know byond had try catch?
 		usable_data = json_decode(raw_data)
 	catch
-		message_admins("Failed to deserialise a redis message | Please inform AA.")
+		message_admins("Failed to deserialise a redis message | Please inform the server host.")
 		log_debug("Redis raw data: [raw_data]")
 		return
 
 	for(var/channel in usable_data)
 		if(channel == RUST_REDIS_ERROR_CHANNEL)
-			message_admins("Redis error: [usable_data[channel]] | Please inform AA.") // uh oh
+			message_admins("Redis error: [usable_data[channel]] | Please inform the server host.") // uh oh
 			continue
 		// Check its an actual channel
 		if(!(channel in subbed_channels))
