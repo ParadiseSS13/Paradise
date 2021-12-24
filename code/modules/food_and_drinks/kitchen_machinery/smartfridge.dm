@@ -117,13 +117,13 @@
 			add_overlay("[icon_state]_broken")
 		return
 	if(visible_contents)
-		fridge_contents()
+		update_fridge_contents()
 		if(fill_level)
 			add_overlay("[icon_state][fill_level]")
 	if(icon_addon)
 		add_overlay("[icon_addon]")
 
-/obj/machinery/smartfridge/proc/fridge_contents()
+/obj/machinery/smartfridge/proc/update_fridge_contents()
 	switch(length(contents))
 		if(0)
 			fill_level = null
@@ -465,7 +465,7 @@
 		/obj/item/circuitboard
 	))
 
-/obj/machinery/smartfridge/secure/circuits/fridge_contents()
+/obj/machinery/smartfridge/secure/circuits/update_fridge_contents()
 	switch(length(contents))
 		if(0)
 			fill_level = null

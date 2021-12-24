@@ -27,10 +27,13 @@
 	var/icon_vend
 	/// Icon_state when denying access
 	var/icon_deny
-	/// Icons for shared sprites, or overlays that go over a base sprite. If empty, it defaults to the icon_state as the base name for other states.
+	/// Icon to be an overlay over the base sprite
 	var/icon_addon
+	/// Icon for the broken overlay, defaults to icon_state + _broken
 	var/icon_broken
+	/// Icon for the off overlay, defaults to icon_state + _off
 	var/icon_off
+	/// Icon for the panel overlay, defaults to icon_state + _panel
 	var/icon_panel
 	// Power
 	use_power = IDLE_POWER_USE
@@ -1539,7 +1542,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/engivend
-	name = "\improper Engi_vend"
+	name = "\improper Engi-vend"
 	desc = "Spare tool vending. What? Did you expect some witty description?"
 	icon_state = "engivend"
 	icon_deny = "engivend_deny"
@@ -1656,7 +1659,7 @@
 
 //don't forget to change the refill size if you change the machine's contents!
 /obj/machinery/vending/clothing
-	name = "\improper  ClothesMate" //renamed to make the slogan rhyme
+	name = "\improper ClothesMate" //renamed to make the slogan rhyme
 	desc = "A vending machine for clothing."
 	icon_state = "clothes"
 	icon_panel = "drobe"
@@ -1938,7 +1941,7 @@
 	refill_canister = /obj/item/vending_refill/chemdrobe
 
 /obj/machinery/vending/genedrobe
-	name = "GeneDrobe"
+	name = "\improper GeneDrobe"
 	desc = "A machine for dispensing clothing related to genetics."
 	icon_state = "base_drobe"
 	icon_panel = "drobe"
@@ -1957,7 +1960,7 @@
 	refill_canister = /obj/item/vending_refill/genedrobe
 
 /obj/machinery/vending/scidrobe
-	name = "SciDrobe"
+	name = "\improper SciDrobe"
 	desc = "A simple vending machine suitable to dispense well tailored science clothing. Endorsed by Space Cubans."
 	icon_state = "base_drobe"
 	icon_panel = "drobe"
@@ -1981,7 +1984,7 @@
 	refill_canister = /obj/item/vending_refill/scidrobe
 
 /obj/machinery/vending/robodrobe
-	name = "RoboDrobe"
+	name = "\improper RoboDrobe"
 	desc = "A vending machine designed to dispense clothing known only to roboticists."
 	icon_state = "base_drobe"
 	icon_panel = "drobe"
@@ -2000,7 +2003,7 @@
 	refill_canister = /obj/item/vending_refill/robodrobe
 
 /obj/machinery/vending/engidrobe
-	name = "EngiDrobe"
+	name = "\improper EngiDrobe"
 	desc = "A vending machine renowned for vending industrial grade clothing."
 	icon_state = "yellow_drobe"
 	icon_panel = "drobe"
@@ -2030,7 +2033,7 @@
 	refill_canister = /obj/item/vending_refill/engidrobe
 
 /obj/machinery/vending/atmosdrobe
-	name = "AtmosDrobe"
+	name = "\improper AtmosDrobe"
 	desc = "This relatively unknown vending machine delivers clothing for Atmospherics Technicians, an equally unknown job."
 	icon_state = "yellow_drobe"
 	icon_panel = "drobe"
@@ -2060,7 +2063,7 @@
 	refill_canister = /obj/item/vending_refill/atmosdrobe
 
 /obj/machinery/vending/cargodrobe
-	name = "CargoDrobe"
+	name = "\improper CargoDrobe"
 	desc = "A highly advanced vending machine for buying cargo related clothing for free... most of the time."
 	icon_state = "yellow_drobe"
 	icon_panel = "drobe"
@@ -2082,7 +2085,7 @@
 	refill_canister = /obj/item/vending_refill/cargodrobe
 
 /obj/machinery/vending/chefdrobe
-	name = "ChefDrobe"
+	name = "\improper ChefDrobe"
 	desc = "This vending machine might not dispense meat, but it certainly dispenses chef related clothing."
 	icon_state = "base_drobe"
 	icon_panel = "drobe"
@@ -2103,7 +2106,7 @@
 	refill_canister = /obj/item/vending_refill/chefdrobe
 
 /obj/machinery/vending/bardrobe
-	name = "BarDrobe"
+	name = "\improper BarDrobe"
 	desc = "A stylish vendor to dispense the most stylish bar clothing!"
 	icon_state = "bardrobe"
 	icon_panel = "drobe"
@@ -2122,7 +2125,7 @@
 	refill_canister = /obj/item/vending_refill/bardrobe
 
 /obj/machinery/vending/hydrodrobe
-	name = "HydroDrobe"
+	name = "\improper HydroDrobe"
 	desc = "A machine with a catchy name. It dispenses botany related clothing and gear."
 	icon_state = "hydrobe"
 	icon_panel = "drobe"
