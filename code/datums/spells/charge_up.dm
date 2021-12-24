@@ -50,7 +50,7 @@
 
 /obj/effect/proc_holder/spell/charge_up/proc/StartChargeup(mob/user)
 	to_chat(user, "<span class='notice'>[start_charging_text]</span>")
-	user.overlays.Add(charge_up_overlay)
+	user.add_overlay(charge_up_overlay)
 	playsound(user, charge_sound, 50, FALSE, channel = charge_sound.channel)
 	start_time = world.time
 	if(do_mob(user, user, max_charge_time, extra_checks = list(CALLBACK(src, .proc/stopped_casting)), only_use_extra_checks = TRUE))
@@ -62,7 +62,7 @@
 
 /obj/effect/proc_holder/spell/charge_up/proc/Reset(mob/user)
 	start_time = 0
-	user.overlays.Remove(charge_up_overlay)
+	user.cut_overlay(charge_up_overlay)
 	remove_ranged_ability(user)
 	playsound(user, null, 50, FALSE, channel = charge_sound.channel)
 
