@@ -372,10 +372,8 @@ DEFINE_BITFIELD(smoothing_junction, list(
 					var/junction_dir = reverse_ndir(smoothing_junction)
 					var/turned_adjacency = reverse_direction(junction_dir)
 					var/turf/neighbor_turf = get_step(src, turned_adjacency & (NORTH|SOUTH))
-					if(!neighbor_turf)
-						return //Map-edge turfs that call this cause runtimes due to null turfs
 					var/mutable_appearance/underlay_appearance = mutable_appearance(layer = TURF_LAYER, plane = FLOOR_PLANE)
-					if(!neighbor_turf.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
+					if(neighbor_turf && !neighbor_turf.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
 						neighbor_turf = get_step(src, turned_adjacency & (EAST|WEST))
 						if(!neighbor_turf.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
 							neighbor_turf = get_step(src, turned_adjacency)
