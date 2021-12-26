@@ -153,7 +153,7 @@
 		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
 		return
 	if(sleeping)
-		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be asleep.</span>"
+		. += "<span class='notice'>Upon closer examination, [p_they()] appear[p_s()] to be asleep.</span>"
 
 /mob/living/simple_animal/updatehealth(reason = "none given")
 	..(reason)
