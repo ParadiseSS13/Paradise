@@ -127,7 +127,8 @@ lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels wh
 		return
 
 	if(orbiter)
-		SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, orbiter)
+		if(!QDELETED(parent))
+			SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, orbiter)
 
 		orbiter.transform = get_cached_transform(orbiter)
 
