@@ -51,7 +51,7 @@
 /obj/item/implant/death_alarm/implant(mob/target)
 	if(..())
 		mobname = target.real_name
-		RegisterSignal(target, COMSIG_MOB_DEATH, /obj/item/implant/death_alarm/activate)
+		RegisterSignal(target, COMSIG_MOB_DEATH, /obj/item/implant/death_alarm.proc/activate)
 		return 1
 	return 0
 
