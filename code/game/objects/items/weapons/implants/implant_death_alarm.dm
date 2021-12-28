@@ -18,20 +18,10 @@
 	return dat
 
 /obj/item/implant/death_alarm/Destroy()
-	STOP_PROCESSING(SSobj, src)
+	UnregisterSignal(imp_in, COMSIG_MOB_DEATH)
 	return ..()
 
-/obj/item/implant/death_alarm/process()
-	if(!implanted)
-		return
-	var/mob/M = imp_in
-
-	if(isnull(M)) // If the mob got gibbed
-		activate()
-	else if(M.stat == DEAD)
-		activate("death")
-
-/obj/item/implant/death_alarm/activate(cause)
+/obj/item/implant/death_alarm/activate(name, cause) // Death signal sends name followed by the gibbed / not gibbed check
 	var/mob/M = imp_in
 	var/area/t = get_area(M)
 
@@ -39,34 +29,34 @@
 	a.follow_target = M
 
 	switch(cause)
-		if("death")
-			if(is_type_in_typecache(t, stealth_areas))
-				//give the syndies a bit of stealth
-				a.autosay("[mobname] has died in Space!", "[mobname]'s Death Alarm")
-			else
-				a.autosay("[mobname] has died in [t.name]!", "[mobname]'s Death Alarm")
+		if(TRUE)
+			a.autosay("[name] has died-zzzzt in-in-in...", "[name]'s Death Alarm")
 			qdel(src)
 		if("emp")
-			var/name = prob(50) ? t.name : pick(SSmapping.teleportlocs)
-			a.autosay("[mobname] has died in [name]!", "[mobname]'s Death Alarm")
+			var/area_name = prob(50) ? t.name : pick(SSmapping.teleportlocs)
+			a.autosay("[name] has died in [area_name]!", "[name]'s Death Alarm")
 		else
-			a.autosay("[mobname] has died-zzzzt in-in-in...", "[mobname]'s Death Alarm")
+			if(is_type_in_typecache(t, stealth_areas))
+				//give the syndies a bit of stealth
+				a.autosay("[name] has died in Space!", "[name]'s Death Alarm")
+			else
+				a.autosay("[name] has died in [t.name]!", "[name]'s Death Alarm")
 			qdel(src)
 
 	qdel(a)
 
 /obj/item/implant/death_alarm/emp_act(severity)			//for some reason alarms stop going off in case they are emp'd, even without this
-	activate("emp")	//let's shout that this dude is dead
+	activate(mobname, "emp")	//let's shout that this dude is dead
 
 /obj/item/implant/death_alarm/implant(mob/target)
 	if(..())
 		mobname = target.real_name
-		START_PROCESSING(SSobj, src)
+		RegisterSignal(target, COMSIG_MOB_DEATH, /obj/item/implant/death_alarm/activate)
 		return 1
 	return 0
 
 /obj/item/implant/death_alarm/removed(mob/target)
 	if(..())
-		STOP_PROCESSING(SSobj, src)
+		UnregisterSignal(target, COMSIG_MOB_DEATH)
 		return 1
 	return 0
