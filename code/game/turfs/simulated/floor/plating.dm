@@ -376,14 +376,12 @@
 	name = "ice sheet"
 	desc = "A sheet of solid ice. Looks slippery."
 	icon = 'icons/turf/floors/ice_turf.dmi'
-	icon_state = "unsmooth"
+	icon_state = "ice_turf-0"
 	oxygen = 22
 	nitrogen = 82
 	temperature = 180
 	baseturf = /turf/simulated/floor/plating/ice
 	slowdown = TRUE
-	smoothing_flags = SMOOTH_CORNERS
-	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ICE)
 
 /turf/simulated/floor/plating/ice/Initialize(mapload)
 	. = ..()
@@ -393,9 +391,11 @@
 	return
 
 /turf/simulated/floor/plating/ice/smooth
-	icon_state = "smooth"
-	smoothing_flags = SMOOTH_CORNERS | SMOOTH_BORDER
-	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ICE)
+	icon_state = "ice_turf-255"
+	base_icon_state = "ice_turf"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	canSmoothWith = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_FLOOR_ICE)
+	smoothing_groups = list(SMOOTH_GROUP_FLOOR_ICE)
 
 /turf/simulated/floor/plating/nitrogen
 	oxygen = 0

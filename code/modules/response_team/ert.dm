@@ -174,7 +174,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	//Creates mind stuff.
 	M.mind = new
 	M.mind.current = M
-	M.mind.original = M
+	M.mind.set_original_mob(M)
 	M.mind.assigned_role = SPECIAL_ROLE_ERT
 	M.mind.special_role = SPECIAL_ROLE_ERT
 	M.mind.offstation_role = TRUE

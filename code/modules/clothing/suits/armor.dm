@@ -301,10 +301,10 @@
 	disabled = TRUE
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
+	addtimer(CALLBACK(src, .proc/reboot), disable_time SECONDS)
 	if(istype(loc, /mob/living/carbon/human))
 		var/mob/living/carbon/human/C = loc
 		C.update_inv_wear_suit()
-		addtimer(CALLBACK(src, .proc/reboot), disable_time SECONDS)
 
 /obj/item/clothing/suit/armor/reactive/proc/reboot()
 	disabled = FALSE

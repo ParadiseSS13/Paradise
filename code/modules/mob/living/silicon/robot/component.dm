@@ -2,7 +2,7 @@
 
 /datum/robot_component
 	var/name = "Component"
-	var/installed = 0
+	var/installed = FALSE
 	var/powered = 1
 	var/toggled = 1
 	var/brute_damage = 0
@@ -16,27 +16,33 @@
 /datum/robot_component/New(mob/living/silicon/robot/R)
 	owner = R
 
-/datum/robot_component/proc/install()
+// Should only ever be destroyed when a borg gets destroyed
+/datum/robot_component/Destroy(force, ...)
+	owner = null
+	QDEL_NULL(wrapped)
+	return ..()
+
+/datum/robot_component/proc/install(obj/item/I, update_health = TRUE)
+	wrapped = I
+	installed = TRUE
 	go_online()
-	owner.updatehealth("component '[src]' installed")
+	if(update_health)
+		owner.updatehealth("component '[src]' installed")
 
 /datum/robot_component/proc/uninstall()
+	wrapped = null
+	installed = FALSE
 	go_offline()
 	owner.updatehealth("component '[src]' removed")
 
 /datum/robot_component/proc/destroy()
 	if(wrapped)
 		qdel(wrapped)
-
-
+	uninstall()
 	wrapped = new/obj/item/broken_device
 
-	// The thing itself isn't there anymore, but some fried remains are.
-	installed = -1
-	uninstall()
-
 /datum/robot_component/proc/take_damage(brute, electronics, sharp, updating_health = TRUE)
-	if(installed != 1)
+	if(!installed)
 		return
 
 	if(owner && updating_health)
@@ -51,7 +57,7 @@
 	SStgui.update_uis(owner.self_diagnosis)
 
 /datum/robot_component/proc/heal_damage(brute, electronics, updating_health = TRUE)
-	if(installed != 1)
+	if(!installed)
 		// If it's not installed, can't repair it.
 		return 0
 
@@ -64,7 +70,14 @@
 	SStgui.update_uis(owner.self_diagnosis)
 
 /datum/robot_component/proc/is_powered()
-	return (installed == 1) && (brute_damage + electronics_damage < max_damage) && (powered)
+	return installed && (brute_damage + electronics_damage < max_damage) && (powered)
+
+/datum/robot_component/proc/is_destroyed()
+	return istype(wrapped, /obj/item/broken_device)
+
+
+/datum/robot_component/proc/is_missing()
+	return isnull(wrapped)
 
 /datum/robot_component/proc/consume_power()
 	if(toggled == 0)
@@ -113,15 +126,21 @@
 	name = "power cell"
 	max_damage = 50
 
-/datum/robot_component/cell/New(mob/living/silicon/robot/R)
-	. = ..()
-	// sets `external_type` to the borg's currently installed cell type
-	if(owner.cell)
-		var/obj/item/stock_parts/cell/C = owner.cell
-		external_type = C.type
+/datum/robot_component/cell/install(obj/item/stock_parts/cell/C)
+	external_type = C.type // Update the cell component's `external_type` to the path of new cell
+	owner.cell = C
+	..()
+
+/datum/robot_component/cell/uninstall()
+	..()
+	owner.cell = null
 
 /datum/robot_component/cell/is_powered()
 	return ..() && owner.cell
+
+/datum/robot_component/cell/Destroy(force, ...)
+	owner.cell = null
+	return ..()
 
 /datum/robot_component/cell/destroy()
 	..()
@@ -168,7 +187,7 @@
 
 /mob/living/silicon/robot/proc/is_component_functioning(module_name)
 	var/datum/robot_component/C = components[module_name]
-	return C && C.installed == 1 && C.toggled && C.is_powered() && !C.component_disabled
+	return C && C.installed && C.toggled && C.is_powered() && !C.component_disabled
 
 /mob/living/silicon/robot/proc/disable_component(module_name, duration)
 	var/datum/robot_component/D = get_component(module_name)
@@ -282,7 +301,7 @@
 					for(var/datum/robot_component/org in damaged)
 						user.show_message(text("<span class='notice'>\t []: [][] - [] - [] - []</span>",	\
 						capitalize(org.name),					\
-						(org.installed == -1)	?	"<font color='red'><b>DESTROYED</b></font> "							:"",\
+						(org.is_destroyed())	?	"<font color='red'><b>DESTROYED</b></font> "							:"",\
 						(org.electronics_damage > 0)	?	"<font color='#FFA500'>[org.electronics_damage]</font>"	:0,	\
 						(org.brute_damage > 0)	?	"<font color='red'>[org.brute_damage]</font>"							:0,		\
 						(org.toggled)	?	"Toggled ON"	:	"<font color='red'>Toggled OFF</font>",\
