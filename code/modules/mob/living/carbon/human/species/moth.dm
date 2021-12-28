@@ -86,10 +86,12 @@
 	to_chat(H, "<span class='danger'>The lamp friends are too bright, and dazzle you!</span>")
 
 /datum/species/moth/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	..()
 	if(R.id == "pestkiller")
 		H.adjustToxLoss(3)
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+		return TRUE
+
+	return ..()
 
 /datum/species/moth/get_species_runechat_color(mob/living/carbon/human/H)
 	return H.m_colours["body"]
