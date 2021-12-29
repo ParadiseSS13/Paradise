@@ -19,9 +19,9 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 	rights_needed = R_MENTOR | R_ADMIN | R_MOD
 
 /datum/controller/subsystem/tickets/mentor_tickets/Initialize()
-	close_messages = list("<font color='red' size='3'><b>- [ticket_name] Closed -</b></font>",
-				"<span class='boldmessage'>Please try to be as descriptive as possible in mentor helps. Mentors do not know the full situation you're in and need more information to give you a helpful response.</span>",
-				"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
+	close_messages = list("<font color='red' size='3'><b>- [ticket_name] Закрыт -</b></font>",
+				"<span class='boldmessage'>Пожалуйста, постарайтесь быть как можно более описательными в mentor helps. Менторы не знают всей ситуации, в которой вы находитесь, и нуждаются в дополнительной информации, чтобы дать вам полезный ответ.</span>",
+				"<span class='[span_class]'>Ващ [ticket_name] теперь закрыт.</span>")
 	return ..()
 
 /datum/controller/subsystem/tickets/mentor_tickets/message_staff(msg, prefix_type = NONE, important = FALSE)

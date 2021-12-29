@@ -43,9 +43,9 @@ SUBSYSTEM_DEF(tickets)
 
 /datum/controller/subsystem/tickets/Initialize()
 	if(!close_messages)
-		close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
-				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>",
-				"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
+		close_messages = list("<font color='red' size='4'><b>- [ticket_name] Отклонено! -</b></font>",
+				"<span class='boldmessage'>Пожалуйста, постарайтесь быть спокойным, ясным и описательным в Admin Help, не предполагайте что администратор видел какие-либо связанные события, и четко укажите имена тех, о ком вы сообщаете. Если вы задали вопрос, убедитесь, что вам понятно, о чем вы спрашиваете.</span>",
+				"<span class='[span_class]'>Ваш [ticket_name] теперь закрыт.</span>")
 	return ..()
 
 /datum/controller/subsystem/tickets/fire()
@@ -54,7 +54,7 @@ SUBSYSTEM_DEF(tickets)
 		var/report
 		for(var/num in stales)
 			report += "[num], "
-		message_staff("<span class='[span_class]'>Tickets [report] have been open for over [TICKET_TIMEOUT / 600] minutes. Changing status to stale.</span>")
+		message_staff("<span class='[span_class]'>Тикет [report] был открыт [TICKET_TIMEOUT / 600] минут. Меняю статус на stale.</span>")
 
 /datum/controller/subsystem/tickets/stat_entry()
 	..("Tickets: [LAZYLEN(allTickets)]")
@@ -100,7 +100,7 @@ SUBSYSTEM_DEF(tickets)
 		ticketNum = T.ticketNum
 		T.addResponse(C, text)
 		T.setCooldownPeriod()
-		to_chat(C.mob, "<span class='[span_class]'>Your [ticket_name] #[ticketNum] remains open! Visit \"My tickets\" under the Admin Tab to view it.</span>")
+		to_chat(C.mob, "<span class='[span_class]'>Ваш [ticket_name] #[ticketNum] остаётся открытым! Зайдите \"My tickets\" во вкладке Admin чтобы просмотреть.</span>")
 		var/url_message = makeUrlMessage(C, text, ticketNum)
 		message_staff(url_message, NONE, TRUE)
 	else
@@ -141,7 +141,7 @@ SUBSYSTEM_DEF(tickets)
 	T.mobControlled = C.mob
 
 	//Inform the user that they have opened a ticket
-	to_chat(C, "<span class='[span_class]'>You have opened [ticket_name] number #[(getTicketCounter() - 1)]! Please be patient and we will help you soon!</span>")
+	to_chat(C, "<span class='[span_class]'>Вы открыли [ticket_name] номер #[(getTicketCounter() - 1)]! Пожалуйста будьте спокойны и вам скоро помогут!</span>")
 	var/ticket_open_sound = sound('sound/effects/adminticketopen.ogg')
 	SEND_SOUND(C, ticket_open_sound)
 
@@ -151,7 +151,7 @@ SUBSYSTEM_DEF(tickets)
 /datum/controller/subsystem/tickets/proc/openTicket(N)
 	var/datum/ticket/T = allTickets[N]
 	if(T.ticketState != TICKET_OPEN)
-		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) re-opened [ticket_name] number [N]</span>")
+		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) снова открыл [ticket_name] номер #[N]</span>")
 		T.ticketState = TICKET_OPEN
 		return TRUE
 
@@ -160,14 +160,14 @@ SUBSYSTEM_DEF(tickets)
 	var/datum/ticket/T = allTickets[N]
 	if(T.ticketState != TICKET_RESOLVED)
 		T.ticketState = TICKET_RESOLVED
-		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) resolved [ticket_name] number [N]</span>")
-		to_chat_safe(returnClient(N), "<span class='[span_class]'>Your [ticket_name] has now been resolved.</span>")
+		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) решил [ticket_name] номер [N]</span>")
+		to_chat_safe(returnClient(N), "<span class='[span_class]'>Ваш [ticket_name] был решён.</span>")
 		return TRUE
 
 /datum/controller/subsystem/tickets/proc/convert_to_other_ticket(ticketId)
 	if(!check_rights(rights_needed))
 		return
-	if(alert("Are you sure to convert this ticket to an '[other_ticket_name]' ticket?",,"Yes","No") != "Yes")
+	if(alert("Вы уверены что хотите конвертнуть тикет в '[other_ticket_name]' тикет?",,"Yes","No") != "Yes")
 		return
 	if(!other_ticket_system_staff_check())
 		return
@@ -177,7 +177,7 @@ SUBSYSTEM_DEF(tickets)
 /datum/controller/subsystem/tickets/proc/other_ticket_system_staff_check()
 	var/list/staff = staff_countup(other_ticket_permission)
 	if(!staff[1])
-		if(alert("No active staff online to answer the ticket. Are you sure you want to convert the ticket?",, "No", "Yes") != "Yes")
+		if(alert("Нету активных администраторов, чтобы ответить на тикет. Вы уверены что хотите конвертнуть тикет?",, "No", "Yes") != "Yes")
 			return FALSE
 	return TRUE
 
@@ -185,9 +185,9 @@ SUBSYSTEM_DEF(tickets)
 	T.ticketState = TICKET_CLOSED
 	var/client/C = usr.client
 	var/client/owner = get_client_by_ckey(T.client_ckey)
-	to_chat_safe(owner, list("<span class='[span_class]'>[key_name_hidden(C)] has converted your ticket to a [other_ticket_name] ticket.</span>",\
+	to_chat_safe(owner, list("<span class='[span_class]'>[key_name_hidden(C)] перевёл ваш тикет в [other_ticket_name] тикет.</span>",\
 									"<span class='[span_class]'>Be sure to use the correct type of help next time!</span>"))
-	message_staff("<span class='[span_class]'>[C] has converted ticket number [T.ticketNum] to a [other_ticket_name] ticket.</span>")
+	message_staff("<span class='[span_class]'>[C] конвертнул тикет номер #[T.ticketNum] в [other_ticket_name] тикет.</span>")
 	log_game("[C] has converted ticket number [T.ticketNum] to a [other_ticket_name] ticket.")
 	create_other_system_ticket(T)
 
@@ -206,30 +206,30 @@ SUBSYSTEM_DEF(tickets)
 			return
 	T.assignStaff(C)
 
-	var/response_phrases = list("Thanks" = "Thanks, have a Paradise day!",
-		"Handling It" = "The issue is being looked into, thanks.",
-		"Already Resolved" = "The problem has been resolved already.",
-		"Mentorhelp" = "Please redirect your question to Mentorhelp, as they are better experienced with these types of questions.",
-		"Happens Again" = "Thanks, let us know if it continues to happen.",
-		"Github Issue Report" = "To report a bug, please go to our <a href='[config.githuburl]'>Github page</a>. Then go to 'Issues'. Then 'New Issue'. Then fill out the report form. If the report would reveal current-round information, file it after the round ends.",
-		"Clear Cache" = "To fix a blank screen, go to the 'Special Verbs' tab and press 'Reload UI Resources'. If that fails, clear your BYOND cache (instructions provided with 'Reload UI Resources'). If that still fails, please adminhelp again, stating you have already done the following." ,
-		"IC Issue" = "This is an In Character (IC) issue and will not be handled by admins. You could speak to Security, Internal Affairs, a Departmental Head, Nanotrasen Representetive, or any other relevant authority currently on station.",
-		"Reject" = "Reject",
+	var/response_phrases = list("Спасибо" = "Спасибо, желаем вам удачного дня!",
+		"Уже рассматриваем" = "Этот вопрос уже рассматривается, спасибо.",
+		"Уже решено" = "Эта проблема уже решена.",
+		"Mentorhelp" = "Прошу перенаправьте этот вопрос в Mentorhelp, так как они лучше разбираются в подобных вопросах.",
+		"Ещё раз случиться" = "Спасибо, дайте нам знать, если это продолжит происходить.",
+		"Github баг репорт" = "Чтобы сообщить баг, пожалуйста перейдите на <a href='[config.githuburl]'>Github сайт</a>. После в 'Issues'. И 'New Issue'. Вскоре заполните все поля и отправьте. Если раунд всё ещё идёт просьба либо сохранить в текстовый файл либо продождите пока раунд не закончиться.",
+		"Очистить кэш" = "Чтобы починить чёрный экран, зайдите в категорию 'Special Verbs' и нажмите 'Reload UI Resources'. Если это не помогло, очистите ваш BYOND кэш (прилагаемая инструкция к 'Reload UI Resources'). Если и это не помогло, пожалуйста adminhelp ещё раз, сказав что вы уже это проходили." ,
+		"IC проблема" = "Это игровая (IC-In Character) ситуация и не будет обрабатываться администраторами. Вы можете поговорить со службой безопасности, АВД, главой отдела, представителем Nanotrasen, или любой другой соответствующий орган, находящийся в настоящее время на станции.",
+		"Отказано" = "Отказано",
 		"Man Up" = "Man Up",
-		"Appeal on the Forums" = "Appealing a ban must occur on the forums. Privately messaging, or adminhelping about your ban will not resolve it. To appeal your ban, please head to <a href='[config.banappeals]'>[config.banappeals]</a>"
+		"Обжаловать в discord" = "Обжалование бана должно происходить в дискорде. ЛС или adminhelp по поводу вашего бана не решат эту проблему. Чтобы обжаловать ваш бан, пожалуйста, перейдите по адресу <a href='[config.banappeals]'>[config.banappeals]</a>"
 		)
 
 	var/sorted_responses = list()
 	for(var/key in response_phrases)	//build a new list based on the short descriptive keys of the master list so we can send this as the input instead of the full paragraphs to the admin choosing which autoresponse
 		sorted_responses += key
 
-	var/message_key = input("Select an autoresponse. This will mark the ticket as resolved.", "Autoresponse") as null|anything in sortTim(sorted_responses, /proc/cmp_text_asc) //use sortTim and cmp_text_asc to sort alphabetically
+	var/message_key = input("Выберите авто-ответ. Это заменит тикет на решёный.", "Autoresponse") as null|anything in sortTim(sorted_responses, /proc/cmp_text_asc) //use sortTim and cmp_text_asc to sort alphabetically
 	var/client/ticket_owner = get_client_by_ckey(T.client_ckey)
 	switch(message_key)
 		if(null) //they cancelled
 			T.staffAssigned = initial(T.staffAssigned) //if they cancel we dont need to hold this ticket anymore
 			return
-		if("Reject")
+		if("Отказано")
 			if(!closeTicket(N))
 				to_chat(C, "Unable to close ticket")
 		if("Man Up")
@@ -282,7 +282,7 @@ SUBSYSTEM_DEF(tickets)
 
 /datum/controller/subsystem/tickets/proc/assignStaffToTicket(client/C, N)
 	var/datum/ticket/T = allTickets[N]
-	if(T.staffAssigned != null && T.staffAssigned != C && alert("Ticket is already assigned to [T.staffAssigned.ckey]. Are you sure you want to take it?","Take ticket","No","Yes") != "Yes")
+	if(T.staffAssigned != null && T.staffAssigned != C && alert("Тикет уже назначен [T.staffAssigned.ckey]. Вы уверены что хотите забрать?","Take ticket","No","Yes") != "Yes")
 		return FALSE
 	T.assignStaff(C)
 	return TRUE
@@ -442,14 +442,14 @@ UI STUFF
 	dat += "<a href='?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(rights_needed, 0) ? "<a href='?src=[UID()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
 
 	if(!T.staffAssigned)
-		dat += "No staff member assigned to this [ticket_name] - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
+		dat += "Никто не назначен на [ticket_name] - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
 	else
-		dat += "[T.staffAssigned] is assigned to this Ticket. - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a> - <a href='?src=[UID()];unassignstaff=[T.ticketNum]'>Unassign Ticket</a><br />"
+		dat += "[T.staffAssigned] назначен на этот тикет. - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a> - <a href='?src=[UID()];unassignstaff=[T.ticketNum]'>Unassign Ticket</a><br />"
 
 	if(T.lastStaffResponse)
-		dat += "<b>Last Staff response Response:</b> [T.lastStaffResponse] at [T.lastResponseTime]"
+		dat += "<b>Последний ответ:</b> [T.lastStaffResponse] в [T.lastResponseTime]"
 	else
-		dat +="<font color='red'>No Staff Response</font>"
+		dat +="<font color='red'>Без ответа</font>"
 
 	dat += "<br /><br />"
 
@@ -542,9 +542,9 @@ UI STUFF
 	if(href_list["detailclose"])
 		var/indexNum = text2num(href_list["detailclose"])
 		if(!check_rights(close_rights))
-			to_chat(usr, "<span class='warning'>Not enough rights to close this ticket.</span>")
+			to_chat(usr, "<span class='warning'>Недостаточно прав чтобы закрыть тикет.</span>")
 			return
-		if(alert("Are you sure? This will send a negative message.",,"Yes","No") != "Yes")
+		if(alert("Вы уверены? Это отправит отрицательное сообщение.",,"Yes","No") != "Yes")
 			return
 		if(closeTicket(indexNum))
 			showDetailUI(usr, indexNum)
@@ -581,20 +581,20 @@ UI STUFF
 /datum/controller/subsystem/tickets/proc/takeTicket(var/index)
 	if(assignStaffToTicket(usr.client, index))
 		if(span_class == "mentorhelp")
-			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>")
+			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) взял [ticket_name] номер [index]</span>")
 		else
-			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>", TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
-		to_chat_safe(returnClient(index), "<span class='[span_class]'>Your [ticket_name] is being handled by [usr.client].</span>")
+			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) взял [ticket_name] номер [index]</span>", TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
+		to_chat_safe(returnClient(index), "<span class='[span_class]'>Ваш [ticket_name] обрабатывается [usr.client].</span>")
 
 /datum/controller/subsystem/tickets/proc/unassignTicket(index)
 	var/datum/ticket/T = allTickets[index]
-	if(T.staffAssigned != null && (T.staffAssigned == usr.client || alert("Ticket is already assigned to [T.staffAssigned]. Do you want to unassign it?","Unassign ticket","No","Yes") == "Yes"))
+	if(T.staffAssigned != null && (T.staffAssigned == usr.client || alert("Тикет уже назначен [T.staffAssigned]. Вы хотите снять с тикета?","Unassign ticket","No","Yes") == "Yes"))
 		T.staffAssigned = null
-		to_chat_safe(returnClient(index), "<span class='[span_class]'>Your [ticket_name] has been unassigned. Another staff member will help you soon.</span>")
+		to_chat_safe(returnClient(index), "<span class='[span_class]'>Ваш [ticket_name] больше не обрабатывают. Другой сотрудник скоро вам поможет.</span>")
 		if(span_class == "mentorhelp")
-			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) has unassigned [ticket_name] number [index]</span>")
+			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) has unassigned [ticket_name] номер [index]</span>")
 		else
-			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has unassigned [ticket_name] number [index]</span>", TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
+			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has unassigned [ticket_name] номер [index]</span>", TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
 
 #undef TICKET_STAFF_MESSAGE_ADMIN_CHANNEL
 #undef TICKET_STAFF_MESSAGE_PREFIX
