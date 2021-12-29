@@ -211,17 +211,11 @@
 	icon_state = "toolbox_tiles_sensor"
 
 /obj/item/storage/toolbox/attackby(obj/item/stack/tile/plasteel/T, mob/user, params)
-	var/list/allowed_toolbox = list(/obj/item/storage/toolbox/emergency,	//which toolboxes can be made into floorbots
-								/obj/item/storage/toolbox/electrical,
-								/obj/item/storage/toolbox/mechanical,
-								/obj/item/storage/toolbox/green,
-								/obj/item/storage/toolbox/syndicate,
-								/obj/item/storage/toolbox/fakesyndi)
 
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		..()
 		return
-	if(!is_type_in_list(src, allowed_toolbox))
+	if(!istype(src, /obj/item/storage/toolbox))
 		return
 	if(type == /obj/item/storage/toolbox/green/memetic)
 		return
