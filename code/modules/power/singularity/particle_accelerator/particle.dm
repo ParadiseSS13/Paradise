@@ -5,15 +5,13 @@
 	icon_state = "particle"
 	anchored = TRUE
 	density = FALSE
-	var/movement_range = 11
+	var/movement_range = 16
 	var/energy = 10
 
 /obj/effect/accelerated_particle/weak
-	movement_range = 9
 	energy = 5
 
 /obj/effect/accelerated_particle/strong
-	movement_range = 16
 	energy = 15
 
 /obj/effect/accelerated_particle/powerful
