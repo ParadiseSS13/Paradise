@@ -26,7 +26,7 @@
 			owner?.adjustStaminaLoss(20)
 		if(2)
 			owner?.adjustStaminaLoss(10)
-	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, causing fatigue!</span>")
+	to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, вызывая усталость!</span>")
 
 /obj/item/organ/external/groin
 	name = "lower body"
@@ -61,8 +61,8 @@
 	var/hand = (body_part == ARM_LEFT) ? owner.l_hand : owner.r_hand
 	if(hand && owner.canUnEquip(hand))
 		owner.unEquip(hand)
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
-		owner.custom_emote(1, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
+		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, бросая то что держал!</span>")
+		owner.custom_emote(1, "бросает [owner.p_they()] [owner.p_were()] держали, [owner.p_their()] [name] выходя из строя!")
 
 /obj/item/organ/external/arm/right
 	limb_name = "r_arm"
@@ -91,11 +91,11 @@
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
 	if(owner.weakened)
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, preventing you from getting back up!</span>")
-		owner.custom_emote(1, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
+		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, не давая вам встать!</span>")
+		owner.custom_emote(1, "не может встать, [owner.p_their()] [name] выходя из строя!")
 	else
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping you to the ground!</span>")
-		owner.custom_emote(1, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
+		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, заставив вас упасть на пол!</span>")
+		owner.custom_emote(1, "упал на пол, [owner.p_their()] [name] выходя из строя!")
 	switch(severity)
 		if(1)
 			owner.AdjustWeakened(4)
@@ -129,11 +129,11 @@
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
 	if(owner.weakened)
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, preventing you from getting back up!</span>")
-		owner.custom_emote(1, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
+		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, не давая вам встать!</span>")
+		owner.custom_emote(1, "не может встать, [owner.p_their()] [name] выходя из строя")
 	else
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping you to the ground!</span>")
-		owner.custom_emote(1, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
+		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, падая на пол!</span>")
+		owner.custom_emote(1, "падая на пол, [owner.p_their()] [name] выходя из строя")
 	switch(severity)
 		if(1)
 			owner.AdjustWeakened(4)
@@ -172,8 +172,8 @@
 	var/hand = (body_part == HAND_LEFT) ? owner.l_hand : owner.r_hand
 	if(hand && owner.canUnEquip(hand))
 		owner.unEquip(hand)
-		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
-		owner.custom_emote(1, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
+		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, dropping what it was holding!</span>")
+		owner.custom_emote(1, "бросает [owner.p_they()] [owner.p_were()] держали, [owner.p_their()] [name] выходя из строя")
 
 /obj/item/organ/external/hand/remove()
 	if(owner)
@@ -283,7 +283,7 @@
 			owner?.AdjustConfused(30)
 		if(2)
 			owner?.AdjustConfused(20)
-	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, overloading your motor control!</span>")
+	to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, перегружая ваше управление!</span>")
 
 /obj/item/organ/external/tail
 	limb_name = "tail"

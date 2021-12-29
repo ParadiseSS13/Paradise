@@ -73,10 +73,10 @@
 
 	if(is_bruised())
 		if(prob(2))
-			owner.custom_emote(1, "coughs up blood!")
+			owner.custom_emote(1, "кашляет кровью!")
 			owner.bleed(1)
 		if(prob(4))
-			owner.custom_emote(1, "gasps for air!")
+			owner.custom_emote(1, "задыхается!")
 			owner.AdjustLoseBreath(5)
 
 /obj/item/organ/internal/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)

@@ -1,7 +1,7 @@
 /mob/living/carbon/human/emote(act, m_type = 1, message = null, force)
 
-	if((stat == DEAD) || (status_flags & FAKEDEATH))
-		return // No screaming bodies
+	if((stat != CONSCIOUS) || (status_flags & FAKEDEATH))
+		return // You can't just scream if you dead or sleeping
 
 	var/param = null
 	if(findtext(act, "-", 1, null))
@@ -850,15 +850,19 @@
 			m_type = 1
 
 		if("yawn", "yawns")
-			if(!muzzled)
-				message = "зевает."
-				if(gender == FEMALE)
-					playsound(src, pick('sound/voice/yawn_female_1.ogg', 'sound/voice/yawn_female_2.ogg','sound/voice/yawn_female_3.ogg'), 70, 1, frequency = get_age_pitch())
+			if(miming)
+				message = "делает вид что зевает."
+			else
+				if(!muzzled)
+					message = "зевает."
+					if(gender == FEMALE)
+						playsound(src, pick('sound/voice/yawn_female_1.ogg', 'sound/voice/yawn_female_2.ogg','sound/voice/yawn_female_3.ogg'), 70, 1, frequency = get_age_pitch())
+					else
+						playsound(src, pick('sound/voice/yawn_male_1.ogg', 'sound/voice/yawn_male_2.ogg'), 70, 1, frequency = get_age_pitch())
+					m_type = 2
 				else
-					playsound(src, pick('sound/voice/yawn_male_1.ogg', 'sound/voice/yawn_male_2.ogg'), 70, 1, frequency = get_age_pitch())
-				m_type = 2
-				if(miming)
-					m_type = 1
+					message = "издает шум."
+					m_type = 2
 
 		if("collapse", "collapses")
 			Paralyse(2)
@@ -1053,6 +1057,8 @@
 			to_chat(src, emotelist)
 		else
 			to_chat(src, "<span class='notice'>Неизвестный эмоут '[act]'. Введи *help для отображения списка.</span>")
+	if(message) //Humans are special fucking snowflakes and have 800 lines of emotes, they get to handle their own emotes, not call the parent.
+		log_emote(message, src)
 	..()
 
 /mob/living/carbon/human/verb/pose()
