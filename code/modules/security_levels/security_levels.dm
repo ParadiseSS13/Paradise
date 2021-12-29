@@ -212,6 +212,22 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		if(SEC_LEVEL_DELTA)
 			return "ДЕЛЬТА"
 
+
+/proc/get_security_level_ru_colors()
+	switch(GLOB.security_level)
+		if(SEC_LEVEL_GREEN)
+			return "<font color='limegreen'>Зелёный</font>"
+		if(SEC_LEVEL_BLUE)
+			return "<font color='dodgerblue'>Синий</font>"
+		if(SEC_LEVEL_RED)
+			return "<font color='red'>Красный</font>"
+		if(SEC_LEVEL_GAMMA)
+			return "<font color='gold'>Гамма</font>"
+		if(SEC_LEVEL_EPSILON)
+			return "<font color='blueviolet'>Эпсилон</font>"
+		if(SEC_LEVEL_DELTA)
+			return "<font color='orangered'>Дельта</font>"
+
 /proc/get_security_level_l_range()
 	switch(GLOB.security_level)
 		if(SEC_LEVEL_GREEN)

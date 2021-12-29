@@ -492,15 +492,16 @@
 	var/hours = mills / 36000
 
 	var/dat = {"<html><meta charset="UTF-8"><body><center>"}
-	dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
+	dat += "Продолжительность раунда: [round(hours)]h [round(mins)]m<br>"
+	dat += "<b>Уровень угрозы на станции: [get_security_level_ru_colors()]</b><br>"
 
 	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
-		dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"
+		dat += "<font color='red'><b>Станция была эвакуирована.</b></font><br>"
 	else if(SSshuttle.emergency.mode >= SHUTTLE_CALL)
-		dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
+		dat += "<font color='red'>В настоящее время станция проходит процедуру эвакуации.</font><br>"
 
 	if(length(SSjobs.prioritized_jobs))
-		dat += "<font color='lime'>The station has flagged these jobs as high priority: "
+		dat += "<font color='lime'>Станция отметила эти позиции как приоритетные: "
 		var/amt = length(SSjobs.prioritized_jobs)
 		var/amt_count
 		for(var/datum/job/a in SSjobs.prioritized_jobs)
@@ -550,7 +551,7 @@
 				categorizedJobs["Miscellaneous"]["jobs"] += job
 
 	if(num_jobs_available)
-		dat += "Choose from the following open positions:<br><br>"
+		dat += "Выберите из следующих открытых позиций:<br><br>"
 		dat += "<table><tr><td valign='top'>"
 		for(var/jobcat in categorizedJobs)
 			if(categorizedJobs[jobcat]["colBreak"])
