@@ -232,7 +232,6 @@ gamemode_probabilities = [
 	{gamemode = "extend-a-traitormongous", probability = 2}, # Autotraitor
 	{gamemode = "extended", probability = 3},
 	{gamemode = "heist", probability = 0},
-	{gamemode = "meteor", probability = 0},
 	{gamemode = "nuclear", probability = 2},
 	{gamemode = "raginmages", probability = 0},
 	{gamemode = "revolution", probability = 0},

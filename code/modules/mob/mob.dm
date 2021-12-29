@@ -1095,6 +1095,14 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/activate_hand(selhand)
 	return
 
+/mob/proc/add_to_respawnable_list()
+	GLOB.respawnable_list += src
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, .proc/remove_from_respawnable_list)
+
+/mob/proc/remove_from_respawnable_list()
+	GLOB.respawnable_list -= src
+	UnregisterSignal(src, COMSIG_PARENT_QDELETING)
+
 /mob/dead/observer/verb/respawn()
 	set name = "Respawn as NPC"
 	set category = "Ghost"
@@ -1115,17 +1123,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
 		switch(picked)
 			if("Mouse")
-				GLOB.respawnable_list -= usr
+				remove_from_respawnable_list()
 				become_mouse()
-				spawn(5)
-					GLOB.respawnable_list += usr
 			else
 				var/mob/living/NPC = picked
 				if(istype(NPC) && !NPC.key)
-					GLOB.respawnable_list -= usr
+					remove_from_respawnable_list()
 					NPC.key = key
-					spawn(5)
-						GLOB.respawnable_list += usr
 	else
 		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
 		return

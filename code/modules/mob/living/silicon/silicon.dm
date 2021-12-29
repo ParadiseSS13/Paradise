@@ -36,8 +36,6 @@
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
 	var/d_hud = DATA_HUD_DIAGNOSTIC_BASIC //There is only one kind of diag hud
 
-	var/obj/item/radio/common_radio
-
 /mob/living/silicon/New()
 	GLOB.silicon_mob_list |= src
 	..()
@@ -66,7 +64,11 @@
 	QDEL_NULL(crew_monitor)
 	QDEL_NULL(law_manager)
 	QDEL_NULL(power_monitor)
+	QDEL_NULL(aiCamera)
 	return ..()
+
+/mob/living/silicon/proc/get_radio()
+	return
 
 /mob/living/silicon/proc/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
 	return

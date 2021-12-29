@@ -106,7 +106,7 @@
 	return
 
 //Toggle night vision: lets the revenant toggle its night vision
-/obj/effect/proc_holder/spell/targeted/night_vision/revenant
+/obj/effect/proc_holder/spell/night_vision/revenant
 	charge_max = 0
 	panel = "Revenant Abilities"
 	message = "<span class='revennotice'>You toggle your night vision.</span>"
@@ -114,18 +114,21 @@
 	action_background_icon_state = "bg_revenant"
 
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob
-/obj/effect/proc_holder/spell/targeted/revenant_transmit
+/obj/effect/proc_holder/spell/revenant_transmit
 	name = "Transmit"
 	desc = "Telepathically transmits a message to the target."
 	panel = "Revenant Abilities"
 	charge_max = 0
 	clothes_req = 0
-	range = 7
-	include_user = 0
 	action_icon_state = "r_transmit"
 	action_background_icon_state = "bg_revenant"
 
-/obj/effect/proc_holder/spell/targeted/revenant_transmit/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+/obj/effect/proc_holder/spell/revenant_transmit/create_new_targeting()
+	var/datum/spell_targeting/targeted/T = new()
+	T.allowed_type = /mob/living
+	return T
+
+/obj/effect/proc_holder/spell/revenant_transmit/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	for(var/mob/living/M in targets)
 		spawn(0)
 			var/msg = stripped_input(user, "What do you wish to tell [M]?", null, "")
@@ -193,12 +196,16 @@
 	name = "Overload Lights"
 	desc = "Directs a large amount of essence into nearby electrical lights, causing lights to shock those nearby."
 	charge_max = 200
-	range = 5
 	stun = 30
 	cast_amount = 45
 	var/shock_range = 2
 	var/shock_damage = 20
 	action_icon_state = "overload_lights"
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 5
+	return T
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/overload/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
@@ -232,12 +239,16 @@
 	name = "Defile"
 	desc = "Twists and corrupts the nearby area as well as dispelling holy auras on floors."
 	charge_max = 150
-	range = 4
 	stun = 10
 	reveal = 40
 	unlock_amount = 75
 	cast_amount = 30
 	action_icon_state = "defile"
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/defile/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 4
+	return T
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/defile/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(!attempt_cast(user))
@@ -252,10 +263,14 @@
 	name = "Malfunction"
 	desc = "Corrupts and damages nearby machines and mechanical objects."
 	charge_max = 200
-	range = 2
 	cast_amount = 45
 	unlock_amount = 150
 	action_icon_state = "malfunction"
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 2
+	return T
 
 //A note to future coders: do not replace this with an EMP because it will wreck malf AIs and gang dominators and everyone will hate you.
 /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/cast(list/targets, mob/living/simple_animal/revenant/user = usr)

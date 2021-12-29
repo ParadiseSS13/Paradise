@@ -1,3 +1,4 @@
 # Updates DB from 28 to 29 -S34N_W
-# Adds support for persistent ghost darkness
-ALTER TABLE `player` ADD COLUMN `ghost_darkness_level` tinyint(1) UNSIGNED NOT NULL DEFAULT '255'
+# Adds support for screentips
+ALTER TABLE `player` ADD COLUMN `screentip_mode` tinyint(1) DEFAULT '8';
+ALTER TABLE `player` ADD COLUMN `screentip_color` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#ffd391'

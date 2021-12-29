@@ -60,7 +60,9 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/space)
 "ao" = (
-/obj/structure/chair/stool/holostool,
+/obj/structure/chair/stool/holostool{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/holofloor{
 	icon_state = "asteroid"
@@ -157,13 +159,6 @@
 /obj/structure/flora/ausbushes/grassybush,
 /turf/simulated/floor/holofloor/grass,
 /area/holodeck/source_picnicarea)
-"aH" = (
-/obj/structure/chair/stool/holostool,
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet7-3"
-	},
-/area/holodeck/source_theatre)
 "aI" = (
 /obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel/dark/nitrogen,
@@ -183,13 +178,6 @@
 	icon_state = "asteroid"
 	},
 /area/holodeck/source_desert)
-"aM" = (
-/obj/structure/chair/stool/holostool,
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet15-15"
-	},
-/area/holodeck/source_theatre)
 "aN" = (
 /turf/space,
 /area/space)
@@ -226,20 +214,6 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_emptycourt)
-"aS" = (
-/obj/structure/chair/stool/holostool,
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet11-12"
-	},
-/area/holodeck/source_theatre)
-"aV" = (
-/obj/structure/chair/stool/holostool,
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet5-1"
-	},
-/area/holodeck/source_theatre)
 "aW" = (
 /turf/simulated/floor/holofloor{
 	dir = 5;
@@ -259,31 +233,16 @@
 	icon_state = "asteroid"
 	},
 /area/holodeck/source_picnicarea)
-"aZ" = (
-/obj/structure/chair/stool/holostool,
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet13-5"
-	},
-/area/holodeck/source_theatre)
 "ba" = (
-/obj/structure/chair/stool/holostool,
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet9-4"
+/obj/structure/chair/stool/holostool{
+	dir = 1
 	},
+/turf/simulated/floor/holofloor/carpet,
 /area/holodeck/source_theatre)
 "bb" = (
 /obj/structure/table/holotable/wood,
 /turf/simulated/floor/holofloor{
 	icon_state = "grimy"
-	},
-/area/holodeck/source_meetinghall)
-"bc" = (
-/obj/structure/chair/stool/holostool,
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet6-0"
 	},
 /area/holodeck/source_meetinghall)
 "bd" = (
@@ -296,20 +255,6 @@
 /obj/machinery/computer/shuttle/ert,
 /turf/simulated/floor/plasteel/grimy,
 /area/centcom/specops)
-"bf" = (
-/obj/structure/chair/stool/holostool,
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet14-0"
-	},
-/area/holodeck/source_meetinghall)
-"bg" = (
-/obj/structure/chair/stool/holostool,
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet10-0"
-	},
-/area/holodeck/source_meetinghall)
 "bh" = (
 /obj/structure/kitchenspike,
 /turf/simulated/floor/plasteel/dark/nitrogen,
@@ -318,13 +263,6 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark/nitrogen,
 /area/vox_station)
-"bj" = (
-/obj/structure/chair/stool/holostool,
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet7-0"
-	},
-/area/holodeck/source_meetinghall)
 "bk" = (
 /obj/machinery/door/airlock/centcom{
 	opacity = 1
@@ -334,52 +272,12 @@
 "bl" = (
 /turf/simulated/floor/plating/nitrogen,
 /area/vox_station)
-"bm" = (
-/obj/structure/chair/stool/holostool,
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet15-0"
-	},
-/area/holodeck/source_meetinghall)
-"bn" = (
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet6-2"
-	},
-/area/holodeck/source_theatre)
 "bo" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
 	icon_state = "wood"
 	},
 /area/holodeck/source_theatre)
-"bp" = (
-/obj/structure/chair/stool/holostool,
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet11-0"
-	},
-/area/holodeck/source_meetinghall)
-"bq" = (
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet14-10"
-	},
-/area/holodeck/source_theatre)
-"br" = (
-/obj/structure/chair/stool/holostool,
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet5-0"
-	},
-/area/holodeck/source_meetinghall)
-"bs" = (
-/obj/structure/chair/stool/holostool,
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet13-0"
-	},
-/area/holodeck/source_meetinghall)
 "bt" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/holofloor/grass,
@@ -391,11 +289,10 @@
 	},
 /area/holodeck/source_emptycourt)
 "bv" = (
-/obj/structure/chair/stool/holostool,
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet9-0"
+/obj/structure/chair/stool/holostool{
+	dir = 1
 	},
+/turf/simulated/floor/holofloor/carpet,
 /area/holodeck/source_meetinghall)
 "bz" = (
 /obj/machinery/porta_turret/syndicate{
@@ -627,12 +524,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
-"cD" = (
-/turf/simulated/floor/holofloor{
-	dir = 6;
-	icon_state = "carpetsymbol"
-	},
-/area/holodeck/source_meetinghall)
 "cE" = (
 /turf/simulated/floor/holofloor{
 	dir = 8;
@@ -4990,10 +4881,8 @@
 	aiControlDisabled = 1;
 	frequency = 1379;
 	hackProof = 1;
-	icon_state = "door_locked";
 	id_tag = "emergency_away";
-	name = "Arrival Airlock";
-	req_access = null
+	name = "Arrival Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/evac)
@@ -8744,24 +8633,12 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate)
-"Ew" = (
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet2-0"
-	},
-/area/holodeck/source_theatre)
 "Ex" = (
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "burst_r"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/supply)
-"Ez" = (
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet8-0"
-	},
-/area/holodeck/source_meetinghall)
 "EA" = (
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/soda,
@@ -8965,13 +8842,6 @@
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/vox)
-"Fn" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	icon_state = "17"
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
 "Fo" = (
 /obj/structure/closet/crate/internals,
 /obj/item/tank/internals/oxygen/red,
@@ -9576,12 +9446,6 @@
 "IS" = (
 /turf/simulated/floor/plasteel,
 /area/tdome/tdomeadmin)
-"IU" = (
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet10-8"
-	},
-/area/holodeck/source_theatre)
 "IV" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -10010,12 +9874,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
-"LG" = (
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet1-0"
-	},
-/area/holodeck/source_theatre)
 "LH" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/backpack/medic,
@@ -10287,7 +10145,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/shuttle/escape)
 "Ny" = (
 /obj/machinery/optable,
@@ -11315,7 +11173,7 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sunnybush,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/shuttle/escape)
 "TU" = (
 /obj/machinery/ai_status_display,
@@ -11459,10 +11317,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_elite)
 "UK" = (
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet3-0"
-	},
+/turf/simulated/floor/holofloor/carpet,
 /area/holodeck/source_theatre)
 "UM" = (
 /obj/structure/flora/grass/brown,
@@ -11498,6 +11353,15 @@
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
+"Vb" = (
+/obj/structure/chair/stool/holostool{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/holofloor{
+	icon_state = "asteroid"
+	},
+/area/holodeck/source_picnicarea)
 "Vc" = (
 /obj/structure/closet/crate/medical,
 /obj/item/reagent_containers/glass/bottle/morphine,
@@ -11987,10 +11851,7 @@
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/vox)
 "XT" = (
-/turf/simulated/floor/holofloor{
-	dir = 4;
-	icon_state = "carpet4-0"
-	},
+/turf/simulated/floor/holofloor/carpet,
 /area/holodeck/source_meetinghall)
 "XW" = (
 /turf/simulated/floor/plating,
@@ -12288,9 +12149,7 @@
 /area/holodeck/source_emptycourt)
 "ZV" = (
 /obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	icon_state = "14"
-	},
+/obj/structure/window/full/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "ZZ" = (
@@ -44080,7 +43939,7 @@ Ef
 cP
 Jx
 PX
-Fn
+ZV
 TY
 DW
 aN
@@ -69358,8 +69217,8 @@ Rj
 bH
 QT
 aY
-ao
-ao
+Vb
+Vb
 aY
 QT
 bH
@@ -70131,10 +69990,10 @@ aO
 bo
 bo
 bo
-Ew
 UK
 UK
-LG
+UK
+UK
 cd
 cm
 cm
@@ -70386,22 +70245,22 @@ al
 aO
 aO
 bo
-bn
-aH
-aH
-aH
-aH
-aV
+UK
+ba
+ba
+ba
+ba
+ba
 cd
 cm
 XT
 bb
 cm
-bc
-bj
-bj
-bj
-br
+bv
+bv
+bv
+bv
+bv
 cm
 cc
 aN
@@ -70643,22 +70502,22 @@ al
 aO
 aO
 bo
-bq
-aM
-aM
-aM
-aM
-aZ
+UK
+ba
+ba
+ba
+ba
+ba
 cd
 cm
-cD
+XT
 bb
 cm
-bf
-bm
-bm
-bm
-bs
+bv
+bv
+bv
+bv
+bv
 cm
 cc
 aN
@@ -70900,21 +70759,21 @@ al
 aO
 aO
 bo
-IU
-aS
-aS
-aS
-aS
+UK
+ba
+ba
+ba
+ba
 ba
 cd
 cm
-Ez
+XT
 bb
 cm
-bg
-bp
-bp
-bp
+bv
+bv
+bv
+bv
 bv
 cm
 cc
@@ -71159,10 +71018,10 @@ aO
 Hp
 bo
 bo
-Ew
 UK
 UK
-LG
+UK
+UK
 cd
 cm
 cm

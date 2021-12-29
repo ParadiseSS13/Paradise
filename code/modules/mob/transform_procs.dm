@@ -28,7 +28,7 @@
 
 	if(mind)
 		mind.transfer_to(O)
-		O.mind.original = O
+		O.mind.set_original_mob(O)
 	else
 		O.key = key
 
@@ -81,7 +81,7 @@
 	if(mind)		//TODO
 		mind.transfer_to(O)
 		if(O.mind.assigned_role == "Cyborg")
-			O.mind.original = O
+			O.mind.set_original_mob(O)
 		else if(mind && mind.special_role)
 			O.mind.store_memory("In case you look at this after being borged, the objectives are only here until I find a way to make them not show up for you, as I can't simply delete them without screwing up round-end reporting. --NeoFite")
 	else
