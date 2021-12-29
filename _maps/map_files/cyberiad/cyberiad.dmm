@@ -21817,9 +21817,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/hallway/primary/port)
-"aYS" = (
-/turf/simulated/wall/r_wall,
-/area/escapepodbay)
 "aYT" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4
@@ -52684,12 +52681,6 @@
 /obj/structure/closet/secure_closet/personal/patient,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"ckK" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 6
-	},
-/turf/space,
-/area/space)
 "ckL" = (
 /obj/structure/bed,
 /turf/simulated/floor/plating,
@@ -132186,7 +132177,7 @@ cZk
 cZk
 cZk
 daa
-aYS
+bEG
 bGH
 bGH
 bGH
@@ -132443,7 +132434,7 @@ bxX
 bSa
 bmm
 cYk
-aYS
+bEG
 aaa
 aaa
 aaa
@@ -132700,7 +132691,7 @@ cWA
 cWA
 cWA
 bUT
-aYS
+bEG
 aaa
 aaa
 aaa
@@ -132957,7 +132948,7 @@ boD
 bSc
 bmm
 dak
-aYS
+bEG
 aaa
 aaa
 aaa
@@ -133214,7 +133205,7 @@ cZm
 cZm
 cZm
 bmm
-aYS
+bEG
 aaa
 aaa
 aaa
@@ -133471,7 +133462,7 @@ bjR
 bAK
 bjR
 dam
-aYS
+bEG
 aaa
 aaa
 aaa
@@ -133728,7 +133719,7 @@ cZn
 cZI
 cZn
 bmm
-aYS
+bEG
 aaa
 aaa
 aaa
@@ -133738,7 +133729,7 @@ aaa
 aaa
 aaa
 uxy
-ckK
+xWg
 kOE
 gMZ
 cmO
@@ -133985,7 +133976,7 @@ buH
 cZH
 bmm
 dan
-aYS
+bEG
 aaa
 aaa
 aaa
@@ -134242,7 +134233,7 @@ cZo
 cZJ
 cZK
 daq
-aYS
+bEG
 aaa
 aaa
 aaa
@@ -134499,7 +134490,7 @@ bqn
 bEG
 bEG
 bEG
-aYS
+bEG
 aaa
 aaa
 aaa
