@@ -1093,7 +1093,7 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/stalkybush,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/shuttle/arrival/station)
 "aiH" = (
 /obj/structure/chair{
@@ -36327,7 +36327,7 @@
 /obj/structure/window/basic{
 	dir = 1
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/exit)
 "bGs" = (
 /obj/effect/spawner/window/reinforced,
@@ -76270,7 +76270,7 @@
 	dir = 8
 	},
 /mob/living/carbon/human/monkey,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/medical/genetics)
 "dnT" = (
 /obj/effect/spawner/window/reinforced,
@@ -76932,7 +76932,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/medical/genetics)
 "dpr" = (
 /obj/structure/cable{
@@ -77594,7 +77594,7 @@
 	name = "Monkey Pen";
 	req_access_txt = "9"
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/medical/genetics)
 "dqE" = (
 /turf/simulated/floor/plasteel{
@@ -78169,7 +78169,7 @@
 	dir = 8
 	},
 /mob/living/carbon/human/monkey,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/medical/genetics)
 "dsb" = (
 /obj/machinery/hologram/holopad,
@@ -87759,7 +87759,7 @@
 /obj/structure/window/basic{
 	dir = 1
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/exit)
 "dNa" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -88036,7 +88036,7 @@
 /obj/structure/window/basic{
 	dir = 8
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/exit)
 "dNO" = (
 /obj/machinery/status_display,
@@ -88051,7 +88051,7 @@
 /obj/structure/window/basic{
 	dir = 1
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/exit)
 "dNQ" = (
 /obj/machinery/ai_status_display,
@@ -90331,7 +90331,7 @@
 /obj/structure/window/basic{
 	dir = 1
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/exit)
 "dTe" = (
 /obj/machinery/door/firedoor,
@@ -90622,7 +90622,7 @@
 /obj/structure/window/basic{
 	dir = 8
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/exit)
 "dTH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -92969,7 +92969,7 @@
 /obj/structure/window/basic{
 	dir = 1
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/exit)
 "eLI" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -93230,7 +93230,7 @@
 /obj/structure/window/basic{
 	dir = 1
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/exit)
 "frI" = (
 /obj/structure/cable{

@@ -18130,13 +18130,13 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
 "aPj" = (
 /mob/living/simple_animal/chicken/featherbottom,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -18846,12 +18846,12 @@
 	name = "Animal Pen A";
 	opacity = 1
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
 "aQQ" = (
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -19378,13 +19378,13 @@
 	},
 /obj/structure/window/reinforced,
 /mob/living/simple_animal/chicken/kentucky,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
 "aSe" = (
 /obj/structure/window/reinforced,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -20541,7 +20541,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -20553,7 +20553,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -21177,13 +21177,13 @@
 	name = "Animal Pen B";
 	opacity = 1
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
 "aWe" = (
 /mob/living/simple_animal/cow/betsy,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -61254,7 +61254,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/medical/surgeryobs)
 "cCr" = (
 /obj/structure/cable/yellow{
@@ -61288,7 +61288,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/medical/surgeryobs)
 "cCt" = (
 /obj/structure/cable,
@@ -70096,7 +70096,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
 	})
@@ -70702,7 +70702,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
 	})
