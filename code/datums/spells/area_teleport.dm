@@ -76,18 +76,17 @@
 
 	return
 
-/obj/effect/proc_holder/spell/area_teleport/invocation(area/chosenarea = null)
-	if(!invocation_area || !chosenarea)
+/obj/effect/proc_holder/spell/area_teleport/invocation(mob/user)
+	if(!invocation_area || !selected_area)
 		..()
 	else
 		switch(invocation_type)
 			if("shout")
-				usr.say("[invocation] [uppertext(chosenarea.name)]")
-				if(usr.gender==MALE)
-					playsound(usr.loc, pick('sound/misc/null.ogg','sound/misc/null.ogg'), 100, 1)
+				user.say("[invocation] [uppertext(selected_area.name)]")
+				if(user.gender==MALE)
+					playsound(user.loc, pick('sound/misc/null.ogg','sound/misc/null.ogg'), 100, 1)
 				else
-					playsound(usr.loc, pick('sound/misc/null.ogg','sound/misc/null.ogg'), 100, 1)
+					playsound(user.loc, pick('sound/misc/null.ogg','sound/misc/null.ogg'), 100, 1)
 			if("whisper")
-				usr.whisper("[invocation] [uppertext(chosenarea.name)]")
+				user.whisper("[invocation] [uppertext(selected_area.name)]")
 
-	return
