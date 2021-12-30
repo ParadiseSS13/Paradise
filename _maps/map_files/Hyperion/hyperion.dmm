@@ -180,8 +180,9 @@
 	},
 /area/crew_quarters/kitchen)
 "aT" = (
-/turf/simulated/wall/r_wall,
-/area/atmos)
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "aU" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -622,7 +623,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "co" = (
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/atmos)
 "cp" = (
 /obj/structure/computerframe,
@@ -671,13 +672,8 @@
 /turf/simulated/floor/plating,
 /area/shuttle/arrival/station)
 "cu" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/wall,
-/area/server)
+/area/atmos)
 "cE" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -1085,7 +1081,7 @@
 "eq" = (
 /obj/structure/lattice,
 /turf/simulated/wall,
-/area/space)
+/area/space/nearstation)
 "er" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -1228,6 +1224,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/nw)
+"fy" = (
+/obj/machinery/computer/message_monitor{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/server)
 "fz" = (
 /obj/machinery/camera{
 	dir = 8
@@ -2465,6 +2467,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
+"oq" = (
+/turf/simulated/wall/r_wall,
+/area/server)
 "ou" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -3232,9 +3237,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
-"vN" = (
-/turf/simulated/floor/plating,
-/area/atmos)
 "vS" = (
 /obj/machinery/status_display{
 	pixel_x = 32
@@ -3409,12 +3411,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/engine/equipmentstorage)
-"xX" = (
-/obj/machinery/computer/message_monitor{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/server)
 "yd" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -4326,6 +4322,14 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
+"EX" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/wall,
+/area/server)
 "Fh" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -4521,6 +4525,9 @@
 	icon_state = "greenblue"
 	},
 /area/hydroponics)
+"GN" = (
+/turf/simulated/floor/plating,
+/area/server)
 "GX" = (
 /obj/machinery/atmospherics/binary/valve,
 /turf/simulated/floor/plating,
@@ -4874,9 +4881,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
-"JO" = (
-/turf/simulated/floor/plating,
-/area/space)
 "JQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -5315,9 +5319,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
-"NA" = (
-/turf/simulated/floor/plating,
-/area/server)
 "NQ" = (
 /turf/simulated/wall,
 /area/quartermaster/storage)
@@ -5825,6 +5826,9 @@
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating,
 /area/atmos)
+"Rp" = (
+/turf/simulated/floor/plating,
+/area/atmos)
 "Rq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -5997,9 +6001,6 @@
 /mob/living/carbon/human/monkey/punpun,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
-"SV" = (
-/turf/simulated/wall/r_wall,
-/area/server)
 "SY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6591,7 +6592,7 @@
 /area/security/brig)
 "YB" = (
 /turf/simulated/floor/plating,
-/area/security/brig)
+/area/space/nearstation)
 "YS" = (
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -32504,17 +32505,17 @@ aa
 aa
 aa
 eq
-aZ
-aZ
-aZ
-aZ
-aZ
-aZ
-aZ
-aZ
-aZ
-aZ
-aZ
+aT
+aT
+aT
+aT
+aT
+aT
+aT
+aT
+aT
+aT
+aT
 aa
 aa
 aa
@@ -32760,7 +32761,7 @@ aa
 aa
 aa
 aa
-aZ
+aT
 aa
 aa
 aa
@@ -33017,7 +33018,7 @@ aa
 aa
 aa
 aa
-aZ
+aT
 aa
 aa
 aa
@@ -33274,7 +33275,7 @@ aa
 aa
 aa
 aa
-aZ
+aT
 aa
 aa
 aa
@@ -33531,7 +33532,7 @@ aa
 aa
 aa
 aa
-aZ
+aT
 aa
 aa
 aa
@@ -33788,7 +33789,7 @@ aa
 aa
 aa
 aa
-aZ
+aT
 aa
 aa
 aa
@@ -34037,7 +34038,7 @@ aa
 aa
 aa
 aa
-JO
+YB
 aa
 aa
 aa
@@ -34045,7 +34046,7 @@ aa
 aa
 aa
 aa
-aZ
+aT
 aa
 aa
 aa
@@ -34293,7 +34294,7 @@ aa
 aa
 aa
 aa
-JO
+YB
 aa
 aa
 aa
@@ -34302,7 +34303,7 @@ aa
 aa
 aa
 aa
-aZ
+aT
 aa
 aa
 aa
@@ -34560,8 +34561,8 @@ aa
 aa
 aa
 eq
-aZ
-aZ
+aT
+aT
 Qf
 WQ
 mV
@@ -34808,7 +34809,7 @@ aa
 aa
 aa
 aa
-JO
+YB
 aa
 aa
 aa
@@ -34816,7 +34817,7 @@ aa
 aa
 aa
 aa
-aZ
+aT
 aa
 aa
 Hb
@@ -35063,7 +35064,7 @@ aa
 aa
 aa
 aa
-JO
+YB
 aa
 aa
 aa
@@ -35319,9 +35320,9 @@ aa
 aa
 aa
 aa
-aZ
+aT
 aa
-JO
+YB
 aa
 zp
 zp
@@ -35576,10 +35577,10 @@ aa
 aa
 aa
 aa
-aZ
-JO
-JO
-JO
+aT
+YB
+YB
+YB
 zp
 mM
 zO
@@ -37392,7 +37393,7 @@ aM
 fg
 yd
 hq
-JO
+YB
 aa
 aa
 aa
@@ -37653,7 +37654,7 @@ aa
 aa
 aa
 aa
-JO
+YB
 aa
 aa
 aa
@@ -38148,12 +38149,12 @@ cO
 ei
 cO
 aB
-aT
-aT
-aT
-aT
-aT
-aT
+co
+co
+co
+co
+co
+co
 jX
 en
 en
@@ -38405,12 +38406,12 @@ JB
 ea
 KV
 MA
-co
+cu
 hD
 GX
 oZ
 LB
-aT
+co
 jX
 dH
 dH
@@ -38662,12 +38663,12 @@ JU
 Ou
 aO
 cJ
-co
+cu
 dT
-vN
+Rp
 Rn
 Bm
-aT
+co
 ex
 ex
 dB
@@ -38677,7 +38678,7 @@ hO
 SO
 QB
 hq
-aZ
+aT
 aa
 aa
 aa
@@ -38934,7 +38935,7 @@ hO
 ta
 hO
 hO
-aZ
+aT
 aa
 aa
 aa
@@ -39191,13 +39192,13 @@ CH
 se
 ft
 nm
-JO
+YB
 aa
 aa
 aa
 aa
 aa
-JO
+YB
 aa
 aa
 aa
@@ -39448,11 +39449,11 @@ QK
 vM
 en
 nm
-JO
-JO
+YB
+YB
 aa
 aa
-JO
+YB
 aa
 aa
 aa
@@ -39705,9 +39706,9 @@ dc
 TI
 Ql
 nm
-JO
-JO
-JO
+YB
+YB
+YB
 aa
 aa
 aa
@@ -39964,8 +39965,8 @@ Kj
 Kj
 Kj
 YB
-aZ
-JO
+aT
+YB
 aa
 aa
 aa
@@ -40204,12 +40205,12 @@ Fo
 BD
 XL
 bc
-cu
+EX
 bj
-NA
+GN
 FL
 FL
-SV
+oq
 ex
 ex
 dB
@@ -40463,10 +40464,10 @@ bl
 eA
 TF
 Wb
-xX
+fy
 eO
 WH
-SV
+oq
 vD
 dB
 dB
@@ -40718,12 +40719,12 @@ er
 Bc
 er
 aB
-SV
-SV
-SV
-SV
-SV
-SV
+oq
+oq
+oq
+oq
+oq
+oq
 vD
 en
 en
@@ -43287,9 +43288,9 @@ gK
 gK
 gK
 gK
-JO
-JO
-JO
+YB
+YB
+YB
 Ga
 bo
 Hm
@@ -43545,8 +43546,8 @@ aa
 aa
 aa
 aa
-JO
-JO
+YB
+YB
 Ga
 Ga
 Ga
@@ -43801,7 +43802,7 @@ dQ
 aa
 aa
 aa
-JO
+YB
 aa
 aa
 aa
@@ -44060,7 +44061,7 @@ aa
 aa
 aa
 aa
-JO
+YB
 aa
 aa
 aa
@@ -44572,7 +44573,7 @@ aa
 aa
 aa
 aa
-JO
+YB
 aa
 aa
 aa
@@ -45087,7 +45088,7 @@ aa
 aa
 aa
 aa
-JO
+YB
 aa
 aa
 aa
