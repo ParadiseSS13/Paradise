@@ -2539,9 +2539,6 @@
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "oZ" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -3235,6 +3232,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
+"vN" = (
+/turf/simulated/floor/plating,
+/area/atmos)
 "vS" = (
 /obj/machinery/status_display{
 	pixel_x = 32
@@ -3409,6 +3409,12 @@
 	icon_state = "yellowcorner"
 	},
 /area/engine/equipmentstorage)
+"xX" = (
+/obj/machinery/computer/message_monitor{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/server)
 "yd" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -5309,6 +5315,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
+"NA" = (
+/turf/simulated/floor/plating,
+/area/server)
 "NQ" = (
 /turf/simulated/wall,
 /area/quartermaster/storage)
@@ -5331,12 +5340,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
-"OB" = (
-/obj/machinery/computer/message_monitor{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/server)
 "OG" = (
 /obj/structure/table,
 /obj/item/stack/sheet/metal{
@@ -5598,9 +5601,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
-"PY" = (
-/turf/simulated/floor/plating,
-/area/server)
 "Qb" = (
 /obj/machinery/vending/clothing,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
@@ -5925,9 +5925,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
-"Si" = (
-/turf/simulated/floor/plating,
-/area/atmos)
 "Sl" = (
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -6000,6 +5997,9 @@
 /mob/living/carbon/human/monkey/punpun,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"SV" = (
+/turf/simulated/wall/r_wall,
+/area/server)
 "SY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6497,9 +6497,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
-"Xu" = (
-/turf/simulated/wall/r_wall,
-/area/server)
 "Xx" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -38667,7 +38664,7 @@ aO
 cJ
 co
 dT
-Si
+vN
 Rn
 Bm
 aT
@@ -40209,10 +40206,10 @@ XL
 bc
 cu
 bj
-PY
+NA
 FL
 FL
-Xu
+SV
 ex
 ex
 dB
@@ -40466,10 +40463,10 @@ bl
 eA
 TF
 Wb
-OB
+xX
 eO
 WH
-Xu
+SV
 vD
 dB
 dB
@@ -40721,12 +40718,12 @@ er
 Bc
 er
 aB
-Xu
-Xu
-Xu
-Xu
-Xu
-Xu
+SV
+SV
+SV
+SV
+SV
+SV
 vD
 en
 en
