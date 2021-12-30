@@ -116,8 +116,8 @@
 	},
 /area/engine/equipmentstorage)
 "aN" = (
-/obj/effect/landmark/start{
-	name = "Blueshield"
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -161,8 +161,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "aQ" = (
-/obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/plating,
+/obj/effect/landmark/start{
+	name = "Blueshield"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/shuttle/arrival/station)
 "aR" = (
 /obj/machinery/door/firedoor,
@@ -180,9 +184,191 @@
 	},
 /area/crew_quarters/kitchen)
 "aT" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
+/obj/structure/table,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/nw)
 "aU" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -202,14 +388,114 @@
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
 "aY" = (
-/obj/structure/computerframe,
+/obj/structure/table,
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 5
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
 /obj/machinery/light{
-	dir = 1
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "neutralcorner"
 	},
-/area/shuttle/arrival/station)
+/area/hallway/primary/central/nw)
 "aZ" = (
 /obj/structure/lattice,
 /turf/space,
@@ -264,13 +550,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "bi" = (
-/obj/machinery/turretid/lethal{
-	check_synth = 1;
-	name = "AI Chamber Turret Control";
-	pixel_x = 5;
-	pixel_y = -24;
-	req_access_txt = "75"
-	},
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_x = -8;
@@ -334,11 +613,10 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes/upgraded,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
+/obj/machinery/power/smes{
+	charge = 5e+006
 	},
+/turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "br" = (
 /obj/effect/landmark{
@@ -358,7 +636,8 @@
 	},
 /area/shuttle/arrival/station)
 "bv" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/computerframe,
+/obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -419,89 +698,6 @@
 	icon_state = "dark"
 	},
 /area/shuttle/arrival/station)
-"bI" = (
-/obj/structure/table,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/central/nw)
 "bK" = (
 /obj/structure/closet/secure_closet/medical1,
 /turf/simulated/floor/mineral/titanium,
@@ -562,7 +758,7 @@
 	dir = 1
 	},
 /obj/machinery/vending/medical,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "cb" = (
 /turf/simulated/floor/plasteel{
@@ -583,9 +779,175 @@
 	},
 /area/hallway/secondary/entry)
 "cf" = (
-/obj/structure/window/full/shuttle,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/arrival/station)
+/obj/structure/table,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/camera{
+	dir = 1
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/nw)
 "ch" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -657,18 +1019,6 @@
 	req_access_txt = "48"
 	},
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external{
-	id_tag = "mining_home";
-	locked = 1;
-	name = "Mining Dock Airlock";
-	req_access_txt = "48"
-	},
-/obj/machinery/door/airlock/external{
-	id_tag = "mining_home";
-	locked = 1;
-	name = "Mining Dock Airlock";
-	req_access_txt = "48"
-	},
 /turf/simulated/floor/plating,
 /area/shuttle/arrival/station)
 "cu" = (
@@ -687,7 +1037,11 @@
 	},
 /area/shuttle/arrival/station)
 "cG" = (
-/obj/machinery/processor,
+/obj/structure/table/reinforced,
+/obj/item/storage/box/donkpockets,
+/obj/item/book/manual/chef_recipes,
+/obj/item/storage/box/donkpockets,
+/obj/item/kitchen/knife,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 25
@@ -833,8 +1187,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "dv" = (
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/arrival/station)
+/obj/structure/dispenser/oxygen,
+/turf/simulated/wall,
+/area/quartermaster/storage)
 "dy" = (
 /obj/item/flag/nt,
 /obj/machinery/light{
@@ -1081,7 +1436,7 @@
 "eq" = (
 /obj/structure/lattice,
 /turf/simulated/wall,
-/area/space/nearstation)
+/area/space)
 "er" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -1106,9 +1461,8 @@
 /area/turret_protected/ai)
 "ew" = (
 /obj/machinery/camera/motion{
-	c_tag = "AI Core";
-	network = list("SS13","MiniSat");
-	start_active = 1
+	c_tag = "AI Core South";
+	network = list("SS13","MiniSat")
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
@@ -1137,6 +1491,9 @@
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
@@ -1336,12 +1693,6 @@
 /obj/item/stamp/denied{
 	pixel_x = -4;
 	pixel_y = 4
-	},
-/obj/machinery/requests_console{
-	department = "Cargo Bay";
-	departmentType = 2;
-	name = "Cargo Requests Console";
-	pixel_y = 30
 	},
 /obj/machinery/camera{
 	dir = 4
@@ -1641,80 +1992,185 @@
 /area/quartermaster/storage)
 "jA" = (
 /obj/structure/table,
-/obj/item/storage/belt/utility,
-/obj/item/storage/belt/utility,
-/obj/item/storage/belt/utility,
-/obj/item/storage/belt/utility,
-/obj/item/storage/belt/utility,
-/obj/item/storage/belt/utility,
-/obj/item/storage/belt/utility,
-/obj/item/storage/belt/utility,
-/obj/item/storage/belt/utility,
-/obj/item/storage/belt/utility,
-/obj/item/storage/belt/utility,
-/obj/item/storage/belt/utility,
-/obj/item/storage/belt/utility,
-/obj/item/storage/belt/utility,
-/obj/item/storage/belt/utility,
-/obj/item/flashlight{
-	pixel_x = -5;
-	pixel_y = 15
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
 	},
-/obj/item/flashlight{
-	pixel_x = -5;
-	pixel_y = 15
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
 	},
-/obj/item/flashlight{
-	pixel_x = -5;
-	pixel_y = 15
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
 	},
-/obj/item/flashlight{
-	pixel_x = -5;
-	pixel_y = 15
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
 	},
-/obj/item/flashlight{
-	pixel_x = -5;
-	pixel_y = 15
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
 	},
-/obj/item/flashlight{
-	pixel_x = -5;
-	pixel_y = 15
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
 	},
-/obj/item/flashlight{
-	pixel_x = -5;
-	pixel_y = 15
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
 	},
-/obj/item/flashlight{
-	pixel_x = -5;
-	pixel_y = 15
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
 	},
-/obj/item/flashlight{
-	pixel_x = -5;
-	pixel_y = 15
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
 	},
-/obj/item/flashlight{
-	pixel_x = -5;
-	pixel_y = 15
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
 	},
-/obj/item/flashlight{
-	pixel_x = -5;
-	pixel_y = 15
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
 	},
-/obj/item/flashlight{
-	pixel_x = -5;
-	pixel_y = 15
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
 	},
-/obj/item/flashlight{
-	pixel_x = -5;
-	pixel_y = 15
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
 	},
-/obj/item/flashlight{
-	pixel_x = -5;
-	pixel_y = 15
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
 	},
-/obj/item/flashlight{
-	pixel_x = -5;
-	pixel_y = 15
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas{
+	pixel_x = -3;
+	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1981,6 +2437,42 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -1999,9 +2491,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
+	d1 = 2;
 	d2 = 8;
-	icon_state = "1-8"
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
@@ -2014,76 +2506,113 @@
 /area/hydroponics)
 "lb" = (
 /obj/structure/table,
-/obj/item/storage/box/lights/mixed{
-	pixel_x = -6
-	},
-/obj/item/storage/box/lights/mixed{
-	pixel_x = -6
-	},
-/obj/item/storage/box/lights/mixed{
-	pixel_x = -6
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 5
 	},
 /obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 4
+	pixel_y = 5
 	},
 /obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 4
+	pixel_y = 5
 	},
 /obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 4
+	pixel_y = 5
 	},
 /obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 4
+	pixel_y = 5
 	},
 /obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 4
+	pixel_y = 5
 	},
 /obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 4
+	pixel_y = 5
 	},
 /obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 4
+	pixel_y = 5
 	},
 /obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 4
+	pixel_y = 5
 	},
 /obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 4
+	pixel_y = 5
 	},
-/obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 4
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
 	},
-/obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 4
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
 	},
-/obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 4
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
 	},
-/obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 4
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
 	},
-/obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 4
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
 	},
-/obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 4
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
 	},
-/turf/simulated/floor/plasteel,
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -6
+	},
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
 /area/hallway/primary/central/nw)
 "le" = (
 /obj/structure/cable{
@@ -2169,126 +2698,6 @@
 /area/toxins/lab)
 "mF" = (
 /obj/structure/table,
-/obj/item/stack/sheet/rglass{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/rglass{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/rglass{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/rglass{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/rglass{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/rglass{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/rglass{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/rglass{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/rglass{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/rglass{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/rglass{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/rglass{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/rglass{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/rglass{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/rglass{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/plasteel{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/obj/item/stack/sheet/plasteel{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/obj/item/stack/sheet/plasteel{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/obj/item/stack/sheet/plasteel{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/obj/item/stack/sheet/plasteel{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/obj/item/stack/sheet/plasteel{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/obj/item/stack/sheet/plasteel{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/obj/item/stack/sheet/plasteel{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/obj/item/stack/sheet/plasteel{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/obj/item/stack/sheet/plasteel{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/obj/item/stack/sheet/plasteel{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/obj/item/stack/sheet/plasteel{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/obj/item/stack/sheet/plasteel{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/obj/item/stack/sheet/plasteel{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/obj/item/stack/sheet/plasteel{
-	pixel_x = -5;
-	pixel_y = -2
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -2302,6 +2711,156 @@
 	},
 /obj/machinery/camera{
 	dir = 1
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2325,10 +2884,10 @@
 "mM" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/computer/supplycomp/public,
-/obj/structure/sign/poster/contraband/random{
+/obj/machinery/camera,
+/obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
-/obj/machinery/camera,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -2458,10 +3017,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/turret_protected/ai)
 "of" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2638,10 +3194,6 @@
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "qo" = (
-/obj/structure/table/reinforced,
-/obj/machinery/reagentgrinder,
-/obj/item/reagent_containers/food/condiment/enzyme,
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -2653,17 +3205,18 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/processor,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
 /area/crew_quarters/kitchen)
 "qt" = (
-/obj/machinery/conveyor/west{
-	id = "QMLoad"
-	},
-/obj/structure/closet/crate,
-/obj/machinery/status_display/supply_display{
-	pixel_y = -32
+/obj/machinery/requests_console{
+	department = "Cargo Bay";
+	departmentType = 2;
+	name = "Cargo Requests Console";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -2704,6 +3257,9 @@
 	icon_state = "yellow"
 	},
 /area/engine/equipmentstorage)
+"qz" = (
+/turf/simulated/wall,
+/area/space)
 "qK" = (
 /obj/machinery/kitchen_machine/oven,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -2736,11 +3292,6 @@
 "rA" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/window{
-	dir = 8;
-	name = "Kitchen";
-	req_access_txt = "28"
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -2752,6 +3303,10 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/door/window/westleft{
+	name = "Kitchen";
+	req_access_txt = "28"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -3137,7 +3692,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "vf" = (
-/obj/structure/sign/poster/contraband/random{
+/obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -3311,6 +3866,15 @@
 	icon_state = "neutralfull"
 	},
 /area/hydroponics)
+"wO" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/hand_labeler{
+	pixel_x = 4;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "wR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3551,6 +4115,8 @@
 	dir = 4;
 	pixel_x = 26
 	},
+/obj/structure/table,
+/obj/item/coin/silver,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "yY" = (
@@ -3772,23 +4338,20 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/nw)
 "zo" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/donkpockets,
-/obj/item/book/manual/chef_recipes,
-/obj/item/storage/box/donkpockets,
-/obj/item/kitchen/knife,
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/requests_console{
 	department = "Kitchen";
 	departmentType = 2;
 	name = "Kitchen Requests Console";
 	pixel_x = 30
 	},
+/obj/structure/table/reinforced,
+/obj/machinery/reagentgrinder,
+/obj/item/reagent_containers/food/condiment/enzyme,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -4113,83 +4676,126 @@
 /area/engine/equipmentstorage)
 "DD" = (
 /obj/structure/table,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/tile/carpet{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet{
+	amount = 60
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -4248,6 +4854,8 @@
 /obj/item/stack/cable_coil/random,
 /obj/item/airlock_electronics,
 /obj/item/airlock_electronics,
+/obj/item/airlock_electronics,
+/obj/item/airlock_electronics,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 50;
@@ -4263,7 +4871,10 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "yellow"
+	},
 /area/engine/equipmentstorage)
 "Ej" = (
 /obj/machinery/power/terminal{
@@ -4306,11 +4917,11 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/ai)
 "ES" = (
-/obj/structure/closet/emcloset,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -4332,82 +4943,290 @@
 /area/server)
 "Fh" = (
 /obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
-/turf/simulated/floor/plasteel,
+/obj/item/multitool{
+	pixel_x = -9;
+	pixel_y = 1
+	},
+/obj/item/multitool{
+	pixel_x = -9;
+	pixel_y = 1
+	},
+/obj/item/multitool{
+	pixel_x = -9;
+	pixel_y = 1
+	},
+/obj/item/multitool{
+	pixel_x = -9;
+	pixel_y = 1
+	},
+/obj/item/multitool{
+	pixel_x = -9;
+	pixel_y = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
 /area/hallway/primary/central/nw)
 "Fo" = (
 /obj/structure/closet/secure_closet/hop2,
@@ -4456,11 +5275,11 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = -32
-	},
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/structure/sign/poster/official/obey{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -4650,14 +5469,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
-"HR" = (
-/obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/central/nw)
 "HU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4743,79 +5554,284 @@
 /area/shuttle/arrival/station)
 "IJ" = (
 /obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -6
+	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /obj/item/multitool{
-	pixel_x = -3;
+	pixel_x = -9;
+	pixel_y = 1
+	},
+/obj/item/multitool{
+	pixel_x = -9;
+	pixel_y = 1
+	},
+/obj/item/multitool{
+	pixel_x = -9;
+	pixel_y = 1
+	},
+/obj/item/multitool{
+	pixel_x = -9;
+	pixel_y = 1
+	},
+/obj/item/multitool{
+	pixel_x = -9;
+	pixel_y = 1
+	},
+/obj/item/multitool{
+	pixel_x = -9;
 	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -4900,26 +5916,65 @@
 /area/security/brig)
 "Ky" = (
 /obj/structure/table,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/machinery/light{
-	dir = 8
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/head/welding{
+	pixel_y = -7
 	},
-/obj/machinery/camera{
-	dir = 4
+/obj/item/clothing/head/welding{
+	pixel_y = -7
+	},
+/obj/item/clothing/head/welding{
+	pixel_y = -7
+	},
+/obj/item/clothing/head/welding{
+	pixel_y = -7
+	},
+/obj/item/clothing/head/welding{
+	pixel_y = -7
+	},
+/obj/item/clothing/head/welding{
+	pixel_y = -7
+	},
+/obj/item/clothing/head/welding{
+	pixel_y = -7
+	},
+/obj/item/clothing/head/welding{
+	pixel_y = -7
+	},
+/obj/item/clothing/head/welding{
+	pixel_y = -7
+	},
+/obj/item/clothing/head/welding{
+	pixel_y = -7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -5067,26 +6122,65 @@
 /area/atmos)
 "LJ" = (
 /obj/structure/table,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
-/obj/machinery/light{
-	dir = 4
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/painter,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/head/welding{
+	pixel_y = -7
 	},
-/obj/machinery/camera{
-	dir = 8
+/obj/item/clothing/head/welding{
+	pixel_y = -7
+	},
+/obj/item/clothing/head/welding{
+	pixel_y = -7
+	},
+/obj/item/clothing/head/welding{
+	pixel_y = -7
+	},
+/obj/item/clothing/head/welding{
+	pixel_y = -7
+	},
+/obj/item/clothing/head/welding{
+	pixel_y = -7
+	},
+/obj/item/clothing/head/welding{
+	pixel_y = -7
+	},
+/obj/item/clothing/head/welding{
+	pixel_y = -7
+	},
+/obj/item/clothing/head/welding{
+	pixel_y = -7
+	},
+/obj/item/clothing/head/welding{
+	pixel_y = -7
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -5231,11 +6325,11 @@
 /obj/machinery/computer/secure_data{
 	dir = 4
 	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = -32
-	},
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull";
@@ -5316,6 +6410,9 @@
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
@@ -5468,6 +6565,42 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -5476,6 +6609,14 @@
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal{
 	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50;
+	pixel_x = 3;
+	pixel_y = 3
 	},
 /obj/item/stack/sheet/glass{
 	amount = 50;
@@ -5553,11 +6694,12 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "PH" = (
-/obj/structure/closet/emcloset,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -5871,7 +7013,6 @@
 	},
 /area/security/brig)
 "RI" = (
-/obj/machinery/hydroponics/constructable,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/reagent_dispensers/watertank/high,
 /obj/item/reagent_containers/glass/bucket,
@@ -5999,8 +7140,16 @@
 	name = "JoinLate"
 	},
 /mob/living/carbon/human/monkey/punpun,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"SV" = (
+/obj/structure/lattice,
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "SY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6329,12 +7478,11 @@
 "Ux" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/window{
-	dir = 8;
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/window/westright{
 	name = "Kitchen";
 	req_access_txt = "28"
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -6438,10 +7586,7 @@
 /area/quartermaster/office)
 "Wk" = (
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/turret_protected/ai)
 "Wq" = (
 /obj/effect/decal/warning_stripes/yellow,
@@ -6592,7 +7737,7 @@
 /area/security/brig)
 "YB" = (
 /turf/simulated/floor/plating,
-/area/space/nearstation)
+/area/space)
 "YS" = (
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -32505,19 +33650,19 @@ aa
 aa
 aa
 eq
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-aa
-aa
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+qz
 aa
 aa
 aa
@@ -32761,7 +33906,7 @@ aa
 aa
 aa
 aa
-aT
+aZ
 aa
 aa
 aa
@@ -33018,7 +34163,7 @@ aa
 aa
 aa
 aa
-aT
+aZ
 aa
 aa
 aa
@@ -33275,7 +34420,7 @@ aa
 aa
 aa
 aa
-aT
+aZ
 aa
 aa
 aa
@@ -33532,7 +34677,7 @@ aa
 aa
 aa
 aa
-aT
+aZ
 aa
 aa
 aa
@@ -33789,7 +34934,7 @@ aa
 aa
 aa
 aa
-aT
+aZ
 aa
 aa
 aa
@@ -34046,7 +35191,7 @@ aa
 aa
 aa
 aa
-aT
+aZ
 aa
 aa
 aa
@@ -34295,6 +35440,7 @@ aa
 aa
 aa
 YB
+aZ
 aa
 aa
 aa
@@ -34302,8 +35448,7 @@ aa
 aa
 aa
 aa
-aa
-aT
+aZ
 aa
 aa
 aa
@@ -34561,8 +35706,8 @@ aa
 aa
 aa
 eq
-aT
-aT
+aZ
+aZ
 Qf
 WQ
 mV
@@ -34817,7 +35962,7 @@ aa
 aa
 aa
 aa
-aT
+aZ
 aa
 aa
 Hb
@@ -35042,7 +36187,7 @@ aa
 aa
 aa
 aa
-br
+aa
 aa
 aa
 aa
@@ -35320,10 +36465,10 @@ aa
 aa
 aa
 aa
-aT
+aZ
 aa
 YB
-aa
+aZ
 zp
 zp
 zp
@@ -35334,12 +36479,12 @@ aI
 yq
 gS
 NQ
-rG
+qt
 ep
 vc
 Ig
 rG
-qt
+ki
 NQ
 aa
 aa
@@ -35574,10 +36719,10 @@ aa
 aa
 aa
 aa
+aZ
+aZ
 aa
-aa
-aa
-aT
+aZ
 YB
 YB
 YB
@@ -36361,7 +37506,7 @@ fE
 Nq
 PL
 OY
-NQ
+dv
 BR
 QV
 rG
@@ -36618,7 +37763,7 @@ Cj
 eR
 Mf
 dg
-NQ
+dv
 vi
 rG
 rG
@@ -36880,7 +38025,7 @@ ls
 rG
 yS
 Pu
-rG
+wO
 rG
 NQ
 aa
@@ -37650,7 +38795,7 @@ fp
 DB
 qw
 hq
-aa
+aZ
 aa
 aa
 aa
@@ -38111,7 +39256,7 @@ aa
 aa
 aa
 aa
-br
+aa
 aa
 aa
 aa
@@ -38631,7 +39776,7 @@ aa
 aa
 aa
 aa
-br
+aa
 eK
 eK
 eI
@@ -38678,7 +39823,7 @@ hO
 SO
 QB
 hq
-aT
+aZ
 aa
 aa
 aa
@@ -38935,8 +40080,8 @@ hO
 ta
 hO
 hO
-aT
-aa
+aZ
+aZ
 aa
 aa
 aa
@@ -39144,8 +40289,8 @@ aa
 aa
 aa
 aa
-eK
-eK
+aa
+eI
 cp
 dV
 dV
@@ -39161,7 +40306,7 @@ dd
 eI
 dd
 dd
-aQ
+gO
 aR
 RU
 NZ
@@ -39193,11 +40338,11 @@ se
 ft
 nm
 YB
+aZ
 aa
 aa
 aa
-aa
-aa
+aZ
 YB
 aa
 aa
@@ -39385,7 +40530,8 @@ aa
 aa
 aa
 aa
-br
+aa
+aa
 aa
 aa
 aa
@@ -39402,23 +40548,22 @@ aa
 aa
 aa
 eI
-aY
 bv
 aN
-dV
+aQ
 dV
 bH
 aH
 bV
-cf
+eI
 bV
-cf
+eI
 bV
 wC
 gO
-dv
-dv
-aQ
+dd
+dd
+gO
 aR
 an
 aU
@@ -39451,7 +40596,7 @@ en
 nm
 YB
 YB
-aa
+SV
 aa
 YB
 aa
@@ -39658,8 +40803,8 @@ aa
 aa
 aa
 aa
-eK
-eK
+aa
+eI
 cp
 dV
 dV
@@ -39675,7 +40820,7 @@ dd
 eI
 dd
 dd
-aQ
+gO
 aR
 cd
 aV
@@ -39709,7 +40854,7 @@ nm
 YB
 YB
 YB
-aa
+aZ
 aa
 aa
 aa
@@ -39899,7 +41044,7 @@ aa
 aa
 aa
 aa
-aa
+br
 aa
 aa
 aa
@@ -39965,7 +41110,7 @@ Kj
 Kj
 Kj
 YB
-aT
+aZ
 YB
 aa
 aa
@@ -40694,7 +41839,7 @@ aa
 aa
 eK
 bK
-dv
+dd
 sQ
 bV
 bV
@@ -40951,8 +42096,8 @@ aa
 aa
 eK
 ca
-dv
-dv
+dd
+dd
 ng
 We
 aa
@@ -40975,7 +42120,7 @@ aB
 Jh
 Ww
 ek
-HR
+PH
 ES
 PH
 Hu
@@ -41208,7 +42353,7 @@ aa
 aa
 eK
 bP
-dv
+dd
 MB
 ng
 We
@@ -41242,7 +42387,7 @@ en
 en
 en
 en
-mF
+cf
 Kj
 RM
 Yu
@@ -41716,7 +42861,7 @@ aa
 aa
 aa
 aa
-br
+aa
 aa
 aa
 aa
@@ -41752,11 +42897,11 @@ en
 CT
 wf
 gm
-jA
+aT
 LJ
-lb
+aY
 IJ
-bI
+DD
 Kj
 TR
 gz
@@ -43544,8 +44689,8 @@ Id
 dQ
 aa
 aa
-aa
-aa
+aZ
+aZ
 YB
 YB
 Ga
@@ -44831,7 +45976,7 @@ aa
 aa
 aa
 aa
-aa
+aZ
 aa
 aa
 aa
