@@ -119,42 +119,6 @@
 	load_admins(run_async=TRUE)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reload Admins") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
-/client/proc/print_jobban_old()
-	set name = "Print Jobban Log"
-	set desc = "This spams all the active jobban entries for the current round to standard output."
-	set category = "Debug"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	to_chat(usr, "<b>Jobbans active in this round.</b>")
-	for(var/t in GLOB.jobban_keylist)
-		to_chat(usr, "[t]")
-
-	message_admins("[key_name_admin(usr)] has printed the jobban log")
-	log_admin("[key_name(usr)] has printed the jobban log")
-
-/client/proc/print_jobban_old_filter()
-	set name = "Search Jobban Log"
-	set desc = "This searches all the active jobban entries for the current round and outputs the results to standard output."
-	set category = "Debug"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	var/filter = clean_input("Contains what?","Filter")
-	if(!filter)
-		return
-
-	to_chat(usr, "<b>Jobbans active in this round.</b>")
-	for(var/t in GLOB.jobban_keylist)
-		if(findtext(t, filter))
-			to_chat(usr, "[t]")
-
-	message_admins("[key_name_admin(usr)] has searched the jobban log for [filter]")
-	log_admin("[key_name(usr)] has searched the jobban log for [filter]")
-
 /client/proc/vv_by_ref()
 	set name = "VV by Ref"
 	set desc = "Give this a ref string, and you will see its corresponding VV panel if it exists"

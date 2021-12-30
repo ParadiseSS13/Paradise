@@ -179,7 +179,11 @@
 			qdel(banned_mob.client)
 
 	if(isjobban)
-		jobban_client_fullban(ckey, job)
+		// See if they are online
+		var/client/C = GLOB.directory[ckey(ckey)]
+		if(C)
+			// Reload their job ban holder
+			C.jbh.reload_jobbans(C)
 	else
 		flag_account_for_forum_sync(ckey)
 
@@ -265,7 +269,11 @@
 
 	DB_ban_unban_by_id(ban_id)
 	if(isjobban)
-		jobban_unban_client(ckey, job)
+		// See if they are online
+		var/client/C = GLOB.directory[ckey(ckey)]
+		if(C)
+			// Reload their job ban holder
+			C.jbh.reload_jobbans(C)
 	else
 		flag_account_for_forum_sync(ckey)
 
@@ -346,7 +354,11 @@
 			if(alert("Unban [pckey]?", "Unban?", "Yes", "No") == "Yes")
 				DB_ban_unban_by_id(banid)
 				if(job && length(job))
-					jobban_unban_client(pckey, job)
+					// See if they are online
+					var/client/C = GLOB.directory[ckey(pckey)]
+					if(C)
+						// Reload their job ban holder
+						C.jbh.reload_jobbans(C)
 				return
 			else
 				to_chat(usr, "Cancelled")
@@ -410,6 +422,11 @@
 	message_admins("[key_name_admin(usr)] has lifted [pckey]'s ban.")
 	log_admin("[key_name(usr)] has lifted [pckey]'s ban.")
 	flag_account_for_forum_sync(pckey)
+	// See if they are online
+	var/client/C = GLOB.directory[ckey(pckey)]
+	if(C)
+		// Reload their job ban holder
+		C.jbh.reload_jobbans(C)
 
 
 /datum/admins/proc/DB_ban_panel(playerckey = null, adminckey = null, playerip = null, playercid = null, dbbantype = null, match = null)

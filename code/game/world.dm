@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 
 	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
 
-	startup_procs() // Call procs that need to occur on startup (Generate lists, load MOTD, etc)
+	investigate_reset()
 
 	update_status()
 
@@ -73,12 +73,6 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 /world/proc/InitTGS()
 	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
 	GLOB.revision_info.load_tgs_info() // Loads git and TM info from TGS itself
-
-// This is basically a replacement for hook/startup. Please dont shove random bullshit here
-// If it doesnt need to happen IMMEDIATELY on world load, make a subsystem for it
-/world/proc/startup_procs()
-	jobban_loadbans() // Load up jobbans. Again, DO NOT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
-	investigate_reset() // This is part of the admin investigate system. PLEASE DONT SS THIS EITHER
 
 /// List of all world topic spam prevention handlers. See code/modules/world_topic/_spam_prevention_handler.dm
 GLOBAL_LIST_EMPTY(world_topic_spam_prevention_handlers)
