@@ -263,7 +263,7 @@ enable_gamemode_player_limit = true
 # This section contains everything relating to the ingame gateway (away mission) system.
 
 # Do we want to enable this at all? Disable for faster load times in testing
-enable_away_mission = true
+enable_away_mission = false
 # Delay (in deciseconds) before the gateway is usable
 away_mission_delay = 0
 # List of all enabled away missions. Comment out an entry to disable it.
