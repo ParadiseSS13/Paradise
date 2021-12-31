@@ -44,7 +44,7 @@
 # If the database fails, this file will be used as fallback
 use_database_admins = false
 # Auto authenticate localhost users as admin? Useful for test servers, disable in producation
-enable_localhost_autoadmin = false
+enable_localhost_autoadmin = true
 # List of admin rank assignments and their permissions
 # These names ARE CASE SENSITIVE
 # +BUILD (or +BUILDMODE) = the ability to use buildmode
@@ -597,7 +597,7 @@ overflow_whitelist = ["keyhere", "anotherhere"]
 # This section contains configuration for all space ruins and lava ruins
 
 # Globally enable and disable placing of space ruins. Lava ruins will still place.
-enable_space_ruins = true
+enable_space_ruins = false
 # Minimum number of extra zlevels to generate and fill with ruins
 minimum_zlevels = 2
 # Maximum number of extra zlevels to generate and fill with ruins
