@@ -1,20 +1,33 @@
 /**
  * Code to handle atoms orbiting other atoms, following them as they move.
- *
+ * The basic logic is simple. We register a signal, COMSIG_MOVABLE_MOVED onto orbited atoms.
+ * 	When the orbited atom moves, any ghosts orbiting them are moved to their turf.
+ * We also register a MOVED signal onto the ghosts to cancel their orbit if they move themselves.
+ * Complexities come in for items within other items (such as the NAD in a box in a backpack on an assistant pretending to be the captain),
+ * 	as items in containers do **not** fire COMSIG_MOVABLE_MOVED when their container moves.
  *
  * The signal logic for items in containers is as follows:
  * Assume 1 is some item (for example, the NAD) and 2 is a box.
  * When 1 is added to 2, we register the typical orbit COMSIG_MOVABLE_MOVED onto 2.
  * 	This in essence makes 2 the "leader", the atom that ghosts follow in movement.
  *  As 2 is moved around (say, dragged on the floor) ghosts will follow it.
- * We also register a new COMSIG_MOVABLE_MOVED signal onto 1 that tracks if 1 is moved.
+ * We also register a new intermediate COMSIG_MOVABLE_MOVED signal onto 1 that tracks if 1 is moved.
+ * 	Remember, this will only fire if 1 is moved around containers, since it's impossible for it to actually move on its own.
  * 	If 1 is moved out of 2, this signal makes 1 the new leader.
  * Lastly, we add a COMSIG_ATOM_EXITED to 2, which tracks if 1 is removed from 2.
- * 	This EXITED signal cleans up any signals on and above 2.
+ * 	This EXITED signal cleans up any orbiting signals on and above 2.
+ * If 2 is added to another item, (say a backpack, 3)
+ * 	3 becomes the new leader
+ * 	2 becomes an intermediate
+ * 	1 is unchanged (but still carries the orbiter datum)
+ *
  *
  * You may be asking yourself: is this overengineered?
  * In part, yes. However, MOVED signals don't get fired for items in containers, so this is
- * 	really the next best way
+ * 	really the next best way.
+ * Also, is this really optimal?
+ *	As much as it can be, I believe. This signal-shuffling will not happen for any item that is just moving from turf to turf,
+ * 	which should apply to 95% of cases (read: ghosts orbiting mobs).
  */
 
 #define ORBIT_LOCK_IN 		(1<<0)
@@ -28,16 +41,7 @@
 	/// Cached transforms from before the orbiter started orbiting, to be restored on stopping their orbit
 	var/list/orbit_data
 
-/**
-A: atom to orbit
-radius: range to orbit at, radius of the circle formed by orbiting
-clockwise: whether you orbit clockwise or anti clockwise
-rotation_speed: how fast to rotate
-rotation_segments: the resolution of the orbit circle, less = a more block circle, this can be used to produce hexagons (6 segments) triangles (3 segments), and so on, 36 is the best default.
-pre_rotation: Chooses to rotate src 90 degress towards the orbit dir (clockwise/anticlockwise), useful for things to go "head first" like ghosts
-lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels when src gets too far away (eg: ghosts)
-layer: layer the orbiter should be on.
-*/
+/// See atom/movable/proc/orbit for parameter definitions
 /datum/component/orbiter/Initialize(atom/movable/orbiter, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lock_in_orbit = FALSE, force_move = FALSE, orbit_layer = FLY_LAYER)
 	if (!istype(orbiter) || !isatom(parent) || isarea(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -63,6 +67,7 @@ layer: layer the orbiter should be on.
 	orbit_data = null
 	return ..()
 
+/// See atom/movable/proc/orbit for parameter definitions
 /datum/component/orbiter/InheritComponent(datum/component/orbiter/new_comp, original, atom/movable/orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lock_in_orbit, force_move, orbit_layer)
 	// No transfer happening
 	if(!new_comp)
@@ -78,7 +83,7 @@ layer: layer the orbiter should be on.
 	if(!isatom(parent) || isarea(parent) || !get_turf(parent))
 		return COMPONENT_INCOMPATIBLE
 
-/// See Initialize() for parameter definitions
+/// See atom/movable/proc/orbit for parameter definitions
 /datum/component/orbiter/proc/begin_orbit(atom/movable/orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lock_in_orbit, force_move, orbit_layer)
 	if(!istype(orbiter))
 		return
@@ -137,13 +142,13 @@ layer: layer the orbiter should be on.
 		orbiter.forceMove(target_loc)
 	else
 		orbiter.loc = target_loc
-		// Setting loc doesn't fire MOVABLE_MOVED, so we need to do it ourselves
+		// Setting loc directly doesn't fire COMSIG_MOVABLE_MOVED, so we need to do it ourselves
 		SEND_SIGNAL(orbiter, COMSIG_MOVABLE_MOVED, current_loc, target_loc, null)
 
 /**
  * End the orbit and clean up our transformation.
  * If this removes the last atom orbiting us, then qdel ourselves.
- * If refreshing == TRUE, variables will be cleaned up as necessary, but src won't be qdeled.
+ * 	Howver, if refreshing == TRUE, src will not be qdeleted if this leaves us with 0 orbiters.
  */
 /datum/component/orbiter/proc/end_orbit(atom/movable/orbiter, refreshing = FALSE)
 	SIGNAL_HANDLER
@@ -184,8 +189,6 @@ layer: layer the orbiter should be on.
 	if(new_loc == old_loc)
 		return
 
-	var/was_thrown = FALSE
-
 	var/turf/new_turf = get_turf(new_loc)
 	if(!new_turf)
 		// don't follow someone to nullspace
@@ -193,30 +196,19 @@ layer: layer the orbiter should be on.
 
 	var/atom/cur_loc = new_loc
 
-	if(orbited in orbiter_list)
-		to_chat(world, "<span class='warning'>Orbited object somehow made its way into the hierarchy</span>")
-
-	// Of course throwing acts differently (2 steps, one of which is turf -> turf) so we need to include a check for our optimization below
-	for(var/datum/thrownthing/thing in get_turf(orbited)) //looking for our target on the turf we land on.
-		var/atom/movable/A = thing
-		if(A == orbited)
-			was_thrown = TRUE
-
-
-	// If something's only moving between turfs, don't bother changing signals
-	// Honestly, that should apply to 95% of orbiting cases
-	// Add throwing in there since it's a 2 step process (move to floor -> move to loc)
-	if(!(isturf(old_loc) && isturf(new_loc)) || was_thrown)
+	// If something's only moving between turfs, don't bother changing signals, just move ghosts.
+	// Honestly, that should apply to 95% of orbiting cases, which should be a nice optimization.
+	if(!(isturf(old_loc) && isturf(new_loc)))
 
 		// Clear any signals that may still exist upstream of where this object used to be
 		remove_signals(old_loc)
 		// ...and create a new signal hierarchy upstream of where the object is now.
+		// cur_loc is the current "leader" atom
 		cur_loc = register_signals(orbited)
 
 	var/orbit_params
 	var/orbiter_turf
 	new_turf = get_turf(cur_loc)
-	to_chat(world, "Ghosts were moved to [cur_loc]")
 	for(var/atom/movable/movable_orbiter in orbiter_list)
 		orbiter_turf = get_turf(movable_orbiter)
 		if(QDELETED(movable_orbiter) || orbiter_turf == new_turf)
@@ -234,17 +226,19 @@ layer: layer the orbiter should be on.
 		if(CHECK_TICK && new_turf != get_turf(movable_orbiter))
 			// We moved again during the checktick, cancel current operation
 			break
-
-/// Signal handler for COMSIG_MOVABLE_MOVED. Special wrapper to handle the arguments captured within.
+/**
+ * Signal handler for COMSIG_MOVABLE_MOVED. Special wrapper to handle the arguments that come from the signal.
+ * If you want to call this directly, just call handle_parent_move.
+ */
 /datum/component/orbiter/proc/parent_move_react(atom/movable/orbited, atom/old_loc, direction)
 	set waitfor = FALSE // Transfer calls this directly and it doesnt care if the ghosts arent done moving
 	handle_parent_move(orbited, old_loc, orbited.loc, direction)
 
 /**
-* Called when the orbiter themselves moves
+* Called when the orbiter themselves moves.
 */
 /datum/component/orbiter/proc/orbiter_move_react(atom/movable/orbiter, atom/oldloc, direction)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER	// COMSIG_MOVABLE_MOVED
 
 	if(get_turf(orbiter) == get_turf(parent) || get_turf(orbiter) == get_turf(oldloc) || get_turf(orbiter) == oldloc)
 		return
@@ -254,15 +248,16 @@ layer: layer the orbiter should be on.
 		orbiter.SpinAnimation(0, 0, parallel = FALSE)
 		end_orbit(orbiter)
 
-/// Go up the hierarchy from start and unregister our orbiting signals.
+/**
+ * Remove all orbit-related signals in the object hierarchy above start.
+ */
 /datum/component/orbiter/proc/remove_signals(atom/start)
-	to_chat(world, "Clearing signals on [start]")
 	var/atom/cur_atom = start
 	while(cur_atom && !isturf(cur_atom) && !(cur_atom in orbiter_list) && cur_atom != parent)
 		UnregisterSignal(cur_atom, COMSIG_ATOM_EXITED)
 		UnregisterSignal(cur_atom, COMSIG_MOVABLE_MOVED)
-		to_chat(world, "Removed signals from [cur_atom]")
 		cur_atom = cur_atom.loc
+
 /**
  * Register signals up the hierarchy, adding them to each parent (and their parent, and so on) up to the turf they're on.
  * The last atom in the hierarchy (the one whose .loc is the turf) becomes the leader, the atom ghosts will follow.
@@ -274,19 +269,17 @@ layer: layer the orbiter should be on.
 /datum/component/orbiter/proc/register_signals(atom/start)
 	if(isturf(start))
 		return
-	to_chat(world, "Registering signals on [start]")
 	var/atom/cur_atom = start
 	while(!isturf(cur_atom.loc) && !(cur_atom.loc in orbiter_list))
 		RegisterSignal(cur_atom, COMSIG_MOVABLE_MOVED, .proc/on_intermediate_move, TRUE)
 		RegisterSignal(cur_atom, COMSIG_ATOM_EXITED, .proc/on_remove_child, TRUE)
-		to_chat(world, "Added signals to [cur_atom]")
 		cur_atom = cur_atom.loc
 
-	// Set the topmost (before the turf) to be our new leader
+	// Set the topmost atom (right before the turf) to be our new leader
 	RegisterSignal(cur_atom, COMSIG_MOVABLE_MOVED, .proc/parent_move_react, TRUE)
 	RegisterSignal(cur_atom, COMSIG_ATOM_EXITED, .proc/on_remove_child, TRUE)
-	to_chat(world, "[cur_atom] is the new orbit leader.")
 	return cur_atom
+
 /**
  * Callback fired when an item is removed from a tracked atom.
  * Removes all orbit-related signals up its hierarchy and moves orbiters to the current child.
@@ -300,7 +293,6 @@ layer: layer the orbiter should be on.
 		return
 	// Remove all signals upwards of the child and re-register them as the new parent
 	remove_signals(exiting)
-	to_chat(world, "Child was removed, registering signals on [exiting]")
 	RegisterSignal(exiting, COMSIG_MOVABLE_MOVED, .proc/parent_move_react, TRUE)
 	RegisterSignal(exiting, COMSIG_ATOM_EXITED, .proc/on_remove_child, TRUE)
 	INVOKE_ASYNC(src, .proc/handle_parent_move, exiting, exiting.loc, new_loc)
@@ -319,10 +311,11 @@ layer: layer the orbiter should be on.
 	remove_signals(old_loc)  // TODO this doesn't work if something's removed from hand
 	RegisterSignal(tracked, COMSIG_MOVABLE_MOVED, .proc/parent_move_react, TRUE)
 	RegisterSignal(tracked, COMSIG_ATOM_EXITED, .proc/on_remove_child, TRUE)
-	to_chat(world, "Signals were modified when [tracked] moved.")
 	INVOKE_ASYNC(src, .proc/handle_parent_move, tracked, old_loc, tracked.loc)
 
-/// Check if atom_to_find is (transitively) a parent of src.
+/**
+ * Returns TRUE if atom_to_find is transitively a parent of src.
+ */
 /datum/component/orbiter/proc/is_in_hierarchy(atom/movable/atom_to_find)
 	var/atom/check = parent
 	while(check)
@@ -335,17 +328,16 @@ layer: layer the orbiter should be on.
 /// orbit data helper functions
 ///////////////////////////////////
 
-
 /**
  * Store a collection of data for an orbiter.
- * orbiter: orbiter atom itself. The orbiter's transform at this point will be captured and cached.
+ * orbiter: orbiter atom itself. The orbiter's transform and layer at this point will be captured and cached.
  * orbit_flags: bitfield consisting of flags describing the orbit.
  */
 /datum/component/orbiter/proc/store_orbit_data(atom/movable/orbiter, orbit_flags)
 	var/list/new_orbit_data = list(
 		orbiter.transform,  // cached transform
-		orbit_flags,			// params about the orbit
-		orbiter.layer
+		orbit_flags,		// params about the orbit
+		orbiter.layer		// cached layer from the orbiter
 	)
 	orbit_data[orbiter] = new_orbit_data
 	return new_orbit_data
@@ -381,19 +373,21 @@ layer: layer the orbiter should be on.
 // Atom procs/vars
 ///////////////////////////////////
 
-
-
-/// Who the current atom is orbiting
+/// UID for the atom which the current atom is orbiting
 /atom/movable/var/orbiting_uid = null
 
 /**
- * A: atom to orbit
+ * Set an atom to orbit around another one. This atom will follow the base atom's movement and rotate around it.
+ *
+ * orbiter: atom which will be doing the orbiting
  * radius: range to orbit at, radius of the circle formed by orbiting
  * clockwise: whether you orbit clockwise or anti clockwise
  * rotation_speed: how fast to rotate
  * rotation_segments: the resolution of the orbit circle, less = a more block circle, this can be used to produce hexagons (6 segments) triangles (3 segments), and so on, 36 is the best default.
  * pre_rotation: Chooses to rotate src 90 degress towards the orbit dir (clockwise/anticlockwise), useful for things to go "head first" like ghosts
- * lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels when src gets too far away (eg: ghosts)
+ * lock_in_orbit: Forces src to always be on A's turf, otherwise the orbit cancels when src gets too far away (eg: ghosts)
+ * force_move: If true, ghosts will be ForceMoved instead of having their .loc updated directly.
+ * orbit_layer: layer that the orbiter should be on. The original layer will be restored on orbit end.
  */
 /atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lock_in_orbit = FALSE, force_move = FALSE, orbit_layer = FLY_LAYER)
 	if(!istype(A) || !get_turf(A) || A == src)
