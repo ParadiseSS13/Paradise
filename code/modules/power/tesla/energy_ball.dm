@@ -51,9 +51,9 @@
 /obj/singularity/energy_ball/Destroy()
 	UnregisterSignal(src, COMSIG_ATOM_ORBIT_BEGIN)
 	UnregisterSignal(src, COMSIG_ATOM_ORBIT_STOP)
-	UnregisterSignal(parent_energy_ball, COMSIG_PARENT_QDELETING)
-	if(parent_energy_ball)
-		parent_energy_ball.on_stop_orbit(src)
+	if(parent_energy_ball && !QDELETED(parent_energy_ball))
+		UnregisterSignal(parent_energy_ball, COMSIG_PARENT_QDELETING)
+		parent_energy_ball.on_stop_orbit(src, TRUE)
 		parent_energy_ball.orbiting_balls -= src
 		parent_energy_ball = null
 
@@ -163,26 +163,24 @@
 			qdel(B)
 
 /// When we get orbited, add the orbiter to our tracked balls
-/obj/singularity/energy_ball/proc/on_start_orbit(atom/movable/orbiter)
-	SIGNAL_HANDLER
+/obj/singularity/energy_ball/proc/on_start_orbit(obj/singularity/energy_ball/ball)
+	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_BEGIN
 
-	if(istype(orbiter, /obj/singularity/energy_ball))
-		var/obj/singularity/energy_ball/target = orbiter
-		orbiting_balls += target
-		GLOB.poi_list -= target
+	if(istype(ball))
+		orbiting_balls += ball
+		GLOB.poi_list -= ball
 		dissipate_strength = length(orbiting_balls)
 
-/obj/singularity/energy_ball/proc/on_stop_orbit(atom/movable/orbiter)
-	SIGNAL_HANDLER
+/obj/singularity/energy_ball/proc/on_stop_orbit(obj/singularity/energy_ball/ball, being_destroyed = FALSE)
+	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_END
 
-	if(istype(orbiter, /obj/singularity/energy_ball))
-		var/obj/singularity/energy_ball/target = orbiter
-		orbiting_balls -= src
+	if(istype(ball))
+		orbiting_balls -= ball
 		dissipate_strength = length(orbiting_balls)
-		target.parent_energy_ball = null
+		ball.parent_energy_ball = null
 
-	if(!loc)
-		qdel(target)
+	if(!loc && !being_destroyed)
+		qdel(ball)
 
 /obj/singularity/energy_ball/proc/on_parent_delete(obj/singularity/energy_ball/target)
 	SIGNAL_HANDLER
