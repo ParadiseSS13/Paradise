@@ -309,7 +309,7 @@ restrict_antag_hud_rejoin = true
 # Do we want to allow player respawns?
 respawn_enabled = false
 # Enable karma awarding and karma lockouts for jobs and species?
-enable_karma = true
+enable_karma = false
 # Enable/disable the buster for the CID randomiser DLL
 enable_cid_randomiser_buster = false
 # Prevent admins from possessing the singularity
