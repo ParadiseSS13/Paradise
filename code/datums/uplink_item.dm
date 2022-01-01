@@ -1515,6 +1515,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "UI"
 	item = /obj/item/implanter/uplink
 	cost = 12
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 	cant_discount = TRUE
 
