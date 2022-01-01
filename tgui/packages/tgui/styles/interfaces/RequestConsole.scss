@@ -1,0 +1,7 @@
+.RequestConsole__message {
+  white-space: pre-wrap;
+
+  &:not(:last-child) {
+    margin-bottom: 4px;
+  }
+}

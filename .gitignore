@@ -25,6 +25,7 @@ stddef.dm
 .atom-build.json
 *.vscode/*
 !/.vscode/extensions.json
+.idea/
 
 # ignore DMI tool build cache
 /tools/dmitool/bin/

@@ -249,7 +249,7 @@ const MessageLog = (props, context) => {
         } />
     } >
       {list2iterate.map(m => (
-        <Box key={m}>
+        <Box className="RequestConsole__message" key={m}>
           {m}
         </Box>
       ))}

@@ -235,7 +235,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 					radiochannel = "AI Private"
 				else if(recipient == "Cargo Bay")
 					radiochannel = "Supply"
-				message_log += "Message sent to [recipient] at [station_time_timestamp()] - [message]"
+				write_to_message_log("Message sent to [recipient] at [station_time_timestamp()] - [message]")
 				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
 			else
 				atom_say("No server detected!")
@@ -343,10 +343,13 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 	switch(priority)
 		if(RQ_HIGHPRIORITY) // High
-			message_log += "High Priority - From: [linkedSender] - [message]"
+			write_to_message_log("Высокий приоритет - От: [linkedSender] - [message]")
 		else // Normal
-			message_log += "From: [linkedSender] - [message]"
+			write_to_message_log("От: [linkedSender] - [message]")
 	set_light(2)
+
+/obj/machinery/requests_console/proc/write_to_message_log(message)
+	message_log = list(message) + message_log
 
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)
 	var/obj/item/shippingPackage/sp = new /obj/item/shippingPackage(get_turf(src))

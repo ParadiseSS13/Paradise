@@ -440,7 +440,7 @@
 	if(!is_station_level(z))
 		return
 
-	var/msg = "Now available in [get_area_name(src, TRUE) || "Unknown"]:"
+	var/msg = "Сейчас доступно в [get_area_name(src, TRUE) || "Unknown"]:"
 	var/mats_in_stock = list()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/MAT in materials.materials)
@@ -448,7 +448,7 @@
 		var/mineral_amount = M.amount / MINERAL_MATERIAL_AMOUNT
 		if(mineral_amount)
 			mats_in_stock += M.id
-		msg += "[capitalize(M.name)]: [mineral_amount] sheets"
+		msg += "\n - [capitalize(M.name)]: [mineral_amount] единиц"
 
 	// No point sending a message if we're dry
 	if(!length(mats_in_stock))
@@ -460,7 +460,7 @@
 		if(!(C.department in supply_consoles))
 			continue
 		if(!supply_consoles[C.department] || length(supply_consoles[C.department] - mats_in_stock))
-			C.createMessage("Ore Redemption Machine", "New Minerals Available!", msg, 1) // RQ_NORMALPRIORITY
+			C.createMessage("Плавильная печь", "Новые ресурсы доступны!", msg, 1) // RQ_NORMALPRIORITY
 
 /**
   * Tries to insert the ID card held by the given user into the machine.
