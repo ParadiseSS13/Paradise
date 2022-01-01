@@ -144,7 +144,7 @@
 	orbitsize -= (orbitsize / world.icon_size) * (world.icon_size * 0.25)
 
 	EB.parent_energy_ball = src
-	EB.orbit(src, orbitsize, pick(FALSE, TRUE), rand(10, 25), pick(3, 4, 5, 6, 36))
+	EB.orbit(src, orbitsize, pick(FALSE, TRUE), rand(10, 25), pick(3, 4, 5, 6, 36), orbit_layer = EB.layer)
 
 /obj/singularity/energy_ball/Bump(atom/A)
 	dust_mobs(A)
