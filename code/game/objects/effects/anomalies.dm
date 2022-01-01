@@ -112,7 +112,7 @@
 		if(!M.mob_negates_gravity())
 			step_towards(M,src)
 	for(var/obj/O in range(0, src))
-		if(!O.anchored)
+		if(!O.anchored && O.loc != src) // so it cannot throw the anomaly core
 			var/mob/living/target = locate() in view(4, src)
 			if(target && !target.stat)
 				O.throw_at(target, 5, 10)
