@@ -800,16 +800,17 @@
 	winset(src, "mainwindow.mainvsplit", "background-color=#272727")
 	winset(src, "mainwindow.tooltip", "background-color=#272727")
 	/* Outputwindow */
+	winset(src, "outputwindow", "background-color=#1d1d1d")
 	winset(src, "outputwindow.browseroutput", "background-color=#272727")
 	/* Rpane */
-	winset(src, "rpane", "background-color=#272727")
-	winset(src, "rpane.rpanewindow", "background-color=#272727")
+	winset(src, "rpane", "background-color=#1d1d1d")
+	winset(src, "rpane.rpanewindow", "background-color=#1d1d1d")
 	/* Browserwindow */
 	winset(src, "browserwindow", "background-color=#272727")
 	winset(src, "browserwindow.browser", "background-color=#272727")
 	/* Infowindow */
-	winset(src, "infowindow", "background-color=#272727;text-color=#FFFFFF")
-	winset(src, "infowindow.info", "background-color=#272727;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#272727")
+	winset(src, "infowindow", "background-color=#1d1d1d;text-color=#FFFFFF")
+	winset(src, "infowindow.info", "background-color=#272727;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#1d1d1d")
 	// NOTIFY USER
 	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
 
@@ -833,6 +834,7 @@
 	winset(src, "mainwindow.mainvsplit", "background-color=none")
 	winset(src, "mainwindow.tooltip", "background-color=none")
 	/* Outputwindow */
+	winset(src, "outputwindow", "background-color=none")
 	winset(src, "outputwindow.browseroutput", "background-color=none")
 	/* Rpane */
 	winset(src, "rpane", "background-color=none")
