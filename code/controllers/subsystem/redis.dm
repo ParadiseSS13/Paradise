@@ -12,24 +12,11 @@ SUBSYSTEM_DEF(redis)
 	var/list/datum/redis_message/queue = list()
 	offline_implications = "The server will no longer be able to send or receive redis messages. Shuttle call recommended (Potential server crash inbound)."
 
-// Redis operations
-// These will be moved in the final PR
-#define rustg_redis_connect(connstring) call(RUST_G, "redis_connect")(connstring)
-/proc/rustg_redis_disconnect() return call(RUST_G, "redis_disconnect")()
-#define rustg_redis_subscribe(channel) call(RUST_G, "redis_subscribe")(channel)
-/proc/rustg_redis_get_messages() return call(RUST_G, "redis_get_messages")()
-#define rustg_redis_publish(channel, message) call(RUST_G, "redis_publish")(channel, message)
-#define RUST_REDIS_ERROR_CHANNEL "RUSTG_REDIS_ERROR_CHANNEL"
-
 // SS meta procs
 /datum/controller/subsystem/redis/stat_entry()
 	..("S:[length(subbed_channels)] | Q:[length(queue)] | C:[connected ? "Y" : "N"]")
 
 /datum/controller/subsystem/redis/Initialize()
-	if(world.system_type == UNIX)
-		flags |= SS_NO_FIRE
-		return ..() // Hack to bypass CI in debug mode
-
 	// Connect to cappuccino
 	connect()
 
