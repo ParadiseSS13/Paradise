@@ -761,7 +761,7 @@
 				to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")
 		return
 	if(istype(I, /obj/item/retractor/supermatter))
-		to_chat(user, "<span class='notice'>Your [I] bounces off the supermatter crystal, you need to cut a sliver off first!</span>")
+		to_chat(user, "<span class='notice'>[I] bounces off the supermatter crystal, you need to cut a sliver off first!</span>")
 	else if(user.drop_item())
 		user.visible_message("<span class='danger'>As [user] touches [src] with \a [I], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch [src] with [I], and everything suddenly goes silent.</span>\n<span class='notice'>[I] flashes into dust as you flinch away from [src].</span>",\
