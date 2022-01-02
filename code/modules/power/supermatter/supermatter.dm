@@ -736,13 +736,32 @@
 		if(I.use_tool(src, user, 10 SECONDS, volume = 100))
 			if(scalpel.uses_left)
 				to_chat(user, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
-				new /obj/item/nuke_core/supermatter_sliver(drop_location())
 				matter_power += 800
 				scalpel.uses_left--
 				if(!scalpel.uses_left)
 					to_chat(user, "<span class='boldwarning'>A tiny piece of [I] falls off, rendering it useless!</span>")
+
+				var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
+
+				var/obj/item/retractor/supermatter/tongs
+
+				if(istype(user.get_item_by_slot(slot_l_hand), /obj/item/retractor/supermatter))
+					tongs = user.get_item_by_slot(slot_l_hand)
+				else if(istype(user.get_item_by_slot(slot_r_hand), /obj/item/retractor/supermatter))
+					tongs = user.get_item_by_slot(slot_r_hand)
+
+				if(tongs && !tongs.sliver)
+					tongs.sliver = S
+					S.forceMove(tongs)
+					tongs.icon_state = "supermatter_tongs_loaded"
+					tongs.item_state = "supermatter_tongs_loaded"
+					tongs.update_icon()
+					to_chat(user,"<span class='notice'> You pick up [S] with [tongs]!</span>")
 			else
 				to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")
+		return
+	if(istype(I, /obj/item/retractor/supermatter))
+		to_chat(user, "<span class='notice'>Your [I] bounces off the supermatter crystal, you need to cut a sliver off first!</span>")
 	else if(user.drop_item())
 		user.visible_message("<span class='danger'>As [user] touches [src] with \a [I], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch [src] with [I], and everything suddenly goes silent.</span>\n<span class='notice'>[I] flashes into dust as you flinch away from [src].</span>",\
