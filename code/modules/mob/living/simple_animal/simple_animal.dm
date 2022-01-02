@@ -469,9 +469,8 @@
 		var/childspawn = pickweight(childtype)
 		var/turf/target = get_turf(loc)
 		if(target)
-			new childspawn(target)
 			current_offspring += 1
-			return
+			return new childspawn(target)
 
 /mob/living/simple_animal/show_inv(mob/user as mob)
 	if(!can_collar)
