@@ -235,14 +235,12 @@
 		var/unwashable = list(
 			/obj/item/clothing/suit/space,
 			/obj/item/clothing/suit/syndicatefake,
-			///obj/item/clothing/suit/powered
 			/obj/item/clothing/suit/cyborg_suit,
 			/obj/item/clothing/suit/bomb_suit,
 			/obj/item/clothing/suit/armor,
 			/obj/item/clothing/mask/gas,
 			/obj/item/clothing/mask/cigarette,
 			/obj/item/clothing/head/syndicatefake,
-			///obj/item/clothing/head/powered
 			/obj/item/clothing/head/helmet,
 			/obj/item/clothing/gloves/furgloves,
 			/obj/item/clothing/gloves/color/black/krav_maga/sec,
