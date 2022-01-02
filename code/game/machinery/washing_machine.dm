@@ -232,26 +232,23 @@
 		istype(W,/obj/item/clothing/suit) || \
 		istype(W,/obj/item/bedsheet))
 		
-		var/unwashable = list(
+		var/list/unwashable = list(
 			/obj/item/clothing/suit/space,
 			/obj/item/clothing/suit/syndicatefake,
-			///obj/item/clothing/suit/powered
 			/obj/item/clothing/suit/cyborg_suit,
 			/obj/item/clothing/suit/bomb_suit,
 			/obj/item/clothing/suit/armor,
 			/obj/item/clothing/mask/gas,
 			/obj/item/clothing/mask/cigarette,
 			/obj/item/clothing/head/syndicatefake,
-			///obj/item/clothing/head/powered
 			/obj/item/clothing/head/helmet,
 			/obj/item/clothing/gloves/furgloves,
 			/obj/item/clothing/gloves/color/black/krav_maga/sec,
 			/obj/item/clothing/shoes/magboots
 		)
-		for(var/X in unwashable)
-			if(istype(W,X))
-				to_chat(user, "<span class='warning'>This item cannot be washed.</span>")
-				return
+		if(is_type_in_list(W, unwashable))
+			to_chat(user, "<span class='warning'>This item cannot be washed.</span>")
+			return
 		if(W.flags & NODROP) //if "can't drop" item
 			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in the washing machine!</span>")
 			return
