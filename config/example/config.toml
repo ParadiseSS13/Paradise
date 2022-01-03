@@ -295,7 +295,7 @@ server_name = "ParaCode Test"
 # EG: The perfect mix of RP & action
 server_tag_line = "ParaCode Testing Server"
 # Server features. Shows in a newline
-server_features = "Medium RP, varied species/jobs."
+server_features = "Medium RP, varied species/jobs"
 # Allow OOC character metadata notes
 allow_character_metadata = true
 # Lobby time before roundstart (Seconds)
