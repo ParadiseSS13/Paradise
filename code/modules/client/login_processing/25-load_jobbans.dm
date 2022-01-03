@@ -7,4 +7,4 @@
 	return C.jbh.get_query(C)
 
 /datum/client_login_processor/load_jobbans/process_result(datum/db_query/Q, client/C)
-	C.jbh.process_query(Q, C)
+	C.jbh.process_query(Q)

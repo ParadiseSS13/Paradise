@@ -1,4 +1,3 @@
-
 /// Holder for job bans
 /datum/job_ban_holder
 	/// Assoc list of job banned:ban holder
@@ -15,7 +14,7 @@
 	return query
 
 // Uses the query from above
-/datum/job_ban_holder/proc/process_query(datum/db_query/Q, client/C)
+/datum/job_ban_holder/proc/process_query(datum/db_query/Q)
 	while(Q.NextRow())
 		var/datum/job_ban/JB = new()
 		JB.bantime = Q.item[1]
@@ -41,7 +40,7 @@
 		return
 
 	job_bans.Cut() // Empty it
-	process_query(data, C)
+	process_query(data)
 	qdel(data)
 
 // dont mess with this
