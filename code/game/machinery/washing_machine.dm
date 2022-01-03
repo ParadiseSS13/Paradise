@@ -232,48 +232,22 @@
 		istype(W,/obj/item/clothing/suit) || \
 		istype(W,/obj/item/bedsheet))
 
-		//YES, it's hardcoded... saves a var/can_be_washed for every single clothing item.
-		if( istype(W,/obj/item/clothing/suit/space ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/suit/syndicatefake ) )
-			to_chat(user, "This item does not fit.")
-			return
-//		if( istype(W,/obj/item/clothing/suit/powered ) )
-//			to_chat(user, "This item does not fit.")
-//			return
-		if( istype(W,/obj/item/clothing/suit/cyborg_suit ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/suit/bomb_suit ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/suit/armor ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/suit/armor ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/mask/gas ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/mask/cigarette ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/head/syndicatefake ) )
-			to_chat(user, "This item does not fit.")
-			return
-//		if( istype(W,/obj/item/clothing/head/powered ) )
-//			to_chat(user, "This item does not fit.")
-//			return
-		if( istype(W,/obj/item/clothing/head/helmet ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/gloves/furgloves ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if(istype(W, /obj/item/clothing/gloves/color/black/krav_maga/sec))
-			to_chat(user, "<span class='warning'>Washing these gloves would fry the electronics!</span>")
+		var/list/unwashable = list(
+			/obj/item/clothing/suit/space,
+			/obj/item/clothing/suit/syndicatefake,
+			/obj/item/clothing/suit/cyborg_suit,
+			/obj/item/clothing/suit/bomb_suit,
+			/obj/item/clothing/suit/armor,
+			/obj/item/clothing/mask/gas,
+			/obj/item/clothing/mask/cigarette,
+			/obj/item/clothing/head/syndicatefake,
+			/obj/item/clothing/head/helmet,
+			/obj/item/clothing/gloves/furgloves,
+			/obj/item/clothing/gloves/color/black/krav_maga/sec,
+			/obj/item/clothing/shoes/magboots
+		)
+		if(is_type_in_list(W, unwashable))
+			to_chat(user, "<span class='warning'>This item cannot be washed.</span>")
 			return
 		if(W.flags & NODROP) //if "can't drop" item
 			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in the washing machine!</span>")
