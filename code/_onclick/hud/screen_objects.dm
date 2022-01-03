@@ -189,6 +189,10 @@
 	if(!S)
 		return
 
+	if(!is_item_accessible(I, user))
+		log_game("[user.simple_info_line()] tried to abuse storage remote drag&drop with '[I]' at [atom_loc_line(I)] into '[S]' at [atom_loc_line(S)]")
+		return
+
 	if(I in S.contents) // If the item is already in the storage, move them to the end of the list
 		if(S.contents[S.contents.len] == I) // No point moving them at the end if they're already there!
 			return
