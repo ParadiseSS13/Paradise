@@ -367,7 +367,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 			if("Regular Restart")
 				var/delay = input("What delay should the restart have (in seconds)?", "Restart Delay", 5) as num|null
-				if(!delay)
+				if(!delay && delay != 0)
 					return FALSE
 
 
