@@ -311,8 +311,8 @@
 
 	//Throwing stuff around!
 	for(var/obj/O in range(2, src))
-		if(O == src)
-			return //DON'T DELETE YOURSELF GOD DAMN
+		if(O == src || O.loc == src)
+			return //DON'T DELETE YOURSELF OR YOUR CORE GOD DAMN
 		if(!O.anchored)
 			var/mob/living/target = locate() in view(4, src)
 			if(target && !target.stat)
