@@ -30,6 +30,7 @@
 	var/emp_proof = FALSE //is the organ immune to EMPs?
 	var/hidden_pain = FALSE //will it skip pain messages?
 	var/requires_robotic_bodypart = FALSE
+	var/crit_fail = FALSE //Used by certain implants to disable them.
 
 
 /obj/item/organ/Destroy()
