@@ -21,7 +21,7 @@
 	UnregisterSignal(imp_in, COMSIG_MOB_DEATH)
 	return ..()
 
-/obj/item/implant/death_alarm/activate(name, cause) // Death signal sends name followed by the gibbed / not gibbed check
+/obj/item/implant/death_alarm/activate(cause) // Death signal sends name followed by the gibbed / not gibbed check
 	var/mob/M = imp_in
 	var/area/t = get_area(M)
 
@@ -30,30 +30,33 @@
 
 	switch(cause)
 		if(TRUE)
-			a.autosay("[name] has died-zzzzt in-in-in...", "[name]'s Death Alarm")
+			a.autosay("[mobname] has died-zzzzt in-in-in...", "[mobname]'s Death Alarm")
 			qdel(src)
 		if("emp")
-			var/area_name = prob(50) ? t.name : pick(SSmapping.teleportlocs)
-			a.autosay("[name] has died in [area_name]!", "[name]'s Death Alarm")
+			var/name = prob(50) ? t.name : pick(SSmapping.teleportlocs)
+			a.autosay("[mobname] has died in [name]!", "[mobname]'s Death Alarm")
 		else
 			if(is_type_in_typecache(t, stealth_areas))
 				//give the syndies a bit of stealth
-				a.autosay("[name] has died in Space!", "[name]'s Death Alarm")
+				a.autosay("[mobname] has died in Space!", "[mobname]'s Death Alarm")
 			else
-				a.autosay("[name] has died in [t.name]!", "[name]'s Death Alarm")
+				a.autosay("[mobname] has died in [t.name]!", "[mobname]'s Death Alarm")
 			qdel(src)
 
 	qdel(a)
 
 /obj/item/implant/death_alarm/emp_act(severity)			//for some reason alarms stop going off in case they are emp'd, even without this
-	activate(mobname, "emp")	//let's shout that this dude is dead
+	activate("emp")	//let's shout that this dude is dead
 
 /obj/item/implant/death_alarm/implant(mob/target)
 	if(..())
 		mobname = target.real_name
-		RegisterSignal(target, COMSIG_MOB_DEATH, /obj/item/implant/death_alarm.proc/activate)
+		RegisterSignal(target, COMSIG_MOB_DEATH, /obj/item/implant/death_alarm.proc/check_gibbed_activate)
 		return 1
 	return 0
+
+/obj/item/implant/death_alarm/proc/check_gibbed_activate(datum/source, gibbed)
+	activate(gibbed)
 
 /obj/item/implant/death_alarm/removed(mob/target)
 	if(..())
