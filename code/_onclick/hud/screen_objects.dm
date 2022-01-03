@@ -164,6 +164,23 @@
 			master.attackby(I, usr, params)
 	return TRUE
 
+/obj/screen/storage/proc/is_item_accessible(obj/item/I, mob/user)
+	if (!user || !I)
+		return FALSE
+
+	var/storage_depth = I.storage_depth(user)
+	if((I in user.loc) || (storage_depth != -1))
+		return TRUE
+
+	if(!isturf(user.loc))
+		return FALSE
+
+	var/storage_depth_turf = I.storage_depth_turf()
+	if(isturf(I.loc) || (storage_depth_turf != -1))
+		if(I.Adjacent(user))
+			return TRUE
+	return FALSE
+
 /obj/screen/storage/MouseDrop_T(obj/item/I, mob/user)
 	if(!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || istype(user.loc, /obj/mecha) || !master)
 		return
