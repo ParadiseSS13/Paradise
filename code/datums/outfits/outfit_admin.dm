@@ -253,8 +253,8 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_centcom_access("NT Undercover Operative"), "Civilian")
-	H.sec_hud_set_ID() // Force it to show as Civ on sec huds
+		apply_to_card(I, H, get_centcom_access("NT Undercover Operative"), "Assistant")
+	H.sec_hud_set_ID() // Force it to show as assistant on sec huds
 
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
@@ -647,20 +647,20 @@
 	name = "Solar Federation Marine"
 	uniform = /obj/item/clothing/under/solgov
 	suit = /obj/item/clothing/suit/armor/bulletproof
-	back = /obj/item/storage/backpack/security
+	back = /obj/item/storage/backpack/ert/solgov
 	belt = /obj/item/storage/belt/military/assault/marines/full
 	head = /obj/item/clothing/head/soft/solgov/marines
 	glasses = /obj/item/clothing/glasses/night
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
-	l_ear = /obj/item/radio/headset/ert
+	l_ear = /obj/item/radio/headset/ert/alt/solgov
 	id = /obj/item/card/id
 	l_hand = /obj/item/gun/projectile/automatic/shotgun/bulldog
 	suit_store = /obj/item/gun/projectile/automatic/pistol/m1911
 	r_pocket = /obj/item/flashlight/seclite
 	pda = /obj/item/pda
+	box = /obj/item/storage/box/responseteam
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/whetstone = 1,
 		/obj/item/clothing/mask/gas/explorer/marines = 1,
@@ -702,13 +702,12 @@
 	head = /obj/item/clothing/head/beret/solgov/command
 	glasses = /obj/item/clothing/glasses/night
 	back = /obj/item/storage/backpack/satchel
-	l_ear = /obj/item/radio/headset/ert/alt/commander
+	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
 	l_hand = null
 	belt = /obj/item/melee/baton/loaded
 	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam = 1,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
@@ -720,14 +719,14 @@
 /datum/outfit/admin/solgov/elite
 	name = "Solar Federation Specops Marine"
 	uniform = /obj/item/clothing/under/solgov/elite
-	head = /obj/item/clothing/head/soft/solgov/marines/elite
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov
+	head = null
+	mask = /obj/item/clothing/mask/gas/explorer/marines
 	belt = /obj/item/storage/belt/military/assault/marines/elite/full
 	l_hand = /obj/item/gun/projectile/automatic/ar
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/whetstone = 1,
-		/obj/item/clothing/mask/gas/explorer/marines = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
 	)
 	cybernetic_implants = list(
@@ -737,22 +736,22 @@
 		/obj/item/organ/internal/cyberimp/arm/flash,
 		/obj/item/organ/internal/eyes/cybernetic/shield
 	)
+
 /datum/outfit/admin/solgov/elite/lieutenant
 	name = "Solar Federation Specops Lieutenant"
 	uniform = /obj/item/clothing/under/solgov/command/elite
-	head = /obj/item/clothing/head/beret/solgov/command/elite
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov/command
+	head = null
+	mask = /obj/item/clothing/mask/gas/explorer/marines
 	glasses = /obj/item/clothing/glasses/night
-	back = /obj/item/storage/backpack/satchel
 	belt = /obj/item/melee/baton/loaded
 	l_hand = null
 	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
 	l_pocket = /obj/item/pinpointer/advpinpointer
-	l_ear = /obj/item/radio/headset/ert/alt/commander
+	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam = 1,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
-		/obj/item/clothing/mask/gas/explorer/marines = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
 		/obj/item/ammo_box/magazine/m50 = 3
 	)
@@ -1104,21 +1103,15 @@
 
 	if(H.mind)
 		if(!H.mind.vampire)
-			H.make_vampire()
-			if(H.mind.vampire)
-				H.mind.vampire.bloodusable = 9999
-				H.mind.vampire.bloodtotal = 9999
-				H.mind.vampire.check_vampire_upgrade(0)
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shapeshift/bats)
-				to_chat(H, "You have gained the ability to shapeshift into bat form. This is a weak form with no abilities, only useful for stealth.")
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shapeshift/hellhound)
-				to_chat(H, "You have gained the ability to shapeshift into lesser hellhound form. This is a combat form with different abilities, tough but not invincible. It can regenerate itself over time by resting.")
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/raise_vampires)
-				to_chat(H, "You have gained the ability to Raise Vampires. This extremely powerful AOE ability affects all humans near you. Vampires/thralls are healed. Corpses are raised as vampires. Others are stunned, then brain damaged, then killed.")
-				H.dna.SetSEState(GLOB.jumpblock, 1)
-				singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
-				H.update_mutations()
-				H.gene_stability = 100
+			H.mind.make_vampire(TRUE)
+		H.mind.vampire.bloodusable = 9999
+		H.mind.vampire.bloodtotal = 9999
+		H.mind.offstation_role = TRUE
+		H.mind.vampire.add_subclass(SUBCLASS_ANCIENT, FALSE)
+		H.dna.SetSEState(GLOB.jumpblock, TRUE)
+		singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
+		H.update_mutations()
+		H.gene_stability = 100
 
 /datum/outfit/admin/wizard
 	name = "Blue Wizard"

@@ -37,10 +37,6 @@
 			bantype_str = "JOB_TEMPBAN"
 			bantype_pass = 1
 			isjobban = 1
-		if(BANTYPE_APPEARANCE)
-			bantype_str = "APPEARANCE_BAN"
-			duration = -1
-			bantype_pass = 1
 		if(BANTYPE_ADMIN_PERMA)
 			bantype_str = "ADMIN_PERMABAN"
 			duration = -1
@@ -86,7 +82,7 @@
 		message_admins("<font color='red'>[key_name_admin(usr)] attempted to add a ban based on a non-existent mob, with no ckey provided. Report this bug.",1)
 		return
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id FROM [format_table_name("player")] WHERE ckey=:ckey", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id FROM player WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))
 	if(!query.warn_execute())
@@ -131,7 +127,7 @@
 			adminwho += ", [C]"
 
 	if(maxadminbancheck)
-		var/datum/db_query/adm_query = SSdbcore.NewQuery("SELECT count(id) AS num FROM [format_table_name("ban")] WHERE (a_ckey=:a_ckey) AND (bantype = 'ADMIN_PERMABAN'  OR (bantype = 'ADMIN_TEMPBAN' AND expiration_time > Now())) AND isnull(unbanned)", list(
+		var/datum/db_query/adm_query = SSdbcore.NewQuery("SELECT count(id) AS num FROM ban WHERE (a_ckey=:a_ckey) AND (bantype = 'ADMIN_PERMABAN'  OR (bantype = 'ADMIN_TEMPBAN' AND expiration_time > Now())) AND isnull(unbanned)", list(
 			"a_ckey" = a_ckey
 		))
 		if(!adm_query.warn_execute())
@@ -146,8 +142,8 @@
 		qdel(adm_query)
 
 	var/datum/db_query/query_insert = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`,`ban_round_id`,`unbanned_round_id`)
-		VALUES (null, Now(), :serverip, :bantype_str, :reason, :job, :duration, :rounds, Now() + INTERVAL :duration MINUTE, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null, :roundid, null)
+		INSERT INTO ban (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`,`ban_round_id`,`unbanned_round_id`, `server_id`)
+		VALUES (null, Now(), :serverip, :bantype_str, :reason, :job, :duration, :rounds, Now() + INTERVAL :duration MINUTE, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null, :roundid, null, :server_id)
 	"}, list(
 		// Get ready for parameters
 		"serverip" = serverip,
@@ -164,7 +160,8 @@
 		"a_ip" = a_ip,
 		"who" = who,
 		"adminwho" = adminwho,
-		"roundid" = GLOB.round_id
+		"roundid" = GLOB.round_id,
+		"server_id" = GLOB.configuration.system.instance_id
 	))
 	if(!query_insert.warn_execute())
 		qdel(query_insert)
@@ -213,9 +210,6 @@
 				bantype_str = "JOB_TEMPBAN"
 				bantype_pass = 1
 				isjobban = 1
-			if(BANTYPE_APPEARANCE)
-				bantype_str = "APPEARANCE_BAN"
-				bantype_pass = 1
 			if(BANTYPE_ADMIN_PERMA)
 				bantype_str = "ADMIN_PERMABAN"
 				bantype_pass = 1
@@ -233,7 +227,7 @@
 	else
 		bantype_sql = "bantype = '[bantype_str]'"
 
-	var/sql = "SELECT id FROM [format_table_name("ban")] WHERE ckey=:ckey AND [bantype_sql] AND (unbanned is null OR unbanned = false)"
+	var/sql = "SELECT id FROM ban WHERE ckey=:ckey AND [bantype_sql] AND (unbanned is null OR unbanned = false)"
 	var/list/sql_params = list(
 		"ckey" = ckey
 	)
@@ -283,7 +277,7 @@
 		to_chat(usr, "Cancelled")
 		return
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, duration, reason, job FROM [format_table_name("ban")] WHERE id=:banid", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, duration, reason, job FROM ban WHERE id=:banid", list(
 		"banid" = banid
 	))
 	if(!query.warn_execute())
@@ -318,7 +312,7 @@
 					return
 
 			var/edit_reason = "- [eckey] changed ban reason from <cite><b>\\\"[reason]\\\"</b></cite> to <cite><b>\\\"[value]\\\"</b></cite><BR>"
-			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("ban")] SET reason=:value, edits = CONCAT(IFNULL(edits,''), :edittext) WHERE id=:banid", list(
+			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE ban SET reason=:value, edits = CONCAT(IFNULL(edits,''), :edittext) WHERE id=:banid", list(
 				"edittext" = edit_reason,
 				"banid" = banid,
 				"value" = value
@@ -337,7 +331,7 @@
 					return
 
 			var/edittext = "- [eckey] changed ban duration from [duration] to [value]<br>"
-			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("ban")] SET duration=:value, edits = CONCAT(IFNULL(edits, ''), :edittext), expiration_time = DATE_ADD(bantime, INTERVAL :value MINUTE) WHERE id=:banid", list(
+			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE ban SET duration=:value, edits = CONCAT(IFNULL(edits, ''), :edittext), expiration_time = DATE_ADD(bantime, INTERVAL :value MINUTE) WHERE id=:banid", list(
 				"edittext" = edittext,
 				"banid" = banid,
 				"value" = value
@@ -373,7 +367,7 @@
 	var/ban_number = 0 //failsafe
 
 	var/pckey
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("ban")] WHERE id=:banid", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey FROM ban WHERE id=:banid", list(
 		"banid" = id
 	))
 	if(!query.warn_execute())
@@ -400,7 +394,7 @@
 	var/unban_computerid = src.owner:computer_id
 	var/unban_ip = src.owner:address
 
-	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [format_table_name("ban")] SET unbanned = 1, unbanned_datetime = Now(), unbanned_ckey=:unban_ckey, unbanned_computerid=:unban_computerid, unbanned_ip=:unban_ip, unbanned_round_id=:roundid WHERE id=:id", list(
+	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE ban SET unbanned = 1, unbanned_datetime = Now(), unbanned_ckey=:unban_ckey, unbanned_computerid=:unban_computerid, unbanned_ip=:unban_ip, unbanned_round_id=:roundid WHERE id=:id", list(
 		"unban_ckey" = unban_ckey,
 		"unban_computerid" = unban_computerid,
 		"unban_ip" = unban_ip,
@@ -416,17 +410,6 @@
 	message_admins("[key_name_admin(usr)] has lifted [pckey]'s ban.")
 	log_admin("[key_name(usr)] has lifted [pckey]'s ban.")
 	flag_account_for_forum_sync(pckey)
-
-
-/client/proc/DB_ban_panel()
-	set category = "Admin"
-	set name = "Banning Panel"
-	set desc = "DB Ban Panel"
-
-	if(!check_rights(R_BAN))
-		return
-
-	holder.DB_ban_panel()
 
 
 /datum/admins/proc/DB_ban_panel(playerckey = null, adminckey = null, playerip = null, playercid = null, dbbantype = null, match = null)
@@ -458,7 +441,6 @@
 	output += "<option value='[BANTYPE_TEMP]'>TEMPBAN</option>"
 	output += "<option value='[BANTYPE_JOB_PERMA]'>JOB PERMABAN</option>"
 	output += "<option value='[BANTYPE_JOB_TEMP]'>JOB TEMPBAN</option>"
-	output += "<option value='[BANTYPE_APPEARANCE]'>APPEARANCE BAN</option>"
 	output += "<option value='[BANTYPE_ADMIN_PERMA]'>ADMIN PERMABAN</option>"
 	output += "<option value='[BANTYPE_ADMIN_TEMP]'>ADMIN TEMPBAN</option>"
 	output += "</select></td>"
@@ -500,7 +482,6 @@
 	output += "<option value='[BANTYPE_TEMP]'>TEMPBAN</option>"
 	output += "<option value='[BANTYPE_JOB_PERMA]'>JOB PERMABAN</option>"
 	output += "<option value='[BANTYPE_JOB_TEMP]'>JOB TEMPBAN</option>"
-	output += "<option value='[BANTYPE_APPEARANCE]'>APPEARANCE BAN</option>"
 	output += "<option value='[BANTYPE_ADMIN_PERMA]'>ADMIN PERMABAN</option>"
 	output += "<option value='[BANTYPE_ADMIN_TEMP]'>ADMIN TEMPBAN</option>"
 	output += "</select></td></tr></table>"
@@ -575,8 +556,6 @@
 						bantypesearch += "'JOB_PERMABAN' "
 					if(BANTYPE_JOB_TEMP)
 						bantypesearch += "'JOB_TEMPBAN' "
-					if(BANTYPE_APPEARANCE)
-						bantypesearch += "'APPEARANCE_BAN' "
 					if(BANTYPE_ADMIN_PERMA)
 						bantypesearch = "'ADMIN_PERMABAN' "
 					if(BANTYPE_ADMIN_TEMP)
@@ -587,7 +566,7 @@
 
 			var/datum/db_query/select_query = SSdbcore.NewQuery({"
 				SELECT id, bantime, bantype, reason, job, duration, expiration_time, ckey, a_ckey, unbanned, unbanned_ckey, unbanned_datetime, edits, ip, computerid, ban_round_id, unbanned_round_id
-				FROM [format_table_name("ban")] WHERE 1 [playersearch] [adminsearch] [ipsearch] [cidsearch] [bantypesearch] ORDER BY bantime DESC LIMIT 100"}, sql_params)
+				FROM ban WHERE 1 [playersearch] [adminsearch] [ipsearch] [cidsearch] [bantypesearch] ORDER BY bantime DESC LIMIT 100"}, sql_params)
 
 			if(!select_query.warn_execute())
 				qdel(select_query)
@@ -628,8 +607,6 @@
 						typedesc = "<b>JOBBAN</b><br><font size='2'>([job])"
 					if("JOB_TEMPBAN")
 						typedesc = "<b>TEMP JOBBAN</b><br><font size='2'>([job])<br>([duration] minutes<br>Expires [expiration]"
-					if("APPEARANCE_BAN")
-						typedesc = "<b>APPEARANCE/NAME BAN</b>"
 					if("ADMIN_PERMABAN")
 						typedesc = "<b>ADMIN PERMABAN</b>"
 					if("ADMIN_TEMPBAN")
@@ -673,7 +650,7 @@
 /proc/flag_account_for_forum_sync(ckey)
 	if(!SSdbcore.IsConnected())
 		return
-	var/datum/db_query/adm_query = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET fupdate = 1 WHERE ckey=:ckey", list(
+	var/datum/db_query/adm_query = SSdbcore.NewQuery("UPDATE player SET fupdate = 1 WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))
 	// We do nothing with output here so we dont need to wrap the warn_execute() inside an if statement

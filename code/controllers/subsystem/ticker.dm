@@ -7,10 +7,12 @@ SUBSYSTEM_DEF(ticker)
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
 	offline_implications = "The game is no longer aware of when the round ends. Immediate server restart recommended."
 
-	/// Time the world started, relative to world.time
+	/// Time the game should start, relative to world.time
 	var/round_start_time = 0
+	/// Time that the round started
+	var/time_game_started = 0
 	/// Default timeout for if world.Reboot() doesnt have a time specified
-	var/const/restart_timeout = 600
+	var/const/restart_timeout = 75 SECONDS
 	/// Current status of the game. See code\__DEFINES\game.dm
 	var/current_state = GAME_STATE_STARTUP
 	/// Do we want to force-start as soon as we can
@@ -79,9 +81,9 @@ SUBSYSTEM_DEF(ticker)
 	switch(current_state)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
-			round_start_time = world.time + (config.pregame_timestart * 10)
+			round_start_time = world.time + (GLOB.configuration.general.lobby_time SECONDS)
 			to_chat(world, "<B><span class='darkmblue'>Welcome to the pre-game lobby!</span></B>")
-			to_chat(world, "Please, setup your character and select ready. Game will start in [config.pregame_timestart] seconds")
+			to_chat(world, "Please, setup your character and select ready. Game will start in [GLOB.configuration.general.lobby_time] seconds")
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
 			for(var/mob/new_player/N in GLOB.player_list)
@@ -114,10 +116,10 @@ SUBSYSTEM_DEF(ticker)
 
 			if(world.time > next_autotransfer)
 				SSvote.autotransfer()
-				next_autotransfer = world.time + config.vote_autotransfer_interval
+				next_autotransfer = world.time + GLOB.configuration.vote.autotransfer_interval_time
 
 			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
-			if(config.continuous_rounds)
+			if(GLOB.configuration.gamemode.disable_certain_round_early_end)
 				mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
 			else
 				game_finished |= mode.check_finished()
@@ -129,6 +131,8 @@ SUBSYSTEM_DEF(ticker)
 			auto_toggle_ooc(TRUE) // Turn it on
 			declare_completion()
 			addtimer(CALLBACK(src, .proc/call_reboot), 5 SECONDS)
+			if(GLOB.configuration.vote.enable_map_voting)
+				SSvote.initiate_vote("map", "the server", TRUE) // Start a map vote. Timing is a little tight here but we should be good.
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
 	if(mode.station_was_nuked)
@@ -147,7 +151,7 @@ SUBSYSTEM_DEF(ticker)
 	var/list/datum/game_mode/runnable_modes
 
 	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
-		runnable_modes = config.get_runnable_modes()
+		runnable_modes = GLOB.configuration.gamemode.get_runnable_modes()
 		if(!length(runnable_modes))
 			to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
 			force_start = FALSE
@@ -155,9 +159,9 @@ SUBSYSTEM_DEF(ticker)
 			Master.SetRunLevel(RUNLEVEL_LOBBY)
 			return FALSE
 		if(GLOB.secret_force_mode != "secret")
-			var/datum/game_mode/M = config.pick_mode(GLOB.secret_force_mode)
+			var/datum/game_mode/M = GLOB.configuration.gamemode.pick_mode(GLOB.secret_force_mode)
 			if(M.can_start())
-				mode = config.pick_mode(GLOB.secret_force_mode)
+				mode = GLOB.configuration.gamemode.pick_mode(GLOB.secret_force_mode)
 		SSjobs.ResetOccupations()
 		if(!mode)
 			mode = pickweight(runnable_modes)
@@ -165,7 +169,7 @@ SUBSYSTEM_DEF(ticker)
 			var/mtype = mode.type
 			mode = new mtype
 	else
-		mode = config.pick_mode(GLOB.master_mode)
+		mode = GLOB.configuration.gamemode.pick_mode(GLOB.master_mode)
 
 	if(!mode.can_start())
 		to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players needed. Reverting to pre-game lobby.")
@@ -175,6 +179,11 @@ SUBSYSTEM_DEF(ticker)
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 		return FALSE
+
+	// Randomise characters now. This avoids rare cases where a human is set as a changeling then they randomise to an IPC
+	for(var/mob/new_player/player in GLOB.player_list)
+		if(player.client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
+			player.client.prefs.load_random_character_slot(player.client)
 
 	//Configure mode and assign player to special mode stuff
 	mode.pre_pre_setup()
@@ -264,10 +273,10 @@ SUBSYSTEM_DEF(ticker)
 
 	SSdiscord.send2discord_simple_noadmins("**\[Info]** Round has started")
 	auto_toggle_ooc(FALSE) // Turn it off
-	round_start_time = world.time
+	time_game_started = world.time
 
 	// Sets the auto shuttle vote to happen after the config duration
-	next_autotransfer = world.time + config.vote_autotransfer_initial
+	next_autotransfer = world.time + GLOB.configuration.vote.autotransfer_initial_time
 
 	for(var/mob/new_player/N in GLOB.mob_list)
 		if(N.client)
@@ -279,9 +288,11 @@ SUBSYSTEM_DEF(ticker)
 
 	if(playercount >= highpop_trigger)
 		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
-		SSjobs.LoadJobs("config/jobs_highpop.txt")
+		SSjobs.LoadJobs(TRUE)
 	else
 		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
+
+	SSnightshift.check_nightshift(TRUE)
 
 	#ifdef UNIT_TESTS
 	RunUnitTests()
@@ -310,7 +321,8 @@ SUBSYSTEM_DEF(ticker)
 		for(var/mob/M in GLOB.mob_list)
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
-				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
+				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer) && !(issilicon(M) && override == "AI malfunction"))
+					to_chat(M, "<span class='danger'><B>The blast wave from the explosion tears you atom from atom!</B></span>")
 					var/mob/ghost = M.ghostize()
 					M.dust() //no mercy
 					if(ghost && ghost.client) //Play the victims an uninterrupted cinematic.
@@ -402,11 +414,64 @@ SUBSYSTEM_DEF(ticker)
 			if(player.mind.assigned_role != player.mind.special_role)
 				SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
 				SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
-				EquipCustomItems(player)
+				equip_cuis(player)
+
 	if(captainless)
 		for(var/mob/M in GLOB.player_list)
 			if(!isnewplayer(M))
 				to_chat(M, "Captainship not forced on anyone.")
+
+/datum/controller/subsystem/ticker/proc/equip_cuis(mob/living/carbon/human/H)
+	if(!H.client)
+		return // If they are spawning without a client (somehow), they *cant* have a CUI list
+	for(var/datum/custom_user_item/cui in H.client.cui_entries)
+		// Skip items with invalid character names
+		if((cui.characer_name != H.real_name) && !cui.all_characters_allowed)
+			continue
+
+		var/ok = FALSE
+
+		if(!cui.all_jobs_allowed)
+			var/alt_blocked = FALSE
+			if(H.mind.role_alt_title)
+				if(!(H.mind.role_alt_title in cui.allowed_jobs))
+					alt_blocked = TRUE
+			if(!(H.mind.assigned_role in cui.allowed_jobs) || alt_blocked)
+				continue
+
+		var/obj/item/I = new cui.object_typepath()
+		var/name_override = cui.item_name_override
+		var/desc_override = cui.item_desc_override
+
+		if(name_override)
+			I.name = name_override
+		if(desc_override)
+			I.desc = desc_override
+
+		if(istype(H.back, /obj/item/storage)) // Try to place it in something on the mob's back
+			var/obj/item/storage/S = H.back
+			if(length(S.contents) < S.storage_slots)
+				I.forceMove(H.back)
+				ok = TRUE
+				to_chat(H, "<span class='notice'>Your [I.name] has been added to your [H.back.name].</span>")
+
+		if(!ok)
+			for(var/obj/item/storage/S in H.contents) // Try to place it in any item that can store stuff, on the mob.
+				if(length(S.contents) < S.storage_slots)
+					I.forceMove(S)
+					ok = TRUE
+					to_chat(H, "<span class='notice'>Your [I.name] has been added to your [S.name].</span>")
+					break
+
+		if(!ok) // Finally, since everything else failed, place it on the ground
+			var/turf/T = get_turf(H)
+			if(T)
+				I.forceMove(T)
+				to_chat(H, "<span class='notice'>Your [I.name] is on the [T.name] below you.</span>")
+			else
+				to_chat(H, "<span class='notice'>Your [I.name] couldnt spawn anywhere on you or even on the floor below you. Please file a bug report.</span>")
+				qdel(I)
+
 
 /datum/controller/subsystem/ticker/proc/send_tip_of_the_round()
 	var/m

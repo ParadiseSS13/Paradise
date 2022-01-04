@@ -12,7 +12,6 @@
 	/// The zone this mob is currently targeting
 	var/zone_selected = null
 
-	var/obj/screen/hands = null
 	var/obj/screen/pullin = null
 	var/obj/screen/i_select = null
 	var/obj/screen/m_select = null
@@ -201,5 +200,5 @@
 
 	/// Overrides the health HUD element state if set.
 	var/health_hud_override = HEALTH_HUD_OVERRIDE_NONE
-	/// The location our runechat message should appear. Should be src by default.
-	var/atom/runechat_msg_location
+	/// A soft reference to the location where this mob's runechat message will appear. Uses `UID()`.
+	var/runechat_msg_location

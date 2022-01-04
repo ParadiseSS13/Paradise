@@ -76,8 +76,8 @@
 			I = D.get_active_hand()
 			D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
 								"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
-			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
-			if(I && D.drop_item())
+			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
+			if(D.unEquip(I) && !(QDELETED(I) || (I.flags & ABSTRACT)))
 				A.put_in_hands(I)
 			D.Jitter(2)
 			D.apply_damage(5, BRUTE)

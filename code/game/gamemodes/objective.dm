@@ -205,6 +205,15 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/protect/mindslave //subytpe for mindslave implants
 
+/datum/objective/protect/mindslave/on_target_cryo()
+	if(owner?.current)
+		to_chat(owner.current, "<BR><span class='userdanger'>You notice that your master has entered cryogenic storage, and revert to your normal self, until they return again. You are no longer a mindslave!</span>")
+		SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
+		owner.remove_antag_datum(/datum/antagonist/mindslave)
+		SSticker.mode.implanted.Remove(owner)
+		log_admin("[key_name(owner.current)]'s mindslave master has cryo'd, and is no longer a mindslave.")
+		message_admins("[key_name_admin(owner.current)]'s mindslave master has cryo'd, and is no longer a mindslave.") //Since they were on antag hud earlier, this feels important to log
+		qdel(src)
 
 /datum/objective/hijack
 	martyr_compatible = 0 //Technically you won't get both anyway.
@@ -347,7 +356,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/die/check_completion()
 	if(!owner.current || owner.current.stat == DEAD || isbrain(owner.current))
 		return 1
-	if(issilicon(owner.current) && owner.current != owner.original)
+	if(issilicon(owner.current) && !owner.is_original_mob(owner.current))
 		return 1
 	return 0
 
@@ -359,7 +368,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/survive/check_completion()
 	if(!owner.current || owner.current.stat == DEAD || isbrain(owner.current))
 		return 0		//Brains no longer win survive objectives. --NEO
-	if(issilicon(owner.current) && owner.current != owner.original)
+	if(issilicon(owner.current) && !owner.is_original_mob(owner.current))
 		return 0
 	return 1
 
@@ -389,8 +398,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 		steal_target = O
 		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
-		if(length(O.protected_jobs))
+		if(length(O.protected_jobs) && O.job_possession)
 			explanation_text += "It may also be in the possession of the [english_list(O.protected_jobs, and_text = " or ")]."
+		if(steal_target.special_equipment)
+			give_kit(steal_target.special_equipment)
 		return
 	explanation_text = "Free Objective."
 
@@ -412,6 +423,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	else
 		steal_target = new new_target
 		explanation_text = "Steal [steal_target.name]."
+		if(steal_target.special_equipment)
+			give_kit(steal_target.special_equipment)
 	return steal_target
 
 /datum/objective/steal/check_completion()
@@ -429,6 +442,23 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(I.type in steal_target.altitems)
 			return steal_target.check_special_completion(I)
 
+/datum/objective/steal/proc/give_kit(obj/item/item_path)
+	var/mob/living/carbon/human/mob = owner.current
+	var/I = new item_path
+	var/list/slots = list(
+		"backpack" = slot_in_backpack,
+		"left pocket" = slot_l_store,
+		"right pocket" = slot_r_store,
+		"left hand" = slot_l_hand,
+		"right hand" = slot_r_hand,
+	)
+	var/where = mob.equip_in_one_of_slots(I, slots)
+	if(where)
+		to_chat(mob, "<br><br><span class='info'>In your [where] is a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
+	else
+		to_chat(mob, "<span class='userdanger'>Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1).</span>")
+		message_admins("[ADMIN_LOOKUPFLW(mob)] Failed to spawn with their [item_path] theft kit.")
+		qdel(I)
 
 /datum/objective/steal/exchange
 	martyr_compatible = 0
@@ -486,7 +516,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(SSticker.current_state == GAME_STATE_SETTING_UP)
 			for(var/mob/new_player/P in GLOB.player_list)
 				if(P.client && P.ready && P.mind != owner)
-					if(P.client.prefs && (P.client.prefs.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
+					if(P.client.prefs && (P.client.prefs.active_character.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
 						continue
 					n_p++
 		else if(SSticker.current_state == GAME_STATE_PLAYING)

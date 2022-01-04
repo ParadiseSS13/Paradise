@@ -37,7 +37,6 @@
 	var/list/restricted_species
 
 	var/spread = 0
-	var/randomspread = 1
 
 	var/unique_rename = TRUE //allows renaming with a pen
 	var/unique_reskin = FALSE //allows one-time reskinning
@@ -56,7 +55,7 @@
 	var/knife_x_offset = 0
 	var/knife_y_offset = 0
 
-	var/can_holster = TRUE
+	var/can_holster = FALSE  // Anything that can be holstered should be manually set
 
 	var/list/upgrades = list()
 
@@ -98,6 +97,9 @@
 			. += "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
 	else if(can_bayonet)
 		. += "It has a <b>bayonet</b> lug on it."
+
+/obj/item/gun/detailed_examine() // Truly detailed
+	return "This is a gun."
 
 /obj/item/gun/proc/process_chamber()
 	return 0
@@ -234,10 +236,7 @@
 				if( i>1 && !(src in get_both_hands(user))) //for burst firing
 					break
 			if(chambered)
-				if(randomspread)
-					sprd = round((rand() - 0.5) * (randomized_gun_spread + randomized_bonus_spread))
-				else
-					sprd = round((i / burst_size - 0.5) * (randomized_gun_spread + randomized_bonus_spread))
+				sprd = round((pick(0.5, -0.5)) * (randomized_gun_spread + randomized_bonus_spread))
 				if(!chambered.fire(target, user, params, ,suppressed, zone_override, sprd))
 					shoot_with_empty_chamber(user)
 					break
@@ -400,7 +399,7 @@
 	return TRUE
 
 /obj/item/gun/extinguish_light()
-	if(gun_light.on)
+	if(gun_light?.on)
 		toggle_gunlight()
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 

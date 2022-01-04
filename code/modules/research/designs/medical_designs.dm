@@ -72,6 +72,16 @@
 	build_path = /obj/item/defibrillator
 	category = list("Medical")
 
+/datum/design/compact_defib
+	name = "Compact Defibrillator"
+	desc = "A belt-mounted defibrillator for rapid deployment."
+	id = "compact_defib"
+	req_tech = list("materials" = 7, "biotech" = 7, "powerstorage" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
+	build_path = /obj/item/defibrillator/compact
+	category = list("Medical")
+
 /datum/design/defib_mount
 	name = "Defibrillator Wall Mount"
 	desc = "A wall mount for defibrillator units."
@@ -145,7 +155,7 @@
 	build_path = /obj/item/reagent_scanner
 	category = list("Medical")
 
-/datum/design/item/scalpel_laser1
+/datum/design/scalpel_laser1
 	name = "Basic Laser Scalpel"
 	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks basic and could be improved."
 	id = "scalpel_laser1"
@@ -155,7 +165,7 @@
 	build_path = /obj/item/scalpel/laser/laser1
 	category = list("Medical")
 
-/datum/design/item/scalpel_laser2
+/datum/design/scalpel_laser2
 	name = "Improved Laser Scalpel"
 	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks somewhat advanced."
 	id = "scalpel_laser2"
@@ -165,7 +175,7 @@
 	build_path = /obj/item/scalpel/laser/laser2
 	category = list("Medical")
 
-/datum/design/item/scalpel_laser3
+/datum/design/scalpel_laser3
 	name = "Advanced Laser Scalpel"
 	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks to be the pinnacle of precision energy cutlery!"
 	id = "scalpel_laser3"
@@ -175,7 +185,7 @@
 	build_path = /obj/item/scalpel/laser/laser3
 	category = list("Medical")
 
-/datum/design/item/scalpel_manager
+/datum/design/scalpel_manager
 	name = "Incision Management System"
 	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
 	id = "scalpel_manager"

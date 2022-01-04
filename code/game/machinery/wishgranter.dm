@@ -42,11 +42,11 @@
 		user.mind.add_antag_datum(/datum/antagonist/wishgranter)
 
 		to_chat(user, "You have a very bad feeling about this.")
-		
+
 /obj/machinery/wish_granter/super
 	name = "super wish granter"
 	var/list/types = list()
-	
+
 /obj/machinery/wish_granter/super/attack_hand(mob/living/carbon/user)
 	. = ..()
 
@@ -60,9 +60,9 @@
 	if(is_special_character(user) || jobban_isbanned(user, ROLE_TRAITOR) || jobban_isbanned(user, ROLE_SYNDICATE))
 		to_chat(user, "<span class='warning'>Something instinctual makes you pull away.</span>")
 		return TRUE
-	
+
 	to_chat(user, "<span class='notice'>Your touch makes the Wish Granter stir. Are you really sure you want to do this?</span>")
-	
+
 	for(var/supname in GLOB.all_superheroes)
 		types += supname
 
@@ -85,6 +85,6 @@
 
 	playsound(src.loc, 'sound/effects/bamf.ogg', 50, 1)
 	visible_message("<span class='notice'>The wishgranter fades into mist..</span>")
-	add_attack_logs(null, user, "Became [GLOB.all_superheroes[wish]]")
+	add_attack_logs(user, user, "Became [GLOB.all_superheroes[wish]]")
 	notify_ghosts("[GLOB.all_superheroes[wish]] has appeared in [get_area(user)].", source = user)
 	qdel(src)

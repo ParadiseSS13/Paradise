@@ -161,7 +161,7 @@
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep
-	name = "Nerual Jumpstarter implant"
+	name = "Neural Jumpstarter implant"
 	desc = "This implant will automatically attempt to jolt you awake when it detects you have fallen unconscious. Has a short cooldown, incompatible with the CNS Rebooter."
 	implant_color = "#0356fc"
 	slot = "brain_antistun" //one or the other not both.
@@ -300,13 +300,21 @@
 	var/hunger_threshold = NUTRITION_LEVEL_STARVING
 	var/synthesizing = 0
 	var/poison_amount = 5
+	var/disabled_by_emp = FALSE
 	slot = "stomach"
 	origin_tech = "materials=2;powerstorage=2;biotech=2"
+
+/obj/item/organ/internal/cyberimp/chest/nutriment/examine(mob/user)
+	. = ..()
+	if(emp_proof)
+		. += " The implant has been hardened. It is invulnerable to EMPs."
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/on_life()
 	if(!owner)
 		return
 	if(synthesizing)
+		return
+	if(disabled_by_emp)
 		return
 	if(owner.stat == DEAD)
 		return
@@ -319,11 +327,20 @@
 /obj/item/organ/internal/cyberimp/chest/nutriment/proc/synth_cool()
 	synthesizing = FALSE
 
+/obj/item/organ/internal/cyberimp/chest/nutriment/proc/emp_cool()
+	disabled_by_emp = FALSE
+
 /obj/item/organ/internal/cyberimp/chest/nutriment/emp_act(severity)
 	if(!owner || emp_proof)
 		return
+	owner.vomit(100, FALSE, TRUE, 3, FALSE)	// because when else do we ever use projectile vomiting
+	owner.visible_message("<span class='warning'>The contents of [owner]'s stomach erupt violently from [owner.p_their()] mouth!</span>",
+		"<span class='warning'>You feel like your insides are burning as you vomit profusely!</span>",
+		"<span class='warning'>You hear vomiting and a sickening splattering against the floor!</span>")
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
-	to_chat(owner, "<span class='warning'>You feel like your insides are burning.</span>")
+	disabled_by_emp = TRUE		// Disable the implant for a little bit so this effect actually matters
+	synthesizing = FALSE
+	addtimer(CALLBACK(src, .proc/emp_cool), 60 SECONDS)
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
@@ -333,10 +350,17 @@
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
 	origin_tech = "materials=4;powerstorage=3;biotech=3"
+/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
+	name = "hardened nutrient pump implant"
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened
+	name = "hardened nutrient pump implant PLUS"
+	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/reviver
 	name = "Reviver implant"
-	desc = "This implant will attempt to revive you if you lose consciousness. For the faint of heart!"
+	desc = "This implant will attempt to heal you out of critical condition. For the faint of heart!"
 	icon_state = "chest_implant"
 	implant_color = "#AD0000"
 	origin_tech = "materials=5;programming=4;biotech=4"
@@ -361,6 +385,11 @@
 			addtimer(CALLBACK(src, .proc/heal), 30)
 		else
 			reviving = FALSE
+			if(owner.HasDisease(new /datum/disease/critical/shock(0)) && prob(15)) //If they are no longer in crit, but have shock, and pass a 15% chance:
+				for(var/datum/disease/critical/shock/S in owner.viruses)
+					S.cure()
+					revive_cost += 150
+					to_chat(owner, "<span class='notice'>You feel better.</span>")
 			return
 	cooldown = revive_cost + world.time
 	revive_cost = 0

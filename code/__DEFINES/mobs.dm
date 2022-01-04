@@ -1,11 +1,17 @@
 ///////////////////ORGAN DEFINES///////////////////
 
 // Organ defines.
-#define ORGAN_BROKEN     1
-#define ORGAN_ROBOT      2
-#define ORGAN_SPLINTED   4
-#define ORGAN_DEAD       8
-#define ORGAN_MUTATED    16
+#define ORGAN_BROKEN       (1 << 0)
+#define ORGAN_ROBOT        (1 << 1)
+#define ORGAN_SPLINTED     (1 << 2)
+#define ORGAN_DEAD         (1 << 3)
+#define ORGAN_MUTATED      (1 << 4)
+#define ORGAN_INT_BLEEDING (1 << 5)
+#define ORGAN_DISFIGURED   (1 << 6)
+
+// For limb resistance flags
+#define CANNOT_BREAK		(1 << 0)
+#define CANNOT_DISMEMBER 	(1 << 1)
 
 #define PROCESS_ACCURACY 10
 
@@ -287,3 +293,6 @@
 #define FLASH_PROTECTION_NONE 0
 #define FLASH_PROTECTION_FLASH 1
 #define FLASH_PROTECTION_WELDER 2
+
+#define MAX_EYE_BLURRY_FILTER_SIZE 2
+#define EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER 0.1

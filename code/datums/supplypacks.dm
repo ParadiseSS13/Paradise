@@ -193,14 +193,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "special ops crate"
 	hidden = 1
 
-/datum/supply_packs/emergency/syndicate
-	name = "ERROR_NULL_ENTRY"
-	contains = list(/obj/item/storage/box/syndicate)
-	cost = 140
-	containertype = /obj/structure/closet/crate
-	containername = "crate"
-	hidden = 1
-
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Security ////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -227,6 +219,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	contains = list(/obj/item/vending_refill/security)
 	containername = "SecTech supply crate"
+
+/datum/supply_packs/security/vending/clothingvendor
+	name = "Security Clothing Vendors Crate"
+	cost = 40
+	contains = list(/obj/item/vending_refill/secdrobe,
+					/obj/item/vending_refill/detdrobe)
+	containername = "security clothing vendor crate"
 
 ////// Armor: Basic
 
@@ -272,14 +271,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/gun/energy/laser)
 	cost = 15
 	containername = "laser crate"
-
-/datum/supply_packs/security/taser
-	name = "Stun Guns Crate"
-	contains = list(/obj/item/gun/energy/gun/advtaser,
-					/obj/item/gun/energy/gun/advtaser,
-					/obj/item/gun/energy/gun/advtaser)
-	cost = 15
-	containername = "stun gun crate"
 
 /datum/supply_packs/security/disabler
 	name = "Disabler Crate"
@@ -405,28 +396,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 80
 	containername = "combat shotgun crate"
 
-/datum/supply_packs/security/armory/buckshotammo
-	name = "Buckshot Ammo Crate"
-	contains = list(/obj/item/ammo_box/shotgun/buck,
-					/obj/item/storage/box/buck,
-					/obj/item/storage/box/buck,
-					/obj/item/storage/box/buck,
-					/obj/item/storage/box/buck,
-					/obj/item/storage/box/buck)
-	cost = 45
-	containername = "buckshot ammo crate"
-
-/datum/supply_packs/security/armory/slugammo
-	name = "Slug Ammo Crate"
-	contains = list(/obj/item/ammo_box/shotgun,
-					/obj/item/storage/box/slug,
-					/obj/item/storage/box/slug,
-					/obj/item/storage/box/slug,
-					/obj/item/storage/box/slug,
-					/obj/item/storage/box/slug)
-	cost = 45
-	containername = "slug ammo crate"
-
 /datum/supply_packs/security/armory/expenergy
 	name = "Energy Guns Crate"
 	contains = list(/obj/item/gun/energy/gun,
@@ -530,7 +499,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 				/obj/item/reagent_containers/spray/pepper,
 				/obj/item/flash,
 				/obj/item/grenade/flashbang,
-				/obj/item/storage/belt/security/sec,
+				/obj/item/storage/belt/security,
 				/obj/item/holosign_creator/security,
 				/obj/item/clothing/mask/gas/sechailer,
 				/obj/item/clothing/glasses/hud/security/sunglasses,
@@ -577,6 +546,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/vending_refill/engivend,
 					/obj/item/vending_refill/youtool)
 	containername = "engineering supply crate"
+
+/datum/supply_packs/engineering/vending/clothingvendor
+	name = "Engineering Clothing Vendors Crate"
+	cost = 20
+	contains = list(/obj/item/vending_refill/engidrobe,
+					/obj/item/vending_refill/atmosdrobe)
+	containername = "engineering clothing vendor crate"
 
 /datum/supply_packs/engineering/powergamermitts
 	name = "Insulated Gloves Crate"
@@ -896,6 +872,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/vending_refill/wallmed)
 	containername = "medical vending crate"
 
+/datum/supply_packs/medical/vending/clothingvendor
+	name = "Medical Clothing Vendors Crate"
+	cost = 20
+	contains = list(/obj/item/vending_refill/medidrobe,
+					/obj/item/vending_refill/chemdrobe,
+					/obj/item/vending_refill/virodrobe)
+	containername = "medical clothing vendors crate"
+
 /datum/supply_packs/medical/bloodpacks
 	name = "Blood Pack Variety Crate"
 	contains = list(/obj/item/reagent_containers/iv_bag,
@@ -1042,6 +1026,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
     cost = 10
     containertype = /obj/structure/largecrate
     containername = "oil tank crate"
+
+/datum/supply_packs/science/vending/clothingvendor
+	name = "Science Clothing Vendors Crate"
+	cost = 20
+	contains = list(/obj/item/vending_refill/scidrobe,
+					/obj/item/vending_refill/robodrobe,
+					/obj/item/vending_refill/genedrobe,)
+	containername = "science clothing vendor crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////
@@ -1215,6 +1207,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 56 //Deer are best.
 	containertype = /obj/structure/closet/critter/deer
 	containername = "deer crate"
+
+/datum/supply_packs/organic/bunny
+	name = "Bunny Crate"
+	cost = 20
+	containertype = /obj/structure/closet/critter/bunny
+	containername = "bunny crate"
 
 ////// hippy gear
 
@@ -1455,6 +1453,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/storage/backpack/duffel/mining_conscript)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "shaft miner starter kit"
+
+/datum/supply_packs/misc/carpet
+	name = "Carpet Crate"
+	cost = 20
+	contains = list(/obj/item/stack/tile/carpet/twenty)
+	containername = "carpet crate"
 
 
 ///////////// Paper Work
@@ -1813,6 +1817,20 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/gloves/boxing)
 	cost = 15
 	containername = "boxing supply crate"
+
+/datum/supply_packs/misc/vending/clothingvendor
+	name = "Service Clothing Vendors Crate"
+	cost = 20
+	contains = list(/obj/item/vending_refill/bardrobe,
+					/obj/item/vending_refill/chefdrobe,
+					/obj/item/vending_refill/hydrodrobe)
+	containername = "service clothing vendor crate"
+
+/datum/supply_packs/misc/vending/clothingvendor/cargo
+	name = "Cargo Clothing Vendors Crate"
+	cost = 20
+	contains = list(/obj/item/vending_refill/cargodrobe)
+	containername = "cargo clothing vendor crate"
 
 ///////////// Station Goals
 

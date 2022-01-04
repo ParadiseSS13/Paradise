@@ -67,7 +67,7 @@
 			to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	var/translator_pref = H.client.prefs.speciesprefs
+	var/translator_pref = H.client.prefs.active_character.speciesprefs
 	if(translator_pref || ((ismindshielded(H) || J.is_command || J.supervisors == "the captain") && HAS_TRAIT(H, TRAIT_WINGDINGS)))
 		if(J.title == "Mime")
 			return
@@ -91,4 +91,6 @@
 
 /datum/species/grey/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-	return E.eye_color
+	if(E)
+		return E.eye_color
+	return flesh_color

@@ -104,13 +104,14 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	var/syndicate_commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
 	var/syndicate_commando_name = pick(GLOB.last_names)
 
-	var/datum/preferences/A = new()//Randomize appearance for the commando.
+	var/datum/character_save/S = new //Randomize appearance for the commando.
+	S.randomise()
 	if(is_leader)
-		A.age = rand(35,45)
-		A.real_name = "[syndicate_commando_leader_rank] [syndicate_commando_name]"
+		S.age = rand(35, 45)
+		S.real_name = "[syndicate_commando_leader_rank] [syndicate_commando_name]"
 	else
-		A.real_name = "[syndicate_commando_rank] [syndicate_commando_name]"
-	A.copy_to(new_syndicate_commando)
+		S.real_name = "[syndicate_commando_rank] [syndicate_commando_name]"
+	S.copy_to(new_syndicate_commando)
 
 	new_syndicate_commando.dna.ready_dna(new_syndicate_commando)//Creates DNA.
 
@@ -139,12 +140,12 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/ammo_box/a357(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/reagent_containers/hypospray/combat/nanites(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), slot_in_backpack)
 	if(is_leader)
 		equip_to_slot_or_del(new /obj/item/pinpointer(src), slot_in_backpack)
 		equip_to_slot_or_del(new /obj/item/disk/nuclear/unrestricted(src), slot_in_backpack)
 	else
-		equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/card/emag(src), slot_r_store)
 	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber/red(src), slot_l_store)
 

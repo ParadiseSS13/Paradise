@@ -97,6 +97,7 @@
 	var/override_alerts = FALSE //If it is overriding other alerts of the same type
 
 /obj/screen/alert/MouseEntered(location,control,params)
+	. = ..()
 	openToolTip(usr, src, params, title = name, content = desc, theme = alerttooltipstyle)
 
 
@@ -308,6 +309,11 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 		var/mob/living/L = usr
 		return L.resist()
 
+//Constructs
+/obj/screen/alert/holy_fire
+	name = "Holy Fire"
+	desc = "Your body is crumbling from the holy energies. Get out."
+	icon_state = "fire"
 
 //ALIENS
 
@@ -611,12 +617,19 @@ so as to remain in compliance with the most up-to-date laws."
 	if(stone)
 		if(alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
 		impossible for you to get back into the game as your regular character.",, "No", "Yes") ==  "Yes")
-			stone.opt_in = TRUE
+			stone?.opt_in = TRUE
 
 /obj/screen/alert/notify_soulstone/Destroy()
 	stone = null
 	return ..()
 
+/obj/screen/alert/notify_mapvote
+	name = "Map Vote"
+	desc = "Vote on which map you would like to play on next!"
+	icon_state = "map_vote"
+
+/obj/screen/alert/notify_mapvote/Click()
+	SSvote.browse_to(usr.client)
 
 //OBJECT-BASED
 

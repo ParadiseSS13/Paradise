@@ -515,9 +515,6 @@
 "bm" = (
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/crew_quarters)
-"bn" = (
-/turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/derelict/arrival)
 "bo" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -3625,7 +3622,6 @@
 /area/derelict/crew_quarters)
 "hI" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen";
 	opened = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3639,7 +3635,6 @@
 /area/derelict/arrival)
 "hJ" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen";
 	opened = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3748,11 +3743,6 @@
 /area/derelict/crew_quarters)
 "hT" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/derelict/crew_quarters)
-"hU" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7143,14 +7133,6 @@
 	icon_state = "hydrofloor"
 	},
 /area/derelict/crew_quarters)
-"pg" = (
-/obj/structure/closet/walllocker{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "orangefull"
-	},
-/area/derelict/crew_quarters)
 "ph" = (
 /obj/structure/holohoop{
 	dir = 1
@@ -8002,7 +7984,6 @@
 	},
 /area/derelict/crew_quarters)
 "rn" = (
-/obj/structure/closet/medical_wall,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/arrival)
 "ro" = (
@@ -9173,12 +9154,12 @@ ac
 ac
 ac
 QN
-bn
+rn
 jm
-bn
-bn
+rn
+rn
 lu
-bn
+rn
 QN
 ac
 ac
@@ -9264,14 +9245,14 @@ ac
 ac
 ac
 ac
-bn
+rn
 iS
 jn
 jS
 kL
 hY
 lK
-bn
+rn
 ac
 ac
 ac
@@ -9354,17 +9335,17 @@ ac
 ac
 ac
 aW
-bn
-bn
-bn
+rn
+rn
+rn
 iT
 hY
 jT
 kM
 lv
 lL
-bn
-bn
+rn
+rn
 aW
 ac
 ac
@@ -9442,10 +9423,10 @@ ac
 ac
 ac
 aW
-bn
+rn
 gJ
-bn
-bn
+rn
+rn
 hI
 hX
 iv
@@ -9458,8 +9439,8 @@ hY
 me
 mu
 mG
-bn
-bn
+rn
+rn
 mG
 aW
 ac
@@ -9531,8 +9512,8 @@ ac
 ac
 ac
 aW
-bn
-bn
+rn
+rn
 dO
 gq
 gK
@@ -9549,12 +9530,12 @@ lw
 hY
 mf
 mv
-bn
+rn
 mR
 ni
 nw
 mG
-bn
+rn
 mG
 aW
 ac
@@ -9622,7 +9603,7 @@ ac
 ac
 ac
 aW
-bn
+rn
 ff
 fA
 dL
@@ -9712,16 +9693,16 @@ ac
 ac
 ac
 aW
-bn
-bn
-bn
+rn
+rn
+rn
 de
 do
 do
 do
 do
 hb
-bn
+rn
 hK
 hY
 ix
@@ -9905,7 +9886,7 @@ do
 do
 gM
 hc
-bn
+rn
 hM
 ia
 iz
@@ -9985,7 +9966,7 @@ ac
 ac
 ac
 aW
-bn
+rn
 dP
 dV
 dV
@@ -9997,19 +9978,19 @@ fY
 do
 gN
 hd
-bn
-bn
-bn
-bn
-bn
+rn
+rn
+rn
+rn
+rn
 jr
 ka
 kT
 ly
-bn
-bn
-bn
-bn
+rn
+rn
+rn
+rn
 mV
 nm
 mS
@@ -10075,9 +10056,9 @@ ac
 ac
 ac
 aW
-bn
-bn
-bn
+rn
+rn
+rn
 dQ
 do
 do
@@ -10088,21 +10069,21 @@ fE
 fZ
 gs
 dO
-bn
+rn
 aW
 ac
 ac
 ac
 aW
-bn
+rn
 kb
-bn
-bn
+rn
+rn
 aW
 ac
 ac
 aW
-bn
+rn
 mG
 ny
 nK
@@ -10166,7 +10147,7 @@ ac
 ac
 ac
 aW
-bn
+rn
 dm
 dA
 dL
@@ -10174,10 +10155,10 @@ do
 do
 do
 eo
-bn
+rn
 fh
 fF
-bn
+rn
 fG
 aW
 ac
@@ -10257,7 +10238,7 @@ ac
 ac
 ac
 aW
-bn
+rn
 dd
 dn
 do
@@ -10266,8 +10247,8 @@ do
 do
 ee
 ep
-bn
-bn
+rn
+rn
 fG
 aW
 ac
@@ -10348,7 +10329,7 @@ ac
 ac
 ac
 aW
-bn
+rn
 cL
 de
 do
@@ -10358,7 +10339,7 @@ do
 do
 ef
 eq
-bn
+rn
 aW
 ac
 ac
@@ -10439,9 +10420,9 @@ ac
 ac
 ac
 aW
-bn
-bn
-bn
+rn
+rn
+rn
 df
 dp
 dB
@@ -10530,10 +10511,10 @@ ac
 ac
 ac
 ac
-bn
+rn
 cl
 cz
-bn
+rn
 de
 dq
 dC
@@ -10721,7 +10702,7 @@ cN
 cB
 dr
 dE
-bn
+rn
 dS
 ac
 ac
@@ -10804,7 +10785,7 @@ ac
 ac
 ac
 ac
-bn
+rn
 bF
 bT
 co
@@ -10812,7 +10793,7 @@ cA
 cM
 dg
 ds
-bn
+rn
 aW
 ac
 ac
@@ -10858,7 +10839,7 @@ mS
 qC
 mU
 qY
-bn
+rn
 ac
 ac
 ac
@@ -10896,12 +10877,12 @@ ac
 ac
 ac
 aW
-bn
+rn
 bG
 bU
 cp
 cC
-bn
+rn
 dh
 dt
 dF
@@ -10942,7 +10923,7 @@ ac
 ac
 ac
 ag
-bn
+rn
 pT
 mU
 mU
@@ -11035,15 +11016,15 @@ aj
 ac
 ag
 aW
-bn
-bn
+rn
+rn
 qh
 qs
 qD
 qL
-bn
+rn
 ro
-bn
+rn
 aW
 ac
 ac
@@ -11128,7 +11109,7 @@ ag
 ag
 ag
 aW
-bn
+rn
 qi
 qt
 ka
@@ -11136,7 +11117,7 @@ hY
 ra
 qy
 rw
-bn
+rn
 ac
 ac
 ac
@@ -11505,7 +11486,7 @@ re
 qM
 hY
 qw
-bn
+rn
 aW
 ac
 ac
@@ -11598,7 +11579,7 @@ hY
 hY
 qy
 rJ
-bn
+rn
 ac
 ac
 ac
@@ -11683,7 +11664,7 @@ ac
 ac
 ac
 aW
-bn
+rn
 qN
 rf
 hY
@@ -11966,7 +11947,7 @@ hY
 hY
 rk
 rN
-bn
+rn
 ac
 ac
 ac
@@ -12059,7 +12040,7 @@ rq
 hY
 rO
 rZ
-bn
+rn
 aW
 ac
 ac
@@ -12142,7 +12123,7 @@ if
 if
 if
 if
-bn
+rn
 qy
 qR
 ri
@@ -12242,9 +12223,9 @@ rs
 rz
 qu
 rQ
-bn
-bn
-bn
+rn
+rn
+rn
 sh
 ac
 kJ
@@ -12326,7 +12307,7 @@ if
 if
 if
 if
-bn
+rn
 qw
 qS
 rk
@@ -12419,7 +12400,7 @@ ac
 ac
 ac
 aW
-bn
+rn
 qv
 hY
 ru
@@ -12427,7 +12408,7 @@ ru
 hY
 rS
 rZ
-bn
+rn
 aW
 ac
 ac
@@ -12518,7 +12499,7 @@ hY
 hY
 rk
 rT
-bn
+rn
 ac
 ac
 ac
@@ -12787,7 +12768,7 @@ ac
 ac
 ac
 aW
-bn
+rn
 qN
 qt
 hY
@@ -12886,7 +12867,7 @@ hY
 hY
 qy
 rX
-bn
+rn
 ac
 ac
 ac
@@ -12977,7 +12958,7 @@ hY
 hY
 hY
 rG
-bn
+rn
 aW
 ac
 ac
@@ -13336,7 +13317,7 @@ ac
 ag
 ag
 aW
-bn
+rn
 qm
 qz
 jn
@@ -13344,7 +13325,7 @@ hY
 rl
 rv
 rD
-bn
+rn
 ac
 ac
 ac
@@ -14342,7 +14323,7 @@ ok
 oB
 ok
 pb
-pg
+nV
 bm
 py
 dJ
@@ -14690,16 +14671,16 @@ go
 gV
 hn
 aV
-hU
-hU
+pC
+pC
 hT
 jf
-hU
+pC
 kC
 ll
-hU
-hU
-hU
+pC
+pC
+pC
 hT
 bm
 ng
@@ -14783,16 +14764,16 @@ gW
 gH
 hH
 hT
-hU
+pC
 iL
 eD
 jI
 kD
 lm
 eD
-hU
-hU
-hU
+pC
+pC
+pC
 mQ
 ng
 ng

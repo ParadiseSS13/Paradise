@@ -15,7 +15,7 @@
 	icon_state = "warden"
 	item_state = "r_suit"
 	item_color = "warden"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	strip_delay = 50
 
 /obj/item/clothing/under/rank/warden/skirt
@@ -31,7 +31,7 @@
 	icon_state = "security"
 	item_state = "r_suit"
 	item_color = "secred"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	strip_delay = 50
 
 /obj/item/clothing/under/rank/security/sensor
@@ -51,7 +51,7 @@
 	icon_state = "dispatch"
 	item_state = "dispatch"
 	item_color = "dispatch"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 
 /obj/item/clothing/under/rank/security2
 	name = "security officer's uniform"
@@ -59,9 +59,10 @@
 	icon_state = "redshirt2"
 	item_state = "r_suit"
 	item_color = "redshirt2"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 
 /obj/item/clothing/under/rank/security/corp
+	name = "corporate security jumpsuit"
 	icon_state = "sec_corporate"
 	item_state = "sec_corporate"
 	item_color = "sec_corporate"
@@ -80,11 +81,11 @@
 	icon_state = "detective"
 	item_state = "det"
 	item_color = "detective"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	strip_delay = 50
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi'
 		)
 
 /*
@@ -96,7 +97,7 @@
 	icon_state = "hos"
 	item_state = "r_suit"
 	item_color = "hosred"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 60
 
 /obj/item/clothing/under/rank/head_of_security/skirt
@@ -164,29 +165,3 @@
 	item_state = "gy_suit"
 	item_color = "hos_formal"
 
-
-//Brig Physician
-/obj/item/clothing/under/rank/security/brigphys
-	name = "brig physician's jumpsuit"
-	desc = "Jumpsuit for Brig Physician it has both medical and security protection."
-	icon_state = "brig_phys"
-	item_state = "brig_phys"
-	item_color = "brig_phys"
-	permeability_coefficient = 0.50
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 30, acid = 30)
-
-/obj/item/clothing/under/rank/security/brigphys/skirt
-	name = "brig physician's jumpskirt"
-	desc = "A skirted Brig Physician uniform. It has both security and medical protection."
-	icon_state = "brig_physf"
-	item_state = "brig_physf"
-	item_color = "brig_physf"
-	permeability_coefficient = 0.50
-
-//Pod Pilot
-/obj/item/clothing/under/rank/security/pod_pilot
-	name = "pod pilot's jumpsuit"
-	desc = "Suit for your regular pod pilot."
-	icon_state = "pod_pilot"
-	item_state = "pod_pilot"
-	item_color = "pod_pilot"

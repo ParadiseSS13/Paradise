@@ -1,6 +1,6 @@
 /client/proc/cmd_admin_drop_everything(mob/M as mob in GLOB.mob_list)
 	set category = null
-	set name = "Drop Everything"
+	set name = "\[Admin\] Drop Everything"
 
 	if(!check_rights(R_DEBUG|R_ADMIN))
 		return
@@ -46,7 +46,7 @@
 
 /client/proc/cmd_admin_subtle_message(mob/M as mob in GLOB.mob_list)
 	set category = "Event"
-	set name = "Subtle Message"
+	set name = "\[Admin\] Subtle Message"
 
 	if(!ismob(M))
 		return
@@ -124,7 +124,7 @@
 
 /client/proc/cmd_admin_direct_narrate(mob/M)	// Targetted narrate -- TLE
 	set category = null
-	set name = "Direct Narrate"
+	set name = "\[Admin\] Direct Narrate"
 
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
@@ -151,7 +151,7 @@
 
 /client/proc/cmd_admin_headset_message(mob/M in GLOB.mob_list)
 	set category = "Event"
-	set name = "Headset Message"
+	set name = "\[Admin\] Headset Message"
 
 	admin_headset_message(M)
 
@@ -203,7 +203,7 @@
 
 /proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 	if(automute)
-		if(!config.automute_on)
+		if(!GLOB.configuration.general.enable_auto_mute)
 			return
 	else
 		if(!usr || !usr.client)
@@ -230,19 +230,19 @@
 
 	if(automute)
 		muteunmute = "auto-muted"
-		M.client.prefs.muted |= mute_type
+		force_add_mute(M.client.ckey, mute_type)
 		log_admin("SPAM AUTOMUTE: [muteunmute] [key_name(M)] from [mute_string]")
 		message_admins("SPAM AUTOMUTE: [muteunmute] [key_name_admin(M)] from [mute_string].", 1)
 		to_chat(M, "You have been [muteunmute] from [mute_string] by the SPAM AUTOMUTE system. Contact an admin.")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Automute") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		return
 
-	if(M.client.prefs.muted & mute_type)
-		muteunmute = "unmuted"
-		M.client.prefs.muted &= ~mute_type
-	else
+	toggle_mute(M.client.ckey, mute_type)
+
+	if(check_mute(M.client.ckey, mute_type))
 		muteunmute = "muted"
-		M.client.prefs.muted |= mute_type
+	else
+		muteunmute = "unmuted"
 
 	log_admin("[key_name(usr)] has [muteunmute] [key_name(M)] from [mute_string]")
 	message_admins("[key_name_admin(usr)] has [muteunmute] [key_name_admin(M)] from [mute_string].", 1)
@@ -276,21 +276,21 @@
 		return
 
 	var/action=""
-	if(config.antag_hud_allowed)
+	if(GLOB.configuration.general.allow_antag_hud)
 		for(var/mob/dead/observer/g in get_ghosts())
 			if(g.antagHUD)
 				g.antagHUD = FALSE						// Disable it on those that have it enabled
 				g.has_enabled_antagHUD = FALSE			// We'll allow them to respawn
-				to_chat(g, "<span class='danger'>The Administrator has disabled AntagHUD </span>")
-		config.antag_hud_allowed = 0
+				to_chat(g, "<span class='danger'>The Administrators have disabled AntagHUD </span>")
+		GLOB.configuration.general.allow_antag_hud = FALSE
 		to_chat(src, "<span class='danger'>AntagHUD usage has been disabled</span>")
 		action = "disabled"
 	else
 		for(var/mob/dead/observer/g in get_ghosts())
 			if(!g.client.holder)						// Add the verb back for all non-admin ghosts
-				to_chat(g, "<span class='boldnotice'>The Administrator has enabled AntagHUD </span>")// Notify all observers they can now use AntagHUD
+				to_chat(g, "<span class='boldnotice'>The Administrators have enabled AntagHUD </span>")// Notify all observers they can now use AntagHUD
 
-		config.antag_hud_allowed = 1
+		GLOB.configuration.general.allow_antag_hud = TRUE
 		action = "enabled"
 		to_chat(src, "<span class='boldnotice'>AntagHUD usage has been enabled</span>")
 
@@ -307,11 +307,11 @@
 		return
 
 	var/action=""
-	if(config.antag_hud_restricted)
+	if(GLOB.configuration.general.restrict_antag_hud_rejoin)
 		for(var/mob/dead/observer/g in get_ghosts())
 			to_chat(g, "<span class='boldnotice'>The administrator has lifted restrictions on joining the round if you use AntagHUD</span>")
 		action = "lifted restrictions"
-		config.antag_hud_restricted = 0
+		GLOB.configuration.general.restrict_antag_hud_rejoin = FALSE
 		to_chat(src, "<span class='boldnotice'>AntagHUD restrictions have been lifted</span>")
 	else
 		for(var/mob/dead/observer/g in get_ghosts())
@@ -320,7 +320,7 @@
 			g.antagHUD = FALSE
 			g.has_enabled_antagHUD = FALSE
 		action = "placed restrictions"
-		config.antag_hud_restricted = 1
+		GLOB.configuration.general.restrict_antag_hud_rejoin = TRUE
 		to_chat(src, "<span class='danger'>AntagHUD restrictions have been enabled</span>")
 
 	log_admin("[key_name(usr)] has [action] on joining the round if they use AntagHUD")
@@ -396,10 +396,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.age = record_found.fields["age"]
 		new_character.dna.blood_type = record_found.fields["blood_type"]
 	else
+		// We make a random character
 		new_character.change_gender(pick(MALE,FEMALE))
-		var/datum/preferences/A = new()
-		A.real_name = G_found.real_name
-		A.copy_to(new_character)
+		var/datum/character_save/S = new
+		S.randomise()
+		S.real_name = G_found.real_name
+		S.copy_to(new_character)
 
 	if(!new_character.real_name)
 		new_character.real_name = random_name(new_character.gender)
@@ -410,7 +412,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.mind.special_verbs = list()
 	else
 		new_character.mind_initialize()
-	if(!new_character.mind.assigned_role)	new_character.mind.assigned_role = "Civilian"//If they somehow got a null assigned role.
+	if(!new_character.mind.assigned_role)	new_character.mind.assigned_role = "Assistant" //If they somehow got a null assigned role.
 
 	//DNA
 	if(record_found)//Pull up their name from database records if they did have a mind.
@@ -439,7 +441,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if("traitor")
 			if(new_character.mind.has_antag_datum(/datum/antagonist/traitor))
 				var/datum/antagonist/traitor/T = new_character.mind.has_antag_datum(/datum/antagonist/traitor)
-				T.equip_traitor(src)
+				T.give_uplink()
 			else
 				new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 		if("Wizard")
@@ -575,7 +577,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/cmd_admin_rejuvenate(mob/living/M as mob in GLOB.mob_list)
 	set category = null
-	set name = "Rejuvenate"
+	set name = "\[Admin\] Rejuvenate"
 
 	if(!check_rights(R_REJUVINATE))
 		return
@@ -606,7 +608,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		"Custom" = "Cryptic Message")
 
 	var/list/MsgSound = list("Beep" = 'sound/misc/notice2.ogg',
-		"Enemy Communications Intercepted" = 'sound/AI/intercept2.ogg',
+		"Enemy Communications Intercepted" = 'sound/AI/intercept.ogg',
 		"New Command Report Created" = 'sound/AI/commandreport.ogg')
 
 	var/type = input(usr, "Pick a type of report to send", "Report Type", "") as anything in MsgType
@@ -641,7 +643,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/cmd_admin_delete(atom/A as obj|mob|turf in view())
 	set category = null
-	set name = "Delete"
+	set name = "\[Admin\] Delete"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -780,7 +782,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Gibself") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_check_contents(mob/living/M as mob in GLOB.mob_list)
-	set name = "Check Contents"
+	set name = "\[Admin\] Check Contents"
 	set category = null
 
 	if(!check_rights(R_ADMIN))
@@ -941,14 +943,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-	if(!config.allow_random_events)
-		config.allow_random_events = 1
+	if(!GLOB.configuration.event.enable_random_events)
+		GLOB.configuration.event.enable_random_events = TRUE
 		to_chat(usr, "Random events enabled")
-		message_admins("Admin [key_name_admin(usr)] has enabled random events.", 1)
+		message_admins("Admin [key_name_admin(usr)] has enabled random events.")
 	else
-		config.allow_random_events = 0
+		GLOB.configuration.event.enable_random_events = FALSE
 		to_chat(usr, "Random events disabled")
-		message_admins("Admin [key_name_admin(usr)] has disabled random events.", 1)
+		message_admins("Admin [key_name_admin(usr)] has disabled random events.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Random Events") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/reset_all_tcs()
@@ -1031,7 +1033,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(H.client == null || H.stat == DEAD) // No clientless or dead
 			continue
 		mins_afk = round(H.client.inactivity / 600)
-		if(mins_afk < config.list_afk_minimum)
+		if(mins_afk < 5)
 			continue
 		if(H.job)
 			job_string = H.job

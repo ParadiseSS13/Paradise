@@ -20,7 +20,7 @@
 	opacity = 1
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
 	var/tmp/busy = 0
 	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/bible, /obj/item/tome) //Things allowed in the bookcase
 
@@ -126,6 +126,21 @@
 	new /obj/item/book/manual/research_and_development(src)
 	update_icon()
 
+/obj/structure/bookcase/sop
+	name = "bookcase (Standard Operating Procedures)"
+
+/obj/structure/bookcase/sop/Initialize()
+	. = ..()
+	new /obj/item/book/manual/sop_command(src)
+	new /obj/item/book/manual/sop_engineering(src)
+	new /obj/item/book/manual/sop_general(src)
+	new /obj/item/book/manual/sop_legal(src)
+	new /obj/item/book/manual/sop_medical(src)
+	new /obj/item/book/manual/sop_science(src)
+	new /obj/item/book/manual/sop_security(src)
+	new /obj/item/book/manual/sop_service(src)
+	new /obj/item/book/manual/sop_supply(src)
+	update_icon()
 
 /*
  * Book

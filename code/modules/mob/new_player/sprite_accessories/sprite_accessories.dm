@@ -167,11 +167,11 @@
 // Underwear Definitions //
 ///////////////////////////
 /datum/sprite_accessory/underwear
-	icon = 'icons/mob/underwear.dmi'
+	icon = 'icons/mob/clothing/underwear.dmi'
 	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/underwear.dmi',
-	"Grey" = 'icons/mob/species/grey/underwear.dmi'
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi'
 	)
 	gender = NEUTER
 
@@ -297,11 +297,11 @@
 // Undershirt Definitions //
 ////////////////////////////
 /datum/sprite_accessory/undershirt
-	icon = 'icons/mob/underwear.dmi'
+	icon = 'icons/mob/clothing/underwear.dmi'
 	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/underwear.dmi',
-	"Grey" = 'icons/mob/species/grey/underwear.dmi')
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi')
 	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/nude
@@ -536,9 +536,9 @@
 // Socks Definitions //
 ///////////////////////
 /datum/sprite_accessory/socks
-	icon = 'icons/mob/underwear.dmi'
+	icon = 'icons/mob/clothing/underwear.dmi'
 	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/underwear.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/underwear.dmi')
 	gender = NEUTER
 
 /datum/sprite_accessory/socks/nude
@@ -616,3 +616,80 @@
 /datum/sprite_accessory/socks/black_fishnet
 	name = "Black Fishnet"
 	icon_state = "black_fishnet"
+
+/datum/sprite_accessory/socks/stockings_lpink
+	name = "Stockings (Programmer)"
+	icon_state = "stockings_lpink"
+
+/datum/sprite_accessory/socks/stockings_purple
+	name = "Stockings (Purple)"
+	icon_state = "stockings_purple"
+
+/datum/sprite_accessory/socks/stockings_green
+	name = "Stockings (Green)"
+	icon_state = "stockings_green"
+
+/datum/sprite_accessory/socks/stockings_cyan
+	name = "Stockings (Cyan)"
+	icon_state = "stockings_cyan"
+
+/datum/sprite_accessory/socks/stockings_orange
+	name = "Stockings (Orange)"
+	icon_state = "stockings_orange"
+
+/datum/sprite_accessory/socks/stockings_yellow
+	name = "Stockings (Yellow)"
+	icon_state = "stockings_yellow"
+
+/datum/sprite_accessory/socks/stockings_dpink
+	name = "Stockings (Dark Pink)"
+	icon_state = "stockings_dpink"
+
+/datum/sprite_accessory/socks/stockings_blue
+	name = "Stockings (Blue)"
+	icon_state = "stockings_blue"
+
+/* HAIR GRADIENT */
+
+/datum/sprite_accessory/hair_gradient
+	icon = 'icons/mob/hair_gradients.dmi'
+
+/datum/sprite_accessory/hair_gradient/none
+	name = "None"
+	icon_state = "none"
+
+/datum/sprite_accessory/hair_gradient/fadeup
+	name = "Fade Up"
+	icon_state = "fadeup"
+
+/datum/sprite_accessory/hair_gradient/fadedown
+	name = "Fade Down"
+	icon_state = "fadedown"
+
+/datum/sprite_accessory/hair_gradient/vertical_split
+	name = "Vertical Split"
+	icon_state = "vsplit"
+
+/datum/sprite_accessory/hair_gradient/_split
+	name = "Horizontal Split"
+	icon_state = "bottomflat"
+
+/datum/sprite_accessory/hair_gradient/reflected
+	name = "Reflected"
+	icon_state = "reflected_high"
+
+/datum/sprite_accessory/hair_gradient/reflected_inverse
+	name = "Reflected Inverse"
+	icon_state = "reflected_inverse_high"
+
+/datum/sprite_accessory/hair_gradient/wavy
+	name = "Wavy"
+	icon_state = "wavy"
+
+/datum/sprite_accessory/hair_gradient/long_fade_up
+	name = "Long Fade Up"
+	icon_state = "long_fade_up"
+
+/datum/sprite_accessory/hair_gradient/long_fade_down
+	name = "Long Fade Down"
+	icon_state = "long_fade_down"

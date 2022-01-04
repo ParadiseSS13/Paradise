@@ -10,7 +10,7 @@
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/toggle_mister)
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 
 	var/obj/item/noz
@@ -21,6 +21,10 @@
 	..()
 	create_reagents(volume)
 	noz = make_noz()
+
+/obj/item/watertank/Destroy()
+	QDEL_NULL(noz)
+	return ..()
 
 /obj/item/watertank/ui_action_click()
 	toggle_mister()
@@ -131,6 +135,10 @@
 		reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
 		loc = tank
 	return
+
+/obj/item/reagent_containers/spray/mister/Destroy()
+	tank = null
+	return ..()
 
 /obj/item/reagent_containers/spray/mister/dropped(mob/user as mob)
 	..()

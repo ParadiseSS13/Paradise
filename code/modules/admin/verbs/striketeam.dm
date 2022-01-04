@@ -84,7 +84,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 				R.real_name = R.name
 				R.mind = new
 				R.mind.current = R
-				R.mind.original = R
+				R.mind.set_original_mob(R)
 				R.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
 				R.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
 				R.mind.offstation_role = TRUE
@@ -138,13 +138,14 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	var/commando_leader_rank = pick("Lieutenant", "Captain", "Major")
 	var/commando_name = pick(GLOB.commando_names)
 
-	var/datum/preferences/A = new()//Randomize appearance for the commando.
+	var/datum/character_save/S = new //Randomize appearance for the commando.
+	S.randomise()
 	if(is_leader)
-		A.age = rand(35,45)
-		A.real_name = "[commando_leader_rank] [commando_name]"
+		S.age = rand(35, 45)
+		S.real_name = "[commando_leader_rank] [commando_name]"
 	else
-		A.real_name = "[commando_name]"
-	A.copy_to(new_commando)
+		S.real_name = "[commando_name]"
+	S.copy_to(new_commando)
 
 
 	new_commando.dna.ready_dna(new_commando)//Creates DNA.
@@ -187,7 +188,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	if(is_leader)
 		equip_to_slot_or_del(new /obj/item/disk/nuclear/unrestricted(src), slot_in_backpack)
 	else
-		equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), slot_in_backpack)
 
 
 	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber(src), slot_l_store)

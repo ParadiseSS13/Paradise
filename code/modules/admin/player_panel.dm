@@ -65,7 +65,7 @@
 
 				}
 
-				function expand(id,job,name,real_name,image,key,ip,antagonist,mobUID,client_ckey,eyeUID){
+				function expand(id,job,name,real_name,image,key,ip,antagonists,mobUID,client_ckey,eyeUID){
 
 					clearAll();
 
@@ -89,8 +89,8 @@
 					if(eyeUID)
 						body += "|<a href='?src=[UID()];adminplayerobservefollow="+eyeUID+"'>EYE</a>"
 					body += "<br>"
-					if(antagonist > 0)
-						body += "<font size='2'><a href='?src=[UID()];check_antagonist=1'><font color='red'><b>Antagonist</b></font></a></font>";
+					if(antagonists)
+						body += "<font size='2'><a href='?src=[UID()];check_antagonist=1'><font color='red'><b>"+antagonists+"</b></font></a></font>";
 
 					body += "</td></tr></table>";
 
@@ -227,7 +227,7 @@
 			var/color = "#e6e6e6"
 			if(i%2 == 0)
 				color = "#f2f2f2"
-			var/is_antagonist = is_special_character(M)
+			var/antagonist_string = get_antag_type_truncated_plaintext_string(M)
 
 			var/M_job = ""
 
@@ -305,7 +305,7 @@
 					<td align='center' bgcolor='[color]'>
 						<span id='notice_span[i]'></span>
 						<a id='link[i]'
-						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"[M.UID()]","[client_ckey]","[M_eyeUID]")'
+						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]","[antagonist_string]","[M.UID()]","[client_ckey]","[M_eyeUID]")'
 						>
 						<b id='search[i]'>[M_name] - [M_rname] - [M_key] ([M_job])</b>
 						</a>

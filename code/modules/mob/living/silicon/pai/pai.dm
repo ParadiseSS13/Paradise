@@ -26,7 +26,8 @@
 		"Parrot" = "parrot",
 		"Box Bot" = "boxbot",
 		"Spider Bot" = "spiderbot",
-		"Fairy" = "fairy"
+		"Fairy" = "fairy",
+		"Snake" = "snake"
 		)
 
 	var/global/list/possible_say_verbs = list(
@@ -35,7 +36,8 @@
 		"Beep" = list("beeps","beeps loudly","boops"),
 		"Chirp" = list("chirps","chirrups","cheeps"),
 		"Feline" = list("purrs","yowls","meows"),
-		"Canine" = list("yaps","barks","growls")
+		"Canine" = list("yaps","barks","growls"),
+		"Hiss" = list("hisses","hisses","hisses")
 		)
 
 
@@ -122,7 +124,7 @@
 	. = ..()
 	. += slowdown
 	. += 1 //A bit slower than humans, so they're easier to smash
-	. += config.robot_delay
+	. += GLOB.configuration.movement.robot_delay
 
 /mob/living/silicon/pai/update_icons()
 	if(stat == DEAD)
@@ -286,21 +288,9 @@
 
 	//check for custom_sprite
 	if(!custom_sprite)
-		var/file = file2text("config/custom_sprites.txt")
-		var/lines = splittext(file, "\n")
-
-		for(var/line in lines)
-		// split & clean up
-			var/list/Entry = splittext(line, ":")
-			for(var/i = 1 to Entry.len)
-				Entry[i] = trim(Entry[i])
-
-			if(Entry.len < 2 || Entry[1] != "pai")			//ignore incorrectly formatted entries or entries that aren't marked for pAI
-				continue
-
-			if(Entry[2] == ckey)							//They're in the list? Custom sprite time, var and icon change required
-				custom_sprite = 1
-				my_choices["Custom"] = "[ckey]-pai"
+		if(ckey in GLOB.configuration.custom_sprites.pai_holoform_ckeys)
+			custom_sprite = TRUE
+			my_choices["Custom"] = "[ckey]-pai"
 
 	my_choices = possible_chassis.Copy()
 	if(custom_sprite)
@@ -532,6 +522,6 @@
 
 /mob/living/silicon/pai/update_runechat_msg_location()
 	if(istype(loc, /obj/item/paicard))
-		runechat_msg_location = loc
+		runechat_msg_location = loc.UID()
 	else
-		runechat_msg_location = src
+		return ..()

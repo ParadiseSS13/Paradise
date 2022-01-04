@@ -11,7 +11,7 @@
 
 /datum/event/spider_terror/announce()
 	if(successSpawn)
-		GLOB.command_announcement.Announce("Confirmed outbreak of level 3 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg')
+		GLOB.command_announcement.Announce("Confirmed outbreak of level 3 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak3.ogg')
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Terror Spiders")
 
@@ -56,9 +56,8 @@
 		var/mob/living/simple_animal/hostile/poison/terror_spider/S = new spider_type(vent.loc)
 		var/mob/M = pick_n_take(candidates)
 		S.key = M.key
-		to_chat(S, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Terror_Spider)</span>")
+		to_chat(S, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Terror_Spider)</span>")
 		spawncount--
 		successSpawn = TRUE
 
 #undef TS_HIGHPOP_TRIGGER
-

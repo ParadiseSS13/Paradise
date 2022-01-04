@@ -362,12 +362,6 @@
 "bf" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/outer)
-"bg" = (
-/obj/effect/spawner/random_spawners/syndicate/layout/spacepod,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_depot/core)
 "bh" = (
 /obj/machinery/light{
 	dir = 1;
@@ -1758,7 +1752,7 @@ aD
 aM
 at
 aD
-bg
+aD
 bn
 bu
 bz

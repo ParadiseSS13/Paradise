@@ -2,8 +2,7 @@
 	name = "coffin"
 	desc = "It's a burial receptacle for the dearly departed."
 	icon_state = "coffin"
-	icon_closed = "coffin"
-	icon_opened = "coffin_open"
+	open_door_sprite = null
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	material_drop = /obj/item/stack/sheet/wood
@@ -21,8 +20,6 @@
 /obj/structure/closet/coffin/sarcophagus
 	name = "sarcophagus"
 	icon_state = "sarc"
-	icon_closed = "sarc"
-	icon_opened = "sarc_open"
 	open_sound = 'sound/effects/stonedoor_openclose.ogg'
 	close_sound = 'sound/effects/stonedoor_openclose.ogg'
 	material_drop = /obj/item/stack/sheet/mineral/sandstone

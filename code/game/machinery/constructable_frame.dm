@@ -257,7 +257,21 @@ to destroy them and players will be able to make replacements.
 		"Robco Tool Maker" =					/obj/machinery/vending/engineering,
 		"BODA" =								/obj/machinery/vending/sovietsoda,
 		"SecTech" =								/obj/machinery/vending/security,
-		"CritterCare" =							/obj/machinery/vending/crittercare)
+		"CritterCare" =							/obj/machinery/vending/crittercare,
+		"SecDrobe" =							/obj/machinery/vending/secdrobe,
+		"DetDrobe" =							/obj/machinery/vending/detdrobe,
+		"MediDrobe" =							/obj/machinery/vending/medidrobe,
+		"ViroDrobe" =							/obj/machinery/vending/virodrobe,
+		"ChemDrobe" =							/obj/machinery/vending/chemdrobe,
+		"GeneDrobe" =							/obj/machinery/vending/genedrobe,
+		"SciDrobe" =							/obj/machinery/vending/scidrobe,
+		"RoboDrobe" =							/obj/machinery/vending/robodrobe,
+		"EngiDrobe" =							/obj/machinery/vending/engidrobe,
+		"AtmosDrobe" =							/obj/machinery/vending/atmosdrobe,
+		"CargoDrobe" =							/obj/machinery/vending/cargodrobe,
+		"ChefDrobe" =							/obj/machinery/vending/chefdrobe,
+		"BarDrobe" =							/obj/machinery/vending/bardrobe,
+		"HydroDrobe" =							/obj/machinery/vending/hydrodrobe)
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -490,8 +504,9 @@ to destroy them and players will be able to make replacements.
 							"Smart Chemical Storage" = /obj/machinery/smartfridge/secure/chemistry,
 							"Smart Virus Storage" = /obj/machinery/smartfridge/secure/chemistry/virology,
 							"Drink Showcase" = /obj/machinery/smartfridge/drinks,
-							"Disk Compartmentalizer" = /obj/machinery/smartfridge/disks)
-
+							"Disk Compartmentalizer" = /obj/machinery/smartfridge/disks,
+							"Circuit Board Storage" = /obj/machinery/smartfridge/secure/circuits,
+							"AI Laws Storage" = /obj/machinery/smartfridge/secure/circuits/aiupload)
 
 /obj/item/circuitboard/smartfridge/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -694,18 +709,6 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/sheet/glass = 1)
-
-/obj/item/circuitboard/podfab
-	board_name = "Spacepod Fabricator"
-	build_path = /obj/machinery/mecha_part_fabricator/spacepod
-	board_type = "machine"
-	origin_tech = "programming=2;engineering=2"
-	req_components = list(
-							/obj/item/stock_parts/matter_bin = 2,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stock_parts/micro_laser = 1,
-							/obj/item/stack/sheet/glass = 1)
-
 
 /obj/item/circuitboard/clonepod
 	board_name = "Clone Pod"

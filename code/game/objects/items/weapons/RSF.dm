@@ -13,7 +13,7 @@ RSF
 	anchored = 0.0
 	var/matter = 0
 	var/mode = 1
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	w_class = WEIGHT_CLASS_NORMAL
 	var/list/configured_items = list()
 
@@ -21,7 +21,6 @@ RSF
 	..()
 	desc = "A RSF. It currently holds [matter]/30 fabrication-units."
 	// configured_items[ID_NUMBER] = list("Human-readable name", price in energy, /type/path)
-	configured_items[++configured_items.len] = list("Dosh", 50, /obj/item/stack/spacecash/c10)
 	configured_items[++configured_items.len] = list("Drinking Glass", 50, /obj/item/reagent_containers/food/drinks/drinkingglass)
 	configured_items[++configured_items.len] = list("Paper", 50, /obj/item/paper)
 	configured_items[++configured_items.len] = list("Pen", 50, /obj/item/pen)

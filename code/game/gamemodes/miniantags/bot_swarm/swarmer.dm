@@ -112,7 +112,7 @@
 	to_chat(src, "1. Consume resources and replicate until there are no more resources left.")
 	to_chat(src, "2. Ensure that the station is fit for invasion at a later date, do not perform actions that would render it dangerous or inhospitable.")
 	to_chat(src, "3. Biological and sentient resources will be harvested at a later date, do not harm them.")
-	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Swarmer)</span>")
+	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Swarmer)</span>")
 
 /mob/living/simple_animal/hostile/swarmer/New()
 	..()
@@ -372,10 +372,6 @@
 	to_chat(S, "<span class='warning'>This cryopod control computer should be preserved, it contains useful items and information about the inhabitants. Aborting.</span>")
 	return FALSE
 
-/obj/structure/spacepoddoor/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting this energy field would overload us. Aborting.</span>")
-	return FALSE
-
 /turf/simulated/wall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	var/isonshuttle = istype(loc, /area/shuttle)
 	for(var/turf/T in range(1, src))
@@ -410,10 +406,6 @@
 
 /obj/machinery/porta_turret/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Attempting to dismantle this machine would result in an immediate counterattack. Aborting.</span>")
-	return FALSE
-
-/obj/spacepod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Destroying this vehicle would destroy us. Aborting.</span>")
 	return FALSE
 
 /obj/machinery/clonepod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
@@ -510,7 +502,7 @@
 		return
 
 	var/turf/simulated/floor/F
-	F = find_safe_turf(zlevels = z, extended_safety_checks = TRUE)
+	F = find_safe_turf(zlevels = z)
 
 	if(!F)
 		return

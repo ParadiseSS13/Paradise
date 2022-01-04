@@ -37,13 +37,13 @@
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
-		"nutrient channel" =   /obj/item/organ/internal/liver/diona,
-		"respiratory vacuoles" =   /obj/item/organ/internal/lungs/diona,
-		"neural strata" =      /obj/item/organ/internal/heart/diona,
+		"liver" =   /obj/item/organ/internal/liver/diona,
+		"lungs" =   /obj/item/organ/internal/lungs/diona,
+		"heart" =      /obj/item/organ/internal/heart/diona,
 		"eyes"			 =      /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
-		"gas bladder" =        /obj/item/organ/internal/brain/diona,
-		"polyp segment" =      /obj/item/organ/internal/kidneys/diona,
-		"anchoring ligament" = /obj/item/organ/internal/appendix/diona
+		"brain" =        /obj/item/organ/internal/brain/diona,
+		"kidneys" =      /obj/item/organ/internal/kidneys/diona,
+		"appendix" = /obj/item/organ/internal/appendix/diona
 		)
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/diona),

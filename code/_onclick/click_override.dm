@@ -71,8 +71,10 @@
 		if(isliving(target_atom))
 			var/mob/living/L = target_atom
 			if(user.a_intent == INTENT_DISARM)
+				add_attack_logs(user, L, "shocked and weakened with power gloves")
 				L.Weaken(3)
 			else
+				add_attack_logs(user, L, "electrocuted with[P.unlimited_power ? " unlimited" : null] power gloves")
 				if(P.unlimited_power)
 					L.electrocute_act(1000, P, flags = SHOCK_NOGLOVES) //Just kill them
 				else

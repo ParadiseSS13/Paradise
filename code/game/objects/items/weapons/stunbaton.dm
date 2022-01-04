@@ -9,7 +9,7 @@
 	throwforce = 7
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	/// How many life ticks does the stun last for
 	var/stunforce = 7
 	/// Is the baton currently turned on
@@ -70,6 +70,11 @@
 		. += "<span class='notice'>The baton is [round(cell.percent())]% charged.</span>"
 	else
 		. += "<span class='warning'>The baton does not have a power source installed.</span>"
+
+/obj/item/melee/baton/detailed_examine()
+	return "The baton needs to be turned on to apply the stunning effect. Use it in your hand to toggle it on or off.  If your intent is \
+			set to 'harm', you will inflict damage when using it, regardless if it is on or not. Each stun reduces the baton's charge, which can be replenished by \
+			putting it inside a weapon recharger."
 
 /obj/item/melee/baton/get_cell()
 	return cell
@@ -153,7 +158,7 @@
 		deductcharge(hitcost)
 		return
 
-	if(isrobot(M)) // Can't stunbaton borgs
+	if(issilicon(M)) // Can't stunbaton borgs and AIs
 		return ..()
 
 	if(!isliving(M))

@@ -272,15 +272,19 @@
 	update_all_mob_security_hud()
 	return 1
 
-/*
-Proc for attack log creation, because really why not
-1 argument is the actor
-2 argument is the target of action
-3 is the full description of the action
-4 is whether or not to message admins
-This is always put in the attack log.
-*/
-
+/**
+ * Creates attack (old and new) logs for the user and defense logs for the target.
+ * Will message admins depending on the custom_level, user and target.
+ *
+ * custom_level will determine the log level set. Unless the target is SSD and there is a user doing it
+ * If custom_level is not set then the log level will be determined using the user and the target.
+ *
+ * * Arguments:
+ * * user - The thing doing it. Can be null
+ * * target - The target of the attack
+ * * what_done - What has happened
+ * * custom_level - The log level override
+ */
 /proc/add_attack_logs(atom/user, target, what_done, custom_level)
 	if(islist(target)) // Multi-victim adding
 		var/list/targets = target
@@ -323,13 +327,13 @@ This is always put in the attack log.
 				loglevel = ATKLOG_ALMOSTALL
 	else
 		loglevel = ATKLOG_ALL // Hitting an object. Not a mob
-	if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
+	if(user && isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
 		loglevel = ATKLOG_FEW
 
 
 	msg_admin_attack("[key_name_admin(user)] vs [target_info]: [what_done]", loglevel)
 
-/proc/do_mob(mob/user, mob/target, time = 30, uninterruptible = 0, progress = 1, list/extra_checks = list())
+/proc/do_mob(mob/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE)
 	if(!user || !target)
 		return 0
 	var/user_loc = user.loc
@@ -355,7 +359,9 @@ This is always put in the attack log.
 		if(!user || !target)
 			. = 0
 			break
-		if(uninterruptible)
+		if(only_use_extra_checks)
+			if(check_for_true_callbacks(extra_checks))
+				break
 			continue
 
 		if(drifting && !user.inertia_dir)
@@ -637,7 +643,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
  * 	where active is defined as conscious (STAT = 0) and not an antag
 */
 /proc/check_active_security_force()
-	var/sec_positions = GLOB.security_positions - "Magistrate" - "Brig Physician"
+	var/sec_positions = GLOB.security_positions - "Magistrate"
 	var/total = 0
 	var/active = 0
 	var/dead = 0

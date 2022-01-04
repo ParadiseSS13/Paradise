@@ -344,7 +344,7 @@
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.sprite_sheets = list(
-			"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
+			"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
 			)
 		user.update_icons()
 		qdel(src)
@@ -935,7 +935,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "k3_webbing"
 
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/suit.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 	ignore_suitadjust = 0
 	actions_types = list(/datum/action/item_action/toggle)
 	suit_adjusted = 0
@@ -1470,13 +1470,13 @@
 
 
 /obj/item/clothing/head/fluff/lfbowler //Lightfire: Hyperion
-	name = "Classy bowler hat"
-	desc = "a very classy looking bowler hat"
+	name = "classy bowler hat"
+	desc = "A very classy looking bowler hat."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "bowler_lightfire"
 
 /obj/item/clothing/under/fluff/lfvicsuit //Lightfire: Hyperion
-	name = "Classy victorian suit"
+	name = "classy victorian suit"
 	desc = "A blue and black victorian suit with silver buttons, very fancy!"
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
@@ -1536,30 +1536,6 @@
 /obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff // LightFire53: Ikelos
 	icon_state = "ikelos_envirohelm" // New item needed because `initial(icon_state)` is used.
 	icon = 'icons/obj/custom_items.dmi'
-
-
-/obj/item/fluff/decemviri_spacepod_kit //Decemviri: Sylus Cain
-	name = "Spacepod mod kit"
-	desc = "a kit on tools and a blueprint detailing how to reconfigure a spacepod"
-	icon_state = "modkit"
-
-/obj/item/fluff/decemviri_spacepod_kit/afterattack(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.incapacitated())
-		return
-
-	if(!istype(target, /obj/spacepod))
-		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-		return
-
-	to_chat(user, "<span class='notice'>You modify the appearance of [target] based on the kit blueprints.</span>")
-	var/obj/spacepod/pod = target
-	pod.icon = 'icons/48x48/custom_pod.dmi'
-	pod.icon_state = "pod_dece"
-	pod.name = "sleek spacepod"
-	pod.desc = "A modified varient of a space pod."
-	pod.can_paint = FALSE
-	used = 1
-	qdel(src)
 
 /obj/item/bikehorn/fluff/pinkbikehorn //Xerdies: Squiddle Toodle
 	name = "Honkinator5000"
@@ -1637,10 +1613,13 @@
 	icon_state = "ps_horns"
 
 /obj/item/storage/backpack/fluff/hiking //Pineapple Salad: Dan Jello
-	name = "\improper Fancy Hiking Pack"
-	desc = "A black and red hiking pack with some nice little accessories."
+	name = "\improper Fancy Dufflebag"
+	desc = "It's pretty lightweight for a dufflebag, but it only seems to have as much space as an ordinary backpack."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "danpack"
+	item_state = "danpack"
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 
 /obj/item/clothing/under/fluff/kiaoutfit //FullOfSkittles: Kiachi
 	name = "Suspicious Outfit"
@@ -1648,7 +1627,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon_state = "kiaoutfit"
 	item_state = "kiaoutfit"
 	item_color = "kiaoutfit"
@@ -1671,7 +1650,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/mask.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
 	icon_state = "kiamask"
 	item_state = "kiamask"
 	item_color = "kiamask"
@@ -1704,12 +1683,24 @@
 	desc = "A simple black dress with a white undercoat, tied with a blue ribbon."
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kikeridress"
 	item_state = "kikeridress"
 	item_color = "kikeridress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	species_restricted = list("Vox")
+
+/obj/item/clothing/mask/gas/fluff/kikerimask //Gangelwaefre: Kikeri
+	name = "Kikeri's Mask"
+	desc = "A light grey mask with masquerade-esque blue details."
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
+	icon_state = "kikerimask"
+	item_state = "kikerimask"
+	item_color = "kikerimask"
 	species_restricted = list("Vox")
 
 #undef USED_MOD_HELM

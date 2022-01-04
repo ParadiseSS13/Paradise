@@ -257,8 +257,8 @@
 	board_name = "RD Console"
 	desc = "Swipe a Scientist level ID or higher to reconfigure."
 	build_path = /obj/machinery/computer/rdconsole/core
-	req_access = list(ACCESS_TOX) // This is for adjusting the type of computer we're building - in case something messes up the pre-existing robotics or mechanics consoles
-	var/list/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Mechanics", "Public")
+	req_access = list(ACCESS_TOX) // This is for adjusting the type of computer we're building - in case something messes up the pre-existing robotics console
+	var/list/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Public")
 
 /obj/item/circuitboard/rdconsole/robotics
 	board_name = "RD Console - Robotics"
@@ -268,10 +268,6 @@
 	board_name = "RD Console - E.X.P.E.R.I-MENTOR"
 	build_path = /obj/machinery/computer/rdconsole/experiment
 
-/obj/item/circuitboard/rdconsole/mechanics
-	board_name = "RD Console - Mechanics"
-	build_path = /obj/machinery/computer/rdconsole/mechanics
-
 /obj/item/circuitboard/rdconsole/public
 	board_name = "RD Console - Public"
 	build_path = /obj/machinery/computer/rdconsole/public
@@ -280,10 +276,6 @@
 /obj/item/circuitboard/mecha_control
 	board_name = "Exosuit Control Console"
 	build_path = /obj/machinery/computer/mecha
-
-/obj/item/circuitboard/pod_locater
-	board_name = "Pod Location Console"
-	build_path = /obj/machinery/computer/podtracker
 
 /obj/item/circuitboard/rdservercontrol
 	board_name = "RD Server Control"
@@ -426,9 +418,6 @@
 				if("E.X.P.E.R.I-MENTOR")
 					board_name = "RD Console - E.X.P.E.R.I-MENTOR"
 					build_path = /obj/machinery/computer/rdconsole/experiment
-				if("Mechanics")
-					board_name = "RD Console - Mechanics"
-					build_path = /obj/machinery/computer/rdconsole/mechanics
 				if("Public")
 					board_name = "RD Console - Public"
 					build_path = /obj/machinery/computer/rdconsole/public
@@ -461,6 +450,17 @@
 	if(!(flags & NODECONSTRUCT))
 		drop_computer_parts()
 	return ..() // will qdel the frame
+
+/obj/structure/computerframe/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	if(anchored)
+		to_chat(user, "<span class='warning'>The frame is anchored to the floor!</span>")
+		return
+	setDir(turn(dir, 90))
 
 /obj/structure/computerframe/obj_break(damage_flag)
 	deconstruct()
@@ -544,7 +544,8 @@
 		if(STATE_GLASS)
 			to_chat(user, "<span class='notice'>You connect the monitor.</span>")
 			I.play_tool_sound(src)
-			var/B = new circuit.build_path(loc)
+			var/obj/machinery/computer/B = new circuit.build_path(loc)
+			B.setDir(dir)
 			if(istype(circuit, /obj/item/circuitboard/supplycomp))
 				var/obj/machinery/computer/supplycomp/SC = B
 				var/obj/item/circuitboard/supplycomp/C = circuit

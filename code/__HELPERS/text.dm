@@ -8,10 +8,6 @@
  *			Misc
  */
 
-
-/proc/format_table_name(table as text)
-	return sqlfdbktableprefix + table
-
 /*
  * Text sanitization
  */
@@ -720,9 +716,9 @@
 /proc/client2rankcolour(client/C)
 	// First check if end user is an admin
 	if(C.holder)
-		if(C.holder.rank in GLOB.rank_colour_map)
+		if(C.holder.rank in GLOB.configuration.admin.rank_colour_map)
 			// Return their rank colour if they are in here
-			return GLOB.rank_colour_map[C.holder.rank]
+			return GLOB.configuration.admin.rank_colour_map[C.holder.rank]
 
 	// If they arent an admin, see if they are a patreon. Just accept any level
 	if(C.donator_level)

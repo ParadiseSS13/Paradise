@@ -96,15 +96,14 @@
 	if(status & ORGAN_DEAD)
 		return
 
-	if(is_preserved())
-		return
-
 	//Process infections
 	if(is_robotic() || sterile || (owner && HAS_TRAIT(owner, TRAIT_NOGERMS)))
 		germ_level = 0
 		return
 
 	if(!owner)
+		if(is_preserved())
+			return
 		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
 		// Another mercy for surgeons preparing transplant organs
 		germ_level++
@@ -164,7 +163,7 @@
 
 	if(germ_level >= INFECTION_LEVEL_ONE)
 		var/fever_temperature = (owner.dna.species.heat_level_1 - owner.dna.species.body_temperature - 5) * min(germ_level / INFECTION_LEVEL_TWO, 1) + owner.dna.species.body_temperature
-		owner.bodytemperature += between(0, (fever_temperature - T20C) / BODYTEMP_COLD_DIVISOR + 1, fever_temperature - owner.bodytemperature)
+		owner.bodytemperature += clamp((fever_temperature - T20C) / BODYTEMP_COLD_DIVISOR + 1, 0, fever_temperature - owner.bodytemperature)
 
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		var/obj/item/organ/external/parent = owner.get_organ(parent_organ)
@@ -208,7 +207,7 @@
 /obj/item/organ/proc/receive_damage(amount, silent = 0)
 	if(tough)
 		return
-	damage = between(0, damage + amount, max_damage)
+	damage = clamp(damage + amount, 0, max_damage)
 
 	//only show this if the organ is not robotic
 	if(owner && parent_organ && amount > 0)

@@ -46,10 +46,11 @@
 	if(user)
 		user.update_inv_r_hand()
 		user.update_inv_l_hand()
-	if(isrobot(user))
-		to_chat(user, "<span class='notice'>You free up your module.</span>")
-	else
-		to_chat(user, "<span class='notice'>You are now carrying [name] with one hand.</span>")
+	if(!(flags & ABSTRACT))
+		if(isrobot(user))
+			to_chat(user, "<span class='notice'>You free up your module.</span>")
+		else
+			to_chat(user, "<span class='notice'>You are now carrying [name] with one hand.</span>")
 	if(unwieldsound)
 		playsound(loc, unwieldsound, 50, 1)
 	var/obj/item/twohanded/offhand/O = user.get_inactive_hand()
@@ -80,10 +81,11 @@
 	if(user)
 		user.update_inv_r_hand()
 		user.update_inv_l_hand()
-	if(isrobot(user))
-		to_chat(user, "<span class='notice'>You dedicate your module to [src].</span>")
-	else
-		to_chat(user, "<span class='notice'>You grab [src] with both hands.</span>")
+	if(!(flags & ABSTRACT))
+		if(isrobot(user))
+			to_chat(user, "<span class='notice'>You dedicate your module to [src].</span>")
+		else
+			to_chat(user, "<span class='notice'>You grab [src] with both hands.</span>")
 	if(wieldsound)
 		playsound(loc, wieldsound, 50, 1)
 	var/obj/item/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
@@ -91,6 +93,11 @@
 	O.desc = "Your second grip on [src]"
 	user.put_in_inactive_hand(O)
 	return TRUE
+
+/obj/item/twohanded/mob_can_equip(mob/M, slot) //Unwields twohanded items when they're attempted to be equipped to another slot
+	if(wielded)
+		unwield(M)
+	return ..()
 
 /obj/item/twohanded/dropped(mob/user)
 	..()
@@ -192,7 +199,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/crowbar.ogg'
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/twohanded/fireaxe/update_icon()  //Currently only here to fuck with the on-mob icons.
@@ -278,7 +285,7 @@
 	block_chance = 75
 	sharp_when_wielded = TRUE // only sharp when wielded
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	light_power = 2
 	needs_permit = TRUE
@@ -394,7 +401,7 @@
 	no_spin_thrown = TRUE
 	var/obj/item/grenade/explosive = null
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	needs_permit = TRUE
 	var/icon_prefix = "spearglass"
 
@@ -513,7 +520,7 @@
 
 /obj/item/twohanded/spear/kidan
 	icon_state = "kidanspear0"
-	name = "Kidan spear"
+	name = "\improper Kidan spear"
 	desc = "A spear brought over from the Kidan homeworld."
 
 // DIY CHAINSAW
@@ -584,7 +591,7 @@
 ///CHAINSAW///
 /obj/item/twohanded/chainsaw
 	icon_state = "chainsaw0"
-	name = "Chainsaw"
+	name = "chainsaw"
 	desc = "Perfect for felling trees or fellow spacemen."
 	force = 15
 	throwforce = 15
@@ -634,6 +641,10 @@
 	if(.)
 		flags &= ~NODROP
 
+/obj/item/twohanded/chainsaw/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_BUTCHERS_HUMANS, ROUNDSTART_TRAIT)
+
 // SINGULOHAMMER
 /obj/item/twohanded/singularityhammer
 	name = "singularity hammer"
@@ -643,13 +654,13 @@
 	slot_flags = SLOT_BACK
 	force = 5
 	force_unwielded = 5
-	force_wielded = 20
+	force_wielded = 40
 	throwforce = 15
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	var/charged = 5
+	var/charged = 2
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
 
 /obj/item/twohanded/singularityhammer/New()
@@ -661,7 +672,7 @@
 	return ..()
 
 /obj/item/twohanded/singularityhammer/process()
-	if(charged < 5)
+	if(charged < 2)
 		charged++
 
 /obj/item/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
@@ -684,7 +695,7 @@
 				var/obj/item/clothing/shoes/magboots/M = H.shoes
 				if(M.magpulse)
 					continue
-			H.apply_effect(1, WEAKEN, 0)
+			H.Weaken(2)
 			step_towards(H, pull)
 			step_towards(H, pull)
 			step_towards(H, pull)
@@ -693,7 +704,7 @@
 	if(!proximity)
 		return
 	if(wielded)
-		if(charged == 5)
+		if(charged == 2)
 			charged = 0
 			if(isliving(A))
 				var/mob/living/Z = A

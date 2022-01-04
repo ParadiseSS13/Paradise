@@ -43,6 +43,7 @@
 #define AALARM_PRESET_VOX       2 // Support Vox
 #define AALARM_PRESET_COLDROOM  3 // Kitchen coldroom
 #define AALARM_PRESET_SERVER    4 // Server coldroom
+#define AALARM_PRESET_DISABLED  5 // Disables all alarms
 
 #define AALARM_REPORT_TIMEOUT 100
 
@@ -80,10 +81,11 @@
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
 	max_integrity = 250
 	integrity_failure = 80
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	siemens_strength = 1
 	frequency = ATMOS_VENTSCRUB
+	var/custom_name
 	var/alarm_id = null
 	//var/skipprocess = 0 //Experimenting
 	var/alarm_frequency = ATMOS_FIRE_FREQ
@@ -112,6 +114,7 @@
 
 	var/target_temperature = T20C
 	var/regulating_temperature = 0
+	var/thermostat_state = FALSE
 
 	var/list/TLV = list()
 
@@ -124,6 +127,7 @@
 	name = "engine air alarm"
 	locked = FALSE
 	req_access = null
+	custom_name = TRUE
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 
 /obj/machinery/alarm/syndicate //general syndicate access
@@ -143,6 +147,9 @@
 
 /obj/machinery/alarm/kitchen_cold_room
 	preset = AALARM_PRESET_COLDROOM
+
+/obj/machinery/alarm/disabled
+	preset = AALARM_PRESET_DISABLED
 
 /obj/machinery/alarm/proc/apply_preset(no_cycle_after=0)
 	// Propogate settings.
@@ -191,19 +198,24 @@
 				"pressure"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), /* kpa */
 				"temperature"    = new/datum/tlv(0, 0, T20C + 5, T20C + 15), // K
 			)
+		if(AALARM_PRESET_DISABLED)
+			no_cycle_after = TRUE
+			TLV = list(
+				"oxygen"         = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"nitrogen"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"carbon dioxide" = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"plasma"         = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"other"          = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"pressure"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), /* kpa */
+				"temperature"    = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // K
+			)
 
 	if(!no_cycle_after)
 		mode = AALARM_MODE_REPLACEMENT
 		apply_mode()
 
 /obj/machinery/alarm/New(loc, direction, building = 0)
-	. = ..()
-	GLOB.air_alarms += src
-	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
-
-	wires = new(src)
-
-	if(building)
+	if(building) // Do this first since the Init uses this later on. TODO refactor to just use an Init
 		if(loc)
 			src.loc = loc
 
@@ -213,10 +225,15 @@
 		buildstage = 0
 		wiresexposed = 1
 		set_pixel_offsets_from_dir(-24, 24, -24, 24)
-		update_icon()
-		return
 
-	first_run()
+	. = ..()
+	GLOB.air_alarms += src
+	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
+
+	wires = new(src)
+
+	if(!building)
+		first_run()
 
 /obj/machinery/alarm/Destroy()
 	SStgui.close_uis(wires)
@@ -235,7 +252,7 @@
 /obj/machinery/alarm/proc/first_run()
 	alarm_area = get_area(src)
 	area_uid = alarm_area.uid
-	if(name == "alarm")
+	if(!custom_name)
 		name = "[alarm_area.name] Air Alarm"
 	apply_preset(1) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
@@ -329,8 +346,8 @@
 			var/datum/gas_mixture/gas = location.remove_air(0.25 * environment.total_moles())
 			if(!gas)
 				return
-			if(!regulating_temperature)
-				regulating_temperature = 1
+			if(!regulating_temperature && thermostat_state == TRUE)
+				regulating_temperature = TRUE
 				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
 
 			if(target_temperature > MAX_TEMPERATURE)
@@ -339,24 +356,25 @@
 			if(target_temperature < MIN_TEMPERATURE)
 				target_temperature = MIN_TEMPERATURE
 
-			var/heat_capacity = gas.heat_capacity()
-			var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
+			if(thermostat_state == TRUE)
+				var/heat_capacity = gas.heat_capacity()
+				var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
 
-			//Use power.  Assuming that each power unit represents 1000 watts....
-			use_power(energy_used/1000, ENVIRON)
+				//Use power.  Assuming that each power unit represents 1000 watts....
+				use_power(energy_used / 1000, ENVIRON)
 
-			//We need to cool ourselves.
-			if(heat_capacity)
-				if(environment.temperature > target_temperature)
-					gas.temperature -= energy_used / heat_capacity
-				else
-					gas.temperature += energy_used / heat_capacity
+				//We need to cool ourselves.
+				if(heat_capacity)
+					if(environment.temperature > target_temperature)
+						gas.temperature -= energy_used / heat_capacity
+					else
+						gas.temperature += energy_used / heat_capacity
+
+				if(abs(environment.temperature - target_temperature) <= 0.5)
+					regulating_temperature = FALSE
+					visible_message("[src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
 
 			environment.merge(gas)
-
-			if(abs(environment.temperature - target_temperature) <= 0.5)
-				regulating_temperature = 0
-				visible_message("\The [src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
 
 /obj/machinery/alarm/update_icon()
 	if(wiresexposed)
@@ -642,6 +660,7 @@
 	data["pressure"] = environment_pressure
 	data["temperature"] = environment.temperature
 	data["temperature_c"] = round(environment.temperature - T0C, 0.1)
+	data["thermostat_state"] = thermostat_state
 
 	var/list/percentages = list()
 	percentages["oxygen"] = oxygen_percent
@@ -700,7 +719,8 @@
 		AALARM_PRESET_HUMAN		= list("name"="Human",     	 "desc"="Checks for oxygen and nitrogen", "id" = AALARM_PRESET_HUMAN),\
 		AALARM_PRESET_VOX 		= list("name"="Vox",       	 "desc"="Checks for nitrogen only", "id" = AALARM_PRESET_VOX),\
 		AALARM_PRESET_COLDROOM 	= list("name"="Coldroom", 	 "desc"="For freezers", "id" = AALARM_PRESET_COLDROOM),\
-		AALARM_PRESET_SERVER 	= list("name"="Server Room", "desc"="For server rooms", "id" = AALARM_PRESET_SERVER)
+		AALARM_PRESET_SERVER 	= list("name"="Server Room", "desc"="For server rooms", "id" = AALARM_PRESET_SERVER),\
+		AALARM_PRESET_DISABLED 	= list("name"="Disabled", "desc"="Disables all alarms", "id" = AALARM_PRESET_DISABLED)
 	)
 	data["preset"] = preset
 
@@ -931,6 +951,8 @@
 			else
 				target_temperature = input_temperature
 
+		if("thermostat_state")
+			thermostat_state = !thermostat_state
 
 /obj/machinery/alarm/emag_act(mob/user)
 	if(!emagged)
@@ -1085,6 +1107,7 @@
 	name = "all-access air alarm"
 	desc = "This particular atmos control unit appears to have no access restrictions."
 	locked = FALSE
+	custom_name = TRUE
 	req_access = null
 	req_one_access = null
 

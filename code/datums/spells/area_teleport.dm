@@ -1,6 +1,4 @@
-/obj/effect/proc_holder/spell/targeted/area_teleport
-	name = "Area teleport"
-	desc = "This spell teleports you to a type of area of your selection."
+/obj/effect/proc_holder/spell/area_teleport
 	nonabstract_req = 1
 
 	var/randomise_selection = 0 //if it lets the usr choose the teleport loc or picks it from the list
@@ -8,43 +6,38 @@
 
 	var/sound1 = 'sound/weapons/zapbang.ogg'
 	var/sound2 = 'sound/weapons/zapbang.ogg'
+	var/area/selected_area
 
-/obj/effect/proc_holder/spell/targeted/area_teleport/perform(list/targets, recharge = 1, mob/living/user = usr)
-	var/thearea = before_cast(targets)
-	if(!thearea || !cast_check(FALSE, FALSE, user))
-		revert_cast()
-		return
-	invocation(thearea)
-	spawn(0)
-		if(charge_type == "recharge" && recharge)
-			start_recharge()
-	cast(targets,thearea)
-	after_cast(targets)
-
-/obj/effect/proc_holder/spell/targeted/area_teleport/before_cast(list/targets)
-	var/A = null
+/obj/effect/proc_holder/spell/area_teleport/before_cast(list/targets, mob/user)
+	..()
+	selected_area = null // Reset it
+	var/A
 
 	if(!randomise_selection)
-		A = input("Area to teleport to", "Teleport", A) as null|anything in GLOB.teleportlocs
+		A = input("Area to teleport to", "Teleport", A) as null|anything in SSmapping.teleportlocs
 	else
-		A = pick(GLOB.teleportlocs)
+		A = pick(SSmapping.teleportlocs)
 
 	if(!A)
 		return
 
-	var/area/thearea = GLOB.teleportlocs[A]
+	var/area/thearea = SSmapping.teleportlocs[A]
 
 	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
-		to_chat(usr, "A mysterious force disrupts your arcane spell matrix, and you remain where you are.")
+		to_chat(user, "A mysterious force disrupts your arcane spell matrix, and you remain where you are.")
 		return
 
-	return thearea
+	selected_area = thearea
 
-/obj/effect/proc_holder/spell/targeted/area_teleport/cast(list/targets,area/thearea,mob/living/user = usr)
+/obj/effect/proc_holder/spell/area_teleport/cast(list/targets, mob/living/user)
+	if(!selected_area)
+		revert_cast(user)
+		return
+
 	playsound(get_turf(user), sound1, 50,1)
 	for(var/mob/living/target in targets)
 		var/list/L = list()
-		for(var/turf/T in get_area_turfs(thearea.type))
+		for(var/turf/T in get_area_turfs(selected_area.type))
 			if(!T.density)
 				var/clear = 1
 				for(var/obj/O in T)
@@ -83,7 +76,7 @@
 
 	return
 
-/obj/effect/proc_holder/spell/targeted/area_teleport/invocation(area/chosenarea = null)
+/obj/effect/proc_holder/spell/area_teleport/invocation(area/chosenarea = null)
 	if(!invocation_area || !chosenarea)
 		..()
 	else
