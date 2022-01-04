@@ -471,8 +471,14 @@
 /turf/simulated/wall,
 /area/hydroponics)
 "ch" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
+/obj/machinery/cooker/deepfryer,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/radio/intercom{
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
 /area/crew_quarters/kitchen)
 "cj" = (
 /turf/simulated/floor/plasteel{
@@ -786,11 +792,8 @@
 	},
 /area/hydroponics)
 "dM" = (
-/obj/machinery/icemachine,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/crew_quarters/kitchen)
 "dP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -938,15 +941,12 @@
 	},
 /area/hydroponics)
 "eI" = (
-/obj/structure/table/reinforced,
-/obj/machinery/kitchen_machine/microwave,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
 /area/crew_quarters/kitchen)
 "eK" = (
-/obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
@@ -1331,15 +1331,8 @@
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "gD" = (
-/obj/machinery/vending/dinnerware,
+/obj/machinery/icemachine,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -24
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -1580,11 +1573,14 @@
 	},
 /area/hydroponics)
 "jp" = (
-/obj/structure/closet/secure_closet/freezer/meat,
+/obj/machinery/vending/dinnerware,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -26
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -1654,11 +1650,9 @@
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "jS" = (
-/obj/machinery/cooker/deepfryer,
+/obj/structure/table/reinforced,
+/obj/machinery/kitchen_machine/microwave,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/item/radio/intercom{
-	pixel_y = 28
-	},
 /obj/machinery/camera,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -1847,11 +1841,12 @@
 /turf/simulated/wall,
 /area/janitor)
 "mB" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/structure/closet/secure_closet/freezer/meat,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = -26
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -1874,6 +1869,13 @@
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "bridge blast west";
+	name = "Bridge Blast Doors";
+	opacity = 0
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -1975,6 +1977,13 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "bridge blast east";
+	name = "Bridge Blast Doors";
+	opacity = 0
+	},
 /turf/simulated/floor/plating,
 /area/bridge)
 "of" = (
@@ -2046,11 +2055,11 @@
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "pb" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/secure_closet/freezer/kitchen,
-/obj/machinery/camera{
-	dir = 5
+/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/machinery/newscaster{
+	pixel_x = -30
 	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -2125,6 +2134,13 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "bridge blast west";
+	name = "Bridge Blast Doors";
+	opacity = 0
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "qh" = (
@@ -2182,8 +2198,29 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/keycard_auth{
-	pixel_x = -5;
-	pixel_y = 7
+	pixel_x = -7;
+	pixel_y = 8
+	},
+/obj/machinery/door_control{
+	id = "bridge blast north";
+	name = "North Bridge Blast Door Control";
+	pixel_x = 6;
+	pixel_y = 8;
+	req_access_txt = "19"
+	},
+/obj/machinery/door_control{
+	id = "bridge blast west";
+	name = "West Bridge Blast Door Control";
+	pixel_x = -6;
+	pixel_y = -2;
+	req_access_txt = "19"
+	},
+/obj/machinery/door_control{
+	id = "bridge blast east";
+	name = "East Bridge Blast Door Control";
+	pixel_x = 6;
+	pixel_y = -2;
+	req_access_txt = "19"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
@@ -2210,6 +2247,10 @@
 	},
 /obj/item/megaphone,
 /obj/structure/table/reinforced,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Head of Personnel's Office"
+	},
+/obj/item/pen,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "qK" = (
@@ -2279,6 +2320,13 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "bridge blast east";
+	name = "Bridge Blast Doors";
+	opacity = 0
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "rQ" = (
@@ -2719,6 +2767,10 @@
 	pixel_y = -24
 	},
 /obj/structure/cable,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Head of Personnel's Office"
+	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "vf" = (
@@ -3476,6 +3528,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "Cl" = (
@@ -3892,6 +3945,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 30
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -3954,6 +4008,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
+"Gr" = (
+/obj/machinery/computer/security{
+	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/bridge)
 "GE" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -4355,6 +4415,16 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/nw)
+"Ji" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/machinery/camera{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/crew_quarters/kitchen)
 "Jo" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -4667,6 +4737,7 @@
 	dir = 8
 	},
 /obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -6121,6 +6192,7 @@
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -6145,6 +6217,10 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/office)
+"QO" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel/dark,
+/area/bridge)
 "QP" = (
 /obj/item/radio/intercom{
 	pixel_x = 28
@@ -37137,8 +37213,8 @@ aa
 aa
 aa
 aa
-aa
-aa
+aZ
+aZ
 aa
 aZ
 aa
@@ -37387,17 +37463,17 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aZ
-aZ
-aa
-aZ
+NQ
+NQ
+dM
+dM
+dM
+NQ
+NQ
+NQ
+NQ
+NQ
+NQ
 tV
 tV
 tV
@@ -37645,15 +37721,15 @@ aa
 aa
 aa
 NQ
-NQ
 ch
-ch
-ch
-NQ
-NQ
-NQ
-NQ
-NQ
+cj
+cj
+cj
+gD
+jp
+mB
+pb
+Ji
 NQ
 ue
 wa
@@ -37905,12 +37981,12 @@ NQ
 jS
 cj
 cj
-dM
+cj
 eI
-gD
-jp
-mB
-pb
+cj
+cj
+cj
+cj
 NQ
 uo
 cG
@@ -40739,7 +40815,7 @@ kR
 ng
 qu
 th
-nn
+QO
 xn
 yB
 Ac
@@ -40993,7 +41069,7 @@ cG
 fr
 hk
 lb
-nn
+Gr
 qv
 to
 vf
