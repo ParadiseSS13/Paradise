@@ -54,7 +54,7 @@
 //(in game days played) to play that role
 GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_ABDUCTOR = /datum/game_mode/abduction, 		// Abductor
-	ROLE_BLOB = /datum/game_mode/blob, 					// Blob
+	ROLE_BLOB,						 					// Blob
 	ROLE_CHANGELING = /datum/game_mode/changeling, 		// Changeling
 	ROLE_BORER, 										// Cortical borer
 	ROLE_CULTIST = /datum/game_mode/cult, 				// Cultist
@@ -79,6 +79,6 @@ GLOBAL_LIST_INIT(special_roles, list(
 	// UNUSED/BROKEN ANTAGS
 //	ROLE_HOG_GOD = /datum/game_mode/hand_of_god,
 //	ROLE_HOG_CULTIST = /datum/game_mode/hand_of_god,
-//	ROLE_MONKEY = /datum/game_mode/monkey, Sooner or later these are going to get ported
+//	ROLE_MONKEY = /datum/game_mode/monkey, Sooner or later these are going to get ported // AA 2021-07-17: This still isnt here, nor should it be imho
 //	ROLE_GANG = /datum/game_mode/gang
 ))

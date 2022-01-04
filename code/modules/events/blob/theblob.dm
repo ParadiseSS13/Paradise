@@ -1,3 +1,7 @@
+GLOBAL_LIST_EMPTY(blobs)
+GLOBAL_LIST_EMPTY(blob_cores)
+GLOBAL_LIST_EMPTY(blob_nodes)
+
 //I will need to recode parts of this but I am way too tired atm
 /obj/structure/blob
 	name = "blob"

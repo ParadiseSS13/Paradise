@@ -10,7 +10,6 @@
 #define TARGET_INVALID_BLACKLISTED	9
 
 //gamemode istype helpers
-#define GAMEMODE_IS_BLOB		(SSticker && istype(SSticker.mode, /datum/game_mode/blob))
 #define GAMEMODE_IS_CULT		(SSticker && istype(SSticker.mode, /datum/game_mode/cult))
 #define GAMEMODE_IS_HEIST		(SSticker && istype(SSticker.mode, /datum/game_mode/heist))
 #define GAMEMODE_IS_NUCLEAR		(SSticker && istype(SSticker.mode, /datum/game_mode/nuclear))

@@ -42,6 +42,10 @@
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
 
+	/// List of blob overminds
+	var/list/blob_overminds = list()
+
+
 /datum/game_mode/proc/announce() //to be calles when round starts
 	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
 
