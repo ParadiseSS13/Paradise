@@ -1894,7 +1894,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "mV" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/secure_closet/hos,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
@@ -1945,7 +1944,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "nO" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/card,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
@@ -2159,7 +2157,6 @@
 	},
 /area/security/brig)
 "qo" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start{
 	name = "Research Director"
 	},
@@ -2183,7 +2180,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "qu" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start{
 	name = "Chief Medical Officer"
 	},
@@ -2748,7 +2744,7 @@
 /area/hallway/primary/central/nw)
 "uV" = (
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/dispenser/oxygen,
+/obj/structure/dispenser,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -2920,7 +2916,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/dispenser/oxygen,
+/obj/structure/dispenser,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -2944,7 +2940,7 @@
 /area/quartermaster/storage)
 "xc" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/dispenser/oxygen,
+/obj/structure/dispenser,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "yellow"
@@ -3213,7 +3209,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/dark,
 /area/turret_protected/ai)
 "yS" = (
 /mob/living/simple_animal/mouse/brown,
@@ -3224,7 +3220,7 @@
 	dir = 4
 	},
 /obj/machinery/message_server,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/dark,
 /area/server)
 "zf" = (
 /obj/effect/decal/warning_stripes/yellow,
@@ -3442,14 +3438,11 @@
 "AM" = (
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
-"AN" = (
-/turf/simulated/floor/plating,
-/area/server)
 "AV" = (
 /obj/machinery/computer/message_monitor{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/dark,
 /area/server)
 "AY" = (
 /obj/machinery/status_display{
@@ -3758,9 +3751,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/server)
 "DY" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/blackbox_recorder,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/dark,
 /area/server)
 "DZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -3945,7 +3937,6 @@
 /obj/machinery/newscaster{
 	pixel_y = 30
 	},
-/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -4093,12 +4084,11 @@
 	},
 /area/turret_protected/ai)
 "Hm" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/machinery/tcomms/core/station,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/dark,
 /area/server)
 "Hu" = (
 /obj/structure/closet/secure_closet/medical1,
@@ -36961,12 +36951,12 @@ aZ
 aa
 aa
 tV
+aZ
 aa
 aa
 aa
 aa
-aa
-aa
+aZ
 zp
 zp
 zp
@@ -41091,7 +41081,7 @@ wa
 tV
 aZ
 aa
-aa
+aZ
 aa
 aZ
 tV
@@ -42103,7 +42093,7 @@ tt
 vj
 xB
 yS
-AN
+DX
 DX
 DX
 xH
@@ -43402,9 +43392,9 @@ SX
 Py
 HB
 wc
-aa
-aa
-aa
+aZ
+tV
+tV
 aa
 aa
 aa
@@ -43659,7 +43649,7 @@ eZ
 FO
 Wl
 wc
-aa
+aZ
 aa
 aa
 aa
@@ -44173,7 +44163,7 @@ Pa
 MO
 jG
 Pa
-aa
+aZ
 aa
 aa
 aa
@@ -45439,9 +45429,9 @@ gA
 jm
 cf
 aZ
-aa
-aZ
 tV
+aZ
+aZ
 tV
 tV
 BR
