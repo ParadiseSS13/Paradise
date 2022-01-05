@@ -21,10 +21,10 @@
 			// world.log << "no ckey for mob [M.name]"
 			continue
 		var/ckey = ckey(M.last_known_ckey)
-		if(!M.mind.current)
+		if(M.mind && !M.mind.current)
 			// world.log << "[ckey] no current mob"
 			continue
-		if(M.mind.current.client)
+		if(M.mind && M.mind.current.client)
 			// world.log << "[ckey] (mob [M.name]) has current client"
 			continue
 		if(players[ckey])
