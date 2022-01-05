@@ -275,6 +275,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	H.dna.UpdateSE()
 	H.dna.UpdateUI()
+	if(H.dna.species.has_wings)
+		if(H.dna.species.backed_up_wings)
+			H.dna.species.restorewings(H)
 
 	H.sync_organ_dna(1) // It's literally a fresh body as you can get, so all organs properly belong to it
 	H.UpdateAppearance()

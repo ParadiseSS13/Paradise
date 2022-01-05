@@ -152,8 +152,6 @@
  * Restores wings and antennae from values in species datum vars
  */
 /datum/species/moth/restorewings(mob/living/carbon/human/H)
-	if(!burnt_wings)
-		return
 	burnt_wings = FALSE
 	H.change_head_accessory(backed_up_antennae)
 	H.change_body_accessory(backed_up_wings)
