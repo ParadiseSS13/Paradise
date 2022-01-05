@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(queue)
 	name = "QueueWebhook"
-	wait = DS2TICKS(60 SECONDS)
+	wait = 1200 // 60 seconds with ticklag 0.5 (20fps)
 	/// Is the SS enabled
 	var/enabled = FALSE
 	var/max_slots = 100
