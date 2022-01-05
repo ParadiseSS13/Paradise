@@ -151,6 +151,9 @@
 	. = ..()
 	if(stat == DEAD)
 		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
+		return
+	if(sleeping)
+		. += "<span class='notice'>Upon closer examination, [p_they()] appear[p_s()] to be asleep.</span>"
 
 /mob/living/simple_animal/updatehealth(reason = "none given")
 	..(reason)
@@ -181,8 +184,11 @@
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 		else
-			WakeUp()
-			create_debug_log("woke up, trigger reason: [reason]")
+			if(sleeping && (stat == CONSCIOUS))
+				KnockOut()
+			if(!sleeping)
+				WakeUp()
+				create_debug_log("woke up, trigger reason: [reason]")
 	med_hud_set_status()
 
 /mob/living/simple_animal/proc/handle_automated_action()
