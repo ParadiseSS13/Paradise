@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(queue)
 	name = "QueueWebhook"
-	flags = SS_NO_FIRE
+	wait = DS2TICKS(60 SECONDS)
 	/// Is the SS enabled
 	var/enabled = FALSE
 	var/max_slots = 100
@@ -13,6 +13,12 @@ SUBSYSTEM_DEF(queue)
 
 	return ..()
 
+/datum/controller/subsystem/queue/fire()
+	if(config.queue_engine_enabled)
+		send_status()
+	else
+		flags |= SS_NO_FIRE
+
 // This is designed for ease of simplicity for sending quick messages from parts of the code
 /datum/controller/subsystem/queue/proc/send_status(force = FALSE)
 	if(!enabled || (!force && !(Master?.current_runlevel & (RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME))))
@@ -21,7 +27,7 @@ SUBSYSTEM_DEF(queue)
 	var/staff = 0
 	var/regular_players = 0
 	for(var/client/C in GLOB.clients)
-		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob) || C.ckey in GLOB.deadmins)
+		if(check_rights(R_ADMIN, 0, C.mob) || check_rights(R_MOD, 0, C.mob) || check_rights(R_MENTOR, 0, C.mob) || (C.ckey in GLOB.deadmins))
 			staff++
 		else
 			regular_players++
