@@ -20,6 +20,8 @@
 	var/follow = 0                              // Applies to HIVEMIND languages - should a follow link be included for dead mobs?
 	var/english_names = 0                       // Do we want English names by default, no matter what?
 	var/list/scramble_cache = list()
+	/// Do we want to override the word-join character for scrambled text? If null, defaults to " " or ". "
+	var/join_override
 
 /datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4)
 	if(!syllables || !syllables.len || english_names)
@@ -62,7 +64,9 @@
 			capitalize = 0
 		scrambled_text += next
 		var/chance = rand(100)
-		if(chance <= 5)
+		if(join_override)
+			scrambled_text += join_override
+		else if(chance <= 5)
 			scrambled_text += ". "
 			capitalize = 1
 		else if(chance > 5 && chance <= space_chance)
@@ -70,7 +74,7 @@
 
 	scrambled_text = trim(scrambled_text)
 	var/ending = copytext(scrambled_text, length(scrambled_text))
-	if(ending == ".")
+	if(ending == "." || ending == "-")
 		scrambled_text = copytext(scrambled_text,1,length(scrambled_text)-1)
 	var/input_ending = copytext(input, input_size)
 	if(input_ending in list("!","?","."))
@@ -360,13 +364,19 @@
 	ask_verb = "flaps"
 	exclaim_verbs = list("flusters")
 	colour = "moth"
-	key = "tk"
+	key = "i"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le", "lit", "ygg", "van", "dår", "næ", "møt", "idd", "hvo", "ja", "på", "han", "så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två", "må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei", "huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön")
+	join_override = "-"
+	syllables = list("år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le",
+					 "lit", "ygg", "van", "dår", "næ", "møt", "idd", "hvo", "ja", "på", "han",
+					 "så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två",
+					 "må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei",
+					 "huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön")
 
 /datum/language/moth/get_random_name()
-	var/new_name = "[pick(list("Acantharctia","Acco","Acherontia","Actias","Aemilia","Aethria","Antheraea","Aphomia","Argema","Ascalapha","Asota","Athrypsiastis","Attacus","Autochloris","Axylia","Bombyx","Callosamia","Callhistia","Capricornia","Catocala","Cheliosea","Chloroclystis","Cochylimorpha","Cryphia","Cryptophasa","Cucullia","Cydia","Diarsia","Diaphora","Dolichohedya","Dyspyralis","Eacles","Eclipsea","Electresia","Elysius","Enarmonia","Eriomastyx","Epiphyas","Eugnorisma","Eupithecia","Euplexia","Eurosia","Falcatula","Fangarctia","Fulcrifera","Glyphidoptera","Gracillina","Gravitarmata","Haemanota","Halysidota","Helicoverpa","Heliomata","Hyalophora","Hypomartyria","Icelita","Isanthrene","Isochorista","Izatha","Kodiosoma","Lacida","Leguminivora","Leucoptera","Lymantria","Macrobathra","Maruca","Mecodina","Megalonycta","Metacrisia","Mythimna","Naenia","Naenia","Neuroxena","Nodaria","Nymphicula","Obscurior","Ochropleura","Opodiphthera","Ostrinia","Pacificulla","Philomusaea","Phragmataecia","Plodia","Plutella","Rachiplusia","Sarobela","Selenarctia","Shiragasane","Sphingidae","Socioplana","Spodoptera","Syllomatia","Thaumetopoea","Timandra","Toxoproctis","Uranophora","Vestura","Vietteria","Xanthorhoe","Xestia","Zomaria"))]"
-	new_name += " [pick(list("Accurata","Adultera","Albipuncta","Albostriata","Albovenosa","Argentea","Bicolorata","Bifasciata","Cameroni","Chiangmai","Combinata","Convecta","Cuneilinea","Curvata","Dentata","Empyrea","Eucrossa","Ferrilinea","Fraterna","Goniosigma","Hamifera","Hirashimai","Hypophaea","Ignita","Impura","Insularis","Infrargyrea","Intermediata","Intolerabilis","Laevusta","Languida","Liebherri","Lineatipes","Lucida","Maxima","Mediana","Modesta","Monticola","Naumanni","Nepalina","Obscura","Osseogrisea","Pastellina","Phlebitis ","Pyrausta","Radiata","Riparia","Rufulosa","Semicana","Separata","Siamensis","Simplex","Toumodi","Undicilia","Uruma","Vittata","Yuennana"))]"
+	var/new_name = "[pick(list("Weaver","Knight","Tender","Thatcher","Smith","Watcher","Guardian","Gatekeeper","Cooper","Fletcher","Chamberlain","Tender","Healer","Ward","Webster","Wright","Abbot","Arkwright","Prior","Marshall","Dean","Duke","Prior","Bard","Laidler","Horner","Archer","Baker","Keeper","Miller"))]"
+	new_name += "[pick(list(" of"," for"," in service of",", servant of"))]"
+	new_name += " [pick(list("Antlia","Caelum","Fornax","Horologium","Microscopium","Pyxis","Telescopium","Andromeda","Maffei","Lynx","Lacerta","Leo Minor","Canes Venatici","Musca","Volans","Tucana","Grus","Dorado","Apus","Draco","Auriga","Perseus","Cassiopeia","Cygnus","Auriga","Orion","Camelopardalis"))]"
 	return new_name
 
 /datum/language/common
