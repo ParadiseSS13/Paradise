@@ -1952,7 +1952,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "nR" = (
-/obj/structure/closet/secure_closet/hop2,
+/obj/structure/closet/secure_closet/hop,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "ob" = (
@@ -2003,8 +2003,7 @@
 	pixel_x = 25
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
+	icon_state = "stairs-r"
 	},
 /area/hallway/primary/central/nw)
 "oO" = (
@@ -2376,7 +2375,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/flag/nt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -3124,8 +3123,8 @@
 	},
 /area/atmos)
 "yz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/universal{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -4989,8 +4988,6 @@
 /obj/item/stock_parts/capacitor,
 /obj/item/stock_parts/manipulator,
 /obj/item/stock_parts/manipulator,
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -7707,7 +7704,6 @@
 	},
 /area/quartermaster/office)
 "TP" = (
-/obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal{
 	amount = 50
 	},
@@ -7729,6 +7725,7 @@
 	pixel_x = -2;
 	pixel_y = 6
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -43628,8 +43625,8 @@ dG
 ei
 fZ
 iy
-jV
 oI
+cG
 cG
 tF
 cG
@@ -43886,9 +43883,9 @@ ek
 gc
 oG
 cf
-Gb
+cJ
 sm
-cH
+ei
 cG
 fr
 cG
