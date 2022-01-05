@@ -29,7 +29,7 @@
 	a.follow_target = M
 
 	switch(cause)
-		if(TRUE)
+		if("gib")
 			a.autosay("[mobname] has died-zzzzt in-in-in...", "[mobname]'s Death Alarm")
 			qdel(src)
 		if("emp")
@@ -56,7 +56,10 @@
 	return 0
 
 /obj/item/implant/death_alarm/proc/check_gibbed_activate(datum/source, gibbed)
-	activate(gibbed)
+	if(gibbed)
+		activate("gib")
+	else
+		activate("death")
 
 /obj/item/implant/death_alarm/removed(mob/target)
 	if(..())
