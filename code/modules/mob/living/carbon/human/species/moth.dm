@@ -27,6 +27,7 @@
 	eyes = "moth_eyes_s"
 	butt_sprite = "kidan"
 	has_wings = TRUE
+	siemens_coeff = 1.5
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
@@ -65,25 +66,6 @@
 	cocoon.Remove(H)
 	UnregisterSignal(H, COMSIG_LIVING_FIRE_TICK)
 	UnregisterSignal(H, COMSIG_LIVING_AHEAL)
-
-/datum/species/moth/handle_life(mob/living/carbon/human/H)
-	. = ..()
-	addtimer(CALLBACK(src, .proc/get_lamp_level, H), 5 SECONDS, TIMER_UNIQUE)
-
-/**
- * Checks for light levels on current turf and cause confusion if too high
- */
-/datum/species/moth/proc/get_lamp_level(mob/living/carbon/human/H)
-	if(H.confused != 0)
-		return
-	var/turf/simulated/T = get_turf(H)
-	if(!istype(T))
-		return
-	var/light_available = T.get_lumcount(maxlum = 5) * 10
-	if(light_available < 4) //too close to lamp friends!
-		return
-	H.AdjustConfused(rand(5, 10))
-	to_chat(H, "<span class='danger'>The lamp friends are too bright, and dazzle you!</span>")
 
 /datum/species/moth/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "pestkiller")
