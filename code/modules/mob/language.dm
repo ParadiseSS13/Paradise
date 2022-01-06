@@ -360,11 +360,11 @@
 /datum/language/moth
 	name = "Tkachi"
 	desc = "The language of the Nianae mothpeople borders on complete unintelligibility."
-	speech_verb = "flutters"
+	speech_verb = "buzzes"
 	ask_verb = "flaps"
-	exclaim_verbs = list("flusters")
+	exclaim_verbs = list("chatters")
 	colour = "moth"
-	key = "i"
+	key = "["
 	flags = RESTRICTED | WHITELISTED
 	join_override = "-"
 	syllables = list("år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le",
