@@ -364,7 +364,7 @@
 	ask_verb = "flaps"
 	exclaim_verbs = list("chatters")
 	colour = "moth"
-	key = "["
+	key = "\["
 	flags = RESTRICTED | WHITELISTED
 	join_override = "-"
 	syllables = list("år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le",
