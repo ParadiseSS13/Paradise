@@ -89,11 +89,12 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	//starts ghosts off with all HUDs.
 	toggle_all_huds_on(body)
-	addtimer(CALLBACK(src, .proc/set_ghost_darkness_level))
+	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, .proc/set_ghost_darkness_level) //something something don't call this until we have a HUD
 	..()
 
 /mob/dead/observer/Destroy()
 	toggle_all_huds_off()
+	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
@@ -101,7 +102,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
-	if (seerads)
+	if(seerads)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
@@ -117,6 +118,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 /mob/dead/observer/proc/set_ghost_darkness_level()
 	if(!client)
 		return
+	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
 	lighting_alpha = client.prefs.ghost_darkness_level //Remembers ghost lighting pref
 	update_sight()
 
