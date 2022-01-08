@@ -426,6 +426,7 @@
 
 /**
  * Recursive getter method to return a list of all ghosts transitively orbiting this atom.
+ * This will find orbiters either directly orbiting the followed atom, or any orbiters orbiting them (and so on).
  *
  * This shouldn't be passed arugments.
  */
@@ -443,6 +444,25 @@
 			output += atom_orbiter
 		output += atom_orbiter.get_orbiters_recursive(processed, source = FALSE)
 	return output
+
+/**
+ * Check every object in the hierarchy above ourselves for orbiters, and return the full list of them.
+ * If an object is being held in a backpack, returns orbiters of the backpack, the person
+ */
+/atom/proc/get_orbiters_up_hierarchy(list/processed, source = TRUE)
+	var/list/output = list()
+	if(!processed)
+		processed = list()
+	if(src in processed || isturf(src))
+		return output
+
+	processed += src
+	for(var/atom/movable/atom_orbiter in get_orbiters())
+		if(isobserver(atom_orbiter))
+			output += atom_orbiter
+		if(atom_orbiter.loc != null)
+			output += atom_orbiter.loc.get_orbiters_up_hierarchy(processed, source = FALSE)
+
 
 #undef ORBIT_LOCK_IN
 #undef ORBIT_FORCE_MOVE
