@@ -163,7 +163,6 @@
 		orbiter.transform = get_cached_transform(orbiter)
 		orbiter.layer = get_orbiter_layer(orbiter)
 
-		orbiter.stop_orbit()
 		UnregisterSignal(orbiter, COMSIG_MOVABLE_MOVED)
 		UnregisterSignal(orbiter, COMSIG_PARENT_QDELETING)
 
@@ -395,8 +394,17 @@
 	// Adding a new component every time works as our dupe type will make us just inherit the new orbiter
 	return A.AddComponent(/datum/component/orbiter, src, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lock_in_orbit, force_move, orbit_layer)
 
-/atom/movable/proc/stop_orbit(datum/component/orbiter/orbits)
-	return // We're just a simple hook
+/**
+ * Stop this atom from orbiting whatever it's orbiting.
+ */
+/atom/movable/proc/stop_orbit()
+	var/atom/orbited = locateUID(orbiting_uid)
+	if(!orbited)
+		return
+	var/datum/component/orbiter/C = orbited.GetComponent(/datum/component/orbiter)
+	if(!C)
+		return
+	C.end_orbit(src)
 
 /**
  * Simple helper proc to get a list of everything directly orbiting the current atom, without checking contents, or null if nothing is.
@@ -409,9 +417,17 @@
 		return null
 
 /**
- * Recursive getter method to return a list of all ghosts orbiting this atom, including any which may be orbiting other objects.
+ * Remove an orbiter from the atom it's orbiting.
+ */
+/atom/proc/remove_orbiter(atom/movable/orbiter)
+	var/datum/component/orbiter/C = GetComponent(/datum/component/orbiter)
+	if(C && C.orbiter_list && (orbiter in C.orbiter_list))
+		C.end_orbit(orbiter)
+
+/**
+ * Recursive getter method to return a list of all ghosts transitively orbiting this atom.
  *
- * This will work fine without manually passing arguments.
+ * This shouldn't be passed arugments.
  */
 /atom/proc/get_orbiters_recursive(list/processed, source = TRUE)
 	var/list/output = list()
