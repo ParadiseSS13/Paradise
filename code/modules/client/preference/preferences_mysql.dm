@@ -39,7 +39,7 @@
 	atklog = sanitize_integer(atklog, 0, 100, initial(atklog))
 	fuid = sanitize_integer(fuid, 0, 10000000, initial(fuid))
 	parallax = sanitize_integer(parallax, 0, 16, initial(parallax))
-	screentip_mode = sanitize_text(screentip_mode, initial(screentip_mode))
+	screentip_mode = sanitize_integer(screentip_mode, 0, 20, initial(screentip_mode))
 	screentip_color = sanitize_hexcolor(screentip_color, initial(screentip_color))
 	return TRUE
 
