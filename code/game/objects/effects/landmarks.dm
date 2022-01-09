@@ -22,6 +22,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	GLOB.newplayer_start += loc
 	qdel(src)
 
+/obj/effect/landmark/lightsout
+	name = "Electrical Storm Epicentre"
+
 /obj/effect/landmark/awaystart
 	name = "awaystart"
 	icon = 'icons/effects/spawner_icons.dmi'
@@ -51,6 +54,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/spawner/ert
 	name = "Response Team"
 	icon_state = "ERT"
+
 /obj/effect/landmark/spawner/ert/Initialize(mapload)
 	spawner_list = GLOB.emergencyresponseteamspawn
 	return ..()
@@ -84,12 +88,36 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	return ..()
 
 /obj/effect/landmark/spawner/late
-	name = "JoinLate"
 	icon_state = "Assistant"
 
-/obj/effect/landmark/spawner/late/Initialize(mapload)
+/obj/effect/landmark/spawner/late/crew
+	name = "Late Join Crew"
+
+/obj/effect/landmark/spawner/late/crew/Initialize(mapload)
 	spawner_list = GLOB.latejoin
 	return ..()
+
+/obj/effect/landmark/spawner/late/cryo
+	name = "Late Join Cryo"
+
+/obj/effect/landmark/spawner/late/cryo/Initialize(mapload)
+	spawner_list = GLOB.latejoin_cryo
+	..()
+
+/obj/effect/landmark/spawner/late/cyborg
+	name = "Late Join Cyborg"
+	icon_state = "Borg"
+
+/obj/effect/landmark/spawner/late/cyborg/Initialize(mapload)
+	spawner_list = GLOB.latejoin_cyborg
+	..()
+
+/obj/effect/landmark/spawner/late/gateway
+	name = "Late Join Gateway"
+
+/obj/effect/landmark/spawner/late/gateway/Initialize(mapload)
+	spawner_list = GLOB.latejoin_gateway
+	..()
 
 /obj/effect/landmark/spawner/carp
 	name = "carpspawn"
