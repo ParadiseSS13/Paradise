@@ -32573,8 +32573,8 @@
 /area/engine/gravitygenerator)
 "bzM" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	frequency = 1331;
-	id_tag = "atmo_tank_vent"
+	frequency = 1379;
+	id_tag = "atmo_tank_pump"
 	},
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	id_tag = "atmo_tank_airlock";
@@ -33299,7 +33299,7 @@
 "bBs" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
-	id_tag = "atmos_tank_inner";
+	id_tag = "atmo_tank_inner";
 	locked = 1;
 	name = "Atmos External Access";
 	req_access_txt = "32"
