@@ -1111,24 +1111,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
-"aiU" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/effect/landmark{
-	name = "HONKsquad"
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"aiV" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/obj/effect/landmark{
-	name = "HONKsquad"
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "aiX" = (
 /obj/structure/chair{
 	dir = 4
@@ -2068,9 +2050,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -12362,9 +12342,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -13030,9 +13008,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -16365,9 +16341,7 @@
 "aTh" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -19492,9 +19466,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -20822,9 +20794,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -27022,9 +26992,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -27962,9 +27930,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -33751,9 +33717,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -36373,9 +36337,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -36607,9 +36569,7 @@
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "bHa" = (
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -39646,9 +39606,7 @@
 /area/security/brig)
 "bNx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -43530,9 +43488,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -45721,9 +45677,7 @@
 	},
 /area/hallway/primary/central)
 "bZV" = (
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
 	},
@@ -49319,9 +49273,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -54136,9 +54088,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -55681,9 +55631,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -57850,9 +57798,7 @@
 /area/engine/engineering)
 "cAG" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -58920,9 +58866,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -63561,9 +63505,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/grass,
 /area/medical/research)
 "cNI" = (
@@ -64396,9 +64338,7 @@
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -64437,9 +64377,7 @@
 	},
 /area/maintenance/apmaint)
 "cPH" = (
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -65511,9 +65449,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplefull"
@@ -70250,9 +70186,7 @@
 /obj/structure/disposalpipe/junction{
 	dir = 1
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -73035,9 +72969,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/medical/research)
@@ -76604,9 +76536,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -79693,9 +79623,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -86277,9 +86205,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -86426,9 +86352,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -88301,9 +88225,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dPN" = (
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -137715,7 +137637,7 @@ ahC
 ahV
 ail
 ail
-aiU
+ail
 ail
 ahV
 ahC
@@ -139257,7 +139179,7 @@ ahC
 ahV
 aim
 aim
-aiV
+aim
 aim
 ahV
 ahC

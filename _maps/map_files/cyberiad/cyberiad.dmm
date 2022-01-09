@@ -17490,9 +17490,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aPL" = (
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -17653,9 +17651,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -18054,9 +18050,7 @@
 /area/maintenance/electrical)
 "aQZ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -18097,9 +18091,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -18597,9 +18589,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -19975,9 +19965,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/landmark{
-	name = "JoinLateGateway"
-	},
+/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -21454,9 +21442,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -25445,9 +25431,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "JoinLateGateway"
-	},
+/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -25460,9 +25444,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "JoinLateGateway"
-	},
+/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -29305,9 +29287,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "bpd" = (
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bpe" = (
@@ -44559,9 +44539,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
@@ -67884,9 +67862,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cQL" = (
@@ -76189,9 +76165,7 @@
 	pixel_y = 30
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/effect/landmark{
-	name = "JoinLateCyborg"
-	},
+/obj/effect/landmark/spawner/late/cyborg,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluecorners"

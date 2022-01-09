@@ -2436,15 +2436,6 @@
 	icon_state = "vault"
 	},
 /area/security/permabrig)
-"ahk" = (
-/obj/effect/spawner/window/reinforced,
-/obj/effect/landmark{
-	name = "Syndicate Breach Area"
-	},
-/turf/simulated/floor/plating,
-/area/crew_quarters/fitness{
-	name = "\improper Recreation Area"
-	})
 "ahq" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -3163,9 +3154,7 @@
 	},
 /area/security/permabrig)
 "aiF" = (
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -5895,9 +5884,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6328,9 +6315,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8997,9 +8982,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -10002,9 +9985,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "axY" = (
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -10061,9 +10042,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/sleep)
 "aye" = (
@@ -10676,9 +10655,7 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = -25
 	},
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11046,9 +11023,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "aAn" = (
@@ -19425,9 +19400,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -19741,9 +19714,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -24112,9 +24083,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
 "bdb" = (
@@ -24345,9 +24314,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -26162,9 +26129,7 @@
 /area/hallway/primary/port)
 "bhm" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "bhn" = (
@@ -26564,9 +26529,7 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -26819,9 +26782,7 @@
 /area/quartermaster/office)
 "biO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -34509,9 +34470,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry{
 	name = "Arrivals"
@@ -36284,9 +36243,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/landmark{
-	name = "JoinLateCyborg"
-	},
+/obj/effect/landmark/spawner/late/cyborg,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -39931,9 +39888,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -40155,9 +40110,7 @@
 "bJy" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -40303,9 +40256,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -40729,9 +40680,7 @@
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "bKA" = (
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "bKB" = (
@@ -44015,9 +43964,7 @@
 "bRL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/carpet,
 /area/library)
 "bRM" = (
@@ -48759,9 +48706,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "JoinLateGateway"
-	},
+/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -48770,9 +48715,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "JoinLateGateway"
-	},
+/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -49373,9 +49316,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/effect/landmark{
-	name = "JoinLateGateway"
-	},
+/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -51144,9 +51085,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -57697,9 +57636,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -65693,9 +65630,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -65960,9 +65895,7 @@
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -72727,9 +72660,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -77398,9 +77329,7 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = -25
 	},
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -79193,9 +79122,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/landmark{
-	name = "lightsout"
-	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
 "qFg" = (
@@ -120113,7 +120040,7 @@ abf
 aaa
 aaa
 aaa
-ahk
+aeN
 air
 air
 air
