@@ -3,7 +3,7 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
 	anchored = 1.0
-	layer = 4
+	layer = MOB_LAYER
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/effect/landmark/Initialize(mapload)
@@ -42,7 +42,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	. = ..()
 	if(spawner_list)
 		spawner_list += loc
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/spawner/soltrader
 	name = "traderstart_sol"
@@ -51,8 +51,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/spawner/ert
 	name = "Response Team"
 	icon_state = "ERT"
-
-
 /obj/effect/landmark/spawner/ert/Initialize(mapload)
 	spawner_list = GLOB.emergencyresponseteamspawn
 	return ..()
@@ -68,6 +66,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/spawner/wiz/Initialize(mapload)
 	spawner_list = GLOB.wizardstart
 	return ..()
+
 /obj/effect/landmark/spawner/xeno
 	name = "xeno_spawn"
 	icon_state = "Xeno"
@@ -75,6 +74,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/spawner/xeno/Initialize(mapload)
 	spawner_list = GLOB.xeno_spawn
 	return ..()
+
 /obj/effect/landmark/spawner/blob
 	name = "blobstart"
 	icon_state = "Blob"
@@ -82,13 +82,15 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/spawner/blob/Initialize(mapload)
 	spawner_list = GLOB.blobstart
 	return ..()
+
 /obj/effect/landmark/spawner/late
 	name = "JoinLate"
 	icon_state = "Assistant"
 
 /obj/effect/landmark/spawner/late/Initialize(mapload)
 	spawner_list = GLOB.latejoin
-	..()
+	return ..()
+
 /obj/effect/landmark/spawner/carp
 	name = "carpspawn"
 	icon_state = "Carp"
@@ -96,6 +98,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/spawner/carp/Initialize(mapload)
 	spawner_list = GLOB.carplist
 	return ..()
+
 /obj/effect/landmark/spawner/rev
 	name = "revenantspawn"
 	icon_state = "Rev"
@@ -110,72 +113,84 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/spawner/syndicateofficer/Initialize(mapload)
 	spawner_list = GLOB.syndicateofficer
 	return ..()
+
 /obj/effect/landmark/spawner/ertdirector
 	name = "ERT Director"
 
 /obj/effect/landmark/spawner/ertdirector/Initialize(mapload)
 	spawner_list = GLOB.ertdirector
 	return ..()
+
 /obj/effect/landmark/spawner/raider_spawn
 	name = "voxstart"
 
 /obj/effect/landmark/spawner/raider_spawn/Initialize(mapload)
 	spawner_list = GLOB.raider_spawn
 	return ..()
+
 /obj/effect/landmark/spawner/ninjastart
 	name = "ninjastart"
 
 /obj/effect/landmark/spawner/ninjastart/Initialize(mapload)
 	spawner_list = GLOB.ninjastart
 	return ..()
+
 /obj/effect/landmark/spawner/aroomwarp
 	name = "aroomwarp"
 
 /obj/effect/landmark/spawner/aroomwarp/Initialize(mapload)
 	spawner_list = GLOB.aroomwarp
 	return ..()
+
 /obj/effect/landmark/spawner/tdomeobserve
 	name = "tdomeobserve"
 
 /obj/effect/landmark/spawner/tdomeobserve/Initialize(mapload)
 	spawner_list = GLOB.tdomeobserve
 	return ..()
+
 /obj/effect/landmark/spawner/tdomeadmin
 	name = "tdomeadmin"
 
 /obj/effect/landmark/spawner/tdomeadmin/Initialize(mapload)
 	spawner_list = GLOB.tdomeadmin
 	return ..()
+
 /obj/effect/landmark/spawner/tdome2
 	name = "tdome2"
 
 /obj/effect/landmark/spawner/tdome2/Initialize(mapload)
 	spawner_list = GLOB.tdome2
 	return ..()
+
 /obj/effect/landmark/spawner/tdome1
 	name = "tdome1"
 
 /obj/effect/landmark/spawner/tdome1/Initialize(mapload)
 	spawner_list = GLOB.tdome1
 	return ..()
+
 /obj/effect/landmark/spawner/prisonsecuritywarp
 	name = "prisonsecuritywarp"
 
 /obj/effect/landmark/spawner/prisonsecuritywarp/Initialize(mapload)
 	spawner_list = GLOB.prisonsecuritywarp
 	return ..()
+
 /obj/effect/landmark/spawner/syndieprisonwarp
 	name = "syndieprisonwarp"
 
 /obj/effect/landmark/spawner/syndieprisonwarp/Initialize(mapload)
 	spawner_list = GLOB.syndieprisonwarp
 	return ..()
+
 /obj/effect/landmark/spawner/prisonwarp
 	name = "prisonwarp"
 
 /obj/effect/landmark/spawner/prisonwarp/Initialize(mapload)
 	spawner_list = GLOB.prisonwarp
 	return ..()
+
 /obj/effect/landmark/spawner/syndicate_commando
 	name = "Syndicate-Commando"
 	icon_state = "Syndie"
@@ -403,7 +418,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	var/list/options = (typesof(/obj/effect/landmark/costume) - /obj/effect/landmark/costume/random)
 	var/PICK= options[rand(1,options.len)]
 	new PICK(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 //SUBCLASSES.  Spawn a bunch of items and disappear likewise
 /obj/effect/landmark/costume/chicken/Initialize(mapload)
@@ -411,13 +426,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	new /obj/item/clothing/suit/chickensuit(src.loc)
 	new /obj/item/clothing/head/chicken(src.loc)
 	new /obj/item/reagent_containers/food/snacks/egg(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/gladiator/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/gladiator(src.loc)
 	new /obj/item/clothing/head/helmet/gladiator(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/madscientist/Initialize(mapload)
 	. = ..()
@@ -425,7 +440,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	new /obj/item/clothing/head/flatcap(src.loc)
 	new /obj/item/clothing/suit/storage/labcoat/mad(src.loc)
 	new /obj/item/clothing/glasses/gglasses(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/elpresidente/Initialize(mapload)
 	. = ..()
@@ -433,12 +448,12 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	new /obj/item/clothing/head/flatcap(src.loc)
 	new /obj/item/clothing/mask/cigarette/cigar/havana(src.loc)
 	new /obj/item/clothing/shoes/jackboots(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/schoolgirl/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/schoolgirl(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/maid/Initialize(mapload)
 	. = ..()
@@ -446,14 +461,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	var/CHOICE = pick( /obj/item/clothing/head/beret , /obj/item/clothing/head/rabbitears )
 	new CHOICE(src.loc)
 	new /obj/item/clothing/glasses/sunglasses/blindfold(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/butler/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/wcoat(src.loc)
 	new /obj/item/clothing/under/suit_jacket(src.loc)
 	new /obj/item/clothing/head/that(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/scratch/Initialize(mapload)
 	. = ..()
@@ -462,7 +477,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	new /obj/item/clothing/under/scratch(src.loc)
 	if(prob(30))
 		new /obj/item/clothing/head/cueball(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/highlander/Initialize(mapload)
 	. = ..()
@@ -480,19 +495,19 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	new /obj/item/cane(src.loc)
 	new /obj/item/clothing/under/sl_suit(src.loc)
 	new /obj/item/clothing/mask/fakemoustache(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/plaguedoctor/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/bio_suit/plaguedoctorsuit(src.loc)
 	new /obj/item/clothing/head/plaguedoctorhat(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/nightowl/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/owl(src.loc)
 	new /obj/item/clothing/mask/gas/owl_mask(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/waiter/Initialize(mapload)
 	. = ..()
@@ -500,7 +515,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	var/CHOICE= pick( /obj/item/clothing/head/kitty, /obj/item/clothing/head/rabbitears)
 	new CHOICE(src.loc)
 	new /obj/item/clothing/suit/apron(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/pirate/Initialize(mapload)
 	. = ..()
@@ -509,13 +524,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	var/CHOICE = pick( /obj/item/clothing/head/pirate , /obj/item/clothing/head/bandana )
 	new CHOICE(src.loc)
 	new /obj/item/clothing/glasses/eyepatch(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/commie/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/soviet(src.loc)
 	new /obj/item/clothing/head/ushanka(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 
 /obj/effect/landmark/costume/imperium_monk/Initialize(mapload)
@@ -523,38 +538,38 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	new /obj/item/clothing/suit/imperium_monk(src.loc)
 	if(prob(25))
 		new /obj/item/clothing/mask/gas/cyborg(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/holiday_priest/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/holidaypriest(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/marisawizard/fake/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/head/wizard/marisa/fake(src.loc)
 	new/obj/item/clothing/suit/wizrobe/marisa/fake(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/cutewitch/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/sundress(src.loc)
 	new /obj/item/clothing/head/witchwig(src.loc)
 	new /obj/item/twohanded/staff/broom(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/fakewizard/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/wizrobe/fake(src.loc)
 	new /obj/item/clothing/head/wizard/fake(src.loc)
 	new /obj/item/twohanded/staff/(src.loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/sexyclown/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/mask/gas/clown_hat/sexy(loc)
 	new /obj/item/clothing/under/rank/clown/sexy(loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/sexymime/Initialize(mapload)
 	. = ..()
