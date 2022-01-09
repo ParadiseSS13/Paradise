@@ -3062,9 +3062,7 @@
 /area/awaymission/UO71/centralhall)
 "hS" = (
 /obj/structure/window/reinforced,
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3074,9 +3072,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3084,9 +3080,7 @@
 "hX" = (
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3102,9 +3096,7 @@
 	name = "Gateway Chamber";
 	req_access_txt = "271"
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
