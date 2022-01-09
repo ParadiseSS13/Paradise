@@ -44,6 +44,7 @@
 
 
 /mob/new_player/proc/new_player_panel_proc()
+	set waitfor = FALSE
 	var/real_name = client.prefs.real_name
 	if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 		real_name = "Random Character Slot"
