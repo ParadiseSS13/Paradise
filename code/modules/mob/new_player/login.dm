@@ -28,9 +28,8 @@
 
 	if(ckey in GLOB.deadmins)
 		verbs += /client/proc/readmin
-	spawn(40)
-		if(client)
-			client.playtitlemusic()
+
+	client?.playtitlemusic()
 
 	//Overflow rerouting, if set, forces players to be moved to a different server once a player cap is reached. Less rough than a pure kick.
 	if(GLOB.configuration.overflow.reroute_cap && GLOB.configuration.overflow.overflow_server_location)
