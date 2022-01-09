@@ -217,7 +217,7 @@
 	icon_state = "inf_box"
 	item_state = "syringe_kit"
 	w_class = WEIGHT_CLASS_NORMAL
-	can_hold = list(/obj/item/inflatable, /obj/item/inflatable/door)
+	can_hold = list(/obj/item/inflatable)
 
 /obj/item/storage/briefcase/inflatable/New()
 	..()
