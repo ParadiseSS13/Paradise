@@ -215,8 +215,9 @@
 		if(multi_job)
 			//Create a list of unbanned jobs within joblist
 			var/list/notbannedlist = list()
+			var/list/banned_list = get_jobbans_for_offline_ckey(banckey) // They might be offline, you never know
 			for(var/job in jobs_to_ban)
-				if(!jobban_isbanned_ckey(banckey, job))
+				if(!(job in banned_list))
 					notbannedlist += job
 
 			for(var/job in notbannedlist)
@@ -769,11 +770,13 @@
 					for(var/job in notbannedlist)
 						log_admin("[key_name(usr)] temp-jobbanned [key_name(M)] from [job] for [mins] minutes")
 						DB_ban_record(BANTYPE_JOB_TEMP, M, mins, reason, job)
-						jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]") //Legacy banning does not support temporary jobbans.
 						if(!msg)
 							msg = job
 						else
 							msg += ", [job]"
+
+					// Reload their job ban holder (refresh this round)
+					M.client.jbh.reload_jobbans(M.client)
 					add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
 					message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes</span>", 1)
 					to_chat(M, "<span class='warning'><big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big></span>")
@@ -789,9 +792,13 @@
 						for(var/job in notbannedlist)
 							log_admin("[key_name(usr)] perma-banned [key_name(M)] from [job]")
 							DB_ban_record(BANTYPE_JOB_PERMA, M, -1, reason, job)
-							jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
-							if(!msg)	msg = job
-							else		msg += ", [job]"
+							if(!msg)
+								msg = job
+							else
+								msg += ", [job]"
+
+						// Reload their job ban holder (refresh this round)
+						M.client.jbh.reload_jobbans(M.client)
 						add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
 						message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg]</span>", 1)
 						to_chat(M, "<span class='warning'><big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big></span>")
@@ -878,21 +885,6 @@
 			var/edit_log = query_noteedits.item[1]
 			usr << browse(edit_log,"window=noteedits")
 		qdel(query_noteedits)
-
-	else if(href_list["removejobban"])
-		if(!check_rights(R_BAN))	return
-
-		var/t = href_list["removejobban"]
-		if(t)
-			if((alert("Do you want to unjobban [t]?","Unjobban confirmation", "Yes", "No") == "Yes") && t) //No more misclicks! Unless you do it twice.
-				log_admin("[key_name(usr)] removed [t]")
-				message_admins("<span class='notice'>[key_name_admin(usr)] removed [t]</span>", 1)
-				jobban_remove(t)
-				href_list["ban"] = 1 // lets it fall through and refresh
-				var/t_split = splittext(t, " - ")
-				var/key = t_split[1]
-				var/job = t_split[2]
-				DB_ban_unban(ckey(key), BANTYPE_JOB_PERMA, job)
 
 	else if(href_list["newban"])
 		if(!check_rights(R_BAN))	return

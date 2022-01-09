@@ -4,6 +4,7 @@
 	status = ORGAN_ROBOT
 	var/implant_color = "#FFFFFF"
 	var/implant_overlay
+	var/crit_fail = FALSE //Used by certain implants to disable them.
 	tough = TRUE // Immune to damage
 
 /obj/item/organ/internal/cyberimp/New(mob/M = null)

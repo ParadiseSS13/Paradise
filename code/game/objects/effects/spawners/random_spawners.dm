@@ -1,7 +1,7 @@
 /obj/effect/spawner/random_spawners
 	name = "random spawners"
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "x2"
+	icon = 'icons/effects/spawner_icons.dmi'
+	icon_state = "questionmark"
 	var/list/result = list(
 	/datum/nothing = 1,
 	/obj/effect/decal/cleanable/blood/splatter = 1,
@@ -35,84 +35,100 @@
 
 /obj/effect/spawner/random_spawners/blood_maybe
 	name = "blood maybe"
+	icon_state = "blood"
 	result = list(
 	/datum/nothing = 20,
 	/obj/effect/decal/cleanable/blood/splatter = 1)
 
 /obj/effect/spawner/random_spawners/blood_often
 	name = "blood often"
+	icon_state = "blood"
 	result = list(
 	/datum/nothing = 5,
 	/obj/effect/decal/cleanable/blood/splatter = 1)
 
 /obj/effect/spawner/random_spawners/oil_maybe
 	name = "oil maybe"
+	icon_state = "oil"
 	result = list(
 	/datum/nothing = 20,
 	/obj/effect/decal/cleanable/blood/oil = 1)
 
 /obj/effect/spawner/random_spawners/oil_maybe
 	name = "oil often"
+	icon_state = "oil"
 	result = list(
 	/datum/nothing = 5,
 	/obj/effect/decal/cleanable/blood/oil = 1)
 
 /obj/effect/spawner/random_spawners/wall_rusted_probably
 	name = "rusted wall probably"
+	icon_state = "rust"
 	result = list(
 	/turf/simulated/wall = 2,
 	/turf/simulated/wall/rust = 7)
 
 /obj/effect/spawner/random_spawners/wall_rusted_maybe
 	name = "rusted wall maybe"
+	icon_state = "rust"
 	result = list(
 	/turf/simulated/wall = 7,
 	/turf/simulated/wall/rust = 1)
 
 /obj/effect/spawner/random_spawners/cobweb_left_frequent
 	name = "cobweb left frequent"
+	icon_state = "cobwebl"
 	result = list(
 	/datum/nothing = 1,
 	/obj/effect/decal/cleanable/cobweb = 1)
 
 /obj/effect/spawner/random_spawners/cobweb_right_frequent
 	name = "cobweb right frequent"
+	icon_state = "cobwebr"
 	result = list(
 	/datum/nothing = 1,
 	/obj/effect/decal/cleanable/cobweb2 = 1)
 
 /obj/effect/spawner/random_spawners/cobweb_left_rare
 	name = "cobweb left rare"
+	icon_state = "cobwebl"
 	result = list(
 	/datum/nothing = 10,
 	/obj/effect/decal/cleanable/cobweb = 1)
 
 /obj/effect/spawner/random_spawners/cobweb_right_rare
 	name = "cobweb right rare"
+	icon_state = "cobwebr"
 	result = list(
 	/datum/nothing = 10,
 	/obj/effect/decal/cleanable/cobweb2 = 1)
 
 /obj/effect/spawner/random_spawners/dirt_frequent
 	name = "dirt frequent"
+	icon_state = "dirt"
 	result = list(
 	/datum/nothing = 1,
 	/obj/effect/decal/cleanable/dirt = 1)
 
 /obj/effect/spawner/random_spawners/dirt_rare
 	name = "dirt rare"
+	icon_state = "dirt"
 	result = list(
 	/datum/nothing = 10,
 	/obj/effect/decal/cleanable/dirt = 1)
 
 /obj/effect/spawner/random_spawners/fungus_maybe
-	name = "rusted wall maybe"
+	name = "fungus maybe"
+	icon_state = "fungus"
+	color = "#D5820B"
 	result = list(
 	/turf/simulated/wall = 7,
 	/obj/effect/decal/cleanable/fungus = 1)
 
 /obj/effect/spawner/random_spawners/fungus_probably
-	name = "rusted wall maybe"
+	name = "fungus probably"
+	icon_state = "fungus"
+	color = "#D5820B"
 	result = list(
 	/turf/simulated/wall = 1,
 	/obj/effect/decal/cleanable/fungus = 7)

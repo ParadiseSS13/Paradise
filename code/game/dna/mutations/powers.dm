@@ -215,6 +215,7 @@
 /datum/mutation/stealth/deactivate(mob/living/M)
 	..()
 	M.alpha = 255
+	M.invisibility = 0
 
 // WAS: /datum/bioEffect/darkcloak
 /datum/mutation/stealth/darkcloak
@@ -234,9 +235,14 @@
 		return
 	var/light_available = T.get_lumcount() * 10
 	if(light_available <= 2)
-		M.alpha = round(M.alpha * 0.8)
+		if(M.invisibility != INVISIBILITY_OBSERVER)
+			M.alpha = round(M.alpha * 0.8)
 	else
 		M.alpha = 255
+		M.invisibility = 0
+	if(M.alpha == 0)
+		M.invisibility = INVISIBILITY_OBSERVER
+		M.alpha = 128
 
 //WAS: /datum/bioEffect/chameleon
 /datum/mutation/stealth/chameleon
@@ -252,9 +258,14 @@
 
 /datum/mutation/stealth/chameleon/on_life(mob/M)
 	if((world.time - M.last_movement) >= 30 && !M.stat && M.canmove && !M.restrained())
-		M.alpha -= 25
+		if(M.invisibility != INVISIBILITY_OBSERVER)
+			M.alpha -= 25
 	else
 		M.alpha = round(255 * 0.80)
+		M.invisibility = 0
+	if(M.alpha == 0)
+		M.invisibility = INVISIBILITY_OBSERVER
+		M.alpha = 128
 
 /////////////////////////////////////////////////////////////////////////////////////////
 

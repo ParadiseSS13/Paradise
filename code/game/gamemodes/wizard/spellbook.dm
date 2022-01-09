@@ -107,7 +107,7 @@
 
 /datum/spellbook_entry/lightningbolt
 	name = "Lightning Bolt"
-	spell_type = /obj/effect/proc_holder/spell/lightning
+	spell_type = /obj/effect/proc_holder/spell/charge_up/bounce/lightning
 	log_name = "LB"
 	category = "Offensive"
 	cost = 1
