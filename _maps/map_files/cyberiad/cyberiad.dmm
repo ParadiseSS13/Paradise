@@ -20963,11 +20963,6 @@
 /area/hallway/secondary/entry)
 "aXr" = (
 /obj/structure/closet/walllocker/emerglocker/north,
-/obj/effect/landmark{
-	icon = 'icons/effects/spawner_icons.dmi';
-	icon_state = "HONK";
-	name = "HONKsquad"
-	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aXs" = (
@@ -21000,14 +20995,6 @@
 /obj/structure/closet/walllocker/emerglocker/north,
 /obj/machinery/light{
 	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"aXz" = (
-/obj/effect/landmark{
-	icon = 'icons/effects/spawner_icons.dmi';
-	icon_state = "HONK";
-	name = "HONKsquad"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
@@ -21753,7 +21740,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/late,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "aZa" = (
@@ -79569,14 +79556,6 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"fvP" = (
-/obj/effect/landmark{
-	icon = 'icons/effects/spawner_icons.dmi';
-	icon_state = "HONK";
-	name = "HONKsquad"
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/arrival/station)
 "fAw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
 /obj/machinery/tcomms/core/station,
@@ -91336,10 +91315,10 @@ aSd
 aSd
 aVV
 aXr
-fvP
-fvP
-fvP
-aXz
+jyO
+jyO
+jyO
+aXs
 aVV
 aSd
 aSd
@@ -93391,11 +93370,11 @@ aRU
 aOQ
 aRU
 aVX
-aXz
-fvP
-fvP
-fvP
-aXz
+aXs
+jyO
+jyO
+jyO
+aXs
 aVX
 bgy
 aOQ
