@@ -1,7 +1,6 @@
 /obj
 	//var/datum/module/mod		//not used
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
-	var/crit_fail = FALSE
 	animate_movement = 2
 	var/list/species_exception = null	// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
 	var/sharp = FALSE		// whether this object cuts
