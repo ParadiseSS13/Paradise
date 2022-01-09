@@ -11,6 +11,7 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	layer = HUD_LAYER
 	plane = HUD_PLANE
+	flags = NO_SCREENTIPS
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
 	var/datum/hud/hud = null
@@ -163,12 +164,34 @@
 			master.attackby(I, usr, params)
 	return TRUE
 
+/obj/screen/storage/proc/is_item_accessible(obj/item/I, mob/user)
+	if (!user || !I)
+		return FALSE
+
+	var/storage_depth = I.storage_depth(user)
+	if((I in user.loc) || (storage_depth != -1))
+		return TRUE
+
+	if(!isturf(user.loc))
+		return FALSE
+
+	var/storage_depth_turf = I.storage_depth_turf()
+	if(isturf(I.loc) || (storage_depth_turf != -1))
+		if(I.Adjacent(user))
+			return TRUE
+	return FALSE
+
 /obj/screen/storage/MouseDrop_T(obj/item/I, mob/user)
 	if(!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || istype(user.loc, /obj/mecha) || !master)
 		return
 
 	var/obj/item/storage/S = master
 	if(!S)
+		return
+
+	if(!is_item_accessible(I, user))
+		log_game("[user.simple_info_line()] tried to abuse storage remote drag&drop with '[I]' at [atom_loc_line(I)] into '[S]' at [atom_loc_line(S)]")
+		message_admins("[user.simple_info_line()] tried to abuse storage remote drag&drop with '[I]' at [atom_loc_line(I)] into '[S]' at [atom_loc_line(S)]")
 		return
 
 	if(I in S.contents) // If the item is already in the storage, move them to the end of the list
@@ -218,6 +241,7 @@
 	return set_selected_zone(choice, usr)
 
 /obj/screen/zone_sel/MouseEntered(location, control, params)
+	. = ..()
 	MouseMove(location, control, params)
 
 /obj/screen/zone_sel/MouseMove(location, control, params)
@@ -356,7 +380,7 @@
 	var/list/object_overlays = list()
 
 /obj/screen/inventory/MouseEntered()
-	..()
+	. = ..()
 	add_overlays()
 
 /obj/screen/inventory/MouseExited()

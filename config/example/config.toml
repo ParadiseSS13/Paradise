@@ -44,7 +44,7 @@
 # If the database fails, this file will be used as fallback
 use_database_admins = false
 # Auto authenticate localhost users as admin? Useful for test servers, disable in producation
-enable_localhost_autoadmin = false
+enable_localhost_autoadmin = true
 # List of admin rank assignments and their permissions
 # These names ARE CASE SENSITIVE
 # +BUILD (or +BUILDMODE) = the ability to use buildmode
@@ -141,7 +141,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 28
+sql_version = 29
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -263,7 +263,7 @@ enable_gamemode_player_limit = true
 # This section contains everything relating to the ingame gateway (away mission) system.
 
 # Do we want to enable this at all? Disable for faster load times in testing
-enable_away_mission = true
+enable_away_mission = false
 # Delay (in deciseconds) before the gateway is usable
 away_mission_delay = 0
 # List of all enabled away missions. Comment out an entry to disable it.
@@ -295,7 +295,7 @@ server_name = "ParaCode Test"
 # EG: The perfect mix of RP & action
 server_tag_line = "ParaCode Testing Server"
 # Server features. Shows in a newline
-server_features = "Medium RP, varied species/jobs."
+server_features = "Medium RP, varied species/jobs"
 # Allow OOC character metadata notes
 allow_character_metadata = true
 # Lobby time before roundstart (Seconds)
@@ -309,7 +309,7 @@ restrict_antag_hud_rejoin = true
 # Do we want to allow player respawns?
 respawn_enabled = false
 # Enable karma awarding and karma lockouts for jobs and species?
-enable_karma = true
+enable_karma = false
 # Enable/disable the buster for the CID randomiser DLL
 enable_cid_randomiser_buster = false
 # Prevent admins from possessing the singularity
@@ -597,7 +597,7 @@ overflow_whitelist = ["keyhere", "anotherhere"]
 # This section contains configuration for all space ruins and lava ruins
 
 # Globally enable and disable placing of space ruins. Lava ruins will still place.
-enable_space_ruins = true
+enable_space_ruins = false
 # Minimum number of extra zlevels to generate and fill with ruins
 minimum_zlevels = 2
 # Maximum number of extra zlevels to generate and fill with ruins
