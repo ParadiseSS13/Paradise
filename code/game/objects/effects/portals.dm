@@ -24,6 +24,11 @@
 	src.target = target
 	src.creator = creator
 
+	for(var/obj/effect/portal/P in loc)
+		if(P != src)
+			QDEL_IN(P, 0)
+			stack_trace("More than one portal has been opened in [atom_loc_line(loc)]")
+
 	if(lifespan > 0)
 		spawn(lifespan)
 			qdel(src)
@@ -51,6 +56,12 @@
 
 	if(target && (get_turf(oldloc) == get_turf(target)))
 		return ..()
+
+	if(istype(AM, /obj/effect/portal))
+		qdel(AM)
+		qdel(src)
+		log_debug("Portal [src] crossed by another portal [AM]")
+		return
 
 	if(!teleport(AM))
 		return ..()
