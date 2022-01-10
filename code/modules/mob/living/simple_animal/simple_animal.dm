@@ -76,6 +76,8 @@
 	var/list/childtype = null
 	var/next_scan_time = 0
 	var/animal_species //Sorry, no spider+corgi buttbabies.
+	var/current_offspring = 0
+	var/max_offspring = DEFAULT_MAX_OFFSPRING
 
 	var/buffed = 0 //In the event that you want to have a buffing effect on the mob, but don't want it to stack with other effects, any outside force that applies a buff to a simple mob should at least set this to 1, so we have something to check against
 	var/gold_core_spawnable = NO_SPAWN //If the mob can be spawned with a gold slime core. HOSTILE_SPAWN are spawned with plasma, FRIENDLY_SPAWN are spawned with blood
@@ -444,11 +446,12 @@
 		regenerate_icons()
 
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
+	if(current_offspring >= max_offspring)
+		return FALSE
 	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress())
 		return FALSE
 	next_scan_time = world.time + 400
 
-	var/alone = TRUE
 	var/mob/living/simple_animal/partner
 	var/children = 0
 
@@ -465,10 +468,14 @@
 		else if(isliving(M) && !faction_check_mob(M)) //shyness check. we're not shy in front of things that share a faction with us.
 			return //we never mate when not alone, so just abort early
 
-	if(alone && partner && children < 3)
+	// The children check here isn't the total number of offspring, but the
+	// number of offspring within a visible 7-tile radius. It doesn't seem very
+	// effective at preventing population explosions but there you go.
+	if(partner && children < 3)
 		var/childspawn = pickweight(childtype)
 		var/turf/target = get_turf(loc)
 		if(target)
+			current_offspring += 1
 			return new childspawn(target)
 
 /mob/living/simple_animal/show_inv(mob/user as mob)

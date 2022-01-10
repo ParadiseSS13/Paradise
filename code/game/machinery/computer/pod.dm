@@ -307,13 +307,11 @@
 		var/obj/effect/landmark/L = thing
 		if(L.name == "Marauder Entry")
 			spawn_marauder.Add(L)
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/L = thing
-		if(L.name == "Marauder Exit")
-			var/obj/effect/portal/P = new(L.loc, pick(spawn_marauder))
-			P.invisibility = 101//So it is not seen by anyone.
-			P.failchance = 0//So it has no fail chance when teleporting.
-			spawn_marauder.Remove(P.target)
+	for(var/obj/effect/landmark/mechlaunch/L in GLOB.landmarks_list)
+		var/obj/effect/portal/P = new(L.loc, pick(spawn_marauder))
+		P.invisibility = 101 //So it is not seen by anyone.
+		P.failchance = 0 //So it has no fail chance when teleporting.
+		spawn_marauder.Remove(P.target)
 
 	for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)
 		if(M.z != src.z)	continue
