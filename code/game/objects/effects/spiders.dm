@@ -1,6 +1,4 @@
-//generic procs copied from obj/effect/alien
-#define SPIDER_SOFT_CAP 30
-#define SPIDER_HARD_CAP 40
+
 /obj/structure/spider
 	name = "web"
 	desc = "it's stringy and sticky"
@@ -60,6 +58,8 @@
 	icon_state = "eggs"
 	var/amount_grown = 0
 	var/player_spiders = 0
+	///Was this egg laid by a xenobiology mob? Used for mob capping
+	var/xenobiology_spawned = FALSE
 	var/list/faction = list("spiders")
 
 /obj/structure/spider/eggcluster/Initialize(mapload)
@@ -69,7 +69,7 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/spider/eggcluster/process()
-	if(SSmobs.giant_spiders > SPIDER_SOFT_CAP) //eggs gonna chill out until there is less spiders
+	if(SSmobs.xenobiology_mobs > MAX_GOLD_CORE_MOBS - 10) //eggs gonna chill out until there is less spiders
 		return
 
 	amount_grown += rand(0, 2)
@@ -174,19 +174,20 @@
 	if(isturf(loc))
 		amount_grown += rand(0,2)
 		if(amount_grown >= 100)
-			if(SSmobs.giant_spiders > SPIDER_HARD_CAP)
+			if(SSmobs.xenobiology_mobs > MAX_GOLD_CORE_MOBS)
 				qdel(src)
 				return
 			if(!grow_as)
 				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
-			SSmobs.giant_spiders++
+			SSmobs.xenobiology_mobs++
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
+			S.xenobiology_spawned = xenobiology_spawned
 			if(player_spiders && !selecting_player)
 				selecting_player = 1
 				spawn()
-					var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a giant spider?", ROLE_GSPIDER, TRUE, source = S)
+					var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a giant spider?", ROLE_SENTIENT, TRUE, source = S)
 
 					if(length(candidates) && !QDELETED(S))
 						var/mob/C = pick(candidates)
