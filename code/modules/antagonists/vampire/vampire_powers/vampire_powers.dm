@@ -1,10 +1,11 @@
 //This should hold all the vampire related powers
 /mob/living/proc/affects_vampire(mob/user)
 	//Other vampires aren't affected
-	if(mind?.vampire)
+	if(mind?.has_antag_datum(/datum/antagonist/vampire))
 		return FALSE
 	//Vampires who have reached their full potential can affect nearly everything
-	if(user?.mind.vampire.get_ability(/datum/vampire_passive/full))
+	var/datum/antagonist/vampire/V = user?.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(V?.get_ability(/datum/vampire_passive/full))
 		return TRUE
 	//Holy characters are resistant to vampire powers
 	if(mind?.isholy)
@@ -21,14 +22,11 @@
 	var/required_blood
 	var/deduct_blood_on_cast = TRUE
 
-
 /obj/effect/proc_holder/spell/vampire/create_new_handler()
 	var/datum/spell_handler/vampire/H = new
 	H.required_blood = required_blood
 	H.deduct_blood_on_cast = deduct_blood_on_cast
 	return H
-
-/obj/effect/proc_holder/spell/vampire/self
 
 /obj/effect/proc_holder/spell/vampire/self/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -46,12 +44,11 @@
 	owner = null
 	return ..()
 
-
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate
 	name = "Rejuvenate"
 	desc = "Use reserve blood to enliven your body, removing any incapacitating effects."
 	action_icon_state = "vampire_rejuvinate"
-	charge_max = 200
+	charge_max = 20 SECONDS
 	stat_allowed = 1
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/cast(list/targets, mob/user = usr)
@@ -64,7 +61,8 @@
 	U.SetConfused(0)
 	U.adjustStaminaLoss(-100)
 	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>")
-	var/rejuv_bonus = U.mind.vampire.get_rejuv_bonus()
+	var/datum/antagonist/vampire/V = U.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/rejuv_bonus = V.get_rejuv_bonus()
 	if(rejuv_bonus)
 		INVOKE_ASYNC(src, .proc/heal, U, rejuv_bonus)
 
@@ -79,13 +77,13 @@
 				user.reagents.remove_reagent(R.id, 2 * rejuv_bonus)
 		sleep(35)
 
-/datum/vampire/proc/get_rejuv_bonus()
+/datum/antagonist/vampire/proc/get_rejuv_bonus()
 	var/rejuv_multiplier = 0
 	if(!get_ability(/datum/vampire_passive/regen))
 		return rejuv_multiplier
 
 	if(subclass?.improved_rejuv_healing)
-		rejuv_multiplier = clamp((100 - owner.health) / 20, 1, 5) // brute and burn healing between 5 and 50
+		rejuv_multiplier = clamp((100 - owner.current.health) / 20, 1, 5) // brute and burn healing between 5 and 50
 		return rejuv_multiplier
 
 	return 1
@@ -109,14 +107,14 @@
 		ui.open()
 
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_data(mob/user)
-	var/datum/vampire/vamp = user.mind.vampire
+	var/datum/antagonist/vampire/vamp = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/list/data = list("subclasses" = vamp.subclass)
 	return data
 
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_act(action, list/params)
 	if(..())
 		return
-	var/datum/vampire/vamp = usr.mind.vampire
+	var/datum/antagonist/vampire/vamp = usr.mind.has_antag_datum(/datum/antagonist/vampire)
 
 	if(vamp.subclass)
 		vamp.upgrade_tiers -= type
@@ -138,7 +136,7 @@
 			vamp.remove_ability(src)
 
 
-/datum/vampire/proc/add_subclass(subclass_to_add, announce = TRUE)
+/datum/antagonist/vampire/proc/add_subclass(subclass_to_add, announce = TRUE)
 	var/datum/vampire_subclass/new_subclass = new subclass_to_add
 	subclass = new_subclass
 	check_vampire_upgrade(announce)
@@ -281,7 +279,7 @@
 	if(H.dna && (NO_BLOOD in H.dna.species.species_traits) || H.dna.species.exotic_blood || !H.blood_volume)
 		visible_message("[H] looks unfazed!")
 		return
-	if(H.mind.vampire || H.mind.special_role == SPECIAL_ROLE_VAMPIRE || H.mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
+	if(H.mind.has_antag_datum(/datum/antagonist/vampire) || H.mind.special_role == SPECIAL_ROLE_VAMPIRE || H.mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
 		visible_message("<span class='notice'>[H] looks refreshed!</span>")
 		H.adjustBruteLoss(-60)
 		H.adjustFireLoss(-60)
@@ -321,7 +319,7 @@
 	desc = "Teleport to a nearby dark region"
 	gain_desc = "You have gained the ability to shadowstep, which makes you disappear into nearby shadows at the cost of blood."
 	action_icon_state = "shadowblink"
-	charge_max = 20
+	charge_max = 2 SECONDS
 	clothes_req = FALSE
 	centcom_cancast = FALSE
 	include_space = FALSE
@@ -345,7 +343,7 @@
 
 // pure adminbus at the moment
 /proc/isvampirethrall(mob/living/M)
-	return istype(M) && M.mind && SSticker.mode && (M.mind in SSticker.mode.vampire_enthralled)
+	return istype(M) && M.mind && M.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)
 
 /obj/effect/proc_holder/spell/vampire/enthrall
 	name = "Enthrall (150)"
@@ -365,7 +363,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/vampire/enthrall/cast(list/targets, mob/user = usr)
-	var/datum/vampire/vampire = user.mind.vampire
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	for(var/mob/living/target in targets)
 		user.visible_message("<span class='warning'>[user] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
 		to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>")
@@ -395,7 +393,7 @@
 	if(!C.mind)
 		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")
 		return FALSE
-	if(enthrall_safe || (C.mind in SSticker.mode.vampires) || (C.mind.vampire) || (C.mind in SSticker.mode.vampire_enthralled))
+	if(enthrall_safe || (C.mind.has_antag_datum(/datum/antagonist/vampire)) || (isvampirethrall(C)))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
 		return FALSE
 	if(!C.affects_vampire(user))
@@ -411,34 +409,9 @@
 
 /obj/effect/proc_holder/spell/vampire/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H)
 	if(!istype(H))
-		return 0
-	var/ref = "\ref[user.mind]"
-	if(!(ref in SSticker.mode.vampire_thralls))
-		SSticker.mode.vampire_thralls[ref] = list(H.mind)
-	else
-		SSticker.mode.vampire_thralls[ref] += H.mind
-	SSticker.mode.update_vampire_icons_added(H.mind)
-	SSticker.mode.update_vampire_icons_added(user.mind)
-	var/datum/mindslaves/slaved = user.mind.som
-	if(!slaved)
-		slaved = new()
-		slaved.masters = user.mind
-	H.mind.som = slaved
-	slaved.serv += H
-	slaved.add_serv_hud(user.mind, "vampire")//handles master servent icons
-	slaved.add_serv_hud(H.mind, "vampthrall")
+		return FALSE
 
-	SSticker.mode.vampire_enthralled.Add(H.mind)
-	SSticker.mode.vampire_enthralled[H.mind] = user.mind
-	H.mind.special_role = SPECIAL_ROLE_VAMPIRE_THRALL
-
-	var/datum/objective/protect/serve_objective = new
-	serve_objective.owner = user.mind
-	serve_objective.target = H.mind
-	serve_objective.explanation_text = "You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command."
-	H.mind.objectives += serve_objective
-
-	to_chat(H, "<span class='biggerdanger'>You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command.</span>")
-	to_chat(user, "<span class='warning'>You have successfully Enthralled [H]. <i>If [H.p_they()] refuse[H.p_s()] to do as you say just adminhelp.</i></span>")
+	var/greet_text = "You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command."
+	H.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall(user.mind, greet_text))
 	H.Stun(2)
 	add_attack_logs(user, H, "Vampire-thralled")

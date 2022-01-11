@@ -396,17 +396,6 @@
 /obj/machinery/power/tracker,
 /turf/simulated/floor/plating/airless,
 /area/solar/auxstarboard)
-"acy" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_nw";
-	name = "northwest of SS13";
-	width = 19
-	},
-/turf/space,
-/area/space)
 "acz" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/landmark/spawner/xeno,
@@ -434,6 +423,7 @@
 /obj/item/plant_analyzer,
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/hydroponics/constructable,
@@ -509,7 +499,8 @@
 /area/security/permabrig)
 "acP" = (
 /obj/item/radio/intercom{
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -601,6 +592,7 @@
 	pixel_y = 24
 	},
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
@@ -915,7 +907,8 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -23
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plating,
 /area/security/permabrig)
@@ -949,6 +942,7 @@
 /area/solar/auxstarboard)
 "adI" = (
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /obj/structure/table/glass,
@@ -966,17 +960,6 @@
 	icon_state = "whitered"
 	},
 /area/security/permabrig)
-"adN" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_ne";
-	name = "northeast of SS13";
-	width = 19
-	},
-/turf/space,
-/area/space)
 "adP" = (
 /obj/structure/cable,
 /obj/structure/lattice/catwalk,
@@ -1176,6 +1159,7 @@
 "aev" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -1392,7 +1376,8 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/door_control{
 	id = "SecJusticeChamber";
@@ -1650,7 +1635,8 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -23
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -1688,7 +1674,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 28
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/light{
 	dir = 4
@@ -1772,7 +1759,7 @@
 	pixel_x = 5
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
+	name = "west bump";
 	pixel_x = -28
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -1806,7 +1793,9 @@
 /area/security/permabrig)
 "afW" = (
 /obj/machinery/light_switch{
-	pixel_x = 26
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -1944,7 +1933,8 @@
 /area/shuttle/pod_3)
 "agi" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -2123,6 +2113,7 @@
 	pixel_x = 30
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = 27;
 	pixel_y = 29
 	},
@@ -2405,7 +2396,8 @@
 /area/security/armoury)
 "ahf" = (
 /obj/machinery/alarm{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/structure/rack,
 /obj/item/gun/energy/ionrifle,
@@ -2877,12 +2869,13 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = -29;
-	pixel_y = 23
+	name = "custom placement";
+	pixel_x = -28;
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2937,6 +2930,7 @@
 /area/security/hos)
 "aic" = (
 /obj/structure/extinguisher_cabinet{
+	name = "south bump";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -3073,8 +3067,8 @@
 	pixel_y = -3
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3163,7 +3157,8 @@
 "aiG" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3206,6 +3201,7 @@
 "aiL" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/structure/chair/comfy/black{
@@ -3276,6 +3272,7 @@
 /obj/structure/closet/secure_closet/brig,
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -3397,8 +3394,8 @@
 "ajd" = (
 /obj/structure/closet/secure_closet/brig,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
@@ -3434,7 +3431,8 @@
 "ajh" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
@@ -3503,6 +3501,7 @@
 /obj/item/clothing/suit/armor/bulletproof,
 /obj/item/clothing/head/helmet/alt,
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -3519,6 +3518,7 @@
 	})
 "ajw" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/structure/rack,
@@ -3533,22 +3533,17 @@
 "ajx" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
-	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = -20
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching certain areas.";
+/obj/machinery/light_switch{
 	dir = 1;
-	name = "Head of Security's Monitor";
-	network = list("Prison","MiniSat","tcomm");
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
@@ -3741,7 +3736,8 @@
 "ajQ" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -3983,6 +3979,7 @@
 "aks" = (
 /obj/structure/closet/secure_closet/security,
 /obj/structure/extinguisher_cabinet{
+	name = "north bump";
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -4034,8 +4031,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
@@ -4277,6 +4274,7 @@
 /area/security/hos)
 "akV" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/machinery/camera{
@@ -4321,8 +4319,8 @@
 	dir = 1
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -4399,7 +4397,8 @@
 	dir = 1
 	},
 /obj/machinery/firealarm{
-	pixel_y = 27
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness{
@@ -4407,6 +4406,7 @@
 	})
 "alk" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -4700,9 +4700,6 @@
 /obj/structure/sign/securearea{
 	pixel_y = 32
 	},
-/obj/machinery/light_switch{
-	pixel_x = -9
-	},
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
 "alR" = (
@@ -4738,7 +4735,8 @@
 /obj/item/flashlight/seclite,
 /obj/machinery/firealarm{
 	dir = 1;
-	pixel_y = -28
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -5052,7 +5050,8 @@
 	dir = 1
 	},
 /obj/machinery/alarm{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -5571,6 +5570,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -5680,6 +5680,7 @@
 /area/security/main)
 "aod" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -5850,6 +5851,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -6080,7 +6082,8 @@
 	})
 "api" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 27
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -6183,7 +6186,9 @@
 /area/security/evidence)
 "apx" = (
 /obj/machinery/light_switch{
-	pixel_x = 25
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -6300,7 +6305,8 @@
 "apM" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 28
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness{
@@ -6608,7 +6614,8 @@
 /obj/structure/table,
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 28
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
@@ -6726,7 +6733,7 @@
 	dir = 1
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
+	name = "south bump";
 	pixel_y = -28
 	},
 /obj/machinery/light/small,
@@ -7159,7 +7166,8 @@
 "arZ" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 28
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -7266,6 +7274,7 @@
 "asm" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
@@ -7604,6 +7613,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -7639,6 +7649,7 @@
 "atb" = (
 /obj/item/flashlight/lamp,
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/structure/table,
@@ -8124,6 +8135,7 @@
 /area/maintenance/disposal)
 "auh" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -8160,8 +8172,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
@@ -8317,7 +8329,7 @@
 "auH" = (
 /obj/machinery/vending/coffee,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
+	name = "south bump";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -8398,7 +8410,9 @@
 /area/security/warden)
 "auP" = (
 /obj/machinery/light_switch{
-	pixel_y = -26
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/camera{
 	c_tag = "Fitness Room - Aft";
@@ -8657,7 +8671,8 @@
 /obj/structure/table/wood,
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 28
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -8820,6 +8835,7 @@
 "avI" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/hologram/holopad,
@@ -8837,6 +8853,7 @@
 "avJ" = (
 /obj/machinery/vending/cigarette,
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -8847,10 +8864,9 @@
 	})
 "avK" = (
 /obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
+	name = "custom placement";
 	pixel_x = -28;
-	pixel_y = 23
+	pixel_y = 28
 	},
 /obj/machinery/status_display{
 	pixel_y = 32
@@ -9095,7 +9111,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/light_switch{
-	pixel_x = -26
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -9164,7 +9182,8 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -9376,7 +9395,8 @@
 "awU" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 28
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -9393,6 +9413,7 @@
 "awV" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/item/clothing/under/suit_jacket/burgundy,
@@ -9806,8 +9827,8 @@
 /obj/structure/table/wood,
 /obj/item/radio/intercom{
 	frequency = 1424;
-	name = "Interrogation Intercom";
-	pixel_y = -31
+	name = "custom placement";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -9968,12 +9989,7 @@
 	name = "\improper Recreation Area"
 	})
 "axW" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/tinted{
-	dir = 5;
-	max_integrity = 120;
-	reinf = 0
-	},
+/obj/effect/spawner/window/reinforced/polarized,
 /turf/simulated/floor/plating,
 /area/security/main)
 "axX" = (
@@ -10104,6 +10120,7 @@
 "ayp" = (
 /obj/structure/dresser,
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /turf/simulated/floor/carpet,
@@ -10251,6 +10268,7 @@
 "ayE" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/drone_fabricator,
@@ -10343,6 +10361,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/northeast,
@@ -10600,9 +10619,8 @@
 /area/maintenance/starboard)
 "azv" = (
 /obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_y = 29
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10677,6 +10695,7 @@
 /area/security/brig)
 "azG" = (
 /obj/structure/extinguisher_cabinet{
+	name = "north bump";
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -10689,7 +10708,8 @@
 	pixel_x = 32
 	},
 /obj/machinery/firealarm{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -10852,6 +10872,7 @@
 /obj/structure/table/wood,
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
@@ -10873,7 +10894,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -10948,6 +10970,7 @@
 /area/security/brig)
 "aAe" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -11212,6 +11235,7 @@
 "aAJ" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/item/clothing/under/assistantformal,
@@ -11792,6 +11816,7 @@
 /area/engine/engineering)
 "aCi" = (
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /obj/structure/table/wood,
@@ -11889,6 +11914,7 @@
 	})
 "aCv" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -11915,7 +11941,8 @@
 /area/security/nuke_storage)
 "aCy" = (
 /obj/machinery/light_switch{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuit";
@@ -11924,6 +11951,7 @@
 /area/security/nuke_storage)
 "aCz" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/light{
@@ -11942,8 +11970,8 @@
 	broadcasting = 1;
 	frequency = 1424;
 	listening = 0;
-	name = "Interrogation Intercom";
-	pixel_y = -24
+	name = "custom placement";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11973,6 +12001,7 @@
 /area/engine/engineering)
 "aCE" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -12389,6 +12418,10 @@
 	pixel_x = 3;
 	pixel_y = -7
 	},
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -12455,7 +12488,8 @@
 	})
 "aDA" = (
 /obj/machinery/light_switch{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -12723,6 +12757,7 @@
 "aDZ" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/structure/filingcabinet,
@@ -12730,7 +12765,8 @@
 	dir = 1
 	},
 /obj/machinery/light_switch{
-	pixel_y = 25
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -13057,9 +13093,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 27
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -13332,7 +13367,8 @@
 "aFf" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 28
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -13416,7 +13452,8 @@
 "aFq" = (
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -13468,6 +13505,7 @@
 "aFx" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/computer/secure_data{
@@ -13537,9 +13575,6 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/light_switch{
-	pixel_y = 38
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -13606,10 +13641,6 @@
 	},
 /obj/machinery/light/small{
 	dir = 1
-	},
-/obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 28
 	},
 /obj/item/clothing/accessory/waistcoat,
 /obj/item/clothing/under/suit_jacket/red,
@@ -13718,8 +13749,8 @@
 /area/engine/engineering)
 "aGb" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 21
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/machinery/camera{
 	c_tag = "Engineering - Fore"
@@ -13741,6 +13772,7 @@
 "aGc" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/northwest,
@@ -13767,9 +13799,8 @@
 	})
 "aGh" = (
 /obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 27
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/machinery/camera{
 	c_tag = "Mining Office";
@@ -13836,6 +13867,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/effect/spawner/lootdrop/maintenance,
@@ -14032,7 +14064,8 @@
 /area/security/detectives_office)
 "aGH" = (
 /obj/machinery/newscaster{
-	pixel_x = 28
+	name = "east bump";
+	pixel_x = 32
 	},
 /obj/machinery/computer/med_data{
 	dir = 8
@@ -14231,12 +14264,12 @@
 /area/engine/engineering)
 "aHh" = (
 /obj/item/radio/intercom{
-	dir = 8;
-	name = "Station Intercom (Captain)";
+	name = "east bump";
 	pixel_x = 28
 	},
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/chair{
@@ -14303,6 +14336,7 @@
 "aHr" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/light{
@@ -14329,6 +14363,7 @@
 "aHt" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/structure/closet/secure_closet/miner,
@@ -14379,6 +14414,7 @@
 "aHx" = (
 /obj/structure/closet/crate,
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -14461,7 +14497,8 @@
 "aHL" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -14482,6 +14519,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -14604,9 +14642,8 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29;
-	pixel_y = -2
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -14622,6 +14659,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -14769,6 +14807,7 @@
 /area/crew_quarters/sleep)
 "aIm" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/structure/chair/office/light,
@@ -14788,6 +14827,7 @@
 /area/crew_quarters/sleep)
 "aIo" = (
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /obj/structure/closet/secure_closet/mime,
@@ -14807,12 +14847,15 @@
 /turf/simulated/floor/mineral/tranquillite,
 /area/crew_quarters/sleep)
 "aIr" = (
-/obj/machinery/firealarm{
+/obj/structure/chair,
+/obj/machinery/button/windowtint{
 	dir = 4;
-	pixel_x = 28
+	pixel_x = -26
 	},
-/turf/simulated/wall,
-/area/crew_quarters/sleep)
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/security/main)
 "aIs" = (
 /obj/item/flag/mime,
 /turf/simulated/floor/mineral/tranquillite,
@@ -15087,8 +15130,8 @@
 "aIV" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -28
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -15141,6 +15184,7 @@
 "aJa" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel,
@@ -15323,6 +15367,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/light/small{
@@ -15366,6 +15411,7 @@
 "aJv" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/camera{
@@ -15520,6 +15566,7 @@
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -15618,10 +15665,8 @@
 /obj/structure/reagent_dispensers/watertank,
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
-	},
-/obj/machinery/light_switch{
-	pixel_x = -38
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -15894,6 +15939,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -16085,8 +16131,8 @@
 "aKS" = (
 /obj/machinery/light/small,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -16102,6 +16148,7 @@
 "aKV" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/wood,
@@ -16114,6 +16161,7 @@
 	dir = 8
 	},
 /obj/machinery/newscaster{
+	name = "south bump";
 	pixel_y = -32
 	},
 /obj/machinery/door_control{
@@ -16164,9 +16212,11 @@
 "aLc" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -16208,6 +16258,7 @@
 /obj/machinery/light/small,
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/disposalpipe/segment{
@@ -16240,6 +16291,7 @@
 /area/crew_quarters/sleep)
 "aLj" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/light/small{
@@ -16317,6 +16369,11 @@
 /obj/item/wrench,
 /obj/item/storage/box/lights/mixed,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "aLr" = (
@@ -16512,7 +16569,8 @@
 /area/quartermaster/storage)
 "aLQ" = (
 /obj/machinery/firealarm{
-	pixel_y = 27
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -16528,7 +16586,8 @@
 /area/quartermaster/storage)
 "aLT" = (
 /obj/machinery/light_switch{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -16588,6 +16647,7 @@
 "aMb" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -16692,7 +16752,9 @@
 /area/security/processing)
 "aMp" = (
 /obj/machinery/light_switch{
-	pixel_x = -26
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -16800,8 +16862,8 @@
 /area/crew_quarters/sleep)
 "aMB" = (
 /obj/machinery/newscaster{
-	pixel_x = 29;
-	pixel_y = 1
+	name = "east bump";
+	pixel_x = 32
 	},
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/bananalamp,
@@ -16933,6 +16995,7 @@
 "aMR" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -17328,7 +17391,8 @@
 "aNu" = (
 /obj/structure/closet/secure_closet/courtroom,
 /obj/machinery/light_switch{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/item/gavelblock,
 /obj/item/gavelhammer,
@@ -17342,8 +17406,8 @@
 /area/crew_quarters/courtroom)
 "aNw" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 20
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/effect/landmark/start/magistrate,
 /turf/simulated/floor/plasteel,
@@ -17365,7 +17429,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/camera{
 	c_tag = "Storage Wing - Security Access Door";
@@ -17411,6 +17476,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "south bump";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -17482,8 +17548,8 @@
 	})
 "aNL" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -17622,6 +17688,11 @@
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/glasses/meson/engine,
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aOh" = (
@@ -17636,6 +17707,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/structure/reagent_dispensers/peppertank{
@@ -17672,6 +17744,7 @@
 "aOk" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel,
@@ -17705,6 +17778,7 @@
 	dir = 8
 	},
 /obj/machinery/newscaster{
+	name = "south bump";
 	pixel_y = -32
 	},
 /obj/machinery/door_control{
@@ -17795,6 +17869,7 @@
 /area/crew_quarters/courtroom)
 "aON" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -17845,8 +17920,7 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	dir = 8;
-	name = "Station Intercom (General)";
+	name = "west bump";
 	pixel_x = -28
 	},
 /obj/effect/landmark/start/internal_affairs,
@@ -17885,6 +17959,7 @@
 	})
 "aOX" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -17972,13 +18047,13 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
 "aPj" = (
 /mob/living/simple_animal/chicken/featherbottom,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -18028,7 +18103,8 @@
 "aPq" = (
 /obj/machinery/biogenerator,
 /obj/machinery/firealarm{
-	pixel_y = 27
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
@@ -18038,8 +18114,8 @@
 "aPr" = (
 /obj/structure/table,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 21
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/item/storage/box/lights/mixed,
 /turf/simulated/floor/plasteel,
@@ -18107,10 +18183,12 @@
 "aPx" = (
 /obj/machinery/vending/cigarette,
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel,
@@ -18178,7 +18256,9 @@
 	dir = 4
 	},
 /obj/machinery/light_switch{
-	pixel_x = 27
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/construction)
@@ -18231,6 +18311,7 @@
 "aPI" = (
 /obj/machinery/seed_extractor,
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -18384,7 +18465,8 @@
 	maxcharge = 15000
 	},
 /obj/machinery/light_switch{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -18447,6 +18529,7 @@
 /area/turret_protected/ai_upload)
 "aQk" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -18456,6 +18539,7 @@
 "aQp" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -18596,7 +18680,8 @@
 	dir = 1
 	},
 /obj/machinery/firealarm{
-	pixel_y = 27
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -18647,7 +18732,9 @@
 	pixel_y = 2
 	},
 /obj/machinery/light_switch{
-	pixel_x = -26
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -18681,12 +18768,12 @@
 	name = "Animal Pen A";
 	opacity = 1
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
 "aQQ" = (
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -18945,8 +19032,8 @@
 	})
 "aRC" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = -29
+	name = "west bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -18956,6 +19043,7 @@
 "aRD" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel,
@@ -18986,8 +19074,8 @@
 	icon_state = "1-8"
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/machinery/camera{
 	c_tag = "Storage Wing";
@@ -19077,6 +19165,7 @@
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/wood,
@@ -19106,9 +19195,8 @@
 "aRR" = (
 /obj/structure/table,
 /obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 27
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/item/t_scanner,
 /turf/simulated/floor/plasteel{
@@ -19209,13 +19297,13 @@
 	},
 /obj/structure/window/reinforced,
 /mob/living/simple_animal/chicken/kentucky,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
 "aSe" = (
 /obj/structure/window/reinforced,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -19354,7 +19442,8 @@
 	pixel_y = 32
 	},
 /obj/machinery/newscaster{
-	pixel_x = -31
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/wood,
 /area/lawoffice)
@@ -19427,6 +19516,7 @@
 	dir = 8
 	},
 /obj/machinery/newscaster{
+	name = "south bump";
 	pixel_y = -32
 	},
 /obj/machinery/door_control{
@@ -19445,6 +19535,7 @@
 	})
 "aSK" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/structure/filingcabinet/chestdrawer,
@@ -19614,6 +19705,7 @@
 	dir = 4
 	},
 /obj/machinery/newscaster{
+	name = "east bump";
 	pixel_x = 32
 	},
 /obj/machinery/door_control{
@@ -19659,6 +19751,7 @@
 "aTm" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/structure/table,
@@ -20027,12 +20120,6 @@
 /area/quartermaster/qm)
 "aUa" = (
 /obj/structure/table/wood,
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	dir = 8;
-	listening = 0;
-	name = "Station Intercom (Court)"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -20061,10 +20148,13 @@
 /area/quartermaster/storage)
 "aUe" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/light_switch{
-	pixel_x = -25
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
@@ -20081,6 +20171,7 @@
 	},
 /obj/structure/table,
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -20214,6 +20305,7 @@
 "aUq" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/camera{
@@ -20354,19 +20446,19 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
 "aUH" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -20464,7 +20556,8 @@
 /area/space/nearstation)
 "aUW" = (
 /obj/item/radio/intercom{
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -20592,8 +20685,8 @@
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -20683,6 +20776,7 @@
 "aVv" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/structure/cable/yellow{
@@ -20747,10 +20841,8 @@
 /area/turret_protected/ai_upload)
 "aVz" = (
 /obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1447;
-	name = "Private AI Channel";
-	pixel_y = -25
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/machinery/camera/motion{
 	c_tag = "AI Upload Chamber - Starboard";
@@ -20940,6 +21032,7 @@
 /obj/item/clothing/mask/balaclava,
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/light/small{
@@ -20990,13 +21083,13 @@
 	name = "Animal Pen B";
 	opacity = 1
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
 "aWe" = (
 /mob/living/simple_animal/cow/betsy,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -21015,6 +21108,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/camera{
@@ -21049,6 +21143,7 @@
 /area/quartermaster/qm)
 "aWi" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel,
@@ -21084,7 +21179,9 @@
 "aWl" = (
 /obj/structure/closet/lawcloset,
 /obj/machinery/light_switch{
-	pixel_y = -28
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
 /area/lawoffice)
@@ -21199,8 +21296,8 @@
 /area/maintenance/fore)
 "aWw" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 21
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -21237,6 +21334,7 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -21322,7 +21420,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/computer/atmos_alert,
 /turf/simulated/floor/plasteel{
@@ -21331,7 +21430,9 @@
 /area/engine/engineering)
 "aWO" = (
 /obj/machinery/light_switch{
-	pixel_x = -23
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/computer/supplycomp{
 	dir = 4
@@ -21346,7 +21447,7 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
+	name = "south bump";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -21517,9 +21618,8 @@
 	icon_state = "1-2"
 	},
 /obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 27
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/structure/table,
 /obj/item/folder/yellow,
@@ -21778,6 +21878,7 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -21793,7 +21894,9 @@
 	})
 "aXT" = (
 /obj/machinery/light_switch{
-	pixel_y = -25
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/construction)
@@ -21840,6 +21943,7 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/item/twohanded/required/kirbyplants,
@@ -22057,12 +22161,12 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/courtroom)
 "aYC" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 5;
-	pixel_y = -32
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "south bump";
+	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -22175,6 +22279,7 @@
 "aYP" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -22248,6 +22353,8 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/power/smes/engineering,
@@ -22521,6 +22628,7 @@
 /obj/structure/table,
 /obj/item/hatchet,
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/item/paper/hydroponics,
@@ -22546,6 +22654,7 @@
 "aZC" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/table,
@@ -22605,6 +22714,7 @@
 /obj/machinery/power/terminal,
 /obj/structure/cable,
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -22757,6 +22867,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/item/book/manual/security_space_law{
@@ -22769,6 +22880,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -22778,6 +22890,7 @@
 "aZY" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -22960,7 +23073,9 @@
 /area/crew_quarters/bar)
 "bav" = (
 /obj/machinery/light_switch{
-	pixel_x = 26
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/construction)
@@ -23013,6 +23128,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel,
@@ -23143,8 +23259,8 @@
 /area/crew_quarters/bar)
 "baO" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -23228,9 +23344,8 @@
 /area/quartermaster/office)
 "bbb" = (
 /obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 27
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -23242,8 +23357,8 @@
 /area/quartermaster/office)
 "bbe" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/machinery/camera{
 	c_tag = "Locker Room Port";
@@ -23329,6 +23444,7 @@
 /area/turret_protected/ai_upload_foyer)
 "bbm" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/item/twohanded/required/kirbyplants{
@@ -23400,6 +23516,7 @@
 /area/hallway/primary/central)
 "bbt" = (
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -23410,6 +23527,7 @@
 "bbu" = (
 /obj/machinery/light,
 /obj/machinery/newscaster{
+	name = "south bump";
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -23418,6 +23536,7 @@
 /area/crew_quarters/locker)
 "bbv" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -23679,7 +23798,9 @@
 /area/maintenance/maintcentral)
 "bcd" = (
 /obj/machinery/light_switch{
-	pixel_x = 28
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -23780,9 +23901,9 @@
 /obj/item/radio/intercom{
 	broadcasting = 1;
 	frequency = 1447;
-	name = "Private AI Channel";
-	pixel_x = -24;
-	pixel_y = 24
+	name = "custom placement";
+	pixel_x = -28;
+	pixel_y = 28
 	},
 /obj/structure/cable/yellow{
 	d2 = 4;
@@ -23835,6 +23956,7 @@
 	network = list("SS13","RD","AIUpload")
 	},
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/computer/security/telescreen{
@@ -23896,6 +24018,7 @@
 	})
 "bcz" = (
 /obj/machinery/newscaster{
+	name = "south bump";
 	pixel_y = -32
 	},
 /obj/machinery/vending/coffee,
@@ -24012,7 +24135,8 @@
 /area/hallway/primary/central)
 "bcL" = (
 /obj/machinery/firealarm{
-	pixel_y = 32
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -24070,6 +24194,11 @@
 	},
 /obj/item/rcs,
 /obj/effect/decal/warning_stripes/northwest,
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bcX" = (
@@ -24260,8 +24389,8 @@
 /area/storage/tech)
 "bdy" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = -29
+	name = "west bump";
+	pixel_x = -28
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -24299,8 +24428,8 @@
 "bdB" = (
 /obj/structure/chair,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 21
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -24345,6 +24474,7 @@
 	pixel_y = 32
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/machinery/computer/card/minor/ce,
@@ -24451,8 +24581,8 @@
 	})
 "bdQ" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 21
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -24511,6 +24641,7 @@
 "bdX" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -24568,7 +24699,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/light_switch{
-	pixel_x = 27
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
@@ -24872,8 +25005,8 @@
 /area/storage/tech)
 "beH" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 21
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -24950,6 +25083,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -24979,6 +25117,7 @@
 	})
 "beR" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/item/twohanded/required/kirbyplants{
@@ -24991,6 +25130,7 @@
 /area/hallway/primary/central)
 "beS" = (
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /obj/machinery/disposal,
@@ -25108,11 +25248,9 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bfh" = (
-/obj/machinery/light_switch{
-	pixel_x = -38
-	},
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
@@ -25297,6 +25435,7 @@
 /area/turret_protected/ai)
 "bfD" = (
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -25388,6 +25527,7 @@
 "bfO" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -25397,6 +25537,7 @@
 "bfR" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -25424,6 +25565,7 @@
 "bfW" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -25451,6 +25593,7 @@
 "bfZ" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/door/firedoor,
@@ -25474,20 +25617,23 @@
 	name = "Arrivals"
 	})
 "bgb" = (
+/obj/machinery/washing_machine,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = -27;
-	pixel_y = -29
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
+	icon_state = "barber"
 	},
-/area/hallway/primary/central)
+/area/crew_quarters/sleep)
 "bgd" = (
 /obj/machinery/camera{
 	c_tag = "Central Primary Hallway - Fore - Starboard Corner";
 	dir = 8
+	},
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -25532,6 +25678,7 @@
 /area/storage/tools)
 "bgh" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/machinery/camera{
@@ -25596,8 +25743,8 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -25743,6 +25890,7 @@
 "bgy" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -25762,6 +25910,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel,
@@ -25795,8 +25944,8 @@
 /area/quartermaster/storage)
 "bgF" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 21
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -25829,7 +25978,7 @@
 /area/security/brig)
 "bgK" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
+	name = "south bump";
 	pixel_y = -28
 	},
 /obj/structure/cable/yellow{
@@ -26048,7 +26197,7 @@
 /obj/item/flash,
 /obj/item/flash,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
+	name = "north bump";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -26076,10 +26225,6 @@
 /obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-2"
-	},
-/obj/machinery/light_switch{
-	pixel_x = 26;
-	pixel_y = 26
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -26157,8 +26302,8 @@
 	pixel_y = 32
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/item/clothing/glasses/meson/engine,
 /obj/effect/decal/warning_stripes/yellow,
@@ -26246,6 +26391,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/light/small{
@@ -26307,7 +26453,9 @@
 	},
 /obj/structure/closet/jcloset,
 /obj/machinery/light_switch{
-	pixel_x = 23
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
@@ -26470,6 +26618,7 @@
 	maxcharge = 15000
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/machinery/light/small{
@@ -26489,6 +26638,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -26564,6 +26714,7 @@
 "bit" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/structure/cable/yellow{
@@ -26610,8 +26761,8 @@
 	})
 "bix" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 20
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/machinery/computer/security{
 	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
@@ -26652,7 +26803,7 @@
 /area/atmos)
 "biA" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
+	name = "north bump";
 	pixel_y = 28
 	},
 /obj/structure/rack,
@@ -26741,7 +26892,8 @@
 /area/quartermaster/storage)
 "biJ" = (
 /obj/machinery/light_switch{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 6
@@ -26840,6 +26992,7 @@
 "biX" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/structure/disposalpipe/segment,
@@ -26870,6 +27023,7 @@
 "bja" = (
 /obj/structure/closet/l3closet/janitor,
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/structure/disposalpipe/segment{
@@ -27006,6 +27160,7 @@
 	})
 "bjl" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/machinery/light{
@@ -27031,7 +27186,9 @@
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
 /obj/machinery/light_switch{
-	pixel_x = -26
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -27122,6 +27279,7 @@
 /obj/item/plant_analyzer,
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -27148,6 +27306,7 @@
 "bjA" = (
 /obj/machinery/light,
 /obj/structure/extinguisher_cabinet{
+	name = "south bump";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -27174,6 +27333,7 @@
 /obj/machinery/cell_charger,
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/item/stock_parts/cell/high{
@@ -27186,6 +27346,7 @@
 /area/storage/tech)
 "bjD" = (
 /obj/structure/extinguisher_cabinet{
+	name = "south bump";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -27204,7 +27365,7 @@
 "bjF" = (
 /obj/structure/closet/toolcloset,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
+	name = "north bump";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -27247,6 +27408,7 @@
 "bjI" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/structure/closet/secure_closet/engineering_chief,
@@ -27364,6 +27526,7 @@
 	pixel_y = -28
 	},
 /obj/item/radio/intercom{
+	name = "west bump";
 	pixel_x = -28
 	},
 /obj/effect/landmark{
@@ -27636,7 +27799,9 @@
 /area/engine/engineering)
 "bkx" = (
 /obj/machinery/light_switch{
-	pixel_x = -25
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -27654,6 +27819,7 @@
 "bkz" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/light{
@@ -28016,7 +28182,8 @@
 /area/engine/break_room)
 "blA" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -28087,8 +28254,8 @@
 /area/turret_protected/ai)
 "blI" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = -29
+	name = "west bump";
+	pixel_x = -28
 	},
 /obj/machinery/status_display{
 	layer = 4;
@@ -28107,6 +28274,7 @@
 	pixel_y = -28
 	},
 /obj/item/radio/intercom{
+	name = "east bump";
 	pixel_x = 28
 	},
 /obj/effect/landmark{
@@ -28118,7 +28286,9 @@
 /area/turret_protected/ai)
 "blK" = (
 /obj/machinery/light_switch{
-	pixel_x = -23
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -28150,7 +28320,8 @@
 	pixel_y = -10
 	},
 /obj/item/radio/intercom{
-	pixel_y = -25
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/effect/landmark/start/ai,
 /turf/simulated/floor/bluegrid,
@@ -28162,7 +28333,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/item/clothing/gloves/color/fyellow,
 /obj/item/clothing/suit/storage/hazardvest,
@@ -28256,6 +28428,7 @@
 "blX" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/structure/closet,
@@ -28329,6 +28502,7 @@
 "bmc" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -28449,6 +28623,7 @@
 /area/quartermaster/office)
 "bml" = (
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -28462,7 +28637,8 @@
 "bmm" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -28475,7 +28651,8 @@
 /area/engine/chiefs_office)
 "bmn" = (
 /obj/machinery/light_switch{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -28694,7 +28871,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/newscaster{
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -28813,7 +28991,9 @@
 /area/crew_quarters/kitchen)
 "bmP" = (
 /obj/machinery/light_switch{
-	pixel_x = 27
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 30
@@ -28866,6 +29046,7 @@
 	})
 "bmT" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/camera{
@@ -28883,8 +29064,7 @@
 	pixel_y = 4
 	},
 /obj/item/radio/intercom{
-	dir = 8;
-	name = "Station Intercom (Captain)";
+	name = "west bump";
 	pixel_x = -28
 	},
 /turf/simulated/floor/carpet,
@@ -28893,7 +29073,9 @@
 	})
 "bmV" = (
 /obj/machinery/light_switch{
-	pixel_y = -25
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/flask/gold,
@@ -28970,7 +29152,8 @@
 /area/hallway/primary/starboard)
 "bnh" = (
 /obj/machinery/firealarm{
-	pixel_y = 32
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -29026,6 +29209,7 @@
 /area/hallway/primary/central)
 "bnn" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/light{
@@ -29047,6 +29231,7 @@
 /area/hallway/primary/starboard)
 "bnq" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -29076,6 +29261,7 @@
 "bnu" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/light,
@@ -29170,7 +29356,9 @@
 	})
 "bnE" = (
 /obj/machinery/light_switch{
-	pixel_x = 28
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/structure/dresser,
 /obj/item/storage/secure/safe{
@@ -29218,7 +29406,9 @@
 /obj/item/multitool,
 /obj/item/clothing/glasses/meson,
 /obj/machinery/light_switch{
-	pixel_y = -28
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -29246,7 +29436,7 @@
 /area/maintenance/starboard)
 "bnM" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
+	name = "south bump";
 	pixel_y = -28
 	},
 /obj/machinery/disposal,
@@ -29464,6 +29654,7 @@
 "bog" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/structure/table/reinforced,
@@ -29491,7 +29682,9 @@
 	pixel_y = 3
 	},
 /obj/machinery/light_switch{
-	pixel_x = 27
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/item/rcs,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -29722,9 +29915,8 @@
 	pixel_y = 5
 	},
 /obj/item/radio/intercom{
-	dir = 0;
-	name = "Station Intercom (General)";
-	pixel_x = -27
+	name = "west bump";
+	pixel_x = -28
 	},
 /obj/item/paper/safe_code{
 	owner = "captain"
@@ -29961,7 +30153,8 @@
 "bpg" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 28
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -30236,7 +30429,7 @@
 "bpN" = (
 /obj/structure/filingcabinet/filingcabinet,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
+	name = "south bump";
 	pixel_y = -28
 	},
 /obj/machinery/camera{
@@ -30296,6 +30489,7 @@
 "bpP" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/item/storage/box,
@@ -30315,6 +30509,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/structure/disposalpipe/segment,
@@ -30393,8 +30588,8 @@
 /obj/structure/table,
 /obj/item/toner,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -30531,7 +30726,9 @@
 	},
 /obj/machinery/light,
 /obj/machinery/light_switch{
-	pixel_y = -25
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/effect/landmark/start/captain,
 /turf/simulated/floor/plasteel{
@@ -30566,6 +30763,7 @@
 "bqs" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/effect/landmark/start/captain,
@@ -30631,8 +30829,8 @@
 /area/hallway/primary/starboard)
 "bqA" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -30672,6 +30870,7 @@
 "bqE" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/camera{
@@ -30954,8 +31153,8 @@
 /area/shuttle/arrival/station)
 "brq" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
@@ -31268,6 +31467,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/structure/disposalpipe/segment,
@@ -31278,6 +31478,7 @@
 "brP" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/item/paper_bin{
@@ -31498,7 +31699,8 @@
 /obj/item/multitool,
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -31549,7 +31751,9 @@
 /area/maintenance/starboard)
 "bss" = (
 /obj/machinery/light_switch{
-	pixel_x = 27
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -31638,8 +31842,7 @@
 "bsE" = (
 /obj/machinery/light/small,
 /obj/item/radio/intercom{
-	dir = 0;
-	name = "Station Intercom (General)";
+	name = "south bump";
 	pixel_y = -28
 	},
 /obj/vehicle/janicart,
@@ -31681,7 +31884,9 @@
 	},
 /obj/item/bikehorn/rubberducky,
 /obj/machinery/light_switch{
-	pixel_x = -28
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/item/card/id/captains_spare,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -31799,6 +32004,7 @@
 	})
 "bsV" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -31809,6 +32015,7 @@
 "bsW" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/computer/teleporter,
@@ -31835,7 +32042,9 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/light_switch{
-	pixel_x = -22
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
@@ -31908,6 +32117,7 @@
 	layer = 2
 	},
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/portable_atmospherics/canister/air,
@@ -32007,7 +32217,8 @@
 /area/hallway/primary/port)
 "btu" = (
 /obj/machinery/firealarm{
-	pixel_y = 32
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -32066,8 +32277,8 @@
 /area/hallway/primary/central)
 "btD" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 21
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/machinery/light{
 	dir = 1
@@ -32124,7 +32335,8 @@
 /area/hallway/primary/central)
 "btL" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 27
 	},
 /obj/structure/sign/double/map/right{
 	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
@@ -32162,8 +32374,8 @@
 "btO" = (
 /obj/structure/table,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = -29
+	name = "west bump";
+	pixel_x = -28
 	},
 /obj/item/storage/firstaid/regular,
 /obj/machinery/power/apc{
@@ -32193,7 +32405,8 @@
 "btR" = (
 /obj/machinery/autolathe,
 /obj/machinery/newscaster{
-	pixel_x = 28
+	name = "east bump";
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -32294,9 +32507,8 @@
 /area/bridge)
 "btY" = (
 /obj/item/radio/intercom{
-	dir = 0;
-	name = "Station Intercom (General)";
-	pixel_y = 29
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -32352,6 +32564,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -32361,6 +32574,7 @@
 "buc" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/item/storage/fancy/donut_box,
@@ -32421,8 +32635,7 @@
 	})
 "buh" = (
 /obj/item/radio/intercom{
-	dir = 8;
-	name = "Station Intercom (Captain)";
+	name = "east bump";
 	pixel_x = 28
 	},
 /obj/machinery/ai_status_display{
@@ -32448,8 +32661,7 @@
 	})
 "buj" = (
 /obj/item/radio/intercom{
-	dir = 8;
-	name = "Station Intercom (General)";
+	name = "west bump";
 	pixel_x = -28
 	},
 /obj/machinery/camera{
@@ -32511,7 +32723,9 @@
 /area/civilian/barber)
 "buo" = (
 /obj/machinery/light_switch{
-	pixel_x = 27
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -32623,6 +32837,7 @@
 "buD" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/camera{
@@ -32765,6 +32980,7 @@
 	dir = 1
 	},
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/camera{
@@ -32800,7 +33016,9 @@
 	dir = 1
 	},
 /obj/machinery/light_switch{
-	pixel_x = 23
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -32834,6 +33052,7 @@
 	})
 "buV" = (
 /obj/structure/extinguisher_cabinet{
+	name = "south bump";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -32867,7 +33086,9 @@
 	dir = 8
 	},
 /obj/machinery/light_switch{
-	pixel_x = -23
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/camera/motion{
 	c_tag = "Mini Satellite Antechamber";
@@ -32949,7 +33170,9 @@
 	network = list("SS13","MiniSat")
 	},
 /obj/machinery/light_switch{
-	pixel_x = -23
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/ai_slipper,
 /obj/effect/decal/warning_stripes/north,
@@ -32978,8 +33201,8 @@
 	})
 "bvg" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 20
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/structure/showcase{
 	density = 0;
@@ -33134,6 +33357,7 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/machinery/camera{
@@ -33159,6 +33383,7 @@
 /area/hallway/primary/central)
 "bvt" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/machinery/camera{
@@ -33169,6 +33394,7 @@
 /area/engine/break_room)
 "bvu" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/structure/table,
@@ -33177,6 +33403,7 @@
 	pixel_y = 10
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -33201,6 +33428,7 @@
 "bvw" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/structure/showcase{
@@ -33294,8 +33522,8 @@
 "bvE" = (
 /obj/machinery/vending/cola,
 /obj/machinery/newscaster{
-	pixel_x = -28;
-	pixel_y = 1
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -33578,8 +33806,8 @@
 	})
 "bwb" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 21
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -33725,6 +33953,7 @@
 /area/bridge)
 "bwo" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -33832,7 +34061,8 @@
 "bwA" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 28
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/start/barber,
@@ -34173,6 +34403,7 @@
 "bxn" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
@@ -34225,6 +34456,7 @@
 "bxr" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -34482,8 +34714,8 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/newscaster{
-	pixel_x = 28;
-	pixel_y = 1
+	name = "east bump";
+	pixel_x = 32
 	},
 /obj/machinery/light{
 	dir = 4
@@ -34550,7 +34782,7 @@
 /area/hallway/primary/port)
 "bxS" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
+	name = "south bump";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -34580,6 +34812,7 @@
 "bxX" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -34610,8 +34843,8 @@
 	req_access_txt = "57"
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 21
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
@@ -34627,6 +34860,7 @@
 /obj/machinery/light,
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -34702,7 +34936,9 @@
 	req_access_txt = "28"
 	},
 /obj/machinery/light_switch{
-	pixel_x = -25;
+	dir = 4;
+	name = "custom placement";
+	pixel_x = -24;
 	pixel_y = 5
 	},
 /turf/simulated/floor/carpet,
@@ -34758,6 +34994,7 @@
 /obj/machinery/light,
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/rack,
@@ -34775,7 +35012,9 @@
 	dir = 8
 	},
 /obj/machinery/light_switch{
-	pixel_y = -25
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/vending/cola{
 	pixel_x = 2
@@ -34823,6 +35062,7 @@
 /obj/structure/closet/secure_closet/hop,
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/computer/security/telescreen/entertainment{
@@ -34855,7 +35095,8 @@
 /obj/item/wrench,
 /obj/item/multitool,
 /obj/machinery/newscaster{
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -34863,8 +35104,8 @@
 /area/bridge)
 "byy" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/structure/rack,
 /obj/item/assembly/signaler,
@@ -34901,7 +35142,9 @@
 	pixel_y = 3
 	},
 /obj/machinery/light_switch{
-	pixel_x = 28
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
@@ -35152,14 +35395,15 @@
 "byY" = (
 /obj/machinery/light/small,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "byZ" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -35770,8 +36014,9 @@
 /area/crew_quarters/heads)
 "bAb" = (
 /obj/machinery/light_switch{
-	pixel_x = 8;
-	pixel_y = -26
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -35869,6 +36114,7 @@
 	})
 "bAr" = (
 /obj/machinery/newscaster{
+	name = "south bump";
 	pixel_y = -32
 	},
 /obj/item/storage/box/donkpockets,
@@ -35959,6 +36205,7 @@
 "bAA" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/light/small{
@@ -36049,14 +36296,9 @@
 	})
 "bAU" = (
 /obj/machinery/light/small,
-/obj/machinery/light_switch{
-	pixel_x = -8;
-	pixel_y = -24
-	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 5;
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/structure/rack,
 /obj/item/wrench,
@@ -36076,6 +36318,11 @@
 /obj/structure/rack,
 /obj/item/clothing/mask/gas,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36083,6 +36330,7 @@
 "bAW" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/power/apc{
@@ -36208,6 +36456,7 @@
 /obj/structure/window/reinforced,
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/light/small,
@@ -36236,9 +36485,8 @@
 	},
 /obj/machinery/light,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 5;
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -36288,7 +36536,9 @@
 	})
 "bBn" = (
 /obj/machinery/light_switch{
-	pixel_x = -23
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/cryopod/robot,
 /obj/machinery/computer/cryopod/robot{
@@ -36303,6 +36553,7 @@
 	})
 "bBp" = (
 /obj/structure/extinguisher_cabinet{
+	name = "south bump";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -36525,6 +36776,8 @@
 /area/bridge)
 "bBV" = (
 /obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/disposal,
@@ -36612,7 +36865,9 @@
 /obj/structure/table/wood,
 /obj/structure/window/reinforced,
 /obj/machinery/light_switch{
-	pixel_x = -28
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/item/storage/secure/briefcase{
 	pixel_x = -2;
@@ -36636,9 +36891,8 @@
 /obj/item/hand_tele,
 /obj/structure/window/reinforced,
 /obj/item/radio/intercom{
-	dir = 0;
-	name = "Station Intercom (General)";
-	pixel_x = 27
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
@@ -36840,9 +37094,8 @@
 	icon_state = "1-2"
 	},
 /obj/item/radio/intercom{
-	dir = 0;
-	name = "Station Intercom (General)";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -36851,6 +37104,7 @@
 "bCB" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -36907,6 +37161,7 @@
 "bCJ" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/computer/arcade,
@@ -37074,7 +37329,8 @@
 /area/tcommsat/computer)
 "bDg" = (
 /obj/machinery/light_switch{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/structure/showcase{
 	density = 0;
@@ -37093,9 +37349,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	dir = 8;
-	name = "Station Intercom (Telecoms)";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/structure/table/wood,
 /obj/item/phone{
@@ -37192,6 +37447,7 @@
 	})
 "bDq" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -37204,6 +37460,7 @@
 "bDr" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/camera{
@@ -37242,6 +37499,7 @@
 "bDu" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -37265,6 +37523,7 @@
 "bDw" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /obj/item/folder,
@@ -37279,6 +37538,7 @@
 "bDx" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -37288,6 +37548,8 @@
 /area/hallway/primary/port)
 "bDy" = (
 /obj/machinery/firealarm{
+	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -37324,6 +37586,7 @@
 "bDB" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -37444,6 +37707,7 @@
 /obj/machinery/vending/cigarette,
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
@@ -37468,8 +37732,7 @@
 "bDM" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom{
-	dir = 0;
-	name = "Station Intercom (General)";
+	name = "north bump";
 	pixel_y = 28
 	},
 /obj/item/flashlight/lamp/green{
@@ -37507,7 +37770,9 @@
 	pixel_y = 5
 	},
 /obj/machinery/light_switch{
-	pixel_x = 28
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -37544,7 +37809,8 @@
 /obj/structure/table,
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/chem_dispenser/soda,
 /obj/structure/sign/barsign{
@@ -37558,7 +37824,8 @@
 /obj/structure/table/wood,
 /obj/item/folder/yellow,
 /obj/machinery/firealarm{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/item/book/manual/security_space_law{
 	pixel_y = 3
@@ -37608,6 +37875,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -37681,6 +37949,7 @@
 "bEn" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/light{
@@ -37717,6 +37986,7 @@
 "bEp" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -37729,6 +37999,7 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -37813,7 +38084,8 @@
 "bEB" = (
 /obj/structure/piano,
 /obj/machinery/light_switch{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -37850,7 +38122,9 @@
 	pixel_y = 28
 	},
 /obj/machinery/light_switch{
-	pixel_x = 25
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -37881,13 +38155,14 @@
 /area/hallway/primary/starboard)
 "bEK" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -28
 	},
 /obj/item/crowbar/red,
 /obj/item/wrench,
 /obj/item/clothing/mask/gas,
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/structure/table,
@@ -37946,14 +38221,15 @@
 	icon_state = "0-4"
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bEP" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 21
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -37971,6 +38247,7 @@
 "bEQ" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -38055,6 +38332,7 @@
 /area/atmos)
 "bEY" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/camera{
@@ -38081,6 +38359,7 @@
 /area/atmos)
 "bFa" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/machinery/light{
@@ -38120,8 +38399,8 @@
 /area/tcommsat/computer)
 "bFe" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -25
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/machinery/camera{
 	c_tag = "Arrivals - Middle Arm - Far";
@@ -38134,9 +38413,8 @@
 	})
 "bFf" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 5;
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/machinery/computer/monitor{
 	dir = 1;
@@ -38293,9 +38571,8 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 27
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -38319,8 +38596,8 @@
 /area/library)
 "bFA" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -28
 	},
 /obj/machinery/light{
 	dir = 8
@@ -38399,8 +38676,8 @@
 	})
 "bFJ" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -25
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -38477,6 +38754,7 @@
 "bFS" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/vending/cigarette{
@@ -38506,6 +38784,7 @@
 "bFV" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/carpet,
@@ -38537,6 +38816,7 @@
 "bFY" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
+	name = "west bump";
 	pixel_x = -32
 	},
 /turf/simulated/floor/wood,
@@ -38546,9 +38826,8 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	dir = 0;
-	name = "Station Intercom (General)";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -38575,6 +38854,7 @@
 	})
 "bGc" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -38691,6 +38971,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/item/clothing/head/sombrero,
@@ -38839,6 +39120,7 @@
 "bGD" = (
 /obj/machinery/space_heater,
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -38931,7 +39213,9 @@
 	},
 /obj/structure/table,
 /obj/machinery/light_switch{
-	pixel_x = 26
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -39024,10 +39308,13 @@
 	pixel_y = 3
 	},
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/light_switch{
-	pixel_x = -26
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -39074,6 +39361,7 @@
 "bHi" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/computer/message_monitor{
@@ -39163,8 +39451,8 @@
 	})
 "bHq" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 21
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -39290,6 +39578,7 @@
 /area/atmos)
 "bHH" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /turf/simulated/floor/carpet,
@@ -39407,6 +39696,7 @@
 "bHY" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/structure/table/wood,
@@ -39608,9 +39898,8 @@
 /area/atmos)
 "bIy" = (
 /obj/item/radio/intercom{
-	dir = 0;
-	name = "Station Intercom (General)";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
@@ -39725,6 +40014,7 @@
 /obj/structure/table/wood,
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/item/folder/red,
@@ -39753,6 +40043,7 @@
 "bIX" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -39954,6 +40245,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/item/paper_bin{
@@ -40069,7 +40361,9 @@
 "bJu" = (
 /obj/structure/table/wood,
 /obj/machinery/light_switch{
-	pixel_x = -28
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/item/folder,
 /turf/simulated/floor/wood,
@@ -40121,6 +40415,7 @@
 "bJz" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /obj/item/clipboard,
@@ -40142,6 +40437,7 @@
 	specialfunctions = 4
 	},
 /obj/machinery/newscaster{
+	name = "south bump";
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
@@ -40150,6 +40446,7 @@
 	})
 "bJB" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -40328,8 +40625,8 @@
 	pixel_y = 5
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/machinery/camera{
 	c_tag = "Theatre - Stage";
@@ -40522,6 +40819,7 @@
 /obj/structure/table/wood,
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
@@ -40653,6 +40951,7 @@
 	pixel_y = 5
 	},
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /obj/structure/table/wood,
@@ -40714,6 +41013,7 @@
 "bKE" = (
 /obj/machinery/vending/coffee,
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /obj/machinery/light{
@@ -40788,6 +41088,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -40806,6 +41107,7 @@
 	pixel_y = 5
 	},
 /obj/machinery/newscaster{
+	name = "west bump";
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -40819,6 +41121,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -40872,7 +41175,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/newscaster{
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -41002,7 +41306,8 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/newscaster{
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -41056,6 +41361,7 @@
 /obj/machinery/light,
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -41331,8 +41637,8 @@
 	})
 "bLS" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 21
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -41389,6 +41695,7 @@
 "bLW" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/door_control{
@@ -41707,8 +42014,8 @@
 /area/security/vacantoffice)
 "bMF" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 21
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/machinery/camera{
 	c_tag = "Command Hallway - Starboard"
@@ -42033,8 +42340,8 @@
 /area/medical/medbay3)
 "bNA" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -42064,7 +42371,9 @@
 /area/crew_quarters/kitchen)
 "bNC" = (
 /obj/machinery/light_switch{
-	pixel_y = -26
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -42077,6 +42386,7 @@
 "bND" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/camera{
@@ -42135,6 +42445,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -42345,6 +42656,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -42441,6 +42753,7 @@
 	specialfunctions = 4
 	},
 /obj/machinery/newscaster{
+	name = "south bump";
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
@@ -42488,9 +42801,8 @@
 	pixel_y = 9
 	},
 /obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 27
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
@@ -42534,8 +42846,8 @@
 "bOA" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/machinery/light_switch{
-	pixel_x = -8;
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -42625,6 +42937,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "south bump";
 	pixel_y = -30
 	},
 /obj/machinery/camera{
@@ -42648,6 +42961,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "south bump";
 	pixel_y = -30
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -42773,7 +43087,8 @@
 "bOY" = (
 /obj/machinery/vending/cigarette,
 /obj/machinery/newscaster{
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
@@ -42811,7 +43126,8 @@
 "bPb" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 28
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/plasteel{
@@ -42833,6 +43149,7 @@
 	specialfunctions = 4
 	},
 /obj/machinery/newscaster{
+	name = "south bump";
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating,
@@ -42850,7 +43167,9 @@
 /area/crew_quarters/theatre)
 "bPe" = (
 /obj/machinery/light_switch{
-	pixel_y = -28
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/light,
 /turf/simulated/floor/carpet,
@@ -42871,6 +43190,7 @@
 "bPi" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -42955,6 +43275,7 @@
 "bPq" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/structure/closet/crate,
@@ -43099,7 +43420,8 @@
 /area/space/nearstation)
 "bPI" = (
 /obj/item/radio/intercom{
-	pixel_y = -25
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology{
@@ -43135,8 +43457,8 @@
 /area/crew_quarters/kitchen)
 "bPR" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = -29
+	name = "west bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
@@ -43162,6 +43484,7 @@
 "bPV" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/wood,
@@ -43172,6 +43495,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
@@ -43228,6 +43552,7 @@
 "bQc" = (
 /obj/structure/closet/secure_closet/exile,
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -43280,6 +43605,7 @@
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -43344,7 +43670,9 @@
 /area/blueshield)
 "bQp" = (
 /obj/machinery/light_switch{
-	pixel_x = 27
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/wood,
 /area/blueshield)
@@ -43353,7 +43681,9 @@
 /area/ntrep)
 "bQu" = (
 /obj/machinery/light_switch{
-	pixel_x = 27
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/wood,
 /area/ntrep)
@@ -43408,10 +43738,12 @@
 /obj/structure/table,
 /obj/item/clothing/head/cakehat,
 /obj/machinery/newscaster{
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -43429,7 +43761,7 @@
 /area/gateway)
 "bQE" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
+	name = "south bump";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -43531,7 +43863,8 @@
 "bQP" = (
 /obj/machinery/vending/snack,
 /obj/machinery/newscaster{
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar)
@@ -43539,6 +43872,7 @@
 /obj/machinery/vending/coffee,
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/carpet,
@@ -43579,7 +43913,7 @@
 /area/crew_quarters/theatre)
 "bQV" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 6;
+	name = "south bump";
 	pixel_y = -30
 	},
 /obj/machinery/keycard_auth{
@@ -43857,6 +44191,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/camera{
@@ -43984,6 +44319,7 @@
 /area/library)
 "bRO" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -44121,20 +44457,16 @@
 /turf/simulated/floor/wood,
 /area/blueshield)
 "bSa" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "bSb" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "bSc" = (
 /obj/item/radio/intercom{
-	pixel_x = 29;
-	pixel_y = -1
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/wood,
 /area/blueshield)
@@ -44153,8 +44485,8 @@
 /area/ntrep)
 "bSg" = (
 /obj/item/radio/intercom{
-	pixel_x = 29;
-	pixel_y = -1
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/wood,
 /area/ntrep)
@@ -44252,6 +44584,7 @@
 "bSq" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -44348,7 +44681,9 @@
 /area/crew_quarters/kitchen)
 "bSz" = (
 /obj/machinery/light_switch{
-	pixel_x = 28
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/libraryscanner,
 /turf/simulated/floor/wood,
@@ -44469,6 +44804,7 @@
 /area/atmos)
 "bSN" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -44576,6 +44912,7 @@
 /area/hallway/primary/central)
 "bSX" = (
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/light/small{
@@ -44616,6 +44953,7 @@
 /area/medical/morgue)
 "bTb" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/structure/morgue,
@@ -44782,6 +45120,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
@@ -44847,6 +45186,7 @@
 /obj/machinery/light/small,
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
@@ -44867,13 +45207,16 @@
 /area/library)
 "bTz" = (
 /obj/machinery/light_switch{
-	pixel_y = -28
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
 /area/library)
 "bTA" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/wood,
@@ -44933,6 +45276,7 @@
 /area/gateway)
 "bTH" = (
 /obj/machinery/newscaster{
+	name = "south bump";
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -44953,6 +45297,7 @@
 "bTK" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -44962,6 +45307,7 @@
 "bTL" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -44979,6 +45325,7 @@
 "bTO" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -44989,13 +45336,16 @@
 "bTP" = (
 /obj/structure/dresser,
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
 "bTQ" = (
 /obj/machinery/light_switch{
-	pixel_x = -26
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -45008,6 +45358,7 @@
 /obj/structure/closet/secure_closet/medical1,
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -45052,8 +45403,7 @@
 /area/maintenance/maintcentral)
 "bTW" = (
 /obj/item/radio/intercom{
-	dir = 8;
-	name = "Station Intercom (General)";
+	name = "west bump";
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -45086,6 +45436,7 @@
 "bUf" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/vending/dinnerware,
@@ -45136,8 +45487,8 @@
 "bUo" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics - Central";
@@ -45362,6 +45713,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -45410,8 +45762,8 @@
 /area/gateway)
 "bUW" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -25
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -45430,9 +45782,7 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "bUY" = (
 /obj/structure/table/wood,
@@ -45443,9 +45793,7 @@
 	pixel_y = 6
 	},
 /obj/item/paper/blueshield,
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "bVa" = (
 /obj/machinery/photocopier,
@@ -45504,9 +45852,8 @@
 "bVf" = (
 /obj/structure/table,
 /obj/item/radio/intercom{
-	dir = 0;
-	name = "Station Intercom (General)";
-	pixel_x = 27
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/item/hand_labeler,
 /obj/item/stack/packageWrap,
@@ -45547,9 +45894,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	dir = 0;
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -45635,6 +45981,7 @@
 /area/crew_quarters/sleep)
 "bVp" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/structure/closet/secure_closet/freezer/meat,
@@ -45668,12 +46015,13 @@
 	id = "kitchen";
 	name = "Kitchen Shutters Control";
 	pixel_x = -4;
-	pixel_y = 26;
+	pixel_y = 24;
 	req_access_txt = "28"
 	},
 /obj/machinery/light_switch{
+	name = "custom placement";
 	pixel_x = 6;
-	pixel_y = 26
+	pixel_y = 24
 	},
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
@@ -45705,6 +46053,7 @@
 /area/crew_quarters/kitchen)
 "bVv" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/structure/cable/yellow{
@@ -45876,6 +46225,7 @@
 	})
 "bVQ" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/machinery/atmospherics/binary/pump{
@@ -46047,6 +46397,7 @@
 "bWh" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/southwest,
@@ -46167,6 +46518,7 @@
 "bWz" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -46257,15 +46609,11 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/blueshield,
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "bWI" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "bWJ" = (
 /obj/structure/chair/comfy/black{
@@ -46273,9 +46621,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "bWK" = (
 /obj/item/flag/nt,
@@ -46437,6 +46783,7 @@
 /area/gateway)
 "bXb" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/structure/closet/secure_closet/freezer/fridge,
@@ -46525,7 +46872,8 @@
 /obj/machinery/icemachine,
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 28
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -46544,6 +46892,7 @@
 /obj/item/clothing/mask/cigarette/pipe,
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/camera{
@@ -46567,11 +46916,12 @@
 "bXr" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -46627,6 +46977,7 @@
 "bXy" = (
 /obj/structure/cult/archives,
 /obj/machinery/newscaster{
+	name = "west bump";
 	pixel_x = -32
 	},
 /obj/item/clothing/under/suit_jacket/red,
@@ -46763,6 +47114,7 @@
 /area/space/nearstation)
 "bXP" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -46784,7 +47136,8 @@
 /obj/item/taperecorder,
 /obj/item/camera,
 /obj/item/radio/intercom{
-	pixel_y = -25
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
@@ -46801,9 +47154,8 @@
 /area/library)
 "bXT" = (
 /obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 27
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -46866,6 +47218,7 @@
 /obj/structure/closet/secure_closet/blueshield,
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
@@ -46927,6 +47280,7 @@
 "bYi" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/wood,
@@ -46935,6 +47289,7 @@
 /obj/structure/closet/secure_closet/ntrep,
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/wood,
@@ -47016,6 +47371,7 @@
 "bYr" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -47201,6 +47557,7 @@
 /obj/item/storage/fancy/donut_box,
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -47379,6 +47736,7 @@
 "bZb" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/power/apc{
@@ -47436,9 +47794,8 @@
 /area/library)
 "bZg" = (
 /obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 27
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -47447,6 +47804,7 @@
 "bZh" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -47469,6 +47827,7 @@
 /area/civilian/barber)
 "bZj" = (
 /obj/structure/extinguisher_cabinet{
+	name = "south bump";
 	pixel_y = -30
 	},
 /obj/machinery/kitchen_machine/oven,
@@ -47616,6 +47975,7 @@
 "bZD" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/camera{
@@ -47628,6 +47988,7 @@
 "bZG" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -47726,6 +48087,7 @@
 /area/maintenance/aft)
 "bZW" = (
 /obj/machinery/newscaster{
+	name = "west bump";
 	pixel_x = -32
 	},
 /turf/simulated/floor/wood,
@@ -47746,6 +48108,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
@@ -47753,6 +48116,7 @@
 "caa" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/camera/autoname{
@@ -47862,7 +48226,8 @@
 	})
 "can" = (
 /obj/machinery/firealarm{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -47941,7 +48306,8 @@
 "caA" = (
 /obj/machinery/vending/snack,
 /obj/machinery/newscaster{
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -48066,6 +48432,7 @@
 	})
 "caL" = (
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/effect/decal/warning_stripes/northeastcorner,
@@ -48101,8 +48468,8 @@
 /area/hallway/primary/central)
 "caP" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 21
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plasteel,
@@ -48199,7 +48566,8 @@
 /area/maintenance/starboard)
 "cba" = (
 /obj/item/radio/intercom{
-	pixel_y = -25
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/machinery/camera{
 	c_tag = "Kitchen";
@@ -48212,8 +48580,8 @@
 /area/crew_quarters/kitchen)
 "cbb" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 21
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -48285,6 +48653,7 @@
 /area/hallway/primary/central)
 "cbj" = (
 /obj/structure/extinguisher_cabinet{
+	name = "north bump";
 	pixel_y = 30
 	},
 /obj/effect/decal/warning_stripes/northwestcorner,
@@ -48768,9 +49137,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 27
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
@@ -48804,8 +49172,8 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 29
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/structure/reagent_dispensers/watertank/high,
 /obj/item/reagent_containers/glass/bucket,
@@ -48962,6 +49330,7 @@
 "ccI" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/disposalpipe/segment{
@@ -49010,6 +49379,7 @@
 "ccU" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/disposalpipe/segment{
@@ -49105,7 +49475,8 @@
 /area/maintenance/portsolar)
 "cdk" = (
 /obj/machinery/firealarm{
-	pixel_y = 29
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -49344,6 +49715,7 @@
 "cdE" = (
 /obj/machinery/light,
 /obj/structure/extinguisher_cabinet{
+	name = "south bump";
 	pixel_y = -30
 	},
 /obj/machinery/camera{
@@ -49373,6 +49745,7 @@
 "cdI" = (
 /obj/structure/closet/secure_closet/hydroponics,
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/item/storage/backpack/satchel_hyd,
@@ -49533,6 +49906,7 @@
 "cei" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/item/twohanded/required/kirbyplants{
@@ -49544,7 +49918,8 @@
 /area/hallway/primary/central)
 "cej" = (
 /obj/machinery/newscaster{
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -49669,6 +50044,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -49870,6 +50246,7 @@
 /area/quartermaster/office)
 "ceY" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/structure/table,
@@ -49983,6 +50360,7 @@
 /area/bridge)
 "cfi" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/item/twohanded/required/kirbyplants{
@@ -50019,6 +50397,7 @@
 /obj/item/seeds/potato,
 /obj/item/seeds/apple,
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/machinery/light{
@@ -50048,6 +50427,7 @@
 	pixel_y = 5
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "south bump";
 	pixel_y = -30
 	},
 /obj/effect/spawner/lootdrop/maintenance,
@@ -50157,11 +50537,8 @@
 /area/maintenance/starboard)
 "cfz" = (
 /obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1485;
-	listening = 0;
-	name = "Station Intercom (Medbay)";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/machinery/vending/medidrobe,
 /turf/simulated/floor/plasteel{
@@ -50216,6 +50593,7 @@
 /area/maintenance/aft)
 "cfF" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -50225,6 +50603,7 @@
 /area/medical/paramedic)
 "cfG" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/structure/table/glass,
@@ -50257,9 +50636,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "cfK" = (
 /turf/simulated/wall,
@@ -50280,7 +50657,9 @@
 "cfM" = (
 /obj/machinery/biogenerator,
 /obj/machinery/light_switch{
-	pixel_x = 26
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
@@ -50322,7 +50701,9 @@
 "cfS" = (
 /obj/structure/closet/secure_closet/hydroponics,
 /obj/machinery/light_switch{
-	pixel_x = -26
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/item/storage/backpack/satchel_hyd,
 /turf/simulated/floor/plasteel{
@@ -50332,6 +50713,7 @@
 "cfT" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/light{
@@ -50541,6 +50923,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/camera{
@@ -50657,8 +51040,8 @@
 /obj/structure/closet/paramedic,
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 28;
-	pixel_y = 5
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -50700,6 +51083,7 @@
 "cgM" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/structure/sink{
@@ -50896,8 +51280,8 @@
 /area/maintenance/incinerator)
 "chg" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -28
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 5
@@ -51157,7 +51541,8 @@
 	dir = 1
 	},
 /obj/machinery/light_switch{
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -51208,6 +51593,7 @@
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/hud/health,
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/light{
@@ -51263,6 +51649,7 @@
 "chZ" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/computer/crew{
@@ -51379,7 +51766,8 @@
 	dir = 1
 	},
 /obj/item/radio/intercom{
-	pixel_y = -25
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
@@ -51637,7 +52025,9 @@
 /area/atmos)
 "ciP" = (
 /obj/machinery/light_switch{
-	pixel_x = -26
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -51781,7 +52171,9 @@
 	})
 "ciZ" = (
 /obj/machinery/light_switch{
-	pixel_y = -28
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/disposal{
 	pixel_x = -2;
@@ -51896,7 +52288,8 @@
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister,
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 31
+	name = "east bump";
+	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -51959,6 +52352,7 @@
 	})
 "cjw" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/structure/bed/roller,
@@ -52045,6 +52439,7 @@
 /obj/item/storage/toolbox/emergency,
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -52200,6 +52595,7 @@
 "cjZ" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/hydroponics/constructable,
@@ -52272,9 +52668,8 @@
 "ckf" = (
 /obj/structure/bed/roller,
 /obj/item/radio/intercom{
-	frequency = 1485;
-	name = "Station Intercom (Medbay)";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -52401,6 +52796,7 @@
 "cku" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/plantgenes,
@@ -52480,8 +52876,8 @@
 /area/maintenance/aft)
 "ckE" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -52685,8 +53081,8 @@
 /obj/structure/table,
 /obj/item/paicard,
 /obj/machinery/newscaster{
-	pixel_x = -1;
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -52722,6 +53118,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/structure/sink{
@@ -52878,7 +53275,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/light_switch{
-	pixel_x = -26
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/light/small,
 /obj/structure/table/glass,
@@ -52974,7 +53373,7 @@
 /area/space/nearstation)
 "clI" = (
 /obj/item/radio/intercom{
-	dir = 8;
+	name = "west bump";
 	pixel_x = -28
 	},
 /obj/machinery/optable,
@@ -53110,6 +53509,7 @@
 "clY" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/closet/secure_closet/medical3,
@@ -53184,6 +53584,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -53310,6 +53711,7 @@
 /area/toxins/explab)
 "cmD" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/structure/table/glass,
@@ -53534,6 +53936,7 @@
 "cnd" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -53627,7 +54030,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
-	pixel_y = -28
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -53843,11 +54247,12 @@
 /area/medical/research)
 "cnH" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -31
+	name = "west bump";
+	pixel_x = -27
 	},
 /obj/machinery/computer/turbine_computer{
 	dir = 1;
@@ -53894,7 +54299,8 @@
 /area/toxins/explab)
 "cnN" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/engine,
 /area/toxins/explab)
@@ -54170,7 +54576,9 @@
 /area/maintenance/incinerator)
 "cot" = (
 /obj/machinery/light_switch{
-	pixel_x = 23
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -54236,6 +54644,7 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /turf/simulated/floor/wood,
@@ -54336,7 +54745,9 @@
 /area/medical/exam_room)
 "coG" = (
 /obj/machinery/light_switch{
-	pixel_x = 23
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/wall/r_wall,
 /area/hallway/primary/aft)
@@ -54440,6 +54851,7 @@
 "coV" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/vending/cola,
@@ -54721,7 +55133,8 @@
 /area/maintenance/aft)
 "cpC" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 24
+	name = "east bump";
+	pixel_x = 27
 	},
 /obj/machinery/disposal{
 	pixel_x = 5
@@ -54757,9 +55170,8 @@
 	})
 "cpF" = (
 /obj/item/radio/intercom{
-	dir = 1;
-	name = "Station Intercom (General)";
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -54899,6 +55311,7 @@
 	name = "Robotics Operating Table"
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "south bump";
 	pixel_y = -30
 	},
 /obj/machinery/camera{
@@ -54920,7 +55333,8 @@
 "cpT" = (
 /obj/structure/chair/stool,
 /obj/machinery/newscaster{
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -55160,6 +55574,7 @@
 "cqs" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/structure/sink{
@@ -55176,6 +55591,7 @@
 "cqv" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/computer/rdconsole/core{
@@ -55187,8 +55603,8 @@
 "cqw" = (
 /obj/machinery/vending/coffee,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -55202,6 +55618,7 @@
 /obj/structure/closet/firecloset,
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -55673,6 +56090,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -55722,6 +56140,7 @@
 "crO" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/structure/closet/firecloset,
@@ -55770,7 +56189,9 @@
 	network = list("SS13","RD")
 	},
 /obj/machinery/light_switch{
-	pixel_x = 27
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/structure/table,
 /obj/item/stack/cable_coil,
@@ -55798,11 +56219,8 @@
 /area/medical/surgery1)
 "crW" = (
 /obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1485;
-	listening = 0;
-	name = "Station Intercom (Medbay)";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -56449,8 +56867,7 @@
 /area/hallway/primary/aft)
 "csU" = (
 /obj/item/radio/intercom{
-	dir = 8;
-	name = "Station Intercom (General)";
+	name = "west bump";
 	pixel_x = -28
 	},
 /obj/machinery/light{
@@ -56832,6 +57249,7 @@
 /area/medical/reception)
 "ctQ" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -56849,6 +57267,7 @@
 /area/toxins/explab)
 "ctT" = (
 /obj/item/radio/intercom{
+	name = "west bump";
 	pixel_x = -28
 	},
 /obj/structure/closet/crate/freezer/iv_storage,
@@ -57036,8 +57455,8 @@
 /area/medical/research)
 "cut" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 20
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -57069,6 +57488,7 @@
 /area/medical/research)
 "cux" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/machinery/requests_console{
@@ -57289,6 +57709,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -57845,7 +58266,8 @@
 /area/maintenance/aft)
 "cvX" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = 29
+	name = "north bump";
+	pixel_y = 30
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -57880,7 +58302,8 @@
 "cwc" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -57927,6 +58350,7 @@
 /area/medical/surgery1)
 "cwh" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -58044,6 +58468,7 @@
 /obj/structure/table,
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/light,
@@ -58064,13 +58489,16 @@
 	name = "Surgery Cleaner"
 	},
 /obj/machinery/light_switch{
-	pixel_x = 5;
-	pixel_y = -27
+	dir = 1;
+	name = "custom placement";
+	pixel_x = 4;
+	pixel_y = -24
 	},
 /obj/machinery/holosign_switch{
+	dir = 1;
 	id = "surgery2";
-	pixel_x = -5;
-	pixel_y = -27
+	pixel_x = -4;
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -58129,6 +58557,7 @@
 "cwK" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/sink{
@@ -58144,6 +58573,7 @@
 "cwL" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -58251,8 +58681,8 @@
 /area/toxins/explab)
 "cxa" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/machinery/camera{
 	c_tag = "Experimentation Lab";
@@ -58424,8 +58854,8 @@
 "cxE" = (
 /obj/structure/bed/roller,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 20
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -58679,6 +59109,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/item/stack/cable_coil,
@@ -58695,6 +59126,7 @@
 "cyb" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -58809,7 +59241,9 @@
 /area/medical/surgery1)
 "cyr" = (
 /obj/machinery/light_switch{
-	pixel_x = -23
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -59120,7 +59554,8 @@
 	department = "Chief Medical Officer's Office"
 	},
 /obj/machinery/newscaster{
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/machinery/camera{
 	c_tag = "Medbay Surgery 1 North"
@@ -59185,6 +59620,7 @@
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -59404,6 +59840,7 @@
 	},
 /obj/structure/cable/yellow,
 /obj/structure/extinguisher_cabinet{
+	name = "south bump";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -59414,6 +59851,7 @@
 "czB" = (
 /obj/structure/closet/secure_closet/CMO,
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -59610,6 +60048,7 @@
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -59767,8 +60206,8 @@
 	},
 /obj/item/storage/box/bodybags,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = -29
+	name = "west bump";
+	pixel_x = -28
 	},
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
@@ -59792,6 +60231,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/structure/sign/nosmoking_2{
@@ -59862,6 +60302,7 @@
 "cAA" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -59998,6 +60439,7 @@
 /obj/item/storage/secure/briefcase,
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -60140,7 +60582,8 @@
 	pixel_x = 32
 	},
 /obj/machinery/newscaster{
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
@@ -60308,8 +60751,8 @@
 	pixel_y = 2
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
@@ -60386,7 +60829,9 @@
 "cBI" = (
 /obj/machinery/portable_atmospherics/scrubber/huge,
 /obj/machinery/light_switch{
-	pixel_x = -23
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -60585,8 +61030,8 @@
 "cBY" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -60643,6 +61088,7 @@
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/item/reagent_containers/glass/beaker/large,
@@ -60751,6 +61197,7 @@
 "cCo" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/disposalpipe/trunk{
@@ -60763,8 +61210,8 @@
 /area/medical/reception)
 "cCp" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = -29
+	name = "west bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -61069,7 +61516,9 @@
 	pixel_y = 2
 	},
 /obj/machinery/light_switch{
-	pixel_x = -23
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -61095,6 +61544,7 @@
 "cCP" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -61107,6 +61557,7 @@
 /area/medical/research)
 "cCQ" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -61126,6 +61577,7 @@
 "cCT" = (
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -61135,11 +61587,12 @@
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -61150,6 +61603,7 @@
 /obj/machinery/portable_atmospherics/canister/toxins,
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/light/small,
@@ -61241,7 +61695,8 @@
 	dir = 1
 	},
 /obj/machinery/light_switch{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/machinery/vending/atmosdrobe,
 /obj/effect/decal/warning_stripes/south,
@@ -61427,7 +61882,9 @@
 "cDA" = (
 /obj/machinery/dna_scannernew,
 /obj/machinery/light_switch{
-	pixel_x = -23
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -61484,6 +61941,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
@@ -61518,6 +61976,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -61535,7 +61994,9 @@
 	},
 /obj/structure/cable/yellow,
 /obj/machinery/light_switch{
-	pixel_x = -23
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/item/twohanded/required/kirbyplants/dead,
 /turf/simulated/floor/plasteel{
@@ -61568,7 +62029,9 @@
 "cDO" = (
 /obj/structure/bed/dogbed,
 /obj/machinery/light_switch{
-	pixel_y = -25
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /mob/living/simple_animal/pet/cat/Runtime,
 /turf/simulated/floor/plasteel{
@@ -61787,6 +62250,7 @@
 "cEs" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/light{
@@ -61887,7 +62351,9 @@
 "cEH" = (
 /obj/item/cigbutt,
 /obj/machinery/light_switch{
-	pixel_y = -23
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
@@ -62026,6 +62492,7 @@
 "cEX" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -62069,8 +62536,8 @@
 /area/medical/surgery2)
 "cFb" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/structure/sink{
 	dir = 4;
@@ -62107,9 +62574,11 @@
 "cFf" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/item/paper_bin{
@@ -62186,10 +62655,6 @@
 	pixel_x = -26;
 	pixel_y = 6
 	},
-/obj/machinery/light_switch{
-	pixel_x = -23;
-	pixel_y = -2
-	},
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 4;
@@ -62208,8 +62673,8 @@
 /area/assembly/chargebay)
 "cFo" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 20
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/machinery/computer/mech_bay_power_console,
 /turf/simulated/floor/bluegrid{
@@ -62370,6 +62835,7 @@
 	dir = 1
 	},
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -62502,8 +62968,8 @@
 /area/medical/genetics_cloning)
 "cGe" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -28
 	},
 /obj/machinery/light{
 	dir = 8
@@ -62520,6 +62986,7 @@
 /obj/item/paper,
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/structure/table/glass,
@@ -62544,6 +63011,7 @@
 /obj/structure/closet/secure_closet/personal/patient,
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -62553,6 +63021,7 @@
 "cGi" = (
 /obj/structure/table,
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/light{
@@ -62614,7 +63083,7 @@
 	pixel_x = 11
 	},
 /obj/item/radio/intercom{
-	dir = 4;
+	name = "east bump";
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -62631,13 +63100,14 @@
 	name = "Surgery Cleaner"
 	},
 /obj/machinery/light_switch{
-	pixel_x = -5;
-	pixel_y = 27
+	name = "custom placement";
+	pixel_x = -4;
+	pixel_y = 24
 	},
 /obj/machinery/holosign_switch{
 	id = "surgery1";
-	pixel_x = 5;
-	pixel_y = 27
+	pixel_x = 4;
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -62699,11 +63169,8 @@
 /area/assembly/chargebay)
 "cGw" = (
 /obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1485;
-	listening = 0;
-	name = "Station Intercom (Medbay)";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -62716,7 +63183,8 @@
 "cGx" = (
 /obj/structure/closet/secure_closet/scientist,
 /obj/machinery/light_switch{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
@@ -62725,6 +63193,7 @@
 	})
 "cGy" = (
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/atmospherics/unary/thermomachine/freezer,
@@ -62891,7 +63360,8 @@
 	})
 "cGQ" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister,
@@ -62925,6 +63395,7 @@
 	dir = 8
 	},
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/portable_atmospherics/canister,
@@ -62986,6 +63457,8 @@
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/effect/decal/warning_stripes/southeast,
@@ -63213,7 +63686,8 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 28
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -63325,7 +63799,9 @@
 /obj/item/target/syndicate,
 /obj/item/target/syndicate,
 /obj/machinery/light_switch{
-	pixel_x = -25
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel{
@@ -63526,6 +64002,7 @@
 	})
 "cHT" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -63601,10 +64078,12 @@
 /area/medical/cryo)
 "cIe" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/machinery/light_switch{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/effect/decal/warning_stripes/northwest,
@@ -63766,8 +64245,8 @@
 /area/medical/surgery2)
 "cIt" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
@@ -63819,7 +64298,8 @@
 	dir = 8
 	},
 /obj/machinery/newscaster{
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/item/storage/box/donkpockets{
 	pixel_x = 3;
@@ -63833,7 +64313,8 @@
 /area/medical/medbreak)
 "cIB" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -30
 	},
 /obj/machinery/camera{
 	c_tag = "Medbay Break Room";
@@ -63865,6 +64346,7 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/item/folder/white,
@@ -63889,6 +64371,7 @@
 	pixel_x = -32
 	},
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -64211,8 +64694,8 @@
 "cJk" = (
 /obj/machinery/mecha_part_fabricator,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 20
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -64264,14 +64747,16 @@
 /area/assembly/robotics)
 "cJo" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 22
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/machinery/light_switch{
-	pixel_x = -23
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/warning_stripes/northwest,
@@ -64391,14 +64876,11 @@
 	name = "\improper Toxins Lab"
 	})
 "cJB" = (
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1485;
-	listening = 0;
-	name = "Station Intercom (Medbay)";
-	pixel_x = 30
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -64486,6 +64968,7 @@
 /area/medical/virology)
 "cJO" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
@@ -64561,6 +65044,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -64580,8 +65064,8 @@
 "cKh" = (
 /obj/structure/table,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -25
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/item/clothing/glasses/science,
 /obj/effect/decal/warning_stripes/southwest,
@@ -64660,8 +65144,8 @@
 /area/assembly/robotics)
 "cKq" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -64670,7 +65154,7 @@
 /area/hallway/primary/aft)
 "cKr" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
+	name = "south bump";
 	pixel_y = -28
 	},
 /obj/structure/dispenser,
@@ -64761,6 +65245,7 @@
 	})
 "cKz" = (
 /obj/item/radio/intercom{
+	name = "west bump";
 	pixel_x = -28
 	},
 /obj/structure/closet/crate/freezer/iv_storage,
@@ -65005,6 +65490,7 @@
 "cKY" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -65036,10 +65522,13 @@
 	dir = 8
 	},
 /obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -65057,10 +65546,13 @@
 /obj/item/folder/white,
 /obj/item/clothing/accessory/stethoscope,
 /obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -65077,8 +65569,8 @@
 /obj/structure/closet/secure_closet/personal/patient,
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 28;
-	pixel_y = 5
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -65090,6 +65582,7 @@
 "cLg" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/camera{
@@ -65516,8 +66009,7 @@
 	})
 "cMb" = (
 /obj/item/radio/intercom{
-	dir = 8;
-	name = "Station Intercom (General)";
+	name = "west bump";
 	pixel_x = -28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -65551,6 +66043,7 @@
 	amount = 50
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/item/stack/packageWrap,
@@ -65572,8 +66065,8 @@
 "cMi" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 28;
-	pixel_y = 5
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/light{
 	dir = 4
@@ -65638,6 +66131,7 @@
 "cMq" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -66141,6 +66635,7 @@
 /area/maintenance/aft)
 "cMZ" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -66201,7 +66696,9 @@
 	})
 "cNe" = (
 /obj/machinery/light_switch{
-	pixel_x = 27
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -66215,6 +66712,7 @@
 "cNf" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/light{
@@ -66334,6 +66832,7 @@
 "cNw" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/light,
@@ -66344,6 +66843,7 @@
 /area/medical/virology)
 "cNy" = (
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/machinery/camera{
@@ -66504,6 +67004,7 @@
 /area/maintenance/aft)
 "cNS" = (
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -66728,7 +67229,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/light_switch{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -66808,6 +67310,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/effect/decal/warning_stripes/northwestcorner,
@@ -67169,8 +67672,8 @@
 /area/medical/research)
 "cPb" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/machinery/light{
 	dir = 4
@@ -67356,8 +67859,8 @@
 /area/medical/virology)
 "cPv" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -67368,6 +67871,7 @@
 /area/medical/medbay3)
 "cPz" = (
 /obj/item/radio/intercom{
+	name = "west bump";
 	pixel_x = -28
 	},
 /obj/machinery/light/small{
@@ -67570,8 +68074,8 @@
 /obj/item/retractor,
 /obj/item/hemostat,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = -29
+	name = "west bump";
+	pixel_x = -28
 	},
 /obj/item/cautery,
 /obj/item/bonesetter,
@@ -67666,6 +68170,7 @@
 "cPZ" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/filingcabinet/chestdrawer,
@@ -67677,7 +68182,7 @@
 	})
 "cQa" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
+	name = "south bump";
 	pixel_y = -28
 	},
 /obj/machinery/computer/rdservercontrol{
@@ -67882,12 +68387,14 @@
 /area/medical/virology)
 "cQt" = (
 /obj/item/radio/intercom{
+	name = "west bump";
 	pixel_x = -28
 	},
 /obj/structure/table/glass,
 /obj/item/hand_labeler,
 /obj/item/radio/headset/headset_med,
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/camera{
@@ -67902,8 +68409,8 @@
 /area/medical/virology)
 "cQu" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/structure/table/glass,
 /obj/machinery/kitchen_machine/microwave{
@@ -67992,7 +68499,8 @@
 /obj/structure/rack,
 /obj/item/crowbar/red,
 /obj/machinery/light_switch{
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/item/wrench,
 /obj/item/restraints/handcuffs/cable/zipties,
@@ -68047,7 +68555,9 @@
 	})
 "cQN" = (
 /obj/machinery/light_switch{
-	pixel_x = 26
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/light{
 	dir = 4
@@ -68214,6 +68724,7 @@
 "cRg" = (
 /obj/structure/closet/emcloset,
 /obj/item/radio/intercom{
+	name = "west bump";
 	pixel_x = -28
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -68542,6 +69053,7 @@
 "cRO" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/northeast,
@@ -68614,7 +69126,9 @@
 "cRX" = (
 /obj/structure/table/wood,
 /obj/machinery/light_switch{
-	pixel_x = -23
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/item/paper_bin{
 	pixel_y = 5
@@ -68632,6 +69146,7 @@
 /obj/structure/chair/stool,
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -68657,6 +69172,7 @@
 /area/chapel/office)
 "cSc" = (
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /obj/machinery/disposal,
@@ -68896,8 +69412,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
@@ -68992,7 +69508,8 @@
 "cSK" = (
 /obj/item/flashlight/lamp,
 /obj/machinery/newscaster{
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
@@ -69010,6 +69527,7 @@
 "cSN" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/northwest,
@@ -69073,8 +69591,9 @@
 "cSU" = (
 /obj/item/candle,
 /obj/machinery/light_switch{
+	name = "custom placement";
 	pixel_x = 6;
-	pixel_y = 25
+	pixel_y = 24
 	},
 /obj/structure/table/wood,
 /obj/machinery/door_control{
@@ -69102,8 +69621,8 @@
 	})
 "cSW" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xeno_blastdoor";
@@ -69158,7 +69677,8 @@
 	icon_state = "1-2"
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -69207,6 +69727,7 @@
 "cTf" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/camera{
@@ -69259,6 +69780,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/structure/sign/double/map/right{
@@ -69371,6 +69893,7 @@
 "cTv" = (
 /obj/structure/closet/l3closet/virology,
 /obj/structure/extinguisher_cabinet{
+	name = "south bump";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -69419,9 +69942,8 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 27
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -69470,8 +69992,8 @@
 /obj/item/radio/intercom{
 	broadcasting = 1;
 	frequency = 1480;
-	name = "Confessional Intercom";
-	pixel_x = -25
+	name = "custom placement";
+	pixel_x = -28
 	},
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
@@ -69615,6 +70137,7 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "east bump";
 	pixel_x = 27
 	},
 /obj/item/twohanded/required/kirbyplants{
@@ -69737,6 +70260,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -69778,11 +70302,13 @@
 /area/chapel/office)
 "cUm" = (
 /obj/item/radio/intercom{
-	pixel_y = 25
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
@@ -69888,6 +70414,7 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /obj/machinery/camera{
@@ -69953,6 +70480,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -70076,8 +70604,8 @@
 /obj/item/radio/intercom{
 	broadcasting = 1;
 	frequency = 1480;
-	name = "Confessional Intercom";
-	pixel_x = 25
+	name = "custom placement";
+	pixel_x = 28
 	},
 /obj/structure/chair{
 	dir = 1
@@ -70459,7 +70987,8 @@
 	dir = 1
 	},
 /obj/machinery/light_switch{
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/item/paper_bin{
 	pixel_x = -2;
@@ -70512,13 +71041,15 @@
 "cWd" = (
 /obj/structure/table/glass,
 /obj/machinery/newscaster{
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /obj/item/folder/white,
 /obj/item/folder/white,
 /obj/item/paper,
 /obj/item/pen/red,
 /obj/structure/extinguisher_cabinet{
+	name = "north bump";
 	pixel_y = 30
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -70536,7 +71067,8 @@
 	pixel_y = 3
 	},
 /obj/machinery/light_switch{
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/machinery/camera{
 	c_tag = "Virology - Break Room";
@@ -70718,6 +71250,7 @@
 /obj/structure/closet/l3closet/scientist,
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/light{
@@ -70920,7 +71453,8 @@
 /obj/structure/table,
 /obj/item/candle,
 /obj/item/radio/intercom{
-	pixel_y = 25
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -70973,8 +71507,8 @@
 "cXh" = (
 /obj/structure/closet/l3closet/scientist,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel{
@@ -71009,6 +71543,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/camera{
@@ -71047,6 +71582,7 @@
 	c_tag = "Fitness Room - Fore"
 	},
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -71197,8 +71733,8 @@
 	pixel_x = 4
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -32
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -71224,6 +71760,7 @@
 "cXE" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -71250,6 +71787,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -71286,8 +71824,10 @@
 	pixel_y = -25
 	},
 /obj/machinery/light_switch{
+	dir = 1;
+	name = "custom placement";
 	pixel_x = 6;
-	pixel_y = -25
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -71342,8 +71882,9 @@
 	})
 "cXS" = (
 /obj/machinery/light_switch{
+	name = "custom placement";
 	pixel_x = -6;
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -71378,7 +71919,8 @@
 	network = list("SS13","RD")
 	},
 /obj/machinery/firealarm{
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -71725,6 +72267,7 @@
 "cYL" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
@@ -71816,8 +72359,8 @@
 	name = "Slime Processor"
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -71857,7 +72400,9 @@
 /area/solar/starboard)
 "cZa" = (
 /obj/machinery/light_switch{
-	pixel_x = 28
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -71999,6 +72544,7 @@
 /obj/structure/closet/secure_closet/chaplain,
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -72038,11 +72584,12 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/machinery/iv_drip,
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -72089,8 +72636,8 @@
 /area/solar/starboard)
 "cZC" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
@@ -72248,6 +72795,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -72317,6 +72865,7 @@
 /area/crew_quarters/heads)
 "daf" = (
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/camera{
@@ -72336,6 +72885,7 @@
 "dak" = (
 /obj/machinery/alarm{
 	dir = 8;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/structure/closet/secure_closet/psychiatrist,
@@ -72418,8 +72968,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_x = 29
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-16"
@@ -72438,6 +72988,7 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "west bump";
 	pixel_x = -27
 	},
 /obj/item/twohanded/required/kirbyplants,
@@ -72714,8 +73265,8 @@
 /obj/item/clothing/accessory/stethoscope,
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = 28;
-	pixel_y = 5
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -72745,6 +73296,7 @@
 	})
 "dbp" = (
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /obj/machinery/light/small{
@@ -72794,8 +73346,8 @@
 	})
 "dbw" = (
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = 21
+	name = "north bump";
+	pixel_y = 28
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -72946,6 +73498,7 @@
 "dbG" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/item/folder/white,
@@ -73249,8 +73802,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -29
+	name = "south bump";
+	pixel_y = -28
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -73308,6 +73861,7 @@
 	pixel_y = 5
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "south bump";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -73393,6 +73947,7 @@
 	},
 /obj/machinery/disposal,
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/effect/decal/warning_stripes/southwest,
@@ -73472,6 +74027,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/camera{
@@ -73565,17 +74121,6 @@
 	icon_state = "solarpanel"
 	},
 /area/solar/starboard)
-"ddv" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_se";
-	name = "southeast of SS13";
-	width = 19
-	},
-/turf/space,
-/area/space)
 "ddw" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/landmark/spawner/xeno,
@@ -73665,6 +74210,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/camera{
@@ -74006,7 +74552,9 @@
 	})
 "deL" = (
 /obj/machinery/light_switch{
-	pixel_x = -27
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/carpet,
 /area/chapel/main)
@@ -74370,6 +74918,7 @@
 /obj/structure/closet/l3closet,
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -75345,9 +75894,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "eQt" = (
 /obj/structure/chair/stool{
@@ -75770,7 +76317,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel{
@@ -76333,6 +76881,7 @@
 "hIG" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/structure/cable/yellow{
@@ -76829,6 +77378,7 @@
 "iWv" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -78330,9 +78880,7 @@
 "odF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "odO" = (
 /obj/machinery/blackbox_recorder,
@@ -79095,6 +79643,7 @@
 "qxn" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -80025,7 +80574,8 @@
 /area/construction)
 "tpg" = (
 /obj/machinery/firealarm{
-	pixel_y = 29
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -80707,6 +81257,11 @@
 "vHA" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/sleep)
@@ -90266,7 +90821,7 @@ aaa
 aaa
 aaa
 aaa
-aWD
+aaa
 aWD
 aWD
 aWD
@@ -91294,7 +91849,7 @@ aaa
 abq
 aaa
 aaa
-aWD
+aaa
 aWD
 aWD
 aXS
@@ -94337,7 +94892,7 @@ aaa
 aaa
 aaa
 aaa
-acy
+aaa
 aaa
 aaa
 aaa
@@ -113404,7 +113959,7 @@ aZZ
 bbB
 bMR
 bek
-bgb
+bfV
 bfV
 bjm
 bCB
@@ -113635,7 +114190,7 @@ awd
 awJ
 atK
 avl
-awG
+aIr
 axW
 aze
 aBE
@@ -116468,7 +117023,7 @@ azV
 aAB
 aBJ
 avr
-aEm
+bgb
 aHV
 aGM
 aIk
@@ -118271,7 +118826,7 @@ aEr
 avv
 aGU
 avv
-aIr
+avv
 aJK
 avv
 aNQ
@@ -119529,7 +120084,7 @@ aaa
 aaa
 abq
 aaa
-afb
+abq
 afH
 ajD
 afH
@@ -119786,7 +120341,7 @@ aaa
 aaa
 abq
 abq
-abe
+abq
 afH
 agk
 afH
@@ -120043,7 +120598,7 @@ aaa
 aaa
 aaa
 aaa
-abf
+abq
 aaa
 aaa
 aaa
@@ -120300,7 +120855,7 @@ aaa
 aaa
 aaa
 aaa
-abe
+abq
 abq
 abe
 abq
@@ -122753,7 +123308,7 @@ aaa
 aaa
 aaa
 aaa
-ddv
+aaa
 aaa
 aaa
 aaa
@@ -127509,11 +128064,11 @@ aaa
 aaa
 aaa
 aaa
-aoG
+aaa
 avN
 awD
 avN
-aoG
+aaa
 aoG
 asJ
 axh
@@ -132633,7 +133188,7 @@ aaa
 aaa
 aaa
 aaa
-adN
+aaa
 aaa
 aaa
 aaa

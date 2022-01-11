@@ -378,6 +378,7 @@
 /area/djstation)
 "aP" = (
 /obj/machinery/light_switch{
+	name = "custom placement";
 	pixel_y = -28
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -439,6 +440,7 @@
 /area/djstation)
 "aX" = (
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /obj/machinery/vending/cigarette/free{
@@ -479,6 +481,7 @@
 /area/djstation)
 "bb" = (
 /obj/machinery/light_switch{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/item/twohanded/required/kirbyplants,
@@ -544,6 +547,7 @@
 /area/djstation)
 "bj" = (
 /obj/machinery/light_switch{
+	name = "north bump";
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -753,6 +757,7 @@
 /area/djstation)
 "bJ" = (
 /obj/machinery/light_switch{
+	name = "custom placement";
 	pixel_x = 32;
 	pixel_y = 9
 	},

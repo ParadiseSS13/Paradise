@@ -65,7 +65,6 @@
 		return FALSE
 	return ..()
 
-
 /obj/effect/proc_holder/spell/vampire/charge/cast(list/targets, mob/user)
 	var/target = targets[1]
 	if(isliving(user))
