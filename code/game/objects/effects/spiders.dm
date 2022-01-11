@@ -80,7 +80,7 @@
 			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
-			S.xenobiology_spawned = S.xenobiology_spawned
+			S.xenobiology_spawned = xenobiology_spawned
 			if(player_spiders)
 				S.player_spiders = TRUE
 		qdel(src)

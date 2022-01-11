@@ -257,6 +257,7 @@
 					var/obj/structure/spider/eggcluster/C = new /obj/structure/spider/eggcluster(src.loc)
 					C.faction = faction.Copy()
 					C.master_commander = master_commander
+					C.xenobiology_spawned = xenobiology_spawned
 					if(ckey)
 						C.player_spiders = 1
 					fed--
