@@ -138,3 +138,8 @@
 	suffix = "armory"
 	name = "NRV Sparta"
 	description = "Armory Shuttle, with plenty of guns to hand out and some general supplies."
+
+/datum/map_template/shuttle/admin/skipjack
+	suffix = "skipjack"
+	name = "Vox Skipjack"
+	description = "Vox skipjack ship."

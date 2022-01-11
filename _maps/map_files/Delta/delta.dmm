@@ -306,17 +306,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
-"adT" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_nw";
-	name = "northwest of SS13";
-	width = 19
-	},
-/turf/space,
-/area/space)
 "adZ" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
@@ -2359,17 +2348,6 @@
 	icon_state = "redfull"
 	},
 /area/maintenance/fore2)
-"aoP" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_ne";
-	name = "northeast of SS13";
-	width = 19
-	},
-/turf/space,
-/area/space)
 "aoR" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -90513,28 +90491,6 @@
 	icon_state = "solarpanel"
 	},
 /area/maintenance/portsolar)
-"dWd" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_sw";
-	name = "southwest of SS13";
-	width = 19
-	},
-/turf/space,
-/area/space)
-"dWe" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_se";
-	name = "southeast of SS13";
-	width = 19
-	},
-/turf/space,
-/area/space)
 "dWf" = (
 /obj/docking_port/stationary{
 	dheight = 9;
@@ -113144,7 +113100,7 @@ aaa
 aaa
 aaa
 aaa
-dWd
+aaa
 aaa
 aaa
 aaa
@@ -116807,7 +116763,7 @@ aaa
 aaa
 aaa
 aaa
-adT
+aaa
 aaa
 aaa
 aaa
@@ -152813,7 +152769,7 @@ aaa
 aaa
 aaa
 aaa
-aoP
+aaa
 aaa
 aaa
 aaa
@@ -153238,7 +153194,7 @@ aaa
 aaa
 aaa
 aaa
-dWe
+aaa
 aaa
 aaa
 aaa
@@ -159740,7 +159696,7 @@ aaa
 aaa
 aaa
 aaa
-aoP
+aaa
 aaa
 aaa
 aaa

@@ -396,17 +396,6 @@
 /obj/machinery/power/tracker,
 /turf/simulated/floor/plating/airless,
 /area/solar/auxstarboard)
-"acy" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_nw";
-	name = "northwest of SS13";
-	width = 19
-	},
-/turf/space,
-/area/space)
 "acz" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/landmark/spawner/xeno,
@@ -966,17 +955,6 @@
 	icon_state = "whitered"
 	},
 /area/security/permabrig)
-"adN" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_ne";
-	name = "northeast of SS13";
-	width = 19
-	},
-/turf/space,
-/area/space)
 "adP" = (
 /obj/structure/cable,
 /obj/structure/lattice/catwalk,
@@ -73565,17 +73543,6 @@
 	icon_state = "solarpanel"
 	},
 /area/solar/starboard)
-"ddv" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_se";
-	name = "southeast of SS13";
-	width = 19
-	},
-/turf/space,
-/area/space)
 "ddw" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/landmark/spawner/xeno,
@@ -94337,7 +94304,7 @@ aaa
 aaa
 aaa
 aaa
-acy
+aaa
 aaa
 aaa
 aaa
@@ -122753,7 +122720,7 @@ aaa
 aaa
 aaa
 aaa
-ddv
+aaa
 aaa
 aaa
 aaa
@@ -132633,7 +132600,7 @@ aaa
 aaa
 aaa
 aaa
-adN
+aaa
 aaa
 aaa
 aaa

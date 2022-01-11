@@ -152,13 +152,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	spawner_list = GLOB.ertdirector
 	return ..()
 
-/obj/effect/landmark/spawner/raider_spawn
-	name = "voxstart"
-
-/obj/effect/landmark/spawner/raider_spawn/Initialize(mapload)
-	spawner_list = GLOB.raider_spawn
-	return ..()
-
 /obj/effect/landmark/spawner/ninjastart
 	name = "ninjastart"
 
