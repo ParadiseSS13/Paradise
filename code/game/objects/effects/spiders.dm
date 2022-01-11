@@ -80,6 +80,7 @@
 			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
+			S.xenobiology_spawned = S.xenobiology_spawned
 			if(player_spiders)
 				S.player_spiders = TRUE
 		qdel(src)
@@ -98,6 +99,8 @@
 	var/player_spiders = 0
 	var/list/faction = list("spiders")
 	var/selecting_player = 0
+	///Is this spiderling created from a xenobiology mob?
+	var/xenobiology_spawned = FALSE
 
 /obj/structure/spider/spiderling/Initialize(mapload)
 	. = ..()
@@ -174,7 +177,7 @@
 	if(isturf(loc))
 		amount_grown += rand(0,2)
 		if(amount_grown >= 100)
-			if(SSmobs.xenobiology_mobs > MAX_GOLD_CORE_MOBS)
+			if(SSmobs.xenobiology_mobs > MAX_GOLD_CORE_MOBS && xenobiology_spawned)
 				qdel(src)
 				return
 			if(!grow_as)
@@ -184,6 +187,8 @@
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
 			S.xenobiology_spawned = xenobiology_spawned
+			if (xenobiology_spawned)
+				SSmobs.xenobiology_mobs++
 			if(player_spiders && !selecting_player)
 				selecting_player = 1
 				spawn()
