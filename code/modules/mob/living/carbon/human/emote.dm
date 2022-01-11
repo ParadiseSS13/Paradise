@@ -1,7 +1,7 @@
 /mob/living/carbon/human/emote(act, m_type = 1, message = null, force)
 
-	if((stat != CONSCIOUS) || (status_flags & FAKEDEATH))
-		return // You can't just scream if you dead or sleeping
+	if((stat == DEAD) || (status_flags & FAKEDEATH))
+		return // You can't just scream if you dead
 
 	var/param = null
 	if(findtext(act, "-", 1, null))
