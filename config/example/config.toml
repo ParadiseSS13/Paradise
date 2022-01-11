@@ -592,6 +592,19 @@ overflow_whitelist = ["keyhere", "anotherhere"]
 ################################################################
 
 
+[redis_configuration]
+# This section contains all the settings for using redis.
+# This is heavily tied into the Paradise production architecture and you probably dont need it.
+
+# Enable/disable redis
+redis_enabled = false
+# Redis connection string. Include your passphrase if needed
+redis_connstring = "redis://127.0.0.1/"
+
+
+################################################################
+
+
 [ruin_configuration]
 # This section contains configuration for all space ruins and lava ruins
 
