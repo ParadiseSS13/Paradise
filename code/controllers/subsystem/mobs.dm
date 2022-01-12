@@ -11,8 +11,6 @@ SUBSYSTEM_DEF(mobs)
 	var/static/list/cubemonkeys = list()
 	/// The amount of Xenobiology mobs (and their offspring) that exist in the world. Used for mob capping. Excludes Slimes
 	var/xenobiology_mobs = 0
-	/// The amount of Xenobiology slimes (and their offspring) that exist in the world. Used for mob capping. Excludes Slimes
-	var/xenobiology_slimes = 0
 
 /datum/controller/subsystem/mobs/get_metrics()
 	. = ..()
