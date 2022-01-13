@@ -382,7 +382,7 @@
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		if(!L.anchored)
+		if(!L.anchored && L.loc)
 			L.visible_message("<span class='danger'>[L] is snagged by [firer]'s hook!</span>")
 			var/old_density = L.density
 			L.density = FALSE // Ensures the hook does not hit the target multiple times
