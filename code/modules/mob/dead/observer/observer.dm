@@ -446,7 +446,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	if(target != src)
-		if(orbiting && orbiting == target)
+		if(src in target.get_orbiters())
 			return
 
 		var/icon/I = icon(target.icon,target.icon_state,target.dir)
@@ -472,10 +472,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			else //Circular
 				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
 
-		to_chat(src, "<span class='notice'>Now following [target]</span>")
+		to_chat(src, "<span class='notice'>Now following [target].</span>")
 		orbit(target,orbitsize, FALSE, 20, rot_seg)
 
-/mob/dead/observer/orbit()
+/mob/dead/observer/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lock_in_orbit = FALSE, force_move = FALSE, orbit_layer = GHOST_LAYER)
 	setDir(2)//reset dir so the right directional sprites show up
 	return ..()
 

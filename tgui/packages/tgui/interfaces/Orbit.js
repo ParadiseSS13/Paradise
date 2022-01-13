@@ -1,6 +1,6 @@
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Button, Divider, Flex, Icon, Input, Section } from '../components';
+import { Box, Button, Divider, Flex, Icon, Input, Section } from '../components';
 import { Window } from '../layouts';
 
 const PATTERN_NUMBER = / \(([0-9]+)\)$/;
@@ -36,19 +36,17 @@ const compareNumberedText = (a, b) => {
 };
 
 const BasicSection = (props, context) => {
-  const { act } = useBackend(context);
-  const { searchText, source, title } = props;
+  const { searchText, source, title, color, sorted } = props;
   const things = source.filter(searchFor(searchText));
-  things.sort(compareNumberedText);
+  if (sorted) { things.sort(compareNumberedText); }
   return source.length > 0 && (
     <Section title={`${title} - (${source.length})`}>
       {things.map(thing => (
-        <Button
+        <OrbitedButton
           key={thing.name}
-          content={thing.name}
-          onClick={() => act("orbit", {
-            ref: thing.ref,
-          })} />
+          thing={thing}
+          color={color}
+        />
       ))}
     </Section>
   );
@@ -65,6 +63,13 @@ const OrbitedButton = (props, context) => {
         ref: thing.ref,
       })}>
       {thing.name}
+      {thing.orbiters && (
+        <Box inline ml={1}>
+          {"("}{thing.orbiters}{" "}
+          <Icon name="eye" />
+          {")"}
+        </Box>
+      )}
     </Button>
   );
 };
@@ -163,46 +168,39 @@ export const Orbit = (props, context) => {
           </Section>
         )}
 
-        <Section title={`Alive - (${alive.length})`}>
-          {alive
-            .filter(searchFor(searchText))
-            .sort(compareNumberedText)
-            .map(thing => (
-              <OrbitedButton
-                key={thing.name}
-                color="good"
-                thing={thing} />
-            ))}
-        </Section>
+        <BasicSection
+          title="Alive"
+          source={alive}
+          searchText={searchText}
+          color={"good"}
+        />
 
-        <Section title={`Ghosts - (${ghosts.length})`}>
-          {ghosts
-            .filter(searchFor(searchText))
-            .sort(compareNumberedText)
-            .map(thing => (
-              <OrbitedButton
-                key={thing.name}
-                color="grey"
-                thing={thing} />
-            ))}
-        </Section>
+        <BasicSection
+          title="Ghosts"
+          source={ghosts}
+          searchText={searchText}
+          color={"grey"}
+        />
 
         <BasicSection
           title="Dead"
           source={dead}
           searchText={searchText}
+          sorted={false}
         />
 
         <BasicSection
           title="NPCs"
           source={npcs}
           searchText={searchText}
+          sorted={false}
         />
 
         <BasicSection
           title="Misc"
           source={misc}
           searchText={searchText}
+          sorted={false}
         />
       </Window.Content>
     </Window>
