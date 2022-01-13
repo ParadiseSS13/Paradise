@@ -441,7 +441,7 @@
 	// Make sure we don't shadow outer orbiters
 	for(var/atom/movable/atom_orbiter in get_orbiters())
 		if(isobserver(atom_orbiter))
-			output += atom_orbiter
+			output |= atom_orbiter
 		output += atom_orbiter.get_orbiters_recursive(processed, source = FALSE)
 	return output
 
