@@ -256,7 +256,8 @@
 		return
 	if(world.time < lastused + spawndelay)
 		return
-
+	if(ranged && !(target in view(user)))
+		return
 
 	var/turf/T = get_turf(target)
 	if(target != T)

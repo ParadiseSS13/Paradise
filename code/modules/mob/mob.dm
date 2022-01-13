@@ -594,13 +594,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 //note: ghosts can point, this is intended
 //visible_message will handle invisibility properly
 //overriden here and in /mob/dead/observer for different point span classes and sanity checks
-/mob/verb/pointed(atom/A as mob|obj|turf in view())
+/mob/verb/pointed(atom/A as mob|obj|turf)
 	set name = "Point To"
 	set category = "Object"
 
 	if(next_move >= world.time)
 		return
 	if(!isturf(loc) || istype(A, /obj/effect/temp_visual/point))
+		return FALSE
+	if(!(A in view(src)))
 		return FALSE
 
 	var/tile = get_turf(A)

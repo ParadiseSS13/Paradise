@@ -25,10 +25,13 @@
 	if(flag)
 		return
 	else if(works_from_distance)
-		if(istype(T))
-			if(T.component_parts)
-				T.exchange_parts(user, src)
-				user.Beam(T,icon_state="rped_upgrade",icon='icons/effects/effects.dmi',time=5)
+		if(!istype(T))
+			return
+		if(!(T in view(user)))
+			return
+		if(T.component_parts)
+			T.exchange_parts(user, src)
+			user.Beam(T,icon_state="rped_upgrade",icon='icons/effects/effects.dmi',time=5)
 	return
 
 /obj/item/storage/part_replacer/bluespace
