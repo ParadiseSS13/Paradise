@@ -123,4 +123,6 @@ DEFINE_BITFIELD(smoothing_flags, list(
 
 #define SMOOTH_GROUP_CLEANABLE_DIRT	S_OBJ(67)			///obj/effect/decal/cleanable/dirt
 
-#define SMOOTH_GROUP_RIPPLE	S_OBJ(68)				///obj/effect/temp_visual/ripple
+#define SMOOTH_GROUP_RIPPLE	S_OBJ(68)					///obj/effect/temp_visual/ripple
+
+#define SMOOTH_GROUP_CATWALK S_OBJ(69)					///obj/structure/lattice/catwalk

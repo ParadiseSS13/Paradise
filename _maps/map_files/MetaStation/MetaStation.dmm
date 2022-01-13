@@ -17950,13 +17950,13 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
 "aPj" = (
 /mob/living/simple_animal/chicken/featherbottom,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -18659,12 +18659,12 @@
 	name = "Animal Pen A";
 	opacity = 1
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
 "aQQ" = (
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -19187,13 +19187,13 @@
 	},
 /obj/structure/window/reinforced,
 /mob/living/simple_animal/chicken/kentucky,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
 "aSe" = (
 /obj/structure/window/reinforced,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -20332,7 +20332,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -20344,7 +20344,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -20968,13 +20968,13 @@
 	name = "Animal Pen B";
 	opacity = 1
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
 "aWe" = (
 /mob/living/simple_animal/cow/betsy,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -90233,7 +90233,7 @@ aaa
 aaa
 aaa
 aaa
-aWD
+aaa
 aWD
 aWD
 aWD
@@ -91261,7 +91261,7 @@ aaa
 abq
 aaa
 aaa
-aWD
+aaa
 aWD
 aWD
 aXS
@@ -119496,7 +119496,7 @@ aaa
 aaa
 abq
 aaa
-afb
+abq
 afH
 ajD
 afH
@@ -119753,7 +119753,7 @@ aaa
 aaa
 abq
 abq
-abe
+abq
 afH
 agk
 afH
@@ -120010,7 +120010,7 @@ aaa
 aaa
 aaa
 aaa
-abf
+abq
 aaa
 aaa
 aaa
@@ -120267,7 +120267,7 @@ aaa
 aaa
 aaa
 aaa
-abe
+abq
 abq
 abe
 abq
@@ -127476,11 +127476,11 @@ aaa
 aaa
 aaa
 aaa
-aoG
+aaa
 avN
 awD
 avN
-aoG
+aaa
 aoG
 asJ
 axh

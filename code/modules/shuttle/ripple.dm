@@ -10,6 +10,7 @@
 	density = FALSE
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_RIPPLE)
+	canSmoothWith = list(SMOOTH_GROUP_RIPPLE)
 	layer = RIPPLE_LAYER
 	alpha = 0
 	duration = 3 * SHUTTLE_RIPPLE_TIME

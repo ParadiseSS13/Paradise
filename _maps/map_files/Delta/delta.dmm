@@ -1070,7 +1070,7 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/stalkybush,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/shuttle/arrival/station)
 "aiH" = (
 /obj/structure/chair{
@@ -67389,10 +67389,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/medical/medbay3)
-"cWk" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/maintenance/port)
 "cWl" = (
 /obj/machinery/shieldgen,
 /obj/effect/decal/warning_stripes/east,
@@ -89566,7 +89562,7 @@
 /obj/structure/window/basic{
 	dir = 1
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/exit)
 "dTe" = (
 /obj/machinery/door/firedoor,
@@ -89857,7 +89853,7 @@
 /obj/structure/window/basic{
 	dir = 8
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/exit)
 "dTH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -92424,7 +92420,7 @@
 /obj/structure/window/basic{
 	dir = 1
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/exit)
 "frI" = (
 /obj/structure/cable{
@@ -117900,7 +117896,7 @@ abj
 abj
 abj
 abj
-cWk
+dmq
 dmq
 cHA
 cHA
