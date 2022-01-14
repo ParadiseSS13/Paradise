@@ -29,8 +29,8 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(4, 5)
-				if(M.reagents.get_reagent_amount("hydrocodone") < 20)
-					M.reagents.add_reagent("hydrocodone", 10)
+				if(M.reagents.get_reagent_amount("hydrocodone") < 8 && M.getToxLoss() < 13)
+					M.reagents.add_reagent("hydrocodone", 2)
 			else
 				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
 					to_chat(M, "<span class='notice'>[pick("Your body feels numb.", "You realize you feel nothing.", "You can't feel your body.")]</span>")
