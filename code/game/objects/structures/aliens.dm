@@ -120,7 +120,7 @@
 	layer = ABOVE_OPEN_TURF_LAYER
 	plane = FLOOR_PLANE
 	icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
-	icon_state = "weeds1-0"
+	icon_state = "weeds1"
 	base_icon_state = "weeds1"
 	max_integrity = 15
 	smoothing_flags = SMOOTH_BITMASK
@@ -175,7 +175,7 @@
 	name = "glowing resin"
 	desc = "Blue bioluminescence shines from beneath the surface."
 	icon = 'icons/obj/smooth_structures/alien/weednode.dmi'
-	icon_state = "weednode-0"
+	icon_state = "weednode"
 	base_icon_state = "weednode"
 	light_range = 1
 	var/node_range = NODERANGE

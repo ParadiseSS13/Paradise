@@ -141,7 +141,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 29
+sql_version = 30
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -231,7 +231,6 @@ gamemode_probabilities = [
 	{gamemode = "cult", probability = 3},
 	{gamemode = "extend-a-traitormongous", probability = 2}, # Autotraitor
 	{gamemode = "extended", probability = 3},
-	{gamemode = "heist", probability = 0},
 	{gamemode = "nuclear", probability = 2},
 	{gamemode = "raginmages", probability = 0},
 	{gamemode = "revolution", probability = 0},
@@ -588,6 +587,19 @@ player_reroute_cap = 0
 overflow_server = "byond://yourdomain.com:1111"
 # List of ckeys who will not get rerouted to the overflow server
 overflow_whitelist = ["keyhere", "anotherhere"]
+
+
+################################################################
+
+
+[redis_configuration]
+# This section contains all the settings for using redis.
+# This is heavily tied into the Paradise production architecture and you probably dont need it.
+
+# Enable/disable redis
+redis_enabled = false
+# Redis connection string. Include your passphrase if needed
+redis_connstring = "redis://127.0.0.1/"
 
 
 ################################################################

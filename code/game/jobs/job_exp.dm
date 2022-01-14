@@ -32,7 +32,6 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_REV = 10,
 	ROLE_OPERATIVE = 20,
 	ROLE_CULTIST = 20,
-	ROLE_RAIDER = 10,
 	ROLE_ALIEN = 10,
 	ROLE_ABDUCTOR = 20,
 ))

@@ -51,8 +51,6 @@
 	loc = null
 	if(pulledby)
 		pulledby.stop_pulling()
-	if(orbiting)
-		stop_orbit()
 
 //Returns an atom's power cell, if it has one. Overload for individual items.
 /atom/movable/proc/get_cell()

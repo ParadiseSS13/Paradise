@@ -1,6 +1,7 @@
 /mob/dead/observer/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud/ghost(src)
+		SEND_SIGNAL(src, COMSIG_MOB_HUD_CREATED)
 
 /obj/screen/ghost
 	icon = 'icons/mob/screen_ghost.dmi'
