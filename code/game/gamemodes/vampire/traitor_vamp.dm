@@ -30,7 +30,7 @@
 
 	if(possible_vampires.len > 0)
 		for(var/I in possible_vampires)
-			if(length(vampires) >= secondary_enemies)
+			if(length(pre_vampires) >= secondary_enemies)
 				break
 			var/datum/mind/vampire = pick_n_take(possible_vampires)
 			pre_vampires += vampire
