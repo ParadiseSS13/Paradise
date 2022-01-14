@@ -5276,6 +5276,51 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -5407,6 +5452,51 @@
 /obj/item/clothing/glasses/meson,
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
+	},
+/obj/item/areaeditor/permit{
+	pixel_y = -16
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -5792,6 +5882,51 @@
 	pixel_x = -9;
 	pixel_y = 1
 	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -6107,6 +6242,51 @@
 /obj/item/multitool{
 	pixel_x = -9;
 	pixel_y = 1
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
+	},
+/obj/item/areaeditor/blueprints{
+	pixel_y = -14
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
