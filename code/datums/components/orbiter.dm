@@ -239,7 +239,7 @@
 /datum/component/orbiter/proc/orbiter_move_react(atom/movable/orbiter, atom/oldloc, direction)
 	SIGNAL_HANDLER	// COMSIG_MOVABLE_MOVED
 
-	if(get_turf(orbiter) == get_turf(parent) || get_turf(orbiter) == get_turf(oldloc) || get_turf(orbiter) == oldloc)
+	if(get_turf(orbiter) == get_turf(parent) || get_turf(orbiter) == get_turf(oldloc) || get_turf(orbiter) == oldloc || orbiter.loc == oldloc)
 		return
 
 	if(orbiter in orbiter_list)

@@ -108,8 +108,8 @@
 	UnregisterSignal(A, COMSIG_ATOM_ORBIT_BEGIN)
 
 /obj/item/melee/ghost_sword/proc/register_signals(atom/A)
-	RegisterSignal(A, COMSIG_ATOM_ORBIT_BEGIN, .proc/add_ghost)
-	RegisterSignal(A, COMSIG_ATOM_ORBIT_STOP, .proc/remove_ghost)
+	RegisterSignal(A, COMSIG_ATOM_ORBIT_BEGIN, .proc/add_ghost, override = TRUE)
+	RegisterSignal(A, COMSIG_ATOM_ORBIT_STOP, .proc/remove_ghost, override = TRUE)
 
 /**
  *  When moving into something's contents
@@ -123,11 +123,8 @@
 			remove_ghost(orbiter)
 	if(ismob(loc))
 		register_signals(loc)
-		for(var/mob/dead/observer/orbiter in old_loc.get_orbiters())
+		for(var/mob/dead/observer/orbiter in loc.get_orbiters())
 			add_ghost(orbiter)
-
-/obj/item/melee/ghost_sword/proc/on_leave_item()
-	SIGNAL_HANDLER // on move
 
 /obj/item/melee/ghost_sword/attack(mob/living/target, mob/living/carbon/human/user)
 	force = 0
