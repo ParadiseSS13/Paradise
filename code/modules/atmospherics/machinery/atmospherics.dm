@@ -298,8 +298,10 @@ Pipelines + Other Objects -> Pipe network
 		else if(target_move.can_crawl_through())
 			if(returnPipenet() != target_move.returnPipenet())
 				user.update_pipe_vision(target_move)
+			var/old_loc = user.loc
 			user.loc = target_move
-			user.client.eye = target_move //if we don't do this, Byond only updates the eye every tick - required for smooth movement
+			user.client.eye = target_move // if we don't do this, Byond only updates the eye every tick - required for smooth movement
+			SEND_SIGNAL(user, COMSIG_MOVABLE_MOVED, old_loc, target_move, get_dir(old_loc, target_move))
 			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
 				user.last_played_vent = world.time
 				playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
