@@ -1056,6 +1056,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "DEPC"
 	item = /obj/item/cartridge/syndicate
 	cost = 6
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/explosives/detomatix/nuclear
+	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crewmembers who have their message feature enabled. The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer. It has a chance to detonate your PDA. This version comes with a program to toggle your nuclear shuttle blast doors remotely."
+	item = /obj/item/cartridge/syndicate/nuclear
+	excludefrom = list()
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/explosives/pizza_bomb
 	name = "Pizza Bomb"
