@@ -338,6 +338,29 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
 		H.add_hud_to(src)
 	
+/mob/dead/observer/verb/set_dnr()
+	set name = "Set DNR"
+	set category = "Ghost"
+	set desc = "Предотвращает возрождение вашего персонажа."
+
+	if(!isobserver(src)) // Somehow
+		return
+	if(!can_reenter_corpse)
+		to_chat(src, "<span class='warning'>У вас уже стоит DNR!</span>")
+		return
+	if(!mind || QDELETED(mind.current))
+		to_chat(src, "<span class='warning'>У вас нету тела.</span>")
+		return
+	if(mind.current.stat != DEAD)
+		to_chat(src, "<span class='warning'>Твое тело все еще живо!</span>")
+		return
+
+	if(alert(src, "Если вы включите это, ваше тело не смогут больше возродить до конца раунда.", "Вы уверены?", "Да", "Нет") == "Да")
+		to_chat(src, "<span class='boldnotice'>Do Not Revive статус включён.</span>")
+		can_reenter_corpse = FALSE
+		if(!QDELETED(mind.current)) // Could change while they're choosing
+			mind.current.med_hud_set_status()
+
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"
 	set name = "Teleport"
