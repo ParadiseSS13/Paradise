@@ -1755,6 +1755,7 @@
 #include "code\modules\mapping\base_map_datum.dm"
 #include "code\modules\mapping\cyberiad.dm"
 #include "code\modules\mapping\delta.dm"
+#include "code\modules\mapping\hyperion.dm"
 #include "code\modules\mapping\metastation.dm"
 #include "code\modules\martial_arts\adminfu.dm"
 #include "code\modules\martial_arts\brawling.dm"
