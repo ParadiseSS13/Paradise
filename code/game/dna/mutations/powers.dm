@@ -216,6 +216,7 @@
 	..()
 	M.alpha = 255
 	M.invisibility = 0
+	M.add_to_all_human_data_huds()
 
 // WAS: /datum/bioEffect/darkcloak
 /datum/mutation/stealth/darkcloak
@@ -240,9 +241,11 @@
 	else
 		M.alpha = 255
 		M.invisibility = 0
+		M.add_to_all_human_data_huds()
 	if(M.alpha == 0)
 		M.invisibility = INVISIBILITY_OBSERVER
 		M.alpha = 128
+		M.remove_from_all_data_huds()
 
 //WAS: /datum/bioEffect/chameleon
 /datum/mutation/stealth/chameleon
@@ -263,9 +266,11 @@
 	else
 		M.alpha = round(255 * 0.80)
 		M.invisibility = 0
+		M.add_to_all_human_data_huds()
 	if(M.alpha == 0)
 		M.invisibility = INVISIBILITY_OBSERVER
 		M.alpha = 128
+		M.remove_from_all_data_huds()
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
