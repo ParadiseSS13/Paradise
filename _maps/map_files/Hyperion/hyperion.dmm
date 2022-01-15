@@ -38,9 +38,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "as" = (
-/obj/effect/landmark/start{
-	name = "Blueshield"
-	},
+/obj/effect/landmark/start/blueshield,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -50,9 +48,8 @@
 	dir = 4
 	},
 /obj/machinery/light/small,
-/obj/effect/landmark/start{
-	name = "Brig Physician"
-	},
+/obj/effect/landmark/start/internal_affairs,
+/obj/effect/landmark/start/internal_affairs,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -108,15 +105,20 @@
 /turf/simulated/floor/plating,
 /area/shuttle/arrival/station)
 "aM" = (
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark/start{
-	name = "Cyborg"
-	},
+/obj/effect/landmark/start/cyborg,
+/obj/effect/landmark/spawner/late/cyborg,
+/obj/effect/landmark/start/cyborg,
+/obj/effect/landmark/start/cyborg,
+/obj/effect/landmark/start/cyborg,
+/obj/effect/landmark/start/cyborg,
+/obj/effect/landmark/start/cyborg,
+/obj/effect/landmark/start/cyborg,
+/obj/effect/landmark/start/cyborg,
+/obj/effect/landmark/start/cyborg,
+/obj/effect/landmark/start/cyborg,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aN" = (
@@ -160,42 +162,39 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/arrival/station)
 "aV" = (
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark/start{
-	name = "Medical Doctor"
-	},
+/obj/effect/landmark/start/doctor,
+/obj/effect/landmark/start/doctor,
+/obj/effect/landmark/start/doctor,
+/obj/effect/landmark/start/doctor,
+/obj/effect/landmark/start/doctor,
+/obj/effect/landmark/start/doctor,
+/obj/effect/landmark/start/doctor,
+/obj/effect/landmark/start/doctor,
+/obj/effect/landmark/start/doctor,
+/obj/effect/landmark/start/doctor,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aX" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
-/obj/effect/landmark/start{
-	name = "Coroner"
-	},
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/landmark/start/coroner,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aY" = (
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark/start{
-	name = "Mime"
-	},
+/obj/effect/landmark/start/mime,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aZ" = (
@@ -203,50 +202,47 @@
 /turf/space,
 /area/space)
 "ba" = (
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark/start{
-	name = "Janitor"
-	},
+/obj/effect/landmark/start/janitor,
+/obj/effect/landmark/start/janitor,
+/obj/effect/landmark/start/janitor,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bc" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark/start{
-	name = "Magistrate"
-	},
+/obj/effect/landmark/start/magistrate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/shuttle/arrival/station)
 "bd" = (
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark/start{
-	name = "Clown"
-	},
+/obj/effect/landmark/start/clown,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "be" = (
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark/start{
-	name = "Station Engineer"
-	},
+/obj/effect/landmark/start/engineer,
+/obj/effect/landmark/start/engineer,
+/obj/effect/landmark/start/engineer,
+/obj/effect/landmark/start/engineer,
+/obj/effect/landmark/start/engineer,
+/obj/effect/landmark/start/engineer,
+/obj/effect/landmark/start/engineer,
+/obj/effect/landmark/start/engineer,
+/obj/effect/landmark/start/engineer,
+/obj/effect/landmark/start/engineer,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bh" = (
@@ -256,69 +252,54 @@
 	},
 /area/shuttle/arrival/station)
 "bo" = (
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark/start{
-	name = "Librarian"
-	},
-/obj/effect/landmark/start{
-	name = "Barber"
-	},
-/obj/effect/landmark/start{
-	name = "Chaplain"
-	},
+/obj/effect/landmark/start/chaplain,
+/obj/effect/landmark/start/librarian,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bp" = (
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark/start{
-	name = "Paramedic"
-	},
+/obj/effect/landmark/start/paramedic,
+/obj/effect/landmark/start/paramedic,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bq" = (
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark/start{
-	name = "Quartermaster"
-	},
-/obj/effect/landmark/start{
-	name = "Cargo Technician"
-	},
+/obj/effect/landmark/start/cargo_technician,
+/obj/effect/landmark/start/quartermaster,
+/obj/effect/landmark/start/cargo_technician,
+/obj/effect/landmark/start/cargo_technician,
+/obj/effect/landmark/start/cargo_technician,
+/obj/effect/landmark/start/cargo_technician,
+/obj/effect/landmark/start/cargo_technician,
+/obj/effect/landmark/start/cargo_technician,
+/obj/effect/landmark/start/cargo_technician,
+/obj/effect/landmark/start/cargo_technician,
+/obj/effect/landmark/start/cargo_technician,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "br" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
 	},
-/obj/effect/landmark/start{
-	name = "Botanist"
-	},
+/obj/effect/landmark/start/botanist,
+/obj/effect/landmark/start/botanist,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bt" = (
-/obj/effect/landmark{
-	name = "Observer-Start"
-	},
 /obj/machinery/light{
 	dir = 1;
 	on = 1
@@ -329,17 +310,13 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
-/obj/effect/landmark/start{
-	name = "Chef"
-	},
 /obj/machinery/requests_console{
 	department = "Arrival Shuttle";
 	name = "Arrival Shuttle Requests Console";
 	pixel_y = -30
 	},
+/obj/effect/landmark/start/chef,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bw" = (
@@ -353,10 +330,8 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
 /obj/effect/landmark/start,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bB" = (
@@ -601,6 +576,9 @@
 /obj/machinery/hydroponics/constructable,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/camera,
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenblue"
@@ -656,18 +634,14 @@
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "do" = (
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
-	},
-/obj/effect/landmark/start{
-	name = "Barber"
 	},
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
+/obj/effect/landmark/start/barber,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "dr" = (
@@ -827,9 +801,27 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark/start{
-	name = "Assistant"
-	},
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/start/assistant,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "ea" = (
@@ -883,27 +875,25 @@
 	},
 /area/hydroponics)
 "et" = (
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
-	},
-/obj/effect/landmark/start{
-	name = "Security Officer"
-	},
-/obj/effect/landmark/start{
-	name = "Security Pod Pilot"
-	},
-/obj/effect/landmark/start{
-	name = "Warden"
-	},
-/obj/effect/landmark/start{
-	name = "Detective"
 	},
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/landmark/start/detective,
+/obj/effect/landmark/start/warden,
+/obj/effect/landmark/start/security_officer,
+/obj/effect/landmark/start/security_officer,
+/obj/effect/landmark/start/security_officer,
+/obj/effect/landmark/start/security_officer,
+/obj/effect/landmark/start/security_officer,
+/obj/effect/landmark/start/security_officer,
+/obj/effect/landmark/start/security_officer,
+/obj/effect/landmark/start/security_officer,
+/obj/effect/landmark/start/security_officer,
+/obj/effect/landmark/start/security_officer,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "eB" = (
@@ -968,12 +958,6 @@
 	icon_state = "bar"
 	},
 /area/crew_quarters/kitchen)
-"eO" = (
-/obj/effect/landmark/start{
-	name = "Psychiatrist"
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "eR" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -1072,12 +1056,12 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark/start{
-	name = "Geneticist"
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
 	},
+/obj/effect/landmark/start/geneticist,
+/obj/effect/landmark/start/geneticist,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "fz" = (
@@ -1830,14 +1814,12 @@
 	},
 /area/hallway/primary/central/nw)
 "ma" = (
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -1979,7 +1961,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/machinery/disposal,
+/obj/structure/closet/secure_closet/engineering_chief,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "oc" = (
@@ -2169,9 +2151,6 @@
 	},
 /area/security/brig)
 "qo" = (
-/obj/effect/landmark/start{
-	name = "Research Director"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -2180,24 +2159,21 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/start/research_director,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "qt" = (
-/obj/effect/landmark/start{
-	name = "Head of Security"
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
+/obj/effect/landmark/start/head_of_security,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "qu" = (
-/obj/effect/landmark/start{
-	name = "Chief Medical Officer"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/landmark/start/chief_medical_officer,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "qv" = (
@@ -2262,12 +2238,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "qK" = (
-/obj/effect/landmark/start{
-	name = "Captain"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/landmark/start/captain,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "qM" = (
@@ -2278,12 +2252,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/atmos/control)
 "qR" = (
-/obj/effect/landmark/start{
-	name = "Head of Personnel"
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/obj/effect/landmark/start/head_of_personnel,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "qV" = (
@@ -2299,6 +2271,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/landmark/start/chief_engineer,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "ro" = (
@@ -2419,6 +2392,10 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12
+	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "sA" = (
@@ -2446,6 +2423,9 @@
 	},
 /obj/structure/sign/poster/contraband/lusty_xenomorph{
 	pixel_x = 32
+	},
+/obj/machinery/status_display{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
@@ -2873,15 +2853,8 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
-/obj/effect/landmark/start{
-	name = "Bartender"
-	},
+/obj/effect/landmark/start/bartender,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "vS" = (
@@ -2955,9 +2928,6 @@
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "wQ" = (
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -2969,6 +2939,7 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = 32
 	},
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -3455,10 +3426,8 @@
 	pixel_x = -32;
 	pixel_y = -32
 	},
-/obj/effect/landmark/start{
-	name = "AI"
-	},
 /obj/machinery/light,
+/obj/effect/landmark/start/ai,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "Aq" = (
@@ -3650,6 +3619,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "CL" = (
@@ -3703,9 +3675,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
 "CX" = (
-/obj/effect/landmark{
-	name = "JoinLateCryo"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -3717,6 +3686,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -3743,38 +3713,14 @@
 /obj/item/clothing/suit/space/eva,
 /obj/item/clothing/suit/space/eva,
 /obj/item/clothing/suit/space/eva,
-/obj/item/clothing/head/helmet/space/eva{
-	pixel_w = 1;
-	pixel_z = 2
-	},
-/obj/item/clothing/head/helmet/space/eva{
-	pixel_w = 1;
-	pixel_z = 2
-	},
-/obj/item/clothing/head/helmet/space/eva{
-	pixel_w = 1;
-	pixel_z = 2
-	},
-/obj/item/clothing/head/helmet/space/eva{
-	pixel_w = 1;
-	pixel_z = 2
-	},
-/obj/item/clothing/head/helmet/space/eva{
-	pixel_w = 1;
-	pixel_z = 2
-	},
-/obj/item/clothing/head/helmet/space/eva{
-	pixel_w = 1;
-	pixel_z = 2
-	},
-/obj/item/clothing/head/helmet/space/eva{
-	pixel_w = 1;
-	pixel_z = 2
-	},
-/obj/item/clothing/head/helmet/space/eva{
-	pixel_w = 1;
-	pixel_z = 2
-	},
+/obj/item/clothing/head/helmet/space/eva,
+/obj/item/clothing/head/helmet/space/eva,
+/obj/item/clothing/head/helmet/space/eva,
+/obj/item/clothing/head/helmet/space/eva,
+/obj/item/clothing/head/helmet/space/eva,
+/obj/item/clothing/head/helmet/space/eva,
+/obj/item/clothing/head/helmet/space/eva,
+/obj/item/clothing/head/helmet/space/eva,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3900,15 +3846,20 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
 "Ej" = (
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark/start{
-	name = "Scientist"
-	},
+/obj/effect/landmark/start/scientist,
+/obj/effect/landmark/start/scientist,
+/obj/effect/landmark/start/scientist,
+/obj/effect/landmark/start/scientist,
+/obj/effect/landmark/start/scientist,
+/obj/effect/landmark/start/scientist,
+/obj/effect/landmark/start/scientist,
+/obj/effect/landmark/start/scientist,
+/obj/effect/landmark/start/scientist,
+/obj/effect/landmark/start/scientist,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "Em" = (
@@ -4005,15 +3956,17 @@
 	dir = 8
 	},
 /obj/machinery/light/small,
-/obj/effect/landmark/start{
-	name = "Nanotrasen Representative"
-	},
+/obj/effect/landmark/start/nanotrasen_rep,
+/obj/effect/landmark/start/nanotrasen_rep,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/shuttle/arrival/station)
 "Fh" = (
 /obj/machinery/camera,
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -4029,6 +3982,14 @@
 	icon_state = "whitegreencorner"
 	},
 /area/crew_quarters/sleep)
+"Fn" = (
+/obj/machinery/status_display{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/crew_quarters/kitchen)
 "FC" = (
 /obj/machinery/newscaster{
 	pixel_y = 30
@@ -4131,11 +4092,14 @@
 /turf/simulated/floor/engine/air,
 /area/atmos)
 "GN" = (
+/obj/machinery/hologram/holopad,
 /obj/effect/landmark{
-	name = "HONKsquad"
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "spooky";
+	name = "Observer-Start"
 	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/central/nw)
 "GX" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/arrival/station)
@@ -4891,9 +4855,8 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark/start{
-	name = "Internal Affairs Agent"
-	},
+/obj/effect/landmark/start/internal_affairs,
+/obj/effect/landmark/start/internal_affairs,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6092,6 +6055,9 @@
 /area/hallway/primary/central/nw)
 "PS" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -6114,6 +6080,9 @@
 /area/hallway/primary/central/nw)
 "Qf" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -7926,6 +7895,9 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/red/partial,
+/obj/machinery/status_display{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -8077,15 +8049,13 @@
 /turf/simulated/wall/r_wall,
 /area/engine/equipmentstorage)
 "Ub" = (
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark/start{
-	name = "Roboticist"
-	},
+/obj/effect/landmark/start/roboticist,
+/obj/effect/landmark/start/roboticist,
+/obj/effect/landmark/start/roboticist,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "Ur" = (
@@ -8256,9 +8226,8 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/landmark/start{
-	name = "Virologist"
-	},
+/obj/effect/landmark/start/psychiatrist,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "WK" = (
@@ -8282,6 +8251,9 @@
 "WQ" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/suit_storage_unit/engine,
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
@@ -8385,8 +8357,6 @@
 /obj/item/rcd,
 /obj/item/rcd,
 /obj/item/rcd,
-/obj/item/rcd,
-/obj/item/rcd,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -8405,15 +8375,14 @@
 	},
 /area/security/brig)
 "Xx" = (
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark/start{
-	name = "Chemist"
-	},
+/obj/effect/landmark/start/chemist,
+/obj/effect/landmark/start/virologist,
+/obj/effect/landmark/start/virologist,
+/obj/effect/landmark/start/chemist,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "XB" = (
@@ -8439,6 +8408,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/item/storage/box/lights/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -8487,9 +8457,16 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark/start{
-	name = "Shaft Miner"
-	},
+/obj/effect/landmark/start/shaft_miner,
+/obj/effect/landmark/start/shaft_miner,
+/obj/effect/landmark/start/shaft_miner,
+/obj/effect/landmark/start/shaft_miner,
+/obj/effect/landmark/start/shaft_miner,
+/obj/effect/landmark/start/shaft_miner,
+/obj/effect/landmark/start/shaft_miner,
+/obj/effect/landmark/start/shaft_miner,
+/obj/effect/landmark/start/shaft_miner,
+/obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "Yl" = (
@@ -8504,6 +8481,9 @@
 	on = 1
 	},
 /obj/machinery/camera,
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -38341,7 +38321,7 @@ eI
 cj
 cj
 cj
-cj
+Fn
 NQ
 uo
 cG
@@ -41145,13 +41125,13 @@ bh
 Lz
 at
 Wq
-GN
-GN
-GN
-GN
-GN
-GN
-GN
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
 Wk
 bw
 CH
@@ -41677,7 +41657,7 @@ bP
 cb
 cG
 cG
-zO
+GN
 fr
 hq
 jY
@@ -42173,13 +42153,13 @@ XL
 bc
 EX
 Wq
-GN
-GN
-GN
-GN
-GN
-GN
-GN
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
+Rk
 Wk
 TA
 bx
@@ -42431,7 +42411,7 @@ Wk
 Wk
 Wq
 fy
-eO
+Rk
 WH
 aX
 vD
