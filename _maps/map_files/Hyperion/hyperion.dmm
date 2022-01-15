@@ -343,16 +343,10 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bw" = (
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/landmark/start,
+/obj/machinery/recharge_station,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bx" = (
@@ -362,6 +356,7 @@
 /obj/effect/landmark{
 	name = "JoinLate"
 	},
+/obj/effect/landmark/start,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bB" = (
@@ -826,13 +821,6 @@
 /area/crew_quarters/kitchen)
 "dV" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plasteel,
-/area/hallway/primary/central/nw)
-"dW" = (
-/obj/machinery/hologram/holopad,
-/obj/effect/landmark{
-	name = "Observer-Start"
-	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
 "dX" = (
@@ -2326,9 +2314,6 @@
 "rv" = (
 /obj/machinery/portable_atmospherics/pump,
 /obj/machinery/light,
-/obj/structure/sign/atmosplaque{
-	pixel_y = -32
-	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "rA" = (
@@ -3395,6 +3380,9 @@
 /obj/item/rpd,
 /obj/item/rpd,
 /obj/item/rpd,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "zO" = (
@@ -5461,6 +5449,21 @@
 /obj/item/areaeditor/permit{
 	pixel_y = -16
 	},
+/obj/item/rcd{
+	pixel_y = 10
+	},
+/obj/item/rcd{
+	pixel_y = 10
+	},
+/obj/item/rcd{
+	pixel_y = 10
+	},
+/obj/item/rcd{
+	pixel_y = 10
+	},
+/obj/item/rcd{
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -5637,6 +5640,21 @@
 	},
 /obj/item/areaeditor/permit{
 	pixel_y = -16
+	},
+/obj/item/rcd{
+	pixel_y = 10
+	},
+/obj/item/rcd{
+	pixel_y = 10
+	},
+/obj/item/rcd{
+	pixel_y = 10
+	},
+/obj/item/rcd{
+	pixel_y = 10
+	},
+/obj/item/rcd{
+	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -6447,9 +6465,6 @@
 /area/engine/equipmentstorage)
 "Qo" = (
 /obj/structure/closet/secure_closet/security,
-/obj/structure/sign/goldenplaque{
-	pixel_y = 30
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -8367,6 +8382,11 @@
 /obj/item/multitool{
 	pixel_x = 5
 	},
+/obj/item/rcd,
+/obj/item/rcd,
+/obj/item/rcd,
+/obj/item/rcd,
+/obj/item/rcd,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -41657,7 +41677,7 @@ bP
 cb
 cG
 cG
-dW
+zO
 fr
 hq
 jY
