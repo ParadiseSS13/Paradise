@@ -1046,12 +1046,6 @@
 	},
 /area/hallway/primary/central/nw)
 "fp" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -1062,6 +1056,14 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
 "fr" = (
@@ -1494,6 +1496,16 @@
 /obj/structure/closet/crate,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"iv" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/central/nw)
 "iy" = (
 /obj/machinery/light{
 	dir = 4
@@ -1829,6 +1841,19 @@
 	icon_state = "stairs-l"
 	},
 /area/hallway/primary/central/nw)
+"ma" = (
+/obj/effect/landmark{
+	name = "JoinLateCryo"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
+/area/crew_quarters/sleep)
 "mc" = (
 /obj/structure/lattice,
 /turf/simulated/wall,
@@ -2802,6 +2827,20 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
+"vm" = (
+/obj/machinery/cryopod/right,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitegreencorner"
+	},
+/area/crew_quarters/sleep)
+"vo" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/crew_quarters/sleep)
 "vq" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/reagent_dispensers/fueltank,
@@ -2930,6 +2969,25 @@
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
+"wQ" = (
+/obj/effect/landmark{
+	name = "JoinLateCryo"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/computer/cryopod{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
+/area/crew_quarters/sleep)
 "wR" = (
 /turf/simulated/wall,
 /area/atmos)
@@ -3434,6 +3492,21 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
+"AE" = (
+/obj/machinery/door/airlock/glass{
+	name = "Cabin"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
+/area/crew_quarters/sleep)
 "AM" = (
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
@@ -3482,6 +3555,13 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/nw)
+"BH" = (
+/obj/machinery/cryopod,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitegreencorner"
+	},
+/area/crew_quarters/sleep)
 "BR" = (
 /turf/simulated/wall,
 /area/toxins/lab)
@@ -3634,6 +3714,25 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
+"CX" = (
+/obj/effect/landmark{
+	name = "JoinLateCryo"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
+/area/crew_quarters/sleep)
 "Do" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -3932,6 +4031,16 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/lab)
+"Fi" = (
+/obj/machinery/cryopod,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitegreencorner"
+	},
+/area/crew_quarters/sleep)
 "FC" = (
 /obj/machinery/newscaster{
 	pixel_y = 30
@@ -4093,6 +4202,19 @@
 /obj/structure/closet/secure_closet/medical1,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
+"Hx" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/nw)
 "HB" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -4467,6 +4589,17 @@
 "JU" = (
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
+"JZ" = (
+/obj/machinery/cryopod/right,
+/obj/machinery/camera{
+	c_tag = "Cryodorms";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitegreencorner"
+	},
+/area/crew_quarters/sleep)
 "Kq" = (
 /obj/structure/lattice,
 /turf/simulated/wall/r_wall,
@@ -5152,6 +5285,13 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
+"Oc" = (
+/obj/machinery/cryopod/right,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitegreencorner"
+	},
+/area/crew_quarters/sleep)
 "Oh" = (
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -7933,6 +8073,16 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"Ur" = (
+/obj/machinery/cryopod,
+/obj/machinery/newscaster{
+	pixel_x = 30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitegreencorner"
+	},
+/area/crew_quarters/sleep)
 "Ux" = (
 /obj/machinery/vending/engivend,
 /turf/simulated/floor/plasteel{
@@ -8078,8 +8228,8 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "WB" = (
-/turf/simulated/wall/r_wall,
-/area/quartermaster/storage)
+/turf/simulated/wall,
+/area/crew_quarters/sleep)
 "WF" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -8440,6 +8590,24 @@
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
+"Zu" = (
+/obj/machinery/cryopod,
+/obj/machinery/power/apc{
+	cell_type = 25000;
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24;
+	shock_proof = 1
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitegreencorner"
+	},
+/area/crew_quarters/sleep)
 "ZE" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -38912,9 +39080,9 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
+WB
+WB
+WB
 NQ
 NQ
 NQ
@@ -39169,12 +39337,12 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-Gb
+WB
+Oc
+Oc
+JZ
+vm
+vo
 dk
 dk
 fg
@@ -39195,10 +39363,10 @@ OG
 PP
 QV
 TS
-WB
-WB
-WB
-WB
+TS
+TS
+TS
+TS
 JJ
 JJ
 JJ
@@ -39426,14 +39594,14 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-cr
-dk
-cG
+WB
+wQ
+ma
+ma
+CX
+AE
+Hx
+iv
 fp
 gS
 jH
@@ -39683,12 +39851,12 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-cr
+WB
+Zu
+Ur
+BH
+Fi
+vo
 dk
 cG
 fr
@@ -39940,12 +40108,12 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-cr
+WB
+WB
+WB
+WB
+WB
+WB
 dk
 cG
 fr
@@ -45868,7 +46036,7 @@ aa
 tV
 aZ
 aZ
-aa
+aZ
 aa
 aa
 aa
