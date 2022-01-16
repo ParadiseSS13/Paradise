@@ -294,7 +294,7 @@ Pipelines + Other Objects -> Pipe network
 		if(is_type_in_list(target_move, GLOB.ventcrawl_machinery) && target_move.can_crawl_through())
 			user.remove_ventcrawl()
 			user.forceMove(target_move.loc) //handles entering and so on
-			user.visible_message("You hear something squeezing through the ducts.", "You climb out the ventilation system.")
+			user.visible_message("You hear something squeezing through the ducts.", "You climb out of the ventilation system.")
 		else if(target_move.can_crawl_through())
 			if(returnPipenet() != target_move.returnPipenet())
 				user.update_pipe_vision(target_move)
@@ -307,7 +307,7 @@ Pipelines + Other Objects -> Pipe network
 		if((direction & initialize_directions) || is_type_in_list(src, GLOB.ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
 			user.remove_ventcrawl()
 			user.forceMove(src.loc)
-			user.visible_message("You hear something squeezing through the pipes.", "You climb out the ventilation system.")
+			user.visible_message("You hear something squeezing through the pipes.", "You climb out of the ventilation system.")
 	user.canmove = 0
 	spawn(1)
 		user.canmove = 1
