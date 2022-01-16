@@ -133,16 +133,6 @@
 /atom/movable/proc/setLoc(T, teleported=0)
 	loc = T
 
-/**
- * Meant for movement with zero side effects. only use for objects that are supposed to move "invisibly" (like camera mobs or ghosts).
- * If you want something to move onto a tile with a beartrap or recycler or tripmine or mouse without that object knowing about it at all, use this.
- * Most of the time you want forceMove(), but if you want to just set .loc then use this.
- */
-/atom/movable/proc/abstract_move(atom/new_loc)
-	var/atom/old_loc = loc
-	loc = new_loc
-	Moved(old_loc, get_dir(old_loc, new_loc))
-
 /atom/movable/Move(atom/newloc, direct = 0, movetime)
 	if(!loc || !newloc) return 0
 	var/atom/oldloc = loc
