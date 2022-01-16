@@ -138,8 +138,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	radio = new /obj/item/radio/borg(src)
 
-	init(alien, connect_to_AI, ai_to_sync_to)
-
 	if(has_camera && !camera)
 		camera = new /obj/machinery/camera(src)
 		camera.c_tag = real_name
@@ -170,6 +168,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/datum/robot_component/cell_component = components["power cell"]
 	var/obj/item/stock_parts/cell/C = cell || new default_cell_type(src)
 	cell_component.install(C)
+
+	init(alien, connect_to_AI, ai_to_sync_to)
 
 	diag_hud_set_borgcell()
 	scanner = new(src)

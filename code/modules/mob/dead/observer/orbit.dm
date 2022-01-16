@@ -58,6 +58,9 @@
 			continue
 
 		serialized["ref"] = "\ref[M]"
+		var/list/orbiters = M.get_orbiters_recursive()
+		if(length(orbiters) > 0)
+			serialized["orbiters"] = length(orbiters)
 
 		if(istype(M))
 			if(isnewplayer(M))  // People in the lobby screen; only have their ckey as a name.

@@ -333,7 +333,7 @@
 
 	msg_admin_attack("[key_name_admin(user)] vs [target_info]: [what_done]", loglevel)
 
-/proc/do_mob(mob/user, mob/target, time = 30, uninterruptible = 0, progress = 1, list/extra_checks = list())
+/proc/do_mob(mob/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE)
 	if(!user || !target)
 		return 0
 	var/user_loc = user.loc
@@ -359,7 +359,9 @@
 		if(!user || !target)
 			. = 0
 			break
-		if(uninterruptible)
+		if(only_use_extra_checks)
+			if(check_for_true_callbacks(extra_checks))
+				break
 			continue
 
 		if(drifting && !user.inertia_dir)

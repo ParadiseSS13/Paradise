@@ -326,9 +326,7 @@
 	name = "UO45 Central Hall"
 	})
 "aT" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
@@ -337,9 +335,7 @@
 /obj/structure/chair/comfy/beige{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -347,9 +343,7 @@
 	name = "UO45 Central Hall"
 	})
 "aV" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -401,9 +395,7 @@
 	icon_state = "beacon";
 	name = "tracking beacon"
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -445,17 +437,13 @@
 	pixel_x = -23;
 	req_access = null
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a1{
 	name = "UO45 Central Hall"
 	})
 "bf" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -464,9 +452,7 @@
 	})
 "bg" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"

@@ -7,7 +7,9 @@
 # Actual Code
 /code/controllers/subsystem/instancing.dm @AffectedArc07
 /code/controllers/subsystem/mapping.dm @AffectedArc07
+/code/controllers/subsystem/redis.dm @AffectedArc07
 /code/controllers/subsystem/ticker.dm @AffectedArc07
+/code/modules/redis/ @AffectedArc07
 
 # CI + Tooling
 /.github/workflows/ @AffectedArc07

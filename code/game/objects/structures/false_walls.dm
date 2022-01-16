@@ -64,44 +64,42 @@
 /obj/structure/falsewall/proc/toggle(mob/user)
 	if(opening)
 		return
-
-	opening = 1
+	opening = TRUE
 	if(density)
 		flick("fwall_opening", src)
-		density = 0
-		set_opacity(0)
-		update_icon()
+		density = FALSE
+		set_opacity(FALSE)
+		clear_smooth_overlays()
+		icon_state = "fwall_opening"
 	else
 		var/srcturf = get_turf(src)
 		for(var/mob/living/obstacle in srcturf) //Stop people from using this as a shield
-			opening = 0
+			opening = FALSE
 			return
 		flick("fwall_closing", src)
-		density = 1
-		set_opacity(1)
-		update_icon()
-	air_update_turf(1)
-	opening = 0
+		density = TRUE
+		set_opacity(TRUE)
+		icon_state = "fwall_closing"
+	air_update_turf(TRUE)
+	opening = FALSE
 	update_icon()
-
 
 /obj/structure/falsewall/update_icon()
 	if(opening)
+		smoothing_flags = NONE
+		clear_smooth_overlays()
 		if(density)
 			icon_state = "fwall_opening"
-			smoothing_flags = NONE
-			clear_smooth_overlays()
-		else
-			icon_state = "fwall_closing"
-	else
-		if(density)
-			icon_state = initial(icon_state)
-			smoothing_flags = SMOOTH_CORNERS
-			icon_state = "[base_icon_state]-[smoothing_junction]"
-			smoothing_flags = SMOOTH_BITMASK
-			QUEUE_SMOOTH(src)
-		else
-			icon_state = "fwall_open"
+			return
+		icon_state = "fwall_closing"
+		return
+	if(!density)
+		icon_state = "fwall_open"
+		return
+	smoothing_flags = SMOOTH_BITMASK
+	icon_state = initial(icon_state)
+	icon_state = "[base_icon_state]-[smoothing_junction]"
+	QUEUE_SMOOTH(src)
 
 /obj/structure/falsewall/proc/ChangeToWall(delete = TRUE)
 	var/turf/T = get_turf(src)

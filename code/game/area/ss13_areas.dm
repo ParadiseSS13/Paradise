@@ -293,14 +293,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/shuttle/research/outpost
 	icon_state = "shuttle"
 
-/area/shuttle/vox
-	name = "\improper Vox Skipjack"
-	icon_state = "shuttle"
-
-/area/shuttle/vox/station
-	name = "\improper Vox Skipjack"
-	icon_state = "yellow"
-
 /area/shuttle/salvage
 	name = "\improper Salvage Ship"
 	icon_state = "yellow"

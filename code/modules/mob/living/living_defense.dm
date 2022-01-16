@@ -261,9 +261,11 @@
 
 /mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
 	if(user == src || anchored)
-		return 0
+		return FALSE
 	if(!(status_flags & CANPUSH))
-		return 0
+		return FALSE
+	if(user.pull_force < move_force)
+		return FALSE
 
 	for(var/obj/item/grab/G in grabbed_by)
 		if(G.assailant == user)

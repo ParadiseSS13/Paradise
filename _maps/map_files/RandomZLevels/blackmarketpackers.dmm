@@ -870,9 +870,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Aft)
 "dF" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -2228,9 +2226,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission)
 "gZ" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission)
@@ -2509,9 +2505,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission)
 "ib" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "ic" = (
@@ -2527,9 +2521,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Aft)
 "id" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plating/airless,
 /area/awaymission)
 "ie" = (

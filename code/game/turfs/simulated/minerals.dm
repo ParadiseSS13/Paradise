@@ -189,6 +189,7 @@
 		/turf/simulated/mineral/gibtonite = 2, /turf/simulated/mineral/bscrystal = 1)
 
 /turf/simulated/mineral/random/volcanic
+	icon_state = "smoothrocks"
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface

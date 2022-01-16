@@ -173,7 +173,7 @@ Made by Xhuis
 			replace_jobbanned_player(new_thrall_mind.current, ROLE_SHADOWLING)
 		if(!victory_warning_announced && (length(shadowling_thralls) >= warning_threshold))//are the slings very close to winning?
 			victory_warning_announced = TRUE	//then let's give the station a warning
-			GLOB.command_announcement.Announce("Large concentration of psychic bluespace energy detected by long-ranged scanners. Shadowling ascension event imminent. Prevent it at all costs!", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
+			GLOB.command_announcement.Announce("Hostile bluespace entities are attempting to transcend existence aboard [station_name()]. Disrupt the ascension at all costs, before the station is destroyed! Space law and SOP are suspended. The entire crew must kill shadowlings and their thralls on sight.", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
 		return 1
 
 /datum/game_mode/proc/remove_thrall(datum/mind/thrall_mind, kill = 0)

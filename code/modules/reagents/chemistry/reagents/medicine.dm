@@ -355,7 +355,7 @@
 	if(severity == 1) //lesser
 		M.AdjustStuttering(1)
 		if(effect <= 1)
-			M.visible_message("<span class='warning'>[M] suddenly cluches [M.p_their()] gut!</span>")
+			M.visible_message("<span class='warning'>[M] suddenly clutches [M.p_their()] gut!</span>")
 			M.emote("scream")
 			update_flags |= M.Stun(4, FALSE)
 			update_flags |= M.Weaken(4, FALSE)
@@ -371,7 +371,7 @@
 			M.Jitter(30)
 	else if(severity == 2) // greater
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] suddenly cluches [M.p_their()] gut!</span>")
+			M.visible_message("<span class='warning'>[M] suddenly clutches [M.p_their()] gut!</span>")
 			M.emote("scream")
 			update_flags |= M.Stun(7, FALSE)
 			update_flags |= M.Weaken(7, FALSE)
