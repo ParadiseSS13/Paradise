@@ -999,6 +999,9 @@
 					toggles2 ^= PREFTOGGLE_2_ANONDCHAT
 
 				if("save")
+					if(active_character.species == "Nian")
+						to_chat(user, "SAVING MOTH CHARACTERS IS DISABLED DURING THIS TEST MERGE FOR DATA INTEGRITY PURPOSES")
+						return
 					save_preferences(user)
 					active_character.save(user)
 
