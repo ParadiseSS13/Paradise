@@ -141,7 +141,7 @@
 /atom/movable/proc/abstract_move(atom/new_loc)
 	var/atom/old_loc = loc
 	loc = new_loc
-	Moved(old_loc, get_dir(old_loc, new_loc), FALSE)
+	Moved(old_loc, get_dir(old_loc, new_loc))
 
 /atom/movable/Move(atom/newloc, direct = 0, movetime)
 	if(!loc || !newloc) return 0
