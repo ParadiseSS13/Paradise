@@ -93,7 +93,7 @@
 		else
 			text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
 			SSblackbox.record_feedback("tally", "traitor_success", 1, "FAIL")
-		to_chat(world, text)
+	to_chat(world, text)
 	return TRUE
 
 /datum/game_mode/proc/auto_declare_completion_enthralled()
