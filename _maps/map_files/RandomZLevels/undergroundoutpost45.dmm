@@ -14229,25 +14229,8 @@
 /area/awaycontent/a4{
 	name = "UO45 Mining"
 	})
-"yf" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/structure/bed/nest,
-/obj/effect/mob_spawn/human/miner,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
 "yg" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/mob_spawn/human/miner,
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
@@ -14320,68 +14303,11 @@
 	power_light = 0;
 	poweralm = 0
 	})
-"yo" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/effect/mob_spawn/human/miner,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"yp" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/structure/glowshroom/single,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"yq" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/structure/bed/nest,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
 "yr" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "red";
 	icon_state = "gib2_flesh"
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"ys" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
@@ -14407,9 +14333,7 @@
 	poweralm = 0
 	})
 "yu" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/structure/glowshroom/single,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
@@ -14423,25 +14347,6 @@
 "yv" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"yw" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
@@ -14465,19 +14370,6 @@
 	power_light = 0;
 	poweralm = 0
 	})
-"yy" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
 "yz" = (
 /obj/structure/alien/resin/membrane,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -14490,29 +14382,11 @@
 	poweralm = 0
 	})
 "yA" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
 	},
 /obj/effect/mob_spawn/human/miner,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"yB" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
@@ -14537,9 +14411,7 @@
 	poweralm = 0
 	})
 "yD" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
 	desc = "Your instincts say you shouldn't be following these.";
@@ -14583,9 +14455,7 @@
 	poweralm = 0
 	})
 "yG" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
 	desc = "Your instincts say you shouldn't be following these.";
@@ -16283,7 +16153,7 @@ ac
 ac
 ac
 ac
-yf
+bY
 yr
 ac
 ac
@@ -16435,7 +16305,7 @@ ac
 ac
 yv
 yx
-yy
+gg
 ac
 ac
 ac
@@ -16584,7 +16454,7 @@ ac
 ac
 ac
 yu
-ys
+gg
 fo
 yz
 ac
@@ -16734,7 +16604,7 @@ ac
 ac
 ac
 ac
-yy
+gg
 fo
 yC
 ac
@@ -17038,7 +16908,7 @@ ac
 ac
 yt
 fo
-ys
+gg
 yH
 yD
 ac
@@ -17180,7 +17050,7 @@ ac
 ac
 ac
 ac
-yf
+bY
 yr
 eK
 gC
@@ -17188,7 +17058,7 @@ ac
 ac
 ac
 fo
-yy
+gg
 fo
 yz
 ac
@@ -17329,9 +17199,9 @@ ac
 ac
 ac
 ac
-yf
-yq
-ys
+bY
+yv
+gg
 yg
 eK
 ac
@@ -17480,7 +17350,7 @@ ac
 ac
 ac
 ac
-yp
+yu
 fo
 fo
 gg
@@ -17783,10 +17653,10 @@ ac
 ac
 ac
 fo
-yw
 bX
-yw
-yy
+bX
+bX
+gg
 fo
 fo
 ac
@@ -17934,7 +17804,7 @@ ac
 ac
 ac
 ac
-yy
+gg
 fo
 fo
 fo
@@ -18234,11 +18104,11 @@ ac
 ac
 ac
 ac
-yo
+yE
 fo
 fo
 gg
-ys
+gg
 yJ
 fo
 gg
@@ -18385,9 +18255,9 @@ ac
 ac
 ac
 gg
-yy
+gg
 fo
-ys
+gg
 ac
 ac
 yx
@@ -18535,7 +18405,7 @@ ac
 ac
 ac
 ac
-yB
+yx
 fo
 ac
 ac
