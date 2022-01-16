@@ -972,10 +972,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Chapel Office"
 	icon_state = "chapeloffice"
 
-/area/escapepodbay
-	name = "\improper Escape Shuttle Hallway Podbay"
-	icon_state = "escape"
-
 /area/lawoffice
 	name = "\improper Law Office"
 	icon_state = "law"
@@ -2210,7 +2206,6 @@ GLOBAL_LIST_INIT(the_station_areas, list(
 	/area/holodeck,
 	/area/library,
 	/area/chapel,
-	/area/escapepodbay,
 	/area/lawoffice,
 	/area/magistrateoffice,
 	/area/clownoffice,
