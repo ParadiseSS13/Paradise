@@ -1,4 +1,3 @@
-
 /obj/structure/spider
 	name = "web"
 	desc = "it's stringy and sticky"
@@ -183,11 +182,10 @@
 			if(!grow_as)
 				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
-			SSmobs.xenobiology_mobs++
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
 			S.xenobiology_spawned = xenobiology_spawned
-			if (xenobiology_spawned)
+			if(xenobiology_spawned)
 				SSmobs.xenobiology_mobs++
 			if(player_spiders && !selecting_player)
 				selecting_player = 1

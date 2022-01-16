@@ -376,7 +376,7 @@
 			visible_message("<span class='danger'>\The [src] [deathmessage]</span>")
 		else if(!del_on_death)
 			visible_message("<span class='danger'>\The [src] stops moving...</span>")
-	if (xenobiology_spawned)
+	if(xenobiology_spawned)
 		SSmobs.xenobiology_mobs--
 	if(del_on_death)
 		//Prevent infinite loops if the mob Destroy() is overridden in such

@@ -48,7 +48,7 @@
 				S = create_random_mob(get_turf(holder.my_atom), mob_class)
 			else
 				S = new mob_class(get_turf(holder.my_atom))//Spawn our specific mob_class
-			if (gold_core_spawn) //For tracking xenobiology mobs
+			if(gold_core_spawn) //For tracking xenobiology mobs
 				S.xenobiology_spawned = TRUE
 			S.faction |= mob_faction
 			if(prob(50))
