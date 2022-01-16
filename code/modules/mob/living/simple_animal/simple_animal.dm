@@ -80,6 +80,8 @@
 	var/max_offspring = DEFAULT_MAX_OFFSPRING
 
 	var/buffed = 0 //In the event that you want to have a buffing effect on the mob, but don't want it to stack with other effects, any outside force that applies a buff to a simple mob should at least set this to 1, so we have something to check against
+	///Was this mob spawned by xenobiology magic? Used for mobcapping.
+	var/xenobiology_spawned = FALSE
 	var/gold_core_spawnable = NO_SPAWN //If the mob can be spawned with a gold slime core. HOSTILE_SPAWN are spawned with plasma, FRIENDLY_SPAWN are spawned with blood
 
 	var/mob/living/carbon/human/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
@@ -374,6 +376,8 @@
 			visible_message("<span class='danger'>\The [src] [deathmessage]</span>")
 		else if(!del_on_death)
 			visible_message("<span class='danger'>\The [src] stops moving...</span>")
+	if(xenobiology_spawned)
+		SSmobs.xenobiology_mobs--
 	if(del_on_death)
 		//Prevent infinite loops if the mob Destroy() is overridden in such
 		//a manner as to cause a call to death() again
