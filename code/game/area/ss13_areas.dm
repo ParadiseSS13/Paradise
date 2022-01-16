@@ -2189,7 +2189,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	/area/shuttle/specops/centcom,
 ))
 
-//SPACE STATION 13
+//SPACE STATION  13
 GLOBAL_LIST_INIT(the_station_areas, list(
 	/area/shuttle/arrival,
 	/area/shuttle/escape,
