@@ -307,9 +307,11 @@
 		if(prob(50))
 			new /obj/effect/temp_visual/revenant(loc)
 		emag_act(null)
+	else
+		emp_act(1)
 
 /obj/machinery/clonepod/rev_malfunction()
-	emag_act(null)
+	return
 
 /obj/machinery/power/apc/rev_malfunction()
 	return
