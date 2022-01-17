@@ -691,3 +691,16 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			message_admins("[src.ckey] just got booted back to lobby with no jobs enabled, but antag rolling enabled. Likely antag rolling abuse.")
 		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
 	return TRUE
+
+/**
+ * Mark the mob as having completed its animated emote.
+ */
+/mob/proc/register_animated_emote(emote_define, duration)
+	animated_emote |= emote_define
+	addtimer(CALLBACK(src, .proc/cancel_animated_emote, emote_define), duration)
+
+/**
+ * Mark the mob as having completed its animated emote.
+ */
+/mob/proc/cancel_animated_emote(emote_define)
+	animated_emote &= ~emote_define

@@ -20,6 +20,19 @@
 	slot_flags = SLOT_BACK
 	actions_types = list()
 
+/obj/item/gun/projectile/automatic/sniper_rifle/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
+	var/obj/item/projectile/bullet/sniper/bullet = chambered.BB
+	bullet.firer_emote = user.animated_emote
+	bullet.was_zoomed = zoomed
+
+	// If you try to trickshot and you're facing the wrong way, you just shoot that way
+	if(user.animated_emote & (SPIN_EMOTE_SPIN))
+		if((get_dir(user, target)) == user.dir)
+			target = get_step(user, user.dir)
+			to_chat(usr, "<span class='warning'>Your trickshot goes wide of its target!</span>")
+
+	..(target, user, message, params, zone_override, bonus_spread)
+
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
 	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face."
@@ -87,6 +100,45 @@
 	stun = 5
 	weaken = 5
 	armour_penetration = 50
+	var/firer_emote = SPIN_EMOTE_NONE
+	var/was_zoomed = FALSE
+	// Add an invisible camera so we can take pictures of the kill
+	var/obj/item/camera/cam
+
+/obj/item/projectile/bullet/sniper/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_PROJECTILE_SELF_ON_HIT, .proc/on_hit_callback)
+	cam = new /obj/item/camera/disconnected(src)
+
+/obj/item/projectile/bullet/sniper/Destroy()
+	qdel(cam)
+	UnregisterSignal(src, COMSIG_PROJECTILE_SELF_ON_HIT)
+	. = ..()
+
+/**
+ * Some fun flavor for sniping.
+ * If you flip or spin while sniping, you'll get a little flavor in the form of a hitmarker.
+ * If you get a 360 no-scope, a picture will be taken and placed at the user's feet.
+ * Beyond that, it's pretty much just flavor.
+ * Firer: The weapon that fired the shot
+ * target: The atom that was shot
+ */
+/obj/item/projectile/bullet/sniper/proc/on_hit_callback(atom/movable/this, atom/movable/firer, atom/target, Angle)
+	if(!firer || !istype(firer) || QDELETED(firer) || !ismob(target))
+		return
+	if(firer && ismob(firer))
+		to_chat(firer, "Your gun vibrates in your hands, registering a hit!")
+		playsound(firer, "sound/items/dodgeball.ogg", 50, FALSE)
+	if(firer_emote & (SPIN_EMOTE_FLIP | SPIN_EMOTE_SPIN))
+		if(!was_zoomed)
+			// 360 NO SCOPE
+			// play the airhorn sound effect on the bullet itself
+			// what's the fun of landing a shot like this if nobody else knows it?
+			playsound(target, "sound/items/airhorn2.ogg", 50, FALSE)
+			// MOM GET THE CAMERA
+			cam.captureimage(target, firer)
+		else
+			to_chat(target, "<span class='userdanger'><b>Something tells you you've been styled on.</b></span>")
 
 /obj/item/ammo_box/magazine/sniper_rounds/antimatter
 	name = "sniper rounds (Antimatter)"

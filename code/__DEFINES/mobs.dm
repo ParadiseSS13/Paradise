@@ -299,3 +299,8 @@
 
 #define MAX_EYE_BLURRY_FILTER_SIZE 2
 #define EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER 0.1
+
+// Spinning emotes
+#define SPIN_EMOTE_NONE 		(1<<0)
+#define SPIN_EMOTE_FLIP			(1<<1)
+#define SPIN_EMOTE_SPIN			(1<<2)

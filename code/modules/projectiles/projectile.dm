@@ -79,12 +79,17 @@
 		on_range()
 
 /obj/item/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
+	SEND_SIGNAL(src, COMSIG_PROJECTILE_RANGE_OUT)
 	qdel(src)
 
 /obj/item/projectile/proc/prehit(atom/target)
+	SEND_SIGNAL(target, COMSIG_PROJECTILE_PREHIT)
 	return TRUE
 
 /obj/item/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
+	if(firer)
+		// Send a signal to the firer
+		SEND_SIGNAL(firer, COMSIG_PROJECTILE_ON_HIT, firer, target, Angle, hit_zone)
 	var/turf/target_loca = get_turf(target)
 	var/hitx
 	var/hity
@@ -101,6 +106,8 @@
 
 		W.add_dent(WALL_DENT_SHOT, hitx, hity)
 		return 0
+	// And this one goes to the projectile saying we've hit something.
+	SEND_SIGNAL(src, COMSIG_PROJECTILE_SELF_ON_HIT, firer, target, Angle, hit_zone)
 	if(alwayslog)
 		add_attack_logs(firer, target, "Shot with a [type]")
 	if(!isliving(target))

@@ -515,6 +515,15 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	if(P)
 		saved_pictures -= P
 
+/**
+ * Functionally a camera that can take pictures around itself, even when it may not be
+ * in sight of the user.
+ */
+/obj/item/camera/disconnected
+
+/obj/item/camera/disconnected/can_capture_turf(turf/T, mob/user)
+	return T in view(src.loc)
+
 /**************
 *video camera *
 ***************/
