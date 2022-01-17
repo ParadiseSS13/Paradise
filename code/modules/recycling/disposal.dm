@@ -406,7 +406,7 @@
 	flick("[icon_state]-flush", src)
 
 	var/wrapcheck = 0
-	var/obj/structure/disposalholder/H = new()	// virtual holder object which actually
+	var/obj/structure/disposalholder/H = new(src)	// virtual holder object which actually
 												// travels through the pipes.
 	//Hacky test to get drones to mail themselves through disposals.
 	for(var/mob/living/silicon/robot/drone/D in src)
@@ -646,7 +646,7 @@
 
 	var/mob/living/U = user
 
-	if(U.stat || U.last_special <= world.time)
+	if(U.stat || world.time <= U.last_special)
 		return
 
 	U.last_special = world.time+100
