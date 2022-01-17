@@ -269,7 +269,7 @@
 	if(isturf(start))
 		return
 	var/atom/cur_atom = start
-	while(cur_atom.loc && !isturf(cur_atom.loc) && !(cur_atom.loc in orbiter_list))
+	while(!isturf(cur_atom.loc) && !(cur_atom.loc in orbiter_list))
 		RegisterSignal(cur_atom, COMSIG_MOVABLE_MOVED, .proc/on_intermediate_move, TRUE)
 		RegisterSignal(cur_atom, COMSIG_ATOM_EXITED, .proc/on_remove_child, TRUE)
 		cur_atom = cur_atom.loc
