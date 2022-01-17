@@ -475,7 +475,8 @@
 		output += "<option value='[j]'>[j]</option>"
 	for(var/j in list("Syndicate") + GLOB.antag_roles)
 		output += "<option value='[j]'>[j]</option>"
-	output += "</select></td></tr></table>"
+	output += "</select></td></tr>"
+	output += "<tr><td width='50%' align='right'><input type='checkbox' value='round' name='dbbanaddround'> Add current ID and server name</td></tr></table>"
 	output += "<b>Reason:<br></b><textarea name='dbbanreason' cols='50'></textarea><br>"
 	output += "<input type='submit' value='Add ban'>"
 	output += "</form>"

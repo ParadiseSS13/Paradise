@@ -106,6 +106,7 @@
 		var/bancid = href_list["dbbanaddcid"]
 		var/banduration = text2num(href_list["dbbaddduration"])
 		var/banjob = href_list["dbbanaddjob"]
+		var/banround = href_list["dbbanaddround"]
 		var/banreason = href_list["dbbanreason"]
 		var/bantype_str
 
@@ -164,7 +165,8 @@
 				playermob = M
 				break
 
-
+		if(banround)
+			banreason = "Round [GLOB.round_id || "NULL"] [config?.server_name]: " + banreason
 		banreason = "(MANUAL BAN) "+banreason
 
 		if(!playermob)
