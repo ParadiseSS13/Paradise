@@ -532,7 +532,9 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
   */
 /mob/proc/ghost_can_reenter()
 	var/mob/dead/observer/ghost = get_ghost(TRUE)
-	return ghost?.can_reenter_corpse
+	if(ghost && !ghost.can_reenter_corpse)
+		return FALSE
+	return TRUE
 
 /mob/proc/switch_to_camera(obj/machinery/camera/C)
 	if(!C.can_use() || incapacitated() || (get_dist(C, src) > 1 || machine != src || !has_vision()))
