@@ -17,9 +17,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "ae" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "af" = (
@@ -2533,6 +2531,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
+"he" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/academy/academyaft)
 "hf" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -2645,6 +2651,16 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
+/area/awaymission/academy/academyaft)
+"hs" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
 /area/awaymission/academy/academyaft)
 "ht" = (
 /obj/structure/cable{
@@ -2777,16 +2793,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
-"hM" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
-/area/awaymission/academy/academyaft)
 "hN" = (
 /obj/machinery/light{
 	dir = 4
@@ -2879,14 +2885,6 @@
 "ib" = (
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plasteel,
-/area/awaymission/academy/academyaft)
-"ic" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
 "id" = (
 /obj/item/stack/cable_coil/random,
@@ -10504,7 +10502,7 @@ bB
 bB
 gI
 gZ
-ic
+he
 hw
 hc
 hw
@@ -10634,12 +10632,12 @@ gx
 ge
 gV
 gZ
-ic
-ic
+he
+he
 hc
-ic
+he
 hc
-ic
+he
 hc
 id
 hp
@@ -10894,7 +10892,7 @@ dv
 dv
 gX
 gZ
-hM
+hs
 kX
 hp
 id
@@ -15184,7 +15182,7 @@ aa
 aa
 aa
 gZ
-hM
+hs
 lp
 hp
 hp
@@ -15444,7 +15442,7 @@ aa
 aa
 aa
 gZ
-ic
+he
 hK
 hc
 ls

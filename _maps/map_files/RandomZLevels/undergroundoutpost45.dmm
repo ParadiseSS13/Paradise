@@ -501,6 +501,7 @@
 	})
 "bl" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = -25
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1097,6 +1098,7 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_x = -30
 	},
 /turf/simulated/floor/carpet,
@@ -1126,6 +1128,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_x = 30
 	},
 /turf/simulated/floor/carpet,
@@ -2568,6 +2571,7 @@
 	tag = ""
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -2951,6 +2955,7 @@
 "fS" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_y = -28
 	},
 /turf/simulated/floor/carpet,
@@ -2973,6 +2978,7 @@
 	})
 "fV" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_y = -28
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3693,6 +3699,7 @@
 	})
 "hr" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = -25
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5834,6 +5841,7 @@
 	})
 "kW" = (
 /obj/structure/extinguisher_cabinet{
+	name = "north bump";
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -5974,6 +5982,7 @@
 	dir = 5
 	},
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -6704,6 +6713,7 @@
 /obj/structure/table,
 /obj/item/newspaper,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_x = 30
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6842,6 +6852,7 @@
 "ms" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /turf/simulated/floor/carpet,
@@ -6871,6 +6882,7 @@
 "mv" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_x = -30
 	},
 /turf/simulated/floor/carpet,
@@ -6957,6 +6969,7 @@
 	})
 "mD" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_y = -28
 	},
 /obj/structure/rack{
@@ -7128,6 +7141,7 @@
 	},
 /obj/item/pen,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -8399,6 +8413,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -9871,6 +9886,7 @@
 "qZ" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_y = -28
 	},
 /obj/item/pen,
@@ -9946,6 +9962,7 @@
 "rg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = -25
 	},
 /turf/simulated/floor/plasteel,
@@ -10023,6 +10040,7 @@
 	pixel_x = 4
 	},
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -10112,6 +10130,14 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6;
 	initialize_directions = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/awaycontent/a3{
+	name = "UO45 Engineering"
+	})
+"rt" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a3{
@@ -10672,6 +10698,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "south bump";
 	pixel_y = -30
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -11240,14 +11267,6 @@
 "sY" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/awaycontent/a3{
-	name = "UO45 Engineering"
-	})
-"sZ" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a3{
@@ -13748,6 +13767,7 @@
 	on = 1
 	},
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_y = -28
 	},
 /obj/structure/cable{
@@ -13948,17 +13968,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a4{
 	name = "UO45 Mining"
-	})
-"xv" = (
-/obj/structure/closet/cabinet,
-/turf/simulated/mineral/random/labormineral,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
 	})
 "xw" = (
 /obj/structure/table,
@@ -14220,25 +14229,8 @@
 /area/awaycontent/a4{
 	name = "UO45 Mining"
 	})
-"yf" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/structure/bed/nest,
-/obj/effect/mob_spawn/human/miner,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
 "yg" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/mob_spawn/human/miner,
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
@@ -14311,74 +14303,11 @@
 	power_light = 0;
 	poweralm = 0
 	})
-"yn" = (
-/obj/structure/closet/emcloset,
-/turf/simulated/wall/r_wall/rust,
-/area/awaycontent/a4{
-	name = "UO45 Mining"
-	})
-"yo" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/effect/mob_spawn/human/miner,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"yp" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/structure/glowshroom/single,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"yq" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/structure/bed/nest,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
 "yr" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "red";
 	icon_state = "gib2_flesh"
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"ys" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
@@ -14404,9 +14333,7 @@
 	poweralm = 0
 	})
 "yu" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/structure/glowshroom/single,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
@@ -14420,25 +14347,6 @@
 "yv" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"yw" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
@@ -14462,19 +14370,6 @@
 	power_light = 0;
 	poweralm = 0
 	})
-"yy" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
 "yz" = (
 /obj/structure/alien/resin/membrane,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -14487,29 +14382,11 @@
 	poweralm = 0
 	})
 "yA" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
 	},
 /obj/effect/mob_spawn/human/miner,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a7{
-	always_unpowered = 1;
-	name = "UO45 Caves";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"yB" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
@@ -14534,9 +14411,7 @@
 	poweralm = 0
 	})
 "yD" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
 	desc = "Your instincts say you shouldn't be following these.";
@@ -14580,9 +14455,7 @@
 	poweralm = 0
 	})
 "yG" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
 	desc = "Your instincts say you shouldn't be following these.";
@@ -14644,6 +14517,23 @@
 	power_equip = 0;
 	power_light = 0;
 	poweralm = 0
+	})
+"AO" = (
+/obj/structure/closet/cabinet,
+/turf/simulated/mineral/random/labormineral,
+/area/awaycontent/a7{
+	always_unpowered = 1;
+	name = "UO45 Caves";
+	power_environ = 0;
+	power_equip = 0;
+	power_light = 0;
+	poweralm = 0
+	})
+"NE" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/wall/r_wall/rust,
+/area/awaycontent/a4{
+	name = "UO45 Mining"
 	})
 
 (1,1,1) = {"
@@ -16263,7 +16153,7 @@ ac
 ac
 ac
 ac
-yf
+bY
 yr
 ac
 ac
@@ -16415,7 +16305,7 @@ ac
 ac
 yv
 yx
-yy
+gg
 ac
 ac
 ac
@@ -16564,7 +16454,7 @@ ac
 ac
 ac
 yu
-ys
+gg
 fo
 yz
 ac
@@ -16714,7 +16604,7 @@ ac
 ac
 ac
 ac
-yy
+gg
 fo
 yC
 ac
@@ -17018,7 +16908,7 @@ ac
 ac
 yt
 fo
-ys
+gg
 yH
 yD
 ac
@@ -17160,7 +17050,7 @@ ac
 ac
 ac
 ac
-yf
+bY
 yr
 eK
 gC
@@ -17168,7 +17058,7 @@ ac
 ac
 ac
 fo
-yy
+gg
 fo
 yz
 ac
@@ -17309,9 +17199,9 @@ ac
 ac
 ac
 ac
-yf
-yq
-ys
+bY
+yv
+gg
 yg
 eK
 ac
@@ -17460,7 +17350,7 @@ ac
 ac
 ac
 ac
-yp
+yu
 fo
 fo
 gg
@@ -17763,10 +17653,10 @@ ac
 ac
 ac
 fo
-yw
 bX
-yw
-yy
+bX
+bX
+gg
 fo
 fo
 ac
@@ -17914,7 +17804,7 @@ ac
 ac
 ac
 ac
-yy
+gg
 fo
 fo
 fo
@@ -18214,11 +18104,11 @@ ac
 ac
 ac
 ac
-yo
+yE
 fo
 fo
 gg
-ys
+gg
 yJ
 fo
 gg
@@ -18365,9 +18255,9 @@ ac
 ac
 ac
 gg
-yy
+gg
 fo
-ys
+gg
 ac
 ac
 yx
@@ -18515,7 +18405,7 @@ ac
 ac
 ac
 ac
-yB
+yx
 fo
 ac
 ac
@@ -24421,11 +24311,11 @@ aB
 aB
 aC
 aC
-xv
+AO
 ac
 ac
 ac
-xv
+AO
 ac
 ac
 bQ
@@ -26291,7 +26181,7 @@ vJ
 vJ
 vJ
 vJ
-yn
+NE
 yl
 fo
 fo
@@ -29717,7 +29607,7 @@ oS
 pB
 qc
 qF
-sZ
+rt
 sl
 sX
 tG
@@ -29749,7 +29639,7 @@ ac
 ac
 ac
 ac
-xv
+AO
 ac
 ac
 ac
@@ -30019,7 +29909,7 @@ qe
 qI
 qK
 sn
-sZ
+rt
 rl
 sd
 nj

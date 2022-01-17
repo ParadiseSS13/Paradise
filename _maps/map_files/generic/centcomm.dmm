@@ -3040,7 +3040,9 @@
 	},
 /area/centcom/control)
 "md" = (
-/obj/structure/extinguisher_cabinet,
+/obj/structure/extinguisher_cabinet{
+	name = "custom placement"
+	},
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/gamma)
 "me" = (
@@ -4238,6 +4240,7 @@
 "pW" = (
 /obj/machinery/newscaster{
 	layer = 3.3;
+	name = "custom placement";
 	pixel_y = -27
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -8230,7 +8233,9 @@
 /turf/space,
 /area/admin)
 "Dx" = (
-/obj/structure/extinguisher_cabinet,
+/obj/structure/extinguisher_cabinet{
+	name = "custom placement"
+	},
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "Dy" = (
@@ -8324,6 +8329,7 @@
 /area/syndicate_mothership/jail)
 "Ea" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = 28
 	},
 /obj/machinery/light/small{
@@ -8430,7 +8436,7 @@
 /area/shuttle/syndicate_elite)
 "EM" = (
 /obj/item/radio/intercom{
-	dir = 8;
+	name = "west bump";
 	pixel_x = -28
 	},
 /obj/machinery/recharge_station,
@@ -9140,8 +9146,7 @@
 /area/shuttle/administration)
 "Jb" = (
 /obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
+	name = "custom placement";
 	pixel_x = 29;
 	pixel_y = -60
 	},
@@ -9294,7 +9299,7 @@
 /area/syndicate_mothership/jail)
 "KF" = (
 /obj/item/radio/intercom{
-	dir = 8;
+	name = "west bump";
 	pixel_x = -28
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -9583,6 +9588,7 @@
 "My" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -9937,6 +9943,7 @@
 /area/shuttle/supply)
 "Pg" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = -28
 	},
 /obj/machinery/recharge_station,
@@ -10051,8 +10058,7 @@
 /area/shuttle/syndicate_sit)
 "PX" = (
 /obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
+	name = "custom placement";
 	pixel_x = 29;
 	pixel_y = -30
 	},
