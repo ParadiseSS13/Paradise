@@ -1473,8 +1473,8 @@
 "alS" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
@@ -2082,8 +2082,8 @@
 /area/hallway/secondary/entry)
 "anX" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = -28
+	name = "south bump";
+	pixel_y = -30
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -2144,8 +2144,8 @@
 /obj/structure/table,
 /obj/random/toolbox,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -2163,8 +2163,8 @@
 	pixel_y = 25
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
@@ -2388,8 +2388,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -2409,8 +2409,8 @@
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -2429,24 +2429,28 @@
 "aoY" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "aoZ" = (
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = 26;
-	pixel_y = 26
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/wood,
-/area/security/vacantoffice)
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/fore)
 "apa" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2496,12 +2500,17 @@
 "apg" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/machinery/keycard_auth{
 	pixel_x = 24;
 	pixel_y = 24
+	},
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -2535,8 +2544,13 @@
 "apl" = (
 /obj/structure/filingcabinet,
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
+	},
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -2821,11 +2835,6 @@
 	},
 /area/maintenance/fore2)
 "apX" = (
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = 26;
-	pixel_y = 26
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -2937,11 +2946,6 @@
 	},
 /area/security/customs)
 "aqh" = (
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = -26;
-	pixel_y = 26
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -3143,8 +3147,8 @@
 /area/maintenance/fore)
 "aqI" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -4344,8 +4348,8 @@
 /obj/structure/table/wood,
 /obj/item/phone,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -4363,8 +4367,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -4447,8 +4451,8 @@
 "atB" = (
 /obj/structure/filingcabinet,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -4472,8 +4476,8 @@
 "atD" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -4773,8 +4777,8 @@
 "aui" = (
 /obj/machinery/light/small,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4844,8 +4848,8 @@
 /obj/item/folder/red,
 /obj/item/lighter/zippo,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /turf/simulated/floor/wood,
 /area/maintenance/electrical_shop)
@@ -6688,8 +6692,8 @@
 /obj/item/storage/box/mousetraps,
 /obj/item/storage/box/mousetraps,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -6751,8 +6755,8 @@
 /obj/item/hand_labeler,
 /obj/item/crowbar,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/structure/sign/nosmoking_2{
 	pixel_x = 32
@@ -7108,8 +7112,8 @@
 /obj/structure/reagent_dispensers/watertank,
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -8194,8 +8198,8 @@
 "aBx" = (
 /obj/machinery/light_switch{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/item/reagent_containers/glass/bucket,
 /obj/structure/janitorialcart,
@@ -8231,8 +8235,8 @@
 /obj/machinery/disposal,
 /obj/machinery/light/small,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -8599,8 +8603,8 @@
 	dir = 8
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plating,
@@ -9966,8 +9970,8 @@
 /area/hallway/secondary/entry)
 "aFC" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -10079,8 +10083,8 @@
 	dir = 8
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/assistant,
@@ -10212,8 +10216,8 @@
 /obj/structure/table/reinforced,
 /obj/machinery/light/small,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/item/tank/internals/plasma,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -10314,8 +10318,8 @@
 "aGn" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/hydroponics/abandoned_garden)
@@ -10324,8 +10328,8 @@
 /obj/item/folder,
 /obj/item/pen,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -10383,8 +10387,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/bottler,
 /turf/simulated/floor/plasteel{
@@ -10440,15 +10444,15 @@
 /obj/structure/table/wood,
 /obj/item/ammo_box/shotgun/beanbag,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
-	},
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = 26;
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 30
 	},
 /obj/item/gun/projectile/revolver/doublebarrel,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -11048,8 +11052,8 @@
 /area/hallway/primary/central/nw)
 "aHR" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -11155,8 +11159,8 @@
 "aIc" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/ai_status_display{
 	pixel_y = 32
@@ -11171,8 +11175,8 @@
 "aId" = (
 /obj/machinery/light_switch{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -11374,8 +11378,8 @@
 	network = list("SS13","Engineering")
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11460,8 +11464,8 @@
 "aIF" = (
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -11593,8 +11597,8 @@
 	pixel_y = -22
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -11697,8 +11701,8 @@
 /area/crew_quarters/bar)
 "aJb" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -11784,8 +11788,8 @@
 /area/quartermaster/office)
 "aJm" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -12121,8 +12125,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -12824,8 +12828,8 @@
 "aLv" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -12888,8 +12892,8 @@
 "aLE" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/wood,
 /area/hallway/primary/central/nw)
@@ -12954,8 +12958,8 @@
 	pixel_x = -24
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -13273,8 +13277,8 @@
 "aMx" = (
 /obj/machinery/power/terminal,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/structure/cable/yellow{
 	d2 = 8;
@@ -13380,8 +13384,8 @@
 /area/engine/controlroom)
 "aMN" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/structure/closet/radiation,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -13535,8 +13539,8 @@
 /area/maintenance/fore)
 "aNf" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -13567,8 +13571,8 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -13968,8 +13972,8 @@
 "aNZ" = (
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/alarm{
 	dir = 8;
@@ -14238,19 +14242,24 @@
 /area/crew_quarters/bar)
 "aOI" = (
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
+	dir = 5;
+	icon_state = "dark"
 	},
-/area/hallway/primary/fore)
+/area/crew_quarters/bar)
 "aOJ" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/structure/filingcabinet/filingcabinet,
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -14613,8 +14622,8 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -14772,8 +14781,8 @@
 	},
 /obj/structure/closet/secure_closet/clown,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redbluefull"
@@ -14822,8 +14831,8 @@
 "aPT" = (
 /obj/structure/table/wood,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/item/radio/intercom{
 	name = "north bump";
@@ -15078,8 +15087,8 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -15290,8 +15299,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
@@ -15403,8 +15412,8 @@
 /area/atmos)
 "aRa" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/machinery/shower{
 	dir = 4
@@ -15715,23 +15724,17 @@
 /obj/structure/table,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/item/storage/box,
 /obj/item/storage/box/lights/mixed{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "custom placement";
-	pixel_x = -26;
-	pixel_y = -26
-	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -17189,8 +17192,8 @@
 /obj/machinery/disposal,
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -17306,8 +17309,8 @@
 	pixel_y = 3
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -17412,8 +17415,8 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -17430,8 +17433,8 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -17526,8 +17529,8 @@
 "aVk" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -18511,8 +18514,8 @@
 "aWU" = (
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -18523,8 +18526,8 @@
 /area/security/execution)
 "aWV" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
@@ -18849,8 +18852,8 @@
 /obj/item/twohanded/staff/broom,
 /obj/item/clothing/head/witchwig,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -18883,8 +18886,8 @@
 	name = "Theater Stage"
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -18904,15 +18907,12 @@
 	},
 /area/atmos)
 "aXH" = (
-/obj/item/radio/intercom{
-	name = "custom placement";
-	pixel_x = -28;
-	pixel_y = -28
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/crew_quarters/bar)
+/turf/simulated/floor/wood,
+/area/bridge/meeting_room)
 "aXI" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -19361,8 +19361,8 @@
 	},
 /obj/machinery/light_switch{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -19389,8 +19389,8 @@
 /obj/item/wrench,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -19606,8 +19606,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -19713,8 +19713,8 @@
 	},
 /obj/machinery/light_switch{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -19839,8 +19839,8 @@
 /obj/machinery/light,
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -20117,8 +20117,8 @@
 /area/security/permabrig)
 "aZT" = (
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -20589,8 +20589,8 @@
 "baR" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -20620,8 +20620,8 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20640,8 +20640,8 @@
 /obj/machinery/autolathe,
 /obj/machinery/light_switch{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/firealarm{
 	dir = 1;
@@ -20727,8 +20727,8 @@
 	pixel_x = 28
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -20839,8 +20839,8 @@
 /obj/machinery/light,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -21205,8 +21205,8 @@
 /area/hydroponics)
 "bcf" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 30
 	},
 /obj/structure/closet/secure_closet/hydroponics,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -21249,8 +21249,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/chem_master/condimaster,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -21339,8 +21339,8 @@
 "bcv" = (
 /obj/structure/closet/secure_closet/freezer/meat,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -21497,8 +21497,8 @@
 /obj/machinery/light,
 /obj/machinery/vending/cargodrobe,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -22435,8 +22435,8 @@
 "beL" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/suit_storage_unit/atmos,
 /turf/simulated/floor/plasteel{
@@ -22607,8 +22607,8 @@
 "bfe" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/kitchenspike,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -22654,8 +22654,8 @@
 "bfj" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -22765,8 +22765,8 @@
 /obj/item/toy/figure/crew/miner,
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -22917,8 +22917,8 @@
 /area/maintenance/starboard2)
 "bfT" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = -28
+	name = "south bump";
+	pixel_y = -30
 	},
 /obj/structure/closet/secure_closet/brig,
 /turf/simulated/floor/plasteel{
@@ -23535,8 +23535,8 @@
 /area/atmos)
 "bho" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 30
 	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics South";
@@ -23651,16 +23651,16 @@
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/botanist,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "bhC" = (
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -24122,8 +24122,8 @@
 "bix" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -24225,8 +24225,7 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	name = "custom placement";
-	pixel_x = 28;
+	name = "north bump";
 	pixel_y = 28
 	},
 /obj/effect/landmark/start/security_officer,
@@ -25024,8 +25023,8 @@
 "bkn" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/computer/secure_data{
 	dir = 8
@@ -25374,8 +25373,8 @@
 /obj/machinery/smartfridge/foodcart,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -25574,8 +25573,8 @@
 /obj/structure/table/reinforced,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -25895,8 +25894,8 @@
 /obj/structure/dresser,
 /obj/machinery/light_switch{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/newscaster/security_unit{
 	pixel_y = 32
@@ -25927,8 +25926,8 @@
 	},
 /obj/item/flashlight/lamp,
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -26142,8 +26141,8 @@
 /obj/item/grenade/chem_grenade/metalfoam,
 /obj/item/grenade/chem_grenade/metalfoam,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 4
@@ -26378,8 +26377,8 @@
 /area/quartermaster/miningdock)
 "bni" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency{
@@ -26834,8 +26833,8 @@
 /area/hallway/primary/central)
 "bop" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 30
 	},
 /obj/machinery/camera{
 	c_tag = "Central Ring Hallway North"
@@ -26962,8 +26961,8 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 30
 	},
 /obj/machinery/camera{
 	c_tag = "Central Ring Hallway North"
@@ -27002,8 +27001,8 @@
 	icon_state = "pipe-c"
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -27144,8 +27143,8 @@
 "boP" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/item/storage/box/prisoner,
 /turf/simulated/floor/plasteel{
@@ -27948,8 +27947,8 @@
 "bqh" = (
 /obj/machinery/hydroponics/constructable,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -28840,8 +28839,8 @@
 "bsa" = (
 /obj/machinery/hydroponics/constructable,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -28981,8 +28980,8 @@
 "bsr" = (
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -29247,8 +29246,8 @@
 /obj/structure/table/wood,
 /obj/structure/extinguisher_cabinet{
 	name = "custom placement";
-	pixel_x = 25;
-	pixel_y = -28
+	pixel_x = 30;
+	pixel_y = -30
 	},
 /obj/machinery/status_display{
 	pixel_y = -32
@@ -29859,8 +29858,8 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -29995,8 +29994,8 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
@@ -30017,8 +30016,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/simulated/floor/plasteel{
@@ -30413,8 +30412,8 @@
 "bvu" = (
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -30643,8 +30642,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -31150,8 +31149,8 @@
 /area/security/prisonershuttle)
 "bwA" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "BrigEast";
@@ -31362,8 +31361,8 @@
 /area/engine/break_room)
 "bwX" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
@@ -31377,16 +31376,15 @@
 	dir = 8
 	},
 /obj/structure/closet/firecloset,
-/obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_x = -32;
-	pixel_y = 26
-	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/firealarm{
+	name = "north bump";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "bwZ" = (
@@ -31417,8 +31415,8 @@
 	network = list("SS13","Engineering")
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -31503,8 +31501,8 @@
 /area/storage/tech)
 "bxl" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -31820,8 +31818,8 @@
 "bxP" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -32046,8 +32044,8 @@
 /area/engine/break_room)
 "byv" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -32752,8 +32750,8 @@
 	charge = 5e+006
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -32960,8 +32958,8 @@
 /obj/structure/table/reinforced,
 /obj/item/mmi,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -33595,8 +33593,8 @@
 /area/engine/break_room)
 "bBB" = (
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -33697,8 +33695,8 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -33892,8 +33890,8 @@
 /obj/item/weldingtool,
 /obj/item/clothing/head/welding,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -34638,8 +34636,8 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/structure/closet/radiation,
 /obj/effect/decal/warning_stripes/northeast,
@@ -35594,8 +35592,8 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -35607,8 +35605,8 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/alarm{
 	dir = 1;
@@ -35684,8 +35682,8 @@
 "bFc" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -35708,14 +35706,13 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/north,
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "bFf" = (
-/obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25;
-	pixel_y = 28
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel,
@@ -35872,8 +35869,8 @@
 "bFx" = (
 /obj/machinery/light_switch{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -35886,8 +35883,8 @@
 /area/bridge)
 "bFz" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = -28
+	name = "south bump";
+	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -36045,8 +36042,8 @@
 "bFQ" = (
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -36325,8 +36322,8 @@
 /area/engine/gravitygenerator)
 "bGw" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
@@ -36337,13 +36334,13 @@
 /obj/item/wrench,
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/light_switch{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -36732,8 +36729,8 @@
 "bGV" = (
 /obj/machinery/vending/assist,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/machinery/camera{
 	c_tag = "Primary Tool Storage";
@@ -36862,8 +36859,8 @@
 "bHi" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -37134,8 +37131,8 @@
 /area/maintenance/starboard2)
 "bHJ" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/machinery/vending/detdrobe,
 /turf/simulated/floor/plasteel{
@@ -37468,8 +37465,8 @@
 /area/crew_quarters/chief)
 "bIr" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 30
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -37493,8 +37490,8 @@
 /obj/item/clipboard,
 /obj/item/gps/engineering,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -37514,8 +37511,8 @@
 "bIv" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -37752,8 +37749,8 @@
 	},
 /obj/item/flashlight/lamp,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
@@ -37770,8 +37767,8 @@
 /area/bridge/meeting_room)
 "bJb" = (
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
@@ -37796,17 +37793,9 @@
 	},
 /area/hallway/primary/central)
 "bJe" = (
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = 26;
-	pixel_y = 26
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/machinery/newscaster{
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
@@ -37845,8 +37834,8 @@
 /area/crew_quarters/captain)
 "bJk" = (
 /obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -37876,8 +37865,8 @@
 /area/crew_quarters/captain)
 "bJn" = (
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
@@ -37908,8 +37897,8 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -38270,8 +38259,8 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/door_control{
 	id = "transitlock";
@@ -38616,8 +38605,8 @@
 "bKM" = (
 /obj/machinery/light_switch{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
@@ -38645,8 +38634,8 @@
 /area/turret_protected/ai_upload)
 "bKS" = (
 /obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
@@ -38997,8 +38986,8 @@
 "bLO" = (
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -39312,8 +39301,8 @@
 /obj/machinery/light,
 /obj/machinery/light_switch{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 7;
@@ -39358,6 +39347,10 @@
 /area/engine/break_room)
 "bMy" = (
 /obj/machinery/vending/coffee,
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
@@ -39393,8 +39386,8 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/storage/toolbox/electrical,
@@ -39708,8 +39701,8 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
@@ -39719,8 +39712,8 @@
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/multitool,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -40162,8 +40155,8 @@
 "bOh" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -40238,8 +40231,8 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -40259,8 +40252,8 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light_switch{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -40271,8 +40264,8 @@
 /obj/item/crowbar,
 /obj/item/paicard,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -40400,13 +40393,12 @@
 /turf/simulated/floor/carpet,
 /area/bridge/meeting_room)
 "bOK" = (
-/obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30;
-	pixel_y = -30
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 30
 	},
 /turf/simulated/floor/wood,
-/area/bridge/meeting_room)
+/area/medical/psych)
 "bOL" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -40629,8 +40621,8 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -40639,8 +40631,8 @@
 "bPl" = (
 /obj/machinery/light_switch{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -41102,13 +41094,13 @@
 /obj/item/radio,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/light_switch{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -41227,8 +41219,8 @@
 "bQj" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -41343,8 +41335,8 @@
 	},
 /obj/structure/closet/radiation,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
@@ -41685,8 +41677,8 @@
 "bRd" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -41856,8 +41848,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -42458,8 +42450,8 @@
 /obj/machinery/light,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -42579,8 +42571,8 @@
 /area/hallway/primary/central)
 "bSW" = (
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -42754,16 +42746,16 @@
 /obj/item/flashlight/lamp,
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/machinery/light_switch{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -43680,8 +43672,8 @@
 "bUW" = (
 /obj/machinery/light_switch{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/camera{
 	c_tag = "Captain's Desk";
@@ -43990,9 +43982,8 @@
 	network = list("Engineering","SS13")
 	},
 /obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = 26;
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/machinery/door_control{
 	id = "ceprivacy";
@@ -44138,8 +44129,8 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -44196,8 +44187,8 @@
 "bVU" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -44213,8 +44204,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -44485,8 +44476,8 @@
 /obj/machinery/light,
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -44502,8 +44493,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -44513,11 +44504,6 @@
 "bWy" = (
 /obj/machinery/status_display{
 	pixel_x = 32
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25;
-	pixel_y = -28
 	},
 /obj/machinery/alarm{
 	dir = 1;
@@ -44592,8 +44578,8 @@
 /obj/machinery/light,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -45027,8 +45013,8 @@
 /obj/machinery/porta_turret,
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -45073,8 +45059,8 @@
 "bXP" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -45134,9 +45120,16 @@
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bXZ" = (
-/obj/structure/sign/securearea,
-/turf/simulated/wall,
-/area/engine/engineering)
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
+/turf/simulated/floor/engine,
+/area/toxins/misc_lab)
 "bYa" = (
 /obj/machinery/light{
 	dir = 4
@@ -45241,6 +45234,11 @@
 	},
 /obj/machinery/light/small,
 /obj/effect/decal/warning_stripes/southwest,
+/obj/machinery/firealarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bYp" = (
@@ -45312,8 +45310,8 @@
 /area/crew_quarters/captain/bedroom)
 "bYA" = (
 /obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain/bedroom)
@@ -45851,8 +45849,8 @@
 "bZJ" = (
 /obj/structure/table/wood,
 /obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/machinery/computer/library,
 /turf/simulated/floor/plasteel{
@@ -45896,8 +45894,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -45925,8 +45923,8 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -46167,8 +46165,8 @@
 /area/crew_quarters/captain/bedroom)
 "cau" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -46229,8 +46227,8 @@
 "caB" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -46272,8 +46270,8 @@
 /obj/item/taperecorder,
 /obj/item/clothing/glasses/sunglasses,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -28
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/lawyer,
@@ -46308,9 +46306,9 @@
 /area/lawoffice)
 "caK" = (
 /obj/machinery/firealarm{
-	dir = 8;
-	name = "custom placement";
-	pixel_x = 26
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/structure/closet/secure_closet/iaa,
 /obj/machinery/alarm{
@@ -46753,8 +46751,8 @@
 /area/engine/engineering)
 "cbx" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/machinery/power/terminal{
 	dir = 1
@@ -46857,8 +46855,8 @@
 	dir = 8
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -47171,8 +47169,8 @@
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /obj/machinery/light{
 	dir = 8
@@ -47871,8 +47869,8 @@
 "cdX" = (
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/camera{
@@ -48451,8 +48449,8 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -48477,8 +48475,8 @@
 "cfx" = (
 /obj/machinery/photocopier,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -48491,8 +48489,8 @@
 	c_tag = "Library Starboard"
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -48511,12 +48509,6 @@
 "cfB" = (
 /obj/machinery/light/small,
 /obj/structure/closet/radiation,
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "custom placement";
-	pixel_x = 26;
-	pixel_y = -26
-	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -48641,8 +48633,8 @@
 "cfS" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -48725,8 +48717,8 @@
 "cgh" = (
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
@@ -48799,8 +48791,8 @@
 /obj/item/pen,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -48813,8 +48805,8 @@
 /obj/structure/closet,
 /obj/machinery/light_switch{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -49006,8 +48998,8 @@
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -49108,8 +49100,8 @@
 "chm" = (
 /obj/machinery/light_switch{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -49163,8 +49155,8 @@
 "chq" = (
 /obj/machinery/light_switch{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -49423,8 +49415,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -49653,8 +49645,8 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
@@ -49681,8 +49673,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
 /area/ntrep)
@@ -49871,8 +49863,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
 /area/blueshield)
@@ -50069,8 +50061,8 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/structure/closet/crate,
 /obj/item/target/syndicate,
@@ -50411,8 +50403,8 @@
 /area/maintenance/fore)
 "ckm" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -50427,6 +50419,11 @@
 	dir = 1
 	},
 /obj/structure/closet/secure_closet/hop2,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads/hop)
 "ckp" = (
@@ -50434,8 +50431,8 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
@@ -50525,8 +50522,8 @@
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel,
 /area/teleporter)
@@ -51128,8 +51125,8 @@
 /obj/item/camera_film,
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -51142,17 +51139,12 @@
 /obj/structure/bed,
 /obj/item/bedsheet/hop,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads/hop)
 "clJ" = (
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = 26;
-	pixel_y = 26
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -51579,8 +51571,8 @@
 "cmM" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -51589,8 +51581,8 @@
 /obj/structure/closet/secure_closet/engineering_personal,
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/requests_console{
 	department = "Engineering";
@@ -51704,8 +51696,8 @@
 /obj/item/radio,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/teleporter)
@@ -51814,8 +51806,8 @@
 /obj/structure/table/wood,
 /obj/machinery/computer/library/checkout,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -51849,8 +51841,8 @@
 "cnr" = (
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -51875,8 +51867,8 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light_switch{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
@@ -51924,8 +51916,8 @@
 	},
 /obj/machinery/light_switch{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -52874,8 +52866,8 @@
 /area/toxins/xenobiology)
 "cpH" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood,
@@ -53303,8 +53295,8 @@
 /obj/machinery/vending/coffee,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -53351,8 +53343,8 @@
 /area/crew_quarters/courtroom)
 "cqv" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -53651,8 +53643,8 @@
 /obj/machinery/light,
 /obj/machinery/light_switch{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -54330,8 +54322,8 @@
 "csB" = (
 /obj/structure/table/reinforced,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = -28
+	name = "south bump";
+	pixel_y = -30
 	},
 /obj/item/clipboard,
 /obj/item/folder/blue,
@@ -54811,8 +54803,8 @@
 "ctF" = (
 /obj/structure/table/reinforced,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/item/tank/internals/plasma,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -54886,8 +54878,8 @@
 /area/library)
 "ctN" = (
 /obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -55515,6 +55507,11 @@
 	},
 /obj/item/storage/toolbox/electrical,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -55523,8 +55520,8 @@
 "cuX" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/gateway)
@@ -55676,8 +55673,8 @@
 "cvo" = (
 /obj/structure/cult/archives,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -55710,8 +55707,8 @@
 /area/library)
 "cvr" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -55737,8 +55734,8 @@
 /obj/structure/table/reinforced,
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/item/stack/sheet/plasteel{
 	amount = 10
@@ -55875,8 +55872,8 @@
 	amount = 8
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/item/storage/toolbox/emergency,
 /obj/item/flashlight,
@@ -56333,8 +56330,8 @@
 "cwQ" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -56589,8 +56586,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/closet/wardrobe/pjs,
 /turf/simulated/floor/plasteel{
@@ -56756,8 +56753,8 @@
 "cxI" = (
 /obj/structure/table/reinforced,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/item/stack/cable_coil/random,
 /obj/item/stack/cable_coil/random,
@@ -56873,8 +56870,8 @@
 "cxV" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -56943,8 +56940,8 @@
 "cyb" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -57149,8 +57146,8 @@
 /area/hallway/primary/central)
 "cyA" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -57362,8 +57359,7 @@
 "cyV" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom{
-	name = "custom placement";
-	pixel_x = 28;
+	name = "north bump";
 	pixel_y = 28
 	},
 /obj/item/reagent_containers/food/snacks/grown/poppy/geranium,
@@ -57426,9 +57422,8 @@
 "cza" = (
 /obj/machinery/cryopod,
 /obj/item/radio/intercom{
-	name = "custom placement";
-	pixel_x = 28;
-	pixel_y = 28
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -57500,19 +57495,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
-"czj" = (
-/obj/structure/closet/secure_closet/engineering_welding,
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = -26;
-	pixel_y = 26
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
-	},
-/area/engine/engineering)
 "czk" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -58070,8 +58052,8 @@
 /area/crew_quarters/fitness)
 "cAo" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -58418,8 +58400,8 @@
 /obj/item/wrench,
 /obj/item/grenade/chem_grenade/metalfoam,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -58572,8 +58554,8 @@
 /obj/structure/table,
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/item/storage/belt,
 /obj/item/radio,
@@ -58797,8 +58779,8 @@
 "cBV" = (
 /obj/structure/chair/office/dark,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -58832,8 +58814,8 @@
 "cBY" = (
 /obj/machinery/cryopod/right,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -58920,8 +58902,8 @@
 /area/engine/engineering)
 "cCi" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/warning_stripes/yellow,
@@ -59182,8 +59164,8 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/light,
 /turf/simulated/floor/carpet,
@@ -59243,8 +59225,8 @@
 /obj/machinery/cell_charger,
 /obj/machinery/light_switch{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/item/stock_parts/cell/high,
 /turf/simulated/floor/plasteel,
@@ -59391,8 +59373,8 @@
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -59500,8 +59482,8 @@
 	pixel_y = -3
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -59580,8 +59562,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -59967,8 +59949,8 @@
 /area/hallway/primary/central)
 "cET" = (
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -59977,8 +59959,8 @@
 /area/hallway/primary/central)
 "cEU" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -60004,8 +59986,8 @@
 /area/hallway/primary/central)
 "cEY" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -61709,8 +61691,8 @@
 /obj/machinery/light,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -62162,8 +62144,8 @@
 "cJs" = (
 /obj/structure/closet/secure_closet/medical3,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -62181,8 +62163,8 @@
 /area/medical/medbay2)
 "cJu" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 30
 	},
 /obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
@@ -62403,8 +62385,8 @@
 "cKa" = (
 /obj/structure/table/reinforced,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -62945,8 +62927,7 @@
 "cLo" = (
 /obj/structure/dresser,
 /obj/item/radio/intercom{
-	name = "custom placement";
-	pixel_x = 28;
+	name = "north bump";
 	pixel_y = 28
 	},
 /turf/simulated/floor/wood,
@@ -62957,17 +62938,15 @@
 "cLq" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/radio/intercom{
-	name = "custom placement";
-	pixel_x = 28;
+	name = "north bump";
 	pixel_y = 28
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/fitness)
 "cLr" = (
 /obj/item/radio/intercom{
-	name = "custom placement";
-	pixel_x = 28;
-	pixel_y = 28
+	name = "east bump";
+	pixel_x = 28
 	},
 /obj/machinery/cryopod,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -63546,8 +63525,8 @@
 /obj/item/storage/briefcase,
 /obj/item/cane,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/fitness)
@@ -63701,7 +63680,7 @@
 /obj/structure/extinguisher_cabinet{
 	name = "custom placement";
 	pixel_x = 25;
-	pixel_y = 28
+	pixel_y = 30
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -64229,13 +64208,8 @@
 "cOc" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25;
-	pixel_y = 28
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/wood,
 /area/medical/psych)
@@ -64355,8 +64329,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/fitness)
@@ -64517,8 +64491,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -64589,7 +64563,7 @@
 /obj/structure/extinguisher_cabinet{
 	name = "custom placement";
 	pixel_x = -25;
-	pixel_y = 28
+	pixel_y = 30
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -64599,6 +64573,10 @@
 "cOS" = (
 /obj/machinery/monkey_recycler,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -64611,11 +64589,6 @@
 "cOV" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/server{
 	dir = 1
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25;
-	pixel_y = 28
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -65040,8 +65013,8 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -65325,8 +65298,8 @@
 /obj/item/reagent_containers/glass/beaker,
 /obj/item/reagent_containers/dropper,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -66771,8 +66744,8 @@
 "cTL" = (
 /obj/machinery/light_switch{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/camera{
 	c_tag = "Research Chemistry";
@@ -66860,8 +66833,8 @@
 /area/hallway/primary/aft)
 "cTW" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -67004,8 +66977,8 @@
 	pixel_y = 5
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -67484,8 +67457,8 @@
 "cVl" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/chem_master,
 /turf/simulated/floor/engine,
@@ -67494,8 +67467,8 @@
 /obj/machinery/smartfridge/secure/extract,
 /obj/machinery/light_switch{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -67594,8 +67567,8 @@
 /obj/item/wrench,
 /obj/item/clothing/glasses/welding,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -67639,8 +67612,8 @@
 	pixel_y = -3
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -67798,8 +67771,8 @@
 /area/medical/medbay3)
 "cVW" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -68262,8 +68235,8 @@
 /obj/item/storage/bag/bio,
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -68788,8 +68761,8 @@
 /area/toxins/lab)
 "cYo" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = -28
+	name = "south bump";
+	pixel_y = -30
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -68999,8 +68972,8 @@
 /area/medical/medbay3)
 "cYW" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -69042,8 +69015,8 @@
 "cZa" = (
 /obj/machinery/vending/cigarette,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/machinery/camera{
 	c_tag = "Medbay Break Room";
@@ -69396,8 +69369,8 @@
 /area/medical/medbay)
 "cZJ" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -70213,8 +70186,8 @@
 /obj/item/hemostat,
 /obj/structure/table/tray,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -71065,8 +71038,8 @@
 /obj/structure/table/reinforced,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/cell_charger,
 /obj/machinery/light,
@@ -71274,8 +71247,8 @@
 "ddF" = (
 /obj/structure/table/reinforced,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = -28
+	name = "south bump";
+	pixel_y = -30
 	},
 /obj/item/folder/white,
 /obj/item/reagent_containers/glass/beaker/large,
@@ -71428,8 +71401,8 @@
 "ddQ" = (
 /obj/machinery/light_switch{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -71485,8 +71458,8 @@
 /obj/item/reagent_containers/dropper,
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -71537,8 +71510,8 @@
 "ddZ" = (
 /obj/machinery/chem_master,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = -28
+	name = "south bump";
+	pixel_y = -30
 	},
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32;
@@ -71937,8 +71910,8 @@
 /obj/item/crowbar,
 /obj/item/clothing/mask/gas,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -72130,8 +72103,8 @@
 /area/crew_quarters/hor)
 "dfm" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -72238,8 +72211,8 @@
 "dfC" = (
 /obj/machinery/iv_drip,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -72510,8 +72483,8 @@
 "dgk" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -72522,8 +72495,8 @@
 "dgl" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -72563,12 +72536,6 @@
 	dir = 8;
 	name = "west bump";
 	pixel_x = -24
-	},
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "custom placement";
-	pixel_x = -26;
-	pixel_y = 26
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -72611,8 +72578,8 @@
 	},
 /obj/structure/table/reinforced,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 30
 	},
 /obj/item/paper_bin,
 /obj/item/pen,
@@ -72642,8 +72609,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -72745,8 +72712,8 @@
 	pixel_x = 24
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 30
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -72946,8 +72913,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -73867,8 +73834,8 @@
 /area/medical/medbay)
 "diM" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
@@ -74281,12 +74248,6 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "custom placement";
-	pixel_x = -26;
-	pixel_y = -26
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/toxins/misc_lab)
@@ -74664,8 +74625,8 @@
 "dkm" = (
 /obj/structure/rack,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/item/stack/packageWrap,
 /obj/item/stack/sheet/metal{
@@ -75028,8 +74989,8 @@
 	},
 /obj/machinery/light_switch{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -75442,9 +75403,9 @@
 "dlZ" = (
 /obj/structure/closet/secure_closet/scientist,
 /obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = 26;
-	pixel_y = 26
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
@@ -75501,6 +75462,11 @@
 /area/toxins/misc_lab)
 "dmf" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -75784,8 +75750,8 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light_switch{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -76225,8 +76191,8 @@
 "dnU" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -76297,8 +76263,8 @@
 "doa" = (
 /obj/machinery/dna_scannernew,
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
@@ -76382,8 +76348,8 @@
 "dok" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -76494,11 +76460,6 @@
 	},
 /area/medical/research)
 "doy" = (
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = -26;
-	pixel_y = 26
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -76665,8 +76626,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
@@ -76807,8 +76768,8 @@
 /obj/structure/closet/paramedic,
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -77126,8 +77087,8 @@
 "dpK" = (
 /obj/structure/chair,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -77189,8 +77150,8 @@
 	department = "Research Director's Office"
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -77312,8 +77273,8 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/warning_stripes/west,
@@ -77339,8 +77300,8 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -77351,8 +77312,8 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
@@ -77741,8 +77702,8 @@
 "drg" = (
 /obj/machinery/light_switch{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -77957,8 +77918,8 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -78402,10 +78363,6 @@
 /area/hallway/primary/aft)
 "dsJ" = (
 /obj/structure/table/reinforced,
-/obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
-	},
 /obj/item/stack/sheet/metal{
 	amount = 50
 	},
@@ -78424,6 +78381,11 @@
 	pixel_y = 30
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -78579,8 +78541,8 @@
 /area/medical/genetics)
 "dsY" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -78593,8 +78555,8 @@
 "dsZ" = (
 /obj/machinery/dna_scannernew,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = -28
+	name = "south bump";
+	pixel_y = -30
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel,
@@ -79037,8 +78999,8 @@
 "dtW" = (
 /obj/structure/closet/secure_closet/scientist,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -79059,8 +79021,8 @@
 /area/crew_quarters/hor)
 "dtZ" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = -28
+	name = "south bump";
+	pixel_y = -30
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -79090,8 +79052,8 @@
 	},
 /obj/item/flashlight/lamp,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -79120,7 +79082,7 @@
 	},
 /obj/machinery/light_switch{
 	name = "custom placement";
-	pixel_x = 22;
+	pixel_x = 24;
 	pixel_y = 36
 	},
 /obj/item/flash,
@@ -79166,8 +79128,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/item/stack/sheet/plasteel{
 	amount = 10
@@ -79728,8 +79690,8 @@
 	dir = 1
 	},
 /obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -79804,8 +79766,8 @@
 	department = "Chief Medical Officer's Office"
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -79834,8 +79796,8 @@
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "custom placement";
-	pixel_x = 26;
-	pixel_y = -26
+	pixel_x = 24;
+	pixel_y = -24
 	},
 /obj/machinery/keycard_auth{
 	pixel_x = 38;
@@ -79880,8 +79842,8 @@
 "dvL" = (
 /obj/machinery/light_switch{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/holosign_switch{
 	id = "surgery1";
@@ -80151,11 +80113,6 @@
 /obj/item/stack/cable_coil/random,
 /obj/item/flash,
 /obj/item/flash,
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = -26;
-	pixel_y = 26
-	},
 /obj/item/robotanalyzer,
 /obj/item/mmi/robotic_brain,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -80424,8 +80381,8 @@
 /area/crew_quarters/theatre)
 "dwT" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
@@ -80542,8 +80499,8 @@
 	pixel_x = 24
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel{
@@ -80968,12 +80925,12 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/alarm{
-	dir = 8;
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/firealarm{
+	dir = 4;
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/toxins/misc_lab)
 "dxQ" = (
@@ -81079,17 +81036,6 @@
 "dxW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "cmo"
-	},
-/area/medical/cmo)
-"dxX" = (
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = 26;
-	pixel_y = 26
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cmo"
@@ -81210,8 +81156,8 @@
 	dir = 8
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
@@ -81270,8 +81216,8 @@
 "dyu" = (
 /obj/machinery/light_switch{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
@@ -81299,6 +81245,11 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/toxin,
 /obj/effect/decal/warning_stripes/southeast,
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -81501,8 +81452,8 @@
 "dyT" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -81512,8 +81463,8 @@
 "dyU" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -81661,8 +81612,8 @@
 "dzq" = (
 /obj/machinery/light_switch{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
@@ -81801,12 +81752,6 @@
 	},
 /area/toxins/mixing)
 "dzD" = (
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "custom placement";
-	pixel_x = -26;
-	pixel_y = -26
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -81830,8 +81775,8 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "custom placement";
-	pixel_x = -25;
-	pixel_y = -28
+	pixel_x = -30;
+	pixel_y = -30
 	},
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel{
@@ -81918,8 +81863,8 @@
 /area/toxins/storage)
 "dzL" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/warning_stripes/southeast,
@@ -82037,8 +81982,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/item/cartridge/signal/toxins{
 	pixel_x = -6
@@ -82127,8 +82072,8 @@
 	name = "Robotics Operating Computer"
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -82273,8 +82218,8 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -82302,6 +82247,11 @@
 "dAs" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -82502,8 +82452,8 @@
 "dAM" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -82545,8 +82495,8 @@
 "dAS" = (
 /obj/structure/rack,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = -28
+	name = "south bump";
+	pixel_y = -30
 	},
 /obj/item/clothing/suit/fire/firefighter,
 /obj/item/clothing/head/hardhat/red,
@@ -82720,8 +82670,8 @@
 "dBj" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -83166,8 +83116,8 @@
 /obj/item/surgicaldrill,
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -83413,8 +83363,8 @@
 /obj/item/multitool,
 /obj/item/clothing/head/welding,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -84291,8 +84241,8 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
@@ -84792,8 +84742,8 @@
 	},
 /obj/item/paper_bin,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -84989,8 +84939,8 @@
 	},
 /obj/machinery/light_switch{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
@@ -85188,8 +85138,8 @@
 /obj/structure/table/glass,
 /obj/item/flashlight/lamp,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -85575,8 +85525,8 @@
 "dId" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -86004,8 +85954,8 @@
 "dJh" = (
 /obj/machinery/light_switch{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -86175,8 +86125,8 @@
 /area/hallway/secondary/exit)
 "dJC" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
@@ -86248,8 +86198,8 @@
 /area/medical/surgery)
 "dJP" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -86274,8 +86224,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -86379,8 +86329,8 @@
 "dKd" = (
 /obj/structure/table,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -86393,8 +86343,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -86464,8 +86414,8 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -86745,8 +86695,8 @@
 "dLa" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/sink{
 	dir = 8;
@@ -87215,8 +87165,8 @@
 "dMa" = (
 /obj/machinery/light/small,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = -28
+	name = "south bump";
+	pixel_y = -30
 	},
 /obj/structure/closet/l3closet/virology,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -87899,8 +87849,8 @@
 /area/chapel/office)
 "dNI" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -88257,8 +88207,8 @@
 	dir = 4
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
@@ -88387,8 +88337,8 @@
 /obj/machinery/iv_drip,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
@@ -88407,8 +88357,8 @@
 /obj/item/paper_bin,
 /obj/item/storage/box/monkeycubes,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -89386,8 +89336,8 @@
 /obj/item/folder/yellow,
 /obj/machinery/light_switch{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -89424,8 +89374,8 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -89622,8 +89572,8 @@
 /obj/item/clothing/mask/breath,
 /obj/item/reagent_containers/food/drinks/coffee,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -89633,8 +89583,8 @@
 /obj/structure/morgue,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -89692,10 +89642,9 @@
 "dRA" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light_switch{
-	dir = 1;
-	name = "custom placement";
-	pixel_x = 26;
-	pixel_y = -26
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -89906,8 +89855,8 @@
 	dir = 4
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -89919,8 +89868,8 @@
 	dir = 8
 	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -89959,14 +89908,9 @@
 	},
 /area/chapel/office)
 "dSm" = (
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = 26;
-	pixel_y = 26
-	},
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -90123,8 +90067,8 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/item/flashlight,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -90152,6 +90096,11 @@
 /area/chapel/office)
 "dSN" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -90362,8 +90311,8 @@
 /obj/structure/table/wood,
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/machinery/status_display{
 	pixel_y = 32
@@ -90380,8 +90329,8 @@
 	},
 /obj/machinery/light_switch{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -90889,8 +90838,8 @@
 /area/engine/engineering)
 "dUJ" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /obj/structure/dresser,
 /turf/simulated/floor/plasteel{
@@ -90935,8 +90884,8 @@
 	},
 /obj/machinery/light_switch{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/structure/closet/secure_closet/chaplain,
 /turf/simulated/floor/plasteel{
@@ -90949,8 +90898,8 @@
 /obj/item/toy/figure/crew/chaplain,
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -90975,8 +90924,8 @@
 	},
 /obj/item/storage/fancy/candle_box/full,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = 30
+	name = "east bump";
+	pixel_x = 32
 	},
 /turf/simulated/floor/carpet,
 /area/chapel/office)
@@ -91319,7 +91268,7 @@
 /obj/structure/extinguisher_cabinet{
 	name = "custom placement";
 	pixel_x = 25;
-	pixel_y = -28
+	pixel_y = -30
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -91333,7 +91282,7 @@
 /obj/structure/extinguisher_cabinet{
 	name = "custom placement";
 	pixel_x = -25;
-	pixel_y = -28
+	pixel_y = -30
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -91360,8 +91309,8 @@
 /area/toxins/xenobiology)
 "dWu" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -91375,8 +91324,8 @@
 /obj/item/wrench,
 /obj/item/clothing/mask/gas,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -91553,8 +91502,8 @@
 /obj/structure/closet/secure_closet/medical1,
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -91843,8 +91792,8 @@
 	pixel_y = -22
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -25
+	name = "west bump";
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -92007,16 +91956,16 @@
 	},
 /area/hallway/secondary/exit)
 "dXK" = (
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = -26;
-	pixel_y = 26
-	},
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/effect/decal/warning_stripes/southwest,
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dXQ" = (
@@ -92120,8 +92069,8 @@
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/geneticist,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -92136,8 +92085,8 @@
 	},
 /obj/item/storage/box/masks,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -92504,8 +92453,8 @@
 /obj/structure/rack,
 /obj/item/storage/secure/briefcase,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -92836,8 +92785,8 @@
 /obj/item/shield/riot,
 /obj/machinery/light_switch{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -93525,8 +93474,8 @@
 /area/assembly/showroom)
 "gzU" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -93732,8 +93681,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -94080,8 +94029,8 @@
 "iaD" = (
 /obj/machinery/light_switch{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -94211,8 +94160,8 @@
 /area/crew_quarters/fitness)
 "iwQ" = (
 /obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
@@ -94293,8 +94242,8 @@
 /area/medical/surgery2)
 "iIw" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -94310,16 +94259,16 @@
 /obj/item/storage/briefcase,
 /obj/machinery/light_switch{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "iKj" = (
 /obj/machinery/light_switch{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/machinery/holosign_switch{
 	id = "surgery2";
@@ -94566,8 +94515,8 @@
 "jqB" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -94834,8 +94783,8 @@
 /obj/structure/rack,
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/item/ammo_box/shotgun/rubbershot,
 /obj/item/storage/box/rubbershot,
@@ -94869,13 +94818,13 @@
 "klk" = (
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 25
+	name = "east bump";
+	pixel_x = 30
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -95517,8 +95466,8 @@
 /area/security/securearmoury)
 "mrW" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -95778,8 +95727,8 @@
 /area/hallway/secondary/entry)
 "mYH" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_x = -30
+	name = "west bump";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -95956,8 +95905,8 @@
 /area/security/permabrig)
 "nqC" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -96077,8 +96026,8 @@
 /obj/machinery/recharger,
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -96137,8 +96086,8 @@
 "nYz" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -96197,8 +96146,8 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -97109,8 +97058,8 @@
 "rje" = (
 /obj/machinery/firealarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = 26
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -97194,8 +97143,8 @@
 /obj/structure/table/wood,
 /obj/item/storage/box/donkpockets,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_y = 28
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -97276,8 +97225,8 @@
 "rHU" = (
 /obj/structure/chair,
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = 30
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -97400,8 +97349,8 @@
 "scA" = (
 /obj/machinery/firealarm{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = -26
+	name = "west bump";
+	pixel_x = -24
 	},
 /obj/structure/closet/secure_closet/security,
 /turf/simulated/floor/plasteel{
@@ -97559,8 +97508,8 @@
 "suy" = (
 /obj/machinery/firealarm{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /obj/machinery/camera{
 	c_tag = "Departure Lounge North";
@@ -97592,8 +97541,8 @@
 /obj/structure/closet/secure_closet/security,
 /obj/machinery/light_switch{
 	dir = 1;
-	name = "custom placement";
-	pixel_y = -26
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -97976,8 +97925,8 @@
 /area/hallway/primary/central)
 "txW" = (
 /obj/machinery/newscaster{
-	name = "custom placement";
-	pixel_y = -30
+	name = "south bump";
+	pixel_y = -32
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -98084,8 +98033,8 @@
 /area/hallway/primary/central)
 "tNO" = (
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -99102,8 +99051,8 @@
 /obj/item/cultivator,
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/machinery/firealarm{
-	name = "custom placement";
-	pixel_y = 26
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -125309,7 +125258,7 @@ cpr
 cqW
 ctF
 cuW
-czj
+cjU
 cij
 cgM
 czm
@@ -125792,7 +125741,7 @@ bpK
 brK
 bto
 buy
-aYO
+aOg
 bwY
 bOg
 bzW
@@ -125808,7 +125757,7 @@ bQq
 bWK
 bWK
 bYo
-bXZ
+bQr
 bhL
 cbp
 mMt
@@ -133048,7 +132997,7 @@ dfc
 dgp
 dic
 djE
-dkP
+bXZ
 dmd
 dnl
 dIh
@@ -135255,7 +135204,7 @@ ajf
 ant
 alm
 ahy
-aoZ
+apQ
 apQ
 apQ
 arE
@@ -136570,7 +136519,7 @@ aRA
 aRd
 aRA
 hly
-aIZ
+aOI
 aYZ
 aYZ
 aYZ
@@ -136827,7 +136776,7 @@ aOG
 aRe
 aOG
 aOG
-aXH
+aOG
 aZb
 baR
 aZa
@@ -136851,7 +136800,7 @@ bCn
 bDZ
 bFP
 bHl
-bJe
+bQJ
 bKL
 bMS
 bOJ
@@ -137108,10 +137057,10 @@ bCx
 byU
 bFB
 bHk
-bKN
+aXH
 bKN
 bMT
-bOK
+bKN
 bKM
 ciB
 bUU
@@ -137368,7 +137317,7 @@ bHk
 bJg
 bKN
 bMU
-bKN
+bJe
 bHk
 ciB
 ciB
@@ -139391,8 +139340,8 @@ aKw
 aKw
 aJc
 aRH
-aOI
 aEF
+aoZ
 aRK
 aEF
 aSe
@@ -145110,7 +145059,7 @@ jKp
 tNq
 klh
 cLb
-cPQ
+bOK
 cOc
 cPR
 cRr
@@ -145394,7 +145343,7 @@ dti
 duu
 dvI
 dtk
-dxX
+dvG
 dzk
 dAr
 dmt
