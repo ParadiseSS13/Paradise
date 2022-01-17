@@ -22,13 +22,17 @@
 
 /obj/item/gun/projectile/automatic/sniper_rifle/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
 	var/obj/item/projectile/bullet/sniper/bullet = chambered.BB
+	if(!istype(bullet))  // Anything that isn't a standard bullet
+		return ..()
 	bullet.firer_emote = user.animated_emote
 	bullet.was_zoomed = zoomed
 
+	var/actual_target = target
+
 	// If you try to trickshot and you're facing the wrong way, you just shoot that way
 	if(user.animated_emote & (SPIN_EMOTE_SPIN))
-		if((get_dir(user, target)) == user.dir)
-			target = get_step(user, user.dir)
+		if((get_dir(user, target)) != user.dir)
+			actual_target = get_ranged_target_turf(src, user.dir, 2)
 			to_chat(usr, "<span class='warning'>Your trickshot goes wide of its target!</span>")
 
 	..(target, user, message, params, zone_override, bonus_spread)
