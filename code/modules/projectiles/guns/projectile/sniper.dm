@@ -130,9 +130,18 @@
 			// what's the fun of landing a shot like this if nobody else knows it?
 			playsound(target, "sound/items/airhorn2.ogg", 50, FALSE)
 			// MOM GET THE CAMERA
-			addtimer(CALLBACK(cam, /obj/item/camera/.proc/captureimage, target, firer), 1)
+			addtimer(CALLBACK(src, .proc/take_the_shot, target, firer), 1)
 		else
 			to_chat(target, "<span class='userdanger'><b>Something tells you you've been styled on.</b></span>")
+
+/// Take a picture!
+/obj/item/projectile/bullet/sniper/proc/take_the_shot(atom/target, atom/movable/firer)
+	cam.captureimage(target, firer)
+	// the image gets dropped into our hands so we'll just drop it on the floor
+	var/mob/firer_as_mob = firer
+	for(var/obj/item/photo/pic in firer_as_mob)
+		if(firer_as_mob.l_hand == pic || firer_as_mob.r_hand == pic)
+			firer_as_mob.unEquip(pic)
 
 /obj/item/ammo_box/magazine/sniper_rounds/antimatter
 	name = "sniper rounds (Antimatter)"
