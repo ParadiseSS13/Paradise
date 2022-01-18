@@ -127,12 +127,10 @@
 		playsound(firer, "sound/items/dodgeball.ogg", 50, FALSE)
 	if(firer_emote & (SPIN_EMOTE_FLIP | SPIN_EMOTE_SPIN))
 		if(!was_zoomed)
-			// 360 NO SCOPE
-			// play the airhorn sound effect on the bullet itself
 			// what's the fun of landing a shot like this if nobody else knows it?
 			playsound(target, "sound/items/airhorn2.ogg", 50, FALSE)
 			// MOM GET THE CAMERA
-			cam.captureimage(target, firer)
+			addtimer(CALLBACK(cam, /obj/item/camera/.proc/captureimage, target, firer), 1)
 		else
 			to_chat(target, "<span class='userdanger'><b>Something tells you you've been styled on.</b></span>")
 
