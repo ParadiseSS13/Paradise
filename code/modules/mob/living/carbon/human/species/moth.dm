@@ -10,7 +10,7 @@
 	language = "Tkachi"
 	icobase = 'icons/mob/human_races/r_moth.dmi'
 	inherent_factions = list("nian")
-	species_traits = list(IS_WHITELISTED, NO_HAIR)
+	species_traits = list(NO_HAIR)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_TAIL
