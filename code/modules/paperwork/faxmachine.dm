@@ -90,6 +90,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	else if(istype(item, /obj/item/paper) || istype(item, /obj/item/photo) || istype(item, /obj/item/paper_bundle))
 		..()
 		SStgui.update_uis(src)
+	else if(istype(item, /obj/item/folder))
+		to_chat(user, "<span class='warning'>The [src] can't accept folders!</span>")
+		return //early return so the parent proc doesn't suck up and items that a photocopier would take
 	else
 		return ..()
 
