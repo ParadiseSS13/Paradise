@@ -239,7 +239,7 @@
 /datum/component/orbiter/proc/orbiter_move_react(atom/movable/orbiter, atom/oldloc, direction)
 	SIGNAL_HANDLER	// COMSIG_MOVABLE_MOVED
 
-	if(get_turf(orbiter) == get_turf(parent) || get_turf(orbiter) == get_turf(oldloc) || get_turf(orbiter) == oldloc)
+	if(get_turf(orbiter) == get_turf(parent) || get_turf(orbiter) == get_turf(oldloc) || get_turf(orbiter) == oldloc || orbiter.loc == oldloc)
 		return
 
 	if(orbiter in orbiter_list)
@@ -269,7 +269,7 @@
 	if(isturf(start))
 		return
 	var/atom/cur_atom = start
-	while(!isturf(cur_atom.loc) && !(cur_atom.loc in orbiter_list))
+	while(cur_atom.loc && !isturf(cur_atom.loc) && !(cur_atom.loc in orbiter_list))
 		RegisterSignal(cur_atom, COMSIG_MOVABLE_MOVED, .proc/on_intermediate_move, TRUE)
 		RegisterSignal(cur_atom, COMSIG_ATOM_EXITED, .proc/on_remove_child, TRUE)
 		cur_atom = cur_atom.loc
