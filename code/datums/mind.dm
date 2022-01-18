@@ -53,7 +53,6 @@
 	var/list/antag_datums
 	var/datum/changeling/changeling		//changeling holder
 	var/linglink
-	var/datum/vampire/vampire			//vampire holder
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -116,8 +115,6 @@
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		var/datum/antagonist/A = a
 		A.on_body_transfer(old_current, current)
-	if(vampire)
-		vampire.update_owner(new_character)
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
 	if(martial_art)
@@ -294,7 +291,7 @@
 
 /datum/mind/proc/memory_edit_vampire(mob/living/carbon/human/H)
 	. = _memory_edit_header("vampire", list("traitorvamp"))
-	if(src in SSticker.mode.vampires)
+	if(has_antag_datum(/datum/antagonist/vampire))
 		. += "<b><font color='red'>VAMPIRE</font></b>|<a href='?src=[UID()];vampire=clear'>no</a>"
 		if(objectives.len==0)
 			. += "<br>Objectives are empty! <a href='?src=[UID()];vampire=autoobjectives'>Randomize!</a>"
@@ -304,7 +301,7 @@
 	. += _memory_edit_role_enabled(ROLE_VAMPIRE)
 	/** Enthralled ***/
 	. += "<br><b><i>enthralled</i></b>: "
-	if(src in SSticker.mode.vampire_enthralled)
+	if(has_antag_datum(/datum/antagonist/mindslave/thrall))
 		. += "<b><font color='red'>THRALL</font></b>|<a href='?src=[UID()];vampthrall=clear'>no</a>"
 	else
 		. += "thrall|<b>NO</b>"
@@ -404,7 +401,7 @@
 		. += "<b>NO</b>"
 	// Mindslave
 	. += "<br><b><i>mindslaved</i></b>: "
-	if(has_antag_datum(/datum/antagonist/mindslave))
+	if(has_antag_datum(/datum/antagonist/mindslave, FALSE))
 		. += "<b><font color='red'>MINDSLAVE</font></b>|<a href='?src=[UID()];mindslave=clear'>no</a>"
 	else
 		. += "mindslave|<b>NO</b>"
@@ -1005,33 +1002,21 @@
 	else if(href_list["vampire"])
 		switch(href_list["vampire"])
 			if("clear")
-				if(src in SSticker.mode.vampires)
-					SSticker.mode.vampires -= src
-					special_role = null
-					if(vampire)
-						vampire.remove_vampire_powers()
-						qdel(vampire)
-						vampire = null
-					SSticker.mode.update_vampire_icons_removed(src)
+				if(has_antag_datum(/datum/antagonist/vampire))
+					remove_antag_datum(/datum/antagonist/vampire)
 					to_chat(current, "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a vampire and are stuck in your current form!</B></FONT>")
 					log_admin("[key_name(usr)] has de-vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-vampired [key_name_admin(current)]")
 			if("vampire")
-				if(!(src in SSticker.mode.vampires))
-					SSticker.mode.vampires += src
-					SSticker.mode.grant_vampire_powers(current)
-					SSticker.mode.update_vampire_icons_added(src)
-					var/datum/mindslaves/slaved = new()
-					slaved.masters += src
-					som = slaved //we MIGT want to mindslave someone
-					special_role = SPECIAL_ROLE_VAMPIRE
-					SEND_SOUND(current, sound('sound/ambience/antag/vampalert.ogg'))
+				if(!has_antag_datum(/datum/antagonist/vampire))
+					add_antag_datum(/datum/antagonist/vampire)
 					to_chat(current, "<B><font color='red'>Your powers have awoken. Your lust for blood grows... You are a Vampire!</font></B>")
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
 
 			if("autoobjectives")
-				SSticker.mode.forge_vampire_objectives(src)
+				var/datum/antagonist/vampire/V = has_antag_datum(/datum/antagonist/vampire)
+				V.give_objectives()
 				to_chat(usr, "<span class='notice'>The objectives for vampire [key] have been generated. You can edit them and announce manually.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
@@ -1039,8 +1024,8 @@
 	else if(href_list["vampthrall"])
 		switch(href_list["vampthrall"])
 			if("clear")
-				if(src in SSticker.mode.vampire_enthralled)
-					SSticker.mode.remove_vampire_mind(src)
+				if(has_antag_datum(/datum/antagonist/mindslave/thrall))
+					remove_antag_datum(/datum/antagonist/mindslave/thrall)
 					log_admin("[key_name(usr)] has de-vampthralled [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-vampthralled [key_name_admin(current)]")
 
@@ -1345,7 +1330,7 @@
 	else if(href_list["mindslave"])
 		switch(href_list["mindslave"])
 			if("clear")
-				if(has_antag_datum(/datum/antagonist/mindslave))
+				if(has_antag_datum(/datum/antagonist/mindslave, FALSE))
 					var/mob/living/carbon/human/H = current
 					for(var/i in H.contents)
 						if(istype(i, /obj/item/implant/traitor))
@@ -1530,7 +1515,7 @@
 
 /datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
 	if(!datum_type)
-		return
+		return FALSE
 	. = FALSE
 	for(var/a in antag_datums)
 		var/datum/antagonist/A = a
@@ -1592,15 +1577,9 @@
 
 		SSticker.mode.equip_syndicate(current)
 
-/datum/mind/proc/make_vampire(ancient_vampire = FALSE)
-	if(!(src in SSticker.mode.vampires))
-		SSticker.mode.vampires += src
-		SSticker.mode.grant_vampire_powers(current)
-		special_role = SPECIAL_ROLE_VAMPIRE
-		SSticker.mode.greet_vampire(src)
-		SSticker.mode.update_vampire_icons_added(src)
-		if(!ancient_vampire)
-			SSticker.mode.forge_vampire_objectives(src)
+/datum/mind/proc/make_vampire()
+	if(!has_antag_datum(/datum/antagonist/vampire))
+		add_antag_datum(/datum/antagonist/vampire)
 
 /datum/mind/proc/make_Changeling()
 	if(!(src in SSticker.mode.changelings))

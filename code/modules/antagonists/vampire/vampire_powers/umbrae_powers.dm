@@ -11,12 +11,15 @@
 
 /obj/effect/proc_holder/spell/vampire/self/cloak/proc/update_name()
 	var/mob/living/user = loc
-	if(!ishuman(user) || !user.mind || !user.mind.vampire)
+	if(!ishuman(user) || !user.mind)
 		return
-	action.button.name = "[initial(name)] ([user.mind.vampire.iscloaking ? "Deactivate" : "Activate"])"
+	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(!V)
+		return
+	action.button.name = "[initial(name)] ([V.iscloaking ? "Deactivate" : "Activate"])"
 
 /obj/effect/proc_holder/spell/vampire/self/cloak/cast(list/targets, mob/user = usr)
-	var/datum/vampire/V = user.mind.vampire
+	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	V.iscloaking = !V.iscloaking
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -32,7 +35,8 @@
 
 /mob/living/proc/update_vampire_cloak()
 	SIGNAL_HANDLER
-	mind.vampire.handle_vampire_cloak()
+	var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
+	V.handle_vampire_cloak()
 
 /obj/effect/proc_holder/spell/vampire/shadow_snare
 	name = "Shadow Snare (20)"
@@ -140,9 +144,6 @@
 	var/datum/spell_targeting/aoe/turf/T = new
 	return T
 
-/obj/effect/proc_holder/spell/vampire/write_custom_logs(list/targets, mob/user)
-	add_attack_logs(user, null, "Extinguished all lights around them using [src]", ATKLOG_ALL)
-
 /obj/effect/proc_holder/spell/vampire/vamp_extinguish/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
 		T.extinguish_light()
@@ -159,13 +160,14 @@
 	var/shroud_power = -4
 
 /obj/effect/proc_holder/spell/vampire/self/eternal_darkness/cast(list/targets, mob/user)
+	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/mob/target = targets[1]
-	if(!target.mind.vampire.get_ability(/datum/vampire_passive/eternal_darkness))
-		target.mind.vampire.force_add_ability(/datum/vampire_passive/eternal_darkness)
+	if(!V.get_ability(/datum/vampire_passive/eternal_darkness))
+		V.force_add_ability(/datum/vampire_passive/eternal_darkness)
 		target.set_light(6, shroud_power, "#AAD84B")
 	else
-		for(var/datum/vampire_passive/eternal_darkness/E in target.mind.vampire.powers)
-			target.mind.vampire.remove_ability(E)
+		for(var/datum/vampire_passive/eternal_darkness/E in V.powers)
+			V.remove_ability(E)
 
 /datum/vampire_passive/eternal_darkness
 	gain_desc = "You surround yourself in a unnatural darkness, freezing those around you."
@@ -180,14 +182,16 @@
 	return ..()
 
 /datum/vampire_passive/eternal_darkness/process()
+	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
+
 	for(var/mob/living/L in view(6, owner))
 		if(L.affects_vampire(owner))
 			L.adjust_bodytemperature(-20 * TEMPERATURE_DAMAGE_COEFFICIENT)
 
-	owner.mind.vampire.bloodusable = max(owner.mind.vampire.bloodusable - 5, 0)
+	V.bloodusable = max(V.bloodusable - 5, 0)
 
-	if(!owner.mind.vampire.bloodusable || owner.stat == DEAD)
-		owner.mind.vampire.remove_ability(src)
+	if(!V.bloodusable || owner.stat == DEAD)
+		V.remove_ability(src)
 
 /datum/vampire_passive/xray
 	gain_desc = "You can now see through walls, incase you hadn't noticed."

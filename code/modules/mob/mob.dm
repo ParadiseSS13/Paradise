@@ -1499,11 +1499,6 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	if(!mind)
 		return FALSE
 
-	//Allows fullpower vampires to bypass holy areas
-	var/datum/vampire/vampire = mind.vampire
-	if(vampire && vampire.get_ability(/datum/vampire_passive/full))
-		return FALSE
-
 	//Allows cult to bypass holy areas once they summon
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(iscultist(src) && gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
