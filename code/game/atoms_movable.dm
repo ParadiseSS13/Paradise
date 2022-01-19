@@ -203,8 +203,8 @@
 		Moved(oldloc, direct)
 
 	last_move = direct
-	src.move_speed = world.time - src.l_move_time
-	src.l_move_time = world.time
+	move_speed = world.time - l_move_time
+	l_move_time = world.time
 
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, movetime)) //movement failed due to buckled mob
 		. = 0
@@ -297,6 +297,8 @@
 	. = ..()
 	if(client)
 		reset_perspective(destination)
+		if(hud_used && length(client.parallax_layers))
+			hud_used.update_parallax()
 	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
 	update_runechat_msg_location()
 
