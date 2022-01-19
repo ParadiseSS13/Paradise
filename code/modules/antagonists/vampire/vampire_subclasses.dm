@@ -46,6 +46,13 @@
 								/obj/effect/proc_holder/spell/vampire/charge)
 	improved_rejuv_healing = TRUE
 
+/datum/vampire_subclass/dantalion
+	name = "dantalion"
+	standard_powers = list(/obj/effect/proc_holder/spell/vampire/enthrall = 150,
+							/obj/effect/proc_holder/spell/vampire/thrall_commune = 150,)
+	fully_powered_abilities = list(/datum/vampire_passive/full)
+
+
 /datum/vampire_subclass/ancient
 	name = "ancient"
 	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/vamp_claws,
