@@ -14,7 +14,7 @@
 	var/list/possible_targets = list()
 	var/atom/spell_location = use_turf_of_user ? get_turf(user) : user
 	for(var/atom/target in view_or_range(range, spell_location, selection_type))
-		if(valid_target(target, user, spell))
+		if(valid_target(target, user, spell, FALSE))
 			possible_targets += target
 
 	if(!length(possible_targets))
