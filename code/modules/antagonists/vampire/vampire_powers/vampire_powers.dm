@@ -44,6 +44,9 @@
 	owner = null
 	return ..()
 
+/datum/vampire_passive/proc/on_apply(datum/antagonist/vampire/V)
+	return
+
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate
 	name = "Rejuvenate"
 	desc = "Use reserve blood to enliven your body, removing any incapacitating effects."
@@ -102,7 +105,7 @@
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "SpecMenu", "Specialisation Menu", 900, 600, master_ui, state)
+		ui = new(user, src, ui_key, "SpecMenu", "Specialisation Menu", 1200, 600, master_ui, state)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -132,6 +135,10 @@
 			vamp.remove_ability(src)
 		if("gargantua")
 			vamp.add_subclass(SUBCLASS_GARGANTUA)
+			vamp.upgrade_tiers -= type
+			vamp.remove_ability(src)
+		if("dantalion")
+			vamp.add_subclass(SUBCLASS_DANTALION)
 			vamp.upgrade_tiers -= type
 			vamp.remove_ability(src)
 

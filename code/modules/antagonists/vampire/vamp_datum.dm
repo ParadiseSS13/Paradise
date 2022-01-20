@@ -33,10 +33,12 @@
 	antag_hud_name = "vampthrall"
 
 /datum/antagonist/mindslave/thrall/on_gain()
+	owner.AddSpell(/obj/effect/proc_holder/spell/vampire/thrall_commune)
 	SSticker.mode.vampire_enthralled += owner
 	..()
 
 /datum/antagonist/mindslave/thrall/on_removal()
+	owner.RemoveSpell(/obj/effect/proc_holder/spell/vampire/thrall_commune)
 	SSticker.mode.vampire_enthralled -= owner
 	..()
 
@@ -57,6 +59,7 @@
 	if(istype(spell, /datum/vampire_passive))
 		var/datum/vampire_passive/passive = spell
 		passive.owner = owner.current
+		passive.on_apply(src)
 	powers += spell
 	owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp gets new vision based on his powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 

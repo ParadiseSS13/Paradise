@@ -136,3 +136,15 @@
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
+
+/datum/status_effect/pacifism
+	id = "pacifism_debuff"
+	alert_type = null
+	duration = 40 SECONDS
+
+/datum/status_effect/pacifism/on_apply()
+	ADD_TRAIT(owner, TRAIT_PACIFISM, id)
+	return ..()
+
+/datum/status_effect/pacifism/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)

@@ -7,6 +7,8 @@
 	var/list/fully_powered_abilities
 	/// Whether or not a vampire heals more based on damage taken.
 	var/improved_rejuv_healing = FALSE
+	/// maximun number of thralls a vampire may have at a time. incremented as they grow stronger, up to a cap at full power.
+	var/thrall_cap = 1
 
 /datum/vampire_subclass/proc/add_subclass_ability(datum/antagonist/vampire/vamp)
 	for(var/thing in standard_powers)
@@ -49,8 +51,15 @@
 /datum/vampire_subclass/dantalion
 	name = "dantalion"
 	standard_powers = list(/obj/effect/proc_holder/spell/vampire/enthrall = 150,
-							/obj/effect/proc_holder/spell/vampire/thrall_commune = 150,)
-	fully_powered_abilities = list(/datum/vampire_passive/full)
+							/obj/effect/proc_holder/spell/vampire/thrall_commune = 150,
+							/obj/effect/proc_holder/spell/vampire/pacify = 250,
+							/obj/effect/proc_holder/spell/vampire/self/decoy = 400,
+							/datum/vampire_passive/increment_thrall_cap = 400,
+							/obj/effect/proc_holder/spell/vampire/rally_thralls = 600,
+							/datum/vampire_passive/increment_thrall_cap/two = 600)
+	fully_powered_abilities = list(/datum/vampire_passive/full,
+								/obj/effect/proc_holder/spell/vampire/hysteria,
+								/datum/vampire_passive/increment_thrall_cap/three)
 
 
 /datum/vampire_subclass/ancient
@@ -73,5 +82,7 @@
 							/obj/effect/proc_holder/spell/vampire/self/blood_spill,
 							/obj/effect/proc_holder/spell/vampire/charge,
 							/obj/effect/proc_holder/spell/vampire/self/eternal_darkness,
+							/obj/effect/proc_holder/spell/vampire/hysteria,
 							/datum/vampire_passive/xray)
 	improved_rejuv_healing = TRUE
+	thrall_cap = 150 // can thrall high pop
