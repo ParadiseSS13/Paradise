@@ -196,8 +196,12 @@
 			return FALSE
 
 		if(R.on_floor && !istype(usr.drop_location(), /turf/simulated))
-			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
-			return FALSE
+			if(!R.on_lattice)
+				to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
+				return FALSE
+			if(!(locate(/obj/structure/lattice) in usr.drop_location()))
+				to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor or lattice!</span>")
+				return FALSE
 
 		if(R.no_cult_structure && (locate(/obj/structure/cult) in usr.drop_location()))
 			to_chat(usr, "<span class='warning'>There is a structure here!</span>")

@@ -10,7 +10,8 @@
 	var/max_res_amount = 1
 	var/time = 0
 	var/one_per_turf = 0
-	var/on_floor = 0
+	var/on_floor = 0    //must have floor under it?
+	var/on_lattice = 0  //ONLY if has on_floor = 1 checks could be built in space on lattice. Otherwise won't work.
 	var/window_checks = FALSE
 	var/no_cult_structure = FALSE
 
