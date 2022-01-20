@@ -259,6 +259,7 @@
 	jobtype = /datum/job/clown
 
 	uniform = /obj/item/clothing/under/rank/clown
+	belt = /obj/item/signmaker
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	mask = /obj/item/clothing/mask/gas/clown_hat
 	l_pocket = /obj/item/bikehorn

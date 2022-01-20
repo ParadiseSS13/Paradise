@@ -918,6 +918,7 @@
 #include "code\game\objects\items\devices\powersink.dm"
 #include "code\game\objects\items\devices\scanners.dm"
 #include "code\game\objects\items\devices\sensor_device.dm"
+#include "code\game\objects\items\devices\signmaker.dm"
 #include "code\game\objects\items\devices\taperecorder.dm"
 #include "code\game\objects\items\devices\thermal_drill.dm"
 #include "code\game\objects\items\devices\traitordevices.dm"
