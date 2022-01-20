@@ -290,7 +290,7 @@
 
 						active_character.alt_head = "None" //No alt heads on species that don't have them.
 						active_character.speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
-						if(active_character.species == "Nian")
+						if(NS.bodyflags & HAS_WING)
 							active_character.body_accessory = random_body_accessory("Nian") //wingless moths begone
 						else
 							active_character.body_accessory = null //no vulptail on humans damnit

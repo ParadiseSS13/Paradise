@@ -15,6 +15,7 @@
 	var/datum/species/primitive_form = null          // Lesser form, if any (ie. monkey for humans)
 	var/datum/species/greater_form = null             // Greater form, if any, ie. human for monkeys.
 	var/tail                     // Name of tail image in species effects icon file.
+	var/wing 					// like tail but wings
 	var/datum/unarmed_attack/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
 
@@ -170,8 +171,6 @@
 
 	// Species specific boxes
 	var/speciesbox
-	/// Does this species have wing tails?
-	var/has_wings
 	/// Stores name of antennae when backupwings() is called
 	var/backed_up_antennae
 	/// Stores name of wings when backupwings() is called

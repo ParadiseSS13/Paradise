@@ -18,7 +18,8 @@
 	var/list/m_styles = list(
 		"head" = "None",
 		"body" = "None",
-		"tail" = "None"
+		"tail" = "None",
+		"wing" = "None"
 		)			//Marking styles.
 	var/list/m_colours = list(
 		"head" = "#000000",
@@ -831,13 +832,13 @@
 			preview_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
 
 	//Tail
-	if(current_species && (current_species.bodyflags & HAS_TAIL))
+	if(current_species && (current_species.bodyflags & (HAS_TAIL|HAS_WING)))
 		var/tail_icon
 		var/tail_icon_state
 		var/tail_shift_x
 		var/tail_shift_y
 		var/blend_mode = ICON_ADD
-		var/icon/mothtemp //freaking snowflakes
+		var/icon/wingtemp //freaking snowflake wings
 
 		if(body_accessory)
 			var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[body_accessory]
@@ -849,12 +850,12 @@
 				tail_shift_x = accessory.pixel_x_offset
 			if(accessory.pixel_y_offset)
 				tail_shift_y = accessory.pixel_y_offset
-			if(istype(accessory, /datum/body_accessory/tail/moth))
-				mothtemp = new/icon("icon" = tail_icon, "icon_state" = "[accessory.icon_state]_BEHIND")
+			if(istype(accessory, /datum/body_accessory/wing))
+				wingtemp = new/icon("icon" = tail_icon, "icon_state" = "[accessory.icon_state]_BEHIND")
 				if(tail_shift_x)
-					mothtemp.Shift(EAST, tail_shift_x)
+					wingtemp.Shift(EAST, tail_shift_x)
 				if(tail_shift_y)
-					mothtemp.Shift(NORTH, tail_shift_y)
+					wingtemp.Shift(NORTH, tail_shift_y)
 		else
 			tail_icon = "icons/effects/species.dmi"
 			if(coloured_tail)
@@ -880,8 +881,8 @@
 				temp.Blend(t_marking_s, ICON_OVERLAY)
 
 		preview_icon.Blend(temp, ICON_OVERLAY)
-		if(mothtemp)
-			preview_icon.Blend(mothtemp, ICON_UNDERLAY)
+		if(wingtemp)
+			preview_icon.Blend(wingtemp, ICON_UNDERLAY)
 
 	//Markings
 	if(current_species && ((current_species.bodyflags & HAS_HEAD_MARKINGS) || (current_species.bodyflags & HAS_BODY_MARKINGS)))

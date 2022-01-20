@@ -114,7 +114,8 @@
 
 	m_styles["tail"] = "None"
 	update_tail_layer()
-	return 1
+	update_wing_layer()
+	return TRUE
 
 /mob/living/carbon/human/proc/change_alt_head(alternate_head)
 	var/obj/item/organ/external/head/H = get_organ("head")

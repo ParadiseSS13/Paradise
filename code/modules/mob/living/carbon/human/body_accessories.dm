@@ -75,7 +75,7 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 	animated_icon_state = "null"
 
 /datum/body_accessory/tail/try_restrictions(mob/living/carbon/human/H)
-	if(!H.wear_suit || !(H.wear_suit.flags_inv & HIDETAIL) || is_wing)
+	if(!H.wear_suit || !(H.wear_suit.flags_inv & HIDETAIL))
 		return TRUE
 	return FALSE
 
@@ -125,82 +125,81 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 
 //Moth
 //Wings
-/datum/body_accessory/tail/moth
+/datum/body_accessory/wing
 	icon = 'icons/mob/sprite_accessories/moth/moth_wings.dmi'
 	animated_icon = null
 	name = "Plain Wings"
 	icon_state = "plain"
 	allowed_species = list("Nian")
-	is_wing = TRUE
 
-/datum/body_accessory/tail/moth/monarch
+/datum/body_accessory/wing/monarch
 	name = "Monarch Wings"
 	icon_state = "monarch"
 
-/datum/body_accessory/tail/moth/luna
+/datum/body_accessory/wing/luna
 	name = "Luna Wings"
 	icon_state = "luna"
 
-/datum/body_accessory/tail/moth/atlas
+/datum/body_accessory/wing/atlas
 	name = "Atlas Wings"
 	icon_state = "atlas"
 
-/datum/body_accessory/tail/moth/reddish
+/datum/body_accessory/wing/reddish
 	name = "Reddish Wings"
 	icon_state = "redish"
 
-/datum/body_accessory/tail/moth/royal
+/datum/body_accessory/wing/royal
 	name = "Royal Wings"
 	icon_state = "royal"
 
-/datum/body_accessory/tail/moth/gothic
+/datum/body_accessory/wing/gothic
 	name = "Gothic Wings"
 	icon_state = "gothic"
 
-/datum/body_accessory/tail/moth/lovers
+/datum/body_accessory/wing/lovers
 	name = "Lovers Wings"
 	icon_state = "lovers"
 
-/datum/body_accessory/tail/moth/whitefly
+/datum/body_accessory/wing/whitefly
 	name = "White Fly Wings"
 	icon_state = "whitefly"
 
-/datum/body_accessory/tail/moth/burnt_off
+/datum/body_accessory/wing/burnt_off
 	name = "Burnt Off Wings"
 	icon_state = "burnt_off"
 
-/datum/body_accessory/tail/moth/firewatch
+/datum/body_accessory/wing/firewatch
 	name = "Firewatch Wings"
 	icon_state = "firewatch"
 
-/datum/body_accessory/tail/moth/deathhead
+/datum/body_accessory/wing/deathhead
 	name = "Deathshead Wings"
 	icon_state = "deathhead"
 
-/datum/body_accessory/tail/moth/poison
+/datum/body_accessory/wing/poison
 	name = "Poison Wings"
 	icon_state = "poison"
 
-/datum/body_accessory/tail/moth/ragged
+/datum/body_accessory/wing/ragged
 	name = "Ragged Wings"
 	icon_state = "ragged"
 
-/datum/body_accessory/tail/moth/moonfly
+/datum/body_accessory/wing/moonfly
 	name = "Moon Fly Wings"
 	icon_state = "moonfly"
 
-/datum/body_accessory/tail/moth/snow
+/datum/body_accessory/wing/snow
 	name = "Snow Wings"
 	icon_state = "snow"
 
-/datum/body_accessory/tail/moth/oakworm
+/datum/body_accessory/wing/oakworm
 	name = "Oak Worm Wings"
 	icon_state = "oakworm"
 
-/datum/body_accessory/tail/moth/jungle
+/datum/body_accessory/wing/jungle
 	name = "Jungle Wings"
 	icon_state = "jungle"
 
-/datum/body_accessory/tail/moth/witchwing
+/datum/body_accessory/wing/witchwing
 	name = "Witch Wing Wings"
 	icon_state = "witchwing"

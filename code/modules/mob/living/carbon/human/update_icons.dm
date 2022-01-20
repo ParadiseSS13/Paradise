@@ -277,6 +277,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(BODY_LAYER)
 	//tail
 	update_tail_layer()
+	update_wing_layer()
 	update_int_organs()
 	//head accessory
 	update_head_accessory()
@@ -527,6 +528,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	UpdateDamageIcon()
 	force_update_limbs()
 	update_tail_layer()
+	update_wing_layer()
 	update_halo_layer()
 	overlays.Cut() // Force all overlays to regenerate
 	update_fire()
@@ -898,6 +900,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	apply_overlay(SUIT_LAYER)
 	update_tail_layer()
+	update_wing_layer()
 	update_collar()
 
 /mob/living/carbon/human/update_inv_pockets()
@@ -1069,10 +1072,28 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		I.screen_loc = ui_back
 		client.screen += I
 
+/mob/living/carbon/human/proc/update_wing_layer()
+	remove_overlay(UNDER_WING_LAYER)
+	remove_overlay(WING_LAYER)
+	if(!body_accessory)
+		return
+	if(!istype(body_accessory, /datum/body_accessory/wing))
+		return
+	if(!body_accessory.try_restrictions(src))
+		return
+	var/icon/accessory_s = new/icon("icon" = body_accessory.icon, "icon_state" = body_accessory.icon_state)
+	var/mutable_appearance/wings = mutable_appearance(accessory_s, layer = -WING_LAYER)
+	wings.pixel_x = body_accessory.pixel_x_offset
+	wings.pixel_y = body_accessory.pixel_y_offset
+	overlays_standing[WING_LAYER] = wings
+	var/icon/accessory_behind = new/icon("icon" = body_accessory.icon, "icon_state" = "[body_accessory.icon_state]_BEHIND")
+	var/mutable_appearance/under_wing = mutable_appearance(accessory_behind, layer = -UNDER_WING_LAYER)
+	overlays_standing[UNDER_WING_LAYER] = under_wing
+	apply_overlay(UNDER_WING_LAYER)
+	apply_overlay(WING_LAYER)
 
 /mob/living/carbon/human/proc/update_tail_layer()
 	remove_overlay(TAIL_UNDERLIMBS_LAYER) // SEW direction icons, overlayed by LIMBS_LAYER.
-	remove_overlay(UNDER_WING_LAYER)
 	remove_overlay(TAIL_LAYER) /* This will be one of two things:
 							If the species' tail is overlapped by limbs, this will be only the N direction icon so tails
 							can still appear on the outside of uniforms and such.
@@ -1119,10 +1140,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				tail.pixel_x = body_accessory.pixel_x_offset
 				tail.pixel_y = body_accessory.pixel_y_offset
 				overlays_standing[TAIL_LAYER] = tail
-		if(istype(body_accessory, /datum/body_accessory/tail/moth)) //Moth wings need special code for the "behind" part on south facing mobs
-			var/icon/accessory_wu = new/icon("icon" = body_accessory.icon, "icon_state" = "[body_accessory.icon_state]_BEHIND")
-			var/mutable_appearance/underlimbs = mutable_appearance(accessory_wu, layer = -UNDER_WING_LAYER)
-			overlays_standing[UNDER_WING_LAYER] = underlimbs
 
 	else if(tail && dna.species.bodyflags & HAS_TAIL) //no tailless tajaran
 		if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL))
@@ -1150,7 +1167,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	apply_overlay(TAIL_LAYER)
 	apply_overlay(TAIL_UNDERLIMBS_LAYER)
-	apply_overlay(UNDER_WING_LAYER)
 
 /mob/living/carbon/human/proc/start_tail_wagging()
 	remove_overlay(TAIL_UNDERLIMBS_LAYER) // SEW direction icons, overlayed by LIMBS_LAYER.
@@ -1249,6 +1265,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/handle_transform_change()
 	..()
 	update_tail_layer()
+	update_wing_layer()
 
 //Adds a collar overlay above the helmet layer if the suit has one
 //	Suit needs an identically named sprite in icons/mob/clothing/collar.dmi

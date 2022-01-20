@@ -1262,6 +1262,8 @@
 
 	tail = dna.species.tail
 
+	wing = dna.species.wing
+
 	maxHealth = dna.species.total_health
 
 	if(dna.species.language)
@@ -1393,7 +1395,7 @@
 
 	m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
 	m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
-	if(dna.species.has_wings)
+	if(dna.species.bodyflags & HAS_WING)
 		if(dna.species.backed_up_wings)
 			dna.species.restorewings(H)
 		else

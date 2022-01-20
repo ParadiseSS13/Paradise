@@ -56,8 +56,8 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	new_dna.blood_type = blood_type
 	new_dna.real_name = real_name
 	new_dna.species = new species.type
-	if(species.has_wings)
-		new_dna.species.has_wings = species.has_wings
+	if(species.bodyflags & HAS_WING)
+		new_dna.species.bodyflags = species.bodyflags
 		new_dna.species.backed_up_wings = species.backed_up_wings
 		new_dna.species.backed_up_antennae = species.backed_up_antennae
 
