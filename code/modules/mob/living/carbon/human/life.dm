@@ -365,7 +365,7 @@
 	else
 		bodytemperature += (BODYTEMP_HEATING_MAX + (fire_stacks * 12))
 		var/datum/antagonist/vampire/V = mind?.has_antag_datum(/datum/antagonist/vampire)
-		if(V && !V.get_ability(/datum/vampire_passive/full) && stat != DEAD) // V?. doesn't work here because `has_antag_datum` return FALSE if there is no datum and ?. doesn't like that
+		if(!V?.get_ability(/datum/vampire_passive/full) && stat != DEAD)
 			V.bloodusable = max(V.bloodusable - 5, 0)
 
 /mob/living/carbon/human/proc/get_thermal_protection()
