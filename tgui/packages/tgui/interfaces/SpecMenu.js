@@ -109,7 +109,8 @@ const DantMenu = (props, context) => {
     <Flex.Item grow={1} basis="25%">
       <Section title="Dantalion">
         <h3>Focuses on thralling and illusions.</h3>
-        <p><b>Enthrall</b>: Unlocked at 150 blood, Thralls your target to your will, requires you to stand still. Doesn't work on mindshielded or already enthralled/mindslaved people. You may only thrall one person at a time. Getting to 400, 600 blood and full power will each increase this cap by one.</p>
+        <p><b>Enthrall</b>: Unlocked at 150 blood, Thralls your target to your will, requires you to stand still. Does not work on mindshielded or already enthralled/mindslaved people.</p>
+        <p><b>Thrall Cap</b>: You can only thrall a max of 1 person at a time. This can be increased at 400 blood, 600 blood and at full power to a max of 4 thralls.</p>
         <p><b>Thrall commune</b>: Unlocked at 150 blood, Allows you to talk to your thralls, your thralls can talk back in the same way.</p>
         <p><b>Pacify</b>: Unlocked at 250 blood, allows you to pacify a target, preventing them from causing harm for 40 seconds.</p>
         <p><b>Decoy</b>: Unlocked at 400 blood, briefly turn invisible and send out an illusion to fool everyone nearby.</p>
