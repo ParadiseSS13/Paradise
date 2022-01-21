@@ -15,7 +15,7 @@
 	var/window_checks = FALSE
 	var/no_cult_structure = FALSE
 
-/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1, time = 0, one_per_turf = 0, on_floor = 0, window_checks = FALSE, no_cult_structure = FALSE)
+/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1, time = 0, one_per_turf = 0, on_floor = 0, window_checks = FALSE, no_cult_structure = FALSE, on_lattice = FALSE)
 	src.title = title
 	src.result_type = result_type
 	src.req_amount = req_amount
@@ -26,6 +26,7 @@
 	src.on_floor = on_floor
 	src.window_checks = window_checks
 	src.no_cult_structure = no_cult_structure
+	src.on_lattice = on_lattice
 
 /datum/stack_recipe/proc/post_build(obj/item/stack/S, obj/result)
 	return
