@@ -360,6 +360,10 @@
 		return FALSE
 
 	if(isfloorturf(A))
+		if(locate(/obj/machinery/field) in A )
+			to_chat(user, "<span class='warning'>ERROR! Due to safety protocols building is prohibited in high-energy field areas!</span>")
+			playsound(loc, 'sound/machines/click.ogg', 50, 1)
+			return FALSE
 		if(checkResource(3, user))
 			to_chat(user, "Building Wall...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
@@ -367,8 +371,8 @@
 				if(!useResource(3, user))
 					return FALSE
 				playsound(loc, usesound, 50, 1)
-				var/turf/AT = A
-				AT.ChangeTurf(/turf/simulated/wall)
+				var/turf/turf_to_change = A
+				turf_to_change.ChangeTurf(/turf/simulated/wall)
 				return TRUE
 			return FALSE
 		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this wall!</span>")
@@ -389,6 +393,10 @@
  */
 /obj/item/rcd/proc/mode_airlock(atom/A, mob/user)
 	if(isfloorturf(A))
+		if(locate(/obj/machinery/field) in A )
+			to_chat(user, "<span class='warning'>ERROR! Due to safety protocols building is prohibited in high-energy field areas!</span>")
+			playsound(loc, 'sound/machines/click.ogg', 50, 1)
+			return FALSE
 		if(checkResource(10, user))
 			to_chat(user, "Building Airlock...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
@@ -517,6 +525,10 @@
  */
 /obj/item/rcd/proc/mode_window(atom/A, mob/user)
 	if(isfloorturf(A))
+		if(locate(/obj/machinery/field) in A )
+			to_chat(user, "<span class='warning'>ERROR! Due to safety protocols building is prohibited in high-energy field areas!</span>")
+			playsound(loc, 'sound/machines/click.ogg', 50, 1)
+			return FALSE
 		if(locate(/obj/structure/grille) in A)
 			return FALSE // We already have window
 		if(!checkResource(2, user))
@@ -544,8 +556,8 @@
 			else // Build a window!
 				var/obj/structure/window/reinforced/W = new(A)
 				W.dir = cdir
-		var/turf/AT = A
-		AT.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
+		var/turf/turf_to_change = A
+		turf_to_change.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
 		return TRUE
 	to_chat(user, "<span class='warning'>ERROR! Location unsuitable for window construction!</span>")
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
