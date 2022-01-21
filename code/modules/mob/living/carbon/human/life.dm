@@ -602,7 +602,7 @@
 				becomeFat()
 
 		// nutrition decrease
-		if(nutrition > 0 && stat != DEAD)
+		if(nutrition >= 0 && stat != DEAD)
 			handle_nutrition_alerts()
 			// THEY HUNGER
 			var/hunger_rate = hunger_drain
