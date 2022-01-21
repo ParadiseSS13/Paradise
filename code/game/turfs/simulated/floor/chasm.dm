@@ -148,7 +148,7 @@
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/drop(atom/movable/AM)
 	//Make sure the item is still there after our sleep
-	if(!AM || QDELETED(AM))
+	if(!AM || QDELETED(AM) || AM.anchored)
 		return
 	falling_atoms[AM] = TRUE
 	AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>You stumble and stare into an abyss before you. It stares back, and you fall \

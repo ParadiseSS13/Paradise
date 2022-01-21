@@ -1,0 +1,10 @@
+"a" = (/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"R" = (/obj/bfl_crack,/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+
+(1,1,1) = {"
+aaaaa
+aaaaa
+aaRaa
+aaaaa
+aaaaa
+"}

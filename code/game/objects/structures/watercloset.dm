@@ -188,7 +188,14 @@
 		secret.desc += " It's a secret!"
 		w_items += secret.w_class
 
+/obj/structure/toilet/golden_toilet
+	name = "Золотой унитаз"
+	desc = "Поговаривают, что 7 веков назад у каждого арабского шейха был такой унитаз."
+	icon_state = "gold_toilet00"
 
+/obj/structure/toilet/golden_toilet/update_icon()
+	. = ..()
+	icon_state = "gold_toilet[open][cistern]"
 
 /obj/structure/urinal
 	name = "urinal"
