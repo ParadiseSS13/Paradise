@@ -33,13 +33,13 @@
 				var/datum/spell_handler/vampire/V = custom_handler
 				var/blood_cost = V.calculate_blood_cost(vampire)
 				vampire.bloodusable -= blood_cost //we take the blood after enthralling, not before
-			else
-				revert_cast(user)
-				to_chat(user, "<span class='warning'>You or your target either moved or you dont have enough usable blood.</span>")
+		else
+			revert_cast(user)
+			to_chat(user, "<span class='warning'>You or your target either moved.</span>")
 
 /obj/effect/proc_holder/spell/vampire/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
 	if(!C)
-		log_runtime(EXCEPTION("something bad happened on enthralling a mob, attacker is [user] [user.key] \ref[user]"), user)
+		log_runtime(EXCEPTION("target was null while trying to vampire enthrall, attacker is [user] [user.key] \ref[user]"), user)
 		return FALSE
 	if(!ishuman(C))
 		to_chat(user, "<span class='warning'>You can only enthrall sentient humanoids!</span>")
@@ -50,12 +50,12 @@
 
 	var/enthrall_safe = FALSE
 	for(var/obj/item/implant/mindshield/L in C)
-		if(L && L.implanted)
+		if(L.implanted)
 			enthrall_safe = TRUE
 			break
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
-	if(V.subclass.thrall_cap <= user.mind.som.serv.len)
-		to_chat(user, "<span class='warning'>You don't have enough power to enthrall anymore people!</span>")
+	if(V.subclass.thrall_cap <= length(user.mind.som.serv))
+		to_chat(user, "<span class='warning'>You don't have enough power to enthrall any more people!</span>")
 		return FALSE
 	if(enthrall_safe || C.mind.has_antag_datum(/datum/antagonist/vampire) || C.mind.has_antag_datum(/datum/antagonist/mindslave))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
@@ -100,7 +100,6 @@
 
 /obj/effect/proc_holder/spell/vampire/thrall_commune/create_new_targeting()
 	var/datum/spell_targeting/select_vampire_master/T = new
-	T.range = 500
 	return T
 
 /obj/effect/proc_holder/spell/vampire/thrall_commune/cast(list/targets, mob/user)
@@ -111,12 +110,13 @@
 	var/message = "[user.real_name]:[input]"
 
 	for(var/mob/M in targets)
-		to_chat(M, "<span class='shadowling'>[message] </span>")
+		to_chat(M, "<span class='shadowling'>[message]</span>")
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!M.client)
 			continue
-		to_chat(M, "<span class='shadowling'><a href='?src=[M.UID()];follow=[user.UID()]'>(F)</a> [message] </span>")
+		to_chat(M, "<span class='shadowling'>([ghost_follow_link(user, ghost=M)]): [message] </span>")
 	log_say("(DANTALION) [input]", user)
+	user.create_log(SAY_LOG, "(DANTALION) [input]")
 
 /obj/effect/proc_holder/spell/vampire/pacify
 	name = "Pacify (10)"
