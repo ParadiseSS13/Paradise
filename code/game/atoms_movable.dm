@@ -131,7 +131,9 @@
 // Used in shuttle movement and AI eye stuff.
 // Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
 /atom/movable/proc/setLoc(T, teleported=0)
+	var/old_loc = loc
 	loc = T
+	Moved(old_loc, get_dir(old_loc, loc))
 
 /atom/movable/Move(atom/newloc, direct = 0, movetime)
 	if(!loc || !newloc) return 0
