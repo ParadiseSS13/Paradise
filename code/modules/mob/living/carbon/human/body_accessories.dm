@@ -44,7 +44,6 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 	var/pixel_y_offset = 0
 
 	var/list/allowed_species = list()
-	var/is_wing
 
 /datum/body_accessory/proc/try_restrictions(mob/living/carbon/human/H)
 	return TRUE
