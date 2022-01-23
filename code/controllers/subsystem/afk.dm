@@ -20,7 +20,6 @@ SUBSYSTEM_DEF(afk)
 	return ..()
 
 /datum/controller/subsystem/afk/fire()
-	kick_clients_in_lobby("<span class='danger'>You were kicked from the lobby for being AFK. Reconnect whenever you're ready.</span>", TRUE)
 	var/list/toRemove = list()
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
@@ -30,7 +29,7 @@ SUBSYSTEM_DEF(afk)
 		var/turf/T
 		// Only players and players with the AFK watch enabled
 		// No dead, unconcious, restrained, people without jobs or people on other Z levels than the station
-		if(!H.client || !H.mind || \
+		if(!H.client || !(H.client.prefs.toggles2 & PREFTOGGLE_2_AFKWATCH) || !H.mind || \
 			H.stat || H.restrained() || !H.job || !is_station_level((T = get_turf(H)).z)) // Assign the turf as last. Small optimization
 			if(afk_players[H.ckey])
 				toRemove += H.ckey
@@ -69,11 +68,9 @@ SUBSYSTEM_DEF(afk)
 
 			else if(afk_players[H.ckey] != AFK_ADMINS_WARNED && mins_afk >= config.auto_despawn_afk)
 				log_afk_action(H, mins_afk, T, "despawned")
-				warn(H, "<span class='danger'>You have been despawned and kicked after being AFK for [mins_afk] minutes.</span>")
+				warn(H, "<span class='danger'>You have been despawned after being AFK for [mins_afk] minutes.</span>")
 				toRemove += H.ckey
 				force_cryo_human(H)
-				if(H.client)
-					qdel(H.client)
 
 	removeFromWatchList(toRemove)
 
