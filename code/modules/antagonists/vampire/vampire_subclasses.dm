@@ -9,6 +9,7 @@
 	var/improved_rejuv_healing = FALSE
 	/// maximun number of thralls a vampire may have at a time. incremented as they grow stronger, up to a cap at full power.
 	var/thrall_cap = 1
+	var/full_power_overide = FALSE
 
 /datum/vampire_subclass/proc/add_subclass_ability(datum/antagonist/vampire/vamp)
 	for(var/thing in standard_powers)
@@ -78,6 +79,9 @@
 							/obj/effect/proc_holder/spell/vampire/vamp_extinguish,
 							/obj/effect/proc_holder/spell/vampire/raise_vampires,
 							/obj/effect/proc_holder/spell/vampire/enthrall,
+							/obj/effect/proc_holder/spell/vampire/pacify,
+							/obj/effect/proc_holder/spell/vampire/rally_thralls,
+							/obj/effect/proc_holder/spell/vampire/thrall_commune,
 							/datum/vampire_passive/full,
 							/obj/effect/proc_holder/spell/vampire/self/blood_spill,
 							/obj/effect/proc_holder/spell/vampire/charge,

@@ -33,7 +33,7 @@
 	antag_hud_name = "vampthrall"
 
 /datum/antagonist/mindslave/thrall/on_gain()
-	owner.AddSpell(/obj/effect/proc_holder/spell/vampire/thrall_commune)
+	owner.AddSpell(new /obj/effect/proc_holder/spell/vampire/thrall_commune)
 	SSticker.mode.vampire_enthralled += owner
 	..()
 
@@ -164,7 +164,7 @@
 
 
 /datum/antagonist/vampire/proc/check_full_power_upgrade()
-	if(length(drained_humans) >= FULLPOWER_DRAINED_REQUIREMENT && bloodtotal >= FULLPOWER_BLOODTOTAL_REQUIREMENT)
+	if(subclass.full_power_overide || (length(drained_humans) >= FULLPOWER_DRAINED_REQUIREMENT && bloodtotal >= FULLPOWER_BLOODTOTAL_REQUIREMENT))
 		subclass.add_full_power_abilities(src)
 
 

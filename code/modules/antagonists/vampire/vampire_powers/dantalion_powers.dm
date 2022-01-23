@@ -3,6 +3,7 @@
 
 /datum/vampire_passive/increment_thrall_cap/on_apply(datum/antagonist/vampire/V)
 	V.subclass.thrall_cap += 1
+	gain_desc = "You can now thrall one more person. Up to a maximum of [V.subclass.thrall_cap]"
 
 /datum/vampire_passive/increment_thrall_cap/two
 
@@ -69,7 +70,7 @@
 	if(!istype(H))
 		return FALSE
 
-	var/greet_text = "You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command."
+	var/greet_text = "<b>You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command.</b>"
 	H.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall(user.mind, greet_text))
 	H.Stun(2)
 	user.create_log(CONVERSION_LOG, "vampire enthralled [H.real_name]")
@@ -79,6 +80,10 @@
 	name = "Commune"
 	desc = "Talk to your thralls telepathically."
 	gain_desc = "You have gained the ability to commune with your thralls."
+
+/obj/effect/proc_holder/spell/vampire/thrall_commune/create_new_handler() //so thralls can use it
+	RETURN_TYPE(/datum/spell_handler)
+	return NONE
 
 /datum/spell_targeting/select_vampire_network/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom) // Returns the vampire and their thralls. If user is a thrall then it will look up their master's network
 	var/list/mob/living/targets = list()
@@ -113,8 +118,6 @@
 	for(var/mob/M in targets)
 		to_chat(M, "<span class='shadowling'>[message]</span>")
 	for(var/mob/M in GLOB.dead_mob_list)
-		if(!M.client)
-			continue
 		to_chat(M, "<span class='shadowling'>([ghost_follow_link(user, ghost=M)]): [message] </span>")
 	log_say("(DANTALION) [input]", user)
 	user.create_log(SAY_LOG, "(DANTALION) [input]")
@@ -173,6 +176,7 @@
 
 /obj/effect/proc_holder/spell/vampire/rally_thralls/cast(list/targets, mob/user)
 	for(var/mob/living/carbon/human/H as anything in targets)
+		playsound(H, 'sound/magic/staff_healing.ogg', 30)
 		H.remove_CC()
 
 /obj/effect/proc_holder/spell/vampire/hysteria
