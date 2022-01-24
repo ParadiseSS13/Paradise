@@ -84,3 +84,7 @@
 			to_chat(user, "<span class='notice'>You fill [src] from [source].</span>")
 			return
 	..()
+
+/obj/item/reagent_containers/examine(mob/user)
+	. = ..()
+	. += list("<span class='notice'>It will transfer [amount_per_transfer_from_this] unit[amount_per_transfer_from_this > 1 ? "s" : ""] at a time.")
