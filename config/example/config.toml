@@ -741,6 +741,8 @@ instance_id = "paradise_main"
 # Server internal IP. Used if you are splitting instances over multiple internal IPs.
 # In most cases this is just 127.0.0.1
 internal_ip = "127.0.0.1"
+# Are we handling TOS consents on an external service?
+external_tos_handler = false
 
 
 ################################################################
