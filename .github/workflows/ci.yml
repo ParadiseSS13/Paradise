@@ -2,15 +2,15 @@ name: CI
 on:
   push:
     branches:
-    - master
+    - master220
   pull_request:
     branches:
-    - master
+    - master220
 
 jobs:
   run_linters:
     name: Run Linters
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Setup Cache
@@ -37,7 +37,7 @@ jobs:
 
   compile_all_maps:
     name: Compile All Maps
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Setup Cache
@@ -54,7 +54,7 @@ jobs:
 
   unit_tests_and_sql:
     name: Unit Tests + SQL Validation
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     services:
       mariadb:
         image: mariadb:latest
@@ -80,6 +80,7 @@ jobs:
           sudo dpkg --add-architecture i386
           sudo apt update || true
           sudo apt install libssl1.1:i386
+          bash tools/ci/install_rustg.sh
       - name: Compile & Run Unit Tests
         run: |
           tools/ci/install_byond.sh
