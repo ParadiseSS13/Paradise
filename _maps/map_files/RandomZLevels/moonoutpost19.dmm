@@ -33,59 +33,9 @@
 	power_light = 0;
 	poweralm = 0
 	})
-"ad" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"ae" = (
-/obj/structure/alien/weeds,
-/obj/structure/alien/weeds{
-	desc = "A large mottled egg.";
-	icon_state = "egg_hatched";
-	name = "egg"
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"af" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
 "ag" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/structure/alien/weeds{
-	desc = "A large mottled egg.";
-	icon_state = "egg_hatched";
-	name = "egg"
-	},
+/obj/structure/alien/weeds,
+/obj/structure/alien/egg/burst,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
@@ -107,9 +57,7 @@
 	poweralm = 0
 	})
 "ai" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
@@ -136,25 +84,7 @@
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
-/obj/structure/alien/weeds{
-	desc = "A large mottled egg.";
-	icon_state = "egg_hatched";
-	name = "egg"
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"al" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/structure/bed/nest,
+/obj/structure/alien/weeds,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
@@ -166,33 +96,6 @@
 	})
 "am" = (
 /obj/structure/alien/weeds/node,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"an" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/structure/bed/nest,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"ao" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
@@ -224,23 +127,8 @@
 	power_light = 0;
 	poweralm = 0
 	})
-"aq" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
 "ar" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/structure/alien/resin/wall,
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -258,27 +146,11 @@
 	name = "Syndicate Outpost"
 	})
 "at" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "red";
 	icon_state = "gib1_flesh"
 	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"au" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/mob/living/simple_animal/hostile/alien/sentinel,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
@@ -370,9 +242,7 @@
 	poweralm = 0
 	})
 "aD" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
@@ -439,14 +309,8 @@
 	name = "Syndicate Outpost"
 	})
 "aI" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/structure/alien/weeds{
-	desc = "A large mottled egg.";
-	icon_state = "egg_hatched";
-	name = "egg"
-	},
+/obj/structure/alien/weeds,
+/obj/structure/alien/egg/burst,
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "red";
 	icon_state = "gib1_flesh"
@@ -460,30 +324,9 @@
 	power_light = 0;
 	poweralm = 0
 	})
-"aJ" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/effect/decal/cleanable/blood/gibs{
-	color = "red";
-	icon_state = "gib2_flesh"
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
 "aK" = (
 /obj/structure/alien/weeds,
-/obj/structure/alien/weeds{
-	desc = "A large mottled egg.";
-	icon_state = "egg_hatched";
-	name = "egg"
-	},
+/obj/structure/alien/egg/burst,
 /obj/effect/decal/cleanable/blood{
 	color = "red"
 	},
@@ -661,22 +504,6 @@
 	power_light = 0;
 	poweralm = 0
 	})
-"ba" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/mob/living/simple_animal/hostile/alien/drone{
-	plants_off = 1
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
 "bb" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood{
@@ -773,23 +600,6 @@
 "bj" = (
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien/sentinel,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a5{
-	always_unpowered = 1;
-	name = "The Hive";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"bk" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/effect/decal/cleanable/blood/gibs{
-	color = "red";
-	icon_state = "gib2_flesh"
-	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a5{
 	always_unpowered = 1;
@@ -1137,7 +947,6 @@
 	tag = ""
 	},
 /obj/machinery/door/airlock/highsecurity{
-	icon_state = "door_locked";
 	locked = 1;
 	name = "Gateway";
 	req_access_txt = "150"
@@ -1234,9 +1043,7 @@
 	input_dir = 4;
 	output_dir = 8
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
@@ -1253,9 +1060,7 @@
 	name = "Syndicate Outpost"
 	})
 "bZ" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
 	pixel_y = 32
 	},
@@ -1281,9 +1086,7 @@
 	})
 "cb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel/airless{
 	dir = 4;
 	icon_state = "red";
@@ -1456,7 +1259,6 @@
 /obj/machinery/door/airlock/public/glass{
 	density = 0;
 	emagged = 1;
-	icon_state = "door_open";
 	locked = 1;
 	name = "Dormitories"
 	},
@@ -1650,9 +1452,7 @@
 /obj/item/stack/rods,
 /obj/item/stack/rods,
 /obj/item/shard,
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
@@ -1712,9 +1512,7 @@
 	name = "Syndicate Outpost"
 	})
 "cL" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel/airless{
 	dir = 6;
 	icon_state = "red";
@@ -1807,7 +1605,6 @@
 /obj/machinery/door/airlock{
 	density = 0;
 	emagged = 1;
-	icon_state = "door_open";
 	id_tag = "awaydorm4";
 	locked = 1;
 	name = "Dorm 1";
@@ -1856,9 +1653,7 @@
 	amount = 12
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel/airless{
 	name = "floor"
@@ -2031,9 +1826,7 @@
 	})
 "dm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/warning_stripes/yellow/partial,
 /obj/effect/decal/warning_stripes/arrow,
 /obj/effect/decal/warning_stripes/northeastcorner,
@@ -2367,9 +2160,7 @@
 	poweralm = 0
 	})
 "dN" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /obj/item/tank/internals/oxygen,
 /obj/item/clothing/suit/space/syndicate/orange,
@@ -2397,9 +2188,7 @@
 	poweralm = 0
 	})
 "dO" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
 	desc = "Your instincts say you shouldn't be following these.";
@@ -2441,25 +2230,8 @@
 	power_light = 0;
 	poweralm = 0
 	})
-"dR" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a3{
-	always_unpowered = 1;
-	ambientsounds = list('sound/ambience/ambimine.ogg');
-	name = "Khonsu 19";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
 "dS" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood{
 	color = "red"
 	},
@@ -2490,49 +2262,6 @@
 "dU" = (
 /obj/structure/alien/weeds/node,
 /obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a3{
-	always_unpowered = 1;
-	ambientsounds = list('sound/ambience/ambimine.ogg');
-	name = "Khonsu 19";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"dV" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a3{
-	always_unpowered = 1;
-	ambientsounds = list('sound/ambience/ambimine.ogg');
-	name = "Khonsu 19";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"dW" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaycontent/a3{
-	always_unpowered = 1;
-	ambientsounds = list('sound/ambience/ambimine.ogg');
-	name = "Khonsu 19";
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0;
-	poweralm = 0
-	})
-"dX" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
@@ -2628,9 +2357,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2644,9 +2371,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -2672,29 +2397,12 @@
 	name = "MO19 Research"
 	})
 "el" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
 	desc = "Your instincts say you shouldn't be following these.";
 	dir = 9;
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
-/turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"em" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	dir = 4;
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
@@ -2716,11 +2424,7 @@
 	status = 2
 	},
 /obj/structure/alien/weeds,
-/obj/structure/alien/weeds{
-	desc = "A large mottled egg.";
-	icon_state = "egg_hatched";
-	name = "egg"
-	},
+/obj/structure/alien/egg/burst,
 /obj/machinery/camera{
 	c_tag = "Xenobiology Containment North";
 	network = list("MO19X")
@@ -2736,9 +2440,7 @@
 	name = "Acid-Proof mounted igniter";
 	pixel_y = 25
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/engine,
 /area/awaycontent/a2{
@@ -2758,22 +2460,6 @@
 	icon_state = "facehugger_impregnated";
 	item_state = "facehugger_impregnated";
 	stat = 2
-	},
-/turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"es" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/structure/bed/nest,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	dir = 4;
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
 	},
 /turf/simulated/floor/engine,
 /area/awaycontent/a2{
@@ -2800,18 +2486,6 @@
 	status = 2
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"ew" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4
-	},
-/obj/machinery/portable_atmospherics/canister,
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -2898,32 +2572,6 @@
 /area/awaycontent/a2{
 	name = "MO19 Research"
 	})
-"eD" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"eE" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/structure/alien/resin/wall,
-/turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"eF" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/structure/alien/resin/wall,
-/turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
 "eG" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -2932,25 +2580,12 @@
 	name = "MO19 Research"
 	})
 "eH" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
 	desc = "Your instincts say you shouldn't be following these.";
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
-	},
-/turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"eI" = (
-/obj/structure/alien/weeds,
-/obj/structure/alien/weeds{
-	desc = "A large mottled egg.";
-	icon_state = "egg_hatched";
-	name = "egg"
 	},
 /turf/simulated/floor/engine,
 /area/awaycontent/a2{
@@ -3035,9 +2670,7 @@
 	pixel_x = 4;
 	pixel_y = 8
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -3046,32 +2679,16 @@
 	name = "MO19 Research"
 	})
 "eQ" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/structure/alien/weeds{
-	desc = "A large mottled egg.";
-	icon_state = "egg_hatched";
-	name = "egg"
-	},
+/obj/structure/alien/weeds,
+/obj/structure/alien/egg/burst,
 /turf/simulated/floor/engine,
 /area/awaycontent/a2{
 	name = "MO19 Research"
 	})
 "eR" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood{
 	color = "red"
-	},
-/turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"eS" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
 	},
 /turf/simulated/floor/engine,
 /area/awaycontent/a2{
@@ -3099,9 +2716,7 @@
 	name = "MO19 Research"
 	})
 "eX" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -3216,9 +2831,7 @@
 "fh" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a2{
@@ -3226,9 +2839,7 @@
 	})
 "fi" = (
 /obj/structure/closet/crate/freezer,
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
 	item_state = "facehugger_impregnated";
@@ -3287,9 +2898,7 @@
 "fn" = (
 /obj/structure/closet/l3closet/scientist,
 /obj/structure/window/reinforced,
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -3318,25 +2927,7 @@
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
-/obj/structure/alien/weeds{
-	desc = "A large mottled egg.";
-	icon_state = "egg_hatched";
-	name = "egg"
-	},
-/turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"fq" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/structure/bed/nest,
-/obj/item/clothing/mask/facehugger{
-	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/engine,
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -3385,9 +2976,7 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -3412,24 +3001,21 @@
 	pixel_y = 23;
 	req_access = null
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a2{
 	name = "MO19 Research"
 	})
 "fw" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = -26
 	},
 /obj/effect/decal/cleanable/blood/tracks{
 	desc = "Your instincts say you shouldn't be following these.";
 	icon_state = "ltrails_2"
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -3583,9 +3169,7 @@
 	dir = 4;
 	name = "Acid-Proof Pipe"
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/engine,
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -3596,26 +3180,10 @@
 	dir = 4;
 	name = "Acid-Proof Pipe"
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood{
 	color = "red"
 	},
-/turf/simulated/floor/engine,
-/area/awaycontent/a2{
-	name = "MO19 Research"
-	})
-"fI" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	desc = "A one meter section of pipe. This one has been applied with an acid-proof coating.";
-	dir = 4;
-	name = "Acid-Proof Pipe"
-	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/structure/alien/resin/wall,
 /turf/simulated/floor/engine,
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -3652,9 +3220,7 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /obj/machinery/camera{
 	c_tag = "Xenobiology Containment East";
 	dir = 8;
@@ -3706,7 +3272,6 @@
 /obj/machinery/door/airlock/research{
 	density = 0;
 	emagged = 1;
-	icon_state = "door_open";
 	locked = 1;
 	name = "Xenobiology Lab";
 	opacity = 0;
@@ -3775,9 +3340,7 @@
 /turf/simulated/floor/plating,
 /area/awaycontent/a7)
 "fW" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -3844,9 +3407,7 @@
 	name = "MO19 Research"
 	})
 "gd" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood{
 	color = "red"
 	},
@@ -3859,9 +3420,7 @@
 	name = "MO19 Research"
 	})
 "ge" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
 	desc = "Your instincts say you shouldn't be following these.";
@@ -4004,9 +3563,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
 	initialize_directions = 11
@@ -4020,6 +3577,7 @@
 "gp" = (
 /obj/machinery/door/firedoor,
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_y = -29
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -4052,9 +3610,7 @@
 /obj/item/razor{
 	pixel_y = 5
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -4132,9 +3688,7 @@
 	icon_state = "pipe-c";
 	name = "Acid-Proof disposal pipe"
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/engine,
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -4266,9 +3820,7 @@
 	icon_state = "bulb-broken";
 	status = 2
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4303,9 +3855,7 @@
 	info = "Researcher: <u>Dr. Sakuma Sano    </u><br>Date: <u>03/06/2554</u><br><br>Report:<br>The test subject we were provided with truly is alien. It is a small spider-like creature with bony legs, leading to a smooth body. It has a long tail connected to it, and it has shown extremely aggressive behavior by flinging its entire body at the glass and shields to no avail. While doing so, we noticed there was a small pink hole in the middle of the body.<br><br>When we sent in a monkey through the crude but effective disposal tube, the alien immediately jumped at its face and latched on. The monkey was quickly suffocated by its constricting tail, unable to pry off the fingers. The monkey at first seemed to be dead, but was observed to be breathing. The recently named alien 'facehugger' fell off, dead, and curled its legs up like a spider moments after it had finished with the monkey's body.<br><br>While the monkey appeared to be unharmed, we kept it in the cell for a couple more hours, until we were horrified to discover it screaming out in pain, as a snake-like creature erupted from the monkey's chest! It appears that the 'facehugger' is only the start of this life cycle. The impregnation cycle involving the creatures growing inside the chests of their hosts seems to only be the beginning.";
 	name = "'Facehugger' Xenomorph Physiology & Behavior Observation"
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4318,9 +3868,7 @@
 /area/awaycontent/a7)
 "gM" = (
 /obj/structure/table/reinforced,
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/item/paper_bin{
 	pixel_x = 1;
 	pixel_y = 9
@@ -4339,9 +3887,7 @@
 	desc = "An underfloor disposal pipe. This one has been applied with an acid-proof coating.";
 	name = "Acid-Proof disposal pipe"
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/engine,
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -4435,9 +3981,7 @@
 	})
 "gV" = (
 /obj/machinery/optable,
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitehall"
@@ -4449,9 +3993,7 @@
 /obj/structure/table,
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/mask/surgical,
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitehall"
@@ -4485,9 +4027,7 @@
 	name = "MO19 Research"
 	})
 "gY" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4506,9 +4046,7 @@
 	})
 "ha" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -4527,9 +4065,7 @@
 	dir = 1;
 	name = "Acid-Proof disposal pipe"
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/engine,
 /area/awaycontent/a2{
 	name = "MO19 Research"
@@ -4540,9 +4076,7 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
+/obj/structure/alien/weeds,
 /obj/machinery/camera{
 	c_tag = "Xenobiology Containment South";
 	dir = 1;
@@ -4559,9 +4093,7 @@
 	name = "Acid-Proof mounted igniter";
 	pixel_y = -25
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/engine,
 /area/awaycontent/a2{
@@ -5244,6 +4776,7 @@
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/hud/health,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -5558,6 +5091,7 @@
 	})
 "iJ" = (
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -6012,9 +5546,7 @@
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
@@ -6027,9 +5559,7 @@
 	})
 "jC" = (
 /obj/structure/alien/weeds,
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
 	always_unpowered = 1;
@@ -6041,9 +5571,7 @@
 	poweralm = 0
 	})
 "jD" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
+/obj/structure/alien/weeds,
 /obj/structure/alien/weeds/node,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a3{
@@ -6058,7 +5586,6 @@
 "jE" = (
 /obj/item/twohanded/required/kirbyplants{
 	desc = "A plastic potted plant.";
-	layer = 4.1;
 	pixel_y = 3
 	},
 /obj/effect/landmark/burnturf,
@@ -6211,6 +5738,7 @@
 	})
 "jU" = (
 /obj/structure/extinguisher_cabinet{
+	name = "north bump";
 	pixel_y = 30
 	},
 /obj/effect/landmark/burnturf,
@@ -6221,6 +5749,7 @@
 	})
 "jV" = (
 /obj/structure/extinguisher_cabinet{
+	name = "north bump";
 	pixel_y = 30
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6254,7 +5783,6 @@
 /obj/machinery/door/airlock/command{
 	density = 0;
 	emagged = 1;
-	icon_state = "door_open";
 	locked = 1;
 	name = "Research Director's Office";
 	opacity = 0;
@@ -6931,6 +6459,7 @@
 	})
 "lc" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = 26
 	},
 /obj/machinery/camera{
@@ -7255,6 +6784,7 @@
 /obj/structure/table/wood,
 /obj/item/lighter/zippo,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_x = 30
 	},
 /turf/simulated/floor/carpet,
@@ -7393,6 +6923,7 @@
 	})
 "me" = (
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_y = 30
 	},
 /obj/machinery/light/small{
@@ -7540,17 +7071,13 @@
 	name = "MO19 Arrivals"
 	})
 "mt" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
 	})
 "mu" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
@@ -7622,6 +7149,7 @@
 	specialfunctions = 4
 	},
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /turf/simulated/floor/carpet,
@@ -7708,9 +7236,7 @@
 	name = "MO19 Arrivals"
 	})
 "mJ" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -7722,9 +7248,7 @@
 	icon_state = "beacon";
 	name = "tracking beacon"
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
@@ -7921,6 +7445,7 @@
 	})
 "ni" = (
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_y = -30
 	},
 /obj/machinery/light/small,
@@ -8298,6 +7823,7 @@
 	})
 "nV" = (
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_x = 30
 	},
 /turf/simulated/floor/carpet,
@@ -8427,7 +7953,6 @@
 "og" = (
 /obj/item/twohanded/required/kirbyplants{
 	desc = "A plastic potted plant.";
-	layer = 4.1;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -9739,9 +9264,9 @@ ab
 ab
 ab
 ab
-af
 ac
-ad
+ac
+ac
 ac
 ab
 ab
@@ -9851,14 +9376,14 @@ ab
 ab
 ab
 ab
-ad
-ad
-af
-ae
+ac
+ac
+ac
 ag
-af
-ad
-ad
+ag
+ac
+ac
+ac
 ab
 ab
 ab
@@ -9972,8 +9497,8 @@ ak
 ah
 ak
 ah
-af
-ad
+ac
+ac
 ab
 ab
 ab
@@ -10079,15 +9604,15 @@ ab
 ab
 ab
 ac
-af
+ac
 ak
-ao
+ah
 ah
 ak
-ba
-aq
+aL
+ah
 ag
-af
+ac
 ab
 ab
 ab
@@ -10192,16 +9717,16 @@ ab
 ab
 ab
 ab
-af
+ac
 ah
-ao
+ah
 aC
-al
-ao
-aq
+aj
+ah
+ah
 aC
 ah
-ad
+ac
 ab
 ab
 ab
@@ -10306,11 +9831,11 @@ ab
 ab
 ab
 ab
-ad
+ac
 ah
-aq
-al
-aq
+ah
+aj
+ah
 aS
 at
 bi
@@ -10422,14 +9947,14 @@ ab
 ab
 ac
 ag
-au
+bj
 ah
-ao
-aq
+ah
+ah
 bb
-bk
-aq
-af
+av
+ah
+ac
 ab
 ab
 ab
@@ -10534,13 +10059,13 @@ ab
 ab
 ab
 ab
-af
-an
+ac
+aj
 at
-ao
+ah
 ah
 am
-aq
+ah
 bj
 ak
 ac
@@ -10648,16 +10173,16 @@ ab
 ab
 ab
 ab
-ad
+ac
 ap
 aw
-aq
-ao
-ao
-aq
+ah
+ah
+ah
+ah
 ak
-ao
-af
+ah
+ac
 ab
 ab
 ab
@@ -10763,15 +10288,15 @@ ab
 ab
 ab
 ac
-ao
+ah
 av
-af
-ao
+ac
+ah
 ah
 ah
 aC
-ae
-ad
+ag
+ac
 ab
 ab
 ab
@@ -10876,31 +10401,31 @@ ab
 ab
 ab
 ab
-ad
-af
-aq
-ah
-aq
-ah
-aq
-aq
-ao
-af
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-af
 ac
-ad
+ac
+ah
+ah
+ah
+ah
+ah
+ah
+ah
+ac
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ac
+ac
+ac
 ac
 ab
 ab
@@ -10992,13 +10517,13 @@ ab
 ab
 ab
 ac
-ae
-ao
+ag
 ah
-ao
 ah
-aq
-ao
+ah
+ah
+ah
+ah
 ac
 ab
 ab
@@ -11012,10 +10537,10 @@ ab
 ab
 ab
 ac
-ad
+ac
 dN
 aj
-af
+ac
 ac
 ab
 ab
@@ -11105,32 +10630,32 @@ ab
 ab
 ab
 ab
-af
 ac
-aq
-ao
-am
-aq
+ac
 ah
-af
-af
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ad
+ah
+am
+ah
+ah
 ac
-ae
+ac
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ac
+ac
+ag
 dO
 dS
-aq
-af
+ah
+ac
 ab
 ab
 ab
@@ -11220,13 +10745,13 @@ ab
 ab
 ab
 ab
-af
+ac
 ac
 ah
-aq
-ao
+ah
+ah
 ac
-ad
+ac
 ab
 ab
 ab
@@ -11238,13 +10763,13 @@ ab
 ab
 ab
 ab
-af
+ac
 aj
-aq
+ah
 am
 ah
 ag
-ad
+ac
 ab
 ab
 ab
@@ -11335,30 +10860,30 @@ ab
 ab
 ab
 ab
-af
-af
-ad
-af
-af
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ad
 ac
-af
-ao
+ac
+ac
+ac
+ac
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ac
+ac
+ac
 ah
-aq
+ah
+ah
 aj
 ac
-ad
+ac
 ab
 ab
 ab
@@ -11465,13 +10990,13 @@ ab
 ab
 ac
 ac
-aq
+ah
 ai
 ah
 ag
 ac
-af
-ad
+ac
+ac
 ab
 ab
 ab
@@ -11563,26 +11088,26 @@ ab
 ab
 ab
 ab
-af
+ac
 ah
-ao
-ad
+ah
+ac
 ac
 ab
-ad
-ac
-af
-ac
-af
-ad
 ac
 ac
-af
+ac
+ac
+ac
+ac
+ac
+ac
+ac
 ah
-ao
+ah
 ac
-af
-ad
+ac
+ac
 ac
 ab
 ab
@@ -11677,23 +11202,23 @@ ab
 ab
 ab
 ab
-ad
-aq
-aq
-ah
-af
-af
 ac
-aq
-ah
-aq
-ao
 ah
 ah
-af
-ad
 ah
-af
+ac
+ac
+ac
+ah
+ah
+ah
+ah
+ah
+ah
+ac
+ac
+ah
+ac
 ac
 ab
 ab
@@ -11795,19 +11320,19 @@ ac
 ac
 ah
 ah
-ao
-af
 ah
-aq
-ao
+ac
 ah
-aq
-ao
+ah
+ah
+ah
+ah
+ah
 am
-aq
 ah
-ao
-ad
+ah
+ah
+ac
 ab
 ab
 ab
@@ -11899,29 +11424,29 @@ aa
 aa
 aa
 ab
-ad
-af
 ac
-ad
+ac
+ac
+ac
 ab
 ab
 ab
-ad
-af
-ao
-am
-ao
-aq
+ac
+ac
 ah
-af
+am
+ah
+ah
+ah
 ac
-af
 ac
-aq
-ao
-aq
 ac
-ad
+ac
+ah
+ah
+ah
+ac
+ac
 ab
 ab
 ab
@@ -12012,29 +11537,29 @@ aa
 aa
 aa
 aa
-ad
-af
+ac
+ac
 ag
 aj
 ac
-af
 ac
-ad
 ac
-af
-aq
-ao
+ac
+ac
+ac
 ah
-ao
+ah
+ah
+ah
 ac
-ad
+ac
 bl
 bl
-ad
-af
+ac
+ac
 ah
-ao
-af
+ah
+ac
 ab
 ab
 ab
@@ -12127,26 +11652,26 @@ aa
 aa
 aa
 ac
-ae
+ag
 ah
 ai
 ah
-ad
-af
-aq
+ac
+ac
 ah
-ao
 ah
-aq
-aq
-af
-ad
+ah
+ah
+ah
+ah
+ac
+ac
 bl
 bl
 bl
 ac
-aq
-aq
+ah
+ah
 ah
 ac
 ab
@@ -12240,29 +11765,29 @@ aa
 aa
 aa
 aa
-ad
+ac
 ag
 ah
 ak
 am
-aq
 ah
-ao
-af
-ac
-ao
-af
-ac
-af
-bl
-bl
-bl
-bl
-af
 ah
-ao
-af
-ad
+ah
+ac
+ac
+ah
+ac
+ac
+ac
+bl
+bl
+bl
+bl
+ac
+ah
+ah
+ac
+ac
 ab
 ab
 ab
@@ -12355,27 +11880,27 @@ aa
 aa
 aa
 ac
-af
-af
-aj
-al
-ad
-af
 ac
-ad
-ad
+ac
+aj
+aj
+ac
+ac
+ac
+ac
+ac
 ah
-ad
+ac
 bl
 bl
 bl
 bl
 bl
 bl
-af
-ao
+ac
 ah
-af
+ah
+ac
 ab
 ab
 ab
@@ -12471,36 +11996,36 @@ aa
 ab
 ab
 ac
-af
-af
+ac
+ac
 ac
 ab
 ab
 ab
-af
+ac
 aL
-af
+ac
 ac
 bl
 bl
 bl
 bl
 bl
-ad
+ac
 ah
 dd
-ad
-af
-ad
+ac
+ac
+ac
 ab
 ab
 ab
 dA
 dA
 dA
-dR
-dV
-dV
+dQ
+dT
+dT
 dA
 dA
 dA
@@ -12591,8 +12116,8 @@ ab
 ab
 ab
 ab
-af
-ao
+ac
+ah
 ah
 ac
 bl
@@ -12601,21 +12126,21 @@ bl
 bl
 bl
 ac
-aq
-ao
-aq
 ah
-af
+ah
+ah
+ah
 ac
-af
+ac
+ac
 ab
 dA
 dA
-dW
+dQ
 dQ
 dT
-dV
-dV
+dT
+dT
 dA
 dA
 ab
@@ -12703,33 +12228,33 @@ ab
 ab
 ab
 ab
-ad
-af
 ac
-aq
-aq
-af
-ad
-bl
-bl
-bl
-bl
-af
-af
+ac
+ac
 ah
-ao
-ao
 ah
-aq
-ad
-af
+ac
+ac
+bl
+bl
+bl
+bl
+ac
+ac
+ah
+ah
+ah
+ah
+ah
+ac
+ac
 dQ
-dR
+dQ
 dU
 dT
-dV
-dV
-dV
+dT
+dT
+dT
 dA
 dA
 ab
@@ -12816,34 +12341,34 @@ ab
 ab
 ab
 ab
-ad
+ac
 ac
 aI
 ah
-aq
+ah
 am
-ae
+ag
 ac
 bl
 bl
 bl
-ad
-af
-ah
-aq
 ac
-af
+ac
 ah
-ao
-aq
-ad
+ah
+ac
+ac
+ah
+ah
+ah
+ac
 dP
 dT
-dX
-dV
-dX
-dV
-dV
+dT
+dT
+dT
+dT
+dT
 dA
 dA
 dA
@@ -12930,34 +12455,34 @@ ab
 ab
 ab
 ab
-af
+ac
 aD
 aK
 ai
 ah
-ae
-al
-af
+ag
+aj
+ac
 bl
 bl
 bl
 ac
 ah
-ao
-af
+ah
 ac
-ad
-af
+ac
+ac
+ac
 ah
 am
-ad
+ac
 dP
-dV
-dX
 dT
-dV
-dV
-dV
+dT
+dT
+dT
+dT
+dT
 dA
 dA
 dA
@@ -13044,35 +12569,35 @@ ab
 ab
 ab
 ab
-af
+ac
 aj
-aJ
-ao
-an
-al
-af
-ad
-bl
-bl
-bl
-af
-aq
+av
+ah
+aj
+aj
 ac
-af
+ac
+bl
+bl
+bl
+ac
+ah
+ac
+ac
 ab
 ab
 ac
-af
-ad
-af
-dR
+ac
+ac
+ac
+dQ
 dU
-dV
-dX
-dV
-dV
-dV
-dV
+dT
+dT
+dT
+dT
+dT
+dT
 dA
 dA
 dA
@@ -13159,20 +12684,20 @@ ab
 ab
 ab
 ac
-ad
-af
+ac
+ac
 ah
-af
-af
+ac
+ac
 ac
 bl
 bl
 bl
 bl
-ad
-ao
-af
-ad
+ac
+ah
+ac
+ac
 ab
 ab
 ab
@@ -13180,14 +12705,14 @@ ab
 ab
 dA
 dA
-dR
+dQ
 dT
-dV
-dV
-dV
-dV
-dV
-dV
+dT
+dT
+dT
+dT
+dT
+dT
 dA
 dA
 ab
@@ -13275,7 +12800,7 @@ ab
 ab
 ab
 ac
-ao
+ah
 ac
 bl
 bl
@@ -13295,13 +12820,13 @@ ab
 dA
 dA
 dQ
-dX
+dT
 jC
-dV
-dV
-dV
+dT
+dT
+dT
 dP
-dV
+dT
 dA
 dA
 dA
@@ -13388,9 +12913,9 @@ ab
 ab
 ab
 ab
-ad
-ao
-af
+ac
+ah
+ac
 bl
 bl
 bl
@@ -13398,25 +12923,25 @@ bl
 bl
 bl
 ac
-af
+ac
 am
-af
+ac
 ab
 ab
 ab
 ab
 dA
 dA
-dR
-dR
+dQ
+dQ
 jB
-dV
-dV
-dV
-dV
-dV
-dV
-dV
+dT
+dT
+dT
+dT
+dT
+dT
+dT
 dA
 dA
 ab
@@ -13504,7 +13029,7 @@ ab
 ab
 ac
 am
-ad
+ac
 bl
 bl
 bl
@@ -13512,8 +13037,8 @@ bl
 bl
 bl
 bl
-ad
-ao
+ac
+ah
 ac
 ab
 ab
@@ -13521,16 +13046,16 @@ ab
 ab
 dA
 dA
-dR
-dV
-dV
-dV
-dV
-dV
-dV
-dV
-dV
-dV
+dQ
+dT
+dT
+dT
+dT
+dT
+dT
+dT
+dT
+dT
 dA
 dA
 dA
@@ -13616,8 +13141,8 @@ ab
 ab
 ab
 ab
-af
-ao
+ac
+ah
 ac
 bl
 bl
@@ -13626,25 +13151,25 @@ bl
 bl
 bl
 bl
-af
-aq
-af
+ac
+ah
+ac
 ab
 ab
 ab
 ab
 dA
 dA
-dV
-dV
-dV
-dV
+dT
+dT
+dT
+dT
 jD
-dV
-dV
-dV
-dR
-dR
+dT
+dT
+dT
+dQ
+dQ
 dA
 dA
 dA
@@ -13732,14 +13257,14 @@ ab
 ab
 ac
 ah
-af
+ac
 bl
 bl
 bl
 bl
 bl
 bl
-af
+ac
 ac
 ah
 ac
@@ -13749,15 +13274,15 @@ ab
 ab
 dA
 dA
-dV
-dV
-dV
-dV
-dV
-dV
-dV
-dV
-dR
+dT
+dT
+dT
+dT
+dT
+dT
+dT
+dT
+dQ
 aZ
 aZ
 aZ
@@ -13844,34 +13369,34 @@ ab
 ab
 ab
 ab
-af
-aq
-ac
-bl
-bl
-bl
-bl
-bl
-ad
 ac
 ah
-ao
-ad
+ac
+bl
+bl
+bl
+bl
+bl
+ac
+ac
+ah
+ah
+ac
 ab
 ab
 ab
 ab
 dA
 dA
-dV
-dV
-dV
-dV
-dV
-dV
-dV
-dV
-dR
+dT
+dT
+dT
+dT
+dT
+dT
+dT
+dT
+dQ
 aZ
 aZ
 aZ
@@ -13957,35 +13482,35 @@ ab
 ab
 ab
 ab
-ad
-af
-ao
-af
-ad
 ac
-af
-af
-ad
-af
-ao
-aq
 ac
-af
+ah
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ah
+ah
+ac
+ac
 ab
 ab
 ab
 dA
 dA
 dA
-dV
-dV
-dV
-dV
-dV
-dV
-dV
-dR
-dR
+dT
+dT
+dT
+dT
+dT
+dT
+dT
+dQ
+dQ
 aZ
 aZ
 aZ
@@ -14070,35 +13595,35 @@ ab
 ab
 ab
 ab
-ad
-af
-aq
+ac
+ac
+ah
 ah
 ak
 ac
-af
+ac
 ah
-aq
+ah
 bW
 ah
-aq
-af
-ad
+ah
+ac
+ac
 ab
 ab
 ab
 ab
 dA
 dA
-dV
-dV
+dT
+dT
 dP
-dV
-dV
-dV
-dV
-dV
-dR
+dT
+dT
+dT
+dT
+dT
+dQ
 aZ
 aZ
 aZ
@@ -14185,17 +13710,17 @@ ab
 ab
 ab
 ac
-al
+aj
 aL
-ao
 ah
-aq
-ao
-ao
-ad
-af
+ah
+ah
+ah
+ah
 ac
-af
+ac
+ac
+ac
 ac
 ab
 ab
@@ -14204,15 +13729,15 @@ ab
 ab
 dA
 dA
-dV
-dV
-dV
-dV
-dV
-dV
-dV
-dR
-dR
+dT
+dT
+dT
+dT
+dT
+dT
+dT
+dQ
+dQ
 aZ
 aZ
 aZ
@@ -14297,16 +13822,16 @@ ab
 ab
 ab
 ab
-af
-af
+ac
+ac
 ag
-aq
+ah
 am
 ah
-ae
-af
+ag
 ac
-af
+ac
+ac
 ab
 ab
 ab
@@ -14320,12 +13845,12 @@ ab
 dA
 dA
 dA
-dV
-dV
-dV
-dV
-dR
-dR
+dT
+dT
+dT
+dT
+dQ
+dQ
 aZ
 aZ
 aZ
@@ -14412,13 +13937,13 @@ ab
 ab
 ab
 ac
-ae
-aq
+ag
 ah
-an
-al
-af
-ad
+ah
+aj
+aj
+ac
+ac
 ab
 ab
 ab
@@ -14434,11 +13959,11 @@ ab
 ab
 ab
 dA
-dR
+dQ
 dA
 dA
-dV
-dR
+dT
+dQ
 aZ
 aZ
 aZ
@@ -14526,12 +14051,12 @@ ab
 ab
 ab
 ar
-af
 ac
-af
-ad
 ac
-af
+ac
+ac
+ac
+ac
 ab
 ab
 ab
@@ -14548,7 +14073,7 @@ ab
 ab
 ab
 ab
-dR
+dQ
 dA
 dA
 dA
@@ -14662,7 +14187,7 @@ ab
 ab
 ab
 ab
-dR
+dQ
 ab
 ab
 ab
@@ -15018,7 +14543,7 @@ ab
 ab
 ea
 eh
-ew
+eh
 eJ
 fk
 fB
@@ -15590,7 +15115,7 @@ ea
 ea
 eA
 eq
-eE
+eq
 fG
 gd
 gw
@@ -15703,7 +15228,7 @@ ab
 ea
 el
 eB
-eF
+eq
 en
 fH
 ge
@@ -15815,15 +15340,15 @@ ab
 ab
 ab
 ea
-em
+ge
 eC
 eH
-eS
-fI
+en
+fJ
 gf
-eD
+en
 eC
-eF
+eq
 ea
 dA
 aZ
@@ -15930,13 +15455,13 @@ ab
 ab
 ea
 en
-eD
+en
 eQ
-eF
+eq
 fJ
-eF
-eE
-eD
+eq
+eq
+en
 eq
 ea
 dA
@@ -16044,11 +15569,11 @@ ab
 ab
 ec
 eo
-eE
+eq
 eq
 eq
 fK
-eF
+eq
 eq
 en
 hc
@@ -16158,11 +15683,11 @@ ab
 ab
 ea
 ep
-eF
+eq
 eQ
-eE
-eE
-eF
+eq
+eq
+eq
 eq
 eR
 hd
@@ -16275,7 +15800,7 @@ eq
 eG
 eR
 fp
-eD
+en
 gg
 eq
 en
@@ -16387,11 +15912,11 @@ ab
 ea
 er
 eH
-eS
+en
 en
 eR
-eD
-eS
+en
+en
 eC
 eq
 ea
@@ -16499,14 +16024,14 @@ ab
 ab
 ab
 ea
-es
-eI
+gf
+eQ
 eC
-fq
+er
 fL
-eI
+eQ
 fp
-eE
+eq
 eq
 ea
 ab

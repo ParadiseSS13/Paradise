@@ -30,7 +30,8 @@
 	if(isAI(owner.current))
 		var/mob/living/silicon/ai/A = owner.current
 		A.clear_zeroth_law()
-		A.common_radio.channels.Remove("Syndicate")  // De-traitored AIs can still state laws over the syndicate channel without this
+		var/obj/item/radio/headset/heads/ai_integrated/radio = A.get_radio()
+		radio.channels.Remove("Syndicate")  // De-traitored AIs can still state laws over the syndicate channel without this
 		A.laws.sorted_laws = A.laws.inherent_laws.Copy() // AI's 'notify laws' button will still state a law 0 because sorted_laws contains it
 		A.show_laws()
 		A.remove_malf_abilities()

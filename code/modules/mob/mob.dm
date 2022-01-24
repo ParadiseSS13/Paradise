@@ -516,8 +516,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/reset_perspective(atom/A)
 	if(client)
 		if(istype(A, /atom/movable))
-			client.perspective = EYE_PERSPECTIVE
-			client.eye = A
+			if(is_ventcrawling(src))
+				client.eye = get_turf(A)
+				client.perspective = MOB_PERSPECTIVE
+			else
+				client.perspective = EYE_PERSPECTIVE
+				client.eye = A
 		else
 			if(isturf(loc))
 				client.eye = client.mob
@@ -1497,11 +1501,6 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 		return FALSE
 
 	if(!mind)
-		return FALSE
-
-	//Allows fullpower vampires to bypass holy areas
-	var/datum/vampire/vampire = mind.vampire
-	if(vampire && vampire.get_ability(/datum/vampire_passive/full))
 		return FALSE
 
 	//Allows cult to bypass holy areas once they summon

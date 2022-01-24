@@ -1106,6 +1106,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/structure/chair{
@@ -1405,6 +1406,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1458,6 +1460,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel,
@@ -1501,6 +1504,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "custom placement";
 	pixel_x = -28
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1563,6 +1567,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "custom placement";
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel,
@@ -1600,6 +1605,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/item/twohanded/required/kirbyplants{
@@ -1696,6 +1702,7 @@
 "ex" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "custom placement";
 	pixel_x = -28
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3126,6 +3133,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "custom placement";
 	pixel_x = -28
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3367,6 +3375,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "custom placement";
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel,
@@ -3409,6 +3418,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/structure/chair{
@@ -3579,6 +3589,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "custom placement";
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel,
@@ -3717,6 +3728,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/structure/cable/yellow,
@@ -4273,6 +4285,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel,
@@ -4435,6 +4448,7 @@
 /obj/effect/decal/warning_stripes/northwestcorner,
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -4855,6 +4869,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /mob/living/simple_animal/hostile/hivebot,
@@ -4871,6 +4886,7 @@
 "lj" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "custom placement";
 	pixel_y = -22
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4920,6 +4936,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4968,6 +4985,7 @@
 /obj/effect/decal/cleanable/blood/oil,
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{

@@ -652,7 +652,6 @@
 	response_disarm = "bops"
 	response_harm   = "kicks"
 	var/turns_since_scan = 0
-	var/puppies = 0
 
 //Lisa already has a cute bow!
 /mob/living/simple_animal/pet/dog/corgi/Lisa/Topic(href, href_list)

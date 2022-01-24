@@ -22,6 +22,10 @@
 	create_reagents(volume)
 	noz = make_noz()
 
+/obj/item/watertank/Destroy()
+	QDEL_NULL(noz)
+	return ..()
+
 /obj/item/watertank/ui_action_click()
 	toggle_mister()
 
@@ -131,6 +135,10 @@
 		reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
 		loc = tank
 	return
+
+/obj/item/reagent_containers/spray/mister/Destroy()
+	tank = null
+	return ..()
 
 /obj/item/reagent_containers/spray/mister/dropped(mob/user as mob)
 	..()

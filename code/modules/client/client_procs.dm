@@ -598,6 +598,7 @@
 	if(fromban)
 		url += "&fwd=appeal"
 		to_chat(src, {"Now opening a window to verify your information with the forums, so that you can appeal your ban. If the window does not load, please copy/paste this link: <a href="[url]">[url]</a>"})
+		to_chat(src, "<span class='boldannounce'>If you are screenshotting this screen for your ban appeal, please blur/draw over the token in the above link.</span>")
 	else
 		to_chat(src, {"Now opening a window to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>"})
 	src << link(url)
@@ -790,25 +791,26 @@
 	winset(src, "rpane.rulesb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.githubb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.webmap", "background-color=#40628a;text-color=#FFFFFF")
-	/* Mainwindow */
-	winset(src, "mainwindow.saybutton", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "mainwindow.mebutton", "background-color=#40628a;text-color=#FFFFFF")
+	/* Outputwindow */
+	winset(src, "outputwindow.saybutton", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "outputwindow.mebutton", "background-color=#40628a;text-color=#FFFFFF")
 	///// UI ELEMENTS /////
 	/* Mainwindow */
 	winset(src, "mainwindow", "background-color=#272727")
 	winset(src, "mainwindow.mainvsplit", "background-color=#272727")
 	winset(src, "mainwindow.tooltip", "background-color=#272727")
 	/* Outputwindow */
+	winset(src, "outputwindow", "background-color=#1d1d1d")
 	winset(src, "outputwindow.browseroutput", "background-color=#272727")
 	/* Rpane */
-	winset(src, "rpane", "background-color=#272727")
-	winset(src, "rpane.rpanewindow", "background-color=#272727")
+	winset(src, "rpane", "background-color=#1d1d1d")
+	winset(src, "rpane.rpanewindow", "background-color=#1d1d1d")
 	/* Browserwindow */
 	winset(src, "browserwindow", "background-color=#272727")
 	winset(src, "browserwindow.browser", "background-color=#272727")
 	/* Infowindow */
-	winset(src, "infowindow", "background-color=#272727;text-color=#FFFFFF")
-	winset(src, "infowindow.info", "background-color=#272727;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#272727")
+	winset(src, "infowindow", "background-color=#1d1d1d;text-color=#FFFFFF")
+	winset(src, "infowindow.info", "background-color=#272727;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#1d1d1d")
 	// NOTIFY USER
 	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
 
@@ -823,15 +825,16 @@
 	winset(src, "rpane.rulesb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.githubb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.webmap", "background-color=none;text-color=#000000")
-	/* Mainwindow */
-	winset(src, "mainwindow.saybutton", "background-color=none;text-color=#000000")
-	winset(src, "mainwindow.mebutton", "background-color=none;text-color=#000000")
+	/* Outputwindow */
+	winset(src, "outputwindow.saybutton", "background-color=none;text-color=#000000")
+	winset(src, "outputwindow.mebutton", "background-color=none;text-color=#000000")
 	///// UI ELEMENTS /////
 	/* Mainwindow */
 	winset(src, "mainwindow", "background-color=none")
 	winset(src, "mainwindow.mainvsplit", "background-color=none")
 	winset(src, "mainwindow.tooltip", "background-color=none")
 	/* Outputwindow */
+	winset(src, "outputwindow", "background-color=none")
 	winset(src, "outputwindow.browseroutput", "background-color=none")
 	/* Rpane */
 	winset(src, "rpane", "background-color=none")

@@ -42,6 +42,7 @@
 
 
 /mob/new_player/proc/new_player_panel_proc()
+	set waitfor = FALSE
 	var/real_name = client.prefs.active_character.real_name
 	if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 		real_name = "Random Character Slot"
@@ -370,7 +371,6 @@
 		if(!IsAdminJob(rank))
 			GLOB.data_core.manifest_inject(character)
 			AnnounceArrival(character, rank, join_message)
-			AddEmploymentContract(character)
 
 			if(GLOB.summon_guns_triggered)
 				give_guns(character)
@@ -414,13 +414,6 @@
 					if(character.mind.role_alt_title)
 						rank = character.mind.role_alt_title
 					GLOB.global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
-
-/mob/new_player/proc/AddEmploymentContract(mob/living/carbon/human/employee)
-	spawn(30)
-		for(var/C in GLOB.employmentCabinets)
-			var/obj/structure/filingcabinet/employment/employmentCabinet = C
-			if(employmentCabinet.populated)
-				employmentCabinet.addFile(employee)
 
 /mob/new_player/proc/AnnounceCyborg(mob/living/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
@@ -558,7 +551,7 @@
 		else if(mind.assigned_role == "Mime")
 			new_character.real_name = pick(GLOB.mime_names)
 			new_character.rename_self("mime")
-		mind.original = new_character
+		mind.set_original_mob(new_character)
 		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
 
 

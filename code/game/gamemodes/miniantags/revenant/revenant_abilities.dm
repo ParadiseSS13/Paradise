@@ -106,7 +106,7 @@
 	return
 
 //Toggle night vision: lets the revenant toggle its night vision
-/obj/effect/proc_holder/spell/targeted/night_vision/revenant
+/obj/effect/proc_holder/spell/night_vision/revenant
 	charge_max = 0
 	panel = "Revenant Abilities"
 	message = "<span class='revennotice'>You toggle your night vision.</span>"
@@ -114,18 +114,21 @@
 	action_background_icon_state = "bg_revenant"
 
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob
-/obj/effect/proc_holder/spell/targeted/revenant_transmit
+/obj/effect/proc_holder/spell/revenant_transmit
 	name = "Transmit"
 	desc = "Telepathically transmits a message to the target."
 	panel = "Revenant Abilities"
 	charge_max = 0
 	clothes_req = 0
-	range = 7
-	include_user = 0
 	action_icon_state = "r_transmit"
 	action_background_icon_state = "bg_revenant"
 
-/obj/effect/proc_holder/spell/targeted/revenant_transmit/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+/obj/effect/proc_holder/spell/revenant_transmit/create_new_targeting()
+	var/datum/spell_targeting/targeted/T = new()
+	T.allowed_type = /mob/living
+	return T
+
+/obj/effect/proc_holder/spell/revenant_transmit/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	for(var/mob/living/M in targets)
 		spawn(0)
 			var/msg = stripped_input(user, "What do you wish to tell [M]?", null, "")
@@ -193,12 +196,16 @@
 	name = "Overload Lights"
 	desc = "Directs a large amount of essence into nearby electrical lights, causing lights to shock those nearby."
 	charge_max = 200
-	range = 5
 	stun = 30
 	cast_amount = 45
 	var/shock_range = 2
 	var/shock_damage = 20
 	action_icon_state = "overload_lights"
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 5
+	return T
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/overload/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
@@ -232,12 +239,16 @@
 	name = "Defile"
 	desc = "Twists and corrupts the nearby area as well as dispelling holy auras on floors."
 	charge_max = 150
-	range = 4
 	stun = 10
 	reveal = 40
 	unlock_amount = 75
 	cast_amount = 30
 	action_icon_state = "defile"
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/defile/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 4
+	return T
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/defile/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(!attempt_cast(user))
@@ -252,10 +263,14 @@
 	name = "Malfunction"
 	desc = "Corrupts and damages nearby machines and mechanical objects."
 	charge_max = 200
-	range = 2
 	cast_amount = 45
 	unlock_amount = 150
 	action_icon_state = "malfunction"
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 2
+	return T
 
 //A note to future coders: do not replace this with an EMP because it will wreck malf AIs and gang dominators and everyone will hate you.
 /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
@@ -264,49 +279,53 @@
 			INVOKE_ASYNC(src, .proc/effect, user, T)
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/proc/effect(mob/living/simple_animal/revenant/user, turf/T)
-	T.rev_malfunction()
+	T.rev_malfunction(TRUE)
 	for(var/atom/A in T.contents)
-		A.rev_malfunction()
+		A.rev_malfunction(TRUE)
 
 
 /atom/proc/defile()
 	return
 
-/atom/proc/rev_malfunction()
+/atom/proc/rev_malfunction(cause_emp = TRUE)
 	return
 
-/mob/living/carbon/human/rev_malfunction()
+/mob/living/carbon/human/rev_malfunction(cause_emp = TRUE)
 	to_chat(src, "<span class='warning'>You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")].</span>")
 	new /obj/effect/temp_visual/revenant(loc)
-	emp_act(1)
+	if(cause_emp)
+		emp_act(1)
 
-/mob/living/simple_animal/bot/rev_malfunction()
+/mob/living/simple_animal/bot/rev_malfunction(cause_emp = TRUE)
 	if(!emagged)
 		new /obj/effect/temp_visual/revenant(loc)
 		locked = FALSE
 		open = TRUE
 		emag_act(null)
 
-/obj/rev_malfunction()
+/obj/rev_malfunction(cause_emp = TRUE)
 	if(prob(20))
 		if(prob(50))
 			new /obj/effect/temp_visual/revenant(loc)
 		emag_act(null)
+	else if(cause_emp)
+		emp_act(1)
 
-/obj/machinery/clonepod/rev_malfunction()
-	emag_act(null)
+/obj/machinery/clonepod/rev_malfunction(cause_emp = TRUE)
+	..(cause_emp = FALSE)
 
-/obj/machinery/power/apc/rev_malfunction()
+/obj/machinery/power/apc/rev_malfunction(cause_emp = TRUE)
 	return
 
-/obj/machinery/power/smes/rev_malfunction()
+/obj/machinery/power/smes/rev_malfunction(cause_emp = TRUE)
 	return
 
-/mob/living/silicon/robot/rev_malfunction()
+/mob/living/silicon/robot/rev_malfunction(cause_emp = TRUE)
 	playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 1)
 	new /obj/effect/temp_visual/revenant(loc)
 	spark_system.start()
-	emp_act(1)
+	if(cause_emp)
+		emp_act(1)
 
 /turf/defile()
 	if(flags & NOJAUNT)

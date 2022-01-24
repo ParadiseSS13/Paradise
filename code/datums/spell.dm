@@ -1,6 +1,3 @@
-#define TARGET_CLOSEST 1
-#define TARGET_RANDOM 2
-
 /obj/effect/proc_holder
 	var/panel = "Debug"//What panel the proc holder needs to go on.
 	var/active = FALSE //Used by toggle based abilities.
@@ -76,7 +73,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	update_icon()
 
 /obj/effect/proc_holder/spell
-	name = "Spell"
+	name = "Spell" // Only rename this if the spell you're making is not abstract
 	desc = "A wizard spell"
 	panel = "Spells"//What panel the proc holder needs to go on.
 	density = 0
@@ -89,6 +86,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/charge_max = 100 //recharge time in deciseconds if charge_type = "recharge" or starting charges if charge_type = "charges"
 	var/starts_charged = TRUE //Does this spell start ready to go?
 	var/charge_counter = 0 //can only cast spells if it equals recharge, ++ each decisecond if charge_type = "recharge" or -- each cast if charge_type = "charges"
+	var/should_recharge_after_cast = TRUE
 	var/still_recharging_msg = "<span class='notice'>The spell is still recharging.</span>"
 
 	var/holder_var_type = "bruteloss" //only used if charge_type equals to "holder_var"
@@ -102,9 +100,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/invocation = "HURP DURP" //what is uttered when the wizard casts the spell
 	var/invocation_emote_self = null
 	var/invocation_type = "none" //can be none, whisper and shout
-	var/range = 7 //the range of the spell; outer radius for aoe spells
 	var/message = "" //whatever it says to the guy affected by it
-	var/selection_type = "view" //can be "range" or "view"
 	var/spell_level = 0 //if a spell can be taken multiple times, this raises
 	var/level_max = 4 //The max possible level_max is 4
 	var/cooldown_min = 0 //This defines what spell quickened four timeshas as a cooldown. Make sure to set this for every spell
@@ -128,14 +124,30 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/action_icon = 'icons/mob/actions/actions.dmi'
 	var/action_icon_state = "spell_default"
 	var/action_background_icon_state = "bg_spell"
-	var/special_availability_check = 0//Whether the spell needs to bypass the action button's IsAvailable()
 
 	var/sound = null //The sound the spell makes when it is cast
-	/// If the ability is for vampires
-	var/vampire_ability = FALSE
-	var/required_blood = 0
 	var/gain_desc = null
-	var/deduct_blood_on_cast = TRUE
+
+	/// The message displayed when a click based spell gets activated
+	var/selection_activated_message		= "<span class='notice'>Click on a target to cast the spell.</span>"
+	/// The message displayed when a click based spell gets deactivated
+	var/selection_deactivated_message	= "<span class='notice'>You choose to not cast this spell.</span>"
+
+	/// does this spell generate attack logs?
+	var/create_attack_logs = TRUE
+
+	/// If this spell creates custom logs using the write_custom_logs() proc. Will ignore create_attack_logs
+	var/create_custom_logs = FALSE
+
+	/// Which targeting system is used. Set this in create_new_targeting
+	var/datum/spell_targeting/targeting
+	/// List with the targeting datums per spell type. Key = src.type, value = the targeting datum created by create_new_targeting()
+	var/static/list/targeting_datums = list()
+
+	/// Which spell_handler is used in addition to the normal spells behaviour, can be null. Set this in create_new_handler if needed
+	var/datum/spell_handler/custom_handler
+	/// List with the handler datums per spell type. Key = src.type, value = the handler datum created by create_new_handler()
+	var/static/list/spell_handlers = list()
 
 /* Checks if the user can cast the spell
  * @param charge_check If the proc should do the cooldown check
@@ -143,6 +155,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  * @param user The caster of the spell
 */
 /obj/effect/proc_holder/spell/proc/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
+	// SHOULD_NOT_OVERRIDE(TRUE) Todo for another refactor
 	if(!can_cast(user, charge_check, TRUE))
 		return FALSE
 
@@ -154,19 +167,42 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			return 0
 
 	if(start_recharge)
-		switch(charge_type)
-			if("recharge")
-				charge_counter = 0 //doesn't start recharging until the targets selecting ends
-			if("charges")
-				charge_counter-- //returns the charge if the targets selecting fails
-			if("holdervar")
-				adjust_var(user, holder_var_type, holder_var_amount)
+		spend_spell_cost(user)
+
+	return 1
+
+/**
+ * Allows for spell specific target validation. Will be used by the spell_targeting datums
+ *
+ * Arguments:
+ * * target - Who is being considered
+ * * user - Who is the user of this spell
+ */
+/obj/effect/proc_holder/spell/proc/valid_target(target, user)
+	return TRUE
+
+/**
+ * Will spend the cost of using this spell once. Will update the action button's icon if there is any
+ *
+ * Arguments:
+ * * user - Who used this spell?
+ */
+/obj/effect/proc_holder/spell/proc/spend_spell_cost(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
+	switch(charge_type)
+		if("recharge")
+			charge_counter = 0 //doesn't start recharging until the targets selecting ends
+		if("charges")
+			charge_counter-- //returns the charge if the targets selecting fails
+		if("holdervar")
+			adjust_var(user, holder_var_type, holder_var_amount)
+
+	custom_handler?.spend_spell_cost(user, src)
 
 	if(action)
 		action.UpdateButtonIcon()
-	return 1
 
-/obj/effect/proc_holder/spell/proc/invocation(mob/user = usr) //spelling the spell out and setting it on recharge/reducing charges amount
+/obj/effect/proc_holder/spell/proc/invocation(mob/user) //spelling the spell out and setting it on recharge/reducing charges amount
 	switch(invocation_type)
 		if("shout")
 			if(!user.IsVocal())
@@ -198,17 +234,89 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(!gain_desc)
 		gain_desc = "You can now use [src]."
 
+	if(!targeting_datums[type])
+		targeting_datums[type] = create_new_targeting()
+		if(!targeting_datums[type])
+			stack_trace("Spell of type [type] did not implement create_new_targeting")
+	if(isnull(spell_handlers[type]))
+		spell_handlers[type] = create_new_handler()
+
+	if(spell_handlers[type] != NONE)
+		custom_handler = spell_handlers[type]
+	targeting = targeting_datums[type]
+
 /obj/effect/proc_holder/spell/Destroy()
 	QDEL_NULL(action)
 	return ..()
 
+/**
+ * Creates and returns the targeting datum for this spell type. Override this!
+ * Should return a value of type [/datum/spell_targeting]
+ */
+/obj/effect/proc_holder/spell/proc/create_new_targeting()
+	RETURN_TYPE(/datum/spell_targeting)
+	return
+
+/**
+ * Creates and returns the handler datum for this spell type.
+ * Override this if you want a custom spell handler.
+ * Should return a value of type [/datum/spell_handler] or NONE
+ */
+/obj/effect/proc_holder/spell/proc/create_new_handler()
+	RETURN_TYPE(/datum/spell_handler)
+	return NONE
+
 /obj/effect/proc_holder/spell/Click()
-	if(cast_check())
-		choose_targets()
+	if(cast_check(TRUE, FALSE, usr))
+		choose_targets(usr)
 	return 1
 
-/obj/effect/proc_holder/spell/proc/choose_targets(mob/user = usr) //depends on subtype - /targeted or /aoe_turf
-	return
+/obj/effect/proc_holder/spell/InterceptClickOn(mob/user, params, atom/A)
+	. = ..()
+	if(.)
+		return
+	targeting.InterceptClickOn(user, params, A, src)
+
+/**
+ * Will try to choose targets using the targeting variable and perform the spell if it can
+ * Do not override this! Override create_new_targeting instead
+ *
+ * Arguments:
+ * * user - The caster of the spell
+ */
+/obj/effect/proc_holder/spell/proc/choose_targets(mob/user)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	if(targeting.use_intercept_click)
+		if(active)
+			remove_ranged_ability(user, selection_deactivated_message)
+			return
+
+		if(targeting.try_auto_target && targeting.attempt_auto_target(user, src))
+			return
+
+		add_ranged_ability(user, selection_activated_message)
+	else
+		var/list/targets = targeting.choose_targets(user, src)
+		try_perform(targets, user)
+
+/**
+ * Will try and perform the spell using the given targets and user. Will spend one charge of the spell
+ *
+ * Arguments:
+ * * targets - The targets the spell is being performed on
+ * * user - The caster of the spell
+ */
+/obj/effect/proc_holder/spell/proc/try_perform(list/targets, mob/user)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	if(!length(targets))
+		to_chat(user, "<span class='warning'>No suitable target found.</span>")
+		return FALSE
+
+	remove_ranged_ability(user) // Targeting succeeded. So remove the click interceptor if there is one. Even if the cast didn't succeed afterwards
+	if(!cast_check(TRUE, TRUE, user))
+		return
+
+	perform(targets, should_recharge_after_cast, user)
 
 /obj/effect/proc_holder/spell/proc/start_recharge()
 	if(action)
@@ -224,11 +332,23 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	STOP_PROCESSING(SSfastprocess, src)
 	charge_counter = charge_max
 
-/obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = 1, mob/user = usr, make_attack_logs = TRUE) //if recharge is started is important for the trigger spells
+/**
+ * Handles all the code for performing a spell once the targets are known
+ *
+ * Arguments:
+ * * targets - The list of targets the spell is being cast on. Will not be empty or null
+ * * recharge - Whether or not the spell should go recharge
+ * * user - The caster of the spell
+ */
+/obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = TRUE, mob/user = usr) //if recharge is started is important for the trigger spells
+	SHOULD_NOT_OVERRIDE(TRUE)
 	before_cast(targets, user)
-	invocation()
-	if(user && user.ckey && make_attack_logs)
-		add_attack_logs(user, targets, "cast the spell [name]", ATKLOG_ALL)
+	invocation(user)
+	if(user && user.ckey)
+		if(create_custom_logs)
+			write_custom_logs(targets, user)
+		if(create_attack_logs)
+			add_attack_logs(user, targets, "cast the spell [name]", ATKLOG_ALL)
 	spawn(0)
 		if(charge_type == "recharge" && recharge)
 			start_recharge()
@@ -240,14 +360,23 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		critfail(targets)
 	else
 		cast(targets, user = user)
-	after_cast(targets)
+	after_cast(targets, user)
 	if(action)
 		action.UpdateButtonIcon()
 
+/**
+ * Will write additional logs if create_custom_logs is TRUE and the caster has a ckey. Override this
+ *
+ * Arguments:
+ * * targets - The targets being targeted by the spell
+ * * user - The user of the spell
+ */
+/obj/effect/proc_holder/spell/proc/write_custom_logs(list/targets, mob/user)
+	return
+
+
 /obj/effect/proc_holder/spell/proc/before_cast(list/targets, mob/user)
-	if(vampire_ability)
-		if(!before_cast_vampire(targets))
-			return
+	SHOULD_CALL_PARENT(TRUE)
 	if(overlay)
 		for(var/atom/target in targets)
 			var/location
@@ -263,7 +392,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			spawn(overlay_lifespan)
 				qdel(spell)
 
-/obj/effect/proc_holder/spell/proc/after_cast(list/targets)
+	custom_handler?.before_cast(targets, user, src)
+
+/obj/effect/proc_holder/spell/proc/after_cast(list/targets, mob/user)
+	SHOULD_CALL_PARENT(TRUE)
 	for(var/atom/target in targets)
 		var/location
 		if(istype(target,/mob/living))
@@ -288,6 +420,15 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 				smoke.set_up(smoke_amt, 0, location) // same here
 				smoke.start()
 
+	custom_handler?.after_cast(targets, user, src)
+
+/**
+ * The proc where the actual spell gets cast.
+ *
+ * Arguments:
+ * * targets - The targets being targeted by the spell
+ * * user - The caster of the spell
+ */
 /obj/effect/proc_holder/spell/proc/cast(list/targets, mob/user = usr)
 	return
 
@@ -302,6 +443,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			charge_counter++
 		if("holdervar")
 			adjust_var(user, holder_var_type, -holder_var_amount)
+
+	custom_handler?.revert_cast(user, src)
+
 	if(action)
 		action.UpdateButtonIcon()
 
@@ -344,215 +488,17 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		if("holdervar")
 			return 1
 
-/obj/effect/proc_holder/spell/targeted //can mean aoe for mobs (limited/unlimited number) or one target mob
-	var/max_targets = 1 //leave 0 for unlimited targets in range, 1 for one selectable target in range, more for limited number of casts (can all target one guy, depends on target_ignore_prev) in range
-	var/target_ignore_prev = 1 //only important if max_targets > 1, affects if the spell can be cast multiple times at one person from one cast
-	var/include_user = 0 //if it includes usr in the target list
-	var/random_target = 0 // chooses random viable target instead of asking the caster
-	var/random_target_priority = TARGET_CLOSEST // if random_target is enabled how it will pick the target
-	var/humans_only = 0 //for avoiding simple animals and only doing "human" mobs, 0 = all mobs, 1 = humans only
 
-/obj/effect/proc_holder/spell/aoe_turf //affects all turfs in view or range (depends)
-	var/inner_radius = -1 //for all your ring spell needs
-
-/obj/effect/proc_holder/spell/targeted/choose_targets(mob/user = usr)
-	var/list/targets = list()
-
-	switch(max_targets)
-		if(0) //unlimited
-
-			if(!humans_only)
-				for(var/mob/living/target in view_or_range(range, user, selection_type))
-					targets += target
-			else
-				for(var/mob/living/carbon/human/target in view_or_range(range, user, selection_type))
-					targets += target
-
-		if(1) //single target can be picked
-			if(range < 0)
-				targets += user
-			else
-				var/possible_targets = list()
-
-				if(!humans_only)
-					for(var/mob/living/M in view_or_range(range, user, selection_type))
-						if(!include_user && user == M)
-							continue
-						possible_targets += M
-				else
-					for(var/mob/living/carbon/human/M in view_or_range(range, user, selection_type))
-						if(!include_user && user == M)
-							continue
-						possible_targets += M
-
-				//targets += input("Choose the target for the spell.", "Targeting") as mob in possible_targets
-				//Adds a safety check post-input to make sure those targets are actually in range.
-				var/mob/M
-				if(!random_target)
-					M = input("Choose the target for the spell.", "Targeting") as mob in possible_targets
-				else
-					switch(random_target_priority)
-						if(TARGET_RANDOM)
-							M = pick(possible_targets)
-						if(TARGET_CLOSEST)
-							for(var/mob/living/L in possible_targets)
-								if(M)
-									if(get_dist(user,L) < get_dist(user,M))
-										if(los_check(user,L))
-											M = L
-								else
-									if(los_check(user,L))
-										M = L
-				if(M in view_or_range(range, user, selection_type)) targets += M
-
-		else
-			var/list/possible_targets = list()
-			if(!humans_only)
-				for(var/mob/living/target in view_or_range(range, user, selection_type))
-					possible_targets += target
-			else
-				for(var/mob/living/carbon/human/target in view_or_range(range, user, selection_type))
-					possible_targets += target
-			for(var/i=1,i<=max_targets,i++)
-				if(!possible_targets.len)
-					break
-				if(target_ignore_prev)
-					var/target = pick(possible_targets)
-					possible_targets -= target
-					targets += target
-				else
-					targets += pick(possible_targets)
-
-	if(!include_user && (user in targets))
-		targets -= user
-
-	if(!targets.len) //doesn't waste the spell
-		revert_cast(user)
-		return
-
-	perform(targets, user=user)
-
-	return
-
-/obj/effect/proc_holder/spell/targeted/click
-	var/click_radius = 1			// How big the radius around the clicked atom is to find a suitable target. -1 is only the selected atom is considered
-	var/selection_activated_message		= "<span class='notice'>Click on a target to cast the spell.</span>"
-	var/selection_deactivated_message	= "<span class='notice'>You choose to not cast this spell.</span>"
-	var/allowed_type = /mob/living	// Which type the targets have to be
-	var/auto_target_single = TRUE	// If the spell should auto select a target if only one is found
-	/// does this spell generate attack logs?
-	var/create_logs = TRUE
-
-/obj/effect/proc_holder/spell/targeted/click/Click()
-	// biased goddamn variable types assuming that we're alive. eat shit.
-	var/mob/user = usr
-	if(!istype(user))
-		return
-
-	if(active)
-		remove_ranged_ability(user, selection_deactivated_message)
-	else
-		if(cast_check(TRUE, FALSE, user))
-			if(auto_target_single && attempt_auto_target(user))
-				return
-
-			add_ranged_ability(user, selection_activated_message)
-		else
-			to_chat(user, "<span class='warning'>[src] is not ready to be used yet.</span>")
-
-/obj/effect/proc_holder/spell/targeted/click/proc/attempt_auto_target(mob/user)
-	var/atom/target
-	for(var/atom/A in view_or_range(range, user, selection_type))
-		if(valid_target(A, user))
-			if(target)
-				return FALSE // Two targets found. ABORT
-			target = A
-
-	if(target && cast_check(TRUE, TRUE, user)) // Singular target found. Cast it instantly
-		to_chat(user, "<span class='warning'>Only one target found. Casting [src] on [target]!</span>")
-		perform(list(target), user = user, make_attack_logs = create_logs)
-		return TRUE
-	return FALSE
-
-/obj/effect/proc_holder/spell/targeted/click/InterceptClickOn(mob/living/user, params, atom/A)
-	if(..() || !cast_check(TRUE, TRUE, user))
-		remove_ranged_ability(user)
-		revert_cast(user)
-		return TRUE
-
-	var/list/targets = list()
-	if(valid_target(A, user))
-		targets.Add(A)
-
-	if((!max_targets || max_targets > targets.len) && click_radius >= 0)
-		var/list/found_others = list()
-		for(var/atom/target in range(click_radius, A))
-			if(valid_target(target, user))
-				found_others |= target
-		if(!max_targets)
-			targets.Add(found_others)
-		else
-			if(max_targets <= found_others.len + targets.len)
-				targets.Add(found_others)
-			else
-				switch(random_target_priority) //Add in the rest
-					if(TARGET_RANDOM)
-						while(targets.len < max_targets && found_others.len) // Add the others
-							targets.Add(pick_n_take(found_others))
-					if(TARGET_CLOSEST)
-						var/list/distances = list()
-						for(var/target in found_others)
-							distances[target] = get_dist(user, target)
-						sortTim(distances, /proc/cmp_numeric_asc, TRUE) // Sort on distance
-						for(var/target in distances)
-							targets.Add(target)
-							if(targets.len >= max_targets)
-								break
-
-
-	if(!targets.len)
-		to_chat(user, "<span class='warning'>No suitable target found.</span>")
-		revert_cast(user)
-		return FALSE
-
-	remove_ranged_ability(user)
-	perform(targets, user = user, make_attack_logs = create_logs)
-	return TRUE
-
-/* Checks if a target is valid
- * Should not include to_chats or other types of messages since this is used often on tons of targets.
- * @param target The target to check
- * @param user The user of the spell
-*/
-/obj/effect/proc_holder/spell/targeted/click/proc/valid_target(target, user)
-	return istype(target, allowed_type) && (include_user || target != user) && \
-		(target in view_or_range(range, user, selection_type))
-
-/obj/effect/proc_holder/spell/targeted/click/choose_targets(mob/user, atom/A) // Not used
-	return
-
-/obj/effect/proc_holder/spell/aoe_turf/choose_targets(mob/user = usr)
-	var/list/targets = list()
-
-	for(var/turf/target in view_or_range(range,user,selection_type))
-		if(!(target in view_or_range(inner_radius,user,selection_type)))
-			targets += target
-
-	if(!targets.len) //doesn't waste the spell
-		revert_cast()
-		return
-
-	perform(targets, user=user)
-
-	return
+/obj/effect/proc_holder/spell/aoe_turf
+	create_attack_logs = FALSE
+	create_custom_logs = TRUE
 
 // Normally, AoE spells will generate an attack log for every turf they loop over, while searching for targets.
 // With this override, all /aoe_turf type spells will only generate 1 log, saying that the user has cast the spell.
-/obj/effect/proc_holder/spell/aoe_turf/perform(list/targets, recharge, mob/user, make_attack_logs)
+/obj/effect/proc_holder/spell/aoe_turf/write_custom_logs(list/targets, mob/user)
 	add_attack_logs(user, null, "Cast the AoE spell [name]", ATKLOG_ALL)
-	return ..(targets, recharge, user, FALSE)
 
-/obj/effect/proc_holder/spell/targeted/proc/los_check(mob/A,mob/B)
+/obj/effect/proc_holder/spell/proc/los_check(mob/A,mob/B)
 	//Checks for obstacles from A to B
 	var/obj/dummy = new(A.loc)
 	dummy.pass_flags |= PASSTABLE
@@ -604,7 +550,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		var/mob/living/carbon/human/H = user
 		var/clothcheck = locate(/obj/effect/proc_holder/spell/noclothes) in user.mob_spell_list
 		var/clothcheck2 = user.mind && (locate(/obj/effect/proc_holder/spell/noclothes) in user.mind.spell_list)
-		if(clothes_req && !clothcheck && !clothcheck2 && !vampire_ability) //clothes check
+		if(clothes_req && !clothcheck && !clothcheck2) //clothes check
 			var/obj/item/clothing/robe = H.wear_suit
 			var/obj/item/clothing/hat = H.head
 			var/obj/item/clothing/shoes = H.shoes
@@ -617,7 +563,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 					to_chat(user, "<span class='notice'>Your outfit isn't magical enough, you should put on your robe and wizard hat, as well as your sandals.</span>")
 				return FALSE
 	else
-		if(clothes_req || human_req || vampire_ability)
+		if(clothes_req || human_req)
 			if(show_message)
 				to_chat(user, "<span class='notice'>This spell can only be cast by humans!</span>")
 			return FALSE
@@ -626,33 +572,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 				to_chat(user, "<span class='notice'>This spell can only be cast by physical beings!</span>")
 			return FALSE
 
-	if(vampire_ability)
-
-		var/datum/vampire/vampire = user.mind.vampire
-
-		if(!vampire)
-			return FALSE
-
-		var/fullpower = vampire.get_ability(/datum/vampire_passive/full)
-
-		if(user.stat >= DEAD)
-			if(show_message)
-				to_chat(user, "<span class='warning'>Not while you're dead!</span>")
-			return FALSE
-
-		if(vampire.nullified >= VAMPIRE_COMPLETE_NULLIFICATION && !fullpower) // above 100 nullification vampire powers are useless
-			if(show_message)
-				to_chat(user, "<span class='warning'>Something is blocking your powers!</span>")
-			return FALSE
-		if(vampire.bloodusable < required_blood)
-			if(show_message)
-				to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
-			return FALSE
-		//chapel check
-		if(istype(get_area(user), /area/chapel) && !fullpower)
-			if(show_message)
-				to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
-			return FALSE
+	if(custom_handler && !custom_handler.can_cast(user, charge_check, show_message, src))
+		return FALSE
 
 	return TRUE
 

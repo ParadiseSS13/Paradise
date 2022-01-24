@@ -434,18 +434,19 @@
 		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
 		return FALSE
 	//Vampire code
-	if(user.mind && user.mind.vampire && (user.mind in SSticker.mode.vampires) && !user.mind.vampire.draining && user.zone_selected == "head" && target != user)
+	var/datum/antagonist/vampire/V = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(V && !V.draining && user.zone_selected == "head" && target != user)
 		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
 			to_chat(user, "<span class='warning'>They have no blood!</span>")
 			return
-		if(target.mind && target.mind.vampire && (target.mind in SSticker.mode.vampires))
+		if(target.mind && target.mind.has_antag_datum(/datum/antagonist/vampire))
 			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
 			return
 		if(HAS_TRAIT(target, TRAIT_SKELETONIZED))
 			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
 			return
 		//we're good to suck the blood, blaah
-		user.mind.vampire.handle_bloodsucking(target)
+		V.handle_bloodsucking(target)
 		add_attack_logs(user, target, "vampirebit")
 		return
 		//end vampire codes
@@ -856,16 +857,17 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		if(A.update_remote_sight(H)) //returns 1 if we override all other sight updates.
 			return
 
-	if(H.mind?.vampire)
-		if(H.mind.vampire.get_ability(/datum/vampire_passive/xray))
+	var/datum/antagonist/vampire/V = H.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(V)
+		if(V.get_ability(/datum/vampire_passive/xray))
 			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 			H.see_in_dark += 8
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		else if(H.mind.vampire.get_ability(/datum/vampire_passive/full))
+		else if(V.get_ability(/datum/vampire_passive/full))
 			H.sight |= SEE_MOBS
 			H.see_in_dark += 8
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		else if(H.mind.vampire.get_ability(/datum/vampire_passive/vision))
+		else if(V.get_ability(/datum/vampire_passive/vision))
 			H.sight |= SEE_MOBS
 			H.see_in_dark += 1 // base of 2, 2+1 is 3
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
