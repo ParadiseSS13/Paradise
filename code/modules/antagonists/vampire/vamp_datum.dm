@@ -295,11 +295,10 @@
 	add_objective(/datum/objective/assassinate)
 	add_objective(/datum/objective/steal)
 
-	switch(rand(1, 100))
-		if(1 to 80)
-			add_objective(/datum/objective/survive)
-		else
-			add_objective(/datum/objective/escape)
+	if(prob(20)) // 20% chance of getting survive. 80% chance of getting escape.
+		add_objective(/datum/objective/survive)
+	else
+		add_objective(/datum/objective/escape)
 
 /datum/antagonist/vampire/greet()
 	var/dat
