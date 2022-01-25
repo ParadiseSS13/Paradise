@@ -14,3 +14,5 @@
 	var/map_path
 	/// URL to the maps webmap
 	var/webmap_url
+	/// Map probability
+	var/probability = 100
