@@ -1,5 +1,5 @@
 //Blocks an attempt to connect before even creating our client datum thing.
-/world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE, check_2fa = TRUE, check_guest = TRUE, log_info = TRUE)
+/world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE, check_2fa = TRUE, check_guest = TRUE, log_info = TRUE, check_tos = TRUE)
 
 	if(!key || !address || !computer_id)
 		log_adminwarn("Failed Login (invalid data): [key] [address]-[computer_id]")
@@ -44,7 +44,7 @@
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
 
 	// Check if we are checking TOS consent before connecting
-	if(SSdbcore.IsConnected() && GLOB.configuration.system.external_tos_handler)
+	if(SSdbcore.IsConnected() && GLOB.configuration.system.external_tos_handler && check_tos)
 		// Check if they have a TOS consent
 		var/datum/db_query/check_query = SSdbcore.NewQuery("SELECT ckey FROM privacy WHERE ckey=:ckey AND consent=1", list("ckey" = ckey(key)))
 
