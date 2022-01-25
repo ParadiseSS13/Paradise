@@ -239,6 +239,8 @@ SUBSYSTEM_DEF(vote)
 				question = "Map for next round"
 				for(var/x in subtypesof(/datum/map))
 					var/datum/map/M = x
+					if(!prob(M.probability))
+						continue
 					choices.Add("[initial(M.fluff_name)] ([initial(M.technical_name)])")
 
 			if("custom")
