@@ -89,17 +89,15 @@
 	name = "Sorium"
 	id = "sorium"
 	result = "sorium"
-	required_reagents = list("mercury" = 1, "carbon" = 1, "nitrogen" = 1, "oxygen" = 1)
+	required_reagents = list("mercury" = 1, "carbon" = 1, "nitrogen" = 1, "oxygen" = 1, "stabilizing_agent" = 1)
 	result_amount = 4
 	mix_message = "The mixture pops and crackles before settling down."
 
 /datum/chemical_reaction/sorium_explosion
 	name = "Sorium Explosion"
 	id = "sorium_explosion"
-	required_reagents = list("sorium" = 1)
+	required_reagents = list("mercury" = 1, "carbon" = 1, "nitrogen" = 1, "oxygen" = 1)
 	result_amount = 1
-	min_temp = T0C + 200
-	mix_sound = null
 	mix_message = "The mixture explodes with a big bang."
 
 /datum/chemical_reaction/sorium_explosion/on_reaction(datum/reagents/holder, created_volume)
@@ -107,6 +105,14 @@
 	if(!T)
 		return
 	goonchem_vortex(T, 0, created_volume)
+
+/datum/chemical_reaction/sorium_explosion/sorium
+	name = "sorium_vortex"
+	id = "sorium_vortex"
+	required_reagents = list("sorium" = 1)
+	min_temp = T0C + 200
+	mix_sound = null
+	mix_message = null
 
 /datum/chemical_reaction/liquid_dark_matter
 	name = "Liquid Dark Matter"
