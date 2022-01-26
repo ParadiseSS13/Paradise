@@ -241,8 +241,9 @@
 	var/obj/machinery/bfl_lens/lens = null
 	var/ore_type = FALSE
 	var/last_user_ckey
-	var/obj/receiver_light
+	var/atom/movable/bfl_receiver_light/receiver_light = null
 	var/ore_count = 0
+	var/last_icon_change = 0
 
 /obj/machinery/bfl_receiver/attack_hand(mob/user as mob)
 	var/response
@@ -268,6 +269,7 @@
 			var/turf/location = get_turf(src)
 			internal.empty_storage(location)
 			ore_count = 0
+			icon_change()
 
 
 /obj/machinery/bfl_receiver/crowbar_act(mob/user, obj/item/I)
@@ -279,6 +281,12 @@
 	else
 		receiver_activate()
 
+/obj/machinery/bfl_receiver/proc/icon_change()
+	if(last_icon_change == internal.contents.len)
+		return
+	receiver_light.icon_state = "Receiver_Light_[internal.contents.len]"
+	last_icon_change = internal.contents.len
+
 /obj/machinery/bfl_receiver/process()
 	receiver_light.icon_state = "Receiver_Light_[internal.contents.len]"
 	if (!(mining && state))
@@ -289,18 +297,19 @@
 		if(PLASMA)
 			internal.handle_item_insertion(new /obj/item/stack/ore/plasma, 1)
 			ore_count++
+			icon_change()
 		if(SAND)
 			internal.handle_item_insertion(new /obj/item/stack/ore/glass, 1)
 			ore_count++
+			icon_change()
 
 /obj/machinery/bfl_receiver/Initialize()
 	. = ..()
 	pixel_x = -32
 	pixel_y = -32
-	//it's just works ¯\_(ツ)_/¯
+	//it just works ¯\_(ツ)_/¯
 	internal = new internal_type(src)
-	receiver_light = new /obj/bfl_receiver_light()
-	receiver_light.loc = loc
+	receiver_light = new (loc)
 	playsound(src, 'sound/BFL/drill_sound.ogg', 100, 1, falloff = 1)
 
 	var/turf/turf_under = get_turf(src)
@@ -313,7 +322,7 @@
 
 /obj/machinery/bfl_receiver/Destroy()
 	overlays.Cut()
-	receiver_light.Destroy()
+	qdel(receiver_light)
 	return ..()
 
 /obj/machinery/bfl_receiver/proc/receiver_activate()
@@ -344,15 +353,13 @@
 #undef SAND
 #undef NOTHING
 
-/obj/bfl_receiver_light
-	name = "Storage glass"
-	can_be_hit = FALSE
-	anchored = TRUE
+/atom/movable/bfl_receiver_light
+	name = ""
 	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
 	icon_state = "Receiver_Light_0"
 	layer = LOW_ITEM_LAYER
 
-/obj/bfl_receiver_light/Initialize(mapload)
+/atom/movable/bfl_receiver_light/Initialize(mapload)
 	. = ..()
 	pixel_x = -32
 	pixel_y = -32
