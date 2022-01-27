@@ -29,6 +29,7 @@
 	icon_state = "9mmbox"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/rubber9mm
+	materials = list(MAT_METAL=19500)
 	max_ammo = 30
 
 /obj/item/ammo_box/c10mm

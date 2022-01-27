@@ -1,6 +1,7 @@
 /obj/item/ammo_casing/a357
 	desc = "A .357 bullet casing."
 	caliber = ".357"
+	materials = list(MAT_METAL=4285.7)
 	projectile_type = /obj/item/projectile/bullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
@@ -9,6 +10,7 @@
 	desc = "A 9mm rubber bullet casing."
 	caliber = "9mm"
 	icon_state = "r-casing"
+	materials = list(MAT_METAL=650)
 	projectile_type = /obj/item/projectile/bullet/weakbullet4
 
 /obj/item/ammo_casing/a762
@@ -33,6 +35,7 @@
 	desc = "A .38 bullet casing."
 	caliber = ".38"
 	icon_state = "r-casing"
+	materials = list(MAT_METAL=5000)
 	projectile_type = /obj/item/projectile/bullet/weakbullet2
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
@@ -50,6 +53,7 @@
 	projectile_type = /obj/item/projectile/bullet/midbullet3
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	materials = list(MAT_METAL=1500)
 
 /obj/item/ammo_casing/c10mm/ap
 	projectile_type = /obj/item/projectile/bullet/midbullet3/ap
@@ -64,6 +68,7 @@
 /obj/item/ammo_casing/c9mm
 	desc = "A 9mm bullet casing."
 	caliber = "9mm"
+	materials = list(MAT_METAL=1000)
 	projectile_type = /obj/item/projectile/bullet/weakbullet3
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
@@ -109,6 +114,7 @@
 	projectile_type = /obj/item/projectile/bullet/midbullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	materials = list(MAT_METAL=1500)
 
 /obj/item/ammo_casing/c45/nostamina
 	projectile_type = /obj/item/projectile/bullet/midbullet3
@@ -157,7 +163,6 @@
 	projectile_type = /obj/item/projectile/bullet/pellet/rubber
 	pellets = 6
 	variance = 25
-	materials = list(MAT_METAL=4000)
 
 
 /obj/item/ammo_casing/shotgun/beanbag
@@ -370,6 +375,7 @@
 	caliber = "foam_force"
 	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "foamdart"
+	materials = list(MAT_METAL=12.5)
 	var/modified = 0
 	harmful = FALSE
 
@@ -418,6 +424,7 @@
 	desc = "Whose smart idea was it to use toys as crowd control? Ages 18 and up."
 	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/riot
 	icon_state = "foamdart_riot"
+	materials = list(MAT_METAL=1000)
 
 /obj/item/ammo_casing/caseless/foam_dart/sniper
 	name = "foam sniper dart"
@@ -425,6 +432,7 @@
 	caliber = "foam_force_sniper"
 	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/sniper
 	icon_state = "foamdartsniper"
+	materials = list(MAT_METAL=22.5)
 
 /obj/item/ammo_casing/caseless/foam_dart/sniper/update_icon()
 	..()
@@ -442,6 +450,7 @@
 	name = "riot foam sniper dart"
 	desc = "For the bigger brother of the crowd control toy. Ages 18 and up."
 	caliber = "foam_force_sniper"
+	materials = list(MAT_METAL=1800)
 	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/sniper/riot
 	icon_state = "foamdartsniper_riot"
 

@@ -230,6 +230,7 @@
 	icon_state = "enforcer"
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 8
+	materials = list(MAT_METAL=7200)
 	multiple_sprites = 1
 	caliber = "9mm"
 
@@ -257,6 +258,7 @@
 /obj/item/ammo_box/magazine/enforcer/lethal
 	name = "handgun magazine (9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm
+	materials = list(MAT_METAL=10000)
 
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"

@@ -57,6 +57,7 @@
 	BB.preparePixelProjectile(target, targloc, user, params, spread)
 	if(BB)
 		BB.fire()
+	materials = list(MAT_METAL=0)
 	BB = null
 	return 1
 
