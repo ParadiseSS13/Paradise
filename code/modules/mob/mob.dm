@@ -1515,3 +1515,13 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 	to_chat(src, "<span class='warning'>Your powers are useless on this holy ground.</span>")
 	return TRUE
+
+/mob/proc/reset_visibility()
+	invisibility = initial(invisibility)
+	alpha = initial(alpha)
+	add_to_all_human_data_huds()
+
+/mob/proc/make_invisible()
+	invisibility = INVISIBILITY_OBSERVER
+	alpha = 128
+	remove_from_all_data_huds()
