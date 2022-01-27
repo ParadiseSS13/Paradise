@@ -25,18 +25,18 @@
 
 /obj/effect/proc_holder/spell/vampire/enthrall/cast(list/targets, mob/user = usr)
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
-	for(var/mob/living/target in targets)
-		user.visible_message("<span class='warning'>[user] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
-		to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>")
-		if(do_mob(user, target, 5 SECONDS))
-			if(can_enthrall(user, target))
-				handle_enthrall(user, target)
-				var/datum/spell_handler/vampire/V = custom_handler
-				var/blood_cost = V.calculate_blood_cost(vampire)
-				vampire.bloodusable -= blood_cost //we take the blood after enthralling, not before
-		else
-			revert_cast(user)
-			to_chat(user, "<span class='warning'>You or your target moved.</span>")
+	var/mob/living/target = targets[1]
+	user.visible_message("<span class='warning'>[user] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
+	to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>")
+	if(do_mob(user, target, 5 SECONDS))
+		if(can_enthrall(user, target))
+			handle_enthrall(user, target)
+			var/datum/spell_handler/vampire/V = custom_handler
+			var/blood_cost = V.calculate_blood_cost(vampire)
+			vampire.bloodusable -= blood_cost //we take the blood after enthralling, not before
+	else
+		revert_cast(user)
+		to_chat(user, "<span class='warning'>You or your target moved.</span>")
 
 /obj/effect/proc_holder/spell/vampire/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
 	if(!C)
@@ -82,8 +82,7 @@
 	gain_desc = "You have gained the ability to commune with your thralls."
 
 /obj/effect/proc_holder/spell/vampire/thrall_commune/create_new_handler() //so thralls can use it
-	RETURN_TYPE(/datum/spell_handler)
-	return NONE
+	return
 
 /datum/spell_targeting/select_vampire_network/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom) // Returns the vampire and their thralls. If user is a thrall then it will look up their master's network
 	var/list/mob/living/targets = list()
@@ -154,12 +153,13 @@
 	E.Goto(user, E.move_to_delay, E.minimum_distance)
 	user.invisibility = INVISIBILITY_OBSERVER
 	user.alpha = 128
+	/// TODO MAKE REMOVE HUDS WHEN QWERTY'S PR GETS MERGED
 	addtimer(CALLBACK(user, /mob/living/.proc/reset_visibility), 6 SECONDS)
 
 /obj/effect/proc_holder/spell/vampire/rally_thralls
 	name = "Rally Thralls (100)"
-	desc = "Removes all crowd control effects from your nearby thralls."
-	gain_desc = "You have gained the ability to remove all CC effects from nearby thralls."
+	desc = "Removes all crowd incapacitating effects from your nearby thralls."
+	gain_desc = "You have gained the ability to remove all incapacitating effects from nearby thralls."
 	required_blood = 100
 	charge_max = 100 SECONDS
 

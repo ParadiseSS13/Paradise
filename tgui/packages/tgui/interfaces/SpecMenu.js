@@ -114,7 +114,7 @@ const DantMenu = (props, context) => {
         <p><b>Thrall commune</b>: Unlocked at 150 blood, Allows you to talk to your thralls, your thralls can talk back in the same way.</p>
         <p><b>Pacify</b>: Unlocked at 250 blood, allows you to pacify a target, preventing them from causing harm for 40 seconds.</p>
         <p><b>Decoy</b>: Unlocked at 400 blood, briefly turn invisible and send out an illusion to fool everyone nearby.</p>
-        <p><b>Rally Thralls</b>: All nearby thralls get all CC effects removed from them.</p>
+        <p><b>Rally Thralls</b>: All nearby thralls get all incapacitating effects removed from them.</p>
         <p><b>Full Power</b>
           <Divider />
           <b>Mass Hysteria</b>: Casts a powerful illusion that, blinds then make everyone nearby percieve others to looks like random animals.
