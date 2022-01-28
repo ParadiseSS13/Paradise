@@ -472,16 +472,19 @@
 
 	return sortTim(valid_markings, /proc/cmp_text_asc)
 
-/mob/living/carbon/human/proc/generate_valid_body_accessories(check_admin = FALSE)
+/mob/living/carbon/human/proc/generate_valid_body_accessories()
 	var/list/valid_body_accessories = list()
 	for(var/B in GLOB.body_accessory_by_name)
 		var/datum/body_accessory/A = GLOB.body_accessory_by_name[B]
-		if(check_admin && check_rights(R_ADMIN, 0, src))
+		if(isnull(A))
+			continue
+		else if(check_rights(R_ADMIN, 0, src))
 			valid_body_accessories = GLOB.body_accessory_by_name.Copy()
+			break
 		else if(dna.species.name in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
 			valid_body_accessories += B
 	if(dna.species.optional_body_accessory)
-		valid_body_accessories["None"] = null
+		valid_body_accessories += "None"
 
 	return sortTim(valid_body_accessories, /proc/cmp_text_asc)
 

@@ -847,14 +847,15 @@
 
 		if(body_accessory)
 			var/datum/body_accessory/BA = GLOB.body_accessory_by_name[body_accessory]
-			icon = BA.icon
-			icon_state = BA.icon_state
-			blend_mode = BA.blend_mode || blend_mode
-			offset_x = BA.pixel_x_offset
-			offset_y = BA.pixel_y_offset
-			// If the body accessory has an underlay, account for it.
-			if(BA.has_behind)
-				underlay = new(icon, "[icon_state]_BEHIND")
+			if(BA)
+				icon = BA.icon
+				icon_state = BA.icon_state
+				blend_mode = BA.blend_mode || blend_mode
+				offset_x = BA.pixel_x_offset
+				offset_y = BA.pixel_y_offset
+				// If the body accessory has an underlay, account for it.
+				if(BA.has_behind)
+					underlay = new(icon, "[icon_state]_BEHIND")
 		else if(current_species.bodyflags & HAS_TAIL)
 			icon = "icons/effects/species.dmi"
 			if(coloured_tail)

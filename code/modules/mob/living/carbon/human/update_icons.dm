@@ -1076,7 +1076,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(WING_UNDERLIMBS_LAYER)
 	remove_overlay(WING_LAYER)
 	if(!istype(body_accessory, /datum/body_accessory/wing))
-		return
+		if(dna.species.optional_body_accessory)
+			return
+		else
+			body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
 	if(!body_accessory.try_restrictions(src))
 		return
 	

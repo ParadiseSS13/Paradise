@@ -375,6 +375,6 @@
 	if(!length(valid_tail_marking_styles))
 		valid_tail_marking_styles = owner.generate_valid_markings("tail")
 	if(!length(valid_body_accessories))
-		valid_body_accessories = owner.generate_valid_body_accessories(TRUE)
+		valid_body_accessories = owner.generate_valid_body_accessories()
 	if(!length(valid_alt_head_styles))
 		valid_alt_head_styles = owner.generate_valid_alt_heads()

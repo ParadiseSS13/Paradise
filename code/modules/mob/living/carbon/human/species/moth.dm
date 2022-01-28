@@ -23,6 +23,7 @@
 	male_scream_sound = 'sound/voice/scream_moth.ogg'
 	female_scream_sound = 'sound/voice/scream_moth.ogg'
 	default_headacc = "Plain Antennae"
+	default_bodyacc = "Plain Wings"
 	wing = "plain"
 	eyes = "moth_eyes_s"
 	butt_sprite = "kidan"

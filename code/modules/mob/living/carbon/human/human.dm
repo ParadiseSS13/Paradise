@@ -1394,7 +1394,9 @@
 
 	m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
 	m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
-	if(!(dna.species.bodyflags & HAS_BODY_ACCESSORY))
+	if(dna.species.bodyflags & HAS_BODY_ACCESSORY)
+		body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
+	else
 		body_accessory = null
 
 	dna.real_name = real_name

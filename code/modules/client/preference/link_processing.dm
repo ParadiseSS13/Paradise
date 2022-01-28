@@ -541,12 +541,16 @@
 					if(check_rights(R_ADMIN, 1, user))
 						possible_body_accessories = GLOB.body_accessory_by_name.Copy()
 					else
-						if(S.optional_body_accessory)
-							possible_body_accessories += "None" //the only null entry should be the "None" option
 						for(var/B in GLOB.body_accessory_by_name)
 							var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
+							if(isnull(accessory)) // None
+								continue
 							if(active_character.species in accessory.allowed_species)
 								possible_body_accessories += B
+					if(S.optional_body_accessory)
+						possible_body_accessories += "None" //the only null entry should be the "None" option
+					else
+						possible_body_accessories -= "None" // in case an admin is viewing it
 					sortTim(possible_body_accessories, /proc/cmp_text_asc)
 					var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories
 					if(new_body_accessory)

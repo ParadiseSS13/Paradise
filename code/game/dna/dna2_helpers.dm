@@ -171,10 +171,9 @@
 		if((tail_marks > 0) && (tail_marks <= GLOB.marking_styles_list.len))
 			H.m_styles["tail"] = GLOB.marking_styles_list[tail_marks]
 
-		var/list/available = H.generate_valid_body_accessories()
-		var/bodyacc = dna.GetUIValueRange(DNA_UI_BACC_STYLE, length(available))
-		if(bodyacc > 0 && bodyacc <= length(available))
-			H.body_accessory = GLOB.body_accessory_by_name[available[bodyacc]]
+		var/bodyacc = dna.GetUIValueRange(DNA_UI_BACC_STYLE, length(GLOB.body_accessory_by_name))
+		if(bodyacc > 0 && bodyacc <= length(GLOB.body_accessory_by_name))
+			H.body_accessory = GLOB.body_accessory_by_name[GLOB.body_accessory_by_name[bodyacc]]
 
 		H.regenerate_icons()
 
@@ -210,9 +209,17 @@
 	head_organ.sec_facial_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_BEARD2_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_BEARD2_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_BEARD2_B, 255))
 
 	//Head Accessories
-	var/headacc = GetUIValueRange(DNA_UI_HACC_STYLE,GLOB.head_accessory_styles_list.len)
-	if((headacc > 0) && (headacc <= GLOB.head_accessory_styles_list.len))
-		head_organ.ha_style = GLOB.head_accessory_styles_list[headacc]
+	var/list/available = list()
+	for(var/head_accessory in GLOB.head_accessory_styles_list)
+		var/datum/sprite_accessory/S = GLOB.head_accessory_styles_list[head_accessory]
+		if(!(head_organ.dna.species.name in S.species_allowed)) //If the user's head is not of a species the head accessory style allows, skip it. Otherwise, add it to the list.
+			continue
+		available += head_accessory
+	var/list/sorted = sortTim(available, /proc/cmp_text_asc)
+
+	var/headacc = GetUIValueRange(DNA_UI_HACC_STYLE, length(sorted))
+	if(headacc > 0 && headacc <= length(sorted))
+		head_organ.ha_style = sorted[headacc]
 
 	head_organ.headacc_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_HACC_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_HACC_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_HACC_B, 255))
 

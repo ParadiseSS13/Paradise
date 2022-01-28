@@ -139,6 +139,9 @@
 	var/default_headacc				//Default head accessory style for newly created humans unless otherwise set.
 	var/default_headacc_colour
 
+	/// Name of default body accessory if any.
+	var/default_bodyacc
+
 	//Defining lists of icon skin tones for species that have them.
 	var/list/icon_skin_tones = list()
 
