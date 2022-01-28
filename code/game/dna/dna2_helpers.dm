@@ -171,6 +171,11 @@
 		if((tail_marks > 0) && (tail_marks <= GLOB.marking_styles_list.len))
 			H.m_styles["tail"] = GLOB.marking_styles_list[tail_marks]
 
+		var/list/available = H.generate_valid_body_accessories()
+		var/bodyacc = dna.GetUIValueRange(DNA_UI_BACC_STYLE, length(available))
+		if(bodyacc > 0 && bodyacc <= length(available))
+			H.body_accessory = GLOB.body_accessory_by_name[available[bodyacc]]
+
 		H.regenerate_icons()
 
 		return TRUE
@@ -227,7 +232,7 @@
 	SetUIValueRange(DNA_UI_EYES_G,	color2G(eyes_organ.eye_color),	255, 1)
 	SetUIValueRange(DNA_UI_EYES_B,	color2B(eyes_organ.eye_color),	255, 1)
 
-/datum/dna/proc/head_traits_to_dna(obj/item/organ/external/head/head_organ)
+/datum/dna/proc/head_traits_to_dna(mob/living/carbon/human/character, obj/item/organ/external/head/head_organ)
 	if(!head_organ)
 		log_runtime(EXCEPTION("Attempting to reset DNA from a missing head!"), src)
 		return
@@ -243,7 +248,6 @@
 	// Head Accessory
 	if(!head_organ.ha_style)
 		head_organ.ha_style = "None"
-	var/headacc	= GLOB.head_accessory_styles_list.Find(head_organ.ha_style)
 
 	SetUIValueRange(DNA_UI_HAIR_R,		color2R(head_organ.hair_colour),		255,	 1)
 	SetUIValueRange(DNA_UI_HAIR_G,		color2G(head_organ.hair_colour),		255,	 1)
@@ -267,4 +271,6 @@
 
 	SetUIValueRange(DNA_UI_HAIR_STYLE,	hair,		GLOB.hair_styles_full_list.len,		 1)
 	SetUIValueRange(DNA_UI_BEARD_STYLE,	beard,		GLOB.facial_hair_styles_list.len,	 1)
-	SetUIValueRange(DNA_UI_HACC_STYLE,	headacc,	GLOB.head_accessory_styles_list.len, 1)
+
+	var/list/available = character.generate_valid_head_accessories()
+	SetUIValueRange(DNA_UI_HACC_STYLE, available.Find(head_organ.ha_style), max(length(available), 1), 1)

@@ -174,7 +174,6 @@
 	. = ..(mapload, /datum/species/moth)
 	if(!body_accessory)
 		change_body_accessory("Plain Wings")
-	dna.species.backupwings(src)
 
 /mob/living/carbon/human/Stat()
 	..()
@@ -1395,12 +1394,7 @@
 
 	m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
 	m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
-	if(dna.species.bodyflags & HAS_WING)
-		if(dna.species.backed_up_wings)
-			dna.species.restorewings(H)
-		else
-			change_body_accessory("Plain Wings")
-	else
+	if(!(dna.species.bodyflags & HAS_BODY_ACCESSORY))
 		body_accessory = null
 
 	dna.real_name = real_name

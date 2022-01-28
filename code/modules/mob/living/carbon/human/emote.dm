@@ -283,11 +283,10 @@
 			m_type = 1
 
 		if("wag", "wags")
-			if(body_accessory && istype(body_accessory, /datum/body_accessory/tail))
+			if(istype(body_accessory, /datum/body_accessory/tail))
 				if(body_accessory.try_restrictions(src))
 					message = "<B>[src]</B> starts wagging [p_their()] tail."
 					start_tail_wagging()
-
 			else if(dna.species.bodyflags & TAIL_WAGGING)
 				if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL))
 					message = "<B>[src]</B> starts wagging [p_their()] tail."
@@ -299,7 +298,7 @@
 			m_type = 1
 
 		if("swag", "swags")
-			if(dna.species.bodyflags & TAIL_WAGGING || (body_accessory && istype(body_accessory, /datum/body_accessory/tail)))
+			if((dna.species.bodyflags & TAIL_WAGGING) || istype(body_accessory, /datum/body_accessory/tail))
 				message = "<B>[src]</B> stops wagging [p_their()] tail."
 				stop_tail_wagging()
 			else

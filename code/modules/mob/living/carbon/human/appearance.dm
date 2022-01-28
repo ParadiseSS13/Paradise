@@ -52,6 +52,8 @@
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!head_accessory_style || !H || H.ha_style == head_accessory_style || !(head_accessory_style in GLOB.head_accessory_styles_list))
 		return
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, head_accessory_style) & COMSIG_HUMAN_NO_CHANGE_APPEARANCE)
+		return FALSE
 
 	H.ha_style = head_accessory_style
 
@@ -103,6 +105,8 @@
 	var/found
 	if(!body_accessory_style || (body_accessory && body_accessory.name == body_accessory_style))
 		return
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, body_accessory_style) & COMSIG_HUMAN_NO_CHANGE_APPEARANCE)
+		return FALSE
 
 	for(var/B in GLOB.body_accessory_by_name)
 		if(B == body_accessory_style)
@@ -468,18 +472,16 @@
 
 	return sortTim(valid_markings, /proc/cmp_text_asc)
 
-/mob/living/carbon/human/proc/generate_valid_body_accessories()
-	var/list/valid_body_accessories = new()
+/mob/living/carbon/human/proc/generate_valid_body_accessories(check_admin = FALSE)
+	var/list/valid_body_accessories = list()
 	for(var/B in GLOB.body_accessory_by_name)
 		var/datum/body_accessory/A = GLOB.body_accessory_by_name[B]
-		if(check_rights(R_ADMIN, 0, src))
+		if(check_admin && check_rights(R_ADMIN, 0, src))
 			valid_body_accessories = GLOB.body_accessory_by_name.Copy()
-		else
-			if(!istype(A))
-				valid_body_accessories["None"] = "None" //The only null entry should be the "None" option.
-				continue
-			if(dna.species.name in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
-				valid_body_accessories += B
+		else if(dna.species.name in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
+			valid_body_accessories += B
+	if(dna.species.optional_body_accessory)
+		valid_body_accessories["None"] = null
 
 	return sortTim(valid_body_accessories, /proc/cmp_text_asc)
 

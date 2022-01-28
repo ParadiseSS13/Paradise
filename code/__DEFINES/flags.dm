@@ -85,6 +85,7 @@
 #define NO_EYES				1024
 #define HAS_ALT_HEADS		2048
 #define HAS_WING			4096
+#define HAS_BODY_ACCESSORY HAS_TAIL|HAS_WING
 #define ALL_RPARTS			8192
 
 //Species Diet Flags

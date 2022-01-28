@@ -163,7 +163,7 @@
 
 //Human Overlays Indexes/////////
 #define WING_LAYER				41
-#define UNDER_WING_LAYER		40
+#define WING_UNDERLIMBS_LAYER		40
 #define BODY_LAYER				39
 #define MUTANTRACE_LAYER		38
 #define TAIL_UNDERLIMBS_LAYER	37	//Tail split-rendering.

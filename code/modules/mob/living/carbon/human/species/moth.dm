@@ -37,11 +37,12 @@
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/moth
 		)
+
+	optional_body_accessory = FALSE
+
 	var/datum/action/innate/cocoon/cocoon
 	/// Is the moth in a cocoon? When TRUE moths cannot wake up
 	var/cocooned
-	/// Are the wings burnt off? Used to negate some buffs if TRUE
-	var/burnt_wings
 
 	suicide_messages = list(
 		"is attempting to nibble their antenna off!",
@@ -56,15 +57,19 @@
 	..()
 	cocoon = new()
 	cocoon.Grant(H)
-	addtimer(CALLBACK(src, .proc/backupwings, H), 5 SECONDS)
 	RegisterSignal(H, COMSIG_LIVING_FIRE_TICK, .proc/check_burn_wings)
-	RegisterSignal(H, COMSIG_LIVING_AHEAL, .proc/restorewings)
+	RegisterSignal(H, COMSIG_LIVING_AHEAL, .proc/on_aheal)
+	RegisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, .proc/on_change_body_accessory)
+	RegisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, .proc/on_change_head_accessory)
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
 	cocoon.Remove(H)
 	UnregisterSignal(H, COMSIG_LIVING_FIRE_TICK)
 	UnregisterSignal(H, COMSIG_LIVING_AHEAL)
+	UnregisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY)
+	UnregisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY)
+	H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
 
 /datum/species/moth/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "pestkiller")
@@ -85,14 +90,14 @@
 	var/turf/A = get_turf(H)
 	if(isspaceturf(A))
 		return FALSE
-	if(burnt_wings)
+	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
 		return FALSE
 	var/datum/gas_mixture/current = A.return_air()
 	if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
 		return TRUE
 
-/datum/species/moth/spec_thunk()
-	if(burnt_wings)
+/datum/species/moth/spec_thunk(mob/living/carbon/human/H)
+	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
 		return TRUE
 
 /datum/species/moth/spec_movement_delay()
@@ -102,60 +107,25 @@
 	if(cocooned)
 		return TRUE //Cocooned mobs dont get to wake up
 
-/**
- * Copies wing and antennae names to species datum vars
- */
-/datum/species/moth/backupwings(mob/living/carbon/human/H)
-	if(H.body_accessory)
-		backed_up_wings = H.body_accessory.name
-	var/obj/item/organ/external/head/A = H.get_organ("head")
-	if(!A)
-		return
-	if(A.ha_style)
-		backed_up_antennae = A.ha_style
-
 /datum/species/moth/proc/check_burn_wings(mob/living/carbon/human/H) //do not go into the extremely hot light. you will not survive
 	SIGNAL_HANDLER
-	if(H.on_fire && !(burnt_wings) && H.bodytemperature >= 800 && H.fire_stacks > 0)
+	if(H.on_fire && !H.has_status_effect(STATUS_EFFECT_BURNT_WINGS) && H.bodytemperature >= 800 && H.fire_stacks > 0)
 		to_chat(H, "<span class='warning'>Your precious wings burn to a crisp!</span>")
-		destroywings(H)
+		H.apply_status_effect(STATUS_EFFECT_BURNT_WINGS)
 
-/**
- * Sets wings and antennae to burnt variants, removing some species buffs
- */
-/datum/species/moth/destroywings(mob/living/carbon/human/H)
-	burnt_wings = TRUE
-	backupwings(H)
-	H.change_body_accessory("Burnt Off Wings")
-	H.change_head_accessory("Burnt Off Antennae")
+/datum/species/moth/proc/on_aheal(mob/living/carbon/human/H)
+	SIGNAL_HANDLER
+	H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
 
-/**
- * Restores wings and antennae from values in species datum vars
- */
-/datum/species/moth/restorewings(mob/living/carbon/human/H)
-	burnt_wings = FALSE
-	H.change_head_accessory(backed_up_antennae)
-	H.change_body_accessory(backed_up_wings)
+/datum/species/moth/proc/on_change_body_accessory(mob/living/carbon/human/H)
+	SIGNAL_HANDLER
+	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+		return COMSIG_HUMAN_NO_CHANGE_APPEARANCE
 
-/**
- * Gives wings and antennae if none exist
- */
-
-/datum/species/moth/givewings(mob/living/carbon/human/H)
-	if(!H.body_accessory)
-		H.change_head_accessory(random_body_accessory("Nian"))
-	var/obj/item/organ/external/head/HE = H.get_organ("head")
-	if(HE && !HE.ha_style)
-		H.change_body_accessory(random_head_accessory("Nian"))
-	backupwings(H)
-
-/**
- * Ramdomises wings and antennae
- */
-/datum/species/moth/randomwings(mob/living/carbon/human/H)
-	H.change_body_accessory(random_head_accessory("Nian"))
-	H.change_head_accessory(random_body_accessory("Nian"))
-	backupwings(H)
+/datum/species/moth/proc/on_change_head_accessory(mob/living/carbon/human/H)
+	SIGNAL_HANDLER
+	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+		return COMSIG_HUMAN_NO_CHANGE_APPEARANCE
 
 /datum/action/innate/cocoon
 	name = "Cocoon"
@@ -192,14 +162,13 @@
 	for(var/mob/living/carbon/human/H in C.contents)
 		var/datum/species/moth/M = H.dna.species
 		M.cocooned = FALSE
-		if(M.burnt_wings)
-			M.restorewings(H)
+		H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
 	C.preparing_to_emerge = FALSE
 	qdel(C)
 
 /obj/structure/moth/cocoon
-	name = "Nian cocoon"
-	desc = "Someone wrapped in a nian cocoon"
+	name = "\improper Nian cocoon"
+	desc = "Someone wrapped in a Nian cocoon."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cocoon1"
 	color = COLOR_PALE_YELLOW //So tiders (hopefully) don't decide to immediately bust them open
@@ -212,9 +181,9 @@
 
 /obj/structure/moth/cocoon/Destroy()
 	if(!preparing_to_emerge)
-		visible_message("<span class='danger'>[src] splits open from within.</span>")
+		visible_message("<span class='danger'>[src] splits open from within!</span>")
 	else
-		visible_message("<span class='danger'>[src] is smashed open, harming the nian within!</span>")
+		visible_message("<span class='danger'>[src] is smashed open, harming the Nian within!</span>")
 		for(var/mob/living/carbon/human/H in contents)
 			H.adjustBruteLoss(COCOON_HARM_AMOUNT)
 			H.adjustFireLoss(COCOON_HARM_AMOUNT)
@@ -222,11 +191,25 @@
 	for(var/mob/living/carbon/human/H in contents)
 		var/datum/species/moth/M = H.dna.species
 		M.cocooned = FALSE
-		H.adjust_nutrition(-COCOON_NUTRITION_AMOUNT)
+		H.adjust_nutrition(COCOON_NUTRITION_AMOUNT)
 		H.WakeUp()
 		H.forceMove(loc)
 	return ..()
 
+/datum/status_effect/burnt_wings
+	id = "burnt_wings"
+	alert_type = null
+
+/datum/status_effect/burnt_wings/on_creation(mob/living/new_owner, ...)
+	var/mob/living/carbon/human/H = new_owner
+	if(istype(H))
+		H.change_body_accessory("Burnt Off Wings")
+		H.change_head_accessory("Burnt Off Antennae")
+	return ..()
+
+/datum/status_effect/burnt_wings/on_remove()
+	owner.UpdateAppearance()
+	return ..()
 
 #undef COCOON_WEAVE_DELAY
 #undef COCOON_EMERGE_DELAY

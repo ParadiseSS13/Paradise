@@ -290,10 +290,7 @@
 
 						active_character.alt_head = "None" //No alt heads on species that don't have them.
 						active_character.speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
-						if(NS.bodyflags & HAS_WING)
-							active_character.body_accessory = random_body_accessory("Nian") //wingless moths begone
-						else
-							active_character.body_accessory = null //no vulptail on humans damnit
+						active_character.body_accessory = random_body_accessory(NS.name, NS.optional_body_accessory)
 
 						//Reset prosthetics.
 						active_character.organ_data = list()
@@ -544,15 +541,12 @@
 					if(check_rights(R_ADMIN, 1, user))
 						possible_body_accessories = GLOB.body_accessory_by_name.Copy()
 					else
+						if(S.optional_body_accessory)
+							possible_body_accessories += "None" //the only null entry should be the "None" option
 						for(var/B in GLOB.body_accessory_by_name)
 							var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
-							if(!istype(accessory))
-								possible_body_accessories += "None" //the only null entry should be the "None" option
-								continue
 							if(active_character.species in accessory.allowed_species)
 								possible_body_accessories += B
-					if(active_character.species == "Nian")
-						possible_body_accessories.Remove(null, "None")
 					sortTim(possible_body_accessories, /proc/cmp_text_asc)
 					var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories
 					if(new_body_accessory)
@@ -1000,7 +994,7 @@
 
 				if("save")
 					if(active_character.species == "Nian")
-						to_chat(user, "SAVING MOTH CHARACTERS IS DISABLED DURING THIS TEST MERGE FOR DATA INTEGRITY PURPOSES")
+						to_chat(user, "<span class='boldannounce'>SAVING MOTH CHARACTERS IS DISABLED DURING THIS TEST MERGE FOR DATA INTEGRITY PURPOSES</span>")
 						return
 					save_preferences(user)
 					active_character.save(user)

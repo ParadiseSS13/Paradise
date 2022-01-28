@@ -511,7 +511,7 @@
 		if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP))
 			return
 
-	if(M.dna.species.spec_thunk()) //Species level thunk overrides
+	if(M.dna.species.spec_thunk(M)) //Species level thunk overrides
 		return
 
 	if(M.buckled) //Cam't fall down if you are buckled

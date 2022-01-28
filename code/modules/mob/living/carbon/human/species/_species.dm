@@ -171,10 +171,9 @@
 
 	// Species specific boxes
 	var/speciesbox
-	/// Stores name of antennae when backupwings() is called
-	var/backed_up_antennae
-	/// Stores name of wings when backupwings() is called
-	var/backed_up_wings
+
+	/// Whether the presence of a body accessory on this species is optional or not.
+	var/optional_body_accessory = TRUE
 
 /datum/species/New()
 	unarmed = new unarmed_type()
@@ -961,7 +960,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/spec_Process_Spacemove(mob/living/carbon/human/H)
 	return FALSE
 
-/datum/species/proc/spec_thunk()
+/datum/species/proc/spec_thunk(mob/living/carbon/human/H)
 	return FALSE
 
 /datum/species/proc/spec_movement_delay()
@@ -969,21 +968,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 /datum/species/proc/spec_WakeUp()
 	return FALSE
-
-/datum/species/proc/restorewings(mob/living/carbon/human/H)
-	return
-
-/datum/species/proc/backupwings(mob/living/carbon/human/H)
-	return
-
-/datum/species/proc/destroywings(mob/living/carbon/human/H)
-	return
-
-/datum/species/proc/givewings(mob/living/carbon/human/H)
-	return
-
-/datum/species/proc/randomwings(mob/living/carbon/human/H)
-	return
 
 /**
   * Species-specific runechat colour handler
