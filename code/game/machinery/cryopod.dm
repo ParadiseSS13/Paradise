@@ -546,6 +546,10 @@
 		to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
 		return
 
+	if(!L.mind)
+		to_chat(user, "<span class='noitce'>Catatonic people are not allowed into cryo.</span>")
+		return
+
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
 		return
