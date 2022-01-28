@@ -97,7 +97,7 @@
 		return TRUE
 
 /datum/species/moth/spec_thunk(mob/living/carbon/human/H)
-	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+	if(!H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
 		return TRUE
 
 /datum/species/moth/spec_movement_delay()
