@@ -1224,6 +1224,10 @@
 		// Clears the mob's flavor text
 		M.flavor_text = ""
 
+		if(ismoth(M)) //TM ONLY COMMIT TO PREVENT MOFF SAVING
+			to_chat(usr, "<span class='warning'>[M] is a moth so this change will not carry over duing the TM.</span>")
+			return
+
 		// Clear and save the DB character's flavor text
 		M.client.prefs.active_character.flavor_text = ""
 		M.client.prefs.active_character.save(M.client)
@@ -1251,6 +1255,10 @@
 		// Update the mob's name with a random one straight away
 		var/random_name = random_name(M.client.prefs.active_character.gender, M.client.prefs.active_character.species)
 		M.rename_character(M.real_name, random_name)
+
+		if(ismoth(M)) //TM ONLY COMMIT TO PREVENT MOFF SAVING
+			to_chat(usr, "<span class='warning'>[M] is a moth so this change will not carry over duing the TM.</span>")
+			return
 
 		// Save that random name for next rounds
 		M.client.prefs.active_character.real_name = random_name
