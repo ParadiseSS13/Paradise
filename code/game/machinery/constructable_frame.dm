@@ -232,6 +232,7 @@ to destroy them and players will be able to make replacements.
 	req_components = list(/obj/item/vending_refill/boozeomat = 1)
 
 	var/static/list/vending_names_paths = list(
+		"ArtVend" =								/obj/machinery/vending/artvend,
 		"Booze-O-Mat" =							/obj/machinery/vending/boozeomat,
 		"Solar's Best Hot Drinks" =				/obj/machinery/vending/coffee,
 		"Getmore Chocolate Corp" =				/obj/machinery/vending/snack,
@@ -239,6 +240,7 @@ to destroy them and players will be able to make replacements.
 		"Robust Softdrinks" =					/obj/machinery/vending/cola,
 		"ShadyCigs Deluxe" =					/obj/machinery/vending/cigarette,
 		"ShadyCigs Ultra" =						/obj/machinery/vending/cigarette/beach,
+		"Suspicious Cigarette Machine" =		/obj/machinery/vending/syndicigs,
 		"Hatlord 9000" =						/obj/machinery/vending/hatdispenser,
 		"Suitlord 9000" =						/obj/machinery/vending/suitdispenser,
 		"Shoelord 9000" =						/obj/machinery/vending/shoedispenser,
@@ -249,6 +251,7 @@ to destroy them and players will be able to make replacements.
 		"Vendomat" =							/obj/machinery/vending/assist,
 		"YouTool" =								/obj/machinery/vending/tool,
 		"Engi-Vend" =							/obj/machinery/vending/engivend,
+		"Toximate 3000" =						/obj/machinery/vending/plasmaresearch,
 		"NutriMax" =							/obj/machinery/vending/hydronutrients,
 		"MegaSeed Servitor" =					/obj/machinery/vending/hydroseeds,
 		"Sustenance Vendor" =					/obj/machinery/vending/sustenance,
@@ -257,6 +260,7 @@ to destroy them and players will be able to make replacements.
 		"Robotech Deluxe" =						/obj/machinery/vending/robotics,
 		"Robco Tool Maker" =					/obj/machinery/vending/engineering,
 		"BODA" =								/obj/machinery/vending/sovietsoda,
+		"Syndicate Donksoft Toy Vendor" =		/obj/machinery/vending/toyliberationstation,
 		"SecTech" =								/obj/machinery/vending/security,
 		"CritterCare" =							/obj/machinery/vending/crittercare,
 		"SecDrobe" =							/obj/machinery/vending/secdrobe,
