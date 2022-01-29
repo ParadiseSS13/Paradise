@@ -238,6 +238,7 @@ to destroy them and players will be able to make replacements.
 		"Mr. Chang" =							/obj/machinery/vending/chinese,
 		"Robust Softdrinks" =					/obj/machinery/vending/cola,
 		"ShadyCigs Deluxe" =					/obj/machinery/vending/cigarette,
+		"ShadyCigs Ultra" =						/obj/machinery/vending/cigarette/beach,
 		"Hatlord 9000" =						/obj/machinery/vending/hatdispenser,
 		"Suitlord 9000" =						/obj/machinery/vending/suitdispenser,
 		"Shoelord 9000" =						/obj/machinery/vending/shoedispenser,
