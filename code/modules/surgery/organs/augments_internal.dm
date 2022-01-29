@@ -397,6 +397,8 @@
 	reviving = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/heal()
+	if(QDELETED(owner))
+		return
 	if(prob(90) && owner.getOxyLoss())
 		owner.adjustOxyLoss(-3)
 		revive_cost += 5
