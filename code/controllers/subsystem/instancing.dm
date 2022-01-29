@@ -47,15 +47,15 @@ SUBSYSTEM_DEF(instancing)
 		"json" = ckey_json,
 		"sid" = GLOB.configuration.system.instance_id
 	))
-	dbq.warn_execute(FALSE, FALSE)
+	dbq.warn_execute(FALSE)
 	qdel(dbq)
 
-	dbq = SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=:count WHERE key_name='playercount' AND server_id=:sid", list(
+	var/datum/db_query/dbq2 = SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=:count WHERE key_name='playercount' AND server_id=:sid", list(
 		"count" = length(ckeys),
 		"sid" = GLOB.configuration.system.instance_id
 	))
-	dbq.warn_execute(FALSE, FALSE)
-	qdel(dbq)
+	dbq2.warn_execute(FALSE)
+	qdel(dbq2)
 
 /**
   * Heartbeat updater
