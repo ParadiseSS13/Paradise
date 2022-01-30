@@ -637,9 +637,7 @@
 			if(istype(mind.martial_art, /datum/martial_art/drunk_brawling))
 				mind.martial_art.remove(src)
 	if(alcohol_strength >= confused_start && prob(33)) //confused walking
-		if(!confused)
-			Confused(1)
-		AdjustConfused(3 / sober_str)
+		AdjustConfused(3 / sober_str, bound_lower = 1)
 	if(alcohol_strength >= blur_start) //blurry eyes
 		EyeBlurry(10 / sober_str)
 	if(!ismachineperson(src)) //stuff only for non-synthetics

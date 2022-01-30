@@ -79,7 +79,6 @@
 	*/
 
 /mob // On `/mob` for now, to support legacy code
-	var/confused = 0
 	var/cultslurring = 0
 	var/dizziness = 0
 	var/drowsyness = 0
@@ -118,17 +117,40 @@
 
 // SCALAR STATUS EFFECTS
 
-// CONFUSED
+/**
+ * Returns current amount of [confusion][/datum/status_effect/confusion], 0 if none.
+ */
+/mob/living/proc/get_confusion()
+	var/datum/status_effect/confusion/S = has_status_effect(STATUS_EFFECT_CONFUSION)
+	return S ? S.strength : 0
 
-/mob/living/Confused(amount)
-	SetConfused(max(confused, amount))
+/**
+ * Sets [confusion][/datum/status_effect/confusion] if it's higher than zero.
+ */
+/mob/living/proc/SetConfused(amount)
+	amount = max(amount, 0)
+	if(amount)
+		var/datum/status_effect/confusion/S = has_status_effect(STATUS_EFFECT_CONFUSION) || apply_status_effect(STATUS_EFFECT_CONFUSION)
+		S.strength = amount
+	else
+		remove_status_effect(STATUS_EFFECT_CONFUSION)
 
-/mob/living/SetConfused(amount)
-	confused = max(amount, 0)
+/**
+ * Sets [confusion][/datum/status_effect/confusion] if it's higher than current.
+ */
+/mob/living/proc/Confused(amount)
+	SetConfused(max(get_confusion(), amount))
 
-/mob/living/AdjustConfused(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(confused, amount, bound_lower, bound_upper)
-	SetConfused(new_value)
+/**
+ * Sets [confusion][/datum/status_effect/confusion] to current amount + given, clamped between lower and higher bounds.
+ * 
+ * Arguments:
+ * * amount - Amount to add. Can be negative to reduce duration.
+ * * bound_lower - Minimum bound to set at least to. Defaults to 0.
+ * * bound_upper - Maximum bound to set up to. Defaults to infinity.
+ */
+/mob/living/proc/AdjustConfused(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetConfused(clamp(get_confusion() + amount, bound_lower, bound_upper))
 
 // DIZZY
 

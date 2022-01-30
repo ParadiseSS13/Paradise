@@ -136,3 +136,32 @@
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
+
+
+/**
+ * # Confusion
+ * 
+ * Prevents moving straight, sometimes changing movement direction at random.
+ * Decays at a rate of 1 per second.
+ */
+/datum/status_effect/confusion
+	alert_type = null
+	var/strength = 0
+	var/static/image/overlay
+
+/datum/status_effect/confusion/on_apply()
+	if(!overlay)
+		var/matrix/M = matrix()
+		M.Scale(0.6)
+		overlay = image('icons/effects/effects.dmi', "confusion", pixel_y = 20)
+		overlay.transform = M
+	owner.add_overlay(overlay)
+	return ..()
+
+/datum/status_effect/confusion/on_remove()
+	owner.cut_overlay(overlay)
+	return ..()
+
+/datum/status_effect/confusion/tick()
+	if(strength-- <= 0)
+		owner.remove_status_effect(STATUS_EFFECT_CONFUSION)
