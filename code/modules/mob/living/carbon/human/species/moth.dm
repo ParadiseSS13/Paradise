@@ -34,7 +34,7 @@
 		"lungs" =    /obj/item/organ/internal/lungs,
 		"liver" =    /obj/item/organ/internal/liver,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
+		"brain" =    /obj/item/organ/internal/brain/moth,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/moth
 		)
