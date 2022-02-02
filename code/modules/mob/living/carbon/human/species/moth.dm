@@ -108,7 +108,7 @@
 
 /datum/species/moth/proc/check_burn_wings(mob/living/carbon/human/H) //do not go into the extremely hot light. you will not survive
 	SIGNAL_HANDLER
-	if(H.on_fire && !H.has_status_effect(STATUS_EFFECT_BURNT_WINGS) && H.bodytemperature >= 800 && H.fire_stacks > 0)
+	if(H.on_fire && !H.has_status_effect(STATUS_EFFECT_BURNT_WINGS) && H.bodytemperature >= 400 && H.fire_stacks > 0)
 		to_chat(H, "<span class='warning'>Your precious wings burn to a crisp!</span>")
 		H.apply_status_effect(STATUS_EFFECT_BURNT_WINGS)
 
