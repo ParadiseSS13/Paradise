@@ -42,8 +42,6 @@
 	optional_body_accessory = FALSE
 
 	var/datum/action/innate/cocoon/cocoon
-	/// Is the moth in a cocoon? When TRUE moths cannot wake up
-	var/cocooned
 
 	suicide_messages = list(
 		"is attempting to nibble their antenna off!",
@@ -104,8 +102,8 @@
 /datum/species/moth/spec_movement_delay()
 	return FALSE
 
-/datum/species/moth/spec_WakeUp()
-	if(cocooned)
+/datum/species/moth/spec_WakeUp(mob/living/carbon/human/H)
+	if(H.has_status_effect(STATUS_EFFECT_COCOONED))
 		return TRUE //Cocooned mobs dont get to wake up
 
 /datum/species/moth/proc/check_burn_wings(mob/living/carbon/human/H) //do not go into the extremely hot light. you will not survive
@@ -131,7 +129,7 @@
 /datum/action/innate/cocoon
 	name = "Cocoon"
 	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS|AB_CHECK_TURF
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "cocoon1"
 
@@ -149,8 +147,7 @@
 		var/obj/structure/moth/cocoon/C = new(get_turf(H))
 		H.forceMove(C)
 		C.preparing_to_emerge = TRUE
-		var/datum/species/moth/M = H.dna.species
-		M.cocooned = TRUE
+		H.apply_status_effect(STATUS_EFFECT_COCOONED)
 		H.KnockOut()
 		addtimer(CALLBACK(src, .proc/emerge, C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
@@ -161,8 +158,7 @@
  */
 /datum/action/innate/cocoon/proc/emerge(obj/structure/moth/cocoon/C)
 	for(var/mob/living/carbon/human/H in C.contents)
-		var/datum/species/moth/M = H.dna.species
-		M.cocooned = FALSE
+		H.remove_status_effect(STATUS_EFFECT_COCOONED)
 		H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
 	C.preparing_to_emerge = FALSE
 	qdel(C)
@@ -190,8 +186,7 @@
 			H.adjustFireLoss(COCOON_HARM_AMOUNT)
 			H.AdjustWeakened(5)
 	for(var/mob/living/carbon/human/H in contents)
-		var/datum/species/moth/M = H.dna.species
-		M.cocooned = FALSE
+		H.remove_status_effect(STATUS_EFFECT_COCOONED)
 		H.adjust_nutrition(COCOON_NUTRITION_AMOUNT)
 		H.WakeUp()
 		H.forceMove(loc)
@@ -211,6 +206,10 @@
 /datum/status_effect/burnt_wings/on_remove()
 	owner.UpdateAppearance()
 	return ..()
+
+/datum/status_effect/cocooned
+	id = "cocooned"
+	alert_type = null
 
 #undef COCOON_WEAVE_DELAY
 #undef COCOON_EMERGE_DELAY

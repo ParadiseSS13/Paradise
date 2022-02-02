@@ -59,8 +59,11 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 	for(var/b=1;b<=DNA_SE_LENGTH;b++)
 		new_dna.SE[b]=SE[b]
-		if(b<=DNA_UI_LENGTH)
+		if(b<=DNA_UI_LENGTH && b<=UI.len)
 			new_dna.UI[b]=UI[b]
+			continue
+		if(b<=DNA_UI_LENGTH)
+			new_dna.UI[b] = 0
 	new_dna.UpdateUI()
 	new_dna.UpdateSE()
 	return new_dna
@@ -155,6 +158,8 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 // Get a DNA UI block's raw value.
 /datum/dna/proc/GetUIValue(block)
 	if(block <= 0)
+		return FALSE
+	if(block >= UI.len)
 		return FALSE
 	return UI[block]
 

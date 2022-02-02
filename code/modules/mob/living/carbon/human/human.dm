@@ -1958,7 +1958,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return min(health, maxHealth - getStaminaLoss())
 
 /mob/living/carbon/human/WakeUp(updating = 1)
-	if(dna.species.spec_WakeUp())
+	if(dna.species.spec_WakeUp(src))
 		return
 	..()
 

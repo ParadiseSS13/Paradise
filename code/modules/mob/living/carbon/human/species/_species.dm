@@ -969,7 +969,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/spec_movement_delay()
 	return TRUE
 
-/datum/species/proc/spec_WakeUp()
+/datum/species/proc/spec_WakeUp(mob/living/carbon/human/H)
 	return FALSE
 
 /**
