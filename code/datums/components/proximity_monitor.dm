@@ -3,19 +3,20 @@
  *
  * Attaching this component to an atom means that the atom will be able to detect mobs or objects moving within a specified radius of it.
  *
- * The component creates several [/obj/effect/abstract/proximity_checker] objects, which follow the parent (or host) atom around, always making sure it's at the center.
+ * The component creates several [/obj/effect/abstract/proximity_checker] objects, which follow the `parent` AKA `hasprox_receiver` around, always making sure it's at the center.
  * When something crosses one of these proximiy checkers, the `hasprox_receiver` will have the `HasProximity()` proc called on it, with the crossing mob/obj as the argument.
  */
 /datum/component/proximity_monitor
 	can_transfer = TRUE
 	var/name = "Proximity detection field"
-	/// The primary atom the component is attached to and that will be receiving `HasProximity()` calls. Usually the `parent`.
+	/// The primary atom the component is attached to and that will be receiving `HasProximity()` calls. Same as the `parent`.
 	var/atom/hasprox_receiver
 	/**
-	 * The atom that the component is listening to for movement. Null by default, but this can change.
-	 * For example, if the receiver gets put into a humans's pocket, the host will become the human.
+	 * A list which contains references to movable atoms which the `hasprox_receiver` has moved into.
+	 * Used to handle complex situations where the receiver is nested several layers deep into an object.
+	 * For example: inside of a box, that's inside of a bag, which is worn on a human. In this situation there are 3 locations we need to listen to for movement.
 	 */
-	var/atom/host
+	var/list/nested_receiver_locs
 	/// The radius of the field, in tiles.
 	var/radius
 	/// A list of currently created [/obj/effect/abstract/proximity_checker] in use with this component.
@@ -33,80 +34,128 @@
 	hasprox_receiver = parent
 	radius = _radius
 	always_active = _always_active
+	nested_receiver_locs = list()
 	create_prox_checkers()
 
 	if(isturf(hasprox_receiver.loc))
 		toggle_checkers(TRUE)
-		return
 	else if(always_active)
 		toggle_checkers(TRUE)
-	// We only want a host to track if we're `always_active`.
-	host = get_atom_on_turf(host)
+	else
+		toggle_checkers(FALSE)
 
 /datum/component/proximity_monitor/Destroy(force, silent)
 	hasprox_receiver = null
-	host = null
+	nested_receiver_locs.Cut()
 	QDEL_LIST(proximity_checkers)
 	return ..()
 
 /datum/component/proximity_monitor/RegisterWithParent()
-	. = ..()
-	// Override vars are set to TRUE here to allow for component transfering.
 	if(ismovable(hasprox_receiver))
-		RegisterSignal(hasprox_receiver, COMSIG_MOVABLE_MOVED, .proc/handle_move, TRUE)
-	if(host && ismovable(host))
-		RegisterSignal(host, COMSIG_MOVABLE_MOVED, .proc/handle_move, TRUE)
+		RegisterSignal(hasprox_receiver, COMSIG_MOVABLE_MOVED, .proc/on_receiver_move)
+		RegisterSignal(hasprox_receiver, COMSIG_MOVABLE_DISPOSING, .proc/on_disposal_enter)
+		RegisterSignal(hasprox_receiver, COMSIG_MOVABLE_EXIT_DISPOSALS, .proc/on_disposal_exit)
+	map_nested_locs()
 
 /datum/component/proximity_monitor/UnregisterFromParent()
-	. = ..()
 	if(ismovable(hasprox_receiver))
-		UnregisterSignal(hasprox_receiver, COMSIG_MOVABLE_MOVED)
-	if(host && ismovable(host))
-		UnregisterSignal(host, COMSIG_MOVABLE_MOVED)
-
-/datum/component/proximity_monitor/PostTransfer()
-	if(!ismovable(parent) && !isturf(parent))
-		return COMPONENT_INCOMPATIBLE
-	host = null
-	hasprox_receiver = parent
-	if(!isturf(hasprox_receiver.loc))
-		host = get_atom_on_turf(host)
-	recenter_prox_checkers()
+		UnregisterSignal(hasprox_receiver, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_DISPOSING, COMSIG_MOVABLE_EXIT_DISPOSALS))
+	clear_nested_locs()
 
 /**
- * Called when the `hasprox_receiver` moves. If a `host` exists, its movement will also call this proc.
+ * Called when the `hasprox_receiver` moves.
  *
  * Arguments:
- * * datum/source - this will be the `parent`
- * * atom/old_loc - the location the parent just moved from
- * * dir - the direction the parent just moved in
- * * forced - if we were forced to move
+ * * datum/source - this will be the `hasprox_receiver`
+ * * atom/old_loc - the location the receiver just moved from
+ * * dir - the direction the reciever just moved in
  */
-/datum/component/proximity_monitor/proc/handle_move(datum/source, atom/old_loc, dir, forced)
+/datum/component/proximity_monitor/proc/on_receiver_move(datum/source, atom/old_loc, dir)
 	SIGNAL_HANDLER
 
+	// It was just a normal tile-based move, so we return here.
 	if(dir)
 		move_prox_checkers(dir)
-		return // It was just a normal tile-based move, return.
+		return
 
-	// The field is always active while the receiver is on a turf.
-	if(isturf(hasprox_receiver.loc))
+	// Moving onto a turf.
+	if(!isturf(old_loc) && isturf(hasprox_receiver.loc))
 		toggle_checkers(TRUE)
-		if(host && ismovable(host))
-			UnregisterSignal(host, COMSIG_MOVABLE_MOVED)
-			host = null
-	// The receiver moved inside of another atom, set the host to that atom so we can track its movement.
+		clear_nested_locs()
+
+	// Moving into an object.
 	else if(always_active)
 		toggle_checkers(TRUE)
-		var/atom/new_host = get_atom_on_turf(hasprox_receiver)
-		if(ismovable(new_host) && host != new_host && host != old_loc)
-			host = new_host
-			RegisterSignal(host, COMSIG_MOVABLE_MOVED, .proc/handle_move)
-	// Deactivate the field, leave it where it is, and stop listening for movement.
+		map_nested_locs()
+
+	// The receiver moved into something, but isn't `always_active`, so deactivate the checkers.
 	else
 		toggle_checkers(FALSE)
 
 	recenter_prox_checkers()
+
+/**
+ * Called when an atom in `nested_receiver_locs` list moves, if one exists.
+ *
+ * Arguments:
+ * * atom/moved_atom - one of the atoms in `nested_receiver_locs`
+ * * atom/old_loc - the location `moved_atom` just moved from
+ * * dir - the direction `moved_atom` just moved in
+ */
+/datum/component/proximity_monitor/proc/on_nested_loc_move(atom/moved_atom, atom/old_loc, dir)
+	SIGNAL_HANDLER
+
+	// It was just a normal tile-based move, so we return here.
+	if(dir)
+		move_prox_checkers(dir)
+		return
+
+	map_nested_locs()
+	recenter_prox_checkers()
+
+/**
+ * Called when the receiver or an atom in the `nested_receiver_locs` list moves into a disposals holder object.
+ *
+ * This proc recieves arguments, but they aren't needed.
+ */
+/datum/component/proximity_monitor/proc/on_disposal_enter(datum/source)
+	SIGNAL_HANDLER
+
+	toggle_checkers(FALSE)
+
+/**
+ * Called when the receiver or an atom in the `nested_receiver_locs` list moves out of a disposals holder object.
+ *
+ * This proc recieves arguments, but they aren't needed.
+ */
+/datum/component/proximity_monitor/proc/on_disposal_exit(datum/source)
+	SIGNAL_HANDLER
+
+	toggle_checkers(TRUE)
+
+/**
+ * Registers signals to any nested locations the `hasprox_receiver` is in, excluding turfs, so they can be monitored for movement.
+ */
+/datum/component/proximity_monitor/proc/map_nested_locs()
+	clear_nested_locs()
+	var/atom/loc_to_check = hasprox_receiver.loc
+
+	while(loc_to_check && !isturf(loc_to_check))
+		if(loc_to_check in nested_receiver_locs)
+			continue
+		nested_receiver_locs += loc_to_check
+		RegisterSignal(loc_to_check, COMSIG_MOVABLE_MOVED, .proc/on_nested_loc_move)
+		RegisterSignal(loc_to_check, COMSIG_MOVABLE_DISPOSING, .proc/on_disposal_enter)
+		RegisterSignal(loc_to_check, COMSIG_MOVABLE_EXIT_DISPOSALS, .proc/on_disposal_exit)
+		loc_to_check = loc_to_check.loc
+
+/**
+ * Removes and unregisters signals from all objects currently in the `nested_receiver_locs` list.
+ */
+/datum/component/proximity_monitor/proc/clear_nested_locs()
+	for(var/nested_loc in nested_receiver_locs)
+		UnregisterSignal(nested_loc, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_DISPOSING, COMSIG_MOVABLE_EXIT_DISPOSALS))
+	nested_receiver_locs = list()
 
 /**
  * Relays basic directional movement from the `hasprox_receiver` or `host`, to all objects in the `proximity_checkers` list.
@@ -115,8 +164,7 @@
  * * move_dir - the direction the checkers should move in
  */
 /datum/component/proximity_monitor/proc/move_prox_checkers(move_dir)
-	for(var/checker in proximity_checkers)
-		var/obj/effect/abstract/proximity_checker/P = checker
+	for(var/obj/P as anything in proximity_checkers)
 		P.loc = get_step(P, move_dir)
 
 /**
@@ -126,8 +174,7 @@
  * * new_active - the value to be assigned to the proximity checker's `active` variable
  */
 /datum/component/proximity_monitor/proc/toggle_checkers(new_active)
-	for(var/checker in proximity_checkers)
-		var/obj/effect/abstract/proximity_checker/P = checker
+	for(var/obj/effect/abstract/proximity_checker/P as anything in proximity_checkers)
 		P.active = new_active
 
 /**
@@ -164,7 +211,7 @@
  * * checker_type - the type of [/obj/item/abstract/proximity_checker] to create
  */
 /datum/component/proximity_monitor/proc/create_single_prox_checker(turf/T, checker_type = field_checker_type)
-	var/obj/effect/abstract/proximity_checker/P = new checker_type(T, parent, src)
+	var/obj/effect/abstract/proximity_checker/P = new checker_type(T, src)
 	proximity_checkers += P
 	return P
 
@@ -375,11 +422,7 @@
 	/// Whether or not the proximity checker is listening for things crossing it.
 	var/active
 
-// If this object is initialized without a `_hasprox_receiver` arg, it is qdel'd.
-/obj/effect/abstract/proximity_checker/Initialize(mapload, atom/_hasprox_receiver, datum/component/proximity_monitor/P)
-	if(!_hasprox_receiver)
-		stack_trace("[src] created without a receiver")
-		return INITIALIZE_HINT_QDEL
+/obj/effect/abstract/proximity_checker/Initialize(mapload, datum/component/proximity_monitor/P)
 	. = ..()
 	monitor = P
 
@@ -398,7 +441,7 @@
 /obj/effect/abstract/proximity_checker/Crossed(atom/movable/AM, oldloc)
 	set waitfor = FALSE
 	. = ..()
-	if(active && AM != monitor.host && AM != monitor.hasprox_receiver)
+	if(active && AM != monitor.hasprox_receiver && !(AM in monitor.nested_receiver_locs))
 		monitor.hasprox_receiver.HasProximity(AM)
 
 /**
@@ -412,10 +455,7 @@
 	/// `hasprox_receivers`s advanced proximity monitor component.
 	var/datum/component/proximity_monitor/advanced/advanced_monitor
 
-/obj/effect/abstract/proximity_checker/advanced/Initialize(mapload, atom/_hasprox_receiver, datum/component/proximity_monitor/advanced/P, _always_active)
-	if(!P)
-		stack_trace("[src] created without a component argument")
-		return INITIALIZE_HINT_QDEL
+/obj/effect/abstract/proximity_checker/advanced/Initialize(mapload, datum/component/proximity_monitor/advanced/P, _always_active)
 	advanced_monitor = P
 	return ..()
 

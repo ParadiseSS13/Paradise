@@ -168,7 +168,6 @@
 	if(assembly)
 		to_chat(usr, "<span class='notice'>You detach [assembly] from [src]</span>")
 		usr.put_in_hands(assembly)
-		assembly.on_detach(src)
 		assembly = null
 		update_icon()
 	else
@@ -183,11 +182,9 @@
 		if(assembly)
 			to_chat(usr, "<span class='warning'>[src] already has an assembly.</span>")
 			return ..()
-		var/obj/item/assembly_holder/holder = W
-		assembly = holder
+		assembly = W
 		user.drop_item()
-		holder.forceMove(src)
-		holder.on_attach(src)
+		W.forceMove(src)
 		overlays += "assembly"
 	else
 		..()

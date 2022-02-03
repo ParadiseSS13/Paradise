@@ -37,11 +37,10 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
-	bombassembly.loc = user.loc
+	bombassembly.forceMove(user.loc)
 	bombassembly.master = null
-	bombassembly.on_detach(src)
 	bombassembly = null
-	bombtank.loc = user.loc
+	bombtank.forceMove(user.loc)
 	bombtank.master = null
 	bombtank = null
 	qdel(src)
@@ -115,13 +114,12 @@
 	M.put_in_hands(R)		//Equips the bomb if possible, or puts it on the floor.
 
 	R.bombassembly = S	//Tell the bomb about its assembly part
-	S.on_attach(R)
 	S.master = R		//Tell the assembly about its new owner
-	S.loc = R			//Move the assembly out of the fucking way
+	S.forceMove(R)			//Move the assembly out of the fucking way
 
 	R.bombtank = src	//Same for tank
 	master = R
-	loc = R
+	forceMove(R)
 	R.update_icon()
 	return
 

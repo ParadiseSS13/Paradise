@@ -152,7 +152,6 @@
 		if(do_after(usr, 20, target = src))
 			usr.visible_message("<span class='notice'>[usr] detaches [rig] from [src].</span>", "<span class='notice'>You detach [rig] from [src].</span>")
 			rig.forceMove(get_turf(usr))
-			rig.on_detach(src)
 			rig = null
 			lastrigger = null
 			overlays.Cut()
@@ -176,7 +175,6 @@
 				rig = H
 				user.drop_item()
 				H.forceMove(src)
-				H.on_attach(src)
 				var/icon/test = getFlatIcon(H)
 				test.Shift(NORTH, 1)
 				test.Shift(EAST, 6)

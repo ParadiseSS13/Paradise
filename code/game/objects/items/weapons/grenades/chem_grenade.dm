@@ -176,7 +176,7 @@
 			if(I.reagents.total_volume)
 				to_chat(user, "<span class='notice'>You add [I] to the assembly.</span>")
 				user.drop_item()
-				I.loc = src
+				I.forceMove(src)
 				beakers += I
 			else
 				to_chat(user, "<span class='notice'>[I] is empty.</span>")
@@ -190,9 +190,8 @@
 
 		user.drop_item()
 		nadeassembly = A
-		A.on_attach(src)
 		A.master = src
-		A.loc = src
+		A.forceMove(src)
 		assemblyattacher = user.ckey
 		stage = WIRED
 		to_chat(user, "<span class='notice'>You add [A] to [src]!</span>")
@@ -217,13 +216,12 @@
 		payload_name = null
 		label = null
 		if(nadeassembly)
-			nadeassembly.loc = get_turf(src)
+			nadeassembly.forceMove(get_turf(src))
 			nadeassembly.master = null
-			nadeassembly.on_detach(src)
 			nadeassembly = null
 		if(beakers.len)
 			for(var/obj/O in beakers)
-				O.loc = get_turf(src)
+				O.forceMove(get_turf(src))
 			beakers = list()
 		update_icon()
 
@@ -314,10 +312,8 @@
 			nadeassembly.a_right.toggle_secure() // necessary because fuxing prock_sensors
 		nadeassembly.a_right.holder = nadeassembly
 		nadeassembly.secured = 1
-		nadeassembly.a_right.on_attach()
 		nadeassembly.master = src
 		nadeassembly.update_icon()
-		nadeassembly.on_attach(src)
 		stage = READY
 		update_icon()
 
