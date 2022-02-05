@@ -187,6 +187,7 @@
 				num_loaded++
 			if(!multiload || !did_load)
 				break
+		AM.update_mat_value()
 	if(istype(A, /obj/item/ammo_casing))
 		var/obj/item/ammo_casing/AC = A
 		if(give_round(AC, replace_spent))
