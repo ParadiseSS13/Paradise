@@ -119,14 +119,13 @@
 		to_chat(usr, "Emitter successfully sabotaged")
 
 /obj/machinery/power/bfl_emitter/process()
-	if(state)
-		add_load(active_power_usage)
-	else
+	if(!state)
 		add_load(idle_power_usage)
 		return
 	if(surplus() < active_power_usage)
 		emitter_deactivate()
 		return
+	add_load(active_power_usage)
 	if(laser)
 		return
 
