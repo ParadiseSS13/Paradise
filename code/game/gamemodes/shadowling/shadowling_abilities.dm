@@ -47,28 +47,21 @@
 
 	user.visible_message("<span class='warning'><b>[user]'s eyes flash a blinding red!</b></span>")
 	var/distance = get_dist(H, user)
-	if (distance <= 1) //Melee glare
+	if (distance <= 2)
 		H.visible_message("<span class='danger'>[H] freezes in place, [H.p_their()] eyes glazing over...</span>", \
 			"<span class='userdanger'>Your gaze is forcibly drawn into [user]'s eyes, and you are mesmerized by [user.p_their()] heavenly beauty...</span>")
-		H.Stun(10)
-		H.AdjustSilence(10)
-	else //Distant glare
-		var/loss = 10 - distance
-		var/duration = 10 - loss
-		if(loss <= 0)
-			to_chat(user, "<span class='danger'>Your glare had no effect over a such long distance!</span>")
-			return
-		H.slowed = duration
-		H.AdjustSilence(10)
-		to_chat(H, "<span class='userdanger'>A red light flashes across your vision, and your mind tries to resist them.. you are exhausted.. you are not able to speak..</span>")
-		addtimer(CALLBACK(src, .proc/do_stun, H, user, loss), duration SECONDS)
 
-/obj/effect/proc_holder/spell/targeted/click/glare/proc/do_stun(mob/living/carbon/human/target, user, stun_time)
-	if(!istype(target) || target.stat)
-		return
-	target.Stun(stun_time)
-	target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>",\
-		"<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by the heavenly lights...</span>")
+		H.Weaken(2)
+		H.AdjustSilence(10)
+		H.adjustStaminaLoss(20)
+		H.apply_status_effect(STATUS_EFFECT_STAMINADOT)
+
+	else //Distant glare
+		H.Stun(1)
+		H.slowed = 5
+		H.AdjustSilence(5)
+		to_chat(H, "<span class='userdanger'>A red light flashes across your vision, and your mind tries to resist them.. you are exhausted.. you are not able to speak..</span>")
+		H.visible_message("<span class='danger'>[H] freezes in place, [H.p_their()] eyes glazing over...</span>")
 
 /obj/effect/proc_holder/spell/aoe_turf/veil
 	name = "Veil"
@@ -197,7 +190,7 @@
 					to_chat(M, "<span class='danger'>You feel a blast of paralyzingly cold air wrap around you and flow past, but you are unaffected!</span>")
 					continue
 			to_chat(M, "<span class='userdanger'>A wave of shockingly cold air engulfs you!</span>")
-			M.Stun(2)
+			M.Stun(1)
 			M.apply_damage(10, BURN)
 			if(M.bodytemperature)
 				M.bodytemperature -= 200 //Extreme amount of initial cold
@@ -423,7 +416,7 @@
 		update_flags |= M.EyeBlind(5, FALSE)
 		if(prob(25))
 			M.visible_message("<b>[M]</b> claws at [M.p_their()] eyes!")
-			M.Stun(3)
+			M.Stun(2)
 	else
 		to_chat(M, "<span class='notice'><b>You breathe in the black smoke, and you feel revitalized!</b></span>")
 		update_flags |= M.heal_organ_damage(2, 2, updating_health = FALSE)

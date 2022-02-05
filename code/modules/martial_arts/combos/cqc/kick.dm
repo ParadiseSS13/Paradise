@@ -18,7 +18,7 @@
 		target.visible_message("<span class='warning'>[user] kicks [target]'s head, knocking [target.p_them()] out!</span>", \
 					  		"<span class='userdanger'>[user] kicks your head, knocking you out!</span>")
 		playsound(get_turf(user), 'sound/weapons/genhit1.ogg', 50, 1, -1)
-		target.SetSleeping(15)
-		target.adjustBrainLoss(15)
+		target.SetSleeping(4)
+		target.adjustBrainLoss(5)
 		add_attack_logs(user, target, "Knocked out with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE

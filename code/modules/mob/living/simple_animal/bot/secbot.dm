@@ -269,8 +269,9 @@
 	if(ishuman(C) && harmbaton) // Bots with harmbaton enabled become shitcurity. - Dave
 		C.apply_damage(10, BRUTE)
 	C.SetStuttering(5)
-	C.Stun(5)
-	C.Weaken(5)
+	C.Stun(2)
+	C.Weaken(2)
+	C.adjustStaminaLoss(45)
 	add_attack_logs(src, C, "stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)

@@ -456,7 +456,7 @@ emp_act
 						if(prob(I.force))
 							visible_message("<span class='combat danger'>[src] has been knocked down!</span>", \
 											"<span class='combat userdanger'>[src] has been knocked down!</span>")
-							apply_effect(5, WEAKEN, armor)
+							apply_effect(2, WEAKEN, armor)
 							AdjustConfused(15)
 						if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
 							SSticker.mode.remove_revolutionary(mind)
@@ -477,7 +477,7 @@ emp_act
 					if(stat == CONSCIOUS && I.force && prob(I.force + 10))
 						visible_message("<span class='combat danger'>[src] has been knocked down!</span>", \
 										"<span class='combat userdanger'>[src] has been knocked down!</span>")
-						apply_effect(5, WEAKEN, armor)
+						apply_effect(2, WEAKEN, armor)
 
 					if(bloody)
 						if(wear_suit)
@@ -594,9 +594,14 @@ emp_act
 			else
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
-				apply_effect(5, WEAKEN, run_armor_check(affecting, "melee"))
-				add_attack_logs(M, src, "Alien tackled")
-				visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
+				src.adjustStaminaLoss(rand(10,20))
+				if(prob(40))
+					apply_effect(1, WEAKEN, run_armor_check(affecting, "melee"))
+					add_attack_logs(M, src, "Alien tackled")
+					visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
+				else
+					visible_message("<span class='danger'>[M] tried to tackle down [src]!</span>")
+					add_attack_logs(M, src, "Alien tried to tackle")
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	. = ..()

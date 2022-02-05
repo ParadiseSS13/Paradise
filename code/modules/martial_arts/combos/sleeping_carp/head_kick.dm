@@ -14,6 +14,6 @@
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Head Kick", ATKLOG_ALL)
 		if(prob(60))
 			user.say(pick("OOHYOO!", "OOPYAH!", "HYOOAA!", "WOOAAA!", "SHURYUKICK!", "HIYAH!"))
-		target.Stun(4)
+		target.Weaken(2)
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_DONE_BASIC_HIT

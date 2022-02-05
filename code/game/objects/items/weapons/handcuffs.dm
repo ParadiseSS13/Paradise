@@ -51,7 +51,7 @@
 							"<span class='userdanger'>[user] is trying to put [src.name] on [C]!</span>")
 
 		playsound(loc, cuffsound, 30, 1, -2)
-		if(do_mob(user, C, 30))
+		if(do_mob(user, C, 50))
 			apply_cuffs(C, user, remove_src)
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
 			SSblackbox.record_feedback("tally", "handcuffs", 1, type)

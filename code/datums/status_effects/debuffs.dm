@@ -113,3 +113,11 @@
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
+
+/datum/status_effect/stamina_dot
+	id = "stamina_dot"
+	duration = 100
+	alert_type = null
+
+/datum/status_effect/stamina_dot/tick()
+	owner.adjustStaminaLoss(10)

@@ -300,7 +300,18 @@
 	time = 15
 	reqs = list(/obj/item/stack/sheet/wood = 1,
 				/obj/item/stack/cable_coil = 5)
-	pathtools = list(/obj/item/kitchen/knife) // Gotta carve the wood into handles
+	pathtools = list(/obj/item/shard) // Gotta carve the wood into handles
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/stungloves
+	name = "Stun Gloves"
+	result = /obj/item/clothing/gloves/color/yellow/stun
+	time = 50
+	reqs = list(/obj/item/stack/tape_roll = 5,
+				/obj/item/stack/cable_coil = 15,
+				/obj/item/clothing/gloves/color/yellow = 1)
+	tools = list(TOOL_WIRECUTTER, TOOL_MULTITOOL)
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 

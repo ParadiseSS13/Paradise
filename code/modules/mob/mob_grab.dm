@@ -1,4 +1,4 @@
-#define UPGRADE_COOLDOWN  40
+#define UPGRADE_COOLDOWN  44
 #define UPGRADE_KILL_TIMER  100
 
 //times it takes for a mob to eat
@@ -170,7 +170,7 @@
 	var/breathing_tube = affecting.get_organ_slot("breathing_tube")
 
 	if(state >= GRAB_NECK)
-		affecting.Stun(5)  //It will hamper your voice, being choked and all.
+		affecting.Stun(2)  //It will hamper your voice, being choked and all.
 		if(isliving(affecting) && !breathing_tube)
 			var/mob/living/L = affecting
 			L.adjustOxyLoss(1)

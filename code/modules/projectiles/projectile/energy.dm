@@ -12,8 +12,9 @@
 	color = "#FFFF00"
 	shockbull = TRUE
 	nodamage = 1
-	stun = 5
-	weaken = 5
+	stun = 1
+	weaken = 1
+	stamina = 33
 	stutter = 5
 	jitter = 20
 	hitsound = 'sound/weapons/tase.ogg'
@@ -50,28 +51,30 @@
 /obj/item/projectile/energy/dart
 	name = "dart"
 	icon_state = "toxin"
-	damage = 5
+	damage = 1
 	damage_type = TOX
-	weaken = 5
+	weaken = 2
+	stamina = 40
 	range = 7
 	shockbull = TRUE
 
 /obj/item/projectile/energy/shuriken
 	name = "shuriken"
 	icon_state = "toxin"
-	damage = 10
+	damage = 30
 	damage_type = TOX
-	weaken = 5
-	stutter = 5
+	weaken = 1
+	stutter = 1
 
 /obj/item/projectile/energy/bolt
 	name = "bolt"
 	icon_state = "cbbolt"
 	damage = 15
 	damage_type = TOX
+	stamina = 40
 	nodamage = 0
-	weaken = 5
-	stutter = 5
+	weaken = 2
+	stutter = 1
 	shockbull = TRUE
 
 /obj/item/projectile/energy/bolt/large

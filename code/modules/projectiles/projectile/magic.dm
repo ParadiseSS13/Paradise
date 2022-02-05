@@ -345,8 +345,8 @@
 	name = "magical banana"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana"
-	var/slip_stun = 5
-	var/slip_weaken = 5
+	var/slip_stun = 2
+	var/slip_weaken = 2
 	hitsound = 'sound/items/bikehorn.ogg'
 
 /obj/item/projectile/magic/slipping/New()

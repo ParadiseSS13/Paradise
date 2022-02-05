@@ -100,11 +100,11 @@
 	var/smoke_message = pick("You feel relaxed.", "You feel calmed.", "You feel less stressed.", "You feel more placid.", "You feel more undivided.")
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[smoke_message]</span>")
-	if(prob(50))
+	if(prob(25))
 		update_flags |= M.AdjustParalysis(-1, FALSE)
 		update_flags |= M.AdjustStunned(-1, FALSE)
 		update_flags |= M.AdjustWeakened(-1, FALSE)
-		update_flags |= M.adjustStaminaLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustStaminaLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/nicotine/overdose_process(mob/living/M, severity)
@@ -317,10 +317,10 @@
 	if(current_cycle >= 25)
 		M.AdjustJitter(5)
 	M.AdjustDrowsy(-10)
-	update_flags |= M.AdjustParalysis(-2.5, FALSE)
-	update_flags |= M.AdjustStunned(-2.5, FALSE)
-	update_flags |= M.AdjustWeakened(-2.5, FALSE)
-	update_flags |= M.adjustStaminaLoss(-2, FALSE)
+	update_flags |= M.AdjustParalysis(-2, FALSE)
+	update_flags |= M.AdjustStunned(-2, FALSE)
+	update_flags |= M.AdjustWeakened(-2, FALSE)
+	update_flags |= M.adjustStaminaLoss(-7, FALSE)
 	update_flags |= M.SetSleeping(0, FALSE)
 	M.status_flags |= GOTTAGOFAST
 	if(prob(50))
@@ -489,7 +489,7 @@
 
 /datum/reagent/aranesp/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustStaminaLoss(-40, FALSE)
+	update_flags |= M.adjustStaminaLoss(-9, FALSE)
 	if(prob(90))
 		update_flags |= M.adjustToxLoss(1, FALSE)
 	if(prob(5))
@@ -683,7 +683,7 @@
 	update_flags |= M.AdjustParalysis(-2, FALSE)
 	update_flags |= M.AdjustStunned(-2, FALSE)
 	update_flags |= M.AdjustWeakened(-2, FALSE)
-	update_flags |= M.adjustStaminaLoss(-2, FALSE)
+	update_flags |= M.adjustStaminaLoss(-7, FALSE)
 	M.status_flags |= GOTTAGOFAST
 	M.Jitter(3)
 	update_flags |= M.adjustBrainLoss(0.5, FALSE)

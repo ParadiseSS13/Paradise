@@ -33,7 +33,7 @@
 	. = ..()
 	// The reason this AddComponent is here and not in ComponentInitialize() is because if it's put there, it will be ran before the parent New proc for /grown types.
 	// And then be overriden by the generic component placed onto it by the `/datum/plant_gene/trait/slip`.
-	AddComponent(/datum/component/slippery, src, 0, 7, 100, 4, FALSE)
+	AddComponent(/datum/component/slippery, src, 0, 2, 100, 4, FALSE)
 
 /obj/item/grown/bananapeel/traitorpeel/after_slip(mob/living/carbon/human/H)
 	to_chat(H, "<span class='warning'>Your feet feel like they're on fire!</span>")

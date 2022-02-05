@@ -211,7 +211,7 @@
 	if(istype(G) && ispath(G.trash, /obj/item/grown))
 		return
 
-	var/stun_len = G.seed.potency * rate * 0.8
+	var/stun_len = G.seed.potency * rate * 0.4
 
 	if(!istype(G, /obj/item/grown/bananapeel) && (!G.reagents || !G.reagents.has_reagent("lube")))
 		stun_len /= 3

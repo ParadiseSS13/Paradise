@@ -9,7 +9,7 @@
 		target.visible_message("<span class='warning'>[user] kicks [target] in the back!</span>", \
 						  "<span class='userdanger'>[user] kicks you in the back, making you stumble and fall!</span>")
 		step_to(target,get_step(target,target.dir),1)
-		target.Weaken(4)
+		target.Weaken(2)
 		playsound(get_turf(target), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Back Kick", ATKLOG_ALL)
 		if(prob(80))

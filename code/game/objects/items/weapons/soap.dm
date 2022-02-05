@@ -14,7 +14,7 @@
 	var/cleanspeed = 50 //slower than mop
 
 /obj/item/soap/ComponentInitialize()
-	AddComponent(/datum/component/slippery, src, 4, 2, 100, 0, FALSE)
+	AddComponent(/datum/component/slippery, src, 2, 2, 100, 0, FALSE)
 
 /obj/item/soap/afterattack(atom/target, mob/user, proximity)
 	if(!proximity) return

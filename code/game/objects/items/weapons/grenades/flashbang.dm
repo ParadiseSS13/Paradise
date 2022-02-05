@@ -46,7 +46,7 @@
 		M.show_message("<span class='warning'>BANG</span>", 2)
 
 		var/distance = max(1, get_dist(source_turf, get_turf(M)))
-		var/stun_amount = max(10 / distance, 3)
+		var/stun_amount = max(4 / distance, 3)
 
 		// Flash
 		if(flash)

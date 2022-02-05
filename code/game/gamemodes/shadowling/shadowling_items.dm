@@ -24,7 +24,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	heat_protection = null //You didn't expect a light-sensitive creature to have heat resistance, did you?
 	max_heat_protection_temperature = null
-	armor = list(melee = 25, bullet = 0, laser = 0, energy = 0, bomb = 25, bio = 100, rad = 100, fire = 100, acid = 100)
+	armor = list(melee = 25, bullet = 0, laser = 0, energy = 10, bomb = 25, bio = 100, rad = 100, fire = 100, acid = 100)
 	flags = ABSTRACT | NODROP | THICKMATERIAL | STOPSPRESSUREDMAGE
 
 

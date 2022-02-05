@@ -5,7 +5,7 @@
 	icon_state = "syndicate"
 	item_state = "syndicate"
 	desc = "Has a tag on it: Totally not property of a hostile corporation, honest!"
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 80, "acid" = 85)
+	armor = list("melee" = 40, "bullet" = 50, "laser" = 30,"energy" = 25, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 80, "acid" = 85)
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/helmet.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
@@ -21,7 +21,7 @@
 	desc = "Has a tag on it: Totally not property of a hostile corporation, honest!"
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank)
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 80, "acid" = 85)
+	armor = list("melee" = 40, "bullet" = 50, "laser" = 30,"energy" = 25, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 80, "acid" = 85)
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',

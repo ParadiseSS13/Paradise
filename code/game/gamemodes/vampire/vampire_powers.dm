@@ -157,7 +157,7 @@
 	user.SetStunned(0)
 	user.SetParalysis(0)
 	user.SetSleeping(0)
-	U.adjustStaminaLoss(-75)
+	U.adjustStaminaLoss(-60)
 	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>")
 	spawn(1)
 		if(usr.mind.vampire.get_ability(/datum/vampire_passive/regen))
@@ -166,37 +166,36 @@
 				U.adjustOxyLoss(-5)
 				U.adjustToxLoss(-2)
 				U.adjustFireLoss(-2)
+				U.adjustStaminaLoss(-10)
 				sleep(35)
 
 /obj/effect/proc_holder/spell/vampire/targetted/hypnotise
-	name = "Hypnotise (20)"
+	name = "Hypnotise (25)"
 	desc= "A piercing stare that incapacitates your victim for a good length of time."
 	action_icon_state = "vampire_hypnotise"
-	required_blood = 20
+	required_blood = 25
 
 /obj/effect/proc_holder/spell/vampire/targetted/hypnotise/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		user.visible_message("<span class='warning'>[user]'s eyes flash briefly as [user.p_they()] stare[user.p_s()] into [target]'s eyes</span>")
-		if(do_mob(user, target, 50))
+		if(do_mob(user, target, 60))
 			if(!affects(target))
 				to_chat(user, "<span class='warning'>Your piercing gaze fails to knock out [target].</span>")
 				to_chat(target, "<span class='notice'>[user]'s feeble gaze is ineffective.</span>")
 			else
 				to_chat(user, "<span class='warning'>Your piercing gaze knocks out [target].</span>")
-				to_chat(target, "<span class='warning'>You find yourself unable to move and barely able to speak.</span>")
-				target.Weaken(10)
-				target.Stun(10)
-				target.stuttering = 10
+				to_chat(target, "<span class='warning'>You suddenly feel very weak.</span>")
+				target.SetSleeping(20)
 		else
 			revert_cast(usr)
 			to_chat(usr, "<span class='warning'>You broke your gaze.</span>")
 
 /obj/effect/proc_holder/spell/vampire/targetted/disease
-	name = "Diseased Touch (100)"
+	name = "Diseased Touch (50)"
 	desc = "Touches your victim with infected blood giving them Grave Fever, which will, left untreated, causes toxic building and frequent collapsing."
 	gain_desc = "You have gained the Diseased Touch ability which causes those you touch to become weak unless treated medically."
 	action_icon_state = "vampire_disease"
-	required_blood = 100
+	required_blood = 50
 
 /obj/effect/proc_holder/spell/vampire/targetted/disease/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/target in targets)
@@ -223,11 +222,13 @@
 	for(var/mob/living/target in targets)
 		if(!affects(target))
 			continue
-		target.Stun(5)
-		target.Weaken(5)
+		target.Stun(2)
+		target.Weaken(2)
 		target.stuttering = 20
+		target.adjustStaminaLoss(20)
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
 		add_attack_logs(user, target, "(Vampire) Glared at")
+		target.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 
 /obj/effect/proc_holder/spell/vampire/self/shapeshift
 	name = "Shapeshift (50)"
@@ -269,11 +270,12 @@
 		if(!affects(C))
 			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
-		C.Weaken(4)
+		C.Weaken(2)
 		C.MinimumDeafTicks(20)
 		C.Stuttering(20)
-		C.Stun(4)
+		C.Stun(2)
 		C.Jitter(150)
+		C.adjustStaminaLoss(60)
 	for(var/obj/structure/window/W in view(4))
 		W.deconstruct(FALSE)
 	playsound(user.loc, 'sound/effects/creepyshriek.ogg', 100, 1)
@@ -387,12 +389,12 @@
 	to_chat(user, "<span class='notice'>You will now be [V.iscloaking ? "hidden" : "seen"] in darkness.</span>")
 
 /obj/effect/proc_holder/spell/vampire/bats
-	name = "Summon Bats (75)"
+	name = "Summon Bats (50)"
 	desc = "You summon a pair of space bats who attack nearby targets until they or their target is dead."
 	gain_desc = "You have gained the Summon Bats ability."
 	action_icon_state = "vampire_bats"
 	charge_max = 1200
-	required_blood = 75
+	required_blood = 50
 	var/num_bats = 2
 
 /obj/effect/proc_holder/spell/vampire/bats/choose_targets(mob/user = usr)
@@ -415,12 +417,12 @@
 		new /mob/living/simple_animal/hostile/scarybat(T, user)
 
 /obj/effect/proc_holder/spell/vampire/self/jaunt
-	name = "Mist Form (30)"
+	name = "Mist Form (50)"
 	desc = "You take on the form of mist for a short period of time."
 	gain_desc = "You have gained the Mist Form ability which allows you to take on the form of mist for a short period and pass over any obstacle in your path."
 	action_icon_state = "jaunt"
 	charge_max = 600
-	required_blood = 30
+	required_blood = 50
 	centcom_cancast = 0
 	var/jaunt_duration = 50 //in deciseconds
 
@@ -467,12 +469,12 @@
 // Blink for vamps
 // Less smoke spam.
 /obj/effect/proc_holder/spell/vampire/shadowstep
-	name = "Shadowstep (30)"
+	name = "Shadowstep (20)"
 	desc = "Vanish into the shadows."
 	gain_desc = "You have gained the ability to shadowstep, which makes you disappear into nearby shadows at the cost of blood."
 	action_icon_state = "blink"
 	charge_max = 20
-	required_blood = 30
+	required_blood = 20
 	centcom_cancast = 0
 
 	// Teleport radii

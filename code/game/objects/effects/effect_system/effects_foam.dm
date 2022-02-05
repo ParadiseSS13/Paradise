@@ -100,7 +100,7 @@
 
 	if(iscarbon(AM))
 		var/mob/living/carbon/M =	AM
-		if(M.slip("foam", 5, 2))
+		if(M.slip("foam", 2, 2))
 			if(reagents)
 				for(var/reagent_id in reagents.reagent_list)
 					var/amount = M.reagents.get_reagent_amount(reagent_id)

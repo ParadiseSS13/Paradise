@@ -8,7 +8,8 @@
 		user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 		target.visible_message("<span class='warning'>[user] elbow drops [target]!</span>", \
 						  "<span class='userdanger'>[user] piledrives you with [user.p_their()] elbow!</span>")
-		target.death() //FINISH HIM!
+		if(target.health <= HEALTH_THRESHOLD_CRIT)
+			target.death() //FINISH HIM!
 		target.apply_damage(50, BRUTE, "chest")
 		playsound(get_turf(target), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Elbow Drop", ATKLOG_ALL)

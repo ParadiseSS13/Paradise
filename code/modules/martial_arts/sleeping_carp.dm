@@ -7,6 +7,11 @@
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/sleeping_carp/wrist_wrench, /datum/martial_combo/sleeping_carp/back_kick, /datum/martial_combo/sleeping_carp/stomach_knee, /datum/martial_combo/sleeping_carp/head_kick, /datum/martial_combo/sleeping_carp/elbow_drop)
 
+/datum/martial_art/the_sleeping_carp/can_use(mob/living/carbon/human/H)
+	if(length(H.reagents.addiction_list))
+		return FALSE
+	return ..()
+
 /datum/martial_art/the_sleeping_carp/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/grab/G = D.grabbedby(A,1)
@@ -26,7 +31,7 @@
 		A.say(pick("HUAH!", "HYA!", "CHOO!", "WUO!", "KYA!", "HUH!", "HIYOH!", "CARP STRIKE!", "CARP BITE!"))
 	if(prob(D.getBruteLoss()) && !D.lying)
 		D.visible_message("<span class='warning'>[D] stumbles and falls!</span>", "<span class='userdanger'>The blow sends you to the ground!</span>")
-		D.Weaken(4)
+		D.Weaken(2)
 	return TRUE
 
 /datum/martial_art/the_sleeping_carp/explaination_header(user)
