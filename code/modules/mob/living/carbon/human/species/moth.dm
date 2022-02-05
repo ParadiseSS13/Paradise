@@ -26,17 +26,16 @@
 	default_bodyacc = "Plain Wings"
 	wing = "plain"
 	eyes = "moth_eyes_s"
-	butt_sprite = "kidan"
+	butt_sprite = "nian"
 	siemens_coeff = 1.5
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
-		"liver" =    /obj/item/organ/internal/liver,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain/moth,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/moth
+		"heart" =    /obj/item/organ/internal/heart/nian,
+		"lungs" =    /obj/item/organ/internal/lungs/nian,
+		"liver" =    /obj/item/organ/internal/liver/nian,
+		"kidneys" =  /obj/item/organ/internal/kidneys/nian,
+		"brain" =    /obj/item/organ/internal/brain/nian,
+		"eyes" =     /obj/item/organ/internal/eyes/nian
 		)
 
 	optional_body_accessory = FALSE

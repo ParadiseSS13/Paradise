@@ -126,13 +126,6 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll"
 
-/obj/item/organ/internal/brain/moth
-	name = "dusty brain"
-	desc = "A powdery, dusty mass that functions as the central nervous system for the Nian race."
-	icon = 'icons/mob/human_races/r_moth.dmi'
-	icon_state = "brain"
-	mmi_icon_state = "moth_mmi"
-
 /obj/item/organ/internal/brain/Destroy() //copypasted from MMIs.
 	QDEL_NULL(brainmob)
 	return ..()
