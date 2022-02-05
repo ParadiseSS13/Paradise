@@ -1057,8 +1057,6 @@
 			to_chat(src, emotelist)
 		else
 			to_chat(src, "<span class='notice'>Неизвестный эмоут '[act]'. Введи *help для отображения списка.</span>")
-	if(message) //Humans are special fucking snowflakes and have 800 lines of emotes, they get to handle their own emotes, not call the parent.
-		log_emote(message, src)
 	..()
 
 /mob/living/carbon/human/verb/pose()
