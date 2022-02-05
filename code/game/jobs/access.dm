@@ -495,7 +495,10 @@
 		var/obj/item/card/id/I = src
 		assignmentName = I.assignment
 		rankName = I.rank
-
+	else if(istype(src, /obj/item/storage/wallet))
+		var/obj/item/storage/wallet/wallet = src
+		assignmentName = wallet.front_id?.assignment
+		rankName = wallet.front_id?.rank
 
 	var/job_icons = get_all_job_icons()
 	var/centcom = get_all_centcom_jobs()

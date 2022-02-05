@@ -633,3 +633,4 @@
 	if(user && user.s_active == src)
 		orient2hud(user)
 		show_to(user)
+	return TRUE
