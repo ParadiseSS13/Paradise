@@ -9866,6 +9866,10 @@
 	location = "QM #3"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/camera{
+	c_tag = "Cargo Dock West";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aFq" = (
@@ -20684,6 +20688,9 @@
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/cargotech,
+/obj/machinery/computer/guestpass{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -20977,6 +20984,9 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Supply Lobby"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -21455,6 +21465,9 @@
 /area/quartermaster/miningdock)
 "bcH" = (
 /obj/structure/table/reinforced,
+/obj/machinery/camera{
+	c_tag = "Mining Access"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -35685,6 +35698,9 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/machinery/computer/guestpass{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -38796,7 +38812,7 @@
 /area/security/detectives_office)
 "bLo" = (
 /obj/machinery/camera{
-	c_tag = "Research Toxins Storage Room";
+	c_tag = "Detective's Office";
 	dir = 4;
 	network = list("Research","SS13");
 	pixel_y = -22
@@ -46404,7 +46420,7 @@
 	pixel_x = -24;
 	pixel_y = 8
 	},
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/guestpass/hop,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -46475,7 +46491,7 @@
 /area/tcommsat/chamber)
 "caY" = (
 /obj/machinery/camera/motion{
-	c_tag = "MiniSat AI Upload";
+	c_tag = "MiniSat Telecomms";
 	network = list("SS13","Minisat");
 	start_active = 1
 	},
@@ -67416,6 +67432,9 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
 /obj/effect/decal/warning_stripes/northeast,
+/obj/machinery/computer/guestpass{
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -67681,6 +67700,9 @@
 /obj/machinery/computer/med_data{
 	dir = 4
 	},
+/obj/machinery/computer/guestpass{
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -67786,12 +67808,19 @@
 	},
 /area/medical/medbay3)
 "cWa" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "purplefull"
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/area/assembly/robotics)
+/obj/machinery/camera{
+	c_tag = "Port Hallway South"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/port)
 "cWb" = (
 /obj/machinery/light{
 	dir = 1
@@ -78369,11 +78398,6 @@
 /obj/item/stack/sheet/metal{
 	amount = 50
 	},
-/obj/item/stack/sheet/glass{
-	amount = 50;
-	pixel_x = -4;
-	pixel_y = 4
-	},
 /obj/machinery/requests_console{
 	department = "Robotics";
 	departmentType = 2;
@@ -78385,6 +78409,26 @@
 	dir = 4;
 	name = "west bump";
 	pixel_x = -24
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 10
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 20;
+	pixel_x = -3;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -131151,7 +131195,7 @@ bxh
 bxh
 bxh
 bxh
-bSy
+cWa
 bUI
 bWH
 ctU
@@ -133241,12 +133285,12 @@ vYC
 mzQ
 viE
 nbz
-cYA
+dvf
 cTI
 mhT
 vVf
 vFq
-cYA
+dvf
 dau
 dbP
 cPn
@@ -133498,7 +133542,7 @@ cLX
 cNx
 cPg
 cTJ
-cYA
+dvf
 cMl
 dni
 vrp
@@ -133760,7 +133804,7 @@ cVj
 cVj
 cPh
 cYo
-cYA
+dvf
 daB
 mLW
 tMu
@@ -134274,7 +134318,7 @@ cTJ
 cVj
 cWN
 cVj
-cYA
+dvf
 dau
 dbP
 cPn
@@ -134526,7 +134570,7 @@ cMb
 cVj
 cPk
 cTJ
-cYA
+dvf
 vrF
 fMg
 dmd
@@ -134783,12 +134827,12 @@ cMc
 hAi
 tsN
 cRb
-cYA
+dvf
 cTL
 cVl
 cWP
 jbq
-cYA
+dvf
 dau
 dbP
 cPn
@@ -135040,12 +135084,12 @@ cYz
 cYz
 cYz
 jLB
-cYA
-cYA
-cYA
-cYA
-cYA
-cYA
+dvf
+dvf
+dvf
+dvf
+dvf
+dvf
 dtS
 dbP
 cPn
@@ -138659,7 +138703,7 @@ dqp
 drK
 dce
 dce
-cWa
+ddJ
 dql
 dql
 dql
