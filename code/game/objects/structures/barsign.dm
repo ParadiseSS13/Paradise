@@ -395,6 +395,20 @@
 	icon = "warpsurf"
 	desc = "Welcome to the club, buddy!"
 
+/datum/barsign/papacafe
+	name = "SS220 Space Daddy's Cafe"
+	icon = "papacafe"
+	desc = "Respect your Space Daddy!"
+
+/datum/barsign/wycctide
+	name = "SS220 Wycctide"
+	icon = "wycctide"
+	desc = "Oh no, it's coming!"
+
+/datum/barsign/shitcur
+	name = "SS220 Shitcur"
+	icon = "shitcur"
+	desc = "Innocence proves nothing."
 
 /datum/barsign/hiddensigns
 	hidden = 1
