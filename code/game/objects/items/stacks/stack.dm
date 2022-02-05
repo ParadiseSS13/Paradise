@@ -40,8 +40,7 @@
 	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
 		return
 	if(istype(O, merge_type) && !O.throwing)
-		var/obj/item/stack/S = O
-		S.merge(src)
+		merge(O)
 	..()
 
 /obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
