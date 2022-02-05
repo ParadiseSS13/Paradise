@@ -11,14 +11,20 @@
 /datum/game_mode/blob/declare_completion()
 	if(blobwincount <= GLOB.blobs.len)
 		SSticker.mode_result = "blob win - blob took over"
+		to_chat(world, "<FONT size = 3><B>The blob has taken over the station!</B></FONT>")
+		to_chat(world, "<B>The entire station was eaten by the Blob</B>")
 		log_game("Blob mode completed with a blob victory.")
 
 	else if(station_was_nuked)
 		SSticker.mode_result = "blob halfwin - nuke"
+		to_chat(world, "<FONT size = 3><B>Partial Win: The station has been destroyed!</B></FONT>")
+		to_chat(world, "<B>Directive 7-12 has been successfully carried out preventing the Blob from spreading.</B>")
 		log_game("Blob mode completed with a tie (station destroyed).")
 
 	else if(!GLOB.blob_cores.len)
 		SSticker.mode_result = "blob loss - blob eliminated"
+		to_chat(world, "<FONT size = 3><B>The staff has won!</B></FONT>")
+		to_chat(world, "<B>The alien organism has been eradicated from the station</B>")
 		log_game("Blob mode completed with a crew victory.")
 		to_chat(world, "<span class='notice'>Rebooting in 30s</span>")
 	..()

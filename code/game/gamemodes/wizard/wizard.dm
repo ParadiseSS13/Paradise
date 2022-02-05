@@ -201,6 +201,7 @@
 /datum/game_mode/wizard/declare_completion(var/ragin = 0)
 	if(finished && !ragin)
 		SSticker.mode_result = "wizard loss - wizard killed"
+		to_chat(world, "<span class='warning'><FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
 	..()
 	return 1
 
@@ -226,17 +227,19 @@
 			var/wizardwin = 1
 			for(var/datum/objective/objective in wizard.objectives)
 				if(objective.check_completion())
-					text += "<br><B>Objective #[count]</B>: [objective.explanation_text]"
+					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 					SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
-					text += "<br><B>Objective #[count]</B>: [objective.explanation_text]"
+					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
 					SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "FAIL"))
 					wizardwin = 0
 				count++
 
 			if(wizard.current && wizard.current.stat!=DEAD && wizardwin)
+				text += "<br><font color='green'><B>The wizard was successful!</B></font>"
 				SSblackbox.record_feedback("tally", "wizard_success", 1, "SUCCESS")
 			else
+				text += "<br><font color='red'><B>The wizard has failed!</B></font>"
 				SSblackbox.record_feedback("tally", "wizard_success", 1, "FAIL")
 			if(wizard.spell_list)
 				text += "<br><B>[wizard.name] used the following spells: </B>"

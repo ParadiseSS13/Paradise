@@ -113,11 +113,18 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 	report += printplayer(owner)
 
+	var/objectives_complete = TRUE
 	if(owner.objectives.len)
 		report += printobjectives(owner)
 		for(var/datum/objective/objective in owner.objectives)
 			if(!objective.check_completion())
+				objectives_complete = FALSE
 				break
+
+	if(owner.objectives.len == 0 || objectives_complete)
+		report += "<span class='greentext big'>The [name] was successful!</span>"
+	else
+		report += "<span class='redtext big'>The [name] has failed!</span>"
 
 	return report.Join("<br>")
 

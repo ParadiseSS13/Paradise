@@ -98,17 +98,25 @@
 				var/count = 1
 				for(var/datum/objective/objective in vampire.objectives)
 					if(objective.check_completion())
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text]"
+						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text]"
+						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
 						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
 						traitorwin = 0
 					count++
 
+			var/special_role_text
+			if(vampire.special_role)
+				special_role_text = lowertext(vampire.special_role)
+			else
+				special_role_text = "antagonist"
+
 			if(traitorwin)
+				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font>"
 				SSblackbox.record_feedback("tally", "traitor_success", 1, "SUCCESS")
 			else
+				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
 				SSblackbox.record_feedback("tally", "traitor_success", 1, "FAIL")
 		to_chat(world, text)
 	return 1

@@ -117,13 +117,19 @@
 				var/count = 1
 				for(var/datum/objective/objective in traitor.objectives)
 					if(objective.check_completion())
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text]"
+						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text]"
+						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
 						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
 						traitorwin = 0
 					count++
+
+			var/special_role_text
+			if(traitor.special_role)
+				special_role_text = lowertext(traitor.special_role)
+			else
+				special_role_text = "antagonist"
 
 			var/datum/antagonist/traitor/contractor/contractor = traitor.has_antag_datum(/datum/antagonist/traitor/contractor)
 			if(istype(contractor) && contractor.contractor_uplink)
@@ -148,8 +154,10 @@
 				text += "<br><font color='orange'><B>[earned_tc] TC were earned from the contracts.</B></font>"
 
 			if(traitorwin)
+				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font><br>"
 				SSblackbox.record_feedback("tally", "traitor_success", 1, "SUCCESS")
 			else
+				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font><br>"
 				SSblackbox.record_feedback("tally", "traitor_success", 1, "FAIL")
 
 		if(length(SSticker.mode.implanted))

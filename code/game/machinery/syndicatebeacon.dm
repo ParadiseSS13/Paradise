@@ -57,7 +57,7 @@
 				return
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/N = M
-			var/objective = "Free Objective."
+			var/objective = "Free Objective"
 			switch(rand(1,100))
 				if(1 to 50)
 					objective = "Steal [pick("a hand teleporter", "the Captain's antique laser gun", "a jetpack", "the Captain's ID", "the Captain's jumpsuit")]."

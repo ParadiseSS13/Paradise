@@ -267,12 +267,20 @@ Made by Xhuis
 /datum/game_mode/shadowling/declare_completion()
 	if(check_shadow_victory() && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
 		SSticker.mode_result = "shadowling win - shadowling ascension"
+		to_chat(world, "<FONT size = 3><B>Shadowling Victory</B></FONT>")
+		to_chat(world, "<span class='greentext'><b>The shadowlings have ascended and taken over the station!</b></span>")
 	else if(shadowling_dead && !check_shadow_victory()) //If the shadowlings have ascended, they can not lose the round
 		SSticker.mode_result = "shadowling loss - shadowling killed"
+		to_chat(world, "<FONT size = 3><B>Crew Major Victory</B></FONT>")
+		to_chat(world, "<span class='redtext'><b>The shadowlings have been killed by the crew!</b></span>")
 	else if(!check_shadow_victory() && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		SSticker.mode_result = "shadowling loss - crew escaped"
+		to_chat(world, "<FONT size = 3><B>Crew Minor Victory</B></FONT>")
+		to_chat(world, "<span class='redtext'><b>The crew escaped the station before the shadowlings could ascend!</b></span>")
 	else
 		SSticker.mode_result = "shadowling loss - generic failure"
+		to_chat(world, "<FONT size = 3><B>Crew Major Victory</B></FONT>")
+		to_chat(world, "<span class='redtext'><b>The shadowlings have failed!</b></span>")
 	..()
 	return 1
 

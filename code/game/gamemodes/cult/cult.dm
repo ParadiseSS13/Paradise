@@ -299,10 +299,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/cult/declare_completion()
 	if(cult_objs.cult_status == NARSIE_HAS_RISEN)
 		SSticker.mode_result = "cult win - cult win"
+		to_chat(world, "<span class='danger'> <FONT size = 3>The cult wins! It has succeeded in summoning [SSticker.cultdat.entity_name]!</FONT></span>")
 	else if(cult_objs.cult_status == NARSIE_HAS_FALLEN)
 		SSticker.mode_result = "cult draw - narsie died, nobody wins"
+		to_chat(world, "<span class='danger'> <FONT size = 3>Nobody wins! [SSticker.cultdat.entity_name] was summoned, but banished!</FONT></span>")
 	else
 		SSticker.mode_result = "cult loss - staff stopped the cult"
+		to_chat(world, "<span class='warning'> <FONT size = 3>The staff managed to stop the cult!</FONT></span>")
 
 	var/endtext
 	endtext += "<br><b>The cultists' objectives were:</b>"

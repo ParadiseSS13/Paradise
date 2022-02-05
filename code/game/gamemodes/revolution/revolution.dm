@@ -368,8 +368,10 @@
 /datum/game_mode/revolution/declare_completion()
 	if(finished == 1)
 		SSticker.mode_result = "revolution win - heads killed"
+		to_chat(world, "<span class='redtext'>The heads of staff were killed or exiled! The revolutionaries win!</span>")
 	else if(finished == 2)
 		SSticker.mode_result = "revolution loss - rev heads killed"
+		to_chat(world, "<span class='redtext'>The heads of staff managed to stop the revolution!</span>")
 	..()
 	return TRUE
 

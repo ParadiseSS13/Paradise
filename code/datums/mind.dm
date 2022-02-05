@@ -591,7 +591,7 @@
 				var/new_target
 				if(length(possible_targets) > 0)
 					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
-						possible_targets += "Free Objective."
+						possible_targets += "Free objective"
 						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
 					else
 						new_target = pick(possible_targets)
@@ -600,14 +600,14 @@
 						return
 				else
 					to_chat(usr, "<span class='warning'>No possible target found. Defaulting to a Free objective.</span>")
-					new_target = "Free Objective."
+					new_target = "Free objective"
 
 				var/objective_path = text2path("/datum/objective/[new_obj_type]")
-				if(new_target == "Free Objective.")
+				if(new_target == "Free objective")
 					new_objective = new objective_path
 					new_objective.owner = src
 					new_objective:target = null
-					new_objective.explanation_text = "Free Objective."
+					new_objective.explanation_text = "Free objective"
 				else
 					new_objective = new objective_path
 					new_objective.owner = src
@@ -691,7 +691,7 @@
 					if((possible_target != src) && ishuman(possible_target.current))
 						possible_targets += possible_target
 				possible_targets = sortAtom(possible_targets)
-				possible_targets += "Free Objective."
+				possible_targets += "Free objective"
 				var/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
 				if(!new_target)
 					return

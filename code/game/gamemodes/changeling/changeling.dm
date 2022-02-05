@@ -207,17 +207,19 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 				var/count = 1
 				for(var/datum/objective/objective in changeling.objectives)
 					if(objective.check_completion())
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text]"
+						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 						SSblackbox.record_feedback("nested tally", "changeling_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text]"
+						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
 						SSblackbox.record_feedback("nested tally", "changeling_objective", 1, list("[objective.type]", "FAIL"))
 						changelingwin = 0
 					count++
 
 			if(changelingwin)
+				text += "<br><font color='green'><B>The changeling was successful!</B></font>"
 				SSblackbox.record_feedback("tally", "changeling_success", 1, "SUCCESS")
 			else
+				text += "<br><font color='red'><B>The changeling has failed.</B></font>"
 				SSblackbox.record_feedback("tally", "changeling_success", 1, "FAIL")
 
 		to_chat(world, text)
