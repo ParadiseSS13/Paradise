@@ -69,6 +69,19 @@
 			Your character collapses, but is still conscious.
 */
 
+#define RETURN_STATUS_EFFECT_STRENGTH(T) \
+	var/datum/status_effect/decaying/S = has_status_effect(T);\
+	return S ? S.strength : 0
+
+#define SET_STATUS_EFFECT_STRENGTH(T, A) \
+	A = max(A, 0);\
+	if(A) {;\
+		var/datum/status_effect/decaying/S = has_status_effect(T) || apply_status_effect(T);\
+		S.strength = A;\
+	} else {;\
+		remove_status_effect(T);\
+	}
+
 /mob/living
 
 	// Booleans
@@ -80,7 +93,6 @@
 
 /mob // On `/mob` for now, to support legacy code
 	var/cultslurring = 0
-	var/dizziness = 0
 	var/drowsyness = 0
 	var/druggy = 0
 	var/drunk = 0
@@ -121,19 +133,13 @@
  * Returns current amount of [confusion][/datum/status_effect/confusion], 0 if none.
  */
 /mob/living/proc/get_confusion()
-	var/datum/status_effect/confusion/S = has_status_effect(STATUS_EFFECT_CONFUSION)
-	return S ? S.strength : 0
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_CONFUSION)
 
 /**
  * Sets [confusion][/datum/status_effect/confusion] if it's higher than zero.
  */
 /mob/living/proc/SetConfused(amount)
-	amount = max(amount, 0)
-	if(amount)
-		var/datum/status_effect/confusion/S = has_status_effect(STATUS_EFFECT_CONFUSION) || apply_status_effect(STATUS_EFFECT_CONFUSION)
-		S.strength = amount
-	else
-		remove_status_effect(STATUS_EFFECT_CONFUSION)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_CONFUSION, amount)
 
 /**
  * Sets [confusion][/datum/status_effect/confusion] if it's higher than current.
@@ -154,15 +160,34 @@
 
 // DIZZY
 
-/mob/living/Dizzy(amount)
-	SetDizzy(max(dizziness, amount))
+/**
+ * Returns current amount of [dizziness][/datum/status_effect/dizziness], 0 if none.
+ */
+/mob/living/proc/get_dizziness()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DIZZINESS)
 
-/mob/living/SetDizzy(amount)
-	dizziness = max(amount, 0)
+/**
+ * Sets [dizziness][/datum/status_effect/dizziness] if it's higher than zero.
+ */
+/mob/living/proc/SetDizzy(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DIZZINESS, amount)
 
-/mob/living/AdjustDizzy(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(dizziness, amount, bound_lower, bound_upper)
-	SetDizzy(new_value)
+/**
+ * Sets [dizziness][/datum/status_effect/dizziness] if it's higher than current.
+ */
+/mob/living/proc/Dizzy(amount)
+	SetDizzy(max(get_dizziness(), amount))
+
+/**
+ * Sets [dizziness][/datum/status_effect/dizziness] to current amount + given, clamped between lower and higher bounds.
+ * 
+ * Arguments:
+ * * amount - Amount to add. Can be negative to reduce duration.
+ * * bound_lower - Minimum bound to set at least to. Defaults to 0.
+ * * bound_upper - Maximum bound to set up to. Defaults to infinity.
+ */
+/mob/living/proc/AdjustDizzy(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetDizzy(clamp(get_dizziness() + amount, bound_lower, bound_upper))
 
 // DROWSY
 

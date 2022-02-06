@@ -272,3 +272,40 @@
 /datum/status_effect/grouped/before_remove(source)
 	sources -= source
 	return !length(sources)
+
+/**
+ * # Decaying Status Effect (basetype)
+ * 
+ * A status effect that works off a (possibly decimal) counter before expiring, rather than a specified world.time.
+ * This allows for a more precise tweaking of status durations at runtime (e.g. paralysis).
+ */
+/datum/status_effect/decaying
+	tick_interval = 0
+	alert_type = null
+	/// By default status effects are ticked in SSfastprocess, which is every 2 ticks, or 0.2 seconds.
+	/// Decaying status effects instead rely on timers for precision by the tick, instead of every other tick.
+	/// This means you can use deciseconds for the ticking interval here.
+	var/timer_interval = 1 SECONDS
+	/// How much strength left before expiring?
+	var/strength = 0
+	var/tick_timer = null
+
+/datum/status_effect/decaying/on_apply()
+	tick_timer = addtimer(CALLBACK(src, .proc/tick), timer_interval, TIMER_LOOP | TIMER_STOPPABLE)
+	return ..()
+
+/datum/status_effect/decaying/on_remove()
+	if(tick_timer)
+		deltimer(tick_timer)
+	return ..()
+
+/datum/status_effect/decaying/tick()
+	strength += calc_decay()
+	if(strength <= 0)
+		qdel(src)
+
+/**
+ * Returns how much strength should be adjusted per tick.
+ */
+/datum/status_effect/decaying/proc/calc_decay()
+	return -1

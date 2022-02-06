@@ -2,16 +2,6 @@
 // I can't be bothered to deal with all the merge conflicts it would cause to
 // typecast every mob in the codebase correctly
 
-/mob/proc/Dizzy()
-	return
-
-/mob/proc/SetDizzy()
-	return
-
-/mob/proc/AdjustDizzy()
-	return
-
-
 /mob/proc/Drowsy()
 	return
 

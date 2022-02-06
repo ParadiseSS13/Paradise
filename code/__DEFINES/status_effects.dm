@@ -80,7 +80,9 @@
 
 //#define STATUS_EFFECT_ICHORIAL_STAIN /datum/status_effect/ichorial_stain //Prevents a servant from being revived by vitality matrices for one minute.
 
-#define STATUS_EFFECT_CONFUSION /datum/status_effect/confusion
+#define STATUS_EFFECT_CONFUSION /datum/status_effect/decaying/confusion
+
+#define STATUS_EFFECT_DIZZINESS /datum/status_effect/decaying/dizziness
 
 /////////////
 // NEUTRAL //

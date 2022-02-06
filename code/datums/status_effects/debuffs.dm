@@ -144,12 +144,11 @@
  * Prevents moving straight, sometimes changing movement direction at random.
  * Decays at a rate of 1 per second.
  */
-/datum/status_effect/confusion
-	alert_type = null
-	var/strength = 0
+/datum/status_effect/decaying/confusion
+	id = "confusion"
 	var/static/image/overlay
 
-/datum/status_effect/confusion/on_apply()
+/datum/status_effect/decaying/confusion/on_apply()
 	if(!overlay)
 		var/matrix/M = matrix()
 		M.Scale(0.6)
@@ -158,10 +157,38 @@
 	owner.add_overlay(overlay)
 	return ..()
 
-/datum/status_effect/confusion/on_remove()
+/datum/status_effect/decaying/confusion/on_remove()
 	owner.cut_overlay(overlay)
 	return ..()
 
-/datum/status_effect/confusion/tick()
-	if(strength-- <= 0)
-		owner.remove_status_effect(STATUS_EFFECT_CONFUSION)
+/**
+ * # Dizziness
+ * 
+ * Slightly offsets the client's screen randomly every tick.
+ * Decays at a rate of 0.1 per decisecond, or 0.5 when resting.
+ */
+/datum/status_effect/decaying/dizziness
+	id = "dizziness"
+	timer_interval = 0.1 SECONDS
+	var/px_diff = 0
+	var/py_diff = 0
+
+/datum/status_effect/decaying/dizziness/on_remove()
+	if(owner.client)
+		// smoothly back to normal
+		animate(owner.client, 0.2 SECONDS, pixel_x = -px_diff, pixel_y = -py_diff, flags = ANIMATION_PARALLEL)
+	return ..()
+
+/datum/status_effect/decaying/dizziness/tick()
+	..()
+	if(QDELETED(src))
+		return
+	var/t = world.time * (1 + min(strength / 5, 3))
+	var/dir = sin(world.time * 2)
+	px_diff = cos(t) * min(strength * 2, 32) * dir
+	py_diff = sin(t) * min(strength * 2, 32) * dir
+	owner.client?.pixel_x = px_diff
+	owner.client?.pixel_y = py_diff
+
+/datum/status_effect/decaying/dizziness/calc_decay()
+	return -0.1 + (owner.resting ? -0.4 : 0)
