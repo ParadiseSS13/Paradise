@@ -158,6 +158,15 @@
 		cell = null
 		update_icon()
 
+/obj/item/clothing/gloves/color/yellow/stun/emp_act()
+	if(!ishuman(loc))
+		return ..()
+	var/mob/living/carbon/human/H = loc
+	if(cell?.use(stun_cost))
+		H.Weaken(4)
+		H.adjustFireLoss(rand(10, 25))
+		H.apply_effect(STUTTER, 5 SECONDS)
+
 /obj/item/clothing/gloves/fingerless/rapid
 	name = "Gloves of the North Star"
 	desc = "Just looking at these fills you with an urge to beat the shit out of people."
