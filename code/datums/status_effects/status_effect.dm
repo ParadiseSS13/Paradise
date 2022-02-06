@@ -282,6 +282,7 @@
 /datum/status_effect/decaying
 	tick_interval = 0
 	alert_type = null
+	on_remove_on_mob_delete = TRUE
 	/// By default status effects are ticked in SSfastprocess, which is every 2 ticks, or 0.2 seconds.
 	/// Decaying status effects instead rely on timers for precision by the tick, instead of every other tick.
 	/// This means you can use deciseconds for the ticking interval here.
@@ -295,13 +296,19 @@
 	return ..()
 
 /datum/status_effect/decaying/on_remove()
-	if(tick_timer)
+	if(tick_timer) // just incase
 		deltimer(tick_timer)
+		tick_timer = null
 	return ..()
 
 /datum/status_effect/decaying/tick()
+	if(QDELETED(src) || QDELETED(owner))
+		return
 	strength += calc_decay()
 	if(strength <= 0)
+		if(tick_timer)
+			deltimer(tick_timer)
+			tick_timer = null
 		qdel(src)
 
 /**

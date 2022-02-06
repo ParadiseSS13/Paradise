@@ -265,14 +265,6 @@
 
 	var/restingpwr = 1 + 4 * resting
 
-	if(drowsyness)
-		AdjustDrowsy(-restingpwr)
-		EyeBlurry(2)
-		if(prob(5))
-			AdjustSleeping(1)
-			Paralyse(5)
-
-
 	//Jitteryness
 	if(jitteriness)
 		do_jitter_animation(jitteriness)

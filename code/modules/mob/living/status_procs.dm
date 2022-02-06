@@ -93,7 +93,6 @@
 
 /mob // On `/mob` for now, to support legacy code
 	var/cultslurring = 0
-	var/drowsyness = 0
 	var/druggy = 0
 	var/drunk = 0
 	var/eye_blind = 0
@@ -191,15 +190,34 @@
 
 // DROWSY
 
-/mob/living/Drowsy(amount)
-	SetDrowsy(max(drowsyness, amount))
+/**
+ * Returns current amount of [drowsiness][/datum/status_effect/drowsiness], 0 if none.
+ */
+/mob/living/proc/get_drowsiness()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DROWSINESS)
 
-/mob/living/SetDrowsy(amount)
-	drowsyness = max(amount, 0)
+/**
+ * Sets [drowsiness][/datum/status_effect/drowsiness] if it's higher than zero.
+ */
+/mob/living/proc/SetDrowsy(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DROWSINESS, amount)
 
-/mob/living/AdjustDrowsy(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(drowsyness, amount, bound_lower, bound_upper)
-	SetDrowsy(new_value)
+/**
+ * Sets [drowsiness][/datum/status_effect/drowsiness] if it's higher than current.
+ */
+/mob/living/proc/Drowsy(amount)
+	SetDrowsy(max(get_drowsiness(), amount))
+
+/**
+ * Sets [drowsiness][/datum/status_effect/drowsiness] to current amount + given, clamped between lower and higher bounds.
+ * 
+ * Arguments:
+ * * amount - Amount to add. Can be negative to reduce duration.
+ * * bound_lower - Minimum bound to set at least to. Defaults to 0.
+ * * bound_upper - Maximum bound to set up to. Defaults to infinity.
+ */
+/mob/living/proc/AdjustDrowsy(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetDrowsy(clamp(get_drowsiness() + amount, bound_lower, bound_upper))
 
 // DRUNK
 

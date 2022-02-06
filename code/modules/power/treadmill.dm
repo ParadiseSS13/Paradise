@@ -70,7 +70,7 @@
 				var/mob_speed = M.movement_delay()
 				switch(M.m_intent)
 					if(MOVE_INTENT_RUN)
-						if(M.drowsyness > 0)
+						if(M.get_drowsiness() > 0)
 							mob_speed += 6
 						mob_speed += GLOB.configuration.movement.base_run_speed - 1
 					if(MOVE_INTENT_WALK)

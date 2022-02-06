@@ -915,7 +915,7 @@
 	else
 		switch(m_intent)
 			if(MOVE_INTENT_RUN)
-				if(drowsyness > 0)
+				if(get_drowsiness() > 0)
 					. += 6
 				. += GLOB.configuration.movement.base_run_speed
 			if(MOVE_INTENT_WALK)

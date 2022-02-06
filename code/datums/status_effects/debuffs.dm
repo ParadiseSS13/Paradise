@@ -183,12 +183,32 @@
 	..()
 	if(QDELETED(src))
 		return
-	var/t = world.time * (1 + min(strength / 5, 3))
 	var/dir = sin(world.time * 2)
-	px_diff = cos(t) * min(strength * 2, 32) * dir
-	py_diff = sin(t) * min(strength * 2, 32) * dir
+	px_diff = cos(world.time * 3) * min(strength * 2, 32) * dir
+	py_diff = sin(world.time * 3) * min(strength * 2, 32) * dir
 	owner.client?.pixel_x = px_diff
 	owner.client?.pixel_y = py_diff
 
 /datum/status_effect/decaying/dizziness/calc_decay()
 	return -0.1 + (owner.resting ? -0.4 : 0)
+	
+/**
+ * # Drowsiness
+ * 
+ * Slows down and causes eye blur, with a 5% chance of falling asleep for a short time.
+ * Decays at a rate of 1 per second, or 5 when resting.
+ */
+/datum/status_effect/decaying/drowsiness
+	id = "drowsiness"
+	
+/datum/status_effect/decaying/drowsiness/tick()
+	..()
+	if(QDELETED(src))
+		return
+	owner.EyeBlurry(2)
+	if(prob(5))
+		owner.AdjustSleeping(1)
+		owner.Paralyse(5)
+
+/datum/status_effect/decaying/drowsiness/calc_decay()
+	return -1 + (owner.resting ? -4 : 0)

@@ -84,6 +84,8 @@
 
 #define STATUS_EFFECT_DIZZINESS /datum/status_effect/decaying/dizziness
 
+#define STATUS_EFFECT_DROWSINESS /datum/status_effect/decaying/drowsiness
+
 /////////////
 // NEUTRAL //
 /////////////
