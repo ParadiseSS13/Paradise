@@ -279,7 +279,7 @@
  * A status effect that works off a (possibly decimal) counter before expiring, rather than a specified world.time.
  * This allows for a more precise tweaking of status durations at runtime (e.g. paralysis).
  */
-/datum/status_effect/decaying
+/datum/status_effect/transient
 	tick_interval = 0
 	alert_type = null
 	on_remove_on_mob_delete = TRUE
@@ -291,17 +291,17 @@
 	var/strength = 0
 	var/tick_timer = null
 
-/datum/status_effect/decaying/on_apply()
+/datum/status_effect/transient/on_apply()
 	tick_timer = addtimer(CALLBACK(src, .proc/tick), timer_interval, TIMER_LOOP | TIMER_STOPPABLE)
 	return ..()
 
-/datum/status_effect/decaying/on_remove()
+/datum/status_effect/transient/on_remove()
 	if(tick_timer) // just incase
 		deltimer(tick_timer)
 		tick_timer = null
 	return ..()
 
-/datum/status_effect/decaying/tick()
+/datum/status_effect/transient/tick()
 	if(QDELETED(src) || QDELETED(owner))
 		return
 	strength += calc_decay()
@@ -314,5 +314,5 @@
 /**
  * Returns how much strength should be adjusted per tick.
  */
-/datum/status_effect/decaying/proc/calc_decay()
+/datum/status_effect/transient/proc/calc_decay()
 	return -1

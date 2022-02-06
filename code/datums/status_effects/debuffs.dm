@@ -144,11 +144,11 @@
  * Prevents moving straight, sometimes changing movement direction at random.
  * Decays at a rate of 1 per second.
  */
-/datum/status_effect/decaying/confusion
+/datum/status_effect/transient/confusion
 	id = "confusion"
 	var/static/image/overlay
 
-/datum/status_effect/decaying/confusion/on_apply()
+/datum/status_effect/transient/confusion/on_apply()
 	if(!overlay)
 		var/matrix/M = matrix()
 		M.Scale(0.6)
@@ -157,7 +157,7 @@
 	owner.add_overlay(overlay)
 	return ..()
 
-/datum/status_effect/decaying/confusion/on_remove()
+/datum/status_effect/transient/confusion/on_remove()
 	owner.cut_overlay(overlay)
 	return ..()
 
@@ -167,19 +167,19 @@
  * Slightly offsets the client's screen randomly every tick.
  * Decays at a rate of 0.1 per decisecond, or 0.5 when resting.
  */
-/datum/status_effect/decaying/dizziness
+/datum/status_effect/transient/dizziness
 	id = "dizziness"
 	timer_interval = 0.1 SECONDS
 	var/px_diff = 0
 	var/py_diff = 0
 
-/datum/status_effect/decaying/dizziness/on_remove()
+/datum/status_effect/transient/dizziness/on_remove()
 	if(owner.client)
 		// smoothly back to normal
 		animate(owner.client, 0.2 SECONDS, pixel_x = -px_diff, pixel_y = -py_diff, flags = ANIMATION_PARALLEL)
 	return ..()
 
-/datum/status_effect/decaying/dizziness/tick()
+/datum/status_effect/transient/dizziness/tick()
 	..()
 	if(QDELETED(src))
 		return
@@ -189,7 +189,7 @@
 	owner.client?.pixel_x = px_diff
 	owner.client?.pixel_y = py_diff
 
-/datum/status_effect/decaying/dizziness/calc_decay()
+/datum/status_effect/transient/dizziness/calc_decay()
 	return -0.1 + (owner.resting ? -0.4 : 0)
 	
 /**
@@ -198,10 +198,10 @@
  * Slows down and causes eye blur, with a 5% chance of falling asleep for a short time.
  * Decays at a rate of 1 per second, or 5 when resting.
  */
-/datum/status_effect/decaying/drowsiness
+/datum/status_effect/transient/drowsiness
 	id = "drowsiness"
 	
-/datum/status_effect/decaying/drowsiness/tick()
+/datum/status_effect/transient/drowsiness/tick()
 	..()
 	if(QDELETED(src))
 		return
@@ -210,5 +210,5 @@
 		owner.AdjustSleeping(1)
 		owner.Paralyse(5)
 
-/datum/status_effect/decaying/drowsiness/calc_decay()
+/datum/status_effect/transient/drowsiness/calc_decay()
 	return -1 + (owner.resting ? -4 : 0)

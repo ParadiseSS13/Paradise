@@ -70,13 +70,13 @@
 */
 
 #define RETURN_STATUS_EFFECT_STRENGTH(T) \
-	var/datum/status_effect/decaying/S = has_status_effect(T);\
+	var/datum/status_effect/transient/S = has_status_effect(T);\
 	return S ? S.strength : 0
 
 #define SET_STATUS_EFFECT_STRENGTH(T, A) \
 	A = max(A, 0);\
 	if(A) {;\
-		var/datum/status_effect/decaying/S = has_status_effect(T) || apply_status_effect(T);\
+		var/datum/status_effect/transient/S = has_status_effect(T) || apply_status_effect(T);\
 		S.strength = A;\
 	} else {;\
 		remove_status_effect(T);\
@@ -601,3 +601,6 @@
 
 /mob/living/proc/reset_shocked()
 	flags_2 &= ~ SHOCKED_2
+
+#undef RETURN_STATUS_EFFECT_STRENGTH
+#undef SET_STATUS_EFFECT_STRENGTH
