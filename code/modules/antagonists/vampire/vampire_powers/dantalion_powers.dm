@@ -80,6 +80,7 @@
 	name = "Commune"
 	desc = "Talk to your thralls telepathically."
 	gain_desc = "You have gained the ability to commune with your thralls."
+	action_icon_state = "vamp_communication"
 
 /obj/effect/proc_holder/spell/vampire/thrall_commune/create_new_handler() //so thralls can use it
 	return
@@ -125,6 +126,7 @@
 	name = "Pacify (10)"
 	desc = "Pacify a target temporarily, making them unable to cause harm."
 	gain_desc = "You have gained the ability to pacify someones harmful tendencies, preventing them from doing any physical harm to anyone."
+	action_icon_state = "pacify"
 	charge_max = 30 SECONDS
 	required_blood = 10
 
@@ -143,6 +145,7 @@
 	name = "Deploy Decoy (30)"
 	desc = "Briefly turn invisible and deploy a decoy illusion to fool your prey."
 	gain_desc = "You have gained the ability to turn invisible and create decoy illusions."
+	action_icon_state = "decoy"
 	required_blood = 30
 	charge_max = 40 SECONDS
 
@@ -160,6 +163,7 @@
 	name = "Rally Thralls (100)"
 	desc = "Removes all crowd incapacitating effects from your nearby thralls."
 	gain_desc = "You have gained the ability to remove all incapacitating effects from nearby thralls."
+	action_icon_state = "thralls_up"
 	required_blood = 100
 	charge_max = 100 SECONDS
 
@@ -183,6 +187,7 @@
 	name = "Mass Hysteria (70)"
 	desc = "Casts a powerful illusion to make everyone nearby percieve others to looks like random animals after briefly blinding them."
 	gain_desc = "You have gained the ability to make everyone nearby percieve others to looks like random animals after briefly blinding them."
+	action_icon_state = "hysteria"
 	required_blood = 70
 	charge_max = 180 SECONDS
 
