@@ -94,7 +94,6 @@
 /mob // On `/mob` for now, to support legacy code
 	var/cultslurring = 0
 	var/druggy = 0
-	var/drunk = 0
 	var/eye_blind = 0
 	var/eye_blurry = 0
 	var/hallucination = 0
@@ -129,25 +128,25 @@
 // SCALAR STATUS EFFECTS
 
 /**
- * Returns current amount of [confusion][/datum/status_effect/confusion], 0 if none.
+ * Returns current amount of [confusion][/datum/status_effect/decaying/confusion], 0 if none.
  */
 /mob/living/proc/get_confusion()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_CONFUSION)
 
 /**
- * Sets [confusion][/datum/status_effect/confusion] if it's higher than zero.
+ * Sets [confusion][/datum/status_effect/decaying/confusion] if it's higher than zero.
  */
 /mob/living/proc/SetConfused(amount)
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_CONFUSION, amount)
 
 /**
- * Sets [confusion][/datum/status_effect/confusion] if it's higher than current.
+ * Sets [confusion][/datum/status_effect/decaying/confusion] if it's higher than current.
  */
 /mob/living/proc/Confused(amount)
 	SetConfused(max(get_confusion(), amount))
 
 /**
- * Sets [confusion][/datum/status_effect/confusion] to current amount + given, clamped between lower and higher bounds.
+ * Sets [confusion][/datum/status_effect/decaying/confusion] to current amount + given, clamped between lower and higher bounds.
  * 
  * Arguments:
  * * amount - Amount to add. Can be negative to reduce duration.
@@ -160,25 +159,25 @@
 // DIZZY
 
 /**
- * Returns current amount of [dizziness][/datum/status_effect/dizziness], 0 if none.
+ * Returns current amount of [dizziness][/datum/status_effect/decaying/dizziness], 0 if none.
  */
 /mob/living/proc/get_dizziness()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DIZZINESS)
 
 /**
- * Sets [dizziness][/datum/status_effect/dizziness] if it's higher than zero.
+ * Sets [dizziness][/datum/status_effect/decaying/dizziness] if it's higher than zero.
  */
 /mob/living/proc/SetDizzy(amount)
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DIZZINESS, amount)
 
 /**
- * Sets [dizziness][/datum/status_effect/dizziness] if it's higher than current.
+ * Sets [dizziness][/datum/status_effect/decaying/dizziness] if it's higher than current.
  */
 /mob/living/proc/Dizzy(amount)
 	SetDizzy(max(get_dizziness(), amount))
 
 /**
- * Sets [dizziness][/datum/status_effect/dizziness] to current amount + given, clamped between lower and higher bounds.
+ * Sets [dizziness][/datum/status_effect/decaying/dizziness] to current amount + given, clamped between lower and higher bounds.
  * 
  * Arguments:
  * * amount - Amount to add. Can be negative to reduce duration.
@@ -191,25 +190,25 @@
 // DROWSY
 
 /**
- * Returns current amount of [drowsiness][/datum/status_effect/drowsiness], 0 if none.
+ * Returns current amount of [drowsiness][/datum/status_effect/decaying/drowsiness], 0 if none.
  */
 /mob/living/proc/get_drowsiness()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DROWSINESS)
 
 /**
- * Sets [drowsiness][/datum/status_effect/drowsiness] if it's higher than zero.
+ * Sets [drowsiness][/datum/status_effect/decaying/drowsiness] if it's higher than zero.
  */
 /mob/living/proc/SetDrowsy(amount)
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DROWSINESS, amount)
 
 /**
- * Sets [drowsiness][/datum/status_effect/drowsiness] if it's higher than current.
+ * Sets [drowsiness][/datum/status_effect/decaying/drowsiness] if it's higher than current.
  */
 /mob/living/proc/Drowsy(amount)
 	SetDrowsy(max(get_drowsiness(), amount))
 
 /**
- * Sets [drowsiness][/datum/status_effect/drowsiness] to current amount + given, clamped between lower and higher bounds.
+ * Sets [drowsiness][/datum/status_effect/decaying/drowsiness] to current amount + given, clamped between lower and higher bounds.
  * 
  * Arguments:
  * * amount - Amount to add. Can be negative to reduce duration.
@@ -221,15 +220,34 @@
 
 // DRUNK
 
-/mob/living/Drunk(amount)
-	SetDrunk(max(drunk, amount))
+/**
+ * Returns current amount of [drunkenness][/datum/status_effect/decaying/drunkenness], 0 if none.
+ */
+/mob/living/proc/get_drunkenness()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DRUNKENNESS)
 
-/mob/living/SetDrunk(amount)
-	drunk = max(amount, 0)
+/**
+ * Sets [drunkenness][/datum/status_effect/decaying/drunkenness] if it's higher than zero.
+ */
+/mob/living/proc/SetDrunk(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DRUNKENNESS, amount)
 
-/mob/living/AdjustDrunk(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(drunk, amount, bound_lower, bound_upper)
-	SetDrunk(new_value)
+/**
+ * Sets [drunkenness][/datum/status_effect/decaying/drunkenness] if it's higher than current.
+ */
+/mob/living/proc/Drunk(amount)
+	SetDrunk(max(get_drunkenness(), amount))
+
+/**
+ * Sets [drunkenness][/datum/status_effect/decaying/drunkenness] to current amount + given, clamped between lower and higher bounds.
+ * 
+ * Arguments:
+ * * amount - Amount to add. Can be negative to reduce duration.
+ * * bound_lower - Minimum bound to set at least to. Defaults to 0.
+ * * bound_upper - Maximum bound to set up to. Defaults to infinity.
+ */
+/mob/living/proc/AdjustDrunk(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetDrunk(clamp(get_drunkenness() + amount, bound_lower, bound_upper))
 
 // DRUGGY
 
@@ -403,13 +421,6 @@
 
 /mob/living/SetSlur(amount)
 	slurring = max(amount, 0)
-
-	if(slurring && drunk)
-		throw_alert("drunk", /obj/screen/alert/drunk)
-		sound_environment_override = SOUND_ENVIRONMENT_PSYCHOTIC
-	else
-		clear_alert("drunk")
-		sound_environment_override = SOUND_ENVIRONMENT_NONE
 
 /mob/living/AdjustSlur(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(slurring, amount, bound_lower, bound_upper)

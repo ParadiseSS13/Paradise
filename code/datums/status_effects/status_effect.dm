@@ -306,9 +306,6 @@
 		return
 	strength += calc_decay()
 	if(strength <= 0)
-		if(tick_timer)
-			deltimer(tick_timer)
-			tick_timer = null
 		qdel(src)
 
 /**

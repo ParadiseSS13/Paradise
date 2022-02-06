@@ -296,7 +296,7 @@
 				continue
 			comfort+= bedsheet.comfort
 			break //Only count the first bedsheet
-		if(drunk)
+		if(get_drunkenness() > 0)
 			comfort += 1 //Aren't naps SO much better when drunk?
 			AdjustDrunk(-0.2*comfort) //reduce drunkenness while sleeping.
 		if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.

@@ -603,65 +603,6 @@
 
 	handle_trace_chems()
 
-/mob/living/carbon/human/handle_drunk()
-	var/slur_start = 30 //12u ethanol, 30u whiskey FOR HUMANS
-	var/confused_start = 40
-	var/brawl_start = 30
-	var/blur_start = 75
-	var/vomit_start = 60
-	var/pass_out = 90
-	var/spark_start = 50 //40u synthanol
-	var/collapse_start = 75
-	var/braindamage_start = 120
-	var/alcohol_strength = drunk
-	var/sober_str = !HAS_TRAIT(src, TRAIT_ALCOHOL_TOLERANCE) ? 1 : 2
-
-	alcohol_strength /= sober_str
-
-	var/obj/item/organ/internal/liver/L
-	if(!ismachineperson(src))
-		L = get_int_organ(/obj/item/organ/internal/liver)
-		if(L)
-			alcohol_strength *= L.alcohol_intensity
-		else
-			alcohol_strength *= 5
-
-	if(alcohol_strength >= slur_start) //slurring
-		Slur(drunk)
-	if(mind)
-		if(alcohol_strength >= brawl_start) //the drunken martial art
-			if(!istype(mind.martial_art, /datum/martial_art/drunk_brawling))
-				var/datum/martial_art/drunk_brawling/F = new
-				F.teach(src, TRUE)
-		else if(alcohol_strength < brawl_start) //removing the art
-			if(istype(mind.martial_art, /datum/martial_art/drunk_brawling))
-				mind.martial_art.remove(src)
-	if(alcohol_strength >= confused_start && prob(33)) //confused walking
-		AdjustConfused(3 / sober_str, bound_lower = 1)
-	if(alcohol_strength >= blur_start) //blurry eyes
-		EyeBlurry(10 / sober_str)
-	if(!ismachineperson(src)) //stuff only for non-synthetics
-		if(alcohol_strength >= vomit_start) //vomiting
-			if(prob(8))
-				fakevomit()
-		if(alcohol_strength >= pass_out)
-			Paralyse(5 / sober_str)
-			Drowsy(30 / sober_str)
-			if(L)
-				L.receive_damage(0.1, 1)
-			adjustToxLoss(0.1)
-	else //stuff only for synthetics
-		if(alcohol_strength >= spark_start && prob(25))
-			do_sparks(3, 1, src)
-		if(alcohol_strength >= collapse_start && prob(10))
-			emote("collapse")
-			do_sparks(3, 1, src)
-		if(alcohol_strength >= braindamage_start && prob(10))
-			adjustBrainLoss(1)
-
-	if(!has_booze())
-		AdjustDrunk(-0.5)
-
 /mob/living/carbon/human/proc/has_booze() //checks if the human has ethanol or its subtypes inside
 	for(var/A in reagents.reagent_list)
 		var/datum/reagent/R = A

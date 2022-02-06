@@ -86,6 +86,8 @@
 
 #define STATUS_EFFECT_DROWSINESS /datum/status_effect/transient/drowsiness
 
+#define STATUS_EFFECT_DRUNKENNESS /datum/status_effect/transient/drunkenness
+
 /////////////
 // NEUTRAL //
 /////////////
