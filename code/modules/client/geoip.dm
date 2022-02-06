@@ -103,6 +103,110 @@ var/global/list/geoip_ckey_updated = list()
 				if("query")
 					ip = msg[data]
 		status = "updated"
+		if(proxy == "true")
+			proxy = is_isp_really_proxy(isp) ? "true" : "false"
+	return TRUE
+
+/datum/geoip_data/proc/is_isp_really_proxy(isp)
+	switch(isp)
+		if("Yuginterseti LLC")
+			return FALSE
+		if("Orion Telecom LLC")
+			return FALSE
+		if("OJSC \"Sibirtelecom\"")
+			return FALSE
+		if("NCNET")
+			return FALSE
+		if("PC \"Astra-net\"")
+			return FALSE
+		if("TIS-DIALOG")
+			return FALSE
+		if("K-Link LLC")
+			return FALSE
+		if("LLC \"TEXNOPROSISTEM\"")
+			return FALSE
+		if("CJSC \"ER-Telecom Holding\" Kurgan branch")
+			return FALSE
+		if("CJSC \"ER-Telecom Holding\" Ufa branch")
+			return FALSE
+		if("CMST-ULJANOVSK")
+			return FALSE
+		if("CORBINA-BROADBAND")
+			return FALSE
+		if("JSC Avantel")
+			return FALSE
+		if("JSC Kazakhtelecom")
+			return FALSE
+		if("JSC \"Russian Company\" LIR")
+			return FALSE
+		if("JSC Svyazist")
+			return FALSE
+		if("Lugansky Merezhy Ltd")
+			return FALSE
+		if("Mobile TeleSystems")
+			return FALSE
+		if("Moscow Local Telephone Network (OAO MGTS)")
+			return FALSE
+		if("OJSC \"Sibirtelecom\"")
+			return FALSE
+		if("Orenburg branch of OJSC VolgaTelecom")
+			return FALSE
+		if("PJSC Bashinformsvyaz NAT")
+			return FALSE
+		if("PJSC Promtelecom")
+			return FALSE
+		if("Podolsk Electrosvyaz Ltd.")
+			return FALSE
+		if("Public Joint Stock Company \"Vimpel-Communications\"")
+			return FALSE
+		if("RTCOMM")
+			return FALSE
+		if("Sakhalin Cable Telesystems Ltd")
+			return FALSE
+		if("Ukrainian Telecommunication Group LLC")
+			return FALSE
+		if("Uzbektelecom JSC")
+			return FALSE
+		if("Volga Branch of PJSC MegaFon")
+			return FALSE
+		if("ZagorodTelecom LLC")
+			return FALSE
+		if("Corporate Internet Service Provider LLC")
+			return FALSE
+		if("2Day Telecom LLP")
+			return FALSE
+		if("CRELCOM")
+			return FALSE
+		if("Kyivstar UA")
+			return FALSE
+		if("LLC TK Altair")
+			return FALSE
+		if("MTS PJSC")
+			return FALSE
+		if("NMTS")
+			return FALSE
+		if("CTC ASTANA LTD")
+			return FALSE
+		if("Tele2 Russia Groups")
+			return FALSE
+		if("PJSC MegaFon")
+			return FALSE
+		if("MegaFon-Moscow")
+			return FALSE
+		if("OJSC \"Sibirtelecom\"")
+			return FALSE
+		if("Rostelecom networks")
+			return FALSE
+		if("REDCOM LIR 6 Vladivostok")
+			return FALSE
+		if("Digital Network JSC")
+			return FALSE
+		if("MegaFon")
+			return FALSE
+		if("LLC \"PioneerNet\"")
+			return FALSE
+		if("CJSC \"ER-Telecom Holding\" Nizhny Novgorod branch")
+			return FALSE
 	return TRUE
 
 /proc/geoip_check(addr)
