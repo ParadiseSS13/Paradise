@@ -165,11 +165,10 @@
  * # Dizziness
  * 
  * Slightly offsets the client's screen randomly every tick.
- * Decays at a rate of 0.1 per decisecond, or 0.5 when resting.
+ * Decays at a rate of 1 per second, or 5 when resting.
  */
 /datum/status_effect/transient/dizziness
 	id = "dizziness"
-	timer_interval = 0.1 SECONDS
 	var/px_diff = 0
 	var/py_diff = 0
 
@@ -190,7 +189,7 @@
 	owner.client?.pixel_y = py_diff
 
 /datum/status_effect/transient/dizziness/calc_decay()
-	return -0.1 + (owner.resting ? -0.4 : 0)
+	return -0.2 + (owner.resting ? -0.8 : 0)
 	
 /**
  * # Drowsiness
@@ -211,13 +210,13 @@
 		owner.Paralyse(5)
 
 /datum/status_effect/transient/drowsiness/calc_decay()
-	return -1 + (owner.resting ? -4 : 0)
+	return -0.2 + (owner.resting ? -0.8 : 0)
 
 /**
  * # Drukenness
  * 
  * Causes a myriad of status effects and other afflictions the stronger it is.
- * Decays at a rate of 0.5 per second if no alcohol remains inside.
+ * Decays at a rate of 1 per second if no alcohol remains inside.
  */
 /datum/status_effect/transient/drunkenness
 	id = "drunkenness"
@@ -325,4 +324,4 @@
 		var/mob/living/carbon/human/H = owner
 		if(H.has_booze())
 			return 0
-	return -0.5
+	return -0.2

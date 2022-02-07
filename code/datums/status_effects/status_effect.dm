@@ -274,32 +274,16 @@
 	return !length(sources)
 
 /**
- * # Decaying Status Effect (basetype)
+ * # Transient Status Effect (basetype)
  * 
  * A status effect that works off a (possibly decimal) counter before expiring, rather than a specified world.time.
  * This allows for a more precise tweaking of status durations at runtime (e.g. paralysis).
  */
 /datum/status_effect/transient
-	tick_interval = 0
+	tick_interval = 0.2 SECONDS // SSfastprocess interval
 	alert_type = null
-	on_remove_on_mob_delete = TRUE
-	/// By default status effects are ticked in SSfastprocess, which is every 2 ticks, or 0.2 seconds.
-	/// Decaying status effects instead rely on timers for precision by the tick, instead of every other tick.
-	/// This means you can use deciseconds for the ticking interval here.
-	var/timer_interval = 1 SECONDS
 	/// How much strength left before expiring?
 	var/strength = 0
-	var/tick_timer = null
-
-/datum/status_effect/transient/on_apply()
-	tick_timer = addtimer(CALLBACK(src, .proc/tick), timer_interval, TIMER_LOOP | TIMER_STOPPABLE)
-	return ..()
-
-/datum/status_effect/transient/on_remove()
-	if(tick_timer) // just incase
-		deltimer(tick_timer)
-		tick_timer = null
-	return ..()
 
 /datum/status_effect/transient/tick()
 	if(QDELETED(src) || QDELETED(owner))
@@ -312,4 +296,4 @@
  * Returns how much strength should be adjusted per tick.
  */
 /datum/status_effect/transient/proc/calc_decay()
-	return -1
+	return -0.2 // 1 per second by default
