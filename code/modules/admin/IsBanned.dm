@@ -61,6 +61,8 @@
 			"ckeytext" = ckeytext
 		)
 
+		var/wl_cid
+
 		var/ipquery = ""
 		var/cidquery = ""
 		if(address)
@@ -70,6 +72,19 @@
 		if(computer_id)
 			cidquery = " OR computerid=:cid "
 			sql_query_params["cid"] = computer_id
+
+			var/datum/db_query/ban_wl_query = SSdbcore.NewQuery({"
+			SELECT computerid FROM [sqlfdbkdbutil].[format_table_name("ban_whitelist")]
+			WHERE ckey=:ckeytext [cidquery]"}, sql_query_params)
+
+			if(!ban_wl_query.warn_execute())
+				message_admins("Failed to do a DB ban whitelist check for [ckeytext]. You have been warned.")
+				qdel(ban_wl_query)
+				return
+
+			while(ban_wl_query.NextRow())
+				wl_cid = ban_wl_query.item[1]
+			qdel(ban_wl_query)
 
 		var/datum/db_query/query = SSdbcore.NewQuery({"
 		SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [sqlfdbkdbutil].[format_table_name("ban")]
@@ -91,6 +106,9 @@
 			var/duration = query.item[7]
 			var/bantime = query.item[8]
 			var/bantype = query.item[9]
+			if(wl_cid && computer_id && wl_cid == computer_id && pckey != ckey)
+				log_admin("Client [key] has banned CID ([computer_id]) but also exist in a ban whitelist - access allowed")
+				continue
 			if(bantype == "ADMIN_PERMABAN" || bantype == "ADMIN_TEMPBAN")
 				//admin bans MUST match on ckey to prevent cid-spoofing attacks
 				//	as well as dynamic ip abuse
