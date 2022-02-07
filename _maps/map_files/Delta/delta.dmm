@@ -46868,7 +46868,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Library North";
+	c_tag = "Library Fore";
 	dir = 8
 	},
 /obj/machinery/newscaster{
@@ -56893,6 +56893,10 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Library Aft";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -60858,7 +60862,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
 	icon_state = "pipe-j2s";
@@ -60876,7 +60882,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -66767,7 +66775,7 @@
 /obj/machinery/camera{
 	c_tag = "Research Chemistry";
 	dir = 8;
-	network = list("Research","SS13","Security")
+	network = list("Research","SS13")
 	},
 /obj/machinery/chem_dispenser,
 /obj/item/reagent_containers/glass/beaker/large,
@@ -67401,10 +67409,10 @@
 /turf/simulated/floor/plasteel,
 /area/medical/research)
 "cUZ" = (
-/obj/machinery/light/small{
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/medical/research)
 "cVb" = (
@@ -68745,8 +68753,8 @@
 	},
 /area/toxins/xenobiology)
 "cYj" = (
-/obj/machinery/light/small,
 /obj/effect/decal/warning_stripes/south,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/medical/research)
 "cYk" = (
@@ -72078,10 +72086,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor)
-"dfh" = (
-/obj/structure/sign/securearea,
-/turf/simulated/wall/r_wall,
-/area/crew_quarters/hor)
 "dfi" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -73306,6 +73310,12 @@
 	},
 /obj/structure/displaycase/labcage,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the RD's goons from the safety of his office.";
+	name = "Research Monitor";
+	network = list("Research","MiniSat","RD");
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "dhO" = (
@@ -80506,8 +80516,8 @@
 /obj/item/wrench,
 /obj/item/clothing/mask/gas,
 /obj/machinery/camera{
-	c_tag = "Research Outpost Temporary Storage";
-	network = list("Research Outpost")
+	c_tag = "Research Toxins Launch";
+	network = list("Research","SS13")
 	},
 /obj/structure/disaster_counter/toxins{
 	pixel_y = 32
@@ -134580,7 +134590,7 @@ cYz
 dau
 dbP
 cPn
-dfh
+dff
 dhN
 djp
 djH
