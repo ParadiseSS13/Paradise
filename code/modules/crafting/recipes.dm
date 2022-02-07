@@ -304,17 +304,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
-/datum/crafting_recipe/stungloves
-	name = "Stun Gloves"
-	result = /obj/item/clothing/gloves/color/yellow/stun
-	time = 50
-	reqs = list(/obj/item/stack/tape_roll = 5,
-				/obj/item/stack/cable_coil = 15,
-				/obj/item/clothing/gloves/color/yellow = 1)
-	tools = list(TOOL_WIRECUTTER, TOOL_MULTITOOL)
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-
 /datum/crafting_recipe/makeshift_bolt
 	name = "Makeshift Bolt"
 	result = /obj/item/arrow/rod
