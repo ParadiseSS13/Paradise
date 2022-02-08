@@ -471,7 +471,7 @@
 			var/list/admincounter = staff_countup(R_BAN)
 			var/admin_count = admincounter[1]
 			admin_count-- // Exclude ourself
-			var/msg = "**[ckey]** logged out. **[admin_count]** admins[admin_count == 1 ? "" : "s"] online."
+			var/msg = "**[ckey]** logged out. **[admin_count]** admin[admin_count == 1 ? "" : "s"] online."
 			var/list/data = list()
 			data["author"] = "alice"
 			data["source"] = GLOB.configuration.system.instance_id
