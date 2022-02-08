@@ -207,6 +207,9 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		if(istype(C, /obj/item/pda))
 			var/obj/item/pda/pda = C
 			C = pda.id
+		if(istype(C, /obj/item/storage/wallet))
+			var/obj/item/storage/wallet/wallet = C
+			C = wallet.front_id
 		if(istype(C) && C.registered_name == card.registered_name)
 			return TRUE
 
