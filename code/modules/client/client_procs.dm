@@ -249,6 +249,9 @@
 
 	log_client_to_db(tdata) // Make sure our client exists in the DB
 
+	// We have a holder. Inform the relevant places
+	INVOKE_ASYNC(src, .proc/announce_join)
+
 	pai_save = new(src)
 
 	// This is where we load all of the clients stuff from the DB
@@ -411,6 +414,7 @@
 	return ..()
 
 /client/Destroy()
+	announce_leave() // Do not put this below
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
@@ -426,6 +430,53 @@
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
+
+
+/client/proc/announce_join()
+	if(holder.rights & R_MENTOR)
+		if(SSredis.connected)
+			var/list/mentorcounter = staff_countup(R_MENTOR)
+			var/msg = "**[ckey]** logged in. **[mentorcounter[1]]** mentor[mentorcounter[1] == 1 ? "" : "s"] online."
+			var/list/data = list()
+			data["author"] = "alice"
+			data["source"] = GLOB.configuration.system.instance_id
+			data["message"] = msg
+			SSredis.publish("byond.msay.out", json_encode(data))
+
+	else if(holder.rights & R_BAN)
+		if(SSredis.connected)
+			var/list/admincounter = staff_countup(R_BAN)
+			var/msg = "**[ckey]** logged in. **[admincounter[1]]** admin[admincounter[1] == 1 ? "" : "s"] online."
+			var/list/data = list()
+			data["author"] = "alice"
+			data["source"] = GLOB.configuration.system.instance_id
+			data["message"] = msg
+			SSredis.publish("byond.asay.out", json_encode(data))
+
+/client/proc/announce_leave()
+	if(holder.rights & R_MENTOR)
+		if(SSredis.connected)
+			var/list/mentorcounter = staff_countup(R_MENTOR)
+			var/mentor_count = mentorcounter[1]
+			mentor_count-- // Exclude ourself
+			var/msg = "**[ckey]** logged out. **[mentor_count]** mentor[mentor_count == 1 ? "" : "s"] online."
+			var/list/data = list()
+			data["author"] = "alice"
+			data["source"] = GLOB.configuration.system.instance_id
+			data["message"] = msg
+			SSredis.publish("byond.msay.out", json_encode(data))
+
+	else if(holder.rights & R_BAN)
+		if(SSredis.connected)
+			var/list/admincounter = staff_countup(R_BAN)
+			var/admin_count = admincounter[1]
+			admin_count-- // Exclude ourself
+			var/msg = "**[ckey]** logged out. **[admin_count]** admin[admin_count == 1 ? "" : "s"] online."
+			var/list/data = list()
+			data["author"] = "alice"
+			data["source"] = GLOB.configuration.system.instance_id
+			data["message"] = msg
+			SSredis.publish("byond.asay.out", json_encode(data))
 
 
 /client/proc/donor_loadout_points()
