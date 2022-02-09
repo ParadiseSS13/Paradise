@@ -433,6 +433,9 @@
 
 
 /client/proc/announce_join()
+	if(!holder)
+		return
+
 	if(holder.rights & R_MENTOR)
 		if(SSredis.connected)
 			var/list/mentorcounter = staff_countup(R_MENTOR)
@@ -454,6 +457,9 @@
 			SSredis.publish("byond.asay.out", json_encode(data))
 
 /client/proc/announce_leave()
+	if(!holder)
+		return
+
 	if(holder.rights & R_MENTOR)
 		if(SSredis.connected)
 			var/list/mentorcounter = staff_countup(R_MENTOR)
