@@ -272,7 +272,7 @@
 		if(user.mind.changeling) //Changelings
 			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
-		else if(user.mind.vampire) //Vampires
+		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
 			to_chat(user, "<span class ='warning'>Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!</span>")
 			return
 
@@ -296,7 +296,7 @@
 		if(user.mind.changeling) //Changelings
 			to_chat(user, "<span class='warning'>We try multiple times, but we simply cannot grasp the basics of CQC!</span>")
 			return
-		else if(user.mind.vampire) //Vampires
+		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
 			to_chat(user, "<span class='warning'>Your blood lust distracts you from the basics of CQC!</span>")
 			return
 		else if(HAS_TRAIT(user, TRAIT_PACIFISM))

@@ -242,7 +242,7 @@
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/eyes/cybernetic/xray,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
 		/obj/item/organ/internal/cyberimp/arm/combat/centcom
 	)
 
@@ -324,13 +324,6 @@
 		/obj/item/flash = 1,
 		/obj/item/gun/energy/noisecannon = 1
 	)
-
-/datum/outfit/admin/vox/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(isvoxarmalis(H))
-		. = ..()
-	else
-		H.equip_vox_raider()
-		H.regenerate_icons()
 
 /datum/outfit/admin/vox/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -668,7 +661,7 @@
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/flash,
-		/obj/item/organ/internal/cyberimp/chest/nutriment,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security
 	)
 	implants = list(/obj/item/implant/mindshield,
@@ -731,7 +724,7 @@
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/chest/nutriment,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/arm/flash,
 		/obj/item/organ/internal/eyes/cybernetic/shield
@@ -1102,12 +1095,13 @@
 		apply_to_card(I, H, get_all_accesses(), "Ancient One", "data")
 
 	if(H.mind)
-		if(!H.mind.vampire)
+		if(!H.mind.has_antag_datum(/datum/antagonist/vampire))
 			H.mind.make_vampire(TRUE)
-		H.mind.vampire.bloodusable = 9999
-		H.mind.vampire.bloodtotal = 9999
+		var/datum/antagonist/vampire/V = H.mind.has_antag_datum(/datum/antagonist/vampire)
+		V.bloodusable = 9999
+		V.bloodtotal = 9999
 		H.mind.offstation_role = TRUE
-		H.mind.vampire.add_subclass(SUBCLASS_ANCIENT, FALSE)
+		V.add_subclass(SUBCLASS_ANCIENT, FALSE)
 		H.dna.SetSEState(GLOB.jumpblock, TRUE)
 		singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
 		H.update_mutations()

@@ -120,7 +120,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		body += "<A href='?_src_=holder;boot2=[M.UID()]'>Kick</A> | "
 		body += "<A href='?_src_=holder;newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</A> | "
 		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
-		body += "<A href='?_src_=holder;appearanceban=[M.UID()];dbbanaddckey=[M.ckey]'>Appearance Ban</A> | "
 		body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
 		body += "<A href='?_src_=holder;viewkarma=[M.ckey]'>View Karma</A> | "
 		if(GLOB.configuration.url.forum_playerinfo_url)
@@ -311,19 +310,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	var/key = stripped_input(usr, "Enter ckey to add/remove, or leave blank to cancel:", "VPN Whitelist add/remove", max_length=32)
 	if(key)
 		SSipintel.vpn_whitelist_panel(key)
-
-/datum/admins/proc/Jobbans()
-	if(!check_rights(R_BAN))
-		return
-
-	var/dat = "<B>Job Bans!</B><HR><table>"
-	for(var/t in GLOB.jobban_keylist)
-		var/r = t
-		if( findtext(r,"##") )
-			r = copytext( r, 1, findtext(r,"##") )//removes the description
-		dat += text("<tr><td>[t] (<A href='?src=[UID()];removejobban=[r]'>unban</A>)</td></tr>")
-	dat += "</table>"
-	usr << browse(dat, "window=ban;size=400x400")
 
 /datum/admins/proc/Game()
 	if(!check_rights(R_ADMIN))
@@ -665,9 +651,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Changeling"
 	if(M.mind in SSticker.mode.abductors)
 		antag_list += "Abductor"
-	if(M.mind in SSticker.mode.vampires)
+	if(M.mind.has_antag_datum(/datum/antagonist/vampire))
 		antag_list += "Vampire"
-	if(M.mind in SSticker.mode.vampire_enthralled)
+	if(M.mind.has_antag_datum(/datum/antagonist/mindslave/thrall))
 		antag_list += "Vampire Thrall"
 	if(M.mind in SSticker.mode.shadows)
 		antag_list += "Shadowling"
@@ -675,7 +661,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Shadowling Thrall"
 	if(M.mind.has_antag_datum(/datum/antagonist/traitor))
 		antag_list += "Traitor"
-	if(M.mind.has_antag_datum(/datum/antagonist/mindslave))
+	if(M.mind.has_antag_datum(/datum/antagonist/mindslave, FALSE))
 		antag_list += "Mindslave"
 	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M

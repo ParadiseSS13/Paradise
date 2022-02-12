@@ -27,7 +27,7 @@
 
 /obj/item/melee/ghost_sword
 	name = "spectral blade"
-	desc = "A rusted and dulled blade. It doesn't look like it'd do much damage. It glows weakly."
+	desc = "A rusted and dulled blade. It doesn't look like it'd do much damage."
 	icon_state = "spectral"
 	item_state = "spectral"
 	flags = CONDUCT
@@ -43,16 +43,25 @@
 /obj/item/melee/ghost_sword/New()
 	..()
 	spirits = list()
-	START_PROCESSING(SSobj, src)
+	register_signals(src)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/on_move)
 	GLOB.poi_list |= src
 
 /obj/item/melee/ghost_sword/Destroy()
 	for(var/mob/dead/observer/G in spirits)
-		G.invisibility = initial(G.invisibility)
+		remove_ghost(G)
 	spirits.Cut()
-	STOP_PROCESSING(SSobj, src)
+	remove_signals(src)
+	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
 	GLOB.poi_list -= src
 	. = ..()
+
+/obj/item/melee/ghost_sword/examine()
+	. = ..()
+	if(spirits)
+		. += "It appears to pulse with the power of [length(spirits)] vengeful spirits!"
+	else
+		. += "It glows weakly."
 
 /obj/item/melee/ghost_sword/attack_self(mob/user)
 	if(summon_cooldown > world.time)
@@ -70,38 +79,63 @@
 		if(istype(ghost))
 			ghost.ManualFollow(src)
 
-/obj/item/melee/ghost_sword/process()
-	ghost_check()
+/obj/item/melee/ghost_sword/proc/add_ghost(atom/movable/orbited, atom/orbiter)
+	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_BEGIN
+	if(!isobserver(orbiter))
+		return
 
-/obj/item/melee/ghost_sword/proc/ghost_check()
-	var/ghost_counter = 0
-	var/turf/T = get_turf(src)
-	var/list/contents = T.GetAllContents()
-	var/mob/dead/observer/current_spirits = list()
+	var/mob/dead/observer/ghost = orbiter
 
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		if((O.orbiting in contents))
-			ghost_counter++
-			O.invisibility = 0
-			current_spirits |= O
+	register_signals(ghost) // Sure, just in case someone's orbiting an orbiting ghost
 
-	for(var/mob/dead/observer/G in spirits - current_spirits)
-		G.invisibility = initial(G.invisibility)
+	spirits |= ghost
+	ghost.invisibility = 0
 
-	spirits = current_spirits
+/obj/item/melee/ghost_sword/proc/remove_ghost(atom/movable/orbited, atom/orbiter)
+	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_STOP
+	if(!isobserver(orbiter))
+		return
 
-	return ghost_counter
+	var/mob/dead/observer/ghost = orbiter
+
+	remove_signals(ghost)
+
+	spirits -= ghost
+	ghost.invisibility = initial(ghost.invisibility)
+
+/obj/item/melee/ghost_sword/proc/remove_signals(atom/A)
+	UnregisterSignal(A, COMSIG_ATOM_ORBIT_STOP)
+	UnregisterSignal(A, COMSIG_ATOM_ORBIT_BEGIN)
+
+/obj/item/melee/ghost_sword/proc/register_signals(atom/A)
+	RegisterSignal(A, COMSIG_ATOM_ORBIT_BEGIN, .proc/add_ghost, override = TRUE)
+	RegisterSignal(A, COMSIG_ATOM_ORBIT_STOP, .proc/remove_ghost, override = TRUE)
+
+/**
+ *  When moving into something's contents
+ */
+/obj/item/melee/ghost_sword/proc/on_move(atom/movable/this, atom/old_loc, direction)
+	SIGNAL_HANDLER // on move
+	// We should only really care about the wielder of the sword and the sword itself when checking ghosts
+	if(ismob(old_loc))
+		remove_signals(old_loc)
+		for(var/mob/dead/observer/orbiter in old_loc.get_orbiters())
+			remove_ghost(orbiter)
+	if(ismob(loc))
+		register_signals(loc)
+		for(var/mob/dead/observer/orbiter in loc.get_orbiters())
+			add_ghost(orbiter)
 
 /obj/item/melee/ghost_sword/attack(mob/living/target, mob/living/carbon/human/user)
 	force = 0
-	var/ghost_counter = ghost_check()
+	var/ghost_counter = length(spirits)
 
 	force = clamp((ghost_counter * 4), 0, 75)
 	user.visible_message("<span class='danger'>[user] strikes with the force of [ghost_counter] vengeful spirits!</span>")
 	..()
 
 /obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	var/ghost_counter = ghost_check()
+	var/ghost_counter = length(spirits)
 	final_block_chance += clamp((ghost_counter * 5), 0, 75)
 	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghosts!</span>")
 	return ..()
@@ -128,7 +162,7 @@
 		if(2)
 			to_chat(user, "<span class='danger'>Power courses through you! You can now shift your form at will.")
 			if(user.mind)
-				var/obj/effect/proc_holder/spell/targeted/shapeshift/dragon/D = new
+				var/obj/effect/proc_holder/spell/shapeshift/dragon/D = new
 				user.mind.AddSpell(D)
 		if(3)
 			to_chat(user, "<span class='danger'>You feel like you could walk straight through lava now.</span>")

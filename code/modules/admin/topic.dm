@@ -67,10 +67,6 @@
 				if(!makeVampires())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 			if("7")
-				log_admin("[key_name(usr)] has spawned vox raiders.")
-				if(!makeVoxRaiders())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
-			if("8")
 				log_admin("[key_name(usr)] has spawned an abductor team.")
 				if(!makeAbductorTeam())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
@@ -137,12 +133,6 @@
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and job)</span>")
 					return
 				job_ban = TRUE
-			if(BANTYPE_APPEARANCE)
-				if(!banckey || !banreason)
-					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey and reason)</span>")
-					return
-				banduration = null
-				banjob = null
 			if(BANTYPE_ADMIN_PERMA)
 				if(!banckey || !banreason)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey and reason)</span>")
@@ -225,8 +215,9 @@
 		if(multi_job)
 			//Create a list of unbanned jobs within joblist
 			var/list/notbannedlist = list()
+			var/list/banned_list = get_jobbans_for_offline_ckey(banckey) // They might be offline, you never know
 			for(var/job in jobs_to_ban)
-				if(!jobban_isbanned_ckey(banckey, job))
+				if(!(job in banned_list))
 					notbannedlist += job
 
 			for(var/job in notbannedlist)
@@ -431,119 +422,12 @@
 		log_admin("[key_name(usr)] has used rudimentary transformation on [key_name(M)]. Transforming to [href_list["simplemake"]]; deletemob=[delmob]")
 		message_admins("<span class='notice'>[key_name_admin(usr)] has used rudimentary transformation on [key_name_admin(M)]. Transforming to [href_list["simplemake"]]; deletemob=[delmob]</span>", 1)
 
-
-	/////////////////////////////////////new ban stuff
-	else if(href_list["unbanf"])
-		if(!check_rights(R_BAN))	return
-
-		var/banfolder = href_list["unbanf"]
-		GLOB.banlist_savefile.cd = "/base/[banfolder]"
-		var/key = GLOB.banlist_savefile["key"]
-		if(alert(usr, "Are you sure you want to unban [key]?", "Confirmation", "Yes", "No") == "Yes")
-			if(RemoveBan(banfolder))
-				unbanpanel()
-			else
-				alert(usr, "This ban has already been lifted / does not exist.", "Error", "Ok")
-				unbanpanel()
-
-	else if(href_list["unbane"])
-		if(!check_rights(R_BAN))	return
-
-		UpdateTime()
-		var/reason
-
-		var/banfolder = href_list["unbane"]
-		GLOB.banlist_savefile.cd = "/base/[banfolder]"
-		var/reason2 = GLOB.banlist_savefile["reason"]
-		var/temp = GLOB.banlist_savefile["temp"]
-
-		var/minutes = GLOB.banlist_savefile["minutes"]
-
-		var/banned_key = GLOB.banlist_savefile["key"]
-		GLOB.banlist_savefile.cd = "/base"
-
-		var/duration
-
-		switch(alert("Temporary Ban?",,"Yes","No"))
-			if("Yes")
-				temp = 1
-				var/mins = 0
-				if(minutes > GLOB.CMinutes)
-					mins = minutes - GLOB.CMinutes
-				mins = input(usr,"How long (in minutes)? (Default: 1440)","Ban time",mins ? mins : 1440) as num|null
-				if(!mins)	return
-				mins = min(525599,mins)
-				minutes = GLOB.CMinutes + mins
-				duration = GetExp(minutes)
-				reason = input(usr,"Please state the reason","Reason",reason2) as message|null
-				if(!reason)	return
-			if("No")
-				temp = 0
-				duration = "Perma"
-				reason = input(usr,"Please state the reason","Reason",reason2) as message|null
-				if(!reason)	return
-
-		log_admin("[key_name(usr)] edited [banned_key]'s ban. Reason: [reason] Duration: [duration]")
-		message_admins("<span class='notice'>[key_name_admin(usr)] edited [banned_key]'s ban. Reason: [reason] Duration: [duration]</span>", 1)
-		GLOB.banlist_savefile.cd = "/base/[banfolder]"
-		to_chat(GLOB.banlist_savefile["reason"], reason)
-		to_chat(GLOB.banlist_savefile["temp"], temp)
-		to_chat(GLOB.banlist_savefile["minutes"], minutes)
-		to_chat(GLOB.banlist_savefile["bannedby"], usr.ckey)
-		GLOB.banlist_savefile.cd = "/base"
-		unbanpanel()
-
-	/////////////////////////////////////new ban stuff
-
-	else if(href_list["appearanceban"])
-		if(!check_rights(R_BAN))
-			return
-		var/mob/M = locateUID(href_list["appearanceban"])
-		if(!istype(M, /mob))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
-			return
-		if(!M.ckey)	//sanity
-			to_chat(usr, "<span class='warning'>This mob has no ckey</span>")
-			return
-		var/ban_ckey_param = href_list["dbbanaddckey"]
-
-		var/banreason = appearance_isbanned(M)
-		if(banreason)
-	/*		if(!config.ban_legacy_system)
-				to_chat(usr, "<span class='warning'>Unfortunately, database based unbanning cannot be done through this panel</span>")
-				DB_ban_panel(M.ckey)
-				return	*/
-			switch(alert("Reason: '[banreason]' Remove appearance ban?","Please Confirm","Yes","No"))
-				if("Yes")
-					log_admin("[key_name(usr)] removed [key_name(M)]'s appearance ban")
-					DB_ban_unban(M.ckey, BANTYPE_APPEARANCE)
-					appearance_unban(M)
-					message_admins("<span class='notice'>[key_name_admin(usr)] removed [key_name_admin(M)]'s appearance ban</span>", 1)
-					to_chat(M, "<span class='warning'><big><b>[usr.client.ckey] has removed your appearance ban.</b></big></span>")
-
-		else switch(alert("Appearance ban [M.ckey]?",,"Yes","No", "Cancel"))
-			if("Yes")
-				var/reason = input(usr,"Please state the reason","Reason") as message|null
-				if(!reason)
-					return
-				M = admin_ban_mobsearch(M, ban_ckey_param, usr)
-				log_admin("[key_name(usr)] appearance banned [key_name(M)]. \nReason: [reason]")
-				DB_ban_record(BANTYPE_APPEARANCE, M, -1, reason)
-				appearance_fullban(M, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
-				add_note(M.ckey, "Appearance banned - [reason]", null, usr.ckey, 0)
-				message_admins("<span class='notice'>[key_name_admin(usr)] appearance banned [key_name_admin(M)]</span>", 1)
-				to_chat(M, "<span class='warning'><big><b>You have been appearance banned by [usr.client.ckey].</b></big></span>")
-				to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
-				to_chat(M, "<span class='warning'>Appearance ban can be lifted only upon request.</span>")
-				if(GLOB.configuration.url.banappeals_url)
-					to_chat(M, "<span class='warning'>To try to resolve this matter head to [GLOB.configuration.url.banappeals_url]</span>")
-				else
-					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
-			if("No")
-				return
-
 	else if(href_list["jobban2"])
 //		if(!check_rights(R_BAN))	return
+
+		if(!SSdbcore.IsConnected())
+			alert(usr, "Job bans require the datbase to be setup.", "Error", "Ok")
+			return
 
 		var/mob/M = locateUID(href_list["jobban2"])
 		if(!istype(M, /mob))
@@ -562,11 +446,11 @@
 		var/body
 		var/jobs = ""
 
-	/***********************************WARNING!************************************
-				      The jobban stuff looks mangled and disgusting
-						      But it looks beautiful in-game
-						                -Nodrak
-	************************************WARNING!***********************************/
+		/***********************************WARNING!************************************
+					      The jobban stuff looks mangled and disgusting
+							      But it looks beautiful in-game
+							                -Nodrak
+		************************************WARNING!***********************************/
 		var/counter = 0
 //Regular jobs
 	//Command (Blue)
@@ -746,7 +630,7 @@
 				counter = 0
 		jobs += "</tr></table>"
 
-	//Other races  (BLUE, because I have no idea what other color to make this)
+		//Other races  (BLUE, because I have no idea what other color to make this)
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
 		jobs += "<tr bgcolor='ccccff'><th colspan='10'>Other</th></tr><tr align='center'>"
 
@@ -874,9 +758,6 @@
 		if(notbannedlist.len) //at least 1 unbanned job exists in joblist so we have stuff to ban.
 			switch(alert("Temporary Ban of [M.ckey]?",,"Yes","No", "Cancel"))
 				if("Yes")
-					if(!GLOB.configuration.general.use_database_bans)
-						to_chat(usr, "<span class='warning'>Your server is using the legacy banning system, which does not support temporary job bans. Consider upgrading. Aborting ban.</span>")
-						return
 					var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
 					if(!mins)
 						return
@@ -889,11 +770,13 @@
 					for(var/job in notbannedlist)
 						log_admin("[key_name(usr)] temp-jobbanned [key_name(M)] from [job] for [mins] minutes")
 						DB_ban_record(BANTYPE_JOB_TEMP, M, mins, reason, job)
-						jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]") //Legacy banning does not support temporary jobbans.
 						if(!msg)
 							msg = job
 						else
 							msg += ", [job]"
+
+					// Reload their job ban holder (refresh this round)
+					M.client.jbh.reload_jobbans(M.client)
 					add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
 					message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes</span>", 1)
 					to_chat(M, "<span class='warning'><big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big></span>")
@@ -909,9 +792,13 @@
 						for(var/job in notbannedlist)
 							log_admin("[key_name(usr)] perma-banned [key_name(M)] from [job]")
 							DB_ban_record(BANTYPE_JOB_PERMA, M, -1, reason, job)
-							jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
-							if(!msg)	msg = job
-							else		msg += ", [job]"
+							if(!msg)
+								msg = job
+							else
+								msg += ", [job]"
+
+						// Reload their job ban holder (refresh this round)
+						M.client.jbh.reload_jobbans(M.client)
 						add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
 						message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg]</span>", 1)
 						to_chat(M, "<span class='warning'><big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big></span>")
@@ -921,33 +808,6 @@
 						return 1
 				if("Cancel")
 					return
-
-		//Unbanning joblist
-		//all jobs in joblist are banned already OR we didn't give a reason (implying they shouldn't be banned)
-		if(joblist.len) //at least 1 banned job exists in joblist so we have stuff to unban.
-			if(GLOB.configuration.general.use_database_bans)
-				to_chat(usr, "<span class='warning'>Unfortunately, database based unbanning cannot be done through this panel</span>")
-				DB_ban_panel(M.ckey)
-				return
-			var/msg
-			for(var/job in joblist)
-				var/reason = jobban_isbanned(M, job)
-				if(!reason) continue //skip if it isn't jobbanned anyway
-				switch(alert("Job: '[job]' Reason: '[reason]' Un-jobban?","Please Confirm","Yes","No"))
-					if("Yes")
-						log_admin("[key_name(usr)] unbanned [key_name(M)] from [job]")
-						DB_ban_unban(M.ckey, BANTYPE_JOB_PERMA, job)
-						jobban_unban(M, job)
-						if(!msg)	msg = job
-						else		msg += ", [job]"
-					else
-						continue
-			if(msg)
-				message_admins("<span class='notice'>[key_name_admin(usr)] unbanned [key_name_admin(M)] from [msg]</span>", 1)
-				to_chat(M, "<span class='warning'><big><b>You have been un-jobbanned by [usr.client.ckey] from [msg].</b></big></span>")
-				href_list["jobban2"] = 1 // lets it fall through and refresh
-			return 1
-		return 0 //we didn't do anything!
 
 	else if(href_list["boot2"])
 		var/mob/M = locateUID(href_list["boot2"])
@@ -1026,23 +886,12 @@
 			usr << browse(edit_log,"window=noteedits")
 		qdel(query_noteedits)
 
-	else if(href_list["removejobban"])
-		if(!check_rights(R_BAN))	return
-
-		var/t = href_list["removejobban"]
-		if(t)
-			if((alert("Do you want to unjobban [t]?","Unjobban confirmation", "Yes", "No") == "Yes") && t) //No more misclicks! Unless you do it twice.
-				log_admin("[key_name(usr)] removed [t]")
-				message_admins("<span class='notice'>[key_name_admin(usr)] removed [t]</span>", 1)
-				jobban_remove(t)
-				href_list["ban"] = 1 // lets it fall through and refresh
-				var/t_split = splittext(t, " - ")
-				var/key = t_split[1]
-				var/job = t_split[2]
-				DB_ban_unban(ckey(key), BANTYPE_JOB_PERMA, job)
-
 	else if(href_list["newban"])
 		if(!check_rights(R_BAN))	return
+
+		if(!SSdbcore.IsConnected())
+			alert(usr, "Bans require the database to be connected.<br>If this is a local server, please ban from within Dream Daemon.", "Error", "Ok")
+			return
 
 		var/mob/M = locateUID(href_list["newban"])
 		if(!istype(M, /mob))
@@ -1059,10 +908,10 @@
 				if(!reason)
 					return
 				M = admin_ban_mobsearch(M, ban_ckey_param, usr)
-				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 1, mins)
 				to_chat(M, "<span class='warning'><big><b>You have been banned by [usr.client.ckey].\nReason: [reason].</b></big></span>")
 				to_chat(M, "<span class='warning'>This is a temporary ban, it will be removed in [mins] minutes.</span>")
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
+				add_note(M.ckey, "Banned for [mins] minutes - [reason]", null, usr.ckey, FALSE)
 				if(M.client)
 					M.client.link_forum_account(TRUE)
 				if(GLOB.configuration.url.banappeals_url)
@@ -1077,7 +926,6 @@
 				var/reason = input(usr,"Please state the reason","Reason") as message|null
 				if(!reason)
 					return
-				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0, M.lastKnownIP)
 				to_chat(M, "<span class='warning'><big><b>You have been banned by [usr.client.ckey].\nReason: [reason].</b></big></span>")
 				to_chat(M, "<span class='warning'>This ban does not expire automatically and must be appealed.</span>")
 				if(M.client)
@@ -1089,6 +937,7 @@
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.</span>")
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
+				add_note(M.ckey, "Permanently banned - [reason]", null, usr.ckey, FALSE)
 
 				qdel(M.client)
 			if("Cancel")

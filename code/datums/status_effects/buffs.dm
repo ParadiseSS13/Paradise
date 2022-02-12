@@ -157,7 +157,8 @@
 	H.physiology.burn_mod *= 0.8
 	H.physiology.stamina_mod *= 0.5
 	H.physiology.stun_mod *= 0.5
-	if(owner.mind.vampire.get_ability(/datum/vampire_passive/blood_swell_upgrade))
+	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(V.get_ability(/datum/vampire_passive/blood_swell_upgrade))
 		bonus_damage_applied = TRUE
 		H.physiology.melee_bonus += 10
 		H.dna.species.punchstunthreshold += 8 //higher chance to stun but not 100%
@@ -209,7 +210,6 @@
 	tick_interval = 25
 	examine_text = "<span class='notice'>They seem to have an aura of healing and helpfulness about them.</span>"
 	alert_type = null
-	var/hand
 	var/deathTick = 0
 	/// How many points the rod has to heal with, maxes at 50, or whatever heal_points_max is set to.
 	var/heal_points = 50
@@ -246,33 +246,6 @@
 	else
 		if(ishuman(owner))
 			var/mob/living/carbon/human/itemUser = owner
-			var/obj/item/heldItem = (hand ==  1 ? itemUser.l_hand : itemUser.r_hand)
-			if(!heldItem || !istype(heldItem, /obj/item/rod_of_asclepius)) //Checks to make sure the rod is still in their hand
-				var/obj/item/rod_of_asclepius/newRod = new(itemUser.loc)
-				newRod.activated()
-				if(hand)
-					itemUser.drop_l_hand()
-					if(itemUser.put_in_l_hand(newRod))
-						to_chat(itemUser, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
-					else
-						if(!itemUser.has_organ("l_arm"))
-							new /obj/item/organ/external/arm(itemUser)
-						new /obj/item/organ/external/hand(itemUser)
-						itemUser.update_body()
-						itemUser.put_in_l_hand(newRod)
-						to_chat(itemUser, "<span class='notice'>Your arm suddenly grows back with the Rod of Asclepius still attached!</span>")
-				else
-					itemUser.drop_r_hand()
-					if(itemUser.put_in_r_hand(newRod))
-						to_chat(itemUser, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
-					else
-						if(!itemUser.has_organ("r_arm"))
-							new /obj/item/organ/external/arm/right(itemUser)
-						new /obj/item/organ/external/hand/right(itemUser)
-						itemUser.update_body()
-						itemUser.put_in_r_hand(newRod)
-						to_chat(itemUser, "<span class='notice'>Your arm suddenly grows back with the Rod of Asclepius still attached!</span>")
-
 			//Because a servant of medicines stops at nothing to help others, lets keep them on their toes and give them an additional boost.
 			if(itemUser.health < itemUser.maxHealth)
 				new /obj/effect/temp_visual/heal(get_turf(itemUser), "#375637")
@@ -305,7 +278,7 @@
 					for(var/obj/item/organ/external/E in H.bodyparts)
 						if(prob(10))
 							E.mend_fracture()
-							E.internal_bleeding = FALSE
+							E.fix_internal_bleeding()
 							heal_points--
 			else if(issilicon(L))
 				L.adjustBruteLoss(-3.5)
@@ -339,7 +312,7 @@
 		H.bodytemperature = H.dna.species.body_temperature
 		for(var/thing in H.bodyparts)
 			var/obj/item/organ/external/E = thing
-			E.internal_bleeding = FALSE
+			E.fix_internal_bleeding()
 			E.mend_fracture()
 	else
 		owner.bodytemperature = BODYTEMP_NORMAL

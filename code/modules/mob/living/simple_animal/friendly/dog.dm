@@ -23,6 +23,9 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 	var/next_spin_message = 0
 
+/mob/living/simple_animal/pet/dog/npc_safe(mob/user)
+	return TRUE
+
 /mob/living/simple_animal/pet/dog/verb/chasetail()
 	set name = "Chase your tail"
 	set desc = "d'awwww."
@@ -649,7 +652,6 @@
 	response_disarm = "bops"
 	response_harm   = "kicks"
 	var/turns_since_scan = 0
-	var/puppies = 0
 
 //Lisa already has a cute bow!
 /mob/living/simple_animal/pet/dog/corgi/Lisa/Topic(href, href_list)

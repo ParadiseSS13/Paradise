@@ -1,11 +1,17 @@
 ///////////////////ORGAN DEFINES///////////////////
 
 // Organ defines.
-#define ORGAN_BROKEN     1
-#define ORGAN_ROBOT      2
-#define ORGAN_SPLINTED   4
-#define ORGAN_DEAD       8
-#define ORGAN_MUTATED    16
+#define ORGAN_BROKEN       (1 << 0)
+#define ORGAN_ROBOT        (1 << 1)
+#define ORGAN_SPLINTED     (1 << 2)
+#define ORGAN_DEAD         (1 << 3)
+#define ORGAN_MUTATED      (1 << 4)
+#define ORGAN_INT_BLEEDING (1 << 5)
+#define ORGAN_DISFIGURED   (1 << 6)
+
+// For limb resistance flags
+#define CANNOT_BREAK		(1 << 0)
+#define CANNOT_DISMEMBER 	(1 << 1)
 
 #define PROCESS_ACCURACY 10
 
@@ -152,6 +158,9 @@
 #define ENVIRONMENT_SMASH_WALLS 2   //walls
 #define ENVIRONMENT_SMASH_RWALLS 4  //rwalls
 
+// Reproduction
+#define DEFAULT_MAX_OFFSPRING 8
+
 ///Flags used by the flags parameter of electrocute act.
 
 ///Makes it so that the shock doesn't take gloves into account.
@@ -174,6 +183,9 @@
 #define NO_SPAWN 0
 #define HOSTILE_SPAWN 1
 #define FRIENDLY_SPAWN 2
+
+///Max amount of living Xenobio mobs allowed at any given time (excluding slimes).
+#define MAX_GOLD_CORE_MOBS 45
 
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully

@@ -293,14 +293,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/shuttle/research/outpost
 	icon_state = "shuttle"
 
-/area/shuttle/vox
-	name = "\improper Vox Skipjack"
-	icon_state = "shuttle"
-
-/area/shuttle/vox/station
-	name = "\improper Vox Skipjack"
-	icon_state = "yellow"
-
 /area/shuttle/salvage
 	name = "\improper Salvage Ship"
 	icon_state = "yellow"
@@ -980,10 +972,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Chapel Office"
 	icon_state = "chapeloffice"
 
-/area/escapepodbay
-	name = "\improper Escape Shuttle Hallway Podbay"
-	icon_state = "escape"
-
 /area/lawoffice
 	name = "\improper Law Office"
 	icon_state = "law"
@@ -1450,10 +1438,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Prisoner Lockers"
 	icon_state = "sec_prison_lockers"
 	can_get_auto_cryod = FALSE
-
-/area/security/medbay
-	name = "\improper Security Medbay"
-	icon_state = "security_medbay"
 
 /area/security/prisonershuttle
 	name = "\improper Security Prisoner Shuttle"
@@ -2222,7 +2206,6 @@ GLOBAL_LIST_INIT(the_station_areas, list(
 	/area/holodeck,
 	/area/library,
 	/area/chapel,
-	/area/escapepodbay,
 	/area/lawoffice,
 	/area/magistrateoffice,
 	/area/clownoffice,

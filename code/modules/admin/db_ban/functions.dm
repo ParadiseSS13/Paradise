@@ -37,10 +37,6 @@
 			bantype_str = "JOB_TEMPBAN"
 			bantype_pass = 1
 			isjobban = 1
-		if(BANTYPE_APPEARANCE)
-			bantype_str = "APPEARANCE_BAN"
-			duration = -1
-			bantype_pass = 1
 		if(BANTYPE_ADMIN_PERMA)
 			bantype_str = "ADMIN_PERMABAN"
 			duration = -1
@@ -183,7 +179,11 @@
 			qdel(banned_mob.client)
 
 	if(isjobban)
-		jobban_client_fullban(ckey, job)
+		// See if they are online
+		var/client/C = GLOB.directory[ckey(ckey)]
+		if(C)
+			// Reload their job ban holder
+			C.jbh.reload_jobbans(C)
 	else
 		flag_account_for_forum_sync(ckey)
 
@@ -214,9 +214,6 @@
 				bantype_str = "JOB_TEMPBAN"
 				bantype_pass = 1
 				isjobban = 1
-			if(BANTYPE_APPEARANCE)
-				bantype_str = "APPEARANCE_BAN"
-				bantype_pass = 1
 			if(BANTYPE_ADMIN_PERMA)
 				bantype_str = "ADMIN_PERMABAN"
 				bantype_pass = 1
@@ -272,7 +269,11 @@
 
 	DB_ban_unban_by_id(ban_id)
 	if(isjobban)
-		jobban_unban_client(ckey, job)
+		// See if they are online
+		var/client/C = GLOB.directory[ckey(ckey)]
+		if(C)
+			// Reload their job ban holder
+			C.jbh.reload_jobbans(C)
 	else
 		flag_account_for_forum_sync(ckey)
 
@@ -353,7 +354,11 @@
 			if(alert("Unban [pckey]?", "Unban?", "Yes", "No") == "Yes")
 				DB_ban_unban_by_id(banid)
 				if(job && length(job))
-					jobban_unban_client(pckey, job)
+					// See if they are online
+					var/client/C = GLOB.directory[ckey(pckey)]
+					if(C)
+						// Reload their job ban holder
+						C.jbh.reload_jobbans(C)
 				return
 			else
 				to_chat(usr, "Cancelled")
@@ -417,17 +422,11 @@
 	message_admins("[key_name_admin(usr)] has lifted [pckey]'s ban.")
 	log_admin("[key_name(usr)] has lifted [pckey]'s ban.")
 	flag_account_for_forum_sync(pckey)
-
-
-/client/proc/DB_ban_panel()
-	set category = "Admin"
-	set name = "Banning Panel"
-	set desc = "DB Ban Panel"
-
-	if(!check_rights(R_BAN))
-		return
-
-	holder.DB_ban_panel()
+	// See if they are online
+	var/client/C = GLOB.directory[ckey(pckey)]
+	if(C)
+		// Reload their job ban holder
+		C.jbh.reload_jobbans(C)
 
 
 /datum/admins/proc/DB_ban_panel(playerckey = null, adminckey = null, playerip = null, playercid = null, dbbantype = null, match = null)
@@ -459,7 +458,6 @@
 	output += "<option value='[BANTYPE_TEMP]'>TEMPBAN</option>"
 	output += "<option value='[BANTYPE_JOB_PERMA]'>JOB PERMABAN</option>"
 	output += "<option value='[BANTYPE_JOB_TEMP]'>JOB TEMPBAN</option>"
-	output += "<option value='[BANTYPE_APPEARANCE]'>APPEARANCE BAN</option>"
 	output += "<option value='[BANTYPE_ADMIN_PERMA]'>ADMIN PERMABAN</option>"
 	output += "<option value='[BANTYPE_ADMIN_TEMP]'>ADMIN TEMPBAN</option>"
 	output += "</select></td>"
@@ -501,7 +499,6 @@
 	output += "<option value='[BANTYPE_TEMP]'>TEMPBAN</option>"
 	output += "<option value='[BANTYPE_JOB_PERMA]'>JOB PERMABAN</option>"
 	output += "<option value='[BANTYPE_JOB_TEMP]'>JOB TEMPBAN</option>"
-	output += "<option value='[BANTYPE_APPEARANCE]'>APPEARANCE BAN</option>"
 	output += "<option value='[BANTYPE_ADMIN_PERMA]'>ADMIN PERMABAN</option>"
 	output += "<option value='[BANTYPE_ADMIN_TEMP]'>ADMIN TEMPBAN</option>"
 	output += "</select></td></tr></table>"
@@ -576,8 +573,6 @@
 						bantypesearch += "'JOB_PERMABAN' "
 					if(BANTYPE_JOB_TEMP)
 						bantypesearch += "'JOB_TEMPBAN' "
-					if(BANTYPE_APPEARANCE)
-						bantypesearch += "'APPEARANCE_BAN' "
 					if(BANTYPE_ADMIN_PERMA)
 						bantypesearch = "'ADMIN_PERMABAN' "
 					if(BANTYPE_ADMIN_TEMP)
@@ -629,8 +624,6 @@
 						typedesc = "<b>JOBBAN</b><br><font size='2'>([job])"
 					if("JOB_TEMPBAN")
 						typedesc = "<b>TEMP JOBBAN</b><br><font size='2'>([job])<br>([duration] minutes<br>Expires [expiration]"
-					if("APPEARANCE_BAN")
-						typedesc = "<b>APPEARANCE/NAME BAN</b>"
 					if("ADMIN_PERMABAN")
 						typedesc = "<b>ADMIN PERMABAN</b>"
 					if("ADMIN_TEMPBAN")

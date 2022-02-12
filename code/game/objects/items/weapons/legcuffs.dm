@@ -54,6 +54,7 @@
 			return
 		user.drop_item()
 		I.forceMove(src)
+		IED = I
 		message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
 		log_game("[key_name(user)] has rigged a beartrap with an IED.")
 		to_chat(user, "<span class='notice'>You sneak [IED] underneath the pressure plate and connect the trigger wire.</span>")

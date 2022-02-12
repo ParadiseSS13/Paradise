@@ -515,6 +515,9 @@
 "bm" = (
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/crew_quarters)
+"bn" = (
+/turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
+/area/derelict/arrival)
 "bo" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -1134,10 +1137,7 @@
 /area/derelict/bridge)
 "cG" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/item/trash/can,
 /obj/item/trash/semki,
 /turf/simulated/floor/plasteel{
@@ -1566,6 +1566,7 @@
 /obj/machinery/newscaster{
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
 	layer = 3.3;
+	name = "custom placement";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -2077,6 +2078,7 @@
 /obj/machinery/newscaster{
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
 	layer = 3.3;
+	name = "custom placement";
 	pixel_x = 30
 	},
 /obj/item/trash/spentcasing{
@@ -3622,7 +3624,6 @@
 /area/derelict/crew_quarters)
 "hI" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen";
 	opened = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3636,7 +3637,6 @@
 /area/derelict/arrival)
 "hJ" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen";
 	opened = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3745,6 +3745,11 @@
 /area/derelict/crew_quarters)
 "hT" = (
 /obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/derelict/crew_quarters)
+"hU" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4121,10 +4126,7 @@
 /area/derelict/arrival)
 "iS" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_x = -32
 	},
@@ -5638,10 +5640,7 @@
 /area/derelict/arrival)
 "lL" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -7081,6 +7080,7 @@
 /obj/machinery/newscaster{
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
 	layer = 3.3;
+	name = "custom placement";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -7288,11 +7288,6 @@
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
-"pC" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/derelict/crew_quarters)
 "pD" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -7653,6 +7648,7 @@
 /obj/machinery/newscaster{
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
 	layer = 3.3;
+	name = "custom placement";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -7985,9 +7981,6 @@
 	icon_state = "delivery"
 	},
 /area/derelict/crew_quarters)
-"rn" = (
-/turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/derelict/arrival)
 "ro" = (
 /obj/structure/sign/greencross,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
@@ -8184,10 +8177,7 @@
 /area/derelict/arrival)
 "rJ" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/item/trash/popcorn,
 /obj/item/trash/semki,
 /obj/item/paper/crumpled{
@@ -9156,12 +9146,12 @@ ac
 ac
 ac
 QN
-rn
+bn
 jm
-rn
-rn
+bn
+bn
 lu
-rn
+bn
 QN
 ac
 ac
@@ -9247,14 +9237,14 @@ ac
 ac
 ac
 ac
-rn
+bn
 iS
 jn
 jS
 kL
 hY
 lK
-rn
+bn
 ac
 ac
 ac
@@ -9337,17 +9327,17 @@ ac
 ac
 ac
 aW
-rn
-rn
-rn
+bn
+bn
+bn
 iT
 hY
 jT
 kM
 lv
 lL
-rn
-rn
+bn
+bn
 aW
 ac
 ac
@@ -9425,10 +9415,10 @@ ac
 ac
 ac
 aW
-rn
+bn
 gJ
-rn
-rn
+bn
+bn
 hI
 hX
 iv
@@ -9441,8 +9431,8 @@ hY
 me
 mu
 mG
-rn
-rn
+bn
+bn
 mG
 aW
 ac
@@ -9514,8 +9504,8 @@ ac
 ac
 ac
 aW
-rn
-rn
+bn
+bn
 dO
 gq
 gK
@@ -9532,12 +9522,12 @@ lw
 hY
 mf
 mv
-rn
+bn
 mR
 ni
 nw
 mG
-rn
+bn
 mG
 aW
 ac
@@ -9605,7 +9595,7 @@ ac
 ac
 ac
 aW
-rn
+bn
 ff
 fA
 dL
@@ -9695,16 +9685,16 @@ ac
 ac
 ac
 aW
-rn
-rn
-rn
+bn
+bn
+bn
 de
 do
 do
 do
 do
 hb
-rn
+bn
 hK
 hY
 ix
@@ -9888,7 +9878,7 @@ do
 do
 gM
 hc
-rn
+bn
 hM
 ia
 iz
@@ -9968,7 +9958,7 @@ ac
 ac
 ac
 aW
-rn
+bn
 dP
 dV
 dV
@@ -9980,19 +9970,19 @@ fY
 do
 gN
 hd
-rn
-rn
-rn
-rn
-rn
+bn
+bn
+bn
+bn
+bn
 jr
 ka
 kT
 ly
-rn
-rn
-rn
-rn
+bn
+bn
+bn
+bn
 mV
 nm
 mS
@@ -10058,9 +10048,9 @@ ac
 ac
 ac
 aW
-rn
-rn
-rn
+bn
+bn
+bn
 dQ
 do
 do
@@ -10071,21 +10061,21 @@ fE
 fZ
 gs
 dO
-rn
+bn
 aW
 ac
 ac
 ac
 aW
-rn
+bn
 kb
-rn
-rn
+bn
+bn
 aW
 ac
 ac
 aW
-rn
+bn
 mG
 ny
 nK
@@ -10149,7 +10139,7 @@ ac
 ac
 ac
 aW
-rn
+bn
 dm
 dA
 dL
@@ -10157,10 +10147,10 @@ do
 do
 do
 eo
-rn
+bn
 fh
 fF
-rn
+bn
 fG
 aW
 ac
@@ -10240,7 +10230,7 @@ ac
 ac
 ac
 aW
-rn
+bn
 dd
 dn
 do
@@ -10249,8 +10239,8 @@ do
 do
 ee
 ep
-rn
-rn
+bn
+bn
 fG
 aW
 ac
@@ -10331,7 +10321,7 @@ ac
 ac
 ac
 aW
-rn
+bn
 cL
 de
 do
@@ -10341,7 +10331,7 @@ do
 do
 ef
 eq
-rn
+bn
 aW
 ac
 ac
@@ -10422,9 +10412,9 @@ ac
 ac
 ac
 aW
-rn
-rn
-rn
+bn
+bn
+bn
 df
 dp
 dB
@@ -10513,10 +10503,10 @@ ac
 ac
 ac
 ac
-rn
+bn
 cl
 cz
-rn
+bn
 de
 dq
 dC
@@ -10704,7 +10694,7 @@ cN
 cB
 dr
 dE
-rn
+bn
 dS
 ac
 ac
@@ -10787,7 +10777,7 @@ ac
 ac
 ac
 ac
-rn
+bn
 bF
 bT
 co
@@ -10795,7 +10785,7 @@ cA
 cM
 dg
 ds
-rn
+bn
 aW
 ac
 ac
@@ -10841,7 +10831,7 @@ mS
 qC
 mU
 qY
-rn
+bn
 ac
 ac
 ac
@@ -10879,12 +10869,12 @@ ac
 ac
 ac
 aW
-rn
+bn
 bG
 bU
 cp
 cC
-rn
+bn
 dh
 dt
 dF
@@ -10925,7 +10915,7 @@ ac
 ac
 ac
 ag
-rn
+bn
 pT
 mU
 mU
@@ -10933,7 +10923,7 @@ mS
 qC
 mS
 qZ
-rn
+bn
 aW
 ac
 ac
@@ -11018,15 +11008,15 @@ aj
 ac
 ag
 aW
-rn
-rn
+bn
+bn
 qh
 qs
 qD
 qL
-rn
+bn
 ro
-rn
+bn
 aW
 ac
 ac
@@ -11111,7 +11101,7 @@ ag
 ag
 ag
 aW
-rn
+bn
 qi
 qt
 ka
@@ -11119,7 +11109,7 @@ hY
 ra
 qy
 rw
-rn
+bn
 ac
 ac
 ac
@@ -11488,7 +11478,7 @@ re
 qM
 hY
 qw
-rn
+bn
 aW
 ac
 ac
@@ -11581,7 +11571,7 @@ hY
 hY
 qy
 rJ
-rn
+bn
 ac
 ac
 ac
@@ -11666,7 +11656,7 @@ ac
 ac
 ac
 aW
-rn
+bn
 qN
 rf
 hY
@@ -11949,7 +11939,7 @@ hY
 hY
 rk
 rN
-rn
+bn
 ac
 ac
 ac
@@ -12042,7 +12032,7 @@ rq
 hY
 rO
 rZ
-rn
+bn
 aW
 ac
 ac
@@ -12125,7 +12115,7 @@ if
 if
 if
 if
-rn
+bn
 qy
 qR
 ri
@@ -12225,9 +12215,9 @@ rs
 rz
 qu
 rQ
-rn
-rn
-rn
+bn
+bn
+bn
 sh
 ac
 kJ
@@ -12309,7 +12299,7 @@ if
 if
 if
 if
-rn
+bn
 qw
 qS
 rk
@@ -12402,7 +12392,7 @@ ac
 ac
 ac
 aW
-rn
+bn
 qv
 hY
 ru
@@ -12410,7 +12400,7 @@ ru
 hY
 rS
 rZ
-rn
+bn
 aW
 ac
 ac
@@ -12501,7 +12491,7 @@ hY
 hY
 rk
 rT
-rn
+bn
 ac
 ac
 ac
@@ -12770,7 +12760,7 @@ ac
 ac
 ac
 aW
-rn
+bn
 qN
 qt
 hY
@@ -12869,7 +12859,7 @@ hY
 hY
 qy
 rX
-rn
+bn
 ac
 ac
 ac
@@ -12960,7 +12950,7 @@ hY
 hY
 hY
 rG
-rn
+bn
 aW
 ac
 ac
@@ -13319,7 +13309,7 @@ ac
 ag
 ag
 aW
-rn
+bn
 qm
 qz
 jn
@@ -13327,7 +13317,7 @@ hY
 rl
 rv
 rD
-rn
+bn
 ac
 ac
 ac
@@ -13776,7 +13766,7 @@ ac
 ac
 aV
 aV
-pC
+hU
 pL
 pX
 qe
@@ -13868,7 +13858,7 @@ ac
 aV
 pm
 pt
-pC
+hU
 pM
 pY
 db
@@ -14673,16 +14663,16 @@ go
 gV
 hn
 aV
-pC
-pC
+hU
+hU
 hT
 jf
-pC
+hU
 kC
 ll
-pC
-pC
-pC
+hU
+hU
+hU
 hT
 bm
 ng
@@ -14766,16 +14756,16 @@ gW
 gH
 hH
 hT
-pC
+hU
 iL
 eD
 jI
 kD
 lm
 eD
-pC
-pC
-pC
+hU
+hU
+hU
 mQ
 ng
 ng

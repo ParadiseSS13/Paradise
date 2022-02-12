@@ -17,9 +17,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "ae" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "af" = (
@@ -583,9 +581,7 @@
 	},
 /area/awaymission/academy/headmaster)
 "bS" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -1282,9 +1278,7 @@
 	},
 /area/awaymission/academy/classrooms)
 "dU" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/wood,
 /area/awaymission/academy/classrooms)
 "dV" = (
@@ -2537,6 +2531,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
+"he" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/academy/academyaft)
 "hf" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -2649,6 +2651,16 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
+/area/awaymission/academy/academyaft)
+"hs" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
 /area/awaymission/academy/academyaft)
 "ht" = (
 /obj/structure/cable{
@@ -2781,16 +2793,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
-"hM" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
-/area/awaymission/academy/academyaft)
 "hN" = (
 /obj/machinery/light{
 	dir = 4
@@ -2883,14 +2885,6 @@
 "ib" = (
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plasteel,
-/area/awaymission/academy/academyaft)
-"ic" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
 "id" = (
 /obj/item/stack/cable_coil/random,
@@ -3033,9 +3027,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -3586,9 +3578,7 @@
 	},
 /area/awaymission/academy/academyaft)
 "jM" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "jN" = (
@@ -3908,9 +3898,7 @@
 /turf/simulated/mineral/random/high_chance,
 /area/awaymission/academy)
 "kD" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/engine,
 /area/awaymission/academy/academyaft)
 "kE" = (
@@ -4046,9 +4034,7 @@
 	},
 /area/awaymission/academy/academyaft)
 "kV" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -10516,7 +10502,7 @@ bB
 bB
 gI
 gZ
-ic
+he
 hw
 hc
 hw
@@ -10646,12 +10632,12 @@ gx
 ge
 gV
 gZ
-ic
-ic
+he
+he
 hc
-ic
+he
 hc
-ic
+he
 hc
 id
 hp
@@ -10906,7 +10892,7 @@ dv
 dv
 gX
 gZ
-hM
+hs
 kX
 hp
 id
@@ -15196,7 +15182,7 @@ aa
 aa
 aa
 gZ
-hM
+hs
 lp
 hp
 hp
@@ -15456,7 +15442,7 @@ aa
 aa
 aa
 gZ
-ic
+he
 hK
 hc
 ls

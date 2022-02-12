@@ -69,7 +69,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 
 				ghost.has_enabled_antagHUD = TRUE
 				ghost.can_reenter_corpse = FALSE
-				GLOB.respawnable_list -= ghost
+				ghost.remove_from_respawnable_list()
 
 			ghost.antagHUD = TRUE
 			for(var/datum/atom_hud/antag/H in GLOB.huds)

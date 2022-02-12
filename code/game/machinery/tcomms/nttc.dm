@@ -79,7 +79,6 @@
 		"Xenoarcheologist" = "sciradio",
 		"Xenobiologist" = "sciradio",
 		// Security
-		"Brig Physician" = "secradio",
 		"Detective" = "secradio",
 		"Forensic Technician" = "secradio",
 		"Head of Security" = "secradio",
