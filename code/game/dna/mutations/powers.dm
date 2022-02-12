@@ -214,8 +214,7 @@
 
 /datum/mutation/stealth/deactivate(mob/living/M)
 	..()
-	M.alpha = 255
-	M.invisibility = 0
+	M.reset_visibility()
 
 // WAS: /datum/bioEffect/darkcloak
 /datum/mutation/stealth/darkcloak
@@ -238,11 +237,10 @@
 		if(M.invisibility != INVISIBILITY_OBSERVER)
 			M.alpha = round(M.alpha * 0.8)
 	else
-		M.alpha = 255
-		M.invisibility = 0
+		M.reset_visibility()
+		M.alpha = round(255 * 0.8)
 	if(M.alpha == 0)
-		M.invisibility = INVISIBILITY_OBSERVER
-		M.alpha = 128
+		M.make_invisible()
 
 //WAS: /datum/bioEffect/chameleon
 /datum/mutation/stealth/chameleon
@@ -261,11 +259,10 @@
 		if(M.invisibility != INVISIBILITY_OBSERVER)
 			M.alpha -= 25
 	else
+		M.reset_visibility()
 		M.alpha = round(255 * 0.80)
-		M.invisibility = 0
 	if(M.alpha == 0)
-		M.invisibility = INVISIBILITY_OBSERVER
-		M.alpha = 128
+		M.make_invisible()
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
