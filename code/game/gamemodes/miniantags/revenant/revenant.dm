@@ -120,7 +120,7 @@
 		if(istype(M, /mob/living/simple_animal/revenant))
 			to_chat(M, rendered)
 		if(isobserver(M))
-			to_chat(M, "<a href='?src=[M.UID()];follow=[UID()]'>(F)</a> [rendered]")
+			to_chat(M, "([ghost_follow_link(src, ghost=M)]) [rendered]")
 	return
 
 /mob/living/simple_animal/revenant/Stat()

@@ -121,6 +121,7 @@
 /obj/item/organ/external/proc/add_limb_flags()
 	if(HAS_TRAIT(owner, TRAIT_NO_BONES))
 		limb_flags |= CANNOT_BREAK
+		encased = null // no bones to saw
 
 	if(HAS_TRAIT(owner, TRAIT_STURDY_LIMBS))
 		limb_flags |= CANNOT_DISMEMBER

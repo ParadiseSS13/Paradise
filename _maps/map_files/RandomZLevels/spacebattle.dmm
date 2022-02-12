@@ -60,9 +60,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate2)
 "ap" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate2)
 "aq" = (
@@ -131,9 +129,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/syndicate3)
 "aF" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate3)
 "aH" = (
@@ -228,9 +224,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/syndicate1)
 "bd" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate1)
 "be" = (
@@ -584,9 +578,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "cL" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "cM" = (
@@ -760,9 +752,7 @@
 	},
 /area/awaymission/spacebattle/cruiser)
 "dy" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"

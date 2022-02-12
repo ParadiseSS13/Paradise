@@ -45,7 +45,7 @@
 /turf/simulated/floor/grass
 	name = "grass patch"
 	icon = 'icons/turf/floors/grass.dmi'
-	icon_state = "grass-0"
+	icon_state = "grass"
 	base_icon_state = "grass"
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_GRASS)
@@ -71,7 +71,7 @@
 /turf/simulated/floor/grass/jungle
 	name = "jungle grass"
 	icon = 'icons/turf/floors/junglegrass.dmi'
-	icon_state = "junglegrass-0"
+	icon_state = "junglegrass-255"
 	base_icon_state = "junglegrass"
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_GRASS, SMOOTH_GROUP_JUNGLE_GRASS)
 

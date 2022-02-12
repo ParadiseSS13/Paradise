@@ -3306,9 +3306,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/gateroom)
 "jP" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/gateroom)
@@ -3436,9 +3434,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/gateroom)
@@ -3664,9 +3660,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/southblock)
 "kV" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/gateroom)
 "kW" = (
@@ -3676,9 +3670,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/gateroom)
 "kX" = (

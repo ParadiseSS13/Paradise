@@ -390,13 +390,10 @@
 		E.Copy_Parent(owner, 50)
 		E.GiveTarget(owner) //so it starts running right away
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
-		owner.alpha = 0
 		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
-		addtimer(CALLBACK(owner, /mob/living/.proc/reset_alpha), 4 SECONDS)
+		owner.make_invisible()
+		addtimer(CALLBACK(owner, /mob/living/.proc/reset_visibility), 4 SECONDS)
 		return TRUE
-
-/mob/living/proc/reset_alpha(mob/living/carbon/human/owner)
-	alpha = initial(alpha)
 
 /obj/item/clothing/suit/armor/reactive/tesla
 	name = "reactive tesla armor"

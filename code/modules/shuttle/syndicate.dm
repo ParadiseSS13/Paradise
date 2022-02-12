@@ -100,3 +100,15 @@
 	y_offset = 0
 
 #undef SYNDICATE_CHALLENGE_TIMER
+
+// Fuck it its syndicate now
+/obj/machinery/computer/camera_advanced/shuttle_docker/admin/vox
+	name = "skipjack navigation computer"
+	desc = "Used to designate a precise transit location for the skipjack."
+	flags = NODECONSTRUCT
+	access_mining = FALSE
+
+/obj/machinery/computer/shuttle/admin/vox
+	name = "vox skipjack console"
+	req_access = list(ACCESS_VOX)
+	possible_destinations = "admin_home;admin_custom"

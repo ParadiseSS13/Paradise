@@ -516,8 +516,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/reset_perspective(atom/A)
 	if(client)
 		if(istype(A, /atom/movable))
-			client.perspective = EYE_PERSPECTIVE
-			client.eye = A
+			if(is_ventcrawling(src))
+				client.eye = get_turf(A)
+				client.perspective = MOB_PERSPECTIVE
+			else
+				client.perspective = EYE_PERSPECTIVE
+				client.eye = A
 		else
 			if(isturf(loc))
 				client.eye = client.mob
@@ -1499,11 +1503,6 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	if(!mind)
 		return FALSE
 
-	//Allows fullpower vampires to bypass holy areas
-	var/datum/vampire/vampire = mind.vampire
-	if(vampire && vampire.get_ability(/datum/vampire_passive/full))
-		return FALSE
-
 	//Allows cult to bypass holy areas once they summon
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(iscultist(src) && gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
@@ -1515,3 +1514,13 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 	to_chat(src, "<span class='warning'>Your powers are useless on this holy ground.</span>")
 	return TRUE
+
+/mob/proc/reset_visibility()
+	invisibility = initial(invisibility)
+	alpha = initial(alpha)
+	add_to_all_human_data_huds()
+
+/mob/proc/make_invisible()
+	invisibility = INVISIBILITY_OBSERVER
+	alpha = 128
+	remove_from_all_data_huds()

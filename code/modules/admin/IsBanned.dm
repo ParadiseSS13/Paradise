@@ -1,5 +1,5 @@
 //Blocks an attempt to connect before even creating our client datum thing.
-/world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE, check_2fa = TRUE, check_guest = TRUE, log_info = TRUE)
+/world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE, check_2fa = TRUE, check_guest = TRUE, log_info = TRUE, check_tos = TRUE)
 
 	if(!key || !address || !computer_id)
 		log_adminwarn("Failed Login (invalid data): [key] [address]-[computer_id]")
@@ -42,6 +42,26 @@
 		if(log_info)
 			INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_BANNED)
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
+
+	// Check if we are checking TOS consent before connecting
+	if(SSdbcore.IsConnected() && GLOB.configuration.system.external_tos_handler && check_tos)
+		// Check if they have a TOS consent
+		var/datum/db_query/check_query = SSdbcore.NewQuery("SELECT ckey FROM privacy WHERE ckey=:ckey AND consent=1", list("ckey" = ckey(key)))
+
+		// This is the one case where we will NOT allow entry on DB failure.
+		// If a user doesn't consent to us having their data, we arent having their data.
+		// Period
+		if(!check_query.warn_execute())
+			qdel(check_query)
+			return list("reason"="tos", "desc"="\nReason: Failed to check ToS consent. If this error persists, please contact the server host.")
+
+		// If there is no row, they didnt accept
+		if(!check_query.NextRow())
+			qdel(check_query)
+			return list("reason"="tos", "desc"="\nReason: You are trying to connect without accepting server ToS. If this error persists, please contact the server host.")
+
+		qdel(check_query)
+		// As per my comment 8 or so lines above, we do NOT log failed connections here
 
 	//check if the IP address is a known proxy/vpn, and the user is not whitelisted
 	if(check_ipintel && GLOB.configuration.ipintel.contact_email && GLOB.configuration.ipintel.whitelist_mode && SSipintel.ipintel_is_banned(key, address))

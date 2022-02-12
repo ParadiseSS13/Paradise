@@ -312,10 +312,10 @@ DEFINE_BITFIELD(smoothing_junction, list(
   *
   * Returns the previous smoothing_junction state so the previous state can be compared with the new one after the proc ends, and see the changes, if any.
   *
+  * Objects override this to prevent unanchored objects from smoothing, see /obj/bitmask_smooth()
 */
 /atom/proc/bitmask_smooth()
 	var/new_junction = NONE
-
 	for(var/direction in GLOB.cardinal) //Cardinal case first.
 		SET_ADJ_IN_DIR(src, new_junction, direction, direction)
 
@@ -339,6 +339,12 @@ DEFINE_BITFIELD(smoothing_junction, list(
 
 	set_smoothed_icon_state(new_junction)
 
+///Object override to prevent unanchored objects from smoothing
+/obj/bitmask_smooth()
+	if(!anchored)
+		set_smoothed_icon_state(0)
+		return
+	return ..()
 
 ///Changes the icon state based on the new junction bitmask. Returns the old junction value.
 /atom/proc/set_smoothed_icon_state(new_junction)
@@ -367,11 +373,11 @@ DEFINE_BITFIELD(smoothing_junction, list(
 					var/turned_adjacency = reverse_direction(junction_dir)
 					var/turf/neighbor_turf = get_step(src, turned_adjacency & (NORTH|SOUTH))
 					var/mutable_appearance/underlay_appearance = mutable_appearance(layer = TURF_LAYER, plane = FLOOR_PLANE)
-					if(!neighbor_turf.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
+					if(neighbor_turf && (!neighbor_turf.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency) || neighbor_turf.density)) //dense turfs are unwanted for underlays
 						neighbor_turf = get_step(src, turned_adjacency & (EAST|WEST))
-						if(!neighbor_turf.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
+						if(!neighbor_turf.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency) || neighbor_turf.density)
 							neighbor_turf = get_step(src, turned_adjacency)
-							if(!neighbor_turf.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
+							if(!neighbor_turf.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency) || neighbor_turf.density)
 								if(!get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency)) //if all else fails, ask our own turf
 									underlay_appearance.icon = DEFAULT_UNDERLAY_ICON
 									underlay_appearance.icon_state = DEFAULT_UNDERLAY_ICON_STATE

@@ -58,6 +58,9 @@
 			continue
 
 		serialized["ref"] = "\ref[M]"
+		var/list/orbiters = M.get_orbiters_recursive()
+		if(length(orbiters) > 0)
+			serialized["orbiters"] = length(orbiters)
 
 		if(istype(M))
 			if(isnewplayer(M))  // People in the lobby screen; only have their ckey as a name.
@@ -73,11 +76,16 @@
 
 				var/datum/mind/mind = M.mind
 				if(user.antagHUD)
-					// If a mind is many antags at once, we'll display all of them, each
-					// under their own antag sub-section.
-					// This is arguably better, than picking one of the antag datums at random.
+					/*
+					If a mind is many antags at once, we'll display all of them, each
+					under their own antag sub-section.
+					This is arguably better, than picking one of the antag datums at random.
 
-					// Traitors - the only antags in `.antag_datums` at the time of writing.
+					list of antags that are datumised:
+					- traitor
+					- mindslaves/vampire thralls
+					- vampire
+					*/
 					for(var/_A in mind.antag_datums)
 						var/datum/antagonist/A = _A
 						var/antag_serialized = serialized.Copy()
@@ -87,8 +95,7 @@
 					// Not-very-datumized antags follow
 					// Associative list of antag name => whether this mind is this antag
 					var/other_antags = list(
-						"Changeling" = (mind.changeling != null),
-						"Vampire" = (mind.vampire != null),
+						"Changeling" = (mind.changeling != null)
 					)
 					if(SSticker && SSticker.mode)
 						other_antags += list(

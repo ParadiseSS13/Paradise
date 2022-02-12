@@ -7,7 +7,7 @@
 	item_color = "ert_commander"
 	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 50, FIRE = 80, ACID = 80)
 	resistance_flags = FIRE_PROOF
-	var/obj/machinery/camera/camera
+	var/obj/machinery/camera/portable/camera
 	var/has_camera = TRUE
 	strip_delay = 130
 
@@ -32,7 +32,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/ert/proc/register_camera(mob/wearer)
 	if(camera || !has_camera)
 		return
-	camera = new /obj/machinery/camera(src)
+	camera = new /obj/machinery/camera/portable(src)
 	camera.network = list("ERT")
 	GLOB.cameranet.removeCamera(camera)
 	camera.c_tag = wearer.name

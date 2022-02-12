@@ -23,6 +23,7 @@
 		_2fa_status = query.item[17]
 		screentip_mode = query.item[18]
 		screentip_color = query.item[19]
+		ghost_darkness_level = query.item[20]
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -41,6 +42,7 @@
 	parallax = sanitize_integer(parallax, 0, 16, initial(parallax))
 	screentip_mode = sanitize_integer(screentip_mode, 0, 20, initial(screentip_mode))
 	screentip_color = sanitize_hexcolor(screentip_color, initial(screentip_color))
+	ghost_darkness_level = sanitize_integer(ghost_darkness_level, 0, 255, initial(ghost_darkness_level))
 	return TRUE
 
 /datum/preferences/proc/save_preferences(client/C)
@@ -74,7 +76,8 @@
 					parallax=:parallax,
 					2fa_status=:_2fa_status,
 					screentip_mode=:screentip_mode,
-					screentip_color=:screentip_color
+					screentip_color=:screentip_color,
+					ghost_darkness_level=:ghost_darkness_level
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -95,6 +98,7 @@
 						"_2fa_status" = _2fa_status,
 						"screentip_mode" = screentip_mode,
 						"screentip_color" = screentip_color,
+						"ghost_darkness_level" = ghost_darkness_level,
 						"ckey" = C.ckey,
 					)
 					)

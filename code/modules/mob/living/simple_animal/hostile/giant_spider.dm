@@ -56,12 +56,6 @@
 		for(var/obj/structure/spider/S in range(1, get_turf(src)))
 			return S
 
-/mob/living/simple_animal/hostile/poison/giant_spider/death(gibbed)
-	. = ..()
-	if(!.)
-		return FALSE
-	SSmobs.giant_spiders--
-
 //nursemaids - these create webs and eggs
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
 	desc = "Furry and black, it makes you shudder to look at it. This one has brilliant green eyes."
@@ -263,6 +257,7 @@
 					var/obj/structure/spider/eggcluster/C = new /obj/structure/spider/eggcluster(src.loc)
 					C.faction = faction.Copy()
 					C.master_commander = master_commander
+					C.xenobiology_spawned = xenobiology_spawned
 					if(ckey)
 						C.player_spiders = 1
 					fed--
