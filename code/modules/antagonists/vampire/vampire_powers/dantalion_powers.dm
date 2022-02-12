@@ -154,9 +154,7 @@
 	E.Copy_Parent(user, 20, 20)
 	E.GiveTarget(user) //so it starts running right away
 	E.Goto(user, E.move_to_delay, E.minimum_distance)
-	user.invisibility = INVISIBILITY_OBSERVER
-	user.alpha = 128
-	/// TODO MAKE REMOVE HUDS WHEN QWERTY'S PR GETS MERGED
+	user.make_invisible()
 	addtimer(CALLBACK(user, /mob/living/.proc/reset_visibility), 6 SECONDS)
 
 /obj/effect/proc_holder/spell/vampire/rally_thralls
