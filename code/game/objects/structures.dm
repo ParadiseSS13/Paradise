@@ -81,7 +81,7 @@
 
 	var/old_loc = usr.loc
 	usr.loc = get_turf(src)
-	Moved(old_loc, get_dir(old_loc, usr.loc), FALSE)
+	usr.Moved(old_loc, get_dir(old_loc, usr.loc), FALSE)
 	if(get_turf(user) == get_turf(src))
 		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
 

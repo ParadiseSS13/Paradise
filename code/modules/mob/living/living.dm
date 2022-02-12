@@ -663,7 +663,7 @@
 			return
 
 	//unbuckling yourself
-	if(buckled && last_special <= world.time)
+	if(buckled)
 		resist_buckle()
 
 	//Breaking out of a container (Locker, sleeper, cryo...)
@@ -674,7 +674,7 @@
 	else if(canmove)
 		if(on_fire)
 			resist_fire() //stop, drop, and roll
-		else if(last_special <= world.time)
+		else
 			resist_restraints() //trying to remove cuffs.
 
 /*////////////////////
