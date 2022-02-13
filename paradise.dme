@@ -1741,7 +1741,7 @@
 #include "code\modules\library\lib_machines.dm"
 #include "code\modules\library\lib_readme.dm"
 #include "code\modules\library\random_books.dm"
-#include "code\modules\library\computers\base.dm"
+#include "code\modules\library\computers\library_computer.dm"
 #include "code\modules\library\computers\checkout.dm"
 #include "code\modules\library\computers\public.dm"
 #include "code\modules\lighting\__lighting_docs.dm"

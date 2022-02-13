@@ -26,8 +26,6 @@
 	interact(user)
 
 /obj/machinery/computer/library/checkout/interact(mob/user)
-	if(interact_check(user))
-		return
 
 	var/dat = ""
 	switch(screenstate)
@@ -110,7 +108,7 @@
 
 				dat += {"<form name='pagenum' action='?src=[UID()]' method='get'>
 										<input type='hidden' name='src' value='[UID()]'>
-										<input type='text' name='pagenum' value='[page_num]' maxlength="5" size="5">
+										<input type='text' name='pagenum' value='[archive_page_num]' maxlength="5" size="5">
 										<input type='submit' value='Jump To Page'>
 							</form>"}
 
@@ -122,7 +120,7 @@
 						<td>Controls</td>
 					</tr>"}
 
-				for(var/datum/cachedbook/CB in get_page(page_num))
+				for(var/datum/cachedbook/CB in get_page(archive_page_num))
 					var/author = CB.author
 					var/controls =  "<A href='?src=[UID()];id=[CB.id]'>\[Order\]</A>"
 					controls += {" <A href="?src=[UID()];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</A>"}
@@ -220,17 +218,17 @@
 
 	if(href_list["pagenum"])
 		if(!num_pages)
-			page_num = 1
+			archive_page_num = 1
 		else
 			var/pn = text2num(href_list["pagenum"])
 			if(!isnull(pn))
-				page_num = clamp(pn, 1, num_pages)
+				archive_page_num = clamp(pn, 1, num_pages)
 
 	if(href_list["page"])
 		if(num_pages == 0)
-			page_num = 1
+			archive_page_num = 1
 		else
-			page_num = clamp(text2num(href_list["page"]), 1, num_pages)
+			archive_page_num = clamp(text2num(href_list["page"]), 1, num_pages)
 	if(href_list["settitle"])
 		var/newtitle = input("Enter a title to search for:") as text|null
 		if(newtitle)
@@ -253,7 +251,7 @@
 	if(href_list["search"])
 		num_results = src.get_num_results()
 		num_pages = CEILING(num_results/LIBRARY_BOOKS_PER_PAGE, 1)
-		page_num = 1
+		archive_page_num = 1
 
 		screenstate = 4
 	if(href_list["del"])
