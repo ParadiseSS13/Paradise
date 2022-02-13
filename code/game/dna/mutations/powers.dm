@@ -391,7 +391,8 @@
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if((C.head && (C.head.flags_cover & HEADCOVERSMOUTH)) || (C.wear_mask && (C.wear_mask.flags_cover & MASKCOVERSMOUTH) && !C.wear_mask.mask_adjusted))
-			to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
+			if(show_message)
+				to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
 			can_eat = FALSE
 	return can_eat
 
