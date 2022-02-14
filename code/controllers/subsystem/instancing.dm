@@ -43,17 +43,19 @@ SUBSYSTEM_DEF(instancing)
 	var/ckey_json = json_encode(ckeys)
 
 	// Yes I care about performance savings this much here to mass execute this shit
-	var/list/datum/db_query/queries = list()
-	queries += SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=:json WHERE key_name='playerlist' AND server_id=:sid", list(
+	var/datum/db_query/dbq = SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=:json WHERE key_name='playerlist' AND server_id=:sid", list(
 		"json" = ckey_json,
 		"sid" = GLOB.configuration.system.instance_id
 	))
-	queries += SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=:count WHERE key_name='playercount' AND server_id=:sid", list(
+	dbq.warn_execute(FALSE)
+	qdel(dbq)
+
+	var/datum/db_query/dbq2 = SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=:count WHERE key_name='playercount' AND server_id=:sid", list(
 		"count" = length(ckeys),
 		"sid" = GLOB.configuration.system.instance_id
 	))
-
-	SSdbcore.MassExecute(queries, TRUE, TRUE, FALSE, FALSE)
+	dbq2.warn_execute(FALSE)
+	qdel(dbq2)
 
 /**
   * Heartbeat updater
