@@ -9231,11 +9231,11 @@
 	dir = 4;
 	location = "QM #2"
 	},
+/obj/effect/decal/warning_stripes/yellow,
 /mob/living/simple_animal/bot/mulebot{
 	home_destination = "QM #2";
 	suffix = "#2"
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aDW" = (
@@ -13043,11 +13043,11 @@
 	dir = 4;
 	location = "QM #4"
 	},
+/obj/effect/decal/warning_stripes/yellow,
 /mob/living/simple_animal/bot/mulebot{
 	home_destination = "QM #4";
 	suffix = "#4"
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aLW" = (
@@ -18174,8 +18174,8 @@
 	},
 /area/quartermaster/office)
 "aWu" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
 /obj/effect/decal/warning_stripes/south,
+/mob/living/simple_animal/pet/sloth/paperwork,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aWv" = (
@@ -55578,6 +55578,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"cvc" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall,
+/area/maintenance/aft)
 "cvd" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -63340,12 +63344,6 @@
 	icon_state = "white"
 	},
 /area/medical/research)
-"cMi" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/medical/morgue)
 "cMj" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -68944,11 +68942,12 @@
 	},
 /area/medical/medbay)
 "cYN" = (
-/obj/structure/closet/wardrobe/coroner,
-/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
-/obj/item/reagent_containers/dropper,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/medical/morgue)
 "cYO" = (
@@ -69753,26 +69752,6 @@
 	icon_state = "white"
 	},
 /area/medical/chemistry)
-"day" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/medical/morgue)
 "daz" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -79227,10 +79206,6 @@
 /turf/simulated/wall,
 /area/medical/morgue)
 "duq" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Medbay Maintenance";
-	req_access_txt = "5"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -79239,7 +79214,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
+/obj/machinery/door/airlock/medical{
+	name = "Morgue";
+	req_access_txt = "6;5"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/medical/morgue)
 "dur" = (
 /obj/structure/table/glass,
@@ -79718,11 +79700,11 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "dvs" = (
-/obj/structure/table,
-/obj/item/storage/box/bodybags,
-/obj/item/storage/box/bodybags,
-/obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/plating,
+/obj/structure/morgue,
+/obj/effect/landmark/spawner/rev,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/medical/morgue)
 "dvt" = (
 /turf/simulated/floor/plasteel{
@@ -79741,8 +79723,50 @@
 	},
 /area/medical/morgue)
 "dvv" = (
+/obj/machinery/firealarm{
+	name = "north bump";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/medical/morgue)
+"dvw" = (
+/obj/structure/morgue{
+	dir = 8
+	},
+/obj/effect/landmark/spawner/rev,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
+"dvA" = (
+/obj/machinery/optable,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
+"dvB" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/autopsy_scanner,
+/obj/item/scalpel,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
+"dvC" = (
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
 	},
 /obj/machinery/light_switch{
 	name = "north bump";
@@ -79752,63 +79776,32 @@
 	icon_state = "dark"
 	},
 /area/medical/morgue)
-"dvw" = (
-/obj/structure/morgue,
-/obj/effect/landmark/spawner/rev,
-/turf/simulated/floor/plating,
-/area/medical/morgue)
-"dvx" = (
-/obj/structure/morgue,
-/obj/effect/landmark/spawner/rev,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/medical/morgue)
-"dvy" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plating,
-/area/medical/morgue)
-"dvz" = (
-/obj/structure/filingcabinet/chestdrawer/autopsy,
-/obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/plating,
-/area/medical/morgue)
-"dvA" = (
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
-/obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/plasteel,
-/area/medical/morgue)
-"dvB" = (
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/medical/morgue)
-"dvC" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/medical/morgue)
 "dvD" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/medical/morgue)
 "dvE" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/obj/structure/closet/wardrobe/coroner,
+/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
+/obj/item/reagent_containers/dropper,
+/obj/machinery/firealarm{
+	name = "north bump";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/medical/morgue)
 "dvF" = (
 /obj/structure/table/glass,
@@ -80212,13 +80205,15 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/aft)
-"dwv" = (
-/obj/structure/table,
-/obj/item/clothing/gloves/color/latex,
-/turf/simulated/floor/plating,
-/area/medical/morgue)
 "dww" = (
-/turf/simulated/floor/plating,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
 /area/medical/morgue)
 "dwx" = (
 /obj/structure/cable{
@@ -80228,37 +80223,25 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/medical/morgue)
-"dwz" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/medical/morgue)
-"dwA" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/spawner/xeno,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+	icon_state = "dark"
 	},
 /area/medical/morgue)
 "dwB" = (
-/turf/simulated/wall/rust,
-/area/medical/morgue)
-"dwC" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
+/obj/structure/window/reinforced{
 	dir = 8;
-	icon_state = "neutralfull"
+	pixel_x = -4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
 /area/medical/morgue)
-"dwD" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+"dwC" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/medical/morgue)
 "dwE" = (
 /obj/structure/cable{
@@ -80269,14 +80252,20 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/medical/morgue)
 "dwF" = (
-/obj/structure/table,
-/obj/item/storage/backpack/duffel/medical,
-/obj/item/flashlight/pen,
-/turf/simulated/floor/plating,
+/obj/machinery/bodyscanner,
+/obj/machinery/alarm{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/medical/morgue)
 "dwG" = (
 /turf/simulated/wall,
@@ -80866,21 +80855,21 @@
 /area/hallway/primary/aft)
 "dxG" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock{
-	name = "Morgue";
-	req_access_txt = "6"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/medical{
+	name = "Morgue";
+	req_access_txt = "6"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/medical/morgue)
 "dxH" = (
-/obj/structure/disposalpipe/junction{
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -80907,29 +80896,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/landmark/start/coroner,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/medical/morgue)
-"dxL" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+	icon_state = "dark"
 	},
 /area/medical/morgue)
 "dxM" = (
@@ -80939,24 +80909,6 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/surgery)
-"dxN" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/medical/morgue)
 "dxO" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -81003,44 +80955,30 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/obj/effect/landmark/spawner/blob,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/medical/morgue)
-"dxR" = (
+"dxS" = (
+/obj/structure/disposalpipe/junction{
+	dir = 4
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/landmark/spawner/blob,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/medical/morgue)
-"dxS" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
 /area/medical/morgue)
 "dxT" = (
 /obj/structure/cable{
@@ -81063,17 +81001,23 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+	icon_state = "dark"
 	},
 /area/medical/morgue)
 "dxU" = (
 /obj/structure/table,
-/obj/item/clothing/gloves/color/latex/nitrile,
-/obj/item/clothing/mask/breath,
-/turf/simulated/floor/plating,
+/obj/item/storage/box/bodybags{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/storage/box/bodybags,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/medical/morgue)
 "dxV" = (
 /obj/machinery/door/firedoor,
@@ -81515,52 +81459,18 @@
 	icon_state = "chapel"
 	},
 /area/chapel/main)
-"dyU" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/medical/morgue)
 "dyW" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/medical/morgue)
-"dza" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/medical/morgue)
-"dzb" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/medical/morgue)
-"dze" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+	icon_state = "dark"
 	},
 /area/medical/morgue)
 "dzg" = (
@@ -81570,18 +81480,23 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+	icon_state = "dark"
 	},
 /area/medical/morgue)
 "dzh" = (
-/obj/structure/rack,
-/obj/item/storage/pill_bottle,
-/obj/item/crowbar,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/obj/structure/table,
+/obj/item/storage/box/bodybags{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/storage/box/bodybags,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/medical/morgue)
 "dzi" = (
 /obj/structure/cable{
@@ -82151,50 +82066,42 @@
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
-"dAc" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/medical/morgue)
 "dAd" = (
-/obj/structure/table,
-/obj/item/storage/box/gloves{
-	pixel_y = 8
+/obj/machinery/alarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
-/obj/item/camera{
-	name = "Autopsy Camera";
-	pixel_x = -2;
-	pixel_y = -2
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
 	},
-/turf/simulated/floor/plating,
 /area/medical/morgue)
 "dAe" = (
+/obj/structure/cable,
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/machinery/optable,
-/obj/structure/cable,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/medical/morgue)
-"dAf" = (
-/obj/machinery/light/small,
-/obj/structure/table,
-/obj/item/autopsy_scanner,
-/obj/item/scalpel,
-/obj/machinery/requests_console{
-	department = "Morgue";
-	departmentType = 5;
-	name = "Morgue Requests Console";
-	pixel_y = -30
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/camera{
+	c_tag = "Morgue West";
+	dir = 1;
+	network = list("Medical","SS13")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
+	},
+/area/medical/morgue)
+"dAf" = (
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/medical/morgue)
 "dAg" = (
@@ -82205,33 +82112,54 @@
 	},
 /area/medical/surgeryobs)
 "dAh" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
 /area/medical/morgue)
 "dAi" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
 /obj/machinery/light/small,
-/turf/simulated/floor/plating,
-/area/medical/morgue)
-"dAj" = (
-/obj/structure/table,
-/obj/item/stack/packageWrap,
-/obj/item/hand_labeler,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/medical/morgue)
 "dAk" = (
-/obj/structure/closet/secure_closet/medical3,
-/turf/simulated/floor/plating,
+/obj/structure/table,
+/obj/machinery/requests_console{
+	department = "Morgue";
+	departmentType = 5;
+	name = "Morgue Requests Console";
+	pixel_y = -30
+	},
+/obj/item/paper_bin,
+/obj/machinery/light,
+/obj/item/pen/multi,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/medical/morgue)
 "dAl" = (
-/obj/structure/closet/wardrobe/white,
-/turf/simulated/floor/plating,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/filingcabinet/chestdrawer/autopsy,
+/obj/machinery/camera{
+	c_tag = "Morgue East";
+	dir = 1;
+	network = list("Medical","SS13")
+	},
+/obj/machinery/newscaster{
+	name = "south bump";
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/medical/morgue)
 "dAn" = (
 /obj/structure/cable{
@@ -82241,28 +82169,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
-/area/medical/morgue)
-"dAo" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock{
-	name = "Morgue";
-	req_access_txt = "6"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -82743,7 +82649,6 @@
 /turf/simulated/wall,
 /area/medical/morgue)
 "dBm" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -82751,7 +82656,13 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
+/obj/machinery/door/airlock/maintenance{
+	name = "Morgue Maintenance";
+	req_access_txt = "6;5"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/medical/morgue)
 "dBo" = (
 /obj/machinery/door/airlock/medical{
@@ -82954,12 +82865,12 @@
 /area/hallway/primary/aft)
 "dBS" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock{
-	name = "Morgue";
-	req_access_txt = "6"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/door/airlock/medical{
+	name = "Morgue";
+	req_access_txt = "6"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -88600,8 +88511,8 @@
 /area/medical/surgery2)
 "dPo" = (
 /obj/structure/bed/roller,
-/mob/living/carbon/human/monkey,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/mob/living/carbon/human/monkey,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreencorner"
@@ -88936,27 +88847,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
-"dQd" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/landmark/start/coroner,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/medical/morgue)
 "dQe" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -89236,9 +89126,9 @@
 "dQG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/carbon/human/monkey,
 /obj/effect/landmark/spawner/rev,
 /obj/effect/decal/warning_stripes/yellow,
+/mob/living/carbon/human/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},
@@ -91786,16 +91676,12 @@
 	},
 /area/medical/medbay)
 "dXq" = (
-/obj/machinery/camera{
-	c_tag = "Medbay Coroner's Office";
-	dir = 1;
-	network = list("Medical","SS13")
-	},
 /obj/structure/sign/poster/official/bless_this_spess{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/medical/morgue)
 "dXr" = (
@@ -92293,8 +92179,8 @@
 /area/medical/research)
 "dYE" = (
 /obj/structure/bed/roller,
-/mob/living/carbon/human/monkey,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/mob/living/carbon/human/monkey,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitegreencorner"
@@ -93057,8 +92943,8 @@
 /area/shuttle/gamma/station)
 "fjv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/mob/living/simple_animal/pet/dog/pug,
 /obj/effect/landmark/spawner/rev,
+/mob/living/simple_animal/pet/dog/pug,
 /turf/simulated/floor/engine,
 /area/toxins/explab)
 "fjJ" = (
@@ -93955,6 +93841,13 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
+"hLc" = (
+/obj/structure/chair/office/light,
+/obj/effect/landmark/start/coroner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "hLZ" = (
 /obj/structure/table/glass,
 /obj/item/hemostat{
@@ -94187,6 +94080,23 @@
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/wood,
 /area/crew_quarters/fitness)
+"ipj" = (
+/obj/structure/table,
+/obj/structure/window/reinforced{
+	dir = 8;
+	pixel_x = -4
+	},
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
+/obj/item/clipboard,
+/obj/item/stack/packageWrap,
+/obj/item/hand_labeler,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "ipD" = (
 /obj/structure/closet/wardrobe/pjs,
 /turf/simulated/floor/plasteel{
@@ -94364,6 +94274,16 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"iNZ" = (
+/obj/structure/window/reinforced{
+	dir = 8;
+	pixel_x = -4
+	},
+/obj/machinery/photocopier,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "iPQ" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -96344,6 +96264,12 @@
 	icon_state = "freezerfloor"
 	},
 /area/crew_quarters/sleep)
+"oHk" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/medical/morgue)
 "oHv" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
@@ -96777,6 +96703,24 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/security/permasolitary)
+"pYC" = (
+/obj/structure/table,
+/obj/item/storage/box/gloves{
+	pixel_y = 8
+	},
+/obj/item/camera{
+	name = "Autopsy Camera";
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/structure/window/reinforced{
+	dir = 8;
+	pixel_x = -4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "pZf" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -97179,6 +97123,14 @@
 	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
+"rnJ" = (
+/obj/structure/table,
+/obj/item/folder/white,
+/obj/item/pen,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "rnO" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable,
@@ -99162,10 +99114,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/effect/decal/warning_stripes/north,
 /mob/living/simple_animal/bot/secbot/armsky{
 	auto_patrol = 1
 	},
-/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
 "xpu" = (
@@ -140000,10 +139952,10 @@ duh
 dsN
 duk
 dvs
-dwv
+dvs
 dxH
-dyU
-dAc
+dvs
+dvs
 duk
 dQs
 dDf
@@ -140257,11 +140209,11 @@ drO
 dsO
 duk
 cYN
-dww
-cMi
-dwz
+oHk
+dxH
+oHk
 dAd
-dwB
+duk
 dBL
 dDg
 dEo
@@ -140771,9 +140723,9 @@ drX
 dsQ
 duk
 dvv
-dwz
-dxL
-dwz
+oHk
+dxO
+oHk
 dAf
 duk
 dBV
@@ -141028,10 +140980,10 @@ drR
 dsR
 dum
 dvw
-dvx
-dxL
-dvx
-dvx
+dvw
+dxO
+dvw
+dvw
 duk
 dCd
 dDj
@@ -141284,10 +141236,10 @@ dsU
 dsN
 dsS
 duk
-dvt
-dww
-dQd
-dwz
+oHk
+oHk
+dxO
+oHk
 dXq
 duk
 dCd
@@ -141541,12 +141493,12 @@ dqw
 drT
 dsT
 duk
-dvx
-dvx
-dxL
-dvx
-dvx
-dwB
+dvw
+dvw
+dxO
+dvw
+dvw
+duk
 dBU
 dDk
 dEo
@@ -141798,10 +141750,10 @@ dqx
 drU
 dsV
 dum
-dvt
-dwz
-day
-dza
+cYN
+oHk
+dxO
+oHk
 dAh
 duk
 dBX
@@ -142055,10 +142007,10 @@ dqz
 drV
 dsZ
 duk
-dvx
-dvx
-dxL
-dvx
+dvw
+dvw
+dxO
+dvw
 dvw
 duk
 dBY
@@ -142312,11 +142264,11 @@ dqz
 drW
 dsW
 duk
-dvy
-dwA
-dxN
-dwz
-dAi
+oHk
+oHk
+dxO
+oHk
+oHk
 duk
 dBU
 dDk
@@ -142569,12 +142521,12 @@ dqA
 cKE
 dsX
 duk
-dvz
-dww
+dvw
+dvw
 dxO
-dzb
-dAj
-dwB
+dvw
+dvw
+duk
 dBZ
 dDm
 dEo
@@ -142826,11 +142778,11 @@ dqB
 dpn
 dsY
 duk
-duk
+pYC
 dwB
-dAo
-dBk
-duk
+dxO
+iNZ
+ipj
 duk
 dCa
 dDn
@@ -143084,9 +143036,9 @@ drZ
 dtf
 duk
 dvA
-dww
+dvt
 dxQ
-dvE
+hLc
 dAk
 duk
 dCb
@@ -143342,10 +143294,10 @@ dta
 duk
 dvB
 dwC
-dxR
-dze
+dxO
+dwC
 dAl
-dBk
+duk
 dCc
 dDp
 dEo
@@ -143598,7 +143550,7 @@ dsb
 dtb
 duk
 dvC
-dwD
+dvt
 dxS
 dww
 dAi
@@ -144115,11 +144067,11 @@ dvE
 dwF
 dxU
 dzh
-dvE
-dwB
+rnJ
+dBk
 dBV
 dDm
-dEo
+cvc
 aaa
 aaa
 aaa
