@@ -77,7 +77,8 @@
 /obj/structure/displaycase/obj_break(damage_flag)
 	if(!broken && !(flags & NODECONSTRUCT))
 		density = FALSE
-		broken = 1
+		broken = TRUE
+		open = TRUE
 		new /obj/item/shard( src.loc )
 		playsound(src, "shatter", 70, TRUE)
 		update_icon()
@@ -127,7 +128,8 @@
 		to_chat(user, "<span class='notice'>You start fixing [src]...</span>")
 		if(do_after(user, 20, target = src))
 			G.use(2)
-			broken = 0
+			broken = FALSE
+			open = FALSE
 			obj_integrity = max_integrity
 			update_icon()
 	else
@@ -136,8 +138,7 @@
 /obj/structure/displaycase/crowbar_act(mob/user, obj/item/I)
 	if((alert && !open) || !openable)
 		return
-	// The user can display a crowbar if they're on that intent specifically. Otherwise they'll either take it apart, or close it if the alarm's off
-	if(open && !showpiece && user.a_intent == INTENT_HELP)
+	if(open && !showpiece && user.a_intent == INTENT_HELP) // The user can display a crowbar if they're on that intent specifically. Otherwise they'll either take it apart, or close it if the alarm's off
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -150,6 +151,8 @@
 			return
 		if(!broken)
 			new /obj/item/stack/sheet/glass(get_turf(src), 10)
+		else
+			new /obj/item/shard(get_turf(src))
 		to_chat(user, "<span class='notice'>You start dismantling the case.</span>")
 		var/obj/structure/displaycase_chassis/display = new(src.loc)
 		if(electronics)
@@ -260,12 +263,14 @@
 
 /obj/structure/displaycase/labcage
 	name = "lab cage"
+	alert = TRUE
 	desc = "A glass lab container for storing interesting creatures."
 	start_showpiece_type = /obj/item/clothing/mask/facehugger/lamarr
 	req_access = list(ACCESS_RD)
 
 /obj/structure/displaycase/stechkin
 	name = "officer's display case"
+	alert = TRUE
 	desc = "A display case containing a humble stechkin pistol. Never forget your roots."
 	start_showpiece_type = /obj/item/gun/projectile/automatic/pistol
 	req_access = list(ACCESS_SYNDICATE_COMMAND)
