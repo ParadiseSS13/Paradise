@@ -138,10 +138,9 @@
 		stored_ammo -= b
 		if(keep)
 			stored_ammo.Insert(1,b)
-		if(!mats_initialized){
+		if(!mats_initialized)
 			initial_mats = materials.Copy()
-			mats_initialized=TRUE
-		}
+			mats_initialized = TRUE
 		update_mat_value()
 		update_icon()
 		return b
