@@ -61,7 +61,7 @@
 	build_path = /obj/item/camera/digital
 	category = list("Miscellaneous")
 
-/datum/design/digital_camera
+/datum/design/video_camera
 	name = "Video Camera"
 	desc = "Produce a video camera that can send live feed to the entertainment network."
 	id = "videocamera"
