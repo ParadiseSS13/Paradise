@@ -232,6 +232,8 @@
 	if(ishuman(usr))
 		src.add_fingerprint(usr)
 		src.togglelock(usr)
+	else if(isrobot(usr))
+		src.togglelock(usr)
 	else
 		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
