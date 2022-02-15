@@ -10,7 +10,7 @@
 	max_integrity = 200
 	integrity_failure = 50
 	var/obj/item/showpiece = null
-	var/alert
+	var/alert = FALSE	//Basic display cases have no alarms
 	var/open = FALSE
 	var/openable = TRUE
 	var/obj/item/airlock_electronics/electronics
