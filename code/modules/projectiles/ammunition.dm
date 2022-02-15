@@ -117,7 +117,7 @@
 	var/caliber
 	var/multiload = 1
 	var/list/initial_mats //For calculating refund values.
-	var/mats_initialized=FALSE
+	var/mats_initialized = FALSE
 
 /obj/item/ammo_box/New()
 	..()
