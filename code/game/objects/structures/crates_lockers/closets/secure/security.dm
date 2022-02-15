@@ -103,6 +103,7 @@
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/holosign_creator/security(src)
 	new /obj/item/shield/riot/tele(src)
+	new /obj/item/flashlight/seclite(src)
 	new /obj/item/storage/belt/security/full(src)
 	new /obj/item/gun/energy/gun/hos(src)
 	new /obj/item/door_remote/head_of_security(src)
