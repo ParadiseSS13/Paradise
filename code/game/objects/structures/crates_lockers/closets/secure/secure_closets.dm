@@ -93,11 +93,11 @@
 	if(ishuman(usr))
 		add_fingerprint(usr)
 		togglelock(usr)
-	else
-		if(isrobot(usr))
-			togglelock(usr)
-		else
-			to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
+		return
+	if(isrobot(usr))
+		togglelock(usr)
+		return
+	to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
 /obj/structure/closet/secure_closet/update_overlays() //Putting the welded stuff in update_overlays() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
 	cut_overlays()
