@@ -97,6 +97,7 @@
 	var/override_alerts = FALSE //If it is overriding other alerts of the same type
 
 /obj/screen/alert/MouseEntered(location,control,params)
+	. = ..()
 	openToolTip(usr, src, params, title = name, content = desc, theme = alerttooltipstyle)
 
 
@@ -655,8 +656,7 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!istype(L) || !L.can_resist())
 		return
 	L.changeNext_move(CLICK_CD_RESIST)
-	if(L.last_special <= world.time)
-		return L.resist_buckle()
+	return L.resist_buckle()
 
 // PRIVATE = only edit, use, or override these if you're editing the system as a whole
 

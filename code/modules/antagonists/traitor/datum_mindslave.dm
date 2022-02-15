@@ -38,7 +38,7 @@
 
 	// Update our master's HUD to give him the "M" icon.
 	// Basically a copy and paste of what's in [/datum/antagonist/proc/add_antag_hud] in case the master doesn't have a traitor datum.
-	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_TRAITOR]
+	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
 	hud.join_hud(master.current)
 	set_antag_hud(master.current, "hudmaster")
 	slaved.add_serv_hud(master, "master")

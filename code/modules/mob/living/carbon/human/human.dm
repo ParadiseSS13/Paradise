@@ -207,9 +207,10 @@
 				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
 				stat("Absorbed DNA", mind.changeling.absorbedcount)
 
-			if(mind.vampire)
-				stat("Total Blood", "[mind.vampire.bloodtotal]")
-				stat("Usable Blood", "[mind.vampire.bloodusable]")
+			var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
+			if(V)
+				stat("Total Blood", "[V.bloodtotal]")
+				stat("Usable Blood", "[V.bloodusable]")
 
 /mob/living/carbon/human/ex_act(severity)
 	if(status_flags & GODMODE)

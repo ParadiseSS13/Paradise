@@ -302,7 +302,7 @@
 	taste_description = "a long, fiery burn"
 
 /datum/reagent/consumable/ethanol/threemileisland
-	name = "THree Mile Island Iced Tea"
+	name = "Three Mile Island Iced Tea"
 	id = "threemileisland"
 	description = "Made for a woman, strong enough for a man."
 	reagent_state = LIQUID

@@ -276,12 +276,16 @@
 /obj/item/cartridge/syndicate
 	name = "Detomatix Cartridge"
 	icon_state = "cart"
-	var/initial_remote_door_id = "smindicate" //Make sure this matches the syndicate shuttle's shield/door id!!	//don't ask about the name, testing.
 	charges = 4
-	programs = list(new/datum/data/pda/utility/toggle_door)
 	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/detonate)
 
-/obj/item/cartridge/syndicate/Initialize(mapload)
+/obj/item/cartridge/syndicate/nuclear //needed subtype so regular traitors can't open and close nuclear shuttle doors
+	name = "Nuclear Agent Detomatix Cartridge"
+	desc = "The same reliable Detomatix program except with the added ability of remotely toggling your nuclear shuttle airlock from your PDA"
+	var/initial_remote_door_id = "smindicate" //Make sure this matches the syndicate shuttle's shield/door id!!	//don't ask about the name, testing.
+	programs = list(new/datum/data/pda/utility/toggle_door)
+
+/obj/item/cartridge/syndicate/nuclear/Initialize(mapload)
 	. = ..()
 	var/datum/data/pda/utility/toggle_door/D = programs[1]
 	if(istype(D))

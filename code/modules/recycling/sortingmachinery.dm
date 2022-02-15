@@ -312,7 +312,7 @@
 	flushing = 1
 	flick("intake-closing", src)
 	var/deliveryCheck = 0
-	var/obj/structure/disposalholder/H = new()	// virtual holder object which actually
+	var/obj/structure/disposalholder/H = new(src)	// virtual holder object which actually
 													// travels through the pipes.
 	for(var/obj/structure/bigDelivery/O in src)
 		deliveryCheck = 1

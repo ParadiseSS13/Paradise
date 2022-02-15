@@ -529,9 +529,6 @@
 		return FALSE
 	var/obj/effect/proc_holder/spell/spell = target
 
-	if(spell.special_availability_check)
-		return TRUE
-
 	if(owner)
 		return spell.can_cast(owner)
 	return FALSE

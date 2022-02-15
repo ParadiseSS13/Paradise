@@ -2047,9 +2047,7 @@
 	},
 /area/awaymission/wwmines)
 "gi" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wwmines)
 "gj" = (

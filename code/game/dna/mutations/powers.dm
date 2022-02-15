@@ -214,7 +214,7 @@
 
 /datum/mutation/stealth/deactivate(mob/living/M)
 	..()
-	M.alpha = 255
+	M.reset_visibility()
 
 // WAS: /datum/bioEffect/darkcloak
 /datum/mutation/stealth/darkcloak
@@ -234,9 +234,13 @@
 		return
 	var/light_available = T.get_lumcount() * 10
 	if(light_available <= 2)
-		M.alpha = round(M.alpha * 0.8)
+		if(M.invisibility != INVISIBILITY_OBSERVER)
+			M.alpha = round(M.alpha * 0.8)
 	else
-		M.alpha = 255
+		M.reset_visibility()
+		M.alpha = round(255 * 0.8)
+	if(M.alpha == 0)
+		M.make_invisible()
 
 //WAS: /datum/bioEffect/chameleon
 /datum/mutation/stealth/chameleon
@@ -252,9 +256,13 @@
 
 /datum/mutation/stealth/chameleon/on_life(mob/M)
 	if((world.time - M.last_movement) >= 30 && !M.stat && M.canmove && !M.restrained())
-		M.alpha -= 25
+		if(M.invisibility != INVISIBILITY_OBSERVER)
+			M.alpha -= 25
 	else
+		M.reset_visibility()
 		M.alpha = round(255 * 0.80)
+	if(M.alpha == 0)
+		M.make_invisible()
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -383,7 +391,8 @@
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if((C.head && (C.head.flags_cover & HEADCOVERSMOUTH)) || (C.wear_mask && (C.wear_mask.flags_cover & MASKCOVERSMOUTH) && !C.wear_mask.mask_adjusted))
-			to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
+			if(show_message)
+				to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
 			can_eat = FALSE
 	return can_eat
 

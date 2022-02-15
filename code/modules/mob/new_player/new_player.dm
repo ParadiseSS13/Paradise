@@ -22,26 +22,31 @@
 /mob/new_player/verb/new_player_panel()
 	set src = usr
 
-	if(client.tos_consent)
+	if(client.tos_consent || GLOB.configuration.system.external_tos_handler)
 		new_player_panel_proc()
 	else
 		privacy_consent()
 
 
 /mob/new_player/proc/privacy_consent()
-	src << browse(null, "window=playersetup")
 	var/output = GLOB.join_tos
-	output += "<p><a href='byond://?src=[UID()];consent_signed=SIGNED'>I consent</A>"
-	output += "<p><a href='byond://?src=[UID()];consent_rejected=NOTSIGNED'>I DO NOT consent</A>"
+	// Dont blank out the other window. This one is read only.
+	if(!GLOB.configuration.system.external_tos_handler)
+		src << browse(null, "window=playersetup")
+		output += "<p><a href='byond://?src=[UID()];consent_signed=SIGNED'>I consent</A>"
+		output += "<p><a href='byond://?src=[UID()];consent_rejected=NOTSIGNED'>I DO NOT consent</A>"
 	src << browse(output,"window=privacy_consent;size=500x300")
 	var/datum/browser/popup = new(src, "privacy_consent", "<div align='center'>Privacy Consent</div>", 500, 400)
-	popup.set_window_options("can_close=0")
+	// Let them close it here, this is a read only pane
+	if(!GLOB.configuration.system.external_tos_handler)
+		popup.set_window_options("can_close=0")
 	popup.set_content(output)
 	popup.open(0)
 	return
 
 
 /mob/new_player/proc/new_player_panel_proc()
+	set waitfor = FALSE
 	var/real_name = client.prefs.active_character.real_name
 	if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 		real_name = "Random Character Slot"

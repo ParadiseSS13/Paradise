@@ -158,6 +158,9 @@
 #define ENVIRONMENT_SMASH_WALLS 2   //walls
 #define ENVIRONMENT_SMASH_RWALLS 4  //rwalls
 
+// Reproduction
+#define DEFAULT_MAX_OFFSPRING 8
+
 ///Flags used by the flags parameter of electrocute act.
 
 ///Makes it so that the shock doesn't take gloves into account.
@@ -180,6 +183,9 @@
 #define NO_SPAWN 0
 #define HOSTILE_SPAWN 1
 #define FRIENDLY_SPAWN 2
+
+///Max amount of living Xenobio mobs allowed at any given time (excluding slimes).
+#define MAX_GOLD_CORE_MOBS 45
 
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
