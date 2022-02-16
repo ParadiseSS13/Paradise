@@ -745,6 +745,7 @@
 		/obj/item/soap,
 		/obj/item/t_scanner,
 		/obj/item/rpd,
+		/obj/item/painter,
 		/obj/item/analyzer,
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
