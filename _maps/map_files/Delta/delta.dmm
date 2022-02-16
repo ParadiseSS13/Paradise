@@ -55578,10 +55578,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"cvc" = (
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall,
-/area/maintenance/aft)
 "cvd" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -80207,9 +80203,6 @@
 /area/hallway/primary/aft)
 "dww" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -81481,7 +81474,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -81494,6 +81487,9 @@
 	pixel_y = 5
 	},
 /obj/item/storage/box/bodybags,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -93841,13 +93837,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
-"hLc" = (
-/obj/structure/chair/office/light,
-/obj/effect/landmark/start/coroner,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "hLZ" = (
 /obj/structure/table/glass,
 /obj/item/hemostat{
@@ -94080,23 +94069,6 @@
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/wood,
 /area/crew_quarters/fitness)
-"ipj" = (
-/obj/structure/table,
-/obj/structure/window/reinforced{
-	dir = 8;
-	pixel_x = -4
-	},
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
-/obj/item/clipboard,
-/obj/item/stack/packageWrap,
-/obj/item/hand_labeler,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "ipD" = (
 /obj/structure/closet/wardrobe/pjs,
 /turf/simulated/floor/plasteel{
@@ -94274,16 +94246,6 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"iNZ" = (
-/obj/structure/window/reinforced{
-	dir = 8;
-	pixel_x = -4
-	},
-/obj/machinery/photocopier,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "iPQ" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -94369,6 +94331,16 @@
 	icon_state = "redfull"
 	},
 /area/security/warden)
+"iZS" = (
+/obj/structure/window/reinforced{
+	dir = 8;
+	pixel_x = -4
+	},
+/obj/machinery/photocopier,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "iZW" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Internal Affairs Maintenance";
@@ -95010,6 +94982,10 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
+"ldF" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall,
+/area/maintenance/aft)
 "lee" = (
 /obj/structure/table/glass,
 /obj/item/grown/sunflower{
@@ -95054,6 +95030,23 @@
 	icon_state = "red"
 	},
 /area/security/seceqstorage)
+"lqd" = (
+/obj/structure/table,
+/obj/structure/window/reinforced{
+	dir = 8;
+	pixel_x = -4
+	},
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
+/obj/item/clipboard,
+/obj/item/stack/packageWrap,
+/obj/item/hand_labeler,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "lqK" = (
 /turf/simulated/wall,
 /area/hallway/primary/central/nw)
@@ -96264,12 +96257,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/crew_quarters/sleep)
-"oHk" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/medical/morgue)
 "oHv" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
@@ -96518,6 +96505,12 @@
 	icon_state = "whitebluecorner"
 	},
 /area/hallway/primary/central)
+"pDK" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/medical/morgue)
 "pEn" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -96695,6 +96688,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"pXF" = (
+/obj/structure/chair/office/light,
+/obj/effect/landmark/start/coroner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "pXX" = (
 /obj/machinery/camera{
 	c_tag = "Perma-Brig Solitary 2";
@@ -96703,24 +96703,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/security/permasolitary)
-"pYC" = (
-/obj/structure/table,
-/obj/item/storage/box/gloves{
-	pixel_y = 8
-	},
-/obj/item/camera{
-	name = "Autopsy Camera";
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/structure/window/reinforced{
-	dir = 8;
-	pixel_x = -4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "pZf" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -97123,14 +97105,6 @@
 	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
-"rnJ" = (
-/obj/structure/table,
-/obj/item/folder/white,
-/obj/item/pen,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "rnO" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable,
@@ -97365,6 +97339,24 @@
 	icon_state = "red"
 	},
 /area/hallway/secondary/exit)
+"sdn" = (
+/obj/structure/table,
+/obj/item/storage/box/gloves{
+	pixel_y = 8
+	},
+/obj/item/camera{
+	name = "Autopsy Camera";
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/structure/window/reinforced{
+	dir = 8;
+	pixel_x = -4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "sdP" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -99171,6 +99163,14 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/surgery1)
+"xwv" = (
+/obj/structure/table,
+/obj/item/folder/white,
+/obj/item/pen,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "xAc" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -140209,9 +140209,9 @@ drO
 dsO
 duk
 cYN
-oHk
+pDK
 dxH
-oHk
+pDK
 dAd
 duk
 dBL
@@ -140723,9 +140723,9 @@ drX
 dsQ
 duk
 dvv
-oHk
+pDK
 dxO
-oHk
+pDK
 dAf
 duk
 dBV
@@ -141236,10 +141236,10 @@ dsU
 dsN
 dsS
 duk
-oHk
-oHk
+pDK
+pDK
 dxO
-oHk
+pDK
 dXq
 duk
 dCd
@@ -141751,9 +141751,9 @@ drU
 dsV
 dum
 cYN
-oHk
+pDK
 dxO
-oHk
+pDK
 dAh
 duk
 dBX
@@ -142264,11 +142264,11 @@ dqz
 drW
 dsW
 duk
-oHk
-oHk
+pDK
+pDK
 dxO
-oHk
-oHk
+pDK
+pDK
 duk
 dBU
 dDk
@@ -142778,11 +142778,11 @@ dqB
 dpn
 dsY
 duk
-pYC
+sdn
 dwB
 dxO
-iNZ
-ipj
+iZS
+lqd
 duk
 dCa
 dDn
@@ -143038,7 +143038,7 @@ duk
 dvA
 dvt
 dxQ
-hLc
+pXF
 dAk
 duk
 dCb
@@ -144067,11 +144067,11 @@ dvE
 dwF
 dxU
 dzh
-rnJ
+xwv
 dBk
 dBV
 dDm
-cvc
+ldF
 aaa
 aaa
 aaa
