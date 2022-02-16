@@ -9,6 +9,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
+	can_holster = TRUE
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -46,12 +47,13 @@
 	origin_tech = "combat=5;materials=4;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
 	shaded_charge = 0
-
+	can_holster = FALSE
 /obj/item/gun/energy/laser/cyborg
 	can_charge = 0
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/cyborg)
 	origin_tech = null
+	can_holster = FALSE
 
 /obj/item/gun/energy/laser/cyborg/newshot()
 	..()
@@ -64,7 +66,7 @@
 	name = "scatter laser gun"
 	desc = "A laser gun equipped with a refraction kit that spreads bolts."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
-
+	can_holster = FALSE
 ///Laser Cannon
 
 /obj/item/gun/energy/lasercannon
@@ -80,7 +82,7 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/accelerator)
 	ammo_x_offset = 3
-
+	can_holster = FALSE
 /obj/item/ammo_casing/energy/laser/accelerator
 	projectile_type = /obj/item/projectile/beam/laser/accelerator
 	select_name = "accelerator"
@@ -113,7 +115,7 @@
 	shaded_charge = TRUE
 	origin_tech = "combat=6;materials=4;magnets=4;syndicate=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/xray)
-
+	can_holster = FALSE
 /obj/item/gun/energy/immolator
 	name = "immolator laser gun"
 	desc = "A modified laser gun, shooting highly concetrated beams with higher intensity that ignites the target, for the cost of draining more power per shot"
@@ -122,13 +124,14 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator)
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	shaded_charge = 1
-
+	can_holster = FALSE
 /obj/item/gun/energy/immolator/multi
 	name = "multi lens immolator cannon"
 	desc = "A large laser cannon, similar to the Immolator Laser, with toggleable firemodes. It is frequently used by military-like forces through Nanotrasen."
 	icon_state = "multilensimmolator"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/strong, /obj/item/ammo_casing/energy/immolator/scatter)
 	origin_tech = "combat=5;magnets=5;powerstorage=4"
+	can_holster = FALSE
 
 /obj/item/gun/energy/immolator/multi/update_icon()
 	..()
@@ -140,7 +143,7 @@
 /obj/item/gun/energy/immolator/multi/cyborg
 	name = "cyborg immolator cannon"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/scatter/cyborg, /obj/item/ammo_casing/energy/immolator/strong/cyborg) // scatter is default, because it is more useful
-
+	can_holster = FALSE
 /obj/item/gun/energy/emitter
 	name = "mobile emitter"
 	desc = "An emitter removed from its base, and attached to a laser cannon frame."
@@ -152,11 +155,13 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/emitter)
 	ammo_x_offset = 3
+	can_holster = FALSE
 
 /obj/item/gun/energy/emitter/cyborg
 	name = "mounted emitter"
 	desc = "An emitter built into to your cyborg frame, draining charge from your cell."
 	ammo_type = list(/obj/item/ammo_casing/energy/emitter/cyborg)
+	can_holster=FALSE
 
 /obj/item/gun/energy/emitter/cyborg/newshot()
 	..()

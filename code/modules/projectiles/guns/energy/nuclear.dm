@@ -10,6 +10,7 @@
 	flight_x_offset = 20
 	flight_y_offset = 10
 	shaded_charge = TRUE
+	can_holster = TRUE
 
 /obj/item/gun/energy/gun/detailed_examine()
 	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. To switch between stun and lethal, click the weapon \
@@ -17,6 +18,7 @@
 
 /obj/item/gun/energy/gun/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
+	can_holster = FALSE
 
 /obj/item/gun/energy/gun/cyborg/newshot()
 	..()
@@ -35,7 +37,6 @@
 	can_flashlight = 0 // Can't attach or detach the flashlight, and override it's icon update
 	actions_types = list(/datum/action/item_action/toggle_gunlight)
 	shaded_charge = FALSE
-	can_holster = TRUE  // Pistol sized, so it should fit into a holster
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
 	gun_light = new /obj/item/flashlight/seclite(src)
@@ -59,7 +60,6 @@
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	shaded_charge = FALSE
-	can_holster = TRUE
 
 /obj/item/gun/energy/gun/blueshield
 	name = "advanced energy revolver"
@@ -71,7 +71,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
-	can_holster = TRUE
 
 /obj/item/gun/energy/gun/blueshield/pdw9
 	name = "\improper PDW-9 taser pistol"
@@ -91,7 +90,7 @@
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
 	shaded_charge = FALSE
-
+	can_holster = FALSE
 /obj/item/gun/energy/gun/nuclear
 	name = "advanced energy gun"
 	desc = "An energy gun with an experimental miniaturized nuclear reactor that automatically charges the internal power cell."
@@ -105,6 +104,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/disabler)
 	selfcharge = 1
 	shaded_charge = FALSE
+
 
 /obj/item/gun/energy/gun/nuclear/detailed_examine()
 	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. To switch between stun and lethal, click the weapon \
