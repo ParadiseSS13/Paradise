@@ -113,8 +113,8 @@
 	if(!input)
 		revert_cast(user)
 		return
-	var/message = "[user.real_name]: [input]"
-
+	var/title = isvampirethrall(user) ? "Thrall" : "<b>Vampire Master</b>" // if admins give this to a non vampire/thrall it is not my problem
+	var/message = "[user.real_name] ([title]): [input]"
 	for(var/mob/M in targets)
 		to_chat(M, "<span class='shadowling'>[message]</span>")
 	for(var/mob/M in GLOB.dead_mob_list)
@@ -197,5 +197,7 @@
 
 /obj/effect/proc_holder/spell/vampire/hysteria/cast(list/targets, mob/user)
 	for(var/mob/living/carbon/human/H as anything in targets)
+		if(!H.affects_vampire(user))
+			continue
 		H.flash_eyes(1, TRUE) // flash to give them a second to lose track of who is who
 		new /obj/effect/hallucination/delusion/long(get_turf(user), H)
