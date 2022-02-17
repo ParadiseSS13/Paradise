@@ -29905,7 +29905,7 @@
 /area/security/hos)
 "bum" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin,
+/obj/item/paper_bin/nanotrasen,
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -37002,7 +37002,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/paper_bin,
+/obj/item/paper_bin/nanotrasen,
 /obj/item/pen,
 /turf/simulated/floor/carpet,
 /area/bridge)
@@ -39238,7 +39238,7 @@
 /area/crew_quarters/chief)
 "bMi" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin,
+/obj/item/paper_bin/nanotrasen,
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -40738,7 +40738,7 @@
 /area/security/brig)
 "bPu" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin,
+/obj/item/paper_bin/nanotrasen,
 /obj/item/pen,
 /obj/structure/cable{
 	d1 = 4;
@@ -41559,7 +41559,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/item/paper_bin,
+/obj/item/paper_bin/nanotrasen,
 /obj/item/melee/chainofcommand,
 /obj/item/pen,
 /turf/simulated/floor/carpet/black,
@@ -43649,7 +43649,7 @@
 /area/engine/break_room)
 "bUQ" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin,
+/obj/item/paper_bin/nanotrasen,
 /obj/item/stamp/hop,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
@@ -46023,7 +46023,7 @@
 /obj/structure/table/wood,
 /obj/machinery/light,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "NT Representative's Office"
+	department = "Head of Personnel's Office"
 	},
 /obj/machinery/keycard_auth{
 	pixel_x = 24
@@ -47016,7 +47016,7 @@
 "cbX" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
-/obj/item/paper/ntrep,
+/obj/item/paper_bin/nanotrasen,
 /obj/item/flashlight/lamp/green{
 	pixel_x = -5;
 	pixel_y = 12
@@ -49093,7 +49093,7 @@
 /area/crew_quarters/heads/hop)
 "chh" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin,
+/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads/hop)
 "chi" = (
@@ -72615,7 +72615,7 @@
 	name = "north bump";
 	pixel_y = 30
 	},
-/obj/item/paper_bin,
+/obj/item/paper_bin/nanotrasen,
 /obj/item/pen,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -78685,7 +78685,7 @@
 /area/medical/cmo)
 "dth" = (
 /obj/structure/table/glass,
-/obj/item/paper_bin,
+/obj/item/paper_bin/nanotrasen,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
