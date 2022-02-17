@@ -25565,11 +25565,7 @@
 	},
 /area/hallway/primary/fore)
 "blz" = (
-/obj/structure/table,
-/obj/item/storage/box/lights/mixed{
-	pixel_x = 4;
-	pixel_y = 4
-	},
+/obj/machinery/vending/cart,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
