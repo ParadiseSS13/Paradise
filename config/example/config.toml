@@ -91,6 +91,10 @@ admin_rank_colour_map = [
 	{name = "PR Reviewer", colour = "#c27c0e"},
 	{name = "Mentor", colour = "#f1c40f"},
 ]
+# Map of common CIDs that should not be banned, plus their reasons
+common_cid_map = [
+	{cid = "3923664137", reason = "Mass-Match related to Walmart branded prebuilt PCs"}
+]
 
 
 ################################################################
