@@ -49,16 +49,11 @@
 		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")
 		return FALSE
 
-	var/enthrall_safe = FALSE
-	for(var/obj/item/implant/mindshield/L in C)
-		if(L.implanted)
-			enthrall_safe = TRUE
-			break
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(V.subclass.thrall_cap <= length(user.mind.som.serv))
 		to_chat(user, "<span class='warning'>You don't have enough power to enthrall any more people!</span>")
 		return FALSE
-	if(enthrall_safe || C.mind.has_antag_datum(/datum/antagonist/vampire) || C.mind.has_antag_datum(/datum/antagonist/mindslave))
+	if(ismindshielded(C) || C.mind.has_antag_datum(/datum/antagonist/vampire) || C.mind.has_antag_datum(/datum/antagonist/mindslave))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
 		return FALSE
 	if(C.mind.isholy)
@@ -87,8 +82,7 @@
 
 /datum/spell_targeting/select_vampire_network/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom) // Returns the vampire and their thralls. If user is a thrall then it will look up their master's network
 	var/list/mob/living/targets = list()
-	var/datum/antagonist/vampire/V
-	V = user.mind.has_antag_datum(/datum/antagonist/vampire) // if the user is a vampire
+	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire) // if the user is a vampire
 
 	if(!V)
 		for(var/datum/mind/M in user.mind.som.masters) // if the user is a thrall
@@ -109,7 +103,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/vampire/thrall_commune/cast(list/targets, mob/user)
-	var/input = stripped_input(user, "Please choose a message to tell to the other thralls.", "Thrall Commune", "")
+	var/input = stripped_input(user, "Enter a message to relay to the other thralls", "Thrall Commune", "")
 	if(!input)
 		revert_cast(user)
 		return
@@ -125,7 +119,7 @@
 /obj/effect/proc_holder/spell/vampire/pacify
 	name = "Pacify (10)"
 	desc = "Pacify a target temporarily, making them unable to cause harm."
-	gain_desc = "You have gained the ability to pacify someones harmful tendencies, preventing them from doing any physical harm to anyone."
+	gain_desc = "You have gained the ability to pacify someone's harmful tendencies, preventing them from doing any physical harm to anyone."
 	action_icon_state = "pacify"
 	charge_max = 30 SECONDS
 	required_blood = 10
@@ -159,7 +153,7 @@
 
 /obj/effect/proc_holder/spell/vampire/rally_thralls
 	name = "Rally Thralls (100)"
-	desc = "Removes all crowd incapacitating effects from your nearby thralls."
+	desc = "Removes all incapacitating effects from your nearby thralls."
 	gain_desc = "You have gained the ability to remove all incapacitating effects from nearby thralls."
 	action_icon_state = "thralls_up"
 	required_blood = 100
