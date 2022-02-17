@@ -117,7 +117,6 @@
 	var/caliber
 	var/multiload = 1
 	var/list/initial_mats //For calculating refund values.
-	var/mats_initialized = FALSE
 
 /obj/item/ammo_box/New()
 	..()
@@ -138,9 +137,8 @@
 		stored_ammo -= b
 		if(keep)
 			stored_ammo.Insert(1,b)
-		if(!mats_initialized)
+		if(initial_mats==null)
 			initial_mats = materials.Copy()
-			mats_initialized = TRUE
 		update_mat_value()
 		update_icon()
 		return b
