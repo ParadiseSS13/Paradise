@@ -770,15 +770,24 @@
 
 /mob/living/proc/check_ear_prot()
 
+/**
+ * Returns the name override, if any, for the slot somebody is trying to strip
+ */
+/mob/living/proc/get_strip_slot_name_override(slot)
+	switch(slot)
+		if(slot_wear_pda)
+			return "PDA"
+
 // The src mob is trying to strip an item from someone
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
 /mob/living/stripPanelUnequip(obj/item/what, mob/who, where, silent = 0)
+	var/item_name = get_strip_slot_name_override(where) || what.name
 	if(what.flags & NODROP)
-		to_chat(src, "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>")
+		to_chat(src, "<span class='warning'>You can't remove \the [item_name], it appears to be stuck!</span>")
 		return
 	if(!silent)
-		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
-						"<span class='userdanger'>[src] tries to remove [who]'s [what.name].</span>")
+		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [item_name].</span>", \
+						"<span class='userdanger'>[src] tries to remove [who]'s [item_name].</span>")
 	what.add_fingerprint(src)
 	if(do_mob(src, who, what.strip_delay))
 		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
