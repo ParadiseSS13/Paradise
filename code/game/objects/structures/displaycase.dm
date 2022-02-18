@@ -62,15 +62,15 @@
 /obj/structure/displaycase/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			playsound(src.loc, 'sound/effects/glasshit.ogg', 75, TRUE)
+			playsound(loc, 'sound/effects/glasshit.ogg', 75, TRUE)
 		if(BURN)
-			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
+			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/structure/displaycase/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		dump()
 		if(!disassembled)
-			new /obj/item/shard(loc)
+			new /obj/item/shard(drop_location())
 			trigger_alarm()
 	qdel(src)
 
@@ -79,7 +79,7 @@
 		density = FALSE
 		broken = TRUE
 		open = TRUE
-		new /obj/item/shard( src.loc )
+		new /obj/item/shard(drop_location())
 		playsound(src, "shatter", 70, TRUE)
 		update_icon()
 		trigger_alarm()
@@ -150,11 +150,11 @@
 		if(!I.use_tool(src, user, 15, volume = I.tool_volume))
 			return
 		if(!broken)
-			new /obj/item/stack/sheet/glass(get_turf(src), 10)
+			new /obj/item/stack/sheet/glass(drop_location(), 10)
 		else
-			new /obj/item/shard(get_turf(src))
+			new /obj/item/shard(drop_location())
 		to_chat(user, "<span class='notice'>You start dismantling the case.</span>")
-		var/obj/structure/displaycase_chassis/display = new(src.loc)
+		var/obj/structure/displaycase_chassis/display = new(loc)
 		if(electronics)
 			display.electronics = electronics
 		qdel(src)
@@ -203,7 +203,7 @@
 /obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/airlock_electronics))
 		to_chat(user, "<span class='notice'>You start installing the electronics into [src]...</span>")
-		playsound(src.loc, I.usesound, 50, 1)
+		playsound(loc, I.usesound, 50, 1)
 		if(do_after(user, 30, target = src))
 			if(user.drop_item())
 				I.forceMove(src)
@@ -218,7 +218,7 @@
 		to_chat(user, "<span class='notice'>You start adding [G] to [src]...</span>")
 		if(do_after(user, 20, target = src))
 			G.use(10)
-			var/obj/structure/displaycase/display = new(src.loc)
+			var/obj/structure/displaycase/display = new(loc)
 			if(electronics)
 				electronics.forceMove(display)
 				display.electronics = electronics
@@ -238,7 +238,7 @@
 	if(electronics)
 		if(I.use_tool(src, user, 0, volume = I.tool_volume))
 			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
-			new /obj/item/airlock_electronics(get_turf(src), 1)
+			new /obj/item/airlock_electronics(drop_location(), 1)
 			electronics = null
 
 /obj/structure/displaycase_chassis/wrench_act(mob/user, obj/item/I)
@@ -252,7 +252,7 @@
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 		return
 	TOOL_DISMANTLE_SUCCESS_MESSAGE
-	new /obj/item/stack/sheet/wood(get_turf(src), 5)
+	new /obj/item/stack/sheet/wood(drop_location(), 5)
 	qdel(src)
 
 //The lab cage and captains display case do not spawn with electronics, which is why req_access is needed.
