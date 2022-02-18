@@ -1647,6 +1647,15 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/control)
+"gj" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK"
+	},
+/turf/simulated/wall/indestructible/riveted,
+/area/centcom/evac)
 "gk" = (
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate_sit)
@@ -4292,6 +4301,15 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
+"oD" = (
+/obj/machinery/conveyor/east{
+	id = "QMLoad2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellowfull"
+	},
+/area/centcom/suppy)
 "oE" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel/freezer,
@@ -6765,7 +6783,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/palebush,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/grass,
 /area/centcom/control)
 "yu" = (
 /obj/machinery/vending/snack,
@@ -7058,6 +7076,15 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
+"Bl" = (
+/obj/machinery/conveyor/east{
+	id = "QMLoad2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkyellow"
+	},
+/area/centcom/suppy)
 "Bo" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/drinkingglasses,
@@ -7271,14 +7298,14 @@
 	},
 /area/centcom/suppy)
 "Ci" = (
-/obj/machinery/conveyor_switch/oneway{
-	dir = 8;
-	id = "QMLoad"
+/obj/machinery/door/poddoor{
+	id_tag = "QMLoaddoor2";
+	name = "Supply Dock Loading Door"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellow"
+/obj/machinery/conveyor/east{
+	id = "QMLoad2"
 	},
+/turf/simulated/floor/plating,
 /area/centcom/suppy)
 "Cj" = (
 /obj/structure/table,
@@ -7490,6 +7517,15 @@
 	icon_state = "neutralfull"
 	},
 /area/adminconstruction)
+"Df" = (
+/obj/machinery/conveyor_switch/oneway{
+	dir = 8;
+	id = "QMLoad"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/suppy)
 "Dj" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
@@ -7541,23 +7577,20 @@
 	id_tag = "QMLoaddoor";
 	name = "Supply Dock Loading Door"
 	},
-/obj/machinery/conveyor{
-	dir = 8;
+/obj/machinery/conveyor/west{
 	id = "QMLoad"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
 "Dz" = (
-/obj/machinery/conveyor{
-	dir = 8;
+/obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor/west{
 	id = "QMLoad"
 	},
-/obj/structure/plasticflaps/mining,
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
 "DA" = (
-/obj/machinery/conveyor{
-	dir = 8;
+/obj/machinery/conveyor/west{
 	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel{
@@ -7569,8 +7602,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/gamma/space)
 "DC" = (
-/obj/machinery/conveyor{
-	dir = 8;
+/obj/machinery/conveyor/west{
 	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel{
@@ -7594,8 +7626,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "DE" = (
-/obj/machinery/conveyor{
-	dir = 8;
+/obj/machinery/conveyor/west{
 	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel{
@@ -7802,6 +7833,15 @@
 	icon_state = "bar"
 	},
 /area/tdome/tdomeobserve)
+"Es" = (
+/obj/machinery/conveyor_switch/oneway{
+	dir = 8;
+	id = "QMLoad2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/suppy)
 "Et" = (
 /obj/machinery/computer/robotics,
 /turf/simulated/floor/plasteel{
@@ -7925,7 +7965,7 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/palebush,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/grass,
 /area/centcom/control)
 "Fc" = (
 /obj/machinery/light/spot,
@@ -7997,6 +8037,13 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"Fw" = (
+/obj/machinery/conveyor/east{
+	id = "QMLoad2"
+	},
+/obj/structure/plasticflaps/mining,
+/turf/simulated/floor/plating,
+/area/centcom/suppy)
 "Fx" = (
 /obj/structure/table/holotable,
 /turf/simulated/floor/holofloor{
@@ -9193,10 +9240,13 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "JS" = (
-/obj/machinery/newscaster{
-	pixel_x = -32
+/obj/machinery/door_control{
+	desc = "A remote control switch to block view of the singularity.";
+	id = "CCGAMMA";
+	name = "Gamma Lockdown";
+	pixel_y = 32;
+	req_access_txt = "114"
 	},
-/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9451,6 +9501,15 @@
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
+"KM" = (
+/obj/machinery/conveyor/east{
+	id = "QMLoad2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkyellow"
+	},
+/area/centcom/suppy)
 "KN" = (
 /obj/structure/table,
 /obj/machinery/chem_dispenser/beer/upgraded{
@@ -9568,6 +9627,15 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_emptycourt)
+"Lm" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK"
+	},
+/turf/simulated/wall/indestructible/riveted,
+/area/centcom/specops)
 "Ls" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/mecha/combat/marauder/loaded,
@@ -10013,6 +10081,15 @@
 	icon_state = "asteroid1"
 	},
 /area/holodeck/source_desert)
+"MX" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellowfull"
+	},
+/area/centcom/suppy)
 "MY" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
@@ -10069,7 +10146,7 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/palebush,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/grass,
 /area/centcom/control)
 "No" = (
 /obj/effect/turf_decal/bot,
@@ -10234,6 +10311,9 @@
 "NU" = (
 /obj/structure/table/wood,
 /obj/item/storage/pill_bottle/dice,
+/obj/machinery/newscaster/security_unit{
+	pixel_x = -32
+	},
 /turf/simulated/floor/transparent/glass,
 /area/centcom/specops)
 "NW" = (
@@ -10285,7 +10365,7 @@
 "Oi" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/fernybush,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/grass,
 /area/centcom/control)
 "Oj" = (
 /obj/structure/table/reinforced,
@@ -10692,7 +10772,7 @@
 /area/centcom/specops)
 "PO" = (
 /obj/structure/flora/ausbushes/fernybush,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/grass,
 /area/centcom/control)
 "PP" = (
 /obj/structure/railing{
@@ -10848,7 +10928,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/palebush,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/grass,
 /area/centcom/evac)
 "Qv" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -12287,7 +12367,9 @@
 "WM" = (
 /obj/structure/railing,
 /obj/structure/table,
-/obj/item/toy/plushie/fluff/fox,
+/obj/item/toy/plushie/fluff/fox{
+	name = "grumpy fox plushie"
+	},
 /obj/item/toy/sword,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
@@ -13011,6 +13093,21 @@
 /area/shuttle/escape)
 "Zr" = (
 /turf/simulated/wall/indestructible/riveted,
+/area/centcom/specops)
+"Zs" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Gamma Armory";
+	opacity = 1;
+	req_access_txt = "114"
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "CCGAMMA";
+	name = "Gamma Security"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/centcom/specops)
 "Zt" = (
 /obj/structure/closet/secure_closet/guncabinet,
@@ -27999,7 +28096,7 @@ OP
 Zr
 sw
 Zf
-XM
+Lm
 ZG
 ZG
 ZG
@@ -31835,8 +31932,8 @@ YG
 aN
 aN
 Zr
+Zs
 Zr
-NZ
 Zr
 Zr
 Zr
@@ -35164,9 +35261,9 @@ aN
 YG
 aN
 aN
-aN
 Jn
-Jn
+Ci
+CM
 Jn
 CM
 Dy
@@ -35421,9 +35518,9 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
+Jn
+Fw
+CO
 Cd
 CO
 Dz
@@ -35678,9 +35775,9 @@ aN
 aN
 aN
 aN
-aN
-aN
 Jn
+Ci
+CM
 Jn
 CM
 Dy
@@ -35935,9 +36032,9 @@ aN
 aN
 aN
 aN
-aN
-aN
-Jn
+xI
+oD
+MX
 Ch
 CP
 DA
@@ -36192,10 +36289,10 @@ aN
 aN
 aN
 aN
-aN
-aN
 xI
-Ci
+Bl
+CQ
+CQ
 CQ
 DC
 Jn
@@ -36449,11 +36546,11 @@ aN
 aN
 aN
 aN
-aN
-aN
 xI
+KM
+Es
 sk
-sk
+Df
 DE
 Jn
 Fd
@@ -36706,9 +36803,9 @@ aN
 aN
 aN
 aN
-aN
-aN
 xI
+Fg
+sk
 sk
 sk
 DF
@@ -36963,8 +37060,8 @@ aN
 aN
 aN
 aN
-YG
-aN
+Jn
+Jn
 Jn
 Jn
 Jn
@@ -44198,7 +44295,7 @@ Ny
 iP
 gI
 uO
-Nl
+gj
 YG
 aN
 aN
@@ -46254,7 +46351,7 @@ Ny
 iP
 gI
 uO
-Nl
+gj
 YG
 aN
 aN
@@ -47772,7 +47869,7 @@ Hg
 Hg
 Hg
 OG
-Hg
+gj
 OG
 Hg
 VN
@@ -47780,7 +47877,7 @@ VN
 VN
 Hg
 OG
-Hg
+gj
 OG
 Hg
 Hg
