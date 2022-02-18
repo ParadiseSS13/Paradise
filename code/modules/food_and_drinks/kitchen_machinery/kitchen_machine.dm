@@ -447,19 +447,11 @@
 			dispose()
 	return
 
-/obj/machinery/kitchen_machine/proc/build_ingredient_description()
-	if(contents)
-		var/list/contents_strings
-		var/list/item_counts
-		for(var/datum/I in contents)
-			item_counts[I.type] += 1
-		for(var/T in item_counts)
-			contents_strings += ""
+/obj/machinery/kitchen_machine/build_reagent_description(mob/user)
+	return
 
 /obj/machinery/kitchen_machine/examine(mob/user, infix = "", suffix = "")
-	. = build_base_description(infix, suffix)
+	. = ..()
 	var/dat = format_content_descs()
 	if(dat)
 		. += "It contains: <BR>[dat]"
-
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
