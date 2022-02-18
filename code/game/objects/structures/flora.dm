@@ -399,19 +399,21 @@
 	desc = "A wild plant that is found in jungles."
 	icon = 'icons/obj/flora/jungleflora.dmi'
 	icon_state = "busha"
+	base_icon_state = "busha"
 
 /obj/structure/flora/junglebush/Initialize(mapload)
-	icon_state = "[icon_state][rand(1, 3)]"
+	icon_state = "[base_icon_state][rand(1, 3)]"
 	. = ..()
 
 /obj/structure/flora/junglebush/b
-	icon_state = "bushb"
+	base_icon_state = "bushb"
 
 /obj/structure/flora/junglebush/c
-	icon_state = "bushc"
+	base_icon_state = "bushc"
 
 /obj/structure/flora/junglebush/large
-	icon_state = "bush"
+	icon_state = "bush1"
+	base_icon_state = "bush"
 	icon = 'icons/obj/flora/largejungleflora.dmi'
 	pixel_x = -16
 	pixel_y = -12
@@ -419,7 +421,8 @@
 
 /obj/structure/flora/rock/pile/largejungle
 	name = "rocks"
-	icon_state = "rocks"
+	icon_state = "rocks1"
+	base_icon_state = "rocks"
 	icon = 'icons/obj/flora/largejungleflora.dmi'
 	density = FALSE
 	pixel_x = -16
@@ -427,4 +430,4 @@
 
 /obj/structure/flora/rock/pile/largejungle/Initialize(mapload)
 	. = ..()
-	icon_state = "[initial(icon_state)][rand(1,3)]"
+	icon_state = "[initial(base_icon_state)][rand(1,3)]"
