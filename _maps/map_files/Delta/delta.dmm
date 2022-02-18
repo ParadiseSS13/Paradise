@@ -29902,7 +29902,7 @@
 "bum" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin/nanotrasen,
-/obj/item/pen,
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -36999,7 +36999,7 @@
 	dir = 4
 	},
 /obj/item/paper_bin/nanotrasen,
-/obj/item/pen,
+/obj/item/pen/multi,
 /turf/simulated/floor/carpet,
 /area/bridge)
 "bHv" = (
@@ -39235,7 +39235,7 @@
 "bMi" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin/nanotrasen,
-/obj/item/pen,
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -41557,7 +41557,7 @@
 	},
 /obj/item/paper_bin/nanotrasen,
 /obj/item/melee/chainofcommand,
-/obj/item/pen,
+/obj/item/pen/multi,
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/captain)
 "bQQ" = (
@@ -48053,6 +48053,7 @@
 /obj/structure/table/reinforced,
 /obj/item/paper_bin/nanotrasen,
 /obj/item/stamp/magistrate,
+/obj/item/pen/multi,
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "cet" = (
@@ -49084,7 +49085,7 @@
 "chg" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue,
-/obj/item/pen,
+/obj/item/pen/multi,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "chh" = (
@@ -57838,7 +57839,7 @@
 "czQ" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
-/obj/item/pen,
+/obj/item/pen/multi,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -72612,7 +72613,7 @@
 	pixel_y = 30
 	},
 /obj/item/paper_bin/nanotrasen,
-/obj/item/pen,
+/obj/item/pen/multi,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -78695,6 +78696,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/item/stamp/cmo,
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cmo"
