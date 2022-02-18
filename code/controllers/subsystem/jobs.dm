@@ -423,7 +423,7 @@ SUBSYSTEM_DEF(jobs)
 		CreateMoneyAccount(H, rank, job)
 
 	to_chat(H, "<center><br><br><span class='green'>----------------</span>")
-	to_chat(H, "<center><b>You are the [alt_title ? alt_title : rank].<br></b></center>")
+	to_chat(H, "<center><b>Your role on the station is: [alt_title ? alt_title : rank].<br></b></center>")
 	to_chat(H, "<center><b>You answer directly to [job.supervisors]. Special circumstances may change this.</b></center>")
 	to_chat(H, "<center><b>For more information on how the station works, see <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a>.</b></center>")
 	if(job.is_service)
