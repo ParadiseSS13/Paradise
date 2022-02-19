@@ -222,7 +222,7 @@
 			if(2,4,6,15)	newletter="[uppertext(newletter)]"
 			if(7)	newletter+=pick(slurletters)
 			else
-				newletter = ""
+				pass()
 		newphrase+="[newletter]"
 		counter-=1
 	return newphrase
@@ -658,7 +658,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			if(5)
 				newletter="glor"
 			else
-				newletter = ""
+				pass()
 
 		newphrase+="[newletter]";counter-=1
 	return newphrase
