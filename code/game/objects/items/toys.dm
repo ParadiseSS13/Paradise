@@ -424,29 +424,57 @@
 			to_chat(user, "<span class='notice'>You can't mix cards from other decks.</span>")
 		update_icon()
 
+/**
+  * Occurs when the deck is click-dragged onto something
+  * 
+  *
+  * This is overridden to be a method to pick up the deck.
+  * It is overridden because the normal method of picking up (attack_hand) is overridden to draw a card.
+  * Current behaviour is:
+  *  	Drag onto self when it's not in your inventory to put it in your hands
+  *  	Drag onto self when it's in your inventory to drop it
+  *  	Drag onto hands to put it into your hands from anywhere
+  *  	If none of the above, call parent since we might want the deck to interact with a MouseDrop_T object
+  *
+  * Arguments:
+  * * over_object - The atom the deck was dragged onto
+  */
 /obj/item/toy/cards/deck/MouseDrop(atom/over_object)
-	var/mob/M = usr
-	if(usr.stat || !ishuman(usr) || !usr.canmove || usr.restrained())
+	//This is code from atom/MouseDrop, we're not calling parent after because if we fail here, we'd fail there. This probably isn't the best
+	if(!usr || !over_object)
 		return
-	if(Adjacent(usr))
-		if(over_object == M  && loc != M)
-			M.put_in_hands(src)
-			to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
+	if(!(istype(over_object, /obj/screen) || (loc && loc == over_object.loc)))
+		if(!Adjacent(usr) || !over_object.Adjacent(usr)) // should stop you from dragging through windows
+			return
 
-		else if(istype(over_object, /obj/screen))
-			switch(over_object.name)
-				if("l_hand")
-					if(!remove_item_from_storage(M))
-						M.unEquip(src)
-					M.put_in_l_hand(src)
-					to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
-				if("r_hand")
-					if(!remove_item_from_storage(M))
-						M.unEquip(src)
-					M.put_in_r_hand(src)
-					to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
-	else
-		to_chat(usr, "<span class='notice'>You can't reach it from here.</span>")
+	var/mob/M = usr
+	if(M.incapacitated() || !ishuman(M))
+		..() 
+		return
+
+	if(over_object == M)
+		if(src in M.get_contents())
+			M.unEquip(src)
+			usr.visible_message("<span class='notice'>[M] drops [src].</span>")
+		else
+			M.put_in_hands(src)
+			usr.visible_message("<span class='notice'>[M] picks up [src].</span>")
+		add_fingerprint(M)
+		return
+
+	if(istype(over_object, /obj/screen/inventory/hand))
+		switch(over_object.name)
+			if("r_hand")
+				M.put_in_r_hand(src)
+			if("l_hand")
+				M.put_in_l_hand(src)
+		usr.visible_message("<span class='notice'>[M] picks up [src].</span>")
+		add_fingerprint(M)
+		return
+
+	..() //If it isn't a deck specific action, call parent
+	return
+
 
 /obj/item/toy/cards/deck/update_icon()
 	switch(cards.len)

@@ -27,30 +27,56 @@
 	extinguish()
 	update_icon()
 
-/obj/item/paper_bin/MouseDrop(atom/over_object)
-	var/mob/M = usr
-	if(M.restrained() || M.stat || !Adjacent(M))
+/**
+  * Occurs when the paper bin is click-dragged onto something
+  * 
+  *
+  * This is overridden to be a method to pick up the paper bin.
+  * It is overridden because the normal method of picking up (attack_hand) is overridden to remove a sheet of paper.
+  * Current behaviour is:
+  *  	Drag onto self when it's not in your inventory to put it in your hands
+  *  	Drag onto self when it's in your inventory to drop it
+  *  	Drag onto hands to put it into your hands from anywhere
+  *  	If none of the above, call parent since we might want the paper bin to interact with a MouseDrop_T object
+  *
+  * Arguments:
+  * * over_object - The atom the paper bin was dragged onto
+  */
+/obj/item/paper_bin/MouseDrop(atom/over_object) //Code duplicated in both toy and item card decks
+	//This is code from atom/MouseDrop, we're not calling parent after because if we fail here, we'd fail there. This probably isn't the best
+	if(!usr || !over_object)
 		return
-	if(!ishuman(M))
+	if(!(istype(over_object, /obj/screen) || (loc && loc == over_object.loc)))
+		if(!Adjacent(usr) || !over_object.Adjacent(usr)) // should stop you from dragging through windows
+			return
+
+	var/mob/M = usr
+	if(M.incapacitated() || !ishuman(M))
+		..() 
 		return
 
 	if(over_object == M)
-		if(!remove_item_from_storage(M))
+		if(src in M.get_contents())
 			M.unEquip(src)
-		M.put_in_hands(src)
+			usr.visible_message("<span class='notice'>[M] drops [src].</span>")
+		else
+			M.put_in_hands(src)
+			usr.visible_message("<span class='notice'>[M] picks up [src].</span>")
+		add_fingerprint(M)
+		return
 
-	else if(istype(over_object, /obj/screen))
+	if(istype(over_object, /obj/screen/inventory/hand))
 		switch(over_object.name)
 			if("r_hand")
-				if(!remove_item_from_storage(M))
-					M.unEquip(src)
 				M.put_in_r_hand(src)
 			if("l_hand")
-				if(!remove_item_from_storage(M))
-					M.unEquip(src)
 				M.put_in_l_hand(src)
+		usr.visible_message("<span class='notice'>[M] picks up [src].</span>")
+		add_fingerprint(M)
+		return
 
-	add_fingerprint(M)
+	..() //If it isn't a paper bin specific action, call parent
+	return
 
 
 /obj/item/paper_bin/attack_hand(mob/user as mob)
