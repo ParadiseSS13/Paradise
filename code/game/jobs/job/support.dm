@@ -149,9 +149,6 @@
 	l_ear = /obj/item/radio/headset/headset_service
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	pda = /obj/item/pda/bar
-	backpack_contents = list(
-		/obj/item/toy/russian_revolver = 1
-	)
 
 /datum/outfit/job/bartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

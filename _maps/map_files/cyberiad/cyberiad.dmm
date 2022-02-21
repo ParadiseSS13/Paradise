@@ -126,11 +126,11 @@
 	codes_txt = "patrol;next_patrol=Armory_South";
 	location = "Armory_North"
 	},
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/warning_stripes/south,
 /mob/living/simple_animal/bot/secbot/armsky{
 	auto_patrol = 1
 	},
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -14725,7 +14725,6 @@
 /area/maintenance/fpmaint2)
 "aIR" = (
 /obj/structure/table,
-/obj/item/toy/russian_revolver,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aIS" = (
@@ -42760,11 +42759,11 @@
 	dir = 8;
 	location = "QM #1"
 	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /mob/living/simple_animal/bot/mulebot{
 	home_destination = "QM #1";
 	suffix = "#1"
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bRp" = (
@@ -43023,11 +43022,11 @@
 	dir = 8;
 	location = "QM #2"
 	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /mob/living/simple_animal/bot/mulebot{
 	home_destination = "QM #2";
 	suffix = "#2"
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bRX" = (
@@ -53063,8 +53062,8 @@
 "clg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/mob/living/simple_animal/mouse/white,
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/mouse/white,
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
 "clh" = (
@@ -61988,8 +61987,8 @@
 /area/maintenance/incinerator)
 "cCB" = (
 /obj/machinery/hologram/holopad,
-/mob/living/simple_animal/mouse,
 /obj/effect/landmark/spawner/xeno,
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -62924,7 +62923,6 @@
 /area/toxins/misc_lab)
 "cEp" = (
 /obj/structure/closet,
-/obj/item/toy/russian_revolver,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -66015,8 +66013,8 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
 "cLy" = (
-/mob/living/simple_animal/mouse,
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "cLz" = (
@@ -66292,8 +66290,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cMg" = (
-/mob/living/simple_animal/slime,
 /obj/effect/landmark/spawner/rev,
+/mob/living/simple_animal/slime,
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "cMh" = (
@@ -74182,9 +74180,9 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "dev" = (
-/mob/living/simple_animal/mouse,
 /obj/effect/landmark/spawner/blob,
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "dew" = (
