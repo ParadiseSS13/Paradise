@@ -28,3 +28,6 @@
 /obj/item/organ/internal/kidneys/unathi
 	name = "unathi kidneys"
 	icon = 'icons/obj/species_organs/unathi.dmi'
+
+/obj/item/organ/internal/lungs/unathi/ash_walker
+	safe_oxygen_min = 0 // can breathe on lavaland
