@@ -467,8 +467,9 @@
 							playsound(get_turf(src), 'sound/machines/defib_saftyoff.ogg', 50, 0)
 							user.visible_message("<span class='boldnotice'>[defib] chimes: Minimal brain activity detected, brain treatment recommended for full resuscitation.</span>")
 						else
-							user.visible_message("<span class='boldnotice'>[defib] pings: Resuscitation successful.</span>")
+
 							playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
+						user.visible_message("<span class='boldnotice'>[defib] pings: Resuscitation successful.</span>")
 						H.update_revive()
 						H.KnockOut()
 						H.Paralyse(5)
