@@ -52,7 +52,7 @@
 		if(prob(50))
 			temptext = "<font color=red><i><b>Double-crosser. You planned to betray us from the start. Allow us to repay the favor in kind.</b></i></font>"
 			updateUsrDialog()
-			spawn(rand(50,200)) selfdestruct()
+			addtimer(CALLBACK(src, .proc/selfdestruct), rand(50, 200))
 			return
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/N = M
