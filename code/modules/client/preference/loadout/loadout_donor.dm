@@ -3,6 +3,10 @@
 	sort_category = "Donor"
 	subtype_path = /datum/gear/donor
 
+/datum/gear/donor/kittyears
+	display_name = "Kitty ears"
+	path = /obj/item/clothing/head/kitty
+
 /datum/gear/donor/furgloves
 	display_name = "Fur Gloves"
 	path = /obj/item/clothing/gloves/furgloves
