@@ -443,7 +443,7 @@
 		return
 
 	//Donator stuff.
-	var/datum/db_query/query_donor_select = SSdbcore.NewQuery("SELECT ckey, tier, active FROM `[format_table_name("donators")]` WHERE ckey=:ckey", list(
+	var/datum/db_query/query_donor_select = SSdbcore.NewQuery("SELECT ckey, tier, active FROM [sqlfdbkdbutil].[format_table_name("donators")] WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))
 
