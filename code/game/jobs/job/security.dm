@@ -168,6 +168,7 @@
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/officer
+	important_information = "Space Law is the law, not a suggestion."
 
 /datum/outfit/job/officer
 	name = "Security Officer"

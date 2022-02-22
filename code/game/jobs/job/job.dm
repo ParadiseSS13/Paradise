@@ -24,6 +24,9 @@
 	//Supervisors, who this person answers to directly
 	var/supervisors = ""
 
+	/// Text which is shown to someone in BIG BOLG RED when they spawn. Use for critically important stuff that could make/break a round
+	var/important_information = null
+
 	//Sellection screen color
 	var/selection_color = "#ffffff"
 
