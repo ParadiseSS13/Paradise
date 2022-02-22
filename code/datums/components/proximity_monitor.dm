@@ -110,6 +110,10 @@
 		move_prox_checkers(dir)
 		return
 
+	// Moving onto a turf.
+	if(!isturf(old_loc) && isturf(moved_atom.loc))
+		toggle_checkers(TRUE)
+
 	map_nested_locs()
 	recenter_prox_checkers()
 
@@ -237,6 +241,7 @@
 /datum/component/proximity_monitor/proc/recenter_prox_checkers()
 	var/turf/parent_turf = get_turf(parent)
 	if(!parent_turf)
+		toggle_checkers(FALSE)
 		return // Need a sanity check here for certain situations like objects moving into disposal holders. Their turf will be null in these cases.
 	var/index = 1
 	for(var/T in RANGE_TURFS(radius, parent_turf))
@@ -281,8 +286,8 @@
 
 /datum/component/proximity_monitor/advanced/Destroy(force, silent)
 	STOP_PROCESSING(SSfields, src)
-	QDEL_NULL(field_checkers)
-	QDEL_NULL(edge_checkers)
+	QDEL_LIST(field_checkers)
+	QDEL_LIST(edge_checkers)
 	return ..()
 
 /datum/component/proximity_monitor/advanced/create_prox_checkers()
