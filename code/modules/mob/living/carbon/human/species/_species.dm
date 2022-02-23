@@ -14,7 +14,10 @@
 
 	var/datum/species/primitive_form = null          // Lesser form, if any (ie. monkey for humans)
 	var/datum/species/greater_form = null             // Greater form, if any, ie. human for monkeys.
-	var/tail                     // Name of tail image in species effects icon file.
+	/// Name of tail image in species effects icon file.
+	var/tail
+	/// like tail but wings
+	var/wing
 	var/datum/unarmed_attack/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
 
@@ -138,6 +141,9 @@
 	var/default_headacc				//Default head accessory style for newly created humans unless otherwise set.
 	var/default_headacc_colour
 
+	/// Name of default body accessory if any.
+	var/default_bodyacc
+
 	//Defining lists of icon skin tones for species that have them.
 	var/list/icon_skin_tones = list()
 
@@ -170,6 +176,9 @@
 
 	// Species specific boxes
 	var/speciesbox
+
+	/// Whether the presence of a body accessory on this species is optional or not.
+	var/optional_body_accessory = TRUE
 
 /datum/species/New()
 	unarmed = new unarmed_type()
@@ -266,7 +275,8 @@
 					. += (health_deficiency / 75)
 				else
 					. += (health_deficiency / 25)
-		. += 2 * H.stance_damage //damaged/missing feet or legs is slow
+		if(H.dna.species.spec_movement_delay()) //Species overrides for slowdown due to feet/legs
+			. += 2 * H.stance_damage //damaged/missing feet or legs is slow
 
 		if((hungry >= 70) && !flight)
 			. += hungry/50
@@ -951,6 +961,18 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
 	if(istype(ears) && !HAS_TRAIT(H, TRAIT_DEAF))
 		. = TRUE
+
+/datum/species/proc/spec_Process_Spacemove(mob/living/carbon/human/H)
+	return FALSE
+
+/datum/species/proc/spec_thunk(mob/living/carbon/human/H)
+	return FALSE
+
+/datum/species/proc/spec_movement_delay()
+	return TRUE
+
+/datum/species/proc/spec_WakeUp(mob/living/carbon/human/H)
+	return FALSE
 
 /**
   * Species-specific runechat colour handler

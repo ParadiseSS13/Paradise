@@ -216,7 +216,7 @@
 					if(new_age)
 						active_character.age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
-					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
+					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian")
 					var/prev_species = active_character.species
 
 					for(var/_species in GLOB.whitelisted_species)
@@ -290,8 +290,7 @@
 
 						active_character.alt_head = "None" //No alt heads on species that don't have them.
 						active_character.speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
-
-						active_character.body_accessory = null //no vulptail on humans damnit
+						active_character.body_accessory = random_body_accessory(NS.name, NS.optional_body_accessory)
 
 						//Reset prosthetics.
 						active_character.organ_data = list()
@@ -544,11 +543,14 @@
 					else
 						for(var/B in GLOB.body_accessory_by_name)
 							var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
-							if(!istype(accessory))
-								possible_body_accessories += "None" //the only null entry should be the "None" option
+							if(isnull(accessory)) // None
 								continue
 							if(active_character.species in accessory.allowed_species)
 								possible_body_accessories += B
+					if(S.optional_body_accessory)
+						possible_body_accessories += "None" //the only null entry should be the "None" option
+					else
+						possible_body_accessories -= "None" // in case an admin is viewing it
 					sortTim(possible_body_accessories, /proc/cmp_text_asc)
 					var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories
 					if(new_body_accessory)
