@@ -999,6 +999,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	faction = "syndicate"
 	emp_vulnerable = FALSE
+	density = TRUE
 
 	lethal = TRUE
 	lethal_is_configurable = FALSE
