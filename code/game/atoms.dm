@@ -350,9 +350,7 @@
 			found += A.search_contents_for(path, filter_path)
 	return found
 
-
-//All atoms
-/atom/proc/examine(mob/user, infix = "", suffix = "")
+/atom/proc/build_base_description(infix = "", suffix = "")
 	//This reformat names to get a/an properly working on item descriptions when they are bloody
 	var/f_name = "\a [src][infix]."
 	if(src.blood_DNA && !istype(src, /obj/effect/decal))
@@ -368,6 +366,8 @@
 	if(desc)
 		. += desc
 
+/atom/proc/build_reagent_description(mob/user)
+	. = list()
 	if(reagents)
 		if(container_type & TRANSPARENT)
 			. += "<span class='notice'>It contains:</span>"
@@ -386,6 +386,10 @@
 				. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
 			else
 				. += "<span class='danger'>It's empty.</span>"
+
+/atom/proc/examine(mob/user, infix = "", suffix = "")
+	. = build_base_description(infix, suffix)
+	. += build_reagent_description(user)
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 

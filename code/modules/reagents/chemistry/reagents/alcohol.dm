@@ -1444,6 +1444,8 @@
 			if(2)
 				update_flags |= M.adjustToxLoss(1, FALSE)
 				to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
+			else
+				pass()
 	else
 		if(prob(60))
 			M.adjust_nutrition(-remove_nutrition)
