@@ -57,10 +57,10 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	new_dna.real_name = real_name
 	new_dna.species = new species.type
 
-	for(var/b=1;b<=DNA_SE_LENGTH;b++)
+	for(var/b = 1; b <= DNA_SE_LENGTH; b++)
 		new_dna.SE[b]=SE[b]
-		if(b<=DNA_UI_LENGTH)
-			if(b<=UI.len) //We check index against the length of UI provided, because it may be shorter and thus be out of bounds
+		if(b <= DNA_UI_LENGTH)
+			if(b <= length(UI)) //We check index against the length of UI provided, because it may be shorter and thus be out of bounds
 				new_dna.UI[b]=UI[b]
 				continue
 			new_dna.UI[b] = 0
@@ -159,7 +159,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 /datum/dna/proc/GetUIValue(block)
 	if(block <= 0)
 		return FALSE
-	if(block >= UI.len)
+	if(block >= length(UI))
 		return FALSE
 	return UI[block]
 

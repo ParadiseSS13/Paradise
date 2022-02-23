@@ -68,8 +68,10 @@
 	var/fire_sprite = "Standing"
 
 	var/datum/body_accessory/body_accessory = null
-	var/tail // Name of tail image in species effects icon file.
-	var/wing // Same as tail but wing
+	/// Name of tail image in species effects icon file.
+	var/tail
+	/// Same as tail but wing
+	var/wing
 
 	var/list/splinted_limbs = list() //limbs we know are splinted
 	var/original_eye_color = "#000000"

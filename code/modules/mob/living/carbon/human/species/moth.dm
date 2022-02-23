@@ -36,7 +36,7 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys/nian,
 		"brain" =    /obj/item/organ/internal/brain/nian,
 		"eyes" =     /obj/item/organ/internal/eyes/nian
-		)
+	)
 
 	optional_body_accessory = FALSE
 
@@ -44,11 +44,11 @@
 
 	suicide_messages = list(
 		"is attempting to nibble their antenna off!",
-		"is jamming their legs into their eye sockets!",
-		"is twisting their own neck!",
+		"is twisting their own abdomen!",
 		"is cracking their exoskeleton!",
 		"is ripping their wings off!",
-		"is holding their breath!")
+		"is holding their breath!"
+	)
 
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
@@ -173,7 +173,7 @@
 
 /obj/structure/moth/cocoon/Initialize(mapload)
 	. = ..()
-	icon_state = pick("cocoon1","cocoon2","cocoon3")
+	icon_state = pick("cocoon1", "cocoon2", "cocoon3")
 
 /obj/structure/moth/cocoon/Destroy()
 	if(!preparing_to_emerge)
@@ -184,6 +184,7 @@
 			H.adjustBruteLoss(COCOON_HARM_AMOUNT)
 			H.adjustFireLoss(COCOON_HARM_AMOUNT)
 			H.AdjustWeakened(5)
+
 	for(var/mob/living/carbon/human/H in contents)
 		H.remove_status_effect(STATUS_EFFECT_COCOONED)
 		H.adjust_nutrition(COCOON_NUTRITION_AMOUNT)
