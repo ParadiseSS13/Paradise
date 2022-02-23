@@ -17,7 +17,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	exp_type = EXP_TYPE_COMMAND
 	disabilities_allowed = 0
 	outfit = /datum/outfit/job/captain
-	important_information = "This role requires you to coordinate a large department. You are required to be familiar with Standard Operating Procedure (Department), basic job duties, and must act in a professional and reasonable manner (roleplay)."
+	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Command), basic job duties, and act professionally (roleplay)."
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
@@ -83,7 +83,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/hop
-	important_information = "This role requires you to coordinate a large department. You are required to be familiar with Standard Operating Procedure (Department), basic job duties, and must act in a professional and reasonable manner (roleplay)."
+	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Service), basic job duties, and act professionally (roleplay)."
 
 /datum/outfit/job/hop
 	name = "Head of Personnel"
