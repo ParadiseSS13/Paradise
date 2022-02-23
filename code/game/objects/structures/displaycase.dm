@@ -156,6 +156,7 @@
 		to_chat(user, "<span class='notice'>You start dismantling the case.</span>")
 		var/obj/structure/displaycase_chassis/display = new(loc)
 		if(electronics)
+			electronics.forceMove(display)
 			display.electronics = electronics
 		qdel(src)
 		return
