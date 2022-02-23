@@ -1939,7 +1939,6 @@
 	height = 5;
 	id = "sit";
 	name = "SIT shuttle";
-	roundstart_move = null;
 	width = 11
 	},
 /obj/structure/fans/tiny,
@@ -2042,7 +2041,6 @@
 	height = 5;
 	id = "sst";
 	name = "SST shuttle";
-	roundstart_move = null;
 	width = 11
 	},
 /obj/structure/fans/tiny,
@@ -4846,7 +4844,6 @@
 	height = 22;
 	id = "syndicate";
 	name = "syndicate infiltrator";
-	roundstart_move = null;
 	width = 18
 	},
 /obj/docking_port/stationary{
@@ -5718,7 +5715,6 @@
 	height = 11;
 	id = "trade_sol";
 	name = "sol trade shuttle";
-	roundstart_move = null;
 	width = 9
 	},
 /obj/machinery/door/airlock/titanium/glass{
@@ -7789,11 +7785,15 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "El" = (
+/obj/effect/mapping_helpers/airlock/unres,
 /obj/machinery/door/airlock/centcom{
 	name = "Escape Pod Dock";
-	req_access_txt = "101"
+	req_access_txt = "101";
+	aiControlDisabled = 1;
+	max_integrity = 3000;
+	hackProof = 1;
+	auto_close_time = 25
 	},
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "Em" = (
@@ -8491,8 +8491,7 @@
 	},
 /obj/docking_port/mobile/emergency/backup{
 	dir = 1;
-	dwidth = 9;
-	roundstart_move = null
+	dwidth = 9
 	},
 /obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
