@@ -18,8 +18,7 @@
 			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
 			            ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM)
 	minimal_player_age = 21
-	exp_requirements = 1200
-	exp_type = EXP_TYPE_ENGINEERING
+	exp_map = list(EXP_TYPE_ENGINEERING = 1200)
 	outfit = /datum/outfit/job/chief_engineer
 
 /datum/outfit/job/chief_engineer
@@ -59,8 +58,7 @@
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 	minimal_player_age = 7
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_map = list(EXP_TYPE_CREW = 300)
 	outfit = /datum/outfit/job/engineer
 
 /datum/outfit/job/engineer
@@ -97,8 +95,7 @@
 	minimal_access = list(ACCESS_EVA, ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EMERGENCY_STORAGE, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE)
 	alt_titles = list("Atmospheric Technician")
 	minimal_player_age = 7
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_map = list(EXP_TYPE_CREW = 300)
 	outfit = /datum/outfit/job/atmos
 
 /datum/outfit/job/atmos

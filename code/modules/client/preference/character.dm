@@ -2015,9 +2015,9 @@
 			if(jobban_isbanned(user, job.title))
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[BANNED]</b></td></tr>"
 				continue
-			var/available_in_playtime = job.available_in_playtime(user.client)
-			if(available_in_playtime)
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[get_exp_format(available_in_playtime)] as [job.get_exp_req_type()]\]</b></td></tr>"
+			var/restrictions = job.getRestrictions(user.client)
+			if(restrictions)
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[restrictions]]</b></td></tr>"
 				continue
 			if(job.barred_by_disability(user.client))
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td></tr>"

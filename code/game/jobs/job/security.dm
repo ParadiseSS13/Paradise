@@ -18,8 +18,7 @@
 			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
 			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS)
 	minimal_player_age = 21
-	exp_requirements = 1200
-	exp_type = EXP_TYPE_SECURITY
+	exp_map = list(EXP_TYPE_SECURITY = 1200)
 	disabilities_allowed = 0
 	outfit = /datum/outfit/job/hos
 
@@ -63,8 +62,7 @@
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	minimal_player_age = 21
-	exp_requirements = 600
-	exp_type = EXP_TYPE_SECURITY
+	exp_map = list(EXP_TYPE_SECURITY = 600)
 	outfit = /datum/outfit/job/warden
 
 /datum/outfit/job/warden
@@ -109,8 +107,7 @@
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
 	alt_titles = list("Forensic Technician")
 	minimal_player_age = 14
-	exp_requirements = 600
-	exp_type = EXP_TYPE_CREW
+	exp_map = list(EXP_TYPE_CREW = 600)
 	outfit = /datum/outfit/job/detective
 
 /datum/outfit/job/detective
@@ -165,8 +162,7 @@
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	minimal_player_age = 14
-	exp_requirements = 600
-	exp_type = EXP_TYPE_CREW
+	exp_map = list(EXP_TYPE_CREW = 600)
 	outfit = /datum/outfit/job/officer
 
 /datum/outfit/job/officer
