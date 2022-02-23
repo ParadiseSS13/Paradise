@@ -144,6 +144,10 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	return success
 
 /datum/job/proc/getRestrictions(client/C)
+	// Its playable. There are no restrictions!
+	if(isPlayable(C))
+		return null
+
 	var/list/play_records = params2list(C.prefs.exp)
 	var/list/innertext = list()
 
