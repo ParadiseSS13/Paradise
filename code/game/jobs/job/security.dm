@@ -22,6 +22,7 @@
 	exp_type = EXP_TYPE_SECURITY
 	disabilities_allowed = 0
 	outfit = /datum/outfit/job/hos
+	important_information = "This role requires you to coordinate a large department. You are required to be familiar with Standard Operating Procedure (Department), basic job duties, and must act in a professional and reasonable manner (roleplay)."
 
 /datum/outfit/job/hos
 	name = "Head of Security"
@@ -112,6 +113,7 @@
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/detective
+	important_information = "You are not a Security Officer. Your revolver is for self defence only."
 
 /datum/outfit/job/detective
 	name = "Detective"

@@ -26,6 +26,7 @@
 	)
 
 	outfit = /datum/outfit/job/rd
+	important_information = "This role requires you to coordinate a large department. You are required to be familiar with Standard Operating Procedure (Department), basic job duties, and must act in a professional and reasonable manner (roleplay)."
 
 /datum/outfit/job/rd
 	name = "Research Director"

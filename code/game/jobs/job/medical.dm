@@ -19,6 +19,7 @@
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/cmo
+	important_information = "This role requires you to coordinate a large department. You are required to be familiar with Standard Operating Procedure (Department), basic job duties, and must act in a professional and reasonable manner (roleplay)."
 
 /datum/outfit/job/cmo
 	name = "Chief Medical Officer"
