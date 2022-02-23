@@ -150,16 +150,18 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 /datum/job/blueshield
 	title = "Blueshield"
 	flag = JOB_BLUESHIELD
-	department_flag = JOBCAT_KARMA
+	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the Nanotrasen representative"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
-	req_admin_notify = 1
-	is_command = 1
+	req_admin_notify = TRUE
+	is_command = TRUE
 	transfer_allowed = FALSE
 	minimal_player_age = 21
+	exp_requirements = 3000 // 50 hours baby
+	exp_type = EXP_TYPE_COMMAND // If I could set EXP types of multiple departments, I would, however, we cant. Future refactor maybe?
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
 			            ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,

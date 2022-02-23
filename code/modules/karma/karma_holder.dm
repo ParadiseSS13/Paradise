@@ -42,10 +42,6 @@
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 30KP</a><br>"
 			else
 				dat += "Nanotrasen Representative - <font color='green'>Unlocked</font><br>"
-			if(!("Blueshield" in unlocked_jobs))
-				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=4'>Unlock Blueshield -- 30KP</a><br>"
-			else
-				dat += "Blueshield - <font color='green'>Unlocked</font><br>"
 
 		if(1) // Species Unlocks
 			if(!("Machine" in unlocked_species))
@@ -123,6 +119,9 @@
 			if("Brig Physician" in purchased)
 				refundable += "Brig Physician"
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Brig Physician;KarmaRefundType=job;KarmaRefundCost=45'>Refund Brig Physician -- 5KP</a><br>"
+			if("Blueshield" in purchased)
+				refundable += "Blueshield"
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaRefund=Blueshield;KarmaRefundType=job;KarmaRefundCost=30'>Refund Blueshield -- 30KP</a><br>"
 
 			if(!length(refundable))
 				dat += "You do not have any refundable karma purchases.<br>"
@@ -306,7 +305,7 @@
 /datum/karma_holder/proc/karmarefund(type, name, cost)
 	switch(name)
 		if("Tajaran Ambassador","Unathi Ambassador","Skrell Ambassador","Diona Ambassador","Kidan Ambassador",
-		"Slime People Ambassador","Grey Ambassador","Vox Ambassador","Customs Officer", "Mechanic", "Security Pod Pilot")
+		"Slime People Ambassador","Grey Ambassador","Vox Ambassador","Customs Officer", "Mechanic", "Security Pod Pilot", "Blueshield")
 			cost = 30
 		if("Nanotrasen Recruiter")
 			cost = 10
@@ -393,8 +392,6 @@
 							karma_purchase(5, "job", "Barber")
 						if("3")
 							karma_purchase(30, "job", "Nanotrasen Representative")
-						if("4")
-							karma_purchase(30, "job", "Blueshield")
 					return
 				if(href_list["KarmaBuy2"])
 					switch(href_list["KarmaBuy2"])
