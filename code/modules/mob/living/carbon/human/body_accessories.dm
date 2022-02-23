@@ -126,7 +126,7 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 	icon_state = "wryntail"
 	allowed_species = list("Wryn")
 
-//Moth
+//Moth wings
 /datum/body_accessory/wing
 	icon = 'icons/mob/sprite_accessories/moth/moth_wings.dmi'
 	animated_icon = null
