@@ -443,23 +443,30 @@
 		return
 
 	//Donator stuff.
-	var/datum/db_query/query_donor_select = SSdbcore.NewQuery("SELECT ckey, tier, active FROM [sqlfdbkdbutil].[format_table_name("donators")] WHERE ckey=:ckey", list(
-		"ckey" = ckey
-	))
+	var/datum/db_query/query_donor_select = SSdbcore.NewQuery({"
+		SELECT CAST(SUM(amount) as UNSIGNED INTEGER) FROM [sqlfdbkdbutil].[format_table_name("budget")]
+		WHERE ckey=:ckey
+			AND is_valid=true
+			AND date_start <= NOW()
+			AND (NOW() < date_end OR date_end IS NULL)
+		GROUP BY ckey
+	"}, list("ckey" = ckey))
 
 	if(!query_donor_select.warn_execute())
 		qdel(query_donor_select)
 		return
 
-	while(query_donor_select.NextRow())
-		if(!text2num(query_donor_select.item[3]))
-			// Inactive donator.
-			donator_level = 0
-			qdel(query_donor_select)
-			return
-		donator_level = text2num(query_donor_select.item[2])
+	if(query_donor_select.NextRow())
+		var/total = query_donor_select.item[1]
+		if(total >= 100)
+			donator_level = 1
+		if(total >= 300)
+			donator_level = 2
+		if(total >= 500)
+			donator_level = 3
+		if(total >= 1000)
+			donator_level = DONATOR_LEVEL_MAX
 		donor_loadout_points()
-		break
 	qdel(query_donor_select)
 
 /client/proc/donor_loadout_points()
