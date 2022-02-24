@@ -3381,8 +3381,7 @@
 		<li>Total Karma: [C.karmaholder.karma_earned]</li>
 		<li>Spent Karma: [C.karmaholder.karma_spent]</li>
 		<li>Available Karma: [C.karmaholder.karma_earned - C.karmaholder.karma_spent]</li>
-		<li>Unlocked Jobs: [C.karmaholder.unlocked_jobs.Join(", ")]</li>
-		<li>Unlocked Species: [C.karmaholder.unlocked_species.Join(", ")]</li>
+		<li>Unlocked Packages: [C.karmaholder.purchased_packages.Join(", ")]</li>
 		</ul>
 		"}
 
