@@ -119,7 +119,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	return max(0, req_mins - my_exp)
 
 
-/datum/job/proc/isPlayable(client/C)
+/datum/job/proc/is_playable(client/C)
 	if(!C)
 		return FALSE // No client
 	if(!length(exp_map))
@@ -143,9 +143,9 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 
 	return success
 
-/datum/job/proc/getRestrictions(client/C)
+/datum/job/proc/get_exp_restrictions(client/C)
 	// Its playable. There are no restrictions!
-	if(isPlayable(C))
+	if(is_playable(C))
 		return null
 
 	var/list/play_records = params2list(C.prefs.exp)
@@ -197,10 +197,10 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		var/list/jobs_unlocked = list()
 		for(var/datum/job/job in SSjobs.occupations)
 			if(length(job.exp_map))
-				if(job.isPlayable(mob.client))
+				if(job.is_playable(mob.client))
 					jobs_unlocked += job.title
 				else
-					jobs_locked += "[job.title] - [job.getRestrictions(mob.client)]"
+					jobs_locked += "[job.title] - [job.get_exp_restrictions(mob.client)]"
 		if(jobs_unlocked.len)
 			return_text += "<BR><BR>Jobs Unlocked:<UL><LI>"
 			return_text += jobs_unlocked.Join("</LI><LI>")

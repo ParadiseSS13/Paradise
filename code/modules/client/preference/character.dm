@@ -2015,7 +2015,7 @@
 			if(jobban_isbanned(user, job.title))
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[BANNED]</b></td></tr>"
 				continue
-			var/restrictions = job.getRestrictions(user.client)
+			var/restrictions = job.get_exp_restrictions(user.client)
 			if(restrictions)
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[restrictions]]</b></td></tr>"
 				continue

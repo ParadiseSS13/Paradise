@@ -257,15 +257,15 @@
 		return FALSE
 	if(!job.is_position_available())
 		return FALSE
-	if(jobban_isbanned(src,rank))
+	if(jobban_isbanned(src, rank))
 		return FALSE
 	if(!is_job_whitelisted(src, rank))
 		return FALSE
 	if(!job.player_old_enough(client))
 		return FALSE
-	if(job.admin_only && !(check_rights(R_EVENT, FALSE)))
+	if(job.admin_only && !check_rights(R_EVENT, FALSE))
 		return FALSE
-	if(job.getRestrictions(client))
+	if(job.get_exp_restrictions(client))
 		return FALSE
 
 	if(GLOB.configuration.jobs.assistant_limit)

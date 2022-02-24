@@ -77,7 +77,7 @@ SUBSYSTEM_DEF(jobs)
 			return FALSE
 		if(!job.player_old_enough(player.client))
 			return FALSE
-		if(job.getRestrictions(player.client))
+		if(job.get_exp_restrictions(player.client))
 			return FALSE
 		if(job.barred_by_disability(player.client))
 			return FALSE
@@ -121,14 +121,14 @@ SUBSYSTEM_DEF(jobs)
 	Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 	var/list/candidates = list()
 	for(var/mob/new_player/player in unassigned)
-		Debug(" - Player: [player] Banned: [jobban_isbanned(player, job.title)] Old Enough: [!job.player_old_enough(player.client)] AvInPlaytime: [job.getRestrictions(player.client)] Flag && Be Special: [flag] && [player.client.prefs.be_special] Job Department: [player.client.prefs.active_character.GetJobDepartment(job, level)] Job Flag: [job.flag] Job Department Flag = [job.department_flag]")
+		Debug(" - Player: [player] Banned: [jobban_isbanned(player, job.title)] Old Enough: [!job.player_old_enough(player.client)] AvInPlaytime: [job.get_exp_restrictions(player.client)] Flag && Be Special: [flag] && [player.client.prefs.be_special] Job Department: [player.client.prefs.active_character.GetJobDepartment(job, level)] Job Flag: [job.flag] Job Department Flag = [job.department_flag]")
 		if(jobban_isbanned(player, job.title))
 			Debug("FOC isbanned failed, Player: [player]")
 			continue
 		if(!job.player_old_enough(player.client))
 			Debug("FOC player not old enough, Player: [player]")
 			continue
-		if(job.getRestrictions(player.client))
+		if(job.get_exp_restrictions(player.client))
 			Debug("FOC player not enough playtime, Player: [player]")
 			continue
 		if(job.barred_by_disability(player.client))
@@ -171,7 +171,7 @@ SUBSYSTEM_DEF(jobs)
 			Debug("GRJ player not old enough, Player: [player]")
 			continue
 
-		if(job.getRestrictions(player.client))
+		if(job.get_exp_restrictions(player.client))
 			Debug("GRJ player not enough playtime, Player: [player]")
 			continue
 
@@ -348,7 +348,7 @@ SUBSYSTEM_DEF(jobs)
 					Debug("DO player not old enough, Player: [player], Job:[job.title]")
 					continue
 
-				if(job.getRestrictions(player.client))
+				if(job.get_exp_restrictions(player.client))
 					Debug("DO player not enough playtime, Player: [player], Job:[job.title]")
 					continue
 
@@ -559,7 +559,7 @@ SUBSYSTEM_DEF(jobs)
 			if(!job.player_old_enough(player.client))
 				young++
 				continue
-			if(job.getRestrictions(player.client))
+			if(job.get_exp_restrictions(player.client))
 				young++
 				continue
 			if(job.barred_by_disability(player.client))
@@ -623,7 +623,7 @@ SUBSYSTEM_DEF(jobs)
 				jobs_to_formats[job.title] = "grey"
 			else if(!job.would_accept_job_transfer_from_player(M))
 				jobs_to_formats[job.title] = "grey" // jobs which are karma-locked and not unlocked for this player are discouraged
-			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.getRestrictions(M.client))
+			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.get_exp_restrictions(M.client))
 				jobs_to_formats[job.title] = "grey" // command jobs which are playtime-locked and not unlocked for this player are discouraged
 			else if(job.total_positions && !job.current_positions && job.title != "Assistant")
 				jobs_to_formats[job.title] = "teal" // jobs with nobody doing them at all are encouraged
