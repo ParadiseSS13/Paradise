@@ -280,7 +280,10 @@
 				WA.setDir(dir)
 				WA.ini_dir = dir
 				WA.update_icon()
-				WA.created_name = name
+				if(WA.secure)
+					WA.name = "secure wired windoor assembly"
+				else
+					WA.name = "wired windoor assembly"
 
 				to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 

@@ -213,15 +213,13 @@
 		windoor.close()
 
 /obj/structure/windoor_assembly/screwdriver_act(mob/user, obj/item/I)
-	if(state != "02" || electronics)
+	if(state != "02" || !electronics)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	if(!electronics)
-		return
 	user.visible_message("[user] removes the electronics from the airlock assembly.", "You start to uninstall electronics from the airlock assembly...")
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || electronics)
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 	name = "wired windoor assembly"
