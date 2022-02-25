@@ -218,6 +218,8 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
+	if(!electronics)
+		return
 	user.visible_message("[user] removes the electronics from the airlock assembly.", "You start to uninstall electronics from the airlock assembly...")
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || electronics)
 		return
