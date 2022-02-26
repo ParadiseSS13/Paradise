@@ -280,7 +280,10 @@
 				WA.setDir(dir)
 				WA.ini_dir = dir
 				WA.update_icon()
-				WA.created_name = name
+				if(WA.secure)
+					WA.name = "secure wired windoor assembly"
+				else
+					WA.name = "wired windoor assembly"
 
 				to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 
@@ -342,8 +345,39 @@
 	base_state = "clockwork"
 	shards = 0
 	rods = 0
+	cable = 0
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	var/made_glow = FALSE
+
+/obj/machinery/door/window/clockwork/crowbar_act(mob/user, obj/item/I)
+	if(operating)
+		return
+	if(flags & NODECONSTRUCT)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	try_to_crowbar(user, I)
+
+/obj/machinery/door/window/clockwork/welder_act(mob/user, obj/item/I)
+	if(operating)
+		return
+	if(flags & NODECONSTRUCT)
+		return
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+		return
+	if(!panel_open && operating && !loc)
+		return
+	WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
+	var/obj/item/stack/tile/brass/B = new (get_turf(src), 2)
+	B.add_fingerprint(user)
+	qdel(src)
 
 /obj/machinery/door/window/clockwork/spawnDebris(location)
 	. = ..()
