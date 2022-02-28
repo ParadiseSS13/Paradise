@@ -18,13 +18,12 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 /datum/cachedbook // Datum used to cache the SQL DB books locally in order to achieve a performance gain.
 	var/id
 	var/title
+	var/content
+	var/summary
 	var/author
+	var/rating
 	var/ckey // ADDED 24/2/2015 - N3X
 	var/category
-	var/content
-	var/programmatic=0                // Is the book programmatically added to the catalog?
-	var/forbidden=0
-	var/path = /obj/item/book // Type path of the book to generate
 	var/flagged = 0
 
 /datum/cachedbook/proc/LoadFromRow(list/row)
@@ -36,7 +35,6 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	flagged = row["flagged"]
 	if("content" in row)
 		content = row["content"]
-	programmatic=0
 
 // Builds a SQL statement
 /datum/library_query
@@ -53,10 +51,8 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	for(var/typepath in subtypesof(/obj/item/book/manual))
 		var/obj/item/book/B = new typepath(null)
 		var/datum/cachedbook/CB = new()
-		CB.forbidden = B.forbidden
 		CB.title = B.name
 		CB.author = B.author
-		CB.programmatic=1
 		CB.path=typepath
 		CB.id = "M[newid]"
 		newid++
@@ -64,12 +60,6 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 
 /datum/library_catalog/proc/flag_book_by_id(mob/user, id)
 	var/global/books_flagged_this_round[0]
-
-	if("[id]" in cached_books)
-		var/datum/cachedbook/CB = cached_books["[id]"]
-		if(CB.programmatic)
-			to_chat(user, "<span class='danger'>That book cannot be flagged in the system, as it does not actually exist in the database.</span>")
-			return
 
 	if("[id]" in books_flagged_this_round)
 		to_chat(user, "<span class='danger'>This book has already been flagged this shift.</span>")
@@ -89,9 +79,6 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 /datum/library_catalog/proc/rmBookByID(mob/user, id)
 	if("[id]" in cached_books)
 		var/datum/cachedbook/CB = cached_books["[id]"]
-		if(CB.programmatic)
-			to_chat(user, "<span class='danger'>That book cannot be removed from the system, as it does not actually exist in the database.</span>")
-			return
 
 	var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM library WHERE id=:id", list(
 		"id" = text2num(id)

@@ -1,8 +1,5 @@
 #define MAX_BOOK_FLAGS 3	// maximum number of times a book can be flagged before being removed from results
 
-#define LIB_BOOK_ARCHIVE 1   // Book Archive Browser
-#define LIB_UPLOAD_BOOK	2    // Book Uploader
-#define LIB_PATRON_MANAGER 3 // Patron Manager
 
 /obj/machinery/computer/library
 	name = "Library Computer"
@@ -14,12 +11,13 @@
 	///Page Number for going through player book archives
 	var/archive_page_num = 1
 	///Page number for TGUI Tabs
-	var/current_page = LIB_BOOK_ARCHIVE
+	var/logged_in = FALSE
 	var/num_pages = 0
 	var/num_results = 0
 	var/datum/cachedbook/selected_book = new()
 	var/datum/library_query/query = new() //	var/author var/category var/title -- holder object?
 
+	var/static/datum/library_catalog/programmatic_books = new()
 	icon = 'icons/obj/library.dmi'
 	icon_state = "computer"
 
@@ -36,6 +34,7 @@
 		var/obj/item/book/B = O
 		selected_book.title = B.title
 		selected_book.author = B.author
+		selected_book.summary = B.summary
 	return ..()
 
 ///TGUI SHIT, DONT NEED TO WORRY BOUT
@@ -56,6 +55,8 @@
 	var/list/selected_book_data = list(
 		title = selected_book.title ? selected_book.title : "not specified",
 		author = selected_book.author ? selected_book.author : "not specified",
+		summary = selected_book.summary ? selected_book.summary : "no summary",
+		copyright = selected_book.copyright,
 		)
 	data["selectedbook"] = selected_book_data
 
@@ -169,7 +170,3 @@
 	return GLOB.library_catalog.getBookByID(id)
 
 #undef MAX_BOOK_FLAGS
-
-#undef LIB_BOOK_ARCHIVE
-#undef LIB_UPLOAD_BOOK
-#undef LIB_PATRON_MANAGER

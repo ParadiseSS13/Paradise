@@ -36,11 +36,17 @@ const LibraryComputerNavigation = (properties, context) => {
         selected={1 === tabIndex}
         onClick={() => setTabIndex(1)}>
         <Icon name="list" />
-        Upload Book
+        General Literature
       </Tabs.Tab>
       <Tabs.Tab
         selected={2 === tabIndex}
         onClick={() => setTabIndex(2)}>
+        <Icon name="list" />
+        Upload Book
+      </Tabs.Tab>
+      <Tabs.Tab
+        selected={3 === tabIndex}
+        onClick={() => setTabIndex(3)}>
         <Icon name="list" />
         Patron Manager
       </Tabs.Tab>
@@ -54,7 +60,11 @@ const LibraryPageContent = (props, context) => {
     case 0:
       return <LibraryBooksList />;
     case 1:
+      return <ProgramatticBooks />;
+    case 2:
       return <UploadBooks />;
+    case 3:
+      return <PatronManager />;
     default:
       return "WE SHOULDN'T BE HERE!";
   }
@@ -111,6 +121,30 @@ const LibraryBooksList = (properties, context) => {
   );
 };
 
+const ProgramatticBooks = (properties, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    selectedbook,
+  } = data;
+
+  return (
+    <Section
+      title="Book System Upload">
+      <Flex>
+        <Box>Title: {selectedbook.title}</Box>
+        <Box>Author: {selectedbook.author}</Box>
+        <Box>Summary: {selectedbook.summary}</Box>
+      </Flex>
+      <Button
+        fluid
+        textAlign="center"
+        disabled={!data.copyitem && !data.mob}
+        content={data.copyitem ? data.copyitem : (data.mob ? data.mob+"'s ass!" : "document")}
+        onClick={() => act('removedocument')} />
+    </Section>
+  );
+};
+
 const UploadBooks = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
@@ -123,7 +157,22 @@ const UploadBooks = (properties, context) => {
       <Flex>
         <Box>{selectedbook.title}</Box>
         <Box>{selectedbook.author}</Box>
+        <Box>{selectedbook.title}</Box>
+        <Box>{selectedbook.author}</Box>
       </Flex>
+    </Section>
+  );
+};
+
+const PatronManager = (properties, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    selectedbook,
+  } = data;
+
+  return (
+    <Section
+      title="Checked Out Books">
     </Section>
   );
 };

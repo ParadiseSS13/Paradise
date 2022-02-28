@@ -157,16 +157,23 @@
 	resistance_flags = FLAMMABLE
 	drop_sound = 'sound/items/handling/book_drop.ogg'
 	pickup_sound =  'sound/items/handling/book_pickup.ogg'
-	var/dat			 // Actual page content
-	var/due_date = 0 // Game time in 1/10th seconds
-	var/author		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
-	var/unique = 0   // 0 - Normal book, 1 - Should not be treated as normal book, unable to be copied, unable to be modified
+
 	var/title		 // The real name of the book.
-	var/carved = 0	 // Has the book been hollowed out for use as a secret storage item?
-	var/forbidden = 0     // Prevent ordering of this book. (0=no, 1=yes, 2=emag only)
+	var/dat			 // Actual page content
+	var/summary
+	var/author		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
+	var/rating       //Book Rating - Only Applicable to books that are printed from database
+
+	///0 - Normal book, 1 - Special Book
+	var/unique = 0
+	///Prevents book from being uploaded - For all printed books
+	var/copyright = FALSE
+
+	var/due_date = 0 // Game time in 1/10th seconds
+
+	var/carved = FALSE	 // Has the book been hollowed out for use as a secret storage item?
 	var/obj/item/store	// What's in the book?
 	/// Book DRM. If this var is TRUE, it cannot be scanned and re-uploaded
-	var/has_drm = FALSE
 
 /obj/item/book/attack_self(mob/user as mob)
 	if(carved)
