@@ -66,14 +66,6 @@
 		onclose(usr, "publiclibrary")
 		return
 
-	if(href_list["pagenum"])
-		if(!num_pages)
-			archive_page_num = 1
-		else
-			var/pn = text2num(href_list["pagenum"])
-			if(!isnull(pn))
-				archive_page_num = clamp(pn, 1, num_pages)
-
 	if(href_list["settitle"])
 		var/newtitle = input("Enter a title to search for:") as text|null
 		if(newtitle)

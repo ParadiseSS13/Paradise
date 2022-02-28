@@ -131,16 +131,23 @@ const ProgramatticBooks = (properties, context) => {
     <Section
       title="Book System Upload">
       <Flex>
-        <Box>Title: {selectedbook.title}</Box>
+        <Box>Title: {selectedbook.title}
+          <Button
+            fluid
+            textAlign="center"
+            disabled={selectedbook.copyright}
+            content="Edit Title"
+            onClick={() => act('titleedit')} />
+        </Box>
         <Box>Author: {selectedbook.author}</Box>
         <Box>Summary: {selectedbook.summary}</Box>
       </Flex>
       <Button
         fluid
         textAlign="center"
-        disabled={!data.copyitem && !data.mob}
-        content={data.copyitem ? data.copyitem : (data.mob ? data.mob+"'s ass!" : "document")}
-        onClick={() => act('removedocument')} />
+        disabled={selectedbook.copyright}
+        content="Upload Book"
+        onClick={() => act('uploadbook')} />
     </Section>
   );
 };

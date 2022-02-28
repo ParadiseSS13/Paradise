@@ -377,30 +377,6 @@
 		if(newcategory)
 			upload_category = newcategory
 	if(href_list["upload"])
-		if(scanner)
-			if(scanner.cache)
-				var/choice = input("Are you certain you wish to upload this title to the Archive?") in list("Confirm", "Abort")
-				if(choice == "Confirm")
-					if(!SSdbcore.IsConnected())
-						alert("Connection to Archive has been severed. Aborting.")
-					else
-						var/datum/db_query/query = SSdbcore.NewQuery({"
-							INSERT INTO library (author, title, content, category, ckey, flagged)
-							VALUES (:author, :title, :content, :category, :ckey, 0)"}, list(
-								"author" = scanner.cache.author,
-								"title" = scanner.cache.name,
-								"content" = scanner.cache.dat,
-								"category" = upload_category,
-								"ckey" = usr.ckey
-							))
-
-						if(!query.warn_execute())
-							qdel(query)
-							return
-
-						qdel(query)
-						log_admin("[usr.name]/[usr.key] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] characters in length")
-						message_admins("[key_name_admin(usr)] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] characters in length")
 
 	if(href_list["id"])
 		if(href_list["id"]=="-1")
