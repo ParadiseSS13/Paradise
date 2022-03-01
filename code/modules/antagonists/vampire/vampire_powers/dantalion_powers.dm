@@ -76,6 +76,7 @@
 	desc = "Talk to your thralls telepathically."
 	gain_desc = "You have gained the ability to commune with your thralls."
 	action_icon_state = "vamp_communication"
+	charge_max = 2 SECONDS
 
 /obj/effect/proc_holder/spell/vampire/thrall_commune/create_new_handler() //so thralls can use it
 	return
@@ -91,6 +92,9 @@
 				break
 
 	if(!V)
+		return
+	if(!V.owner.som) // I hate som
+		to_chat(V.owner, "<span class='warning'>After deep consideration, you realise its a pointless idea to try to communicate with your non-existent thralls.</span>") // no thralls?
 		return
 
 	for(var/datum/mind/thrall in V.owner.som.serv)
