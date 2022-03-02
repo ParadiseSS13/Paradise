@@ -1,7 +1,7 @@
 //This should hold all the vampire related powers
 /mob/living/proc/affects_vampire(mob/user)
 	//Other vampires and thralls aren't affected
-	if(mind?.has_antag_datum(/datum/antagonist/vampire) || mind.has_antag_datum(/datum/antagonist/mindslave/thrall))
+	if(mind?.has_antag_datum(/datum/antagonist/vampire) || mind?.has_antag_datum(/datum/antagonist/mindslave/thrall))
 		return FALSE
 	//Vampires who have reached their full potential can affect nearly everything
 	var/datum/antagonist/vampire/V = user?.mind.has_antag_datum(/datum/antagonist/vampire)
