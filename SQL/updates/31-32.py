@@ -3,7 +3,7 @@
 # It won't work on 2.7 at all.
 
 # To run this, supply the following args in a command shell
-# python 31-32.py address username password database feedback round
+# python 31-32.py address username password database
 # Example:
 # python 31-32.py 172.16.0.200 affectedarc07 (redacted) paradise_gamedb
 
