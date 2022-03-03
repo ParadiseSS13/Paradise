@@ -207,6 +207,16 @@ var/global/list/geoip_ckey_updated = list()
 			return FALSE
 		if("CJSC \"ER-Telecom Holding\" Nizhny Novgorod branch")
 			return FALSE
+		if("PJSC \"Vimpelcom\"")
+			return FALSE
+		if("SEVEN-SKY")
+			return FALSE
+		if("pool-miranda")
+			return FALSE
+		if("Unico wireless network")
+			return FALSE
+		if("OJSC Kyrgyztelecom")
+			return FALSE
 	return TRUE
 
 /proc/geoip_check(addr)
