@@ -84,3 +84,11 @@
 			to_chat(user, "<span class='notice'>You fill [src] from [source].</span>")
 			return
 	..()
+
+/obj/item/reagent_containers/examine(mob/user)
+	. = ..()
+
+	// Food has no valid possible_transfer_amounts, and we don't want to show
+	// this message on examining food.
+	if(possible_transfer_amounts)
+		. += "<span class='notice'>It will transfer [amount_per_transfer_from_this] unit[amount_per_transfer_from_this > 1 ? "s" : ""] at a time."
