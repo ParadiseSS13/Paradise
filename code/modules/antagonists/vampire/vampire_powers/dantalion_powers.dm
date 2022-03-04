@@ -28,7 +28,7 @@
 	var/mob/living/target = targets[1]
 	user.visible_message("<span class='warning'>[user] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
 	to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>")
-	if(do_mob(user, target, 5 SECONDS))
+	if(do_mob(user, target, 15 SECONDS))
 		if(can_enthrall(user, target))
 			handle_enthrall(user, target)
 			var/datum/spell_handler/vampire/V = custom_handler
@@ -70,6 +70,8 @@
 
 	var/greet_text = "<b>You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command.</b>"
 	H.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall(user.mind, greet_text))
+	if(jobban_isbanned(H, ROLE_VAMPIRE))
+		SSticker.mode.replace_jobbanned_player(H, SPECIAL_ROLE_VAMPIRE_THRALL)
 	H.Stun(2)
 	user.create_log(CONVERSION_LOG, "vampire enthralled [H.real_name]")
 	H.create_log(CONVERSION_LOG, "was vampire entrhalled by [user.real_name]")
