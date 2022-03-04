@@ -1,6 +1,13 @@
-/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, checkrights = 1, show_after = TRUE, automated = FALSE)
+/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, checkrights = 1, show_after = TRUE, automated = FALSE, sanitise_html = TRUE) // Dont you EVER disable this last param unless you know what you're doing
 	if(checkrights && !check_rights(R_ADMIN|R_MOD))
 		return
+	if(IsAdminAdvancedProcCall() && !sanitise_html)
+		// *sigh*
+		to_chat(usr, "<span class='boldannounce'>Unsanitized note add blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to possibly inject HTML into notes via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to possibly inject HTML into notes via advanced proc-call")
+		return
+
 	if(!SSdbcore.IsConnected())
 		if(usr)
 			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
@@ -55,14 +62,15 @@
 	// Force cast this to 1/0 incase someone tries to feed bad data
 	automated = !!automated
 
-	var/safe_text = html_encode(notetext)
+	if(sanitise_html)
+		notetext = html_encode(notetext)
 
 	var/datum/db_query/query_noteadd = SSdbcore.NewQuery({"
 		INSERT INTO notes (ckey, timestamp, notetext, adminckey, server, crew_playtime, round_id, automated)
 		VALUES (:targetckey, NOW(), :notetext, :adminkey, :server, :crewnum, :roundid, :automated)
 	"}, list(
 		"targetckey" = target_ckey,
-		"notetext" = safe_text,
+		"notetext" = notetext,
 		"adminkey" = adminckey,
 		"server" = GLOB.configuration.system.instance_id,
 		"crewnum" = crew_number,
@@ -74,8 +82,8 @@
 		return
 	qdel(query_noteadd)
 	if(logged)
-		log_admin("[usr ? key_name(usr) : adminckey] has added a note to [target_ckey]: [safe_text]")
-		message_admins("[usr ? key_name_admin(usr) : adminckey] has added a note to [target_ckey]:<br>[safe_text]")
+		log_admin("[usr ? key_name(usr) : adminckey] has added a note to [target_ckey]: [notetext]")
+		message_admins("[usr ? key_name_admin(usr) : adminckey] has added a note to [target_ckey]:<br>[notetext]")
 		if(show_after)
 			show_note(target_ckey)
 
