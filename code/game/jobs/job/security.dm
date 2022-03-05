@@ -21,6 +21,7 @@
 	exp_map = list(EXP_TYPE_SECURITY = 1200)
 	disabilities_allowed = 0
 	outfit = /datum/outfit/job/hos
+	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Security), Space Law, basic job duties, and act professionally (roleplay)."
 
 /datum/outfit/job/hos
 	name = "Head of Security"
@@ -109,6 +110,7 @@
 	minimal_player_age = 14
 	exp_map = list(EXP_TYPE_CREW = 600)
 	outfit = /datum/outfit/job/detective
+	important_information = "You are not a Security Officer. Your revolver is for self defence only."
 
 /datum/outfit/job/detective
 	name = "Detective"
@@ -164,6 +166,7 @@
 	minimal_player_age = 14
 	exp_map = list(EXP_TYPE_CREW = 600)
 	outfit = /datum/outfit/job/officer
+	important_information = "Space Law is the law, not a suggestion."
 
 /datum/outfit/job/officer
 	name = "Security Officer"

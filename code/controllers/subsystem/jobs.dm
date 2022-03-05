@@ -445,9 +445,12 @@ SUBSYSTEM_DEF(jobs)
 	if(job.req_admin_notify)
 		to_chat(H, "<center><b>You are playing a job that is important for the game progression. If you have to disconnect, please go to cryo and inform command. If you are unable to do so, please notify the admins via adminhelp.</b></center>")
 	to_chat(H, "<br><b><center>If you need help, check the <a href=\"https://paradisestation.org/wiki/index.php/Main_Page\">wiki</a> or use Mentorhelp(F1)!</b></center>")
+	if(job.important_information)
+		to_chat(H, "<center><div class='userdanger' style='width: 80%'>[job.important_information]</div></center>")
 	to_chat(H, "<center><span class='green'>----------------</span><br><br></center>")
 
 	return H
+
 /datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area
 	if(!H)
 		return null
