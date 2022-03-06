@@ -62,3 +62,9 @@
 /mob/living/simple_animal/shade/sword/Initialize(mapload)
 	.=..()
 	status_flags |= GODMODE
+
+/mob/living/simple_animal/shade/update_runechat_msg_location()
+	if(istype(loc, /obj/item/soulstone))
+		runechat_msg_location = loc
+	else
+		runechat_msg_location = src

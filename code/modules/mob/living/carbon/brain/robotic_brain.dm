@@ -201,8 +201,8 @@
 	brainmob = new(src)
 	brainmob.name = "[pick(list("PBU", "HIU", "SINA", "ARMA", "OSI"))]-[rand(100, 999)]"
 	brainmob.real_name = brainmob.name
-	brainmob.forceMove(src)
 	brainmob.container = src
+	brainmob.forceMove(src)
 	brainmob.stat = CONSCIOUS
 	brainmob.SetSilence(0)
 	brainmob.dna = new(brainmob)
