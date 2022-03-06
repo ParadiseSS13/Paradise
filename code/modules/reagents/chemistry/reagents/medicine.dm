@@ -521,7 +521,7 @@
 	metabolization_rate = 0.3
 	overdose_threshold = 35
 	addiction_chance = 1
-	addiction_chance = 10
+	addiction_chance_additional = 10
 	addiction_threshold = 10
 	harmless = FALSE
 	taste_description = "stimulation"
