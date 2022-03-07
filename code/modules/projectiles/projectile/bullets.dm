@@ -194,7 +194,7 @@
 	..()
 	if(ismovable(target))
 		var/atom/movable/M = target
-		if(!M.move_resist != INFINITY)
+		if(M.move_resist < INFINITY)
 			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
 			M.throw_at(throw_target, 3, 2)
 
