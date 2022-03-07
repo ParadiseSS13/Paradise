@@ -292,11 +292,8 @@
 	if(usr.incapacitated())
 		return
 
-	if(ishuman(usr))
+	if(ishuman(usr) || isrobot(usr))
 		add_fingerprint(usr)
-		toggle(usr)
-		return
-	if(isrobot(usr))
 		toggle(usr)
 		return
 	to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")

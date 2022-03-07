@@ -133,7 +133,7 @@
 /obj/structure/closet/crate/attack_hand(mob/user)
 	if(manifest)
 		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
-		playsound(loc, 'sound/items/poster_ripped.ogg', 75, 1)
+		playsound(loc, 'sound/items/poster_ripped.ogg', 75, TRUE)
 		manifest.forceMove(loc)
 		if(ishuman(user))
 			user.put_in_hands(manifest)
@@ -229,11 +229,8 @@
 	if(!usr.canmove || usr.stat || usr.restrained()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
 		return
 
-	if(ishuman(usr))
+	if(ishuman(usr) || isrobot(usr))
 		add_fingerprint(usr)
-		togglelock(usr)
-		return
-	if(isrobot(usr))
 		togglelock(usr)
 		return
 	to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
@@ -261,8 +258,8 @@
 		overlays += sparks
 		spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
 		playsound(src.loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		locked = 0
-		broken = 1
+		locked = FALSE
+		broken = TRUE
 		update_icon()
 		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
 
@@ -271,12 +268,12 @@
 		O.emp_act(severity)
 	if(!broken && !opened  && prob(50/severity))
 		if(!locked)
-			locked = 1
+			locked = TRUE
 		else
 			overlays += sparks
 			spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
 			playsound(src, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			locked = 0
+			locked = FALSE
 		update_icon()
 	if(!opened && prob(20/severity))
 		if(!locked)
