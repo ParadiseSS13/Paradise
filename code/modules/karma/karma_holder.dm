@@ -84,7 +84,7 @@
 		return
 
 	if(select_query.NextRow())
-		to_chat(usr, "<span class='notice'>You have already purchased [package.friendly_name]. If you believe this is an error, please contact the server host.")
+		to_chat(usr, "<span class='notice'>You have already purchased [package.friendly_name]. If you believe this is an error, please contact the server host.</span>")
 		qdel(select_query)
 		return
 
@@ -101,7 +101,7 @@
 	))
 
 	if(!insert_query.warn_execute())
-		to_chat(usr, "<span class='warning'>Failed to purchase [package.friendly_name]. Please contact the server host.")
+		to_chat(usr, "<span class='warning'>Failed to purchase [package.friendly_name]. Please contact the server host.</span>")
 		qdel(insert_query)
 		return
 
@@ -143,7 +143,7 @@
 	))
 
 	if(!insert_query.warn_execute())
-		to_chat(user, "<span class='warning'>Failed to refund [package.friendly_name]. Please contact the server host.")
+		to_chat(user, "<span class='warning'>Failed to refund [package.friendly_name]. Please contact the server host.</span>")
 		qdel(insert_query)
 		return
 
