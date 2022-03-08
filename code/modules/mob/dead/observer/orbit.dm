@@ -104,8 +104,6 @@
 							"Wizard" = (mind in SSticker.mode.wizards),
 							"Wizard's Apprentice" = (mind in SSticker.mode.apprentices),
 							"Nuclear Operative" = (mind in SSticker.mode.syndicates),
-							"Shadowling" = (mind in SSticker.mode.shadows),
-							"Shadowling Thrall" = (mind in SSticker.mode.shadowling_thralls),
 							"Abductor" = (mind in SSticker.mode.abductors),
 							"Revolutionary" = (mind in SSticker.mode.revolutionaries),
 							"Head Revolutionary" = (mind in SSticker.mode.head_revolutionaries)

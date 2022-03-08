@@ -19,11 +19,6 @@
 
 /obj/item/implant/mindshield/implant(mob/target)
 	if(..())
-		if(target.mind in SSticker.mode.head_revolutionaries || is_shadow_or_thrall(target))
-			target.visible_message("<span class='warning'>[target] seems to resist the implant!</span>", "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
-			removed(target, 1)
-			qdel(src)
-			return -1
 		if(target.mind in SSticker.mode.revolutionaries)
 			SSticker.mode.remove_revolutionary(target.mind)
 		if(target.mind in SSticker.mode.cult)

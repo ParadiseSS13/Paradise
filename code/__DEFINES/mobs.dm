@@ -209,8 +209,6 @@
 #define UNHEALING_EAR_DAMAGE 100
 
 //Human sub-species
-#define isshadowling(A) (is_species(A, /datum/species/shadow/ling))
-#define isshadowlinglesser(A) (is_species(A, /datum/species/shadow/ling/lesser))
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))
 #define ismonkeybasic(A) (is_species(A, /datum/species/monkey))

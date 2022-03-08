@@ -12,8 +12,8 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 /obj/effect/proc_holder/spell/boo
 	name = "Boo!"
 	desc = "Fuck with the living."
-	selection_deactivated_message	= "<span class='shadowling'>Your presence will not be known. For now.</span>"
-	selection_activated_message		= "<span class='shadowling'>You prepare to reach across the veil. <b>Left-click to influence a target!</b></span>"
+	selection_deactivated_message	= "<span class='notice'>Your presence will not be known. For now.</span>"
+	selection_activated_message		= "<span class='notice'>You prepare to reach across the veil. <b>Left-click to influence a target!</b></span>"
 
 	ghost = TRUE
 
@@ -42,7 +42,7 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	if(target.get_spooked())
 		var/area/spook_zone = get_area(target)
 		if (spook_zone.is_haunted == TRUE)
-			to_chat(usr, "<span class='shadowling'>The veil is weak in [spook_zone], it took less effort to influence [target].</span>")
+			to_chat(usr, "<span class='notice'>The veil is weak in [spook_zone], it took less effort to influence [target].</span>")
 			charge_counter = charge_max / 2
 		return
 

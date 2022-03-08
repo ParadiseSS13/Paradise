@@ -390,7 +390,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 /datum/admins/proc/end_round()
 	set category = "Server"
 	set name = "End Round"
-	set desc = "Instantly ends the round and brings up the scoreboard, like shadowlings or wizards dying."
+	set desc = "Instantly ends the round and brings up the scoreboard, in the same way that wizards dying do."
 	if(!check_rights(R_SERVER))
 		return
 	var/input = sanitize(copytext(input(usr, "What text should players see announcing the round end? Input nothing to cancel.", "Specify Announcement Text", "Shift Has Ended!"), 1, MAX_MESSAGE_LEN))
@@ -655,10 +655,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Vampire"
 	if(M.mind.has_antag_datum(/datum/antagonist/mindslave/thrall))
 		antag_list += "Vampire Thrall"
-	if(M.mind in SSticker.mode.shadows)
-		antag_list += "Shadowling"
-	if(M.mind in SSticker.mode.shadowling_thralls)
-		antag_list += "Shadowling Thrall"
 	if(M.mind.has_antag_datum(/datum/antagonist/traitor))
 		antag_list += "Traitor"
 	if(M.mind.has_antag_datum(/datum/antagonist/mindslave, FALSE))

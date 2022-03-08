@@ -323,17 +323,6 @@
 
 	. += _memory_edit_role_enabled(ROLE_OPERATIVE)
 
-/datum/mind/proc/memory_edit_shadowling(mob/living/carbon/human/H)
-	. = _memory_edit_header("shadowling")
-	if(src in SSticker.mode.shadows)
-		. += "<b><font color='red'>SHADOWLING</font></b>|thrall|<a href='?src=[UID()];shadowling=clear'>no</a>"
-	else if(src in SSticker.mode.shadowling_thralls)
-		. += "Shadowling|<b><font color='red'>THRALL</font></b>|<a href='?src=[UID()];shadowling=clear'>no</a>"
-	else
-		. += "<a href='?src=[UID()];shadowling=shadowling'>shadowling</a>|<a href='?src=[UID()];shadowling=thrall'>thrall</a>|<b>NO</b>"
-
-	. += _memory_edit_role_enabled(ROLE_SHADOWLING)
-
 /datum/mind/proc/memory_edit_abductor(mob/living/carbon/human/H)
 	. = _memory_edit_header("abductor")
 	if(src in SSticker.mode.abductors)
@@ -472,8 +461,6 @@
 		sections["vampire"] = memory_edit_vampire(H)
 		/** NUCLEAR ***/
 		sections["nuclear"] = memory_edit_nuclear(H)
-		/** SHADOWLING **/
-		sections["shadowling"] = memory_edit_shadowling(H)
 		/** Abductors **/
 		sections["abductor"] = memory_edit_abductor(H)
 	sections["eventmisc"] = memory_edit_eventmisc(H)
@@ -1339,44 +1326,6 @@
 					remove_antag_datum(/datum/antagonist/mindslave)
 					log_admin("[key_name(usr)] has de-mindslaved [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-mindslaved [key_name_admin(current)]")
-
-	else if(href_list["shadowling"])
-		switch(href_list["shadowling"])
-			if("clear")
-				SSticker.mode.update_shadow_icons_removed(src)
-				if(src in SSticker.mode.shadows)
-					SSticker.mode.shadows -= src
-					special_role = null
-					to_chat(current, "<span class='userdanger'>Your powers have been quenched! You are no longer a shadowling!</span>")
-					message_admins("[key_name_admin(usr)] has de-shadowlinged [current].")
-					log_admin("[key_name(usr)] has de-shadowlinged [current].")
-					current.spellremove(current)
-					current.remove_language("Shadowling Hivemind")
-				else if(src in SSticker.mode.shadowling_thralls)
-					SSticker.mode.remove_thrall(src,0)
-					message_admins("[key_name_admin(usr)] has de-thrall'ed [current].")
-					log_admin("[key_name(usr)] has de-thralled [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-thralled [key_name_admin(current)]")
-			if("shadowling")
-				if(!ishuman(current))
-					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
-					return
-				SSticker.mode.shadows += src
-				special_role = SPECIAL_ROLE_SHADOWLING
-				to_chat(current, "<span class='shadowling'><b>Something stirs deep in your mind. A red light floods your vision, and slowly you remember. Though your human disguise has served you well, the \
-				time is nigh to cast it off and enter your true form. You have disguised yourself amongst the humans, but you are not one of them. You are a shadowling, and you are to ascend at all costs.\
-				</b></span>")
-				SSticker.mode.finalize_shadowling(src)
-				SSticker.mode.update_shadow_icons_added(src)
-				log_admin("[key_name(usr)] has shadowlinged [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has shadowlinged [key_name_admin(current)]")
-			if("thrall")
-				if(!ishuman(current))
-					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
-					return
-				SSticker.mode.add_thrall(src)
-				message_admins("[key_name_admin(usr)] has thralled [current].")
-				log_admin("[key_name(usr)] has thralled [current].")
 
 	else if(href_list["abductor"])
 		switch(href_list["abductor"])
