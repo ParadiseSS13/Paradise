@@ -68918,6 +68918,7 @@
 	dir = 1
 	},
 /obj/item/clothing/shoes/leather,
+/obj/item/clothing/under/dress/dress_hop,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

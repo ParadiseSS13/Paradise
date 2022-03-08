@@ -49928,6 +49928,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
+/obj/item/clothing/under/dress/dress_hop,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "bTF" = (
@@ -50932,6 +50933,7 @@
 /area/quartermaster/office)
 "bVu" = (
 /obj/structure/closet/secure_closet/hop2,
+/obj/item/clothing/under/dress/dress_hop,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "bVv" = (
