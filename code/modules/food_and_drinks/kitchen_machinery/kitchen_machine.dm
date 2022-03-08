@@ -161,6 +161,51 @@
 *   Machine Menu	*
 ********************/
 
+/obj/machinery/kitchen_machine/proc/format_content_descs()
+	. = ""
+	var/list/items_counts = new
+	var/list/items_measures = new
+	var/list/items_measures_p = new
+	for(var/obj/O in contents)
+		var/display_name = O.name
+		if(istype(O,/obj/item/reagent_containers/food/snacks/egg))
+			items_measures[display_name] = "egg"
+			items_measures_p[display_name] = "eggs"
+		if(istype(O,/obj/item/reagent_containers/food/snacks/tofu))
+			items_measures[display_name] = "tofu chunk"
+			items_measures_p[display_name] = "tofu chunks"
+		if(istype(O,/obj/item/reagent_containers/food/snacks/meat)) //any meat
+			items_measures[display_name] = "slab of meat"
+			items_measures_p[display_name] = "slabs of meat"
+		if(istype(O,/obj/item/reagent_containers/food/snacks/donkpocket))
+			display_name = "Turnovers"
+			items_measures[display_name] = "turnover"
+			items_measures_p[display_name] = "turnovers"
+		if(istype(O,/obj/item/reagent_containers/food/snacks/carpmeat))
+			items_measures[display_name] = "fillet of meat"
+			items_measures_p[display_name] = "fillets of meat"
+		items_counts[display_name]++
+
+	for(var/O in items_counts)
+		var/N = items_counts[O]
+		if(!(O in items_measures))
+			. += {"<B>[capitalize(O)]:</B> [N] [lowertext(O)]\s<BR>"}
+		else
+			if(N==1)
+				. += {"<B>[capitalize(O)]:</B> [N] [items_measures[O]]<BR>"}
+			else
+				. += {"<B>[capitalize(O)]:</B> [N] [items_measures_p[O]]<BR>"}
+
+	for(var/datum/reagent/R in reagents.reagent_list)
+		var/display_name = R.name
+		if(R.id == "capsaicin")
+			display_name = "Hotsauce"
+		if(R.id == "frostoil")
+			display_name = "Coldsauce"
+
+		. += {"<B>[display_name]:</B> [R.volume] unit\s<BR>"}
+
+
 /obj/machinery/kitchen_machine/interact(mob/user) // The microwave Menu
 	if(panel_open || !anchored)
 		return
@@ -172,50 +217,12 @@
 	else if(dirty==100)
 		dat = {"<code>This [src] is dirty!<BR>Please clean it before use!</code>"}
 	else
-		var/list/items_counts = new
-		var/list/items_measures = new
-		var/list/items_measures_p = new
-		for(var/obj/O in contents)
-			var/display_name = O.name
-			if(istype(O,/obj/item/reagent_containers/food/snacks/egg))
-				items_measures[display_name] = "egg"
-				items_measures_p[display_name] = "eggs"
-			if(istype(O,/obj/item/reagent_containers/food/snacks/tofu))
-				items_measures[display_name] = "tofu chunk"
-				items_measures_p[display_name] = "tofu chunks"
-			if(istype(O,/obj/item/reagent_containers/food/snacks/meat)) //any meat
-				items_measures[display_name] = "slab of meat"
-				items_measures_p[display_name] = "slabs of meat"
-			if(istype(O,/obj/item/reagent_containers/food/snacks/donkpocket))
-				display_name = "Turnovers"
-				items_measures[display_name] = "turnover"
-				items_measures_p[display_name] = "turnovers"
-			if(istype(O,/obj/item/reagent_containers/food/snacks/carpmeat))
-				items_measures[display_name] = "fillet of meat"
-				items_measures_p[display_name] = "fillets of meat"
-			items_counts[display_name]++
-		for(var/O in items_counts)
-			var/N = items_counts[O]
-			if(!(O in items_measures))
-				dat += {"<B>[capitalize(O)]:</B> [N] [lowertext(O)]\s<BR>"}
-			else
-				if(N==1)
-					dat += {"<B>[capitalize(O)]:</B> [N] [items_measures[O]]<BR>"}
-				else
-					dat += {"<B>[capitalize(O)]:</B> [N] [items_measures_p[O]]<BR>"}
-
-		for(var/datum/reagent/R in reagents.reagent_list)
-			var/display_name = R.name
-			if(R.id == "capsaicin")
-				display_name = "Hotsauce"
-			if(R.id == "frostoil")
-				display_name = "Coldsauce"
-			dat += {"<B>[display_name]:</B> [R.volume] unit\s<BR>"}
-
-		if(items_counts.len==0 && reagents.reagent_list.len==0)
-			dat = {"<B>[src] is empty</B><BR>"}
-		else
+		dat += format_content_descs()
+		if(dat)
 			dat = {"<b>Ingredients:</b><br>[dat]"}
+		else
+			dat = {"<B>[src] is empty</B><BR>"}
+
 		dat += {"<HR><BR>\
 <A href='?src=[UID()];action=cook'>Turn on!</A><BR>\
 <A href='?src=[UID()];action=dispose'>Eject ingredients!</A><BR>\
@@ -439,3 +446,12 @@
 		if("dispose")
 			dispose()
 	return
+
+/obj/machinery/kitchen_machine/build_reagent_description(mob/user)
+	return
+
+/obj/machinery/kitchen_machine/examine(mob/user, infix = "", suffix = "")
+	. = ..()
+	var/dat = format_content_descs()
+	if(dat)
+		. += "It contains: <BR>[dat]"

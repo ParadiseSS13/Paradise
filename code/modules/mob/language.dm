@@ -20,6 +20,8 @@
 	var/follow = 0                              // Applies to HIVEMIND languages - should a follow link be included for dead mobs?
 	var/english_names = 0                       // Do we want English names by default, no matter what?
 	var/list/scramble_cache = list()
+	/// Do we want to override the word-join character for scrambled text? If null, defaults to " " or ". "
+	var/join_override
 
 /datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4)
 	if(!syllables || !syllables.len || english_names)
@@ -62,7 +64,9 @@
 			capitalize = 0
 		scrambled_text += next
 		var/chance = rand(100)
-		if(chance <= 5)
+		if(join_override)
+			scrambled_text += join_override
+		else if(chance <= 5)
 			scrambled_text += ". "
 			capitalize = 1
 		else if(chance > 5 && chance <= space_chance)
@@ -70,7 +74,7 @@
 
 	scrambled_text = trim(scrambled_text)
 	var/ending = copytext(scrambled_text, length(scrambled_text))
-	if(ending == ".")
+	if(ending == "." || ending == "-")
 		scrambled_text = copytext(scrambled_text,1,length(scrambled_text)-1)
 	var/input_ending = copytext(input, input_size)
 	if(input_ending in list("!","?","."))
@@ -351,6 +355,28 @@
 	var/new_name = "[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
 	new_name += "-[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
 	new_name += "-[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
+	return new_name
+
+/datum/language/moth
+	name = "Tkachi"
+	desc = "The language of the Nianae mothpeople borders on complete unintelligibility."
+	speech_verb = "buzzes"
+	ask_verb = "flaps"
+	exclaim_verbs = list("chatters")
+	colour = "moth"
+	key = "#"
+	flags = RESTRICTED | WHITELISTED
+	join_override = "-"
+	syllables = list("år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le",
+					 "lit", "ygg", "van", "dår", "næ", "møt", "idd", "hvo", "ja", "på", "han",
+					 "så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två",
+					 "må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei",
+					 "huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön")
+
+/datum/language/moth/get_random_name()
+	var/new_name = "[pick(list("Abbot","Archer","Arkwright","Baker","Bard","Biologist","Broker","Caller","Chamberlain","Clerk","Cooper","Culinarian","Dean","Director","Duke","Energizer","Excavator","Explorer","Fletcher","Gatekeeper","Guardian","Guide","Healer","Horner","Keeper","Knight","Laidler","Mapper","Marshall","Mechanic","Miller","Navigator","Pilot","Prior","Seeker","Seer","Smith","Stargazer","Teacher","Tech Whisperer","Tender","Thatcher","Voidcrafter","Voidhunter","Voidwalker","Ward","Watcher","Weaver","Webster","Wright"))]"
+	new_name += "[pick(list(" of"," for"," in Service of",", Servant of"," for the Good of",", Student of"," to"))]"
+	new_name += " [pick(list("Alkaid","Andromeda","Antlia","Apus","Auriga","Caelum","Camelopardalis","Canes Venatici","Carinae","Cassiopeia","Centauri","Circinus","Cygnus","Dorado","Draco","Eridanus","Errakis","Fornax","Gliese","Grus","Horologium","Hydri","Lacerta","Leo Minor","Lupus","Lynx","Maffei","Megrez","Messier","Microscopium","Monocerotis","Muscae","Ophiuchi","Orion","Pegasi","Persei","Perseus","Polaris","Pyxis","Sculptor","Syrma","Telescopium","Tianyi","Triangulum","Trifid","Tucana","Tycho","Vir","Volans","Zavyava"))]"
 	return new_name
 
 /datum/language/common

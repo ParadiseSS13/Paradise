@@ -9866,6 +9866,10 @@
 	location = "QM #3"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/camera{
+	c_tag = "Cargo Dock West";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aFq" = (
@@ -20684,6 +20688,9 @@
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/cargotech,
+/obj/machinery/computer/guestpass{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -20977,6 +20984,9 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Supply Lobby"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -21455,6 +21465,9 @@
 /area/quartermaster/miningdock)
 "bcH" = (
 /obj/structure/table/reinforced,
+/obj/machinery/camera{
+	c_tag = "Mining Access"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -23655,6 +23668,7 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/smartfridge/disks,
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "bhC" = (
@@ -35685,6 +35699,9 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/machinery/computer/guestpass{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -38796,7 +38813,7 @@
 /area/security/detectives_office)
 "bLo" = (
 /obj/machinery/camera{
-	c_tag = "Research Toxins Storage Room";
+	c_tag = "Detective's Office";
 	dir = 4;
 	network = list("Research","SS13");
 	pixel_y = -22
@@ -46404,7 +46421,7 @@
 	pixel_x = -24;
 	pixel_y = 8
 	},
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/guestpass/hop,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -46475,7 +46492,7 @@
 /area/tcommsat/chamber)
 "caY" = (
 /obj/machinery/camera/motion{
-	c_tag = "MiniSat AI Upload";
+	c_tag = "MiniSat Telecomms";
 	network = list("SS13","Minisat");
 	start_active = 1
 	},
@@ -46851,7 +46868,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Library North";
+	c_tag = "Library Fore";
 	dir = 8
 	},
 /obj/machinery/newscaster{
@@ -56876,6 +56893,10 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Library Aft";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -60841,7 +60862,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
 	icon_state = "pipe-j2s";
@@ -60859,7 +60882,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -66750,7 +66775,7 @@
 /obj/machinery/camera{
 	c_tag = "Research Chemistry";
 	dir = 8;
-	network = list("Research","SS13","Security")
+	network = list("Research","SS13")
 	},
 /obj/machinery/chem_dispenser,
 /obj/item/reagent_containers/glass/beaker/large,
@@ -67384,10 +67409,10 @@
 /turf/simulated/floor/plasteel,
 /area/medical/research)
 "cUZ" = (
-/obj/machinery/light/small{
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/medical/research)
 "cVb" = (
@@ -67416,6 +67441,9 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
 /obj/effect/decal/warning_stripes/northeast,
+/obj/machinery/computer/guestpass{
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -67681,6 +67709,9 @@
 /obj/machinery/computer/med_data{
 	dir = 4
 	},
+/obj/machinery/computer/guestpass{
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -67786,12 +67817,19 @@
 	},
 /area/medical/medbay3)
 "cWa" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "purplefull"
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/area/assembly/robotics)
+/obj/machinery/camera{
+	c_tag = "Port Hallway South"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/port)
 "cWb" = (
 /obj/machinery/light{
 	dir = 1
@@ -68715,8 +68753,8 @@
 	},
 /area/toxins/xenobiology)
 "cYj" = (
-/obj/machinery/light/small,
 /obj/effect/decal/warning_stripes/south,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/medical/research)
 "cYk" = (
@@ -72048,10 +72086,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor)
-"dfh" = (
-/obj/structure/sign/securearea,
-/turf/simulated/wall/r_wall,
-/area/crew_quarters/hor)
 "dfi" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -73276,6 +73310,12 @@
 	},
 /obj/structure/displaycase/labcage,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the RD's goons from the safety of his office.";
+	name = "Research Monitor";
+	network = list("Research","MiniSat","RD");
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "dhO" = (
@@ -78369,11 +78409,6 @@
 /obj/item/stack/sheet/metal{
 	amount = 50
 	},
-/obj/item/stack/sheet/glass{
-	amount = 50;
-	pixel_x = -4;
-	pixel_y = 4
-	},
 /obj/machinery/requests_console{
 	department = "Robotics";
 	departmentType = 2;
@@ -78385,6 +78420,26 @@
 	dir = 4;
 	name = "west bump";
 	pixel_x = -24
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 10
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 20;
+	pixel_x = -3;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -80461,8 +80516,8 @@
 /obj/item/wrench,
 /obj/item/clothing/mask/gas,
 /obj/machinery/camera{
-	c_tag = "Research Outpost Temporary Storage";
-	network = list("Research Outpost")
+	c_tag = "Research Toxins Launch";
+	network = list("Research","SS13")
 	},
 /obj/structure/disaster_counter/toxins{
 	pixel_y = 32
@@ -131151,7 +131206,7 @@ bxh
 bxh
 bxh
 bxh
-bSy
+cWa
 bUI
 bWH
 ctU
@@ -133241,12 +133296,12 @@ vYC
 mzQ
 viE
 nbz
-cYA
+dvf
 cTI
 mhT
 vVf
 vFq
-cYA
+dvf
 dau
 dbP
 cPn
@@ -133498,7 +133553,7 @@ cLX
 cNx
 cPg
 cTJ
-cYA
+dvf
 cMl
 dni
 vrp
@@ -133760,7 +133815,7 @@ cVj
 cVj
 cPh
 cYo
-cYA
+dvf
 daB
 mLW
 tMu
@@ -134274,7 +134329,7 @@ cTJ
 cVj
 cWN
 cVj
-cYA
+dvf
 dau
 dbP
 cPn
@@ -134526,7 +134581,7 @@ cMb
 cVj
 cPk
 cTJ
-cYA
+dvf
 vrF
 fMg
 dmd
@@ -134535,7 +134590,7 @@ cYz
 dau
 dbP
 cPn
-dfh
+dff
 dhN
 djp
 djH
@@ -134783,12 +134838,12 @@ cMc
 hAi
 tsN
 cRb
-cYA
+dvf
 cTL
 cVl
 cWP
 jbq
-cYA
+dvf
 dau
 dbP
 cPn
@@ -135040,12 +135095,12 @@ cYz
 cYz
 cYz
 jLB
-cYA
-cYA
-cYA
-cYA
-cYA
-cYA
+dvf
+dvf
+dvf
+dvf
+dvf
+dvf
 dtS
 dbP
 cPn
@@ -138659,7 +138714,7 @@ dqp
 drK
 dce
 dce
-cWa
+ddJ
 dql
 dql
 dql

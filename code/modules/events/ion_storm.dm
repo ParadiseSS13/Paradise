@@ -488,7 +488,7 @@
 						if(3) //X is Ying an abstract
 							message = "THE [ionabstract] IS [ionverb] THE [ionadjectiveshalf][ionobjects]"
 
-		if(40 to INFINITY) //Static laws
+		else //Static laws
 			message = uppertext(generate_static_ion_law())
 
 	return message

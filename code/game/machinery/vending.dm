@@ -2016,7 +2016,6 @@
 					/obj/item/clothing/suit/storage/hazardvest = 3,
 					/obj/item/clothing/head/beret/eng = 3,
 					/obj/item/clothing/head/hardhat = 2,
-					/obj/item/clothing/head/hardhat/white = 2,
 					/obj/item/clothing/head/hardhat/orange = 2,
 					/obj/item/clothing/head/hardhat/dblue = 2,
 					/obj/item/clothing/accessory/armband/engine = 6,
@@ -2026,8 +2025,7 @@
 					/obj/item/storage/backpack/satchel_eng = 2,
 					/obj/item/storage/backpack/duffel/engineering = 2,
 					/obj/item/storage/belt/utility = 2)
-	premium = list(/obj/item/storage/belt/utility/chief = 2,
-					/obj/item/clothing/gloves/color/yellow = 2)
+	premium = list(/obj/item/clothing/gloves/color/yellow = 2)
 	contraband = list(/obj/item/toy/figure/crew/ce = 1,
 				      /obj/item/toy/figure/crew/engineer = 1)
 	refill_canister = /obj/item/vending_refill/engidrobe
@@ -2047,7 +2045,6 @@
 					/obj/item/clothing/head/beret/atmos = 3,
 					/obj/item/clothing/head/hardhat = 2,
 					/obj/item/clothing/head/hardhat/red = 2,
-					/obj/item/clothing/head/hardhat/white = 2,
 					/obj/item/clothing/head/hardhat/orange = 2,
 					/obj/item/clothing/head/hardhat/dblue = 2,
 					/obj/item/clothing/gloves/color/black = 3,
@@ -2058,7 +2055,6 @@
 					/obj/item/storage/backpack/satchel_eng = 2,
 					/obj/item/storage/backpack/duffel/atmos = 2,
 					/obj/item/storage/belt/utility = 2)
-	premium = list(/obj/item/storage/belt/utility/chief = 2)
 	contraband = list(/obj/item/toy/figure/crew/atmos = 1)
 	refill_canister = /obj/item/vending_refill/atmosdrobe
 

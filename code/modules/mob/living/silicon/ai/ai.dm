@@ -198,6 +198,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language("Chittin", 1)
 	add_language("Bubblish", 1)
 	add_language("Clownish", 1)
+	add_language("Tkachi", 1)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if(!B)//If there is no player/brain inside.

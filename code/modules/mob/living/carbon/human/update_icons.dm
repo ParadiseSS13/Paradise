@@ -277,6 +277,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(BODY_LAYER)
 	//tail
 	update_tail_layer()
+	update_wing_layer()
 	update_int_organs()
 	//head accessory
 	update_head_accessory()
@@ -527,6 +528,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	UpdateDamageIcon()
 	force_update_limbs()
 	update_tail_layer()
+	update_wing_layer()
 	update_halo_layer()
 	overlays.Cut() // Force all overlays to regenerate
 	update_fire()
@@ -898,6 +900,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	apply_overlay(SUIT_LAYER)
 	update_tail_layer()
+	update_wing_layer()
 	update_collar()
 
 /mob/living/carbon/human/update_inv_pockets()
@@ -1069,6 +1072,31 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		I.screen_loc = ui_back
 		client.screen += I
 
+/mob/living/carbon/human/proc/update_wing_layer()
+	remove_overlay(WING_UNDERLIMBS_LAYER)
+	remove_overlay(WING_LAYER)
+	if(!istype(body_accessory, /datum/body_accessory/wing))
+		if(dna.species.optional_body_accessory)
+			return
+		else
+			body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
+
+	if(!body_accessory.try_restrictions(src))
+		return
+
+	var/mutable_appearance/wings = mutable_appearance(body_accessory.icon, body_accessory.icon_state, layer = -WING_LAYER)
+	wings.pixel_x = body_accessory.pixel_x_offset
+	wings.pixel_y = body_accessory.pixel_y_offset
+	overlays_standing[WING_LAYER] = wings
+
+	if(body_accessory.has_behind)
+		var/mutable_appearance/under_wing = mutable_appearance(body_accessory.icon, "[body_accessory.icon_state]_BEHIND", layer = -WING_UNDERLIMBS_LAYER)
+		under_wing.pixel_x = body_accessory.pixel_x_offset
+		under_wing.pixel_y = body_accessory.pixel_y_offset
+		overlays_standing[WING_UNDERLIMBS_LAYER] = under_wing
+
+	apply_overlay(WING_UNDERLIMBS_LAYER)
+	apply_overlay(WING_LAYER)
 
 /mob/living/carbon/human/proc/update_tail_layer()
 	remove_overlay(TAIL_UNDERLIMBS_LAYER) // SEW direction icons, overlayed by LIMBS_LAYER.
@@ -1142,6 +1170,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				overlays_standing[TAIL_LAYER] = mutable_appearance(over, layer = -TAIL_LAYER)
 			else // Otherwise, since the user's tail isn't overlapped by limbs, go ahead and use default icon generation.
 				overlays_standing[TAIL_LAYER] = mutable_appearance(tail_s, layer = -TAIL_LAYER)
+
 	apply_overlay(TAIL_LAYER)
 	apply_overlay(TAIL_UNDERLIMBS_LAYER)
 
@@ -1242,6 +1271,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/handle_transform_change()
 	..()
 	update_tail_layer()
+	update_wing_layer()
 
 //Adds a collar overlay above the helmet layer if the suit has one
 //	Suit needs an identically named sprite in icons/mob/clothing/collar.dmi

@@ -18,14 +18,14 @@
 					ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
 					ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_NETWORK)
 	minimal_player_age = 21
-	exp_requirements = 1200
-	exp_type = EXP_TYPE_SCIENCE
+	exp_map = list(EXP_TYPE_SCIENCE = 1200)
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives = list(
 		/datum/job_objective/further_research
 	)
 
 	outfit = /datum/outfit/job/rd
+	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Science), basic job duties, and act professionally (roleplay)."
 
 /datum/outfit/job/rd
 	name = "Research Director"
@@ -61,8 +61,7 @@
 	minimal_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Xenoarcheologist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
 	minimal_player_age = 3
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_map = list(EXP_TYPE_CREW = 300)
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives = list(
 		/datum/job_objective/further_research
@@ -100,8 +99,7 @@
 	minimal_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM) //As a job that handles so many corpses, it makes sense for them to have morgue access.
 	alt_titles = list("Biomechanical Engineer","Mechatronic Engineer")
 	minimal_player_age = 3
-	exp_requirements = 180
-	exp_type = EXP_TYPE_CREW
+	exp_map = list(EXP_TYPE_CREW = 180)
 
 	required_objectives = list(
 		/datum/job_objective/make_cyborg,

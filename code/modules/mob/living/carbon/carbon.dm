@@ -487,6 +487,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 					var/failed = 0
 					if(istype(I, /obj/item/implant))
 						continue
+					if(istype(I, /obj/item/reagent_containers/food/pill/patch))
+						continue
 					if(I.flags & ABSTRACT)
 						continue
 					else
