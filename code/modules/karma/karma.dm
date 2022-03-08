@@ -13,7 +13,7 @@
 		return
 
 	var/datum/db_query/log_query = SSdbcore.NewQuery({"
-		INSERT INTO karma (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time, server_id)
+		INSERT INTO karma_log (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time, server_id)
 		VALUES (:sname, :skey, :rname, :rkey, :rrole, :rspecial, :sip, Now(), :server_id)"}, list(
 			"sname" = spender.name,
 			"skey" = spender.ckey,
@@ -31,7 +31,7 @@
 
 	qdel(log_query)
 
-	var/datum/db_query/select_recv = SSdbcore.NewQuery("SELECT id, karma FROM karmatotals WHERE byondkey=:rkey", list(
+	var/datum/db_query/select_recv = SSdbcore.NewQuery("SELECT id, karma FROM karma_totals WHERE byondkey=:rkey", list(
 		"rkey" = receiver.ckey
 	))
 
@@ -50,7 +50,7 @@
 	// They dont exist, lets make them exist
 	if(karma == null)
 		karma = 1
-		var/datum/db_query/insert_query = SSdbcore.NewQuery("INSERT INTO karmatotals (byondkey, karma) VALUES (:rkey, :karma)", list(
+		var/datum/db_query/insert_query = SSdbcore.NewQuery("INSERT INTO karma_totals (byondkey, karma) VALUES (:rkey, :karma)", list(
 			"rkey" = receiver.ckey,
 			"karma" = karma
 		))
@@ -63,7 +63,7 @@
 	// They do exist. Update it.
 	else
 		karma++
-		var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE karmatotals SET karma=:karma WHERE id=:id", list(
+		var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE karma_totals SET karma=:karma WHERE id=:id", list(
 			"karma" = karma,
 			"id" = id
 		))
@@ -200,5 +200,5 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		to_chat(src, "<span class='warning'>Karma is disabled.</span>")
 		return
 
-	karmaholder.open_shop_menu()
+	karmaholder.ui_interact(usr)
 
