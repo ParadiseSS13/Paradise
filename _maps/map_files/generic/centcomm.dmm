@@ -2860,10 +2860,14 @@
 /area/syndicate_mothership)
 "ko" = (
 /obj/structure/closet/secure_closet/guncabinet,
-/obj/item/gun/energy/bsg/prebuilt,
 /obj/item/gun/energy/bsg/prebuilt{
 	pixel_x = 3;
 	pixel_y = -3
+	},
+/obj/item/gun/energy/bsg/prebuilt,
+/obj/item/gun/energy/bsg/prebuilt{
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -5346,9 +5350,11 @@
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "sw" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 5;
 	icon_state = "vault"
 	},
 /area/centcom/specops)
@@ -6650,9 +6656,6 @@
 /obj/item/clothing/head/cardborg{
 	pixel_y = 12
 	},
-/obj/item/clothing/shoes/clown_shoes{
-	pixel_y = -9
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6723,9 +6726,11 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "xM" = (
-/obj/machinery/computer/shuttle/admin,
+/obj/machinery/computer/shuttle/admin{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 5;
 	icon_state = "vault"
 	},
 /area/centcom/specops)
@@ -7268,7 +7273,7 @@
 /area/centcom/suppy)
 "Ce" = (
 /obj/structure/bed,
-/obj/item/bedsheet/black,
+/obj/item/bedsheet/centcom,
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "Cf" = (
@@ -7465,7 +7470,6 @@
 "CK" = (
 /obj/effect/decal/cleanable/ants,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/trash/fried_vox,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8282,7 +8286,7 @@
 "Gr" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 5;
 	icon_state = "vault"
 	},
 /area/centcom/specops)
@@ -8486,11 +8490,9 @@
 	},
 /area/centcom/specops)
 "GW" = (
-/obj/structure/chair/office/dark{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "GX" = (
@@ -9367,7 +9369,6 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Kn" = (
-/obj/structure/closet/secure_closet/guncabinet,
 /obj/item/gun/energy/pulse/pistol{
 	pixel_x = -3;
 	pixel_y = 3
@@ -9377,6 +9378,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/structure/closet/secure_closet/guncabinet,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -11320,13 +11322,12 @@
 	},
 /area/centcom/control)
 "RW" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "specopsoffice";
 	name = "Privacy Shutters"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
 "RZ" = (
 /obj/effect/turf_decal/bot,
@@ -11958,6 +11959,7 @@
 "UU" = (
 /obj/structure/table/reinforced,
 /obj/machinery/computer/secure_data/laptop,
+/obj/item/card/id/centcom,
 /turf/simulated/floor/wood,
 /area/centcom/control)
 "UV" = (
@@ -12525,13 +12527,12 @@
 	},
 /area/centcom/evac)
 "Xh" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "specopsoffice";
 	name = "Privacy Shutters"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
 "Xi" = (
 /obj/effect/spawner/window,
@@ -24803,27 +24804,27 @@ aN
 aN
 aN
 aN
+YG
 aN
 aN
 aN
+YG
 aN
 aN
 aN
+YG
 aN
 aN
 aN
+YG
 aN
 aN
 aN
+YG
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
+YG
 aN
 aN
 aN
@@ -25316,23 +25317,23 @@ aN
 aN
 aN
 aN
-YG
 aN
 aN
 aN
-YG
+aN
+aN
+ZG
+jt
+bS
+ZG
+aN
+ZG
+jt
+bS
+ZG
 aN
 aN
 aN
-YG
-aN
-aN
-aN
-YG
-aN
-aN
-aN
-YG
 aN
 aN
 aN
@@ -25578,16 +25579,16 @@ aN
 aN
 aN
 ZG
-jt
-bS
 ZG
-aN
+cJ
+cJ
 ZG
-jt
-bS
 ZG
-aN
-aN
+ZG
+cJ
+cJ
+ZG
+ZG
 aN
 aN
 aN
@@ -25832,16 +25833,18 @@ aN
 aN
 aN
 aN
-aN
-ZG
-ZG
-cJ
-cJ
 ZG
 ZG
 ZG
-cJ
-cJ
+Km
+ZN
+ZN
+Ek
+ZG
+km
+lr
+lr
+Sx
 ZG
 ZG
 aN
@@ -25849,9 +25852,7 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
+YG
 aN
 aN
 aN
@@ -26088,22 +26089,22 @@ aN
 aN
 aN
 aN
+aN
 ZG
-ZG
-ZG
-Km
+dl
+ZN
+KB
 ZN
 ZN
-Ek
+EN
 ZG
-km
+Nw
 lr
 lr
-Sx
+lr
+rM
 ZG
 ZG
-aN
-aN
 aN
 aN
 aN
@@ -26344,23 +26345,23 @@ aN
 aN
 aN
 aN
+aN
 YG
 ZG
-dl
+XX
 ZN
-KB
+Rz
+Po
 ZN
-ZN
-EN
+YL
 ZG
-Nw
+pq
 lr
 lr
 lr
-rM
+lr
+TZ
 ZG
-ZG
-YG
 aN
 aN
 aN
@@ -26602,22 +26603,22 @@ YG
 aN
 aN
 aN
+aN
 ZG
-XX
+qY
 ZN
-Rz
+Mf
 Po
 ZN
-YL
+HY
 ZG
-pq
+km
 lr
+mv
+HC
 lr
-lr
-lr
-TZ
+KA
 ZG
-aN
 aN
 aN
 aN
@@ -26859,27 +26860,27 @@ aN
 aN
 aN
 aN
+aN
 ZG
-qY
-ZN
-Mf
+PC
+Gi
+nQ
 Po
 ZN
-HY
+ZN
 ZG
-km
+Tb
 lr
-mv
-HC
 lr
-KA
+GE
+Hn
+pZ
 ZG
 aN
 aN
 aN
 aN
-aN
-aN
+YG
 aN
 aN
 aN
@@ -27116,22 +27117,22 @@ Zr
 XM
 XM
 XM
+XM
 ZG
-PC
-Gi
-nQ
-Po
-ZN
-ZN
 ZG
-Tb
-lr
-lr
-GE
-Hn
-pZ
 ZG
-aN
+ZG
+ZG
+Lw
+ZG
+ZG
+ZG
+Us
+ZG
+ZG
+ZG
+ZG
+ZG
 aN
 aN
 aN
@@ -27371,24 +27372,24 @@ rW
 OP
 Zr
 xM
+Zf
 GW
-XM
+WB
+Db
+pU
+OR
+Ih
+ZN
+ZN
+ZN
+PQ
+ZN
+ZN
+ZN
+ZN
+ZN
+ZN
 ZG
-ZG
-ZG
-ZG
-ZG
-Lw
-ZG
-ZG
-ZG
-Us
-ZG
-ZG
-ZG
-ZG
-ZG
-YG
 aN
 aN
 aN
@@ -27627,25 +27628,25 @@ Ze
 iV
 OP
 Zr
-Qr
+sw
 Zf
+GW
 WB
-Db
-pU
+rV
+ZN
 OR
-Ih
-ZN
-ZN
-ZN
-PQ
 ZN
 ZN
 ZN
 ZN
 ZN
 ZN
+ZN
+ZN
+ZN
+ZN
+tG
 ZG
-aN
 aN
 aN
 aN
@@ -27884,30 +27885,30 @@ Ze
 iV
 Xf
 Zr
-Qr
+Ji
 Zf
-WB
-rV
-ZN
-OR
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
-tG
+Xz
+Lm
+ZG
+ZG
+ZG
+ei
+ZG
+ZG
+ZG
+su
+ZG
+ZG
+ZG
+hE
+ZG
+ZG
 ZG
 aN
 aN
 aN
 aN
-aN
-aN
+YG
 aN
 aN
 aN
@@ -28141,25 +28142,25 @@ Ze
 iV
 OP
 Zr
-sw
+Of
 Zf
-Lm
+Xz
+Zr
 ZG
+Qd
+PQ
+ZN
+pD
 ZG
+QA
+ZN
+ZN
 ZG
-ei
+ZN
+ZN
+fE
+Hs
 ZG
-ZG
-ZG
-su
-ZG
-ZG
-ZG
-hE
-ZG
-ZG
-ZG
-aN
 aN
 aN
 aN
@@ -28400,23 +28401,23 @@ OP
 Zr
 Gr
 Zf
+Xz
 Zr
 ZG
-Qd
-PQ
+Nx
 ZN
-pD
+ZN
+on
 ZG
-QA
-ZN
-ZN
+Qg
+SE
+SE
 ZG
 ZN
 ZN
-fE
-Hs
+ZN
+Mm
 ZG
-YG
 aN
 aN
 aN
@@ -28657,23 +28658,23 @@ OP
 Zr
 Gr
 Zf
+Xz
 Zr
 ZG
-Nx
+SD
 ZN
 ZN
-on
+Cw
 ZG
-Qg
-SE
-SE
+GU
+NK
+Tr
 ZG
 ZN
 ZN
 ZN
-Mm
+ZN
 ZG
-aN
 aN
 aN
 aN
@@ -28914,28 +28915,28 @@ Xf
 Zr
 Gr
 Zf
+Xz
 Zr
 ZG
-SD
-ZN
-ZN
-Cw
 ZG
-GU
-NK
-Tr
-ZG
-ZN
-ZN
+ft
 ZN
 ZN
 ZG
+eX
+eX
+eX
+ZG
+qC
+yc
+ry
+Rv
+ZG
 aN
 aN
 aN
 aN
-aN
-aN
+YG
 aN
 aN
 aN
@@ -29171,21 +29172,21 @@ OP
 Zr
 Gr
 Zf
+Xz
 Zr
+aN
 ZG
+Oc
+ZN
+SG
 ZG
-ft
+aN
+aN
+aN
+ZG
 ZN
 ZN
-ZG
-eX
-eX
-eX
-ZG
-qC
-yc
-ry
-Rv
+pr
 ZG
 aN
 aN
@@ -29428,23 +29429,23 @@ OP
 Zr
 Gr
 Zf
+Xz
 Zr
 aN
 ZG
-Oc
-ZN
-SG
+ZG
+Gi
+nH
 ZG
 aN
 aN
 aN
 ZG
-ZN
-ZN
-pr
+Px
+DO
+ZG
 ZG
 aN
-YG
 aN
 aN
 aN
@@ -29685,19 +29686,19 @@ OP
 Zr
 Gr
 Zf
+Xz
 Zr
 aN
+aN
 ZG
 ZG
-Gi
-nH
+ZG
 ZG
 aN
 aN
 aN
 ZG
-Px
-DO
+ZG
 ZG
 ZG
 aN
@@ -29940,22 +29941,12 @@ rC
 Og
 XM
 Zr
-sw
+Of
 Zf
+Xz
 Zr
 aN
 aN
-ZG
-ZG
-ZG
-ZG
-aN
-aN
-aN
-ZG
-ZG
-ZG
-ZG
 aN
 aN
 aN
@@ -29964,6 +29955,16 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+YG
 aN
 aN
 aN
@@ -30199,7 +30200,7 @@ Xz
 Xz
 Zf
 Zf
-Zr
+Xz
 Zr
 Zr
 Zr
