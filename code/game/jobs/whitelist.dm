@@ -22,6 +22,11 @@
 	if(check_rights(R_ADMIN, FALSE))
 		return TRUE
 
+	// Cant be using this if youre not an admin
+	var/datum/species/S = GLOB.all_species[species]
+	if(S.blacklisted)
+		return FALSE
+
 	var/package_id = species2package(species)
 	if(!package_id)
 		return TRUE // Not a valid karma package
