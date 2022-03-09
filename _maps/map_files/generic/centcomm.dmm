@@ -2254,6 +2254,9 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
+"ig" = (
+/turf/simulated/floor/plating/airless,
+/area/trader_station/sol)
 "ih" = (
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
@@ -5642,10 +5645,8 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "tH" = (
-/obj/machinery/computer/cryopod{
-	pixel_x = 32
-	},
-/turf/simulated/floor/wood,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/trader_station/sol)
 "tJ" = (
 /obj/machinery/door/poddoor{
@@ -5687,6 +5688,12 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"tQ" = (
+/obj/machinery/door/poddoor/multi_tile/three_tile_ver{
+	name = "Jupiter Station Central Access"
+	},
+/turf/simulated/floor/plating/airless,
+/area/trader_station/sol)
 "tT" = (
 /obj/machinery/door/window/westright{
 	name = "Tool Storage";
@@ -6924,6 +6931,13 @@
 /obj/item/toy/cards/deck/syndicate,
 /turf/simulated/floor/wood,
 /area/admin)
+"Ai" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/computer/cryopod{
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood,
+/area/trader_station/sol)
 "An" = (
 /obj/item/circular_saw,
 /obj/item/hemostat{
@@ -11619,6 +11633,12 @@
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
+"Tu" = (
+/obj/machinery/door/airlock/centcom/glass{
+	name = "Jupiter Station Central Access"
+	},
+/turf/simulated/floor/wood,
+/area/trader_station/sol)
 "Tw" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8
@@ -51742,7 +51762,7 @@ aN
 aN
 vG
 vG
-tA
+Ai
 tF
 vf
 vA
@@ -52513,7 +52533,7 @@ aN
 aN
 po
 qB
-tH
+tF
 tF
 tF
 vs
@@ -52770,10 +52790,10 @@ aN
 aN
 vG
 vG
+tH
+Tu
+tH
 vG
-po
-po
-po
 vG
 vG
 aN
@@ -53026,11 +53046,11 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
+vG
+ig
+ig
+tQ
+vG
 aN
 aN
 aN
