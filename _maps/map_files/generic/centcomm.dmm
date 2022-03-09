@@ -1001,6 +1001,17 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_basketball)
+"ea" = (
+/obj/machinery/door_control{
+	id = "ASSAULT1";
+	name = "Mech Launch Control";
+	req_access_txt = "114";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "eb" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/toilet{
@@ -1039,7 +1050,6 @@
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
 	name = "Workshop";
-	opacity = 1;
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -2067,7 +2077,6 @@
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
 	name = "Holding Cell";
-	opacity = 1;
 	req_access_txt = "104"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -3787,7 +3796,6 @@
 "mT" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Restroom";
-	opacity = 1;
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel{
@@ -4286,7 +4294,6 @@
 /obj/machinery/door/airlock/centcom{
 	aiControlDisabled = 1;
 	name = "Assault Pod";
-	opacity = 1;
 	req_one_access_txt = "150"
 	},
 /turf/simulated/floor/plating,
@@ -4706,6 +4713,14 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
+"qr" = (
+/obj/machinery/door/poddoor{
+	id_tag = "ASSAULT2";
+	name = "Launch Bay #2"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating/airless,
+/area/centcom/specops)
 "qs" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -5331,7 +5346,6 @@
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
 	name = "Bridge";
-	opacity = 1;
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -5510,7 +5524,6 @@
 /obj/machinery/door/airlock/centcom{
 	aiControlDisabled = 1;
 	name = "Assault Pod";
-	opacity = 1;
 	req_one_access_txt = "150"
 	},
 /obj/docking_port/mobile/assault_pod,
@@ -6854,6 +6867,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"zz" = (
+/obj/machinery/door/poddoor{
+	id_tag = "ASSAULT1";
+	name = "Launch Bay #1"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating/airless,
+/area/centcom/specops)
 "zB" = (
 /obj/machinery/kitchen_machine/oven/upgraded,
 /turf/simulated/floor/plasteel{
@@ -7453,7 +7474,8 @@
 "CM" = (
 /obj/machinery/door/airlock/external{
 	name = "Supply Shuttle";
-	req_access_txt = "106"
+	req_access_txt = "106";
+	opacity = 0
 	},
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
@@ -7967,6 +7989,17 @@
 /obj/structure/flora/ausbushes/palebush,
 /turf/simulated/floor/grass,
 /area/centcom/control)
+"Fb" = (
+/obj/machinery/door_control{
+	id = "ASSAULT0";
+	name = "Mech Launch Control";
+	req_access_txt = "114";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "Fc" = (
 /obj/machinery/light/spot,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -8329,6 +8362,14 @@
 "GC" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/gamma)
+"GD" = (
+/obj/machinery/door/poddoor{
+	id_tag = "ASSAULT0";
+	name = "Launch Bay #0"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating/airless,
+/area/centcom/specops)
 "GE" = (
 /obj/machinery/chem_dispenser,
 /turf/simulated/floor/mineral/titanium,
@@ -9679,6 +9720,17 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_thunderdomecourt)
+"LA" = (
+/obj/machinery/door_control{
+	id = "ASSAULT2";
+	name = "Mech Launch Control";
+	req_access_txt = "114";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "LC" = (
 /obj/structure/chair/comfy/green{
 	dir = 1
@@ -9858,7 +9910,6 @@
 "Mn" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Gamma Armory";
-	opacity = 1;
 	req_access_txt = "114"
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -10533,7 +10584,6 @@
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
 	name = "General Access";
-	opacity = 1;
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -10624,6 +10674,17 @@
 /obj/item/tank/jetpack/oxygen,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"Pi" = (
+/obj/machinery/door_control{
+	id = "ASSAULT3";
+	name = "Mech Launch Control";
+	req_access_txt = "114";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "Pk" = (
 /obj/structure/chair/comfy/black{
 	dir = 1
@@ -10762,7 +10823,6 @@
 "PN" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Team Storage";
-	opacity = 1;
 	req_access_txt = "109"
 	},
 /turf/simulated/floor/plasteel{
@@ -11326,6 +11386,19 @@
 	icon_state = "dark"
 	},
 /area/centcom/evac)
+"Se" = (
+/obj/machinery/door_control{
+	desc = "A remote control switch to block view of the singularity.";
+	id = "ASSAULT";
+	name = "Mech Storage";
+	pixel_x = -24;
+	req_access_txt = "114"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "Sf" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -11839,7 +11912,6 @@
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
 	name = "Medbay";
-	opacity = 1;
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -12421,6 +12493,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"WW" = (
+/obj/machinery/door/poddoor{
+	id_tag = "ASSAULT3";
+	name = "Launch Bay #3"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating/airless,
+/area/centcom/specops)
 "WX" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/transparent/glass/reinforced,
@@ -13096,7 +13176,6 @@
 "Zs" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Gamma Armory";
-	opacity = 1;
 	req_access_txt = "114"
 	},
 /obj/structure/fans/tiny,
@@ -30411,13 +30490,13 @@ Zf
 Xz
 Xz
 Xz
-Xz
+Se
 Lu
-Xz
+Se
 aK
 Xj
 GF
-tm
+WW
 pT
 pT
 pT
@@ -30672,8 +30751,8 @@ Zf
 Vw
 Zf
 Zf
-DZ
-Zr
+Pi
+XM
 Zr
 Zr
 Zr
@@ -30931,7 +31010,7 @@ Zf
 aK
 Ls
 Fu
-Jc
+qr
 pT
 pT
 pT
@@ -31186,8 +31265,8 @@ Xh
 Zr
 Qr
 Zf
-DZ
-Zr
+LA
+XM
 Zr
 Zr
 Zr
@@ -31445,7 +31524,7 @@ Qr
 aK
 oQ
 UZ
-sN
+zz
 pT
 pT
 pT
@@ -31700,8 +31779,8 @@ nF
 Zr
 Qr
 Zf
-DZ
-Zr
+ea
+XM
 Zr
 Zr
 Zr
@@ -31959,7 +32038,7 @@ Qr
 aK
 oQ
 nT
-Mv
+GD
 pT
 pT
 pT
@@ -32214,8 +32293,8 @@ Yx
 Zr
 Qr
 Zf
-DZ
-Zr
+Fb
+XM
 Zr
 Zr
 Zr
