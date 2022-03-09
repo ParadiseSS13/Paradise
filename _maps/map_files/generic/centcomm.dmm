@@ -1001,17 +1001,6 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_basketball)
-"ea" = (
-/obj/machinery/door_control{
-	id = "ASSAULT1";
-	name = "Mech Launch Control";
-	req_access_txt = "114";
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault"
-	},
-/area/centcom/specops)
 "eb" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/toilet{
@@ -6655,6 +6644,15 @@
 /obj/structure/chair/office/dark,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/ants,
+/obj/item/clothing/suit/cardborg{
+	pixel_y = -6
+	},
+/obj/item/clothing/head/cardborg{
+	pixel_y = 12
+	},
+/obj/item/clothing/shoes/clown_shoes{
+	pixel_y = -9
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7042,7 +7040,7 @@
 "AU" = (
 /obj/machinery/door/airlock/centcom{
 	name = "CentCom BSA Control";
-	req_access_txt = "144"
+	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7467,6 +7465,7 @@
 "CK" = (
 /obj/effect/decal/cleanable/ants,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/trash/fried_vox,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7743,7 +7742,9 @@
 	id_tag = "specopsoffice";
 	name = "Super Privacy Shutters"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/centcom/specops)
 "DW" = (
 /obj/structure/rack,
@@ -7989,17 +7990,6 @@
 /obj/structure/flora/ausbushes/palebush,
 /turf/simulated/floor/grass,
 /area/centcom/control)
-"Fb" = (
-/obj/machinery/door_control{
-	id = "ASSAULT0";
-	name = "Mech Launch Control";
-	req_access_txt = "114";
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault"
-	},
-/area/centcom/specops)
 "Fc" = (
 /obj/machinery/light/spot,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -8099,6 +8089,7 @@
 	pixel_y = 6
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/trash/candy,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9720,17 +9711,6 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_thunderdomecourt)
-"LA" = (
-/obj/machinery/door_control{
-	id = "ASSAULT2";
-	name = "Mech Launch Control";
-	req_access_txt = "114";
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault"
-	},
-/area/centcom/specops)
 "LC" = (
 /obj/structure/chair/comfy/green{
 	dir = 1
@@ -10674,17 +10654,6 @@
 /obj/item/tank/jetpack/oxygen,
 /turf/simulated/floor/plasteel,
 /area/admin)
-"Pi" = (
-/obj/machinery/door_control{
-	id = "ASSAULT3";
-	name = "Mech Launch Control";
-	req_access_txt = "114";
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault"
-	},
-/area/centcom/specops)
 "Pk" = (
 /obj/structure/chair/comfy/black{
 	dir = 1
@@ -30751,7 +30720,7 @@ Zf
 Vw
 Zf
 Zf
-Pi
+DZ
 XM
 Zr
 Zr
@@ -31265,7 +31234,7 @@ Xh
 Zr
 Qr
 Zf
-LA
+DZ
 XM
 Zr
 Zr
@@ -31779,7 +31748,7 @@ nF
 Zr
 Qr
 Zf
-ea
+DZ
 XM
 Zr
 Zr
@@ -32293,7 +32262,7 @@ Yx
 Zr
 Qr
 Zf
-Fb
+DZ
 XM
 Zr
 Zr
