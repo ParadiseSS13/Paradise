@@ -58,6 +58,7 @@
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	siemens_strength = 1
 	damage_deflection = 10
+	move_resist = INFINITY
 	var/area/area
 	var/areastring = null
 	var/obj/item/stock_parts/cell/cell

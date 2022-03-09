@@ -1,7 +1,7 @@
 /obj/structure/displaycase
 	name = "display case"
 	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "glassbox0"
+	icon_state = "glassbox"
 	desc = "A display case for prized possessions."
 	density = TRUE
 	anchored = TRUE
@@ -10,7 +10,7 @@
 	max_integrity = 200
 	integrity_failure = 50
 	var/obj/item/showpiece = null
-	var/alert = TRUE
+	var/alert = FALSE	//Basic display cases have no alarms
 	var/open = FALSE
 	var/openable = TRUE
 	var/obj/item/airlock_electronics/electronics
@@ -62,23 +62,24 @@
 /obj/structure/displaycase/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			playsound(src.loc, 'sound/effects/glasshit.ogg', 75, TRUE)
+			playsound(loc, 'sound/effects/glasshit.ogg', 75, TRUE)
 		if(BURN)
-			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
+			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/structure/displaycase/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		dump()
 		if(!disassembled)
-			new /obj/item/shard(loc)
+			new /obj/item/shard(drop_location())
 			trigger_alarm()
 	qdel(src)
 
 /obj/structure/displaycase/obj_break(damage_flag)
 	if(!broken && !(flags & NODECONSTRUCT))
 		density = FALSE
-		broken = 1
-		new /obj/item/shard( src.loc )
+		broken = TRUE
+		open = TRUE
+		new /obj/item/shard(drop_location())
 		playsound(src, "shatter", 70, TRUE)
 		update_icon()
 		trigger_alarm()
@@ -95,18 +96,16 @@
 			sleep(74) // 7.4 seconds long
 
 /obj/structure/displaycase/update_icon()
-	var/icon/I
-	if(open)
-		I = icon('icons/obj/stationobjs.dmi',"glassbox_open")
-	else
-		I = icon('icons/obj/stationobjs.dmi',"glassbox0")
+	cut_overlays()
 	if(broken)
-		I = icon('icons/obj/stationobjs.dmi',"glassboxb0")
+		add_overlay("glassbox_broken")
 	if(showpiece)
-		var/icon/S = getFlatIcon(showpiece)
-		S.Scale(17, 17)
-		I.Blend(S,ICON_UNDERLAY,8,8)
-	icon = I
+		var/mutable_appearance/showpiece_overlay = mutable_appearance(showpiece.icon, showpiece.icon_state)
+		showpiece_overlay.copy_overlays(showpiece)
+		showpiece_overlay.transform *= 0.6
+		add_overlay(showpiece_overlay)
+	if(!open && !broken)
+		add_overlay("glassbox_closed")
 
 /obj/structure/displaycase/attackby(obj/item/I, mob/user, params)
 	if(I.GetID() && !broken && openable)
@@ -129,25 +128,39 @@
 		to_chat(user, "<span class='notice'>You start fixing [src]...</span>")
 		if(do_after(user, 20, target = src))
 			G.use(2)
-			broken = 0
+			broken = FALSE
+			open = FALSE
 			obj_integrity = max_integrity
 			update_icon()
 	else
 		return ..()
 
-/obj/structure/displaycase/crowbar_act(mob/user, obj/item/I) //Only applies to the lab cage and player made display cases
-	if(alert || !openable)
+/obj/structure/displaycase/crowbar_act(mob/user, obj/item/I)
+	if((alert && !open) || !openable)
+		return
+	if(open && !showpiece && user.a_intent == INTENT_HELP) // The user can display a crowbar if they're on that intent specifically. Otherwise they'll either take it apart, or close it if the alarm's off
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	if(broken)
+	if((open || broken) && user.a_intent == INTENT_HARM)
 		if(showpiece)
 			to_chat(user, "<span class='notice'>Remove the displayed object first.</span>")
-		if(I.use_tool(src, user, 0, volume = I.tool_volume))
-			to_chat(user, "<span class='notice'>You remove the destroyed case</span>")
-			qdel(src)
-	else
+			return
+		if(!I.use_tool(src, user, 15, volume = I.tool_volume))
+			return
+		if(!broken)
+			new /obj/item/stack/sheet/glass(drop_location(), 10)
+		else
+			new /obj/item/shard(drop_location())
+		to_chat(user, "<span class='notice'>You start dismantling the case.</span>")
+		var/obj/structure/displaycase_chassis/display = new(loc)
+		if(electronics)
+			electronics.forceMove(display)
+			display.electronics = electronics
+		qdel(src)
+		return
+	if(!alert)
 		to_chat(user, "<span class='notice'>You start to [open ? "close":"open"] [src].</span>")
 		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 			return
@@ -191,7 +204,7 @@
 /obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/airlock_electronics))
 		to_chat(user, "<span class='notice'>You start installing the electronics into [src]...</span>")
-		playsound(src.loc, I.usesound, 50, 1)
+		playsound(loc, I.usesound, 50, 1)
 		if(do_after(user, 30, target = src))
 			if(user.drop_item())
 				I.forceMove(src)
@@ -206,10 +219,11 @@
 		to_chat(user, "<span class='notice'>You start adding [G] to [src]...</span>")
 		if(do_after(user, 20, target = src))
 			G.use(10)
-			var/obj/structure/displaycase/display = new(src.loc)
+			var/obj/structure/displaycase/display = new(loc)
 			if(electronics)
 				electronics.forceMove(display)
 				display.electronics = electronics
+				display.alert = TRUE
 				if(electronics.one_access)
 					display.req_one_access = electronics.selected_accesses
 				else
@@ -218,15 +232,28 @@
 	else
 		return ..()
 
+/obj/structure/displaycase_chassis/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(electronics)
+		if(I.use_tool(src, user, 0, volume = I.tool_volume))
+			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
+			new /obj/item/airlock_electronics(drop_location(), 1)
+			electronics = null
+
 /obj/structure/displaycase_chassis/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
+		return
+	if(electronics)
+		to_chat(user, "<span class='notice'>Remove the airlock electronics first.</span>")
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 		return
 	TOOL_DISMANTLE_SUCCESS_MESSAGE
-	new /obj/item/stack/sheet/wood(get_turf(src), 5)
+	new /obj/item/stack/sheet/wood(drop_location(), 5)
 	qdel(src)
 
 //The lab cage and captains display case do not spawn with electronics, which is why req_access is needed.
@@ -237,12 +264,14 @@
 
 /obj/structure/displaycase/labcage
 	name = "lab cage"
+	alert = TRUE
 	desc = "A glass lab container for storing interesting creatures."
 	start_showpiece_type = /obj/item/clothing/mask/facehugger/lamarr
 	req_access = list(ACCESS_RD)
 
 /obj/structure/displaycase/stechkin
 	name = "officer's display case"
+	alert = TRUE
 	desc = "A display case containing a humble stechkin pistol. Never forget your roots."
 	start_showpiece_type = /obj/item/gun/projectile/automatic/pistol
 	req_access = list(ACCESS_SYNDICATE_COMMAND)

@@ -133,7 +133,7 @@
 			//Adding airlock electronics for access. Step 6 complete.
 			if(istype(W, /obj/item/airlock_electronics) && !istype(W, /obj/item/airlock_electronics/destroyed))
 				playsound(loc, W.usesound, 100, 1)
-				user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly...")
+				user.visible_message("[user] installs the electronics into the windoor assembly.", "You start to install electronics into the windoor assembly...")
 				user.drop_item()
 				W.forceMove(src)
 
@@ -141,7 +141,7 @@
 					if(!src || electronics)
 						W.forceMove(loc)
 						return
-					to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
+					to_chat(user, "<span class='notice'>You install the windoor electronics.</span>")
 					name = "near finished windoor assembly"
 					electronics = W
 				else
@@ -213,13 +213,13 @@
 		windoor.close()
 
 /obj/structure/windoor_assembly/screwdriver_act(mob/user, obj/item/I)
-	if(state != "02" || electronics)
+	if(state != "02" || !electronics)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message("[user] removes the electronics from the airlock assembly.", "You start to uninstall electronics from the airlock assembly...")
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || electronics)
+	user.visible_message("[user] removes the electronics from the windoor assembly.", "You start to uninstall the electronics from the windoor assembly...")
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 	name = "wired windoor assembly"
@@ -234,7 +234,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message("[user] cuts the wires from the airlock assembly.", "You start to cut the wires from airlock assembly...")
+	user.visible_message("[user] cuts the wires from the windoor assembly.", "You start to cut the wires from windoor assembly...")
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != "02")
 		return
 	to_chat(user, "<span class='notice'>You cut the windoor wires.</span>")

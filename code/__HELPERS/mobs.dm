@@ -158,21 +158,23 @@
 
 	return m_style
 
-/proc/random_body_accessory(species = "Vulpkanin")
-	var/body_accessory = null
+/**
+  * Returns a random body accessory for a given species name. Can be null based on is_optional argument.
+  *
+  * Arguments:
+  * * species - The name of the species to filter valid body accessories.
+  * * is_optional - Whether *no* body accessory (null) is an option.
+ */
+/proc/random_body_accessory(species = "Vulpkanin", is_optional = TRUE)
 	var/list/valid_body_accessories = list()
-	for(var/B in GLOB.body_accessory_by_name)
-		var/datum/body_accessory/A = GLOB.body_accessory_by_name[B]
-		if(!istype(A))
-			valid_body_accessories += "None" //The only null entry should be the "None" option.
-			continue
-		if(species in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
-			valid_body_accessories += B
+	if(is_optional)
+		valid_body_accessories += null
 
-	if(valid_body_accessories.len)
-		body_accessory = pick(valid_body_accessories)
+	if(GLOB.body_accessory_by_species[species])
+		for(var/name in GLOB.body_accessory_by_species[species])
+			valid_body_accessories += name
 
-	return body_accessory
+	return length(valid_body_accessories) ? pick(valid_body_accessories) : null
 
 /proc/random_name(gender, species = "Human")
 

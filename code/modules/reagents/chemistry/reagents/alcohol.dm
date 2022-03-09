@@ -530,7 +530,6 @@
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
 	drink_icon = "beepskysmashglass"
-	description = "Whiskey-imbued cream, what else would you expect from the Irish."
 	drink_name = "Beepsky Smash"
 	drink_desc = "Heavy, hot and strong. Just like the Iron fist of the LAW."
 	taste_description = "THE LAW"
@@ -543,6 +542,7 @@
 /datum/reagent/consumable/ethanol/irish_cream
 	name = "Irish Cream"
 	id = "irishcream"
+	description = "Whiskey-imbued cream, what else would you expect from the Irish."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3

@@ -6,7 +6,7 @@
 	force = 0
 	throwforce = 0
 	flags = DROPDEL | ABSTRACT
-	attack_verb = list("slaps")
+	attack_verb = list("slapped")
 	hitsound = 'sound/weapons/slap.ogg'
 	/// How many smaller table smacks we can do before we're out
 	var/table_smacks_left = 3
@@ -15,6 +15,8 @@
 	user.do_attack_animation(M)
 	playsound(M, hitsound, 50, TRUE, -1)
 	user.visible_message("<span class='danger'>[user] slaps [M]!</span>", "<span class='notice'>You slap [M]!</span>", "<span class='hear'>You hear a slap.</span>")
+	if(force)
+		return ..()
 
 /obj/item/slapper/attack_obj(obj/O, mob/living/user, params)
 	if(!istype(O, /obj/structure/table))
