@@ -1,0 +1,29 @@
+/obj/structure/blob/captured_nuke //alternative to blob just straight up destroying nukes
+	name = "blob captured nuke"
+	icon = 'icons/mob/blob.dmi'
+	icon_state = "blank_blob"
+	max_integrity = 200
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 65, ACID = 90)
+	point_return = 0
+
+/obj/structure/blob/captured_nuke/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/structure/blob/captured_nuke/adjustcolors(a_color)
+	overlays.Cut()
+	color = null
+	var/image/I = new('icons/mob/blob.dmi', "blob")
+	I.color = a_color
+	src.overlays += I
+	var/image/C = new('icons/mob/blob.dmi', "blob_nuke_overlay")
+	src.overlays += C
+
+/obj/structure/blob/captured_nuke/Destroy()
+	for(var/obj/machinery/nuclearbomb/O in contents)
+		O.forceMove(loc)
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/structure/blob/captured_nuke/Life(seconds, times_fired)
+	obj_integrity = min(max_integrity, obj_integrity + 1)

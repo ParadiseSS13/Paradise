@@ -415,7 +415,23 @@ GLOBAL_VAR(bomb_set)
 	if(timing)	//boom
 		INVOKE_ASYNC(src, .proc/explode)
 		return
-	qdel(src)
+
+    //if no boom then we need to let the blob capture our nuke
+	var/turf/T = get_turf(src)
+	if(!T)
+		return
+	if(locate(/obj/structure/blob) in T)
+		return
+	var/obj/structure/blob/normal/N = new /obj/structure/blob/normal(loc, min(obj_integrity, 30))
+	N.color = B.color
+	N.overmind = B.overmind
+	if(N) //if there is no blob tile do nothing
+		N.change_to(/obj/structure/blob/captured_nuke)
+		var/obj/structure/blob/captured_nuke/R = locate() in T
+		if(R)
+			R.adjustcolors(B.color)
+			src.forceMove(R)
+	return
 
 /obj/machinery/nuclearbomb/zap_act(power, zap_flags)
 	. = ..()
