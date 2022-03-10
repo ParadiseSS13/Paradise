@@ -24706,6 +24706,23 @@
 	icon_state = "redfull"
 	},
 /area/crew_quarters/kitchen)
+"bju" = (
+/obj/structure/table,
+/obj/structure/window/reinforced{
+	dir = 8;
+	pixel_x = -4
+	},
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
+/obj/item/clipboard,
+/obj/item/stack/packageWrap,
+/obj/item/hand_labeler,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "bjw" = (
 /obj/effect/landmark/start/chef,
 /turf/simulated/floor/plasteel{
@@ -68938,12 +68955,11 @@
 	},
 /area/medical/medbay)
 "cYN" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/structure/closet/wardrobe/coroner,
+/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
+/obj/item/reagent_containers/dropper,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/medical/morgue)
 "cYO" = (
@@ -79788,13 +79804,8 @@
 	},
 /area/medical/morgue)
 "dvE" = (
-/obj/structure/closet/wardrobe/coroner,
-/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
-/obj/item/reagent_containers/dropper,
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/structure/chair/office/light,
+/obj/effect/landmark/start/coroner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80251,11 +80262,6 @@
 /area/medical/morgue)
 "dwF" = (
 /obj/machinery/bodyscanner,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -93701,6 +93707,24 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
+"hlI" = (
+/obj/structure/table,
+/obj/item/storage/box/gloves{
+	pixel_y = 8
+	},
+/obj/item/camera{
+	name = "Autopsy Camera";
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/structure/window/reinforced{
+	dir = 8;
+	pixel_x = -4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "hlY" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	dir = 4
@@ -94331,16 +94355,6 @@
 	icon_state = "redfull"
 	},
 /area/security/warden)
-"iZS" = (
-/obj/structure/window/reinforced{
-	dir = 8;
-	pixel_x = -4
-	},
-/obj/machinery/photocopier,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "iZW" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Internal Affairs Maintenance";
@@ -94982,10 +94996,6 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
-"ldF" = (
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall,
-/area/maintenance/aft)
 "lee" = (
 /obj/structure/table/glass,
 /obj/item/grown/sunflower{
@@ -95030,23 +95040,6 @@
 	icon_state = "red"
 	},
 /area/security/seceqstorage)
-"lqd" = (
-/obj/structure/table,
-/obj/structure/window/reinforced{
-	dir = 8;
-	pixel_x = -4
-	},
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
-/obj/item/clipboard,
-/obj/item/stack/packageWrap,
-/obj/item/hand_labeler,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "lqK" = (
 /turf/simulated/wall,
 /area/hallway/primary/central/nw)
@@ -95066,6 +95059,16 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
+"lsu" = (
+/obj/structure/window/reinforced{
+	dir = 8;
+	pixel_x = -4
+	},
+/obj/machinery/photocopier,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "ltg" = (
 /obj/structure/chair{
 	dir = 4
@@ -96481,6 +96484,15 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
+"pzp" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/medical/morgue)
 "pAC" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -96505,12 +96517,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/hallway/primary/central)
-"pDK" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/medical/morgue)
 "pEn" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -96688,13 +96694,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"pXF" = (
-/obj/structure/chair/office/light,
-/obj/effect/landmark/start/coroner,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "pXX" = (
 /obj/machinery/camera{
 	c_tag = "Perma-Brig Solitary 2";
@@ -97339,24 +97338,6 @@
 	icon_state = "red"
 	},
 /area/hallway/secondary/exit)
-"sdn" = (
-/obj/structure/table,
-/obj/item/storage/box/gloves{
-	pixel_y = 8
-	},
-/obj/item/camera{
-	name = "Autopsy Camera";
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/structure/window/reinforced{
-	dir = 8;
-	pixel_x = -4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "sdP" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -97776,6 +97757,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/seceqstorage)
+"tdC" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/medical/morgue)
 "tge" = (
 /obj/structure/sign/electricshock{
 	pixel_y = 32
@@ -97934,6 +97921,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
+"tAl" = (
+/obj/structure/table,
+/obj/item/folder/white,
+/obj/item/pen,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "tFK" = (
 /obj/item/soap/nanotrasen,
 /obj/machinery/light/small{
@@ -99046,6 +99041,10 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
+"xbW" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall,
+/area/maintenance/aft)
 "xda" = (
 /obj/item/cultivator,
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
@@ -99163,14 +99162,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/surgery1)
-"xwv" = (
-/obj/structure/table,
-/obj/item/folder/white,
-/obj/item/pen,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "xAc" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -140208,10 +140199,10 @@ dqr
 drO
 dsO
 duk
-cYN
-pDK
+pzp
+tdC
 dxH
-pDK
+tdC
 dAd
 duk
 dBL
@@ -140723,9 +140714,9 @@ drX
 dsQ
 duk
 dvv
-pDK
+tdC
 dxO
-pDK
+tdC
 dAf
 duk
 dBV
@@ -141236,10 +141227,10 @@ dsU
 dsN
 dsS
 duk
-pDK
-pDK
+tdC
+tdC
 dxO
-pDK
+tdC
 dXq
 duk
 dCd
@@ -141750,10 +141741,10 @@ dqx
 drU
 dsV
 dum
-cYN
-pDK
+pzp
+tdC
 dxO
-pDK
+tdC
 dAh
 duk
 dBX
@@ -142264,11 +142255,11 @@ dqz
 drW
 dsW
 duk
-pDK
-pDK
+tdC
+tdC
 dxO
-pDK
-pDK
+tdC
+tdC
 duk
 dBU
 dDk
@@ -142778,11 +142769,11 @@ dqB
 dpn
 dsY
 duk
-sdn
+hlI
 dwB
 dxO
-iZS
-lqd
+lsu
+bju
 duk
 dCa
 dDn
@@ -143038,7 +143029,7 @@ duk
 dvA
 dvt
 dxQ
-pXF
+dvE
 dAk
 duk
 dCb
@@ -144063,15 +144054,15 @@ cSF
 dsc
 cRm
 duk
-dvE
+cYN
 dwF
 dxU
 dzh
-xwv
+tAl
 dBk
 dBV
 dDm
-ldF
+xbW
 aaa
 aaa
 aaa
