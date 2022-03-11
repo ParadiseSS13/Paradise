@@ -5192,7 +5192,6 @@
 	},
 /area/centcom/evac)
 "th" = (
-/obj/effect/landmark/mechlaunch,
 /turf/simulated/floor/plating/airless,
 /area/centcom/specops)
 "ti" = (

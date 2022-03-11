@@ -25,9 +25,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 /obj/effect/landmark/lightsout
 	name = "Electrical Storm Epicentre"
 
-/obj/effect/landmark/mechlaunch
-	name = "CC mech exit point"
-
 /obj/effect/landmark/awaystart
 	name = "awaystart"
 	icon = 'icons/effects/spawner_icons.dmi'
