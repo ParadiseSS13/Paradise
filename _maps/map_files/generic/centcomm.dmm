@@ -5674,7 +5674,6 @@
 	dir = 8
 	},
 /obj/machinery/door_control/no_emag{
-	desc = "A remote control switch to block view of the singularity.";
 	id = "ASSAULT";
 	name = "Mech Storage";
 	req_access_txt = "114";
@@ -7597,7 +7596,6 @@
 "Dn" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control/no_emag{
-	desc = "A remote control switch to block view of the singularity.";
 	id = "specopsoffice";
 	name = "Privacy Shutters";
 	pixel_x = 6;
@@ -9258,7 +9256,6 @@
 /area/tdome/tdomeobserve)
 "JK" = (
 /obj/machinery/door_control/no_emag{
-	desc = "A remote control switch to block view of the singularity.";
 	id = "CCGAMMA";
 	name = "Gamma Lockdown";
 	pixel_x = 32;
@@ -9314,7 +9311,6 @@
 /area/shuttle/gamma/space)
 "JS" = (
 /obj/machinery/door_control/no_emag{
-	desc = "A remote control switch to block view of the singularity.";
 	id = "CCGAMMA";
 	name = "Gamma Lockdown";
 	pixel_y = 32;
@@ -9700,7 +9696,6 @@
 /area/centcom/specops)
 "Ls" = (
 /obj/machinery/door_control/no_emag{
-	desc = "A remote control switch to block view of the singularity.";
 	id = "ASSAULT";
 	name = "Mech Storage";
 	req_access_txt = "114";
@@ -10091,7 +10086,6 @@
 	req_access_txt = "114"
 	},
 /obj/machinery/door_control/no_emag{
-	desc = "A remote control switch to block view of the singularity.";
 	id = "CCGAMMA";
 	name = "Gamma Lockdown";
 	pixel_x = -6;
@@ -10099,7 +10093,6 @@
 	req_access_txt = "114"
 	},
 /obj/machinery/door_control/no_emag{
-	desc = "A remote control switch to block view of the singularity.";
 	id = "ASSAULT";
 	name = "Mech Storage";
 	pixel_x = 6;
