@@ -3286,9 +3286,6 @@
 /turf/simulated/floor/carpet,
 /area/centcom/control)
 "mP" = (
-/obj/machinery/computer/pod/deathsquad{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel/dark{
 	dir = 1;
 	icon_state = "vault"
