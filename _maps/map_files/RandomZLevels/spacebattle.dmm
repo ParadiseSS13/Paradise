@@ -258,10 +258,6 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate3)
 "bl" = (
-/obj/machinery/computer/pod{
-	id_tags = list("spacebattlepod3");
-	name = "Hull Door Control"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate2)
 "bm" = (
@@ -400,10 +396,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "bY" = (
-/obj/machinery/computer/pod{
-	id_tags = list("spacebattlepod");
-	name = "Hull Door Control"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/cruiser)
 "bZ" = (
@@ -644,10 +636,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "cZ" = (
-/obj/machinery/computer/pod{
-	id_tags = list("spacebattlepod2");
-	name = "Hull Door Control"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/cruiser)
 "db" = (
