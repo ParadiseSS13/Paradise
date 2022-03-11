@@ -1562,7 +1562,7 @@
 	products = list(/obj/item/clothing/under/rank/chief_engineer = 4,/obj/item/clothing/under/rank/engineer = 4,/obj/item/clothing/shoes/workboots = 4,/obj/item/clothing/head/hardhat = 4,
 					/obj/item/storage/belt/utility = 4,/obj/item/clothing/glasses/meson/engine = 4,/obj/item/clothing/gloves/color/yellow = 4, /obj/item/screwdriver = 12,
 					/obj/item/crowbar = 12,/obj/item/wirecutters = 12,/obj/item/multitool = 12,/obj/item/wrench = 12,/obj/item/t_scanner = 12,
-					/obj/item/stack/cable_coil/heavyduty = 8, /obj/item/stock_parts/cell = 8, /obj/item/weldingtool = 8,/obj/item/clothing/head/welding = 8,
+					/obj/item/stack/cable_coil = 8, /obj/item/stock_parts/cell = 8, /obj/item/weldingtool = 8,/obj/item/clothing/head/welding = 8,
 					/obj/item/light/tube = 10,/obj/item/clothing/suit/fire = 4, /obj/item/stock_parts/scanning_module = 5,/obj/item/stock_parts/micro_laser = 5,
 					/obj/item/stock_parts/matter_bin = 5,/obj/item/stock_parts/manipulator = 5)
 	refill_canister = /obj/item/vending_refill/engineering
@@ -2016,7 +2016,6 @@
 					/obj/item/clothing/suit/storage/hazardvest = 3,
 					/obj/item/clothing/head/beret/eng = 3,
 					/obj/item/clothing/head/hardhat = 2,
-					/obj/item/clothing/head/hardhat/white = 2,
 					/obj/item/clothing/head/hardhat/orange = 2,
 					/obj/item/clothing/head/hardhat/dblue = 2,
 					/obj/item/clothing/accessory/armband/engine = 6,
@@ -2026,8 +2025,7 @@
 					/obj/item/storage/backpack/satchel_eng = 2,
 					/obj/item/storage/backpack/duffel/engineering = 2,
 					/obj/item/storage/belt/utility = 2)
-	premium = list(/obj/item/storage/belt/utility/chief = 2,
-					/obj/item/clothing/gloves/color/yellow = 2)
+	premium = list(/obj/item/clothing/gloves/color/yellow = 2)
 	contraband = list(/obj/item/toy/figure/crew/ce = 1,
 				      /obj/item/toy/figure/crew/engineer = 1)
 	refill_canister = /obj/item/vending_refill/engidrobe
@@ -2047,7 +2045,6 @@
 					/obj/item/clothing/head/beret/atmos = 3,
 					/obj/item/clothing/head/hardhat = 2,
 					/obj/item/clothing/head/hardhat/red = 2,
-					/obj/item/clothing/head/hardhat/white = 2,
 					/obj/item/clothing/head/hardhat/orange = 2,
 					/obj/item/clothing/head/hardhat/dblue = 2,
 					/obj/item/clothing/gloves/color/black = 3,
@@ -2058,7 +2055,6 @@
 					/obj/item/storage/backpack/satchel_eng = 2,
 					/obj/item/storage/backpack/duffel/atmos = 2,
 					/obj/item/storage/belt/utility = 2)
-	premium = list(/obj/item/storage/belt/utility/chief = 2)
 	contraband = list(/obj/item/toy/figure/crew/atmos = 1)
 	refill_canister = /obj/item/vending_refill/atmosdrobe
 

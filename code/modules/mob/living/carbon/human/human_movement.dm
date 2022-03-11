@@ -7,7 +7,7 @@
 /mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
 
 	if(..())
-		return 1
+		return TRUE
 
 	//Do we have a working jetpack?
 	var/obj/item/tank/jetpack/thrust
@@ -18,8 +18,10 @@
 		thrust = C.jetpack
 	if(thrust)
 		if((movement_dir || thrust.stabilizers) && thrust.allow_thrust(0.01, src))
-			return 1
-	return 0
+			return TRUE
+	if(dna.species.spec_Process_Spacemove(src))
+		return TRUE
+	return FALSE
 
 /mob/living/carbon/human/mob_has_gravity()
 	. = ..()
