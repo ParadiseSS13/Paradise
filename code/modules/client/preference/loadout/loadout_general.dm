@@ -142,6 +142,15 @@
 	display_name ="synthesizer"
 	path = /obj/item/instrument/piano_synth
 	cost = 2
+
+/datum/gear/tts
+	display_name ="TTS device"
+	path = /obj/item/ttsdevice
+
+/datum/gear/blindfold
+	display_name ="Blindfold"
+	path = /obj/item/clothing/glasses/sunglasses/blindfold
+
 //////////////////////
 //		Mugs		//
 //////////////////////

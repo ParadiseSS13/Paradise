@@ -961,3 +961,12 @@
 	materials = list(MAT_METAL = 40000)
 	build_path = /obj/item/golem_shell
 	category = list("Imported")
+
+/datum/design/tts
+	name = "TTS device"
+	desc = "A small device with a keyboard attached. Anything entered on the keyboard is played out the speaker."
+	id = "tts"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 200)
+	build_path = /obj/item/ttsdevice
+	category = list("initial", "Miscellaneous")
