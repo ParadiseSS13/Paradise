@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	var/author
 	var/rating
 	var/ckey // ADDED 24/2/2015 - N3X
-	var/category
+	var/list/categories = list()
 	var/flagged = 0
 
 /datum/cachedbook/proc/LoadFromRow(list/row)

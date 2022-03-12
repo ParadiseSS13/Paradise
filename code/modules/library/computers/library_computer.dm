@@ -14,7 +14,7 @@
 	var/logged_in = FALSE
 	var/num_pages = 0
 	var/num_results = 0
-	var/datum/cachedbook/selected_book = new()
+	var/datum/cachedbook/selected_book = new() //
 	var/datum/library_query/query = new() //	var/author var/category var/title -- holder object?
 
 	var/static/datum/library_catalog/programmatic_books = new()
@@ -31,10 +31,12 @@
 
 /obj/machinery/computer/library/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/book))
-		var/obj/item/book/B = O
-		selected_book.title = B.title
-		selected_book.author = B.author
-		selected_book.summary = B.summary
+		select_book(O)
+	if(istype(O, /obj/item/barcodescanner))
+		var/obj/item/barcodescanner/B = O
+		B.computer = src
+		to_chat(user, "Barcode Scanner Succesfully Connected to Computer")
+		playsound(B, 'sound/machines/terminal_select.ogg', 15, TRUE)
 	return ..()
 
 ///TGUI SHIT, DONT NEED TO WORRY BOUT
@@ -71,6 +73,8 @@
 		)
 		data["booklist"] += list(book_data)
 
+	data["checkout_data"] = list()
+
 	//data stuff hurrr
 
 	return data
@@ -86,6 +90,12 @@
 			return FALSE
 
 	add_fingerprint(usr)
+
+/obj/machinery/computer/library/proc/select_book(book)
+	var/obj/item/book/B = book
+	selected_book.title = B.title
+	selected_book.author = B.author
+	selected_book.summary = B.summary
 
 //Not sure what the fuck this does yet
 /obj/machinery/computer/library/proc/get_page(archive_page_num)
@@ -178,9 +188,9 @@
 				var/datum/db_query/query = SSdbcore.NewQuery({"
 					INSERT INTO library (author, title, content, category, ckey, flagged)
 					VALUES (:author, :title, :content, :category, :ckey, 0)"}, list(
-						"author" = scanner.cache.author,
-						"title" = scanner.cache.name,
-						"content" = scanner.cache.dat,
+						"author" = selected_book.author,
+						"title" = selected_book.name,
+						"content" = selected_book.content,
 						"category" = upload_category,
 						"ckey" = usr.ckey
 					))
@@ -190,7 +200,7 @@
 					return
 
 				qdel(query)
-				log_admin("[usr.name]/[usr.key] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] characters in length")
-				message_admins("[key_name_admin(usr)] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] characters in length")
+				log_admin("[usr.name]/[usr.key] has uploaded the book titled [selected_book.name], [length(selected_book.content)] characters in length")
+				message_admins("[key_name_admin(usr)] has uploaded the book titled [selected_book.name], [length(selected_book.content)] characters in length")
 
 #undef MAX_BOOK_FLAGS

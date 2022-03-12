@@ -201,17 +201,17 @@
 				W.forceMove(src)
 				store = W
 				to_chat(user, "<span class='notice'>You put [W] in [title].</span>")
-				return 1
+				return
 			else
 				to_chat(user, "<span class='notice'>[W] won't fit in [title].</span>")
-				return 1
+				return
 		else
 			to_chat(user, "<span class='notice'>There's already something in [title]!</span>")
-			return 1
+			return
 	if(istype(W, /obj/item/pen))
 		if(unique)
 			to_chat(user, "These pages don't seem to take the ink well. Looks like you can't modify it.")
-			return 1
+			return
 		var/choice = input("What would you like to change?") in list("Title", "Contents", "Author", "Cancel")
 		switch(choice)
 			if("Title")
@@ -244,8 +244,11 @@
 		else
 			switch(scanner.mode)
 				if(0)
-					scanner.book = src
-					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer.'")
+					if(scanner.computer)
+						scanner.computer.select_book(src)
+						to_chat(user, "[W]'s screen flashes: 'Book stored in buffer.'")
+					else
+
 				if(1)
 					scanner.book = src
 					scanner.computer.buffer_book = src.name
@@ -300,35 +303,42 @@
  */
 /obj/item/barcodescanner
 	name = "barcode scanner"
+	desc = "A scanner used for managing library books, one can connect it the library system by tapping on a computer with it in hand."
 	icon = 'icons/obj/library.dmi'
 	icon_state ="scanner"
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
-	var/obj/machinery/computer/library/checkout/computer // Associated computer - Modes 1 to 3 use this
-	var/obj/item/book/book	 //  Currently scanned book
-	var/mode = 0 					// 0 - Scan only, 1 - Scan and Set Buffer, 2 - Scan and Attempt to Check In, 3 - Scan and Attempt to Add to Inventory
+	/// Associated Library Computer, needed to perform actions
+	var/obj/machinery/computer/library/computer
+	// 0 - Scan only, 1 - Attempt to Add to Inventory, 2 - Checkout Book, 3 - Check In Book
+	var/mode = 0
 
 /obj/item/barcodescanner/attack_self(mob/user as mob)
-	mode += 1
+	if(!check_connection)
+		return
+	mode++
 	if(mode > 3)
 		mode = 0
-	to_chat(user, "[src] Status Display:")
 	var/modedesc
 	switch(mode)
 		if(0)
-			modedesc = "Scan book to local buffer."
+			modedesc = "Scan book to computer."
 		if(1)
-			modedesc = "Scan book to local buffer and set associated computer buffer to match."
+			modedesc = "Scan book into to general inventory."
 		if(2)
-			modedesc = "Scan book to local buffer, attempt to check in scanned book."
+			modedesc = "Checkout Book"
 		if(3)
-			modedesc = "Scan book to local buffer, attempt to add book to general inventory."
+			modedesc = "Checkin Book"
 		else
 			modedesc = "ERROR"
-	to_chat(user, " - Mode [mode] : [modedesc]")
-	if(src.computer)
-		to_chat(user, "<font color=green>Computer has been associated with this unit.</font>")
+	playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
+	to_chat(user, "[src] mode: modedesc")
+
+/obj/item/barcodescanner/proc/check_connection()
+	if(computer)
+		return TRUE
 	else
-		to_chat(user, "<font color=red>No associated computer found. Only local scans will function properly.</font>")
-	to_chat(user, "\n")
+		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+		to_chat(user, "Please reconnect [src] to a library computer.")
+		return FALSE
