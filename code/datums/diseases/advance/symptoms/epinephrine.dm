@@ -22,7 +22,6 @@ Bonus
 	stage_speed = -1
 	transmittable = -2
 	level = 5
-	var/check = FALSE
 
 /datum/symptom/epinephrine/Activate(datum/disease/advance/A)
 	..()
@@ -32,9 +31,8 @@ Bonus
 			if(5)
 				if(prob(10))
 					to_chat(M, "<span class='notice'>[pick("Your body feels tough.", "You are feeling on edge.")]</span>")
-				check = TRUE
-	if(check == TRUE && M.health <= HEALTH_THRESHOLD_CRIT)
-		M.reagents.add_reagent("epinephrine", 0.6)
+	if(A.stage > 4 && M.health <= HEALTH_THRESHOLD_CRIT)
+		M.reagents.add_reagent("epinephrine", 0.5)
 	if(M.reagents.get_reagent_amount("epinephrine") > 20)
 		var/obj/item/organ/internal/heart/heart = M.get_int_organ(/obj/item/organ/internal/heart)
 		heart?.receive_damage(1)
