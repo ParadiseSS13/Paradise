@@ -41,12 +41,12 @@
 	..()
 
 /datum/antagonist/mindslave/thrall/apply_innate_effects(mob/living/new_body)
-	. = ..()
+	..()
 	var/datum/mind/M = new_body?.mind || owner
 	M.AddSpell(new /obj/effect/proc_holder/spell/vampire/thrall_commune)
 
 /datum/antagonist/mindslave/thrall/remove_innate_effects(mob/living/old_body)
-	. = ..()
+	..()
 	var/datum/mind/M = old_body?.mind || owner
 	M.RemoveSpell(/obj/effect/proc_holder/spell/vampire/thrall_commune)
 
