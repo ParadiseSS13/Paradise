@@ -8,7 +8,9 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
  */
 /datum/borrowbook // Datum used to keep track of who has borrowed what when and for how long.
 	var/bookname
-	var/mobname
+	var/bookid
+	var/patron_name
+	var/patron_account
 	var/getdate
 	var/duedate
 
@@ -22,6 +24,8 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	var/summary
 	var/author
 	var/rating
+	var/copyright
+	var/path = /obj/item/book // Type path of the book to generate
 	var/ckey // ADDED 24/2/2015 - N3X
 	var/list/categories = list()
 	var/flagged = 0
@@ -30,7 +34,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	id = row["id"]
 	author = row["author"]
 	title = row["title"]
-	category = row["category"]
+	categories = row["category"]
 	ckey = row["ckey"]
 	flagged = row["flagged"]
 	if("content" in row)
@@ -117,69 +121,6 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		return CB
 	qdel(query)
 	return results
-
-/** Scanner **/
-/obj/machinery/libraryscanner
-	name = "scanner"
-	icon = 'icons/obj/library.dmi'
-	icon_state = "bigscanner"
-	anchored = 1
-	density = 1
-	var/obj/item/book/cache		// Last scanned book
-
-/obj/machinery/libraryscanner/attackby(obj/item/I, mob/user)
-	if(default_unfasten_wrench(user, I))
-		power_change()
-		return
-	if(istype(I, /obj/item/book))
-		// NT with those pesky DRM schemes
-		var/obj/item/book/B = I
-		if(B.has_drm)
-			atom_say("Copyrighted material detected. Scanner is unable to copy book to memory.")
-			return FALSE
-		user.drop_item()
-		I.forceMove(src)
-		return 1
-	else
-		return ..()
-
-/obj/machinery/libraryscanner/attack_hand(mob/user)
-	if(istype(user,/mob/dead))
-		to_chat(user, "<span class='danger'>Nope.</span>")
-		return
-	usr.set_machine(src)
-	var/dat = "<HEAD><TITLE>Scanner Control Interface</TITLE></HEAD><BODY>\n" // <META HTTP-EQUIV='Refresh' CONTENT='10'>
-	if(cache)
-		dat += "<FONT color=#005500>Data stored in memory.</FONT><BR>"
-	else
-		dat += "No data stored in memory.<BR>"
-	dat += "<A href='?src=[UID()];scan=1'>\[Scan\]</A>"
-	if(cache)
-		dat += "       <A href='?src=[UID()];clear=1'>\[Clear Memory\]</A><BR><BR><A href='?src=[UID()];eject=1'>\[Remove Book\]</A>"
-	else
-		dat += "<BR>"
-	user << browse(dat, "window=scanner")
-	onclose(user, "scanner")
-
-/obj/machinery/libraryscanner/Topic(href, href_list)
-	if(..())
-		usr << browse(null, "window=scanner")
-		onclose(usr, "scanner")
-		return
-
-	if(href_list["scan"])
-		for(var/obj/item/book/B in contents)
-			cache = B
-			break
-	if(href_list["clear"])
-		cache = null
-	if(href_list["eject"])
-		for(var/obj/item/book/B in contents)
-			B.loc = src.loc
-	src.add_fingerprint(usr)
-	src.updateUsrDialog()
-	return
-
 
 /*
  * Book binder

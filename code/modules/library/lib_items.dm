@@ -169,7 +169,8 @@
 	///Prevents book from being uploaded - For all printed books
 	var/copyright = FALSE
 
-	var/due_date = 0 // Game time in 1/10th seconds
+	var/libraryid // Game time in 1/10th seconds
+	var/due_date
 
 	var/carved = FALSE	 // Has the book been hollowed out for use as a secret storage item?
 	var/obj/item/store	// What's in the book?
@@ -239,37 +240,38 @@
 		return 1
 	else if(istype(W, /obj/item/barcodescanner))
 		var/obj/item/barcodescanner/scanner = W
-		if(!scanner.computer)
-			to_chat(user, "[W]'s screen flashes: 'No associated computer found!'")
-		else
-			switch(scanner.mode)
-				if(0)
-					if(scanner.computer)
-						scanner.computer.select_book(src)
-						to_chat(user, "[W]'s screen flashes: 'Book stored in buffer.'")
-					else
-
-				if(1)
-					scanner.book = src
-					scanner.computer.buffer_book = src.name
-					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Book title stored in associated computer buffer.'")
-				if(2)
-					scanner.book = src
-					for(var/datum/borrowbook/b in scanner.computer.checkouts)
-						if(b.bookname == src.name)
-							scanner.computer.checkouts.Remove(b)
-							to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Book has been checked in.'")
-							return 1
-					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. No active check-out record found for current title.'")
-				if(3)
-					scanner.book = src
-					for(var/obj/item/book in scanner.computer.inventory)
-						if(book == src)
-							to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Title already present in inventory, aborting to avoid duplicate entry.'")
-							return 1
-					scanner.computer.inventory.Add(src)
-					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Title added to general inventory.'")
-		return 1
+		if(!scanner.check_connection(user))
+			return
+		switch(scanner.mode) // 0 - Scan only, 1 - Attempt to Add to Inventory, 2 - Checkout Book, 3 - Check In Book
+			if(0)
+				scanner.computer.select_book(src)
+				playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
+				to_chat(user, "[scanner]'s screen flashes: 'Book selected in library computer.'")
+			if(1)
+				if(scanner.computer.inventoryAdd(src))
+					playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
+					to_chat(user, "[scanner]'s screen flashes: 'Title added to general inventory.'")
+				else
+					playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+					to_chat(user, "[scanner]'s screen flashes: 'Title already in general inventory.'")
+			if(2)
+				var/confirm = alert("Are you sure you want to checkout [src] to [scanner.computer.patron_name]?", "Confirm Checkout", "Yes", "No")
+				if(confirm == "No")
+					return
+				if(scanner.computer.checkout(src))
+					playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
+					to_chat(user, "[scanner]'s screen flashes: 'Title checked out to [scanner.computer.patron_name].'")
+				else
+					playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+					to_chat(user, "[scanner]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'")
+			if(3)
+				if(scanner.computer.checkin(src))
+					playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
+					to_chat(user, "[scanner]'s screen flashes: 'Title checked back into general inventory.'")
+				else
+					playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+					to_chat(user, "[scanner]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'")
+		return
 	else if(istype(W, /obj/item/kitchen/knife) && !carved)
 		carve_book(user, W)
 	else
@@ -315,7 +317,7 @@
 	var/mode = 0
 
 /obj/item/barcodescanner/attack_self(mob/user as mob)
-	if(!check_connection)
+	if(!check_connection(user))
 		return
 	mode++
 	if(mode > 3)
@@ -333,9 +335,9 @@
 		else
 			modedesc = "ERROR"
 	playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
-	to_chat(user, "[src] mode: modedesc")
+	to_chat(user, "[src] mode: [modedesc]")
 
-/obj/item/barcodescanner/proc/check_connection()
+/obj/item/barcodescanner/proc/check_connection(mob/user as mob)
 	if(computer)
 		return TRUE
 	else

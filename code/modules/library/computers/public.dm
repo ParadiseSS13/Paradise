@@ -1,5 +1,6 @@
 /obj/machinery/computer/library/public
 	name = "visitor computer"
+	var/screenstate = 0
 
 /obj/machinery/computer/library/public/attack_hand(mob/user as mob)
 	if(..())
@@ -49,7 +50,7 @@
 					dat += {"<tr>
 						<td>[CB.author]</td>
 						<td>[CB.title]</td>
-						<td>[CB.category]</td>
+						<td>[CB.categories]</td>
 						<td>[CB.id]</td>
 						<td><A href="?src=[UID()];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</A></td>
 					</tr>"}
