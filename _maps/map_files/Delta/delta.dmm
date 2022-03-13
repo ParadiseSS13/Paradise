@@ -12692,18 +12692,29 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aLE" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "46"
+/obj/machinery/cryopod/right,
+/obj/machinery/alarm{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
-/turf/simulated/floor/plating,
-/area/clownoffice)
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/crew_quarters/sleep)
 "aLF" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "46"
 	},
 /turf/simulated/floor/plating,
-/area/mimeoffice)
+/area/clownoffice)
 "aLG" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "46"
+	},
+/turf/simulated/floor/plating,
+/area/mimeoffice)
+"aLH" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plasteel{
@@ -54915,6 +54926,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "cuK" = (
@@ -55514,6 +55526,7 @@
 /obj/machinery/door/airlock/glass{
 	name = "Cabin"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "cvW" = (
@@ -55568,6 +55581,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Public Access"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -59851,6 +59865,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
 "cFx" = (
@@ -61346,6 +61361,11 @@
 "cIj" = (
 /obj/structure/closet/jcloset,
 /obj/item/key/janitor,
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "cIk" = (
@@ -61365,6 +61385,7 @@
 /obj/machinery/door/airlock/glass{
 	name = "Cabin"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
 "cIn" = (
@@ -61656,6 +61677,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -79992,6 +80014,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
 "dwK" = (
@@ -96467,6 +96490,11 @@
 /obj/machinery/cryopod,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -150674,7 +150702,7 @@ cLo
 cMM
 aHQ
 cQf
-aLE
+aLF
 boG
 dDy
 dlz
@@ -151446,7 +151474,7 @@ cMO
 aKh
 cQi
 aFv
-aLG
+aLH
 dDE
 dlz
 cZi
@@ -151702,7 +151730,7 @@ cLq
 aHC
 aKi
 cQh
-aLF
+aLG
 cSY
 dDD
 dlz
@@ -152215,7 +152243,7 @@ bmW
 oXY
 cBY
 oFL
-cyY
+aLE
 aFx
 cTc
 dDD
