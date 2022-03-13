@@ -5220,6 +5220,12 @@
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
+"CG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil/random,
+/turf/simulated/floor/plating,
+/area/ruin/space/ancientstation/thetacorridor)
 "Hb" = (
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
@@ -9013,7 +9019,7 @@ kU
 bS
 iA
 iA
-bS
+CG
 iY
 iY
 iY
