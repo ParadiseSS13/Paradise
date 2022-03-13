@@ -50275,6 +50275,12 @@
 /obj/item/grenade/chem_grenade/cleaner,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/mop,
+/obj/machinery/requests_console{
+	department = "Janitorial";
+	departmentType = 1;
+	name = "Janitor Requests Console";
+	pixel_y = 29
+	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "ckW" = (
@@ -92967,6 +92973,10 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
+"ghZ" = (
+/obj/effect/landmark/start/janitor,
+/turf/simulated/floor/plasteel,
+/area/janitor)
 "giz" = (
 /obj/structure/table/glass,
 /obj/item/book/random{
@@ -94418,6 +94428,16 @@
 	icon_state = "white"
 	},
 /area/medical/medbay)
+"kcj" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/window/reinforced,
+/obj/machinery/door/window/westleft{
+	dir = 4;
+	name = "Janitoral Delivery";
+	req_access_txt = "26"
+	},
+/turf/simulated/floor/plasteel,
+/area/janitor)
 "kdR" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
@@ -95756,10 +95776,6 @@
 	icon_state = "dark"
 	},
 /area/medical/surgery1)
-"nSQ" = (
-/obj/effect/landmark/start/janitor,
-/turf/simulated/floor/plasteel,
-/area/janitor)
 "nXf" = (
 /obj/machinery/computer/security/wooden_tv,
 /turf/simulated/floor/plasteel{
@@ -95854,17 +95870,6 @@
 /obj/structure/filingcabinet,
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
-"opj" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/starboard2)
 "ops" = (
 /obj/structure/window/reinforced,
 /obj/structure/lattice,
@@ -96521,17 +96526,6 @@
 "qrT" = (
 /turf/simulated/wall/r_wall,
 /area/tcommsat/chamber)
-"qzc" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
-/obj/machinery/navbeacon{
-	codes_txt = "delivery";
-	location = "Janitor"
-	},
-/turf/simulated/floor/plating,
-/area/janitor)
 "qzr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -96547,6 +96541,24 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/south)
+"qzs" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/starboard2)
 "qCd" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -96683,6 +96695,17 @@
 	icon_state = "vault"
 	},
 /area/security/securearmoury)
+"qZq" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/starboard2)
 "qZt" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -96855,6 +96878,13 @@
 	icon_state = "solarpanel"
 	},
 /area/maintenance/starboardsolar)
+"rqt" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/janitorialcart,
+/turf/simulated/floor/plasteel,
+/area/janitor)
 "rsF" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -97229,24 +97259,6 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/storage)
-"ssI" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plasteel,
-/area/maintenance/starboard2)
 "suy" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -97638,6 +97650,17 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
+"tvx" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/starboard2)
 "tvI" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -97691,6 +97714,17 @@
 	icon_state = "dark"
 	},
 /area/medical/morgue)
+"tDQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	location = "Janitor"
+	},
+/turf/simulated/floor/plating,
+/area/janitor)
 "tFK" = (
 /obj/item/soap/nanotrasen,
 /obj/machinery/light/small{
@@ -97917,16 +97951,6 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
-"tYb" = (
-/obj/effect/decal/warning_stripes/yellow,
-/obj/structure/window/reinforced,
-/obj/machinery/door/window/westleft{
-	dir = 4;
-	name = "Janitoral Delivery";
-	req_access_txt = "26"
-	},
-/turf/simulated/floor/plasteel,
-/area/janitor)
 "uil" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -97981,13 +98005,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/security/range)
-"ukw" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/janitorialcart,
-/turf/simulated/floor/plasteel,
-/area/janitor)
 "ukK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -98119,13 +98136,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/surgery2)
-"uRE" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
-/turf/simulated/floor/plasteel,
-/area/janitor)
 "uUu" = (
 /obj/structure/toilet{
 	pixel_y = 8
@@ -98570,6 +98580,13 @@
 	icon_state = "red"
 	},
 /area/security/processing)
+"vSU" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12
+	},
+/turf/simulated/floor/plasteel,
+/area/janitor)
 "vSW" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -99082,17 +99099,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"xTV" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/maintenance/starboard2)
 "xUI" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/teargas,
@@ -150245,10 +150251,10 @@ bgs
 coU
 cJn
 bRc
-qzc
-tYb
+tDQ
+kcj
 awZ
-uRE
+vSU
 bEY
 cIc
 cBV
@@ -150504,7 +150510,7 @@ cqD
 bTg
 khY
 cuF
-nSQ
+ghZ
 axc
 cyU
 azi
@@ -150761,7 +150767,7 @@ cqE
 bgt
 axb
 ckV
-ukw
+rqt
 ayi
 cyV
 cAn
@@ -151786,9 +151792,9 @@ cjv
 cjr
 brS
 bwR
-xTV
-opj
-ssI
+qZq
+tvx
+qzs
 cmq
 oNd
 cyX
