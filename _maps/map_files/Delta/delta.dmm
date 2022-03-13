@@ -6088,10 +6088,9 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/fore2)
 "awZ" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/watertank,
-/turf/simulated/floor/plating,
-/area/maintenance/starboard2)
+/turf/simulated/floor/plasteel,
+/area/janitor)
 "axa" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -6110,11 +6109,10 @@
 /turf/simulated/wall,
 /area/janitor)
 "axc" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Custodial Maintenance";
-	req_access_txt = "26"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/janitor)
 "axd" = (
 /obj/structure/disposalpipe/segment,
@@ -6683,14 +6681,11 @@
 /turf/simulated/floor/wood,
 /area/maintenance/fore)
 "ayi" = (
-/obj/structure/plasticflaps{
-	opacity = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
-/obj/machinery/navbeacon{
-	codes_txt = "delivery";
-	location = "Janitor"
-	},
-/turf/simulated/floor/plating,
+/obj/structure/closet/l3closet/janitor,
+/turf/simulated/floor/plasteel,
 /area/janitor)
 "ayj" = (
 /obj/effect/decal/cleanable/cobweb,
@@ -7024,16 +7019,11 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/fsmaint)
 "azi" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "azj" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -9359,9 +9349,9 @@
 /area/crew_quarters/toilet)
 "aEC" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -30836,8 +30826,28 @@
 /turf/simulated/wall/r_wall,
 /area/engine/break_room)
 "bwR" = (
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "bwS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -35178,12 +35188,6 @@
 	dir = 4
 	},
 /obj/machinery/disposal,
-/obj/machinery/requests_console{
-	department = "Janitorial";
-	departmentType = 1;
-	name = "Janitor Requests Console";
-	pixel_y = 29
-	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "bEZ" = (
@@ -42194,16 +42198,9 @@
 	},
 /area/hallway/primary/starboard)
 "bTg" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/junction{
-	dir = 1;
-	icon_state = "pipe-j2"
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
@@ -50269,25 +50266,17 @@
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "ckV" = (
-/obj/machinery/light/small{
+/obj/structure/rack{
 	dir = 1
 	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/starboard2)
+/obj/item/reagent_containers/spray/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/mop,
+/turf/simulated/floor/plasteel,
+/area/janitor)
 "ckW" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -52962,16 +52951,20 @@
 	},
 /area/maintenance/starboard)
 "cqD" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 1
+	},
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d2 = 4;
+	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "cqE" = (
@@ -52979,6 +52972,17 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "cqF" = (
@@ -52992,8 +52996,19 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
@@ -53003,8 +53018,14 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard2)
@@ -54850,39 +54871,13 @@
 	},
 /area/crew_quarters/locker)
 "cuF" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/starboard2)
+/turf/simulated/floor/plasteel,
+/area/janitor)
 "cuG" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "cuH" = (
@@ -56933,15 +56928,12 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "cyV" = (
-/obj/machinery/door/window/westleft{
-	name = "Janitoral Delivery";
-	req_access_txt = "26"
-	},
-/obj/structure/window/reinforced,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/closet/jcloset,
+/obj/item/key/janitor,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "cyW" = (
@@ -58360,15 +58352,6 @@
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/storage/box/lights/mixed,
 /obj/item/storage/box/lights/mixed,
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -58959,6 +58942,14 @@
 /obj/item/grenade/chem_grenade/cleaner,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/mop,
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -24
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "cDr" = (
@@ -61365,8 +61356,6 @@
 	},
 /area/crew_quarters/fitness)
 "cIj" = (
-/obj/structure/closet/jcloset,
-/obj/item/key/janitor,
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east bump";
@@ -61375,7 +61364,6 @@
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "cIk" = (
-/obj/structure/closet/l3closet/janitor,
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
@@ -94449,16 +94437,12 @@
 	},
 /area/security/permabrig)
 "khY" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/machinery/door/airlock/maintenance{
+	name = "Custodial Maintenance";
+	req_access_txt = "26"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
-/area/maintenance/starboard2)
+/area/janitor)
 "kii" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
@@ -95772,6 +95756,10 @@
 	icon_state = "dark"
 	},
 /area/medical/surgery1)
+"nSQ" = (
+/obj/effect/landmark/start/janitor,
+/turf/simulated/floor/plasteel,
+/area/janitor)
 "nXf" = (
 /obj/machinery/computer/security/wooden_tv,
 /turf/simulated/floor/plasteel{
@@ -95866,6 +95854,17 @@
 /obj/structure/filingcabinet,
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
+"opj" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/starboard2)
 "ops" = (
 /obj/structure/window/reinforced,
 /obj/structure/lattice,
@@ -96522,6 +96521,17 @@
 "qrT" = (
 /turf/simulated/wall/r_wall,
 /area/tcommsat/chamber)
+"qzc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	location = "Janitor"
+	},
+/turf/simulated/floor/plating,
+/area/janitor)
 "qzr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -97219,6 +97229,24 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/storage)
+"ssI" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/starboard2)
 "suy" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -97889,6 +97917,16 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
+"tYb" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/window/reinforced,
+/obj/machinery/door/window/westleft{
+	dir = 4;
+	name = "Janitoral Delivery";
+	req_access_txt = "26"
+	},
+/turf/simulated/floor/plasteel,
+/area/janitor)
 "uil" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -97943,6 +97981,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/security/range)
+"ukw" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/janitorialcart,
+/turf/simulated/floor/plasteel,
+/area/janitor)
 "ukK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -98074,6 +98119,13 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/surgery2)
+"uRE" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12
+	},
+/turf/simulated/floor/plasteel,
+/area/janitor)
 "uUu" = (
 /obj/structure/toilet{
 	pixel_y = 8
@@ -99030,6 +99082,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"xTV" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/starboard2)
 "xUI" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/teargas,
@@ -149925,9 +149988,9 @@ cnP
 cnP
 cnP
 csc
-cnP
-cnP
-cnP
+axb
+axb
+axb
 axb
 axb
 axb
@@ -150182,10 +150245,10 @@ bgs
 coU
 cJn
 bRc
-cqI
-brS
+qzc
+tYb
 awZ
-axb
+uRE
 bEY
 cIc
 cBV
@@ -150441,7 +150504,7 @@ cqD
 bTg
 khY
 cuF
-cqI
+nSQ
 axc
 cyU
 azi
@@ -150696,9 +150759,9 @@ cjr
 bqj
 cqE
 bgt
-bwR
+axb
 ckV
-brS
+ukw
 ayi
 cyV
 cAn
@@ -150953,9 +151016,9 @@ cnS
 ctc
 cqE
 csd
-bqj
-ckW
-brS
+bgt
+bgs
+bgs
 oNd
 oNd
 oNd
@@ -151468,7 +151531,7 @@ coY
 cqG
 csf
 bgt
-cuH
+brS
 bqj
 oNd
 cyW
@@ -151722,10 +151785,10 @@ cle
 cjv
 cjr
 brS
-bHF
-brS
-bgs
-cuH
+bwR
+xTV
+opj
+ssI
 cmq
 oNd
 cyX
