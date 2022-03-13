@@ -61370,6 +61370,11 @@
 /area/janitor)
 "cIk" = (
 /obj/structure/closet/l3closet/janitor,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "cIl" = (
