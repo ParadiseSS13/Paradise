@@ -1360,8 +1360,10 @@
 		dna.species.create_organs(src)
 
 	for(var/obj/item/thing in kept_items)
-		equip_to_slot_if_possible(thing, kept_items[thing])
+		var/equiped = equip_to_slot_if_possible(thing, kept_items[thing])
 		thing.flags = item_flags[thing] // Reset the flags to the origional ones
+		if(!equiped)
+			thing.dropped() // Ensures items know they are dropped. Using their original flags
 
 	//Handle default hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ("head")
