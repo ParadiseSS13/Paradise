@@ -284,7 +284,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 	signed_up -= M
 	if(!silent)
-		to_chat(M, "<span class='notice'>You have been unregistered as a candidate for this role. You can freely sign up again before the poll ends.</span>")
+		to_chat(M, "<span class='danger'>You have been unregistered as a candidate for this role. You can freely sign up again before the poll ends.</span>")
 
 		for(var/existing_poll in SSghost_spawns.currently_polling)
 			var/datum/candidate_poll/P = existing_poll
