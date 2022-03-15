@@ -243,6 +243,11 @@
 		qdel(W)
 		return
 
+	else if(istype(W, /obj/item/barcodescanner))
+		var/obj/item/barcodescanner/B = W
+		B.scanID(src, user)
+		return
+
 	else if(istype (W,/obj/item/stamp))
 		if(!stamped)
 			dat+="<img src=large_[W.icon_state].png>"

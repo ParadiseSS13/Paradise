@@ -17,10 +17,11 @@
 	var/logged_in = FALSE
 	var/num_pages = 0
 	var/num_results = 0
-	var/datum/cachedbook/selected_book
-	var/datum/library_query/query  //	var/author var/category var/title -- holder object?
+	var/datum/cachedbook/selected_book = new()
+	var/datum/library_query/query = new()  //	var/author var/category var/title -- holder object?
 	var/patron_name
 	var/patron_account
+	var/total_books = 0 //total inventoried books, for setting book library IDs
 
 	var/static/list/checkouts = list()
 	var/static/list/inventory = list()
@@ -39,12 +40,31 @@
 /obj/machinery/computer/library/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/book))
 		select_book(O)
+		return
 	if(istype(O, /obj/item/barcodescanner))
 		var/obj/item/barcodescanner/B = O
 		B.computer = src
 		to_chat(user, "Barcode Scanner Succesfully Connected to Computer")
 		audible_message("[src] lets out a low, short blip.", hearing_distance = 2)
 		playsound(B, 'sound/machines/terminal_select.ogg', 10, TRUE)
+		return
+	if(istype(O, /obj/item/card/id))
+		var/obj/item/card/id/ID = O
+		if(ID.registered_name)
+			patron_name = ID.registered_name
+		else
+			patron_name = null
+			patron_account = null //account number should reset every scan so we don't accidently have an account number but no name
+			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+			to_chat(user, "ERROR: No name detected!")
+			return //no point in continuing if the ID card has no associated name!
+		playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
+		if(ID.associated_account_number)
+			patron_account = ID.associated_account_number
+		else
+			patron_account = null
+			to_chat(user, "[src]'s screen flashes: 'WARNING! Patron without associated account number Selected'")
+		return
 	return ..()
 
 ///TGUI SHIT, DONT NEED TO WORRY BOUT
@@ -54,7 +74,7 @@
 		ui = new(user, src, ui_key, "LibraryComputer", name, 1050, 600, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/library/ui_data(mob/user)
+/obj/machinery/computer/library/ui_data(mob/user)	//data stuff hurrr
 	var/list/data = list()
 
 	data["loggedin"] = logged_in
@@ -83,7 +103,25 @@
 
 	data["checkout_data"] = list()
 
-	//data stuff hurrr
+	for(var/datum/borrowbook/b in checkouts)
+		var/remaining_time = (b.duedate - world.time) / 600
+		var/late = FALSE
+		var/finedue = FALSE
+		if(remaining_time < 0)
+			late = TRUE
+			if(remaining_time <= -15)
+				finedue = TRUE
+		timeleft = round(timeleft)
+
+		var/list/checkout_data = list(
+			timeleft = remaining_time,
+			islate = late,
+			title = b.bookname,
+			libraryid = b.libraryid,
+			patron_name = b.patron_name,
+			allow_fine = finedue
+		)
+		data["checkout_data"] += list(checkout_data)
 
 	return data
 
@@ -92,8 +130,12 @@
 		return
 
 	switch(action)
-		if("page") // Select Page
-			current_page = params["page"]
+		if("incrementpage") // Select Page
+			archive_page_num++
+		if("deincrementpage")
+			archive_page_num--
+		if("uploadbook")
+			upload_book()
 		else
 			return FALSE
 
@@ -106,23 +148,7 @@
 /obj/machinery/computer/library/checkout/interact(mob/user)
 	switch(screenstate)
 		if(2)
-			// Checked Out
-			for(var/datum/borrowbook/b in checkouts)
-				var/timetaken = world.time - b.getdate
-				//timetaken *= 10
-				timetaken /= 600
-				timetaken = round(timetaken)
-				var/timedue = b.duedate - world.time
-				//timedue *= 10
-				timedue /= 600
-				if(timedue <= 0)
-					timedue = "<font color=red><b>(OVERDUE)</b> [timedue]</font>"
-				else
-					timedue = round(timedue)
 
-				dat += {"\"[b.bookname]\", Checked out to: [b.mobname]<BR>--- Taken: [timetaken] minutes ago, Due: in [timedue] minutes<BR>
-					<A href='?src=[UID()];checkin=\ref[b]'>(Check In)</A><BR><BR>"}
-			dat += "<A href='?src=[UID()];switchscreen=0'>(Return to main menu)</A><BR>"
 		if(3)
 			// Check Out a Book
 
@@ -187,17 +213,6 @@
 
 			dat += "<br /><A href='?src=[UID()];switchscreen=0'>(Return to main menu)</A><BR>"
 		if(5)
-			dat += "<h3>Upload a New Title</h3>"
-			if(!scanner)
-				for(var/obj/machinery/libraryscanner/S in range(9))
-					scanner = S
-					break
-			if(!scanner)
-				dat += "<FONT color=red>No scanner found within wireless network range.</FONT><BR>"
-			else if(!scanner.cache)
-				dat += "<FONT color=red>No data found in scanner memory.</FONT><BR>"
-			else
-
 				dat += {"<TT>Data marked for upload...</TT><BR>
 					<TT>Title: </TT>[scanner.cache.name]<BR>"}
 				if(!scanner.cache.author)
@@ -236,10 +251,6 @@
 				Are you absolutely sure you want to proceed? EldritchArtifacts Inc. takes no responsibilities for loss of sanity resulting from this action.<p>
 				<A href='?src=[UID()];arccheckout=1'>Yes.</A><BR>
 				<A href='?src=[UID()];switchscreen=0'>No.</A><BR>"}
-
-	var/datum/browser/B = new /datum/browser(user, "library", "Book Inventory Management")
-	B.set_content(dat)
-	B.open()
 
 /obj/machinery/computer/library/checkout/Topic(href, href_list)
 	if(href_list["settitle"])
@@ -434,38 +445,55 @@
 
 */
 
+/obj/machinery/computer/library/proc/serializebook(obj/item/book/B)
+	var/datum/cachedbook/CB = new()
+	CB.title = B.title
+	CB.author = B.author
+	CB.content = B.dat
+	CB.summary = B.summary
+	CB.rating = B.rating
+	CB.copyright = B.copyright
+	CB.libraryid = B.libraryid
+	return CB
 
+/obj/machinery/computer/library/proc/deserializebook(obj/item/book/B, /datum/cachedbook/CB)
 
-/obj/machinery/computer/library/proc/select_book(book)
-	var/obj/item/book/B = book
-	selected_book.title = B.title
-	selected_book.author = B.author
-	selected_book.summary = B.summary
-	selected_book.copyright = B.copyright
+/obj/machinery/computer/library/proc/select_book(obj/item/book/B)
+	if(B.carved == TRUE)
+		return
+	selected_book.title = B.title ? B.title : "No Title"
+	selected_book.author = B.author ? B.author : "No Author"
+	selected_book.summary = B.summary ? B.summary : "No Summary"
+	selected_book.copyright = B.copyright ? B.copyright : FALSE
+	selected_book.content = B.dat
 
-/obj/machinery/computer/library/proc/inventoryAdd(book) //add book to library inventory
-	for(var/obj/item/B in inventory)
-		if(B == book)
+/obj/machinery/computer/library/proc/inventoryAdd(obj/item/book/B) //add book to library inventory
+	for(var/datum/cachedbook/I in inventory)
+		if(I.libraryid == B.libraryid)
 			return FALSE
-	inventory.Add(src)
+	if(!B.libraryid)
+		total_books++
+		B.libraryid = total_books
+	var/datum/cachedbook/CB = serializebook(B)
+	inventory.Add(CB)
 	return TRUE
 
-/obj/machinery/computer/library/proc/inventoryRemove(book) //remove book from library inventory
-	for(var/obj/item/B in inventory)
-		if(B == book)
-			inventory.Remove(src)
+/obj/machinery/computer/library/proc/inventoryRemove(obj/item/book/B) //remove book from library inventory
+	for(var/datum/cachedbook/I in inventory)
+		if(I.libraryid == B.libraryid)
+			inventory.Remove(I)
 			return TRUE
 	return FALSE
 
 /obj/machinery/computer/library/proc/checkout(obj/item/book/B) //checkout book
-	if(!B.libraryid)
+	if(!B.libraryid || !patron_name) //If book isn't a library book or there isn't a selected patron: return
 		return FALSE
 	for(var/datum/borrowbook/O in checkouts) //is this book already checked out?
-		if(O.bookid == B.libraryid)
+		if(O.libraryid == B.libraryid)
 			return FALSE
 	var/datum/borrowbook/P = new /datum/borrowbook
 	P.bookname = sanitize(B.title)
-	P.bookid = B.libraryid
+	P.libraryid = B.libraryid
 	P.patron_name = sanitize(patron_name)
 	P.patron_account = sanitize(patron_account)
 	P.getdate = world.time
@@ -476,14 +504,21 @@
 /obj/machinery/computer/library/proc/checkin(obj/item/book/B) //check back in a book
 	if(!B.libraryid)
 		return FALSE
-	var/datum/borrowbook/P
 	for(var/datum/borrowbook/O in checkouts) //is this book checked out?
-		if(O.bookid == B.libraryid)
-			P = O
-	if(P)
-		checkouts.Remove(P)
-		return TRUE
+		if(O.libraryid == B.libraryid)
+			checkouts.Remove(O)
+			return TRUE
 	return FALSE
+
+/obj/machinery/computer/library/proc/flagbook(bookid)
+	if(!SSdbcore.IsConnected())
+		alert("Connection to Archive has been severed. Aborting.")
+	return
+	if(bookid)
+		var/datum/cachedbook/B = getBookByID(bookid)
+		if(B)
+			if((input(usr, "Are you sure you want to flag [B.title] as having inappropriate content?", "Flag Book #[B.id]") in list("Yes", "No")) == "Yes")
+				GLOB.library_catalog.flag_book_by_id(usr, bookid)
 
 //Not sure what the fuck this does yet
 /obj/machinery/computer/library/proc/get_page(archive_page_num)
@@ -568,28 +603,26 @@
 	return GLOB.library_catalog.getBookByID(id)
 
 /obj/machinery/computer/library/proc/upload_book()
-	var/choice = input("Are you certain you wish to upload this title to the Archive?") in list("Confirm", "Abort")
-		if(choice == "Confirm")
-			if(!SSdbcore.IsConnected())
-				alert("Connection to Archive has been severed. Aborting.")
-			else
-				var/datum/db_query/query = SSdbcore.NewQuery({"
-					INSERT INTO library (author, title, content, category, ckey, flagged)
-					VALUES (:author, :title, :content, :category, :ckey, 0)"}, list(
-						"author" = selected_book.author,
-						"title" = selected_book.title,
-						"content" = selected_book.content,
-						"category" = upload_category,
-						"ckey" = usr.ckey
-					))
+	if(!SSdbcore.IsConnected())
+		alert("Connection to Archive has been severed. Aborting.")
+	else
+		var/datum/db_query/query = SSdbcore.NewQuery({"
+			INSERT INTO library (author, title, content, category, ckey, flagged)
+			VALUES (:author, :title, :content, :category, :ckey, 0)"}, list(
+				"author" = selected_book.author,
+				"title" = selected_book.title,
+				"content" = selected_book.content,
+				"category" = upload_category,
+				"ckey" = usr.ckey
+			))
 
-				if(!query.warn_execute())
-					qdel(query)
-					return
+		if(!query.warn_execute())
+			qdel(query)
+			return
 
-				qdel(query)
-				log_admin("[usr.name]/[usr.key] has uploaded the book titled [selected_book.title], [length(selected_book.content)] characters in length")
-				message_admins("[key_name_admin(usr)] has uploaded the book titled [selected_book.title], [length(selected_book.content)] characters in length")
+		qdel(query)
+		log_admin("[usr.name]/[usr.key] has uploaded the book titled [selected_book.title], [length(selected_book.content)] characters in length")
+		message_admins("[key_name_admin(usr)] has uploaded the book titled [selected_book.title], [length(selected_book.content)] characters in length")
 
 /obj/machinery/computer/library/proc/make_external_book(datum/cachedbook/newbook)
 	if(!newbook || !newbook.id)

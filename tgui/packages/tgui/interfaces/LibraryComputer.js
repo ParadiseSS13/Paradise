@@ -105,13 +105,16 @@ const LibraryBooksList = (properties, context) => {
                   content="Report"
                   icon="flag"
                   color="bad"
+                  onClick={() => act('reportbook')}
                 />
                 <Button
                   content="Order"
                   icon="print"
+                  onClick={() => act('orderbook')}
                 />
                 <Button
                   content="More..."
+                  onClick={() => act('expandinfo')}
                 />
               </Table.Cell>
             </Table.Row>
@@ -130,24 +133,8 @@ const ProgramatticBooks = (properties, context) => {
   return (
     <Section
       title="Book System Upload">
-      <Flex>
-        <Box>Title: {selectedbook.title}
-          <Button
-            fluid
-            textAlign="center"
-            disabled={selectedbook.copyright}
-            content="Edit Title"
-            onClick={() => act('titleedit')} />
-        </Box>
-        <Box>Author: {selectedbook.author}</Box>
-        <Box>Summary: {selectedbook.summary}</Box>
-      </Flex>
-      <Button
-        fluid
-        textAlign="center"
-        disabled={selectedbook.copyright}
-        content="Upload Book"
-        onClick={() => act('uploadbook')} />
+      <Flex />
+
     </Section>
   );
 };
@@ -161,12 +148,46 @@ const UploadBooks = (properties, context) => {
   return (
     <Section
       title="Book System Upload">
-      <Flex>
-        <Box>{selectedbook.title}</Box>
-        <Box>{selectedbook.author}</Box>
-        <Box>{selectedbook.title}</Box>
-        <Box>{selectedbook.author}</Box>
-      </Flex>
+      <LabeledList>
+        <LabeledList.Item label="Title">
+          <Button
+            fluid
+            textAlign="left"
+            width="auto"
+            disabled={selectedbook.copyright}
+            content={selectedbook.title}
+            onClick={() => act('titleedit')} />
+        </LabeledList.Item>
+        <LabeledList.Item label="Author">
+          <Button
+            fluid
+            textAlign="left"
+            width="auto"
+            disabled={selectedbook.copyright}
+            content={selectedbook.author}
+            onClick={() => act('authoredit')} />
+        </LabeledList.Item>
+        <LabeledList.Item label="Copyright">
+          {selectedbook.copyright}
+        </LabeledList.Item>
+        <LabeledList.Item label="Summary">
+          {selectedbook.summary}
+          <Button
+            fluid
+            textAlign="right"
+            width="auto"
+            disabled={selectedbook.copyright}
+            content="Edit Summary"
+            onClick={() => act('summaryedit')} />
+        </LabeledList.Item>
+      </LabeledList>
+      <Button
+        fluid
+        textAlign="center"
+        width="auto"
+        disabled={selectedbook.copyright}
+        content="Upload Book"
+        onClick={() => act('uploadbook')} />
     </Section>
   );
 };
@@ -174,12 +195,49 @@ const UploadBooks = (properties, context) => {
 const PatronManager = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
-    selectedbook,
+    checkout_data,
   } = data;
 
   return (
     <Section
       title="Checked Out Books">
+      <Table className="LibraryBooks__list">
+        <Table.Row bold>
+          <Table.Cell>Patron</Table.Cell>
+          <Table.Cell>Title</Table.Cell>
+          <Table.Cell>Time Left</Table.Cell>
+          <Table.Cell>Actions</Table.Cell>
+        </Table.Row>
+        {checkout_data
+          .map(checkout_data => (
+            <Table.Row
+              key={checkout_data.libraryid}>
+              <Table.Cell><Icon name="user-tag" /> {checkout_data.patron_name}</Table.Cell>
+              <Table.Cell textAlign="left">{checkout_data.title}</Table.Cell>
+              <Table.Cell>
+                {checkout_data.islate === 1
+                  ? checkout_data.timeleft
+                  : "LATE"}
+              </Table.Cell>
+              <Table.Cell textAlign="left">
+                <Button
+                  content="Mark Lost"
+                  icon="flag"
+                  color="bad"
+                  disabled={checkout_data.allow_fine}
+                  onClick={() => act('reportlost')}
+                />
+                <Button
+                  content="Apply Fine"
+                  icon="coins"
+                  color="bad"
+                  disabled={checkout_data.allow_fine}
+                  onClick={() => act('applyfine')}
+                />
+              </Table.Cell>
+            </Table.Row>
+          ))}
+      </Table>
     </Section>
   );
 };

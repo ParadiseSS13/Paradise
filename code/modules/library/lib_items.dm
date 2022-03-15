@@ -240,37 +240,7 @@
 		return 1
 	else if(istype(W, /obj/item/barcodescanner))
 		var/obj/item/barcodescanner/scanner = W
-		if(!scanner.check_connection(user))
-			return
-		switch(scanner.mode) // 0 - Scan only, 1 - Attempt to Add to Inventory, 2 - Checkout Book, 3 - Check In Book
-			if(0)
-				scanner.computer.select_book(src)
-				playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
-				to_chat(user, "[scanner]'s screen flashes: 'Book selected in library computer.'")
-			if(1)
-				if(scanner.computer.inventoryAdd(src))
-					playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
-					to_chat(user, "[scanner]'s screen flashes: 'Title added to general inventory.'")
-				else
-					playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-					to_chat(user, "[scanner]'s screen flashes: 'Title already in general inventory.'")
-			if(2)
-				var/confirm = alert("Are you sure you want to checkout [src] to [scanner.computer.patron_name]?", "Confirm Checkout", "Yes", "No")
-				if(confirm == "No")
-					return
-				if(scanner.computer.checkout(src))
-					playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
-					to_chat(user, "[scanner]'s screen flashes: 'Title checked out to [scanner.computer.patron_name].'")
-				else
-					playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-					to_chat(user, "[scanner]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'")
-			if(3)
-				if(scanner.computer.checkin(src))
-					playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
-					to_chat(user, "[scanner]'s screen flashes: 'Title checked back into general inventory.'")
-				else
-					playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-					to_chat(user, "[scanner]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'")
+		scanner.scanBook(src, user)
 		return
 	else if(istype(W, /obj/item/kitchen/knife) && !carved)
 		carve_book(user, W)
@@ -337,7 +307,69 @@
 	playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
 	to_chat(user, "[src] mode: [modedesc]")
 
-/obj/item/barcodescanner/proc/check_connection(mob/user as mob)
+/obj/item/barcodescanner/proc/scanID(obj/item/card/id/ID, mob/user as mob)
+	if(!check_connection(user))
+		return
+
+	if(ID.registered_name)
+		computer.patron_name = ID.registered_name
+	else
+		computer.patron_name = null
+		computer.patron_account = null //account number should reset every scan so we don't accidently have an account number but no name
+		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+		to_chat(user, "[src]'s screen flashes: 'ERROR! No name associated with this ID Card'")
+		return //no point in continuing if the ID card has no associated name!
+
+	playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
+	if(ID.associated_account_number)
+		computer.patron_account = ID.associated_account_number
+	else
+		computer.patron_account = null
+		to_chat(user, "[src]'s screen flashes: 'WARNING! Patron without associated account number Selected'")
+		return
+
+	to_chat(user, "[src]'s screen flashes: 'Patron Selected'")
+
+/obj/item/barcodescanner/proc/scanBook(obj/item/book/B, mob/user as mob)
+	if(!check_connection(user))
+		return
+
+	switch(mode) // 0 - Scan only, 1 - Attempt to Add to Inventory, 2 - Checkout Book, 3 - Check In Book
+		if(0)
+			computer.select_book(B)
+			playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
+			to_chat(user, "[src]'s screen flashes: 'Book selected in library computer.'")
+		if(1)
+			if(computer.inventoryAdd(B))
+				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
+				to_chat(user, "[src]'s screen flashes: 'Title added to general inventory.'")
+			else
+				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+				to_chat(user, "[src]'s screen flashes: 'Title already in general inventory.'")
+		if(2)
+			var/confirm
+			if(!computer.patron_account)
+				confirm = alert("Warning: patron does not have an associated account number! Are you sure you want to checkout [B] to [computer.patron_name]?", "Confirm Checkout", "Yes", "No")
+			else
+				confirm = alert("Are you sure you want to checkout [B] to [computer.patron_name]?", "Confirm Checkout", "Yes", "No")
+
+			if(confirm == "No")
+				return
+			if(computer.checkout(B))
+				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
+				to_chat(user, "[src]'s screen flashes: 'Title checked out to [computer.patron_name].'")
+			else
+				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+				to_chat(user, "[src]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'")
+		if(3)
+			if(computer.checkin(B))
+				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
+				to_chat(user, "[src]'s screen flashes: 'Title checked back into general inventory.'")
+			else
+				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+				to_chat(user, "[src]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'")
+
+/obj/item/barcodescanner/proc/check_connection(mob/user as mob) //fuck you null references!
 	if(computer)
 		return TRUE
 	else

@@ -8,17 +8,19 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
  */
 /datum/borrowbook // Datum used to keep track of who has borrowed what when and for how long.
 	var/bookname
-	var/bookid
+	var/libraryid
 	var/patron_name
 	var/patron_account
 	var/getdate
 	var/duedate
+	var/fined
 
 /*
  * Cachedbook datum
  */
 /datum/cachedbook // Datum used to cache the SQL DB books locally in order to achieve a performance gain.
 	var/id
+	var/libraryid
 	var/title
 	var/content
 	var/summary
@@ -26,6 +28,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	var/rating
 	var/copyright
 	var/path = /obj/item/book // Type path of the book to generate
+	var/programmatic //Hardcoded book?
 	var/ckey // ADDED 24/2/2015 - N3X
 	var/list/categories = list()
 	var/flagged = 0
