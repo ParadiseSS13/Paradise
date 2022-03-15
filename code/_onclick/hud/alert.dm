@@ -567,7 +567,7 @@ so as to remain in compliance with the most up-to-date laws."
 	if(poll)
 		var/success
 		if(G in poll.signed_up)
-			success = poll.remove_mob(G)
+			success = poll.remove_candidate(G)
 		else
 			success = poll.sign_up(G)
 		if(success)
@@ -591,7 +591,7 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 	var/mob/dead/observer/G = usr
 	if(G in poll.signed_up)
-		poll.remove_mob(G)
+		poll.remove_candidate(G)
 	else
 		poll.sign_up(G)
 	update_signed_up_alert()

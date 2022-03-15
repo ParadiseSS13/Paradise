@@ -234,7 +234,6 @@ SUBSYSTEM_DEF(ghost_spawns)
   * Arguments:
   * * M - The (controlled) mob to sign up
   * * silent - Whether no messages should appear or not. If not TRUE, signing up to this poll will also sign the mob up for identical polls
-  * * can_unregister - If TRUE, calling this proc again while already registered will remove M from the poll.
   */
 /datum/candidate_poll/proc/sign_up(mob/dead/observer/M, silent = FALSE)
 	. = FALSE
@@ -269,7 +268,7 @@ SUBSYSTEM_DEF(ghost_spawns)
  * * M - The mob to remove from the poll, if present.
  * * Silent - If true, no messages will be sent to M about their removal.
  */
-/datum/candidate_poll/proc/remove_mob(mob/dead/observer/M, silent = FALSE)
+/datum/candidate_poll/proc/remove_candidate(mob/dead/observer/M, silent = FALSE)
 	. = FALSE
 	if(!istype(M) || !M.key || !M.client)
 		return
@@ -290,7 +289,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 		for(var/existing_poll in SSghost_spawns.currently_polling)
 			var/datum/candidate_poll/P = existing_poll
 			if(src != P && hash == P.hash && (M in P.signed_up))
-				P.remove_mob(M, TRUE)
+				P.remove_candidate(M, TRUE)
 	return TRUE
 
 
