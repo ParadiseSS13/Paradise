@@ -30,6 +30,7 @@
 	database_id = KARMAPACKAGE_JOB_BLUESHIELD
 	friendly_name = "Blueshield"
 	karma_cost = 30
+	refundable = TRUE
 
 /datum/karma_package/job/barber
 	database_id = KARMAPACKAGE_JOB_BARBER
