@@ -266,7 +266,7 @@ SUBSYSTEM_DEF(ghost_spawns)
  *
  * Arguments:
  * * M - The mob to remove from the poll, if present.
- * * Silent - If true, no messages will be sent to M about their removal.
+ * * silent - If TRUE, no messages will be sent to M about their removal.
  */
 /datum/candidate_poll/proc/remove_candidate(mob/dead/observer/M, silent = FALSE)
 	. = FALSE
