@@ -149,6 +149,12 @@ About the new airlock wires panel:
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
 	update_icon()
 
+// Remove shielding to prevent metal/plasteel duplication
+/obj/machinery/door/airlock/proc/remove_shielding()
+	security_level = AIRLOCK_SECURITY_NONE
+	modify_max_integrity(normal_integrity)
+	damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
+
 /obj/machinery/door/airlock/proc/update_other_id()
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 		if(A.closeOtherId == closeOtherId && A != src)
