@@ -110,4 +110,4 @@
 			return
 		qdel(update_existing_note)
 	else // They dont have a note. Insert.
-		add_note(cookie_holder_ckey, serialized_text, adminckey = COOKIERECORD_PSUEDO_CKEY, logged = FALSE, checkrights = FALSE, automated = TRUE)
+		add_note(cookie_holder_ckey, serialized_text, adminckey = COOKIERECORD_PSUEDO_CKEY, logged = FALSE, checkrights = FALSE, automated = TRUE, sanitise_html = FALSE) // No sanitize because we rely on formatting

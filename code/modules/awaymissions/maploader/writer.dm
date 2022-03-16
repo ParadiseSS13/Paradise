@@ -60,7 +60,7 @@
 	if(length(templates) == 0)
 		CRASH("No templates found!")
 
-	var/key_length = round(log(length(letter_digits), length(templates) - 1) + 1) // or floor
+	var/key_length = round(log(length(letter_digits), max(length(templates) - 1, 1)) + 1) // or floor
 	var/list/keys[length(templates)]
 
 	// Write the list of key/model pairs to the file

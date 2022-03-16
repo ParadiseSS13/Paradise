@@ -138,6 +138,22 @@
 	if(href_list["link_forum_account"])
 		link_forum_account()
 		return // prevents a recursive loop where the ..() 5 lines after this makes the proc endlessly re-call itself
+	if(href_list["withdraw_consent"])
+		var/choice = alert(usr, "Are you SURE you want to withdraw your consent to the Terms of Service?\nYou will be instantaneously removed from the server and will have to re-accept the Terms of Service.", "Warning", "Yes", "No")
+		if(choice == "Yes")
+			// Update the DB
+			var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO privacy (ckey, datetime, consent) VALUES (:ckey, Now(), 0)", list(
+			"ckey" = ckey
+			))
+			if(!query.warn_execute())
+				to_chat(usr, "Well, this is embarassing. We tried to save your ToS withdrawal but the DB failed. Please contact the server host")
+				return
+
+			// I know its a very rare occurance, but I wouldnt doubt people using this to withdraw consent right when sec captures them
+			message_admins("[key_name_admin(usr)] was disconnected due to withdrawing their ToS consent.")
+			to_chat(usr, "<span class='boldannounce'>Your ToS consent has been withdrawn. You have been kicked from the server</span>")
+			del(src)
+
 	switch(href_list["action"])
 		if("openLink")
 			src << link(href_list["link"])
@@ -232,6 +248,9 @@
 		holder.owner = src
 
 	log_client_to_db(tdata) // Make sure our client exists in the DB
+
+	// We have a holder. Inform the relevant places
+	INVOKE_ASYNC(src, .proc/announce_join)
 
 	pai_save = new(src)
 
@@ -378,6 +397,9 @@
 	if(_2fa_alert)
 		to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
 
+	// This happens asyncronously
+	karmaholder.processRefunds(mob)
+
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
@@ -395,6 +417,7 @@
 	return ..()
 
 /client/Destroy()
+	announce_leave() // Do not put this below
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
@@ -410,6 +433,59 @@
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
+
+
+/client/proc/announce_join()
+	if(!holder)
+		return
+
+	if(holder.rights & R_MENTOR)
+		if(SSredis.connected)
+			var/list/mentorcounter = staff_countup(R_MENTOR)
+			var/msg = "**[ckey]** logged in. **[mentorcounter[1]]** mentor[mentorcounter[1] == 1 ? "" : "s"] online."
+			var/list/data = list()
+			data["author"] = "alice"
+			data["source"] = GLOB.configuration.system.instance_id
+			data["message"] = msg
+			SSredis.publish("byond.msay.out", json_encode(data))
+
+	else if(holder.rights & R_BAN)
+		if(SSredis.connected)
+			var/list/admincounter = staff_countup(R_BAN)
+			var/msg = "**[ckey]** logged in. **[admincounter[1]]** admin[admincounter[1] == 1 ? "" : "s"] online."
+			var/list/data = list()
+			data["author"] = "alice"
+			data["source"] = GLOB.configuration.system.instance_id
+			data["message"] = msg
+			SSredis.publish("byond.asay.out", json_encode(data))
+
+/client/proc/announce_leave()
+	if(!holder)
+		return
+
+	if(holder.rights & R_MENTOR)
+		if(SSredis.connected)
+			var/list/mentorcounter = staff_countup(R_MENTOR)
+			var/mentor_count = mentorcounter[1]
+			mentor_count-- // Exclude ourself
+			var/msg = "**[ckey]** logged out. **[mentor_count]** mentor[mentor_count == 1 ? "" : "s"] online."
+			var/list/data = list()
+			data["author"] = "alice"
+			data["source"] = GLOB.configuration.system.instance_id
+			data["message"] = msg
+			SSredis.publish("byond.msay.out", json_encode(data))
+
+	else if(holder.rights & R_BAN)
+		if(SSredis.connected)
+			var/list/admincounter = staff_countup(R_BAN)
+			var/admin_count = admincounter[1]
+			admin_count-- // Exclude ourself
+			var/msg = "**[ckey]** logged out. **[admin_count]** admin[admin_count == 1 ? "" : "s"] online."
+			var/list/data = list()
+			data["author"] = "alice"
+			data["source"] = GLOB.configuration.system.instance_id
+			data["message"] = msg
+			SSredis.publish("byond.asay.out", json_encode(data))
 
 
 /client/proc/donor_loadout_points()
@@ -910,14 +986,14 @@
   */
 /client/proc/retrieve_byondacc_data()
 	// Do not refactor this to use SShttp, because that requires the subsystem to be firing for requests to be made, and this will be triggered before the MC has finished loading
-	var/list/http[] = world.Export("http://www.byond.com/members/[ckey]?format=text")
+	var/list/http[] = HTTPGet("http://www.byond.com/members/[ckey]?format=text")
 	if(http)
 		var/status = text2num(http["STATUS"])
 
 		if(status == 200)
 			// This is wrapped in try/catch because lummox could change the format on any day without informing anyone
 			try
-				var/list/lines = splittext(file2text(http["CONTENT"]), "\n")
+				var/list/lines = splittext(http["CONTENT"], "\n")
 				var/list/initial_data = list()
 				var/current_index = ""
 				for(var/L in lines)
@@ -1025,6 +1101,22 @@
 		SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
 	else
 		SSambience.ambience_listening_clients -= src
+
+
+// Verb scoped to the client level so its ALWAYS available
+/client/verb/open_tos()
+	set category = "OOC"
+	set name = "Terms of Service"
+
+	var/output = GLOB.join_tos
+	output += "<hr><p>By withdrawing your consent, you acknowledge that you will be instantaneously kicked from the server and will have to re-accept the Terms of Service. If you do not wish to withdraw your consent at this moment, feel free to close this window.</p>"
+	output += "<p><a href='byond://?src=[UID()];withdraw_consent=1'>Withdraw consent</a></p>"
+	src << browse(output,"window=privacy_consent;size=600x500")
+	var/datum/browser/popup = new(src, "privacy_consent", "<div align='center'>Privacy Consent</div>", 500, 400)
+	popup.set_content(output)
+	popup.open(FALSE)
+	return
+
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

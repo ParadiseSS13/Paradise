@@ -151,6 +151,7 @@
 	name = "\improper finger gun"
 	desc = "Bang bang bang!"
 	icon_state = "fingergun"
+	force = 0
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
 	origin_tech = ""
 	flags = ABSTRACT | NODROP | DROPDEL

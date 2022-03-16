@@ -112,6 +112,12 @@
 			to_chat(usr, "<span class='danger'>You cannot apply this ban type on yourself.</span>")
 			return
 
+	// Check validity of the CID. Some have a lot of collisions due to bad industry practices (thanks walmart)
+	if(computerid && (computerid in GLOB.configuration.admin.common_cid_map))
+		to_chat(usr, "<span class='notice'>You attempted to apply a ban that includes the CID [computerid]. This CID has been ignored for the following reason: [GLOB.configuration.admin.common_cid_map[computerid]]</span>")
+		// Cancel it out. DO NOT USE NULL HERE. IT MAKES THE DB CRY. USE AN EMPTY STRING.
+		computerid = ""
+
 	var/who
 	for(var/client/C in GLOB.clients)
 		if(!who)

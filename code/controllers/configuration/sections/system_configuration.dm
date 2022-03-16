@@ -24,11 +24,14 @@
 	var/instance_id = "paradise_main"
 	/// Server internal IP
 	var/internal_ip = "127.0.0.1"
+	/// Are we using an external handler for TOS
+	var/external_tos_handler = FALSE
 
 /datum/configuration_section/system_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
 	CONFIG_LOAD_BOOL(shutdown_on_reboot, data["shutdown_on_reboot"])
 	CONFIG_LOAD_BOOL(is_production, data["is_production"])
+	CONFIG_LOAD_BOOL(external_tos_handler, data["external_tos_handler"])
 
 	CONFIG_LOAD_STR(topic_key, data["communications_password"])
 	CONFIG_LOAD_STR(medal_hub_address, data["medal_hub_address"])
