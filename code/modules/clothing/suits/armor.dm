@@ -335,7 +335,7 @@
 /obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
 		return 0
-	if(reaction_check(hitby))
+	if(reaction_check(hitby) && is_teleport_allowed(owner.z))
 		var/mob/living/carbon/human/H = owner
 		owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text]!</span>")
 		var/list/turfs = new/list()
