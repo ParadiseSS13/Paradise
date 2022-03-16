@@ -43,8 +43,7 @@
 		log_runtime(EXCEPTION("target was null while trying to vampire enthrall, attacker is [user] [user.key] \ref[user]"), user)
 		return FALSE
 	if(!user.mind.som)
-		stack_trace("Dantalion Thrall datum ended up null.")
-		return
+		CRASH("Dantalion Thrall datum ended up null.")
 	if(!ishuman(C))
 		to_chat(user, "<span class='warning'>You can only enthrall sentient humanoids!</span>")
 		return FALSE
