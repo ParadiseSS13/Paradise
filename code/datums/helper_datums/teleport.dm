@@ -27,13 +27,13 @@
 		return 0
 	if(!setDestination(adestination))
 		return 0
+	safe_turf_first = safe_turf_pick //before precision for bag of holding interference
 	if(!setPrecision(aprecision))
 		return 0
 	setEffects(aeffectin,aeffectout)
 	setForceTeleport(afteleport)
 	setSounds(asoundin,asoundout)
 	ignore_area_flag = bypass_area_flag
-	safe_turf_first = safe_turf_pick
 	return 1
 
 //must succeed
