@@ -186,10 +186,10 @@
 
 		var/list/bagholding = teleatom.search_contents_for(/obj/item/storage/backpack/holding)
 		if(bagholding.len)
-			if(safe_turf_first)
+			if(safe_turf_first) //If this is true, this is already a random teleport. Make it unsafe but do not touch the precision.
 				safe_turf_first = FALSE
 			else
-				precision = max(rand(1, 100)*bagholding.len, 100)
+				precision = max(rand(1, 100) * bagholding.len, 100)
 			
 			if(istype(teleatom, /mob/living))
 				var/mob/living/MM = teleatom
