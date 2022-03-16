@@ -526,7 +526,7 @@
 		if(prob(2) && prob(t))
 			var/phrases = list()
 			if(Target)
-				phrases += "[Target]... looks yummy..."
+				phrases += "[Target]... look yummy..."
 			if(nutrition < get_starve_nutrition())
 				phrases += "So... hungry..."
 				phrases += "Very... hungry..."
