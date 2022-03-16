@@ -12,10 +12,6 @@
 	damage = 5
 	stamina = 80
 
-/obj/item/projectile/bullet/c38
-	name = ".38 bullet"
-	damage = 25
-
 /obj/item/projectile/bullet/weakbullet/booze
 
 /obj/item/projectile/bullet/weakbullet/booze/on_hit(atom/target, blocked = 0)
@@ -35,10 +31,9 @@
 			M.AdjustDrowsy(10)
 			A.volume += 5 //Because we can
 
-/obj/item/projectile/bullet/weakbullet2
+/obj/item/projectile/bullet/rubber
 	name = "rubber bullet"
-	damage = 5
-	stamina = 35
+	stamina = 25
 	icon_state = "bullet-r"
 
 /obj/item/projectile/bullet/weakbullet3

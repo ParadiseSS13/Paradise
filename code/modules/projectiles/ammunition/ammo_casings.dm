@@ -33,7 +33,7 @@
 	desc = "A .38 bullet casing."
 	caliber = "38"
 	icon_state = "r-casing"
-	projectile_type = /obj/item/projectile/bullet/weakbullet2
+	projectile_type = /obj/item/projectile/bullet/rubber
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
