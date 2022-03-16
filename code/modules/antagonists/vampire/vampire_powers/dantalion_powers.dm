@@ -73,8 +73,8 @@
 	if(jobban_isbanned(H, ROLE_VAMPIRE))
 		SSticker.mode.replace_jobbanned_player(H, SPECIAL_ROLE_VAMPIRE_THRALL)
 	H.Stun(2)
-	user.create_log(CONVERSION_LOG, "vampire enthralled [H.real_name]")
-	H.create_log(CONVERSION_LOG, "was vampire entrhalled by [user.real_name]")
+	user.create_log(CONVERSION_LOG, "vampire enthralled", H)
+	H.create_log(CONVERSION_LOG, "was vampire enthralled", user)
 
 /obj/effect/proc_holder/spell/vampire/thrall_commune
 	name = "Commune"
