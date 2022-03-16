@@ -1,5 +1,5 @@
 //wrapper
-/proc/do_teleport(ateleatom, adestination, aprecision=0, afteleport=1, aeffectin=null, aeffectout=null, asoundin=null, asoundout=null, bypass_area_flag=FALSE)
+/proc/do_teleport(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
 	var/datum/teleport/instant/science/D = new
 	if(D.start(arglist(args)))
 		return 1
@@ -15,14 +15,14 @@
 	var/soundout //soundfile to play after teleportation
 	var/force_teleport = 1 //if false, teleport will use Move() proc (dense objects will prevent teleportation)
 	var/ignore_area_flag = FALSE
+	var/safe_turf_first = FALSE //If the teleport isn't precise and this is TRUE, only non-space, non-dense turfs will be selected, unless there's no other option for teleportation.
 
-
-/datum/teleport/proc/start(ateleatom, adestination, aprecision=0, afteleport=1, aeffectin=null, aeffectout=null, asoundin=null, asoundout=null, bypass_area_flag=FALSE)
+/datum/teleport/proc/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
 	if(!initTeleport(arglist(args)))
 		return 0
 	return 1
 
-/datum/teleport/proc/initTeleport(ateleatom, adestination, aprecision, afteleport, aeffectin, aeffectout, asoundin, asoundout, bypass_area_flag=FALSE)
+/datum/teleport/proc/initTeleport(ateleatom, adestination, aprecision, afteleport, aeffectin, aeffectout, asoundin, asoundout, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
 	if(!setTeleatom(ateleatom))
 		return 0
 	if(!setDestination(adestination))
@@ -33,6 +33,7 @@
 	setForceTeleport(afteleport)
 	setSounds(asoundin,asoundout)
 	ignore_area_flag = bypass_area_flag
+	safe_turf_first = safe_turf_pick
 	return 1
 
 //must succeed
@@ -104,8 +105,16 @@
 		var/center = get_turf(destination)
 		if(!center)
 			center = destination
-		for(var/turf/T in range(precision,center))
-			posturfs.Add(T)
+		if(safe_turf_first)
+			for(var/turf/T in range(precision,center))
+				if(istype(T, /turf/space))
+					continue
+				if(T.density)
+					continue
+				posturfs.Add(T)
+		if(!posturfs.len) //This is either an unsafe teleport or we didnt find a single safe turf for a safe teleport
+			for(var/turf/T in range(precision,center))
+				posturfs.Add(T)
 		destturf = safepick(posturfs)
 	else
 		destturf = get_turf(destination)
