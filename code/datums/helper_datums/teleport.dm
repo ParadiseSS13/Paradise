@@ -187,6 +187,7 @@
 		var/list/bagholding = teleatom.search_contents_for(/obj/item/storage/backpack/holding)
 		if(bagholding.len)
 			precision = max(rand(1, 100)*bagholding.len, 100)
+			safe_turf_first = FALSE
 			if(istype(teleatom, /mob/living))
 				var/mob/living/MM = teleatom
 				to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
