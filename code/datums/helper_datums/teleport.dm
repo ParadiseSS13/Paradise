@@ -106,14 +106,14 @@
 		if(!center)
 			center = destination
 		if(safe_turf_first)
-			for(var/turf/T in range(precision,center))
+			for(var/turf/T in range(precision, center))
 				if(istype(T, /turf/space))
 					continue
 				if(T.density)
 					continue
 				posturfs.Add(T)
 		if(!posturfs.len) //This is either an unsafe teleport or we didnt find a single safe turf for a safe teleport
-			for(var/turf/T in range(precision,center))
+			for(var/turf/T in range(precision, center))
 				posturfs.Add(T)
 		destturf = safepick(posturfs)
 	else
