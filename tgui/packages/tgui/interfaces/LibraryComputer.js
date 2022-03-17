@@ -1,6 +1,7 @@
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Flex, Icon, Input, LabeledList, Section, Table, Tabs } from '../components';
 import { Window } from '../layouts';
+import { ComplexModal, modalOpen } from './common/ComplexModal';
 
 export const LibraryComputer = (props, context) => {
   const { act, data } = useBackend(context);
@@ -110,7 +111,9 @@ const LibraryBooksList = (properties, context) => {
                 <Button
                   content="Order"
                   icon="print"
-                  onClick={() => act('orderbook')}
+                  onClick={() => act('orderbook', {
+                    id: booklist.id,
+                  })}
                 />
                 <Button
                   content="More..."
@@ -153,19 +156,21 @@ const UploadBooks = (properties, context) => {
           <Button
             fluid
             textAlign="left"
+            icon="pen"
             width="auto"
             disabled={selectedbook.copyright}
             content={selectedbook.title}
-            onClick={() => act('titleedit')} />
+            onClick={() => modalOpen(context, 'edit_title')} />
         </LabeledList.Item>
         <LabeledList.Item label="Author">
           <Button
             fluid
             textAlign="left"
+            icon="pen"
             width="auto"
             disabled={selectedbook.copyright}
             content={selectedbook.author}
-            onClick={() => act('authoredit')} />
+            onClick={() => modalOpen(context, 'edit_author')} />
         </LabeledList.Item>
         <LabeledList.Item label="Copyright">
           {selectedbook.copyright}
@@ -175,10 +180,11 @@ const UploadBooks = (properties, context) => {
           <Button
             fluid
             textAlign="right"
+            icon="pen"
             width="auto"
             disabled={selectedbook.copyright}
             content="Edit Summary"
-            onClick={() => act('summaryedit')} />
+            onClick={() => modalOpen(context, 'edit_summary')} />
         </LabeledList.Item>
       </LabeledList>
       <Button

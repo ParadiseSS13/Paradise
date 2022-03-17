@@ -1,8 +1,6 @@
 #define LIBRARY_BOOKS_PER_PAGE 25
 
 GLOBAL_DATUM_INIT(library_catalog, /datum/library_catalog, new())
-GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "Adult", "Reference", "Religion"))
-
 /*
  * Borrowbook datum
  */
@@ -46,8 +44,9 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 // Builds a SQL statement
 /datum/library_query
 	var/author
-	var/category
+	var/categories //need to make into a list
 	var/title
+	var/rating
 
 // So we can have catalogs of books that are programmatic, and ones that aren't.
 /datum/library_catalog
