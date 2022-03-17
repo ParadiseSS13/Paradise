@@ -78,8 +78,9 @@
 	RefreshParts()
 
 /obj/machinery/autolathe/upgraded/gamma/Initialize()
-    . = ..()
-    adjust_hacked(TRUE)
+	files = new /datum/research/autolathe/gamma(src)
+	. = ..()
+	adjust_hacked(TRUE)
 
 /obj/machinery/autolathe/Destroy()
 	SStgui.close_uis(wires)
