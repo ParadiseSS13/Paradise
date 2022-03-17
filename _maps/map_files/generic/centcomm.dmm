@@ -5484,8 +5484,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sM" = (
-/obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/mech_bay_recharge_floor,
 /area/syndicate_mothership)
 "sQ" = (
 /obj/machinery/computer/mech_bay_power_console,
@@ -8116,13 +8115,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
-"Fu" = (
-/obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
-	dir = 8
-	},
-/obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership)
 "Fw" = (
 /obj/machinery/conveyor/east{
 	id = "QMLoad2"
@@ -72042,7 +72034,7 @@ je
 XJ
 je
 XJ
-Fu
+je
 XJ
 je
 Yi
