@@ -174,14 +174,14 @@
 
 /datum/dna/gene/disability/speech/swedish/OnSay(mob/M, message)
 	// svedish
-	message = replacetextEx_char(message,"Я",pick("ЙА","Я"))
-	message = replacetextEx_char(message,"я",pick("йа","я"))
+	message = replacetextEx_char(message,"Я",pick("А","Я"))
+	message = replacetextEx_char(message,"я",pick("а","я"))
 
-	message = replacetextEx_char(message,"Ю",pick("ЙУ","Ю"))
-	message = replacetextEx_char(message,"ю",pick("йу","ю"))
+	message = replacetextEx_char(message,"Ю",pick("У","Ю"))
+	message = replacetextEx_char(message,"ю",pick("у","ю"))
 
-	message = replacetextEx_char(message,"Е",pick("ЙЭ","Е","Э"))
-	message = replacetextEx_char(message,"е",pick("йэ","е","э"))
+	message = replacetextEx_char(message,"Е",pick("Е","Э"))
+	message = replacetextEx_char(message,"е",pick("е","э"))
 
 	message = replacetextEx_char(message,"В",pick("Ф","В"))
 	message = replacetextEx_char(message,"в",pick("ф","в"))
@@ -209,9 +209,6 @@
 
 	message = replacetextEx_char(message,"Ч",pick("Ш","Щ","Ч"))
 	message = replacetextEx_char(message,"ч",pick("ш","щ","ч"))
-
-	message = replacetextEx_char(message,"НН",pick("НН","Н"))
-	message = replacetextEx_char(message,"нн",pick("нн","н"))
 
 	if(prob(10) && !M.is_muzzled())
 		message += " Борк[pick("",", борк",", борк, борк")]!"
