@@ -107,7 +107,7 @@
 			else if(role == ROLE_WIZARD)
 				message_say = "FOR THE FEDERATION!"
 			else if(role == ROLE_REV || role == "head revolutionary")
-				message_say = "FOR THE REVOLOUTION!"
+				message_say = "FOR THE REVOLUTION!"
 			else if(role == "death commando" || role == ROLE_ERT)
 				message_say = "FOR NANOTRASEN!"
 	user.say(message_say)
