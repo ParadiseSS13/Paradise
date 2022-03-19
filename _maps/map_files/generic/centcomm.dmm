@@ -11749,8 +11749,7 @@
 /area/holodeck/source_knightarena)
 "TR" = (
 /obj/machinery/door/airlock/centcom{
-	name = "Special Operations Dock";
-	req_access_txt = "101"
+	name = "Special Operations Dock"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -24842,7 +24841,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -25604,11 +25603,6 @@ aN
 Db
 aN
 aN
-Db
-aN
-aN
-aN
-Db
 aN
 Db
 aN
@@ -25618,7 +25612,7 @@ Db
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -25875,7 +25869,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -26646,8 +26640,7 @@ aN
 aN
 aN
 aN
-aN
-aN
+Db
 aN
 aN
 aN
@@ -26904,7 +26897,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -27675,7 +27668,7 @@ aN
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -27920,10 +27913,7 @@ ZG
 ZG
 Lw
 ZG
-Lw
 ZG
-ZG
-Us
 ZG
 Us
 ZG
@@ -28192,7 +28182,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -28963,7 +28953,7 @@ aN
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -29220,7 +29210,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -29716,9 +29706,6 @@ Zf
 Xz
 Zr
 ZG
-ft
-ZN
-ZN
 ZG
 ft
 ZN
@@ -29994,7 +29981,7 @@ aN
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -30251,7 +30238,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -31022,7 +31009,7 @@ Db
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
