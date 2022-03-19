@@ -54,6 +54,8 @@
 	var/chat_color
 	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
 	var/chat_color_darkened
+	/// The location our runechat message should appear. Should be src by default.
+	var/atom/runechat_msg_location
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -857,7 +859,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			speech_bubble_hearers += M.client
 
 			if((M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear() && M.stat != UNCONSCIOUS)
-				M.create_chat_message(src, message, FALSE, TRUE)
+				M.create_chat_message(src.runechat_msg_location, message, FALSE, TRUE)
 
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
@@ -1020,3 +1022,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		else
 			name = "[prefix][t]"
 	return t
+
+/**
+ * Updates the atom's runechat maptext display location.
+ */
+/atom/proc/update_runechat_msg_location()
+	return

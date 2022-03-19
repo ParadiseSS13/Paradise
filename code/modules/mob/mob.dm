@@ -1490,8 +1490,3 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	update_icons()	//apply the now updated overlays to the mob
 
 
-/**
- * Updates the mob's runechat maptext display location.
- */
-/mob/proc/update_runechat_msg_location()
-	return
