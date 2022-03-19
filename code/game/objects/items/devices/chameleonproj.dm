@@ -34,7 +34,7 @@
 		return
 	if(target.alpha < 255)
 		return
-	if(!target.invisibility)
+	if(target.invisibility)
 		return
 	if(!active_dummy)
 		if(istype(target,/obj/item) && !istype(target, /obj/item/disk/nuclear))
