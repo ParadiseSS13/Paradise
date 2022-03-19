@@ -188,6 +188,7 @@
 		door.name = base_name
 	door.previous_airlock = previous_assembly
 	electronics.forceMove(door)
+	electronics = null
 	qdel(src)
 	update_icon()
 
