@@ -112,7 +112,7 @@
 				if(T.density)
 					continue
 				posturfs.Add(T)
-		if(!posturfs.len) //This is either an unsafe teleport or we didnt find a single safe turf for a safe teleport
+		if(!length(posturfs)) //This is either an unsafe teleport or we didnt find a single safe turf for a safe teleport
 			for(var/turf/T in range(precision, center))
 				posturfs.Add(T)
 		destturf = safepick(posturfs)
