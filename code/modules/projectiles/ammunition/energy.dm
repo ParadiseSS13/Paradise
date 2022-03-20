@@ -249,7 +249,14 @@
 	projectile_type = /obj/item/projectile/energy/toxplasma
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
 	fire_sound = 'sound/weapons/taser2.ogg'
-	select_name = "plasma dart"
+	select_name = null //If the select name is null, it does not send a message of switching modes to the user, important on the pistol.
+
+/obj/item/ammo_casing/energy/charged_plasma
+	projectile_type = /obj/item/projectile/energy/charged_plasma
+	e_cost = 0 //Charge is used when you charge the gun. Prevents issues.
+	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
+	fire_sound = 'sound/weapons/taser2.ogg' // new sound QWERTY OK
+	select_name = null
 
 /obj/item/ammo_casing/energy/clown
 	projectile_type = /obj/item/projectile/clown

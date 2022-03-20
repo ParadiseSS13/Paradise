@@ -136,7 +136,15 @@
 
 /obj/item/projectile/energy/toxplasma
 	name = "plasma bolt"
-	icon_state = "energy"
-	damage = 20
-	damage_type = TOX
-	irradiate = 20
+	icon_state = "energy" // change this
+	damage = 15
+	damage_type = BURN
+
+/obj/item/projectile/energy/charged_plasma
+	name = "charged plasma bolt"
+	icon_state = "energy" // change this x2
+	damage = 45
+	damage_type = BURN
+	armour_penetration = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.
+	shield_buster = TRUE
+	is_reflectable = FALSE //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard.

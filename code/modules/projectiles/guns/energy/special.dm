@@ -305,15 +305,126 @@
 
 /obj/item/gun/energy/toxgun
 	name = "plasma pistol"
-	desc = "A specialized firearm designed to fire lethal bolts of toxins."
+	desc = "A specialized firearm designed to fire heated bolts of plasma. Can be overloaded for a shield breaking shot."
 	icon_state = "toxgun"
 	fire_sound = 'sound/effects/stealthoff.ogg'
-
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
-	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
+	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma, /obj/item/ammo_casing/energy/charged_plasma)
 	shaded_charge = 1
 	can_holster = TRUE
+	atom_say_verb = "beeps"
+	bubble_icon = "swarmer"
+	var/overloaded = FALSE
+	var/warned = FALSE
+
+/obj/item/gun/energy/toxgun/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSfastprocess, src)
+
+/obj/item/gun/energy/toxgun/Destroy()
+	STOP_PROCESSING(SSfastprocess, src)
+	return ..()
+
+/obj/item/gun/energy/toxgun/process() //keep your finger on the trigger soldier
+	..()
+	if(overloaded)
+		cell.charge -= 0.5 //2.5 per second, 25 every 10 seconds
+		if(cell.charge <= 25 && !warned)
+			warned = TRUE
+			playsound(src.loc, 'sound/machines/buzz-two.ogg', 75, 1)
+			atom_say("Caution, charge low. Forced discharge in under 10 seconds.")
+		if(cell.charge <= 0)
+			discharge()
+		if(istype(loc, /mob/living/carbon/human))
+			var/mob/living/carbon/human/user = loc
+			if(!user.is_in_active_hand(src))
+				discharge()
+		else
+			discharge()
+
+/obj/item/gun/energy/toxgun/attack_self(mob/living/user)
+	if(overloaded)
+		to_chat(user, "<span class='warning'>[src] is already overloaded!</span>")
+		return
+	if(cell.charge <= 140)
+		to_chat(user, "<span class='warning'>[src] does not have enough charge to be overloaded.</span>")
+		return
+	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
+	if(do_after(user, 25, target = src))
+		overloaded = TRUE
+		cell.charge -= 125
+		playsound(src.loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
+		atom_say("Overloading successful.")
+
+/obj/item/gun/energy/toxgun/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
+	if(overloaded)
+		select_fire(user)
+	return ..()
+
+/obj/item/gun/energy/toxgun/process_chamber()
+	if(overloaded)
+		select_fire(usr)
+		do_sparks(2, 1, src)
+		overloaded = FALSE
+		warned = FALSE
+	..()
+	update_icon()
+
+/obj/item/gun/energy/toxgun/emp_act(severity)
+	..()
+	if(prob(100 / severity))
+		if(overloaded)
+			discharge()
+
+/obj/item/gun/energy/toxgun/proc/discharge() //25% of the time, plasma leak. Otherwise, shoot at a random mob / turf nearby. If no proper mob is found when mob is picked, fire at a turf instead
+	overloaded = FALSE
+	warned = FALSE
+	do_sparks(2, 1, src)
+	if(prob(25))
+		visible_message("<span class='danger'>[src] vents heated plasma!</span>")
+		var/turf/simulated/T = get_turf(src)
+		if(istype(T))
+			T.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,15)
+		return
+	if(prob(50))
+		var/found_someone = FALSE
+		var/list/mob_targets = new/list()
+		for(var/mob/living/M in range(get_turf(src), 7))
+			if(M in range(get_turf(src), 1)) // shooting at the person holding it does not work
+				continue
+			mob_targets += M
+			found_someone = TRUE
+		if(found_someone)
+			var/mob/living/target = pick(mob_targets)
+			shootAt(target)
+			visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
+			return
+
+	visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
+	var/found_target = FALSE
+	var/list/turf_targets = new/list()
+	for(var/turf/T in range(get_turf(src), 7))
+		if(T in range(get_turf(src), 1))
+			continue
+		turf_targets += T
+		found_target = TRUE
+	if(found_target)
+		var/turf/target = pick(turf_targets)
+		shootAt(target)
+
+
+/obj/item/gun/energy/toxgun/proc/shootAt(atom/movable/target)
+	var/turf/T = get_turf(src)
+	var/turf/U = get_turf(target)
+	if(!T || !U)
+		return
+	var/obj/item/projectile/energy/charged_plasma/O = new /obj/item/projectile/energy/charged_plasma(get_turf(loc))
+	playsound(src.loc, 'sound/weapons/taser2.ogg', 75, 1)
+	O.current = T
+	O.yo = U.y - T.y
+	O.xo = U.x - T.x
+	O.fire()
 
 /obj/item/gun/energy/bsg
 	name = "\improper B.S.G"

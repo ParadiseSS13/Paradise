@@ -133,9 +133,9 @@
 
 /datum/design/plasmapistol
 	name = "Plasma Pistol"
-	desc = "A specialized firearm designed to fire lethal bolts of toxins."
+	desc = "A specialized firearm designed to fire heated bolts of plasma. Can be charged up for a shield breaking shot."
 	id = "ppistol"
-	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5)
+	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5, "plasmatech" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000, MAT_PLASMA = 3000)
 	build_path = /obj/item/gun/energy/toxgun

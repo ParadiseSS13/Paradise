@@ -167,6 +167,10 @@
 		current_charges--
 		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
+		if(istype(hitby, /obj/item/projectile))
+			var/obj/item/projectile/P = hitby
+			if(P.shield_buster)
+				current_charges = (max(0, (current_charges -= 3)))
 		if(!current_charges)
 			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
 			shield_state = "broken"

@@ -70,6 +70,15 @@
 	var/active = 0
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(istype(hitby, /obj/item/projectile))
+		var/obj/item/projectile/P = hitby
+		if(P.shield_buster && active)
+			force = 3
+			throwforce = 3
+			throw_speed = 3
+			w_class = WEIGHT_CLASS_TINY
+			playsound(owner, 'sound/weapons/saberoff.ogg', 35, 1)
+			to_chat(owner, "<span class='warning'>[hitby] overloaded your [src]!</span>")
 	return 0
 
 /obj/item/shield/energy/IsReflect()
