@@ -45,7 +45,7 @@
 		if(isliving(usr))
 			var/mob/living/L = usr
 			if(L.electrocute_act(17, src))
-				do_sparks(2, 1, src)
+				do_sparks(5, 1, src)
 				return 2
 
 	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
