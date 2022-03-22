@@ -10,9 +10,10 @@
 /obj/structure/blob/captured_nuke/Initialize(mapload, obj/machinery/nuclearbomb/N)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	N.forceMove(src)
+	N?.forceMove(src)
 
 /obj/structure/blob/captured_nuke/update_icon()
+	..()
 	cut_overlays()
 	var/image/nuke_overlay = image('icons/mob/blob.dmi', "blob_nuke_overlay")
 	nuke_overlay.appearance_flags = RESET_COLOR
