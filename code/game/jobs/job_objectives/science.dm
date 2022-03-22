@@ -8,8 +8,8 @@
 	per_unit = 1
 
 /datum/job_objective/further_research/get_description()
-	var/desc = "Research tech levels, and have cargo ship them to centcomm."
-	desc += "([units_completed] completed.)"
+	var/desc = "Изучить уровни технологий, и доставить их шаттлом снабжения на ЦК."
+	desc += "(сделано [units_completed])."
 	return desc
 
 /datum/job_objective/maximize_research/check_for_completion()
@@ -28,8 +28,8 @@
 	per_unit = 1
 
 /datum/job_objective/make_cyborg/get_description()
-	var/desc = "Make a cyborg."
-	desc += "([units_completed] created.)"
+	var/desc = "Построить киборга."
+	desc += "(построено [units_completed])."
 	return desc
 
 
@@ -40,6 +40,6 @@
 	per_unit = 1
 
 /datum/job_objective/make_ripley/get_description()
-	var/desc = "Make a Ripley or Firefighter."
-	desc += "([units_completed] created.)"
+	var/desc = "Построить АТМЕ «Рипли» или «Огнеборца»."
+	desc += "(построено [units_completed])."
 	return desc

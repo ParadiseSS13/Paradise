@@ -42,7 +42,7 @@
 	return 0
 
 /datum/game_mode/proc/declare_job_completion()
-	var/text = "<hr><b><u>Job Completion</u></b>"
+	var/text = "<hr><b><u>Выполнение работы</u></b>"
 
 	for(var/datum/mind/employee in SSticker.minds)
 
@@ -54,21 +54,21 @@
 
 		var/tasks_completed=0
 
-		text += "<br>[employee.name] was a [employee.assigned_role]:"
+		text += "<br>[employee.name] на должности [employee.assigned_role]:"
 
 		var/count = 1
 		for(var/datum/job_objective/objective in employee.job_objectives)
 			if(objective.is_completed(1))
-				text += "<br>&nbsp;-&nbsp;<B>Task #[count]</B>: [objective.get_description()] <font color='green'><B>Completed!</B></font>"
+				text += "<br>&nbsp;-&nbsp;<B>Задача №[count]</B>: [objective.get_description()] <font color='green'><B>Выполнена!</B></font>"
 				SSblackbox.record_feedback("nested tally", "employee_objective", 1, list("[objective.type]", "SUCCESS"))
 				tasks_completed++
 			else
-				text += "<br>&nbsp;-&nbsp;<B>Task #[count]</B>: [objective.get_description()] <font color='red'><b>Failed.</b></font>"
+				text += "<br>&nbsp;-&nbsp;<B>Задача №[count]</B>: [objective.get_description()] <font color='red'><b>Провалена.</b></font>"
 				SSblackbox.record_feedback("nested tally", "employee_objective", 1, list("[objective.type]", "FAIL"))
 			count++
 
 		if(tasks_completed >= 1)
-			text += "<br>&nbsp;<font color='green'><B>[employee.name] did [employee.p_their()] fucking job!</B></font>"
+			text += "<br>&nbsp;<font color='green'><B>[employee.name] сделал свою чёртову работу!</B></font>"
 			SSblackbox.record_feedback("tally", "employee_success", 1, "SUCCESS")
 		else
 			SSblackbox.record_feedback("tally", "employee_success", 1, "FAIL")

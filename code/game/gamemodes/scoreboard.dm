@@ -158,72 +158,72 @@
 	GLOB.score_crewscore -= plaguepoints
 
 	// Show the score - might add "ranks" later
-	to_chat(world, "<b>The crew's final score is:</b>")
+	to_chat(world, "<b>Итоговый результат экипажа:</b>")
 	to_chat(world, "<b><font size='4'>[GLOB.score_crewscore]</font></b>")
 
 	// Generate the score panel
-	var/dat = {"<meta charset="UTF-8"><b>Round Statistics and Score</b><br><hr>"}
+	var/dat = {"<meta charset="UTF-8"><b>Итоги смены</b><br><hr>"}
 	if(mode)
 		dat += mode.get_scoreboard_stats()
 
 	dat += {"
-	<b><u>General Statistics</u></b><br>
-	<u>The Good</u><br>
-	<b>Ore Mined:</b> [GLOB.score_oremined] ([GLOB.score_oremined * 2] Points)<br>"}
-	if(SSshuttle.emergency.mode == SHUTTLE_ENDGAME) dat += "<b>Shuttle Escapees:</b> [GLOB.score_escapees] ([GLOB.score_escapees * 25] Points)<br>"
+	<b><u>Общая статистика</u></b><br>
+	<u>Хорошее</u><br>
+	<b>Добыто руды:</b> [GLOB.score_oremined] ([GLOB.score_oremined * 2] [declension_ru(GLOB.score_oremined * 2, "очко", "очка", "очков")])<br>"}
+	if(SSshuttle.emergency.mode == SHUTTLE_ENDGAME) dat += "<b>Эвакуировалось на шаттле:</b> [GLOB.score_escapees] ([GLOB.score_escapees * 25] очков)<br>"
 	dat += {"
-	<b>Whole Station Powered:</b> [GLOB.score_powerbonus ? "Yes" : "No"] ([GLOB.score_powerbonus * 2500] Points)<br><br>
+	<b>Есть электропитание на всей станции:</b> [GLOB.score_powerbonus ? "Да" : "Нет"] ([GLOB.score_powerbonus * 2500] очков)<br><br>
 
-	<U>The Bad</U><br>
-	<b>Dead bodies on Station:</b> [GLOB.score_deadcrew] (-[GLOB.score_deadcrew * 25] Points)<br>
-	<b>Uncleaned Messes:</b> [GLOB.score_mess] (-[GLOB.score_mess] Points)<br>
-	<b>Station Power Issues:</b> [GLOB.score_powerloss] (-[GLOB.score_powerloss * 20] Points)<br>
-	<b>AI Destroyed:</b> [GLOB.score_deadaipenalty ? "Yes" : "No"] (-[GLOB.score_deadaipenalty * 250] Points)<br><br>
+	<U>Плохое</U><br>
+	<b>Трупов на станции:</b> [GLOB.score_deadcrew] (-[GLOB.score_deadcrew * 25] очков)<br>
+	<b>Неприбранная грязь:</b> [GLOB.score_mess] (-[GLOB.score_mess] [declension_ru(GLOB.score_mess, "очко", "очка", "очков")])<br>
+	<b>Проблемы с питанием на станции:</b> [GLOB.score_powerloss] (-[GLOB.score_powerloss * 20] очков)<br>
+	<b>ИИ уничтожен:</b> [GLOB.score_deadaipenalty ? "Да" : "Нет"] (-[GLOB.score_deadaipenalty * 250] очков)<br><br>
 
-	<U>The Weird</U><br>
-	<b>Food Eaten:</b> [GLOB.score_foodeaten] bites/sips<br>
-	<b>Times a Clown was Abused:</b> [GLOB.score_clownabuse]<br><br>
+	<U>Прочее</U><br>
+	<b>Съедено еды:</b> [GLOB.score_foodeaten] [declension_ru(GLOB.score_foodeaten, "укус", "укуса", "укусов")]/[declension_ru(GLOB.score_foodeaten, "глоток", "глотка", "глотков")]<br>
+	<b>Клоуна избили:</b> [GLOB.score_clownabuse] [declension_ru(GLOB.score_clownabuse, "раз", "раза", "раз")]<br><br>
 	"}
 	if(GLOB.score_escapees)
-		dat += {"<b>Richest Escapee:</b> [GLOB.score_richestname], [GLOB.score_richestjob]: $[num2text(GLOB.score_richestcash,50)] ([GLOB.score_richestkey])<br>
-		<b>Most Battered Escapee:</b> [GLOB.score_dmgestname], [GLOB.score_dmgestjob]: [GLOB.score_dmgestdamage] damage ([GLOB.score_dmgestkey])<br>"}
+		dat += {"<b>Самый богатый из эвакуировавшихся:</b> [GLOB.score_richestname], [GLOB.score_richestjob]: $[num2text(GLOB.score_richestcash,50)] ([GLOB.score_richestkey])<br>
+		<b>Самый потрёпанный из эвакуировавшихся:</b> [GLOB.score_dmgestname], [GLOB.score_dmgestjob]: [GLOB.score_dmgestdamage] урона ([GLOB.score_dmgestkey])<br>"}
 	else
 		if(SSshuttle.emergency.mode <= SHUTTLE_STRANDED)
-			dat += "The station wasn't evacuated!<br>"
+			dat += "Станция не была эвакуирована!<br>"
 		else
-			dat += "No-one escaped!<br>"
+			dat += "Никто не выжил!<br>"
 
 	dat += mode.declare_job_completion()
 
 	dat += {"
 	<hr><br>
-	<b><u>FINAL SCORE: [GLOB.score_crewscore]</u></b><br>
+	<b><u>ИТОГОВЫЙ РЕЗУЛЬТАТ: [GLOB.score_crewscore]</u></b><br>
 	"}
 
-	var/score_rating = "The Aristocrats!"
+	var/score_rating = "Аристократы!"
 	switch(GLOB.score_crewscore)
-		if(-99999 to SINGULARITY_DESERVES_BETTER) score_rating = 					"Even the Singularity Deserves Better"
-		if(SINGULARITY_DESERVES_BETTER+1 to SINGULARITY_FODDER) score_rating = 		"Singularity Fodder"
-		if(SINGULARITY_FODDER+1 to ALL_FIRED) score_rating = 						"You're All Fired"
-		if(ALL_FIRED+1 to WASTE_OF_OXYGEN) score_rating = 							"A Waste of Perfectly Good Oxygen"
-		if(WASTE_OF_OXYGEN+1 to HEAP_OF_SCUM) score_rating = 						"A Wretched Heap of Scum and Incompetence"
-		if(HEAP_OF_SCUM+1 to LAB_MONKEYS) score_rating = 							"Outclassed by Lab Monkeys"
-		if(LAB_MONKEYS+1 to UNDESIREABLES) score_rating = 							"The Undesirables"
-		if(UNDESIREABLES+1 to SERVANTS_OF_SCIENCE-1) score_rating = 				"Ambivalently Average"
-		if(SERVANTS_OF_SCIENCE to GOOD_BUNCH-1) score_rating = 						"Skillful Servants of Science"
-		if(GOOD_BUNCH to MACHINE_THIRTEEN-1) score_rating = 						"Best of a Good Bunch"
-		if(MACHINE_THIRTEEN to PROMOTIONS_FOR_EVERYONE-1) score_rating = 			"Lean Mean Machine Thirteen"
-		if(PROMOTIONS_FOR_EVERYONE to AMBASSADORS_OF_DISCOVERY-1) score_rating = 	"Promotions for Everyone"
-		if(AMBASSADORS_OF_DISCOVERY to PRIDE_OF_SCIENCE-1) score_rating = 			"Ambassadors of Discovery"
-		if(PRIDE_OF_SCIENCE to NANOTRANSEN_FINEST-1) score_rating = 				"The Pride of Science Itself"
-		if(NANOTRANSEN_FINEST to INFINITY) score_rating = 							"Nanotrasen's Finest"
+		if(-99999 to SINGULARITY_DESERVES_BETTER) score_rating = 					"Даже после выхода Сингулярности было бы лучше"
+		if(SINGULARITY_DESERVES_BETTER+1 to SINGULARITY_FODDER) score_rating = 		"Вами только Сингулярность кормить"
+		if(SINGULARITY_FODDER+1 to ALL_FIRED) score_rating = 						"Вы все уволены"
+		if(ALL_FIRED+1 to WASTE_OF_OXYGEN) score_rating = 							"На вас без толку был потрачен отличный кислород"
+		if(WASTE_OF_OXYGEN+1 to HEAP_OF_SCUM) score_rating = 						"Жалкое сборище недотёп и неудачников"
+		if(HEAP_OF_SCUM+1 to LAB_MONKEYS) score_rating = 							"Лабораторные мартышки вас превзошли"
+		if(LAB_MONKEYS+1 to UNDESIREABLES) score_rating = 							"Неудовлетворительно"
+		if(UNDESIREABLES+1 to SERVANTS_OF_SCIENCE-1) score_rating = 				"Амбивалентно средне"
+		if(SERVANTS_OF_SCIENCE to GOOD_BUNCH-1) score_rating = 						"Умелые научные ассистенты"
+		if(GOOD_BUNCH to MACHINE_THIRTEEN-1) score_rating = 						"Лучшие из довольно компетентных"
+		if(MACHINE_THIRTEEN to PROMOTIONS_FOR_EVERYONE-1) score_rating = 			"Образцовый экипаж"
+		if(PROMOTIONS_FOR_EVERYONE to AMBASSADORS_OF_DISCOVERY-1) score_rating = 	"Всем — премия!"
+		if(AMBASSADORS_OF_DISCOVERY to PRIDE_OF_SCIENCE-1) score_rating = 			"Пионеры новых открытий"
+		if(PRIDE_OF_SCIENCE to NANOTRANSEN_FINEST-1) score_rating = 				"Гордость науки во плоти"
+		if(NANOTRANSEN_FINEST to INFINITY) score_rating = 							"Лучшие кадры НаноТрейзен"
 
-	dat += "<b><u>RATING:</u></b> [score_rating]"
-	src << browse(dat, "window=roundstats;size=500x600")
+	dat += "<b><u>РЕЙТИНГ:</u></b> [score_rating]"
+	src << browse(dat, "window=roundstats;size=700x900")
 
 	for(var/mob/E in GLOB.player_list)
 		if(E.client && !E.get_preference(PREFTOGGLE_DISABLE_SCOREBOARD))
-			E << browse(dat, "window=roundstats;size=500x600")
+			E << browse(dat, "window=roundstats;size=700x900")
 
 // A recursive function to properly determine the wealthiest escapee
 /datum/controller/subsystem/ticker/proc/get_score_container_worth(atom/C, level=0)

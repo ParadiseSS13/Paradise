@@ -42,6 +42,15 @@
 	if(.)
 		. = "e[.]"
 
+/proc/declension_ru(num, single_name, double_name, multiple_name)
+	if(!isnum(num) || round(num) != num)
+		return double_name // fractional numbers
+	if(((num % 10) == 1) && ((num % 100) != 11)) // 1, not 11
+		return single_name
+	if(((num % 10) in 2 to 4) && !((num % 100) in 12 to 14)) // 2, 3, 4, not 12, 13, 14
+		return double_name
+	return multiple_name // 5, 6, 7, 8, 9, 0
+
 //like clients, which do have gender.
 /client/p_they(capitalized, temp_gender)
 	if(!temp_gender)
