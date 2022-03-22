@@ -180,8 +180,8 @@
 /area/derelict/bridge)
 "az" = (
 /obj/item/paper/djstation{
-	info = "<b>Aug. 28th, 2532</b><hr><small>Our listening outpost has relayed some alarming reports about TSF activity in the sector. While intercepted communications suggests it's a simple research effort, I can't shake the feeling that those dogged bastards have finally chased us down.<br><br>The Captain assures me that there's nothing to worry about, but I find it hard to take a man who's paranoid of a powered shower door seriously.<br><br><i>- Comms Officer Vostok</i></small>";
-	name = "personal log";
+	info = "<b>Август 28, 2532</b><hr><small>Наш пост прослушивания передал несколько тревожных сообщений об активности TSF в секторе. Хотя перехваченные сообщения говорят о том, что это просто исследовательская работа, я не могу отделаться от ощущения, что эти упрямые ублюдки наконец-то нас догнали.<br><br> Капитан уверяет меня, что волноваться не о чем, но мне трудно воспринимать всерьез человека, параноидально относящегося к двери душа с электроприводом.<br><br><i>- Офицер Связи Восток</i></small>";
+	name = "личный журнал";
 	pixel_x = 26;
 	pixel_y = 4
 	},
@@ -241,11 +241,11 @@
 "aG" = (
 /obj/structure/safe/floor,
 /obj/item/paper/djstation{
-	name = "love letter";
+	name = "любовное письмо";
 	pixel_x = -5;
 	pixel_y = -3;
 	layer = 2.9;
-	info = "<i>To my darling Sergei,<br><br>I will never forget those nights we spent on Cygni, or all the times you took me around in your 2452 Vincent. The way you looked at me that one night, that was the night I knew that you and I were of the same soul.<br><br>I know they made you sell your Vincent when you were reassigned, but I could not let such a beautiful thing go to rust. I have made arrangements and it is here, waiting for you.<br><br>I have enclosed the keys. Please, let them serve as a reminder always of our love and a reason to return. I beg of you, do not let our love go softly into the night.</i>"
+	info = "<i>Я никогда не забуду те ночи, которые мы провели на Cygni, и все те времена, когда ты возил меня на своем 2452 Винсенте. По тому, как ты посмотрел на меня той ночью, я поняла, что мы с тобой родные души.<br><br>Я знаю, что они заставили тебя продать своего Винсента, когда тебя переназначили, но я не мог позволить что бы такая красивая вещь ржавела. Я договорилася, и он здесь, ждет тебя.<br><br>Ключи я приложила. Пожалуйста, пусть они всегда служат напоминанием о нашей любви и поводом вернуться. Я умоляю тебя, не позволяй нашей любви тихо уйти в ночь.</i>"
 	},
 /obj/item/key{
 	name = "Vincent '52 Key";
@@ -488,8 +488,8 @@
 /area/derelict/bridge)
 "bj" = (
 /obj/item/paper/djstation{
-	info = "<i>The note is stained with ink-smudges, the forceful and shaky handwriting scrawled across it is barely legible.</i><br><br>Vostok stopped banging on the door an hour ago. he must be looking for something to try and force it. I am still unsure what's happened, but it's been six hours now.<br><br>My hands won't stop shaking, not even the cigarettes are helping.<br><br>Vostok, if you manage to get in and I am no longer concious, my medication is in the freezer next to my desk. Please. I'm counting on you.";
-	name = "shaky note"
+	info = "<i>Записка испачкана чернильными пятнами, сильный и дрожащий почерк, нацарапанный по ней, едва различим.</i><br><br>Восток перестал стучать в дверь час назад, он должен попататься спасти нас. Я до сих пор не знаю, что произошло, но уже прошло шесть часов.<br><br>Мои руки не перестают трястись, даже сигареты не помогают.<br><br>Восток, если тебе удастся войти и я потеряю сознание, мои лекарства в морозилке рядом с моим столом. Пожалуйста. Я на тебя рассчитываю.";
+	name = "ветхая записка"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -570,8 +570,8 @@
 	icon_state = "4-8"
 	},
 /obj/item/paper/djstation{
-	info = "This damned shower is going to be the death of me. I can see the way Vostok looks at me when I speak of it, the way his eyes sneer with amusement. Just this morning, I swear the damn thing tried to lock me in! I had to break the manual release just to get out, Vostok nearly shit himself he was laughing so hard.<br><br>Well, we'll see how long he'll be laughing when I write to Commissar Grigor about his insolence; the only thing he will be officer of then is the toilet!";
-	name = "captain's log"
+	info = "Этот проклятый душ станет моей смертью. Я вижу, как Восток смотрит на меня, когда я говорю о нем, как его глаза весело ухмыляются. Только сегодня утром, клянусь, эта чертова штука пыталась запереть меня. Мне пришлось сломать замок, чтобы выбраться, Восток чуть не обосрался от смеха, когда он это увидел и я ему расказал про это.<br><br>Ну, посмотрим, долго ли он будет смеяться, когда я напишу комиссару Григору о его дерзости; единственное, чем он тогда будет заниматься, это драить туалет!";
+	name = "капитанский журнал"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -1600,8 +1600,8 @@
 	pixel_y = 1
 	},
 /obj/item/paper/djstation{
-	info = "<b>Recommended Party</b> Comrade Blyatski<br><b>Signing Officer:</b> Mikail Gogochev<hr><small>Captain,<br><br>I recognize the nature of this request my seem strange, but please, hear me out. Comrade Blyatski, though he is but a wee bot, is like iron fist of Commissar Grigor himself! Just the other day he chased that useless bastard Totstoi clean out of brig, you should have seen the way that drunkard whimpered! Like a dog with his tail between his legs.<br><br>Anyways, I digress! If any one is worth of recognition, it is our ever-vigilant and beloved Blyatski, true champion of USSP.<br><br>If you wish to, perhaps, see his vigilance and dedication in person, well! You need only come to inspect armoury.<br><br>Comrade Blyatski awaits your decision.";
-	name = "recommendation for commendation"
+	info = "<b>Рекомендованая команда</b> Товарищ Бляцкий<br><b>Подпись Офицера:</b>  Микаил Гогочев<hr><small>Капитан,<br><br>Я понимаю характер этой просьбы, которая мне кажется странной, но выслушайте меня, пожалуйста: товарищ Бляцки хоть и бот, но как железный кулак самого комиссара Григора! Буквально на днях он выгнал из брига этого бесполезного ублюдка Тоттого, вы бы видели, как этот пьяница хныкал! Как собака с поджатым хвостом.<br><br>В любом случае, я отвлекся!Если кто и достоин признания, так это наш неусыпный и любимый Бляцкий, истинный чемпион USSP.<br><br> Если вы желаете, быть может, воочию увидеть его бдительность и самоотверженность, что ж! Вам нужно только прийти, чтобы осмотреть арсенал. Товарищ Бляцкий ждет вашего решения.";
+	name = "рекомендации для похвалы"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -1838,7 +1838,7 @@
 "dZ" = (
 /obj/structure/closet/crate/can,
 /obj/item/paper/crumpled{
-	info = "<b>I KNOW IT WAS YOU WHO THREW AWAY MY LUCKY UNDERWEAR THIS TIME. I SWEAR, IF I SEE YOUR SKINNY RAT NECK AROUND I AM GOING TO WRING IT UNTIL YOU GO PURPLE!<br><br>NOBODY! NOBODY TOUCHES BORIS' LUCKY UNDERWEAR WITHOUT SUFFERING THE CONSEQUENCES!</b>";
+	info = "<b>Я ЗНАЮ, ЭТО ТЫ УКРАЛ МОИ ЩАСЛИВЫЕ ТРУСЕЛЯ. КЛЯНУСЬ, ЕСЛИ Я УВИЖУ ХОТЬ ЕЩЕ ОДИН РАЗ ТВОЮ ТОЩУЮ КРЫСИНУЮ ШЕЮ, Я БУДУ ДУШИТЬ ЕЕ, ПОКА ТЫ НЕ ПОСИНЕЕШЬ И НЕ ПОТЕРЯЕШЬ СОЗНАНИЕ!<br><br>НИКТО! НИКТО НЕ ПРИКОСЕТСЯ К СЧАСТЛИВЫМ ТРУСАМ БОРИСА БЕЗ ПОСЛЕДСТВИЙ!</b>";
 	name = "LISTEN UP CYKA"
 	},
 /turf/simulated/floor/plasteel,
@@ -2602,8 +2602,8 @@
 "ft" = (
 /obj/structure/closet/crate/can,
 /obj/item/paper/crumpled{
-	info = "<i>This note has been effaced with all manner of crude drawings that are too vile to properly give a description to.</i><br><small>Totstoi,<br><br>I know it's you who's been feeding my cats alcohol, I do not care what your reasons are but you are getting in the way of important research. This is the fifth cat that I've had to replace this month because of your crude sense of humour, and I will be speaking with Chief Borachov if you don't stop.<br><br>- <i>Nikolai Kartov</i>, Deputy Researcher";
-	name = "Desist at once!"
+	info = "<i>Эта заметка зарисовано всевозможными грубыми рисунками, которые слишком мерзки, чтобы дать им описание.</i><br><small>Тоцтой,<br><br>Я знаю, что это ты поишь моих кошек алкоголем, мне все равно, какие у вас причины, но вы мешаете важным исследованиям. Это пятый кот, которого мне пришлось заменить в этом месяце из-за вашего грубого чувства юмора, и я буду говорить с шефом Бораховым, если вы не прекратите.<br><br>- <i>Николай Картов</i>, Deputy Researcher";
+	name = "Моментальный отказ!"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2912,8 +2912,8 @@
 "fY" = (
 /obj/structure/table/reinforced,
 /obj/item/paper/djstation{
-	info = "August 21 - Most Excellent Commissar Grigor<br>August 22 - Nobody<br>August 23 - Nobody<br>August 24 - Nobody<br>August 25 - Why do I even bother?<br>August 26 - Nobody<br>August 27 -";
-	name = "visitor log"
+	info = "Август 21 - Самый Превосходный Комиссар Григор<br>Август 22 - Никто<br>Август 23 - Никто<br>Август 24 - Никто<br>Август 25 - Почему я даже беспокоюсь?<br>Август 26 - Никто<br>Август 27 -";
+	name = "журнал посетителей"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3336,7 +3336,7 @@
 	pixel_y = -1
 	},
 /obj/item/paper/djstation{
-	info = "We have finally hit upon it, no more shall Katerina look past me in favor of other company! Experiment 432-A shows an incredible rate of cellular regeneration, and I posit that we have finally breaken down the great boundary between life and death--true biological immortality!<br><br>Of course, the aggressive behaviour is an undue side-effect, but it is only cat after all. I am certain a few sedative-laced cat treats will suffice to prep for autopsy.";
+	info = "Наконец-то мы наткнулись на это, Катерина больше не будет смотреть мимо меня в пользу другой компании! Эксперимент 432-A показывает невероятную скорость клеточной регенерации, и я утверждаю, что мы, наконец, преодолели великую границу между жизнью и смерть — настоящее биологическое бессмертие!<br><br>Конечно, агрессивное поведение — неуместный побочный эффект, но в конце концов это всего лишь кошка. Я уверен, что нескольких кошачьих лакомств с седативными добавками будет достаточно, чтобы подготовиться к вскрытию .";
 	name = "Experiment 432-A"
 	},
 /turf/simulated/floor/plasteel,
@@ -3527,8 +3527,8 @@
 "hj" = (
 /obj/structure/table/reinforced,
 /obj/item/paper/djstation{
-	info = "This is the fifth time this month I've had to replace the cabling to the damn lockdown circuit. It's bad enough the condensor is constantly on the fritz and the damn systems take nearly a week to cycle and reboot, but now I've got the captain breathing down my neck over his stupid shower and Commissar Grigor. Mikail was telling me the man's face went so red when the lights popped that you could see him glowing in the dark.<br><br>If he thought that was bad, well, if I hadn't installed an override in the mess hall we would have been sitting in the dark for the week.<br><br>Rusthven says we should be getting a new shipment of cabling, though I'm not sure we'll ever have enough supplies to keep this place properly operational.";
-	name = "maintenance report"
+	info = "Это уже пятый раз за месяц, когда мне приходится заменять кабель к чертовой цепи блокировки. Это плохо, конденсатор постоянно выходит из строя, а чертовым системам требуется почти неделя для цикла и перезагрузки, но теперь капитан дышит мне в спину из-за его дурацкого душа и комиссара Григора. Микаил говорил мне, что лицо этого человека так покраснело, когда вспыхнул свет, что можно было увидеть, как он светится в темноте.<br><br>Если бы он думал это было плохо, ну, если бы я не установил блокировку в столовой, мы бы неделю сидели в темноте.<br><br>Раствэн говорит, что мы должны получить новую партию кабелей, хотя я не уверен, что у нас когда-нибудь будет достаточно припасов, чтобы это место функционировало должным образом.";
+	name = "отчет об тех. обслухивании"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/eva{
@@ -3904,8 +3904,8 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/paper/djstation{
-	info = "Father Gregor,<br><br>You will have to forgive me, but I am unable to get your order for one of those 'veil shifters' like you asked. I am admittedly unsure what you planned to do with it, the business of the clergy is not mine, but Vostok was quick to put the kaibosh on your order after we lost the last shipment.<br><br>The boys are still reeling from the headaches from last time, and Khoma complains that he sees the blue lights whenever he closes his eyes.<br><br>I am not one to question a man of God but I beg of you, please do not try to order any more of these artifacts. They are cursed, and all manner of demons seem to follow in their wake.<br><br>- <small><i>Andrei Vostovich</i></small>, Supply Technician";
-	name = "My apologies, father"
+	info = "Отец Грегор,<br><br>Вы должны меня простить, но я не могу получить ваш заказ на одну из тех 'перевертышей вуали', о которых вы просили. Я правда не уверен, что вы планировали с ней делать , дело духовенства не мое, но Восток поспешил отменить ваш заказ после того, как мы потеряли последнюю партию.<br><br>Ребята еще не оправились от головной боли с прошлого раза, а Хома жалуется, что он видит синие огни всякий раз, когда закрывает глаза.<br><br>Я не из тех, кто задает вопросы человеку Божию, но умоляю вас, пожалуйста, не пытайтесь больше заказывать эти артефакты. Они прокляты, и за ними, кажется, следуют всевозможные демоны.<br><br>- <small><i>Андрей Восточович</i></small>, Supply Technician";
+	name = "Мои извинения, отец"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3979,8 +3979,8 @@
 "ie" = (
 /obj/structure/closet/secure_closet/chemical,
 /obj/item/paper/djstation{
-	info = "<i>A primitive rendition of a crying egg being stomped on by a boot has been scribbled in the right-hand margin of the paper.</i><br><br>Wahwahwah! True egghead! I do not give two shits about your cats or 'syence,' if you write to Chief I will tell that bitch Katerina about your baby boy crush.<br><br>Also, why you sign name on paper? I am next door, fuckhead, I know baby man note is yours as soon as I see it. You write girly letter like I am your lover, maybe if you spend less time in corner with cat you would be real man? Of course, you would still look like camel shit stuck to Totstoi's boot!";
-	name = "dear baby man"
+	info = "<i>Примитивное изображение плачущего яйца, на которое наступил сапог, нацарапано на правом поле листа.</i><br><br>Вхахахахаха! Вахвахва! Настоящий яйцеголовый! Да насрать на твоих котов или на 'syence', если ты напишешь Шефу, я расскажу этой суке Катерине о твоем увлечении к твему маленькому парню<br><br>Кроме того, почему ты подписываешься на бумаге? Я рядом, ублюдок, я знаю, что записка твоя для твоего парня. Как только я ее увижу, ты пишешь девчачье письмо, как будто я твой любовник, может быть, если бы ты проводил меньше времени в углу с кошкой, ты был бы настоящим мужчиной? Конечно, ты все равно выглядел бы как верблюжье дерьмо прилипшее к сапогу Тоттого!";
+	name = "дорогой слюнтяй"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -4159,8 +4159,8 @@
 /obj/structure/closet/crate/can,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/item/paper/crumpled{
-	info = "<i>This note has been crossed out so many times it's hard to make out its contents.</i><br><small>Katerina,<br><br><s>Your eyes are like diamonds,<br>Forged in the very fire of Cygni-A.<br>My heart yearns for you,<br>For your soft beauty<br>Fuckfucknothat'sbad.<br><br>Your voice is like liquid gold,<br>Smothering me in its delicate contours.<br>Never before had I known,<br>The touch,<br>The touch!<br>The touch of an angel's voice</s><br><br>note to self: stick to science, poetry is not my forte.</small>";
-	name = "love poem"
+	info = "<i>Эта записка была перечеркнута столько раз, что трудно разобрать ее содержание.</i><br><small>Катерина,<br><br><s>Глаза твои как бриллианты,<br>Добыты с недр Cygni-A.<br>Мое сердце тоскует по тебе,<br>По твоей нежной красоте<br>Бля блять нет это плохо.<br><br>Твой голос отрада для ушей,<br>Терзает меня своими нежными очертаниями.<br>Никогда раньше я не знал, оно как<br>Прикосновение,<br>Прикосновение!<br>Прикосновение ангелького голоса</s><br><br>заметка для себя: занимайся наукой, поэзия не моя сильная сторона.</small>";
+	name = "любовная поэма"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4507,8 +4507,8 @@
 /area/derelict/arrival)
 "jj" = (
 /obj/item/paper/djstation{
-	info = "Fuck. Fuckfuckfuck. I knew this mission was a mistake, that idiot Thomas got himself killed by some angry Russian security bot in the armoury, and the Lt. ran into the annex like a moron and got himself trapped. Now I'm just sitting on my god damn hands because this shuttle won't bloody move. Stupid USSP piece of shit docking arm must be jammed and I don't have the kit to go out and fix it.<br><br>Who the hell attacks a space station without EVA gear anyways? It's not like you can just bloody well waltz out into space with a hot coffee and shrug it off.";
-	name = "unknown report"
+	info = "Блять, сука. Блять. Я знал, что эта миссия была ошибкой, что этот идиот Томас был убит каким-то разъяренным русским роботом-охранником в оружейной, а лейтенант вбежал на станцию, как идиот, и попал в ловушку. Теперь я просто сижу , потому что этот шаттл, черт возьми, не двигается. Этот тупой кусок дерьма, стыковочный рычаг USSP, должно быть, заклинило, а у меня нет скафандра, чтобы выйти и починить его.<br><br>Кто, черт возьми, атакует космическую станцию ​​без него? В любом случае, без ригов выходить в открытый космос? Нельзя же, черт возьми, выйти в откртый космос с горячим кофе и раслабиться";
+	name = "неизвестный отчет"
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -5299,9 +5299,9 @@
 	layer = 4.1
 	},
 /obj/item/paper/djstation{
-	info = "I am worried about Totstoi. It is the fifth time this week he has been sent to the drunk tank, and no matter how many times I come to him he can only seem to find God at the bottom of a glass of Tunguska.<br><br>All this drinking, I hate to think poorly of the USSP but, in placing no cost on such things are we not just as bad as the TSF? Many have even forgotten their true heritage in favour of Galactic Common. Such indulgence, such forgetfulness, it can not be good for the spirits, let alone the soul.";
+	info = "Я беспокоюсь о Тотстой. Его уже пятый раз за эту неделю отправляют в вытрезвитель, и сколько бы я ни приходил к нему, он может найти Бога только на дне стакана Тунгуской.<br><brВсе это пьянство, я ненавижу плохо думать о USSP, но, не тратя денег на такие мелочи, разве мы не так же плохи, как TSF? Многие даже забыли свое истинное наследие в пользу Galactic Common. Такая снисходительность, такая забывчивость.  , это не может быть хорошо для духов, не говоря уже о душе.";
 	layer = 2;
-	name = "a confession"
+	name = "признание"
 	},
 /turf/simulated/floor/carpet,
 /area/derelict/crew_quarters)
@@ -8651,8 +8651,8 @@
 /obj/item/trash/popcorn,
 /obj/item/trash/semki,
 /obj/item/paper/crumpled{
-	info = "That idiot bastard Totstoi found my button. Stupid drunk was trying to put change into the free cigarette machine and dropped it. Lo' and behold, dumbass decides to look under the machine for his precious rubles.<br><br>Thankfully that green-livered swine cares more about drink than anything else, managed to buy him off. Will have to move the switch somewhere else now, but where?";
-	name = "worn paper"
+	info = "Идиот ублюдок Тотстой нашел мою кнопку. Тупой пьяный пытался положить сдачу в автомат для бесплатных сигарет и уронил ее. Глядь, тупица решает поискать под автоматом свои драгоценные рубли.<br><br>К счастью, эта зеленопеченая сволочь больше всего на свете заботится о выпивке, сумела откупиться от него. Придется теперь переместить переключатель в другое место, но куда?";
+	name = "потертая бумага"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
