@@ -132,11 +132,17 @@
 
 	// Transfer modal information if there is one
 	data["modal"] = ui_modal_data(src)
+
 	return data
 
-/obj/machinery/computer/library/ui_act(action, list/params)
+/obj/machinery/computer/library/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
+	if(stat & (NOPOWER|BROKEN))
+		return
+
+	if(ui_act_modal(action, params, ui, state))
+		return TRUE
 
 	switch(action)
 		if("incrementpage") // Select Page
