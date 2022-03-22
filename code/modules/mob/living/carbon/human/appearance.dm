@@ -59,7 +59,7 @@
 	return 1
 
 /mob/living/carbon/human/proc/change_markings(var/marking_style, var/location = "body")
-	if(!marking_style || (location != "tail" && m_styles[location] == marking_style) || (location == "tail" && (!bodyparts_by_name["tail"] || bodyparts_by_name["tail"].m_styles["tail"] == marking_style)) || !(marking_style in GLOB.marking_styles_list))
+	if(!marking_style || (location != "tail" && m_styles[location] == marking_style) || (location == "tail" && (!bodypart_tail || bodypart_tail.m_styles["tail"] == marking_style)) || !(marking_style in GLOB.marking_styles_list))
 		return
 
 	var/datum/sprite_accessory/body_markings/marking = GLOB.marking_styles_list[marking_style]
@@ -84,16 +84,16 @@
 
 	if(location == "tail" && marking.name != "None")
 		var/datum/sprite_accessory/body_markings/tail/tail_marking = GLOB.marking_styles_list[marking_style]
-		if(!bodyparts_by_name["tail"].body_accessory)
+		if(!bodypart_tail.body_accessory)
 			if(tail_marking.tails_allowed)
 				return
 		else
-			if(!tail_marking.tails_allowed || !(bodyparts_by_name["tail"].body_accessory.name in tail_marking.tails_allowed))
+			if(!tail_marking.tails_allowed || !(bodypart_tail.body_accessory.name in tail_marking.tails_allowed))
 				return
 
 
 	if(location == "tail")
-		bodyparts_by_name["tail"].m_styles["tail"] = marking_style
+		bodypart_tail.m_styles["tail"] = marking_style
 		stop_tail_wagging()
 	else
 		m_styles[location] = marking_style
@@ -102,18 +102,18 @@
 
 /mob/living/carbon/human/proc/change_body_accessory(var/body_accessory_style)
 	var/found
-	if(!body_accessory_style || !bodyparts_by_name["tail"] || (bodyparts_by_name["tail"].body_accessory && bodyparts_by_name["tail"].body_accessory.name == body_accessory_style))
+	if(!body_accessory_style || !bodypart_tail || (bodypart_tail.body_accessory && bodypart_tail.body_accessory.name == body_accessory_style))
 		return
 
 	for(var/B in GLOB.body_accessory_by_name)
 		if(B == body_accessory_style)
-			bodyparts_by_name["tail"].body_accessory = GLOB.body_accessory_by_name[body_accessory_style]
+			bodypart_tail.body_accessory = GLOB.body_accessory_by_name[body_accessory_style]
 			found = 1
 
 	if(!found)
 		return
 
-	bodyparts_by_name["tail"].m_styles["tail"] = "None"
+	bodypart_tail.m_styles["tail"] = "None"
 	update_tail_layer()
 	return 1
 
@@ -404,7 +404,7 @@
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H && location == "head")
 		return valid_markings //No head, no head markings.
-	if(!bodyparts_by_name["tail"] && location == "tail")
+	if(!bodypart_tail && location == "tail")
 		return valid_markings //No tail, no head markings.
 
 	for(var/marking in GLOB.marking_styles_list)
@@ -415,13 +415,13 @@
 		if(S.marking_location != location) //If the marking isn't for the location we desire, skip.
 			continue
 		if(location == "tail")
-			if(!(bodyparts_by_name["tail"].dna.species.name in S.species_allowed)) //If the user is not of a species the marking style allows, skip it. Otherwise, add it to the list.
+			if(!(bodypart_tail.dna.species.name in S.species_allowed)) //If the user is not of a species the marking style allows, skip it. Otherwise, add it to the list.
 				continue
-			if(!bodyparts_by_name["tail"].body_accessory)
+			if(!bodypart_tail.body_accessory)
 				if(S.tails_allowed)
 					continue
 			else
-				if(!S.tails_allowed || !(bodyparts_by_name["tail"].body_accessory.name in S.tails_allowed))
+				if(!S.tails_allowed || !(bodypart_tail.body_accessory.name in S.tails_allowed))
 					continue
 		else if(!(dna.species.name in S.species_allowed)) //If the user is not of a species the marking style allows, skip it. Otherwise, add it to the list.
 			continue
@@ -451,7 +451,7 @@
 			if(!istype(A))
 				valid_body_accessories["None"] = "None" //The only null entry should be the "None" option.
 				continue
-			if(bodyparts_by_name["tail"] && (bodyparts_by_name["tail"].dna.species.name in A.allowed_species)) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
+			if(bodypart_tail && (bodypart_tail.dna.species.name in A.allowed_species)) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
 				valid_body_accessories += B
 
 	return sortTim(valid_body_accessories, /proc/cmp_text_asc)

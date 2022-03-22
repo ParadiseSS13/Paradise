@@ -12,10 +12,12 @@
 	name = "blue snowmobile"
 	icon_state = "bluesnowmobile"
 
-/obj/vehicle/snowmobile/key/New()
+/obj/vehicle/snowmobile/key/Initialize(mapload)
+	. = ..()
 	inserted_key = new /obj/item/key/snowmobile(null)
 
-/obj/vehicle/snowmobile/blue/key/New()
+/obj/vehicle/snowmobile/blue/key/Initialize(mapload)
+	. = ..()
 	inserted_key = new /obj/item/key/snowmobile(null)
 
 /obj/item/key/snowmobile

@@ -505,6 +505,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		dir = 2
 
 	if(victim)
+		victim.update_tail()
 		victim.updatehealth("droplimb")
 		victim.UpdateDamageIcon()
 		victim.regenerate_icons()

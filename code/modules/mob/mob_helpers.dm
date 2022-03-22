@@ -219,9 +219,9 @@
 			if(lowertext(newletter)=="ц")	newletter="к"
 			if(lowertext(newletter)=="э")	newletter="о"
 			if(lowertext(newletter)=="г")	newletter="х"
-		switch(rand(1,15))
+		switch(rand(1,8))
 			if(1,3,5,8)	newletter="[lowertext(newletter)]"
-			if(2,4,6,15)	newletter="[uppertext(newletter)]"
+			if(2,4,6)	newletter="[uppertext(newletter)]"
 			if(7)	newletter+=pick(slurletters)
 			//if(9,10)	newletter="<b>[newletter]</b>"
 			//if(11,12)	newletter="<big>[newletter]</big>"
@@ -680,6 +680,8 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				newletter="nglu"
 			if(5)
 				newletter="glor"
+			else
+				pass()
 		newphrase+="[newletter]";counter-=1
 	return newphrase
 

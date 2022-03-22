@@ -4,14 +4,14 @@
 	icon = 'icons/obj/forensics.dmi'
 	icon_state = "dnakit"
 
-	New()
-		..()
-		new /obj/item/forensics/swab(src)
-		new /obj/item/forensics/swab(src)
-		new /obj/item/forensics/swab(src)
-		new /obj/item/forensics/swab(src)
-		new /obj/item/forensics/swab(src)
-		new /obj/item/forensics/swab(src)
+/obj/item/storage/box/swabs/New()
+	..()
+	new /obj/item/forensics/swab(src)
+	new /obj/item/forensics/swab(src)
+	new /obj/item/forensics/swab(src)
+	new /obj/item/forensics/swab(src)
+	new /obj/item/forensics/swab(src)
+	new /obj/item/forensics/swab(src)
 
 /obj/item/storage/box/fingerprints
 	name = "box of fingerprint cards"
@@ -19,11 +19,11 @@
 	icon = 'icons/obj/forensics.dmi'
 	icon_state = "dnakit"
 
-	New()
-		..()
-		new /obj/item/sample/print(src)
-		new /obj/item/sample/print(src)
-		new /obj/item/sample/print(src)
-		new /obj/item/sample/print(src)
-		new /obj/item/sample/print(src)
-		new /obj/item/sample/print(src)
+/obj/item/storage/box/fingerprints/New()
+	..()
+	new /obj/item/sample/print(src)
+	new /obj/item/sample/print(src)
+	new /obj/item/sample/print(src)
+	new /obj/item/sample/print(src)
+	new /obj/item/sample/print(src)
+	new /obj/item/sample/print(src)

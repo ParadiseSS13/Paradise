@@ -136,27 +136,10 @@
 /obj/machinery/seed_extractor/interact(mob/user)
 	if(stat)
 		return 0
-	
-	ui_interact(user) //Перенаправление: Расширенный инвентарь и tgui
-	return
-	
+
 	add_fingerprint(user)
 	user.set_machine(src)
-
-	var/dat = {"<meta charset="UTF-8"><b>Stored seeds:</b><br>"}
-
-	if (contents.len == 0)
-		dat += "<font color='red'>No seeds</font>"
-	else
-		dat += "<table cellpadding='3' style='text-align:center;'><tr><td>Name</td><td>Lifespan</td><td>Endurance</td><td>Maturation</td><td>Production</td><td>Yield</td><td>Potency</td><td>Stock</td></tr>"
-		for (var/datum/seed_pile/O in piles)
-			dat += "<tr><td>[O.name]</td><td>[O.lifespan]</td><td>[O.endurance]</td><td>[O.maturation]</td>"
-			dat += "<td>[O.production]</td><td>[O.yield]</td><td>[O.potency]</td><td>"
-			dat += "<a href='byond://?src=[src.UID()];name=[O.name];li=[O.lifespan];en=[O.endurance];ma=[O.maturation];pr=[O.production];yi=[O.yield];pot=[O.potency]'>Vend</a> ([O.amount] left)</td></tr>"
-		dat += "</table>"
-	var/datum/browser/popup = new(user, "seed_ext", name, 700, 400)
-	popup.set_content(dat)
-	popup.open()
+	ui_interact(user)
 	return
 
 /obj/machinery/seed_extractor/Topic(var/href, var/list/href_list)
@@ -190,31 +173,6 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/seed_extractor/proc/add_seed(obj/item/seeds/O)
-	return add_seedExt(O) //Перенаправление: Расширенный инвентарь и tgui
-	
-	if(contents.len >= 999)
-		to_chat(usr, "<span class='notice'>\The [src] is full.</span>")
-		return 0
-
-	if(istype(O.loc,/mob))
-		var/mob/M = O.loc
-		if(!M.drop_item())
-			return 0
-	else if(istype(O.loc,/obj/item/storage))
-		var/obj/item/storage/S = O.loc
-		S.remove_from_storage(O,src)
-
-	O.forceMove(src)
-	. = 1
-	for (var/datum/seed_pile/N in piles)
-		if (O.plantname == N.name && O.lifespan == N.lifespan && O.endurance == N.endurance && O.maturation == N.maturation && O.production == N.production && O.yield == N.yield && O.potency == N.potency)
-			++N.amount
-			return
-
-	piles += new /datum/seed_pile(O.plantname, O.lifespan, O.endurance, O.maturation, O.production, O.yield, O.potency)
-	return
-	
 //Расширенный инвентарь и tgui
 /datum/seed_pile/extended
 	var/id_string = ""
@@ -255,7 +213,12 @@
 
 	return strain_text
 
-/obj/machinery/seed_extractor/proc/add_seedExt(obj/item/seeds/O)
+/obj/machinery/seed_extractor/proc/add_seed(obj/item/seeds/O)
+
+	if(contents.len >= 999)
+		to_chat(usr, "<span class='notice'>\The [src] is full.</span>")
+		return 0
+
 	if(istype(O.loc,/mob))
 		var/mob/M = O.loc
 		if(!M.drop_item())
@@ -280,10 +243,6 @@
 	return
 
 /obj/machinery/seed_extractor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-
-	add_fingerprint(user)
-	user.set_machine(src)
-
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "SeedExtractor", name, 900, 600)

@@ -581,7 +581,7 @@
 				for(var/i = 1, i <= ratio, i++)
 					if(!ismob(loc))
 						break
-					icon_state = "[ammo_type[select].alt_select_name][i]"
+					icon_state = "[shot_name][i]"
 					sleep(1)
 		else if(is_equipped && is_equipped != ismob(loc))
 			spawn(2)
@@ -589,7 +589,7 @@
 					if(ismob(loc))
 						break
 					if(i)
-						icon_state = "[ammo_type[select].alt_select_name][i]"
+						icon_state = "[shot_name][i]"
 					else
 						set_drop_icon()
 					sleep(1)

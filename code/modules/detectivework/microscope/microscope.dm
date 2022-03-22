@@ -1,8 +1,5 @@
 //This is the output of the stringpercent(print) proc, and means about 80% of
 //the print must be there for it to be complete.  (Prints are 32 digits)
-var/const/FINGERPRINT_COMPLETE = 6
-proc/is_complete_print(print)
-	return stringpercent(print) <= FINGERPRINT_COMPLETE
 
 //microscope code itself
 /obj/machinery/microscope
@@ -15,6 +12,7 @@ proc/is_complete_print(print)
 
 	var/obj/item/sample = null
 	var/report_num = 0
+	var/fingerprint_complete = 6
 
 /obj/machinery/microscope/Initialize(mapload)
 	. = ..()
@@ -102,7 +100,7 @@ proc/is_complete_print(print)
 
 /obj/machinery/microscope/proc/remove_sample(mob/living/remover)
 	if(!istype(remover) || remover.incapacitated() || !Adjacent(remover))
-		return ..()
+		return
 	if(!sample)
 		to_chat(remover, "<span class='warning'>Внутри микроскопа нет образца!</span>")
 		return
@@ -111,6 +109,9 @@ proc/is_complete_print(print)
 	remover.put_in_hands(sample)
 	sample = null
 	update_icon()
+
+/obj/machinery/microscope/proc/is_complete_print(print)
+	return stringpercent(print) <= fingerprint_complete
 
 /obj/machinery/microscope/AltClick()
 	remove_sample(usr)

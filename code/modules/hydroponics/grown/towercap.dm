@@ -100,7 +100,7 @@
 /obj/item/grown/log/steel/CheckAccepted(obj/item/I)
 	return FALSE
 
-obj/item/seeds/bamboo
+/obj/item/seeds/bamboo
 	name = "pack of bamboo seeds"
 	desc = "Plant known for their flexible and resistant logs."
 	icon_state = "seed-bamboo"

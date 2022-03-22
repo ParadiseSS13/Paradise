@@ -78,7 +78,7 @@
 
 /obj/machinery/dnaforensics/proc/remove_sample(mob/living/remover)
 	if(!istype(remover) || remover.incapacitated() || !Adjacent(remover))
-		return ..()
+		return
 	if(!swab)
 		to_chat(remover, "<span class='warning'>Внутри сканера нет образца!.</span>")
 		return

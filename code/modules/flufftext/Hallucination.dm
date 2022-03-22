@@ -41,7 +41,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 			continue
 		var/list/current = list()
 		switch(rand(100))
-			if(1 to 50)
+			if(0 to 50)
 				current = minor
 			if(51 to 85)
 				current = medium
@@ -821,7 +821,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 		if("sounds")
 			//Strange audio
 //			to_chat(src, "Strange Audio")
-			switch(rand(1,18))
+			switch(rand(1,20))
 				if(1)
 					playsound_local(null,'sound/machines/airlock_open.ogg', 15, 1)
 				if(2)

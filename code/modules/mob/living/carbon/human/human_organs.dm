@@ -6,6 +6,7 @@
 
 /mob/living/carbon/human/var/list/bodyparts = list()
 /mob/living/carbon/human/var/list/bodyparts_by_name = list() // map organ names to organs
+/mob/living/carbon/human/var/obj/item/organ/external/tail/bodypart_tail = null
 
 // Takes care of organ related updates, such as broken and missing limbs
 /mob/living/carbon/human/handle_organs()
@@ -169,3 +170,9 @@ I use this to standardize shadowling dethrall code
 	for(var/obj/item/organ/external/limb in bodyparts)
 		if(limb.status & ORGAN_SPLINTED)
 			splinted_limbs += limb
+
+/mob/living/carbon/human/proc/update_tail()
+	if(bodyparts_by_name["tail"])
+		bodypart_tail = bodyparts_by_name["tail"]
+	else
+		bodypart_tail = null

@@ -200,6 +200,8 @@
 	for(var/name in H.bodyparts_by_name)
 		H.bodyparts |= H.bodyparts_by_name[name]
 
+	H.update_tail()
+
 	for(var/obj/item/organ/external/O in H.bodyparts)
 		O.owner = H
 

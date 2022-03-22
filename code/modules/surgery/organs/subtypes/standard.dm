@@ -315,7 +315,17 @@
 
 /obj/item/organ/external/tail/sync_colour_to_human(var/mob/living/carbon/human/H)
 	..()
-	H.sync_tail()
+	var/datum/sprite_accessory/tail_marking_style = GLOB.marking_styles_list[H.m_styles["tail"]]
+	if(body_accessory && (dna.species.name in body_accessory.allowed_species))
+		body_accessory = body_accessory
+	if(body_accessory)
+		if(body_accessory.name in tail_marking_style.tails_allowed)
+			m_styles["tail"] = H.m_styles["tail"]
+	else
+		if(dna.species.name in tail_marking_style.species_allowed)
+			m_styles["tail"] = H.m_styles["tail"]
+	if(dna.species.bodyflags & HAS_SKIN_COLOR)
+		m_colours["tail"] = H.m_colours["tail"]
 
 /obj/item/organ/external/tail/monkey
 	species_type = /datum/species/monkey

@@ -169,8 +169,8 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 /obj/item/sibyl_system_mod/proc/check_select()
 	if(isnull(weapon))
 		return FALSE
-	var/select_name = weapon.ammo_type[weapon.select].select_name
-	if(lowertext(select_name) in available)
+	var/obj/item/ammo_casing/energy/ammo = weapon.ammo_type[weapon.select]
+	if(lowertext(ammo.select_name) in available)
 		return TRUE
 	else
 		check_unknown_names()
@@ -217,8 +217,8 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
 /obj/item/sibyl_system_mod/proc/process_fire()
 	if(!isnull(weapon))
-		var/select_name = weapon.ammo_type[weapon.select].select_name
-		add_log_entity("Выполнен выстрел из [weapon] в режиме [select_name].")
+		var/obj/item/ammo_casing/energy/ammo = weapon.ammo_type[weapon.select]
+		add_log_entity("Выполнен выстрел из [weapon] в режиме [ammo.select_name].")
 
 /obj/item/sibyl_system_mod/proc/set_limit(mode)
 	if(isnull(weapon))

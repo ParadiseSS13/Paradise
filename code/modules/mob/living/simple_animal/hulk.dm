@@ -162,7 +162,7 @@
 	original_body.update_mutations()		//update our mutation overlays
 	qdel(src)
 
-/mob/living/proc/hulk_scream(obj/target, chance)
+/mob/living/proc/hulk_scream(obj/target, chance = 75)
 	if(prob(chance))
 		visible_message("<span class='userdanger'>[src] has punched \the [target]!</span>",\
 		"<span class='userdanger'>You punch the [target]!</span>",\
@@ -183,15 +183,15 @@
 	if(istype(D,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = D
 		if(A.welded || A.locked)
-			if(hulk_scream(A, 75))
-				A.deconstruct(src)
+			hulk_scream(A)
+			A.deconstruct()
 			return
 	if(istype(D,/obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = D
-		if(FD_CLOSED)
-			if(hulk_scream(F))
-				qdel(F)
-				return
+		if(F.density)
+			hulk_scream(F)
+			F.deconstruct()
+			return
 	if(D.density)
 		to_chat(src, "<span class='userdanger'>You force your fingers between \
 		 the doors and begin to pry them open...</span>")
