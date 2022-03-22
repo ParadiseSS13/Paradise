@@ -222,6 +222,10 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 15
 
+/mob/living/simple_animal/pet/cat/Syndi/Initialize(mapload)
+	. = ..()
+	add_language("Galactic Common")
+
 /mob/living/simple_animal/pet/cat/cak
 	name = "Keeki"
 	desc = "It's a cat made out of cake."

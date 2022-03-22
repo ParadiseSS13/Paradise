@@ -42,6 +42,10 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 
+/mob/living/simple_animal/pet/dog/fox/Syndifox/Initialize(mapload)
+	. = ..()
+	add_language("Galactic Common")
+
 //Central Command Fox
 /mob/living/simple_animal/pet/dog/fox/alisa
 	name = "Алиса"
