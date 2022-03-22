@@ -422,16 +422,9 @@ GLOBAL_VAR(bomb_set)
 		return
 	if(locate(/obj/structure/blob) in T)
 		return
-	var/obj/structure/blob/normal/N = new /obj/structure/blob/normal(loc, min(obj_integrity, 30))
-	N.color = B.color
+	var/obj/structure/blob/captured_nuke/N = new(loc, src)
 	N.overmind = B.overmind
-	if(N) //if there is no blob tile do nothing
-		N.change_to(/obj/structure/blob/captured_nuke)
-		var/obj/structure/blob/captured_nuke/R = locate() in T
-		if(R)
-			R.adjustcolors(B.color)
-			src.forceMove(R)
-	return
+	N.adjustcolors(B.color)
 
 /obj/machinery/nuclearbomb/zap_act(power, zap_flags)
 	. = ..()
