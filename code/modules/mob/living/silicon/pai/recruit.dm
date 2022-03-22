@@ -375,8 +375,6 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		return 0
 	if(cannotPossess(O))
 		return 0
-	if(!(O in GLOB.respawnable_list))
-		return 0
 	if(O.client)
 		return 1
 	return 0
