@@ -64,8 +64,11 @@
 		if(prob(proj_pass_rate))
 			return TRUE
 		return FALSE
-	else
-		return !density
+	if(istype(mover, /obj/item)) //thrown items with the dropwall
+		if(directional_blockage)
+			if(direction_check(turn(mover.dir, 180)))
+				return FALSE
+	return !density
 
 /obj/structure/barricade/proc/direction_check(angle)
 	for(var/i in directional_list)
@@ -222,16 +225,18 @@
 
 /obj/structure/barricade/dropwall
 	name = "dropwall"
-	desc = "pipis"
+	desc = "A temporary deployable energy shield powered by a generator. Breaking the generator will destroy all the shields connected to it."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "m_shield"
+	density = 0
 	directional_blockage = TRUE
 	proj_pass_rate = 100 //don't worry about it, covered by directional blockage.
 	stacktype = null
 	/// This variable is used to tell the shield to ping it's owner when it is broke.
 	var/core_shield = FALSE
 	/// This variable is to tell the shield what it's source is.
-	var/obj/item/grenade/dropwall/source = null
+	var/obj/structure/dropwall_generator/source = null
+	explosion_block = 8 //should be enough for a potasium water nade that isn't a maxcap. If you stand next to a maxcap with this however, you are an idiot.
 
 /obj/structure/barricade/dropwall/Initialize(mapload, owner, core, dir_1, dir_2)
 	. = ..()
@@ -245,12 +250,45 @@
 		source.protected = FALSE
 	return ..()
 
-/obj/item/grenade/dropwall //gonna be one of those days TODO MAKE THIS ATTACKABLE SO YOU CAN WACK IT
-	name = "dropwall generator thing"
-	desc = "the pipis powered cells keep the shield running yaya"
+/obj/structure/barricade/dropwall/emp_act(severity)
+	..()
+	obj_integrity -= 40/severity //chances are the EMP will also hit the generator, we don't want it to double up too heavily
+
+/obj/structure/barricade/dropwall/bullet_act(obj/item/projectile/P)
+	if(P.shield_buster)
+		qdel(src)
+	else
+		. = ..()
+
+/obj/item/grenade/barrier/dropwall
+	name = "dropwall shield generator"
+	desc = "This generator designed by Shellguard Munitions's spartan division is used to deploy a temporary cover that blocks projectiles and explosions from a direction, while allowing projectiles to pass freely from behind"
+	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
+	mode = NORTH
+	var/uptime = 12 SECONDS
+
+/obj/item/grenade/barrier/dropwall/toggle_mode(mob/user)
+	switch(mode)
+		if(NORTH)
+			mode = EAST
+		if(EAST)
+			mode = SOUTH
+		if(SOUTH)
+			mode = WEST
+		if(WEST)
+			mode = NORTH
+
+	to_chat(user, "[src] is now in [dir2text(mode)] mode.")
+
+/obj/item/grenade/barrier/dropwall/prime()
+	new /obj/structure/dropwall_generator(get_turf(loc), mode, uptime)
+	qdel(src)
+
+/obj/structure/dropwall_generator
+	name = "deployed dropwall shield genrator"
+	desc = "This generator designed by Shellguard Munitions's spartan division is used to deploy a temporary cover that blocks projectiles and explosions from a direction, while allowing projectiles to pass freely from behind"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "flashbang"
-	item_state = "flashbang"
 	max_integrity = 25 // 2 shots
 	var/list/connected_shields = list()
 	/// This variable is used to prevent damage to it's core shield when it is up.
@@ -258,48 +296,104 @@
 	///The core shield that protects the generator
 	var/obj/structure/barricade/dropwall/core_shield = null
 
-/obj/item/grenade/dropwall/prime()
-	anchored = 1
+/obj/structure/dropwall_generator/Initialize(mapload, direction, uptime)
+	. = ..()
+	if(direction)
+		deploy(direction, uptime)
+
+/obj/structure/dropwall_generator/proc/deploy(direction, uptime)
+	anchored = TRUE
 	protected = TRUE
-	connected_shields += new /obj/structure/barricade/dropwall(get_turf(loc), src, TRUE, NORTH)
-	for(var/i in connected_shields)
-		core_shield = i
+	addtimer(CALLBACK(src, .proc/power_out), uptime)
+	switch(direction)
+		if(NORTH)
+			connected_shields += new /obj/structure/barricade/dropwall(get_turf(loc), src, TRUE, NORTH)
+			for(var/i in connected_shields)
+				core_shield = i
 
-	var/target_turf = get_step(src, EAST)
-	if(!(is_blocked_turf(target_turf)))
-		connected_shields += new /obj/structure/barricade/dropwall(target_turf, src, FALSE, NORTH, EAST)
+			var/target_turf = get_step(src, EAST)
+			if(!(is_blocked_turf(target_turf)))
+				connected_shields += new /obj/structure/barricade/dropwall(target_turf, src, FALSE, NORTH, EAST)
 
-	var/target_turf2 = get_step(src, WEST)
-	if(!(is_blocked_turf(target_turf2)))
-		connected_shields += new /obj/structure/barricade/dropwall(target_turf2, src, FALSE, NORTH, WEST)
-			//var/target_turf = get_step(src, EAST)
-			//if(!(is_blocked_turf(target_turf)))
-				//new /obj/structure/barricade/security(target_turf)
+			var/target_turf2 = get_step(src, WEST)
+			if(!(is_blocked_turf(target_turf2)))
+				connected_shields += new /obj/structure/barricade/dropwall(target_turf2, src, FALSE, NORTH, WEST)
+		if(EAST)
+			connected_shields += new /obj/structure/barricade/dropwall(get_turf(loc), src, TRUE, EAST)
+			for(var/i in connected_shields)
+				core_shield = i
 
-			//var/target_turf2 = get_step(src, WEST)
-			//if(!(is_blocked_turf(target_turf2)))
-				//new /obj/structure/barricade/security(target_turf2)
+			var/target_turf = get_step(src, NORTH)
+			if(!(is_blocked_turf(target_turf)))
+				connected_shields += new /obj/structure/barricade/dropwall(target_turf, src, FALSE, NORTH, EAST)
 
-/obj/item/grenade/dropwall/deconstruct(disassembled = TRUE) // No. Do not prime again when destroyed.
-	if(!QDELETED(src))
-		qdel(src)
+			var/target_turf2 = get_step(src, SOUTH)
+			if(!(is_blocked_turf(target_turf2)))
+				connected_shields += new /obj/structure/barricade/dropwall(target_turf2, src, FALSE, SOUTH, EAST)
+		if(SOUTH)
+			connected_shields += new /obj/structure/barricade/dropwall(get_turf(loc), src, TRUE, SOUTH)
+			for(var/i in connected_shields)
+				core_shield = i
 
-/obj/item/grenade/dropwall/attacked_by(obj/item/I, mob/living/user) //No, you can not just go up to the generator and whack it. Central shield needs to go down first.
+			var/target_turf = get_step(src, EAST)
+			if(!(is_blocked_turf(target_turf)))
+				connected_shields += new /obj/structure/barricade/dropwall(target_turf, src, FALSE, SOUTH, EAST)
+
+			var/target_turf2 = get_step(src, WEST)
+			if(!(is_blocked_turf(target_turf2)))
+				connected_shields += new /obj/structure/barricade/dropwall(target_turf2, src, FALSE, SOUTH, WEST)
+		if(WEST)
+			connected_shields += new /obj/structure/barricade/dropwall(get_turf(loc), src, TRUE, WEST)
+			for(var/i in connected_shields)
+				core_shield = i
+
+			var/target_turf = get_step(src, NORTH)
+			if(!(is_blocked_turf(target_turf)))
+				connected_shields += new /obj/structure/barricade/dropwall(target_turf, src, FALSE, NORTH, WEST)
+
+			var/target_turf2 = get_step(src, SOUTH)
+			if(!(is_blocked_turf(target_turf2)))
+				connected_shields += new /obj/structure/barricade/dropwall(target_turf2, src, FALSE, SOUTH, WEST)
+
+
+/obj/structure/dropwall_generator/attacked_by(obj/item/I, mob/living/user) //No, you can not just go up to the generator and whack it. Central shield needs to go down first.
 	if(protected)
 		visible_message("<span class='warning'>[src]'s shield absorbs the blow!</span>")
 		core_shield.take_damage(I.force, I.damtype, MELEE, 1)
 	else
 		. = ..()
 
-/obj/item/grenade/dropwall/bullet_act(obj/item/projectile/P)
+/obj/structure/dropwall_generator/bullet_act(obj/item/projectile/P)
 	if(protected)
-		visible_message("<span class='warning'>[src]'s shield absorbs the blow!</span>")
+		visible_message("</span>[src]'s shield absorbs the blow!</span>")
 		core_shield.take_damage(P.damage, P.damage_type, P.flag)
 	else
 		. = ..()
 
-/obj/item/grenade/dropwall/Destroy()
-	QDEL_NULL(connected_shields)
+/obj/structure/dropwall_generator/Destroy()
+	QDEL_LIST(connected_shields)
+	. = ..()
+
+/obj/structure/dropwall_generator/emp_act(severity)
+	..()
+	if(protected)
+		for(var/obj/structure/barricade/dropwall/O in connected_shields)
+			O.emp_act(severity)
+	else
+		qdel(src)
+
+/obj/structure/dropwall_generator/proc/power_out()
+	visable_message("</span>[src] runs out of power, causing its shields to fail!</span>")
+	new /obj/item/used_dropwall(get_turf(src))
+	qdel(src)
+
+/obj/item/used_dropwall
+	name = "broken dropwall generator"
+	desc = "This dropwall has ran out of charge, but some materials could possibly be reclamed"
+	icon = 'icons/obj/grenade.dmi'
+	icon_state = "flashbang"
+	item_state = "flashbang"
+	materials = list(MAT_METAL=10000, MAT_GLASS=4000) // adjust values to whatever print cost is / 2
 
 #undef SINGLE
 #undef VERTICAL
