@@ -18,12 +18,15 @@
 	var/bar_material = METAL
 	var/drop_amount = 3
 	var/stacktype = /obj/item/stack/sheet/metal
+	/// This variable is used to allow projectiles to always shoot through a barrier from a certain direction
+	var/directional_blockage = FALSE
+	//The list of directions to block a projectile from
+	var/list/directional_list = list()
 
 /obj/structure/barricade/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		make_debris()
 	qdel(src)
-
 
 /obj/structure/barricade/proc/make_debris()
 	if(stacktype)
@@ -53,6 +56,9 @@
 		if(!anchored)
 			return TRUE
 		var/obj/item/projectile/proj = mover
+		if(directional_blockage)
+			if(direction_check(turn(proj.dir, 180)))
+				return FALSE
 		if(proj.firer && Adjacent(proj.firer))
 			return TRUE
 		if(prob(proj_pass_rate))
@@ -61,7 +67,11 @@
 	else
 		return !density
 
-
+/obj/structure/barricade/proc/direction_check(angle)
+	for(var/i in directional_list)
+		if(i == angle)
+			return TRUE
+	return FALSE
 
 /////BARRICADE TYPES///////
 
@@ -209,6 +219,87 @@
 
 /obj/structure/barricade/mime/mrcd
 	stacktype = null
+
+/obj/structure/barricade/dropwall
+	name = "dropwall"
+	desc = "pipis"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "m_shield"
+	directional_blockage = TRUE
+	proj_pass_rate = 100 //don't worry about it, covered by directional blockage.
+	stacktype = null
+	/// This variable is used to tell the shield to ping it's owner when it is broke.
+	var/core_shield = FALSE
+	/// This variable is to tell the shield what it's source is.
+	var/obj/item/grenade/dropwall/source = null
+
+/obj/structure/barricade/dropwall/Initialize(mapload, owner, core, dir_1, dir_2)
+	. = ..()
+	source = owner
+	core_shield = core
+	directional_list += dir_1
+	directional_list += dir_2
+
+/obj/structure/barricade/dropwall/Destroy()
+	if(core_shield)
+		source.protected = FALSE
+	return ..()
+
+/obj/item/grenade/dropwall //gonna be one of those days TODO MAKE THIS ATTACKABLE SO YOU CAN WACK IT
+	name = "dropwall generator thing"
+	desc = "the pipis powered cells keep the shield running yaya"
+	icon = 'icons/obj/grenade.dmi'
+	icon_state = "flashbang"
+	item_state = "flashbang"
+	max_integrity = 25 // 2 shots
+	var/list/connected_shields = list()
+	/// This variable is used to prevent damage to it's core shield when it is up.
+	var/protected = FALSE
+	///The core shield that protects the generator
+	var/obj/structure/barricade/dropwall/core_shield = null
+
+/obj/item/grenade/dropwall/prime()
+	anchored = 1
+	protected = TRUE
+	connected_shields += new /obj/structure/barricade/dropwall(get_turf(loc), src, TRUE, NORTH)
+	for(var/i in connected_shields)
+		core_shield = i
+
+	var/target_turf = get_step(src, EAST)
+	if(!(is_blocked_turf(target_turf)))
+		connected_shields += new /obj/structure/barricade/dropwall(target_turf, src, FALSE, NORTH, EAST)
+
+	var/target_turf2 = get_step(src, WEST)
+	if(!(is_blocked_turf(target_turf2)))
+		connected_shields += new /obj/structure/barricade/dropwall(target_turf2, src, FALSE, NORTH, WEST)
+			//var/target_turf = get_step(src, EAST)
+			//if(!(is_blocked_turf(target_turf)))
+				//new /obj/structure/barricade/security(target_turf)
+
+			//var/target_turf2 = get_step(src, WEST)
+			//if(!(is_blocked_turf(target_turf2)))
+				//new /obj/structure/barricade/security(target_turf2)
+
+/obj/item/grenade/dropwall/deconstruct(disassembled = TRUE) // No. Do not prime again when destroyed.
+	if(!QDELETED(src))
+		qdel(src)
+
+/obj/item/grenade/dropwall/attacked_by(obj/item/I, mob/living/user) //No, you can not just go up to the generator and whack it. Central shield needs to go down first.
+	if(protected)
+		visible_message("<span class='warning'>[src]'s shield absorbs the blow!</span>")
+		core_shield.take_damage(I.force, I.damtype, MELEE, 1)
+	else
+		. = ..()
+
+/obj/item/grenade/dropwall/bullet_act(obj/item/projectile/P)
+	if(protected)
+		visible_message("<span class='warning'>[src]'s shield absorbs the blow!</span>")
+		core_shield.take_damage(P.damage, P.damage_type, P.flag)
+	else
+		. = ..()
+
+/obj/item/grenade/dropwall/Destroy()
+	QDEL_NULL(connected_shields)
 
 #undef SINGLE
 #undef VERTICAL

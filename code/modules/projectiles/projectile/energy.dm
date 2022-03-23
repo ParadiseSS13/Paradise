@@ -137,7 +137,7 @@
 /obj/item/projectile/energy/toxplasma
 	name = "plasma bolt"
 	icon_state = "energy" // change this
-	damage = 15
+	damage = 12.5
 	damage_type = BURN
 
 /obj/item/projectile/energy/charged_plasma

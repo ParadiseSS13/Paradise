@@ -247,6 +247,7 @@
 
 /obj/item/ammo_casing/energy/toxplasma
 	projectile_type = /obj/item/projectile/energy/toxplasma
+	e_cost = 75 // With no charging, 162.5 damage from 13 shots.
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
 	fire_sound = 'sound/weapons/taser2.ogg'
 	select_name = null //If the select name is null, it does not send a message of switching modes to the user, important on the pistol.

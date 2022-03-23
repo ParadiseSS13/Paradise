@@ -305,7 +305,7 @@
 
 /obj/item/gun/energy/toxgun
 	name = "plasma pistol"
-	desc = "A specialized firearm designed to fire heated bolts of plasma. Can be overloaded for a shield breaking shot."
+	desc = "A specialized firearm designed to fire heated bolts of plasma. Can be overloaded for a high damage shield breaking shot."
 	icon_state = "toxgun"
 	fire_sound = 'sound/effects/stealthoff.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
@@ -332,7 +332,7 @@
 		cell.charge -= 0.5 //2.5 per second, 25 every 10 seconds
 		if(cell.charge <= 25 && !warned)
 			warned = TRUE
-			playsound(src.loc, 'sound/machines/buzz-two.ogg', 75, 1)
+			playsound(src.loc, 'sound/weapons/smg_empty_alarm.ogg', 75, 1)
 			atom_say("Caution, charge low. Forced discharge in under 10 seconds.")
 		if(cell.charge <= 0)
 			discharge()
