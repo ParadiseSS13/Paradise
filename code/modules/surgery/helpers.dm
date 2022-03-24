@@ -14,6 +14,10 @@
 		if(M == user)
 			return // no self surgery
 
+		if(M.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+			to_chat(user, "<span class='notice'>You realise that a ghost probably doesn't have any useful organs.</span>")
+			return //no cult ghost surgery please
+
 		if(istype(M, /mob/living/carbon/human))
 			H = M
 			affecting = H.get_organ(check_zone(selected_zone))
