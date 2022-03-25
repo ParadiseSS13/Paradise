@@ -11886,9 +11886,6 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "aJt" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "25"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -11899,6 +11896,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore)
@@ -16260,7 +16260,7 @@
 /area/maintenance/gambling_den)
 "aSS" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "25"
+	req_access_txt = "12"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -26782,7 +26782,6 @@
 /turf/simulated/wall,
 /area/hydroponics)
 "bol" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
@@ -93164,6 +93163,12 @@
 	icon_state = "grimy"
 	},
 /area/maintenance/starboard)
+"fMb" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "46"
+	},
+/turf/simulated/floor/plating,
+/area/mimeoffice)
 "fMg" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -93816,12 +93821,6 @@
 	},
 /turf/space,
 /area/space)
-"hGd" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "46"
-	},
-/turf/simulated/floor/plating,
-/area/mimeoffice)
 "hHr" = (
 /obj/machinery/light{
 	dir = 1
@@ -94296,14 +94295,6 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"iQh" = (
-/obj/structure/closet/secure_closet/mime,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
-/area/mimeoffice)
 "iTV" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -96640,6 +96631,12 @@
 /obj/structure/flora/bush,
 /turf/simulated/floor/grass,
 /area/medical/research)
+"pPW" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "46"
+	},
+/turf/simulated/floor/plating,
+/area/clownoffice)
 "pRe" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
@@ -96698,6 +96695,14 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/seceqstorage)
+"pUp" = (
+/obj/structure/closet/secure_closet/mime,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/mimeoffice)
 "pUv" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -96752,14 +96757,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/permasolitary)
-"qaO" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
-	},
-/area/maintenance/starboard)
 "qcA" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -98198,12 +98195,6 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
-"tXE" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "46"
-	},
-/turf/simulated/floor/plating,
-/area/clownoffice)
 "uil" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -98869,6 +98860,14 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/misc_lab)
+"wbx" = (
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/maintenance/starboard)
 "wdH" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -151042,7 +151041,7 @@ cLo
 cMM
 mDm
 cQf
-tXE
+pPW
 boG
 dDy
 dlz
@@ -151814,7 +151813,7 @@ cMO
 yiO
 cQi
 dzu
-qaO
+wbx
 dDE
 dlz
 cZi
@@ -152068,9 +152067,9 @@ cWh
 dDG
 cLq
 mzg
-iQh
+pUp
 cQh
-hGd
+fMb
 cSY
 dDD
 dlz
