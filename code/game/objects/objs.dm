@@ -173,6 +173,7 @@
 	if(machine)
 		machine.on_unset_machine(src)
 		machine = null
+		SEND_SIGNAL(src, COMSIG_MOB_MACHINE_UNSET)
 
 //called when the user unsets the machine.
 /atom/movable/proc/on_unset_machine(mob/user)
@@ -183,7 +184,9 @@
 		unset_machine()
 	src.machine = O
 	if(istype(O))
+		AddComponent(/datum/component/qdeleting, O, CALLBACK(src, .proc/unset_machine), COMSIG_MOB_MACHINE_UNSET)
 		O.in_use = TRUE
+		SEND_SIGNAL(src, COMSIG_MOB_MACHINE_SET, O)
 
 /obj/item/proc/updateSelfDialog()
 	var/mob/M = src.loc
