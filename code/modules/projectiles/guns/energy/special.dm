@@ -307,7 +307,7 @@
 	name = "plasma pistol"
 	desc = "A specialized firearm designed to fire heated bolts of plasma. Can be overloaded for a high damage shield breaking shot."
 	icon_state = "toxgun"
-	fire_sound = 'sound/effects/stealthoff.ogg'
+	item_state = "toxgun"
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma, /obj/item/ammo_casing/energy/charged_plasma)
@@ -315,8 +315,12 @@
 	can_holster = TRUE
 	atom_say_verb = "beeps"
 	bubble_icon = "swarmer"
+	light_color = "#89078E"
+	light_range = 3
+	light_power = 0.1
 	var/overloaded = FALSE
 	var/warned = FALSE
+	var/charging = FALSE
 
 /obj/item/gun/energy/toxgun/Initialize(mapload)
 	. = ..()
@@ -334,7 +338,7 @@
 			warned = TRUE
 			playsound(src.loc, 'sound/weapons/smg_empty_alarm.ogg', 75, 1)
 			atom_say("Caution, charge low. Forced discharge in under 10 seconds.")
-		if(cell.charge <= 0)
+		if(cell.charge <= 5)
 			discharge()
 		if(istype(loc, /mob/living/carbon/human))
 			var/mob/living/carbon/human/user = loc
@@ -347,15 +351,23 @@
 	if(overloaded)
 		to_chat(user, "<span class='warning'>[src] is already overloaded!</span>")
 		return
-	if(cell.charge <= 140)
+	if(cell.charge <= 140) //at least 6 seconds of charge time
 		to_chat(user, "<span class='warning'>[src] does not have enough charge to be overloaded.</span>")
 		return
 	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
+	charging = TRUE
 	if(do_after(user, 25, target = src))
 		overloaded = TRUE
 		cell.charge -= 125
 		playsound(src.loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
 		atom_say("Overloading successful.")
+		light_power = 4 //extra visual effect to make it more noticable to user and victims alike
+	charging = FALSE
+
+/obj/item/gun/energy/toxgun/proc/reset_overloaded()
+	light_power = 0.1 //setting it to zero doesn't update the light for some reason?
+	overloaded = FALSE
+	warned = FALSE
 
 /obj/item/gun/energy/toxgun/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(overloaded)
@@ -366,8 +378,9 @@
 	if(overloaded)
 		select_fire(usr)
 		do_sparks(2, 1, src)
-		overloaded = FALSE
-		warned = FALSE
+		reset_overloaded()
+	else if(charging)
+		return
 	..()
 	update_icon()
 
@@ -378,9 +391,9 @@
 			discharge()
 
 /obj/item/gun/energy/toxgun/proc/discharge() //25% of the time, plasma leak. Otherwise, shoot at a random mob / turf nearby. If no proper mob is found when mob is picked, fire at a turf instead
-	overloaded = FALSE
-	warned = FALSE
+	reset_overloaded()
 	do_sparks(2, 1, src)
+	update_icon()
 	if(prob(25))
 		visible_message("<span class='danger'>[src] vents heated plasma!</span>")
 		var/turf/simulated/T = get_turf(src)
@@ -420,7 +433,7 @@
 	if(!T || !U)
 		return
 	var/obj/item/projectile/energy/charged_plasma/O = new /obj/item/projectile/energy/charged_plasma(get_turf(loc))
-	playsound(src.loc, 'sound/weapons/taser2.ogg', 75, 1)
+	playsound(src.loc, 'sound/weapons/marauder.ogg', 75, 1)
 	O.current = T
 	O.yo = U.y - T.y
 	O.xo = U.x - T.x

@@ -383,7 +383,7 @@
 		qdel(src)
 
 /obj/structure/dropwall_generator/proc/power_out()
-	visable_message("</span>[src] runs out of power, causing its shields to fail!</span>")
+	visible_message("</span>[src] runs out of power, causing its shields to fail!</span>")
 	new /obj/item/used_dropwall(get_turf(src))
 	qdel(src)
 

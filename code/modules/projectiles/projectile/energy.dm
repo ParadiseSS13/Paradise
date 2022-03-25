@@ -136,13 +136,13 @@
 
 /obj/item/projectile/energy/toxplasma
 	name = "plasma bolt"
-	icon_state = "energy" // change this
+	icon_state = "plasma_light"
 	damage = 12.5
 	damage_type = BURN
 
 /obj/item/projectile/energy/charged_plasma
 	name = "charged plasma bolt"
-	icon_state = "energy" // change this x2
+	icon_state = "plasma_heavy"
 	damage = 45
 	damage_type = BURN
 	armour_penetration = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.

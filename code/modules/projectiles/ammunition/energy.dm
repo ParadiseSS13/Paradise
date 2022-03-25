@@ -256,7 +256,7 @@
 	projectile_type = /obj/item/projectile/energy/charged_plasma
 	e_cost = 0 //Charge is used when you charge the gun. Prevents issues.
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
-	fire_sound = 'sound/weapons/taser2.ogg' // new sound QWERTY OK
+	fire_sound = 'sound/weapons/marauder.ogg' //Should be diffrent enough to get attention
 	select_name = null
 
 /obj/item/ammo_casing/energy/clown
