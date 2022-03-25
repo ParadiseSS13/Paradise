@@ -61693,11 +61693,6 @@
 /area/crew_quarters/fitness)
 "cIh" = (
 /obj/machinery/light,
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
@@ -80475,8 +80470,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "dwS" = (
-/turf/simulated/wall,
-/area/clownoffice)
+/obj/machinery/firealarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/fitness)
 "dwT" = (
 /obj/machinery/newscaster{
 	name = "north bump";
@@ -80523,8 +80525,7 @@
 	},
 /area/maintenance/starboard)
 "dwZ" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
+/turf/simulated/wall,
 /area/clownoffice)
 "dxa" = (
 /obj/machinery/photocopier,
@@ -81131,8 +81132,9 @@
 	},
 /area/medical/surgery2)
 "dyb" = (
-/turf/simulated/wall,
-/area/mimeoffice)
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/clownoffice)
 "dyc" = (
 /obj/structure/rack,
 /obj/effect/landmark/costume/random,
@@ -81165,8 +81167,7 @@
 	},
 /area/medical/medbay)
 "dyg" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
+/turf/simulated/wall,
 /area/mimeoffice)
 "dyh" = (
 /obj/structure/table/wood,
@@ -81645,17 +81646,9 @@
 	},
 /area/maintenance/starboard)
 "dzu" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/wood,
-/area/clownoffice)
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/mimeoffice)
 "dzv" = (
 /obj/item/target,
 /obj/structure/window/reinforced,
@@ -83738,12 +83731,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
-/area/mimeoffice)
+/turf/simulated/floor/wood,
+/area/clownoffice)
 "dDI" = (
 /obj/structure/table/wood,
 /obj/item/wrench,
@@ -83934,15 +83923,21 @@
 	},
 /area/medical/medbay)
 "dEt" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/wood,
-/area/clownoffice)
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/mimeoffice)
 "dEu" = (
 /obj/item/bonegel{
 	pixel_x = 6;
@@ -93200,17 +93195,15 @@
 /turf/space,
 /area/space/nearstation)
 "fTZ" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
-/area/mimeoffice)
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/wood,
+/area/clownoffice)
 "fUG" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -93321,9 +93314,17 @@
 /turf/simulated/wall,
 /area/security/processing)
 "gpU" = (
-/obj/structure/closet/secure_closet/clown,
-/turf/simulated/floor/wood,
-/area/clownoffice)
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/mimeoffice)
 "gpX" = (
 /obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plasteel{
@@ -95246,14 +95247,6 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
-"lTa" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
-	},
-/area/maintenance/starboard)
 "lTi" = (
 /turf/simulated/floor/wood,
 /area/maintenance/abandonedbar)
@@ -95349,6 +95342,12 @@
 /obj/machinery/chem_heater,
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
+"mim" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "46"
+	},
+/turf/simulated/floor/plating,
+/area/mimeoffice)
 "miL" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -95532,24 +95531,9 @@
 	},
 /area/crew_quarters/heads/hos)
 "mzg" = (
-/obj/structure/chair/office/dark{
-	dir = 8
-	},
-/obj/effect/landmark/start/mime,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
-/area/mimeoffice)
+/obj/structure/closet/secure_closet/clown,
+/turf/simulated/floor/wood,
+/area/clownoffice)
 "mzQ" = (
 /obj/machinery/light{
 	dir = 8
@@ -95569,7 +95553,18 @@
 	},
 /area/atmos)
 "mDm" = (
-/obj/structure/closet/secure_closet/mime,
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
+/obj/effect/landmark/start/mime,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_regular_floor = "yellowsiding";
@@ -96217,12 +96212,6 @@
 	icon_state = "neutral"
 	},
 /area/maintenance/fore2)
-"oyf" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "46"
-	},
-/turf/simulated/floor/plating,
-/area/mimeoffice)
 "oyG" = (
 /obj/structure/chair/sofa/corp/corner,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -96311,6 +96300,12 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
+"oLH" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "46"
+	},
+/turf/simulated/floor/plating,
+/area/clownoffice)
 "oMr" = (
 /obj/machinery/turretid/lethal{
 	control_area = "\improper Telecoms Central Compartment";
@@ -97151,6 +97146,14 @@
 	icon_state = "solarpanel"
 	},
 /area/maintenance/starboardsolar)
+"rqJ" = (
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/maintenance/starboard)
 "rsF" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -99450,11 +99453,13 @@
 /turf/simulated/wall/r_wall,
 /area/security/permabrig)
 "yiO" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "46"
+/obj/structure/closet/secure_closet/mime,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
 	},
-/turf/simulated/floor/plating,
-/area/clownoffice)
+/area/mimeoffice)
 "ykx" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -150244,12 +150249,12 @@ csi
 cFw
 csj
 cIm
-dwS
-dwS
-dwS
-dwS
-dwS
-dwS
+dwZ
+dwZ
+dwZ
+dwZ
+dwZ
+dwZ
 cSX
 dDE
 cXI
@@ -150501,12 +150506,12 @@ csi
 cFq
 cGT
 cJz
-dwZ
+dyb
 uGp
 iuU
 cOp
 imS
-dwS
+dwZ
 cSY
 dDE
 cXI
@@ -150759,11 +150764,11 @@ cIg
 rkJ
 hcU
 jHd
-dzu
-dEt
+dDG
+fTZ
 cOq
 cQe
-dwS
+dwZ
 cSZ
 cUw
 dlz
@@ -151015,12 +151020,12 @@ csi
 cFx
 cTb
 cIh
-dwZ
+dyb
 cLo
 cMM
-gpU
+mzg
 cQf
-yiO
+oLH
 boG
 dDy
 dlz
@@ -151272,12 +151277,12 @@ oNd
 cFr
 cGW
 cIi
-dyb
-dyb
-dyb
-dyb
-dyb
-dyb
+dyg
+dyg
+dyg
+dyg
+dyg
+dyg
 cSY
 dDC
 dlz
@@ -151529,12 +151534,12 @@ nFX
 cFx
 cGW
 cJz
-dyg
+dzu
 cLp
 cMN
 cOr
 cQg
-dyb
+dyg
 cTa
 dDE
 dlz
@@ -151787,12 +151792,12 @@ cFs
 rkJ
 dvS
 cJy
-dDG
+dEt
 cMO
-mzg
+mDm
 cQi
-dyb
-lTa
+dyg
+rqJ
 dDE
 dlz
 cZi
@@ -152043,12 +152048,12 @@ nFX
 cFv
 cGW
 cWh
-dyg
+dzu
 cLq
-fTZ
-mDm
+gpU
+yiO
 cQh
-oyf
+mim
 cSY
 dDD
 dlz
@@ -152299,13 +152304,13 @@ oNd
 oNd
 cFu
 cGW
-cWh
-dyb
-dyb
-dyb
-dyb
-dyb
-dyb
+dwS
+dyg
+dyg
+dyg
+dyg
+dyg
+dyg
 cjn
 dDE
 dlz
