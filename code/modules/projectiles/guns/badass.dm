@@ -10,7 +10,8 @@
 
 /obj/item/twohanded/required/chainsaw/doomslayer/badass
 	on = TRUE
-	icon_state = "gchainsaw_on"
+	icon_state = "OOOHBABY_off"
+	icon_base = "OOOHBABY_"
 	force = 30
 	hitsound = 'sound/weapons/chainsaw.ogg'
 	var/obj/item/organ/internal/cyberimp/arm/badass/implant
@@ -44,6 +45,7 @@
 	righthand_file = 'icons/mob/inhands/64x64_guns_righthand.dmi'
 	mag_type = /obj/item/ammo_box/magazine/badass_shotgun_shells
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+	burst_size = 2
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 
@@ -73,6 +75,7 @@
 
 /obj/item/ammo_casing/energy/plasma_rifle
 	e_cost = 50
+	delay = 0.1 SECONDS
 	projectile_type = /obj/item/projectile/energy/plasma_rifle
 	muzzle_flash_color = "#33CCFF"
 
@@ -120,8 +123,8 @@
 	. = ..()
 	if(!isliving(target))
 		forcedodge = FALSE
-	else if(range > 4)
-		range = 4 //goes 4 tiles through someone
+	else if(range > 3)
+		range = 3 //goes 4 tiles through someone
 
 /obj/item/gun/projectile/automatic/rocket_launcher
 	name = "Rocket launcher"
@@ -171,3 +174,26 @@
 
 /obj/item/ammo_casing/energy/bsg/badass
 	delay = 0.5 SECONDS //shoooooooooooooooort cooldown
+
+/obj/item/clothing/head/helmet/space/badass
+	name = "badass helm"
+	desc = "A highly advanced and badass looking helmet."
+	icon_state = "badass_helm"
+	item_state = "badass_helm"
+	w_class = WEIGHT_CLASS_SMALL
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	flags = THICKMATERIAL
+	armor = list(MELEE = 70, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	resistance_flags = FIRE_PROOF | LAVA_PROOF
+
+/obj/item/clothing/suit/space/badass
+	name = "badass suit"
+	desc = "A highly advanced and badass looking suit."
+	icon_state = "badass_suit"
+	item_state = "badass_suit"
+	slowdown = 0
+	w_class = WEIGHT_CLASS_SMALL
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	flags = THICKMATERIAL
+	armor = list(MELEE = 70, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	resistance_flags = FIRE_PROOF | LAVA_PROOF
