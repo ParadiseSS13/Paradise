@@ -180,8 +180,11 @@
 
 /obj/effect/proc_holder/spell/vampire/rally_thralls/cast(list/targets, mob/user)
 	for(var/mob/living/carbon/human/H as anything in targets)
+		var/image/I = image('icons/effects/vampire_effects.dmi', "rallyoverlay", layer = EFFECTS_LAYER)
 		playsound(H, 'sound/magic/staff_healing.ogg', 30)
 		H.remove_CC()
+		H.add_overlay(I)
+		addtimer(CALLBACK(H, /atom/.proc/cut_overlay, I), 6 SECONDS) // this makes it obvious who your thralls are for a while.
 
 /obj/effect/proc_holder/spell/vampire/hysteria
 	name = "Mass Hysteria (70)"
