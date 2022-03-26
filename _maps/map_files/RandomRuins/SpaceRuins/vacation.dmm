@@ -1,0 +1,277 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/awaycontent)
+"k" = (
+/mob/living/simple_animal/crab,
+/turf/simulated/floor/beach/coastline_t,
+/area/ruin/powered)
+"q" = (
+/obj/effect/overlay/palmtree_l,
+/turf/simulated/floor/beach/sand,
+/area/ruin/powered)
+"s" = (
+/turf/simulated/floor/beach/coastline_b,
+/area/ruin/powered)
+"A" = (
+/turf/simulated/floor/beach/water,
+/area/ruin/powered)
+"B" = (
+/mob/living/simple_animal/crab,
+/turf/simulated/floor/beach/sand,
+/area/ruin/powered)
+"C" = (
+/obj/structure/marker_beacon,
+/turf/simulated/floor/beach/sand,
+/area/ruin/powered)
+"E" = (
+/obj/item/storage/bag/tray,
+/obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss,
+/turf/simulated/floor/beach/sand,
+/area/ruin/powered)
+"H" = (
+/turf/simulated/floor/beach/coastline_t,
+/area/ruin/powered)
+"L" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/powered)
+"O" = (
+/turf/simulated/mineral,
+/area/ruin/powered)
+"Q" = (
+/obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/powered)
+"V" = (
+/obj/structure/marker_beacon,
+/turf/simulated/floor/beach/coastline_t,
+/area/ruin/powered)
+"Z" = (
+/turf/simulated/floor/beach/sand,
+/area/ruin/powered)
+
+(1,1,1) = {"
+a
+a
+L
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+L
+O
+O
+L
+L
+L
+L
+a
+a
+a
+a
+a
+a
+a
+"}
+(3,1,1) = {"
+L
+O
+O
+O
+L
+O
+O
+O
+L
+L
+a
+a
+a
+a
+"}
+(4,1,1) = {"
+a
+L
+O
+O
+Q
+O
+O
+O
+O
+O
+L
+a
+a
+a
+"}
+(5,1,1) = {"
+a
+L
+O
+O
+Z
+Z
+O
+O
+O
+O
+O
+L
+a
+a
+"}
+(6,1,1) = {"
+L
+O
+O
+O
+C
+B
+H
+s
+A
+A
+O
+O
+L
+a
+"}
+(7,1,1) = {"
+L
+O
+O
+Z
+q
+Z
+V
+s
+A
+A
+O
+O
+L
+a
+"}
+(8,1,1) = {"
+L
+O
+O
+C
+B
+Z
+H
+s
+A
+A
+O
+O
+L
+a
+"}
+(9,1,1) = {"
+L
+O
+O
+Z
+Z
+E
+V
+s
+A
+A
+O
+O
+L
+a
+"}
+(10,1,1) = {"
+L
+O
+O
+O
+C
+q
+k
+s
+A
+A
+O
+O
+L
+a
+"}
+(11,1,1) = {"
+a
+L
+L
+O
+O
+Z
+O
+O
+O
+O
+O
+O
+L
+a
+"}
+(12,1,1) = {"
+a
+a
+a
+L
+O
+O
+O
+O
+O
+O
+O
+O
+L
+a
+"}
+(13,1,1) = {"
+a
+a
+a
+a
+L
+O
+O
+O
+O
+a
+L
+L
+O
+L
+"}
+(14,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+L
+a
+"}

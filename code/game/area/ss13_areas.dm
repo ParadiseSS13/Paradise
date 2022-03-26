@@ -360,6 +360,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/shuttle/supply
 	name = "Supply Shuttle"
 	icon_state = "shuttle3"
+	
+/area/shuttle/ussp
+	name = "USSP Shuttle"
+	icon_state = "shuttle3"
+
+/area/shuttle/spacebar
+	name = "Space Bar Shuttle"
+	icon_state = "shuttle3"
 
 /area/shuttle/abandoned
 	name = "Abandoned Ship"

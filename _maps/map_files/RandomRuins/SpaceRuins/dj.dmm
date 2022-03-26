@@ -6,99 +6,40 @@
 /obj/structure/grille,
 /turf/template_noop,
 /area/space/nearstation)
-"ac" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
-/turf/template_noop,
-/area/space/nearstation)
-"ad" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
-"ae" = (
-/obj/machinery/power/solar/fake,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/djstation/solars)
-"af" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/djstation/solars)
-"ag" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
 "ah" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/djstation/solars)
+/turf/simulated/floor/plating,
+/area/djstation)
 "ai" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/lattice/catwalk,
-/turf/template_noop,
+/turf/simulated/wall/mineral/titanium/interior,
 /area/djstation)
-"aj" = (
-/obj/structure/lattice,
+"ak" = (
 /obj/structure/grille{
 	density = 0;
 	icon_state = "brokengrille"
 	},
 /turf/template_noop,
 /area/space/nearstation)
-"ak" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
-"al" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/wall/mineral/titanium/interior,
-/area/djstation)
 "am" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
-/area/djstation)
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
 "an" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -113,237 +54,26 @@
 /turf/simulated/wall/mineral/titanium/interior,
 /area/djstation)
 "ap" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /turf/simulated/floor/plating,
 /area/djstation)
 "aq" = (
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
+	d1 = 4;
 	d2 = 8;
-	icon_state = "2-8"
+	icon_state = "4-8"
 	},
-/turf/simulated/wall/mineral/titanium/interior,
-/area/djstation)
-"ar" = (
-/obj/machinery/power/solar/fake,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/djstation)
-"as" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d2 = 4;
+	icon_state = "1-4"
 	},
-/turf/simulated/floor/plating,
-/area/djstation)
-"at" = (
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/djstation)
 "au" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
-/obj/machinery/tcomms/relay/ruskie,
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
-	},
-/area/djstation)
-"av" = (
-/turf/simulated/floor/plating,
-/area/djstation)
-"aw" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/djstation)
-"ax" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/djstation/solars)
-"ay" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/djstation/solars)
-"az" = (
-/obj/machinery/power/terminal,
-/turf/simulated/floor/plating,
-/area/djstation)
-"aA" = (
-/obj/item/multitool,
-/turf/simulated/floor/plating,
-/area/djstation)
-"aB" = (
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/djstation)
-"aC" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/djstation/solars)
-"aD" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/djstation)
-"aE" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/wall/mineral/titanium/interior,
-/area/djstation)
-"aF" = (
-/obj/item/extinguisher,
-/turf/simulated/floor/plating,
-/area/djstation)
-"aG" = (
-/obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
-	},
-/obj/machinery/power/smes/magical{
-	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
-	name = "power storage unit"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
-	},
-/area/djstation)
-"aH" = (
-/turf/template_noop,
-/area/djstation/solars)
-"aI" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating,
-/area/djstation)
-"aJ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/djstation)
-"aK" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/djstation)
-"aL" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/turf/simulated/floor/plating,
-/area/djstation)
-"aM" = (
-/obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 0;
@@ -353,7 +83,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/djstation)
-"aN" = (
+"av" = (
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -368,7 +98,565 @@
 	},
 /turf/simulated/floor/plating,
 /area/djstation)
-"aO" = (
+"az" = (
+/obj/machinery/power/tracker,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/template_noop)
+"aA" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
+"aB" = (
+/obj/machinery/door/airlock/maintenance,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "rampbottom";
+	tag = "icon-stage_stairs"
+	},
+/area/djstation)
+"aE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/structure/chair/stool,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"aF" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/template_noop,
+/area/template_noop)
+"aG" = (
+/obj/structure/closet/emcloset,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"aH" = (
+/obj/machinery/newscaster{
+	pixel_y = 32
+	},
+/obj/machinery/vending/cigarette/free{
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"aI" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"aJ" = (
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"aK" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"aM" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/djstation)
+"aN" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Kitchen"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/djstation)
+"aP" = (
+/obj/structure/table,
+/obj/item/radio/intercom/pirate,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"aQ" = (
+/obj/structure/chair/office/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/djstation)
+"aR" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"aS" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/djstation)
+"aT" = (
+/obj/machinery/door/airlock{
+	name = "Restroom"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/djstation)
+"aU" = (
+/turf/simulated/wall/mineral/titanium/nodecon/tileblend{
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "dark");
+	icon_state = "4-i"
+	},
+/area/djstation)
+"aV" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"aX" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"aZ" = (
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = 32
+	},
+/turf/template_noop,
+/area/template_noop)
+"bb" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
+"bc" = (
+/obj/structure/curtain/open/shower,
+/obj/machinery/shower{
+	dir = 4;
+	tag = "icon-shower (EAST)"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/djstation)
+"bd" = (
+/obj/machinery/light_switch{
+	pixel_x = 32;
+	pixel_y = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/djstation)
+"be" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
+"bh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1479;
+	master_tag = "dj_station_airlock";
+	name = "interior access button";
+	pixel_x = 25;
+	pixel_y = -25
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/djstation)
+"bi" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/door/window/westleft,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/djstation)
+"bn" = (
+/obj/structure/mirror{
+	dir = 4;
+	pixel_x = -32
+	},
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/djstation)
+"bo" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/djstation)
+"bp" = (
+/obj/structure/grille{
+	density = 0;
+	icon_state = "brokengrille"
+	},
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation)
+"bs" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1479;
+	icon_state = "door_locked";
+	id_tag = "dj_station_inner";
+	locked = 1;
+	name = "DJ Station Interior Access";
+	req_access = null
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plating,
+/area/djstation)
+"bt" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
+"bu" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation)
+"bv" = (
+/obj/structure/lattice,
+/obj/structure/grille{
+	density = 0;
+	icon_state = "brokengrille"
+	},
+/turf/template_noop,
+/area/space/nearstation)
+"bw" = (
+/obj/structure/lattice,
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation)
+"bx" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/wall/mineral/titanium/interior,
+/area/djstation)
+"by" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Cabin"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/djstation)
+"bz" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/djstation)
+"bA" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
+	frequency = 1479;
+	id_tag = "dj_station_pump"
+	},
+/obj/machinery/airlock_sensor{
+	frequency = 1479;
+	id_tag = "dj_station_sensor";
+	pixel_x = 25;
+	pixel_y = -5
+	},
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1479;
+	id_tag = "dj_station_airlock";
+	pixel_x = -25;
+	tag_airpump = "dj_station_pump";
+	tag_chamber_sensor = "dj_station_sensor";
+	tag_exterior_door = "dj_station_outer";
+	tag_interior_door = "dj_station_inner"
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/djstation)
+"bB" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/djstation)
+"bE" = (
+/obj/structure/coatrack,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/djstation)
+"bH" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/wall/mineral/titanium/interior,
+/area/djstation)
+"bI" = (
+/obj/machinery/power/solar/fake,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/template_noop)
+"bJ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/djstation)
+"bK" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/space,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/djstation)
+"bL" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Docking Hallway"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/djstation)
+"bM" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
+	},
+/obj/machinery/tcomms/relay/ruskie,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/djstation)
+"bN" = (
+/turf/template_noop,
+/area/djstation)
+"bP" = (
+/obj/machinery/power/solar/fake,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/template_noop)
+"bR" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/djstation)
+"bS" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
+"bT" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/plating,
+/area/djstation)
+"bU" = (
+/obj/machinery/power/terminal,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating,
+/area/djstation)
+"cP" = (
+/obj/machinery/power/solar/fake,
+/obj/structure/cable,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/template_noop)
+"dv" = (
+/obj/structure/coatrack,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/djstation)
+"eD" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1479;
+	icon_state = "door_locked";
+	id_tag = "dj_station_outer";
+	locked = 1;
+	name = "DJ Station External Access";
+	req_access = null
+	},
+/turf/simulated/floor/plating,
+/area/djstation)
+"eH" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/djstation)
+"hJ" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/djstation)
+"iU" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/djstation)
+"kd" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"ke" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -376,14 +664,362 @@
 	},
 /turf/simulated/floor/plating,
 /area/djstation)
-"aP" = (
-/obj/machinery/light_switch{
-	pixel_y = -28
+"ku" = (
+/obj/structure/closet/crate/can,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/djstation)
+"kO" = (
+/obj/machinery/door/airlock/external{
+	glass = 1;
+	id_tag = "djportdoor";
+	locked = 1;
+	name = "Docking Port"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/djstation)
+"lv" = (
+/obj/machinery/power/solar/fake,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/template_noop)
+"oE" = (
+/obj/machinery/light/small,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/djstation)
+"pE" = (
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/djstation)
-"aQ" = (
+"pT" = (
+/obj/structure/table,
+/obj/item/radio/intercom/pirate,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"rq" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"rA" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/djstation)
+"sd" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/djstation)
+"sJ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/wall/mineral/titanium/interior,
+/area/djstation)
+"vE" = (
+/obj/machinery/light_switch{
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/djstation)
+"wt" = (
+/obj/structure/table,
+/obj/item/radio/intercom/pirate,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"wS" = (
+/obj/structure/rack,
+/obj/item/extinguisher,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/djstation)
+"xB" = (
+/obj/structure/table,
+/obj/item/paper/djstation{
+	info = "<B>Welcome new owner!</B><BR><BR>You have purchased the latest in listening equipment. The telecommunication setup we created is the best in listening to common and private radio fequencies. Here is a step by step guide to start listening in on those saucy radio channels:<br><ol><li>Equip yourself with a multi-tool</li><li>Use the multitool on each machine, that is the broadcaster, receiver and the relay.</li><li>Turn all the machines on, it has already been configured for you to listen on.</li></ol> Simple as that. Now to listen to the private channels, you'll have to configure the intercoms, located on the front desk. Here is a list of frequencies for you to listen on.<br><ul><li>145.7 - Common Channel</li><li>144.7 - Private AI Channel</li><li>135.9 - Security Channel</li><li>135.7 - Engineering Channel</li><li>135.5 - Medical Channel</li><li>135.3 - Command Channel</li><li>135.1 - Science Channel</li><li>134.7 - Supply Channel</li>";
+	pixel_x = 5;
+	pixel_y = 17
+	},
+/obj/item/phone{
+	desc = "An old Russian phone. The dial tone is still humming.";
+	name = "spin-dial phone";
+	pixel_x = 1;
+	pixel_y = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"zC" = (
+/obj/item/multitool,
+/turf/simulated/floor/plating,
+/area/djstation)
+"AH" = (
+/obj/structure/sign/vacuum/external{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/djstation)
+"AP" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating,
+/area/djstation)
+"Bh" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
+"DI" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_y = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/djstation)
+"Er" = (
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/smes/magical{
+	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
+	name = "power storage unit"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/djstation)
+"EQ" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/djstation)
+"FB" = (
+/obj/structure/bed,
+/obj/item/bedsheet/blue,
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/djstation)
+"FU" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"Ig" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/djstation)
+"IK" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	glass = 1;
+	id_tag = "dj_post";
+	locked = 1;
+	name = "DJ Post Docking Port"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/djstation)
+"JC" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/djstation)
+"Lr" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/bottle/vodka{
+	pixel_x = 7;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 28;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"Lv" = (
+/obj/machinery/door_control{
+	desiredstate = 1;
+	id = "djportdoor";
+	in_use = 1;
+	name = "Pod Port Door Bolts";
+	normaldoorcontrol = 1;
+	pixel_y = 26;
+	specialfunctions = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/djstation)
+"Md" = (
+/obj/machinery/sleeper,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/djstation)
+"Ml" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating,
+/area/djstation)
+"Mu" = (
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/djstation)
+"NY" = (
+/obj/machinery/vending/sovietsoda,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/djstation)
+"Po" = (
+/obj/structure/lattice,
+/obj/structure/grille,
+/turf/template_noop,
+/area/space/nearstation)
+"Qg" = (
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
+	},
+/obj/structure/table,
+/obj/item/paper/djstation{
+	info = "Station has stopped responding to my reports for about the past month. I assume Vostok just has his knickers in a twist.<br><br>Hell, not my problem. Got all the vodka and cigarettes I need to last me a year.";
+	name = "communications update"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/djstation)
+"Qo" = (
+/obj/machinery/light_switch{
+	pixel_y = 24
+	},
+/obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/djstation)
+"Qy" = (
+/obj/structure/rack,
+/obj/item/newspaper{
+	desc = "An issue of The Griffon. Was Nanotrasen supplying this station at some point?"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/djstation)
+"Rl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/obj/machinery/power/solar_control/autostart,
+/turf/simulated/floor/plating,
+/area/djstation)
+"Sc" = (
+/obj/structure/rack,
+/obj/item/clothing/under/retro/security,
+/obj/item/clothing/head/ushanka,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/djstation)
+"So" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/space/syndicate/orange{
 	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
@@ -394,141 +1030,38 @@
 	name = "Cosmonaut Security Helmet"
 	},
 /obj/item/clothing/mask/breath,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/djstation)
-"aR" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "0"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
-	},
-/area/djstation)
-"aS" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/djstation)
-"aT" = (
-/obj/structure/closet/emcloset,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
-	},
-/area/djstation)
-"aU" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
-	},
-/area/djstation)
-"aV" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/djstation)
-"aW" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light{
-	dir = 1;
-	on = 1
+"Tc" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
-/area/djstation)
-"aX" = (
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
-/obj/machinery/vending/cigarette/free{
-	slogan_list = list("Помните! Никаких капиталистов!","Лучше всего употреблять вместе с водкой!","Затянитесь!","Девять из десяти учёных СССП считают что курение снимает стресс","Прочим сигаретам далеко до русских сигарет!","Сигареты! Теперь на 100% меньше капитализма.")
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
-	},
-/area/djstation)
-"aY" = (
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/djstation)
-"aZ" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
-/obj/structure/table,
-/obj/item/paper/djstation{
-	name = "communications update";
-	info = "Station has stopped responding to my reports for about the past month. I assume Vostok just has his knickers in a twist.<br><br>Hell, not my problem. Got all the vodka and cigarettes I need to last me a year."
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/djstation)
-"ba" = (
-/obj/machinery/vending/sovietsoda,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/djstation)
-"bb" = (
-/obj/machinery/light_switch{
-	pixel_y = 24
-	},
-/obj/item/twohanded/required/kirbyplants,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/djstation)
-"bc" = (
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/djstation)
-"bd" = (
-/obj/effect/decal/cleanable/dirt,
+"Uj" = (
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = 1;
+	pixel_y = 9
+	},
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 1;
 	icon_state = "darkblue"
 	},
 /area/djstation)
-"be" = (
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
-	},
-/area/djstation)
-"bf" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
-	},
-/area/djstation)
-"bg" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
-	},
-/area/djstation)
-"bh" = (
-/obj/structure/safe/floor,
-/obj/item/gun/projectile/automatic/pistol,
-/obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/djstation)
-"bi" = (
+"UD" = (
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
@@ -545,395 +1078,68 @@
 	icon_state = "grimy"
 	},
 /area/djstation)
-"bj" = (
+"UQ" = (
 /obj/machinery/light_switch{
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/djstation)
-"bk" = (
-/obj/structure/bed,
-/obj/item/bedsheet/blue,
-/obj/structure/sign/poster/contraband/communist_state{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/djstation)
-"bl" = (
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_y = 8
+	pixel_y = -28
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
 /area/djstation)
-"bm" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/djstation)
-"bn" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Kitchen"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/djstation)
-"bo" = (
-/obj/structure/table,
-/obj/item/radio/intercom/pirate,
-/turf/simulated/floor/plasteel{
+"Wc" = (
+/obj/docking_port/stationary{
 	dir = 8;
-	icon_state = "darkblue"
+	dwidth = 2;
+	height = 5;
+	id = "dj_post";
+	name = "Docking port DJ Post";
+	width = 8
 	},
-/area/djstation)
-"bp" = (
-/obj/structure/chair/office/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/djstation)
-"bq" = (
-/obj/structure/table,
-/obj/item/radio/intercom/pirate,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
-	},
-/area/djstation)
-"br" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Cabin"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/djstation)
-"bs" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/djstation)
-"bt" = (
-/obj/structure/closet/crate/can,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/djstation)
-"bu" = (
-/obj/machinery/light/small,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/djstation)
-"bv" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
-	},
-/area/djstation)
-"bw" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
-	pixel_x = 7;
-	pixel_y = 10
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_x = 28;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
-	},
-/area/djstation)
-"bx" = (
-/obj/structure/table,
-/obj/item/radio/intercom/pirate,
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "darkblue"
-	},
-/area/djstation)
-"by" = (
-/obj/structure/table,
-/obj/item/paper/djstation{
-	pixel_x = 5;
-	pixel_y = 17;
-	info = "<B>Welcome new owner!</B><BR><BR>You have purchased the latest in listening equipment. The telecommunication setup we created is the best in listening to common and private radio fequencies. Here is a step by step guide to start listening in on those saucy radio channels:<br><ol><li>Equip yourself with a multi-tool</li><li>Use the multitool on each machine, that is the broadcaster, receiver and the relay.</li><li>Turn all the machines on, it has already been configured for you to listen on.</li></ol> Simple as that. Now to listen to the private channels, you'll have to configure the intercoms, located on the front desk. Here is a list of frequencies for you to listen on.<br><ul><li>145.7 - Common Channel</li><li>144.7 - Private AI Channel</li><li>135.9 - Security Channel</li><li>135.7 - Engineering Channel</li><li>135.5 - Medical Channel</li><li>135.3 - Command Channel</li><li>135.1 - Science Channel</li><li>134.7 - Supply Channel</li>"
-	},
-/obj/item/phone{
-	name = "spin-dial phone";
-	desc = "An old Russian phone. The dial tone is still humming.";
-	pixel_x = 1;
-	pixel_y = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
-	},
-/area/djstation)
-"bz" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
-	},
-/area/djstation)
-"bA" = (
-/obj/structure/coatrack,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/djstation)
-"bB" = (
-/obj/structure/rack,
-/obj/item/newspaper{
-	desc = "An issue of The Griffon. Was Nanotrasen supplying this station at some point?"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/djstation)
-"bC" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/djstation)
-"bD" = (
-/obj/machinery/sleeper{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/djstation)
-"bE" = (
-/obj/machinery/door/airlock{
-	name = "Restroom";
-	req_access_txt = "0"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/djstation)
-"bF" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
-	},
-/area/djstation)
-"bG" = (
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "darkblue"
-	},
-/area/djstation)
-"bH" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
-	},
-/area/djstation)
-"bI" = (
-/obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	tag = "icon-shower (EAST)";
-	icon_state = "shower";
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/djstation)
-"bJ" = (
-/obj/machinery/light_switch{
-	pixel_x = 32;
-	pixel_y = 9
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/djstation)
-"bK" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "dark");
-	icon_state = "4-i"
-	},
-/area/djstation)
-"bL" = (
-/obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/djstation)
-"bM" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 6
-	},
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1479;
-	master_tag = "dj_station_airlock";
-	name = "interior access button";
-	pixel_x = 25;
-	pixel_y = -25;
-	req_access_txt = "0"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/djstation)
-"bN" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
-	},
-/obj/machinery/portable_atmospherics/canister/air,
-/obj/machinery/door/window/westleft,
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 1
-	},
-/area/djstation)
-"bO" = (
-/obj/structure/lattice,
-/obj/structure/grille,
 /turf/template_noop,
-/area/space/nearstation)
-"bP" = (
-/obj/structure/mirror{
-	dir = 4;
-	pixel_x = -32
-	},
-/obj/structure/sink{
-	icon_state = "sink";
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/area/template_noop)
+"Xf" = (
+/obj/structure/sign/pods,
+/turf/simulated/wall/mineral/titanium/interior,
 /area/djstation)
-"bQ" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/djstation)
-"bR" = (
-/obj/structure/toilet{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/djstation)
-"bS" = (
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = 1;
-	pixel_y = 9
-	},
-/obj/item/pen,
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/djstation)
-"bT" = (
-/obj/structure/rack,
-/obj/item/clothing/under/retro/security,
-/obj/item/clothing/head/ushanka,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/djstation)
-"bU" = (
-/obj/machinery/door/airlock/external{
-	frequency = 1479;
-	icon_state = "door_locked";
-	id_tag = "dj_station_inner";
-	locked = 1;
-	name = "DJ Station Interior Access";
-	req_access = null;
-	req_access_txt = "0"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plating,
-/area/djstation)
-"bV" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	frequency = 1479;
-	id_tag = "dj_station_pump"
-	},
-/obj/machinery/airlock_sensor{
-	frequency = 1479;
-	id_tag = "dj_station_sensor";
-	pixel_x = 25;
-	pixel_y = -5
-	},
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	frequency = 1479;
-	id_tag = "dj_station_airlock";
-	pixel_x = -25;
-	req_access_txt = "0";
-	tag_airpump = "dj_station_pump";
-	tag_chamber_sensor = "dj_station_sensor";
-	tag_exterior_door = "dj_station_outer";
-	tag_interior_door = "dj_station_inner"
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/djstation)
-"bW" = (
-/obj/machinery/door/airlock/external{
-	frequency = 1479;
-	icon_state = "door_locked";
-	id_tag = "dj_station_outer";
-	locked = 1;
-	name = "DJ Station External Access";
-	req_access = null;
-	req_access_txt = "0"
-	},
-/turf/simulated/floor/plating,
-/area/djstation)
-"bX" = (
-/turf/template_noop,
-/area/djstation)
-"bY" = (
+"XG" = (
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1479;
 	master_tag = "dj_station_airlock";
 	name = "exterior access button";
 	pixel_x = 23;
-	pixel_y = 35;
-	req_access_txt = "0"
+	pixel_y = 35
 	},
 /turf/template_noop,
+/area/djstation)
+"XI" = (
+/obj/structure/safe/floor,
+/obj/item/gun/projectile/automatic/pistol,
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/djstation)
+"YA" = (
+/obj/machinery/power/solar/fake,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/template_noop)
+"ZZ" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/rack,
+/obj/item/tank/emergency_oxygen/double,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/djstation)
 
 (1,1,1) = {"
@@ -946,13 +1152,20 @@ aa
 aa
 aa
 aa
-ab
-ab
-ab
-ab
-ac
-ab
-ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -975,15 +1188,22 @@ aa
 aa
 aa
 aa
-ab
-ab
-ad
-ad
 aa
-ad
-ad
-ab
-ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1005,15 +1225,22 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
+aa
+ab
+ab
+ab
 ab
 ak
-ad
-ar
-aa
-ar
-ad
-ad
 ab
+ab
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1035,13 +1262,20 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 ab
-ad
-ar
-aw
-ar
-aw
-ar
+ab
+bu
+bu
+aa
+bu
+bu
+ab
+ab
+aa
+aa
 aa
 aa
 aa
@@ -1065,21 +1299,28 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 ab
-ad
-ar
-aw
-ar
-aw
-ar
+bw
+bu
+bP
 aa
-ao
-aL
-aL
-aL
-ao
+bP
+bu
+bu
+ab
 aa
-ad
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1095,19 +1336,26 @@ aa
 aa
 aa
 aa
-ac
-ad
-ae
-ax
-ae
-aw
-ar
 aa
-ao
-aY
-bl
-bt
-ao
+aa
+aa
+ab
+bu
+bI
+bS
+YA
+bS
+cP
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1121,26 +1369,33 @@ aa
 aa
 aa
 aa
-ad
+aa
+aa
+aa
+aa
 aa
 aa
 aa
 ab
+bu
+bI
+bS
+YA
+bS
+cP
 aa
-ae
-ax
-ae
-ax
-ar
-aa
+ao
+bT
+bT
+bT
 ao
 aZ
-bm
-bu
-ao
-ao
-ao
-ao
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1158,77 +1413,98 @@ aa
 aa
 aa
 aa
-ay
-aa
-ay
-ad
-aa
-ao
-ba
-bm
-bm
-aS
+ak
+bu
 bI
-bP
+bS
+YA
+bS
+cP
+aa
+ao
+EQ
+DI
+ku
 ao
 aa
+aa
+aa
+aa
+aa
+aa
+aa
+Wc
 aa
 aa
 aa
 "}
 (9,1,1) = {"
 aa
-ab
-ab
+aa
+aa
+aa
+aa
+aa
+aa
+bu
+aa
+aa
 aa
 ab
-ag
-ab
 aa
+bI
+bS
+YA
+bS
+cP
 aa
-aa
-aa
-ay
-aa
-ay
-ad
-ad
 ao
-bb
-bm
-bm
-bE
-bJ
-bQ
+Qg
+aM
+oE
+ao
+ao
+ao
 aS
+aS
+IK
+ao
+ao
 aa
 aa
 aa
 aa
 "}
 (10,1,1) = {"
-ab
-ab
-ad
-aa
-ad
 aa
 aa
 aa
 aa
-al
-as
-as
-aE
-an
-aL
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+am
+aa
+am
+bu
+aa
 ao
+NY
+aM
+aM
 aS
 bc
 bn
-bc
-aS
 ao
+bE
+bR
 bR
 ao
 aa
@@ -1237,59 +1513,73 @@ aa
 aa
 "}
 (11,1,1) = {"
+aa
+aa
+aa
+aa
+ab
 ab
 aa
-ad
-ae
-ae
-ae
-ae
+ab
+bp
+ab
+aa
+aa
 aa
 aa
 am
-at
-av
-aF
-av
-aM
+aa
+am
+bu
+bu
 ao
+Qo
+aM
+aM
 aT
 bd
-aV
-bv
-bF
+rA
+aS
+bR
 bK
-ao
-ao
+wS
+bT
 aa
 aa
 aa
 aa
 "}
 (12,1,1) = {"
-ac
 aa
-ae
-af
-af
-af
-af
+aa
+aa
+ab
+ab
+bu
+aa
+bu
+aa
+aa
+aa
+aa
+bx
 ah
+Tc
 ai
 an
-at
-av
-av
-av
-aN
+bT
 ao
-aU
-be
+aS
+JC
+aN
+JC
+aS
+ao
 bo
-bw
-bG
-bL
-bS
+ao
+kO
+Xf
+ao
 ao
 aa
 aa
@@ -1297,151 +1587,186 @@ aa
 aa
 "}
 (13,1,1) = {"
+aa
+aa
+aa
 ab
 aa
+bu
+bP
+bP
+bP
+bP
 aa
-ae
-ae
-ae
-ae
 aa
-ad
-ao
+bz
+bJ
+ap
+ap
+ap
 au
-az
+ao
 aG
 aI
-aO
+bR
 aR
 aV
 aU
-bp
-bx
-bG
-aV
-bT
 ao
+aS
+Lv
+ZZ
+bT
+aa
 aa
 aa
 aa
 aa
 "}
 (14,1,1) = {"
-ab
 aa
-ae
-af
-af
-af
-af
-ah
-ai
+aa
+aa
+ak
+bI
+aA
+be
+be
+be
+be
+bt
+bt
+bB
+bJ
+ap
+zC
 ap
 av
-aA
-av
+ao
+Uj
 aJ
 aP
-ao
-aW
-bf
-bq
-by
-bG
-aV
-aS
-ao
-ao
-bX
+Lr
+aX
+bR
+bR
+bL
+bR
+So
+bT
+aa
+aa
+aa
 aa
 aa
 "}
 (15,1,1) = {"
-ab
-ad
-ad
-ae
-ae
-ae
-ae
-ad
 aa
-am
-av
-aB
-at
-aJ
-aQ
-ao
-aX
-bg
-aV
-bz
-bH
+aa
+aa
+ab
+az
+aF
+bP
+bP
+bP
+bP
+aa
+bu
+sJ
 bM
 bU
-bV
-bW
-bY
+Er
+Ml
+ke
+aB
+bR
+rq
+aQ
+pT
+aX
+bR
+Sc
+aS
+ao
+ao
+ao
+aa
+aa
+aa
 aa
 aa
 "}
 (16,1,1) = {"
+aa
+aa
+aa
 ab
-ab
-ad
-aa
-aa
-ad
-ad
-aa
-aa
+bI
+bb
+be
+be
+be
+be
+bt
+bt
+hJ
+ap
+AP
+iU
 aq
-as
-as
+UQ
+ao
 aE
 aK
-aL
+wt
+xB
+aX
+AH
+aS
 ao
-aS
-bc
-br
-bc
-aS
+ao
 bN
-aS
-ao
-ao
-bX
+aa
+aa
+aa
+aa
 aa
 aa
 "}
 (17,1,1) = {"
 aa
+aa
+aa
 ab
-ab
+bu
+bu
+lv
+lv
+lv
+lv
+bu
 aa
-ab
-ac
-ab
-aa
-aa
-aa
-ad
-ay
-aH
-ay
-aa
-aa
+bz
+ap
+pE
+Rl
+aq
+bJ
 ao
+aH
+kd
+bR
+FU
+Mu
 bh
 bs
 bA
-ao
-ao
-ao
-ad
-bO
+eD
+XG
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1450,29 +1775,36 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-ad
-aa
-ad
-ad
-ay
-aH
-ay
-aa
-aa
-ao
-bi
-bs
-bB
-ao
-aa
-aa
 ab
-bO
-ad
+ab
+bu
+aa
+aa
+bu
+bu
+aa
+aa
+bH
+ah
+Ig
+ai
+hJ
+bT
+ao
+aS
+JC
+by
+JC
+aS
+bi
+aS
+ao
+ao
+bN
+aa
+aa
+aa
+aa
 aa
 aa
 "}
@@ -1481,29 +1813,36 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-ad
+ab
 ab
 aa
-ae
-aC
-ae
-aC
-ar
+ab
+ak
+ab
+aa
+aa
+aa
+bu
+am
+aa
+am
+aa
 aa
 ao
-bj
-bs
-bC
+XI
+sd
+dv
 ao
-ad
-bO
-bO
-ad
-ad
-ad
+ao
+ao
+bu
+Po
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 "}
 (20,1,1) = {"
@@ -1512,29 +1851,36 @@ aa
 aa
 aa
 aa
-ad
 aa
-ad
+aa
+aa
+aa
+aa
+bu
+aa
+bu
+bu
+am
+aa
+am
+aa
+aa
+ao
+UD
+sd
+Qy
+ao
+aa
+aa
 ab
-aa
-ae
-aC
-ae
-aC
-ar
-aa
-ao
-bk
-bs
-bD
-ao
-bO
-bO
-ad
+Po
+bu
 aa
 aa
-ad
-ad
+aa
+aa
+aa
+aa
 "}
 (21,1,1) = {"
 aa
@@ -1545,25 +1891,32 @@ aa
 aa
 aa
 aa
-aj
-ad
-ar
-aD
-ar
-aD
-ar
+aa
+aa
+bu
+ab
+aa
+bI
+Bh
+bI
+Bh
+cP
 aa
 ao
-aL
-aL
-aL
+vE
+sd
+eH
 ao
+bu
+Po
+Po
+bu
+bu
+bu
 aa
-ad
 aa
 aa
 aa
-ad
 aa
 "}
 (22,1,1) = {"
@@ -1575,24 +1928,31 @@ aa
 aa
 aa
 aa
+bu
+aa
+bu
 ab
-ad
-ar
-aD
-ar
-aD
-ar
+aa
+bI
+Bh
+bI
+Bh
+cP
+aa
+ao
+FB
+sd
+Md
+ao
+Po
+Po
+bu
 aa
 aa
+bu
+bu
 aa
 aa
-ad
-ad
-aa
-aa
-aa
-ad
-ad
 aa
 aa
 "}
@@ -1605,23 +1965,30 @@ aa
 aa
 aa
 aa
-ab
-ad
-ad
-ar
-aa
-ar
-ad
-ad
-ab
 aa
 aa
 aa
-ad
-ad
+bv
+bu
+bI
+Bh
+bI
+Bh
+cP
 aa
-ad
-ad
+ao
+bT
+bT
+bT
+ao
+aa
+bu
+aa
+aa
+aa
+bu
+aa
+aa
 aa
 aa
 aa
@@ -1635,22 +2002,29 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
 ab
-ab
-aa
-aa
-aa
-ad
-ad
-ab
-ab
+bu
+bI
+Bh
+bI
+Bh
+cP
 aa
 aa
 aa
 aa
-ad
-ad
-ad
+bu
+bu
+aa
+aa
+aa
+bu
+bu
+aa
+aa
 aa
 aa
 aa
@@ -1666,13 +2040,25 @@ aa
 aa
 aa
 aa
+aa
+aa
 ab
+bu
+bu
+lv
+aa
+lv
+bu
+bu
 ab
-ab
-ab
-ab
-ab
-ab
+aa
+aa
+aa
+bu
+bu
+aa
+bu
+bu
 aa
 aa
 aa
@@ -1680,11 +2066,6 @@ aa
 aa
 aa
 aa
-ad
-aa
-aa
-aa
-ad
 "}
 (26,1,1) = {"
 aa
@@ -1698,19 +2079,26 @@ aa
 aa
 aa
 aa
+ab
+ab
+aa
+aa
+aa
+bu
+bu
+ab
+ab
 aa
 aa
 aa
 aa
+bu
+bu
+bu
 aa
 aa
 aa
 aa
-aa
-ad
-aa
-aa
-ad
 aa
 aa
 aa
@@ -1729,20 +2117,27 @@ aa
 aa
 aa
 aa
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
 aa
 aa
 aa
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
+aa
+bu
+aa
+aa
+aa
+bu
+aa
+aa
 aa
 aa
 "}
@@ -1765,14 +2160,21 @@ aa
 aa
 aa
 aa
-ad
+aa
+aa
+aa
+aa
+aa
+bu
+aa
+aa
+bu
 aa
 aa
 aa
 aa
 aa
 aa
-ad
 aa
 aa
 "}
@@ -1795,14 +2197,21 @@ aa
 aa
 aa
 aa
-ad
+aa
+aa
+aa
+bu
+bu
+bu
+bu
+bu
+bu
+bu
+bu
 aa
 aa
 aa
 aa
-aa
-aa
-ad
 aa
 aa
 "}
@@ -1828,12 +2237,19 @@ aa
 aa
 aa
 aa
+bu
 aa
 aa
 aa
 aa
-ad
-ad
+aa
+aa
+bu
+aa
+aa
+aa
+aa
+aa
 aa
 "}
 (31,1,1) = {"
@@ -1858,11 +2274,166 @@ aa
 aa
 aa
 aa
+bu
 aa
 aa
 aa
 aa
 aa
 aa
-ad
+bu
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(32,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bu
+bu
+aa
+aa
+aa
+aa
+aa
+"}
+(33,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bu
+aa
+aa
+aa
+aa
+"}
+(34,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(35,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 "}

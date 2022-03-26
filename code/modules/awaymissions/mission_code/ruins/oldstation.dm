@@ -40,11 +40,17 @@
 	desc = "A clip on ID Badge, has one of those fancy new magnetic strips built in. This one is encoded for the Engineering Dept."
 	icon_state = "retro_engineering"
 
-/obj/item/card/id/away/old/apc
-	name = "APC Access ID"
-	desc = "A special ID card that allows access to APC terminals."
+/obj/item/card/id/away/old/midengi
+	name = "Engineering Middle Access ID"
+	desc = "A special ID card that allows access to APC terminals, Emitters, some other engineering equipment."
 	icon_state = "centcom_old"
-	access = list(ACCESS_ENGINE_EQUIP)
+	access = list(ACCESS_ENGINE_EQUIP, ACCESS_MECHANIC)
+
+/obj/item/card/id/away/old/mechatron
+	name = "Mechatronic Access ID"
+	desc = "An old special ID card in retro style that allows access to Cyborg and Mech panels."
+	icon_state = "retro"
+	access = list(ACCESS_ROBOTICS)
 
 /obj/item/storage/backpack/old
 	max_combined_w_class = 12
@@ -105,24 +111,24 @@
 
 /obj/item/paper/fluff/ruins/oldstation/damagereport
 	name = "Damage Report"
-	info = "<b>*Damage Report*</b><br><br><b>Alpha Station</b> - Destroyed<br><br><b>Beta Station</b> - Catastrophic Damage. Medical, destroyed. Atmospherics, partially destroyed. Engine Core, destroyed.<br><br><b>Charlie Station</b> - Intact. Loss of oxygen to eastern side of main corridor.<br><br><b>Theta Station</b> - Intact. <b>WARNING</b>: Unknown force occupying Theta Station. Intent unknown. Species unknown. Numbers unknown.<br><br>Recommendation - Reestablish station powernet via solar array. Reestablish station atmospherics system to restore air."
+	info = "<b>Damage Report</b><br><br><b>Alpha Station</b> - Destroyed<br><br><b>Beta Station</b> - Catastrophic Damage. Medical, partially destroyed. Atmospherics, partially destroyed. Engine Core, destroyed.<br><br><b>Charlie Station</b> - Intact. Loss of oxygen to eastern side of main corridor.<br><br><b>Theta Station</b> - Intact. <b>WARNING</b>: Unknown force occupying Theta Station. Intent unknown. Species unknown. Numbers unknown.<br><br>Recommendation - Reestablish station powernet via solar array. Reestablish station atmospherics system to restore air."
 
 /obj/item/paper/fluff/ruins/oldstation/protosuit
 	name = "B01-RIG Hardsuit Report"
-	info = "<b>*Prototype Hardsuit*</b><br><br>The B01-RIG Hardsuit is a prototype powered exoskeleton. Based off of a recovered pre-void war era united Earth government powered military \
+	info = "<b>Prototype Hardsuit</b><br><br>The B01-RIG Hardsuit is a prototype powered exoskeleton. Based off of a recovered pre-void war era united Earth government powered military \
 	exosuit, the RIG Hardsuit is a breakthrough in Hardsuit technology, and is the first post-void war era Hardsuit that can be safely used by an operator.<br><br>The B01 however suffers \
 	a myriad of constraints. It is slow and bulky to move around, it lacks any significant armor plating against direct attacks and its internal heads up display is unfinished,  \
 	resulting in the user being unable to see long distances.<br><br>The B01 is unlikely to see any form of mass production, but will serve as a base for future Hardsuit developments."
 
 /obj/item/paper/fluff/ruins/oldstation/protohealth
 	name = "Health Analyser Report"
-	info = "<b>*Health Analyser*</b><br><br>The portable Health Analyser is essentially a handheld variant of a health analyser. Years of research have concluded with this device which is \
+	info = "<b>Health Analyser</b><br><br>The portable Health Analyser is essentially a handheld variant of a health analyser. Years of research have concluded with this device which is \
 	capable of diagnosing even the most critical, obscure or technical injuries any humanoid entity is suffering in an easy to understand format that even a non-trained health professional \
 	can understand.<br><br>The health analyser is expected to go into full production as standard issue medical kit."
 
 /obj/item/paper/fluff/ruins/oldstation/protogun
 	name = "K14 Energy Gun Report"
-	info = "<b>*K14-Multiphase Energy Gun*</b><br><br>The K14 Prototype Energy Gun is the first Energy Rifle that has been successfully been able to not only hold a larger ammo charge \
+	info = "<b>K14-Multiphase Energy Gun</b><br><br>The K14 Prototype Energy Gun is the first Energy Rifle that has been successfully been able to not only hold a larger ammo charge \
 	than other gun models, but is capable of swapping between different energy projectile types on command with no incidents.<br><br>The weapon still suffers several drawbacks, its alternative, \
 	non laser fire mode, can only fire one round before exhausting the energy cell, the weapon also remains prohibitively expensive, nonetheless NT Market Research fully believe this weapon \
 	will form the backbone of our Energy weapon catalogue.<br><br>The K14 is expected to undergo revision to fix the ammo issues, the K15 is expected to replace the 'stun' setting with a \
@@ -130,15 +136,10 @@
 
 /obj/item/paper/fluff/ruins/oldstation/protosing
 	name = "Singularity Generator"
-	info = "<b>*Singularity Generator*</b><br><br>Modern power generation typically comes in two forms, a Fusion Generator or a Fission Generator. Fusion provides the best space to power \
+	info = "<b>Singularity Generator</b><br><br>Modern power generation typically comes in two forms, a Fusion Generator or a Fission Generator. Fusion provides the best space to power \
 	ratio, and is typically seen on military or high security ships and stations, however Fission reactors require the usage of expensive, and rare, materials in its construction.. Fission generators are massive and bulky, and require a large reserve of uranium to power, however they are extremely cheap to operate and oft need little maintenance once \
 	operational.<br><br>The Singularity aims to alter this, a functional Singularity is essentially a controlled Black Hole, a Black Hole that generates far more power than Fusion or Fission \
-	generators can ever hope to produce. "
-
-/obj/item/paper/fluff/ruins/oldstation/protoinv
-	name = "Laboratory Inventory"
-	info = "<b>*Inventory*</b><br><br>(1) Prototype Hardsuit<br><br>(1)Health Analyser<br><br>(1)Prototype Energy Gun<br><br>(1)Singularity Generation Disk<br><br><b>DO NOT REMOVE WITHOUT \
-	THE CAPTAIN AND RESEARCH DIRECTOR'S AUTHORISATION</b>"
+	generators can ever hope to produce."
 
 /obj/item/paper/fluff/ruins/oldstation/report
 	name = "Crew Reawakening Report"
@@ -149,7 +150,61 @@
 
 /obj/item/paper/fluff/ruins/oldstation/generator_manual
 	name = "S.U.P.E.R.P.A.C.M.A.N.-type portable generator manual"
-	info = "You can barely make out a faded sentence... <br><br> Wrench down the generator on top of a wire node connected to either a SMES input terminal or the power grid."
+	info = "You can barely make out a faded sentence... <br><br> Wrench down the generator on top of a wire node connected to either a SMES input terminal or the power grid. \
+	*eep th* *e**l of **m..<br><br> The last words completly faded." // yep, the temperature overheat, some players set power to 5 and make the gen to blow up, rip oldstation.
+
+/obj/item/paper/ruins/oldstation/protoinventory
+	name = "Theta RnD Prototype Inventory Secure Storage"
+	info = "<b>Inventory</b><br><br>(1) Prototype Hardsuit<br><br>(1)Health Analyser<br><br>(1)Prototype Energy Rifle<br><br>(1)Tesla Generation Rod<br><br><b>DO NOT REMOVE WITHOUT \
+	THE CAPTAIN AND RESEARCH DIRECTOR'S AUTHORISATION</b>"
+
+/obj/item/paper/ruins/oldstation/prototesla // eh, im bad in eng anyway but i tried. mb somebody will fix it later
+	name = "Tesla Generator Report"
+	info = "<b>Tesla Generator</b><br><br>New prototype of engine made in purpose to product energy has been created in walls of Theta Research and Development department!  \
+	After horrible accident that happened on Alpha the new RnD command got fax from CC about perspective energy production researches of the next generation. As result,  \
+	from the data aquired from CC and relentless work, our brave RnD staff managed to represent a new hope for every station, for an old dream - to curb the lightnings! \
+	By our prognoses, this 'engine' have great potential for powering up small, meduim or even large stations. Its quite flexible in setting up, and also can become the \
+	cheapest engine in maintenance on nova days."
+
+/obj/item/paper/ruins/oldstation/singwarn // the engine is bugged, at least on ss220, so ic warning may prevent people to use it, at least untill it will be fixed, then this note will gone
+	name = "Old note"
+	info = "<b>I warned you!</b><br /><br /><b>In memory of Alfred</b><br /><br />DON'T USE IT!!! I - won't EVER AGAIN engage the station power on that cursed thing!  \
+	I see the same nightmare every month, if not every week right now... The darkness, the silence, blood.. DOOM! Our brave RnD created a hell engine.  \
+	On its born in CZ, I swear, I heard our names whispered from the void! This thing WAS THE VOID, THE BLACK HOLE ITSELF!  \
+	First - a 10 cm lead container appears in Alpha Engineering Foyer, next - executive man and head of our department Chief Engineer Jakob T. -  \
+	asking Captain about soon retirement! Then this RnD with their secret engine project come with shtamped papers and told us to force works on building containment zone as soon as possible  \
+	for their precious reports to CC about successful success in the field of energy production. We didn't know yet what was inside that container, and I HAD TO BE more clever that days...  \
+	<p>We built everything as it was on plans. Every wire, every rod - everything were in the place, it has to be safe! Actually, I decided to not risk with possible malfunctions and requested more equipment from RnD,  \
+	and they sent everything I asked without a question! Like they were not sure themself about safety of this monster. We doubled emitters, made another SMES, even P.A.C.M.A.N.'s if shits went wrong.  \
+	And at the end even this wasn't enough.<p>At the very start - all our consoles and sensors on Alpha blackedout. Radio silenced. The fields went down. I heard as something rattle and rumble inside Alpha..  \
+	Or it was everywhere? Ten seconds later Alpha got hit via something big. As I will know later it was arriving Cargo supply shuttle from CC requested 2 weeks ago. Half of Cargo department was crushed down,  \
+	couple staff members died in a seconds, in space and under the drifting shuttle, seven more were hardly injured. Screams and darkness.. The Singularity were stay in place quiet and peacefully,  \
+	we managed turn off accelerator before it let Singulo grew up and let it swallow all of us and the station. Barely didn't crapped myself when I saw pulsations of the Void myself,  \
+	I thought we are gone.. And Im not sure, I heard something..  laughing?.. and.. names.. it was our names.. from everywhere and nowhere at the same time.  \
+	I decided it was an effect from high radiation splash of Singulo born and went to check SMES, my good bud Alfred.. he could become good or even excelent CE after all Im sure!  \
+	Poor guy.. went outside to check why the fields and emitters turned off. The others went fix Alpha breaches and power it back. We work for a hour and half.  \
+	I just came back to the consoles as one of engineers covered in blood and burned suit and face, siezed and shout at me about Alfred - he were flying toward this..  \
+	thing.. openwide his arms. Radio came back, he giggles and mumbles. I ran outside screaming into channel to stop. In the last seconds hes finally heard me...  \
+	His blood sprayed across whole area, covering fields, walls, windows, airlocks.. my whole RIG - I heard his twitched scream and it stunned me to deaf.  \
+	The Void consumed its prey, grew up and moved...<p>I don't remember how I survived all what happened after. Almost whole Alpha gone in embrace of the Singulo.  \
+	I don't know how we get rid off it eather. CC sent us Engineering ERT to fix station, more than a half of the station crew asked about evac,  \
+	I decided to stay and repair station with CCs guys. I'll never forget that. Now seven month later after the incident, Engineering accepted fax from new Research Director -  \
+	they created 'ANOTHER VOID ENGINE. MORE STABLE THAN BEFORE'! It was the last straw of me, I left my job and wrote the note. Never setup this engine.  \
+	If from the first look you didn't feel afraid of anything in that doom-device, I hope my story will ensure you that you SHOULD. I warned you."
+
+/obj/item/paper/ruins/oldstation/slimesexperiments //many people asked about slimes xeno, i tried to make it possible with the special report note
+	name = "Xeno Core Research Report"
+	info = "<b>Observation records of biological xeno core</b><br /><br />Data: The biological sample of unknown xeno form acquired from extraction of dead adult xeno specimen  \
+	our miners found in one of asteroids of local clusters during mining regular expeditions. We assume it still can be useful for researches since after the specimen death which happen  \
+	20-25 years ago perfectly saved its internal organs under the half transperent elastic skin, like if its death happened couple minutes ago. Inside we traced low electrical activity in  \
+	body and the center of it was this core. The Research Director searched any data about the xeno form in all available xeno databases he requested from CC Science Data Centers.  \
+	He got fax from CC later which in they asked to continue researches manually since we have enough samples of these xeno by using all spectrum of chemicals we can afford to spend on them.  \
+	<br /><br /><br />Chemical reaction records and notes<br /><br />All chemicals used without syringe insertion outside the core, be it gas or liquid of powder during highing or lowering temperature did no results at all.  \
+	Researche continues.<br /><br />Note 1: One of our scientists noted that core starts hit him with static electricity and fluctuate after he accidently touched it with his skin when he weared off his latex glowes.  \
+	He used regular distilled water on core to see if its connected somehow with special liquids. The result wasn't much remarkable but still, the core just fluctuated and the effect were less intensive than it was before...  \
+	<br /><br />Most inserted chemicals did no reactions. The only reagent was water, the core mixed water with inner liquid and changed the color. Chemical compounds we extracted back in closer look simulates one of pharmacological drugs in Medicine called Epinephrine.  \
+	At least the good news. Report sent<br /><br />Our management requested new chemicals and one of them very expensive - Plasma, solid and gas. I personaly sure it will give us what we waiting from the cores.  \
+	Chemical analysis shows that reagents close to Plasma parameters are most effective rise electrical activity inside. It should be the answer."
 
 
 	//Old Prototype Hardsuit
@@ -317,19 +372,32 @@
 	icon_state = "teleporter"
 	has_gravity = FALSE
 
-/area/ruin/space/ancientstation/atmo
+/area/ruin/space/ancientstation/atmos
 	name = "Beta Station Atmospherics"
-	icon_state = "red"
-	has_gravity = FALSE
+	icon_state = "atmos"
+	has_gravity = TRUE
 	ambientsounds = ENGINEERING_SOUNDS
 
 /area/ruin/space/ancientstation/betanorth
 	name = "Beta Station North Corridor"
-	icon_state = "blue"
+	icon_state = "bluenew"
 
-/area/ruin/space/ancientstation/solar
-	name = "Station Solar Array"
-	icon_state = "panelsAP"
+/area/ruin/space/ancientstation/betacargo
+	name = "Beta Station Cargo Equipment"
+	icon_state = "quartstorage"
+
+/area/ruin/space/ancientstation/betamincorridor
+	name = "Beta Station Mining Corridor"
+	icon_state = "mining"
+
+/area/ruin/space/ancientstation/betaengi
+	name = "Beta Station Engineering"
+	icon_state = "storage"
+	ambientsounds = ENGINEERING_SOUNDS
+
+/area/ruin/space/ancientstation/atmosfoyer
+	name = "Beta Station Atmospherics Foyer"
+	icon_state = "engine_control"
 
 /area/ruin/space/ancientstation/engi
 	name = "Charlie Station Engineering"
@@ -342,7 +410,7 @@
 
 /area/ruin/space/ancientstation/hydroponics
 	name = "Charlie Station Hydroponics"
-	icon_state = "garden"
+	icon_state = "hydro"
 
 /area/ruin/space/ancientstation/kitchen
 	name = "Charlie Station Kitchen"
@@ -350,15 +418,15 @@
 
 /area/ruin/space/ancientstation/sec
 	name = "Charlie Station Security"
-	icon_state = "red"
+	icon_state = "security"
 
 /area/ruin/space/ancientstation/thetacorridor
 	name = "Theta Station Main Corridor"
-	icon_state = "green"
+	icon_state = "yellow"
 
 /area/ruin/space/ancientstation/proto
 	name = "Theta Station Prototype Lab"
-	icon_state = "toxlab"
+	icon_state = "toxstorage"
 
 /area/ruin/space/ancientstation/rnd
 	name = "Theta Station Research and Development"
@@ -366,4 +434,4 @@
 
 /area/ruin/space/ancientstation/hivebot
 	name = "Hivebot Mothership"
-	icon_state = "teleporter"
+	icon_state = "xenocell1"

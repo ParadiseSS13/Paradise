@@ -146,15 +146,6 @@
 		to investigate."
 	cost = 2
 
-/datum/map_template/ruin/space/spacebar
-	id = "spacebar"
-	suffix = "spacebar.dmm"
-	name = "The Rampant Golem and Yellow Hound"
-	description = "No questions asked. No shoes/foot protection, no service. \
-		No tabs. No violence in the inside areas. That's it. Welcome to the \
-		Rampant Golem and Yellow Hound. Can I take your order?"
-	cost = 2
-
 /datum/map_template/ruin/space/turreted_outpost
 	id = "turreted-outpost"
 	suffix = "turretedoutpost.dmm"
@@ -167,15 +158,6 @@
 	suffix = "way_home.dmm"
 	name = "Salvation"
 	description = "In the darkest times, we will find our way home."
-
-/datum/map_template/ruin/space/oldstation
-	id = "oldstation"
-	suffix = "oldstation.dmm"
-	name = "Ancient Space Station"
-	description = "The crew of a space station awaken one hundred years after a crisis. Awaking to a derelict space station on the verge of collapse, and a hostile force of invading \
-	hivebots. Can the surviving crew overcome the odds and survive and rebuild, or will the cold embrace of the stars become their new home?"
-	cost = 2
-	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/wizardcrash
 	id = "wizardcrash"
@@ -204,13 +186,6 @@
 	name = "Clown & Mime Mineral Deposits"
 	description = "A crash site of two opposing factions, both trying to complete mining trips for their own valuable minerals. While all the crew have long perished, the minerals are likely intact."
 
-/datum/map_template/ruin/space/dj
-	id = "dj"
-	suffix = "dj.dmm"
-	name = "Russian DJ Station"
-	description = "An old russian listening station, long since defunct and lifeless, however the equipment is likely still in working condition."
-	cost = 2
-
 /datum/map_template/ruin/space/druglab
 	id = "druglab"
 	suffix = "druglab.dmm"
@@ -231,14 +206,6 @@
 	suffix = "ussp_tele.dmm"
 	name = "USSP Teleporter"
 	description = "An old, almost fully destroyed teleporter, seemingly part of what used to be a much larger structure."
-
-/datum/map_template/ruin/space/ussp
-	id = "ussp"
-	suffix = "ussp.dmm"
-	name = "USSP"
-	description = "A decript station of seemingly russian origin. The last contact had with this station was a distress signal, and the rest was dark."
-	allow_duplicates = FALSE // One of these has enough loot
-	cost = 5 // This ruin is 100x100 tiles, so we dont want it to be treated like a 10x10 meteor
 
 /datum/map_template/ruin/space/whiteship
 	id = "whiteship"
@@ -283,3 +250,61 @@
 	suffix = "debris3.dmm"
 	name = "Debris field 3"
 	description = "A bunch of metal chunks, wires and space waste. It used to be an arcade."
+
+//----------- EDITED
+/datum/map_template/ruin/space/ussp // edited for shuttle to dj post
+	id = "ussp"
+	suffix = "ussp.dmm"
+	name = "USSP"
+	description = "A decript station of seemingly russian origin. The last contact had with this station was a distress signal, and the rest was dark."
+	allow_duplicates = FALSE // One of these has enough loot
+	cost = 5 // This ruin is 100x100 tiles, so we dont want it to be treated like a 10x10 meteor
+
+/datum/map_template/ruin/space/dj // edited for shuttle to ussp station
+	id = "dj"
+	suffix = "dj.dmm"
+	name = "Russian DJ Station"
+	description = "An old russian listening station, long since defunct and lifeless, however the equipment is likely still in working condition."
+	allow_duplicates = FALSE // because of lore on ussp and in notes on this post there should be only one dj post exists in space, not couple
+
+/datum/map_template/ruin/space/oldstation // edited hardly, hope it will be better to play on as ghost role now, also +1 ghost role as medic added, it was in code already i just placed the spawner back
+	id = "oldstation"
+	suffix = "oldstation.dmm"
+	name = "Ancient Space Station"
+	description = "The crew of a space station awaken one hundred years after a crisis. Awaking to a derelict space station on the verge of collapse, and a hostile force of invading \
+	hivebots. Can the surviving crew overcome the odds and survive and rebuild, or will the cold embrace of the stars become their new home?"
+	allow_duplicates = FALSE
+	cost = 3 // the station wasn't small from the start at all, it was 80x50 isn't 20x20, now its 110x50, the cost had to be higher than 2
+
+/datum/map_template/ruin/space/spacehotelv1 // new map, duplicated and edited partialy from other ss13 builds
+	id = "spacehotelv1"
+	suffix = "spacehotelv1.dmm"
+	name = "The Twin-Nexus Hotel"
+	description = "An interstellar hotel, where the weary spaceman can rest \
+		their head and relax, assured that the residental staff will not murder them in their sleep. Probably."
+	allow_duplicates = FALSE
+	cost = 3 // 70x60 map, idk which cost should be here, prob 4 but forced spawn maps have cost 0, so.. let it be 3 or change it as you want
+
+/datum/map_template/ruin/space/spacebar // edited for shuttle to the TN hotel
+	id = "spacebar"
+	suffix = "spacebar.dmm"
+	name = "The Rampant Golem and Yellow Hound"
+	description = "No questions asked. No shoes/foot protection, no service. \
+		No tabs. No violence in the inside areas. That's it. Welcome to the \
+		Rampant Golem and Yellow Hound. Can I take your order?"
+	allow_duplicates = FALSE // many space bars with the same name and same pods on it and etc. is bad idea from the start. if the build had radmozier only then it wouldn't be a problem
+
+/datum/map_template/ruin/space/punishment // new map, ideologically combined of one of asteroid on the other ss13 build and idea of kidnapping by syndicate
+	id = "punishment"
+	suffix = "punishment.dmm"
+	name = "Punishment"
+	description = "Here lying Atmos Tech, he worked too well. And now he will not. The end."
+	allow_duplicates = FALSE // certian story of certian event, shouldn't be many in space
+
+/datum/map_template/ruin/space/vacation // new map, duplicated from an other ss13 build
+	id = "vacation"
+	suffix = "vacation.dmm"
+	name = "Vacation"
+	description = "Whoever doesn't wish to have their own paradise corner in space! \
+		Wait, where did I put spray tan?.."
+//----------- EDITED_end
