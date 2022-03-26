@@ -59,7 +59,7 @@
 	update_flags |= M.AdjustStunned(-1, FALSE)
 	update_flags |= M.AdjustWeakened(-1, FALSE)
 	update_flags |= M.SetSleeping(0, FALSE)
-	update_flags |= M.adjustStaminaLoss(-5, FALSE)
+	update_flags |= M.adjustStaminaLoss(-8, FALSE)
 	if(prob(50))
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
 	return ..() | update_flags

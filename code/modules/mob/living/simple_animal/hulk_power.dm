@@ -76,8 +76,8 @@
 		user.visible_message("<span class='warning'><b>[user.name]</b> dashes forward!</span>")
 		playsound(user, 'sound/weapons/thudswoosh.ogg', CHANNEL_BUZZ)
 		if(failure)
-			user.Weaken(5)
-			user.Stun(5)
+			user.Weaken(2)
+			user.Stun(2)
 			user.visible_message("<span class='warning'> \the [user] attempts to dash away but was interrupted!</span>",
 								"<span class='warning'>You attempt to dash but suddenly interrupted!</span>",
 								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
@@ -116,7 +116,7 @@
 					if(istype(T,/turf/simulated/wall/r_wall))
 						playsound(H, 'sound/weapons/tablehit1.ogg', CHANNEL_BUZZ)
 						hit = 1
-						H.Weaken(10)
+						H.Weaken(3)
 						H.take_overall_damage(25, used_weapon = "reinforced wall")
 					else
 						playsound(H, 'sound/weapons/tablehit1.ogg', CHANNEL_BUZZ)
@@ -127,11 +127,11 @@
 							else
 								hit = 1
 								W.take_damage(50)
-								H.Weaken(5)
+								H.Weaken(2)
 						else
 							hit = 1
 							W.take_damage(25)
-							H.Weaken(5)
+							H.Weaken(2)
 			if(i > 20)
 				user.canmove = 0
 				user.density = 0
@@ -148,18 +148,18 @@
 							var/obj/item/organ/external/BP = H.bodyparts_by_name[bodypart_name]
 							H.apply_damage(20,BRUTE,BP)
 							BP.fracture()
-							M.Weaken(5)
-							M.Stun(5)
+							M.Weaken(2)
+							M.Stun(2)
 						else
-							M.Weaken(5)
-							M.Stun(5)
+							M.Weaken(2)
+							M.Stun(2)
 							M.take_overall_damage(40, used_weapon = "Hulk Foot")
 						M.throw_at(target, 200, 100)
 						break
 			else if(i > 6)
 				for(var/mob/living/M in T.contents)
 					playsound(M, 'sound/misc/slip.ogg', CHANNEL_BUZZ)
-					M.Weaken(5)
+					M.Weaken(2)
 			if(user.lying)
 				break
 			if(hit)
@@ -273,11 +273,11 @@
 					H.apply_damage(20,BRUTE,BP)
 					BP.fracture()
 					H.Stun(5)
-					H.Weaken(5)
+					H.Weaken(2)
 				else
 					playsound(M, 'sound/weapons/tablehit1.ogg', CHANNEL_BUZZ)
-					M.Stun(5)
-					M.Weaken(5)
+					M.Stun(2)
+					M.Weaken(2)
 					M.take_overall_damage(35, used_weapon = "Hulk Foot")
 		var/snd = 1
 		for(var/direction in GLOB.alldirs)

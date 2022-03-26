@@ -43,7 +43,7 @@
 /obj/item/ipc_combat_upgrade/attack_self(mob/user as mob)
 	if(!ismachineperson(user) || is_used == TRUE)
 		return
-	to_chat(user, "<span class='notice'>Installing data. It will take some time...</span>")
+	to_chat(user, "<span class='notice'>Installation sequence initialized. It will take some time...</span>")
 	if(do_after(user, 100))
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/synthojitsu/F = new/datum/martial_art/synthojitsu(null)
