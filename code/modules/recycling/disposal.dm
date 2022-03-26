@@ -789,8 +789,9 @@
 		return
 	if(T.intact && istype(T,/turf/simulated/floor)) //intact floor, pop the tile
 		var/turf/simulated/floor/F = T
+		var/turf_typecash = F.floor_tile
 		if(F.remove_tile(null, TRUE, FALSE))
-			new F.floor_tile(H)
+			new turf_typecash(T)
 
 	if(direction)		// direction is specified
 		if(istype(T, /turf/space)) // if ended in space, then range is unlimited
