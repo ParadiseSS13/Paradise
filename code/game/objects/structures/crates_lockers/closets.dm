@@ -126,10 +126,6 @@
 		if(!I.anchored)
 			I.forceMove(src)
 			itemcount++
-		if(istype(I, /obj/item/storage))
-			var/obj/item/storage/S = I
-			for(var/mob/player in S.mobs_viewing)
-				S.hide_from(player)
 
 	for(var/mob/M in loc)
 		if(itemcount >= storage_capacity)
