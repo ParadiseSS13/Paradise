@@ -221,7 +221,7 @@ const PatronManager = (properties, context) => {
               <Table.Cell><Icon name="user-tag" /> {checkout_data.patron_name}</Table.Cell>
               <Table.Cell textAlign="left">{checkout_data.title}</Table.Cell>
               <Table.Cell>
-                {checkout_data.islate === 1
+                {checkout_data.timeleft < 0
                   ? checkout_data.timeleft
                   : "LATE"}
               </Table.Cell>

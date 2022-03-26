@@ -112,12 +112,12 @@
 
 	for(var/datum/borrowbook/b in checkouts)
 		var/remaining_time = (b.duedate - world.time) / 600
-		var/late = FALSE
-		var/finedue = FALSE
-		if(remaining_time < 0)
-			late = TRUE
+		var/late = "false"
+		var/finedue = "false"
+		if(remaining_time <= 0)
+			late = "true"
 			if(remaining_time <= -15)
-				finedue = TRUE
+				finedue = "true"
 		remaining_time = round(remaining_time)
 
 		var/list/checkout_data = list(
@@ -178,6 +178,7 @@
 
 	add_fingerprint(usr)
 
+//FUCK AHHHHHHHHHHHHHHHH
 /obj/machinery/computer/library/proc/ui_act_modal(action, list/params)
 	. = TRUE
 	var/id = params["id"] // The modal's ID
