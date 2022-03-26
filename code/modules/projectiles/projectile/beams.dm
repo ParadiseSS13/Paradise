@@ -193,7 +193,7 @@
 /obj/item/projectile/beam/dominator/paralyzer
 	name = "paralyzer beam"
 	icon_state = "omnilaser"
-	damage = 33
+	damage = 25
 	shockbull = TRUE
 	damage_type = STAMINA
 	flag = "energy"
