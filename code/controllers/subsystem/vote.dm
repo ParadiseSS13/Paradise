@@ -241,7 +241,7 @@ SUBSYSTEM_DEF(vote)
 					var/datum/map/M = x
 
 					if(!initial(M.voteable))
-    					continue
+						continue
 
 					choices.Add("[initial(M.fluff_name)] ([initial(M.technical_name)])")
 
