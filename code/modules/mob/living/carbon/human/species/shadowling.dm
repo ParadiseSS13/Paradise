@@ -10,7 +10,7 @@
 	flesh_color = "#222222"
 
 	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE) //Can't use guns due to muzzle flash
-	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
+	burn_mod = 1.25
 	heatmod = 1.5
 
 	silent_steps = 1
