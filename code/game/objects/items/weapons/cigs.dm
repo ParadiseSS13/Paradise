@@ -283,6 +283,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	smoketime = 300
 	chem_volume = 120
 	list_reagents = list("nicotine" = 120)
+	muhtar_fashion = /datum/muhtar_fashion/mask/cigar
 
 /obj/item/clothing/mask/cigarette/cigar/cohiba
 	name = "Cohiba Robusto Cigar"

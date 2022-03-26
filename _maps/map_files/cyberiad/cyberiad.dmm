@@ -2222,6 +2222,8 @@
 	layer = 4;
 	pixel_y = 32
 	},
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/dog/security/warden,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -92222,6 +92224,11 @@
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
+"rjA" = (
+/mob/living/simple_animal/pet/dog/security,
+/obj/structure/bed/dogbed,
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "rlX" = (
 /obj/item/stack/sheet/metal{
 	amount = 50
@@ -126486,7 +126493,7 @@ afK
 amr
 anS
 aoM
-aoJ
+rjA
 anx
 ago
 aiT

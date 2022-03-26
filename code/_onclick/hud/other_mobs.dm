@@ -29,3 +29,10 @@
 	mymob.pullin.update_icon(mymob)
 	mymob.pullin.screen_loc = ui_construct_pull
 	static_inventory += mymob.pullin
+
+	//adding intents hud for pets
+	var/obj/screen/using
+	using = new /obj/screen/act_intent/simple_animal()
+	using.icon_state = mymob.a_intent
+	static_inventory += using
+	action_intent = using

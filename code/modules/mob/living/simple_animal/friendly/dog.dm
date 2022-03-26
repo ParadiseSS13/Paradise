@@ -96,9 +96,7 @@
 	icon_state = "blackdog"
 	icon_living = "blackdog"
 	icon_dead = "blackdog_dead"
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
+	icon_resting = "blackdog_rest"
 
 /mob/living/simple_animal/pet/dog/corgi
 	name = "\improper corgi"

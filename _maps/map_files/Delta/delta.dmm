@@ -82364,6 +82364,7 @@
 	dir = 1;
 	network = list("SS13","Security")
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -91449,12 +91450,13 @@
 /turf/simulated/floor/carpet,
 /area/bridge)
 "nXK" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/structure/sign/goldenplaque{
 	desc = "ЦК награждает клоуна Шляпку как первого заключённого брига после перестройки. Он был задержан по статьям 100 104 и 309. Так держать.";
 	name = "Награда за первое нарушение в новом бриге";
 	pixel_y = 32
 	},
+/mob/living/simple_animal/pet/dog/security,
+/obj/structure/bed/dogbed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -122277,6 +122279,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/dog/security/warden,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
