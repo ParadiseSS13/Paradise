@@ -8967,10 +8967,10 @@
 	name = "Port Maintenance"
 	})
 "avX" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/structure/grille,/obj/structure/grille,/obj/structure/grille,/obj/structure/grille,/obj/structure/grille,/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "maint grille or trash spawner"
-	},
+/obj/structure/closet/crate,
+/obj/item/flashlight,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/coin/silver,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
@@ -26577,15 +26577,12 @@
 	},
 /area/storage/tech)
 "bib" = (
-/obj/structure/rack,
-/obj/item/stack/cable_coil{
-	pixel_x = -1;
-	pixel_y = -3
-	},
-/obj/item/wrench,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/cigbutt,
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/fpmaint2{
+	name = "Port Maintenance"
+	})
 "bic" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -44234,23 +44231,19 @@
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "bRD" = (
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random_spawners/grille_maybe,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
 	})
 "bRE" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/machinery/vending/hatdispenser,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
 	})
 "bRF" = (
-/obj/structure/closet,
-/obj/item/clothing/shoes/jackboots,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/machinery/vending/shoedispenser,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
@@ -45107,6 +45100,7 @@
 	pixel_y = -2
 	},
 /obj/structure/table,
+/obj/item/clothing/mask/cigarette/pipe,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
@@ -45651,8 +45645,11 @@
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "bUG" = (
-/obj/structure/table,
-/obj/item/clothing/mask/cigarette/pipe,
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/clothing/mask/horsehead,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
@@ -46419,11 +46416,8 @@
 /turf/simulated/floor/plating,
 /area/security/vacantoffice)
 "bWk" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/clothing/mask/horsehead,
+/obj/structure/closet,
+/obj/item/flashlight,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
@@ -46446,12 +46440,10 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/kitchen)
 "bWo" = (
-/obj/structure/closet/emcloset,
-/obj/effect/decal/cleanable/cobweb2,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint2{
-	name = "Port Maintenance"
-	})
+/area/maintenance/aft)
 "bWp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -47633,21 +47625,10 @@
 	name = "E.V.A. Storage"
 	})
 "bYT" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/structure/grille,/obj/structure/grille,/obj/structure/grille,/obj/structure/grille,/obj/structure/grille,/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "maint grille or trash spawner"
-	},
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
@@ -48214,16 +48195,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "cak" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/landmark/spawner/blob,
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint2{
-	name = "Port Maintenance"
-	})
+/area/maintenance/aft)
 "can" = (
 /obj/machinery/firealarm{
 	name = "north bump";
@@ -48410,7 +48384,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
@@ -48692,23 +48665,19 @@
 /area/maintenance/portsolar)
 "cbq" = (
 /obj/structure/closet,
-/obj/item/storage/box/donkpockets,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/item/stack/sheet/glass{
+	amount = 12
+	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint2{
-	name = "Port Maintenance"
-	})
+/area/maintenance/aft)
 "cbr" = (
-/obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;5;39;25;28"
+/obj/structure/closet,
+/obj/item/stack/sheet/metal{
+	amount = 34
 	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/extinguisher/mini,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cbs" = (
@@ -49219,7 +49188,12 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/landmark/spawner/blob,
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "ccz" = (
@@ -49737,11 +49711,6 @@
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
 	})
-"cdH" = (
-/obj/structure/closet,
-/obj/item/flashlight,
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
 "cdI" = (
 /obj/structure/closet/secure_closet/hydroponics,
 /obj/structure/extinguisher_cabinet{
@@ -50260,13 +50229,11 @@
 	},
 /area/hallway/primary/port)
 "ceZ" = (
+/obj/effect/decal/warning_stripes/south,
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;5;39;25;28"
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
@@ -50280,18 +50247,20 @@
 	name = "Medbay Storage"
 	})
 "cfb" = (
-/obj/item/clothing/gloves/color/latex/nitrile,
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
+/obj/machinery/door/airlock/maintenance{
+	name = "Storage Room";
+	req_access_txt = "12"
 	},
-/obj/item/clothing/suit/storage/labcoat,
-/obj/item/clothing/mask/surgical,
-/obj/item/clothing/mask/breath/medical,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cfc" = (
-/obj/item/cigbutt,
+/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cfd" = (
@@ -50739,12 +50708,22 @@
 "cfV" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/bluegrid,
 /area/maintenance/aft)
 "cfW" = (
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/bluegrid,
 /area/maintenance/aft)
 "cfY" = (
@@ -51399,12 +51378,13 @@
 	name = "\improper Toxins Lab"
 	})
 "chw" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/structure/rack,
+/obj/item/stack/cable_coil{
+	pixel_x = -1;
+	pixel_y = -3
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/item/wrench,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "chx" = (
@@ -51418,11 +51398,18 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "chz" = (
-/obj/structure/closet/crate,
-/obj/item/coin/silver,
-/obj/item/flashlight,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/screwdriver{
+	pixel_y = 6
+	},
+/obj/item/crowbar,
+/obj/item/storage/pill_bottle,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
 /area/maintenance/aft)
 "chB" = (
 /obj/item/cigbutt,
@@ -51563,14 +51550,14 @@
 /turf/simulated/floor/plating,
 /area/atmos)
 "chS" = (
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
 	},
-/obj/machinery/light_construct,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
 /area/maintenance/aft)
 "chT" = (
 /obj/structure/noticeboard{
@@ -51966,11 +51953,11 @@
 	},
 /area/maintenance/incinerator)
 "ciK" = (
-/obj/item/trash/semki,
 /obj/machinery/light/small{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "ciL" = (
@@ -52211,16 +52198,13 @@
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "cjg" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Storage Room";
-	req_access_txt = "12"
+/obj/structure/bed/roller,
+/obj/structure/bed/roller,
+/obj/machinery/iv_drip,
+/obj/machinery/iv_drip,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
 	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cjh" = (
 /obj/machinery/door/firedoor,
@@ -52246,11 +52230,14 @@
 	},
 /area/medical/reception)
 "cjk" = (
-/obj/structure/closet,
-/obj/item/stack/sheet/glass{
-	amount = 12
+/obj/item/clothing/gloves/color/latex/nitrile,
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/clothing/suit/storage/labcoat,
+/obj/item/clothing/mask/surgical,
+/obj/item/clothing/mask/breath/medical,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cjl" = (
@@ -52302,24 +52289,10 @@
 	name = "counterfeit fabricator";
 	req_access = "0"
 	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cjs" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
+/obj/item/cigbutt,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cjt" = (
@@ -52329,18 +52302,6 @@
 /area/medical/medbay2{
 	name = "Medbay Storage"
 	})
-"cju" = (
-/obj/structure/closet,
-/obj/item/stack/sheet/metal{
-	amount = 34
-	},
-/obj/item/extinguisher/mini,
-/obj/machinery/light_construct{
-	dir = 1
-	},
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
 "cjv" = (
 /obj/effect/landmark/start/cargo_technician,
 /obj/effect/decal/cleanable/dirt,
@@ -52803,29 +52764,8 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
-"ckv" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
 "ckw" = (
-/obj/structure/girder,
-/obj/structure/grille,
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/effect/spawner/random_spawners/grille_maybe,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "ckx" = (
@@ -52855,14 +52795,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/assembly/robotics)
-"ckA" = (
-/obj/structure/rack,
-/obj/item/stack/rods{
-	amount = 23
-	},
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
 "ckB" = (
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
@@ -53453,16 +53385,6 @@
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
-"clU" = (
-/obj/structure/table,
-/obj/item/folder/white,
-/obj/item/folder/white,
-/obj/item/pen{
-	pixel_x = -3;
-	pixel_y = 5
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
@@ -55864,12 +55786,6 @@
 	icon_state = "wood-broken5"
 	},
 /area/maintenance/aft)
-"crd" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint2{
-	name = "Port Maintenance"
-	})
 "crf" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -63464,18 +63380,6 @@
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/medical/cryo)
-"cGZ" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/structure/grille,/obj/structure/grille,/obj/structure/grille,/obj/structure/grille,/obj/structure/grille,/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "maint grille or trash spawner"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
 "cHa" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -64840,23 +64744,6 @@
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
-"cJy" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/beaker{
-	pixel_x = 8;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/syringe,
-/obj/item/reagent_containers/dropper,
-/obj/structure/sign/biohazard{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
-/area/maintenance/aft)
 "cJz" = (
 /obj/structure/closet/bombcloset,
 /obj/effect/decal/warning_stripes/north,
@@ -65269,8 +65156,10 @@
 	name = "\improper Toxins Lab"
 	})
 "cKC" = (
-/obj/effect/decal/cleanable/generic,
-/obj/effect/decal/warning_stripes/east,
+/obj/machinery/door/airlock/maintenance{
+	name = "Medical Surplus Storeroom";
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cKD" = (
@@ -66645,20 +66534,6 @@
 /area/medical/research)
 "cNa" = (
 /obj/structure/table,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/item/storage/backpack/duffel/medical,
-/obj/item/flashlight/pen{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
-/area/maintenance/aft)
-"cNb" = (
-/obj/structure/table,
 /obj/item/retractor,
 /obj/item/hemostat,
 /obj/item/healthanalyzer,
@@ -66964,17 +66839,24 @@
 	},
 /area/medical/medbay3)
 "cNO" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
 /area/maintenance/aft)
 "cNP" = (
-/obj/effect/decal/cleanable/blood/oil,
+/obj/structure/table,
+/obj/item/reagent_containers/glass/beaker{
+	pixel_x = 8;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/iv_bag,
+/obj/item/reagent_containers/iv_bag,
+/obj/item/reagent_containers/syringe,
+/obj/item/reagent_containers/dropper,
+/obj/structure/sign/biohazard{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -67528,15 +67410,6 @@
 	icon_state = "white"
 	},
 /area/medical/virology)
-"cOJ" = (
-/obj/structure/bed/roller,
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
-/obj/machinery/iv_drip,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
-/area/maintenance/aft)
 "cOL" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -67931,23 +67804,16 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
-"cPF" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Medical Surplus Storeroom";
-	req_access_txt = "12"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
 "cPG" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 1
 	},
-/obj/item/screwdriver{
-	pixel_y = 6
+/obj/item/storage/backpack/duffel/medical,
+/obj/item/flashlight/pen{
+	pixel_x = 4;
+	pixel_y = 3
 	},
-/obj/item/crowbar,
-/obj/item/storage/pill_bottle,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -70187,24 +70053,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/medical/medbay3)
-"cUb" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/item/trash/cheesie,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint2{
-	name = "Port Maintenance"
-	})
 "cUd" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -72891,18 +72739,6 @@
 /obj/structure/closet/secure_closet/psychiatrist,
 /turf/simulated/floor/wood,
 /area/medical/psych)
-"dan" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
 "dap" = (
 /obj/item/radio/beacon,
 /obj/effect/decal/warning_stripes/north,
@@ -74518,12 +74354,6 @@
 	},
 /turf/simulated/wall,
 /area/maintenance/maintcentral)
-"deH" = (
-/obj/machinery/vending/shoedispenser,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint2{
-	name = "Port Maintenance"
-	})
 "deI" = (
 /obj/item/paper_bin{
 	pixel_x = -2;
@@ -74544,12 +74374,6 @@
 	icon_state = "grimy"
 	},
 /area/chapel/office)
-"deJ" = (
-/obj/machinery/vending/hatdispenser,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint2{
-	name = "Port Maintenance"
-	})
 "deL" = (
 /obj/machinery/light_switch{
 	dir = 4;
@@ -75053,11 +74877,6 @@
 /obj/structure/rack,
 /obj/item/stack/sheet/cardboard,
 /obj/item/radio/off,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -77060,8 +76879,8 @@
 "idx" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -77214,6 +77033,8 @@
 "isf" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/emcloset,
+/obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
@@ -78830,6 +78651,11 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/north,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "nUW" = (
@@ -81839,8 +81665,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/light/small{
-	dir = 8
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
@@ -95990,10 +95818,10 @@ bKy
 apf
 atj
 apd
-aoX
+ayB
 auy
 auC
-aoX
+bRD
 cgo
 rvu
 caw
@@ -96508,8 +96336,8 @@ bFp
 bFp
 bFp
 bFp
-aoX
-bYT
+apd
+rvu
 apf
 apd
 cgo
@@ -96765,7 +96593,7 @@ bRA
 bHh
 bTo
 bFp
-aqB
+apd
 cQS
 bXK
 cdD
@@ -97022,12 +96850,12 @@ bRB
 bTn
 bUD
 bFp
-ayB
+apd
 rvu
 apf
-apd
+bWk
 bFX
-apd
+bYT
 apf
 aaa
 aaa
@@ -97282,12 +97110,12 @@ bFp
 apd
 rvu
 apf
-cbq
 apf
 apf
 apf
-aaa
-aaa
+apf
+cmi
+cmi
 cmi
 chy
 cmi
@@ -97537,15 +97365,15 @@ bHf
 bHf
 bWj
 bYx
-cUb
-apf
-apf
-apf
-cdH
-bZU
-bZU
-bZU
-cmi
+eYE
+apd
+apd
+apd
+ckw
+chy
+chy
+chy
+chy
 sRB
 lcL
 bZU
@@ -97793,16 +97621,16 @@ bHf
 bTn
 bUE
 bFp
-auy
+apd
 bYW
 caJ
-cbr
-dan
+ceN
+ceN
 ceN
 chP
 ceN
 xJB
-ckv
+ceN
 ceN
 cof
 bZU
@@ -97822,10 +97650,10 @@ bZU
 bgZ
 crl
 bZU
-aaa
-abq
-aaa
-aaa
+bZU
+bZU
+bZU
+bZU
 aaa
 aaa
 cFv
@@ -98050,7 +97878,7 @@ bRC
 bTo
 bUF
 bFp
-auC
+apd
 avU
 bZU
 bZU
@@ -98058,9 +97886,9 @@ bZU
 bZU
 bZU
 bZU
-bZU
+bgZ
 ckw
-bZU
+chy
 coe
 bZU
 cpy
@@ -98079,11 +97907,11 @@ bZU
 cEL
 cDB
 bZU
+chz
+chS
+cjg
 bZU
 bZU
-bZU
-bZU
-aaa
 aaa
 cHZ
 cIT
@@ -98307,17 +98135,17 @@ bFp
 bFp
 bFp
 bFp
-apf
+apd
 hgW
 bZU
 cbs
-cuV
+bWo
 cdJ
 ceO
 bZU
-chy
+bgZ
 ckw
-bZU
+chy
 ebA
 bZU
 cpS
@@ -98338,8 +98166,8 @@ bZU
 bZU
 cPG
 cNO
-cOJ
-bZU
+chy
+cjs
 bZU
 aaa
 cHZ
@@ -98560,21 +98388,21 @@ bBK
 bOX
 bOk
 bBK
-bRD
+bVR
 bTp
 bUG
-bWk
 apf
-bfl
+bRD
+avU
 bZU
 cem
 dfi
 dgC
 cfm
 bZU
-chy
 bgZ
-bZU
+ckw
+cuV
 ebA
 bZU
 cpA
@@ -98595,7 +98423,7 @@ cdN
 bZU
 cNa
 cNP
-chy
+cjk
 cfc
 bZU
 aaa
@@ -98820,18 +98648,18 @@ bBK
 bRE
 arJ
 apd
-deJ
 apf
+apd
 avU
 bZU
 cbu
 ceE
 chy
-cEB
-cfU
+ceZ
+cfb
 nTF
-clu
-bZU
+ckw
+cuV
 ebA
 bZU
 bZU
@@ -98850,9 +98678,9 @@ cuV
 bgZ
 clP
 bZU
-cNb
-cJy
-cfb
+bZU
+bZU
+cPT
 cKC
 bZU
 aaa
@@ -99077,18 +98905,18 @@ bBK
 bRF
 arU
 apd
-deH
 apf
+apd
 avU
 bZU
 ceu
 cHV
-chy
-chy
+cak
+bgZ
 bZU
 bZU
-cjg
 bZU
+cuV
 dhr
 cod
 cod
@@ -99106,12 +98934,12 @@ ckJ
 ckJ
 cGg
 cJR
-bZU
-bZU
-bZU
-cPT
-cPF
-bZU
+chy
+chy
+chy
+chy
+chy
+chy
 bZU
 abq
 cFv
@@ -99333,21 +99161,21 @@ bIU
 bBK
 bRG
 apd
-atj
-crd
+bib
 apf
+apd
 avU
 bZU
 cbw
 ccx
-cdN
-chS
-bZU
-ckH
-cEL
-bZU
+cbq
 bgZ
-coD
+chw
+ckH
+bZU
+cuV
+bgZ
+chy
 cFQ
 cLU
 crF
@@ -99364,7 +99192,7 @@ ckD
 cIb
 cDT
 ckJ
-cGZ
+ckJ
 ckJ
 ckJ
 ckJ
@@ -99590,19 +99418,19 @@ bOm
 bBK
 bRH
 apd
-apd
 auI
 bXK
-cak
+bYx
+avU
 bZU
 bZU
 bZU
-bZU
-bZU
-bZU
-bib
+cbr
 bgZ
+chy
+chy
 bZU
+chy
 srJ
 coC
 coC
@@ -99848,18 +99676,18 @@ bBK
 bRI
 bRH
 bVR
-bWm
 apf
+apd
 avU
 apf
 auC
 apf
 ceT
 cfV
-cjs
-ckJ
-clT
+chy
+chy
 bZU
+chy
 bgZ
 coC
 cpU
@@ -100106,7 +99934,7 @@ apf
 apf
 apf
 apf
-apf
+apd
 avU
 cgH
 cgU
@@ -100115,8 +99943,8 @@ ceU
 cfW
 cjr
 chy
-ckA
 bZU
+chy
 bgZ
 coC
 coy
@@ -100356,7 +100184,7 @@ bgY
 bgY
 bAo
 bgY
-aSM
+bgY
 bgY
 bgY
 bAo
@@ -100372,8 +100200,8 @@ ceV
 idx
 dgG
 cuV
-clU
 bZU
+chy
 bgZ
 coC
 cpW
@@ -100609,7 +100437,7 @@ bxZ
 apf
 bBN
 apd
-aoX
+apd
 bHp
 cgm
 cgo
@@ -100618,8 +100446,8 @@ cgo
 cgo
 auC
 bTr
-aoX
-bWo
+apd
+apd
 cgm
 isf
 apf
@@ -100627,10 +100455,10 @@ apf
 apf
 bZU
 bZU
-cju
-cjk
 bZU
 bZU
+bZU
+chy
 bgZ
 coC
 cpV
@@ -100883,12 +100711,12 @@ bzK
 bzK
 avX
 chy
-bZU
-bZU
-bZU
-bZU
-bZU
-hLt
+chy
+chy
+chy
+chy
+chy
+bgZ
 coC
 cpY
 crE
@@ -101139,12 +100967,12 @@ bZW
 bFw
 bzK
 cho
-cQL
-ceZ
-chw
 ckJ
 ckJ
-cGZ
+ckJ
+ckJ
+ckJ
+ckJ
 clT
 coC
 cpX
@@ -101396,9 +101224,9 @@ bZc
 bZZ
 bzK
 avU
-chz
-bZU
-cfY
+chy
+cjn
+cdN
 cem
 ciK
 cmX
@@ -101910,7 +101738,7 @@ bZe
 cab
 bzK
 avU
-aoX
+bRD
 bZU
 cfZ
 dhf
