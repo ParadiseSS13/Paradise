@@ -289,6 +289,7 @@
 	modules += new /obj/item/gun/energy/disabler/cyborg(src)
 	modules += new /obj/item/holosign_creator/security(src)
 	modules += new /obj/item/clothing/mask/gas/sechailer/cyborg(src)
+	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	emag = new /obj/item/gun/energy/laser/cyborg(src)
 
@@ -337,6 +338,7 @@
 	modules += new /obj/item/lighter/zippo(src)
 	modules += new /obj/item/storage/bag/tray/cyborg(src)
 	modules += new /obj/item/reagent_containers/food/drinks/shaker(src)
+	modules += new /obj/item/extinguisher(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	emag = new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 
@@ -435,6 +437,7 @@
 	modules += new /obj/item/gun/energy/printer(src)
 	modules += new /obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg(src)
 	modules += new /obj/item/card/emag(src)
+	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/pinpointer/operative(src)
 	emag = null
@@ -545,6 +548,7 @@
 	modules += new /obj/item/melee/baton/loaded(src) // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
 	modules += new /obj/item/pickaxe/drill/jackhammer(src) // for breaking walls to execute flanking moves
+	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	emag = null
 	fix_modules()
