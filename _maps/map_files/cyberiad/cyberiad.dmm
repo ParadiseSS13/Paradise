@@ -13993,15 +13993,9 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
 "aHA" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
-	id_tag = "courtroomshutters";
-	layer = 3.21;
-	name = "Courtroom Privacy Shutters";
-	opacity = 0
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "Courtroom"
 	},
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/crew_quarters/courtroom)
 "aHB" = (
@@ -15725,6 +15719,11 @@
 /obj/structure/table/wood,
 /obj/item/gavelblock,
 /obj/item/gavelhammer,
+/obj/machinery/button/windowtint{
+	id = "Courtroom";
+	pixel_x = -8;
+	req_one_access_txt = "74;3"
+	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "aLP" = (
@@ -15733,12 +15732,6 @@
 "aLQ" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
-	},
-/obj/machinery/door_control{
-	id = "courtroomshutters";
-	name = "Brig Courtroom Shutter Control";
-	pixel_x = 25;
-	req_one_access_txt = "74;3"
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
@@ -16620,20 +16613,12 @@
 /area/maintenance/fsmaint)
 "aNS" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Courtroom";
-	req_access_txt = "63"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
-	id_tag = "courtroomshutters";
-	layer = 3.21;
-	name = "Courtroom Privacy Shutters";
-	opacity = 0
+/obj/machinery/door/airlock{
+	name = "Courtroom";
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
@@ -17030,10 +17015,6 @@
 /area/maintenance/fpmaint2)
 "aOO" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Courtroom";
-	req_access_txt = "63"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -17042,13 +17023,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
-	id_tag = "courtroomshutters";
-	layer = 3.21;
-	name = "Courtroom Privacy Shutters";
-	opacity = 0
+/obj/machinery/door/airlock{
+	name = "Courtroom";
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
