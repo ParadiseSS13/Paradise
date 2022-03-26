@@ -66,7 +66,7 @@
 					authorized.Cut()
 
 /obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
-	if(!emagged && SSshuttle.emergency.mode == SHUTTLE_DOCKED)
+	if(!emagged && SSshuttle.emergency.mode == SHUTTLE_DOCKED && user)
 		var/time = SSshuttle.emergency.timeLeft()
 		message_admins("[key_name_admin(user)] has emagged the emergency shuttle: [time] seconds before launch.")
 		log_game("[key_name(user)] has emagged the emergency shuttle in ([x], [y], [z]): [time] seconds before launch.")
