@@ -239,8 +239,11 @@ SUBSYSTEM_DEF(vote)
 				question = "Map for next round"
 				for(var/x in subtypesof(/datum/map))
 					var/datum/map/M = x
-					if(M.voteable == TRUE)
-						choices.Add("[initial(M.fluff_name)] ([initial(M.technical_name)])")
+
+					if(!initial(M.voteable))
+    					continue
+
+					choices.Add("[initial(M.fluff_name)] ([initial(M.technical_name)])")
 
 			if("custom")
 				question = html_encode(input(usr,"What is the vote for?") as text|null)
