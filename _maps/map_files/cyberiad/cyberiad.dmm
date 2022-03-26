@@ -4105,7 +4105,7 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command/glass{
+/obj/machinery/door/airlock/command{
 	id_tag = "hosofficedoor";
 	name = "Head of Security";
 	req_access_txt = "58"
@@ -13266,8 +13266,9 @@
 /area/hallway/primary/fore)
 "aFG" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	name = "Detective";
+/obj/machinery/door/airlock/security{
+	name = "Detective's Office";
+	req_access = null;
 	req_access_txt = "4"
 	},
 /obj/structure/cable{
@@ -23202,11 +23203,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/button/windowtint{
-	id = "Chapel";
-	pixel_y = 24;
-	req_access_txt = "22"
-	},
 /turf/simulated/floor/carpet/black,
 /area/chapel/office)
 "bcv" = (
@@ -25136,9 +25132,7 @@
 	},
 /area/chapel/main)
 "bgg" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "Chapel"
-	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/chapel/office)
 "bgh" = (
@@ -51114,16 +51108,16 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/airlock/command/glass{
-	id_tag = "rdofficedoor";
-	name = "Research Director";
-	req_access_txt = "30"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/door/airlock/command{
+	id_tag = "rdofficedoor";
+	name = "Research Director's Office";
+	req_access_txt = "30"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -69146,9 +69140,9 @@
 /area/engine/chiefs_office)
 "cTg" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command/glass{
+/obj/machinery/door/airlock/command{
 	id_tag = "ceofficedoor";
-	name = "Chief Engineer";
+	name = "Chief Engineer's Office";
 	req_access_txt = "56"
 	},
 /obj/structure/disposalpipe/segment{
@@ -70383,9 +70377,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/command/glass{
-	id_tag = null;
-	name = "Chief Engineer";
+/obj/machinery/door/airlock/command{
+	name = "Chief Engineer's Office";
 	req_access_txt = "56"
 	},
 /turf/simulated/floor/plasteel,
@@ -80175,17 +80168,6 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"hch" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "CMO"
-	},
-/turf/simulated/floor/plating,
-/area/medical/cmo)
 "heB" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5"
@@ -122410,7 +122392,7 @@ chi
 bTZ
 bWd
 chr
-hch
+bZz
 ccG
 ccG
 cIx
