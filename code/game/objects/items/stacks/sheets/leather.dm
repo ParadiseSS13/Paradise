@@ -60,7 +60,6 @@ GLOBAL_LIST_INIT(lizard_recipes, list( \
 	name = "pile of fur"
 	desc = "Vulp remains."
 	singular_name = "fur piece"
-	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "sheet-fur"
 	origin_tech = "materials=2"
 	max_amount = 50
