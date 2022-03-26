@@ -180,7 +180,7 @@ SUBSYSTEM_DEF(vote)
 			if("map")
 				// Find target map.
 				var/datum/map/top_voted_map
-				for(var/x in subtypesof(/datum/map))
+				for(var/x in subtypesof(/datum/map) - /datum/map/meta)
 					var/datum/map/M = x
 					// Set top voted map
 					if(. == "[initial(M.fluff_name)] ([initial(M.technical_name)])")
