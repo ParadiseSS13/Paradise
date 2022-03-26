@@ -104,7 +104,7 @@
 	options["The Peacemaker"] = "detective_peacemaker"
 	options["Cancel"] = null
 
-/obj/item/gun/projectile/revolver/detective/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "")
+/obj/item/gun/projectile/revolver/detective/process_fire(atom/target, mob/living/user, message = 1, params, zone_override = "")
 	if(magazine.caliber != initial(magazine.caliber))
 		if(prob(70 - (magazine.ammo_count() * 10)))	//minimum probability of 10, maximum of 60
 			playsound(user, fire_sound, 50, 1)

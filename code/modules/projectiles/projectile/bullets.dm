@@ -32,8 +32,9 @@
 			A.volume += 5 //Because we can
 
 /obj/item/projectile/bullet/rubber
-	name = "rubber bullet"
-	stamina = 25
+	name = ".38 rubber bullet"
+	damage = 5
+	stamina = 20
 	icon_state = "bullet-r"
 
 /obj/item/projectile/bullet/weakbullet3
