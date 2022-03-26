@@ -358,3 +358,25 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/reagent_containers/syringe/sarin(src)
 	new /obj/item/reagent_containers/syringe/pancuronium(src)
 
+/obj/item/storage/box/syndie_kit/genes
+	name = "Genetic superiority bundle"
+	desc = "Fun for the whole family"
+
+/obj/item/storage/box/syndie_kit/genes/New()
+	..()
+	new /obj/item/dnainjector/hulkmut(src)
+	new /obj/item/dnainjector/xraymut(src)
+	new /obj/item/dnainjector/telemut(src)
+	new /obj/item/dnainjector/runfast(src)
+	new /obj/item/dnainjector/insulation(src)
+
+/obj/item/storage/box/syndie_kit/stungloves
+	name = "Stungloves"
+
+/obj/item/storage/box/syndie_kit/stungloves/New()
+	..()
+	new /obj/item/clothing/gloves/color/yellow/stun(src)
+	new /obj/item/stock_parts/cell/high/plus(src)
+	new /obj/item/toy/crayon/white(src)
+	new /obj/item/toy/crayon/yellow(src)
+	new /obj/item/toy/crayon/rainbow(src)

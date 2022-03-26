@@ -27,38 +27,39 @@ effective or pretty fucking useless.
 	item_state = "electronic"
 	origin_tech = "magnets=3;combat=3;syndicate=3"
 
-	var/times_used = 0 //Number of times it's been used.
-	var/max_uses = 5
+	var/charges = 3
 
 /obj/item/batterer/examine(mob/user)
 	. = ..()
-	if(times_used >= max_uses)
-		. += "<span class='notice'>[src] is out of charge.</span>"
-	if(times_used < max_uses)
-		. += "<span class='notice'>[src] has [max_uses-times_used] charges left.</span>"
+	. += "<span class='notice'>[src] has [charges] charges left.</span>"
 
 /obj/item/batterer/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!user)
 		return
-	if(times_used >= max_uses)
-		to_chat(user, "<span class='danger'>The mind batterer has been burnt out!</span>")
+	if(charges == 0)
+		to_chat(user, "<span class='danger'>The mind batterer is out of charge!</span>")
 		return
 
 
-	for(var/mob/living/carbon/human/M in oview(7, user))
+	for(var/mob/living/carbon/human/M in orange (10, user))
 		if(prob(50))
 			M.Weaken(rand(1,3))
-			M.adjustStaminaLoss(rand(25, 60))
+			M.adjustStaminaLoss(rand(35, 60))
 			add_attack_logs(user, M, "Stunned with [src]")
 			to_chat(M, "<span class='danger'>You feel a tremendous, paralyzing wave flood your mind.</span>")
 		else
 			to_chat(M, "<span class='danger'>You feel a sudden, electric jolt travel through your head.</span>")
+			M.Slowed(5)
+			M.Confused(3)
 
 	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
-	times_used++
-	to_chat(user, "<span class='notice'>You trigger [src]. It has [max_uses-times_used] charges left.</span>")
-	if(times_used >= max_uses)
-		icon_state = "battererburnt"
+	charges--
+	to_chat(user, "<span class='notice'>You trigger [src]. It has [charges] charges left.</span>")
+	addtimer(CALLBACK(src, .proc/recharge), 3 MINUTES)
+
+/obj/item/batterer/proc/recharge()
+	charges++
+
 
 
 /*

@@ -194,7 +194,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A specialised, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being supressed. Comes boxed with 6 specialised shrapnel rounds laced with a silencing toxin and 1 preloaded in the shotgun's chamber."
 	reference = "MCS"
 	item = /obj/item/storage/box/syndie_kit/caneshotgun
-	cost = 10
+	cost = 5
 	job = list("Mime")
 
 /datum/uplink_item/jobspecific/mimery
@@ -202,7 +202,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Contains two manuals to teach you advanced Mime skills. You will be able to shoot stunning bullets out of your fingers, and create large walls that can block an entire hallway!"
 	reference = "AM"
 	item = /obj/item/storage/box/syndie_kit/mimery
-	cost = 10
+	cost = 6
 	job = list("Mime")
 
 /datum/uplink_item/jobspecific/pressure_mod
@@ -210,7 +210,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. Occupies 35% mod capacity."
 	reference = "KPM"
 	item = /obj/item/borg/upgrade/modkit/indoors
-	cost = 5 //you need two for full damage, so total of 10 for maximum damage
+	cost = 4 //you need two for full damage, so total of 8 for maximum damage
 	job = list("Shaft Miner")
 
 //Chef
@@ -273,7 +273,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An Anti-Personnel proximity mine cleverly disguised as a wet floor caution sign that is triggered by running past it, activate it to start the 15 second timer and activate again to disarm."
 	reference = "PM"
 	item = /obj/item/caution/proximity_sign
-	cost = 4
+	cost = 3
+	job = list("Janitor")
+	surplus = 0
+
+/datum/uplink_item/jobspecific/holomine
+	name = "Holomine Projector"
+	desc = "Projector that can set up to 5 stun mines with additional EMP effect."
+	reference = "HM"
+	item = /obj/item/holosign_creator/syndie
+	cost = 8
 	job = list("Janitor")
 	surplus = 0
 
@@ -286,6 +295,23 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/rad_laser
 	cost = 5
 	job = list("Chief Medical Officer", "Medical Doctor", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist")
+
+/datum/uplink_item/jobspecific/batterer
+	name = "Mind Batterer"
+	desc = "A device that has a chance of knocking down people around you for a long amount of time or slowing them down. The user is unaffected. Each charge takes 2 minutes to recharge."
+	reference = "BTR"
+	item = /obj/item/batterer
+	cost = 10
+	job = list("Chief Medical Officer", "Psychiatrist")
+
+/datum/uplink_item/jobspecific/genekit
+	name = "Genetic Superiority Bundle"
+	desc = "A set of injectors containing extremely powerful mutations brought to you by recently established Syndicate research station. This set is designed for teamwork"
+	reference = "GS"
+	item = /obj/item/storage/box/syndie_kit/genes
+	cost = 15
+	job = list("Chief Medical Officer", "Geneticist")
+	surplus = 0
 
 //Virology
 
@@ -314,6 +340,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/gloves/color/black/thief
 	cost = 6
 	job = list("Civilian")
+
+/datum/uplink_item/jobspecific/stungloves
+	name = "Stungloves"
+	desc = "A pair of sturdy shock gloves with insulated layer. Protects user from electric shock and allows to shock enemies."
+	reference = "SG"
+	item = /obj/item/storage/box/syndie_kit/stungloves
+	cost = 2
+	job = list("Civilian", "Mechanic", "Station Engineer", "Chief Engineer")
 
 //Bartender
 
@@ -352,7 +386,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Insulated gloves that can utilize the power of the station to deliver a short arc of electricity at a target. Must be standing on a powered cable to use."
 	reference = "PG"
 	item = /obj/item/clothing/gloves/color/yellow/power
-	cost = 10
+	cost = 8
 	job = list("Station Engineer", "Chief Engineer")
 
 //RD
@@ -557,12 +591,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/twohanded/chainsaw
 	cost = 12
 
-/datum/uplink_item/dangerous/batterer
-	name = "Mind Batterer"
-	desc = "A device that has a chance of knocking down people around you for a long amount of time. 50% chance per person. The user is unaffected. Has 5 charges."
-	reference = "BTR"
-	item = /obj/item/batterer
-	cost = 5
 
 // SUPPORT AND MECHAS
 
@@ -844,7 +872,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			will instantly put them in your grasp and silence them, as well as causing rapid suffocation. Does not work on those who do not need to breathe."
 	reference = "GAR"
 	item = /obj/item/twohanded/garrote
-	cost = 8
+	cost = 6
 
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
@@ -864,7 +892,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
 	reference = "CQC"
 	item = /obj/item/CQC_manual
-	cost = 14
+	cost = 10
 	cant_discount = TRUE
 
 /datum/uplink_item/stealthy_weapons/cameraflash
@@ -1119,7 +1147,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "These glasses are thermals with Syndicate chameleon technology built into them. They allow you to see organisms through walls by capturing the upper portion of the infra-red light spectrum, emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
 	reference = "THIG"
 	item = /obj/item/clothing/glasses/chameleon/thermal
-	cost = 6
+	cost = 4
 
 /datum/uplink_item/stealthy_tools/traitor_belt
 	name = "Traitor's Toolbelt"
@@ -1418,7 +1446,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "When screwed to wiring attached to an electric grid, then activated, this large device places excessive load on the grid, causing a stationwide blackout. The sink cannot be carried because of its excessive size. Ordering this sends you a small beacon that will teleport the power sink to your location on activation."
 	reference = "PS"
 	item = /obj/item/powersink
-	cost = 10
+	cost = 8
 
 /datum/uplink_item/device_tools/singularity_beacon
 	name = "Power Beacon"
@@ -1509,7 +1537,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An implant injected into the body and later activated manually to break out of any restraints. Can be activated up to 4 times."
 	reference = "FI"
 	item = /obj/item/implanter/freedom
-	cost = 5
+	cost = 4
 
 /datum/uplink_item/implants/uplink
 	name = "Uplink Implant"

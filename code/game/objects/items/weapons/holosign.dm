@@ -82,6 +82,11 @@
 	creation_time = 0
 	max_signs = 3
 
+/obj/item/holosign_creator/syndie
+	holosign_type = /obj/structure/holosign/wetsign/mine
+	creation_time = 5
+	max_signs = 5
+
 /obj/item/holosign_creator/cyborg
 	name = "Energy Barrier Projector"
 	desc = "A holographic projector that creates fragile energy fields."
