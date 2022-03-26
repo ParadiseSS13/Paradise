@@ -180,7 +180,7 @@ SUBSYSTEM_DEF(vote)
 			if("map")
 				// Find target map.
 				var/datum/map/top_voted_map
-				for(var/x in subtypesof(/datum/map) - /datum/map/metastation) //remove this Meta removal once we find a fix to Meta/another Map. - MattTheFicus
+				for(var/x in subtypesof(/datum/map))
 					var/datum/map/M = x
 					// Set top voted map
 					if(. == "[initial(M.fluff_name)] ([initial(M.technical_name)])")
@@ -237,9 +237,10 @@ SUBSYSTEM_DEF(vote)
 				if(!(check_rights(R_SERVER) || code_invoked))
 					return FALSE
 				question = "Map for next round"
-				for(var/x in subtypesof(/datum/map) - /datum/map/metastation) //remove this Meta removal once we find a fix to Meta/another Map. - MattTheFicus
+				for(var/x in subtypesof(/datum/map))
 					var/datum/map/M = x
-					choices.Add("[initial(M.fluff_name)] ([initial(M.technical_name)])")
+					if(M.voteable == TRUE)
+						choices.Add("[initial(M.fluff_name)] ([initial(M.technical_name)])")
 
 			if("custom")
 				question = html_encode(input(usr,"What is the vote for?") as text|null)
