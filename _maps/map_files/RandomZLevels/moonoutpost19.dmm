@@ -2781,8 +2781,7 @@
 	},
 /obj/machinery/alarm/monitor{
 	locked = 0;
-	pixel_y = 23;
-	req_access = null
+	pixel_y = 23
 	},
 /turf/simulated/floor/plating,
 /area/awaycontent/a7)
@@ -2998,8 +2997,7 @@
 	},
 /obj/machinery/alarm/monitor{
 	locked = 0;
-	pixel_y = 23;
-	req_access = null
+	pixel_y = 23
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel,
@@ -3501,8 +3499,7 @@
 	},
 /obj/machinery/alarm/monitor{
 	locked = 0;
-	pixel_y = 23;
-	req_access = null
+	pixel_y = 23
 	},
 /obj/structure/closet/secure_closet,
 /turf/simulated/floor/plasteel{
@@ -4283,8 +4280,7 @@
 	},
 /obj/machinery/alarm/monitor{
 	locked = 0;
-	pixel_y = 23;
-	req_access = null
+	pixel_y = 23
 	},
 /obj/item/paper{
 	info = "Personal Log for Research Director Gerald Rosswell<br><br>Entry One &mdash; 17/05/2554:<br>You know, I can't believe I took this position so suddenly. I saw that corporate needed a research director for one of its outposts and thought it would be a cakewalk; there isn't going to be a lot of research to be done on a tiny outpost. Mainly just running scans on the gas giant we are orbiting or some basic RnD. However, they conveniently forgot to tell me that I and my science staff would have to pull double duty as medical staff, and that there is no one higher up on the chain of command here, so I get to pull triple duty as acting captain as well! This shit is probably allowed in some 3pt. fine print buried underneath the literally thousands of pages of contracts. Well, at least the research will be easy work.<br><br>Entry Two &mdash; 25/05/2554:<br>Well, we all expected it at the outpost: CentComm has decided to completely change what research we are doing. They've decided that we should be researching the species known as 'xenomorphs'. They announced this change 4 days ago, and along with it, sadly, the termination of our current science staff, barring me. Not to mention the constant noise made by the construction detail they sent, to staple on a xenobiology lab, ensuring no one has been able to sleep decently ever since they announced the shift. To make matters worse, our current security guard actually died of a heart attack today. Just goes to show, that 75 year old men shouldn't be security guards. Still can't believe that they decided to do this major change less than a month after the outpost was established.<br><br>Entry Three &mdash; 27/05/2554:<br>The new security guard arrived today. Apparently transferred here from the research station that also is orbiting the gas giant. He seems to be rather angry about his transfer. Considering the rumors I've heard about the research station, he's probably caught off guard by the fact that Steve hasn't tried to force an IED down his throat.<br><br>Entry Four &mdash; 06/06/2554:<br>My requests for additional security and containment measures for the 'xenomorph' has been denied. Does Central Command not notice how dangerous these creatures are? The only thing keeping them in is a force field: a minor problem with the power grid and the entire hive is loose. What would stop them then, the lone security guard with a dinky little taser? Kenneth can barely handle a short-tempered engineer. We are under-equipped and under-staffed, we are inevitably going to be destroyed, unless we get the equipment and staff we need.<br><br>Entry Five &mdash; 10/06/2554:<br>Cunningham got a good look at the xenomorph in containment. He was frightened for the rest of the day, rather amusing if it wasn't for the fact that we are all trapped on this scrap heap, with naught but a force field keeping those xenomorphs in.<br><br>Entry Six &mdash; 17/06/2554:<br>The reactions from the specimens today have shown that they possess strange mental properties. Mark hypothesizes that they possibly have a sort of hive mind; while nothing is certain, this would explain how xenomorphs seem to have vastly increased intellect when a 'queen' is present. Of course, testing this hypothesis would require many complicated procedures which we will not be able to undertake. Although we do not know the full extend of the xenomorph mind, it may or may not be able to find a way to circumvent our containment system. I will resubmit my request for additional security measures, along with this newfound information.";
@@ -4429,8 +4425,7 @@
 /obj/machinery/alarm/monitor{
 	dir = 8;
 	locked = 0;
-	pixel_x = 23;
-	req_access = null
+	pixel_x = 23
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -4490,8 +4485,7 @@
 /obj/machinery/alarm/monitor{
 	dir = 8;
 	locked = 0;
-	pixel_x = 23;
-	req_access = null
+	pixel_x = 23
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -4813,8 +4807,7 @@
 /obj/machinery/alarm/monitor{
 	dir = 4;
 	locked = 0;
-	pixel_x = -23;
-	req_access = null
+	pixel_x = -23
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -5647,8 +5640,7 @@
 "jL" = (
 /obj/machinery/alarm/monitor{
 	locked = 0;
-	pixel_y = 23;
-	req_access = null
+	pixel_y = 23
 	},
 /turf/simulated/floor/plasteel,
 /area/awaycontent/a1{
@@ -6023,8 +6015,7 @@
 /obj/machinery/alarm/monitor{
 	dir = 8;
 	locked = 0;
-	pixel_x = 23;
-	req_access = null
+	pixel_x = 23
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -6585,8 +6576,7 @@
 /obj/machinery/alarm/monitor{
 	dir = 8;
 	locked = 0;
-	pixel_x = 23;
-	req_access = null
+	pixel_x = 23
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
@@ -6601,8 +6591,7 @@
 /obj/machinery/alarm/monitor{
 	dir = 4;
 	locked = 0;
-	pixel_x = -23;
-	req_access = null
+	pixel_x = -23
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -6822,8 +6811,7 @@
 	},
 /obj/machinery/alarm/monitor{
 	locked = 0;
-	pixel_y = 23;
-	req_access = null
+	pixel_y = 23
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6867,7 +6855,7 @@
 /obj/effect/decal/remains/human{
 	desc = "They look like human remains. The skeleton is sitting upright with its legs tucked in and hands still holding onto its arms."
 	},
-/obj/item/gun/projectile/shotgun/sc_pump,
+/obj/item/gun/projectile/revolver/doublebarrel,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -7354,8 +7342,7 @@
 /obj/machinery/alarm/monitor{
 	dir = 8;
 	locked = 0;
-	pixel_x = 23;
-	req_access = null
+	pixel_x = 23
 	},
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
@@ -7658,8 +7645,7 @@
 /obj/machinery/alarm/monitor{
 	dir = 8;
 	locked = 0;
-	pixel_x = 23;
-	req_access = null
+	pixel_x = 23
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "neutralcorner";
