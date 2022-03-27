@@ -273,7 +273,7 @@
 
 			var/index = text2num(params["index"])
 			var/amount = text2num(params["amount"])
-			if(isnull(index) || !ISINDEXSAFE(item_quants, index) || isnull(amount))
+			if(isnull(index) || !ISINDEXSAFE(item_quants, index) || !amount)
 				return FALSE
 			var/K = item_quants[index]
 			var/count = item_quants[K]

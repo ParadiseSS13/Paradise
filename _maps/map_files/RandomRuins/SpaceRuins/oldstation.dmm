@@ -2738,7 +2738,7 @@
 /area/ruin/space/ancientstation/rnd)
 "gA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/grounding_rod,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 "gB" = (
@@ -3687,11 +3687,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/thetacorridor)
-"iA" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/recharge_station,
-/turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/thetacorridor)
 "iB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -3913,13 +3908,9 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/thetacorridor)
 "iY" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/weapon,
-/obj/item/flash,
-/obj/item/flash,
+/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil/random,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 "iZ" = (
@@ -4247,7 +4238,7 @@
 /area/ruin/space/ancientstation/proto)
 "jJ" = (
 /obj/structure/table/reinforced,
-/obj/machinery/the_singularitygen,
+/obj/machinery/the_singularitygen/tesla,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -4370,7 +4361,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/paper/fluff/ruins/oldstation/protosing,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -5217,6 +5207,37 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/arrow,
 /turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/thetacorridor)
+"rN" = (
+/obj/structure/closet/crate/secure/weapon,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/ancientstation/thetacorridor)
+"AY" = (
+/obj/machinery/recharge_station,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/ancientstation/thetacorridor)
+"CG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/tesla_coil,
+/turf/simulated/floor/plating,
+/area/ruin/space/ancientstation/thetacorridor)
+"LD" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/ancientstation/thetacorridor)
+"Rc" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/simulated/floor/plating,
+/area/ruin/space/ancientstation/thetacorridor)
+"Xq" = (
+/mob/living/simple_animal/hostile/hivebot,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 
 (1,1,1) = {"
@@ -8756,11 +8777,11 @@ fq
 iy
 iX
 fq
+Rc
+Xq
+bS
+rN
 bu
-aa
-aa
-aa
-aa
 aa
 aa
 aa
@@ -8805,10 +8826,10 @@ iz
 fq
 jo
 bu
-aa
-aa
-aa
-aa
+Xq
+LD
+AY
+bu
 aa
 aa
 aa
@@ -8853,10 +8874,10 @@ bu
 cu
 bu
 bu
-aa
-aa
-aa
-aa
+bu
+bu
+bu
+bu
 aa
 aa
 aa
@@ -8891,16 +8912,16 @@ ez
 ez
 ez
 bS
-bS
+iY
 bS
 bS
 jm
 kV
+CG
+CG
+CG
 bu
-dH
-dH
-dH
-bu
+aa
 aa
 aa
 aa
@@ -8944,11 +8965,11 @@ gA
 hU
 kT
 kY
+CG
+CG
+CG
 bu
-iA
-iY
-bS
-bu
+aa
 aa
 aa
 aa
@@ -8991,12 +9012,12 @@ gA
 gA
 hV
 kU
+bS
+CG
+CG
+CG
 bu
-bu
-bu
-bu
-bu
-bu
+aa
 aa
 aa
 aa
@@ -9040,10 +9061,10 @@ bu
 bu
 bu
 bu
-aa
-aa
-aa
-aa
+bu
+bu
+bu
+bu
 aa
 aa
 aa
