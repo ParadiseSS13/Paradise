@@ -218,3 +218,9 @@
 	desc = "A Banhammer."
 	typepath = /obj/item/banhammer
 	cost = 1000
+
+/datum/storeitem/flag_nian
+	name = "Nian Flag"
+	desc = "An expensive Nianen flag. Approved by the CDM and the Crafting Guild."
+	typepath = /obj/item/flag/species/nian
+	cost = 1500
