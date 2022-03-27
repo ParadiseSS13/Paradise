@@ -25,8 +25,6 @@ GLOBAL_DATUM_INIT(library_catalog, /datum/library_catalog, new())
 	var/author
 	var/rating
 	var/copyright
-	var/path = /obj/item/book // Type path of the book to generate
-	var/programmatic //Hardcoded book?
 	var/ckey // ADDED 24/2/2015 - N3X
 	var/list/categories = list()
 	var/flagged = 0
@@ -105,17 +103,17 @@ GLOBAL_DATUM_INIT(library_catalog, /datum/library_catalog, new())
 		qdel(query)
 		return
 
-	var/list/results=list()
+	var/list/results = list()
 	while(query.NextRow())
 		var/datum/cachedbook/CB = new()
 		CB.LoadFromRow(list(
-			"id"      =query.item[1],
-			"author"  =query.item[2],
-			"title"   =query.item[3],
-			"category"=query.item[4],
-			"content" =query.item[5],
-			"ckey"    =query.item[6],
-			"flagged" =query.item[7]
+			"id"      = query.item[1],
+			"author"  = query.item[2],
+			"title"   = query.item[3],
+			"category"= query.item[4],
+			"content" = query.item[5],
+			"ckey"    = query.item[6],
+			"flagged" = query.item[7]
 		))
 		results += CB
 		cached_books["[id]"]=CB

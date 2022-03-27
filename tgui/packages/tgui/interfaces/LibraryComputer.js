@@ -221,7 +221,7 @@ const PatronManager = (properties, context) => {
               <Table.Cell><Icon name="user-tag" /> {checkout_data.patron_name}</Table.Cell>
               <Table.Cell textAlign="left">{checkout_data.title}</Table.Cell>
               <Table.Cell>
-                {checkout_data.timeleft < 0
+                {checkout_data.timeleft >= 0
                   ? checkout_data.timeleft
                   : "LATE"}
               </Table.Cell>
@@ -230,14 +230,14 @@ const PatronManager = (properties, context) => {
                   content="Mark Lost"
                   icon="flag"
                   color="bad"
-                  disabled={checkout_data.allow_fine}
+                  disabled={!checkout_data.allow_fine}
                   onClick={() => act('reportlost')}
                 />
                 <Button
                   content="Apply Fine"
                   icon="coins"
                   color="bad"
-                  disabled={checkout_data.allow_fine}
+                  disabled={!checkout_data.allow_fine}
                   onClick={() => act('applyfine')}
                 />
               </Table.Cell>

@@ -23,18 +23,27 @@
 	var/patron_account
 	var/total_books = 0 //total inventoried books, for setting book library IDs
 
+	var/static/list/cached_booklist = list()
 	var/static/list/checkouts = list()
 	var/static/list/inventory = list()
+	var/static/list/forbidden
 	var/checkoutperiod = 5 // In minutes
 
 	var/static/list/category_choices
 
 	var/static/datum/library_catalog/programmatic_books = new()
 
+	var/datum/cachedbook/testtest
+
 /obj/machinery/computer/library/Initialize(mapload)
 	. = ..()
 	if(!category_choices)
 		category_choices = list() //need to populate this lol
+	if(!forbidden)
+		forbidden = list(
+			/obj/item/book/manual/random,
+			/obj/item/book/manual/nuclear
+		)
 
 /obj/machinery/computer/library/attack_ai(mob/user)
 	return attack_hand(user)
@@ -98,35 +107,28 @@
 	data["selectedbook"] = selected_book_data
 
 	//should only be getting booklist when we opening up the page
-	data["booklist"] = list()
-	for(var/datum/cachedbook/CB in get_page(archive_page_num))
-		var/list/book_data = list(
-			author = CB.author,
-			title = CB.title,
-			category = CB.categories,
-			id = CB.id
-		)
-		data["booklist"] += list(book_data)
-
+	if(!cached_booklist || length(cached_booklist) < 1)
+		populate_booklist()
+	data["booklist"] = cached_booklist
 	data["checkout_data"] = list()
 
 	for(var/datum/borrowbook/b in checkouts)
 		var/remaining_time = (b.duedate - world.time) / 600
-		var/late = "false"
-		var/finedue = "false"
+		var/late = FALSE
+		var/finedue = FALSE
 		if(remaining_time <= 0)
-			late = "true"
+			late = TRUE
 			if(remaining_time <= -15)
-				finedue = "true"
+				finedue = TRUE
 		remaining_time = round(remaining_time)
 
 		var/list/checkout_data = list(
 			timeleft = remaining_time,
 			islate = late,
+			allow_fine = finedue,
 			title = b.bookname,
 			libraryid = b.libraryid,
-			patron_name = b.patron_name,
-			allow_fine = finedue
+			patron_name = b.patron_name
 		)
 		data["checkout_data"] += list(checkout_data)
 
@@ -147,12 +149,22 @@
 	switch(action)
 		if("incrementpage") // Select Page
 			archive_page_num++
+			populate_booklist()
+
 		else if("deincrementpage")
-			archive_page_num--
+			if(archive_page_num >= 2)
+				archive_page_num--
+				populate_booklist()
+
 		else if("search")
 			//search()
+
 		else if("orderbook")
-			make_external_book(params["id"])
+			var/datum/cachedbook/orderedbook = GLOB.library_catalog.getBookByID(params["id"])
+			testtest = orderedbook
+			if(orderedbook)
+				make_external_book(orderedbook)
+
 		else if("set_search_parameters")
 			if(params["searchtitle"])
 				query.title = params["searchtitle"]
@@ -162,6 +174,7 @@
 			//stuff
 			else if(params["searchrating"])
 			//stuff
+
 		else if("edit_selected_book")
 			else if(params["selected_title"])
 				selected_book.title = params["selected_title"]
@@ -169,10 +182,13 @@
 				selected_book.author = params["selected_author"]
 			else if(params["selected_summary"])
 				selected_book.summary =["selected_summary"]
+
 		else if("reportbook")
 			flagbook(params["id"])
+
 		else if("uploadbook")
 			upload_book()
+
 		else
 			return FALSE
 
@@ -213,120 +229,6 @@
 					return FALSE
 		else
 			return FALSE
-
-
-/obj/machinery/computer/library/checkout/interact(mob/user)
-	var/list/forbidden = list(
-		/obj/item/book/manual/random
-	)
-
-	if(!emagged)
-		forbidden |= /obj/item/book/manual/nuclear
-
-	var/manualcount = 1
-	var/obj/item/book/manual/M = null
-
-	for(var/manual_type in subtypesof(/obj/item/book/manual))
-		if(!(manual_type in forbidden))
-			M = new manual_type()
-			QDEL_NULL(M)
-		manualcount++
-
-/obj/machinery/computer/library/checkout/Topic(href, href_list)
-	if(href_list["settitle"])
-		var/newtitle = input("Enter a title to search for:") as text|null
-		if(newtitle)
-			query.title = sanitize(newtitle)
-		else
-			query.title = null
-	if(href_list["setcategory"])
-		var/newcategory = input("Choose a category to search for:") in (category_choices)
-		if(newcategory == "Any")
-			query.categories = null
-		else if(newcategory)
-			query.categories = sanitize(newcategory)
-	if(href_list["setauthor"])
-		var/newauthor = input("Enter an author to search for:") as text|null
-		if(newauthor)
-			query.author = sanitize(newauthor)
-		else
-			query.author = null
-
-	if(href_list["search"])
-		num_results = src.get_num_results()
-		num_pages = CEILING(num_results/LIBRARY_BOOKS_PER_PAGE, 1)
-		archive_page_num = 1
-	if(href_list["del"])
-		if(!check_rights(R_ADMIN))
-			return
-		var/datum/cachedbook/target = getBookByID(href_list["del"]) // Sanitized in getBookByID
-		var/ans = alert(usr, "Are you sure you wish to delete \"[target.title]\", by [target.author]? This cannot be undone.", "Library System", "Yes", "No")
-		if(ans=="Yes")
-			var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM library WHERE id=:id", list(
-				"id" = text2num(target.id)
-			))
-			if(!query.warn_execute())
-				qdel(query)
-				return
-			qdel(query)
-			log_admin("LIBRARY: [key_name(usr)] has deleted \"[target.title]\", by [target.author] ([target.ckey])!")
-			message_admins("[key_name_admin(usr)] has deleted \"[target.title]\", by [target.author] ([target.ckey])!")
-			src.updateUsrDialog()
-			return
-
-	if(href_list["delbyckey"])
-		if(!check_rights(R_ADMIN))
-			return
-		var/tckey = ckey(href_list["delbyckey"])
-		var/ans = alert(usr,"Are you sure you wish to delete all books by [tckey]? This cannot be undone.", "Library System", "Yes", "No")
-		if(ans=="Yes")
-			var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM library WHERE ckey=:ckey", list(
-				"ckey" = tckey
-			))
-			if(!query.warn_execute())
-				qdel(query)
-				return
-
-			if(query.affected == 0)
-				to_chat(usr, "<span class='danger'>Unable to find any matching rows.</span>")
-				qdel(query)
-				return
-			qdel(query)
-			log_admin("LIBRARY: [key_name(usr)] has deleted [query.affected] books written by [tckey]!")
-			message_admins("[key_name_admin(usr)] has deleted [query.affected] books written by [tckey]!")
-			src.updateUsrDialog()
-			return
-
-	if(href_list["flag"])
-		if(!SSdbcore.IsConnected())
-			alert("Connection to Archive has been severed. Aborting.")
-			return
-		var/id = href_list["flag"]
-		if(id)
-			var/datum/cachedbook/B = getBookByID(id)
-			if(B)
-				if((input(usr, "Are you sure you want to flag [B.title] as having inappropriate content?", "Flag Book #[B.id]") in list("Yes", "No")) == "Yes")
-					GLOB.library_catalog.flag_book_by_id(usr, id)
-
-	if(href_list["switchscreen"])
-		var/obj/item/storage/bible/B = new /obj/item/storage/bible(src.loc)
-		if(SSticker && ( SSticker.Bible_icon_state && SSticker.Bible_item_state) )
-			B.icon_state = SSticker.Bible_icon_state
-			B.item_state = SSticker.Bible_item_state
-			B.name = SSticker.Bible_name
-			B.deity_name = SSticker.Bible_deity_name
-		else
-			visible_message("<b>[src]</b>'s monitor flashes, \"Bible printer currently unavailable, please wait a moment.\"")
-	var/tempvar
-	if(href_list["editbook"])
-		tempvar = copytext(sanitize(input("Enter the book's title:") as text|null),1,MAX_MESSAGE_LEN)
-	if(href_list["uploadcategory"])
-		var/newcategory = input("Choose a category: ") in list("Fiction", "Non-Fiction", "Adult", "Reference", "Religion")
-		if(newcategory)
-			upload_category = newcategory
-	return
-
-///////////////////////////////////////////////////
 
 /obj/machinery/computer/library/proc/serializebook(obj/item/book/B)
 	var/datum/cachedbook/CB = new()
@@ -393,6 +295,18 @@
 			return TRUE
 	return FALSE
 
+///We want to only repopulate the booklist when neccesary
+/obj/machinery/computer/library/proc/populate_booklist()
+	cached_booklist = list() //clear old list
+	for(var/datum/cachedbook/CB in get_page(archive_page_num))
+		var/list/book_data = list(
+			author = CB.author,
+			title = CB.title,
+			category = CB.categories,
+			id = CB.id
+		)
+		cached_booklist += list(book_data)
+//flag book shit
 /obj/machinery/computer/library/proc/flagbook(bookid, report_reason)
 	if(!SSdbcore.IsConnected())
 		alert("Connection to Archive has been severed. Aborting.")
@@ -511,13 +425,15 @@
 /obj/machinery/computer/library/proc/make_external_book(datum/cachedbook/newbook)
 	if(!newbook || !newbook.id)
 		return
-	var/obj/item/book/B = new newbook.path(loc)
+	var/obj/item/book/B = new(loc)
 
 	if(!newbook.programmatic)
 		B.name = "Book: [newbook.title]"
 		B.title = newbook.title
 		B.author = newbook.author
+		B.summary = newbook.summary
 		B.dat = newbook.content
+		B.rating = newbook.rating
 		B.icon_state = "book[rand(1,16)]"
 		B.copyright = TRUE
 	visible_message("[src]'s printer hums as it produces a completely bound book. How did it do that?")
