@@ -684,8 +684,3 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(flags & SLOT_PDA)
 		owner.update_inv_wear_pda()
 
-/obj/item/update_runechat_msg_location()
-	if(ismob(loc) || isobj(loc))
-		runechat_msg_location = loc
-	else
-		runechat_msg_location = src
