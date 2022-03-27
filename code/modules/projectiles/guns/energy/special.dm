@@ -308,6 +308,7 @@
 	desc = "A specialized firearm designed to fire heated bolts of plasma. Can be overloaded for a high damage shield breaking shot."
 	icon_state = "toxgun"
 	item_state = "toxgun"
+	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi') //This apperently exists, and I have the sprites so sure.
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma, /obj/item/ammo_casing/energy/charged_plasma)
