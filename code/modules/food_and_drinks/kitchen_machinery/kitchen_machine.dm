@@ -244,6 +244,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 	start()
+	atom_say("wzhzhzh")
 	if(reagents.total_volume==0 && !(locate(/obj) in contents)) //dry run
 		if(!wzhzhzh(10))
 			abort()
