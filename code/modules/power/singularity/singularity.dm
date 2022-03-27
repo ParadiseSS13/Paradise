@@ -431,3 +431,16 @@
 	explosion(src.loc,(dist),(dist*2),(dist*4))
 	qdel(src)
 	return(gain)
+
+/obj/singularity/onetile
+	dissipate = 0
+	move_self = 0
+	grav_pull = 1
+
+/obj/singularity/onetile/admin_investigate_setup()
+	return
+
+/obj/singularity/onetile/process()
+	eat()
+	if(prob(1))
+		mezzer()
