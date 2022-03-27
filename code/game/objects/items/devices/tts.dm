@@ -21,6 +21,7 @@
 		playsound(src, "terminal_type", 50, TRUE)
 		return
 	atom_say(input)
+	log_say("(TTS) [input]", user)
 
 /obj/item/ttsdevice/AltClick(mob/living/user)
 	var/noisechoice = input(user, "What noise would you like to make?", "Robot Noises") as null|anything in list("Beep","Buzz","Ping")
