@@ -8,12 +8,12 @@
 	/// Whether or not a vampire heals more based on damage taken.
 	var/improved_rejuv_healing = FALSE
 
-/datum/vampire_subclass/proc/add_subclass_ability(datum/vampire/vamp)
+/datum/vampire_subclass/proc/add_subclass_ability(datum/antagonist/vampire/vamp)
 	for(var/thing in standard_powers)
 		if(vamp.bloodtotal >= standard_powers[thing])
 			vamp.add_ability(thing)
 
-/datum/vampire_subclass/proc/add_full_power_abilities(datum/vampire/vamp)
+/datum/vampire_subclass/proc/add_full_power_abilities(datum/antagonist/vampire/vamp)
 	for(var/thing in fully_powered_abilities)
 		vamp.add_ability(thing)
 

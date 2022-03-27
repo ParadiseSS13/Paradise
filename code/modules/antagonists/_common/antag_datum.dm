@@ -49,6 +49,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/Destroy()
 	QDEL_LIST(objectives)
 	GLOB.antagonists -= src
+	if(owner)
+		LAZYREMOVE(owner.antag_datums, src)
 	owner = null
 	return ..()
 

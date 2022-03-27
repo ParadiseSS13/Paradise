@@ -911,6 +911,7 @@
 				to_chat(M, "<span class='warning'><big><b>You have been banned by [usr.client.ckey].\nReason: [reason].</b></big></span>")
 				to_chat(M, "<span class='warning'>This is a temporary ban, it will be removed in [mins] minutes.</span>")
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
+				add_note(M.ckey, "Banned for [mins] minutes - [reason]", null, usr.ckey, FALSE)
 				if(M.client)
 					M.client.link_forum_account(TRUE)
 				if(GLOB.configuration.url.banappeals_url)
@@ -936,6 +937,7 @@
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.</span>")
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
+				add_note(M.ckey, "Permanently banned - [reason]", null, usr.ckey, FALSE)
 
 				qdel(M.client)
 			if("Cancel")
@@ -3379,8 +3381,7 @@
 		<li>Total Karma: [C.karmaholder.karma_earned]</li>
 		<li>Spent Karma: [C.karmaholder.karma_spent]</li>
 		<li>Available Karma: [C.karmaholder.karma_earned - C.karmaholder.karma_spent]</li>
-		<li>Unlocked Jobs: [C.karmaholder.unlocked_jobs.Join(", ")]</li>
-		<li>Unlocked Species: [C.karmaholder.unlocked_species.Join(", ")]</li>
+		<li>Unlocked Packages: [C.karmaholder.purchased_packages.Join(", ")]</li>
 		</ul>
 		"}
 

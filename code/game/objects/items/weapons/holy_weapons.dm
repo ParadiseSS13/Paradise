@@ -36,10 +36,11 @@
 
 /obj/item/nullrod/attack(mob/M, mob/living/carbon/user)
 	..()
-	if(ishuman(M) && M.mind?.vampire && user.mind.isholy)
-		if(!M.mind.vampire.get_ability(/datum/vampire_passive/full))
+	var/datum/antagonist/vampire/V = M.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(ishuman(M) && V && user.mind.isholy)
+		if(!V.get_ability(/datum/vampire_passive/full))
 			to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
-			M.mind.vampire.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
+			V.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
 
 /obj/item/nullrod/pickup(mob/living/user)
 	. = ..()
@@ -477,9 +478,9 @@
 					SSticker.mode.remove_cultist(target.mind, TRUE, TRUE) // This proc will handle message generation.
 					praying = FALSE
 					return
-
-				if(target.mind.vampire && !target.mind.vampire.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
-					target.mind.vampire.adjust_nullification(120, 50)
+				var/datum/antagonist/vampire/V = M.mind?.has_antag_datum(/datum/antagonist/vampire)
+				if(V?.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
+					V.adjust_nullification(120, 50)
 					to_chat(target, "<span class='userdanger'>[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!</span>")
 					praying = FALSE
 					return

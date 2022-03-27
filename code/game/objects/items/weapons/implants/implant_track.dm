@@ -30,11 +30,3 @@
 				circuitry. As a result neurotoxins can cause massive damage.<HR>
 				Implant Specifics:<BR>"}
 	return dat
-
-/obj/item/implantcase/track
-	name = "implant case - 'Tracking'"
-	desc = "A glass case containing a tracking implant."
-
-/obj/item/implantcase/track/New()
-	imp = new /obj/item/implant/tracking(src)
-	..()

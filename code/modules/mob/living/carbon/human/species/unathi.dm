@@ -17,7 +17,7 @@
 	species_traits = list(LIPS)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_REPTILE
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING
+	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING | TAIL_OVERLAPPED
 	dietflags = DIET_CARN
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 
@@ -117,4 +117,14 @@
 	default_language = "Sinta'unathi"
 
 	speed_mod = -0.80
-	inherent_traits = list(TRAIT_CHUNKYFINGERS, TRAIT_NOBREATH)
+	inherent_traits = list(TRAIT_CHUNKYFINGERS)
+
+	has_organ = list( // same as unathi's organs, aside for the lungs as they need to be able to breathe on lavaland.
+		"heart" =    /obj/item/organ/internal/heart/unathi,
+		"lungs" =    /obj/item/organ/internal/lungs/unathi/ash_walker,
+		"liver" =    /obj/item/organ/internal/liver/unathi,
+		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
+		"brain" =    /obj/item/organ/internal/brain/unathi,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/unathi
+		)

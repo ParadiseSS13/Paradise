@@ -338,7 +338,7 @@
 	return owner && (flags & APPEARANCE_MARKINGS) && (body_flags & marking_flag)
 
 /datum/ui_module/appearance_changer/proc/can_change_body_accessory()
-	return owner && (flags & APPEARANCE_BODY_ACCESSORY) && (owner.dna.species.bodyflags & HAS_TAIL)
+	return owner && (flags & APPEARANCE_BODY_ACCESSORY) && (owner.dna.species.bodyflags & HAS_BODY_ACCESSORY)
 
 /datum/ui_module/appearance_changer/proc/can_change_alt_head()
 	if(!head_organ)

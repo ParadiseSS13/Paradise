@@ -70,7 +70,7 @@
 	icon = 'icons/mob/human_face.dmi' // Keep bald hair here, as for some reason, putting it elsewhere lead to it being colourable - Also it make sense as it is shared by everyone.
 	name = "Bald"
 	icon_state = "bald"
-	species_allowed = list("Human", "Unathi", "Vox", "Diona", "Kidan", "Grey", "Plasmaman", "Skeleton", "Vulpkanin", "Tajaran")
+	species_allowed = list("Human", "Unathi", "Vox", "Diona", "Kidan", "Grey", "Plasmaman", "Skeleton", "Vulpkanin", "Tajaran", "Nian")
 	glasses_over = 1
 
 /datum/sprite_accessory/facial_hair
@@ -98,7 +98,7 @@
 
 /datum/sprite_accessory/body_markings
 	icon = 'icons/mob/sprite_accessories/human/human_body_markings.dmi'
-	species_allowed = list("Unathi", "Tajaran", "Vulpkanin", "Machine", "Vox", "Kidan")
+	species_allowed = list("Unathi", "Tajaran", "Vulpkanin", "Machine", "Vox", "Kidan", "Nian")
 	icon_state = "accessory_none"
 	marking_location = "body"
 
@@ -168,7 +168,7 @@
 ///////////////////////////
 /datum/sprite_accessory/underwear
 	icon = 'icons/mob/clothing/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 	sprite_sheets = list(
 	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
 	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi'
@@ -178,7 +178,7 @@
 /datum/sprite_accessory/underwear/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 
 /datum/sprite_accessory/underwear/male
 	gender = MALE
@@ -298,7 +298,7 @@
 ////////////////////////////
 /datum/sprite_accessory/undershirt
 	icon = 'icons/mob/clothing/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 	sprite_sheets = list(
 	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
 	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi')
@@ -307,7 +307,7 @@
 /datum/sprite_accessory/undershirt/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 
 //plain color shirts
 /datum/sprite_accessory/undershirt/shirt_white
@@ -537,14 +537,14 @@
 ///////////////////////
 /datum/sprite_accessory/socks
 	icon = 'icons/mob/clothing/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/underwear.dmi')
 	gender = NEUTER
 
 /datum/sprite_accessory/socks/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 
 /datum/sprite_accessory/socks/white_norm
 	name = "Normal White"

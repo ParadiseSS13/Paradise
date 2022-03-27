@@ -157,7 +157,8 @@
 	H.physiology.burn_mod *= 0.8
 	H.physiology.stamina_mod *= 0.5
 	H.physiology.stun_mod *= 0.5
-	if(owner.mind.vampire.get_ability(/datum/vampire_passive/blood_swell_upgrade))
+	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(V.get_ability(/datum/vampire_passive/blood_swell_upgrade))
 		bonus_damage_applied = TRUE
 		H.physiology.melee_bonus += 10
 		H.dna.species.punchstunthreshold += 8 //higher chance to stun but not 100%

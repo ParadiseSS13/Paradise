@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 			if(P != P2 && P.hash == P2.hash)
 				// If there's already a poll for an identical mob type ongoing and the client is signed up for it, sign them up for this one
 				if(!inherited_sign_up && (M in P2.signed_up) && P.sign_up(M, TRUE))
-					A.display_signed_up()
+					A.update_signed_up_alert()
 					inherited_sign_up = TRUE
 				// This number is used to display the number of polls the alert regroups
 				num_stack++
@@ -243,6 +243,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 		if(!silent)
 			to_chat(M, "<span class='warning'>You have already signed up for this!</span>")
 		return
+
 	if(time_left() <= 0)
 		if(!silent)
 			to_chat(M, "<span class='danger'>Sorry, you were too late for the consideration!</span>")
@@ -251,7 +252,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 	signed_up += M
 	if(!silent)
-		to_chat(M, "<span class='notice'>You have signed up for this role! A candidate will be picked randomly soon..</span>")
+		to_chat(M, "<span class='notice'>You have signed up for this role! A candidate will be picked randomly soon.</span>")
 		// Sign them up for any other polls with the same mob type
 		for(var/existing_poll in SSghost_spawns.currently_polling)
 			var/datum/candidate_poll/P = existing_poll
@@ -259,6 +260,40 @@ SUBSYSTEM_DEF(ghost_spawns)
 				P.sign_up(M, TRUE)
 
 	return TRUE
+
+/**
+ * Attempts to remove a signed-up mob from a poll.
+ *
+ * Arguments:
+ * * M - The mob to remove from the poll, if present.
+ * * silent - If TRUE, no messages will be sent to M about their removal.
+ */
+/datum/candidate_poll/proc/remove_candidate(mob/dead/observer/M, silent = FALSE)
+	. = FALSE
+	if(!istype(M) || !M.key || !M.client)
+		return
+	if(!(M in signed_up))
+		if(!silent)
+			to_chat(M, "<span class='warning'>You aren't signed up for this!</span>")
+		return
+
+	if(time_left() <= 0)
+		if(!silent)
+			to_chat(M, "<span class='danger'>It's too late to unregister yourself, selection has already begun!</span>")
+		return
+
+	signed_up -= M
+	if(!silent)
+		to_chat(M, "<span class='notice'>You have been unregistered as a candidate for this role. You can freely sign up again before the poll ends.</span>")
+
+		for(var/existing_poll in SSghost_spawns.currently_polling)
+			var/datum/candidate_poll/P = existing_poll
+			if(src != P && hash == P.hash && (M in P.signed_up))
+				P.remove_candidate(M, TRUE)
+	return TRUE
+
+
+
 
 /**
   * Deletes any candidates who may have disconnected from the list

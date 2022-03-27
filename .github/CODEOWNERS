@@ -16,6 +16,10 @@
 /code/modules/unit_tests/ @AffectedArc07
 /tools/ci/ @AffectedArc07
 
+# Server Stuff
+/SQL/ @AffectedArc07
+/config/ @AffectedArc07
+
 # Executables that need to be security-cleared
 dreamchecker.exe @AffectedArc07
 rust_g.dll @AffectedArc07

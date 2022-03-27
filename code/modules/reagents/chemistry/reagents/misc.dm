@@ -464,12 +464,12 @@
 	C.AddElement(/datum/element/waddling)
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
-	if(!istype(M))
-		return ..()
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
 		M.emote("giggle")
-	if(M?.mind.assigned_role == "Clown")
+	if(!M.mind)
+		return ..() | update_flags
+	if(M.mind.assigned_role == "Clown")
 		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
 	else
 		M.AdjustDizzy(10, 0, 500)
@@ -489,7 +489,7 @@
 			"Your legs feel like jelly.",
 			"You feel like telling a pun.")
 			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
-		if(M?.mind.assigned_role == "Mime")
+		if(M.mind.assigned_role == "Mime")
 			update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
 	return ..() | update_flags
 

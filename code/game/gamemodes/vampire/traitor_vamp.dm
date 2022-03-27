@@ -10,6 +10,7 @@
 	recommended_enemies = 3
 	secondary_enemies_scaling = 0.025
 	secondary_protected_species = list("Machine")
+	var/list/datum/mind/pre_vampires = list()
 
 /datum/game_mode/traitor/vampire/announce()
 	to_chat(world, "<B>The current game mode is - Traitor+Vampire!</B>")
@@ -29,28 +30,18 @@
 
 	if(possible_vampires.len > 0)
 		for(var/I in possible_vampires)
-			if(length(vampires) >= secondary_enemies)
+			if(length(pre_vampires) >= secondary_enemies)
 				break
-			var/datum/mind/vampire = pick(possible_vampires)
-			vampires += vampire
-			modePlayer += vampires
-			possible_vampires -= vampire
-			var/datum/mindslaves/slaved = new()
-			slaved.masters += vampire
-			vampire.som = slaved //we MIGHT want to mindslave someone
-			vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
+			var/datum/mind/vampire = pick_n_take(possible_vampires)
+			pre_vampires += vampire
 			vampire.special_role = SPECIAL_ROLE_VAMPIRE
-
+			vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
 		..()
 		return 1
 	else
 		return 0
 
 /datum/game_mode/traitor/vampire/post_setup()
-	for(var/datum/mind/vampire in vampires)
-		grant_vampire_powers(vampire.current)
-		vampire.special_role = SPECIAL_ROLE_VAMPIRE
-		forge_vampire_objectives(vampire)
-		greet_vampire(vampire)
-		update_vampire_icons_added(vampire)
+	for(var/datum/mind/vampire in pre_vampires)
+		vampire.add_antag_datum(/datum/antagonist/vampire)
 	..()
