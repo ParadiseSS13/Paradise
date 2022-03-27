@@ -893,6 +893,8 @@
 			if(2)
 				update_flags |= M.adjustToxLoss(1, FALSE)
 				to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
+			else
+				pass()
 	else
 		if(prob(60))
 			var/fat_to_burn = max(round(M.nutrition / 100, 1), 5)

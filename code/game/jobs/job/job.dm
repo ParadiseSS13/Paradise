@@ -24,6 +24,9 @@
 	//Supervisors, who this person answers to directly
 	var/supervisors = ""
 
+	/// Text which is shown to someone in BIG BOLG RED when they spawn. Use for critically important stuff that could make/break a round
+	var/important_information = null
+
 	//Sellection screen color
 	var/selection_color = "#ffffff"
 
@@ -46,8 +49,8 @@
 	//If you have use_age_restriction_for_jobs config option enabled and the database set up, this option will add a requirement for players to be at least minimal_player_age days old. (meaning they first signed in at least that many days before.)
 	var/minimal_player_age = 0
 
-	var/exp_requirements = 0
-	var/exp_type = ""
+	// Assoc list of EXP_TYPE_ defines and the amount of time needed in those departments
+	var/list/exp_map = list()
 
 	var/disabilities_allowed = 1
 	var/transfer_allowed = TRUE // If false, ID computer will always discourage transfers to this job, even if player is eligible

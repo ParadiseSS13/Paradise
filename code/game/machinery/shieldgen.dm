@@ -6,6 +6,7 @@
 		density = 1
 		opacity = FALSE
 		anchored = 1
+		move_resist = INFINITY
 		resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 		flags_2 = RAD_NO_CONTAMINATE_2
 		max_integrity = 200
@@ -532,6 +533,7 @@
 		icon_state = "shieldwall"
 		anchored = 1
 		density = 1
+		move_resist = INFINITY
 		resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 		light_range = 3
 		var/needs_power = 0

@@ -391,7 +391,8 @@
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if((C.head && (C.head.flags_cover & HEADCOVERSMOUTH)) || (C.wear_mask && (C.wear_mask.flags_cover & MASKCOVERSMOUTH) && !C.wear_mask.mask_adjusted))
-			to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
+			if(show_message)
+				to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
 			can_eat = FALSE
 	return can_eat
 
@@ -820,7 +821,7 @@
 			M.change_head_accessory_color(new_head_accessory_colour)
 
 	//Body accessory.
-	if(M.dna.species.tail && M.dna.species.bodyflags & HAS_TAIL)
+	if((M.dna.species.tail && M.dna.species.bodyflags & (HAS_TAIL)) || (M.dna.species.wing && M.dna.species.bodyflags & (HAS_WING)))
 		var/list/valid_body_accessories = M.generate_valid_body_accessories()
 		if(valid_body_accessories.len > 1) //By default valid_body_accessories will always have at the very least a 'none' entry populating the list, even if the user's species is not present in any of the list items.
 			var/new_body_accessory = input("Please select body accessory style", "Character Generation", M.body_accessory) as null|anything in valid_body_accessories

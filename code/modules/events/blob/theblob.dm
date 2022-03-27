@@ -205,7 +205,6 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 /obj/structure/blob/proc/adjustcolors(a_color)
 	if(a_color)
 		color = a_color
-	return
 
 /obj/structure/blob/examine(mob/user)
 	. = ..()
