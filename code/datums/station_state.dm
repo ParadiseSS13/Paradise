@@ -22,7 +22,8 @@
 	for(var/turf/T in block(locate(1, 1, station_zlevel), locate(world.maxx, world.maxy, station_zlevel)))
 
 		if(istype(T, /turf/simulated/floor))
-			if(!(T:burnt))
+			var/turf/simulated/floor/T2 = T
+			if(!(T2.burnt))
 				floor += 12
 			else
 				floor += 1

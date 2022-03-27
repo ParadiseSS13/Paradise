@@ -1582,6 +1582,7 @@
 #include "code\modules\events\blob\powers.dm"
 #include "code\modules\events\blob\theblob.dm"
 #include "code\modules\events\blob\blobs\blob_mobs.dm"
+#include "code\modules\events\blob\blobs\captured_nuke.dm"
 #include "code\modules\events\blob\blobs\core.dm"
 #include "code\modules\events\blob\blobs\factory.dm"
 #include "code\modules\events\blob\blobs\node.dm"
