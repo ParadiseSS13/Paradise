@@ -691,3 +691,30 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			message_admins("[src.ckey] just got booted back to lobby with no jobs enabled, but antag rolling enabled. Likely antag rolling abuse.")
 		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
 	return TRUE
+
+
+/**
+ * # Start the cooldown for an emote.
+ *
+ * * cooldown: The amount of time that should be waited before any emote can fire again.
+ * * parallel: If true, this cooldown can start while other emotes are still on cooldown.
+ */
+/mob/proc/start_emote_cooldown(emote_type, cooldown = FALSE, parallel = FALSE)
+	if(emote_cd == EMOTE_INFINITE) //Spam those emotes
+		return FALSE
+	if(emote_cd == EMOTE_ADMIN_BLOCKED) // Cooldown emotes were disabled by an admin, prevent use
+		return TRUE
+	if(emote_cd == EMOTE_ON_COOLDOWN)  // Already on CD, prevent use
+		return TRUE
+
+	// LAZYADD(src.emotes)
+
+	emote_cd = EMOTE_ON_COOLDOWN	// Starting cooldown
+	addtimer(CALLBACK(src, .proc/on_emote_cooldown_end), cooldown)
+	return FALSE  // proceed with emote
+
+
+/mob/proc/on_emote_cooldown_end()
+	if(emote_cd == EMOTE_ON_COOLDOWN)
+		// only reset emotes that probably weren't set by an admin
+		emote_cd = EMOTE_READY

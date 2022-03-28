@@ -1,6 +1,15 @@
 #define EMOTE_VISIBLE (1<<0)
 #define EMOTE_AUDIBLE (1<<1)
 
+#define EMOTE_READY = (1<<0)
+#define EMOTE_INFINTE = (1<<1)
+#define EMOTE_ADMIN_BLOCKED = (1<<2)
+#define EMOTE_ON_COOLDOWN = (1<<3)
+
+#define DEFAULT_EMOTE_COOLDOWN = 20
+#define AUDIO_EMOTE_COOLDOWN = 300  // todo what is this actually equal to
+
+// Cooldown stuff for emotes
 
 /**
  * # Emote
@@ -57,11 +66,11 @@
 	/// Can only code call this event instead of the player.
 	var/only_forced_audio = FALSE
 	/// The cooldown between the uses of the emote.
-	var/cooldown = 0.8 SECONDS
+	var/cooldown = 0.8
 	/// Does this message have a message that can be modified by the user?
 	var/can_message_change = FALSE
 	/// How long is the cooldown on the audio of the emote, if it has one?
-	var/audio_cooldown = 2 SECONDS
+	var/audio_cooldown = 2
 
 /datum/emote/New()
 	if (ispath(mob_type_allowed_typecache))
@@ -101,12 +110,11 @@
 	if(!msg)
 		return
 
-	user.log_message(msg, LOG_EMOTE)
+	user.log_emote(msg)
 	var/dchatmsg = "<b>[user]</b> [msg]"
 
 	var/tmp_sound = get_sound(user)
-	if(tmp_sound && should_play_sound(user, intentional) && !TIMER_COOLDOWN_CHECK(user, type))
-		TIMER_COOLDOWN_START(user, type, audio_cooldown)
+	if(tmp_sound && should_play_sound(user, intentional) && !user.start_emote_cooldown(type))
 		playsound(user, tmp_sound, 50, vary)
 
 	var/user_turf = get_turf(user)
@@ -114,13 +122,13 @@
 		for(var/mob/ghost as anything in GLOB.dead_mob_list)
 			if(!ghost.client || isnewplayer(ghost))
 				continue
-			if(ghost.client.prefs.chat_toggles & CHAT_GHOSTSIGHT && !(ghost in viewers(user_turf, null)))
-				ghost.show_message("<span class='emote'>[FOLLOW_LINK(ghost, user)] [dchatmsg]</span>")
+			if(ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT && !(ghost in viewers(user_turf, null)))
+				ghost.show_message("<span class='emote'>[ghost_follow_link(user, ghost)] [dchatmsg]</span>")
 
 	if(emote_type == EMOTE_AUDIBLE)
-		user.audible_message(msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>", audible_message_flags = EMOTE_MESSAGE)
+		user.audible_message(msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
 	else
-		user.visible_message(msg, blind_message = "<span class='emote'>You hear how <b>[user]</b> [msg]</span>", visible_message_flags = EMOTE_MESSAGE)
+		user.visible_message(msg, blind_message = "<span class='emote'>You hear how <b>[user]</b> [msg]</span>")
 
 	SEND_SIGNAL(user, COMSIG_MOB_EMOTED(key))
 
@@ -139,7 +147,7 @@
 	if(user.emotes_used && user.emotes_used[src] + cooldown > world.time)
 		var/datum/emote/default_emote = /datum/emote
 		if(cooldown > initial(default_emote.cooldown)) // only worry about longer-than-normal emotes
-			to_chat(user, span_danger("You must wait another [DisplayTimeText(user.emotes_used[src] - world.time + cooldown)] before using that emote."))
+			to_chat(user, "<span class='danger'>You must wait another [DisplayTimeText(user.emotes_used[src] - world.time + cooldown)] before using that emote.</span>")
 		return FALSE
 	if(!user.emotes_used)
 		user.emotes_used = list()
@@ -198,11 +206,11 @@
 		. = message_alien
 	else if(islarva(user) && message_larva)
 		. = message_larva
-	else if(iscyborg(user) && message_robot)
+	else if(issilicon(user) && message_robot)
 		. = message_robot
 	else if(isAI(user) && message_AI)
 		. = message_AI
-	else if(ismonkey(user) && message_monkey)
+	else if(ismonkeybasic(user) && message_monkey)
 		. = message_monkey
 	else if(isanimal(user) && message_simple)
 		. = message_simple
@@ -240,22 +248,22 @@
 			if(!intentional)
 				return FALSE
 			switch(user.stat)
-				if(SOFT_CRIT)
-					to_chat(user, span_warning("You cannot [key] while in a critical condition!"))
-				if(UNCONSCIOUS, HARD_CRIT)
-					to_chat(user, span_warning("You cannot [key] while unconscious!"))
+				if(UNCONSCIOUS)
+					to_chat(user, "<span class='warning'>You cannot [key] while unconscious!</span>")
 				if(DEAD)
-					to_chat(user, span_warning("You cannot [key] while dead!"))
+					to_chat(user, "<span class='warning'>You cannot [key] while dead!</span>")
 			return FALSE
-		if(hands_use_check && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
+			return FALSE
+		if(hands_use_check && !user.can_use_hands())
 			if(!intentional)
 				return FALSE
-			to_chat(user, span_warning("You cannot use your hands to [key] right now!"))
+			to_chat(user, "<span class='warning'>You cannot use your hands to [key] right now!</span>")
 			return FALSE
 
 	if(isliving(user))
 		var/mob/living/sender = user
-		if(HAS_TRAIT(sender, TRAIT_EMOTEMUTE))
+		if(HAS_TRAIT(sender, TRAIT_EMOTE_MUTE))
 			return FALSE
 
 /**
@@ -289,7 +297,8 @@
 	if(!text)
 		CRASH("Someone passed nothing to manual_emote(), fix it")
 
-	log_message(text, LOG_EMOTE)
+
+	log_emote(text, src)
 
 	var/ghost_text = "<b>[src]</b> [text]"
 
@@ -298,7 +307,7 @@
 		for(var/mob/ghost as anything in GLOB.dead_mob_list)
 			if(!ghost.client || isnewplayer(ghost))
 				continue
-			if(ghost.client.prefs.chat_toggles & CHAT_GHOSTSIGHT && !(ghost in viewers(origin_turf, null)))
-				ghost.show_message("[FOLLOW_LINK(ghost, src)] [ghost_text]")
+			if(ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT && !(ghost in viewers(origin_turf, null)))
+				ghost.show_message("[ghost_follow_link(src, ghost)] [ghost_text]")
 
-	visible_message(text, visible_message_flags = EMOTE_MESSAGE)
+	visible_message(text)
