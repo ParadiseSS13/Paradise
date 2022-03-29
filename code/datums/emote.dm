@@ -1,13 +1,22 @@
 #define EMOTE_VISIBLE (1<<0)
 #define EMOTE_AUDIBLE (1<<1)
 
-#define EMOTE_READY = (1<<0)
-#define EMOTE_INFINTE = (1<<1)
-#define EMOTE_ADMIN_BLOCKED = (1<<2)
-#define EMOTE_ON_COOLDOWN = (1<<3)
+#define EMOTE_READY (1<<0)
+#define EMOTE_INFINITE (1<<1)
+#define EMOTE_ADMIN_BLOCKED (1<<2)
+#define EMOTE_ON_COOLDOWN (1<<3)
 
-#define DEFAULT_EMOTE_COOLDOWN = 20
-#define AUDIO_EMOTE_COOLDOWN = 300  // todo what is this actually equal to
+/// Defines the default targets for an emote with a parameter.
+/// Based on this behavior, if an emote is called with an empty parameter (say, "aflap-")
+/// then we will prompt the user with a list of possible targets.
+#define EMOTE_TARGET_NONE (1<<0)
+#define EMOTE_TARGET_MOB (1<<1)
+#define EMOTE_TARGET_ATOM (1<<2)
+
+#define EMOTE_PARAM_SEPARATOR "-"
+
+#define DEFAULT_EMOTE_COOLDOWN 2 SECONDS
+#define AUDIO_EMOTE_COOLDOWN 300  // todo what is this actually equal to
 
 // Cooldown stuff for emotes
 
@@ -45,6 +54,8 @@
 	var/message_simple = ""
 	/// Message with %t at the end to allow adding params to the message, like for mobs doing an emote relatively to something else.
 	var/message_param = ""
+	/// Description appended to the emote name describing what the target should be, like for help commands.
+	var/param_desc = "target"
 	/// Whether the emote is visible or audible.
 	var/emote_type = EMOTE_VISIBLE
 	/// Checks if the mob can use its hands before performing the emote.
@@ -57,27 +68,33 @@
 	var/list/mob_type_blacklist_typecache
 	/// Types that can use this emote regardless of their state.
 	var/list/mob_type_ignore_stat_typecache
+	/// Species names which the emote will be exclusively available to.
+	var/species_whitelist
 	/// In which state can you use this emote? (Check stat.dm for a full list of them)
 	var/stat_allowed = CONSCIOUS
 	/// Sound to play when emote is called.
 	var/sound
-	/// Used for the honk borg emote.
+	/// Whether or not to vary the sound of the emote.
 	var/vary = FALSE
+	/// Whether or not to adjust the frequency of the emote sound based on age.
+	var/age_based = FALSE
 	/// Can only code call this event instead of the player.
 	var/only_forced_audio = FALSE
 	/// The cooldown between the uses of the emote.
-	var/cooldown = 0.8
+	var/cooldown = 0.8 SECONDS
 	/// Does this message have a message that can be modified by the user?
 	var/can_message_change = FALSE
 	/// How long is the cooldown on the audio of the emote, if it has one?
 	var/audio_cooldown = 2
 
 /datum/emote/New()
-	if (ispath(mob_type_allowed_typecache))
-		switch (mob_type_allowed_typecache)
-			if (/mob)
+	if(message_param && !param_desc)
+		CRASH("emote [src] was given a message parameter without a description.")
+	if(ispath(mob_type_allowed_typecache))
+		switch(mob_type_allowed_typecache)
+			if(/mob)
 				mob_type_allowed_typecache = GLOB.typecache_mob
-			if (/mob/living)
+			if(/mob/living)
 				mob_type_allowed_typecache = GLOB.typecache_living
 			else
 				mob_type_allowed_typecache = typecacheof(mob_type_allowed_typecache)
@@ -110,12 +127,21 @@
 	if(!msg)
 		return
 
-	user.log_emote(msg)
+	if(isobserver(user))
+		log_ghostemote(msg, user)
+	else
+		log_emote(msg, user)
+
 	var/dchatmsg = "<b>[user]</b> [msg]"
 
 	var/tmp_sound = get_sound(user)
 	if(tmp_sound && should_play_sound(user, intentional) && !user.start_emote_cooldown(type))
-		playsound(user, tmp_sound, 50, vary)
+		if(age_based)
+			var/mob/living/carbon/human/H = user
+
+			playsound(user, tmp_sound, 50, vary, frequency = H.get_age_pitch())
+		else
+			playsound(user, tmp_sound, 50, vary)
 
 	var/user_turf = get_turf(user)
 	if (user.client)
@@ -125,10 +151,32 @@
 			if(ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT && !(ghost in viewers(user_turf, null)))
 				ghost.show_message("<span class='emote'>[ghost_follow_link(user, ghost)] [dchatmsg]</span>")
 
-	if(emote_type == EMOTE_AUDIBLE)
-		user.audible_message(msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
-	else
-		user.visible_message(msg, blind_message = "<span class='emote'>You hear how <b>[user]</b> [msg]</span>")
+	// TODO Mute mime emotes
+	// TODO get this working with runechat
+
+	if(emote_type & EMOTE_VISIBLE)
+		user.audible_message(dchatmsg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
+	else if(!user.mind?.miming)
+		user.visible_message(dchatmsg, blind_message = "<span class='emote'>You hear how <b>[user]</b> [msg]</span>")
+
+	if(emote_type & EMOTE_VISIBLE)
+		var/runechat_text = msg
+		if(length(msg) > 100)
+			runechat_text = "[copytext(msg, 1, 101)]..."
+		var/list/can_see = get_mobs_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
+		can_see |= viewers(user,null)
+		for(var/mob/O in can_see)
+			if(O.status_flags & PASSEMOTES)
+				for(var/obj/item/holder/H in O.contents)
+					H.show_message(message, EMOTE_VISIBLE)
+
+				for(var/mob/living/M in O.contents)
+					M.show_message(message, EMOTE_VISIBLE)
+
+			// O.show_message(message, EMOTE_VISIBLE)
+			if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+				O.create_chat_message(user, runechat_text, symbol = RUNECHAT_SYMBOL_EMOTE)
+
 
 	SEND_SIGNAL(user, COMSIG_MOB_EMOTED(key))
 
@@ -243,6 +291,12 @@
 		return FALSE
 	if(is_type_in_typecache(user, mob_type_blacklist_typecache))
 		return FALSE
+
+	if(istype(user, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		if(species_whitelist && !species_whitelist[H?.dna?.species.name])
+			return FALSE
+
 	if(status_check && !is_type_in_typecache(user, mob_type_ignore_stat_typecache))
 		if(user.stat > stat_allowed)
 			if(!intentional)
@@ -265,7 +319,19 @@
 		var/mob/living/sender = user
 		if(HAS_TRAIT(sender, TRAIT_EMOTE_MUTE))
 			return FALSE
-
+	else
+		// deadchat handling
+		// TODO would this make more sense in /mob/dead?
+		if(check_mute(user.client?.ckey, MUTE_DEADCHAT))
+			to_chat(src, "<span class='warning'>You cannot send deadchat emotes (muted).</span>")
+			return FALSE
+		if(!(user.client?.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
+			to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
+			return FALSE
+		if(!user.client?.holder)
+			if(!GLOB.dsay_enabled)
+				to_chat(src, "<span class='warning'>Deadchat is globally muted</span>")
+				return FALSE
 /**
  * Check to see if the user should play a sound when performing the emote.
  *
@@ -292,7 +358,7 @@
 /mob/proc/manual_emote(text) //Just override the song and dance
 	. = TRUE
 	if(stat != CONSCIOUS)
-		return
+		return FALSE
 
 	if(!text)
 		CRASH("Someone passed nothing to manual_emote(), fix it")

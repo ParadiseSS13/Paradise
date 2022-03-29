@@ -295,7 +295,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/proc/GetVoice()
 	return name
 
-/mob/living/emote(act, type, message, force) //emote code is terrible, this is so that anything that isn't already snowflaked to shit can call the parent and handle emoting sanely
+/mob/living/proc/emote_old(act, type, message, force) //emote code is terrible, this is so that anything that isn't already snowflaked to shit can call the parent and handle emoting sanely
 	if(client)
 		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
@@ -304,8 +304,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(stat)
 		return 0
 
-	if(..())
-		return 1
+	// if(..())
+	// 	return 1
 
 	if(act && type && message) //parent call
 		log_emote(message, src)

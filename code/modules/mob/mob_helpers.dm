@@ -709,8 +709,6 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	if(emote_cd == EMOTE_ON_COOLDOWN)  // Already on CD, prevent use
 		return TRUE
 
-	// LAZYADD(src.emotes)
-
 	emote_cd = EMOTE_ON_COOLDOWN	// Starting cooldown
 	addtimer(CALLBACK(src, .proc/on_emote_cooldown_end), cooldown)
 	return FALSE  // proceed with emote

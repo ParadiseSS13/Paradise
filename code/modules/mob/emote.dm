@@ -1,150 +1,141 @@
-#define EMOTE_COOLDOWN 20		//Time in deciseconds that the cooldown lasts
 
-//Emote Cooldown System (it's so simple!)
-/mob/proc/handle_emote_CD(cooldown = EMOTE_COOLDOWN)
-	if(emote_cd == 3) //Spam those emotes
+// The datum in use is defined in code/datums/emotes.dm
+
+/mob/proc/emote(act, m_type = null, message = null, intentional = FALSE, force_silence = FALSE)
+	act = lowertext(act)
+	var/param = message
+	// TODO /tg/ used spaces instead of dashes. this might be okay?
+	var/custom_param = findtext(act, EMOTE_PARAM_SEPARATOR, 1, null)
+	if(custom_param)
+		param = copytext(act, custom_param + length(act[custom_param]))
+		act = copytext(act, 1, custom_param)
+
+	var/list/key_emotes = GLOB.emote_list[act]
+
+	if(!length(key_emotes))
+		if(intentional && !force_silence)
+			log_world("<span class='notice'> '[act]' emote does not exist. Say *help for a list.</span>")
+			to_chat(src, "<span class='notice'> '[act]' emote does not exist. Say *help for a list.</span>")
 		return FALSE
-	if(emote_cd == 2) // Cooldown emotes were disabled by an admin, prevent use
-		return TRUE
-	if(emote_cd == 1)  // Already on CD, prevent use
-		return TRUE
-
-	emote_cd = TRUE	// Starting cooldown
-	spawn(cooldown)
-		if(emote_cd == 2)
-			return // Don't reset if cooldown emotes were disabled by an admin during the cooldown
-		emote_cd = FALSE // Cooldown complete, ready for more!
-	return FALSE // Proceed with emote
-
-//--FalseIncarnate
-
-/mob/proc/handle_emote_param(target, not_self, vicinity, return_mob) //Only returns not null if the target param is valid.
-	var/view_vicinity = vicinity ? vicinity : null									 //not_self means we'll only return if target is valid and not us
-	if(target)																		 //vicinity is the distance passed to the view proc.
-		for(var/mob/A in view(view_vicinity, null))									 //if set, return_mob will cause this proc to return the mob instead of just its name if the target is valid.
-			if(target == A.name && (!not_self || (not_self && target != name)))
-				if(return_mob)
-					return A
-				else
-					return target
+	var/silenced = FALSE
+	for(var/datum/emote/P in key_emotes)
+		if(!P.check_cooldown(src, intentional))
+			silenced = TRUE
+			continue
+		if(P.run_emote(src, param, m_type, intentional))
+			SEND_SIGNAL(src, COMSIG_MOB_EMOTE, P, act, m_type, message, intentional)
+			SEND_SIGNAL(src, COMSIG_MOB_EMOTED(P.key))
+			return TRUE
+	if(intentional && !silenced && !force_silence)
+		log_world("<span class='notice'>Unusable emote '[act]'. Say *help for a list. </span>")
+		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list. </span>")
+	return FALSE
 
 // All mobs should have custom emote, really..
-/mob/proc/custom_emote(m_type=EMOTE_VISUAL, message = null)
-	if(stat || !use_me && usr == src)
-		if(usr)
-			to_chat(usr, "You are unable to emote.")
-		return
-	var/muzzled = is_muzzled()
-	if(muzzled)
-		var/obj/item/clothing/mask/muzzle/M = wear_mask
-		if(m_type == EMOTE_SOUND && M.mute >= MUZZLE_MUTE_MUFFLE)
-			return //Not all muzzles block sound
-	if(m_type == EMOTE_SOUND && !can_speak())
-		return
-
+/mob/proc/custom_emote(m_type=EMOTE_VISUAL, message=null)
 	var/input
 	if(!message)
 		input = sanitize(copytext(input(src,"Choose an emote to display.") as text|null,1,MAX_MESSAGE_LEN))
 	else
 		input = message
-	if(input)
-		message = "<B>[src]</B> [input]"
-	else
-		return
 
-
-	if(message)
-		log_emote(message, src)
-		if(isliving(src)) //isliving because these are defined on the mob/living level not mob
-			var/mob/living/L = src
-			L.say_log += "EMOTE: [input]" //say log too so it is easier on admins instead of having to merge the two with timestamps etc
-			L.emote_log += input //emote only log if an admin wants to search just for emotes they don't have to sift through the say
-			create_log(EMOTE_LOG, input) // TODO after #13047: Include the channel
-		// Hearing gasp and such every five seconds is not good emotes were not global for a reason.
-		// Maybe some people are okay with that.
-		for(var/mob/M in GLOB.player_list)
-			if(!M.client)
-				continue //skip monkeys and leavers
-
-			if(isnewplayer(M))
-				continue
-
-			if(findtext(message, " snores.")) //Because we have so many sleeping people.
-				break
-
-			if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
-				M.show_message(message)
-
-		// Type 1 (Visual) emotes are sent to anyone in view of the item
-		if(m_type & EMOTE_VISUAL)
-			var/runechat_text = input
-			if(length(input) > 100)
-				runechat_text = "[copytext(input, 1, 101)]..."
-			var/list/can_see = get_mobs_in_view(1,src)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
-			can_see |= viewers(src,null)
-			for(var/mob/O in can_see)
-
-				if(O.status_flags & PASSEMOTES)
-
-					for(var/obj/item/holder/H in O.contents)
-						H.show_message(message, m_type)
-
-					for(var/mob/living/M in O.contents)
-						M.show_message(message, m_type)
-
-				O.show_message(message, m_type)
-				if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-					O.create_chat_message(src, runechat_text, symbol = RUNECHAT_SYMBOL_EMOTE)
-
-		// Type 2 (Audible) emotes are sent to anyone in hear range
-		// of the *LOCATION* -- this is important for pAIs to be heard
-		else if(m_type & EMOTE_SOUND)
-			for(var/mob/O in get_mobs_in_view(7,src))
-
-				if(O.status_flags & PASSEMOTES)
-
-					for(var/obj/item/holder/H in O.contents)
-						H.show_message(message, m_type)
-
-					for(var/mob/living/M in O.contents)
-						M.show_message(message, m_type)
-
-				O.show_message(message, m_type)
+	emote("me", m_type, message, TRUE)
 
 /mob/proc/emote_dead(message)
-	if(check_mute(client.ckey, MUTE_DEADCHAT))
-		to_chat(src, "<span class='warning'>You cannot send deadchat emotes (muted).</span>")
-		return
+	CRASH("emote_dead is oldcode but was called")
 
-	if(!(client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
-		to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
-		return
+// Stub these out since they're still referenced everywhere
+/mob/proc/handle_emote_CD(cooldown)
+	CRASH("handle_emote_CD is oldcode but was called.")
 
-	if(!src.client.holder)
-		if(!GLOB.dsay_enabled)
-			to_chat(src, "<span class='warning'>Deadchat is globally muted</span>")
-			return
+/mob/proc/handle_emote_param(param)
+	CRASH("handle_emote_param is oldcode but was called")
 
+/datum/emote/help
+	key = "help"
+	mob_type_ignore_stat_typecache = list(/mob/dead/observer, /mob/living/silicon/ai)
 
-	var/input
-	if(!message)
-		input = sanitize(copytext(input(src, "Choose an emote to display.") as text|null, 1, MAX_MESSAGE_LEN))
-	else
-		input = message
+/datum/emote/help/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	var/list/keys = list()
+	var/list/message = list("Available emotes, you can use them with say \"*emote\": ")
 
-	if(input)
-		message = "<span class='game deadsay'><span class='prefix'>DEAD:</span> <b>[src]</b> [message]</span>"
-	else
-		return
-
-
-	if(message)
-		for(var/mob/M in GLOB.player_list)
-			if(isnewplayer(M))
+	for(var/key in GLOB.emote_list)
+		for(var/datum/emote/P in GLOB.emote_list[key])
+			var/full_key = P.key
+			if(P.key in keys)
 				continue
+			if(P.can_run_emote(user, status_check = FALSE , intentional = TRUE))
+				if(P.message_param && P.param_desc)
+					// Add our parameter description, like flap-user
+					full_key = P.key + EMOTE_PARAM_SEPARATOR + P.param_desc
+				keys += full_key
 
-			if(check_rights(R_ADMIN|R_MOD, 0, M) && M.get_preference(PREFTOGGLE_CHAT_DEAD)) // Show the emote to admins/mods
-				to_chat(M, message)
+	keys = sortList(keys)
+	message += keys.Join(", ")
+	message += "."
+	message = message.Join("")
+	to_chat(user, message)
 
-			else if(M.stat == DEAD && M.get_preference(PREFTOGGLE_CHAT_DEAD)) // Show the emote to regular ghosts with deadchat toggled on
-				M.show_message(message, 2)
+/datum/emote/flip
+	key = "flip"
+	key_third_person = "flips"
+	hands_use_check = TRUE
+	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)  // okay but what if we allowed ghosts to flip as well
+	mob_type_ignore_stat_typecache = list(/mob/dead/observer, /mob/living/silicon/ai)
+
+/datum/emote/flip/run_emote(mob/user, params, type_override, intentional)
+
+	if(!can_run_emote(user, TRUE, intentional))
+		return FALSE
+
+	message = "does a flip!"
+
+	if(user.lying || user.IsWeakened())
+		message = "flops and flails around on the floor."
+	else if(params)
+		message_param = "flips in %t's general direction."
+	else if(istype(user.get_active_hand(), /obj/item/grab))
+		var/obj/item/grab/G = user.get_active_hand()
+		if(G && G.affecting)
+			if(user.buckled || G.affecting.buckled)
+				return
+			var/turf/oldloc = user.loc
+			var/turf/newloc = G.affecting.loc
+			if(isturf(oldloc) && isturf(newloc))
+				user.SpinAnimation(5,1)
+				user.glide_for(0.6 SECONDS) // This and the glide_for below are purely arbitrary. Pick something that looks aesthetically pleasing.
+				user.forceMove(newloc)
+				G.glide_for(0.6 SECONDS)
+				G.affecting.forceMove(oldloc)
+				message = "flips over [G.affecting]!"
+
+	else if(prob(5))
+		message = "attempts a flip and crashes to the floor!"
+		user.SpinAnimation(5,1)
+		sleep(0.3 SECONDS)
+		user.Weaken(2)
+	else
+		message = "does a flip!"
+		user.SpinAnimation(5,1)
+
+	. = ..()
+	message = initial(message)
+	message_param = initial(message_param)
+
+/datum/emote/spin
+	key = "spin"
+	key_third_person = "spins"
+	hands_use_check = TRUE
+	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)
+	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
+
+/datum/emote/spin/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(prob(5))
+		user.spin(32, 1)
+		to_chat(user, "<span class='warning'>You spin too much!</span>")
+		user.Dizzy(12)
+		user.Confused(12)
+	else
+		user.spin(20, 1)

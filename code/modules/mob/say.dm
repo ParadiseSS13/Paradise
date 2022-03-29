@@ -41,7 +41,7 @@
 	if(use_me)
 		custom_emote(usr.emote_type, message)
 	else
-		usr.emote(message)
+		usr.emote(message, intentional = TRUE)
 
 
 /mob/proc/say_dead(message)
@@ -111,9 +111,9 @@
 	return verb
 
 
-/mob/proc/emote(act, type, message, force)
-	if(act == "me")
-		return custom_emote(type, message)
+// /mob/proc/emote(act, type, message, force)
+// 	if(act == "me")
+// 		return custom_emote(type, message)
 
 
 /mob/proc/get_ear()
