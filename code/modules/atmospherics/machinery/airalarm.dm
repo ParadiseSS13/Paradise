@@ -622,7 +622,8 @@
 		return
 
 	var/datum/gas_mixture/environment = location.return_air()
-	var/total = environment.oxygen + environment.nitrogen + environment.carbon_dioxide + environment.toxins
+	var/known_total = environment.oxygen + environment.nitrogen + environment.carbon_dioxide + environment.toxins
+	var/total = environment.total_moles()
 	if(total == 0)
 		return null
 
@@ -650,8 +651,9 @@
 	var/plasma_percent = round(environment.toxins / total * 100, 2)
 
 	cur_tlv = TLV["other"]
-	var/other_moles = environment.total_trace_moles()
-	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles * GET_PP)
+	var/other_moles = total - known_total
+	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles*GET_PP)
+	var/other_percent = round(other_moles / total * 100, 2)
 
 	cur_tlv = TLV["temperature"]
 	var/temperature_dangerlevel = cur_tlv.get_danger_level(environment.temperature)
@@ -667,7 +669,7 @@
 	percentages["nitrogen"] = nitrogen_percent
 	percentages["co2"] = co2_percent
 	percentages["plasma"] = plasma_percent
-	percentages["other"] = other_moles
+	percentages["other"] = other_percent
 	data["contents"] = percentages
 
 	var/list/danger = list()
