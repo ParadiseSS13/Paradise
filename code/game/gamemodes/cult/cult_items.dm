@@ -470,7 +470,7 @@
 			// 10 * 3 gives it a 30% chance to shatter per hit.
 			shatter_chance = min((P.damage - threshold) * 3, 75) // Maximum of 75% chance
 
-			if(prob(shatter_chance))
+			if(prob(shatter_chance) || (P.shield_buster))
 				var/turf/T = get_turf(owner)
 				T.visible_message("<span class='warning'>The sheer force from [P] shatters the mirror shield!</span>")
 				new /obj/effect/temp_visual/cult/sparks(T)

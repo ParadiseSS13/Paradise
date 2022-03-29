@@ -264,6 +264,8 @@
 	name = "dropwall shield generator"
 	desc = "This generator designed by Shellguard Munitions's spartan division is used to deploy a temporary cover that blocks projectiles and explosions from a direction, while allowing projectiles to pass freely from behind"
 	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
+	icon = 'icons/obj/dropwall.dmi'
+	icon_state = "dropwall"
 	mode = NORTH
 	var/uptime = 12 SECONDS
 
@@ -285,10 +287,10 @@
 	qdel(src)
 
 /obj/structure/dropwall_generator
-	name = "deployed dropwall shield genrator"
+	name = "deployed dropwall shield generator"
 	desc = "This generator designed by Shellguard Munitions's spartan division is used to deploy a temporary cover that blocks projectiles and explosions from a direction, while allowing projectiles to pass freely from behind"
-	icon = 'icons/obj/grenade.dmi'
-	icon_state = "flashbang"
+	icon = 'icons/obj/dropwall.dmi'
+	icon_state = "dropwall_deployed"
 	max_integrity = 25 // 2 shots
 	var/list/connected_shields = list()
 	/// This variable is used to prevent damage to it's core shield when it is up.
@@ -305,6 +307,10 @@
 	anchored = TRUE
 	protected = TRUE
 	addtimer(CALLBACK(src, .proc/power_out), uptime)
+	while(uptime >= 10)
+		addtimer(CALLBACK(src, .proc/annoying_overlay_proc, uptime/10), (10 * (12 - uptime/10))) // instantly, 1 second, 2 seconds, ect. Would put in SECONDS here but it shits itself
+		uptime -= 10
+
 	switch(direction)
 		if(NORTH)
 			connected_shields += new /obj/structure/barricade/dropwall(get_turf(loc), src, TRUE, NORTH)
@@ -365,7 +371,7 @@
 
 /obj/structure/dropwall_generator/bullet_act(obj/item/projectile/P)
 	if(protected)
-		visible_message("</span>[src]'s shield absorbs the blow!</span>")
+		visible_message("<span class='warning'>[src]'s shield absorbs the blow!</span>")
 		core_shield.take_damage(P.damage, P.damage_type, P.flag)
 	else
 		. = ..()
@@ -383,15 +389,21 @@
 		qdel(src)
 
 /obj/structure/dropwall_generator/proc/power_out()
-	visible_message("</span>[src] runs out of power, causing its shields to fail!</span>")
+	visible_message("<span class='warning'>[src] runs out of power, causing its shields to fail!</span>")
 	new /obj/item/used_dropwall(get_turf(src))
 	qdel(src)
+
+/obj/structure/dropwall_generator/proc/annoying_overlay_proc(uptime)
+	var/cycle = 13 - uptime
+	if(cycle != 1)
+		cut_overlay("[(cycle - 1)]")
+	add_overlay("[cycle]")
 
 /obj/item/used_dropwall
 	name = "broken dropwall generator"
 	desc = "This dropwall has ran out of charge, but some materials could possibly be reclamed"
-	icon = 'icons/obj/grenade.dmi'
-	icon_state = "flashbang"
+	icon = 'icons/obj/dropwall.dmi'
+	icon_state = "dropwall_dead"
 	item_state = "flashbang"
 	materials = list(MAT_METAL=10000, MAT_GLASS=4000) // adjust values to whatever print cost is / 2
 
