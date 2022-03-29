@@ -4555,7 +4555,7 @@
 /obj/item/gun/syringe/rapidsyringe,
 /obj/item/reagent_containers/spray/chemsprayer,
 /obj/structure/closet,
-/obj/item/gun/projectile/shotgun/sc_pump,
+/obj/item/gun/projectile/revolver/doublebarrel,
 /obj/item/ammo_casing/shotgun/dart,
 /obj/item/ammo_casing/shotgun/dart,
 /obj/item/ammo_casing/shotgun/dart,
