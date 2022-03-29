@@ -308,7 +308,7 @@
 			if(0.1 to 20)
 				status = "bruised"
 			if(20 to 40)
-				status = "bruised"
+				status = "battered"
 			if(40 to INFINITY)
 				status = "mangled"
 		if(brutedamage > 0 && burndamage > 0)
@@ -334,15 +334,15 @@
 			status_list += "<a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
 
 	for(var/t in missing)
-		to_chat(src, "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>")
+		status_list += "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>"
 
 	if(H.bleed_rate)
-		to_chat(src, "<span class='danger'>You are bleeding!</span>")
+		status_list +=  "<span class='danger'>You are bleeding!</span>"
 	if(staminaloss)
 		if(staminaloss > 30)
-			to_chat(src, "<span class='info'>You're completely exhausted.</span>")
+			status_list += "<span class='info'>You're completely exhausted.</span>"
 		else
-			to_chat(src, "<span class='info'>You feel fatigued.</span>")
+			status_list += "<span class='info'>You feel fatigued.</span>"
 
 	var/output = status_list.Join("\n")
 	to_chat(src, output)
