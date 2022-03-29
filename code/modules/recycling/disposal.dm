@@ -406,7 +406,7 @@
 	flick("[icon_state]-flush", src)
 
 	var/wrapcheck = 0
-	var/obj/structure/disposalholder/H = new()	// virtual holder object which actually
+	var/obj/structure/disposalholder/H = new(src)	// virtual holder object which actually
 												// travels through the pipes.
 	//Hacky test to get drones to mail themselves through disposals.
 	for(var/mob/living/silicon/robot/drone/D in src)
@@ -640,22 +640,22 @@
 
 
 	// called when player tries to move while in a pipe
-/obj/structure/disposalholder/relaymove(mob/user as mob)
-	if(!istype(user,/mob/living))
+/obj/structure/disposalholder/relaymove(mob/user)
+	if(!istype(user, /mob/living))
 		return
 
 	var/mob/living/U = user
 
-	if(U.stat || U.last_special <= world.time)
+	if(U.stat || world.time <= U.last_special)
 		return
 
-	U.last_special = world.time+100
+	U.last_special = world.time + 100
 
-	if(src.loc)
-		for(var/mob/M in hearers(src.loc.loc))
+	if(loc)
+		for(var/mob/M in hearers(loc.loc))
 			to_chat(M, "<FONT size=[max(0, 5 - get_dist(src, M))]>CLONG, clong!</FONT>")
 
-	playsound(src.loc, 'sound/effects/clang.ogg', 50, 0, 0)
+	playsound(loc, 'sound/effects/clang.ogg', 50, 0, 0)
 
 	// called to vent all gas in holder to a location
 /obj/structure/disposalholder/proc/vent_gas(atom/location)
@@ -789,8 +789,8 @@
 		return
 	if(T.intact && istype(T,/turf/simulated/floor)) //intact floor, pop the tile
 		var/turf/simulated/floor/F = T
-		new F.floor_tile(H)
-		F.remove_tile(null, TRUE, FALSE)
+		if(F.remove_tile(null, TRUE, FALSE))
+			new F.floor_tile(H)
 
 	if(direction)		// direction is specified
 		if(istype(T, /turf/space)) // if ended in space, then range is unlimited

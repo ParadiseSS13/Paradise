@@ -279,49 +279,53 @@
 			INVOKE_ASYNC(src, .proc/effect, user, T)
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/proc/effect(mob/living/simple_animal/revenant/user, turf/T)
-	T.rev_malfunction()
+	T.rev_malfunction(TRUE)
 	for(var/atom/A in T.contents)
-		A.rev_malfunction()
+		A.rev_malfunction(TRUE)
 
 
 /atom/proc/defile()
 	return
 
-/atom/proc/rev_malfunction()
+/atom/proc/rev_malfunction(cause_emp = TRUE)
 	return
 
-/mob/living/carbon/human/rev_malfunction()
+/mob/living/carbon/human/rev_malfunction(cause_emp = TRUE)
 	to_chat(src, "<span class='warning'>You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")].</span>")
 	new /obj/effect/temp_visual/revenant(loc)
-	emp_act(1)
+	if(cause_emp)
+		emp_act(1)
 
-/mob/living/simple_animal/bot/rev_malfunction()
+/mob/living/simple_animal/bot/rev_malfunction(cause_emp = TRUE)
 	if(!emagged)
 		new /obj/effect/temp_visual/revenant(loc)
 		locked = FALSE
 		open = TRUE
 		emag_act(null)
 
-/obj/rev_malfunction()
+/obj/rev_malfunction(cause_emp = TRUE)
 	if(prob(20))
 		if(prob(50))
 			new /obj/effect/temp_visual/revenant(loc)
 		emag_act(null)
+	else if(cause_emp)
+		emp_act(1)
 
-/obj/machinery/clonepod/rev_malfunction()
-	emag_act(null)
+/obj/machinery/clonepod/rev_malfunction(cause_emp = TRUE)
+	..(cause_emp = FALSE)
 
-/obj/machinery/power/apc/rev_malfunction()
+/obj/machinery/power/apc/rev_malfunction(cause_emp = TRUE)
 	return
 
-/obj/machinery/power/smes/rev_malfunction()
+/obj/machinery/power/smes/rev_malfunction(cause_emp = TRUE)
 	return
 
-/mob/living/silicon/robot/rev_malfunction()
+/mob/living/silicon/robot/rev_malfunction(cause_emp = TRUE)
 	playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 1)
 	new /obj/effect/temp_visual/revenant(loc)
 	spark_system.start()
-	emp_act(1)
+	if(cause_emp)
+		emp_act(1)
 
 /turf/defile()
 	if(flags & NOJAUNT)

@@ -87,7 +87,8 @@ SUBSYSTEM_DEF(ticker)
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
 			for(var/mob/new_player/N in GLOB.player_list)
-				N.new_player_panel_proc() // to enable the observe option
+				if (N.client)
+					N.new_player_panel_proc() // to enable the observe option
 		if(GAME_STATE_PREGAME)
 			if(!SSticker.ticker_going) // This has to be referenced like this, and I dont know why. If you dont put SSticker. it will break
 				return
@@ -406,20 +407,11 @@ SUBSYSTEM_DEF(ticker)
 				qdel(player)
 
 /datum/controller/subsystem/ticker/proc/equip_characters()
-	var/captainless = TRUE
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(player && player.mind && player.mind.assigned_role)
-			if(player.mind.assigned_role == "Captain")
-				captainless = FALSE
-			if(player.mind.assigned_role != player.mind.special_role)
-				SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
-				SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
-				equip_cuis(player)
-
-	if(captainless)
-		for(var/mob/M in GLOB.player_list)
-			if(!isnewplayer(M))
-				to_chat(M, "Captainship not forced on anyone.")
+		if(player && player.mind && player.mind.assigned_role && player.mind.assigned_role != player.mind.special_role)
+			SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
+			SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
+			equip_cuis(player)
 
 /datum/controller/subsystem/ticker/proc/equip_cuis(mob/living/carbon/human/H)
 	if(!H.client)

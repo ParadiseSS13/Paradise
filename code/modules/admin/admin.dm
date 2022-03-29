@@ -651,9 +651,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Changeling"
 	if(M.mind in SSticker.mode.abductors)
 		antag_list += "Abductor"
-	if(M.mind in SSticker.mode.vampires)
+	if(M.mind.has_antag_datum(/datum/antagonist/vampire))
 		antag_list += "Vampire"
-	if(M.mind in SSticker.mode.vampire_enthralled)
+	if(M.mind.has_antag_datum(/datum/antagonist/mindslave/thrall))
 		antag_list += "Vampire Thrall"
 	if(M.mind in SSticker.mode.shadows)
 		antag_list += "Shadowling"
@@ -661,7 +661,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Shadowling Thrall"
 	if(M.mind.has_antag_datum(/datum/antagonist/traitor))
 		antag_list += "Traitor"
-	if(M.mind.has_antag_datum(/datum/antagonist/mindslave))
+	if(M.mind.has_antag_datum(/datum/antagonist/mindslave, FALSE))
 		antag_list += "Mindslave"
 	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M

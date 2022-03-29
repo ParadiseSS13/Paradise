@@ -2,7 +2,7 @@
 	priority = 42
 
 /datum/client_login_processor/karma_numbers/get_query(client/C)
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT karma, karmaspent FROM karmatotals WHERE byondkey=:ckey", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT karma, karmaspent FROM karma_totals WHERE byondkey=:ckey", list(
 		"ckey" = C.ckey
 	))
 	return query

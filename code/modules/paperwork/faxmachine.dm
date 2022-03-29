@@ -90,6 +90,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	else if(istype(item, /obj/item/paper) || istype(item, /obj/item/photo) || istype(item, /obj/item/paper_bundle))
 		..()
 		SStgui.update_uis(src)
+	else if(istype(item, /obj/item/folder))
+		to_chat(user, "<span class='warning'>The [src] can't accept folders!</span>")
+		return //early return so the parent proc doesn't suck up and items that a photocopier would take
 	else
 		return ..()
 
@@ -312,10 +315,10 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	flick(receive_anim, src)
 
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+	addtimer(CALLBACK(src, .proc/print_fax, incoming), 2 SECONDS)
+	return TRUE
 
-	// give the sprite some time to flick
-	sleep(20)
-
+/obj/machinery/photocopier/faxmachine/proc/print_fax(obj/item/incoming)
 	if(istype(incoming, /obj/item/paper))
 		papercopy(incoming)
 	else if(istype(incoming, /obj/item/photo))
@@ -323,10 +326,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	else if(istype(incoming, /obj/item/paper_bundle))
 		bundlecopy(incoming)
 	else
-		return FALSE
+		return
 
 	use_power(active_power_usage)
-	return TRUE
 
 /obj/machinery/photocopier/faxmachine/proc/send_admin_fax(mob/sender, destination)
 	use_power(active_power_usage)

@@ -131,7 +131,9 @@
 // Used in shuttle movement and AI eye stuff.
 // Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
 /atom/movable/proc/setLoc(T, teleported=0)
+	var/old_loc = loc
 	loc = T
+	Moved(old_loc, get_dir(old_loc, loc))
 
 /atom/movable/Move(atom/newloc, direct = 0, movetime)
 	if(!loc || !newloc) return 0
@@ -203,8 +205,8 @@
 		Moved(oldloc, direct)
 
 	last_move = direct
-	src.move_speed = world.time - src.l_move_time
-	src.l_move_time = world.time
+	move_speed = world.time - l_move_time
+	l_move_time = world.time
 
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, movetime)) //movement failed due to buckled mob
 		. = 0
@@ -297,6 +299,8 @@
 	. = ..()
 	if(client)
 		reset_perspective(destination)
+		if(hud_used && length(client.parallax_layers))
+			hud_used.update_parallax()
 	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
 	update_runechat_msg_location()
 

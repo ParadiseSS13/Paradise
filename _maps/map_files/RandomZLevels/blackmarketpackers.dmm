@@ -308,6 +308,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
+"bO" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/BMPship/Aft)
 "bQ" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
@@ -672,6 +681,15 @@
 	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Midship)
+"de" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/BMPship/Aft)
 "dg" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
@@ -874,9 +892,7 @@
 	},
 /area/awaymission/BMPship/Fore)
 "dI" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "carpet14-8"
@@ -941,6 +957,17 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/awaymission/BMPship/Midship)
+"dS" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
 	tag = ""
 	},
 /turf/simulated/floor/plasteel{
@@ -1113,17 +1140,6 @@
 	icon_state = "carpet9-0"
 	},
 /area/awaymission/BMPship/Fore)
-"ek" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/awaymission/BMPship/Midship)
 "el" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -1181,15 +1197,6 @@
 "er" = (
 /turf/simulated/wall/r_wall,
 /area/awaymission/BMPship/Midship)
-"es" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/BMPship/Aft)
 "et" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -1197,15 +1204,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
-/area/awaymission/BMPship/Aft)
-"eu" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/simulated/floor/plating,
 /area/awaymission/BMPship/Aft)
 "ev" = (
 /obj/item/shard,
@@ -1215,9 +1213,7 @@
 	},
 /area/awaymission/BMPship/Fore)
 "ew" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "carpetside"
@@ -1483,6 +1479,18 @@
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "carpet15-14"
+	},
+/area/awaymission/BMPship/Fore)
+"eZ" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "carpet15-15"
 	},
 /area/awaymission/BMPship/Fore)
 "fa" = (
@@ -1834,6 +1842,17 @@
 	icon_state = "showroomfloor"
 	},
 /area/awaymission/BMPship/Aft)
+"fR" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/awaymission/BMPship/Aft)
 "fS" = (
 /obj/machinery/power/smes/magical{
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
@@ -1859,18 +1878,6 @@
 /obj/item/kitchen/knife,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Aft)
-"fV" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "carpet15-15"
-	},
-/area/awaymission/BMPship/Fore)
 "fW" = (
 /obj/structure/closet,
 /obj/item/clothing/head/bio_hood,
@@ -2090,9 +2097,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gE" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -2127,17 +2132,6 @@
 	icon_state = "bar"
 	},
 /area/awaymission/BMPship/Midship)
-"gI" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
-/area/awaymission/BMPship/Aft)
 "gJ" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -2164,9 +2158,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Aft)
 "gN" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -2441,6 +2433,15 @@
 /obj/machinery/computer/arcade,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Aft)
+"hQ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/BMPship/Aft)
 "hR" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -2571,15 +2572,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission)
-"im" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/BMPship/Aft)
 "in" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -9578,7 +9570,7 @@ cX
 dp
 ft
 fI
-fV
+eZ
 gi
 gC
 gA
@@ -9965,7 +9957,7 @@ dr
 dK
 ei
 ex
-fV
+eZ
 fu
 cB
 fY
@@ -10224,7 +10216,7 @@ cM
 cM
 cM
 em
-ek
+dS
 cM
 cM
 cM
@@ -10483,7 +10475,7 @@ cF
 cF
 cF
 dM
-ek
+dS
 er
 er
 er
@@ -10613,7 +10605,7 @@ cI
 dc
 dc
 dN
-ek
+dS
 er
 fd
 fd
@@ -10743,7 +10735,7 @@ cH
 dc
 dt
 dN
-ek
+dS
 er
 fe
 fd
@@ -10873,7 +10865,7 @@ cJ
 dc
 dc
 dO
-ek
+dS
 er
 fd
 fg
@@ -11003,7 +10995,7 @@ cI
 dc
 dc
 dN
-ek
+dS
 er
 ff
 ff
@@ -11133,7 +11125,7 @@ cK
 cK
 cK
 dP
-ek
+dS
 eE
 fg
 fg
@@ -11396,7 +11388,7 @@ cM
 cM
 cM
 fa
-ek
+dS
 cM
 cM
 gm
@@ -11656,7 +11648,7 @@ cM
 cM
 cM
 cM
-ek
+dS
 cM
 cM
 cM
@@ -11912,7 +11904,7 @@ am
 cQ
 db
 dy
-ek
+dS
 cM
 hV
 cM
@@ -11921,7 +11913,7 @@ cM
 cM
 hV
 cM
-ek
+dS
 cM
 cl
 hH
@@ -12042,7 +12034,7 @@ am
 cP
 dd
 dw
-ek
+dS
 eq
 eG
 fi
@@ -12051,7 +12043,7 @@ cM
 eq
 gl
 gH
-ek
+dS
 cM
 cl
 gY
@@ -12172,7 +12164,7 @@ am
 cM
 cM
 cM
-ek
+dS
 er
 eI
 er
@@ -12181,7 +12173,7 @@ fP
 er
 gp
 er
-ek
+dS
 cM
 cl
 ac
@@ -12302,7 +12294,7 @@ jq
 cM
 cM
 cM
-ek
+dS
 er
 eG
 er
@@ -12311,7 +12303,7 @@ cM
 er
 go
 er
-ek
+dS
 hd
 cl
 hJ
@@ -12432,7 +12424,7 @@ jq
 cM
 cM
 cM
-ek
+dS
 er
 eG
 er
@@ -12441,7 +12433,7 @@ cM
 er
 go
 er
-ek
+dS
 cM
 cl
 hH
@@ -12562,7 +12554,7 @@ jq
 cM
 cM
 cM
-ek
+dS
 er
 eG
 er
@@ -12571,7 +12563,7 @@ cM
 er
 go
 er
-ek
+dS
 cM
 cl
 ac
@@ -12692,7 +12684,7 @@ am
 cS
 dg
 cM
-ek
+dS
 er
 eG
 er
@@ -12701,7 +12693,7 @@ cM
 er
 go
 er
-ek
+dS
 cM
 cl
 gY
@@ -12822,7 +12814,7 @@ am
 cR
 dg
 cM
-ek
+dS
 er
 eM
 er
@@ -12831,7 +12823,7 @@ cM
 er
 eM
 er
-ek
+dS
 cM
 cl
 hL
@@ -12952,7 +12944,7 @@ am
 cU
 cM
 cM
-ek
+dS
 er
 eN
 er
@@ -12961,7 +12953,7 @@ cM
 er
 eN
 er
-ek
+dS
 hd
 cl
 hM
@@ -13217,7 +13209,7 @@ cM
 eK
 fb
 cM
-ek
+dS
 gc
 gq
 cM
@@ -13477,7 +13469,7 @@ dj
 dj
 fl
 dj
-gI
+fR
 fl
 dj
 dj
@@ -13486,7 +13478,7 @@ ai
 dq
 hP
 hu
-im
+hQ
 dq
 iA
 ai
@@ -13616,7 +13608,7 @@ ai
 dq
 dq
 dq
-im
+hQ
 dq
 iA
 ai
@@ -13740,13 +13732,13 @@ fp
 fp
 eR
 gk
-gI
+fR
 dj
 hg
 dq
 bd
 dq
-im
+hQ
 it
 dq
 ai
@@ -13870,13 +13862,13 @@ bd
 fz
 fD
 gf
-gI
+fR
 dj
 ai
 dq
 dq
 ie
-im
+hQ
 is
 bd
 ai
@@ -14000,13 +13992,13 @@ bd
 bd
 bd
 gf
-gI
+fR
 fG
 ai
 ht
 dq
 dq
-im
+hQ
 dq
 dq
 ai
@@ -14133,7 +14125,7 @@ gr
 gJ
 eo
 he
-es
+de
 hK
 ic
 in
@@ -14264,7 +14256,7 @@ dj
 gV
 ai
 hu
-im
+hQ
 dq
 dq
 dq
@@ -14394,7 +14386,7 @@ gK
 gX
 ai
 hr
-im
+hQ
 ie
 dq
 ie
@@ -14524,7 +14516,7 @@ ai
 ai
 ai
 hs
-im
+hQ
 dq
 dq
 dq
@@ -14654,7 +14646,7 @@ hh
 js
 ai
 ht
-im
+hQ
 dq
 ai
 iu
@@ -14770,20 +14762,20 @@ cs
 jo
 gn
 jB
-es
-es
+de
+de
 dX
-es
+de
 eO
 eO
-es
-es
-es
+de
+de
+de
 eO
-es
-eu
+de
+bO
 hf
-es
+de
 hS
 dq
 ai
@@ -15033,7 +15025,7 @@ am
 ai
 do
 dZ
-eu
+bO
 eT
 fj
 fj
@@ -15293,9 +15285,9 @@ aa
 ai
 hw
 ea
-eu
+bO
 eU
-eu
+bO
 fj
 fT
 bd

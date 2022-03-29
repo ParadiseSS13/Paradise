@@ -44,7 +44,18 @@
 /turf/simulated/floor/transparent/glass/crowbar_act(mob/user, obj/item/I)
 	if(!I || !user)
 		return
-	var/obj/item/stack/R = user.get_inactive_hand()
+	var/obj/item/stack/R
+	if(ishuman(user))
+		R = user.get_inactive_hand()
+	else if(isrobot(user))
+		var/mob/living/silicon/robot/robouser = user
+		if(istype(robouser.module_state_1, /obj/item/stack/sheet/metal))
+			R = robouser.module_state_1
+		else if(istype(robouser.module_state_2, /obj/item/stack/sheet/metal))
+			R = robouser.module_state_2
+		else if(istype(robouser.module_state_3, /obj/item/stack/sheet/metal))
+			R = robouser.module_state_3
+
 	if(istype(R, /obj/item/stack/sheet/metal))
 		if(R.get_amount() < 2) //not enough metal in the stack
 			to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle [src]!</span>")

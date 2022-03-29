@@ -42,7 +42,7 @@
 /datum/spell_targeting/proc/attempt_auto_target(mob/user, obj/effect/proc_holder/spell/spell)
 	var/atom/target
 	for(var/atom/A in view_or_range(range, use_turf_of_user ? get_turf(user) : user, selection_type))
-		if(valid_target(A, user, spell))
+		if(valid_target(A, user, spell, FALSE))
 			if(target)
 				return FALSE // Two targets found. ABORT
 			target = A
@@ -73,8 +73,9 @@
  * * target - The one who is being considered as a target
  * * user - Who is casting the spell
  * * spell - The spell being cast
+ * * check_if_in_range - If a view/range check has to be done to see if the target is valid
  */
-/datum/spell_targeting/proc/valid_target(target, user, obj/effect/proc_holder/spell/spell)
+/datum/spell_targeting/proc/valid_target(target, user, obj/effect/proc_holder/spell/spell, check_if_in_range = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 	return istype(target, allowed_type) && (include_user || target != user) && \
-		spell.valid_target(target, user) && (target in view_or_range(range, use_turf_of_user ? get_turf(user) : user, selection_type))
+		spell.valid_target(target, user) && (!check_if_in_range || (target in view_or_range(range, use_turf_of_user ? get_turf(user) : user, selection_type)))

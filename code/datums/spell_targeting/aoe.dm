@@ -10,7 +10,7 @@
 	var/list/targets = list()
 
 	for(var/atom/target in view_or_range(range, user, selection_type))
-		if(valid_target(target, user, spell))
+		if(valid_target(target, user, spell, FALSE))
 			targets += target
 	if(inner_radius >= 0)
 		targets -= view_or_range(inner_radius, user, selection_type) // remove the inner ring

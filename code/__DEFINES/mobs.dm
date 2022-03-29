@@ -184,6 +184,9 @@
 #define HOSTILE_SPAWN 1
 #define FRIENDLY_SPAWN 2
 
+///Max amount of living Xenobio mobs allowed at any given time (excluding slimes).
+#define MAX_GOLD_CORE_MOBS 45
+
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
 #define EYE_SHINE_THRESHOLD 6	//dark_view threshold past which a humanoid's eyes will 'shine' in the dark.
@@ -232,6 +235,7 @@
 #define ismachineperson(A) (is_species(A, /datum/species/machine))
 #define isdrask(A) (is_species(A, /datum/species/drask))
 #define iswryn(A) (is_species(A, /datum/species/wryn))
+#define ismoth(A) (is_species(A, /datum/species/moth))
 
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
 #define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))

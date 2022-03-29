@@ -50,7 +50,11 @@
 	desc = "A seemingly impenetrable wall."
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "necro"
+	base_icon_state = "necro"
 	baseturf = /turf/simulated/wall/indestructible/necropolis
+	smoothing_flags = null
+	smoothing_groups = null
+	canSmoothWith = null
 
 /turf/simulated/wall/indestructible/boss
 	name = "necropolis wall"

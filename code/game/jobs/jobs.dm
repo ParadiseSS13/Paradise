@@ -89,7 +89,6 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 ))
 
 GLOBAL_LIST_INIT(whitelisted_positions, list(
-	"Blueshield",
 	"Nanotrasen Representative",
 	"Barber",
 ))
@@ -125,7 +124,6 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_CREW = list(titles = command_positions | engineering_positions | medical_positions | science_positions | support_positions | supply_positions | security_positions | assistant_positions | list("AI","Cyborg") | whitelisted_positions), // crew positions
 	EXP_TYPE_SPECIAL = list(), // antags, ERT, etc
 	EXP_TYPE_GHOST = list(), // dead people, observers
-	EXP_TYPE_EXEMPT = list(), // special grandfather setting
 	EXP_TYPE_COMMAND = list(titles = command_positions),
 	EXP_TYPE_ENGINEERING = list(titles = engineering_positions),
 	EXP_TYPE_MEDICAL = list(titles = medical_positions),

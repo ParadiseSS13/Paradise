@@ -161,6 +161,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
 	dir = 1;
+	name = "custom placement";
 	pixel_y = -22
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -219,6 +220,7 @@
 "aI" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/suit_storage_unit/lavaland,
@@ -238,6 +240,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/alarm{
 	dir = 4;
+	name = "custom placement";
 	pixel_x = -23
 	},
 /turf/simulated/floor/plasteel{
@@ -539,6 +542,7 @@
 /area/mine/eva)
 "bw" = (
 /obj/machinery/alarm{
+	name = "custom placement";
 	pixel_y = 23
 	},
 /obj/machinery/computer/shuttle/mining{
@@ -554,6 +558,7 @@
 	dir = 4
 	},
 /obj/machinery/light_switch{
+	name = "custom placement";
 	pixel_y = -25
 	},
 /turf/simulated/floor/plasteel,
@@ -619,6 +624,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
+	name = "custom placement";
 	pixel_x = -23
 	},
 /obj/machinery/light{
@@ -657,6 +663,7 @@
 /area/mine/eva)
 "bG" = (
 /obj/machinery/light_switch{
+	name = "custom placement";
 	pixel_x = 27
 	},
 /obj/effect/baseturf_helper/lava_land/surface,
@@ -819,6 +826,7 @@
 /area/mine/eva)
 "bW" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = -5;
 	pixel_y = 30
 	},
@@ -850,6 +858,7 @@
 "bZ" = (
 /obj/machinery/alarm{
 	dir = 4;
+	name = "custom placement";
 	pixel_x = -23
 	},
 /obj/effect/decal/cleanable/cobweb,
@@ -875,6 +884,7 @@
 	dir = 1
 	},
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -883,6 +893,7 @@
 /area/mine/laborcamp/security)
 "cb" = (
 /obj/machinery/light_switch{
+	name = "custom placement";
 	pixel_y = 25
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1130,8 +1141,7 @@
 /area/mine/laborcamp)
 "cD" = (
 /obj/item/radio/intercom{
-	dir = 8;
-	name = "Station Intercom (General)";
+	name = "west bump";
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -1148,6 +1158,7 @@
 /area/mine/production)
 "cF" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = 30
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1220,6 +1231,7 @@
 	dir = 1
 	},
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/effect/turf_decal/loading_area{
@@ -1230,6 +1242,7 @@
 "cP" = (
 /obj/structure/closet/crate,
 /obj/machinery/alarm{
+	name = "custom placement";
 	pixel_y = 23
 	},
 /obj/effect/turf_decal/bot,
@@ -1308,6 +1321,7 @@
 	dir = 8
 	},
 /obj/machinery/alarm{
+	name = "custom placement";
 	pixel_y = 23
 	},
 /obj/machinery/iv_drip,
@@ -1325,6 +1339,7 @@
 /area/mine/living_quarters)
 "dd" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = -5;
 	pixel_y = 30
 	},
@@ -1344,6 +1359,7 @@
 	pixel_y = 3
 	},
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel/white{
@@ -1353,6 +1369,7 @@
 /area/mine/living_quarters)
 "dg" = (
 /obj/machinery/alarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /turf/simulated/floor/bluegrid,
@@ -1459,6 +1476,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -1471,6 +1489,7 @@
 	dir = 4
 	},
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_x = 30;
 	pixel_y = 1
 	},
@@ -1493,6 +1512,7 @@
 /area/mine/production)
 "dx" = (
 /obj/machinery/light_switch{
+	name = "custom placement";
 	pixel_y = -25
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1525,8 +1545,7 @@
 	network = list("Mining Outpost")
 	},
 /obj/item/radio/intercom{
-	dir = 8;
-	name = "Station Intercom (General)";
+	name = "east bump";
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -1803,6 +1822,7 @@
 /area/mine/living_quarters)
 "eh" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = -5;
 	pixel_y = 30
 	},
@@ -2214,6 +2234,7 @@
 "fb" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "custom placement";
 	pixel_y = -22
 	},
 /obj/machinery/recharge_station,
@@ -2223,6 +2244,7 @@
 /area/mine/production)
 "fc" = (
 /obj/machinery/alarm{
+	name = "custom placement";
 	pixel_y = 23
 	},
 /turf/simulated/floor/plasteel,
@@ -2239,6 +2261,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
 /obj/machinery/alarm{
+	name = "custom placement";
 	pixel_y = 23
 	},
 /turf/simulated/floor/carpet,
@@ -2333,6 +2356,7 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = -5;
 	pixel_y = 30
 	},
@@ -2350,6 +2374,7 @@
 /area/mine/living_quarters)
 "fu" = (
 /obj/machinery/alarm{
+	name = "custom placement";
 	pixel_y = 23
 	},
 /obj/machinery/hologram/holopad,
@@ -2366,6 +2391,7 @@
 /obj/structure/reagent_dispensers/watertank,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -2415,6 +2441,7 @@
 "fC" = (
 /obj/machinery/vending/cigarette,
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -2438,8 +2465,7 @@
 /area/mine/living_quarters)
 "fF" = (
 /obj/item/radio/intercom{
-	dir = 8;
-	name = "Station Intercom (General)";
+	name = "east bump";
 	pixel_x = 28
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -2678,8 +2704,7 @@
 /area/mine/living_quarters)
 "gh" = (
 /obj/item/radio/intercom{
-	dir = 8;
-	name = "Station Intercom (General)";
+	name = "west bump";
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -2728,6 +2753,7 @@
 "gl" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "custom placement";
 	pixel_y = -22
 	},
 /turf/simulated/floor/plasteel{
@@ -2737,6 +2763,7 @@
 "gm" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -3030,6 +3057,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 1;
+	name = "custom placement";
 	pixel_y = -22
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -4920,6 +4948,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/alarm{
 	dir = 4;
+	name = "custom placement";
 	pixel_x = -22
 	},
 /turf/simulated/floor/plasteel{

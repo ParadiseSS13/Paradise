@@ -13,9 +13,9 @@
 		C.tos_consent = TRUE
 		return
 
-	// If our query failed, just assume yes
+	// If our query failed dont just assume yes
 	if(Q.last_error)
-		C.tos_consent = TRUE
+		C.tos_consent = FALSE
 		return
 
 	// If we returned a row, they accepted

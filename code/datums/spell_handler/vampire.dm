@@ -4,7 +4,7 @@
 	var/deduct_blood_on_cast = TRUE
 
 /datum/spell_handler/vampire/can_cast(mob/user, charge_check, show_message, obj/effect/proc_holder/spell/spell)
-	var/datum/vampire/vampire = user.mind.vampire
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 
 	if(!vampire)
 		return FALSE
@@ -35,11 +35,11 @@
 	if(!required_blood || !deduct_blood_on_cast) //don't take the blood yet if this is false!
 		return
 
-	var/datum/vampire/vampire = user.mind.vampire
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 
 	vampire.bloodusable -= calculate_blood_cost(vampire)
 
-/datum/spell_handler/vampire/proc/calculate_blood_cost(datum/vampire/vampire)
+/datum/spell_handler/vampire/proc/calculate_blood_cost(datum/antagonist/vampire/vampire)
 	var/blood_cost_modifier = 1 + vampire.nullified / 100
 	var/blood_cost = round(required_blood * blood_cost_modifier)
 	return blood_cost
@@ -47,7 +47,7 @@
 /datum/spell_handler/vampire/after_cast(list/targets, mob/user, obj/effect/proc_holder/spell/spell)
 	if(!required_blood)
 		return
-	var/datum/vampire/vampire = user.mind.vampire
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	to_chat(user, "<span class='boldnotice'>You have [vampire.bloodusable] left to use.</span>")
 	SSblackbox.record_feedback("tally", "vampire_powers_used", 1, "[spell]") // Only log abilities which require blood
 
