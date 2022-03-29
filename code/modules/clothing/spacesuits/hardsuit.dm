@@ -28,6 +28,7 @@
 		"Skrell" = 'icons/mob/clothing/species/skrell/helmet.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		"Prototype Generated Species" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
@@ -36,7 +37,8 @@
 		"Tajaran" = 'icons/obj/clothing/species/tajaran/hats.dmi',
 		"Skrell" = 'icons/obj/clothing/species/skrell/hats.dmi',
 		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
-		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
+		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi',
+		"Prototype Generated Species" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload)
@@ -162,6 +164,7 @@
 		"Skrell" = 'icons/mob/clothing/species/skrell/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		"Prototype Generated Species" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
 		)
 	sprite_sheets_obj = list(
@@ -169,7 +172,8 @@
 		"Tajaran" = 'icons/obj/clothing/species/tajaran/suits.dmi',
 		"Skrell" = 'icons/obj/clothing/species/skrell/suits.dmi',
 		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi',
-		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
+		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi',
+		"Prototype Generated Species" = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
 		)
 
 /obj/item/clothing/suit/space/hardsuit/New()

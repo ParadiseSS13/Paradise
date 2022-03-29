@@ -57,11 +57,3 @@
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 
-/datum/species/tajaran/protogen //piggyback working code time
-	name = "Prototype Generated Species"
-	name_plural = "Proto-Gens"
-	speech_sounds = list('sound/machines/twobeep.ogg') // beeping or some shit
-	speech_chance = 20
-
-	reagent_tag = PROCESS_ORG | PROCESS_SYN
-

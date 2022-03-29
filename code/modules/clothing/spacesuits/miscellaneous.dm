@@ -185,6 +185,7 @@
 		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		"Prototype Generated Species" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 	sprite_sheets_obj = list(
 		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi'
@@ -205,6 +206,7 @@
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		"Prototype Generated Species" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 	sprite_sheets_obj = list(
 		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi'
@@ -223,12 +225,14 @@
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		"Prototype Generated Species" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 	sprite_sheets_obj = list(
 		"Tajaran" = 'icons/obj/clothing/species/tajaran/suits.dmi',
 		"Unathi" = 'icons/obj/clothing/species/unathi/suits.dmi',
 		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi',
-		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
+		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi',
+		"Prototype Generated Species" = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/eva
@@ -249,7 +253,8 @@
 		)
 	sprite_sheets_obj = list(
 		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
-		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
+		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi',
+		"Prototype Generated Species" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
 		)
 
 //Mime's Hardsuit

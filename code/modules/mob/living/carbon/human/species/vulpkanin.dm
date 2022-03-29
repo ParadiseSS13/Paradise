@@ -50,3 +50,27 @@
 
 /datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
+
+/datum/species/vulpkanin/protogen //piggyback working code time
+	name = "Prototype Generated Species"
+	name_plural = "Proto-Gens"
+	speech_sounds = list('sound/machines/twobeep.ogg') // beeping or some shit
+	speech_chance = 20
+	eyes = "proto_eyes_s"
+
+	reagent_tag = PROCESS_ORG | PROCESS_SYN
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart/vulpkanin,
+		"lungs" =    /obj/item/organ/internal/lungs/vulpkanin,
+		"liver" =    /obj/item/organ/internal/liver/vulpkanin,
+		"kidneys" =  /obj/item/organ/internal/kidneys/vulpkanin,
+		"brain" =    /obj/item/organ/internal/brain/vulpkanin,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/cybernetic/protogen
+		)
+
+/obj/item/organ/internal/eyes/cybernetic/protogen
+	name = "Prototype viewing monitor"
+	desc = "They let you see what this is."
+	icon_state = "proto_mask"

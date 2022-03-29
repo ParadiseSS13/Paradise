@@ -86,7 +86,7 @@
 	. = ..(mapload, /datum/species/tajaran)
 
 /mob/living/carbon/human/protogen/Initialize(mapload)
-	. = ..(mapload, /datum/species/tajaran/protogen)
+	. = ..(mapload, /datum/species/vulpkanin/protogen)
 
 /mob/living/carbon/human/vulpkanin/Initialize(mapload)
 	. = ..(mapload, /datum/species/vulpkanin)
