@@ -291,7 +291,7 @@
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
-	visible_message("<span class='notice'>[src] examines [H.p_them()]selves.</span>", \
+	visible_message("<span class='notice'>[src] examines [H.p_them()]self.</span>", \
 		"<span class='notice'>You check yourself for injuries.</span>" \
 		)
 	var/list/status_list = list()
@@ -323,7 +323,7 @@
 				status += "peeling away"
 
 		if(LB.status & ORGAN_MUTATED)
-			status = "weirdly shapen."
+			status = "weirdly shapen"
 
 		var/msg = "<span class='notice'>Your [LB.name] is OK.</span>"
 		if(!isnull(status))
@@ -337,7 +337,7 @@
 		status_list += "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>"
 
 	if(H.bleed_rate)
-		status_list +=  "<span class='danger'>You are bleeding!</span>"
+		status_list += "<span class='danger'>You are bleeding!</span>"
 	if(staminaloss)
 		if(staminaloss > 30)
 			status_list += "<span class='info'>You're completely exhausted.</span>"
