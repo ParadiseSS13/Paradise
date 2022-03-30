@@ -125,7 +125,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/message_mode = parse_message_mode(message, "headset")
 
 	if(copytext(message, 1, 2) == "*")
-		return emote(copytext(message, 2))
+		return emote(copytext(message, 2), intentional = TRUE)
 
 	//parse the radio code and consume it
 	if(message_mode)

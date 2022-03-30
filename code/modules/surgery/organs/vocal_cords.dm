@@ -389,7 +389,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	else if((findtext(message, GLOB.flip_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.emote("flip")
+			L.emote("flip", intentional = FALSE)
 		next_command = world.time + cooldown_meme
 
 	//REST
@@ -432,7 +432,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	else if((findtext(message, GLOB.dance_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.emote("dance")
+			L.emote("dance", intentional = FALSE)
 		next_command = world.time + cooldown_meme
 
 	//JUMP
@@ -440,28 +440,28 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 		for(var/V in listeners)
 			var/mob/living/L = V
 			L.say("HOW HIGH?!!")
-			L.emote("jump")
+			L.emote("jump", intentional = FALSE)
 		next_command = world.time + cooldown_meme
 
 	//SALUTE
 	else if((findtext(message, GLOB.salute_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.emote("salute")
+			L.emote("salute", intentional = FALSE)
 		next_command = world.time + cooldown_meme
 
 	//PLAY DEAD
 	else if((findtext(message, GLOB.deathgasp_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.emote("deathgasp")
+			L.emote("deathgasp", intentional = FALSE)
 		next_command = world.time + cooldown_meme
 
 	//PLEASE CLAP
 	else if((findtext(message, GLOB.clap_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.emote("clap")
+			L.emote("clap", intentional = FALSE)
 		next_command = world.time + cooldown_meme
 
 	//HONK

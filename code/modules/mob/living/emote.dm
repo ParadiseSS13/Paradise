@@ -24,9 +24,10 @@
 	key = "burp"
 	key_third_person = "burps"
 	message = "burps."
-	message_mime = "appears to burp."
+	message_mime = "opens their mouth rather obnoxiously."
 	// TODO EMOTE_AUDIBLE can probably have a default override
 	emote_type = EMOTE_AUDIBLE
+	muzzled_noises = list("peculiar")
 
 /datum/emote/living/choke
 	key = "choke"
@@ -34,6 +35,7 @@
 	message = "chokes!"
 	message_mime = "appears to choke!"
 	emote_type = EMOTE_AUDIBLE
+	muzzled_noises = list("choking")
 
 /datum/emote/living/cross
 	key = "cross"
@@ -73,11 +75,20 @@
 	message = "dances around happily."
 	hands_use_check = TRUE
 
+/datum/emote/living/jump
+	key = "jump"
+	key_third_person = "jumps"
+	message = "jumps!"
+	hands_use_check = TRUE
+
 /datum/emote/living/deathgasp
 	key = "deathgasp"
 	key_third_person = "deathgasps"
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
 	age_based = TRUE
 	cooldown = 15 SECONDS
+	unintentional_stat_allowed = DEAD
+	message = "seizes up and falls limp, their eyes dead and lifeless..."
 	message_alien = "seizes up and falls limp, their eyes dead and lifeless..."
 	message_robot = "shudders violently for a moment before falling still, its eyes slowly darkening."
 	message_AI = "screeches, its screen flickering as its systems slowly halt."
@@ -86,7 +97,8 @@
 	message_monkey = "lets out a faint chimper as it collapses and stops moving..."
 	message_simple = "stops moving..."
 
-/datum/emote/living/deathgasp/run_emote(mob/user, params, type_override, intentional)
+/datum/emote/living/deathgasp/get_sound(mob/living/user)
+	. = ..()
 	var/death_sound = null
 	var/mob/living/simple_animal/S = user
 	if(istype(S) && S.deathmessage)
@@ -95,18 +107,17 @@
 	if(istype(H) && H.dna.species)
 		message = H.dna.species.death_message
 		death_sound = pick(H.dna.species.death_sounds)
-	// TODO This won't capture beno death sounds
-	. = ..()
-	if(. && death_sound)
-		// /tg/ prevents the deathsound entirely if oxyloss is too high or the user can't speak
-		// but it's a useful mechanic.
-		// they also keep you from deathgasping outside of hardcrit lol
-		playsound(user, death_sound, 200, TRUE, TRUE, frequency = H.get_age_pitch())
 
+	return death_sound
 /datum/emote/living/drool
 	key = "drool"
 	key_third_person = "drools"
 	message = "drools."
+
+/datum/emote/living/quiver
+	key = "quiver"
+	key_third_person = "quivers"
+	message = "quivers."
 
 /datum/emote/living/faint
 	key = "faint"
@@ -119,19 +130,6 @@
 		var/mob/living/L = user
 		L.SetSleeping(2 SECONDS)
 
-/datum/emote/living/flap
-	key = "flap"
-	key_third_person = "flaps"
-	message = "flaps their wings."
-	// TODO Maybe add custom species messages based on the user species?
-	hands_use_check = TRUE
-
-/datum/emote/living/flap/aflap
-	key = "aflap"
-	key_third_person = "aflaps"
-	message = "flaps their wings ANGRILY!"
-	hands_use_check = TRUE
-
 /datum/emote/living/frown
 	key = "frown"
 	key_third_person = "frowns"
@@ -142,13 +140,6 @@
 	key_third_person = "gags"
 	message = "gags."
 	message_mime = "appears to gag."
-	emote_type = EMOTE_AUDIBLE
-
-/datum/emote/living/gasp
-	key = "gasp"
-	key_third_person = "gasps"
-	message = "gasps!"
-	message_mime = "appears to be gasping!"
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/giggle
@@ -225,11 +216,15 @@
 	message = "looks."
 	message_param = "looks at %t."
 
-/datum/emote/living/nod
-	key = "nod"
-	key_third_person = "nods"
-	message = "nods."
-	message_param = "nods at %t."
+/datum/emote/living/bshake
+	key = "bshake"
+	key_third_person = "bshakes"
+	message = "shakes."
+
+/datum/emote/living/shudder
+	key = "shudder"
+	key_third_person = "shudders"
+	message = "shudders."
 
 /datum/emote/living/point
 	key = "point"

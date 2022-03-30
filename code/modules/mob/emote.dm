@@ -57,24 +57,37 @@
 
 /datum/emote/help/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/list/keys = list()
+	var/list/base_keys = list()
+	var/list/all_keys = list()
+	var/list/species_emotes = list()
 	var/list/message = list("Available emotes, you can use them with say \"*emote\": ")
 
+	var/mob/living/carbon/human/H = user
 	for(var/key in GLOB.emote_list)
 		for(var/datum/emote/P in GLOB.emote_list[key])
 			var/full_key = P.key
-			if(P.key in keys)
+			if((P.key in all_keys))
 				continue
-			if(P.can_run_emote(user, status_check = FALSE , intentional = TRUE))
+			if(P.can_run_emote(user, status_check = FALSE, intentional = TRUE))
 				if(P.message_param && P.param_desc)
 					// Add our parameter description, like flap-user
-					full_key = P.key + EMOTE_PARAM_SEPARATOR + P.param_desc
-				keys += full_key
+					full_key = P.key + "\[[EMOTE_PARAM_SEPARATOR][P.param_desc]\]"
+				if(istype(H) && P.species_whitelist && (user?.dna?.species.name in species_whitelist))
+					species_emotes += full_key
+				else
+					base_keys += full_key
+				all_keys += P.key
 
-	keys = sortList(keys)
-	message += keys.Join(", ")
+	base_keys = sortList(base_keys)
+
+	message += base_keys.Join(", ")
 	message += "."
 	message = message.Join("")
+	if(length(species_emotes) > 0)
+		species_emotes = sortList(species_emotes)
+		message += "\n<u>[user?.dna?.species.name] specific emotes</u> :- "
+		message += species_emotes.Join(", ")
+		message += "."
 	to_chat(user, message)
 
 /datum/emote/flip

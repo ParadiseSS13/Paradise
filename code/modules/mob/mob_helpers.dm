@@ -701,7 +701,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
  * * cooldown: The amount of time that should be waited before any emote can fire again.
  * * parallel: If true, this cooldown can start while other emotes are still on cooldown.
  */
-/mob/proc/start_emote_cooldown(emote_type, cooldown = FALSE, parallel = FALSE)
+/mob/proc/start_emote_cooldown(emote_type, cooldown = DEFAULT_EMOTE_COOLDOWN, parallel = FALSE)
 	if(emote_cd == EMOTE_INFINITE) //Spam those emotes
 		return FALSE
 	if(emote_cd == EMOTE_ADMIN_BLOCKED) // Cooldown emotes were disabled by an admin, prevent use

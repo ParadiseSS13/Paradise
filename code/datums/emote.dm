@@ -16,7 +16,7 @@
 #define EMOTE_PARAM_SEPARATOR "-"
 
 #define DEFAULT_EMOTE_COOLDOWN 2 SECONDS
-#define AUDIO_EMOTE_COOLDOWN 300  // todo what is this actually equal to
+#define AUDIO_EMOTE_COOLDOWN 10 SECONDS  // todo what is this actually equal to
 
 // Cooldown stuff for emotes
 
@@ -52,6 +52,8 @@
 	var/message_monkey = ""
 	/// Message to display if the user is a simple_animal.
 	var/message_simple = ""
+	/// Sounds to make when muzzled.
+	var/muzzled_noises = list("strong ", "weak ", "")
 	/// Message with %t at the end to allow adding params to the message, like for mobs doing an emote relatively to something else.
 	var/message_param = ""
 	/// Description appended to the emote name describing what the target should be, like for help commands.
@@ -72,6 +74,8 @@
 	var/species_whitelist
 	/// In which state can you use this emote? (Check stat.dm for a full list of them)
 	var/stat_allowed = CONSCIOUS
+	/// In which state can this emote be forced out of you?
+	var/unintentional_stat_allowed = CONSCIOUS
 	/// Sound to play when emote is called.
 	var/sound
 	/// Whether or not to vary the sound of the emote.
@@ -81,11 +85,11 @@
 	/// Can only code call this event instead of the player.
 	var/only_forced_audio = FALSE
 	/// The cooldown between the uses of the emote.
-	var/cooldown = 0.8 SECONDS
+	var/cooldown = DEFAULT_EMOTE_COOLDOWN
 	/// Does this message have a message that can be modified by the user?
 	var/can_message_change = FALSE
 	/// How long is the cooldown on the audio of the emote, if it has one?
-	var/audio_cooldown = 2
+	var/audio_cooldown = AUDIO_EMOTE_COOLDOWN
 
 /datum/emote/New()
 	if(message_param && !param_desc)
@@ -135,8 +139,9 @@
 	var/dchatmsg = "<b>[user]</b> [msg]"
 
 	var/tmp_sound = get_sound(user)
-	if(tmp_sound && should_play_sound(user, intentional) && !user.start_emote_cooldown(type))
-		if(age_based)
+	// If our sound emote is forced by code, don't worry about cooldowns at all.
+	if(tmp_sound && should_play_sound(user, intentional) && (!intentional || !user.start_emote_cooldown(type)))
+		if(age_based && istype(user, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = user
 
 			playsound(user, tmp_sound, 50, vary, frequency = H.get_age_pitch())
@@ -247,7 +252,7 @@
 	// Basically, we don't care that the others can use datum variables, because they're never going to change.
 	. = msg
 	if(!muzzle_ignore && user.is_muzzled() && emote_type == EMOTE_AUDIBLE)
-		return "makes a [pick("strong ", "weak ", "")]noise."
+		return "makes a [pick(muzzled_noises)]noise."
 	if(user.mind && user.mind.miming && message_mime)
 		. = message_mime
 	if(isalienadult(user) && message_alien)
@@ -294,11 +299,11 @@
 
 	if(istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		if(species_whitelist && !species_whitelist[H?.dna?.species.name])
+		if(species_whitelist && !(H?.dna?.species.name in species_whitelist))
 			return FALSE
 
 	if(status_check && !is_type_in_typecache(user, mob_type_ignore_stat_typecache))
-		if(user.stat > stat_allowed)
+		if((intentional && user.stat > stat_allowed) || (!intentional && (user.stat > unintentional_stat_allowed)))
 			if(!intentional)
 				return FALSE
 			switch(user.stat)
@@ -308,6 +313,7 @@
 					to_chat(user, "<span class='warning'>You cannot [key] while dead!</span>")
 			return FALSE
 		if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
+			// Don't let people blow their cover by mistake
 			return FALSE
 		if(hands_use_check && !user.can_use_hands())
 			if(!intentional)

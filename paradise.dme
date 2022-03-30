@@ -2008,7 +2008,6 @@
 #include "code\modules\mob\living\silicon\pai\software\pai_toggles.dm"
 #include "code\modules\mob\living\silicon\robot\component.dm"
 #include "code\modules\mob\living\silicon\robot\death.dm"
-#include "code\modules\mob\living\silicon\robot\emote.dm"
 #include "code\modules\mob\living\silicon\robot\examine.dm"
 #include "code\modules\mob\living\silicon\robot\inventory.dm"
 #include "code\modules\mob\living\silicon\robot\laws.dm"

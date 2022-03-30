@@ -233,7 +233,7 @@
 		return
 	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating) //no messing with changeling's fake death
 		return
-	M.emote("deathgasp")
+	M.emote("deathgasp", intentional = FALSE)
 	ADD_TRAIT(M, TRAIT_FAKEDEATH, id)
 	M.updatehealth("fakedeath reagent")
 
