@@ -1,5 +1,5 @@
 /datum/emote/living/silicon
-	mob_type_allowed_typecache = list(/mob/living/silicon)
+	mob_type_allowed_typecache = list(/mob/living/silicon, /mob/living/simple_animal/bot)
 
 /datum/emote/living/silicon/scream
 	key = "scream"

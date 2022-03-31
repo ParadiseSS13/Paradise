@@ -107,6 +107,10 @@
 	if(istype(H) && H.dna.species)
 		message = H.dna.species.death_message
 		death_sound = pick(H.dna.species.death_sounds)
+	var/mob/living/carbon/alien/A = user
+	if(istype(A))
+		message_alien = A.death_message
+		death_sound = A.death_sound
 
 	return death_sound
 /datum/emote/living/drool

@@ -1,51 +1,62 @@
-/mob/living/carbon/brain/emote(act,m_type = 1, message = null, force)
-	if(!(container && istype(container, /obj/item/mmi)))//No MMI, no emotes
-		return
+/datum/emote/living/carbon/brain
+	mob_type_allowed_typecache = list(/mob/living/carbon/brain)
+	var/self_message
 
-	if(findtext(act, "-", 1, null))
-		var/t1 = findtext(act, "-", 1, null)
-		act = copytext(act, 1, t1)
+/datum/emote/living/carbon/brain/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(!.)
+		return FALSE
 
-	if(findtext(act,"s",-1) && !findtext(act,"_",-2))//Removes ending s's unless they are prefixed with a '_'
-		act = copytext(act,1,length(act))
+	if(self_message)
+		to_chat(user, self_message)
 
-	if(src.stat == DEAD)
-		return
-	act = lowertext(act)
-	switch(act)
+/datum/emote/living/carbon/brain/can_run_emote(mob/user, status_check, intentional)
+	. = ..()
+	if(!.)
+		return FALSE
 
-		if("alarm")
-			to_chat(src, "You sound an alarm.")
-			message = "<B>\The [src]</B> sounds an alarm."
-			m_type = 2
-		if("alert")
-			to_chat(src, "You let out a distressed noise.")
-			message = "<B>\The [src]</B> lets out a distressed noise."
-			m_type = 2
-		if("notice")
-			to_chat(src, "You play a loud tone.")
-			message = "<B>\The [src]</B> plays a loud tone."
-			m_type = 2
-		if("flash")
-			message = "The lights on <B>\the [src]</B> flash quickly."
-			m_type = 1
-		if("blink")
-			message = "<B>\The [src]</B> blinks."
-			m_type = 1
-		if("whistle")
-			to_chat(src, "You whistle.")
-			message = "<B>\The [src]</B> whistles."
-			m_type = 2
-		if("beep")
-			to_chat(src, "You beep.")
-			message = "<B>\The [src]</B> beeps."
-			m_type = 2
-		if("boop")
-			to_chat(src, "You boop.")
-			message = "<B>\The [src]</B> boops."
-			m_type = 2
-		if("help")
-			to_chat(src, "alarm, alert, notice, flash,blink, whistle, beep, boop")
+	var/mob/living/carbon/brain/B = user
 
-	if(message && !stat)
-		..()
+	if(!(B.container && istype(B.container, /obj/item/mmi)))  // No MMI, no emotes
+		return FALSE
+
+// So, brains can't really see their own emotes so we'll probably just want to send an extra message
+
+/datum/emote/living/carbon/brain/alarm
+	key = "alarm"
+	key_third_person = "alarms"
+	message = "sounds an alarm."
+	self_message = "You sound an alarm."
+
+/datum/emote/living/carbon/brain/alert
+	key = "alert"
+	key_third_person = "alerts"
+	message = "lets out a distressed noise."
+	self_message = "You let out a distressed noise."
+
+/datum/emote/living/carbon/brain/notice
+	key = "notice"
+	message = "plays a loud tone."
+	self_message = "You play a loud tone."
+
+/datum/emote/living/carbon/brain/flash
+	key = "flash"
+	message = "starts flashing its lights quickly!"
+
+/datum/emote/living/carbon/brain/whistle
+	key = "whistle"
+	key_third_person = "whistles"
+	message = "whistles."
+	self_message = "You whistle."
+
+/datum/emote/living/carbon/brain/beep
+	key = "beep"
+	key_third_person = "beeps"
+	message = "beeps."
+	self_message = "You beep."
+
+/datum/emote/living/carbon/brain/boop
+	key = "boop"
+	key_third_person = "boops"
+	message = "boops."
+	self_message = "You boop."

@@ -71,6 +71,7 @@
 	/// Types that can use this emote regardless of their state.
 	var/list/mob_type_ignore_stat_typecache
 	/// Species names which the emote will be exclusively available to.
+	// TODO This could probably be a typecache of species paths as well?
 	var/species_whitelist
 	/// In which state can you use this emote? (Check stat.dm for a full list of them)
 	var/stat_allowed = CONSCIOUS

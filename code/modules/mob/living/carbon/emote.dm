@@ -2,6 +2,7 @@
 	/// Types of species that are allowed to use the emote.
 	var/list/species_allowed_typecache
 	mob_type_allowed_typecache = list(/mob/living/carbon)
+	mob_type_blacklist_typecache = list(/mob/living/carbon/brain)
 
 /datum/emote/living/carbon/New()
 	. = ..()
