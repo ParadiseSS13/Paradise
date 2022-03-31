@@ -89,6 +89,8 @@
 	. = ..()
 	if(!ismob(destination.loc))
 		for(var/mob/player in mobs_viewing)
+			if(player == destination)
+				continue
 			hide_from(player)
 
 /obj/item/storage/MouseDrop(obj/over_object)
@@ -538,9 +540,6 @@
 		show_to(user)
 	else
 		..()
-		for(var/mob/M in range(1))
-			if(M.s_active == src)
-				close(M)
 	add_fingerprint(user)
 
 /obj/item/storage/equipped(mob/user, slot, initial)
