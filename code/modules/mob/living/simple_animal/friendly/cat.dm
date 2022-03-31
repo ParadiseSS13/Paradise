@@ -11,7 +11,6 @@
 	speak_emote = list("purrs", "meows")
 	emote_hear = list("meows", "mews")
 	emote_see = list("shakes its head", "shivers")
-	var/meow_sound = 'sound/creatures/cat_meow.ogg'	//Used in emote.
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
@@ -155,41 +154,6 @@
 				stop_automated_movement = 1
 				walk_to(src,movement_target,0,3)
 
-/mob/living/simple_animal/pet/cat/emote(act, m_type = 1, message = null, force)
-	if(stat != CONSCIOUS)
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("meow")
-			on_CD = handle_emote_CD()
-		if("hiss")
-			on_CD = handle_emote_CD()
-		if("purr")
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act)
-		if("meow")
-			message = "<B>[src]</B> [pick(emote_hear)]!"
-			m_type = 2 //audible
-			playsound(src, meow_sound, 50, 0.75)
-		if("hiss")
-			message = "<B>[src]</B> hisses!"
-			m_type = 2
-		if("purr")
-			message = "<B>[src]</B> purrs."
-			m_type = 2
-		if("help")
-			to_chat(src, "scream, meow, hiss, purr")
-
-	..()
-
 /mob/living/simple_animal/pet/cat/Proc
 	name = "Proc"
 	gender = MALE
@@ -215,7 +179,6 @@
 	icon_living = "Syndicat"
 	icon_dead = "Syndicat_dead"
 	icon_resting = "Syndicat_rest"
-	meow_sound = null	//Need robo-meow.
 	gender = FEMALE
 	faction = list("syndicate")
 	gold_core_spawnable = NO_SPAWN

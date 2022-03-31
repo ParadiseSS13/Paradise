@@ -43,40 +43,6 @@
 		return
 	playsound(src, yelp_sound, 75, TRUE)
 
-/mob/living/simple_animal/pet/dog/emote(act, m_type = 1, message = null, force)
-	if(incapacitated())
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("bark")
-			on_CD = handle_emote_CD()
-		if("yelp")
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act)
-		if("bark")
-			message = "<B>[src]</B> [pick(src.speak_emote)]!"
-			m_type = 2 //audible
-			playsound(src, pick(src.bark_sound), 50, TRUE)
-		if("yelp")
-			message = "<B>[src]</B> yelps!"
-			m_type = 2 //audible
-			playsound(src, yelp_sound, 75, TRUE)
-		if("growl")
-			message = "<B>[src]</B> growls!"
-			m_type = 2 //audible
-		if("help")
-			to_chat(src, "scream, bark, growl")
-
-	..()
-
 /mob/living/simple_animal/pet/dog/attack_hand(mob/living/carbon/human/M)
 	. = ..()
 	switch(M.a_intent)

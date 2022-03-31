@@ -187,7 +187,7 @@
 				msg = "takes a drag from a cigarette and blows \"[A.name]\" out in smoke."
 			else
 				msg = "says, \"[A.name], please. They had a family.\" [user] takes a drag from a cigarette and blows [user.p_their()] name out in smoke."
-			return ..(user, target)
+			return msg
 
 
 

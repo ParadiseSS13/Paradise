@@ -101,7 +101,7 @@
 		if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))
 			M.show_message(rendered, 2)
 
-/mob/camera/blob/emote(act, m_type = 1, message = null, force)
+/mob/camera/blob/emote(act, m_type = 1, message = null, intentional = FALSE, force_silence = FALSE)
 	return
 
 /mob/camera/blob/blob_act(obj/structure/blob/B)

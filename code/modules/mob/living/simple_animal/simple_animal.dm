@@ -316,20 +316,6 @@
 		pcollar.forceMove(drop_location())
 		pcollar = null
 	..()
-
-/mob/living/simple_animal/emote(act, m_type = 1, message = null, force)
-	if(stat)
-		return
-	act = lowertext(act)
-	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
-		if("scream")
-			message = "<B>\The [src]</B> whimpers."
-			m_type = 2
-		if("help")
-			to_chat(src, "scream")
-
-	..()
-
 /mob/living/simple_animal/say_quote(message)
 	var/verb = "says"
 

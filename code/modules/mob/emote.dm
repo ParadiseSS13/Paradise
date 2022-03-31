@@ -33,13 +33,13 @@
 
 // All mobs should have custom emote, really..
 /mob/proc/custom_emote(m_type=EMOTE_VISUAL, message=null)
-	var/input
+	var/input = ""
 	if(!message)
 		input = sanitize(copytext(input(src,"Choose an emote to display.") as text|null,1,MAX_MESSAGE_LEN))
 	else
 		input = message
 
-	emote("me", m_type, message, TRUE)
+	emote("me", m_type, input, TRUE)
 
 /mob/proc/emote_dead(message)
 	CRASH("emote_dead is oldcode but was called")
@@ -95,7 +95,7 @@
 	key_third_person = "flips"
 	hands_use_check = TRUE
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)  // okay but what if we allowed ghosts to flip as well
-	mob_type_blacklist_typecache = list(/mob/living/carbon/brain)
+	mob_type_blacklist_typecache = list(/mob/living/carbon/brain, /mob/camera)
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer, /mob/living/silicon/ai)
 
 /datum/emote/flip/run_emote(mob/user, params, type_override, intentional)
@@ -142,7 +142,7 @@
 	key_third_person = "spins"
 	hands_use_check = TRUE
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)
-	mob_type_blacklist_typecache = list(/mob/living/carbon/brain)
+	mob_type_blacklist_typecache = list(/mob/living/carbon/brain, /mob/camera)
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
 
 /datum/emote/spin/run_emote(mob/user, params, type_override, intentional)

@@ -1,6 +1,9 @@
 /datum/emote/living
 	mob_type_allowed_typecache = /mob/living
-	mob_type_blacklist_typecache = list(/mob/living/carbon/brain)  // nice try
+	mob_type_blacklist_typecache = list(
+		/mob/living/carbon/brain,	// nice try
+		/mob/living/captive_brain
+	)
 
 /datum/emote/living/should_play_sound(mob/user, intentional)
 	. = ..()
@@ -262,6 +265,7 @@
 	key_third_person = "screams"
 	message = "screams."
 	message_mime = "acts out a scream!"
+	message_simple = "whimpers."
 	emote_type = EMOTE_AUDIBLE
 	mob_type_blacklist_typecache = list(/mob/living/carbon/human) // Humans get specialized scream.
 
