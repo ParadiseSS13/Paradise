@@ -214,6 +214,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CULT_EYES "cult_eyes"
 #define DOGGO_SPACESUIT "doggo_spacesuit"
 #define FLOORCLUWNE "floorcluwne"
+#define REAPER_LIGHTER "reaper-lighter"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
