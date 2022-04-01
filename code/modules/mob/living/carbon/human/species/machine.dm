@@ -73,6 +73,8 @@
 		"is downloading extra RAM!",
 		"is frying their own circuits!",
 		"is blocking their ventilation port!")
+		
+	speciesbox = /obj/item/storage/box/hug
 
 	var/datum/action/innate/change_monitor/monitor
 
