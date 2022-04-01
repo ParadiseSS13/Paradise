@@ -183,7 +183,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOEXAMINE			"no_examine"
 #define TRAIT_NOPAIN			"no_pain"
 #define TRAIT_FORCE_DOORS 		"force_doors"
-#define TRAIT_BYPASS_WELDED_VENTS		"force_doors"
+#define TRAIT_BYPASS_WELDED_VENTS		"bypass_vents"
 
 //***** ITEM TRAITS *****//
 /// Show what machine/door wires do when held.
