@@ -30,8 +30,6 @@
 	var/volume_rate = 200
 	var/widenet = 0 //is this scrubber acting on the 3x3 area around it.
 
-	var/welded = 0
-
 	var/area_uid
 	var/radio_filter_out
 	var/radio_filter_in

@@ -292,10 +292,11 @@ Pipelines + Other Objects -> Pipe network
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)
 	var/old_loc = user.loc
 	if(target_move)
-		if(is_type_in_list(target_move, GLOB.ventcrawl_machinery) && target_move.can_crawl_through())
-			user.remove_ventcrawl()
-			user.forceMove(target_move.loc) //handles entering and so on
-			user.visible_message("You hear something squeezing through the ducts.", "You climb out of the ventilation system.")
+		if(is_type_in_list(target_move, GLOB.ventcrawl_machinery))
+			if(target_move.can_crawl_through() || HAS_TRAIT(user, TRAIT_BYPASS_WELDED_VENTS))
+				user.remove_ventcrawl()
+				user.forceMove(target_move.loc) //handles entering and so on
+				user.visible_message("You hear something squeezing through the ducts.", "You climb out of the ventilation system.")
 		else if(target_move.can_crawl_through())
 			if(returnPipenet() != target_move.returnPipenet())
 				user.update_pipe_vision(target_move)

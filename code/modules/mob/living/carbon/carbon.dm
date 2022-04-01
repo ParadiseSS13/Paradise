@@ -417,13 +417,16 @@
 
 GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
 
-/mob/living/handle_ventcrawl(atom/clicked_on) // -- TLE -- Merged by Carn
+/mob/living/handle_ventcrawl(atom/clicked_on, var/smoke_crawler = FALSE) // -- TLE -- Merged by Carn
 	if(!Adjacent(clicked_on))
 		return
 
 	var/ventcrawlerlocal = 0
 	if(ventcrawler)
 		ventcrawlerlocal = ventcrawler
+
+	if(smoke_crawler)
+		ventcrawlerlocal = VENTCRAWLER_ALWAYS
 
 	if(!ventcrawlerlocal)
 		return
@@ -432,7 +435,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "You must be conscious to do this!")
 		return
 
-	if(lying)
+	if(lying && !smoke_crawler)
 		to_chat(src, "You can't vent crawl while you're stunned!")
 		return
 
@@ -442,7 +445,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(buckled)
 		to_chat(src, "<span class='warning'>You can't vent crawl while buckled!</span>")
 		return
-	if(ishuman(src))
+	if(ishuman(src) && !smoke_crawler)
 		var/mob/living/carbon/human/H = src
 		if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/contortionist))//IMMA SPCHUL SNOWFLAKE
 			var/obj/item/clothing/under/contortionist/C = H.w_uniform
@@ -465,11 +468,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	if(vent_found)
 		if(vent_found.parent && (vent_found.parent.members.len || vent_found.parent.other_atmosmch))
-			visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
-							"<span class='notice'>You begin climbing into the ventilation system...</span>")
+			if(!smoke_crawler)
+				visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
+								"<span class='notice'>You begin climbing into the ventilation system...</span>")
 
-			if(!do_after(src, 45, target = src))
-				return
+				if(!do_after(src, 45, target = src))
+					return
 
 			if(has_buckled_mobs())
 				to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
@@ -526,7 +530,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		for(var/image/current_image in pipes_shown)
 			client.images -= current_image
 		client.eye = src
-
+	if(mind)
+		var/obj/effect/proc_holder/spell/reaper_lighter/S = locate(/obj/effect/proc_holder/spell/reaper_lighter) in mind.spell_list
+		if(S)
+			S.spawn_smoke(get_turf(src))
+			S.toggle_traits(src)
+			S.in_progress = FALSE
+			S.warned = FALSE
+			S.start_recharge()
 	pipes_shown.len = 0
 
 //OOP
@@ -1152,6 +1163,9 @@ so that different stomachs can handle things in different ways VB*/
 		. |= LH.GetAccess()
 
 /mob/living/carbon/proc/can_breathe_gas()
+	if(HAS_TRAIT(src, TRAIT_NOBREATH))
+		return FALSE
+
 	if(!wear_mask)
 		return TRUE
 

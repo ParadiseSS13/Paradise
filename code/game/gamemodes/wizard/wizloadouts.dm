@@ -57,17 +57,23 @@
 	desc = "Cloned over and over, the souls aboard this station yearn for a deserved rest.<br> \
 		Bring them to the afterlife, one trigger pull at a time. <br> \
 		You will likely need to scavenge additional ammo or weapons aboard the station. <br><br>\
-		</i>Provides a .357 Revolver, 4 speedloaders of ammo, Ethereal Jaunt, Blink, Summon Item, No Clothes, and Bind Soul, with a unique outfit.<i>"
+		</i>Provides a .357 Revolver, 4 speedloaders of ammo, Reaper's Lighter, Smoke, Knock, Summon Item, No Clothes, and Bind Soul, with a unique armored coat.<i>"
 	log_name = "GR"
 	items_path = list(/obj/item/gun/projectile/revolver, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/clothing/under/syndicate)
-	spells_path = list(/obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/turf_teleport/blink, \
+	spells_path = list(/obj/effect/proc_holder/spell/reaper_lighter, /obj/effect/proc_holder/spell/smoke, /obj/effect/proc_holder/spell/aoe_turf/knock, \
 		/obj/effect/proc_holder/spell/summonitem, /obj/effect/proc_holder/spell/noclothes, /obj/effect/proc_holder/spell/lichdom/gunslinger)
 	category = "Unique"
 	destroy_spellbook = TRUE
 	is_ragin_restricted = TRUE
 
 /obj/effect/proc_holder/spell/lichdom/gunslinger/equip_lich(mob/living/carbon/human/H)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit/wizard(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), slot_gloves)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(H), slot_w_uniform)
+
+/obj/item/clothing/suit/storage/det_suit/wizard //Wizrobe resistances
+	name = "reinforced coat"
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS

@@ -266,6 +266,12 @@
 	log_name = "EJ"
 	category = "Mobility"
 
+/datum/spellbook_entry/reaper_lighter
+	name = "Reaper's Lighter"
+	spell_type = /obj/effect/proc_holder/spell/reaper_lighter
+	log_name = "RL"
+	category = "Mobility"
+
 /datum/spellbook_entry/greaterknock
 	name = "Greater Knock"
 	spell_type = /obj/effect/proc_holder/spell/aoe_turf/knock/greater

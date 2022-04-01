@@ -9,6 +9,8 @@
 
 	var/datum/pipeline/parent
 
+	var/welded = FALSE
+
 /obj/machinery/atmospherics/unary/New()
 	..()
 	initialize_directions = dir

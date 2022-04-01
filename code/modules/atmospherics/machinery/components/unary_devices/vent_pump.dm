@@ -35,7 +35,6 @@
 	var/internal_pressure_bound_default = INTERNAL_PRESSURE_BOUND
 	var/pressure_checks_default = PRESSURE_CHECKS
 
-	var/welded = 0 // Added for aliens -- TLE
 	var/weld_burst_pressure = 50 * ONE_ATMOSPHERE	//the (internal) pressure at which welded covers will burst off
 
 	frequency = ATMOS_VENTSCRUB
