@@ -497,10 +497,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	reagents.add_reagent("milk", 20)
 	. = ..()
 
-/obj/item/udder/gutlunch/Destroy()
-    QDEL_NULL(reagents)
-    return ..()
-
 /obj/item/udder/proc/generateMilk()
 	if(prob(5))
 		reagents.add_reagent("milk", rand(5, 10))
