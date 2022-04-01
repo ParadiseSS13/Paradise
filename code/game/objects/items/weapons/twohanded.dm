@@ -531,6 +531,7 @@
 	flags = CONDUCT
 	force = 13
 	var/force_on = 24
+	var/icon_base = "gchainsaw_"
 	w_class = WEIGHT_CLASS_HUGE
 	throwforce = 13
 	throw_speed = 2
@@ -550,7 +551,7 @@
 		playsound(loc, 'sound/weapons/chainsawstart.ogg', 50, 1)
 	force = on ? force_on : initial(force)
 	throwforce = on ? force_on : initial(throwforce)
-	icon_state = "gchainsaw_[on ? "on" : "off"]"
+	icon_state = "[icon_base][on ? "on" : "off"]"
 
 	if(hitsound == "swing_hit")
 		hitsound = 'sound/weapons/chainsaw.ogg'
