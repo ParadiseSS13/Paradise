@@ -94,9 +94,10 @@
 	key = "flip"
 	key_third_person = "flips"
 	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE | EMOTE_FORCE_NO_RUNECHAT  // don't need an emote to see that
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)  // okay but what if we allowed ghosts to flip as well
-	mob_type_blacklist_typecache = list(/mob/living/carbon/brain, /mob/camera)
-	mob_type_ignore_stat_typecache = list(/mob/dead/observer, /mob/living/silicon/ai)
+	mob_type_blacklist_typecache = list(/mob/living/carbon/brain, /mob/camera, /mob/living/silicon/ai)
+	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
 
 /datum/emote/flip/run_emote(mob/user, params, type_override, intentional)
 
@@ -141,6 +142,7 @@
 	key = "spin"
 	key_third_person = "spins"
 	hands_use_check = TRUE
+	emote_type = EMOTE_VISIBLE | EMOTE_FORCE_NO_RUNECHAT
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)
 	mob_type_blacklist_typecache = list(/mob/living/carbon/brain, /mob/camera)
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
@@ -154,3 +156,5 @@
 		user.Confused(12)
 	else
 		user.spin(20, 1)
+
+

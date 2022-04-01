@@ -2,7 +2,9 @@
 	mob_type_allowed_typecache = /mob/living
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/brain,	// nice try
-		/mob/living/captive_brain
+		/mob/living/captive_brain,
+		/mob/living/silicon,
+		/mob/living/simple_animal/bot
 	)
 
 /datum/emote/living/should_play_sound(mob/user, intentional)
@@ -71,6 +73,40 @@
 	message = "coughs!"
 	message_mime = "appears to cough!"
 	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+	age_based = TRUE
+	volume = 120
+
+/datum/emote/living/cough/get_sound(mob/living/user)
+	. = ..()
+	if(istype(user, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		if(H.gender == FEMALE)
+			if(H.dna.species.female_cough_sounds)
+				return pick(H.dna.species.female_cough_sounds)
+		else
+			if(H.dna.species.male_cough_sounds)
+				return pick(H.dna.species.male_cough_sounds)
+
+/datum/emote/living/sneeze
+	key = "sneeze"
+	key_third_person = "sneezes"
+	message = "sneezes."
+	emote_type = EMOTE_AUDIBLE
+	muzzle_ignore = TRUE
+	vary = TRUE
+	age_based = TRUE
+	volume = 70
+
+/datum/emote/living/sneeze/get_sound(mob/living/user)
+	. = ..()
+	if(istype(user, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		if(H.gender == FEMALE)
+			return H.dna.species.female_sneeze_sound
+		else
+			return H.dna.species.male_sneeze_sound
+
 
 /datum/emote/living/dance
 	key = "dance"
@@ -116,6 +152,7 @@
 		death_sound = A.death_sound
 
 	return death_sound
+
 /datum/emote/living/drool
 	key = "drool"
 	key_third_person = "drools"
@@ -125,17 +162,6 @@
 	key = "quiver"
 	key_third_person = "quivers"
 	message = "quivers."
-
-/datum/emote/living/faint
-	key = "faint"
-	key_third_person = "faints"
-	message = "faints."
-
-/datum/emote/living/faint/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
-	if(. && isliving(user))
-		var/mob/living/L = user
-		L.SetSleeping(2 SECONDS)
 
 /datum/emote/living/frown
 	key = "frown"
@@ -149,13 +175,6 @@
 	message_mime = "appears to gag."
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/giggle
-	key = "giggle"
-	key_third_person = "giggles"
-	message = "giggles."
-	message_mime = "giggles silently!"
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/glare
 	key = "glare"
 	key_third_person = "glares"
@@ -167,55 +186,16 @@
 	key_third_person = "grins"
 	message = "grins."
 
-/datum/emote/living/groan
-	key = "groan"
-	key_third_person = "groans"
-	message = "groans!"
-	message_mime = "appears to groan!"
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/grimace
 	key = "grimace"
 	key_third_person = "grimaces"
 	message = "grimaces."
-
-/datum/emote/living/gurgle
-	key = "gurgle"
-	key_third_person = "gurgles"
-	message = "makes an uncomfortable gurgle."
-	emote_type = EMOTE_AUDIBLE
-
-
-/datum/emote/living/inhale
-	key = "inhale"
-	key_third_person = "inhales"
-	message = "breathes in."
-	emote_type = EMOTE_AUDIBLE
-
-/datum/emote/living/inhale/sharp
-	key = "inhale_s"
-	key_third_person = "inhales sharply!"
-	message = "takes a deep breath!"
-	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/jump
 	key = "jump"
 	key_third_person = "jumps"
 	message = "jumps!"
 	hands_use_check = TRUE
-
-/datum/emote/living/kiss
-	key = "kiss"
-	key_third_person = "kisses"
-	message = "blows a kiss."
-	message_param = "blows a kiss at %t!"
-
-/datum/emote/living/laugh
-	key = "laugh"
-	key_third_person = "laughs"
-	message = "laughs."
-	message_mime = "laughs silently!"
-	message_param = "laughs at %t."
 
 /datum/emote/living/look
 	key = "look"
@@ -263,21 +243,18 @@
 /datum/emote/living/scream
 	key = "scream"
 	key_third_person = "screams"
-	message = "screams."
+	message = "screams!"
 	message_mime = "acts out a scream!"
 	message_simple = "whimpers."
-	emote_type = EMOTE_AUDIBLE
+	message_alien = "roars!"
+	emote_type = EMOTE_SOUND
 	mob_type_blacklist_typecache = list(/mob/living/carbon/human) // Humans get specialized scream.
 
-/datum/emote/living/scream/select_message_type(mob/user, intentional)
+/datum/emote/living/scream/get_sound(mob/living/user)
 	. = ..()
-	if(!intentional && isanimal(user))
-		return "makes a loud and pained whimper."
+	if(istype(user, /mob/living/carbon/alien))
+		return "sound/voice/hiss5.ogg"
 
-/datum/emote/living/scowl
-	key = "scowl"
-	key_third_person = "scowls"
-	message = "scowls."
 
 /datum/emote/living/shake
 	key = "shake"
@@ -306,16 +283,11 @@
 	key_third_person = "smiles"
 	message = "smiles."
 
-/datum/emote/living/sneeze
-	key = "sneeze"
-	key_third_person = "sneezes"
-	message = "sneezes."
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/smug
 	key = "smug"
 	key_third_person = "smugs"
 	message = "grins smugly."
+	message_robot = "beeps smugly."
 
 /datum/emote/living/sniff
 	key = "sniff"
@@ -328,6 +300,8 @@
 	key_third_person = "snores"
 	message = "snores."
 	message_mime = "sleeps soundly."
+	message_simple = "stirs in their sleep."
+	message_robot = "dreams of electric sheep..."
 	emote_type = EMOTE_AUDIBLE
 	stat_allowed = UNCONSCIOUS
 
@@ -341,6 +315,7 @@
 	key = "stretch"
 	key_third_person = "stretches"
 	message = "stretches their arms."
+	message_robot = "tests their actuators."
 
 /datum/emote/living/sulk
 	key = "sulk"
@@ -356,7 +331,10 @@
 	key = "swear"
 	key_third_person = "swears"
 	message = "says a swear word!"
+	message_param = "says a swear word at %t!"
 	message_mime = "makes a rude gesture!"
+	message_simple = "makes an angry noise!"
+	message_robot = "makes a particularly offensive series of beeps!"
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/tilt
@@ -378,10 +356,6 @@
 	key = "twitch_s"
 	message = "twitches."
 
-/datum/emote/living/wave
-	key = "wave"
-	key_third_person = "waves"
-	message = "waves."
 
 /datum/emote/living/whimper
 	key = "whimper"
@@ -394,18 +368,6 @@
 	key = "wsmile"
 	key_third_person = "wsmiles"
 	message = "smiles weakly."
-
-/datum/emote/living/yawn
-	key = "yawn"
-	key_third_person = "yawns"
-	message = "yawns."
-	emote_type = EMOTE_AUDIBLE
-
-/datum/emote/living/exhale
-	key = "exhale"
-	key_third_person = "exhales"
-	message = "breathes out."
-	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/custom
 	key = "me"

@@ -1521,3 +1521,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/can_see_reagents()
 	return see_reagents
+
+/mob/living/silicon/robot/verb/powerwarn()
+	set category = "Robot Commands"
+	set name = "Power Warning"
+
+	if(start_audio_emote_cooldown(EMOTE_AUDIBLE, 5 SECONDS))
+		return
+
+	if(!is_component_functioning("power cell") || !cell || !cell.charge)
+		visible_message("The power warning light on <span class='name'>[src]</span> flashes urgently.",\
+						 "You announce you are operating in low power mode.")
+		playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
+	else
+		to_chat(src, "<span class='warning'>You can only use this emote when you're out of charge.</span>")

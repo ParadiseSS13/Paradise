@@ -57,6 +57,71 @@
 	message = "moans!"
 	message_mime = "appears to moan!"
 
+/datum/emote/living/carbon/giggle
+	key = "giggle"
+	key_third_person = "giggles"
+	message = "giggles."
+	message_mime = "giggles silently!"
+	emote_type = EMOTE_AUDIBLE
+/datum/emote/living/carbon/gurgle
+	key = "gurgle"
+	key_third_person = "gurgles"
+	message = "makes an uncomfortable gurgle."
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/carbon/inhale
+	key = "inhale"
+	key_third_person = "inhales"
+	message = "breathes in."
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/carbon/inhale/sharp
+	key = "inhale_s"
+	key_third_person = "inhales sharply!"
+	message = "takes a deep breath!"
+
+/datum/emote/living/carbon/kiss
+	key = "kiss"
+	key_third_person = "kisses"
+	message = "blows a kiss."
+	message_param = "blows a kiss at %t!"
+
+/datum/emote/living/carbon/wave
+	key = "wave"
+	key_third_person = "waves"
+	message = "waves."
+	message_param = "waves at %t."
+
+/datum/emote/living/carbon/yawn
+	key = "yawn"
+	key_third_person = "yawns"
+	message = "yawns."
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/carbon/exhale
+	key = "exhale"
+	key_third_person = "exhales"
+	message = "breathes out."
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/carbon/laugh
+	key = "laugh"
+	key_third_person = "laughs"
+	message = "laughs."
+	message_mime = "laughs silently!"
+	message_param = "laughs at %t."
+
+/datum/emote/living/carbon/scowl
+	key = "scowl"
+	key_third_person = "scowls"
+	message = "scowls."
+
+/datum/emote/living/groan
+	key = "groan"
+	key_third_person = "groans"
+	message = "groans!"
+	message_mime = "appears to groan!"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/sigh
 	key = "sigh"
@@ -92,6 +157,15 @@
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
 	hands_use_check = TRUE
 
+/datum/emote/living/faint
+	key = "faint"
+	key_third_person = "faints"
+	message = "faints."
 
+/datum/emote/living/faint/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(. && isliving(user))
+		var/mob/living/L = user
+		L.SetSleeping(2 SECONDS)
 
 

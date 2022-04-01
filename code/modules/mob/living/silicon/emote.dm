@@ -1,5 +1,22 @@
 /datum/emote/living/silicon
-	mob_type_allowed_typecache = list(/mob/living/silicon, /mob/living/simple_animal/bot)
+	// Humans are allowed for the sake of IPCs
+	mob_type_allowed_typecache = list(/mob/living/silicon, /mob/living/simple_animal/bot, /mob/living/carbon/human)
+
+/datum/emote/living/silicon/run_emote(mob/user, params, type_override, intentional)
+	// Let IPCs (and people with robo-heads) make beep-boop noises
+	var/found_machine_head = FALSE
+	if(istype(user, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		if(ismachineperson(H))
+			found_machine_head = TRUE
+		else
+			var/obj/item/organ/external/head/head = H.get_organ("head")
+			if(head && head.is_robotic())
+				found_machine_head = TRUE
+
+		if(!found_machine_head)
+			return FALSE
+	. = ..()
 
 /datum/emote/living/silicon/scream
 	key = "scream"
@@ -8,7 +25,6 @@
 	message_param = "screams at %t!"
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
-	cooldown = 5 SECONDS
 	sound = "sound/goonstation/voice/robot_scream.ogg"
 
 /datum/emote/living/silicon/ping
@@ -81,5 +97,4 @@
 	var/mob/living/silicon/robot/bot = user
 	if(!istype(bot) || !istype(bot.module, /obj/item/robot_module/security))
 		return FALSE
-
 

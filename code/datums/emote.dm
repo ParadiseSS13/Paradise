@@ -107,6 +107,8 @@
 	var/can_message_change = FALSE
 	/// How long is the cooldown on the audio of the emote, if it has one?
 	var/audio_cooldown = AUDIO_EMOTE_COOLDOWN
+	/// How loud is the audio emote?
+	var/volume = 50
 
 /datum/emote/New()
 	if(message_param && !param_desc)
@@ -157,13 +159,13 @@
 
 	var/tmp_sound = get_sound(user)
 	// If our sound emote is forced by code, don't worry about cooldowns at all.
-	if(tmp_sound && should_play_sound(user, intentional) && (!intentional || !user.start_audio_emote_cooldown(type)))
+	if(tmp_sound && should_play_sound(user, intentional) && (!intentional || !user.start_audio_emote_cooldown(type, audio_cooldown)))
 		if(age_based && istype(user, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = user
 
-			playsound(user, tmp_sound, 50, vary, frequency = H.get_age_pitch())
+			playsound(user, tmp_sound, volume, vary, frequency = H.get_age_pitch())
 		else
-			playsound(user, tmp_sound, 50, vary)
+			playsound(user, tmp_sound, volume, vary)
 
 	var/user_turf = get_turf(user)
 	if (user.client)
@@ -181,7 +183,7 @@
 	else if(!user.mind?.miming)
 		user.visible_message(dchatmsg, blind_message = "<span class='emote'>You hear how <b>[user]</b> [msg]</span>")
 
-	if(emote_type & EMOTE_VISIBLE)
+	if(!(emote_type & (EMOTE_FORCE_NO_RUNECHAT | EMOTE_SOUND)))
 		var/runechat_text = msg
 		if(length(msg) > 100)
 			runechat_text = "[copytext(msg, 1, 101)]..."
