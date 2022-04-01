@@ -256,7 +256,7 @@
 
 /obj/structure/barricade/dropwall/emp_act(severity)
 	..()
-	obj_integrity -= 40/severity //chances are the EMP will also hit the generator, we don't want it to double up too heavily
+	obj_integrity -= 40 / severity //chances are the EMP will also hit the generator, we don't want it to double up too heavily
 
 /obj/structure/barricade/dropwall/bullet_act(obj/item/projectile/P)
 	if(P.shield_buster)
@@ -312,7 +312,7 @@
 	protected = TRUE
 	addtimer(CALLBACK(src, .proc/power_out), uptime)
 	while(uptime >= 10)
-		addtimer(CALLBACK(src, .proc/annoying_overlay_proc, uptime/10), (10 * (12 - uptime/10))) // instantly, 1 second, 2 seconds, ect. Would put in SECONDS here but it shits itself
+		addtimer(CALLBACK(src, .proc/annoying_overlay_proc, uptime / 10), (10 * (12 - uptime / 10))) // instantly, 1 second, 2 seconds, ect. Would put in SECONDS here but it shits itself
 		uptime -= 10
 
 	switch(direction)
@@ -409,7 +409,7 @@
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall_dead"
 	item_state = "flashbang"
-	materials = list(MAT_METAL=4000, MAT_GLASS=2500) //plasma burned up for power or something, plus not that much to reclaim
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 2500) //plasma burned up for power or something, plus not that much to reclaim
 
 
 /obj/item/storage/box/syndie_kit/dropwall
