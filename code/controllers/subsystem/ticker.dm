@@ -53,6 +53,7 @@ SUBSYSTEM_DEF(ticker)
 	var/next_autotransfer = 0
 	/// Used for station explosion cinematic
 	var/obj/screen/cinematic = null
+	var/obj/screen/vox_reaction = null
 	/// Spam Prevention. Announce round end only once.
 	var/round_end_announced = FALSE
 	/// Is the ticker currently processing? If FALSE, roundstart is delayed
@@ -314,10 +315,18 @@ SUBSYSTEM_DEF(ticker)
 	cinematic.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	cinematic.screen_loc = "1,0"
 
+	vox_reaction = new /obj/screen(src)
+	vox_reaction.icon = 'icons/effects/station_explosion.dmi'
+	vox_reaction.icon_state = pick("vox_cool","vox_normal","vox_cry") // the only three emotions they are capable of
+	vox_reaction.layer = 22
+	vox_reaction.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	vox_reaction.screen_loc = "1,0"
+
 	if(station_missed)
 		for(var/mob/M in GLOB.mob_list)
 			if(M.client)
 				M.client.screen += cinematic	//show every client the cinematic
+				M.client.screen += vox_reaction
 	else	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
 		for(var/mob/M in GLOB.mob_list)
 			if(M.stat != DEAD)
@@ -328,9 +337,11 @@ SUBSYSTEM_DEF(ticker)
 					M.dust() //no mercy
 					if(ghost && ghost.client) //Play the victims an uninterrupted cinematic.
 						ghost.client.screen += cinematic
+						ghost.client.screen += vox_reaction
 					CHECK_TICK
 			if(M && M.client) //Play the survivors a cinematic.
 				M.client.screen += cinematic
+				M.client.screen += vox_reaction
 
 	//Now animate the cinematic
 	switch(station_missed)
@@ -390,6 +401,7 @@ SUBSYSTEM_DEF(ticker)
 	//Otherwise if its a verb it will continue on afterwards.
 	spawn(300)
 		QDEL_NULL(cinematic)		//end the cinematic
+		QDEL_NULL(vox_reaction)
 
 
 
