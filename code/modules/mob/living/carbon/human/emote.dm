@@ -2,8 +2,6 @@
 	/// Custom messages that should be applied based on species
 	/// Should be an associative list of species name: message
 	var/species_custom_messages = list()
-	/// Whether or not the mob should gasp instead of emoting.
-	var/needs_breath = FALSE
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
 
 /datum/emote/living/carbon/human/select_message_type(mob/user, msg, intentional)
@@ -20,7 +18,7 @@
 	if(!can_run_emote(user))
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	if(needs_breath && !H.mind?.miming)
+	if(emote_type & EMOTE_MOUTH && !H.mind?.miming)
 		if(H.getOxyLoss() > 35)		// no screaming if you don't have enough breath to scream
 			H.emote("gasp")
 			return FALSE
@@ -53,8 +51,7 @@
 	key_third_person = "grumbles"
 	message = "grumbles!"
 	message_mime = "seems to grumble!"
-	emote_type = EMOTE_AUDIBLE
-	needs_breath = TRUE
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/human/handshake
 	key = "handshake"
@@ -76,7 +73,6 @@
 	message = "mumbles!"
 	message_mime = "seems to be speaking sweet nothings!"
 	emote_type = EMOTE_AUDIBLE
-	needs_breath = TRUE
 
 /datum/emote/living/carbon/human/nod
 	key = "nod"
@@ -89,12 +85,11 @@
 	key_third_person = "screams"
 	message = "screams!"
 	message_mime = "acts out a scream!"
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 	only_forced_audio = FALSE
 	vary = TRUE
 	age_based = TRUE
 	cooldown = 5 SECONDS
-	needs_breath = TRUE
 	mob_type_blacklist_typecache = (/mob/living/carbon/human/monkey)  // screech instead
 
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
@@ -112,9 +107,8 @@
 	key = "screech"
 	key_third_person = "screeches"
 	message = "screeches."
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 	vary = FALSE
-	needs_breath = TRUE
 
 /datum/emote/living/carbon/human/scream/screech/should_play_sound(mob/user, intentional)
 	if(ismonkeybasic(user))
@@ -172,12 +166,13 @@
 	key = "sniff"
 	key_third_person = "sniff"
 	message = "sniffs."
-	needs_breath = TRUE
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/johnny
 	key = "johnny"
 	key_third_person = "johnnys"  // ?????
 	message = "takes a drag from a cigarette and blows their own name out in smoke."
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/human/johnny/select_param(mob/user, params)
 	if(!params)
@@ -218,21 +213,14 @@
 	key_third_person = "sneezes"
 	message = "sneezes."
 	muzzled_noises = list("strange", "sharp")
-	needs_breath = TRUE
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 
 /datum/emote/living/carbon/human/sneeze/get_sound(mob/user)
-
 	var/mob/living/carbon/human/H = user
-
-	if(H.is_muzzled())
-		// TODO DEAL WITH NO BREATH CAUSING GASPING FOR EMOTES
-		return FALSE
-
 	if(H.gender == FEMALE)
-		playsound(src, H.dna.species.female_sneeze_sound, 70, 1, frequency = H.get_age_pitch())
+		return H.dna.species.female_sneeze_sound
 	else
-		playsound(src, H.dna.species.male_sneeze_sound, 70, 1, frequency = H.get_age_pitch())
+		return H.dna.species.male_sneeze_sound
 
 
 /datum/emote/living/carbon/human/slap
@@ -367,10 +355,9 @@
 	key_third_person = "coughs"
 	message = "coughs!"
 	message_mime = "appears to cough!"
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 	vary = TRUE
 	age_based = TRUE
-	needs_breath = TRUE
 	volume = 120
 
 /datum/emote/living/cough/get_sound(mob/living/user)
@@ -383,27 +370,6 @@
 		else
 			if(H.dna.species.male_cough_sounds)
 				return pick(H.dna.species.male_cough_sounds)
-
-/datum/emote/living/sneeze
-	key = "sneeze"
-	key_third_person = "sneezes"
-	message = "sneezes."
-	emote_type = EMOTE_SOUND
-	muzzle_ignore = TRUE
-	vary = TRUE
-	age_based = TRUE
-	needs_breath = TRUE
-	volume = 70
-
-/datum/emote/living/sneeze/get_sound(mob/living/user)
-	. = ..()
-	if(istype(user, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = user
-		if(H.gender == FEMALE)
-			return H.dna.species.female_sneeze_sound
-		else
-			return H.dna.species.male_sneeze_sound
-
 
 /////////
 // Species-specific emotes
@@ -483,6 +449,7 @@
 	key = "gnarl"
 	key_third_person = "gnarls"
 	message = "gnarls and shows their teeth..."
+	message_param = "gnarls and shows their teeth at %t."
 
 /datum/emote/living/carbon/human/monkey/roll
 	key = "roll"
@@ -500,8 +467,8 @@
 	key = "roar"
 	key_third_person = "roars"
 	message = "roars."
-	emote_type = EMOTE_AUDIBLE
-	needs_breath = TRUE
+	message_param = "roars at %t."
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/human/monkey/tail
 	key = "tail"
@@ -601,12 +568,11 @@
 	message = "hisses."
 	message_param = "hisses at %t."
 	species_whitelist = list("Unathi")
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 	age_based = TRUE
 	// Credit to Jamius (freesound.org) for the sound.
 	sound = "sound/effects/unathihiss.ogg"
 	muzzled_noises = list("weak hissing")
-	needs_breath = TRUE
 
 /datum/emote/living/carbon/human/creak
 	key = "creak"
@@ -648,11 +614,10 @@
 	message_mime = "acts out a howl."
 	message_param = "howls at %t."
 	species_whitelist = list("Vulpkanin")
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 	age_based = TRUE
 	sound = "sound/goonstation/voice/howl.ogg"
 	muzzled_noises = list("very loud")
-	needs_breath = TRUE
 
 /datum/emote/living/carbon/human/growl
 	key = "growl"
@@ -662,8 +627,7 @@
 	species_whitelist = list("Vulpkanin")
 	sound = "growls"  // what the fuck
 	muzzled_noises = list("annoyed")
-	emote_type = EMOTE_SOUND
-	needs_breath = TRUE
+	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 
 /datum/emote/living/carbon/human/rattle
 	key = "rattle"

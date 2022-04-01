@@ -52,13 +52,14 @@
 	key_third_person = "chuckles"
 	message = "chuckles."
 	message_mime = "appears to chuckle."
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	muzzled_noises = list("joyful", "upbeat")
 
 /datum/emote/living/collapse
 	key = "collapse"
 	key_third_person = "collapses"
 	message = "collapses!"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/collapse/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -199,7 +200,7 @@
 	message_mime = "acts out a scream!"
 	message_simple = "whimpers."
 	message_alien = "roars!"
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 	mob_type_blacklist_typecache = list(/mob/living/carbon/human) // Humans get specialized scream.
 
 /datum/emote/living/scream/get_sound(mob/living/user)
@@ -223,7 +224,7 @@
 	key_third_person = "sighs"
 	message = "sighs."
 	message_mime = "appears to sigh."
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/sit
 	key = "sit"
@@ -254,7 +255,7 @@
 	message_mime = "sleeps soundly."
 	message_simple = "stirs in their sleep."
 	message_robot = "dreams of electric sheep..."
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/stare
@@ -287,7 +288,7 @@
 	message_mime = "makes a rude gesture!"
 	message_simple = "makes an angry noise!"
 	message_robot = "makes a particularly offensive series of beeps!"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/tilt
 	key = "tilt"

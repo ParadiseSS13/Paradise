@@ -12,6 +12,8 @@
 #define EMOTE_SOUND (1<<2)
 /// Regardless of its existing flags, this emote will not be sent to runechat.
 #define EMOTE_FORCE_NO_RUNECHAT (1<<3)
+/// This emote uses the mouth, and so should be blocked if the user is muzzled or can't breathe (for humans).
+#define EMOTE_MOUTH (1<<4)
 
 // User audio cooldown system.
 // This is a value stored on the user and represents their ability to perform emotes.
@@ -219,8 +221,8 @@
 		return TRUE
 	if(user.emotes_used && user.emotes_used[src] + cooldown > world.time)
 		var/datum/emote/default_emote = /datum/emote
-		if(cooldown > initial(default_emote.cooldown)) // only worry about longer-than-normal emotes
-			to_chat(user, "<span class='danger'>You must wait another [DisplayTimeText(user.emotes_used[src] - world.time + cooldown)] before using that emote.</span>")
+		// if(cooldown > initial(default_emote.cooldown)) // only worry about longer-than-normal emotes
+		// 	to_chat(user, "<span class='danger'>You must wait another [DisplayTimeText(user.emotes_used[src] - world.time + cooldown)] before using that emote.</span>")
 		return FALSE
 	if(!user.emotes_used)
 		user.emotes_used = list()
@@ -271,7 +273,7 @@
 /datum/emote/proc/select_message_type(mob/user, msg, intentional)
 	// Basically, we don't care that the others can use datum variables, because they're never going to change.
 	. = msg
-	if(!muzzle_ignore && user.is_muzzled() && emote_type == EMOTE_AUDIBLE)
+	if(!muzzle_ignore && user.is_muzzled() && emote_type & (EMOTE_MOUTH))
 		return "makes a [pick(muzzled_noises)]noise."
 	if(user.mind && user.mind.miming && message_mime)
 		. = message_mime
