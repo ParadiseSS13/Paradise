@@ -18,7 +18,8 @@
 	return dat
 
 /obj/item/implant/death_alarm/Destroy()
-	UnregisterSignal(imp_in, COMSIG_MOB_DEATH)
+	if(!QDELETED(imp_in))
+		UnregisterSignal(imp_in, COMSIG_MOB_DEATH)
 	return ..()
 
 /obj/item/implant/death_alarm/activate(cause) // Death signal sends name followed by the gibbed / not gibbed check

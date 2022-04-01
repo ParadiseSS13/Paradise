@@ -204,8 +204,8 @@
 				O.create_chat_message(user, runechat_text, symbol = RUNECHAT_SYMBOL_EMOTE)
 
 
-	SEND_SIGNAL(user, COMSIG_MOB_EMOTED(key))
-	SEND_SIGNAL(user, COMSIG_MOB_EMOTE)
+	SEND_SIGNAL(user, COMSIG_MOB_EMOTED(key), src, key, emote_type, message, intentional)
+	SEND_SIGNAL(user, COMSIG_MOB_EMOTE, key, intentional)
 
 /**
  * For handling emote cooldown, return true to allow the emote to happen.

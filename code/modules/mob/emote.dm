@@ -23,8 +23,6 @@
 			silenced = TRUE
 			continue
 		if(P.run_emote(src, param, m_type, intentional))
-			SEND_SIGNAL(src, COMSIG_MOB_EMOTE, P, act, m_type, message, intentional)
-			SEND_SIGNAL(src, COMSIG_MOB_EMOTED(P.key))
 			return TRUE
 	if(intentional && !silenced && !force_silence)
 		log_world("<span class='notice'>Unusable emote '[act]'. Say *help for a list. </span>")
@@ -40,6 +38,26 @@
 		input = message
 
 	emote("me", m_type, input, TRUE)
+
+/**
+ * Get a list of all emote keys usable by the current mob.
+ *
+ * * intentional_use: Whether or not to check based on if the action was intentional.
+ */
+/mob/proc/usable_emote_keys(intentional_use = TRUE)
+	var/list/all_keys = list()
+	for(var/key in GLOB.emote_list)
+		for(var/datum/emote/P in GLOB.emote_list[key])
+			var/full_key = P.key
+			if((P.key in all_keys))
+				continue
+			if(P.can_run_emote(src, status_check = FALSE, intentional = null))
+				all_keys += P.key
+				if(P.key_third_person)
+					all_keys += P.key_third_person
+
+	return all_keys
+
 
 /mob/proc/emote_dead(message)
 	CRASH("emote_dead is oldcode but was called")

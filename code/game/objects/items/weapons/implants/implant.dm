@@ -1,3 +1,10 @@
+/// If used, an implant will trigger when an emote is intentionally used.
+#define IMPLANT_EMOTE_TRIGGER_INTENTIONAL (1<<0)
+/// If used, an implant will trigger when an emote is forced/unintentionally used.
+#define IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL (1<<1)
+/// If used, an implant will always trigger when the user makes an emote.
+#define IMPLANT_EMOTE_TRIGGER_ALWAYS (IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL | IMPLANT_EMOTE_TRIGGER_INTENTIONAL)
+
 /obj/item/implant
 	name = "implant"
 	icon = 'icons/obj/implants.dmi'
@@ -12,6 +19,59 @@
 	var/allow_multiple = 0
 	var/uses = -1
 	flags = DROPDEL
+
+	/// Emotes that activate this implant when used.
+	var/trigger_emotes
+	/// What type of emote (intentional, unintentional, or both) will trigger the implant.
+	var/trigger_causes = IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL
+
+/obj/item/implant/proc/unregister_emotes()
+	if(imp_in && LAZYLEN(trigger_emotes))
+		for(var/emote in trigger_emotes)
+			UnregisterSignal(imp_in, COMSIG_MOB_EMOTED(emote))
+
+/**
+ * Set the emote that will trigger the implant.
+ * * user: User who is trying to associate the implant to themselves.
+ * * emote_key: Key of the emote that should trigger the implant.
+ */
+/obj/item/implant/proc/set_trigger(mob/user, emote_key, on_implant = FALSE)
+
+	if(imp_in != user)
+		return FALSE
+
+	if(!emote_key)
+		return FALSE
+
+	if(LAZYIN(trigger_emotes, emote_key) && !on_implant)
+		to_chat(user, "<span class='warning'> You've already registered [emote_key]!")
+		return FALSE
+
+	if(emote_key == "me" || emote_key == "custom")
+		to_chat(user, "<span class='warning'> You can't trigger [src] with a custom emote.")
+		return FALSE
+
+
+	if(!(emote_key in user.usable_emote_keys(trigger_causes & IMPLANT_EMOTE_TRIGGER_INTENTIONAL)))
+		to_chat(user, "<span class='warning'> You can't trigger [src] with that emote! Try *help to see emotes you can use.</span>")
+		return FALSE
+
+	if(!(emote_key in user.usable_emote_keys(trigger_causes & IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL)))
+		CRASH("User was given an implant for an unintentional emote that they can't use.")
+
+	LAZYADD(trigger_emotes, emote_key)
+	RegisterSignal(user, COMSIG_MOB_EMOTED(emote_key), .proc/on_emote)
+
+/obj/item/implant/proc/on_emote(mob/living/user, /datum/emote/emote, key, emote_type, message, intentional)
+	SIGNAL_HANDLER
+
+	if(!implanted || !imp_in)
+		return
+
+	if(intentional && (trigger_causes & IMPLANT_EMOTE_TRIGGER_INTENTIONAL) || (!intentional && (trigger_causes & IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL)))
+		return
+
+	trigger(key, user, intentional)
 
 
 /obj/item/implant/proc/trigger(emote, mob/source, force)
@@ -46,6 +106,9 @@
 	imp_in = source
 	implanted = 1
 	if(activated)
+		if(trigger_emotes)
+			for(var/emote in trigger_emotes)
+				set_trigger(source, emote, TRUE)
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.Grant(source)
@@ -70,6 +133,8 @@
 	if(ishuman(source))
 		var/mob/living/carbon/human/H = source
 		H.sec_hud_set_implants()
+
+	unregister_emotes()
 
 	return 1
 
