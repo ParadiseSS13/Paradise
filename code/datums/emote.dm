@@ -86,10 +86,6 @@
 	var/list/mob_type_blacklist_typecache
 	/// Types that can use this emote regardless of their state.
 	var/list/mob_type_ignore_stat_typecache
-	/// Species names which the emote will be exclusively available to.
-	// TODO This could probably be a typecache of species paths as well?
-	var/species_whitelist
-
 	/// Species types which the emote will be exclusively available to.
 	var/species_type_whitelist_typecache
 	/// In which state can you use this emote? (Check stat.dm for a full list of them)
@@ -198,7 +194,6 @@
 				for(var/mob/living/M in O.contents)
 					M.show_message(message, EMOTE_VISIBLE)
 
-			// O.show_message(message, EMOTE_VISIBLE)
 			if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 				O.create_chat_message(user, runechat_text, symbol = RUNECHAT_SYMBOL_EMOTE)
 
@@ -219,9 +214,6 @@
 	if(!intentional)
 		return TRUE
 	if(user.emotes_used && user.emotes_used[src] + cooldown > world.time)
-		var/datum/emote/default_emote = /datum/emote
-		// if(cooldown > initial(default_emote.cooldown)) // only worry about longer-than-normal emotes
-		// 	to_chat(user, "<span class='danger'>You must wait another [DisplayTimeText(user.emotes_used[src] - world.time + cooldown)] before using that emote.</span>")
 		return FALSE
 	if(!user.emotes_used)
 		user.emotes_used = list()

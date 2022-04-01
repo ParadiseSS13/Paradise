@@ -47,7 +47,6 @@
 	var/list/all_keys = list()
 	for(var/key in GLOB.emote_list)
 		for(var/datum/emote/P in GLOB.emote_list[key])
-			var/full_key = P.key
 			if((P.key in all_keys))
 				continue
 			if(P.can_run_emote(src, status_check = FALSE, intentional = null))

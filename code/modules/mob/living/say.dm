@@ -295,44 +295,6 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/proc/GetVoice()
 	return name
 
-/mob/living/proc/emote_old(act, type, message, force) //emote code is terrible, this is so that anything that isn't already snowflaked to shit can call the parent and handle emoting sanely
-	if(client)
-		if(check_mute(client.ckey, MUTE_IC))
-			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
-			return
-
-	if(stat)
-		return 0
-
-	// if(..())
-	// 	return 1
-
-	if(act && type && message) //parent call
-		log_emote(message, src)
-
-		for(var/mob/M in GLOB.dead_mob_list)
-			if(!M.client)
-				continue //skip monkeys and leavers
-
-			if(isnewplayer(M))
-				continue
-
-			if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
-				M.show_message(message)
-
-		switch(type)
-			if(1) //Visible
-				visible_message(message)
-				return 1
-			if(2) //Audible
-				audible_message(message)
-				return 1
-
-	else //everything else failed, emote is probably invalid
-		if(act == "help")
-			return //except help, because help is handled individually
-		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
-
 /mob/living/whisper(message as text)
 	message = trim_strip_html_properly(message)
 
