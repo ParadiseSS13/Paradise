@@ -59,6 +59,7 @@
 	wanted_objects = typecacheof(wanted_objects)
 
 /mob/living/simple_animal/hostile/Destroy()
+	friends.Cut()
 	targets_from = null
 	target = null
 	return ..()
