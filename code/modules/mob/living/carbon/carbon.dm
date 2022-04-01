@@ -417,7 +417,7 @@
 
 GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
 
-/mob/living/handle_ventcrawl(atom/clicked_on, var/smoke_crawler = FALSE) // -- TLE -- Merged by Carn
+/mob/living/handle_ventcrawl(atom/clicked_on, smoke_crawler = FALSE) // -- TLE -- Merged by Carn
 	if(!Adjacent(clicked_on))
 		return
 
