@@ -674,7 +674,6 @@ pull requests/issues, and merging/closing pull requests.
 ### Maintainer List
 
 * [AffectedArc07](https://github.com/AffectedArc07)
-* [Ansari](https://github.com/variableundefined)
 * [Crazylemon](https://github.com/marlyn-x86)
 * [dearmochi](https://github.com/dearmochi)
 * [Fox P McCloud](https://github.com/Fox-McCloud)

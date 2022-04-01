@@ -50,7 +50,6 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_GRASS)
 	canSmoothWith = list(SMOOTH_GROUP_GRASS, SMOOTH_GROUP_JUNGLE_GRASS)
-	transform = matrix(1, 0, -9, 0, 1, -9) //Yes, these sprites are 50x50px, big grass control the industry
 	layer = ABOVE_OPEN_TURF_LAYER
 	broken_states = list("damaged")
 	floor_tile = /obj/item/stack/tile/grass
@@ -58,6 +57,7 @@
 	barefootstep = FOOTSTEP_GRASS
 	clawfootstep = FOOTSTEP_GRASS
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	transform = matrix(1, 0, -9, 0, 1, -9) //Yes, these sprites are 50x50px, big grass control the industry
 
 /turf/simulated/floor/grass/attackby(obj/item/C, mob/user, params)
 	if(..())
@@ -71,7 +71,7 @@
 /turf/simulated/floor/grass/jungle
 	name = "jungle grass"
 	icon = 'icons/turf/floors/junglegrass.dmi'
-	icon_state = "junglegrass-255"
+	icon_state = "junglegrass"
 	base_icon_state = "junglegrass"
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_GRASS, SMOOTH_GROUP_JUNGLE_GRASS)
 
@@ -80,12 +80,14 @@
 	smoothing_groups = null
 	canSmoothWith = null
 	layer = GRASS_UNDER_LAYER
+	transform = null
 
 /turf/simulated/floor/grass/jungle/no_creep //This vairant shows up under normal turfs so fits in the regular 32x32 sprite
 	smoothing_flags = null
 	smoothing_groups = null
 	canSmoothWith = null
 	layer = GRASS_UNDER_LAYER
+	transform = null
 
 //Carpets
 
