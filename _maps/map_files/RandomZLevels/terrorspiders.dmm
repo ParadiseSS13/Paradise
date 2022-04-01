@@ -186,6 +186,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_x = 30
 	},
 /obj/item/gun/energy/laser/retro,
@@ -196,18 +197,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "aF" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/clothing/under/suit_jacket/female,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
@@ -298,6 +288,7 @@
 /area/awaymission/UO71/plaza)
 "aS" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = -25
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -401,6 +392,7 @@
 "bf" = (
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/machinery/light/small{
@@ -414,24 +406,14 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_x = 30
 	},
 /obj/item/gun/energy/laser/awaymission_aeg,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "bh" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "bi" = (
@@ -746,24 +728,14 @@
 "ch" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_x = -30
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "ci" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/clothing/under/pj/blue,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
@@ -771,6 +743,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_x = 30
 	},
 /turf/simulated/floor/carpet,
@@ -1010,6 +983,7 @@
 /area/awaymission/UO71/science)
 "cW" = (
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
@@ -1206,6 +1180,7 @@
 	dir = 4
 	},
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/machinery/light/small{
@@ -1217,17 +1192,7 @@
 	},
 /area/awaymission/UO71/plaza)
 "ds" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "hydrosecurebroken";
-	icon_closed = "hydrosecure";
-	icon_locked = "hydrosecure1";
-	icon_off = "hydrosecureoff";
-	icon_opened = "hydrosecureopen";
-	icon_state = "hydrosecure";
-	locked = 0;
-	name = "botanist's locker";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/secure_closet,
 /obj/item/plant_analyzer,
 /obj/item/clothing/mask/bandana,
 /obj/item/hatchet,
@@ -1257,16 +1222,7 @@
 	},
 /area/awaymission/UO71/plaza)
 "dw" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "secbroken";
-	icon_closed = "sec";
-	icon_locked = "sec1";
-	icon_off = "secoff";
-	icon_opened = "secopen";
-	icon_state = "sec1";
-	name = "security officer's locker";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/secure_closet,
 /obj/item/storage/belt/security,
 /obj/item/flash,
 /obj/effect/decal/cleanable/dirt,
@@ -1372,17 +1328,7 @@
 	},
 /area/awaymission/UO71/plaza)
 "dK" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "hydrosecurebroken";
-	icon_closed = "hydrosecure";
-	icon_locked = "hydrosecure1";
-	icon_off = "hydrosecureoff";
-	icon_opened = "hydrosecureopen";
-	icon_state = "hydrosecure";
-	locked = 0;
-	name = "botanist's locker";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/secure_closet,
 /obj/item/clothing/suit/apron,
 /obj/item/clothing/mask/bandana,
 /turf/simulated/floor/plasteel{
@@ -1755,6 +1701,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -2043,6 +1990,7 @@
 "fm" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_y = -28
 	},
 /turf/simulated/floor/carpet,
@@ -2057,6 +2005,7 @@
 /area/awaymission/UO71/plaza)
 "fo" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_y = -28
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2065,6 +2014,7 @@
 "fp" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/camera{
@@ -2200,17 +2150,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "fH" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "fridgebroken";
-	icon_closed = "fridge";
-	icon_locked = "fridge1";
-	icon_off = "fridgeoff";
-	icon_opened = "fridgeopen";
-	icon_state = "fridge";
-	locked = 0;
-	name = "meat fridge";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/secure_closet/freezer/meat,
 /obj/item/reagent_containers/food/snacks/meat/monkey,
 /obj/item/reagent_containers/food/snacks/meat/monkey,
 /obj/item/reagent_containers/food/snacks/meat/monkey,
@@ -2481,6 +2421,7 @@
 /area/awaymission/UO71/science)
 "gw" = (
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/item/robot_parts/l_arm,
@@ -2559,6 +2500,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -2634,6 +2576,7 @@
 /area/awaymission/UO71/centralhall)
 "gN" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = -25
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3011,6 +2954,7 @@
 "hD" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -3106,6 +3050,7 @@
 "hP" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/structure/disposalpipe/segment,
@@ -3134,9 +3079,7 @@
 /area/awaymission/UO71/centralhall)
 "hS" = (
 /obj/structure/window/reinforced,
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3146,9 +3089,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3156,9 +3097,7 @@
 "hX" = (
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3174,9 +3113,7 @@
 	name = "Gateway Chamber";
 	req_access_txt = "271"
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3316,17 +3253,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "ir" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "fridgebroken";
-	icon_closed = "fridge";
-	icon_locked = "fridge1";
-	icon_off = "fridgeoff";
-	icon_opened = "fridgeopen";
-	icon_state = "fridge";
-	locked = 0;
-	name = "refrigerator";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/secure_closet/freezer/fridge,
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/condiment/milk,
@@ -3524,7 +3451,6 @@
 /area/awaymission/UO71/centralhall)
 "iX" = (
 /obj/structure/closet/secure_closet{
-	icon_state = "secure";
 	locked = 0;
 	name = "kitchen Cabinet";
 	req_access_txt = "271"
@@ -3686,6 +3612,7 @@
 "jt" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -4196,6 +4123,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4413,6 +4341,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "north bump";
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -4534,6 +4463,7 @@
 /obj/structure/table,
 /obj/item/newspaper,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_x = 30
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4561,6 +4491,7 @@
 "ln" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -4592,6 +4523,7 @@
 	dir = 5
 	},
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -4803,6 +4735,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -4940,6 +4873,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -4991,6 +4925,7 @@
 "lW" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/camera{
@@ -5225,6 +5160,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5259,6 +5195,7 @@
 "mE" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_x = -30
 	},
 /obj/item/paper/terrorspiders4,
@@ -5271,18 +5208,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "mF" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/clothing/under/pj/red,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
@@ -5370,6 +5296,7 @@
 /area/awaymission/UO71/gateway)
 "mN" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_y = -28
 	},
 /obj/structure/rack{
@@ -5390,6 +5317,7 @@
 /obj/item/clothing/shoes/magboots,
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
@@ -5464,16 +5392,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "mX" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "rdsecurebroken";
-	icon_closed = "rdsecure";
-	icon_locked = "rdsecure1";
-	icon_off = "rdsecureoff";
-	icon_opened = "rdsecureopen";
-	icon_state = "rdsecure1";
-	name = "research director's locker";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/secure_closet,
 /obj/item/storage/backpack/satchel_tox,
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/suit/storage/labcoat/science,
@@ -5535,6 +5454,7 @@
 "ne" = (
 /obj/structure/table,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_x = -30
 	},
 /obj/item/book/manual/security_space_law,
@@ -5589,18 +5509,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "nj" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/clothing/under/suit_jacket/navy,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
@@ -6506,6 +6415,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /obj/effect/landmark/burnturf,
@@ -6700,16 +6610,7 @@
 	},
 /area/awaymission/UO71/science)
 "pb" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "secbroken";
-	icon_closed = "sec";
-	icon_locked = "sec1";
-	icon_off = "secoff";
-	icon_opened = "secopen";
-	icon_state = "sec1";
-	name = "security officer's locker";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/secure_closet,
 /obj/item/flash,
 /obj/item/reagent_containers/spray/pepper,
 /obj/item/restraints/handcuffs,
@@ -6784,6 +6685,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -6806,6 +6708,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -7060,6 +6963,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -7644,15 +7548,8 @@
 	},
 /area/awaymission/UO71/eng)
 "qY" = (
-/obj/structure/closet/secure_closet{
-	icon_broken = "secureengbroken";
-	icon_closed = "secureeng";
-	icon_locked = "secureeng1";
-	icon_off = "secureengoff";
-	icon_opened = "secureengopen";
-	icon_state = "secureeng1";
-	name = "engineer's locker";
-	req_access_txt = "271"
+/obj/structure/closet/secure_closet/engineering_personal{
+	req_access = list(271)
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -7725,6 +7622,7 @@
 	pixel_y = 5
 	},
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/item/multitool,
@@ -7847,6 +7745,7 @@
 "rt" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_y = -28
 	},
 /obj/item/pen,
@@ -7861,6 +7760,7 @@
 "rv" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_x = -30
 	},
 /turf/simulated/floor/carpet,
@@ -7918,6 +7818,7 @@
 "rB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_x = -25
 	},
 /turf/simulated/floor/plasteel,
@@ -7927,6 +7828,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
+	name = "south bump";
 	pixel_y = -30
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7955,6 +7857,7 @@
 /area/awaymission/UO71/eng)
 "rH" = (
 /obj/machinery/firealarm{
+	name = "north bump";
 	pixel_y = 24
 	},
 /obj/structure/dispenser{
@@ -7998,6 +7901,7 @@
 	pixel_x = 4
 	},
 /obj/machinery/newscaster{
+	name = "north bump";
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -8128,6 +8032,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -8715,6 +8620,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -8801,6 +8707,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -9557,16 +9464,7 @@
 	pixel_y = 6;
 	req_access_txt = "271"
 	},
-/obj/structure/closet/secure_closet{
-	icon_broken = "secbroken";
-	icon_closed = "sec";
-	icon_locked = "sec1";
-	icon_off = "secoff";
-	icon_opened = "secopen";
-	icon_state = "sec1";
-	name = "security officer's locker";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/secure_closet,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet,
 /turf/simulated/floor/plasteel{
@@ -10093,6 +9991,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/closet/secure_closet/miner{
@@ -10572,6 +10471,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -10629,6 +10529,7 @@
 "wX" = (
 /obj/machinery/firealarm{
 	dir = 1;
+	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
@@ -10743,18 +10644,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/mining)
 "xj" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/mining)
 "xk" = (
@@ -10991,6 +10881,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/firealarm{
 	dir = 4;
+	name = "east bump";
 	pixel_x = 24
 	},
 /obj/item/stack/sheet/mineral/plasma{
@@ -11063,18 +10954,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/mining)
 "xQ" = (
@@ -11091,15 +10971,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/closet/secure_closet/engineering_personal{
-	icon_broken = "miningsecbroken";
-	icon_closed = "miningsec";
-	icon_locked = "miningsec1";
-	icon_off = "miningsecoff";
-	icon_opened = "miningsecopen";
-	icon_state = "miningsec";
-	locked = 0;
-	name = "miner's equipment";
+/obj/structure/closet/secure_closet/miner{
 	req_access = list(271)
 	},
 /obj/item/storage/backpack/satchel_eng,
@@ -11185,6 +11057,7 @@
 	on = 1
 	},
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_y = -28
 	},
 /obj/structure/cable{
@@ -11689,18 +11562,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/queen)
 "zn" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "271"
-	},
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/loot)
 "zo" = (
@@ -11726,6 +11588,7 @@
 /area/awaymission/UO71/loot)
 "zu" = (
 /obj/machinery/newscaster{
+	name = "custom placement";
 	pixel_x = 30
 	},
 /turf/simulated/floor/carpet,
@@ -11862,6 +11725,7 @@
 "Ad" = (
 /obj/machinery/firealarm{
 	dir = 8;
+	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/wood,

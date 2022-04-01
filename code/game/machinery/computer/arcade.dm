@@ -15,7 +15,8 @@
 	..()
 	if(!circuit)
 		var/choice = pick(subtypesof(/obj/machinery/computer/arcade))
-		new choice(loc)
+		var/obj/machinery/computer/arcade/chosen = new choice(loc)
+		chosen.dir = dir
 		qdel(src)
 		return
 	Reset()
@@ -557,7 +558,7 @@
 				playsound(loc, 'sound/effects/supermatter.ogg', 100, TRUE)
 				atom_say("A miniature black hole suddenly appears in front of [src], devouring [usr] alive!")
 				usr.Stun(10) //you can't run :^)
-				var/S = new /obj/singularity/academy(usr.loc)
+				var/S = new /obj/singularity/onetile(usr.loc)
 				emagged = 0 //immediately removes emagged status so people can't kill themselves by sprinting up and interacting
 				sleep(50)
 				atom_say("[S] winks out, just as suddenly as it appeared.")

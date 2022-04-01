@@ -96,15 +96,14 @@
 	if(status & ORGAN_DEAD)
 		return
 
-	if(is_preserved())
-		return
-
 	//Process infections
 	if(is_robotic() || sterile || (owner && HAS_TRAIT(owner, TRAIT_NOGERMS)))
 		germ_level = 0
 		return
 
 	if(!owner)
+		if(is_preserved())
+			return
 		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
 		// Another mercy for surgeons preparing transplant organs
 		germ_level++
@@ -281,9 +280,9 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 	if(status != 0)
 		data["status"] = status
 
-	// Save the DNA datum if: The owner doesn't exist, or the dna doesn't match
-	// the owner
-	if(!(owner && dna.unique_enzymes == owner.dna.unique_enzymes))
+	// Save the DNA datum if: The owner doesn't exist, or the dna doesn't match the owner
+	// Don't save when the organ has no initialized DNA. Happens when you spawn it in as admin
+	if(dna.unique_enzymes && !(owner && dna.unique_enzymes == owner.dna.unique_enzymes))
 		data["dna"] = dna.serialize()
 	return data
 

@@ -21,6 +21,9 @@
 		fuid = text2num(query.item[15])
 		parallax = text2num(query.item[16])
 		_2fa_status = query.item[17]
+		screentip_mode = query.item[18]
+		screentip_color = query.item[19]
+		ghost_darkness_level = query.item[20]
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -37,6 +40,9 @@
 	atklog = sanitize_integer(atklog, 0, 100, initial(atklog))
 	fuid = sanitize_integer(fuid, 0, 10000000, initial(fuid))
 	parallax = sanitize_integer(parallax, 0, 16, initial(parallax))
+	screentip_mode = sanitize_integer(screentip_mode, 0, 20, initial(screentip_mode))
+	screentip_color = sanitize_hexcolor(screentip_color, initial(screentip_color))
+	ghost_darkness_level = sanitize_integer(ghost_darkness_level, 0, 255, initial(ghost_darkness_level))
 	return TRUE
 
 /datum/preferences/proc/save_preferences(client/C)
@@ -68,7 +74,10 @@
 					lastchangelog=:lastchangelog,
 					clientfps=:clientfps,
 					parallax=:parallax,
-					2fa_status=:_2fa_status
+					2fa_status=:_2fa_status,
+					screentip_mode=:screentip_mode,
+					screentip_color=:screentip_color,
+					ghost_darkness_level=:ghost_darkness_level
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -87,6 +96,9 @@
 						"clientfps" = clientfps,
 						"parallax" = parallax,
 						"_2fa_status" = _2fa_status,
+						"screentip_mode" = screentip_mode,
+						"screentip_color" = screentip_color,
+						"ghost_darkness_level" = ghost_darkness_level,
 						"ckey" = C.ckey,
 					)
 					)
@@ -97,7 +109,6 @@
 
 	qdel(query)
 	return 1
-
 
 /datum/preferences/proc/load_random_character_slot(client/C)
 	var/list/datum/character_save/valid_slots = list()

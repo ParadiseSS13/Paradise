@@ -786,11 +786,11 @@
 /area/shuttle/administration)
 "PV" = (
 /obj/structure/rack,
-/obj/item/gun/energy/sniperrifle{
+/obj/item/gun/energy/ionrifle{
 	pixel_y = -4
 	},
-/obj/item/gun/energy/sniperrifle,
-/obj/item/gun/energy/sniperrifle{
+/obj/item/gun/energy/ionrifle,
+/obj/item/gun/energy/ionrifle{
 	pixel_y = 3
 	},
 /obj/structure/window/reinforced{
@@ -882,11 +882,11 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/gun/energy/gun/advtaser{
+/obj/item/gun/energy/disabler{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/gun/energy/gun/advtaser,
+/obj/item/gun/energy/disabler,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "WV" = (

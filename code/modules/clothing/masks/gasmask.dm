@@ -146,7 +146,7 @@
 	magical = TRUE
 
 /obj/item/clothing/mask/gas/clown_hat/nodrop
-	flags = NODROP
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR | NODROP
 
 /obj/item/clothing/mask/gas/mime
 	name = "mime mask"
@@ -162,7 +162,7 @@
 	magical = TRUE
 
 /obj/item/clothing/mask/gas/mime/nodrop
-	flags = NODROP
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
 
 /obj/item/clothing/mask/gas/monkeymask
 	name = "monkey mask"

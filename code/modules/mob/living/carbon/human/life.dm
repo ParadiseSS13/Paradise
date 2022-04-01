@@ -36,8 +36,9 @@
 	name = get_visible_name()
 	pulse = handle_pulse(times_fired)
 
-	if(mind?.vampire)
-		mind.vampire.handle_vampire()
+	var/datum/antagonist/vampire/V = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(V)
+		V.handle_vampire()
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
 
@@ -363,6 +364,9 @@
 		bodytemperature += 11
 	else
 		bodytemperature += (BODYTEMP_HEATING_MAX + (fire_stacks * 12))
+		var/datum/antagonist/vampire/V = mind?.has_antag_datum(/datum/antagonist/vampire)
+		if(V && !V.get_ability(/datum/vampire_passive/full) && stat != DEAD)
+			V.bloodusable = max(V.bloodusable - 5, 0)
 
 /mob/living/carbon/human/proc/get_thermal_protection()
 	if(HAS_TRAIT(src, TRAIT_RESISTHEAT))
@@ -786,7 +790,7 @@
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return
-	if(mind?.vampire && (mind in SSticker.mode.vampires)) //Vampires
+	if(mind?.has_antag_datum(/datum/antagonist/vampire)) //Vampires
 		switch(nutrition)
 			if(NUTRITION_LEVEL_FULL to INFINITY)
 				throw_alert("nutrition", /obj/screen/alert/fat/vampire)
@@ -836,7 +840,7 @@
 
 			if(prob(I.embedded_fall_chance))
 				BP.receive_damage(I.w_class*I.embedded_fall_pain_multiplier)
-				BP.embedded_objects -= I
+				BP.remove_embedded_object(I)
 				I.forceMove(get_turf(src))
 				visible_message("<span class='danger'>[I] falls out of [name]'s [BP.name]!</span>","<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
 				if(!has_embedded_objects())

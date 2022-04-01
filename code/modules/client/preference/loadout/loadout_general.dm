@@ -81,6 +81,10 @@
 	display_name = "Carp plushie"
 	path = /obj/item/toy/carpplushie
 
+/datum/gear/greyplushie
+	display_name = "Grey Plushie"
+	path = /obj/item/toy/plushie/greyplushie
+
 /datum/gear/sechud
 	display_name = "Classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
@@ -199,7 +203,7 @@
 /datum/gear/mug/department/sec
 	display_name = "Coffee mug, security"
 	description = "An officer's coffee mug, emblazoned in the colors of the Security department."
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Internal Affairs Agent")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Internal Affairs Agent")
 	path = /obj/item/reagent_containers/food/drinks/mug/sec
 
 /datum/gear/mug/department/serv

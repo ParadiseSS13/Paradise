@@ -285,6 +285,15 @@ BLIND     // can't see anything
 	else
 		return ..()
 
+/**
+ * Tries to turn the sensors off. Returns TRUE if it succeeds
+ */
+/obj/item/clothing/under/proc/turn_sensors_off()
+	if(has_sensor != 1)
+		return FALSE
+	sensor_mode = SUIT_SENSOR_OFF
+	return TRUE
+
 /obj/item/clothing/under/proc/set_sensors(mob/user as mob)
 	var/mob/M = user
 	if(istype(M, /mob/dead/)) return
@@ -689,6 +698,26 @@ BLIND     // can't see anything
 		return TRUE
 
 	. = ..()
+
+/obj/item/clothing/under/serialize()
+	var/data = ..()
+	var/list/accessories_list = list()
+	data["accessories"] = accessories_list
+	for(var/obj/item/clothing/accessory/A in accessories)
+		accessories_list.len++
+		accessories_list[accessories_list.len] = A.serialize()
+
+	return data
+
+/obj/item/clothing/under/deserialize(list/data)
+	for(var/thing in accessories)
+		remove_accessory(src, thing)
+	for(var/thing in data["accessories"])
+		if(islist(thing))
+			var/obj/item/clothing/accessory/A = list_to_object(thing, src)
+			A.has_suit = src
+			accessories += A
+	..()
 
 /obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/A, mob/user, unequip = FALSE)
 	if(can_attach_accessory(A))

@@ -84,6 +84,10 @@ jobs:
           sudo apt update || true
           sudo apt install libssl1.1:i386
           ldd librust_g.so
+      - name: Start Redis
+        uses: supercharge/redis-github-action@1.4.0
+        with:
+          redis-version: 6
       - name: Compile & Run Unit Tests
         run: |
           tools/ci/install_byond.sh
@@ -94,7 +98,7 @@ jobs:
 
   windows_dll_tests:
     name: Windows RUSTG Validation
-    runs-on: windows-2016
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2

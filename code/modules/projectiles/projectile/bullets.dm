@@ -12,6 +12,10 @@
 	damage = 5
 	stamina = 80
 
+/obj/item/projectile/bullet/c38
+	name = ".38 bullet"
+	damage = 25
+
 /obj/item/projectile/bullet/weakbullet/booze
 
 /obj/item/projectile/bullet/weakbullet/booze/on_hit(atom/target, blocked = 0)
@@ -31,25 +35,11 @@
 			M.AdjustDrowsy(10)
 			A.volume += 5 //Because we can
 
-/obj/item/projectile/bullet/weakbullet2  //detective revolver
+/obj/item/projectile/bullet/weakbullet2
 	name = "rubber bullet"
 	damage = 5
 	stamina = 35
 	icon_state = "bullet-r"
-
-/obj/item/projectile/bullet/weakbullet2/invisible //finger gun bullets
-	name = "invisible bullet"
-	damage = 0
-	weaken = 3
-	stamina = 60
-	icon_state = null
-	hitsound_wall = null
-
-/obj/item/projectile/bullet/weakbullet2/invisible/fake
-	weaken = 0
-	stamina = 0
-	nodamage = 1
-	log_override = TRUE
 
 /obj/item/projectile/bullet/weakbullet3
 	damage = 20
@@ -165,7 +155,7 @@
 /obj/item/projectile/bullet/heavybullet
 	damage = 35
 
-/obj/item/projectile/bullet/stunshot//taser slugs for shotguns, nothing special
+/obj/item/projectile/bullet/stunshot //taser slugs for shotguns, nothing special
 	name = "stunshot"
 	damage = 5
 	stun = 5
@@ -196,44 +186,44 @@
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "dust"
 	damage = 30
-	weaken = 8
-	stun = 8
+	stun = 1
+	weaken = 4
 	hitsound = 'sound/effects/meteorimpact.ogg'
 
 /obj/item/projectile/bullet/meteorshot/on_hit(atom/target, blocked = 0)
 	..()
-	if(istype(target, /atom/movable))
+	if(ismovable(target))
 		var/atom/movable/M = target
-		var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
-		M.throw_at(throw_target, 3, 2)
+		if(M.move_resist < INFINITY)
+			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
+			M.throw_at(throw_target, 3, 2)
 
 /obj/item/projectile/bullet/meteorshot/New()
 	..()
 	SpinAnimation()
 
-/obj/item/projectile/bullet/meteorshot/weak
-	damage = 10
-	weaken = 4
-	stun = 4
-
 /obj/item/projectile/bullet/mime
-	damage = 0
-	stun = 5
-	weaken = 5
-	slur = 20
-	stutter = 20
+	damage = 40
+	var/special_effects = TRUE
 
 /obj/item/projectile/bullet/mime/on_hit(atom/target, blocked = 0)
 	..(target, blocked)
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		M.Silence(10)
-	else if(istype(target, /obj/mecha/combat/honker))
-		var/obj/mecha/chassis = target
-		chassis.occupant_message("A mimetech anti-honk bullet has hit \the [chassis]!")
-		chassis.use_power(chassis.get_charge() / 2)
-		for(var/obj/item/mecha_parts/mecha_equipment/weapon/honker in chassis.equipment)
-			honker.set_ready_state(0)
+	if(special_effects)
+		if(iscarbon(target))
+			var/mob/living/carbon/M = target
+			M.Silence(10)
+		else if(istype(target, /obj/mecha/combat/honker))
+			var/obj/mecha/chassis = target
+			chassis.occupant_message("A mimetech anti-honk bullet has hit \the [chassis]!")
+			chassis.use_power(chassis.get_charge() / 2)
+			for(var/obj/item/mecha_parts/mecha_equipment/weapon/honker in chassis.equipment)
+				honker.set_ready_state(0)
+
+/obj/item/projectile/bullet/mime/fake
+	damage = 0
+	nodamage = TRUE
+	special_effects = FALSE
+	log_override = TRUE
 
 /obj/item/projectile/bullet/dart
 	name = "dart"

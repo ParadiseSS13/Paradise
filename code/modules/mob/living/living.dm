@@ -494,6 +494,7 @@
 			human_mob.decaylevel = 0
 			human_mob.remove_all_embedded_objects()
 
+	SEND_SIGNAL(src, COMSIG_LIVING_AHEAL)
 	restore_all_organs()
 	surgeries.Cut() //End all surgeries.
 	if(stat == DEAD)
@@ -663,7 +664,7 @@
 			return
 
 	//unbuckling yourself
-	if(buckled && last_special <= world.time)
+	if(buckled)
 		resist_buckle()
 
 	//Breaking out of a container (Locker, sleeper, cryo...)
@@ -674,7 +675,7 @@
 	else if(canmove)
 		if(on_fire)
 			resist_fire() //stop, drop, and roll
-		else if(last_special <= world.time)
+		else
 			resist_restraints() //trying to remove cuffs.
 
 /*////////////////////
@@ -770,15 +771,24 @@
 
 /mob/living/proc/check_ear_prot()
 
+/**
+ * Returns the name override, if any, for the slot somebody is trying to strip
+ */
+/mob/living/proc/get_strip_slot_name_override(slot)
+	switch(slot)
+		if(slot_wear_pda)
+			return "PDA"
+
 // The src mob is trying to strip an item from someone
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
 /mob/living/stripPanelUnequip(obj/item/what, mob/who, where, silent = 0)
+	var/item_name = get_strip_slot_name_override(where) || what.name
 	if(what.flags & NODROP)
-		to_chat(src, "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>")
+		to_chat(src, "<span class='warning'>You can't remove \the [item_name], it appears to be stuck!</span>")
 		return
 	if(!silent)
-		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
-						"<span class='userdanger'>[src] tries to remove [who]'s [what.name].</span>")
+		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [item_name].</span>", \
+						"<span class='userdanger'>[src] tries to remove [who]'s [item_name].</span>")
 	what.add_fingerprint(src)
 	if(do_mob(src, who, what.strip_delay))
 		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
@@ -827,6 +837,8 @@
 /mob/living/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!used_item)
 		used_item = get_active_hand()
+		if(!visual_effect_icon && used_item?.attack_effect_override)
+			visual_effect_icon = used_item.attack_effect_override
 	..()
 	floating = FALSE // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
@@ -834,10 +846,8 @@
 	var/amplitude = min(4, (jitteriness / 100) + 1)
 	var/pixel_x_diff = rand(-amplitude, amplitude)
 	var/pixel_y_diff = rand(-amplitude / 3, amplitude / 3)
-	var/final_pixel_x = get_standard_pixel_x_offset(lying)
-	var/final_pixel_y = get_standard_pixel_y_offset(lying)
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = loop_amount)
-	animate(pixel_x = final_pixel_x , pixel_y = final_pixel_y , time = 2)
+	animate(src, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff , time = 2, loop = loop_amount, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+	animate(pixel_x = -pixel_x_diff , pixel_y = -pixel_y_diff , time = 2, flags = ANIMATION_RELATIVE)
 	floating = FALSE // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
 
@@ -1031,3 +1041,7 @@
 			update_transform()
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
+
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force)
+	stop_pulling()
+	return ..()

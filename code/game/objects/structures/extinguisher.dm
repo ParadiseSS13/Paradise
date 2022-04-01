@@ -19,6 +19,7 @@
 
 /obj/structure/extinguisher_cabinet/Initialize(mapload, direction = null)
 	. = ..()
+	name = "extinguisher cabinet"
 	if(direction)
 		setDir(direction)
 		set_pixel_offsets_from_dir(28, -28, 30, -30)

@@ -59,6 +59,25 @@
 	/// Last color calculated for the the chatmessage overlays. Used for caching.
 	var/chat_color
 
+	///Icon-smoothing behavior.
+	var/smoothing_flags = NONE
+	///Smoothing variable
+	var/top_left_corner
+	///Smoothing variable
+	var/top_right_corner
+	///Smoothing variable
+	var/bottom_left_corner
+	///Smoothing variable
+	var/bottom_right_corner
+	///What smoothing groups does this atom belongs to, to match canSmoothWith. If null, nobody can smooth with it.
+	var/list/smoothing_groups = null
+	///List of smoothing groups this atom can smooth with. If this is null and atom is smooth, it smooths only with itself.
+	var/list/canSmoothWith = null
+	///What directions this is currently smoothing with. IMPORTANT: This uses the smoothing direction flags as defined in icon_smoothing.dm, instead of the BYOND flags.
+	var/smoothing_junction = null //This starts as null for us to know when it's first set, but after that it will hold a 8-bit mask ranging from 0 to 255.
+	///Used for changing icon states for different base sprites.
+	var/base_icon_state
+
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
@@ -107,6 +126,15 @@
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
 	ComponentInitialize()
+
+	if(length(smoothing_groups))
+		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
+		SET_BITFLAG_LIST(smoothing_groups)
+	if(length(canSmoothWith))
+		sortTim(canSmoothWith)
+		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
+			smoothing_flags |= SMOOTH_OBJ
+		SET_BITFLAG_LIST(canSmoothWith)
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -322,9 +350,7 @@
 			found += A.search_contents_for(path, filter_path)
 	return found
 
-
-//All atoms
-/atom/proc/examine(mob/user, infix = "", suffix = "")
+/atom/proc/build_base_description(infix = "", suffix = "")
 	//This reformat names to get a/an properly working on item descriptions when they are bloody
 	var/f_name = "\a [src][infix]."
 	if(src.blood_DNA && !istype(src, /obj/effect/decal))
@@ -340,6 +366,8 @@
 	if(desc)
 		. += desc
 
+/atom/proc/build_reagent_description(mob/user)
+	. = list()
 	if(reagents)
 		if(container_type & TRANSPARENT)
 			. += "<span class='notice'>It contains:</span>"
@@ -358,6 +386,10 @@
 				. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
 			else
 				. += "<span class='danger'>It's empty.</span>"
+
+/atom/proc/examine(mob/user, infix = "", suffix = "")
+	. = build_base_description(infix, suffix)
+	. += build_reagent_description(user)
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
@@ -1138,6 +1170,21 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(degrees)
 		appearance_flags |= PIXEL_SCALE
 	transform = M
+
+//Update the screentip to reflect what we're hovering over
+/atom/MouseEntered(location, control, params)
+	if(!usr || !usr.client)
+		return
+	var/datum/hud/active_hud = usr.hud_used
+	if(!active_hud)
+		return
+	var/screentip_mode = usr.client.prefs.screentip_mode
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
+		active_hud.screentip_text.maptext = ""
+		return
+	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
+	var/screentip_color = usr.client.prefs.screentip_color
+	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [screentip_color]'>[name]</span>"
 
 /*
 	Setter for the `density` variable.

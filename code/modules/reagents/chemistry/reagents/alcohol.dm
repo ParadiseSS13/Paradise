@@ -302,7 +302,7 @@
 	taste_description = "a long, fiery burn"
 
 /datum/reagent/consumable/ethanol/threemileisland
-	name = "THree Mile Island Iced Tea"
+	name = "Three Mile Island Iced Tea"
 	id = "threemileisland"
 	description = "Made for a woman, strong enough for a man."
 	reagent_state = LIQUID
@@ -530,7 +530,6 @@
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
 	drink_icon = "beepskysmashglass"
-	description = "Whiskey-imbued cream, what else would you expect from the Irish."
 	drink_name = "Beepsky Smash"
 	drink_desc = "Heavy, hot and strong. Just like the Iron fist of the LAW."
 	taste_description = "THE LAW"
@@ -543,6 +542,7 @@
 /datum/reagent/consumable/ethanol/irish_cream
 	name = "Irish Cream"
 	id = "irishcream"
+	description = "Whiskey-imbued cream, what else would you expect from the Irish."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
@@ -1344,17 +1344,18 @@
 	alcohol_perc /= volume //Blending alcohol percentage to volume.
 	generate_data_info(data)
 
+#define MIN_WINE_PERCENT 0.15 //Percentages measured between 0 and 1.
+
 /datum/reagent/consumable/ethanol/fruit_wine/proc/generate_data_info(list/data)
-	var/minimum_percent = 0.15 //Percentages measured between 0 and 1.
 	var/list/primary_tastes = list()
 	var/list/secondary_tastes = list()
 	drink_name = "glass of [name]"
 	drink_desc = description
 	for(var/taste in tastes)
 		switch(tastes[taste])
-			if(minimum_percent*2 to INFINITY)
+			if(MIN_WINE_PERCENT*2 to INFINITY)
 				primary_tastes += taste
-			if(minimum_percent to minimum_percent*2)
+			if(MIN_WINE_PERCENT to MIN_WINE_PERCENT*2)
 				secondary_tastes += taste
 
 	var/minimum_name_percent = 0.35
@@ -1408,6 +1409,8 @@
 	if(holder.my_atom)
 		holder.my_atom.on_reagent_change()
 
+#undef MIN_WINE_PERCENT
+
 /datum/reagent/consumable/ethanol/bacchus_blessing //An EXTREMELY powerful drink. Smashed in seconds, dead in minutes.
 	name = "Bacchus' Blessing"
 	id = "bacchus_blessing"
@@ -1441,6 +1444,8 @@
 			if(2)
 				update_flags |= M.adjustToxLoss(1, FALSE)
 				to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
+			else
+				pass()
 	else
 		if(prob(60))
 			M.adjust_nutrition(-remove_nutrition)

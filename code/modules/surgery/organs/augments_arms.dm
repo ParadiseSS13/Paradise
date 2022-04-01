@@ -171,7 +171,7 @@
 		owner.adjust_fire_stacks(20)
 		owner.IgniteMob()
 		owner.adjustFireLoss(25)
-		crit_fail = 1
+		crit_fail = TRUE
 	else // The gun will still discharge anyway.
 		..()
 

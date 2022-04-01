@@ -52,6 +52,9 @@
 
 /obj/item/grown/bananapeel/Initialize(mapload)
 	. = ..()
+	choose_icon_state()
+
+/obj/item/grown/bananapeel/proc/choose_icon_state()
 	icon_state = "[icon_state]_[rand(1, 3)]"
 
 /obj/item/grown/bananapeel/suicide_act(mob/user)

@@ -22,8 +22,8 @@
 	else
 		return ..()
 
-/datum/construction/mecha/spawn_result(name)
-	SSblackbox.record_feedback("tally", "mechas_created", 1, "[name]")
+/datum/construction/mecha/spawn_result(mob/user, result_name)
+	SSblackbox.record_feedback("tally", "mechas_created", 1, "[result_name]")
 
 /datum/construction/reversible/mecha/custom_action(index as num, diff as num, atom/used_atom, mob/user as mob)
 	if(istype(used_atom, /obj/item/stack/cable_coil))
@@ -65,8 +65,8 @@
 /datum/construction/mecha/ripley_chassis/action(atom/used_atom,mob/user as mob)
 	return check_all_steps(used_atom,user)
 
-/datum/construction/mecha/ripley_chassis/spawn_result()
-	..("Ripley")
+/datum/construction/mecha/ripley_chassis/spawn_result(mob/user, result_name)
+	..(user, "Ripley")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/ripley(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -270,8 +270,8 @@
 /datum/construction/mecha/gygax_chassis/action(atom/used_atom,mob/user as mob)
 	return check_all_steps(used_atom,user)
 
-/datum/construction/mecha/gygax_chassis/spawn_result()
-	..("Gygax")
+/datum/construction/mecha/gygax_chassis/spawn_result(mob/user, result_name)
+	..(user, "Gygax")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/gygax(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -545,8 +545,8 @@
 /datum/construction/mecha/firefighter_chassis/action(atom/used_atom,mob/user as mob)
 	return check_all_steps(used_atom,user)
 
-/datum/construction/mecha/firefighter_chassis/spawn_result()
-	..("Firefighter Ripley")
+/datum/construction/mecha/firefighter_chassis/spawn_result(mob/user, result_name)
+	..(user, "Firefighter Ripley")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/firefighter(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -764,8 +764,8 @@
 	qdel(used_atom)
 	return 1
 
-/datum/construction/mecha/honker_chassis/spawn_result()
-	..("Honker")
+/datum/construction/mecha/honker_chassis/spawn_result(mob/user, result_name)
+	..(user, "Honker")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/honker(const_holder)
 	const_holder.density = 1
@@ -836,8 +836,8 @@
 	qdel(used_atom)
 	return 1
 
-/datum/construction/mecha/reticence_chassis/spawn_result()
-	..("Reticence")
+/datum/construction/mecha/reticence_chassis/spawn_result(mob/user, result_name)
+	..(user, "Reticence")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/reticence(const_holder)
 	const_holder.density = 1
@@ -910,8 +910,8 @@
 /datum/construction/mecha/durand_chassis/action(atom/used_atom,mob/user as mob)
 	return check_all_steps(used_atom,user)
 
-/datum/construction/mecha/durand_chassis/spawn_result()
-	..("Durand")
+/datum/construction/mecha/durand_chassis/spawn_result(mob/user, result_name)
+	..(user, "Durand")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/durand(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -1188,8 +1188,8 @@
 /datum/construction/mecha/phazon_chassis/action(atom/used_atom,mob/user as mob)
 	return check_all_steps(used_atom,user)
 
-/datum/construction/mecha/phazon_chassis/spawn_result()
-	..("Phazon")
+/datum/construction/mecha/phazon_chassis/spawn_result(mob/user, result_name)
+	..(user, "Phazon")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/phazon(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -1507,8 +1507,8 @@
 /datum/construction/mecha/odysseus_chassis/action(atom/used_atom,mob/user as mob)
 	return check_all_steps(used_atom,user)
 
-/datum/construction/mecha/odysseus_chassis/spawn_result()
-	..("Odysseus")
+/datum/construction/mecha/odysseus_chassis/spawn_result(mob/user, result_name)
+	..(user, "Odysseus")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/odysseus(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'

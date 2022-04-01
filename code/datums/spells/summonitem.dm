@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/targeted/summonitem
+/obj/effect/proc_holder/spell/summonitem
 	name = "Instant Summons"
 	desc = "This spell can be used to recall a previously marked item to your hand from anywhere in the universe."
 	school = "transmutation"
@@ -6,17 +6,18 @@
 	clothes_req = 0
 	invocation = "GAR YOK"
 	invocation_type = "whisper"
-	range = -1
 	level_max = 0 //cannot be improved
 	cooldown_min = 100
-	include_user = 1
 
 	var/obj/marked_item
 	/// List of objects which will result in the spell stopping with the recursion search
 	var/static/list/blacklisted_summons = list(/obj/machinery/computer/cryopod = TRUE, /obj/machinery/atmospherics = TRUE, /obj/structure/disposalholder = TRUE, /obj/machinery/disposal = TRUE)
 	action_icon_state = "summons"
 
-/obj/effect/proc_holder/spell/targeted/summonitem/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/summonitem/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/summonitem/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		var/list/hand_items = list(target.get_active_hand(),target.get_inactive_hand())
 		var/butterfingers = 0
@@ -79,7 +80,7 @@
 						for(var/X in C.bodyparts)
 							var/obj/item/organ/external/part = X
 							if(item_to_retrieve in part.embedded_objects)
-								part.embedded_objects -= item_to_retrieve
+								part.remove_embedded_object(item_to_retrieve)
 								to_chat(C, "<span class='warning'>\The [item_to_retrieve] that was embedded in your [part] has mysteriously vanished. How fortunate!</span>")
 								if(!C.has_embedded_objects())
 									C.clear_alert("embeddedobject")

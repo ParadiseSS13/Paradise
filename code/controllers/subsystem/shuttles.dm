@@ -175,8 +175,6 @@ SUBSYSTEM_DEF(shuttle)
 		return
 	if(!emergency.canRecall)
 		return
-	if(SSticker.mode.name == "meteor")
-		return
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
 		if(emergency.timeLeft(1) < emergencyCallTime * 0.25)
 			return

@@ -88,7 +88,7 @@
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	light_range = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-	var/base_icon_state = "darkmatter"
+	base_icon_state = "darkmatter"
 
 	///The id of our supermatter
 	var/supermatter_id = 1
@@ -731,18 +731,33 @@
 	if(moveable && default_unfasten_wrench(user, I, time = 20))
 		return
 	if(istype(I, /obj/item/scalpel/supermatter))
-		var/obj/item/scalpel/supermatter/scalpel = I
-		to_chat(user, "<span class='notice'>You carefully begin to scrape [src] with [I]...</span>")
-		if(I.use_tool(src, user, 10 SECONDS, volume = 100))
-			if(scalpel.uses_left)
-				to_chat(user, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
-				new /obj/item/nuke_core/supermatter_sliver(drop_location())
-				matter_power += 800
-				scalpel.uses_left--
-				if(!scalpel.uses_left)
-					to_chat(user, "<span class='boldwarning'>A tiny piece of [I] falls off, rendering it useless!</span>")
-			else
-				to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")
+		if(ishuman(user))
+			var/mob/living/carbon/human/M = user
+			var/obj/item/scalpel/supermatter/scalpel = I
+			to_chat(M, "<span class='notice'>You carefully begin to scrape [src] with [I]...</span>")
+			if(I.use_tool(src, M, 10 SECONDS, volume = 100))
+				if(scalpel.uses_left)
+					to_chat(M, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
+					matter_power += 800
+					scalpel.uses_left--
+					if(!scalpel.uses_left)
+						to_chat(M, "<span class='boldwarning'>A tiny piece of [I] falls off, rendering it useless!</span>")
+
+					var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
+
+					var/obj/item/retractor/supermatter/tongs = M.is_in_hands(/obj/item/retractor/supermatter)
+
+					if(tongs && !tongs.sliver)
+						tongs.sliver = S
+						S.forceMove(tongs)
+						tongs.icon_state = "supermatter_tongs_loaded"
+						tongs.item_state = "supermatter_tongs_loaded"
+						to_chat(M, "<span class='notice'>You pick up [S] with [tongs]!</span>")
+				else
+					to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")
+		return
+	if(istype(I, /obj/item/retractor/supermatter))
+		to_chat(user, "<span class='notice'>[I] bounces off [src], you need to cut a sliver off first!</span>")
 	else if(user.drop_item())
 		user.visible_message("<span class='danger'>As [user] touches [src] with \a [I], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch [src] with [I], and everything suddenly goes silent.</span>\n<span class='notice'>[I] flashes into dust as you flinch away from [src].</span>",\

@@ -2,6 +2,7 @@
 #define AB_CHECK_STUNNED 2
 #define AB_CHECK_LYING 4
 #define AB_CHECK_CONSCIOUS 8
+#define AB_CHECK_TURF 16
 
 
 /datum/action
@@ -82,6 +83,9 @@
 			return FALSE
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		if(owner.stat)
+			return FALSE
+	if(check_flags & AB_CHECK_TURF)
+		if(!isturf(owner.loc))
 			return FALSE
 	return TRUE
 
@@ -528,9 +532,6 @@
 	if(!target)
 		return FALSE
 	var/obj/effect/proc_holder/spell/spell = target
-
-	if(spell.special_availability_check)
-		return TRUE
 
 	if(owner)
 		return spell.can_cast(owner)

@@ -1,17 +1,19 @@
-/obj/effect/proc_holder/spell/targeted/rathens
+/obj/effect/proc_holder/spell/rathens
 	name = "Rathen's Secret"
 	desc = "Summons a powerful shockwave around you that tears the appendix and limbs off of enemies."
 	charge_max = 500
 	clothes_req = 1
 	invocation = "APPEN NATH!"
 	invocation_type = "shout"
-	max_targets = 0
-	range = 7
 	cooldown_min = 200
-	selection_type = "view"
 	action_icon_state = "lungpunch"
 
-/obj/effect/proc_holder/spell/targeted/rathens/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/rathens/create_new_targeting()
+	var/datum/spell_targeting/targeted/T = new()
+	T.max_targets = INFINITY
+	return T
+
+/obj/effect/proc_holder/spell/rathens/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/human/H in targets)
 		var/datum/effect_system/smoke_spread/s = new
 		s.set_up(5, 0, H)

@@ -272,14 +272,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	containername = "laser crate"
 
-/datum/supply_packs/security/taser
-	name = "Stun Guns Crate"
-	contains = list(/obj/item/gun/energy/gun/advtaser,
-					/obj/item/gun/energy/gun/advtaser,
-					/obj/item/gun/energy/gun/advtaser)
-	cost = 15
-	containername = "stun gun crate"
-
 /datum/supply_packs/security/disabler
 	name = "Disabler Crate"
 	contains = list(/obj/item/gun/energy/disabler,
@@ -507,7 +499,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 				/obj/item/reagent_containers/spray/pepper,
 				/obj/item/flash,
 				/obj/item/grenade/flashbang,
-				/obj/item/storage/belt/security/sec,
+				/obj/item/storage/belt/security,
 				/obj/item/holosign_creator/security,
 				/obj/item/clothing/mask/gas/sechailer,
 				/obj/item/clothing/glasses/hud/security/sunglasses,

@@ -435,9 +435,6 @@
 		if(SSticker.mode.apprentices.len)
 			dat += check_role_table("Apprentices", SSticker.mode.apprentices)
 
-		if(SSticker.mode.raiders.len)
-			dat += check_role_table("Raiders", SSticker.mode.raiders)
-
 		/*if(ticker.mode.ninjas.len)
 			dat += check_role_table("Ninjas", ticker.mode.ninjas)*/
 

@@ -175,6 +175,18 @@
 	else
 		..()
 
+
+/mob/living/simple_animal/cow/npc_safe(mob/user)
+	return TRUE
+
+/mob/living/simple_animal/cow/betsy
+	name = "Betsy"
+	real_name = "Betsy"
+	unique_pet = TRUE
+
+/mob/living/simple_animal/cow/betsy/npc_safe(mob/user) // depriving the chef of his animals is not cool
+	return FALSE
+
 /mob/living/simple_animal/chick
 	name = "\improper chick"
 	desc = "Adorable! They make such a racket though."
@@ -221,6 +233,10 @@
 			if(mind)
 				mind.transfer_to(C)
 			qdel(src)
+
+
+/mob/living/simple_animal/chick/npc_safe(mob/user)
+	return TRUE
 
 #define MAX_CHICKENS 50
 GLOBAL_VAR_INIT(chicken_count, 0)
@@ -320,6 +336,32 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	else
 		STOP_PROCESSING(SSobj, src)
 
+/mob/living/simple_animal/chicken/npc_safe(mob/user)
+	return TRUE
+
+/mob/living/simple_animal/chicken/clucky
+	name = "Commander Clucky"
+	real_name = "Commander Clucky"
+	unique_pet = TRUE
+
+/mob/living/simple_animal/chicken/clucky/npc_safe(mob/user) // depriving the chef of his animals is not cool
+	return FALSE
+
+/mob/living/simple_animal/chicken/kentucky
+	name = "Kentucky"
+	real_name = "Kentucky"
+	unique_pet = TRUE
+
+/mob/living/simple_animal/chicken/kentucky/npc_safe(mob/user)
+	return FALSE
+
+/mob/living/simple_animal/chicken/featherbottom
+	name = "Featherbottom"
+	real_name = "Featherbottom"
+	unique_pet = TRUE
+
+/mob/living/simple_animal/chicken/featherbottom/npc_safe(mob/user)
+	return FALSE
 
 /mob/living/simple_animal/pig
 	name = "pig"

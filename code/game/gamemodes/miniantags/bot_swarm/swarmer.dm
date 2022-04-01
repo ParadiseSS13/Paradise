@@ -502,7 +502,7 @@
 		return
 
 	var/turf/simulated/floor/F
-	F = find_safe_turf(zlevels = z, extended_safety_checks = TRUE)
+	F = find_safe_turf(zlevels = z)
 
 	if(!F)
 		return

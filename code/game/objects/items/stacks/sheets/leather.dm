@@ -56,6 +56,14 @@ GLOBAL_LIST_INIT(lizard_recipes, list( \
 	recipes = GLOB.lizard_recipes
 	return ..()
 
+/obj/item/stack/sheet/fur //basic fur sheets
+	name = "pile of fur"
+	desc = "Vulp remains."
+	singular_name = "fur piece"
+	icon_state = "sheet-fur"
+	origin_tech = "materials=2"
+	max_amount = 50
+
 /obj/item/stack/sheet/animalhide/xeno
 	name = "alien hide"
 	desc = "The skin of a terrible creature."

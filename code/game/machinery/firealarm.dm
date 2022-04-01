@@ -278,6 +278,10 @@ FIRE ALARM
 	LAZYADD(myArea.firealarms, src)
 	update_icon()
 
+/obj/machinery/firealarm/Initialize(mapload)
+	. = ..()
+	name = "fire alarm"
+
 /obj/machinery/firealarm/Destroy()
 	LAZYREMOVE(myArea.firealarms, src)
 	return ..()

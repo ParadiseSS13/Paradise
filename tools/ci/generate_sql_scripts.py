@@ -18,7 +18,7 @@ orderedSqlFiles = sorted(orderedSqlFiles)
 for index in orderedSqlFiles:
     # Yes I know half of the casts below this are probably not necassary, but python is very picky
     # AND YES I KNOW THIS IS SNOWFLAKEY AS HELL, BUT IT MUST BE DONE FOR PROPER CI
-    if index in [16, 17]:
+    if index in [16, 17, 31]:
         orderedSqlFiles[index] = str(index) + "-" + (str(int(index)+1)) + ".py"
     else:
         orderedSqlFiles[index] = str(index) + "-" + (str(int(index)+1)) + ".sql"
@@ -57,6 +57,8 @@ for file in orderedSqlFiles:
             scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root paradise_gamedb feedback round\n")
         elif file == "17-18.py":
             scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root paradise_gamedb feedback feedback_2\n")
+        elif file == "31-32.py":
+            scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root paradise_gamedb\n")
         else:
             print("ERROR: CI failed due to invalid python file in SQL/updates")
             exit(1)

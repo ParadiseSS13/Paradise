@@ -2,8 +2,9 @@
 	name = "Dye Generator"
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "barbervend"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
+	integrity_failure = 100
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	var/dye_color = "#FFFFFF"
@@ -12,20 +13,25 @@
 	..()
 	power_change()
 
+/obj/machinery/dye_generator/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/metal(loc, 3)
+	qdel(src)
+
 /obj/machinery/dye_generator/power_change()
-	if(stat & BROKEN)
-		icon_state = "[initial(icon_state)]-broken"
-		set_light(0)
+	if(powered() && anchored)
+		stat &= ~NOPOWER
+		set_light(2, l_color = dye_color)
 	else
-		if(powered())
-			icon_state = initial(icon_state)
-			stat &= ~NOPOWER
-			set_light(2, l_color = dye_color)
-		else
-			spawn(rand(0, 15))
-				src.icon_state = "[initial(icon_state)]-off"
-				stat |= NOPOWER
-				set_light(0)
+		stat |= NOPOWER
+		set_light(0)
+	update_icon()
+
+/obj/machinery/dye_generator/update_icon()
+	cut_overlays()
+	if(stat & (BROKEN|NOPOWER))
+		add_overlay("barbervend_off")
+		if(stat & BROKEN)
+			add_overlay("barbervend_broken")
 
 /obj/machinery/dye_generator/attack_hand(mob/user)
 	..()
@@ -48,6 +54,11 @@
 		HD.update_dye_overlay()
 		return
 	return ..()
+
+/obj/machinery/dye_generator/obj_break(damage_flag)
+	if(!(stat & BROKEN))
+		stat |= BROKEN
+		update_icon()
 
 //Hair Dye Bottle
 

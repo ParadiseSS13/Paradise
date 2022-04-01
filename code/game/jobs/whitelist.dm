@@ -1,66 +1,62 @@
 /proc/is_job_whitelisted(mob/M, rank)
-	if(guest_jobbans(rank))
-		if(!GLOB.configuration.general.enable_karma)
-			return TRUE
-		if(check_rights(R_ADMIN, 0, M))
-			return TRUE
-		if(!SSdbcore.IsConnected())
-			return FALSE
-		else
-			var/datum/db_query/job_read = SSdbcore.NewQuery(
-				"SELECT job FROM whitelist WHERE ckey=:ckey",
-				list("ckey" = M.ckey)
-			)
-
-			if(!job_read.warn_execute(async = FALSE)) // Dont async this. Youll make roundstart slow.
-				qdel(job_read)
-				return FALSE
-
-			. = FALSE
-			while(job_read.NextRow())
-				var/joblist = job_read.item[1]
-				if(joblist != "*")
-					var/allowed_jobs = splittext(joblist, ",")
-					if(rank in allowed_jobs)
-						. = TRUE
-						break
-				else
-					. = TRUE
-					break
-
-			qdel(job_read)
-	else
+	if(!check_job_karma(rank)) // If it aint a karma job, let them play
+		return TRUE
+	if(!GLOB.configuration.general.enable_karma)
+		return TRUE
+	if(check_rights(R_ADMIN, FALSE, M))
 		return TRUE
 
-/proc/is_alien_whitelisted(mob/M, species)
+	var/package_id = job2package(rank)
+	if(!package_id) // Not a valid karma package
+		return TRUE
+	if(M.client.karmaholder.hasPackage(package_id)) // They have it
+		return TRUE
+
+	return FALSE
+
+/proc/can_use_species(mob/M, species)
 	if(!GLOB.configuration.general.enable_karma)
 		return TRUE
 	if(species == "human" || species == "Human")
 		return TRUE
-	if(check_rights(R_ADMIN, 0))
+	if(check_rights(R_ADMIN, FALSE))
 		return TRUE
-	if(!SSdbcore.IsConnected())
+
+	// Cant be using this if youre not an admin
+	var/datum/species/S = GLOB.all_species[species]
+	if(S.blacklisted)
 		return FALSE
-	else
-		var/datum/db_query/species_read = SSdbcore.NewQuery(
-			"SELECT species FROM whitelist WHERE ckey=:ckey",
-			list("ckey" = M.ckey)
-		)
 
-		if(!species_read.warn_execute(async = FALSE)) // Dont async this one. It makes roundstart take 10 years.
-			qdel(species_read)
-			return FALSE
+	var/package_id = species2package(species)
+	if(!package_id)
+		return TRUE // Not a valid karma package
+	if(M.client.karmaholder.hasPackage(package_id)) // They have it
+		return TRUE
 
-		. = FALSE
-		while(species_read.NextRow())
-			var/specieslist = species_read.item[1]
-			if(specieslist != "*")
-				var/allowed_species = splittext(specieslist, ",")
-				if(species in allowed_species)
-					. = TRUE
-					break
-			else
-				. = TRUE
-				break
+	return FALSE
 
-		qdel(species_read)
+/proc/species2package(species_id)
+	switch(species_id)
+		if("Grey")
+			return KARMAPACKAGE_SPECIES_GREY
+		if("Kidan")
+			return KARMAPACKAGE_SPECIES_KIDAN
+		if("Slime People")
+			return KARMAPACKAGE_SPECIES_SLIMEPEOPLE
+		if("Vox")
+			return KARMAPACKAGE_SPECIES_VOX
+		if("Drask")
+			return KARMAPACKAGE_SPECIES_DRASK
+		if("Machine")
+			return KARMAPACKAGE_SPECIES_MACHINE
+		if("Plasmaman")
+			return KARMAPACKAGE_SPECIES_PLASMAMAN
+
+/proc/job2package(job_id)
+	switch(job_id)
+		if("Blueshield")
+			return KARMAPACKAGE_JOB_BLUESHIELD
+		if("Barber")
+			return KARMAPACKAGE_JOB_BARBER
+		if("Nanotrasen Representative")
+			return KARMAPACKAGE_JOB_NANOTRASENREPRESENTATIVE

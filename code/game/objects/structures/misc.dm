@@ -11,9 +11,6 @@
 	anchored = 1
 	density = 1
 
-/obj/structure/signpost/attack_hand(mob/user as mob)
-	to_chat(user, "Civilians: NT is recruiting! Please head SOUTH to the NT Recruitment office to join the station's crew!")
-
 /obj/structure/ninjatele
 
 	name = "Long-Distance Teleportation Console"

@@ -219,3 +219,6 @@
 	throwforce = 1
 	force = 1
 	attack_verb = list("slapped", "humiliated", "hit", "rubbed")
+
+/obj/item/grown/bananapeel/clownfish/choose_icon_state()
+	return

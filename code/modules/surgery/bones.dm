@@ -21,8 +21,8 @@
 			return 0
 		if(affected.is_robotic())
 			return 0
-		if(affected.cannot_break)
-			return 0
+		if(affected.limb_flags & CANNOT_BREAK)
+			return FALSE
 		if(affected.status & ORGAN_BROKEN)
 			return 1
 		return 1
@@ -43,7 +43,7 @@
 
 /datum/surgery_step/glue_bone/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		return affected && !affected.is_robotic() && !(affected.cannot_break)
+		return affected && !affected.is_robotic() && !(affected.limb_flags & CANNOT_BREAK)
 
 /datum/surgery_step/glue_bone/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)

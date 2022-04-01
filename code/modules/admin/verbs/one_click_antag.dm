@@ -19,8 +19,7 @@
 		<a href='?src=[UID()];makeAntag=4'>Make Cult</a><br>
 		<a href='?src=[UID()];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
 		<a href='?src=[UID()];makeAntag=6'>Make Vampires</a><br>
-		<a href='?src=[UID()];makeAntag=7'>Make Vox Raiders (Requires Ghosts)</a><br>
-		<a href='?src=[UID()];makeAntag=8'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -410,111 +409,6 @@
 
 	return new_syndicate_commando
 
-/datum/admins/proc/makeVoxRaiders()
-
-	var/list/mob/candidates = list()
-	var/mob/theghost = null
-	var/time_passed = world.time
-	var/input = "Disregard shinies, acquire hardware."
-
-	var/leader_chosen = 0 //when the leader is chosen. The last person spawned.
-
-	var/antnum = input(owner, "How many raiders you want to create? Enter 0 to cancel.","Amount:", 0) as num
-	if(!antnum || antnum <= 0)
-		return
-	log_admin("[key_name(owner)] tried making Vox Raiders with One-Click-Antag")
-	message_admins("[key_name_admin(owner)] tried making Vox Raiders with One-Click-Antag")
-//Generates a list of candidates from active ghosts.
-	for(var/mob/G in GLOB.respawnable_list)
-		if(istype(G) && G.client && (ROLE_RAIDER in G.client.prefs.be_special))
-			if(player_old_enough_antag(G.client,ROLE_RAIDER))
-				if(!jobban_isbanned(G, ROLE_RAIDER) && !jobban_isbanned(G, ROLE_SYNDICATE))
-					spawn(0)
-						switch(alert(G,"Do you wish to be considered for a vox raiding party arriving on the station?","Please answer in 30 seconds!","Yes","No"))
-							if("Yes")
-								if((world.time-time_passed)>300)//If more than 30 game seconds passed.
-									return
-								candidates += G
-							if("No")
-								return
-							else
-								return
-
-	sleep(300) //Debug.
-
-	for(var/mob/dead/observer/G in candidates)
-		if(!G.key)
-			candidates.Remove(G)
-
-	if(candidates.len)
-		var/raiders = min(antnum, candidates.len)
-		//Spawns vox raiders and equips them.
-		for(var/thing in GLOB.landmarks_list)
-			var/obj/effect/landmark/L = thing
-			if(L.name == "voxstart")
-				if(raiders<=0)
-					break
-
-				var/mob/living/carbon/human/new_vox = create_vox_raider(L, leader_chosen)
-
-				while((!theghost || !theghost.client) && candidates.len)
-					theghost = pick(candidates)
-					candidates.Remove(theghost)
-
-				if(!theghost)
-					qdel(new_vox)
-					break
-
-				new_vox.key = theghost.key
-				SSticker.mode.traitors += new_vox.mind
-
-				to_chat(new_vox, "<span class='notice'>You are a Vox Primalis, fresh out of the Shoal. Your ship has arrived at the Tau Ceti system hosting the NSV Exodus... or was it the Luna? NSS? Utopia? Nobody is really sure, but everyong is raring to start pillaging! Your current goal is: <span class='danger'> [input]</span></span>")
-				to_chat(new_vox, "<span class='warning'>Don't forget to turn on your nitrogen internals!</span>")
-
-				raiders--
-	else
-		return 0
-	return 1
-
-/datum/admins/proc/create_vox_raider(obj/spawn_location, leader_chosen = 0)
-
-	var/sounds = rand(2,8)
-	var/i = 0
-	var/newname = ""
-
-	while(i<=sounds)
-		i++
-		newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))
-
-	var/mob/living/carbon/human/new_vox = new /mob/living/carbon/human/vox(spawn_location.loc)
-
-	new_vox.add_language("Tradeband")
-	new_vox.real_name = capitalize(newname)
-	new_vox.dna.real_name = new_vox.real_name
-	new_vox.name = new_vox.real_name
-	new_vox.age = rand(12,20)
-	new_vox.flavor_text = ""
-	new_vox.change_eye_color(rand(1, 255), rand(1, 255), rand(1, 255))
-	new_vox.s_tone = rand(1, 6)
-
-	// Do the initial caching of the player's body icons.
-	new_vox.force_update_limbs()
-	new_vox.update_dna()
-	new_vox.update_eyes()
-
-	for(var/obj/item/organ/external/limb in new_vox.bodyparts)
-		limb.status &= ~ORGAN_ROBOT
-
-	//Now apply cortical stack.
-	var/obj/item/implant/cortical/I = new(new_vox)
-	I.implant(new_vox)
-	GLOB.cortical_stacks += I
-
-	new_vox.equip_vox_raider()
-	new_vox.regenerate_icons()
-
-	return new_vox
-
 /datum/admins/proc/makeVampires()
 
 	var/datum/game_mode/vampire/temp = new
@@ -540,7 +434,7 @@
 
 		for(var/i = 0, i<numVampires, i++)
 			H = pick(candidates)
-			H.mind.make_Vampire()
+			H.mind.make_vampire()
 			candidates.Remove(H)
 
 		return 1

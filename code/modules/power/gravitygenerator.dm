@@ -5,10 +5,10 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 #define GRAV_POWER_UP 1
 #define GRAV_POWER_DOWN 2
 
-#define GRAV_NEEDS_WELDING 0
-#define GRAV_NEEDS_PLASTEEL 1
-#define GRAV_NEEDS_WRENCH 2
-#define GRAV_NEEDS_SCREWDRIVER 3
+#define GRAV_NEEDS_WELDING "welding"
+#define GRAV_NEEDS_PLASTEEL "plasteel"
+#define GRAV_NEEDS_WRENCH "wrench"
+#define GRAV_NEEDS_SCREWDRIVER "screwdriver"
 
 //
 // Abstract Generator
@@ -22,7 +22,6 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	density = TRUE
 	use_power = NO_POWER_USE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	var/sprite_number = 0
 
 /obj/machinery/gravity_generator/ex_act(severity)
 	if(severity == 1) // Very sturdy.
@@ -36,10 +35,6 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	. = ..()
 	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
 		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
-
-/obj/machinery/gravity_generator/update_icon()
-	..()
-	icon_state = "[get_status()]_[sprite_number]"
 
 /obj/machinery/gravity_generator/proc/get_status()
 	return "off"
@@ -55,31 +50,12 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 /obj/machinery/gravity_generator/proc/set_fix()
 	stat &= ~BROKEN
 
-/obj/machinery/gravity_generator/part/Destroy()
-	set_broken()
-	QDEL_NULL(main_part)
-	return ..()
-
 //
-// Part generator which is mostly there for looks
+// Part generator which is mostly there for collision
 //
 
 /obj/machinery/gravity_generator/part
-	var/obj/machinery/gravity_generator/main/main_part = null
-
-/obj/machinery/gravity_generator/part/attackby(obj/item/I, mob/user, params)
-	return main_part.attackby(I, user, params)
-
-/obj/machinery/gravity_generator/part/get_status()
-	return main_part.get_status()
-
-/obj/machinery/gravity_generator/part/attack_hand(mob/user)
-	return main_part.attack_hand(user)
-
-/obj/machinery/gravity_generator/part/set_broken()
-	..()
-	if(main_part && !(main_part.stat & BROKEN))
-		main_part.set_broken()
+	invisibility = INVISIBILITY_ABSTRACT
 
 //
 // Generator which spawns with the station.
@@ -88,7 +64,6 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 /obj/machinery/gravity_generator/main/station/Initialize(mapload)
 	. = ..()
 	setup_parts()
-	middle.overlays += "activated"
 	update_gen_list()
 
 //
@@ -96,10 +71,10 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 //
 
 /obj/machinery/gravity_generator/main
-	icon_state = "on_8"
+	icon_state = "generator_body"
+	layer = MOB_LAYER + 0.1
 	active_power_usage = 3000
 	power_channel = ENVIRON
-	sprite_number = 8
 	use_power = IDLE_POWER_USE
 	interact_offline = TRUE
 	/// Is the generator producing gravity
@@ -108,14 +83,13 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	var/breaker_on = TRUE
 	/// Generator parts on adjacent tiles
 	var/list/parts = list()
-	/// The central part of the structure
-	var/obj/middle = null
 	/// Charging state (Idle, Charging, Discharging)
 	var/charging_state = GRAV_POWER_IDLE
 	/// Charge percentage
 	var/charge_count = 100
 	var/current_overlay = null
 	var/construction_state = GRAV_NEEDS_WELDING
+	var/overlay_state = "activated"
 
 /obj/machinery/gravity_generator/main/examine(mob/user)
 	. = ..()
@@ -137,7 +111,6 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	on = FALSE
 	update_gen_list()
 	for(var/obj/machinery/gravity_generator/part/O in parts)
-		O.main_part = null
 		qdel(O)
 	for(var/area/A in world)
 		if(!is_station_level(A.z))
@@ -148,41 +121,30 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 /obj/machinery/gravity_generator/main/proc/setup_parts()
 	var/turf/our_turf = get_turf(src)
-	// 9x9 block obtained from the bottom middle of the block
-	var/list/spawn_turfs = block(locate(our_turf.x - 1, our_turf.y + 2, our_turf.z), locate(our_turf.x + 1, our_turf.y, our_turf.z))
+	// 9x9 block obtained from the bottom left of the block
+	var/list/spawn_turfs = block(locate(our_turf.x + 2, our_turf.y + 2, our_turf.z), locate(our_turf.x, our_turf.y, our_turf.z))
 	var/count = 10
 	for(var/turf/T in spawn_turfs)
 		count--
-		if(T == our_turf) // Skip our turf.
+		if(T == our_turf) // Main body, skip it
 			continue
 		var/obj/machinery/gravity_generator/part/part = new(T)
-		if(count == 5) // Middle
-			middle = part
-		if(count <= 3) // Their sprite is the top part of the generator
+		if(count <= 3) // That section is the top part of the generator
 			part.density = FALSE
-			part.layer = MOB_LAYER + 0.1
-		part.sprite_number = count
-		part.main_part = src
 		parts += part
-		part.update_icon()
 
 /obj/machinery/gravity_generator/main/set_broken()
 	..()
-	for(var/obj/machinery/gravity_generator/M in parts)
-		if(!(M.stat & BROKEN))
-			M.set_broken()
-	middle.overlays.Cut()
 	charging_state = GRAV_POWER_IDLE
+	overlay_state = null
 	charge_count = 0
 	breaker_on = FALSE
+	update_icon()
 	set_gravity(FALSE)
 	investigate_log("has broken down.", "gravity")
 
 /obj/machinery/gravity_generator/main/set_fix()
 	..()
-	for(var/obj/machinery/gravity_generator/M in parts)
-		if(M.stat & BROKEN)
-			M.set_fix()
 	construction_state = initial(construction_state)
 	update_icon()
 	set_power()
@@ -282,7 +244,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 /obj/machinery/gravity_generator/main/get_status()
 	if(stat & BROKEN)
-		return "fix[construction_state]"
+		return "generator_[construction_state]"
 	if(on || charging_state != GRAV_POWER_IDLE)
 		return "on"
 	else
@@ -290,8 +252,13 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 /obj/machinery/gravity_generator/main/update_icon()
 	..()
-	for(var/obj/O in parts)
-		O.update_icon()
+	cut_overlays()
+	if(get_status() != "generator_welding" && get_status() != "generator_plasteel")
+		add_overlay("generator_part")
+	if(get_status() == "off")
+		return
+	add_overlay("[get_status()]")
+	add_overlay("[overlay_state]")
 
 /**
   * Set the charging state based on external power and the breaker state.
@@ -366,7 +333,6 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 		if(prob(25)) // To help stop "Your clothes feel warm" spam.
 			pulse_radiation()
 
-		var/overlay_state
 		switch(charge_count)
 			if(0 to 20)
 				overlay_state = null
@@ -380,11 +346,8 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 				overlay_state = "activated"
 
 		if(overlay_state != current_overlay)
-			if(middle)
-				middle.cut_overlays()
-				if(overlay_state)
-					middle.add_overlay(overlay_state)
-				current_overlay = overlay_state
+			update_icon()
+			current_overlay = overlay_state
 
 
 /obj/machinery/gravity_generator/main/proc/pulse_radiation()

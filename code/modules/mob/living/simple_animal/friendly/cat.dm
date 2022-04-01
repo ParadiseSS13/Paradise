@@ -94,6 +94,9 @@
 			for(var/i in 1 to min(family[cat_type],100)) //Limits to about 500 cats, you wouldn't think this would be needed (BUT IT IS)
 				new cat_type(loc)
 
+/mob/living/simple_animal/pet/cat/npc_safe(mob/user)
+	return TRUE
+
 /mob/living/simple_animal/pet/cat/Life()
 	..()
 	make_babies()
@@ -225,6 +228,11 @@
 /mob/living/simple_animal/pet/cat/Syndi/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NOBREATH, SPECIES_TRAIT)
+
+/mob/living/simple_animal/pet/cat/Syndi/npc_safe(mob/user)
+	if(GAMEMODE_IS_NUCLEAR)
+		return TRUE
+	return FALSE
 
 /mob/living/simple_animal/pet/cat/cak
 	name = "Keeki"

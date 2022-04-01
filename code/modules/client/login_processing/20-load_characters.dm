@@ -56,7 +56,11 @@
 		body_accessory,
 		gear,
 		autohiss,
-		slot
+		slot,
+		hair_gradient,
+		hair_gradient_offset,
+		hair_gradient_colour,
+		hair_gradient_alpha
 		FROM characters WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
 		))

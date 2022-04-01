@@ -1,4 +1,3 @@
-
 /obj/structure/closet/secure_closet/syndicate/depot
 	name = "depot supply closet"
 	desc = ""

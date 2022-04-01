@@ -1137,10 +1137,7 @@
 /area/derelict/bridge)
 "cG" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/item/trash/can,
 /obj/item/trash/semki,
 /turf/simulated/floor/plasteel{
@@ -1569,6 +1566,7 @@
 /obj/machinery/newscaster{
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
 	layer = 3.3;
+	name = "custom placement";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -2080,6 +2078,7 @@
 /obj/machinery/newscaster{
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
 	layer = 3.3;
+	name = "custom placement";
 	pixel_x = 30
 	},
 /obj/item/trash/spentcasing{
@@ -3625,7 +3624,6 @@
 /area/derelict/crew_quarters)
 "hI" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen";
 	opened = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3639,7 +3637,6 @@
 /area/derelict/arrival)
 "hJ" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen";
 	opened = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4129,10 +4126,7 @@
 /area/derelict/arrival)
 "iS" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_x = -32
 	},
@@ -5646,10 +5640,7 @@
 /area/derelict/arrival)
 "lL" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -7089,6 +7080,7 @@
 /obj/machinery/newscaster{
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
 	layer = 3.3;
+	name = "custom placement";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -7141,14 +7133,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
-	},
-/area/derelict/crew_quarters)
-"pg" = (
-/obj/structure/closet/walllocker{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "orangefull"
 	},
 /area/derelict/crew_quarters)
 "ph" = (
@@ -7304,11 +7288,6 @@
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
-"pC" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/derelict/crew_quarters)
 "pD" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -7669,6 +7648,7 @@
 /obj/machinery/newscaster{
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. Strange that it's on a Russian station.";
 	layer = 3.3;
+	name = "custom placement";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
@@ -8001,10 +7981,6 @@
 	icon_state = "delivery"
 	},
 /area/derelict/crew_quarters)
-"rn" = (
-/obj/structure/closet/medical_wall,
-/turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
-/area/derelict/arrival)
 "ro" = (
 /obj/structure/sign/greencross,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
@@ -8201,10 +8177,7 @@
 /area/derelict/arrival)
 "rJ" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/item/trash/popcorn,
 /obj/item/trash/semki,
 /obj/item/paper/crumpled{
@@ -10950,7 +10923,7 @@ mS
 qC
 mS
 qZ
-rn
+bn
 aW
 ac
 ac
@@ -13793,7 +13766,7 @@ ac
 ac
 aV
 aV
-pC
+hU
 pL
 pX
 qe
@@ -13885,7 +13858,7 @@ ac
 aV
 pm
 pt
-pC
+hU
 pM
 pY
 db
@@ -14342,7 +14315,7 @@ ok
 oB
 ok
 pb
-pg
+nV
 bm
 py
 dJ

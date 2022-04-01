@@ -31,12 +31,19 @@
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
 	var/list/shocked_things = list()
+	var/obj/singularity/energy_ball/parent_energy_ball
 
 /obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	miniball = is_miniball
+	RegisterSignal(src, COMSIG_ATOM_ORBIT_BEGIN, .proc/on_start_orbit)
+	RegisterSignal(src, COMSIG_ATOM_ORBIT_STOP, .proc/on_stop_orbit)
+	RegisterSignal(parent_energy_ball, COMSIG_PARENT_QDELETING, .proc/on_parent_delete)
 	. = ..()
 	if(!is_miniball)
 		set_light(10, 7, "#5e5edd")
+	else
+		// This gets added by the parent call
+		GLOB.poi_list -= src
 
 /obj/singularity/energy_ball/ex_act(severity, target)
 	return
@@ -45,10 +52,16 @@
 	return
 
 /obj/singularity/energy_ball/Destroy()
-	if(orbiting && istype(orbiting, /obj/singularity/energy_ball))
-		var/obj/singularity/energy_ball/EB = orbiting
-		EB.orbiting_balls -= src
-		orbiting = null
+	UnregisterSignal(src, COMSIG_ATOM_ORBIT_BEGIN)
+	UnregisterSignal(src, COMSIG_ATOM_ORBIT_STOP)
+	if(parent_energy_ball && !QDELETED(parent_energy_ball))
+		UnregisterSignal(parent_energy_ball, COMSIG_PARENT_QDELETING)
+		parent_energy_ball.on_stop_orbit(src, TRUE)
+		parent_energy_ball.orbiting_balls -= src
+		parent_energy_ball = null
+
+	if(!miniball)
+		GLOB.poi_list -= src
 
 	QDEL_LIST(orbiting_balls)
 	shocked_things.Cut()
@@ -60,7 +73,7 @@
 	..()
 
 /obj/singularity/energy_ball/process()
-	if(!orbiting)
+	if(!parent_energy_ball)
 		handle_energy()
 
 		move_the_basket_ball(4 + length(orbiting_balls) * 1.5)
@@ -136,7 +149,8 @@
 	var/orbitsize = (I.Width() + I.Height()) * pick(0.4, 0.5, 0.6, 0.7, 0.8)
 	orbitsize -= (orbitsize / world.icon_size) * (world.icon_size * 0.25)
 
-	EB.orbit(src, orbitsize, pick(FALSE, TRUE), rand(10, 25), pick(3, 4, 5, 6, 36))
+	EB.parent_energy_ball = src
+	EB.orbit(src, orbitsize, pick(FALSE, TRUE), rand(10, 25), pick(3, 4, 5, 6, 36), orbit_layer = EB.layer)
 
 /obj/singularity/energy_ball/Bump(atom/A)
 	dust_mobs(A)
@@ -154,18 +168,31 @@
 			B.remove(C)
 			qdel(B)
 
-/obj/singularity/energy_ball/orbit(obj/singularity/energy_ball/target)
-	if(istype(target))
-		target.orbiting_balls += src
-		GLOB.poi_list -= src
-		target.dissipate_strength = length(target.orbiting_balls)
-	. = ..()
+/// When we get orbited, add the orbiter to our tracked balls
+/obj/singularity/energy_ball/proc/on_start_orbit(atom/movable/this, atom/orbiter)
+	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_BEGIN
 
-	if(istype(target))
-		target.orbiting_balls -= src
-		target.dissipate_strength = length(target.orbiting_balls)
-	if(!loc)
-		qdel(src)
+	if(istype(orbiter, /obj/singularity/energy_ball))
+		var/obj/singularity/energy_ball/ball = orbiter
+		orbiting_balls += ball
+		dissipate_strength = length(orbiting_balls)
+
+/obj/singularity/energy_ball/proc/on_stop_orbit(atom/movable/this, atom/orbiter)
+	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_END
+
+	if(istype(orbiter, /obj/singularity/energy_ball))
+		var/obj/singularity/energy_ball/ball = orbiter
+		orbiting_balls -= ball
+		dissipate_strength = length(orbiting_balls)
+		ball.parent_energy_ball = null
+
+		if(!loc || !QDELETED(ball))
+			qdel(ball)
+
+/obj/singularity/energy_ball/proc/on_parent_delete(obj/singularity/energy_ball/target)
+	SIGNAL_HANDLER
+
+	parent_energy_ball = null
 
 /obj/singularity/energy_ball/proc/dust_mobs(atom/A)
 	if(isliving(A))

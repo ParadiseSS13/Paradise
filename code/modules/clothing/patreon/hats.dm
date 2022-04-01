@@ -61,3 +61,13 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
+
+// Equivalent to a winter coat's hood
+/obj/item/clothing/head/furcap
+	name = "fur cap"
+	desc = "A warm furry cap."
+	icon_state = "furcap"
+	item_state = "furcap"
+
+	cold_protection = HEAD
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT

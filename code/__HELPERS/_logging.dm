@@ -142,6 +142,9 @@ GLOBAL_PROTECT(log_end)
 /proc/log_tgui(text)
 	rustg_log_write(GLOB.tgui_log, "[text][GLOB.log_end]")
 
+/proc/log_karma(text)
+	rustg_log_write(GLOB.karma_log, "[text][GLOB.log_end]")
+
 #ifdef REFERENCE_TRACKING
 /proc/log_gc(text)
 	rustg_log_write(GLOB.gc_log, "[text][GLOB.log_end]")

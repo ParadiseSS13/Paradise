@@ -1,287 +1,142 @@
-#define TRAITOR_HUMAN "human"
-#define TRAITOR_AI	  "AI"
 
-// For "Actual traitors"
+// Syndicate Traitors.
 /datum/antagonist/traitor
 	name = "Traitor"
 	roundend_category = "traitors"
 	job_rank = ROLE_TRAITOR
-	var/special_role = SPECIAL_ROLE_TRAITOR
-	var/give_objectives = TRUE
-	var/should_give_codewords = TRUE
-	var/should_equip = TRUE
-	var/traitor_kind = TRAITOR_HUMAN
-	var/list/assigned_targets = list() // This includes assassinate as well as steal objectives. prevents duplicate objectives
+	special_role = SPECIAL_ROLE_TRAITOR
+	give_objectives = TRUE
+	antag_hud_name = "hudsyndicate"
+	antag_hud_type = ANTAG_HUD_TRAITOR
+	clown_gain_text = "Your syndicate training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
+	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
+	wiki_page_name = "Traitor"
+	/// Should the traitor get codewords?
+	var/give_codewords = TRUE
+	/// Should we give the traitor their uplink?
+	var/give_uplink = TRUE
 
 /datum/antagonist/traitor/on_gain()
-	if(owner.current && isAI(owner.current))
-		traitor_kind = TRAITOR_AI
+	// Create this in case the traitor wants to mindslaves someone.
+	if(!owner.som)
+		owner.som = new /datum/mindslaves
 
-	var/datum/mindslaves/slaved = new()
-	slaved.masters += owner
-	owner.som = slaved //we MIGHT want to mindslave someone
-	SSticker.mode.traitors += owner
-	owner.special_role = special_role
-
-	if(give_objectives)
-		forge_traitor_objectives()
-	if(!silent)
-		greet()
-	apply_innate_effects()
-	update_traitor_icons_added()
-	finalize_traitor()
-
+	owner.som.masters += owner
+	SSticker.mode.traitors |= owner
+	return ..()
 
 /datum/antagonist/traitor/on_removal()
-	//Remove malf powers.
-	if(traitor_kind == TRAITOR_AI && owner.current && isAI(owner.current))
+	// Remove all associated malf AI abilities.
+	if(isAI(owner.current))
 		var/mob/living/silicon/ai/A = owner.current
 		A.clear_zeroth_law()
-		A.common_radio.channels.Remove("Syndicate")  // De-traitored AIs can still state laws over the syndicate channel without this
+		var/obj/item/radio/headset/heads/ai_integrated/radio = A.get_radio()
+		radio.channels.Remove("Syndicate")  // De-traitored AIs can still state laws over the syndicate channel without this
 		A.laws.sorted_laws = A.laws.inherent_laws.Copy() // AI's 'notify laws' button will still state a law 0 because sorted_laws contains it
 		A.show_laws()
 		A.remove_malf_abilities()
 		QDEL_NULL(A.malf_picker)
 
+	// Leave the mindslave hud.
 	if(owner.som)
 		var/datum/mindslaves/slaved = owner.som
 		slaved.masters -= owner
 		slaved.serv -= owner
-		owner.som = null
 		slaved.leave_serv_hud(owner)
+		owner.som = null
 
+	owner.current.client.chatOutput?.clear_syndicate_codes()
 	assigned_targets.Cut()
 	SSticker.mode.traitors -= owner
-	owner.special_role = null
-	remove_innate_effects()
-	update_traitor_icons_removed()
+	return ..()
 
-	if(!silent && owner.current)
-		antag_memory = ""
-		to_chat(owner.current,"<span class='userdanger'> You are no longer a [special_role]! </span>")
-	..()
+/datum/antagonist/traitor/add_antag_hud(mob/living/antag_mob)
+	var/is_contractor = LAZYACCESS(GLOB.contractors, owner)
+	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
+		antag_hud_name = is_contractor ? "hudhijackcontractor" : "hudhijack"
+	else
+		antag_hud_name = is_contractor ? "hudcontractor" : "hudsyndicate"
+	return ..()
 
+/datum/antagonist/traitor/give_objectives()
+	if(isAI(owner.current))
+		forge_ai_objectives()
+	else
+		forge_human_objectives()
 
-/datum/antagonist/traitor/apply_innate_effects()
-	. = ..()
-	if(owner.assigned_role == "Clown")
-		var/mob/living/carbon/human/traitor_mob = owner.current
-		if(traitor_mob && istype(traitor_mob))
-			to_chat(traitor_mob, "<span class='warning'>Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.</span>")
-			traitor_mob.dna.SetSEState(GLOB.clumsyblock, FALSE)
-			singlemutcheck(traitor_mob, GLOB.clumsyblock, MUTCHK_FORCED)
-			var/datum/action/innate/toggle_clumsy/A = new
-			A.Grant(traitor_mob)
-
-
-/datum/antagonist/traitor/remove_innate_effects()
-	. = ..()
-	if(owner.assigned_role == "Clown")
-		var/mob/living/carbon/human/traitor_mob = owner.current
-		if(traitor_mob && istype(traitor_mob))
-			to_chat(traitor_mob, "<span class='warning'>You lose your syndicate training and return to your own clumsy, clownish self.</span>")
-			traitor_mob.dna.SetSEState(GLOB.clumsyblock, TRUE)
-			singlemutcheck(traitor_mob, GLOB.clumsyblock, MUTCHK_FORCED)
-			for(var/datum/action/innate/A in traitor_mob.actions)
-				if(istype(A, /datum/action/innate/toggle_clumsy))
-					A.Remove(traitor_mob)
-
-// Adding/removing objectives in the owner's mind until we can datumize all antags. Then we can use the /datum/antagonist/objectives var to handle them
-// Change "owner.objectives" to "objectives" once objectives are handled in antag datums instead of the mind
-/datum/antagonist/traitor/proc/add_objective(datum/objective/O)
-	owner.objectives += O
-
-/datum/antagonist/traitor/proc/remove_objective(datum/objective/O)
-	owner.objectives -= O
-
-
-/datum/antagonist/traitor/proc/forge_traitor_objectives()
-	switch(traitor_kind)
-		if(TRAITOR_AI)
-			forge_ai_objectives()
-		else
-			forge_human_objectives()
-
-
+/**
+ * Create and assign a full set of randomized human traitor objectives.
+ */
 /datum/antagonist/traitor/proc/forge_human_objectives()
-	var/is_hijacker = prob(10)
-	var/martyr_chance = prob(20)
-	var/objective_count = is_hijacker 			//Hijacking counts towards number of objectives
-	if(!SSticker.mode.exchange_blue && SSticker.mode.traitors.len >= 8) 	//Set up an exchange if there are enough traitors
-		if(!SSticker.mode.exchange_red)
-			SSticker.mode.exchange_red = owner
-		else
-			SSticker.mode.exchange_blue = owner
-			assign_exchange_role(SSticker.mode.exchange_red)
-			assign_exchange_role(SSticker.mode.exchange_blue)
-		objective_count += 1					//Exchange counts towards number of objectives
+	// Hijack objective.
+	if(prob(10) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
+		add_objective(/datum/objective/hijack)
+		return // Hijack should be their only objective (normally), so return.
 
+	// Will give normal steal/kill/etc. type objectives.
+	for(var/i in 1 to GLOB.configuration.gamemode.traitor_objectives_amount)
+		forge_single_human_objective()
 
-	var/objective_amount = GLOB.configuration.gamemode.traitor_objectives_amount
+	// Die a glorious death objective.
+	if(prob(20))
+		var/martyr_compatibility = TRUE
+		for(var/objective in owner.get_all_objectives())
+			var/datum/objective/O = objective
+			if(!O.martyr_compatible) // Check if our current objectives can co-exist with martyr.
+				martyr_compatibility = FALSE
+				break
 
-	if(is_hijacker && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
-		if (!(locate(/datum/objective/hijack) in objectives))
-			var/datum/objective/hijack/hijack_objective = new
-			hijack_objective.owner = owner
-			add_objective(hijack_objective)
+		if(martyr_compatibility)
+			add_objective(/datum/objective/die)
 			return
 
-	for(var/i = objective_count, i < objective_amount)
-		i += forge_single_objective()
+	// Give them an escape objective if they don't have one already.
+	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()))
+		add_objective(/datum/objective/escape)
 
-	var/martyr_compatibility = 1 //You can't succeed in stealing if you're dead.
-	for(var/datum/objective/O in owner.objectives)
-		if(!O.martyr_compatible)
-			martyr_compatibility = 0
-			break
-
-	if(martyr_compatibility && martyr_chance)
-		var/datum/objective/die/martyr_objective = new
-		martyr_objective.owner = owner
-		add_objective(martyr_objective)
-		return
-
-	if(!(locate(/datum/objective/escape) in objectives))
-		var/datum/objective/escape/escape_objective = new
-		escape_objective.owner = owner
-		add_objective(escape_objective)
-		return
-
-
+/**
+ * Create and assign a full set of AI traitor objectives.
+ */
 /datum/antagonist/traitor/proc/forge_ai_objectives()
-	var/objective_count = 0
-	var/try_again = TRUE
+	add_objective(/datum/objective/block)
+	add_objective(/datum/objective/assassinate)
+	add_objective(/datum/objective/survive)
 
-	objective_count += forge_single_objective()
-
-	for(var/i = objective_count, i < GLOB.configuration.gamemode.traitor_objectives_amount)
-		var/datum/objective/assassinate/kill_objective = new
-		kill_objective.owner = owner
-		kill_objective.find_target()
-		if("[kill_objective.target]" in assigned_targets)	// In the rare case the game can't find a target for the AI thats not a duplicate
-			if(try_again)						            // It will attempt to location another target ONCE
-				try_again = FALSE							// This code will really only come into play on lowpop rounds where getting duplicate targets is more common
-				continue
-		assigned_targets.Add("[kill_objective.target]")
-		add_objective(kill_objective)
-		i += 1
-	var/datum/objective/survive/survive_objective = new
-	survive_objective.owner = owner
-	add_objective(survive_objective)
-
-
-/datum/antagonist/traitor/proc/forge_single_objective()
-	switch(traitor_kind)
-		if(TRAITOR_AI)
-			return forge_single_AI_objective()
-		else
-			return forge_single_human_objective()
-
-
-/datum/antagonist/traitor/proc/forge_single_human_objective() // Returns how many objectives are added
-	. = 1
+/**
+ * Create and assign a single randomized human traitor objective.
+ */
+/datum/antagonist/traitor/proc/forge_single_human_objective()
 	if(prob(50))
-		var/list/active_ais = active_ais()
-		if(active_ais.len && prob(100/GLOB.player_list.len))
-			var/datum/objective/destroy/destroy_objective = new
-			destroy_objective.owner = owner
-			destroy_objective.find_target()
-			if("[destroy_objective]" in assigned_targets)	        // Is this target already in their list of assigned targets? If so, don't add this objective and return
-				return 0
-			else if(destroy_objective.target)					    // Is the target a real one and not null? If so, add it to our list of targets to avoid duplicate targets
-				assigned_targets.Add("[destroy_objective.target]")	// This logic is applied to all traitor objectives including steal objectives
-			add_objective(destroy_objective)
-
+		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
+			add_objective(/datum/objective/destroy)
 		else if(prob(5))
-			var/datum/objective/debrain/debrain_objective = new
-			debrain_objective.owner = owner
-			debrain_objective.find_target()
-			if("[debrain_objective]" in assigned_targets)
-				return 0
-			else if(debrain_objective.target)
-				assigned_targets.Add("[debrain_objective.target]")
-			add_objective(debrain_objective)
-
+			add_objective(/datum/objective/debrain)
 		else if(prob(30))
-			var/datum/objective/maroon/maroon_objective = new
-			maroon_objective.owner = owner
-			maroon_objective.find_target()
-			if("[maroon_objective]" in assigned_targets)
-				return 0
-			else if(maroon_objective.target)
-				assigned_targets.Add("[maroon_objective.target]")
-			add_objective(maroon_objective)
-
+			add_objective(/datum/objective/maroon)
 		else
-			var/datum/objective/assassinate/kill_objective = new
-			kill_objective.owner = owner
-			kill_objective.find_target()
-			if("[kill_objective.target]" in assigned_targets)
-				return 0
-			else if(kill_objective.target)
-				assigned_targets.Add("[kill_objective.target]")
-			add_objective(kill_objective)
-
+			add_objective(/datum/objective/assassinate)
 	else
-		var/datum/objective/steal/steal_objective = new
-		steal_objective.owner = owner
-		steal_objective.find_target()
-		if("[steal_objective.steal_target]" in assigned_targets)
-			return 0
-		else if(steal_objective.steal_target)
-			assigned_targets.Add("[steal_objective.steal_target]")
-		add_objective(steal_objective)
+		add_objective(/datum/objective/steal)
 
-
-/datum/antagonist/traitor/proc/forge_single_AI_objective()
-	. = 1
-	var/datum/objective/block/block_objective = new
-	block_objective.owner = owner
-	add_objective(block_objective)
-
-
-/datum/antagonist/traitor/greet()
-	to_chat(owner.current, "<B><font size=3 color=red>You are a [owner.special_role]!</font></B>")
-	if(!LAZYLEN(owner.objectives))   // Remove "owner" when objectives are handled in the datum
-		to_chat(owner.current, "<span>You don't have any objectives right now.</span>")
-	else
-		owner.announce_objectives()
-	if(should_give_codewords)
+/**
+ * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.
+ */
+/datum/antagonist/traitor/finalize_antag()
+	if(give_codewords)
 		give_codewords()
-	to_chat(owner.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Traitor)</span>")
-
-
-/datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
-	var/is_contractor = LAZYACCESS(GLOB.contractors, traitor_mind)
-	if(locate(/datum/objective/hijack) in owner.objectives)
-		var/datum/atom_hud/antag/hijackhud = GLOB.huds[ANTAG_HUD_TRAITOR]
-		hijackhud.join_hud(owner.current, null)
-		set_antag_hud(owner.current, is_contractor ? "hudhijackcontractor" : "hudhijack")
+	if(isAI(owner.current))
+		add_law_zero()
+		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+		var/mob/living/silicon/ai/A = owner.current
+		A.show_laws()
 	else
-		var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
-		traitorhud.join_hud(owner.current, null)
-		set_antag_hud(owner.current, is_contractor ? "hudcontractor" : "hudsyndicate")
+		if(give_uplink)
+			give_uplink()
+		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
-
-/datum/antagonist/traitor/proc/update_traitor_icons_removed(datum/mind/traitor_mind)
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
-	traitorhud.leave_hud(owner.current, null)
-	set_antag_hud(owner.current, null)
-
-
-/datum/antagonist/traitor/proc/finalize_traitor()
-	switch(traitor_kind)
-		if(TRAITOR_AI)
-			add_law_zero()
-			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
-			var/mob/living/silicon/ai/A = owner.current
-			A.show_laws()
-		if(TRAITOR_HUMAN)
-			if(should_equip)
-				equip_traitor()
-			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
-
-
+/**
+ * Notify the traitor of their codewords and write them to `antag_memory` (notes).
+ */
 /datum/antagonist/traitor/proc/give_codewords()
 	if(!owner.current)
 		return
@@ -302,109 +157,71 @@
 
 	traitor_mob.client.chatOutput?.notify_syndicate_codes()
 
+/**
+ * Gives traitor AIs, and their connected cyborgs, a law 0. Additionally gives the AI their choose modules action button.
+ */
 /datum/antagonist/traitor/proc/add_law_zero()
 	var/mob/living/silicon/ai/killer = owner.current
-	if(!killer || !istype(killer))
-		return
-	var/law = "Accomplish your objectives at all costs."
-	var/law_borg = "Accomplish your AI's objectives at all costs."
-	killer.set_zeroth_law(law, law_borg)
+	killer.set_zeroth_law("Accomplish your objectives at all costs.", "Accomplish your AI's objectives at all costs.")
 	killer.set_syndie_radio()
 	to_chat(killer, "Your radio has been upgraded! Use :t to speak on an encrypted channel with Syndicate Agents!")
 	killer.add_malf_picker()
 
+/**
+ * Gives a traitor human their uplink, and uplink code.
+ */
+/datum/antagonist/traitor/proc/give_uplink()
+	if(isAI(owner.current))
+		return FALSE
 
-/datum/antagonist/traitor/proc/equip_traitor()
+	var/mob/living/carbon/human/traitor_mob = owner.current
 
-	if(traitor_kind == TRAITOR_HUMAN)
-		var/mob/living/carbon/human/traitor_mob = owner.current
+	// Try to find a PDA first. If they don't have one, try to find a radio/headset.
+	var/obj/item/R = locate(/obj/item/pda) in traitor_mob.contents
+	if(!R)
+		R = locate(/obj/item/radio) in traitor_mob.contents
 
-		// find a radio! toolbox(es), backpack, belt, headset
-		var/obj/item/R = locate(/obj/item/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
-		if(!R)
-			R = locate(/obj/item/radio) in traitor_mob.contents
+	if(!R)
+		to_chat(traitor_mob, "<span class='warning'>Unfortunately, the Syndicate wasn't able to give you an uplink.</span>")
+		return FALSE // They had no PDA or radio for whatever reason.
 
-		if(!R)
-			to_chat(traitor_mob, "Unfortunately, the Syndicate wasn't able to get you a radio.")
-			. = 0
-		else
-			if(istype(R, /obj/item/radio))
-				// generate list of radio freqs
-				var/obj/item/radio/target_radio = R
-				var/freq = PUBLIC_LOW_FREQ
-				var/list/freqlist = list()
-				while(freq <= PUBLIC_HIGH_FREQ)
-					if(freq < 1451 || freq > 1459)
-						freqlist += freq
-					freq += 2
-					if((freq % 2) == 0)
-						freq += 1
-				freq = freqlist[rand(1, freqlist.len)]
+	if(istype(R, /obj/item/radio))
+		// generate list of radio freqs
+		var/obj/item/radio/target_radio = R
+		var/freq = PUBLIC_LOW_FREQ
+		var/list/freqlist = list()
+		while(freq <= PUBLIC_HIGH_FREQ)
+			if(freq < 1451 || freq > 1459)
+				freqlist += freq
+			freq += 2
+			if((freq % 2) == 0)
+				freq += 1
+		freq = pick(freqlist)
 
-				var/obj/item/uplink/hidden/T = new(R)
-				target_radio.hidden_uplink = T
-				T.uplink_owner = "[traitor_mob.key]"
-				target_radio.traitor_frequency = freq
-				to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features.")
-				traitor_mob.mind.store_memory("<B>Radio Freq:</B> [format_frequency(freq)] ([R.name]).")
-			else if(istype(R, /obj/item/pda))
-				// generate a passcode if the uplink is hidden in a PDA
-				var/pda_pass = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
+		var/obj/item/uplink/hidden/T = new(R)
+		target_radio.hidden_uplink = T
+		T.uplink_owner = "[traitor_mob.key]"
+		target_radio.traitor_frequency = freq
+		to_chat(traitor_mob, "<span class='notice'>The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features.</span>")
+		antag_memory += "<B>Radio Freq:</B> [format_frequency(freq)] ([R.name])."
+		return TRUE
 
-				var/obj/item/uplink/hidden/T = new(R)
-				R.hidden_uplink = T
-				T.uplink_owner = "[traitor_mob.key]"
-				var/obj/item/pda/P = R
-				P.lock_code = pda_pass
+	else if(istype(R, /obj/item/pda))
+		// generate a passcode if the uplink is hidden in a PDA
+		var/pda_pass = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
 
-				to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.")
-				antag_memory += ("<B>Uplink Passcode:</B> [pda_pass] ([R.name].")
-	return 1
+		var/obj/item/uplink/hidden/T = new(R)
+		R.hidden_uplink = T
+		T.uplink_owner = "[traitor_mob.key]"
+		var/obj/item/pda/P = R
+		P.lock_code = pda_pass
 
+		to_chat(traitor_mob, "<span class='notice'>The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.</span>")
+		antag_memory += "<B>Uplink Passcode:</B> [pda_pass] ([R.name]."
+		return TRUE
+	return FALSE
 
-/datum/antagonist/traitor/proc/assign_exchange_role(datum/mind/owner)
-	//set faction
-	var/faction = "red"
-	if(owner == SSticker.mode.exchange_blue)
-		faction = "blue"
-
-	//Assign objectives
-	var/datum/objective/steal/exchange/exchange_objective = new
-	exchange_objective.set_faction(faction,((faction == "red") ? SSticker.mode.exchange_blue : SSticker.mode.exchange_red))
-	exchange_objective.owner = owner
-	owner.objectives += exchange_objective
-
-	if(prob(20))
-		var/datum/objective/steal/exchange/backstab/backstab_objective = new
-		backstab_objective.set_faction(faction)
-		backstab_objective.owner = owner
-		owner.objectives += backstab_objective
-
-	//Spawn and equip documents
-	var/mob/living/carbon/human/mob = owner.current
-
-	var/obj/item/folder/syndicate/folder
-	if(owner == SSticker.mode.exchange_red)
-		folder = new/obj/item/folder/syndicate/red(mob.locs)
-	else
-		folder = new/obj/item/folder/syndicate/blue(mob.locs)
-
-	var/list/slots = list (
-		"backpack" = slot_in_backpack,
-		"left pocket" = slot_l_store,
-		"right pocket" = slot_r_store,
-		"left hand" = slot_l_hand,
-		"right hand" = slot_r_hand,
-	)
-
-	var/where = "At your feet"
-	var/equipped_slot = mob.equip_in_one_of_slots(folder, slots)
-	if(equipped_slot)
-		where = "In your [equipped_slot]"
-	to_chat(mob, "<BR><BR><span class='info'>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.</span><BR>")
-	mob.update_icons()
-
-
+// Curently unused. Look at `/datum/game_mode/proc/auto_declare_completion_traitor()` instead.
 /datum/antagonist/traitor/roundend_report_footer()
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")

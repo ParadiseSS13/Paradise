@@ -38,7 +38,7 @@
 		C.update_handcuffed()
 		return
 	else
-		..()
+		return ..()
 
 /obj/item/wirecutters/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] arteries with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")

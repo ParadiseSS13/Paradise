@@ -107,6 +107,7 @@
 
 /datum/martial_art/krav_maga/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
+	A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
 	var/obj/item/I = D.get_active_hand()
 	if(prob(60) && D.unEquip(I))
 		if(!(QDELETED(I) || (I.flags & ABSTRACT)))

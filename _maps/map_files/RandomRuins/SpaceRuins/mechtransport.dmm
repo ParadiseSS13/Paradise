@@ -25,7 +25,9 @@
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/powered)
 "i" = (
-/obj/machinery/computer/shuttle,
+/obj/machinery/computer{
+	name = "shuttle control console"
+	},
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/powered)
 "j" = (
@@ -46,7 +48,9 @@
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/powered)
 "n" = (
-/obj/machinery/computer/mecha,
+/obj/machinery/computer{
+	name = "exosuit control console"
+	},
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/powered)
 "p" = (

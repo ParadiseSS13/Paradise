@@ -2,19 +2,20 @@
 	name = "closet"
 	desc = "It's a basic storage unit."
 	icon = 'icons/obj/closet.dmi'
-	icon_state = "closed"
-	density = 1
+	icon_state = "generic"
+	density = TRUE
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60)
-	var/icon_closed = "closed"
-	var/icon_opened = "open"
+	var/icon_closed
+	var/icon_opened
+	var/open_door_sprite = "generic_door"
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
 	var/large = TRUE
 	var/can_be_emaged = FALSE
-	var/wall_mounted = 0 //never solid (You can always pass over it)
+	var/wall_mounted //never solid (You can always pass over it)
 	var/lastbang
 	var/open_sound = 'sound/machines/closet_open.ogg'
 	var/close_sound = 'sound/machines/closet_close.ogg'
@@ -27,6 +28,9 @@
 // Please dont override this unless you absolutely have to
 /obj/structure/closet/Initialize(mapload)
 	. = ..()
+	icon_closed = "[icon_state]"
+	if(!icon_opened)
+		icon_opened = "[icon_state]_open"
 	if(mapload && !opened)
 		// Youre probably asking, why is this a 0 seconds timer AA?
 		// Well, I will tell you. One day, all /obj/effect/spawner will use Initialize
@@ -34,8 +38,8 @@
 		// the loot will just be in a pile. Adding a timer with 0 delay will cause it to only take in contents once the MC has loaded,
 		// therefore solving the issue on mapload. During rounds, everything will happen as normal
 		addtimer(CALLBACK(src, .proc/take_contents), 0)
-	update_icon() // Set it to the right icon if needed
 	populate_contents() // Spawn all its stuff
+	update_icon() // Set it to the right icon if needed
 
 // Override this to spawn your things in. This lets you use probabilities, and also doesnt cause init overrides
 /obj/structure/closet/proc/populate_contents()
@@ -95,10 +99,10 @@
 
 	dump_contents()
 
-	icon_state = icon_opened
 	opened = TRUE
+	update_icon()
 	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
-	density = 0
+	density = FALSE
 	return TRUE
 
 /obj/structure/closet/proc/close()
@@ -138,10 +142,10 @@
 		M.forceMove(src)
 		itemcount++
 
-	icon_state = icon_closed
 	opened = FALSE
+	update_icon()
 	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
-	density = 1
+	density = TRUE
 	return TRUE
 
 /obj/structure/closet/proc/toggle(mob/user)
@@ -288,20 +292,29 @@
 	if(usr.incapacitated())
 		return
 
-	if(ishuman(usr))
+	if(ishuman(usr) || isrobot(usr))
 		add_fingerprint(usr)
 		toggle(usr)
-	else
-		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
+		return
+	to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
 /obj/structure/closet/update_icon()//Putting the welded stuff in updateicon() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
-	overlays.Cut()
 	if(!opened)
 		icon_state = icon_closed
-		if(welded)
-			overlays += "welded"
 	else
 		icon_state = icon_opened
+	update_overlays()
+
+/obj/structure/closet/proc/update_overlays(transparent = FALSE)
+	cut_overlays()
+	if(transparent && opened)
+		add_overlay("[open_door_sprite]_trans")
+		return
+	if(opened)
+		add_overlay(open_door_sprite)
+		return
+	if(welded)
+		add_overlay("welded")
 
 // Objects that try to exit a locker by stepping were doing so successfully,
 // and due to an oversight in turf/Enter() were going through walls.  That
@@ -377,8 +390,7 @@
 	desc = "A storage unit that moves and stores through the fourth dimension."
 	density = 0
 	icon_state = "bluespace"
-	icon_closed = "bluespace"
-	icon_opened = "bluespaceopen"
+	open_door_sprite = "bluespace_door"
 	storage_capacity = 60
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 
@@ -392,13 +404,15 @@
 		if(A.density && A != src && A != AM)
 			transparent = TRUE
 			break
-	icon_opened = transparent ? "bluespaceopentrans" : "bluespaceopen"
-	icon_closed = transparent ? "bluespacetrans" : "bluespace"
+	icon_opened = transparent ? "bluespace_open_trans" : "bluespace_open"
+	icon_closed = transparent ? "bluespace_trans" : "bluespace"
 	icon_state = opened ? icon_opened : icon_closed
+	update_overlays(transparent)
 
 /obj/structure/closet/bluespace/Crossed(atom/movable/AM, oldloc)
 	if(AM.density)
-		icon_state = opened ? "bluespaceopentrans" : "bluespacetrans"
+		icon_state = opened ? "bluespace_open_trans" : "bluespace_trans"
+		update_overlays(TRUE)
 
 /obj/structure/closet/bluespace/Move(NewLoc, direct) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
 	var/turf/T = get_turf(NewLoc)
@@ -412,4 +426,4 @@
 
 /obj/structure/closet/bluespace/close()
 	. = ..()
-	density = 0
+	density = FALSE

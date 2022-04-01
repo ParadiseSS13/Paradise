@@ -64,6 +64,7 @@
 /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
 	name = "finger gun cylinder"
 	desc = "Wait, what?"
+	max_ammo = 3
 	ammo_type = /obj/item/ammo_casing/c38/invisible
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
@@ -407,10 +408,10 @@
 	icon_state = "m12gt"
 	ammo_type = /obj/item/ammo_casing/shotgun/dart/bioterror
 
-/obj/item/ammo_box/magazine/m12g/breach
-	name = "shotgun magazine (12g breacher slugs)"
+/obj/item/ammo_box/magazine/m12g/meteor
+	name = "shotgun magazine (12g meteor slugs)"
 	icon_state = "m12gbc"
-	ammo_type = /obj/item/ammo_casing/shotgun/breaching
+	ammo_type = /obj/item/ammo_casing/shotgun/meteorslug
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg
 	name = "\improper XL shotgun magazine (12g slugs)"

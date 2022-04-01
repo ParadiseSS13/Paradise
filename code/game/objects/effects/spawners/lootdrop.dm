@@ -1,6 +1,6 @@
 /obj/effect/spawner/lootdrop
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "x2"
+	icon = 'icons/effects/spawner_icons.dmi'
+	icon_state = "questionmark"
 	color = "#00FF00"
 	var/lootcount = 1		//how many items will be spawned
 	var/lootdoubles = 1		//if the same item can be spawned twice
@@ -31,7 +31,9 @@
 				)
 
 /obj/effect/spawner/lootdrop/maintenance
-	name = "maintenance loot spawner"
+	name = "maintenance loot spawner (1 item)"
+	icon_state = "loot"
+	color = null
 
 	//How to balance this table
 	//-------------------------
@@ -160,6 +162,22 @@
 				/obj/item/storage/pill_bottle/fakedeath = 2,
 				"" = 64 // Reduce this number if you add things above. Make sure all the numbers in the list add to 100 EXACTLY
 				)
+
+/obj/effect/spawner/lootdrop/maintenance/two
+	name = "maintenance loot spawner (2 items)"
+	icon_state = "doubleloot"
+	lootcount = 2
+
+/obj/effect/spawner/lootdrop/maintenance/three
+	name = "maintenance loot spawner (3 items)"
+	icon_state = "moreloot"
+	lootcount = 3
+
+/obj/effect/spawner/lootdrop/maintenance/eight
+	name = "maintenance loot spawner (8 items)"
+	icon_state = "megaloot"
+	lootcount = 8
+
 
 /obj/effect/spawner/lootdrop/crate_spawner // for ruins
 	name = "lootcrate spawner"

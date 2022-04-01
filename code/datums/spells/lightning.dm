@@ -1,120 +1,49 @@
-/obj/effect/proc_holder/spell/targeted/lightning
+/obj/effect/proc_holder/spell/charge_up/bounce/lightning
 	name = "Lightning Bolt"
-	desc = "Throws a lightning bolt at the nearby enemy. Classic."
+	desc = "Throws a lightning bolt at your enemies. Classic. When clicked will start to charge in power. Then click on a mob to send the bolt before it overloads with power."
 	charge_type = "recharge"
-	charge_max	= 300
-	clothes_req = 1
+	charge_max	= 30 SECONDS
+	clothes_req = TRUE
 	invocation = "UN'LTD P'WAH!"
 	invocation_type = "shout"
-	range = 7
-	cooldown_min = 30
-	selection_type = "view"
-	random_target = 1
-	special_availability_check = 1
-	var/start_time = 0
-	var/ready = 0
-	var/image/halo = null
+	cooldown_min = 3 SECONDS
 	action_icon_state = "lightning"
-	var/sound/Snd // so far only way i can think of to stop a sound, thank MSO for the idea.
+	charge_sound = new /sound('sound/magic/lightning_chargeup.ogg', channel = 7)
+	max_charge_time = 10 SECONDS
+	stop_charging_text = "You stop charging the lightning around you."
+	stop_charging_fail_text = "The lightning around you is too strong to stop now!"
+	start_charging_text = "You start gathering lightning around you."
+	bounce_hit_sound = 'sound/magic/lightningshock.ogg'
 	var/damaging = TRUE
 
-/obj/effect/proc_holder/spell/targeted/lightning/lightnian
-	clothes_req = 0
-	invocation_type = "none"
-	damaging = 0
-
-/obj/effect/proc_holder/spell/targeted/lightning/Click()
-	if(!ready && start_time == 0)
-		if(cast_check(TRUE, FALSE, usr))
-			StartChargeup()
-	else
-		if(ready && cast_check(TRUE, TRUE, usr))
-			choose_targets()
-	return 1
-
-/obj/effect/proc_holder/spell/targeted/lightning/proc/StartChargeup(mob/user = usr)
-	ready = 1
-	to_chat(user, "<span class='notice'>You start gathering the power.</span>")
-	Snd = new/sound('sound/magic/lightning_chargeup.ogg', channel = 7)
-	halo = image("icon"='icons/effects/effects.dmi',"icon_state" ="electricity","layer" = EFFECTS_LAYER)
-	user.overlays.Add(halo)
-	playsound(get_turf(user), Snd, 50, 0)
-	start_time = world.time
-	if(do_mob(user, user, 100, uninterruptible=1))
-		if(ready)
-			Discharge()
-
-/obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
-	ready = 0
-	start_time = 0
-	if(halo)
-		user.overlays.Remove(halo)
-
-/obj/effect/proc_holder/spell/targeted/lightning/revert_cast(mob/user = usr)
-	to_chat(user, "<span class='notice'>No target found in range.</span>")
-	Reset(user)
+/obj/effect/proc_holder/spell/charge_up/bounce/lightning/New()
 	..()
+	charge_up_overlay = image(icon = 'icons/effects/effects.dmi', icon_state = "electricity", layer = EFFECTS_LAYER)
 
-/obj/effect/proc_holder/spell/targeted/lightning/proc/Discharge(mob/user = usr)
-	var/mob/living/M = user
-	to_chat(M, "<span class='danger'>You lose control over the spell.</span>")
-	Reset(user)
-	start_recharge()
+/obj/effect/proc_holder/spell/charge_up/bounce/lightning/lightnian
+	clothes_req = FALSE
+	invocation_type = "none"
+	damaging = FALSE
 
-
-/obj/effect/proc_holder/spell/targeted/lightning/cast(list/targets, mob/user = usr)
-	ready = 0
-	var/mob/living/target = targets[1]
-	Snd = sound(null, repeat = 0, wait = 1, channel = Snd.channel) //byond, why you suck?
-	playsound(get_turf(user), Snd, 50, 0)// Sorry MrPerson, but the other ways just didn't do it the way i needed to work, this is the only way.
-	if(get_dist(user,target)>range)
-		to_chat(user, "<span class='notice'>They are too far away!</span>")
-		Reset(user)
-		return
-
-	playsound(get_turf(user), 'sound/magic/lightningbolt.ogg', 50, 1)
-	user.Beam(target,icon_state="lightning[rand(1,12)]",icon='icons/effects/effects.dmi',time=5)
-
-	var/energy = min(world.time - start_time,100)
+/obj/effect/proc_holder/spell/charge_up/bounce/lightning/get_bounce_energy()
 	if(damaging)
-		Bolt(user,target,max(15,energy/2),5,user) //5 bounces for energy/2 burn
-	else
-		var/bounces = round(energy/20)
-		Bolt(user,target,0,bounces,user)
-	Reset(user)
+		return max(15, get_energy_charge() / 2)
+	return 0
 
-/obj/effect/proc_holder/spell/targeted/lightning/proc/Bolt(mob/origin, mob/living/target, bolt_energy, bounces, mob/user = usr)
-	origin.Beam(target,icon_state="lightning[rand(1,12)]", icon='icons/effects/effects.dmi', time=5)
-	var/mob/living/current = target
-	if(bounces < 1)
-		if(damaging)
-			current.electrocute_act(bolt_energy, "Lightning Bolt", flags = SHOCK_NOGLOVES)
-		else
-			current.AdjustJitter(1000) //High numbers for violent convulsions
-			current.do_jitter_animation(current.jitteriness)
-			current.AdjustStuttering(2)
-			current.Slowed(3)
-			spawn(20)
-				current.AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
-		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
+/obj/effect/proc_holder/spell/charge_up/bounce/lightning/get_bounce_amount()
+	if(damaging)
+		return 5
+	return round(get_energy_charge() / 20)
+
+/obj/effect/proc_holder/spell/charge_up/bounce/lightning/create_beam(mob/origin, mob/target)
+	origin.Beam(target, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
+
+/obj/effect/proc_holder/spell/charge_up/bounce/lightning/apply_bounce_effect(mob/origin, mob/living/target, energy, mob/user)
+	if(damaging)
+		target.electrocute_act(energy, "Lightning Bolt", flags = SHOCK_NOGLOVES)
 	else
-		if(damaging)
-			current.electrocute_act(bolt_energy, "Lightning Bolt", flags = SHOCK_NOGLOVES)
-		else
-			current.AdjustJitter(1000) //High numbers for violent convulsions
-			current.do_jitter_animation(current.jitteriness)
-			current.AdjustStuttering(2)
-			current.Slowed(3)
-			spawn(20)
-				current.AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
-		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
-		var/list/possible_targets = new
-		for(var/mob/living/M in view_or_range(range,target,"view"))
-			if(user == M || target == M && los_check(current,M)) // || origin == M ? Not sure double shockings is good or not
-				continue
-			possible_targets += M
-		if(!possible_targets.len)
-			return
-		var/mob/living/next = pick(possible_targets)
-		if(next)
-			Bolt(current,next,bolt_energy,bounces-1,user) // 5 max bounces
+		target.AdjustJitter(1000) //High numbers for violent convulsions
+		target.do_jitter_animation(target.jitteriness)
+		target.AdjustStuttering(2)
+		target.Slowed(3)
+		addtimer(CALLBACK(target, /mob/.proc/AdjustJitter, -1000, 10), 2 SECONDS) //Still jittery, but vastly less

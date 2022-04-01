@@ -34,6 +34,14 @@
 
 #define STATUS_EFFECT_BLOODDRUNK /datum/status_effect/blooddrunk //Stun immunity and greatly reduced damage taken
 
+
+#define STATUS_EFFECT_SPEEDLEGS /datum/status_effect/speedlegs //Handles cling speed boost and chemical cost.
+
+#define STATUS_EFFECT_BLOOD_SWELL /datum/status_effect/bloodswell //stun resistance and halved damage for gargantua vampires
+
+#define STATUS_EFFECT_BLOOD_RUSH /datum/status_effect/blood_rush // speed boost for gargantua vampires
+
+
 /////////////
 // DEBUFFS //
 /////////////
@@ -72,11 +80,19 @@
 
 //#define STATUS_EFFECT_ICHORIAL_STAIN /datum/status_effect/ichorial_stain //Prevents a servant from being revived by vitality matrices for one minute.
 
+/// Whether a moth's wings are burnt
+#define STATUS_EFFECT_BURNT_WINGS /datum/status_effect/burnt_wings
+
+/// If a moth is in a cocoon
+#define STATUS_EFFECT_COCOONED /datum/status_effect/cocooned
+
 /////////////
 // NEUTRAL //
 /////////////
 
 #define STATUS_EFFECT_HIGHFIVE /datum/status_effect/high_five
+
+#define STATUS_EFFECT_CHARGING /datum/status_effect/charging
 
 //#define STATUS_EFFECT_SIGILMARK /datum/status_effect/sigil_mark
 

@@ -96,7 +96,6 @@
 /area/space/nearstation)
 "z" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen";
 	opened = 1
 	},
 /obj/item/stack/ore/bananium,

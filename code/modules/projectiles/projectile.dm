@@ -63,8 +63,16 @@
 	/// For when you want your projectile to have a chain coming out of the gun
 	var/chain = null
 
+	/// Last world.time the projectile proper moved
+	var/last_projectile_move = 0
+	/// Left over ticks in movement calculation
+	var/time_offset = 0
+	/// The projectile's trajectory
+	var/datum/point_precise/vector/trajectory
+	/// Instructs forceMove to NOT reset our trajectory to the new location!
+	var/trajectory_ignore_forcemove = FALSE
+
 /obj/item/projectile/New()
-	permutated = list()
 	return ..()
 
 /obj/item/projectile/proc/Range()
@@ -232,81 +240,102 @@
 /obj/item/projectile/Process_Spacemove(movement_dir = 0)
 	return 1 //Bullets don't drift in space
 
+/obj/item/projectile/process()
+	if(!loc || !trajectory)
+		return PROCESS_KILL
+	if(paused || !isturf(loc))
+		last_projectile_move = world.time
+		return
+	var/elapsed_time_deciseconds = (world.time - last_projectile_move) + time_offset
+	time_offset = 0
+	var/required_moves = FLOOR(elapsed_time_deciseconds / speed, 1)
+	if(required_moves > SSprojectiles.global_max_tick_moves)
+		var/overrun = required_moves - SSprojectiles.global_max_tick_moves
+		required_moves = SSprojectiles.global_max_tick_moves
+		time_offset += overrun * speed
+	time_offset += MODULUS(elapsed_time_deciseconds, speed)
+
+	for(var/i in 1 to required_moves)
+		pixel_move(1)
+
+/obj/item/projectile/proc/pixel_move(trajectory_multiplier)
+	if(!loc || !trajectory)
+		return
+	last_projectile_move = world.time
+	// Keep on course
+	var/matrix/M = new
+	M.Turn(Angle)
+	transform = M
+	// Iterate
+	var/forcemoved = FALSE
+	for(var/i in 1 to SSprojectiles.global_iterations_per_move)
+		if(QDELETED(src))
+			return
+		trajectory.increment(trajectory_multiplier)
+		var/turf/T = trajectory.return_turf()
+		if(!istype(T))
+			qdel(src)
+			return
+		if(T.z != loc.z)
+			trajectory_ignore_forcemove = TRUE
+			forceMove(T)
+			trajectory_ignore_forcemove = FALSE
+			pixel_x = trajectory.return_px()
+			pixel_y = trajectory.return_py()
+			forcemoved = TRUE
+		else if(T != loc)
+			step_towards(src, T)
+		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER || ismob(original)))
+			if(loc == get_turf(original) && !(original in permutated))
+				Bump(original, TRUE)
+	if(QDELETED(src)) //deleted on last move
+		return
+	if(!forcemoved)
+		pixel_x = trajectory.return_px() - trajectory.mpx * trajectory_multiplier * SSprojectiles.global_iterations_per_move
+		pixel_y = trajectory.return_py() - trajectory.mpy * trajectory_multiplier * SSprojectiles.global_iterations_per_move
+		animate(src, pixel_x = trajectory.return_px(), pixel_y = trajectory.return_py(), time = 1, flags = ANIMATION_END_NOW)
+	Range()
+
 /obj/item/projectile/proc/fire(setAngle)
-	set waitfor = FALSE
 	if(setAngle)
 		Angle = setAngle
-
-	while(!QDELETED(src))
-		if(!paused)
-			if((!current || loc == current))
-				current = locate(clamp(x + xo, 1, world.maxx), clamp(y + yo, 1, world.maxy), z)
-			if(isnull(Angle))
-				Angle = round(get_angle(src, current))
-			if(spread)
-				Angle += (rand() - 0.5) * spread
-			var/matrix/M = new
-			M.Turn(Angle)
-			transform = M
-
-			var/Pixel_x = round(sin(Angle) + 16 * sin(Angle) * 2, 1)
-			var/Pixel_y = round(cos(Angle) + 16 * cos(Angle) * 2, 1)
-			var/pixel_x_offset = pixel_x + Pixel_x
-			var/pixel_y_offset = pixel_y + Pixel_y
-			var/new_x = x
-			var/new_y = y
-
-			while(pixel_x_offset > 16)
-				pixel_x_offset -= 32
-				pixel_x -= 32
-				new_x++ // x++
-			while(pixel_x_offset < -16)
-				pixel_x_offset += 32
-				pixel_x += 32
-				new_x--
-
-			while(pixel_y_offset > 16)
-				pixel_y_offset -= 32
-				pixel_y -= 32
-				new_y++
-			while(pixel_y_offset < -16)
-				pixel_y_offset += 32
-				pixel_y += 32
-				new_y--
-
-			speed = round(speed)
-			step_towards(src, locate(new_x, new_y, z))
-			if(speed <= 1)
-				pixel_x = pixel_x_offset
-				pixel_y = pixel_y_offset
-			else
-				animate(src, pixel_x = pixel_x_offset, pixel_y = pixel_y_offset, time = max(1, (speed <= 3 ? speed - 1 : speed)))
-
-			if(original && (original.layer >= 2.75 || ismob(original)))
-				if(loc == get_turf(original))
-					if(!(original in permutated))
-						Bump(original, TRUE)
-			Range()
-		sleep(max(1, speed))
+	if(!current || loc == current)
+		current = locate(clamp(x + xo, 1, world.maxx), clamp(y + yo, 1, world.maxy), z)
+	if(isnull(Angle))
+		Angle = round(get_angle(src, current))
+	if(spread)
+		Angle += (rand() - 0.5) * spread
+	// Turn right away
+	var/matrix/M = new
+	M.Turn(Angle)
+	transform = M
+	// Start flying
+	trajectory = new(x, y, z, pixel_x, pixel_y, Angle, SSprojectiles.global_pixel_speed)
+	last_projectile_move = world.time
+	START_PROCESSING(SSprojectiles, src)
+	pixel_move(1, FALSE)
 
 /obj/item/projectile/proc/reflect_back(atom/source, list/position_modifiers = list(0, 0, 0, 0, 0, -1, 1, -2, 2))
-	if(starting)
-		var/new_x = starting.x + pick(position_modifiers)
-		var/new_y = starting.y + pick(position_modifiers)
-		var/turf/curloc = get_turf(source)
+	if(!starting)
+		return
+	var/new_x = starting.x + pick(position_modifiers)
+	var/new_y = starting.y + pick(position_modifiers)
+	var/turf/curloc = get_turf(source)
+	if(!curloc)
+		return
 
-		if(ismob(source))
-			firer = source // The reflecting mob will be the new firer
-		else
-			firer = null // Reflected by something other than a mob so firer will be null
+	if(ismob(source))
+		firer = source // The reflecting mob will be the new firer
+	else
+		firer = null // Reflected by something other than a mob so firer will be null
 
-		// redirect the projectile
-		original = locate(new_x, new_y, z)
-		starting = curloc
-		current = curloc
-		yo = new_y - curloc.y
-		xo = new_x - curloc.x
-		Angle = null // Will be calculated in fire()
+	// redirect the projectile
+	original = locate(new_x, new_y, z)
+	starting = curloc
+	current = curloc
+	yo = new_y - curloc.y
+	xo = new_x - curloc.x
+	set_angle(get_angle(curloc, original))
 
 /obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
 	..()
@@ -314,6 +343,7 @@
 		Bump(AM, 1)
 
 /obj/item/projectile/Destroy()
+	STOP_PROCESSING(SSprojectiles, src)
 	ammo_casing = null
 	return ..()
 
@@ -335,9 +365,22 @@
 		return TRUE
 	return FALSE
 
-/obj/item/projectile/proc/setAngle(new_angle)	//wrapper for overrides.
+/obj/item/projectile/set_angle(new_angle)
+	..()
 	Angle = new_angle
-	return TRUE
+	trajectory.set_angle(new_angle)
+
+/obj/item/projectile/proc/set_angle_centered(new_angle)
+	set_angle(new_angle)
+	var/list/coordinates = trajectory.return_coordinates()
+	trajectory.set_location(coordinates[1], coordinates[2], coordinates[3]) // Sets the trajectory to the center of the tile it bounced at
 
 /obj/item/projectile/experience_pressure_difference()
 	return
+
+/obj/item/projectile/forceMove(atom/target)
+	. = ..()
+	if(QDELETED(src)) // we coulda bumped something
+		return
+	if(trajectory && !trajectory_ignore_forcemove && isturf(target))
+		trajectory.initialize_location(target.x, target.y, target.z, 0, 0)

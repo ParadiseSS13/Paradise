@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/targeted/lichdom
+/obj/effect/proc_holder/spell/lichdom
 	name = "Bind Soul"
 	desc = "A dark necromantic pact that can forever bind your soul to an item of your choosing. So long as both your body and the item remain intact and on the same plane you can revive from death, though the time between reincarnations grows steadily with use."
 	school = "necromancy"
@@ -7,10 +7,8 @@
 	centcom_cancast = 0
 	invocation = "NECREM IMORTIUM!"
 	invocation_type = "shout"
-	range = -1
 	level_max = 0 //cannot be improved
 	cooldown_min = 10
-	include_user = 1
 
 	var/obj/marked_item
 	var/mob/living/current_body
@@ -19,16 +17,19 @@
 
 	action_icon_state = "skeleton"
 
-/obj/effect/proc_holder/spell/targeted/lichdom/Destroy()
+/obj/effect/proc_holder/spell/lichdom/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/lichdom/Destroy()
 	for(var/datum/mind/M in SSticker.mode.wizards) //Make sure no other bones are about
 		for(var/obj/effect/proc_holder/spell/S in M.spell_list)
-			if(istype(S,/obj/effect/proc_holder/spell/targeted/lichdom) && S != src)
+			if(istype(S,/obj/effect/proc_holder/spell/lichdom) && S != src)
 				return ..()
 	if(existence_stops_round_end)
 		GLOB.configuration.gamemode.disable_certain_round_early_end = FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/lichdom/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/lichdom/cast(list/targets, mob/user = usr)
 	if(!GLOB.configuration.gamemode.disable_certain_round_early_end)
 		existence_stops_round_end = TRUE
 		GLOB.configuration.gamemode.disable_certain_round_early_end = TRUE
@@ -126,7 +127,7 @@
 					H.unEquip(H.head)
 					equip_lich(H)
 
-/obj/effect/proc_holder/spell/targeted/lichdom/proc/equip_lich(mob/living/carbon/human/H)
+/obj/effect/proc_holder/spell/lichdom/proc/equip_lich(mob/living/carbon/human/H)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(H), slot_wear_suit)
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(H), slot_head)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)

@@ -242,9 +242,6 @@ SUBSYSTEM_DEF(mapping)
 	log_world("Ruin loader finished with [budget] left to spend.")
 
 /datum/controller/subsystem/mapping/proc/load_away_mission()
-	if(length(GLOB.awaydestinations))
-		return
-
 	if(length(GLOB.configuration.gateway.enabled_away_missions))
 		var/watch = start_watch()
 		log_startup_progress("Loading away mission...")
@@ -258,12 +255,6 @@ SUBSYSTEM_DEF(mapping)
 			late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
 			GLOB.space_manager.remove_dirt(zlev)
 			log_world("Away mission loaded: [map]")
-
-		for(var/thing in GLOB.landmarks_list)
-			var/obj/effect/landmark/L = thing
-			if(L.name != "awaystart")
-				continue
-			GLOB.awaydestinations.Add(L)
 
 		log_startup_progress("Away mission loaded in [stop_watch(watch)]s.")
 

@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", "Science", "Security", "Cargo", "Support", "Civilian"))
+GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", "Science", "Security", "Cargo", "Support", "Assistant"))
 
 // The department the job belongs to.
 /datum/job/var/department = null
@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", 
 /datum/job/hop/department = "Support"
 /datum/job/hop/head_position = 1
 
-/datum/job/civilian/department = "Civilian"
+/datum/job/assistant/department = "Assistant"
 
 /datum/job/bartender/department = "Support"
 

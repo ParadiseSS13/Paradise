@@ -24,7 +24,7 @@
 	var/safety = TRUE //if you can zap people with the defibs on harm mode
 	var/combat = FALSE //can we revive through space suits?
 	var/heart_attack = FALSE //can it give instant heart attacks when zapped on harm intent with combat?
-	var/base_icon_state = "defibpaddles"
+	base_icon_state = "defibpaddles"
 	var/obj/item/twohanded/shockpaddles/paddle_type = /obj/item/twohanded/shockpaddles
 
 /obj/item/defibrillator/get_cell()
@@ -297,7 +297,7 @@
 	var/revivecost = 1000
 	var/cooldown = FALSE
 	var/busy = FALSE
-	var/base_icon_state = "defibpaddles"
+	base_icon_state = "defibpaddles"
 	var/obj/item/defibrillator/defib
 
 /obj/item/twohanded/shockpaddles/New(mainunit)
@@ -405,6 +405,11 @@
 			var/tloss = DEFIB_TIME_LOSS
 			var/total_burn	= 0
 			var/total_brute	= 0
+			if(ghost && ghost.can_reenter_corpse)
+				to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+				window_flash(ghost.client)
+				notify_ghosts()
+				ghost << sound('sound/effects/genetics.ogg')
 			if(do_after(user, 20 * toolspeed, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
 				for(var/obj/item/carried_item in H.contents)
 					if(istype(carried_item, /obj/item/clothing/suit/space))
@@ -450,15 +455,20 @@
 					for(var/obj/item/organ/external/O in H.bodyparts)
 						total_brute	+= O.brute_dam
 						total_burn	+= O.burn_dam
-					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK)  && !HAS_TRAIT(H, TRAIT_BADDNA) && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)))
+					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK) && !HAS_TRAIT(H, TRAIT_BADDNA) && H.blood_volume > BLOOD_VOLUME_SURVIVE && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)))
 						tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statement, let me tell you
 						tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 						H.adjustOxyLoss(tobehealed)
 						H.adjustToxLoss(tobehealed)
 						H.adjustFireLoss(tobehealed)
 						H.adjustBruteLoss(tobehealed)
+						if(H.get_int_organ(/obj/item/organ/internal/brain) && H.getBrainLoss() >= 100)
+							// If you want to treat this with mannitol, it'll have to metabolize while the patient is alive, so it's alright to bring them back up for a minute
+							playsound(get_turf(src), 'sound/machines/defib_saftyoff.ogg', 50, 0)
+							user.visible_message("<span class='boldnotice'>[defib] chimes: Minimal brain activity detected, brain treatment recommended for full resuscitation.</span>")
+						else
+							playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
 						user.visible_message("<span class='boldnotice'>[defib] pings: Resuscitation successful.</span>")
-						playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
 						H.update_revive()
 						H.KnockOut()
 						H.Paralyse(5)
@@ -476,17 +486,16 @@
 						else if(total_burn >= 180 || total_brute >= 180)
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
 						else if(HAS_TRAIT(H, TRAIT_HUSK))
-							user.visible_message("<span class='notice'>[defib] buzzes: Resucitation failed: Subject is husked.</span>")
+							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: Subject is husked.</span>")
+						else if (H.blood_volume < BLOOD_VOLUME_SURVIVE)
+							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: Patient blood volume critically low.</span>")
 						else if(ghost)
 							if(!ghost.can_reenter_corpse) // DNR or AntagHUD
-								user.visible_message("<span class='notice'>[defib] buzzes: Resucitation failed: No electrical brain activity detected.</span>")
+								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resucitation failed: No electrical brain activity detected.</span>")
 							else
-								user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
-								to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
-								window_flash(ghost.client)
-								ghost << sound('sound/effects/genetics.ogg')
+								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
 						else
-							user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed.</span>")
+							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed.</span>")
 						playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 						defib.deductcharge(revivecost)
 					update_icon()

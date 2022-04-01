@@ -43,6 +43,7 @@
 #define AALARM_PRESET_VOX       2 // Support Vox
 #define AALARM_PRESET_COLDROOM  3 // Kitchen coldroom
 #define AALARM_PRESET_SERVER    4 // Server coldroom
+#define AALARM_PRESET_DISABLED  5 // Disables all alarms
 
 #define AALARM_REPORT_TIMEOUT 100
 
@@ -84,6 +85,7 @@
 	resistance_flags = FIRE_PROOF
 	siemens_strength = 1
 	frequency = ATMOS_VENTSCRUB
+	var/custom_name
 	var/alarm_id = null
 	//var/skipprocess = 0 //Experimenting
 	var/alarm_frequency = ATMOS_FIRE_FREQ
@@ -125,6 +127,7 @@
 	name = "engine air alarm"
 	locked = FALSE
 	req_access = null
+	custom_name = TRUE
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 
 /obj/machinery/alarm/syndicate //general syndicate access
@@ -144,6 +147,9 @@
 
 /obj/machinery/alarm/kitchen_cold_room
 	preset = AALARM_PRESET_COLDROOM
+
+/obj/machinery/alarm/disabled
+	preset = AALARM_PRESET_DISABLED
 
 /obj/machinery/alarm/proc/apply_preset(no_cycle_after=0)
 	// Propogate settings.
@@ -192,6 +198,17 @@
 				"pressure"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), /* kpa */
 				"temperature"    = new/datum/tlv(0, 0, T20C + 5, T20C + 15), // K
 			)
+		if(AALARM_PRESET_DISABLED)
+			no_cycle_after = TRUE
+			TLV = list(
+				"oxygen"         = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"nitrogen"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"carbon dioxide" = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"plasma"         = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"other"          = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"pressure"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), /* kpa */
+				"temperature"    = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // K
+			)
 
 	if(!no_cycle_after)
 		mode = AALARM_MODE_REPLACEMENT
@@ -235,7 +252,7 @@
 /obj/machinery/alarm/proc/first_run()
 	alarm_area = get_area(src)
 	area_uid = alarm_area.uid
-	if(name == "alarm")
+	if(!custom_name)
 		name = "[alarm_area.name] Air Alarm"
 	apply_preset(1) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
@@ -702,7 +719,8 @@
 		AALARM_PRESET_HUMAN		= list("name"="Human",     	 "desc"="Checks for oxygen and nitrogen", "id" = AALARM_PRESET_HUMAN),\
 		AALARM_PRESET_VOX 		= list("name"="Vox",       	 "desc"="Checks for nitrogen only", "id" = AALARM_PRESET_VOX),\
 		AALARM_PRESET_COLDROOM 	= list("name"="Coldroom", 	 "desc"="For freezers", "id" = AALARM_PRESET_COLDROOM),\
-		AALARM_PRESET_SERVER 	= list("name"="Server Room", "desc"="For server rooms", "id" = AALARM_PRESET_SERVER)
+		AALARM_PRESET_SERVER 	= list("name"="Server Room", "desc"="For server rooms", "id" = AALARM_PRESET_SERVER),\
+		AALARM_PRESET_DISABLED 	= list("name"="Disabled", "desc"="Disables all alarms", "id" = AALARM_PRESET_DISABLED)
 	)
 	data["preset"] = preset
 
@@ -1089,6 +1107,7 @@
 	name = "all-access air alarm"
 	desc = "This particular atmos control unit appears to have no access restrictions."
 	locked = FALSE
+	custom_name = TRUE
 	req_access = null
 	req_one_access = null
 

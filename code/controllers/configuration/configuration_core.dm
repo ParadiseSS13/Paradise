@@ -38,6 +38,8 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/movement_configuration/movement
 	/// Holder for the overflow configuration datum
 	var/datum/configuration_section/overflow_configuration/overflow
+	/// Holder for the redis configuration datum
+	var/datum/configuration_section/redis_configuration/redis
 	/// Holder for the ruins configuration datum
 	var/datum/configuration_section/ruin_configuration/ruins
 	/// Holder for the system configuration datum
@@ -88,6 +90,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	metrics = new()
 	movement = new()
 	overflow = new()
+	redis = new()
 	ruins = new()
 	system = new()
 	url = new()
@@ -125,6 +128,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	safe_load(metrics, "metrics_configuration")
 	safe_load(movement, "movement_configuration")
 	safe_load(overflow, "overflow_configuration")
+	safe_load(redis, "redis_configuration")
 	safe_load(ruins, "ruin_configuration")
 	safe_load(system, "system_configuration")
 	safe_load(url, "url_configuration")

@@ -755,7 +755,7 @@
 		return
 
 	if(B.chemicals >= 100)
-		to_chat(src, "<span class='danger'>Your host twitches and quivers as you rapdly excrete several larvae from your sluglike body.</span>")
+		to_chat(src, "<span class='danger'>Your host twitches and quivers as you rapidly excrete several larvae from your sluglike body.</span>")
 		visible_message("<span class='danger'>[src] heaves violently, expelling a rush of vomit and a wriggling, sluglike creature!</span>")
 		B.chemicals -= 100
 		var/turf/T = get_turf(src)
@@ -838,6 +838,11 @@
 		to_chat(src, "Sugar nullifies your abilities, avoid it at all costs!")
 		to_chat(src, "You can speak to your fellow borers by prefixing your messages with ':bo'. Check out your Borer tab to see your abilities.")
 		to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cortical_Borer)</span>")
+
+/mob/living/simple_animal/borer/npc_safe(mob/user)
+	if(!jobban_isbanned(user, ROLE_BORER) && !jobban_isbanned(user, ROLE_SYNDICATE))
+		return TRUE
+	return FALSE
 
 /proc/create_borer_mind(key)
 	var/datum/mind/M = new /datum/mind(key)

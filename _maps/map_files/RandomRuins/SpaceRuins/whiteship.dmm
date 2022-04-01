@@ -58,9 +58,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "aw" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "ax" = (
@@ -142,6 +140,7 @@
 /area/shuttle/abandoned)
 "aP" = (
 /obj/machinery/light_switch{
+	name = "custom placement";
 	pixel_x = 27
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -228,6 +227,7 @@
 /area/shuttle/abandoned)
 "bm" = (
 /obj/machinery/light_switch{
+	name = "custom placement";
 	pixel_x = 27
 	},
 /obj/machinery/light{
@@ -252,9 +252,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "bq" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /obj/item/stack/cable_coil/cut,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)

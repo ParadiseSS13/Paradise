@@ -301,10 +301,10 @@
 	disabled = TRUE
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
+	addtimer(CALLBACK(src, .proc/reboot), disable_time SECONDS)
 	if(istype(loc, /mob/living/carbon/human))
 		var/mob/living/carbon/human/C = loc
 		C.update_inv_wear_suit()
-		addtimer(CALLBACK(src, .proc/reboot), disable_time SECONDS)
 
 /obj/item/clothing/suit/armor/reactive/proc/reboot()
 	disabled = FALSE
@@ -335,27 +335,12 @@
 /obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
 		return 0
-	if(reaction_check(hitby))
+	if(reaction_check(hitby) && is_teleport_allowed(owner.z))
 		var/mob/living/carbon/human/H = owner
-		owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text]!</span>")
-		var/list/turfs = new/list()
-		for(var/turf/T in orange(tele_range, H))
-			if(istype(T, /turf/space))
-				continue
-			if(T.density)
-				continue
-			if(T.x>world.maxx-tele_range || T.x<tele_range)
-				continue
-			if(T.y>world.maxy-tele_range || T.y<tele_range)
-				continue
-			turfs += T
-		if(!turfs.len)
-			turfs += pick(/turf in orange(tele_range, H))
-		var/turf/picked = pick(turfs)
-		if(!isturf(picked))
-			return
-		H.forceMove(picked)
-		return TRUE
+		if(do_teleport(owner, owner, 6, safe_turf_pick = TRUE)) //Teleport on the same spot with a precision of 6 gets a random tile near the owner.
+			owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text]!</span>")
+			return TRUE
+		return FALSE
 	return FALSE
 
 /obj/item/clothing/suit/armor/reactive/fire
@@ -373,6 +358,7 @@
 			if(C != owner)
 				C.fire_stacks += 8
 				C.IgniteMob()
+				add_attack_logs(owner, C, "[C] was ignited by [owner]'s [src]", ATKLOG_ALMOSTALL) //lord have mercy on almost_all attack log admins
 		return TRUE
 	return FALSE
 
@@ -389,13 +375,10 @@
 		E.Copy_Parent(owner, 50)
 		E.GiveTarget(owner) //so it starts running right away
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
-		owner.alpha = 0
 		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
-		addtimer(CALLBACK(owner, /mob/living/.proc/reset_alpha), 4 SECONDS)
+		owner.make_invisible()
+		addtimer(CALLBACK(owner, /mob/living/.proc/reset_visibility), 4 SECONDS)
 		return TRUE
-
-/mob/living/proc/reset_alpha(mob/living/carbon/human/owner)
-	alpha = initial(alpha)
 
 /obj/item/clothing/suit/armor/reactive/tesla
 	name = "reactive tesla armor"
@@ -412,6 +395,7 @@
 			owner.Beam(M,icon_state="lightning[rand(1, 12)]",icon='icons/effects/effects.dmi',time=5)
 			M.adjustFireLoss(20)
 			playsound(M, 'sound/machines/defib_zap.ogg', 50, 1, -1)
+			add_attack_logs(owner, M, "[M] was shocked by [owner]'s [src]", ATKLOG_ALMOSTALL)
 		disable(rand(2, 5)) // let's not have buckshot set it off 4 times and do 80 burn damage.
 		return TRUE
 
@@ -447,11 +431,13 @@
 					var/mob/living/M = AM
 					M.Weaken(3)
 					to_chat(M, "<span class='userdanger'>You're slammed into the floor by [owner]'s reactive armor!</span>")
+					add_attack_logs(owner, M, "[M] was thrown by [owner]'s [src]", ATKLOG_ALMOSTALL)
 			else
 				new sparkle_path(get_turf(AM), get_dir(owner, AM))
 				if(isliving(AM))
 					var/mob/living/M = AM
 					to_chat(M, "<span class='userdanger'>You're thrown back by [owner]'s reactive armor!</span>")
+					add_attack_logs(owner, M, "[M] was thrown by [owner]'s [src]", ATKLOG_ALMOSTALL)
 				INVOKE_ASYNC(AM, /atom/movable/.proc/throw_at, throw_target, ((clamp((repulse_power - (clamp(dist_from_user - 2, 0, dist_from_user))), 3, repulse_power))), 1) //So stuff gets tossed around at the same time.
 		disable(rand(2, 5))
 		return TRUE

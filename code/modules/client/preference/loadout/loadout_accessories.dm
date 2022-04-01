@@ -105,7 +105,7 @@
 /datum/gear/accessory/stethoscope
 	display_name = "Stethoscope"
 	path = /obj/item/clothing/accessory/stethoscope
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Paramedic", "Brig Physician")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Paramedic")
 
 /datum/gear/accessory/cowboyshirt
 	display_name = "Cowboy shirt, black"
@@ -182,7 +182,7 @@
 /datum/gear/accessory/armband_job/sec
 	display_name = "Armband, security"
 	path = /obj/item/clothing/accessory/armband/sec
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/accessory/armband_job/cargo
 	display_name = "Armband, cargo"
@@ -192,12 +192,12 @@
 /datum/gear/accessory/armband_job/medical
 	display_name = "Armband, medical"
 	path = /obj/item/clothing/accessory/armband/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Paramedic", "Brig Physician")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Paramedic")
 
 /datum/gear/accessory/armband_job/emt
 	display_name = "Armband, EMT"
 	path = /obj/item/clothing/accessory/armband/medgreen
-	allowed_roles = list("Paramedic", "Brig Physician")
+	allowed_roles = list("Paramedic")
 
 /datum/gear/accessory/armband_job/engineering
 	display_name = "Armband, engineering"

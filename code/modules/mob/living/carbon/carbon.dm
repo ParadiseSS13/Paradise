@@ -487,6 +487,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 					var/failed = 0
 					if(istype(I, /obj/item/implant))
 						continue
+					if(istype(I, /obj/item/reagent_containers/food/pill/patch))
+						continue
 					if(I.flags & ABSTRACT)
 						continue
 					else
@@ -497,7 +499,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 						return
 
 			visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
-			src.loc = vent_found
+			var/old_loc = loc
+			loc = vent_found
+			Moved(old_loc, get_dir(old_loc, loc), FALSE)
 			add_ventcrawl(vent_found)
 
 	else
@@ -542,6 +546,34 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/throw_impact(atom/hit_atom, throwingdatum)
 	. = ..()
+	if(has_status_effect(STATUS_EFFECT_CHARGING))
+		var/hit_something = FALSE
+		if(ismovable(hit_atom))
+			var/atom/movable/AM = hit_atom
+			var/atom/throw_target = get_edge_target_turf(AM, dir)
+			if(!AM.anchored || ismecha(AM))
+				AM.throw_at(throw_target, 3, 14, src)
+				hit_something = TRUE
+		if(isobj(hit_atom))
+			var/obj/O = hit_atom
+			O.take_damage(150, BRUTE)
+			hit_something = TRUE
+		if(isliving(hit_atom))
+			var/mob/living/L = hit_atom
+			L.adjustBruteLoss(60)
+			L.Weaken(3)
+			shake_camera(L, 4, 3)
+			hit_something = TRUE
+		if(isturf(hit_atom))
+			var/turf/T = hit_atom
+			if(iswallturf(T))
+				T.dismantle_wall(TRUE)
+				hit_something = TRUE
+		if(hit_something)
+			visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
+			playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)
+		return
+
 	var/hurt = TRUE
 	/*if(istype(throwingdatum, /datum/thrownthing))
 		var/datum/thrownthing/D = throwingdatum

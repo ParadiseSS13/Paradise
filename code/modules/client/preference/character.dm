@@ -18,7 +18,8 @@
 	var/list/m_styles = list(
 		"head" = "None",
 		"body" = "None",
-		"tail" = "None"
+		"tail" = "None",
+		"wing" = "None"
 		)			//Marking styles.
 	var/list/m_colours = list(
 		"head" = "#000000",
@@ -39,6 +40,7 @@
 	var/language = "None"				//Secondary language
 	var/autohiss_mode = AUTOHISS_OFF	//Species autohiss level. OFF, BASIC, FULL.
 
+	/// The body accessory name of the mob (e.g. wings, tail).
 	var/body_accessory = null
 
 	var/speciesprefs = 0 //I hate having to do this, I really do (Using this for oldvox code, making names universal I guess
@@ -94,6 +96,13 @@
 	var/valid_save = FALSE
 	/// Character slot number, used for saves and stuff.
 	var/slot_number = 0
+
+	// Hair gradient
+	var/h_grad_style = "None"
+	var/h_grad_offset_x = 0
+	var/h_grad_offset_y = 0
+	var/h_grad_colour = "#000000"
+	var/h_grad_alpha = 255
 
 // Fuckery to prevent null characters
 /datum/character_save/New()
@@ -178,7 +187,11 @@
 					socks=:socks,
 					body_accessory=:body_accessory,
 					gear=:gearlist,
-					autohiss=:autohiss_mode
+					autohiss=:autohiss_mode,
+					hair_gradient=:h_grad_style,
+					hair_gradient_offset=:h_grad_offset,
+					hair_gradient_colour=:h_grad_colour,
+					hair_gradient_alpha=:h_grad_alpha
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
@@ -234,6 +247,10 @@
 						"body_accessory" = (body_accessory ? body_accessory : ""),
 						"gearlist" = (gearlist ? gearlist : ""),
 						"autohiss_mode" = autohiss_mode,
+						"h_grad_style" = h_grad_style,
+						"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
+						"h_grad_colour" = h_grad_colour,
+						"h_grad_alpha" = h_grad_alpha,
 						"ckey" = C.ckey,
 						"slot" = slot_number
 					))
@@ -274,7 +291,8 @@
 			gen_record,
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-			socks, body_accessory, gear, autohiss)
+			socks, body_accessory, gear, autohiss,
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -301,7 +319,8 @@
 			:gen_record,
 			:playertitlelist,
 			:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
-			:socks, :body_accessory, :gearlist, :autohiss_mode)
+			:socks, :body_accessory, :gearlist, :autohiss_mode,
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -357,7 +376,11 @@
 		"socks" = socks,
 		"body_accessory" = (body_accessory ? body_accessory : ""),
 		"gearlist" = (gearlist ? gearlist : ""),
-		"autohiss_mode" = autohiss_mode
+		"autohiss_mode" = autohiss_mode,
+		"h_grad_style" = h_grad_style,
+		"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
+		"h_grad_colour" = h_grad_colour,
+		"h_grad_alpha" = h_grad_alpha
 	))
 
 	if(!query.warn_execute())
@@ -441,6 +464,11 @@
 	loadout_gear = query.item[51]
 	autohiss_mode = text2num(query.item[52])
 
+	h_grad_style = query.item[54]
+	h_grad_offset_x = query.item[55] // parsed down below
+	h_grad_colour = query.item[56]
+	h_grad_alpha = query.item[57]
+
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
 	metadata = sanitize_text(metadata, initial(metadata))
@@ -507,6 +535,13 @@
 
 	socks			= sanitize_text(socks, initial(socks))
 	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
+	h_grad_style = sanitize_text(length(h_grad_style) ? h_grad_style : null, "None")
+	var/list/expl = splittext(h_grad_offset_x, ",")
+	if(length(expl) == 2)
+		h_grad_offset_x = text2num(expl[1]) || 0
+		h_grad_offset_y = text2num(expl[2]) || 0
+	h_grad_colour = sanitize_hexcolor(h_grad_colour)
+	h_grad_alpha = sanitize_integer(h_grad_alpha, 0, 255, initial(h_grad_alpha))
 	loadout_gear	= sanitize_json(loadout_gear)
 
 	if(!player_alt_titles)
@@ -545,10 +580,8 @@
 	underwear = random_underwear(gender, species)
 	undershirt = random_undershirt(gender, species)
 	socks = random_socks(gender, species)
-	if(GLOB.body_accessory_by_species[species])
-		body_accessory = random_body_accessory(species)
-		if(body_accessory == "None") //Required to prevent a bug where the information/icons in the character preferences screen wouldn't update despite the data being changed.
-			body_accessory = null
+	if(length(GLOB.body_accessory_by_species[species]))
+		body_accessory = random_body_accessory(species, S.optional_body_accessory)
 	if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 		s_tone = random_skin_tone(species)
 	h_style = random_hair_style(gender, species, robohead)
@@ -735,6 +768,12 @@
 			clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 	return clothes_s
 
+#define ICON_SHIFT_XY(I, X, Y)\
+	if(X)\
+		I.Shift(EAST, X);\
+	if(Y)\
+		I.Shift(NORTH, Y);\
+
 /datum/character_save/proc/update_preview_icon(for_observer=0)		//seriously. This is horrendous.
 	qdel(preview_icon_front)
 	qdel(preview_icon_side)
@@ -797,49 +836,52 @@
 		else
 			preview_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
 
-	//Tail
-	if(current_species && (current_species.bodyflags & HAS_TAIL))
-		var/tail_icon
-		var/tail_icon_state
-		var/tail_shift_x
-		var/tail_shift_y
+	// Body accessory
+	if(current_species && (current_species.bodyflags & HAS_BODY_ACCESSORY))
+		var/icon
+		var/icon_state
+		var/offset_x = 0
+		var/offset_y = 0
 		var/blend_mode = ICON_ADD
+		var/icon/underlay = null
 
 		if(body_accessory)
-			var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[body_accessory]
-			tail_icon = accessory.icon
-			tail_icon_state = accessory.icon_state
-			if(accessory.blend_mode)
-				blend_mode = accessory.blend_mode
-			if(accessory.pixel_x_offset)
-				tail_shift_x = accessory.pixel_x_offset
-			if(accessory.pixel_y_offset)
-				tail_shift_y = accessory.pixel_y_offset
-		else
-			tail_icon = "icons/effects/species.dmi"
+			var/datum/body_accessory/BA = GLOB.body_accessory_by_name[body_accessory]
+			if(BA)
+				icon = BA.icon
+				icon_state = BA.icon_state
+				blend_mode = BA.blend_mode || blend_mode
+				offset_x = BA.pixel_x_offset
+				offset_y = BA.pixel_y_offset
+				// If the body accessory has an underlay, account for it.
+				if(BA.has_behind)
+					underlay = new(icon, "[icon_state]_BEHIND")
+		else if(current_species.bodyflags & HAS_TAIL)
+			icon = "icons/effects/species.dmi"
 			if(coloured_tail)
-				tail_icon_state = "[coloured_tail]_s"
+				icon_state = "[coloured_tail]_s"
 			else
-				tail_icon_state = "[current_species.tail]_s"
+				icon_state = "[current_species.tail]_s"
+		
+		if(icon)
+			var/icon/temp = new(icon, icon_state)
+			if(current_species.bodyflags & HAS_SKIN_COLOR)
+				temp.Blend(s_colour, blend_mode)
+			if(current_species.bodyflags & HAS_TAIL_MARKINGS)
+				var/tail_marking = m_styles["tail"]
+				var/datum/sprite_accessory/body_markings/BM = GLOB.marking_styles_list[tail_marking]
+				if(BM)
+					var/icon/t_marking_s = new(BM.icon, "[BM.icon_state]_s")
+					t_marking_s.Blend(m_colours["tail"], ICON_ADD)
+					temp.Blend(t_marking_s, ICON_OVERLAY)
 
-		var/icon/temp = new/icon("icon" = tail_icon, "icon_state" = tail_icon_state)
-		if(tail_shift_x)
-			temp.Shift(EAST, tail_shift_x)
-		if(tail_shift_y)
-			temp.Shift(NORTH, tail_shift_y)
+			// Body accessory has an underlay, add it too.
+			if(underlay)
+				ICON_SHIFT_XY(underlay, offset_x, offset_y)
+				preview_icon.Blend(underlay, ICON_UNDERLAY)
 
-		if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR))
-			temp.Blend(s_colour, blend_mode)
-
-		if(current_species && (current_species.bodyflags & HAS_TAIL_MARKINGS))
-			var/tail_marking = m_styles["tail"]
-			var/datum/sprite_accessory/tail_marking_style = GLOB.marking_styles_list[tail_marking]
-			if(tail_marking_style && tail_marking_style.species_allowed)
-				var/icon/t_marking_s = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
-				t_marking_s.Blend(m_colours["tail"], ICON_ADD)
-				temp.Blend(t_marking_s, ICON_OVERLAY)
-
-		preview_icon.Blend(temp, ICON_OVERLAY)
+			ICON_SHIFT_XY(temp, offset_x, offset_y)
+			preview_icon.Blend(temp, ICON_OVERLAY)
 
 	//Markings
 	if(current_species && ((current_species.bodyflags & HAS_HEAD_MARKINGS) || (current_species.bodyflags & HAS_BODY_MARKINGS)))
@@ -873,6 +915,18 @@
 			hair_s.Blend("[s_colour]A0", ICON_ADD)
 		else if(hair_style.do_colouration)
 			hair_s.Blend(h_colour, ICON_ADD)
+
+		var/datum/sprite_accessory/hair_gradient/gradient = GLOB.hair_gradients_list[h_grad_style]
+		if(gradient)
+			var/icon/grad_s = new/icon("icon" = gradient.icon, "icon_state" = gradient.icon_state)
+			if(h_grad_offset_x)
+				grad_s.Shift(EAST, h_grad_offset_x)
+			if(h_grad_offset_y)
+				grad_s.Shift(NORTH, h_grad_offset_y)
+			grad_s.Blend(hair_s, ICON_ADD)
+			grad_s.MapColors(COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, h_grad_colour)
+			grad_s.ChangeOpacity(h_grad_alpha / 255)
+			hair_s.Blend(grad_s, ICON_OVERLAY)
 
 		if(hair_style.secondary_theme)
 			var/icon/hair_secondary_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_[hair_style.secondary_theme]_s")
@@ -929,7 +983,7 @@
 
 	var/icon/clothes_s = null
 	var/uniform_dmi='icons/mob/clothing/uniform.dmi'
-	if(job_support_low & JOB_CIVILIAN)//This gives the preview icon clothes depending on which job(if any) is set to 'high'
+	if(job_support_low & JOB_ASSISTANT) //This gives the preview icon clothes depending on which job(if any) is set to 'high'
 		clothes_s = new /icon(uniform_dmi, "grey_s")
 		clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if(backbag == 2)
@@ -1378,19 +1432,20 @@
 					clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
 				else if(backbag == 3 || backbag == 4)
 					clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
-	else if(job_karma_high)
-		switch(job_karma_high)
-			if(JOB_BRIGDOC)
-				clothes_s = new /icon(uniform_dmi, "medical_s")
-				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "fr_jacket_open"), ICON_OVERLAY)
+			if(JOB_JUDGE)
+				clothes_s = new /icon(uniform_dmi, "really_black_suit_s")
+				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "mercy_hood"), ICON_UNDERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "judge"), ICON_UNDERLAY)
 				switch(backbag)
 					if(2)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "medicalpack"), ICON_OVERLAY)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
 					if(3)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-med"), ICON_OVERLAY)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-norm"), ICON_OVERLAY)
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
+	else if(job_karma_high)
+		switch(job_karma_high)
 			if(JOB_NANO)
 				clothes_s = new /icon(uniform_dmi, "officer_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
@@ -1409,18 +1464,6 @@
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "securitypack"), ICON_OVERLAY)
-					if(3)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-norm"), ICON_OVERLAY)
-					if(4)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
-			if(JOB_JUDGE)
-				clothes_s = new /icon(uniform_dmi, "really_black_suit_s")
-				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "mercy_hood"), ICON_UNDERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "judge"), ICON_UNDERLAY)
-				switch(backbag)
-					if(2)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
 					if(3)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-norm"), ICON_OVERLAY)
 					if(4)
@@ -1456,7 +1499,7 @@
 	qdel(socks_s)
 	qdel(clothes_s)
 
-
+#undef ICON_SHIFT_XY
 
 /datum/character_save/proc/get_gear_metadata(datum/gear/G) // NYI
 	. = loadout_gear[G.type]
@@ -1616,9 +1659,10 @@
 	popup.open(0)
 
 /datum/character_save/proc/GetPlayerAltTitle(datum/job/job)
-	return player_alt_titles.Find(job.title) > 0 \
-		? player_alt_titles[job.title] \
-		: job.title
+    if(player_alt_titles.Find(job.title) > 0) // Does it exist in the list
+        if(player_alt_titles[job.title] in job.alt_titles) // Is it valid
+            return player_alt_titles[job.title]
+    return job.title // Use default
 
 /datum/character_save/proc/SetPlayerAltTitle(datum/job/job, new_title)
 	// remove existing entry
@@ -1781,6 +1825,12 @@
 	H.f_style = f_style
 
 	H.alt_head = alt_head
+
+	H.h_grad_style = h_grad_style
+	H.h_grad_offset_x = h_grad_offset_x
+	H.h_grad_offset_y = h_grad_offset_y
+	H.h_grad_colour = h_grad_colour
+	H.h_grad_alpha = h_grad_alpha
 	//End of head-specific.
 
 	character.skin_colour = s_colour
@@ -1974,9 +2024,9 @@
 			if(jobban_isbanned(user, job.title))
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[BANNED]</b></td></tr>"
 				continue
-			var/available_in_playtime = job.available_in_playtime(user.client)
-			if(available_in_playtime)
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[get_exp_format(available_in_playtime)] as [job.get_exp_req_type()]\]</b></td></tr>"
+			var/restrictions = job.get_exp_restrictions(user.client)
+			if(restrictions)
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[restrictions]]</b></td></tr>"
 				continue
 			if(job.barred_by_disability(user.client))
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td></tr>"
@@ -1985,7 +2035,7 @@
 				var/available_in_days = job.available_in_days(user.client)
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[IN [(available_in_days)] DAYS]</b></td></tr>"
 				continue
-			if((job_support_low & JOB_CIVILIAN) && (job.title != "Civilian"))
+			if((job_support_low & JOB_ASSISTANT) && (job.title != "Assistant"))
 				html += "<font color=orange>[rank]</font></td><td></td></tr>"
 				continue
 			if((job.title in GLOB.command_positions) || (job.title == "AI"))//Bold head jobs
@@ -2026,8 +2076,8 @@
 
 	//			HTML += "<a href='?_src_=prefs;preference=job;task=input;text=[rank]'>"
 
-			if(job.title == "Civilian")//Civilian is special
-				if(job_support_low & JOB_CIVILIAN)
+			if(job.title == "Assistant") // Assistant is special
+				if(job_support_low & JOB_ASSISTANT)
 					html += " <font color=green>Yes</font></a>"
 				else
 					html += " <font color=red>No</font></a>"
@@ -2057,7 +2107,7 @@
 			if(GET_RANDOM_JOB)
 				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
 			if(BE_ASSISTANT)
-				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Be a civilian if preferences unavailable</font></a></u></center><br>"
+				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Be an assistant if preferences unavailable</font></a></u></center><br>"
 			if(RETURN_TO_LOBBY)
 				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
 

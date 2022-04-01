@@ -51,12 +51,6 @@
 			return 1
 	return 0
 
-/proc/ismindslave(A) //Checks to see if the person contains a mindslave implant, then checks that the implant is actually inside of them
-	for(var/obj/item/implant/traitor/T in A)
-		if(T && T.implanted)
-			return 1
-	return 0
-
 /proc/isLivingSSD(mob/M)
 	return istype(M) && M.player_logged && M.stat != DEAD
 
@@ -227,9 +221,8 @@
 			if(1,3,5,8)	newletter="[lowertext(newletter)]"
 			if(2,4,6,15)	newletter="[uppertext(newletter)]"
 			if(7)	newletter+=pick(slurletters)
-			//if(9,10)	newletter="<b>[newletter]</b>"
-			//if(11,12)	newletter="<big>[newletter]</big>"
-			//if(13)	newletter="<small>[newletter]</small>"
+			else
+				pass()
 		newphrase+="[newletter]"
 		counter-=1
 	return newphrase
@@ -293,7 +286,7 @@
 				letter = ""
 
 			for(var/j = 1, j <= rand(0, 2), j++)
-				letter += pick("#","@","*","&","%","$","/", "<", ">", ";","*","*","*","*","*","*","*")
+				letter += pick("#","@","*","&","%","$","/", ";","*","*","*","*","*","*","*")
 
 		returntext += letter
 
@@ -463,8 +456,8 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			var/realname = C.mob.real_name
 			if(C.mob.mind)
 				mindname = C.mob.mind.name
-				if(C.mob.mind.original && C.mob.mind.original.real_name)
-					realname = C.mob.mind.original.real_name
+				if(C.mob.mind.original_mob_name)
+					realname = C.mob.mind.original_mob_name
 			if(mindname && mindname != realname)
 				name = "[realname] died as [mindname]"
 			else
@@ -664,6 +657,9 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				newletter="nglu"
 			if(5)
 				newletter="glor"
+			else
+				pass()
+
 		newphrase+="[newletter]";counter-=1
 	return newphrase
 

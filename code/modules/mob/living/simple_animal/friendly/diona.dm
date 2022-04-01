@@ -301,3 +301,8 @@
 			to_chat(src, "scream, chirp")
 
 	..()
+
+/mob/living/simple_animal/diona/npc_safe(mob/user)
+	if(!jobban_isbanned(user, ROLE_NYMPH))
+		return TRUE
+	return FALSE

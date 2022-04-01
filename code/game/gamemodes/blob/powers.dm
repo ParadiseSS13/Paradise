@@ -231,9 +231,7 @@
 	var/mob/living/simple_animal/hostile/blob/blobbernaut/blobber = new /mob/living/simple_animal/hostile/blob/blobbernaut (get_turf(B))
 	if(blobber)
 		qdel(B)
-	blobber.color = blob_reagent_datum.complementary_color
-	blobber.overmind = src
-	blob_mobs.Add(blobber)
+	add_mob_to_overmind(blobber)
 	blobber.AIStatus = AI_OFF
 	blobber.LoseTarget()
 	spawn()

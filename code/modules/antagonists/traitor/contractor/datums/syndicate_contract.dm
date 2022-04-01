@@ -371,6 +371,13 @@
 		if(I)
 			stuff_to_transfer += I
 
+	// Skrell headpocket. They already have a check in place to limit what's placed in them.
+	var/obj/item/organ/internal/headpocket/C = H.get_int_organ(/obj/item/organ/internal/headpocket)
+	if(C?.held_item)
+		GLOB.prisoner_belongings.give_item(C.held_item)
+		victim_belongings += C.held_item
+		C.held_item = null
+
 	// Regular items get removed in second
 	for(var/obj/item/I in M)
 		// Any items we don't want to take from them?

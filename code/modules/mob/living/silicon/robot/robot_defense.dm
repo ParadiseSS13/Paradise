@@ -43,9 +43,7 @@
 			cell.add_fingerprint(user)
 			user.put_in_active_hand(cell)
 			to_chat(user, "<span class='notice'>You remove \the [cell].</span>")
-			cell = null
 			var/datum/robot_component/C = components["power cell"]
-			C.installed = 0
 			C.uninstall()
 			module?.update_cells(TRUE)
 			diag_hud_set_borgcell()
