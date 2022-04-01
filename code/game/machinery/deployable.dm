@@ -226,8 +226,8 @@
 /obj/structure/barricade/dropwall
 	name = "dropwall"
 	desc = "A temporary deployable energy shield powered by a generator. Breaking the generator will destroy all the shields connected to it."
-	icon = 'icons/effects/effects.dmi'
-	icon_state = "m_shield"
+	icon = 'icons/obj/dropwall.dmi'
+	icon_state = "dropwall_dead" //sprite chosen in init
 	density = 0
 	directional_blockage = TRUE
 	proj_pass_rate = 100 //don't worry about it, covered by directional blockage.
@@ -236,7 +236,7 @@
 	var/core_shield = FALSE
 	/// This variable is to tell the shield what it's source is.
 	var/obj/structure/dropwall_generator/source = null
-	explosion_block = 8 //should be enough for a potasium water nade that isn't a maxcap. If you stand next to a maxcap with this however, you are an idiot.
+	explosion_block = 8 //should be enough for a potasium water nade that isn't a maxcap. If you stand next to a maxcap with this however, it will end poorly
 
 /obj/structure/barricade/dropwall/Initialize(mapload, owner, core, dir_1, dir_2)
 	. = ..()
@@ -244,6 +244,10 @@
 	core_shield = core
 	directional_list += dir_1
 	directional_list += dir_2
+	if(dir_2)
+		icon_state = "[dir2text(dir_1)]_[dir2text(dir_2)]"
+	else
+		icon_state = "[dir2text(dir_1)]"
 
 /obj/structure/barricade/dropwall/Destroy()
 	if(core_shield)
@@ -262,7 +266,7 @@
 
 /obj/item/grenade/barrier/dropwall
 	name = "dropwall shield generator"
-	desc = "This generator designed by Shellguard Munitions's spartan division is used to deploy a temporary cover that blocks projectiles and explosions from a direction, while allowing projectiles to pass freely from behind"
+	desc = "This generator designed by Shellguard Munitions's spartan division is used to deploy a temporary cover that blocks projectiles and explosions from a direction, while allowing projectiles to pass freely from behind."
 	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall"
@@ -288,7 +292,7 @@
 
 /obj/structure/dropwall_generator
 	name = "deployed dropwall shield generator"
-	desc = "This generator designed by Shellguard Munitions's spartan division is used to deploy a temporary cover that blocks projectiles and explosions from a direction, while allowing projectiles to pass freely from behind"
+	desc = "This generator designed by Shellguard Munitions's spartan division is used to deploy a temporary cover that blocks projectiles and explosions from a direction, while allowing projectiles to pass freely from behind."
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall_deployed"
 	max_integrity = 25 // 2 shots
@@ -401,11 +405,19 @@
 
 /obj/item/used_dropwall
 	name = "broken dropwall generator"
-	desc = "This dropwall has ran out of charge, but some materials could possibly be reclamed"
+	desc = "This dropwall has ran out of charge, but some materials could possibly be reclamed."
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall_dead"
 	item_state = "flashbang"
-	materials = list(MAT_METAL=10000, MAT_GLASS=4000) // adjust values to whatever print cost is / 2
+	materials = list(MAT_METAL=4000, MAT_GLASS=2500) //plasma burned up for power or something, plus not that much to reclaim
+
+
+/obj/item/storage/box/syndie_kit/dropwall
+	name = "dropwall generator box"
+
+/obj/item/storage/box/syndie_kit/dropwall/populate_contents()
+	for(var/I in 1 to 5)
+		new /obj/item/grenade/barrier/dropwall(src)
 
 #undef SINGLE
 #undef VERTICAL

@@ -373,6 +373,8 @@
 /obj/item/gun/energy/toxgun/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(overloaded)
 		select_fire(user)
+	else if(charging)
+		return
 	return ..()
 
 /obj/item/gun/energy/toxgun/process_chamber()
@@ -380,8 +382,6 @@
 		select_fire(usr)
 		do_sparks(2, 1, src)
 		reset_overloaded()
-	else if(charging)
-		return
 	..()
 	update_icon()
 
