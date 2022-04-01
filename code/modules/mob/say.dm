@@ -62,6 +62,16 @@
 		if(client.handle_spam_prevention(message, MUTE_DEADCHAT))
 			return
 
+
+	var/list/usable_dead_emotes = list("*flip", "*spin")
+
+
+	if(message in usable_dead_emotes)
+		emote(copytext(message, 2), intentional = TRUE)
+		log_emote(message, src)
+		create_log(DEADCHAT_LOG, message)
+		return
+
 	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts")], <span class='message'>\"[message]\"</span>", src)
 	create_log(DEADCHAT_LOG, message)
 	log_ghostsay(message, src)

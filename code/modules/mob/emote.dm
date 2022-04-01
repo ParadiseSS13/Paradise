@@ -72,7 +72,7 @@
 				if(P.message_param && P.param_desc)
 					// Add our parameter description, like flap-user
 					full_key = P.key + "\[[EMOTE_PARAM_SEPARATOR][P.param_desc]\]"
-				if(istype(H) && P.species_whitelist && (H?.dna?.species.name in species_whitelist))
+				if(istype(H) && P.species_whitelist && (H?.dna?.species.name in P.species_whitelist))
 					species_emotes += full_key
 				else
 					base_keys += full_key
@@ -110,29 +110,31 @@
 		message = "flops and flails around on the floor."
 	else if(params)
 		message_param = "flips in %t's general direction."
-	else if(istype(user.get_active_hand(), /obj/item/grab))
-		var/obj/item/grab/G = user.get_active_hand()
-		if(G && G.affecting)
-			if(user.buckled || G.affecting.buckled)
-				return
-			var/turf/oldloc = user.loc
-			var/turf/newloc = G.affecting.loc
-			if(isturf(oldloc) && isturf(newloc))
-				user.SpinAnimation(5,1)
-				user.glide_for(0.6 SECONDS) // This and the glide_for below are purely arbitrary. Pick something that looks aesthetically pleasing.
-				user.forceMove(newloc)
-				G.glide_for(0.6 SECONDS)
-				G.affecting.forceMove(oldloc)
-				message = "flips over [G.affecting]!"
+	else if(istype(user, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		if(istype(H.get_active_hand(), /obj/item/grab))
+			var/obj/item/grab/G = H.get_active_hand()
+			if(G && G.affecting)
+				if(H.buckled || G.affecting.buckled)
+					return
+				var/turf/oldloc = user.loc
+				var/turf/newloc = G.affecting.loc
+				if(isturf(oldloc) && isturf(newloc))
+					user.SpinAnimation(5,1)
+					user.glide_for(0.6 SECONDS) // This and the glide_for below are purely arbitrary. Pick something that looks aesthetically pleasing.
+					user.forceMove(newloc)
+					G.glide_for(0.6 SECONDS)
+					G.affecting.forceMove(oldloc)
+					message = "flips over [G.affecting]!"
+					return ..()
 
-	else if(prob(5))
+	if(prob(5))
 		message = "attempts a flip and crashes to the floor!"
 		user.SpinAnimation(5,1)
 		sleep(0.3 SECONDS)
 		user.Weaken(2)
-	else
-		message = "does a flip!"
-		user.SpinAnimation(5,1)
+		return
+	user.SpinAnimation(5,1)
 
 	. = ..()
 	message = initial(message)

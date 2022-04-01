@@ -30,7 +30,6 @@
 	key_third_person = "burps"
 	message = "burps."
 	message_mime = "opens their mouth rather obnoxiously."
-	// TODO EMOTE_AUDIBLE can probably have a default override
 	emote_type = EMOTE_AUDIBLE
 	muzzled_noises = list("peculiar")
 
@@ -107,7 +106,6 @@
 		else
 			return H.dna.species.male_sneeze_sound
 
-
 /datum/emote/living/dance
 	key = "dance"
 	key_third_person = "dances"
@@ -123,7 +121,7 @@
 /datum/emote/living/deathgasp
 	key = "deathgasp"
 	key_third_person = "deathgasps"
-	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE  // make sure deathgasp gets runechatted regardless
 	age_based = TRUE
 	cooldown = 15 SECONDS
 	unintentional_stat_allowed = DEAD
@@ -190,12 +188,6 @@
 	key = "grimace"
 	key_third_person = "grimaces"
 	message = "grimaces."
-
-/datum/emote/living/jump
-	key = "jump"
-	key_third_person = "jumps"
-	message = "jumps!"
-	hands_use_check = TRUE
 
 /datum/emote/living/look
 	key = "look"

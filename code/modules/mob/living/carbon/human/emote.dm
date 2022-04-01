@@ -190,6 +190,7 @@
 			else
 				msg = "says, \"[A.name], please. They had a family.\" [user] takes a drag from a cigarette and blows [user.p_their()] name out in smoke."
 			return msg
+	return message
 
 /datum/emote/living/carbon/human/johnny/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/carbon/human/H = user
@@ -197,7 +198,7 @@
 		to_chat(user, "<span class='warning'>You can't be that cool without a cigarette between your lips.</span>")
 		return FALSE
 
-	if(needs_breath)
+	if(H.getOxyLoss() > 30)
 		var/obj/item/clothing/mask/cigarette/cig = H.wear_mask
 		to_chat(user, "<span class='warning'>You gasp for air and swallow your [cig]!</span>")
 		if(cig.lit)
