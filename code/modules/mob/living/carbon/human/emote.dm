@@ -432,6 +432,7 @@
 						var/obj/item/grab/G
 						if(istype(get_active_hand(), /obj/item/grab))
 							G = get_active_hand()
+						register_animated_emote(SPIN_EMOTE_SPIN, 5)
 						if(G && G.affecting)
 							if(buckled || G.affecting.buckled)
 								return
@@ -461,8 +462,10 @@
 					to_chat(src, "<span class='warning'>You spin too much!</span>")
 					Dizzy(12)
 					Confused(12)
+					register_animated_emote(SPIN_EMOTE_SPIN, 32)
 				else
 					spin(20, 1)
+					register_animated_emote(SPIN_EMOTE_SPIN, 20)
 
 		if("aflap", "aflaps")
 			message = "<B>[src]</B> flaps [p_their()] wings ANGRILY!"

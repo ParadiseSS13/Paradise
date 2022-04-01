@@ -117,6 +117,10 @@
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
 	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
 
+	/// The type of spinning emote the user is performing.
+	/// Should be reworked if/when emotes get datumized.
+	var/animated_emote = SPIN_EMOTE_NONE
+
 //Generic list for proc holders. Only way I can see to enable certain verbs/procs. Should be modified if needed.
 	var/proc_holder_list[] = list()
 
