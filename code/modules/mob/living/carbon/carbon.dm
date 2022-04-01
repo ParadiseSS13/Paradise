@@ -538,6 +538,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			S.in_progress = FALSE
 			S.warned = FALSE
 			S.start_recharge()
+			S.starting_vent_turf = null
 	pipes_shown.len = 0
 
 //OOP

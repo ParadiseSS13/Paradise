@@ -59,7 +59,7 @@
 			start_recharge()
 			spawn_smoke(starting_vent_turf)
 			user.forceMove(starting_vent_turf)
-
+			starting_vent_turf = null
 	else
 		..()
 
