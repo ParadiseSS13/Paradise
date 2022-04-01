@@ -22,10 +22,8 @@
 	var/turf/starting_vent_turf
 
 /obj/effect/proc_holder/spell/reaper_lighter/create_new_targeting()
-	var/datum/spell_targeting/targeted/T = new()
-	T.selection_type = SPELL_SELECTION_RANGE
+	var/datum/spell_targeting/aoe/T = new()
 	T.allowed_type = /obj/machinery/atmospherics/unary
-	T.random_target = TRUE
 	T.range = 1
 	T.use_turf_of_user = TRUE
 	return T
