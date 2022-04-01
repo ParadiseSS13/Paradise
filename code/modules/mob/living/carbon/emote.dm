@@ -141,21 +141,13 @@
 	key = "sign"
 	key_third_person = "signs"
 	message_param = "signs the number %t."
-	mob_type_allowed_typecache = list(/mob/living/carbon/alien)
+	mob_type_blacklist_typecache = list(/mob/living/carbon/human)
 	hands_use_check = TRUE
 
 /datum/emote/living/carbon/sign/select_param(mob/user, params)
 	. = ..()
 	if(!isnum(text2num(params)))
 		return message
-
-/datum/emote/living/carbon/sign/signal
-	key = "signal"
-	key_third_person = "signals"
-	message_param = "raises %t fingers."
-	param_desc = "number(0-10)"
-	mob_type_allowed_typecache = list(/mob/living/carbon/human)
-	hands_use_check = TRUE
 
 /datum/emote/living/faint
 	key = "faint"

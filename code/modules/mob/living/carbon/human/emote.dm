@@ -95,6 +95,7 @@
 	age_based = TRUE
 	cooldown = 5 SECONDS
 	needs_breath = TRUE
+	mob_type_blacklist_typecache = (/mob/living/carbon/human/monkey)  // screech instead
 
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
 	if(!ishuman(user))
@@ -353,6 +354,57 @@
 	for(var/atom/A in get_turf(src))
 		A.fart_act(src)
 
+/datum/emote/living/carbon/human/sign/signal
+	key = "signal"
+	key_third_person = "signals"
+	message_param = "raises %t fingers."
+	param_desc = "number(0-10)"
+	mob_type_allowed_typecache = list(/mob/living/carbon/human)
+	hands_use_check = TRUE
+
+/datum/emote/living/cough
+	key = "cough"
+	key_third_person = "coughs"
+	message = "coughs!"
+	message_mime = "appears to cough!"
+	emote_type = EMOTE_SOUND
+	vary = TRUE
+	age_based = TRUE
+	needs_breath = TRUE
+	volume = 120
+
+/datum/emote/living/cough/get_sound(mob/living/user)
+	. = ..()
+	if(istype(user, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		if(H.gender == FEMALE)
+			if(H.dna.species.female_cough_sounds)
+				return pick(H.dna.species.female_cough_sounds)
+		else
+			if(H.dna.species.male_cough_sounds)
+				return pick(H.dna.species.male_cough_sounds)
+
+/datum/emote/living/sneeze
+	key = "sneeze"
+	key_third_person = "sneezes"
+	message = "sneezes."
+	emote_type = EMOTE_SOUND
+	muzzle_ignore = TRUE
+	vary = TRUE
+	age_based = TRUE
+	needs_breath = TRUE
+	volume = 70
+
+/datum/emote/living/sneeze/get_sound(mob/living/user)
+	. = ..()
+	if(istype(user, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		if(H.gender == FEMALE)
+			return H.dna.species.female_sneeze_sound
+		else
+			return H.dna.species.male_sneeze_sound
+
+
 /////////
 // Species-specific emotes
 
@@ -454,13 +506,6 @@
 /datum/emote/living/carbon/human/monkey/tail
 	key = "tail"
 	message = "waves their tail."
-
-/datum/emote/living/carbon/human/monkeysign
-	key = "sign"
-	key_third_person = "signs"
-	message_param = "signs the number %t."
-	hands_use_check = TRUE
-
 
 /datum/emote/living/carbon/human/flap
 	key = "flap"

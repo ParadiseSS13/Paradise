@@ -66,46 +66,6 @@
 		var/mob/living/L = user
 		L.Paralyse(2 SECONDS)
 
-/datum/emote/living/cough
-	key = "cough"
-	key_third_person = "coughs"
-	message = "coughs!"
-	message_mime = "appears to cough!"
-	emote_type = EMOTE_AUDIBLE
-	vary = TRUE
-	age_based = TRUE
-	volume = 120
-
-/datum/emote/living/cough/get_sound(mob/living/user)
-	. = ..()
-	if(istype(user, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = user
-		if(H.gender == FEMALE)
-			if(H.dna.species.female_cough_sounds)
-				return pick(H.dna.species.female_cough_sounds)
-		else
-			if(H.dna.species.male_cough_sounds)
-				return pick(H.dna.species.male_cough_sounds)
-
-/datum/emote/living/sneeze
-	key = "sneeze"
-	key_third_person = "sneezes"
-	message = "sneezes."
-	emote_type = EMOTE_AUDIBLE
-	muzzle_ignore = TRUE
-	vary = TRUE
-	age_based = TRUE
-	volume = 70
-
-/datum/emote/living/sneeze/get_sound(mob/living/user)
-	. = ..()
-	if(istype(user, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = user
-		if(H.gender == FEMALE)
-			return H.dna.species.female_sneeze_sound
-		else
-			return H.dna.species.male_sneeze_sound
-
 /datum/emote/living/dance
 	key = "dance"
 	key_third_person = "dances"

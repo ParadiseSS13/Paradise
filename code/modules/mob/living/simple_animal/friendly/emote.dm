@@ -6,7 +6,7 @@
 	key_third_person = "chirps"
 	message = "chirps!"
 	sound = "sound/creatures/nymphchirp.ogg"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_SOUND
 	mob_type_allowed_typecache = list(/mob/living/simple_animal/friendly/diona)
 
 // Dog emotes
@@ -17,6 +17,7 @@
 /datum/emote/living/simple_animal/pet/dog/bark
 	key = "bark"
 	key_third_person = "barks"
+	emote_type = EMOTE_SOUND
 
 /datum/emote/living/simple_animal/pet/dog/bark/get_sound(mob/living/user)
 	. = ..()
@@ -30,7 +31,7 @@
 	key = "yelp"
 	key_third_person = "yelps"
 	message = "yelps!"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_SOUND
 
 /datum/emote/living/simple_animal/pet/dog/yelp/get_sound(mob/living/user)
 	var/mob/living/simple_animal/pet/dog/D = user
@@ -40,7 +41,7 @@
 	key = "growl"
 	key_third_person = "growls"
 	message = "growls!"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_SOUND
 	sound = "growl"
 
 // Mouse
@@ -52,7 +53,7 @@
 	key = "squeak"
 	key_third_person = "squeaks"
 	message = "squeaks!"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_SOUND
 
 /datum/emote/living/simple_animal/mouse/squeak/get_sound(mob/living/user)
 	var/mob/living/simple_animal/mouse/M = user
@@ -67,7 +68,7 @@
 	key = "meow"
 	key_third_person = "meows"
 	sound = "sound/creatures/cat_meow.ogg"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_SOUND
 
 /datum/emote/living/simple_animal/pet/cat/meow/run_emote(mob/user, params, type_override, intentional)
 
