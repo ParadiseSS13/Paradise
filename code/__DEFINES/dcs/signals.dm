@@ -334,8 +334,11 @@
 ///from /mob/say_dead(): (mob/speaker, message)
 #define COMSIG_MOB_DEADSAY "mob_deadsay"
 	#define MOB_DEADSAY_SIGNAL_INTERCEPT (1<<0)
+/// General signal fired when a mob does any old emote
 ///from /mob/living/emote(): ()
-#define COMSIG_MOB_EMOTE "mob_emote"  // todo remove this
+#define COMSIG_MOB_EMOTE "mob_emote"
+/// Specific signal used to track when a specific emote is used.
+/// From /datum/emote/run_emote(): (key)
 #define COMSIG_MOB_EMOTED(emote_key) "mob_emoted_[emote_key]"
 
 ///from base of mob/swap_hand(): (obj/item)

@@ -67,7 +67,7 @@
 		if(prob(1))
 			StopResting()
 		else if(prob(5))
-			custom_emote(2, "snuffles")
+			custom_emote(EMOTE_AUDIBLE, "snuffles")
 	else if(prob(0.5))
 		StartResting()
 

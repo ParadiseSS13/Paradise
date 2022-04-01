@@ -97,7 +97,9 @@
 
 	var/in_throw_mode = 0
 
-	var/emote_cd = 0		// Used to supress emote spamming. 1 if on CD, 2 if disabled by admin (manually set), else 0
+	// See /datum/emote
+	/// Cooldown on audio effects from emotes.
+	var/emote_cd = EMOTE_READY		// Used to supress emote spamming. 1 if on CD, 2 if disabled by admin (manually set), else 0
 
 	/// Tracks last uses of emotes for cooldown purposes
 	var/list/emotes_used

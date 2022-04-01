@@ -696,12 +696,12 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 
 /**
- * # Start the cooldown for an emote.
+ * # Start the cooldown for an emote that plays audio.
  *
- * * cooldown: The amount of time that should be waited before any emote can fire again.
+ * * cooldown: The amount of time that should be waited before any other audio emote can fire.
  * * parallel: If true, this cooldown can start while other emotes are still on cooldown.
  */
-/mob/proc/start_emote_cooldown(emote_type, cooldown = DEFAULT_EMOTE_COOLDOWN, parallel = FALSE)
+/mob/proc/start_audio_emote_cooldown(emote_type, cooldown = AUDIO_EMOTE_COOLDOWN, parallel = FALSE)
 	if(emote_cd == EMOTE_INFINITE) //Spam those emotes
 		return FALSE
 	if(emote_cd == EMOTE_ADMIN_BLOCKED) // Cooldown emotes were disabled by an admin, prevent use
@@ -710,11 +710,11 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		return TRUE
 
 	emote_cd = EMOTE_ON_COOLDOWN	// Starting cooldown
-	addtimer(CALLBACK(src, .proc/on_emote_cooldown_end), cooldown)
+	addtimer(CALLBACK(src, .proc/on_audio_emote_cooldown_end), cooldown)
 	return FALSE  // proceed with emote
 
 
-/mob/proc/on_emote_cooldown_end()
+/mob/proc/on_audio_emote_cooldown_end()
 	if(emote_cd == EMOTE_ON_COOLDOWN)
 		// only reset emotes that probably weren't set by an admin
 		emote_cd = EMOTE_READY

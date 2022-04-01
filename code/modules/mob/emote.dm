@@ -32,7 +32,7 @@
 	return FALSE
 
 // All mobs should have custom emote, really..
-/mob/proc/custom_emote(m_type=EMOTE_VISUAL, message=null)
+/mob/proc/custom_emote(m_type=EMOTE_VISIBLE, message=null)
 	var/input = ""
 	if(!message)
 		input = sanitize(copytext(input(src,"Choose an emote to display.") as text|null,1,MAX_MESSAGE_LEN))
@@ -72,7 +72,7 @@
 				if(P.message_param && P.param_desc)
 					// Add our parameter description, like flap-user
 					full_key = P.key + "\[[EMOTE_PARAM_SEPARATOR][P.param_desc]\]"
-				if(istype(H) && P.species_whitelist && (user?.dna?.species.name in species_whitelist))
+				if(istype(H) && P.species_whitelist && (H?.dna?.species.name in species_whitelist))
 					species_emotes += full_key
 				else
 					base_keys += full_key

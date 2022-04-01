@@ -1,22 +1,38 @@
-#define EMOTE_VISIBLE (1<<0)
-#define EMOTE_AUDIBLE (1<<1)
+// Emote datums.
+// Check under mob directories for where these get implemented.
 
+// Emote types.
+// These determine how the emote is treated when not directly visible (or audible).
+
+/// Emote is visible. These emotes will be runechatted.
+#define EMOTE_VISIBLE (1<<0)
+/// Emote is audible (in character).
+#define EMOTE_AUDIBLE (1<<1)
+/// Emote makes a sound. These emotes will specifically not be runechatted.
+#define EMOTE_SOUND (1<<2)
+/// Regardless of its existing flags, this emote will not be sent to runechat.
+#define EMOTE_FORCE_NO_RUNECHAT (1<<3)
+
+// User audio cooldown system.
+// This is a value stored on the user and represents their ability to perform emotes.
+// TODO revisit this, it might have gotten crossed with existing /tg/ cooldowns.
+
+/// The user is not on emote cooldown, and is ready to emote whenever.
 #define EMOTE_READY (1<<0)
+/// The user can spam emotes to their heart's content.
 #define EMOTE_INFINITE (1<<1)
+/// The user cannot emote as they have been blocked by an admin.
 #define EMOTE_ADMIN_BLOCKED (1<<2)
+/// The user cannot emote until their cooldown expires.
 #define EMOTE_ON_COOLDOWN (1<<3)
 
-/// Defines the default targets for an emote with a parameter.
-/// Based on this behavior, if an emote is called with an empty parameter (say, "aflap-")
-/// then we will prompt the user with a list of possible targets.
-#define EMOTE_TARGET_NONE (1<<0)
-#define EMOTE_TARGET_MOB (1<<1)
-#define EMOTE_TARGET_ATOM (1<<2)
-
+/// Marker to separate an emote key from its parameters in user input.
 #define EMOTE_PARAM_SEPARATOR "-"
 
+/// Default cooldown for emotes
 #define DEFAULT_EMOTE_COOLDOWN 2 SECONDS
-#define AUDIO_EMOTE_COOLDOWN 10 SECONDS  // todo what is this actually equal to
+/// Default cooldown for emotes that make audio.
+#define AUDIO_EMOTE_COOLDOWN 10 SECONDS
 
 // Cooldown stuff for emotes
 
@@ -52,7 +68,7 @@
 	var/message_monkey = ""
 	/// Message to display if the user is a simple_animal.
 	var/message_simple = ""
-	/// Sounds to make when muzzled.
+	/// Sounds emitted when the user is muzzled. Generally used like "[user] makes a pick(muzzled_noises) noise!"
 	var/muzzled_noises = list("strong ", "weak ", "")
 	/// Message with %t at the end to allow adding params to the message, like for mobs doing an emote relatively to something else.
 	var/message_param = ""
@@ -141,7 +157,7 @@
 
 	var/tmp_sound = get_sound(user)
 	// If our sound emote is forced by code, don't worry about cooldowns at all.
-	if(tmp_sound && should_play_sound(user, intentional) && (!intentional || !user.start_emote_cooldown(type)))
+	if(tmp_sound && should_play_sound(user, intentional) && (!intentional || !user.start_audio_emote_cooldown(type)))
 		if(age_based && istype(user, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = user
 
@@ -185,6 +201,7 @@
 
 
 	SEND_SIGNAL(user, COMSIG_MOB_EMOTED(key))
+	SEND_SIGNAL(user, COMSIG_MOB_EMOTE)
 
 /**
  * For handling emote cooldown, return true to allow the emote to happen.

@@ -103,26 +103,26 @@
 /mob/living/simple_animal/pet/cat/handle_automated_action()
 	if(!stat && !buckled)
 		if(prob(1))
-			custom_emote(1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
+			custom_emote(EMOTE_VISIBLE, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
 			StartResting()
 		else if(prob(1))
-			custom_emote(1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
+			custom_emote(EMOTE_VISIBLE, pick("sits down.", "crouches on its hind legs.", "looks alert."))
 			icon_state = "[icon_living]_sit"
 			collar_type = "[initial(collar_type)]_sit"
 			resting = TRUE
 			update_canmove()
 		else if(prob(1))
 			if(resting)
-				custom_emote(1, pick("gets up and meows.", "walks around.", "stops resting."))
+				custom_emote(EMOTE_VISIBLE, pick("gets up and meows.", "walks around.", "stops resting."))
 				StopResting()
 			else
-				custom_emote(1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
+				custom_emote(EMOTE_VISIBLE, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
 
 	//MICE!
 	if(eats_mice && isturf(loc) && !incapacitated())
 		for(var/mob/living/simple_animal/mouse/M in view(1, src))
 			if(!M.stat && Adjacent(M))
-				custom_emote(1, "splats \the [M]!")
+				custom_emote(EMOTE_VISIBLE, "splats \the [M]!")
 				M.death()
 				M.splat()
 				movement_target = null
@@ -130,7 +130,7 @@
 				break
 		for(var/obj/item/toy/cattoy/T in view(1, src))
 			if(T.cooldown < (world.time - 400))
-				custom_emote(1, "bats \the [T] around with its paw!")
+				custom_emote(EMOTE_VISIBLE, "bats \the [T] around with its paw!")
 				T.cooldown = world.time
 
 /mob/living/simple_animal/pet/cat/handle_automated_movement()
