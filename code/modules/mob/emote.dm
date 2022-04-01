@@ -4,7 +4,6 @@
 /mob/proc/emote(act, m_type = null, message = null, intentional = FALSE, force_silence = FALSE)
 	act = lowertext(act)
 	var/param = message
-	// TODO /tg/ used spaces instead of dashes. this might be okay?
 	var/custom_param = findtext(act, EMOTE_PARAM_SEPARATOR, 1, null)
 	if(custom_param)
 		param = copytext(act, custom_param + length(act[custom_param]))
@@ -90,7 +89,7 @@
 				if(P.message_param && P.param_desc)
 					// Add our parameter description, like flap-user
 					full_key = P.key + "\[[EMOTE_PARAM_SEPARATOR][P.param_desc]\]"
-				if(istype(H) && P.species_whitelist && (H?.dna?.species.name in P.species_whitelist))
+				if(istype(H) && species_type_whitelist_typecache && H.dna && is_type_in_typecache(H.dna.species, species_type_whitelist_typecache))
 					species_emotes += full_key
 				else
 					base_keys += full_key

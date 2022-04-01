@@ -17,8 +17,6 @@
 
 // User audio cooldown system.
 // This is a value stored on the user and represents their ability to perform emotes.
-// TODO revisit this, it might have gotten crossed with existing /tg/ cooldowns.
-
 /// The user is not on emote cooldown, and is ready to emote whenever.
 #define EMOTE_READY (1<<0)
 /// The user can spam emotes to their heart's content.
@@ -91,6 +89,9 @@
 	/// Species names which the emote will be exclusively available to.
 	// TODO This could probably be a typecache of species paths as well?
 	var/species_whitelist
+
+	/// Species types which the emote will be exclusively available to.
+	var/species_type_whitelist_typecache
 	/// In which state can you use this emote? (Check stat.dm for a full list of them)
 	var/stat_allowed = CONSCIOUS
 	/// In which state can this emote be forced out of you?
@@ -127,6 +128,7 @@
 		mob_type_allowed_typecache = typecacheof(mob_type_allowed_typecache)
 	mob_type_blacklist_typecache = typecacheof(mob_type_blacklist_typecache)
 	mob_type_ignore_stat_typecache = typecacheof(mob_type_ignore_stat_typecache)
+	species_type_whitelist_typecache = typecacheof(species_type_whitelist_typecache)
 
 /**
  * Handles the modifications and execution of emotes.
@@ -176,9 +178,6 @@
 				continue
 			if(ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT && !(ghost in viewers(user_turf, null)))
 				ghost.show_message("<span class='emote'>[ghost_follow_link(user, ghost)] [dchatmsg]</span>")
-
-	// TODO Mute mime emotes
-	// TODO get this working with runechat
 
 	if(emote_type & EMOTE_VISIBLE)
 		user.audible_message(dchatmsg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
@@ -321,7 +320,7 @@
 
 	if(istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		if(species_whitelist && !(H?.dna?.species.name in species_whitelist))
+		if(species_type_whitelist_typecache && H.dna && !is_type_in_typecache(H.dna.species, species_type_whitelist_typecache))
 			return FALSE
 
 	if(status_check && !is_type_in_typecache(user, mob_type_ignore_stat_typecache))
@@ -349,7 +348,6 @@
 			return FALSE
 	else
 		// deadchat handling
-		// TODO would this make more sense in /mob/dead?
 		if(check_mute(user.client?.ckey, MUTE_DEADCHAT))
 			to_chat(src, "<span class='warning'>You cannot send deadchat emotes (muted).</span>")
 			return FALSE

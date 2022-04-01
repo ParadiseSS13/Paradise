@@ -378,7 +378,12 @@
 	key = "wag"
 	key_third_person = "wags"
 	message = "starts wagging their tail."
-	species_whitelist = list("Unathi", "Vulpkanin", "Tajaran", "Vox")
+	species_type_whitelist_typecache = list(
+		/datum/species/unathi,
+		/datum/species/vulpkanin,
+		/datum/species/tajaran,
+		/datum/species/vox
+	)
 
 /datum/emote/living/carbon/human/proc/can_wag(mob/user)
 	var/mob/living/carbon/human/H = user
@@ -478,7 +483,7 @@
 	key = "flap"
 	key_third_person = "flaps"
 	message = "flaps their wings."
-	species_whitelist = list("Nian")
+	species_type_whitelist_typecache = list(/datum/species/moth)
 	// TODO Maybe add custom species messages based on the user species?
 	hands_use_check = TRUE
 
@@ -491,7 +496,7 @@
 	key = "flutter"
 	key_third_person = "flutters"
 	message = "flutters their wings."
-	species_whitelist = list("Nian")
+	species_type_whitelist_typecache = list(/datum/species/moth)
 
 
 /datum/emote/living/carbon/human/quill
@@ -503,7 +508,7 @@
 	age_based = TRUE
 	// Credit to sound-ideas (freesfx.co.uk) for the sound.
 	sound = "sound/effects/voxrustle.ogg"
-	species_whitelist = list("Vox")
+	species_type_whitelist_typecache = list(/datum/species/vox)
 
 /datum/emote/living/carbon/human/warble
 	key = "warble"
@@ -514,14 +519,14 @@
 	age_based = TRUE
 	// Copyright CC BY 3.0 alienistcog (freesound.org) for the sound.
 	sound = "sound/effects/warble.ogg"
-	species_whitelist = list("Skrell")
+	species_type_whitelist_typecache = list(/datum/species/skrell)
 
 /datum/emote/living/carbon/human/clack
 	key = "clack"
 	key_third_person = "clacks"
 	message = "clacks their mandibles."
 	message_param = "clacks their mandibles at %t."
-	species_whitelist = list("Kidan")
+	species_type_whitelist_typecache = list(/datum/species/kidan)
 	emote_type = EMOTE_SOUND
 	age_based = TRUE
 	// Credit to DrMinky (freesound.org) for the sound.
@@ -544,7 +549,7 @@
 /datum/emote/living/carbon/human/drone
 	key = "drone"
 	key_third_person = "drones"
-	species_whitelist = list("Drask")
+	species_type_whitelist_typecache = list(/datum/species/drask)
 	emote_type = EMOTE_SOUND
 	age_based = TRUE
 	sound = "sound/voice/drasktalk.ogg"
@@ -567,7 +572,7 @@
 	key_third_person = "hisses"
 	message = "hisses."
 	message_param = "hisses at %t."
-	species_whitelist = list("Unathi")
+	species_type_whitelist_typecache = list(/datum/species/unathi)
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 	age_based = TRUE
 	// Credit to Jamius (freesound.org) for the sound.
@@ -581,8 +586,8 @@
 	message_param = "creaks at %t."
 	emote_type = EMOTE_SOUND
 	age_based = TRUE
+	species_type_whitelist_typecache = list(/datum/species/diona)
 	sound = "sound/voice/dionatalk1.ogg"
-	species_whitelist = list("Diona")
 
 /datum/emote/living/carbon/human/squish
 	key = "squish"
@@ -613,7 +618,7 @@
 	message = "howls."
 	message_mime = "acts out a howl."
 	message_param = "howls at %t."
-	species_whitelist = list("Vulpkanin")
+	species_type_whitelist_typecache = list(/datum/species/vulpkanin)
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 	age_based = TRUE
 	sound = "sound/goonstation/voice/howl.ogg"
@@ -624,7 +629,7 @@
 	key_third_person = "growls"
 	message = "growls."
 	message_param = "growls at %t."
-	species_whitelist = list("Vulpkanin")
+	species_type_whitelist_typecache = list(/datum/species/vulpkanin)
 	sound = "growls"  // what the fuck
 	muzzled_noises = list("annoyed")
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
@@ -634,4 +639,4 @@
 	key_third_person = "rattles"
 	message = "rattles their bones."
 	message_param = "rattles their bones at %t."
-	species_whitelist = list("Plasmaman", "Skeleton")
+	species_type_whitelist_typecache = list(/datum/species/skeleton, /datum/species/plasmaman)

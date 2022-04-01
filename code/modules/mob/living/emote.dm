@@ -185,7 +185,17 @@
 			else
 				// nugget
 				message_param = "<span class='userdanger>bumps [user.p_their()] head on the ground</span> trying to motion towards %t."
-	// TODO THIS SHOULD PROBABLY ACTUALLY POINT
+
+	// see if there's something nearby to point to
+	var/atom/M = null
+	if(params)
+		for(var/atom/A as mob|obj|turf in view())
+			if(params == A.name)
+				M = A
+				break
+
+	if(M)
+		user.pointed(M)
 	return ..()
 
 /datum/emote/living/pout
