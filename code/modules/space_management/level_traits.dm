@@ -28,6 +28,9 @@
 /proc/level_boosts_signal(z)
 	return check_level_trait(z, BOOSTS_SIGNAL)
 
+/proc/is_taipan(z)
+	return check_level_trait(z, TAIPAN)
+
 // Used for the nuke disk, or for checking if players survived through xenos
 /proc/is_secure_level(z)
 	var/secure = check_level_trait(z, STATION_LEVEL)

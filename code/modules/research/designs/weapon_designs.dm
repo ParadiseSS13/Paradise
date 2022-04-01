@@ -425,3 +425,36 @@
 	build_path = /obj/item/jammer
 	locked = 1
 	category = list("ILLEGAL")
+
+/datum/design/syndie_rcd
+	name = "Syndicate RCD"
+	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks. This one is made by syndicate"
+	id = "syndie_rcd"
+	req_tech = list("materials" = 2, "engineering" = 4, "syndicate" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 20000, MAT_GLASS=8000, MAT_PLASMA = 10000, MAT_TITANIUM = 10000)
+	build_path = /obj/item/rcd/syndicate
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/syndie_rcd_ammo
+	name = "suspicious matter cartridge"
+	desc = "Highly compressed matter for the RCD."
+	id = "syndie_rcd_ammo"
+	req_tech = list("materials" = 3, "syndicate" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 8000, MAT_GLASS = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
+	build_path = /obj/item/rcd_ammo/syndicate
+	locked = 0
+	category = list("ILLEGAL")
+
+/datum/design/syndie_rcd_ammo_large
+	name = "large suspicious matter cartridge"
+	desc = "Highly compressed matter for the RCD."
+	id = "syndie_rcd_ammo_large"
+	req_tech = list("materials" = 3, "syndicate" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 40000, MAT_GLASS = 20000, MAT_TITANIUM = 20000, MAT_PLASMA = 20000)
+	build_path = /obj/item/rcd_ammo/syndicate/large
+	locked = 0
+	category = list("ILLEGAL")

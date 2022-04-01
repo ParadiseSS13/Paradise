@@ -49,7 +49,7 @@
 	req_access = list(ACCESS_SYNDICATE)
 	bubble_icon = "syndibot"
 	shuttleId = "sst"
-	possible_destinations = "sst_home;sst_away;sst_custom"
+	possible_destinations = "sst_home;sst_away;sst_custom;sst_taipan"
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/machinery/computer/shuttle/sit
@@ -60,7 +60,7 @@
 	req_access = list(ACCESS_SYNDICATE)
 	bubble_icon = "syndibot"
 	shuttleId = "sit"
-	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away;sit_custom"
+	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away;sit_custom;sit_taipan"
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate

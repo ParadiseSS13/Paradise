@@ -415,17 +415,25 @@
 /turf/unsimulated/floor,
 /area/start)
 "axw" = (
-/obj/machinery/door/window/northleft{
-	name = "Out";
-	req_access_txt = "150"
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1;
+	layer = 2.9
 	},
-/obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (EAST)"
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	color = "red"
 	},
 /turf/unsimulated/floor{
-	icon_state = "darkfull";
-	tag = "icon-dark"
+	icon_state = "dark"
 	},
 /area/syndicate_mothership)
 "axN" = (
@@ -699,7 +707,7 @@
 /area/centcom/zone1)
 "aOB" = (
 /obj/structure/rack/holorack,
-/obj/item/autoimplanter,
+/obj/item/autoimplanter/old,
 /turf/unsimulated/floor{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -1518,6 +1526,19 @@
 /obj/structure/lattice,
 /turf/unsimulated/wall,
 /area/centcom/evac)
+"byO" = (
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (EAST)"
+	},
+/obj/machinery/syndiepad/admin/loadpad{
+	target_id = "syndie_cargo_port1"
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
+/area/syndicate_mothership)
 "bzH" = (
 /obj/structure/sign/poster/official/twelve_gauge,
 /turf/unsimulated/wall,
@@ -1580,6 +1601,19 @@
 	icon_state = "carpet"
 	},
 /area/trader_station/sol)
+"bEx" = (
+/obj/machinery/light/spot{
+	dir = 4;
+	tag = "icon-tube1 (WEST)"
+	},
+/obj/machinery/syndiepad/admin/loadpad{
+	target_id = "syndie_cargo_port2"
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
+/area/syndicate_mothership)
 "bED" = (
 /mob/living/simple_animal/pig,
 /turf/unsimulated/floor/grass,
@@ -3871,6 +3905,15 @@
 "dBD" = (
 /obj/structure/flora/tree/pine,
 /turf/unsimulated/floor/snow,
+/area/syndicate_mothership)
+"dBT" = (
+/obj/machinery/computer/syndicate_depot/teleporter{
+	lifespan = 0
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
 /area/syndicate_mothership)
 "dCf" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -6787,6 +6830,15 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone1)
+"fDK" = (
+/obj/item/radio/intercom/syndicate{
+	pixel_x = 32
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
+/area/syndicate_mothership)
 "fEa" = (
 /obj/structure/mopbucket,
 /obj/item/mop,
@@ -7878,6 +7930,14 @@
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
 	tag = "icon-dark"
+	},
+/area/syndicate_mothership)
+"gAJ" = (
+/obj/machinery/photocopier/syndie,
+/turf/unsimulated/floor{
+	dir = 8;
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "gAP" = (
@@ -23859,6 +23919,15 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone2)
+"rSz" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	pixel_y = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
+/area/syndicate_mothership)
 "rSR" = (
 /obj/structure/rack,
 /obj/item/ammo_box/magazine/smgm45,
@@ -24415,14 +24484,20 @@
 	},
 /area/vox_station)
 "snW" = (
-/obj/machinery/computer/syndicate_depot/teleporter{
-	use_power = 0
+/obj/machinery/door/window/brigdoor{
+	color = "#d70000";
+	dir = 2;
+	name = "Riot Control";
+	req_access_txt = "156"
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
 	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
 	tag = "icon-dark"
 	},
-/area/syndicate_depot/core)
+/area/syndicate_mothership)
 "sob" = (
 /obj/structure/chair/wood{
 	dir = 1
@@ -25643,6 +25718,15 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone1)
+"tkV" = (
+/obj/item/radio/intercom/syndicate{
+	pixel_x = -32
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
+/area/syndicate_mothership)
 "tlf" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -26661,14 +26745,14 @@
 	},
 /area/centcom/specops)
 "uai" = (
-/obj/machinery/door/window/northright{
-	name = "In";
-	req_access_txt = "150"
+/obj/structure/window/plasmareinforced{
+	color = "#d70000";
+	dir = 4
 	},
-/obj/machinery/light/spot{
-	dir = 4;
-	tag = "icon-tube1 (WEST)"
+/obj/structure/window/plasmareinforced{
+	color = "#d70000"
 	},
+/obj/effect/turf_decal/box/red,
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
 	tag = "icon-dark"
@@ -26705,6 +26789,13 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"ubv" = (
+/obj/machinery/syndiepad/admin/receivepad,
+/turf/unsimulated/floor{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/syndicate_mothership)
 "ubS" = (
 /turf/unsimulated/floor{
 	dir = 9;
@@ -27626,6 +27717,13 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone2)
+"uQw" = (
+/obj/machinery/syndiepad/admin/loadpad,
+/turf/unsimulated/floor{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/syndicate_mothership)
 "uRn" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 8;
@@ -29128,7 +29226,10 @@
 	},
 /area/centcom/srtops)
 "vSa" = (
-/obj/effect/decal/warning_stripes/blue,
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (EAST)"
+	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
 	tag = "icon-dark"
@@ -29459,8 +29560,10 @@
 	},
 /area/centcom/specops)
 "wfo" = (
-/obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/bluespace_beacon/syndicate,
+/obj/machinery/light/spot{
+	dir = 4;
+	tag = "icon-tube1 (WEST)"
+	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
 	tag = "icon-dark"
@@ -29708,6 +29811,21 @@
 	icon_state = "woodalt"
 	},
 /area/centcom/specops)
+"wpN" = (
+/obj/machinery/bluespace_beacon/syndicate,
+/obj/structure/window/plasmareinforced{
+	color = "#d70000";
+	dir = 8
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#d70000"
+	},
+/obj/effect/turf_decal/box/red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
+/area/syndicate_mothership)
 "wpX" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "specops_away";
@@ -29921,6 +30039,23 @@
 	icon_state = "carpet"
 	},
 /area/centcom/court)
+"wxl" = (
+/obj/machinery/door/window/brigdoor{
+	base_state = "rightsecure";
+	color = "#d70000";
+	dir = 2;
+	icon_state = "rightsecure";
+	name = "Riot Control";
+	req_access_txt = "156"
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
+/area/syndicate_mothership)
 "wxo" = (
 /obj/machinery/mass_driver{
 	dir = 4;
@@ -30485,6 +30620,17 @@
 	icon_state = "solarpanel"
 	},
 /area/ussp_ship)
+"wSh" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "commandcenter";
+	name = "Privacy Shutters"
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark"
+	},
+/area/syndicate_mothership)
 "wSE" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -42565,8 +42711,8 @@ lcX
 jHb
 jEz
 jEz
-jEz
-jEz
+veL
+veL
 jEz
 jEz
 pUb
@@ -42822,10 +42968,10 @@ lcX
 mPL
 mPL
 mPL
-mPL
-mPL
-mPL
-mPL
+mKI
+iMk
+byO
+tkV
 jga
 qaB
 gAu
@@ -43077,12 +43223,12 @@ ntO
 wID
 lcX
 mPL
-mPL
-mPL
-mPL
-mPL
 wfJ
 mPL
+jHb
+xug
+njL
+njL
 jga
 xyg
 njL
@@ -43336,21 +43482,21 @@ lcX
 mPL
 mPL
 mPL
-mPL
-mPL
-mPL
-mPL
+axw
+snW
+rSz
+njL
 pwO
 sFg
 pHj
 iOl
-aND
+hdH
 jEz
 vaX
 iXv
 pwO
 jcp
-slM
+ubv
 slM
 njL
 njL
@@ -43590,20 +43736,20 @@ vUE
 qIa
 wID
 lcX
-mPL
-mPL
-mPL
 fAh
 mPL
 mPL
-mPL
-mPL
-mPL
-mPL
-mPL
-jga
+wIx
+uai
+njL
+njL
+wSh
+njL
+njL
+njL
+njL
 vSa
-axw
+njL
 njL
 slF
 njL
@@ -43622,7 +43768,7 @@ njL
 njL
 iCh
 pwO
-raO
+gAJ
 raO
 raO
 xnY
@@ -43849,17 +43995,17 @@ wID
 lcX
 mPL
 mPL
-mPL
-mPL
-mPL
-mPL
-wfJ
-mPL
-mPL
-mPL
-mPL
+fAh
 jga
-snW
+dBT
+njL
+njL
+wSh
+njL
+njL
+njL
+njL
+njL
 njL
 njL
 ibN
@@ -44105,19 +44251,19 @@ qIa
 wID
 lcX
 mPL
+fAh
 mPL
-mPL
-mPL
-mPL
-mPL
-mPL
-mPL
-mPL
-mPL
-mPL
-jga
+pwO
+wpN
+njL
+njL
+wSh
+njL
+njL
+njL
+njL
 wfo
-uai
+njL
 njL
 slF
 njL
@@ -44363,22 +44509,22 @@ gnk
 lcX
 mPL
 mPL
-mPL
-mPL
-mPL
-fAh
-mPL
+wfJ
+axw
+wxl
+rSz
+njL
 wIx
 sFg
 pHj
 iOl
-jHb
+hdH
 jEz
 vaX
 ibA
 wIx
 xpe
-slM
+uQw
 slM
 njL
 njL
@@ -44618,13 +44764,13 @@ vUE
 qIa
 gnk
 lcX
-mPL
-mPL
-mPL
 fAh
 mPL
 mPL
-mPL
+aND
+pUb
+njL
+njL
 jga
 qaB
 njL
@@ -44878,10 +45024,10 @@ lcX
 mPL
 mPL
 mPL
-mPL
-mPL
-mPL
-mPL
+mKI
+iMk
+bEx
+fDK
 jga
 xyg
 fso
@@ -45135,8 +45281,8 @@ lcX
 aND
 jEz
 jEz
-jEz
-jEz
+sEj
+sEj
 jEz
 jEz
 xug

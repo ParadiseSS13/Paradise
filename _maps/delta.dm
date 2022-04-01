@@ -17,13 +17,15 @@ And remapped by ThaumicNik as per SS220 community requests
 	#include "map_files\delta\delta.dmm"
 	#include "map_files\cyberiad\z2.dmm"
 	#include "map_files\delta\Lavaland.dmm"
+	#include "map_files\generic\syndicatebase.dmm"
 
 	#define MAP_FILE "delta.dmm"
 	#define MAP_NAME "Kerberos"
 	#define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)),\
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\
-DECLARE_LEVEL(MINING, SELFLOOPING, list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK)))
+DECLARE_LEVEL(MINING, SELFLOOPING, list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK)),\
+DECLARE_LEVEL(RAMSS_TAIPAN, CROSSLINKED, list(REACHABLE, TAIPAN)))
 
 	#define USING_MAP_DATUM /datum/map/delta
 

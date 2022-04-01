@@ -6,7 +6,10 @@
 	var/restraining = FALSE //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
 	var/static/list/areas_under_siege = typecacheof(list(/area/crew_quarters/kitchen,
 														/area/crew_quarters/cafeteria,
-														/area/crew_quarters/bar))
+														/area/crew_quarters/bar,
+														/area/syndicate/unpowered/syndicate_space_base/bar,
+														/area/syndicate/unpowered/syndicate_space_base/kitchen
+														))
 
 /datum/martial_art/cqc/under_siege
 	name = "Close Quarters Cooking"

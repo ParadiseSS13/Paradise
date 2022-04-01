@@ -10,6 +10,7 @@
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
 	var/alien = 0
 	var/syndiemmi = 0 //Whether or not this is a Syndicate MMI
+	var/syndicate = 0 //Used to replace standart modules with the syndicate modules in module pick proc
 	var/mob/living/carbon/brain/brainmob = null//The current occupant.
 	var/obj/item/organ/internal/brain/held_brain = null // This is so MMI's aren't brainscrubber 9000's
 	var/mob/living/silicon/robot/robot = null//Appears unused.

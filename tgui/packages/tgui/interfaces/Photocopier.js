@@ -32,7 +32,7 @@ export const Photocopier = (props, context) => {
   }
 
   return (
-    <Window>
+    <Window theme={data.ui_theme}>
       <Window.Content scrollable>
         <Flex
           direction="row"
@@ -169,11 +169,8 @@ export const Photocopier = (props, context) => {
                 ))}
               </Flex>
             </Section>
-            <NoticeBox info>
-              Если у вас есть пожелания или
-              идеи для улучшения стандартных
-              форм, обратитесь в Департамент
-              Стандартизации Nanotrasen.
+            <NoticeBox color={data.info_box_color}>
+              {data.info_box}
             </NoticeBox>
           </Flex.Item>
           <Flex.Item

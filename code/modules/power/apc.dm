@@ -160,6 +160,9 @@
 
 	wires = new(src)
 
+	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
+		req_access = list(ACCESS_SYNDICATE)
+
 	if(building)
 		// Offset 24 pixels in direction of dir. This allows the APC to be embedded in a wall, yet still inside an area
 		setDir(direction) // This is only used for pixel offsets, and later terminal placement. APC dir doesn't affect its sprite since it only has one orientation.

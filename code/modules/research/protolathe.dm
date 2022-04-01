@@ -11,6 +11,8 @@ Note: Must be placed west/left of and R&D console to function.
 	name = "Protolathe"
 	desc = "Converts raw materials into useful objects."
 	icon_state = "protolathe"
+	icon_open = "protolathe_t"
+	icon_closed = "protolathe"
 	container_type = OPENCONTAINER
 
 	categories = list(
@@ -40,7 +42,10 @@ Note: Must be placed west/left of and R&D console to function.
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	RefreshParts()
-
+	if(is_taipan(z))
+		icon_state = "syndie_protolathe"
+		icon_open = "syndie_protolathe_t"
+		icon_closed = "syndie_protolathe"
 	reagents.my_atom = src
 
 /obj/machinery/r_n_d/protolathe/upgraded/New()
@@ -54,7 +59,10 @@ Note: Must be placed west/left of and R&D console to function.
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	RefreshParts()
-
+	if(is_taipan(z))
+		icon_state = "syndie_protolathe"
+		icon_open = "syndie_protolathe_t"
+		icon_closed = "syndie_protolathe"
 	reagents.my_atom = src
 
 /obj/machinery/r_n_d/protolathe/RefreshParts()
@@ -82,7 +90,7 @@ Note: Must be placed west/left of and R&D console to function.
 	if(shocked)
 		if(shock(user,50))
 			return TRUE
-	if(default_deconstruction_screwdriver(user, "protolathe_t", "protolathe", O))
+	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, O))
 		if(linked_console)
 			linked_console.linked_lathe = null
 			linked_console = null

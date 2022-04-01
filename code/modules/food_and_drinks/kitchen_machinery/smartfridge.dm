@@ -346,6 +346,12 @@
 	return is_type_in_typecache(O, accepted_items_typecache)
 
 /**
+  * # Syndie Fridge
+  */
+/obj/machinery/smartfridge/syndie
+	name = "\improper Suspicious SmartFridge"
+	icon_state = "syndi_smartfridge"
+/**
   * # Secure Fridge
   *
   * Secure variant of the [Smart Fridge][/obj/machinery/smartfridge].
@@ -401,6 +407,8 @@
 		/obj/item/reagent_containers/food/pill,
 	))
 
+/obj/machinery/smartfridge/medbay/syndie
+	icon_state = "syndi_smartfridge"
 /**
   * # Slime Extract Storage
   *
@@ -410,9 +418,16 @@
 	name = "\improper Slime Extract Storage"
 	desc = "A refrigerated storage unit for slime extracts"
 
+/obj/machinery/smartfridge/secure/extract/syndie
+	name = "\improper Suspicious Slime Extract Storage"
+	desc = "A refrigerated storage unit for slime extracts"
+	icon_state = "syndi_smartfridge"
+
 /obj/machinery/smartfridge/secure/extract/Initialize(mapload)
 	. = ..()
-	req_access_txt = "[ACCESS_RESEARCH]"
+	req_one_access = list(ACCESS_RESEARCH)
+	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
+		req_one_access = list(ACCESS_SYNDICATE)
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/slime_extract
 	))
@@ -438,6 +453,9 @@
 		/obj/item/reagent_containers/food/pill,
 	))
 
+/obj/machinery/smartfridge/secure/medbay/syndie
+	icon_state = "syndi_smartfridge"
+	req_one_access_txt = "150"
 /**
   * # Smart Chemical Storage
   *
@@ -492,6 +510,7 @@
   */
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate
 	req_access_txt = null
+	icon_state = "syndi_smartfridge"
 
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate/Initialize(mapload)
 	. = ..()
@@ -568,6 +587,7 @@
   * A [Smart Virus Storage (Preloaded)][/obj/machinery/smartfridge/secure/chemistry/virology/preloaded] but with exclusive access to Syndicate.
   */
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate
+	icon_state = "syndi_smartfridge"
 	req_access_txt = null
 
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate/Initialize(mapload)

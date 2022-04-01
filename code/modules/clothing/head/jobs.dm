@@ -112,6 +112,7 @@
 	name = "head of security beret"
 	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
 	icon_state = "beret_hos_black"
+	snake_fashion = /datum/snake_fashion/head/beret_hos_black
 
 /obj/item/clothing/head/warden
 	name = "warden's police hat"

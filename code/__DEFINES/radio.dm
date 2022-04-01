@@ -17,6 +17,7 @@
 #define RADIO_HIGH_FREQ 1600 //maximum radio freq
 
 #define SYND_FREQ 1213
+#define SYND_TAIPAN_FREQ 1227 //Taipan frequency
 #define SYNDTEAM_FREQ 1244
 #define DTH_FREQ 1341 //Special Operations
 #define AI_FREQ 1343

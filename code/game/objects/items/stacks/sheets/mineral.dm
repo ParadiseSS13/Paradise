@@ -363,6 +363,36 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 
 GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	new/datum/stack_recipe("plas-titanium tile", /obj/item/stack/tile/mineral/plastitanium, 1, 4, 20),
+	//adding syndie crate recipe here - Furu
+	new/datum/stack_recipe("Suspicious crate", /obj/structure/closet/crate/syndicate, 10, 1, time = 20, one_per_turf = 1, on_floor = 1),
+
+	//adding syndie airlocks recipe's here - Furu
+	//WIP
+
+	new /datum/stack_recipe_list("Evil airlock assemblies", list(
+
+		new /datum/stack_recipe("Syndicate public airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_public, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate security airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_sec, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate cargo airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_cargo, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate atmospherics airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_atmos, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate research airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_research, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate medical airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_med, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate maintenance airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_maint, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate command airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_com, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate freezer airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_freezer, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate external maintenance airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_extmai, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("Syndicate engineering airlock assembly", /obj/structure/door_assembly/syndicate/door_assembly_syndie_engi, 4, time = 50, one_per_turf = 1, on_floor = 1),
+
+		//If i ever decide to make the rest syndie door types, here is the reference to what was not made - Furu
+		/*
+		new /datum/stack_recipe("standard airlock assembly", /obj/structure/door_assembly, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("science airlock assembly", /obj/structure/door_assembly/door_assembly_science, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("external airlock assembly", /obj/structure/door_assembly/door_assembly_ext, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("airtight hatch assembly", /obj/structure/door_assembly/door_assembly_hatch, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("maintenance hatch assembly", /obj/structure/door_assembly/door_assembly_mhatch, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("multi-tile airlock assembly", /obj/structure/door_assembly/multi_tile, 8, time = 50, one_per_turf = 1, on_floor = 1),
+		*/
+	))
 	))
 
 /obj/item/stack/sheet/mineral/plastitanium/New(loc, amount=null)

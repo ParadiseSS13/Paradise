@@ -96,6 +96,10 @@
 	var/phasing = FALSE
 	var/phasing_energy_drain = 200
 	var/phase_state = "" //icon_state when phasing
+	var/wall_type = /obj/effect/forcefield/mecha //energywall icon_state
+	var/wall_ready = 1
+	var/wall_cooldown = 200
+	var/large_wall = FALSE
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 

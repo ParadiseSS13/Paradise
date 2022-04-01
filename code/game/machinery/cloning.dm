@@ -65,6 +65,11 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/machinery/clonepod/New()
 	..()
+
+	if(is_taipan(z)) //Синдидоступ и никаких анонсов о клонированных при сборке на тайпане
+		radio_announce = FALSE
+		req_access = list(ACCESS_SYNDICATE)
+
 	countdown = new(src)
 
 	Radio = new /obj/item/radio(src)
@@ -273,6 +278,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	for(var/datum/language/L in R.languages)
 		H.add_language(L.name)
+
+	if(is_taipan(z))
+		H.faction.Add("syndicate")	//Чтобы синдикатовцы после клонирования оставались синдикатовцами
 
 	domutcheck(H, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 

@@ -2,6 +2,8 @@
 	name = "R&D Server"
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "server"
+	icon_open = "server_o"
+	icon_closed = "server"
 	var/datum/research/files
 	var/health = 100
 	var/list/id_with_upload = list()		//List of R&D consoles with upload to server access.
@@ -14,16 +16,23 @@
 	var/delay = 10
 	req_access = list(ACCESS_RD) //Only the R&D can change server settings.
 	var/plays_sound = 0
+	var/syndicate = 0 //добавленный для синдибазы флаг
 
 /obj/machinery/r_n_d/server/New()
 	..()
+	if(is_taipan(z))
+		syndicate = 1
+		req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
+		icon_state = "syndie_server"
+		icon_open = "syndie_server_o"
+		icon_closed = "syndie_server"
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/rdserver(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stack/cable_coil(null,1)
 	component_parts += new /obj/item/stack/cable_coil(null,1)
 	RefreshParts()
-	initialize_serv(); //Agouri // fuck you agouri
+	initialize_serv() //Agouri // fuck you agouri
 
 /obj/machinery/r_n_d/server/upgraded/New()
 	..()
@@ -137,7 +146,7 @@
 		shock(user,50)
 
 	if(istype(O, /obj/item/screwdriver))
-		default_deconstruction_screwdriver(user, "server_o", "server", O)
+		default_deconstruction_screwdriver(user, icon_open, icon_closed, O)
 		return 1
 
 	if(exchange_parts(user, O))
@@ -201,6 +210,13 @@
 	var/list/servers = list()
 	var/list/consoles = list()
 	var/badmin = 0
+	var/syndicate = 0 //добавленный для синдибазы флаг
+
+/obj/machinery/computer/rdservercontrol/Initialize()
+	. = ..()
+	if(is_taipan(z))
+		syndicate = 1
+		req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 
 /obj/machinery/computer/rdservercontrol/Topic(href, href_list)
 	if(..())
@@ -287,6 +303,8 @@
 			for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 				if(istype(S, /obj/machinery/r_n_d/server/centcom) && !badmin)
 					continue
+				if(S.syndicate != syndicate) // Флаг в действии
+					continue
 				dat += "[S.name] || "
 				dat += "<A href='?src=[UID()];access=[S.server_id]'>Access Rights</A> | "
 				dat += "<A href='?src=[UID()];data=[S.server_id]'>Data Management</A>"
@@ -297,6 +315,8 @@
 			dat += "[temp_server.name] Access Rights<BR><BR>"
 			dat += "Consoles with Upload Access<BR>"
 			for(var/obj/machinery/computer/rdconsole/C in consoles)
+				if(C.syndicate != syndicate) // Флаг в действии 2
+					continue
 				var/turf/console_turf = get_turf(C)
 				dat += "* <A href='?src=[UID()];upload_toggle=[C.id]'>[console_turf.loc]" //FYI, these are all numeric ids, eventually.
 				if(C.id in temp_server.id_with_upload)
@@ -305,6 +325,8 @@
 					dat += " (Add)</A><BR>"
 			dat += "Consoles with Download Access<BR>"
 			for(var/obj/machinery/computer/rdconsole/C in consoles)
+				if(C.syndicate != syndicate) // Флаг в действии 3
+					continue
 				var/turf/console_turf = get_turf(C)
 				dat += "* <A href='?src=[UID()];download_toggle=[C.id]'>[console_turf.loc]"
 				if(C.id in temp_server.id_with_download)

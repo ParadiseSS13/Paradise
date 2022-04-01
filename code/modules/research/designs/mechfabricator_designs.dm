@@ -461,6 +461,152 @@
 	construction_time = 600
 	category = list("Durand")
 
+//Rover(DarkDurand)
+/datum/design/rover_chassis
+	name = "Exosuit Chassis (\"Rover\")"
+	id = "rover_chassis"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/chassis/rover
+	materials = list(MAT_METAL=25000)
+	construction_time = 100
+	category = list("Rover")
+
+/datum/design/rover_torso
+	name = "Exosuit Torso (\"Rover\")"
+	id = "rover_torso"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/rover_torso
+	materials = list(MAT_METAL=25000,MAT_GLASS=10000,MAT_SILVER=10000)
+	construction_time = 300
+	category = list("Rover")
+
+/datum/design/rover_head
+	name = "Exosuit Head (\"Rover\")"
+	id = "rover_head"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/rover_head
+	materials = list(MAT_METAL=10000,MAT_GLASS=15000,MAT_SILVER=2000)
+	construction_time = 200
+	category = list("Rover")
+
+/datum/design/rover_left_arm
+	name = "Exosuit Left Arm (\"Rover\")"
+	id = "rover_left_arm"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/rover_left_arm
+	materials = list(MAT_METAL=10000,MAT_SILVER=4000)
+	construction_time = 200
+	category = list("Rover")
+
+/datum/design/rover_right_arm
+	name = "Exosuit Right Arm (\"Rover\")"
+	id = "rover_right_arm"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/rover_right_arm
+	materials = list(MAT_METAL=10000,MAT_SILVER=4000)
+	construction_time = 200
+	category = list("Rover")
+
+/datum/design/rover_left_leg
+	name = "Exosuit Left Leg (\"Rover\")"
+	id = "rover_left_leg"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/rover_left_leg
+	materials = list(MAT_METAL=15000,MAT_SILVER=4000)
+	construction_time = 200
+	category = list("Rover")
+
+/datum/design/rover_right_leg
+	name = "Exosuit Right Leg (\"Rover\")"
+	id = "rover_right_leg"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/rover_right_leg
+	materials = list(MAT_METAL=15000,MAT_SILVER=4000)
+	construction_time = 200
+	category = list("Rover")
+
+/datum/design/rover_armor
+	name = "Exosuit Armor (\"Rover\")"
+	id = "rover_armor"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/rover_armor
+	materials = list(MAT_METAL=30000,MAT_URANIUM=25000,MAT_PLASMA=15000,MAT_TITANIUM=15000)
+	construction_time = 600
+	category = list("Rover")
+
+//Dark Gygax
+/datum/design/darkgygax_chassis
+	name = "Exosuit Chassis (\"Dark Gygax\")"
+	id = "darkgygax_chassis"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/chassis/darkgygax
+	materials = list(MAT_METAL=20000)
+	construction_time = 100
+	category = list("Dark Gygax")
+
+/datum/design/darkgygax_torso
+	name = "Exosuit Torso (\"Dark Gygax\")"
+	id = "darkgygax_torso"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/darkgygax_torso
+	materials = list(MAT_METAL=20000,MAT_GLASS=10000,MAT_DIAMOND=2000)
+	construction_time = 300
+	category = list("Dark Gygax")
+
+/datum/design/darkgygax_head
+	name = "Exosuit Head (\"Dark Gygax\")"
+	id = "darkgygax_head"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/darkgygax_head
+	materials = list(MAT_METAL=10000,MAT_GLASS=5000, MAT_DIAMOND=2000)
+	construction_time = 200
+	category = list("Dark Gygax")
+
+/datum/design/darkgygax_left_arm
+	name = "Exosuit Left Arm (\"Dark Gygax\")"
+	id = "darkgygax_left_arm"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/darkgygax_left_arm
+	materials = list(MAT_METAL=15000, MAT_DIAMOND=1000)
+	construction_time = 200
+	category = list("Dark Gygax")
+
+/datum/design/darkgygax_right_arm
+	name = "Exosuit Right Arm (\"Dark Gygax\")"
+	id = "darkgygax_right_arm"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/darkgygax_right_arm
+	materials = list(MAT_METAL=15000, MAT_DIAMOND=1000)
+	construction_time = 200
+	category = list("Dark Gygax")
+
+/datum/design/darkgygax_left_leg
+	name = "Exosuit Left Leg (\"Dark Gygax\")"
+	id = "darkgygax_left_leg"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/darkgygax_left_leg
+	materials = list(MAT_METAL=15000, MAT_DIAMOND=2000)
+	construction_time = 200
+	category = list("Dark Gygax")
+
+/datum/design/darkgygax_right_leg
+	name = "Exosuit Right Leg (\"Dark Gygax\")"
+	id = "darkgygax_right_leg"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/darkgygax_right_leg
+	materials = list(MAT_METAL=15000, MAT_DIAMOND=2000)
+	construction_time = 200
+	category = list("Dark Gygax")
+
+/datum/design/darkgygax_armor
+	name = "Exosuit Armor (\"Dark Gygax\")"
+	id = "darkgygax_armor"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/darkgygax_armour
+	materials = list(MAT_METAL=15000,MAT_DIAMOND=10000,MAT_TITANIUM=5000,MAT_PLASMA=5000)
+	construction_time = 600
+	category = list("Dark Gygax")
+
 //H.O.N.K
 /datum/design/honk_chassis
 	name = "Exosuit Chassis (\"H.O.N.K\")"
@@ -1351,3 +1497,47 @@
 	construction_time = 50
 	build_path = /obj/item/mecha_modkit/voice/syndicate
 	category = list("Misc")
+
+/datum/design/syndicate_robotic_brain
+	name = "Syndicate Robotic Brain"
+	desc = "The latest in Anti-Monopolistic non-sentient Artificial Intelligences. Property of the Syndicate!"
+	id = "mmi_robotic_syndicate"
+	req_tech = list("programming" = 4, "biotech" = 3, "plasmatech" = 2,"syndicate" = 6)
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 1700, MAT_GLASS = 2700, MAT_GOLD = 1000, MAT_TITANIUM = 1000)
+	construction_time = 75
+	build_path = /obj/item/mmi/robotic_brain/syndicate
+	category = list("Syndicate")
+
+/datum/design/syndicate_quantumpad
+	name = "Syndicate Quantumpad Curcuit"
+	desc = "Circuit board for constructing special redspace quantumpad capable of ignoring bluespace interference! Property of the Syndicate!"
+	id = "syndicate_quantumpad"
+	req_tech = list("programming" = 3, "engineering" = 3, "plasmatech" = 3,"syndicate" = 6)
+	build_type = MECHFAB
+	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 2000)
+	construction_time = 50
+	build_path = /obj/item/circuitboard/quantumpad/syndiepad
+	category = list("Syndicate")
+
+/datum/design/syndicate_cargo_console
+	name = "Syndicate Supply Pad Console Curcuit"
+	desc = "Circuit board for constructing your own black market console! Property of the Syndicate!"
+	id = "syndicate_supply_pad"
+	req_tech = list("programming" = 3, "syndicate" = 3)
+	build_type = MECHFAB
+	materials = list(MAT_GLASS = 1000)
+	construction_time = 50
+	build_path = /obj/item/circuitboard/syndicatesupplycomp
+	category = list("Syndicate")
+
+/datum/design/syndicate_public_cargo_console
+	name = "Syndicate Public Supply Pad Console Curcuit"
+	desc = "Circuit board for constructing your own public black market console! Property of the Syndicate!"
+	id = "syndicate_public_supply_pad"
+	req_tech = list("programming" = 3, "syndicate" = 3)
+	build_type = MECHFAB
+	materials = list(MAT_GLASS = 1000)
+	construction_time = 50
+	build_path = /obj/item/circuitboard/syndicatesupplycomp/public
+	category = list("Syndicate")

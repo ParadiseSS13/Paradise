@@ -8,6 +8,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	name = "Circuit Imprinter"
 	desc = "Manufactures circuit boards for the construction of machines."
 	icon_state = "circuit_imprinter"
+	icon_open = "circuit_imprinter_t"
+	icon_closed = "circuit_imprinter"
 	container_type = OPENCONTAINER
 
 	categories = list(
@@ -34,6 +36,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	RefreshParts()
+	if(is_taipan(z))
+		icon_state = "syndie_circuit_imprinter"
+		icon_open = "syndie_circuit_imprinter_t"
+		icon_closed = "syndie_circuit_imprinter"
 	reagents.my_atom = src
 
 /obj/machinery/r_n_d/circuit_imprinter/upgraded/New()
@@ -45,6 +51,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	RefreshParts()
+	if(is_taipan(z))
+		icon_state = "syndie_circuit_imprinter"
+		icon_open = "syndie_circuit_imprinter_t"
+		icon_closed = "syndie_circuit_imprinter"
 	reagents.my_atom = src
 
 /obj/machinery/r_n_d/circuit_imprinter/RefreshParts()
@@ -76,7 +86,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	if(shocked)
 		if(shock(user,50))
 			return TRUE
-	if(default_deconstruction_screwdriver(user, "circuit_imprinter_t", "circuit_imprinter", O))
+	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, O))
 		if(linked_console)
 			linked_console.linked_imprinter = null
 			linked_console = null

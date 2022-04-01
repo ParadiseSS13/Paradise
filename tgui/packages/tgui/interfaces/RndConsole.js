@@ -36,7 +36,7 @@ export const RndConsole = (properties, context) => {
   const { wait_message } = data;
 
   return (
-    <Window>
+    <Window theme={data.ui_theme}>
       <Window.Content>
         <Box className="RndConsole">
           <RndNavbar />

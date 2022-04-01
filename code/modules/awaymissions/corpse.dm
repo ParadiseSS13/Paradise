@@ -19,6 +19,7 @@
 	var/flavour_text = ""	//flavour/fluff about the role, optional.
 	var/description = "A description for this has not been set. This is either an oversight or an admin-spawned spawner not in normal use."	//intended as OOC info about the role
 	var/important_info = ""	//important info such as rules that apply to you, etc. Optional.
+	var/id_job = null			//Such as "Clown" or "Chef." This just determines what the ID reads as, not their access
 	var/faction = null
 	var/permanent = FALSE	//If true, the spawner will not disappear upon running out of uses.
 	var/random = FALSE		//Don't set a name or gender, just go random
@@ -33,6 +34,8 @@
 	var/banType = ROLE_GHOST
 	var/ghost_usable = TRUE
 	var/offstation_role = TRUE // If set to true, the role of the user's mind will be set to offstation
+	var/min_hours = 0 //Минимальное количество часов для игры на гост роли
+	var/exp_type = EXP_TYPE_LIVING
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	var/mob/dead/observer/O = user
@@ -50,6 +53,10 @@
 	if(!O.can_reenter_corpse)
 		to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
 		return
+	if(config.use_exp_restrictions && min_hours)
+		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, 0, usr))
+			to_chat(user, "<span class='warning'>У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] часов типа [exp_type] для доступа к ней.</span>")
+			return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(ghost_role == "No")
 		return
@@ -58,7 +65,10 @@
 	if(!loc || !uses || QDELETED(src) || QDELETED(user))
 		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
 		return
-	log_game("[user.ckey] became [mob_name]")
+	if(id_job == null)
+		log_game("[user.ckey] became [mob_name]")
+	else
+		log_game("[user.ckey] became [mob_name]. Job: [id_job]")
 	create(ckey = user.ckey)
 
 /obj/effect/mob_spawn/Initialize(mapload)
@@ -93,6 +103,10 @@
 		H.Initialize(null)
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name
+		if(M.dna)
+			M.dna.real_name = mob_name
+		if(M.mind)
+			M.mind.name = mob_name
 		if(!mob_gender)
 			mob_gender = pick(MALE, FEMALE)
 		M.gender = mob_gender
@@ -138,7 +152,7 @@
 	var/disable_pda = TRUE
 	var/disable_sensors = TRUE
 	//All of these only affect the ID that the outfit has placed in the ID slot
-	var/id_job = null			//Such as "Clown" or "Chef." This just determines what the ID reads as, not their access
+	id_job = null			//Such as "Clown" or "Chef." This just determines what the ID reads as, not their access
 	var/id_access = null		//This is for access. See access.dm for which jobs give what access. Use "Captain" if you want it to be all access.
 	var/id_access_list = null	//Allows you to manually add access to an ID card.
 	assignedrole = "Ghost Role"

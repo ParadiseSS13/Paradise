@@ -198,6 +198,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"large_stamp-law.png"       = 'icons/paper_icons/large_stamp-law.png',
 		"large_stamp-cent.png"      = 'icons/paper_icons/large_stamp-cent.png',
 		"large_stamp-syndicate.png" = 'icons/paper_icons/large_stamp-syndicate.png',
+		"large_stamp-taipan.png" 	= 'icons/paper_icons/large_stamp-taipan.png',
 		"large_stamp-rep.png"	    = 'icons/paper_icons/large_stamp-rep.png',
 		"large_stamp-magistrate.png"= 'icons/paper_icons/large_stamp-magistrate.png',
 		"large_stamp-ward.png"      = 'icons/paper_icons/large_stamp-ward.png',

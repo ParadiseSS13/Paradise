@@ -569,6 +569,29 @@
 	new /obj/item/card/id/golem(src)
 	new /obj/item/flashlight/lantern(src)
 
+//syndie crates by Furukai
+/obj/structure/closet/crate/syndicate
+
+	desc = "Definitely a property of an evil corporation!"
+	icon_state = "syndiecrate"
+	icon_opened = "syndiecrateopen"
+	icon_closed = "syndiecrate"
+	material_drop = /obj/item/stack/sheet/mineral/plastitanium
+
+/obj/structure/closet/crate/secure/syndicate
+	name = "Secure suspicious crate"
+	desc = "Definitely a property of an evil corporation! And it has a hardened lock! And a microphone?"
+	icon_state = "syndiesecurecrate"
+	icon_opened = "syndiesecurecrateopen"
+	icon_closed = "syndiesecurecrate"
+	material_drop = /obj/item/stack/sheet/mineral/plastitanium
+	can_be_emaged = FALSE
+
+/obj/structure/closet/crate/secure/syndicate/emag_act(mob/user)
+	if(locked && !broken)
+		to_chat(user, "<span class='notice'>Отличная попытка, но нет!</span>")
+		playsound(src.loc, "sound/misc/sadtrombone.ogg", 60, 1)
+
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(locked && broken == 0 && user.a_intent != INTENT_HARM) // Stage one

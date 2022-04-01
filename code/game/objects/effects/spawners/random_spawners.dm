@@ -9,6 +9,9 @@
 	/obj/effect/decal/cleanable/blood/oil = 1,
 	/obj/effect/decal/cleanable/fungus = 1)
 	var/spawn_inside = null
+	var/use_power = null // Хотим ли мы чтобы то, что мы спавним, тратило электричество
+	var/active_power_usage = null // Сколько энергии оно тратит если активно
+	var/idle_power_usage = null // Сколько энергии оно тратит в пассивном режиме
 
 // This needs to use New() instead of Initialize() because the thing it creates might need to be initialized too
 /obj/effect/spawner/random_spawners/New()
@@ -29,9 +32,24 @@
 		if(ispath(spawn_inside, /obj))
 			var/obj/O = new thing_to_place(T)
 			var/obj/E = new spawn_inside(T)
+			if(pixel_x	||	pixel_y	||	pixel_z) //Чтобы если мы меняем по пикселям позицию спавнера, это меняло и позицию того, что мы спавним
+				E.pixel_x = pixel_x
+				E.pixel_y = pixel_y
+				E.pixel_z = pixel_z
 			O.forceMove(E)
 		else
-			new thing_to_place(T)
+			var/obj/O = new thing_to_place(T)
+			if(pixel_x	||	pixel_y	||	pixel_z) //Чтобы если мы меняем по пикселям позицию спавнера, это меняло и позицию того, что мы спавним
+				O.pixel_x = pixel_x
+				O.pixel_y = pixel_y
+				O.pixel_z = pixel_z
+			if(use_power && istype(O, /obj/machinery)) //В основном для спавна туррелей. Чтобы туррели тратили электричество при работе
+				var/obj/machinery/OM = O
+				OM.use_power = use_power
+				if(active_power_usage)
+					OM.active_power_usage = active_power_usage
+				if(idle_power_usage)
+					OM.idle_power_usage = idle_power_usage
 	qdel(src)
 
 /obj/effect/spawner/random_spawners/blood_maybe
@@ -139,6 +157,10 @@
 	result = list(/datum/nothing = 1,
 		/obj/machinery/porta_turret/syndicate/exterior = 1)
 
+/obj/effect/spawner/random_spawners/syndicate/turret/grenade
+	name = "66pc grenade turret"
+	result = list(/datum/nothing = 1,
+		/obj/machinery/porta_turret/syndicate/grenade = 2)
 
 // Mobs
 

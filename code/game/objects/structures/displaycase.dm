@@ -236,3 +236,9 @@
 	desc = "A display case containing a humble stechkin pistol. Never forget your roots."
 	start_showpiece_type = /obj/item/gun/projectile/automatic/pistol
 	req_access = list(ACCESS_SYNDICATE_COMMAND)
+
+/obj/structure/displaycase/dartgun
+	name = "Display case"
+	desc = "A display case containing a dartgun. One of the favourite weapons of infamous Vox Raiders!"
+	start_showpiece_type = /obj/item/gun/dartgun
+	req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)

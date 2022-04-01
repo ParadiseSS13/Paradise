@@ -12,6 +12,7 @@
 	var/datum/action/innate/mecha/mech_zoom/zoom_action = new
 	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
 	var/datum/action/innate/mecha/mech_switch_damtype/switch_damtype_action = new
+	var/datum/action/innate/mecha/mech_energywall/energywall_action = new
 
 /obj/mecha/proc/GrantActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
@@ -230,3 +231,25 @@
 	button_icon_state = "mech_damtype_[new_damtype]"
 	playsound(src, 'sound/mecha/mechmove01.ogg', 50, 1)
 	UpdateButtonIcon()
+
+/datum/action/innate/mecha/mech_energywall
+	name = "Energy Wall"
+	button_icon_state = "energywall"
+
+/datum/action/innate/mecha/mech_energywall/Activate()
+	if(!owner || !chassis || chassis.occupant != owner)
+		return
+	if(chassis.wall_ready)
+		new chassis.wall_type(get_turf(chassis), chassis)
+		if(chassis.large_wall)
+			if(chassis.dir == SOUTH || chassis.dir == NORTH)
+				new chassis.wall_type(get_step(chassis, EAST), chassis)
+				new chassis.wall_type(get_step(chassis, WEST), chassis)
+			else
+				new chassis.wall_type(get_step(chassis, NORTH), chassis)
+				new chassis.wall_type(get_step(chassis, SOUTH), chassis)
+		chassis.wall_ready = 0
+		spawn(chassis.wall_cooldown)
+			chassis.wall_ready = 1
+	else
+		chassis.occupant_message("<span class='warning'>Energy wall is not ready yet!</span>")

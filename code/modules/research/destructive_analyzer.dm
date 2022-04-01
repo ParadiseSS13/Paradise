@@ -9,6 +9,8 @@ Note: Must be placed within 3 tiles of the R&D Console
 	name = "Destructive Analyzer"
 	desc = "Изучайте науку, разрушая предметы!"
 	icon_state = "d_analyzer"
+	icon_open = "d_analyzer_t"
+	icon_closed = "d_analyzer"
 	var/decon_mod = 0
 
 /obj/machinery/r_n_d/destructive_analyzer/New()
@@ -19,6 +21,10 @@ Note: Must be placed within 3 tiles of the R&D Console
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	RefreshParts()
+	if(is_taipan(z))
+		icon_state = "syndie_d_analyzer"
+		icon_open = "syndie_d_analyzer_t"
+		icon_closed = "syndie_d_analyzer"
 
 /obj/machinery/r_n_d/destructive_analyzer/upgraded/New()
 	..()
@@ -28,6 +34,10 @@ Note: Must be placed within 3 tiles of the R&D Console
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
 	RefreshParts()
+	if(is_taipan(z))
+		icon_state = "syndie_d_analyzer"
+		icon_open = "syndie_d_analyzer_t"
+		icon_closed = "syndie_d_analyzer"
 
 /obj/machinery/r_n_d/destructive_analyzer/RefreshParts()
 	var/T = 0
@@ -47,7 +57,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	if(shocked)
 		if(shock(user,50))
 			return TRUE
-	if(default_deconstruction_screwdriver(user, "d_analyzer_t", "d_analyzer", O))
+	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, O))
 		if(linked_console)
 			linked_console.linked_destroy = null
 			linked_console = null
@@ -86,7 +96,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 		loaded_item = O
 		O.loc = src
 		to_chat(user, "<span class='notice'>[O.name] установлен в [src.name]!</span>")
-		flick("d_analyzer_la", src)
+		flick("[icon_state]_la", src)
 		spawn(10)
-			icon_state = "d_analyzer_l"
+			icon_state = "[icon_state]_l"
 			busy = 0

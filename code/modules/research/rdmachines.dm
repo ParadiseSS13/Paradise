@@ -4,6 +4,8 @@
 /obj/machinery/r_n_d
 	name = "R&D Device"
 	icon = 'icons/obj/machines/research.dmi'
+	var/icon_open = null
+	var/icon_closed = null
 	density = 1
 	anchored = 1
 	use_power = IDLE_POWER_USE

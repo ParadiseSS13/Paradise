@@ -628,6 +628,139 @@
 
 //////////////////////////////////
 /*
+	Syndie airlocks by Furukai
+*/
+
+/obj/machinery/door/airlock/syndicate
+	name = "evil looking airlock"
+	desc = "Why does it have those blowers?"
+	overlays_file = 'icons/obj/doors/airlocks/syndicate/overlays.dmi'
+	note_overlay_file = 'icons/obj/doors/airlocks/syndicate/overlays.dmi'
+	paintable = FALSE
+
+/obj/machinery/door/airlock/syndicate/security
+	name = "evil looking security airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/security.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_sec
+	normal_integrity = 500
+
+/obj/machinery/door/airlock/syndicate/security/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 450
+
+/obj/machinery/door/airlock/syndicate/public
+	name = "evil looking public airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/public.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_public
+	normal_integrity = 350
+
+/obj/machinery/door/airlock/syndicate/public/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 300
+
+/obj/machinery/door/airlock/syndicate/atmos
+	name = "evil looking atmos airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/atmos.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_atmos
+	normal_integrity = 400
+/obj/machinery/door/airlock/syndicate/atmos/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 350
+
+/obj/machinery/door/airlock/syndicate/maintenance
+	name = "evil looking maintenance airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/maintenance.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_maint
+	normal_integrity = 300
+
+/obj/machinery/door/airlock/syndicate/maintenance/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 250
+
+/obj/machinery/door/airlock/syndicate/medical
+	name = "evil looking medbay airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/medical.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_med
+	normal_integrity = 400
+
+
+/obj/machinery/door/airlock/syndicate/medical/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 350
+
+/obj/machinery/door/airlock/syndicate/cargo
+	name = "evil looking cargo airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/cargo.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_cargo
+	normal_integrity = 400
+
+/obj/machinery/door/airlock/syndicate/cargo/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 350
+
+/obj/machinery/door/airlock/syndicate/research
+	name = "evil looking research airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/research.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_research
+	normal_integrity = 400
+
+/obj/machinery/door/airlock/syndicate/research/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 350
+
+/obj/machinery/door/airlock/syndicate/engineering
+	name = "evil looking engineering airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/engineering.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_engi
+	normal_integrity = 450
+
+/obj/machinery/door/airlock/syndicate/engineering/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 400
+
+/obj/machinery/door/airlock/syndicate/command
+	name = "evil looking command airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/command.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_research
+	normal_integrity = 500
+
+/obj/machinery/door/airlock/syndicate/command/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 450
+
+/obj/machinery/door/airlock/syndicate/freezer
+	name = "evil looking freezer airlock"
+	desc = "It's not even cold inside..."
+	icon = 'icons/obj/doors/airlocks/syndicate/freezer.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_freezer
+	normal_integrity = 350
+
+/obj/machinery/door/airlock/syndicate/freezer/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 300
+
+/obj/machinery/door/airlock/syndicate/extmai
+	name = "evil looking external maintenance airlock"
+	icon = 'icons/obj/doors/airlocks/syndicate/maintenanceexternal.dmi'
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_extmai
+	normal_integrity = 350
+
+/obj/machinery/door/airlock/syndicate/extmai/glass
+	opacity = 0
+	glass = TRUE
+	normal_integrity = 300
+
+/*
 	Misc Airlocks
 */
 

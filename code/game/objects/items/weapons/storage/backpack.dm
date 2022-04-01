@@ -221,6 +221,44 @@
 	item_state = "blueshieldpack"
 
 /*
+*	Syndicate backpacks. Sprites by ElGood
+*/
+/obj/item/storage/backpack/syndicate
+	name = "Рюкзак синдиката"
+	desc = "Крайне подозрительный рюкзак, для подозрительных вещей. Не собственность НТ!"
+	icon_state = "syndi_backpack"
+	item_state = "syndi_backpack"
+
+/obj/item/storage/backpack/syndicate/science
+	name = "Рюкзак учёных синдиката"
+	desc = "Крайне подозрительный рюкзак, для подозрительных колбочек. Не собственность НТ!"
+	icon_state = "syndi_sci_backpack"
+	item_state = "syndi_sci_backpack"
+
+/obj/item/storage/backpack/syndicate/engineer
+	name = "Рюкзак инженеров синдиката"
+	icon_state = "syndi_eng_backpack"
+	item_state = "syndi_eng_backpack"
+
+/obj/item/storage/backpack/syndicate/cargo
+	name = "Рюкзак грузчиков синдиката"
+	desc = "Крайне подозрительный рюкзак, для подозрительных грузов. Не собственность НТ!"
+	icon_state = "syndi_cargo_backpack"
+	item_state = "syndi_cargo_backpack"
+
+/obj/item/storage/backpack/syndicate/med
+	name = "Рюкзак медиков синдиката"
+	desc = "Крайне подозрительный рюкзак, для подозрительных лекарств. Не собственность НТ!"
+	icon_state = "syndi_med_backpack"
+	item_state = "syndi_med_backpack"
+
+/obj/item/storage/backpack/syndicate/command
+	name = "Рюкзак командования синдиката"
+	desc = "Крайне подозрительный рюкзак, для крайне подозрительных личностей. Не собственность НТ!"
+	icon_state = "syndi_com_backpack"
+	item_state = "syndi_com_backpack"
+
+/*
  * Satchel Types
  */
 

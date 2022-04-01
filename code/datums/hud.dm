@@ -23,7 +23,8 @@ GLOBAL_LIST_INIT(huds, list( \
 	DATA_HUD_ABDUCTOR = new/datum/atom_hud/abductor(),\
 	ANTAG_HUD_DEVIL = new/datum/atom_hud/antag/hidden(),\
 	ANTAG_HUD_EVENTMISC = new/datum/atom_hud/antag/hidden(),\
-	ANTAG_HUD_BLOB = new/datum/atom_hud/antag/hidden()\
+	ANTAG_HUD_BLOB = new/datum/atom_hud/antag/hidden(),\
+	TAIPAN_HUD = new/datum/atom_hud/antag()\
 ))
 
 /datum/atom_hud

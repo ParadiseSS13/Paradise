@@ -238,6 +238,9 @@
 /obj/machinery/alarm/Initialize()
 	..()
 	set_frequency(frequency)
+	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
+		req_one_access = list(ACCESS_SYNDICATE)
+
 	if(!master_is_operating())
 		elect_master()
 

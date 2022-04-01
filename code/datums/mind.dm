@@ -2048,6 +2048,8 @@
 /mob/living/silicon/robot/mind_initialize()
 	..()
 	mind.assigned_role = "Cyborg"
+	if(is_taipan(z))
+		give_taipan_hud()
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()

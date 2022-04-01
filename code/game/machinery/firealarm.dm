@@ -44,6 +44,10 @@ FIRE ALARM
 	report_fire_alarms = FALSE
 	show_alert_level = FALSE
 
+/obj/machinery/firealarm/syndicate/taipan
+	report_fire_alarms = TRUE
+	show_alert_level = FALSE
+
 /obj/machinery/firealarm/update_icon()
 
 	if(wiresexposed)

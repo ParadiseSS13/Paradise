@@ -23,6 +23,16 @@
 
 	dead_icon = "boris_blank"
 
+/obj/item/mmi/robotic_brain/syndicate
+	name = "suspicious robotic brain"
+	syndicate = 1
+	icon_state = "sofia_blank"
+	blank_icon = "sofia_blank"
+	searching_icon = "sofia_recharging"
+	occupied_icon = "sofia" //придерживаюсь странных традиций с именами робомозга ага
+	dead_icon = "sofia_blank"
+	origin_tech = "biotech=3;programming=3;plasmatech=2;syndicate=5"
+
 /obj/item/mmi/robotic_brain/Destroy()
 	imprinted_master = null
 	return ..()

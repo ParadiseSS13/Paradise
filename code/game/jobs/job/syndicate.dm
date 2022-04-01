@@ -26,7 +26,7 @@
 	shoes = /obj/item/clothing/shoes/combat
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana
 	belt = /obj/item/gun/projectile/automatic/pistol/deagle/camo
-	l_ear = /obj/item/radio/headset/syndicate/alt/syndteam
+	l_ear = /obj/item/radio/headset/syndicate/admin_officer
 	pda = /obj/item/pinpointer/advpinpointer
 	id = /obj/item/card/id/syndicate/command
 	box = /obj/item/storage/box/survival_syndi

@@ -1268,6 +1268,150 @@
 	access = ACCESS_CENT_GENERAL
 	info = ""
 	footer = footer_confidential
+
+//Синдикатские формы
+
+/obj/item/paper/form/syndieform
+	name = "ALERT A CODER SYND FORM"
+	altername = "ALERT A CODER FORM"
+	access = ACCESS_SYNDICATE_COMMAND
+	confidential = TRUE
+	category = null
+	var/const/footer_to_taipan =   "<I><font face=\"Verdana\" color=black size = \"1\">\
+									<HR>\
+									*Несоблюдение и/или нарушение указаний, содержащихся в данном письме, карается смертью.\
+									<BR>*Копирование, распространение и использование содержащейся информации карается смертью, за исключением случаев, описанных в письме.\
+									<BR>*Письмо подлежит уничтожению после ознакомления.\
+									</font></I>"
+	var/const/footer_from_taipan = "<I><font face=\"Verdana\" color=black size = \"1\">\
+									<HR>\
+									*Целевым получателем запроса является Синдикат\
+									<BR>*Копирование, распространение и использование документа и представленной информации \
+									за пределами целевого получателя запроса и экипажа станции запрещено.\
+									<BR>*Оригинал документа после отправки целевому получателю подлежит хранению в защищённом месте, \
+									либо уничтожению с соответствующим указанием.\
+									<BR>*В случае проникновения на объект посторонних лиц или угрозы проникновения документ подлежит уничтожению до или после отправки.\
+									</font></I>"
+	footer = footer_to_taipan
+
+/obj/item/paper/form/syndieform/New()
+	. = ..()
+	if(is_header_needed)
+		header = "	<font face=\"Verdana\" color=black>\
+					<table cellspacing=0 cellpadding=3  align=\"right\">\
+					<tr><td><img src= syndielogo.png></td></tr>\
+					</table><br>\
+					<table border=10 cellspacing=0 cellpadding=3 width =\"250\" height=\"100\"  align=\"center\" bgcolor=\"#B50F1D\">\
+					<td><center><B>[confidential ? "СОВЕРШЕННО СЕКРЕТНО<BR>" : ""]</B><B>[id]</B></center></td>\
+					</table>\
+					<br><HR></font>"
+	populatefields()
+
+/obj/item/paper/form/syndieform/SYND_COM_TC
+	name = "Форма SYND-COM-TC"
+	id = "SYND-COM-TC"
+	altername = "Официальное письмо"
+	category = "Синдикат"
+	access = ACCESS_SYNDICATE_COMMAND
+	footer = footer_to_taipan
+	info = "<font face=\"Verdana\" color=black>\
+			<center><H2><U>Официальное письмо объекту</U><BR>&#34;ННКСС Тайпан&#34;</H2></center><HR>\
+			<span class=\"paper_field\"></span><BR>\
+			<font size = \"1\">\
+			Подпись: <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>\
+			<BR>Дата: <span class=\"paper_field\"></span> \
+			<BR>Время: <span class=\"paper_field\"></span> \
+			<BR></font></font>"
+
+/obj/item/paper/form/syndieform/SYND_COM_SUP
+	name = "Форма SYND-COM-SUP"
+	id = "SYND-COM-SUP"
+	altername = "Запрос особой доставки"
+	category = "Синдикат"
+	access = ACCESS_SYNDICATE
+	footer = footer_from_taipan
+	info = "<font face=\"Verdana\" color=black>\
+			<center><H2>Запрос особой доставки на станцию<BR>Синдиката</H2></center><HR>\
+			<center><table>\
+			<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>\
+			<td><center><font size=\"4\">Данные<BR>для<BR>доставки</font></center><td>\
+			<center><B><U><font size=\"4\">Получатель</font></U></B></center>\
+			<U>Наименование станции</U>: &#34;ННКСС <B>Тайпан</B>&#34;\
+			<BR><U>Наименование сектора</U>: Эпсилон Эридана\
+			</td></tr></table>\
+			</center><BR>В связи с отсутствием в стандартном перечени заказов прошу доставить следующее:\
+			<BR><ul><li><U><span class=\"paper_field\"></span></U></ul>\
+			<BR>Причина запроса: <B><span class=\"paper_field\"></span></B>\
+			<BR><font size = \"1\">\
+			Подпись: <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>\
+			<BR>Дата: <span class=\"paper_field\"></span> \
+			<BR>Время: <span class=\"paper_field\"></span> \
+			<BR></font></font>"
+
+/obj/item/paper/form/syndieform/SYND_TAI_NO00
+	name = "Форма SYND-TAI-№00"
+	id = "SYND-TAI-№00"
+	altername = "Экстренное письмо"
+	category = "Синдикат"
+	access = ACCESS_SYNDICATE
+	footer = footer_from_taipan
+	info = "<font face=\"Verdana\" color=black>\
+			<center><H2><U>Экстренное письмо</U><BR>ННКСС &#34;Тайпан&#34;</H2></center><HR>\
+			<span class=\"paper_field\"></span>\
+			<BR><font size = \"1\">\
+			Подпись: <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>\
+			<BR>Дата: <span class=\"paper_field\"></span> \
+			<BR>Время: <span class=\"paper_field\"></span> \
+			<BR></font></font>"
+
+/obj/item/paper/form/syndieform/SYND_TAI_NO01
+	name = "Форма SYND-TAI-№01"
+	id = "SYND-TAI-№01"
+	altername = "Отчёт о ситуации на станции"
+	category = "Синдикат"
+	access = ACCESS_SYNDICATE
+	footer = footer_from_taipan
+	info = "<font face=\"Verdana\" color=black>\
+			<H3>Отчёт о ситуации на станции</H3><HR>\
+			<U>Наименование станции</U>: ННКСС &#34;Тайпан&#34;<BR>\
+			<BR>Общее состояние станции: <span class=\"paper_field\"></span>\
+			<BR>Численность персонала станции: <span class=\"paper_field\"></span>\
+			<BR>Общее состояние персонала станции: <span class=\"paper_field\"></span>\
+			<BR>Непосредственные внешние угрозы: <B><span class=\"paper_field\"></span></B>\
+			<BR>Подробности: <span class=\"paper_field\"></span>\
+			<BR>Дополнительная информация: <span class=\"paper_field\"></span><BR>\
+			<BR><font size = \"1\">\
+			Подпись: <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>\
+			<BR>Дата: <span class=\"paper_field\"></span> \
+			<BR>Время: <span class=\"paper_field\"></span> \
+			<BR></font></font>"
+
+/obj/item/paper/form/syndieform/SYND_TAI_NO02
+	name = "Форма SYND-TAI-№02"
+	id = "SYND-TAI-№02"
+	altername = "Отчёт о разработке вируса"
+	category = "Синдикат"
+	access = ACCESS_SYNDICATE
+	footer = footer_from_taipan
+	info = "<font face=\"Verdana\" color=black>\
+			<H3>Отчёт о разработке вируса</H3>\
+			<HR><U>Наименование вируса</U>: <B><span class=\"paper_field\"></span></B><BR>\
+			<BR>Тип вируса: <span class=\"paper_field\"></span>\
+			<BR>Способ распространения: <span class=\"paper_field\"></span>\
+			<BR>Перечень симптомов: <span class=\"paper_field\"></span>\
+			<BR>Описание: <span class=\"paper_field\"></span><BR>\
+			<BR><U>Наличие вакцины</U>: <B><span class=\"paper_field\"></span></B>\
+			<BR><U>Наименование вакцины</U>: <span class=\"paper_field\"></span><BR>\
+			<BR>Дополнительная информация***: <span class=\"paper_field\"></span>\
+			<BR>Указания к хранению вируса***: <span class=\"paper_field\"></span><BR>\
+			<BR><font size = \"1\">Подпись разработчика: <span class=\"paper_field\"></span>, в должности <B><span class=\"paper_field\"></span></B>\
+			<BR>Подпись Директора Исследований**: <span class=\"paper_field\"></span>\
+			<BR>Дата: <span class=\"paper_field\"></span> \
+			<BR>Время: <span class=\"paper_field\"></span> \
+			<HR><I><font size = \"1\">**Отчёт недействителен без подписи Директора Исследований. \
+			В случае его отсутствия требуется подпись Офицера Телекоммуникаций или заменяющего его лица с указанием должности.\
+			<BR>***Заполняется Директором Исследований. В случае его отсутствия, заполняется Офицером Телекоммуникаций или заменяющим его лицом</font>"
+
 //======
 /obj/item/paper/deltainfo
 	name = "Информационный буклет НСС Керберос"

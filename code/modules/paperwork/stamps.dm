@@ -9,7 +9,7 @@
 	throw_speed = 3
 	throw_range = 7
 	materials = list(MAT_METAL=60)
-	item_color = "cargo"
+	item_color = "cargo" //Если у кого-то как у меня возникнет непонимание зачем вообще нужен этот параметр, то он нужен для окрашивания вещей в стиральной машине...
 	pressure_resistance = 2
 	attack_verb = list("stamped")
 	var/list/stamp_sounds = list('sound/effects/stamp1.ogg','sound/effects/stamp2.ogg','sound/effects/stamp3.ogg')
@@ -100,5 +100,10 @@
 /obj/item/stamp/syndicate
 	name = "suspicious rubber stamp"
 	icon_state = "stamp-syndicate"
+	item_color = "syndicate"
+
+/obj/item/stamp/syndicate/taipan
+	name = "taipan rubber stamp"
+	icon_state = "stamp-taipan"
 	item_color = "syndicate"
 

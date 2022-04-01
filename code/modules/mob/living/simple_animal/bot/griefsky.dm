@@ -17,7 +17,7 @@
 	var/stun_chance = 50
 	var/spam_flag = 0
 	var/frustration_number = 15
-	
+
 /mob/living/simple_animal/bot/secbot/griefsky/toy  //A toy version of general griefsky!
 	name = "Genewul Giftskee"
 	desc = "An adorable looking secbot with four toy swords taped to its arms"
@@ -47,7 +47,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/emag_act(mob/user)
 	..()
 	light_color = LIGHT_COLOR_PURE_RED //if you see a red one. RUN!!
-	
+
 /mob/living/simple_animal/bot/secbot/griefsky/Crossed(atom/movable/AM, oldloc)
 	..()
 	if(ismob(AM) && AM == target)
@@ -90,7 +90,7 @@
 	var/threat = C.assess_threat(src)
 	if(ishuman(C))
 		C.apply_damage(dmg, BRUTE)
-		if(prob(stun_chance)) 
+		if(prob(stun_chance))
 			C.Weaken(5)
 	add_attack_logs(src, C, "sliced")
 	if(declare_arrests)
@@ -108,7 +108,7 @@
 
 	switch(mode)
 		if(BOT_IDLE)		// idle
-			icon_state = "griefsky1"
+			icon_state = "[base_icon][on]"
 			walk_to(src,0)
 			look_for_perp()	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
@@ -135,9 +135,9 @@
 							frustration++
 						else
 							frustration = 0
-				else 
+				else
 					back_to_idle()
-					speak("You fool")			
+					speak("You fool")
 			else
 				back_to_idle()
 
@@ -146,7 +146,7 @@
 			start_patrol()
 
 		if(BOT_PATROL)
-			icon_state = "griefsky1"
+			icon_state = "[base_icon][on]"
 			look_for_perp()
 			bot_patrol()
 	return
@@ -171,7 +171,7 @@
 			speak("You are a bold one")
 			playsound(src,'sound/weapons/saberon.ogg',50,TRUE,-1)
 			visible_message("[src] ignites his energy swords!")
-			icon_state = "griefsky-c"
+			icon_state = "[base_icon]-c"
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
 			INVOKE_ASYNC(src, .proc/handle_automated_action)
@@ -211,7 +211,7 @@
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
 	else
 		..()
-	
+
 /mob/living/simple_animal/bot/secbot/griefsky/proc/special_retaliate_after_attack(mob/user) //allows special actions to take place after being attacked.
 	return
 
@@ -220,7 +220,7 @@
 		return
 	if(prob(block_chance_melee))
 		visible_message("[src] deflects [user]'s attack with his energy swords!")
-		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)	
+		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 		return TRUE
 
 /mob/living/simple_animal/bot/secbot/griefsky/attack_hand(mob/living/carbon/human/H)
@@ -241,3 +241,81 @@
 			return ..()
 	else
 		return ..()
+
+//Добавила ниже версию синдикатского грифски в код вместо редактирования стандартного через маппинг.
+//Причина в том, что нельзя нормально отредактировать доступ к нему по карте иначе
+//А так же через код я смогла научить его бить НТ и не бить своих без повода.
+/mob/living/simple_animal/bot/secbot/griefsky/syndicate
+	radio_channel = "SyndTaipan"
+	name = "Генерал Синди"
+	icon_state = "general_syndie0"
+	base_icon = "general_syndie"
+	spin_icon = "general_syndie-c"
+	desc = "В процессе его создания пострадало как минимум 24 агента. 22 из них не выжили..."
+	faction = list("syndicate")
+	allow_pai = 1
+	auto_patrol = 1
+	remote_disabled = 1
+	weaponscheck = 1
+	check_records = 0
+	idcheck = 1
+	bot_core_type = /obj/machinery/bot_core/syndicate
+
+/mob/living/simple_animal/bot/secbot/griefsky/syndicate/sword_attack(mob/living/carbon/C)     // esword attack
+	src.do_attack_animation(C)
+	playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, -1)
+	icon_state = spin_icon
+	var/threat = C.assess_threat(src)
+	if(!("syndicate" in C.faction))
+		threat = "Nanotrasen"
+	if(ishuman(C))
+		C.apply_damage(dmg, BRUTE)
+		if(prob(stun_chance))
+			C.Weaken(5)
+	add_attack_logs(src, C, "sliced")
+	if(declare_arrests)
+		var/area/location = get_area(src)
+		if(!spam_flag)
+			if(!("syndicate" in C.faction))
+				speak("Back away! I will deal with this [threat] swine <b>[C]</b> in [location] myself!.", radio_channel)
+			else
+				speak("Back away! I will deal with this level [threat] swine <b>[C]</b> in [location] myself!.", radio_channel)
+			spam_flag = 1
+			addtimer(CALLBACK(src, .proc/spam_flag_false), 100) //to avoid spamming comms of sec for each hit
+			visible_message("[src] flails his swords and cuts [C]!")
+
+/mob/living/simple_animal/bot/secbot/griefsky/syndicate/look_for_perp()
+	anchored = 0
+	for (var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
+		if((C.stat) || (C.handcuffed))
+			continue
+
+		if((C.name == oldtarget_name) && (world.time < last_found + 100))
+			continue
+
+		if(idcheck && istype(C.get_id_card(), /obj/item/card/id/syndicate))
+			threatlevel = 0
+		else if(!("syndicate" in C.faction))
+			threatlevel = 20
+		else
+			threatlevel = C.assess_threat(src)
+
+		if(!threatlevel)
+			continue
+
+		else if(threatlevel >= 4)
+			target = C
+			oldtarget_name = C.name
+			speak("You are a bold one")
+			playsound(src,'sound/weapons/saberon.ogg',50,TRUE,-1)
+			visible_message("[src] ignites his energy swords!")
+			icon_state = "[base_icon]-c"
+			visible_message("<b>[src]</b> points at [C.name]!")
+			mode = BOT_HUNT
+			INVOKE_ASYNC(src, .proc/handle_automated_action)
+			break
+		else
+			continue
+
+/obj/machinery/bot_core/syndicate
+	req_access = list(ACCESS_SYNDICATE)

@@ -71,6 +71,11 @@
 	component_parts += new /obj/item/assembly/igniter(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
+	//Проверка на случай постройки такой на Тайпане
+	var/area/MyArea = getArea(src)
+	if(istype(MyArea, /area/syndicate/unpowered/syndicate_space_base))
+		req_access = list(ACCESS_SYNDICATE)
+		req_access_claim = ACCESS_SYNDICATE
 
 /obj/machinery/mineral/ore_redemption/upgraded/New()
 	..()

@@ -2,11 +2,14 @@
 	name = "autoimplanter"
 	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. It has a slot to insert implants and a screwdriver slot for removing accidentally added implants."
 	icon = 'icons/obj/device.dmi'
-	icon_state = "autoimplanter"
+	icon_state = "syndi-autoimplanter"
 	item_state = "walkietalkie"//left as this so as to intentionally not have inhands
 	w_class = WEIGHT_CLASS_SMALL
 	usesound = 'sound/weapons/circsawhit.ogg'
 	var/obj/item/organ/internal/cyberimp/storedorgan
+
+/obj/item/autoimplanter/old
+	icon_state = "autoimplanter"
 
 /obj/item/autoimplanter/attack_self(mob/user)//when the object it used...
 	if(!storedorgan)

@@ -201,6 +201,96 @@
 	icon_state = "durand_armor"
 	origin_tech = "materials=5;combat=4;engineering=4"
 
+//////////// Rover
+/obj/item/mecha_parts/chassis/rover
+	name = "Rover Chassis"
+
+/obj/item/mecha_parts/chassis/rover/New()
+	..()
+	construct = new /datum/construction/mecha/rover_chassis(src)
+
+/obj/item/mecha_parts/part/rover_torso
+	name="Rover Torso"
+	icon_state = "darkdurand_harness"
+	origin_tech = "programming=2;materials=3;biotech=3;engineering=3;syndicate=4"
+
+/obj/item/mecha_parts/part/rover_head
+	name="Rover Head"
+	icon_state = "darkdurand_head"
+	origin_tech = "programming=2;materials=3;magnets=3;engineering=3;syndicate=4"
+
+/obj/item/mecha_parts/part/rover_left_arm
+	name="Rover Left Arm"
+	icon_state = "darkdurand_l_arm"
+	origin_tech = "programming=2;materials=3;engineering=3;syndicate=4"
+
+/obj/item/mecha_parts/part/rover_right_arm
+	name="Rover Right Arm"
+	icon_state = "darkdurand_r_arm"
+	origin_tech = "programming=2;materials=3;engineering=3;syndicate=4"
+
+/obj/item/mecha_parts/part/rover_left_leg
+	name="Rover Left Leg"
+	icon_state = "darkdurand_l_leg"
+	origin_tech = "programming=2;materials=3;engineering=3;syndicate=4"
+
+/obj/item/mecha_parts/part/rover_right_leg
+	name="Rover Right Leg"
+	icon_state = "darkdurand_r_leg"
+	origin_tech = "programming=2;materials=3;engineering=3;syndicate=4"
+
+/obj/item/mecha_parts/part/rover_armor
+	name="Rover Armour Plates"
+	icon_state = "darkdurand_armor"
+	origin_tech = "materials=5;combat=4;engineering=4;syndicate=4"
+
+///////// Dark Gygax
+
+/obj/item/mecha_parts/chassis/darkgygax
+	name = "Dark Gygax Chassis"
+
+/obj/item/mecha_parts/chassis/darkgygax/New()
+	..()
+	construct = new /datum/construction/mecha/darkgygax_chassis(src)
+
+/obj/item/mecha_parts/part/darkgygax_torso
+	name="Dark Gygax Torso"
+	desc="A torso part of Dark Gygax. Contains power unit, processing core and life support systems. Has an additional equipment slot."
+	icon_state = "darkgygax_harness"
+	origin_tech = "programming=2;materials=4;biotech=3;engineering=3;syndicate=2"
+
+/obj/item/mecha_parts/part/darkgygax_head
+	name="Dark Gygax Head"
+	desc="A Dark Gygax head. Houses advanced surveilance and targeting sensors."
+	icon_state = "darkgygax_head"
+	origin_tech = "programming=2;materials=4;magnets=3;engineering=3;syndicate=2"
+
+/obj/item/mecha_parts/part/darkgygax_left_arm
+	name="Dark Gygax Left Arm"
+	desc="A Dark Gygax left arm. Data and power sockets are compatible with most exosuit tools and weapons."
+	icon_state = "darkgygax_l_arm"
+	origin_tech = "programming=2;materials=4;engineering=3;syndicate=2"
+
+/obj/item/mecha_parts/part/darkgygax_right_arm
+	name="Dark Gygax Right Arm"
+	desc="A Dark Gygax right arm. Data and power sockets are compatible with most exosuit tools and weapons."
+	icon_state = "darkgygax_r_arm"
+	origin_tech = "programming=2;materials=4;engineering=3;syndicate=2"
+
+/obj/item/mecha_parts/part/darkgygax_left_leg
+	name="Dark Gygax Left Leg"
+	icon_state = "darkgygax_l_leg"
+	origin_tech = "programming=2;materials=4;engineering=3;syndicate=2"
+
+/obj/item/mecha_parts/part/darkgygax_right_leg
+	name="Dark Gygax Right Leg"
+	icon_state = "darkgygax_r_leg"
+	origin_tech = "programming=2;materials=4;engineering=3;syndicate=2"
+
+/obj/item/mecha_parts/part/darkgygax_armour
+	name="Dark Gygax Armour Plates"
+	icon_state = "darkgygax_armour"
+	origin_tech = "materials=6;combat=4;engineering=4;syndicate=2"
 
 
 ////////// Firefighter

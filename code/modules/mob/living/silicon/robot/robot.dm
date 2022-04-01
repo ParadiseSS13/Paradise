@@ -141,7 +141,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	init(alien, connect_to_AI, ai_to_sync_to)
 
-	if(has_camera && !camera)
+	if(is_taipan(z) || syndie) //Чтобы турели не били собранных на тайпане или из емагнутого корпуса боргов
+		faction += "syndicate"
+
+	if(has_camera && !camera && !syndie)
 		camera = new /obj/machinery/camera(src)
 		camera.c_tag = real_name
 		camera.network = list("SS13","Robots")
@@ -318,6 +321,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		modules = force_modules.Copy()
 	if(mmi != null && mmi.alien)
 		modules = list("Hunter")
+	if(mmi?.syndicate)
+		modules = list("Syndicate Saboteur", "Syndicate Medical", "Syndicate Bloodhound")
 	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
 	if(!modtype)
 		return
@@ -439,6 +444,21 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			icon_state = "xenoborg-state-a"
 			modtype = "Xeno-Hu"
 
+		if("Syndicate Saboteur")
+			spawn_syndicate_borgs(src, "Saboteur", get_turf(src))
+			qdel(src)
+			return
+
+		if("Syndicate Medical")
+			spawn_syndicate_borgs(src, "Medical", get_turf(src))
+			qdel(src)
+			return
+
+		if("Syndicate Bloodhound")
+			spawn_syndicate_borgs(src, "Bloodhound", get_turf(src))
+			qdel(src)
+			return
+
 	//languages
 	module.add_languages(src)
 	//subsystems
@@ -459,6 +479,58 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!static_radio_channels)
 		radio.config(module.channels)
 	notify_ai(2)
+
+/mob/living/silicon/robot/proc/spawn_syndicate_borgs(mob/living/silicon/robot/M, var/robot_to_spawn, turf/T)
+
+	var/mob/living/silicon/robot/syndicate/R
+	switch(robot_to_spawn)
+		if("Medical")
+			R = new /mob/living/silicon/robot/syndicate/medical(T)
+			R.playstyle_string = "<span class='userdanger'>Вы Медицинский Киборг Синдиката!</span><br> \
+						<b>Вас построили на ННКСС 'Тайпан' Помогайте персоналу станции и исполняйте их приказы. \
+						Возможно вас приставят к агенту или выдадут особую миссию, но до тех пор не покидайте пределы станции! \
+						Ваш Гипоспрей способен создавать восстанавливающие Наниты, чудодействующее лекарство, способное вылечить большинство видов телесных повреждений, включая урон от клонирования и мозгу. Он так же производит морфин для наступления. \
+						Электроды вашего дефибриллятора способны оживлять оперативников и агентов через их хардсьюты, а так же могут быть использованы с намерением вреда, чтобы шокировать ваших врагов! \
+						Ваша энергетическая пила функционирует как циркулярная пила, но её можно активировать для нанесения дополнительного урона. \
+						Ваш пинпоинтер позволяет вам найти Ядерных Оперативников синдиката из вашей группы, если вас к таковой приставят."
+		if("Saboteur")
+			R = new /mob/living/silicon/robot/syndicate/saboteur(T)
+			R.playstyle_string = "<span class='userdanger'>Вы Киборг Саботажник Синдиката!</span><br> \
+						<b>Вас построили на ННКСС 'Тайпан' Помогайте персоналу станции и исполняйте их приказы. \
+						Возможно вас приставят к агенту или выдадут особую миссию, но до тех пор не покидайте пределы станции! \
+						Вы экипированны крепким набором инженерных инструментов для выполнения различного рода задач. \
+						В вас встроен специальный маячок для посылок, который позволит вам незаметно передвигаться по станциям НТ через мусорные трубы. \
+						Ваш хамеллион проектор позволяет вам замаскироваться под стандартного инженерного киборга Нанотрэйзен и выполнять любого рода саботаж под прикрытием. \
+						Вы способны взламывать киборгов НТ Емагнув их внутренние компоненты, не забудьте ослепить их перед этим. \
+						Вы вооружены стандартным Световым Мечом, используйте его чтобы застать врасплох ключевые цели если необходимо. \
+						Ваш пинпоинтер позволяет вам найти Ядерных Оперативников синдиката из вашей группы, если вас к таковой приставят. \
+						Помните, физический контакт или повреждения отключат вашу маскировку."
+		if("Bloodhound")
+			R = new /mob/living/silicon/robot/syndicate(T)
+			R.playstyle_string = "<span class='userdanger'>Вы Штурмовой Киборг Синдиката!</span><br> \
+							<b>Вас построили на ННКСС 'Тайпан' Помогайте персоналу станции и исполняйте их приказы. \
+						Возможно вас приставят к агенту или выдадут особую миссию, но до тех пор не покидайте пределы станции! \
+						Вы вооружены мощными наступательными инструментами чтобы выполнять выданные вам миссии. \
+						Встроенное в вас LMG самостоятельно производит патроны используя вашу батарею. \
+						Ваш пинпоинтер позволяет вам найти Ядерных Оперативников синдиката из вашей группы, если вас к таковой приставят."
+
+	var/datum/robot_component/cell/C = R.components["power cell"]
+
+	var/obj/item/stock_parts/cell/CC = get_cell(M)
+	CC.loc = src
+	R.cell = new CC.type
+	C.installed = 1
+	C.wrapped = CC
+	C.install()
+	C.external_type = CC.type
+	C.brute_damage = 0
+	C.electronics_damage = 0
+	diag_hud_set_borgcell()
+
+	R.mmi = new /obj/item/mmi/robotic_brain/syndicate(M)
+	M.mind.transfer_to(R)
+	R.faction = list("syndicate")
+	SEND_SOUND(R.mind.current, 'sound/effects/contractstartup.ogg')
 
 /mob/living/silicon/robot/proc/reset_module()
 	notify_ai(2)

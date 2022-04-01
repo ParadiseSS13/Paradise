@@ -195,3 +195,45 @@
 	. = ..()
 	if(. && (ACCESS_CHANGE_IDS in .))
 		return get_all_accesses()
+
+/obj/machinery/computer/guestpass/syndicate
+	name = "\improper Syndicate guest pass terminal"
+
+/obj/machinery/computer/guestpass/syndicate/get_changeable_accesses()
+	. = ..()
+	if(. && (ACCESS_CHANGE_IDS in .))
+		return get_taipan_syndicate_access()
+
+/obj/machinery/computer/guestpass/syndicate/attack_hand(var/mob/user as mob)
+	if(..())
+		return
+
+	user.set_machine(src)
+	var/dat = {"<meta charset="UTF-8">"}
+
+	if(mode == 1) //Logs
+		dat += "<h3>Activity log</h3><br>"
+		for(var/entry in internal_log)
+			dat += "[entry]<br><hr>"
+		dat += "<a href='?src=[UID()];action=print'>Print</a><br>"
+		dat += "<a href='?src=[UID()];mode=0'>Back</a><br>"
+	else
+		dat += "<h3>Guest pass terminal #[uid]</h3><br>"
+		dat += "<a href='?src=[UID()];mode=1'>View activity log</a><br><br>"
+		dat += "Issuing ID: <a href='?src=[UID()];action=id'>[giver]</a><br>"
+		dat += "Issued to: <a href='?src=[UID()];choice=giv_name'>[giv_name]</a><br>"
+		dat += "Reason:  <a href='?src=[UID()];choice=reason'>[reason]</a><br>"
+		dat += "Duration (minutes):  <a href='?src=[UID()];choice=duration'>[duration] m</a><br>"
+		dat += "Access to areas:<br>"
+		if(giver && giver.access)
+			for(var/A in get_changeable_accesses())
+				var/area = get_syndicate_access_desc(A)
+				if(A in accesses)
+					area = "<b>[area]</b>"
+				dat += "<a href='?src=[UID()];choice=access;access=[A]'>[area]</a><br>"
+		dat += "<br><a href='?src=[UID()];action=issue'>Issue pass</a><br>"
+
+	var/datum/browser/popup = new(user, "guestpass", name, 400, 520)
+	popup.set_content(dat)
+	popup.open(0)
+	onclose(user, "guestpass")

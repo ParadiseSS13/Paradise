@@ -134,7 +134,7 @@
 /obj/effect/portal/redspace
 	name = "redspace portal"
 	desc = "A portal capable of bypassing bluespace interference."
-	icon_state = "portal1"
+	icon_state = "portal-syndicate"
 	failchance = 0
 	precision = 0
 	ignore_tele_proof_area_setting = TRUE

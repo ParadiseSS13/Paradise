@@ -574,7 +574,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/chem_dispenser
 	board_type = "machine"
 	origin_tech = "materials=4;programming=4;plasmatech=4;biotech=3"
-	req_one_access = list(ACCESS_TOX, ACCESS_CHEMISTRY)
+	req_one_access = list(ACCESS_TOX, ACCESS_CHEMISTRY, ACCESS_SYNDICATE_SCIENTIST)
 	req_components = list(	/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -758,6 +758,18 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/sheet/glass = 1)
 
+/obj/item/circuitboard/mechfab/syndicate
+	name = "Circuit board (Syndicate Exosuit Fabricator)"
+	icon_state = "syndicate_circuit"
+	build_path = /obj/machinery/mecha_part_fabricator/syndicate
+	origin_tech = "programming=2;engineering=2;syndicate=5"
+	req_components = list(
+							/obj/item/stock_parts/matter_bin = 2,
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stock_parts/micro_laser = 1,
+							/obj/item/stack/sheet/glass = 1,
+							/obj/item/stack/telecrystal = 5)
+
 /obj/item/circuitboard/podfab
 	name = "Circuit board (Spacepod Fabricator)"
 	build_path = /obj/machinery/mecha_part_fabricator/spacepod
@@ -861,6 +873,37 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stack/cable_coil = 1)
+	var/emagged = FALSE
+
+// syndie pads can be created by emagging normal quantumpads
+/obj/item/circuitboard/quantumpad/emag_act(mob/user)
+	if(!emagged)
+		if(user)
+			user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>", "<span class='notice'>You emag the [src], rewriting it's protocols for redspace usage.</span>")
+			playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
+		emagged = TRUE
+		name = "circuit board (Syndicate Quantum Pad)"
+		build_path = /obj/machinery/syndiepad
+		board_type = "machine"
+		req_components = list(
+								/obj/item/stack/telecrystal = 1,
+								/obj/item/stock_parts/capacitor = 1,
+								/obj/item/stock_parts/manipulator = 1,
+								/obj/item/stack/cable_coil = 1)
+	return
+// syndie pads by Furukai
+
+/obj/item/circuitboard/quantumpad/syndiepad
+	name = "circuit board (Syndicate Quantum Pad)"
+	build_path = /obj/machinery/syndiepad
+	board_type = "machine"
+	origin_tech = "programming=3;engineering=3;plasmatech=3;bluespace=4;syndicate=6" //Технология достойная подобного уровня нелегала как по мне
+	req_components = list(
+							/obj/item/stack/telecrystal = 1,
+							/obj/item/stock_parts/capacitor = 1,
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stack/cable_coil = 1)
+	emagged = TRUE
 
 /obj/item/circuitboard/sleeper
 	name = "circuit board (Sleeper)"

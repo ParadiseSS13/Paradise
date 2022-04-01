@@ -13,6 +13,8 @@
 	desc = "Nothing is being built."
 	icon = 'icons/obj/robotics.dmi'
 	icon_state = "fab-idle"
+	var/icon_open = "fab-o"
+	var/icon_closed = "fab-idle"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -46,6 +48,7 @@
 	var/list/datum/design/build_queue = null
 	/// Whether the queue is currently being processed.
 	var/processing_queue = FALSE
+	var/ui_theme = "nanotrasen"
 
 /obj/machinery/mecha_part_fabricator/New()
 	// Set up some datums
@@ -62,6 +65,8 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
+	if(is_taipan(z))
+		req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/mecha_part_fabricator/Initialize(mapload)
 	. = ..()
@@ -183,7 +188,7 @@
 	build_end = build_start + build_time
 	desc = "It's building \a [initial(D.name)]."
 	use_power = ACTIVE_POWER_USE
-	add_overlay("fab-active")
+	add_overlay("[icon_state]-active")
 	addtimer(CALLBACK(src, .proc/build_design_timer_finish, D, final_cost), build_time)
 
 	return TRUE
@@ -277,7 +282,7 @@
 
 // Interaction code
 /obj/machinery/mecha_part_fabricator/attackby(obj/item/W, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "fab-o", "fab-idle", W))
+	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, W))
 		return
 	if(exchange_parts(user, W))
 		return
@@ -315,6 +320,7 @@
 	data["processingQueue"] = processing_queue
 	data["categories"] = categories
 	data["curCategory"] = selected_category
+	data["ui_theme"] = ui_theme
 
 	// Materials
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -502,6 +508,50 @@
 /obj/machinery/mecha_part_fabricator/robot
 	name = "robotic fabricator"
 	categories = list("Cyborg")
+
+/obj/machinery/mecha_part_fabricator/syndicate
+	name = "Syndicate exosuit fabricator"
+	desc = "Nothing is being built."
+	req_access = list(ACCESS_SYNDICATE)
+	ui_theme = "nologo"
+
+/obj/machinery/mecha_part_fabricator/syndicate/New()
+	..()
+	// Components
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/mechfab/syndicate(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	RefreshParts()
+	if(is_taipan(z))
+		icon_state = "fabsyndie-idle"
+		icon_open = "fabsyndie-o"
+		icon_closed = "fabsyndie-idle"
+
+/obj/machinery/mecha_part_fabricator/syndicate/Initialize(mapload)
+	. = ..()
+	categories = list(
+		"Cyborg",
+		"Cyborg Repair",
+		"Ripley",
+		"Firefighter",
+		"Clarke",
+		"Odysseus",
+		"Dark Gygax",
+		"Rover",
+		"H.O.N.K",
+		"Reticence",
+		"Phazon",
+		"Exosuit Equipment",
+		"Cyborg Upgrade Modules",
+		"Medical",
+		"Misc",
+		"Syndicate"
+	)
+
 
 #undef EXOFAB_BASE_CAPACITY
 #undef EXOFAB_CAPACITY_PER_RATING

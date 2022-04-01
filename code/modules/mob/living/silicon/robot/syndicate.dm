@@ -24,20 +24,32 @@
 /mob/living/silicon/robot/syndicate/New(loc)
 	..()
 	cell = new /obj/item/stock_parts/cell/hyper(src)
+	mmi = new /obj/item/mmi/robotic_brain/syndicate(src)
 
 /mob/living/silicon/robot/syndicate/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/syndicate_override
 	module = new /obj/item/robot_module/syndicate(src)
 
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
-	radio = new /obj/item/radio/borg/syndicate(src)
+
+	if(is_taipan(z))
+		radio = new /obj/item/radio/borg/syndicate/taipan(src)
+	else
+		radio = new /obj/item/radio/borg/syndicate(src)
+
 	radio.recalculateChannels()
+
+
 
 	spawn(5)
 		if(playstyle_string)
 			to_chat(src, playstyle_string)
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
+
+/mob/living/silicon/robot/syndicate/reset_module()
+	..()
+	mmi = new /obj/item/mmi/robotic_brain/syndicate(src)
 
 /mob/living/silicon/robot/syndicate/medical
 	base_icon = "syndi-medi"

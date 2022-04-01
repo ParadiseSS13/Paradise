@@ -36,6 +36,18 @@
 /obj/item/encryptionkey/syndicate/nukeops
 	change_voice = FALSE
 
+/obj/item/encryptionkey/syndicate/taipan
+	change_voice = FALSE
+	icon_state = "taipan_cypherkey"
+	channels = list("SyndTaipan" = 1)
+
+/obj/item/encryptionkey/syndicate/taipan/borg
+	change_voice = FALSE
+	icon_state = "taipan_cypherkey"
+	channels = list("SyndTaipan" = 1, "Syndicate" = 1)
+/obj/item/encryptionkey/syndicate/taipan/tcomms_agent
+	channels = list("SyndTaipan" = 1, "Syndicate" = 1, "Common" = 1)
+
 /obj/item/encryptionkey/syndteam
 	name = "syndicate encryption key"
 	icon_state = "syn_cypherkey"

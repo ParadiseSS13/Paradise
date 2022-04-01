@@ -110,6 +110,33 @@
 	. = ..()
 	set_frequency(SYND_FREQ)
 
+/obj/item/radio/headset/syndicate/admin_officer
+	name = "syndicate officer's headset"
+	icon_state = "taipan_headset"
+	item_state = "taipan_headset"
+	ks1type = /obj/item/encryptionkey/syndteam
+	ks2type = /obj/item/encryptionkey/syndicate/taipan
+	freerange = TRUE
+	freqlock = FALSE
+
+/obj/item/radio/headset/syndicate/taipan
+	name = "syndicate taipan headset"
+	icon_state = "taipan_headset"
+	item_state = "taipan_headset"
+	ks1type = /obj/item/encryptionkey/syndicate/taipan
+
+/obj/item/radio/headset/syndicate/taipan/New()
+	. = ..()
+	set_frequency(SYND_TAIPAN_FREQ)
+
+/obj/item/radio/headset/syndicate/taipan/tcomms_agent
+	ks1type = /obj/item/encryptionkey/syndicate/taipan/tcomms_agent
+	freerange = TRUE
+	freqlock = FALSE
+
+/obj/item/radio/headset/syndicate/taipan/New()
+	. = ..()
+	set_frequency(PUB_FREQ)
 /obj/item/radio/headset/binary
 	origin_tech = "syndicate=3"
 	ks1type = /obj/item/encryptionkey/binary

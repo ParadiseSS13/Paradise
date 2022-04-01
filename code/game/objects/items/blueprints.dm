@@ -4,6 +4,7 @@
 	icon_state = "blueprints"
 	attack_verb = list("attacked", "bapped", "hit")
 	var/fluffnotice = "Nobody's gonna read this stuff!"
+	var/syndicate = FALSE //если TRUE то создаёт зоны для тайпана
 
 	var/const/AREA_ERRNONE = 0
 	var/const/AREA_STATION = 1
@@ -68,8 +69,35 @@
 	if(..())
 		qdel(src)
 
-//free golem blueprints, like permit but can claim as much as needed
+//One-use syndicate permits. Sprites by ElGood
+/obj/item/areaeditor/permit/syndicate
+	name = "syndicate construction permit"
+	icon_state = "permit_syndie"
+	desc = "This is a one-use permit that allows the user to officially declare a built room as a property of the syndicate"
+	fluffnotice = "Intellectual Property of the Syndicate. Syndicate Engineering requires all construction projects to be approved by an officer of sufficient authority, as detailed in Syndicate RaMSS Anti-Nanotrasen Company Regulation F##K-NT-027. \
+					By submitting this form, you accept any fines, fees, or personal injury/death that may occur during construction."
+	syndicate = TRUE
 
+/obj/item/areaeditor/permit/syndicate/attack_self(mob/user as mob)
+	add_fingerprint(user)
+	var/text = {"<BODY><HTML><meta charset="UTF-8"><head><title>[src]</title></head>
+				<h2>RaMSS Taipan [src.name]</h2>
+				<small>[fluffnotice]</small><hr>"}
+	var/area/A = get_area(user)
+	switch(get_area_type())
+		if(AREA_SPACE)
+			text += "<p>According to the [src.name], you are now in <b>outer space</b>.  Hold your breath.</p> \
+			<p><a href='?src=[UID()];create_area=1'>Mark this place as new area.</a></p>"
+		if(AREA_SPECIAL)
+			text += "<p>This place is not noted on the [src.name].</p>"
+		if(AREA_STATION)
+			text += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
+	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
+	popup.set_content(text)
+	popup.open()
+	onclose(usr, "blueprints")
+
+//free golem blueprints, like permit but can claim as much as needed
 /obj/item/areaeditor/golem
 	name = "Golem Land Claim"
 	desc = "Used to define new areas in space."
@@ -203,19 +231,34 @@
 	if(length(str) > 50)
 		to_chat(usr, "<span class='warning'>The given name is too long.  The area remains undefined.</span>")
 		return area_created
-	var/area/A = new
-	A.name = str
-	A.power_equip = FALSE
-	A.power_light = FALSE
-	A.power_environ = FALSE
-	A.always_unpowered = FALSE
-	A.set_dynamic_lighting()
+	if(syndicate)
+		var/area/syndicate/unpowered/syndicate_space_base/A = new
+		A.name = str
+		A.power_equip = FALSE
+		A.power_light = FALSE
+		A.power_environ = FALSE
+		A.always_unpowered = FALSE
+		A.set_dynamic_lighting()
 
-	for(var/i in 1 to turfs.len)
-		var/turf/thing = turfs[i]
-		var/area/old_area = thing.loc
-		A.contents += thing
-		thing.change_area(old_area, A)
+		for(var/i in 1 to turfs.len)
+			var/turf/thing = turfs[i]
+			var/area/old_area = thing.loc
+			A.contents += thing
+			thing.change_area(old_area, A)
+	else
+		var/area/A = new
+		A.name = str
+		A.power_equip = FALSE
+		A.power_light = FALSE
+		A.power_environ = FALSE
+		A.always_unpowered = FALSE
+		A.set_dynamic_lighting()
+
+		for(var/i in 1 to turfs.len)
+			var/turf/thing = turfs[i]
+			var/area/old_area = thing.loc
+			A.contents += thing
+			thing.change_area(old_area, A)
 
 	var/area/oldA = get_area(get_turf(usr))
 	var/list/firedoors = oldA.firedoors

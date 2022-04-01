@@ -599,6 +599,21 @@
 	new /obj/item/areaeditor/permit(src)
 	new /obj/item/areaeditor/permit(src)
 
+/obj/item/storage/box/syndicate_permits
+	name = "box of syndicate construction permits"
+	desc = "A box for containing construction permits, used to officially declare built rooms as additions to the station."
+	icon_state = "syndie_id"
+
+/obj/item/storage/box/syndicate_permits/New()
+	..()
+	new /obj/item/areaeditor/permit/syndicate(src)
+	new /obj/item/areaeditor/permit/syndicate(src)
+	new /obj/item/areaeditor/permit/syndicate(src)
+	new /obj/item/areaeditor/permit/syndicate(src)
+	new /obj/item/areaeditor/permit/syndicate(src)
+	new /obj/item/areaeditor/permit/syndicate(src)
+	new /obj/item/areaeditor/permit/syndicate(src)
+
 
 /obj/item/storage/box/ids
 	name = "spare IDs"

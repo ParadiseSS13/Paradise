@@ -14,10 +14,15 @@
 	var/one_access = FALSE
 	/// An associative list containing all station accesses. Includes their name and access number.
 	var/static/list/door_accesses_list = list()
+	var/list/current_door_accesses_list = list()
+
 	/// Maximum brain damage a mob can have until it can't use the electronics
 	var/const/max_brain_damage = 60
 	/// Which direction has unrestricted access to the airlock (e.g. medbay doors from the inside)
 	var/unres_access_from = null
+
+	var/region_min = REGION_GENERAL
+	var/region_max = REGION_COMMAND
 
 /obj/item/airlock_electronics/Initialize(mapload)
 	. = ..()
@@ -26,6 +31,7 @@
 			door_accesses_list += list(list(
 				"name" = get_access_desc(access),
 				"id" = access))
+	current_door_accesses_list = door_accesses_list
 
 /obj/item/airlock_electronics/attack_self(mob/user)
 	if(!ishuman(user) && !isrobot(user))
@@ -55,8 +61,8 @@
 
 /obj/item/airlock_electronics/ui_static_data(mob/user)
 	var/list/data = list()
-	data["regions"] = get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND)
-	data["door_access_list"] = door_accesses_list
+	data["regions"] = get_accesslist_static_data(region_min, region_max)
+	data["door_access_list"] = current_door_accesses_list
 	return data
 
 /obj/item/airlock_electronics/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -87,13 +93,13 @@
 
 		if("grant_region")
 			var/region = text2num(params["region"])
-			if(isnull(region) || region < REGION_GENERAL || region > REGION_COMMAND)
+			if(isnull(region) || region < region_min || region > region_max)
 				return FALSE
 			selected_accesses |= get_region_accesses(region)
 
 		if("deny_region")
 			var/region = text2num(params["region"])
-			if(isnull(region) || region < REGION_GENERAL || region > REGION_COMMAND)
+			if(isnull(region) || region < region_min || region > region_max)
 				return FALSE
 			selected_accesses -= get_region_accesses(region)
 
@@ -102,3 +108,20 @@
 
 		if("clear_all")
 			selected_accesses = list()
+
+/obj/item/airlock_electronics/syndicate
+	name = "suspicious airlock electronics"
+	req_access = list(ACCESS_SYNDICATE)
+/// An associative list containing all station accesses. Includes their name and access number. For use with the UI.
+	var/static/list/syndie_door_accesses_list = list()
+	region_min = REGION_TAIPAN
+	region_max = REGION_TAIPAN
+
+/obj/item/airlock_electronics/syndicate/Initialize(mapload)
+	. = ..()
+	if(!length(syndie_door_accesses_list))
+		for(var/access in get_taipan_syndicate_access())
+			syndie_door_accesses_list += list(list(
+				"name" = get_access_desc(access),
+				"id" = access))
+	current_door_accesses_list = syndie_door_accesses_list

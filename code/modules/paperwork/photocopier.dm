@@ -28,6 +28,25 @@
 	var/toner = 60 //how much toner is left! woooooo~
 	var/maxcopies = 10	//how many copies can be copied at once- idea shamelessly stolen from bs12's copier!
 	var/mob/living/ass = null
+	var/syndicate = FALSE
+	var/info_box = "Если у вас есть пожелания или\
+					идеи для улучшения стандартных\
+					форм, обратитесь в Департамент\
+					Стандартизации Nanotrasen."
+	var/info_box_color = "blue"
+	var/ui_theme = "nanotrasen"// Если темы нету, будет взята стандартная НТ тема для интерфейса
+
+/obj/machinery/photocopier/syndie
+	name = "Syndicate photocopier"
+	desc = "They don't even try to hide it's theirs..."
+	syndicate = TRUE
+	icon_state = "syndiebigscanner"
+	insert_anim = "syndiebigscanner1"
+	info_box = "При использовании любой из данных форм,\
+				обратите внимание на все пункты снизу. \
+				Синдикат напоминает, что в ваших же интересах \
+				соблюдать данные указания."
+	ui_theme = "syndicate"
 
 /obj/machinery/photocopier/attack_ai(mob/user)
 	src.add_hiddenprint(user)
@@ -201,6 +220,9 @@
 	data["category"] = category
 	data["form_id"] = form_id
 	data["forms"] = forms
+	data["info_box"] = info_box
+	data["info_box_color"] = info_box_color
+	data["ui_theme"] = ui_theme
 
 	return data
 
@@ -212,7 +234,10 @@
 		var/req_access = initial(ff.access)
 		if(req_access && !(req_access in access))
 			continue
-
+		if(syndicate && !(ff in subtypesof(/obj/item/paper/form/syndieform))) //Если у нас синдипритер, нам не нужны другие формы
+			continue
+		if(!syndicate && !emagged && (ff in subtypesof(/obj/item/paper/form/syndieform)))
+			continue
 		var/form[0]
 		form["path"] = F
 		form["id"] = initial(ff.id)

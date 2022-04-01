@@ -19,6 +19,8 @@ GLOBAL_LIST_INIT(navigation_computers, list())
 
 GLOBAL_LIST_INIT(all_areas, list())
 GLOBAL_LIST_INIT(machines, list())
+GLOBAL_LIST_INIT(syndiepads, list()) //list of all syndiepads
+GLOBAL_LIST_INIT(syndie_cargo_consoles, list()) //list of all syndie cargo consoles
 GLOBAL_LIST_INIT(rcd_list, list()) //list of Rapid Construction Devices.
 
 GLOBAL_LIST_INIT(apcs, list())

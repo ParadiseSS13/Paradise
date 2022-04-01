@@ -257,7 +257,7 @@
 				/obj/item/assembly/signaler/anomaly = 50, // anomaly core
 				/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 25, // mecha x-ray laser
 				/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 25, // upgraded mecha teleporter
-				/obj/item/autoimplanter = 50,
+				/obj/item/autoimplanter/old = 50,
 
 				// Research / Experimentor
 				/obj/item/paper/researchnotes = 150, // papers that give random R&D levels

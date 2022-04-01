@@ -217,6 +217,7 @@
 	var/on_enter_occupant_message = "You feel cool air surround you. You go numb as your senses turn inward."
 	var/allow_occupant_types = list(/mob/living/carbon/human)
 	var/disallow_occupant_types = list()
+	var/syndicate = FALSE
 
 	var/mob/living/occupant = null       // Person waiting to be despawned.
 	var/orient_right = null       // Flips the sprite.
@@ -259,6 +260,16 @@
 /obj/machinery/cryopod/right
 	orient_right = 1
 	icon_state = "body_scanner_0-r"
+
+//////
+//Syndie cryopod.
+
+/obj/machinery/cryopod/syndie
+	icon_state = "cryo_s"
+	base_icon_state = "cryo_s-open"
+	occupied_icon_state = "cryo_s"
+	dir = 8
+	syndicate = TRUE
 
 /obj/machinery/cryopod/New()
 	announce = new /obj/item/radio/intercom(src)
@@ -393,7 +404,8 @@
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
 		var/job = occupant.mind.assigned_role
-
+		if(istype(src, /obj/machinery/cryopod/syndie))
+			free_taipan_role(job)
 		SSjobs.FreeRole(job)
 
 		if(occupant.mind.objectives.len)
@@ -429,20 +441,21 @@
 	control_computer.frozen_crew += "[occupant.real_name]"
 
 	var/ailist[] = list()
-	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
-		ailist += A
-	if(ailist.len)
-		var/mob/living/silicon/ai/announcer = pick(ailist)
-		if (announce_rank)
-			announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]")
+	if(!syndicate)
+		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
+			ailist += A
+		if(ailist.len)
+			var/mob/living/silicon/ai/announcer = pick(ailist)
+			if (announce_rank)
+				announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]")
+			else
+				announcer.say(";[occupant.real_name] [on_store_message]")
 		else
-			announcer.say(";[occupant.real_name] [on_store_message]")
-	else
-		if (announce_rank)
-			announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
-		else
-			announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
-	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
+			if (announce_rank)
+				announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
+			else
+				announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
+		visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
 
 	// Ghost and delete the mob.
 	if(!occupant.get_ghost(1))
@@ -762,12 +775,18 @@
 		var/obj/O = person_to_cryo.loc
 		O.force_eject_occupant(person_to_cryo)
 	var/list/free_cryopods = list()
+	var/list/free_syndie_cryopods = list()
 	for(var/obj/machinery/cryopod/P in GLOB.machines)
-		if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))
+		if(!P.occupant && istype(get_area(P), /area/syndicate/unpowered/syndicate_space_base) && istype(P, /obj/machinery/cryopod/syndie))
+			free_syndie_cryopods += P
+		else if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))
 			free_cryopods += P
 	var/obj/machinery/cryopod/target_cryopod = null
 	if(free_cryopods.len)
-		target_cryopod = safepick(free_cryopods)
+		if(person_to_cryo.find_taipan_hud_number_by_job()) //Если вернёт хоть что то значит тайпановец. Иначе вернёт null
+			target_cryopod = safepick(free_syndie_cryopods)
+		else
+			target_cryopod = safepick(free_cryopods)
 		if(target_cryopod.check_occupant_allowed(person_to_cryo))
 			var/turf/T = get_turf(person_to_cryo)
 			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 40)

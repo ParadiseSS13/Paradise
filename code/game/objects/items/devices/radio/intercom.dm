@@ -78,6 +78,7 @@
 /obj/item/radio/intercom/syndicate/New()
 	..()
 	internal_channels[num2text(SYND_FREQ)] = list(ACCESS_SYNDICATE)
+	internal_channels[num2text(SYND_TAIPAN_FREQ)] = list(ACCESS_SYNDICATE)
 
 /obj/item/radio/intercom/pirate
 	name = "pirate radio intercom"
