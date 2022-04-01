@@ -30,13 +30,14 @@
 	T.use_turf_of_user = TRUE
 	return T
 
-/obj/effect/proc_holder/spell/bloodcrawl/valid_target(obj/machinery/atmospherics/unary/target, user)
+/obj/effect/proc_holder/spell/reaper_lighter/valid_target(obj/machinery/atmospherics/unary/target, user)
 	return is_type_in_list(target, GLOB.ventcrawl_machinery)
 
 /obj/effect/proc_holder/spell/reaper_lighter/cast(list/targets, mob/user = usr)
 	var/obj/machinery/atmospherics/unary/target = targets[1]
 
 	if(!target)
+		charge_counter = charge_max
 		return FALSE
 	toggle_traits(usr)
 	in_progress = TRUE
