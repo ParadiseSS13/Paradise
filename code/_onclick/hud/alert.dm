@@ -522,6 +522,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/action = NOTIFY_JUMP
 	var/show_time_left = FALSE // If true you need to call START_PROCESSING manually
 	var/image/time_left_overlay // The last image showing the time left
+	var/image/signed_up_overlay // image showing that you're signed up
 	var/datum/candidate_poll/poll // If set, on Click() it'll register the player as a candidate
 
 /obj/screen/alert/notify_action/process()
@@ -551,6 +552,9 @@ so as to remain in compliance with the most up-to-date laws."
 
 /obj/screen/alert/notify_action/Destroy()
 	target = null
+	if(signed_up_overlay)
+		overlays -= signed_up_overlay
+		qdel(signed_up_overlay)
 	return ..()
 
 /obj/screen/alert/notify_action/Click()
@@ -561,9 +565,14 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 
 	if(poll)
-		if(poll.sign_up(G))
+		var/success
+		if(G in poll.signed_up)
+			success = poll.remove_candidate(G)
+		else
+			success = poll.sign_up(G)
+		if(success)
 			// Add a small overlay to indicate we've signed up
-			display_signed_up()
+			update_signed_up_alert()
 	else if(target)
 		switch(action)
 			if(NOTIFY_ATTACK)
@@ -576,14 +585,26 @@ so as to remain in compliance with the most up-to-date laws."
 				G.ManualFollow(target)
 
 /obj/screen/alert/notify_action/Topic(href, href_list)
-	if(href_list["signup"] && poll?.sign_up(usr))
-		display_signed_up()
+	if(!href_list["signup"])
+		return
+	if(!poll)
+		return
+	var/mob/dead/observer/G = usr
+	if(G in poll.signed_up)
+		poll.remove_candidate(G)
+	else
+		poll.sign_up(G)
+	update_signed_up_alert()
 
-/obj/screen/alert/notify_action/proc/display_signed_up()
-	var/image/I = image('icons/mob/screen_gen.dmi', icon_state = "selector")
-	I.layer = FLOAT_LAYER
-	I.plane = FLOAT_PLANE + 2
-	overlays += I
+/obj/screen/alert/notify_action/proc/update_signed_up_alert()
+	if(!signed_up_overlay)
+		signed_up_overlay = image('icons/mob/screen_gen.dmi', icon_state = "selector")
+		signed_up_overlay.layer = FLOAT_LAYER
+		signed_up_overlay.plane = FLOAT_PLANE + 2
+	if(usr in poll.signed_up)
+		overlays += signed_up_overlay
+	else
+		overlays -= signed_up_overlay
 
 /obj/screen/alert/notify_action/proc/display_stacks(stacks = 1)
 	if(stacks <= 1)

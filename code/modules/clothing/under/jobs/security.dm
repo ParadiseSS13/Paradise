@@ -25,6 +25,11 @@
 	item_state = "r_suit"
 	item_color = "wardenf"
 
+/obj/item/clothing/under/rank/warden/skirt/corp
+	icon_state = "wardenblackf"
+	item_state = "wardenblackf"
+	item_color = "wardenblackf"
+
 /obj/item/clothing/under/rank/security
 	name = "security officer's jumpsuit"
 	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for robust protection."
@@ -44,6 +49,26 @@
 	icon_state = "secredf"
 	item_state = "r_suit"
 	item_color = "secredf"
+
+/obj/item/clothing/under/rank/security/skirt/corp
+	name = "corporate security jumpskirt"
+	icon_state = "secblackf"
+	item_state = "secblackf"
+	item_color = "secblackf"
+
+/obj/item/clothing/under/rank/security/skirt/fancy
+	name = "security dress skirt"
+	desc = "A red blouse paired with a black skirt, for the more formal Security Officer."
+	icon_state = "secshirtf"
+	item_state = "secshirtf"
+	item_color = "secshirtf"
+
+/obj/item/clothing/under/rank/security/fancy
+	name = "security dress shirt"
+	desc = "A red dress shirt paired with a pair of black trousers, for the more formal Security Officer."
+	icon_state = "secshirt"
+	item_state = "secshirt"
+	item_color = "secshirt"
 
 /obj/item/clothing/under/rank/dispatch
 	name = "dispatcher's uniform"
@@ -111,6 +136,11 @@
 	icon_state = "hos_corporate"
 	item_state = "hos_corporate"
 	item_color = "hos_corporate"
+
+/obj/item/clothing/under/rank/head_of_security/skirt/corp
+	icon_state = "hosblackf"
+	item_state = "hosblackf"
+	item_color = "hosblackf"
 
 //Jensen cosplay gear
 /obj/item/clothing/under/rank/head_of_security/jensen

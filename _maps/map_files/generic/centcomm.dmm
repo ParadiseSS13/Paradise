@@ -2008,8 +2008,30 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "hx" = (
-/turf/simulated/floor/plasteel,
-/area/syndicate_mothership)
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch"
+	},
+/obj/docking_port/mobile{
+	dir = 2;
+	dwidth = 8;
+	height = 15;
+	id = "admin";
+	name = "administration shuttle";
+	timid = 1;
+	width = 18
+	},
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 9;
+	height = 18;
+	id = "admin_away";
+	name = "centcom bay 1";
+	timid = 1;
+	width = 19
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
 "hA" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "sst_away";
@@ -2079,7 +2101,9 @@
 /area/syndicate_mothership)
 "hG" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
 /area/syndicate_mothership)
 "hH" = (
 /obj/machinery/abductor/console{
@@ -2389,13 +2413,6 @@
 	},
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate)
-"iG" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "syndicate_away";
-	req_access_txt = "150"
-	},
-/turf/simulated/floor/plasteel,
-/area/syndicate_mothership)
 "iI" = (
 /obj/structure/table,
 /obj/item/aicard,
@@ -4332,11 +4349,13 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/trade/sol)
 "oG" = (
-/obj/machinery/door/poddoor{
-	id_tag = "nukeop_ready";
-	name = "Shuttle Dock Door"
+/obj/machinery/door/poddoor/impassable{
+	name = "Shuttle Dock Door";
+	id_tag = "nukeop_ready"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
 /area/syndicate_mothership)
 "oI" = (
 /obj/effect/spawner/lootdrop/trade_sol/civ,
@@ -4536,7 +4555,7 @@
 /obj/item/gun/syringe/rapidsyringe,
 /obj/item/reagent_containers/spray/chemsprayer,
 /obj/structure/closet,
-/obj/item/gun/projectile/shotgun/sc_pump,
+/obj/item/gun/projectile/revolver/doublebarrel,
 /obj/item/ammo_casing/shotgun/dart,
 /obj/item/ammo_casing/shotgun/dart,
 /obj/item/ammo_casing/shotgun/dart,
@@ -4552,7 +4571,7 @@
 "pK" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Shuttle Control Office";
-	req_access_txt = "109"
+	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4645,7 +4664,7 @@
 "pX" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Diplomatic Office";
-	req_access_txt = "109"
+	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5227,27 +5246,9 @@
 "rV" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "106"
+	name = "Shuttle Hatch"
 	},
-/obj/docking_port/mobile{
-	dir = 2;
-	dwidth = 8;
-	height = 15;
-	id = "admin";
-	name = "administration shuttle";
-	timid = 1;
-	width = 18
-	},
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 9;
-	height = 18;
-	id = "admin_away";
-	name = "centcom bay 1";
-	timid = 1;
-	width = 19
-	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "rW" = (
@@ -5484,7 +5485,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sM" = (
-/turf/simulated/floor/mech_bay_recharge_floor,
+/obj/effect/decal/warning_stripes/red/hollow,
+/turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sQ" = (
 /obj/machinery/computer/mech_bay_power_console,
@@ -7553,14 +7555,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "Db" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "101"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/shuttle/administration)
+/obj/structure/marker_beacon/dock_marker,
+/turf/space,
+/area/space)
 "Dc" = (
 /obj/machinery/door/window/southleft{
 	name = "Cell B";
@@ -7788,7 +7785,7 @@
 "DV" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Administrative Office";
-	req_access_txt = "109"
+	req_access_txt = "114"
 	},
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "specopsoffice";
@@ -8033,6 +8030,7 @@
 /area/centcom/control)
 "EX" = (
 /obj/machinery/porta_turret/centcom/pulse,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -8110,9 +8108,14 @@
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
 "Fu" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "admin_away";
+	name = "Administration Shuttle";
+	opacity = 0
+	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkredfull"
+	icon_state = "dark"
 	},
 /area/centcom/specops)
 "Fw" = (
@@ -10804,8 +10807,7 @@
 /area/centcom/specops)
 "PN" = (
 /obj/machinery/door/airlock/centcom{
-	name = "Team Storage";
-	req_access_txt = "109"
+	name = "Team Storage"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11233,8 +11235,7 @@
 "Rw" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "specops_away";
-	name = "Shuttle Hatch";
-	req_access_txt = "109"
+	name = "Shuttle Hatch"
 	},
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/line{
@@ -11830,8 +11831,7 @@
 /area/centcom/control)
 "Ud" = (
 /obj/machinery/door/airlock/centcom{
-	name = "Nanotrasen Asset Protection";
-	req_access_txt = "101"
+	name = "Nanotrasen Asset Protection"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11839,8 +11839,7 @@
 /area/centcom/specops)
 "Uf" = (
 /obj/machinery/door/airlock/centcom{
-	name = "Nanotrasen Asset Protection";
-	req_access_txt = "101"
+	name = "Nanotrasen Asset Protection"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -12347,18 +12346,6 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/admin)
-"WB" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "admin_away";
-	name = "Administration Shuttle";
-	opacity = 0;
-	req_access_txt = "106"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "WC" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/electrical,
@@ -12853,8 +12840,7 @@
 /area/syndicate_mothership)
 "Yj" = (
 /obj/machinery/door/airlock/centcom{
-	name = "Briefing Room";
-	req_access_txt = "101"
+	name = "Briefing Room"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -24833,27 +24819,27 @@ aN
 aN
 aN
 aN
-YG
 aN
 aN
 aN
-YG
 aN
 aN
 aN
-YG
 aN
 aN
 aN
-YG
 aN
 aN
 aN
-YG
 aN
 aN
 aN
-YG
+aN
+aN
+aN
+aN
+aN
+Db
 aN
 aN
 aN
@@ -25351,15 +25337,15 @@ aN
 aN
 aN
 aN
-ZG
-jt
-bS
-ZG
 aN
-ZG
-jt
-bS
-ZG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -25604,23 +25590,23 @@ aN
 aN
 aN
 aN
+Db
 aN
 aN
 aN
-ZG
-ZG
-cJ
-cJ
-ZG
-ZG
-ZG
-cJ
-cJ
-ZG
-ZG
+Db
 aN
 aN
 aN
+Db
+aN
+aN
+aN
+Db
+aN
+aN
+aN
+Db
 aN
 aN
 aN
@@ -25862,26 +25848,26 @@ aN
 aN
 aN
 aN
-ZG
-ZG
-ZG
-Km
-ZN
-ZN
-Ek
-ZG
-km
-lr
-lr
-Sx
-ZG
-ZG
 aN
 aN
 aN
 aN
 aN
-YG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+Db
 aN
 aN
 aN
@@ -26119,21 +26105,21 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 ZG
-dl
-ZN
-KB
-ZN
-ZN
-EN
+jt
+bS
 ZG
-Nw
-lr
-lr
-lr
-rM
+aN
 ZG
+jt
+bS
 ZG
+aN
+aN
+aN
 aN
 aN
 aN
@@ -26375,22 +26361,22 @@ aN
 aN
 aN
 aN
-YG
+aN
+aN
+aN
 ZG
-XX
-ZN
-Rz
-Po
-ZN
-YL
 ZG
-pq
-lr
-lr
-lr
-lr
-TZ
+cJ
+cJ
 ZG
+ZG
+ZG
+cJ
+cJ
+ZG
+ZG
+aN
+aN
 aN
 aN
 aN
@@ -26616,38 +26602,38 @@ aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
-YG
+Db
 aN
 aN
-YG
+Db
 aN
 aN
-YG
+Db
 aN
 aN
-YG
+Db
 aN
 aN
 aN
 aN
 ZG
-qY
+ZG
+ZG
+Km
 ZN
-Mf
-Po
 ZN
-HY
+Ek
 ZG
 km
 lr
-mv
-HC
 lr
-KA
+Sx
 ZG
+ZG
+aN
 aN
 aN
 aN
@@ -26891,25 +26877,25 @@ aN
 aN
 aN
 ZG
-PC
-Gi
-nQ
-Po
+dl
+ZN
+KB
 ZN
 ZN
+EN
 ZG
-Tb
+Nw
 lr
 lr
-GE
-Hn
-pZ
+lr
+rM
+ZG
 ZG
 aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
@@ -27130,37 +27116,37 @@ aN
 aN
 aN
 aN
-Te
+aN
 Rp
 Sp
 Sp
 Sp
 Rp
-Zr
+aN
 OP
 qZ
 Ze
 bU
 OP
-Zr
-XM
-XM
-XM
-XM
+aN
+aN
+aN
+aN
+Db
 ZG
+XX
+ZN
+Rz
+Po
+ZN
+YL
 ZG
-ZG
-ZG
-ZG
-Lw
-ZG
-ZG
-ZG
-Us
-ZG
-ZG
-ZG
-ZG
+pq
+lr
+lr
+lr
+lr
+TZ
 ZG
 aN
 aN
@@ -27387,37 +27373,37 @@ aN
 aN
 aN
 aN
-Te
+Db
 Rp
 Ty
 Kg
 KZ
 Rp
-Zr
+Db
 OP
 ZO
 Ze
 rW
 OP
-Zr
-xM
-Zf
-GW
-WB
 Db
-pU
-OR
-Ih
+aN
+aN
+aN
+aN
+ZG
+qY
 ZN
+Mf
+Po
 ZN
-ZN
-PQ
-ZN
-ZN
-ZN
-ZN
-ZN
-ZN
+HY
+ZG
+km
+lr
+mv
+HC
+lr
+KA
 ZG
 aN
 aN
@@ -27644,37 +27630,37 @@ aN
 aN
 aN
 aN
-Te
+aN
 Rp
 TA
 Rs
 Lb
 Rp
-Zr
+aN
 OP
 Ug
 Ze
 iV
 OP
-Zr
-sw
-Zf
-GW
-WB
-rV
-ZN
-OR
-ZN
-ZN
-ZN
-ZN
+aN
+aN
+aN
+aN
+aN
+ZG
+PC
+Gi
+nQ
+Po
 ZN
 ZN
-ZN
-ZN
-ZN
-ZN
-tG
+ZG
+Tb
+lr
+lr
+GE
+Hn
+pZ
 ZG
 aN
 aN
@@ -27914,22 +27900,22 @@ Ze
 iV
 Xf
 Zr
-Ji
-Zf
-Xz
-Lm
+XM
+XM
+XM
+XM
 ZG
 ZG
 ZG
-ei
+ZG
+ZG
+Lw
 ZG
 ZG
 ZG
-su
+Us
 ZG
 ZG
-ZG
-hE
 ZG
 ZG
 ZG
@@ -28171,30 +28157,30 @@ Ze
 iV
 OP
 Zr
-Of
+xM
 Zf
-Xz
-Zr
-ZG
-Qd
+GW
+Fu
+rV
+pU
+OR
+Ih
+ZN
+ZN
+ZN
 PQ
 ZN
-pD
-ZG
-QA
 ZN
 ZN
-ZG
 ZN
 ZN
-fE
-Hs
+ZN
 ZG
 aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
@@ -28428,24 +28414,24 @@ Ze
 zq
 OP
 Zr
-Gr
+sw
 Zf
-Xz
-Zr
-ZG
-Nx
+GW
+Fu
+hx
 ZN
-ZN
-on
-ZG
-Qg
-SE
-SE
-ZG
+OR
 ZN
 ZN
 ZN
-Mm
+ZN
+ZN
+ZN
+ZN
+ZN
+ZN
+ZN
+tG
 ZG
 aN
 aN
@@ -28685,24 +28671,24 @@ Ze
 iV
 OP
 Zr
-Gr
+Of
 Zf
 Xz
-Zr
+Lm
 ZG
-SD
-ZN
-ZN
-Cw
 ZG
-GU
-NK
-Tr
 ZG
-ZN
-ZN
-ZN
-ZN
+ei
+ZG
+ZG
+ZG
+su
+ZG
+ZG
+ZG
+hE
+ZG
+ZG
 ZG
 aN
 aN
@@ -28947,19 +28933,19 @@ Zf
 Xz
 Zr
 ZG
+Qd
+PQ
+ZN
+pD
 ZG
-ft
+QA
 ZN
 ZN
 ZG
-eX
-eX
-eX
-ZG
-qC
-yc
-ry
-Rv
+ZN
+ZN
+fE
+Hs
 ZG
 aN
 aN
@@ -29203,26 +29189,26 @@ Gr
 Zf
 Xz
 Zr
-aN
 ZG
-Oc
-ZN
-SG
-ZG
-aN
-aN
-aN
-ZG
+Nx
 ZN
 ZN
-pr
+on
+ZG
+Qg
+SE
+SE
+ZG
+ZN
+ZN
+ZN
+Mm
 ZG
 aN
 aN
 aN
 aN
-aN
-YG
+Db
 aN
 aN
 aN
@@ -29460,21 +29446,21 @@ Gr
 Zf
 Xz
 Zr
-aN
 ZG
+SD
+ZN
+ZN
+Cw
 ZG
-Gi
-nH
+GU
+NK
+Tr
 ZG
-aN
-aN
-aN
+ZN
+ZN
+ZN
+ZN
 ZG
-Px
-DO
-ZG
-ZG
-aN
 aN
 aN
 aN
@@ -29717,21 +29703,21 @@ Gr
 Zf
 Xz
 Zr
-aN
-aN
 ZG
 ZG
+ft
+ZN
+ZN
 ZG
+eX
+eX
+eX
 ZG
-aN
-aN
-aN
+qC
+yc
+ry
+Rv
 ZG
-ZG
-ZG
-ZG
-aN
-aN
 aN
 aN
 aN
@@ -29975,19 +29961,19 @@ Zf
 Xz
 Zr
 aN
+ZG
+Oc
+ZN
+SG
+ZG
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+ZG
+ZN
+ZN
+pr
+ZG
 aN
 aN
 aN
@@ -30231,26 +30217,26 @@ Zf
 Zf
 Xz
 Zr
-YG
 aN
-aN
-YG
-aN
-aN
-aN
-YG
-aN
-aN
-aN
-YG
+ZG
+ZG
+Gi
+nH
+ZG
 aN
 aN
 aN
-YG
+ZG
+Px
+DO
+ZG
+ZG
 aN
 aN
 aN
-YG
+aN
+aN
+Db
 aN
 aN
 aN
@@ -30490,17 +30476,17 @@ Xz
 Zr
 aN
 aN
+ZG
+ZG
+ZG
+ZG
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+ZG
+ZG
+ZG
+ZG
 aN
 aN
 aN
@@ -30977,7 +30963,7 @@ aN
 aN
 aN
 aN
-YG
+Db
 DB
 HI
 Iq
@@ -31002,22 +30988,22 @@ VY
 VY
 Mv
 Zr
+Db
+aN
+aN
+Db
 aN
 aN
 aN
+Db
 aN
 aN
 aN
+Db
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Db
 aN
 aN
 aN
@@ -32005,7 +31991,7 @@ aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 Zr
@@ -33279,20 +33265,20 @@ aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
 aN
-YG
+Db
 Zr
 CH
 Mu
@@ -34307,7 +34293,7 @@ aN
 aN
 aN
 aN
-YG
+Db
 wK
 Bd
 AR
@@ -34320,7 +34306,7 @@ AR
 Fc
 Gf
 GY
-YG
+Db
 Zr
 oN
 oN
@@ -35335,7 +35321,7 @@ aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 Jn
@@ -35348,7 +35334,7 @@ Jn
 aN
 aN
 aN
-YG
+Db
 Zr
 Zf
 Zf
@@ -35868,7 +35854,7 @@ Zr
 Zr
 Zr
 Zr
-Fu
+Zr
 Zr
 Ud
 WQ
@@ -38422,7 +38408,7 @@ aN
 aN
 aN
 aN
-YG
+Db
 od
 BD
 We
@@ -39707,12 +39693,12 @@ aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
@@ -43345,11 +43331,11 @@ Hh
 Hh
 Hh
 Hg
-YG
+Db
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
@@ -44373,11 +44359,11 @@ iP
 gI
 uO
 gj
-YG
+Db
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
@@ -45401,11 +45387,11 @@ Ny
 Ny
 uO
 Nl
-YG
+Db
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
@@ -46429,11 +46415,11 @@ iP
 gI
 uO
 gj
-YG
+Db
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
@@ -47457,11 +47443,11 @@ Hh
 Hh
 Hg
 Hg
-YG
+Db
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
@@ -47935,11 +47921,11 @@ aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
-YG
+Db
 Hg
 Hg
 Hg
@@ -47965,7 +47951,7 @@ Hg
 Hg
 Hg
 Hg
-YG
+Db
 aN
 aN
 aN
@@ -48963,7 +48949,7 @@ aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
@@ -48993,7 +48979,7 @@ Pb
 vy
 Iv
 Zp
-YG
+Db
 aN
 aN
 aN
@@ -50248,7 +50234,7 @@ aN
 aN
 aN
 aN
-YG
+Db
 vy
 Ew
 Fq
@@ -50278,7 +50264,7 @@ Pb
 vy
 Iv
 Zp
-YG
+Db
 aN
 aN
 aN
@@ -50505,7 +50491,7 @@ aN
 aN
 aN
 aN
-YG
+Db
 vy
 Ez
 Fq
@@ -50535,7 +50521,7 @@ Pb
 vy
 Iv
 Zp
-YG
+Db
 aN
 aN
 aN
@@ -51790,7 +51776,7 @@ aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
@@ -51820,7 +51806,7 @@ YT
 vy
 Iv
 Zp
-YG
+Db
 aN
 aN
 aN
@@ -52818,37 +52804,37 @@ aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
 aN
-YG
+Db
 aN
 aN
 aN
@@ -60738,8 +60724,8 @@ KY
 KY
 ab
 BZ
-hx
-iG
+BY
+BV
 qR
 rU
 sn
@@ -61252,7 +61238,7 @@ ab
 ab
 ab
 BZ
-hx
+BY
 BZ
 lB
 KY
@@ -61509,7 +61495,7 @@ ab
 ab
 ab
 BZ
-hx
+BY
 BZ
 ab
 ab
@@ -61766,7 +61752,7 @@ ab
 ab
 ab
 BZ
-hx
+BY
 BZ
 ab
 ab

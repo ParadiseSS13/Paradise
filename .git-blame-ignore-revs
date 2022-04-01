@@ -1,0 +1,3 @@
+# .git-blame-ignore-revs
+# Ignores the line-ending explosion in #13131
+04ba5c1cc902bf2eada751de7b1b72ebc64ecd86

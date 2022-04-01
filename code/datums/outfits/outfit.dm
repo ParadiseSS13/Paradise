@@ -280,3 +280,12 @@
 	.["implants"] = implants
 	.["cybernetic_implants"] = cybernetic_implants
 	.["accessories"] = accessories
+
+// Butler outfit
+/datum/outfit/butler
+	name = "Butler"
+	uniform = /obj/item/clothing/under/suit_jacket/really_black
+	shoes = /obj/item/clothing/shoes/laceup
+	head = /obj/item/clothing/head/bowlerhat
+	glasses = /obj/item/clothing/glasses/monocle
+	gloves = /obj/item/clothing/gloves/color/white
