@@ -3,11 +3,11 @@
 	desc = "Use this spell next to a vent to turn to smoke and crawl through it, even if the vents are welded. If you do not leave the vents within 15 seconds, you will be pulled back to where you started."
 
 	school = "transmutation"
-	charge_max = 150
+	charge_max = 15 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
-	cooldown_min = 30 //3 seconds reduction per rank
+	cooldown_min = 3 SECONDS //3 seconds reduction per rank
 	should_recharge_after_cast = FALSE //We start recharging manually once we leave the vent system
 	nonabstract_req = 1
 	sound = 'sound/items/zippolight.ogg'
@@ -37,7 +37,7 @@
 	if(!target)
 		charge_counter = charge_max
 		return FALSE
-	toggle_traits(usr)
+	toggle_traits(user)
 	in_progress = TRUE
 	spawn_smoke(get_turf(target))
 	starting_vent_turf = get_turf(target)
