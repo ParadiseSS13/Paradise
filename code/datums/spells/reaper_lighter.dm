@@ -30,17 +30,19 @@
 	T.use_turf_of_user = TRUE
 	return T
 
+/obj/effect/proc_holder/spell/bloodcrawl/valid_target(obj/machinery/atmospherics/unary/target, user)
+	return is_type_in_list(target, GLOB.ventcrawl_machinery)
+
 /obj/effect/proc_holder/spell/reaper_lighter/cast(list/targets, mob/user = usr)
 	var/obj/machinery/atmospherics/unary/target = targets[1]
 
-	if(target.welded)
-		target.welded = FALSE
+	if(!target)
+		return FALSE
 	toggle_traits(usr)
 	in_progress = TRUE
 	spawn_smoke(get_turf(target))
 	starting_vent_turf = get_turf(target)
 	user.handle_ventcrawl(target, TRUE)
-	target.welded = TRUE
 	time_to_leave = world.time + max_ventcrawl_time
 	time_to_warn = world.time + ventcrawl_warning_time
 	START_PROCESSING(SSfastprocess, src)

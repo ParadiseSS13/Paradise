@@ -462,7 +462,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	if(!vent_found)
 		for(var/obj/machinery/atmospherics/machine in range(1,src))
-			if(is_type_in_list(machine, GLOB.ventcrawl_machinery) && machine.can_crawl_through())
+			if(is_type_in_list(machine, GLOB.ventcrawl_machinery) && (machine.can_crawl_through() || HAS_TRAIT(src, TRAIT_BYPASS_WELDED_VENTS)))
 				vent_found = machine
 				break
 
