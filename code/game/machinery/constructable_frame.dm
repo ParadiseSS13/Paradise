@@ -231,16 +231,13 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/vending/boozeomat
 	req_components = list(/obj/item/vending_refill/boozeomat = 1)
 
-	var/static/list/vending_names_paths = list(
-		"ArtVend" =								/obj/machinery/vending/artvend,
+	var/static/list/station_vendors = list(
 		"Booze-O-Mat" =							/obj/machinery/vending/boozeomat,
 		"Solar's Best Hot Drinks" =				/obj/machinery/vending/coffee,
 		"Getmore Chocolate Corp" =				/obj/machinery/vending/snack,
 		"Mr. Chang" =							/obj/machinery/vending/chinese,
 		"Robust Softdrinks" =					/obj/machinery/vending/cola,
 		"ShadyCigs Deluxe" =					/obj/machinery/vending/cigarette,
-		"ShadyCigs Ultra" =						/obj/machinery/vending/cigarette/beach,
-		"Suspicious Cigarette Machine" =		/obj/machinery/vending/syndicigs,
 		"Hatlord 9000" =						/obj/machinery/vending/hatdispenser,
 		"Suitlord 9000" =						/obj/machinery/vending/suitdispenser,
 		"Shoelord 9000" =						/obj/machinery/vending/shoedispenser,
@@ -277,18 +274,22 @@ to destroy them and players will be able to make replacements.
 		"ChefDrobe" =							/obj/machinery/vending/chefdrobe,
 		"BarDrobe" =							/obj/machinery/vending/bardrobe,
 		"HydroDrobe" =							/obj/machinery/vending/hydrodrobe)
+	var/static/list/unique_vendors = list(
+		"ShadyCigs Ultra" =						/obj/machinery/vending/cigarette/beach,
+		"Suspicious Cigarette Machine" =		/obj/machinery/vending/cigarette/syndicate)
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/choice = input(user, "Choose a new brand", "Select an Item") as null|anything in vending_names_paths
+	var/choice = input(user, "Choose a new brand", "Select an Item") as null|anything in station_vendors
 	if(!choice)
 		return
 	set_type(choice)
 
 /obj/item/circuitboard/vendor/proc/set_type(type)
-	var/obj/machinery/vending/typepath = vending_names_paths[type]
+	var/static/list/buildable_vendors = station_vendors + unique_vendors
+	var/obj/machinery/vending/typepath = buildable_vendors[type]
 	build_path = typepath
 	board_name = "[type] Vendor"
 	format_board_name()
