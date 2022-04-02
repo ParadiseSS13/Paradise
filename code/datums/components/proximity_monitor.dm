@@ -419,6 +419,10 @@
  *
  * Inteded for use with the proximity checker component [/datum/component/proximity_monitor].
  * Whenever a movable atom crosses this object, it calls `HasProximity()` on the object which is listening for proximity (`hasprox_receiver`).
+ *
+ * Because these objects try to make the smallest footprint possible, when these objects move **they should use direct `loc` setting only, and not `forceMove`!**
+ * The overhead for forceMove is very unnecessary, because for example turfs and areas don't need to know when these have entered or exited them, etc.
+ * These are invisible objects who's sole purpose is to simply inform the receiver that something has moved within X tiles of the it.
  */
 /obj/effect/abstract/proximity_checker
 	name = "proximity checker"
