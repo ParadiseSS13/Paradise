@@ -40,8 +40,7 @@
 								target = A
 						else
 							target = A
-			if(target)
-				targets += target
+			targets += target
 	else if(max_targets > 1)
 		do
 			if(can_hit_target_more_than_once)
