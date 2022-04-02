@@ -248,7 +248,6 @@ to destroy them and players will be able to make replacements.
 		"Vendomat" =							/obj/machinery/vending/assist,
 		"YouTool" =								/obj/machinery/vending/tool,
 		"Engi-Vend" =							/obj/machinery/vending/engivend,
-		"Toximate 3000" =						/obj/machinery/vending/plasmaresearch,
 		"NutriMax" =							/obj/machinery/vending/hydronutrients,
 		"MegaSeed Servitor" =					/obj/machinery/vending/hydroseeds,
 		"Sustenance Vendor" =					/obj/machinery/vending/sustenance,
@@ -257,7 +256,6 @@ to destroy them and players will be able to make replacements.
 		"Robotech Deluxe" =						/obj/machinery/vending/robotics,
 		"Robco Tool Maker" =					/obj/machinery/vending/engineering,
 		"BODA" =								/obj/machinery/vending/sovietsoda,
-		"Syndicate Donksoft Toy Vendor" =		/obj/machinery/vending/toyliberationstation,
 		"SecTech" =								/obj/machinery/vending/security,
 		"CritterCare" =							/obj/machinery/vending/crittercare,
 		"SecDrobe" =							/obj/machinery/vending/secdrobe,
@@ -275,8 +273,7 @@ to destroy them and players will be able to make replacements.
 		"BarDrobe" =							/obj/machinery/vending/bardrobe,
 		"HydroDrobe" =							/obj/machinery/vending/hydrodrobe)
 	var/static/list/unique_vendors = list(
-		"ShadyCigs Ultra" =						/obj/machinery/vending/cigarette/beach,
-		"Suspicious Cigarette Machine" =		/obj/machinery/vending/cigarette/syndicate)
+		"ShadyCigs Ultra" =						/obj/machinery/vending/cigarette/beach)
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

@@ -1533,13 +1533,13 @@
 	icon_state = "tool"
 	icon_deny = "tool_deny"
 	icon_panel = "generic"
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
+	resistance_flags = FIRE_PROOF
 	products = list(/obj/item/stack/cable_coil/random = 10,/obj/item/crowbar = 5,/obj/item/weldingtool = 3,/obj/item/wirecutters = 5,
 					/obj/item/wrench = 5,/obj/item/analyzer = 5,/obj/item/t_scanner = 5,/obj/item/screwdriver = 5)
 	contraband = list(/obj/item/weldingtool/hugetank = 2,/obj/item/clothing/gloves/color/fyellow = 2)
 	premium = list(/obj/item/clothing/gloves/color/yellow = 1)
 	refill_canister = /obj/item/vending_refill/youtool
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
-	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/engivend
 	name = "\improper Engi-Vend"
