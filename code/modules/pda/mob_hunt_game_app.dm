@@ -29,7 +29,8 @@
 	STOP_PROCESSING(SSobj, pda)
 
 /datum/data/pda/app/mob_hunter_game/Destroy()
-	STOP_PROCESSING(SSobj, pda)
+	if(pda)
+		STOP_PROCESSING(SSobj, pda)
 	SSmob_hunt.connected_clients -= src
 	return ..()
 

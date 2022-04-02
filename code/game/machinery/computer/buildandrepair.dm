@@ -179,14 +179,6 @@
 	board_name = "Injector Control"
 	build_path = /obj/machinery/computer/general_air_control/fuel_injection
 
-/obj/item/circuitboard/pod
-	board_name = "Massdriver Control"
-	build_path = /obj/machinery/computer/pod
-
-/obj/item/circuitboard/pod/deathsquad
-	board_name = "Deathsquad Massdriver Control"
-	build_path = /obj/machinery/computer/pod/deathsquad
-
 /obj/item/circuitboard/robotics
 	board_name = "Robotics Control Console"
 	build_path = /obj/machinery/computer/robotics
@@ -226,18 +218,6 @@
 	board_name = "Outdated Power Monitor"
 	build_path = /obj/machinery/computer/monitor/secret
 	origin_tech = "programming=2;powerstorage=2"
-
-/obj/item/circuitboard/olddoor
-	board_name = "DoorMex"
-	build_path = /obj/machinery/computer/pod/old
-
-/obj/item/circuitboard/syndicatedoor
-	board_name = "ProComp Executive"
-	build_path = /obj/machinery/computer/pod/old/syndicate
-
-/obj/item/circuitboard/swfdoor
-	board_name = "Magix"
-	build_path = /obj/machinery/computer/pod/old/swf
 
 /obj/item/circuitboard/prisoner
 	board_name = "Prisoner Management"

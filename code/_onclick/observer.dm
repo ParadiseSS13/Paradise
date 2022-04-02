@@ -39,7 +39,7 @@
 		if(modifiers["shift"] && modifiers["middle"])
 			M = get_mob_in_atom_with_warning(A)
 			if(M)
-				admin_mob_info(M)
+				client.freeze(M)
 			return
 	if(modifiers["middle"])
 		MiddleClickOn(A)

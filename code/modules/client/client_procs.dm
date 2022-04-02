@@ -249,6 +249,9 @@
 
 	log_client_to_db(tdata) // Make sure our client exists in the DB
 
+	// We have a holder. Inform the relevant places
+	INVOKE_ASYNC(src, .proc/announce_join)
+
 	pai_save = new(src)
 
 	// This is where we load all of the clients stuff from the DB
@@ -394,6 +397,9 @@
 	if(_2fa_alert)
 		to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
 
+	// This happens asyncronously
+	karmaholder.processRefunds(mob)
+
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
@@ -411,6 +417,7 @@
 	return ..()
 
 /client/Destroy()
+	announce_leave() // Do not put this below
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
@@ -426,6 +433,59 @@
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
+
+
+/client/proc/announce_join()
+	if(!holder)
+		return
+
+	if(holder.rights & R_MENTOR)
+		if(SSredis.connected)
+			var/list/mentorcounter = staff_countup(R_MENTOR)
+			var/msg = "**[ckey]** logged in. **[mentorcounter[1]]** mentor[mentorcounter[1] == 1 ? "" : "s"] online."
+			var/list/data = list()
+			data["author"] = "alice"
+			data["source"] = GLOB.configuration.system.instance_id
+			data["message"] = msg
+			SSredis.publish("byond.msay.out", json_encode(data))
+
+	else if(holder.rights & R_BAN)
+		if(SSredis.connected)
+			var/list/admincounter = staff_countup(R_BAN)
+			var/msg = "**[ckey]** logged in. **[admincounter[1]]** admin[admincounter[1] == 1 ? "" : "s"] online."
+			var/list/data = list()
+			data["author"] = "alice"
+			data["source"] = GLOB.configuration.system.instance_id
+			data["message"] = msg
+			SSredis.publish("byond.asay.out", json_encode(data))
+
+/client/proc/announce_leave()
+	if(!holder)
+		return
+
+	if(holder.rights & R_MENTOR)
+		if(SSredis.connected)
+			var/list/mentorcounter = staff_countup(R_MENTOR)
+			var/mentor_count = mentorcounter[1]
+			mentor_count-- // Exclude ourself
+			var/msg = "**[ckey]** logged out. **[mentor_count]** mentor[mentor_count == 1 ? "" : "s"] online."
+			var/list/data = list()
+			data["author"] = "alice"
+			data["source"] = GLOB.configuration.system.instance_id
+			data["message"] = msg
+			SSredis.publish("byond.msay.out", json_encode(data))
+
+	else if(holder.rights & R_BAN)
+		if(SSredis.connected)
+			var/list/admincounter = staff_countup(R_BAN)
+			var/admin_count = admincounter[1]
+			admin_count-- // Exclude ourself
+			var/msg = "**[ckey]** logged out. **[admin_count]** admin[admin_count == 1 ? "" : "s"] online."
+			var/list/data = list()
+			data["author"] = "alice"
+			data["source"] = GLOB.configuration.system.instance_id
+			data["message"] = msg
+			SSredis.publish("byond.asay.out", json_encode(data))
 
 
 /client/proc/donor_loadout_points()
@@ -926,14 +986,14 @@
   */
 /client/proc/retrieve_byondacc_data()
 	// Do not refactor this to use SShttp, because that requires the subsystem to be firing for requests to be made, and this will be triggered before the MC has finished loading
-	var/list/http[] = world.Export("http://www.byond.com/members/[ckey]?format=text")
+	var/list/http[] = HTTPGet("http://www.byond.com/members/[ckey]?format=text")
 	if(http)
 		var/status = text2num(http["STATUS"])
 
 		if(status == 200)
 			// This is wrapped in try/catch because lummox could change the format on any day without informing anyone
 			try
-				var/list/lines = splittext(file2text(http["CONTENT"]), "\n")
+				var/list/lines = splittext(http["CONTENT"], "\n")
 				var/list/initial_data = list()
 				var/current_index = ""
 				for(var/L in lines)
