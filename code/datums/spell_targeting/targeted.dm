@@ -37,12 +37,11 @@
 					for(var/atom/A as anything in possible_targets)
 						if(target)
 							if(get_dist(spell_location, A) < get_dist(spell_location, target))
-								if(spell.los_check(user, A))
-									target = A
-						else
-							if(spell.los_check(user, A))
 								target = A
-			targets += target
+						else
+							target = A
+			if(target)
+				targets += target
 	else if(max_targets > 1)
 		do
 			if(can_hit_target_more_than_once)
