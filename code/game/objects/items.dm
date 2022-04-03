@@ -119,6 +119,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	// item hover FX
 	/// Is this item inside a storage object?
 	var/in_storage = FALSE
+	// For assigning a belt overlay icon state in belts.dmi
+	var/belt_icon = null
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
 

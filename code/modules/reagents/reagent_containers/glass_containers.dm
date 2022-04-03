@@ -119,6 +119,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
 	item_state = "beaker"
+	belt_icon = "beaker"
 	materials = list(MAT_GLASS=500)
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = 1
@@ -226,6 +227,7 @@
 	name = "vial"
 	desc = "A small glass vial. Can hold up to 25 units."
 	icon_state = "vial"
+	belt_icon = "vial"
 	materials = list(MAT_GLASS=250)
 	volume = 25
 	amount_per_transfer_from_this = 10

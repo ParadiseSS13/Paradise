@@ -4,6 +4,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "dnainjector"
 	item_state = "dnainjector"
+	belt_icon = "syringe"
 	var/block = 0
 	var/datum/dna2/record/buf = null
 	throw_speed = 3
