@@ -287,7 +287,7 @@
 	..()
 
 	//Sprite and AI update for when a parrot gets pulled
-	if(pulledby && stat == CONSCIOUS)
+	if(pulledby.len && stat == CONSCIOUS)
 		icon_state = "parrot_fly"
 
 /mob/living/simple_animal/parrot/proc/update_speak()
@@ -303,7 +303,7 @@
 			speak += possible_phrase
 
 /mob/living/simple_animal/parrot/handle_automated_movement()
-	if(pulledby)
+	if(pulledby.len)
 		parrot_state = PARROT_WANDER
 		return
 

@@ -52,7 +52,7 @@
 		visible_message("<span class='notice'>[src] calms down.</span>")
 
 	eat_plants()
-	if(!pulledby)
+	if(!pulledby.len)
 		for(var/direction in shuffle(list(1, 2, 4, 8, 5, 6, 9, 10)))
 			var/step = get_step(src, direction)
 			if(step)

@@ -87,12 +87,12 @@
 	//Should stop you pushing a restrained person out of the way
 	if(isliving(M))
 		var/mob/living/L = M
-		if(L.pulledby && L.pulledby != src && L.restrained())
+		if(L.pulledby.len && !L.pulledby.Find(src) && L.restrained())
 			if(!(world.time % 5))
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 			return TRUE
 
-		if(pulledby == L && a_intent != INTENT_HELP) //prevents boosting the person pulling you, but you can still move through them on help intent
+		if(pulledby.Find(L) && a_intent != INTENT_HELP) //prevents boosting the person pulling you, but you can still move through them on help intent
 			return TRUE
 
 		if(L.pulling)
@@ -113,7 +113,7 @@
 	if(!M.buckled && !M.has_buckled_mobs())
 		var/mob_swap
 		//the puller can always swap with it's victim if on grab intent
-		if(M.pulledby == src && a_intent == INTENT_GRAB)
+		if(M.pulledby.Find(src) && a_intent == INTENT_GRAB)
 			mob_swap = TRUE
 		//restrained people act if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
 		else if((M.restrained() || M.a_intent == INTENT_HELP) && (restrained() || a_intent == INTENT_HELP))
@@ -159,11 +159,12 @@
 //Called when we want to push an atom/movable
 /mob/living/proc/PushAM(atom/movable/AM, force = move_force)
 
-	if(isstructure(AM) && AM.pulledby)
-		if(a_intent == INTENT_HELP && AM.pulledby != src) // Help intent doesn't push other peoples pulled structures
+	if(isstructure(AM) && AM.pulledby.len)
+		if(a_intent == INTENT_HELP && !AM.pulledby.Find(src)) // Help intent doesn't push other peoples pulled structures
 			return FALSE
-		if(get_dist(get_step(AM, get_dir(src, AM)), AM.pulledby)>1)//Release pulled structures beyond 1 distance
-			AM.pulledby.stop_pulling()
+		for(var/mob/M in AM.pulledby)
+			if(get_dist(get_step(AM, get_dir(src, AM)), M)>1)//Release pulled structures beyond 1 distance
+				M.stop_pulling()
 
 	if(now_pushing)
 		return TRUE
@@ -558,9 +559,9 @@
 				pulling.Move(T, get_dir(pulling, T), movetime) // the pullee tries to reach our previous position
 				if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
 					stop_pulling()
-
-	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1) //seperated from our puller and not in the middle of a diagonal move
-		pulledby.stop_pulling()
+	for(var/mob/M in pulledby)
+		if(moving_diagonally != FIRST_DIAG_STEP && get_dist(src, M) > 1) //seperated from our puller and not in the middle of a diagonal move
+			M.stop_pulling()
 
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
@@ -951,11 +952,11 @@
 		if(AM == pulling)// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.
 			return
 		stop_pulling()
-		if(AM.pulledby)
-			visible_message("<span class='danger'>[src] has pulled [AM] from [AM.pulledby]'s grip.</span>")
-			AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
+		for(var/mob/M in AM.pulledby)
+			visible_message("<span class='danger'>[src] has pulled [AM] from [M]'s grip.</span>")
+			M.stop_pulling() //an object can't be pulled by two mobs at once.
 	pulling = AM
-	AM.pulledby = src
+	AM.pulledby.Add(src)
 	if(pullin)
 		pullin.update_icon(src)
 	if(ismob(AM))

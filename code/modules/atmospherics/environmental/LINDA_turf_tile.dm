@@ -323,7 +323,7 @@
 	var/atom/movable/M
 	for(var/thing in src)
 		M = thing
-		if(!M.anchored && !M.pulledby && M.last_high_pressure_movement_air_cycle < SSair.times_fired)
+		if(!M.anchored && !M.pulledby.len && M.last_high_pressure_movement_air_cycle < SSair.times_fired)
 			M.experience_pressure_difference(pressure_difference, pressure_direction)
 
 

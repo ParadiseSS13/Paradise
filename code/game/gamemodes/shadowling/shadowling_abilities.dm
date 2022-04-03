@@ -127,8 +127,8 @@
 		target.ExtinguishMob()
 		var/turf/T = get_turf(target)
 		target.forceMove(T) //to properly move the mob out of a potential container
-		if(target.pulledby)
-			target.pulledby.stop_pulling()
+		for(var/mob/M in target.pulledby)
+			M.stop_pulling()
 		target.stop_pulling()
 		sleep(40) //4 seconds
 		target.visible_message("<span class='warning'>[target] suddenly manifests!</span>", "<span class='shadowling'>The pressure becomes too much and you vacate the interdimensional darkness.</span>")

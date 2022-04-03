@@ -593,8 +593,8 @@
 			continue
 
 		for(var/atom/movable/AM in T1)
-			if(AM.pulledby)
-				AM.pulledby.stop_pulling()
+			for(var/mob/pullingmob in AM.pulledby)
+				pullingmob.stop_pulling()
 			if(ismob(AM))
 				var/mob/M = AM
 				if(M.buckled)

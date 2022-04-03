@@ -63,9 +63,10 @@
 		M.buckling = null
 		return FALSE
 
-	if(M.pulledby)
+	if(M.pulledby.len)
 		if(buckle_prevents_pull)
-			M.pulledby.stop_pulling()
+			for(var/mob/pullingmob in M.pulledby)
+				pullingmob.stop_pulling()
 
 	for(var/obj/item/grab/G in M.grabbed_by)
 		qdel(G)

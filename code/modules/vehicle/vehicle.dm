@@ -216,8 +216,9 @@
 	if(has_gravity(src))
 		return TRUE
 
-	if(pulledby && (pulledby.loc != loc))
-		return TRUE
+	for(var/mob/M in pulledby)
+		if(M.loc!=loc)
+			return TRUE
 
 	if(needs_gravity)
 		return TRUE

@@ -371,8 +371,9 @@
 		transfer = min(transfer, S.max_amount - S.amount)
 	if(transfer <= 0)
 		return
-	if(pulledby)
-		pulledby.start_pulling(S)
+	if(pulledby.len)
+		for(var/mob/M in pulledby)
+			M.start_pulling(S)
 	S.copy_evidences(src)
 	S.add(transfer)
 	use(transfer)

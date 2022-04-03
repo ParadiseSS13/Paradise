@@ -154,8 +154,9 @@
 		var/list/shocking_queue = list()
 		if(iscarbon(pulling) && source != pulling)
 			shocking_queue += pulling
-		if(iscarbon(pulledby) && source != pulledby)
-			shocking_queue += pulledby
+		for(var/mob/M in pulledby)
+			if(iscarbon(M) && source!=M)
+				shocking_queue+=M
 		if(iscarbon(buckled) && source != buckled)
 			shocking_queue += buckled
 		for(var/mob/living/carbon/carried in buckled_mobs)

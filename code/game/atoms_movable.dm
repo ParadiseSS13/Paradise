@@ -16,7 +16,7 @@
 	var/no_spin = FALSE
 	var/no_spin_thrown = FALSE
 	var/moved_recently = FALSE
-	var/mob/pulledby = null
+	var/list/pulledby = list()
 	var/atom/movable/pulling
 	/// Face towards the atom while pulling it
 	var/face_while_pulling = FALSE
@@ -49,8 +49,8 @@
 		qdel(AM)
 	LAZYCLEARLIST(client_mobs_in_contents)
 	loc = null
-	if(pulledby)
-		pulledby.stop_pulling()
+	for(var/mob/M in pulledby)
+		M.stop_pulling()
 
 //Returns an atom's power cell, if it has one. Overload for individual items.
 /atom/movable/proc/get_cell()
@@ -74,11 +74,12 @@
 				AMob.grabbedby(src)
 			return TRUE
 		stop_pulling()
-	if(AM.pulledby)
+	/*if(length(AM.pulledby))
 		add_attack_logs(AM, AM.pulledby, "pulled from", ATKLOG_ALMOSTALL)
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
+		*/ //May be removing this - Dragonkiller93
 	pulling = AM
-	AM.pulledby = src
+	AM.pulledby.Add(src)
 	if(ismob(AM))
 		var/mob/M = AM
 		add_attack_logs(src, M, "passively grabbed", ATKLOG_ALMOSTALL)
@@ -89,7 +90,7 @@
 /atom/movable/proc/stop_pulling()
 	if(pulling)
 		var/mob/living/ex_pulled = pulling
-		pulling.pulledby = null
+		pulling.pulledby.Remove(src)
 		pulling = null
 		if(!QDELETED(ex_pulled) && istype(ex_pulled))
 			ex_pulled.update_canmove()// mob gets up if it was lyng down in a chokehold
@@ -110,8 +111,10 @@
 		if(pulling.anchored || pulling.move_resist > move_force)
 			stop_pulling()
 			return
-	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
-		pulledby.stop_pulling()
+
+	for(var/mob/M in pulledby)
+		if(moving_diagonally != FIRST_DIAG_STEP && get_dist(src, M) > 1)
+			M.stop_pulling()
 
 /atom/movable/proc/can_be_pulled(user, grab_state, force, show_message = FALSE)
 	if(src == user || !isturf(loc))
@@ -314,7 +317,7 @@
 	if(has_gravity(src))
 		return 1
 
-	if(pulledby && !pulledby.pulling)
+	if(!pulledby.len)
 		return 1
 
 	if(throwing)
@@ -355,7 +358,8 @@
 		return 0
 
 	if(pulledby)
-		pulledby.stop_pulling()
+		for(var/mob/M in pulledby)
+			M.stop_pulling()
 
 	// They are moving! Wouldn't it be cool if we calculated their momentum and added it to the throw?
 	if(thrower && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag * 2)
@@ -413,8 +417,8 @@
 	TT.diagonal_error = dist_x / 2 - dist_y
 	TT.start_time = world.time
 
-	if(pulledby)
-		pulledby.stop_pulling()
+	for(var/mob/M in pulledby)
+		M.stop_pulling()
 
 	throwing = TT
 	if(spin && !no_spin && !no_spin_thrown)
