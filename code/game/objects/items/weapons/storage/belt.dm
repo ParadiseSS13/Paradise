@@ -202,6 +202,7 @@
 		/obj/item/seeds,
 		/obj/item/wirecutters,
 		/obj/item/wrench,
+		/obj/item/reagent_containers/spray/weedspray,
 		/obj/item/reagent_containers/spray/plantbgone,
 		/obj/item/reagent_containers/spray/pestspray
 		)
