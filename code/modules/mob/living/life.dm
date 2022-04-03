@@ -137,12 +137,8 @@
 		handle_sleeping()
 	if(slowed)
 		AdjustSlowed(-1)
-	if(drunk)
-		handle_drunk()
 	if(cultslurring)
 		AdjustCultSlur(-1)
-	if(confused)
-		AdjustConfused(-1)
 
 /mob/living/proc/update_damage_hud()
 	return
@@ -150,10 +146,6 @@
 /mob/living/proc/handle_sleeping()
 	AdjustSleeping(-1)
 	return sleeping
-
-/mob/living/proc/handle_drunk()
-	AdjustDrunk(-1)
-	return drunk
 
 /mob/living/proc/handle_disabilities()
 	//Eyes

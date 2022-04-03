@@ -2,46 +2,6 @@
 // I can't be bothered to deal with all the merge conflicts it would cause to
 // typecast every mob in the codebase correctly
 
-/mob/proc/Confused()
-	return
-
-/mob/proc/SetConfused()
-	return
-
-/mob/proc/AdjustConfused()
-	return
-
-
-/mob/proc/Dizzy()
-	return
-
-/mob/proc/SetDizzy()
-	return
-
-/mob/proc/AdjustDizzy()
-	return
-
-
-/mob/proc/Drowsy()
-	return
-
-/mob/proc/SetDrowsy()
-	return
-
-/mob/proc/AdjustDrowsy()
-	return
-
-
-/mob/proc/Drunk()
-	return
-
-/mob/proc/SetDrunk()
-	return
-
-/mob/proc/AdjustDrunk()
-	return
-
-
 /mob/proc/Druggy()
 	return
 

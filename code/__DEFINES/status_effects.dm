@@ -86,6 +86,16 @@
 /// If a moth is in a cocoon
 #define STATUS_EFFECT_COCOONED /datum/status_effect/cocooned
 
+//human status effects
+
+#define STATUS_EFFECT_CONFUSION /datum/status_effect/transient/confusion
+
+#define STATUS_EFFECT_DIZZINESS /datum/status_effect/transient/dizziness
+
+#define STATUS_EFFECT_DROWSINESS /datum/status_effect/transient/drowsiness
+
+#define STATUS_EFFECT_DRUNKENNESS /datum/status_effect/transient/drunkenness
+
 /////////////
 // NEUTRAL //
 /////////////

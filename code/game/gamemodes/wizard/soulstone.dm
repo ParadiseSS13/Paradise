@@ -248,7 +248,7 @@
 		. += "<span class='cultitalic'>A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.</span>"
 		. += "<span class='cultitalic'>A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>"
 
-/obj/structure/constructshell/attackby(obj/item/I, mob/user, params)
+/obj/structure/constructshell/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = I
 		if(!SS.can_use(user))

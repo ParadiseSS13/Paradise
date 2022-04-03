@@ -156,17 +156,20 @@
 						M.other_mobs = null
 						M.animate_movement = 2
 
-	else if(mob.confused)
-		var/newdir = 0
-		if(mob.confused > 40)
-			newdir = pick(GLOB.alldirs)
-		else if(prob(mob.confused * 1.5))
-			newdir = angle2dir(dir2angle(direct) + pick(90, -90))
-		else if(prob(mob.confused * 3))
-			newdir = angle2dir(dir2angle(direct) + pick(45, -45))
-		if(newdir)
-			direct = newdir
-			n = get_step(mob, direct)
+	else
+		var/mob/living/L = mob
+		if(L)
+			var/newdir = NONE
+			var/confusion = L.get_confusion()
+			if(confusion > 40)
+				newdir = pick(GLOB.alldirs)
+			else if(prob(confusion * 1.5))
+				newdir = angle2dir(dir2angle(direct) + pick(90, -90))
+			else if(prob(confusion * 3))
+				newdir = angle2dir(dir2angle(direct) + pick(45, -45))
+			if(newdir)
+				direct = newdir
+				n = get_step(mob, direct)
 
 	var/prev_pulling_loc = null
 	if(mob.pulling)

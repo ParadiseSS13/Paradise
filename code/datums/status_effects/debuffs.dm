@@ -136,3 +136,192 @@
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
+
+
+/**
+ * # Confusion
+ * 
+ * Prevents moving straight, sometimes changing movement direction at random.
+ * Decays at a rate of 1 per second.
+ */
+/datum/status_effect/transient/confusion
+	id = "confusion"
+	var/static/image/overlay
+
+/datum/status_effect/transient/confusion/on_apply()
+	if(!overlay)
+		var/matrix/M = matrix()
+		M.Scale(0.6)
+		overlay = image('icons/effects/effects.dmi', "confusion", pixel_y = 20)
+		overlay.transform = M
+	owner.add_overlay(overlay)
+	return ..()
+
+/datum/status_effect/transient/confusion/on_remove()
+	owner.cut_overlay(overlay)
+	return ..()
+
+/**
+ * # Dizziness
+ * 
+ * Slightly offsets the client's screen randomly every tick.
+ * Decays at a rate of 1 per second, or 5 when resting.
+ */
+/datum/status_effect/transient/dizziness
+	id = "dizziness"
+	var/px_diff = 0
+	var/py_diff = 0
+
+/datum/status_effect/transient/dizziness/on_remove()
+	if(owner.client)
+		// smoothly back to normal
+		animate(owner.client, 0.2 SECONDS, pixel_x = -px_diff, pixel_y = -py_diff, flags = ANIMATION_PARALLEL)
+	return ..()
+
+/datum/status_effect/transient/dizziness/tick()
+	..()
+	if(QDELETED(src))
+		return
+	var/dir = sin(world.time * 2)
+	px_diff = cos(world.time * 3) * min(strength * 2, 32) * dir
+	py_diff = sin(world.time * 3) * min(strength * 2, 32) * dir
+	owner.client?.pixel_x = px_diff
+	owner.client?.pixel_y = py_diff
+
+/datum/status_effect/transient/dizziness/calc_decay()
+	return -0.2 + (owner.resting ? -0.8 : 0)
+	
+/**
+ * # Drowsiness
+ * 
+ * Slows down and causes eye blur, with a 5% chance of falling asleep for a short time.
+ * Decays at a rate of 1 per second, or 5 when resting.
+ */
+/datum/status_effect/transient/drowsiness
+	id = "drowsiness"
+	
+/datum/status_effect/transient/drowsiness/tick()
+	..()
+	if(QDELETED(src))
+		return
+	owner.EyeBlurry(2)
+	if(prob(5))
+		owner.AdjustSleeping(1)
+		owner.Paralyse(5)
+
+/datum/status_effect/transient/drowsiness/calc_decay()
+	return -0.2 + (owner.resting ? -0.8 : 0)
+
+/**
+ * # Drukenness
+ * 
+ * Causes a myriad of status effects and other afflictions the stronger it is.
+ * Decays at a rate of 1 per second if no alcohol remains inside.
+ */
+/datum/status_effect/transient/drunkenness
+	id = "drunkenness"
+	var/alert_thrown = FALSE
+
+#define THRESHOLD_SLUR 30
+#define THRESHOLD_BRAWLING 30
+#define THRESHOLD_CONFUSION 40
+#define THRESHOLD_SPARK 50
+#define THRESHOLD_VOMIT 60
+#define THRESHOLD_BLUR 75
+#define THRESHOLD_COLLAPSE 75
+#define THRESHOLD_FAINT 90
+#define THRESHOLD_BRAIN_DAMAGE 120
+#define DRUNK_BRAWLING /datum/martial_art/drunk_brawling
+
+/datum/status_effect/transient/drunkenness/on_remove()
+	if(alert_thrown)
+		alert_thrown = FALSE
+		owner.clear_alert("drunk")
+		owner.sound_environment_override = SOUND_ENVIRONMENT_NONE
+	return ..()
+
+/datum/status_effect/transient/drunkenness/tick()
+	. = ..()
+	if(QDELETED(src))
+		return
+
+	// Adjust actual drunkenness based on trait and organ presence
+	var/alcohol_resistance = 1
+	var/actual_strength = strength
+	var/datum/mind/M = owner.mind
+	var/is_ipc = ismachineperson(owner)
+
+	if(HAS_TRAIT(owner, TRAIT_ALCOHOL_TOLERANCE))
+		alcohol_resistance = 2
+
+	actual_strength /= alcohol_resistance
+
+	var/obj/item/organ/internal/liver/L
+	if(!is_ipc)
+		L = owner.get_int_organ(/obj/item/organ/internal/liver)
+		var/liver_multiplier = 5 // no liver? get shitfaced
+		if(L)
+			liver_multiplier = L.alcohol_intensity
+		actual_strength *= liver_multiplier
+
+	// THRESHOLD_SLUR (30)
+	if(actual_strength >= THRESHOLD_SLUR)
+		owner.Slur(actual_strength)
+		if(!alert_thrown)
+			alert_thrown = TRUE
+			owner.throw_alert("drunk", /obj/screen/alert/drunk)
+			owner.sound_environment_override = SOUND_ENVIRONMENT_PSYCHOTIC
+	// THRESHOLD_BRAWLING (30)
+	if(M)
+		if(actual_strength >= THRESHOLD_BRAWLING)
+			if(!istype(M.martial_art, DRUNK_BRAWLING))
+				var/datum/martial_art/MA = new
+				MA.teach(owner, TRUE)
+		else if(istype(M.martial_art, DRUNK_BRAWLING))
+			M.martial_art.remove(src)
+	// THRESHOLD_CONFUSION (40)
+	if(actual_strength >= THRESHOLD_CONFUSION && prob(33))
+		owner.AdjustConfused(3 / alcohol_resistance, bound_lower = 1)
+		owner.AdjustDizzy(3 / alcohol_resistance, bound_lower = 1)
+	// THRESHOLD_SPARK (50)
+	if(is_ipc && actual_strength >= THRESHOLD_SPARK && prob(25))
+		do_sparks(3, 1, owner)
+	// THRESHOLD_VOMIT (60)
+	if(!is_ipc && actual_strength >= THRESHOLD_VOMIT && prob(8))
+		owner.fakevomit()
+	// THRESHOLD_BLUR (75)
+	if(actual_strength >= THRESHOLD_BLUR)
+		owner.EyeBlurry(10 / alcohol_resistance)
+	// THRESHOLD_COLLAPSE (75)
+	if(actual_strength >= THRESHOLD_COLLAPSE && prob(10))
+		owner.emote("collapse")
+		do_sparks(3, 1, src)
+	// THRESHOLD_FAINT (90)
+	if(actual_strength >= THRESHOLD_FAINT && prob(10))
+		owner.Paralyse(5 / alcohol_resistance)
+		owner.Drowsy(30 / alcohol_resistance)
+		if(L)
+			L.receive_damage(1, TRUE)
+		if(!is_ipc)
+			owner.adjustToxLoss(1)
+	// THRESHOLD_BRAIN_DAMAGE (120)
+	if(actual_strength >= THRESHOLD_BRAIN_DAMAGE && prob(10))
+		owner.adjustBrainLoss(1)
+
+#undef THRESHOLD_SLUR
+#undef THRESHOLD_BRAWLING
+#undef THRESHOLD_CONFUSION
+#undef THRESHOLD_SPARK
+#undef THRESHOLD_VOMIT
+#undef THRESHOLD_BLUR
+#undef THRESHOLD_COLLAPSE
+#undef THRESHOLD_FAINT
+#undef THRESHOLD_BRAIN_DAMAGE
+#undef DRUNK_BRAWLING
+
+/datum/status_effect/transient/drunkenness/calc_decay()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		if(H.has_booze())
+			return 0
+	return -0.2

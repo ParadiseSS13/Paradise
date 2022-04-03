@@ -272,3 +272,28 @@
 /datum/status_effect/grouped/before_remove(source)
 	sources -= source
 	return !length(sources)
+
+/**
+ * # Transient Status Effect (basetype)
+ * 
+ * A status effect that works off a (possibly decimal) counter before expiring, rather than a specified world.time.
+ * This allows for a more precise tweaking of status durations at runtime (e.g. paralysis).
+ */
+/datum/status_effect/transient
+	tick_interval = 0.2 SECONDS // SSfastprocess interval
+	alert_type = null
+	/// How much strength left before expiring?
+	var/strength = 0
+
+/datum/status_effect/transient/tick()
+	if(QDELETED(src) || QDELETED(owner))
+		return
+	strength += calc_decay()
+	if(strength <= 0)
+		qdel(src)
+
+/**
+ * Returns how much strength should be adjusted per tick.
+ */
+/datum/status_effect/transient/proc/calc_decay()
+	return -0.2 // 1 per second by default
