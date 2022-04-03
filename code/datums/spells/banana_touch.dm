@@ -35,7 +35,7 @@
 /mob/living/carbon/human/proc/bananatouched()
 	to_chat(src, "<font color='red' size='6'>HONK</font>")
 	Weaken(7)
-	Stun(7)
+	Stun(14 SECONDS)
 	Stuttering(15)
 	do_jitter_animation(15)
 

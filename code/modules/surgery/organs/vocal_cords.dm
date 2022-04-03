@@ -217,7 +217,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	if(findtext(message, GLOB.stun_words))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.Stun(3 * power_multiplier)
+			L.Stun(6 SECONDS * power_multiplier)
 		next_command = world.time + cooldown_stun
 
 	//WEAKEN

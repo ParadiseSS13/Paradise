@@ -46,7 +46,9 @@
 // DEBUFFS //
 /////////////
 
-//#define STATUS_EFFECT_STUN /datum/status_effect/incapacitating/stun //the affected is stunned
+#define STATUS_EFFECT_STUN /datum/status_effect/incapacitating/stun
+
+#define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
 
 //#define STATUS_EFFECT_KNOCKDOWN /datum/status_effect/incapacitating/knockdown //the affected is knocked down
 
@@ -95,6 +97,7 @@
 #define STATUS_EFFECT_DROWSINESS /datum/status_effect/transient/drowsiness
 
 #define STATUS_EFFECT_DRUNKENNESS /datum/status_effect/transient/drunkenness
+
 
 /////////////
 // NEUTRAL //

@@ -217,7 +217,7 @@
 		M.AdjustEarDamage(0, 30)
 		M.Weaken(3)
 		if(prob(30))
-			M.Stun(10)
+			M.Stun(20 SECONDS)
 			M.Paralyse(4)
 		else
 			M.Jitter(500)

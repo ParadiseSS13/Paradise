@@ -46,7 +46,7 @@
 		M.show_message("<span class='warning'>BANG</span>", 2)
 
 		var/distance = max(1, get_dist(source_turf, get_turf(M)))
-		var/stun_amount = max(10 / distance, 3)
+		var/stun_amount = max(20 SECONDS / distance, 6 SECONDS)
 
 		// Flash
 		if(flash)
@@ -58,7 +58,7 @@
 		var/ear_safety = M.check_ear_prot()
 		if(bang)
 			if(!distance || A.loc == M || A.loc == M.loc) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
-				M.Stun(10)
+				M.Stun(20 SECONDS)
 				M.Weaken(10)
 			if(!ear_safety)
 				M.Stun(stun_amount)

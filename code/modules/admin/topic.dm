@@ -1798,7 +1798,7 @@
 			M.gib()
 		else
 			M.adjustBruteLoss(min(99,(M.health - 1)))
-			M.Stun(20)
+			M.Stun(40 SECONDS)
 			M.Weaken(20)
 			M.Stuttering(20)
 

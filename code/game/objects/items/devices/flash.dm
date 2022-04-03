@@ -92,7 +92,7 @@
 			if(M.flash_eyes(1, 1))
 				M.AdjustConfused(power)
 				terrible_conversion_proc(M, user)
-				M.Stun(1)
+				M.Stun(2 SECONDS)
 				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
 				to_chat(user, "<span class='danger'>You blind [M] with the flash!</span>")
 				to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")

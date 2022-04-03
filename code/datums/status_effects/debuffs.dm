@@ -140,7 +140,7 @@
 
 /**
  * # Confusion
- * 
+ *
  * Prevents moving straight, sometimes changing movement direction at random.
  * Decays at a rate of 1 per second.
  */
@@ -163,7 +163,7 @@
 
 /**
  * # Dizziness
- * 
+ *
  * Slightly offsets the client's screen randomly every tick.
  * Decays at a rate of 1 per second, or 5 when resting.
  */
@@ -190,16 +190,16 @@
 
 /datum/status_effect/transient/dizziness/calc_decay()
 	return -0.2 + (owner.resting ? -0.8 : 0)
-	
+
 /**
  * # Drowsiness
- * 
+ *
  * Slows down and causes eye blur, with a 5% chance of falling asleep for a short time.
  * Decays at a rate of 1 per second, or 5 when resting.
  */
 /datum/status_effect/transient/drowsiness
 	id = "drowsiness"
-	
+
 /datum/status_effect/transient/drowsiness/tick()
 	..()
 	if(QDELETED(src))
@@ -214,7 +214,7 @@
 
 /**
  * # Drukenness
- * 
+ *
  * Causes a myriad of status effects and other afflictions the stronger it is.
  * Decays at a rate of 1 per second if no alcohol remains inside.
  */
@@ -325,3 +325,36 @@
 		if(H.has_booze())
 			return 0
 	return -0.2
+
+/datum/status_effect/incapacitating
+	tick_interval = 0
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+	var/needs_update_stat = FALSE
+
+/datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration)
+	if(isnum(set_duration))
+		duration = set_duration
+	. = ..()
+	if(. && (needs_update_stat || issilicon(owner)))
+		owner.update_stat()
+	owner.update_canmove()
+
+
+/datum/status_effect/incapacitating/on_remove()
+	if(needs_update_stat || issilicon(owner)) //silicons need stat updates in addition to normal canmove updates
+		owner.update_stat()
+	owner.update_canmove()
+	return ..()
+
+//STUN
+/datum/status_effect/incapacitating/stun
+	id = "stun"
+
+//IMMOBILIZED
+/datum/status_effect/incapacitating/immobilized
+	id = "immobilized"
+
+//PARALYZED
+/datum/status_effect/incapacitating/paralyzed
+	id = "paralyzed"

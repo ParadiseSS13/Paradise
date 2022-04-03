@@ -547,7 +547,7 @@
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		if(!C.stunned || arrest_type)
+		if(!C.IsStunned() || arrest_type)
 			stun_attack(A)
 		else if(C.canBeHandcuffed() && !C.handcuffed)
 			cuff(A)
@@ -574,7 +574,7 @@
 		icon_state = "[lasercolor]ed209[on]"
 	var/threat = C.assess_threat(src)
 	C.SetStuttering(5)
-	C.Stun(5)
+	C.Stun(10 SECONDS)
 	C.Weaken(5)
 	add_attack_logs(src, C, "stunned")
 	if(declare_arrests)

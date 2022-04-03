@@ -336,7 +336,7 @@
 	name = "magical banana"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana"
-	var/slip_stun = 5
+	var/slip_stun = 10 SECONDS
 	var/slip_weaken = 5
 	hitsound = 'sound/items/bikehorn.ogg'
 
@@ -353,12 +353,12 @@
 		if(!R.incapacitated())
 			to_chat(target, "<span class='warning'>You get splatted by [src], HONKING your sensors!</span>")
 			R.Stun(slip_stun)
-	else if(ismob(target))
-		var/mob/M = target
-		if(!M.stunned)
+	else if(isliving(target))
+		var/mob/living/L = target
+		if(!L.IsStunned())
 			to_chat(target, "<span class='notice'>You get splatted by [src].</span>")
-			M.Weaken(slip_weaken)
-			M.Stun(slip_stun)
+			L.Weaken(slip_weaken)
+			L.Stun(slip_stun)
 	. = ..()
 
 /obj/item/projectile/magic/arcane_barrage

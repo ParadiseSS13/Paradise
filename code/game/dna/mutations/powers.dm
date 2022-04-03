@@ -489,9 +489,9 @@
 /obj/effect/proc_holder/spell/leap/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/leap/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/leap/cast(list/targets, mob/living/user = usr)
 	var/failure = FALSE
-	if(istype(user.loc,/mob/) || user.lying || user.stunned || user.buckled || user.stat)
+	if(istype(user.loc,/mob/) || user.lying || user.IsStunned() || user.buckled || user.stat)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
 		return
 
@@ -508,7 +508,7 @@
 		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
 		if(failure)
 			user.Weaken(5)
-			user.Stun(5)
+			user.Stun(10 SECONDS)
 			user.visible_message("<span class='warning'>[user] attempts to leap away but is slammed back down to the ground!</span>",
 								"<span class='warning'>You attempt to leap away but are suddenly slammed back down to the ground!</span>",
 								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")

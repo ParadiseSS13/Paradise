@@ -736,21 +736,20 @@
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, 200, 4)
 
-/obj/item/twohanded/mjollnir/attack(mob/M, mob/user)
+/obj/item/twohanded/mjollnir/attack(mob/living/M, mob/user)
 	..()
 	if(wielded)
 		//if(charged == 5)
 		//charged = 0
 		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		if(isliving(M))
-			M.Stun(3)
-			shock(M)
+		M.Stun(6 SECONDS)
+		shock(M)
 
 /obj/item/twohanded/mjollnir/throw_impact(atom/target)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		L.Stun(3)
+		L.Stun(6 SECONDS)
 		shock(L)
 
 /obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.

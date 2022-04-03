@@ -222,7 +222,7 @@ Made by Xhuis
 				if(!isshadowling(H))
 					for(var/obj/effect/proc_holder/spell/shadowling_hatch/hatch_ability in shadow.spell_list)
 						hatch_ability.cycles_unused++
-						if(!H.stunned && prob(20) && hatch_ability.cycles_unused > GLOB.configuration.gamemode.shadowling_max_age)
+						if(!H.IsStunned() && prob(20) && hatch_ability.cycles_unused > GLOB.configuration.gamemode.shadowling_max_age)
 							var/shadow_nag_messages = list("You can barely hold yourself in this lesser form!", "The urge to become something greater is overwhelming!", "You feel a burning passion to hatch free of this shell and assume godhood!")
 							H.take_overall_damage(0, 3)
 							to_chat(H, "<span class='userdanger'>[pick(shadow_nag_messages)]</span>")

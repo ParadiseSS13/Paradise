@@ -536,7 +536,7 @@
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/M)
 	var/update_flag = STATUS_UPDATE_NONE
-	update_flag |= M.Stun(1, FALSE)
+	update_flag |= M.Stun(2 SECONDS, FALSE)
 	return ..() | update_flag
 
 /datum/reagent/consumable/ethanol/irish_cream
@@ -1185,7 +1185,7 @@
 	if(prob(50))
 		to_chat(M, "<span class='danger'>Your throat burns terribly!</span>")
 		M.emote(pick("scream","cry","choke","gasp"))
-		update_flags |= M.Stun(1, FALSE)
+		update_flags |= M.Stun(2 SECONDS, FALSE)
 	if(prob(8))
 		to_chat(M, "<span class='danger'>Why!? WHY!?</span>")
 	if(prob(8))

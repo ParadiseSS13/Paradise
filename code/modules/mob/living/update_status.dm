@@ -72,8 +72,8 @@
 	// By default, checks for weakness and stunned get added to the extra_checks list.
 	// Setting `use_default_checks` to FALSE means that you don't want it checking for these statuses or you are supplying your own checks.
 	if(use_default_checks)
-		extra_checks += CALLBACK(src, /mob.proc/IsWeakened)
-		extra_checks += CALLBACK(src, /mob.proc/IsStunned)
+		extra_checks += CALLBACK(src, /mob/living.proc/IsWeakened)
+		extra_checks += CALLBACK(src, /mob/living.proc/IsStunned)
 
 	if(stat || paralysis || (!ignore_restraints && restrained()) || (!ignore_lying && lying) || check_for_true_callbacks(extra_checks))
 		return TRUE
@@ -87,7 +87,7 @@
 /mob/living/update_canmove(delay_action_updates = 0)
 	var/fall_over = !can_stand()
 	var/buckle_lying = !(buckled && !buckled.buckle_lying)
-	if(fall_over || resting || stunned || (buckled && buckle_lying != 0))
+	if(fall_over || resting || IsStunned() || (buckled && buckle_lying != 0))
 		drop_r_hand()
 		drop_l_hand()
 	else
@@ -98,7 +98,7 @@
 	else if((fall_over || resting) && !lying)
 		fall(fall_over)
 
-	canmove = !(fall_over || resting || stunned || IsFrozen() || buckled)
+	canmove = !(fall_over || resting || IsStunned() || IsFrozen() || buckled)
 	density = !lying
 	if(lying)
 		if(layer == initial(layer))
@@ -120,8 +120,6 @@
 	switch(var_name)
 		if("weakened")
 			SetWeakened(weakened)
-		if("stunned")
-			SetStunned(stunned)
 		if("paralysis")
 			SetParalysis(paralysis)
 		if("sleeping")

@@ -126,19 +126,6 @@
 /mob/proc/AdjustCultSlur()
 	return
 
-/mob/proc/Stun()
-	return
-
-/mob/proc/IsStunned()
-	return stunned
-
-/mob/proc/SetStunned()
-	return
-
-/mob/proc/AdjustStunned()
-	return
-
-
 /mob/proc/Stuttering()
 	return
 

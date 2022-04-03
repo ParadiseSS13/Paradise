@@ -132,7 +132,7 @@
 		if(emagged <= 1)
 			honk_attack(A)
 		else
-			if(!C.stunned || arrest_type) //originaly was paralisysed in tg ported as stun
+			if(!C.IsStunned() || arrest_type)
 				stun_attack(A)
 		..()
 	else if(!spam_flag) //honking at the ground
@@ -182,7 +182,7 @@
 			C.AdjustEarDamage(0, 5) //far less damage than the H.O.N.K.
 			C.Jitter(50)
 			C.Weaken(5)
-			C.Stun(5)      // Paralysis from tg ported as stun
+			C.Stun(10 SECONDS)
 			if(client) //prevent spam from players..
 				spam_flag = TRUE
 			if(emagged <= 1) //HONK once, then leave
@@ -196,7 +196,7 @@
 					"<span class='userdanger'>[src] has honked you!</span>")
 		else
 			C.stuttering = 20
-			C.Stun(10)
+			C.Stun(20 SECONDS)
 			addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntime)
 
 

@@ -357,7 +357,7 @@
 		if(effect <= 1)
 			M.visible_message("<span class='warning'>[M] suddenly clutches [M.p_their()] gut!</span>")
 			M.emote("scream")
-			update_flags |= M.Stun(4, FALSE)
+			update_flags |= M.Stun(8 SECONDS, FALSE)
 			update_flags |= M.Weaken(4, FALSE)
 		else if(effect <= 3)
 			M.visible_message("<span class='warning'>[M] completely spaces out for a moment.</span>")
@@ -373,7 +373,7 @@
 		if(effect <= 2)
 			M.visible_message("<span class='warning'>[M] suddenly clutches [M.p_their()] gut!</span>")
 			M.emote("scream")
-			update_flags |= M.Stun(7, FALSE)
+			update_flags |= M.Stun(14 SECONDS, FALSE)
 			update_flags |= M.Weaken(7, FALSE)
 		else if(effect <= 5)
 			M.visible_message("<span class='warning'>[M] jerks bolt upright, then collapses!</span>")
@@ -891,7 +891,7 @@
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		if(prob(10))
-			update_flags |= M.Stun(3, FALSE)
+			update_flags |= M.Stun(6 SECONDS, FALSE)
 
 	return ..() | update_flags
 

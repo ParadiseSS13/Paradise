@@ -99,7 +99,7 @@
 			to_chat(src, "<span class='warning'>The muzzle prevents you from vomiting!</span>")
 		return FALSE
 	if(stun)
-		Stun(4)
+		Stun(8 SECONDS)
 	if(nutrition < 100 && !blood)
 		if(message)
 			visible_message("<span class='warning'>[src] dry heaves!</span>", \
@@ -168,7 +168,7 @@
 	//Stun
 	var/should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
 	if(should_stun)
-		Stun(2)
+		Stun(4 SECONDS)
 	//Jitter and other fluff.
 	AdjustJitter(1000)
 	do_jitter_animation(jitteriness)
@@ -1030,7 +1030,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				W.plane = initial(W.plane)
 
 
-/mob/living/carbon/proc/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "slip")
+/mob/living/carbon/proc/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "slip") ///todo - hal - convert these stun times to deciseconds
 	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return FALSE
 

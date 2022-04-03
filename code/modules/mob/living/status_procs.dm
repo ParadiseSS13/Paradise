@@ -104,7 +104,6 @@
 	var/sleeping = 0
 	var/slowed = 0
 	var/slurring = 0
-	var/stunned = 0
 	var/stuttering = 0
 	var/weakened = 0
 
@@ -147,7 +146,7 @@
 
 /**
  * Sets [confusion][/datum/status_effect/decaying/confusion] to current amount + given, clamped between lower and higher bounds.
- * 
+ *
  * Arguments:
  * * amount - Amount to add. Can be negative to reduce duration.
  * * bound_lower - Minimum bound to set at least to. Defaults to 0.
@@ -178,7 +177,7 @@
 
 /**
  * Sets [dizziness][/datum/status_effect/decaying/dizziness] to current amount + given, clamped between lower and higher bounds.
- * 
+ *
  * Arguments:
  * * amount - Amount to add. Can be negative to reduce duration.
  * * bound_lower - Minimum bound to set at least to. Defaults to 0.
@@ -209,7 +208,7 @@
 
 /**
  * Sets [drowsiness][/datum/status_effect/decaying/drowsiness] to current amount + given, clamped between lower and higher bounds.
- * 
+ *
  * Arguments:
  * * amount - Amount to add. Can be negative to reduce duration.
  * * bound_lower - Minimum bound to set at least to. Defaults to 0.
@@ -240,7 +239,7 @@
 
 /**
  * Sets [drunkenness][/datum/status_effect/decaying/drunkenness] to current amount + given, clamped between lower and higher bounds.
- * 
+ *
  * Arguments:
  * * amount - Amount to add. Can be negative to reduce duration.
  * * bound_lower - Minimum bound to set at least to. Defaults to 0.
@@ -440,27 +439,57 @@
 
 // STUN
 
-/mob/living/Stun(amount, updating = 1, force = 0)
-	return SetStunned(max(stunned, amount), updating, force)
+#define IS_STUN_IMMUNE(source, ignore_canstun) ((source.status_flags & GODMODE) || (!ignore_canstun && !(source.status_flags & CANSTUN)))
 
-/mob/living/SetStunned(amount, updating = 1, force = 0) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
-	. = STATUS_UPDATE_CANMOVE
-	if((!!amount) == (!!stunned)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
+/* STUN */
+/mob/living/proc/IsStunned() //If we're stunned
+	return has_status_effect(/datum/status_effect/incapacitating/stun)
 
-	if(status_flags & CANSTUN || force)
-		if(absorb_stun(amount, force))
-			return STATUS_UPDATE_NONE
-		stunned = max(amount, 0)
-		if(updating)
-			update_canmove()
+/mob/living/proc/AmountStun() //How many deciseconds remain in our stun
+	var/datum/status_effect/incapacitating/stun/S = IsStunned()
+	if(S)
+		return S.duration - world.time
+	return 0
+
+/mob/living/proc/Stun(amount, ignore_canstun = FALSE) //Can't go below remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_stun(amount, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/stun/S = IsStunned()
+	if(S)
+		S.duration = max(world.time + amount, S.duration)
+	else if(amount > 0)
+		S = apply_status_effect(STATUS_EFFECT_STUN, amount)
+	return S
+
+/mob/living/proc/SetStunned(amount, ignore_canstun = FALSE) //Sets remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/stun/S = IsStunned()
+	if(amount <= 0)
+		if(S)
+			qdel(S)
 	else
-		return STATUS_UPDATE_NONE
+		if(absorb_stun(amount, ignore_canstun))
+			return
+		if(S)
+			S.duration = world.time + amount
+		else
+			S = apply_status_effect(STATUS_EFFECT_STUN, amount)
+	return S
 
-/mob/living/AdjustStunned(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
-	var/new_value = directional_bounded_sum(stunned, amount, bound_lower, bound_upper)
-	return SetStunned(new_value, updating, force)
+/mob/living/proc/AdjustStunned(amount, ignore_canstun = FALSE) //Adds to remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_stun(amount, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/stun/S = IsStunned()
+	if(S)
+		S.duration += amount
+	else if(amount > 0)
+		S = apply_status_effect(STATUS_EFFECT_STUN, amount)
+	return S
 
 // STUTTERING
 

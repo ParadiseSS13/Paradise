@@ -521,11 +521,11 @@
 		return
 
 	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == MOVE_INTENT_RUN))
-		M.Stun(5)
+		M.Stun(10 SECONDS)
 		M.Weaken(5)
 
 	else if(istype(M,/mob/living/carbon/human/))
-		M.Stun(2)
+		M.Stun(4 SECONDS)
 		M.Weaken(2)
 
 

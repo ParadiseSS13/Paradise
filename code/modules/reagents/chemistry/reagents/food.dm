@@ -757,7 +757,7 @@
 	if(prob(5))
 		to_chat(M, "<span class='warning'>You feel a sharp pain in your chest!</span>")
 		update_flags |= M.adjustOxyLoss(25, FALSE)
-		update_flags |= M.Stun(5, FALSE)
+		update_flags |= M.Stun(10 SECONDS, FALSE)
 		update_flags |= M.Paralyse(10, FALSE)
 	return list(0, update_flags)
 
@@ -849,7 +849,7 @@
 			update_flags |= M.adjustToxLoss(rand(2,4), FALSE)
 		if(prob(7))
 			to_chat(M, "<span class='warning'>A horrible migraine overpowers you.</span>")
-			update_flags |= M.Stun(rand(2,5), FALSE)
+			update_flags |= M.Stun(rand(4 SECONDS, 10 SECONDS), FALSE)
 	return ..() | update_flags
 
 /datum/reagent/cholesterol
@@ -868,10 +868,10 @@
 	else if(volume >= 45 && prob(volume*0.08))
 		to_chat(M, "<span class='warning'>Your chest [pick("hurts","stings","aches","burns")]!</span>")
 		update_flags |= M.adjustToxLoss(rand(2,4), FALSE)
-		update_flags |= M.Stun(1, FALSE)
+		update_flags |= M.Stun(2 SECONDS, FALSE)
 	else if(volume >= 150 && prob(volume*0.01))
 		to_chat(M, "<span class='warning'>Your chest is burning with pain!</span>")
-		update_flags |= M.Stun(1, FALSE)
+		update_flags |= M.Stun(2 SECONDS, FALSE)
 		update_flags |= M.Weaken(1, FALSE)
 		M.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
 	return ..() | update_flags

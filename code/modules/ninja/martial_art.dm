@@ -61,7 +61,7 @@
 			D.emote("scream")
 			D.drop_item()
 			D.apply_damage(5, BRUTE, pick("l_arm", "r_arm"))
-			D.Stun(1)
+			D.Stun(2 SECONDS)
 			spawn(50) has_focus = 1
 			return 1
 		to_chat(A, "<span class='warning'>You are not focused enough to use that move yet!</span>")

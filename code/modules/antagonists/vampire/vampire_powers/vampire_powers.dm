@@ -413,5 +413,5 @@
 
 	var/greet_text = "You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command."
 	H.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall(user.mind, greet_text))
-	H.Stun(2)
+	H.Stun(4 SECONDS)
 	add_attack_logs(user, H, "Vampire-thralled")

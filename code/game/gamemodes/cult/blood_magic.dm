@@ -448,7 +448,7 @@
 		to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
 		// These are in life cycles, so double the time that's stated.
 		L.Weaken(5)
-		L.Stun(5)
+		L.Stun(10 SECONDS)
 		L.flash_eyes(1, TRUE)
 		if(issilicon(target))
 			var/mob/living/silicon/S = L

@@ -243,7 +243,7 @@
 		var/mob/living/carbon/carbon_mob = rev_mind.current
 		carbon_mob.Silence(5)
 		carbon_mob.flash_eyes(1, 1)
-	rev_mind.current.Stun(5)
+	rev_mind.current.Stun(10 SECONDS)
 	to_chat(rev_mind.current, "<span class='danger'><FONT size = 3> You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!</FONT></span>")
 	rev_mind.current.create_attack_log("<font color='red'>Has been converted to the revolution!</font>")
 	rev_mind.current.create_log(CONVERSION_LOG, "converted to the revolution")

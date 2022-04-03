@@ -267,7 +267,7 @@
 		owner.Weaken(3)
 		SEND_SOUND(owner, sound('sound/items/airhorn.ogg'))
 		if(prob(30))
-			owner.Stun(10)
+			owner.Stun(20 SECONDS)
 			owner.Paralyse(4)
 		else
 			owner.Jitter(500)

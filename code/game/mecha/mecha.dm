@@ -387,7 +387,7 @@
 			L.take_overall_damage(5,0)
 			if(L.buckled)
 				L.buckled = 0
-			L.Stun(5)
+			L.Stun(10 SECONDS)
 			L.Weaken(5)
 			L.apply_effect(STUTTER, 5)
 			playsound(src, pick(hit_sound), 50, 0, 0)

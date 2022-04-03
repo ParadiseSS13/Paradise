@@ -57,7 +57,7 @@
 			if("l_hand", "r_hand")
 				if(!H.gloves)
 					affecting = H.get_organ(type)
-					H.Stun(3)
+					H.Stun(6 SECONDS)
 		if(affecting)
 			affecting.receive_damage(1, 0)
 	else if(ismouse(target))

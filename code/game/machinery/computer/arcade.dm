@@ -461,10 +461,10 @@
 
 					if(severity == 2)
 						to_chat(usr, "<span class='userdanger'>You suddenly feel extremely nauseous and hunch over until it passes.</span>")
-						M.Stun(3)
+						M.Stun(6 SECONDS)
 					if(severity >= 3) //you didn't pray hard enough
 						to_chat(M, "<span class='warning'>An overpowering wave of nausea consumes over you. You hunch over, your stomach's contents preparing for a spectacular exit.</span>")
-						M.Stun(5)
+						M.Stun(10 SECONDS)
 						sleep(30)
 						atom_say("[M] violently throws up!")
 						playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
@@ -557,7 +557,9 @@
 			if(emagged) //has to be here because otherwise it doesn't work
 				playsound(loc, 'sound/effects/supermatter.ogg', 100, TRUE)
 				atom_say("A miniature black hole suddenly appears in front of [src], devouring [usr] alive!")
-				usr.Stun(10) //you can't run :^)
+				if(isliving(usr))
+					var/mob/living/L = usr
+					L.Stun(20 SECONDS) //you can't run :^)
 				var/S = new /obj/singularity/onetile(usr.loc)
 				emagged = 0 //immediately removes emagged status so people can't kill themselves by sprinting up and interacting
 				sleep(50)
