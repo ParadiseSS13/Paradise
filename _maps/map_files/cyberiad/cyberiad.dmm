@@ -2117,6 +2117,7 @@
 	},
 /obj/item/clothing/suit/armor/laserproof,
 /obj/item/gun/energy/ionrifle,
+/obj/item/clothing/head/helmet/laserproof,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"

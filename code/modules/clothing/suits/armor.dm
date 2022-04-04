@@ -246,7 +246,9 @@
 	blood_overlay_type = "armor"
 	armor = list(MELEE = 10, BULLET = 10, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	var/hit_reflect_chance = 40
+	strip_delay = 70
+	put_on_delay = 50
+	var/hit_reflect_chance = 30
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect()
 	var/mob/living/carbon/human/user = loc

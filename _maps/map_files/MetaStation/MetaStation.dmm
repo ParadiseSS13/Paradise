@@ -2406,6 +2406,7 @@
 	dir = 1;
 	on = 1
 	},
+/obj/item/clothing/head/helmet/laserproof,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"

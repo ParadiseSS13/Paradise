@@ -98318,6 +98318,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/item/clothing/head/helmet/laserproof,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"

@@ -78,6 +78,20 @@
 	armor = list(MELEE = 15, BULLET = 50, LASER = 10, ENERGY = 10, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	dog_fashion = null
 
+/obj/item/clothing/head/helmet/laserproof
+	name = "ablative helmet"
+	desc = "A helmet that excels in protecting the wearer against energy projectiles. Projects a smaller energy field around the user, allowing a chance of energy projectile deflection no matter where on the user it would hit."
+	icon_state = "helmet_reflect"
+	item_state = "helmet_reflect"
+	armor = list(MELEE = 10, BULLET = 10, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	var/hit_reflect_chance = 10
+
+/obj/item/clothing/head/helmet/laserproof/IsReflect()
+	var/mob/living/carbon/human/user = loc
+	if(prob(hit_reflect_chance) && (user.head == src))
+		return 1
+
 /obj/item/clothing/head/helmet/riot
 	name = "riot helmet"
 	desc = "It's a helmet specifically designed to protect against close range attacks."
