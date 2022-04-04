@@ -4142,7 +4142,8 @@
 "asT" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
-	id_tag = "trash"
+	id_tag = "trash";
+	protected = 0
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
@@ -86194,6 +86195,7 @@
 	pixel_x = -24
 	},
 /obj/structure/table,
+/obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreencorner"
