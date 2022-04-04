@@ -57987,10 +57987,10 @@
 "cAd" = (
 /obj/item/bikehorn/rubberducky,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
+	dir = 5
 	},
 /obj/effect/landmark/start/assistant,
 /turf/simulated/floor/plasteel{
