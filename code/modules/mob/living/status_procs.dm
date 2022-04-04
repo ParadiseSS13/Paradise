@@ -105,7 +105,6 @@
 	var/slowed = 0
 	var/slurring = 0
 	var/stuttering = 0
-	var/weakened = 0
 
 // RESTING
 
@@ -491,6 +490,49 @@
 		S = apply_status_effect(STATUS_EFFECT_STUN, amount)
 	return S
 
+/mob/living/proc/IsImmobilized()
+	return has_status_effect(STATUS_EFFECT_IMMOBILIZED)
+
+/mob/living/proc/Immobilize(amount, ignore_canstun = FALSE)
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_stun(amount, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/immobilized/I = IsImmobilized()
+	if(I)
+		I.duration = max(world.time + amount, I.duration)
+	else if(amount > 0)
+		I = apply_status_effect(/datum/status_effect/incapacitating/immobilized, amount)
+	return I
+
+/mob/living/proc/SetImmobilized(amount, ignore_canstun = FALSE) //Sets remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/immobilized/I = IsImmobilized()
+	if(amount <= 0)
+		if(I)
+			qdel(I)
+	else
+		if(absorb_stun(amount, ignore_canstun))
+			return
+		if(I)
+			I.duration = world.time + amount
+		else
+			I = apply_status_effect(/datum/status_effect/incapacitating/immobilized, amount)
+	return I
+
+/mob/living/proc/AdjustImmobilized(amount, ignore_canstun = FALSE) //Adds to remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_stun(amount, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/immobilized/I = IsImmobilized()
+	if(I)
+		I.duration += amount
+	else if(amount > 0)
+		I = apply_status_effect(/datum/status_effect/incapacitating/immobilized, amount)
+	return I
+
 // STUTTERING
 
 
@@ -508,26 +550,54 @@
 
 // WEAKEN
 
-/mob/living/Weaken(amount, updating = 1, force = 0)
-	return SetWeakened(max(weakened, amount), updating, force)
+/mob/living/proc/IsWeakened()
+	return has_status_effect(STATUS_EFFECT_PARALYZED)
 
-/mob/living/SetWeakened(amount, updating = 1, force = 0)
-	. = STATUS_UPDATE_CANMOVE
-	if((!!amount) == (!!weakened)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
-	if(status_flags & CANWEAKEN || force)
-		if(absorb_stun(amount, force))
-			return STATUS_UPDATE_NONE
-		weakened = max(amount, 0)
-		if(updating)
-			update_canmove()	//updates lying, canmove and icons
+/mob/living/proc/AmountWeakened() //How many deciseconds remain in our Weakened status effect
+	var/datum/status_effect/incapacitating/paralyzed/P = IsWeakened()
+	if(P)
+		return P.duration - world.time
+	return 0
+
+/mob/living/proc/Weaken(amount, ignore_canstun = FALSE) //Can't go below remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_stun(amount, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/paralyzed/P = IsWeakened()
+	if(P)
+		P.duration = max(world.time + amount, P.duration)
+	else if(amount > 0)
+		P = apply_status_effect(STATUS_EFFECT_PARALYZED, amount)
+	return P
+
+/mob/living/proc/SetWeakened(amount, ignore_canstun = FALSE) //Sets remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/paralyzed/P = IsWeakened()
+	if(amount <= 0)
+		if(P)
+			qdel(P)
 	else
-		return STATUS_UPDATE_NONE
+		if(absorb_stun(amount, ignore_canstun))
+			return
+		if(P)
+			P.duration = world.time + amount
+		else
+			P = apply_status_effect(STATUS_EFFECT_PARALYZED, amount)
+	return P
 
-/mob/living/AdjustWeakened(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
-	var/new_value = directional_bounded_sum(weakened, amount, bound_lower, bound_upper)
-	return SetWeakened(new_value, updating, force)
+/mob/living/proc/AdjustWeakened(amount, ignore_canstun = FALSE) //Adds to remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_stun(amount, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/paralyzed/P = IsWeakened()
+	if(P)
+		P.duration += amount
+	else if(amount > 0)
+		P = apply_status_effect(STATUS_EFFECT_PARALYZED, amount)
+	return P
 
 //
 //		DISABILITIES

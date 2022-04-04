@@ -90,7 +90,7 @@
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
-	if(owner.weakened)
+	if(owner.AmountWeakened())
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, preventing you from getting back up!</span>")
 		owner.custom_emote(1, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
 	else
@@ -128,7 +128,7 @@
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
-	if(owner.weakened)
+	if(owner.AmountWeakened())
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, preventing you from getting back up!</span>")
 		owner.custom_emote(1, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
 	else

@@ -278,7 +278,7 @@
 	icon_state ="shuttlecurse"
 	var/global/curselimit = 0
 
-/obj/item/shuttle_curse/attack_self(mob/user)
+/obj/item/shuttle_curse/attack_self(mob/living/user)
 	if(!iscultist(user))
 		user.unEquip(src, 1)
 		user.Weaken(5)

@@ -4,7 +4,7 @@
 	max_integrity = 300
 	face_while_pulling = TRUE
 	var/climbable
-	var/mob/climber
+	var/mob/living/climber
 	var/broken = FALSE
 
 /obj/structure/New()
@@ -132,8 +132,8 @@
 			H.UpdateDamageIcon()
 	return
 
-/obj/structure/proc/can_touch(mob/user)
-	if(!user)
+/obj/structure/proc/can_touch(mob/living/user)
+	if(!istype(user))
 		return 0
 	if(!Adjacent(user))
 		return 0

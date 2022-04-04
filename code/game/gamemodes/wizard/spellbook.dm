@@ -1027,7 +1027,7 @@
 	icon_state = "bookknock"
 	desc = "This book is hard to hold closed properly."
 
-/obj/item/spellbook/oneuse/knock/recoil(mob/user as mob)
+/obj/item/spellbook/oneuse/knock/recoil(mob/living/user)
 	..()
 	to_chat(user, "<span class='warning'>You're knocked down!</span>")
 	user.Weaken(20)

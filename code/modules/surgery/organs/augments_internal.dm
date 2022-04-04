@@ -142,7 +142,7 @@
 		return
 	if(owner.AmountStun() > stun_max_amount)
 		owner.SetStunned(stun_max_amount)
-	if(owner.weakened > stun_max_amount)
+	if(owner.AmountWeakened() > stun_max_amount)
 		owner.SetWeakened(stun_max_amount)
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/emp_act(severity)

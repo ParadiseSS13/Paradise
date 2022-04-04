@@ -50,6 +50,8 @@
 
 #define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
 
+#define STATUS_EFFECT_IMMOBILIZED /datum/status_effect/incapacitating/immobilized
+
 //#define STATUS_EFFECT_KNOCKDOWN /datum/status_effect/incapacitating/knockdown //the affected is knocked down
 
 //#define STATUS_EFFECT_UNCONSCIOUS /datum/status_effect/incapacitating/unconscious //the affected is unconscious

@@ -17,9 +17,9 @@
 	/// Whether the baton can stun silicon mobs
 	var/affect_silicon = FALSE
 	/// The stun time (in life cycles) for non-silicons
-	var/stun_time = 6 SECONDS_TO_LIFE_CYCLES
+	var/stun_time = 6 SECONDS
 	/// The stun time (in life cycles) for silicons
-	var/stun_time_silicon = 10 SECONDS_TO_LIFE_CYCLES
+	var/stun_time_silicon = 10 SECONDS
 	/// Cooldown in deciseconds between two knockdowns
 	var/cooldown = 4 SECONDS
 	/// Sound to play when knocking someone down

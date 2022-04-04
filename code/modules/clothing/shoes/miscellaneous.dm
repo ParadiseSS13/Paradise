@@ -124,7 +124,7 @@
 	if(slot == slot_shoes)
 		return TRUE
 
-/obj/item/clothing/shoes/clown_shoes/slippers/ui_action_click(mob/user, action)
+/obj/item/clothing/shoes/clown_shoes/slippers/ui_action_click(mob/living/user, action)
 	if(recharging_time > world.time)
 		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
 		return

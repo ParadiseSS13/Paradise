@@ -352,7 +352,7 @@
 
 /datum/status_effect/speedlegs/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, "changeling")
-	if(!owner.weakened)
+	if(!owner.IsWeakened())
 		to_chat(owner, "<span class='notice'>Our muscles relax.</span>")
 		if(stacks >= 7)
 			to_chat(owner, "<span class='danger'>We collapse in exhaustion.</span>")

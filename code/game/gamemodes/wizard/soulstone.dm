@@ -66,7 +66,7 @@
 	return ..()
 
 //////////////////////////////Capturing////////////////////////////////////////////////////////
-/obj/item/soulstone/attack(mob/living/carbon/human/M, mob/user)
+/obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user)
 	if(M == user)
 		return
 
@@ -202,7 +202,7 @@
 	else
 		..()
 
-/obj/item/soulstone/attack_self(mob/user)
+/obj/item/soulstone/attack_self(mob/living/user)
 	if(!in_range(src, user))
 		return
 
@@ -262,7 +262,7 @@
 
 ////////////////////////////Proc for moving soul in and out off stone//////////////////////////////////////
 // this whole proc is pain
-/obj/item/soulstone/proc/transfer_soul(choice, target, mob/user)
+/obj/item/soulstone/proc/transfer_soul(choice, target, mob/living/user)
 	switch(choice)
 		if("FORCE")
 			var/mob/living/T = target

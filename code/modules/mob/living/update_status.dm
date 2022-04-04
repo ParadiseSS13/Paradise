@@ -98,7 +98,7 @@
 	else if((fall_over || resting) && !lying)
 		fall(fall_over)
 
-	canmove = !(fall_over || resting || IsStunned() || IsFrozen() || buckled)
+	canmove = !(fall_over || resting || IsStunned() || IsFrozen() || buckled || IsImmobilized())
 	density = !lying
 	if(lying)
 		if(layer == initial(layer))
@@ -118,8 +118,6 @@
 /mob/living/vv_edit_var(var_name, var_value)
 	. = ..()
 	switch(var_name)
-		if("weakened")
-			SetWeakened(weakened)
 		if("paralysis")
 			SetParalysis(paralysis)
 		if("sleeping")

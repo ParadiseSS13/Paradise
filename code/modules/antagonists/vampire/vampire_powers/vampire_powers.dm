@@ -178,7 +178,7 @@
 			continue
 
 		var/deviation
-		if(user.weakened || user.resting)
+		if(user.IsWeakened() || user.resting)
 			deviation = DEVIATION_PARTIAL
 		else
 			deviation = calculate_deviation(target, user)
