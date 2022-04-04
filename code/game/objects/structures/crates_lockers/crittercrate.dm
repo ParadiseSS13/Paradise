@@ -40,8 +40,7 @@
 	name = "unmarked crate"
 	desc = "A crate designed for safe transport of animals. The contents are a mystery."
 
-/obj/structure/closet/critter/random/Initialize(mapload)
-	. = ..()
+/obj/structure/closet/critter/random/populate_contents()
 	content_mob = pick(/mob/living/simple_animal/pet/dog/corgi,
 	/mob/living/simple_animal/pet/dog/corgi/Lisa,
 	/mob/living/simple_animal/cow,
