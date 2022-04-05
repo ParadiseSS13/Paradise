@@ -534,7 +534,7 @@ Difficulty: Hard
 /obj/effect/temp_visual/hierophant/wall/CanPass(atom/movable/mover, turf/target)
 	if(QDELETED(caster))
 		return FALSE
-	if(caster.pulledby.Find(mover))
+	if(mover in caster.pulledby)
 		return TRUE
 	if(istype(mover, /obj/item/projectile))
 		var/obj/item/projectile/P = mover

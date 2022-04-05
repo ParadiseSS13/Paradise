@@ -87,12 +87,12 @@
 	//Should stop you pushing a restrained person out of the way
 	if(isliving(M))
 		var/mob/living/L = M
-		if(L.pulledby.len && !L.pulledby.Find(src) && L.restrained())
+		if(length(L.pulledby) && !(src in L.pulledby) && L.restrained())
 			if(!(world.time % 5))
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 			return TRUE
 
-		if(pulledby.Find(L) && a_intent != INTENT_HELP) //prevents boosting the person pulling you, but you can still move through them on help intent
+		if((L in pulledby) && a_intent != INTENT_HELP) //prevents boosting the person pulling you, but you can still move through them on help intent
 			return TRUE
 
 		if(L.pulling)
@@ -113,7 +113,7 @@
 	if(!M.buckled && !M.has_buckled_mobs())
 		var/mob_swap
 		//the puller can always swap with it's victim if on grab intent
-		if(M.pulledby.Find(src) && a_intent == INTENT_GRAB)
+		if((src in M.pulledby) && a_intent == INTENT_GRAB)
 			mob_swap = TRUE
 		//restrained people act if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
 		else if((M.restrained() || M.a_intent == INTENT_HELP) && (restrained() || a_intent == INTENT_HELP))
@@ -159,11 +159,11 @@
 //Called when we want to push an atom/movable
 /mob/living/proc/PushAM(atom/movable/AM, force = move_force)
 
-	if(isstructure(AM) && AM.pulledby.len)
-		if(a_intent == INTENT_HELP && !AM.pulledby.Find(src)) // Help intent doesn't push other peoples pulled structures
+	if(isstructure(AM) && length(AM.pulledby))
+		if(a_intent == INTENT_HELP && !(src in AM.pulledby)) // Help intent doesn't push other peoples pulled structures
 			return FALSE
 		for(var/mob/M in AM.pulledby)
-			if(get_dist(get_step(AM, get_dir(src, AM)), M)>1)//Release pulled structures beyond 1 distance
+			if(get_dist(get_step(AM, get_dir(src, AM)), M) > 1)//Release pulled structures beyond 1 distance
 				M.stop_pulling()
 
 	if(now_pushing)
@@ -952,9 +952,6 @@
 		if(AM == pulling)// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.
 			return
 		stop_pulling()
-		for(var/mob/M in AM.pulledby)
-			visible_message("<span class='danger'>[src] has pulled [AM] from [M]'s grip.</span>")
-			M.stop_pulling() //an object can't be pulled by two mobs at once.
 	pulling = AM
 	AM.pulledby.Add(src)
 	if(pullin)

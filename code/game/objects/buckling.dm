@@ -63,7 +63,7 @@
 		M.buckling = null
 		return FALSE
 
-	if(M.pulledby.len)
+	if(length(M.pulledby))
 		if(buckle_prevents_pull)
 			for(var/mob/pullingmob in M.pulledby)
 				pullingmob.stop_pulling()

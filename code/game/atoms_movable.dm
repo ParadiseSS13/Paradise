@@ -74,10 +74,6 @@
 				AMob.grabbedby(src)
 			return TRUE
 		stop_pulling()
-	/*if(length(AM.pulledby))
-		add_attack_logs(AM, AM.pulledby, "pulled from", ATKLOG_ALMOSTALL)
-		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
-		*/ //May be removing this - Dragonkiller93
 	pulling = AM
 	AM.pulledby.Add(src)
 	if(ismob(AM))
@@ -317,7 +313,7 @@
 	if(has_gravity(src))
 		return 1
 
-	if(!pulledby.len)
+	if(!length(pulledby))
 		return 1
 
 	if(throwing)

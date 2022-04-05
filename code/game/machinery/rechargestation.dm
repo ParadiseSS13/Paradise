@@ -230,6 +230,10 @@
 		return
 
 	user.stop_pulling()
+	if(istype(user.l_hand,/obj/item/grab))
+		user.drop_l_hand()
+	if(istype(user.r_hand, /obj/item/grab))
+		user.drop_r_hand()
 	user.forceMove(src)
 	occupant = user
 

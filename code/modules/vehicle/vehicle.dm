@@ -217,7 +217,7 @@
 		return TRUE
 
 	for(var/mob/M in pulledby)
-		if(M.loc!=loc)
+		if(M.loc != loc)
 			return TRUE
 
 	if(needs_gravity)

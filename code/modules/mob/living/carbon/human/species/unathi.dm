@@ -78,7 +78,7 @@
 
 /datum/action/innate/tail_lash/Activate()
 	var/mob/living/carbon/human/user = owner
-	if((user.restrained() && user.pulledby.len) || user.buckled)
+	if((user.restrained() && length(user.pulledby)) || user.buckled)
 		to_chat(user, "<span class='warning'>You need freedom of movement to tail lash!</span>")
 		return
 	if(user.getStaminaLoss() >= 50)

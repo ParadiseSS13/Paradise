@@ -76,7 +76,7 @@
 	if(!..())
 		return
 	var/mob/living/carbon/user = owner
-	if((user.restrained() && user.pulledby.len) || user.buckled) //Is your Wryn restrained, pulled, or buckled? No stinging!
+	if(user.restrained() && length(user.pulledby) || user.buckled) //Is your Wryn restrained, pulled, or buckled? No stinging!
 		to_chat(user, "<span class='notice'>You need freedom of movement to sting someone!</span>")
 		return
 	if(user.wear_suit)	//Is your Wryn wearing a Hardsuit or a Laboat that's blocking their Stinger?
