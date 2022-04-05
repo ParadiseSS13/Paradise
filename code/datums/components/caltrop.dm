@@ -56,4 +56,4 @@
 				H.visible_message("<span class='danger'>[H] slides on [A]!</span>", "<span class='userdanger'>You slide on [A]!</span>")
 
 			cooldown = world.time
-		H.Weaken(3)
+		H.Weaken(6 SECONDS)

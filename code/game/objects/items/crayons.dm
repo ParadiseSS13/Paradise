@@ -293,7 +293,7 @@
 					C.EyeBlind(1)
 					if(C.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
 						C.Confused(3)
-						C.Weaken(3)
+						C.Weaken(6 SECONDS)
 				C.lip_style = "spray_face"
 				C.lip_color = colour
 				C.update_body()

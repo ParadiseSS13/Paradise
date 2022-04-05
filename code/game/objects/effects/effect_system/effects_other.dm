@@ -37,7 +37,7 @@
 		for(var/mob/living/L in viewers(1, location))
 			if(prob(50 * amount))
 				to_chat(L, "<span class='warning'>The explosion knocks you down.</span>")
-				L.Weaken(rand(1,5))
+				L.Weaken(rand(2 SECONDS, 5 SECONDS))
 		return
 	else
 		var/devastation = -1

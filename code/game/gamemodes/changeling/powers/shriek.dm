@@ -24,7 +24,7 @@
 
 		if(issilicon(M))
 			SEND_SOUND(M, sound('sound/weapons/flash.ogg'))
-			M.Weaken(rand(5,10))
+			M.Weaken(rand(10 SECONDS, 20 SECONDS))
 
 	for(var/obj/machinery/light/L in range(4, user))
 		L.on = 1

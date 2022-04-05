@@ -402,7 +402,7 @@
 
 	if(ishuman(M))
 		if(prob(10))
-			M.Weaken(2)
+			M.Weaken(4 SECONDS)
 
 /obj/item/storage/bag/tray/proc/rebuild_overlays()
 	overlays.Cut()

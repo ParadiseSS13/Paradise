@@ -315,11 +315,11 @@
 		user.SetParalysis(0)
 		if(iscarbon(user))
 			var/mob/living/carbon/C = user
-			C.Weaken(6)
+			C.Weaken(12 SECONDS)
 			C.apply_damage(20, BRUTE, "chest")
 		else if(issilicon(user))
 			var/mob/living/silicon/S = user
-			S.Weaken(8)
+			S.Weaken(16 SECONDS)
 			S.apply_damage(20, BRUTE)
 			playsound(S, 'sound/effects/bang.ogg', 50, 1)
 		return 0

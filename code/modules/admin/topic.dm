@@ -1798,8 +1798,7 @@
 			M.gib()
 		else
 			M.adjustBruteLoss(min(99,(M.health - 1)))
-			M.Stun(40 SECONDS)
-			M.Weaken(20)
+			M.Weaken(40 SECONDS)
 			M.Stuttering(20)
 
 	else if(href_list["CentcommReply"])
@@ -2038,7 +2037,7 @@
 				M.electrocute_act(5, "Lightning Bolt", flags = SHOCK_NOGLOVES)
 				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 				M.adjustFireLoss(75)
-				M.Weaken(5)
+				M.Weaken(10 SECONDS)
 				to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
 				logmsg = "a lightning bolt."
 			if("Fire Death")

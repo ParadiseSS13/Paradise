@@ -103,7 +103,7 @@
 			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
 			return
 
-	user.Weaken(4 SECONDS_TO_LIFE_CYCLES)
+	user.Weaken(4 SECONDS)
 	user.visible_message("<span class='warning'>[user] does a grabbing motion towards [get_turf(src)] but [user.p_they()] stumble[user.p_s()] - nothing is there!</span>",
 						 "<span class='userdanger'>[src] vanishes as you try grabbing it, causing you to stumble!</span>")
 	qdel(src)

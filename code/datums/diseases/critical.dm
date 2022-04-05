@@ -186,7 +186,7 @@
 					affected_mob.Slowed(rand(4, 16))
 					to_chat(affected_mob, "<span class='warning'>You feel [pick("tired", "exhausted", "sluggish")].</span>")
 				if(prob(5))
-					affected_mob.Weaken(6)
+					affected_mob.Weaken(12 SECONDS)
 					affected_mob.Stuttering(10)
 					to_chat(affected_mob, "<span class='warning'>You feel [pick("numb", "confused", "dizzy", "lightheaded")].</span>")
 					affected_mob.emote("collapse")
@@ -195,7 +195,7 @@
 					var/datum/disease/D = new /datum/disease/critical/shock
 					affected_mob.ForceContractDisease(D)
 				if(prob(12))
-					affected_mob.Weaken(6)
+					affected_mob.Weaken(12 SECONDS)
 					affected_mob.Stuttering(10)
 					to_chat(affected_mob, "<span class='warning'>You feel [pick("numb", "confused", "dizzy", "lightheaded")].</span>")
 					affected_mob.emote("collapse")

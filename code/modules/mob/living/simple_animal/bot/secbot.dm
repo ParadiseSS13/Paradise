@@ -263,7 +263,7 @@
 		C.apply_damage(10, BRUTE)
 	C.SetStuttering(5)
 	C.Stun(10 SECONDS)
-	C.Weaken(5)
+	C.Weaken(10 SECONDS)
 	add_attack_logs(src, C, "stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
@@ -461,7 +461,7 @@
 						  "[C] trips over [src] and falls!", \
 						  "[C] topples over [src]!", \
 						  "[C] leaps out of [src]'s way!")]</span>")
-		C.Weaken(2)
+		C.Weaken(4 SECONDS)
 		return
 	..()
 

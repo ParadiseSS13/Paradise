@@ -51,17 +51,14 @@
 		// Flash
 		if(flash)
 			if(M.flash_eyes(affect_silicon = TRUE))
-				M.Stun(stun_amount)
 				M.Weaken(stun_amount)
 
 		// Bang
 		var/ear_safety = M.check_ear_prot()
 		if(bang)
 			if(!distance || A.loc == M || A.loc == M.loc) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
-				M.Stun(20 SECONDS)
-				M.Weaken(10)
+				M.Weaken(20 SECONDS)
 			if(!ear_safety)
-				M.Stun(stun_amount)
 				M.Weaken(stun_amount)
 				M.AdjustEarDamage(5, 15)
 				if(iscarbon(M))

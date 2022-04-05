@@ -84,8 +84,7 @@
 
 /obj/item/projectile/bullet/sniper
 	damage = 70
-	stun = 5
-	weaken = 5
+	weaken = 10 SECONDS
 	armour_penetration = 50
 
 /obj/item/ammo_box/magazine/sniper_rounds/antimatter
@@ -158,8 +157,7 @@
 /obj/item/projectile/bullet/sniper/haemorrhage
 	armour_penetration = 25
 	damage = 45
-	stun = 3
-	weaken = 3
+	weaken = 6 SECONDS
 
 /obj/item/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && iscarbon(target))

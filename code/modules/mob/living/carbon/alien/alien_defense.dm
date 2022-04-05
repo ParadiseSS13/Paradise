@@ -15,8 +15,8 @@ In all, this is a lot like the monkey code. /N
 			AdjustSleeping(-5)
 			StopResting()
 			AdjustParalysis(-3)
-			AdjustStunned(-3)
-			AdjustWeakened(-3)
+			AdjustStunned(-6 SECONDS)
+			AdjustWeakened(-6 SECONDS)
 			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
 
 		if(INTENT_GRAB)

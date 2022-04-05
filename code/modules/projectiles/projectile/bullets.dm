@@ -158,8 +158,7 @@
 /obj/item/projectile/bullet/stunshot //taser slugs for shotguns, nothing special
 	name = "stunshot"
 	damage = 5
-	stun = 5
-	weaken = 5
+	weaken = 10 SECONDS
 	stutter = 5
 	jitter = 20
 	range = 7
@@ -186,8 +185,7 @@
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "dust"
 	damage = 30
-	stun = 1
-	weaken = 4
+	weaken = 8 SECONDS
 	hitsound = 'sound/effects/meteorimpact.ogg'
 
 /obj/item/projectile/bullet/meteorshot/on_hit(atom/target, blocked = 0)

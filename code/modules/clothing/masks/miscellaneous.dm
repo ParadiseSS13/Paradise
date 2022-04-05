@@ -183,7 +183,7 @@
 		to_chat(L, "<span class='danger'>You feel a sharp shock!</span>")
 		do_sparks(3, 1, L)
 
-		L.Weaken(5)
+		L.Weaken(10 SECONDS)
 		L.Stuttering(1)
 		L.Jitter(20)
 	return

@@ -474,7 +474,7 @@
 							location.add_vomit_floor(TRUE)
 				if(ORION_TRAIL_FLUX)
 					if(prob(75))
-						M.Weaken(3)
+						M.Weaken(6 SECONDS)
 						atom_say("A sudden gust of powerful wind slams [M] into the floor!")
 						M.take_organ_damage(25)
 						playsound(loc, 'sound/weapons/genhit.ogg', 100, TRUE)

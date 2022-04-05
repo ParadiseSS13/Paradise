@@ -574,8 +574,7 @@
 		icon_state = "[lasercolor]ed209[on]"
 	var/threat = C.assess_threat(src)
 	C.SetStuttering(5)
-	C.Stun(10 SECONDS)
-	C.Weaken(5)
+	C.Weaken(10 SECONDS)
 	add_attack_logs(src, C, "stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)

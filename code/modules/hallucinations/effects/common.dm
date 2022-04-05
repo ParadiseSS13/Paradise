@@ -18,7 +18,6 @@
 		var/mob/living/M = mover
 		if(M.lying || !prob(trip_chance))
 			return
-		M.Stun(stun)
 		M.Weaken(weaken)
 		on_crossed()
 

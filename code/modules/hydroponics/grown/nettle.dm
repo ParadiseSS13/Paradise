@@ -99,7 +99,7 @@
 /obj/item/grown/nettle/death/pickup(mob/living/carbon/user)
 	if(..())
 		if(prob(50))
-			user.Weaken(5)
+			user.Weaken(10 SECONDS)
 			to_chat(user, "<span class='userdanger'>You are stunned by the Deathnettle when you try picking it up!</span>")
 
 /obj/item/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
@@ -110,6 +110,8 @@
 
 		M.AdjustEyeBlurry(force/7)
 		if(prob(20))
-			M.Paralyse(force / 6)
-			M.Weaken(force / 15)
+			var/paralyze_time = (force * 10) / 3 // paralyze time in seconds
+			var/stun_time = (force * 10) / 7.5 // stun time in seconds
+			M.Paralyse(paralyze_time)
+			M.Weaken(stun_time)
 		M.drop_item()

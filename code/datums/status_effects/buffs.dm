@@ -336,7 +336,7 @@
 /datum/status_effect/speedlegs/tick()
 	if(owner.stat || owner.staminaloss >= 90 || owner.mind.changeling.chem_charges <= (stacks + 1) * 3)
 		to_chat(owner, "<span class='danger'>Our muscles relax without the energy to strengthen them.</span>")
-		owner.Weaken(3)
+		owner.Weaken(6 SECONDS)
 		owner.remove_status_effect(STATUS_EFFECT_SPEEDLEGS)
 	else
 		stacks++
@@ -356,6 +356,6 @@
 		to_chat(owner, "<span class='notice'>Our muscles relax.</span>")
 		if(stacks >= 7)
 			to_chat(owner, "<span class='danger'>We collapse in exhaustion.</span>")
-			owner.Weaken(3)
+			owner.Weaken(6 SECONDS)
 			owner.emote("gasp")
 	owner.mind.changeling.geneticdamage += stacks

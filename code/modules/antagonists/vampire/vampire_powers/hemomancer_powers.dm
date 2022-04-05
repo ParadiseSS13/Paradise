@@ -234,8 +234,8 @@
 		H.adjustBruteLoss(2)
 		owner.heal_overall_damage(8, 2, TRUE)
 		owner.adjustStaminaLoss(-15)
-		owner.AdjustStunned(-1)
-		owner.AdjustWeakened(-1)
+		owner.AdjustStunned(-2 SECONDS)
+		owner.AdjustWeakened(-2 SECONDS)
 		if(drain_amount == 10)
 			to_chat(H, "<span class='warning'>You feel your life force draining!</b></span>")
 

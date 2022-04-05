@@ -181,7 +181,7 @@
 			C.stuttering = 20 //stammer
 			C.AdjustEarDamage(0, 5) //far less damage than the H.O.N.K.
 			C.Jitter(50)
-			C.Weaken(5)
+			C.Weaken(10 SECONDS)
 			C.Stun(10 SECONDS)
 			if(client) //prevent spam from players..
 				spam_flag = TRUE
@@ -321,7 +321,7 @@
 						  	"[C] trips over [src] and falls!", \
 						  	"[C] topples over [src]!", \
 						  	"[C] leaps out of [src]'s way!")]</span>")
-			C.Weaken(5)
+			C.Weaken(10 SECONDS)
 			playsound(loc, 'sound/misc/sadtrombone.ogg', 50, 1, -1)
 			if(!client)
 				speak("Honk!")

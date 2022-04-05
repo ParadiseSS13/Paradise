@@ -98,9 +98,9 @@
 		owner.custom_emote(1, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
 	switch(severity)
 		if(1)
-			owner.AdjustWeakened(4)
+			owner.AdjustWeakened(8 SECONDS)
 		if(2)
-			owner.AdjustWeakened(2)
+			owner.AdjustWeakened(4 SECONDS)
 
 /obj/item/organ/external/leg/right
 	limb_name = "r_leg"
@@ -136,9 +136,9 @@
 		owner.custom_emote(1, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
 	switch(severity)
 		if(1)
-			owner.AdjustWeakened(4)
+			owner.AdjustWeakened(8 SECONDS)
 		if(2)
-			owner.AdjustWeakened(2)
+			owner.AdjustWeakened(4 SECONDS)
 
 /obj/item/organ/external/foot/remove()
 	if(owner && owner.shoes) owner.unEquip(owner.shoes)

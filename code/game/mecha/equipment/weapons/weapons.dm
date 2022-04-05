@@ -215,7 +215,7 @@
 		M.SetSleeping(0)
 		M.Stuttering(20)
 		M.AdjustEarDamage(0, 30)
-		M.Weaken(3)
+		M.Weaken(6 SECONDS)
 		if(prob(30))
 			M.Stun(20 SECONDS)
 			M.Paralyse(4)

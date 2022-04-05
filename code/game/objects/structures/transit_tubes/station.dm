@@ -70,7 +70,7 @@
 		pod.eject(AM)
 		if(isliving(AM))
 			var/mob/living/L = AM
-			L.Weaken(5)
+			L.Weaken(10 SECONDS)
 
 
 /obj/structure/transit_tube/station/attackby(obj/item/W, mob/user, params)
@@ -81,7 +81,7 @@
 			for(var/obj/structure/transit_tube_pod/pod in loc)
 				pod.visible_message("<span class='warning'>[user] starts putting [GM] into [pod]!</span>")
 				if(do_after(user, 30, target = GM) && GM && G && G.affecting == GM)
-					GM.Weaken(5)
+					GM.Weaken(10 SECONDS)
 					Bumped(GM)
 					qdel(G)
 				break

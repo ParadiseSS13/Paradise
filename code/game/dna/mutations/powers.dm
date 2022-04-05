@@ -507,8 +507,7 @@
 		user.visible_message("<span class='danger'>[user.name]</b> takes a huge leap!</span>")
 		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
 		if(failure)
-			user.Weaken(5)
-			user.Stun(10 SECONDS)
+			user.Weaken(10 SECONDS)
 			user.visible_message("<span class='warning'>[user] attempts to leap away but is slammed back down to the ground!</span>",
 								"<span class='warning'>You attempt to leap away but are suddenly slammed back down to the ground!</span>",
 								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
@@ -528,8 +527,8 @@
 		if(HAS_TRAIT(user, TRAIT_FAT) && prob(66))
 			user.visible_message("<span class='danger'>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
 			//playsound(user.loc, 'zhit.wav', 50, 1)
-			user.AdjustWeakened(10)
-			user.AdjustStunned(5)
+			user.AdjustWeakened(20 SECONDS)
+			user.AdjustStunned(10 SECONDS)
 
 		user.layer = prevLayer
 
@@ -537,7 +536,7 @@
 		var/obj/container = user.loc
 		to_chat(user, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
 		user.AdjustParalysis(3)
-		user.AdjustWeakened(5)
+		user.AdjustWeakened(10 SECONDS)
 		container.visible_message("<span class='danger'>[user.loc]</b> emits a loud thump and rattles a bit.</span>")
 		playsound(user.loc, 'sound/effects/bang.ogg', 50, 1)
 		var/wiggle = 6

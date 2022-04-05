@@ -449,7 +449,7 @@
 								message = "<B>[src]</B> attempts a flip and crashes to the floor!"
 								SpinAnimation(5,1)
 								sleep(3)
-								Weaken(2)
+								Weaken(4 SECONDS)
 							else
 								message = "<B>[src]</B> does a flip!"
 								SpinAnimation(5,1)

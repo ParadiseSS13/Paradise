@@ -257,7 +257,7 @@
 			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
 			user.visible_message("<span class='danger'>[user] slams the charged axe into [M.name] with all [user.p_their()] might!</span>")
 			do_sparks(1, 1, src)
-			target.Weaken(4)
+			target.Weaken(8 SECONDS)
 			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
 			M.throw_at(throw_target, 5, 1)
 
@@ -625,7 +625,7 @@
 		if(!isliving(target))
 			return
 		else
-			target.Weaken(4)
+			target.Weaken(8 SECONDS)
 			..()
 		return
 	else
@@ -696,7 +696,7 @@
 				var/obj/item/clothing/shoes/magboots/M = H.shoes
 				if(M.magpulse)
 					continue
-			H.Weaken(2)
+			H.Weaken(4 SECONDS)
 			step_towards(H, pull)
 			step_towards(H, pull)
 			step_towards(H, pull)

@@ -36,7 +36,7 @@
 
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))
-		user.Weaken(5)
+		user.Weaken(10 SECONDS)
 		user.unEquip(src, 1)
 		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>",
 							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
@@ -67,7 +67,7 @@
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
 	breakouttime = 45
-	weaken = 1
+	weaken = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
@@ -160,7 +160,7 @@
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.unEquip(src, 1)
 		user.Confused(10)
-		user.Weaken(5)
+		user.Weaken(10 SECONDS)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(current_charges && !owner.holy_check())
@@ -202,7 +202,7 @@
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.unEquip(src, 1)
 		user.Confused(10)
-		user.Weaken(5)
+		user.Weaken(10 SECONDS)
 	else if(slot == slot_wear_suit)
 		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes")
 
@@ -268,7 +268,7 @@
 		to_chat(user, "<span class='cultlarge'>\"You want to be blind, do you?\"</span>")
 		user.unEquip(src, 1)
 		user.Confused(30)
-		user.Weaken(5)
+		user.Weaken(10 SECONDS)
 		user.EyeBlind(30)
 
 /obj/item/shuttle_curse
@@ -281,7 +281,7 @@
 /obj/item/shuttle_curse/attack_self(mob/living/user)
 	if(!iscultist(user))
 		user.unEquip(src, 1)
-		user.Weaken(5)
+		user.Weaken(10 SECONDS)
 		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
 		return
 	if(curselimit > 1)
@@ -472,7 +472,7 @@
 				T.visible_message("<span class='warning'>The sheer force from [P] shatters the mirror shield!</span>")
 				new /obj/effect/temp_visual/cult/sparks(T)
 				playsound(T, 'sound/effects/glassbr3.ogg', 100)
-				owner.Weaken(3)
+				owner.Weaken(6 SECONDS)
 				qdel(src)
 				return FALSE
 
@@ -572,7 +572,7 @@
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
 			if(!L.null_rod_check())
-				L.Weaken(3)
+				L.Weaken(6 SECONDS)
 			break_spear(T)
 	else
 		..()

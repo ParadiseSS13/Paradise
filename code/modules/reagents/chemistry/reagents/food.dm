@@ -106,8 +106,8 @@
 		M.AdjustJitter(2)
 	if(prob(50))
 		update_flags |= M.AdjustParalysis(-1, FALSE)
-		update_flags |= M.AdjustStunned(-1, FALSE)
-		update_flags |= M.AdjustWeakened(-1, FALSE)
+		M.AdjustStunned(-2 SECONDS)
+		M.AdjustWeakened(-2 SECONDS)
 	if(prob(4))
 		M.reagents.add_reagent("epinephrine", 1.2)
 	return ..() | update_flags
@@ -119,8 +119,8 @@
 
 /datum/reagent/consumable/sugar/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.Paralyse(3 * severity, FALSE)
-	update_flags |= M.Weaken(4 * severity, FALSE)
+	update_flags |= M.Paralyse(3 * severity)
+	M.Weaken(8 SECONDS * severity)
 	if(prob(8))
 		update_flags |= M.adjustToxLoss(severity, FALSE)
 	return list(0, update_flags)
@@ -227,7 +227,7 @@
 				victim.EyeBlind(1)
 				victim.Confused(3)
 				victim.damageoverlaytemp = 60
-				victim.Weaken(3)
+				victim.Weaken(6 SECONDS)
 				victim.drop_item()
 				return
 			else if( eyes_covered ) // Eye cover is better than mouth cover
@@ -243,7 +243,7 @@
 				victim.EyeBlind(2)
 				victim.Confused(6)
 				victim.damageoverlaytemp = 75
-				victim.Weaken(5)
+				victim.Weaken(10 SECONDS)
 				victim.drop_item()
 
 /datum/reagent/consumable/frostoil
@@ -358,7 +358,7 @@
 		if(V && !V.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
 			if(prob(min(25, current_cycle)))
 				to_chat(H, "<span class='danger'>You can't get the scent of garlic out of your nose! You can barely think...</span>")
-				H.Weaken(1)
+				H.Weaken(2 SECONDS)
 				H.Jitter(10)
 				H.fakevomit()
 		else
@@ -824,8 +824,7 @@
 /datum/reagent/questionmark/reaction_mob(mob/living/carbon/human/H, method = REAGENT_TOUCH, volume)
 	if(istype(H) && method == REAGENT_INGEST)
 		if(H.dna.species.taste_sensitivity < TASTE_SENSITIVITY_NO_TASTE) // If you can taste it, then you know how awful it is.
-			H.Stun(2, FALSE)
-			H.Weaken(2, FALSE)
+			H.Weaken(4 SECONDS)
 			H.update_canmove()
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
 		if(HAS_TRAIT(H, TRAIT_NOHUNGER)) //If you don't eat, then you can't get food poisoning
@@ -868,11 +867,10 @@
 	else if(volume >= 45 && prob(volume*0.08))
 		to_chat(M, "<span class='warning'>Your chest [pick("hurts","stings","aches","burns")]!</span>")
 		update_flags |= M.adjustToxLoss(rand(2,4), FALSE)
-		update_flags |= M.Stun(2 SECONDS, FALSE)
+		update_flags |= M.Stun(2 SECONDS)
 	else if(volume >= 150 && prob(volume*0.01))
 		to_chat(M, "<span class='warning'>Your chest is burning with pain!</span>")
-		update_flags |= M.Stun(2 SECONDS, FALSE)
-		update_flags |= M.Weaken(1, FALSE)
+		update_flags |= M.Weaken(2 SECONDS)
 		M.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
 	return ..() | update_flags
 

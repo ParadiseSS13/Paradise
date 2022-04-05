@@ -131,7 +131,7 @@
 	var/prev_dir = user.dir
 	var/prev_pass_flags = user.pass_flags
 	user.pass_flags |= PASSMOB
-	user.Weaken(2)
+	user.Weaken(4 SECONDS)
 	user.dir = prev_dir
 	playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
 	recharging_time = world.time + recharging_rate

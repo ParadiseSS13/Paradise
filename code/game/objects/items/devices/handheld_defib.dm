@@ -63,8 +63,8 @@
 					to_chat(user, "<span class='danger'>[H] doesn't respond!</span>")
 
 			H.AdjustParalysis(3)
-			H.AdjustStunned(5)
-			H.AdjustWeakened(5)
+			H.AdjustStunned(10 SECONDS)
+			H.AdjustWeakened(10 SECONDS)
 			H.AdjustStuttering(10)
 			to_chat(H, "<span class='danger'>You feel a powerful jolt!</span>")
 			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)

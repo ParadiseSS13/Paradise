@@ -193,7 +193,6 @@
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
-	L.Stun(stunforce)
 	L.Weaken(stunforce)
 	L.Stuttering(stunforce)
 

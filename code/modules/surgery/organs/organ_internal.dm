@@ -264,7 +264,7 @@
 		owner.SetSleeping(0)
 		owner.Stuttering(20)
 		owner.AdjustEarDamage(0, 30)
-		owner.Weaken(3)
+		owner.Weaken(6 SECONDS)
 		SEND_SOUND(owner, sound('sound/items/airhorn.ogg'))
 		if(prob(30))
 			owner.Stun(20 SECONDS)

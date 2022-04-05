@@ -217,8 +217,8 @@
 		var/boost = emagged ? 2 : 1
 		owner.AdjustDrowsy(-4 * boost)
 		owner.AdjustParalysis(-1 * boost)
-		owner.AdjustStunned(-1 * boost)
-		owner.AdjustWeakened(-1 * boost)
+		owner.AdjustStunned(-2 SECONDS * boost)
+		owner.AdjustWeakened(-2 SECONDS * boost)
 		owner.SetSleeping(0)
 		owner.adjustStaminaLoss(-1 * boost)
 

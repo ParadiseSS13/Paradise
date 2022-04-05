@@ -622,7 +622,7 @@
 
 	if(getBrainLoss() >= 100) // braindeath
 		AdjustLoseBreath(10, bound_lower = 0, bound_upper = 25)
-		Weaken(30)
+		Weaken(60 SECONDS)
 
 	if(!check_death_method())
 		if(health <= HEALTH_THRESHOLD_DEAD)
@@ -668,7 +668,7 @@
 						ForceContractDisease(D)
 					if(prob(6))
 						to_chat(src, "<span class='userdanger'>You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!</span>")
-						Weaken(3)
+						Weaken(6 SECONDS)
 					if(prob(3))
 						Paralyse(2)
 				if(-49 to 0)
@@ -678,7 +678,7 @@
 						ForceContractDisease(D)
 					if(prob(5))
 						to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
-						Weaken(3)
+						Weaken(6 SECONDS)
 
 /mob/living/carbon/human/update_health_hud()
 	if(!client)
@@ -958,7 +958,7 @@
 		adjustBrainLoss(3)
 	else if(prob(10))
 		adjustBrainLoss(1)
-	Weaken(5)
+	Weaken(10 SECONDS)
 	AdjustLoseBreath(20, bound_lower = 0, bound_upper = 25)
 	adjustOxyLoss(20)
 

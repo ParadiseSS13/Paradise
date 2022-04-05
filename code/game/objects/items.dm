@@ -599,7 +599,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 					M.drop_item()
 				M.AdjustEyeBlurry(10)
 				M.Paralyse(1)
-				M.Weaken(2)
+				M.Weaken(4 SECONDS)
 			if(eyes.damage >= eyes.min_broken_damage)
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")

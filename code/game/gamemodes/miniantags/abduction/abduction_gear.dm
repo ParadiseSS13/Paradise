@@ -485,7 +485,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	L.lastattackerckey = user.ckey
 
 	L.Stun(14 SECONDS)
-	L.Weaken(7)
+	L.Weaken(14 SECONDS)
 	L.apply_effect(STUTTER, 7)
 
 	L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \

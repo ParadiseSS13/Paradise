@@ -187,12 +187,12 @@
 			target.AdjustConfused(3)
 			target.adjustStaminaLoss(40)
 		else if(deviation == DEVIATION_PARTIAL)
-			target.Weaken(1)
+			target.Weaken(2 SECONDS)
 			target.AdjustConfused(3)
 			target.adjustStaminaLoss(40)
 		else
 			target.adjustStaminaLoss(120)
-			target.Weaken(6)
+			target.Weaken(12 SECONDS)
 			target.AdjustSilence(3)
 			target.flash_eyes(1, TRUE, TRUE)
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
@@ -295,7 +295,7 @@
 			H.adjustBrainLoss(60)
 		else
 			visible_message("<span class='warning'>[H] looks to be stunned by the energy!</span>")
-			H.Weaken(20)
+			H.Weaken(40 SECONDS)
 		return
 	for(var/obj/item/implant/mindshield/L in H)
 		if(L && L.implanted)
@@ -312,7 +312,7 @@
 	add_attack_logs(M, H, "Vampire-sired")
 	H.mind.make_vampire()
 	H.revive()
-	H.Weaken(20)
+	H.Weaken(40 SECONDS)
 
 /obj/effect/proc_holder/spell/turf_teleport/shadow_step
 	name = "Shadow Step (30)"

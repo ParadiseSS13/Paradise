@@ -101,8 +101,7 @@
 
 		if(isliving(user) && !issilicon(user))
 			var/stun = (min(shock_damage, 15)) * 20
-			user.Stun(stun)
-			user.Weaken(10)
+			user.Weaken(stun)
 			user.electrocute_act(shock_damage, src, 1)
 
 		else if(issilicon(user))
