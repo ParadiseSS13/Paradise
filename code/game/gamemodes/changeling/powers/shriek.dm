@@ -46,4 +46,5 @@
 		L.on = 1
 		L.break_light_tube()
 	empulse(get_turf(user), 2, 4, 1)
+	user.SetConfused(0)
 	return 1
