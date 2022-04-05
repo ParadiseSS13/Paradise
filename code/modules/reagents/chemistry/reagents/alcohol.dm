@@ -955,7 +955,7 @@
 /datum/reagent/consumable/ethanol/neurotoxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(current_cycle >= 13)
-		update_flags |= M.Weaken(6 SECONDS)
+		M.Weaken(6 SECONDS)
 	if(current_cycle >= 55)
 		update_flags |= M.Druggy(55, FALSE)
 	if(current_cycle >= 200)
@@ -1185,7 +1185,7 @@
 	if(prob(50))
 		to_chat(M, "<span class='danger'>Your throat burns terribly!</span>")
 		M.emote(pick("scream","cry","choke","gasp"))
-		update_flags |= M.Stun(2 SECONDS, FALSE)
+		M.Stun(2 SECONDS, FALSE)
 	if(prob(8))
 		to_chat(M, "<span class='danger'>Why!? WHY!?</span>")
 	if(prob(8))
