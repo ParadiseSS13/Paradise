@@ -82,7 +82,7 @@
 
 // Used to get a sanitized input.
 /proc/stripped_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
-	var/name = sanitize(input(user, message, title, html_decode(default))) as text|null
+	var/name = sanitize(input(user, message, title, html_decode(default)) as text|null)
 	if(!no_trim)
 		name = trim(name) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
 	return copytext(name, 1, max_length)
