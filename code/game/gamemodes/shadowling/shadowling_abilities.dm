@@ -54,15 +54,15 @@
 		H.Stun(20 SECONDS)
 		H.AdjustSilence(10)
 	else //Distant glare
-		var/loss = 20 SECONDS - distance * 5
-		var/duration = 10 - loss
+		var/loss = 10 - distance
+		var/duration = (10 - loss) * 20
 		if(loss <= 0)
 			to_chat(user, "<span class='danger'>Your glare had no effect over a such long distance!</span>")
 			return
-		H.slowed = duration
+		H.Slowed(duration)
 		H.AdjustSilence(10)
 		to_chat(H, "<span class='userdanger'>A red light flashes across your vision, and your mind tries to resist them.. you are exhausted.. you are not able to speak..</span>")
-		addtimer(CALLBACK(src, .proc/do_stun, H, user, loss), duration SECONDS)
+		addtimer(CALLBACK(src, .proc/do_stun, H, user, loss * 20), duration SECONDS)
 
 /obj/effect/proc_holder/spell/glare/proc/do_stun(mob/living/carbon/human/target, user, stun_time)
 	if(!istype(target) || target.stat)

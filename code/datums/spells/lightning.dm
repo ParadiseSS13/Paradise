@@ -45,5 +45,5 @@
 		target.AdjustJitter(1000) //High numbers for violent convulsions
 		target.do_jitter_animation(target.jitteriness)
 		target.AdjustStuttering(2)
-		target.Slowed(3)
+		target.Slowed(6 SECONDS)
 		addtimer(CALLBACK(target, /mob/.proc/AdjustJitter, -1000, 10), 2 SECONDS) //Still jittery, but vastly less

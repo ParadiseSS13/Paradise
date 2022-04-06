@@ -97,17 +97,6 @@
 /mob/proc/AdjustSleeping()
 	return
 
-
-/mob/proc/Slowed()
-	return
-
-/mob/proc/SetSlowed()
-	return
-
-/mob/proc/AdjustSlowed()
-	return
-
-
 /mob/proc/Slur()
 	return
 

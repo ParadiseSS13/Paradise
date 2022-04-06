@@ -131,8 +131,6 @@
 		AdjustParalysis(-1, updating = 1, force = 1)
 	if(sleeping)
 		handle_sleeping()
-	if(slowed)
-		AdjustSlowed(-1)
 	if(cultslurring)
 		AdjustCultSlur(-1)
 

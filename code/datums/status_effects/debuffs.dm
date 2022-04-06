@@ -347,14 +347,24 @@
 	owner.update_canmove()
 	return ..()
 
-//STUN
+//STUN - prevents movement and actions, victim stays standing
 /datum/status_effect/incapacitating/stun
 	id = "stun"
 
-//IMMOBILIZED
+//IMMOBILIZED - prevents movement, victim can still stand and act
 /datum/status_effect/incapacitating/immobilized
 	id = "immobilized"
 
-//PARALYZED
+//PARALYZED - TODO: change all `Weaken()` procs to Paralyze if maintainers want it
 /datum/status_effect/incapacitating/paralyzed
 	id = "paralyzed"
+
+//SLOWED - slows down the victim for a duration and a given slowdown value.
+/datum/status_effect/incapacitating/slowed
+	id = "slowed"
+	var/slowdown_value = 10 // defaults to this value if none is specified
+
+/datum/status_effect/incapacitating/slowed/on_creation(mob/living/new_owner, set_duration, _slowdown_value)
+	. = ..()
+	if(isnum(_slowdown_value))
+		slowdown_value = _slowdown_value

@@ -275,7 +275,7 @@
 
 /**
  * # Transient Status Effect (basetype)
- * 
+ *
  * A status effect that works off a (possibly decimal) counter before expiring, rather than a specified world.time.
  * This allows for a more precise tweaking of status durations at runtime (e.g. paralysis).
  */

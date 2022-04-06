@@ -916,8 +916,9 @@
 	if(isturf(loc))
 		var/turf/T = loc
 		. += T.slowdown
-	if(slowed)
-		. += 10
+	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
+	if(S)
+		. += S.slowdown_value
 	if(forced_look)
 		. += 3
 	if(ignorewalk)

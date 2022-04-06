@@ -102,7 +102,6 @@
 	var/paralysis = 0
 	var/silent = 0
 	var/sleeping = 0
-	var/slowed = 0
 	var/slurring = 0
 	var/stuttering = 0
 
@@ -401,16 +400,41 @@
 	return SetSleeping(new_value, updating, no_alert)
 
 // SLOWED
+/mob/living/proc/IsSlowed()
+	return has_status_effect(STATUS_EFFECT_SLOWED)
 
-/mob/living/Slowed(amount, updating = 1)
-	SetSlowed(max(slowed, amount), updating)
+/mob/living/proc/Slowed(amount, _slowdown_value)
+	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
+	if(S)
+		S.duration = max(world.time + amount, S.duration)
+		S.slowdown_value = _slowdown_value
+	else if(amount > 0)
+		S = apply_status_effect(STATUS_EFFECT_SLOWED, amount, _slowdown_value)
+	return S
 
-/mob/living/SetSlowed(amount, updating = 1)
-	slowed = max(amount, 0)
+/mob/living/proc/SetSlowed(amount, _slowdown_value)
+	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
+	if(amount <= 0 || _slowdown_value <= 0)
+		if(S)
+			qdel(S)
+	else
+		if(S)
+			S.duration = amount
+			S.slowdown_value = _slowdown_value
+		else
+			S = apply_status_effect(STATUS_EFFECT_SLOWED, amount, _slowdown_value)
+	return S
 
-/mob/living/AdjustSlowed(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1)
-	var/new_value = directional_bounded_sum(slowed, amount, bound_lower, bound_upper)
-	SetSlowed(new_value, updating)
+
+/mob/living/proc/AdjustSlowedDuration(amount)
+	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
+	if(S)
+		S.duration += amount
+
+/mob/living/proc/AdjustSlowedIntensity(intensity)
+	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
+	if(S)
+		S.slowdown_value += intensity
 
 // SLURRING
 
@@ -442,7 +466,7 @@
 
 /* STUN */
 /mob/living/proc/IsStunned() //If we're stunned
-	return has_status_effect(/datum/status_effect/incapacitating/stun)
+	return has_status_effect(STATUS_EFFECT_STUN)
 
 /mob/living/proc/AmountStun() //How many deciseconds remain in our stun
 	var/datum/status_effect/incapacitating/stun/S = IsStunned()
