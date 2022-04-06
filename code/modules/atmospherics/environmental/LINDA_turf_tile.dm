@@ -273,6 +273,7 @@
 	var/atmos_overlay = get_atmos_overlay_by_name(atmos_overlay_type)
 	if(atmos_overlay)
 		vis_contents -= atmos_overlay
+		atmos_overlay_type = null
 
 	atmos_overlay = get_atmos_overlay_by_name(new_overlay_type)
 	if(atmos_overlay)
@@ -308,7 +309,7 @@
 				T.consider_pressure_difference(src, difference)
 		last_share_check()
 
-/turf/proc/consider_pressure_difference(var/turf/simulated/T, var/difference)
+/turf/proc/consider_pressure_difference(turf/simulated/T, difference)
 	SSair.high_pressure_delta |= src
 	if(difference > pressure_difference)
 		pressure_direction = get_dir(src, T)
@@ -354,13 +355,13 @@
 	if(SSair)
 		SSair.excited_groups += src
 
-/datum/excited_group/proc/add_turf(var/turf/simulated/T)
+/datum/excited_group/proc/add_turf(turf/simulated/T)
 	turf_list += T
 	T.excited_group = src
 	T.recently_active = 1
 	reset_cooldowns()
 
-/datum/excited_group/proc/merge_groups(var/datum/excited_group/E)
+/datum/excited_group/proc/merge_groups(datum/excited_group/E)
 	if(length(turf_list) > length(E.turf_list))
 		SSair.excited_groups -= E
 		for(var/turf/simulated/T in E.turf_list)

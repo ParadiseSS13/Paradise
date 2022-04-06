@@ -42,7 +42,7 @@
 	product_cost = cost
 
 /obj/item/circuitboard/machine/bluespace_tap
-	name = "Bluespace Harvester (Machine Board)"
+	board_name = "Bluespace Harvester"
 	build_path = /obj/machinery/power/bluespace_tap
 	origin_tech = "engineering=2;combat=2;bluespace=3"
 	req_components = list(
@@ -156,10 +156,10 @@
 		/obj/item/reagent_containers/food/snacks/sliceable/cheesecake,
 		/obj/item/reagent_containers/food/snacks/sliceable/bananacake,
 		/obj/item/reagent_containers/food/snacks/sliceable/chocolatecake,
-		/obj/item/reagent_containers/food/snacks/meatballsoup,
-		/obj/item/reagent_containers/food/snacks/mysterysoup,
-		/obj/item/reagent_containers/food/snacks/stew,
-		/obj/item/reagent_containers/food/snacks/hotchili,
+		/obj/item/reagent_containers/food/snacks/soup/meatballsoup,
+		/obj/item/reagent_containers/food/snacks/soup/mysterysoup,
+		/obj/item/reagent_containers/food/snacks/soup/stew,
+		/obj/item/reagent_containers/food/snacks/soup/hotchili,
 		/obj/item/reagent_containers/food/snacks/burrito,
 		/obj/item/reagent_containers/food/snacks/fishburger,
 		/obj/item/reagent_containers/food/snacks/cubancarp,
@@ -326,7 +326,7 @@
 	else if(input_level > desired_level)
 		input_level--
 	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
-		GLOB.event_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction")
+		GLOB.event_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
 		if(!emagged)
 			input_level = 0	//emergency shutdown unless we're sabotaged
 			desired_level = 0

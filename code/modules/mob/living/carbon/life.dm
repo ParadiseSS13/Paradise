@@ -306,8 +306,6 @@
 			AdjustSleeping(1)
 			Paralyse(5)
 
-	if(confused)
-		AdjustConfused(-1)
 
 	//Jitteryness
 	if(jitteriness)
@@ -315,8 +313,7 @@
 		AdjustJitter(-restingpwr)
 
 	if(hallucination)
-		spawn handle_hallucinations()
-
+		handle_hallucinations()
 		AdjustHallucinate(-2)
 
 	// Keep SSD people asleep
@@ -325,7 +322,7 @@
 
 /mob/living/carbon/handle_sleeping()
 	if(..())
-		if(mind?.vampire)
+		if(mind?.has_antag_datum(/datum/antagonist/vampire))
 			if(istype(loc, /obj/structure/closet/coffin))
 				adjustBruteLoss(-1, FALSE)
 				adjustFireLoss(-1, FALSE)
@@ -347,7 +344,7 @@
 		if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
 			adjustBruteLoss(-1 * comfort, FALSE)
 			adjustFireLoss(-1 * comfort)
-		if(prob(10) && health && hal_screwyhud != SCREWYHUD_CRIT)
+		if(prob(10) && health && health_hud_override != HEALTH_HUD_OVERRIDE_CRIT)
 			emote("snore")
 
 	return sleeping

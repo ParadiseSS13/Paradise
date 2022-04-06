@@ -1,5 +1,5 @@
 
-/client/proc/forceEvent(var/type in SSevents.allEvents)
+/client/proc/forceEvent(type in SSevents.allEvents)
 	set name = "Trigger Event"
 	set category = "Debug"
 

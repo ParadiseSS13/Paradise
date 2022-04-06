@@ -7,7 +7,7 @@
 	brute_resist = 0.25
 	explosion_block = 3
 	atmosblock = TRUE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90)
 
 /obj/structure/blob/shield/core
 	point_return = 0
@@ -48,6 +48,6 @@
 	if(abs(incidence_s) > 90 && abs(incidence_s) < 270)
 		return FALSE
 	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
-	P.setAngle(new_angle_s)
+	P.set_angle(new_angle_s)
 	visible_message("<span class='warning'>[P] reflects off [src]!</span>")
 	return TRUE

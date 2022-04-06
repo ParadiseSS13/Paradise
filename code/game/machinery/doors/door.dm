@@ -9,7 +9,7 @@
 	layer = OPEN_DOOR_LAYER
 	power_channel = ENVIRON
 	max_integrity = 350
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70)
 	flags = PREVENT_CLICK_UNDER
 	damage_deflection = 10
 	var/closingLayer = CLOSED_DOOR_LAYER
@@ -149,6 +149,25 @@
 				B.door_opened(src)
 		else
 			do_animate("deny")
+			if(HAS_TRAIT(user, TRAIT_FORCE_DOORS))
+				var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
+
+				if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+					if(!V.bloodusable)
+						REMOVE_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
+						return
+				if(welded)
+					to_chat(user, "<span class='warning'>The door is welded.</span>")
+					return
+				if(locked)
+					to_chat(user, "<span class='warning'>The door is bolted.</span>")
+					return
+				if(density)
+					visible_message("<span class='danger'>[user] forces the door open!</span>")
+					playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+					open(TRUE)
+				if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+					V.bloodusable = max(V.bloodusable - 5, 0)
 
 /obj/machinery/door/attack_ai(mob/user)
 	return attack_hand(user)
@@ -266,6 +285,7 @@
 		return TRUE
 	if(operating)
 		return
+	SEND_SIGNAL(src, COMSIG_DOOR_OPEN)
 	operating = TRUE
 	do_animate("opening")
 	set_opacity(0)
@@ -295,6 +315,7 @@
 						autoclose_in(60)
 					return
 
+	SEND_SIGNAL(src, COMSIG_DOOR_CLOSE)
 	operating = TRUE
 
 	do_animate("closing")
@@ -375,11 +396,6 @@
 /obj/machinery/door/proc/disable_lockdown()
 	if(!stat) //Opens only powered doors.
 		open() //Open everything!
-
-/obj/machinery/door/ex_act(severity)
-	//if it blows up a wall it should blow up a door
-	..(severity ? max(1, severity - 1) : 0)
-
 
 /obj/machinery/door/GetExplosionBlock()
 	return density ? real_explosion_block : 0

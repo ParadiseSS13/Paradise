@@ -69,7 +69,7 @@
 			return TRUE
 
 /obj/item/mecha_parts/mecha_tracking
-	name = "Exosuit tracking beacon"
+	name = "exosuit tracking beacon"
 	desc = "Device used to transmit exosuit data."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "motion2"
@@ -174,7 +174,7 @@
 	ai_beacon = TRUE
 
 /obj/item/storage/box/mechabeacons
-	name = "Exosuit Tracking Beacons"
+	name = "exosuit tracking beacons"
 
 /obj/item/storage/box/mechabeacons/New()
 	..()

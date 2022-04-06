@@ -15,7 +15,7 @@
 		/obj/item/reagent_containers/food/snacks/breadslice = 2,
 		/obj/item/reagent_containers/food/snacks/cheesewedge = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sandwich
+	result = list(/obj/item/reagent_containers/food/snacks/sandwich)
 	category = CAT_FOOD
 	subcategory = CAT_SANDWICH
 
@@ -25,7 +25,7 @@
 		/datum/reagent/slimejelly = 5,
 		/obj/item/reagent_containers/food/snacks/breadslice = 2,
 	)
-	result = /obj/item/reagent_containers/food/snacks/jellysandwich/slime
+	result = list(/obj/item/reagent_containers/food/snacks/jellysandwich/slime)
 	category = CAT_FOOD
 	subcategory = CAT_SANDWICH
 
@@ -35,7 +35,7 @@
 		/datum/reagent/consumable/cherryjelly = 5,
 		/obj/item/reagent_containers/food/snacks/breadslice = 2,
 	)
-	result = /obj/item/reagent_containers/food/snacks/jellysandwich/cherry
+	result = list(/obj/item/reagent_containers/food/snacks/jellysandwich/cherry)
 	category = CAT_FOOD
 	subcategory = CAT_SANDWICH
 
@@ -45,7 +45,7 @@
 		/datum/reagent/slimejelly = 5,
 		/obj/item/reagent_containers/food/snacks/bun = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/jellyburger/slime
+	result = list(/obj/item/reagent_containers/food/snacks/jellyburger/slime)
 	category = CAT_FOOD
 	subcategory = CAT_SANDWICH
 
@@ -55,7 +55,7 @@
 		/datum/reagent/consumable/cherryjelly = 5,
 		/obj/item/reagent_containers/food/snacks/bun = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/jellyburger/cherry
+	result = list(/obj/item/reagent_containers/food/snacks/jellyburger/cherry)
 	category = CAT_FOOD
 	subcategory = CAT_SANDWICH
 
@@ -65,7 +65,7 @@
 		/obj/item/melee/baseball_bat = 1,
 		/obj/item/reagent_containers/food/snacks/bun = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/baseballburger
+	result = list(/obj/item/reagent_containers/food/snacks/baseballburger)
 	category = CAT_FOOD
 	subcategory = CAT_SANDWICH
 
@@ -75,7 +75,7 @@
 		/obj/item/reagent_containers/food/snacks/breadslice = 2,
 		/obj/item/clothing/mask/fakemoustache = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/notasandwich
+	result = list(/obj/item/reagent_containers/food/snacks/notasandwich)
 	category = CAT_FOOD
 	subcategory = CAT_SANDWICH
 
@@ -85,7 +85,7 @@
 		/obj/item/reagent_containers/food/snacks/boiledrice = 1,
 		/obj/item/reagent_containers/food/snacks/boiled_shrimp = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sushi_Ebi
+	result = list(/obj/item/reagent_containers/food/snacks/sushi_Ebi)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -96,7 +96,7 @@
 		/obj/item/reagent_containers/food/snacks/boiled_shrimp = 4,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/Ebi_maki
+	result = list(/obj/item/reagent_containers/food/snacks/sliceable/Ebi_maki)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -106,7 +106,7 @@
 		/obj/item/reagent_containers/food/snacks/boiledrice = 1,
 		/obj/item/fish_eggs/salmon = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sushi_Ikura
+	result = list(/obj/item/reagent_containers/food/snacks/sushi_Ikura)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -117,7 +117,7 @@
 		/obj/item/fish_eggs/salmon = 4,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/Ikura_maki
+	result = list(/obj/item/reagent_containers/food/snacks/sliceable/Ikura_maki)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -127,7 +127,7 @@
 		/obj/item/reagent_containers/food/snacks/boiledrice = 1,
 		/obj/item/reagent_containers/food/snacks/fried_tofu = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sushi_Inari
+	result = list(/obj/item/reagent_containers/food/snacks/sushi_Inari)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -138,7 +138,7 @@
 		/obj/item/reagent_containers/food/snacks/fried_tofu = 4,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/Inari_maki
+	result = list(/obj/item/reagent_containers/food/snacks/sliceable/Inari_maki)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -148,7 +148,7 @@
 		/obj/item/reagent_containers/food/snacks/boiledrice = 1,
 		/obj/item/reagent_containers/food/snacks/salmonmeat = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sushi_Sake
+	result = list(/obj/item/reagent_containers/food/snacks/sushi_Sake)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -159,7 +159,7 @@
 		/obj/item/reagent_containers/food/snacks/salmonmeat = 4,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/Sake_maki
+	result = list(/obj/item/reagent_containers/food/snacks/sliceable/Sake_maki)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -169,7 +169,7 @@
 		/obj/item/reagent_containers/food/snacks/boiledrice = 1,
 		/obj/item/reagent_containers/food/snacks/salmonsteak = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon
+	result = list(/obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -180,7 +180,7 @@
 		/obj/item/reagent_containers/food/snacks/salmonsteak = 4,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/SmokedSalmon_maki
+	result = list(/obj/item/reagent_containers/food/snacks/sliceable/SmokedSalmon_maki)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -190,7 +190,7 @@
 		/obj/item/reagent_containers/food/snacks/boiledrice = 1,
 		/obj/item/fish_eggs/goldfish = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sushi_Masago
+	result = list(/obj/item/reagent_containers/food/snacks/sushi_Masago)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -201,7 +201,7 @@
 		/obj/item/fish_eggs/goldfish = 4,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/Masago_maki
+	result = list(/obj/item/reagent_containers/food/snacks/sliceable/Masago_maki)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -211,7 +211,7 @@
 		/obj/item/reagent_containers/food/snacks/boiledrice = 1,
 		/obj/item/fish_eggs/shark = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sushi_Tobiko
+	result = list(/obj/item/reagent_containers/food/snacks/sushi_Tobiko)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -222,7 +222,7 @@
 		/obj/item/fish_eggs/shark = 4,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/Tobiko_maki
+	result = list(/obj/item/reagent_containers/food/snacks/sliceable/Tobiko_maki)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -232,7 +232,7 @@
 		/obj/item/reagent_containers/food/snacks/sushi_Tobiko = 1,
 		/obj/item/reagent_containers/food/snacks/egg = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg
+	result = list(/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -243,7 +243,7 @@
 		/obj/item/reagent_containers/food/snacks/egg = 4,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/TobikoEgg_maki
+	result = list(/obj/item/reagent_containers/food/snacks/sliceable/TobikoEgg_maki)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -253,7 +253,7 @@
 		/obj/item/reagent_containers/food/snacks/boiledrice = 1,
 		/obj/item/reagent_containers/food/snacks/catfishmeat = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sushi_Tai
+	result = list(/obj/item/reagent_containers/food/snacks/sushi_Tai)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -264,7 +264,7 @@
 		/obj/item/reagent_containers/food/snacks/catfishmeat = 4,
 	)
 	pathtools = list(/obj/item/kitchen/sushimat)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/Tai_maki
+	result = list(/obj/item/reagent_containers/food/snacks/sliceable/Tai_maki)
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
@@ -284,6 +284,6 @@
 		/datum/reagent/consumable/sprinkles = 5,
 		/datum/reagent/teslium = 1,
 	)
-	result = /mob/living/simple_animal/pet/cat/cak
+	result = list(/mob/living/simple_animal/pet/cat/cak)
 	category = CAT_FOOD
 	subcategory = CAT_CAKE //Cat! Haha, get it? CAT? GET IT? We get it - Love Felines -Foxes are better

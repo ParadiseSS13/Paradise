@@ -25,7 +25,7 @@
 
 // ALL UPGRADES
 /obj/machinery/camera/all
-	icon_state = "xraycamera" //mapping icon.
+	icon_state = "xraycam" //mapping icon.
 
 /obj/machinery/camera/all/Initialize(mapload)
 	. = ..()

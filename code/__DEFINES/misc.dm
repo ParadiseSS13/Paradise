@@ -130,6 +130,8 @@
 #define SOUTH_OF_TURF(T)	locate(T.x, T.y - 1, T.z)
 #define WEST_OF_TURF(T)		locate(T.x - 1, T.y, T.z)
 
+#define ATOM_COORDS(A) list(A.x, A.y, A.z)
+
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
 
@@ -160,6 +162,8 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
+#define WING_LAYER				41
+#define WING_UNDERLIMBS_LAYER		40
 #define BODY_LAYER				39
 #define MUTANTRACE_LAYER		38
 #define TAIL_UNDERLIMBS_LAYER	37	//Tail split-rendering.
@@ -199,7 +203,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS			39
+#define TOTAL_LAYERS			41
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -306,10 +310,10 @@
 #define TRIGGER_GUARD_NORMAL 1
 
 // Macro to get the current elapsed round time, rather than total world runtime
-#define ROUND_TIME (SSticker.round_start_time ? (world.time - SSticker.round_start_time) : 0)
+#define ROUND_TIME (SSticker.time_game_started ? (world.time - SSticker.time_game_started) : 0)
 
 // Macro that returns true if it's too early in a round to freely ghost out
-#define TOO_EARLY_TO_GHOST (config && (ROUND_TIME < (config.round_abandon_penalty_period)))
+#define TOO_EARLY_TO_GHOST (ROUND_TIME < GLOB.configuration.general.cryo_penalty_period MINUTES)
 
 // Used by radios to indicate that they have sent a message via something other than subspace
 #define RADIO_CONNECTION_FAIL 0
@@ -363,7 +367,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 21
+#define SQL_VERSION 35
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -432,9 +436,6 @@
 /// Prepares a text to be used for maptext. Use this so it doesn't look hideous.
 #define MAPTEXT(text) {"<span class='maptext'>[##text]</span>"}
 
-// Filters
-#define FILTER_AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")
-
 //Fullscreen overlay resolution in tiles.
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15
 #define FULLSCREEN_OVERLAY_RESOLUTION_Y 15
@@ -489,3 +490,24 @@
 
 /// Send to the mentor Discord webhook
 #define DISCORD_WEBHOOK_MENTOR "MENTOR"
+
+// Hallucination severities
+#define HALLUCINATE_MINOR 1
+#define HALLUCINATE_MODERATE 2
+#define HALLUCINATE_MAJOR 3
+
+// Runechat symbol types
+#define RUNECHAT_SYMBOL_EMOTE 1
+
+/// Waits at a line of code until X is true
+#define UNTIL(X) while(!(X)) sleep(world.tick_lag)
+
+/proc/client_from_var(I)
+	if(ismob(I))
+		var/mob/A = I
+		return A.client
+	if(isclient(I))
+		return I
+	if(istype(I, /datum/mind))
+		var/datum/mind/B = I
+		return B.current.client

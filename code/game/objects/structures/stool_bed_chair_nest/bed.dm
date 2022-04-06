@@ -25,6 +25,12 @@
 	buckle_offset = -6
 	var/comfort = 2 // default comfort
 
+/obj/structure/bed/detailed_examine()
+	return "Click and drag yourself (or anyone) to this to buckle in. Click on this with an empty hand to undo the buckles.<br>\
+			<br>\
+			Anyone with restraints, such as handcuffs, will not be able to unbuckle themselves. They must use the Resist button, or verb, to break free of \
+			the buckles, instead."
+
 /obj/structure/bed/psych
 	name = "psych bed"
 	desc = "For prime comfort during psychiatric evaluations."
@@ -64,6 +70,7 @@
 	name = "roller bed"
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "down"
+	face_while_pulling = FALSE
 	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1

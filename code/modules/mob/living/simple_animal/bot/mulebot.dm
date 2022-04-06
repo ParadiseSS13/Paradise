@@ -135,7 +135,7 @@
 		emagged = 1
 	if(!open)
 		locked = !locked
-		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] the [src]'s controls!</span>")
+		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] [src]'s controls!</span>")
 	flick("mulebot-emagged", src)
 	playsound(loc, 'sound/effects/sparks1.ogg', 100, 0)
 
@@ -242,7 +242,7 @@
 			report_delivery = !report_delivery
 	update_controls()
 
-/mob/living/simple_animal/bot/mulebot/proc/toggle_lock(var/mob/user)
+/mob/living/simple_animal/bot/mulebot/proc/toggle_lock(mob/user)
 	if(bot_core.allowed(user))
 		locked = !locked
 		update_controls()
@@ -695,12 +695,12 @@
 	playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 
 	var/damage = rand(5,15)
-	H.apply_damage(2*damage, BRUTE, "head", run_armor_check("head", "melee"))
-	H.apply_damage(2*damage, BRUTE, "chest", run_armor_check("chest", "melee"))
-	H.apply_damage(0.5*damage, BRUTE, "l_leg", run_armor_check("l_leg", "melee"))
-	H.apply_damage(0.5*damage, BRUTE, "r_leg", run_armor_check("r_leg", "melee"))
-	H.apply_damage(0.5*damage, BRUTE, "l_arm", run_armor_check("l_arm", "melee"))
-	H.apply_damage(0.5*damage, BRUTE, "r_arm", run_armor_check("r_arm", "melee"))
+	H.apply_damage(2*damage, BRUTE, "head", run_armor_check("head", MELEE))
+	H.apply_damage(2*damage, BRUTE, "chest", run_armor_check("chest", MELEE))
+	H.apply_damage(0.5*damage, BRUTE, "l_leg", run_armor_check("l_leg", MELEE))
+	H.apply_damage(0.5*damage, BRUTE, "r_leg", run_armor_check("r_leg", MELEE))
+	H.apply_damage(0.5*damage, BRUTE, "l_arm", run_armor_check("l_arm", MELEE))
+	H.apply_damage(0.5*damage, BRUTE, "r_arm", run_armor_check("r_arm", MELEE))
 
 
 
@@ -771,7 +771,7 @@
 	return 1
 
 // send a radio signal with multiple data key/values
-/mob/living/simple_animal/bot/mulebot/post_signal_multiple(var/freq, var/list/keyval)
+/mob/living/simple_animal/bot/mulebot/post_signal_multiple(freq, list/keyval)
 	if(wires.is_cut(WIRE_REMOTE_TX))
 		return
 

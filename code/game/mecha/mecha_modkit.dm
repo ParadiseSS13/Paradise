@@ -5,7 +5,7 @@
 	icon_state = "harddisk_mini"
 	var/install_time = 15
 
-/obj/item/mecha_modkit/proc/install(var/obj/mecha/mech, var/mob/user)
+/obj/item/mecha_modkit/proc/install(obj/mecha/mech, mob/user)
 	if(user)
 		to_chat(user, "<span class='notice'>You install [src] into [mech].</span>")
 	return TRUE
@@ -20,7 +20,7 @@
 	var/lowpowersound = 'sound/mecha/lowpower.ogg'
 	var/longactivationsound = 'sound/mecha/nominal.ogg'
 
-/obj/item/mecha_modkit/voice/install(var/obj/mecha/mech, var/mob/living/carbon/user)
+/obj/item/mecha_modkit/voice/install(obj/mecha/mech, mob/living/carbon/user)
 	if(istype(mech, /obj/mecha/combat/reticence) && user)
 		to_chat(user, "<span class='warning'>You attempt to install [src] into [mech], but an invisible barrier prevents you from doing so!</span>")
 		return FALSE

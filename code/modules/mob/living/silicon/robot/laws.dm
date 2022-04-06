@@ -3,7 +3,7 @@
 	set name = "Show Laws"
 	show_laws()
 
-/mob/living/silicon/robot/show_laws(var/everyone = 0)
+/mob/living/silicon/robot/show_laws(everyone = 0)
 	laws_sanity_check()
 	var/who
 
@@ -21,7 +21,7 @@
 				photosync()
 				to_chat(src, "<b>Laws synced with AI, be sure to note any changes.</b>")
 				// TODO: Update to new antagonist system.
-				if(mind && mind.special_role == SPECIAL_ROLE_TRAITOR && mind.original == src)
+				if(mind && mind.special_role == SPECIAL_ROLE_TRAITOR && mind.is_original_mob(src))
 					to_chat(src, "<b>Remember, your AI does NOT share or know about your law 0.")
 		else
 			to_chat(src, "<b>No AI selected to sync laws with, disabling lawsync protocol.</b>")
@@ -30,7 +30,7 @@
 	to_chat(who, "<b>Obey these laws:</b>")
 	laws.show_laws(who)
 	// TODO: Update to new antagonist system.
-	if(mind && (mind.special_role == SPECIAL_ROLE_TRAITOR && mind.original == src) && connected_ai)
+	if(mind && (mind.special_role == SPECIAL_ROLE_TRAITOR && mind.is_original_mob(src)) && connected_ai)
 		to_chat(who, "<b>Remember, [connected_ai.name] is technically your master, but your objective comes first.</b>")
 	else if(connected_ai)
 		to_chat(who, "<b>Remember, [connected_ai.name] is your master, other AIs can be ignored.</b>")

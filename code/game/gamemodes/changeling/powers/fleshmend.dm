@@ -25,7 +25,7 @@
 		recent_uses = max(1, recent_uses - (1 / healing_ticks))
 
 //Starts healing you every second for 10 seconds. Can be used whilst unconscious.
-/datum/action/changeling/fleshmend/sting_action(var/mob/living/user)
+/datum/action/changeling/fleshmend/sting_action(mob/living/user)
 	to_chat(user, "<span class='notice'>We begin to heal rapidly.</span>")
 	if(recent_uses > 1)
 		to_chat(user, "<span class='warning'>Our healing's effectiveness is reduced \

@@ -26,6 +26,7 @@ export const AccessList = (props, context) => {
     rcdButtons,
     accesses = [],
     selectedList = [],
+    grantableList = [],
     accessMod,
     grantAll,
     denyAll,
@@ -137,6 +138,8 @@ export const AccessList = (props, context) => {
               fluid
               key={entry.desc}
               content={entry.desc}
+              disabled={grantableList.length > 0
+                && !grantableList.includes(entry.ref) && !selectedList.includes(entry.ref)}
               checked={selectedList.includes(entry.ref)}
               onClick={() => accessMod(entry.ref)} />
           ))}

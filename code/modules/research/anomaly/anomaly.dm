@@ -51,3 +51,47 @@
 	icon_state = "vortex_core"
 	anomaly_type = /obj/effect/anomaly/bhole
 	origin_tech = "engineering=7"
+
+/obj/item/assembly/signaler/anomaly/random
+	name = "Random anomaly core"
+
+/obj/item/assembly/signaler/anomaly/random/New()
+	..()
+	var/list/types = list(/obj/item/assembly/signaler/anomaly/pyro, /obj/item/assembly/signaler/anomaly/grav, /obj/item/assembly/signaler/anomaly/flux, /obj/item/assembly/signaler/anomaly/bluespace, /obj/item/assembly/signaler/anomaly/vortex)
+	var/A = pick(types)
+	new A(loc)
+	qdel(src)
+
+/obj/item/reactive_armour_shell
+	name = "reactive armour shell"
+	desc = "An experimental suit of armour, awaiting installation of an anomaly core."
+	icon_state = "reactiveoff"
+	icon = 'icons/obj/clothing/suits.dmi'
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/reactive_armour_shell/attackby(obj/item/I, mob/user, params)
+	var/static/list/anomaly_armour_types = list(
+		/obj/item/assembly/signaler/anomaly/grav = /obj/item/clothing/suit/armor/reactive/repulse,
+		/obj/item/assembly/signaler/anomaly/flux = /obj/item/clothing/suit/armor/reactive/tesla,
+		/obj/item/assembly/signaler/anomaly/bluespace = /obj/item/clothing/suit/armor/reactive/teleport,
+		/obj/item/assembly/signaler/anomaly/pyro = /obj/item/clothing/suit/armor/reactive/fire
+		)
+
+	if(istype(I, /obj/item/assembly/signaler/anomaly))
+		var/obj/item/assembly/signaler/anomaly/A = I
+		var/armour_path = /obj/item/clothing/suit/armor/reactive/stealth //Fallback
+		if(istype(I, /obj/item/assembly/signaler/anomaly/grav))
+			armour_path = /obj/item/clothing/suit/armor/reactive/repulse
+		if(istype(I, /obj/item/assembly/signaler/anomaly/flux))
+			armour_path = /obj/item/clothing/suit/armor/reactive/tesla
+		if(istype(I, /obj/item/assembly/signaler/anomaly/bluespace))
+			armour_path = /obj/item/clothing/suit/armor/reactive/teleport
+		if(istype(I, /obj/item/assembly/signaler/anomaly/pyro))
+			armour_path = /obj/item/clothing/suit/armor/reactive/fire
+		if(istype(I, /obj/item/assembly/signaler/anomaly/vortex))
+			armour_path = /obj/item/clothing/suit/armor/reactive/stealth // Vortex needs one, this is just temporary(TM) till one is coded for them.
+		to_chat(user, "<span class='notice'>You insert [A] into the chest plate, and the armour gently hums to life.</span>")
+		new armour_path(get_turf(src))
+		qdel(src)
+		qdel(A)
+	return ..()

@@ -120,10 +120,6 @@
 			name = "Unknown"
 			desc = "A cardboard cutout of a cultist."
 			icon_state = "cutout_cultist"
-		//if("Clockwork Cultist")
-		//	name = "[random_name(pick(MALE,FEMALE))]"
-		//	desc = "A cardboard cutout of a servant of Ratvar."
-		//	icon_state = "cutout_servant"
 		if("Revolutionary")
 			name = "Unknown"
 			desc = "A cardboard cutout of a revolutionary."

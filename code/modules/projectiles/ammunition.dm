@@ -88,6 +88,13 @@
 				to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
 		..()
 
+/obj/item/ammo_casing/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!BB)
+		C.stored_comms["metal"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
+
 //Boxes of ammo
 /obj/item/ammo_box
 	name = "ammo box (generic)"
@@ -116,8 +123,6 @@
 	for(var/i in 1 to max_ammo)
 		stored_ammo += new ammo_type(src)
 	update_icon()
-	initial_mats = materials.Copy()
-	update_mat_value()
 
 /obj/item/ammo_box/Destroy()
 	QDEL_LIST(stored_ammo)
@@ -132,6 +137,8 @@
 		stored_ammo -= b
 		if(keep)
 			stored_ammo.Insert(1,b)
+		if(!initial_mats)
+			initial_mats = materials.Copy()
 		update_mat_value()
 		update_icon()
 		return b

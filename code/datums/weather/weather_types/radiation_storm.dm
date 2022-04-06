@@ -18,7 +18,8 @@
 	var/pre_maint_all_access
 	area_type = /area
 	protected_areas = list(/area/maintenance, /area/turret_protected/ai_upload, /area/turret_protected/ai_upload_foyer,
-	/area/turret_protected/ai, /area/storage/emergency, /area/storage/emergency2, /area/crew_quarters/sleep, /area/security/brig, /area/shuttle)
+	/area/turret_protected/ai, /area/storage/emergency, /area/storage/emergency2, /area/crew_quarters/sleep, /area/security/brig,
+	/area/shuttle, /area/survivalpod) //although survivalpods are off-station, creating one on station no longer protects pods on station from the rad storm
 	target_trait = STATION_LEVEL
 
 	immunity_type = "rad"
@@ -32,7 +33,7 @@
 
 
 /datum/weather/rad_storm/weather_act(mob/living/L)
-	var/resist = L.getarmor(null, "rad")
+	var/resist = L.getarmor(null, RAD)
 	if(prob(40))
 		if(ishuman(L))
 			var/mob/living/carbon/human/H = L

@@ -272,16 +272,6 @@
 	build_path = /obj/item/circuitboard/mechfab
 	category = list("Research Machinery")
 
-/datum/design/podfab
-	name = "Machine Board (Spacepod Fabricator)"
-	desc = "The circuit board for an Spacepod Fabricator"
-	id = "podfab"
-	req_tech = list("programming" = 3, "engineering" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/podfab
-	category = list("Research Machinery")
-
 /datum/design/mech_recharger
 	name = "Machine Board (Mech Bay Recharger)"
 	desc = "The circuit board for a Mech Bay Recharger."
@@ -460,16 +450,6 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/arcade/orion_trail
-	category = list("Misc. Machinery")
-
-/datum/design/pod
-	name = "Machine Board (Mass Driver and Pod Doors Control)"
-	desc = "Allows for the construction of circuit boards used to build a Mass Driver and Pod Doors Control."
-	id = "pod"
-	req_tech = list("programming" = 2,"engineering" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/pod
 	category = list("Misc. Machinery")
 
 /datum/design/ore_redemption

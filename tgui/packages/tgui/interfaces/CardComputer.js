@@ -108,16 +108,16 @@ export const CardComputer = (props, context) => {
               </LabeledList.Item>
               <LabeledList.Item label="Retirement">
                 <Button
-                  selected={"Civilian" === data.modify_rank}
-                  key="Civilian" content="Civilian"
+                  selected={"Assistant" === data.modify_rank}
+                  key="Assistant" content="Assistant"
                   onClick={() => act("assign",
-                    { assign_target: "Civilian" })} />
+                    { assign_target: "Assistant" })} />
               </LabeledList.Item>
               <LabeledList.Item label="Demotion">
                 <Button
                   selected={"Demoted" === data.modify_rank}
                   key="Demoted" content="Demoted"
-                  tooltip="Civilian access, 'demoted' title."
+                  tooltip="Assistant access, 'demoted' title."
                   color="red" icon="times"
                   onClick={() => act("demote")} />
               </LabeledList.Item>
@@ -227,8 +227,8 @@ export const CardComputer = (props, context) => {
                       onClick={() => act("assign", { assign_target: v })} />
                   ))}
                 </LabeledList.Item>
-                <LabeledList.Item label="Civilan">
-                  {data.jobs_civilian.map(v => (
+                <LabeledList.Item label="Assistant">
+                  {data.jobs_assistant.map(v => (
                     <Button
                       selected={v === data.modify_rank}
                       key={v} content={v}
@@ -263,7 +263,7 @@ export const CardComputer = (props, context) => {
                     disabled={"Terminated" === data.modify_rank}
                     key="Demoted" content="Demoted"
                     selected={"Demoted" === data.modify_rank}
-                    tooltip="Civilian access, 'demoted' title."
+                    tooltip="Assistant access, 'demoted' title."
                     color="red" icon="times"
                     onClick={() => act("demote")} />
                 </LabeledList.Item>

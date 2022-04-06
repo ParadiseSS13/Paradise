@@ -343,6 +343,7 @@ h1.alert, h2.alert			{color: #000000;}
 .kidan					{color: #664205;}
 .slime					{color: #0077AA;}
 .drask					{color: #a3d4eb; font-family: "Arial Black";}
+.moth					{color: #869b29; font-family: "Copperplate";}
 .clown					{color: #ff0000;}
 .shadowling				{color: #3b2769;}
 .vulpkanin				{color: #B97A57;}
@@ -362,6 +363,7 @@ h1.alert, h2.alert			{color: #000000;}
 .greentext				{color: #00FF00;	font-size: 150%;}
 .redtext				{color: #FF0000;	font-size: 150%;}
 .bold					{font-weight: bold;}
+.his_grace 				{color: #15D512; font-family: "Courier New", cursive, sans-serif; font-style: italic;}
 .center					{text-align: center;}
 .red					{color: #FF0000;}
 .purple					{color: #5e2d79;}

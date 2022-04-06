@@ -40,11 +40,6 @@
 
 	return clamp((weight + job_weight) * weight_mod, min_weight, max_weight)
 
-/datum/event_meta/alien/get_weight(list/active_with_role)
-	if(GLOB.aliens_allowed)
-		return ..(active_with_role)
-	return 0
-
 /*/datum/event_meta/ninja/get_weight(var/list/active_with_role)
 	if(toggle_space_ninja)
 		return ..(active_with_role)
@@ -177,7 +172,7 @@
 	SSevents.active_events -= src
 	SSevents.event_complete(src)
 
-/datum/event/New(var/datum/event_meta/EM)
+/datum/event/New(datum/event_meta/EM)
 	// event needs to be responsible for this, as stuff like APLUs currently make their own events for curious reasons
 	SSevents.active_events += src
 

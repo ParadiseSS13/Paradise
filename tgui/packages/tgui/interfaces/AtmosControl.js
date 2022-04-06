@@ -125,7 +125,7 @@ const AtmosControlMapView = (_properties, context) => {
   return (
     <Box height="526px" mb="0.5rem" overflow="hidden">
       <NanoMap onZoom={v => setZoom(v)}>
-        {alarms.filter(a => a.z === 1).map(aa => (
+        {alarms.filter(a => a.z === 2).map(aa => (
           // The AA means air alarm, and nothing else
           <NanoMap.Marker
             key={aa.ref}

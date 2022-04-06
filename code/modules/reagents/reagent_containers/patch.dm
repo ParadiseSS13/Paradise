@@ -18,7 +18,8 @@
 		return FALSE
 	bitesize = 0
 	if(M.eat(src, user))
-		user.drop_item()
+		if(user.get_active_hand() == src)
+			user.drop_item() // Only drop if they're holding the patch directly
 		forceMove(M)
 		LAZYADD(M.processing_patches, src)
 		return TRUE

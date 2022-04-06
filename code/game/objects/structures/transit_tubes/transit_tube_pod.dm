@@ -28,7 +28,7 @@
 		return TRUE
 	else return ..()
 
-/obj/structure/transit_tube_pod/proc/follow_tube(var/reverse_launch)
+/obj/structure/transit_tube_pod/proc/follow_tube(reverse_launch)
 	if(moving)
 		return
 

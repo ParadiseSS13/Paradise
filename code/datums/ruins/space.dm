@@ -2,6 +2,7 @@
 /datum/map_template/ruin/space
 	prefix = "_maps/map_files/RandomRuins/SpaceRuins/"
 	cost = 1
+	ci_exclude = /datum/map_template/ruin/space
 
 /datum/map_template/ruin/space/zoo
 	id = "zoo"
@@ -257,6 +258,15 @@
 	allow_duplicates = FALSE
 	always_place = TRUE
 	cost = 0
+
+/datum/map_template/ruin/space/syndicate_space_base
+	name = "Syndicate Space Base"
+	id = "syndie-space-base"
+	description = "A secret base researching illegal bioweapons, it is closely guarded by an elite team of syndicate agents."
+	suffix = "syndie_space_base.dmm"
+	cost = 0
+	always_place = TRUE
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/syndiecakesfactory
 	id = "Syndiecakes Factory"

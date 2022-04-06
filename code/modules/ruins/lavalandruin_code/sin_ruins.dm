@@ -115,7 +115,14 @@
 	for(var/level in levels)
 		if(!is_teleport_allowed(level))
 			levels -= level
-
+	if(user.z != 3) //if you somehow manage to bloody get out of lavaland without closing the UI
+		var/turf/return_turf = locate(user.x, user.y, 3) //return to sender
+		var/mob/living/carbon/human/fool = user
+		if(return_turf && fool)
+			to_chat(fool, "<span class='danger'><B>You dare try to play me for a fool?</B></span>")
+			fool.monkeyize()
+			fool.forceMove(return_turf)
+			return
 	T.ChangeTurf(/turf/simulated/floor/chasm)
 	var/turf/simulated/floor/chasm/C = T
 	C.drop_x = T.x

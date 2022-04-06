@@ -13,7 +13,7 @@
 
 
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
-		var/armor_block = target.run_armor_check(affecting, "melee")
+		var/armor_block = target.run_armor_check(affecting, MELEE)
 
 		target.visible_message("<span class='danger'>[user] has hit [target] with invisible nunchucks!</span>", \
 								"<span class='userdanger'>[user] has hit [target] with a with invisible nunchuck!</span>")

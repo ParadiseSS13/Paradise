@@ -57,7 +57,7 @@
 	to_chat(user, "The safety is [safety ? "on" : "off"].")
 	return
 
-/obj/item/extinguisher/attack_obj(obj/O, mob/living/user)
+/obj/item/extinguisher/attack_obj(obj/O, mob/living/user, params)
 	if(AttemptRefill(O, user))
 		refilling = TRUE
 		return FALSE
@@ -112,7 +112,7 @@
 
 		var/direction = get_dir(src,target)
 
-		if(usr.buckled && isobj(usr.buckled) && !usr.buckled.anchored )
+		if(usr.buckled && isobj(usr.buckled) && !usr.buckled.anchored && !istype(usr.buckled, /obj/vehicle))
 			spawn(0)
 				var/obj/structure/chair/C = null
 				if(istype(usr.buckled, /obj/structure/chair))
@@ -180,3 +180,6 @@
 					sleep(2)
 	else
 		return ..()
+
+/obj/item/extinguisher/cyborg_recharge(coeff, emagged)
+	reagents.check_and_add("water", max_water, 5 * coeff)

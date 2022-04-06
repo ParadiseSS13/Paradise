@@ -8,7 +8,7 @@
 	resistance_flags = FLAMMABLE
 	var/obj/item/seeds/seed = null // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
 
-/obj/item/grown/New(newloc, var/obj/item/seeds/new_seed = null)
+/obj/item/grown/New(newloc, obj/item/seeds/new_seed = null)
 	..()
 	create_reagents(50)
 

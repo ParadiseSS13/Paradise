@@ -32,7 +32,7 @@
 				owner.visible_message("<span class='danger'>[owner] bursts open! Holy fuck!</span>")
 				owner.gib()
 
-/obj/item/organ/internal/body_egg/spider_eggs/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/body_egg/spider_eggs/remove(mob/living/carbon/M, special = 0)
 	..()
 	M.reagents.del_reagent("spidereggs") //purge all remaining spider eggs reagent if caught, in time.
 	if(!QDELETED(src))
@@ -120,7 +120,7 @@
 	if(infection_completed && !QDELETED(src))
 		qdel(src)
 
-/obj/item/organ/internal/body_egg/terror_eggs/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/body_egg/terror_eggs/remove(mob/living/carbon/M, special = 0)
 	..()
 	if(!QDELETED(src))
 		qdel(src) // prevent people re-implanting them into others

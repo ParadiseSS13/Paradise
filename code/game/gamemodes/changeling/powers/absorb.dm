@@ -27,7 +27,7 @@
 	var/mob/living/carbon/target = G.affecting
 	return changeling.can_absorb_dna(user,target)
 
-/datum/action/changeling/absorbDNA/sting_action(var/mob/user)
+/datum/action/changeling/absorbDNA/sting_action(mob/user)
 	var/datum/changeling/changeling = user.mind.changeling
 	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/human/target = G.affecting
@@ -101,7 +101,7 @@
 	return 1
 
 //Absorbs the target DNA.
-/datum/changeling/proc/absorb_dna(mob/living/carbon/T, var/mob/user)
+/datum/changeling/proc/absorb_dna(mob/living/carbon/T, mob/user)
 	T.dna.real_name = T.real_name //Set this again, just to be sure that it's properly set.
 	var/datum/dna/new_dna = T.dna.Clone()
 	//Steal all of their languages!
@@ -113,7 +113,7 @@
 	absorbedcount++
 	store_dna(new_dna, user)
 
-/datum/changeling/proc/store_dna(var/datum/dna/new_dna, var/mob/user)
+/datum/changeling/proc/store_dna(datum/dna/new_dna, mob/user)
 	for(var/datum/objective/escape/escape_with_identity/E in user.mind.objectives)
 		if(E.target_real_name == new_dna.real_name)
 			protected_dna |= new_dna

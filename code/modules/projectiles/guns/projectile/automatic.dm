@@ -4,7 +4,6 @@
 	var/select = 1
 	can_tactical = TRUE
 	can_suppress = 1
-	can_holster = FALSE
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
@@ -20,7 +19,7 @@
 	if(bayonet && can_bayonet)
 		overlays += knife_overlay
 
-/obj/item/gun/projectile/automatic/attackby(var/obj/item/A as obj, mob/user as mob, params)
+/obj/item/gun/projectile/automatic/attackby(obj/item/A as obj, mob/user as mob, params)
 	. = ..()
 	if(.)
 		if(alarmed) // Did the empty clip alarm go off already?
@@ -79,7 +78,7 @@
 //Saber SMG//
 /obj/item/gun/projectile/automatic/proto
 	name = "\improper Nanotrasen Saber SMG"
-	desc = "A prototype three-round burst 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
+	desc = "A rejected prototype three-round burst 9mm submachine gun, designated 'SABR'. Surplus of this model are bouncing around armories of Nanotrasen Space Stations. Has a threaded barrel for suppressors."
 	icon_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
@@ -143,6 +142,7 @@
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 	burst_size = 2
+	can_holster = TRUE // it's a mini-uzi after all
 
 //M-90gl Carbine//
 /obj/item/gun/projectile/automatic/m90
@@ -165,17 +165,17 @@
 	underbarrel = new /obj/item/gun/projectile/revolver/grenadelauncher(src)
 	update_icon()
 
-/obj/item/gun/projectile/automatic/m90/afterattack(var/atom/target, var/mob/living/user, flag, params)
+/obj/item/gun/projectile/automatic/m90/afterattack(atom/target, mob/living/user, flag, params)
 	if(select == 2)
 		underbarrel.afterattack(target, user, flag, params)
 	else
 		..()
 		return
 
-/obj/item/gun/projectile/automatic/m90/attackby(var/obj/item/A, mob/user, params)
+/obj/item/gun/projectile/automatic/m90/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_casing))
 		if(istype(A, underbarrel.magazine.ammo_type))
-			underbarrel.attack_self()
+			underbarrel.attack_self(user)
 			underbarrel.attackby(A, user, params)
 	else
 		return ..()
@@ -234,13 +234,13 @@
 
 //ARG Assault Rifle//
 /obj/item/gun/projectile/automatic/ar
-	name = "ARG"
-	desc = "A robust assault rile used by Nanotrasen fighting forces."
+	name = "\improper ARG"
+	desc = "A robust assault rifle used by Nanotrasen fighting forces."
 	icon_state = "arg"
 	item_state = "arg"
 	slot_flags = 0
 	origin_tech = "combat=6;engineering=4"
-	mag_type = /obj/item/ammo_box/magazine/m556
+	mag_type = /obj/item/ammo_box/magazine/m556/arg
 	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
@@ -285,7 +285,7 @@
 	update_magazine()
 	icon_state = "bulldog[chambered ? "" : "-e"]"
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/attackby(var/obj/item/A as obj, mob/user as mob, params)
+/obj/item/gun/projectile/automatic/shotgun/bulldog/attackby(obj/item/A as obj, mob/user as mob, params)
 	if(istype(A, /obj/item/ammo_box/magazine/m12g/XtrLrg))
 		if(istype(loc, /obj/item/storage))	// To prevent inventory exploits
 			var/obj/item/storage/Strg = loc

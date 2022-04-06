@@ -6,55 +6,34 @@
 
 	name = "gas mixer"
 
-	var/target_pressure = ONE_ATMOSPHERE
+	target_pressure = ONE_ATMOSPHERE
 	var/node1_concentration = 0.5
 	var/node2_concentration = 0.5
 
 	//node 3 is the outlet, nodes 1 & 2 are intakes
 
+// So we can CtrlClick without triggering the anchored message.
+/obj/machinery/atmospherics/trinary/mixer/can_be_pulled(user, grab_state, force, show_message)
+	return FALSE
+
 /obj/machinery/atmospherics/trinary/mixer/CtrlClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!in_range(src, user) && !issilicon(usr))
-		return
-	if(!ishuman(usr) && !issilicon(usr))
-		return
-	toggle()
+	if(can_use_shortcut(user))
+		toggle(user)
 	return ..()
 
-/obj/machinery/atmospherics/trinary/mixer/AICtrlClick()
-	toggle()
-	return ..()
+/obj/machinery/atmospherics/trinary/mixer/AICtrlClick(mob/living/silicon/user)
+	toggle(user)
 
 /obj/machinery/atmospherics/trinary/mixer/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!in_range(src, user) && !issilicon(usr))
-		return
-	if(!ishuman(usr) && !issilicon(usr))
-		return
-	set_max()
-	return
+	if(can_use_shortcut(user))
+		set_max(user)
 
-/obj/machinery/atmospherics/trinary/mixer/AIAltClick()
-	set_max()
-	return ..()
+/obj/machinery/atmospherics/trinary/mixer/AIAltClick(mob/living/silicon/user)
+	set_max(user)
 
 /obj/machinery/atmospherics/trinary/mixer/flipped
 	icon_state = "mmap"
 	flipped = 1
-
-/obj/machinery/atmospherics/trinary/mixer/proc/toggle()
-	if(powered())
-		on = !on
-		update_icon()
-
-/obj/machinery/atmospherics/trinary/mixer/proc/set_max()
-	if(powered())
-		target_pressure = MAX_OUTPUT_PRESSURE
-		update_icon()
 
 /obj/machinery/atmospherics/trinary/mixer/update_icon(safety = 0)
 	..()

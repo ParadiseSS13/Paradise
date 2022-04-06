@@ -44,8 +44,8 @@
 	if(isturf(loc) && !locate(/obj/structure/table) in T)
 		if(ant_location == T)
 			if(prob(15))
-				if(!locate(/obj/effect/decal/ants) in T)
-					new /obj/effect/decal/ants(T)
+				if(!locate(/obj/effect/decal/cleanable/ants) in T)
+					new /obj/effect/decal/cleanable/ants(T)
 					antable = FALSE
 					desc += " It appears to be infested with ants. Yuck!"
 					reagents.add_reagent("ants", 1) // Don't eat things with ants in i you weirdo.

@@ -106,12 +106,10 @@
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 			var/obj/item/organ/external/target_part = H.get_organ(ran_zone("chest"))
-			H.apply_damage(10, BRUTE, "chest", H.run_armor_check(target_part, "melee"))
+			H.apply_damage(10, BRUTE, "chest", H.run_armor_check(target_part, MELEE))
 
 			//blood splatters
-			blood_color = H.dna.species.blood_color
-
-			new /obj/effect/temp_visual/dir_setting/bloodsplatter(H.drop_location(), splatter_dir, blood_color)
+			new /obj/effect/temp_visual/dir_setting/bloodsplatter(H.drop_location(), splatter_dir, H.dna.species.blood_color)
 
 					//organs go everywhere
 			if(target_part && prob(10 * drill_level))

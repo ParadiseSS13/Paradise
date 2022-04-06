@@ -16,7 +16,7 @@
 /obj/item/assembly_holder/proc/attach(obj/item/D, obj/item/D2, mob/user)
 	return
 
-/obj/item/assembly_holder/proc/process_activation(var/obj/item/D)
+/obj/item/assembly_holder/proc/process_activation(obj/item/D)
 	return
 
 /obj/item/assembly_holder/IsAssemblyHolder()

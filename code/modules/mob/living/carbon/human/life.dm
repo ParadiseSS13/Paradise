@@ -36,8 +36,9 @@
 	name = get_visible_name()
 	pulse = handle_pulse(times_fired)
 
-	if(mind?.vampire)
-		mind.vampire.handle_vampire()
+	var/datum/antagonist/vampire/V = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(V)
+		V.handle_vampire()
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
 
@@ -61,7 +62,7 @@
 	player_logged++
 	if(istype(loc, /obj/machinery/cryopod))
 		return
-	if(config.auto_cryo_ssd_mins && (player_logged >= (config.auto_cryo_ssd_mins * 30)) && player_logged % 30 == 0)
+	if(GLOB.configuration.afk.ssd_auto_cryo_minutes && (player_logged >= (GLOB.configuration.afk.ssd_auto_cryo_minutes * 30)) && player_logged % 30 == 0)
 		var/turf/T = get_turf(src)
 		if(!is_station_level(T.z))
 			return
@@ -70,7 +71,7 @@
 		if(A.fast_despawn)
 			force_cryo_human(src)
 
-/mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
+/mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	..()
 	var/pressure_difference = abs( pressure - ONE_ATMOSPHERE )
 
@@ -170,11 +171,10 @@
 					emote("drool")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	for(var/datum/mutation/mutation in GLOB.dna_mutations)
-		if(!mutation.block)
-			continue
-		if(mutation.is_active(src))
-			mutation.on_life(src)
+	for(var/mutation_type in active_mutations)
+		var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
+		mutation.on_life(src)
+
 	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
@@ -301,11 +301,11 @@
 
 	else if(bodytemperature < dna.species.cold_level_1)
 		if(status_flags & GODMODE)
-			return 1
+			return TRUE
 		if(stat == DEAD)
-			return 1
+			return TRUE
 
-		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell) && !(HAS_TRAIT(src, TRAIT_RESISTCOLD)))
 			var/mult = dna.species.coldmod * physiology.cold_mod
 			if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
 				throw_alert("temp", /obj/screen/alert/cold, 1)
@@ -364,8 +364,14 @@
 		bodytemperature += 11
 	else
 		bodytemperature += (BODYTEMP_HEATING_MAX + (fire_stacks * 12))
+		var/datum/antagonist/vampire/V = mind?.has_antag_datum(/datum/antagonist/vampire)
+		if(V && !V.get_ability(/datum/vampire_passive/full) && stat != DEAD)
+			V.bloodusable = max(V.bloodusable - 5, 0)
 
 /mob/living/carbon/human/proc/get_thermal_protection()
+	if(HAS_TRAIT(src, TRAIT_RESISTHEAT))
+		return FIRE_IMMUNITY_MAX_TEMP_PROTECT
+
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
 	if(wear_suit)
 		if(wear_suit.max_heat_protection_temperature >= FIRE_SUIT_MAX_TEMP_PROTECT)
@@ -590,26 +596,7 @@
 				to_chat(src, "<span class='notice'>You no longer feel vigorous.</span>")
 			metabolism_efficiency = 1
 
-	if(drowsyness)
-		AdjustDrowsy(-1)
-		EyeBlurry(2)
-		if(prob(5))
-			AdjustSleeping(1)
-			Paralyse(5)
 
-	if(confused)
-		AdjustConfused(-1)
-	// decrement dizziness counter, clamped to 0
-	if(resting)
-		if(dizziness)
-			AdjustDizzy(-15)
-		if(jitteriness)
-			AdjustJitter(-15)
-	else
-		if(dizziness)
-			AdjustDizzy(-3)
-		if(jitteriness)
-			AdjustJitter(-3)
 
 	if(NO_INTORGANS in dna.species.species_traits)
 		return
@@ -763,12 +750,12 @@
 		if(healths)
 			var/health_amount = get_perceived_trauma()
 			if(..(health_amount)) //not dead
-				switch(hal_screwyhud)
-					if(SCREWYHUD_CRIT)
+				switch(health_hud_override)
+					if(HEALTH_HUD_OVERRIDE_CRIT)
 						healths.icon_state = "health6"
-					if(SCREWYHUD_DEAD)
+					if(HEALTH_HUD_OVERRIDE_DEAD)
 						healths.icon_state = "health7"
-					if(SCREWYHUD_HEALTHY)
+					if(HEALTH_HUD_OVERRIDE_HEALTHY)
 						healths.icon_state = "health0"
 
 		if(healthdoll)
@@ -803,7 +790,7 @@
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return
-	if(mind?.vampire && (mind in SSticker.mode.vampires)) //Vampires
+	if(mind?.has_antag_datum(/datum/antagonist/vampire)) //Vampires
 		switch(nutrition)
 			if(NUTRITION_LEVEL_FULL to INFINITY)
 				throw_alert("nutrition", /obj/screen/alert/fat/vampire)
@@ -853,7 +840,7 @@
 
 			if(prob(I.embedded_fall_chance))
 				BP.receive_damage(I.w_class*I.embedded_fall_pain_multiplier)
-				BP.embedded_objects -= I
+				BP.remove_embedded_object(I)
 				I.forceMove(get_turf(src))
 				visible_message("<span class='danger'>[I] falls out of [name]'s [BP.name]!</span>","<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
 				if(!has_embedded_objects())

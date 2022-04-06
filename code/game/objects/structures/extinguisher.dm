@@ -19,6 +19,7 @@
 
 /obj/structure/extinguisher_cabinet/Initialize(mapload, direction = null)
 	. = ..()
+	name = "extinguisher cabinet"
 	if(direction)
 		setDir(direction)
 		set_pixel_offsets_from_dir(28, -28, 30, -30)
@@ -26,9 +27,9 @@
 		if(NO_EXTINGUISHER)
 			return
 		if(MINI_EXTINGUISHER)
-			has_extinguisher = new/obj/item/extinguisher/mini
+			has_extinguisher = new /obj/item/extinguisher/mini(src)
 		else
-			has_extinguisher = new/obj/item/extinguisher
+			has_extinguisher = new /obj/item/extinguisher(src)
 
 /obj/structure/extinguisher_cabinet/examine(mob/user)
 	. = ..()

@@ -244,22 +244,17 @@ log transactions
 			if(amount <= 0)
 				to_chat(usr, "[bicon(src)]<span class='warning'>That is not a valid amount.</span>")
 			else if(authenticated_account && amount > 0)
-				if(amount <= authenticated_account.money)
+				if(amount > 100000) // Prevent crashes
+					to_chat(usr, "<span class='notice'>[bicon(src)]The ATM's screen flashes, 'Maximum single withdrawal limit reached, defaulting to 100,000.'</span>")
+					amount = 100000
+				if(authenticated_account.charge(amount, null, "Credit withdrawal", machine_id, authenticated_account.owner_name))
 					playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
-
-					//remove the money
-					if(amount > 100000) // prevent crashes
-						to_chat(usr, "<span class='notice'>The ATM's screen flashes, 'Maximum single withdrawl limit reached, defaulting to 100,000.'</span>")
-						amount = 100000
 					withdraw_arbitrary_sum(amount)
-					authenticated_account.charge(amount, null, "Credit withdrawal", machine_id, authenticated_account.owner_name)
-				else
-					to_chat(usr, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
 
 		if("balance_statement")
 			if(authenticated_account)
 				if(world.timeofday < lastprint + PRINT_DELAY)
-					to_chat(usr, "<span class='notice'>The [name] flashes an error on its display.</span>")
+					to_chat(usr, "<span class='notice'>[src] flashes an error on its display.</span>")
 					return
 				lastprint = world.timeofday
 				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)

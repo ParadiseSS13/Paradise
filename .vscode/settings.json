@@ -1,0 +1,5 @@
+{
+	"workbench.editorAssociations": {
+		"*.dmi": "imagePreview.previewEditor"
+	}
+}

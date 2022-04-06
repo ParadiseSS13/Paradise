@@ -66,6 +66,12 @@ SUBSYSTEM_DEF(air)
 	msg += "AT/MS:[round((cost ? active_turfs.len/cost : 0),0.1)]"
 	..(msg)
 
+/datum/controller/subsystem/air/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["active_turfs"] = length(active_turfs)
+	cust["hotspots"] = length(hotspots)
+	.["custom"] = cust
 
 /datum/controller/subsystem/air/Initialize(timeofday)
 	setup_overlays() // Assign icons and such for gas-turf-overlays
@@ -283,7 +289,7 @@ SUBSYSTEM_DEF(air)
 		for(var/turf/simulated/S in T.atmos_adjacent_turfs)
 			add_to_active(S)
 
-/datum/controller/subsystem/air/proc/setup_allturfs(var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
+/datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
 	var/list/active_turfs = src.active_turfs
 
 	// Clear active turfs - faster than removing every single turf in the world
@@ -321,7 +327,7 @@ SUBSYSTEM_DEF(air)
 			ET.excited = 1
 			. += ET
 
-/datum/controller/subsystem/air/proc/setup_atmos_machinery(var/list/machines_to_init)
+/datum/controller/subsystem/air/proc/setup_atmos_machinery(list/machines_to_init)
 	var/watch = start_watch()
 	log_startup_progress("Initializing atmospherics machinery...")
 	var/count = _setup_atmos_machinery(machines_to_init)
@@ -329,7 +335,7 @@ SUBSYSTEM_DEF(air)
 
 // this underscored variant is so that we can have a means of late initing
 // atmos machinery without a loud announcement to the world
-/datum/controller/subsystem/air/proc/_setup_atmos_machinery(var/list/machines_to_init)
+/datum/controller/subsystem/air/proc/_setup_atmos_machinery(list/machines_to_init)
 	var/count = 0
 	for(var/obj/machinery/atmospherics/A in machines_to_init)
 		A.atmos_init()
@@ -345,7 +351,7 @@ SUBSYSTEM_DEF(air)
 //this can't be done with setup_atmos_machinery() because
 //	all atmos machinery has to initalize before the first
 //	pipenet can be built.
-/datum/controller/subsystem/air/proc/setup_pipenets(var/list/pipes)
+/datum/controller/subsystem/air/proc/setup_pipenets(list/pipes)
 	var/watch = start_watch()
 	log_startup_progress("Initializing pipe networks...")
 	var/count = _setup_pipenets(pipes)
@@ -353,7 +359,7 @@ SUBSYSTEM_DEF(air)
 
 // An underscored wrapper that exists for the same reason
 // the machine init wrapper does
-/datum/controller/subsystem/air/proc/_setup_pipenets(var/list/pipes)
+/datum/controller/subsystem/air/proc/_setup_pipenets(list/pipes)
 	var/count = 0
 	for(var/obj/machinery/atmospherics/machine in pipes)
 		machine.build_network()

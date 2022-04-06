@@ -87,7 +87,7 @@
 	if(Old == parent)
 		parent = New
 
-/obj/machinery/atmospherics/unary/unsafe_pressure_release(var/mob/user,var/pressures)
+/obj/machinery/atmospherics/unary/unsafe_pressure_release(mob/user, pressures)
 	..()
 
 	var/turf/T = get_turf(src)

@@ -6,6 +6,7 @@
 	icon = 'icons/mob/blob.dmi'
 
 /obj/screen/blob/MouseEntered(location,control,params)
+	. = ..()
 	openToolTip(usr,src,params,title = name,content = desc, theme = "blob")
 
 /obj/screen/blob/MouseExited()
@@ -40,7 +41,7 @@
 	if(hud && hud.mymob && isovermind(hud.mymob))
 		name = initial(name)
 		desc = initial(desc)
-	..()
+	return ..()
 
 /obj/screen/blob/JumpToCore/Click()
 	if(isovermind(usr))
@@ -106,7 +107,7 @@
 	if(hud && hud.mymob && isovermind(hud.mymob))
 		name = initial(name)
 		desc = initial(desc)
-	..()
+	return ..()
 
 /obj/screen/blob/ReadaptChemical/Click()
 	if(isovermind(usr))
@@ -132,6 +133,8 @@
 	if(isovermind(usr))
 		var/mob/camera/blob/B = usr
 		B.split_consciousness()
+		if(B.split_used) // Destroys split proc if the split is succesfully used
+			qdel(src)
 
 /datum/hud/blob_overmind/New(mob/user)
 	..()
@@ -194,6 +197,8 @@
 	using.screen_loc = ui_storage2
 	static_inventory += using
 
-	using = new /obj/screen/blob/Split()
-	using.screen_loc = ui_acti
-	static_inventory += using
+	var/mob/camera/blob/B = user
+	if(!B.is_offspring) // Checks if the blob is an offspring, to not create split button if it is
+		using = new /obj/screen/blob/Split()
+		using.screen_loc = ui_acti
+		static_inventory += using

@@ -1,3 +1,4 @@
+import { rad2deg } from 'common/math';
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Flex, Icon, Input, LabeledList, Section, Table } from '../components';
@@ -5,7 +6,6 @@ import { Window } from '../layouts';
 
 const vectorText = vector => vector ? "(" + vector.join(", ") + ")" : "ERROR";
 
-const rad2deg = rad => rad * (180 / Math.PI);
 const distanceToPoint = (from, to) => {
   if (!from || !to) {
     return;

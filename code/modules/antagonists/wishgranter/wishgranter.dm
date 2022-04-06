@@ -25,9 +25,6 @@
 	H.dna.SetSEState(GLOB.hulkblock, TRUE)
 	singlemutcheck(H, GLOB.hulkblock, MUTCHK_FORCED)
 
-	H.dna.SetSEState(GLOB.xrayblock, TRUE)
-	singlemutcheck(H, GLOB.xrayblock, MUTCHK_FORCED)
-
 	H.dna.SetSEState(GLOB.fireblock, TRUE)
 	singlemutcheck(H, GLOB.fireblock, MUTCHK_FORCED)
 

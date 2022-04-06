@@ -37,7 +37,7 @@
 	var/fillamt = 0
 
 
-/obj/item/grenade/bananade/casing/attackby(var/obj/item/I, mob/user as mob, params)
+/obj/item/grenade/bananade/casing/attackby(obj/item/I, mob/user as mob, params)
 	if(istype(I, /obj/item/grown/bananapeel))
 		if(fillamt < 9)
 			to_chat(usr, "<span  class='notice'>You add another banana peel to the assembly.</span>")

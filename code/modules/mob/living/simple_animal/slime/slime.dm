@@ -157,7 +157,7 @@
 	if(health <= 0) // if damaged, the slime moves twice as slow
 		. *= 2
 
-	. += config.slime_delay
+	. += GLOB.configuration.movement.slime_delay
 
 /mob/living/simple_animal/slime/update_health_hud()
 	if(hud_used)

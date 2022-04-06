@@ -44,7 +44,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
  */
 
-/datum/disease/advance/New(var/process = 1, var/datum/disease/advance/D)
+/datum/disease/advance/New(process = 1, datum/disease/advance/D)
 	if(!istype(D))
 		D = null
 	// Generate symptoms if we weren't given any.
@@ -317,7 +317,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 */
 
 // Mix a list of advance diseases and return the mixed result.
-/proc/Advance_Mix(var/list/D_list)
+/proc/Advance_Mix(list/D_list)
 
 //	to_chat(world, "Mixing!!!!")
 

@@ -59,12 +59,8 @@
 			to_chat(user, "Someone else is already playing this machine, please wait your turn!")
 		return
 
-/obj/machinery/arcade/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/screwdriver) && anchored)
-		playsound(src.loc, O.usesound, 50, 1)
-		panel_open = !panel_open
-		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
-		update_icon()
+/obj/machinery/arcade/attackby(obj/item/O, mob/user, params)
+	if(exchange_parts(user, O))
 		return
 	if(!freeplay)
 		if(istype(O, /obj/item/card/id))
@@ -76,11 +72,21 @@
 			var/obj/item/stack/spacecash/C = O
 			if(pay_with_cash(C, user))
 				tokens += 1
-		return
-	if(panel_open && component_parts && istype(O, /obj/item/crowbar))
-		default_deconstruction_crowbar(user, O)
-		return
+			return
 	return ..()
+
+/obj/machinery/arcade/screwdriver_act(mob/living/user, obj/item/I)
+	if(!anchored)
+		return FALSE
+	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+	update_icon()
+	return TRUE
+
+/obj/machinery/arcade/crowbar_act(mob/living/user, obj/item/I)
+	if(!component_parts || !panel_open)
+		return FALSE
+	default_deconstruction_crowbar(user, I)
+	return TRUE
 
 /obj/machinery/arcade/update_icon()
 	return
@@ -93,7 +99,7 @@
 	cashmoney.use(token_price)
 	return 1
 
-/obj/machinery/arcade/proc/pay_with_card(var/obj/item/card/id/I, var/mob/user)
+/obj/machinery/arcade/proc/pay_with_card(obj/item/card/id/I, mob/user)
 	visible_message("<span class='info'>[usr] swipes a card through [src].</span>")
 	var/datum/money_account/customer_account = attempt_account_access_nosec(I.associated_account_number)
 	if(!customer_account)

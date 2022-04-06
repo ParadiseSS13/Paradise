@@ -1,12 +1,12 @@
 /proc/possess(obj/O as obj in world)
-	set name = "Possess Obj"
+	set name = "\[Admin\] Possess Obj"
 	set category = null
 
 	if(!check_rights(R_POSSESS))
 		return
 
 	if(istype(O,/obj/singularity))
-		if(config.forbid_singulo_possession)
+		if(GLOB.configuration.general.forbid_singulo_possession) // I love how this needs to exist
 			to_chat(usr, "It is forbidden to possess singularities.")
 			return
 
@@ -34,7 +34,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Possess Object") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /proc/release(obj/O as obj in world)
-	set name = "Release Obj"
+	set name = "\[Admin\] Release Obj"
 	set category = null
 	//usr.loc = get_turf(usr)
 

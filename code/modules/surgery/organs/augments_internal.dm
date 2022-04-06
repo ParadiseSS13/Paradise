@@ -4,14 +4,15 @@
 	status = ORGAN_ROBOT
 	var/implant_color = "#FFFFFF"
 	var/implant_overlay
+	var/crit_fail = FALSE //Used by certain implants to disable them.
 	tough = TRUE // Immune to damage
 
-/obj/item/organ/internal/cyberimp/New(var/mob/M = null)
+/obj/item/organ/internal/cyberimp/New(mob/M = null)
 	. = ..()
 	if(implant_overlay)
-		var/image/overlay = new /image(icon, implant_overlay)
+		var/mutable_appearance/overlay = mutable_appearance(icon, implant_overlay)
 		overlay.color = implant_color
-		overlays |= overlay
+		add_overlay(overlay)
 
 /obj/item/organ/internal/cyberimp/emp_act()
 	return // These shouldn't be hurt by EMPs in the standard way
@@ -99,12 +100,12 @@
 	if(L_item)
 		A = pick(oview(range))
 		L_item.throw_at(A, range, 2)
-		to_chat(owner, "<span class='notice'>Your left arm spasms and throws the [L_item.name]!</span>")
+		to_chat(owner, "<span class='notice'>Your left arm spasms and throws [L_item]!</span>")
 		l_hand_obj = null
 	if(R_item)
 		A = pick(oview(range))
 		R_item.throw_at(A, range, 2)
-		to_chat(owner, "<span class='notice'>Your right arm spasms and throws the [R_item.name]!</span>")
+		to_chat(owner, "<span class='notice'>Your right arm spasms and throws [R_item]!</span>")
 		r_hand_obj = null
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/proc/release_items()
@@ -114,7 +115,7 @@
 	if(!r_hand_ignore && (r_hand_obj in owner.contents))
 		r_hand_obj.flags ^= NODROP
 
-/obj/item/organ/internal/cyberimp/brain/anti_drop/remove(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/cyberimp/brain/anti_drop/remove(mob/living/carbon/M, special = 0)
 	if(active)
 		ui_action_click()
 	return ..()
@@ -161,7 +162,7 @@
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep
-	name = "Nerual Jumpstarter implant"
+	name = "Neural Jumpstarter implant"
 	desc = "This implant will automatically attempt to jolt you awake when it detects you have fallen unconscious. Has a short cooldown, incompatible with the CNS Rebooter."
 	implant_color = "#0356fc"
 	slot = "brain_antistun" //one or the other not both.
@@ -300,13 +301,21 @@
 	var/hunger_threshold = NUTRITION_LEVEL_STARVING
 	var/synthesizing = 0
 	var/poison_amount = 5
+	var/disabled_by_emp = FALSE
 	slot = "stomach"
 	origin_tech = "materials=2;powerstorage=2;biotech=2"
+
+/obj/item/organ/internal/cyberimp/chest/nutriment/examine(mob/user)
+	. = ..()
+	if(emp_proof)
+		. += " The implant has been hardened. It is invulnerable to EMPs."
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/on_life()
 	if(!owner)
 		return
 	if(synthesizing)
+		return
+	if(disabled_by_emp)
 		return
 	if(owner.stat == DEAD)
 		return
@@ -319,11 +328,20 @@
 /obj/item/organ/internal/cyberimp/chest/nutriment/proc/synth_cool()
 	synthesizing = FALSE
 
+/obj/item/organ/internal/cyberimp/chest/nutriment/proc/emp_cool()
+	disabled_by_emp = FALSE
+
 /obj/item/organ/internal/cyberimp/chest/nutriment/emp_act(severity)
 	if(!owner || emp_proof)
 		return
+	owner.vomit(100, FALSE, TRUE, 3, FALSE)	// because when else do we ever use projectile vomiting
+	owner.visible_message("<span class='warning'>The contents of [owner]'s stomach erupt violently from [owner.p_their()] mouth!</span>",
+		"<span class='warning'>You feel like your insides are burning as you vomit profusely!</span>",
+		"<span class='warning'>You hear vomiting and a sickening splattering against the floor!</span>")
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
-	to_chat(owner, "<span class='warning'>You feel like your insides are burning.</span>")
+	disabled_by_emp = TRUE		// Disable the implant for a little bit so this effect actually matters
+	synthesizing = FALSE
+	addtimer(CALLBACK(src, .proc/emp_cool), 60 SECONDS)
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
@@ -333,10 +351,17 @@
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
 	origin_tech = "materials=4;powerstorage=3;biotech=3"
+/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
+	name = "hardened nutrient pump implant"
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened
+	name = "hardened nutrient pump implant PLUS"
+	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/reviver
 	name = "Reviver implant"
-	desc = "This implant will attempt to revive you if you lose consciousness. For the faint of heart!"
+	desc = "This implant will attempt to heal you out of critical condition. For the faint of heart!"
 	icon_state = "chest_implant"
 	implant_color = "#AD0000"
 	origin_tech = "materials=5;programming=4;biotech=4"
@@ -361,6 +386,11 @@
 			addtimer(CALLBACK(src, .proc/heal), 30)
 		else
 			reviving = FALSE
+			if(owner.HasDisease(new /datum/disease/critical/shock(0)) && prob(15)) //If they are no longer in crit, but have shock, and pass a 15% chance:
+				for(var/datum/disease/critical/shock/S in owner.viruses)
+					S.cure()
+					revive_cost += 150
+					to_chat(owner, "<span class='notice'>You feel better.</span>")
 			return
 	cooldown = revive_cost + world.time
 	revive_cost = 0
@@ -405,26 +435,18 @@
 //BOX O' IMPLANTS
 
 /obj/item/storage/box/cyber_implants
-	name = "boxed cybernetic implant"
+	name = "boxed cybernetic implants"
 	desc = "A sleek, sturdy box."
 	icon_state = "cyber_implants"
-
-/obj/item/storage/box/cyber_implants/New(loc, implant)
-	..()
-	new /obj/item/autoimplanter(src)
-	if(ispath(implant))
-		new implant(src)
-
-/obj/item/storage/box/cyber_implants/bundle
-	name = "boxed cybernetic implants"
-	var/list/boxed = list(/obj/item/organ/internal/cyberimp/eyes/xray,/obj/item/organ/internal/cyberimp/eyes/thermals,
-						/obj/item/organ/internal/cyberimp/brain/anti_stun, /obj/item/organ/internal/cyberimp/chest/reviver/hardened)
+	var/list/boxed = list(
+		/obj/item/autosurgeon/organ/syndicate/thermal_eyes,
+		/obj/item/autosurgeon/organ/syndicate/xray_eyes,
+		/obj/item/autosurgeon/organ/syndicate/anti_stun,
+		/obj/item/autosurgeon/organ/syndicate/reviver)
 	var/amount = 5
 
-/obj/item/storage/box/cyber_implants/bundle/New()
-	..()
+/obj/item/storage/box/cyber_implants/populate_contents()
 	var/implant
-	while(amount > 0)
+	while(length(contents) <= amount)
 		implant = pick(boxed)
 		new implant(src)
-		amount--

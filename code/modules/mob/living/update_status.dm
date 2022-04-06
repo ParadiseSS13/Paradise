@@ -9,12 +9,13 @@
 		return 0
 
 /mob/living/update_blurry_effects()
-	if(eyes_blurred())
-		overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
-		return 1
+	var/atom/movable/plane_master_controller/game_plane_master_controller = hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
+	if(!game_plane_master_controller)
+		return
+	if(eye_blurry)
+		game_plane_master_controller.add_filter("eye_blur", 1, gauss_blur_filter(clamp(eye_blurry * EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER, 0.6, MAX_EYE_BLURRY_FILTER_SIZE)))
 	else
-		clear_fullscreen("blurry")
-		return 0
+		game_plane_master_controller.remove_filter("eye_blur")
 
 /mob/living/update_druggy_effects()
 	if(druggy)
@@ -86,7 +87,7 @@
 /mob/living/update_canmove(delay_action_updates = 0)
 	var/fall_over = !can_stand()
 	var/buckle_lying = !(buckled && !buckled.buckle_lying)
-	if(fall_over || resting || stunned)
+	if(fall_over || resting || stunned || (buckled && buckle_lying != 0))
 		drop_r_hand()
 		drop_l_hand()
 	else

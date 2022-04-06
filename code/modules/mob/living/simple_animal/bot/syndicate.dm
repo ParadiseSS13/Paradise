@@ -131,21 +131,6 @@
 		spawn(0)
 			handle_automated_action()
 		break
-	for(var/obj/spacepod/P in view(7, src))
-		if((P.name == oldtarget_name) && (world.time < last_found + 100))
-			continue
-		if(!P.pilot)
-			continue
-		if("syndicate" in P.pilot.faction)
-			continue
-		if(P.pilot.stat == DEAD)
-			continue
-		target = P
-		oldtarget_name = P.name
-		mode = BOT_HUNT
-		spawn(0)
-			handle_automated_action()
-		break
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/shootAt(atom/target)

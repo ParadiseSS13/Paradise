@@ -51,7 +51,7 @@
 	var/atom/currentlyEating //what the worm is currently eating
 	var/plasmaPoopPotential = 5 //this mainly exists for the name
 
-/mob/living/simple_animal/hostile/spaceWorm/Process_Spacemove(var/check_drift = 0)
+/mob/living/simple_animal/hostile/spaceWorm/Process_Spacemove(check_drift = 0)
 	return 1 //space worms can flyyyyyy
 
 //Worm Head, Controls the AI for the entire worm "entity"
@@ -83,7 +83,7 @@
 	var/catastrophicDeathProb = 15 //15% chance for the death of the head to kill the whole thing
 
 
-/mob/living/simple_animal/hostile/spaceWorm/wormHead/New(var/location, var/segments = spawnWithSegments)
+/mob/living/simple_animal/hostile/spaceWorm/wormHead/New(location, segments = spawnWithSegments)
 	..()
 
 	if(!src)//This is to prevent a runtime.
@@ -127,7 +127,7 @@
 	attemptToEat(obstacle)
 
 //Attempt to eat things, only the head can eat
-/mob/living/simple_animal/hostile/spaceWorm/wormHead/proc/attemptToEat(var/atom/noms)
+/mob/living/simple_animal/hostile/spaceWorm/wormHead/proc/attemptToEat(atom/noms)
 
 
 	if(currentlyEating == noms) //currentlyEating is always undefined at the end, so don't eat the same thing twice
@@ -244,7 +244,7 @@
 
 
 //Add a new worm segment
-/mob/living/simple_animal/hostile/spaceWorm/proc/Attach(var/mob/living/simple_animal/hostile/spaceWorm/toAttach)
+/mob/living/simple_animal/hostile/spaceWorm/proc/Attach(mob/living/simple_animal/hostile/spaceWorm/toAttach)
 	if(!toAttach)
 		return
 
@@ -276,7 +276,7 @@
 
 
 //Remove a worm segment
-/mob/living/simple_animal/hostile/spaceWorm/proc/Detach(var/die = 0)
+/mob/living/simple_animal/hostile/spaceWorm/proc/Detach(die = 0)
 	var/mob/living/simple_animal/hostile/spaceWorm/wormHead/newHead = new /mob/living/simple_animal/hostile/spaceWorm/wormHead(loc,0)
 	var/mob/living/simple_animal/hostile/spaceWorm/newHeadPrev
 

@@ -104,7 +104,7 @@
 
 	weapon_setup(installation)
 
-/obj/machinery/porta_turret/proc/weapon_setup(var/guntype)
+/obj/machinery/porta_turret/proc/weapon_setup(guntype)
 	switch(guntype)
 		if(/obj/item/gun/energy/laser/practice)
 			lethal_is_configurable = FALSE
@@ -317,11 +317,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/power_change()
 	if(powered() || !use_power)
 		stat &= ~NOPOWER
-		update_icon()
 	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
-			update_icon()
+		stat |= NOPOWER
+	update_icon()
 
 
 /obj/machinery/porta_turret/attackby(obj/item/I, mob/user)
@@ -518,7 +516,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	var/list/targets = list()			//list of primary targets
 	var/list/secondarytargets = list()	//targets that are least important
-	var/static/things_to_scan = typecacheof(list(/obj/mecha, /obj/spacepod, /obj/vehicle, /mob/living))
+	var/static/things_to_scan = typecacheof(list(/obj/mecha, /obj/vehicle, /mob/living))
 
 	for(var/A in typecache_filter_list(view(scan_range, src), things_to_scan))
 		var/atom/AA = A
@@ -529,10 +527,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(istype(A, /obj/mecha))
 			var/obj/mecha/ME = A
 			assess_and_assign(ME.occupant, targets, secondarytargets)
-
-		if(istype(A, /obj/spacepod))
-			var/obj/spacepod/SP = A
-			assess_and_assign(SP.pilot, targets, secondarytargets)
 
 		if(istype(A, /obj/vehicle))
 			var/obj/vehicle/T = A
@@ -610,7 +604,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	return TURRET_PRIORITY_TARGET	//if the perp has passed all previous tests, congrats, it is now a "shoot-me!" nominee
 
-/obj/machinery/porta_turret/proc/tryToShootAt(var/list/mob/living/targets)
+/obj/machinery/porta_turret/proc/tryToShootAt(list/mob/living/targets)
 	if(targets.len && last_target && (last_target in targets) && target(last_target))
 		return 1
 
@@ -659,6 +653,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	qdel(flick_holder)
 
 	set_raised_raising(FALSE, FALSE)
+	set_angle(0)
 	update_icon()
 
 /obj/machinery/porta_turret/on_assess_perp(mob/living/carbon/human/perp)
@@ -668,7 +663,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	return ..()
 
-/obj/machinery/porta_turret/proc/set_raised_raising(var/is_raised, var/is_raising)
+/obj/machinery/porta_turret/proc/set_raised_raising(is_raised, is_raising)
 	raised = is_raised
 	raising = is_raising
 	density = is_raised || is_raising
@@ -680,7 +675,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		last_target = target
 		if(has_cover)
 			popUp()				//pop the turret up if it's not already up.
-		setDir(get_dir(src, target))	//even if you can't shoot, follow the target
+		// Set angle
+		set_angle(get_angle(src, target))
 		shootAt(target)
 		return TRUE
 
@@ -724,7 +720,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	return A
 
 /obj/machinery/porta_turret/centcom
-	name = "Centcom Turret"
+	name = "\improper Centcomm turret"
 	enabled = FALSE
 	ailock = TRUE
 	check_synth	 = FALSE
@@ -736,7 +732,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	region_max = REGION_CENTCOMM // Non-turretcontrolled turrets at CC can have their access customized to check for CC accesses.
 
 /obj/machinery/porta_turret/centcom/pulse
-	name = "Pulse Turret"
+	name = "pulse turret"
 	health = 200
 	enabled = TRUE
 	lethal = TRUE
@@ -756,7 +752,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/check_borgs
 	var/ailock
 
-/obj/machinery/porta_turret/proc/setState(var/datum/turret_checks/TC)
+/obj/machinery/porta_turret/proc/setState(datum/turret_checks/TC)
 	if(controllock)
 		return
 	enabled = TC.enabled
@@ -843,6 +839,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				var/obj/item/gun/energy/E = I //typecasts the item to an energy gun
 				if(!user.unEquip(I))
 					to_chat(user, "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
+					return
+				if(!E.can_fit_in_turrets)
+					to_chat(user, "<span class='notice'>[I] will not operate correctly in [src].</span>")
 					return
 				installation = I.type //installation becomes I.type
 				gun_charge = E.cell.charge //the gun's charge is stored in gun_charge

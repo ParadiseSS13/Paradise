@@ -84,7 +84,7 @@
 		return
 
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>The [src] slips out of your hand and hits your head.</span>")
+		to_chat(user, "<span class='warning'>[src] slips out of your hand and hits your head.</span>")
 		user.take_organ_damage(10)
 		user.Paralyse(20)
 		return
@@ -97,9 +97,8 @@
 				"<span class='danger'>May the power of [deity_name] compel you to be healed!</span>")
 			playsound(loc, "punch", 25, 1, -1)
 		else
-			if(!istype(H.head, /obj/item/clothing/head/helmet))
-				M.adjustBrainLoss(10)
-				to_chat(M, "<span class='warning'>You feel dumber.</span>")
+			M.adjustBrainLoss(10)
+			to_chat(M, "<span class='warning'>You feel dumber.</span>")
 			H.visible_message("<span class='danger'>[user] beats [H == user ? "[user.p_them()]self" : "[H]"] over the head with [src]!</span>")
 			playsound(src.loc, "punch", 25, 1, -1)
 	else

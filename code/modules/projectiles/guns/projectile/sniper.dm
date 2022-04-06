@@ -86,16 +86,29 @@
 	damage = 70
 	stun = 5
 	weaken = 5
-	dismemberment = 50
 	armour_penetration = 50
-	var/breakthings = TRUE
 
-/obj/item/projectile/bullet/sniper/on_hit(atom/target, blocked = 0, hit_zone)
-	if((blocked != 100) && (!ismob(target) && breakthings))
+/obj/item/ammo_box/magazine/sniper_rounds/antimatter
+	name = "sniper rounds (Antimatter)"
+	desc = "Antimatter sniper rounds, for when you really don't like something."
+	icon_state = "antimatter"
+	ammo_type = /obj/item/ammo_casing/antimatter
+
+/obj/item/ammo_casing/antimatter
+	desc = "A .50 antimatter bullet casing, designed to cause massive damage to whatever is hit."
+	caliber = ".50"
+	projectile_type = /obj/item/projectile/bullet/sniper/antimatter
+	icon_state = ".50"
+
+/obj/item/projectile/bullet/sniper/antimatter
+	name = "antimatter bullet"
+	dismemberment = 50
+
+/obj/item/projectile/bullet/sniper/antimatter/on_hit(atom/target, blocked = 0, hit_zone)
+	if((blocked != 100) && (!ismob(target)))
 		target.ex_act(rand(1,2))
 
 	return ..()
-
 
 //Sleepy ammo
 /obj/item/ammo_box/magazine/sniper_rounds/soporific
@@ -117,9 +130,7 @@
 	armour_penetration = 0
 	nodamage = 1
 	stun = 0
-	dismemberment = 0
 	weaken = 0
-	breakthings = FALSE
 
 /obj/item/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && istype(target, /mob/living))
@@ -145,17 +156,15 @@
 	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper/haemorrhage
-	armour_penetration = 15
-	damage = 15
-	stun = 0
-	dismemberment = 0
-	weaken = 0
-	breakthings = FALSE
+	armour_penetration = 25
+	damage = 45
+	stun = 3
+	weaken = 3
 
 /obj/item/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && iscarbon(target))
 		var/mob/living/carbon/C = target
-		C.bleed(100)
+		C.bleed(150)
 
 	return ..()
 
@@ -163,6 +172,7 @@
 /obj/item/ammo_box/magazine/sniper_rounds/penetrator
 	name = "sniper rounds (penetrator)"
 	desc = "An extremely powerful round capable of passing straight through cover and anyone unfortunate enough to be behind it."
+	icon_state = "penetrator"
 	ammo_type = /obj/item/ammo_casing/penetrator
 	origin_tech = "combat=6;syndicate=3"
 	max_ammo = 5
@@ -181,7 +191,6 @@
 	stun = 0
 	dismemberment = 0
 	weaken = 0
-	breakthings = FALSE
 
 //compact ammo
 /obj/item/ammo_box/magazine/sniper_rounds/compact
@@ -193,14 +202,11 @@
 /obj/item/ammo_casing/compact
 	desc = "A .50 caliber compact round casing."
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper/compact
+	projectile_type = /obj/item/projectile/bullet/sniper //Same as the base sniper bullet, but can't be reloaded with any fancy sniper ammo in the mag, which only holds 4
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	icon_state = ".50"
 
-/obj/item/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
-	dismemberment = 0
-	breakthings = FALSE
 
 //toy magazine
 /obj/item/ammo_box/magazine/toy/sniper_rounds

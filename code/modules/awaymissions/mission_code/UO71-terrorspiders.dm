@@ -174,7 +174,7 @@
 	"}
 
 /obj/item/gun/energy/laser/awaymission_aeg
-	name = "Wireless Energy Gun"
+	name = "wireless energy gun"
 	desc = "An energy gun that recharges wirelessly during away missions. Does not work on the main station."
 	force = 10
 	origin_tech = null

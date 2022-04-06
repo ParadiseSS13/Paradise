@@ -11,19 +11,17 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	container_type = OPENCONTAINER
 
 	categories = list(
-								"AI Modules",
-								"Computer Boards",
-								"Engineering Machinery",
-								"Exosuit Modules",
-								"Hydroponics Machinery",
-								"Medical Machinery",
-								"Misc. Machinery",
-								"Research Machinery",
-								"Subspace Telecomms",
-								"Teleportation Machinery"
-								)
-
-	reagents = new()
+		"AI Modules",
+		"Computer Boards",
+		"Engineering Machinery",
+		"Exosuit Modules",
+		"Hydroponics Machinery",
+		"Medical Machinery",
+		"Misc. Machinery",
+		"Research Machinery",
+		"Subspace Telecomms",
+		"Teleportation Machinery"
+	)
 
 /obj/machinery/r_n_d/circuit_imprinter/New()
 	..()
@@ -33,8 +31,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
+	create_reagents()
 	RefreshParts()
-	reagents.my_atom = src
 
 /obj/machinery/r_n_d/circuit_imprinter/upgraded/New()
 	..()
@@ -45,7 +43,11 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	RefreshParts()
-	reagents.my_atom = src
+
+/obj/machinery/r_n_d/circuit_imprinter/Destroy()
+	if(linked_console)
+		linked_console.linked_imprinter = null
+	return ..()
 
 /obj/machinery/r_n_d/circuit_imprinter/RefreshParts()
 	reagents.maximum_volume = 0
@@ -63,7 +65,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	T = clamp(T, 1, 4)
 	efficiency_coeff = 1 / (2 ** (T - 1))
 
-/obj/machinery/r_n_d/circuit_imprinter/check_mat(datum/design/being_built, var/M)
+/obj/machinery/r_n_d/circuit_imprinter/check_mat(datum/design/being_built, M)
 	var/list/all_materials = being_built.reagents_list + being_built.materials
 
 	var/A = materials.amount(M)
@@ -72,7 +74,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	return round(A / max(1, (all_materials[M] * efficiency_coeff)))
 
-/obj/machinery/r_n_d/circuit_imprinter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/r_n_d/circuit_imprinter/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(shocked)
 		if(shock(user,50))
 			return TRUE
@@ -95,7 +97,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			default_deconstruction_crowbar(user, O)
 			return
 		else
-			to_chat(user, "<span class='warning'>You can't load the [src.name] while it's opened.</span>")
+			to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
 			return
 	if(O.is_open_container())
 		return FALSE

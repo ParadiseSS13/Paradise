@@ -176,6 +176,20 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	SyncRDevices()
 
 /obj/machinery/computer/rdconsole/Destroy()
+	QDEL_NULL(files)
+	QDEL_NULL(t_disk)
+	QDEL_NULL(d_disk)
+	QDEL_LIST(matching_designs)
+	if(linked_destroy)
+		linked_destroy.linked_console = null
+		linked_destroy = null
+	if(linked_lathe)
+		linked_lathe.linked_console = null
+		linked_lathe = null
+	if(linked_imprinter)
+		linked_imprinter.linked_console = null
+		linked_imprinter = null
+
 	if(wait_message_timer)
 		deltimer(wait_message_timer)
 		wait_message_timer = 0
@@ -186,7 +200,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	griefProtection()
 */
 
-/obj/machinery/computer/rdconsole/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
+/obj/machinery/computer/rdconsole/attackby(obj/item/D as obj, mob/user as mob, params)
 
 	//Loading a disk into it.
 	if(istype(D, /obj/item/disk))
@@ -285,16 +299,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	SStgui.update_uis(src)
 
-/obj/machinery/computer/rdconsole/proc/start_destroyer()
+/obj/machinery/computer/rdconsole/proc/start_destroyer(mob/user)
 	if(!linked_destroy)
 		return
 
 	if(linked_destroy.busy)
-		to_chat(usr, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
+		to_chat(user, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
 		return
 
 	if(!linked_destroy.loaded_item)
-		to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+		to_chat(user, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
 		return
 
 	var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
@@ -313,7 +327,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	linked_destroy.busy = TRUE
 	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
 	flick("d_analyzer_process", linked_destroy)
-	addtimer(CALLBACK(src, .proc/finish_destroyer, temp_tech), DECONSTRUCT_DELAY)
+	addtimer(CALLBACK(src, .proc/finish_destroyer, user, temp_tech), DECONSTRUCT_DELAY)
 
 // Sends salvaged materials to a linked protolathe, if any.
 /obj/machinery/computer/rdconsole/proc/send_mats()
@@ -329,14 +343,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		var/can_insert = min(space, salvageable, available)
 		linked_lathe.materials.insert_amount(can_insert, material)
 
-/obj/machinery/computer/rdconsole/proc/finish_destroyer(list/temp_tech)
+/obj/machinery/computer/rdconsole/proc/finish_destroyer(mob/user, list/temp_tech)
 	clear_wait_message()
 	if(!linked_destroy || !temp_tech)
 		return
 
 	if(!linked_destroy.hacked)
 		if(!linked_destroy.loaded_item)
-			to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+			to_chat(user, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
 		else
 			for(var/T in temp_tech)
 				files.UpdateTech(T, temp_tech[T])
@@ -427,7 +441,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/enough_materials = TRUE
 
-	if(!machine.materials.has_materials(efficient_mats, amount))
+	if(!machine.materials.has_materials(being_built.materials, coeff))
 		atom_say("Not enough materials to complete prototype.")
 		enough_materials = FALSE
 	else
@@ -854,7 +868,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(b_type & PROTOLATHE) lathe_types += "Protolathe"
 				if(b_type & AUTOLATHE) lathe_types += "Autolathe"
 				if(b_type & MECHFAB) lathe_types += "Mech Fabricator"
-				if(b_type & PODFAB) lathe_types += "Spacepod Fabricator"
 				if(b_type & BIOGENERATOR) lathe_types += "Biogenerator"
 				if(b_type & SMELTER) lathe_types += "Smelter"
 			var/list/materials = list()
@@ -940,13 +953,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	desc = "A console used to interface with R&D tools."
 	id = 3
 	circuit = /obj/item/circuitboard/rdconsole/experiment
-
-/obj/machinery/computer/rdconsole/mechanics
-	name = "mechanics R&D console"
-	desc = "A console used to interface with R&D tools."
-	id = 4
-	req_access = list(ACCESS_MECHANIC)
-	circuit = /obj/item/circuitboard/rdconsole/mechanics
 
 /obj/machinery/computer/rdconsole/public
 	name = "public R&D console"

@@ -62,7 +62,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_DARKBLUE
 
-/obj/item/projectile/beam/pulse/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
 	if(istype(target,/turf/)||istype(target,/obj/structure/))
 		target.ex_act(2)
 	..()
@@ -117,16 +117,6 @@
 	suit_types = list(/obj/item/clothing/suit/redtag)
 	light_color = LIGHT_COLOR_BLUE
 
-/obj/item/projectile/beam/sniper
-	name = "sniper beam"
-	icon_state = "sniperlaser"
-	damage = 60
-	stun = 5
-	weaken = 5
-	stutter = 5
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
-	light_color = LIGHT_COLOR_PINK
-
 /obj/item/projectile/beam/immolator
 	name = "immolation beam"
 
@@ -140,10 +130,10 @@
 	damage = 8
 	icon_state = "scatterlaser"
 
-/obj/item/projectile/beam/immolator/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/beam/immolator/on_hit(atom/target, blocked = 0)
 	. = ..()
-	if(istype(target, /mob/living/carbon))
-		var/mob/living/carbon/M = target
+	if(isliving(target))
+		var/mob/living/M = target
 		M.adjust_fire_stacks(1)
 		M.IgniteMob()
 

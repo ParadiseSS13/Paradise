@@ -84,7 +84,7 @@
 
 /obj/item/storage/firstaid/toxin/Initialize(mapload)
 	. = ..()
-	icon_state = pick("antitoxin", "antitoxfirstaid", "antitoxfirstaid2", "antitoxfirstaid3")
+	icon_state = pick("antitoxin", "antitoxfirstaid", "antitoxfirstaid2")
 
 /obj/item/storage/firstaid/toxin/populate_contents()
 	for(var/I in 1 to 3)

@@ -17,8 +17,8 @@
 	icon = 'icons/atmos/filter.dmi'
 	icon_state = "map"
 	can_unwrench = TRUE
-	/// The amount of pressure the filter wants to operate at.
-	var/target_pressure = ONE_ATMOSPHERE
+
+	target_pressure = ONE_ATMOSPHERE
 	/// The type of gas we want to filter. Valid values that go here are from the `FILTER` defines at the top of the file.
 	var/filter_type = FILTER_TOXINS
 	/// A list of available filter options. Used with `ui_data`.
@@ -31,45 +31,24 @@
 		"N2O" = FILTER_N2O
 	)
 
+// So we can CtrlClick without triggering the anchored message.
+/obj/machinery/atmospherics/trinary/filter/can_be_pulled(user, grab_state, force, show_message)
+	return FALSE
+
 /obj/machinery/atmospherics/trinary/filter/CtrlClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!in_range(src, user) && !issilicon(usr))
-		return
-	if(!ishuman(usr) && !issilicon(usr))
-		return
-	toggle()
+	if(can_use_shortcut(user))
+		toggle(user)
 	return ..()
 
-/obj/machinery/atmospherics/trinary/filter/AICtrlClick()
-	toggle()
-	return ..()
+/obj/machinery/atmospherics/trinary/filter/AICtrlClick(mob/living/silicon/user)
+	toggle(user)
 
 /obj/machinery/atmospherics/trinary/filter/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!in_range(src, user) && !issilicon(usr))
-		return
-	if(!ishuman(usr) && !issilicon(usr))
-		return
-	set_max()
-	return
+	if(can_use_shortcut(user))
+		set_max(user)
 
-/obj/machinery/atmospherics/trinary/filter/AIAltClick()
-	set_max()
-	return ..()
-
-/obj/machinery/atmospherics/trinary/filter/proc/toggle()
-	if(powered())
-		on = !on
-		update_icon()
-
-/obj/machinery/atmospherics/trinary/filter/proc/set_max()
-	if(powered())
-		target_pressure = MAX_OUTPUT_PRESSURE
-		update_icon()
+/obj/machinery/atmospherics/trinary/filter/AIAltClick(mob/living/silicon/user)
+	set_max(user)
 
 /obj/machinery/atmospherics/trinary/filter/Destroy()
 	if(SSradio)

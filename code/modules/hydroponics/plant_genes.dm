@@ -26,7 +26,7 @@
 /datum/plant_gene/core/proc/apply_stat(obj/item/seeds/S)
 	return
 
-/datum/plant_gene/core/New(var/i = null)
+/datum/plant_gene/core/New(i = null)
 	..()
 	if(!isnull(i))
 		value = i
@@ -326,21 +326,6 @@
 		to_chat(C, "<span class='warning'>[src] sparks, and burns up!</span>")
 		new /obj/effect/decal/cleanable/molten_object(T)
 		qdel(G)
-
-
-/datum/plant_gene/trait/noreact
-	// Makes plant reagents not react until squashed.
-	name = "Separated Chemicals"
-
-/datum/plant_gene/trait/noreact/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
-	..()
-	G.reagents.set_reacting(FALSE)
-
-/datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	if(G && G.reagents)
-		G.reagents.set_reacting(TRUE)
-		G.reagents.handle_reactions()
-
 
 /datum/plant_gene/trait/maxchem
 	// 2x to max reagents volume.

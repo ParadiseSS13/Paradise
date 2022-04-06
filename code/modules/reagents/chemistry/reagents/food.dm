@@ -12,11 +12,11 @@
 	var/diet_flags = DIET_OMNI | DIET_HERB | DIET_CARN
 
 /datum/reagent/consumable/on_mob_life(mob/living/M)
-	if(!(M.mind in SSticker.mode.vampires))
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
-				H.adjust_nutrition(nutriment_factor)	// For hunger and fatness
+	var/is_vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(ishuman(M) && !is_vamp)
+		var/mob/living/carbon/human/H = M
+		if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
+			H.adjust_nutrition(nutriment_factor)	// For hunger and fatness
 	return ..()
 
 /datum/reagent/consumable/nutriment		// Pure nutriment, universally digestable and thus slightly less effective
@@ -31,13 +31,13 @@
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(!(M.mind in SSticker.mode.vampires))
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
-				if(prob(50))
-					update_flags |= M.adjustBruteLoss(-brute_heal, FALSE)
-					update_flags |= M.adjustFireLoss(-burn_heal, FALSE)
+	var/is_vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(ishuman(M) && !is_vamp)
+		var/mob/living/carbon/human/H = M
+		if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
+			if(prob(50))
+				update_flags |= M.adjustBruteLoss(-brute_heal, FALSE)
+				update_flags |= M.adjustFireLoss(-burn_heal, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/nutriment/on_new(list/supplied_data)
@@ -354,7 +354,8 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.mind && H.mind.vampire && !H.mind.vampire.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
+		var/datum/antagonist/vampire/V = H.mind?.has_antag_datum(/datum/antagonist/vampire)
+		if(V && !V.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
 			if(prob(min(25, current_cycle)))
 				to_chat(H, "<span class='danger'>You can't get the scent of garlic out of your nose! You can barely think...</span>")
 				H.Weaken(1)
@@ -376,7 +377,7 @@
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && (M.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Brig Physician", "Internal Affairs Agent", "Magistrate")))
+	if(ishuman(M) && (M.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Internal Affairs Agent", "Magistrate")))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -447,7 +448,7 @@
 	return ..()
 
 /datum/reagent/consumable/flour
-	name = "flour"
+	name = "Flour"
 	id = "flour"
 	description = "This is what you rub all over yourself to pretend to be a ghost."
 	reagent_state = SOLID
@@ -591,15 +592,18 @@
 	reagent_state = LIQUID
 	color = "#21170E"
 	taste_description = "tea"
+	harmless = TRUE
 
 /datum/reagent/consumable/mugwort/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && M.mind)
-		if(M.mind.special_role == SPECIAL_ROLE_WIZARD)
-			update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(ishuman(M) && M.mind?.special_role == SPECIAL_ROLE_WIZARD)
+		update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		for(var/datum/reagent/R in M.reagents.reagent_list)
+			if(!R.harmless)
+				M.reagents.remove_reagent(R.id, 5) // purge those meme chems
 	return ..() | update_flags
 
 /datum/reagent/consumable/porktonium
@@ -791,6 +795,21 @@
 	color = "#B4641B"
 	taste_description = "gravy"
 
+/datum/reagent/consumable/wasabi
+	name = "Wasabi"
+	id = "wasabi"
+	description = "A pungent green paste often served with sushi. Consuming too much causes an uncomfortable burning sensation in the nostrils."
+	reagent_state = LIQUID
+	color = "#80942F"
+	taste_description = "pungency"
+
+/datum/reagent/consumable/wasabi/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST)
+		if(volume <= 1)
+			to_chat(M, "<span class='notice'>Your nostrils tingle briefly.</span>")
+		else
+			to_chat(M, "<span class='warning'>Your nostrils burn uncomfortably!</span>")
+			M.adjustFireLoss(1)
 
 ///Food Related, but non-nutritious
 
@@ -834,7 +853,7 @@
 	return ..() | update_flags
 
 /datum/reagent/cholesterol
-	name = "cholesterol"
+	name = "Cholesterol"
 	id = "cholesterol"
 	description = "Pure cholesterol. Probably not very good for you."
 	reagent_state = LIQUID

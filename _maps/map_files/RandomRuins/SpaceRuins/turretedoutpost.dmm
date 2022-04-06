@@ -55,8 +55,6 @@
 /area/ruin/unpowered)
 "n" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
-	icon_state = "chair";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -76,15 +74,15 @@
 "r" = (
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ruin/unpowered)
 "s" = (
 /obj/item/rack_parts,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ruin/unpowered)
 "t" = (
@@ -93,8 +91,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ruin/unpowered)
 "u" = (
@@ -107,9 +105,8 @@
 /area/ruin/unpowered)
 "w" = (
 /obj/machinery/power/apc/noalarm{
-	dir = 2;
-	name = "Outpost APC";
 	keep_preset_name = 1;
+	name = "Outpost APC";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
@@ -157,16 +154,15 @@
 /obj/structure/rack,
 /obj/item/ammo_box/c9mm,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ruin/unpowered)
 "E" = (
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -174,8 +170,8 @@
 /obj/structure/rack,
 /obj/item/clothing/head/helmet/swat,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ruin/unpowered)
 "G" = (
@@ -183,8 +179,8 @@
 /obj/item/crowbar/red,
 /obj/item/paper/crumpled,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ruin/unpowered)
 "H" = (
@@ -249,23 +245,22 @@
 /obj/item/storage/belt/military,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ruin/unpowered)
 "R" = (
 /obj/structure/rack,
 /obj/item/clothing/head/helmet/riot,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ruin/unpowered)
 "S" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/rawcutlet,
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,

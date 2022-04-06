@@ -35,7 +35,7 @@
 			return
 		cut_overlays()
 		if(t)
-			add_overlay(image(icon, "bodybag_label"))
+			add_overlay("bodybag_label")
 		return
 	if(istype(I, /obj/item/wirecutters))
 		to_chat(user, "<span class='notice'>You cut the tag off the bodybag.</span>")
@@ -53,13 +53,17 @@
 		return TRUE
 	return FALSE
 
+/obj/structure/closet/body_bag/update_overlays()
+	..()
+	if(name != initial(name))
+		add_overlay("bodybag_label")
 
 /obj/structure/closet/body_bag/MouseDrop(over_object, src_location, over_location)
 	. = ..()
 	if(over_object == usr && (in_range(src, usr) || usr.contents.Find(src)))
 		if(!ishuman(usr) || opened || length(contents))
 			return FALSE
-		visible_message("[usr] folds up the [name]")
+		visible_message("<span class='notice'>[usr] folds up [src].</span>")
 		new item_path(get_turf(src))
 		qdel(src)
 

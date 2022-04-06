@@ -26,7 +26,6 @@
 	ai_spins_webs = FALSE
 	ai_ventcrawls = FALSE
 	idle_ventcrawl_chance = 0
-	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	force_threshold = 18 // outright immune to anything of force under 18, this means welders can't hurt it, only guns can
 	ranged = 1
 	retreat_distance = 5
@@ -34,6 +33,7 @@
 	projectilesound = 'sound/weapons/pierce.ogg'
 	projectiletype = /obj/item/projectile/terrorqueenspit
 	spider_tier = TS_TIER_4
+	loudspeaker = TRUE
 	spider_opens_doors = 2
 	web_type = /obj/structure/spider/terrorweb/queen
 	var/spider_spawnfrequency = 1200 // 120 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()

@@ -8,7 +8,7 @@
 	amount = 25
 	max_amount = 25
 
-/obj/item/stack/tape_roll/New(var/loc, var/amount=null)
+/obj/item/stack/tape_roll/New(loc, amount=null)
 	..()
 
 	update_icon()

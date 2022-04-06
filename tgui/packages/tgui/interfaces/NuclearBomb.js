@@ -49,7 +49,7 @@ export const NuclearBomb = (props, context) => {
               <Button
                 icon={data.anchored ? 'check' : 'times'}
                 selected={data.anchored}
-                disabled={!data.authfull}
+                disabled={!data.authdisk}
                 content={data.anchored ? 'YES' : 'NO'}
                 onClick={() => act("toggle_anchor")} />
             </LabeledList.Item>

@@ -30,7 +30,7 @@
 	hostpda = null
 	return ..()
 
-/obj/item/integrated_radio/proc/post_signal(var/freq, var/key, var/value, var/key2, var/value2, var/key3, var/value3,var/key4, var/value4, s_filter)
+/obj/item/integrated_radio/proc/post_signal(freq, key, value, key2, value2, key3, value3, key4, value4, s_filter)
 
 //	to_chat(world, "Post: [freq]: [key]=[value], [key2]=[value2]")
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(freq)

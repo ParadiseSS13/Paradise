@@ -44,10 +44,12 @@
 	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD, WANTED_HUD)
 
 /datum/atom_hud/data/diagnostic
-	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD)
+
+/datum/atom_hud/data/diagnostic/basic
+	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD)
 
 /datum/atom_hud/data/diagnostic/advanced
-	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_PATH_HUD)
+	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD, DIAG_PATH_HUD)
 
 /datum/atom_hud/data/bot_path
 	hud_icons = list(DIAG_PATH_HUD)
@@ -90,6 +92,8 @@
 /mob/living/carbon/proc/has_virus()
 	for(var/thing in viruses)
 		var/datum/disease/D = thing
+		if(!D.discovered) // Early-stage viruses should not show up on med HUD (though health analywers can still pick them up)
+			continue
 		if((!(D.visibility_flags & HIDDEN_SCANNER)) && (D.severity != NONTHREAT))
 			return TRUE
 	return FALSE
@@ -178,14 +182,19 @@
 /mob/living/carbon/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
-	var/dead = stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH)
 	// To the right of health bar
-	if(dead)
-		var/revivable = timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT)
+	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
+		var/revivable
+		if(!ghost_can_reenter()) // DNR or AntagHUD
+			revivable = FALSE
+		else if(timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT))
+			revivable = TRUE
+
 		if(revivable)
 			holder.icon_state = "hudflatline"
 		else
 			holder.icon_state = "huddead"
+
 	else if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 		holder.icon_state = "hudxeno"
 	else if(B && B.controlling)
@@ -465,6 +474,16 @@
 		holder.icon_state = ""
 		return
 	holder.icon_state = "hudweed[RoundPlantBar(weedlevel/10)]"
+
+/*~~~~~~~~~~~~
+	Airlocks!
+~~~~~~~~~~~~~*/
+/obj/machinery/door/airlock/proc/diag_hud_set_electrified()
+	var/image/holder = hud_list[DIAG_AIRLOCK_HUD]
+	if(isElectrified())
+		holder.icon_state = "electrified"
+	else
+		holder.icon_state = ""
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	I'll just put this somewhere near the end...

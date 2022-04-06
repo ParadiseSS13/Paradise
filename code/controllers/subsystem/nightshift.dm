@@ -14,9 +14,9 @@ SUBSYSTEM_DEF(nightshift)
 	var/high_security_mode = FALSE
 
 /datum/controller/subsystem/nightshift/Initialize()
-	if(!config.enable_night_shifts)
+	if(!GLOB.configuration.general.enable_night_shifts)
 		can_fire = FALSE
-	if(config.randomize_shift_time)
+	if(GLOB.configuration.general.randomise_shift_time)
 		GLOB.gametime_offset = rand(0, 23) HOURS
 	return ..()
 

@@ -51,7 +51,7 @@
 	user.visible_message("<span class='danger'>[user] zaps [user.p_them()]self with [src].</span>")
 	playsound(user, fire_sound, 50, 1)
 	user.create_attack_log("<b>[key_name(user)]</b> zapped [user.p_them()]self with a <b>[src]</b>")
-	add_attack_logs(null, user, "zapped [user.p_them()]self with a [src]", ATKLOG_ALL)
+	add_attack_logs(user, user, "zapped [user.p_them()]self with a [src]", ATKLOG_ALL)
 
 /////////////////////////////////////
 //WAND OF DEATH
@@ -182,7 +182,7 @@
 	desc = "This wand shoots... banana peels?"
 	fire_sound = 'sound/items/bikehorn.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/slipping
-	icon_state = "staffofslipping"
+	icon_state = "wandofslipping"
 	max_charges = 5 //5, 4, 3, 2
 
 /obj/item/gun/magic/wand/slipping/zap_self(mob/living/user)

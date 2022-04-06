@@ -1,6 +1,6 @@
 /obj/effect/spawner/lootdrop
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "x2"
+	icon = 'icons/effects/spawner_icons.dmi'
+	icon_state = "questionmark"
 	color = "#00FF00"
 	var/lootcount = 1		//how many items will be spawned
 	var/lootdoubles = 1		//if the same item can be spawned twice
@@ -31,7 +31,9 @@
 				)
 
 /obj/effect/spawner/lootdrop/maintenance
-	name = "maintenance loot spawner"
+	name = "maintenance loot spawner (1 item)"
+	icon_state = "loot"
+	color = null
 
 	//How to balance this table
 	//-------------------------
@@ -144,6 +146,8 @@
 				/obj/item/stamp/chameleon = 2,
 				/obj/item/clothing/shoes/chameleon/noslip = 5,
 				/obj/item/clothing/mask/chameleon = 2,
+				/obj/item/clothing/mask/gas/voice_modulator = 2,
+				/obj/item/clothing/mask/gas/voice_modulator/chameleon = 2,
 				/obj/item/dnascrambler = 1,
 				/obj/item/storage/backpack/satchel_flat = 2,
 				/obj/item/storage/toolbox/syndicate = 2,
@@ -156,8 +160,24 @@
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
-				"" = 68
+				"" = 64 // Reduce this number if you add things above. Make sure all the numbers in the list add to 100 EXACTLY
 				)
+
+/obj/effect/spawner/lootdrop/maintenance/two
+	name = "maintenance loot spawner (2 items)"
+	icon_state = "doubleloot"
+	lootcount = 2
+
+/obj/effect/spawner/lootdrop/maintenance/three
+	name = "maintenance loot spawner (3 items)"
+	icon_state = "moreloot"
+	lootcount = 3
+
+/obj/effect/spawner/lootdrop/maintenance/eight
+	name = "maintenance loot spawner (8 items)"
+	icon_state = "megaloot"
+	lootcount = 8
+
 
 /obj/effect/spawner/lootdrop/crate_spawner // for ruins
 	name = "lootcrate spawner"
@@ -221,7 +241,6 @@
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/minerals/New()
-	. = ..()
 	if(loot && loot.len)
 		for(var/i = lootcount, i > 0, i--)
 			if(!loot.len)
@@ -232,6 +251,7 @@
 			if(lootspawn)
 				var/obj/item/stack/sheet/S = new lootspawn(get_turf(src))
 				S.amount = 25
+	. = ..()
 	qdel(src)
 
 
@@ -255,10 +275,10 @@
 	loot = list(
 				// Robotics
 				/obj/item/mmi/robotic_brain = 50, // Low-value, but we want to encourage getting more players back in the round.
-				/obj/item/assembly/signaler/anomaly = 50, // anomaly core
+				/obj/item/assembly/signaler/anomaly/random = 50, // anomaly core
 				/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 25, // mecha x-ray laser
 				/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 25, // upgraded mecha teleporter
-				/obj/item/autoimplanter = 50,
+				/obj/item/autosurgeon/organ = 50,
 
 				// Research / Experimentor
 				/obj/item/paper/researchnotes = 150, // papers that give random R&D levels
@@ -347,13 +367,13 @@
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/vehicle/New()
-	. = ..()
 	if(!loot.len)
 		return
 	var/lootspawn = pickweight(loot)
 	var/obj/vehicle/V = new lootspawn(get_turf(src))
 	if(V.key_type)
 		new V.key_type(get_turf(src))
+	. = ..()
 	qdel(src)
 
 
@@ -388,11 +408,11 @@
 	lootcount = 3
 	lootdoubles = FALSE
 	var/soups = list(
-			/obj/item/reagent_containers/food/snacks/beetsoup,
-			/obj/item/reagent_containers/food/snacks/stew,
-			/obj/item/reagent_containers/food/snacks/hotchili,
-			/obj/item/reagent_containers/food/snacks/nettlesoup,
-			/obj/item/reagent_containers/food/snacks/meatballsoup)
+			/obj/item/reagent_containers/food/snacks/soup/beetsoup,
+			/obj/item/reagent_containers/food/snacks/soup/stew,
+			/obj/item/reagent_containers/food/snacks/soup/hotchili,
+			/obj/item/reagent_containers/food/snacks/soup/nettlesoup,
+			/obj/item/reagent_containers/food/snacks/soup/meatballsoup)
 	var/salads = list(
 			/obj/item/reagent_containers/food/snacks/herbsalad,
 			/obj/item/reagent_containers/food/snacks/validsalad,

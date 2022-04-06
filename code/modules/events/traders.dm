@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 		var/mob/C = pick_n_take(candidates)
 		spawn_count--
 		if(C)
-			GLOB.respawnable_list -= C.client
+			C.remove_from_respawnable_list()
 			var/mob/living/carbon/human/M = new /mob/living/carbon/human(picked_loc)
 			M.ckey = C.ckey // must be before equipOutfit, or that will runtime due to lack of mind
 			M.equipOutfit(/datum/outfit/admin/sol_trader)
@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	else
 		GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
 
-/datum/event/traders/proc/greet_trader(var/mob/living/carbon/human/M)
+/datum/event/traders/proc/greet_trader(mob/living/carbon/human/M)
 	to_chat(M, "<span class='boldnotice'>You are a trader!</span>")
 	to_chat(M, "<span class='notice'>You are currently docked at [get_area(M)].</span>")
 	to_chat(M, "<span class='notice'>You are about to trade with [station_name()].</span>")

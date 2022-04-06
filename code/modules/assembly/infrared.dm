@@ -116,7 +116,7 @@
 	qdel(first)
 	return TRUE
 
-/obj/item/assembly/infra/equipped(var/mob/user, var/slot)
+/obj/item/assembly/infra/equipped(mob/user, slot)
 	qdel(first)
 	return ..()
 
@@ -215,7 +215,7 @@
 	var/life_cycles = 0
 	var/life_cap = 20
 	anchored = TRUE
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE
 
 
 /obj/effect/beam/i_beam/proc/hit()

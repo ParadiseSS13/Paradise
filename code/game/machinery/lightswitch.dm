@@ -17,17 +17,21 @@
 	var/logic_connect = 0							//Set this to allow the switch to send out logic signals.
 
 
-/obj/machinery/light_switch/New(turf/loc, var/w_dir=null)
+/obj/machinery/light_switch/New(turf/loc, w_dir=null)
 	..()
 	switch(w_dir)
 		if(NORTH)
 			pixel_y = 25
+			dir = NORTH
 		if(SOUTH)
 			pixel_y = -25
+			dir = SOUTH
 		if(EAST)
 			pixel_x = 25
+			dir = EAST
 		if(WEST)
 			pixel_x = -25
+			dir = WEST
 	if(SSradio)
 		set_frequency(frequency)
 	spawn(5)
@@ -45,6 +49,7 @@
 /obj/machinery/light_switch/Initialize()
 	..()
 	set_frequency(frequency)
+	name = "light switch"
 
 /obj/machinery/light_switch/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -77,6 +82,7 @@
 
 /obj/machinery/light_switch/attack_hand(mob/user)
 	on = !on
+	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
 	updateicon()
 
 	if(light_connect)
@@ -165,7 +171,7 @@
 	new/obj/item/mounted/frame/light_switch(get_turf(src))
 	qdel(src)
 
-/obj/machinery/light_switch/multitool_menu(var/mob/user, var/obj/item/multitool/P)
+/obj/machinery/light_switch/multitool_menu(mob/user, obj/item/multitool/P)
 	return {"
 	<ul>
 	<li><b>Light Circuit Connection:</b> <a href='?src=[UID()];toggle_light_connect=1'>[light_connect ? "On" : "Off"]</a></li>
@@ -173,7 +179,7 @@
 	<li><b>Logic ID Tag:</b> [format_tag("Logic ID Tag", "logic_id_tag")]</li>
 	</ul>"}
 
-/obj/machinery/light_switch/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
+/obj/machinery/light_switch/multitool_topic(mob/user, list/href_list, obj/O)
 	..()
 	if("toggle_light_connect" in href_list)
 		light_connect = !light_connect

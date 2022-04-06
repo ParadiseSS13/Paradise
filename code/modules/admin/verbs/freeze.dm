@@ -9,7 +9,7 @@
 GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 
 /client/proc/freeze(atom/movable/M)
-	set name = "Freeze"
+	set name = "\[Admin\] Freeze"
 	set category = null
 
 	if(!check_rights(R_ADMIN))

@@ -63,9 +63,10 @@
 	for(var/mob/thisplayer in players_to_spawn)
 		var/mob/living/carbon/human/H = new /mob/living/carbon/human(T)
 		H.name = random_name(pick(MALE,FEMALE))
-		var/datum/preferences/A = new() //Randomize appearance
-		A.real_name = H.name
-		A.copy_to(H)
+		var/datum/character_save/S = new //Randomize appearance
+		S.randomise()
+		S.real_name = H.name
+		S.copy_to(H)
 		H.dna.ready_dna(H)
 
 		H.mind_initialize()

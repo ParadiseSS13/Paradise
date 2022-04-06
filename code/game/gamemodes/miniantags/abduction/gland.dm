@@ -37,8 +37,6 @@
 	if(!owner)
 		return
 	var/image/holder = owner.hud_list[GLAND_HUD]
-	var/icon/I = icon(owner.icon, owner.icon_state, owner.dir)
-	holder.pixel_y = I.Height() - world.icon_size
 	if(active_mind_control)
 		holder.icon_state = "hudgland_active"
 	else if(mind_control_uses)
@@ -68,7 +66,7 @@
 	active_mind_control = FALSE
 	update_gland_hud()
 
-/obj/item/organ/internal/heart/gland/remove(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/remove(mob/living/carbon/M, special = 0)
 	active = 0
 	if(initial(uses) == 1)
 		uses = initial(uses)
@@ -77,7 +75,7 @@
 	clear_mind_control()
 	. = ..()
 
-/obj/item/organ/internal/heart/gland/insert(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/insert(mob/living/carbon/M, special = 0)
 	..()
 	if(special != 2 && uses) // Special 2 means abductor surgery
 		Start()

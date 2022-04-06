@@ -79,12 +79,12 @@
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(5, 0, src.loc)
 	smoke.start()
-	visible_message("<span class='danger'>The [src] warps in!</span>")
+	visible_message("<span class='danger'>[src] warps in!</span>")
 	playsound(src.loc, 'sound/effects/empulse.ogg', 25, 1)
 
 /mob/living/simple_animal/hostile/hivebot/tele/proc/warpbots()
 	icon_state = "def_radar"
-	visible_message("<span class='warning'>The [src] turns on!</span>")
+	visible_message("<span class='warning'>[src] turns on!</span>")
 	while(bot_amt > 0)
 		bot_amt--
 		switch(bot_type)

@@ -18,11 +18,7 @@
 
 #define ismecha(A) (istype(A, /obj/mecha))
 
-#define isspacepod(A) (istype(A, /obj/spacepod))
-
 #define iseffect(A) (istype(A, /obj/effect))
-
-#define is_cleanable(A) (istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/rune)) //if something is cleanable
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
 

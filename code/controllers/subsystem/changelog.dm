@@ -24,7 +24,7 @@ SUBSYSTEM_DEF(changelog)
 	if(!SSdbcore.IsConnected())
 		return ..()
 
-	var/datum/db_query/latest_cl_date = SSdbcore.NewQuery("SELECT CAST(UNIX_TIMESTAMP(date_merged) AS CHAR) AS ut FROM [format_table_name("changelog")] ORDER BY date_merged DESC LIMIT 1")
+	var/datum/db_query/latest_cl_date = SSdbcore.NewQuery("SELECT CAST(UNIX_TIMESTAMP(date_merged) AS CHAR) AS ut FROM changelog ORDER BY date_merged DESC LIMIT 1")
 	if(!latest_cl_date.warn_execute())
 		qdel(latest_cl_date)
 		// Abort if we cant do this
@@ -54,16 +54,15 @@ SUBSYSTEM_DEF(changelog)
 /datum/controller/subsystem/changelog/proc/UpdatePlayerChangelogDate(client/C)
 	if(!ss_ready)
 		return // Only return here, we dont have to worry about a queue list because this will be called from ShowChangelog()
-	// Technically this is only for the date but we can also do the UI button at the same time
-	var/datum/preferences/P = GLOB.preferences_datums[C.ckey]
-	if(P.toggles & PREFTOGGLE_UI_DARKMODE)
+
+	if(C.prefs.toggles & PREFTOGGLE_UI_DARKMODE)
 		winset(C, "rpane.changelog", "background-color=#40628a;font-color=#ffffff;font-style=none")
 	else
 		winset(C, "rpane.changelog", "background-color=none;font-style=none")
 	C.prefs.lastchangelog = current_cl_timestamp
 
 	var/datum/db_query/updatePlayerCLTime = SSdbcore.NewQuery(
-		"UPDATE [format_table_name("player")] SET lastchangelog=:lastchangelog WHERE ckey=:ckey",
+		"UPDATE player SET lastchangelog=:lastchangelog WHERE ckey=:ckey",
 		list(
 			"lastchangelog" = current_cl_timestamp,
 			"ckey" = C.ckey
@@ -266,11 +265,11 @@ SUBSYSTEM_DEF(changelog)
 				usr.client.github()
 	// Takes a PR number as argument
 	if(href_list["openPR"])
-		if(config.githuburl)
+		if(GLOB.configuration.url.github_url)
 			if(alert("This will open PR #[href_list["openPR"]] in your browser. Are you sure?",,"Yes","No")=="No")
 				return
 			// If the github URL in the config has a trailing slash, it doesnt matter here, thankfully github accepts having a double slash: https://github.com/org/repo//pull/1
-			var/url = "[config.githuburl]/pull/[href_list["openPR"]]"
+			var/url = "[GLOB.configuration.url.github_url]/pull/[href_list["openPR"]]"
 			usr << link(url)
 		else
 			to_chat(usr, "<span class='danger'>The GitHub URL is not set in the server configuration. PRs cannot be opened from changelog view. Please inform the server host.</span>")

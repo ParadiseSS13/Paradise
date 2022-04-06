@@ -10,7 +10,7 @@
 	..()
 	to_chat(finder, "<span class='warning'>You found an unknown alien organism in [owner]'s [parent_organ]!</span>")
 
-/obj/item/organ/internal/body_egg/insert(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/body_egg/insert(mob/living/carbon/M, special = 0)
 	..()
 	ADD_TRAIT(owner, TRAIT_XENO_HOST, TRAIT_GENERIC)
 	ADD_TRAIT(owner, TRAIT_XENO_IMMUNE, "xeno immune")
@@ -18,7 +18,7 @@
 	owner.med_hud_set_status()
 	INVOKE_ASYNC(src, .proc/AddInfectionImages, owner)
 
-/obj/item/organ/internal/body_egg/remove(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/body_egg/remove(mob/living/carbon/M, special = 0)
 	STOP_PROCESSING(SSobj, src)
 	if(owner)
 		REMOVE_TRAIT(owner, TRAIT_XENO_HOST, TRAIT_GENERIC)

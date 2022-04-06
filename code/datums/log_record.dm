@@ -37,7 +37,7 @@
 	else
 		. = subject
 
-/datum/log_record/proc/get_health_string(var/mob/living/L)
+/datum/log_record/proc/get_health_string(mob/living/L)
 	var/OX = L.getOxyLoss() > 50 	? 	"<b>[L.getOxyLoss()]</b>" 		: L.getOxyLoss()
 	var/TX = L.getToxLoss() > 50 	? 	"<b>[L.getToxLoss()]</b>" 		: L.getToxLoss()
 	var/BU = L.getFireLoss() > 50 	? 	"<b>[L.getFireLoss()]</b>" 		: L.getFireLoss()

@@ -29,13 +29,13 @@
 				return
 		else
 			if(loaded.amount < max_amount)
-				var/amount = min(loaded.amount + C.amount, max_amount)
+				var/amount = min(loaded.amount + C.get_amount(), max_amount)
 				C.use(amount - loaded.amount)
 				loaded.amount = amount
 			else
 				return
 		update_icon()
-		to_chat(user, "<span class='notice'>You add the cables to the [src]. It now contains [loaded.amount].</span>")
+		to_chat(user, "<span class='notice'>You add the cables to [src]. It now contains [loaded.amount].</span>")
 	else
 		..()
 

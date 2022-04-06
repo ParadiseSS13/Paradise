@@ -1,6 +1,6 @@
 // Point controlling procs
 
-/mob/camera/blob/proc/can_buy(var/cost = 15)
+/mob/camera/blob/proc/can_buy(cost = 15)
 	if(blob_points < cost)
 		to_chat(src, "<span class='warning'>You cannot afford this!</span>")
 		return 0
@@ -50,7 +50,7 @@
 	var/turf/T = get_turf(src)
 	create_shield(T)
 
-/mob/camera/blob/proc/create_shield(var/turf/T)
+/mob/camera/blob/proc/create_shield(turf/T)
 
 	var/obj/structure/blob/B = locate(/obj/structure/blob) in T
 	var/obj/structure/blob/shield/S = locate(/obj/structure/blob/shield) in T
@@ -231,14 +231,12 @@
 	var/mob/living/simple_animal/hostile/blob/blobbernaut/blobber = new /mob/living/simple_animal/hostile/blob/blobbernaut (get_turf(B))
 	if(blobber)
 		qdel(B)
-	blobber.color = blob_reagent_datum.complementary_color
-	blobber.overmind = src
-	blob_mobs.Add(blobber)
+	add_mob_to_overmind(blobber)
 	blobber.AIStatus = AI_OFF
 	blobber.LoseTarget()
 	spawn()
-		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blobbernaut?", ROLE_BLOB, TRUE, 10 SECONDS, source = blobber)
-		if(candidates.len)
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blobbernaut?", ROLE_BLOB, TRUE, 10 SECONDS, source = blobber, role_cleanname = "blobbernaut")
+		if(length(candidates) && !QDELETED(blobber))
 			var/mob/C = pick(candidates)
 			if(C)
 				blobber.key = C.key
@@ -283,7 +281,7 @@
 	var/turf/T = get_turf(src)
 	remove_blob(T)
 
-/mob/camera/blob/proc/remove_blob(var/turf/T)
+/mob/camera/blob/proc/remove_blob(turf/T)
 
 	var/obj/structure/blob/B = locate(/obj/structure/blob) in T
 	if(!T)
@@ -312,7 +310,7 @@
 	var/turf/T = get_turf(src)
 	expand_blob(T)
 
-/mob/camera/blob/proc/expand_blob(var/turf/T)
+/mob/camera/blob/proc/expand_blob(turf/T)
 	if(!T)
 		return
 
@@ -350,7 +348,7 @@
 	var/turf/T = get_turf(src)
 	rally_spores(T)
 
-/mob/camera/blob/proc/rally_spores(var/turf/T)
+/mob/camera/blob/proc/rally_spores(turf/T)
 	to_chat(src, "You rally your spores.")
 
 	var/list/surrounding_turfs = block(locate(T.x - 1, T.y - 1, T.z), locate(T.x + 1, T.y + 1, T.z))

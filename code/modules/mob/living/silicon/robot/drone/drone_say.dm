@@ -1,4 +1,4 @@
-/mob/living/silicon/robot/drone/say(var/message)
+/mob/living/silicon/robot/drone/say(message)
 	if(copytext(message, 1, 2) == "*")
 		return emote(copytext(message, 2))
 

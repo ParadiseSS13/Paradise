@@ -97,6 +97,7 @@
 	var/override_alerts = FALSE //If it is overriding other alerts of the same type
 
 /obj/screen/alert/MouseEntered(location,control,params)
+	. = ..()
 	openToolTip(usr, src, params, title = name, content = desc, theme = alerttooltipstyle)
 
 
@@ -122,12 +123,12 @@
 	icon_state = "too_much_oxy"
 
 /obj/screen/alert/not_enough_nitro
-    name = "Choking (No N)"
+    name = "Choking (No N2)"
     desc = "You're not getting enough nitrogen. Find some good air before you pass out!"
     icon_state = "not_enough_nitro"
 
 /obj/screen/alert/too_much_nitro
-    name = "Choking (N)"
+    name = "Choking (N2)"
     desc = "There's too much nitrogen in the air, and you're breathing it in! Find some good air before you pass out!"
     icon_state = "too_much_nitro"
 
@@ -308,6 +309,11 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 		var/mob/living/L = usr
 		return L.resist()
 
+//Constructs
+/obj/screen/alert/holy_fire
+	name = "Holy Fire"
+	desc = "Your body is crumbling from the holy energies. Get out."
+	icon_state = "fire"
 
 //ALIENS
 
@@ -516,6 +522,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/action = NOTIFY_JUMP
 	var/show_time_left = FALSE // If true you need to call START_PROCESSING manually
 	var/image/time_left_overlay // The last image showing the time left
+	var/image/signed_up_overlay // image showing that you're signed up
 	var/datum/candidate_poll/poll // If set, on Click() it'll register the player as a candidate
 
 /obj/screen/alert/notify_action/process()
@@ -545,6 +552,9 @@ so as to remain in compliance with the most up-to-date laws."
 
 /obj/screen/alert/notify_action/Destroy()
 	target = null
+	if(signed_up_overlay)
+		overlays -= signed_up_overlay
+		qdel(signed_up_overlay)
 	return ..()
 
 /obj/screen/alert/notify_action/Click()
@@ -555,9 +565,14 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 
 	if(poll)
-		if(poll.sign_up(G))
+		var/success
+		if(G in poll.signed_up)
+			success = poll.remove_candidate(G)
+		else
+			success = poll.sign_up(G)
+		if(success)
 			// Add a small overlay to indicate we've signed up
-			display_signed_up()
+			update_signed_up_alert()
 	else if(target)
 		switch(action)
 			if(NOTIFY_ATTACK)
@@ -570,14 +585,26 @@ so as to remain in compliance with the most up-to-date laws."
 				G.ManualFollow(target)
 
 /obj/screen/alert/notify_action/Topic(href, href_list)
-	if(href_list["signup"] && poll?.sign_up(usr))
-		display_signed_up()
+	if(!href_list["signup"])
+		return
+	if(!poll)
+		return
+	var/mob/dead/observer/G = usr
+	if(G in poll.signed_up)
+		poll.remove_candidate(G)
+	else
+		poll.sign_up(G)
+	update_signed_up_alert()
 
-/obj/screen/alert/notify_action/proc/display_signed_up()
-	var/image/I = image('icons/mob/screen_gen.dmi', icon_state = "selector")
-	I.layer = FLOAT_LAYER
-	I.plane = FLOAT_PLANE + 2
-	overlays += I
+/obj/screen/alert/notify_action/proc/update_signed_up_alert()
+	if(!signed_up_overlay)
+		signed_up_overlay = image('icons/mob/screen_gen.dmi', icon_state = "selector")
+		signed_up_overlay.layer = FLOAT_LAYER
+		signed_up_overlay.plane = FLOAT_PLANE + 2
+	if(usr in poll.signed_up)
+		overlays += signed_up_overlay
+	else
+		overlays -= signed_up_overlay
 
 /obj/screen/alert/notify_action/proc/display_stacks(stacks = 1)
 	if(stacks <= 1)
@@ -611,12 +638,19 @@ so as to remain in compliance with the most up-to-date laws."
 	if(stone)
 		if(alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
 		impossible for you to get back into the game as your regular character.",, "No", "Yes") ==  "Yes")
-			stone.opt_in = TRUE
+			stone?.opt_in = TRUE
 
 /obj/screen/alert/notify_soulstone/Destroy()
 	stone = null
 	return ..()
 
+/obj/screen/alert/notify_mapvote
+	name = "Map Vote"
+	desc = "Vote on which map you would like to play on next!"
+	icon_state = "map_vote"
+
+/obj/screen/alert/notify_mapvote/Click()
+	SSvote.browse_to(usr.client)
 
 //OBJECT-BASED
 
@@ -643,8 +677,7 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!istype(L) || !L.can_resist())
 		return
 	L.changeNext_move(CLICK_CD_RESIST)
-	if(L.last_special <= world.time)
-		return L.resist_buckle()
+	return L.resist_buckle()
 
 // PRIVATE = only edit, use, or override these if you're editing the system as a whole
 

@@ -73,7 +73,7 @@
 			user << browse(null, "window=SpessChess")	// And I will kill you.
 	return
 
-/obj/machinery/gameboard/Topic(var/href, var/list/href_list)
+/obj/machinery/gameboard/Topic(href, list/href_list)
 	. = ..()
 	var/prize = /obj/item/stack/tickets
 	if(.)

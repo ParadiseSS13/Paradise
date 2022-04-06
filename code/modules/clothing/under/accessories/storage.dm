@@ -44,7 +44,7 @@
 	hold.hear_talk(M, message_pieces, verb)
 	..()
 
-/obj/item/clothing/accessory/storage/hear_message(mob/M, var/msg, verb, datum/language/speaking)
+/obj/item/clothing/accessory/storage/hear_message(mob/M, msg, verb, datum/language/speaking)
 	hold.hear_message(M, msg)
 	..()
 
@@ -80,7 +80,7 @@
 	item_color = "webbing"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/storage/black_vest

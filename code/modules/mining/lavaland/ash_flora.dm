@@ -267,7 +267,7 @@
 //what you can craft with these things
 /datum/crafting_recipe/mushroom_bowl
 	name = "Mushroom Bowl"
-	result = /obj/item/reagent_containers/food/drinks/mushroom_bowl
+	result = list(/obj/item/reagent_containers/food/drinks/mushroom_bowl)
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/ash_flora/shavings = 5)
 	time = 30
 	category = CAT_PRIMAL

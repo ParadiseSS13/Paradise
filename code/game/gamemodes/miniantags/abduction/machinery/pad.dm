@@ -12,7 +12,7 @@
 
 /obj/machinery/abductor/pad/proc/Send()
 	if(teleport_target == null)
-		teleport_target = GLOB.teleportlocs[pick(GLOB.teleportlocs)]
+		teleport_target = SSmapping.teleportlocs[pick(SSmapping.teleportlocs)]
 	flick("alien-pad", src)
 	for(var/mob/living/target in loc)
 		target.forceMove(teleport_target)

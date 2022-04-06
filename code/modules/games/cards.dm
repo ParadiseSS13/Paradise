@@ -200,11 +200,12 @@
 	deckshuffle()
 
 /obj/item/deck/verb/verb_shuffle()
-	set category = "Object"
-	set name = "Shuffle"
-	set desc = "Shuffle the cards in the deck."
-	set src in view(1)
-	deckshuffle()
+	if(!isobserver(usr))
+		set category = "Object"
+		set name = "Shuffle"
+		set desc = "Shuffle the cards in the deck."
+		set src in view(1)
+		deckshuffle()
 
 /obj/item/deck/proc/deckshuffle()
 	var/mob/living/user = usr
@@ -238,7 +239,7 @@
 		usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
 
 /obj/item/pack
-	name = "Card Pack"
+	name = "card pack"
 	desc = "For those with disposable income."
 
 	icon_state = "card_pack"
@@ -249,7 +250,7 @@
 
 
 /obj/item/pack/attack_self(mob/user as mob)
-	user.visible_message("<span class='notice'>[name] rips open the [src]!</span>", "<span class='notice'>You rips open the [src]!</span>")
+	user.visible_message("<span class='notice'>[name] rips open [src]!</span>", "<span class='notice'>You rip open [src]!</span>")
 	var/obj/item/cardhand/H = new(get_turf(user))
 
 	H.cards += cards
@@ -306,7 +307,7 @@
 			return
 	..()
 
-/obj/item/cardhand/attack_self(var/mob/user as mob)
+/obj/item/cardhand/attack_self(mob/user as mob)
 	concealed = !concealed
 	update_icon()
 	user.visible_message("<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>")
@@ -379,7 +380,7 @@
 		return
 	update_icon()
 
-/obj/item/cardhand/verb/discard(var/mob/user as mob)
+/obj/item/cardhand/verb/discard(mob/user as mob)
 
 	set category = "Object"
 	set name = "Discard"
@@ -410,13 +411,13 @@
 		if(cards.len)
 			update_icon()
 		if(H.cards.len)
-			usr.visible_message("<span class='notice'>The [usr] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
-		H.loc = get_step(usr,usr.dir)
+			user.visible_message("<span class='notice'>[user] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
+		H.loc = get_step(user, user.dir)
 
 	if(!cards.len)
 		qdel(src)
 
-/obj/item/cardhand/update_icon(var/direction = 0)
+/obj/item/cardhand/update_icon(direction = 0)
 
 	if(!cards.len)
 		return

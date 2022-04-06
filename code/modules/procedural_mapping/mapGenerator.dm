@@ -32,7 +32,7 @@
 
 //Defines the region the map represents, sets map
 //Returns the map
-/datum/mapGenerator/proc/defineRegion(var/turf/Start, var/turf/End, var/replace = 0)
+/datum/mapGenerator/proc/defineRegion(turf/Start, turf/End, replace = 0)
 	if(!checkRegion(Start, End))
 		return 0
 
@@ -45,7 +45,7 @@
 
 //Defines the region the map represents, as a CIRCLE!, sets map
 //Returns the map
-/datum/mapGenerator/proc/defineCircularRegion(var/turf/Start, var/turf/End, var/replace = 0)
+/datum/mapGenerator/proc/defineCircularRegion(turf/Start, turf/End, replace = 0)
 	if(!checkRegion(Start, End))
 		return 0
 
@@ -86,7 +86,7 @@
 
 //Checks for and Rejects bad region coordinates
 //Returns 1/0
-/datum/mapGenerator/proc/checkRegion(var/turf/Start, var/turf/End)
+/datum/mapGenerator/proc/checkRegion(turf/Start, turf/End)
 	. = 1
 
 	if(!Start || !End)
@@ -111,7 +111,7 @@
 
 
 //Requests the mapGeneratorModule(s) to (re)generate this one turf
-/datum/mapGenerator/proc/generateOneTurf(var/turf/T)
+/datum/mapGenerator/proc/generateOneTurf(turf/T)
 	if(!T)
 		return
 	syncModules()

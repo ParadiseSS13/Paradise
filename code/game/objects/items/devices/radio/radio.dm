@@ -236,15 +236,15 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	return user.has_internal_radio_channel_access(user, internal_channels[freq])
 
-/mob/proc/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
+/mob/proc/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
 	var/obj/item/card/id/I = user.get_id_card()
 	return has_access(list(), req_one_accesses, I ? I.GetAccess() : list())
 
-/mob/living/silicon/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
+/mob/living/silicon/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
 	var/list/access = get_all_accesses()
 	return has_access(list(), req_one_accesses, access)
 
-/mob/dead/observer/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
+/mob/dead/observer/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
 	return can_admin_interact()
 
 /obj/item/radio/proc/ToggleBroadcast()
@@ -462,8 +462,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		tcm.zlevels = list(position.z)
 		if(!instant)
 			// Simulate two seconds of lag
-			addtimer(CALLBACK(GLOBAL_PROC, .proc/broadcast_message, tcm), 20)
-			QDEL_IN(tcm, 20)
+			addtimer(CALLBACK(src, .proc/broadcast_callback, tcm), 2 SECONDS)
 		else
 			// Nukeops + Deathsquad headsets are instant and should work the same, whether there is comms or not
 			broadcast_message(tcm)
@@ -475,11 +474,18 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return FALSE
 
 
-/obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, var/verb = "says")
+/obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, verb = "says")
 	if(broadcasting)
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, message_pieces, null, verb)
 
+// To the person who asks "Why is this in a callback?"
+// You see, if you use QDEL_IN on the tcm and on broadcast_message()
+// The timer SS races itself and the message can be deleted before its sent
+// Having both in this callback removes that risk
+/obj/item/radio/proc/broadcast_callback(datum/tcomms_message/tcm)
+	broadcast_message(tcm)
+	qdel(tcm) // Delete the message datum
 
 /*
 /obj/item/radio/proc/accept_rad(obj/item/radio/R as obj, message)

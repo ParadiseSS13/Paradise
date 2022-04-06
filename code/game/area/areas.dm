@@ -1,5 +1,6 @@
 /area
 	var/fire = null
+	var/area_emergency_mode = FALSE // When true, fire alarms cannot unset emergency lighting. Not to be confused with emergency_mode var on light objects.
 	var/atmosalm = ATMOS_ALARM_NONE
 	var/poweralm = TRUE
 	var/report_alerts = TRUE // Should atmos alerts notify the AI/computers
@@ -75,6 +76,14 @@
 	///Used to decide what the maximum time between ambience is
 	var/max_ambience_cooldown = 90 SECONDS
 
+	var/area/area_limited_icon_smoothing
+
+/area/New(loc, ...)
+	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
+		GLOB.all_unique_areas[type] = src
+	..()
+
+
 /area/Initialize(mapload)
 	GLOB.all_areas += src
 	icon_state = ""
@@ -96,7 +105,7 @@
 		else if(dynamic_lighting != DYNAMIC_LIGHTING_IFSTARLIGHT)
 			dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	if(dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
-		dynamic_lighting = config.starlight ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
+		dynamic_lighting = GLOB.configuration.general.starlight ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
 
 	. = ..()
 
@@ -339,22 +348,24 @@
 	for(var/alarm in firealarms)
 		var/obj/machinery/firealarm/F = alarm
 		F.update_fire_light(fire)
+	if(area_emergency_mode) //Fires are not legally allowed if the power is off
+		return
 	for(var/obj/machinery/light/L in src)
-		L.update()
+		L.fire_mode = TRUE
+		L.update(TRUE, TRUE, FALSE)
 
-/**
-  * unset the fire alarm visual affects in an area
-  *
-  * Updates the fire light on fire alarms in the area and sets all lights to emergency mode
-  */
+///unset the fire alarm visual affects in an area
 /area/proc/unset_fire_alarm_effects()
 	fire = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	for(var/alarm in firealarms)
 		var/obj/machinery/firealarm/F = alarm
 		F.update_fire_light(fire)
+	if(area_emergency_mode) //The lights stay red until the crisis is resolved
+		return
 	for(var/obj/machinery/light/L in src)
-		L.update()
+		L.fire_mode = FALSE
+		L.update(TRUE, TRUE, FALSE)
 
 /area/proc/updateicon()
 	var/weather_icon
@@ -375,7 +386,7 @@
 #define ENVIRON 3
 */
 
-/area/proc/powered(var/chan)		// return true if the area has power to given channel
+/area/proc/powered(chan)		// return true if the area has power to given channel
 
 	if(!requires_power)
 		return 1
@@ -405,7 +416,7 @@
 	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
 	updateicon()
 
-/area/proc/usage(var/chan)
+/area/proc/usage(chan)
 	var/used = 0
 	switch(chan)
 		if(LIGHT)
@@ -439,7 +450,7 @@
 	used_light = 0
 	used_environ = 0
 
-/area/proc/use_power(var/amount, var/chan)
+/area/proc/use_power(amount, chan)
 	switch(chan)
 		if(EQUIP)
 			used_equip += amount
@@ -448,7 +459,7 @@
 		if(ENVIRON)
 			used_environ += amount
 
-/area/proc/use_battery_power(var/amount, var/chan)
+/area/proc/use_battery_power(amount, chan)
 	switch(chan)
 		if(EQUIP)
 			used_equip += amount
@@ -488,17 +499,20 @@
 	else if(L && L.client && !(L.client.prefs.sound & SOUND_BUZZ))
 		L.client.ambience_playing = FALSE
 
-/area/proc/gravitychange(var/gravitystate = 0, var/area/A)
+/area/proc/gravitychange(gravitystate = 0, area/A)
 	A.has_gravity = gravitystate
 
 	if(gravitystate)
 		for(var/mob/living/carbon/human/M in A)
 			thunk(M)
 
-/area/proc/thunk(var/mob/living/carbon/human/M)
+/area/proc/thunk(mob/living/carbon/human/M)
 	if(istype(M,/mob/living/carbon/human/))  // Only humans can wear magboots, so we give them a chance to.
 		if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP))
 			return
+
+	if(M.dna.species.spec_thunk(M)) //Species level thunk overrides
+		return
 
 	if(M.buckled) //Cam't fall down if you are buckled
 		return

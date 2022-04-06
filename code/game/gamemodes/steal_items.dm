@@ -12,8 +12,12 @@
 	var/list/altitems = list()
 	var/flags = 0
 	var/location_override
+	/// Do we have a special item we give to somewhen when they get this objective?
+	var/special_equipment = null
+	/// If a steal objective has forbidden jobs, and the forbidden jobs would not be in the possession of this item, set this to false
+	var/job_possession = TRUE
 
-/datum/theft_objective/proc/check_completion(var/datum/mind/owner)
+/datum/theft_objective/proc/check_completion(datum/mind/owner)
 	if(!owner.current)
 		return 0
 	if(!isliving(owner.current))
@@ -62,7 +66,7 @@
 	typepath = /obj/item/aicard
 	location_override = "AI Satellite. An intellicard for transportation can be found in Tech Storage, Science Department or manufactured"
 
-/datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
+/datum/theft_objective/ai/check_special_completion(obj/item/aicard/C)
 	if(..())
 		for(var/mob/living/silicon/ai/A in C)
 			if(istype(A, /mob/living/silicon/ai) && A.stat != 2) //See if any AI's are alive inside that card.
@@ -70,8 +74,8 @@
 	return 0
 
 /datum/theft_objective/defib
-	name = "a compact defibrillator"
-	typepath = /obj/item/defibrillator/compact
+	name = "the chief medical officer's advanced compact defibrillator"
+	typepath = /obj/item/defibrillator/compact/advanced
 	protected_jobs = list("Chief Medical Officer", "Paramedic")
 	location_override = "the Chief Medical Officer's Office"
 
@@ -138,6 +142,20 @@
 	protected_jobs = list("Head Of Security", "Warden")
 	location_override = "the Warden's Office"
 
+/datum/theft_objective/supermatter_sliver
+	name = "a supermatter sliver"
+	typepath = /obj/item/nuke_core/supermatter_sliver
+	protected_jobs = list("Chief Engineer", "Station Engineer", "Life Support Specialist") //Unlike other steal objectives, all jobs in the department have easy access, and would not be noticed at all stealing this
+	location_override = "Engineering. You can use the box and instructions provided to harvest the sliver."
+	special_equipment = /obj/item/storage/box/syndie_kit/supermatter
+	job_possession = FALSE //The CE / engineers / atmos techs do not carry around supermater slivers.
+
+/datum/theft_objective/plutonium_core
+	name = "the plutonium core from the stations nuclear device"
+	typepath = /obj/item/nuke_core/plutonium
+	location_override = "the Vault. You can use the box and instructions provided to remove the core, with some extra tools"
+	special_equipment = /obj/item/storage/box/syndie_kit/nuke
+
 /datum/theft_objective/number
 	var/min=0
 	var/max=0
@@ -154,7 +172,7 @@
 		required_amount=rand(lower,upper)*step
 	name = "[required_amount] [name]"
 
-/datum/theft_objective/number/check_completion(var/datum/mind/owner)
+/datum/theft_objective/number/check_completion(datum/mind/owner)
 	if(!owner.current)
 		return 0
 	if(!isliving(owner.current))
@@ -166,7 +184,7 @@
 			found_amount += getAmountStolen(I)
 	return found_amount >= required_amount
 
-/datum/theft_objective/number/proc/getAmountStolen(var/obj/item/I)
+/datum/theft_objective/number/proc/getAmountStolen(obj/item/I)
 	return I:amount
 
 /datum/theft_objective/unique

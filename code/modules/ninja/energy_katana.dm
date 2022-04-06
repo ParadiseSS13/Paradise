@@ -39,7 +39,7 @@
 	..()*/
 
 
-/obj/item/katana/energy/proc/returnToOwner(var/mob/living/carbon/human/user, var/doSpark = 1, var/caught = 0)
+/obj/item/katana/energy/proc/returnToOwner(mob/living/carbon/human/user, doSpark = 1, caught = 0)
 	if(!istype(user))
 		return
 	loc = get_turf(src)

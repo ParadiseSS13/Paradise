@@ -570,15 +570,14 @@
 	if(isAI(user))
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
+	playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, TRUE)
 	if(user.a_intent == INTENT_HARM)
-		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
-		user.visible_message("<span class='danger'>[user.name] bangs against the [name]!</span>", \
-							"<span class='danger'>You bang against the [name]!</span>", \
+		user.visible_message("<span class='danger'>[user] bangs against [src]!</span>",
+							"<span class='danger'>You bang against [src]!</span>",
 							"You hear a banging sound.")
 	else
-		playsound(loc, 'sound/effects/glassknock.ogg', 80, 1)
-		user.visible_message("<span class='notice'>[user.name] taps on the [name].</span>", \
-							"<span class='notice'>You tap on the [name].</span>", \
+		user.visible_message("<span class='notice'>[user] taps on [src].</span>",
+							"<span class='notice'>You tap on [src].</span>",
 							"You hear a knocking sound.")
 
 /obj/machinery/fishtank/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

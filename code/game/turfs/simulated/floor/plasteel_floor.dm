@@ -15,6 +15,7 @@
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_LATTICE)
 
 /turf/simulated/floor/plasteel/airless/Initialize(mapload)
 	. = ..()

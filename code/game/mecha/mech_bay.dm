@@ -1,5 +1,5 @@
 /turf/simulated/floor/mech_bay_recharge_floor
-	name = "Mech Bay Recharge Station"
+	name = "mech bay recharge station"
 	icon = 'icons/mecha/mech_bay.dmi'
 	icon_state = "recharge_floor"
 
@@ -10,7 +10,7 @@
 	temperature = TCMB
 
 /obj/machinery/mech_bay_recharge_port
-	name = "Mech Bay Power Port"
+	name = "mech bay power port"
 	density = 1
 	anchored = 1
 	dir = EAST

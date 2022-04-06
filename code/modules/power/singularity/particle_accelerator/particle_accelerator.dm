@@ -67,7 +67,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	anchored = 0
 	density = 1
 	max_integrity = 500
-	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 80)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 80)
 	var/obj/machinery/particle_accelerator/control_box/master = null
 	var/construction_state = 0
 	var/reference = null
@@ -174,7 +174,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		return 0
 
 
-/obj/structure/particle_accelerator/proc/report_ready(var/obj/O)
+/obj/structure/particle_accelerator/proc/report_ready(obj/O)
 	if(O && (O == master))
 		if(construction_state >= 3)
 			return 1
@@ -187,7 +187,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	return 0
 
 
-/obj/structure/particle_accelerator/proc/connect_master(var/obj/O)
+/obj/structure/particle_accelerator/proc/connect_master(obj/O)
 	if(O && istype(O,/obj/machinery/particle_accelerator/control_box))
 		if(O.dir == dir)
 			master = O
@@ -201,7 +201,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		var/obj/item/stack/cable_coil/C = W
 		if(C.use(1))
 			playsound(loc, C.usesound, 50, 1)
-			user.visible_message("[user.name] adds wires to the [name].", \
+			user.visible_message("[user] adds wires to [src].", \
 				"You add some wires.")
 			construction_state = ACCELERATOR_WIRED
 	update_icon()
@@ -302,7 +302,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		var/obj/item/stack/cable_coil/C = W
 		if(C.use(1))
 			playsound(loc, C.usesound, 50, 1)
-			user.visible_message("[user.name] adds wires to the [name].", \
+			user.visible_message("[user] adds wires to [src].", \
 				"You add some wires.")
 			construction_state = ACCELERATOR_WIRED
 	update_icon()

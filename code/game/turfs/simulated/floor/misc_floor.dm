@@ -1,12 +1,12 @@
 /turf/simulated/floor/vault
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "rockvault"
-	smooth = SMOOTH_FALSE
+	smoothing_flags = NONE
 
 /turf/simulated/wall/vault
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rockvault"
-	smooth = SMOOTH_FALSE
+	smoothing_flags = NONE
 
 /turf/simulated/floor/bluegrid
 	icon = 'icons/turf/floors.dmi'
@@ -175,11 +175,6 @@
 	if(uses_overlay && realappearence)
 		QDEL_NULL(realappearence)
 	return ..()
-
-/turf/simulated/floor/clockwork/ReplaceWithLattice()
-	. = ..()
-	for(var/obj/structure/lattice/L in src)
-		L.ratvar_act()
 
 /turf/simulated/floor/clockwork/crowbar_act(mob/user, obj/item/I)
 	. = TRUE

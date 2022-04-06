@@ -1,12 +1,11 @@
 /obj/machinery/atmospherics/unary/heat_exchanger
 	icon = 'icons/obj/atmospherics/heat_exchanger.dmi'
 	icon_state = "intact"
-	density = 1
 
 	name = "heat exchanger"
 	desc = "Exchanges heat between two input gases. Setup for fast heat transfer"
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	var/obj/machinery/atmospherics/unary/heat_exchanger/partner = null
 	var/update_cycle

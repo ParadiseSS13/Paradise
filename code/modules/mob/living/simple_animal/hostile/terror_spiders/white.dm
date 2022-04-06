@@ -20,6 +20,7 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 15
 	spider_tier = TS_TIER_2
+	loudspeaker = TRUE
 	web_type = /obj/structure/spider/terrorweb/white
 
 

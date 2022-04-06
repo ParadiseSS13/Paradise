@@ -35,7 +35,6 @@
 /obj/structure/lattice,
 /obj/item/stack/cable_coil/cut{
 	amount = 2;
-	dir = 2;
 	icon_state = "coil_red2"
 	},
 /turf/template_noop,
@@ -78,13 +77,11 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-white";
 	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
 "am" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-white";
 	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
@@ -96,7 +93,6 @@
 	},
 /obj/item/storage/firstaid/fire,
 /turf/simulated/floor/plasteel{
-	tag = "icon-white";
 	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
@@ -172,14 +168,12 @@
 "aA" = (
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
-	tag = "icon-white";
 	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
 "aB" = (
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /obj/structure/table,
 /obj/item/storage/firstaid/brute{
@@ -188,7 +182,6 @@
 	},
 /obj/item/storage/firstaid,
 /turf/simulated/floor/plasteel{
-	tag = "icon-white";
 	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
@@ -233,7 +226,6 @@
 "aJ" = (
 /obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel{
-	tag = "icon-white";
 	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
@@ -245,7 +237,6 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-white";
 	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
@@ -257,7 +248,6 @@
 /obj/machinery/power/apc/noalarm{
 	keep_preset_name = 1;
 	name = "Hallway APC";
-	pixel_x = 0;
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -380,7 +370,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-white";
 	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
@@ -419,7 +408,6 @@
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-white";
 	icon_state = "white"
 	},
 /area/ruin/onehalf/dorms_med)
@@ -472,13 +460,10 @@
 /area/ruin/onehalf/hallway)
 "be" = (
 /obj/structure/disposalpipe/broken{
-	tag = "icon-pipe-b (EAST)";
-	icon_state = "pipe-b";
 	dir = 4
 	},
 /obj/item/stack/cable_coil/cut{
 	amount = 2;
-	dir = 2;
 	icon_state = "coil_red2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -498,8 +483,6 @@
 /area/ruin/onehalf/hallway)
 "bg" = (
 /obj/structure/disposalpipe/junction{
-	tag = "icon-pipe-j1 (EAST)";
-	icon_state = "pipe-j1";
 	dir = 4
 	},
 /obj/structure/cable{
@@ -530,8 +513,6 @@
 /area/ruin/onehalf/hallway)
 "bi" = (
 /obj/structure/disposalpipe/broken{
-	tag = "icon-pipe-b (EAST)";
-	icon_state = "pipe-b";
 	dir = 4
 	},
 /obj/effect/landmark/damageturf,
@@ -556,7 +537,6 @@
 /area/ruin/onehalf/hallway)
 "bk" = (
 /obj/structure/disposalpipe/junction{
-	icon_state = "pipe-j1";
 	dir = 4
 	},
 /obj/structure/cable{
@@ -608,9 +588,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/drone_bay)
 "bp" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "maintenance hatch"
-	},
+/obj/machinery/door/airlock/maintenance_hatch,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -627,8 +605,8 @@
 /area/ruin/onehalf/drone_bay)
 "br" = (
 /obj/structure/disposalpipe/junction{
-	icon_state = "pipe-y";
-	dir = 1
+	dir = 1;
+	icon_state = "pipe-y"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/drone_bay)
@@ -712,8 +690,7 @@
 /area/ruin/onehalf/drone_bay)
 "bD" = (
 /obj/structure/disposalpipe/junction{
-	dir = 8;
-	icon_state = "pipe-j1"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/drone_bay)
@@ -791,7 +768,7 @@
 	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "bR" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
@@ -802,7 +779,7 @@
 /area/ruin/onehalf/hallway)
 "bT" = (
 /turf/simulated/wall/r_wall,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "bU" = (
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
@@ -818,8 +795,6 @@
 /area/ruin/onehalf/hallway)
 "bZ" = (
 /obj/structure/disposalpipe/junction{
-	tag = "icon-pipe-j1 (NORTH)";
-	icon_state = "pipe-j1";
 	dir = 1
 	},
 /obj/item/shard,
@@ -843,22 +818,22 @@
 	name = "bridge blast door"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cd" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "ce" = (
 /obj/structure/table,
 /obj/item/paper,
 /obj/item/pen,
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cf" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cg" = (
 /obj/machinery/light{
 	dir = 1;
@@ -866,11 +841,11 @@
 	},
 /obj/structure/computerframe,
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "ch" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "ci" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -883,7 +858,7 @@
 	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cj" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -915,7 +890,6 @@
 	dir = 4
 	},
 /obj/item/shard{
-	tag = "icon-small";
 	icon_state = "small"
 	},
 /turf/template_noop,
@@ -931,7 +905,7 @@
 	name = "bridge blast door"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cp" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -940,26 +914,22 @@
 /obj/structure/table,
 /obj/item/paper_bin,
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cq" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
-	icon_state = "chair";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cr" = (
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cs" = (
 /obj/structure/chair{
-	tag = "icon-chair (NORTH)";
-	icon_state = "chair";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "ct" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -975,7 +945,7 @@
 /obj/structure/table,
 /obj/item/lighter/zippo,
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cu" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
@@ -998,7 +968,7 @@
 	name = "bridge blast door"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cv" = (
 /obj/item/stack/rods,
 /turf/template_noop,
@@ -1014,7 +984,6 @@
 "cy" = (
 /obj/structure/lattice,
 /obj/item/shard{
-	tag = "icon-medium";
 	icon_state = "medium"
 	},
 /turf/template_noop,
@@ -1035,19 +1004,19 @@
 	},
 /obj/machinery/disposal,
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cB" = (
 /obj/item/stack/tile/plasteel{
 	pixel_x = 7;
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cC" = (
 /obj/structure/cable,
 /obj/machinery/power/solar_control,
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cD" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
@@ -1061,7 +1030,7 @@
 	name = "bridge blast door"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cE" = (
 /obj/item/stack/tile/wood,
 /turf/template_noop,
@@ -1081,13 +1050,9 @@
 "cH" = (
 /obj/structure/lattice,
 /obj/structure/disposalpipe/broken{
-	tag = "icon-pipe-b (NORTH)";
-	icon_state = "pipe-b";
 	dir = 1
 	},
 /obj/structure/disposalpipe/broken{
-	tag = "icon-pipe-b (WEST)";
-	icon_state = "pipe-b";
 	dir = 8
 	},
 /turf/template_noop,
@@ -1097,11 +1062,11 @@
 	name = "Bridge"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cJ" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cK" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "onehalf bridge";
@@ -1111,12 +1076,12 @@
 	name = "Bridge"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cL" = (
 /obj/item/crowbar,
 /obj/item/multitool,
 /turf/simulated/floor/plating,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cM" = (
 /obj/structure/safe/floor,
 /obj/item/tank/internals/oxygen/red,
@@ -1126,20 +1091,17 @@
 /obj/item/reagent_containers/food/drinks/bottle/rum,
 /obj/item/folder/syndicate/blue,
 /turf/simulated/floor/plating,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cN" = (
 /obj/structure/chair/comfy/black{
-	tag = "icon-comfychair (EAST)";
-	icon_state = "comfychair";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cO" = (
 /obj/structure/lattice,
 /obj/item/stack/cable_coil/cut{
 	amount = 2;
-	dir = 2;
 	icon_state = "coil_red2"
 	},
 /turf/template_noop,
@@ -1150,7 +1112,7 @@
 	},
 /obj/machinery/vending/sovietsoda,
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cR" = (
 /obj/item/stack/sheet/plasteel,
 /turf/template_noop,
@@ -1173,21 +1135,20 @@
 /obj/structure/table,
 /obj/machinery/recharger,
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cW" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cX" = (
 /obj/structure/table,
 /obj/machinery/door_control{
 	id = "onehalf bridge";
 	name = "Bridge Lockdown";
-	pixel_x = 0;
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cY" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
@@ -1201,7 +1162,7 @@
 	name = "bridge blast door"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "cZ" = (
 /obj/structure/lattice,
 /obj/structure/cable{
@@ -1220,23 +1181,23 @@
 /obj/structure/table,
 /obj/item/flashlight,
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "dc" = (
 /obj/structure/table,
 /obj/item/stack/ore/bluespace_crystal,
 /obj/item/coin/plasma,
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "dd" = (
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "de" = (
 /obj/machinery/light,
 /obj/structure/table,
 /obj/item/storage/firstaid,
 /turf/simulated/floor/plasteel,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "df" = (
 /obj/structure/lattice,
 /obj/structure/cable{
@@ -1277,7 +1238,7 @@
 	name = "bridge blast door"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "dl" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
@@ -1292,7 +1253,7 @@
 	name = "bridge blast door"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "dm" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
@@ -1313,7 +1274,7 @@
 	name = "bridge blast door"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "dn" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
@@ -1330,7 +1291,7 @@
 	name = "bridge blast door"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/onehalf/bridge)
+/area/ruin/onehalf/abandonedbridge)
 "do" = (
 /obj/structure/lattice,
 /obj/structure/cable{
@@ -1340,7 +1301,6 @@
 	tag = ""
 	},
 /obj/item/shard{
-	tag = "icon-medium";
 	icon_state = "medium"
 	},
 /turf/template_noop,

@@ -54,7 +54,7 @@
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list += src
 	if(mind)
-		GLOB.respawnable_list -= src
+		remove_from_respawnable_list()
 	timeofdeath = null
 	if(updating)
 		update_canmove()
@@ -64,12 +64,6 @@
 		hud_used?.reload_fullscreen()
 
 	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, updating)
-	for(var/s in ownedSoullinks)
-		var/datum/soullink/S = s
-		S.ownerRevives(src)
-	for(var/s in sharedSoullinks)
-		var/datum/soullink/S = s
-		S.sharerRevives(src)
 
 	if(mind)
 		for(var/S in mind.spell_list)

@@ -135,6 +135,16 @@
 	playsound (src, 'sound/instruments/trombone/Cn4.mid', 100,1,-1)
 	..()
 
+/obj/item/instrument/trombone/sad
+	name = "sad trombone"
+	desc = "Wah. Waah. Waaah. Waaaaaaah."
+	force = 0
+	attack_verb = list("Wahed", "Waahed", "Waaahed", "Honked")
+
+/obj/item/instrument/trombone/sad/attack(mob/living/carbon/C, mob/user)
+	playsound(loc, 'sound/misc/sadtrombone.ogg', 50, 1, -1)
+	..()
+
 /obj/item/instrument/recorder
 	name = "recorder"
 	desc = "Just like in school, playing ability and all."
@@ -177,7 +187,7 @@
 // Crafting recipes
 /datum/crafting_recipe/violin
 	name = "Violin"
-	result = /obj/item/instrument/violin
+	result = list(/obj/item/instrument/violin)
 	reqs = list(/obj/item/stack/sheet/wood = 5,
 				/obj/item/stack/cable_coil = 6,
 				/obj/item/stack/tape_roll = 5)
@@ -187,7 +197,7 @@
 
 /datum/crafting_recipe/guitar
 	name = "Guitar"
-	result = /obj/item/instrument/guitar
+	result = list(/obj/item/instrument/guitar)
 	reqs = list(/obj/item/stack/sheet/wood = 5,
 				/obj/item/stack/cable_coil = 6,
 				/obj/item/stack/tape_roll = 5)
@@ -197,7 +207,7 @@
 
 /datum/crafting_recipe/eguitar
 	name = "Electric Guitar"
-	result = /obj/item/instrument/eguitar
+	result = list(/obj/item/instrument/eguitar)
 	reqs = list(/obj/item/stack/sheet/metal = 5,
 				/obj/item/stack/cable_coil = 6,
 				/obj/item/stack/tape_roll = 5)
@@ -207,7 +217,7 @@
 
 /datum/crafting_recipe/banjo
 	name = "Banjo"
-	result = /obj/item/instrument/banjo
+	result = list(/obj/item/instrument/banjo)
 	reqs = list(/obj/item/stack/sheet/wood = 5,
 				/obj/item/stack/cable_coil = 6,
 				/obj/item/stack/tape_roll = 5)

@@ -10,8 +10,8 @@
 	var/opening = 0
 	var/possible_contents = list(/obj/random/carp_plushie, /obj/random/plushie, /obj/random/figure, /obj/item/toy/eight_ball, /obj/item/stack/tickets)
 
-/obj/item/toy/prizeball/New()
-	..()
+/obj/item/toy/prizeball/Initialize(mapload)
+	. = ..()
 	icon_state = pick("prizeball_1","prizeball_2","prizeball_3")
 
 /obj/item/toy/prizeball/attack_self(mob/user as mob)
@@ -69,7 +69,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	max_amount = 9999	//Dang that's a lot of tickets
 
-/obj/item/stack/tickets/New(var/loc, var/amount=null)
+/obj/item/stack/tickets/New(loc, amount=null)
 	..()
 	update_icon()
 

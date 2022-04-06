@@ -5,7 +5,7 @@
 	density = 0
 	layer = 3.5
 	max_integrity = 100
-	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 
 /obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -286,33 +286,34 @@
 /obj/structure/sign/medbay/alt
 	icon_state = "bluecross2"
 
+/obj/structure/sign/directions
+	name = "direction sign"
+
+/obj/structure/sign/directions/bridge
+	desc = "A direction sign, pointing out which way the Bridge is."
+	icon_state = "direction_bridge"
+
 /obj/structure/sign/directions/science
-	name = "\improper Research Division"
 	desc = "A direction sign, pointing out which way the Research Division is."
 	icon_state = "direction_sci"
 
 /obj/structure/sign/directions/engineering
-	name = "\improper Engineering Department"
 	desc = "A direction sign, pointing out which way the Engineering Department is."
 	icon_state = "direction_eng"
 
 /obj/structure/sign/directions/security
-	name = "\improper Security Department"
 	desc = "A direction sign, pointing out which way the Security Department is."
 	icon_state = "direction_sec"
 
 /obj/structure/sign/directions/medical
-	name = "\improper Medical Bay"
-	desc = "A direction sign, pointing out which way Medical Bay is."
+	desc = "A direction sign, pointing out which way the Medical Bay is."
 	icon_state = "direction_med"
 
 /obj/structure/sign/directions/evac
-	name = "\improper Escape Arm"
-	desc = "A direction sign, pointing out which way Escape Shuttle Dock is."
+	desc = "A direction sign, pointing out which way the Escape Shuttle Dock is."
 	icon_state = "direction_evac"
 
 /obj/structure/sign/directions/cargo
-	name = "\improper Cargo Department"
 	desc = "A direction sign, pointing out which way the Cargo Department is."
 	icon_state = "direction_supply"
 

@@ -23,7 +23,7 @@
 			I.receive_damage(-5, FALSE)
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			E.mend_fracture()
-			E.internal_bleeding = FALSE
+			E.fix_internal_bleeding()
 	M.SetEyeBlind(0, FALSE)
 	M.cure_nearsighted(null, FALSE)
 	M.cure_blind(null, FALSE)
@@ -39,7 +39,7 @@
 	M.SetParalysis(0, FALSE)
 	M.SetSilence(0, FALSE)
 	M.SetHallucinate(0)
-	REMOVE_TRAITS_NOT_IN(M, list(ROUNDSTART_TRAIT))
+	REMOVE_TRAITS_NOT_IN(M, list(ROUNDSTART_TRAIT, SPECIES_TRAIT))
 	M.SetDizzy(0)
 	M.SetDrowsy(0)
 	M.SetStuttering(0)
