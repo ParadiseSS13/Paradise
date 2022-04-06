@@ -410,7 +410,7 @@
 			stuff_to_transfer += I
 
 	// Remove accessories from the suit if present
-	if(H.w_uniform?.accessories.len)
+	if(length(H.w_uniform?.accessories))
 		for(var/obj/item/clothing/accessory/A in H.w_uniform.accessories)
 			A.on_removed(H)
 			H.w_uniform.accessories -= A
