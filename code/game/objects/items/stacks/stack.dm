@@ -203,7 +203,7 @@
 			to_chat(usr, "<span class='warning'>\The [R.title] won't fit here!</span>")
 			return FALSE
 
-		if(R.one_per_turf && (locate(istype(obj/machinery) || istype(obj/structure)) in get_turf(src)))
+		if(R.one_per_turf && (locate(/obj/machinery) || (/obj/structure)) in get_turf(src))
 			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
 			return FALSE
 
