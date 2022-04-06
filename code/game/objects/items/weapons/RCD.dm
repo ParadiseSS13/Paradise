@@ -360,6 +360,8 @@
 		return FALSE
 
 	if(isfloorturf(A))
+		if(locate(/obj/machinery/porta_turret) in A.contents)
+			return FALSE
 		if(checkResource(3, user))
 			to_chat(user, "Building Wall...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
@@ -394,6 +396,8 @@
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			if(do_after(user, 50 * toolspeed, target = A))
 				if(locate(/obj/machinery/door/airlock) in A.contents)
+					return FALSE
+				if(locate(/obj/machinery/porta_turret) in A.contents)
 					return FALSE
 				if(!useResource(10, user))
 					return FALSE
@@ -510,6 +514,8 @@
 	if(isfloorturf(A))
 		if(locate(/obj/structure/grille) in A)
 			return FALSE // We already have window
+		if(locate(/obj/machinery/porta_turret) in A.contents)
+				return FALSE
 		if(!checkResource(2, user))
 			to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this window!</span>")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
@@ -518,8 +524,6 @@
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		if(!do_after(user, 20 * toolspeed, target = A))
 			return FALSE
-		if(locate(/obj/structure/grille) in A)
-			return FALSE // We already have window
 		if(!useResource(2, user))
 			return FALSE
 		playsound(loc, usesound, 50, 1)
