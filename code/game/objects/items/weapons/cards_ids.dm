@@ -834,6 +834,11 @@
 	else
 		..()
 
+/obj/item/card/id/solgov
+	name = "SolGov ID"
+	registered_name = "Trans-Solar Federation Personnel"
+	icon_state = "solgov"
+
 // Decals
 /obj/item/id_decal
 	name = "identification card decal"
