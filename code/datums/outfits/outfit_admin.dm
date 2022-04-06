@@ -610,7 +610,7 @@
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
 	l_ear = /obj/item/radio/headset/ert
-	id = /obj/item/card/id/silver
+	id = /obj/item/card/id/solgov
 	r_pocket = /obj/item/lighter/zippo/blue
 	l_pocket = /obj/item/storage/fancy/cigarettes/cigpack_robustgold
 	pda = /obj/item/pda
@@ -647,7 +647,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
 	l_ear = /obj/item/radio/headset/ert/alt/solgov
-	id = /obj/item/card/id
+	id = /obj/item/card/id/solgov
 	l_hand = /obj/item/gun/projectile/automatic/shotgun/bulldog
 	suit_store = /obj/item/gun/projectile/automatic/pistol/m1911
 	r_pocket = /obj/item/flashlight/seclite
@@ -696,6 +696,7 @@
 	glasses = /obj/item/clothing/glasses/night
 	back = /obj/item/storage/backpack/satchel
 	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
+	id = /obj/item/card/id/solgov
 	l_hand = null
 	belt = /obj/item/melee/baton/loaded
 	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
@@ -716,6 +717,7 @@
 	head = null
 	mask = /obj/item/clothing/mask/gas/explorer/marines
 	belt = /obj/item/storage/belt/military/assault/marines/elite/full
+	id = /obj/item/card/id/solgov
 	l_hand = /obj/item/gun/projectile/automatic/ar
 	backpack_contents = list(
 		/obj/item/clothing/shoes/magboots/advance = 1,
@@ -742,6 +744,7 @@
 	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
+	id = /obj/item/card/id/solgov
 	backpack_contents = list(
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
@@ -760,7 +763,7 @@
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/sunglasses
-	id = /obj/item/card/id/supply
+	id = /obj/item/card/id/solgov
 	pda = /obj/item/pda
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
