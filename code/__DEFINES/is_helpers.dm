@@ -59,7 +59,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define ischasm(A) (istype(A, /turf/simulated/floor/chasm))
 
-#define isemptyturf(A) (istype(A, !(/turf/simulated/floor , /turf/simulated/wall, /turf/simulated/wall/r_wall, /turf/simulated/mineral, GLOB.glass_sheet_types)))
+#define isemptyturf(A) (!istype(A, (/turf/simulated/floor , /turf/simulated/wall, /turf/simulated/mineral, GLOB.glass_sheet_types)))
 
 //Mobs
 #define isliving(A) (istype(A, /mob/living))

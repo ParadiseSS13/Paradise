@@ -70,6 +70,9 @@
 		if(iswallturf(loc))
 			to_chat(user, "<span class='warning'>There is already a wall present!</span>")
 			return
+		if(isemptyturf(loc))
+			to_chat(user, "<span class='warning'>The spot is already occupied!</span>")
+			return
 		if(!isfloorturf(loc))
 			to_chat(user, "<span class='warning'>A floor must be present to build a false wall!</span>")
 			return

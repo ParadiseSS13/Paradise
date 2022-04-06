@@ -515,7 +515,7 @@
 		if(locate(/obj/structure/grille) in A)
 			return FALSE // We already have window
 		if(locate(/obj/machinery/porta_turret) in A.contents)
-				return FALSE
+			return FALSE
 		if(!checkResource(2, user))
 			to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this window!</span>")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
