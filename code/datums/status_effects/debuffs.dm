@@ -374,9 +374,22 @@
 
 /datum/status_effect/transient/silence/on_apply()
 	. = ..()
-	ADD_TRAIT(owner, TRAIT_MUTE, STATUS_TRAIT)
+	ADD_TRAIT(owner, TRAIT_MUTE, id)
 
 /datum/status_effect/transient/silence/on_remove()
 	. = ..()
-	REMOVE_TRAIT(owner, TRAIT_MUTE, STATUS_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_MUTE, id)
 
+/datum/status_effect/transient/jittery
+	id = "jittering"
+
+/datum/status_effect/transient/jittery/on_apply()
+	. = ..()
+	owner.do_jitter_animation(strength / 20, 1)
+
+/datum/status_effect/transient/jittery/tick()
+	..()
+	owner.do_jitter_animation(strength / 20, 1)
+
+/datum/status_effect/transient/jittery/calc_decay()
+	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS

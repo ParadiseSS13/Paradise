@@ -220,7 +220,7 @@
 			M.Stun(20 SECONDS)
 			M.Paralyse(4)
 		else
-			M.Jitter(500)
+			M.Jitter(1000 SECONDS)
 		///else the mousetraps are useless
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M

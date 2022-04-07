@@ -560,7 +560,7 @@
 			if(satiety < 0)
 				satiety++
 				if(prob(round(-satiety/40)))
-					Jitter(5)
+					Jitter(10 SECONDS)
 				hunger_rate = 3 * hunger_drain
 			hunger_rate *= physiology.hunger_mod
 			adjust_nutrition(-hunger_rate)

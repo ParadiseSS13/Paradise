@@ -69,7 +69,7 @@
 
 /datum/reagent/consumable/drink/cold/nuka_cola/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.Jitter(20)
+	M.Jitter(40 SECONDS)
 	update_flags |= M.Druggy(30, FALSE)
 	M.AdjustDizzy(5)
 	M.SetDrowsy(0)
@@ -175,7 +175,7 @@
 	taste_description = "coffee...soda?"
 
 /datum/reagent/consumable/drink/cold/rewriter/on_mob_life(mob/living/M)
-	M.Jitter(5)
+	M.Jitter(10 SECONDS)
 	return ..()
 
 /datum/reagent/consumable/drink/cold/arnold_palmer

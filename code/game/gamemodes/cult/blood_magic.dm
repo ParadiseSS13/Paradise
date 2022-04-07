@@ -458,7 +458,7 @@
 			C.Silence(6 SECONDS)
 			C.Stuttering(8)
 			C.CultSlur(10)
-			C.Jitter(8)
+			C.Jitter(16 SECONDS)
 	uses--
 	..()
 

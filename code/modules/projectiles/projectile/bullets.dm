@@ -160,7 +160,7 @@
 	damage = 5
 	weaken = 10 SECONDS
 	stutter = 5
-	jitter = 20
+	jitter = 40 SECONDS
 	range = 7
 	icon_state = "spark"
 	color = "#FFFF00"

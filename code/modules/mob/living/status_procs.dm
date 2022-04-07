@@ -82,6 +82,8 @@
 		remove_status_effect(T);\
 	}
 
+#define IS_STUN_IMMUNE(source, ignore_canstun) ((source.status_flags & GODMODE) || (!ignore_canstun && !(source.status_flags & CANSTUN)))
+
 /mob/living
 
 	// Booleans
@@ -97,7 +99,6 @@
 	var/eye_blind = 0
 	var/eye_blurry = 0
 	var/hallucination = 0
-	var/jitteriness = 0
 	var/losebreath = 0
 	var/paralysis = 0
 	var/sleeping = 0
@@ -316,17 +317,20 @@
 	SetHallucinate(new_value)
 
 // JITTER
+/mob/living/proc/AmountJitter()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_JITTER)
 
-/mob/living/Jitter(amount, force = 0)
-	SetJitter(max(jitteriness, amount), force)
+/mob/living/proc/Jitter(amount, ignore_canstun = FALSE)
+	SetJitter(max(AmountJitter(), amount), ignore_canstun)
 
-/mob/living/SetJitter(amount, force = 0)
+/mob/living/proc/SetJitter(amount, ignore_canstun = FALSE)
 	// Jitter is also associated with stun
-	if(status_flags & CANSTUN || force)
-		jitteriness = max(amount, 0)
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_JITTER, amount)
 
-/mob/living/AdjustJitter(amount, bound_lower = 0, bound_upper = INFINITY, force = 0)
-	var/new_value = directional_bounded_sum(jitteriness, amount, bound_lower, bound_upper)
+/mob/living/proc/AdjustJitter(amount, bound_lower = 0, bound_upper = INFINITY, force = 0)
+	var/new_value = directional_bounded_sum(AmountJitter(), amount, bound_lower, bound_upper)
 	SetJitter(new_value, force)
 
 // LOSE_BREATH
@@ -461,9 +465,6 @@
 	var/new_value = directional_bounded_sum(cultslurring, amount, bound_lower, bound_upper)
 	SetCultSlur(new_value)
 
-// STUN
-
-#define IS_STUN_IMMUNE(source, ignore_canstun) ((source.status_flags & GODMODE) || (!ignore_canstun && !(source.status_flags & CANSTUN)))
 
 /* STUN */
 /mob/living/proc/IsStunned() //If we're stunned

@@ -40,7 +40,7 @@
 	if((prob(1) && H.paralysis < 1))
 		H.visible_message("<span class='danger'>[H] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
 		H.Paralyse(10)
-		H.Jitter(1000)
+		H.Jitter(2000 SECONDS)
 
 /datum/mutation/disability/cough
 	name = "Coughing"

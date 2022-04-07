@@ -298,7 +298,7 @@
 
 /datum/reagent/consumable/drink/coffee/overdose_process(mob/living/M, severity)
 	if(volume > 45)
-		M.Jitter(5)
+		M.Jitter(10 SECONDS)
 	return list(0, STATUS_UPDATE_NONE)
 
 /datum/reagent/consumable/drink/coffee/icecoffee

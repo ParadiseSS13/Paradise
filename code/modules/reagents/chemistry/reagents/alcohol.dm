@@ -270,7 +270,7 @@
 	update_flags |= M.AdjustSleeping(-2, FALSE)
 	if(M.bodytemperature > 310)
 		M.bodytemperature = max(310, M.bodytemperature - (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
-	M.Jitter(5)
+	M.Jitter(10 SECONDS)
 	return ..() | update_flags
 
 
@@ -985,14 +985,14 @@
 				M.emote(pick("twitch","giggle"))
 		if(5 to 10)
 			M.Stuttering(1)
-			M.Jitter(20)
+			M.Jitter(40 SECONDS)
 			M.Dizzy(20)
 			update_flags |= M.Druggy(45, FALSE)
 			if(prob(20))
 				M.emote(pick("twitch","giggle"))
 		if(10 to INFINITY)
 			M.Stuttering(1)
-			M.Jitter(40)
+			M.Jitter(80 SECONDS)
 			M.Dizzy(40)
 			update_flags |= M.Druggy(60, FALSE)
 			if(prob(30))
@@ -1083,7 +1083,7 @@
 	M.AdjustDizzy(-5)
 	M.AdjustDrowsy(-3)
 	update_flags |= (M.AdjustSleeping(-2) ? STATUS_UPDATE_STAT : STATUS_UPDATE_NONE)
-	M.Jitter(5)
+	M.Jitter(10 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/ginsonic

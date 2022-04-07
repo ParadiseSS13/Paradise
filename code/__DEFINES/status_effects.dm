@@ -104,6 +104,7 @@
 
 #define STATUS_EFFECT_SLOWED /datum/status_effect/incapacitating/slowed
 
+#define STATUS_EFFECT_JITTER /datum/status_effect/transient/jittery
 
 /////////////
 // NEUTRAL //

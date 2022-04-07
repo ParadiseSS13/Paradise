@@ -36,7 +36,7 @@
 	to_chat(src, "<font color='red' size='6'>HONK</font>")
 	Weaken(14 SECONDS)
 	Stuttering(15)
-	do_jitter_animation(15)
+	do_jitter_animation(30 SECONDS)
 
 	if(iswizard(src) || (mind && mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)) //Wizards get non-cursed clown robes and magical mask.
 		unEquip(shoes, TRUE)

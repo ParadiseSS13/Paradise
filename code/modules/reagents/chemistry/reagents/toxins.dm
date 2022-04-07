@@ -519,7 +519,7 @@
 		if(effect <= 2)
 			to_chat(M, "<span class='warning'>You feel mucus running down the back of your throat.</span>")
 			update_flags |= M.adjustToxLoss(1, FALSE)
-			M.Jitter(4)
+			M.Jitter(8 SECONDS)
 			M.emote(pick("sneeze", "cough"))
 		else if(effect <= 4)
 			M.AdjustStuttering(rand(0,5))
@@ -536,7 +536,7 @@
 			update_flags |= M.adjustBruteLoss(6, FALSE)
 		else if(effect <= 4)
 			M.visible_message("<span class='warning'>[M] has a horrible coughing fit!</span>")
-			M.Jitter(10)
+			M.Jitter(20 SECONDS)
 			M.AdjustStuttering(rand(0,5))
 			M.emote("cough")
 			if(prob(40))
@@ -640,7 +640,7 @@
 			update_flags |= M.Paralyse(10, FALSE)
 			M.Drowsy(20)
 
-	M.AdjustJitter(-30)
+	M.AdjustJitter(-60 SECONDS)
 	if(M.getBrainLoss() <= 80)
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 	else
@@ -707,7 +707,7 @@
 		to_chat(M, "<span class='danger'>AHHHHHH!</span>")
 		update_flags |= M.adjustBruteLoss(5, FALSE)
 		M.Weaken(10 SECONDS)
-		M.AdjustJitter(6)
+		M.AdjustJitter(12 SECONDS)
 		M.visible_message("<span class='danger'>[M] falls to the floor, scratching [M.p_them()]self violently!</span>")
 		M.emote("scream")
 	return ..() | update_flags
@@ -799,7 +799,7 @@
 			M.Weaken(10 SECONDS)
 		if(6 to INFINITY)
 			update_flags |= M.Paralyse(20, FALSE)
-	M.AdjustJitter(-50)
+	M.AdjustJitter(-100 SECONDS)
 	if(prob(10))
 		M.emote("drool")
 		update_flags |= M.adjustBrainLoss(1, FALSE)
@@ -844,7 +844,7 @@
 
 /datum/reagent/sulfonal/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustJitter(-30)
+	M.AdjustJitter(-60 SECONDS)
 	switch(current_cycle)
 		if(1 to 10)
 			if(prob(7))
@@ -967,7 +967,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	switch(current_cycle)
 		if(1 to 15)
-			M.AdjustJitter(20)
+			M.AdjustJitter(40 SECONDS)
 			if(prob(20))
 				M.emote(pick("twitch","twitch_s","quiver"))
 		if(16 to 30)
@@ -991,7 +991,7 @@
 			if(prob(5))
 				M.Weaken(6 SECONDS)
 				M.visible_message("<span class='warning'>[M] has a seizure!</span>")
-				M.SetJitter(1000)
+				M.SetJitter(2000 SECONDS)
 			if(prob(5))
 				to_chat(M, "<span class='warning'>You can't breathe!</span>")
 				M.emote(pick("gasp", "choke", "cough"))

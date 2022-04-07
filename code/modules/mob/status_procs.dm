@@ -47,17 +47,6 @@
 /mob/proc/AdjustHallucinate()
 	return
 
-
-/mob/proc/Jitter()
-	return
-
-/mob/proc/SetJitter()
-	return
-
-/mob/proc/AdjustJitter()
-	return
-
-
 /mob/proc/LoseBreath()
 	return
 

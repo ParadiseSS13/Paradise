@@ -35,8 +35,8 @@
 	var/datum/changeling/changeling = user.mind.changeling
 
 	to_chat(user, "<span class='notice'>We tighten our grip. We must hold still....</span>")
-	target.do_jitter_animation(500)
-	user.do_jitter_animation(500)
+	target.Jitter(1000 SECONDS)
+	user.Jitter(1000 SECONDS)
 
 	if(!do_mob(user, target, 10 SECONDS))
 		to_chat(user, "<span class='warning'>The body swap has been interrupted!</span>")

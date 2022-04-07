@@ -185,7 +185,7 @@
 
 		L.Weaken(10 SECONDS)
 		L.Stuttering(1)
-		L.Jitter(20)
+		L.Jitter(40 SECONDS)
 	return
 
 /obj/item/clothing/mask/muzzle/safety/shock/HasProximity(atom/movable/AM)

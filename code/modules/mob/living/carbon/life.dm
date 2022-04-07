@@ -263,13 +263,6 @@
 			setStaminaLoss(0, FALSE)
 			update_health_hud()
 
-	var/restingpwr = 1 + 4 * resting
-
-	//Jitteryness
-	if(jitteriness)
-		do_jitter_animation(jitteriness)
-		AdjustJitter(-restingpwr)
-
 	if(hallucination)
 		handle_hallucinations()
 		AdjustHallucinate(-2)

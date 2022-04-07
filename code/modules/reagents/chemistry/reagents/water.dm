@@ -228,7 +228,7 @@
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustJitter(-5)
+	M.AdjustJitter(-10 SECONDS)
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
 		M.AdjustStuttering(4, bound_lower = 0, bound_upper = 20)
 		M.Dizzy(5)
@@ -267,7 +267,7 @@
 		var/mob/living/carbon/V = M
 		if(vamp.bloodusable)
 			M.Stuttering(1)
-			M.Jitter(30)
+			M.Jitter(60 SECONDS)
 			update_flags |= M.adjustStaminaLoss(5, FALSE)
 			if(prob(20))
 				M.emote("scream")
@@ -289,7 +289,7 @@
 					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
 					update_flags |= M.adjustFireLoss(1, FALSE)
 					M.Stuttering(1)
-					M.Jitter(20)
+					M.Jitter(40 SECONDS)
 					if(prob(20))
 						M.emote("scream")
 					vamp.adjust_nullification(20, 4)
@@ -300,7 +300,7 @@
 					M.IgniteMob()
 					update_flags |= M.adjustFireLoss(3, FALSE)
 					M.Stuttering(1)
-					M.Jitter(30)
+					M.Jitter(60 SECONDS)
 					if(prob(40))
 						M.emote("scream")
 					vamp.adjust_nullification(20, 4)

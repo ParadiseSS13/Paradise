@@ -103,7 +103,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDrowsy(-5)
 	if(current_cycle >= 90)
-		M.AdjustJitter(2)
+		M.AdjustJitter(4 SECONDS)
 	if(prob(50))
 		update_flags |= M.AdjustParalysis(-1, FALSE)
 		M.AdjustStunned(-2 SECONDS)
@@ -359,7 +359,7 @@
 			if(prob(min(25, current_cycle)))
 				to_chat(H, "<span class='danger'>You can't get the scent of garlic out of your nose! You can barely think...</span>")
 				H.Weaken(2 SECONDS)
-				H.Jitter(10)
+				H.Jitter(20 SECONDS)
 				H.fakevomit()
 		else
 			if(H.job == "Chef")

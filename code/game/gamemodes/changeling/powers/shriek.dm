@@ -18,7 +18,7 @@
 			if(!M.mind || !M.mind.changeling)
 				M.AdjustEarDamage(0, 30)
 				M.AdjustConfused(20)
-				M.Jitter(50)
+				M.Jitter(100 SECONDS)
 			else
 				SEND_SOUND(M, sound('sound/effects/screech.ogg'))
 

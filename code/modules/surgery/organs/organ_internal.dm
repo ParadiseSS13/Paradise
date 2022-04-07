@@ -270,7 +270,7 @@
 			owner.Stun(20 SECONDS)
 			owner.Paralyse(4)
 		else
-			owner.Jitter(500)
+			owner.Jitter(1000 SECONDS)
 
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner

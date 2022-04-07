@@ -79,7 +79,7 @@
 			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 			if(D.unEquip(I) && !(QDELETED(I) || (I.flags & ABSTRACT)))
 				A.put_in_hands(I)
-			D.Jitter(2)
+			D.Jitter(4 SECONDS)
 			D.apply_damage(5, BRUTE)
 	else
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm [D]!</span>")

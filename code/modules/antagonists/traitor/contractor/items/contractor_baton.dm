@@ -16,7 +16,7 @@
 	/// Stamina damage to deal on stun.
 	var/stamina_damage = 70
 	/// Jitter to deal on stun.
-	var/jitter_amount = 5 SECONDS_TO_JITTER
+	var/jitter_amount = 5 SECONDS
 	/// Stutter to deal on stun.
 	var/stutter_amount = 10 SECONDS_TO_LIFE_CYCLES
 

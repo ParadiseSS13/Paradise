@@ -13,7 +13,7 @@
 	nodamage = 1
 	weaken = 10 SECONDS
 	stutter = 5
-	jitter = 20
+	jitter = 40 SECONDS
 	hitsound = 'sound/weapons/tase.ogg'
 	range = 7
 	//Damage will be handled on the MOB side, to prevent window shattering.
@@ -29,7 +29,7 @@
 			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		else if(C.status_flags & CANWEAKEN)
 			spawn(5)
-				C.do_jitter_animation(jitter)
+				C.Jitter(jitter)
 
 /obj/item/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
 	do_sparks(1, 1, src)

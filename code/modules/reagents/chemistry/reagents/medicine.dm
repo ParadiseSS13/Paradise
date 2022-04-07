@@ -168,7 +168,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(1, FALSE)
 	M.Dizzy(5)
-	M.Jitter(5)
+	M.Jitter(10 SECONDS)
 	return list(0, update_flags)
 
 /datum/reagent/medicine/spaceacillin
@@ -367,7 +367,7 @@
 			M.Weaken(6 SECONDS)
 		else if(effect <= 7)
 			M.visible_message("<span class='warning'>[M] shakes uncontrollably.</span>")
-			M.Jitter(30)
+			M.Jitter(60 SECONDS)
 	else if(severity == 2) // greater
 		if(effect <= 2)
 			M.visible_message("<span class='warning'>[M] suddenly clutches [M.p_their()] gut!</span>")
@@ -580,7 +580,7 @@
 	taste_description = "antihistamine"
 
 /datum/reagent/medicine/diphenhydramine/on_mob_life(mob/living/M)
-	M.AdjustJitter(-20)
+	M.AdjustJitter(-40 SECONDS)
 	M.reagents.remove_reagent("histamine",3)
 	M.reagents.remove_reagent("itching_powder",3)
 	if(prob(7))
@@ -606,7 +606,7 @@
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustJitter(-25)
+	M.AdjustJitter(-50 SECONDS)
 	switch(current_cycle)
 		if(1 to 15)
 			if(prob(7))
@@ -1018,7 +1018,7 @@
 			M.reagents.remove_reagent(R.id, 5)
 	update_flags |= M.AdjustDruggy(-5, FALSE)
 	M.AdjustHallucinate(-5)
-	M.AdjustJitter(-5)
+	M.AdjustJitter(-10 SECONDS)
 	if(prob(50))
 		M.Drowsy(3)
 	if(prob(10))
@@ -1039,7 +1039,7 @@
 
 /datum/reagent/medicine/ether/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustJitter(-25)
+	M.AdjustJitter(-50 SECONDS)
 	switch(current_cycle)
 		if(1 to 30)
 			if(prob(7))
@@ -1225,7 +1225,7 @@
 		update_flags |= M.adjustToxLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustCloneLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustStaminaLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		M.SetJitter(min(max(0, M.jitteriness + 3), 30))
+		M.AdjustJitter(6 SECONDS, 0, 60 SECONDS)
 		update_flags |= M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER, FALSE) //See above
 	update_flags |= M.SetDruggy(min(max(0, M.druggy + 10), 15), FALSE) //See above
 	return ..() | update_flags
@@ -1276,7 +1276,7 @@
 			has_stimulant = TRUE
 	switch(current_cycle)
 		if(1 to 19)
-			M.AdjustJitter(4)
+			M.AdjustJitter(8 SECONDS)
 			if(prob(10))
 				to_chat(M, "<span class='warning'>Your skin feels hot and your veins are on fire!</span>")
 		if(20 to 43)

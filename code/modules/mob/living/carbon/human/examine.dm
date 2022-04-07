@@ -167,12 +167,12 @@
 		msg += "[p_they(TRUE)] [p_are()] wearing [bicon(wear_id)] \a [wear_id].\n"
 
 	//Jitters
-	switch(jitteriness)
-		if(300 to INFINITY)
+	switch(AmountJitter())
+		if(6000 to INFINITY)
 			msg += "<span class='warning'><B>[p_they(TRUE)] [p_are()] convulsing violently!</B></span>\n"
-		if(200 to 300)
+		if(4000 to 6000)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] extremely jittery.</span>\n"
-		if(100 to 200)
+		if(2000 to 4000)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] twitching ever so slightly.</span>\n"
 
 
