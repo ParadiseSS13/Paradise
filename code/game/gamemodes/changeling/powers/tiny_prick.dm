@@ -97,7 +97,7 @@
 
 /datum/action/changeling/sting/mute/sting_action(mob/user, mob/living/carbon/target)
 	add_attack_logs(user, target, "Mute sting (changeling)")
-	target.AdjustSilence(30)
+	target.AdjustSilence(60 SECONDS)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 

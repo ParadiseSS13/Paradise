@@ -40,7 +40,7 @@
 		equip_to_slot_if_possible(new /obj/item/clothing/mask/gas/mime, slot_wear_mask, TRUE, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/under/mime, slot_w_uniform, TRUE, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/suit/suspenders, slot_wear_suit, TRUE, TRUE)
-		Silence(7)
+		Silence(14 SECONDS)
 	else
 		qdel(wear_mask)
 		qdel(w_uniform)

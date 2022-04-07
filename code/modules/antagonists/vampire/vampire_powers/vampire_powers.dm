@@ -193,7 +193,7 @@
 		else
 			target.adjustStaminaLoss(120)
 			target.Weaken(12 SECONDS)
-			target.AdjustSilence(3)
+			target.AdjustSilence(6 SECONDS)
 			target.flash_eyes(1, TRUE, TRUE)
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
 		add_attack_logs(user, target, "(Vampire) Glared at")

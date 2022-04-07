@@ -94,6 +94,8 @@
 
 #define STATUS_EFFECT_DRUNKENNESS /datum/status_effect/transient/drunkenness
 
+#define STATUS_EFFECT_SILENCED /datum/status_effect/transient/silence
+
 #define STATUS_EFFECT_STUN /datum/status_effect/incapacitating/stun
 
 #define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed

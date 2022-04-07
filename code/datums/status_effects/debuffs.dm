@@ -183,13 +183,13 @@
 	if(QDELETED(src))
 		return
 	var/dir = sin(world.time * 2)
-	px_diff = cos(world.time * 3) * min(strength * 2, 32) * dir
-	py_diff = sin(world.time * 3) * min(strength * 2, 32) * dir
+	px_diff = cos(world.time * 3) * min(strength * 0.2, 32) * dir
+	py_diff = sin(world.time * 3) * min(strength * 0.2, 32) * dir
 	owner.client?.pixel_x = px_diff
 	owner.client?.pixel_y = py_diff
 
 /datum/status_effect/transient/dizziness/calc_decay()
-	return -0.2 + (owner.resting ? -0.8 : 0)
+	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
 
 /**
  * # Drowsiness
@@ -210,7 +210,7 @@
 		owner.Paralyse(5)
 
 /datum/status_effect/transient/drowsiness/calc_decay()
-	return -0.2 + (owner.resting ? -0.8 : 0)
+	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
 
 /**
  * # Drukenness
@@ -324,7 +324,7 @@
 		var/mob/living/carbon/human/H = owner
 		if(H.has_booze())
 			return 0
-	return -0.2
+	return -0.2 SECONDS
 
 /datum/status_effect/incapacitating
 	tick_interval = 0
@@ -368,3 +368,15 @@
 	. = ..()
 	if(isnum(_slowdown_value))
 		slowdown_value = _slowdown_value
+
+/datum/status_effect/transient/silence
+	id = "silenced"
+
+/datum/status_effect/transient/silence/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_MUTE, STATUS_TRAIT)
+
+/datum/status_effect/transient/silence/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_MUTE, STATUS_TRAIT)
+

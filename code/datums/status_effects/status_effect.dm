@@ -51,7 +51,7 @@
 	if(!owner)
 		qdel(src)
 		return
-	if(tick_interval < world.time)
+	if(tick_interval <= world.time)
 		tick()
 		tick_interval = world.time + initial(tick_interval)
 	if(duration != -1 && duration < world.time)
@@ -282,7 +282,7 @@
 /datum/status_effect/transient
 	tick_interval = 0.2 SECONDS // SSfastprocess interval
 	alert_type = null
-	/// How much strength left before expiring?
+	/// How much strength left before expiring? time in deciseconds.
 	var/strength = 0
 
 /datum/status_effect/transient/tick()
@@ -296,4 +296,4 @@
  * Returns how much strength should be adjusted per tick.
  */
 /datum/status_effect/transient/proc/calc_decay()
-	return -0.2 // 1 per second by default
+	return -0.2 SECONDS // 1 per second by default

@@ -11,7 +11,7 @@
 	act = lowertext(act)
 	switch(act)
 		if("me")
-			if(silent)
+			if(HAS_TRAIT(src, TRAIT_MUTE))
 				return
 			if(src.client)
 				if(check_mute(client.ckey, MUTE_IC))

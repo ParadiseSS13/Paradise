@@ -245,7 +245,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 		for(var/mob/living/carbon/C in listeners)
 			if(owner.mind && (owner.mind.assigned_role == "Librarian" || owner.mind.assigned_role == "Mime"))
 				power_multiplier *= 3
-			C.silent += (10 * power_multiplier)
+			C.AdjustSilence(20 SECONDS * power_multiplier)
 		next_command = world.time + cooldown_stun
 
 	//HALLUCINATE

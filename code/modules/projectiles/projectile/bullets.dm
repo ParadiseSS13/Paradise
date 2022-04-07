@@ -113,7 +113,7 @@
 /obj/item/projectile/bullet/pellet/assassination/on_hit(atom/target, blocked = 0)
 	if(..(target, blocked))
 		var/mob/living/M = target
-		M.AdjustSilence(2)	// HELP MIME KILLING ME IN MAINT
+		M.AdjustSilence(4 SECONDS)	// HELP MIME KILLING ME IN MAINT
 
 /obj/item/projectile/bullet/pellet/overload/on_hit(atom/target, blocked = 0)
  	..()
@@ -209,7 +209,7 @@
 	if(special_effects)
 		if(iscarbon(target))
 			var/mob/living/carbon/M = target
-			M.Silence(10)
+			M.Silence(20 SECONDS)
 		else if(istype(target, /obj/mecha/combat/honker))
 			var/obj/mecha/chassis = target
 			chassis.occupant_message("A mimetech anti-honk bullet has hit \the [chassis]!")

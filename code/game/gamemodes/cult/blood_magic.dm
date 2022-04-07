@@ -455,7 +455,7 @@
 			S.emp_act(EMP_HEAVY)
 		else if(iscarbon(target))
 			var/mob/living/carbon/C = L
-			C.Silence(3)
+			C.Silence(6 SECONDS)
 			C.Stuttering(8)
 			C.CultSlur(10)
 			C.Jitter(8)
@@ -558,7 +558,7 @@
 			if(!C.handcuffed)
 				C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult/used(C)
 				C.update_handcuffed()
-				C.Silence(6)
+				C.Silence(12 SECONDS)
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")
 				add_attack_logs(user, C, "shackled")
 				uses--

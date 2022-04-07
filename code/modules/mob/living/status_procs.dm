@@ -100,7 +100,6 @@
 	var/jitteriness = 0
 	var/losebreath = 0
 	var/paralysis = 0
-	var/silent = 0
 	var/sleeping = 0
 	var/slurring = 0
 	var/stuttering = 0
@@ -366,16 +365,18 @@
 	return SetParalysis(new_value, updating, force)
 
 // SILENT
+/mob/living/proc/AmountSilenced()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SILENCED)
 
 /mob/living/Silence(amount)
-	SetSilence(max(silent, amount))
+	var/datum/status_effect/transient/silence/S = AmountSilenced()
+	SetSilence(max(amount, S.strength))
 
 /mob/living/SetSilence(amount)
-	silent = max(amount, 0)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SILENCED, amount)
 
 /mob/living/AdjustSilence(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(silent, amount, bound_lower, bound_upper)
-	SetSilence(new_value)
+	SetSilence(clamp(AmountSilenced() + amount, bound_lower, bound_upper))
 
 // SLEEPING
 
@@ -526,7 +527,7 @@
 	if(I)
 		I.duration = max(world.time + amount, I.duration)
 	else if(amount > 0)
-		I = apply_status_effect(/datum/status_effect/incapacitating/immobilized, amount)
+		I = apply_status_effect(STATUS_EFFECT_IMMOBILIZED, amount)
 	return I
 
 /mob/living/proc/SetImmobilized(amount, ignore_canstun = FALSE) //Sets remaining duration
@@ -542,7 +543,7 @@
 		if(I)
 			I.duration = world.time + amount
 		else
-			I = apply_status_effect(/datum/status_effect/incapacitating/immobilized, amount)
+			I = apply_status_effect(STATUS_EFFECT_IMMOBILIZED, amount)
 	return I
 
 /mob/living/proc/AdjustImmobilized(amount, ignore_canstun = FALSE) //Adds to remaining duration
@@ -554,7 +555,7 @@
 	if(I)
 		I.duration += amount
 	else if(amount > 0)
-		I = apply_status_effect(/datum/status_effect/incapacitating/immobilized, amount)
+		I = apply_status_effect(STATUS_EFFECT_IMMOBILIZED, amount)
 	return I
 
 // STUTTERING

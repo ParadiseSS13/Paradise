@@ -142,7 +142,7 @@
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
 
-		if(silent || HAS_TRAIT(src, TRAIT_MUTE))
+		if(HAS_TRAIT(src, TRAIT_MUTE))
 			S.message = ""
 
 		if(istype(wear_mask, /obj/item/clothing/mask/horsehead))

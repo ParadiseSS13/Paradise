@@ -351,7 +351,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 						crit.cure()
 
 			H.uncuff()
-			H.Silence(3) //Prevent "HALP MAINT CULT" before you realise you're converted
+			H.Silence(6 SECONDS) //Prevent "HALP MAINT CULT" before you realise you're converted
 
 			var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
 			if(H.equip_to_slot_if_possible(D, slot_in_backpack, FALSE, TRUE))

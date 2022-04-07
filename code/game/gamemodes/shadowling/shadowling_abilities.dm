@@ -52,7 +52,7 @@
 		H.visible_message("<span class='danger'>[H] freezes in place, [H.p_their()] eyes glazing over...</span>", \
 			"<span class='userdanger'>Your gaze is forcibly drawn into [user]'s eyes, and you are mesmerized by [user.p_their()] heavenly beauty...</span>")
 		H.Stun(20 SECONDS)
-		H.AdjustSilence(10)
+		H.AdjustSilence(20 SECONDS)
 	else //Distant glare
 		var/loss = 10 - distance
 		var/duration = (10 - loss) * 20
@@ -60,7 +60,7 @@
 			to_chat(user, "<span class='danger'>Your glare had no effect over a such long distance!</span>")
 			return
 		H.Slowed(duration)
-		H.AdjustSilence(10)
+		H.AdjustSilence(20 SECONDS)
 		to_chat(H, "<span class='userdanger'>A red light flashes across your vision, and your mind tries to resist them.. you are exhausted.. you are not able to speak..</span>")
 		addtimer(CALLBACK(src, .proc/do_stun, H, user, loss * 20), duration SECONDS)
 

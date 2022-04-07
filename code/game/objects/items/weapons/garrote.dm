@@ -94,7 +94,7 @@
 			G.state = GRAB_NECK
 			G.hud.icon_state = "kill"
 			G.hud.name = "kill"
-			M.AdjustSilence(1)
+			M.AdjustSilence(2 SECONDS)
 
 	garrote_time = world.time + 10
 	START_PROCESSING(SSobj, src)
@@ -161,7 +161,7 @@
 		return
 
 
-	strangling.Silence(3) // Non-improvised effects
+	strangling.Silence(6 SECONDS) // Non-improvised effects
 	strangling.apply_damage(4, OXY, "head")
 
 

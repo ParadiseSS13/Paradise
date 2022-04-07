@@ -203,6 +203,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CULT_TRAIT "cult"
 #define INNATE_TRAIT "innate"
 #define VAMPIRE_TRAIT "vampire"
+#define STATUS_TRAIT "status"
 
 // unique trait sources
 #define STATUE_MUTE "statue"

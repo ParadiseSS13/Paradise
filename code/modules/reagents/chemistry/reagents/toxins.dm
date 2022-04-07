@@ -1134,7 +1134,7 @@
 	taste_description = "sweetness"
 
 /datum/reagent/capulettium_plus/on_mob_life(mob/living/M)
-	M.Silence(2)
+	M.Silence(4 SECONDS)
 	if((HAS_TRAIT(M, TRAIT_FAKEDEATH)) && !M.resting)
 		fakerevive(M)
 	else if(!HAS_TRAIT(M, TRAIT_FAKEDEATH) && M.resting)
