@@ -206,8 +206,8 @@
 							msg += "<span class='bad'>+0</span>: New sample of \"[capitalize(S.species)]\" is not more potent than existing sample ([SSshuttle.discoveredPlants[S.type]] potency).<br>"
 					else // This is a new discovery!
 						SSshuttle.discoveredPlants[S.type] = S.potency
-						msg += "<span class='good'>[S.rarity]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
-						SSshuttle.points += S.rarity // That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
+						msg += "<span class='good'>[S.rarity + S.potency]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
+						SSshuttle.points += S.rarity + S.potency
 		qdel(MA)
 		SSshuttle.sold_atoms += "."
 
