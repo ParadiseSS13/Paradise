@@ -838,6 +838,17 @@
 "ds" = (
 /turf/simulated/wall/indestructible/syndicate,
 /area/centcom)
+"dt" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/trade/sol)
 "du" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/shaker,
@@ -1014,6 +1025,7 @@
 /obj/structure/sign/poster/official/foam_force_ad{
 	pixel_y = -32
 	},
+/obj/item/wrench,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4849,8 +4861,10 @@
 /area/tdome/tdomeobserve)
 "qx" = (
 /obj/structure/table/reinforced,
-/obj/structure/sign/poster/official/build{
-	pixel_x = -32
+/obj/item/paper_bin,
+/obj/item/pen,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4931,6 +4945,9 @@
 /obj/structure/chair/sofa/corp/right{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4952,13 +4969,8 @@
 "qQ" = (
 /obj/structure/table/reinforced,
 /obj/item/ashtray/bronze,
-/obj/item/storage/box/matches{
-	pixel_x = -6
-	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
-	pixel_x = 6;
-	pixel_y = -1
-	},
+/obj/item/storage/box/matches,
+/obj/item/clothing/mask/cigarette/cigar/havana,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6601,6 +6613,7 @@
 "wr" = (
 /obj/structure/rack,
 /obj/item/wrench,
+/obj/item/flashlight,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7480,6 +7493,14 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
+"BP" = (
+/mob/living/simple_animal/bot/cleanbot{
+	on = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/trade/sol)
 "BT" = (
 /obj/effect/landmark/spawner/tdomeobserve,
 /turf/simulated/floor/plasteel{
@@ -10099,6 +10120,7 @@
 /obj/structure/sign/poster/official/ion_rifle{
 	pixel_y = 32
 	},
+/obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -10427,6 +10449,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
+/obj/structure/closet/crate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13327,6 +13350,7 @@
 /area/centcom/control)
 "Ym" = (
 /obj/machinery/light/spot,
+/obj/structure/closet/crate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -44004,7 +44028,7 @@ rK
 tM
 Ab
 rY
-Ab
+dt
 wa
 Gp
 vG
@@ -48122,7 +48146,7 @@ qM
 of
 rY
 rY
-rY
+oS
 of
 vG
 aN
@@ -48372,7 +48396,7 @@ vp
 rY
 rY
 rY
-rY
+BP
 rY
 rY
 rY
@@ -48636,7 +48660,7 @@ pj
 of
 rY
 oS
-rY
+oS
 of
 vG
 aN
