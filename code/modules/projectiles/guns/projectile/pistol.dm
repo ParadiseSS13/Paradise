@@ -82,7 +82,7 @@
 	desc = "Стандартный дешевый пистолет для сотрудников службы безопасности."
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;materials=2"
-	can_suppress = FALSE
+	can_suppress = TRUE
 
 //Desert Eagle//
 /obj/item/gun/projectile/automatic/pistol/deagle
