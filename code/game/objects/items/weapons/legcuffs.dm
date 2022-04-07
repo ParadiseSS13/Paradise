@@ -52,6 +52,7 @@
 		if(sig)
 			to_chat(user, "<span class='warning'>This beartrap already has a signaler hooked up to it!</span>")
 			return
+		IED = I
 		user.drop_item()
 		I.forceMove(src)
 		message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
