@@ -18006,10 +18006,11 @@
 /obj/docking_port/stationary{
 	dir = 8;
 	dwidth = 11;
-	height = 11;
+	height = 28;
 	id = "trade_dock";
 	name = "port bay 4 at Cyberiad";
-	width = 9
+	width = 22;
+	dheight = 28
 	},
 /turf/space,
 /area/space)
