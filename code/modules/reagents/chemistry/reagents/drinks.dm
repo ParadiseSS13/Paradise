@@ -273,7 +273,7 @@
 	nutriment_factor = 0
 	adj_dizzy = -5
 	adj_drowsy = -3
-	adj_sleepy = -2
+	adj_sleepy = -4 SECONDS
 	adj_temp_hot = 25
 	overdose_threshold = 45
 	addiction_chance = 2 // It's true.
@@ -327,7 +327,7 @@
 
 /datum/reagent/consumable/drink/coffee/soy_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.SetSleeping(0, FALSE)
+	M.SetSleeping(0)
 	if(prob(20))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 	return ..() | update_flags
@@ -346,7 +346,7 @@
 
 /datum/reagent/consumable/drink/coffee/cafe_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.SetSleeping(0, FALSE)
+	M.SetSleeping(0)
 	if(prob(20))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 	return ..() | update_flags
@@ -368,7 +368,7 @@
 	nutriment_factor = 0
 	adj_dizzy = -2
 	adj_drowsy = -1
-	adj_sleepy = -3
+	adj_sleepy = -6 SECONDS
 	adj_temp_hot = 20
 	addiction_chance = 1
 	addiction_chance_additional = 1

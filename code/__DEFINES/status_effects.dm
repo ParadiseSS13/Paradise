@@ -102,6 +102,8 @@
 
 #define STATUS_EFFECT_IMMOBILIZED /datum/status_effect/incapacitating/immobilized
 
+#define STATUS_EFFECT_SLEEPING /datum/status_effect/incapacitating/sleeping
+
 #define STATUS_EFFECT_SLOWED /datum/status_effect/incapacitating/slowed
 
 #define STATUS_EFFECT_JITTER /datum/status_effect/transient/jittery

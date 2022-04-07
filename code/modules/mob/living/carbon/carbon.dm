@@ -229,8 +229,8 @@
 					var/mob/living/carbon/human/H = src
 					if(H.w_uniform)
 						H.w_uniform.add_fingerprint(M)
-				AdjustSleeping(-5)
-				if(sleeping == 0)
+				AdjustSleeping(-10 SECONDS)
+				if(AmountSleeping() == 0)
 					StopResting()
 				AdjustParalysis(-3)
 				AdjustStunned(-6 SECONDS)

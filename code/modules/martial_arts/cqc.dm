@@ -61,7 +61,7 @@
 	if(restraining && istype(G) && G.affecting == D)
 		D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
 							"<span class='userdanger'>[A] puts you into a chokehold!</span>")
-		D.SetSleeping(20)
+		D.SetSleeping(40 SECONDS)
 		restraining = FALSE
 		if(G.state < GRAB_NECK)
 			G.state = GRAB_NECK

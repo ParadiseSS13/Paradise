@@ -500,9 +500,9 @@
 
 		if("faint", "faints")
 			message = "<B>[src]</B> faints."
-			if(sleeping)
+			if(IsSleeping())
 				return //Can't faint while asleep
-			AdjustSleeping(2)
+			AdjustSleeping(4 SECONDS)
 			m_type = 1
 
 		if("cough", "coughs")

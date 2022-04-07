@@ -58,7 +58,7 @@
 	update_flags |= M.AdjustParalysis(-1, FALSE)
 	M.AdjustStunned(-2 SECONDS)
 	M.AdjustWeakened(-2 SECONDS)
-	update_flags |= M.SetSleeping(0, FALSE)
+	M.SetSleeping(0)
 	if(prob(50))
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
 	return ..() | update_flags
@@ -698,7 +698,7 @@
 	if(prob(20))
 		M.AdjustWeakened(-2 SECONDS)
 	if(prob(5))
-		update_flags |= M.SetSleeping(0, FALSE)
+		M.SetSleeping(0)
 	if(prob(5))
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
 	holder.remove_reagent("histamine", 15)
@@ -881,7 +881,7 @@
 		M.AdjustDizzy(-10)
 		M.AdjustDrowsy(-10)
 		M.SetConfused(0)
-		update_flags |= M.SetSleeping(0, FALSE)
+		M.SetSleeping(0)
 		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
 		M.status_flags &= ~status
 	else

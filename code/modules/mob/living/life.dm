@@ -127,17 +127,11 @@
 		AdjustSlur(-1)
 	if(paralysis)
 		AdjustParalysis(-1, updating = 1, force = 1)
-	if(sleeping)
-		handle_sleeping()
 	if(cultslurring)
 		AdjustCultSlur(-1)
 
 /mob/living/proc/update_damage_hud()
 	return
-
-/mob/living/proc/handle_sleeping()
-	AdjustSleeping(-1)
-	return sleeping
 
 /mob/living/proc/handle_disabilities()
 	//Eyes

@@ -176,7 +176,7 @@
 		if(SA_partialpressure > SA_para_min)
 			Paralyse(3)
 			if(SA_partialpressure > SA_sleep_min)
-				AdjustSleeping(2, bound_lower = 0, bound_upper = 10)
+				AdjustSleeping(4 SECONDS, bound_lower = 0, bound_upper = 20 SECONDS)
 		else if(SA_partialpressure > 0.01)
 			if(prob(20))
 				emote(pick("giggle","laugh"))
@@ -269,36 +269,7 @@
 
 	// Keep SSD people asleep
 	if(player_logged)
-		Sleeping(2)
-
-/mob/living/carbon/handle_sleeping()
-	if(..())
-		if(mind?.has_antag_datum(/datum/antagonist/vampire))
-			if(istype(loc, /obj/structure/closet/coffin))
-				adjustBruteLoss(-1, FALSE)
-				adjustFireLoss(-1, FALSE)
-				adjustToxLoss(-1)
-		handle_dreams()
-		adjustStaminaLoss(-10)
-		var/comfort = 1
-		if(istype(buckled, /obj/structure/bed))
-			var/obj/structure/bed/bed = buckled
-			comfort+= bed.comfort
-		for(var/obj/item/bedsheet/bedsheet in range(loc,0))
-			if(bedsheet.loc != loc) //bedsheets in your backpack/neck don't give you comfort
-				continue
-			comfort+= bedsheet.comfort
-			break //Only count the first bedsheet
-		if(get_drunkenness() > 0)
-			comfort += 1 //Aren't naps SO much better when drunk?
-			AdjustDrunk(-0.2*comfort) //reduce drunkenness while sleeping.
-		if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
-			adjustBruteLoss(-1 * comfort, FALSE)
-			adjustFireLoss(-1 * comfort)
-		if(prob(10) && health && health_hud_override != HEALTH_HUD_OVERRIDE_CRIT)
-			emote("snore")
-
-	return sleeping
+		Sleeping(4 SECONDS)
 
 /mob/living/carbon/update_health_hud(shown_health_amount)
 	if(!client)

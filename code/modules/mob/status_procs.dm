@@ -76,16 +76,6 @@
 /mob/proc/AdjustSilence()
 	return
 
-
-/mob/proc/Sleeping()
-	return
-
-/mob/proc/SetSleeping()
-	return
-
-/mob/proc/AdjustSleeping()
-	return
-
 /mob/proc/Slur()
 	return
 

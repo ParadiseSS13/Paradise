@@ -174,7 +174,7 @@
 	if(crit_fail)
 		return
 	if(owner.stat == UNCONSCIOUS && cooldown == FALSE)
-		owner.AdjustSleeping(-100, FALSE)
+		owner.AdjustSleeping(-200 SECONDS)
 		owner.AdjustParalysis(-100, FALSE)
 		to_chat(owner, "<span class='notice'>You feel a rush of energy course through your body!</span>")
 		cooldown = TRUE
@@ -189,7 +189,7 @@
 	if(crit_fail || emp_proof)
 		return
 	crit_fail = TRUE
-	owner.AdjustSleeping(200)
+	owner.AdjustSleeping(400 SECONDS)
 	cooldown = TRUE
 	addtimer(CALLBACK(src, .proc/reboot), 90 / severity)
 

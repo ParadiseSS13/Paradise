@@ -34,7 +34,7 @@
 		clear_fullscreen("nearsighted")
 
 /mob/living/update_sleeping_effects(no_alert = FALSE)
-	if(sleeping)
+	if(IsSleeping())
 		if(!no_alert)
 			throw_alert("asleep", /obj/screen/alert/asleep)
 	else
@@ -119,8 +119,6 @@
 	switch(var_name)
 		if("paralysis")
 			SetParalysis(paralysis)
-		if("sleeping")
-			SetSleeping(sleeping)
 		if("eye_blind")
 			SetEyeBlind(eye_blind)
 		if("eye_blurry")

@@ -455,9 +455,9 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	switch(current_cycle)
 		if(1 to 50)
-			update_flags |= M.Sleeping(2, FALSE)
+			M.Sleeping(4 SECONDS)
 		if(51 to INFINITY)
-			update_flags |= M.Sleeping(2, FALSE)
+			M.Sleeping(4 SECONDS)
 			update_flags |= M.adjustToxLoss((current_cycle - 50)*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 

@@ -101,7 +101,6 @@
 	var/hallucination = 0
 	var/losebreath = 0
 	var/paralysis = 0
-	var/sleeping = 0
 	var/slurring = 0
 	var/stuttering = 0
 
@@ -383,26 +382,49 @@
 	SetSilence(clamp(AmountSilenced() + amount, bound_lower, bound_upper))
 
 // SLEEPING
+/mob/living/proc/IsSleeping()
+	return has_status_effect(STATUS_EFFECT_SLEEPING)
 
-/mob/living/Sleeping(amount, updating = 1, no_alert = FALSE)
-	return SetSleeping(max(sleeping, amount), updating, no_alert)
+/mob/living/proc/AmountSleeping() //How many deciseconds remain in our sleep
+	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
+	if(S)
+		return S.duration - world.time
+	return 0
 
-/mob/living/SetSleeping(amount, updating = 1, no_alert = FALSE)
-	if(frozen) // If the mob has been admin frozen, sleeping should not be changeable
+/mob/living/proc/Sleeping(amount, ignore_canstun = FALSE)
+	if(status_flags & GODMODE)
 		return
-	. = STATUS_UPDATE_STAT
-	if((!!amount) == (!!sleeping)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
-	sleeping = max(amount, 0)
-	if(updating)
-		update_sleeping_effects(no_alert)
-		update_stat("sleeping")
-		update_canmove()
+	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
+	if(S)
+		S.duration = max(world.time + amount, S.duration)
+	else if(amount > 0)
+		S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount)
+	return S
 
-/mob/living/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, no_alert = FALSE)
-	var/new_value = directional_bounded_sum(sleeping, amount, bound_lower, bound_upper)
-	return SetSleeping(new_value, updating, no_alert)
+/mob/living/proc/SetSleeping(amount, ignore_canstun = FALSE)
+	if(frozen && !ignore_canstun) // If the mob has been admin frozen, sleeping should not be changeable
+		return
+	if(status_flags & GODMODE)
+		return
+	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
+	if(S)
+		S.duration += amount
+	else if(amount > 0)
+		S = apply_status_effect(/datum/status_effect/incapacitating/sleeping, amount)
+	return S
+
+/mob/living/proc/PermaSleeping() /// used for admin freezing.
+	if(status_flags & GODMODE)
+		return
+	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
+	if(S)
+		S.duration = -1
+	else
+		S = apply_status_effect(/datum/status_effect/incapacitating/sleeping, -1)
+	return S
+
+/mob/living/proc/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetSleeping(clamp(amount, bound_lower, bound_upper))
 
 // SLOWED
 /mob/living/proc/IsSlowed()

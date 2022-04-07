@@ -12,7 +12,7 @@ In all, this is a lot like the monkey code. /N
 
 	switch(M.a_intent)
 		if(INTENT_HELP)
-			AdjustSleeping(-5)
+			AdjustSleeping(-10 SECONDS)
 			StopResting()
 			AdjustParalysis(-3)
 			AdjustStunned(-6 SECONDS)

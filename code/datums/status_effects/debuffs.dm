@@ -359,6 +359,43 @@
 /datum/status_effect/incapacitating/paralyzed
 	id = "paralyzed"
 
+/datum/status_effect/incapacitating/sleeping
+	id = "sleeping"
+	tick_interval = 2 SECONDS
+	needs_update_stat = TRUE
+
+/datum/status_effect/incapacitating/sleeping/tick()
+	if(!iscarbon(owner))
+		return
+
+	var/mob/living/carbon/dreamer = owner
+
+	if(dreamer.mind?.has_antag_datum(/datum/antagonist/vampire))
+		if(istype(dreamer.loc, /obj/structure/closet/coffin))
+			dreamer.adjustBruteLoss(-1, FALSE)
+			dreamer.adjustFireLoss(-1, FALSE)
+			dreamer.adjustToxLoss(-1)
+	dreamer.handle_dreams()
+	dreamer.adjustStaminaLoss(-10)
+	var/comfort = 1
+	if(istype(dreamer.buckled, /obj/structure/bed))
+		var/obj/structure/bed/bed = dreamer.buckled
+		comfort += bed.comfort
+	for(var/obj/item/bedsheet/bedsheet in range(dreamer.loc,0))
+		if(bedsheet.loc != dreamer.loc) //bedsheets in your backpack/neck don't give you comfort
+			continue
+		comfort += bedsheet.comfort
+		break //Only count the first bedsheet
+	if(dreamer.get_drunkenness() > 0)
+		comfort += 1 //Aren't naps SO much better when drunk?
+		dreamer.AdjustDrunk(-0.2 * comfort) //reduce drunkenness while sleeping.
+	if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
+		dreamer.adjustBruteLoss(-1 * comfort, FALSE)
+		dreamer.adjustFireLoss(-1 * comfort)
+	if(prob(10) && dreamer.health && dreamer.health_hud_override != HEALTH_HUD_OVERRIDE_CRIT)
+		dreamer.emote("snore")
+
+
 //SLOWED - slows down the victim for a duration and a given slowdown value.
 /datum/status_effect/incapacitating/slowed
 	id = "slowed"

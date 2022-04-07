@@ -231,7 +231,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	else if((findtext(message, GLOB.sleep_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.Sleeping(2 * power_multiplier)
+			L.Sleeping(4 SECONDS * power_multiplier)
 		next_command = world.time + cooldown_stun
 
 	//VOMIT

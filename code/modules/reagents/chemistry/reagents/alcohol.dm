@@ -265,13 +265,12 @@
 	taste_description = "party"
 
 /datum/reagent/consumable/ethanol/thirteenloko/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDrowsy(-7)
-	update_flags |= M.AdjustSleeping(-2, FALSE)
+	M.AdjustSleeping(-4 SECONDS)
 	if(M.bodytemperature > 310)
 		M.bodytemperature = max(310, M.bodytemperature - (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	M.Jitter(10 SECONDS)
-	return ..() | update_flags
+	return ..()
 
 
 /////////////////////////////////////////////////////////////////cocktail entities//////////////////////////////////////////////
@@ -1079,12 +1078,11 @@
 	taste_description = "coffee and alcohol"
 
 /datum/reagent/consumable/ethanol/kahlua/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDizzy(-5)
 	M.AdjustDrowsy(-3)
-	update_flags |= (M.AdjustSleeping(-2) ? STATUS_UPDATE_STAT : STATUS_UPDATE_NONE)
+	M.AdjustSleeping(-4 SECONDS)
 	M.Jitter(10 SECONDS)
-	return ..() | update_flags
+	return ..()
 
 /datum/reagent/ginsonic
 	name = "Gin and sonic"

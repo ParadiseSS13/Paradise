@@ -321,7 +321,7 @@
 	M.AdjustStunned(-5 SECONDS)
 	M.AdjustWeakened(-5 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
-	update_flags |= M.SetSleeping(0, FALSE)
+	M.SetSleeping(0)
 	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	if(prob(50))
 		update_flags |= M.adjustBrainLoss(1, FALSE)
@@ -589,7 +589,7 @@
 	M.AdjustStunned(-3 SECONDS)
 	M.AdjustWeakened(-3 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-1.5, FALSE)
-	update_flags |= M.SetSleeping(0, FALSE)
+	M.SetSleeping(0)
 	return ..() | update_flags
 
 /datum/reagent/fliptonium/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)

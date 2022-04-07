@@ -49,8 +49,8 @@
 	if(!gripped_item && proximity && target && ishuman(target))
 		H = target
 		if(H.lying)
-			H.AdjustSleeping(-5)
-			if(H.sleeping == 0)
+			H.AdjustSleeping(-10 SECONDS)
+			if(!H.IsSleeping())
 				H.StopResting()
 			H.AdjustParalysis(-3)
 			H.AdjustStunned(-6 SECONDS)
