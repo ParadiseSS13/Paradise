@@ -7,6 +7,10 @@
 
 	if(!check_rights(R_VAREDIT))	return
 
+	// Make sure we can actually edit this var
+	if(!vv_varname_lockcheck(var_name))
+		return FALSE
+
 	if(A && A.type)
 		if(typesof(A.type))
 			switch(input("Strict object type detection?") as null|anything in list("Strictly this type","This type and subtypes", "Cancel"))

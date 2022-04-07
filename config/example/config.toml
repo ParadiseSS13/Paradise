@@ -145,7 +145,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 34
+sql_version = 35
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -271,18 +271,13 @@ enable_away_mission = false
 away_mission_delay = 0
 # List of all enabled away missions. Comment out an entry to disable it.
 enabled_away_missions = [
-	#"_maps/map_files/RandomZLevels/academy.dmm",
 	"_maps/map_files/RandomZLevels/beach.dmm",
 	"_maps/map_files/RandomZLevels/blackmarketpackers.dmm",
 	"_maps/map_files/RandomZLevels/centcomAway.dmm",
 	#"_maps/map_files/RandomZLevels/evil_santa.dmm",			# Special christmas mission. Enable for festivities
 	#"_maps/map_files/RandomZLevels/example.dmm",				# Example file. Do not enable.
 	"_maps/map_files/RandomZLevels/moonoutpost19.dmm",
-	#"_maps/map_files/RandomZLevels/spacebattle.dmm",			# Broken/incomplete. Do not enable
-	#"_maps/map_files/RandomZLevels/stationCollision.dmm",		# Broken/incomplete. Do not enable
 	"_maps/map_files/RandomZLevels/terrorspiders.dmm",
-	#"_maps/map_files/RandomZLevels/undergroundoutpost45.dmm",
-	#"_maps/map_files/RandomZLevels/wildwest.dmm",
 ]
 
 
