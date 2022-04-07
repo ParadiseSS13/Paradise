@@ -164,6 +164,7 @@
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
 	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
+	modules += new /obj/item/gps/cyborg(src)
 	// sec
 	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
 	// janitorial
@@ -219,6 +220,7 @@
 	modules += new /obj/item/surgicaldrill(src)
 	modules += new /obj/item/gripper/medical(src)
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/gps/cyborg(src)
 
 	emag = new /obj/item/reagent_containers/spray(src)
 
@@ -267,6 +269,7 @@
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
 	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = new /obj/item/borg/stun(src)
 
 	fix_modules()
@@ -291,6 +294,7 @@
 	modules += new /obj/item/clothing/mask/gas/sechailer/cyborg(src)
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = new /obj/item/gun/energy/laser/cyborg(src)
 
 	fix_modules()
@@ -308,6 +312,7 @@
 	modules += new /obj/item/holosign_creator(src)
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = new /obj/item/reagent_containers/spray(src)
 
 	emag.reagents.add_reagent("lube", 250)
@@ -340,6 +345,7 @@
 	modules += new /obj/item/reagent_containers/food/drinks/shaker(src)
 	modules += new /obj/item/extinguisher(src)
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 
 	var/datum/reagents/R = new/datum/reagents(50)
@@ -423,6 +429,7 @@
 	modules += new /obj/item/melee/energy/sword/cyborg(src)
 	modules += new /obj/item/gun/energy/pulse/cyborg(src)
 	modules += new /obj/item/crowbar(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = null
 
 	fix_modules()
@@ -440,6 +447,7 @@
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/pinpointer/operative(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = null
 
 	fix_modules()
@@ -475,6 +483,7 @@
 	modules += new /obj/item/card/emag(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/pinpointer/operative(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = null
 
 	fix_modules()
@@ -508,6 +517,7 @@
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
 	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = null
 
 	fix_modules()
@@ -529,6 +539,7 @@
 	modules += new /obj/item/pickaxe/drill/jackhammer(src) // for breaking walls to execute flanking moves
 	modules += new /obj/item/borg/destroyer/mobility(src)
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = null
 	fix_modules()
 
@@ -550,6 +561,7 @@
 	modules += new /obj/item/pickaxe/drill/jackhammer(src) // for breaking walls to execute flanking moves
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = null
 	fix_modules()
 
