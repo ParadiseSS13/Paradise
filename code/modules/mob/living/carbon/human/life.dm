@@ -634,7 +634,7 @@
 		if(health <= HEALTH_THRESHOLD_CRIT)
 			if(prob(5))
 				emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
-			AdjustStuttering(5, bound_lower = 0, bound_upper = 5)
+			SetStuttering(10 SECONDS)
 			EyeBlurry(5)
 			if(prob(7))
 				AdjustConfused(2)

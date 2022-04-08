@@ -108,6 +108,7 @@
 
 #define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
 
+#define STATUS_EFFECT_STAMMER /datum/status_effect/transient/stammering
 /////////////
 // NEUTRAL //
 /////////////

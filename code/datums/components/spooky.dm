@@ -10,7 +10,7 @@
 		if(!istype(U.dna.species, /datum/species/skeleton))
 			U.adjustStaminaLoss(35) //Extra Damage
 			U.Jitter(70 SECONDS)
-			U.stuttering = 20
+			U.SetStuttering(40 SECONDS)
 			if(U.getStaminaLoss() > 95)
 				to_chat(U, "<font color='red' size='4'><b>Your ears weren't meant for this spectral sound.</b></font>")
 				spectral_change(U)
@@ -21,7 +21,7 @@
 		if(istype(H.dna.species, /datum/species/skeleton))
 			return //undeads are unaffected by the spook-pocalypse.
 		C.Jitter(70 SECONDS)
-		C.stuttering = 20
+		C.SetStuttering(40 SECONDS)
 		if(!istype(H.dna.species, /datum/species/diona) && !istype(H.dna.species, /datum/species/machine) && !istype(H.dna.species, /datum/species/slime) && !istype(H.dna.species, /datum/species/golem) && !istype(H.dna.species, /datum/species/plasmaman))
 			C.adjustStaminaLoss(25) //boneless humanoids don't lose the will to live
 		to_chat(C, "<font color='red' size='4'><B>DOOT</B></font>")
@@ -29,7 +29,7 @@
 
 	else //the sound will spook monkeys.
 		C.Jitter(30 SECONDS)
-		C.stuttering = 20
+		C.SetStuttering(40 SECONDS)
 
 /datum/component/spooky/proc/spectral_change(mob/living/carbon/human/H, mob/user)
 	if((H.getStaminaLoss() > 95) && (!istype(H.dna.species, /datum/species/diona) && !istype(H.dna.species, /datum/species/machine) && !istype(H.dna.species, /datum/species/slime) && !istype(H.dna.species, /datum/species/golem) && !istype(H.dna.species, /datum/species/plasmaman) && !istype(H.dna.species, /datum/species/skeleton)))

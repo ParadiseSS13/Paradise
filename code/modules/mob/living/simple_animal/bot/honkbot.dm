@@ -178,7 +178,7 @@
 			var/mob/living/carbon/human/H = C
 			if(H.check_ear_prot() >= HEARING_PROTECTION_MAJOR)
 				return
-			C.stuttering = 20 //stammer
+			C.SetStuttering(40 SECONDS) //stammer
 			C.AdjustEarDamage(0, 5) //far less damage than the H.O.N.K.
 			C.Jitter(100 SECONDS)
 			C.Weaken(10 SECONDS)
@@ -195,7 +195,7 @@
 			C.visible_message("<span class='danger'>[src] has honked [C]!</span>",\
 					"<span class='userdanger'>[src] has honked you!</span>")
 		else
-			C.stuttering = 20
+			C.Stuttering(40 SECONDS)
 			C.Stun(20 SECONDS)
 			addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntime)
 

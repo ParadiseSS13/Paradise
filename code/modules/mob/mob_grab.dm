@@ -177,7 +177,7 @@
 
 	if(state >= GRAB_KILL)
 		//affecting.apply_effect(STUTTER, 5) //would do this, but affecting isn't declared as mob/living for some stupid reason.
-		affecting.Stuttering(5) //It will hamper your voice, being choked and all.
+		affecting.Stuttering(10 SECONDS) //It will hamper your voice, being choked and all.
 		affecting.Weaken(10 SECONDS)	//Should keep you down unless you get help.
 		if(!breathing_tube)
 			affecting.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)

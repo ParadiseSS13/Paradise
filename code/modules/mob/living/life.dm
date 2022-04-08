@@ -119,8 +119,6 @@
 
 //this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
 /mob/living/proc/handle_status_effects() // We check for the status effect in this proc as opposed to the procs below to avoid excessive proc call overhead
-	if(stuttering)
-		stuttering = max(stuttering - 1, 0)
 	if(druggy)
 		AdjustDruggy(-1)
 	if(slurring)

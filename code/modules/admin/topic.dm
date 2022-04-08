@@ -1812,7 +1812,7 @@
 		else
 			M.adjustBruteLoss(min(99,(M.health - 1)))
 			M.Weaken(40 SECONDS)
-			M.Stuttering(20)
+			M.Stuttering(40 SECONDS)
 
 	else if(href_list["CentcommReply"])
 		if(!check_rights(R_ADMIN))

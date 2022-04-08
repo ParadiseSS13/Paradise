@@ -353,7 +353,7 @@
 	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1) //lesser
-		M.AdjustStuttering(1)
+		M.AdjustStuttering(2 SECONDS)
 		if(effect <= 1)
 			M.visible_message("<span class='warning'>[M] suddenly clutches [M.p_their()] gut!</span>")
 			M.emote("scream")

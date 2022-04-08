@@ -100,7 +100,6 @@
 	var/hallucination = 0
 	var/losebreath = 0
 	var/slurring = 0
-	var/stuttering = 0
 
 // RESTING
 
@@ -594,18 +593,19 @@
 
 // STUTTERING
 
+/mob/living/proc/AmountStuttering()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_STAMMER)
 
-/mob/living/Stuttering(amount, force = 0)
-	SetStuttering(max(stuttering, amount), force)
+/mob/living/Stuttering(amount, ignore_canstun = FALSE)
+	SetStuttering(max(AmountStuttering(), amount), ignore_canstun)
 
-/mob/living/SetStuttering(amount, force = 0)
-	//From mob/living/apply_effect: "Stuttering is often associated with Stun"
-	if(status_flags & CANSTUN || force)
-		stuttering = max(amount, 0)
+/mob/living/SetStuttering(amount, ignore_canstun = FALSE)
+	if(IS_STUN_IMMUNE(src, ignore_canstun)) //Often applied with a stun
+		return
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_STAMMER, amount)
 
-/mob/living/AdjustStuttering(amount, bound_lower = 0, bound_upper = INFINITY, force = 0)
-	var/new_value = directional_bounded_sum(stuttering, amount, bound_lower, bound_upper)
-	SetStuttering(new_value, force)
+/mob/living/AdjustStuttering(amount, bound_lower = 0, bound_upper = INFINITY, ignore_canstun = FALSE)
+	SetStuttering(clamp(amount + AmountStuttering(), bound_lower, bound_upper), ignore_canstun)
 
 // WEAKEN
 

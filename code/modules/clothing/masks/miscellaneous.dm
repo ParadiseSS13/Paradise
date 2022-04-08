@@ -184,7 +184,7 @@
 		do_sparks(3, 1, L)
 
 		L.Weaken(10 SECONDS)
-		L.Stuttering(1)
+		L.Stuttering(2 SECONDS)
 		L.Jitter(40 SECONDS)
 	return
 

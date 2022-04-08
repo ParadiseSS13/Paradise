@@ -438,4 +438,5 @@
 /datum/status_effect/transient/jittery/calc_decay()
 	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
 
-
+/datum/status_effect/transient/stammering
+	id = "stammer"

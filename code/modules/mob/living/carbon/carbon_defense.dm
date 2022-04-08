@@ -62,9 +62,8 @@
 				do_sparks(5, TRUE, src)
 				var/power = (M.powerlevel + rand(0,3)) * 20
 				Stun(power)
-				if(stuttering < power)
-					stuttering = power
-				if (prob(stunprob) && M.powerlevel >= 8)
+				Stuttering(power)
+				if(prob(stunprob) && M.powerlevel >= 8)
 					adjustFireLoss(M.powerlevel * rand(6,10))
 					updatehealth("slime attack")
 		return 1

@@ -230,7 +230,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(-10 SECONDS)
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
-		M.AdjustStuttering(4, bound_lower = 0, bound_upper = 20)
+		M.AdjustStuttering(8 SECONDS, bound_lower = 0, bound_upper = 40 SECONDS)
 		M.Dizzy(5)
 		if(iscultist(M))
 			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
@@ -266,7 +266,7 @@
 	if(ishuman(M) && vamp && !vamp.get_ability(/datum/vampire_passive/full) && prob(80))
 		var/mob/living/carbon/V = M
 		if(vamp.bloodusable)
-			M.Stuttering(1)
+			M.Stuttering(2 SECONDS)
 			M.Jitter(60 SECONDS)
 			update_flags |= M.adjustStaminaLoss(5, FALSE)
 			if(prob(20))
@@ -288,7 +288,7 @@
 				if(5 to 12)
 					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
 					update_flags |= M.adjustFireLoss(1, FALSE)
-					M.Stuttering(1)
+					M.Stuttering(2 SECONDS)
 					M.Jitter(40 SECONDS)
 					if(prob(20))
 						M.emote("scream")
@@ -299,7 +299,7 @@
 					M.fire_stacks = min(5, M.fire_stacks + 3)
 					M.IgniteMob()
 					update_flags |= M.adjustFireLoss(3, FALSE)
-					M.Stuttering(1)
+					M.Stuttering(2 SECONDS)
 					M.Jitter(60 SECONDS)
 					if(prob(40))
 						M.emote("scream")

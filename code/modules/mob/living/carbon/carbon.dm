@@ -171,7 +171,7 @@
 		Stun(4 SECONDS)
 	//Jitter and other fluff.
 	AdjustJitter(2000 SECONDS)
-	AdjustStuttering(2)
+	AdjustStuttering(4 SECONDS)
 	addtimer(CALLBACK(src, .proc/secondary_shock, should_stun), 20)
 	return shock_damage
 

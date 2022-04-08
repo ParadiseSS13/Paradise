@@ -262,7 +262,7 @@
 		organhonked = world.time + suffering_delay
 		to_chat(owner, "<font color='red' size='7'>HONK</font>")
 		owner.SetSleeping(0)
-		owner.Stuttering(20)
+		owner.Stuttering(40 SECONDS)
 		owner.AdjustEarDamage(0, 30)
 		owner.Weaken(6 SECONDS)
 		SEND_SOUND(owner, sound('sound/items/airhorn.ogg'))

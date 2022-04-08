@@ -65,7 +65,7 @@
 			H.AdjustParalysis(6 SECONDS)
 			H.AdjustStunned(10 SECONDS)
 			H.AdjustWeakened(10 SECONDS)
-			H.AdjustStuttering(10)
+			H.AdjustStuttering(20 SECONDS)
 			to_chat(H, "<span class='danger'>You feel a powerful jolt!</span>")
 			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 

@@ -456,7 +456,7 @@
 		else if(iscarbon(target))
 			var/mob/living/carbon/C = L
 			C.Silence(6 SECONDS)
-			C.Stuttering(8)
+			C.Stuttering(16 SECONDS)
 			C.CultSlur(20 SECONDS)
 			C.Jitter(16 SECONDS)
 	uses--

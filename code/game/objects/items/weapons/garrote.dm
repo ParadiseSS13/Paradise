@@ -156,7 +156,7 @@
 		strangling.Stun(6 SECONDS)
 
 	if(improvised)
-		strangling.stuttering = max(strangling.stuttering, 3)
+		strangling.Stuttering(6 SECONDS)
 		strangling.apply_damage(2, OXY, "head")
 		return
 

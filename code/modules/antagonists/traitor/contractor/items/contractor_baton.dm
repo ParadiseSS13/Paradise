@@ -18,7 +18,7 @@
 	/// Jitter to deal on stun.
 	var/jitter_amount = 5 SECONDS
 	/// Stutter to deal on stun.
-	var/stutter_amount = 10 SECONDS_TO_LIFE_CYCLES
+	var/stutter_amount = 10 SECONDS
 
 /obj/item/melee/classic_baton/telescopic/contractor/stun(mob/living/target, mob/living/user)
 	. = ..()

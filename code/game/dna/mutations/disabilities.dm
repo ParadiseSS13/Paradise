@@ -104,7 +104,7 @@
 
 /datum/mutation/disability/nervousness/on_life(mob/living/carbon/human/H)
 	if(prob(10))
-		H.Stuttering(10)
+		H.Stuttering(20 SECONDS)
 
 /datum/mutation/disability/blindness
 	name = "Blindness"
