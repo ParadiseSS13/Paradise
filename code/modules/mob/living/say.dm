@@ -85,7 +85,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				S.message = stutter(S.message)
 			verb = "stammers"
 
-		if(cultslurring)
+		if(AmountCultSlurring())
 			S.message = cultslur(S.message)
 			verb = "slurs"
 

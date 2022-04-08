@@ -326,6 +326,9 @@
 			return 0
 	return -0.2 SECONDS
 
+/datum/status_effect/transient/cult_slurring
+	id = "cult_slurring"
+
 /datum/status_effect/incapacitating
 	tick_interval = 0
 	status_type = STATUS_EFFECT_REPLACE

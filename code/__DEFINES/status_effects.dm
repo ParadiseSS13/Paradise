@@ -104,6 +104,8 @@
 
 #define STATUS_EFFECT_JITTER /datum/status_effect/transient/jittery
 
+#define STATUS_EFFECT_CULT_SLUR /datum/status_effect/transient/cult_slurring
+
 /////////////
 // NEUTRAL //
 /////////////

@@ -94,7 +94,6 @@
 	*/
 
 /mob // On `/mob` for now, to support legacy code
-	var/cultslurring = 0
 	var/druggy = 0
 	var/eye_blind = 0
 	var/eye_blurry = 0
@@ -476,17 +475,17 @@
 	SetSlur(new_value)
 
 // CULTSLURRING
+/mob/living/proc/AmountCultSlurring()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_CULT_SLUR)
 
 /mob/living/CultSlur(amount)
-	SetCultSlur(max(cultslurring, amount))
+	SetCultSlur(max(AmountCultSlurring(), amount))
 
 /mob/living/SetCultSlur(amount)
-	cultslurring = max(amount, 0)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_CULT_SLUR, amount)
 
 /mob/living/AdjustCultSlur(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(cultslurring, amount, bound_lower, bound_upper)
-	SetCultSlur(new_value)
-
+	SetCultSlur(clamp(amount, bound_lower, bound_upper))
 
 /* STUN */
 /mob/living/proc/IsStunned() //If we're stunned

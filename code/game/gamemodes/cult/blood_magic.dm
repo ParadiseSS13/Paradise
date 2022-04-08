@@ -457,7 +457,7 @@
 			var/mob/living/carbon/C = L
 			C.Silence(6 SECONDS)
 			C.Stuttering(8)
-			C.CultSlur(10)
+			C.CultSlur(20 SECONDS)
 			C.Jitter(16 SECONDS)
 	uses--
 	..()
@@ -796,7 +796,7 @@
 				if(H.stat == DEAD)
 					to_chat(user, "<span class='warning'>[H.p_their(TRUE)] blood has stopped flowing, you'll have to find another way to extract it.</span>")
 					return
-				if(H.cultslurring)
+				if(H.AmountCultSlurring())
 					to_chat(user, "<span class='danger'>[H.p_their(TRUE)] blood has been tainted by an even stronger form of blood magic, it's no use to us like this!</span>")
 					return
 				if(H.dna && !(NO_BLOOD in H.dna.species.species_traits) && H.dna.species.exotic_blood == null)

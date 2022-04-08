@@ -127,8 +127,6 @@
 		AdjustSlur(-1)
 	if(paralysis)
 		AdjustParalysis(-1, updating = 1, force = 1)
-	if(cultslurring)
-		AdjustCultSlur(-1)
 
 /mob/living/proc/update_damage_hud()
 	return
