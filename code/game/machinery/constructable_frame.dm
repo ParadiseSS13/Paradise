@@ -273,7 +273,8 @@ to destroy them and players will be able to make replacements.
 		"BarDrobe" =							/obj/machinery/vending/bardrobe,
 		"HydroDrobe" =							/obj/machinery/vending/hydrodrobe)
 	var/static/list/unique_vendors = list(
-		"ShadyCigs Ultra" =						/obj/machinery/vending/cigarette/beach)
+		"ShadyCigs Ultra" =						/obj/machinery/vending/cigarette/beach,
+		"SyndiMed Plus" =						/obj/machinery/vending/wallmed/syndicate)
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
