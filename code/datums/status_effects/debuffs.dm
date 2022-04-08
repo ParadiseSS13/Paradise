@@ -355,9 +355,9 @@
 /datum/status_effect/incapacitating/immobilized
 	id = "immobilized"
 
-//PARALYZED - TODO: change all `Weaken()` procs to Paralyze if maintainers want it
-/datum/status_effect/incapacitating/paralyzed
-	id = "paralyzed"
+//WEAKENED
+/datum/status_effect/incapacitating/weakened
+	id = "weakened"
 
 /datum/status_effect/incapacitating/sleeping
 	id = "sleeping"
@@ -430,3 +430,5 @@
 
 /datum/status_effect/transient/jittery/calc_decay()
 	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
+
+

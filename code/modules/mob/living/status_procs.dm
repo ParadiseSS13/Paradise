@@ -599,10 +599,10 @@
 // WEAKEN
 
 /mob/living/proc/IsWeakened()
-	return has_status_effect(STATUS_EFFECT_PARALYZED)
+	return has_status_effect(STATUS_EFFECT_WEAKENED)
 
 /mob/living/proc/AmountWeakened() //How many deciseconds remain in our Weakened status effect
-	var/datum/status_effect/incapacitating/paralyzed/P = IsWeakened()
+	var/datum/status_effect/incapacitating/weakened/P = IsWeakened()
 	if(P)
 		return P.duration - world.time
 	return 0
@@ -612,17 +612,17 @@
 		return
 	if(absorb_stun(amount, ignore_canstun))
 		return
-	var/datum/status_effect/incapacitating/paralyzed/P = IsWeakened()
+	var/datum/status_effect/incapacitating/weakened/P = IsWeakened()
 	if(P)
 		P.duration = max(world.time + amount, P.duration)
 	else if(amount > 0)
-		P = apply_status_effect(STATUS_EFFECT_PARALYZED, amount)
+		P = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
 	return P
 
 /mob/living/proc/SetWeakened(amount, ignore_canstun = FALSE) //Sets remaining duration
 	if(IS_STUN_IMMUNE(src, ignore_canstun))
 		return
-	var/datum/status_effect/incapacitating/paralyzed/P = IsWeakened()
+	var/datum/status_effect/incapacitating/weakened/P = IsWeakened()
 	if(amount <= 0)
 		if(P)
 			qdel(P)
@@ -632,7 +632,7 @@
 		if(P)
 			P.duration = world.time + amount
 		else
-			P = apply_status_effect(STATUS_EFFECT_PARALYZED, amount)
+			P = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
 	return P
 
 /mob/living/proc/AdjustWeakened(amount, ignore_canstun = FALSE) //Adds to remaining duration
@@ -640,11 +640,11 @@
 		return
 	if(absorb_stun(amount, ignore_canstun))
 		return
-	var/datum/status_effect/incapacitating/paralyzed/P = IsWeakened()
+	var/datum/status_effect/incapacitating/weakened/P = IsWeakened()
 	if(P)
 		P.duration += amount
 	else if(amount > 0)
-		P = apply_status_effect(STATUS_EFFECT_PARALYZED, amount)
+		P = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
 	return P
 
 //
