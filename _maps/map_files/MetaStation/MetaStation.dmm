@@ -17309,7 +17309,9 @@
 /area/engine/supermatter)
 "aOf" = (
 /obj/machinery/mineral/ore_redemption{
-	dir = 4
+	dir = 4;
+	input_dir = 8;
+	output_dir = 4
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
