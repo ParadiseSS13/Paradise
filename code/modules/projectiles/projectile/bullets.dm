@@ -21,18 +21,18 @@
 /obj/item/projectile/bullet/weakbullet/booze/on_hit(atom/target, blocked = 0)
 	if(..(target, blocked))
 		var/mob/living/M = target
-		M.AdjustDizzy(20)
-		M.AdjustSlur(20)
-		M.AdjustConfused(20)
-		M.AdjustEyeBlurry(20)
-		M.AdjustDrowsy(20)
+		M.AdjustDizzy(40 SECONDS)
+		M.AdjustSlur(40 SECONDS)
+		M.AdjustConfused(40 SECONDS)
+		M.AdjustEyeBlurry(40 SECONDS)
+		M.AdjustDrowsy(40 SECONDS)
 		for(var/datum/reagent/consumable/ethanol/A in M.reagents.reagent_list)
 			M.AdjustParalysis(4 SECONDS)
-			M.AdjustDizzy(10)
-			M.AdjustSlur(10)
-			M.AdjustConfused(10)
+			M.AdjustDizzy(20 SECONDS)
+			M.AdjustSlur(20 SECONDS)
+			M.AdjustConfused(20 SECONDS)
 			M.AdjustEyeBlurry(10)
-			M.AdjustDrowsy(10)
+			M.AdjustDrowsy(20 SECONDS)
 			A.volume += 5 //Because we can
 
 /obj/item/projectile/bullet/weakbullet2
@@ -276,7 +276,7 @@
 	icon_state = "neurotoxin"
 	damage = 5
 	damage_type = TOX
-	weaken = 5
+	weaken = 10 SECONDS
 
 /obj/item/projectile/bullet/neurotoxin/on_hit(atom/target, blocked = 0)
 	if(isalien(target))

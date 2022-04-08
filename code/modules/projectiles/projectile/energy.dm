@@ -51,8 +51,8 @@
 	nodamage = FALSE
 	stamina = 60
 	eyeblur = 10
-	weaken = 1
-	slur = 5
+	weaken = 2 SECONDS
+	slur = 10 SECONDS
 
 /obj/item/projectile/energy/bolt/large
 	damage = 20
@@ -84,7 +84,7 @@
 	damage = 60
 	damage_type = BURN
 	range = 9
-	weaken = 1 //This is going to knock you off your feet
+	weaken = 2 SECONDS //This is going to knock you off your feet
 	eyeblur = 5
 	speed = 2
 	alwayslog = TRUE

@@ -440,3 +440,6 @@
 
 /datum/status_effect/transient/stammering
 	id = "stammer"
+
+/datum/status_effect/transient/slurring
+	id = "slurring"

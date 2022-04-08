@@ -121,8 +121,6 @@
 /mob/living/proc/handle_status_effects() // We check for the status effect in this proc as opposed to the procs below to avoid excessive proc call overhead
 	if(druggy)
 		AdjustDruggy(-1)
-	if(slurring)
-		AdjustSlur(-1)
 
 /mob/living/proc/update_damage_hud()
 	return

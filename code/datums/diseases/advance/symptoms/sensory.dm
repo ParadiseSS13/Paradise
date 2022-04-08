@@ -31,11 +31,11 @@ Bonus
 		var/datum/reagents/RD = M.reagents
 
 		if(A.stage >= 3)
-			M.AdjustSlur(-2)
-			M.AdjustDrunk(-4)
+			M.AdjustSlur(-4 SECONDS)
+			M.AdjustDrunk(-8 SECONDS)
 			M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3, 0, 1)
 		if(A.stage >= 4)
-			M.AdjustDrowsy(-2)
+			M.AdjustDrowsy(-4 SECONDS)
 			if(RD.has_reagent("lsd"))
 				RD.remove_reagent("lsd", 5)
 			if(RD.has_reagent("histamine"))

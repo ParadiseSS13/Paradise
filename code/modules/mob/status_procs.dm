@@ -56,42 +56,6 @@
 /mob/proc/AdjustLoseBreath()
 	return
 
-/mob/proc/Silence()
-	return
-
-/mob/proc/SetSilence()
-	return
-
-/mob/proc/AdjustSilence()
-	return
-
-/mob/proc/Slur()
-	return
-
-/mob/proc/SetSlur()
-	return
-
-/mob/proc/AdjustSlur()
-	return
-
-/mob/proc/CultSlur()
-	return
-
-/mob/proc/SetCultSlur()
-	return
-
-/mob/proc/AdjustCultSlur()
-	return
-
-/mob/proc/Stuttering()
-	return
-
-/mob/proc/SetStuttering()
-	return
-
-/mob/proc/AdjustStuttering()
-	return
-
 /mob/proc/adjust_bodytemperature(amount, min_temp = 0, max_temp = INFINITY)
 	if(bodytemperature >= min_temp && bodytemperature <= max_temp)
 		bodytemperature = clamp(bodytemperature + amount, min_temp, max_temp)

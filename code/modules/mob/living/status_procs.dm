@@ -99,7 +99,6 @@
 	var/eye_blurry = 0
 	var/hallucination = 0
 	var/losebreath = 0
-	var/slurring = 0
 
 // RESTING
 
@@ -381,14 +380,14 @@
 /mob/living/proc/AmountSilenced()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SILENCED)
 
-/mob/living/Silence(amount)
+/mob/living/proc/Silence(amount)
 	var/datum/status_effect/transient/silence/S = AmountSilenced()
 	SetSilence(max(amount, S.strength))
 
-/mob/living/SetSilence(amount)
+/mob/living/proc/SetSilence(amount)
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SILENCED, amount)
 
-/mob/living/AdjustSilence(amount, bound_lower = 0, bound_upper = INFINITY)
+/mob/living/proc/AdjustSilence(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetSilence(clamp(AmountSilenced() + amount, bound_lower, bound_upper))
 
 // SLEEPING
@@ -474,28 +473,29 @@
 		S.slowdown_value += intensity
 
 // SLURRING
+/mob/living/proc/AmountSluring()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SLURRING)
 
-/mob/living/Slur(amount)
-	SetSlur(max(slurring, amount))
+/mob/living/proc/Slur(amount)
+	SetSlur(max(AmountSluring(), amount))
 
-/mob/living/SetSlur(amount)
-	slurring = max(amount, 0)
+/mob/living/proc/SetSlur(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SLURRING, amount)
 
-/mob/living/AdjustSlur(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(slurring, amount, bound_lower, bound_upper)
-	SetSlur(new_value)
+/mob/living/proc/AdjustSlur(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetSlur(clamp(amount + AmountSluring(), bound_lower, bound_upper))
 
 // CULTSLURRING
 /mob/living/proc/AmountCultSlurring()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_CULT_SLUR)
 
-/mob/living/CultSlur(amount)
+/mob/living/proc/CultSlur(amount)
 	SetCultSlur(max(AmountCultSlurring(), amount))
 
-/mob/living/SetCultSlur(amount)
+/mob/living/proc/SetCultSlur(amount)
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_CULT_SLUR, amount)
 
-/mob/living/AdjustCultSlur(amount, bound_lower = 0, bound_upper = INFINITY)
+/mob/living/proc/AdjustCultSlur(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetCultSlur(clamp(amount, bound_lower, bound_upper))
 
 /* STUN */
@@ -596,15 +596,15 @@
 /mob/living/proc/AmountStuttering()
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_STAMMER)
 
-/mob/living/Stuttering(amount, ignore_canstun = FALSE)
+/mob/living/proc/Stuttering(amount, ignore_canstun = FALSE)
 	SetStuttering(max(AmountStuttering(), amount), ignore_canstun)
 
-/mob/living/SetStuttering(amount, ignore_canstun = FALSE)
+/mob/living/proc/SetStuttering(amount, ignore_canstun = FALSE)
 	if(IS_STUN_IMMUNE(src, ignore_canstun)) //Often applied with a stun
 		return
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_STAMMER, amount)
 
-/mob/living/AdjustStuttering(amount, bound_lower = 0, bound_upper = INFINITY, ignore_canstun = FALSE)
+/mob/living/proc/AdjustStuttering(amount, bound_lower = 0, bound_upper = INFINITY, ignore_canstun = FALSE)
 	SetStuttering(clamp(amount + AmountStuttering(), bound_lower, bound_upper), ignore_canstun)
 
 // WEAKEN
