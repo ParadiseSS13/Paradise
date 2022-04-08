@@ -56,7 +56,7 @@
 	if(!is_robotic() || emp_proof)
 		return
 	if(owner)
-		owner.LoseBreath(20)
+		owner.LoseBreath(40 SECONDS)
 
 /obj/item/organ/internal/lungs/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	..()
@@ -81,7 +81,7 @@
 			owner.bleed(1)
 		if(prob(4))
 			owner.custom_emote(1, "gasps for air!")
-			owner.AdjustLoseBreath(5)
+			owner.AdjustLoseBreath(10 SECONDS)
 
 /obj/item/organ/internal/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
 	if((H.status_flags & GODMODE))

@@ -283,7 +283,7 @@
 		return
 	if(prob(60/severity) && owner)
 		to_chat(owner, "<span class='warning'>Your breathing tube suddenly closes!</span>")
-		owner.AdjustLoseBreath(2)
+		owner.AdjustLoseBreath(4 SECONDS)
 
 //[[[[CHEST]]]]
 /obj/item/organ/internal/cyberimp/chest

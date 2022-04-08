@@ -345,7 +345,7 @@
 	update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(50))
-		M.AdjustLoseBreath(-1)
+		M.AdjustLoseBreath(-2 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/medicine/omnizine/overdose_process(mob/living/M, severity)
@@ -488,7 +488,7 @@
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustOxyLoss(-6*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	M.AdjustLoseBreath(-4)
+	M.AdjustLoseBreath(-8 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/medicine/perfluorodecalin
@@ -508,7 +508,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustOxyLoss(-25*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(volume >= 4)
-		M.LoseBreath(6)
+		M.LoseBreath(12 SECONDS)
 	if(prob(33))
 		update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -530,12 +530,12 @@
 
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustDrowsy(-5)
+	M.AdjustDrowsy(-10 SECONDS)
 	M.AdjustParalysis(-2 SECONDS)
 	M.AdjustStunned(-2 SECONDS)
 	M.AdjustWeakened(-2 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	M.AdjustLoseBreath(-1, bound_lower = 5)
+	M.AdjustLoseBreath(-2 SECONDS, bound_lower = 10 SECONDS)
 	if(M.getOxyLoss() > 75)
 		update_flags |= M.adjustOxyLoss(-1, FALSE)
 	if(M.health < 0 || M.health > 0 && prob(33))
@@ -665,7 +665,7 @@
 	M.Confused(5)
 	if(prob(4))
 		M.emote("collapse")
-	M.AdjustLoseBreath(-5, bound_lower = 5)
+	M.AdjustLoseBreath(-10 SECONDS, bound_lower = 10 SECONDS)
 	if(M.getOxyLoss() > 65)
 		update_flags |= M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(M.health < -25)
@@ -702,7 +702,7 @@
 	if(prob(5))
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
 	holder.remove_reagent("histamine", 15)
-	M.AdjustLoseBreath(-1, bound_lower = 3)
+	M.AdjustLoseBreath(-2 SECONDS, bound_lower = 6 SECONDS)
 	if(M.getOxyLoss() > 35)
 		update_flags |= M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(M.health < -10 && M.health > -65)
@@ -930,7 +930,7 @@
 	if(prob(33))
 		update_flags |= M.adjustStaminaLoss(2.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		M.AdjustLoseBreath(1)
+		M.AdjustLoseBreath(2 SECONDS)
 	return list(0, update_flags)
 
 /datum/reagent/medicine/insulin

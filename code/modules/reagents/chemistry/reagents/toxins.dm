@@ -668,7 +668,7 @@
 		M.emote("drool")
 	if(prob(10))
 		to_chat(M, "<span class='danger'>You cannot breathe!</span>")
-		M.AdjustLoseBreath(1)
+		M.AdjustLoseBreath(2 SECONDS)
 		M.emote("gasp")
 	if(prob(8))
 		to_chat(M, "<span class='danger'>You feel horrendously weak!</span>")
@@ -731,11 +731,11 @@
 	if(prob(10))
 		to_chat(M, "<span class='danger'>You cannot breathe!</span>")
 		update_flags |= M.adjustOxyLoss(10, FALSE)
-		M.AdjustLoseBreath(1)
+		M.AdjustLoseBreath(2 SECONDS)
 	if(prob(10))
 		to_chat(M, "<span class='danger'>Your chest is burning with pain!</span>")
 		update_flags |= M.adjustOxyLoss(10, FALSE)
-		M.AdjustLoseBreath(1)
+		M.AdjustLoseBreath(2 SECONDS)
 		M.Weaken(4 SECONDS)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -768,12 +768,12 @@
 			M.Weaken(40 SECONDS)
 			if(prob(10))
 				M.emote(pick("drool", "tremble", "gasp"))
-				M.AdjustLoseBreath(1)
+				M.AdjustLoseBreath(2 SECONDS)
 			if(prob(9))
 				to_chat(M, "<span class='danger'>You can't [pick("move", "feel your legs", "feel your face", "feel anything")]!</span>")
 			if(prob(7))
 				to_chat(M, "<span class='danger'>You can't breathe!</span>")
-				M.AdjustLoseBreath(3)
+				M.AdjustLoseBreath(6 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/sodium_thiopental
@@ -913,7 +913,7 @@
 /datum/reagent/coniine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(2, FALSE)
-	M.AdjustLoseBreath(5)
+	M.AdjustLoseBreath(10 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/curare
@@ -949,7 +949,7 @@
 				M.emote(pick("drool", "faint", "pale", "gasp", "collapse"))
 			else if(prob(8))
 				to_chat(M, "<span class='danger'>You can't [pick("breathe", "move", "feel your legs", "feel your face", "feel anything")]!</span>")
-				M.AdjustLoseBreath(1)
+				M.AdjustLoseBreath(2 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/sarin
@@ -995,11 +995,11 @@
 			if(prob(5))
 				to_chat(M, "<span class='warning'>You can't breathe!</span>")
 				M.emote(pick("gasp", "choke", "cough"))
-				M.AdjustLoseBreath(1)
+				M.AdjustLoseBreath(2 SECONDS)
 		if(61 to INFINITY)
 			if(prob(15))
 				M.emote(pick("gasp", "choke", "cough","twitch", "shake", "tremble","quiver","drool", "twitch","collapse"))
-			M.LoseBreath(5)
+			M.LoseBreath(10 SECONDS)
 			update_flags |= M.adjustToxLoss(1, FALSE)
 			update_flags |= M.adjustBrainLoss(1, FALSE)
 			M.Weaken(8 SECONDS)

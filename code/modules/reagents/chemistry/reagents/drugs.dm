@@ -501,7 +501,7 @@
 		to_chat(M, "<span class='danger'>You cannot breathe!</span>")
 		update_flags |= M.adjustOxyLoss(15, FALSE)
 		M.Stun(2 SECONDS)
-		M.AdjustLoseBreath(1, FALSE)
+		M.AdjustLoseBreath(2 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/thc

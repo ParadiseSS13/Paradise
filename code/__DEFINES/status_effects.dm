@@ -112,6 +112,8 @@
 
 #define STATUS_EFFECT_SLURRING /datum/status_effect/transient/slurring
 
+#define STATUS_EFFECT_LOSE_BREATH /datum/status_effect/transient/lose_breath
+
 /////////////
 // NEUTRAL //
 /////////////

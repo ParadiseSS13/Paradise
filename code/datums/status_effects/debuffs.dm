@@ -443,3 +443,6 @@
 
 /datum/status_effect/transient/slurring
 	id = "slurring"
+
+/datum/status_effect/transient/lose_breath
+	id = "lose_breath"

@@ -962,7 +962,7 @@
 	if(current_cycle >= 10)
 		M.Paralyse(4 SECONDS)
 	if(prob(20))
-		update_flags |= M.LoseBreath(4, FALSE)
+		M.LoseBreath(8 SECONDS)
 		update_flags |= M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustStaminaLoss(10 * REAGENTS_EFFECT_MULTIPLIER, FALSE)

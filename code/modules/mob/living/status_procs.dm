@@ -98,7 +98,6 @@
 	var/eye_blind = 0
 	var/eye_blurry = 0
 	var/hallucination = 0
-	var/losebreath = 0
 
 // RESTING
 
@@ -330,18 +329,19 @@
 
 // LOSE_BREATH
 
-/mob/living/LoseBreath(amount)
-	SetLoseBreath(max(losebreath, amount))
+/mob/living/proc/AmountLoseBreath()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_LOSE_BREATH)
 
-/mob/living/SetLoseBreath(amount)
+/mob/living/proc/LoseBreath(amount)
+	SetLoseBreath(max(AmountLoseBreath(), amount))
+
+/mob/living/proc/SetLoseBreath(amount)
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
-		losebreath = 0
-		return FALSE
-	losebreath = max(amount, 0)
+		return
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_LOSE_BREATH, amount)
 
-/mob/living/AdjustLoseBreath(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(losebreath, amount, bound_lower, bound_upper)
-	SetLoseBreath(new_value)
+/mob/living/proc/AdjustLoseBreath(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetLoseBreath(clamp(amount + AmountLoseBreath(), bound_lower, bound_upper))
 
 // PARALYSE
 /mob/living/proc/IsParalyzed()

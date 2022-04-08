@@ -63,11 +63,10 @@
 	var/datum/gas_mixture/breath
 
 	if(health <= HEALTH_THRESHOLD_CRIT && check_death_method())
-		AdjustLoseBreath(1)
+		AdjustLoseBreath(2 SECONDS)
 
 	//Suffocate
-	if(losebreath > 0)
-		AdjustLoseBreath(-1)
+	if(AmountLoseBreath())
 		if(prob(75))
 			emote("gasp")
 		if(istype(loc, /obj/))

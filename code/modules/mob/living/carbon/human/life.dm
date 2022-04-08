@@ -621,7 +621,7 @@
 		return
 
 	if(getBrainLoss() >= 100) // braindeath
-		AdjustLoseBreath(10, bound_lower = 0, bound_upper = 25)
+		AdjustLoseBreath(20 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
 		Weaken(60 SECONDS)
 
 	if(!check_death_method())
@@ -812,7 +812,7 @@
 	var/temp = PULSE_NORM
 
 	if(blood_volume <= BLOOD_VOLUME_BAD)//how much blood do we have
-		temp = PULSE_THREADY	//not enough :(
+		temp = PULSE_THREADY	//not enough :(     ) fuck you bracket colouriser
 
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		temp = PULSE_NONE		//pretend that we're dead. unlike actual death, can be inflienced by meds
@@ -959,7 +959,7 @@
 	else if(prob(10))
 		adjustBrainLoss(1)
 	Weaken(10 SECONDS)
-	AdjustLoseBreath(20, bound_lower = 0, bound_upper = 25)
+	AdjustLoseBreath(40 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
 	adjustOxyLoss(20)
 
 

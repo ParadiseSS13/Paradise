@@ -180,7 +180,7 @@
 		affecting.Stuttering(10 SECONDS) //It will hamper your voice, being choked and all.
 		affecting.Weaken(10 SECONDS)	//Should keep you down unless you get help.
 		if(!breathing_tube)
-			affecting.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
+			affecting.AdjustLoseBreath(4 SECONDS, bound_lower = 0, bound_upper = 6 SECONDS)
 
 	adjust_position()
 
@@ -296,7 +296,7 @@
 
 		assailant.next_move = world.time + 10
 		if(!affecting.get_organ_slot("breathing_tube"))
-			affecting.AdjustLoseBreath(1)
+			affecting.AdjustLoseBreath(2 SECONDS)
 
 	adjust_position()
 
