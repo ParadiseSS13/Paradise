@@ -360,7 +360,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/shuttle/supply
 	name = "Supply Shuttle"
 	icon_state = "shuttle3"
-	
+
 /area/shuttle/ussp
 	name = "USSP Shuttle"
 	icon_state = "shuttle3"
@@ -642,22 +642,18 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
  	name = "Atmospherics Distribution Loop"
  	icon_state = "atmos"
 
-//Maintenance
+// MAINTENANCE
 /area/maintenance
 	ambientsounds = MAINTENANCE_SOUNDS
 	valid_territory = FALSE
 	sound_env = TUNNEL_ENCLOSED
 
-/area/maintenance/atmos_control
-	name = "Atmospherics Maintenance"
-	icon_state = "fpmaint"
+/area/maintenance/fore
+	name = "Fore Maintenance"
+	icon_state = "fmaint"
 
 /area/maintenance/fpmaint
-	name = "EVA Maintenance"
-	icon_state = "fpmaint"
-
-/area/maintenance/fpmaint2
-	name = "Arrivals North Maintenance"
+	name = "Fore-Port Maintenance"
 	icon_state = "fpmaint"
 
 /area/maintenance/fsmaint
@@ -683,10 +679,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/maintcentral
 	name = "Bridge Maintenance"
 	icon_state = "maintcentral"
-
-/area/maintenance/fore
-	name = "Fore Maintenance"
-	icon_state = "fmaint"
 
 /area/maintenance/starboard
 	name = "Starboard Maintenance"
@@ -725,7 +717,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Electrical Maintenance"
 	icon_state = "yellow"
 
-/area/maintenance/abandonedbar
+/area/maintenance/bar
 	name = "Abandoned Bar"
 	icon_state = "yellow"
 	power_equip = 0
@@ -829,7 +821,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/hallway/secondary/entry/south
 
-/area/hallway/secondary/entry/louge
+/area/hallway/secondary/entry/lounge
 	name = "\improper Arrivals Lounge"
 
 
@@ -1065,6 +1057,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/mimeoffice
 	name = "\improper Mime's Office"
 	icon_state = "mime_office"
+
+// CIVILIAN
+
+/area/civilian/vacantoffice
+	name = "\improper Vacant Office"
+	icon_state = "green"
 
 /area/civilian/barber
 	name = "\improper Barber Shop"
@@ -1674,11 +1672,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Security Post - Science"
 	icon_state = "checkpoint1"
 
-/area/security/vacantoffice
-	name = "\improper Vacant Office"
-	icon_state = "security"
-
-/area/security/vacantoffice2
+/area/civilian/vacantoffice2
 	name = "\improper Vacant Office"
 	icon_state = "security"
 

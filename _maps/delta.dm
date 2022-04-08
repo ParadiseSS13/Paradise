@@ -8,15 +8,13 @@ z2 = centcomm
 z3 = space (empty)
 z4 = lavaland
 
-Original design by Okand37 of TG Station
-Lovingly ported by Purpose2 to Paradise
-And remapped by ThaumicNik as per SS220 community requests
+Remapped by ThaumicNik, TrashDoxx, J4.BA, BeepBoop, mr_g, IceGreen, AlexRavenidza, Bolmorr & Dikers for SS220.
 */
 
 #if !defined(USING_MAP_DATUM)
 	#include "map_files\delta\delta.dmm"
 	#include "map_files\cyberiad\z2.dmm"
-	#include "map_files\delta\Lavaland.dmm"
+	#include "map_files\delta\lavaland.dmm"
 	#include "map_files\generic\syndicatebase.dmm"
 
 	#define MAP_FILE "delta.dmm"
