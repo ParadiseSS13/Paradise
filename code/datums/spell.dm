@@ -498,18 +498,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/aoe_turf/write_custom_logs(list/targets, mob/user)
 	add_attack_logs(user, null, "Cast the AoE spell [name]", ATKLOG_ALL)
 
-/obj/effect/proc_holder/spell/proc/los_check(mob/A,mob/B)
-	//Checks for obstacles from A to B
-	var/obj/dummy = new(A.loc)
-	dummy.pass_flags |= PASSTABLE
-	for(var/turf/turf in getline(A,B))
-		for(var/atom/movable/AM in turf)
-			if(!AM.CanPass(dummy,turf,1))
-				qdel(dummy)
-				return 0
-	qdel(dummy)
-	return 1
-
 /obj/effect/proc_holder/spell/proc/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.mob_spell_list))
 		if(show_message)
@@ -576,4 +564,28 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		return FALSE
 
 	return TRUE
+/obj/effect/proc_holder/spell/summonmob
+	name = "Summon Servant"
+	desc = "This spell can be used to call your servant, whenever you need it."
+	charge_max = 100
+	clothes_req = 0
+	invocation = "JE VES"
+	invocation_type = "whisper"
+	level_max = 0 //cannot be improved
+	cooldown_min = 100
 
+	var/mob/living/target_mob
+
+	action_icon_state = "summons"
+
+/obj/effect/proc_holder/spell/summonmob/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/summonmob/cast(list/targets, mob/user = usr)
+	if(!target_mob)
+		return
+	var/turf/Start = get_turf(user)
+	for(var/direction in GLOB.alldirs)
+		var/turf/T = get_step(Start,direction)
+		if(!T.density)
+			target_mob.Move(T)

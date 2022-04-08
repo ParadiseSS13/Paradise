@@ -291,53 +291,62 @@
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
-	visible_message( \
-		text("<span class='notice'>[src] examines [].</span>",gender==MALE?"himself":"herself"), \
+	visible_message("<span class='notice'>[src] examines [H.p_them()]self.</span>", \
 		"<span class='notice'>You check yourself for injuries.</span>" \
 		)
+	var/list/status_list = list()
 
 	var/list/missing = list("head", "chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")
 	for(var/X in H.bodyparts)
 		var/obj/item/organ/external/LB = X
 		missing -= LB.limb_name
-		var/status = ""
+		var/status
 		var/brutedamage = LB.brute_dam
 		var/burndamage = LB.burn_dam
 
-		if(brutedamage > 0)
-			status = "bruised"
-		if(brutedamage > 20)
-			status = "battered"
-		if(brutedamage > 40)
-			status = "mangled"
+		switch(brutedamage)
+			if(0.1 to 20)
+				status = "bruised"
+			if(20 to 40)
+				status = "battered"
+			if(40 to INFINITY)
+				status = "mangled"
 		if(brutedamage > 0 && burndamage > 0)
 			status += " and "
-		if(burndamage > 40)
-			status += "peeling away"
 
-		else if(burndamage > 10)
-			status += "blistered"
-		else if(burndamage > 0)
-			status += "numb"
+		switch(burndamage)
+			if(0.1 to 10)
+				status += "numb"
+			if(10 to 40)
+				status += "blistered"
+			if(40 to INFINITY)
+				status += "peeling away"
+
 		if(LB.status & ORGAN_MUTATED)
-			status = "weirdly shapen."
-		if(status == "")
-			status = "OK"
-		to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>Your [LB.name] is [status].</span>")
+			status = "weirdly shapen"
+
+		var/msg = "<span class='notice'>Your [LB.name] is OK.</span>"
+		if(!isnull(status))
+			msg = "<span class='warning'>Your [LB.name] is [status].</span>"
+		status_list += msg
 
 		for(var/obj/item/I in LB.embedded_objects)
-			to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
+			status_list += "<a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
 
 	for(var/t in missing)
-		to_chat(src, "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>")
+		status_list += "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>"
 
 	if(H.bleed_rate)
-		to_chat(src, "<span class='danger'>You are bleeding!</span>")
+		status_list += "<span class='danger'>You are bleeding!</span>"
 	if(staminaloss)
 		if(staminaloss > 30)
-			to_chat(src, "<span class='info'>You're completely exhausted.</span>")
+			status_list += "<span class='info'>You're completely exhausted.</span>"
 		else
-			to_chat(src, "<span class='info'>You feel fatigued.</span>")
+			status_list += "<span class='info'>You feel fatigued.</span>"
+
+	var/output = status_list.Join("\n")
+	to_chat(src, output)
+
 	if(HAS_TRAIT(H, TRAIT_SKELETONIZED) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 

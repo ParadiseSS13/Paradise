@@ -2094,3 +2094,22 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	output["CONTENT"] = content
 
 	return output
+
+
+/proc/is_maintainer(mob/user)
+	#ifdef TESTING // Account for local test mode
+	return TRUE
+	#endif
+
+	// Check if this user is a maint, or on a test server
+	var/ip_check = (user.client.address == "127.0.0.1" || user.client.address == null)
+
+	var/rank_check = FALSE
+
+	if(user.client.holder)
+		rank_check = (findtext(user.client.holder.rank, "Maintainer") > 0) // Accounts for "Maintainers", "Maintainer", "Host & Maintainer", etc
+
+	if(ip_check || rank_check)
+		return TRUE
+
+	return FALSE

@@ -497,7 +497,7 @@
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/unpowered)
 "bK" = (
-/obj/singularity/academy,
+/obj/singularity/onetile,
 /turf/space,
 /area/ruin/unpowered)
 "bL" = (
