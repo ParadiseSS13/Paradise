@@ -1,6 +1,6 @@
 //Cardboard chess pieces. To be used for multiplayer chessboards. An alternative to trying to get a coded game-board set up.
 
-/obj/item/chesspiece/
+/obj/item/chesspiece
 	name = "Chess Piece"
 	desc = "A generic chess piece used in a game of chess."
 	icon = 'icons/obj/chess.dmi'
