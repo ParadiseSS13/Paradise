@@ -344,7 +344,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(iscultist(M))
 		M.AdjustDrowsy(-5)
-		update_flags |= M.AdjustParalysis(-1, FALSE)
+		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-4 SECONDS)
 		M.AdjustWeakened(-4 SECONDS)
 		update_flags |= M.adjustToxLoss(-2, FALSE)

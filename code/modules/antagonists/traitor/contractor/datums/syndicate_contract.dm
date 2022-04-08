@@ -457,7 +457,7 @@
 		M.reagents.add_reagent("omnizine", 20)
 
 		to_chat(M, "<span class='warning'>You feel strange...</span>")
-		M.Paralyse(30 SECONDS_TO_LIFE_CYCLES)
+		M.Paralyse(30 SECONDS)
 		M.EyeBlind(35 SECONDS_TO_LIFE_CYCLES)
 		M.EyeBlurry(35 SECONDS_TO_LIFE_CYCLES)
 		M.AdjustConfused(35 SECONDS_TO_LIFE_CYCLES)
@@ -523,7 +523,7 @@
 	// Return them a bit confused.
 	M.visible_message("<span class='notice'>[M] vanishes...</span>")
 	M.forceMove(closet)
-	M.Paralyse(3 SECONDS_TO_LIFE_CYCLES)
+	M.Paralyse(3 SECONDS)
 	M.EyeBlurry(5 SECONDS_TO_LIFE_CYCLES)
 	M.AdjustConfused(5 SECONDS_TO_LIFE_CYCLES)
 	M.Dizzy(35)

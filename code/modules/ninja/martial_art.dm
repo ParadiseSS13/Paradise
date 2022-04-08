@@ -106,7 +106,7 @@
 
 		to_chat(A, "<span class='warning'>You feel [D] go limp in your grip.</span>")
 		to_chat(D, "<span class='userdanger'>You feel your consciousness slip away as [A] strangles you!</span>")
-		D.AdjustParalysis(20)
+		D.AdjustParalysis(40 SECONDS)
 
 		has_choke_hold = 0
 

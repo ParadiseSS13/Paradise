@@ -230,7 +230,7 @@
 	set category = "pAI Commands"
 	set name = "Unfold Chassis"
 
-	if(stat || IsSleeping() || paralysis || IsWeakened())
+	if(stat || IsSleeping() || IsParalyzed() || IsWeakened())
 		return
 
 	if(loc != card)
@@ -265,7 +265,7 @@
 	set category = "pAI Commands"
 	set name = "Collapse Chassis"
 
-	if(stat || IsSleeping() || paralysis || IsWeakened())
+	if(stat || IsSleeping() || IsParalyzed() || IsWeakened())
 		return
 
 	if(loc == card)

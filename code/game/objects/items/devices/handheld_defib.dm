@@ -62,7 +62,7 @@
 				else
 					to_chat(user, "<span class='danger'>[H] doesn't respond!</span>")
 
-			H.AdjustParalysis(3)
+			H.AdjustParalysis(6 SECONDS)
 			H.AdjustStunned(10 SECONDS)
 			H.AdjustWeakened(10 SECONDS)
 			H.AdjustStuttering(10)

@@ -31,7 +31,9 @@
 		for(var/obj/item/W in M)
 			M.unEquip(W)
 		//teleport person to cell
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)	//so they black out before warping
 		M.loc = pick(GLOB.prisonwarp)
 		if(istype(M, /mob/living/carbon/human))

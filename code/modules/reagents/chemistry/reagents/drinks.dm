@@ -291,7 +291,7 @@
 	if(holder.has_reagent("frostoil"))
 		holder.remove_reagent("frostoil", 5)
 	if(prob(50))
-		update_flags |= M.AdjustParalysis(-1, FALSE)
+		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-2 SECONDS)
 		M.AdjustWeakened(-2 SECONDS)
 	return ..() | update_flags

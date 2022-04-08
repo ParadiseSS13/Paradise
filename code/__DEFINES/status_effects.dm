@@ -106,6 +106,8 @@
 
 #define STATUS_EFFECT_CULT_SLUR /datum/status_effect/transient/cult_slurring
 
+#define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
+
 /////////////
 // NEUTRAL //
 /////////////

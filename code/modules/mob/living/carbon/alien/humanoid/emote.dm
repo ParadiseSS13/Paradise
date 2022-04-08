@@ -119,7 +119,7 @@
 			message = "<B>\The [src]</B> jumps!"
 			m_type = 1
 		if("collapse")
-			Paralyse(2)
+			Paralyse(4 SECONDS)
 			message = "<B>\The [src]</B> collapses!"
 			m_type = 2
 		if("flip")

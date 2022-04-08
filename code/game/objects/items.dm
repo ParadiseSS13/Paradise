@@ -598,7 +598,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 					to_chat(M, "<span class='danger'>You drop what you're holding and clutch at your eyes!</span>")
 					M.drop_item()
 				M.AdjustEyeBlurry(10)
-				M.Paralyse(1)
+				M.Paralyse(2 SECONDS)
 				M.Weaken(4 SECONDS)
 			if(eyes.damage >= eyes.min_broken_damage)
 				if(M.stat != 2)

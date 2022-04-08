@@ -55,7 +55,7 @@
 /datum/reagent/medicine/synaptizine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDrowsy(-5)
-	update_flags |= M.AdjustParalysis(-1, FALSE)
+	M.AdjustParalysis(-2 SECONDS)
 	M.AdjustStunned(-2 SECONDS)
 	M.AdjustWeakened(-2 SECONDS)
 	M.SetSleeping(0)
@@ -375,7 +375,7 @@
 			M.Weaken(14 SECONDS)
 		else if(effect <= 5)
 			M.visible_message("<span class='warning'>[M] jerks bolt upright, then collapses!</span>")
-			update_flags |= M.Paralyse(5, FALSE)
+			M.Paralyse(10 SECONDS)
 			M.Weaken(8 SECONDS)
 		else if(effect <= 8)
 			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
@@ -531,7 +531,7 @@
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDrowsy(-5)
-	update_flags |= M.AdjustParalysis(-1, FALSE)
+	M.AdjustParalysis(-2 SECONDS)
 	M.AdjustStunned(-2 SECONDS)
 	M.AdjustWeakened(-2 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -614,7 +614,7 @@
 		if(16 to 35)
 			M.Drowsy(20)
 		if(36 to INFINITY)
-			update_flags |= M.Paralyse(15, FALSE)
+			M.Paralyse(30 SECONDS)
 			M.Drowsy(20)
 	return ..() | update_flags
 
@@ -692,7 +692,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDrowsy(-5)
 	if(prob(20))
-		update_flags |= M.AdjustParalysis(-1, FALSE)
+		M.AdjustParalysis(-2 SECONDS)
 	if(prob(20))
 		M.AdjustStunned(-2 SECONDS)
 	if(prob(20))
@@ -915,7 +915,7 @@
 		update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.AdjustParalysis(-3, FALSE)
+	M.AdjustParalysis(-6 SECONDS)
 	M.AdjustStunned(-6 SECONDS)
 	M.AdjustWeakened(-6 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -1047,7 +1047,7 @@
 		if(31 to 40)
 			M.Drowsy(20)
 		if(41 to INFINITY)
-			update_flags |= M.Paralyse(15, FALSE)
+			M.Paralyse(30 SECONDS)
 			M.Drowsy(20)
 	return ..() | update_flags
 
@@ -1120,7 +1120,7 @@
 /datum/reagent/medicine/degreaser/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(50))		//Same effects as coffee, to help purge ill effects like paralysis
-		update_flags |= M.AdjustParalysis(-1, FALSE)
+		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-2 SECONDS)
 		M.AdjustWeakened(-2 SECONDS)
 		M.AdjustConfused(-5)

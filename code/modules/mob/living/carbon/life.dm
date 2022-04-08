@@ -153,7 +153,7 @@
 		if(!co2overloadtime)
 			co2overloadtime = world.time
 		else if(world.time - co2overloadtime > 120)
-			Paralyse(3)
+			Paralyse(6 SECONDS)
 			adjustOxyLoss(3)
 			if(world.time - co2overloadtime > 300)
 				adjustOxyLoss(8)
@@ -174,7 +174,7 @@
 	//TRACE GASES
 	if(breath.sleeping_agent)
 		if(SA_partialpressure > SA_para_min)
-			Paralyse(3)
+			Paralyse(6 SECONDS)
 			if(SA_partialpressure > SA_sleep_min)
 				AdjustSleeping(4 SECONDS, bound_lower = 0, bound_upper = 20 SECONDS)
 		else if(SA_partialpressure > 0.01)

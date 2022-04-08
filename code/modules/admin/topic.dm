@@ -1158,9 +1158,12 @@
 		M.update_icons()
 
 		//so they black out before warping
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)
-		if(!M)	return
+		if(!M)
+			return
 
 		M.loc = prison_cell
 		if(istype(M, /mob/living/carbon/human))
@@ -1284,7 +1287,9 @@
 				I.plane = initial(I.plane)
 				I.dropped(M)
 
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)
 		M.loc = pick(GLOB.tdome1)
 		spawn(50)
@@ -1314,7 +1319,9 @@
 				I.plane = initial(I.plane)
 				I.dropped(M)
 
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)
 		M.loc = pick(GLOB.tdome2)
 		spawn(50)
@@ -1336,7 +1343,9 @@
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)
 		M.loc = pick(GLOB.tdomeadmin)
 		spawn(50)
@@ -1370,7 +1379,9 @@
 			var/mob/living/carbon/human/observer = M
 			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(observer), slot_w_uniform)
 			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), slot_shoes)
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)
 		M.loc = pick(GLOB.tdomeobserve)
 		spawn(50)
@@ -1463,7 +1474,9 @@
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)
 		M.loc = pick(GLOB.aroomwarp)
 		spawn(50)
@@ -2830,7 +2843,7 @@
 
 //don't warp them if they aren't ready or are already there
 						continue
-					H.Paralyse(5)
+					H.Paralyse(10 SECONDS)
 					if(H.wear_id)
 						var/obj/item/card/id/id = H.get_idcard()
 						for(var/A in id.access)

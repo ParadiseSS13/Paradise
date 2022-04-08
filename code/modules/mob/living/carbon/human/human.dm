@@ -1637,7 +1637,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(H.health <= HEALTH_THRESHOLD_CRIT)
 			H.adjustOxyLoss(-15 * cpr_modifier)
 			H.SetLoseBreath(0)
-			H.AdjustParalysis(-1)
+			H.AdjustParalysis(-2 SECONDS)
 			H.updatehealth("cpr")
 			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
 

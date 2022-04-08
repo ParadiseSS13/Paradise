@@ -207,7 +207,7 @@
 	owner.EyeBlurry(2)
 	if(prob(5))
 		owner.AdjustSleeping(1)
-		owner.Paralyse(5)
+		owner.Paralyse(10 SECONDS)
 
 /datum/status_effect/transient/drowsiness/calc_decay()
 	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
@@ -298,7 +298,7 @@
 		do_sparks(3, 1, src)
 	// THRESHOLD_FAINT (90)
 	if(actual_strength >= THRESHOLD_FAINT && prob(10))
-		owner.Paralyse(5 / alcohol_resistance)
+		owner.Paralyse(10 SECONDS / alcohol_resistance)
 		owner.Drowsy(30 / alcohol_resistance)
 		if(L)
 			L.receive_damage(1, TRUE)
@@ -361,6 +361,10 @@
 //WEAKENED
 /datum/status_effect/incapacitating/weakened
 	id = "weakened"
+
+/datum/status_effect/incapacitating/paralyzed
+	id = "paralyzed"
+	needs_update_stat = TRUE
 
 /datum/status_effect/incapacitating/sleeping
 	id = "sleeping"

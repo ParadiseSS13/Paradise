@@ -232,7 +232,7 @@
 				AdjustSleeping(-10 SECONDS)
 				if(AmountSleeping() == 0)
 					StopResting()
-				AdjustParalysis(-3)
+				AdjustParalysis(-6 SECONDS)
 				AdjustStunned(-6 SECONDS)
 				AdjustWeakened(-6 SECONDS)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)

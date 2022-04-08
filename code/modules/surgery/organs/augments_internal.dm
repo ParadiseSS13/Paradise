@@ -175,7 +175,7 @@
 		return
 	if(owner.stat == UNCONSCIOUS && cooldown == FALSE)
 		owner.AdjustSleeping(-200 SECONDS)
-		owner.AdjustParalysis(-100, FALSE)
+		owner.AdjustParalysis(-200 SECONDS)
 		to_chat(owner, "<span class='notice'>You feel a rush of energy course through your body!</span>")
 		cooldown = TRUE
 		addtimer(CALLBACK(src, .proc/sleepy_timer_end), 50)

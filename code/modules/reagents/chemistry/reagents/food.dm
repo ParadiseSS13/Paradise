@@ -105,7 +105,7 @@
 	if(current_cycle >= 90)
 		M.AdjustJitter(4 SECONDS)
 	if(prob(50))
-		update_flags |= M.AdjustParalysis(-1, FALSE)
+		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-2 SECONDS)
 		M.AdjustWeakened(-2 SECONDS)
 	if(prob(4))
@@ -119,7 +119,7 @@
 
 /datum/reagent/consumable/sugar/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.Paralyse(3 * severity)
+	M.Paralyse(6 SECONDS * severity)
 	M.Weaken(8 SECONDS * severity)
 	if(prob(8))
 		update_flags |= M.adjustToxLoss(severity, FALSE)
@@ -758,7 +758,7 @@
 		to_chat(M, "<span class='warning'>You feel a sharp pain in your chest!</span>")
 		update_flags |= M.adjustOxyLoss(25, FALSE)
 		M.Stun(10 SECONDS)
-		update_flags |= M.Paralyse(10, FALSE)
+		M.Paralyse(20 SECONDS)
 	return list(0, update_flags)
 
 /datum/reagent/consumable/meatslurry
@@ -960,7 +960,7 @@
 /datum/reagent/consumable/entpoly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(current_cycle >= 10)
-		update_flags |= M.Paralyse(2, FALSE)
+		M.Paralyse(4 SECONDS)
 	if(prob(20))
 		update_flags |= M.LoseBreath(4, FALSE)
 		update_flags |= M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)

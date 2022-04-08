@@ -535,7 +535,7 @@
 	if(istype(user.loc,/obj/))
 		var/obj/container = user.loc
 		to_chat(user, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
-		user.AdjustParalysis(3)
+		user.AdjustParalysis(6 SECONDS)
 		user.AdjustWeakened(10 SECONDS)
 		container.visible_message("<span class='danger'>[user.loc]</b> emits a loud thump and rattles a bit.</span>")
 		playsound(user.loc, 'sound/effects/bang.ogg', 50, 1)

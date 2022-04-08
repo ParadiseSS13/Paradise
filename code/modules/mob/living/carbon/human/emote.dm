@@ -842,7 +842,7 @@
 					m_type = 1
 
 		if("collapse", "collapses")
-			Paralyse(2)
+			Paralyse(4 SECONDS)
 			message = "<B>[src]</B> collapses!"
 			m_type = 2
 			if(miming)

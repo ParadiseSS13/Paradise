@@ -502,7 +502,7 @@
 	src.add_fingerprint(user)
 	if(target == user && !user.incapacitated())
 		visible_message("<span class='warning'>[usr] jumps onto [src]!</span>")
-	else if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.paralysis)
+	else if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
 		if(target.anchored) return
 		if(!ishuman(user)) return
 		visible_message("<span class='warning'>[usr] drags [target.name] onto [src]!</span>")

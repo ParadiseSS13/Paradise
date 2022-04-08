@@ -56,17 +56,6 @@
 /mob/proc/AdjustLoseBreath()
 	return
 
-
-/mob/proc/Paralyse()
-	return
-
-/mob/proc/SetParalysis()
-	return
-
-/mob/proc/AdjustParalysis()
-	return
-
-
 /mob/proc/Silence()
 	return
 

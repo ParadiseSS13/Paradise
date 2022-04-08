@@ -241,8 +241,8 @@
 		occupantData["radLoss"] = occupant.radiation
 		occupantData["cloneLoss"] = occupant.getCloneLoss()
 		occupantData["brainLoss"] = occupant.getBrainLoss()
-		occupantData["paralysis"] = occupant.paralysis
-		occupantData["paralysisSeconds"] = round(occupant.paralysis * 0.25)
+		occupantData["paralysis"] = occupant.AmountParalyzed()
+		occupantData["paralysisSeconds"] = round(occupant.AmountParalyzed() * 0.25)
 		occupantData["bodyTempC"] = occupant.bodytemperature-T0C
 		occupantData["bodyTempF"] = (((occupant.bodytemperature-T0C) * 1.8) + 32)
 
@@ -407,7 +407,7 @@
 		extra_font = (occupant.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tApprox. Brain Damage %: [occupant.getBrainLoss()]<br>"
 
-		dat += "Paralysis Summary %: [occupant.paralysis] ([round(occupant.paralysis / 4)] seconds left!)<br>"
+		dat += "Paralysis Summary %: [occupant.IsParalyzed()] ([round(occupant.AmountParalyzed() / 10)] seconds left!)<br>"
 		dat += "Body Temperature: [occupant.bodytemperature-T0C]&deg;C ([occupant.bodytemperature*1.8-459.67]&deg;F)<br>"
 
 		dat += "<hr>"

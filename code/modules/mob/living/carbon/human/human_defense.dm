@@ -693,7 +693,7 @@ emp_act
 			switch(M.damtype)
 				if("brute")
 					if(M.force > 35) // durand and other heavy mechas
-						Paralyse(1)
+						Paralyse(2 SECONDS)
 					else if(M.force > 20 && !IsWeakened()) // lightweight mechas like gygax
 						Weaken(4 SECONDS)
 					update |= affecting.receive_damage(dmg, 0)

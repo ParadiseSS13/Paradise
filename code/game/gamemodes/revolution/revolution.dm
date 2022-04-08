@@ -271,7 +271,7 @@
 			message_admins("[key_name_admin(rev_mind.current)] [ADMIN_QUE(rev_mind.current,"?")] ([ADMIN_FLW(rev_mind.current,"FLW")]) has been borged while being a [remove_head ? "leader" : " member"] of the revolution.")
 
 		else
-			rev_mind.current.Paralyse(5)
+			rev_mind.current.Paralyse(10 SECONDS)
 			to_chat(rev_mind.current, "<span class='danger'><FONT size = 3>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who brainwashed you...</FONT></span>")
 
 		update_rev_icons_removed(rev_mind)

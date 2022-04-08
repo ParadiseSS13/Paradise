@@ -218,7 +218,7 @@
 		M.Weaken(6 SECONDS)
 		if(prob(30))
 			M.Stun(20 SECONDS)
-			M.Paralyse(4)
+			M.Paralyse(8 SECONDS)
 		else
 			M.Jitter(1000 SECONDS)
 		///else the mousetraps are useless

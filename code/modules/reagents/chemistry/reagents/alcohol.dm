@@ -1099,7 +1099,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDrowsy(-5)
 	if(prob(25))
-		update_flags |= M.AdjustParalysis(-1, FALSE)
+		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-2 SECONDS)
 		M.AdjustWeakened(-2 SECONDS)
 	if(prob(8))

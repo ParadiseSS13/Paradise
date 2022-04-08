@@ -64,7 +64,7 @@
 
 // Whether the mob is capable of standing or not
 /mob/living/proc/can_stand()
-	return !(IsWeakened() || paralysis || stat || HAS_TRAIT(src, TRAIT_FAKEDEATH))
+	return !(IsWeakened() || IsParalyzed() || stat || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 
 // Whether the mob is capable of actions or not
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE, list/extra_checks = list(), use_default_checks = TRUE)
@@ -74,7 +74,7 @@
 		extra_checks += CALLBACK(src, /mob/living.proc/IsWeakened)
 		extra_checks += CALLBACK(src, /mob/living.proc/IsStunned)
 
-	if(stat || paralysis || (!ignore_restraints && restrained()) || (!ignore_lying && lying) || check_for_true_callbacks(extra_checks))
+	if(stat || IsParalyzed() || (!ignore_restraints && restrained()) || (!ignore_lying && lying) || check_for_true_callbacks(extra_checks))
 		return TRUE
 
 // wonderful proc names, I know - used to check whether the blur overlay
@@ -117,8 +117,6 @@
 /mob/living/vv_edit_var(var_name, var_value)
 	. = ..()
 	switch(var_name)
-		if("paralysis")
-			SetParalysis(paralysis)
 		if("eye_blind")
 			SetEyeBlind(eye_blind)
 		if("eye_blurry")

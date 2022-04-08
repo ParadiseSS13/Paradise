@@ -637,7 +637,7 @@
 		if(13)
 			M.emote("faint")
 		if(14 to INFINITY)
-			update_flags |= M.Paralyse(10, FALSE)
+			M.Paralyse(20 SECONDS)
 			M.Drowsy(20)
 
 	M.AdjustJitter(-60 SECONDS)
@@ -798,7 +798,7 @@
 			M.emote("faint")
 			M.Weaken(10 SECONDS)
 		if(6 to INFINITY)
-			update_flags |= M.Paralyse(20, FALSE)
+			M.Paralyse(40 SECONDS)
 	M.AdjustJitter(-100 SECONDS)
 	if(prob(10))
 		M.emote("drool")
@@ -830,7 +830,7 @@
 			M.emote("faint")
 			M.Weaken(10 SECONDS)
 		if(11 to INFINITY)
-			update_flags |= M.Paralyse(25, FALSE)
+			M.Paralyse(50 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/sulfonal
@@ -856,7 +856,7 @@
 		if(22 to INFINITY)
 			if(prob(20))
 				M.emote("faint")
-				update_flags |= M.Paralyse(5, FALSE)
+				M.Paralyse(10 SECONDS)
 			M.Drowsy(20)
 	update_flags |= M.adjustToxLoss(1, FALSE)
 	return ..() | update_flags

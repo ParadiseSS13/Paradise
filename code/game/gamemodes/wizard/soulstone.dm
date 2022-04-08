@@ -271,7 +271,7 @@
 				init_shade(T, user)
 			else // Poll ghosts
 				to_chat(user, "<span class='userdanger'>Capture failed!</span> The soul has already fled its mortal frame. You attempt to bring it back...")
-				T.Paralyse(20)
+				T.Paralyse(40 SECONDS)
 				if(!get_cult_ghost(T, user, TRUE))
 					T.dust() //If we can't get a ghost, kill the sacrifice anyway.
 

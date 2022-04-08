@@ -99,7 +99,6 @@
 	var/eye_blurry = 0
 	var/hallucination = 0
 	var/losebreath = 0
-	var/paralysis = 0
 	var/slurring = 0
 	var/stuttering = 0
 
@@ -347,24 +346,37 @@
 	SetLoseBreath(new_value)
 
 // PARALYSE
+/mob/living/proc/IsParalyzed()
+	return has_status_effect(STATUS_EFFECT_PARALYZED)
 
-/mob/living/Paralyse(amount, updating = 1, force = 0)
-	return SetParalysis(max(paralysis, amount), updating, force)
+/mob/living/proc/AmountParalyzed()
+	var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed()
+	if(P)
+		return P.duration - world.time
+	return 0
 
-/mob/living/SetParalysis(amount, updating = 1, force = 0)
-	. = STATUS_UPDATE_STAT
-	if((!!amount) == (!!paralysis)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
-	if(status_flags & CANPARALYSE || force)
-		paralysis = max(amount, 0)
-		if(updating)
-			update_canmove()
-			update_stat("paralysis")
+/mob/living/proc/Paralyse(amount, ignore_canstun = FALSE)
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed()
+	if(P)
+		P.duration = max(world.time + amount, P.duration)
+	else if(amount > 0)
+		P = apply_status_effect(STATUS_EFFECT_PARALYZED, amount)
+	return P
 
-/mob/living/AdjustParalysis(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
-	var/new_value = directional_bounded_sum(paralysis, amount, bound_lower, bound_upper)
-	return SetParalysis(new_value, updating, force)
+/mob/living/proc/SetParalysis(amount, ignore_canstun = FALSE)
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed()
+	if(P)
+		P.duration = max(world.time + amount, P.duration)
+	else if(amount > 0)
+		P = apply_status_effect(STATUS_EFFECT_PARALYZED, amount)
+	return P
+
+/mob/living/proc/AdjustParalysis(amount, bound_lower = 0, bound_upper = INFINITY, ignore_canstun = FALSE)
+	return SetParalysis(clamp(amount + AmountParalyzed(), bound_lower, bound_upper), ignore_canstun)
 
 // SILENT
 /mob/living/proc/AmountSilenced()

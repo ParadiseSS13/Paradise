@@ -52,7 +52,7 @@
 			H.AdjustSleeping(-10 SECONDS)
 			if(!H.IsSleeping())
 				H.StopResting()
-			H.AdjustParalysis(-3)
+			H.AdjustParalysis(-6 SECONDS)
 			H.AdjustStunned(-6 SECONDS)
 			H.AdjustWeakened(-6 SECONDS)
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
