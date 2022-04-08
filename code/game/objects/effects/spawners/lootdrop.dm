@@ -8,7 +8,7 @@
 
 /obj/effect/spawner/lootdrop/Initialize(mapload)
 	. = ..()
-	while(!lootcount == 0)
+	while(lootcount)
 		var/lootspawn = pickweight(loot)
 		if(!lootdoubles)
 			loot.Remove(lootspawn)
@@ -236,7 +236,7 @@
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/minerals/Initialize(mapload)
-	while(!lootcount == 0)
+	while(lootcount)
 		var/lootspawn = pickweight(loot)
 		var/obj/item/stack/sheet/S = new lootspawn(get_turf(src))
 		S.amount = 25
@@ -356,7 +356,7 @@
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/vehicle/Initialize(mapload)
-	while(!lootcount == 0)
+	while(lootcount)
 		var/lootspawn = pickweight(loot)
 		var/obj/vehicle/V = new lootspawn(get_turf(src))
 		if(V.key_type)
