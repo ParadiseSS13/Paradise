@@ -7206,9 +7206,6 @@
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "azq" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
@@ -7219,19 +7216,18 @@
 	},
 /area/crew_quarters/toilet)
 "azr" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	dir = 1;
+	icon_state = "neutralcorner"
 	},
-/area/crew_quarters/toilet)
+/area/hallway/primary/fore)
 "azs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
 	},
 /obj/structure/mirror{
 	pixel_y = 32
@@ -7741,14 +7737,16 @@
 /area/crew_quarters/toilet)
 "aAB" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/crew_quarters/toilet)
 "aAC" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 2;
@@ -7845,6 +7843,9 @@
 /area/hallway/primary/fore)
 "aAI" = (
 /obj/machinery/light,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -9611,7 +9612,6 @@
 "aEJ" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/fore)
@@ -13591,19 +13591,6 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
-"aNf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/fore)
 "aNg" = (
 /obj/machinery/alarm{
 	dir = 8;
@@ -21276,16 +21263,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
-	},
-/area/hallway/primary/fore)
-"bcm" = (
-/obj/structure/extinguisher_cabinet{
-	name = "west bump";
-	pixel_x = -30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/fore)
 "bcn" = (
@@ -134295,8 +134272,8 @@ aGq
 aHB
 aHC
 aLI
-bcm
 bhO
+azr
 bhO
 bhO
 aSY
@@ -134552,7 +134529,7 @@ aUC
 aIR
 aKm
 aOx
-aNf
+aXz
 aXz
 aXz
 aXz
@@ -137624,7 +137601,7 @@ ava
 aYS
 axe
 ayt
-azr
+ays
 aAI
 axe
 bhO
@@ -138914,7 +138891,7 @@ bhO
 bhO
 bhO
 aAz
-bhO
+aFH
 aWq
 aGH
 bhO
