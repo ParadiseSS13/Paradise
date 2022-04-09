@@ -267,9 +267,9 @@
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"You want to be blind, do you?\"</span>")
 		user.unEquip(src, 1)
-		user.Confused(30)
+		user.Confused(60 SECONDS)
 		user.Weaken(10 SECONDS)
-		user.EyeBlind(30)
+		user.EyeBlind(60 SECONDS)
 
 /obj/item/shuttle_curse
 	name = "cursed orb"
@@ -699,9 +699,9 @@
 		var/mob/living/carbon/M = user
 		to_chat(M, "<span class='cultlarge'>\"So, you want to explore space?\"</span>")
 		to_chat(M, "<span class='warning'>Space flashes around you as you are moved somewhere else!</span>")
-		M.Confused(10)
+		M.Confused(20 SECONDS)
 		M.flash_eyes(override_blindness_check = TRUE)
-		M.EyeBlind(10)
+		M.EyeBlind(20 SECONDS)
 		do_teleport(M, get_turf(M), 5, asoundin = 'sound/magic/cult_spell.ogg')
 		qdel(src)
 		return

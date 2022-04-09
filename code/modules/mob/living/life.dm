@@ -128,9 +128,7 @@
 /mob/living/proc/handle_disabilities()
 	//Eyes
 	if(HAS_TRAIT(src, TRAIT_BLIND) || stat)	//blindness from disability or unconsciousness doesn't get better on its own
-		EyeBlind(1)
-	else if(eye_blind)			//blindness, heals slowly over time
-		AdjustEyeBlind(-1)
+		EyeBlind(2 SECONDS)
 
 // Gives a mob the vision of being dead
 /mob/living/proc/grant_death_vision()

@@ -339,7 +339,7 @@
 	if(update_flags & STATUS_UPDATE_NEARSIGHTED)
 		M.update_nearsighted_effects()
 	if(update_flags & STATUS_UPDATE_DRUGGY)
-		M.update_druggy_effects()
+		M.update_druggy_effects() //todo NUKE half of these
 	update_total()
 
 /datum/reagents/proc/death_metabolize(mob/living/M)

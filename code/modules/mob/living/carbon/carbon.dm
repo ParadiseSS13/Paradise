@@ -379,7 +379,7 @@
 				E.receive_damage(rand(12, 16) + extra_damage, 1)
 
 		if(E.damage > E.min_bruised_damage)
-			AdjustEyeBlind(damage)
+			AdjustEyeBlind(damage * 20)
 			AdjustEyeBlurry(damage * rand(6 SECONDS, 12 SECONDS))
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)

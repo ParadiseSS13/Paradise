@@ -12,7 +12,7 @@
 	color = "#FFFF00"
 	nodamage = 1
 	weaken = 10 SECONDS
-	stutter = 5
+	stutter = 10 SECONDS
 	jitter = 40 SECONDS
 	hitsound = 'sound/weapons/tase.ogg'
 	range = 7

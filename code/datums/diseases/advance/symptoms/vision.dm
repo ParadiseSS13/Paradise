@@ -46,6 +46,6 @@ Bonus
 				if(eyes.damage >= 10)
 					M.become_nearsighted(EYE_DAMAGE)
 					if(prob(eyes.damage - 10 + 1))
-						if(!M.eye_blind)
+						if(!M.AmountBlinded())
 							to_chat(M, "<span class='userdanger'>You go blind!</span>")
 							eyes.receive_damage(eyes.max_damage)

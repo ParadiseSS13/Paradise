@@ -542,7 +542,7 @@ REAGENT SCANNER
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 
 /obj/item/slime_scanner/attack(mob/living/M, mob/living/user)
-	if(user.incapacitated() || user.eye_blind)
+	if(user.incapacitated() || user.AmountBlinded())
 		return
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>This device can only scan slimes!</span>")

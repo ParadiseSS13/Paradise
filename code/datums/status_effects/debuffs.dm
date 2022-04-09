@@ -533,3 +533,30 @@
 		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold)) // decays faster if you rest your eyes with a blindfold.
 			return -1 SECONDS
 	return ..() //default decay rate
+
+
+/datum/status_effect/transient/blindness
+	id = "blindness"
+
+/datum/status_effect/transient/blindness/tick()
+	..()
+	if(owner)
+		owner.update_blind_effects()
+
+/datum/status_effect/transient/blindness/on_remove()
+	owner.update_blind_effects()
+
+/datum/status_effect/transient/blindness/calc_decay()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		var/obj/item/organ/vision = H.get_int_organ(H.dna.species.vision_organ)
+
+		if(vision.is_broken())
+			return 0.2
+
+		if(vision.is_bruised() || HAS_TRAIT(owner, TRAIT_BLIND)) // doesn't decay if you have damaged eyesight.
+			return 0
+
+		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold)) // decays faster if you rest your eyes with a blindfold.
+			return -1 SECONDS
+	return ..() //default decay rate

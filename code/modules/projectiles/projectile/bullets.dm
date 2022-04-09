@@ -159,7 +159,7 @@
 	name = "stunshot"
 	damage = 5
 	weaken = 10 SECONDS
-	stutter = 5
+	stutter = 10 SECONDS
 	jitter = 40 SECONDS
 	range = 7
 	icon_state = "spark"

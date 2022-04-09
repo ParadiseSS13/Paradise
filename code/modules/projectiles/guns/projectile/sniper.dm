@@ -128,7 +128,6 @@
 /obj/item/projectile/bullet/sniper/soporific
 	armour_penetration = 0
 	nodamage = 1
-	stun = 0
 	weaken = 0
 
 /obj/item/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
@@ -186,7 +185,6 @@
 	name = "penetrator round"
 	damage = 60
 	forcedodge = 1
-	stun = 0
 	dismemberment = 0
 	weaken = 0
 

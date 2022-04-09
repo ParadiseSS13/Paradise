@@ -290,7 +290,7 @@
 				user.visible_message("<span class='danger'> [user] sprays [src] into the face of [target]!</span>")
 				if(C.client)
 					C.EyeBlurry(6 SECONDS)
-					C.EyeBlind(1)
+					C.EyeBlind(2 SECONDS)
 					if(C.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
 						C.Confused(3)
 						C.Weaken(6 SECONDS)

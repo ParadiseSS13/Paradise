@@ -224,7 +224,7 @@
 				if(prob(5))
 					victim.emote("scream")
 				victim.EyeBlurry(6 SECONDS)
-				victim.EyeBlind(1)
+				victim.EyeBlind(2 SECONDS)
 				victim.Confused(6 SECONDS)
 				victim.damageoverlaytemp = 60
 				victim.Weaken(6 SECONDS)
@@ -240,7 +240,7 @@
 					victim.emote("scream")
 				to_chat(victim, "<span class='danger'>You're sprayed directly in the eyes with pepperspray!</span>")
 				victim.EyeBlurry(10 SECONDS)
-				victim.EyeBlind(2)
+				victim.EyeBlind(4 SECONDS)
 				victim.Confused(12 SECONDS)
 				victim.damageoverlaytemp = 75
 				victim.Weaken(10 SECONDS)
@@ -561,7 +561,7 @@
 			else
 				if(!M.AmountEyeBlurry())
 					to_chat(M, "<span class = 'warning'>Tears well up in your eyes!</span>")
-				M.EyeBlind(2)
+				M.EyeBlind(4 SECONDS)
 				M.EyeBlurry(10 SECONDS)
 	..()
 

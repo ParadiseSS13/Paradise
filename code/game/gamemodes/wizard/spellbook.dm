@@ -971,10 +971,12 @@
 	icon_state = "bookblind"
 	desc = "This book looks blurry, no matter how you look at it."
 
-/obj/item/spellbook/oneuse/blind/recoil(mob/user as mob)
+/obj/item/spellbook/oneuse/blind/recoil(mob/user)
 	..()
-	to_chat(user, "<span class='warning'>You go blind!</span>")
-	user.EyeBlind(10)
+	if(isliving(user))
+		var/mob/living/L = user
+		to_chat(user, "<span class='warning'>You go blind!</span>")
+		L.EyeBlind(20 SECONDS)
 
 /obj/item/spellbook/oneuse/mindswap
 	spell = /obj/effect/proc_holder/spell/mind_transfer

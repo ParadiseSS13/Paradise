@@ -95,7 +95,6 @@
 
 /mob // On `/mob` for now, to support legacy code
 	var/druggy = 0
-	var/eye_blind = 0
 
 // RESTING
 
@@ -258,23 +257,17 @@
 	return SetDruggy(new_value, updating)
 
 // EYE_BLIND
+/mob/living/proc/AmountBlinded()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_BLINDED)
 
-/mob/living/EyeBlind(amount, updating = TRUE)
-	return SetEyeBlind(max(eye_blind, amount), updating)
+/mob/living/proc/EyeBlind(amount)
+	SetEyeBlind(max(AmountBlinded(), amount))
 
-/mob/living/SetEyeBlind(amount, updating = TRUE)
-	. = STATUS_UPDATE_BLIND
-	if((!!amount) == (!!eye_blind)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
-	eye_blind = max(amount, 0)
-	// We transitioned to/from 0, so update the eye blind overlays
-	if(updating)
-		update_blind_effects()
+/mob/living/proc/SetEyeBlind(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_BLINDED, amount)
 
-/mob/living/AdjustEyeBlind(amount, bound_lower = 0, bound_upper = INFINITY, updating = TRUE)
-	var/new_value = directional_bounded_sum(eye_blind, amount, bound_lower, bound_upper)
-	return SetEyeBlind(new_value, updating)
+/mob/living/proc/AdjustEyeBlind(amount, bound_lower = 0, bound_upper = INFINITY, updating = TRUE)
+	SetEyeBlind(clamp(amount + AmountBlinded(), bound_lower, bound_upper))
 
 // EYE_BLURRY
 /mob/living/proc/AmountEyeBlurry()
@@ -660,6 +653,7 @@
 	var/val_change = !HAS_TRAIT(src, TRAIT_BLIND)
 	. = val_change ? STATUS_UPDATE_BLIND : STATUS_UPDATE_NONE
 	ADD_TRAIT(src, TRAIT_BLIND, source)
+	EyeBlind(2 SECONDS)
 	if(val_change && updating)
 		update_blind_effects()
 

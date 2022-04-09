@@ -118,6 +118,8 @@
 
 #define STATUS_EFFECT_BLURRY_EYES /datum/status_effect/transient/eye_blurry
 
+#define STATUS_EFFECT_BLINDED /datum/status_effect/transient/blindness
+
 /////////////
 // NEUTRAL //
 /////////////

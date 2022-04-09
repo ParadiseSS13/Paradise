@@ -458,7 +458,7 @@
 
 		to_chat(M, "<span class='warning'>You feel strange...</span>")
 		M.Paralyse(30 SECONDS)
-		M.EyeBlind(35 SECONDS_TO_LIFE_CYCLES)
+		M.EyeBlind(35 SECONDS)
 		M.EyeBlurry(35 SECONDS)
 		M.AdjustConfused(35 SECONDS)
 

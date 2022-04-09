@@ -97,15 +97,7 @@
 		SetEyeBlurry(0)
 
 	else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
-		EyeBlind(2)
-		EyeBlurry(2)
-
-	else
-		//blindness
-		if(HAS_TRAIT(src, TRAIT_BLIND)) // Disabled-blind, doesn't get better on its own
-
-		else if(eye_blind)		       // Blindness, heals slowly over time
-			AdjustEyeBlind(-1)
+		EyeBlind(4 SECONDS)
 
 	if(getBrainLoss() >= 60 && stat != DEAD)
 		if(prob(3))

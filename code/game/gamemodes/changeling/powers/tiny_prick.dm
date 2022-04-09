@@ -114,7 +114,7 @@
 	add_attack_logs(user, target, "Blind sting (changeling)")
 	to_chat(target, "<span class='danger'>Your eyes burn horrifically!</span>")
 	target.become_nearsighted(EYE_DAMAGE)
-	target.EyeBlind(20)
+	target.EyeBlind(40 SECONDS)
 	target.EyeBlurry(80 SECONDS)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
