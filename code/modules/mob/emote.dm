@@ -132,7 +132,7 @@
 				var/turf/oldloc = user.loc
 				var/turf/newloc = G.affecting.loc
 				if(isturf(oldloc) && isturf(newloc))
-					user.SpinAnimation(5,1)
+					user.SpinAnimation(5, 1)
 					user.glide_for(0.6 SECONDS) // This and the glide_for below are purely arbitrary. Pick something that looks aesthetically pleasing.
 					user.forceMove(newloc)
 					G.glide_for(0.6 SECONDS)
@@ -142,11 +142,11 @@
 
 	if(prob(5))
 		message = "attempts a flip and crashes to the floor!"
-		user.SpinAnimation(5,1)
+		user.SpinAnimation(5, 1)
 		sleep(0.3 SECONDS)
 		user.Weaken(2)
 		return
-	user.SpinAnimation(5,1)
+	user.SpinAnimation(5, 1)
 
 	. = ..()
 	message = initial(message)

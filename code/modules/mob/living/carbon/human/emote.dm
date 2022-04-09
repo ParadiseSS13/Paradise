@@ -122,10 +122,15 @@
 	message_mime = "appears to be gasping!"
 	emote_type = EMOTE_SOUND
 	age_based = TRUE
+	volume = 100
 
 /datum/emote/living/carbon/human/gasp/get_sound(mob/user)
 
 	var/mob/living/carbon/human/H = user
+
+	if(H.is_muzzled)
+		// If you're muzzled you're not making noise
+		return
 
 	if(H.health > 0)
 		return H.dna.species.gasp_sound
@@ -214,6 +219,7 @@
 	message = "sneezes."
 	muzzled_noises = list("strange", "sharp")
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	volume = 70
 
 /datum/emote/living/carbon/human/sneeze/get_sound(mob/user)
 	var/mob/living/carbon/human/H = user
@@ -338,9 +344,14 @@
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/fart/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
+	if(!can_run_emote(user, intentional = intentional))
+		return FALSE
+	var/farted_on_something = FALSE
 	for(var/atom/A in get_turf(src))
-		A.fart_act(src)
+		farted_on_something = A.fart_act(src) || farted_on_something
+	if(!farted_on_something)
+		. = ..()
+
 
 /datum/emote/living/carbon/human/sign/signal
 	key = "signal"
@@ -484,7 +495,6 @@
 	key_third_person = "flaps"
 	message = "flaps their wings."
 	species_type_whitelist_typecache = list(/datum/species/moth)
-	// TODO Maybe add custom species messages based on the user species?
 	hands_use_check = TRUE
 
 /datum/emote/living/carbon/human/flap/aflap
@@ -497,7 +507,6 @@
 	key_third_person = "flutters"
 	message = "flutters their wings."
 	species_type_whitelist_typecache = list(/datum/species/moth)
-
 
 /datum/emote/living/carbon/human/quill
 	key = "quill"
@@ -536,6 +545,8 @@
 	if(!can_run_emote(user))
 		return FALSE
 	. = ..()
+	if(!.)
+		return
 	mineral_scan_pulse(get_turf(src), range = world.view)
 
 /datum/emote/living/carbon/human/clack/click
@@ -626,6 +637,7 @@
 	age_based = TRUE
 	sound = "sound/goonstation/voice/howl.ogg"
 	muzzled_noises = list("very loud")
+	volume = 100
 
 /datum/emote/living/carbon/human/growl
 	key = "growl"
@@ -634,6 +646,7 @@
 	message_param = "growls at %t."
 	species_type_whitelist_typecache = list(/datum/species/vulpkanin)
 	sound = "growls"  // what the fuck
+	volume = 80
 	muzzled_noises = list("annoyed")
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 

@@ -27,6 +27,7 @@
 	emote_type = EMOTE_SOUND
 	vary = TRUE
 	sound = "sound/goonstation/voice/robot_scream.ogg"
+	volume = 80
 
 /datum/emote/living/silicon/ping
 	key = "ping"

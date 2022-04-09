@@ -85,6 +85,7 @@
 	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE  // make sure deathgasp gets runechatted regardless
 	age_based = TRUE
 	cooldown = 15 SECONDS
+	volume = 40
 	unintentional_stat_allowed = DEAD
 	message = "seizes up and falls limp, their eyes dead and lifeless..."
 	message_alien = "seizes up and falls limp, their eyes dead and lifeless..."
@@ -211,7 +212,12 @@
 	message_simple = "whimpers."
 	message_alien = "roars!"
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
-	mob_type_blacklist_typecache = list(/mob/living/carbon/human) // Humans get specialized scream.
+	mob_type_blacklist_typecache = list(
+		// Humans and silicons get specialized scream.
+		/mob/living/carbon/human,
+		/mob/living/silicon
+	)
+	volume = 80
 
 /datum/emote/living/scream/get_sound(mob/living/user)
 	. = ..()

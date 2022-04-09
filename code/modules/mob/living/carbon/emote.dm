@@ -128,7 +128,7 @@
 	key = "sign"
 	key_third_person = "signs"
 	message_param = "signs the number %t."
-	// Humans get their own proc with fingers
+	// Humans get their own proc since they have fingers
 	mob_type_blacklist_typecache = list(/mob/living/carbon/human)
 	hands_use_check = TRUE
 

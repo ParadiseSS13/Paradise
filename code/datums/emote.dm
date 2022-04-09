@@ -29,16 +29,16 @@
 /// Marker to separate an emote key from its parameters in user input.
 #define EMOTE_PARAM_SEPARATOR "-"
 
-// This defines the base cooldown for how often some emotes
+// This defines the base cooldown for how often each emote can be used.
 
 /// Default cooldown for emotes
-#define DEFAULT_EMOTE_COOLDOWN 2 SECONDS
+#define DEFAULT_EMOTE_COOLDOWN (2 SECONDS)
 
 // Each mob can only make sounds with (intentional) emotes this often.
 // These emotes will still be sent to chat, but won't play their associated sound effect.
 
 /// Default cooldown for audio that comes from emotes.
-#define AUDIO_EMOTE_COOLDOWN 10 SECONDS
+#define AUDIO_EMOTE_COOLDOWN (10 SECONDS)
 
 
 
@@ -104,7 +104,7 @@
 	var/vary = FALSE
 	/// Whether or not to adjust the frequency of the emote sound based on age.
 	var/age_based = FALSE
-	/// Can only code call this event instead of the player.
+	/// If true, this emote will only make a sound effect when called unintentionally.
 	var/only_forced_audio = FALSE
 	/// The cooldown between the uses of the emote.
 	var/cooldown = DEFAULT_EMOTE_COOLDOWN
@@ -270,8 +270,8 @@
 /datum/emote/proc/select_message_type(mob/user, msg, intentional)
 	// Basically, we don't care that the others can use datum variables, because they're never going to change.
 	. = msg
-	if(!muzzle_ignore && user.is_muzzled() && emote_type & (EMOTE_MOUTH))
-		return "makes a [pick(muzzled_noises)]noise."
+	if(!muzzle_ignore && user.is_muzzled() && (emote_type & (EMOTE_MOUTH)))
+		return "makes a [pick(muzzled_noises)] noise."
 	if(user.mind && user.mind.miming && message_mime)
 		. = message_mime
 	if(isalienadult(user) && message_alien)
@@ -342,7 +342,7 @@
 
 	if(isliving(user))
 		var/mob/living/sender = user
-		if(HAS_TRAIT(sender, TRAIT_EMOTE_MUTE))
+		if(HAS_TRAIT(sender, TRAIT_EMOTE_MUTE) && intentional)
 			return FALSE
 	else
 		// deadchat handling
