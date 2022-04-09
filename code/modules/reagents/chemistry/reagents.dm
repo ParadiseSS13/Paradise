@@ -214,7 +214,6 @@
 		if(prob(6))
 			to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
 			M.visible_message("<span class='warning'>[M] gags and retches!</span>")
-			M.Stun(rand(4 SECONDS, 8 SECONDS))
 			M.Weaken(rand(4 SECONDS, 8 SECONDS))
 		if(prob(8))
 			M.emote(pick("twitch", "twitch_s", "shiver"))

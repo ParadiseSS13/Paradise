@@ -328,7 +328,7 @@
 			if(ishuman(mob))
 				//Hilariously enough, running into a closet should make you get hit the hardest.
 				var/mob/living/carbon/human/H = mob
-				var/hallucination_amount = (max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1))))) * 10
+				var/hallucination_amount = (max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1))))) SECONDS
 				H.AdjustHallucinate(hallucination_amount)
 			var/rads = DETONATION_RADS * sqrt(1 / (get_dist(L, src) + 1))
 			L.rad_act(rads)
@@ -540,7 +540,7 @@
 	for(var/mob/living/carbon/human/l in view(src, HALLUCINATION_RANGE(power))) // If they can see it without mesons on.  Bad on them.
 		if(!istype(l.glasses, /obj/item/clothing/glasses/meson) && !HAS_TRAIT(l, TRAIT_MESON_VISION))
 			var/D = sqrt(1 / max(1, get_dist(l, src)))
-			var/hallucination_amount = power * hallucination_power * D * 10
+			var/hallucination_amount = power * hallucination_power * D SECONDS
 			l.AdjustHallucinate(hallucination_amount, 0, 200 SECONDS)
 	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
 		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src), 1) )

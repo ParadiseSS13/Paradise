@@ -286,7 +286,7 @@
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if(!Adjacent(target) || !isturf(target.loc) || target.AmountWeakened() < 2)
+			if(!Adjacent(target) || !isturf(target.loc) || target.AmountWeakened() < 4 SECONDS)
 				back_to_hunt()
 				return
 
@@ -313,7 +313,7 @@
 				back_to_idle()
 				return
 
-			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && target.AmountWeakened() < 2)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
+			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && target.AmountWeakened() < 4 SECONDS)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
 				back_to_hunt()
 				return
 			else
@@ -573,7 +573,7 @@
 	spawn(2)
 		icon_state = "[lasercolor]ed209[on]"
 	var/threat = C.assess_threat(src)
-	C.SetStuttering(5)
+	C.SetStuttering(10 SECONDS)
 	C.Weaken(10 SECONDS)
 	add_attack_logs(src, C, "stunned")
 	if(declare_arrests)

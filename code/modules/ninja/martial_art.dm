@@ -62,7 +62,8 @@
 			D.drop_item()
 			D.apply_damage(5, BRUTE, pick("l_arm", "r_arm"))
 			D.Stun(2 SECONDS)
-			spawn(50) has_focus = 1
+			spawn(50)
+				has_focus = 1
 			return 1
 		to_chat(A, "<span class='warning'>You are not focused enough to use that move yet!</span>")
 		return 0
@@ -128,7 +129,8 @@
 
 			D.Weaken(4 SECONDS)
 			playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
-			spawn(50) has_focus = 1
+			spawn(50)
+				has_focus = 1
 			return 1
 		to_chat(A, "<span class='warning'>You are not focused enough to use that move yet!</span>")
 		return 0

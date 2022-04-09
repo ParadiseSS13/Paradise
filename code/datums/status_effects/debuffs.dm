@@ -552,7 +552,7 @@
 		var/obj/item/organ/vision = H.get_int_organ(H.dna.species.vision_organ)
 
 		if(vision.is_broken())
-			return 0.2
+			return 0.2 SECONDS
 
 		if(vision.is_bruised() || HAS_TRAIT(owner, TRAIT_BLIND)) // doesn't decay if you have damaged eyesight.
 			return 0

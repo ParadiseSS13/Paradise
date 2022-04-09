@@ -60,7 +60,7 @@
 				visible_message("<span class='danger'>[M] has shocked [src]!</span>", "<span class='userdanger'>[M] has shocked you!</span>")
 
 				do_sparks(5, TRUE, src)
-				var/power = (M.powerlevel + rand(0,3)) * 20
+				var/power = (M.powerlevel + rand(0,3)) * 2 SECONDS
 				Stun(power)
 				Stuttering(power)
 				if(prob(stunprob) && M.powerlevel >= 8)

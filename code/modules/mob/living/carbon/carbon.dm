@@ -172,12 +172,12 @@
 	//Jitter and other fluff.
 	AdjustJitter(2000 SECONDS)
 	AdjustStuttering(4 SECONDS)
-	addtimer(CALLBACK(src, .proc/secondary_shock, should_stun), 20)
+	addtimer(CALLBACK(src, .proc/secondary_shock, should_stun), 2 SECONDS)
 	return shock_damage
 
 ///Called slightly after electrocute act to reduce jittering and apply a secondary stun.
 /mob/living/carbon/proc/secondary_shock(should_stun)
-	AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
+	AdjustJitter(-2000 SECONDS, bound_lower = 20 SECONDS) //Still jittery, but vastly less
 	if(should_stun)
 		Weaken(6 SECONDS)
 

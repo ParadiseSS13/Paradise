@@ -182,7 +182,6 @@
 			C.AdjustEarDamage(0, 5) //far less damage than the H.O.N.K.
 			C.Jitter(100 SECONDS)
 			C.Weaken(10 SECONDS)
-			C.Stun(10 SECONDS)
 			if(client) //prevent spam from players..
 				spam_flag = TRUE
 			if(emagged <= 1) //HONK once, then leave

@@ -77,7 +77,7 @@
 	if(current_victim && !ishuman(current_victim)) //Just in case a nonhuman is accidentally chosen. A human will then be chosen later on in Acquire_Victim()
 		current_victim = null
 
-	do_jitter_animation(2000 SECONDS)
+	do_jitter_animation(1000)
 	pixel_y = 8
 
 	if(is_type_in_typecache(get_area(loc), invalid_area_typecache))

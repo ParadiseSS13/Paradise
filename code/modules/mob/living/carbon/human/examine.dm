@@ -168,11 +168,11 @@
 
 	//Jitters
 	switch(AmountJitter())
-		if(6000 to INFINITY)
+		if(600 SECONDS to INFINITY)
 			msg += "<span class='warning'><B>[p_they(TRUE)] [p_are()] convulsing violently!</B></span>\n"
-		if(4000 to 6000)
+		if(400 SECONDS to 600 SECONDS)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] extremely jittery.</span>\n"
-		if(2000 to 4000)
+		if(200 SECONDS to 400 SECONDS)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] twitching ever so slightly.</span>\n"
 
 
