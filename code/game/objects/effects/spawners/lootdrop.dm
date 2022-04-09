@@ -242,7 +242,6 @@
 		S.amount = 25
 		lootcount--
 	. = ..()
-	qdel(src)
 
 /obj/effect/spawner/lootdrop/trade_sol/donksoft
 	name = "3. donksoft gear"
@@ -363,7 +362,6 @@
 			V.inserted_key = new V.key_type(V)
 		lootcount--
 	. = ..()
-	qdel(src)
 
 /obj/effect/spawner/lootdrop/trade_sol/serv
 	name = "10. service gear"
