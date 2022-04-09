@@ -148,6 +148,8 @@
 	return
 
 /obj/machinery/r_n_d/experimentor/crowbar_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
