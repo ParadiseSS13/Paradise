@@ -27,7 +27,7 @@
 		var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(istype(E))
 			E.receive_damage(5, 1)
-		H.AdjustConfused(3)
+		H.AdjustConfused(6 SECONDS)
 	for(var/mob/living/silicon/S in range(2,user))
 		to_chat(S, "<span class='userdanger'>Your sensors are disabled by a shower of blood!</span>")
 		S.Weaken(6 SECONDS)

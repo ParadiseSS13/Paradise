@@ -53,7 +53,7 @@
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
-		user.Confused(10)
+		user.Confused(20 SECONDS)
 		user.Jitter(12 SECONDS)
 
 	if(HAS_TRAIT(user, TRAIT_HULK))
@@ -159,7 +159,7 @@
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.unEquip(src, 1)
-		user.Confused(10)
+		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
@@ -201,7 +201,7 @@
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.unEquip(src, 1)
-		user.Confused(10)
+		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
 	else if(slot == slot_wear_suit)
 		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes")

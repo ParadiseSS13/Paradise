@@ -526,7 +526,7 @@
 	M.Paralyse(3 SECONDS)
 	M.EyeBlurry(5 SECONDS)
 	M.AdjustConfused(5 SECONDS)
-	M.Dizzy(35)
+	M.Dizzy(70 SECONDS)
 	do_sparks(4, FALSE, destination)
 
 	// Newscaster story

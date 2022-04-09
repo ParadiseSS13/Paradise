@@ -455,10 +455,10 @@
 			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
 		else if(C.mind.assigned_role == "Mime")
 			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
-			C.AdjustDizzy(volume)
+			C.AdjustDizzy(volume * 20)
 		else
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
-			C.AdjustDizzy(volume)
+			C.AdjustDizzy(volume * 20)
 	ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
 	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
 	C.AddElement(/datum/element/waddling)
@@ -472,7 +472,7 @@
 	if(M.mind.assigned_role == "Clown")
 		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
 	else
-		M.AdjustDizzy(10, 0, 500)
+		M.AdjustDizzy(20 SECONDS, 0, 1000 SECONDS)
 		M.Druggy(30 SECONDS)
 		if(prob(10))
 			M.EyeBlurry(10 SECONDS)

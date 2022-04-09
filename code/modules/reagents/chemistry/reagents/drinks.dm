@@ -271,8 +271,8 @@
 	description = "Coffee is a brewed drink prepared from roasted seeds, commonly called coffee beans, of the coffee plant."
 	color = "#482000" // rgb: 72, 32, 0
 	nutriment_factor = 0
-	adj_dizzy = -5
-	adj_drowsy = -3
+	adj_dizzy = -10 SECONDS
+	adj_drowsy = -6 SECONDS
 	adj_sleepy = -4 SECONDS
 	adj_temp_hot = 25
 	overdose_threshold = 45
@@ -366,8 +366,8 @@
 	description = "Tasty black tea: It has antioxidants. It's good for you!"
 	color = "#101000" // rgb: 16, 16, 0
 	nutriment_factor = 0
-	adj_dizzy = -2
-	adj_drowsy = -1
+	adj_dizzy = -4 SECONDS
+	adj_drowsy = -2 SECONDS
 	adj_sleepy = -6 SECONDS
 	adj_temp_hot = 20
 	addiction_chance = 1

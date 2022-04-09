@@ -90,7 +90,7 @@
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(targeted)
 			if(M.flash_eyes(1, 1))
-				M.AdjustConfused(power)
+				M.AdjustConfused(power * 20)
 				terrible_conversion_proc(M, user)
 				M.Stun(2 SECONDS)
 				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
@@ -103,7 +103,7 @@
 			return
 
 	if(M.flash_eyes())
-		M.AdjustConfused(power)
+		M.AdjustConfused(power * 20)
 
 /obj/item/flash/attack(mob/living/M, mob/user)
 	if(!try_use_flash(user))

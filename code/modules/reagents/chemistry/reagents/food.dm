@@ -101,7 +101,7 @@
 
 /datum/reagent/consumable/sugar/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustDrowsy(-5)
+	M.AdjustDrowsy(-10 SECONDS)
 	if(current_cycle >= 90)
 		M.AdjustJitter(4 SECONDS)
 	if(prob(50))

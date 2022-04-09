@@ -253,7 +253,7 @@
 		var/obj/item/soulstone/SS = I
 		if(!SS.can_use(user))
 			to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you attempt to place the soulstone into the shell.</span>")
-			user.Confused(10)
+			user.Confused(20 SECONDS)
 			return
 		SS.transfer_soul("CONSTRUCT", src, user)
 		SS.was_used()

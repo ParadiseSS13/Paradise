@@ -281,8 +281,8 @@
 			M.martial_art.remove(src)
 	// THRESHOLD_CONFUSION (40)
 	if(actual_strength >= THRESHOLD_CONFUSION && prob(33))
-		owner.AdjustConfused(3 / alcohol_resistance, bound_lower = 1)
-		owner.AdjustDizzy(3 / alcohol_resistance, bound_lower = 1)
+		owner.AdjustConfused(6 SECONDS / alcohol_resistance, bound_lower = 2 SECONDS)
+		owner.AdjustDizzy(6 SECONDS / alcohol_resistance, bound_lower = 2 SECONDS)
 	// THRESHOLD_SPARK (50)
 	if(is_ipc && actual_strength >= THRESHOLD_SPARK && prob(25))
 		do_sparks(3, 1, owner)
@@ -395,7 +395,7 @@
 		break //Only count the first bedsheet
 	if(dreamer.get_drunkenness() > 0)
 		comfort += 1 //Aren't naps SO much better when drunk?
-		dreamer.AdjustDrunk(-0.2 * comfort) //reduce drunkenness while sleeping.
+		dreamer.AdjustDrunk(-0.4 SECONDS * comfort) //reduce drunkenness while sleeping.
 	if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
 		dreamer.adjustBruteLoss(-1 * comfort, FALSE)
 		dreamer.adjustFireLoss(-1 * comfort)
@@ -525,7 +525,7 @@
 		var/obj/item/organ/vision = H.get_int_organ(H.dna.species.vision_organ)
 
 		if(vision.is_broken())
-			return 0.2
+			return 0.2 SECONDS
 
 		if(vision.is_bruised()) // doesn't decay if you have damaged eyesight.
 			return 0

@@ -486,7 +486,7 @@
 			if(iscarbon(target))
 				var/mob/living/carbon/M = target
 				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
-				M.AdjustConfused(10)
+				M.AdjustConfused(20 SECONDS)
 				M.AdjustEarDamage(3)
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target

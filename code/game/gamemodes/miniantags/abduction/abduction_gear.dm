@@ -486,7 +486,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	L.Stun(14 SECONDS)
 	L.Weaken(14 SECONDS)
-	L.apply_effect(STUTTER, 7)
+	L.Stuttering(14 SECONDS)
 
 	L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
 							"<span class='userdanger'>[user] has stunned you with [src]!</span>")
@@ -506,7 +506,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		L.Sleeping(120 SECONDS)
 		add_attack_logs(user, L, "Put to sleep with [src]")
 	else
-		L.AdjustDrowsy(1)
+		L.AdjustDrowsy(2 SECONDS)
 		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens! </span>")
 		L.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel drowsy!</span>")

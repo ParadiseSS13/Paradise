@@ -284,7 +284,7 @@
 		return
 	switch(severity)
 		if(1)
-			owner?.AdjustConfused(30)
+			owner?.AdjustConfused(60 SECONDS)
 		if(2)
-			owner?.AdjustConfused(20)
+			owner?.AdjustConfused(40 SECONDS)
 	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, overloading your motor control!</span>")

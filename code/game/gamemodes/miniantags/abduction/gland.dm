@@ -162,7 +162,7 @@
 				H.Stun(6 SECONDS)
 			if(2)
 				to_chat(H, "<span class='warning'>You hear an annoying buzz in your head.</span>")
-				H.AdjustConfused(15)
+				H.AdjustConfused(30 SECONDS)
 				H.adjustBrainLoss(5, 15)
 			if(3)
 				H.AdjustHallucinate(60 SECONDS)

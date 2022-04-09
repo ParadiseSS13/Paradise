@@ -6,12 +6,12 @@
 	reagent_state = LIQUID
 	nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 	color = "#404030" // rgb: 64, 64, 48
-	var/dizzy_adj = 3
+	var/dizzy_adj = 6 SECONDS
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
 	taste_description = "liquid fire"
 
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/M)
-	M.AdjustDrunk(alcohol_perc)
+	M.AdjustDrunk(alcohol_perc * 20)
 	M.AdjustDizzy(dizzy_adj)
 	return ..()
 
@@ -62,7 +62,7 @@
 	id = "whiskey"
 	description = "A superb and well-aged single-malt whiskey. Damn."
 	color = "#664300" // rgb: 102, 67, 0
-	dizzy_adj = 4
+	dizzy_adj = 8 SECONDS
 	alcohol_perc = 0.4
 	drink_icon = "whiskeyglass"
 	drink_name = "Glass of whiskey"
@@ -82,7 +82,7 @@
 	id = "gin"
 	description = "It's gin. In space. I say, good sir."
 	color = "#664300" // rgb: 102, 67, 0
-	dizzy_adj = 3
+	dizzy_adj = 6 SECONDS
 	alcohol_perc = 0.5
 	drink_icon = "ginvodkaglass"
 	drink_name = "Glass of gin"
@@ -95,7 +95,7 @@
 	description = "Watch out that the Green Fairy doesn't come for you!"
 	color = "#33EE00" // rgb: lots, ??, ??
 	overdose_threshold = 30
-	dizzy_adj = 5
+	dizzy_adj = 10 SECONDS
 	alcohol_perc = 0.7
 	drink_icon = "absinthebottle"
 	drink_name = "Glass of Absinthe"
@@ -117,7 +117,7 @@
 	id = "hooch"
 	description = "Either someone's failure at cocktail making or attempt in alcohol production. In any case, do you really want to drink that?"
 	color = "#664300" // rgb: 102, 67, 0
-	dizzy_adj = 7
+	dizzy_adj = 14 SECONDS
 	alcohol_perc = 1
 	drink_icon = "glass_brown2"
 	drink_name = "Hooch"
@@ -137,7 +137,7 @@
 	color = "#664300" // rgb: 102, 67, 0
 	overdose_threshold = 30
 	alcohol_perc = 0.4
-	dizzy_adj = 5
+	dizzy_adj = 10 SECONDS
 	drink_icon = "rumglass"
 	drink_name = "Glass of Rum"
 	drink_desc = "Now you want to Pray for a pirate suit, don't you?"
@@ -208,7 +208,7 @@
 	id = "wine"
 	description = "An premium alchoholic beverage made from distilled grape juice."
 	color = "#7E4043" // rgb: 126, 64, 67
-	dizzy_adj = 2
+	dizzy_adj = 4 SECONDS
 	alcohol_perc = 0.2
 	drink_icon = "wineglass"
 	drink_name = "Glass of wine"
@@ -220,7 +220,7 @@
 	id = "cognac"
 	description = "A sweet and strongly alchoholic drink, made after numerous distillations and years of maturing. Classy as fornication."
 	color = "#664300" // rgb: 102, 67, 0
-	dizzy_adj = 4
+	dizzy_adj = 8 SECONDS
 	alcohol_perc = 0.4
 	drink_icon = "cognacglass"
 	drink_name = "Glass of cognac"
@@ -232,7 +232,7 @@
 	id = "suicider"
 	description = "An unbelievably strong and potent variety of Cider."
 	color = "#CF3811"
-	dizzy_adj = 20
+	dizzy_adj = 40 SECONDS
 	alcohol_perc = 1 //because that's a thing it's supposed to do, I guess
 	drink_icon = "suicider"
 	drink_name = "Suicider"
@@ -265,7 +265,7 @@
 	taste_description = "party"
 
 /datum/reagent/consumable/ethanol/thirteenloko/on_mob_life(mob/living/M)
-	M.AdjustDrowsy(-7)
+	M.AdjustDrowsy(-14 SECONDS)
 	M.AdjustSleeping(-4 SECONDS)
 	if(M.bodytemperature > 310)
 		M.bodytemperature = max(310, M.bodytemperature - (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
@@ -693,7 +693,7 @@
 	description = "Ultimate Punishment."
 	reagent_state = LIQUID
 	color = "#30F0FF" // rgb: 048, 240, 255
-	dizzy_adj = 4
+	dizzy_adj = 8 SECONDS
 	alcohol_perc = 1.5 // oof
 	drink_icon = "adminfreeze"
 	drink_name = "Admin Freeze"
@@ -736,7 +736,7 @@
 	description = "AHHHH!!!!"
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
-	dizzy_adj = 10
+	dizzy_adj = 20 SECONDS
 	alcohol_perc = 0.4
 	drink_icon = "demonsblood"
 	drink_name = "Demons Blood"
@@ -749,7 +749,7 @@
 	description = "For when a gin and tonic isn't russian enough."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
-	dizzy_adj = 4
+	dizzy_adj = 8 SECONDS
 	alcohol_perc = 0.3
 	drink_icon = "vodkatonicglass"
 	drink_name = "Vodka and Tonic"
@@ -762,7 +762,7 @@
 	description = "Refreshingly lemony, deliciously dry."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
-	dizzy_adj = 4
+	dizzy_adj = 8 SECONDS
 	alcohol_perc = 0.4
 	drink_icon = "ginfizzglass"
 	drink_name = "Gin Fizz"
@@ -787,7 +787,7 @@
 	description = "A blue-space beverage!"
 	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
-	dizzy_adj = 15
+	dizzy_adj = 30 SECONDS
 	alcohol_perc = 0.7
 	drink_icon = "singulo"
 	drink_name = "Singulo"
@@ -943,7 +943,7 @@
 	description = "A strong neurotoxin that puts the subject into a death-like state."
 	reagent_state = LIQUID
 	color = "#2E2E61" // rgb: 46, 46, 97
-	dizzy_adj = 6
+	dizzy_adj = 12 SECONDS
 	alcohol_perc = 0.7
 	heart_rate_decrease = 1
 	drink_icon = "neurotoxinglass"
@@ -979,20 +979,20 @@
 	switch(current_cycle)
 		if(1 to 5)
 			M.Stuttering(2 SECONDS)
-			M.Dizzy(10)
+			M.Dizzy(20 SECONDS)
 			if(prob(10))
 				M.emote(pick("twitch","giggle"))
 		if(5 to 10)
 			M.Stuttering(2 SECONDS)
 			M.Jitter(40 SECONDS)
-			M.Dizzy(20)
+			M.Dizzy(40 SECONDS)
 			M.Druggy(90 SECONDS)
 			if(prob(20))
 				M.emote(pick("twitch","giggle"))
 		if(10 to INFINITY)
 			M.Stuttering(2 SECONDS)
 			M.Jitter(80 SECONDS)
-			M.Dizzy(40)
+			M.Dizzy(80 SECONDS)
 			M.Druggy(120 SECONDS)
 			if(prob(30))
 				M.emote(pick("twitch","giggle"))
@@ -1005,7 +1005,7 @@
 	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.7
-	dizzy_adj = 5
+	dizzy_adj = 10 SECONDS
 	drink_icon = "changelingsting"
 	drink_name = "Changeling Sting"
 	drink_desc = "A stingy drink."
@@ -1018,7 +1018,7 @@
 	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.3
-	dizzy_adj = 5
+	dizzy_adj = 10 SECONDS
 	drink_icon = "irishcarbomb"
 	drink_name = "Irish Car Bomb"
 	drink_desc = "An irish car bomb."
@@ -1055,7 +1055,7 @@
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.5
-	dizzy_adj = 10
+	dizzy_adj = 20 SECONDS
 	drink_icon = "driestmartiniglass"
 	drink_name = "Driest Martini"
 	drink_desc = "Only for the experienced. You think you see sand floating in the glass."
@@ -1078,8 +1078,8 @@
 	taste_description = "coffee and alcohol"
 
 /datum/reagent/consumable/ethanol/kahlua/on_mob_life(mob/living/M)
-	M.AdjustDizzy(-5)
-	M.AdjustDrowsy(-3)
+	M.AdjustDizzy(-10 SECONDS)
+	M.AdjustDrowsy(-6 SECONDS)
 	M.AdjustSleeping(-4 SECONDS)
 	M.Jitter(10 SECONDS)
 	return ..()
@@ -1097,7 +1097,7 @@
 
 /datum/reagent/ginsonic/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustDrowsy(-5)
+	M.AdjustDrowsy(-10 SECONDS)
 	if(prob(25))
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-2 SECONDS)
@@ -1414,7 +1414,7 @@
 	id = "bacchus_blessing"
 	description = "Unidentifiable mixture. Unmeasurably high alcohol content."
 	color = rgb(51, 19, 3) //Sickly brown
-	dizzy_adj = 21
+	dizzy_adj = 42 SECONDS
 	alcohol_perc = 3 //I warned you
 	drink_icon = "bacchusblessing"
 	drink_name = "Bacchus' Blessing"

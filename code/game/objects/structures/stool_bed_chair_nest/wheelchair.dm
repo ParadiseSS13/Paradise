@@ -86,12 +86,12 @@
 		occupant.throw_at(A, 3, propelled)
 
 		occupant.Weaken(12 SECONDS)
-		occupant.apply_effect(6, STUTTER, 0)
+		occupant.Stuttering(12 SECONDS)
 		playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 		if(istype(A, /mob/living))
 			var/mob/living/victim = A
 			victim.Weaken(12 SECONDS)
-			victim.apply_effect(6, STUTTER, 0)
+			victim.Stuttering(12 SECONDS)
 			victim.take_organ_damage(10)
 
 		occupant.visible_message("<span class='danger'>[occupant] crashed into \the [A]!</span>")

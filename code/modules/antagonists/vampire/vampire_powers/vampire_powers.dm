@@ -184,11 +184,11 @@
 			deviation = calculate_deviation(target, user)
 
 		if(deviation == DEVIATION_FULL)
-			target.AdjustConfused(3)
+			target.AdjustConfused(6 SECONDS)
 			target.adjustStaminaLoss(40)
 		else if(deviation == DEVIATION_PARTIAL)
 			target.Weaken(2 SECONDS)
-			target.AdjustConfused(3)
+			target.AdjustConfused(6 SECONDS)
 			target.adjustStaminaLoss(40)
 		else
 			target.adjustStaminaLoss(120)

@@ -619,7 +619,7 @@
 			SetStuttering(10 SECONDS)
 			EyeBlurry(5)
 			if(prob(7))
-				AdjustConfused(2)
+				AdjustConfused(4 SECONDS)
 			if(prob(5))
 				Paralyse(4 SECONDS)
 			switch(health)

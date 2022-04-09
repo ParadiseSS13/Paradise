@@ -249,7 +249,7 @@
 			unbuckle_mob(buckled_mob)
 			buckled_mob.throw_at(A, 3, propelled)
 			buckled_mob.Weaken(12 SECONDS)
-			buckled_mob.apply_effect(6, STUTTER, 0)
+			buckled_mob.Stuttering(12 SECONDS)
 			buckled_mob.take_organ_damage(10)
 			playsound(loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 			buckled_mob.visible_message("<span class='danger'>[buckled_mob] crashed into [A]!</span>")
@@ -431,7 +431,7 @@
 			var/mob/living/carbon/C = target
 			if(C.health < C.maxHealth*0.5)
 				C.Weaken(12 SECONDS)
-				C.apply_effect(6, STUTTER, 0)
+				C.Stuttering(12 SECONDS)
 				playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 		smash(user)
 

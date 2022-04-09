@@ -459,8 +459,8 @@
 				if(prob(5))
 					spin(32, 1)
 					to_chat(src, "<span class='warning'>You spin too much!</span>")
-					Dizzy(12)
-					Confused(12)
+					Dizzy(24 SECONDS)
+					Confused(24 SECONDS)
 				else
 					spin(20, 1)
 

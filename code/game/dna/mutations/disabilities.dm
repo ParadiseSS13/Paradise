@@ -546,7 +546,7 @@
 /datum/mutation/disability/dizzy/on_life(mob/living/carbon/human/M)
 	if(!istype(M))
 		return
-	M.Dizzy(300)
+	M.Dizzy(600 SECONDS)
 
 /datum/mutation/disability/dizzy/deactivate(mob/living/M)
 	..()
