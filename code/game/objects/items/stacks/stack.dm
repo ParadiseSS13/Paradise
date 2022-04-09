@@ -223,7 +223,7 @@
 			)
 			var/obj/S = locate() in get_turf(src)
 			if(is_type_in_list(S, oneperturf))
-				to_chat(usr, "<span class='warning'>There is already som,e here!</span>")
+				to_chat(usr, "<span class='warning'>There is already something here!</span>")
 				return FALSE
 
 		if(R.on_floor && !istype(get_turf(src), /turf/simulated))
