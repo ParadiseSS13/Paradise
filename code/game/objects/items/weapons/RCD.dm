@@ -53,6 +53,8 @@
 	var/list/selected_accesses = list()
 	/// A list of valid atoms that RCDs can target. Clicking on an atom with an RCD which is not in this list, will do nothing.
 	var/static/list/allowed_targets = list(/turf, /obj/structure/grille, /obj/structure/window, /obj/structure/lattice, /obj/machinery/door/airlock)
+	/// A list of objects the RCD is not allowed to construct things on
+	var/list/oneperturf = list(/obj/structure/girder, /obj/structure/falsewall, /obj/structure/window, /obj/structure/grille, /obj/structure/cult, /obj/structure/table, /obj/structure/chair, /obj/structure/bed, /obj/machinery/computer,/obj/structure/computerframe, /obj/machinery/door, /obj/machinery/porta_turret)
 	/// An associative list of airlock type paths as keys, and their names as values.
 	var/static/list/rcd_door_types = list()
 	/// An associative list containing an airlock's name, type path, and image. For use with the UI.
@@ -360,7 +362,8 @@
 		return FALSE
 
 	if(isfloorturf(A))
-		if(locate(/obj/machinery/porta_turret) in A.contents)
+		var/obj/S = locate() in A
+		if(is_type_in_list(S, oneperturf))
 			return FALSE
 		if(checkResource(3, user))
 			to_chat(user, "Building Wall...")
@@ -395,9 +398,8 @@
 			to_chat(user, "Building Airlock...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			if(do_after(user, 50 * toolspeed, target = A))
-				if(locate(/obj/machinery/door/airlock) in A.contents)
-					return FALSE
-				if(locate(/obj/machinery/porta_turret) in A.contents)
+				var/obj/S = locate() in A
+				if(is_type_in_list(S, oneperturf))
 					return FALSE
 				if(!useResource(10, user))
 					return FALSE
@@ -512,9 +514,8 @@
  */
 /obj/item/rcd/proc/mode_window(atom/A, mob/user)
 	if(isfloorturf(A))
-		if(locate(/obj/structure/grille) in A)
-			return FALSE // We already have window
-		if(locate(/obj/machinery/porta_turret) in A.contents)
+		var/obj/S = locate() in A
+		if(is_type_in_list(S, oneperturf))
 			return FALSE
 		if(!checkResource(2, user))
 			to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this window!</span>")
