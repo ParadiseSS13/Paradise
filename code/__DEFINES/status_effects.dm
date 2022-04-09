@@ -116,6 +116,8 @@
 
 #define STATUS_EFFECT_HALLUCINATION /datum/status_effect/transient/hallucination
 
+#define STATUS_EFFECT_BLURRY_EYES /datum/status_effect/transient/eye_blurry
+
 /////////////
 // NEUTRAL //
 /////////////

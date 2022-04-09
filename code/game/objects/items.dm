@@ -597,7 +597,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 				if(M.stat != DEAD)
 					to_chat(M, "<span class='danger'>You drop what you're holding and clutch at your eyes!</span>")
 					M.drop_item()
-				M.AdjustEyeBlurry(10)
+				M.AdjustEyeBlurry(20 SECONDS)
 				M.Paralyse(2 SECONDS)
 				M.Weaken(4 SECONDS)
 			if(eyes.damage >= eyes.min_broken_damage)
@@ -608,7 +608,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 			H.UpdateDamageIcon()
 	else
 		M.take_organ_damage(7)
-	M.AdjustEyeBlurry(rand(3,4))
+	M.AdjustEyeBlurry(rand(6 SECONDS, 8 SECONDS))
 	return
 
 /obj/item/singularity_pull(S, current_size)

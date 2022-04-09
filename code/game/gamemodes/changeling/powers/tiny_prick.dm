@@ -115,7 +115,7 @@
 	to_chat(target, "<span class='danger'>Your eyes burn horrifically!</span>")
 	target.become_nearsighted(EYE_DAMAGE)
 	target.EyeBlind(20)
-	target.EyeBlurry(40)
+	target.EyeBlurry(80 SECONDS)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 

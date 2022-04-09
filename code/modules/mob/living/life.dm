@@ -131,8 +131,6 @@
 		EyeBlind(1)
 	else if(eye_blind)			//blindness, heals slowly over time
 		AdjustEyeBlind(-1)
-	else if(eye_blurry)			//blurry eyes heal slowly
-		AdjustEyeBlurry(-1)
 
 // Gives a mob the vision of being dead
 /mob/living/proc/grant_death_vision()

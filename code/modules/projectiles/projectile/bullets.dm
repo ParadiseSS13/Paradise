@@ -31,7 +31,7 @@
 			M.AdjustDizzy(20 SECONDS)
 			M.AdjustSlur(20 SECONDS)
 			M.AdjustConfused(20 SECONDS)
-			M.AdjustEyeBlurry(10)
+			M.AdjustEyeBlurry(20 SECONDS)
 			M.AdjustDrowsy(20 SECONDS)
 			A.volume += 5 //Because we can
 

@@ -289,7 +289,7 @@
 				var/mob/living/carbon/human/C = target
 				user.visible_message("<span class='danger'> [user] sprays [src] into the face of [target]!</span>")
 				if(C.client)
-					C.EyeBlurry(3)
+					C.EyeBlurry(6 SECONDS)
 					C.EyeBlind(1)
 					if(C.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
 						C.Confused(3)

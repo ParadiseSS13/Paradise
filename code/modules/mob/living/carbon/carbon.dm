@@ -380,7 +380,7 @@
 
 		if(E.damage > E.min_bruised_damage)
 			AdjustEyeBlind(damage)
-			AdjustEyeBlurry(damage * rand(3, 6))
+			AdjustEyeBlurry(damage * rand(6 SECONDS, 12 SECONDS))
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
 				if(!E.is_robotic())

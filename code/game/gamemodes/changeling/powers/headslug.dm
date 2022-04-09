@@ -23,7 +23,7 @@
 	for(var/mob/living/carbon/human/H in range(2,user))
 		to_chat(H, "<span class='userdanger'>You are blinded by a shower of blood!</span>")
 		H.Stun(2 SECONDS)
-		H.EyeBlurry(20)
+		H.EyeBlurry(40 SECONDS)
 		var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(istype(E))
 			E.receive_damage(5, 1)

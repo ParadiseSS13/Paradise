@@ -12,8 +12,8 @@
 	var/atom/movable/plane_master_controller/game_plane_master_controller = hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
 	if(!game_plane_master_controller)
 		return
-	if(eye_blurry)
-		game_plane_master_controller.add_filter("eye_blur", 1, gauss_blur_filter(clamp(eye_blurry * EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER, 0.6, MAX_EYE_BLURRY_FILTER_SIZE)))
+	if(AmountEyeBlurry())
+		game_plane_master_controller.add_filter("eye_blur", 1, gauss_blur_filter(clamp(AmountEyeBlurry() * EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER, 0.6, MAX_EYE_BLURRY_FILTER_SIZE)))
 	else
 		game_plane_master_controller.remove_filter("eye_blur")
 
@@ -77,11 +77,6 @@
 	if(stat || IsParalyzed() || (!ignore_restraints && restrained()) || (!ignore_lying && lying) || check_for_true_callbacks(extra_checks))
 		return TRUE
 
-// wonderful proc names, I know - used to check whether the blur overlay
-// should show or not
-/mob/living/proc/eyes_blurred()
-	return eye_blurry
-
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
 /mob/living/update_canmove(delay_action_updates = 0)
 	var/fall_over = !can_stand()
@@ -119,8 +114,6 @@
 	switch(var_name)
 		if("eye_blind")
 			SetEyeBlind(eye_blind)
-		if("eye_blurry")
-			SetEyeBlurry(eye_blurry)
 		if("druggy")
 			SetDruggy(druggy)
 		if("maxHealth")

@@ -459,8 +459,8 @@
 		to_chat(M, "<span class='warning'>You feel strange...</span>")
 		M.Paralyse(30 SECONDS)
 		M.EyeBlind(35 SECONDS_TO_LIFE_CYCLES)
-		M.EyeBlurry(35 SECONDS_TO_LIFE_CYCLES)
-		M.AdjustConfused(35 SECONDS_TO_LIFE_CYCLES)
+		M.EyeBlurry(35 SECONDS)
+		M.AdjustConfused(35 SECONDS)
 
 		sleep(6 SECONDS)
 		to_chat(M, "<span class='warning'>That portal did something to you...</span>")
@@ -524,8 +524,8 @@
 	M.visible_message("<span class='notice'>[M] vanishes...</span>")
 	M.forceMove(closet)
 	M.Paralyse(3 SECONDS)
-	M.EyeBlurry(5 SECONDS_TO_LIFE_CYCLES)
-	M.AdjustConfused(5 SECONDS_TO_LIFE_CYCLES)
+	M.EyeBlurry(5 SECONDS)
+	M.AdjustConfused(5 SECONDS)
 	M.Dizzy(35)
 	do_sparks(4, FALSE, destination)
 

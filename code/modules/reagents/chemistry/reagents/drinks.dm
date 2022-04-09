@@ -68,7 +68,7 @@
 
 /datum/reagent/consumable/drink/carrotjuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.AdjustEyeBlurry(-1, FALSE)
+	M.AdjustEyeBlurry(-2 SECONDS)
 	update_flags |= M.AdjustEyeBlind(-1, FALSE)
 	switch(current_cycle)
 		if(1 to 20)

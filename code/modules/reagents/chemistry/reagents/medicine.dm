@@ -639,7 +639,7 @@
 				ears.AdjustEarDamage(-1)
 				if(ears.ear_damage < 25 && prob(30))
 					ears.deaf = 0
-		update_flags |= M.AdjustEyeBlurry(-1, FALSE)
+		M.AdjustEyeBlurry(-2 SECONDS)
 		update_flags |= M.AdjustEarDamage(-1)
 	if(prob(50))
 		update_flags |= M.cure_nearsighted(EYE_DAMAGE, FALSE)

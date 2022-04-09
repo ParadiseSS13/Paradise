@@ -37,7 +37,7 @@
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
 				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1), dna.species.blood_damage_type)
 				if(prob(5))
-					EyeBlurry(6)
+					EyeBlurry(12 SECONDS)
 					to_chat(src, "<span class='warning'>You feel very [word].</span>")
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
 				apply_damage_type(5, dna.species.blood_damage_type)

@@ -107,16 +107,6 @@
 		else if(eye_blind)		       // Blindness, heals slowly over time
 			AdjustEyeBlind(-1)
 
-		else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold) && eye_blurry)	//resting your eyes with a blindfold heals blurry eyes faster
-			AdjustEyeBlurry(-3)
-
-		//blurry sight
-		if(vision.is_bruised())   // Vision organs impaired? Permablurry.
-			EyeBlurry(2)
-
-		if(eye_blurry)	           // Blurry eyes heal slowly
-			AdjustEyeBlurry(-1)
-
 	if(getBrainLoss() >= 60 && stat != DEAD)
 		if(prob(3))
 			var/list/s1 = list("IM A [pick("PONY","LIZARD","taJaran","kitty","Vulpakin","drASK","BIRDIE","voxxie","race car","combat meCH","SPESSSHIP")] [pick("NEEEEEEIIIIIIIIIGH","sKREEEEEE","MEOW","NYA~","rawr","Barkbark","Hissssss","vROOOOOM","pewpew","choo Choo")]!",

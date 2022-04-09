@@ -223,25 +223,25 @@
 				to_chat(victim, "<span class='danger'>Your [safe_thing] protect you from most of the pepperspray!</span>")
 				if(prob(5))
 					victim.emote("scream")
-				victim.EyeBlurry(3)
+				victim.EyeBlurry(6 SECONDS)
 				victim.EyeBlind(1)
-				victim.Confused(3)
+				victim.Confused(6 SECONDS)
 				victim.damageoverlaytemp = 60
 				victim.Weaken(6 SECONDS)
 				victim.drop_item()
 				return
 			else if( eyes_covered ) // Eye cover is better than mouth cover
 				to_chat(victim, "<span class='danger'>Your [safe_thing] protects your eyes from the pepperspray!</span>")
-				victim.EyeBlurry(3)
+				victim.EyeBlurry(6 SECONDS)
 				victim.damageoverlaytemp = 30
 				return
 			else // Oh dear :D
 				if(prob(5))
 					victim.emote("scream")
 				to_chat(victim, "<span class='danger'>You're sprayed directly in the eyes with pepperspray!</span>")
-				victim.EyeBlurry(5)
+				victim.EyeBlurry(10 SECONDS)
 				victim.EyeBlind(2)
-				victim.Confused(6)
+				victim.Confused(12 SECONDS)
 				victim.damageoverlaytemp = 75
 				victim.Weaken(10 SECONDS)
 				victim.drop_item()
@@ -559,10 +559,10 @@
 			if(!M.get_organ_slot("eyes"))	//can't blind somebody with no eyes
 				to_chat(M, "<span class = 'notice'>Your eye sockets feel wet.</span>")
 			else
-				if(!M.eye_blurry)
+				if(!M.AmountEyeBlurry())
 					to_chat(M, "<span class = 'warning'>Tears well up in your eyes!</span>")
 				M.EyeBlind(2)
-				M.EyeBlurry(5)
+				M.EyeBlurry(10 SECONDS)
 	..()
 
 /datum/reagent/consumable/chocolate
@@ -966,7 +966,7 @@
 		update_flags |= M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustStaminaLoss(10 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.EyeBlurry(5, FALSE)
+		M.EyeBlurry(10 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/consumable/tinlux

@@ -436,7 +436,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(1, FALSE)
 	M.damageoverlaytemp = 60
-	update_flags |= M.EyeBlurry(3)
+	M.EyeBlurry(6 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/beer2	//disguised as normal beer for use by emagged service borgs
@@ -501,7 +501,7 @@
 	if(prob(10))
 		to_chat(M, "<span class='notice'>Your eyes itch.</span>")
 		M.emote(pick("blink", "sneeze"))
-		update_flags |= M.AdjustEyeBlurry(3, FALSE)
+		M.AdjustEyeBlurry(6 SECONDS)
 	if(prob(10))
 		M.visible_message("<span class='danger'>[M] scratches at an itch.</span>")
 		update_flags |= M.adjustBruteLoss(1, FALSE)
@@ -823,7 +823,7 @@
 			if(prob(25))
 				M.emote("yawn")
 		if(6 to 9)
-			update_flags |= M.AdjustEyeBlurry(5, FALSE)
+			M.AdjustEyeBlurry(10 SECONDS)
 			if(prob(35))
 				M.emote("yawn")
 		if(10)
@@ -936,7 +936,7 @@
 			if(prob(20))
 				M.emote(pick("drool", "pale", "gasp"))
 		if(6 to 10)
-			update_flags |= M.AdjustEyeBlurry(5, FALSE)
+			M.AdjustEyeBlurry(10 SECONDS)
 			if(prob(8))
 				to_chat(M, "<span class='danger'>You feel [pick("weak", "horribly weak", "numb", "like you can barely move", "tingly")].</span>")
 				M.Stun(2 SECONDS)
@@ -973,7 +973,7 @@
 		if(16 to 30)
 			if(prob(25))
 				M.emote(pick("twitch","twitch","drool","quiver","tremble"))
-			update_flags |= M.AdjustEyeBlurry(5, FALSE)
+			M.AdjustEyeBlurry(10 SECONDS)
 			M.Stuttering(10 SECONDS)
 			if(prob(10))
 				M.Confused(15)
@@ -981,7 +981,7 @@
 				M.Stun(2 SECONDS)
 				M.emote("scream")
 		if(30 to 60)
-			update_flags |= M.AdjustEyeBlurry(5, FALSE)
+			M.AdjustEyeBlurry(10 SECONDS)
 			M.Stuttering(10 SECONDS)
 			if(prob(10))
 				M.Stun(2 SECONDS)
@@ -1106,15 +1106,15 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	switch(current_cycle)
 		if(1 to 5)
-			update_flags |= M.AdjustEyeBlurry(10, FALSE)
+			M.AdjustEyeBlurry(20 SECONDS)
 		if(6 to 10)
 			M.Drowsy(10)
 		if(11)
 			fakedeath(M)
 		if(61 to 69)
-			update_flags |= M.AdjustEyeBlurry(10, FALSE)
+			M.AdjustEyeBlurry(20 SECONDS)
 		if(70 to INFINITY)
-			update_flags |= M.AdjustEyeBlurry(10, FALSE)
+			M.AdjustEyeBlurry(20 SECONDS)
 			if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
 				fakerevive(M)
 	return ..() | update_flags

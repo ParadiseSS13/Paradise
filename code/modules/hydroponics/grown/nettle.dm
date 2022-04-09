@@ -108,7 +108,7 @@
 		to_chat(M, "<span class='danger'>You are stunned by the powerful acid of the Deathnettle!</span>")
 		add_attack_logs(user, M, "Hit with [src]")
 
-		M.AdjustEyeBlurry(force/7)
+		M.AdjustEyeBlurry(force * (20 / 7))
 		if(prob(20))
 			var/paralyze_time = (force * 10) / 3 // paralyze time in seconds
 			var/stun_time = (force * 10) / 7.5 // stun time in seconds

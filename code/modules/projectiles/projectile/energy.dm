@@ -50,7 +50,7 @@
 	damage_type = TOX
 	nodamage = FALSE
 	stamina = 60
-	eyeblur = 10
+	eyeblur = 20 SECONDS
 	weaken = 2 SECONDS
 	slur = 10 SECONDS
 
@@ -85,7 +85,7 @@
 	damage_type = BURN
 	range = 9
 	weaken = 2 SECONDS //This is going to knock you off your feet
-	eyeblur = 5
+	eyeblur = 10 SECONDS
 	speed = 2
 	alwayslog = TRUE
 

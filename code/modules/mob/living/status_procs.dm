@@ -96,7 +96,6 @@
 /mob // On `/mob` for now, to support legacy code
 	var/druggy = 0
 	var/eye_blind = 0
-	var/eye_blurry = 0
 
 // RESTING
 
@@ -278,24 +277,17 @@
 	return SetEyeBlind(new_value, updating)
 
 // EYE_BLURRY
+/mob/living/proc/AmountEyeBlurry()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_BLURRY_EYES)
 
-/mob/living/EyeBlurry(amount, updating = TRUE)
-	return SetEyeBlurry(max(eye_blurry, amount), updating)
+/mob/living/proc/EyeBlurry(amount)
+	SetEyeBlurry(max(AmountEyeBlurry(), amount))
 
-/mob/living/SetEyeBlurry(amount, updating = TRUE)
-	. = STATUS_UPDATE_BLURRY
-	//if they're both above max or equal that means we won't change the blur filter
-	if(amount > MAX_EYE_BLURRY_FILTER_SIZE / EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER && eye_blurry > MAX_EYE_BLURRY_FILTER_SIZE / EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER || eye_blurry == amount)
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
+/mob/living/proc/SetEyeBlurry(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_BLURRY_EYES, amount)
 
-	eye_blurry = max(amount, 0)
-	if(updating)
-		update_blurry_effects()
-
-/mob/living/AdjustEyeBlurry(amount, bound_lower = 0, bound_upper = INFINITY, updating = TRUE)
-	var/new_value = directional_bounded_sum(eye_blurry, amount, bound_lower, bound_upper)
-	return SetEyeBlurry(new_value, updating)
+/mob/living/proc/AdjustEyeBlurry(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetEyeBlurry(clamp(amount, bound_lower, bound_upper))
 
 // HALLUCINATION
 /mob/living/proc/AmountHallucinate()

@@ -57,7 +57,7 @@
 				to_chat(H, "<span class='danger'>[src] overloads and blinds you!</span>")
 				H.flash_eyes(visual = TRUE)
 				H.EyeBlind(3)
-				H.EyeBlurry(5)
+				H.EyeBlurry(10 SECONDS)
 				eyes.receive_damage(5)
 
 /obj/item/clothing/glasses/meson

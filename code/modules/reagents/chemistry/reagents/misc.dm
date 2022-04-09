@@ -475,7 +475,7 @@
 		M.AdjustDizzy(10, 0, 500)
 		M.Druggy(15)
 		if(prob(10))
-			M.EyeBlurry(5)
+			M.EyeBlurry(10 SECONDS)
 		if(prob(6))
 			var/list/clown_message = list("You feel light-headed.",
 			"You can't see straight.",

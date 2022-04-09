@@ -204,9 +204,9 @@
 	..()
 	if(QDELETED(src))
 		return
-	owner.EyeBlurry(2)
+	owner.EyeBlurry(4 SECONDS)
 	if(prob(5))
-		owner.AdjustSleeping(1)
+		owner.AdjustSleeping(2 SECONDS)
 		owner.Paralyse(10 SECONDS)
 
 /datum/status_effect/transient/drowsiness/calc_decay()
@@ -291,7 +291,7 @@
 		owner.fakevomit()
 	// THRESHOLD_BLUR (75)
 	if(actual_strength >= THRESHOLD_BLUR)
-		owner.EyeBlurry(10 / alcohol_resistance)
+		owner.EyeBlurry(20 SECONDS / alcohol_resistance)
 	// THRESHOLD_COLLAPSE (75)
 	if(actual_strength >= THRESHOLD_COLLAPSE && prob(10))
 		owner.emote("collapse")
@@ -299,7 +299,7 @@
 	// THRESHOLD_FAINT (90)
 	if(actual_strength >= THRESHOLD_FAINT && prob(10))
 		owner.Paralyse(10 SECONDS / alcohol_resistance)
-		owner.Drowsy(30 / alcohol_resistance)
+		owner.Drowsy(60 SECONDS / alcohol_resistance)
 		if(L)
 			L.receive_damage(1, TRUE)
 		if(!is_ipc)
@@ -503,3 +503,33 @@
 #undef HALLUCINATE_MINOR_WEIGHT
 #undef HALLUCINATE_MODERATE_WEIGHT
 #undef HALLUCINATE_MAJOR_WEIGHT
+
+/datum/status_effect/transient/eye_blurry
+	id = "eye_blurry"
+
+/datum/status_effect/transient/eye_blurry/on_apply()
+	owner.update_blurry_effects()
+	. = ..()
+
+/datum/status_effect/transient/eye_blurry/on_remove()
+	owner.update_blurry_effects()
+
+/datum/status_effect/transient/eye_blurry/tick()
+	..()
+	if(owner)
+		owner.update_blurry_effects()
+
+/datum/status_effect/transient/eye_blurry/calc_decay()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		var/obj/item/organ/vision = H.get_int_organ(H.dna.species.vision_organ)
+
+		if(vision.is_broken())
+			return 0.2
+
+		if(vision.is_bruised()) // doesn't decay if you have damaged eyesight.
+			return 0
+
+		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold)) // decays faster if you rest your eyes with a blindfold.
+			return -1 SECONDS
+	return ..() //default decay rate
