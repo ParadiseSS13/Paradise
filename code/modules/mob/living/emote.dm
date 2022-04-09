@@ -274,6 +274,18 @@
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	stat_allowed = UNCONSCIOUS
 
+/datum/emote/living/nightmare
+	key = "nightmare"
+	message = "writhes in their sleep."
+	emote_type = EMOTE_VISIBLE
+	stat_allowed = UNCONSCIOUS
+
+/datum/emote/living/nightmare/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(!.)
+		return
+	user.dir = pick(GLOB.cardinal)
+
 /datum/emote/living/stare
 	key = "stare"
 	key_third_person = "stares"

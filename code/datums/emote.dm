@@ -106,6 +106,8 @@
 	var/age_based = FALSE
 	/// If true, this emote will only make a sound effect when called unintentionally.
 	var/only_forced_audio = FALSE
+	/// Whether or not the emote can even be called at all if it's not intentional
+	var/only_unintentional = FALSE
 	/// The cooldown between the uses of the emote.
 	var/cooldown = DEFAULT_EMOTE_COOLDOWN
 	/// Does this message have a message that can be modified by the user?
@@ -320,6 +322,9 @@
 		var/mob/living/carbon/human/H = user
 		if(species_type_whitelist_typecache && H.dna && !is_type_in_typecache(H.dna.species, species_type_whitelist_typecache))
 			return FALSE
+
+	if(intentional && only_unintentional)
+		return FALSE
 
 	if(status_check && !is_type_in_typecache(user, mob_type_ignore_stat_typecache))
 		if((intentional && user.stat > stat_allowed) || (!intentional && (user.stat > unintentional_stat_allowed)))

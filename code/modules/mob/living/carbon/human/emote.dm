@@ -128,7 +128,7 @@
 
 	var/mob/living/carbon/human/H = user
 
-	if(H.is_muzzled)
+	if(H.is_muzzled())
 		// If you're muzzled you're not making noise
 		return
 
