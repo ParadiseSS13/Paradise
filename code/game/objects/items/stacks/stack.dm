@@ -207,51 +207,30 @@
 			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
 			return FALSE
 
-		if(R.one_per_turf && (locate((/obj/structure/girder)) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>There is already a girder here!</span>")
-			return FALSE
-
-		if(R.one_per_turf && (locate((/obj/structure/falsewall)) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>There is already a false wall here!</span>")
-			return FALSE
-
-		if(R.one_per_turf && (locate((/obj/structure/window)) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>There is already a window here!</span>")
-			return FALSE
-
-		if(R.one_per_turf && (locate((/obj/structure/cult)) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>There is already a cult structure here!</span>")
-			return FALSE
-
-		if(R.one_per_turf && (locate((/obj/structure/table)) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>There is already a table here!</span>")
-			return FALSE
-
-		if(R.one_per_turf && (locate((/obj/structure/chair)) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>There is already a chair here!</span>")
-			return FALSE
-
-		if(R.one_per_turf && (locate((/obj/structure/bed)) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>There is already a bed here!</span>")
-			return FALSE
-
-		if(R.one_per_turf && (locate((/obj/machinery/computer)) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>There is already a computer here!</span>")
-			return FALSE
-
-		if(R.one_per_turf && (locate((/obj/structure/computerframe)) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>There is already a computer frame here!</span>")
-			return FALSE
-
-		if(R.one_per_turf && (locate((/obj/machinery/door)) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>There is already a door here!</span>")
-			return FALSE
-
-		if(R.one_per_turf && (locate((/obj/machinery/porta_turret)) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>There is already a computer here!</span>")
-			return FALSE
+		if(R.one_per_turf)
+			var/list/oneperturf = list(
+				/obj/structure/girder,
+				/obj/structure/falsewall,
+				/obj/structure/window,
+				/obj/structure/cult,
+				/obj/structure/table,
+				/obj/structure/chair,
+				/obj/structure/bed,
+				/obj/machinery/computer,
+				/obj/structure/computerframe,
+				/obj/machinery/door,
+				/obj/machinery/porta_turret
+			)
+			var/obj/S = locate() in get_turf(src)
+			if(is_type_in_list(S, oneperturf))
+				to_chat(usr, "<span class='warning'>There is already som,e here!</span>")
+				return FALSE
 
 		if(R.on_floor && !istype(get_turf(src), /turf/simulated))
+			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
+			return FALSE
+
+		if(R.on_floor && istype(get_turf(src), /turf/simulated/wall))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
 			return FALSE
 
