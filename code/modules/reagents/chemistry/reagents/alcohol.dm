@@ -956,7 +956,7 @@
 	if(current_cycle >= 13)
 		M.Weaken(6 SECONDS)
 	if(current_cycle >= 55)
-		update_flags |= M.Druggy(55, FALSE)
+		M.Druggy(110 SECONDS)
 	if(current_cycle >= 200)
 		update_flags |= M.adjustToxLoss(2, FALSE)
 	return ..() | update_flags
@@ -975,7 +975,7 @@
 
 /datum/reagent/consumable/ethanol/hippies_delight/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.Druggy(50, FALSE)
+	M.Druggy(100 SECONDS)
 	switch(current_cycle)
 		if(1 to 5)
 			M.Stuttering(2 SECONDS)
@@ -986,14 +986,14 @@
 			M.Stuttering(2 SECONDS)
 			M.Jitter(40 SECONDS)
 			M.Dizzy(20)
-			update_flags |= M.Druggy(45, FALSE)
+			M.Druggy(90 SECONDS)
 			if(prob(20))
 				M.emote(pick("twitch","giggle"))
 		if(10 to INFINITY)
 			M.Stuttering(2 SECONDS)
 			M.Jitter(80 SECONDS)
 			M.Dizzy(40)
-			update_flags |= M.Druggy(60, FALSE)
+			M.Druggy(120 SECONDS)
 			if(prob(30))
 				M.emote(pick("twitch","giggle"))
 	return ..() | update_flags

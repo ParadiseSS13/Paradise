@@ -24,7 +24,7 @@
 
 /datum/reagent/lsd/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.Druggy(15, FALSE)
+	M.Druggy(30 SECONDS)
 	M.AdjustHallucinate(10 SECONDS)
 	return ..() | update_flags
 
@@ -42,7 +42,7 @@
 
 /datum/reagent/space_drugs/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.Druggy(15, FALSE)
+	M.Druggy(30 SECONDS)
 	if(isturf(M.loc) && !istype(M.loc, /turf/space))
 		if(M.canmove && !M.restrained())
 			step(M, pick(GLOB.cardinal))
@@ -59,7 +59,7 @@
 
 /datum/reagent/psilocybin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.Druggy(30, FALSE)
+	M.Druggy(60 SECONDS)
 	switch(current_cycle)
 		if(1 to 5)
 			M.Stuttering(2 SECONDS)
@@ -70,14 +70,14 @@
 			M.Stuttering(2 SECONDS)
 			M.Jitter(20 SECONDS)
 			M.Dizzy(10)
-			update_flags |= M.Druggy(35, FALSE)
+			M.Druggy(70 SECONDS)
 			if(prob(20))
 				M.emote(pick("twitch","giggle"))
 		if(10 to INFINITY)
 			M.Stuttering(2 SECONDS)
 			M.Jitter(40 SECONDS)
 			M.Dizzy(20)
-			update_flags |= M.Druggy(40, FALSE)
+			M.Druggy(80 SECONDS)
 			if(prob(30))
 				M.emote(pick("twitch","giggle"))
 	return ..() | update_flags
@@ -385,11 +385,11 @@
 			H.visible_message("<span class='warning'>[H] has a wild look in [H.p_their()] eyes!</span>")
 	if(check < 60)
 		M.SetParalysis(0)
-		update_flags |= M.SetStunned(0, FALSE)
+		M.SetStunned(0)
 		M.SetWeakened(0)
 	if(check < 30)
 		M.emote(pick("twitch", "twitch_s", "scream", "drool", "grumble", "mumble"))
-	update_flags |= M.Druggy(15, FALSE)
+	M.Druggy(30 SECONDS)
 	if(check < 20)
 		M.AdjustConfused(10)
 	if(check < 8)
@@ -728,7 +728,7 @@
 
 /datum/reagent/surge/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.Druggy(15)
+	M.Druggy(30 SECONDS)
 	var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
 	if(prob(1))
 		if(prob(1))

@@ -70,7 +70,7 @@
 /datum/reagent/consumable/drink/cold/nuka_cola/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.Jitter(40 SECONDS)
-	update_flags |= M.Druggy(30, FALSE)
+	M.Druggy(60 SECONDS)
 	M.AdjustDizzy(5)
 	M.SetDrowsy(0)
 	ADD_TRAIT(M, TRAIT_GOTTAGONOTSOFAST, id)

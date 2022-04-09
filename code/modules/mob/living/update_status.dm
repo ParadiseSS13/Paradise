@@ -18,7 +18,7 @@
 		game_plane_master_controller.remove_filter("eye_blur")
 
 /mob/living/update_druggy_effects()
-	if(druggy)
+	if(AmountDruggy())
 		overlay_fullscreen("high", /obj/screen/fullscreen/high)
 		throw_alert("high", /obj/screen/alert/high)
 		sound_environment_override = SOUND_ENVIRONMENT_DRUGGED
@@ -112,8 +112,6 @@
 /mob/living/vv_edit_var(var_name, var_value)
 	. = ..()
 	switch(var_name)
-		if("druggy")
-			SetDruggy(druggy)
 		if("maxHealth")
 			updatehealth("var edit")
 		if("resize")

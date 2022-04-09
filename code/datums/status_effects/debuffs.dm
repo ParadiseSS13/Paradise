@@ -557,6 +557,16 @@
 		if(vision.is_bruised() || HAS_TRAIT(owner, TRAIT_BLIND)) // doesn't decay if you have damaged eyesight.
 			return 0
 
-		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold)) // decays faster if you rest your eyes with a blindfold.
-			return -1 SECONDS
 	return ..() //default decay rate
+
+/datum/status_effect/transient/drugged
+	id = "drugged"
+
+/datum/status_effect/transient/drugged/tick()
+	..()
+	if(owner)
+		owner.update_druggy_effects()
+
+/datum/status_effect/transient/drugged/on_remove()
+	if(owner)
+		owner.update_druggy_effects()

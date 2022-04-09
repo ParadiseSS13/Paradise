@@ -1016,7 +1016,7 @@
 		var/datum/reagent/R = I
 		if(drug_list.Find(R.id))
 			M.reagents.remove_reagent(R.id, 5)
-	update_flags |= M.AdjustDruggy(-5, FALSE)
+	M.AdjustDruggy(-10 SECONDS)
 	M.AdjustHallucinate(-5 SECONDS)
 	M.AdjustJitter(-10 SECONDS)
 	if(prob(50))
@@ -1227,7 +1227,7 @@
 		update_flags |= M.adjustStaminaLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		M.AdjustJitter(6 SECONDS, 0, 60 SECONDS)
 		update_flags |= M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER, FALSE) //See above
-	update_flags |= M.SetDruggy(min(max(0, M.druggy + 10), 15), FALSE) //See above
+	M.AdjustDruggy(10 SECONDS, 0, 15 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/medicine/earthsblood/on_mob_add(mob/living/M)

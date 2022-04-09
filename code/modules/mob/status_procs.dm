@@ -2,16 +2,6 @@
 // I can't be bothered to deal with all the merge conflicts it would cause to
 // typecast every mob in the codebase correctly // luckily I am mad enough to
 
-/mob/proc/Druggy()
-	return
-
-/mob/proc/SetDruggy()
-	return
-
-/mob/proc/AdjustDruggy()
-	return
-
-
 /mob/proc/RestoreEars()
 	return
 

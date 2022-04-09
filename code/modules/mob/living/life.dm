@@ -117,10 +117,9 @@
 	if(incapacitated())
 		stop_pulling()
 
-//this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
+//this updates all special effects: mainly stamina
 /mob/living/proc/handle_status_effects() // We check for the status effect in this proc as opposed to the procs below to avoid excessive proc call overhead
-	if(druggy)
-		AdjustDruggy(-1)
+	return
 
 /mob/living/proc/update_damage_hud()
 	return

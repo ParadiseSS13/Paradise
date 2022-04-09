@@ -252,7 +252,7 @@
 				M.adjustBruteLoss(5)
 				adjust_nutrition(10)
 
-//this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
+//this updates all special effects: only stamina for now
 /mob/living/carbon/handle_status_effects()
 	..()
 	if(stam_regen_start_time <= world.time)

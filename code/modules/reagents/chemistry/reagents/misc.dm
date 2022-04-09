@@ -473,7 +473,7 @@
 		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
 	else
 		M.AdjustDizzy(10, 0, 500)
-		M.Druggy(15)
+		M.Druggy(30 SECONDS)
 		if(prob(10))
 			M.EyeBlurry(10 SECONDS)
 		if(prob(6))

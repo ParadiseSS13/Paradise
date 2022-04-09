@@ -93,9 +93,6 @@
 	STATUS EFFECTS
 	*/
 
-/mob // On `/mob` for now, to support legacy code
-	var/druggy = 0
-
 // RESTING
 
 /mob/living/proc/StartResting(updating = 1)
@@ -239,22 +236,17 @@
 
 // DRUGGY
 
-/mob/living/Druggy(amount, updating = TRUE)
-	return SetDruggy(max(druggy, amount), updating)
+/mob/living/proc/AmountDruggy()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DRUGGED)
 
-/mob/living/SetDruggy(amount, updating = TRUE)
-	. = STATUS_UPDATE_DRUGGY
-	if((!!amount) == (!!druggy)) // We're not changing from + to 0 or vice versa
-		. = STATUS_UPDATE_NONE
-		updating = FALSE
-	druggy = max(amount, 0)
-	// We transitioned to/from 0, so update the druggy overlays
-	if(updating)
-		update_druggy_effects()
+/mob/living/proc/Druggy(amount)
+	SetDruggy(max(AmountDruggy(), amount))
 
-/mob/living/AdjustDruggy(amount, bound_lower = 0, bound_upper = INFINITY, updating = TRUE)
-	var/new_value = directional_bounded_sum(druggy, amount, bound_lower, bound_upper)
-	return SetDruggy(new_value, updating)
+/mob/living/proc/SetDruggy(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DRUGGED, amount)
+
+/mob/living/proc/AdjustDruggy(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetDruggy(clamp(amount, bound_lower, bound_upper))
 
 // EYE_BLIND
 /mob/living/proc/AmountBlinded()
