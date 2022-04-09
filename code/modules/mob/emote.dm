@@ -28,15 +28,22 @@
 		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list. </span>")
 	return FALSE
 
-// All mobs should have custom emote, really..
-/mob/proc/custom_emote(m_type=EMOTE_VISIBLE, message=null)
+/**
+ * Perform a custom emote.
+ *
+ * * m_type: Type of message to send.
+ * * message: Content of the message. If none is provided, the user will be prompted to choose the input.
+ */
+/mob/proc/custom_emote(m_type=EMOTE_VISIBLE, message=null, intentional=TRUE)
 	var/input = ""
-	if(!message)
+	if(!message && !client)
+		CRASH("An empty custom emote was called from a client-less mob.")
+	else if (!message)
 		input = sanitize(copytext(input(src,"Choose an emote to display.") as text|null,1,MAX_MESSAGE_LEN))
 	else
 		input = message
 
-	emote("me", m_type, input, TRUE)
+	emote("me", m_type, input, intentional)
 
 /**
  * Get a list of all emote keys usable by the current mob.

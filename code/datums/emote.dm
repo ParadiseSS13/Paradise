@@ -29,12 +29,18 @@
 /// Marker to separate an emote key from its parameters in user input.
 #define EMOTE_PARAM_SEPARATOR "-"
 
+// This defines the base cooldown for how often some emotes
+
 /// Default cooldown for emotes
 #define DEFAULT_EMOTE_COOLDOWN 2 SECONDS
-/// Default cooldown for emotes that make audio.
+
+// Each mob can only make sounds with (intentional) emotes this often.
+// These emotes will still be sent to chat, but won't play their associated sound effect.
+
+/// Default cooldown for audio that comes from emotes.
 #define AUDIO_EMOTE_COOLDOWN 10 SECONDS
 
-// Cooldown stuff for emotes
+
 
 /**
  * # Emote
@@ -175,9 +181,9 @@
 			if(ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT && !(ghost in viewers(user_turf, null)))
 				ghost.show_message("<span class='emote'>[ghost_follow_link(user, ghost)] [dchatmsg]</span>")
 
-	if(emote_type & EMOTE_VISIBLE)
+	if(emote_type & EMOTE_VISIBLE || user.mind?.miming)
 		user.audible_message(dchatmsg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
-	else if(!user.mind?.miming)
+	else
 		user.visible_message(dchatmsg, blind_message = "<span class='emote'>You hear how <b>[user]</b> [msg]</span>")
 
 	if(!(emote_type & (EMOTE_FORCE_NO_RUNECHAT | EMOTE_SOUND)))

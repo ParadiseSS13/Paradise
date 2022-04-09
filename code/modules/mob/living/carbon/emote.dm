@@ -1,21 +1,6 @@
 /datum/emote/living/carbon
-	/// Types of species that are allowed to use the emote.
-	var/list/species_allowed_typecache
 	mob_type_allowed_typecache = list(/mob/living/carbon)
 	mob_type_blacklist_typecache = list(/mob/living/carbon/brain)
-
-/datum/emote/living/carbon/New()
-	. = ..()
-	species_allowed_typecache = typecacheof(species_allowed_typecache)
-
-
-/datum/emote/living/carbon/can_run_emote(mob/user, status_check, intentional)
-	. = ..()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.dna && is_type_in_typecache(H.dna.species, species_allowed_typecache))
-			return TRUE
-
 
 /datum/emote/living/carbon/blink
 	key = "blink"
@@ -56,6 +41,7 @@
 	key_third_person = "moans"
 	message = "moans!"
 	message_mime = "appears to moan!"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/giggle
 	key = "giggle"
@@ -79,6 +65,7 @@
 	key = "inhale_s"
 	key_third_person = "inhales sharply!"
 	message = "takes a deep breath!"
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/kiss
 	key = "kiss"
@@ -135,12 +122,13 @@
 	key_third_person = "sighs"
 	message = "sighs contentedly."
 	muzzled_noises = list("chill", "relaxed")
-	message_param = ""
+	message_param = "sighs contentedly at %t."
 
 /datum/emote/living/carbon/sign
 	key = "sign"
 	key_third_person = "signs"
 	message_param = "signs the number %t."
+	// Humans get their own proc with fingers
 	mob_type_blacklist_typecache = list(/mob/living/carbon/human)
 	hands_use_check = TRUE
 
@@ -149,12 +137,12 @@
 	if(!isnum(text2num(params)))
 		return message
 
-/datum/emote/living/faint
+/datum/emote/living/carbon/faint
 	key = "faint"
 	key_third_person = "faints"
 	message = "faints."
 
-/datum/emote/living/faint/run_emote(mob/user, params, type_override, intentional)
+/datum/emote/living/carbon/faint/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	if(. && isliving(user))
 		var/mob/living/L = user

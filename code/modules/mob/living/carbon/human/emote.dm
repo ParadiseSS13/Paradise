@@ -546,24 +546,27 @@
 	// Credit to DrMinky (freesound.org) for the sound.
 	sound = "sound/effects/Kidanclack2.ogg"
 
-/datum/emote/living/carbon/human/drone
-	key = "drone"
-	key_third_person = "drones"
+/datum/emote/living/carbon/human/drask_talk
 	species_type_whitelist_typecache = list(/datum/species/drask)
 	emote_type = EMOTE_SOUND
 	age_based = TRUE
 	sound = "sound/voice/drasktalk.ogg"
 
-/datum/emote/living/carbon/human/drone/New()
+
+// because I'm lazy and this is all we really need here
+/datum/emote/living/carbon/human/drask_talk/New()
 	message = "[key_third_person]."
 	message_param = "[key_third_person] at %t."
 
-/datum/emote/living/carbon/human/drone/hum
+/datum/emote/living/carbon/human/drask_talk/drone
+	key = "drone"
+	key_third_person = "drones"
+
+/datum/emote/living/carbon/human/drask_talk/hum
 	key = "hum"
 	key_third_person = "hums"
 
-
-/datum/emote/living/carbon/human/drone/rumble
+/datum/emote/living/carbon/human/drask_talk/rumble
 	key = "rumble"
 	key_third_person = "rumbles"
 
