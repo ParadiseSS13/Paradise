@@ -2077,7 +2077,7 @@
 					organ.insert(H)
 				logmsg = "a honk tumor."
 			if("Hallucinate")
-				H.Hallucinate(1000)
+				H.Hallucinate(1000 SECONDS)
 				logmsg = "hallucinations."
 			if("Cold")
 				H.reagents.add_reagent("frostoil", 40)

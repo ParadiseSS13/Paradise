@@ -25,7 +25,7 @@
 /datum/reagent/lsd/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.Druggy(15, FALSE)
-	M.AdjustHallucinate(10)
+	M.AdjustHallucinate(10 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/space_drugs
@@ -397,7 +397,7 @@
 		M.visible_message("<span class='warning'>[M] scratches at something under [M.p_their()] skin!</span>")
 		update_flags |= M.adjustBruteLoss(5, FALSE)
 	else if(check < 16)
-		M.AdjustHallucinate(30)
+		M.AdjustHallucinate(30 SECONDS)
 	else if(check < 24)
 		to_chat(M, "<span class='userdanger'>They're coming for you!</span>")
 	else if(check < 28)

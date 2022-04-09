@@ -1,6 +1,6 @@
 // A bunch of empty procs for all the status procs in living/status_procs.dm, because
 // I can't be bothered to deal with all the merge conflicts it would cause to
-// typecast every mob in the codebase correctly
+// typecast every mob in the codebase correctly // luckily I am mad enough to
 
 /mob/proc/Druggy()
 	return
@@ -35,16 +35,6 @@
 	return
 
 /mob/proc/AdjustEyeBlurry()
-	return
-
-
-/mob/proc/Hallucinate()
-	return
-
-/mob/proc/SetHallucinate()
-	return
-
-/mob/proc/AdjustHallucinate()
 	return
 
 /mob/proc/adjust_bodytemperature(amount, min_temp = 0, max_temp = INFINITY)

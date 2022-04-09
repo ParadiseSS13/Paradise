@@ -446,3 +446,60 @@
 
 /datum/status_effect/transient/lose_breath
 	id = "lose_breath"
+
+#define HALLUCINATE_COOLDOWN_MIN 20 SECONDS
+#define HALLUCINATE_COOLDOWN_MAX 50 SECONDS
+/// This is multiplied with [/mob/var/hallucination] to determine the final cooldown. A higher hallucination value means shorter cooldown.
+#define HALLUCINATE_COOLDOWN_FACTOR 0.003
+/// Percentage defining the chance at which an hallucination may spawn past the cooldown.
+#define HALLUCINATE_CHANCE 80
+// Severity weights, should sum up to 100!
+#define HALLUCINATE_MINOR_WEIGHT 60
+#define HALLUCINATE_MODERATE_WEIGHT 30
+#define HALLUCINATE_MAJOR_WEIGHT 10
+
+/datum/status_effect/transient/hallucination
+	id = "hallucination"
+	tick_interval = 2 SECONDS
+	var/next_hallucination = 0
+
+/datum/status_effect/transient/hallucination/tick()
+	if(next_hallucination > world.time)
+		return
+
+	next_hallucination = world.time + rand(HALLUCINATE_COOLDOWN_MIN, HALLUCINATE_COOLDOWN_MAX) / (strength * HALLUCINATE_COOLDOWN_FACTOR)
+	if(!prob(HALLUCINATE_CHANCE))
+		return
+
+	// Pick a severity
+	var/severity = HALLUCINATE_MINOR
+	switch(rand(100))
+		if(0 to HALLUCINATE_MINOR_WEIGHT)
+			severity = HALLUCINATE_MINOR
+		if((HALLUCINATE_MINOR_WEIGHT + 1) to (HALLUCINATE_MINOR_WEIGHT + HALLUCINATE_MODERATE_WEIGHT))
+			severity = HALLUCINATE_MODERATE
+		if((HALLUCINATE_MINOR_WEIGHT + HALLUCINATE_MODERATE_WEIGHT + 1) to 100)
+			severity = HALLUCINATE_MAJOR
+
+	hallucinate(pickweight(GLOB.hallucinations[severity]))
+
+
+/**
+  * Spawns an hallucination for the mob.
+  *
+  * Arguments:
+  * * H - The type path of the hallucination to spawn.
+  */
+/datum/status_effect/transient/hallucination/proc/hallucinate(obj/effect/hallucination/H)
+	ASSERT(ispath(H))
+	if(owner.ckey)
+		add_attack_logs(null, owner, "Received hallucination [H]", ATKLOG_ALL)
+	return new H(get_turf(owner), owner)
+
+#undef HALLUCINATE_COOLDOWN_MIN
+#undef HALLUCINATE_COOLDOWN_MAX
+#undef HALLUCINATE_COOLDOWN_FACTOR
+#undef HALLUCINATE_CHANCE
+#undef HALLUCINATE_MINOR_WEIGHT
+#undef HALLUCINATE_MODERATE_WEIGHT
+#undef HALLUCINATE_MAJOR_WEIGHT

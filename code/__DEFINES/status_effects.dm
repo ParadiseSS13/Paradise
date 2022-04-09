@@ -114,6 +114,8 @@
 
 #define STATUS_EFFECT_LOSE_BREATH /datum/status_effect/transient/lose_breath
 
+#define STATUS_EFFECT_HALLUCINATION /datum/status_effect/transient/hallucination
+
 /////////////
 // NEUTRAL //
 /////////////

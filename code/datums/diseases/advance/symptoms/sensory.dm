@@ -40,7 +40,7 @@ Bonus
 				RD.remove_reagent("lsd", 5)
 			if(RD.has_reagent("histamine"))
 				RD.remove_reagent("histamine", 5)
-			M.AdjustHallucinate(-10)
+			M.AdjustHallucinate(-10 SECONDS)
 		if(A.stage >= 5)
 			RD.check_and_add("mannitol", 10, 10)
 

@@ -57,8 +57,8 @@
 /datum/reagent/blob/envenomed_filaments/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
 		volume = ..()
-		M.apply_damage(0.6*volume, TOX)
-		M.hallucination += 0.6*volume
+		M.apply_damage(0.6 * volume, TOX)
+		M.AdjustHallucinate(0.6 SECONDS * volume)
 		if(M.reagents)
 			M.reagents.add_reagent("spore", 0.4*volume)
 

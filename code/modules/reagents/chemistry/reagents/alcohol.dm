@@ -104,7 +104,7 @@
 
 //copy paste from LSD... shoot me
 /datum/reagent/consumable/ethanol/absinthe/on_mob_life(mob/living/M)
-	M.AdjustHallucinate(5)
+	M.AdjustHallucinate(5 SECONDS)
 	return ..()
 
 /datum/reagent/consumable/ethanol/absinthe/overdose_process(mob/living/M, severity)

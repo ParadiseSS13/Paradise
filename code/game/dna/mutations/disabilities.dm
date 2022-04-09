@@ -24,7 +24,7 @@
 
 /datum/mutation/disability/hallucinate/on_life(mob/living/carbon/human/H)
 	if(prob(1))
-		H.AdjustHallucinate(45)
+		H.AdjustHallucinate(45 SECONDS)
 
 /datum/mutation/disability/epilepsy
 	name = "Epilepsy"

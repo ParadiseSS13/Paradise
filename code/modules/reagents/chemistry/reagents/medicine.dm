@@ -1017,7 +1017,7 @@
 		if(drug_list.Find(R.id))
 			M.reagents.remove_reagent(R.id, 5)
 	update_flags |= M.AdjustDruggy(-5, FALSE)
-	M.AdjustHallucinate(-5)
+	M.AdjustHallucinate(-5 SECONDS)
 	M.AdjustJitter(-10 SECONDS)
 	if(prob(50))
 		M.Drowsy(3)
@@ -1240,7 +1240,7 @@
 
 /datum/reagent/medicine/earthsblood/overdose_process(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.SetHallucinate(min(max(0, M.hallucination + 5), 60))
+	M.AdjustHallucinate(5 SECONDS, 0, 60 SECONDS)
 	if(current_cycle > 25)
 		update_flags |= M.adjustToxLoss(4 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		if(current_cycle > 100) //podpeople get out reeeeeeeeeeeeeeeeeeeee

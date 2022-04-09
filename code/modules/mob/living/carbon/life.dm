@@ -262,10 +262,6 @@
 			setStaminaLoss(0, FALSE)
 			update_health_hud()
 
-	if(hallucination)
-		handle_hallucinations()
-		AdjustHallucinate(-2)
-
 	// Keep SSD people asleep
 	if(player_logged)
 		Sleeping(4 SECONDS)

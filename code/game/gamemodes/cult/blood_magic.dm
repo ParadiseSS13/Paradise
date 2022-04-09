@@ -292,7 +292,7 @@
 		if(!ishuman(target) || iscultist(target))
 			return
 		var/mob/living/carbon/human/H = target
-		H.hallucination = max(H.hallucination, 120)
+		H.Hallucinate(120 SECONDS)
 		attached_action.charges--
 		attached_action.desc = attached_action.base_desc
 		attached_action.desc += "<br><b><u>Has [attached_action.charges] use\s remaining</u></b>."

@@ -149,7 +149,7 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
 		M.adjustBrainLoss(20)
-		M.AdjustHallucinate(20)
+		M.AdjustHallucinate(20 SECONDS)
 
 /obj/item/projectile/clown
 	name = "snap-pop"

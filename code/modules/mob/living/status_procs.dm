@@ -97,7 +97,6 @@
 	var/druggy = 0
 	var/eye_blind = 0
 	var/eye_blurry = 0
-	var/hallucination = 0
 
 // RESTING
 
@@ -299,16 +298,17 @@
 	return SetEyeBlurry(new_value, updating)
 
 // HALLUCINATION
+/mob/living/proc/AmountHallucinate()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_HALLUCINATION)
 
-/mob/living/Hallucinate(amount)
-	SetHallucinate(max(hallucination, amount))
+/mob/living/proc/Hallucinate(amount)
+	SetHallucinate(max(AmountHallucinate(), amount))
 
-/mob/living/SetHallucinate(amount)
-	hallucination = max(amount, 0)
+/mob/living/proc/SetHallucinate(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_HALLUCINATION, amount)
 
-/mob/living/AdjustHallucinate(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(hallucination, amount, bound_lower, bound_upper)
-	SetHallucinate(new_value)
+/mob/living/proc/AdjustHallucinate(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetHallucinate(clamp(amount + AmountHallucinate(), bound_lower, bound_upper))
 
 // JITTER
 /mob/living/proc/AmountJitter()

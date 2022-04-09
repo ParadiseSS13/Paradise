@@ -165,7 +165,7 @@
 				H.AdjustConfused(15)
 				H.adjustBrainLoss(5, 15)
 			if(3)
-				H.hallucination += 60
+				H.AdjustHallucinate(60 SECONDS)
 
 /obj/item/organ/internal/heart/gland/pop
 	cooldown_low = 900
