@@ -149,6 +149,8 @@
 
 /obj/machinery/r_n_d/experimentor/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
 	ejectItem()
 	default_deconstruction_crowbar(user, I)
 
