@@ -63,17 +63,6 @@
 
 	return all_keys
 
-
-/mob/proc/emote_dead(message)
-	CRASH("emote_dead is oldcode but was called")
-
-// Stub these out since they're still referenced everywhere
-/mob/proc/handle_emote_CD(cooldown)
-	CRASH("handle_emote_CD is oldcode but was called.")
-
-/mob/proc/handle_emote_param(param)
-	CRASH("handle_emote_param is oldcode but was called")
-
 /datum/emote/help
 	key = "help"
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer, /mob/living/silicon/ai)
