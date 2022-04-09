@@ -10,7 +10,6 @@
 	var/max_res_amount = 1
 	var/time = 0
 	var/one_per_turf = 0
-	var/req_empty_turf = 0
 	var/on_floor = 0
 	var/window_checks = FALSE
 	var/cult_structure = FALSE
@@ -23,7 +22,6 @@
 	src.max_res_amount = max_res_amount
 	src.time = time
 	src.one_per_turf = one_per_turf
-	src.req_empty_turf = req_empty_turf
 	src.on_floor = on_floor
 	src.window_checks = window_checks
 	src.cult_structure = cult_structure
