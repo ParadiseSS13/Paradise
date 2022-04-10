@@ -17,7 +17,7 @@
 	verbs.Cut() //Cargo culting from lighting object, this maybe affects memory usage?
 
 	render_source = source
-	color = GLOB.em_block_color
+	color = EM_BLOCK_COLOR
 
 /atom/movable/emissive_blocker/ex_act(severity)
 	return FALSE
