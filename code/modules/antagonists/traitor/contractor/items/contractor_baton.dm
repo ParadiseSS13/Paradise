@@ -3,7 +3,7 @@
 	desc = "A compact, specialised baton issued to Syndicate contractors. Applies light electrical shocks to targets."
 	// Overrides
 	affect_silicon = TRUE
-	stun_time = 1
+	stun_time = 2 SECONDS
 	cooldown = 2.5 SECONDS
 	force_off = 5
 	force_on = 15

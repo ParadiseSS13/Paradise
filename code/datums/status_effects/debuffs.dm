@@ -433,7 +433,8 @@
 
 /datum/status_effect/transient/jittery/tick()
 	..()
-	owner.do_jitter_animation(strength / 20, 1)
+	if(owner)
+		owner.do_jitter_animation(strength / 20, 1)
 
 /datum/status_effect/transient/jittery/calc_decay()
 	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS

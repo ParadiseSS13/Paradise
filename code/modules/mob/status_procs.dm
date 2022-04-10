@@ -1,6 +1,4 @@
-// A bunch of empty procs for all the status procs in living/status_procs.dm, because
-// I can't be bothered to deal with all the merge conflicts it would cause to
-// typecast every mob in the codebase correctly // luckily I am mad enough to
+// some legacy code that needs to be moved to /mob/living
 
 /mob/proc/RestoreEars()
 	return

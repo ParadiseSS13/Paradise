@@ -216,8 +216,8 @@
 	hallucination_icon_state = "smooth"
 	hallucination_override = TRUE
 	hallucination_layer = HIGH_TURF_LAYER
-	stun = 8 SECONDS_TO_LIFE_CYCLES
-	weaken = 8 SECONDS_TO_LIFE_CYCLES
+	stun = 8 SECONDS
+	weaken = 8 SECONDS
 
 /obj/effect/hallucination/tripper/chasm/on_crossed()
 	target.visible_message("<span class='warning'>[target] trips over nothing and flails on [get_turf(target)] as if they were falling!</span>",
