@@ -36,17 +36,17 @@
 		if(BURN)
 			playsound(loc, 'sound/weapons/egloves.ogg', 80, TRUE)
 
-/obj/structure/holosign/proc/wet_timer(obj/item/holosign_creator/HS_C)
-	addtimer(CALLBACK(src, .proc/wet_timer_finish, HS_C), 820, TIMER_UNIQUE)
-
-/obj/structure/holosign/proc/wet_timer_finish(obj/item/holosign_creator/HS_C)
-	playsound(HS_C.loc, 'sound/machines/chime.ogg', 20, 1)
-	Destroy()
-
 /obj/structure/holosign/wetsign
 	name = "wet floor sign"
 	desc = "The words flicker as if they mean nothing."
 	icon_state = "holosign"
+
+/obj/structure/holosign/wetsign/proc/wet_timer(obj/item/holosign_creator/HS_C)
+	addtimer(CALLBACK(src, .proc/wet_timer_finish, HS_C), 820, TIMER_UNIQUE)
+
+/obj/structure/holosign/wetsign/proc/wet_timer_finish(obj/item/holosign_creator/HS_C)
+	playsound(HS_C.loc, 'sound/machines/chime.ogg', 20, 1)
+	Destroy()
 
 /obj/structure/holosign/barrier
 	name = "holo barrier"

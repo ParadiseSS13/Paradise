@@ -30,7 +30,7 @@
 		if(!istype(o, /obj/item/reagent_containers/glass/bucket))
 			janicart_insert(user, o)
 	else
-		o.reagents.trans_to(src, 5)	//
+		o.reagents.trans_to(src, 5)
 		to_chat(user, "<span class='notice'>You wet [src] in [o].</span>")
 		playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 
@@ -62,13 +62,11 @@
 			to_chat(user, "<span class='notice'>You finish mopping.</span>")
 			clean(T)
 
-
 /obj/effect/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mop) || istype(I, /obj/item/soap))
 		return
 	else
 		return ..()
-
 
 /obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	J.put_in_cart(src, user)
@@ -122,7 +120,6 @@
 	if(refill_enabled)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /obj/item/mop/advanced/cyborg
 

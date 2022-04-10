@@ -43,7 +43,7 @@
 
 /obj/structure/mopbucket/proc/put_in_cart(obj/item/mop/I, mob/user)
 	user.drop_item()
-	I.loc = src
+	I.forceMove(src)
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 	return
 

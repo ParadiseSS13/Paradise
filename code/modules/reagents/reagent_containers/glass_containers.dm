@@ -283,7 +283,6 @@
 /obj/item/reagent_containers/glass/beaker/drugs/meth
 	list_reagents = list("methamphetamine" = 10)
 
-
 /obj/item/reagent_containers/glass/bucket
 	desc = "It's a bucket."
 	name = "bucket"
