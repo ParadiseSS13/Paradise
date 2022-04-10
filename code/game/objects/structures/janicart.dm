@@ -39,6 +39,8 @@
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 	return
 
+/obj/structure/janitorialcart/on_reagent_change()
+	update_icon()
 
 /obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
@@ -177,3 +179,17 @@
 		overlays += "cart_replacer"
 	if(signs)
 		overlays += "cart_sign[signs]"
+	if(reagents.total_volume > 0)
+		var/image/reagentsImage = image(icon,src,"cart_reagents0")
+		reagentsImage.alpha = 150
+		switch((reagents.total_volume/reagents.maximum_volume)*100)
+			if(1 to 25)
+				reagentsImage.icon_state = "cart_reagents1"
+			if(26 to 50)
+				reagentsImage.icon_state = "cart_reagents2"
+			if(51 to 75)
+				reagentsImage.icon_state = "cart_reagents3"
+			if(76 to 100)
+				reagentsImage.icon_state = "cart_reagents4"
+		reagentsImage.icon += mix_color_from_reagents(reagents.reagent_list)
+		add_overlay(reagentsImage)

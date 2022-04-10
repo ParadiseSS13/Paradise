@@ -68,7 +68,7 @@
 
 /obj/item/holosign_creator/janitor/AltClick(mob/user)
 	wet_timer = !wet_timer
-	playsound(src.loc,'sound/weapons/empty.ogg', 20)
+	playsound(loc,'sound/weapons/empty.ogg', 20)
 	switch(wet_timer)
 		if(TRUE)
 			to_chat(user, "<span class='notice'>You enable the W.E.T.(wet evaporation timer)\nAny newly placed holographic signs will clear after the likely time it takes for a mopped tile to dry.</span>")
