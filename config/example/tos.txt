@@ -1,3 +1,0 @@
-<h1>Welcome to Space Station 13!</h1>
-
-Terms of service goes here.
