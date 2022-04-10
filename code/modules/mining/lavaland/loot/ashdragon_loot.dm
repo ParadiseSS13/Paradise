@@ -140,6 +140,11 @@
 	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghosts!</span>")
 	return ..()
 
+/obj/item/melee/ghost_sword/on_enter_storage(obj/item/storage/S)
+	for(var/mob/dead/observer/ghost in spirits)
+		remove_ghost(src, ghost) // if this is not done, ghosts will remain visible permanently.
+	..()
+
 // Blood
 
 /obj/item/dragons_blood
