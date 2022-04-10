@@ -89,7 +89,6 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 ))
 
 GLOBAL_LIST_INIT(whitelisted_positions, list(
-	"Nanotrasen Representative",
 	"Barber",
 ))
 
