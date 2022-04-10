@@ -32,14 +32,6 @@
 	QDEL_NULL(myreplacer)
 	return ..()
 
-/obj/structure/janitorialcart/proc/wet_mop(obj/item/mop, mob/user)
-	if(reagents.total_volume < 1)
-		to_chat(user, "[src] is out of water!</span>")
-	else
-		reagents.trans_to(mop, 5)	//
-		to_chat(user, "<span class='notice'>You wet [mop] in [src].</span>")
-		playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
-
 /obj/structure/janitorialcart/proc/put_in_cart(obj/item/I, mob/user)
 	user.drop_item()
 	I.loc = src
@@ -55,7 +47,7 @@
 		if(istype(I, /obj/item/mop))
 			var/obj/item/mop/m=I
 			if(m.reagents.total_volume < m.reagents.maximum_volume)
-				wet_mop(m, user)
+				m.wet_mop(src, user)
 				return
 			if(!mymop)
 				m.janicart_insert(user, src)

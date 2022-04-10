@@ -17,6 +17,23 @@
 	var/creation_time = 0 //time to create a holosign in deciseconds.
 	var/holosign_type = /obj/structure/holosign/wetsign
 	var/holocreator_busy = FALSE //to prevent placing multiple holo barriers at once
+	var/wet_timer = FALSE
+
+/obj/item/holosign_creator/AltClick(mob/user)
+	if(!holosign_type == /obj/structure/holosign/wetsign)
+		.=..()
+		return
+	wet_timer = !wet_timer
+	switch(wet_timer)
+		if(TRUE)
+			to_chat(user, "<span class='notice'>You enable the W.E.T.(wet evaporation timer)\nAny newly placed holographic signs will clear after the likely time it takes for a mopped tile to dry.</span>")
+		if(FALSE)
+			to_chat(user, "<span class='notice'>You disable the W.E.T.(wet evaporation timer)\nAny newly placed holographic signs will now stay indefinitely.</span>")
+
+/obj/item/holosign_creator/examine(mob/user)
+	if(ishuman(user) && holosign_type == /obj/structure/holosign/wetsign)
+		desc += "\n<span class='info'>Alt Click to [wet_timer ? "activate" : "deactivate" ] its built-in wet evaporation timer.</span>"
+	. = ..()
 
 /obj/item/holosign_creator/afterattack(atom/target, mob/user, flag)
 	if(flag)
@@ -45,6 +62,8 @@
 						if(is_blocked_turf(T, TRUE)) //don't try to sneak dense stuff on our tile during the wait.
 							return
 					H = new holosign_type(get_turf(target), src)
+					if(holosign_type == /obj/structure/holosign/wetsign && wet_timer)
+						H.wet_timer(src)
 					to_chat(user, "<span class='notice'>You create [H] with [src].</span>")
 				else
 					to_chat(user, "<span class='notice'>[src] is projecting at max capacity!</span>")
