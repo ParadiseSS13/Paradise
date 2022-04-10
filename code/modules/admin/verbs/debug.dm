@@ -236,8 +236,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			if("reference")
 				lst += input("Select reference:","Reference",src) as mob|obj|turf|area in world
 
-			if("reference in view")
-				lst += input("Select reference in range:", "Reference in range", src) as mob|obj|turf|area in range(world.view, usr)
+			if("reference in range")
+				lst += input("Select reference in range:", "Reference in range", src) as mob|obj|turf|area in range(world.view)
 
 			if("mob reference")
 				lst += input("Select reference:","Reference",usr) as mob in world
