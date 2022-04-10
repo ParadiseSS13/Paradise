@@ -800,6 +800,34 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
+/obj/item/clothing/suit/jacket/engibomber
+	name = "engineering bomber jacket"
+	desc = "A stylish and warm jacket adorned with the colors of the humble Station Engineer."
+	icon_state = "bomberengi"
+	item_state = "bomberengi"
+	ignore_suitadjust = 0
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 20, FIRE = 30, ACID = 45)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	actions_types = list(/datum/action/item_action/zipper)
+	adjust_flavour = "unzip"
+
+/obj/item/clothing/suit/jacket/atmosbomber
+	name = "atmospherics bomber jacket"
+	desc = "A stylish and warm jacket adorned with the colors of the magical Atmospherics Technician."
+	icon_state = "bomberatmos"
+	item_state = "bomberatmos"
+	ignore_suitadjust = 0
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 20, FIRE = 30, ACID = 45)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	actions_types = list(/datum/action/item_action/zipper)
+	adjust_flavour = "unzip"
+
 /obj/item/clothing/suit/jacket/secbomber
 	name = "security bomber jacket"
 	desc = "A stylish and worn-in armoured black bomber jacket emblazoned with the NT Security crest on the left breast. Looks rugged."
