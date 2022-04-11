@@ -184,6 +184,34 @@
 	desc = "You're severely malnourished. The hunger pains make moving around a chore."
 	icon_state = "starving"
 
+/// Machine "hunger"
+
+/obj/screen/alert/full/machine
+	name = "Full Charge"
+	desc = "Your cell is at full charge. Might want to give APCs some space."
+	icon_state = "full_machine"
+
+/obj/screen/alert/well_fed/machine
+	name = "High Charge"
+	desc = "You're almost all charged, but could top up a bit more."
+	icon_state = "well_fed_machine"
+
+/obj/screen/alert/fed/machine
+	name = "Half Charge"
+	desc = "You feel moderately charged, but a bit more juice couldn't hurt."
+	icon_state = "fed_machine"
+
+/obj/screen/alert/hungry/machine
+	name = "Low Charge"
+	desc = "Could use a little charging right about now."
+	icon_state = "hungry_machine"
+
+/obj/screen/alert/starving/machine
+	name = "Nearly Discharged"
+	desc = "You're almost drained. The low power make moving around a chore."
+	icon_state = "starving_machine"
+
+// End of Machine "hunger"
 ///Vampire "hunger"
 
 /obj/screen/alert/fat/vampire

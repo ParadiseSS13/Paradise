@@ -805,7 +805,20 @@
 			else
 				throw_alert("nutrition", /obj/screen/alert/starving/vampire)
 
-	else //Any other non-vampires
+	else if(ismachineperson(src))
+		switch(nutrition)
+			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+				throw_alert("nutrition", /obj/screen/alert/full/machine)
+			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+				throw_alert("nutrition", /obj/screen/alert/well_fed/machine)
+			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+				throw_alert("nutrition", /obj/screen/alert/fed/machine)
+			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+				throw_alert("nutrition", /obj/screen/alert/hungry/machine)
+			else
+				throw_alert("nutrition", /obj/screen/alert/starving/machine)
+
+	else // The rest that aren't vampires of machine
 		switch(nutrition)
 			if(NUTRITION_LEVEL_FULL to INFINITY)
 				throw_alert("nutrition", /obj/screen/alert/fat)
