@@ -208,7 +208,7 @@
 
 /obj/screen/alert/starving/machine
 	name = "Nearly Discharged"
-	desc = "You're almost drained. The low power make moving around a chore."
+	desc = "You're almost drained. The low power makes moving around a chore."
 	icon_state = "starving_machine"
 
 // End of Machine "hunger"
