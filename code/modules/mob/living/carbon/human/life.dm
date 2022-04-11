@@ -818,7 +818,7 @@
 			else
 				throw_alert("nutrition", /obj/screen/alert/starving/machine)
 
-	else // The rest that aren't vampires of machine
+	else // The rest that aren't vampires or machine
 		switch(nutrition)
 			if(NUTRITION_LEVEL_FULL to INFINITY)
 				throw_alert("nutrition", /obj/screen/alert/fat)
