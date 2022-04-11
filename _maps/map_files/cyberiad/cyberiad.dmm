@@ -3608,7 +3608,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/warden)
+/area/security/securearmoury)
 "alW" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
@@ -79946,33 +79946,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
-"fnA" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	name = "Warden's Office";
-	req_access_txt = "3"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/armoury)
 "fpa" = (
 /obj/structure/filingcabinet,
 /turf/simulated/floor/plasteel{
@@ -80311,6 +80284,33 @@
 	icon_state = "red"
 	},
 /area/security/prisonlockers)
+"gZW" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/security/glass{
+	name = "Warden's Office";
+	req_access_txt = "3"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/armoury)
 "hbq" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -80394,6 +80394,19 @@
 	icon_state = "red"
 	},
 /area/security/prisonlockers)
+"hKI" = (
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmoury)
 "hLh" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -81534,6 +81547,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
+"oOR" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/security/warden)
 "oOZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
 /turf/simulated/wall/r_wall,
@@ -81584,19 +81610,6 @@
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"pda" = (
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
-/obj/structure/reagent_dispensers/peppertank{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmoury)
 "pgF" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -82101,19 +82114,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
-"syI" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
-	},
-/area/security/warden)
 "sAz" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -82707,11 +82707,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"vTq" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/warden)
 "vUG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -82776,6 +82771,9 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/tcommsat/chamber)
+"wft" = (
+/turf/simulated/wall/r_wall,
+/area/security/warden)
 "whv" = (
 /obj/machinery/computer/HolodeckControl{
 	dir = 4
@@ -83067,6 +83065,11 @@
 "ydz" = (
 /turf/simulated/floor/plasteel,
 /area/security/prisonlockers)
+"yeo" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/warden)
 "yix" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -110684,8 +110687,8 @@ aYm
 aew
 aor
 xWL
-fnA
-syI
+gZW
+oOR
 agD
 aos
 apg
@@ -110942,7 +110945,7 @@ adb
 anW
 adP
 apP
-vTq
+yeo
 anz
 aou
 apf
@@ -111711,8 +111714,8 @@ aaa
 aiv
 ajn
 ajj
-pda
-aiv
+hKI
+wft
 amC
 agL
 afl

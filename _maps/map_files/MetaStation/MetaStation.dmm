@@ -76248,17 +76248,6 @@
 	icon_state = "dark"
 	},
 /area/chapel/main)
-"fSX" = (
-/obj/machinery/vending/secdrobe,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
-/area/security/seceqstorage)
 "fUI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -77366,6 +77355,9 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
+"iJj" = (
+/turf/simulated/wall/r_wall,
+/area/security/seceqstorage)
 "iNu" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -77491,6 +77483,17 @@
 	icon_state = "freezerfloor"
 	},
 /area/medical/virology)
+"jfe" = (
+/obj/machinery/vending/secdrobe,
+/obj/machinery/alarm{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/security/seceqstorage)
 "jgD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -78192,9 +78195,6 @@
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
 	})
-"lzr" = (
-/turf/simulated/wall/r_wall,
-/area/security/seceqstorage)
 "lBy" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -78689,15 +78689,6 @@
 /area/hallway/secondary/entry{
 	name = "Arrivals"
 	})
-"neU" = (
-/obj/machinery/flasher/portable,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel,
-/area/security/armoury)
 "nhK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -79106,6 +79097,15 @@
 /area/medical/medbay2{
 	name = "Medbay Storage"
 	})
+"oTi" = (
+/obj/machinery/flasher/portable,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/alarm{
+	name = "north bump";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel,
+/area/security/armoury)
 "oTM" = (
 /obj/structure/sign/fire,
 /turf/simulated/wall/r_wall,
@@ -108083,7 +108083,7 @@ ajV
 ajV
 ajV
 agA
-neU
+oTi
 akW
 hIT
 ala
@@ -109885,7 +109885,7 @@ ajV
 alD
 alY
 tAk
-lzr
+iJj
 aoq
 aoq
 arg
@@ -110142,7 +110142,7 @@ ajV
 alG
 alY
 amq
-lzr
+iJj
 aot
 apv
 aqR
@@ -110395,11 +110395,11 @@ abq
 abq
 abq
 abq
-atK
+iJj
 alC
 dnu
 alS
-lzr
+iJj
 aoj
 apu
 aqQ
@@ -110652,11 +110652,11 @@ aaa
 aaa
 aaa
 abq
-atK
-fSX
+iJj
+jfe
 alY
 anR
-lzr
+iJj
 aow
 aov
 aqT
