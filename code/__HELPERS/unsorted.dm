@@ -937,8 +937,6 @@ Returns 1 if the chain up to the area contains the given typepath
 
 					var/list/objs = new/list()
 					var/list/newobjs = new/list()
-					var/list/mobs = new/list()
-					var/list/newmobs = new/list()
 
 					for(var/obj/O in T)
 
@@ -955,22 +953,7 @@ Returns 1 if the chain up to the area contains the given typepath
 					for(var/obj/O in newobjs)
 						O.loc = X
 
-					for(var/mob/M in T)
-
-						if(!M.move_on_shuttle)
-							continue
-						mobs += M
-
-					for(var/mob/M in mobs)
-						newmobs += DuplicateObject(M , 1)
-
-					for(var/mob/M in newmobs)
-						M.loc = X
-
 					copiedobjs += newobjs
-					copiedobjs += newmobs
-
-
 
 					for(var/V in T.vars)
 						if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key","x","y","z","contents", "luminosity", "group")))

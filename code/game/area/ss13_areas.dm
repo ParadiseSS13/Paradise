@@ -1004,7 +1004,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/holodeck/alphadeck
 	name = "\improper Holodeck Alpha"
 
-
 /area/holodeck/source_plating
 	name = "\improper Holodeck - Off"
 	icon_state = "Holodeck"
@@ -1023,10 +1022,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/holodeck/source_beach
 	name = "\improper Holodeck - Beach"
-	icon_state = "Holodeck" // Lazy.
-
-/area/holodeck/source_burntest
-	name = "\improper Holodeck - Atmospheric Burn Test"
 
 /area/holodeck/source_wildlife
 	name = "\improper Holodeck - Wildlife Simulation"
@@ -1051,6 +1046,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/holodeck/source_knightarena
 	name = "\improper Holodeck - Knight Arena"
+
+/area/holodeck/source_jungle
+	name = "\improper Holodeck - Jungle"
 
 //Engineering
 /area/engine

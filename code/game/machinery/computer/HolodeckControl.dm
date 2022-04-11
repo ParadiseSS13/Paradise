@@ -26,27 +26,24 @@
 	dat += "<B>Holodeck Control System</B><BR>"
 	dat += "<HR>Current Loaded Programs:<BR>"
 
-	dat += "<A href='?src=[UID()];emptycourt=1'>((Empty Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];boxingcourt=1'>((Boxing Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];basketball=1'>((Basketball Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];thunderdomecourt=1'>((Thunderdome Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];beach=1'>((Beach)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];desert=1'>((Desert)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];space=1'>((Space)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];picnicarea=1'>((Picnic Area)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];snowfield=1'>((Snow Field)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];theatre=1'>((Theatre)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];meetinghall=1'>((Meeting Hall)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];knightarena=1'>((Knight Arena)</font>)</A><BR>"
-//		dat += "<A href='?src=[UID()];turnoff=1'>((Shutdown System)</font>)</A><BR>"
-
+	dat += "<A href='?src=[UID()];program=emptycourt'>((Empty Court)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];program=boxingcourt'>((Boxing Court)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];program=basketball'>((Basketball Court)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];program=thunderdomecourt'>((Thunderdome Court)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];program=beach'>((Beach)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];program=desert'>((Desert)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];program=space'>((Space)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];program=picnicarea'>((Picnic Area)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];program=snowfield'>((Snow Field)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];program=theatre'>((Theatre)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];program=meetinghall'>((Meeting Hall)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];program=knightarena'>((Knight Arena)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];program=jungle'>((Jungle)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];program=turnoff'>((Shutdown System)</font>)</A><BR>"
 	dat += "Please ensure that only holographic weapons are used in the holodeck if a combat simulation has been loaded.<BR>"
 
 	if(emagged)
-/*			dat += "<A href='?src=[UID()];burntest=1'>(<font color=red>Begin Atmospheric Burn Simulation</font>)</A><BR>"
-		dat += "Ensure the holodeck is empty before testing.<BR>"
-		dat += "<BR>"*/
-		dat += "<A href='?src=[UID()];wildlifecarp=1'>(<font color=red>Begin Wildlife Simulation</font>)</A><BR>"
+		dat += "<A href='?src=[UID()];program=wildlifecarp'>(<font color=red>Begin Wildlife Simulation</font>)</A><BR>"
 		dat += "Ensure the holodeck is empty before testing.<BR>"
 		dat += "<BR>"
 		if(issilicon(user))
@@ -66,87 +63,45 @@
 
 /obj/machinery/computer/HolodeckControl/Topic(href, href_list)
 	if(..())
-		return 1
+		return TRUE
 
-	if(href_list["emptycourt"])
-		target = locate(/area/holodeck/source_emptycourt)
-		if(target)
-			loadProgram(target)
+	switch(href_list["program"])
+		if("emptycourt")
+			target = locate(/area/holodeck/source_emptycourt)
+		if("boxingcourt")
+			target = locate(/area/holodeck/source_boxingcourt)
+		if("basketball")
+			target = locate(/area/holodeck/source_basketball)
+		if("thunderdomecourt")
+			target = locate(/area/holodeck/source_thunderdomecourt)
+		if("beach")
+			target = locate(/area/holodeck/source_beach)
+		if("desert")
+			target = locate(/area/holodeck/source_desert)
+		if("space")
+			target = locate(/area/holodeck/source_space)
+		if("picnicarea")
+			target = locate(/area/holodeck/source_picnicarea)
+		if("snowfield")
+			target = locate(/area/holodeck/source_snowfield)
+		if("theatre")
+			target = locate(/area/holodeck/source_theatre)
+		if("meetinghall")
+			target = locate(/area/holodeck/source_meetinghall)
+		if("knightarena")
+			target = locate(/area/holodeck/source_knightarena)
+		if("jungle")
+			target = locate(/area/holodeck/source_jungle)
+		if("turnoff")
+			target = locate(/area/holodeck/source_plating)
+		if("wildlifecarp")
+			if(!emagged)
+				return
+			target = locate(/area/holodeck/source_wildlife)
 
-	else if(href_list["boxingcourt"])
-		target = locate(/area/holodeck/source_boxingcourt)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["basketball"])
-		target = locate(/area/holodeck/source_basketball)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["thunderdomecourt"])
-		target = locate(/area/holodeck/source_thunderdomecourt)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["beach"])
-		target = locate(/area/holodeck/source_beach)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["desert"])
-		target = locate(/area/holodeck/source_desert)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["space"])
-		target = locate(/area/holodeck/source_space)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["picnicarea"])
-		target = locate(/area/holodeck/source_picnicarea)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["snowfield"])
-		target = locate(/area/holodeck/source_snowfield)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["theatre"])
-		target = locate(/area/holodeck/source_theatre)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["meetinghall"])
-		target = locate(/area/holodeck/source_meetinghall)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["knightarena"])
-		target = locate(/area/holodeck/source_knightarena)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["turnoff"])
-		target = locate(/area/holodeck/source_plating)
-		if(target)
-			loadProgram(target)
-/*
-	else if(href_list["burntest"])
-		if(!emagged)	return
-		target = locate(/area/holodeck/source_burntest)
-		if(target)
-			loadProgram(target)
-*/
-	else if(href_list["wildlifecarp"])
-		if(!emagged)	return
-		target = locate(/area/holodeck/source_wildlife)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["AIoverride"])
-		if(!issilicon(usr))	return
+	if(href_list["AIoverride"])
+		if(!issilicon(usr))
+			return
 		emagged = !emagged
 		if(emagged)
 			message_admins("[key_name_admin(usr)] overrode the holodeck's safeties")
@@ -154,6 +109,9 @@
 		else
 			message_admins("[key_name_admin(usr)] restored the holodeck's safeties")
 			log_game("[key_name(usr)] restored the holodeck's safeties")
+
+	if(target)
+		loadProgram(target)
 
 	add_fingerprint(usr)
 	updateUsrDialog()
@@ -270,7 +228,6 @@
 
 
 /obj/machinery/computer/HolodeckControl/proc/loadProgram(area/A)
-
 	if(world.time < (last_change + 25))
 		if(world.time < (last_change + 15))//To prevent super-spam clicking, reduced process size and annoyance -Sieve
 			return
@@ -299,13 +256,6 @@
 
 	spawn(30)
 		for(var/obj/effect/landmark/L in linkedholodeck)
-/*			if(L.name=="Atmospheric Test Start")
-				spawn(20)
-					var/turf/T = get_turf(L)
-					do_sparks(2, 1, T)
-					if(T)
-						T.temperature = 5000
-						T.hotspot_expose(50000,50000,1)*/
 			if(L.name=="Holocarp Spawn")
 				new /mob/living/simple_animal/hostile/carp/holocarp(L.loc)
 
@@ -324,7 +274,7 @@
 	active = 0
 
 // Holographic Items!
-/turf/simulated/floor/holofloor/
+/turf/simulated/floor/holofloor
 	thermal_conductivity = 0
 	icon_state = "plating"
 
@@ -355,15 +305,25 @@
 /turf/simulated/floor/holofloor/grass
 	name = "Lush Grass"
 	icon = 'icons/turf/floors/grass.dmi'
-	icon_state = "grass-0"
+	icon_state = "grass"
 	base_icon_state = "grass"
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_GRASS)
 	canSmoothWith = list(SMOOTH_GROUP_GRASS, SMOOTH_GROUP_JUNGLE_GRASS)
-	pixel_x = -9
-	pixel_y = -9
+	footstep = FOOTSTEP_GRASS
+	barefootstep = FOOTSTEP_GRASS
+	clawfootstep = FOOTSTEP_GRASS
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	transform = matrix(1, 0, -9, 0, 1, -9) //Yes, these sprites are 50x50px, big grass control the industry
 	layer = ABOVE_OPEN_TURF_LAYER
 	floor_tile = /obj/item/stack/tile/grass
+
+/turf/simulated/floor/holofloor/grass/jungle
+	name = "jungle grass"
+	icon = 'icons/turf/floors/junglegrass.dmi'
+	icon_state = "junglegrass"
+	base_icon_state = "junglegrass"
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_GRASS, SMOOTH_GROUP_JUNGLE_GRASS)
 
 /turf/simulated/floor/holofloor/attackby(obj/item/W as obj, mob/user as mob, params)
 	return

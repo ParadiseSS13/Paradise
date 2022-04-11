@@ -140,16 +140,6 @@
 	name = "Holodeck Projector Floor"
 	},
 /area/holodeck/source_plating)
-"aA" = (
-/turf/simulated/floor/holofloor{
-	icon_state = "engine";
-	name = "Burn-Mix Floor";
-	nitrogen = 0;
-	oxygen = 2500;
-	temperature = 370;
-	toxins = 5000
-	},
-/area/holodeck/source_burntest)
 "aB" = (
 /turf/simulated/floor/plasteel/dark,
 /area/ninja/outpost)
@@ -213,17 +203,6 @@
 	name = "Holodeck Projector Floor"
 	},
 /area/holodeck/source_wildlife)
-"aQ" = (
-/obj/effect/landmark/spawner/atmos_test,
-/turf/simulated/floor/holofloor{
-	icon_state = "engine";
-	name = "Burn-Mix Floor";
-	nitrogen = 0;
-	oxygen = 2500;
-	temperature = 370;
-	toxins = 5000
-	},
-/area/holodeck/source_burntest)
 "aR" = (
 /turf/simulated/floor/holofloor{
 	dir = 8;
@@ -1059,11 +1038,9 @@
 	},
 /area/holodeck/source_basketball)
 "em" = (
-/turf/simulated/floor/holofloor{
-	icon_state = "sand";
-	name = "Soft sand"
-	},
-/area/holodeck/source_beach)
+/obj/structure/flora/rock/pile/largejungle,
+/turf/simulated/floor/holofloor/grass/jungle,
+/area/holodeck/source_jungle)
 "en" = (
 /obj/structure/chair/comfy/purp{
 	dir = 4
@@ -6367,6 +6344,10 @@
 /obj/item/pen,
 /turf/simulated/floor/carpet,
 /area/admin)
+"vU" = (
+/obj/structure/flora/junglebush,
+/turf/simulated/floor/holofloor/grass/jungle,
+/area/holodeck/source_jungle)
 "vV" = (
 /obj/machinery/kitchen_machine/candy_maker/upgraded,
 /turf/simulated/floor/plasteel{
@@ -6718,6 +6699,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"xn" = (
+/obj/structure/flora/tree/jungle/small,
+/turf/simulated/floor/holofloor/grass/jungle,
+/area/holodeck/source_jungle)
 "xr" = (
 /obj/structure/table,
 /obj/item/card/id/centcom{
@@ -7499,6 +7484,10 @@
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
+"CI" = (
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/holofloor/grass/jungle,
+/area/holodeck/source_jungle)
 "CJ" = (
 /obj/machinery/door_control/no_emag{
 	id = "CCcustoms2";
@@ -7590,6 +7579,11 @@
 	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
+"Dm" = (
+/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/tree/jungle/small,
+/turf/simulated/floor/holofloor/grass/jungle,
+/area/holodeck/source_jungle)
 "Dn" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control/no_emag{
@@ -7974,6 +7968,9 @@
 	icon_state = "darkblue"
 	},
 /area/shuttle/escape)
+"EB" = (
+/turf/simulated/floor/holofloor/grass/jungle,
+/area/holodeck/source_jungle)
 "EE" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
@@ -8923,9 +8920,7 @@
 /obj/structure/holowindow{
 	dir = 1
 	},
-/turf/simulated/floor/holofloor{
-	icon_state = "asteroid7"
-	},
+/turf/simulated/floor/holofloor,
 /area/holodeck/source_knightarena)
 "IF" = (
 /obj/structure/flora/ausbushes/ppflowers,
@@ -9127,6 +9122,11 @@
 "Jn" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/suppy)
+"Jo" = (
+/obj/structure/flora/tree/jungle,
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/holofloor/grass/jungle,
+/area/holodeck/source_jungle)
 "Jq" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/beanbag,
@@ -9607,6 +9607,10 @@
 	icon_state = "green"
 	},
 /area/centcom/evac)
+"KU" = (
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/holofloor/grass/jungle,
+/area/holodeck/source_jungle)
 "KX" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -11740,9 +11744,7 @@
 /area/centcom/specops)
 "TQ" = (
 /obj/structure/holowindow,
-/turf/simulated/floor/holofloor{
-	icon_state = "asteroid7"
-	},
+/turf/simulated/floor/holofloor,
 /area/holodeck/source_knightarena)
 "TR" = (
 /obj/machinery/door/airlock/centcom{
@@ -12032,6 +12034,10 @@
 	icon_state = "red"
 	},
 /area/centcom/evac)
+"Vh" = (
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/holofloor/grass/jungle,
+/area/holodeck/source_jungle)
 "Vi" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder,
@@ -12226,9 +12232,7 @@
 	},
 /area/centcom/specops)
 "VZ" = (
-/turf/simulated/floor/holofloor{
-	icon_state = "asteroid7"
-	},
+/turf/simulated/floor/holofloor,
 /area/holodeck/source_knightarena)
 "Wa" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -74283,7 +74287,7 @@ ev
 ev
 ev
 ev
-em
+ev
 Zv
 Yp
 cc
@@ -74540,7 +74544,7 @@ ev
 QV
 ev
 ev
-em
+ev
 Zv
 Yp
 cc
@@ -74797,7 +74801,7 @@ ev
 ev
 ev
 ev
-em
+ev
 Zv
 Yp
 cc
@@ -75054,7 +75058,7 @@ ev
 ev
 gr
 ev
-em
+ev
 Zv
 Yp
 cc
@@ -75311,7 +75315,7 @@ ev
 ev
 ev
 ev
-em
+ev
 Zv
 Yp
 cc
@@ -75807,16 +75811,16 @@ aN
 "}
 (244,1,1) = {"
 af
-aA
-aA
-aA
-aA
-aA
-aA
-aA
-aA
-aA
-aA
+vU
+KU
+KU
+vU
+vU
+CI
+KU
+xn
+Vh
+CI
 ce
 Yc
 cu
@@ -76064,16 +76068,16 @@ aN
 "}
 (245,1,1) = {"
 af
-aA
-aQ
-aA
-aA
-aA
-aA
-aA
-aA
-aQ
-aA
+EB
+Vh
+CI
+Jo
+CI
+CI
+em
+EB
+em
+CI
 ce
 Dp
 eN
@@ -76321,16 +76325,16 @@ aN
 "}
 (246,1,1) = {"
 af
-aA
-aA
-aA
-aA
-aA
-aA
-aA
-aA
-aA
-aA
+KU
+CI
+KU
+EB
+em
+CI
+vU
+EB
+vU
+Jo
 ce
 Dp
 eN
@@ -76578,16 +76582,16 @@ aN
 "}
 (247,1,1) = {"
 af
-aA
-aQ
-aA
-aA
-aA
-aA
-aA
-aA
-aQ
-aA
+CI
+vU
+vU
+vU
+Dm
+Vh
+EB
+em
+CI
+CI
 ce
 Dp
 eN
@@ -76835,16 +76839,16 @@ aN
 "}
 (248,1,1) = {"
 af
-aA
-aA
-aA
-aA
-aA
-aA
-aA
-aA
-aA
-aA
+Vh
+CI
+CI
+KU
+CI
+CI
+vU
+xn
+Vh
+CI
 ce
 Cm
 Tz
