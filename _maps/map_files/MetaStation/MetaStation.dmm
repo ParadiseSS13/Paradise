@@ -2846,19 +2846,6 @@
 	icon_state = "dark"
 	},
 /area/security/securearmoury)
-"ahV" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/item/storage/secure/safe{
-	name = "armory safe A";
-	pixel_x = 6;
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmoury)
 "ahW" = (
 /obj/structure/closet/secure_closet/hos,
 /obj/machinery/light{
@@ -3067,6 +3054,9 @@
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/item/storage/secure/safe{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3074,11 +3064,6 @@
 "aiw" = (
 /obj/machinery/light/small{
 	dir = 1
-	},
-/obj/item/storage/secure/safe{
-	name = "armory safe B";
-	pixel_x = 6;
-	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4202,13 +4187,14 @@
 /turf/simulated/floor/plating,
 /area/security/armoury)
 "akM" = (
-/obj/structure/closet/bombcloset,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/vehicle/secway,
+/obj/item/key/security,
 /turf/simulated/floor/plasteel,
 /area/security/armoury)
 "akN" = (
@@ -4449,13 +4435,11 @@
 	name = "\improper Recreation Area"
 	})
 "alm" = (
-/obj/structure/closet/l3closet/security,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/security/armoury)
 "aln" = (
@@ -5697,7 +5681,6 @@
 	},
 /obj/item/storage/box/trackimp,
 /obj/item/storage/lockbox/mindshield,
-/obj/item/reagent_containers/glass/bottle/morphine,
 /obj/machinery/light/small,
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -4;
@@ -5712,14 +5695,13 @@
 /turf/simulated/floor/plating,
 /area/security/armoury)
 "aob" = (
-/obj/vehicle/secway,
-/obj/item/key/security,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/structure/closet/l3closet/security,
 /turf/simulated/floor/plasteel,
 /area/security/armoury)
 "aoc" = (
@@ -7245,18 +7227,13 @@
 	},
 /area/security/brig)
 "asa" = (
-/obj/structure/rack,
-/obj/item/storage/box/flashbangs{
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/item/storage/box/handcuffs,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/structure/closet/bombcloset,
 /turf/simulated/floor/plasteel,
 /area/security/armoury)
 "asd" = (
@@ -75883,9 +75860,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/library)
-"evu" = (
-/turf/simulated/wall/r_wall,
-/area/security/seceqstorage)
 "evR" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -76274,6 +76248,17 @@
 	icon_state = "dark"
 	},
 /area/chapel/main)
+"fSX" = (
+/obj/machinery/vending/secdrobe,
+/obj/machinery/alarm{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/security/seceqstorage)
 "fUI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -76832,17 +76817,6 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
-"huQ" = (
-/obj/machinery/vending/secdrobe,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
-/area/security/seceqstorage)
 "hwe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -78017,15 +77991,6 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/scrubbers,
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
-"kSA" = (
-/obj/machinery/flasher/portable,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel,
-/area/security/armoury)
 "kSC" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -78227,6 +78192,9 @@
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
 	})
+"lzr" = (
+/turf/simulated/wall/r_wall,
+/area/security/seceqstorage)
 "lBy" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -78721,6 +78689,15 @@
 /area/hallway/secondary/entry{
 	name = "Arrivals"
 	})
+"neU" = (
+/obj/machinery/flasher/portable,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/alarm{
+	name = "north bump";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel,
+/area/security/armoury)
 "nhK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -108106,7 +108083,7 @@ ajV
 ajV
 ajV
 agA
-kSA
+neU
 akW
 hIT
 ala
@@ -108615,7 +108592,7 @@ aaa
 abq
 ajV
 ajV
-ahV
+aiw
 ahU
 ahU
 akc
@@ -109908,7 +109885,7 @@ ajV
 alD
 alY
 tAk
-evu
+lzr
 aoq
 aoq
 arg
@@ -110165,7 +110142,7 @@ ajV
 alG
 alY
 amq
-evu
+lzr
 aot
 apv
 aqR
@@ -110422,7 +110399,7 @@ atK
 alC
 dnu
 alS
-evu
+lzr
 aoj
 apu
 aqQ
@@ -110676,10 +110653,10 @@ aaa
 aaa
 abq
 atK
-huQ
+fSX
 alY
 anR
-evu
+lzr
 aow
 aov
 aqT

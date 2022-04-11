@@ -42265,11 +42265,6 @@
 	},
 /area/security/processing)
 "bTo" = (
-/obj/structure/rack,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/electrical,
-/obj/item/screwdriver,
-/obj/item/multitool,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -92675,8 +92670,6 @@
 	},
 /area/security/detectives_office)
 "fox" = (
-/obj/machinery/recharger,
-/obj/structure/table/reinforced,
 /obj/machinery/door_control{
 	id = "Secure Armory";
 	name = "Secure Armory Shutter Control";
@@ -92684,7 +92677,8 @@
 	pixel_y = -28;
 	req_access_txt = "3"
 	},
-/obj/effect/decal/warning_stripes/northeast,
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
 "fqy" = (
@@ -94467,12 +94461,26 @@
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
 "kiL" = (
-/obj/structure/rack,
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/machinery/flasher/portable,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/security/securearmoury)
+"kju" = (
+/obj/machinery/door/airlock{
+	name = "Bathroom"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/security/permabrig)
+"kkM" = (
+/obj/structure/rack,
 /obj/item/storage/box/rubbershot{
 	pixel_x = -3;
 	pixel_y = -3
@@ -94498,21 +94506,6 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/security/securearmoury)
-"kju" = (
-/obj/machinery/door/airlock{
-	name = "Bathroom"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/security/permabrig)
-"kkM" = (
-/obj/vehicle/secway,
-/obj/item/key/security,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -98783,21 +98776,16 @@
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
 "wMd" = (
-/obj/structure/table/reinforced,
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = 32
 	},
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/flashlight/seclite,
-/obj/item/flashlight/seclite,
-/obj/item/flashlight/seclite,
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/cable,
+/obj/vehicle/secway,
+/obj/item/key/security,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
