@@ -84,6 +84,8 @@
 	var/datum/hud/hud = L.hud_used
 	if(hud?.vampire_blood_display)
 		hud.remove_vampire_hud()
+	L.dna.species.hunger_type = initial(L.dna.species.hunger_type)
+	L.dna.species.hunger_icon = initial(L.dna.species.hunger_icon)
 	owner.current.alpha = 255
 	REMOVE_TRAITS_IN(owner.current, "vampire")
 	return ..()
@@ -313,7 +315,9 @@
 	if(!owner.som) //thralls and mindslaves
 		owner.som = new()
 		owner.som.masters += owner
-
+	var/mob/living/L = new_body || owner.current
+	L.dna.species.hunger_type = "vampire"
+	L.dna.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 	check_vampire_upgrade(FALSE)
 
 /datum/hud/proc/remove_vampire_hud()
