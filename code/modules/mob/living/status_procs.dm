@@ -1,19 +1,8 @@
 //Here are the procs used to modify status effects of a mob.
 
-// We use these to automatically apply their effects when they are changed, as
-// opposed to setting them manually and having to either wait for the next `Life`
-// or update by hand
-
 // The `updating` argument is only available on effects that cause a visual/physical effect on the mob itself
 // when applied, such as Stun, Weaken, and Jitter - stuff like Blindness, which has a client-side effect,
 // lacks this argument.
-
-// Ideally, code should only read the vars in this file, and not ever directly
-// modify them
-
-// If you want a mob type to ignore a given status effect, just override the corresponding
-// `SetSTATE` proc - since all of the other procs are wrappers around that,
-// calling them will have no effect
 
 // BOOLEAN STATES
 
@@ -26,47 +15,49 @@
 
 
 // STATUS EFFECTS
-// All of these decrement over time - at a rate of 1 per life cycle unless otherwise noted
+// All of these are handed by a status_effect in `debuffs.dm` their durations are measured in deciseconds, so the seconds define is used wherever possible, even with decimal seconds values.
 // Status effects sorted alphabetically:
 /*
-	* Confused				*
+	* Confused()				*
 			Movement is scrambled
-	* Dizzy					*
-			The screen goes all warped
+	* Dizzy()					*
+			The screen shifts in random directions slightly.
 	* Drowsy
 			You begin to yawn, and have a chance of incrementing "Paralysis"
-	* Druggy				*
+	* Druggy()				*
 			A trippy overlay appears.
-	* Drunk					*
-			Essentially what your "BAC" is - the higher it is, the more alcohol you have in you
-	* EyeBlind				*
+	* Drunk()					*
+			Gives you a wide variety of negative effects related to being drunk, all scaling up with alcohol consumption.
+	* EyeBlind()				*
 			You cannot see. Prevents EyeBlurry from healing naturally.
-	* EyeBlurry				*
+	* EyeBlurry()				*
 			A hazy overlay appears on your screen.
-	* Hallucination			*
+	* Hallucinate()			*
 			Your character will imagine various effects happening to them, vividly.
-	* Jitter				*
+	* Immobilize()
+			Your character cannot walk, however they can act.
+	* Jitter()				*
 			Your character will visibly twitch. Higher values amplify the effect.
-	* LoseBreath			*
+	* LoseBreath()			*
 			Your character is unable to breathe.
-	* Paralysis				*
+	* Paralysis()				*
 			Your character is knocked out.
-	* Silent				*
+	* Silence()				*
 			Your character is unable to speak.
-	* Sleeping				*
+	* Sleeping()				*
 			Your character is asleep.
-	* Slowed				*
-			Your character moves slower.
-	* Slurring				*
+	* Slowed()				*
+			Your character moves slower. The amount of slowdown is variable, defaulting to 10, which is a massive amount.
+	* Slurring()				*
 			Your character cannot enunciate clearly.
-	* CultSlurring			*
+	* CultSlurring()			*
 			Your character cannot enunciate clearly while mumbling about elder codes.
-	* Stunned				*
+	* Stun()				*
 			Your character is unable to move, and drops stuff in their hands. They keep standing, though.
-	* Stuttering			*
+	* Stuttering()			*
 			Your character stutters parts of their messages.
-	* Weakened				*
-			Your character collapses, but is still conscious.
+	* Weaken()				*
+			Your character collapses, but is still conscious. does not need to be called in tandem with Stun().
 */
 
 #define RETURN_STATUS_EFFECT_STRENGTH(T) \

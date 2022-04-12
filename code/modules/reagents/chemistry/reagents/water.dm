@@ -357,7 +357,7 @@
 		update_flags |= M.adjustFireLoss(2, FALSE)
 		update_flags |= M.adjustOxyLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(2, FALSE)
-		M.AdjustCultSlur(10)//CUASE WHY THE HELL NOT
+		M.AdjustCultSlur(20 SECONDS) //CUASE WHY THE HELL NOT
 	return ..() | update_flags
 
 /datum/reagent/hellwater
