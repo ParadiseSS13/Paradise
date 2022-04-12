@@ -563,23 +563,23 @@
 	age_based = TRUE
 	sound = "sound/voice/drasktalk.ogg"
 
-
-// because I'm lazy and this is all we really need here
-/datum/emote/living/carbon/human/drask_talk/New()
-	message = "[key_third_person]."
-	message_param = "[key_third_person] at %t."
-
 /datum/emote/living/carbon/human/drask_talk/drone
 	key = "drone"
 	key_third_person = "drones"
+	message = "drones."
+	message_param = "drones at %t."
 
 /datum/emote/living/carbon/human/drask_talk/hum
 	key = "hum"
 	key_third_person = "hums"
+	message = "hums."
+	message_param = "hums at %t."
 
 /datum/emote/living/carbon/human/drask_talk/rumble
 	key = "rumble"
 	key_third_person = "rumbles"
+	message = "rumbles."
+	message_param = "rumbles at %t."
 
 /datum/emote/living/carbon/human/hiss
 	key = "hiss"
