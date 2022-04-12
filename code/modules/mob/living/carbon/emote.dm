@@ -18,17 +18,30 @@
 	message_mime = "claps silently."
 	muzzle_ignore = TRUE
 	hands_use_check = TRUE
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_SOUND
 	audio_cooldown = 5 SECONDS
 	vary = TRUE
+
+/datum/emote/living/carbon/clap/run_emote(mob/user, params, type_override, intentional)
+
+	if(!can_run_emote(user))
+		return FALSE
+
+	if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] || !H.bodyparts_by_name[BODY_ZONE_R_ARM])
+			if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] && !H.bodyparts_by_name[BODY_ZONE_R_ARM])
+				// no arms...
+				to_chat(user, "<span class='warning'>You need arms to be able to clap.</span>")
+			else
+				// well, we've got at least one
+				user.visible_message("[user] makes the sound of one hand clapping.")
+			return
+
+	. = ..()
 
 /datum/emote/living/carbon/clap/get_sound(mob/living/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H?.mind.miming)
-			return
-		if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] || !H.bodyparts_by_name[BODY_ZONE_R_ARM])
-			// we will never know the sound of one hand clapping...
 			return
 		else
 			return pick('sound/misc/clap1.ogg',
@@ -49,6 +62,7 @@
 	message = "giggles."
 	message_mime = "giggles silently!"
 	emote_type = EMOTE_AUDIBLE
+
 /datum/emote/living/carbon/gurgle
 	key = "gurgle"
 	key_third_person = "gurgles"
@@ -78,6 +92,7 @@
 	key_third_person = "waves"
 	message = "waves."
 	message_param = "waves at %t."
+	hands_use_check = TRUE
 
 /datum/emote/living/carbon/yawn
 	key = "yawn"
@@ -97,6 +112,7 @@
 	message = "laughs."
 	message_mime = "laughs silently!"
 	message_param = "laughs at %t."
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/scowl
 	key = "scowl"
@@ -116,6 +132,7 @@
 	message = "sighs."
 	message_param = "sighs at %t."
 	muzzled_noises = list("dejected")
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/sigh/happy
 	key = "sigh"
@@ -127,6 +144,7 @@
 /datum/emote/living/carbon/sign
 	key = "sign"
 	key_third_person = "signs"
+	message = "signs."
 	message_param = "signs the number %t."
 	// Humans get their own proc since they have fingers
 	mob_type_blacklist_typecache = list(/mob/living/carbon/human)
@@ -146,6 +164,6 @@
 	. = ..()
 	if(. && isliving(user))
 		var/mob/living/L = user
-		L.SetSleeping(2 SECONDS)
+		L.SetSleeping(2)
 
 

@@ -181,7 +181,7 @@
 
 /datum/emote/living/carbon/human/johnny/select_param(mob/user, params)
 	if(!params)
-		return
+		return message
 	var/target = params
 	var/msg
 	for(var/mob/A in oview(5, user))
@@ -197,20 +197,19 @@
 	var/mob/living/carbon/human/H = user
 	if(!istype(H.wear_mask, /obj/item/clothing/mask/cigarette))
 		to_chat(user, "<span class='warning'>You can't be that cool without a cigarette between your lips.</span>")
-		return FALSE
+		return
 
 	if(H.getOxyLoss() > 30)
 		var/obj/item/clothing/mask/cigarette/cig = H.wear_mask
 		to_chat(user, "<span class='warning'>You gasp for air and swallow your [cig]!</span>")
 		if(cig.lit)
 			to_chat(user, "<span class='userdanger'>The lit [cig] burns on the way down!")
+			cig.forceMove(user)
 			H.wear_mask = null
-			H.wear_mask_update()
+			H.update_inv_wear_mask()
 			qdel(cig)
 			H.adjustFireLoss(5)
-		return FALSE
-	if(!select_param(user, params))
-		return FALSE
+		return
 	. = ..()
 
 /datum/emote/living/carbon/human/sneeze
@@ -227,7 +226,6 @@
 		return H.dna.species.female_sneeze_sound
 	else
 		return H.dna.species.male_sneeze_sound
-
 
 /datum/emote/living/carbon/human/slap
 	key = "slap"
@@ -332,7 +330,7 @@
 	if(prob(5))
 		user.visible_message("<span class='danger'><b>[user]</b> snaps [p_their()] fingers right off!</span>")
 		playsound(user.loc, 'sound/effects/snap.ogg', 50, 1)
-		return FALSE
+		return
 	. = ..()
 
 

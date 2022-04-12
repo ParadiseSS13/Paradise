@@ -1,3 +1,6 @@
+/**
+ * Emotes usable by brains, but only while they're in MMIs.
+ */
 /datum/emote/living/carbon/brain
 	mob_type_allowed_typecache = list(/mob/living/carbon/brain)
 	var/self_message

@@ -1,3 +1,6 @@
+/**
+ * Emotes usable by humanoid xenomorphs.
+ */
 /datum/emote/living/carbon/alien/humanoid
 	mob_type_allowed_typecache = list(/mob/living/carbon/alien/humanoid)
 

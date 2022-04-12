@@ -38,7 +38,7 @@
 // These emotes will still be sent to chat, but won't play their associated sound effect.
 
 /// Default cooldown for audio that comes from emotes.
-#define AUDIO_EMOTE_COOLDOWN (10 SECONDS)
+#define AUDIO_EMOTE_COOLDOWN (5 SECONDS)
 
 
 
