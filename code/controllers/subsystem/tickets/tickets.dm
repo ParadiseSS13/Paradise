@@ -215,7 +215,7 @@ SUBSYSTEM_DEF(tickets)
 			return
 	T.assignStaff(C)
 
-	var/response_phrases = list("Thanks" = "Thanks, have a Paradise day!",
+	var/response_phrases = list("Thanks" = "Thanks for the ahelp!",
 		"Handling It" = "The issue is being looked into, thanks.",
 		"Already Resolved" = "The problem has been resolved already.",
 		"Mentorhelp" = "Please redirect your question to Mentorhelp, as they are better experienced with these types of questions.",
