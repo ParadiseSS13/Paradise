@@ -888,7 +888,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/storage/firstaid/o2)
 	cost = 10
 	containername = "oxygen first aid kits crate"
-
+	
+/datum/supply_packs/medical/straightjacket	
+	name = "Straight Jacket Crate"
+	contains = list(/obj/item/clothing/suit/straight_jacket)
+	cost = 40
+	containername = "straight jacket crate"
+	
 /datum/supply_packs/medical/virus
 	name = "Virus Crate"
 	contains = list(/obj/item/reagent_containers/glass/bottle/flu_virion,
