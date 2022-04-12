@@ -6962,11 +6962,7 @@
 	icon_state = "black";
 	name = "Mineral's"
 	},
-/obj/effect/spawner/lootdrop/trade_sol/minerals{
-	loot = list(/obj/item/stack/sheet/mineral/silver = 50, /obj/item/stack/sheet/mineral/silver {amount = 10} = 50, /obj/item/stack/sheet/mineral/silver {amount = 30} = 50, /obj/item/stack/sheet/mineral/gold = 50, /obj/item/stack/sheet/mineral/gold {amount = 10} = 50, /obj/item/stack/sheet/mineral/gold {amount = 30} = 50, /obj/item/stack/sheet/mineral/uranium = 50, /obj/item/stack/sheet/mineral/uranium {amount = 10} = 50, /obj/item/stack/sheet/mineral/uranium {amount = 30} = 50, /obj/item/stack/sheet/mineral/diamond = 50, /obj/item/stack/sheet/mineral/diamond {amount = 10} = 50, /obj/item/stack/sheet/mineral/diamond {amount = 30} = 50, /obj/item/stack/sheet/mineral/titanium = 50, /obj/item/stack/sheet/mineral/titanium {amount = 10} = 50, /obj/item/stack/sheet/mineral/titanium {amount = 30} = 50, /obj/item/stack/sheet/plasteel = 50, /obj/item/stack/sheet/plasteel {amount = 10} = 50, /obj/item/stack/sheet/plasteel {amount = 30} = 50, /obj/item/stack/sheet/titaniumglass = 50, /obj/item/stack/sheet/titaniumglass {amount = 10} = 50, /obj/item/stack/sheet/titaniumglass {amount = 30} = 50, /obj/item/stack/sheet/mineral/tranquillite = 50, /obj/item/stack/sheet/mineral/tranquillite {amount = 10} = 50, /obj/item/stack/sheet/mineral/tranquillite {amount = 30} = 50, /obj/item/stack/sheet/mineral/bananium = 50, /obj/item/stack/sheet/mineral/bananium {amount = 10} = 50, /obj/item/stack/sheet/mineral/bananium {amount = 30} = 50, /obj/item/stack/sheet/wood = 50, /obj/item/stack/sheet/wood {amount = 10} = 50, /obj/item/stack/sheet/wood {amount = 30} = 50, /obj/item/stack/sheet/plastic = 50, /obj/item/stack/sheet/plastic {amount = 10} = 50, /obj/item/stack/sheet/plastic {amount = 30} = 50, /obj/item/stack/sheet/mineral/sandstone = 50, /obj/item/stack/sheet/mineral/sandstone {amount = 10} = 50, /obj/item/stack/sheet/mineral/sandstone {amount = 30} = 50);
-	lootcount = 15;
-	name = "9. Minerals"
-	},
+/obj/effect/spawner/lootdrop/trade_sol/minerals,
 /turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
 "aKd" = (
