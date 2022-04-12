@@ -13,12 +13,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!GLOB.nologevent)
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in GLOB.admins)
-			if(R_ADMIN & C.holder.rights)
-				if(C.prefs.atklog == ATKLOG_NONE)
-					continue
-				var/msg = rendered
-				if(C.prefs.atklog <= loglevel)
-					to_chat(C, msg)
+			if((C.holder.rights & R_ADMIN) && (C.prefs?.atklog <= loglevel))
+				to_chat(C, rendered)
 
 /**
  * Sends a message to the staff able to see admin tickets

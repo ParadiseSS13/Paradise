@@ -25,6 +25,7 @@
 	if(istype(A, /obj/))
 		if(bomb_cooldown <= world.time && !stat)
 			var/obj/item/guardian_bomb/B = new /obj/item/guardian_bomb(get_turf(A))
+			add_attack_logs(src, A, "booby trapped (summoner: [summoner])")
 			to_chat(src, "<span class='danger'>Success! Bomb on [A] armed!</span>")
 			if(summoner)
 				to_chat(summoner, "<span class='warning'>Your guardian has primed [A] to explode!</span>")
@@ -53,6 +54,7 @@
 	addtimer(CALLBACK(src, .proc/disable), 600)
 
 /obj/item/guardian_bomb/proc/disable()
+	add_attack_logs(null, stored_obj, "booby trap expired")
 	stored_obj.forceMove(get_turf(src))
 	if(spawner)
 		to_chat(spawner, "<span class='danger'>Failure! Your trap on [stored_obj] didn't catch anyone this time.</span>")
@@ -65,10 +67,12 @@
 	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)
+			add_attack_logs(user, stored_obj, "booby trap defused")
 			to_chat(user, "<span class='danger'>You knew this because of your link with your guardian, so you smartly defuse the bomb.</span>")
 			stored_obj.forceMove(get_turf(loc))
 			qdel(src)
 			return
+	add_attack_logs(user, stored_obj, "booby trap TRIGGERED (spawner: [spawner])")
 	to_chat(spawner, "<span class='danger'>Success! Your trap on [src] caught [user]!</span>")
 	stored_obj.forceMove(get_turf(loc))
 	playsound(get_turf(src),'sound/effects/explosion2.ogg', 200, 1)
