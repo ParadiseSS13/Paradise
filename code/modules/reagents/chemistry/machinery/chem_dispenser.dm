@@ -161,7 +161,7 @@
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ChemDispenser", ui_title, 390, 655)
+		ui = new(user, src, ui_key, "ChemDispenser", ui_title, 477, 655)
 		ui.open()
 
 /obj/machinery/chem_dispenser/ui_data(mob/user)
@@ -205,8 +205,9 @@
 
 	. = TRUE
 	switch(actions)
+		//Chem dispenser dispense amount
 		if("amount")
-			amount = clamp(round(text2num(params["amount"]), 1), 0, 50) // round to nearest 1 and clamp to 0 - 50
+			amount = clamp(round(text2num(params["amount"]), 1), 0, 100) //Round to nearest 1 and clamp to 0 - 100
 		if("dispense")
 			if(!is_operational() || QDELETED(cell))
 				return

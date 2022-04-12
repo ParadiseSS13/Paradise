@@ -4,7 +4,7 @@ import { Box, Button, Flex, LabeledList, ProgressBar, Section } from "../compone
 import { BeakerContents } from "../interfaces/common/BeakerContents";
 import { Window } from "../layouts";
 
-const dispenseAmounts = [1, 5, 10, 20, 30, 50];
+const dispenseAmounts = [1, 5, 10, 20, 30, 50, 100];
 const removeAmounts = [1, 5, 10];
 
 export const ChemDispenser = (props, context) => {
@@ -50,6 +50,7 @@ const ChemDispenserSettings = (properties, context) => {
                   icon="cog"
                   selected={amount === a}
                   content={a}
+                  align="center"
                   m="0"
                   width="100%"
                   onClick={() => act('amount', {
