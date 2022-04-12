@@ -6,6 +6,7 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "welder"
 	item_state = "welder"
+	belt_icon = "welder"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 3
@@ -192,6 +193,7 @@
 	name = "industrial welding tool"
 	desc = "A slightly larger welder with a larger tank."
 	icon_state = "indwelder"
+	belt_icon = "welder_ind"
 	maximum_fuel = 40
 	materials = list(MAT_METAL=70, MAT_GLASS=60)
 	origin_tech = "engineering=2;plasmatech=2"
@@ -227,6 +229,7 @@
 	desc = "An upgraded welder based off the industrial welder."
 	icon_state = "upindwelder"
 	item_state = "upindwelder"
+	belt_icon = "welder_upg"
 	maximum_fuel = 80
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "engineering=3;plasmatech=2"
@@ -236,6 +239,7 @@
 	desc = "An experimental welder capable of self-fuel generation and less harmful to the eyes."
 	icon_state = "exwelder"
 	item_state = "exwelder"
+	belt_icon = "welder_exp"
 	maximum_fuel = 40
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "materials=4;engineering=4;bluespace=3;plasmatech=4"

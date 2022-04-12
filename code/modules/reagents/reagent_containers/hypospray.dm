@@ -8,6 +8,7 @@
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "hypo"
 	icon_state = "hypo"
+	belt_icon = "hypospray"
 	amount_per_transfer_from_this = 5
 	volume = 30
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
@@ -101,6 +102,7 @@
 	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge."
 	icon_state = "autoinjector"
 	item_state = "autoinjector"
+	belt_icon = "autoinjector"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10)
 	volume = 10

@@ -223,6 +223,7 @@
 	icon_state = "pill_canister"
 	icon = 'icons/obj/chemical.dmi'
 	item_state = "contsolid"
+	belt_icon = "pill_bottle"
 	w_class = WEIGHT_CLASS_SMALL
 	can_hold = list(/obj/item/reagent_containers/food/pill)
 	cant_hold = list(/obj/item/reagent_containers/food/pill/patch)
@@ -305,6 +306,7 @@
 	name = "patch pack"
 	desc = "It's a container for storing medical patches."
 	icon_state = "patch_pack"
+	belt_icon = "patch_pack"
 	can_hold = list(/obj/item/reagent_containers/food/pill/patch)
 	cant_hold = list()
 	rapid_intake_message = "flips the lid of the patch pack open and begins rapidly stamping patches on themselves!"
