@@ -58,7 +58,7 @@
 /area/ruin/powered)
 "J" = (
 /obj/item/paper{
-	info = "So, you decided to not listen what dangerous men say to you Atmos Technician. Now you will stay here forever with your stupid toy you love so much! By the way, I left a present for you. See if you have same strenght as you had before to ignore our warnings. Have fun"
+	info = "So, you decided to not listen what dangerous men say to you Atmos Technician. Now you will stay here forever with your stupid toys you love so much! By the way, I left a present for you. See if you have same strenght as you had before to ignore our warnings. Have fun"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/powered)

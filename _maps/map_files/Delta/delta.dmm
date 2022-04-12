@@ -5,11 +5,11 @@
 "aac" = (
 /obj/docking_port/stationary{
 	dir = 8;
-	dwidth = 10;
-	height = 35;
+	dwidth = 8;
+	height = 31;
 	id = "whiteship_home";
 	name = "north of Kerberos";
-	width = 21
+	width = 17
 	},
 /turf/space,
 /area/space)

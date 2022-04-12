@@ -1,224 +1,299 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/template_noop,
-/area/template_noop)
-"b" = (
+"av" = (
+/turf/simulated/wall/r_wall/coated,
+/area/ruin/space/gasthelizards/viewzone)
+"ax" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"bx" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 4
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"by" = (
+/obj/structure/fans/tiny,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/viewzone)
+"bK" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door_control{
+	desiredstate = 1;
+	id = "gtl";
+	in_use = 1;
+	name = "Door Bolts";
+	normaldoorcontrol = 1;
+	pixel_x = -24;
+	pixel_y = 24;
+	specialfunctions = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/viewzone)
+"bW" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 1
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"cm" = (
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
-"c" = (
-/turf/simulated/wall,
-/area/ruin/unpowered)
-"d" = (
-/obj/machinery/light{
-	dir = 1
+"cA" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/gasthelizards/viewzone)
+"cE" = (
+/obj/effect/decal/remains/human{
+	desc = "They look like unathi remains. They have a strange aura about them."
 	},
-/obj/structure/bed,
-/obj/effect/decal/remains/human,
-/turf/simulated/floor/plasteel{
-	icon_state = "warndark";
-	dir = 8
-	},
-/area/ruin/unpowered)
-"e" = (
-/obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "warndark";
+/obj/item/restraints/handcuffs/cable,
+/obj/structure/chair{
 	dir = 4
 	},
-/area/ruin/unpowered)
-"f" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/bed,
-/obj/effect/decal/remains/human,
-/turf/simulated/floor/plasteel{
-	icon_state = "warndark";
-	dir = 8
-	},
-/area/ruin/unpowered)
-"g" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/bed,
-/turf/simulated/floor/plasteel{
-	icon_state = "warndark";
-	dir = 8
-	},
-/area/ruin/unpowered)
-"h" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "warndark";
-	dir = 4
-	},
-/area/ruin/unpowered)
-"i" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "warndark";
-	dir = 8
-	},
-/area/ruin/unpowered)
-"j" = (
-/obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
-	},
-/obj/machinery/atmospherics/unary/outlet_injector,
-/turf/simulated/floor/plasteel{
-	icon_state = "warndark";
-	dir = 4
-	},
-/area/ruin/unpowered)
-"k" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "warndark";
-	dir = 8
-	},
-/area/ruin/unpowered)
-"l" = (
-/obj/machinery/atmospherics/unary/outlet_injector,
-/turf/simulated/floor/plasteel{
-	icon_state = "warndark";
-	dir = 4
-	},
-/area/ruin/unpowered)
-"m" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/stack/sheet/animalhide/lizard,
-/obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/powered)
+"dk" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered)
-"n" = (
+/area/ruin/space/gasthelizards/jail)
+"dl" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
-/obj/machinery/light{
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered)
-"o" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered)
-"p" = (
-/obj/machinery/power/apc/worn_out{
-	dir = 8;
-	pixel_x = -24;
-	pixel_y = 0;
-	cell_type = 2500;
-	operating = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
-	},
-/area/ruin/unpowered)
-"q" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
-	},
-/area/ruin/unpowered)
-"r" = (
-/obj/machinery/door/window/brigdoor/northleft,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
-	},
-/area/ruin/unpowered)
-"s" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered)
-"t" = (
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"u" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"v" = (
-/obj/machinery/light{
+/area/ruin/space/gasthelizards/jail)
+"dm" = (
+/obj/machinery/door/window/brigdoor/northleft{
 	dir = 4;
-	icon_state = "tube1"
+	req_access_txt = "271"
 	},
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"w" = (
-/obj/structure/kitchenspike,
+/obj/machinery/flasher_button{
+	id = "gtl_c1";
+	name = "Flasher Control";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered)
-"x" = (
-/obj/structure/table/reinforced,
-/obj/item/kitchen/knife/butcher,
+/area/ruin/space/gasthelizards/jail)
+"dp" = (
+/obj/structure/chair/comfy/brown{
+	dir = 4
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gasthelizards/viewzone)
+"dx" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "warndark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"dG" = (
+/obj/machinery/door/airlock/external/glass{
+	id = "gtl_main_bolts"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/viewzone)
+"dQ" = (
+/obj/structure/rack,
 /obj/item/restraints/handcuffs,
-/obj/item/reagent_containers/spray/pepper,
+/obj/item/clothing/glasses/hud/health/sunglasses,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered)
-"y" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/area/ruin/space/gasthelizards/jail)
+"eu" = (
+/obj/structure/fans/tiny,
+/obj/machinery/light/small/built{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door_control{
+	desiredstate = 1;
+	id = "gtl_engi_ext";
+	in_use = 1;
+	name = "Door Bolts";
+	normaldoorcontrol = 1;
+	pixel_x = -24;
+	pixel_y = 8;
+	specialfunctions = 4
+	},
+/obj/machinery/door_control{
+	desiredstate = 1;
+	id = "gtl_engi_int";
+	in_use = 1;
+	name = "Door Bolts";
+	normaldoorcontrol = 1;
+	pixel_x = -24;
+	pixel_y = -8;
+	req_access_txt = "271";
+	specialfunctions = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/engineering)
+"ex" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/powered)
+"fq" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "gtl_shutters_inner";
+	name = "Fire Breach Shutter";
+	opacity = 0
+	},
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/engine,
+/area/ruin/space/gasthelizards/viewzone)
+"fH" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	frequency = 1441;
+	id = "mix_in"
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/gasthelizards/engineering)
+"gk" = (
+/obj/machinery/suit_storage_unit/security,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"hb" = (
+/obj/machinery/computer/general_air_control/large_tank_control{
+	frequency = 1441;
+	input_tag = "mix_in_gtl";
+	name = "Gas Mix Tank Control";
+	output_tag = "mix_out_gtl";
+	sensors = list("mix_sensor_gtl" = "Tank")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"ho" = (
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
+"hq" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"z" = (
-/obj/machinery/gibber,
+/area/ruin/space/gasthelizards/viewzone)
+"hH" = (
+/obj/structure/disposaloutlet{
+	dir = 1
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 2
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/gasthelizards/engineering)
+"hL" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/viewzone)
+"hR" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/viewzone)
+"hS" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/powered)
+"if" = (
+/obj/structure/lattice,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/template_noop,
+/area/ruin/space/gasthelizards/viewzone)
+"jj" = (
+/obj/machinery/flasher_button{
+	id = "gtl_c2";
+	name = "Flasher Control";
+	pixel_x = 24;
+	pixel_y = -5
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/closet/crate/can,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered)
-"A" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/suit/straight_jacket,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered)
-"B" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"C" = (
-/obj/machinery/door/airlock/security,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered)
-"D" = (
+/area/ruin/space/gasthelizards/jail)
+"jk" = (
 /obj/item/reagent_containers/glass/bottle/morphine{
 	pixel_x = -4;
 	pixel_y = 1
@@ -240,42 +315,523 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered)
-"E" = (
-/obj/structure/rack,
-/obj/item/melee/baton/cattleprod,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"F" = (
-/obj/structure/table,
-/obj/item/pen/red,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"G" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"H" = (
-/obj/structure/table,
-/obj/item/storage/box/prisoner,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"I" = (
-/obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
+/area/ruin/space/gasthelizards/jail)
+"jx" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "gtl_main_bolts"
 	},
-/obj/machinery/light,
-/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/viewzone)
+"kD" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/stack/sheet/animalhide/lizard,
+/obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"kU" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/obj/machinery/meter,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"lQ" = (
+/turf/template_noop,
+/area/template_noop)
+"mi" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/wall,
+/area/ruin/space/gasthelizards/engineering)
+"nn" = (
+/obj/machinery/atmospherics/unary/tank/toxins{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"nu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/external{
+	id_tag = "gtl_engi_ext";
+	locked = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/engineering)
+"nv" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"nG" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/bed,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "warndark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"nJ" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/light_switch{
+	pixel_x = -32;
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"nN" = (
+/obj/machinery/power/terminal,
+/turf/simulated/wall,
+/area/ruin/space/gasthelizards/viewzone)
+"oD" = (
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "gtl_shutters_inner";
+	name = "Fire Breach Shutter";
+	opacity = 0
+	},
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/engine,
+/area/ruin/space/gasthelizards/viewzone)
+"oH" = (
+/obj/structure/rack,
+/obj/item/camera,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blue"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"pr" = (
+/obj/machinery/air_sensor{
+	frequency = 1441;
+	id_tag = "mix_sensor_gtl"
+	},
+/turf/simulated/floor/engine/insulated/vacuum,
+/area/ruin/space/gasthelizards/viewzone)
+"pJ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"qa" = (
+/obj/structure/table/wood,
+/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/lighter/zippo/engraved,
+/obj/item/newspaper,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blue"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"qg" = (
+/obj/structure/marker_beacon,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/powered)
+"qt" = (
+/obj/machinery/door/window/brigdoor/northleft{
+	dir = 4;
+	req_access_txt = "271"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"qy" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/gasthelizards/engineering)
+"qW" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced,
+/obj/item/paper_bin,
+/obj/item/pen/red,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "gtl_control"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"rK" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/viewzone)
+"rP" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/animalhide/lizard,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"J" = (
-/obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/area/ruin/space/gasthelizards/viewzone)
+"rW" = (
+/obj/machinery/atmospherics/unary/tank/carbon_dioxide{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"rX" = (
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"K" = (
+/area/ruin/space/gasthelizards/viewzone)
+"sf" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/light_switch{
+	pixel_x = 22;
+	pixel_y = 25
+	},
+/obj/machinery/door_control{
+	id = "gtl_vitrine";
+	name = "Vitrine Shutters";
+	pixel_x = -39;
+	pixel_y = 24
+	},
+/obj/machinery/door_control{
+	id = "gtl_control";
+	name = "Control Shutters";
+	pixel_x = -24;
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"ss" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 8;
+	frequency = 1441;
+	id = "mix_in_gtl"
+	},
+/turf/simulated/floor/engine/insulated/vacuum,
+/area/ruin/space/gasthelizards/viewzone)
+"su" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/gasthelizards/engineering)
+"sA" = (
+/obj/item/caution/proximity_sign,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gasthelizards/viewzone)
+"sE" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
+/obj/machinery/door/window/brigdoor/northleft{
+	dir = 2;
+	req_access_txt = "271"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "gtl_control"
+	},
+/obj/item/clothing/glasses/sunglasses,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"sW" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/wall,
+/area/ruin/space/gasthelizards/viewzone)
+"ta" = (
+/obj/machinery/atmospherics/binary/valve,
+/obj/machinery/ignition_switch{
+	id = "gsl_igniter";
+	pixel_x = 24;
+	pixel_y = -7
+	},
+/obj/machinery/door_control{
+	id = "gtl_shutters_gasflush";
+	name = "Gas Flush Control";
+	pixel_x = 25;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"ts" = (
+/obj/machinery/atmospherics/unary/tank/nitrogen{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"tv" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"tD" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/powered)
+"tJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/binary/pump{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"tM" = (
+/mob/living/simple_animal/lizard,
+/turf/simulated/floor/engine,
+/area/ruin/space/gasthelizards/viewzone)
+"un" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"uB" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/gasthelizards/jail)
+"uT" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gasthelizards/viewzone)
+"uV" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"vV" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
+/obj/machinery/door_control{
+	desiredstate = 1;
+	id = "gtl_engi_int";
+	in_use = 1;
+	name = "Door Bolts";
+	normaldoorcontrol = 1;
+	pixel_x = -24;
+	pixel_y = 24;
+	specialfunctions = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"ww" = (
+/obj/machinery/light/small,
+/obj/effect/decal/remains/human{
+	desc = "They look like unathi remains. They have a strange aura about them."
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/gasthelizards/engineering)
+"wz" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"wM" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/powered)
+"wS" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/viewzone)
+"xg" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/bag/trash,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/mop,
+/obj/item/soap/homemade,
+/obj/item/storage/box/lights/mixed,
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/viewzone)
+"xi" = (
+/obj/structure/bed,
+/obj/machinery/flasher{
+	id = "gtl_c2";
+	pixel_y = 24;
+	range = 1
+	},
+/obj/item/clothing/under/color/orange,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "warndark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"xA" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/viewzone)
+"xC" = (
+/obj/structure/chair/office/dark,
+/obj/item/toy/plushie/lizardplushie,
+/obj/machinery/door_control{
+	id = "gtl_shutters_inner";
+	name = "Fire Breach Inner Shutters Control";
+	pixel_x = 38;
+	pixel_y = -26
+	},
+/obj/machinery/door_control{
+	id = "gtl_shutters";
+	name = "Fire Breach Outer Shutters Control";
+	pixel_x = 26;
+	pixel_y = -26
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"yb" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gasthelizards/viewzone)
+"yz" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "warndark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"yD" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/machinery/light_switch{
+	pixel_x = -23;
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"zd" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/item/radio/beacon{
+	emagged = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"zf" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"zi" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/jail)
+"zK" = (
+/obj/machinery/gibber{
+	desc = "The name isn't descriptive enough? Safety lamp doesn't light!";
+	emagged = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"Aq" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/vacuum{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"AN" = (
+/turf/simulated/wall,
+/area/ruin/space/gasthelizards/jail)
+"AV" = (
 /obj/structure/table/reinforced,
 /obj/item/surgicaldrill,
 /obj/item/hemostat,
@@ -285,17 +841,556 @@
 /obj/item/cautery,
 /obj/item/circular_saw,
 /obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered)
-"L" = (
+/area/ruin/space/gasthelizards/jail)
+"BL" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/machinery/disposal,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gasthelizards/viewzone)
+"BO" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/firecloset,
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 26
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"Ca" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/gasthelizards/viewzone)
+"CA" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/structure/rack,
+/obj/item/flashlight,
+/obj/item/crowbar/red,
+/obj/item/wrench,
+/obj/item/weldingtool,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"CE" = (
+/obj/structure/janitorialcart,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gasthelizards/viewzone)
+"Dc" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon,
+/turf/template_noop,
+/area/template_noop)
+"Ds" = (
+/turf/simulated/floor/engine,
+/area/ruin/space/gasthelizards/viewzone)
+"DB" = (
+/obj/structure/rack,
+/obj/item/melee/baton/cattleprod,
+/obj/item/restraints/handcuffs,
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/item/card/id/away/gtl,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"DG" = (
+/obj/structure/window/reinforced,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "warndark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"Eh" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"Ej" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gasthelizards/viewzone)
+"EE" = (
+/obj/machinery/door_control{
+	desiredstate = 1;
+	id = "gtl_main_bolts";
+	in_use = 1;
+	name = "Door Entrance Bolts";
+	normaldoorcontrol = 1;
+	pixel_x = -24;
+	pixel_y = -39;
+	specialfunctions = 4
+	},
+/obj/machinery/door_control{
+	desiredstate = 1;
+	id = "gtl_control_airlock";
+	in_use = 1;
+	name = "Door Bolts";
+	normaldoorcontrol = 1;
+	pixel_x = -24;
+	pixel_y = -24;
+	specialfunctions = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"EY" = (
+/turf/simulated/mineral,
+/area/ruin/powered)
+"Fa" = (
+/obj/structure/table,
+/obj/item/soap/homemade,
+/obj/item/storage/box/prisoner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"FJ" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"FS" = (
+/obj/structure/closet/emcloset,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gasthelizards/viewzone)
+"FV" = (
+/obj/machinery/door/airlock/public{
+	id_tag = "gtl_control_airlock";
+	req_access_txt = "271"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"FX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"GC" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 8
+	},
+/obj/machinery/meter,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"GP" = (
+/obj/structure/table/wood,
+/obj/machinery/light/small,
+/obj/item/pizzabox/meat,
+/obj/item/kitchen/knife/plastic,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/gasthelizards/engineering)
+"It" = (
+/obj/structure/rack,
+/obj/item/storage/backpack/satchel_lizard,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gasthelizards/viewzone)
+"IA" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/viewzone)
+"IN" = (
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"Ji" = (
+/obj/structure/rack,
+/obj/item/organ/external/tail/unathi,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gasthelizards/viewzone)
+"Js" = (
+/obj/machinery/light/small,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/viewzone)
+"JB" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gasthelizards/viewzone)
+"JJ" = (
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -24
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"JL" = (
+/obj/structure/rack,
+/obj/item/storage/backpack/lizard,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gasthelizards/viewzone)
+"JS" = (
+/obj/machinery/atmospherics/unary/tank/oxygen{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"JW" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"JZ" = (
+/obj/structure/chair,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/engine,
+/area/ruin/space/gasthelizards/viewzone)
+"KL" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"Lh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "gtl_engi_int";
+	locked = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/engineering)
+"Lj" = (
+/obj/machinery/atmospherics/binary/pump,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"Ll" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/wall,
+/area/ruin/space/gasthelizards/engineering)
+"LH" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"My" = (
+/obj/machinery/door/airlock/highsecurity{
+	heat_proof = 1;
+	id_tag = "gtl";
+	locked = 1;
+	name = "Gas Chamber"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/viewzone)
+"MV" = (
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "gtl_shutters";
+	name = "Fire Breach Shutter";
+	opacity = 0
+	},
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/engine,
+/area/ruin/space/gasthelizards/viewzone)
+"Nx" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "271"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"ND" = (
+/obj/structure/lattice,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/template_noop)
+"NH" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blue"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"NS" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/engineering)
+"Oc" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	req_access_txt = "271"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/viewzone)
+"Og" = (
+/turf/simulated/wall/r_wall/coated,
+/area/ruin/space/gasthelizards/engineering)
+"Ok" = (
+/obj/machinery/door/poddoor{
+	id_tag = "gtl_shutters_gasflush";
+	name = "Gas Flush Shutter"
+	},
+/turf/space,
+/area/ruin/space/gasthelizards/viewzone)
+"OY" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"PH" = (
+/obj/machinery/door/airlock/hatch,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"PY" = (
+/obj/machinery/atmospherics/pipe/manifold4w/visible,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"Qk" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 4
+	},
+/obj/machinery/meter,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"Qw" = (
+/obj/effect/decal/cleanable/blood{
+	pixel_y = 13
+	},
+/obj/machinery/door/window/brigdoor/northleft{
+	req_access_txt = "271"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"QX" = (
+/obj/machinery/vending/snack,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gasthelizards/viewzone)
+"Sr" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/wall/r_wall/coated,
+/area/ruin/space/gasthelizards/engineering)
+"SG" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "gtl_vitrine"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/viewzone)
+"SL" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gasthelizards/viewzone)
+"SW" = (
+/obj/machinery/optable,
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/organ/external/tail/unathi,
+/obj/effect/decal/cleanable/blood{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"Tb" = (
+/obj/item/hatchet/unathiknife,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/powered)
+"Tg" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/ruin/space/gasthelizards/viewzone)
+"UH" = (
+/obj/structure/kitchenspike,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered)
-"M" = (
+/area/ruin/space/gasthelizards/jail)
+"Va" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 1;
+	external_pressure_bound = 0;
+	external_pressure_bound_default = 0;
+	frequency = 1441;
+	id_tag = "mix_out_gtl";
+	initialize_directions = 1;
+	internal_pressure_bound = 4000;
+	internal_pressure_bound_default = 4000;
+	layer = 2.4;
+	name = "mix vent";
+	pressure_checks = 2;
+	pressure_checks_default = 2;
+	pump_direction = 0
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/gasthelizards/viewzone)
+"Vp" = (
+/turf/simulated/wall,
+/area/ruin/space/gasthelizards/engineering)
+"Vr" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/binary/valve{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"VF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sink{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"VP" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/turf/simulated/wall/r_wall,
+/area/ruin/space/gasthelizards/engineering)
+"Wg" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/closet/l3closet/janitor,
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/viewzone)
+"Wj" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/dropper,
@@ -305,328 +1400,787 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered)
-"N" = (
-/obj/machinery/suit_storage_unit/security,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"O" = (
+/area/ruin/space/gasthelizards/jail)
+"Wo" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/meter,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/gasthelizards/engineering)
+"Wy" = (
+/turf/simulated/wall,
+/area/ruin/space/gasthelizards/viewzone)
+"WA" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/suit/straight_jacket,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/restraints/handcuffs,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"WJ" = (
+/obj/machinery/sparker{
+	id = "gsl_igniter";
+	pixel_x = 1;
+	pixel_y = 24
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/engine/insulated/vacuum,
+/area/ruin/space/gasthelizards/viewzone)
+"WZ" = (
+/obj/machinery/door_control{
+	desiredstate = 1;
+	id = "gtl";
+	in_use = 1;
+	name = "Door Bolts";
+	normaldoorcontrol = 1;
+	pixel_x = -24;
+	pixel_y = -24;
+	req_access_txt = "271";
+	specialfunctions = 4
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/gasthelizards/engineering)
+"Xq" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"P" = (
-/obj/structure/closet/emcloset,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"Q" = (
-/obj/machinery/door/airlock/external,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/flasher{
+	id = "gtl_c1";
+	pixel_x = 24;
+	range = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "warndark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"Xr" = (
+/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/portables_connector,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"Xu" = (
+/obj/item/clothing/under/color/orange,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "warndark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"XR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/jail)
+"Yn" = (
+/obj/machinery/power/smes/magical,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
-"R" = (
-/turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/gasthelizards/viewzone)
+"Yt" = (
+/obj/machinery/atmospherics/unary/tank/nitrous_oxide{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"Yv" = (
+/obj/structure/sign/vacuum{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gasthelizards/viewzone)
+"YP" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blue"
+	},
+/area/ruin/space/gasthelizards/viewzone)
+"Zm" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 1
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/gasthelizards/engineering)
+"Zn" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/lizardboots,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gasthelizards/viewzone)
+"ZC" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "warndark"
+	},
+/area/ruin/space/gasthelizards/jail)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-b
-a
-a
-a
-a
-a
+lQ
+lQ
+lQ
+lQ
+lQ
+wM
+EY
+EY
+lQ
+EY
+EY
+wM
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
 "}
 (2,1,1) = {"
-a
-a
-a
-b
-b
-b
-b
-a
-b
-b
-b
-a
-a
-a
+lQ
+lQ
+wM
+wM
+EY
+EY
+EY
+EY
+EY
+EY
+EY
+EY
+EY
+EY
+EY
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
 "}
 (3,1,1) = {"
-a
-a
-a
-b
-b
-c
-c
-c
-c
-c
-c
-c
-b
-a
+lQ
+EY
+su
+su
+su
+su
+su
+su
+cA
+cA
+cA
+cA
+Wy
+Wy
+Wy
+EY
+wM
+EY
+wM
+wM
+lQ
+lQ
+lQ
+lQ
+lQ
 "}
 (4,1,1) = {"
-a
-b
-b
-b
-b
-c
-t
-y
-B
-E
-N
-c
-b
-b
+lQ
+cE
+su
+IN
+ts
+JS
+Yt
+su
+wz
+DB
+gk
+cA
+qa
+dp
+Wy
+EY
+EY
+wM
+qg
+wM
+lQ
+lQ
+lQ
+lQ
+Dc
 "}
 (5,1,1) = {"
-b
-a
-c
-c
-c
-c
-u
-t
-t
-t
-O
-c
-c
-c
+wM
+wM
+su
+bx
+un
+JW
+un
+su
+KL
+zf
+EE
+FV
+YP
+SL
+Wy
+Wy
+EY
+wM
+wM
+wM
+wM
+lQ
+lQ
+cm
+ho
 "}
 (6,1,1) = {"
-a
-b
-c
-d
-i
-p
-t
-t
-t
-t
-t
-Q
-R
-Q
+qy
+Vp
+su
+VP
+uV
+PY
+nJ
+PH
+sf
+zd
+xC
+sE
+YP
+SL
+uT
+Wy
+EY
+wM
+qg
+wM
+wM
+cm
+cm
+cm
+ho
 "}
 (7,1,1) = {"
-b
-b
-c
-e
-j
-r
-t
-t
-t
-t
-P
-c
-c
-c
+WZ
+nu
+eu
+Lh
+vV
+Qk
+Lj
+Wo
+ta
+kU
+hb
+qW
+YP
+SL
+FS
+Wy
+EY
+wM
+wM
+wM
+wM
+lQ
+lQ
+cm
+ho
 "}
 (8,1,1) = {"
-a
-b
-c
-f
-k
-q
-t
-t
-t
-F
-c
-c
-b
-b
+ww
+Vp
+su
+su
+Aq
+Zm
+nn
+Og
+av
+fq
+oD
+av
+oH
+SL
+SL
+Wy
+Wy
+Wy
+Wy
+Ca
+lQ
+lQ
+lQ
+cm
+ho
 "}
 (9,1,1) = {"
-b
-b
-c
-e
-j
-r
-t
-t
-t
-G
-c
-b
-b
-a
+lQ
+wM
+EY
+su
+BO
+bW
+rW
+Og
+WJ
+ss
+pr
+MV
+NH
+SL
+SL
+SL
+dG
+by
+jx
+xA
+ho
+ho
+ho
+ho
+ho
 "}
 (10,1,1) = {"
-a
-a
-c
-g
-k
-q
-t
-t
-t
-H
-c
-b
-a
-a
+lQ
+lQ
+wM
+su
+su
+LH
+Og
+Ok
+Tg
+JZ
+tM
+MV
+NH
+SL
+SL
+Yv
+Wy
+Wy
+Wy
+if
+cm
+cm
+cm
+cm
+ho
 "}
 (11,1,1) = {"
-b
-b
-c
-e
-j
-r
-t
-t
-t
-I
-c
-b
-a
-a
+lQ
+lQ
+fH
+Ll
+CA
+tJ
+GC
+Sr
+Va
+Ds
+Tg
+MV
+NH
+SL
+SL
+SL
+Ji
+SG
+cm
+lQ
+lQ
+lQ
+lQ
+cm
+ho
 "}
 (12,1,1) = {"
-b
-a
-c
-f
-k
-q
-t
-t
-t
-J
-c
-b
-a
-a
+lQ
+lQ
+hH
+mi
+FJ
+ax
+Vr
+Og
+av
+My
+av
+av
+Ej
+SL
+sA
+SL
+JL
+SG
+cm
+lQ
+lQ
+lQ
+lQ
+cm
+ho
 "}
 (13,1,1) = {"
-a
-b
-c
-h
-l
-r
-v
-t
-t
-J
-c
-b
-a
-a
+lQ
+lQ
+EY
+Vp
+Vp
+Xr
+Eh
+NS
+hL
+bK
+Wg
+sW
+BL
+SL
+SL
+SL
+Zn
+SG
+ND
+lQ
+lQ
+lQ
+lQ
+cm
+ho
 "}
 (14,1,1) = {"
-a
-b
-c
-c
-c
-c
-c
-c
-C
-c
-c
-b
-a
-a
+lQ
+lQ
+lQ
+wM
+Vp
+Vp
+Vp
+Wy
+wS
+rK
+IA
+Wy
+QX
+SL
+CE
+SL
+hq
+SG
+ND
+lQ
+lQ
+lQ
+lQ
+lQ
+Dc
 "}
 (15,1,1) = {"
-a
-b
-b
-c
-m
-s
-w
-z
-s
-K
-c
-a
-a
-a
+lQ
+lQ
+lQ
+lQ
+lQ
+hS
+Tb
+Wy
+xg
+rK
+Js
+Wy
+JB
+SL
+SL
+SL
+rP
+SG
+ND
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
 "}
 (16,1,1) = {"
-a
-b
-b
-c
-n
-s
-s
-s
-s
-L
-c
-a
-a
-a
+lQ
+lQ
+lQ
+lQ
+wM
+EY
+EY
+nN
+Yn
+hR
+xA
+Oc
+SL
+SL
+rX
+yb
+It
+SG
+ND
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
 "}
 (17,1,1) = {"
-a
-a
-b
-c
-o
-s
-x
-A
-D
-M
-c
-b
-b
-a
+lQ
+lQ
+lQ
+lQ
+EY
+EY
+EY
+AN
+AN
+zi
+AN
+AN
+AN
+Nx
+AN
+AN
+AN
+Wy
+wM
+wM
+lQ
+lQ
+lQ
+lQ
+lQ
 "}
 (18,1,1) = {"
-a
-a
-b
-c
-c
-c
-c
-c
-c
-c
-c
-b
-a
-a
+lQ
+lQ
+lQ
+lQ
+EY
+EY
+EY
+AN
+UH
+tv
+dQ
+dl
+nv
+yD
+zK
+Fa
+AN
+EY
+wM
+wM
+wM
+lQ
+lQ
+lQ
+lQ
 "}
 (19,1,1) = {"
-a
-a
-a
-a
-b
-b
-a
-a
-b
-b
-b
-a
-a
-a
+lQ
+lQ
+lQ
+lQ
+EY
+wM
+tD
+AN
+kD
+FX
+pJ
+Qw
+dk
+dk
+pJ
+VF
+AN
+EY
+EY
+qg
+wM
+lQ
+lQ
+lQ
+lQ
+"}
+(20,1,1) = {"
+lQ
+lQ
+lQ
+lQ
+EY
+wM
+GP
+AN
+AV
+tv
+dk
+jj
+qt
+OY
+OY
+dm
+AN
+EY
+wM
+wM
+wM
+lQ
+lQ
+lQ
+lQ
+"}
+(21,1,1) = {"
+lQ
+lQ
+lQ
+lQ
+wM
+wM
+ex
+AN
+SW
+XR
+JJ
+uB
+ZC
+dx
+yz
+Xu
+uB
+wM
+wM
+qg
+wM
+lQ
+lQ
+lQ
+lQ
+"}
+(22,1,1) = {"
+lQ
+lQ
+lQ
+lQ
+lQ
+EY
+EY
+AN
+Wj
+WA
+jk
+uB
+xi
+DG
+nG
+Xq
+uB
+EY
+EY
+wM
+wM
+lQ
+lQ
+lQ
+lQ
+"}
+(23,1,1) = {"
+lQ
+lQ
+lQ
+lQ
+lQ
+EY
+EY
+AN
+AN
+AN
+AN
+uB
+uB
+uB
+uB
+uB
+uB
+EY
+wM
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
+"}
+(24,1,1) = {"
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
+EY
+EY
+EY
+EY
+EY
+EY
+EY
+EY
+EY
+EY
+EY
+EY
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
+lQ
 "}

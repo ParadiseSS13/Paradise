@@ -162,9 +162,9 @@
 
 // Preset for adding whiteship docks to ruins. Has widths preset which will auto-assign the shuttle
 /obj/docking_port/stationary/whiteship
-	dwidth = 10
-	height = 35
-	width = 21
+	dwidth = 8
+	height = 31
+	width = 17
 
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)

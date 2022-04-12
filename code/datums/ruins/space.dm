@@ -120,6 +120,7 @@
 	description = "Gas efficiency at 95.6%, fluid elimination at 96.2%. \
 		Will require renewed supplies of 'carpet' before the end of the \
 		quarter."
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/intact_empty_ship
 	id = "intact-empty-ship"
@@ -273,7 +274,7 @@
 	description = "The crew of a space station awaken one hundred years after a crisis. Awaking to a derelict space station on the verge of collapse, and a hostile force of invading \
 	hivebots. Can the surviving crew overcome the odds and survive and rebuild, or will the cold embrace of the stars become their new home?"
 	allow_duplicates = FALSE
-	cost = 3 // the station wasn't small from the start at all, it was 80x50 isn't 20x20, now its 110x50, the cost had to be higher than 2
+	cost = 4 // fair cost for large structure
 
 /datum/map_template/ruin/space/spacehotelv1 // new map, duplicated and edited partialy from other ss13 builds
 	id = "spacehotelv1"
@@ -306,6 +307,7 @@
 	name = "Vacation"
 	description = "Whoever doesn't wish to have their own paradise corner in space! \
 		Wait, where did I put spray tan?.."
+
 /* Старый код для добавления Тайпана. Оставлено на всякий случай
 /datum/map_template/ruin/space/syndicate_space_base
 	id = "syndicate_space_base"

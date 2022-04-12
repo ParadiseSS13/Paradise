@@ -334,7 +334,6 @@
 	pixel_y = 6;
 	specialfunctions = 4
 	},
-/obj/item/camera_bug,
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/reception)
@@ -364,9 +363,11 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/evamaints)
 "ch" = (
-/obj/machinery/teleport/station,
-/turf/simulated/floor/wood,
-/area/ruin/space/spacehotelv1/entryhallway)
+/obj/item/bikehorn/rubberducky,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacehotelv1/guestroom3)
 "ck" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -640,7 +641,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "eg" = (
-/obj/machinery/teleport/hub/upgraded,
+/obj/machinery/teleport/perma,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/entryhallway)
 "eo" = (
@@ -921,16 +922,11 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "fV" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/machinery/light/small{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/forestarboardmaints)
+/area/ruin/space/spacehotelv1/evamaints)
 "gc" = (
 /obj/structure/table/wood,
 /obj/random/plushie,
@@ -1721,7 +1717,7 @@
 /area/ruin/space/spacehotelv1/decals)
 "lv" = (
 /mob/living/simple_animal/bot/medbot{
-	name = "\improper Accidents Happen";
+	name = "Accidents Happen";
 	stationary_mode = 1
 	},
 /obj/structure/sign/poster/contraband/random{
@@ -3150,6 +3146,15 @@
 "uW" = (
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/guestroom1)
+"vb" = (
+/obj/machinery/shower{
+	dir = 4
+	},
+/obj/structure/curtain/open/shower,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacehotelv1/bar)
 "vd" = (
 /obj/item/clothing/under/lawyer/black,
 /obj/item/clothing/under/lawyer/blue,
@@ -3549,7 +3554,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom3)
 "xG" = (
-/obj/machinery/computer/teleporter,
+/obj/machinery/quantumpad,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/entryhallway)
 "xN" = (
@@ -3766,6 +3771,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
+/obj/item/kitchen/utensil/fork,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "zo" = (
@@ -3820,7 +3826,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "zz" = (
-/obj/machinery/suit_storage_unit/engine,
+/obj/machinery/suit_storage_unit/standard_unit,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "zI" = (
@@ -3900,9 +3906,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "As" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
+/obj/structure/coatrack,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/evamaints)
 "Av" = (
@@ -4272,11 +4276,16 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "Dk" = (
-/obj/item/bikehorn/rubberducky,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/area/ruin/space/spacehotelv1/bar)
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacehotelv1/forestarboardmaints)
 "Dp" = (
 /obj/machinery/smartfridge/drinks{
 	opacity = 1
@@ -4764,6 +4773,11 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "FU" = (
+/obj/machinery/light_switch{
+	on = 0;
+	pixel_x = -24;
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4836,7 +4850,7 @@
 	},
 /area/ruin/space/spacehotelv1/guestroom1)
 "Gj" = (
-/obj/machinery/recharge_station,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";
@@ -4966,11 +4980,11 @@
 /area/ruin/space/spacehotelv1/forehallway)
 "HK" = (
 /obj/structure/rack,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/tank/emergency_oxygen/engi/empty,
 /obj/item/clothing/mask/breath,
 /obj/item/storage/toolbox/electrical,
 /obj/item/wrench,
+/obj/item/clothing/gloves/color/fyellow,
+/obj/item/tank/emergency_oxygen/engi,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "HN" = (
@@ -5110,7 +5124,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "IJ" = (
-/obj/machinery/quantumpad,
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";
@@ -5208,10 +5222,6 @@
 /obj/item/storage/firstaid,
 /obj/item/crowbar,
 /obj/item/reagent_containers/spray/pepper,
-/obj/item/flash{
-	pixel_x = -4;
-	pixel_y = 2
-	},
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
@@ -5613,6 +5623,7 @@
 /area/ruin/space/spacehotelv1/restoraunt)
 "LP" = (
 /obj/structure/rack,
+/obj/item/bikehorn/rubberducky,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -7343,6 +7354,12 @@
 /area/ruin/space/spacehotelv1/restoraunt1)
 "Ws" = (
 /obj/structure/chair/office/light,
+/obj/structure/safe/floor,
+/obj/item/camera_bug,
+/obj/item/flash{
+	pixel_x = -4;
+	pixel_y = 2
+	},
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuit";
 	name = "Mainframe Floor"
@@ -9379,9 +9396,9 @@ ZE
 ub
 IR
 ub
+vb
 pj
-pj
-pj
+vb
 Ea
 Qp
 Qp
@@ -9453,7 +9470,7 @@ ie
 kS
 ub
 OE
-Dk
+JV
 Bu
 Ea
 Ea
@@ -11023,7 +11040,7 @@ vl
 rp
 pA
 ho
-ho
+ch
 af
 BM
 Rb
@@ -11188,9 +11205,9 @@ zZ
 mv
 zZ
 zZ
-fV
+os
 WJ
-WJ
+Dk
 WJ
 WJ
 qC
@@ -11412,7 +11429,7 @@ LE
 LE
 LE
 zi
-ch
+tX
 Cg
 uA
 jU
@@ -11478,7 +11495,7 @@ Eg
 zZ
 Ax
 og
-Kj
+fV
 iK
 LE
 LE
