@@ -58,30 +58,31 @@
 
 /obj/structure/proc/do_climb(var/mob/living/user)
 	if(!can_touch(user) || !climbable)
-		return
+		return FALSE
 	var/blocking_object = density_check()
 	if(blocking_object)
 		to_chat(user, "<span class='warning'>You cannot climb [src], as it is blocked by \a [blocking_object]!</span>")
-		return
+		return FALSE
 
 	var/turf/T = src.loc
-	if(!T || !istype(T)) return
+	if(!T || !istype(T)) return FALSE
 
 	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
 	if(!do_after(user, 50, target = src))
 		climber = null
-		return
+		return FALSE
 
 	if(!can_touch(user) || !climbable)
 		climber = null
-		return
+		return FALSE
 
 	usr.loc = get_turf(src)
 	if(get_turf(user) == get_turf(src))
 		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
 
 	climber = null
+	return TRUE
 
 /obj/structure/proc/structure_shaken()
 
