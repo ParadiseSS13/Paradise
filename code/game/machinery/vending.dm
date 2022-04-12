@@ -116,7 +116,7 @@
 	else
 		component_parts = list()
 		var/obj/item/circuitboard/vendor/V = new
-		V.set_type(replacetext(name, "\improper", ""))
+		V.set_type(replacetext(initial(name), "\improper", ""))
 		component_parts += V
 		component_parts += new refill_canister
 		RefreshParts()
@@ -942,7 +942,7 @@
 
 
 /obj/machinery/vending/coffee
-	name = "\improper Hot Drinks machine"
+	name = "\improper Solar's Best Hot Drinks"
 	desc = "A vending machine which dispenses hot drinks."
 	ads_list = list("Have a drink!","Drink up!","It's good for you!","Would you like a hot joe?","I'd kill for some coffee!","The best beans in the galaxy.","Only the finest brew for you.","Mmmm. Nothing like a coffee.","I like coffee, don't you?","Coffee helps you work!","Try some tea.","We hope you like the best!","Try our new chocolate!","Admin conspiracies")
 	icon_state = "coffee"
@@ -1117,7 +1117,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/cigarette
-	name = "cigarette machine"
+	name = "\improper ShadyCigs Deluxe"
 	desc = "If you want to get cancer, might as well do it in style."
 	slogan_list = list("Space cigs taste good like a cigarette should.","I'd rather toolbox than switch.","Smoke!","Don't believe the reports - smoke today!")
 	ads_list = list("Probably not bad for you!","Don't believe the scientists!","It's good for you!","Don't quit, buy more!","Smoke!","Nicotine heaven.","Best cigarettes since 2150.","Award-winning cigs.")
@@ -1533,16 +1533,16 @@
 	icon_state = "tool"
 	icon_deny = "tool_deny"
 	icon_panel = "generic"
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
+	resistance_flags = FIRE_PROOF
 	products = list(/obj/item/stack/cable_coil/random = 10,/obj/item/crowbar = 5,/obj/item/weldingtool = 3,/obj/item/wirecutters = 5,
 					/obj/item/wrench = 5,/obj/item/analyzer = 5,/obj/item/t_scanner = 5,/obj/item/screwdriver = 5)
 	contraband = list(/obj/item/weldingtool/hugetank = 2,/obj/item/clothing/gloves/color/fyellow = 2)
 	premium = list(/obj/item/clothing/gloves/color/yellow = 1)
 	refill_canister = /obj/item/vending_refill/youtool
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
-	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/engivend
-	name = "\improper Engi-vend"
+	name = "\improper Engi-Vend"
 	desc = "Spare tool vending. What? Did you expect some witty description?"
 	icon_state = "engivend"
 	icon_deny = "engivend_deny"
