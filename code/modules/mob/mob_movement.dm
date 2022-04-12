@@ -156,20 +156,28 @@
 						M.other_mobs = null
 						M.animate_movement = 2
 
+#define CONFUSION_LIGHT_COEFFICIENT		0.15
+#define CONFUSION_HEAVY_COEFFICIENT		0.075
+#define CONFUSION_MAX					80 SECONDS
+
 	else
 		var/mob/living/L = mob
 		if(L)
 			var/newdir = NONE
 			var/confusion = L.get_confusion()
-			if(confusion > 40)
+			if(confusion > CONFUSION_MAX)
 				newdir = pick(GLOB.alldirs)
-			else if(prob(confusion * 1.5))
+			else if(prob(confusion * CONFUSION_HEAVY_COEFFICIENT))
 				newdir = angle2dir(dir2angle(direct) + pick(90, -90))
-			else if(prob(confusion * 3))
+			else if(prob(confusion * CONFUSION_LIGHT_COEFFICIENT))
 				newdir = angle2dir(dir2angle(direct) + pick(45, -45))
 			if(newdir)
 				direct = newdir
 				n = get_step(mob, direct)
+
+#undef CONFUSION_LIGHT_COEFFICIENT
+#undef CONFUSION_HEAVY_COEFFICIENT
+#undef CONFUSION_MAX
 
 	var/prev_pulling_loc = null
 	if(mob.pulling)
