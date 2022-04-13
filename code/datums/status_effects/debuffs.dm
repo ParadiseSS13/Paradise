@@ -337,6 +337,9 @@
 
 /datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration)
 	if(isnum(set_duration))
+		if(ishuman(new_owner))
+			var/mob/living/carbon/human/H = new_owner
+			set_duration = H.dna.species.spec_stun(H, set_duration)
 		duration = set_duration
 	. = ..()
 	if(. && (needs_update_stat || issilicon(owner)))
