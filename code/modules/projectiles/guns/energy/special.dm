@@ -337,11 +337,11 @@
 		cell.charge -= 0.5 //2.5 per second, 25 every 10 seconds
 		if(cell.charge <= 25 && !warned)
 			warned = TRUE
-			playsound(src.loc, 'sound/weapons/smg_empty_alarm.ogg', 75, 1)
+			playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 75, 1)
 			atom_say("Caution, charge low. Forced discharge in under 10 seconds.")
 		if(cell.charge <= 5)
 			discharge()
-		if(istype(loc, /mob/living/carbon/human))
+		if(ishuman(loc))
 			var/mob/living/carbon/human/user = loc
 			if(!user.is_in_active_hand(src))
 				discharge()
@@ -360,7 +360,7 @@
 	if(do_after(user, 25, target = src))
 		overloaded = TRUE
 		cell.charge -= 125
-		playsound(src.loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
+		playsound(loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
 		atom_say("Overloading successful.")
 		light_power = 4 //extra visual effect to make it more noticable to user and victims alike
 	charging = FALSE
@@ -403,7 +403,7 @@
 		return
 	if(prob(50))
 		var/found_someone = FALSE
-		var/list/mob_targets = new/list()
+		var/list/mob_targets = list()
 		for(var/mob/living/M in range(get_turf(src), 7))
 			if(M in range(get_turf(src), 1)) // shooting at the person holding it does not work
 				continue
@@ -417,7 +417,7 @@
 
 	visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
 	var/found_target = FALSE
-	var/list/turf_targets = new/list()
+	var/list/turf_targets = list()
 	for(var/turf/T in range(get_turf(src), 7))
 		if(T in range(get_turf(src), 1))
 			continue

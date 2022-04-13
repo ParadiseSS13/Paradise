@@ -170,7 +170,7 @@
 		if(istype(hitby, /obj/item/projectile))
 			var/obj/item/projectile/P = hitby
 			if(P.shield_buster)
-				current_charges = (max(0, (current_charges -= 3)))
+				current_charges = max(0, current_charges -= 3)
 		if(!current_charges)
 			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
 			shield_state = "broken"
@@ -470,7 +470,7 @@
 			// 10 * 3 gives it a 30% chance to shatter per hit.
 			shatter_chance = min((P.damage - threshold) * 3, 75) // Maximum of 75% chance
 
-			if(prob(shatter_chance) || (P.shield_buster))
+			if(prob(shatter_chance) || P.shield_buster)
 				var/turf/T = get_turf(owner)
 				T.visible_message("<span class='warning'>The sheer force from [P] shatters the mirror shield!</span>")
 				new /obj/effect/temp_visual/cult/sparks(T)

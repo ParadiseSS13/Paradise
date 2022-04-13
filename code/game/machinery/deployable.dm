@@ -57,14 +57,14 @@
 			return TRUE
 		var/obj/item/projectile/proj = mover
 		if(directional_blockage)
-			if(direction_check(turn(proj.dir, 180)))
+			if(turn(mover.dir, 180) in directional_list)
 				return FALSE
 		if(proj.firer && Adjacent(proj.firer))
 			return TRUE
 		if(prob(proj_pass_rate))
 			return TRUE
 		return FALSE
-	if(istype(mover, /obj/item)) //thrown items with the dropwall
+	if(isitem(mover)) //thrown items with the dropwall
 		if(directional_blockage)
 			if(direction_check(turn(mover.dir, 180)))
 				return FALSE
@@ -228,7 +228,7 @@
 	desc = "A temporary deployable energy shield powered by a generator. Breaking the generator will destroy all the shields connected to it."
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall_dead" //sprite chosen in init
-	density = 0
+	density = FALSE
 	directional_blockage = TRUE
 	proj_pass_rate = 100 //don't worry about it, covered by directional blockage.
 	stacktype = null

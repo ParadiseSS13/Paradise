@@ -283,7 +283,7 @@
 
 /datum/design/dropwall
 	name = "Dropwall Generator"
-	desc = "A prototype shield generator design that wasinspired by shellguard munitions spartan division. Generates a directional shield to block projectiles and explosions"
+	desc = "A prototype shield generator design that was inspired by shellguard munitions spartan division. Generates a directional shield to block projectiles and explosions."
 	id = "drop_wall"
 	req_tech = list("combat" = 5, "materials" = 5, "engineering" = 5, "magnets" = 5)
 	build_type = PROTOLATHE
