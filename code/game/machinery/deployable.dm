@@ -245,7 +245,7 @@
 	directional_list += dir_1
 	directional_list += dir_2
 	if(dir_2)
-		icon_state = "[dir2text(dir_1)]_[dir2text(dir_2)]"
+		icon_state = "[dir2text(dir_1 + dir_2)]"
 	else
 		icon_state = "[dir2text(dir_1)]"
 
@@ -256,7 +256,7 @@
 
 /obj/structure/barricade/dropwall/emp_act(severity)
 	..()
-	obj_integrity -= 40 / severity //chances are the EMP will also hit the generator, we don't want it to double up too heavily
+	take_damage( 40 / severity, BRUTE) //chances are the EMP will also hit the generator, we don't want it to double up too heavily
 
 /obj/structure/barricade/dropwall/bullet_act(obj/item/projectile/P)
 	if(P.shield_buster)
@@ -315,55 +315,19 @@
 		addtimer(CALLBACK(src, .proc/annoying_overlay_proc, uptime / 10), (10 * (12 - uptime / 10))) // instantly, 1 second, 2 seconds, ect. Would put in SECONDS here but it shits itself
 		uptime -= 10
 
-	switch(direction)
-		if(NORTH)
-			connected_shields += new /obj/structure/barricade/dropwall(get_turf(loc), src, TRUE, NORTH)
-			for(var/i in connected_shields)
-				core_shield = i
+	connected_shields += new /obj/structure/barricade/dropwall(get_turf(loc), src, TRUE, direction)
+	for(var/i in connected_shields)
+		core_shield = i
 
-			var/target_turf = get_step(src, EAST)
-			if(!(is_blocked_turf(target_turf)))
-				connected_shields += new /obj/structure/barricade/dropwall(target_turf, src, FALSE, NORTH, EAST)
+	var/dir_left = turn(direction, -90)
+	var/dir_right = turn(direction, 90)
+	var/target_turf = get_step(src, dir_left)
+	if(!(is_blocked_turf(target_turf)))
+		connected_shields += new /obj/structure/barricade/dropwall(target_turf, src, FALSE, direction, dir_left)
 
-			var/target_turf2 = get_step(src, WEST)
-			if(!(is_blocked_turf(target_turf2)))
-				connected_shields += new /obj/structure/barricade/dropwall(target_turf2, src, FALSE, NORTH, WEST)
-		if(EAST)
-			connected_shields += new /obj/structure/barricade/dropwall(get_turf(loc), src, TRUE, EAST)
-			for(var/i in connected_shields)
-				core_shield = i
-
-			var/target_turf = get_step(src, NORTH)
-			if(!(is_blocked_turf(target_turf)))
-				connected_shields += new /obj/structure/barricade/dropwall(target_turf, src, FALSE, NORTH, EAST)
-
-			var/target_turf2 = get_step(src, SOUTH)
-			if(!(is_blocked_turf(target_turf2)))
-				connected_shields += new /obj/structure/barricade/dropwall(target_turf2, src, FALSE, SOUTH, EAST)
-		if(SOUTH)
-			connected_shields += new /obj/structure/barricade/dropwall(get_turf(loc), src, TRUE, SOUTH)
-			for(var/i in connected_shields)
-				core_shield = i
-
-			var/target_turf = get_step(src, EAST)
-			if(!(is_blocked_turf(target_turf)))
-				connected_shields += new /obj/structure/barricade/dropwall(target_turf, src, FALSE, SOUTH, EAST)
-
-			var/target_turf2 = get_step(src, WEST)
-			if(!(is_blocked_turf(target_turf2)))
-				connected_shields += new /obj/structure/barricade/dropwall(target_turf2, src, FALSE, SOUTH, WEST)
-		if(WEST)
-			connected_shields += new /obj/structure/barricade/dropwall(get_turf(loc), src, TRUE, WEST)
-			for(var/i in connected_shields)
-				core_shield = i
-
-			var/target_turf = get_step(src, NORTH)
-			if(!(is_blocked_turf(target_turf)))
-				connected_shields += new /obj/structure/barricade/dropwall(target_turf, src, FALSE, NORTH, WEST)
-
-			var/target_turf2 = get_step(src, SOUTH)
-			if(!(is_blocked_turf(target_turf2)))
-				connected_shields += new /obj/structure/barricade/dropwall(target_turf2, src, FALSE, SOUTH, WEST)
+	var/target_turf2 = get_step(src, dir_right)
+	if(!(is_blocked_turf(target_turf2)))
+		connected_shields += new /obj/structure/barricade/dropwall(target_turf2, src, FALSE, direction, dir_right)
 
 
 /obj/structure/dropwall_generator/attacked_by(obj/item/I, mob/living/user) //No, you can not just go up to the generator and whack it. Central shield needs to go down first.
@@ -382,6 +346,7 @@
 
 /obj/structure/dropwall_generator/Destroy()
 	QDEL_LIST(connected_shields)
+	core_shield = null
 	. = ..()
 
 /obj/structure/dropwall_generator/emp_act(severity)

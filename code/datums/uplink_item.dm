@@ -1535,7 +1535,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A box of 5 dropwall shield generators, which can be used to make temporary directional shields that block projectiles, thrown objects, and reduce explosions. Configure the direction before throwing."
 	item = /obj/item/storage/box/syndie_kit/dropwall
 	reference = "ESD"
-	cost = 10 // 2 per? Seems reasonable
+	cost = 10
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/medgun
