@@ -190,6 +190,11 @@
 // TOML Operations //
 #define rustg_read_toml_file(path) json_decode(call(RUST_G, "toml_file_to_json")(path) || "null")
 
+// TPS Operations //
+#define rustg_tps_setup_buffers(fps) call(RUST_G, "setup_buffers")("[fps]")
+#define rustg_tps_record_tps(tps) call(RUST_G, "record_tps")("[tps]")
+/proc/rustg_tps_read() return call(RUST_G, "read_averages")()
+
 // Unzip Operations //
 #define rustg_unzip_download_async(url, unzip_directory) call(RUST_G, "unzip_download_async")(url, unzip_directory)
 #define rustg_unzip_check(job_id) call(RUST_G, "unzip_check")("[job_id]")

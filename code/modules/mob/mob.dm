@@ -1009,6 +1009,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		if(SSticker)
 			show_stat_station_time()
 		stat(null, "Players Connected: [length(GLOB.clients)]")
+		if(client && !(client.prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL))
+			stat(null, "TPS (1m/5m/15m): [Master.tps_string]") // This updates a lot, and could lag weak PCs
 
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()

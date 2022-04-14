@@ -74,6 +74,9 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	/// Current tick limit, assigned before running a subsystem. Used by CHECK_TICK as well so that the procs subsystems call can obey that SS's tick limits
 	var/static/current_ticklimit = TICK_LIMIT_RUNNING
 
+	/// Current TPS string. Stored here so that it can be cached instead of every player making a call to it
+	var/tps_string = "Loading..."
+
 /datum/controller/master/New()
 
 	if(!random_seed)
@@ -396,6 +399,12 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		current_ticklimit = TICK_LIMIT_RUNNING
 		if(processing * sleep_delta <= world.tick_lag)
 			current_ticklimit -= (TICK_LIMIT_RUNNING * 0.25) //reserve the tail 1/4 of the next tick for the mc if we plan on running next tick
+
+		// PARA TWEAK
+		rustg_tps_record_tps(world.tick_usage)
+		tps_string = rustg_tps_read()
+		// END PARA TWEAK
+
 		sleep(world.tick_lag * (processing * sleep_delta))
 
 

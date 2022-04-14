@@ -32,6 +32,9 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 	SSdbcore.SetRoundID() // Set the round ID here
 	SSinstancing.seed_data() // Set us up in the DB
 
+	// Set up TPS tracking
+	rustg_tps_setup_buffers(world.fps)
+
 	// Setup all log paths and stamp them with startups, including round IDs
 	SetupLogs()
 	load_files() // Loads up the MOTD (Welcome message players see when joining the server), TOS and gamemode
