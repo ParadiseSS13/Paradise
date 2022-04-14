@@ -18,7 +18,7 @@
 	var/list/role_weights = list()
 	var/datum/event/event_type
 
-/datum/event_meta/New(event_severity, event_name, datum/event/type, event_weight, list/job_weights, is_one_shot = FALSE, min_event_weight = 0, max_event_weight = INFINITY)
+/datum/event_meta/New(event_severity, event_name, datum/event/type, event_weight, list/job_weights, is_one_shot = FALSE, min_event_weight = 0, max_event_weight = INFINITY, _enabled = TRUE)
 	name = event_name
 	severity = event_severity
 	event_type = type
@@ -26,6 +26,7 @@
 	weight = event_weight
 	min_weight = min_event_weight
 	max_weight = max_event_weight
+	enabled = _enabled
 	if(job_weights)
 		role_weights = job_weights
 
