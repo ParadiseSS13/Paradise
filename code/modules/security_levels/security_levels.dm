@@ -80,21 +80,14 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 						FA.update_icon()
 
 			if(SEC_LEVEL_GAMMA)
-				GLOB.security_announcement_up.Announce("Центральным Командованием был установлен код ГАММА на станции. Служба Безопасности должна быть полностью вооружена. Гражданский персонал обязан немедленно обратиться к Главам отделов для получения указаний к эвакуации. \n Оружейная уровня ГАММА прибыла и доступна в бриге.","Внимание! Код ГАММА!", new_sound = sound('sound/effects/new_siren.ogg'))
+				GLOB.security_announcement_up.Announce("Центральным Командованием был установлен код ГАММА на станции. Служба Безопасности должна быть полностью вооружена. Гражданский персонал обязан немедленно обратиться к Главам отделов для получения указаний к эвакуации.", "Внимание! Код ГАММА!", sound('sound/effects/new_siren.ogg'))
 				GLOB.security_level = SEC_LEVEL_GAMMA
-
-				move_gamma_ship()
 
 				if(GLOB.security_level < SEC_LEVEL_RED)
 					for(var/obj/machinery/door/airlock/highsecurity/red/R in GLOB.airlocks)
 						if(is_station_level(R.z))
 							R.locked = 0
 							R.update_icon()
-
-				for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
-					if(is_station_level(H.z))
-						H.locked = 0
-						H.update_icon()
 
 				post_status("alert", "gammaalert")
 
