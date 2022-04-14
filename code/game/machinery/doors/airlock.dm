@@ -722,6 +722,7 @@ About the new airlock wires panel:
 		shock(user, 100)
 
 /obj/machinery/door/airlock/attack_animal(mob/user)
+	. = ..()
 	if(istype(user, /mob/living/simple_animal/hulk))
 		var/mob/living/simple_animal/hulk/H = user
 		H.attack_hulk(src)
