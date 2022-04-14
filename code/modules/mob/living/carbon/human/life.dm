@@ -806,7 +806,7 @@
 			new_hunger = "starving"
 	if(dna.species.hunger_type)
 		new_hunger += "/[dna.species.hunger_type]"
-	if(!(dna.species.hunger_level == new_hunger))
+	if(dna.species.hunger_level != new_hunger)
 		dna.species.hunger_level = new_hunger
 		throw_alert("nutrition", "/obj/screen/alert/hunger/[new_hunger]", icon_override = dna.species.hunger_icon)
 
