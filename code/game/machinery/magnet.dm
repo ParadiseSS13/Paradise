@@ -11,7 +11,7 @@
 	name = "Electromagnetic Generator"
 	desc = "A device that uses station power to create points of magnetic energy."
 	level = 1		// underfloor
-	layer = 2.5
+	layer = WIRE_LAYER+0.001
 	anchored = 1
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
@@ -32,6 +32,8 @@
 /obj/machinery/magnetic_module/New()
 	..()
 	var/turf/T = loc
+	if(!T.transparent_floor)
+		hide(T.intact)
 	hide(T.intact)
 	center = T
 

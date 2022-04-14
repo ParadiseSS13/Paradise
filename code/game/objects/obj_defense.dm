@@ -73,7 +73,7 @@
 /obj/blob_act(obj/structure/blob/B)
 	if(isturf(loc))
 		var/turf/T = loc
-		if(T.intact && level == 1) //the blob doesn't destroy thing below the floor
+		if((T.intact && level == 1) || T.transparent_floor) //the blob doesn't destroy thing below the floor
 			return
 	take_damage(400, BRUTE, "melee", 0, get_dir(src, B))
 
@@ -182,7 +182,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(isturf(loc))
 		var/turf/T = loc
-		if(T.intact && level == 1) //fire can't damage things hidden below the floor.
+		if((T.intact && level == 1) || T.transparent_floor) //fire can't damage things hidden below the floor.
 			return
 	..()
 	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))

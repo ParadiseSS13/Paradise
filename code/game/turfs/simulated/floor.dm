@@ -34,6 +34,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/list/broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 	var/list/burnt_states = list("floorscorched1", "floorscorched2")
 	var/list/prying_tool_list = list(TOOL_CROWBAR) //What tool/s can we use to pry up the tile?
+	var/keep_dir = TRUE //When false, resets dir to default on changeturf()
 
 /turf/simulated/floor/Initialize(mapload)
 	. = ..()
@@ -126,11 +127,18 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 	var/turf/simulated/floor/W = ..()
 
+	var/obj/machinery/atmospherics/R
+
 	if(keep_icon)
 		W.icon_regular_floor = old_icon
 		W.icon_plating = old_plating
+	if(W.keep_dir)
 		W.dir = old_dir
-
+	if(W.transparent_floor)
+		for(R in W)
+			R.update_icon()
+	for(R in W)
+		R.update_underlays()
 	W.update_icon()
 	return W
 
