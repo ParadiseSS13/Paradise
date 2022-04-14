@@ -167,6 +167,13 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	desc = "A mining cyborg internal positioning system. Used as a recovery beacon for damaged cyborg assets, or a collaboration tool for mining teams."
 	flags = NODROP
 
+/obj/item/gps/syndiecyborg
+	icon_state = "gps-b"
+	local = TRUE
+	gpstag = "SBORG0"
+	desc = "A syndicate version of cyborg GPS that only shows it's location on current Z-level"
+	flags = NODROP
+
 /obj/item/gps/internal
 	icon_state = null
 	flags = ABSTRACT
