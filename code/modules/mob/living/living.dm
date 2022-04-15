@@ -449,9 +449,11 @@
 	SetStunned(0, TRUE)
 	SetWeakened(0, TRUE)
 	SetSlowed(0)
+	SetImmobilized(0)
 	SetLoseBreath(0)
 	SetDizzy(0)
 	SetJitter(0)
+	SetStuttering(0)
 	SetConfused(0)
 	SetDrowsy(0)
 	radiation = 0
