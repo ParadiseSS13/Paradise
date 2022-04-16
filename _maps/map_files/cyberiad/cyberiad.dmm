@@ -10909,14 +10909,10 @@
 "aAq" = (
 /obj/structure/bed,
 /obj/item/bedsheet/patriot,
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/security/permabrig)
 "aAr" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/security/permabrig)
 "aAs" = (
 /obj/structure/cable{
@@ -11530,9 +11526,7 @@
 "aBI" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
+/turf/simulated/floor/carpet/blue,
 /area/security/permabrig)
 "aBJ" = (
 /obj/structure/table,
