@@ -1951,15 +1951,6 @@
 	icon_state = "dark"
 	},
 /area/security/permabrig)
-"agn" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/solar/auxport)
 "ago" = (
 /obj/structure/cable,
 /obj/machinery/power/solar{
@@ -4015,8 +4006,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plating,
@@ -8156,8 +8146,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plating,
@@ -22514,8 +22503,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -23017,8 +23005,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/engine,
@@ -26693,8 +26680,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
@@ -81483,8 +81469,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/structure/cable,
 /obj/machinery/power/solar_control{
@@ -99008,7 +98993,7 @@ abA
 abL
 abW
 abW
-agn
+adi
 abA
 abA
 agM
