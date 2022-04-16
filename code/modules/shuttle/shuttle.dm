@@ -595,6 +595,8 @@
 		for(var/atom/movable/AM in T1)
 			if(AM.pulledby)
 				AM.pulledby.stop_pulling()
+			if(AM.flags_2 & IMMUNE_TO_SHUTTLECRUSH_2)
+				continue
 			if(ismob(AM))
 				var/mob/M = AM
 				if(M.buckled)
@@ -618,7 +620,7 @@
 			if(!AM.anchored)
 				step(AM, dir)
 			else
-				if(AM.simulated && !istype(AM, /obj/singularity)) // Don't qdel lighting overlays, they are static
+				if(AM.simulated) // Don't qdel lighting overlays, they are static
 					qdel(AM)
 
 //used by shuttle subsystem to check timers
