@@ -12254,9 +12254,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aDq" = (
@@ -13904,9 +13902,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aHs" = (
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aHt" = (
@@ -14973,9 +14969,7 @@
 /area/maintenance/fpmaint2)
 "aKa" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aKb" = (
@@ -15507,18 +15501,14 @@
 /area/maintenance/fpmaint2)
 "aLp" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aLq" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 10
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aLr" = (
@@ -15912,9 +15902,7 @@
 /area/maintenance/fsmaint)
 "aMj" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aMk" = (
@@ -15993,9 +15981,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aMv" = (
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aMw" = (
@@ -16289,9 +16275,7 @@
 /area/maintenance/fsmaint)
 "aNh" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aNi" = (
@@ -16425,9 +16409,7 @@
 /area/maintenance/fpmaint2)
 "aNA" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aNB" = (
@@ -17730,9 +17712,7 @@
 /area/crew_quarters/dorms)
 "aQC" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aQD" = (
@@ -19287,9 +19267,7 @@
 /area/maintenance/fsmaint)
 "aUb" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aUc" = (
@@ -53685,9 +53663,7 @@
 	icon_state = "pipe-c"
 	},
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cnt" = (
@@ -54907,9 +54883,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cpF" = (
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cpG" = (
@@ -54933,9 +54907,7 @@
 /obj/structure/rack{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cpI" = (
@@ -55477,9 +55449,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cqD" = (
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cqE" = (
@@ -56736,9 +56706,7 @@
 /obj/structure/rack{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "csV" = (
@@ -57148,9 +57116,7 @@
 /obj/structure/rack{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "ctG" = (
@@ -59503,9 +59469,7 @@
 /obj/structure/rack{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cyq" = (
@@ -60016,9 +59980,7 @@
 /area/maintenance/aft)
 "czp" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "czq" = (
@@ -60617,9 +60579,7 @@
 	pixel_x = -3;
 	pixel_y = 7
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cAx" = (
@@ -60627,9 +60587,7 @@
 /obj/structure/window/reinforced,
 /obj/item/storage/secure/briefcase,
 /obj/item/mop,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cAy" = (
@@ -60639,9 +60597,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/item/poster/random_contraband,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cAz" = (
@@ -60876,9 +60832,7 @@
 /obj/structure/rack{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cBg" = (
@@ -62635,9 +62589,7 @@
 "cEI" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "cEJ" = (
@@ -65818,9 +65770,7 @@
 /area/toxins/xenobiology)
 "cMh" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cMi" = (
@@ -67783,9 +67733,7 @@
 /area/toxins/xenobiology)
 "cQC" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "cQD" = (
@@ -69589,9 +69537,7 @@
 /area/maintenance/portsolar)
 "cUh" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "cUi" = (
@@ -69996,9 +69942,7 @@
 	name = "HIGH VOLTAGE";
 	pixel_y = -32
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "cVo" = (
@@ -74662,9 +74606,7 @@
 /obj/structure/rack,
 /obj/item/toy/minimeteor,
 /obj/item/poster/random_contraband,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dho" = (
@@ -75614,9 +75556,7 @@
 "djz" = (
 /obj/structure/rack,
 /obj/item/latexballon,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "djA" = (
@@ -76479,9 +76419,7 @@
 "dli" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dlj" = (
@@ -76938,9 +76876,7 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dms" = (
