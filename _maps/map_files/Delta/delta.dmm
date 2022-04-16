@@ -62019,7 +62019,6 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/misc_lab)
@@ -64707,7 +64706,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology)
@@ -64738,7 +64736,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology)
@@ -64755,7 +64752,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology)
@@ -64794,7 +64790,6 @@
 	},
 /obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology)
@@ -66274,7 +66269,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology)
@@ -66970,7 +66964,6 @@
 /area/hallway/secondary/exit)
 "cWI" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology)

@@ -52762,7 +52762,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whitepurplefull"
 	},
 /area/medical/research)
@@ -53211,7 +53210,6 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whitepurplefull"
 	},
 /area/medical/research)
@@ -53589,7 +53587,6 @@
 /obj/machinery/door/firedoor,
 /obj/item/folder/white,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whiteyellowfull"
 	},
 /area/medical/chemistry)
@@ -53716,7 +53713,6 @@
 	},
 /obj/item/reagent_containers/dropper,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology{
@@ -53748,7 +53744,6 @@
 	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology{
@@ -54036,7 +54031,6 @@
 "cnp" = (
 /obj/machinery/chem_dispenser,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whiteyellowfull"
 	},
 /area/medical/chemistry)
@@ -54046,7 +54040,6 @@
 	},
 /obj/effect/landmark/start/chemist,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whiteyellowfull"
 	},
 /area/medical/chemistry)
@@ -57904,7 +57897,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/lab)
@@ -58126,7 +58118,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/explab)
@@ -58386,7 +58377,6 @@
 	pixel_x = -2
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whiteyellowfull"
 	},
 /area/medical/chemistry)
@@ -60133,7 +60123,6 @@
 	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whiteyellowfull"
 	},
 /area/medical/chemistry)
@@ -60170,7 +60159,6 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whiteyellowfull"
 	},
 /area/medical/chemistry)
@@ -61091,7 +61079,6 @@
 	name = "Chemistry Cleaner"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whiteyellowfull"
 	},
 /area/medical/chemistry)
@@ -64174,7 +64161,6 @@
 	req_access_txt = "5;9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "yellowfull"
 	},
 /area/medical/genetics)
@@ -71579,7 +71565,6 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology{
@@ -71609,7 +71594,6 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology{
@@ -71648,7 +71632,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology{
@@ -71678,7 +71661,6 @@
 "cXz" = (
 /obj/machinery/smartfridge/secure/extract,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology{
@@ -73410,7 +73392,6 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology{
@@ -73466,7 +73447,6 @@
 	},
 /obj/item/reagent_containers/dropper,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology{
@@ -73549,7 +73529,6 @@
 	},
 /obj/machinery/chem_dispenser,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology{

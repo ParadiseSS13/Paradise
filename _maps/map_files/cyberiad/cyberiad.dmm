@@ -46654,7 +46654,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/medical/genetics)
@@ -47573,7 +47572,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/medical/genetics)
@@ -81655,7 +81653,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/medical/genetics)
