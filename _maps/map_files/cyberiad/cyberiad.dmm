@@ -5376,7 +5376,6 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/solar{
-	id = "portsolar";
 	name = "Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -5389,7 +5388,6 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/solar{
-	id = "portsolar";
 	name = "Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -6591,7 +6589,6 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/solar{
-	id = "auxsolareast";
 	name = "Port Auxiliary Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -7485,7 +7482,6 @@
 "atF" = (
 /obj/structure/cable,
 /obj/machinery/power/solar{
-	id = "auxsolareast";
 	name = "Port Auxiliary Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -12317,7 +12313,6 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/solar_control{
-	id = "auxsolareast";
 	name = "Fore Port Solar Control"
 	},
 /turf/simulated/floor/plating,
@@ -13781,7 +13776,6 @@
 	pixel_y = 32
 	},
 /obj/machinery/power/solar_control{
-	id = "auxsolareast";
 	name = "Fore Starboard Solar Control"
 	},
 /turf/simulated/floor/plating,
@@ -66533,7 +66527,6 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/solar{
-	id = "portsolar";
 	name = "Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -66600,7 +66593,6 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/solar{
-	id = "portsolar";
 	name = "Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -70021,7 +70013,6 @@
 /obj/structure/cable,
 /obj/machinery/power/solar_control{
 	dir = 4;
-	id = "portsolar";
 	name = "Aft Port Solar Control"
 	},
 /turf/simulated/floor/plating,
@@ -74111,7 +74102,6 @@
 	},
 /obj/machinery/power/solar_control{
 	dir = 1;
-	id = "starboardsolar";
 	name = "Aft Starboard Solar Control"
 	},
 /turf/simulated/floor/plating,
@@ -77976,7 +77966,6 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/solar{
-	id = "starboardsolar";
 	name = "Starboard Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -78159,7 +78148,6 @@
 "doG" = (
 /obj/structure/cable,
 /obj/machinery/power/solar{
-	id = "starboardsolar";
 	name = "Starboard Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
