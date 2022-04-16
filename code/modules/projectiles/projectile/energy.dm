@@ -140,3 +140,30 @@
 	damage = 20
 	damage_type = TOX
 	irradiate = 20
+
+/obj/item/projectile/energy/detective
+	name = "placeholder name"
+
+/obj/item/projectile/energy/warrant_generator
+	name = "warrant generator"
+	//todo: ref to shooter
+
+/obj/item/projectile/energy/warrant_generator/on_hit(atom/target)
+	. = ..()
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/target_to_mark = target
+	var/perpname = target_to_mark.get_visible_name(TRUE)
+	if(!perpname)
+		return
+	var/datum/data/record/Record = find_record("name", perpname, GLOB.data_core.security)
+	if(!Record)
+		return
+	if(Record.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
+		return
+	set_criminal_status(usr, Record, setcriminal, SEC_RECORD_STATUS_ARREST, "Detective Revolver")
+
+	qdel(src)
+
+/obj/item/projectile/energy/tracker_shot
+	name = "tracker shot"

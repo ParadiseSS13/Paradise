@@ -306,3 +306,18 @@
 
 /obj/item/ammo_casing/energy/mimic/newshot()
 	..(mimic_type)
+
+/obj/item/ammo_casing/energy/detective
+	projectile_type = /obj/item/projectile/energy/detective
+	muzzle_flash_effect = null
+	fire_sound = 'sound/weapons/gunshot/gunshot_lascarbine.ogg'
+
+/obj/item/ammo_casing/energy/warrant_generator
+	projectile_type = /obj/item/projectile/energy/warrant_generator
+	muzzle_flash_effect = null
+	fire_sound = 'sound/weapons/gunshot/gunshot_lascarbine.ogg'
+
+/obj/item/ammo_casing/energy/tracker
+	projectile_type = /obj/item/projectile/energy/tracker_shot
+	muzzle_flash_effect = null
+	fire_sound = 'sound/weapons/gunshot/gunshot_lascarbine.ogg'

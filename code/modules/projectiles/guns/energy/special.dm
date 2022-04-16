@@ -628,3 +628,10 @@
 	var/obj/item/ammo_casing/energy/mimic/M = ammo_type[select]
 	M.mimic_type = mimic_type
 	..()
+
+
+/obj/item/gun/energy/detective
+	name = "placeholder_det_energy"
+	desc = "Placeholder description toext for energy revolver"
+	icon_state = "disabler"
+	ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/warrant_generator, /obj/item/ammo_casing/energy/tracker)
