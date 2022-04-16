@@ -8535,7 +8535,6 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/security/warden)
@@ -48904,7 +48903,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "greenfull"
 	},
 /area/hydroponics)
@@ -49398,7 +49396,6 @@
 /obj/item/folder/white,
 /obj/item/folder/white,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "greenfull"
 	},
 /area/hydroponics)
@@ -61899,9 +61896,7 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "cDD" = (
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit"
-	},
+/turf/simulated/floor/greengrid,
 /area/assembly/chargebay)
 "cDE" = (
 /obj/machinery/camera{
@@ -61909,9 +61904,7 @@
 	dir = 8;
 	network = list("SS13","RD")
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit"
-	},
+/turf/simulated/floor/greengrid,
 /area/assembly/chargebay)
 "cDF" = (
 /turf/simulated/floor/plating,
@@ -62663,9 +62656,7 @@
 	pixel_y = 28
 	},
 /obj/machinery/computer/mech_bay_power_console,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit"
-	},
+/turf/simulated/floor/greengrid,
 /area/assembly/chargebay)
 "cFq" = (
 /obj/machinery/door/window/westleft{
@@ -76232,9 +76223,7 @@
 /area/security/brig)
 "fZG" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit"
-	},
+/turf/simulated/floor/greengrid,
 /area/assembly/chargebay)
 "fZV" = (
 /obj/structure/cable/yellow{

@@ -1438,21 +1438,12 @@
 /obj/machinery/vending/snack,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
 "alP" = (
 /obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/maintenance/fore2)
-"alQ" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -1466,7 +1457,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -1478,14 +1468,6 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/maintenance/fore2)
-"alT" = (
-/obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -3058,14 +3040,12 @@
 /obj/item/clothing/under/waiter,
 /obj/item/clothing/accessory/waistcoat,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/electrical_shop)
 "aqw" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/electrical_shop)
@@ -3073,7 +3053,6 @@
 /obj/structure/table/wood,
 /obj/item/storage/box/matches,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/electrical_shop)
@@ -3361,7 +3340,6 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -3389,13 +3367,11 @@
 "aro" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/electrical_shop)
 "arp" = (
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/electrical_shop)
@@ -3403,7 +3379,6 @@
 /obj/structure/table/wood,
 /obj/item/clothing/head/that,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/electrical_shop)
@@ -3767,14 +3742,12 @@
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
 "arW" = (
 /obj/machinery/computer/arcade,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -3782,7 +3755,6 @@
 /obj/machinery/computer/arcade,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -3796,7 +3768,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -3808,7 +3779,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -4063,7 +4033,6 @@
 "asJ" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -4071,7 +4040,6 @@
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -4082,13 +4050,11 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
 "asM" = (
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -4258,7 +4224,6 @@
 /obj/structure/table/wood,
 /obj/item/circuitboard/med_data,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/electrical_shop)
@@ -4266,7 +4231,6 @@
 /obj/structure/table/wood,
 /obj/item/airalarm_electronics,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/electrical_shop)
@@ -4587,7 +4551,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -4601,7 +4564,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -4618,7 +4580,6 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -4633,7 +4594,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -4643,14 +4603,12 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
 "atS" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -4726,7 +4684,6 @@
 /area/engine/controlroom)
 "aub" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/engine/controlroom)
@@ -4736,7 +4693,6 @@
 	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/engine/controlroom)
@@ -4745,14 +4701,12 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/engine/controlroom)
 "auf" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/engine/controlroom)
@@ -4783,7 +4737,6 @@
 	},
 /obj/item/stack/cable_coil/random,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/electrical_shop)
@@ -4795,7 +4748,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/electrical_shop)
@@ -4814,7 +4766,6 @@
 	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/electrical_shop)
@@ -4929,7 +4880,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -5036,7 +4986,6 @@
 "auO" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -5261,7 +5210,6 @@
 /obj/structure/table/wood,
 /obj/item/lighter/random,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -5269,7 +5217,6 @@
 /obj/structure/table/wood,
 /obj/item/clothing/glasses/regular/hipster,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -5287,7 +5234,6 @@
 /obj/structure/table/wood,
 /obj/item/toy/figure/crew/wizard,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -6126,7 +6072,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -8153,7 +8098,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -10211,7 +10155,6 @@
 	},
 /obj/machinery/bottler,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -10230,7 +10173,6 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -10242,7 +10184,6 @@
 	c_tag = "Bar Backroom"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -10255,7 +10196,6 @@
 	},
 /obj/structure/closet/secure_closet/bar,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -10273,7 +10213,6 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -10286,7 +10225,6 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -10296,7 +10234,6 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -10306,7 +10243,6 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -10325,7 +10261,6 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -10337,7 +10272,6 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -10354,7 +10288,6 @@
 /obj/item/storage/fancy/cigarettes/cigpack_random,
 /obj/item/storage/box/matches,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -10365,7 +10298,6 @@
 	},
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -10835,7 +10767,6 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -10852,7 +10783,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -10865,7 +10795,6 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -10880,7 +10809,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -11150,7 +11078,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/maintenance/incinerator)
@@ -11161,7 +11088,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/maintenance/incinerator)
@@ -11171,7 +11097,6 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/maintenance/incinerator)
@@ -11186,7 +11111,6 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/maintenance/incinerator)
@@ -11202,7 +11126,6 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/maintenance/incinerator)
@@ -11211,7 +11134,6 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/maintenance/incinerator)
@@ -11225,7 +11147,6 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/maintenance/incinerator)
@@ -11241,7 +11162,6 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/maintenance/incinerator)
@@ -11488,13 +11408,11 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "aIZ" = (
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -11504,7 +11422,6 @@
 	},
 /obj/effect/landmark/start/bartender,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -11515,7 +11432,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -12153,7 +12069,6 @@
 	},
 /obj/item/stack/cable_coil/random,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -12169,14 +12084,12 @@
 	pixel_y = -22
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "aKs" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -12727,14 +12640,12 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
 "aLM" = (
 /obj/machinery/chem_master/condimaster,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -12742,7 +12653,6 @@
 /obj/machinery/light,
 /obj/machinery/vending/bardrobe,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -12750,7 +12660,6 @@
 /obj/structure/table/wood,
 /obj/machinery/reagentgrinder,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -12759,7 +12668,6 @@
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -12939,7 +12847,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -12951,7 +12858,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -12962,7 +12868,6 @@
 	},
 /mob/living/carbon/human/monkey/punpun,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -12972,7 +12877,6 @@
 	},
 /obj/effect/landmark/start/bartender,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -12981,7 +12885,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -13196,7 +13099,6 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/engine/controlroom)
@@ -13213,7 +13115,6 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/engine/controlroom)
@@ -13231,7 +13132,6 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/engine/controlroom)
@@ -13247,7 +13147,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -13875,7 +13774,6 @@
 /obj/item/camera_film,
 /obj/item/camera_film,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar/atrium)
@@ -13926,7 +13824,6 @@
 "aOF" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -13946,7 +13843,6 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -14312,7 +14208,6 @@
 "aPx" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -14325,7 +14220,6 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -14335,7 +14229,6 @@
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -14364,7 +14257,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -14405,20 +14297,17 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
 "aPH" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
 "aPI" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -14518,7 +14407,6 @@
 /obj/structure/table/wood,
 /obj/item/instrument/guitar,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar/atrium)
@@ -15135,7 +15023,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -15289,7 +15176,6 @@
 /obj/structure/table/wood,
 /obj/item/camera,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar/atrium)
@@ -15322,7 +15208,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -15452,26 +15337,6 @@
 	icon_state = "yellow"
 	},
 /area/quartermaster/office)
-"aRT" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "white"
-	},
-/area/medical/medbay)
 "aRU" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -15688,7 +15553,6 @@
 	initialize_directions = 6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -15796,7 +15660,6 @@
 	initialize_directions = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -15971,7 +15834,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar/atrium)
@@ -16447,7 +16309,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -16471,7 +16332,6 @@
 "aTW" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -16619,7 +16479,6 @@
 "aUh" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -16789,7 +16648,6 @@
 /obj/item/lipstick/random,
 /obj/item/lipstick/random,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar/atrium)
@@ -16834,7 +16692,6 @@
 "aUM" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -17305,7 +17162,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -17526,7 +17382,6 @@
 /obj/structure/table/wood,
 /obj/item/instrument/violin,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar/atrium)
@@ -18154,7 +18009,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -18171,7 +18025,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -18297,7 +18150,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -18358,7 +18210,6 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar/atrium)
@@ -18794,7 +18645,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -18962,7 +18812,6 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -19797,7 +19646,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -19812,7 +19660,6 @@
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -19922,7 +19769,6 @@
 "bay" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -20566,7 +20412,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -21281,7 +21126,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -21989,7 +21833,6 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -22590,7 +22433,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -23064,7 +22906,6 @@
 "bhr" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -23989,7 +23830,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -24784,7 +24624,6 @@
 	name = "Pure to SM"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -25687,7 +25526,6 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/atmos)
@@ -27823,8 +27661,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = null
+	icon_state = "redfull"
 	},
 /area/security/main)
 "bqU" = (
@@ -32460,7 +32297,6 @@
 /obj/item/plant_analyzer,
 /obj/item/plant_analyzer,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/storage/tech)
@@ -32493,7 +32329,6 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/storage/tech)
@@ -33287,7 +33122,6 @@
 /obj/item/healthanalyzer,
 /obj/item/healthanalyzer,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/storage/tech)
@@ -33328,7 +33162,6 @@
 	},
 /obj/item/aicard,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/storage/tech)
@@ -34476,7 +34309,6 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/storage/tech)
@@ -34525,7 +34357,6 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/storage/tech)
@@ -35287,8 +35118,7 @@
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/storage/tech)
 "bFj" = (
@@ -35335,8 +35165,7 @@
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/storage/tech)
 "bFm" = (
@@ -36234,8 +36063,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/storage/tech)
 "bGT" = (
@@ -36317,8 +36145,7 @@
 /obj/item/stock_parts/manipulator,
 /obj/item/stock_parts/capacitor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/storage/tech)
 "bGZ" = (
@@ -36443,7 +36270,6 @@
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkbluefull"
 	},
 /area/bridge)
@@ -36453,7 +36279,6 @@
 /obj/item/stock_parts/cell/high,
 /obj/item/megaphone,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkbluefull"
 	},
 /area/bridge)
@@ -36538,7 +36363,6 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkbluefull"
 	},
 /area/bridge)
@@ -37184,8 +37008,7 @@
 /obj/item/airalarm_electronics,
 /obj/item/apc_electronics,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/storage/tech)
 "bIO" = (
@@ -37235,8 +37058,7 @@
 /obj/item/stack/sheet/glass,
 /obj/item/stack/sheet/glass,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/storage/tech)
 "bIS" = (
@@ -38005,7 +37827,6 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/storage/tech)
@@ -38026,7 +37847,6 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/storage/tech)
@@ -38156,7 +37976,6 @@
 "bKO" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/bridge/meeting_room)
@@ -38206,7 +38025,6 @@
 "bKX" = (
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/captain)
@@ -38933,7 +38751,6 @@
 /obj/item/storage/toolbox/electrical,
 /obj/item/multitool,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/storage/tech)
@@ -38958,7 +38775,6 @@
 /obj/item/firealarm_electronics,
 /obj/item/circuitboard/sleeper,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/storage/tech)
@@ -39140,7 +38956,6 @@
 	},
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/bridge/meeting_room)
@@ -39186,7 +39001,6 @@
 "bNb" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/captain)
@@ -39763,7 +39577,6 @@
 /obj/item/storage/toolbox/electrical,
 /obj/item/multitool,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/storage/tech)
@@ -39827,7 +39640,6 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/item/flashlight,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/storage/tech)
@@ -39954,7 +39766,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/bridge/meeting_room)
@@ -40013,7 +39824,6 @@
 	},
 /mob/living/simple_animal/pet/dog/fox/Renault,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/captain)
@@ -40225,7 +40035,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -44174,7 +43983,6 @@
 	opacity = 0
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
@@ -44184,7 +43992,6 @@
 	},
 /obj/effect/landmark/start/head_of_personnel,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
@@ -44799,7 +44606,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
@@ -45349,7 +45155,6 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/engine/engineering)
@@ -45362,7 +45167,6 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/engine/engineering)
@@ -45531,7 +45335,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
@@ -45939,7 +45742,6 @@
 	},
 /obj/machinery/computer/guestpass/hop,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
@@ -46477,7 +46279,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
@@ -47250,7 +47051,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
@@ -47887,7 +47687,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/engine/engineering)
@@ -47905,7 +47704,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/engine/engineering)
@@ -48055,7 +47853,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
@@ -48597,7 +48394,6 @@
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
@@ -49458,7 +49254,6 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/engine/engineering)
@@ -60940,7 +60735,6 @@
 /obj/machinery/recharger,
 /obj/item/megaphone,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkbluefull"
 	},
 /area/bridge)
@@ -69605,7 +69399,6 @@
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "purplefull"
 	},
 /area/hallway/primary/aft)
@@ -70100,7 +69893,6 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "purplefull"
 	},
 /area/toxins/lab)
@@ -70224,7 +70016,6 @@
 /area/medical/research)
 "dce" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "purplefull"
 	},
 /area/hallway/primary/aft)
@@ -70385,7 +70176,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "white"
 	},
 /area/medical/medbay)
@@ -71030,7 +70820,6 @@
 "ddJ" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "purplefull"
 	},
 /area/hallway/primary/aft)
@@ -77668,7 +77457,6 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "purplefull"
 	},
 /area/hallway/primary/aft)
@@ -78851,7 +78639,6 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "purplefull"
 	},
 /area/medical/genetics)
@@ -81281,15 +81068,6 @@
 	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
-/area/crew_quarters/theatre)
-"dzr" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
 /area/crew_quarters/theatre)
 "dzu" = (
 /obj/machinery/power/apc{
@@ -93396,7 +93174,6 @@
 "hly" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
@@ -96647,7 +96424,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/maintenance/fore2)
@@ -143731,7 +143507,7 @@ afi
 afi
 abj
 akB
-alQ
+atS
 amf
 amG
 amS
@@ -144352,7 +144128,7 @@ cYP
 cYS
 cZL
 cKO
-aRT
+cFo
 cSA
 cJg
 dgS
@@ -144502,7 +144278,7 @@ abj
 abj
 aaa
 akB
-alT
+asJ
 ajL
 ajN
 amU
@@ -144759,7 +144535,7 @@ abj
 abj
 abj
 akB
-alQ
+atS
 amG
 ajL
 amV
@@ -144866,7 +144642,7 @@ cYP
 cYS
 cZL
 cKV
-aRT
+cFo
 cSF
 cJg
 dgV
@@ -151308,7 +151084,7 @@ sZT
 aOx
 dwU
 dyh
-dzr
+dBr
 tSS
 dBr
 dCs
