@@ -54,7 +54,7 @@
 	/// A list of valid atoms that RCDs can target. Clicking on an atom with an RCD which is not in this list, will do nothing.
 	var/static/list/allowed_targets = list(/turf, /obj/structure/grille, /obj/structure/window, /obj/structure/lattice, /obj/machinery/door/airlock)
 	/// A list of objects the RCD is not allowed to construct things on
-	var/list/oneperturf = list(/obj/structure/girder, /obj/structure/falsewall, /obj/structure/window, /obj/structure/grille, /obj/structure/cult, /obj/structure/table, /obj/structure/chair, /obj/structure/bed, /obj/machinery/computer,/obj/structure/computerframe, /obj/machinery/door, /obj/machinery/porta_turret)
+	var/static/list/oneperturf = list(/obj/structure/girder, /obj/structure/falsewall, /obj/structure/window/full, /obj/structure/grille, /obj/structure/cult, /obj/structure/table, /obj/structure/chair, /obj/structure/bed, /obj/machinery/computer,/obj/structure/computerframe, /obj/machinery/porta_turret)
 	/// An associative list of airlock type paths as keys, and their names as values.
 	var/static/list/rcd_door_types = list()
 	/// An associative list containing an airlock's name, type path, and image. For use with the UI.
@@ -362,9 +362,10 @@
 		return FALSE
 
 	if(isfloorturf(A))
-		var/obj/S = locate() in A
-		if(is_type_in_list(S, oneperturf))
-			return FALSE
+		for(var/obj/O in A)
+			if(is_type_in_list(O, oneperturf))
+				to_chat(usr, "<span class='warning'>There is already something here!</span>")
+				return FALSE
 		if(checkResource(3, user))
 			to_chat(user, "Building Wall...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
@@ -394,13 +395,14 @@
  */
 /obj/item/rcd/proc/mode_airlock(atom/A, mob/user)
 	if(isfloorturf(A))
+		for(var/obj/O in A)
+			if(is_type_in_list(O, oneperturf))
+				to_chat(usr, "<span class='warning'>There is already something here!</span>")
+				return FALSE
 		if(checkResource(10, user))
 			to_chat(user, "Building Airlock...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			if(do_after(user, 50 * toolspeed, target = A))
-				var/obj/S = locate() in A
-				if(is_type_in_list(S, oneperturf))
-					return FALSE
 				if(!useResource(10, user))
 					return FALSE
 				playsound(loc, usesound, 50, 1)
@@ -514,9 +516,10 @@
  */
 /obj/item/rcd/proc/mode_window(atom/A, mob/user)
 	if(isfloorturf(A))
-		var/obj/S = locate() in A
-		if(is_type_in_list(S, oneperturf))
-			return FALSE
+		for(var/obj/O in A)
+			if(is_type_in_list(O, oneperturf))
+				to_chat(usr, "<span class='warning'>There is already something here!</span>")
+				return FALSE
 		if(!checkResource(2, user))
 			to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this window!</span>")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)

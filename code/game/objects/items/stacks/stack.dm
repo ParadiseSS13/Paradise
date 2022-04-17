@@ -218,12 +218,11 @@
 				/obj/structure/bed,
 				/obj/machinery/computer,
 				/obj/structure/computerframe,
-				/obj/machinery/door,
 				/obj/machinery/porta_turret
 			)
 			for(var/obj/O in get_turf(src))
 				if(is_type_in_list(O, oneperturf))
-					to_chat(usr, "<span class='warning'>There is already a [O.result_type] here!</span>")
+					to_chat(usr, "<span class='warning'>There is already something here!</span>")
 					return FALSE
 
 		if(R.on_floor && !istype(get_turf(src), /turf/simulated))
