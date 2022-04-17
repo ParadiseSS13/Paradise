@@ -1,5 +1,5 @@
 // Dimensional Tear - A rift appears randomly on the station, does the following:
-// Flickers nearby computers as an early warning.
+// Flickers nearby machines as an early warning.
 // After a few seconds, it breaks nearby computers and mirrors.
 // A portal appears, then it spawns a few hostile mobs, and a leader one.
 // Then the portal deletes itself.
@@ -22,9 +22,9 @@
 		notify_ghosts("\A [src] is about to open in [get_area(T)].", title = "Dimensional Rift", source = T, alert_overlay = alert_overlay, action = NOTIFY_FOLLOW)
 		addtimer(CALLBACK(src, .proc/spawn_tear, T), 4 SECONDS)
 
-		// Energy overload; we flicker the computer screens as an early warning and for extra spookiness.
-		for(var/obj/machinery/computer/C in range(8, T))
-			C.flicker()
+		// Energy overload; we mess with machines as an early warning and for extra spookiness.
+		for(var/obj/machinery/M in range(8, T))
+			INVOKE_ASYNC(M, /obj/machinery/get_spooked)
 
 /datum/event/tear/proc/spawn_tear(location)
 	TE = new /obj/effect/tear(location)
