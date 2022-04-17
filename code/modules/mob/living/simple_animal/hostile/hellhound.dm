@@ -152,3 +152,11 @@
 	var/datum/effect_system/smoke_spread/sleeping/smoke = new
 	smoke.set_up(10, 0, loc)
 	smoke.start()
+
+/mob/living/simple_animal/hostile/hellhound/tear
+	name = "frenzied hellhound"
+	maxHealth = 300
+	health = 300
+	melee_damage_lower = 30
+	melee_damage_upper = 50
+	faction = list("rift")

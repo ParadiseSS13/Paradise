@@ -90,12 +90,6 @@
 
 // We spawn a leader mob to make the portal actually dangerous.
 /obj/effect/tear/proc/spawn_leader()
-	var/mob/living/simple_animal/M = new /mob/living/simple_animal/hostile/hellhound(get_turf(src))
-	M.name = "frenzied hellhound" 	// Rename it to indicate that their stats are different from the regular one.
-	M.melee_damage_lower = 30		// Heavy melee damage to encourage the usage of guns.
-	M.melee_damage_upper = 50
-	M.maxHealth = 300				// The minions are low health, hard hitting creatures; the leader should stand till the end.
-	M.health = 300
-	M.faction = list("rift")
+	var/mob/M = new /mob/living/simple_animal/hostile/hellhound/tear(get_turf(src))
 	playsound(M, 'sound/goonstation/voice/growl2.ogg', 100)
 	visible_message("<span class='danger'>With a terrifying growl, \a [M] steps out of the portal!</span>")
