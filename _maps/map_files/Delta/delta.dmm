@@ -34286,7 +34286,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Storage";
-	req_access_txt = "23"
+	req_access_txt = "32"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -34990,7 +34990,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Storage";
-	req_access_txt = "23"
+	req_access_txt = "32"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -93439,11 +93439,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/misc_lab)
-"hAl" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/maintenance/starboard)
 "hDZ" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -95216,6 +95211,13 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
+"mEV" = (
+/obj/structure/closet/wardrobe/toxins_white,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
+	},
+/area/maintenance/apmaint)
 "mGO" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -95930,6 +95932,11 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
+"oII" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/maintenance/starboard)
 "oMr" = (
 /obj/machinery/turretid/lethal{
 	control_area = "\improper Telecoms Central Compartment";
@@ -98876,13 +98883,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
-"xsI" = (
-/obj/structure/closet/wardrobe/toxins_white,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
-	},
-/area/maintenance/apmaint)
 "xtS" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
@@ -135850,7 +135850,7 @@ dzU
 cSt
 cZt
 dCJ
-xsI
+mEV
 dXy
 dFs
 dGe
@@ -153068,7 +153068,7 @@ fou
 tgs
 gTw
 luc
-hAl
+oII
 cqJ
 abj
 aaa
@@ -153325,7 +153325,7 @@ dAF
 tgs
 kxq
 fJA
-hAl
+oII
 cqJ
 abj
 aaa
