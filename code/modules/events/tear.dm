@@ -42,8 +42,6 @@
 	desc = "A tear in the dimensional fabric of space and time."
 	icon = 'icons/effects/tear.dmi'
 	icon_state = "tear"
-	density = 0
-	anchored = 1
 	light_range = 3
 
 	// Huge sprite, we shift it to make it look more natural.
