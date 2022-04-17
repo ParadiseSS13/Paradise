@@ -22,7 +22,7 @@
 		notify_ghosts("\A [src] is about to open in [get_area(T)].", title = "Dimensional Rift", source = T, alert_overlay = alert_overlay, action = NOTIFY_FOLLOW)
 		addtimer(CALLBACK(src, .proc/spawn_tear, T), 4 SECONDS)
 
-		// Energy overload; flicker the computer screens as an early warning and for extra spookness.
+		// Energy overload; we flicker the computer screens as an early warning and for extra spookiness.
 		for(var/obj/machinery/computer/C in range(8, T))
 			C.flicker()
 
@@ -86,8 +86,7 @@
 		var/chosen_mob = pick(possible_mobs)
 		var/mob/M = new chosen_mob(loc)
 		M.faction = list("rift")
-		for(var/j = 1, j <= rand(1, 3), j++)
-			step(M, pick(NORTH, SOUTH, EAST, WEST))
+		step(M, pick(GLOB.cardinal))
 
 // We spawn a leader mob to make the portal actually dangerous.
 /obj/effect/tear/proc/spawn_leader()
