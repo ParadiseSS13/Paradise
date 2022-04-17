@@ -208,10 +208,10 @@
 			return FALSE
 
 		if(R.one_per_turf)
-			var/list/oneperturf = list(
+			var/static/list/oneperturf = list(
 				/obj/structure/girder,
 				/obj/structure/falsewall,
-				/obj/structure/window,
+				/obj/structure/window/full,
 				/obj/structure/cult,
 				/obj/structure/table,
 				/obj/structure/chair,
@@ -221,10 +221,10 @@
 				/obj/machinery/door,
 				/obj/machinery/porta_turret
 			)
-			var/obj/S = locate() in get_turf(src)
-			if(is_type_in_list(S, oneperturf))
-				to_chat(usr, "<span class='warning'>There is already something here!</span>")
-				return FALSE
+			for(var/obj/O in get_turf(src))
+				if(is_type_in_list(O, oneperturf))
+					to_chat(usr, "<span class='warning'>There is already a [O.result_type] here!</span>")
+					return FALSE
 
 		if(R.on_floor && !istype(get_turf(src), /turf/simulated))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
@@ -240,18 +240,11 @@
 			if(!is_level_reachable(usr.z))
 				to_chat(usr, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
 				return
-			if(locate(/obj/structure/cult) in get_turf(src))
-				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
-				return FALSE
 
 		if(R.time)
 			to_chat(usr, "<span class='notice'>Building [R.title]...</span>")
 			if(!do_after(usr, R.time, target = loc))
 				return FALSE
-
-		if(R.cult_structure && locate(/obj/structure/cult) in get_turf(src)) //Check again after do_after to prevent queuing construction exploit.
-			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
-			return FALSE
 
 		if(get_amount() < R.req_amount * multiplier)
 			return
