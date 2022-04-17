@@ -3,7 +3,7 @@
 
 /datum/vampire_passive/increment_thrall_cap/on_apply(datum/antagonist/vampire/V)
 	V.subclass.thrall_cap += 1
-	gain_desc = "You can now thrall one more person. Up to a maximum of [V.subclass.thrall_cap]"
+	gain_desc = "You can now thrall one more person, up to a maximum of [V.subclass.thrall_cap]"
 
 /datum/vampire_passive/increment_thrall_cap/two
 
