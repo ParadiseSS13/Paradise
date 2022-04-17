@@ -471,6 +471,9 @@
 		I.override = TRUE
 		add_icon(I)
 
+/obj/effect/hallucination/delusion/long
+	duration = 30 SECONDS
+
 /**
   * Returns the image to use as override to the target's appearance.
   */
