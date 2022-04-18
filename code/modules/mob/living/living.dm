@@ -516,6 +516,7 @@
 	SetWeakened(0)
 	SetStunned(0)
 	SetParalysis(0)
+	SetImmobilized(0)
 	SetSleeping(0)
 	setStaminaLoss(0)
 	SetSlowed(0)
