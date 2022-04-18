@@ -11,10 +11,11 @@
 */
 
 /obj/item/rad_laser
-	name = "Health Analyzer"
+	name = "health analyzer"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health2"
 	item_state = "healthanalyzer"
+	belt_icon = "health_analyzer"
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject. A strange microlaser is hooked on to the scanning end."
 	flags = CONDUCT | NOBLUDGEON
 	slot_flags = SLOT_BELT

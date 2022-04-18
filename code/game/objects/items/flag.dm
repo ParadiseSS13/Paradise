@@ -137,6 +137,11 @@
 	desc = "A flag proudly proclaiming the superior heritage of Plasmamen."
 	icon_state = "plasmaflag"
 
+/obj/item/flag/species/nian
+	name ="\improper Nian flag"
+	desc = "An eccentric handmade standard, luxuriously soft due to exotic silks and embossed with lustrous gold. Although inspired by the pride that Nianae take in their baubles, it ultimately feels melancholic. Beauty knows no pain, afterall."
+	icon_state = "nianflag"
+
 //Department Flags
 
 /obj/item/flag/cargo

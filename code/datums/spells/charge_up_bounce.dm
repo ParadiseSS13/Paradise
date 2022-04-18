@@ -5,6 +5,13 @@
 /obj/effect/proc_holder/spell/charge_up/bounce
 	var/bounce_hit_sound
 
+/obj/effect/proc_holder/spell/charge_up/bounce/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.allowed_type = /mob/living
+	T.try_auto_target = FALSE
+	T.use_obstacle_check = TRUE
+	return T
+
 /obj/effect/proc_holder/spell/charge_up/bounce/cast(list/targets, mob/user = usr)
 	var/mob/living/target = targets[1]
 
@@ -55,7 +62,7 @@
 	if(bounces >= 1)
 		var/list/possible_targets = list()
 		for(var/mob/living/M in view(targeting.range, target))
-			if(user == M || target == M && los_check(target, M))
+			if(user == M || target == M && targeting.obstacle_check(target, M))
 				continue
 			possible_targets += M
 		if(!length(possible_targets))

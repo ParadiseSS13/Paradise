@@ -4,6 +4,7 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "soulstone"
 	item_state = "electronic"
+	belt_icon = "soulstone"
 	var/icon_state_full = "soulstone2"
 	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artifact's power."
 	w_class = WEIGHT_CLASS_TINY

@@ -409,6 +409,14 @@
 		if(M.unEquip(I))
 			stuff_to_transfer += I
 
+	// Remove accessories from the suit if present
+	if(length(H.w_uniform?.accessories))
+		for(var/obj/item/clothing/accessory/A in H.w_uniform.accessories)
+			A.on_removed(H)
+			H.w_uniform.accessories -= A
+			H.unEquip(A)
+			stuff_to_transfer += A
+
 	// Transfer it all (or drop it if not possible)
 	for(var/i in stuff_to_transfer)
 		var/obj/item/I = i

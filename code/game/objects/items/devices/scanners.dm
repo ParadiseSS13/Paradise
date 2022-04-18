@@ -81,10 +81,11 @@ REAGENT SCANNER
 				to_chat(user, "<span class='notice'>Subject is not addicted to any reagents.</span>")
 
 /obj/item/healthanalyzer
-	name = "Health Analyzer"
+	name = "health analyzer"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health"
 	item_state = "healthanalyzer"
+	belt_icon = "health_analyzer"
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject."
 	flags = CONDUCT | NOBLUDGEON
 	slot_flags = SLOT_BELT

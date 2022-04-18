@@ -515,6 +515,7 @@
 
 
 /obj/item/grenade/chem_grenade/cleaner
+	belt_icon = "grenade"
 	payload_name = "cleaner"
 	desc = "BLAM!-brand foaming space cleaner. In a special applicator for rapid cleaning of wide areas."
 	stage = READY
