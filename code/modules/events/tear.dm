@@ -24,7 +24,7 @@
 
 		// Energy overload; we mess with machines as an early warning and for extra spookiness.
 		for(var/obj/machinery/M in range(8, T))
-			INVOKE_ASYNC(M, /obj/machinery/get_spooked)
+			INVOKE_ASYNC(M, /atom/.proc/get_spooked)
 
 /datum/event/tear/proc/spawn_tear(location)
 	TE = new /obj/effect/tear(location)
