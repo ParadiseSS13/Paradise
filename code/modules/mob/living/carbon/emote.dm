@@ -36,7 +36,7 @@
 		else
 			// well, we've got at least one
 			user.visible_message("[user] makes the sound of one hand clapping.")
-		return
+		return TRUE
 
 	. = ..()
 

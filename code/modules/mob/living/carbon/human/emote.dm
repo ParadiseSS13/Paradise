@@ -21,7 +21,7 @@
 	if(emote_type & EMOTE_MOUTH && !H.mind?.miming)
 		if(H.getOxyLoss() > 35)		// no screaming if you don't have enough breath to scream
 			H.emote("gasp")
-			return FALSE
+			return TRUE
 	. = ..()
 
 /datum/emote/living/carbon/human/airguitar
@@ -85,7 +85,8 @@
 	key_third_person = "screams"
 	message = "screams!"
 	message_mime = "acts out a scream!"
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	message_monkey = "screeches!"
+	emote_type = EMOTE_SOUND | EMOTE_MOUTH  // TODO
 	only_forced_audio = FALSE
 	vary = TRUE
 	age_based = TRUE
@@ -93,8 +94,6 @@
 	mob_type_blacklist_typecache = (/mob/living/carbon/human/monkey)  // screech instead
 
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
-	if(!ishuman(user))
-		return
 	var/mob/living/carbon/human/human = user
 	if(human.mind?.miming)
 		return
@@ -102,18 +101,6 @@
 		return human.dna.species.female_scream_sound
 	else
 		return human.dna.species.male_scream_sound
-
-/datum/emote/living/carbon/human/scream/screech //If a human tries to screech it'll just scream.
-	key = "screech"
-	key_third_person = "screeches"
-	message = "screeches."
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
-	vary = FALSE
-
-/datum/emote/living/carbon/human/scream/screech/should_play_sound(mob/user, intentional)
-	if(ismonkeybasic(user))
-		return TRUE
-	return ..()
 
 /datum/emote/living/carbon/human/gasp
 	key = "gasp"
@@ -197,7 +184,7 @@
 	var/mob/living/carbon/human/H = user
 	if(!istype(H.wear_mask, /obj/item/clothing/mask/cigarette))
 		to_chat(user, "<span class='warning'>You can't be that cool without a cigarette between your lips.</span>")
-		return
+		return TRUE
 
 	if(H.getOxyLoss() > 30)
 		var/obj/item/clothing/mask/cigarette/cig = H.wear_mask
@@ -209,7 +196,7 @@
 			H.update_inv_wear_mask()
 			qdel(cig)
 			H.adjustFireLoss(5)
-		return
+		return TRUE
 	. = ..()
 
 /datum/emote/living/carbon/human/sneeze
@@ -269,7 +256,7 @@
 	if(user_carbon.has_status_effect(STATUS_EFFECT_HIGHFIVE))
 		user.visible_message("[src] drops his raised hand, frowning.", "You were left hanging...")
 		user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
-		return
+		return TRUE
 	message = "requests a highfive."
 	user_carbon.apply_status_effect(STATUS_EFFECT_HIGHFIVE)
 	for(var/mob/living/L in orange(1))
@@ -281,12 +268,12 @@
 				explosion(user.loc,5,2,1,3)
 				user_carbon.status_flags &= ~GODMODE
 				L.status_flags &= ~GODMODE
-				return
+				return TRUE
 			user.visible_message("<b>[user.name]</b> and <b>[L.name]</b> high-five!")
 			playsound('sound/effects/snap.ogg', 50)
 			user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
 			L.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
-			return
+			return TRUE
 	. = ..()
 
 /datum/emote/living/carbon/human/handshake
@@ -308,7 +295,7 @@
 			"[user] seems to shake hands with empty space.",
 			"You shake the air's hand."
 		)
-		return FALSE
+		return TRUE
 
 	if(target.canmove && !target.r_hand && !target.restrained())
 		message_param = "shakes hands with %t."
@@ -330,7 +317,7 @@
 	if(prob(5))
 		user.visible_message("<span class='danger'><b>[user]</b> snaps [p_their()] fingers right off!</span>")
 		playsound(user.loc, 'sound/effects/snap.ogg', 50, 1)
-		return
+		return TRUE
 	. = ..()
 
 
@@ -413,7 +400,7 @@
 		return FALSE
 	. = ..()
 	if(!.)
-		return FALSE
+		return TRUE
 	var/mob/living/carbon/human/H = user
 	H.start_tail_wagging()
 
@@ -428,7 +415,7 @@
 	return TRUE
 
 /datum/emote/living/carbon/human/wag/stop
-	key = "swag"
+	key = "swag"  // B)
 	key_third_person = "swags"
 	message = "stops wagging their tail."
 
@@ -453,11 +440,24 @@
 
 ///Snowflake emotes only for le epic chimp
 /datum/emote/living/carbon/human/monkey
+	species_type_whitelist_typecache = list(/datum/species/monkey)
 
-/datum/emote/living/carbon/human/monkey/can_run_emote(mob/user, status_check = TRUE, intentional)
-	if(ismonkeybasic(user))
-		return ..()
-	return FALSE
+
+// Note: subtype of human scream, not monkey, so we need the overrides.
+/datum/emote/living/carbon/human/scream/screech
+	key = "screech"
+	key_third_person = "screeches"
+	message = "screeches!"
+	message_param = "screeches at %t!"
+	vary = FALSE
+	species_type_whitelist_typecache = list(/datum/species/monkey)
+
+/datum/emote/living/carbon/human/scream/screech/roar
+	key = "roar"
+	key_third_person = "roars"
+	message = "roars!"
+	message_param = "roars at %t!"
+
 
 /datum/emote/living/carbon/human/monkey/gnarl
 	key = "gnarl"
@@ -477,13 +477,6 @@
 	message = "scratches."
 	hands_use_check = TRUE
 
-/datum/emote/living/carbon/human/monkey/screech/roar
-	key = "roar"
-	key_third_person = "roars"
-	message = "roars."
-	message_param = "roars at %t."
-	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-
 /datum/emote/living/carbon/human/monkey/tail
 	key = "tail"
 	message = "waves their tail."
@@ -493,9 +486,8 @@
 	key_third_person = "flaps"
 	message = "flaps their wings."
 	species_type_whitelist_typecache = list(/datum/species/moth)
-	hands_use_check = TRUE
 
-/datum/emote/living/carbon/human/flap/aflap
+/datum/emote/living/carbon/human/flap/angry
 	key = "aflap"
 	key_third_person = "aflaps"
 	message = "flaps their wings ANGRILY!"
@@ -544,7 +536,7 @@
 		return FALSE
 	. = ..()
 	if(!.)
-		return
+		return TRUE
 	mineral_scan_pulse(get_turf(src), range = world.view)
 
 /datum/emote/living/carbon/human/clack/click
@@ -643,7 +635,7 @@
 	message = "growls."
 	message_param = "growls at %t."
 	species_type_whitelist_typecache = list(/datum/species/vulpkanin)
-	sound = "growls"  // what the fuck
+	sound = "growls"  // what the fuck why is this just top level
 	volume = 80
 	muzzled_noises = list("annoyed")
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH

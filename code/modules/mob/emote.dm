@@ -128,7 +128,8 @@
 			var/obj/item/grab/G = H.get_active_hand()
 			if(G && G.affecting)
 				if(H.buckled || G.affecting.buckled)
-					return
+					to_chat(user, "<span class='warning'>[G.affecting] is buckled, you can't flip around [G.affecting.p_them()]!</span>")
+					return TRUE
 				var/turf/oldloc = user.loc
 				var/turf/newloc = G.affecting.loc
 				if(isturf(oldloc) && isturf(newloc))
@@ -138,14 +139,14 @@
 					G.glide_for(0.6 SECONDS)
 					G.affecting.forceMove(oldloc)
 					message = "flips over [G.affecting]!"
-					return ..()
+					return TRUE
 
 	if(prob(5))
 		message = "attempts a flip and crashes to the floor!"
 		user.SpinAnimation(5, 1)
 		sleep(0.3 SECONDS)
 		user.Weaken(2)
-		return
+		return TRUE
 	user.SpinAnimation(5, 1)
 
 	. = ..()
@@ -163,6 +164,8 @@
 
 /datum/emote/spin/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
+	if(!.)
+		return TRUE
 	if(prob(5))
 		user.spin(32, 1)
 		to_chat(user, "<span class='warning'>You spin too much!</span>")

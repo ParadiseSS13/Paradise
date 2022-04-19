@@ -8,7 +8,7 @@
 /datum/emote/living/carbon/brain/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	if(!.)
-		return FALSE
+		return TRUE
 
 	if(self_message)
 		to_chat(user, self_message)

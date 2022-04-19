@@ -1,16 +1,22 @@
+/// Sentinel value; passing this as mood sets mood to null.
+#define MOOD_RESET "reset"
+
 /datum/emote/living/simple_animal/slime
 	mob_type_allowed_typecache = list(/mob/living/simple_animal/slime)
-	/// Apply mood of the emote
+	/// Apply mood of the emote. Pass MOOD_RESET
 	var/mood
 
 /datum/emote/living/simple_animal/slime/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	if(!.)
-		return FALSE
+		return TRUE
 
 	if(mood)
 		var/mob/living/simple_animal/slime/S = user
-		S.mood = mood
+		if(mood == MOOD_RESET)
+			S.mood = null
+		else
+			S.mood = mood
 
 /datum/emote/living/simple_animal/slime/bounce
 	key = "bounce"
@@ -25,7 +31,7 @@
 /datum/emote/living/simple_animal/slime/light
 	key = "light"
 	key_third_person = "lights"
-	message = "lights up for a bit, then stops."
+	message = "lights up for a bit, then stops." 
 
 /datum/emote/living/simple_animal/slime/vibrate
 	key = "vibrate"
@@ -33,8 +39,9 @@
 	message = "vibrates!"
 
 /datum/emote/living/simple_animal/slime/noface
+	// mfw no face
 	key = "noface"
-	mood = null
+	mood = MOOD_RESET
 
 /datum/emote/living/simple_animal/slime/smile
 	key = "smile"
@@ -55,3 +62,5 @@
 /datum/emote/living/simple_animal/slime/scowl
 	key = "scowl"
 	mood = "angry"
+
+#undef MOOD_RESET
