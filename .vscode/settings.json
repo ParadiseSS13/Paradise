@@ -1,5 +1,7 @@
 {
 	"workbench.editorAssociations": {
 		"*.dmi": "imagePreview.previewEditor"
-	}
+	},
+	"editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs":"active"
 }
