@@ -187,12 +187,13 @@
 
 	if(H.getOxyLoss() > 30)
 		var/obj/item/clothing/mask/cigarette/cig = H.wear_mask
-		to_chat(user, "<span class='warning'>You gasp for air and swallow your [cig]!</span>")
+		user.visible_message(
+			"<span class='warning'>[user] gasps for air and swallows their cigarette!</span>",
+			"<span class='warning'>You gasp for air and accidentally swallow your [cig]!</span>"
+		)
 		if(cig.lit)
 			to_chat(user, "<span class='userdanger'>The lit [cig] burns on the way down!")
-			cig.forceMove(user)
-			H.wear_mask = null
-			H.update_inv_wear_mask()
+			user.unEquip(cig)
 			qdel(cig)
 			H.adjustFireLoss(5)
 		return TRUE
@@ -223,7 +224,7 @@
 	. = ..()
 	if(!.)
 		return
-	var/obj/item/slapper/N  = new(user)
+	var/obj/item/slapper/N = new(user)
 	if(user.put_in_hands(N))
 		to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
 	else
