@@ -162,9 +162,8 @@
 
 /datum/emote/living/carbon/human/johnny
 	key = "johnny"
-	key_third_person = "johnnys"  // ?????
 	message = "takes a drag from a cigarette and blows their own name out in smoke."
-	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/johnny/select_param(mob/user, params)
 	if(!params)

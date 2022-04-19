@@ -18,13 +18,13 @@
 // User audio cooldown system.
 // This is a value stored on the user and represents their ability to perform emotes.
 /// The user is not on emote cooldown, and is ready to emote whenever.
-#define EMOTE_READY (1<<0)
+#define EMOTE_READY (0)
 /// The user can spam emotes to their heart's content.
-#define EMOTE_INFINITE (1<<1)
+#define EMOTE_INFINITE (1)
 /// The user cannot emote as they have been blocked by an admin.
-#define EMOTE_ADMIN_BLOCKED (1<<2)
+#define EMOTE_ADMIN_BLOCKED (2)
 /// The user cannot emote until their cooldown expires.
-#define EMOTE_ON_COOLDOWN (1<<3)
+#define EMOTE_ON_COOLDOWN (3)
 
 /// Marker to separate an emote key from its parameters in user input.
 #define EMOTE_PARAM_SEPARATOR "-"
@@ -176,7 +176,7 @@
 			playsound(user, tmp_sound, volume, vary)
 
 	var/user_turf = get_turf(user)
-	if (user.client)
+	if(user.client)
 		for(var/mob/ghost as anything in GLOB.dead_mob_list)
 			if(!ghost.client || isnewplayer(ghost))
 				continue

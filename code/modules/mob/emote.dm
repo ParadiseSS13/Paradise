@@ -34,12 +34,12 @@
  * * m_type: Type of message to send.
  * * message: Content of the message. If none is provided, the user will be prompted to choose the input.
  */
-/mob/proc/custom_emote(m_type=EMOTE_VISIBLE, message=null, intentional=TRUE)
+/mob/proc/custom_emote(m_type = EMOTE_VISIBLE, message = null, intentional = TRUE)
 	var/input = ""
 	if(!message && !client)
 		CRASH("An empty custom emote was called from a client-less mob.")
 	else if (!message)
-		input = sanitize(copytext(input(src,"Choose an emote to display.") as text|null,1,MAX_MESSAGE_LEN))
+		input = sanitize(copytext(input(src,"Choose an emote to display.") as text|null, 1, MAX_MESSAGE_LEN))
 	else
 		input = message
 
@@ -105,6 +105,7 @@
 /datum/emote/flip
 	key = "flip"
 	key_third_person = "flips"
+	message = "does a flip!"
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE | EMOTE_FORCE_NO_RUNECHAT  // don't need an emote to see that
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)  // okay but what if we allowed ghosts to flip as well
@@ -115,8 +116,6 @@
 
 	if(!can_run_emote(user, TRUE, intentional))
 		return FALSE
-
-	message = "does a flip!"
 
 	if(user.lying || user.IsWeakened())
 		message = "flops and flails around on the floor."
