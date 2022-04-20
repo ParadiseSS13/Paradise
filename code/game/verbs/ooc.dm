@@ -1,4 +1,6 @@
 GLOBAL_VAR_INIT(normal_ooc_colour, "#275FC5")
+GLOBAL_VAR_INIT(initial_normal_ooc_colour, "#275FC5") // Can't initial() a global
+
 GLOBAL_VAR_INIT(member_ooc_colour, "#035417")
 GLOBAL_VAR_INIT(mentor_ooc_colour, "#00B0EB")
 GLOBAL_VAR_INIT(moderator_ooc_colour, "#184880")
@@ -129,7 +131,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 	if(!check_rights(R_SERVER))	return
 
-	GLOB.normal_ooc_colour = initial(GLOB.normal_ooc_colour)
+	GLOB.normal_ooc_colour = GLOB.initial_normal_ooc_colour
 	message_admins("[key_name_admin(usr)] has reset the default player OOC color")
 	log_admin("[key_name(usr)] has reset the default player OOC color")
 

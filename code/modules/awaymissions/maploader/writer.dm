@@ -172,20 +172,10 @@
 	if(!use_json)
 		for(var/V in A.vars)
 			CHECK_TICK
-			if((!issaved(A.vars[V])) || (A.vars[V] == initial(A.vars[V])))
-				continue
-
+			// Can't check issaved() or initial() because they don't work on a list index
 			attributes += var_to_dmm(A.vars[V], V)
 	else
 		var/list/to_encode = A.serialize()
-		// We'll want to write out vars that are important to the editor
-		// So that the map is legible as before
-		for(var/T in A.map_important_vars())
-			// Save vars that are important for the map editor, so that
-			// json-encoded maps are legible for standard editors
-			if(A.vars[T] != initial(A.vars[T]))
-				to_encode -= T
-				attributes += var_to_dmm(A.vars[T], T)
 
 		// Remove useless info
 		to_encode -= "type"
