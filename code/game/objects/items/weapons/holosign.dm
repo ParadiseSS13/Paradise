@@ -77,12 +77,13 @@
 /obj/item/holosign_creator/janitor/examine(mob/user)
 	. = ..()
 	if(ishuman(user))
-		desc += "\n<span class='info'>Alt Click to [wet_enabled ? "deactivate" : "activate" ] its built-in wet evaporation timer.</span>"
+		. += "\n<span class='info'>Alt Click to [wet_enabled ? "deactivate" : "activate" ] its built-in wet evaporation timer.</span>"
+
 
 /obj/item/holosign_creator/janitor/afterattack(atom/target, mob/user, flag)
 	var/obj/structure/holosign/wetsign/WS = ..()
 	if(WS && wet_enabled)
-		WS.wet_enabled(src)
+		WS.wet_timer_start(src)
 
 /obj/item/holosign_creator/security
 	name = "security holobarrier projector"

@@ -41,7 +41,7 @@
 	desc = "The words flicker as if they mean nothing."
 	icon_state = "holosign"
 
-/obj/structure/holosign/wetsign/proc/wet_timer(obj/item/holosign_creator/HS_C)
+/obj/structure/holosign/wetsign/proc/wet_timer_start(obj/item/holosign_creator/HS_C)
 	addtimer(CALLBACK(src, .proc/wet_timer_finish, HS_C), 82 SECONDS, TIMER_UNIQUE)
 
 /obj/structure/holosign/wetsign/proc/wet_timer_finish(obj/item/holosign_creator/HS_C)
