@@ -66,15 +66,10 @@
 		return FALSE
 	if(isitem(mover)) //thrown items with the dropwall
 		if(directional_blockage)
-			if(direction_check(turn(mover.dir, 180)))
+			if(turn(mover.dir, 180) in directional_list)
 				return FALSE
 	return !density
 
-/obj/structure/barricade/proc/direction_check(angle)
-	for(var/i in directional_list)
-		if(i == angle)
-			return TRUE
-	return FALSE
 
 /////BARRICADE TYPES///////
 
