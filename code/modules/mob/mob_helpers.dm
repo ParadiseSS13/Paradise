@@ -694,24 +694,35 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
 	return TRUE
 
+/**
+ * Helper proc to determine if a mob can use emotes that make sound or not.
+ */
+/mob/proc/can_use_audio_emote()
+	switch(emote_cd)
+		if(EMOTE_INFINITE)  // Spam those emotes
+			return TRUE
+		if(EMOTE_ADMIN_BLOCKED)  // Cooldown emotes were disabled by an admin, prevent use
+			return FALSE
+		if(EMOTE_ON_COOLDOWN)	// Already on CD, prevent use
+			return FALSE
+		if(EMOTE_READY)
+			return TRUE
+
+	CRASH("Invalid emote type")
 
 /**
  * # Start the cooldown for an emote that plays audio.
  *
  * * cooldown: The amount of time that should be waited before any other audio emote can fire.
- * * parallel: If true, this cooldown can start while other emotes are still on cooldown.
  */
-/mob/proc/start_audio_emote_cooldown(emote_type, cooldown = AUDIO_EMOTE_COOLDOWN, parallel = FALSE)
-	if(emote_cd == EMOTE_INFINITE) //Spam those emotes
+/mob/proc/start_audio_emote_cooldown(cooldown = AUDIO_EMOTE_COOLDOWN)
+	if(!can_use_audio_emote())
 		return FALSE
-	if(emote_cd == EMOTE_ADMIN_BLOCKED) // Cooldown emotes were disabled by an admin, prevent use
-		return TRUE
-	if(emote_cd == EMOTE_ON_COOLDOWN)  // Already on CD, prevent use
-		return TRUE
 
-	emote_cd = EMOTE_ON_COOLDOWN	// Starting cooldown
-	addtimer(CALLBACK(src, .proc/on_audio_emote_cooldown_end), cooldown)
-	return FALSE  // proceed with emote
+	if(emote_cd == EMOTE_READY)
+		emote_cd = EMOTE_ON_COOLDOWN	// Starting cooldown
+		addtimer(CALLBACK(src, .proc/on_audio_emote_cooldown_end), cooldown)
+	return TRUE  // proceed with emote
 
 
 /mob/proc/on_audio_emote_cooldown_end()

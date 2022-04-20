@@ -63,25 +63,24 @@
 	key_third_person = "giggles"
 	message = "giggles."
 	message_mime = "giggles silently!"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/gurgle
 	key = "gurgle"
 	key_third_person = "gurgles"
 	message = "makes an uncomfortable gurgle."
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/inhale
 	key = "inhale"
 	key_third_person = "inhales"
 	message = "breathes in."
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/inhale/sharp
 	key = "inhale_s"
 	key_third_person = "inhales sharply!"
 	message = "takes a deep breath!"
-	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/kiss
 	key = "kiss"
@@ -100,13 +99,13 @@
 	key = "yawn"
 	key_third_person = "yawns"
 	message = "yawns."
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/exhale
 	key = "exhale"
 	key_third_person = "exhales"
 	message = "breathes out."
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/laugh
 	key = "laugh"
@@ -114,7 +113,7 @@
 	message = "laughs."
 	message_mime = "laughs silently!"
 	message_param = "laughs at %t."
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/scowl
 	key = "scowl"
@@ -126,7 +125,7 @@
 	key_third_person = "groans"
 	message = "groans!"
 	message_mime = "appears to groan!"
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/sigh
 	key = "sigh"
@@ -134,7 +133,7 @@
 	message = "sighs."
 	message_param = "sighs at %t."
 	muzzled_noises = list("dejected")
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/sigh/happy
 	key = "sigh"

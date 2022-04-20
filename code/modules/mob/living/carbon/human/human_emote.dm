@@ -93,6 +93,12 @@
 	cooldown = 5 SECONDS
 	mob_type_blacklist_typecache = (/mob/living/carbon/human/monkey)  // screech instead
 
+/datum/emote/living/carbon/human/scream/select_message_type(mob/user, msg, intentional)
+	. = ..()
+	var/mob/living/carbon/human/H = user
+	if(H.dna.species?.scream_verb)
+		return H.dna.species?.scream_verb
+
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
 	var/mob/living/carbon/human/human = user
 	if(human.mind?.miming)
@@ -450,6 +456,8 @@
 	message = "screeches!"
 	message_param = "screeches at %t!"
 	vary = FALSE
+	mob_type_blacklist_typecache = list()
+	mob_type_allowed_typecache = list(/mob/living/carbon/human/monkey)
 	species_type_whitelist_typecache = list(/datum/species/monkey)
 
 /datum/emote/living/carbon/human/scream/screech/roar

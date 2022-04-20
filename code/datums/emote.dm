@@ -1,56 +1,10 @@
-// Emote datums.
-// Check under mob directories for where these get implemented.
 
-// Emote types.
-// These determine how the emote is treated when not directly visible (or audible).
-
-/// Emote is visible. These emotes will be runechatted.
-#define EMOTE_VISIBLE (1<<0)
-/// Emote is audible (in character).
-#define EMOTE_AUDIBLE (1<<1)
-/// Emote makes a sound. These emotes will specifically not be runechatted.
-#define EMOTE_SOUND (1<<2)
-/// Regardless of its existing flags, this emote will not be sent to runechat.
-#define EMOTE_FORCE_NO_RUNECHAT (1<<3)
-/// This emote uses the mouth, and so should be blocked if the user is muzzled or can't breathe (for humans).
-#define EMOTE_MOUTH (1<<4)
-
-// User audio cooldown system.
-// This is a value stored on the user and represents their ability to perform emotes.
-/// The user is not on emote cooldown, and is ready to emote whenever.
-#define EMOTE_READY (0)
-/// The user can spam emotes to their heart's content.
-#define EMOTE_INFINITE (1)
-/// The user cannot emote as they have been blocked by an admin.
-#define EMOTE_ADMIN_BLOCKED (2)
-/// The user cannot emote until their cooldown expires.
-#define EMOTE_ON_COOLDOWN (3)
-
-/// Marker to separate an emote key from its parameters in user input.
-#define EMOTE_PARAM_SEPARATOR "-"
-
-// This defines the base cooldown for how often each emote can be used.
-
-/// Default cooldown for emotes
-#define DEFAULT_EMOTE_COOLDOWN (2 SECONDS)
-
-// Each mob can only make sounds with (intentional) emotes this often.
-// These emotes will still be sent to chat, but won't play their associated sound effect.
-
-/// Default cooldown for audio that comes from emotes.
-#define AUDIO_EMOTE_COOLDOWN (5 SECONDS)
-
-
+// Defines are in code\__DEFINES\emotes.dm
 
 /**
  * # Emote
  *
  * Most of the text that's not someone talking is based off of this.
- *
- * Yes, the displayed message is stored on the datum, it would cause problems
- * for emotes with a message that can vary, but that's handled differently in
- * run_emote(), so be sure to use can_message_change if you plan to have
- * different displayed messages from player to player.
  *
  */
 /datum/emote
@@ -110,8 +64,6 @@
 	var/only_unintentional = FALSE
 	/// The cooldown between the uses of the emote.
 	var/cooldown = DEFAULT_EMOTE_COOLDOWN
-	/// Does this message have a message that can be modified by the user?
-	var/can_message_change = FALSE
 	/// How long is the cooldown on the audio of the emote, if it has one?
 	var/audio_cooldown = AUDIO_EMOTE_COOLDOWN
 	/// How loud is the audio emote?
@@ -167,7 +119,7 @@
 
 	var/tmp_sound = get_sound(user)
 	// If our sound emote is forced by code, don't worry about cooldowns at all.
-	if(tmp_sound && should_play_sound(user, intentional) && (!intentional || !user.start_audio_emote_cooldown(type, audio_cooldown)))
+	if(tmp_sound && should_play_sound(user, intentional))
 		if(age_based && istype(user, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = user
 
@@ -189,28 +141,32 @@
 		user.visible_message(dchatmsg, blind_message = "<span class='emote'>You hear how <b>[user]</b> [msg]</span>")
 
 	if(!(emote_type & (EMOTE_FORCE_NO_RUNECHAT | EMOTE_SOUND)))
-		var/runechat_text = msg
-		if(length(msg) > 100)
-			runechat_text = "[copytext(msg, 1, 101)]..."
-		var/list/can_see = get_mobs_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
-		can_see |= viewers(user,null)
-		for(var/mob/O in can_see)
-			if(O.status_flags & PASSEMOTES)
-				for(var/obj/item/holder/H in O.contents)
-					H.show_message(message, EMOTE_VISIBLE)
-
-				for(var/mob/living/M in O.contents)
-					M.show_message(message, EMOTE_VISIBLE)
-
-			if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-				O.create_chat_message(user, runechat_text, symbol = RUNECHAT_SYMBOL_EMOTE)
-
+		runechat_emote(user, msg)
 
 	SEND_SIGNAL(user, COMSIG_MOB_EMOTED(key), src, key, emote_type, message, intentional)
 	SEND_SIGNAL(user, COMSIG_MOB_EMOTE, key, intentional)
 
+/datum/emote/proc/runechat_emote(mob/user, text)
+	var/runechat_text = text
+	if(length(text) > 100)
+		runechat_text = "[copytext(text, 1, 101)]..."
+	var/list/can_see = get_mobs_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
+	can_see |= viewers(user, null)
+	for(var/mob/O in can_see)
+		if(O.status_flags & PASSEMOTES)
+			for(var/obj/item/holder/H in O.contents)
+				H.show_message(text, EMOTE_VISIBLE)
+
+			for(var/mob/living/M in O.contents)
+				M.show_message(text, EMOTE_VISIBLE)
+
+		if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+			O.create_chat_message(user, runechat_text, symbol = RUNECHAT_SYMBOL_EMOTE)
+
 /**
- * For handling emote cooldown, return true to allow the emote to happen.
+ * Check whether or not an emote can be used due to a cooldown.
+ * This applies to per-emote cooldowns, preventing individual emotes from being used (intentionally) too frequently.
+ * This also checks audio cooldowns, so that intentional uses of audio emotes across the mob are time-constrained.
  *
  * Arguments:
  * * user - Person that is trying to send the emote.
@@ -221,6 +177,11 @@
 /datum/emote/proc/check_cooldown(mob/user, intentional)
 	if(!intentional)
 		return TRUE
+	// if our emote would play sound but another audio emote is on cooldown, prevent this emote from being used.
+	// Note that this only applies to intentional emotes
+	if(get_sound(user) && should_play_sound(user, intentional) && !user.can_use_audio_emote())
+		return FALSE
+	// Check cooldown on a per-emote basis.
 	if(user.emotes_used && user.emotes_used[src] + cooldown > world.time)
 		return FALSE
 	if(!user.emotes_used)
@@ -303,6 +264,7 @@
 
 /**
  * Check to see if the user is allowed to run the emote.
+ *
  *
  * Arguments:
  * * user - Person that is trying to send the emote.
