@@ -1,5 +1,5 @@
-GLOBAL_VAR_INIT(normal_ooc_colour, "#275FC5")
-GLOBAL_VAR_INIT(initial_normal_ooc_colour, "#275FC5") // Can't initial() a global
+#define DEFAULT_PLAYER_OOC_COLOUR "#275FC5"
+GLOBAL_VAR_INIT(normal_ooc_colour, DEFAULT_PLAYER_OOC_COLOUR )
 
 GLOBAL_VAR_INIT(member_ooc_colour, "#035417")
 GLOBAL_VAR_INIT(mentor_ooc_colour, "#00B0EB")
