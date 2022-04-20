@@ -3,5 +3,8 @@
 		"*.dmi": "imagePreview.previewEditor"
 	},
 	"editor.bracketPairColorization.enabled": true,
-    "editor.guides.bracketPairs":"active"
+	"editor.guides.bracketPairs": "active",
+	"gitlens.advanced.blame.customArguments": [
+		"--ignore-revs-file", "${workspaceRoot}/.git-blame-ignore-revs"
+	]
 }
