@@ -1,6 +1,6 @@
 /obj/item/holosign_creator
 	name = "holographic sign projector"
-	desc = "This shouldnt exist, if it does tell a coder"
+	desc = "This shouldnt exist, if it does, tell a coder"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmaker"
 	item_state = "electronic"
@@ -21,7 +21,7 @@
 /obj/item/holosign_creator/afterattack(atom/target, mob/user, flag)
 	if(flag)
 		if(!check_allowed_items(target, 1))
-			return FALSE
+			return
 		var/turf/T = get_turf(target)
 		var/obj/structure/holosign/H = locate(holosign_type) in T
 		if(H)
@@ -31,25 +31,25 @@
 			if(!is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
 				if(holocreator_busy)
 					to_chat(user, "<span class='notice'>[src] is busy creating a hologram.</span>")
-					return FALSE
+					return
 				if(signs.len < max_signs)
 					playsound(src.loc, 'sound/machines/click.ogg', 20, 1)
 					if(creation_time)
 						holocreator_busy = TRUE
 						if(!do_after(user, creation_time, target = target))
 							holocreator_busy = FALSE
-							return FALSE
+							return
 						holocreator_busy = FALSE
 						if(signs.len >= max_signs)
-							return FALSE
+							return
 						if(is_blocked_turf(T, TRUE)) //don't try to sneak dense stuff on our tile during the wait.
-							return FALSE
+							return
 					H = new holosign_type(get_turf(target), src)
 					to_chat(user, "<span class='notice'>You create [H] with [src].</span>")
 					return H
 				else
 					to_chat(user, "<span class='notice'>[src] is projecting at max capacity!</span>")
-					return FALSE
+					return
 
 /obj/item/holosign_creator/attack(mob/living/carbon/human/M, mob/user)
 	return
@@ -64,26 +64,25 @@
 	name = "Janitorial Holosign projector"
 	desc = "A handy-dandy holographic projector that displays a janitorial sign."
 	holosign_type = /obj/structure/holosign/wetsign
-	var/wet_timer = FALSE
+	var/wet_enabled = FALSE
 
 /obj/item/holosign_creator/janitor/AltClick(mob/user)
-	wet_timer = !wet_timer
-	playsound(loc,'sound/weapons/empty.ogg', 20)
-	switch(wet_timer)
-		if(TRUE)
-			to_chat(user, "<span class='notice'>You enable the W.E.T.(wet evaporation timer)\nAny newly placed holographic signs will clear after the likely time it takes for a mopped tile to dry.</span>")
-		if(FALSE)
-			to_chat(user, "<span class='notice'>You disable the W.E.T.(wet evaporation timer)\nAny newly placed holographic signs will now stay indefinitely.</span>")
+	wet_enabled = !wet_enabled
+	playsound(loc, 'sound/weapons/empty.ogg', 20)
+	if(wet_enabled)
+		to_chat(user, "<span class='notice'>You enable the W.E.T.(wet evaporation timer)\nAny newly placed holographic signs will clear after the likely time it takes for a mopped tile to dry.</span>")
+	else
+		to_chat(user, "<span class='notice'>You disable the W.E.T.(wet evaporation timer)\nAny newly placed holographic signs will now stay indefinitely.</span>")
 
 /obj/item/holosign_creator/janitor/examine(mob/user)
-	if(ishuman(user))
-		desc += "\n<span class='info'>Alt Click to [wet_timer ? "deactivate" : "activate" ] its built-in wet evaporation timer.</span>"
 	. = ..()
+	if(ishuman(user))
+		desc += "\n<span class='info'>Alt Click to [wet_enabled ? "deactivate" : "activate" ] its built-in wet evaporation timer.</span>"
 
 /obj/item/holosign_creator/janitor/afterattack(atom/target, mob/user, flag)
 	var/obj/structure/holosign/wetsign/WS = ..()
-	if(WS && wet_timer)
-		WS.wet_timer(src)
+	if(WS && wet_enabled)
+		WS.wet_enabled(src)
 
 /obj/item/holosign_creator/security
 	name = "security holobarrier projector"

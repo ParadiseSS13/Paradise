@@ -76,5 +76,5 @@
 		mymop = null
 		update_icon()
 		return
-	.=..()
+	. = ..()
 
