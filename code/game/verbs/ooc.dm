@@ -1,4 +1,4 @@
-#define DEFAULT_PLAYER_OOC_COLOUR "#275FC5"
+#define DEFAULT_PLAYER_OOC_COLOUR "#275FC5" // Can't initial() a global so we store the default in a macro instead
 GLOBAL_VAR_INIT(normal_ooc_colour, DEFAULT_PLAYER_OOC_COLOUR )
 
 GLOBAL_VAR_INIT(member_ooc_colour, "#035417")
