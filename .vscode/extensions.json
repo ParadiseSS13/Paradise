@@ -4,6 +4,7 @@
 		"platymuus.dm-langclient",
 		"EditorConfig.EditorConfig",
 		"dbaeumer.vscode-eslint",
-		"eamodio.gitlens"
+		"eamodio.gitlens",
+		"usernamehw.errorlens"
     ]
 }
