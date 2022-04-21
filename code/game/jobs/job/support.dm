@@ -438,10 +438,10 @@
 /datum/job/barber
 	title = "Barber"
 	flag = JOB_BARBER
-	department_flag = JOBCAT_KARMA
+	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	is_service = TRUE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"

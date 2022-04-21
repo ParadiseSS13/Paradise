@@ -6,6 +6,7 @@
 	anchored = TRUE
 	density = TRUE
 	layer = MASSIVE_OBJ_LAYER
+	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
 	light_range = 6
 	appearance_flags = LONG_GLIDE
 	var/current_size = 1

@@ -4155,7 +4155,8 @@
 "asT" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
-	id_tag = "trash"
+	id_tag = "trash";
+	protected = 0
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
@@ -57522,10 +57523,10 @@
 "cAd" = (
 /obj/item/bikehorn/rubberducky,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
+	dir = 5
 	},
 /obj/effect/landmark/start/assistant,
 /turf/simulated/floor/plasteel{
@@ -85897,6 +85898,7 @@
 	pixel_x = -24
 	},
 /obj/structure/table,
+/obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreencorner"

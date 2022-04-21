@@ -36,6 +36,7 @@
 	database_id = KARMAPACKAGE_JOB_BARBER
 	friendly_name = "Barber"
 	karma_cost = 5
+	refundable = TRUE
 
 /datum/karma_package/job/brigphys
 	database_id = KARMAPACKAGE_JOB_BRIGPHYSICIAN
