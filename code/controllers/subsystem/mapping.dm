@@ -63,8 +63,8 @@ SUBSYSTEM_DEF(mapping)
 	// Spawn Lavaland ruins and rivers.
 	log_startup_progress("Populating lavaland...")
 	var/lavaland_setup_timer = start_watch()
-	seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
 	spawn_rivers(level_name_to_num(MINING))
+	seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
 	log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
 
 	// Now we make a list of areas for teleport locs

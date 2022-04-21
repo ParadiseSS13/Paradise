@@ -2,6 +2,22 @@
 	prefix = "_maps/map_files/RandomRuins/LavaRuins/"
 	ci_exclude = /datum/map_template/ruin/lavaland
 
+/datum/map_template/ruin/lavaland/mining_outpost
+	name = "Mining Outpost"
+	id = "mining_outpost"
+	description = "The primary base of mining operations on lavaland."
+	suffix = "lavaland_mining_outpost.dmm"
+	allow_duplicates = FALSE
+	always_place = TRUE
+
+/datum/map_template/ruin/lavaland/gulag
+	name = "Labor Camp"
+	id = "labor_camp"
+	description = "The nanotrasen labor camp is often home to unruly criminals that are best forgotten."
+	suffix = "lavaland_gulag.dmm"
+	allow_duplicates = FALSE
+	always_place = TRUE
+
 /datum/map_template/ruin/lavaland/biodome
 	cost = 5
 	allow_duplicates = FALSE
@@ -114,13 +130,14 @@
 	cost = 0
 	allow_duplicates = FALSE
 
+/** Yeets this to stop it spawning
 /datum/map_template/ruin/lavaland/hierophant
 	name = "Hierophant's Arena"
 	id = "hierophant"
 	description = "A strange, square chunk of metal of massive size. Inside awaits only death and many, many squares."
 	suffix = "lavaland_surface_hierophant.dmm"
-	always_place = TRUE
 	allow_duplicates = FALSE
+**/
 
 /datum/map_template/ruin/lavaland/blood_drunk_miner
 	name = "Blood-Drunk Miner"

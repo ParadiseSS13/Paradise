@@ -112,8 +112,7 @@
 			var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
 			GLOB.map_templates[T.name] = T
 
-	if(GLOB.configuration.ruins.enable_space_ruins) // so we don't unnecessarily clutter start-up
-		preloadRuinTemplates()
+	preloadRuinTemplates()
 	preloadShelterTemplates()
 	preloadShuttleTemplates()
 
