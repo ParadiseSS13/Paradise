@@ -21,6 +21,7 @@
 #define JOB_SYNDICATE			(1<<11)
 #define JOB_JUDGE				(1<<12)
 #define JOB_BLUESHIELD			(1<<13)
+#define JOB_NANO				(1<<14)
 
 #define JOBCAT_MEDSCI			(1<<1)
 
@@ -58,7 +59,7 @@
 
 #define JOBCAT_KARMA			(1<<3)
 
-#define JOB_NANO				(1<<0)
+// #define JOB_NANO				(1<<0) // AA07 2022-04-10 - Moved to ENGSEC (Non karma): Define kept for history sake
 // #define JOB_BLUESHIELD		(1<<1) // AA07 2022-02-23 - Moved to ENGSEC (Non karma): Define kept for history sake
 // #define JOB_BARBER			(1<<3) // AA07 2022-04-07 - Moved to SUPPORT (Non karma): Define kept for history sake
 // #define JOB_MECHANIC			(1<<4) // AA07 2021-10-02 - Removed: Kept for history sake

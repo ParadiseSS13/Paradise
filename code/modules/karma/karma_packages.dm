@@ -48,6 +48,7 @@
 	database_id = KARMAPACKAGE_JOB_NANOTRASENREPRESENTATIVE
 	friendly_name = "Nanotrasen Representative"
 	karma_cost = 30
+	refundable = TRUE
 
 /datum/karma_package/job/secpodpilot
 	database_id = KARMAPACKAGE_JOB_SECURITYPODPILOT
