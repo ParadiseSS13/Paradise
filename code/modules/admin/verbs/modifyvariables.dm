@@ -543,7 +543,7 @@ GLOBAL_PROTECT(VVmaint_only)
 		if(prompt != "Continue")
 			return FALSE
 	if(param_var_name in GLOB.VVmaint_only)
-		if(!is_maintainer(usr))
+		if(!check_rights(R_MAINTAINER))
 			alert(usr, "Editing this variable is restricted to Maintainers only.", "Error", "Ok")
 			return FALSE
 
