@@ -373,7 +373,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/hos
 	access = ACCESS_HOS
 
-/obj/effect/mapping_helpers/airlock/access/all/service/iaa
+/obj/effect/mapping_helpers/airlock/access/all/security/iaa
 	access = ACCESS_LAWYER
 
 // -------------------- Service access helpers
