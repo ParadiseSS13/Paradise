@@ -6,7 +6,10 @@
 	anchored = TRUE
 
 	var/obj/item/target = null
-	var/creator = null
+	/// The object that created this portal. For example, a wormhole jaunter.
+	var/obj/creation_object
+	/// The mob which was responsible for the creation of the portal. For example, the mob who used the wormhole jaunter.
+	var/mob/creation_mob
 
 	var/failchance = 5
 	var/fail_icon = "portal1"
@@ -16,13 +19,14 @@
 	var/ignore_tele_proof_area_setting = FALSE
 	var/one_use = FALSE // Does this portal go away after one teleport?
 
-/obj/effect/portal/New(loc, turf/target, creator = null, lifespan = 300)
+/obj/effect/portal/New(loc, turf/_target, obj/_creation_object = null, lifespan = 300, mob/_creation_mob = null)
 	..()
 
 	GLOB.portals += src
 
-	src.target = target
-	src.creator = creator
+	target = _target
+	creation_object = _creation_object
+	creation_mob = _creation_mob
 
 	if(lifespan > 0)
 		spawn(lifespan)
@@ -30,12 +34,9 @@
 
 /obj/effect/portal/Destroy()
 	GLOB.portals -= src
-
-	if(isobj(creator))
-		var/obj/O = creator
-		O.portal_destroyed(src)
-
-	creator = null
+	creation_object.portal_destroyed(src)
+	creation_object = null
+	creation_mob = null
 	target = null
 	return ..()
 
@@ -98,7 +99,12 @@
 		return FALSE
 
 	if(ismegafauna(M))
-		message_admins("[M] has used a portal at [ADMIN_VERBOSEJMP(src)] made by [key_name_admin(usr)].")
+		var/creator_string = ""
+		if(creation_mob && creation_object)
+			creator_string = " created by [key_name_admin(creation_mob)] using \a [creation_object]"
+		else if(creation_object)
+			creator_string = " created by \a [creation_object]"
+		message_admins("[M] has used a portal at [ADMIN_VERBOSEJMP(src)][creator_string].")
 
 	if(prob(failchance))
 		icon_state = fail_icon
