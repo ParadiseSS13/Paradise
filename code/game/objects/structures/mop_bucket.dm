@@ -36,9 +36,8 @@
 		if(!mymop)
 			m.janicart_insert(user, src)
 			return
-		else
-			to_chat(user, "<span class='notice'>Theres already a mop in the mopbucket.</span>")
-			return
+		to_chat(user, "<span class='notice'>Theres already a mop in the mopbucket.</span>")
+		return
 	return ..()
 
 /obj/structure/mopbucket/proc/put_in_cart(obj/item/mop/I, mob/user)
@@ -70,11 +69,12 @@
 		add_overlay(reagentsImage)
 
 /obj/structure/mopbucket/attack_hand(mob/living/user)
+	. = ..()
 	if(mymop)
 		user.put_in_hands(mymop)
 		to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
 		mymop = null
 		update_icon()
 		return
-	. = ..()
+
 

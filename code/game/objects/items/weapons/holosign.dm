@@ -49,7 +49,6 @@
 					return H
 				else
 					to_chat(user, "<span class='notice'>[src] is projecting at max capacity!</span>")
-					return
 
 /obj/item/holosign_creator/attack(mob/living/carbon/human/M, mob/user)
 	return
@@ -70,14 +69,14 @@
 	wet_enabled = !wet_enabled
 	playsound(loc, 'sound/weapons/empty.ogg', 20)
 	if(wet_enabled)
-		to_chat(user, "<span class='notice'>You enable the W.E.T.(wet evaporation timer)\nAny newly placed holographic signs will clear after the likely time it takes for a mopped tile to dry.</span>")
+		to_chat(user, "<span class='notice'>You enable the W.E.T. (wet evaporation timer)\nAny newly placed holographic signs will clear after the likely time it takes for a mopped tile to dry.</span>")
 	else
-		to_chat(user, "<span class='notice'>You disable the W.E.T.(wet evaporation timer)\nAny newly placed holographic signs will now stay indefinitely.</span>")
+		to_chat(user, "<span class='notice'>You disable the W.E.T. (wet evaporation timer)\nAny newly placed holographic signs will now stay indefinitely.</span>")
 
 /obj/item/holosign_creator/janitor/examine(mob/user)
 	. = ..()
 	if(ishuman(user))
-		. += "\n<span class='info'>Alt Click to [wet_enabled ? "deactivate" : "activate" ] its built-in wet evaporation timer.</span>"
+		. += "<span class='info'>Alt Click to [wet_enabled ? "deactivate" : "activate"] its built-in wet evaporation timer.</span>"
 
 
 /obj/item/holosign_creator/janitor/afterattack(atom/target, mob/user, flag)
