@@ -84,8 +84,8 @@
 	var/obj/machinery/door/airlock = locate(/obj/machinery/door) in loc
 	if(!airlock)
 		log_world("[src] failed to find an airlock at [AREACOORD(src)]")
-	else
-		payload(airlock)
+	for(var/obj/machinery/door/D in loc)
+		payload(D)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/mapping_helpers/airlock/proc/payload(obj/machinery/door/airlock/payload)
