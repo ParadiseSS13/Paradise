@@ -98,8 +98,11 @@
 	var/in_throw_mode = 0
 
 	// See /datum/emote
+
 	/// Cooldown on audio effects from emotes.
-	var/emote_cd = EMOTE_READY
+	var/audio_emote_cd_status = EMOTE_READY
+	/// If set, overrides the cooldown on every emote that doesn't play audio.
+	var/emote_cooldown_override = null
 
 	/// Tracks last uses of emotes for cooldown purposes
 	var/list/emotes_used

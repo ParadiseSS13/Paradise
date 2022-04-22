@@ -181,8 +181,14 @@
 	// Note that this only applies to intentional emotes
 	if(get_sound(user) && should_play_sound(user, intentional) && !user.can_use_audio_emote())
 		return FALSE
+	var/cooldown_in_use
+	if(user.emote_cooldown_override != null)
+		// if the user has a set cooldown in place, use that instead.
+		cooldown_in_use = user.emote_cooldown_override
+	else
+		cooldown_in_use = cooldown
 	// Check cooldown on a per-emote basis.
-	if(user.emotes_used && user.emotes_used[src] + cooldown > world.time)
+	if(user.emotes_used && user.emotes_used[src] + cooldown_in_use > world.time)
 		return FALSE
 	if(!user.emotes_used)
 		user.emotes_used = list()

@@ -97,7 +97,7 @@
 	. = ..()
 	var/mob/living/carbon/human/H = user
 	if(H.dna.species?.scream_verb)
-		return H.dna.species?.scream_verb
+		return "[H.dna.species?.scream_verb]!"
 
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
 	var/mob/living/carbon/human/human = user

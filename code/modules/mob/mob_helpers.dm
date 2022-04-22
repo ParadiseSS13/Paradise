@@ -698,7 +698,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
  * Helper proc to determine if a mob can use emotes that make sound or not.
  */
 /mob/proc/can_use_audio_emote()
-	switch(emote_cd)
+	switch(audio_emote_cd_status)
 		if(EMOTE_INFINITE)  // Spam those emotes
 			return TRUE
 		if(EMOTE_ADMIN_BLOCKED)  // Cooldown emotes were disabled by an admin, prevent use
@@ -719,13 +719,13 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	if(!can_use_audio_emote())
 		return FALSE
 
-	if(emote_cd == EMOTE_READY)
-		emote_cd = EMOTE_ON_COOLDOWN	// Starting cooldown
+	if(audio_emote_cd_status == EMOTE_READY)
+		audio_emote_cd_status = EMOTE_ON_COOLDOWN	// Starting cooldown
 		addtimer(CALLBACK(src, .proc/on_audio_emote_cooldown_end), cooldown)
 	return TRUE  // proceed with emote
 
 
 /mob/proc/on_audio_emote_cooldown_end()
-	if(emote_cd == EMOTE_ON_COOLDOWN)
+	if(audio_emote_cd_status == EMOTE_ON_COOLDOWN)
 		// only reset emotes that probably weren't set by an admin
-		emote_cd = EMOTE_READY
+		audio_emote_cd_status = EMOTE_READY
