@@ -288,6 +288,10 @@
 	if(intentional && only_unintentional)
 		return FALSE
 
+	if(check_mute(user.client?.ckey, MUTE_EMOTE))
+		to_chat(src, "<span class='warning'>You cannot send emotes (muted).</span>")
+		return FALSE
+
 	if(status_check && !is_type_in_typecache(user, mob_type_ignore_stat_typecache))
 		if((intentional && user.stat > stat_allowed) || (!intentional && (user.stat > unintentional_stat_allowed)))
 			if(!intentional)
