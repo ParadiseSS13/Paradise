@@ -44,7 +44,7 @@
 
 #define R_MAXPERMISSION 131072 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
-#define R_HOST			262141 // Sum of all permissions to allow easy setting
+#define R_HOST			262143 // Sum of all permissions to allow easy setting
 
 #define ADMIN_QUE(user,display) "<a href='?_src_=holder;adminmoreinfo=[user.UID()]'>[display]</a>"
 #define ADMIN_FLW(user,display) "<a href='?_src_=holder;adminplayerobservefollow=[user.UID()]'>[display]</a>"
