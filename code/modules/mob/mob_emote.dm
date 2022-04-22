@@ -138,15 +138,15 @@
 					G.glide_for(0.6 SECONDS)
 					G.affecting.forceMove(oldloc)
 					message = "flips over [G.affecting]!"
-					return TRUE
+					return ..()
 
 	if(prob(5))
 		message = "attempts a flip and crashes to the floor!"
 		user.SpinAnimation(5, 1)
 		sleep(0.3 SECONDS)
 		user.Weaken(2)
-		return TRUE
-	user.SpinAnimation(5, 1)
+	else
+		user.SpinAnimation(5, 1)
 
 	. = ..()
 	message = initial(message)
