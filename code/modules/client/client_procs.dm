@@ -391,7 +391,7 @@
 	if(_2fa_alert)
 		to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
 
-	// This happens asyncronously
+	// This happens "asyncronously"
 	karmaholder.processRefunds(mob)
 
 
