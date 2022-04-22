@@ -58,7 +58,7 @@
 
 /obj/item/melee/ghost_sword/examine()
 	. = ..()
-	if(spirits)
+	if(length(spirits))
 		. += "It appears to pulse with the power of [length(spirits)] vengeful spirits!"
 	else
 		. += "It glows weakly."
@@ -81,22 +81,27 @@
 
 /obj/item/melee/ghost_sword/proc/add_ghost(atom/movable/orbited, atom/orbiter)
 	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_BEGIN
-	if(!isobserver(orbiter))
+	var/mob/dead/observer/ghost = orbiter
+	if(!istype(ghost) || !isobserver(orbiter) || (ghost in spirits))
 		return
 
-	var/mob/dead/observer/ghost = orbiter
+	if(!ismob(loc))
+		// Don't count any new ghosts while the sword isn't being held in hand
+		// they'll get added to spirits (and turned visible) when the sword enters a mob's hand then
+		return
 
-	register_signals(ghost) // Sure, just in case someone's orbiting an orbiting ghost
+	register_signals(ghost) // Pull in any ghosts that may be orbiting other ghosts TODO THIS MIGHT BE THE FUCKIN PROBLEM
 
 	spirits |= ghost
 	ghost.invisibility = 0
 
 /obj/item/melee/ghost_sword/proc/remove_ghost(atom/movable/orbited, atom/orbiter)
 	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_STOP
-	if(!isobserver(orbiter))
-		return
 
 	var/mob/dead/observer/ghost = orbiter
+
+	if(!istype(ghost) || !isobserver(ghost) || !(ghost in spirits))
+		return
 
 	remove_signals(ghost)
 
@@ -115,16 +120,19 @@
  *  When moving into something's contents
  */
 /obj/item/melee/ghost_sword/proc/on_move(atom/movable/this, atom/old_loc, direction)
-	SIGNAL_HANDLER // on move
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
 	// We should only really care about the wielder of the sword and the sword itself when checking ghosts
+
 	if(ismob(old_loc))
 		remove_signals(old_loc)
-		for(var/mob/dead/observer/orbiter in old_loc.get_orbiters())
-			remove_ghost(orbiter)
+		for(var/mob/dead/observer/orbiter in spirits)
+			remove_ghost(src, orbiter)
+
 	if(ismob(loc))
 		register_signals(loc)
-		for(var/mob/dead/observer/orbiter in loc.get_orbiters())
-			add_ghost(orbiter)
+		// Add ghosts directly orbiting
+		for(var/mob/dead/observer/orbiter in get_orbiters_up_hierarchy(recursive = TRUE))
+			add_ghost(src, orbiter)
 
 /obj/item/melee/ghost_sword/attack(mob/living/target, mob/living/carbon/human/user)
 	force = 0

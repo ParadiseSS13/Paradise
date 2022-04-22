@@ -61,6 +61,8 @@
 #define RAD_PROTECT_CONTENTS_2	16384
 /// should this object be allowed to be contaminated
 #define RAD_NO_CONTAMINATE_2	32768
+/// Prevents shuttles from deleting the item
+#define IMMUNE_TO_SHUTTLECRUSH_2 (1<<16)
 
 //Reagent flags
 #define REAGENT_NOREACT			1

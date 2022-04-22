@@ -36,6 +36,7 @@
 	database_id = KARMAPACKAGE_JOB_BARBER
 	friendly_name = "Barber"
 	karma_cost = 5
+	refundable = TRUE
 
 /datum/karma_package/job/brigphys
 	database_id = KARMAPACKAGE_JOB_BRIGPHYSICIAN
@@ -47,6 +48,7 @@
 	database_id = KARMAPACKAGE_JOB_NANOTRASENREPRESENTATIVE
 	friendly_name = "Nanotrasen Representative"
 	karma_cost = 30
+	refundable = TRUE
 
 /datum/karma_package/job/secpodpilot
 	database_id = KARMAPACKAGE_JOB_SECURITYPODPILOT
