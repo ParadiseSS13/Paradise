@@ -97,8 +97,8 @@
 	var/datum/hud/hud = mob_override.hud_used
 	if(hud?.vampire_blood_display)
 		hud.remove_vampire_hud()
-	L.dna.species.hunger_type = initial(L.dna.species.hunger_type)
-	L.dna.species.hunger_icon = initial(L.dna.species.hunger_icon)
+	mob_override.dna.species.hunger_type = initial(mob_override.dna.species.hunger_type)
+	mob_override.dna.species.hunger_icon = initial(mob_override.dna.species.hunger_icon)
 	owner.current.alpha = 255
 	REMOVE_TRAITS_IN(owner.current, "vampire")
 
@@ -319,13 +319,13 @@
 	to_chat(owner.current, dat)
 
 /datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override)
-	..()
+	mob_override = ..()
 	if(!owner.som) //thralls and mindslaves
 		owner.som = new()
 		owner.som.masters += owner
-	var/mob/living/L = new_body || owner.current
-	L.dna.species.hunger_type = "vampire"
-	L.dna.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
+
+	mob_override.dna.species.hunger_type = "vampire"
+	mob_override.dna.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 	check_vampire_upgrade(FALSE)
 
 /datum/hud/proc/remove_vampire_hud()
