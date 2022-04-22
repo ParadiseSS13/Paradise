@@ -63,6 +63,7 @@
 	name = "security holobarrier projector"
 	desc = "A holographic projector that creates holographic security barriers."
 	icon_state = "signmaker_sec"
+	belt_icon = null
 	holosign_type = /obj/structure/holosign/barrier
 	creation_time = 30
 	max_signs = 6
@@ -71,6 +72,7 @@
 	name = "engineering holobarrier projector"
 	desc = "A holographic projector that creates holographic engineering barriers."
 	icon_state = "signmaker_engi"
+	belt_icon = null
 	holosign_type = /obj/structure/holosign/barrier/engineering
 	creation_time = 30
 	max_signs = 6
@@ -79,6 +81,7 @@
 	name = "ATMOS holofan projector"
 	desc = "A holographic projector that creates holographic barriers that prevent changes in atmosphere conditions."
 	icon_state = "signmaker_engi"
+	belt_icon = null
 	holosign_type = /obj/structure/holosign/barrier/atmos
 	creation_time = 0
 	max_signs = 3
