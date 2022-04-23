@@ -812,6 +812,13 @@
 	desc = "The name isn't descriptive enough? Safety lamp doesn't light!";
 	emagged = 1
 	},
+/obj/effect/decal/cleanable/blood{
+	pixel_x = -31
+	},
+/obj/effect/decal/cleanable/blood{
+	pixel_x = -32
+	},
+/obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -899,10 +906,10 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gasthelizards/viewzone)
 "Dc" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/marker_beacon,
-/turf/template_noop,
-/area/template_noop)
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/gasthelizards/viewzone)
 "Ds" = (
 /turf/simulated/floor/engine,
 /area/ruin/space/gasthelizards/viewzone)
@@ -1070,6 +1077,11 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/gasthelizards/engineering)
+"Jf" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon,
+/turf/template_noop,
+/area/template_noop)
 "Ji" = (
 /obj/structure/rack,
 /obj/item/organ/external/tail/unathi,
@@ -1615,7 +1627,7 @@ lQ
 lQ
 lQ
 lQ
-lQ
+Jf
 "}
 (4,1,1) = {"
 lQ
@@ -1642,7 +1654,7 @@ lQ
 lQ
 lQ
 lQ
-Dc
+cm
 "}
 (5,1,1) = {"
 wM
@@ -1772,7 +1784,7 @@ SL
 dG
 by
 jx
-xA
+Dc
 ho
 ho
 ho
@@ -1912,7 +1924,7 @@ lQ
 lQ
 lQ
 lQ
-Dc
+cm
 "}
 (15,1,1) = {"
 lQ
@@ -1939,7 +1951,7 @@ lQ
 lQ
 lQ
 lQ
-lQ
+Jf
 "}
 (16,1,1) = {"
 lQ

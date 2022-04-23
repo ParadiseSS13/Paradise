@@ -11,6 +11,11 @@
 	tag = "icon-whitehall (WEST)"
 	},
 /area/shuttle/abandoned)
+"ae" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f9"
+	},
+/area/shuttle/abandoned)
 "aN" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
@@ -204,6 +209,12 @@
 	tag = "icon-whiteblue (NORTHWEST)"
 	},
 /area/shuttle/abandoned)
+"dn" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall15";
+	tag = "icon-swall15"
+	},
+/area/shuttle/abandoned)
 "dA" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
@@ -362,6 +373,11 @@
 	tag = "icon-whitebluefull"
 	},
 /area/shuttle/abandoned)
+"gF" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swallc2"
+	},
+/area/shuttle/abandoned)
 "gP" = (
 /obj/machinery/door/airlock/medical/glass,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -445,6 +461,16 @@
 	icon_state = "darkblue"
 	},
 /area/shuttle/abandoned)
+"hJ" = (
+/obj/structure/sign/redcross{
+	desc = "The Star of Life, a symbol of Medical Aid.";
+	icon_state = "lifestar";
+	name = "Medbay"
+	},
+/turf/simulated/shuttle/wall{
+	icon_state = "swall12"
+	},
+/area/shuttle/abandoned)
 "ij" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -518,6 +544,22 @@
 	icon_state = "barber"
 	},
 /area/shuttle/abandoned)
+"kc" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall12"
+	},
+/area/shuttle/abandoned)
+"kg" = (
+/obj/structure/sign/redcross{
+	desc = "The Star of Life, a symbol of Medical Aid.";
+	icon_state = "lifestar";
+	name = "Medbay"
+	},
+/turf/simulated/shuttle/wall{
+	dir = 3;
+	icon_state = "swall1"
+	},
+/area/shuttle/abandoned)
 "kM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -573,16 +615,6 @@
 	icon_state = "darkblue"
 	},
 /area/shuttle/abandoned)
-"lE" = (
-/obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion (NORTH)"
-	},
-/obj/structure/shuttle/engine/heater{
-	pixel_y = 32;
-	tag = "icon-heater (NORTH)"
-	},
-/turf/simulated/wall/mineral/titanium/nodecon,
-/area/shuttle/abandoned)
 "lJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -599,6 +631,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue";
 	tag = "icon-whiteblue"
+	},
+/area/shuttle/abandoned)
+"lK" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall14"
 	},
 /area/shuttle/abandoned)
 "lZ" = (
@@ -636,15 +673,12 @@
 /area/shuttle/abandoned)
 "mA" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
+	dir = 1;
 	tag = "icon-propulsion (NORTH)"
 	},
-/obj/structure/shuttle/engine/heater{
-	dir = 8;
-	pixel_x = 32;
-	tag = "icon-heater (NORTH)"
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f6"
 	},
-/turf/simulated/wall/mineral/titanium/nodecon,
 /area/shuttle/abandoned)
 "mM" = (
 /obj/structure/table,
@@ -656,6 +690,11 @@
 /obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
+	},
+/area/shuttle/abandoned)
+"mS" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swallc3"
 	},
 /area/shuttle/abandoned)
 "mU" = (
@@ -1013,6 +1052,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
+"uk" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f10"
+	},
+/area/shuttle/abandoned)
 "ut" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -1079,7 +1123,7 @@
 	desc = "The undead. Its good time to RUN!";
 	faction = list("zombie");
 	harm_intent_damage = 10;
-	health = 85;
+	health = 65;
 	icon = 'icons/mob/human.dmi';
 	icon_living = "zombie2_s";
 	icon_state = "zombie2_s";
@@ -1115,6 +1159,7 @@
 /obj/machinery/door/window/brigdoor/southright{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/vomit,
 /mob/living/simple_animal/hostile/creature{
 	del_on_death = 1;
 	desc = "The undead! Its good time to RUN!";
@@ -1135,7 +1180,6 @@
 	speak_emote = list("growls","roars");
 	speed = -1
 	},
-/obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -1169,12 +1213,18 @@
 /obj/machinery/light/small/built{
 	dir = 8
 	},
+/obj/machinery/door_control{
+	id = "whiteshiproom1";
+	name = "Room 1 Shutters Control";
+	pixel_x = 26;
+	pixel_y = -2
+	},
 /mob/living/simple_animal/hostile/creature{
 	del_on_death = 1;
 	desc = "The undead! Its good time to RUN!";
 	faction = list("zombie");
 	harm_intent_damage = 10;
-	health = 60;
+	health = 45;
 	icon = 'icons/mob/human.dmi';
 	icon_living = "zombie_s";
 	icon_state = "zombie_s";
@@ -1188,12 +1238,6 @@
 	speak_chance = 1;
 	speak_emote = list("growls","roars");
 	speed = -1
-	},
-/obj/machinery/door_control{
-	id = "whiteshiproom1";
-	name = "Room 1 Shutters Control";
-	pixel_x = 26;
-	pixel_y = -2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -1227,6 +1271,12 @@
 	name = "Room 1 Shutters"
 	},
 /turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"xn" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall14";
+	tag = "icon-swall14"
+	},
 /area/shuttle/abandoned)
 "xC" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1281,7 +1331,10 @@
 	icon_state = "lifestar";
 	name = "Medbay"
 	},
-/turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall11";
+	tag = "icon-swall11"
+	},
 /area/shuttle/abandoned)
 "ys" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1311,7 +1364,7 @@
 	desc = "The undead! Its good time to RUN!";
 	faction = list("zombie");
 	harm_intent_damage = 10;
-	health = 60;
+	health = 20;
 	icon = 'icons/mob/human.dmi';
 	icon_living = "zombie_s";
 	icon_state = "zombie_s";
@@ -1388,6 +1441,11 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plasteel,
 /area/shuttle/abandoned)
+"zB" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall4"
+	},
+/area/shuttle/abandoned)
 "zF" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -1455,15 +1513,18 @@
 /obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 8;
-	height = 30;
+	height = 31;
 	id = "whiteship";
 	name = "NT Medical Ship";
+	rebuildable = 1;
 	width = 17
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "Aa" = (
-/turf/simulated/wall/mineral/titanium/nodecon,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f6"
+	},
 /area/shuttle/abandoned)
 "Aq" = (
 /obj/machinery/door/airlock/medical,
@@ -1472,6 +1533,17 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
+/area/shuttle/abandoned)
+"AC" = (
+/obj/structure/sign/redcross{
+	desc = "The Star of Life, a symbol of Medical Aid.";
+	icon_state = "lifestar";
+	name = "Medbay"
+	},
+/turf/simulated/shuttle/wall{
+	dir = 3;
+	icon_state = "swall2"
+	},
 /area/shuttle/abandoned)
 "Bb" = (
 /obj/structure/sign/nosmoking_2{
@@ -1515,6 +1587,11 @@
 	icon_state = "barber"
 	},
 /area/shuttle/abandoned)
+"Bu" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f5"
+	},
+/area/shuttle/abandoned)
 "BG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/splatter,
@@ -1527,6 +1604,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull";
 	tag = "icon-whitebluefull"
+	},
+/area/shuttle/abandoned)
+"Cf" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall8";
+	tag = "icon-swall12"
 	},
 /area/shuttle/abandoned)
 "CD" = (
@@ -1544,17 +1627,16 @@
 	icon_state = "darkblue"
 	},
 /area/shuttle/abandoned)
-"CM" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 1;
-	tag = "icon-propulsion (NORTH)"
+"CI" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall11";
+	tag = "icon-swall11"
 	},
-/obj/structure/shuttle/engine/heater{
-	dir = 1;
-	pixel_y = -32;
-	tag = "icon-heater (NORTH)"
+/area/shuttle/abandoned)
+"CW" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall7"
 	},
-/turf/simulated/wall/mineral/titanium/nodecon,
 /area/shuttle/abandoned)
 "Dc" = (
 /obj/machinery/computer/med_data,
@@ -1660,12 +1742,21 @@
 	icon_state = "barber"
 	},
 /area/shuttle/abandoned)
-"Fw" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = -32
+"Fq" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall13"
 	},
-/turf/template_noop,
-/area/template_noop)
+/area/shuttle/abandoned)
+"Fw" = (
+/obj/structure/sign/redcross{
+	desc = "The Star of Life, a symbol of Medical Aid.";
+	icon_state = "lifestar";
+	name = "Medbay"
+	},
+/turf/simulated/shuttle/wall{
+	icon_state = "swall14"
+	},
+/area/shuttle/abandoned)
 "Fz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1774,6 +1865,18 @@
 	tag = "icon-whitebluefull"
 	},
 /area/shuttle/abandoned)
+"Im" = (
+/turf/simulated/shuttle/wall{
+	dir = 3;
+	icon_state = "swall1"
+	},
+/area/shuttle/abandoned)
+"Is" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall7";
+	tag = "icon-swall7"
+	},
+/area/shuttle/abandoned)
 "IA" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "whiteshipouterairlock2";
@@ -1851,12 +1954,19 @@
 	icon_state = "darkbluefull"
 	},
 /area/shuttle/abandoned)
-"JT" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
+"JI" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	tag = "icon-propulsion (NORTH)"
 	},
-/turf/template_noop,
-/area/template_noop)
+/turf/simulated/floor/plating/airless,
+/area/shuttle/abandoned)
+"JT" = (
+/obj/structure/sign/poster/official/nanotrasen_logo,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall12"
+	},
+/area/shuttle/abandoned)
 "JX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -1869,7 +1979,7 @@
 	desc = "The undead. Its good time to RUN!";
 	faction = list("zombie");
 	harm_intent_damage = 10;
-	health = 85;
+	health = 65;
 	icon = 'icons/mob/human.dmi';
 	icon_living = "zombie2_s";
 	icon_state = "zombie2_s";
@@ -1928,7 +2038,7 @@
 	desc = "The undead! Its good time to RUN!";
 	faction = list("zombie");
 	harm_intent_damage = 10;
-	health = 60;
+	health = 20;
 	icon = 'icons/mob/human.dmi';
 	icon_living = "zombie_s";
 	icon_state = "zombie_s";
@@ -2121,6 +2231,14 @@
 	icon_state = "darkbluefull"
 	},
 /area/shuttle/abandoned)
+"Op" = (
+/obj/structure/shuttle/engine/propulsion{
+	tag = "icon-propulsion (NORTH)"
+	},
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f5"
+	},
+/area/shuttle/abandoned)
 "Oq" = (
 /obj/structure/rack,
 /obj/item/clothing/under/rank/medical/blue,
@@ -2178,15 +2296,22 @@
 	},
 /area/shuttle/abandoned)
 "Pv" = (
-/turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
+/turf/simulated/shuttle/wall{
+	dir = 3;
+	icon_state = "swall2"
+	},
 /area/shuttle/abandoned)
 "PB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/under/retro/medical{
+	name = "old medical officer's uniform"
+	},
 /mob/living/simple_animal/hostile/creature{
 	del_on_death = 1;
 	desc = "The undead! Its good time to RUN!";
 	faction = list("zombie");
 	harm_intent_damage = 10;
-	health = 60;
+	health = 45;
 	icon = 'icons/mob/human.dmi';
 	icon_living = "zombie_s";
 	icon_state = "zombie_s";
@@ -2200,10 +2325,6 @@
 	speak_chance = 1;
 	speak_emote = list("growls","roars");
 	speed = -1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/under/retro/medical{
-	name = "old medical officer's uniform"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2245,12 +2366,7 @@
 	dir = 4;
 	tag = "icon-propulsion (NORTH)"
 	},
-/obj/structure/shuttle/engine/heater{
-	dir = 4;
-	pixel_x = -32;
-	tag = "icon-heater (NORTH)"
-	},
-/turf/simulated/wall/mineral/titanium/nodecon,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
 "Sc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2307,6 +2423,11 @@
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
+"SP" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swallc4"
+	},
+/area/shuttle/abandoned)
 "Ta" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
@@ -2343,6 +2464,31 @@
 /area/shuttle/abandoned)
 "Td" = (
 /turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"To" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall3"
+	},
+/area/shuttle/abandoned)
+"Ty" = (
+/obj/structure/sign/redcross{
+	desc = "The Star of Life, a symbol of Medical Aid.";
+	icon_state = "lifestar";
+	name = "Medbay"
+	},
+/turf/simulated/shuttle/wall{
+	icon_state = "swall11"
+	},
+/area/shuttle/abandoned)
+"TU" = (
+/obj/structure/sign/redcross{
+	desc = "The Star of Life, a symbol of Medical Aid.";
+	icon_state = "lifestar";
+	name = "Medbay"
+	},
+/turf/simulated/shuttle/wall{
+	icon_state = "swall13"
+	},
 /area/shuttle/abandoned)
 "Uq" = (
 /obj/structure/bed/roller,
@@ -2390,6 +2536,11 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"VJ" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swallc1"
 	},
 /area/shuttle/abandoned)
 "We" = (
@@ -2468,7 +2619,7 @@
 	desc = "The undead! Its good time to RUN!";
 	faction = list("zombie");
 	harm_intent_damage = 10;
-	health = 60;
+	health = 45;
 	icon = 'icons/mob/human.dmi';
 	icon_living = "zombie_s";
 	icon_state = "zombie_s";
@@ -2497,6 +2648,24 @@
 /area/shuttle/abandoned)
 "XK" = (
 /obj/structure/chair/comfy/shuttle,
+/mob/living/simple_animal/hostile/creature{
+	del_on_death = 1;
+	desc = "The undead. Its good time to RUN!";
+	faction = list("zombie");
+	harm_intent_damage = 10;
+	health = 65;
+	icon = 'icons/mob/human.dmi';
+	icon_living = "zombie2_s";
+	icon_state = "zombie2_s";
+	loot = list(/obj/effect/decal/cleanable/blood/gibs);
+	maxHealth = 100;
+	name = "Zombie";
+	response_help = "gently probs";
+	speak = list("RAWR!","Rawr!","GRR!","Growl!");
+	speak_chance = 1;
+	speak_emote = list("growls","roars");
+	speed = 0
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -2536,7 +2705,7 @@
 	desc = "The undead. Its good time to RUN!";
 	faction = list("zombie");
 	harm_intent_damage = 10;
-	health = 85;
+	health = 35;
 	icon = 'icons/mob/human.dmi';
 	icon_living = "zombie2_s";
 	icon_state = "zombie2_s";
@@ -2588,24 +2757,6 @@
 	},
 /area/shuttle/abandoned)
 "Zr" = (
-/mob/living/simple_animal/hostile/creature{
-	del_on_death = 1;
-	desc = "The undead. Its good time to RUN!";
-	faction = list("zombie");
-	harm_intent_damage = 10;
-	health = 85;
-	icon = 'icons/mob/human.dmi';
-	icon_living = "zombie2_s";
-	icon_state = "zombie2_s";
-	loot = list(/obj/effect/decal/cleanable/blood/gibs);
-	maxHealth = 100;
-	name = "Zombie";
-	response_help = "gently probs";
-	speak = list("RAWR!","Rawr!","GRR!","Growl!");
-	speak_chance = 1;
-	speak_emote = list("growls","roars");
-	speed = 0
-	},
 /obj/item/gun/energy/gun/mini,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2664,11 +2815,11 @@ GK
 GK
 GK
 GK
-mA
-mA
+JI
+JI
 GK
-mA
-mA
+JI
+JI
 GK
 GK
 GK
@@ -2683,12 +2834,12 @@ GK
 GK
 GK
 Aa
-Pv
-Pv
+CI
+Fq
 GK
-Pv
-Pv
-Aa
+lK
+CI
+Bu
 GK
 GK
 GK
@@ -2701,13 +2852,13 @@ GK
 GK
 GK
 GK
-Pv
+Cf
 fT
-Pv
+kc
 GK
-Pv
+kc
 il
-Pv
+Cf
 GK
 GK
 GK
@@ -2722,9 +2873,9 @@ GK
 GK
 tQ
 DP
-Pv
+kc
 GK
-Pv
+kc
 jQ
 Ep
 GK
@@ -2739,13 +2890,13 @@ GK
 GK
 GK
 GK
-Pv
+zB
 uR
-Pv
+kc
 GK
-Pv
+kc
 su
-Pv
+zB
 GK
 GK
 GK
@@ -2758,13 +2909,13 @@ GK
 GK
 GK
 GK
-yh
+hJ
 Td
-Pv
+kc
 GK
-Pv
+kc
 ux
-yh
+hJ
 GK
 GK
 GK
@@ -2777,13 +2928,13 @@ GK
 rA
 GK
 GK
-Pv
+kc
 nv
-Pv
+kc
 GK
-Pv
+kc
 yA
-Pv
+kc
 GK
 GK
 GK
@@ -2795,15 +2946,15 @@ GK
 GK
 GK
 GK
-Fw
-Pv
+JI
+kc
 XL
-Pv
+kc
 GK
-Pv
+kc
 Td
-Pv
-JT
+kc
+JI
 GK
 GK
 GK
@@ -2814,15 +2965,15 @@ GK
 GK
 GK
 GK
-Aa
-Pv
+lK
+SP
 Sh
-Pv
+kc
 GK
-Pv
+kc
 Il
-Pv
-Aa
+VJ
+Fq
 GK
 GK
 GK
@@ -2832,17 +2983,17 @@ GK
 GK
 GK
 GK
-mA
-Pv
+JI
+Fq
 Tb
 Hf
-Pv
+kc
 GK
-Pv
+kc
 MM
 oY
-Pv
-mA
+lK
+JI
 GK
 GK
 GK
@@ -2851,17 +3002,17 @@ GK
 GK
 GK
 GK
-Pv
-Pv
+lK
+SP
 ys
 bE
-Pv
+kc
 GK
-Pv
+kc
 sT
 fJ
-Pv
-Pv
+VJ
+Fq
 GK
 GK
 GK
@@ -2869,65 +3020,65 @@ GK
 (12,1,1) = {"
 GK
 GK
-mA
-Pv
+Aa
+SP
 WM
 zf
 xi
-Pv
+kc
 Jw
-Pv
+kc
 JB
 dT
 Ou
-Pv
-mA
+VJ
+Bu
 GK
 GK
 "}
 (13,1,1) = {"
 GK
 GK
-Pv
+JT
 Ju
 xJ
 lm
 Bb
-Pv
+kc
 Hu
-Pv
+kc
 st
 PS
 WZ
 qI
-Pv
+JT
 GK
 GK
 "}
 (14,1,1) = {"
 GK
-GK
-Pv
-Pv
-yh
+mA
+lK
+CW
+kg
 ZB
 Pv
-Pv
+SP
 mi
-Pv
-Pv
+VJ
+Im
 Aq
-yh
-Pv
-Pv
-GK
+AC
+CW
+Fq
+Op
 GK
 "}
 (15,1,1) = {"
 GK
-CM
-Pv
-Pv
+Fw
+dn
+SP
 EF
 YJ
 Dv
@@ -2937,28 +3088,28 @@ gt
 XH
 zJ
 xC
-Pv
-Pv
-lE
+VJ
+dn
+TU
 GK
 "}
 (16,1,1) = {"
 GK
-Pv
-Pv
+VJ
+SP
 eC
 rk
 jD
-Pv
+zB
 lZ
 aW
 pJ
-Pv
+zB
 Uq
 En
 aT
-Pv
-Pv
+VJ
+SP
 GK
 "}
 (17,1,1) = {"
@@ -2968,11 +3119,11 @@ qH
 Bp
 qp
 uZ
-Pv
-yh
+lK
+kg
 or
 Pv
-Pv
+Fq
 sU
 jT
 Zn
@@ -2982,22 +3133,22 @@ GK
 "}
 (18,1,1) = {"
 Aa
-Pv
-Pv
+To
+Im
 uB
 Pv
-Pv
-Pv
+CW
+SP
 aa
 Sc
 tv
-Pv
+kc
 UT
 vv
 Fz
 nP
-Pv
-Aa
+VJ
+Bu
 "}
 (19,1,1) = {"
 xm
@@ -3005,37 +3156,37 @@ xd
 gP
 xG
 Dt
-Pv
+kc
 hl
 Sm
 Jr
 lJ
-Pv
-Pv
-Pv
+lK
+To
+mS
 tu
 vM
 YK
-Pv
+kc
 "}
 (20,1,1) = {"
 Pv
-Pv
-Pv
+To
+Im
 xS
 Oq
-Pv
+kc
 ZO
 Lh
 re
 ZU
-Pv
+kc
 hb
-Pv
+Cf
 LP
 QN
 vI
-Pv
+kc
 "}
 (21,1,1) = {"
 zF
@@ -3043,37 +3194,37 @@ FI
 Nw
 Ha
 Nx
-Pv
+kc
 zQ
 UZ
 aN
 ci
-Pv
+kc
 aO
 mU
 Od
 wG
 mM
-Pv
+kc
 "}
 (22,1,1) = {"
 Pv
-Pv
-Pv
+To
+Im
 ms
 Pv
-Pv
+Fq
 nd
 yU
 bQ
 Gc
-Pv
+kc
 zO
-Pv
+zB
 sQ
 Pv
-Pv
-Pv
+To
+SP
 "}
 (23,1,1) = {"
 IA
@@ -3081,37 +3232,37 @@ MY
 es
 Og
 yK
-Pv
-Pv
-Pv
+VJ
+Is
+Im
 ut
 Pv
-Pv
-Pv
-Pv
+dn
+To
+SP
 zS
 PO
 sE
 fM
 "}
 (24,1,1) = {"
-Aa
-Pv
-Pv
+uk
+To
+Im
 rt
 Sz
 gT
-Pv
+Cf
 Kv
 JX
 dA
-Pv
+Cf
 CD
 kM
 DO
 Pv
-Pv
-Aa
+To
+ae
 "}
 (25,1,1) = {"
 GK
@@ -3134,39 +3285,39 @@ vF
 "}
 (26,1,1) = {"
 GK
-Aa
-Pv
+uk
+mS
 xk
 VD
 vG
-Pv
-Pv
+gF
+Im
 Oh
 Pv
-Pv
+mS
 Ji
 WD
 eg
-Pv
-Aa
+gF
+ae
 GK
 "}
 (27,1,1) = {"
 GK
 GK
-Pv
-Pv
+xn
+mS
 oy
-Pv
-Pv
+gF
+SP
 lv
 IV
 hn
-Pv
-Pv
+VJ
+mS
 Oy
-Pv
-Pv
+gF
+Fq
 GK
 GK
 "}
@@ -3175,16 +3326,16 @@ GK
 GK
 RU
 yh
-Pv
-Pv
+Is
+SP
 OP
 dS
 yE
 iz
 hj
-Pv
-Pv
-yh
+VJ
+Is
+Ty
 RU
 GK
 GK
@@ -3194,7 +3345,7 @@ GK
 GK
 GK
 GK
-Pv
+Cf
 wo
 XK
 Zr
@@ -3202,7 +3353,7 @@ bS
 PB
 sO
 Ne
-Pv
+Cf
 GK
 GK
 GK

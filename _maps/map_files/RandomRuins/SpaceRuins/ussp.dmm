@@ -156,8 +156,8 @@
 "ax" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
-	locked = 1;
-	name = "Shuttle Airlock"
+	name = "Shuttle Airlock";
+	req_access_txt = "150"
 	},
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
@@ -172,8 +172,8 @@
 	dir = 8;
 	dwidth = 2;
 	height = 5;
-	id = ussppod;
-	name = "USSP Pod";
+	id = "ruins_transport_shuttle";
+	name = "USSP Cargo Shuttle";
 	width = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -4329,7 +4329,7 @@
 	},
 /area/shuttle/ussp)
 "iP" = (
-/obj/machinery/computer/shuttle/ussp_pod,
+/obj/machinery/computer/shuttle/ruins_transport_shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -4546,8 +4546,8 @@
 "jl" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
-	locked = 1;
-	name = "Shuttle Airlock"
+	name = "Shuttle Airlock";
+	req_access_txt = "150"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/shuttle/floor{
@@ -5566,9 +5566,9 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
+	d1 = 1;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -5718,8 +5718,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
+/obj/structure/closet/crate{
+	icon_state = "crateopen";
+	opened = 1
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -7399,7 +7400,7 @@
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
 	id = "whiteship_ussp";
-	name = "USSP"
+	name = "Near USSP"
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -8885,7 +8886,7 @@
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/bridge)
 "tI" = (
-/obj/machinery/computer/shuttle/ussp_pod,
+/obj/machinery/computer/shuttle/ruins_transport_shuttle,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -9135,6 +9136,9 @@
 	icon_state = "solarpanel"
 	},
 /area/space/nearstation)
+"AA" = (
+/turf/simulated/shuttle/wall,
+/area/ruin/unpowered/no_grav)
 "AB" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -13334,7 +13338,7 @@ rZ
 bn
 bn
 bn
-Ue
+AA
 QH
 so
 GG
@@ -13518,7 +13522,7 @@ bn
 bn
 bn
 NP
-Ue
+AA
 RN
 ac
 ul
@@ -13702,7 +13706,7 @@ rZ
 bn
 bn
 bn
-Ue
+AA
 lH
 ag
 ag

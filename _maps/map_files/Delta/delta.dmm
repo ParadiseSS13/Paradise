@@ -3,13 +3,10 @@
 /turf/space,
 /area/space)
 "aac" = (
-/obj/docking_port/stationary{
+/obj/docking_port/stationary/whiteship{
 	dir = 8;
-	dwidth = 8;
-	height = 31;
 	id = "whiteship_home";
-	name = "north of Kerberos";
-	width = 17
+	name = "Near NSS Kerberos"
 	},
 /turf/space,
 /area/space)
@@ -185704,13 +185701,13 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aae
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa

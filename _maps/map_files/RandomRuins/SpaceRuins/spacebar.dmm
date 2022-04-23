@@ -32,10 +32,6 @@
 "ai" = (
 /turf/simulated/mineral,
 /area/ruin/powered)
-"ak" = (
-/obj/machinery/computer/shuttle/spacebarhotelpodv1,
-/turf/simulated/shuttle/floor,
-/area/shuttle/spacebar)
 "am" = (
 /turf/simulated/wall,
 /area/ruin/powered{
@@ -50,7 +46,7 @@
 "ao" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/shuttle/spacebar)
 "ap" = (
 /turf/simulated/shuttle/wall{
@@ -87,7 +83,7 @@
 /obj/item/toy/figure/bartender,
 /obj/machinery/door_control{
 	desiredstate = 1;
-	id = "innerspacebardoors";
+	id = "sb_in";
 	in_use = 1;
 	name = "The Bar Entrance Airlocks Lock button";
 	normaldoorcontrol = 1;
@@ -97,7 +93,7 @@
 	},
 /obj/machinery/door_control{
 	desiredstate = 1;
-	id = "outerspacebardoors";
+	id = "sb_out";
 	in_use = 1;
 	name = "Outside Airlocks Lock button";
 	normaldoorcontrol = 1;
@@ -120,6 +116,13 @@
 /obj/structure/table,
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching camera near bar asteroid and inside its areas.";
+	dir = 8;
+	layer = 4;
+	name = "Camera Telescreen";
+	network = list("spacebar")
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered{
@@ -153,12 +156,6 @@
 /turf/simulated/shuttle/floor,
 /area/ruin/powered)
 "aC" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 8
-	},
 /turf/space,
 /turf/simulated/shuttle/floor,
 /area/shuttle/spacebar)
@@ -170,9 +167,6 @@
 	name = "Space Bar"
 	})
 "aE" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/spacebar)
 "aF" = (
@@ -197,12 +191,12 @@
 	})
 "aI" = (
 /obj/machinery/door_control{
-	id = "podcycle1";
+	id = "blastdoorcycle1";
 	name = "Inner Blastdoors Switch";
 	pixel_x = 6;
 	pixel_y = 24
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "aJ" = (
 /turf/simulated/wall,
@@ -264,19 +258,20 @@
 	dir = 8;
 	dwidth = 3;
 	height = 4;
-	id = spacebarpodv1;
-	name = "Regular Space Pod";
-	width = 7
+	id = "ruins_civil_shuttle";
+	name = "Regular Civilian Shuttle";
+	rebuildable = 1;
+	width = 6
 	},
 /obj/docking_port/stationary{
 	area_type = /area/ruin/powered;
 	dir = 8;
 	dwidth = 3;
 	height = 4;
-	id = "spacebarv1";
-	name = "Docking zone Space Bar";
+	id = "spacebar";
+	name = "Space Bar Landing zone";
 	turf_type = /turf/simulated/floor/plating/asteroid/airless;
-	width = 7
+	width = 6
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -285,7 +280,7 @@
 "aS" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external/glass{
-	id_tag = innerspacebardoors
+	id_tag = "sb_in"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/powered{
@@ -341,19 +336,6 @@
 /area/ruin/powered{
 	name = "Space Bar"
 	})
-"ba" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
-	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/spacebar)
 "bb" = (
 /obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel,
@@ -392,19 +374,30 @@
 /turf/template_noop,
 /area/ruin/powered)
 "bh" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "diagonalWall3"
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/coffee{
+	desc = "Its cold like the space outside noo!";
+	pixel_x = -6;
+	pixel_y = 8;
+	volume = 10
 	},
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = 6
+	},
+/turf/simulated/shuttle/floor,
 /area/shuttle/spacebar)
 "bi" = (
-/turf/simulated/shuttle/wall{
-	dir = 4;
-	icon_state = "diagonalWall3"
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor,
 /area/shuttle/spacebar)
 "bj" = (
 /obj/machinery/door/airlock/external/glass{
-	id_tag = innerspacebardoors
+	id_tag = "sb_in"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered{
@@ -442,12 +435,13 @@
 	})
 "bm" = (
 /obj/machinery/door_control{
-	id = "pod cycle";
+	id = "blastdoorcycle";
 	name = "Outer Blastdoors Switch";
 	pixel_x = -6;
 	pixel_y = 24
 	},
-/turf/simulated/floor/plating/airless,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "bn" = (
 /obj/machinery/door/poddoor/preopen{
@@ -469,12 +463,11 @@
 	name = "Space Bar"
 	})
 "br" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee{
-	desc = "Its cold like the space outside, noo!";
-	pixel_x = -6;
-	pixel_y = 8;
-	volume = 10
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/spacebar)
@@ -506,13 +499,13 @@
 /area/ruin/powered)
 "eb" = (
 /obj/machinery/door_control{
-	id = "podcycle1";
+	id = "blastdoorcycle1";
 	name = "Inner Blastdoors Switch";
 	pixel_x = 6;
 	pixel_y = 24
 	},
 /obj/machinery/door_control{
-	id = "pod cycle";
+	id = "blastdoorcycle";
 	name = "Outer Blastdoors Switch";
 	pixel_x = -6;
 	pixel_y = 24
@@ -527,6 +520,19 @@
 	icon_state = "swall_f10"
 	},
 /area/ruin/powered)
+"fi" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/powered)
+"fp" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered{
+	name = "Space Bar"
+	})
 "ft" = (
 /obj/machinery/door/poddoor{
 	id_tag = "pod cycle";
@@ -547,6 +553,10 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/powered)
+"iH" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
 "jL" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -563,6 +573,34 @@
 "kZ" = (
 /obj/structure/spacepoddoor,
 /turf/simulated/floor/plating/airless,
+/area/ruin/powered)
+"mH" = (
+/obj/machinery/camera{
+	c_tag = "Spacebar Shuttle and Pods LZ";
+	network = list("spacebar")
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/powered)
+"mN" = (
+/obj/machinery/camera{
+	c_tag = "Spacebar Toilets";
+	network = list("spacebar")
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered{
+	name = "Space Bar"
+	})
+"nz" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Outer Blastdoor View";
+	dir = 9;
+	network = list("spacebar")
+	},
+/turf/template_noop,
 /area/ruin/powered)
 "nM" = (
 /turf/simulated/shuttle/wall,
@@ -581,6 +619,11 @@
 /area/ruin/powered{
 	name = "Space Bar"
 	})
+"sF" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f5"
+	},
+/area/shuttle/spacebar)
 "tK" = (
 /obj/machinery/light{
 	dir = 8
@@ -601,24 +644,25 @@
 	name = "Space Bar"
 	})
 "vV" = (
+/obj/structure/chair/stool/bar,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered{
+	name = "Space Bar"
+	})
+"xt" = (
 /obj/structure/shuttle/engine/propulsion/burst,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/shuttle/floor{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
 	},
 /area/shuttle/spacebar)
-"xt" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 1;
-	tag = "icon-heater (NORTH)"
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+"xM" = (
+/obj/machinery/computer/shuttle/ruins_civil_shuttle,
+/turf/simulated/shuttle/floor,
 /area/shuttle/spacebar)
 "yd" = (
 /obj/item/gps/ruin{
@@ -638,6 +682,11 @@
 /obj/structure/grille,
 /turf/simulated/shuttle/plating,
 /area/ruin/powered)
+"Ai" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f9"
+	},
+/area/shuttle/spacebar)
 "Cm" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall3"
@@ -649,13 +698,21 @@
 	tag = "icon-swall12"
 	},
 /area/ruin/powered)
+"EM" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/powered)
 "Fz" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/spacebar)
 "Gj" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "outerspacebardoors"
+	id_tag = "sb_out"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "Hg" = (
@@ -666,6 +723,23 @@
 /area/shuttle/spacebar)
 "Hi" = (
 /obj/structure/glowshroom/single,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered{
+	name = "Space Bar"
+	})
+"JR" = (
+/obj/machinery/camera{
+	c_tag = "Indoor Blastdoor View";
+	dir = 1;
+	network = list("spacebar")
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"Ky" = (
+/obj/structure/urinal{
+	pixel_x = -32
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered{
 	name = "Space Bar"
@@ -682,6 +756,17 @@
 /area/ruin/powered{
 	name = "Space Bar"
 	})
+"OO" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall3"
+	},
+/area/shuttle/spacebar)
+"OY" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/powered{
+	name = "Space Bar"
+	})
 "Sg" = (
 /obj/structure/urinal{
 	pixel_x = -32
@@ -692,17 +777,17 @@
 	})
 "Sx" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "Sy" = (
 /obj/machinery/door_control{
-	id = "pod cycle";
+	id = "blastdoorcycle";
 	name = "Outer Blastdoors Switch";
 	pixel_x = -24;
 	pixel_y = -6
 	},
 /obj/machinery/door_control{
-	id = "podcycle1";
+	id = "blastdoorcycle1";
 	name = "Inner Blastdoors Switch";
 	pixel_x = -24;
 	pixel_y = 6
@@ -724,6 +809,27 @@
 	},
 /turf/simulated/shuttle/floor,
 /area/ruin/powered)
+"TN" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"TZ" = (
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"Un" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/coffee{
+	desc = "Its cold like the space outside noo!";
+	pixel_x = -6;
+	pixel_y = 8;
+	volume = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered{
+	name = "Space Bar"
+	})
 "Up" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
@@ -756,10 +862,18 @@
 /area/ruin/powered{
 	name = "Space Bar"
 	})
+"XG" = (
+/obj/machinery/camera{
+	c_tag = "Spacebar Outer Airlocks View";
+	network = list("spacebar")
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "YT" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered{
 	name = "Space Bar"
@@ -769,6 +883,7 @@
 	id_tag = "spacebartoilet";
 	name = "Toilet"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered{
 	name = "Space Bar"
@@ -799,7 +914,7 @@ aa
 aa
 aa
 aa
-bg
+nz
 aa
 aa
 aa
@@ -844,7 +959,7 @@ aa
 aJ
 aY
 aY
-aY
+EM
 aY
 aY
 aY
@@ -968,14 +1083,14 @@ ac
 ac
 ac
 KC
-dN
-aY
-aY
-aY
-aY
+TN
+TZ
+TZ
+TZ
+iH
 Sx
 aJ
-ac
+XG
 ac
 aa
 aa
@@ -1011,11 +1126,11 @@ ab
 ac
 KC
 bm
-aY
-aY
-aY
-aY
-aY
+TZ
+TZ
+TZ
+TZ
+JR
 aJ
 ac
 ac
@@ -1049,15 +1164,15 @@ ac
 ac
 ac
 ac
-ac
-ac
+af
+af
 KC
 aI
-aY
-aY
-aY
-aY
-aY
+TZ
+iH
+iH
+TZ
+TZ
 aJ
 ac
 be
@@ -1092,13 +1207,13 @@ af
 af
 aJ
 af
-ac
+ag
 KC
-dN
-aY
-aY
-aY
-aY
+TN
+TZ
+TZ
+TZ
+TZ
 Sx
 aJ
 ac
@@ -1133,8 +1248,8 @@ ac
 af
 ag
 ag
-af
-ac
+ag
+ag
 KC
 kZ
 kZ
@@ -1176,7 +1291,7 @@ ag
 ag
 ag
 ag
-af
+ag
 aJ
 bn
 bn
@@ -1187,7 +1302,7 @@ bn
 aJ
 ag
 aJ
-dN
+fi
 aJ
 af
 aJ
@@ -1299,11 +1414,11 @@ ag
 ag
 ap
 nM
-nM
 aP
 nM
-nM
-bh
+OO
+sF
+ag
 ag
 ag
 ag
@@ -1340,12 +1455,12 @@ aJ
 an
 bp
 ao
-ak
+xM
 aC
 Fz
-Hg
+bi
 xt
-vV
+ag
 ag
 ag
 ag
@@ -1384,10 +1499,10 @@ ag
 ao
 br
 aE
-Fz
+bh
 Hg
-ba
-vV
+xt
+ag
 ag
 ag
 ag
@@ -1425,11 +1540,11 @@ ag
 ag
 at
 nM
-nM
 aR
 nM
-nM
-bi
+OO
+Ai
+ag
 ag
 ag
 ag
@@ -1515,7 +1630,7 @@ ag
 am
 bj
 am
-ag
+mH
 ag
 CS
 fP
@@ -1555,7 +1670,7 @@ ai
 ag
 ag
 bf
-aT
+OY
 bf
 ag
 ag
@@ -1681,7 +1796,7 @@ as
 aK
 aN
 bq
-aO
+fp
 bq
 bs
 aW
@@ -1725,7 +1840,7 @@ aN
 aO
 aO
 aO
-aO
+fp
 aO
 aO
 aO
@@ -1805,10 +1920,10 @@ as
 as
 as
 aK
-aN
+vV
 aO
 aO
-aW
+Un
 aO
 aO
 aO
@@ -1897,7 +2012,7 @@ bt
 bc
 am
 Sg
-Sg
+Ky
 am
 bl
 am
@@ -1980,7 +2095,7 @@ aO
 aO
 rn
 am
-aO
+mN
 aO
 YT
 aO
@@ -2016,7 +2131,7 @@ as
 as
 aX
 aO
-aO
+fp
 bk
 aO
 aO
@@ -2024,7 +2139,7 @@ aO
 am
 aO
 aO
-aO
+fp
 Hi
 am
 ai

@@ -28302,11 +28302,6 @@
 	icon_state = "darkred"
 	},
 /area/centcom/specops)
-"vlE" = (
-/obj/structure/lattice/catwalk,
-/mob/living/carbon/human/monkey,
-/turf/space,
-/area/space/nearstation)
 "vlY" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/unsimulated/floor{
@@ -28694,8 +28689,8 @@
 	dir = 8;
 	dwidth = 2;
 	height = 5;
-	id = "spacebarpodv1_transit";
-	name = "Regular Space Pod in transit";
+	id = "ruins_civil_shuttle_transit";
+	name = "Regular Civilian Shuttle in transit";
 	width = 8
 	},
 /turf/space/transit,
@@ -31029,8 +31024,8 @@
 	dir = 8;
 	dwidth = 2;
 	height = 5;
-	id = "ussppod_transit";
-	name = "USSP Pod in transit";
+	id = "ruins_transport_shuttle_transit";
+	name = "Transport Shuttle in transit";
 	width = 8
 	},
 /turf/space/transit,
@@ -90377,7 +90372,7 @@ jyD
 jyD
 jyD
 jyD
-vlE
+moX
 jyD
 jyD
 jyD
