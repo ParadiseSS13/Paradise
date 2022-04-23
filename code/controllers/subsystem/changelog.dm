@@ -130,8 +130,6 @@ SUBSYSTEM_DEF(changelog)
 	set category = "OOC"
 	// Just invoke the actual CL thing
 	SSchangelog.OpenChangelog(src)
-	log_admin("[key_name(src)] has pressed the \'CHANGELOG\' button!")
-	message_admins("[key_name_admin(src)] <span class='red'>has pressed the \'CHANGELOG\' button!</span>")
 
 // Helper to turn CL types into a fontawesome icon instead of an image
 // The colors are #28a745 for green, #fd7e14 for orange, and #dc3545 for red.
