@@ -181,6 +181,7 @@
 	new /obj/item/storage/backpack/fluff/syndiesatchel(src)
 	new /obj/item/storage/backpack/duffel/syndie(src)
 	new /obj/item/storage/box/syndicate_permits(src)
+	new /obj/item/door_remote/taipan(src)
 
 /obj/structure/closet/secure_closet/syndicate/research_director
 	name = "Syndicate Research Director's Locker"

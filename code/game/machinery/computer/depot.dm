@@ -392,8 +392,6 @@
 	icon_screen = "telesci"
 	icon_keyboard = "teleport_key"
 	window_height = 320
-	circuit = /obj/item/circuitboard/syndicate_teleporter
-	armor = list("melee" = 0, "bullet" = 100, "laser" = 40, "energy" = 0, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20)
 	var/obj/machinery/bluespace_beacon/syndicate/mybeacon
 	var/obj/effect/portal/redspace/myportal
 	var/obj/effect/portal/redspace/myportal2
@@ -409,6 +407,8 @@
 
 /obj/machinery/computer/syndicate_depot/teleporter/taipan
 	req_access = list(154)
+	circuit = /obj/item/circuitboard/syndicate_teleporter
+	armor = list("melee" = 0, "bullet" = 100, "laser" = 40, "energy" = 0, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20)
 
 /obj/machinery/computer/syndicate_depot/teleporter/Initialize(mapload)
 	..()

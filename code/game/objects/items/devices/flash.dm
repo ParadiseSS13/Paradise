@@ -60,8 +60,7 @@
 		return FALSE
 
 	var/deciseconds_passed = world.time - last_used
-	for(var/seconds = deciseconds_passed/10, seconds>=10, seconds-=10) //get 1 charge every 10 seconds
-		times_used--
+	times_used -= round(deciseconds_passed / 100) //get 1 charge every 10 seconds
 
 	last_used = world.time
 	times_used = max(0, times_used) //sanity

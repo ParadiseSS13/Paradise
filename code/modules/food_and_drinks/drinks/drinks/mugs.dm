@@ -164,3 +164,9 @@
 	desc = "An inscription on the side reads \"Best Captain 2559\"... The last time the station had a worthy captain."
 	icon_state = "mug_cap"
 	preset = TRUE
+
+/obj/item/reagent_containers/food/drinks/mug/comms
+	name = "Comms Officer's mug"
+	desc = "Fuck NT. With style!"
+	icon_state = "mug_offcomm"
+	preset = TRUE

@@ -143,6 +143,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	var/cash_per_intel = 2500		//points gained per intel returned
 	var/cash_per_plasma = 100		//points gained per plasma returned
 	var/cash_per_design = 500		//points gained per research design returned
+	var/cash_multiplier = 100		//points bonus for plants, designs, etc.
 	var/blackmarket_message = null	//Remarks from Black Market on how well you checked the last order.
 /***************************
 Возможные статусы для телепадов
@@ -427,7 +428,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 						if(!disk.stored) continue
 						var/datum/tech/tech = disk.stored
 
-						var/cost = tech.getCost(data_storage.techLevels[tech.id]) * 100
+						var/cost = tech.getCost(data_storage.techLevels[tech.id]) * data_storage.cash_multiplier
 						if(cost)
 							data_storage.techLevels[tech.id] = tech.level
 							data_storage.cash += cost
@@ -439,7 +440,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 						if(!disk.blueprint)
 							continue
 						var/datum/design/design = disk.blueprint
-						if(design.id in data_storage.researchDesigns)
+						if(design.id in data_storage.researchDesigns)// This design has already been sent to Black Market
 							continue
 						data_storage.cash += data_storage.cash_per_design
 						data_storage.researchDesigns += design.id
@@ -450,18 +451,18 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 						var/obj/item/seeds/S = thing
 						if(!S.rarity) // Mundane species
 							msg += "<span class='bad'>+0</span>: We don't need samples of mundane species \"[capitalize(S.species)]\".<br>"
-						else if(data_storage.discoveredPlants[S.type]) // This species has already been sent to CentComm
+						else if(data_storage.discoveredPlants[S.type]) // This species has already been sent to Black Market
 							var/potDiff = S.potency - data_storage.discoveredPlants[S.type] // Compare it to the previous best
 							if(potDiff > 0) // This sample is better
 								data_storage.discoveredPlants[S.type] = S.potency
-								msg += "<span class='good'>+[potDiff]</span>: New sample of \"[capitalize(S.species)]\" is superior. Good work.<br>"
-								data_storage.cash += potDiff
+								msg += "<span class='good'>+[(potDiff * data_storage.cash_multiplier)]</span>: New sample of \"[capitalize(S.species)]\" is superior. Good work.<br>"
+								data_storage.cash += (potDiff * data_storage.cash_multiplier)
 							else // This sample is worthless
 								msg += "<span class='bad'>+0</span>: New sample of \"[capitalize(S.species)]\" is not more potent than existing sample ([data_storage.discoveredPlants[S.type]] potency).<br>"
 						else // This is a new discovery!
 							data_storage.discoveredPlants[S.type] = S.potency
-							msg += "<span class='good'>[S.rarity]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
-							data_storage.cash += S.rarity // That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
+							msg += "<span class='good'>[(S.rarity + S.potency)*data_storage.cash_multiplier]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
+							data_storage.cash += (S.rarity + S.potency)*data_storage.cash_multiplier// That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
 					qdel(thing)
 
 			qdel(MA)
@@ -700,6 +701,8 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 			bmmsg_browser.open()
 		if("add_money") //Admin button. Used to reward or tax cargo with the money.
 			var/money2add = round(input("Введите сколько кредитов вы хотите добавить") as null|num)
+			message_admins("[key_name_admin(usr)] added [money2add] credits to the cargo console at [data_storage.cargoarea.name]")
+			log_admin("[key_name_admin(usr)] added [money2add] credits to the cargo console at [data_storage.cargoarea.name]")
 			data_storage.cash += money2add
 			if(money2add > 0)
 				data_storage.blackmarket_message += "<span class='good'>+[money2add]</span>: We are pleased with your work. Here's your reward.<br>"

@@ -29,6 +29,13 @@
 	req_access = list(ACCESS_ENGINE)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
+
+	//RCD for the borgs or not?
+	// If this is a borg RCD we use power instead of matter
+	var/borg_rcd = FALSE
+	// A multipler which is applied to matter amount checks by borg RCDs. A higher number means more power usage per RCD usage.
+	var/power_use_multiplier = 160
+
 	/// The spark system used to create sparks when the user interacts with the RCD.
 	var/datum/effect_system/spark_spread/spark_system
 	/// The current amount of matter stored.
@@ -626,11 +633,18 @@
  * * amount - the amount of matter that was used.
  */
 /obj/item/rcd/proc/useResource(amount, mob/user)
-	if(matter < amount)
+	if(!borg_rcd)
+		if(matter < amount)
+			return FALSE
+		matter -= amount
+		SStgui.update_uis(src)
+		return TRUE
+
+	if(!isrobot(user))
 		return FALSE
-	matter -= amount
-	SStgui.update_uis(src)
-	return TRUE
+
+	var/mob/living/silicon/robot/R = user
+	return R.cell.use(amount * power_use_multiplier)
 
 /**
  * Called in each of the four build modes before an object gets build. Makes sure there is enough matter to build the object.
@@ -639,27 +653,21 @@
  * * amount - an amount of matter to check for
  */
 /obj/item/rcd/proc/checkResource(amount, mob/user)
-	return matter >= amount
+	if(!borg_rcd)
+		return matter >= amount
+
+	if(!isrobot(user))
+		return FALSE
+
+	var/mob/living/silicon/robot/R = user
+	return R.cell.charge >= (amount * power_use_multiplier)
 
 /obj/item/rcd/borg
 	canRwall = TRUE
-	/// A multipler which is applied to matter amount checks. A higher number means more power usage per RCD usage.
-	var/power_use_multiplier = 160
+	borg_rcd = TRUE
 
 /obj/item/rcd/borg/syndicate
 	power_use_multiplier = 80
-
-/obj/item/rcd/borg/useResource(amount, mob/user)
-	if(!isrobot(user))
-		return FALSE
-	var/mob/living/silicon/robot/R = user
-	return R.cell.use(amount * power_use_multiplier)
-
-/obj/item/rcd/borg/checkResource(amount, mob/user)
-	if(!isrobot(user))
-		return FALSE
-	var/mob/living/silicon/robot/R = user
-	return R.cell.charge >= (amount * power_use_multiplier)
 
 /**
  * Called from malf AI's "detonate RCD" ability.

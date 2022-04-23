@@ -1653,7 +1653,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	The briefcase also feels a little heavier to hold; it has been manufactured to pack a little bit more of a punch if your client needs some convincing."
 	reference = "CASH"
 	item = /obj/item/storage/secure/briefcase/syndie
-	cost = 1
+	cost = 5 //Меняем цену для балансировки экономики
 
 /datum/uplink_item/badass/plasticbag
 	name = "Plastic Bag"

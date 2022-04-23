@@ -131,6 +131,10 @@
 	name = "Syndicate combat rapid-construction-device (RCD)"
 	max_matter = MATTER_500
 
+/obj/item/rcd/syndicate/borg
+	borg_rcd = TRUE
+	power_use_multiplier = 80
+
 /obj/item/rcd_ammo/syndicate
 	name = "suspicious matter cartridge"
 	desc = "Highly compressed matter for the RCD."

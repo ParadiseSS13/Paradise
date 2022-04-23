@@ -434,3 +434,23 @@
 	R.module.modules += new /obj/item/reagent_containers/borghypo/upgraded(R.module)
 	R.module.rebuild()
 	return TRUE
+
+/obj/item/borg/upgrade/syndie_rcd
+	name = "Syndicate cyborg RCD upgrade"
+	desc = "An experimental upgrade that replaces cyborgs RCDs with the syndicate version."
+	icon_state = "syndicate_cyborg_upgrade"
+	origin_tech = "engineering=6;materials=6;syndicate=5"
+
+/obj/item/borg/upgrade/syndie_rcd/action(mob/living/silicon/robot/R)
+	if(..())
+		return
+
+	var/obj/item/rcd/borg/borg_rcd = locate() in R.module.modules
+	if(!borg_rcd)
+		to_chat(usr, "<span class='notice'>There's no RCD in this unit!</span>")
+		return 0
+	for(borg_rcd in R.module.modules)
+		qdel(borg_rcd)
+	R.module.modules += new /obj/item/rcd/syndicate/borg(R.module)
+	R.module.rebuild()
+	return TRUE

@@ -177,6 +177,19 @@
 		icon_state = initial(icon_state) //looks like a normal pen when off.
 		item_state = initial(item_state)
 
+/obj/item/pen/edagger/comms
+	icon_state = "ofcommpen"
+	item_state = "ofcommpen"
+	light_color = LIGHT_COLOR_BLUE
+
+/obj/item/pen/edagger/comms/update_icon()
+	if(on)
+		icon_state = "ofcommpen_active"
+		item_state = "ofcommpen_active"
+	else
+		icon_state = initial(icon_state) //looks like a normal pen when off.
+		item_state = initial(item_state)
+
 /obj/item/proc/on_write(obj/item/paper/P, mob/user)
 	return
 

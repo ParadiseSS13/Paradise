@@ -25,20 +25,21 @@
 	return TRUE
 
 /obj/item/memorizer/attackby(obj/item/W, mob/user, params)
-	if(can_overcharge)
-		if(istype(W, /obj/item/screwdriver))
-			if(battery_panel)
-				to_chat(user, "<span class='notice'>You close the battery compartment on the [src].</span>")
-				battery_panel = FALSE
-			else
-				to_chat(user, "<span class='notice'>You open the battery compartment on the [src].</span>")
-				battery_panel = TRUE
-		if(battery_panel && !overcharged)
-			if(istype(W, /obj/item/stock_parts/cell))
-				to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
-				qdel(W)
-				overcharged = TRUE
-				overlays += "overcharge"
+	if(!can_overcharge)
+		return
+	if(istype(W, /obj/item/screwdriver))
+		battery_panel = !battery_panel
+		if(battery_panel)
+			to_chat(user, "<span class='notice'>You open the battery compartment on the [src].</span>")
+		else
+			to_chat(user, "<span class='notice'>You close the battery compartment on the [src].</span>")
+	else if(istype(W, /obj/item/stock_parts/cell))
+		if(!battery_panel || overcharged)
+			return
+		to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
+		qdel(W)
+		overcharged = TRUE
+		overlays += "overcharge"
 
 /obj/item/memorizer/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = TRUE
@@ -48,11 +49,11 @@
 
 /obj/item/memorizer/proc/flash_recharge(var/mob/user)
 	if(prob(times_used * 2))	//if you use it 5 times in a minute it has a 10% chance to break!
+		burn_out()
 		return FALSE
 
 	var/deciseconds_passed = world.time - last_used
-	for(var/seconds = deciseconds_passed/10, seconds>=10, seconds-=10) //get 1 charge every 10 seconds
-		times_used--
+	times_used -= round(deciseconds_passed / 100)
 
 	last_used = world.time
 	times_used = max(0, times_used) //sanity
@@ -76,60 +77,101 @@
 	return TRUE
 
 
-/obj/item/memorizer/proc/memorize_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5, targeted = 1)
+/obj/item/memorizer/proc/memorize_carbon(mob/living/carbon/fucking_target, mob/user = null, power = 5, targeted = TRUE)
 	if(user)
-		add_attack_logs(user, M, "memorized with [src]")
+		add_attack_logs(user, fucking_target, "memorized with [src]")
 		if(targeted)
-			if(M.weakeyes)
-				M.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
-			if(M.flash_eyes(1, 1))
-				M.AdjustConfused(power)
-				M.Stun(1)
-				visible_message("<span class='disarm'>[user] erases [M] memory with the memorizer!</span>")
-				to_chat(user, "<span class='danger'>You erased [M] memory with the memorizer!</span>")
-				to_chat(M, "<span class='danger'><span class='reallybig'>Your memory about last events has been erased!</span>")
-				if(M.weakeyes)
-					M.Stun(2)
-					M.visible_message("<span class='disarm'>[M] gasps and shields [M.p_their()] eyes!</span>", "<span class='userdanger'>You gasp and shield your eyes!</span>")
+			if(fucking_target.weakeyes)
+				fucking_target.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
+			if(fucking_target.flash_eyes(1, 1))
+				fucking_target.AdjustConfused(power)
+				fucking_target.Stun(1)
+				visible_message("<span class='disarm'>[user] erases [fucking_target] memory with the memorizer!</span>")
+				to_chat(user, "<span class='danger'>You erased [fucking_target] memory with the memorizer!</span>")
+				to_chat(fucking_target, "<span class='danger'><span class='reallybig'>Your memory about last events has been erased!</span>")
+				if(fucking_target.weakeyes)
+					fucking_target.Stun(2)
+					fucking_target.visible_message("<span class='disarm'>[fucking_target] gasps and shields [fucking_target.p_their()] eyes!</span>", "<span class='userdanger'>You gasp and shield your eyes!</span>")
 			else
-				visible_message("<span class='disarm'>[user] fails to erase [M] memory with the memorizer!</span>")
-				to_chat(user, "<span class='warning'>You fail to erase [M] memory with the memorizer!</span>")
-				to_chat(M, "<span class='danger'>[user] fails to erase your memory with the memorizer!</span>")
+				visible_message("<span class='disarm'>[user] fails to erase [fucking_target] memory with the memorizer!</span>")
+				to_chat(user, "<span class='warning'>You fail to erase [fucking_target] memory with the memorizer!</span>")
+				to_chat(fucking_target, "<span class='danger'>[user] fails to erase your memory with the memorizer!</span>")
 			return
 
-	if(M.flash_eyes())
-		M.AdjustConfused(power)
+	if(fucking_target.flash_eyes())
+		fucking_target.AdjustConfused(power)
 
-/obj/item/memorizer/attack(mob/living/M, mob/user)
+/obj/item/memorizer/attack(mob/living/fucking_target, mob/user)
 	if(!try_use_flash(user))
 		return FALSE
-	if(iscarbon(M))
-		memorize_carbon(M, user, 5, TRUE)
+	if(iscarbon(fucking_target))
+		memorize_carbon(fucking_target, user, 5, TRUE)
 		if(overcharged)
-			M.adjust_fire_stacks(6)
-			M.IgniteMob()
+			fucking_target.adjust_fire_stacks(6)
+			fucking_target.IgniteMob()
 			burn_out()
 		return TRUE
-	else if(issilicon(M))
-		add_attack_logs(user, M, "Flashed with [src]")
-		if(M.flash_eyes(affect_silicon = TRUE))
-			M.Weaken(rand(5,10))
-			user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [M]'s sensors with the [src.name]!</span>")
+	else if(issilicon(fucking_target))
+		add_attack_logs(user, fucking_target, "Flashed with [src]")
+		if(fucking_target.flash_eyes(affect_silicon = TRUE))
+			fucking_target.Weaken(rand(5,10))
+			user.visible_message("<span class='disarm'>[user] overloads [fucking_target]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [fucking_target]'s sensors with the [src.name]!</span>")
 		return TRUE
-	user.visible_message("<span class='disarm'>[user] fails to blind [M] with the [src.name]!</span>", "<span class='warning'>You fail to blind [M] with the [src.name]!</span>")
+	user.visible_message("<span class='disarm'>[user] fails to blind [fucking_target] with the [src.name]!</span>", "<span class='warning'>You fail to blind [fucking_target] with the [src.name]!</span>")
 
 
 /obj/item/memorizer/attack_self(mob/living/carbon/user, flag = 0, emp = FALSE)
 	if(!try_use_flash(user))
 		return FALSE
 	user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
-	for(var/mob/living/carbon/M in oviewers(3, null))
-		memorize_carbon(M, user, 3, FALSE)
+	for(var/mob/living/carbon/fucking_target in oviewers(3, null))
+		memorize_carbon(fucking_target, user, 3, FALSE)
 
 
 /obj/item/memorizer/emp_act(severity)
 	if(!try_use_flash())
 		return FALSE
-	for(var/mob/living/carbon/M in viewers(3, null))
-		memorize_carbon(M, null, 10, TRUE)
+	for(var/mob/living/carbon/fucking_target in viewers(3, null))
+		memorize_carbon(fucking_target, null, 10, TRUE)
 	burn_out()
+
+/obj/item/memorizer/syndicate
+	name = "Нейрализатор"
+	desc = "Если перед вами сработает это устройство, скорее всего вы не сможете об этом вспомнить!"
+	origin_tech = "abductor=3;syndicate=2"
+
+/obj/item/memorizer/syndicate/memorize_carbon(mob/living/carbon/fucking_target, mob/user = null, power = 5, targeted = TRUE)
+	if(user)
+		add_attack_logs(user, fucking_target, "[user] стёр память [fucking_target] с помощью [src]а")
+		if(targeted)
+			if(!fucking_target.mind)
+				to_chat(user, "<span class='danger'>[fucking_target] кататоник! Стирание памяти бесполезно против тех, кто не осознаёт ничего вокруг себя!</span>")
+				return
+			if(fucking_target.weakeyes)
+				fucking_target.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
+			if(fucking_target.flash_eyes(1, 1))
+				fucking_target.AdjustConfused(power)
+				fucking_target.Stun(1)
+				visible_message("<span class='disarm'>[user] стирает память [fucking_target] с помощью Нейрализатора!</span>")
+				to_chat(user, "<span class='danger'>Вы стёрли память [fucking_target] с помощью Нейрализатора!</span>")
+				to_chat(fucking_target, "<span class='danger'><span class='reallybig'>Ваша память о последних недавних событиях была стёрта!</span>")
+				if(is_taipan(fucking_target.z) && !fucking_target.mind.lost_memory)
+					var/objective = "Вы не помните ничего о последних событиях, так как ваша память была стёрта. \
+					В частности вы не помните о базе синдиката \"Тайпан\", о том как туда добраться и обо всём так или иначе с ней связанным!"
+					var/datum/objective/custom_objective = new(objective)
+					custom_objective.owner = fucking_target.mind
+					fucking_target.mind.objectives += custom_objective
+					fucking_target.mind.lost_memory = TRUE
+					fucking_target.mind.announce_objectives()
+				last_used = world.time
+				if(fucking_target.weakeyes)
+					fucking_target.Stun(2)
+					fucking_target.visible_message("<span class='disarm'>[fucking_target] моргает, тем самым защищая свои глаза!!</span>", "<span class='userdanger'>Вы моргнули и защитили свои глаза!</span>")
+			else
+				visible_message("<span class='disarm'>У [user] не получилось стереть память [fucking_target] с помощью \"Нейрализатора\"!</span>")
+				to_chat(user, "<span class='warning'>Вы не смогли стереть память [fucking_target] с помощью \"Нейрализатора\"!</span>")
+				to_chat(fucking_target, "<span class='danger'>У [user] не получилось стереть вашу память с помощью \"Нейрализатора\"!</span>")
+			return
+
+	if(fucking_target.flash_eyes())
+		fucking_target.AdjustConfused(power)

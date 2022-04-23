@@ -2034,6 +2034,21 @@
 	tag = "icon-vault (WEST)"
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hallway)
+"bLM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/power/terminal,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/rnd/server{
+	name = "ERR#UNKWN Server Room"
+	})
 "bLX" = (
 /obj/machinery/washing_machine,
 /turf/simulated/floor/plasteel{
@@ -11022,11 +11037,8 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd)
 "jCa" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+/obj/structure/cable/blue{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/space/nearstation)
@@ -11143,8 +11155,7 @@
 	dir = 1;
 	pixel_y = 24
 	},
-/obj/structure/cable{
-	d2 = 8;
+/obj/structure/cable/blue{
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -12878,9 +12889,15 @@
 /obj/structure/window/plasmareinforced{
 	color = "#d70000"
 	},
-/obj/item/implanter/traitor,
-/obj/item/implanter/traitor,
-/obj/item/implanter/traitor,
+/obj/item/memorizer/syndicate{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/memorizer/syndicate,
+/obj/item/memorizer/syndicate{
+	pixel_x = 3;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -14320,7 +14337,7 @@
 	dir = 9
 	},
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -17297,7 +17314,7 @@
 	dir = 8
 	},
 /obj/item/paper_bin,
-/obj/item/pen/edagger,
+/obj/item/pen/edagger/comms,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -21798,16 +21815,11 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/teleporter)
 "rMT" = (
-/obj/machinery/suit_storage_unit/syndicate/secure{
-	magboots_type = /obj/item/clothing/shoes/magboots/syndie/advance;
-	req_access = null;
-	req_access_txt = "154";
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/elite
-	},
 /obj/machinery/light{
 	dir = 1;
 	on = 1
 	},
+/obj/machinery/suit_storage_unit/syndicate/secure/comms,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
 "rNx" = (
@@ -24685,6 +24697,13 @@
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/unpowered)
 "tSW" = (
+/obj/machinery/power/smes{
+	charge = 2e+006;
+	name = "Turrets power storage unit"
+	},
+/obj/structure/cable/blue{
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -26145,8 +26164,8 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "uKf" = (
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/structure/cable/blue{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -26256,10 +26275,10 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/mug,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/mug/comms,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -26971,10 +26990,10 @@
 	id_tag = "Full_Lockdown";
 	name = "Station Lockdown"
 	},
-/obj/structure/cable{
+/obj/structure/cable/blue,
+/obj/structure/cable/blue{
 	icon_state = "1-2"
 	},
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server{
 	name = "ERR#UNKWN Server Room"
@@ -69652,7 +69671,7 @@ tyW
 iTY
 uIk
 loU
-qBo
+bLM
 tSW
 uIk
 xYq

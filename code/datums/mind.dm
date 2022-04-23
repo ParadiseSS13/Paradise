@@ -66,6 +66,8 @@
 	var/isblessed = FALSE // is this person blessed by a chaplain?
 	var/num_blessed = 0 // for prayers
 
+	var/lost_memory = FALSE // for the memorizers
+
 	var/suicided = FALSE
 
 	//put this here for easier tracking ingame

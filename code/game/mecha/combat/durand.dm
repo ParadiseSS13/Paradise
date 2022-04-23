@@ -71,3 +71,12 @@
 	..()
 	thrusters_action.Remove(user)
 	energywall_action.Remove(user)
+
+/obj/mecha/combat/durand/rover/loaded/New()
+	..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
+	ME.attach(src)

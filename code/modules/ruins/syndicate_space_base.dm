@@ -116,10 +116,6 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 
 /datum/outfit/space_base_syndicate/post_equip(mob/living/carbon/human/H)
 	H.faction |= "syndicate"
-
-	if(!istype(H.get_item_by_slot(slot_wear_id), /obj/item/card/id/syndicate/comms_officer)) //Если мы не телекомщик, к обычной частоте нет доступа
-		var/obj/item/radio/RF = H.get_item_by_slot(slot_r_ear)
-		RF.set_frequency(SYND_TAIPAN_FREQ)
 	if(H.dna.species)
 
 		var/race = H.dna.species.name

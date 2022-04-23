@@ -134,9 +134,6 @@
 	freerange = TRUE
 	freqlock = FALSE
 
-/obj/item/radio/headset/syndicate/taipan/New()
-	. = ..()
-	set_frequency(PUB_FREQ)
 /obj/item/radio/headset/binary
 	origin_tech = "syndicate=3"
 	ks1type = /obj/item/encryptionkey/binary

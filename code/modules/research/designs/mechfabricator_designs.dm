@@ -1541,3 +1541,14 @@
 	construction_time = 50
 	build_path = /obj/item/circuitboard/syndicatesupplycomp/public
 	category = list("Syndicate")
+
+/datum/design/syndicate_borg_RCD_upgrade
+	name = "Syndicate cyborg RCD upgrade"
+	desc = "An experimental upgrade that replaces cyborgs RCDs with the syndicate version."
+	id = "syndicate_cyborg_RCD_upgrade"
+	req_tech = list("engineering" = 6, "materials" = 6, "syndicate" = 5)
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000, MAT_GOLD = 1000, MAT_TITANIUM = 5000, MAT_PLASMA = 5000)
+	construction_time = 50
+	build_path = /obj/item/borg/upgrade/syndie_rcd
+	category = list("Syndicate")

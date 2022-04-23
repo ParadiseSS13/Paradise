@@ -260,6 +260,7 @@
 	check_records = 0
 	idcheck = 1
 	bot_core_type = /obj/machinery/bot_core/syndicate
+	var/check_mug = TRUE
 
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate/sword_attack(mob/living/carbon/C)     // esword attack
 	src.do_attack_animation(C)
@@ -284,19 +285,26 @@
 			addtimer(CALLBACK(src, .proc/spam_flag_false), 100) //to avoid spamming comms of sec for each hit
 			visible_message("[src] flails his swords and cuts [C]!")
 
+/mob/living/simple_animal/bot/secbot/griefsky/syndicate/proc/check_for_mug(obj/item/slot_item)
+	if(istype(slot_item, /obj/item/reagent_containers/food/drinks/mug/comms))
+		return TRUE
+	return FALSE
+
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate/look_for_perp()
 	anchored = 0
 	for (var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue
-
 		if((C.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
-
 		if(idcheck && istype(C.get_id_card(), /obj/item/card/id/syndicate))
 			threatlevel = 0
 		else if(!("syndicate" in C.faction))
 			threatlevel = 20
+		if(check_mug && is_taipan(z) && C.mind.assigned_role != "Space Base Syndicate Comms Officer")
+			if(check_for_mug(C.l_hand)||check_for_mug(C.r_hand))
+				speak("[C.name] наглый вор! Положи кружку!", radio_channel)
+				threatlevel += 4
 		else
 			threatlevel = C.assess_threat(src)
 

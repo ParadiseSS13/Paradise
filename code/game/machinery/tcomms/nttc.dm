@@ -120,7 +120,7 @@
 		"Mime" = "srvradio",
 	)
 	/// List of Command jobs
-	var/list/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI")
+	var/list/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI", "Syndicate Research Director", "Syndicate Comms Officer")
 	/// List of ERT jobs
 	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
 	/// List of CentComm jobs

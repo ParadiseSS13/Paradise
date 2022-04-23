@@ -402,6 +402,18 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/comms
+	name = "Comms Officer elite syndicate hardsuit helmet"
+	desc = "An elite version of the syndicate helmet, with improved armour and fire shielding. This one has contractor style."
+	icon_state = "hardsuit0-commsoff"
+	item_color = "commsoff"
+/obj/item/clothing/suit/space/hardsuit/syndi/elite/comms
+	name = "Comms Officer elite syndicate hardsuit"
+	desc = "An elite version of the syndicate hardsuit, with improved armour and fire shielding. This one has contractor style."
+	icon_state = "hardsuit0-commsoff"
+	item_color = "commsoff"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/comms
+
 //Strike team hardsuits
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
 	armor = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100, fire = 100, acid = 100) //Almost as good as DS gear, but unlike DS can switch to combat for mobility
