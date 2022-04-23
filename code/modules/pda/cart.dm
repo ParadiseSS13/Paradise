@@ -276,12 +276,16 @@
 /obj/item/cartridge/syndicate
 	name = "Detomatix Cartridge"
 	icon_state = "cart"
-	var/initial_remote_door_id = "smindicate" //Make sure this matches the syndicate shuttle's shield/door id!!	//don't ask about the name, testing.
 	charges = 4
-	programs = list(new/datum/data/pda/utility/toggle_door)
 	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/detonate)
 
-/obj/item/cartridge/syndicate/Initialize(mapload)
+/obj/item/cartridge/syndicate/nuclear //needed subtype so regular traitors can't open and close nuclear shuttle doors
+	name = "Nuclear Agent Detomatix Cartridge"
+	desc = "The same reliable Detomatix program except with the added ability of remotely toggling your nuclear shuttle airlock from your PDA"
+	var/initial_remote_door_id = "smindicate" //Make sure this matches the syndicate shuttle's shield/door id!!	//don't ask about the name, testing.
+	programs = list(new/datum/data/pda/utility/toggle_door)
+
+/obj/item/cartridge/syndicate/nuclear/Initialize(mapload)
 	. = ..()
 	var/datum/data/pda/utility/toggle_door/D = programs[1]
 	if(istype(D))
@@ -299,6 +303,10 @@
 	desc = "The hit new PDA game that lets you track down and capture your favorite Nano-Mobs living in your world!"
 	icon_state = "cart-eye"
 	programs = list(new/datum/data/pda/app/mob_hunter_game)
+
+/obj/item/cartridge/mob_hunt_game/detailed_examine_antag()
+	if(emagged)
+		return "This copy of Nano-Mob Hunter GO! has been hacked to allow the creation of trap mobs which will cause any PDA that attempts to capture it to shock anyone holding it. Hacked copies of the game will not trigger the trap."
 
 /obj/item/cartridge/mob_hunt_game/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/nanomob_card))
@@ -319,4 +327,3 @@
 		my_game.hacked = 1
 		to_chat(user, "<span class='warning'>TR4P_M45T3R.mod successfully initialized. ToS violated. User Agreement nullified. Gotta pwn them all.</span>")
 		to_chat(user, "<span class='warning'>You can now create trapped versions of any mob in your collection that will damage hunters who attempt to capture it.</span>")
-		description_antag = "This copy of Nano-Mob Hunter GO! has been hacked to allow the creation of trap mobs which will cause any PDA that attempts to capture it to shock anyone holding it. Hacked copies of the game will not trigger the trap."

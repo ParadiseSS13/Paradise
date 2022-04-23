@@ -1,22 +1,3 @@
-/client/proc/Debug2()
-	set category = "Debug"
-	set name = "Debug-Game"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	if(GLOB.debug2)
-		GLOB.debug2 = 0
-		message_admins("[key_name_admin(src)] toggled debugging off.")
-		log_admin("[key_name(src)] toggled debugging off.")
-	else
-		GLOB.debug2 = 1
-		message_admins("[key_name_admin(src)] toggled debugging on.")
-		log_admin("[key_name(src)] toggled debugging on.")
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Game") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-
 /* 21st Sept 2010
 Updated by Skie -- Still not perfect but better!
 Stuff you can't do:
@@ -92,7 +73,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			log_admin("[key_name(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
 			returnval = WrapAdminProcCall(GLOBAL_PROC, procname, lst) // Pass the lst as an argument list to the proc
 
-		to_chat(usr, "<font color='blue'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</font>")
+		to_chat(usr, "<font color='#EB4E00'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</font>")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Advanced Proc-Call") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 // All these vars are related to proc call protection
@@ -173,7 +154,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 /client/proc/callproc_datum(A as null|area|mob|obj|turf)
 	set category = null
-	set name = "Atom ProcCall"
+	set name = "\[Admin\] Atom ProcCall"
 
 	if(!check_rights(R_PROCCALL))
 		return
@@ -215,11 +196,11 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		var/class = null
 		// Make a list with each index containing one variable, to be given to the proc
 		if(src.holder && src.holder.marked_datum)
-			class = input("What kind of variable?","Variable Type") in list("text","num","type","reference","mob reference","icon","file","client","mob's area","Marked datum ([holder.marked_datum.type])","CANCEL")
+			class = input("What kind of variable?","Variable Type") in list("text","num","type","reference","reference in range","reference in view", "mob reference","icon","file","client","mob's area","Marked datum ([holder.marked_datum.type])","CANCEL")
 			if(holder.marked_datum && class == "Marked datum ([holder.marked_datum.type])")
 				class = "Marked datum"
 		else
-			class = input("What kind of variable?","Variable Type") in list("text","num","type","reference","mob reference","icon","file","client","mob's area","CANCEL")
+			class = input("What kind of variable?","Variable Type") in list("text","num","type","reference","mob reference","reference in range","reference in view","icon","file","client","mob's area","CANCEL")
 		switch(class)
 			if("CANCEL")
 				return null
@@ -235,6 +216,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 			if("reference")
 				lst += input("Select reference:","Reference",src) as mob|obj|turf|area in world
+
+			if("reference in range")
+				lst += input("Select reference in range:", "Reference in range", src) as mob|obj|turf|area in range(view)
+
+			if("reference in view")
+				lst += input("Select reference in view:", "Reference in view", src) as mob|obj|turf|area in view(view)
 
 			if("mob reference")
 				lst += input("Select reference:","Reference",usr) as mob in world
@@ -357,8 +344,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	pai.real_name = pai.name
 	pai.key = choice.key
 	card.setPersonality(pai)
-	for(var/datum/paiCandidate/candidate in GLOB.paiController.pai_candidates)
-		if(candidate.key == choice.key)
+	for(var/datum/pai_save/candidate in GLOB.paiController.pai_candidates)
+		if(candidate.owner.ckey == choice.ckey)
 			GLOB.paiController.pai_candidates.Remove(candidate)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make pAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -630,7 +617,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 /client/proc/cmd_admin_dress(mob/living/carbon/human/M in GLOB.human_list)
 	set category = "Event"
-	set name = "Select equipment"
+	set name = "\[Admin\] Select equipment"
 
 	if(!check_rights(R_EVENT))
 		return
@@ -666,17 +653,19 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	message_admins("<span class='notice'>[key_name_admin(usr)] changed the equipment of [key_name_admin(M)] to [dresscode].</span>", 1)
 
 /client/proc/robust_dress_shop()
-	var/list/outfits = list(
+	var/list/special_outfits = list(
 		"Naked",
 		"As Job...",
 		"Custom..."
 	)
 
+	var/list/outfits = list()
 	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job)
 	for(var/path in paths)
 		var/datum/outfit/O = path //not much to initalize here but whatever
 		if(initial(O.can_be_admin_equipped))
 			outfits[initial(O.name)] = path
+	outfits = special_outfits + sortTim(outfits, /proc/cmp_text_asc)
 
 	var/dresscode = input("Select outfit", "Robust quick dress shop") as null|anything in outfits
 	if(isnull(dresscode))
@@ -692,6 +681,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			var/datum/outfit/O = path
 			if(initial(O.can_be_admin_equipped))
 				job_outfits[initial(O.name)] = path
+		job_outfits = sortTim(job_outfits, /proc/cmp_text_asc)
 
 		dresscode = input("Select job equipment", "Robust quick dress shop") as null|anything in job_outfits
 		dresscode = job_outfits[dresscode]

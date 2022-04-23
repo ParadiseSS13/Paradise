@@ -11,7 +11,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	name = "changeling"
 	config_tag = "changeling"
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General")
 	protected_species = list("Machine")
 	required_players = 15
 	required_enemies = 1
@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	to_chat(world, "<B>There are alien changelings on the station. Do not let the changelings succeed!</B>")
 
 /datum/game_mode/changeling/pre_setup()
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs += protected_jobs
 
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
@@ -147,7 +147,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	for(var/datum/objective/objective in changeling.objectives)
 		to_chat(changeling.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
-	to_chat(changeling.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Changeling)</span>")
+	to_chat(changeling.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Changeling)</span>")
 	return
 
 /datum/game_mode/proc/remove_changeling(datum/mind/changeling_mind)
@@ -201,9 +201,11 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			text += "<br><b>Changeling ID:</b> [changeling.changeling.changelingID]."
 			text += "<br><b>Genomes Extracted:</b> [changeling.changeling.absorbedcount]"
 
-			if(changeling.objectives.len)
+			var/list/all_objectives = changeling.get_all_objectives()
+
+			if(length(all_objectives))
 				var/count = 1
-				for(var/datum/objective/objective in changeling.objectives)
+				for(var/datum/objective/objective in all_objectives)
 					if(objective.check_completion())
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 						SSblackbox.record_feedback("nested tally", "changeling_objective", 1, list("[objective.type]", "SUCCESS"))

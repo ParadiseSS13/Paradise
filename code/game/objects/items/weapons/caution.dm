@@ -49,7 +49,7 @@
 		if(istype(AM, /mob/living/carbon) && !istype(AM, /mob/living/carbon/brain))
 			var/mob/living/carbon/C = AM
 			if(C.m_intent != MOVE_INTENT_WALK)
-				src.visible_message("The [src.name] beeps, \"Running on wet floors is hazardous to your health.\"")
+				src.visible_message("[src] beeps, \"Running on wet floors is hazardous to your health.\"")
 				explosion(src.loc,-1,0,2)
 				if(ishuman(C))
 					dead_legs(C)

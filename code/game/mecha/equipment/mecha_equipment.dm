@@ -33,7 +33,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/Destroy()//missiles detonating, teleporter creating singularity?
 	if(chassis)
-		chassis.occupant_message("<span class='danger'>The [src] is destroyed!</span>")
+		chassis.occupant_message("<span class='danger'>[src] is destroyed!</span>")
 		chassis.log_append_to_last("[src] is destroyed.",1)
 		if(istype(src, /obj/item/mecha_parts/mecha_equipment/weapon))
 			chassis.occupant << sound(chassis.weapdestrsound, volume = 50)
@@ -42,10 +42,6 @@
 		detach(chassis)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/proc/critfail()
-	if(chassis)
-		log_message("Critical failure", 1)
-	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/get_equip_info()
 	if(!chassis)
@@ -72,8 +68,6 @@
 	if(!chassis)
 		return 0
 	if(!equip_ready)
-		return 0
-	if(crit_fail)
 		return 0
 	if(energy_drain && !chassis.has_charge(energy_drain))
 		return 0

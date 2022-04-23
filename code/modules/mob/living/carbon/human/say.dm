@@ -149,7 +149,6 @@
 			var/obj/item/clothing/mask/horsehead/hoers = wear_mask
 			if(hoers.voicechange)
 				S.message = pick("NEEIIGGGHHHH!", "NEEEIIIIGHH!", "NEIIIGGHH!", "HAAWWWWW!", "HAAAWWW!")
-				verb = pick("whinnies", "neighs", "says")
 
 		if(dna)
 			for(var/mutation_type in active_mutations)
@@ -167,6 +166,12 @@
 
 		if(span)
 			S.message = "<span class='[span]'>[S.message]</span>"
+
+	if(wear_mask)
+		var/speech_verb_when_masked = wear_mask.change_speech_verb()
+		if(speech_verb_when_masked)
+			verb = speech_verb_when_masked
+
 	return list("verb" = verb)
 
 /mob/living/carbon/human/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)

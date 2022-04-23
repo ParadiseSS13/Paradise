@@ -110,7 +110,7 @@
 /datum/intercept_text/proc/get_suspect()
 	var/list/dudes = list()
 	for(var/mob/living/carbon/human/man in GLOB.player_list)
-		if(man.client && man.client.prefs.nanotrasen_relation == "Opposed")
+		if(man.client && man.client.prefs.active_character.nanotrasen_relation == "Opposed")
 			//don't include suspects who can't possibly be the antag based on their job (no suspecting the captain of being a damned dirty tator)
 			if(man.mind && man.mind.assigned_role)
 				if((man.mind.assigned_role in SSticker.mode.protected_jobs) || (man.mind.assigned_role in SSticker.mode.restricted_jobs))

@@ -275,6 +275,9 @@
 
 /obj/machinery/shower/Destroy()
 	QDEL_NULL(soundloop)
+	var/obj/effect/mist/mist = locate() in loc
+	if(!QDELETED(mist))
+		QDEL_IN(mist, 25 SECONDS)
 	return ..()
 
 //add heat controls? when emagged, you can freeze to death in it?
@@ -401,7 +404,7 @@
 			tile.water_act(100, convertHeat(), src)
 			tile.clean_blood(radiation_clean = TRUE)
 			for(var/obj/effect/E in tile)
-				if(is_cleanable(E))
+				if(E.is_cleanable())
 					qdel(E)
 		for(var/A in loc)
 			wash(A)

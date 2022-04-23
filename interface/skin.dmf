@@ -1,44 +1,33 @@
 macro "default"
 
+
 menu "menu"
-	elem
+	elem 
 		name = "&File"
-		command = ""
-		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Quick screenshot\tF2"
 		command = ".screenshot auto"
 		category = "&File"
-		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Save screenshot as...\tShift+F2"
 		command = ".screenshot"
 		category = "&File"
-		saved-params = "is-checked"
 	elem "reconnectbutton"
 		name = "&Reconnect"
 		command = ".reconnect"
 		category = "&File"
-		saved-params = "is-checked"
-	elem
+	elem 
 		name = ""
-		command = ""
 		category = "&File"
-		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Quit"
 		command = ".quit"
 		category = "&File"
-		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Icons"
-		command = ""
-		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Size"
-		command = ""
 		category = "&Icons"
-		saved-params = "is-checked"
 	elem "stretch"
 		name = "&Stretch to fit"
 		command = ".winset \"mapwindow.map.icon-size=0\""
@@ -46,183 +35,125 @@ menu "menu"
 		is-checked = true
 		can-check = true
 		group = "size"
-		saved-params = "is-checked"
 	elem "icon128"
 		name = "&128x128 (4x)"
 		command = ".winset \"mapwindow.map.icon-size=128\""
 		category = "&Size"
 		can-check = true
 		group = "size"
-		saved-params = "is-checked"
 	elem "icon96"
 		name = "&96x96 (3x)"
 		command = ".winset \"mapwindow.map.icon-size=96\""
 		category = "&Size"
 		can-check = true
 		group = "size"
-		saved-params = "is-checked"
 	elem "icon64"
 		name = "&64x64 (2x)"
 		command = ".winset \"mapwindow.map.icon-size=64\""
 		category = "&Size"
 		can-check = true
 		group = "size"
-		saved-params = "is-checked"
 	elem "icon48"
 		name = "&48x48 (1.5x)"
 		command = ".winset \"mapwindow.map.icon-size=48\""
 		category = "&Size"
 		can-check = true
 		group = "size"
-		saved-params = "is-checked"
 	elem "icon32"
 		name = "&32x32"
 		command = ".winset \"mapwindow.map.icon-size=32\""
 		category = "&Size"
 		can-check = true
 		group = "size"
-		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Scaling"
-		command = ""
 		category = "&Icons"
-		saved-params = "is-checked"
 	elem "NN"
 		name = "&Nearest Neighbor"
 		command = ".winset \"mapwindow.map.zoom-mode=distort\""
 		category = "&Scaling"
 		can-check = true
 		group = "scale"
-		saved-params = "is-checked"
 	elem "PS"
 		name = "&Point Sampling"
 		command = ".winset \"mapwindow.map.zoom-mode=normal\""
 		category = "&Scaling"
 		can-check = true
 		group = "scale"
-		saved-params = "is-checked"
 	elem "BL"
 		name = "&Bilinear"
 		command = ".winset \"mapwindow.map.zoom-mode=blur\""
 		category = "&Scaling"
 		can-check = true
 		group = "scale"
-		saved-params = "is-checked"
 	elem "textmode"
 		name = "&Text"
 		command = ".winset \"menu.textmode.is-checked=true?mapwindow.map.text-mode=true:mapwindow.map.text-mode=false\""
 		category = "&Icons"
 		can-check = true
-		saved-params = "is-checked"
-	elem
-		name = "&Volume"
-		command = ""
-		saved-params = "is-checked"
-	elem
+	elem 
+		name = "&Options"
+	elem 
 		name = "&Open Volume Mixer"
 		command = "Open-Volume-Mixer"
-		category = "&Volume"
+		category = "&Options"
+	elem "statusbar"
+		name = "&Show status bar"
+		category = "&Options"
+		can-check = true
+		is-checked = true
 		saved-params = "is-checked"
-	elem
+		command = ".winset \"menu.statusbar.is-checked=true?mapwindow.status_bar.is-visible=true:mapwindow.status_bar.is-visible=false\""
+	elem 
 		name = "&Help"
-		command = ""
-		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Admin help\tF1"
 		command = "adminhelp"
 		category = "&Help"
-		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Hotkeys"
 		command = "Hotkey-Help"
 		category = "&Help"
-		saved-params = "is-checked"
 
 
 window "mainwindow"
 	elem "mainwindow"
 		type = MAIN
-		pos = 0,0
 		size = 640x440
-		anchor1 = none
-		anchor2 = none
 		is-default = true
 		saved-params = "pos;size;is-minimized;is-maximized"
 		title = "Paradise Station 13"
+		statusbar = false
 		is-maximized = true
 		icon = 'icons\\paradise.png'
 		macro = "default"
 		menu = "menu"
 	elem "asset_cache_browser"
 		type = BROWSER
-		pos = 0,0
 		size = 200x200
-		anchor1 = none
-		anchor2 = none
 		is-visible = false
-		saved-params = ""
 	elem "mainvsplit"
 		type = CHILD
-		pos = 3,0
-		size = 634x416
+		size = 0x0
 		anchor1 = 0,0
 		anchor2 = 100,100
 		saved-params = "splitter"
 		left = "mapwindow"
 		right = "rpane"
 		is-vert = true
-	elem "input"
-		type = INPUT
-		pos = 3,420
-		size = 477x20
-		anchor1 = 0,100
-		anchor2 = 100,100
-		background-color = #d3b5b5
-		is-default = true
-		border = sunken
-		saved-params = "command"
-	elem "saybutton"
-		type = BUTTON
-		pos = 480,420
-		size = 80x20
-		anchor1 = 100,100
-		anchor2 = none
-		saved-params = "is-checked"
-		text = "Chat"
-		command = ".winset \"saybutton.is-checked=true?input.command=\"!say \\\"\" macrobutton.is-checked=false:input.command=\"\"saybutton.is-checked=true?mebutton.is-checked=false\""
-		button-type = pushbox
-	elem "mebutton"
-		type = BUTTON
-		pos = 560,420
-		size = 80x20
-		anchor1 = 100,100
-		anchor2 = none
-		saved-params = "is-checked"
-		text = "Me"
-		command = ".winset \"mebutton.is-checked=true?input.command=\"!me \\\"\" macrobutton.is-checked=false:input.command=\"\"mebutton.is-checked=true?saybutton.is-checked=false\""
-		button-type = pushbox
 	elem "tooltip"
 		type = BROWSER
-		pos = 0,0
 		size = 999x999
-		anchor1 = none
-		anchor2 = none
 		is-visible = false
-		saved-params = ""
 
 window "mapwindow"
 	elem "mapwindow"
 		type = MAIN
-		pos = 0,0
 		size = 640x480
-		anchor1 = none
-		anchor2 = none
-		saved-params = "pos;size;is-minimized;is-maximized"
-		title = "Map window"
 		is-pane = true
+		on-status = ".winset \"status_bar.text=[[*]]\" "
 	elem "map"
 		type = MAP
-		pos = 0,0
 		size = 640x480
 		anchor1 = 0,0
 		anchor2 = 100,100
@@ -231,208 +162,177 @@ window "mapwindow"
 		text-color = none
 		is-default = true
 		saved-params = "icon-size"
-		style=".center { text-align: center; } .maptext { font-family: 'Small Fonts'; font-size: 7px; -dm-text-outline: 1px black; color: white; line-height: 1.1; } .small { font-size: 6px; } .big { font-size: 8px; } .reallybig { font-size: 8px; } .extremelybig { font-size: 8px; } .clown { color: #FF69Bf;} .tajaran {color: #803B56;} .skrell {color: #00CED1;} .solcom {color: #22228B;} .com_srus {color: #7c4848;} .zombie	{color: #ff0000;} .soghun {color: #228B22;} .vox {color: #AA00AA;} .diona {color: #804000; font-weight: bold;} .trinary {color: #727272;} .kidan {color: #664205;} .slime {color: #0077AA;} .drask {color: #a3d4eb;} .vulpkanin {color: #B97A57;} .abductor {color: #800080; font-style: italic;} .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-weight: bold; }"
+		style = ".center { text-align: center; } .maptext { font-family: 'Small Fonts'; font-size: 7px; -dm-text-outline: 1px black; color: white; line-height: 1.1; } .small { font-size: 6px; } .big { font-size: 8px; } .reallybig { font-size: 8px; } .extremelybig { font-size: 8px; } .clown { color: #FF69Bf;} .tajaran {color: #803B56;} .skrell {color: #00CED1;} .solcom {color: #22228B;} .com_srus {color: #7c4848;} .zombie\t{color: #ff0000;} .soghun {color: #228B22;} .vox {color: #AA00AA;} .diona {color: #804000; font-weight: bold;} .trinary {color: #727272;} .kidan {color: #664205;} .slime {color: #0077AA;} .drask {color: #a3d4eb;} .vulpkanin {color: #B97A57;} .abductor {color: #800080; font-style: italic;} .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-weight: bold; }"
+		on-show = ".winset \"menu.statusbar.is-checked=true?mapwindow.status_bar.is-visible=true:mapwindow.status_bar.is-visible=false\""
+	elem "status_bar"
+		type = LABEL
+		pos = 0,464
+		size = 280x16
+		anchor1 = 0,100
+		anchor2 = -1,-1
+		text-color = #ffffff
+		background-color = #222222
+		border = line
+		text = ""
+		align = left
 
 window "outputwindow"
 	elem "outputwindow"
 		type = MAIN
 		pos = 0,0
-		size = 640x480
-		anchor1 = none
-		anchor2 = none
-		saved-params = "pos;size;is-minimized;is-maximized"
-		title = "Output window"
-		can-close = false
-		can-minimize = false
+		size = 637x480
+		anchor1 = 0,0
+		anchor2 = 100,100
 		is-pane = true
+	elem "input"
+		type = INPUT
+		pos = 3,456
+		size = 467x20
+		anchor1 = 0,100
+		anchor2 = 100,100
+		background-color = #d3b5b5
+		is-default = true
+		border = line
+		saved-params = "command"
+	elem "saybutton"
+		type = BUTTON
+		pos = 474,456
+		size = 80x20
+		anchor1 = 100,100
+		anchor2 = -1,-1
+		text = "Say"
+		command = ".winset \"saybutton.is-checked=true?input.command=\"!say \\\"\" macrobutton.is-checked=false:input.command=\"\"saybutton.is-checked=true?mebutton.is-checked=false\""
+		button-type = pushbox
+	elem "mebutton"
+		type = BUTTON
+		pos = 553,456
+		size = 80x20
+		anchor1 = 100,100
+		anchor2 = -1,-1
+		text = "Me"
+		command = ".winset \"mebutton.is-checked=true ? input.command=\"!me \\\"\" : input.command=\"\"mebutton.is-checked=true ? saybutton.is-checked=false\"\"mebutton.is-checked=true ? oocbutton.is-checked=false\""
+		button-type = pushbox
 	elem "browseroutput"
 		type = BROWSER
 		pos = 0,0
-		size = 640x480
+		size = 633x452
 		anchor1 = 0,0
 		anchor2 = 100,100
 		background-color = #ffffff
 		is-disabled = true
-		saved-params = ""
-		auto-format = false
 
 window "rpane"
 	elem "rpane"
 		type = MAIN
 		pos = 0,0
-		size = 640x480
-		anchor1 = none
-		anchor2 = none
+		size = 0x0
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
 	elem "rpanewindow"
 		type = CHILD
-		pos = -9,15
-		size = 636x449
+		pos = 0,27
+		size = 0x0
 		anchor1 = 0,0
 		anchor2 = 100,100
 		saved-params = "splitter"
+		left = "infowindow"
 		right = "outputwindow"
 		is-vert = false
 	elem "textb"
 		type = BUTTON
 		pos = 0,7
 		size = 60x16
-		anchor1 = none
-		anchor2 = none
-		is-visible = false
 		saved-params = "is-checked"
 		text = "Text"
-		command = ".winset \"rpanewindow.left=;\""
-		is-checked = true
+		command = ".winset \"rpanewindow.top=;\""
 		group = "rpanemode"
 		button-type = pushbox
 	elem "infob"
 		type = BUTTON
-		pos = 64,7
+		pos = 62,7
 		size = 60x16
-		anchor1 = none
-		anchor2 = none
-		is-visible = false
+		is-checked = true
 		saved-params = "is-checked"
 		text = "Info"
-		command = ".winset \"rpanewindow.left=infowindow\""
+		command = ".winset \"rpanewindow.top=infowindow\""
 		group = "rpanemode"
 		button-type = pushbox
 	elem "wikib"
 		type = BUTTON
-		pos = 155,7
-		size = 60x16
-		anchor1 = none
-		anchor2 = none
-		saved-params = "is-checked"
+		pos = 134,7
+		size = 50x16
 		text = "Wiki"
 		command = "wiki"
 	elem "forumb"
 		type = BUTTON
-		pos = 220,7
-		size = 60x16
-		anchor1 = none
-		anchor2 = none
-		saved-params = "is-checked"
+		pos = 186,7
+		size = 50x16
 		text = "Forum"
 		command = "forum"
 	elem "rulesb"
 		type = BUTTON
-		pos = 285,7
-		size = 60x16
-		anchor1 = none
-		anchor2 = none
-		saved-params = "is-checked"
+		pos = 238,7
+		size = 50x16
 		text = "Rules"
 		command = "rules"
 	elem "githubb"
 		type = BUTTON
-		pos = 350,7
-		size = 60x16
-		anchor1 = none
-		anchor2 = none
-		saved-params = "is-checked"
+		pos = 290,7
+		size = 50x16
 		text = "GitHub"
 		command = "github"
+	elem "webmap"
+		type = BUTTON
+		pos = 342,7
+		size = 50x16
+		text = "Map"
+		command = "webmap"
 	elem "changelog"
 		type = BUTTON
-		pos = 415,7
+		pos = 404,7
 		size = 67x16
-		anchor1 = none
-		anchor2 = none
-		saved-params = "is-checked"
 		text = "Changelog"
 		command = "Changelog"
 	elem "discordb"
 		type = BUTTON
-		pos = 487,7
+		pos = 473,7
 		size = 60x16
-		anchor1 = none
-		anchor2 = none
 		font-style = "bold"
 		text-color = #ffffff
 		background-color = #7289da
-		saved-params = "is-checked"
 		text = "Discord"
 		command = "discord"
 	elem "karma"
 		type = BUTTON
-		pos = 552,7
+		pos = 535,7
 		size = 60x16
-		anchor1 = none
-		anchor2 = none
 		font-style = "bold"
 		text-color = #ffffff
 		background-color = #ff4500
-		saved-params = "is-checked"
 		text = "Karma"
 		command = "karmashop"
 	elem "donate"
 		type = BUTTON
-		pos = 617,7
+		pos = 597,7
 		size = 60x16
-		anchor1 = none
-		anchor2 = none
 		font-style = "bold"
 		text-color = #ffffff
 		background-color = #008000
-		saved-params = "is-checked"
 		text = "Donate"
 		command = "Donate"
-	elem "browseb"
-		type = BUTTON
-		pos = 561,7
-		size = 60x16
-		anchor1 = none
-		anchor2 = none
-		is-visible = false
-		saved-params = "is-checked"
-		text = "Browser"
-		command = ".winset \"rpanewindow.left=browserwindow\""
-		group = "rpanemode"
-		button-type = pushbox
-
-window "browserwindow"
-	elem "browserwindow"
-		type = MAIN
-		pos = 0,0
-		size = 640x480
-		anchor1 = none
-		anchor2 = none
-		saved-params = "pos;size;is-minimized;is-maximized"
-		title = "Browser"
-		is-pane = true
-	elem "browser"
-		type = BROWSER
-		pos = 0,0
-		size = 640x499
-		anchor1 = 0,0
-		anchor2 = 100,100
-		is-default = true
-		saved-params = ""
-		on-show = ".winset\"rpane.infob.is-visible=true?rpane.infob.pos=130,7;rpane.textb.is-visible=true;rpane.browseb.is-visible=true;rpane.browseb.is-checked=true;rpane.rpanewindow.pos=0,30;rpane.rpanewindow.size=0x0;rpane.rpanewindow.left=browserwindow\""
-		on-hide = ".winset\"rpane.infob.is-visible=true?rpane.infob.is-checked=true rpane.infob.pos=65,7 rpane.rpanewindow.left=infowindow:rpane.rpanewindow.left=textwindow rpane.textb.is-visible=true rpane.rpanewindow.pos=0,30 rpane.rpanewindow.size=0x0\""
 
 window "infowindow"
 	elem "infowindow"
 		type = MAIN
 		pos = 0,0
-		size = 640x480
-		anchor1 = none
-		anchor2 = none
-		saved-params = "pos;size;is-minimized;is-maximized"
-		title = "Info"
+		size = 0x0
 		is-pane = true
 	elem "info"
 		type = INFO
 		pos = 0,0
-		size = 638x475
+		size = 0x0
 		anchor1 = 0,0
 		anchor2 = 100,100
 		is-default = true
-		saved-params = ""
 		highlight-color = #00aa00
-		on-show = ".winset\"rpane.infob.is-visible=true;rpane.browseb.is-visible=true?rpane.infob.pos=130,7:rpane.infob.pos=65,7 rpane.textb.is-visible=true rpane.infob.is-checked=true rpane.rpanewindow.pos=0,30 rpane.rpanewindow.size=0x0 rpane.rpanewindow.left=infowindow\""
-		on-hide = ".winset\"rpane.infob.is-visible=false;rpane.browseb.is-visible=true?rpane.browseb.is-checked=true rpane.rpanewindow.left=browserwindow:rpane.textb.is-visible=true rpane.rpanewindow.pos=0,30 rpane.rpanewindow.size=0x0 rpane.rpanewindow.left=\""
-
+		on-show = ".winset \"rpane.infob.is-checked=true?rpane.rpanewindow.top=infowindow:rpane.rpanewindow.top=\""

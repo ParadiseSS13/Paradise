@@ -1,4 +1,3 @@
-//generic procs copied from obj/effect/alien
 /obj/structure/spider
 	name = "web"
 	desc = "it's stringy and sticky"
@@ -14,7 +13,7 @@
 
 
 /obj/structure/spider/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee")
+	if(damage_flag == MELEE)
 		switch(damage_type)
 			if(BURN)
 				damage_amount *= 2
@@ -58,6 +57,8 @@
 	icon_state = "eggs"
 	var/amount_grown = 0
 	var/player_spiders = 0
+	///Was this egg laid by a xenobiology mob? Used for mob capping
+	var/xenobiology_spawned = FALSE
 	var/list/faction = list("spiders")
 
 /obj/structure/spider/eggcluster/Initialize(mapload)
@@ -67,15 +68,20 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/spider/eggcluster/process()
-	amount_grown += rand(0,2)
+	if(SSmobs.xenobiology_mobs > MAX_GOLD_CORE_MOBS - 10) //eggs gonna chill out until there is less spiders
+		return
+
+	amount_grown += rand(0, 2)
+
 	if(amount_grown >= 100)
 		var/num = rand(3, 12)
 		for(var/i in 1 to num)
 			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
+			S.xenobiology_spawned = xenobiology_spawned
 			if(player_spiders)
-				S.player_spiders = 1
+				S.player_spiders = TRUE
 		qdel(src)
 
 /obj/structure/spider/spiderling
@@ -92,6 +98,8 @@
 	var/player_spiders = 0
 	var/list/faction = list("spiders")
 	var/selecting_player = 0
+	///Is this spiderling created from a xenobiology mob?
+	var/xenobiology_spawned = FALSE
 
 /obj/structure/spider/spiderling/Initialize(mapload)
 	. = ..()
@@ -168,17 +176,23 @@
 	if(isturf(loc))
 		amount_grown += rand(0,2)
 		if(amount_grown >= 100)
+			if(SSmobs.xenobiology_mobs > MAX_GOLD_CORE_MOBS && xenobiology_spawned)
+				qdel(src)
+				return
 			if(!grow_as)
 				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
+			S.xenobiology_spawned = xenobiology_spawned
+			if(xenobiology_spawned)
+				SSmobs.xenobiology_mobs++
 			if(player_spiders && !selecting_player)
 				selecting_player = 1
 				spawn()
-					var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a giant spider?", ROLE_GSPIDER, TRUE, source = S)
+					var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a giant spider?", ROLE_SENTIENT, TRUE, source = S)
 
-					if(candidates.len)
+					if(length(candidates) && !QDELETED(S))
 						var/mob/C = pick(candidates)
 						if(C)
 							S.key = C.key

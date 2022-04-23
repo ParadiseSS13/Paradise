@@ -115,7 +115,10 @@
 				dat+= "<hr><div style='float:left;'><a href='?src=[UID()];prev_page=1'>Previous Page</a></div>"
 			else
 				// No trailing punctuation so that it's easy to copy and paste the address
-				dat += "We're sorry to break your immersion, but there has been an error with the newscaster. Please report this error, along with any more information you have, to [config.githuburl]/issues/new?template=bug_report.md"
+				if(GLOB.configuration.url.github_url)
+					dat += "We're sorry to break your immersion, but there has been an error with the newscaster. Please report this error, along with any more information you have, to [GLOB.configuration.url.github_url]/issues/new?template=bug_report.md"
+				else
+					dat += "We're sorry to break your immersion, but there has been an error with the newscaster. Unfortunately there is no GitHub URL set in the config. This is really bad."
 
 		dat += "<br><hr><div align='center'>[curr_page+1]</div>"
 		human_user << browse(dat, "window=newspaper_main;size=300x400")

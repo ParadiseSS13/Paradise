@@ -7,6 +7,7 @@
 	desc = "A dropper. Transfers 5 units."
 	icon_state = "dropper"
 	item_state = "dropper"
+	belt_icon = "dropper"
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(1, 2, 3, 4, 5)
 	volume = 5
@@ -115,7 +116,7 @@
 
 /obj/item/reagent_containers/dropper/precision/viral_injector/attack(mob/living/M, mob/living/user, def_zone)
 	if(M.can_inject(user, TRUE))
-		to_chat(user, "<span class='warning'>You stab [M] with the [src].</span>")
+		to_chat(user, "<span class='warning'>You stealthily stab [M] with [src].</span>")
 		if(reagents.total_volume && M.reagents)
 			var/list/injected = list()
 			for(var/datum/reagent/R in reagents.reagent_list)

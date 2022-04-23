@@ -31,19 +31,20 @@
 	return 1
 
 
-/proc/Get_Angle(atom/movable/start,atom/movable/end)//For beams.
-	if(!start || !end) return 0
+/proc/get_angle(atom/movable/start, atom/movable/end)//For beams.
+	if(!start || !end)
+		return 0
 	var/dy
 	var/dx
-	dy=(32*end.y+end.pixel_y)-(32*start.y+start.pixel_y)
-	dx=(32*end.x+end.pixel_x)-(32*start.x+start.pixel_x)
+	dy = (32 * end.y + end.pixel_y) - (32 * start.y + start.pixel_y)
+	dx = (32 * end.x + end.pixel_x) - (32 * start.x + start.pixel_x)
 	if(!dy)
-		return (dx>=0)?90:270
-	.=arctan(dx/dy)
-	if(dy<0)
-		.+=180
-	else if(dx<0)
-		.+=360
+		return (dx >= 0) ? 90 : 270
+	. = arctan(dx / dy)
+	if(dy < 0)
+		. += 180
+	else if(dx < 0)
+		. += 360
 
 //Returns location. Returns null if no location was found.
 /proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = 0, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
@@ -463,12 +464,15 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			if(GLOB.stealthminID[P] == txt)
 				return P
 
-// Returns the atom sitting on the turf.
-// For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
-/proc/get_atom_on_turf(atom/movable/M)
+//Returns the atom sitting on the turf.
+//For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
+//Optional arg 'type' to stop once it reaches a specific type instead of a turf.
+/proc/get_atom_on_turf(atom/movable/M, stop_type)
 	var/atom/loc = M
-	while(loc && loc.loc && !istype(loc.loc, /turf/))
+	while(loc?.loc && !isturf(loc.loc))
 		loc = loc.loc
+		if(stop_type && istype(loc, stop_type))
+			break
 	return loc
 
 /*
@@ -538,10 +542,6 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/y = min(world.maxy, max(1, A.y + dy))
 	return locate(x,y,A.z)
 
-//Makes sure MIDDLE is between LOW and HIGH. If not, it adjusts it. Returns the adjusted value.
-/proc/between(low, middle, high)
-	return max(min(middle, high), low)
-
 //returns random gauss number
 /proc/GaussRand(sigma)
   var/x,y,rsq
@@ -599,12 +599,14 @@ Returns 1 if the chain up to the area contains the given typepath
 
 /proc/is_blocked_turf(turf/T, exclude_mobs)
 	if(T.density)
-		return 1
+		return TRUE
 	for(var/i in T)
 		var/atom/A = i
+		if(isAI(A)) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
+			return TRUE
 		if(A.density && (!exclude_mobs || !ismob(A)))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /proc/get_step_towards2(atom/ref , atom/trg)
 	var/base_dir = get_dir(ref, get_step_towards(ref,trg))
@@ -1246,10 +1248,6 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 				return 1
 	return 0
 
-
-/proc/get_angle(atom/a, atom/b)
-		return atan2(b.y - a.y, b.x - a.x)
-
 /proc/atan2(x, y)
 	if(!x && !y) return 0
 	return y >= 0 ? arccos(x / sqrt(x * x + y * y)) : -arccos(x / sqrt(x * x + y * y))
@@ -1505,68 +1503,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		return 1
 	return 0
 
-//This is just so you can stop an orbit.
-//orbit() can run without it (swap orbiting for A)
-//but then you can never stop it and that's just silly.
-/atom/movable/var/atom/orbiting = null
-/atom/movable/var/cached_transform = null
-//A: atom to orbit
-//radius: range to orbit at, radius of the circle formed by orbiting
-//clockwise: whether you orbit clockwise or anti clockwise
-//rotation_speed: how fast to rotate
-//rotation_segments: the resolution of the orbit circle, less = a more block circle, this can be used to produce hexagons (6 segments) triangles (3 segments), and so on, 36 is the best default.
-//pre_rotation: Chooses to rotate src 90 degress towards the orbit dir (clockwise/anticlockwise), useful for things to go "head first" like ghosts
-//lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels when src gets too far away (eg: ghosts)
-
-/atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lockinorbit = FALSE, forceMove = FALSE)
-	if(!istype(A))
-		return
-
-	if(orbiting)
-		stop_orbit()
-
-	orbiting = A
-	var/matrix/initial_transform = matrix(transform)
-	cached_transform = initial_transform
-	var/lastloc = loc
-
-	//Head first!
-	if(pre_rotation)
-		var/matrix/M = matrix(transform)
-		var/pre_rot = 90
-		if(!clockwise)
-			pre_rot = -90
-		M.Turn(pre_rot)
-		transform = M
-
-	var/matrix/shift = matrix(transform)
-	shift.Translate(0,radius)
-	transform = shift
-
-	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments)
-
-	while(orbiting && orbiting == A && A.loc)
-		var/targetloc = get_turf(A)
-		if(!lockinorbit && loc != lastloc && loc != targetloc)
-			break
-		if(forceMove)
-			forceMove(targetloc)
-		else
-			loc = targetloc
-		lastloc = loc
-		sleep(0.6)
-
-	if(orbiting == A) //make sure we haven't started orbiting something else.
-		orbiting = null
-		SpinAnimation(0, 0)
-		transform = cached_transform
-
-
-
-/atom/movable/proc/stop_orbit()
-	orbiting = null
-	transform = cached_transform
-
 //Centers an image.
 //Requires:
 //The Image
@@ -1781,8 +1717,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/item/robot_parts = "ROBOT_PARTS",
 			/obj/item/seeds = "SEED",
 			/obj/item/slime_extract = "SLIME_CORE",
-			/obj/item/spacepod_equipment/weaponry = "POD_WEAPON",
-			/obj/item/spacepod_equipment = "POD_EQUIP",
 			/obj/item/stack/sheet/mineral = "MINERAL",
 			/obj/item/stack/sheet = "SHEET",
 			/obj/item/stack/tile = "TILE",
@@ -1933,24 +1867,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	return pois
 
-/proc/flash_color(mob_or_client, flash_color="#960000", flash_time=20)
-	var/client/C
-	if(istype(mob_or_client, /mob))
-		var/mob/M = mob_or_client
-		if(M.client)
-			C = M.client
-		else
-			return
-	else if(istype(mob_or_client, /client))
-		C = mob_or_client
-
-	if(!istype(C))
-		return
-
-	C.color = flash_color
-	spawn(0)
-		animate(C, color = initial(C.color), time = flash_time)
-
 #define RANDOM_COLOUR (rgb(rand(0,255),rand(0,255),rand(0,255)))
 
 /proc/make_bit_triplet()
@@ -2071,9 +1987,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	)
 	return _list
 
-/// Waits at a line of code until X is true
-#define UNTIL(X) while(!(X)) sleep(world.tick_lag)
-
 // Check if the source atom contains another atom
 /atom/proc/contains(atom/location)
 	if(!location)
@@ -2085,11 +1998,12 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 /proc/log_connection(ckey, ip, cid, connection_type)
 	ASSERT(connection_type in list(CONNECTION_TYPE_ESTABLISHED, CONNECTION_TYPE_DROPPED_IPINTEL, CONNECTION_TYPE_DROPPED_BANNED, CONNECTION_TYPE_DROPPED_INVALID))
-	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`datetime`, `ckey`, `ip`, `computerid`, `result`) VALUES(Now(), :ckey, :ip, :cid, :result)", list(
+	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO connection_log (`datetime`, `ckey`, `ip`, `computerid`, `result`, `server_id`) VALUES(Now(), :ckey, :ip, :cid, :result, :server_id)", list(
 		"ckey" = ckey,
 		"ip" = "[ip ? ip : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
 		"cid" = cid,
-		"result" = connection_type
+		"result" = connection_type,
+		"server_id" = GLOB.configuration.system.instance_id
 	))
 	query_accesslog.warn_execute()
 	qdel(query_accesslog)
@@ -2145,3 +2059,38 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return slot_wear_pda
 		if(SLOT_TIE)
 			return slot_tie
+
+
+/**
+  * HTTP Get (Powered by RUSTG)
+  *
+  * This proc should be used as a replacement for [world.Export()] due to an underlying issue with it.
+  * See: https://www.byond.com/forum/post/2772166
+  * The one thing you will need to be aware of is that this no longer wraps the response inside a "file", so anything that relies on a file2text() unwrap will need tweaking.
+  * RUST HTTP also has better support for HTTPS as well as weird quirks with modern webservers.
+  * Returns an assoc list that follows the standard [world.Export()] format (https://secure.byond.com/docs/ref/index.html#/world/proc/Export), with the above exception
+  *
+  * Arguments:
+  * * url - URL to GET
+  */
+/proc/HTTPGet(url)
+	var/datum/http_request/req = new()
+	req.prepare(RUSTG_HTTP_METHOD_GET, url)
+	req.begin_async()
+
+	// Check if we are complete
+	UNTIL(req.is_complete())
+	var/datum/http_response/res = req.into_response()
+
+	if(res.errored)
+		. = list() // Return an empty list
+		CRASH("Internal error during HTTP get: [res.error]")
+
+	var/list/output = list()
+	output["STATUS"] = res.status_code
+
+	// Handle changes of line format. ASCII 13 = CR
+	var/content = replacetext(res.body, "[ascii2text(13)]\n", "\n")
+	output["CONTENT"] = content
+
+	return output

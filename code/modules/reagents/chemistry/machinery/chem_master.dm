@@ -88,7 +88,7 @@
 		return
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't use the [name] while it's panel is opened!</span>")
+		to_chat(user, "<span class='warning'>You can't use [src] while it's panel is opened!</span>")
 		return TRUE
 
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))

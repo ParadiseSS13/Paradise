@@ -43,7 +43,7 @@
 			watchlist_show()
 
 		if("hrefs")				//persistant logs and stuff
-			if(config && config.log_hrefs)
+			if(GLOB.configuration.logging.href_logging)
 				if(GLOB.world_href_log)
 					src << browse(file(GLOB.world_href_log), "window=investigate[subject];size=800x300")
 				else

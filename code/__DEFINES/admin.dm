@@ -18,7 +18,6 @@
 #define BANTYPE_JOB_PERMA	3
 #define BANTYPE_JOB_TEMP	4
 #define BANTYPE_ANY_FULLBAN	5 //used to locate stuff to unban.
-#define BANTYPE_APPEARANCE  6
 #define BANTYPE_ADMIN_PERMA	7
 #define BANTYPE_ADMIN_TEMP	8
 
@@ -41,10 +40,11 @@
 #define R_MENTOR		16384
 #define R_PROCCALL		32768
 #define R_VIEWRUNTIMES	65536
+#define R_MAINTAINER	131072
 
-#define R_MAXPERMISSION 65536 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION 131072 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
-#define R_HOST			131071 // Sum of all permissions to allow easy setting
+#define R_HOST			262143 // Sum of all permissions to allow easy setting
 
 #define ADMIN_QUE(user,display) "<a href='?_src_=holder;adminmoreinfo=[user.UID()]'>[display]</a>"
 #define ADMIN_FLW(user,display) "<a href='?_src_=holder;adminplayerobservefollow=[user.UID()]'>[display]</a>"

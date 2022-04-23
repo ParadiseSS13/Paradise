@@ -101,7 +101,7 @@
 		overlays += image('icons/obj/power.dmi', icon_state = "solar_panel-b", layer = FLY_LAYER)
 	else
 		overlays += image('icons/obj/power.dmi', icon_state = "solar_panel", layer = FLY_LAYER)
-		src.dir = angle2dir(adir)
+		set_angle(adir)
 	return
 
 //calculates the fraction of the sunlight that the panel recieves
@@ -191,7 +191,7 @@
 	var/glass_type = null
 
 /obj/item/solar_assembly/attack_hand(mob/user)
-	if(!anchored && isturf(loc)) // You can't pick it up
+	if(!anchored)
 		..()
 
 // Give back the glass type we were supplied with
@@ -298,7 +298,7 @@
 	if(autostart)
 		search_for_connected()
 		if(connected_tracker && track == TRACKER_AUTO)
-			connected_tracker.set_angle(SSsun.angle)
+			connected_tracker.modify_angle(SSsun.angle)
 		set_panels(cdir)
 
 /obj/machinery/power/solar_control/Destroy()
@@ -338,7 +338,7 @@
 		return
 
 	if(track == TRACKER_AUTO && connected_tracker) // auto-tracking
-		connected_tracker.set_angle(SSsun.angle)
+		connected_tracker.modify_angle(SSsun.angle)
 		set_panels(cdir)
 	updateDialog()
 
@@ -352,8 +352,6 @@
 		overlays += "[icon_state]_broken"
 	else
 		overlays += icon_screen
-	if(cdir > -1)
-		overlays += image('icons/obj/computer.dmi', "solcon-o", FLY_LAYER, angle2dir(cdir))
 
 /obj/machinery/power/solar_control/attack_ai(mob/user as mob)
 	add_hiddenprint(user)
@@ -410,7 +408,7 @@
 			track = text2num(params["track"])
 			if(track == TRACKER_AUTO)
 				if(connected_tracker)
-					connected_tracker.set_angle(SSsun.angle)
+					connected_tracker.modify_angle(SSsun.angle)
 					set_panels(cdir)
 			else if(track == TRACKER_TIMED)
 				targetdir = cdir
@@ -420,38 +418,31 @@
 		if("refresh")
 			search_for_connected()
 			if(connected_tracker && track == TRACKER_AUTO)
-				connected_tracker.set_angle(SSsun.angle)
+				connected_tracker.modify_angle(SSsun.angle)
 			set_panels(cdir)
 
-/obj/machinery/power/solar_control/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
-		playsound(src.loc, I.usesound, 50, 1)
-		if(do_after(user, 20 * I.toolspeed, target = src))
-			if(src.stat & BROKEN)
-				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
-				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				new /obj/item/shard( src.loc )
-				var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control( A )
-				for(var/obj/C in src)
-					C.loc = src.loc
-				A.circuit = M
-				A.state = 3
-				A.icon_state = "3"
-				A.anchored = 1
-				qdel(src)
-			else
-				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
-				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control( A )
-				for(var/obj/C in src)
-					C.loc = src.loc
-				A.circuit = M
-				A.state = 4
-				A.icon_state = "4"
-				A.anchored = 1
-				qdel(src)
+/obj/machinery/power/solar_control/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		return
+	var/obj/structure/computerframe/A = new /obj/structure/computerframe(loc)
+	var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control(A)
+	for(var/obj/C in src)
+		C.forceMove(loc)
+	if(stat & BROKEN)
+		to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+		A.state = 4	// STATE_WIRES
+		new /obj/item/shard(drop_location())
 	else
-		return ..()
+		to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+		A.state = 5	// STATE_GLASS
+	A.dir = dir
+	A.circuit = M
+	A.update_icon()
+	A.anchored = TRUE
+	qdel(src)
 
 /obj/machinery/power/solar_control/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

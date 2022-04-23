@@ -60,14 +60,16 @@ GLOBAL_LIST_EMPTY(message_servers)
 	var/active = TRUE
 	var/decryptkey = "password"
 
-/obj/machinery/message_server/New()
+/obj/machinery/message_server/Initialize(mapload)
+	. = ..()
 	GLOB.message_servers += src
 	decryptkey = GenerateKey()
 	send_pda_message("System Administrator", "system", "This is an automated message. The messaging system is functioning correctly.")
-	..()
 
 /obj/machinery/message_server/Destroy()
 	GLOB.message_servers -= src
+	QDEL_LIST(pda_msgs)
+	QDEL_LIST(rc_msgs)
 	return ..()
 
 /obj/machinery/message_server/process()

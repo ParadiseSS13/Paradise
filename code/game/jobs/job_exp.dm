@@ -32,7 +32,6 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_REV = 10,
 	ROLE_OPERATIVE = 20,
 	ROLE_CULTIST = 20,
-	ROLE_RAIDER = 10,
 	ROLE_ALIEN = 10,
 	ROLE_ABDUCTOR = 20,
 ))
@@ -43,7 +42,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	set category = "Special Verbs"
 	set name = "Check my playtime"
 
-	if(!config.use_exp_tracking)
+	if(!GLOB.configuration.jobs.enable_exp_tracking)
 		to_chat(src, "<span class='warning'>Playtime tracking is not enabled.</span>")
 		return
 
@@ -105,14 +104,11 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		return 0
 	if(!role)
 		return 0
-	if(!config.use_exp_restrictions)
+	if(!GLOB.configuration.jobs.enable_exp_restrictions)
 		return 0
-	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, C.mob))
+	if(GLOB.configuration.jobs.enable_exp_admin_bypass && check_rights(R_ADMIN, 0, C.mob))
 		return 0
 	var/list/play_records = params2list(C.prefs.exp)
-	var/isexempt = text2num(play_records[EXP_TYPE_EXEMPT])
-	if(isexempt)
-		return 0
 	var/minimal_player_hrs = GLOB.role_playtime_requirements[role]
 	if(!minimal_player_hrs)
 		return 0
@@ -123,31 +119,52 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	return max(0, req_mins - my_exp)
 
 
-/datum/job/proc/available_in_playtime(client/C)
+/datum/job/proc/is_playable(client/C)
 	if(!C)
-		return 0
-	if(!exp_requirements || !exp_type)
-		return 0
-	if(!config.use_exp_restrictions)
-		return 0
-	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, C.mob))
-		return 0
+		return FALSE // No client
+	if(!length(exp_map))
+		return TRUE // No EXP map, playable
+	if(!GLOB.configuration.jobs.enable_exp_restrictions)
+		return TRUE // No restrictions, playable
+	if(GLOB.configuration.jobs.enable_exp_admin_bypass && check_rights(R_ADMIN, FALSE, C.mob))
+		return TRUE // Admin user, playable
+
+	// Now look through their EXP
 	var/list/play_records = params2list(C.prefs.exp)
-	var/isexempt = text2num(play_records[EXP_TYPE_EXEMPT])
-	if(isexempt)
-		return 0
-	var/my_exp = text2num(play_records[get_exp_req_type()])
-	var/job_requirement = text2num(get_exp_req_amount())
-	if(my_exp >= job_requirement)
-		return 0
-	else
-		return (job_requirement - my_exp)
+	var/success = TRUE
 
-/datum/job/proc/get_exp_req_amount()
-	return exp_requirements
+	// Check their requirements
+	for(var/exp_type in exp_map)
+		if(!(exp_type in play_records))
+			success = FALSE
+			continue
+		if(text2num(exp_map[exp_type]) > text2num(play_records[exp_type]))
+			success = FALSE
 
-/datum/job/proc/get_exp_req_type()
-	return exp_type
+	return success
+
+/datum/job/proc/get_exp_restrictions(client/C)
+	// Its playable. There are no restrictions!
+	if(is_playable(C))
+		return null
+
+	var/list/play_records = params2list(C.prefs.exp)
+	var/list/innertext = list()
+
+	for(var/exp_type in exp_map)
+		if(!(exp_type in play_records))
+			innertext += "[get_exp_format(exp_map[exp_type])] as [exp_type]"
+			continue
+		// You may be saying "Jeez why so many text2num()"
+		// The DB loads these as strings for some reason, and I also dont trust coders to use ints in the job lists properly
+		if(text2num(exp_map[exp_type]) > text2num(play_records[exp_type]))
+			var/diff = text2num(exp_map[exp_type]) - text2num(play_records[exp_type])
+			innertext += "[get_exp_format(diff)] as [exp_type]"
+
+	if(length(innertext))
+		return innertext.Join(", ")
+
+	return null
 
 /mob/proc/get_exp_report()
 	if(client)
@@ -156,7 +173,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		return "[src] has no client."
 
 /client/proc/get_exp_report()
-	if(!config.use_exp_tracking)
+	if(!GLOB.configuration.jobs.enable_exp_tracking)
 		return "Tracking is disabled in the server configuration file."
 	var/list/play_records = params2list(prefs.exp)
 	if(!play_records.len)
@@ -170,23 +187,20 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 			exp_data[category] = 0
 	for(var/dep in exp_data)
 		if(exp_data[dep] > 0)
-			if(dep == EXP_TYPE_EXEMPT)
-				return_text += "<LI>Exempt (all jobs auto-unlocked)</LI>"
-			else if(exp_data[EXP_TYPE_LIVING] > 0)
+			if(exp_data[EXP_TYPE_LIVING] > 0)
 				return_text += "<LI>[dep]: [get_exp_format(exp_data[dep])]</LI>"
-	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, mob))
+	if(GLOB.configuration.jobs.enable_exp_admin_bypass && check_rights(R_ADMIN, 0, mob))
 		return_text += "<LI>Admin</LI>"
 	return_text += "</UL>"
-	if(config.use_exp_restrictions)
+	if(GLOB.configuration.jobs.enable_exp_restrictions)
 		var/list/jobs_locked = list()
 		var/list/jobs_unlocked = list()
 		for(var/datum/job/job in SSjobs.occupations)
-			if(job.exp_requirements && job.exp_type)
-				if(!job.available_in_playtime(mob.client))
+			if(length(job.exp_map))
+				if(job.is_playable(mob.client))
 					jobs_unlocked += job.title
 				else
-					var/xp_req = job.get_exp_req_amount()
-					jobs_locked += "[job.title] ([get_exp_format(text2num(play_records[job.get_exp_req_type()]))] / [get_exp_format(xp_req)] as [job.get_exp_req_type()])"
+					jobs_locked += "[job.title] - [job.get_exp_restrictions(mob.client)]"
 		if(jobs_unlocked.len)
 			return_text += "<BR><BR>Jobs Unlocked:<UL><LI>"
 			return_text += jobs_unlocked.Join("</LI><LI>")

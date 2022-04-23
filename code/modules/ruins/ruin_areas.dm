@@ -42,8 +42,8 @@
 	name = "Crew Quarters"
 	icon_state = "Sleep"
 
-/area/ruin/onehalf/bridge
-	name = "Bridge"
+/area/ruin/onehalf/abandonedbridge
+	name = "Abandoned Bridge"
 	icon_state = "bridge"
 
 // Old tcommsat

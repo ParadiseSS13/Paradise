@@ -89,10 +89,10 @@
 	starting_organ = /obj/item/organ/internal/cyberimp/arm/gun/laser
 
 /obj/item/autosurgeon/organ/syndicate/thermal_eyes
-	starting_organ = /obj/item/organ/internal/eyes/cybernetic/thermals
+	starting_organ = /obj/item/organ/internal/eyes/cybernetic/thermals/hardened
 
 /obj/item/autosurgeon/organ/syndicate/xray_eyes
-	starting_organ = /obj/item/organ/internal/eyes/cybernetic/xray
+	starting_organ = /obj/item/organ/internal/eyes/cybernetic/xray/hardened
 
 /obj/item/autosurgeon/organ/syndicate/anti_stun
 	starting_organ = /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened

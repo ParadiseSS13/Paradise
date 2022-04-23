@@ -9,30 +9,25 @@
 #define UNIT_TESTS
 #endif
 
-#ifdef TESTING
-//#define GC_FAILURE_HARD_LOOKUP	//makes paths that fail to GC call find_references before del'ing.
-									//implies FIND_REF_NO_CHECK_TICK
+/***** All toggles for the GC ref finder *****/
 
-//#define FIND_REF_NO_CHECK_TICK	//Sets world.loop_checks to false and prevents find references from sleeping
+// #define REFERENCE_TRACKING		// Uncomment to enable ref finding
 
-#endif
+// #define GC_FAILURE_HARD_LOOKUP	//makes paths that fail to GC call find_references before del'ing.
+
+// #define FIND_REF_NO_CHECK_TICK	//Sets world.loop_checks to false and prevents find references from sleeping
+
+/***** End toggles for the GC ref finder *****/
 
 #define IS_MODE_COMPILED(MODE) (ispath(text2path("/datum/game_mode/"+(MODE))))
 
-//Don't set this very much higher then 1024 unless you like inviting people in to dos your server with message spam
-#define MAX_MESSAGE_LEN 1024
-#define MAX_PAPER_MESSAGE_LEN 3072
-#define MAX_PAPER_FIELDS 50
-#define MAX_BOOK_MESSAGE_LEN 9216
-#define MAX_NAME_LEN 50 	//diona names can get loooooooong
-
 //Update this whenever you need to take advantage of more recent byond features
-#define MIN_COMPILER_VERSION 513
-#define MIN_COMPILER_BUILD 1514
+#define MIN_COMPILER_VERSION 514
+#define MIN_COMPILER_BUILD 1554
 #if DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD
 //Don't forget to update this part
 #error Your version of BYOND is too out-of-date to compile this project. Go to https://secure.byond.com/download and update.
-#error You need version 513.1514 or higher
+#error You need version 514.1554 or higher
 #endif
 
 // Macros that must exist before world.dm

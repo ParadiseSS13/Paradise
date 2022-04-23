@@ -148,7 +148,7 @@
 
 /mob/living/simple_animal/hostile/mushroom/proc/Bruise()
 	if(!bruised && !stat)
-		src.visible_message("<span class='notice'>The [src.name] was bruised!</span>")
+		src.visible_message("<span class='notice'>[src] was bruised!</span>")
 		bruised = 1
 
 /mob/living/simple_animal/hostile/mushroom/attackby(obj/item/I as obj, mob/user as mob, params)

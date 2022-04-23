@@ -68,8 +68,6 @@
 "ar" = (
 /obj/machinery/chem_heater,
 /obj/machinery/light{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -92,8 +90,6 @@
 /area/shuttle/administration)
 "av" = (
 /obj/structure/chair{
-	tag = "icon-chair (EAST)";
-	icon_state = "chair";
 	dir = 4
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -110,7 +106,6 @@
 	},
 /obj/machinery/camera{
 	dir = 8;
-	icon_state = "camera";
 	name = "NHV Asclepius Lobby";
 	network = list("NHV Asclepius")
 	},
@@ -133,8 +128,6 @@
 "aA" = (
 /obj/machinery/computer/cloning,
 /obj/machinery/light{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -173,8 +166,7 @@
 /area/shuttle/administration)
 "aI" = (
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -188,7 +180,6 @@
 /area/shuttle/administration)
 "aL" = (
 /obj/structure/shuttle/engine/heater{
-	icon_state = "heater";
 	dir = 4
 	},
 /obj/structure/window/plasmareinforced{
@@ -198,8 +189,7 @@
 /area/shuttle/administration)
 "aM" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "propulsion"
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
@@ -249,7 +239,6 @@
 /obj/machinery/reagentgrinder,
 /obj/machinery/camera{
 	dir = 4;
-	icon_state = "camera";
 	name = "NHV Asclepius Chemistry";
 	network = list("NHV Asclepius")
 	},
@@ -269,7 +258,6 @@
 "aV" = (
 /obj/machinery/camera{
 	dir = 8;
-	icon_state = "camera";
 	name = "NHV Asclepius Cloning";
 	network = list("NHV Asclepius")
 	},
@@ -372,7 +360,6 @@
 "bq" = (
 /obj/machinery/camera{
 	c_tag = "Tech Storage";
-	dir = 2;
 	name = "NHV Asclepius Command Center";
 	network = list("NHV Asclepius")
 	},
@@ -385,21 +372,17 @@
 	name = "remote shutter control";
 	pixel_x = -5;
 	pixel_y = 35;
-	req_access = list(101);
-	req_access_txt = "0"
+	req_access = list(101)
 	},
 /obj/machinery/keycard_auth{
 	pixel_y = 24
 	},
 /obj/machinery/door_control{
-	dir = 2;
 	id = "asclblast";
 	name = "blast door control";
 	pixel_x = 5;
 	pixel_y = 35;
-	pixel_z = 0;
-	req_access = list(101);
-	req_access_txt = "0"
+	req_access = list(101)
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -417,7 +400,6 @@
 /area/shuttle/administration)
 "bt" = (
 /obj/structure/sink{
-	icon_state = "sink";
 	dir = 8;
 	pixel_x = -12;
 	pixel_y = 2
@@ -426,8 +408,6 @@
 /area/shuttle/administration)
 "bu" = (
 /obj/machinery/light{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
 	dir = 1
 	},
 /obj/structure/closet/walllocker/emerglocker{
@@ -438,8 +418,6 @@
 "bv" = (
 /obj/machinery/vending/medical,
 /obj/machinery/light{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -466,8 +444,6 @@
 "by" = (
 /obj/machinery/computer/operating,
 /obj/machinery/light{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -505,7 +481,6 @@
 "bG" = (
 /obj/machinery/camera{
 	dir = 4;
-	icon_state = "camera";
 	name = "NHV Asclepius OR 1";
 	network = list("NHV Asclepius")
 	},
@@ -528,9 +503,7 @@
 "bJ" = (
 /obj/structure/sink{
 	dir = 4;
-	icon_state = "sink";
-	pixel_x = 11;
-	pixel_y = 0
+	pixel_x = 11
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -604,7 +577,6 @@
 	},
 /obj/machinery/camera{
 	dir = 5;
-	icon_state = "camera";
 	name = "NHV Asclepius Central";
 	network = list("NHV Asclepius")
 	},
@@ -612,8 +584,7 @@
 /area/shuttle/administration)
 "cb" = (
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /obj/structure/bed{
 	name = "Triage: High Priority"
@@ -641,13 +612,10 @@
 	name = "Canister: \[O2] (CRYO)"
 	},
 /obj/machinery/light{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
 	dir = 1
 	},
 /obj/machinery/camera{
 	dir = 4;
-	icon_state = "camera";
 	name = "NHV Asclepius Cryo";
 	network = list("NHV Asclepius")
 	},
@@ -677,7 +645,6 @@
 "ck" = (
 /obj/machinery/camera{
 	dir = 4;
-	icon_state = "camera";
 	name = "NHV Asclepius OR 2";
 	network = list("NHV Asclepius")
 	},
@@ -731,8 +698,7 @@
 /area/shuttle/administration)
 "cu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5;
-	icon_state = "intact"
+	dir = 5
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -742,15 +708,13 @@
 /area/shuttle/administration)
 "cw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "cx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 9;
-	icon_state = "intact"
+	dir = 9
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)

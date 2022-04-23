@@ -23,6 +23,13 @@ GLOBAL_VAR(chat_debug_log)
 GLOBAL_PROTECT(chat_debug_log)
 GLOBAL_VAR(round_id)
 GLOBAL_PROTECT(round_id)
+GLOBAL_VAR(karma_log)
+GLOBAL_PROTECT(karma_log)
+
+#ifdef REFERENCE_TRACKING
+GLOBAL_VAR(gc_log)
+GLOBAL_PROTECT(gc_log)
+#endif
 
 GLOBAL_LIST_EMPTY(jobMax)
 GLOBAL_PROTECT(jobMax)

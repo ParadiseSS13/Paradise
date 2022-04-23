@@ -30,7 +30,7 @@
 		/obj/item/reagent_containers/food/snacks/tatortot,
 		/obj/item/storage/box/fakesyndiesuit,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
-		/obj/item/toy/figure/syndie,
+		/obj/item/toy/figure/crew/syndie,
 		/obj/item/toy/nuke,
 		/obj/item/toy/plushie/nukeplushie,
 		/obj/item/toy/sword,
@@ -304,7 +304,7 @@
 	U.message_holder("Extraction signal received, agent. [SSmapping.map_datum.fluff_name]'s bluespace transport jamming systems have been sabotaged. "\
 			 	   + "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
-	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), null, 0)
+	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), F, 0, M)
 	P.contract = src
 	P.contractor_mind = M.mind
 	P.target_mind = contract.target
@@ -363,10 +363,20 @@
 		// Greys get to keep their implant
 		if(isgrey(H) && istype(I, /obj/item/organ/internal/cyberimp/brain/speech_translator))
 			continue
+		// IPCs keep this implant, free of charge!
+		if(ismachineperson(H) && istype(I, /obj/item/organ/internal/cyberimp/arm/power_cord))
+			continue
 		// Try removing it
 		I = I.remove(H)
 		if(I)
 			stuff_to_transfer += I
+
+	// Skrell headpocket. They already have a check in place to limit what's placed in them.
+	var/obj/item/organ/internal/headpocket/C = H.get_int_organ(/obj/item/organ/internal/headpocket)
+	if(C?.held_item)
+		GLOB.prisoner_belongings.give_item(C.held_item)
+		victim_belongings += C.held_item
+		C.held_item = null
 
 	// Regular items get removed in second
 	for(var/obj/item/I in M)
@@ -398,6 +408,14 @@
 
 		if(M.unEquip(I))
 			stuff_to_transfer += I
+
+	// Remove accessories from the suit if present
+	if(length(H.w_uniform?.accessories))
+		for(var/obj/item/clothing/accessory/A in H.w_uniform.accessories)
+			A.on_removed(H)
+			H.w_uniform.accessories -= A
+			H.unEquip(A)
+			stuff_to_transfer += A
 
 	// Transfer it all (or drop it if not possible)
 	for(var/i in stuff_to_transfer)

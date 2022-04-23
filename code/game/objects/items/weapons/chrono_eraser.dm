@@ -1,7 +1,7 @@
 #define CHRONO_BEAM_RANGE 3
 #define CHRONO_FRAME_COUNT 22
 /obj/item/chrono_eraser
-	name = "Timestream Eradication Device"
+	name = "\improper Timestream Eradication Device"
 	desc = "The result of outlawed time-bluespace research, this device is capable of wiping a being from the timestream. They never are, they never were, they never will be."
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronobackpack"
@@ -41,7 +41,7 @@
 
 
 /obj/item/gun/energy/chrono_gun
-	name = "T.E.D. Projection Apparatus"
+	name = "\improper T.E.D. Projection Apparatus"
 	desc = "It's as if they never existed in the first place."
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"

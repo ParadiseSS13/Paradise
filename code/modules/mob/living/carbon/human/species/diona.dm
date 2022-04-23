@@ -37,13 +37,13 @@
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
-		"nutrient channel" =   /obj/item/organ/internal/liver/diona,
-		"respiratory vacuoles" =   /obj/item/organ/internal/lungs/diona,
-		"neural strata" =      /obj/item/organ/internal/heart/diona,
+		"liver" =   /obj/item/organ/internal/liver/diona,
+		"lungs" =   /obj/item/organ/internal/lungs/diona,
+		"heart" =      /obj/item/organ/internal/heart/diona,
 		"eyes"			 =      /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
-		"gas bladder" =        /obj/item/organ/internal/brain/diona,
-		"polyp segment" =      /obj/item/organ/internal/kidneys/diona,
-		"anchoring ligament" = /obj/item/organ/internal/appendix/diona
+		"brain" =        /obj/item/organ/internal/brain/diona,
+		"kidneys" =      /obj/item/organ/internal/kidneys/diona,
+		"appendix" = /obj/item/organ/internal/appendix/diona
 		)
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/diona),
@@ -85,7 +85,7 @@
 
 /datum/species/diona/handle_life(mob/living/carbon/human/H)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
-	var/is_vamp = H.mind?.vampire != null
+	var/is_vamp = H.mind && H.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
 		light_amount = min(1, T.get_lumcount()) - 0.5

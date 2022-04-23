@@ -6,13 +6,13 @@
 	throwforce = 10
 	dont_save = TRUE //to avoid it messing up in buildmode saving
 	var/datum/mind/mind
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 
 	/// The zone this mob is currently targeting
 	var/zone_selected = null
 
-	var/obj/screen/hands = null
 	var/obj/screen/pullin = null
 	var/obj/screen/i_select = null
 	var/obj/screen/m_select = null
@@ -111,8 +111,8 @@
 
 	var/move_on_shuttle = 1 // Can move on the shuttle.
 
-
-	var/has_enabled_antagHUD = 0  // Whether antagHUD was ever enabled. Not a true boolean - sometimes it is set to 2, because reasons.
+	/// Whether antagHUD has been enabled previously.
+	var/has_enabled_antagHUD = FALSE
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
 	var/can_change_intents = 1 //all mobs can change intents by default.
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
@@ -199,5 +199,7 @@
 
 	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
 
-	/// The location our runechat message should appear. Should be src by default.
-	var/atom/runechat_msg_location
+	/// Overrides the health HUD element state if set.
+	var/health_hud_override = HEALTH_HUD_OVERRIDE_NONE
+	/// A soft reference to the location where this mob's runechat message will appear. Uses `UID()`.
+	var/runechat_msg_location

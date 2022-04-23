@@ -21,50 +21,28 @@ Thus, the two variables affect pump operation are set in New():
 
 	can_unwrench = 1
 
-	var/on = 0
 	var/transfer_rate = 200
 
 	var/id = null
 
+// So we can CtrlClick without triggering the anchored message.
+/obj/machinery/atmospherics/binary/volume_pump/can_be_pulled(user, grab_state, force, show_message)
+	return FALSE
+
 /obj/machinery/atmospherics/binary/volume_pump/CtrlClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!in_range(src, user) && !issilicon(usr))
-		return
-	if(!ishuman(usr) && !issilicon(usr))
-		return
-	toggle()
+	if(can_use_shortcut(user))
+		toggle(user)
 	return ..()
 
-/obj/machinery/atmospherics/binary/volume_pump/AICtrlClick()
-	toggle()
-	return ..()
+/obj/machinery/atmospherics/binary/volume_pump/AICtrlClick(mob/living/silicon/user)
+	toggle(user)
 
 /obj/machinery/atmospherics/binary/volume_pump/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!in_range(src, user) && !issilicon(usr))
-		return
-	if(!ishuman(usr) && !issilicon(usr))
-		return
-	set_max()
-	return
+	if(can_use_shortcut(user))
+		set_max(user)
 
-/obj/machinery/atmospherics/binary/volume_pump/AIAltClick()
-	set_max()
-	return ..()
-
-/obj/machinery/atmospherics/binary/volume_pump/proc/toggle()
-	if(powered())
-		on = !on
-		update_icon()
-
-/obj/machinery/atmospherics/binary/volume_pump/proc/set_max()
-	if(powered())
-		transfer_rate = MAX_TRANSFER_RATE
-		update_icon()
+/obj/machinery/atmospherics/binary/volume_pump/AIAltClick(mob/living/silicon/user)
+	set_max(user)
 
 /obj/machinery/atmospherics/binary/volume_pump/Destroy()
 	if(SSradio)
@@ -153,9 +131,9 @@ Thus, the two variables affect pump operation are set in New():
 		on = !on
 
 	if(signal.data["set_transfer_rate"])
-		transfer_rate = between(
-			0,
+		transfer_rate = clamp(
 			text2num(signal.data["set_transfer_rate"]),
+			0,
 			air1.volume
 		)
 

@@ -11,7 +11,7 @@
 					if(is_station_level(bomb.z))
 						bomb.r_code = nukecode
 
-			interceptname = "Classified [command_name()] Update"
+			interceptname = "Classified NAS Trurl Update"
 			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Biohazard Alert.</FONT><HR>"
 			intercepttext += "Directive 7-12 has been issued for [station_name()].<BR>"
 			intercepttext += "The biohazard has grown out of control and will soon reach critical mass.<BR>"
@@ -28,7 +28,7 @@
 					to_chat(aiPlayer, "Laws Updated: [law]")
 
 	print_command_report(intercepttext, interceptname, FALSE)
-	GLOB.event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "[command_name()] Update")
+	GLOB.event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "NAS Trurl Update")
 
 /datum/station_state
 	var/floor = 0

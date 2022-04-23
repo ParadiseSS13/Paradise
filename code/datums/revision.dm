@@ -93,10 +93,10 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	msg += "<b>Round ID:</b> [GLOB.round_id ? GLOB.round_id : "NULL"]"
 
 	// Commit info
-	if(GLOB.revision_info.commit_hash && GLOB.revision_info.commit_date)
-		msg += "<b>Server Commit:</b> <a href='[config.githuburl]/commit/[GLOB.revision_info.commit_hash]'>[GLOB.revision_info.commit_hash]</a> (Date: [GLOB.revision_info.commit_date])"
+	if(GLOB.revision_info.commit_hash && GLOB.revision_info.commit_date && GLOB.configuration.url.github_url)
+		msg += "<b>Server Commit:</b> <a href='[GLOB.configuration.url.github_url]/commit/[GLOB.revision_info.commit_hash]'>[GLOB.revision_info.commit_hash]</a> (Date: [GLOB.revision_info.commit_date])"
 		if(GLOB.revision_info.origin_commit && (GLOB.revision_info.commit_hash != GLOB.revision_info.origin_commit))
-			msg += "<b>Origin Commit:</b> <a href='[config.githuburl]/commit/[GLOB.revision_info.origin_commit]'>[GLOB.revision_info.origin_commit]</a>"
+			msg += "<b>Origin Commit:</b> <a href='[GLOB.configuration.url.github_url]/commit/[GLOB.revision_info.origin_commit]'>[GLOB.revision_info.origin_commit]</a>"
 	else
 		msg += "<b>Server Commit:</b> <i>Unable to determine</i>"
 

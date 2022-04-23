@@ -21,7 +21,7 @@
 		return 1
 
 	if(istype(W, /obj/item/screwdriver))
-		to_chat(user, "You begin to unscrew the bolts off the [src]...")
+		to_chat(user, "<span class='notice'>You begin to unscrew the bolts off [src]...</span>")
 		playsound(get_turf(src), W.usesound, 50, 1)
 		if(do_after(user, 30 * W.toolspeed, target = src))
 			var/obj/machinery/mass_driver_frame/F = new(get_turf(src))

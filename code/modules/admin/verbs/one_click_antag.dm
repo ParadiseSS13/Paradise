@@ -19,20 +19,19 @@
 		<a href='?src=[UID()];makeAntag=4'>Make Cult</a><br>
 		<a href='?src=[UID()];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
 		<a href='?src=[UID()];makeAntag=6'>Make Vampires</a><br>
-		<a href='?src=[UID()];makeAntag=7'>Make Vox Raiders (Requires Ghosts)</a><br>
-		<a href='?src=[UID()];makeAntag=8'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
 
 /datum/admins/proc/CandCheck(role = null, mob/living/carbon/human/M, datum/game_mode/temp = null)
   // You pass in ROLE define (optional), the applicant, and the gamemode, and it will return true / false depending on whether the applicant qualify for the candidacy in question
-	if(jobban_isbanned(M, "Syndicate"))
+	if(jobban_isbanned(M, ROLE_SYNDICATE))
 		return FALSE
 	if(M.stat || !M.mind || M.mind.special_role || M.mind.offstation_role)
 		return FALSE
 	if(temp)
-		if((M.mind.assigned_role in temp.restricted_jobs) || (M.client.prefs.species in temp.protected_species))
+		if((M.mind.assigned_role in temp.restricted_jobs) || (M.client.prefs.active_character.species in temp.protected_species))
 			return FALSE
 	if(role) // Don't even bother evaluating if there's no role
 		if(player_old_enough_antag(M.client,role) && (role in M.client.prefs.be_special) && !M.client.skip_antag && (!jobban_isbanned(M, role)))
@@ -45,7 +44,7 @@
 /datum/admins/proc/makeTraitors()
 	var/datum/game_mode/traitor/temp = new
 
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -76,7 +75,7 @@
 /datum/admins/proc/makeChangelings()
 
 	var/datum/game_mode/changeling/temp = new
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -106,7 +105,7 @@
 /datum/admins/proc/makeRevs()
 
 	var/datum/game_mode/revolution/temp = new
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -138,7 +137,7 @@
 	if(confirm != "Yes")
 		return 0
 	var/image/I = new('icons/mob/simple_human.dmi', "wizard")
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Wizard Foundation 'diplomat'?", "wizard", source = I)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", "wizard", source = I)
 
 	log_admin("[key_name(owner)] tried making a Wizard with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a Wizard with One-Click-Antag")
@@ -156,7 +155,7 @@
 /datum/admins/proc/makeCult()
 
 	var/datum/game_mode/cult/temp = new
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -199,7 +198,7 @@
 
 	for(var/mob/G in GLOB.respawnable_list)
 		if(istype(G) && G.client && (ROLE_OPERATIVE in G.client.prefs.be_special))
-			if(!jobban_isbanned(G, "operative") && !jobban_isbanned(G, "Syndicate"))
+			if(!jobban_isbanned(G, ROLE_OPERATIVE) && !jobban_isbanned(G, ROLE_SYNDICATE))
 				if(player_old_enough_antag(G.client,ROLE_OPERATIVE))
 					spawn(0)
 						switch(alert(G,"Do you wish to be considered for a nuke team being sent in?","Please answer in 30 seconds!","Yes","No"))
@@ -316,7 +315,7 @@
 
 		//Generates a list of commandos from active ghosts. Then the user picks which characters to respawn as the commandos.
 		for(var/mob/G in GLOB.respawnable_list)
-			if(!jobban_isbanned(G, "Syndicate"))
+			if(!jobban_isbanned(G, ROLE_SYNDICATE))
 				spawn(0)
 					switch(alert(G,"Do you wish to be considered for an elite syndicate strike team being sent in?","Please answer in 30 seconds!","Yes","No"))
 						if("Yes")
@@ -374,8 +373,8 @@
 	//First we spawn a dude.
 	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))//The mob being spawned.
 
-	var/datum/preferences/A = new(G_found.client)
-	A.copy_to(new_character)
+	// Then clone stuff over
+	G_found.client.prefs.active_character.copy_to(new_character)
 
 	new_character.dna.ready_dna(new_character)
 	new_character.key = G_found.key
@@ -388,13 +387,14 @@
 	var/syndicate_commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
 	var/syndicate_commando_name = pick(GLOB.last_names)
 
-	var/datum/preferences/A = new()//Randomize appearance for the commando.
+	var/datum/character_save/S = new //Randomize appearance for the commando.
+	S.randomise()
 	if(syndicate_leader_selected)
-		A.real_name = "[syndicate_commando_leader_rank] [syndicate_commando_name]"
-		A.age = rand(35,45)
+		S.real_name = "[syndicate_commando_leader_rank] [syndicate_commando_name]"
+		S.age = rand(35, 45)
 	else
-		A.real_name = "[syndicate_commando_rank] [syndicate_commando_name]"
-	A.copy_to(new_syndicate_commando)
+		S.real_name = "[syndicate_commando_rank] [syndicate_commando_name]"
+	S.copy_to(new_syndicate_commando)
 
 	new_syndicate_commando.dna.ready_dna(new_syndicate_commando)//Creates DNA.
 
@@ -409,115 +409,10 @@
 
 	return new_syndicate_commando
 
-/datum/admins/proc/makeVoxRaiders()
-
-	var/list/mob/candidates = list()
-	var/mob/theghost = null
-	var/time_passed = world.time
-	var/input = "Disregard shinies, acquire hardware."
-
-	var/leader_chosen = 0 //when the leader is chosen. The last person spawned.
-
-	var/antnum = input(owner, "How many raiders you want to create? Enter 0 to cancel.","Amount:", 0) as num
-	if(!antnum || antnum <= 0)
-		return
-	log_admin("[key_name(owner)] tried making Vox Raiders with One-Click-Antag")
-	message_admins("[key_name_admin(owner)] tried making Vox Raiders with One-Click-Antag")
-//Generates a list of candidates from active ghosts.
-	for(var/mob/G in GLOB.respawnable_list)
-		if(istype(G) && G.client && (ROLE_RAIDER in G.client.prefs.be_special))
-			if(player_old_enough_antag(G.client,ROLE_RAIDER))
-				if(!jobban_isbanned(G, "raider") && !jobban_isbanned(G, "Syndicate"))
-					spawn(0)
-						switch(alert(G,"Do you wish to be considered for a vox raiding party arriving on the station?","Please answer in 30 seconds!","Yes","No"))
-							if("Yes")
-								if((world.time-time_passed)>300)//If more than 30 game seconds passed.
-									return
-								candidates += G
-							if("No")
-								return
-							else
-								return
-
-	sleep(300) //Debug.
-
-	for(var/mob/dead/observer/G in candidates)
-		if(!G.key)
-			candidates.Remove(G)
-
-	if(candidates.len)
-		var/raiders = min(antnum, candidates.len)
-		//Spawns vox raiders and equips them.
-		for(var/thing in GLOB.landmarks_list)
-			var/obj/effect/landmark/L = thing
-			if(L.name == "voxstart")
-				if(raiders<=0)
-					break
-
-				var/mob/living/carbon/human/new_vox = create_vox_raider(L, leader_chosen)
-
-				while((!theghost || !theghost.client) && candidates.len)
-					theghost = pick(candidates)
-					candidates.Remove(theghost)
-
-				if(!theghost)
-					qdel(new_vox)
-					break
-
-				new_vox.key = theghost.key
-				SSticker.mode.traitors += new_vox.mind
-
-				to_chat(new_vox, "<span class='notice'>You are a Vox Primalis, fresh out of the Shoal. Your ship has arrived at the Tau Ceti system hosting the NSV Exodus... or was it the Luna? NSS? Utopia? Nobody is really sure, but everyong is raring to start pillaging! Your current goal is: <span class='danger'> [input]</span></span>")
-				to_chat(new_vox, "<span class='warning'>Don't forget to turn on your nitrogen internals!</span>")
-
-				raiders--
-	else
-		return 0
-	return 1
-
-/datum/admins/proc/create_vox_raider(obj/spawn_location, leader_chosen = 0)
-
-	var/sounds = rand(2,8)
-	var/i = 0
-	var/newname = ""
-
-	while(i<=sounds)
-		i++
-		newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))
-
-	var/mob/living/carbon/human/new_vox = new /mob/living/carbon/human/vox(spawn_location.loc)
-
-	new_vox.add_language("Tradeband")
-	new_vox.real_name = capitalize(newname)
-	new_vox.dna.real_name = new_vox.real_name
-	new_vox.name = new_vox.real_name
-	new_vox.age = rand(12,20)
-	new_vox.flavor_text = ""
-	new_vox.change_eye_color(rand(1, 255), rand(1, 255), rand(1, 255))
-	new_vox.s_tone = rand(1, 6)
-
-	// Do the initial caching of the player's body icons.
-	new_vox.force_update_limbs()
-	new_vox.update_dna()
-	new_vox.update_eyes()
-
-	for(var/obj/item/organ/external/limb in new_vox.bodyparts)
-		limb.status &= ~ORGAN_ROBOT
-
-	//Now apply cortical stack.
-	var/obj/item/implant/cortical/I = new(new_vox)
-	I.implant(new_vox)
-	GLOB.cortical_stacks += I
-
-	new_vox.equip_vox_raider()
-	new_vox.regenerate_icons()
-
-	return new_vox
-
 /datum/admins/proc/makeVampires()
 
 	var/datum/game_mode/vampire/temp = new
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
@@ -527,8 +422,8 @@
 	if(!antnum || antnum <= 0)
 		return
 
-	log_admin("[key_name(owner)] tried making Vampires with One-Click-Antag")
-	message_admins("[key_name_admin(owner)] tried making Vampires with One-Click-Antag")
+	log_admin("[key_name(owner)] tried making [antnum] Vampires with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] Vampires with One-Click-Antag")
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(CandCheck(ROLE_VAMPIRE, applicant, temp))
@@ -539,7 +434,7 @@
 
 		for(var/i = 0, i<numVampires, i++)
 			H = pick(candidates)
-			H.mind.make_Vampire()
+			H.mind.make_vampire()
 			candidates.Remove(H)
 
 		return 1
@@ -576,7 +471,8 @@
 	if(candidates.len)
 		var/teamOneMembers = 5
 		var/teamTwoMembers = 5
-		var/datum/preferences/A = new()
+		var/datum/character_save/S = new
+		S.randomise()
 		for(var/thing in GLOB.landmarks_list)
 			var/obj/effect/landmark/L = thing
 			if(L.name == "tdome1")
@@ -585,7 +481,7 @@
 
 				var/mob/living/carbon/human/newMember = new(L.loc)
 
-				A.copy_to(newMember)
+				S.copy_to(newMember)
 
 				newMember.dna.ready_dna(newMember)
 
@@ -607,7 +503,7 @@
 
 				var/mob/living/carbon/human/newMember = new(L.loc)
 
-				A.copy_to(newMember)
+				S.copy_to(newMember)
 
 				newMember.dna.ready_dna(newMember)
 

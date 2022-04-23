@@ -18,10 +18,9 @@
 		for(var/mob/living/carbon/C in viewers(T, null))
 			C.flash_eyes()
 
-		for(var/i=1, i<=deliveryamt, i++)
-			var/atom/movable/x = new spawner_type
+		for(var/i in 1 to deliveryamt)
+			var/atom/movable/x = new spawner_type(T)
 			x.admin_spawned = admin_spawned
-			x.loc = T
 			if(prob(50))
 				for(var/j = 1, j <= rand(1, 3), j++)
 					step(x, pick(NORTH,SOUTH,EAST,WEST))

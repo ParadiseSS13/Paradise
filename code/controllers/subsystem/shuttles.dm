@@ -1,5 +1,4 @@
 #define CALL_SHUTTLE_REASON_LENGTH 12
-
 SUBSYSTEM_DEF(shuttle)
 	name = "Shuttle"
 	wait = 10
@@ -38,10 +37,11 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/shoppinglist = list()
 	var/list/requestlist = list()
 	var/list/supply_packs = list()
-	var/datum/round_event/shuttle_loan/shuttle_loan
 	var/sold_atoms = ""
 	var/list/hidden_shuttle_turfs = list() //all turfs hidden from navigation computers associated with a list containing the image hiding them and the type of the turf they are pretending to be
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
+	/// Default refuel delay
+	var/refuel_delay = 20 MINUTES
 
 /datum/controller/subsystem/shuttle/Initialize(start_timeofday)
 	ordernum = rand(1,9000)
@@ -97,7 +97,7 @@ SUBSYSTEM_DEF(shuttle)
 
 /datum/controller/subsystem/shuttle/proc/secondsToRefuel()
 	var/elapsed = world.time - SSticker.round_start_time
-	var/remaining = round((config.shuttle_refuel_delay - elapsed) / 10)
+	var/remaining = round((refuel_delay - elapsed) / 10)
 	return remaining > 0 ? remaining : 0
 
 /datum/controller/subsystem/shuttle/proc/requestEvac(mob/user, call_reason)
@@ -115,7 +115,7 @@ SUBSYSTEM_DEF(shuttle)
 		emergency = backup_shuttle
 
 	if(secondsToRefuel())
-		to_chat(user, "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - SSticker.round_start_time) - config.shuttle_refuel_delay)/600))] minutes before trying again.")
+		to_chat(user, "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - SSticker.round_start_time) - refuel_delay)/600))] minutes before trying again.")
 		return
 
 	switch(emergency.mode)
@@ -174,8 +174,6 @@ SUBSYSTEM_DEF(shuttle)
 	if(emergency.mode != SHUTTLE_CALL)
 		return
 	if(!emergency.canRecall)
-		return
-	if(SSticker.mode.name == "meteor")
 		return
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
 		if(emergency.timeLeft(1) < emergencyCallTime * 0.25)

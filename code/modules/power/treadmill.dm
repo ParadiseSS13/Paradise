@@ -40,7 +40,7 @@
 
 /obj/machinery/power/treadmill/proc/throw_off(atom/movable/A)
 	// if 2fast, throw the person, otherwise they just slide off, if there's reasonable speed at all
-	if(speed)
+	if(speed && A.move_resist < INFINITY)
 		var/dist = max(throw_dist * speed / MAX_SPEED, 1)
 		A.throw_at(get_distant_turf(get_turf(src), reverse_direction(dir), dist), A.throw_range, A.throw_speed, src, 1)
 
@@ -72,9 +72,9 @@
 					if(MOVE_INTENT_RUN)
 						if(M.drowsyness > 0)
 							mob_speed += 6
-						mob_speed += config.run_speed - 1
+						mob_speed += GLOB.configuration.movement.base_run_speed - 1
 					if(MOVE_INTENT_WALK)
-						mob_speed += config.walk_speed - 1
+						mob_speed += GLOB.configuration.movement.base_run_speed - 1
 				mob_speed = BASE_MOVE_DELAY / max(1, BASE_MOVE_DELAY + mob_speed)
 				speed = min(speed + inertia * mob_speed, mob_speed)
 				continue

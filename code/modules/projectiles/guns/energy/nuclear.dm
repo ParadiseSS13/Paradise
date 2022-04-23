@@ -11,6 +11,10 @@
 	flight_y_offset = 10
 	shaded_charge = TRUE
 
+/obj/item/gun/energy/gun/detailed_examine()
+	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. To switch between stun and lethal, click the weapon \
+			in your hand. To recharge this weapon, use a weapon recharger."
+
 /obj/item/gun/energy/gun/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
 
@@ -31,6 +35,7 @@
 	can_flashlight = 0 // Can't attach or detach the flashlight, and override it's icon update
 	actions_types = list(/datum/action/item_action/toggle_gunlight)
 	shaded_charge = FALSE
+	can_holster = TRUE  // Pistol sized, so it should fit into a holster
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
 	gun_light = new /obj/item/flashlight/seclite(src)
@@ -46,26 +51,30 @@
 /obj/item/gun/energy/gun/hos
 	name = "\improper X-01 MultiPhase Energy Gun"
 	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
+	cell_type = /obj/item/stock_parts/cell/hos_gun
 	icon_state = "hoslaser"
 	origin_tech = null
 	force = 10
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler)
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/ion/hos)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	shaded_charge = FALSE
+	can_holster = TRUE
 
 /obj/item/gun/energy/gun/blueshield
-	name = "advanced stun revolver"
-	desc = "An advanced stun revolver with the capacity to shoot both electrodes and lasers."
+	name = "advanced energy revolver"
+	desc = "An advanced energy revolver with the capacity to shoot both disablers and lasers."
+	cell_type = /obj/item/stock_parts/cell/hos_gun
 	icon_state = "bsgun"
 	item_state = "gun"
 	force = 7
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
+	can_holster = TRUE
 
 /obj/item/gun/energy/gun/blueshield/pdw9
-	name = "PDW-9 taser pistol"
+	name = "\improper PDW-9 taser pistol"
 	desc = "A military grade sidearm, used by many militia forces throughout the local sector."
 	icon_state = "pdw9pistol"
 
@@ -93,6 +102,10 @@
 	charge_delay = 5
 	can_charge = 0
 	ammo_x_offset = 1
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/disabler)
+	ammo_type = list(/obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/disabler)
 	selfcharge = 1
 	shaded_charge = FALSE
+
+/obj/item/gun/energy/gun/nuclear/detailed_examine()
+	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. To switch between stun and lethal, click the weapon \
+			in your hand. Unlike most weapons, this weapon recharges itself."

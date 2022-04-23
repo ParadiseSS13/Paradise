@@ -5,8 +5,8 @@
 	icon_state = "headset"
 	item_state = "headset"
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/ears.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/ears.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/ears.dmi'
 		) //We read you loud and skree-er.
 	materials = list(MAT_METAL=75)
 	canhear_range = 0 // can't hear headsets from very far away
@@ -128,17 +128,19 @@
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
 
-/obj/item/radio/headset/headset_sec/alt/brig_phys
-	name = "brig physician bowman headset"
-	ks1type = /obj/item/encryptionkey/headset_med
-
 /obj/item/radio/headset/headset_iaa
+	name = "internal affairs radio headset"
+	desc = "This is used by your elite legal team."
+	icon_state = "sec_headset"
+	item_state = "sec_headset"
+	ks2type = /obj/item/encryptionkey/headset_iaa
+
+/obj/item/radio/headset/headset_iaa/alt
 	name = "internal affairs bowman headset"
 	desc = "This is used by your elite legal team. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
-	ks2type = /obj/item/encryptionkey/headset_iaa
 
 /obj/item/radio/headset/headset_eng
 	name = "engineering radio headset"
@@ -307,11 +309,17 @@
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
+/obj/item/radio/headset/ert/alt/solgov
+	name = "\improper Trans-Solar Federation Marine's bowman headset"
+
 /obj/item/radio/headset/ert/alt/commander
 	name = "ERT commander's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs. Can transmit even if telecomms are down."
 	requires_tcomms = FALSE
 	instant = TRUE
+
+/obj/item/radio/headset/ert/alt/commander/solgov
+	name = "\improper Trans-Solar Federation Lieutenant's bowman headset"
 
 /obj/item/radio/headset/centcom
 	name = "centcom officer's bowman headset"

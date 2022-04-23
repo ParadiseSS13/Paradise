@@ -27,10 +27,10 @@
 
 /obj/item/badminBook/attack_self(mob/living/user as mob)
 	if(user.middleClickOverride)
-		to_chat(user, "<span class='warning'>You try to draw power from the [src], but you cannot hold the power at this time!</span>")
+		to_chat(user, "<span class='warning'>You try to draw power from [src], but you cannot hold the power at this time!</span>")
 		return
 	user.middleClickOverride = clickBehavior
-	to_chat(user, "<span class='notice'>You draw a bit of power from the [src], you can use <b>middle click</b> or <b>alt click</b> to release the power!</span>")
+	to_chat(user, "<span class='notice'>You draw a bit of power from [src], you can use <b>middle click</b> or <b>alt click</b> to release the power!</span>")
 
 /datum/middleClickOverride/badminClicker
 	var/summon_path = /obj/item/reagent_containers/food/snacks/cookie
@@ -71,8 +71,10 @@
 		if(isliving(target_atom))
 			var/mob/living/L = target_atom
 			if(user.a_intent == INTENT_DISARM)
+				add_attack_logs(user, L, "shocked and weakened with power gloves")
 				L.Weaken(3)
 			else
+				add_attack_logs(user, L, "electrocuted with[P.unlimited_power ? " unlimited" : null] power gloves")
 				if(P.unlimited_power)
 					L.electrocute_act(1000, P, flags = SHOCK_NOGLOVES) //Just kill them
 				else

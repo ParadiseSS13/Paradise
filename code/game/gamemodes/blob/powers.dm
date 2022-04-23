@@ -231,14 +231,12 @@
 	var/mob/living/simple_animal/hostile/blob/blobbernaut/blobber = new /mob/living/simple_animal/hostile/blob/blobbernaut (get_turf(B))
 	if(blobber)
 		qdel(B)
-	blobber.color = blob_reagent_datum.complementary_color
-	blobber.overmind = src
-	blob_mobs.Add(blobber)
+	add_mob_to_overmind(blobber)
 	blobber.AIStatus = AI_OFF
 	blobber.LoseTarget()
 	spawn()
-		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blobbernaut?", ROLE_BLOB, TRUE, 10 SECONDS, source = blobber)
-		if(candidates.len)
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blobbernaut?", ROLE_BLOB, TRUE, 10 SECONDS, source = blobber, role_cleanname = "blobbernaut")
+		if(length(candidates) && !QDELETED(blobber))
 			var/mob/C = pick(candidates)
 			if(C)
 				blobber.key = C.key

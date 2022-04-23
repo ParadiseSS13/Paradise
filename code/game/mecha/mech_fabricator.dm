@@ -461,39 +461,6 @@
 	RefreshParts()
 
 /**
-  * # Spacepod Fabricator
-  *
-  * Spacepod variant of [/obj/machinery/mecha_part_fabricator].
-  */
-/obj/machinery/mecha_part_fabricator/spacepod
-	name = "spacepod fabricator"
-	allowed_design_types = PODFAB
-	req_access = list(ACCESS_MECHANIC)
-
-/obj/machinery/mecha_part_fabricator/spacepod/New()
-	..()
-	QDEL_LIST(component_parts)
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/podfab(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	RefreshParts()
-
-/obj/machinery/mecha_part_fabricator/spacepod/Initialize(mapload)
-	. = ..()
-	categories = list(
-		"Pod_Weaponry",
-		"Pod_Armor",
-		"Pod_Cargo",
-		"Pod_Parts",
-		"Pod_Frame",
-		"Misc"
-	)
-
-/**
   * # Robotic Fabricator
   *
   * Cyborgs-only variant of [/obj/machinery/mecha_part_fabricator].

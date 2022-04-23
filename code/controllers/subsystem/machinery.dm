@@ -20,6 +20,12 @@ SUBSYSTEM_DEF(machines)
 	fire()
 	return ..()
 
+/datum/controller/subsystem/machines/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["processing"] = length(processing)
+	.["custom"] = cust
+
 /datum/controller/subsystem/machines/proc/makepowernets()
 	for(var/datum/powernet/PN in powernets)
 		qdel(PN)

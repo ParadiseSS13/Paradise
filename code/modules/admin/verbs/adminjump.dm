@@ -66,7 +66,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Area") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/jumptoturf(turf/T in world)
-	set name = "Jump to Turf"
+	set name = "\[Admin\] Jump to Turf"
 	set category = null
 
 	if(!check_rights(R_ADMIN))
@@ -135,7 +135,7 @@
 
 /client/proc/Getmob(mob/M in GLOB.mob_list)
 	set category = null
-	set name = "Get Mob"
+	set name = "\[Admin\] Get Mob"
 	set desc = "Mob to teleport"
 
 	if(!check_rights(R_ADMIN))
@@ -152,7 +152,7 @@
 
 /client/proc/Getkey()
 	set category = null
-	set name = "Get Key"
+	set name = "\[Admin\] Get Key"
 	set desc = "Key to teleport"
 
 	if(!check_rights(R_ADMIN))

@@ -9,7 +9,7 @@
 
 	var/mapping = 0 // For the overview file (overview.dm), not used on this page
 
-	var/list/network = list()
+	var/list/network = list("SS13","Mining Outpost")
 	var/obj/machinery/camera/active_camera
 	var/list/watchers = list()
 

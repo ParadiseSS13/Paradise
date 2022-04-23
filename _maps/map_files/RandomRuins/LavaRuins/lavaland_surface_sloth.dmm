@@ -8,13 +8,11 @@
 "c" = (
 /obj/item/paper/fluff/stations/lavaland/sloth/note,
 /turf/simulated/floor/sepia{
-	blocks_air = 0;
 	slowdown = 10
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "d" = (
 /turf/simulated/floor/sepia{
-	blocks_air = 0;
 	slowdown = 10
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -22,7 +20,6 @@
 /obj/machinery/door/airlock/wood,
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/sepia{
-	blocks_air = 0;
 	slowdown = 10
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -30,7 +27,6 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange,
 /turf/simulated/floor/sepia{
-	blocks_air = 0;
 	slowdown = 10
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -38,14 +34,12 @@
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
 /turf/simulated/floor/sepia{
-	blocks_air = 0;
 	slowdown = 10
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "h" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/sepia{
-	blocks_air = 0;
 	slowdown = 10
 	},
 /area/ruin/unpowered/misc_lavaruin)

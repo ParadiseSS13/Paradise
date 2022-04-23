@@ -66,6 +66,12 @@ SUBSYSTEM_DEF(air)
 	msg += "AT/MS:[round((cost ? active_turfs.len/cost : 0),0.1)]"
 	..(msg)
 
+/datum/controller/subsystem/air/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["active_turfs"] = length(active_turfs)
+	cust["hotspots"] = length(hotspots)
+	.["custom"] = cust
 
 /datum/controller/subsystem/air/Initialize(timeofday)
 	setup_overlays() // Assign icons and such for gas-turf-overlays

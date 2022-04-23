@@ -60,7 +60,7 @@
 	 // No. of player - Min. Player to dec, divided by player per bonus, then multipled by TC per bonus. Rounded.
 	total_tc = CHALLENGE_TELECRYSTALS + round((((GLOB.player_list.len - CHALLENGE_MIN_PLAYERS)/CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS))
 	share_telecrystals()
-	config.shuttle_refuel_delay = CHALLENGE_SHUTTLE_DELAY
+	SSshuttle.refuel_delay = CHALLENGE_SHUTTLE_DELAY
 	qdel(src)
 
 /obj/item/nuclear_challenge/proc/share_telecrystals()

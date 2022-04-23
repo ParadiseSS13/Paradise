@@ -344,7 +344,10 @@
 /obj/machinery/hydroponics/examine(user)
 	. = ..()
 	if(myseed)
-		. += "<span class='info'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
+		if(myseed.variant)
+			. += "<span class='info'>It has the <span class='name'>[myseed.variant]</span> variant of <span class='name'>[myseed.plantname]</span> planted.</span>"
+		else
+			. += "<span class='info'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
 		if (dead)
 			. += "<span class='warning'>It's dead!</span>"
 		else if (harvest)
@@ -875,7 +878,8 @@
 			plant_hud_set_status()
 		adjustWeeds(-10) //Has a side effect of cleaning up those nasty weeds
 		update_icon()
-
+	else if(istype(O, /obj/item/pen) && myseed)
+		myseed.variant_prompt(user, src)
 	else
 		return ..()
 

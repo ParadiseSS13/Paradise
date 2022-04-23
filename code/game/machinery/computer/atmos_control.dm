@@ -59,10 +59,7 @@
 		return TRUE
 	if("toggle_bolts" in href_list)
 		bolts = !bolts
-		if(bolts)
-			visible_message("You hear a quite click as the [src] bolts to the floor", "You hear a quite click")
-		else
-			visible_message("You hear a quite click as the [src]'s floor bolts raise", "You hear a quite click")
+		visible_message("<span class='notice'>You hear a quiet click as [src][bolts ? " bolts to the floor" : "'s bolts raise"].</span>", "<span class='notice>You hear a quiet click.</span>")
 		return TRUE
 
 /obj/machinery/air_sensor/attackby(obj/item/W as obj, mob/user as mob)
@@ -71,7 +68,7 @@
 		return 1
 	if(istype(W, /obj/item/wrench))
 		if(bolts)
-			to_chat(usr, "The [src] is bolted to the floor! You can't detach it like this.")
+			to_chat(usr, "[src] is bolted to the floor! You can't detach it like this.")
 			return 1
 		playsound(loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
@@ -549,7 +546,7 @@
 	if(href_list["out_set_pressure"])
 		var/response=input(usr,"Set new pressure, in kPa. \[0-[50*ONE_ATMOSPHERE]\]") as num
 		pressure_setting = text2num(response)
-		pressure_setting = between(0, pressure_setting, 50*ONE_ATMOSPHERE)
+		pressure_setting = clamp(pressure_setting, 0, 50*ONE_ATMOSPHERE)
 
 	if(!radio_connection)
 		return 0

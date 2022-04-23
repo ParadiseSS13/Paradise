@@ -58,7 +58,7 @@
 /mob/living/simple_animal/hostile/mimic/crate/DestroyPathToTarget()
 	..()
 	if(prob(90))
-		icon_state = "[initial(icon_state)]open"
+		icon_state = "[initial(icon_state)]_open"
 	else
 		icon_state = initial(icon_state)
 

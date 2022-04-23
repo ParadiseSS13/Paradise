@@ -308,7 +308,7 @@
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
-						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G,"Syndicate")))
+						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G, ROLE_SYNDICATE)))
 							if(override_age || player_old_enough_antag(G.client,be_special_type))
 								candidates += G.client
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt
@@ -324,7 +324,7 @@
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
-						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G,"Syndicate")))
+						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G, ROLE_SYNDICATE)))
 							if(override_age || player_old_enough_antag(G.client,be_special_type))
 								candidates += G
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt

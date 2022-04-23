@@ -13,7 +13,6 @@
 
 	req_one_access_txt = "24;10"
 
-	var/on = 0
 	var/injecting = 0
 
 	var/volume_rate = 50
@@ -29,6 +28,10 @@
 	..()
 	if(id && !id_tag)//I'm not dealing with any more merge conflicts
 		id_tag = id
+
+/obj/machinery/atmospherics/unary/outlet_injector/detailed_examine()
+	return "Outputs the pipe's gas into the atmosphere, similar to an air vent. It can be controlled by a nearby atmospherics computer. \
+			A green light on it means it is on."
 
 /obj/machinery/atmospherics/unary/outlet_injector/Destroy()
 	if(SSradio)
@@ -135,7 +138,7 @@
 
 	if(signal.data["set_volume_rate"] != null)
 		var/number = text2num(signal.data["set_volume_rate"])
-		volume_rate = between(0, number, air_contents.volume)
+		volume_rate = clamp(number, 0, air_contents.volume)
 
 	if(signal.data["status"])
 		broadcast_status()

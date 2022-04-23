@@ -178,7 +178,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_y = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
@@ -331,7 +330,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_y = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -345,7 +343,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_y = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
@@ -511,9 +508,7 @@
 /area/ruin/powered)
 "TM" = (
 /obj/structure/chair/office/dark{
-	dir = 4;
-	icon_state = "officechair_dark";
-	tag = "icon-officechair_dark (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)

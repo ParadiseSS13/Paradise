@@ -28,6 +28,11 @@
 		if(GIRDER_DISASSEMBLED)
 			. += "<span class='notice'>[src] is disassembled! You probably shouldn't be able to see this examine message.</span>"
 
+/obj/structure/girder/detailed_examine()
+	return "Use metal sheets on this to build a normal wall. Adding plasteel instead will make a reinforced wall.<br>\
+			A false wall can be made by using a crowbar on this girder, and then adding metal or plasteel.<br>\
+			You can dismantle the girder with a wrench."
+
 /obj/structure/girder/proc/refundMetal(metalAmount) //refunds metal used in construction when deconstructed
 	for(var/i=0;i < metalAmount;i++)
 		new metal_type(get_turf(src))
@@ -404,6 +409,9 @@
 	state = GIRDER_REINF
 	girderpasschance = 0
 	max_integrity = 350
+
+/obj/structure/girder/reinforced/detailed_examine()
+	return "Add another sheet of plasteel to finish."
 
 /obj/structure/girder/cult
 	name = "runed girder"

@@ -30,9 +30,9 @@
 	alpha = 255
 
 	switch(dir)
-		if(SOUTH || NORTH)
+		if(SOUTH, NORTH)
 			initialize_directions = SOUTH|NORTH
-		if(EAST || WEST)
+		if(EAST, WEST)
 			initialize_directions = EAST|WEST
 		if(NORTHEAST)
 			initialize_directions = NORTH|EAST
@@ -68,7 +68,8 @@
 							break
 
 		var/turf/T = loc			// hide if turf is not intact
-		hide(T.intact)
+		if(!T.transparent_floor)
+			hide(T.intact)
 		update_icon()
 
 /obj/machinery/atmospherics/pipe/simple/check_pressure(pressure)

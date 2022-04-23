@@ -49,6 +49,18 @@
 	..()
 	D.set_light(4)
 
+/datum/dog_fashion/head/hardhat
+	name = "Engineer REAL_NAME"
+	desc = "Trust him, he's an engineer."
+
+/datum/dog_fashion/head/hardhat/white
+	name = "Chief engineer REAL_NAME"
+	desc = "Hasn't delamed the engine once."
+
+/datum/dog_fashion/head/hardhat/red
+	name = "Fire chief REAL_NAME"
+	desc = "Some days you're the dog, some days you're the hydrant."
+
 /datum/dog_fashion/head/helmet
 	name = "Sergeant REAL_NAME"
 	desc = "The ever-loyal, the ever-vigilant."

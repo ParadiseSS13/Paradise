@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(icon_smooth)
 	while(smooth_queue.len)
 		var/atom/A = smooth_queue[smooth_queue.len]
 		smooth_queue.len--
-		smooth_icon(A)
+		A.smooth_icon()
 		if(MC_TICK_CHECK)
 			return
 	if(!smooth_queue.len)
@@ -22,12 +22,12 @@ SUBSYSTEM_DEF(icon_smooth)
 	log_startup_progress("Smoothing atoms...")
 	// Smooth EVERYTHING in the world
 	for(var/turf/T in world)
-		if(T.smooth)
-			smooth_icon(T)
+		if(T.smoothing_flags)
+			T.smooth_icon()
 		for(var/A in T)
 			var/atom/AA = A
-			if(AA.smooth)
-				smooth_icon(AA)
+			if(AA.smoothing_flags)
+				AA.smooth_icon()
 				CHECK_TICK
 
 	// Incase any new atoms were added to the smoothing queue for whatever reason
@@ -37,7 +37,19 @@ SUBSYSTEM_DEF(icon_smooth)
 		var/atom/A = V
 		if(!A || A.z <= 2)
 			continue
-		smooth_icon(A)
+		A.smooth_icon()
 		CHECK_TICK
 
 	return ..()
+
+/datum/controller/subsystem/icon_smooth/proc/add_to_queue(atom/thing)
+	if(thing.smoothing_flags & SMOOTH_QUEUED)
+		return
+	thing.smoothing_flags |= SMOOTH_QUEUED
+	smooth_queue += thing
+	if(!can_fire)
+		can_fire = TRUE
+
+/datum/controller/subsystem/icon_smooth/proc/remove_from_queues(atom/thing)
+	thing.smoothing_flags &= ~SMOOTH_QUEUED
+	smooth_queue -= thing

@@ -78,7 +78,7 @@
 	var/control_freq = BOT_FREQ		// bot control frequency
 	var/bot_filter 				// The radio filter the bot uses to identify itself on the network.
 	var/bot_type = 0 //The type of bot it is, for radio control.
-	var/data_hud_type = DATA_HUD_DIAGNOSTIC //The type of data HUD the bot uses. Diagnostic by default.
+	var/data_hud_type = DATA_HUD_DIAGNOSTIC_BASIC //The type of data HUD the bot uses. Diagnostic by default.
 	//This holds text for what the bot is mode doing, reported on the remote bot control interface.
 	var/list/mode_name = list("In Pursuit","Preparing to Arrest", "Arresting", \
 	"Beginning Patrol", "Patrolling", "Summoned by PDA", \
@@ -139,12 +139,22 @@
 	update_controls()
 
 /mob/living/simple_animal/bot/New()
+	/*
+		HEY! LISTEN!
+
+		I see you're poking the the bot/New() proc
+		Assuming you are converting this to Initialize() [yay], please see my note in
+		code\game\jobs\job\job.dm | /datum/job/proc/get_access()
+
+		Theres a useless check that bugs me but needs to exist because these things New()
+		-AA07
+	*/
 	..()
 	GLOB.bots_list += src
 	icon_living = icon_state
 	icon_dead = icon_state
 	access_card = new /obj/item/card/id(src)
-//This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
+	//This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	access_card.access += ACCESS_ROBOTICS
 	set_custom_texts()
 	Radio = new/obj/item/radio/headset/bot(src)
@@ -290,7 +300,7 @@
 	if(M.melee_damage_upper == 0)
 		return
 	apply_damage(M.melee_damage_upper, BRUTE)
-	visible_message("<span class='danger'>[M] has [M.attacktext] [src]!</span>")
+	visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>")
 	add_attack_logs(M, src, "Animal attacked", ATKLOG_ALL)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
@@ -527,19 +537,16 @@ Pass a positive integer as an argument to override a bot's default speed.
 	bot_reset() //Reset a bot before setting it to call mode.
 	var/area/end_area = get_area(waypoint)
 
-	//For giving the bot temporary all-access.
-	var/obj/item/card/id/all_access = new /obj/item/card/id
 	var/datum/job/captain/All = new/datum/job/captain
-	all_access.access = All.get_access()
+	access_card.access = All.get_access() // Give the bot temporary all access
 
-	set_path(get_path_to(src, waypoint, /turf/proc/Distance_cardinal, 0, 200, id=all_access))
+	set_path(get_path_to(src, waypoint, /turf/proc/Distance_cardinal, 0, 200, id = access_card))
 	calling_ai = caller //Link the AI to the bot!
 	ai_waypoint = waypoint
 
 	if(path && path.len) //Ensures that a valid path is calculated!
 		if(!on)
 			turn_on() //Saves the AI the hassle of having to activate a bot manually.
-		access_card = all_access //Give the bot all-access while under the AI's command.
 		if(client)
 			reset_access_timer_id = addtimer(CALLBACK (src, .proc/bot_reset), 600, TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
 			to_chat(src, "<span class='notice'><span class='big'>Priority waypoint set by [calling_ai] <b>[caller]</b>. Proceed to <b>[end_area.name]</b>.</span><br>[path.len-1] meters to destination. You have been granted additional door access for 60 seconds.</span>")
@@ -552,6 +559,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		if(message)
 			to_chat(calling_ai, "<span class='danger'>Failed to calculate a valid route. Ensure destination is clear of obstructions and within range.</span>")
 		calling_ai = null
+		access_card.access = prev_access // Don't forget to reset it
 		set_path(null)
 
 /mob/living/simple_animal/bot/proc/call_mode() //Handles preparing a bot for a call, as well as calling the move proc.
@@ -1069,6 +1077,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(newpath)
 		for(var/i in 1 to newpath.len)
 			var/turf/T = newpath[i]
+			if(T == loc) //don't bother putting an image if it's where we already exist.
+				continue
 			var/direction = NORTH
 			if(i > 1)
 				var/turf/prevT = path[i - 1]
@@ -1111,7 +1121,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		return
 	var/image/I = path[path[1]]
 	if(I)
-		I.icon = null
+		I.icon_state = null
 	path.Cut(1, 2)
 
 /mob/living/simple_animal/bot/proc/drop_part(obj/item/drop_item, dropzone)

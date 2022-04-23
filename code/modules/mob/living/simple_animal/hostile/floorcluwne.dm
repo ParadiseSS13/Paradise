@@ -81,8 +81,8 @@
 	pixel_y = 8
 
 	if(is_type_in_typecache(get_area(loc), invalid_area_typecache))
-		var/area = pick(GLOB.teleportlocs)
-		var/area/tp = GLOB.teleportlocs[area]
+		var/area = pick(SSmapping.teleportlocs)
+		var/area/tp = SSmapping.teleportlocs[area]
 		forceMove(pick(get_area_turfs(tp.type)))
 
 	if((!current_victim && !admincluwne) || QDELETED(current_victim))

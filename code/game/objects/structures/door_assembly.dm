@@ -226,7 +226,7 @@
 		return
 	if(mineral)
 		var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
-		visible_message("<span class='notice'>[user] welds the [mineral] plating off [src].</span>",\
+		user.visible_message("<span class='notice'>[user] welds the [mineral] plating off [src].</span>",\
 			"<span class='notice'>You start to weld the [mineral] plating off [src]...</span>",\
 			"<span class='warning'>You hear welding.</span>")
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
@@ -236,7 +236,7 @@
 		var/obj/structure/door_assembly/PA = new previous_assembly(loc)
 		transfer_assembly_vars(src, PA)
 	else if(glass)
-		visible_message("<span class='notice'>[user] welds the glass panel out of [src].</span>",\
+		user.visible_message("<span class='notice'>[user] welds the glass panel out of [src].</span>",\
 			"<span class='notice'>You start to weld the glass panel out of the [src]...</span>",\
 			"<span class='warning'>You hear welding.</span>")
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume))

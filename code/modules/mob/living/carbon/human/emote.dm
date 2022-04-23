@@ -124,6 +124,11 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 
+		if("flap", "flaps", "aflap", "aflaps","flutter", "flutters")
+			if(!ismoth(src))
+				return
+			on_CD = handle_emote_CD()
+
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
@@ -133,6 +138,8 @@
 		if("gasp", "gasps")
 			on_CD = handle_emote_CD()
 		if("deathgasp", "deathgasps")
+			on_CD = handle_emote_CD(50)
+		if("spin", "spins")
 			on_CD = handle_emote_CD(50)
 		if("sneeze", "sneezes")
 			on_CD = handle_emote_CD()
@@ -281,11 +288,10 @@
 			m_type = 1
 
 		if("wag", "wags")
-			if(body_accessory)
+			if(istype(body_accessory, /datum/body_accessory/tail))
 				if(body_accessory.try_restrictions(src))
 					message = "<B>[src]</B> starts wagging [p_their()] tail."
 					start_tail_wagging()
-
 			else if(dna.species.bodyflags & TAIL_WAGGING)
 				if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL))
 					message = "<B>[src]</B> starts wagging [p_their()] tail."
@@ -297,7 +303,7 @@
 			m_type = 1
 
 		if("swag", "swags")
-			if(dna.species.bodyflags & TAIL_WAGGING || body_accessory)
+			if((dna.species.bodyflags & TAIL_WAGGING) || istype(body_accessory, /datum/body_accessory/tail))
 				message = "<B>[src]</B> stops wagging [p_their()] tail."
 				stop_tail_wagging()
 			else
@@ -390,11 +396,16 @@
 					to_chat(usr, "You need your hands working in order to clap.")
 
 		if("flap", "flaps")
-			if(!restrained())
-				message = "<B>[src]</B> flaps [p_their()] wings."
-				m_type = 2
-				if(miming)
-					m_type = 1
+			message = "<B>[src]</B> flaps [p_their()] wings."
+			m_type = 2
+			if(miming)
+				m_type = 1
+
+		if("flutter", "flutters")
+			message = "<B>[src]</B> flutters [p_their()] wings."
+			m_type = 2
+			if(miming)
+				m_type = 1
 
 		if("flip", "flips")
 			m_type = 1
@@ -443,12 +454,21 @@
 								message = "<B>[src]</B> does a flip!"
 								SpinAnimation(5,1)
 
+		if("spin", "spins")
+			if(!incapacitated(ignore_lying = TRUE))
+				if(prob(5))
+					spin(32, 1)
+					to_chat(src, "<span class='warning'>You spin too much!</span>")
+					Dizzy(12)
+					Confused(12)
+				else
+					spin(20, 1)
+
 		if("aflap", "aflaps")
-			if(!restrained())
-				message = "<B>[src]</B> flaps [p_their()] wings ANGRILY!"
-				m_type = 2
-				if(miming)
-					m_type = 1
+			message = "<B>[src]</B> flaps [p_their()] wings ANGRILY!"
+			m_type = 2
+			if(miming)
+				m_type = 1
 
 		if("drool", "drools")
 			message = "<B>[src]</B> drools."
@@ -947,13 +967,13 @@
 					return
 
 		if("help")
-			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-none/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s), cry, cries, custom, dance, dap(s)-none/mob," \
-			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-none/mob, grin(s), groan(s), grumble(s), grin(s)," \
+			var/emotelist = "airguitar, blink(s), blink(s)_r, blush(es), bow(s)-none/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s), cry, cries, custom, dance, dap(s)-none/mob," \
+			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-none/mob, grin(s), groan(s), grumble(s), grin(s)," \
 			+ " handshake-mob, hug(s)-none/mob, hem, highfive, johnny, jump, kiss(es), laugh(s), look(s)-none/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-none/mob, scream(s), shake(s)," \
-			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10, slap(s), smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-none/mob, tremble(s), twitch(es), twitch(es)_s," \
+			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10, slap(s), smile(s),snap(s), sneeze(s), sniff(s), snore(s), spin(s) stare(s)-none/mob, tremble(s), twitch(es), twitch(es)_s," \
 			+ " wave(s), whimper(s), wink(s), yawn(s)"
 
-			switch(dna.species.name)
+			switch(dna.species.name) //dear future coders, do not use strings like this
 				if("Diona")
 					emotelist += "\n<u>Diona specific emotes</u> :- creak(s)"
 				if("Drask")
@@ -974,6 +994,8 @@
 					emotelist += "\n<u>Plasmaman specific emotes</u> :- rattle(s)-none/mob"
 				if("Skeleton")
 					emotelist += "\n<u>Skeleton specific emotes</u> :- rattle(s)-none/mob"
+				if("Nian")
+					emotelist += "\n<u>Nian specific emotes</u> :- aflap(s), flap(s), flutter(s)"
 
 			if(ismachineperson(src))
 				emotelist += "\n<u>Machine specific emotes</u> :- beep(s)-none/mob, buzz(es)-none/mob, no-none/mob, ping(s)-none/mob, yes-none/mob, buzz2-none/mob"

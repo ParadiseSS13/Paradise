@@ -51,7 +51,7 @@
 	// This one doesnt take player input directly, so it doesnt require params
 	searchquery += " [!where ? "WHERE" : "AND"] flagged < [MAX_BOOK_FLAGS]"
 	// This does though
-	var/sql = "SELECT id, author, title, category, ckey, flagged FROM [format_table_name("library")] [searchquery] LIMIT :lowerlimit, :upperlimit"
+	var/sql = "SELECT id, author, title, category, ckey, flagged FROM library [searchquery] LIMIT :lowerlimit, :upperlimit"
 	sql_params["lowerlimit"] = text2num((page_num - 1) * LIBRARY_BOOKS_PER_PAGE)
 	sql_params["upperlimit"] = LIBRARY_BOOKS_PER_PAGE
 
@@ -78,7 +78,7 @@
 	return results
 
 /obj/machinery/computer/library/proc/get_num_results()
-	var/sql = "SELECT COUNT(id) FROM [format_table_name("library")]"
+	var/sql = "SELECT COUNT(id) FROM library"
 
 	var/datum/db_query/count_query = SSdbcore.NewQuery(sql)
 	if(!count_query.warn_execute())

@@ -53,6 +53,9 @@
 /obj/effect/decal/cleanable/proc/can_bloodcrawl_in()
 	return FALSE
 
+/obj/effect/decal/cleanable/is_cleanable()
+	return TRUE
+
 /obj/effect/decal/cleanable/Initialize(mapload)
 	. = ..()
 	if(loc && isturf(loc))
@@ -63,11 +66,11 @@
 					return TRUE
 	if(random_icon_states && length(src.random_icon_states) > 0)
 		src.icon_state = pick(src.random_icon_states)
-	if(smooth)
-		queue_smooth(src)
-		queue_smooth_neighbors(src)
+	if(smoothing_flags)
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 /obj/effect/decal/cleanable/Destroy()
-	if(smooth)
-		queue_smooth_neighbors(src)
+	if(smoothing_flags)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()

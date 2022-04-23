@@ -68,6 +68,9 @@
 
 /datum/martial_art/krav_maga/teach(mob/living/carbon/human/H, make_temporary=0)
 	..()
+	if(HAS_TRAIT(H, TRAIT_PACIFISM))
+		to_chat(H, "<span class='warning'>The arts of Krav Maga echo uselessly in your head, the thought of their violence repulsive to you!</span>")
+		return
 	to_chat(H, "<span class = 'userdanger'>You know the arts of Krav Maga!</span>")
 	to_chat(H, "<span class = 'danger'>Place your cursor over a move at the top of the screen to see what it does.</span>")
 	neutral.Grant(H)
@@ -104,20 +107,14 @@
 
 /datum/martial_art/krav_maga/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
-	if(prob(60))
-		if(D.hand)
-			if(istype(D.l_hand, /obj/item))
-				var/obj/item/I = D.l_hand
-				if(D.drop_item())
-					A.put_in_hands(I)
-		else
-			if(istype(D.r_hand, /obj/item))
-				var/obj/item/I = D.r_hand
-				if(D.drop_item())
-					A.put_in_hands(I)
+	A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
+	var/obj/item/I = D.get_active_hand()
+	if(prob(60) && D.unEquip(I))
+		if(!(QDELETED(I) || (I.flags & ABSTRACT)))
+			A.put_in_hands(I)
 		D.visible_message("<span class='danger'>[A] has disarmed [D]!</span>", \
 							"<span class='userdanger'>[A] has disarmed [D]!</span>")
-		playsound(D, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		playsound(D, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	else
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", \
 							"<span class='userdanger'>[A] attempted to disarm [D]!</span>")
@@ -165,4 +162,4 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50)

@@ -50,7 +50,7 @@
 	user.do_attack_animation(src)
 	if(O.force)
 		if(prob(melee_block_chance))
-			visible_message("<span class='boldwarning'>[src] blocks the [O] with its shield! </span>")
+			visible_message("<span class='boldwarning'>[src] blocks [O] with its shield! </span>")
 		else
 			var/damage = O.force
 			if(O.damtype == STAMINA)
@@ -59,11 +59,11 @@
 				visible_message("<span class='boldwarning'>[src] is unharmed by [O]!</span>")
 				return
 			adjustHealth(damage)
-			visible_message("<span class='boldwarning'>[src] has been attacked with the [O] by [user]. </span>")
+			visible_message("<span class='boldwarning'>[src] has been attacked with [O] by [user]. </span>")
 		playsound(loc, O.hitsound, 25, 1, -1)
 	else
 		to_chat(usr, "<span class='warning'>This weapon is ineffective, it does no damage.</span>")
-		visible_message("<span class='warning'>[user] gently taps [src] with the [O]. </span>")
+		visible_message("<span class='warning'>[user] gently taps [src] with [O]. </span>")
 
 
 /mob/living/simple_animal/hostile/syndicate/melee/bullet_act(obj/item/projectile/Proj)
@@ -139,8 +139,6 @@
 		seen_enemy_name = target.name
 		if(istype(target, /obj/mecha))
 			depotarea.saw_mech(target)
-		if(istype(target, /obj/spacepod))
-			depotarea.saw_pod(target)
 		if(depotarea.list_includes(target, depotarea.dead_list))
 			seen_revived_enemy = TRUE
 			raise_alert("[name] reports intruder [target] has returned from death!")

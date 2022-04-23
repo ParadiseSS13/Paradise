@@ -262,7 +262,7 @@
 		var/datum/cachedbook/target = getBookByID(href_list["del"]) // Sanitized in getBookByID
 		var/ans = alert(usr, "Are you sure you wish to delete \"[target.title]\", by [target.author]? This cannot be undone.", "Library System", "Yes", "No")
 		if(ans=="Yes")
-			var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=:id", list(
+			var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM library WHERE id=:id", list(
 				"id" = text2num(target.id)
 			))
 			if(!query.warn_execute())
@@ -280,7 +280,7 @@
 		var/tckey = ckey(href_list["delbyckey"])
 		var/ans = alert(usr,"Are you sure you wish to delete all books by [tckey]? This cannot be undone.", "Library System", "Yes", "No")
 		if(ans=="Yes")
-			var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE ckey=:ckey", list(
+			var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM library WHERE ckey=:ckey", list(
 				"ckey" = tckey
 			))
 			if(!query.warn_execute())
@@ -387,7 +387,7 @@
 						alert("Connection to Archive has been severed. Aborting.")
 					else
 						var/datum/db_query/query = SSdbcore.NewQuery({"
-							INSERT INTO [format_table_name("library")] (author, title, content, category, ckey, flagged)
+							INSERT INTO library (author, title, content, category, ckey, flagged)
 							VALUES (:author, :title, :content, :category, :ckey, 0)"}, list(
 								"author" = scanner.cache.author,
 								"title" = scanner.cache.name,

@@ -10,6 +10,18 @@
 #define STAMINA 	"stamina"
 #define BRAIN		"brain"
 
+//damage flags
+#define MELEE 		"melee"
+#define BULLET 		"bullet"
+#define LASER 		"laser"
+#define ENERGY 		"energy"
+#define BOMB 		"bomb"
+#define BIO 		"bio"
+#define RAD 		"rad"
+#define FIRE 		"fire"
+#define ACID 		"acid"
+#define MAGIC		"magic"
+
 #define STUN		"stun"
 #define WEAKEN		"weaken"
 #define PARALYZE	"paralize"
@@ -111,6 +123,17 @@
 #define WEAPON_LIGHT 1
 #define WEAPON_MEDIUM 2
 #define WEAPON_HEAVY 3
+
+//His Grace.
+#define HIS_GRACE_SATIATED 0 //He hungers not. If bloodthirst is set to this, His Grace is asleep.
+#define HIS_GRACE_PECKISH 20 //Slightly hungry.
+#define HIS_GRACE_HUNGRY 60 //Getting closer. Increases damage up to a minimum of 20.
+#define HIS_GRACE_FAMISHED 100 //Dangerous. Increases damage up to a minimum of 25 and cannot be dropped.
+#define HIS_GRACE_STARVING 120 //Incredibly close to breaking loose. Increases damage up to a minimum of 30.
+#define HIS_GRACE_CONSUME_OWNER 140 //His Grace consumes His owner at this point and becomes aggressive.
+#define HIS_GRACE_FALL_ASLEEP 160 //If it reaches this point, He falls asleep and resets.
+
+#define HIS_GRACE_FORCE_BONUS 4 //How much force is gained per kill.
 
 #define EXPLODE_NONE 0				//Don't even ask me why we need this.
 #define EXPLODE_DEVASTATE 1

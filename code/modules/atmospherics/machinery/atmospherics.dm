@@ -20,7 +20,10 @@ Pipelines + Other Objects -> Pipe network
 	on_blueprints = TRUE
 	var/nodealert = 0
 	var/can_unwrench = 0
-
+	/// If the machine is currently operating or not.
+	var/on = FALSE
+	/// The amount of pressure the machine wants to operate at.
+	var/target_pressure = 0
 	var/connect_types[] = list(1) //1=regular, 2=supply, 3=scrubber
 	var/connected_to = 1 //same as above, currently not used for anything
 	var/icon_connect_type = "" //"-supply" or "-scrubbers"
@@ -32,7 +35,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/New()
 	if (!armor)
-		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 70)
+		armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
 	..()
 
 	if(!pipe_color)
@@ -68,10 +71,13 @@ Pipelines + Other Objects -> Pipe network
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()
 	var/turf/T = get_turf(loc)
-	if(!T || level == 2 || !T.intact)
-		plane = GAME_PLANE
-	else
+	if(T && T.transparent_floor)
 		plane = FLOOR_PLANE
+	else
+		if(!T || level == 2 || !T.intact)
+			plane = GAME_PLANE
+		else
+			plane = FLOOR_PLANE
 
 /obj/machinery/atmospherics/proc/update_pipe_image()
 	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
@@ -92,15 +98,18 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/proc/add_underlay(turf/T, obj/machinery/atmospherics/node, direction, icon_connect_type)
 	if(node)
-		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe))
+		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe) && !T.transparent_floor)
 			//underlays += SSair.icon_manager.get_atmos_icon("underlay_down", direction, color_cache_name(node))
 			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
 		else
 			//underlays += SSair.icon_manager.get_atmos_icon("underlay_intact", direction, color_cache_name(node))
 			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 	else
-		//underlays += SSair.icon_manager.get_atmos_icon("underlay_exposed", direction, pipe_color)
-		underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "exposed" + icon_connect_type)
+		if(T.transparent_floor) //we want to keep pipes under transparent floors connected normally
+			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+		else
+			//underlays += SSair.icon_manager.get_atmos_icon("underlay_exposed", direction, pipe_color)
+			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "exposed" + icon_connect_type)
 
 /obj/machinery/atmospherics/proc/update_underlays()
 	if(check_icon_cache())
@@ -163,11 +172,14 @@ Pipelines + Other Objects -> Pipe network
 
 //(De)construction
 /obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
+	var/turf/T = get_turf(src)
 	if(can_unwrench && istype(W, /obj/item/wrench))
-		var/turf/T = get_turf(src)
+		if(T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe) && layer != GAS_PIPE_VISIBLE_LAYER) //pipes on GAS_PIPE_VISIBLE_LAYER are above the transparent floor and should be interactable
+			to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+			return
 		if(level == 1 && isturf(T) && T.intact)
 			to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
-			return 1
+			return
 		var/datum/gas_mixture/int_air = return_air()
 		var/datum/gas_mixture/env_air = loc.return_air()
 		add_fingerprint(user)
@@ -181,14 +193,14 @@ Pipelines + Other Objects -> Pipe network
 		playsound(src.loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
 		if(internal_pressure > 2*ONE_ATMOSPHERE)
-			to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gush of air blows in your face... maybe you should reconsider?</span>")
+			to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?</span>")
 			unsafe_wrenching = TRUE //Oh dear oh dear
 
 		if(do_after(user, 40 * W.toolspeed, target = src) && !QDELETED(src))
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
 				"<span class='notice'>You have unfastened \the [src].</span>", \
-				"<span class='italics'>You hear ratchet.</span>")
+				"<span class='italics'>You hear ratcheting.</span>")
 			investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
 
 			for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
@@ -203,6 +215,9 @@ Pipelines + Other Objects -> Pipe network
 					unsafe_pressure_release(user,internal_pressure)
 			deconstruct(TRUE)
 	else
+		if(T.transparent_floor)
+			to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+			return TRUE
 		return ..()
 
 //Called when an atmospherics object is unwrenched while having a large pressure difference
@@ -237,7 +252,12 @@ Pipelines + Other Objects -> Pipe network
 	dir = D
 	initialize_directions = P
 	var/turf/T = loc
-	level = T.intact ? 2 : 1
+	if(!T.transparent_floor)
+		level = T.intact ? 2 : 1
+	else
+		level = 2
+		plane = GAME_PLANE
+		layer = GAS_PIPE_VISIBLE_LAYER
 	add_fingerprint(usr)
 	if(!SSair.initialized) //If there's no atmos subsystem, we can't really initialize pipenets
 		SSair.machinery_to_construct.Add(src)
@@ -270,24 +290,25 @@ Pipelines + Other Objects -> Pipe network
 		return
 
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)
+	var/old_loc = user.loc
 	if(target_move)
 		if(is_type_in_list(target_move, GLOB.ventcrawl_machinery) && target_move.can_crawl_through())
 			user.remove_ventcrawl()
 			user.forceMove(target_move.loc) //handles entering and so on
-			user.visible_message("You hear something squeezing through the ducts.", "You climb out the ventilation system.")
+			user.visible_message("You hear something squeezing through the ducts.", "You climb out of the ventilation system.")
 		else if(target_move.can_crawl_through())
 			if(returnPipenet() != target_move.returnPipenet())
 				user.update_pipe_vision(target_move)
-			user.loc = target_move
-			user.client.eye = target_move //if we don't do this, Byond only updates the eye every tick - required for smooth movement
+			user.forceMove(target_move)
 			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
 				user.last_played_vent = world.time
 				playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
 	else
 		if((direction & initialize_directions) || is_type_in_list(src, GLOB.ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
 			user.remove_ventcrawl()
-			user.forceMove(src.loc)
-			user.visible_message("You hear something squeezing through the pipes.", "You climb out the ventilation system.")
+			user.loc = target_move.loc
+			user.Moved(old_loc, get_dir(old_loc, user.loc), FALSE)
+			user.visible_message("You hear something squeezing through the pipes.", "You climb out of the ventilation system.")
 	user.canmove = 0
 	spawn(1)
 		user.canmove = 1
@@ -334,12 +355,15 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/proc/add_underlay_adapter(turf/T, obj/machinery/atmospherics/node, direction, icon_connect_type) //modified from add_underlay, does not make exposed underlays
 	if(node)
-		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe))
+		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe) && !T.transparent_floor)
 			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
 		else
 			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 	else
-		underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "retracted" + icon_connect_type)
+		if(T.transparent_floor) //we want to keep pipes under transparent floors connected normally
+			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+		else
+			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "retracted" + icon_connect_type)
 
 /obj/machinery/atmospherics/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
@@ -353,3 +377,35 @@ Pipelines + Other Objects -> Pipe network
 //Used for certain children of obj/machinery/atmospherics to not show pipe vision when mob is inside it.
 /obj/machinery/atmospherics/proc/can_see_pipes()
 	return TRUE
+
+/**
+ * Turns the machine either on, or off. If this is done by a user, display a message to them.
+ *
+ * NOTE: Only applies to atmospherics machines which can be toggled on or off, such as pumps, or other devices.
+ *
+ * Arguments:
+ * * user - the mob who is toggling the machine.
+ */
+/obj/machinery/atmospherics/proc/toggle(mob/living/user)
+	if(!powered())
+		return
+	on = !on
+	update_icon()
+	if(user)
+		to_chat(user, "<span class='notice'>You toggle [src] [on ? "on" : "off"].</span>")
+
+/**
+ * Maxes the output pressure of the machine. If this is done by a user, display a message to them.
+ *
+ * NOTE: Only applies to atmospherics machines which allow a `target_pressure` to be set, such as pumps, or other devices.
+ *
+ * Arguments:
+ * * user - the mob who is setting the output pressure to maximum.
+ */
+/obj/machinery/atmospherics/proc/set_max(mob/living/user)
+	if(!powered())
+		return
+	target_pressure = MAX_OUTPUT_PRESSURE
+	update_icon()
+	if(user)
+		to_chat(user, "<span class='notice'>You set the target pressure of [src] to maximum.</span>")

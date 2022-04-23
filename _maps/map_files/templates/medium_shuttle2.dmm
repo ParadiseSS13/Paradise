@@ -4,9 +4,7 @@
 /area/space)
 "b" = (
 /obj/structure/shuttle/engine/propulsion/burst/left{
-	dir = 8;
-	icon_state = "burst_l";
-	tag = "icon-burst_l (EAST)"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered{
@@ -14,13 +12,9 @@
 	})
 "c" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (WEST)";
-	icon_state = "heater";
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (EAST)";
-	icon_state = "rwindow";
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
@@ -34,9 +28,7 @@
 	})
 "f" = (
 /obj/structure/shuttle/engine/propulsion/burst/right{
-	dir = 8;
-	icon_state = "burst_r";
-	tag = "icon-burst_r (EAST)"
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered{
@@ -57,7 +49,6 @@
 	})
 "k" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/ruin/powered{
@@ -71,7 +62,6 @@
 "n" = (
 /obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/ruin/powered{
@@ -85,7 +75,6 @@
 	})
 "p" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-bluefull";
 	icon_state = "bluefull"
 	},
 /area/ruin/powered{
@@ -99,7 +88,6 @@
 	})
 "r" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
 	icon_state = "whiteyellowfull"
 	},
 /area/ruin/powered{
@@ -115,7 +103,6 @@
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel{
-	tag = "icon-bluefull";
 	icon_state = "bluefull"
 	},
 /area/ruin/powered{
@@ -123,12 +110,10 @@
 	})
 "v" = (
 /obj/machinery/sleeper{
-	tag = "icon-sleeper (NORTH)";
-	icon_state = "sleeper";
-	dir = 1
+	dir = 1;
+	icon_state = "sleeper"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-bluefull";
 	icon_state = "bluefull"
 	},
 /area/ruin/powered{
@@ -137,7 +122,6 @@
 "w" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
 	icon_state = "whiteyellowfull"
 	},
 /area/ruin/powered{
@@ -166,7 +150,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
 	icon_state = "whiteyellowfull"
 	},
 /area/ruin/powered{
@@ -176,7 +159,6 @@
 /obj/structure/computerframe,
 /obj/item/circuitboard/teleporter,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/ruin/powered{
@@ -186,7 +168,6 @@
 /obj/machinery/teleport/hub,
 /obj/item/hand_tele,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/ruin/powered{
@@ -195,7 +176,6 @@
 "G" = (
 /obj/item/radio/beacon,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/ruin/powered{
@@ -204,7 +184,6 @@
 "H" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/ruin/powered{
@@ -219,7 +198,6 @@
 	},
 /obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/ruin/powered{
@@ -228,7 +206,6 @@
 "K" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/ruin/powered{
@@ -238,7 +215,6 @@
 /obj/structure/bed,
 /obj/item/bedsheet/purple,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/ruin/powered{
@@ -247,7 +223,6 @@
 "N" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/ruin/powered{
@@ -257,7 +232,6 @@
 /obj/structure/table,
 /obj/item/storage/belt/utility/full/multitool,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/ruin/powered{
@@ -268,7 +242,6 @@
 /obj/item/storage/toolbox/electrical,
 /obj/item/clothing/gloves/color/yellow,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/ruin/powered{
@@ -279,7 +252,6 @@
 /obj/machinery/recharger,
 /obj/item/gun/energy/laser/retro,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
 	icon_state = "whiteyellowfull"
 	},
 /area/ruin/powered{
@@ -290,7 +262,6 @@
 /obj/item/clothing/head/helmet/space/eva,
 /obj/item/clothing/suit/space/eva,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/ruin/powered{
@@ -299,7 +270,6 @@
 "U" = (
 /obj/machinery/teleport/station,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
 	icon_state = "dark"
 	},
 /area/ruin/powered{
@@ -318,7 +288,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-bluefull";
 	icon_state = "bluefull"
 	},
 /area/ruin/powered{
@@ -329,7 +298,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
 	icon_state = "whiteyellowfull"
 	},
 /area/ruin/powered{
@@ -338,7 +306,6 @@
 "Y" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
 	icon_state = "whiteyellowfull"
 	},
 /area/ruin/powered{
@@ -347,7 +314,6 @@
 "Z" = (
 /obj/machinery/computer,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
 	icon_state = "whiteyellowfull"
 	},
 /area/ruin/powered{

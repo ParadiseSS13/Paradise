@@ -84,7 +84,7 @@
 
 /obj/item/storage/firstaid/toxin/Initialize(mapload)
 	. = ..()
-	icon_state = pick("antitoxin", "antitoxfirstaid", "antitoxfirstaid2", "antitoxfirstaid3")
+	icon_state = pick("antitoxin", "antitoxfirstaid", "antitoxfirstaid2")
 
 /obj/item/storage/firstaid/toxin/populate_contents()
 	for(var/I in 1 to 3)
@@ -223,6 +223,7 @@
 	icon_state = "pill_canister"
 	icon = 'icons/obj/chemical.dmi'
 	item_state = "contsolid"
+	belt_icon = "pill_bottle"
 	w_class = WEIGHT_CLASS_SMALL
 	can_hold = list(/obj/item/reagent_containers/food/pill)
 	cant_hold = list(/obj/item/reagent_containers/food/pill/patch)
@@ -305,6 +306,7 @@
 	name = "patch pack"
 	desc = "It's a container for storing medical patches."
 	icon_state = "patch_pack"
+	belt_icon = "patch_pack"
 	can_hold = list(/obj/item/reagent_containers/food/pill/patch)
 	cant_hold = list()
 	rapid_intake_message = "flips the lid of the patch pack open and begins rapidly stamping patches on themselves!"

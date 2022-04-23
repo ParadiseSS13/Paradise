@@ -17,7 +17,6 @@
 	name = "meatbread slice"
 	desc = "A slice of delicious meatbread."
 	icon_state = "meatbreadslice"
-	trash = /obj/item/trash/plate
 	filling_color = "#FF7575"
 
 /obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread
@@ -34,7 +33,6 @@
 	name = "xenomeatbread slice"
 	desc = "A slice of delicious meatbread. Extra Heretical."
 	icon_state = "xenobreadslice"
-	trash = /obj/item/trash/plate
 	filling_color = "#8AFF75"
 
 /obj/item/reagent_containers/food/snacks/sliceable/spidermeatbread
@@ -49,8 +47,7 @@
 /obj/item/reagent_containers/food/snacks/spidermeatbreadslice
 	name = "spider meat bread slice"
 	desc = "A slice of meatloaf made from an animal that most likely still wants you dead."
-	icon_state = "xenobreadslice"
-	trash = /obj/item/trash/plate
+	icon_state = "spidermeatslice"
 	list_reagents = list("toxin" = 2)
 
 /obj/item/reagent_containers/food/snacks/sliceable/bananabread
@@ -67,7 +64,6 @@
 	name = "banana-nut bread slice"
 	desc = "A slice of delicious banana bread."
 	icon_state = "bananabreadslice"
-	trash = /obj/item/trash/plate
 	filling_color = "#EDE5AD"
 	tastes = list("bread" = 10)
 
@@ -85,7 +81,6 @@
 	name = "tofubread slice"
 	desc = "A slice of delicious tofubread."
 	icon_state = "tofubreadslice"
-	trash = /obj/item/trash/plate
 	filling_color = "#F7FFE0"
 
 /obj/item/reagent_containers/food/snacks/sliceable/bread
@@ -102,7 +97,6 @@
 	name = "bread slice"
 	desc = "A slice of home."
 	icon_state = "breadslice"
-	trash = /obj/item/trash/plate
 	filling_color = "#D27332"
 	list_reagents = list("nutriment" = 2, "bread" = 5)
 	tastes = list("bread" = 10)
@@ -121,7 +115,6 @@
 	name = "cream cheese bread slice"
 	desc = "A slice of yum!"
 	icon_state = "creamcheesebreadslice"
-	trash = /obj/item/trash/plate
 	filling_color = "#FFF896"
 	list_reagents = list("nutriment" = 4, "vitamin" = 1)
 	tastes = list("bread" = 10, "cheese" = 10)
@@ -140,7 +133,6 @@
 	name = "banarnarbread slice"
 	desc = "A slice of delicious mah'weyh pleggh at e'ntrath!"
 	icon_state = "banarnarbreadslice"
-	trash = /obj/item/trash/plate
 	filling_color = "#6F0000"
 	list_reagents = list("nutriment" = 4, "vitamin" = 1)
 	tastes = list("heresy" = 10, "banana" = 10)
@@ -171,6 +163,8 @@
 	name = "baguette"
 	desc = "Bon appetit!"
 	icon_state = "baguette"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	filling_color = "#E3D796"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
@@ -198,7 +192,6 @@
 	name = "jellied toast"
 	desc = "A slice of bread covered with delicious jam."
 	icon_state = "jellytoast"
-	trash = /obj/item/trash/plate
 	filling_color = "#B572AB"
 	bitesize = 3
 	tastes = list("toast" = 1, "jelly" = 1)

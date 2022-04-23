@@ -168,6 +168,9 @@
 	use_power = IDLE_POWER_USE
 	return
 
+/obj/machinery/recharge_station/force_eject_occupant(mob/target)
+	go_out()
+
 /obj/machinery/recharge_station/verb/move_eject()
 	set category = "Object"
 	set src in oview(1)

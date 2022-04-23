@@ -16,7 +16,6 @@
 	level = 1
 
 /obj/machinery/atmospherics/pipe/manifold/New()
-
 	..()
 
 	alpha = 255
@@ -30,6 +29,9 @@
 			initialize_directions = SOUTH|WEST|NORTH
 		if(WEST)
 			initialize_directions = NORTH|EAST|SOUTH
+
+/obj/machinery/atmospherics/pipe/manifold/detailed_examine()
+	return "A normal pipe with three ends to connect to."
 
 /obj/machinery/atmospherics/pipe/manifold/atmos_init()
 	..()
@@ -55,6 +57,8 @@
 					node3 = target
 				break
 	var/turf/T = src.loc			// hide if turf is not intact
+	if(T.transparent_floor)
+		return
 	hide(T.intact)
 	update_icon()
 
@@ -168,6 +172,10 @@
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
+/obj/machinery/atmospherics/pipe/manifold/visible/scrubbers/detailed_examine()
+	return "This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe."
+
 /obj/machinery/atmospherics/pipe/manifold/visible/supply
 	name="Air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
@@ -176,6 +184,10 @@
 	layer = 2.39
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
+
+/obj/machinery/atmospherics/pipe/manifold/visible/supply/detailed_examine()
+	return "This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe."
 
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow
 	color = PIPE_COLOR_YELLOW
@@ -209,6 +221,10 @@
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers/detailed_examine()
+	return "This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe."
+
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply
 	name="Air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
@@ -217,6 +233,10 @@
 	layer = 2.39
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
+
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply/detailed_examine()
+	return "This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe."
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/yellow
 	color = PIPE_COLOR_YELLOW

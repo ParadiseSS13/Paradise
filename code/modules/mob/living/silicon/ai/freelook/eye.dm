@@ -16,6 +16,8 @@
 	var/relay_speech = FALSE
 	var/use_static = TRUE
 	var/static_visibility_range = 16
+	// Decides if it is shown by AI Detector or not
+	var/ai_detector_visible = TRUE
 
 
 // Use this when setting the aiEye's location.
@@ -26,7 +28,7 @@
 		if(!isturf(ai.loc))
 			return
 		T = get_turf(T)
-		loc = T
+		..(T)
 		if(use_static)
 			ai.camera_visibility(src)
 		if(ai.client)

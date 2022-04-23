@@ -27,6 +27,10 @@
 /datum/action/innate/cult/comm/proc/cultist_commune(mob/living/user, message)
 	if(!user || !message)
 		return
+
+	if(user.holy_check())
+		return
+
 	if(!user.can_speak())
 		to_chat(user, "<span class='warning'>You can't speak!</span>")
 		return
@@ -49,7 +53,7 @@
 		if(iscultist(M))
 			to_chat(M, my_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='cultspeech'> <a href='?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
+			to_chat(M, "<span class='cultspeech'>([ghost_follow_link(user, ghost=M)]) [my_message] </span>")
 
 	log_say("(CULT) [message]", user)
 
@@ -69,7 +73,7 @@
 		if(iscultist(M))
 			to_chat(M, my_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='cultspeech'> <a href='?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
+			to_chat(M, "<span class='cultspeech'>([ghost_follow_link(user, ghost=M)]) [my_message] </span>")
 
 
 //Objectives

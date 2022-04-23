@@ -112,7 +112,7 @@
 		if(!M.mob_negates_gravity())
 			step_towards(M,src)
 	for(var/obj/O in range(0, src))
-		if(!O.anchored)
+		if(!O.anchored && O.loc != src) // so it cannot throw the anomaly core
 			var/mob/living/target = locate() in view(4, src)
 			if(target && !target.stat)
 				O.throw_at(target, 5, 10)
@@ -287,7 +287,7 @@
 	A.Grant(S)
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pyroclastic anomaly slime?", ROLE_SENTIENT, FALSE, 100, source = S, role_cleanname = "pyroclastic anomaly slime")
-	if(LAZYLEN(candidates))
+	if(length(candidates) && !QDELETED(S))
 		var/mob/dead/observer/chosen = pick(candidates)
 		S.key = chosen.key
 		S.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
@@ -311,8 +311,8 @@
 
 	//Throwing stuff around!
 	for(var/obj/O in range(2, src))
-		if(O == src)
-			return //DON'T DELETE YOURSELF GOD DAMN
+		if(O == src || O.loc == src)
+			return //DON'T DELETE YOURSELF OR YOUR CORE GOD DAMN
 		if(!O.anchored)
 			var/mob/living/target = locate() in view(4, src)
 			if(target && !target.stat)

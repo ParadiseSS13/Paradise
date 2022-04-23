@@ -9,7 +9,6 @@
 	fire_sound = 'sound/weapons/blastcannon.ogg'
 	needs_permit = FALSE
 	clumsy_check = FALSE
-	randomspread = FALSE
 
 	var/obj/item/transfer_valve/bomb
 

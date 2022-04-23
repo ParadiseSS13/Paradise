@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	var/obj/effect/countdown/clonepod/countdown
 
 	var/list/brine_types = list("corazone", "perfluorodecalin", "epinephrine", "salglu_solution") //stops heart attacks, heart failure, shock, and keeps their O2 levels normal
-	var/list/missing_organs
+	var/list/missing_organs = list()
 	var/organs_number = 0
 
 	light_color = LIGHT_COLOR_PURE_GREEN
@@ -100,6 +100,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/machinery/clonepod/Destroy()
 	if(connected)
 		connected.pods -= src
+		connected = null
 	if(clonemind)
 		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
 		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
@@ -337,9 +338,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 				progress += (100 - MINIMUM_HEAL_LEVEL)
 				var/milestone = CLONE_INITIAL_DAMAGE / organs_number
 // Doing this as a #define so that the value can change when evaluated multiple times
-#define INSTALLED (organs_number - LAZYLEN(missing_organs))
+#define INSTALLED (organs_number - length(missing_organs))
 
-				while((progress / milestone) > INSTALLED && LAZYLEN(missing_organs))
+				while((progress / milestone) > INSTALLED && length(missing_organs))
 					var/obj/item/organ/I = pick_n_take(missing_organs)
 					I.safe_replace(occupant)
 
@@ -443,10 +444,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			SSticker.mode.rise(H)
 			if(SSticker.mode.cult_ascendant)
 				SSticker.mode.ascend(H)
-	if(H.mind.vampire)
-		H.mind.vampire.update_owner(H)
-	if((H.mind in SSticker.mode.vampire_thralls) || (H.mind in SSticker.mode.vampire_enthralled))
-		SSticker.mode.update_vampire_icons_added(H.mind)
 	if(H.mind in SSticker.mode.changelings)
 		SSticker.mode.update_change_icons_added(H.mind)
  	if((H.mind in SSticker.mode.shadowling_thralls) || (H.mind in SSticker.mode.shadows))
@@ -493,9 +490,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		clonemind = null
 
 
-	for(var/i in missing_organs)
-		qdel(i)
-	missing_organs.Cut()
+	QDEL_LIST(missing_organs)
 	occupant.SetLoseBreath(0) // Stop friggin' dying, gosh damn
 	occupant.setOxyLoss(0)
 	for(var/datum/disease/critical/crit in occupant.viruses)
@@ -522,9 +517,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			message += "<i>Is this what dying is like? Yes it is.</i>"
 			to_chat(occupant, "<span class='warning'>[message]</span>")
 			SEND_SOUND(occupant, sound('sound/hallucinations/veryfar_noise.ogg', 0, 1, 50))
-		for(var/i in missing_organs)
-			qdel(i)
-		missing_organs.Cut()
+		QDEL_LIST(missing_organs)
 		clonemind = null
 		spawn(40)
 			qdel(occupant)
@@ -576,10 +569,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	malfunction(go_easy = TRUE)
 
 /obj/machinery/clonepod/proc/maim_clone(mob/living/carbon/human/H)
-	LAZYINITLIST(missing_organs)
-	for(var/i in missing_organs)
-		qdel(i)
-	missing_organs.Cut()
+	QDEL_LIST(missing_organs)
 
 	H.setCloneLoss(CLONE_INITIAL_DAMAGE, FALSE)
 	H.setBrainLoss(BRAIN_INITIAL_DAMAGE)
@@ -603,7 +593,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		I.forceMove(src)
 		missing_organs += I
 
-	organs_number = LAZYLEN(missing_organs)
+	organs_number = length(missing_organs)
 	H.updatehealth()
 
 /obj/machinery/clonepod/proc/check_brine()

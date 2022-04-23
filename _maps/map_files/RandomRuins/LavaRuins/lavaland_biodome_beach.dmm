@@ -46,6 +46,7 @@
 /area/ruin/powered/beach)
 "ai" = (
 /obj/structure/extinguisher_cabinet{
+	name = "custom placement";
 	pixel_y = 29
 	},
 /turf/simulated/floor/wood,
@@ -181,7 +182,7 @@
 /obj/item/tank/internals/emergency_oxygen,
 /obj/item/trash/candy,
 /obj/effect/turf_decal/sand,
-/obj/item/toy/figure/bartender,
+/obj/item/toy/figure/crew/bartender,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "aK" = (

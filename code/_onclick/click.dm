@@ -363,9 +363,11 @@
 	A.AltShiftClick(src)
 	return
 
-/atom/proc/AltShiftClick(mob/user)
+/mob/proc/ShiftMiddleClickOn(atom/A)
 	return
 
+/atom/proc/AltShiftClick(mob/user)
+	return
 
 /*
 	Misc helpers

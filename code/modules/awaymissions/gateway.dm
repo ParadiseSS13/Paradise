@@ -47,7 +47,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centerstation/Initialize()
 	..()
 	update_icon()
-	wait = world.time + config.gateway_delay
+	wait = world.time + GLOB.configuration.gateway.away_mission_delay
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/gateway/centerstation/LateInitialize()

@@ -6,6 +6,7 @@
 		density = 1
 		opacity = FALSE
 		anchored = 1
+		move_resist = INFINITY
 		resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 		flags_2 = RAD_NO_CONTAMINATE_2
 		max_integrity = 200
@@ -126,7 +127,7 @@
 	return visible
 
 /obj/machinery/shieldgen
-	name = "Emergency shield projector"
+	name = "emergency shield projector"
 	desc = "Used to seal minor hull breaches."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shieldoff"
@@ -253,7 +254,7 @@
 			health = max_health
 			malfunction = TRUE
 			playsound(loc, coil.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You repair the [src]!</span>")
+			to_chat(user, "<span class='notice'>You repair [src]!</span>")
 			update_icon()
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
@@ -409,7 +410,7 @@
 		active = 2
 	if(active >= 1)
 		if(power == 0)
-			visible_message("<span class='warning'>The [name] shuts down due to lack of power!</span>", \
+			visible_message("<span class='warning'>[name] shuts down due to lack of power!</span>", \
 				"You hear heavy droning fade out")
 			icon_state = "Shield_Gen"
 			active = 0
@@ -532,6 +533,7 @@
 		icon_state = "shieldwall"
 		anchored = 1
 		density = 1
+		move_resist = INFINITY
 		resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 		light_range = 3
 		var/needs_power = 0

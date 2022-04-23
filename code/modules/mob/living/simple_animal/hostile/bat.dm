@@ -33,26 +33,15 @@
 //	break_stuff_probability = 2
 
 	faction = list("scarybat")
-	var/mob/living/owner
 	gold_core_spawnable = HOSTILE_SPAWN
 
-/mob/living/simple_animal/hostile/scarybat/New(loc, mob/living/L as mob)
-	..()
+/mob/living/simple_animal/hostile/scarybat/Initialize(mapload, mob/living/L)
+	. = ..()
 	if(istype(L))
-		owner = L
+		faction += "\ref[L]"
 
 /mob/living/simple_animal/hostile/scarybat/Process_Spacemove(check_drift = 0)
 	return ..()	//No drifting in space for space carp!	//original comments do not steal
-
-/mob/living/simple_animal/hostile/scarybat/Found(atom/A)//This is here as a potential override to pick a specific target if available
-	if(istype(A) && A == owner)
-		return 0
-	return ..()
-
-/mob/living/simple_animal/hostile/scarybat/CanAttack(atom/the_target)//This is here as a potential override to pick a specific target if available
-	if(istype(the_target) && the_target == owner)
-		return 0
-	return ..()
 
 /mob/living/simple_animal/hostile/scarybat/AttackingTarget()
 	. =..()
@@ -63,7 +52,8 @@
 			L.visible_message("<span class='danger'>\the [src] scares \the [L]!</span>")
 
 
-/mob/living/simple_animal/hostile/scarybat/batswarm
+//This mob is for the admin-only ancient vampire, DO NOT USE ELSEWHERE
+/mob/living/simple_animal/hostile/scarybat/adminvampire
 	name = "bat swarm"
 	desc = "A swarm of vicious, angry-looking space bats."
 	speed = 1

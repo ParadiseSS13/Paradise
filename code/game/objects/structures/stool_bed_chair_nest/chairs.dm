@@ -11,6 +11,7 @@
 	max_integrity = 250
 	integrity_failure = 25
 	buckle_offset = 0
+	face_while_pulling = FALSE
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
@@ -116,7 +117,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(config.ghost_interaction)
+	if(GLOB.configuration.general.ghost_interaction)
 		setDir(turn(dir, 90))
 		handle_rotation()
 		return
@@ -136,6 +137,12 @@
 	rotate()
 
 // Chair types
+/obj/structure/chair/light
+	name = "chair"
+	icon_state = "chair_greyscale"
+	resistance_flags = FLAMMABLE
+	item_chair = /obj/item/chair/light
+
 /obj/structure/chair/wood
 	name = "wooden chair"
 	desc = "Old is never too old to not be in fashion."
@@ -267,6 +274,33 @@
 	anchored = TRUE
 	item_chair = null
 	buildstackamount = 1
+	var/image/armrest = null
+
+/obj/structure/chair/sofa/Initialize(mapload)
+	armrest = GetArmrest()
+	armrest.layer = ABOVE_MOB_LAYER
+	return ..()
+
+/obj/structure/chair/sofa/proc/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "[icon_state]_armrest")
+
+/obj/structure/chair/sofa/Destroy()
+	QDEL_NULL(armrest)
+	return ..()
+
+/obj/structure/chair/sofa/post_buckle_mob(mob/living/M)
+	. = ..()
+	update_armrest()
+
+/obj/structure/chair/sofa/post_unbuckle_mob(mob/living/M)
+	. = ..()
+	update_armrest()
+
+/obj/structure/chair/sofa/proc/update_armrest()
+	if(has_buckled_mobs())
+		add_overlay(armrest)
+	else
+		cut_overlay(armrest)
 
 /obj/structure/chair/sofa/left
 	icon_state = "sofaend_left"
@@ -276,6 +310,32 @@
 
 /obj/structure/chair/sofa/corner
 	icon_state = "sofacorner"
+
+/obj/structure/chair/sofa/corp
+	name = "sofa"
+	desc = "Soft and cushy."
+	icon_state = "corp_sofamiddle"
+
+/obj/structure/chair/sofa/corp/left
+	icon_state = "corp_sofaend_left"
+
+/obj/structure/chair/sofa/corp/right
+	icon_state = "corp_sofaend_right"
+
+/obj/structure/chair/sofa/corp/corner
+	icon_state = "corp_sofacorner"
+
+/obj/structure/chair/sofa/pew
+	name = "pew"
+	desc = "Rigid and uncomfortable, perfect for keeping you awake and alert."
+	icon_state = "pewmiddle"
+	buildstacktype = /obj/item/stack/sheet/wood
+
+/obj/structure/chair/sofa/pew/left
+	icon_state = "pewend_left"
+
+/obj/structure/chair/sofa/pew/right
+	icon_state = "pewend_right"
 
 /obj/structure/chair/stool
 	name = "stool"
@@ -308,6 +368,10 @@
 	var/break_chance = 5 //Likely hood of smashing the chair.
 	var/obj/structure/chair/origin_type = /obj/structure/chair
 
+/obj/item/chair/light
+	icon_state = "chair_greyscale_toppled"
+	origin_type = /obj/structure/chair/light
+
 /obj/item/chair/stool
 	name = "stool"
 	icon = 'icons/obj/chairs.dmi'
@@ -329,12 +393,14 @@
 	plant(user)
 
 /obj/item/chair/proc/plant(mob/user)
+	if(QDELETED(src))
+		return
 	for(var/obj/A in get_turf(loc))
 		if(istype(A, /obj/structure/chair))
-			to_chat(user, "<span class='danger'>There is already a chair here.</span>")
+			to_chat(user, "<span class='warning'>There is already \a [A] here.</span>")
 			return
 
-	user.visible_message("<span class='notice'>[user] rights \the [src.name].</span>", "<span class='notice'>You right \the [name].</span>")
+	user.visible_message("<span class='notice'>[user] rights [src].</span>", "<span class='notice'>You right [src].</span>")
 	var/obj/structure/chair/C = new origin_type(get_turf(loc))
 	C.setDir(dir)
 	qdel(src)
@@ -370,13 +436,6 @@
 				C.apply_effect(6, STUTTER, 0)
 				playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 		smash(user)
-
-/obj/item/chair/stool/attack_self(mob/user as mob)
-	..()
-	new origin_type(get_turf(loc))
-	user.unEquip(src)
-	user.visible_message("<span class='notice'>[user] puts [src] down.</span>", "<span class='notice'>You put [src] down.</span>")
-	qdel(src)
 
 /obj/item/chair/stool/attack(mob/M as mob, mob/user as mob)
 	if(prob(5) && istype(M,/mob/living))

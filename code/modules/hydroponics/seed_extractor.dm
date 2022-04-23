@@ -109,6 +109,7 @@
 
 /datum/seed_pile
 	var/name = ""
+	var/variant = ""
 	var/lifespan = 0	//Saved stats
 	var/endurance = 0
 	var/maturation = 0
@@ -117,8 +118,9 @@
 	var/potency = 0
 	var/amount = 0
 
-/datum/seed_pile/New(name, life, endur, matur, prod, yie, poten, am = 1)
+/datum/seed_pile/New(name, variant, life, endur, matur, prod, yie, poten, am = 1)
 	src.name = name
+	src.variant = variant
 	src.lifespan = life
 	src.endurance = endur
 	src.maturation = matur
@@ -145,9 +147,9 @@
 	if (contents.len == 0)
 		dat += "<font color='red'>No seeds</font>"
 	else
-		dat += "<table cellpadding='3' style='text-align:center;'><tr><td>Name</td><td>Lifespan</td><td>Endurance</td><td>Maturation</td><td>Production</td><td>Yield</td><td>Potency</td><td>Stock</td></tr>"
+		dat += "<table cellpadding='3' style='text-align:center;'><tr><td>Name</td><td>Variant</td><td>Lifespan</td><td>Endurance</td><td>Maturation</td><td>Production</td><td>Yield</td><td>Potency</td><td>Stock</td></tr>"
 		for (var/datum/seed_pile/O in piles)
-			dat += "<tr><td>[O.name]</td><td>[O.lifespan]</td><td>[O.endurance]</td><td>[O.maturation]</td>"
+			dat += "<tr><td>[O.name]</td><td>[O.variant]</td><td>[O.lifespan]</td><td>[O.endurance]</td><td>[O.maturation]</td>"
 			dat += "<td>[O.production]</td><td>[O.yield]</td><td>[O.potency]</td><td>"
 			dat += "<a href='byond://?src=[src.UID()];name=[O.name];li=[O.lifespan];en=[O.endurance];ma=[O.maturation];pr=[O.production];yi=[O.yield];pot=[O.potency]'>Vend</a> ([O.amount] left)</td></tr>"
 		dat += "</table>"
@@ -203,9 +205,9 @@
 	O.forceMove(src)
 	. = 1
 	for (var/datum/seed_pile/N in piles)
-		if (O.plantname == N.name && O.lifespan == N.lifespan && O.endurance == N.endurance && O.maturation == N.maturation && O.production == N.production && O.yield == N.yield && O.potency == N.potency)
+		if (O.plantname == N.name && O.variant == N.variant && O.lifespan == N.lifespan && O.endurance == N.endurance && O.maturation == N.maturation && O.production == N.production && O.yield == N.yield && O.potency == N.potency)
 			++N.amount
 			return
 
-	piles += new /datum/seed_pile(O.plantname, O.lifespan, O.endurance, O.maturation, O.production, O.yield, O.potency)
+	piles += new /datum/seed_pile(O.plantname, O.variant, O.lifespan, O.endurance, O.maturation, O.production, O.yield, O.potency)
 	return

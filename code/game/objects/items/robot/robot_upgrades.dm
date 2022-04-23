@@ -71,7 +71,7 @@
 		if(replacement_type in special_rechargables)
 			R.module.special_rechargables += replacement
 
-	R.module.rebuild_modules()
+	R.module?.rebuild_modules()
 	return TRUE
 
 /obj/item/borg/upgrade/reset

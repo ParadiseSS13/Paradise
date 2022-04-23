@@ -9,3 +9,6 @@
 	alert_pressure = 900*ONE_ATMOSPHERE
 
 	level = 2
+
+/obj/machinery/atmospherics/pipe/simple/insulated/detailed_examine()
+	return "This is completely useless, use a normal pipe." //Sorry, but it's true.

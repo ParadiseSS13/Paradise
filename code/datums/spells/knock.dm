@@ -7,11 +7,15 @@
 	clothes_req = 0
 	invocation = "AULIE OXIN FIERA"
 	invocation_type = "whisper"
-	range = 3
 	cooldown_min = 20 //20 deciseconds reduction per rank
 
 	action_icon_state = "knock"
 	sound = 'sound/magic/knock.ogg'
+
+/obj/effect/proc_holder/spell/aoe_turf/knock/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 3
+	return T
 
 /obj/effect/proc_holder/spell/aoe_turf/knock/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
@@ -41,10 +45,13 @@
 	charge_max = 200
 	invocation = "MAIOR OXIN FIERA"
 	invocation_type = "shout"
-	range = 7
 	level_max = 0 //Cannot be improved, quality of life since can't be refunded
 	cooldown_min = 200
 	var/used = FALSE
+
+/obj/effect/proc_holder/spell/aoe_turf/knock/greater/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	return T
 
 /obj/effect/proc_holder/spell/aoe_turf/knock/greater/cast(list/targets, mob/user = usr)
 	if(!used)

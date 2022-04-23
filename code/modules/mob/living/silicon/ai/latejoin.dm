@@ -9,8 +9,9 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	if(alert("WARNING: This will immediately wipe your core and ghost you, removing your character from the round permanently (similar to cryo and robotic storage). Are you entirely sure you want to do this?",
 					"Wipe Core", "No", "No", "Yes") != "Yes")
 		return
+	cryo_AI()
 
-	// We warned you.
+/mob/living/silicon/ai/proc/cryo_AI()
 	GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(loc)
 	GLOB.global_announcer.autosay("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight")
 

@@ -6,6 +6,7 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "welder"
 	item_state = "welder"
+	belt_icon = "welder"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 3
@@ -14,9 +15,9 @@
 	throw_range = 5
 	hitsound = "swing_hit"
 	w_class = WEIGHT_CLASS_SMALL
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
-	materials = list(MAT_METAL=70, MAT_GLASS=30)
+	materials = list(MAT_METAL = 70, MAT_GLASS = 20)
 	origin_tech = "engineering=1;plasmatech=1"
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 1
@@ -51,6 +52,13 @@
 /obj/item/weldingtool/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return FIRELOSS
+
+/obj/item/weldingtool/can_enter_storage(obj/item/storage/S, mob/user)
+	if(tool_enabled)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		return FALSE
+	else
+		return TRUE
 
 /obj/item/weldingtool/process()
 	if(tool_enabled)
@@ -131,7 +139,7 @@
 
 /obj/item/weldingtool/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
 	. = ..()
-	if(. && user)
+	if(!. && user)
 		if(progress_flash_divisor == 0)
 			user.flash_eyes(min(light_intensity, 1))
 			progress_flash_divisor = initial(progress_flash_divisor)
@@ -185,6 +193,7 @@
 	name = "industrial welding tool"
 	desc = "A slightly larger welder with a larger tank."
 	icon_state = "indwelder"
+	belt_icon = "welder_ind"
 	maximum_fuel = 40
 	materials = list(MAT_METAL=70, MAT_GLASS=60)
 	origin_tech = "engineering=2;plasmatech=2"
@@ -220,6 +229,7 @@
 	desc = "An upgraded welder based off the industrial welder."
 	icon_state = "upindwelder"
 	item_state = "upindwelder"
+	belt_icon = "welder_upg"
 	maximum_fuel = 80
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "engineering=3;plasmatech=2"
@@ -229,6 +239,7 @@
 	desc = "An experimental welder capable of self-fuel generation and less harmful to the eyes."
 	icon_state = "exwelder"
 	item_state = "exwelder"
+	belt_icon = "welder_exp"
 	maximum_fuel = 40
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "materials=4;engineering=4;bluespace=3;plasmatech=4"

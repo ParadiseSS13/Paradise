@@ -4,6 +4,7 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "soulstone"
 	item_state = "electronic"
+	belt_icon = "soulstone"
 	var/icon_state_full = "soulstone2"
 	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artifact's power."
 	w_class = WEIGHT_CLASS_TINY
@@ -81,6 +82,10 @@
 		return
 
 	if(!ishuman(M)) //If target is not a human
+		return ..()
+
+	if(!M.mind)
+		to_chat(user, "<span class='warning'>This being has no soul!</span>")
 		return ..()
 
 	if(M.has_brain_worms()) //Borer stuff - RR
@@ -262,7 +267,8 @@
 	switch(choice)
 		if("FORCE")
 			var/mob/living/T = target
-			if(T.client && T.ghost_can_reenter()) // Haven't DC'd or ahudded
+			T.grab_ghost(FALSE) // If they haven't DC'd or ahudded, put them back in their body
+			if(T.client) // If there's someone in the body
 				init_shade(T, user)
 			else // Poll ghosts
 				to_chat(user, "<span class='userdanger'>Capture failed!</span> The soul has already fled its mortal frame. You attempt to bring it back...")
@@ -327,7 +333,7 @@
 					var/mob/living/simple_animal/hostile/construct/C = new picked_class(shell.loc)
 					C.init_construct(shade, src, shell)
 					to_chat(C, C.playstyle_string)
-					to_chat(C, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Construct)</span>")
+					to_chat(C, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Construct)</span>")
 			else
 				to_chat(user, "<span class='danger'>Creation failed!</span>: The soul stone is empty! Go kill someone!")
 
@@ -346,9 +352,9 @@
 	if(SS.purified)
 		make_holy()
 		// Replace regular soulstone summoning with purified soulstones
-		if(is_type_in_list(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone, mob_spell_list))
-			RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone)
-			AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy)
+		if(is_type_in_list(/obj/effect/proc_holder/spell/aoe_turf/conjure/build/soulstone, mob_spell_list))
+			RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/conjure/build/soulstone)
+			AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/build/soulstone/holy)
 
 	else if(iscultist(src)) // Re-grant cult actions, lost in the transfer
 		var/datum/action/innate/cult/comm/CC = new
@@ -365,7 +371,7 @@
 	qdel(SS)
 
 /proc/make_new_construct(mob/living/simple_animal/hostile/construct/c_type, mob/target, mob/user, cult_override = FALSE)
-	if(jobban_isbanned(target, "cultist"))
+	if(jobban_isbanned(target, ROLE_CULTIST))
 		return
 	var/mob/living/simple_animal/hostile/construct/C = new c_type(get_turf(target))
 	C.faction |= "\ref[user]"
@@ -429,9 +435,9 @@
 	if(!chosen_ghost) // Failing that, we grab a ghost
 		var/list/consenting_candidates
 		if(purified)
-			consenting_candidates = SSghost_spawns.poll_candidates("Would you like to play as a Holy Shade?", ROLE_SENTIENT, FALSE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/shade/holy)
+			consenting_candidates = SSghost_spawns.poll_candidates("Would you like to play as a Holy Shade?", ROLE_SENTIENT, FALSE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/shade/holy, role_cleanname = "holy shade")
 		else
-			consenting_candidates = SSghost_spawns.poll_candidates("Would you like to play as a Shade?", ROLE_SENTIENT, FALSE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/shade)
+			consenting_candidates = SSghost_spawns.poll_candidates("Would you like to play as a Shade?", ROLE_SENTIENT, FALSE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/shade, role_cleanname = "shade")
 		if(length(consenting_candidates))
 			chosen_ghost = pick(consenting_candidates)
 	if(!M)

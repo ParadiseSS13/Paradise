@@ -54,6 +54,3 @@ GLOBAL_LIST_EMPTY(lava_ruins_templates)
 GLOBAL_LIST_EMPTY(shelter_templates)
 GLOBAL_LIST_EMPTY(shuttle_templates)
 
-// Teleport locations
-GLOBAL_LIST_EMPTY(teleportlocs)
-GLOBAL_LIST_EMPTY(ghostteleportlocs)

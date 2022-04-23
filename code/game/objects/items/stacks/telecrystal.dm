@@ -1,7 +1,6 @@
 /obj/item/stack/telecrystal
 	name = "telecrystal"
 	desc = "It seems to be pulsing with suspiciously enticing energies."
-	description_antag = "Telecrystals can be activated by utilizing them on devices with an actively running uplink. They will not activate on unactivated uplinks."
 	singular_name = "telecrystal"
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "telecrystal"
@@ -33,6 +32,9 @@
 		cart.telecrystals += amount
 		use(amount)
 		to_chat(user, "<span class='notice'>You slot [src] into [cart].  The next time it's used, it will also give telecrystals</span>")
+
+/obj/item/stack/telecrystal/detailed_examine_antag()
+	return "Telecrystals can be activated by utilizing them on devices with an actively running uplink. They will not activate on unactivated uplinks."
 
 /obj/item/stack/telecrystal/five
 	amount = 5

@@ -155,9 +155,9 @@
 						return
 					newname = "redtag ED-209 assembly"
 				if("")
-					if(!istype(W, /obj/item/gun/energy/gun/advtaser))
+					if(!istype(W, /obj/item/gun/energy/disabler))
 						return
-					newname = "taser ED-209 assembly"
+					newname = "disabler ED-209 assembly"
 				else
 					return
 			if(!user.unEquip(W))
@@ -211,19 +211,10 @@
 	icon_state = "toolbox_tiles_sensor"
 
 /obj/item/storage/toolbox/attackby(obj/item/stack/tile/plasteel/T, mob/user, params)
-	var/list/allowed_toolbox = list(/obj/item/storage/toolbox/emergency,	//which toolboxes can be made into floorbots
-								/obj/item/storage/toolbox/electrical,
-								/obj/item/storage/toolbox/mechanical,
-								/obj/item/storage/toolbox/green,
-								/obj/item/storage/toolbox/syndicate,
-								/obj/item/storage/toolbox/fakesyndi)
-
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		..()
 		return
-	if(!is_type_in_list(src, allowed_toolbox))
-		return
-	if(type == /obj/item/storage/toolbox/green/memetic)
+	if(!istype(src, /obj/item/storage/toolbox))
 		return
 	if(contents.len >= 1)
 		to_chat(user, "<span class='warning'>They won't fit in, as there is already stuff inside.</span>")
@@ -242,7 +233,7 @@
 				B.toolbox_color = "or"
 			if(/obj/item/storage/toolbox/electrical)
 				B.toolbox_color = "y"
-			if(/obj/item/storage/toolbox/green)
+			if(/obj/item/storage/toolbox/artistic)
 				B.toolbox_color = "g"
 			if(/obj/item/storage/toolbox/syndicate)
 				B.toolbox_color = "s"

@@ -12,13 +12,12 @@
 	plane = GAME_PLANE
 	interact_offline = 1
 	max_integrity = 350
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30)
-	var/on = FALSE
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 30, ACID = 30)
 	var/temperature_archived
 	var/mob/living/carbon/occupant = null
 	var/obj/item/reagent_containers/glass/beaker = null
-	/// Holds two bitflags, AUTO_EJECT_DEAD and AUTO_EJECT_HEALTHY. Used to determine if the cryo cell will auto-eject dead and/or completely health patients.
-	var/auto_eject_prefs = NONE
+	/// Holds two bitflags, AUTO_EJECT_DEAD and AUTO_EJECT_HEALTHY. Used to determine if the cryo cell will auto-eject dead and/or completely healthy patients.
+	var/auto_eject_prefs = AUTO_EJECT_HEALTHY | AUTO_EJECT_DEAD
 
 	var/next_trans = 0
 	var/current_heat_capacity = 50
@@ -27,6 +26,23 @@
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
 
 	light_color = LIGHT_COLOR_WHITE
+
+/obj/machinery/atmospherics/unary/cryo_cell/detailed_examine()
+	return "The cryogenic chamber, or 'cryo', treats most damage types, most notably genetic damage. It also stabilizes patients \
+			in critical condition by placing them in stasis, so they can be treated at a later time.<br>\
+			<br>\
+			In order for it to work, it must be loaded with chemicals, and the temperature of the solution must reach a certain point. Additionally, it \
+			requires a supply of pure oxygen, provided by canisters that are attached. The most commonly used chemicals in the chambers is Cryoxadone, which \
+			heals most damage types including genetic damage.<br>\
+			<br>\
+			Activating the freezer nearby, and setting it to a temperature setting below 150, is recommended before operation! Further, any clothing the patient \
+			is wearing that act as an insulator will reduce its effectiveness, and should be removed.<br>\
+			<br>\
+			Clicking the tube with a beaker full of chemicals in hand will place it in its storage to distribute when it is activated.<br>\
+			<br>\
+			Click your target with Grab intent, then click on the tube, with an empty hand, to place them in it. Click the tube again to open the menu. \
+			Press the button on the menu to activate it. Once they have reached 100 health, right-click the cell and click 'Eject Occupant' to remove them. \
+			Remember to turn it off, once you've finished, to save power and chemicals!"
 
 /obj/machinery/atmospherics/unary/cryo_cell/power_change()
 	..()
@@ -128,7 +144,7 @@
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		to_chat(user, "<span class='danger'>Subject cannot have abiotic items on.</span>")
+		to_chat(user, "<span class='danger'>Subject may not hold anything in their hands.</span>")
 		return
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
@@ -446,7 +462,7 @@
 		to_chat(usr, "<span class='danger'>The cryo cell is already occupied!</span>")
 		return
 	if(M.abiotic())
-		to_chat(usr, "<span class='warning'>Subject may not have abiotic items on.</span>")
+		to_chat(usr, "<span class='warning'>Subject may not hold anything in their hands.</span>")
 		return
 	if(!node)
 		to_chat(usr, "<span class='warning'>The cell is not correctly connected to its pipe network!</span>")

@@ -58,6 +58,7 @@
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	siemens_strength = 1
 	damage_deflection = 10
+	move_resist = INFINITY
 	var/area/area
 	var/areastring = null
 	var/obj/item/stock_parts/cell/cell
@@ -105,6 +106,8 @@
 	var/global/list/status_overlays_environ
 	var/indestructible = 0 // If set, prevents aliens from destroying it
 	var/keep_preset_name = 0
+	/// Was this APC built instead of already existing? Used for malfhack to keep borgs from building apcs in space
+	var/constructed = FALSE
 
 	var/report_power_alarm = TRUE
 
@@ -114,6 +117,11 @@
 	var/nightshift_lights = FALSE
 	var/last_nightshift_switch = 0
 
+	///Used to determine if emergency lights should be on or off
+	var/emergency_power = TRUE
+	var/emergency_power_timer
+	var/emergency_lights = FALSE
+
 /obj/machinery/power/apc/worn_out
 	name = "\improper Worn out APC"
 	keep_preset_name = 1
@@ -122,6 +130,7 @@
 	equipment = 0
 	lighting = 0
 	operating = 0
+	emergency_power = FALSE
 
 /obj/machinery/power/apc/noalarm
 	report_power_alarm = FALSE
@@ -153,7 +162,7 @@
 
 /obj/machinery/power/apc/New(turf/loc, direction, building = 0)
 	if(!armor)
-		armor = list("melee" = 20, "bullet" = 20, "laser" = 10, "energy" = 100, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 50)
+		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, BIO = 100, RAD = 100, FIRE = 90, ACID = 50)
 	..()
 	GLOB.apcs += src
 	GLOB.apcs = sortAtom(GLOB.apcs)
@@ -171,14 +180,13 @@
 		operating = 0
 		name = "[area.name] APC"
 		stat |= MAINT
+		constructed = TRUE
 		update_icon()
 		addtimer(CALLBACK(src, .proc/update), 5)
 
 /obj/machinery/power/apc/Destroy()
 	SStgui.close_uis(wires)
 	GLOB.apcs -= src
-	if(malfai && operating)
-		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	area.power_light = 0
 	area.power_equip = 0
 	area.power_environ = 0
@@ -252,6 +260,17 @@
 				. += "The cover is broken. It may be hard to force it open."
 			else
 				. += "The cover is closed."
+
+/obj/machinery/power/apc/detailed_examine()
+	return "An APC (Area Power Controller) regulates and supplies backup power for the area they are in. Their power channels are divided \
+			out into 'environmental' (Items that manipulate airflow and temperature), 'lighting' (the lights), and 'equipment' (Everything else that consumes power). \
+			Power consumption and backup power cell charge can be seen from the interface, further controls (turning a specific channel on, off or automatic, \
+			toggling the APC's ability to charge the backup cell, or toggling power for the entire area via master breaker) first requires the interface to be unlocked \
+			with an ID with Engineering access or by one of the station's robots or the artificial intelligence."
+
+/obj/machinery/power/apc/detailed_examine_antag()
+	return "This can be emagged to unlock it. It will cause the APC to have a blue error screen. \
+			Wires can be pulsed remotely with a signaler attached to it. A powersink will also drain any APCs connected to the same wire the powersink is on."
 
 // update the APC icon to show the three base states
 // also add overlays for indicator lights
@@ -731,11 +750,11 @@
 
 	if(usr == user && opened && !issilicon(user))
 		if(cell)
+			user.visible_message("<span class='warning'>[user.name] removes [cell] from [src]!", "<span class='notice'>You remove [cell].</span>")
 			user.put_in_hands(cell)
 			cell.add_fingerprint(user)
 			cell.update_icon()
 			cell = null
-			user.visible_message("<span class='warning'>[user.name] removes [cell] from [src]!", "You remove the [cell].</span>")
 			charging = FALSE
 			update_icon()
 		return
@@ -798,6 +817,7 @@
 	data["siliconLock"] = locked
 	data["malfStatus"] = get_malf_status(user)
 	data["nightshiftLights"] = nightshift_lights
+	data["emergencyLights"] = !emergency_lights
 
 	var/powerChannels[0]
 	powerChannels[++powerChannels.len] = list(
@@ -843,6 +863,13 @@
 		area.power_light = (lighting > 1)
 		area.power_equip = (equipment > 1)
 		area.power_environ = (environ > 1)
+		if(lighting)
+			emergency_power = TRUE
+			if(emergency_power_timer)
+				deltimer(emergency_power_timer)
+				emergency_power_timer = null
+		else
+			emergency_power_timer = addtimer(CALLBACK(src, .proc/turn_emergency_power_off), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 //		if(area.name == "AI Chamber")
 //			spawn(10)
 //				to_chat(world, " [area.name] [area.power_equip]")
@@ -850,9 +877,15 @@
 		area.power_light = 0
 		area.power_equip = 0
 		area.power_environ = 0
+		emergency_power_timer = addtimer(CALLBACK(src, .proc/turn_emergency_power_off), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 //		if(area.name == "AI Chamber")
 //			to_chat(world, "[area.power_equip]")
 	area.power_change()
+
+/obj/machinery/power/apc/proc/turn_emergency_power_off()
+	emergency_power = FALSE
+	for(var/obj/machinery/light/L in area)
+		INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
 
 /obj/machinery/power/apc/proc/can_use(mob/user, loud = 0) //used by attack_hand() and Topic()
 	if(user.can_admin_interact())
@@ -959,6 +992,11 @@
 		if("deoccupy")
 			if(get_malf_status(usr))
 				malfvacate()
+		if("emergency_lighting")
+			emergency_lights = !emergency_lights
+			for(var/obj/machinery/light/L in area)
+				INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
+				CHECK_TICK
 
 /obj/machinery/power/apc/proc/toggle_breaker()
 	operating = !operating
@@ -972,6 +1010,9 @@
 		return
 	if(malf.malfhacking)
 		to_chat(malf, "You are already hacking an APC.")
+		return
+	if(constructed)
+		to_chat(malf, "<span class='warning'>This APC was only recently constructed, and is not fully linked to station systems. Hacking it would be pointless.</span>")
 		return
 	to_chat(malf, "Beginning override of APC systems. This takes some time, and you cannot perform other actions during the process.")
 	malf.malfhack = src
@@ -1050,7 +1091,7 @@
 				smoke.start()
 				do_sparks(3, 1, src)
 				for(var/mob/M in viewers(src))
-					M.show_message("<span class='danger'>The [name] suddenly lets out a blast of smoke and some sparks!", 3, "<span class='danger'>You hear sizzling electronics.</span>", 2)
+					M.show_message("<span class='danger'>[src] suddenly lets out a blast of smoke and some sparks!", 3, "<span class='danger'>You hear sizzling electronics.</span>", 2)
 
 
 /obj/machinery/power/apc/surplus()
@@ -1340,7 +1381,7 @@
 	for(var/obj/machinery/light/L in area)
 		if(L.nightshift_allowed)
 			L.nightshift_enabled = nightshift_lights
-			L.update(FALSE)
+			L.update(FALSE, play_sound = FALSE)
 		CHECK_TICK
 
 /obj/machinery/power/apc/proc/relock_callback()

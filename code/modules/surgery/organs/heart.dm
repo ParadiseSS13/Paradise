@@ -64,8 +64,9 @@
 
 /obj/item/organ/internal/heart/prepare_eat()
 	var/obj/S = ..()
-	S.icon_state = dead_icon
-	return S
+	if(S)
+		S.icon_state = dead_icon
+		return S
 
 /obj/item/organ/internal/heart/cursed
 	name = "cursed heart"

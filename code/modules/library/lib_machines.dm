@@ -78,7 +78,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	books_flagged_this_round["[id]"] = 1
 	message_admins("[key_name_admin(user)] has flagged book #[id] as inappropriate.")
 
-	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE [format_table_name("library")] SET flagged = flagged + 1 WHERE id=:id", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE library SET flagged = flagged + 1 WHERE id=:id", list(
 		"id" = text2num(id)
 	))
 	if(!query.warn_execute())
@@ -93,7 +93,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 			to_chat(user, "<span class='danger'>That book cannot be removed from the system, as it does not actually exist in the database.</span>")
 			return
 
-	var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=:id", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM library WHERE id=:id", list(
 		"id" = text2num(id)
 	))
 	if(!query.warn_execute())
@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	if("[id]" in cached_books)
 		return cached_books["[id]"]
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, author, title, category, content, ckey, flagged FROM [format_table_name("library")] WHERE id=:id", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, author, title, category, content, ckey, flagged FROM library WHERE id=:id", list(
 		"id" = text2num(id)
 	))
 	if(!query.warn_execute())

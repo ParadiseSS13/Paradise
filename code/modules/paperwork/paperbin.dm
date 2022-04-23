@@ -85,7 +85,7 @@
 		P.loc = user.loc
 		user.put_in_hands(P)
 		P.add_fingerprint(user)
-		to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
+		to_chat(user, "<span class='notice'>You take [P] out of [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty!</span>")
 
@@ -138,7 +138,7 @@
 			P = new /obj/item/paper/carbon
 		P.loc = user.loc
 		user.put_in_hands(P)
-		to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
+		to_chat(user, "<span class='notice'>You take [P] out of [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty!</span>")
 

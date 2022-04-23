@@ -211,11 +211,12 @@
 
 /mob/living/SetEyeBlurry(amount, updating = TRUE)
 	. = STATUS_UPDATE_BLURRY
-	if((!!amount) == (!!eye_blurry)) // We're not changing from + to 0 or vice versa
+	//if they're both above max or equal that means we won't change the blur filter
+	if(amount > MAX_EYE_BLURRY_FILTER_SIZE / EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER && eye_blurry > MAX_EYE_BLURRY_FILTER_SIZE / EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER || eye_blurry == amount)
 		updating = FALSE
 		. = STATUS_UPDATE_NONE
+
 	eye_blurry = max(amount, 0)
-	// We transitioned to/from 0, so update the eye blur overlays
 	if(updating)
 		update_blurry_effects()
 
@@ -364,9 +365,6 @@
 // STUN
 
 /mob/living/Stun(amount, updating = 1, force = 0)
-	if(status_flags & CANSTUN || force)
-		if(absorb_stun(amount, force))
-			return FALSE
 	return SetStunned(max(stunned, amount), updating, force)
 
 /mob/living/SetStunned(amount, updating = 1, force = 0) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
@@ -376,6 +374,8 @@
 		. = STATUS_UPDATE_NONE
 
 	if(status_flags & CANSTUN || force)
+		if(absorb_stun(amount, force))
+			return STATUS_UPDATE_NONE
 		stunned = max(amount, 0)
 		if(updating)
 			update_canmove()
@@ -404,9 +404,6 @@
 // WEAKEN
 
 /mob/living/Weaken(amount, updating = 1, force = 0)
-	if(status_flags & CANWEAKEN || force)
-		if(absorb_stun(amount, force))
-			return FALSE
 	return SetWeakened(max(weakened, amount), updating, force)
 
 /mob/living/SetWeakened(amount, updating = 1, force = 0)
@@ -415,6 +412,8 @@
 		updating = FALSE
 		. = STATUS_UPDATE_NONE
 	if(status_flags & CANWEAKEN || force)
+		if(absorb_stun(amount, force))
+			return STATUS_UPDATE_NONE
 		weakened = max(amount, 0)
 		if(updating)
 			update_canmove()	//updates lying, canmove and icons

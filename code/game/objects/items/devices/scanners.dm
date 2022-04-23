@@ -81,10 +81,11 @@ REAGENT SCANNER
 				to_chat(user, "<span class='notice'>Subject is not addicted to any reagents.</span>")
 
 /obj/item/healthanalyzer
-	name = "Health Analyzer"
+	name = "health analyzer"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health"
 	item_state = "healthanalyzer"
+	belt_icon = "health_analyzer"
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject."
 	flags = CONDUCT | NOBLUDGEON
 	slot_flags = SLOT_BELT
@@ -225,7 +226,7 @@ REAGENT SCANNER
 			to_chat(user, "<span class='warning'>Bone fractures detected. Advanced scanner required for location.</span>")
 			break
 	for(var/obj/item/organ/external/e in H.bodyparts)
-		if(e.internal_bleeding)
+		if(e.status & ORGAN_INT_BLEEDING)
 			to_chat(user, "<span class='warning'>Internal bleeding detected. Advanced scanner required for location.</span>")
 			break
 	var/blood_id = H.get_blood_id()
@@ -263,6 +264,12 @@ REAGENT SCANNER
 		to_chat(user, "<span class='warning'>Subject's genes are showing minor signs of instability.</span>")
 	else
 		to_chat(user, "<span class='notice'>Subject's genes are stable.</span>")
+
+	if(HAS_TRAIT(H, TRAIT_HUSK))
+		to_chat(user, "<span class='danger'>Subject is husked. Application of synthflesh is recommended.</span>")
+
+	if(H.radiation > RAD_MOB_SAFE)
+		to_chat(user, "<span class='danger'>Subject is irradiated.</span>")
 
 /obj/item/healthanalyzer/attack_self(mob/user)
 	toggle_mode()
@@ -788,7 +795,7 @@ REAGENT SCANNER
 		var/splint = ""
 		var/internal_bleeding = ""
 		var/lung_ruptured = ""
-		if(e.internal_bleeding)
+		if(e.status & ORGAN_INT_BLEEDING)
 			internal_bleeding = "<br>Internal bleeding"
 		if(istype(e, /obj/item/organ/external/chest) && target.is_lung_ruptured())
 			lung_ruptured = "Lung ruptured:"

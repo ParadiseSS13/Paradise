@@ -16,7 +16,6 @@
 
 	connect_types = list(1,2,3) //connects to regular, supply and scrubbers pipes
 
-	var/on = 0
 	var/pump_direction = 1 //0 = siphoning, 1 = releasing
 
 	var/external_pressure_bound = ONE_ATMOSPHERE
@@ -206,23 +205,23 @@
 		pump_direction = 1
 
 	if(signal.data["set_input_pressure"] != null)
-		input_pressure_min = between(
-			0,
+		input_pressure_min = clamp(
 			text2num(signal.data["set_input_pressure"]),
+			0,
 			ONE_ATMOSPHERE*50
 		)
 
 	if(signal.data["set_output_pressure"] != null)
-		output_pressure_max = between(
-			0,
+		output_pressure_max = clamp(
 			text2num(signal.data["set_output_pressure"]),
+			0,
 			ONE_ATMOSPHERE*50
 		)
 
 	if(signal.data["set_external_pressure"] != null)
-		external_pressure_bound = between(
-			0,
+		external_pressure_bound = clamp(
 			text2num(signal.data["set_external_pressure"]),
+			0,
 			ONE_ATMOSPHERE*50
 		)
 

@@ -79,7 +79,7 @@
 
 				for(var/mob/M in viewers(user, null))
 					if(M.client)
-						M.show_message(text("<span class='warning'><B>[user] attacks [src]'s stomach wall with the [I.name]!</span>"), 2)
+						M.show_message(text("<span class='warning'><B>[user] attacks [src]'s stomach wall with [I]!</span>"), 2)
 				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
 				if(prob(getBruteLoss() - 50))
@@ -291,53 +291,62 @@
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
-	visible_message( \
-		text("<span class='notice'>[src] examines [].</span>",gender==MALE?"himself":"herself"), \
+	visible_message("<span class='notice'>[src] examines [H.p_them()]self.</span>", \
 		"<span class='notice'>You check yourself for injuries.</span>" \
 		)
+	var/list/status_list = list()
 
 	var/list/missing = list("head", "chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")
 	for(var/X in H.bodyparts)
 		var/obj/item/organ/external/LB = X
 		missing -= LB.limb_name
-		var/status = ""
+		var/status
 		var/brutedamage = LB.brute_dam
 		var/burndamage = LB.burn_dam
 
-		if(brutedamage > 0)
-			status = "bruised"
-		if(brutedamage > 20)
-			status = "battered"
-		if(brutedamage > 40)
-			status = "mangled"
+		switch(brutedamage)
+			if(0.1 to 20)
+				status = "bruised"
+			if(20 to 40)
+				status = "battered"
+			if(40 to INFINITY)
+				status = "mangled"
 		if(brutedamage > 0 && burndamage > 0)
 			status += " and "
-		if(burndamage > 40)
-			status += "peeling away"
 
-		else if(burndamage > 10)
-			status += "blistered"
-		else if(burndamage > 0)
-			status += "numb"
+		switch(burndamage)
+			if(0.1 to 10)
+				status += "numb"
+			if(10 to 40)
+				status += "blistered"
+			if(40 to INFINITY)
+				status += "peeling away"
+
 		if(LB.status & ORGAN_MUTATED)
-			status = "weirdly shapen."
-		if(status == "")
-			status = "OK"
-		to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>Your [LB.name] is [status].</span>")
+			status = "weirdly shapen"
+
+		var/msg = "<span class='notice'>Your [LB.name] is OK.</span>"
+		if(!isnull(status))
+			msg = "<span class='warning'>Your [LB.name] is [status].</span>"
+		status_list += msg
 
 		for(var/obj/item/I in LB.embedded_objects)
-			to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
+			status_list += "<a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
 
 	for(var/t in missing)
-		to_chat(src, "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>")
+		status_list += "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>"
 
 	if(H.bleed_rate)
-		to_chat(src, "<span class='danger'>You are bleeding!</span>")
+		status_list += "<span class='danger'>You are bleeding!</span>"
 	if(staminaloss)
 		if(staminaloss > 30)
-			to_chat(src, "<span class='info'>You're completely exhausted.</span>")
+			status_list += "<span class='info'>You're completely exhausted.</span>"
 		else
-			to_chat(src, "<span class='info'>You feel fatigued.</span>")
+			status_list += "<span class='info'>You feel fatigued.</span>"
+
+	var/output = status_list.Join("\n")
+	to_chat(src, output)
+
 	if(HAS_TRAIT(H, TRAIT_SKELETONIZED) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
@@ -403,6 +412,10 @@
 
 /mob/living/carbon/proc/tintcheck()
 	return 0
+
+/mob/living/carbon/proc/create_dna()
+	if(!dna)
+		dna = new()
 
 /mob/living/carbon/proc/getDNA()
 	return dna
@@ -483,6 +496,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 					var/failed = 0
 					if(istype(I, /obj/item/implant))
 						continue
+					if(istype(I, /obj/item/reagent_containers/food/pill/patch))
+						continue
 					if(I.flags & ABSTRACT)
 						continue
 					else
@@ -493,7 +508,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 						return
 
 			visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
-			src.loc = vent_found
+			var/old_loc = loc
+			loc = vent_found
+			Moved(old_loc, get_dir(old_loc, loc), FALSE)
 			add_ventcrawl(vent_found)
 
 	else
@@ -538,6 +555,34 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/throw_impact(atom/hit_atom, throwingdatum)
 	. = ..()
+	if(has_status_effect(STATUS_EFFECT_CHARGING))
+		var/hit_something = FALSE
+		if(ismovable(hit_atom))
+			var/atom/movable/AM = hit_atom
+			var/atom/throw_target = get_edge_target_turf(AM, dir)
+			if(!AM.anchored || ismecha(AM))
+				AM.throw_at(throw_target, 3, 14, src)
+				hit_something = TRUE
+		if(isobj(hit_atom))
+			var/obj/O = hit_atom
+			O.take_damage(150, BRUTE)
+			hit_something = TRUE
+		if(isliving(hit_atom))
+			var/mob/living/L = hit_atom
+			L.adjustBruteLoss(60)
+			L.Weaken(3)
+			shake_camera(L, 4, 3)
+			hit_something = TRUE
+		if(isturf(hit_atom))
+			var/turf/T = hit_atom
+			if(iswallturf(T))
+				T.dismantle_wall(TRUE)
+				hit_something = TRUE
+		if(hit_something)
+			visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
+			playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)
+		return
+
 	var/hurt = TRUE
 	/*if(istype(throwingdatum, /datum/thrownthing))
 		var/datum/thrownthing/D = throwingdatum
@@ -1042,7 +1087,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(!forceFed(toEat, user, fullness))
 			return 0
 	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
-	GLOB.score_foodeaten++
+	SSticker.score.score_food_eaten++
 	return 1
 
 /mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
@@ -1126,8 +1171,6 @@ so that different stomachs can handle things in different ways VB*/
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
 /mob/living/carbon/proc/update_tint()
-	if(!GLOB.tinted_weldhelh)
-		return
 	var/tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
 		overlay_fullscreen("tint", /obj/screen/fullscreen/blind)
@@ -1200,6 +1243,14 @@ so that different stomachs can handle things in different ways VB*/
 	if(HAS_TRAIT(src, TRAIT_XRAY_VISION))
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		see_in_dark = max(see_in_dark, 8)
+
+	if(HAS_TRAIT(src, TRAIT_MESON_VISION))
+		sight |= SEE_TURFS
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(src, TRAIT_NIGHT_VISION))
+		see_in_dark = max(see_in_dark, 8)
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()

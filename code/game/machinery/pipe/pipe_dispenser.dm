@@ -7,6 +7,10 @@
 	var/unwrenched = 0
 	var/wait = 0
 
+/obj/machinery/pipedispenser/detailed_examine()
+	return "This can be moved by using a wrench. You will need to wrench it again when you want to use it. You can put \
+			excess (atmospheric) pipes into the dispenser, as well. The dispenser requires electricity to function."
+
 /obj/machinery/pipedispenser/attack_hand(mob/user)
 	if(..())
 		return 1

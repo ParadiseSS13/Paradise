@@ -35,6 +35,9 @@
 	selfcharge = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/item/gun/energy/laser/captain/detailed_examine()
+	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. Unlike most weapons, this weapon recharges itself."
+
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
 	icon_state = "lasercannon"
@@ -112,7 +115,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/xray)
 
 /obj/item/gun/energy/immolator
-	name = "Immolator laser gun"
+	name = "immolator laser gun"
 	desc = "A modified laser gun, shooting highly concetrated beams with higher intensity that ignites the target, for the cost of draining more power per shot"
 	icon_state = "immolator"
 	item_state = "laser"
@@ -138,6 +141,29 @@
 	name = "cyborg immolator cannon"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/scatter/cyborg, /obj/item/ammo_casing/energy/immolator/strong/cyborg) // scatter is default, because it is more useful
 
+/obj/item/gun/energy/emitter
+	name = "mobile emitter"
+	desc = "An emitter removed from its base, and attached to a laser cannon frame."
+	icon_state = "emittercannon"
+	item_state = "laser"
+	w_class = WEIGHT_CLASS_BULKY
+	shaded_charge = TRUE
+	can_holster = FALSE
+	origin_tech = "combat=4;magnets=4;powerstorage=3"
+	ammo_type = list(/obj/item/ammo_casing/energy/emitter)
+	ammo_x_offset = 3
+
+/obj/item/gun/energy/emitter/cyborg
+	name = "mounted emitter"
+	desc = "An emitter built into to your cyborg frame, draining charge from your cell."
+	ammo_type = list(/obj/item/ammo_casing/energy/emitter/cyborg)
+
+/obj/item/gun/energy/emitter/cyborg/newshot()
+	..()
+	robocharge()
+
+/obj/item/gun/energy/emitter/cyborg/emp_act()
+	return
 
 ////////Laser Tag////////////////////
 

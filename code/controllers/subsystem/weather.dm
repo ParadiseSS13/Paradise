@@ -9,10 +9,16 @@ SUBSYSTEM_DEF(weather)
 	flags = SS_BACKGROUND
 	wait = 10
 	runlevels = RUNLEVEL_GAME
-	offline_implications = "Ash storms will no longer trigger.  No immediate action is needed."
+	offline_implications = "Ash storms will no longer trigger. No immediate action is needed."
 	var/list/processing = list()
 	var/list/eligible_zlevels = list()
 	var/list/next_hit_by_zlevel = list() //Used by barometers to know when the next storm is coming
+
+/datum/controller/subsystem/weather/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["processing"] = length(processing)
+	.["custom"] = cust
 
 /datum/controller/subsystem/weather/fire()
 	// process active weather

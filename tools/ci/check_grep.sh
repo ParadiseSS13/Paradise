@@ -10,12 +10,21 @@ if grep -El '^\".+\" = \(.+\)' _maps/**/*.dmm;	then
     echo "ERROR: Non-TGM formatted map detected. Please convert it using Map Merger!"
     st=1
 fi;
+if grep -P '^\ttag = \"icon' _maps/**/*.dmm;	then
+    echo "ERROR: tag vars from icon state generation detected in maps, please remove them."
+    st=1
+fi;
+if grep -P 'pixel_[^xy]' _maps/**/*.dmm;	then
+	echo "ERROR: Incorrect pixel offset variables detected in maps, please remove them."
+	st=1
+fi;
 if grep -P 'step_[xy]' _maps/**/*.dmm;	then
     echo "ERROR: step_x/step_y variables detected in maps, please remove them."
     st=1
 fi;
+
 if grep -P '^/[\w/]\S+\(.*(var/|, ?var/.*).*\)' code/**/*.dm; then
-    echo "changed files contains proc argument starting with 'var'"
+    echo "ERROR: Changed files contains proc arguments with implicit 'var/', please remove them."
     st=1
 fi;
 if grep -P '^/*var/' code/**/*.dm; then

@@ -56,6 +56,14 @@ GLOBAL_LIST_INIT(lizard_recipes, list( \
 	recipes = GLOB.lizard_recipes
 	return ..()
 
+/obj/item/stack/sheet/fur //basic fur sheets
+	name = "pile of fur"
+	desc = "Vulp remains."
+	singular_name = "fur piece"
+	icon_state = "sheet-fur"
+	origin_tech = "materials=2"
+	max_amount = 50
+
 /obj/item/stack/sheet/animalhide/xeno
 	name = "alien hide"
 	desc = "The skin of a terrible creature."
@@ -170,8 +178,8 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	if(is_type_in_typecache(target, goliath_platable_armor_typecache))
 		var/obj/item/clothing/C = target
 		var/datum/armor/current_armor = C.armor
-		if(current_armor.getRating("melee") < 60)
-			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating("melee") + 10, 60))
+		if(current_armor.getRating(MELEE) < 60)
+			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 10, 60))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			use(1)
 		else
@@ -180,9 +188,9 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		var/obj/mecha/working/ripley/D = target
 		if(D.hides < 3)
 			D.hides++
-			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating("melee") + 10, 70))
-			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating("bullet") + 5, 50))
-			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating("laser") + 5, 50))
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
+			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 5, 50))
+			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 5, 50))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			D.update_icon()
 			if(D.hides == 3)

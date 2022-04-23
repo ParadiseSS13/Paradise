@@ -55,6 +55,9 @@ jobs:
   unit_tests_and_sql:
     name: Unit Tests + SQL Validation
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        maptype: ['/datum/map/cyberiad', '/datum/map/delta', '/datum/map/metastation']
     services:
       mariadb:
         image: mariadb:latest
@@ -81,16 +84,21 @@ jobs:
           sudo apt update || true
           sudo apt install libssl1.1:i386
           ldd librust_g.so
+      - name: Start Redis
+        uses: supercharge/redis-github-action@1.4.0
+        with:
+          redis-version: 6
       - name: Compile & Run Unit Tests
         run: |
           tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/dm.sh -DCIBUILDING paradise.dme
+          echo '${{ matrix.maptype }}' > data/next_map.txt
           tools/ci/run_server.sh
 
   windows_dll_tests:
     name: Windows RUSTG Validation
-    runs-on: windows-2016
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2

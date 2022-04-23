@@ -16,7 +16,7 @@
 
 #define FAIL 8
 /obj/machinery/r_n_d/experimentor
-	name = "E.X.P.E.R.I-MENTOR"
+	name = "\improper E.X.P.E.R.I-MENTOR"
 	icon = 'icons/obj/machines/heavy_lathe.dmi'
 	icon_state = "h_lathe"
 	density = 1
@@ -115,30 +115,20 @@
 	if(shocked)
 		shock(user,50)
 
-	if(default_deconstruction_screwdriver(user, "h_lathe_maint", "h_lathe", O))
-		if(linked_console)
-			linked_console.linked_destroy = null
-			linked_console = null
-		return
-
 	if(exchange_parts(user, O))
 		return
 
-	if(panel_open && istype(O, /obj/item/crowbar))
-		default_deconstruction_crowbar(user, O)
-		return
-
 	if(!checkCircumstances(O))
-		to_chat(user, "<span class='warning'>The [O] is not yet valid for the [src] and must be completed!</span>")
+		to_chat(user, "<span class='warning'>[O] is not yet valid for [src] and must be completed!</span>")
 		return
 
 	if(disabled)
 		return
 	if(!linked_console)
-		to_chat(user, "<span class='warning'>The [src] must be linked to an R&D console first!</span>")
+		to_chat(user, "<span class='warning'>[src] must be linked to an R&D console first!</span>")
 		return
 	if(loaded_item)
-		to_chat(user, "<span class='warning'>The [src] is already loaded.</span>")
+		to_chat(user, "<span class='warning'>[src] is already loaded.</span>")
 		return
 	if(istype(O, /obj/item))
 		if(!O.origin_tech)
@@ -152,14 +142,28 @@
 			return
 		loaded_item = O
 		O.loc = src
-		to_chat(user, "<span class='notice'>You add the [O.name] to the machine.</span>")
+		to_chat(user, "<span class='notice'>You add [O] to the machine.</span>")
 		flick("h_lathe_load", src)
 
 	return
 
-/obj/machinery/r_n_d/experimentor/default_deconstruction_crowbar(user, obj/item/O)
+/obj/machinery/r_n_d/experimentor/crowbar_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
 	ejectItem()
-	..(O)
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/r_n_d/experimentor/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	default_deconstruction_screwdriver(user, "h_lathe_maint", "h_lathe", I)
+	if(linked_console)
+		linked_console.linked_destroy = null
+		linked_console = null
 
 /obj/machinery/r_n_d/experimentor/attack_hand(mob/user)
 	user.set_machine(src)
@@ -263,7 +267,7 @@
 			visible_message("<span class='warning'>[src] malfunctions!</span>")
 			exp = SCANTYPE_OBLITERATE
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
-			visible_message("<span class='danger'>[src] malfunctions, throwing the [exp_on]!</span>")
+			visible_message("<span class='danger'>[src] malfunctions, throwing [exp_on]!</span>")
 			var/mob/living/target = locate(/mob/living) in oview(7,src)
 			if(target)
 				var/obj/item/throwing = loaded_item
@@ -443,7 +447,7 @@
 	if(exp == SCANTYPE_OBLITERATE)
 		visible_message("<span class='warning'>[exp_on] activates the crushing mechanism, [exp_on] is destroyed!</span>")
 		if(prob(EFFECT_PROB_LOW) && criticalReaction)
-			visible_message("<span class='warning'>[src]'s crushing mechanism slowly and smoothly descends, flattening the [exp_on]!</span>")
+			visible_message("<span class='warning'>[src]'s crushing mechanism slowly and smoothly descends, flattening [exp_on]!</span>")
 			new /obj/item/stack/sheet/plasteel(get_turf(pick(oview(1,src))))
 		if(linked_console.linked_lathe)
 			var/datum/component/material_container/linked_materials = linked_console.linked_lathe.GetComponent(/datum/component/material_container)
@@ -478,7 +482,7 @@
 		visible_message("<span class='warning'>[exp_on] [a], and [b], the experiment was a failure.</span>")
 
 	if(exp == SCANTYPE_DISCOVER)
-		visible_message("[src] scans the [exp_on], revealing its true nature!")
+		visible_message("[src] scans [exp_on], revealing its true nature!")
 		playsound(src.loc, 'sound/effects/supermatter.ogg', 50, 3, -1)
 		var/obj/item/relic/R = loaded_item
 		R.reveal()
@@ -710,17 +714,17 @@
 	to_chat(user, "<span class='danger'>[src] begins to heat up!</span>")
 	spawn(rand(35,100))
 		if(src.loc == user)
-			visible_message("<span class='notice'>The [src]'s top opens, releasing a powerful blast!</span>")
+			visible_message("<span class='notice'>[src]'s top opens, releasing a powerful blast!</span>")
 			explosion(user.loc, -1, rand(1,5), rand(1,5), rand(1,5), rand(1,5), flame_range = 2)
 			warn_admins(user, "Explosion")
 			qdel(src) //Comment this line to produce a light grenade (the bomb that keeps on exploding when used)!!
 
 /obj/item/relic/proc/teleport(mob/user)
-	to_chat(user, "<span class='notice'>The [src] begins to vibrate!</span>")
+	to_chat(user, "<span class='notice'>[src] begins to vibrate!</span>")
 	spawn(rand(10,30))
 		var/turf/userturf = get_turf(user)
 		if(src.loc == user && is_teleport_allowed(userturf.z)) //Because Nuke Ops bringing this back on their shuttle, then looting the ERT area is 2fun4you!
-			visible_message("<span class='notice'>The [src] twists and bends, relocating itself!</span>")
+			visible_message("<span class='notice'>[src] twists and bends, relocating itself!</span>")
 			throwSmoke(userturf)
 			do_teleport(user, userturf, 8, asoundin = 'sound/effects/phasein.ogg')
 			throwSmoke(get_turf(user))

@@ -66,6 +66,21 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
+/obj/machinery/autolathe/upgraded/gamma/New()
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/autolathe(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	RefreshParts()
+
+/obj/machinery/autolathe/upgraded/gamma/Initialize()
+    . = ..()
+    adjust_hacked(TRUE)
+
 /obj/machinery/autolathe/Destroy()
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)

@@ -11,6 +11,7 @@
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "multitool"
+	belt_icon = "multitool"
 	flags = CONDUCT
 	force = 0
 	w_class = WEIGHT_CLASS_SMALL
@@ -83,6 +84,9 @@
 		if(chunk)
 			if(chunk.seenby.len)
 				for(var/mob/camera/aiEye/A in chunk.seenby)
+					//Checks if the A is to be detected or not
+					if(!A.ai_detector_visible)
+						continue
 					var/turf/detect_turf = get_turf(A)
 					if(get_dist(our_turf, detect_turf) < rangealert)
 						detect_state = PROXIMITY_ON_SCREEN

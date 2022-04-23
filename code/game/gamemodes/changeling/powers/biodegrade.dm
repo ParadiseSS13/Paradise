@@ -1,7 +1,7 @@
 /datum/action/changeling/biodegrade
 	name = "Biodegrade"
 	desc = "Dissolves restraints or other objects preventing free movement. Costs 30 chemicals."
-	helptext = "This is obvious to nearby people, and can destroy standard restraints and closets."
+	helptext = "This is obvious to nearby people, and can destroy standard restraints and closets, and break you out of grabs."
 	button_icon_state = "biodegrade"
 	chemical_cost = 30 //High cost to prevent spam
 	dna_cost = 2
@@ -9,7 +9,7 @@
 
 /datum/action/changeling/biodegrade/sting_action(mob/living/carbon/human/user)
 	var/used = FALSE // only one form of shackles removed per use
-	if(!user.restrained() && !user.legcuffed && !istype(user.loc, /obj/structure/closet) && !istype(user.loc, /obj/structure/spider/cocoon))
+	if(!user.restrained() && !user.legcuffed && !istype(user.loc, /obj/structure/closet) && !istype(user.loc, /obj/structure/spider/cocoon) && !user.grabbed_by)
 		to_chat(user, "<span class='warning'>We are already free!</span>")
 		return FALSE
 
@@ -57,7 +57,15 @@
 		to_chat(user, "<span class='warning'>We secrete acidic enzymes from our skin and begin melting our cocoon...</span>")
 		addtimer(CALLBACK(src, .proc/dissolve_cocoon, user, C), 2.5 SECONDS) //Very short because it's just webs
 		used = TRUE
-
+	for(var/obj/item/grab/G in user.grabbed_by)
+		var/mob/living/carbon/M = G.assailant
+		user.visible_message("<span class='warning'>[user] spits acid at [M]'s face and slips out of their grab!</span>")
+		M.Stun(1) //Drops the grab
+		M.apply_damage(5, BURN, "head", M.run_armor_check("head", "melee"))
+		user.SetStunned(0) //This only triggers if they are grabbed, to have them break out of the grab, without the large stun time. If you use biodegrade as an antistun without being grabbed, it will not work
+		user.SetWeakened(0)
+		playsound(user.loc, 'sound/weapons/sear.ogg', 50, TRUE)
+		used = TRUE
 	if(used)
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE

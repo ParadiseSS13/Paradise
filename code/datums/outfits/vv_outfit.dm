@@ -56,10 +56,7 @@
 				continue
 			if(varname in ignored_vars)
 				continue
-			var/vval = I.vars[varname]
-			//Does it even work ?
-			if(vval == initial(I.vars[varname]))
-				continue
+			var/vval = I.vars[varname] // Can't check initial() because it doesn't work on a list index
 			//Only text/numbers and icons variables to make it less weirdness prone.
 			if(!istext(vval) && !isnum(vval) && !isicon(vval))
 				continue

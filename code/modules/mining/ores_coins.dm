@@ -18,8 +18,6 @@
 	..()
 	pixel_x = rand(0, 16) - 8
 	pixel_y = rand(0, 8) - 8
-	if(is_mining_level(z))
-		GLOB.score_oremined++ //When ore spawns, increment score.  Only include ore spawned on mining level (No Clown Planet)
 
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE

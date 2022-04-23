@@ -49,6 +49,10 @@
 			var/mat_path = possible_mats[id]
 			materials[id] = new mat_path()
 
+/datum/component/material_container/Destroy(force, silent)
+	QDEL_LIST_ASSOC_VAL(materials)
+	return ..()
+
 /datum/component/material_container/proc/OnExamine(datum/source, mob/user, list/examine_list)
 	if(show_on_examine)
 		for(var/I in materials)

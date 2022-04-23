@@ -137,6 +137,12 @@
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	origin_tech = "materials=4;programming=4;biotech=7;magnets=4"
 
+/obj/item/organ/internal/eyes/cybernetic/xray/hardened
+	name = "hardened X-ray eyes"
+	desc = "These cybernetic eyes will give you X-ray vision. Blinking is futile. This pair has been hardened for special operations personnel."
+	emp_proof = TRUE
+	origin_tech = "materials=6;programming=5;biotech=7;magnets=6;syndicate=3"
+
 /obj/item/organ/internal/eyes/cybernetic/thermals
 	name = "thermal eyes"
 	desc = "These cybernetic eye implants will give you thermal vision. Vertical slit pupil included."
@@ -146,6 +152,12 @@
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	see_in_dark = 8
 	origin_tech = "materials=5;programming=4;biotech=4;magnets=4;syndicate=1"
+
+/obj/item/organ/internal/eyes/cybernetic/thermals/hardened
+	name = "hardened thermal eyes"
+	desc = "These cybernetic eye implants will give you thermal vision. Vertical slit pupil included. This pair has been hardened for special operations personnel."
+	emp_proof = TRUE
+	origin_tech = "materials=6;programming=5;biotech=6;magnets=6;syndicate=3"
 
 /obj/item/organ/internal/eyes/cybernetic/flashlight
 	name = "flashlight eyes"

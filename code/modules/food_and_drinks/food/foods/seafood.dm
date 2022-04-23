@@ -3,7 +3,7 @@
 	name = "carp fillet"
 	desc = "A fillet of spess carp meat."
 	icon = 'icons/obj/food/seafood.dmi'
-	icon_state = "fishfillet"
+	icon_state = "carpfillet" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	filling_color = "#FFDEFE"
 	bitesize = 6
 	list_reagents = list("protein" = 3, "carpotoxin" = 2, "vitamin" = 2)
@@ -13,7 +13,7 @@
 	name = "raw salmon"
 	desc = "A fillet of raw salmon."
 	icon = 'icons/obj/food/seafood.dmi'
-	icon_state = "fishfillet"
+	icon_state = "salmonfillet" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	filling_color = "#FFDEFE"
 	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 2)
@@ -23,7 +23,7 @@
 	name = "salmon steak"
 	desc = "A fillet of freshly-grilled salmon meat."
 	icon = 'icons/obj/food/seafood.dmi'
-	icon_state = "salmonsteak"
+	icon_state = "salmonsteak" // Sprite based on one created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	trash = /obj/item/trash/plate
 	filling_color = "#7A3D11"
 	bitesize = 3
@@ -34,7 +34,7 @@
 	name = "raw catfish"
 	desc = "A fillet of raw catfish."
 	icon = 'icons/obj/food/seafood.dmi'
-	icon_state = "fishfillet"
+	icon_state = "catfishfillet" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	filling_color = "#FFDEFE"
 	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 2)

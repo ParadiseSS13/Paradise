@@ -1,10 +1,9 @@
 /obj/effect/spawner/random_spawners
 	name = "random spawners"
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "x2"
+	icon = 'icons/effects/spawner_icons.dmi'
+	icon_state = "questionmark"
 	var/list/result = list(
-	/turf/simulated/floor/plasteel = 1,
-	/turf/simulated/floor/plating = 1,
+	/datum/nothing = 1,
 	/obj/effect/decal/cleanable/blood/splatter = 1,
 	/obj/effect/decal/cleanable/blood/oil = 1,
 	/obj/effect/decal/cleanable/fungus = 1)
@@ -36,84 +35,100 @@
 
 /obj/effect/spawner/random_spawners/blood_maybe
 	name = "blood maybe"
+	icon_state = "blood"
 	result = list(
-	/turf/simulated/floor/plating = 20,
+	/datum/nothing = 20,
 	/obj/effect/decal/cleanable/blood/splatter = 1)
 
 /obj/effect/spawner/random_spawners/blood_often
 	name = "blood often"
+	icon_state = "blood"
 	result = list(
-	/turf/simulated/floor/plating = 5,
+	/datum/nothing = 5,
 	/obj/effect/decal/cleanable/blood/splatter = 1)
 
 /obj/effect/spawner/random_spawners/oil_maybe
 	name = "oil maybe"
+	icon_state = "oil"
 	result = list(
-	/turf/simulated/floor/plating = 20,
+	/datum/nothing = 20,
 	/obj/effect/decal/cleanable/blood/oil = 1)
 
 /obj/effect/spawner/random_spawners/oil_maybe
 	name = "oil often"
+	icon_state = "oil"
 	result = list(
-	/turf/simulated/floor/plating = 5,
+	/datum/nothing = 5,
 	/obj/effect/decal/cleanable/blood/oil = 1)
 
 /obj/effect/spawner/random_spawners/wall_rusted_probably
 	name = "rusted wall probably"
+	icon_state = "rust"
 	result = list(
 	/turf/simulated/wall = 2,
 	/turf/simulated/wall/rust = 7)
 
 /obj/effect/spawner/random_spawners/wall_rusted_maybe
 	name = "rusted wall maybe"
+	icon_state = "rust"
 	result = list(
 	/turf/simulated/wall = 7,
 	/turf/simulated/wall/rust = 1)
 
 /obj/effect/spawner/random_spawners/cobweb_left_frequent
 	name = "cobweb left frequent"
+	icon_state = "cobwebl"
 	result = list(
-	/turf/simulated/floor/plating = 1,
+	/datum/nothing = 1,
 	/obj/effect/decal/cleanable/cobweb = 1)
 
 /obj/effect/spawner/random_spawners/cobweb_right_frequent
 	name = "cobweb right frequent"
+	icon_state = "cobwebr"
 	result = list(
-	/turf/simulated/floor/plating = 1,
+	/datum/nothing = 1,
 	/obj/effect/decal/cleanable/cobweb2 = 1)
 
 /obj/effect/spawner/random_spawners/cobweb_left_rare
 	name = "cobweb left rare"
+	icon_state = "cobwebl"
 	result = list(
-	/turf/simulated/floor/plating = 10,
+	/datum/nothing = 10,
 	/obj/effect/decal/cleanable/cobweb = 1)
 
 /obj/effect/spawner/random_spawners/cobweb_right_rare
 	name = "cobweb right rare"
+	icon_state = "cobwebr"
 	result = list(
-	/turf/simulated/floor/plating = 10,
+	/datum/nothing = 10,
 	/obj/effect/decal/cleanable/cobweb2 = 1)
 
 /obj/effect/spawner/random_spawners/dirt_frequent
 	name = "dirt frequent"
+	icon_state = "dirt"
 	result = list(
-	/turf/simulated/floor/plating = 1,
+	/datum/nothing = 1,
 	/obj/effect/decal/cleanable/dirt = 1)
 
 /obj/effect/spawner/random_spawners/dirt_rare
 	name = "dirt rare"
+	icon_state = "dirt"
 	result = list(
-	/turf/simulated/floor/plating = 10,
+	/datum/nothing = 10,
 	/obj/effect/decal/cleanable/dirt = 1)
 
 /obj/effect/spawner/random_spawners/fungus_maybe
-	name = "rusted wall maybe"
+	name = "fungus maybe"
+	icon_state = "fungus"
+	color = "#D5820B"
 	result = list(
 	/turf/simulated/wall = 7,
 	/obj/effect/decal/cleanable/fungus = 1)
 
 /obj/effect/spawner/random_spawners/fungus_probably
-	name = "rusted wall maybe"
+	name = "fungus probably"
+	icon_state = "fungus"
+	color = "#D5820B"
 	result = list(
 	/turf/simulated/wall = 1,
 	/obj/effect/decal/cleanable/fungus = 7)
@@ -268,7 +283,6 @@
 		/obj/item/ammo_box/magazine/m10mm/hp = 1,
 		/obj/item/rad_laser = 1,
 		/obj/item/storage/box/syndie_kit/emp = 1,
-		/obj/item/batterer = 1,
 		/obj/item/toy/carpplushie/dehy_carp = 1,
 		/obj/item/clothing/glasses/hud/security/chameleon = 1)
 
@@ -289,7 +303,7 @@
 		/obj/item/clothing/glasses/thermal = 1,
 		/obj/item/chameleon = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
-		/obj/item/grenade/plastic/x4 = 1)
+		/obj/item/grenade/plastic/c4/x4 = 1)
 
 
 // Layout-affecting spawns
@@ -307,9 +321,3 @@
 	name = "80pc vaultdoor 20pc wall"
 	result = list(/obj/machinery/door/airlock/hatch/syndicate/vault = 4,
 		/turf/simulated/wall/mineral/plastitanium/nodiagonal = 1)
-
-
-/obj/effect/spawner/random_spawners/syndicate/layout/spacepod
-	name = "50pc loot spacepod"
-	result = list(/obj/spacepod/syndi = 1,
-		/obj/spacepod/syndi/unlocked = 1)

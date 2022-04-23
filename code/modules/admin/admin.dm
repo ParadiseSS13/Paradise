@@ -13,12 +13,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!GLOB.nologevent)
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in GLOB.admins)
-			if(R_ADMIN & C.holder.rights)
-				if(C.prefs.atklog == ATKLOG_NONE)
-					continue
-				var/msg = rendered
-				if(C.prefs.atklog <= loglevel)
-					to_chat(C, msg)
+			if((C.holder.rights & R_ADMIN) && (C.prefs?.atklog <= loglevel))
+				to_chat(C, rendered)
 
 /**
  * Sends a message to the staff able to see admin tickets
@@ -72,7 +68,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /datum/admins/proc/show_player_panel(mob/M in GLOB.mob_list)
 	set category = null
-	set name = "Show Player Panel"
+	set name = "\[Admin\] Show Player Panel"
 	set desc="Edit player (respawn, ban, heal, etc)"
 
 	if(!M)
@@ -91,8 +87,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		else
 			body += "\[[M.client.holder ? M.client.holder.rank : "Player"]\] "
 		body += "\[<A href='?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
-		body += "<br>BYOND account registration date: [M.client.byondacc_date || "ERROR"] [M.client.byondacc_age <= config.byond_account_age_threshold ? "<b>" : ""]([M.client.byondacc_age] days old)[M.client.byondacc_age <= config.byond_account_age_threshold ? "</b>" : ""]"
-		body += "<br>Global Ban DB Lookup: [config.centcom_ban_db_url ? "<a href='?_src_=holder;open_ccbdb=[M.client.ckey]'>Lookup</a>" : "<i>Disabled</i>"]"
+		body += "<br>BYOND account registration date: [M.client.byondacc_date || "ERROR"] [M.client.byondacc_age <= GLOB.configuration.general.byond_account_age_threshold ? "<b>" : ""]([M.client.byondacc_age] days old)[M.client.byondacc_age <= GLOB.configuration.general.byond_account_age_threshold ? "</b>" : ""]"
+		body += "<br>BYOND client version: [M.client.byond_version].[M.client.byond_build]"
+		body += "<br>Global Ban DB Lookup: [GLOB.configuration.url.centcom_ban_db_url ? "<a href='?_src_=holder;open_ccbdb=[M.client.ckey]'>Lookup</a>" : "<i>Disabled</i>"]"
 
 		body += "<br>"
 
@@ -121,16 +118,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	if(M.ckey)
 		body += "<A href='?_src_=holder;boot2=[M.UID()]'>Kick</A> | "
-		body += "<A href='?_src_=holder;warn=[M.ckey]'>Warn</A> | "
 		body += "<A href='?_src_=holder;newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</A> | "
 		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
-		body += "<A href='?_src_=holder;appearanceban=[M.UID()];dbbanaddckey=[M.ckey]'>Appearance Ban</A> | "
 		body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
 		body += "<A href='?_src_=holder;viewkarma=[M.ckey]'>View Karma</A> | "
-		if(config.forum_playerinfo_url)
+		if(GLOB.configuration.url.forum_playerinfo_url)
 			body += "<A href='?_src_=holder;webtools=[M.ckey]'>WebInfo</A> | "
 	if(M.client)
-		if(check_watchlist(M.client.ckey))
+		if(M.client.watchlisted)
 			body += "<A href='?_src_=holder;watchremove=[M.ckey]'>Remove from Watchlist</A> | "
 			body += "<A href='?_src_=holder;watchedit=[M.ckey]'>Edit Watchlist Reason</A> "
 		else
@@ -140,14 +135,13 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		body += "\ <A href='?_src_=holder;sendbacktolobby=[M.UID()]'>Send back to Lobby</A> | "
 		body += "\ <A href='?_src_=holder;eraseflavortext=[M.UID()]'>Erase Flavor Text</A> | "
 		body += "\ <A href='?_src_=holder;userandomname=[M.UID()]'>Use Random Name</A> | "
-		var/muted = M.client.prefs.muted
 		body += {"<br><b>Mute: </b>
-			\[<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><font color='[(muted & MUTE_IC)?"red":"#6685f5"]'>IC</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_OOC]'><font color='[(muted & MUTE_OOC)?"red":"#6685f5"]'>OOC</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_PRAY]'><font color='[(muted & MUTE_PRAY)?"red":"#6685f5"]'>PRAY</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><font color='[(muted & MUTE_ADMINHELP)?"red":"#6685f5"]'>ADMINHELP</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><font color='[(muted & MUTE_DEADCHAT)?"red":"#6685f5"]'>DEADCHAT</font></a>\]
-			(<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><font color='[(muted & MUTE_ALL)?"red":"#6685f5"]'>toggle all</font></a>)
+			\[<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><font color='[check_mute(M.client.ckey, MUTE_IC) ? "red" : "#6685f5"]'>IC</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_OOC]'><font color='[check_mute(M.client.ckey, MUTE_OOC) ? "red" : "#6685f5"]'>OOC</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_PRAY]'><font color='[check_mute(M.client.ckey, MUTE_PRAY) ? "red" : "#6685f5"]'>PRAY</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><font color='[check_mute(M.client.ckey, MUTE_ADMINHELP) ? "red" : "#6685f5"]'>ADMINHELP</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><font color='[check_mute(M.client.ckey, MUTE_DEADCHAT) ?" red" : "#6685f5"]'>DEADCHAT</font></a>]
+			(<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><font color='[check_mute(M.client.ckey, MUTE_ALL) ? "red" : "#6685f5"]'>toggle all</font></a>)
 		"}
 
 	var/jumptoeye = ""
@@ -315,20 +309,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 	var/key = stripped_input(usr, "Enter ckey to add/remove, or leave blank to cancel:", "VPN Whitelist add/remove", max_length=32)
 	if(key)
-		vpn_whitelist_panel(key)
-
-/datum/admins/proc/Jobbans()
-	if(!check_rights(R_BAN))
-		return
-
-	var/dat = "<B>Job Bans!</B><HR><table>"
-	for(var/t in GLOB.jobban_keylist)
-		var/r = t
-		if( findtext(r,"##") )
-			r = copytext( r, 1, findtext(r,"##") )//removes the description
-		dat += text("<tr><td>[t] (<A href='?src=[UID()];removejobban=[r]'>unban</A>)</td></tr>")
-	dat += "</table>"
-	usr << browse(dat, "window=ban;size=400x400")
+		SSipintel.vpn_whitelist_panel(key)
 
 /datum/admins/proc/Game()
 	if(!check_rights(R_ADMIN))
@@ -462,8 +443,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN))
 		return
 
-	config.looc_allowed = !(config.looc_allowed)
-	if(config.looc_allowed)
+	GLOB.looc_enabled = !(GLOB.looc_enabled)
+	if(GLOB.looc_enabled)
 		to_chat(world, "<B>The LOOC channel has been globally enabled!</B>")
 	else
 		to_chat(world, "<B>The LOOC channel has been globally disabled!</B>")
@@ -478,8 +459,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN))
 		return
 
-	config.dsay_allowed = !(config.dsay_allowed)
-	if(config.dsay_allowed)
+	GLOB.dsay_enabled = !(GLOB.dsay_enabled)
+	if(GLOB.dsay_enabled)
 		to_chat(world, "<B>Deadchat has been globally enabled!</B>")
 	else
 		to_chat(world, "<B>Deadchat has been globally disabled!</B>")
@@ -495,7 +476,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN))
 		return
 
-	config.dooc_allowed = !( config.dooc_allowed )
+	GLOB.dooc_enabled = !(GLOB.dooc_enabled)
 	log_admin("[key_name(usr)] toggled Dead OOC.")
 	message_admins("[key_name_admin(usr)] toggled Dead OOC.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Dead OOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -508,7 +489,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN))
 		return
 
-	config.disable_ooc_emoji = !(config.disable_ooc_emoji)
+	GLOB.configuration.general.enable_ooc_emoji = !(GLOB.configuration.general.enable_ooc_emoji)
 	log_admin("[key_name(usr)] toggled OOC Emoji.")
 	message_admins("[key_name_admin(usr)] toggled OOC Emoji.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC Emoji")
@@ -525,7 +506,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		alert("Unable to start the game as it is not set up.")
 		return
 
-	if(config.start_now_confirmation)
+	if(GLOB.configuration.general.start_now_confirmation)
 		if(alert(usr, "This is a live server. Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
 			return
 
@@ -568,8 +549,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_EVENT))
 		return
 
-	config.allow_ai = !( config.allow_ai )
-	if(!( config.allow_ai ))
+
+	GLOB.configuration.jobs.allow_ai = !(GLOB.configuration.jobs.allow_ai)
+	if(!GLOB.configuration.jobs.allow_ai)
 		to_chat(world, "<B>The AI job is no longer chooseable.</B>")
 	else
 		to_chat(world, "<B>The AI job is chooseable now.</B>")
@@ -586,13 +568,13 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_SERVER))
 		return
 
-	GLOB.abandon_allowed = !( GLOB.abandon_allowed )
-	if(GLOB.abandon_allowed)
+	GLOB.configuration.general.respawn_enabled = !(GLOB.configuration.general.respawn_enabled)
+	if(GLOB.configuration.general.respawn_enabled)
 		to_chat(world, "<B>You may now respawn.</B>")
 	else
-		to_chat(world, "<B>You may no longer respawn :(</B>")
-	message_admins("[key_name_admin(usr)] toggled respawn to [GLOB.abandon_allowed ? "On" : "Off"].", 1)
-	log_admin("[key_name(usr)] toggled respawn to [GLOB.abandon_allowed ? "On" : "Off"].")
+		to_chat(world, "<B>You may no longer respawn</B>")
+	message_admins("[key_name_admin(usr)] toggled respawn to [GLOB.configuration.general.respawn_enabled ? "On" : "Off"].", 1)
+	log_admin("[key_name(usr)] toggled respawn to [GLOB.configuration.general.respawn_enabled ? "On" : "Off"].")
 	world.update_status()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Respawn") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -624,43 +606,88 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
-/proc/is_special_character(mob/M as mob) // returns 1 for specail characters and 2 for heroes of gamemode
-	if(!SSticker || !SSticker.mode)
-		return 0
+/**
+  * A proc that return whether the mob is a "Special Character" aka Antagonist
+  *
+  * Arguments:
+  * * M - the mob you're checking
+  */
+/proc/is_special_character(mob/M)
+	if(!SSticker.mode)
+		return FALSE
 	if(!istype(M))
-		return 0
-	if((M.mind in SSticker.mode.head_revolutionaries) || (M.mind in SSticker.mode.revolutionaries))
-		if(SSticker.mode.config_tag == "revolution")
-			return 2
-		return 1
-	if(M.mind in SSticker.mode.cult)
-		if(SSticker.mode.config_tag == "cult")
-			return 2
-		return 1
-	if(M.mind in SSticker.mode.syndicates)
-		if(SSticker.mode.config_tag == "nuclear")
-			return 2
-		return 1
-	if(M.mind in SSticker.mode.wizards)
-		if(SSticker.mode.config_tag == "wizard")
-			return 2
-		return 1
-	if(M.mind in SSticker.mode.changelings)
-		if(SSticker.mode.config_tag == "changeling")
-			return 2
-		return 1
-	if(M.mind in SSticker.mode.abductors)
-		if(SSticker.mode.config_tag == "abduction")
-			return 2
-		return 1
+		return FALSE
 	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
 		if(R.emagged)
-			return 1
-	if(M.mind&&M.mind.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
-		return 1
+			return TRUE
+	if(M.mind?.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
+		return TRUE
+	return FALSE
 
-	return 0
+/**
+  * A proc that return an array of capitalized strings containing name of the antag types they are
+  *
+  * Arguments:
+  * * M - the mob you're checking
+  */
+/proc/get_antag_type_strings_list(mob/M) // return an array of all the antag types they are with name
+	var/list/antag_list = list()
+
+	if(!SSticker.mode || !istype(M) || !M.mind)
+		return FALSE
+
+	if(M.mind in SSticker.mode.head_revolutionaries)
+		antag_list += "Head Rev"
+	if(M.mind in SSticker.mode.revolutionaries)
+		antag_list += "Revolutionary"
+	if(M.mind in SSticker.mode.cult)
+		antag_list += "Cultist"
+	if(M.mind in SSticker.mode.syndicates)
+		antag_list += "Nuclear Operative"
+	if(M.mind in SSticker.mode.wizards)
+		antag_list += "Wizard"
+	if(M.mind in SSticker.mode.changelings)
+		antag_list += "Changeling"
+	if(M.mind in SSticker.mode.abductors)
+		antag_list += "Abductor"
+	if(M.mind.has_antag_datum(/datum/antagonist/vampire))
+		antag_list += "Vampire"
+	if(M.mind.has_antag_datum(/datum/antagonist/mindslave/thrall))
+		antag_list += "Vampire Thrall"
+	if(M.mind in SSticker.mode.shadows)
+		antag_list += "Shadowling"
+	if(M.mind in SSticker.mode.shadowling_thralls)
+		antag_list += "Shadowling Thrall"
+	if(M.mind.has_antag_datum(/datum/antagonist/traitor))
+		antag_list += "Traitor"
+	if(M.mind.has_antag_datum(/datum/antagonist/mindslave, FALSE))
+		antag_list += "Mindslave"
+	if(isrobot(M))
+		var/mob/living/silicon/robot/R = M
+		if(R.emagged)
+			antag_list += "Emagged Borg"
+	if(!length(antag_list) && M.mind.special_role) // Snowflake check. If none of the above but still special, then other antag. Technically not accurate.
+		antag_list += "Other Antag(s)"
+	return antag_list
+
+/**
+  * A proc that return a string containing all the singled out antags . Empty string if not antag
+  *
+  * Usually, you'd return a FALSE, but since this is consumed by javascript you're in
+  * for a world of hurt if you pass a byond FALSE which get converted into a fucking string anyway and pass for TRUE in check. Fuck.
+  * It always append "(May be other antag)"
+  * Arguments:
+  * * M - the mob you're checking
+  * *
+  */
+/proc/get_antag_type_truncated_plaintext_string(mob/M as mob)
+	var/list/antag_list = get_antag_type_strings_list(M)
+
+	if(length(antag_list))
+		return antag_list.Join(" &amp; ") + " " + "(May be other antag)"
+
+	return ""
 
 /datum/admins/proc/spawn_atom(object as text)
 	set category = "Debug"
@@ -724,13 +751,13 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_SERVER))
 		return
 
-	GLOB.guests_allowed = !( GLOB.guests_allowed )
-	if(!( GLOB.guests_allowed ))
+	GLOB.configuration.general.guest_ban = !(GLOB.configuration.general.guest_ban)
+	if(GLOB.configuration.general.guest_ban)
 		to_chat(world, "<B>Guests may no longer enter the game.</B>")
 	else
 		to_chat(world, "<B>Guests may now enter the game.</B>")
-	log_admin("[key_name(usr)] toggled guests game entering [GLOB.guests_allowed ? "" : "dis"]allowed.")
-	message_admins("<span class='notice'>[key_name_admin(usr)] toggled guests game entering [GLOB.guests_allowed ? "" : "dis"]allowed.</span>", 1)
+	log_admin("[key_name(usr)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed.")
+	message_admins("<span class='notice'>[key_name_admin(usr)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed.</span>", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Guests") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/output_ai_laws()
@@ -764,7 +791,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	message_admins("[key_name_admin(usr)] checked the AI laws")
 
 /client/proc/update_mob_sprite(mob/living/carbon/human/H as mob)
-	set name = "Update Mob Sprite"
+	set name = "\[Admin\] Update Mob Sprite"
 	set desc = "Should fix any mob sprite update errors."
 	set category = null
 
@@ -787,9 +814,15 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 	if(GLOB.gamma_ship_location == 1)
 		fromArea = locate(/area/shuttle/gamma/space)
 		toArea = locate(/area/shuttle/gamma/station)
+		for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
+			H.unlock(TRUE)
+		GLOB.event_announcement.Announce("Central Command has deployed the Gamma Armory shuttle.", new_sound = 'sound/AI/commandreport.ogg')
 	else
 		fromArea = locate(/area/shuttle/gamma/station)
 		toArea = locate(/area/shuttle/gamma/space)
+		for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
+			H.lock(TRUE)
+		GLOB.event_announcement.Announce("Central Command has recalled the Gamma Armory shuttle.", new_sound = 'sound/AI/commandreport.ogg')
 	fromArea.move_contents_to(toArea)
 
 	for(var/obj/machinery/mech_bay_recharge_port/P in toArea)
@@ -917,4 +950,3 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 			continue
 		result[1]++
 	return result
-

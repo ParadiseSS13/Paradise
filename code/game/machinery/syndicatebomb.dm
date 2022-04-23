@@ -440,7 +440,7 @@
 	range_flame = 2
 
 /obj/item/bombcore/emp
-	name = "EMP bomb core"
+	name = "\improper EMP bomb core"
 	var/light_emp = 36
 	var/heavy_emp = 18
 	var/pulse_number = 1 //Since one EMP wont destroy anything other then consoles and IPCS, here is an option to have multiple pulses when dentonating. DO NOT USE THIS WITH REALLY LARGE AREAS
@@ -540,7 +540,7 @@
 			to_chat(user, "<span class='notice'>You load [src] with [I].</span>")
 			I.loc = src
 		else
-			to_chat(user, "<span class='warning'>The [I] wont fit! The [src] can only hold up to [max_beakers] containers.</span>")
+			to_chat(user, "<span class='warning'>[I] won't fit! [src] can only hold up to [max_beakers] containers.</span>")
 			return
 	else
 		return ..()

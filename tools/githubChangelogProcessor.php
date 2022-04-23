@@ -32,7 +32,7 @@ $dbServer = "localhost"; // Hostname of the database server (default localhost)
 $dbPort = "3306"; // Port of the database server (default 3306) | MUST BE A STRING
 $dbUser = "root"; // Database username (default root)
 $dbPassword = ""; // Database password (default blank)
-$dbDatabase = "feedback"; // Database name (default feedback)
+$dbDatabase = "paradise_gamedb"; // Database name (default paradise_gamedb)
 
 //servers to announce PRs to.
 $servers = array();
