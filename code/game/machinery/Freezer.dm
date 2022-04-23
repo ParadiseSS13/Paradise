@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer
-	name = "freezer"
+	name = "охладитель"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "freezer"
 	density = 1
@@ -76,10 +76,10 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!panel_open)
-		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
+		to_chat(user, "<span class='notice'>Сначала откройте панель техобслуживания.</span>")
 		return
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
-	var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
+	var/selected = input(user,"Выберите направление соединения.", "Направление соединения") in choices
 	dir = choices[selected]
 	var/node_connect = dir
 	initialize_directions = dir
@@ -107,7 +107,7 @@
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_hand(mob/user as mob)
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, "<span class='notice'>Сначала закройте панель техобслуживания.</span>")
 		return
 
 	ui_interact(user)
@@ -115,7 +115,7 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "GasFreezer", "Gas Cooling System", 540, 200)
+		ui = new(user, src, ui_key, "GasFreezer", "Газоохладительная система", 560, 200)
 		ui.open()
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/ui_data(mob/user)
@@ -163,7 +163,7 @@
 		update_icon()
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/
-	name = "heater"
+	name = "нагреватель"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "heater"
 	density = 1
@@ -181,7 +181,7 @@
 	initialize_directions = dir
 	var/obj/item/circuitboard/thermomachine/H = new /obj/item/circuitboard/thermomachine(null)
 	H.build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
-	H.name = "circuit board (Heater)"
+	H.name = "circuit board (Нагреватель)"
 	component_parts = list()
 	component_parts += H
 	component_parts += new /obj/item/stock_parts/matter_bin(src)
@@ -196,7 +196,7 @@
 	..()
 	var/obj/item/circuitboard/thermomachine/H = new /obj/item/circuitboard/thermomachine(null)
 	H.build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
-	H.name = "circuit board (Heater)"
+	H.name = "circuit board (Нагреватель)"
 	component_parts = list()
 	component_parts += H
 	component_parts += new /obj/item/stock_parts/matter_bin/super(src)
@@ -244,10 +244,10 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!panel_open)
-		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
+		to_chat(user, "<span class='notice'>Сначала откройте панель техобслуживания.</span>")
 		return
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
-	var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
+	var/selected = input(user,"Выберите направление соединения.", "Направление соединения") in choices
 	dir = choices[selected]
 	var/node_connect = dir
 	initialize_directions = dir
@@ -275,14 +275,14 @@
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_hand(mob/user as mob)
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, "<span class='notice'>Сначала закройте панель техобслуживания.</span>")
 		return
 	ui_interact(user)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "GasFreezer", "Gas Heating System", 540, 200)
+		ui = new(user, src, ui_key, "GasFreezer", "Газонагревательная система", 560, 200)
 		ui.open()
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_data(mob/user)
