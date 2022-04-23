@@ -134,7 +134,7 @@
 			add_attack_logs(src, M, "Hit lightly by [src]")
 			M.apply_damage(rand(1, 5), BURN)
 
-/obj/item/projectile/energy/toxplasma
+/obj/item/projectile/energy/weak_plasma
 	name = "plasma bolt"
 	icon_state = "plasma_light"
 	damage = 12.5

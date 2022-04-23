@@ -6,6 +6,8 @@
 #define WOOD 2
 #define SAND 3
 
+#define DROPWALL_UPTIME 12
+
 //Barricades/cover
 
 /obj/structure/barricade
@@ -247,17 +249,18 @@
 /obj/structure/barricade/dropwall/Destroy()
 	if(core_shield)
 		source.protected = FALSE
+	source = null
 	return ..()
 
 /obj/structure/barricade/dropwall/emp_act(severity)
 	..()
-	take_damage( 40 / severity, BRUTE) //chances are the EMP will also hit the generator, we don't want it to double up too heavily
+	take_damage(40 / severity, BRUTE) //chances are the EMP will also hit the generator, we don't want it to double up too heavily
 
 /obj/structure/barricade/dropwall/bullet_act(obj/item/projectile/P)
 	if(P.shield_buster)
 		qdel(src)
 	else
-		. = ..()
+		return ..()
 
 /obj/item/grenade/barrier/dropwall
 	name = "dropwall shield generator"
@@ -266,7 +269,7 @@
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall"
 	mode = NORTH
-	var/uptime = 12 SECONDS
+	var/uptime = DROPWALL_UPTIME SECONDS
 
 /obj/item/grenade/barrier/dropwall/toggle_mode(mob/user)
 	switch(mode)
@@ -306,43 +309,40 @@
 	anchored = TRUE
 	protected = TRUE
 	addtimer(CALLBACK(src, .proc/power_out), uptime)
-	while(uptime >= 10)
-		addtimer(CALLBACK(src, .proc/annoying_overlay_proc, uptime / 10), (10 * (12 - uptime / 10))) // instantly, 1 second, 2 seconds, ect. Would put in SECONDS here but it shits itself
-		uptime -= 10
+	timer_overlay_proc(uptime/10)
 
 	connected_shields += new /obj/structure/barricade/dropwall(get_turf(loc), src, TRUE, direction)
-	for(var/i in connected_shields)
-		core_shield = i
+	core_shield = connected_shields[1]
 
 	var/dir_left = turn(direction, -90)
 	var/dir_right = turn(direction, 90)
 	var/target_turf = get_step(src, dir_left)
-	if(!(is_blocked_turf(target_turf)))
+	if(!is_blocked_turf(target_turf))
 		connected_shields += new /obj/structure/barricade/dropwall(target_turf, src, FALSE, direction, dir_left)
 
 	var/target_turf2 = get_step(src, dir_right)
-	if(!(is_blocked_turf(target_turf2)))
+	if(!is_blocked_turf(target_turf2))
 		connected_shields += new /obj/structure/barricade/dropwall(target_turf2, src, FALSE, direction, dir_right)
 
 
 /obj/structure/dropwall_generator/attacked_by(obj/item/I, mob/living/user) //No, you can not just go up to the generator and whack it. Central shield needs to go down first.
 	if(protected)
 		visible_message("<span class='warning'>[src]'s shield absorbs the blow!</span>")
-		core_shield.take_damage(I.force, I.damtype, MELEE, 1)
+		core_shield.take_damage(I.force, I.damtype, MELEE, TRUE)
 	else
-		. = ..()
+		return ..()
 
 /obj/structure/dropwall_generator/bullet_act(obj/item/projectile/P)
-	if(protected)
+	if(!protected)
+		return ..()
+	else
 		visible_message("<span class='warning'>[src]'s shield absorbs the blow!</span>")
 		core_shield.take_damage(P.damage, P.damage_type, P.flag)
-	else
-		. = ..()
 
 /obj/structure/dropwall_generator/Destroy()
 	QDEL_LIST(connected_shields)
 	core_shield = null
-	. = ..()
+	return ..()
 
 /obj/structure/dropwall_generator/emp_act(severity)
 	..()
@@ -357,11 +357,14 @@
 	new /obj/item/used_dropwall(get_turf(src))
 	qdel(src)
 
-/obj/structure/dropwall_generator/proc/annoying_overlay_proc(uptime)
-	var/cycle = 13 - uptime
+/obj/structure/dropwall_generator/proc/timer_overlay_proc(uptime) // This proc will make the timer on the generator tick down like a clock, over 12 equally sized portions (12 times over 12 seconds, every second by default)
+	var/cycle = DROPWALL_UPTIME + 1 - uptime
+	add_overlay("[cycle]")
 	if(cycle != 1)
 		cut_overlay("[(cycle - 1)]")
-	add_overlay("[cycle]")
+	if(cycle < 12)
+		addtimer(CALLBACK(src, .proc/timer_overlay_proc, uptime - 1), DROPWALL_UPTIME / 12 SECONDS)
+
 
 /obj/item/used_dropwall
 	name = "broken dropwall generator"
@@ -386,3 +389,6 @@
 #undef METAL
 #undef WOOD
 #undef SAND
+
+
+#undef DROPWALL_UPTIME

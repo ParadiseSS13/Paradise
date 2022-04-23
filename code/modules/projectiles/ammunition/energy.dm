@@ -245,8 +245,8 @@
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
 	projectile_type = /obj/item/projectile/energy/shock_revolver
 
-/obj/item/ammo_casing/energy/toxplasma
-	projectile_type = /obj/item/projectile/energy/toxplasma
+/obj/item/ammo_casing/energy/weak_plasma
+	projectile_type = /obj/item/projectile/energy/weak_plasma
 	e_cost = 75 // With no charging, 162.5 damage from 13 shots.
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
 	fire_sound = 'sound/weapons/taser2.ogg'

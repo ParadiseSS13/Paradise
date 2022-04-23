@@ -1,3 +1,6 @@
+#define PLASMA_CHARGE_USE_PER_SECOND 2.5
+#define PLASMA_DISCHARGE_LIMIT 5
+
 // Ion Rifles //
 /obj/item/gun/energy/ionrifle
 	name = "ion rifle"
@@ -311,7 +314,7 @@
 	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi') //This apperently exists, and I have the sprites so sure.
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
-	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma, /obj/item/ammo_casing/energy/charged_plasma)
+	ammo_type = list(/obj/item/ammo_casing/energy/weak_plasma, /obj/item/ammo_casing/energy/charged_plasma)
 	shaded_charge = 1
 	can_holster = TRUE
 	atom_say_verb = "beeps"
@@ -337,12 +340,12 @@
 /obj/item/gun/energy/toxgun/process() //keep your finger on the trigger soldier
 	..()
 	if(overloaded)
-		cell.charge -= 0.5 //2.5 per second, 25 every 10 seconds
-		if(cell.charge <= 25 && !warned)
+		cell.charge -= PLASMA_CHARGE_USE_PER_SECOND / 5 //2.5 per second, 25 every 10 seconds
+		if(cell.charge <= PLASMA_CHARGE_USE_PER_SECOND * 10 && !warned)
 			warned = TRUE
 			playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 75, 1)
 			atom_say("Caution, charge low. Forced discharge in under 10 seconds.")
-		if(cell.charge <= 5)
+		if(cell.charge <= PLASMA_DISCHARGE_LIMIT)
 			discharge()
 
 /obj/item/gun/energy/toxgun/attack_self(mob/living/user)
@@ -354,7 +357,7 @@
 		return
 	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
 	charging = TRUE
-	if(do_after(user, 25, target = src))
+	if(do_after(user, 2.5 SECONDS, target = src))
 		select_fire(user)
 		overloaded = TRUE
 		cell.charge -= 125
@@ -373,6 +376,7 @@
 	warned = FALSE
 	UnregisterSignal(src, COMSIG_ITEM_DROPPED)
 	UnregisterSignal(holder, COMSIG_CARBON_SWAP_HANDS)
+	holder = null
 
 /obj/item/gun/energy/toxgun/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(charging)
@@ -388,11 +392,11 @@
 
 /obj/item/gun/energy/toxgun/emp_act(severity)
 	..()
-	if(prob(100 / severity))
-		if(overloaded)
-			discharge()
+	if(prob(100 / severity) && overloaded)
+		discharge()
 
 /obj/item/gun/energy/toxgun/proc/discharge() //25% of the time, plasma leak. Otherwise, shoot at a random mob / turf nearby. If no proper mob is found when mob is picked, fire at a turf instead
+	SIGNAL_HANDLER
 	reset_overloaded()
 	do_sparks(2, 1, src)
 	update_icon()
@@ -403,24 +407,20 @@
 			T.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,15)
 		return
 	if(prob(50))
-		var/found_someone = FALSE
 		var/list/mob_targets = list()
 		for(var/mob/living/M in oview(get_turf(src), 7))
 			mob_targets += M
-			found_someone = TRUE
-		if(found_someone)
+		if(length(mob_targets))
 			var/mob/living/target = pick(mob_targets)
 			shootAt(target)
 			visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
 			return
 
 	visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
-	var/found_target = FALSE
 	var/list/turf_targets = list()
 	for(var/turf/T in orange(get_turf(src), 7))
 		turf_targets += T
-		found_target = TRUE
-	if(found_target)
+	if(length(turf_targets))
 		var/turf/target = pick(turf_targets)
 		shootAt(target)
 
@@ -430,7 +430,7 @@
 	var/turf/U = get_turf(target)
 	if(!T || !U)
 		return
-	var/obj/item/projectile/energy/charged_plasma/O = new /obj/item/projectile/energy/charged_plasma(get_turf(loc))
+	var/obj/item/projectile/energy/charged_plasma/O = new /obj/item/projectile/energy/charged_plasma(T)
 	playsound(src.loc, 'sound/weapons/marauder.ogg', 75, 1)
 	O.current = T
 	O.yo = U.y - T.y
@@ -750,3 +750,6 @@
 	var/obj/item/ammo_casing/energy/mimic/M = ammo_type[select]
 	M.mimic_type = mimic_type
 	..()
+
+#undef PLASMA_CHARGE_USE_PER_SECOND
+#undef PLASMA_DISCHARGE_LIMIT

@@ -73,7 +73,7 @@
 	if(istype(hitby, /obj/item/projectile))
 		var/obj/item/projectile/P = hitby
 		if(P.shield_buster && active)
-			toggle(owner)
+			toggle(owner, TRUE)
 			to_chat(owner, "<span class='warning'>[hitby] overloaded your [src]!</span>")
 	return 0
 
@@ -81,10 +81,10 @@
 	return (active)
 
 /obj/item/shield/energy/attack_self(mob/living/carbon/human/user)
-	toggle(user)
+	toggle(user, FALSE)
 
-/obj/item/shield/energy/proc/toggle(mob/living/carbon/human/user)
-	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+/obj/item/shield/energy/proc/toggle(mob/living/carbon/human/user, forced)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && !forced)
 		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")
 		user.take_organ_damage(5)
 	active = !active
@@ -108,7 +108,8 @@
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
-	add_fingerprint(user)
+	if(!forced)
+		add_fingerprint(user)
 	return
 /obj/item/shield/riot/tele
 	name = "telescopic shield"
