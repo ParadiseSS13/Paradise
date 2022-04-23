@@ -186,33 +186,33 @@
 ///Vampire "hunger"
 
 /obj/screen/alert/fat/vampire
-	name = "Fat"
-	desc = "You somehow drank too much blood, lardass. Run around the station and lose some weight."
+	name = "Ожирение"
+	desc = "Вы выпили столько крови, что пузо уже не влезает в штаны. Бегайте теперь по станции кругами, чтобы похудеть."
 	icon_state = "v_fat"
 
 /obj/screen/alert/full/vampire
-	name = "Full"
-	desc = "You feel full and satisfied, but you know you will thirst for more blood soon..."
+	name = "Пресыщение"
+	desc = "Вы чувствуете спокойствие и приятную насыщенность. Но жажда крови обязательно вернётся…"
 	icon_state = "v_full"
 
 /obj/screen/alert/well_fed/vampire
-	name = "Well Fed"
-	desc = "You feel quite satisfied, but you could do with a bit more blood."
+	name = "Сытость"
+	desc = "Вы вполне сыты, но могли бы выпить ещё немного крови."
 	icon_state = "v_well_fed"
 
 /obj/screen/alert/fed/vampire
-	name = "Fed"
-	desc = "You feel moderately satisfied, but a bit more blood wouldn't hurt."
+	name = "Удовлетворённость"
+	desc = "Вы не голодны, но испить ещё немного крови не помешало бы."
 	icon_state = "v_fed"
 
 /obj/screen/alert/hungry/vampire
-	name = "Hungry"
-	desc = "You currently thirst for blood."
+	name = "Недоедание"
+	desc = "Вы жаждете отведать свежей крови."
 	icon_state = "v_hungry"
 
 /obj/screen/alert/starving/vampire
-	name = "Starving"
-	desc = "You're severely thirsty. The thirst pains make moving around a chore."
+	name = "Жажда"
+	desc = "Вас наполняет жажда. Она приносит физическую боль. Вам тяжело передвигаться."
 	icon_state = "v_starving"
 
 //End of Vampire "hunger"

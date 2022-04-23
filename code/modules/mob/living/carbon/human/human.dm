@@ -190,8 +190,8 @@
 				stat("Absorbed DNA", mind.changeling.absorbedcount)
 
 			if(mind.vampire)
-				stat("Total Blood", "[mind.vampire.bloodtotal]")
-				stat("Usable Blood", "[mind.vampire.bloodusable]")
+				stat("Всего крови", "[mind.vampire.bloodtotal]")
+				stat("Доступная кровь", "[mind.vampire.bloodusable]")
 
 	if(istype(loc, /obj/spacepod)) // Spacdpods!
 		var/obj/spacepod/S = loc

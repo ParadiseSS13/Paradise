@@ -51,6 +51,9 @@
 		return double_name
 	return multiple_name // 5, 6, 7, 8, 9, 0
 
+/proc/genderize_ru(gender, male_word, female_word, neuter_word, multiple_word)
+	return gender == MALE ? male_word : (gender == FEMALE ? female_word : (gender == NEUTER ? neuter_word : multiple_word))
+
 //like clients, which do have gender.
 /client/p_they(capitalized, temp_gender)
 	if(!temp_gender)
