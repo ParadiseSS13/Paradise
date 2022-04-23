@@ -73,11 +73,7 @@
 	if(istype(hitby, /obj/item/projectile))
 		var/obj/item/projectile/P = hitby
 		if(P.shield_buster && active)
-			force = 3
-			throwforce = 3
-			throw_speed = 3
-			w_class = WEIGHT_CLASS_TINY
-			playsound(owner, 'sound/weapons/saberoff.ogg', 35, 1)
+			toggle(owner)
 			to_chat(owner, "<span class='warning'>[hitby] overloaded your [src]!</span>")
 	return 0
 
@@ -85,6 +81,9 @@
 	return (active)
 
 /obj/item/shield/energy/attack_self(mob/living/carbon/human/user)
+	toggle(user)
+
+/obj/item/shield/energy/proc/toggle(mob/living/carbon/human/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")
 		user.take_organ_damage(5)
@@ -111,7 +110,6 @@
 		H.update_inv_r_hand()
 	add_fingerprint(user)
 	return
-
 /obj/item/shield/riot/tele
 	name = "telescopic shield"
 	desc = "An advanced riot shield made of lightweight materials that collapses for easy storage."

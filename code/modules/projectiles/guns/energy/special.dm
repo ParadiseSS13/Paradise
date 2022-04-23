@@ -317,11 +317,11 @@
 	atom_say_verb = "beeps"
 	bubble_icon = "swarmer"
 	light_color = "#89078E"
-	light_range = 3
-	light_power = 0.1
+	light_power = 4
 	var/overloaded = FALSE
 	var/warned = FALSE
 	var/charging = FALSE
+	var/mob/living/carbon/holder = null
 
 /obj/item/gun/energy/toxgun/Initialize(mapload)
 	. = ..()
@@ -329,6 +329,9 @@
 
 /obj/item/gun/energy/toxgun/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
+	UnregisterSignal(src, COMSIG_ITEM_DROPPED)
+	UnregisterSignal(holder, COMSIG_CARBON_SWAP_HANDS)
+	holder = null
 	return ..()
 
 /obj/item/gun/energy/toxgun/process() //keep your finger on the trigger soldier
@@ -341,12 +344,6 @@
 			atom_say("Caution, charge low. Forced discharge in under 10 seconds.")
 		if(cell.charge <= 5)
 			discharge()
-		if(ishuman(loc))
-			var/mob/living/carbon/human/user = loc
-			if(!user.is_in_active_hand(src))
-				discharge()
-		else
-			discharge()
 
 /obj/item/gun/energy/toxgun/attack_self(mob/living/user)
 	if(overloaded)
@@ -358,28 +355,32 @@
 	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
 	charging = TRUE
 	if(do_after(user, 25, target = src))
+		select_fire(user)
 		overloaded = TRUE
 		cell.charge -= 125
 		playsound(loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
 		atom_say("Overloading successful.")
-		light_power = 4 //extra visual effect to make it more noticable to user and victims alike
+		set_light(3) //extra visual effect to make it more noticable to user and victims alike
+		RegisterSignal(src, COMSIG_ITEM_DROPPED, /obj/item/gun/energy/toxgun.proc/discharge)
+		holder = user
+		RegisterSignal(holder, COMSIG_CARBON_SWAP_HANDS, /obj/item/gun/energy/toxgun.proc/discharge)
 	charging = FALSE
 
 /obj/item/gun/energy/toxgun/proc/reset_overloaded()
-	light_power = 0.1 //setting it to zero doesn't update the light for some reason?
+	select_fire()
+	set_light(0)
 	overloaded = FALSE
 	warned = FALSE
+	UnregisterSignal(src, COMSIG_ITEM_DROPPED)
+	UnregisterSignal(holder, COMSIG_CARBON_SWAP_HANDS)
 
 /obj/item/gun/energy/toxgun/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
-	if(overloaded)
-		select_fire(user)
-	else if(charging)
+	if(charging)
 		return
 	return ..()
 
 /obj/item/gun/energy/toxgun/process_chamber()
 	if(overloaded)
-		select_fire(usr)
 		do_sparks(2, 1, src)
 		reset_overloaded()
 	..()
@@ -404,9 +405,7 @@
 	if(prob(50))
 		var/found_someone = FALSE
 		var/list/mob_targets = list()
-		for(var/mob/living/M in range(get_turf(src), 7))
-			if(M in range(get_turf(src), 1)) // shooting at the person holding it does not work
-				continue
+		for(var/mob/living/M in oview(get_turf(src), 7))
 			mob_targets += M
 			found_someone = TRUE
 		if(found_someone)
@@ -418,9 +417,7 @@
 	visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
 	var/found_target = FALSE
 	var/list/turf_targets = list()
-	for(var/turf/T in range(get_turf(src), 7))
-		if(T in range(get_turf(src), 1))
-			continue
+	for(var/turf/T in orange(get_turf(src), 7))
 		turf_targets += T
 		found_target = TRUE
 	if(found_target)

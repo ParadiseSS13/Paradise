@@ -170,7 +170,7 @@
 		if(istype(hitby, /obj/item/projectile))
 			var/obj/item/projectile/P = hitby
 			if(P.shield_buster)
-				current_charges = max(0, current_charges -= 3)
+				current_charges = 0 //Change it to remove 3 charges if it ever has its max shield limit increased above 3.
 		if(!current_charges)
 			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
 			shield_state = "broken"
