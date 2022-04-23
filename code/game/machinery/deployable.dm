@@ -59,7 +59,7 @@
 			return TRUE
 		var/obj/item/projectile/proj = mover
 		if(directional_blockage)
-			if(turn(mover.dir, 180) in directional_list)
+			if(one_eighty_check(mover))
 				return FALSE
 		if(proj.firer && Adjacent(proj.firer))
 			return TRUE
@@ -68,10 +68,12 @@
 		return FALSE
 	if(isitem(mover)) //thrown items with the dropwall
 		if(directional_blockage)
-			if(turn(mover.dir, 180) in directional_list)
+			if(one_eighty_check(mover))
 				return FALSE
 	return !density
 
+/obj/structure/barricade/proc/one_eighty_check(atom/movable/mover)
+	return turn(mover.dir, 180) in directional_list
 
 /////BARRICADE TYPES///////
 
@@ -305,6 +307,11 @@
 	if(direction)
 		deploy(direction, uptime)
 
+/obj/structure/dropwall_generator/Destroy()
+	QDEL_LIST(connected_shields)
+	core_shield = null
+	return ..()
+
 /obj/structure/dropwall_generator/proc/deploy(direction, uptime)
 	anchored = TRUE
 	protected = TRUE
@@ -338,11 +345,6 @@
 	else
 		visible_message("<span class='warning'>[src]'s shield absorbs the blow!</span>")
 		core_shield.take_damage(P.damage, P.damage_type, P.flag)
-
-/obj/structure/dropwall_generator/Destroy()
-	QDEL_LIST(connected_shields)
-	core_shield = null
-	return ..()
 
 /obj/structure/dropwall_generator/emp_act(severity)
 	..()

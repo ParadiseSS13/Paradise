@@ -306,7 +306,7 @@
 	ammo_x_offset = 3
 	can_holster = TRUE  // you'll never see it coming
 
-/obj/item/gun/energy/toxgun
+/obj/item/gun/energy/plasma_pistol
 	name = "plasma pistol"
 	desc = "A specialized firearm designed to fire heated bolts of plasma. Can be overloaded for a high damage shield breaking shot."
 	icon_state = "toxgun"
@@ -326,18 +326,18 @@
 	var/charging = FALSE
 	var/mob/living/carbon/holder = null
 
-/obj/item/gun/energy/toxgun/Initialize(mapload)
+/obj/item/gun/energy/plasma_pistol/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSfastprocess, src)
 
-/obj/item/gun/energy/toxgun/Destroy()
+/obj/item/gun/energy/plasma_pistol/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
 	UnregisterSignal(src, COMSIG_ITEM_DROPPED)
 	UnregisterSignal(holder, COMSIG_CARBON_SWAP_HANDS)
 	holder = null
 	return ..()
 
-/obj/item/gun/energy/toxgun/process() //keep your finger on the trigger soldier
+/obj/item/gun/energy/plasma_pistol/process() //keep your finger on the trigger soldier
 	..()
 	if(overloaded)
 		cell.charge -= PLASMA_CHARGE_USE_PER_SECOND / 5 //2.5 per second, 25 every 10 seconds
@@ -348,7 +348,7 @@
 		if(cell.charge <= PLASMA_DISCHARGE_LIMIT)
 			discharge()
 
-/obj/item/gun/energy/toxgun/attack_self(mob/living/user)
+/obj/item/gun/energy/plasma_pistol/attack_self(mob/living/user)
 	if(overloaded)
 		to_chat(user, "<span class='warning'>[src] is already overloaded!</span>")
 		return
@@ -364,12 +364,12 @@
 		playsound(loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
 		atom_say("Overloading successful.")
 		set_light(3) //extra visual effect to make it more noticable to user and victims alike
-		RegisterSignal(src, COMSIG_ITEM_DROPPED, /obj/item/gun/energy/toxgun.proc/discharge)
+		RegisterSignal(src, COMSIG_ITEM_DROPPED, /obj/item/gun/energy/plasma_pistol.proc/discharge)
 		holder = user
-		RegisterSignal(holder, COMSIG_CARBON_SWAP_HANDS, /obj/item/gun/energy/toxgun.proc/discharge)
+		RegisterSignal(holder, COMSIG_CARBON_SWAP_HANDS, /obj/item/gun/energy/plasma_pistol.proc/discharge)
 	charging = FALSE
 
-/obj/item/gun/energy/toxgun/proc/reset_overloaded()
+/obj/item/gun/energy/plasma_pistol/proc/reset_overloaded()
 	select_fire()
 	set_light(0)
 	overloaded = FALSE
@@ -378,24 +378,24 @@
 	UnregisterSignal(holder, COMSIG_CARBON_SWAP_HANDS)
 	holder = null
 
-/obj/item/gun/energy/toxgun/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
+/obj/item/gun/energy/plasma_pistol/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(charging)
 		return
 	return ..()
 
-/obj/item/gun/energy/toxgun/process_chamber()
+/obj/item/gun/energy/plasma_pistol/process_chamber()
 	if(overloaded)
 		do_sparks(2, 1, src)
 		reset_overloaded()
 	..()
 	update_icon()
 
-/obj/item/gun/energy/toxgun/emp_act(severity)
+/obj/item/gun/energy/plasma_pistol/emp_act(severity)
 	..()
 	if(prob(100 / severity) && overloaded)
 		discharge()
 
-/obj/item/gun/energy/toxgun/proc/discharge() //25% of the time, plasma leak. Otherwise, shoot at a random mob / turf nearby. If no proper mob is found when mob is picked, fire at a turf instead
+/obj/item/gun/energy/plasma_pistol/proc/discharge() //25% of the time, plasma leak. Otherwise, shoot at a random mob / turf nearby. If no proper mob is found when mob is picked, fire at a turf instead
 	SIGNAL_HANDLER
 	reset_overloaded()
 	do_sparks(2, 1, src)
@@ -425,7 +425,7 @@
 		shootAt(target)
 
 
-/obj/item/gun/energy/toxgun/proc/shootAt(atom/movable/target)
+/obj/item/gun/energy/plasma_pistol/proc/shootAt(atom/movable/target)
 	var/turf/T = get_turf(src)
 	var/turf/U = get_turf(target)
 	if(!T || !U)

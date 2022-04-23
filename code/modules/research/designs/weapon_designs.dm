@@ -138,7 +138,7 @@
 	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5, "plasmatech" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000, MAT_PLASMA = 3000)
-	build_path = /obj/item/gun/energy/toxgun
+	build_path = /obj/item/gun/energy/plasma_pistol
 	locked = 1
 	category = list("Weapons")
 
