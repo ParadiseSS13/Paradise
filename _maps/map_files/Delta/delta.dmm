@@ -8190,10 +8190,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aPS" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
 	tag = "icon-cult"
@@ -16681,9 +16681,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/chair/comfy/brown{
-	dir = 8
-	},
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "bFU" = (
@@ -19031,7 +19028,7 @@
 /area/maintenance/engrooms)
 "bQV" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/security_space_law,
+/obj/item/reagent_containers/food/drinks/mug,
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "bQW" = (
@@ -20484,10 +20481,10 @@
 /area/quartermaster/sorting)
 "bXi" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/coffee,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment,
+/obj/item/clipboard,
+/obj/item/toy/figure/lawyer,
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "bXk" = (
@@ -22322,15 +22319,9 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/hologram/holopad,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1;
-	initialize_directions = 11
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1;
-	initialize_directions = 11
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -30112,8 +30103,6 @@
 /area/hallway/secondary/exit)
 "cJv" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin/nanotrasen,
-/obj/item/pen,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -30121,6 +30110,14 @@
 	},
 /obj/machinery/alarm{
 	pixel_y = 23
+	},
+/obj/item/taperecorder{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/camera{
+	pixel_x = 3;
+	pixel_y = -4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
@@ -31185,7 +31182,6 @@
 	pixel_x = -1;
 	pixel_y = 1
 	},
-/obj/item/storage/fancy/cigarettes/cigpack_robust,
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "cOu" = (
@@ -32394,9 +32390,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
-	},
-/obj/effect/landmark/start{
-	name = "Internal Affairs Agent"
 	},
 /turf/simulated/floor/carpet,
 /area/lawoffice)
@@ -33933,6 +33926,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
 	tag = "icon-cult"
@@ -34568,7 +34562,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "dbf" = (
@@ -41313,24 +41306,10 @@
 /turf/simulated/floor/plating,
 /area/medical/cryo)
 "dAn" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/storage/briefcase{
-	pixel_x = -2;
-	pixel_y = -5
-	},
-/obj/item/storage/briefcase{
-	pixel_x = 3
-	},
-/obj/item/storage/secure/briefcase{
-	pixel_x = 5;
-	pixel_y = -5
-	},
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/vending/coffee/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
 	tag = "icon-cult"
@@ -42065,21 +42044,33 @@
 	name = "Hangar Maintenance"
 	})
 "dCV" = (
-/obj/structure/disposalpipe/junction{
-	dir = 8
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redcorner"
+	icon_state = "cult";
+	tag = "icon-cult"
 	},
-/area/hallway/primary/starboard/east)
+/area/lawoffice)
 "dCW" = (
 /obj/item/paper_bin,
 /obj/structure/table,
@@ -51769,10 +51760,6 @@
 /area/crew_quarters/sleep)
 "eMZ" = (
 /obj/structure/chair/comfy/brown,
-/obj/structure/disposalpipe/segment,
-/obj/effect/landmark/start{
-	name = "Internal Affairs Agent"
-	},
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "eNq" = (
@@ -56640,18 +56627,22 @@
 	},
 /area/crew_quarters/kitchen)
 "fXv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
+/obj/machinery/firealarm{
+	pixel_y = -28
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
@@ -64755,6 +64746,7 @@
 /obj/item/storage/secure/safe{
 	pixel_x = 32
 	},
+/obj/structure/filingcabinet/employment,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
 	tag = "icon-cult"
@@ -83503,27 +83495,14 @@
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "mDK" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/junction{
+	dir = 8
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+	dir = 4;
+	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/starboard/east)
 "mDL" = (
@@ -87293,20 +87272,15 @@
 /turf/simulated/floor/plating,
 /area/security/execution)
 "nzz" = (
-/obj/structure/closet/lawcloset,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/item/clothing/under/rank/internalaffairs,
-/obj/item/clothing/under/rank/internalaffairs,
-/obj/item/clothing/suit/storage/internalaffairs,
-/obj/item/clothing/suit/storage/internalaffairs,
-/obj/item/clothing/accessory/lawyers_badge,
-/obj/item/clothing/accessory/lawyers_badge,
-/obj/item/radio/headset/headset_iaa,
-/obj/item/radio/headset/headset_iaa,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
 	tag = "icon-cult"
@@ -91163,25 +91137,12 @@
 	},
 /area/atmos)
 "ovX" = (
-/obj/structure/table/reinforced,
-/obj/item/folder{
-	pixel_x = -4
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/obj/item/folder/red{
-	pixel_y = 3
-	},
-/obj/item/folder/blue{
-	pixel_x = 5
-	},
-/obj/item/folder/yellow{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/stamp/law,
-/obj/item/pen/multi,
-/obj/item/radio/intercom{
-	pixel_y = 23
-	},
+/obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
 	tag = "icon-cult"
@@ -101727,7 +101688,6 @@
 	},
 /area/medical/medbay2)
 "qRV" = (
-/obj/machinery/vending/coffee/free,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -101737,6 +101697,16 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
@@ -102296,12 +102266,10 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "qZn" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/toy/figure/lawyer,
 /obj/machinery/light_switch{
 	pixel_x = -26
 	},
+/obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
 	tag = "icon-cult"
@@ -106487,7 +106455,6 @@
 /area/medical/reception)
 "rYY" = (
 /obj/machinery/hologram/holopad,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
 	tag = "icon-cult"
@@ -110107,17 +110074,24 @@
 	},
 /area/security/brigstaff)
 "sTG" = (
-/obj/machinery/computer/prisoner{
-	req_access = null;
-	req_access_txt = "2"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/firealarm{
-	pixel_y = -28
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
@@ -110634,9 +110608,13 @@
 /area/maintenance/portsolar)
 "tcb" = (
 /obj/structure/table/reinforced,
-/obj/item/flashlight/lamp,
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/obj/item/paper_bin/nanotrasen,
+/obj/item/pen/multi,
+/obj/item/radio/intercom{
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
@@ -110690,8 +110668,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "tcH" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -110705,6 +110681,10 @@
 /obj/machinery/light{
 	dir = 1;
 	on = 1
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Internal Affairs Office"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
@@ -110784,7 +110764,6 @@
 	},
 /area/medical/research/restroom)
 "tdm" = (
-/obj/machinery/photocopier,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -110794,6 +110773,9 @@
 	c_tag = "Internal Affairs Office North";
 	network = list("SS13","Security")
 	},
+/obj/structure/table/reinforced,
+/obj/item/paper_bin/nanotrasen,
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
 	tag = "icon-cult"
@@ -110902,10 +110884,6 @@
 /turf/simulated/floor/plasteel,
 /area/gateway)
 "ten" = (
-/obj/structure/table/reinforced,
-/obj/machinery/photocopier/faxmachine/longrange{
-	department = "Internal Affairs Office"
-	},
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
@@ -110920,6 +110898,15 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
+	},
+/obj/structure/table/reinforced,
+/obj/item/taperecorder{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/camera{
+	pixel_x = 3;
+	pixel_y = -4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
@@ -111047,12 +111034,15 @@
 	},
 /area/medical/sleeper)
 "tfS" = (
-/obj/structure/filingcabinet/employment,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/closet/lawcloset,
+/obj/item/clothing/under/rank/internalaffairs,
+/obj/item/clothing/under/rank/internalaffairs,
+/obj/item/clothing/suit/storage/internalaffairs,
+/obj/item/clothing/suit/storage/internalaffairs,
+/obj/item/clothing/accessory/lawyers_badge,
+/obj/item/clothing/accessory/lawyers_badge,
+/obj/item/radio/headset/headset_iaa,
+/obj/item/radio/headset/headset_iaa,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
 	tag = "icon-cult"
@@ -119615,7 +119605,15 @@
 	},
 /area/hallway/primary/aft)
 "viE" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/obj/effect/landmark/start{
+	name = "Internal Affairs Agent"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
 	tag = "icon-cult"
@@ -119856,10 +119854,6 @@
 /obj/item/pen,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/carpet,
 /area/lawoffice)
@@ -122949,7 +122943,21 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
 "vUZ" = (
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/storage/briefcase{
+	pixel_x = -2;
+	pixel_y = -5
+	},
+/obj/item/storage/briefcase{
+	pixel_x = 3
+	},
+/obj/item/storage/secure/briefcase{
+	pixel_x = 5;
+	pixel_y = -5
+	},
 /obj/machinery/requests_console{
 	department = "Internal Affairs Office";
 	name = "Internal Affairs Requests Console";
@@ -125547,12 +125555,7 @@
 	},
 /area/hallway/secondary/exit)
 "wzl" = (
-/obj/structure/chair/office/dark{
-	dir = 8
-	},
-/obj/effect/landmark/start{
-	name = "Internal Affairs Agent"
-	},
+/obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
 	tag = "icon-cult"
@@ -125561,9 +125564,6 @@
 "wzs" = (
 /obj/structure/chair/comfy/brown{
 	dir = 1
-	},
-/obj/effect/landmark/start{
-	name = "Internal Affairs Agent"
 	},
 /turf/simulated/floor/carpet,
 /area/lawoffice)
@@ -128096,11 +128096,13 @@
 /area/maintenance/electrical)
 "xen" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin/nanotrasen,
-/obj/item/pen,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/folder{
+	pixel_x = -4
+	},
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
 	tag = "icon-cult"
@@ -128568,12 +128570,13 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/courtroom)
 "xiB" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/mug,
+/obj/machinery/computer/prisoner{
+	req_access = null;
+	req_access_txt = "2"
+	},
 /obj/structure/cable{
-	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4"
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
@@ -128793,6 +128796,15 @@
 	dir = 1;
 	network = list("SS13","Security")
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
 	tag = "icon-cult"
@@ -128855,6 +128867,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult";
@@ -132465,22 +132480,11 @@
 	})
 "xYn" = (
 /obj/structure/table/wood,
-/obj/item/camera{
-	pixel_x = 3;
-	pixel_y = -4
-	},
-/obj/item/taperecorder{
-	pixel_x = -4;
-	pixel_y = 2
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
+/obj/item/book/manual/security_space_law,
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "xYp" = (
@@ -178083,7 +178087,7 @@ tmH
 sZx
 vFG
 wkK
-ovX
+spS
 xen
 uSv
 xnx
@@ -178343,7 +178347,7 @@ wkK
 vUZ
 wzl
 xiB
-xux
+xnx
 xPg
 vVv
 pOC
@@ -178596,11 +178600,11 @@ wkK
 wkK
 wkK
 wkK
-spS
+tfS
 jun
 jun
-sTG
-xnx
+xlq
+xux
 xPg
 vVv
 pOC
@@ -178853,12 +178857,12 @@ svX
 tcb
 qZn
 aPS
-viE
+jun
 jun
 jun
 qRV
-xux
-xPg
+arw
+mDK
 cee
 bnL
 uZJ
@@ -179113,7 +179117,7 @@ jun
 gRO
 vjQ
 jun
-xlq
+dCV
 xux
 xPg
 vVv
@@ -179627,7 +179631,7 @@ eMZ
 vlU
 cOt
 gRO
-xlq
+sTG
 xux
 vUF
 oXa
@@ -179885,9 +179889,9 @@ xYn
 bXi
 daU
 fXv
-arw
-dCV
-mDK
+xnx
+vUF
+qze
 kYC
 xBx
 wsP
@@ -180136,7 +180140,7 @@ vPt
 vfE
 wkK
 ten
-lwy
+viE
 xfE
 bFS
 cSB
@@ -180392,9 +180396,9 @@ rVi
 qzP
 rtn
 wkK
-tfS
+ugi
 hSs
-cYJ
+ovX
 lTt
 cYJ
 dAn
@@ -180910,9 +180914,9 @@ tif
 baC
 ntt
 eRr
-jqp
-wzK
 cRe
+wzK
+jqp
 rZF
 ncC
 pQN
