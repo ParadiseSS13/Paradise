@@ -727,7 +727,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/update_flavor_text()
 	set src in usr
 	if(usr != src)
-		to_chat(usr, "<span class='notice'> You can't change the flavor text of this mob")
+		to_chat(usr, "<span class='notice'>You can't change the flavor text of this mob</span>")
 		return
 	if(stat)
 		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text </span>")
