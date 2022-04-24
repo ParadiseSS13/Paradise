@@ -364,7 +364,6 @@
 		playsound(loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
 		atom_say("Overloading successful.")
 		set_light(3) //extra visual effect to make it more noticable to user and victims alike
-		RegisterSignal(src, COMSIG_ITEM_DROPPED, /obj/item/gun/energy/plasma_pistol.proc/discharge)
 		holder = user
 		RegisterSignal(holder, COMSIG_CARBON_SWAP_HANDS, /obj/item/gun/energy/plasma_pistol.proc/discharge)
 	charging = FALSE
@@ -374,7 +373,6 @@
 	set_light(0)
 	overloaded = FALSE
 	warned = FALSE
-	UnregisterSignal(src, COMSIG_ITEM_DROPPED)
 	UnregisterSignal(holder, COMSIG_CARBON_SWAP_HANDS)
 	holder = null
 
@@ -393,6 +391,16 @@
 /obj/item/gun/energy/plasma_pistol/emp_act(severity)
 	..()
 	if(prob(100 / severity) && overloaded)
+		discharge()
+
+/obj/item/gun/energy/plasma_pistol/dropped(mob/user)
+	. = ..()
+	if(overloaded)
+		discharge()
+
+/obj/item/gun/energy/plasma_pistol/equipped(mob/user, slot, initial)
+	. = ..()
+	if(overloaded)
 		discharge()
 
 /obj/item/gun/energy/plasma_pistol/proc/discharge() //25% of the time, plasma leak. Otherwise, shoot at a random mob / turf nearby. If no proper mob is found when mob is picked, fire at a turf instead
