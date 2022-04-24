@@ -332,8 +332,6 @@
 
 /obj/item/gun/energy/plasma_pistol/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
-	UnregisterSignal(src, COMSIG_ITEM_DROPPED)
-	UnregisterSignal(holder, COMSIG_CARBON_SWAP_HANDS)
 	holder = null
 	return ..()
 
@@ -365,7 +363,7 @@
 		atom_say("Overloading successful.")
 		set_light(3) //extra visual effect to make it more noticable to user and victims alike
 		holder = user
-		RegisterSignal(holder, COMSIG_CARBON_SWAP_HANDS, /obj/item/gun/energy/plasma_pistol.proc/discharge)
+		RegisterSignal(holder, COMSIG_CARBON_SWAP_HANDS, .proc/discharge)
 	charging = FALSE
 
 /obj/item/gun/energy/plasma_pistol/proc/reset_overloaded()
