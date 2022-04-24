@@ -730,14 +730,14 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(usr, "<span class='notice'>You can't change the flavor text of this mob</span>")
 		return
 	if(stat)
-		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text </span>")
+		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
 		return
 	
 	var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance.","Flavor Text",html_decode(flavor_text)) as message|null
 
 	if(msg != null)
 		if(stat)
-			to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text </span>")
+			to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
 			return
 		msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 		msg = html_encode(msg)
