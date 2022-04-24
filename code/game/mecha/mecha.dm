@@ -212,7 +212,7 @@
 				to_chat(L, "<span class='warning'>You don't want to harm other living beings!</span>")
 				return
 			if(user.mind?.martial_art?.no_guns)
-				to_chat(src, "<span class='warning'>[mind.martial_art.no_guns_message]</span>")
+				to_chat(L, "<span class='warning'>[L.mind.martial_art.no_guns_message]</span>")
 				return
 			selected.action(target, params)
 	else if(selected && selected.is_melee())
