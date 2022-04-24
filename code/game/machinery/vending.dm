@@ -1299,7 +1299,7 @@
 /obj/machinery/vending/security
 	name = "\improper SecTech"
 	desc = "A security equipment vendor."
-	ads_list = list("Crack capitalist skulls!","Beat some heads in!","Don't forget - harm is good!","Your weapons are right here.","Handcuffs!","Freeze, scumbag!","Don't tase me bro!","Tase them, bro.","Why not have a donut?")
+	ads_list = list("Круши черепа капиталистов!","Отбей несколько голов!","Не забывай, вредительство - полезно!","Твое оружие здесь.","Наручники!","Стоять, подонок!","Не бей меня, брат!","Убей их, брат.","Почему бы не съесть пончик?")
 	icon_state = "sec"
 	icon_deny = "sec-deny"
 	req_access_txt = "1"
@@ -1310,6 +1310,27 @@
 	refill_canister = /obj/item/vending_refill/security
 
 /obj/machinery/vending/security/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/security(null)
+	RefreshParts()
+	return ..()
+
+/obj/machinery/vending/security/training
+	name = "\improper SecTech Training"
+	desc = "A security training equipment vendor."
+	ads_list = list("Соблюдай чистоту на стрельбище!","Даже я стреляю лучше тебя!","Почему так косо, бухой что ли?!","Техника безопасности нам не писана, да?","1 из 10 попаданий... А ты хорош!","Инструктор это твой папочка!","Эй, ты куда целишься?!")
+	icon_state = "sectraining"
+	icon_deny = "sectraining-deny"
+	req_access_txt = "1"
+	products = list(/obj/item/clothing/ears/earmuffs = 2, /obj/item/gun/energy/laser/practice = 2, /obj/item/gun/projectile/automatic/toy/pistol/enforcer = 2,
+				    /obj/item/gun/projectile/shotgun/toy = 2, /obj/item/gun/projectile/automatic/toy = 2)
+	contraband = list(/obj/item/toy/figure/secofficer = 1)
+	refill_canister = /obj/item/vending_refill/security
+
+/obj/machinery/vending/security/training/Initialize(mapload)
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)

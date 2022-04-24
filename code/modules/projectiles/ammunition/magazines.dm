@@ -458,7 +458,7 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/toy/enforcer
-	name = "Enforcer Foam magazine"
+	name = "foam enforcer magazine"
 	icon_state = "enforcer"
 	max_ammo = 8
 	multiple_sprites = 1
