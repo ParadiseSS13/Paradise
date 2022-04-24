@@ -225,11 +225,7 @@
 					to_chat(usr, "<span class='warning'>There is already something here!</span>")
 					return FALSE
 
-		if(R.on_floor && !istype(get_turf(src), /turf/simulated))
-			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
-			return FALSE
-
-		if(R.on_floor && istype(get_turf(src), /turf/simulated/wall))
+		if(R.on_floor && (!istype(get_turf(src), /turf/simulated) || istype(get_turf(src), /turf/simulated/wall)))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
 			return FALSE
 
