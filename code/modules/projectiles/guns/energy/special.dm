@@ -337,7 +337,7 @@
 	holder = null
 	return ..()
 
-/obj/item/gun/energy/plasma_pistol/process() //keep your finger on the trigger soldier
+/obj/item/gun/energy/plasma_pistol/process()
 	..()
 	if(overloaded)
 		cell.charge -= PLASMA_CHARGE_USE_PER_SECOND / 5 //2.5 per second, 25 every 10 seconds
@@ -431,7 +431,7 @@
 	if(!T || !U)
 		return
 	var/obj/item/projectile/energy/charged_plasma/O = new /obj/item/projectile/energy/charged_plasma(T)
-	playsound(src.loc, 'sound/weapons/marauder.ogg', 75, 1)
+	playsound(get_turf(src), 'sound/weapons/marauder.ogg', 75, 1)
 	O.current = T
 	O.yo = U.y - T.y
 	O.xo = U.x - T.x
