@@ -93,7 +93,7 @@
 /obj/machinery/mass_driver_frame
 	name = "mass driver frame"
 	icon = 'icons/obj/objects.dmi'
-	icon_state = "mass_driver_b0"
+	icon_state = "mass_driver_frame"
 	density = 0
 	anchored = 0
 	var/build = 0
@@ -108,7 +108,6 @@
 					to_chat(user, "<span class='notice'>You anchor \the [src]!</span>")
 					anchored = 1
 					build++
-					update_icon()
 				return 1
 			return
 		if(1) // Fixed to the floor
@@ -117,7 +116,6 @@
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 10 * W.toolspeed, target = src) && (build == 1))
 					build--
-					update_icon()
 					anchored = 0
 					to_chat(user, "<span class='notice'>You de-anchored \the [src]!</span>")
 				return 1
@@ -130,7 +128,6 @@
 					C.use(2)
 					to_chat(user, "<span class='notice'>You've added cables to \the [src].</span>")
 					build++
-					update_icon()
 			return
 		if(3) // Wired
 			if(istype(W, /obj/item/wirecutters))
@@ -140,7 +137,6 @@
 					playsound(get_turf(src), W.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You've removed the cables from \the [src].</span>")
 					build--
-					update_icon()
 				return 1
 			if(istype(W, /obj/item/stack/rods))
 				var/obj/item/stack/rods/R = W
@@ -150,7 +146,6 @@
 					R.use(2)
 					to_chat(user, "<span class='notice'>You've added the grille to \the [src].</span>")
 					build++
-					update_icon()
 				return 1
 			return
 		if(4) // Grille in place
@@ -160,7 +155,6 @@
 				if(do_after(user, 30 * W.toolspeed, target = src) && (build == 4))
 					new /obj/item/stack/rods(loc,2)
 					build--
-					update_icon()
 				return 1
 			if(istype(W, /obj/item/screwdriver))
 				to_chat(user, "You finalize the Mass Driver...")
@@ -194,10 +188,6 @@
 		if(I.use_tool(src, user, 40, volume = I.tool_volume) && build == 2)
 			WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 			build = 1
-	update_icon()
-
-/obj/machinery/mass_driver_frame/update_icon()
-	icon_state = "mass_driver_b[build]"
 
 /obj/machinery/mass_driver_frame/verb/rotate()
 	set category = "Object"
