@@ -179,14 +179,14 @@
 /obj/item/clothing/mask/muzzle/safety/shock/proc/process_activation(obj/D, normal = 1, special = 1)
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
 	var/mob/living/L = can_shock(loc)
-	if(L)
-		to_chat(L, "<span class='danger'>You feel a sharp shock!</span>")
-		do_sparks(3, 1, L)
+	if(!L)
+		return
+	to_chat(L, "<span class='danger'>You feel a sharp shock!</span>")
+	do_sparks(3, 1, L)
 
-		L.Weaken(10 SECONDS)
-		L.Stuttering(2 SECONDS)
-		L.Jitter(40 SECONDS)
-	return
+	L.Weaken(10 SECONDS)
+	L.Stuttering(2 SECONDS)
+	L.Jitter(40 SECONDS)
 
 /obj/item/clothing/mask/muzzle/safety/shock/HasProximity(atom/movable/AM)
 	if(trigger)

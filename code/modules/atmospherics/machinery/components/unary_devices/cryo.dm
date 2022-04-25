@@ -402,7 +402,7 @@
 		occupant.bodytemperature += 2*(air_contents.temperature - occupant.bodytemperature)*current_heat_capacity/(current_heat_capacity + air_contents.heat_capacity())
 		occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature) // this is so ugly i'm sorry for doing it i'll fix it later i promise
 		if(occupant.bodytemperature < T0C)
-			var/stun_time = (max(5/efficiency, (1/occupant.bodytemperature)*2000/efficiency)) * 20
+			var/stun_time = (max(5 / efficiency, (1 / occupant.bodytemperature) * 2000/efficiency)) STATUS_EFFECT_CONSTANT
 			occupant.Sleeping(stun_time)
 			occupant.Paralyse(stun_time)
 			if(air_contents.oxygen > 2)

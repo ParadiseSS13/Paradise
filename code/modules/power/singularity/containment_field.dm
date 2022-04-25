@@ -100,7 +100,7 @@
 		var/shock_damage = min(rand(30,40),rand(30,40))
 
 		if(isliving(user) && !issilicon(user))
-			var/stun = (min(shock_damage, 15)) * 2 SECONDS
+			var/stun = (min(shock_damage, 15)) STATUS_EFFECT_CONSTANT
 			user.Weaken(stun)
 			user.electrocute_act(shock_damage, src, 1)
 

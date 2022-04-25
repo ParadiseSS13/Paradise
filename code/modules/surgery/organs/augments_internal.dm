@@ -29,7 +29,7 @@
 /obj/item/organ/internal/cyberimp/brain/emp_act(severity)
 	if(!owner || emp_proof)
 		return
-	var/stun_amount = (5 + (severity-1 ? 0 : 5)) * 2 SECONDS
+	var/stun_amount = (5 + (severity-1 ? 0 : 5)) STATUS_EFFECT_CONSTANT
 	owner.Stun(stun_amount)
 	to_chat(owner, "<span class='warning'>Your body seizes up!</span>")
 	return stun_amount

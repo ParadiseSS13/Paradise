@@ -75,7 +75,7 @@
 			var/mob/old_body = current_body
 			var/turf/body_turf = get_turf(old_body)
 			current_body = lich
-			var/stun_time = (1 + resurrections)* 20 SECONDS
+			var/stun_time = (1 + resurrections) * 20 SECONDS
 			lich.Weaken(stun_time)
 			++resurrections
 			equip_lich(lich)

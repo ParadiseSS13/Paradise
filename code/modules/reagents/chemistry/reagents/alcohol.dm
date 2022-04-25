@@ -11,7 +11,7 @@
 	taste_description = "liquid fire"
 
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/M)
-	M.AdjustDrunk(alcohol_perc * 20)
+	M.AdjustDrunk(alcohol_perc STATUS_EFFECT_CONSTANT)
 	M.AdjustDizzy(dizzy_adj)
 	return ..()
 
