@@ -623,7 +623,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 	// check if anything's preventing us from raising
 	var/turf/T = get_turf(src)
-	for(var/atom/A in T.contents)
+	for(var/atom/A in T)
 		if(A == src)
 			continue
 		if(A.density)
