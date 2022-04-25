@@ -27,6 +27,8 @@
 	target = _target
 	if(creation_object)
 		creation_obj_data = list(creation_object.UID(), "[creation_object.name]") // Store the name incase the object is deleted.
+	else
+		creation_obj_data = list(null, null)
 	creation_mob_ckey = creation_mob?.ckey
 
 	if(lifespan > 0)
