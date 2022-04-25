@@ -74,6 +74,7 @@
 /obj/effect/mapping_helpers/airlock
 	layer = DOOR_HELPER_LAYER
 	late = TRUE
+	var/list/blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/unpowered)
 
 /obj/effect/mapping_helpers/airlock/Initialize(mapload)
 	. = ..()
@@ -81,11 +82,13 @@
 		log_world("[src] spawned outside of mapload!")
 		return
 
-	var/obj/machinery/door/airlock = locate(/obj/machinery/door) in loc
-	if(!airlock)
+	if(!(locate(/obj/machinery/door) in get_turf(src)))
 		log_world("[src] failed to find an airlock at [AREACOORD(src)]")
-	else
-		payload(airlock)
+
+	for(var/obj/machinery/door/D in get_turf(src))
+		if(!is_type_in_list(D, blacklist))
+			payload(D)
+
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/mapping_helpers/airlock/proc/payload(obj/machinery/door/airlock/payload)
