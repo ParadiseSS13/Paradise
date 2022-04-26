@@ -31,6 +31,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/destination
 	var/notify = TRUE
 	var/move_delay = 1
+	// The base chance to "damage" the floor when passing. This is not guaranteed to cause a full on hull breach.
+	// Chance to expose the tile to space is like 60% of this value.
+	var/floor_rip_chance = 40
 
 /obj/effect/immovablerod/New(atom/start, atom/end, delay)
 	. = ..()
@@ -95,5 +98,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/atom/oldloc = loc
 	. = ..()
 	tiles_moved++
+	if(prob(floor_rip_chance))
+		var/turf/simulated/floor/T = get_turf(oldloc)
+		if(istype(T))
+			T.ex_act(2)
 	if(get_dist(oldloc, loc) > 2 && tiles_moved > 10) // We went on a journey, commit sudoku
 		qdel(src)
