@@ -31,9 +31,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/destination
 	var/notify = TRUE
 	var/move_delay = 1
-	// The base chance to "damage" the floor when passing. This is not guaranteed to cause a full on hull breach.
-	// Chance to expose the tile to space is like 60% of this value.
-	var/floor_rip_chance = 40
 
 /obj/effect/immovablerod/New(atom/start, atom/end, delay)
 	. = ..()
@@ -93,6 +90,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 /obj/effect/immovablerod/event
 	var/tiles_moved = 0
+	// The base chance to "damage" the floor when passing. This is not guaranteed to cause a full on hull breach.
+	// Chance to expose the tile to space is like 60% of this value.
+	var/floor_rip_chance = 40
 
 /obj/effect/immovablerod/event/Move()
 	var/atom/oldloc = loc
