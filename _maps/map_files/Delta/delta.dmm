@@ -35593,8 +35593,8 @@
 	dir = 8
 	},
 /obj/structure/closet/secure_closet/brig{
-	id = "Cell 4";
-	name = "Cell 4 Locker"
+	id = "Cell 6";
+	name = "Cell 6 Locker"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
@@ -98389,8 +98389,8 @@
 /area/crew_quarters/theatre)
 "uYc" = (
 /obj/structure/closet/secure_closet/brig{
-	id = "Cell 3";
-	name = "Cell 3 Locker"
+	id = "Cell 5";
+	name = "Cell 5 Locker"
 	},
 /obj/machinery/camera{
 	c_tag = "Brig Cell 2"
