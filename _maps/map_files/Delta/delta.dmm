@@ -27776,6 +27776,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/security/main)
+"bqU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -72255,6 +72260,7 @@
 	},
 /area/hallway/secondary/construction)
 "dhk" = (
+/obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -72292,6 +72298,7 @@
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/mask/gas,
+/obj/item/assembly/voice,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowcorner"
@@ -73201,13 +73208,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "diW" = (
-/obj/structure/rack,
-/obj/item/weldingtool,
-/obj/item/clothing/head/welding,
-/obj/item/assembly/voice,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/decal/warning_stripes/northwest,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/carpet,
 /area/maintenance/starboard)
 "diX" = (
 /obj/machinery/portable_atmospherics/canister/air,
@@ -74920,8 +74921,8 @@
 	},
 /area/maintenance/starboard)
 "dmF" = (
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel,
+/obj/machinery/vending/crittercare,
+/turf/simulated/floor/carpet,
 /area/maintenance/starboard)
 "dmG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -75683,16 +75684,19 @@
 	dir = 8
 	},
 /obj/effect/landmark/spawner/xeno,
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/carpet,
 /area/maintenance/starboard)
 "dos" = (
-/obj/effect/decal/warning_stripes/southeast,
-/turf/simulated/floor/plasteel,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 12
+	},
+/turf/simulated/floor/carpet,
 /area/maintenance/starboard)
 "dot" = (
-/obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/cobweb2,
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "dou" = (
@@ -76364,6 +76368,8 @@
 	},
 /obj/item/storage/toolbox/emergency,
 /obj/item/storage/toolbox/electrical,
+/obj/item/weldingtool,
+/obj/item/clothing/head/welding,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellowcorner"
@@ -92101,6 +92107,11 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "faB" = (
+/obj/machinery/door/airlock/security{
+	name = "Armory";
+	req_access_txt = "3"
+	},
+/obj/machinery/door/firedoor,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -94220,6 +94231,19 @@
 	},
 /area/medical/research)
 "kYe" = (
+/obj/machinery/door/airlock/security{
+	name = "Armory";
+	req_access_txt = "3"
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -98821,10 +98845,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "xXw" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/machinery/door/airlock/security{
+	name = "Interrogation";
+	req_one_access_txt = "1;4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /obj/structure/cable{
 	d1 = 2;
