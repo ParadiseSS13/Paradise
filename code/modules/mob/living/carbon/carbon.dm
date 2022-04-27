@@ -1038,7 +1038,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				W.plane = initial(W.plane)
 
 
-/mob/living/carbon/proc/slip(description, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "slip") ///todo - hal - convert these stun times to deciseconds
+/mob/living/carbon/proc/slip(description, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "slip")
 	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return FALSE
 
