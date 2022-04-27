@@ -86,7 +86,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 				"<span class ='danger'>You hear a CLANG!</span>")
 			H.adjustBruteLoss(160)
 		if(clong.density || prob(10))
-			clong.ex_act(2)
+			clong.ex_act(EXPLODE_HEAVY)
 
 /obj/effect/immovablerod/event
 	var/tiles_moved = 0
@@ -101,6 +101,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(prob(floor_rip_chance))
 		var/turf/simulated/floor/T = get_turf(oldloc)
 		if(istype(T))
-			T.ex_act(2)
+			T.ex_act(EXPLODE_HEAVY)
 	if(get_dist(oldloc, loc) > 2 && tiles_moved > 10) // We went on a journey, commit sudoku
 		qdel(src)
