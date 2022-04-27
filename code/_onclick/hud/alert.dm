@@ -3,7 +3,7 @@
 //PUBLIC -  call these wherever you want
 
 
-/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE, timeout_override, no_anim)
+/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE, timeout_override, no_anim, icon_override)
 
 /*
  Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already
@@ -41,6 +41,9 @@
 		alert.override_alerts = override
 		if(override)
 			alert.timeout = null
+
+	if(icon_override)
+		alert.icon = icon_override
 
 	if(new_master)
 		var/old_layer = new_master.layer
@@ -153,71 +156,85 @@
 	icon_state = "too_much_tox"
 //End gas alerts
 
+// Hunger alerts
 
-/obj/screen/alert/fat
+/obj/screen/alert/hunger
+	icon = 'icons/mob/screen_hunger.dmi'
+
+/obj/screen/alert/hunger/fat
 	name = "Fat"
 	desc = "You ate too much food, lardass. Run around the station and lose some weight."
 	icon_state = "fat"
 
-/obj/screen/alert/full
+/obj/screen/alert/hunger/full
 	name = "Full"
 	desc = "You feel full and satisfied, but you shouldn't eat much more."
 	icon_state = "full"
 
-/obj/screen/alert/well_fed
+/obj/screen/alert/hunger/well_fed
 	name = "Well Fed"
 	desc = "You feel quite satisfied, but you may be able to eat a bit more."
 	icon_state = "well_fed"
 
-/obj/screen/alert/fed
+/obj/screen/alert/hunger/fed
 	name = "Fed"
 	desc = "You feel moderately satisfied, but a bit more food may not hurt."
 	icon_state = "fed"
 
-/obj/screen/alert/hungry
+/obj/screen/alert/hunger/hungry
 	name = "Hungry"
 	desc = "Some food would be good right about now."
 	icon_state = "hungry"
 
-/obj/screen/alert/starving
+/obj/screen/alert/hunger/starving
 	name = "Starving"
 	desc = "You're severely malnourished. The hunger pains make moving around a chore."
 	icon_state = "starving"
 
+/// Machine "hunger"
+
+/obj/screen/alert/hunger/full/machine
+	name = "Full Charge"
+	desc = "Your cell is at full charge. Might want to give APCs some space."
+
+/obj/screen/alert/hunger/well_fed/machine
+	name = "High Charge"
+	desc = "You're almost all charged, but could top up a bit more."
+
+/obj/screen/alert/hunger/fed/machine
+	name = "Half Charge"
+	desc = "You feel moderately charged, but a bit more juice couldn't hurt."
+
+/obj/screen/alert/hunger/hungry/machine
+	name = "Low Charge"
+	desc = "Could use a little charging right about now."
+
+/obj/screen/alert/hunger/starving/machine
+	name = "Nearly Discharged"
+	desc = "You're almost drained. The low power makes moving around a chore."
+
+// End of Machine "hunger"
 ///Vampire "hunger"
 
-/obj/screen/alert/fat/vampire
-	name = "Fat"
+/obj/screen/alert/hunger/fat/vampire
 	desc = "You somehow drank too much blood, lardass. Run around the station and lose some weight."
-	icon_state = "v_fat"
 
-/obj/screen/alert/full/vampire
-	name = "Full"
+/obj/screen/alert/hunger/full/vampire
 	desc = "You feel full and satisfied, but you know you will thirst for more blood soon..."
-	icon_state = "v_full"
 
-/obj/screen/alert/well_fed/vampire
-	name = "Well Fed"
+/obj/screen/alert/hunger/well_fed/vampire
 	desc = "You feel quite satisfied, but you could do with a bit more blood."
-	icon_state = "v_well_fed"
 
-/obj/screen/alert/fed/vampire
-	name = "Fed"
+/obj/screen/alert/hunger/fed/vampire
 	desc = "You feel moderately satisfied, but a bit more blood wouldn't hurt."
-	icon_state = "v_fed"
 
-/obj/screen/alert/hungry/vampire
-	name = "Hungry"
+/obj/screen/alert/hunger/hungry/vampire
 	desc = "You currently thirst for blood."
-	icon_state = "v_hungry"
 
-/obj/screen/alert/starving/vampire
-	name = "Starving"
+/obj/screen/alert/hunger/starving/vampire
 	desc = "You're severely thirsty. The thirst pains make moving around a chore."
-	icon_state = "v_starving"
 
 //End of Vampire "hunger"
-
 
 /obj/screen/alert/hot
 	name = "Too Hot"

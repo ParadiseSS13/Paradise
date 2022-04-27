@@ -543,7 +543,7 @@ GLOBAL_PROTECT(VVmaint_only)
 		if(prompt != "Continue")
 			return FALSE
 	if(param_var_name in GLOB.VVmaint_only)
-		if(!is_maintainer(usr))
+		if(!check_rights(R_MAINTAINER))
 			alert(usr, "Editing this variable is restricted to Maintainers only.", "Error", "Ok")
 			return FALSE
 
@@ -632,7 +632,8 @@ GLOBAL_PROTECT(VVmaint_only)
 			return
 
 		if(VV_RESTORE_DEFAULT)
-			var_new = initial(O.vars[variable])
+			// This originally did initial(O.vars[variable]) but initial() doesn't work on a list index
+			var_new = O.vars[variable]
 
 		if(VV_TEXT)
 			var/list/varsvars = vv_parse_text(O, var_new)

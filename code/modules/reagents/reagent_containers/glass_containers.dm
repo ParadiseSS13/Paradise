@@ -119,6 +119,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
 	item_state = "beaker"
+	belt_icon = "beaker"
 	materials = list(MAT_GLASS=500)
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = 1
@@ -226,6 +227,7 @@
 	name = "vial"
 	desc = "A small glass vial. Can hold up to 25 units."
 	icon_state = "vial"
+	belt_icon = "vial"
 	materials = list(MAT_GLASS=250)
 	volume = 25
 	amount_per_transfer_from_this = 10
@@ -281,7 +283,6 @@
 /obj/item/reagent_containers/glass/beaker/drugs/meth
 	list_reagents = list("methamphetamine" = 10)
 
-
 /obj/item/reagent_containers/glass/bucket
 	desc = "It's a bucket."
 	name = "bucket"
@@ -315,6 +316,10 @@
         reagents.clear_reagents()
 
 /obj/item/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
+	if(istype(D, /obj/item/mop))
+		var/obj/item/mop/m = D
+		m.wet_mop(src, user)
+		return
 	if(isprox(D))
 		to_chat(user, "You add [D] to [src].")
 		qdel(D)

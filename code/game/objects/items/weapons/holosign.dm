@@ -1,9 +1,10 @@
 /obj/item/holosign_creator
 	name = "holographic sign projector"
-	desc = "A handy-dandy holographic projector that displays a janitorial sign."
+	desc = "This shouldnt exist, if it does, tell a coder"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmaker"
 	item_state = "electronic"
+	belt_icon = "holosign_creator"
 	force = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
@@ -14,7 +15,7 @@
 	var/list/signs = list()
 	var/max_signs = 10
 	var/creation_time = 0 //time to create a holosign in deciseconds.
-	var/holosign_type = /obj/structure/holosign/wetsign
+	var/holosign_type = null
 	var/holocreator_busy = FALSE //to prevent placing multiple holo barriers at once
 
 /obj/item/holosign_creator/afterattack(atom/target, mob/user, flag)
@@ -45,6 +46,7 @@
 							return
 					H = new holosign_type(get_turf(target), src)
 					to_chat(user, "<span class='notice'>You create [H] with [src].</span>")
+					return H
 				else
 					to_chat(user, "<span class='notice'>[src] is projecting at max capacity!</span>")
 
@@ -57,11 +59,36 @@
 			qdel(H)
 		to_chat(user, "<span class='notice'>You clear all active holograms.</span>")
 
+/obj/item/holosign_creator/janitor
+	name = "Janitorial Holosign projector"
+	desc = "A handy-dandy holographic projector that displays a janitorial sign."
+	holosign_type = /obj/structure/holosign/wetsign
+	var/wet_enabled = FALSE
+
+/obj/item/holosign_creator/janitor/AltClick(mob/user)
+	wet_enabled = !wet_enabled
+	playsound(loc, 'sound/weapons/empty.ogg', 20)
+	if(wet_enabled)
+		to_chat(user, "<span class='notice'>You enable the W.E.T. (wet evaporation timer)\nAny newly placed holographic signs will clear after the likely time it takes for a mopped tile to dry.</span>")
+	else
+		to_chat(user, "<span class='notice'>You disable the W.E.T. (wet evaporation timer)\nAny newly placed holographic signs will now stay indefinitely.</span>")
+
+/obj/item/holosign_creator/janitor/examine(mob/user)
+	. = ..()
+	if(ishuman(user))
+		. += "<span class='info'>Alt Click to [wet_enabled ? "deactivate" : "activate"] its built-in wet evaporation timer.</span>"
+
+
+/obj/item/holosign_creator/janitor/afterattack(atom/target, mob/user, flag)
+	var/obj/structure/holosign/wetsign/WS = ..()
+	if(WS && wet_enabled)
+		WS.wet_timer_start(src)
 
 /obj/item/holosign_creator/security
 	name = "security holobarrier projector"
 	desc = "A holographic projector that creates holographic security barriers."
 	icon_state = "signmaker_sec"
+	belt_icon = null
 	holosign_type = /obj/structure/holosign/barrier
 	creation_time = 30
 	max_signs = 6
@@ -70,6 +97,7 @@
 	name = "engineering holobarrier projector"
 	desc = "A holographic projector that creates holographic engineering barriers."
 	icon_state = "signmaker_engi"
+	belt_icon = null
 	holosign_type = /obj/structure/holosign/barrier/engineering
 	creation_time = 30
 	max_signs = 6
@@ -78,6 +106,7 @@
 	name = "ATMOS holofan projector"
 	desc = "A holographic projector that creates holographic barriers that prevent changes in atmosphere conditions."
 	icon_state = "signmaker_engi"
+	belt_icon = null
 	holosign_type = /obj/structure/holosign/barrier/atmos
 	creation_time = 0
 	max_signs = 3

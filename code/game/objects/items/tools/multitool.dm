@@ -11,6 +11,7 @@
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "multitool"
+	belt_icon = "multitool"
 	flags = CONDUCT
 	force = 0
 	w_class = WEIGHT_CLASS_SMALL

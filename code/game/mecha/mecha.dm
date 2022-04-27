@@ -1171,7 +1171,7 @@
 		if(istype(mmi_as_oc, /obj/item/mmi/robotic_brain))
 			var/obj/item/mmi/robotic_brain/R = mmi_as_oc
 			if(R.imprinted_master)
-				to_chat(brainmob, "<span class='notice'>Your imprint to [R.imprinted_master] has been temporarily disabled. You should help the crew and not commit harm.</span>")
+				to_chat(brainmob, "<span class='biggerdanger'>Your imprint to [R.imprinted_master] has been temporarily disabled. You should help the crew and not commit harm.</span>")
 		mmi_as_oc.loc = src
 		mmi_as_oc.mecha = src
 		Entered(mmi_as_oc)
