@@ -40,6 +40,16 @@
 	SSticker.mode.vampire_enthralled -= owner
 	..()
 
+/datum/antagonist/mindslave/thrall/apply_innate_effects(mob/living/new_body)
+	..()
+	var/datum/mind/M = new_body?.mind || owner
+	M.AddSpell(new /obj/effect/proc_holder/spell/vampire/thrall_commune)
+
+/datum/antagonist/mindslave/thrall/remove_innate_effects(mob/living/old_body)
+	..()
+	var/datum/mind/M = old_body?.mind || owner
+	M.RemoveSpell(/obj/effect/proc_holder/spell/vampire/thrall_commune)
+
 /datum/antagonist/vampire/Destroy(force, ...)
 	draining = null
 	QDEL_NULL(subclass)
@@ -57,6 +67,7 @@
 	if(istype(spell, /datum/vampire_passive))
 		var/datum/vampire_passive/passive = spell
 		passive.owner = owner.current
+		passive.on_apply(src)
 	powers += spell
 	owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp gets new vision based on his powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
@@ -84,6 +95,8 @@
 	var/datum/hud/hud = L.hud_used
 	if(hud?.vampire_blood_display)
 		hud.remove_vampire_hud()
+	L.dna.species.hunger_type = initial(L.dna.species.hunger_type)
+	L.dna.species.hunger_icon = initial(L.dna.species.hunger_icon)
 	owner.current.alpha = 255
 	REMOVE_TRAITS_IN(owner.current, "vampire")
 	return ..()
@@ -161,7 +174,7 @@
 
 
 /datum/antagonist/vampire/proc/check_full_power_upgrade()
-	if(length(drained_humans) >= FULLPOWER_DRAINED_REQUIREMENT && bloodtotal >= FULLPOWER_BLOODTOTAL_REQUIREMENT)
+	if(subclass.full_power_overide || (length(drained_humans) >= FULLPOWER_DRAINED_REQUIREMENT && bloodtotal >= FULLPOWER_BLOODTOTAL_REQUIREMENT))
 		subclass.add_full_power_abilities(src)
 
 
@@ -313,7 +326,9 @@
 	if(!owner.som) //thralls and mindslaves
 		owner.som = new()
 		owner.som.masters += owner
-
+	var/mob/living/L = new_body || owner.current
+	L.dna.species.hunger_type = "vampire"
+	L.dna.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 	check_vampire_upgrade(FALSE)
 
 /datum/hud/proc/remove_vampire_hud()

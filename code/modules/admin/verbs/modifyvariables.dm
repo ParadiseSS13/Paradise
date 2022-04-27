@@ -1,7 +1,17 @@
-GLOBAL_LIST_INIT(VVlocked, list("vars", "var_edited", "client", "firemut", "ishulk", "telekinesis", "xray", "ka", "virus", "viruses", "cuffed", "last_eaten", "unlock_content")) // R_DEBUG
+GLOBAL_LIST_INIT(VVlocked, list("client", "firemut", "ishulk", "telekinesis", "xray", "ka", "virus", "viruses", "cuffed", "last_eaten", "unlock_content")) // R_DEBUG
 GLOBAL_LIST_INIT(VVicon_edit_lock, list("icon", "icon_state", "overlays", "underlays", "resize")) // R_EVENT | R_DEBUG
 GLOBAL_LIST_INIT(VVckey_edit, list("key", "ckey")) // R_EVENT | R_DEBUG
 GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_height", "bound_width", "bound_x", "bound_y")) // R_DEBUG + warning
+// Stuff that can break the server in weird ways and shouldnt be messed with unless you actually know what you are doing
+GLOBAL_LIST_INIT(VVmaint_only, list("vars", "var_edited", "contents"))
+
+// Protect ALL these
+GLOBAL_PROTECT(VVlocked)
+GLOBAL_PROTECT(VVicon_edit_lock)
+GLOBAL_PROTECT(VVckey_edit)
+GLOBAL_PROTECT(VVpixelmovement)
+GLOBAL_PROTECT(VVmaint_only)
+
 /client/proc/vv_get_class(var_value)
 	if(isnull(var_value))
 		. = VV_NULL
@@ -532,6 +542,11 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 		var/prompt = alert(usr, "Editing this var may irreparably break tile gliding for the rest of the round. THIS CAN'T BE UNDONE", "DANGER", "ABORT ", "Continue", " ABORT")
 		if(prompt != "Continue")
 			return FALSE
+	if(param_var_name in GLOB.VVmaint_only)
+		if(!check_rights(R_MAINTAINER))
+			alert(usr, "Editing this variable is restricted to Maintainers only.", "Error", "Ok")
+			return FALSE
+
 	return TRUE
 
 /client/proc/modify_variables(atom/O, param_var_name = null, autodetect_class = 0)
@@ -617,7 +632,8 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			return
 
 		if(VV_RESTORE_DEFAULT)
-			var_new = initial(O.vars[variable])
+			// This originally did initial(O.vars[variable]) but initial() doesn't work on a list index
+			var_new = O.vars[variable]
 
 		if(VV_TEXT)
 			var/list/varsvars = vv_parse_text(O, var_new)

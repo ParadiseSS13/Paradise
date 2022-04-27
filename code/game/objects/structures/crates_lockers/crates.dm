@@ -17,9 +17,9 @@
 
 /obj/structure/closet/crate/update_icon()
 	..()
-	overlays.Cut()
+	cut_overlays()
 	if(manifest)
-		overlays += "manifest"
+		add_overlay("manifest")
 
 /obj/structure/closet/crate/can_open()
 	return TRUE
@@ -166,7 +166,6 @@
 	icon_closed = "securecrate"
 	var/redlight = "securecrater"
 	var/greenlight = "securecrateg"
-	var/sparks = "securecratesparks"
 	var/emag = "securecrateemag"
 	max_integrity = 500
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
@@ -178,15 +177,13 @@
 
 /obj/structure/closet/crate/secure/update_icon()
 	..()
-	overlays.Cut()
-	if(manifest)
-		overlays += "manifest"
+	if(broken)
+		add_overlay(emag)
+		return
 	if(locked)
-		overlays += redlight
-	else if(broken)
-		overlays += emag
+		add_overlay(redlight)
 	else
-		overlays += greenlight
+		add_overlay(greenlight)
 
 /obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)
@@ -255,12 +252,10 @@
 
 /obj/structure/closet/crate/secure/emag_act(mob/user)
 	if(locked)
-		overlays += sparks
-		spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
-		playsound(src.loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		locked = FALSE
 		broken = TRUE
 		update_icon()
+		do_sparks(2, 1, src)
 		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
 
 /obj/structure/closet/crate/secure/emp_act(severity)
@@ -270,9 +265,7 @@
 		if(!locked)
 			locked = TRUE
 		else
-			overlays += sparks
-			spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
-			playsound(src, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			do_sparks(2, 1, src)
 			locked = FALSE
 		update_icon()
 	if(!opened && prob(20/severity))
@@ -440,7 +433,6 @@
 	icon_closed = "largebins"
 	redlight = "largebinr"
 	greenlight = "largebing"
-	sparks = "largebinsparks"
 	emag = "largebinemag"
 	open_sound = 'sound/effects/bin_open.ogg'
 	close_sound = 'sound/effects/bin_close.ogg'

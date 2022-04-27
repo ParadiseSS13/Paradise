@@ -21,7 +21,7 @@
 		new /obj/item/paper(src)
 		new /obj/item/paper(src)
 		amount += 1
-		
+
 /obj/item/paper_bundle/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	var/obj/item/paper/P
@@ -173,7 +173,9 @@
 				var/obj/item/paper/P = src[1]
 				usr.unEquip(src)
 				usr.put_in_hands(P)
+				usr.unset_machine() // Ensure the bundle GCs
 				qdel(src)
+				return
 			else if(page == amount)
 				screen = 2
 			else if(page == amount+1)
