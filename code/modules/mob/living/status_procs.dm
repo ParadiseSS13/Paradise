@@ -391,8 +391,6 @@
 	return S
 
 /mob/living/proc/PermaSleeping() /// used for admin freezing.
-	if(status_flags & GODMODE)
-		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(S)
 		S.duration = -1
