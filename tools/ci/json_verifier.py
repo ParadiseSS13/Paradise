@@ -1,5 +1,5 @@
 import sys
-if sys.argv[1] == "-5":
+if sys.argv[1:2] == ["-5"]:
     import json5 as json
     sys.argv.pop(1)
 else:
