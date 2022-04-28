@@ -226,7 +226,7 @@
 	set name = "Pull"
 	set category = "Object"
 
-	if(istype(AM) && Adjacent(AM))
+	if(istype(AM) && Adjacent(AM) && AM != pulling)
 		start_pulling(AM, show_message = TRUE)
 	else
 		stop_pulling()
