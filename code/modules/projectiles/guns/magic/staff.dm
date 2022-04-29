@@ -95,32 +95,35 @@
 	QDEL_NULL(enchant)
 	return ..()
 
-/obj/item/melee/spellblade/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/melee/spellblade/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
-	if(enchant)
-		enchant.on_hit(M, user)
+	enchant?.on_hit(target, user, proximity, src)
 
 /obj/item/melee/spellblade/attack_self(mob/user)
 	if(enchant)
 		return
 
-	var/list/options = list("Lightning", /*= image(),
-							*/"Fire", /*= image(),
-							"Bluespace" = image(),*/
-							"Forcewall" /*= image(),*/)
+	var/list/options = list("Lightning",
+							"Fire",
+							"Bluespace",
+							"Forcewall",)
 	var/list/options_to_type = list("Lightning" = /datum/enchantment/lightning,
 									"Fire" = /datum/enchantment/fire,
-									/*"Bluespace" = /datum/enchantment/bluespace,*/
+									"Bluespace" = /datum/enchantment/bluespace,
 									"Forcewall" = /datum/enchantment/forcewall,)
 
 	var/choice = show_radial_menu(user, src, options)
+	if(!choice)
+		return
 	add_enchantment(options_to_type[choice], user)
 
-/obj/item/melee/spellblade/proc/add_enchantment(new_enchant, mob/living/user)
+/obj/item/melee/spellblade/proc/add_enchantment(new_enchant, mob/living/user, intentional = TRUE)
 	var/datum/enchantment/E = new new_enchant
 	enchant = E
 	E.on_gain(src, user)
 	E.power *= power
+	if(intentional)
+		SSblackbox.record_feedback("nested tally", "spellblade_enchants", 1, list("[E.name]"))
 
 /obj/item/melee/spellblade/examine(mob/user)
 	. = ..()
@@ -134,18 +137,30 @@
 	return ..()
 
 /datum/enchantment
+	/// used for blackbox logging
 	var/name = "You shouldn't be seeing this, file an issue report."
+	/// used for wizards/cultists examining the runes on the blade
 	var/desc = "Someone messed up, file an issue report."
+	/// used for damage values
 	var/power = 0
+	/// whether the enchant procs despite not being in proximity
+	var/ranged = FALSE
+	/// stores the world.time until it can be used again, the `initial(cooldown)` is the cooldown between activations.
 	var/cooldown = -1
 
-/datum/enchantment/proc/on_hit(mob/living/target, mob/living/user)
+/datum/enchantment/proc/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
 	if(world.time < cooldown)
-		return
+		return FALSE
+	if(!istype(target))
+		return FALSE
+	if(target.stat == DEAD)
+		return FALSE
+	if(!ranged && !proximity)
+		return FALSE
 	cooldown = world.time + initial(cooldown)
+	return TRUE
 
 /datum/enchantment/proc/on_gain(obj/item/melee/spellblade, mob/living/user)
-	SSblackbox.record_feedback("nested tally", "spellblade_enchants", 1, list("[name]"))
 
 /datum/enchantment/lightning
 	name = "lightning"
@@ -153,9 +168,10 @@
 	power = 20
 	cooldown = 3 SECONDS
 
-/datum/enchantment/lightning/on_hit(mob/living/target, mob/living/user)
-	..()
-	zap(target, user, list(user), power)
+/datum/enchantment/lightning/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
+	. = ..()
+	if(.)
+		zap(target, user, list(user), power)
 
 
 /datum/enchantment/lightning/proc/zap(mob/living/target, mob/living/source, protected_mobs, voltage)
@@ -185,7 +201,8 @@
 /datum/enchantment/fire/on_gain(obj/item/melee/spellblade/S, mob/living/user)
 	..()
 	RegisterSignal(S, list(COMSIG_ITEM_PICKUP, COMSIG_ITEM_DROPPED), .proc/toggle_traits)
-	toggle_traits(S, user)
+	if(user)
+		toggle_traits(S, user)
 
 /datum/enchantment/fire/proc/toggle_traits(obj/item/I, mob/living/user)
 	if(HAS_TRAIT_FROM(user, TRAIT_NOFIRE, MAGIC_TRAIT))
@@ -195,9 +212,10 @@
 		ADD_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
 		ADD_TRAIT(user, TRAIT_NOFIRE, MAGIC_TRAIT)
 
-/datum/enchantment/fire/on_hit(mob/living/target, mob/living/user)
-	..()
-	fireflash_s(target, 4, 6000 * power, 250)
+/datum/enchantment/fire/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
+	. = ..()
+	if(.)
+		fireflash_s(target, 4, 400 * power, 500)
 
 /datum/enchantment/forcewall
 	name = "forcewall"
@@ -205,6 +223,45 @@
 	power = 20
 	cooldown = 4 SECONDS
 
-/datum/enchantment/forcewall/on_hit(mob/living/target, mob/living/user)
-	..()
+/datum/enchantment/forcewall/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
+	. = ..()
+	if(!.)
+		return
 	user.apply_status_effect(STATUS_EFFECT_FORCESHIELD)
+
+/datum/enchantment/bluespace
+	name = "bluespace"
+	desc = "this blade slices through space itself, jumping its weilder to a far away target"
+	cooldown = 2.5 SECONDS
+	ranged = TRUE
+	power = 2
+
+/datum/enchantment/bluespace/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
+	if(proximity) // don't put it on cooldown if adjacent
+		return
+	. = ..()
+	if(!.)
+		return
+	var/turf/user_turf = get_turf(user)
+	if(!(target in view(7, user_turf))) // no camera shenangians
+		return
+
+	var/turf/pretarget_turf = get_turf(target)
+	var/direction = pick(NORTH, EAST, SOUTH, WEST)
+	var/turf/target_turf = get_step(pretarget_turf, direction)
+	user_turf.Beam(target_turf, "warp_beam", time = 0.3 SECONDS)
+	user.forceMove(target_turf)
+	S.melee_attack_chain(user, target)
+	target.Weaken(power)
+
+/obj/item/melee/spellblade/random
+	power = 0.5
+
+/obj/item/melee/spellblade/random/Initialize(mapload)
+	. = ..()
+	var/list/options = list(/datum/enchantment/lightning,
+							/datum/enchantment/fire,
+							/datum/enchantment/forcewall,
+							/datum/enchantment/bluespace,)
+	var/datum/enchantment/E = pick(options)
+	add_enchantment(E, intentional = FALSE)
