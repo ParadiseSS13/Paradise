@@ -174,6 +174,12 @@
 	message_param = "points at %t."
 	hands_use_check = TRUE
 
+/datum/emote/living/point/act_on_target(mob/user, target)
+	if(!target)
+		return
+
+	user.pointed(target)
+
 /datum/emote/living/point/run_emote(mob/user, params, type_override, intentional)
 	// again, /tg/ has some flavor when pointing (like if you only have one leg) that applies debuffs
 	// but it's so common that seems unnecessary for here

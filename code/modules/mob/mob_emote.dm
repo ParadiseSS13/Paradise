@@ -1,31 +1,41 @@
 
 // The datum in use is defined in code/datums/emotes.dm
 
-/mob/proc/emote(act, m_type = null, message = null, intentional = FALSE, force_silence = FALSE)
-	act = lowertext(act)
+/**
+ * Send an emote.
+ *
+ * * emote_key: Key of the emote being triggered
+ * * m_type: Type of the emote, like EMOTE_AUDIBLE. If this is not null, the default type of the emote will be overridden.
+ * * message: Custom parameter for the emote. This should be used if you want to pass something like a target programmatically.
+ * * intentional: Whether or not the emote was deliberately triggered by the mob. If true, it's forced, which skips some checks when calling the emote.
+ * * force_silence: If true, unusable/nonexistent emotes will not notify the user.
+ */
+/mob/proc/emote(emote_key, type_override = null, message = null, intentional = FALSE, force_silence = FALSE)
+	emote_key = lowertext(emote_key)
 	var/param = message
-	var/custom_param = findtext(act, EMOTE_PARAM_SEPARATOR, 1, null)
-	if(custom_param)
-		param = copytext(act, custom_param + length(act[custom_param]))
-		act = copytext(act, 1, custom_param)
+	var/custom_param_offset = findtext(emote_key, EMOTE_PARAM_SEPARATOR, 1, null)
+	if(custom_param_offset)
+		param = copytext(emote_key, custom_param_offset + length(emote_key[custom_param_offset]))
+		emote_key = copytext(emote_key, 1, custom_param_offset)
 
-	var/list/key_emotes = GLOB.emote_list[act]
+	var/list/key_emotes = GLOB.emote_list[emote_key]
 
 	if(!length(key_emotes))
 		if(intentional && !force_silence)
-			log_world("<span class='notice'> '[act]' emote does not exist. Say *help for a list.</span>")
-			to_chat(src, "<span class='notice'> '[act]' emote does not exist. Say *help for a list.</span>")
+			log_world("<span class='notice'> '[emote_key]' emote does not exist. Say *help for a list.</span>")
+			to_chat(src, "<span class='notice'> '[emote_key]' emote does not exist. Say *help for a list.</span>")
 		return FALSE
 	var/silenced = FALSE
 	for(var/datum/emote/P in key_emotes)
 		if(!P.check_cooldown(src, intentional))
+			// if an emote's on cooldown, don't spam them with messages of not being able to use it
 			silenced = TRUE
 			continue
-		if(P.run_emote(src, param, m_type, intentional))
+		if(P.run_emote(src, param, type_override, intentional))
 			return TRUE
 	if(intentional && !silenced && !force_silence)
-		log_world("<span class='notice'>Unusable emote '[act]'. Say *help for a list. </span>")
-		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list. </span>")
+		log_world("<span class='notice'>Unusable emote '[emote_key]'. Say *help for a list. </span>")
+		to_chat(src, "<span class='notice'>Unusable emote '[emote_key]'. Say *help for a list. </span>")
 	return FALSE
 
 /**
@@ -33,6 +43,7 @@
  *
  * * m_type: Type of message to send.
  * * message: Content of the message. If none is provided, the user will be prompted to choose the input.
+ * * intentional: Whether or not the user intendeded to perform the emote.
  */
 /mob/proc/custom_emote(m_type = EMOTE_VISIBLE, message = null, intentional = TRUE)
 	var/input = ""

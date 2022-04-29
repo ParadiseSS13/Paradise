@@ -169,21 +169,23 @@
 /datum/emote/living/carbon/human/johnny
 	key = "johnny"
 	message = "takes a drag from a cigarette and blows their own name out in smoke."
+	message_param = "dummy"  // Gets handled in select_param
 	emote_type = EMOTE_AUDIBLE
+	target_behavior = EMOTE_TARGET_DEFAULT_TO_BASE
+	emote_target_type = EMOTE_TARGET_MOB
 
 /datum/emote/living/carbon/human/johnny/select_param(mob/user, params)
 	if(!params)
 		return message
-	var/target = params
-	var/msg
-	for(var/mob/A in oview(5, user))
-		if(target == A.name)
-			if(user.mind?.miming)
-				msg = "takes a drag from a cigarette and blows \"[A.name]\" out in smoke."
-			else
-				msg = "says, \"[A.name], please. They had a family.\" [user] takes a drag from a cigarette and blows [user.p_their()] name out in smoke."
-			return msg
-	return message
+	var/mob/target = find_target(user, params, EMOTE_TARGET_MOB)
+	if(!target)
+		return message
+	var/msg = message
+	if(user.mind?.miming)
+		msg = "takes a drag from a cigarette and blows \"[target.name]\" out in smoke."
+	else
+		msg = "says, \"[target.name], please. They had a family.\" [user] takes a drag from a cigarette and blows [user.p_their()] name out in smoke."
+	return msg
 
 /datum/emote/living/carbon/human/johnny/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/carbon/human/H = user

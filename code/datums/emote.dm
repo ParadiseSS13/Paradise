@@ -48,6 +48,10 @@
 	var/list/mob_type_ignore_stat_typecache
 	/// Species types which the emote will be exclusively available to.
 	var/species_type_whitelist_typecache
+	/// If we get a target, how do we want to treat it?
+	var/target_behavior = EMOTE_TARGET_USE_PARAMS_ANYWAY
+	/// If our target behavior isn't to ignore, what should we look for with targets?
+	var/emote_target_type = EMOTE_TARGET_MOB
 	/// In which state can you use this emote? (Check stat.dm for a full list of them)
 	var/stat_allowed = CONSCIOUS
 	/// In which state can this emote be forced out of you?
@@ -104,6 +108,9 @@
 	var/msg = select_message_type(user, message, intentional)
 	if(params && message_param)
 		msg = select_param(user, params)
+		if(!msg)
+			to_chat(user, "<span class='warning'> '[params]' isn't a valid parameter for [key].")
+			return TRUE
 
 	msg = replace_pronoun(user, msg)
 
@@ -263,10 +270,36 @@
  * * user - Person that is trying to send the emote.
  * * params - Parameters added after the emote.
  *
- * Returns the modified string.
+ * Returns the modified string, or null if the given parameter is invalid.
  */
 /datum/emote/proc/select_param(mob/user, params)
-	return replacetext(message_param, "%t", params)
+
+	if(target_behavior == EMOTE_TARGET_RAW)
+		return replacetext(message_param, "%t", params)
+
+	var/full_target = find_target(user, params, emote_target_type)
+	if(full_target)
+		act_on_target(user, full_target)
+		return replacetext(message_param, "%t", full_target)
+
+	switch(target_behavior)
+		if(EMOTE_TARGET_MUST_MATCH)
+			return null
+		if(EMOTE_TARGET_DEFAULT_TO_BASE)
+			return message
+		if(EMOTE_TARGET_USE_PARAMS_ANYWAY)
+			return replacetext(message_param, "%t", params)
+
+	CRASH("Emote tried to select_param with invalid target behavior.")
+
+/**
+ * Perform some action or specific behavior towards the target of the emote.
+ *
+ * * user: Person who is triggering the emote.
+ * * Target: The target of the emote itself.
+ */
+/datum/emote/proc/act_on_target(mob/user, target)
+	return
 
 /**
  * Check to see if the user is allowed to run the emote.
@@ -333,6 +366,33 @@
 			if(!GLOB.dsay_enabled)
 				to_chat(src, "<span class='warning'>Deadchat is globally muted</span>")
 				return FALSE
+
+/**
+ * Find a target for the emote based on the message parameter fragment passed in.
+ *
+ * * user: The user looking for a target.
+ * * fragment: The mesage parameter or fragment of text they're using to try to find a target.
+ * * emote_target_type: Define denoting the type of target to use when searching.
+ *
+ * Returns a matched target, or null if a specific match couldn't be made.
+ */
+/datum/emote/proc/find_target(mob/user, fragment, emote_target_type)
+	var/target = null
+
+	if(emote_target_type & EMOTE_TARGET_MOB)
+		for(var/mob/living/M in view(user.client))
+			if(findtext(M.name, fragment))
+				target = M
+				break
+
+	if(!target && emote_target_type & EMOTE_TARGET_OBJ)
+		for(var/obj/thing in view(user.client))
+			if(findtext(thing.name, fragment))
+				target = thing
+				break
+
+	return target
+
 /**
  * Check to see if the user should play a sound when performing the emote.
  *
