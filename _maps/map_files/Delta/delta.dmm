@@ -23752,7 +23752,7 @@
 /obj/machinery/button/windowtint{
 	id = "Interrogation";
 	pixel_x = null;
-	pixel_y = 26
+	pixel_y = 24
 	},
 /obj/effect/landmark/start/security_officer,
 /turf/simulated/floor/plasteel{
@@ -23760,6 +23760,9 @@
 	},
 /area/security/interrogation)
 "biE" = (
+/obj/item/radio/intercom/interrogation{
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -23773,9 +23776,6 @@
 	},
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/item/radio/intercom/interrogation{
-	pixel_y = 28
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -25487,7 +25487,9 @@
 	},
 /area/security/processing)
 "bmd" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "processing"
+	},
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -26131,6 +26133,11 @@
 "bnt" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -31118,9 +31125,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/light_switch{
+/obj/machinery/button/windowtint{
 	dir = 1;
-	name = "south bump";
+	id = "processing";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -35245,8 +35252,8 @@
 	},
 /area/bridge)
 "bFS" = (
-/turf/simulated/wall/r_wall,
-/area/security/detectives_office)
+/turf/simulated/wall,
+/area/security/warden)
 "bFT" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -38050,6 +38057,11 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39217,7 +39229,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "processing"
+	},
 /turf/simulated/floor/plating,
 /area/security/processing)
 "bNL" = (
@@ -39907,13 +39921,13 @@
 	},
 /area/security/detectives_office)
 "bPl" = (
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
+	},
+/obj/machinery/button/windowtint{
+	dir = 1;
+	id = "det";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -40790,10 +40804,6 @@
 /turf/simulated/floor/plasteel,
 /area/storage/tools)
 "bRa" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Detective";
-	req_access_txt = "4"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -40812,6 +40822,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/security{
+	name = "Detective";
+	req_access_txt = "4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -40827,7 +40841,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "det"
+	},
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
 "bRc" = (
@@ -43189,7 +43205,9 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "processing"
+	},
 /turf/simulated/floor/plating,
 /area/security/processing)
 "bVB" = (
@@ -43880,7 +43898,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "processing"
+	},
 /turf/simulated/floor/plating,
 /area/security/processing)
 "bXc" = (
@@ -44603,14 +44623,6 @@
 /turf/simulated/floor/wood,
 /area/lawoffice)
 "bYP" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "magistrate";
-	name = "Magistrate Privacy Shutters";
-	opacity = 0
-	},
 /obj/machinery/door/airlock{
 	name = "Magistrate's Office";
 	req_access_txt = "74"
@@ -44629,15 +44641,9 @@
 	},
 /area/magistrateoffice)
 "bYR" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "magistrate";
-	name = "Magistrate Privacy Shutters";
-	opacity = 0
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "magi"
 	},
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/magistrateoffice)
 "bYU" = (
@@ -45145,6 +45151,9 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/heads/hop)
+"bZZ" = (
+/turf/simulated/wall,
+/area/security/interrogation)
 "caa" = (
 /obj/structure/table/wood,
 /obj/machinery/light,
@@ -53559,7 +53568,9 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "processing"
+	},
 /turf/simulated/floor/plating,
 /area/security/processing)
 "csN" = (
@@ -92077,6 +92088,9 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
+"eRZ" = (
+/turf/simulated/wall,
+/area/security/evidence)
 "eSe" = (
 /obj/machinery/door/airlock/medical{
 	name = "Operating Theatre Storage";
@@ -93343,14 +93357,9 @@
 	},
 /area/assembly/chargebay)
 "iaK" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
-	id_tag = "magistrate";
-	name = "Magistrate Privacy Shutters";
-	opacity = 0
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "magi"
 	},
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -93364,6 +93373,13 @@
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
 	},
 /turf/simulated/floor/plating,
 /area/magistrateoffice)
@@ -93573,15 +93589,15 @@
 	},
 /area/maintenance/starboard)
 "iDa" = (
-/obj/machinery/door_control{
-	id = "magistrate";
-	name = "Privacy Shutters Control";
-	pixel_y = 25
-	},
 /obj/structure/table/wood,
 /obj/machinery/computer/secure_data/laptop,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/button/windowtint{
+	id = "magi";
+	pixel_x = null;
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -93788,6 +93804,13 @@
 	req_access_txt = "74"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -94547,7 +94570,9 @@
 	},
 /area/security/detectives_office)
 "lAG" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "processing"
+	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/security/processing)
@@ -95818,7 +95843,9 @@
 /area/lawoffice)
 "oSH" = (
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "processing"
+	},
 /turf/simulated/floor/plating,
 /area/security/processing)
 "oTo" = (
@@ -96011,6 +96038,12 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/permasolitary)
+"ppV" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "det"
+	},
+/turf/simulated/floor/plating,
+/area/magistrateoffice)
 "pvv" = (
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 25
@@ -96551,7 +96584,7 @@
 	},
 /area/security/permasolitary)
 "qYC" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/security/checkpoint)
 "qZq" = (
 /obj/structure/disposalpipe/segment,
@@ -97866,6 +97899,16 @@
 	icon_state = "dark"
 	},
 /area/security/seceqstorage)
+"uiY" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "det"
+	},
+/turf/simulated/floor/plating,
+/area/security/detectives_office)
 "ujH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -98208,6 +98251,16 @@
 	icon_state = "redcorner"
 	},
 /area/hallway/primary/starboard)
+"vng" = (
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "det"
+	},
+/turf/simulated/floor/plating,
+/area/security/detectives_office)
 "vnM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -98478,6 +98531,9 @@
 	icon_state = "darkred"
 	},
 /area/security/brig)
+"vPc" = (
+/turf/simulated/wall,
+/area/security/hos)
 "vSU" = (
 /obj/structure/sink{
 	dir = 8;
@@ -98519,15 +98575,17 @@
 	},
 /area/toxins/misc_lab)
 "wdH" = (
-/obj/machinery/door/poddoor/shutters{
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "magi"
+	},
+/obj/structure/cable,
+/obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
-	id_tag = "magistrate";
-	name = "Magistrate Privacy Shutters";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
 	opacity = 0
 	},
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/magistrateoffice)
 "weF" = (
@@ -98773,17 +98831,19 @@
 	},
 /area/security/securearmoury)
 "xgP" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
-	id_tag = "magistrate";
-	name = "Magistrate Privacy Shutters";
-	opacity = 0
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "magi"
 	},
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
 	},
 /turf/simulated/floor/plating,
 /area/magistrateoffice)
@@ -146065,10 +146125,10 @@ btL
 btL
 aaa
 aaa
-bFS
-bFS
+bLn
+bLn
 bJu
-bFS
+bLn
 bNo
 bPj
 bLn
@@ -146322,13 +146382,13 @@ aaa
 abj
 aaa
 aaa
-bFS
+bLn
 bHJ
 bJv
 bLo
 bLp
 bPk
-bFS
+bLn
 bTb
 bVg
 bXc
@@ -146585,7 +146645,7 @@ bJw
 bLp
 bLp
 bPl
-bFS
+bLn
 bTb
 bVg
 bXc
@@ -146842,7 +146902,7 @@ bJx
 bLq
 dDN
 bPm
-bFV
+vng
 bTb
 bVk
 bXh
@@ -147093,7 +147153,7 @@ aaa
 aaa
 aaa
 aaa
-bFS
+bLn
 bHM
 bJy
 bNr
@@ -147613,7 +147673,7 @@ bJz
 bLt
 bNt
 bPp
-bFU
+uiY
 rOn
 bVk
 bXj
@@ -147864,13 +147924,13 @@ aaa
 aaa
 aaa
 aaa
-bFS
+bLn
 bHP
 dMA
 bLu
 bNu
 nXf
-bFS
+bLn
 bTh
 bVn
 bXk
@@ -149416,7 +149476,7 @@ meB
 bTk
 bVp
 bXB
-bYR
+ppV
 caM
 ccE
 ces
@@ -149654,7 +149714,7 @@ aaa
 aaa
 aaa
 btT
-bsF
+bno
 qpZ
 fdt
 lpE
@@ -150168,7 +150228,7 @@ aaa
 aaa
 aaa
 btT
-bsF
+bno
 bvl
 wtK
 nDV
@@ -150425,7 +150485,7 @@ aaa
 aaa
 aaa
 aaa
-bsF
+bno
 btY
 cGw
 klk
@@ -150686,7 +150746,7 @@ bno
 btT
 boJ
 btT
-bno
+bsF
 boZ
 bPt
 gxJ
@@ -150706,7 +150766,7 @@ jav
 xgP
 iaK
 wdH
-hTV
+bzj
 cjr
 cla
 cjr
@@ -151704,9 +151764,9 @@ ygH
 ygH
 bfY
 bsL
-bsL
+bZZ
 bwE
-bsL
+bZZ
 goP
 goP
 bNI
@@ -151730,10 +151790,10 @@ bRk
 bLB
 brf
 bZe
-jIs
-jIs
+eRZ
+eRZ
 ceA
-jIs
+eRZ
 jIs
 cjv
 cle
@@ -151963,7 +152023,7 @@ bre
 bsL
 bkj
 blZ
-bsL
+bZZ
 bnt
 bnK
 bqU
@@ -151987,7 +152047,7 @@ bTn
 bLB
 brf
 gKx
-jIs
+eRZ
 ccL
 ceB
 ccL
@@ -152220,7 +152280,7 @@ bfZ
 bsL
 bud
 bkh
-bsL
+bZZ
 bnu
 boU
 bqV
@@ -152244,7 +152304,7 @@ obL
 byo
 bqR
 tmJ
-jIs
+eRZ
 ccM
 ceC
 cgo
@@ -152734,7 +152794,7 @@ aaa
 bsL
 meU
 bki
-bsL
+bZZ
 tdA
 bqW
 bqW
@@ -152758,7 +152818,7 @@ bNG
 byo
 brf
 bZe
-jIs
+eRZ
 cgg
 ceE
 cgq
@@ -152991,7 +153051,7 @@ abj
 bsL
 buf
 bAQ
-bsL
+bZZ
 buh
 bqJ
 bqY
@@ -153015,7 +153075,7 @@ bTp
 bLB
 brf
 bZc
-jIs
+eRZ
 kiL
 bzn
 kiL
@@ -153248,7 +153308,7 @@ aaa
 bsL
 bug
 bkl
-bsL
+bZZ
 goP
 goP
 bmd
@@ -153272,7 +153332,7 @@ fzQ
 bLB
 bsE
 bsG
-jIs
+eRZ
 ccP
 ceF
 ccP
@@ -153505,7 +153565,7 @@ abj
 bsL
 biD
 bhi
-bsL
+bZZ
 bnz
 bPy
 bPy
@@ -153529,10 +153589,10 @@ bPy
 sty
 bXu
 bZe
-jIs
-jIs
-jIs
-jIs
+eRZ
+eRZ
+eRZ
+eRZ
 jIs
 ckE
 clf
@@ -154019,7 +154079,7 @@ abj
 bsL
 biF
 bsU
-bsL
+bZZ
 bxS
 weF
 weF
@@ -154277,23 +154337,23 @@ bsL
 bsL
 bsL
 bsL
-biG
+vPc
 bnC
 bnC
 jsV
 bnC
 bnC
-biG
-bEx
+vPc
+bFS
 bJL
 vCk
 bJL
-bEx
-bEx
+bFS
+bFS
 bJL
 pRg
 bJL
-bEx
+bFS
 bTr
 bTr
 spP
@@ -154541,7 +154601,7 @@ bmb
 iXX
 iXX
 buj
-bEx
+bFS
 tNO
 ejA
 wWy
@@ -154798,7 +154858,7 @@ bmh
 bnE
 bpf
 buk
-bEx
+bFS
 upW
 bNF
 nom
@@ -155055,7 +155115,7 @@ bsW
 bpi
 bvy
 bul
-bEx
+bFS
 vEh
 bqX
 rNi
@@ -155064,7 +155124,7 @@ sTz
 faB
 kYe
 bzh
-bEx
+bFS
 haD
 ohh
 vkw
