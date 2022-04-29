@@ -50,5 +50,3 @@ All other assets including icons and sound files are licensed under the
 Creative Commons 3.0 BY-SA license (https://creativecommons.org/licenses/by-sa/3.0/),
 unless otherwise indicated.
 
-
-
