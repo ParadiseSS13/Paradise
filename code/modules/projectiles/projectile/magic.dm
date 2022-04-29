@@ -322,16 +322,6 @@
 		var/mob/living/simple_animal/hostile/mimic/copy/C = change
 		C.ChangeOwner(firer)
 
-/obj/item/projectile/magic/spellblade
-	name = "blade energy"
-	icon_state = "lavastaff"
-	damage = 15
-	damage_type = BURN
-	flag = "magic"
-	sharp = TRUE
-	dismemberment = 50
-	nodamage = 0
-
 /obj/item/projectile/magic/slipping
 	name = "magical banana"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
