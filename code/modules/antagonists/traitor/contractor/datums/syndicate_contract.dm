@@ -412,8 +412,7 @@
 	// Remove accessories from the suit if present
 	if(length(H.w_uniform?.accessories))
 		for(var/obj/item/clothing/accessory/A in H.w_uniform.accessories)
-			A.on_removed(H)
-			H.w_uniform.accessories -= A
+			H.w_uniform.detach_accessory(A, null)
 			H.unEquip(A)
 			stuff_to_transfer += A
 
