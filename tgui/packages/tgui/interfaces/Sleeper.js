@@ -249,11 +249,11 @@ const SleeperChemicals = (props, context) => {
           }}>
           <Box
             style={{ "text-align": "center",
-              transform: "rotate(20deg) translateY(100px)",
+              transform: "rotate(10deg) translateY(100px)",
               "font-size": "35px",
               "z-index": 123,
             }}>
-            <b>Occupant is critical</b>
+            <b>Occupant is critical!</b>
           </Box>
         </Box>
       )
