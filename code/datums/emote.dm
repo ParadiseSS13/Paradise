@@ -51,7 +51,7 @@
 	/// If we get a target, how do we want to treat it?
 	var/target_behavior = EMOTE_TARGET_USE_PARAMS_ANYWAY
 	/// If our target behavior isn't to ignore, what should we look for with targets?
-	var/emote_target_type = EMOTE_TARGET_MOB
+	var/emote_target_type = EMOTE_TARGET_ANY
 	/// In which state can you use this emote? (Check stat.dm for a full list of them)
 	var/stat_allowed = CONSCIOUS
 	/// In which state can this emote be forced out of you?
