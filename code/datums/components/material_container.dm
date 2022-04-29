@@ -69,6 +69,9 @@
 		return
 	if(I.flags & ABSTRACT)
 		return
+	var/obj/machinery/machine_parent = parent
+	if(machine_parent.panel_open)
+		return
 	if((I.flags_2 & (HOLOGRAM_2 | NO_MAT_REDEMPTION_2)) || (tc && !is_type_in_typecache(I, tc)))
 		to_chat(user, "<span class='warning'>[parent] won't accept [I]!</span>")
 		return
