@@ -20044,6 +20044,13 @@
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
+	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/heads/hos)
 "baK" = (
@@ -22517,13 +22524,6 @@
 	name = "Security-Storage Backroom";
 	req_access_txt = "63"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Prison Gate";
-	name = "Prison Lockdown Blast Doors";
-	opacity = 0
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -23789,6 +23789,13 @@
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
+	},
 /turf/simulated/floor/plating,
 /area/security/hos)
 "biI" = (
@@ -23807,6 +23814,13 @@
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
+	},
 /turf/simulated/floor/plating,
 /area/security/hos)
 "biJ" = (
@@ -23815,6 +23829,13 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
+	},
 /turf/simulated/floor/plating,
 /area/security/hos)
 "biK" = (
@@ -25496,13 +25517,6 @@
 	},
 /area/security/brig)
 "bmg" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Secure Gate";
-	name = "Security Blast Door";
-	opacity = 0
-	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/checkpoint)
@@ -26759,13 +26773,6 @@
 	req_access_txt = "63"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Secure Gate";
-	name = "Security Blast Door";
-	opacity = 0
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -26880,13 +26887,6 @@
 /area/security/seceqstorage)
 "boZ" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Secure Gate";
-	name = "Security Blast Door";
-	opacity = 0
-	},
 /obj/machinery/door/airlock/security{
 	name = "Brig";
 	req_access_txt = "63"
@@ -27013,6 +27013,13 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
+	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/heads/hos)
 "bpm" = (
@@ -27915,12 +27922,8 @@
 /turf/simulated/floor/carpet/red,
 /area/security/hos)
 "bri" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment{
 	dir = 8;
 	icon_state = "pipe-c"
@@ -27946,8 +27949,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/security/glass{
 	name = "Cell Block";
 	req_access_txt = "63"
@@ -27971,11 +27972,6 @@
 	id = "Cell 3";
 	name = "Cell 3";
 	req_access_txt = "2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -28018,6 +28014,13 @@
 "bro" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
+	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/heads/hos)
 "brp" = (
@@ -29782,11 +29785,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -30489,13 +30492,6 @@
 	name = "Interrogation";
 	req_one_access_txt = "1;4"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Secure Gate";
-	name = "Security Blast Door";
-	opacity = 0
-	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -30503,13 +30499,6 @@
 	},
 /area/security/interrogation)
 "bwD" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Secure Gate";
-	name = "Security Blast Door";
-	opacity = 0
-	},
 /obj/machinery/door/airlock/security{
 	name = "Interrogation Monitoring";
 	req_access_txt = "63";
@@ -31835,20 +31824,18 @@
 /turf/simulated/wall/r_wall,
 /area/magistrateoffice)
 "bzm" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/machinery/light{
+	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10;
-	initialize_directions = 10
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/security/brig)
 "bzn" = (
@@ -31880,17 +31867,18 @@
 /area/security/brig)
 "bzr" = (
 /obj/structure/cable{
-	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2"
+	icon_state = "0-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/security/brig)
 "bzv" = (
 /obj/machinery/status_display,
@@ -32502,6 +32490,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -32523,6 +32516,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -32570,21 +32565,12 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/security/brig)
 "bBa" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Cell Block";
 	req_access_txt = "63"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Secure Gate";
-	name = "Security Blast Door";
-	opacity = 0
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -35311,13 +35297,6 @@
 	},
 /area/hallway/primary/starboard)
 "bGa" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Secure Gate";
-	name = "Security Blast Door";
-	opacity = 0
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig - Prisoner Release";
@@ -35326,6 +35305,13 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 4
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -35354,6 +35340,11 @@
 /obj/machinery/camera{
 	c_tag = "Brig Cell 1"
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -35373,16 +35364,16 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -36588,10 +36579,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -38156,9 +38145,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -39220,8 +39208,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -40913,10 +40899,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -40926,23 +40912,19 @@
 /area/security/brig)
 "bRi" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d2 = 8;
+	icon_state = "0-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors";
+	opacity = 0
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/brig)
+/turf/simulated/floor/plating,
+/area/security/permabrig)
 "bRj" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -41894,6 +41876,10 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -45504,10 +45490,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -47190,8 +47175,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -47900,15 +47883,13 @@
 	},
 /area/crew_quarters/courtroom)
 "cgm" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/security/brig)
 "cgo" = (
@@ -48520,8 +48501,6 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "chS" = (
@@ -49203,6 +49182,8 @@
 /obj/structure/closet/crate,
 /obj/item/target/syndicate,
 /obj/item/target/syndicate,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/security/range)
 "cjt" = (
@@ -49211,8 +49192,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/security/range)
 "cju" = (
@@ -49978,12 +49957,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
@@ -50009,8 +49984,12 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/security/range)
@@ -92019,12 +91998,12 @@
 /area/security/permabrig)
 "eDh" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -92184,6 +92163,13 @@
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
+	},
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
 "fdI" = (
@@ -92467,13 +92453,6 @@
 	},
 /obj/item/folder/red,
 /obj/item/folder/red,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Secure Gate";
-	name = "Security Blast Door";
-	opacity = 0
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -92693,13 +92672,6 @@
 /area/security/brig)
 "gxJ" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Secure Gate";
-	name = "Security Blast Door";
-	opacity = 0
-	},
 /obj/machinery/door/airlock/security{
 	name = "Brig";
 	req_access_txt = "63"
@@ -92758,6 +92730,12 @@
 "gDv" = (
 /obj/machinery/door_timer/cell_1{
 	pixel_x = -32
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -93526,6 +93504,14 @@
 "irt" = (
 /turf/simulated/wall,
 /area/maintenance/abandonedbar)
+"isj" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkredcorners"
+	},
+/area/security/brig)
 "isz" = (
 /obj/machinery/vending/sustenance,
 /obj/structure/cable{
@@ -94090,8 +94076,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -94455,6 +94440,13 @@
 "lpE" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
+	},
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
 "lqK" = (
@@ -94559,6 +94551,15 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/security/processing)
+"lBu" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/security/brig)
 "lBR" = (
 /obj/machinery/vending/cola,
 /obj/structure/sign/poster/official/random{
@@ -94651,8 +94652,18 @@
 	},
 /area/security/permabrig)
 "lNH" = (
-/turf/simulated/wall/r_wall,
-/area/space)
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
+	},
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plating,
+/area/security/brig)
 "lSz" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -95010,6 +95021,23 @@
 	icon_state = "dark"
 	},
 /area/security/securearmoury)
+"mED" = (
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plating,
+/area/security/brig)
 "mEG" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -95030,13 +95058,6 @@
 	},
 /area/security/permasolitary)
 "mHv" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Secure Gate";
-	name = "Security Blast Door";
-	opacity = 0
-	},
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -95051,6 +95072,13 @@
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
 	},
 /turf/simulated/floor/plating,
 /area/security/brig)
@@ -95526,6 +95554,8 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -95885,13 +95915,6 @@
 	name = "Brig - Prisoner Release";
 	req_access_txt = "63"
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Secure Gate";
-	name = "Security Blast Door";
-	opacity = 0
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -95904,6 +95927,13 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 4
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -96330,6 +96360,13 @@
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
 	},
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
@@ -96774,13 +96811,6 @@
 	},
 /area/toxins/misc_lab)
 "rDp" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Secure Gate";
-	name = "Security Blast Door";
-	opacity = 0
-	},
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -96791,6 +96821,13 @@
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
+	},
 /turf/simulated/floor/plating,
 /area/security/brig)
 "rHU" = (
@@ -97190,11 +97227,24 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
+/area/security/brig)
+"sGv" = (
+/obj/structure/cable,
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
 /area/security/brig)
 "sGz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -98395,16 +98445,13 @@
 /turf/simulated/floor/grass,
 /area/medical/research)
 "vKJ" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Secure Gate";
-	name = "Security Blast Door";
-	opacity = 0
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkredcorners"
 	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/security/prisonershuttle)
+/area/security/brig)
 "vLu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -99064,13 +99111,6 @@
 	},
 /area/maintenance/port)
 "yds" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Secure Gate";
-	name = "Security Blast Door";
-	opacity = 0
-	},
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -149880,9 +149920,9 @@ bvx
 fUG
 bBc
 bLA
-shi
+bzr
 mHv
-fzQ
+sGv
 bLA
 bGa
 rDp
@@ -150393,7 +150433,7 @@ iAD
 hCD
 ghP
 bzp
-mft
+bAY
 bGc
 bAP
 bCP
@@ -150643,9 +150683,9 @@ bLA
 bLA
 bLA
 bno
-vKJ
+btT
 boJ
-vKJ
+btT
 bno
 boZ
 bPt
@@ -150906,24 +150946,24 @@ qfV
 bxP
 bri
 bAR
-bCQ
-mft
-bPy
+isj
+lNH
+bnp
 bHY
 gDv
 bLC
-bXu
-oXm
+vKJ
+eDh
 bRh
 bTm
-mft
+lNH
 nYz
-bYV
-bPy
-bPy
+bzm
+cgm
+bnp
 bAR
-bPy
-fUG
+bnp
+mED
 cjs
 clb
 cmy
@@ -151161,25 +151201,25 @@ bzf
 uAR
 tJH
 dnd
-bzm
-sEN
-eDh
+dnd
+uAR
+dnd
 brk
-eDh
+dnd
 jUH
 bvw
-bzr
+dnd
 bNH
-sEN
-bRi
+uAR
+tJH
 sEN
 brk
-eDh
+dnd
 bGe
 caO
-cgm
+dnd
 cey
-cgm
+dnd
 chQ
 cjt
 clc
@@ -151429,7 +151469,7 @@ bNE
 hHM
 hHM
 bRj
-weF
+lBu
 mft
 bXt
 bYW
@@ -151940,7 +151980,7 @@ bGi
 ceG
 uoV
 vOc
-fUG
+tRM
 glX
 bEy
 bTn
@@ -152433,7 +152473,7 @@ aZK
 bbt
 ygH
 ygH
-aJA
+bRi
 bsL
 bue
 lJT
@@ -152450,7 +152490,7 @@ bzp
 bLB
 bLB
 yds
-fzQ
+bRk
 bLB
 aNf
 vvQ
@@ -152968,7 +153008,7 @@ bGn
 ccQ
 wpr
 bLH
-ljZ
+mKe
 sCu
 bRn
 bTp
@@ -157071,7 +157111,7 @@ bpl
 bro
 aZw
 aZw
-lNH
+ngg
 abj
 abj
 abj
