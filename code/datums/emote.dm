@@ -362,7 +362,7 @@
 		if(!(user.client?.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
 			to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
 			return FALSE
-		if(!user.client?.holder)
+		if(!check_rights(R_ADMIN, FALSE, user))
 			if(!GLOB.dsay_enabled)
 				to_chat(src, "<span class='warning'>Deadchat is globally muted</span>")
 				return FALSE
