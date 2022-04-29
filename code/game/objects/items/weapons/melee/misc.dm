@@ -276,10 +276,13 @@
 	var/turf/user_turf = get_turf(user)
 	if(!(target in view(7, user_turf))) // no camera shenangians
 		return
+	var/list/turfs = list()
+	for(var/turf/T in orange(1, get_turf(target)))
+		if(is_blocked_turf(T, TRUE))
+			continue
+		turfs += T
 
-	var/turf/pretarget_turf = get_turf(target)
-	var/direction = pick(NORTH, EAST, SOUTH, WEST)
-	var/turf/target_turf = get_step(pretarget_turf, direction)
+	var/target_turf = pick(turfs)
 	user_turf.Beam(target_turf, "warp_beam", time = 0.3 SECONDS)
 	user.forceMove(target_turf)
 	S.melee_attack_chain(user, target)
