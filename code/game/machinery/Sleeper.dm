@@ -209,6 +209,7 @@
 
 
 		crisis = (occupant.health < min_health)
+		occupantData["crisis"] = crisis
 		// I'm not sure WHY you'd want to put a simple_animal in a sleeper, but precedent is precedent
 		// Runtime is aptly named, isn't she?
 		if(ishuman(occupant) && !(NO_BLOOD in occupant.dna.species.species_traits))

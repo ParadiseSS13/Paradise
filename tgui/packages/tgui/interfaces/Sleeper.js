@@ -6,7 +6,7 @@ import { Window } from "../layouts";
 
 const stats = [
   ['good', 'Alive'],
-  ['average', 'Critical'],
+  ['average', 'Unconscious'],
   ['bad', 'DEAD'],
 ];
 
@@ -236,6 +236,29 @@ const SleeperChemicals = (props, context) => {
   } = data;
   return (
     <Section title="Occupant Chemicals" flexGrow="1">
+      {
+        (!!occupant && occupant["crisis"])
+      && (
+        <Box
+          style={{ "position": "absolute",
+            height: "220px",
+            width: "100%",
+            bottom: "0px",
+            "z-index": 120,
+            background: "rgba(153, 153, 153, 0.8)",
+          }}>
+          <Box
+            style={{ "text-align": "center",
+              transform: "rotate(20deg) translateY(100px)",
+              "font-size": "35px",
+              "z-index": 123,
+            }}>
+            <b>Occupant is critical</b>
+          </Box>
+        </Box>
+      )
+         || ""
+      }
       {chemicals.map((chem, i) => {
         let barColor = '';
         let odWarning;
