@@ -82,7 +82,7 @@
 
 /obj/item/melee/baton/throw_impact(atom/hit_atom)
 	..()
-	if(prob(throw_hit_chance) && turned_on && isliving(hit_atom))
+	if(prob(throw_hit_chance) && turned_on && isliving(hit_atom) && !issilicon(M))
 		baton_stun(hit_atom)
 
 /**
