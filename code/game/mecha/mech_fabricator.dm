@@ -93,6 +93,7 @@
 /obj/machinery/mecha_part_fabricator/multitool_act(mob/user, obj/item/I)
 	if(!panel_open)
 		return
+	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return
 	output_dir = turn(output_dir, -90)
