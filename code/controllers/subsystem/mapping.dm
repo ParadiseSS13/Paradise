@@ -151,6 +151,9 @@ SUBSYSTEM_DEF(mapping)
 
 // Loads in lavaland
 /datum/controller/subsystem/mapping/proc/loadLavaland()
+	if(!GLOB.configuration.ruins.enable_lavaland)
+		log_startup_progress("Skipping Lavaland...")
+		return
 	var/watch = start_watch()
 	log_startup_progress("Loading Lavaland...")
 	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = SELFLOOPING, traits = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK))
