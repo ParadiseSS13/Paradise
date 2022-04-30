@@ -5856,7 +5856,6 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6264,7 +6263,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8875,7 +8873,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9798,12 +9795,6 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
-"axY" = (
-/obj/effect/landmark/spawner/late/cryo,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/crew_quarters/sleep)
 "axZ" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -10454,7 +10445,6 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = -25
 	},
-/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -18890,7 +18880,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -26122,7 +26111,6 @@
 /area/quartermaster/office)
 "biO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -35618,7 +35606,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/landmark/spawner/late/cyborg,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -48155,7 +48142,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -48164,7 +48150,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -48766,7 +48751,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -77346,7 +77330,6 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = -25
 	},
-/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -116752,7 +116735,7 @@ avv
 aoE
 apN
 awa
-axY
+aKM
 azC
 avv
 axS
