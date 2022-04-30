@@ -268,7 +268,8 @@
 
 ///called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"
-
+///called when the movable is removed from a disposal holder object: /obj/structure/disposalpipe/proc/expel(): (obj/structure/disposalholder/H, turf/T, direction)
+#define COMSIG_MOVABLE_EXIT_DISPOSALS "movable_exit_disposals"
 
 // /datum/mind signals
 
