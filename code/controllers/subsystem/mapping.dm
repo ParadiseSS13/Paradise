@@ -60,12 +60,15 @@ SUBSYSTEM_DEF(mapping)
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
 
-	// Spawn Lavaland ruins and rivers.
-	log_startup_progress("Populating lavaland...")
-	var/lavaland_setup_timer = start_watch()
-	seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
-	spawn_rivers(level_name_to_num(MINING))
-	log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
+	if(GLOB.configuration.ruins.enable_lavaland)
+		// Spawn Lavaland ruins and rivers.
+		log_startup_progress("Populating lavaland...")
+		var/lavaland_setup_timer = start_watch()
+		seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
+		spawn_rivers(level_name_to_num(MINING))
+		log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
+	else
+		log_startup_progress("Skipping lavaland ruins...")
 
 	// Now we make a list of areas for teleport locs
 	teleportlocs = list()

@@ -28,7 +28,9 @@
 	if(access_station)
 		jumpto_ports += list("nav_z[level_name_to_num(MAIN_STATION)]" = 1)
 	if(access_mining)
-		jumpto_ports += list("nav_z[level_name_to_num(MINING)]" = 1)
+		var/mining_zlevel = level_name_to_num(MINING)
+		if(mining_zlevel)
+			jumpto_ports += list("nav_z[mining_zlevel]" = 1)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/Destroy()
 	GLOB.navigation_computers -= src
