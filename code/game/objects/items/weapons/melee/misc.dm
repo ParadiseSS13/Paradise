@@ -134,10 +134,10 @@
 	if(enchant)
 		return
 
-	var/static/list/options = list("Lightning",/// todo add icons for these
-							"Fire",
-							"Bluespace",
-							"Forcewall",)
+	var/static/list/options = list("Lightning" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "chain_lightning"),/// todo add icons for these
+							"Fire" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "fire"),
+							"Bluespace" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "blink"),
+							"Forcewall" = image(icon = 'icons/effects/spellblade.dmi', icon_state = "shield"),)
 	var/static/list/options_to_type = list("Lightning" = /datum/enchantment/lightning,
 									"Fire" = /datum/enchantment/fire,
 									"Bluespace" = /datum/enchantment/bluespace,
