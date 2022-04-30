@@ -77823,7 +77823,6 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "dnW" = (
-/obj/structure/closet/emcloset,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
@@ -77888,6 +77887,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "doc" = (
