@@ -30695,14 +30695,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
-"bsy" = (
-/obj/effect/landmark{
-	icon = 'icons/effects/spawner_icons.dmi';
-	icon_state = "mech";
-	name = "Marauder Entry"
-	},
-/turf/simulated/floor/plasteel,
-/area/bridge)
 "bsz" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -30714,19 +30706,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/bridge)
-"bsA" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/landmark{
-	icon = 'icons/effects/spawner_icons.dmi';
-	icon_state = "mech";
-	name = "Marauder Entry"
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
@@ -31972,11 +31951,6 @@
 	icon_state = "4-8"
 	},
 /obj/item/radio/beacon,
-/obj/effect/landmark{
-	icon = 'icons/effects/spawner_icons.dmi';
-	icon_state = "mech";
-	name = "Marauder Entry"
-	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "bvD" = (
@@ -111032,7 +111006,7 @@ blY
 bnW
 bpt
 bqS
-bsy
+bqS
 bxA
 bvX
 bxo
@@ -111546,7 +111520,7 @@ kwt
 bnY
 bpu
 bqU
-bsA
+bsF
 bxD
 bvX
 bxq
@@ -112060,7 +112034,7 @@ kwt
 boa
 bpw
 bqV
-bsA
+bsF
 bxO
 bvX
 bxt
