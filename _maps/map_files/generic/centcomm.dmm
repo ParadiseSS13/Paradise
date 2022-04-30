@@ -8028,14 +8028,6 @@
 /obj/structure/chair/comfy/black,
 /turf/simulated/floor/carpet,
 /area/centcom/control)
-"EX" = (
-/obj/machinery/porta_turret/centcom/pulse,
-/obj/effect/spawner/window/reinforced/plasma,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
-	},
-/area/centcom/gamma)
 "EZ" = (
 /obj/machinery/computer/bsa_control/admin,
 /turf/simulated/floor/carpet,
@@ -29168,7 +29160,7 @@ Gd
 GR
 uC
 Te
-EX
+JH
 Hi
 Hi
 NL
