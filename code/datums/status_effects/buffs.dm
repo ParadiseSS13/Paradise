@@ -202,7 +202,7 @@
 	var/mob/living/carbon/human/H = owner
 	H.add_overlay(MA)
 	shield = MA
-	H.status_flags &= ~(CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH)
+	H.add_stun_absorption("[id]", INFINITY, 1)
 	H.physiology.stamina_mod *= 0.1
 	H.physiology.brute_mod *= 0.5
 	H.physiology.burn_mod *= 0.5
@@ -211,7 +211,8 @@
 	. = ..()
 	var/mob/living/carbon/human/H = owner
 	H.cut_overlay(shield)
-	H.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH
+	if(islist(owner.stun_absorption) && owner.stun_absorption["[id]"])
+		owner.stun_absorption -= "[id]"
 	H.physiology.stamina_mod /= 0.1
 	H.physiology.brute_mod /= 0.5
 	H.physiology.burn_mod /= 0.5

@@ -134,11 +134,11 @@
 	if(enchant)
 		return
 
-	var/list/options = list("Lightning",/// todo add icons for these
+	var/static/list/options = list("Lightning",/// todo add icons for these
 							"Fire",
 							"Bluespace",
 							"Forcewall",)
-	var/list/options_to_type = list("Lightning" = /datum/enchantment/lightning,
+	var/static/list/options_to_type = list("Lightning" = /datum/enchantment/lightning,
 									"Fire" = /datum/enchantment/fire,
 									"Bluespace" = /datum/enchantment/bluespace,
 									"Forcewall" = /datum/enchantment/forcewall,)
@@ -158,7 +158,7 @@
 
 /obj/item/melee/spellblade/examine(mob/user)
 	. = ..()
-	if(enchant && (iswizard(user) || iscultist(user)))
+	if(enchant && (iswizard(user) || iscultist(user))) // only wizards and cultists understand runes
 		. += "The runes along the side read; [enchant.desc]."
 
 
@@ -173,10 +173,10 @@
 	/// used for wizards/cultists examining the runes on the blade
 	var/desc = "Someone messed up, file an issue report."
 	/// used for damage values
-	var/power = 0
+	var/power = 1
 	/// whether the enchant procs despite not being in proximity
 	var/ranged = FALSE
-	/// stores the world.time until it can be used again, the `initial(cooldown)` is the cooldown between activations.
+	/// stores the world.time after which it can be used again, the `initial(cooldown)` is the cooldown between activations.
 	var/cooldown = -1
 
 /datum/enchantment/proc/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
@@ -196,6 +196,7 @@
 /datum/enchantment/lightning
 	name = "lightning"
 	desc = "this blade conducts arcane energy to arc between its victims"
+	// the damage of the first lighting arc.
 	power = 20
 	cooldown = 3 SECONDS
 
@@ -226,8 +227,8 @@
 /datum/enchantment/fire
 	name = "fire"
 	desc = "this blade will self immolate on hit, releasing a ball of fire. it also makes the weilder immune to fire"
-	power = 20
 	cooldown = 8 SECONDS
+	var/applied_traits = FALSE
 
 /datum/enchantment/fire/on_gain(obj/item/melee/spellblade/S, mob/living/user)
 	..()
@@ -236,22 +237,24 @@
 		toggle_traits(S, user)
 
 /datum/enchantment/fire/proc/toggle_traits(obj/item/I, mob/living/user)
-	if(HAS_TRAIT_FROM(user, TRAIT_NOFIRE, MAGIC_TRAIT))
-		REMOVE_TRAIT(user, TRAIT_NOFIRE, MAGIC_TRAIT)
-		REMOVE_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
+	var/enchant_ID = UID(src) // so it only removes the traits applied by this specific enchant.
+	if(applied_traits)
+		REMOVE_TRAIT(user, TRAIT_NOFIRE, "[enchant_ID]")
+		REMOVE_TRAIT(user, TRAIT_RESISTHEAT, "[enchant_ID]")
+		applied_traits = FALSE
 	else
-		ADD_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
-		ADD_TRAIT(user, TRAIT_NOFIRE, MAGIC_TRAIT)
+		ADD_TRAIT(user, TRAIT_RESISTHEAT, "[enchant_ID]")
+		ADD_TRAIT(user, TRAIT_NOFIRE, "[enchant_ID]")
+		applied_traits = TRUE
 
 /datum/enchantment/fire/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
 	. = ..()
 	if(.)
-		fireflash_s(target, 4, 400 * power, 500)
+		fireflash_s(target, 4, 8000 * power, 500)
 
 /datum/enchantment/forcewall
 	name = "forcewall"
 	desc = "this blade will provide you great shielding against attack for a short duration after you strike someone"
-	power = 20
 	cooldown = 4 SECONDS
 
 /datum/enchantment/forcewall/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
@@ -265,6 +268,7 @@
 	desc = "this blade slices through space itself, jumping its weilder to a far away target"
 	cooldown = 2.5 SECONDS
 	ranged = TRUE
+	// the number of cycles of stun applied by the teleport strike
 	power = 2
 
 /datum/enchantment/bluespace/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
