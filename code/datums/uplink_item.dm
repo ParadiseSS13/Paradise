@@ -1530,6 +1530,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 20
 
+/datum/uplink_item/device_tools/dropwall
+	name = "Dropwall generator box"
+	desc = "A box of 5 dropwall shield generators, which can be used to make temporary directional shields that block projectiles, thrown objects, and reduce explosions. Configure the direction before throwing."
+	item = /obj/item/storage/box/syndie_kit/dropwall
+	reference = "ESD"
+	cost = 10
+	gamemodes = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/device_tools/medgun
 	name = "Medbeam Gun"
 	desc = "Medical Beam Gun, useful in prolonged firefights. DO NOT CROSS THE BEAMS. Crossing beams with another medbeam or attaching two beams to one target will have explosive consequences."
