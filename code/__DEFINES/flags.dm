@@ -61,6 +61,8 @@
 #define RAD_PROTECT_CONTENTS_2	16384
 /// should this object be allowed to be contaminated
 #define RAD_NO_CONTAMINATE_2	32768
+/// Prevents shuttles from deleting the item
+#define IMMUNE_TO_SHUTTLECRUSH_2 (1<<16)
 
 //Reagent flags
 #define REAGENT_NOREACT			1
@@ -80,11 +82,17 @@
 #define HAS_HEAD_MARKINGS	64
 #define HAS_BODY_MARKINGS	128
 #define HAS_TAIL_MARKINGS	256
-#define HAS_MARKINGS		HAS_HEAD_MARKINGS|HAS_BODY_MARKINGS|HAS_TAIL_MARKINGS
 #define TAIL_WAGGING    	512
 #define NO_EYES				1024
 #define HAS_ALT_HEADS		2048
-#define ALL_RPARTS			4096
+#define HAS_WING			4096
+#define HAS_BODYACC_COLOR	8192
+#define BALD				16384
+#define ALL_RPARTS			32768
+
+//Pre-baked combinations of the above body flags
+#define HAS_BODY_ACCESSORY 	HAS_TAIL|HAS_WING
+#define HAS_MARKINGS		HAS_HEAD_MARKINGS|HAS_BODY_MARKINGS|HAS_TAIL_MARKINGS
 
 //Species Diet Flags
 #define DIET_CARN		1

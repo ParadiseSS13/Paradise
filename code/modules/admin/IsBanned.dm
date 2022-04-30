@@ -58,7 +58,7 @@
 		// If there is no row, they didnt accept
 		if(!check_query.NextRow())
 			qdel(check_query)
-			return list("reason"="tos", "desc"="\nReason: You are trying to connect without accepting server ToS. If this error persists, please contact the server host.")
+			return list("reason"="tos", "desc"="\nReason: You are trying to connect without accepting server ToS. If you did not get a ToS popup, please go to paradise13.org/fixtos")
 
 		qdel(check_query)
 		// As per my comment 8 or so lines above, we do NOT log failed connections here

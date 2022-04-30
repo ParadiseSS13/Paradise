@@ -151,6 +151,7 @@ SUBSYSTEM_DEF(instancing)
 
 	for(var/server in servers_outer)
 		var/server_data = servers_outer[server]
+		// TODO: Move this to redis PubSub. world.Export() cannot be trusted. Redis is more reliable anyway
 		world.Export("byond://[server_data["internal_ip"]]:[server_data["server_port"]]?[raw_topic]&key=[server_data["topic_key"]]")
 
 

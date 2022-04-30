@@ -261,6 +261,7 @@
 	R.add_language("Bubblish", 0)
 	R.add_language("Orluum", 0)
 	R.add_language("Clownish", 0)
+	R.add_language("Tkachi", 0)
 
 /// Adds anything in `subsystems` to the robot's verbs, and grants any actions that are in `module_actions`.
 /obj/item/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
@@ -418,7 +419,7 @@
 		/obj/item/storage/bag/trash/cyborg,
 		/obj/item/mop/advanced/cyborg,
 		/obj/item/lightreplacer/cyborg,
-		/obj/item/holosign_creator,
+		/obj/item/holosign_creator/janitor,
 		/obj/item/extinguisher/mini
 	)
 	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_lube, /obj/item/restraints/handcuffs/cable/zipties/cyborg)
@@ -527,6 +528,7 @@
 	R.add_language("Bubblish", 1)
 	R.add_language("Clownish",1)
 	R.add_language("Neo-Russkiya", 1)
+	R.add_language("Tkachi", 1)
 
 /obj/item/robot_module/butler/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules

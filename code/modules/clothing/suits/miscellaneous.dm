@@ -387,6 +387,17 @@
 
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
+/obj/item/clothing/suit/furcoat
+	name = "fur coat"
+	desc = "A trenchcoat made from fur. You could put an oxygen tank in one of the pockets."
+	icon_state = "furcoat"
+	item_state = "furcoat"
+	blood_overlay_type = "armor"
+	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO
+	allowed = list(/obj/item/tank/internals/emergency_oxygen)
+	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+
 /obj/item/clothing/suit/hooded/wintercoat/captain
 	name = "captain's winter coat"
 	icon_state = "wintercoat_captain"
@@ -441,7 +452,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatengineer"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 20, FIRE = 30, ACID = 45)
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/t_scanner, /obj/item/rcd)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering
 
 /obj/item/clothing/head/hooded/winterhood/engineering
@@ -1061,3 +1072,13 @@
 	w_class = WEIGHT_CLASS_TINY
 	flags = BLOCKHAIR
 	flags_inv = HIDEGLOVES|HIDEEARS|HIDEFACE
+
+/obj/item/clothing/suit/furcape
+	name = "fur cape"
+	desc = "A cape made from fur. You'll really be stylin' now."
+	icon_state = "furcape"
+	item_state = "furcape"
+	blood_overlay_type = "armor"
+	body_parts_covered = UPPER_TORSO|ARMS
+	cold_protection = UPPER_TORSO | ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT

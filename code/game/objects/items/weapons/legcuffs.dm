@@ -151,6 +151,7 @@
 	name = "bola"
 	desc = "A restraining device designed to be thrown at the target. Upon connecting with said target, it will wrap around their legs, making it difficult for them to move quickly."
 	icon_state = "bola"
+	item_state = "bola"
 	breakouttime = 35//easy to apply, easy to break out of
 	gender = NEUTER
 	origin_tech = "engineering=3;combat=1"
@@ -180,6 +181,7 @@
 	name = "reinforced bola"
 	desc = "A strong bola, made with a long steel chain. It looks heavy, enough so that it could trip somebody."
 	icon_state = "bola_r"
+	item_state = "bola_r"
 	breakouttime = 70
 	origin_tech = "engineering=4;combat=3"
 	weaken = 1
@@ -188,6 +190,7 @@
 	name = "energy bola"
 	desc = "A specialized hard-light bola designed to ensnare fleeing criminals and aid in arrests."
 	icon_state = "ebola"
+	item_state = "ebola"
 	hitsound = 'sound/weapons/tase.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	breakouttime = 60

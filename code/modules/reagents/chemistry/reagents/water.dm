@@ -251,6 +251,7 @@
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
 			holder.remove_reagent(id, volume)
+			M.visible_message("<span class='biggerdanger'>[M] recoils, their skin flushes with colour, regaining their sense of control!</span>")
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)

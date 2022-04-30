@@ -85,7 +85,6 @@
 #define EXP_TYPE_CREW			"Crew"
 #define EXP_TYPE_SPECIAL		"Special"
 #define EXP_TYPE_GHOST			"Ghost"
-#define EXP_TYPE_EXEMPT			"Exempt"
 #define EXP_TYPE_COMMAND		"Command"
 #define EXP_TYPE_ENGINEERING	"Engineering"
 #define EXP_TYPE_MEDICAL		"Medical"

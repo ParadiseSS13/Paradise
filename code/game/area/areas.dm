@@ -245,6 +245,7 @@
 					D.nextstate = opening ? FD_OPEN : FD_CLOSED
 				else if(!(D.density ^ opening))
 					INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/open : /obj/machinery/door/firedoor.proc/close))
+					INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/deactivate_alarm : /obj/machinery/door/firedoor.proc/activate_alarm))
 
 /**
   * Generate a firealarm alert for this area
@@ -510,6 +511,9 @@
 	if(istype(M,/mob/living/carbon/human/))  // Only humans can wear magboots, so we give them a chance to.
 		if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP))
 			return
+
+	if(M.dna.species.spec_thunk(M)) //Species level thunk overrides
+		return
 
 	if(M.buckled) //Cam't fall down if you are buckled
 		return

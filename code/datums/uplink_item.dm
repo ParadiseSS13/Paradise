@@ -343,7 +343,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/jobspecific/bee_briefcase
 	name = "Briefcase Full of Bees"
-	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s). It also wirelessly taps into station intercomms to broadcast a message of TERROR."
+	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s), WARNING: exotic blood types such as slime jelly do not work. It also wirelessly taps into station intercomms to broadcast a message of TERROR."
 	reference = "BEE"
 	item = /obj/item/bee_briefcase
 	cost = 10
@@ -1529,6 +1529,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 16
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 20
+
+/datum/uplink_item/device_tools/dropwall
+	name = "Dropwall generator box"
+	desc = "A box of 5 dropwall shield generators, which can be used to make temporary directional shields that block projectiles, thrown objects, and reduce explosions. Configure the direction before throwing."
+	item = /obj/item/storage/box/syndie_kit/dropwall
+	reference = "ESD"
+	cost = 10
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/medgun
 	name = "Medbeam Gun"

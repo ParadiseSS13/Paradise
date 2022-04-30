@@ -116,7 +116,7 @@
 	else
 		component_parts = list()
 		var/obj/item/circuitboard/vendor/V = new
-		V.set_type(replacetext(name, "\improper", ""))
+		V.set_type(replacetext(initial(name), "\improper", ""))
 		component_parts += V
 		component_parts += new refill_canister
 		RefreshParts()
@@ -942,7 +942,7 @@
 
 
 /obj/machinery/vending/coffee
-	name = "\improper Hot Drinks machine"
+	name = "\improper Solar's Best Hot Drinks"
 	desc = "A vending machine which dispenses hot drinks."
 	ads_list = list("Have a drink!","Drink up!","It's good for you!","Would you like a hot joe?","I'd kill for some coffee!","The best beans in the galaxy.","Only the finest brew for you.","Mmmm. Nothing like a coffee.","I like coffee, don't you?","Coffee helps you work!","Try some tea.","We hope you like the best!","Try our new chocolate!","Admin conspiracies")
 	icon_state = "coffee"
@@ -1117,7 +1117,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/cigarette
-	name = "cigarette machine"
+	name = "\improper ShadyCigs Deluxe"
 	desc = "If you want to get cancer, might as well do it in style."
 	slogan_list = list("Space cigs taste good like a cigarette should.","I'd rather toolbox than switch.","Smoke!","Don't believe the reports - smoke today!")
 	ads_list = list("Probably not bad for you!","Don't believe the scientists!","It's good for you!","Don't quit, buy more!","Smoke!","Nicotine heaven.","Best cigarettes since 2150.","Award-winning cigs.")
@@ -1533,16 +1533,16 @@
 	icon_state = "tool"
 	icon_deny = "tool_deny"
 	icon_panel = "generic"
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
+	resistance_flags = FIRE_PROOF
 	products = list(/obj/item/stack/cable_coil/random = 10,/obj/item/crowbar = 5,/obj/item/weldingtool = 3,/obj/item/wirecutters = 5,
 					/obj/item/wrench = 5,/obj/item/analyzer = 5,/obj/item/t_scanner = 5,/obj/item/screwdriver = 5)
 	contraband = list(/obj/item/weldingtool/hugetank = 2,/obj/item/clothing/gloves/color/fyellow = 2)
 	premium = list(/obj/item/clothing/gloves/color/yellow = 1)
 	refill_canister = /obj/item/vending_refill/youtool
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
-	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/engivend
-	name = "\improper Engi-vend"
+	name = "\improper Engi-Vend"
 	desc = "Spare tool vending. What? Did you expect some witty description?"
 	icon_state = "engivend"
 	icon_deny = "engivend_deny"
@@ -1562,7 +1562,7 @@
 	products = list(/obj/item/clothing/under/rank/chief_engineer = 4,/obj/item/clothing/under/rank/engineer = 4,/obj/item/clothing/shoes/workboots = 4,/obj/item/clothing/head/hardhat = 4,
 					/obj/item/storage/belt/utility = 4,/obj/item/clothing/glasses/meson/engine = 4,/obj/item/clothing/gloves/color/yellow = 4, /obj/item/screwdriver = 12,
 					/obj/item/crowbar = 12,/obj/item/wirecutters = 12,/obj/item/multitool = 12,/obj/item/wrench = 12,/obj/item/t_scanner = 12,
-					/obj/item/stack/cable_coil/heavyduty = 8, /obj/item/stock_parts/cell = 8, /obj/item/weldingtool = 8,/obj/item/clothing/head/welding = 8,
+					/obj/item/stack/cable_coil = 8, /obj/item/stock_parts/cell = 8, /obj/item/weldingtool = 8,/obj/item/clothing/head/welding = 8,
 					/obj/item/light/tube = 10,/obj/item/clothing/suit/fire = 4, /obj/item/stock_parts/scanning_module = 5,/obj/item/stock_parts/micro_laser = 5,
 					/obj/item/stock_parts/matter_bin = 5,/obj/item/stock_parts/manipulator = 5)
 	refill_canister = /obj/item/vending_refill/engineering
@@ -1804,15 +1804,19 @@
 	ads_list = list("Beat perps in style!", "It's red so you can't see the blood!", "You have the right to be fashionable!", "Now you can be the fashion police you always wanted to be!")
 	vend_reply = "Thank you for using the SecDrobe!"
 	products = list(/obj/item/clothing/under/rank/security/corp = 4,
+					/obj/item/clothing/under/rank/security/skirt/corp = 4,
 					/obj/item/clothing/under/rank/dispatch = 4,
 					/obj/item/clothing/under/rank/security/skirt = 4,
 					/obj/item/clothing/under/rank/security = 4,
 					/obj/item/clothing/under/rank/security2 = 4,
 					/obj/item/clothing/under/rank/security/formal = 4,
+					/obj/item/clothing/under/rank/security/fancy = 4,
+					/obj/item/clothing/under/rank/security/skirt/fancy = 4,
 					/obj/item/clothing/head/soft/sec/corp = 4,
 					/obj/item/clothing/head/officer = 4,
 					/obj/item/clothing/head/beret/sec = 4,
 					/obj/item/clothing/head/soft/sec = 4,
+					/obj/item/clothing/head/drillsgt = 4,
 					/obj/item/clothing/mask/bandana/red = 4,
 					/obj/item/clothing/suit/jacket/secbomber = 2,
 					/obj/item/clothing/suit/armor/secjacket = 4,
@@ -2016,7 +2020,6 @@
 					/obj/item/clothing/suit/storage/hazardvest = 3,
 					/obj/item/clothing/head/beret/eng = 3,
 					/obj/item/clothing/head/hardhat = 2,
-					/obj/item/clothing/head/hardhat/white = 2,
 					/obj/item/clothing/head/hardhat/orange = 2,
 					/obj/item/clothing/head/hardhat/dblue = 2,
 					/obj/item/clothing/accessory/armband/engine = 6,
@@ -2026,8 +2029,7 @@
 					/obj/item/storage/backpack/satchel_eng = 2,
 					/obj/item/storage/backpack/duffel/engineering = 2,
 					/obj/item/storage/belt/utility = 2)
-	premium = list(/obj/item/storage/belt/utility/chief = 2,
-					/obj/item/clothing/gloves/color/yellow = 2)
+	premium = list(/obj/item/clothing/gloves/color/yellow = 2)
 	contraband = list(/obj/item/toy/figure/crew/ce = 1,
 				      /obj/item/toy/figure/crew/engineer = 1)
 	refill_canister = /obj/item/vending_refill/engidrobe
@@ -2047,7 +2049,6 @@
 					/obj/item/clothing/head/beret/atmos = 3,
 					/obj/item/clothing/head/hardhat = 2,
 					/obj/item/clothing/head/hardhat/red = 2,
-					/obj/item/clothing/head/hardhat/white = 2,
 					/obj/item/clothing/head/hardhat/orange = 2,
 					/obj/item/clothing/head/hardhat/dblue = 2,
 					/obj/item/clothing/gloves/color/black = 3,
@@ -2058,7 +2059,6 @@
 					/obj/item/storage/backpack/satchel_eng = 2,
 					/obj/item/storage/backpack/duffel/atmos = 2,
 					/obj/item/storage/belt/utility = 2)
-	premium = list(/obj/item/storage/belt/utility/chief = 2)
 	contraband = list(/obj/item/toy/figure/crew/atmos = 1)
 	refill_canister = /obj/item/vending_refill/atmosdrobe
 

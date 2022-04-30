@@ -13,6 +13,8 @@
 	var/list/ckey_rank_map = list()
 	/// Assoc list of admin ranks and their colours. key: rank | value: rank colour
 	var/list/rank_colour_map = list()
+	/// Assoc list of CIDs which shouldnt be banned due to mass collisions
+	var/list/common_cid_map = list()
 
 /datum/configuration_section/admin_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
@@ -37,6 +39,12 @@
 		rank_colour_map.Cut()
 		for(var/list/kvset in data["admin_rank_colour_map"])
 			rank_colour_map[kvset["name"]] = kvset["colour"]
+
+	// Load common CIDs
+	if(islist(data["common_cid_map"]))
+		common_cid_map.Cut()
+		for(var/list/kvset in data["common_cid_map"])
+			common_cid_map[kvset["cid"]] = kvset["reason"]
 
 	// For the person who asks "Why not put admin datum generation in this step?", well I will tell you why
 	// Admins can be reloaded at runtime when DB edits are made and such, and I dont want an entire config reload to be part of this

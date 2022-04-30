@@ -88,15 +88,12 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 	"pAI"
 ))
 
-GLOBAL_LIST_INIT(whitelisted_positions, list(
-	"Blueshield",
-	"Nanotrasen Representative",
-	"Barber",
-))
-
+// TODO: Remove
+GLOBAL_LIST_EMPTY(whitelisted_positions)
 
 /proc/check_job_karma(job)
 	return (job in GLOB.whitelisted_positions)
+// END TODO
 
 /proc/get_job_datums()
 	var/list/occupations = list()
@@ -125,7 +122,6 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_CREW = list(titles = command_positions | engineering_positions | medical_positions | science_positions | support_positions | supply_positions | security_positions | assistant_positions | list("AI","Cyborg") | whitelisted_positions), // crew positions
 	EXP_TYPE_SPECIAL = list(), // antags, ERT, etc
 	EXP_TYPE_GHOST = list(), // dead people, observers
-	EXP_TYPE_EXEMPT = list(), // special grandfather setting
 	EXP_TYPE_COMMAND = list(titles = command_positions),
 	EXP_TYPE_ENGINEERING = list(titles = engineering_positions),
 	EXP_TYPE_MEDICAL = list(titles = medical_positions),

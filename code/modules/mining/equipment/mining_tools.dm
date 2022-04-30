@@ -143,6 +143,7 @@
 	desc = "A small tool for digging and moving dirt."
 	icon_state = "spade"
 	item_state = "spade"
+	belt_icon = "spade"
 	force = 5
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL

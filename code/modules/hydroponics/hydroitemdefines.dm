@@ -20,6 +20,7 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "weedspray"
 	item_state = "plantbgone"
+	belt_icon = null
 	volume = 100
 	container_type = OPENCONTAINER
 	slot_flags = SLOT_BELT
@@ -39,6 +40,7 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "pestspray"
 	item_state = "plantbgone"
+	belt_icon = null
 	volume = 100
 	container_type = OPENCONTAINER
 	slot_flags = SLOT_BELT
@@ -57,6 +59,7 @@
 	desc = "It's used for removing weeds or scratching your back."
 	icon_state = "cultivator"
 	item_state = "cultivator"
+	belt_icon = "cultivator"
 	origin_tech = "engineering=2;biotech=2"
 	flags = CONDUCT
 	force = 5
@@ -81,6 +84,7 @@
 	desc = "A very sharp axe blade upon a short fibremetal handle. It has a long history of chopping things, but now it is used for chopping wood."
 	icon_state = "hatchet"
 	item_state = "hatchet"
+	belt_icon = "hatchet"
 	flags = CONDUCT
 	force = 12
 	w_class = WEIGHT_CLASS_TINY

@@ -213,6 +213,7 @@
 	if(rights & R_MOD)			. += "[seperator]+MODERATOR"
 	if(rights & R_MENTOR)		. += "[seperator]+MENTOR"
 	if(rights & R_VIEWRUNTIMES)	. += "[seperator]+VIEWRUNTIMES"
+	if(rights & R_MAINTAINER)	. += "[seperator]+MAINTAINER"
 	return .
 
 /proc/ui_style2icon(ui_style)
@@ -385,9 +386,9 @@
 		switch(child)
 			if(/datum)
 				return null
-			if(/obj || /mob)
+			if(/obj, /mob)
 				return /atom/movable
-			if(/area || /turf)
+			if(/area, /turf)
 				return /atom
 			else
 				return /datum

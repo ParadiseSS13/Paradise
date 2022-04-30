@@ -17,9 +17,9 @@
 
 /obj/structure/closet/crate/update_icon()
 	..()
-	overlays.Cut()
+	cut_overlays()
 	if(manifest)
-		overlays += "manifest"
+		add_overlay("manifest")
 
 /obj/structure/closet/crate/can_open()
 	return TRUE
@@ -28,9 +28,9 @@
 	return TRUE
 
 /obj/structure/closet/crate/open(by_hand = FALSE)
-	if(src.opened)
+	if(opened)
 		return FALSE
-	if(!src.can_open())
+	if(!can_open())
 		return FALSE
 
 	if(by_hand)
@@ -54,7 +54,7 @@
 	for(var/mob/M in src) //Mobs
 		M.forceMove(loc)
 	icon_state = icon_opened
-	src.opened = TRUE
+	opened = TRUE
 
 	if(climbable)
 		structure_shaken()
@@ -62,9 +62,9 @@
 	return TRUE
 
 /obj/structure/closet/crate/close()
-	if(!src.opened)
+	if(!opened)
 		return FALSE
-	if(!src.can_close())
+	if(!can_close())
 		return FALSE
 
 	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
@@ -82,7 +82,7 @@
 		itemcount++
 
 	icon_state = icon_closed
-	src.opened = FALSE
+	opened = FALSE
 	return TRUE
 
 /obj/structure/closet/crate/attackby(obj/item/W, mob/user, params)
@@ -133,7 +133,7 @@
 /obj/structure/closet/crate/attack_hand(mob/user)
 	if(manifest)
 		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
-		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
+		playsound(loc, 'sound/items/poster_ripped.ogg', 75, TRUE)
 		manifest.forceMove(loc)
 		if(ishuman(user))
 			user.put_in_hands(manifest)
@@ -147,15 +147,15 @@
 				if(L.electrocute_act(17, src))
 					do_sparks(5, 1, src)
 					return
-		src.add_fingerprint(user)
-		src.toggle(user, by_hand = TRUE)
+		add_fingerprint(user)
+		toggle(user, by_hand = TRUE)
 
 // Called when a crate is delivered by MULE at a location, for notifying purposes
 /obj/structure/closet/crate/proc/notifyRecipient(destination)
 	var/list/msg = list("[capitalize(name)] has arrived at [destination].")
 	if(destination in announce_beacons)
 		for(var/obj/machinery/requests_console/D in GLOB.allRequestConsoles)
-			if(D.department in src.announce_beacons[destination])
+			if(D.department in announce_beacons[destination])
 				D.createMessage(name, "Your Crate has Arrived!", msg, 1)
 
 /obj/structure/closet/crate/secure
@@ -166,7 +166,6 @@
 	icon_closed = "securecrate"
 	var/redlight = "securecrater"
 	var/greenlight = "securecrateg"
-	var/sparks = "securecratesparks"
 	var/emag = "securecrateemag"
 	max_integrity = 500
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
@@ -178,15 +177,13 @@
 
 /obj/structure/closet/crate/secure/update_icon()
 	..()
-	overlays.Cut()
-	if(manifest)
-		overlays += "manifest"
+	if(broken)
+		add_overlay(emag)
+		return
 	if(locked)
-		overlays += redlight
-	else if(broken)
-		overlays += emag
+		add_overlay(redlight)
 	else
-		overlays += greenlight
+		add_overlay(greenlight)
 
 /obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)
@@ -208,14 +205,14 @@
 	return !locked
 
 /obj/structure/closet/crate/secure/proc/togglelock(mob/user)
-	if(src.opened)
+	if(opened)
 		to_chat(user, "<span class='notice'>Close the crate first.</span>")
 		return
-	if(src.broken)
+	if(broken)
 		to_chat(user, "<span class='warning'>The crate appears to be broken.</span>")
 		return
-	if(src.allowed(user))
-		src.locked = !src.locked
+	if(allowed(user))
+		locked = !locked
 		visible_message("<span class='notice'>The crate has been [locked ? null : "un"]locked by [user].</span>")
 		update_icon()
 	else
@@ -229,16 +226,16 @@
 	if(!usr.canmove || usr.stat || usr.restrained()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
 		return
 
-	if(ishuman(usr))
-		src.add_fingerprint(usr)
-		src.togglelock(usr)
-	else
-		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
+	if(ishuman(usr) || isrobot(usr))
+		add_fingerprint(usr)
+		togglelock(usr)
+		return
+	to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
 /obj/structure/closet/crate/secure/attack_hand(mob/user)
 	if(manifest)
 		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
-		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
+		playsound(loc, 'sound/items/poster_ripped.ogg', 75, 1)
 		manifest.forceMove(loc)
 		if(ishuman(user))
 			user.put_in_hands(manifest)
@@ -246,21 +243,19 @@
 		update_icon()
 		return
 	if(locked)
-		src.togglelock(user)
+		togglelock(user)
 	else
-		src.toggle(user, by_hand = TRUE)
+		toggle(user, by_hand = TRUE)
 
 /obj/structure/closet/crate/secure/closed_item_click(mob/user)
 	togglelock(user)
 
 /obj/structure/closet/crate/secure/emag_act(mob/user)
 	if(locked)
-		overlays += sparks
-		spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
-		playsound(src.loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		src.locked = 0
-		src.broken = 1
+		locked = FALSE
+		broken = TRUE
 		update_icon()
+		do_sparks(2, 1, src)
 		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
 
 /obj/structure/closet/crate/secure/emp_act(severity)
@@ -268,19 +263,17 @@
 		O.emp_act(severity)
 	if(!broken && !opened  && prob(50/severity))
 		if(!locked)
-			src.locked = 1
+			locked = TRUE
 		else
-			overlays += sparks
-			spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
-			playsound(src, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			src.locked = 0
+			do_sparks(2, 1, src)
+			locked = FALSE
 		update_icon()
 	if(!opened && prob(20/severity))
 		if(!locked)
 			open()
 		else
-			src.req_access = list()
-			src.req_access += pick(get_all_accesses())
+			req_access = list()
+			req_access += pick(get_all_accesses())
 	..()
 
 /obj/structure/closet/crate/plastic
@@ -440,7 +433,6 @@
 	icon_closed = "largebins"
 	redlight = "largebinr"
 	greenlight = "largebing"
-	sparks = "largebinsparks"
 	emag = "largebinemag"
 	open_sound = 'sound/effects/bin_open.ogg'
 	close_sound = 'sound/effects/bin_close.ogg'
@@ -457,7 +449,7 @@
 	. = ..()
 	if(.)//we can hold up to one large item
 		var/found = 0
-		for(var/obj/structure/S in src.loc)
+		for(var/obj/structure/S in loc)
 			if(S == src)
 				continue
 			if(!S.anchored)
@@ -465,7 +457,7 @@
 				S.forceMove(src)
 				break
 		if(!found)
-			for(var/obj/machinery/M in src.loc)
+			for(var/obj/machinery/M in loc)
 				if(!M.anchored)
 					M.forceMove(src)
 					break
@@ -483,7 +475,7 @@
 	. = ..()
 	if(.)//we can hold up to one large item
 		var/found = 0
-		for(var/obj/structure/S in src.loc)
+		for(var/obj/structure/S in loc)
 			if(S == src)
 				continue
 			if(!S.anchored)
@@ -491,7 +483,7 @@
 				S.forceMove(src)
 				break
 		if(!found)
-			for(var/obj/machinery/M in src.loc)
+			for(var/obj/machinery/M in loc)
 				if(!M.anchored)
 					M.forceMove(src)
 					break

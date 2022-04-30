@@ -70,6 +70,7 @@
 
 #define STATUS_EFFECT_SAWBLEED /datum/status_effect/saw_bleed //if the bleed builds up enough, takes a ton of damage
 
+#define STATUS_EFFECT_PACIFIED /datum/status_effect/pacifism //forces the pacifism trait
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
 //#define CURSE_SPAWNING	2 //spawns creatures that attack the target only
@@ -79,6 +80,12 @@
 //#define STATUS_EFFECT_KINDLE /datum/status_effect/kindle //A knockdown reduced by 1 second for every 3 points of damage the target takes.
 
 //#define STATUS_EFFECT_ICHORIAL_STAIN /datum/status_effect/ichorial_stain //Prevents a servant from being revived by vitality matrices for one minute.
+
+/// Whether a moth's wings are burnt
+#define STATUS_EFFECT_BURNT_WINGS /datum/status_effect/burnt_wings
+
+/// If a moth is in a cocoon
+#define STATUS_EFFECT_COCOONED /datum/status_effect/cocooned
 
 /////////////
 // NEUTRAL //

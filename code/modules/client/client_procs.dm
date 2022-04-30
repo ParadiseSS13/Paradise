@@ -381,12 +381,6 @@
 
 	Master.UpdateTickRate()
 
-	// Check total playercount
-	var/playercount = 0
-	for(var/mob/M in GLOB.player_list)
-		if(M.client)
-			playercount += 1
-
 	// Tell clients about active testmerges
 	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
 		to_chat(src, GLOB.revision_info.get_testmerge_chatmessage(TRUE))
@@ -397,10 +391,14 @@
 	if(_2fa_alert)
 		to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
 
+	// This happens asyncronously
+	if(karmaholder)
+		karmaholder.processRefunds(mob)
+
 
 /client/proc/is_connecting_from_localhost()
-	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
-	if(!isnull(address) && (address in localhost_addresses))
+	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
+	if((!address && !world.port) || (address in localhost_addresses))
 		return TRUE
 	return FALSE
 
@@ -983,14 +981,14 @@
   */
 /client/proc/retrieve_byondacc_data()
 	// Do not refactor this to use SShttp, because that requires the subsystem to be firing for requests to be made, and this will be triggered before the MC has finished loading
-	var/list/http[] = world.Export("http://www.byond.com/members/[ckey]?format=text")
+	var/list/http[] = HTTPGet("http://www.byond.com/members/[ckey]?format=text")
 	if(http)
 		var/status = text2num(http["STATUS"])
 
 		if(status == 200)
 			// This is wrapped in try/catch because lummox could change the format on any day without informing anyone
 			try
-				var/list/lines = splittext(file2text(http["CONTENT"]), "\n")
+				var/list/lines = splittext(http["CONTENT"], "\n")
 				var/list/initial_data = list()
 				var/current_index = ""
 				for(var/L in lines)

@@ -699,6 +699,26 @@ BLIND     // can't see anything
 
 	. = ..()
 
+/obj/item/clothing/under/serialize()
+	var/data = ..()
+	var/list/accessories_list = list()
+	data["accessories"] = accessories_list
+	for(var/obj/item/clothing/accessory/A in accessories)
+		accessories_list.len++
+		accessories_list[accessories_list.len] = A.serialize()
+
+	return data
+
+/obj/item/clothing/under/deserialize(list/data)
+	for(var/thing in accessories)
+		remove_accessory(src, thing)
+	for(var/thing in data["accessories"])
+		if(islist(thing))
+			var/obj/item/clothing/accessory/A = list_to_object(thing, src)
+			A.has_suit = src
+			accessories += A
+	..()
+
 /obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/A, mob/user, unequip = FALSE)
 	if(can_attach_accessory(A))
 		if(unequip && !user.unEquip(A)) // Make absolutely sure this accessory is removed from hands
@@ -716,6 +736,13 @@ BLIND     // can't see anything
 		to_chat(user, "<span class='notice'>You cannot attach more accessories of this type to [src].</span>")
 
 	return FALSE
+
+/obj/item/clothing/under/proc/detach_accessory(obj/item/clothing/accessory/A, mob/user)
+	accessories -= A
+	A.on_removed(user)
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_w_uniform()
 
 /obj/item/clothing/under/examine(mob/user)
 	. = ..()
@@ -782,10 +809,8 @@ BLIND     // can't see anything
 		return
 	if(!Adjacent(user))
 		return
-	A.on_removed(user)
-	accessories -= A
+	detach_accessory(A, user)
 	to_chat(user, "<span class='notice'>You remove [A] from [src].</span>")
-	usr.update_inv_w_uniform()
 
 /obj/item/clothing/under/emp_act(severity)
 	if(accessories.len)

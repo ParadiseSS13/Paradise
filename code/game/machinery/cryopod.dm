@@ -25,7 +25,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
 	var/mode = null
-
+	icon_screen = "cellconsole_on"
 	//Used for logging people entering cryosleep and important items they are carrying.
 	var/list/frozen_crew = list()
 	var/list/frozen_items = list()

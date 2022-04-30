@@ -280,9 +280,9 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 	if(status != 0)
 		data["status"] = status
 
-	// Save the DNA datum if: The owner doesn't exist, or the dna doesn't match
-	// the owner
-	if(!(owner && dna.unique_enzymes == owner.dna.unique_enzymes))
+	// Save the DNA datum if: The owner doesn't exist, or the dna doesn't match the owner
+	// Don't save when the organ has no initialized DNA. Happens when you spawn it in as admin
+	if(dna.unique_enzymes && !(owner && dna.unique_enzymes == owner.dna.unique_enzymes))
 		data["dna"] = dna.serialize()
 	return data
 
