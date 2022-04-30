@@ -61,7 +61,9 @@ GLOBAL_LIST_INIT(default_map_traits, list(CC_TRANSITION_CONFIG))
 
 /proc/level_name_to_num(name)
 	var/datum/space_level/S = GLOB.space_manager.get_zlev_by_name(name)
-	return S?.zpos
+	if(!S)
+		CRASH("Unknown z-level name: [name]")
+	return S.zpos
 
 /**
   * Proc to get a list of all the linked-together Z-Levels
