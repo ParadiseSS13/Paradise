@@ -13,6 +13,8 @@
 	buckle_requires_restraints = TRUE
 	buckle_lying = -1
 
+	flags_2 = NO_MALF_EFFECT_2
+
 /obj/machinery/atmospherics/pipe/New()
 	..()
 	//so pipes under walls are hidden
