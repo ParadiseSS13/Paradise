@@ -12397,7 +12397,6 @@
 "aKY" = (
 /obj/machinery/power/solar_control{
 	dir = 4;
-	id = "portsolar";
 	name = "Aft Port Solar Control"
 	},
 /obj/structure/cable,
@@ -16707,7 +16706,6 @@
 "aUt" = (
 /obj/machinery/power/solar_control{
 	dir = 8;
-	id = "auxsolareast";
 	name = "Fore Starboard Solar Control"
 	},
 /obj/structure/cable,
@@ -89154,7 +89152,6 @@
 "dRo" = (
 /obj/machinery/power/solar_control{
 	dir = 4;
-	id = "portsolar";
 	name = "Aft Port Solar Control"
 	},
 /obj/structure/cable,
@@ -97372,7 +97369,6 @@
 	},
 /obj/machinery/power/solar_control{
 	dir = 8;
-	id = "starboardsolar";
 	name = "Aft Starboard Solar Control"
 	},
 /obj/structure/cable,

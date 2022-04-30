@@ -94,7 +94,6 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/solar{
-	id = "foreport";
 	name = "Fore-Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -210,7 +209,6 @@
 "ace" = (
 /obj/structure/cable,
 /obj/machinery/power/solar{
-	id = "foreport";
 	name = "Fore-Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -933,7 +931,6 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/solar{
-	id = "forestarboard";
 	name = "Fore-Starboard Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -1963,7 +1960,6 @@
 "ago" = (
 /obj/structure/cable,
 /obj/machinery/power/solar{
-	id = "forestarboard";
 	name = "Fore-Starboard Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -3600,7 +3596,6 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/solar_control{
-	id = "foreport";
 	name = "Fore Port Solar Control"
 	},
 /turf/simulated/floor/plating,
@@ -7526,7 +7521,6 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/solar_control{
-	id = "forestarboard";
 	name = "Fore Starboard Solar Control"
 	},
 /turf/simulated/floor/plating,
@@ -48763,7 +48757,6 @@
 /obj/structure/cable,
 /obj/machinery/power/solar_control{
 	dir = 1;
-	id = "aftport";
 	name = "Aft Port Solar Control"
 	},
 /turf/simulated/floor/plating,
@@ -57234,7 +57227,6 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/solar{
-	id = "aftport";
 	name = "Aft-Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -60276,7 +60268,6 @@
 "cCt" = (
 /obj/structure/cable,
 /obj/machinery/power/solar{
-	id = "aftport";
 	name = "Aft-Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -71252,7 +71243,6 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/solar{
-	id = "aftstarboard";
 	name = "Aft-Starboard Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -72922,7 +72912,6 @@
 "ddk" = (
 /obj/structure/cable,
 /obj/machinery/power/solar{
-	id = "aftstarboard";
 	name = "Aft-Starboard Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -81795,7 +81784,6 @@
 /obj/structure/cable,
 /obj/machinery/power/solar_control{
 	dir = 1;
-	id = "aftstarboard";
 	name = "Aft Starboard Solar Control"
 	},
 /turf/simulated/floor/plating,
