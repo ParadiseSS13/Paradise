@@ -757,6 +757,9 @@
 	active_power_usage = 200
 	can_dry = TRUE
 	visible_contents = FALSE
+	light_range_on = null
+	light_power_on = null
+
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
 	. = ..()
