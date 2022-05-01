@@ -10128,13 +10128,12 @@
 	},
 /area/hallway/primary/central)
 "cky" = (
-/obj/machinery/power/solar{
-	id = "aftport";
-	name = "Aft-Port Solar Array"
-	},
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/machinery/power/solar{
+	name = "Fore-Starboard Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -27537,13 +27536,12 @@
 /turf/simulated/floor/grass,
 /area/hallway/primary/starboard)
 "gje" = (
-/obj/machinery/power/solar{
-	id = "foreport";
-	name = "Fore-Port Solar Array"
-	},
 /obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-2"
+	},
+/obj/machinery/power/solar{
+	name = "Fore-Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -31966,25 +31964,6 @@
 	icon_state = "cafeteria"
 	},
 /area/maintenance/fpmaint2)
-"heH" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/space,
-/area/solar/auxstarboard)
 "heP" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
@@ -54091,13 +54070,12 @@
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "lXr" = (
-/obj/machinery/power/solar{
-	id = "forestarboard";
-	name = "Fore-Starboard Solar Array"
-	},
 /obj/structure/cable/green{
 	d2 = 2;
 	icon_state = "0-2"
+	},
+/obj/machinery/power/solar{
+	name = "Aft-Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -75226,11 +75204,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "qMG" = (
-/obj/machinery/power/solar{
-	id = "forestarboard";
-	name = "Fore-Starboard Solar Array"
-	},
 /obj/structure/cable/green,
+/obj/machinery/power/solar{
+	name = "Aft-Port Solar Array"
+	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -83462,13 +83439,12 @@
 /turf/simulated/wall,
 /area/security/lobby)
 "sGJ" = (
-/obj/machinery/power/solar{
-	id = "aftport";
-	name = "Aft-Port Solar Array"
-	},
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
+	},
+/obj/machinery/power/solar{
+	name = "Fore-Starboard Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -91592,14 +91568,14 @@
 "uDX" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 2;
+	d1 = 1;
 	d2 = 8;
-	icon_state = "2-8"
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
+	d1 = 1;
 	d2 = 4;
-	icon_state = "2-4"
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -94976,11 +94952,10 @@
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "vtM" = (
+/obj/structure/cable/yellow,
 /obj/machinery/power/solar{
-	id = "foreport";
 	name = "Fore-Port Solar Array"
 	},
-/obj/structure/cable/yellow,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -143314,7 +143289,7 @@ vOu
 aNg
 iRh
 ucl
-heH
+xHJ
 xHJ
 xHJ
 xHJ
@@ -146397,7 +146372,7 @@ duo
 vOu
 aNg
 wit
-ilt
+tym
 uDX
 xHJ
 xHJ
