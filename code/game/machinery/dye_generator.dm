@@ -28,10 +28,13 @@
 
 /obj/machinery/dye_generator/update_icon()
 	cut_overlays()
+	underlays.Cut()
 	if(stat & (BROKEN|NOPOWER))
 		add_overlay("barbervend_off")
 		if(stat & BROKEN)
 			add_overlay("barbervend_broken")
+	if(light)
+		underlays += emissive_appearance(icon, "barbervend_lightmask")
 
 /obj/machinery/dye_generator/attack_hand(mob/user)
 	..()
