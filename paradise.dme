@@ -17,7 +17,7 @@
 #include "code\hub.dm"
 #include "code\world.dm"
 #include "code\__DEFINES\_globals.dm"
-#include "code\__DEFINES\_profile.dm"
+#include "code\__DEFINES\_init.dm"
 #include "code\__DEFINES\_protection.dm"
 #include "code\__DEFINES\_readme.dm"
 #include "code\__DEFINES\_spacemandmm.dm"
