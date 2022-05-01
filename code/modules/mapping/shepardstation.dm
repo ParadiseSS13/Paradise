@@ -1,4 +1,4 @@
-/datum/map/delta
+/datum/map/shepard
 	fluff_name = "NSS Shepard"
 	technical_name = "ShepardStation"
 	map_path = "_maps/map_files/ShepardStation/ShepardStation.dmm"
