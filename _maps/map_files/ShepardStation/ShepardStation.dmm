@@ -3621,10 +3621,6 @@
 	name = "\improper Mining Office"
 	})
 "aQd" = (
-/obj/machinery/power/solar_control{
-	id = "forestarboard";
-	name = "Fore Starboard Solar Control"
-	},
 /obj/structure/cable/green{
 	d2 = 8;
 	icon_state = "0-8"
@@ -3640,6 +3636,10 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/machinery/power/solar_control{
+	id = "foreport";
+	name = "Fore Port Solar Control"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
@@ -4569,9 +4569,9 @@
 /area/library)
 "baM" = (
 /obj/machinery/door/airlock/bananium{
-	name = "Clown's Bedroom";
+	name = "Clown's Quarters";
 	req_access_txt = "46";
-	id_tag = s
+	id_tag = "clownbedroom"
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -13875,15 +13875,15 @@
 /turf/space,
 /area/space/nearstation)
 "dfx" = (
-/obj/machinery/door/airlock/bananium{
-	name = "Clown's Office";
-	req_access_txt = "46"
-	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/bananium{
+	name = "Clown's Office";
+	req_access_txt = "46"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -14348,7 +14348,7 @@
 "diO" = (
 /obj/machinery/door/airlock{
 	id_tag = "servicebed2";
-	name = "Service Hall Bedroom"
+	name = "Service Hall Quarters"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -20226,13 +20226,13 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/ai)
 "eDO" = (
-/obj/machinery/power/solar_control{
-	id = "forestarboard";
-	name = "Fore Starboard Solar Control"
-	},
 /obj/structure/cable/green{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/machinery/power/solar_control{
+	id = "aftport";
+	name = "Aft Port Solar Control"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
@@ -27038,7 +27038,7 @@
 /area/crew_quarters/cafeteria)
 "gbZ" = (
 /obj/machinery/door/airlock/tranquillite{
-	name = "Mime's Bedroom";
+	name = "Mime's Quarters";
 	req_access_txt = "46";
 	id_tag = "mimebedroom"
 	},
@@ -43256,7 +43256,7 @@
 "jDQ" = (
 /obj/machinery/door/airlock{
 	id_tag = "servicebed3";
-	name = "Service Hall Bedroom"
+	name = "Service Hall Quarters"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -82112,7 +82112,7 @@
 "sqW" = (
 /obj/machinery/door/airlock{
 	id_tag = "servicebed1";
-	name = "Service Hall Bedroom"
+	name = "Service Hall Quarters"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
