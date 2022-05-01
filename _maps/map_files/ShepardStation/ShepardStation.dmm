@@ -7043,7 +7043,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "q";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -7411,7 +7411,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "x";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -9415,7 +9415,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "g";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -17694,7 +17694,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "v";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -18843,7 +18843,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "r";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -19211,7 +19211,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "b";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -19863,7 +19863,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "i";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -23057,7 +23057,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "w";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -25642,7 +25642,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "n";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -29647,7 +29647,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "l";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -31045,7 +31045,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "e";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -36732,7 +36732,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "u";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -39259,7 +39259,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "h";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -52655,7 +52655,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "y";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -55073,7 +55073,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "a";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /obj/machinery/light/small{
 	dir = 4;
@@ -59080,7 +59080,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "o";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -67288,7 +67288,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "rune5";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/apmaint2)
@@ -71225,7 +71225,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "z";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -76220,7 +76220,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "k";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -78040,7 +78040,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "j";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -80860,7 +80860,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "d";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -82453,7 +82453,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "p";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -84613,7 +84613,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "t";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -89413,7 +89413,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "s";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -95872,7 +95872,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "m";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -105534,7 +105534,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "c";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
@@ -107172,7 +107172,7 @@
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "f";
 	initialized = 1;
-	color = #A10808
+	color = "#A10808"
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint2)
