@@ -434,8 +434,6 @@
 /obj/item/storage/backpack/duffel/syndie/med/surgery
 	name = "surgery duffelbag"
 	desc = "A suspicious looking duffelbag for holding surgery tools."
-	icon_state = "duffel-syndimed"
-	item_state = "duffel-syndimed"
 
 /obj/item/storage/backpack/duffel/syndie/med/surgery/populate_contents()
 	new /obj/item/scalpel(src)
@@ -453,8 +451,6 @@
 /obj/item/storage/backpack/duffel/syndie/med/surgery_fake //for maint spawns
 	name = "surgery duffelbag"
 	desc = "A suspicious looking duffelbag for holding surgery tools."
-	icon_state = "duffel-syndimed"
-	item_state = "duffel-syndimed"
 
 /obj/item/storage/backpack/duffel/syndie/med/surgery_fake/populate_contents()
 	new /obj/item/scalpel(src)
