@@ -23,7 +23,6 @@
 	key_third_person = "bows"
 	message = "bows."
 	message_param = "bows to %t."
-	hands_use_check = TRUE
 
 /datum/emote/living/burp
 	key = "burp"
@@ -37,23 +36,9 @@
 	key = "choke"
 	key_third_person = "chokes"
 	message = "chokes!"
-	message_mime = "appears to choke!"
+	message_mime = "clutches their throat desperately!"
 	emote_type = EMOTE_AUDIBLE
-	muzzled_noises = list("choking")
-
-/datum/emote/living/cross
-	key = "cross"
-	key_third_person = "crosses"
-	message = "crosses their arms."
-	hands_use_check = TRUE
-
-/datum/emote/living/chuckle
-	key = "chuckle"
-	key_third_person = "chuckles"
-	message = "chuckles."
-	message_mime = "appears to chuckle."
-	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-	muzzled_noises = list("joyful", "upbeat")
+	muzzled_noises = list("gagging", "strong")
 
 /datum/emote/living/collapse
 	key = "collapse"
@@ -71,20 +56,18 @@
 	key = "dance"
 	key_third_person = "dances"
 	message = "dances around happily."
-	hands_use_check = TRUE
 
 /datum/emote/living/jump
 	key = "jump"
 	key_third_person = "jumps"
 	message = "jumps!"
-	hands_use_check = TRUE
 
 /datum/emote/living/deathgasp
 	key = "deathgasp"
 	key_third_person = "deathgasps"
 	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE  // make sure deathgasp gets runechatted regardless
 	age_based = TRUE
-	cooldown = 15 SECONDS
+	cooldown = 10 SECONDS
 	volume = 40
 	unintentional_stat_allowed = DEAD
 	message = "seizes up and falls limp, their eyes dead and lifeless..."
@@ -127,12 +110,14 @@
 	key = "frown"
 	key_third_person = "frowns"
 	message = "frowns."
+	message_param = "frowns at %t."
 
 /datum/emote/living/gag
 	key = "gag"
 	key_third_person = "gags"
 	message = "gags."
 	message_mime = "appears to gag."
+	message_param = "gags at %t."
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/glare
@@ -173,6 +158,8 @@
 	message = "points."
 	message_param = "points at %t."
 	hands_use_check = TRUE
+	target_behavior = EMOTE_TARGET_BHVR_USE_PARAMS_ANYWAY
+	emote_target_type = EMOTE_TARGET_ANY
 
 /datum/emote/living/point/act_on_target(mob/user, target)
 	if(!target)
@@ -193,16 +180,6 @@
 				// nugget
 				message_param = "<span class='userdanger>bumps [user.p_their()] head on the ground</span> trying to motion towards %t."
 
-	// see if there's something nearby to point to
-	var/atom/M = null
-	if(params)
-		for(var/atom/A as mob|obj|turf in view())
-			if(params == A.name)
-				M = A
-				break
-
-	if(M)
-		user.pointed(M)
 	return ..()
 
 /datum/emote/living/pout
@@ -246,7 +223,15 @@
 	key_third_person = "sighs"
 	message = "sighs."
 	message_mime = "appears to sigh."
+	muzzled_noises = list("weak")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+
+/datum/emote/living/sigh/happy
+	key = "hsigh"
+	key_third_person = "hsighs"
+	message = "sighs contentedly."
+	message_mime = "appears to sigh contentedly"
+	muzzled_noises = list("chill", "relaxed")
 
 /datum/emote/living/sit
 	key = "sit"
@@ -262,7 +247,6 @@
 	key = "smug"
 	key_third_person = "smugs"
 	message = "grins smugly."
-	message_robot = "beeps smugly."
 
 /datum/emote/living/sniff
 	key = "sniff"
@@ -349,7 +333,8 @@
 	key_third_person = "whimpers"
 	message = "whimpers."
 	message_mime = "appears hurt."
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	muzzled_noises = list("weak", "pathetic")
 
 /datum/emote/living/wsmile
 	key = "wsmile"

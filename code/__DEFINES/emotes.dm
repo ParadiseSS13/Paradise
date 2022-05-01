@@ -34,7 +34,7 @@
 // This defines the base cooldown for how often each emote can be used.
 
 /// Default cooldown for emotes
-#define DEFAULT_EMOTE_COOLDOWN (2 SECONDS)
+#define DEFAULT_EMOTE_COOLDOWN (1.5 SECONDS)
 
 // Each mob can only make sounds with (intentional) emotes this often.
 // These emotes will still be sent to chat, but won't play their associated sound effect.
@@ -48,13 +48,15 @@
 // This first set of defines denotes the behavior if a match can't be found.
 
 /// If this is set and a valid target is not found, the emote will not execute.
-#define EMOTE_TARGET_MUST_MATCH 1
+#define EMOTE_TARGET_BHVR_MUST_MATCH 1
 /// If this is set and a valid target is not found, the emote will just ignore the parameter entirely.
-#define EMOTE_TARGET_DEFAULT_TO_BASE 2
+#define EMOTE_TARGET_BHVR_DEFAULT_TO_BASE 2
 /// If this is set and a valid target is not found, the emote will work with the params that it has.
-#define EMOTE_TARGET_USE_PARAMS_ANYWAY 3
+#define EMOTE_TARGET_BHVR_USE_PARAMS_ANYWAY 3
 /// No matching/processing will be performed, and the target will be purely what's passed in.
-#define EMOTE_TARGET_RAW 4
+#define EMOTE_TARGET_BHVR_RAW 4
+/// The emote target should be just a number. Anything else will be rejected.
+#define EMOTE_TARGET_BHVR_NUM 5
 
 // This set determines the type of target that we want to check for.
 

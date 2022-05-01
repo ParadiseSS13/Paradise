@@ -2,6 +2,8 @@
 #define ILLEGAL_CHARACTERS_LIST list("<" = "", ">" = "", \
 	"\[" = "", "]" = "", "{" = "", "}" = "")
 
+#define USABLE_DEAD_EMOTES list("*flip", "*spin")
+
 /mob/proc/say()
 	return
 
@@ -63,10 +65,7 @@
 			return
 
 
-	var/list/usable_dead_emotes = list("*flip", "*spin")
-
-
-	if(message in usable_dead_emotes)
+	if(message in USABLE_DEAD_EMOTES)
 		emote(copytext(message, 2), intentional = TRUE)
 		log_emote(message, src)
 		create_log(DEADCHAT_LOG, message)

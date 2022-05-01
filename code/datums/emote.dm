@@ -29,7 +29,7 @@
 	/// Message to display if the user is a simple_animal.
 	var/message_simple = ""
 	/// Sounds emitted when the user is muzzled. Generally used like "[user] makes a pick(muzzled_noises) noise!"
-	var/muzzled_noises = list("strong ", "weak ", "")
+	var/muzzled_noises = list("strong", "weak")
 	/// Message with %t at the end to allow adding params to the message, like for mobs doing an emote relatively to something else.
 	var/message_param = ""
 	/// Description appended to the emote name describing what the target should be, like for help commands.
@@ -38,7 +38,7 @@
 	var/emote_type = EMOTE_VISIBLE
 	/// Checks if the mob can use its hands before performing the emote.
 	var/hands_use_check = FALSE
-	/// Will only work if the emote is EMOTE_AUDIBLE.
+	/// If the emote type is EMOTE_MOUTH but should still bypass a muzzle.
 	var/muzzle_ignore = FALSE
 	/// Types that are allowed to use that emote.
 	var/list/mob_type_allowed_typecache = /mob
@@ -46,17 +46,17 @@
 	var/list/mob_type_blacklist_typecache
 	/// Types that can use this emote regardless of their state.
 	var/list/mob_type_ignore_stat_typecache
-	/// Species types which the emote will be exclusively available to.
+	/// Species types which the emote will be exclusively available to. Should be subclasses of /datum/species
 	var/species_type_whitelist_typecache
 	/// If we get a target, how do we want to treat it?
-	var/target_behavior = EMOTE_TARGET_USE_PARAMS_ANYWAY
+	var/target_behavior = EMOTE_TARGET_BHVR_USE_PARAMS_ANYWAY
 	/// If our target behavior isn't to ignore, what should we look for with targets?
-	var/emote_target_type = EMOTE_TARGET_MOB
+	var/emote_target_type = EMOTE_TARGET_ANY
 	/// In which state can you use this emote? (Check stat.dm for a full list of them)
 	var/stat_allowed = CONSCIOUS
 	/// In which state can this emote be forced out of you?
 	var/unintentional_stat_allowed = CONSCIOUS
-	/// Sound to play when emote is called.
+	/// Sound to play when emote is called. If you want to adjust this dynamically, see get_sound().
 	var/sound
 	/// Whether or not to vary the sound of the emote.
 	var/vary = FALSE
@@ -93,6 +93,14 @@
 /**
  * Handles the modifications and execution of emotes.
  *
+ * In general, what this does:
+ * - Checks if the user can run the emote at all
+ * - Checks and applies the message parameter, if it exists
+ * - Replaces pronouns with a mob's specific pronouns
+ * - Checks for and plays sound if the emote supports it
+ * - Sends the emote to users
+ * - Runechats the emote
+ *
  * Arguments:
  * * user - Person that is trying to send the emote.
  * * params - Parameters added after the emote.
@@ -106,6 +114,8 @@
 	if(!can_run_emote(user, TRUE, intentional))
 		return FALSE
 	var/msg = select_message_type(user, message, intentional)
+	// TODO I don't think this provides a good way to handle targeted emotes when message_param doesn't exist
+	// Like, wouldn't you want to be able to scream at someone as a monkey?
 	if(params && message_param)
 		msg = select_param(user, params)
 		if(!msg)
@@ -114,45 +124,64 @@
 
 	msg = replace_pronoun(user, msg)
 
-	if(!msg)
-		return
+	var/suppressed = FALSE
 
-	if(isobserver(user))
-		log_ghostemote(msg, user)
-	else
-		log_emote(msg, user)
-
-	var/dchatmsg = "<b>[user]</b> [msg]"
+	// Keep em quiet if they can't speak
+	if(!can_vocalize_emotes(user) && (emote_type & (EMOTE_MOUTH | EMOTE_AUDIBLE) || emote_type & (EMOTE_MOUTH | EMOTE_SOUND)))
+		var/noise_emitted = pick(muzzled_noises)
+		suppressed = TRUE
+		msg = "makes \a [noise_emitted] noise."
 
 	var/tmp_sound = get_sound(user)
+	var/sound_volume = get_volume(user)
 	// If our sound emote is forced by code, don't worry about cooldowns at all.
-	if(tmp_sound && should_play_sound(user, intentional))
-		if(age_based && istype(user, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = user
+	if(tmp_sound && should_play_sound(user, intentional) && sound_volume > 0)
+		play_sound_effect(user, intentional, tmp_sound, sound_volume)
 
-			playsound(user, tmp_sound, volume, vary, frequency = H.get_age_pitch())
+	if(msg)
+		if(isobserver(user))
+			log_ghostemote(msg, user)
 		else
-			playsound(user, tmp_sound, volume, vary)
+			log_emote(msg, user)
 
-	var/user_turf = get_turf(user)
-	if(user.client)
-		for(var/mob/ghost as anything in GLOB.dead_mob_list)
-			if(!ghost.client || isnewplayer(ghost))
-				continue
-			if(ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT && !(ghost in viewers(user_turf, null)))
-				ghost.show_message("<span class='emote'>[ghost_follow_link(user, ghost)] [dchatmsg]</span>")
+		var/dchatmsg = "<b>[user]</b> [msg]"
 
-	if(emote_type & EMOTE_VISIBLE || user.mind?.miming)
-		user.audible_message(dchatmsg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
-	else
-		user.visible_message(dchatmsg, blind_message = "<span class='emote'>You hear how <b>[user]</b> [msg]</span>")
+		var/user_turf = get_turf(user)
+		if(user.client)
+			for(var/mob/ghost as anything in GLOB.dead_mob_list)
+				if(!ghost.client || isnewplayer(ghost))
+					continue
+				if(ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT && !(ghost in viewers(user_turf, null)))
+					ghost.show_message("<span class='emote'>[ghost_follow_link(user, ghost)] [dchatmsg]</span>")
 
-	if(!(emote_type & (EMOTE_FORCE_NO_RUNECHAT | EMOTE_SOUND)))
-		runechat_emote(user, msg)
+		if(emote_type & EMOTE_VISIBLE || user.mind?.miming)
+			user.audible_message(dchatmsg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
+		else
+			user.visible_message(dchatmsg, blind_message = "<span class='emote'>You hear how <b>[user]</b> [msg]</span>")
+
+		if(!(emote_type & (EMOTE_FORCE_NO_RUNECHAT | EMOTE_SOUND) || suppressed))
+			runechat_emote(user, msg)
 
 	SEND_SIGNAL(user, COMSIG_MOB_EMOTED(key), src, key, emote_type, message, intentional)
 	SEND_SIGNAL(user, COMSIG_MOB_EMOTE, key, intentional)
 
+/**
+ * Play the sound effect in an emote.
+ * If you want to change the way the playsound call works, override this.
+ */
+/datum/emote/proc/play_sound_effect(mob/user, intentional, sound_path, sound_volume)
+	if(age_based && istype(user, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		playsound(user, sound_path, sound_volume, vary, frequency = H.get_age_pitch())
+	else
+		playsound(user, sound_path, sound_volume, vary)
+
+/**
+ * # Send an emote to runechat for all (listening) users in the vicinity.
+ *
+ * * user: The user of the emote.
+ * * text: The text of the emote.
+ */
 /datum/emote/proc/runechat_emote(mob/user, text)
 	var/runechat_text = text
 	if(length(text) > 100)
@@ -190,7 +219,7 @@
 		return FALSE
 	var/cooldown_in_use
 	if(user.emote_cooldown_override != null)
-		// if the user has a set cooldown in place, use that instead.
+		// if the user has a a cooldown override in place, apply that instead.
 		cooldown_in_use = user.emote_cooldown_override
 	else
 		cooldown_in_use = cooldown
@@ -214,7 +243,22 @@
 	return sound //by default just return this var.
 
 /**
- * To replace pronouns in the inputed string with the user's proper pronouns.
+ * # Get the volume of the audio emote to play.
+ *
+ * Override this if you want to dynamically change the volume of an emote.
+ *
+ * Arguments:
+ * * user - Person that is trying to send the emote.
+ *
+ * Returns the volume level for an emote's audio component.
+ */
+/datum/emote/proc/get_volume(mob/living/user)
+	return volume
+
+/**
+ * # Replace pronouns in the inputed string with the user's proper pronouns.
+ *
+ * Specifically replaces they/them/their pronouns with the user's pronouns, as well as %s (like theirs)
  *
  * Arguments:
  * * user - Person that is trying to send the emote.
@@ -246,8 +290,6 @@
 /datum/emote/proc/select_message_type(mob/user, msg, intentional)
 	// Basically, we don't care that the others can use datum variables, because they're never going to change.
 	. = msg
-	if(!muzzle_ignore && user.is_muzzled() && (emote_type & (EMOTE_MOUTH)))
-		return "makes a [pick(muzzled_noises)] noise."
 	if(user.mind && user.mind.miming && message_mime)
 		. = message_mime
 	if(isalienadult(user) && message_alien)
@@ -264,7 +306,15 @@
 		. = message_simple
 
 /**
- * Replaces the %t in the message in message_param by params.
+ * # Replaces the %t in the message in message_param by params.
+ *
+ * The behavior of this proc is particularly dependent on `target_behavior` and `emote_target_type`.
+ * If target_behavior is EMOTE_TARGET_BHVR_RAW, we ignore any sort of target searching.
+ * Otherwise, we try to find a target in view to call this emote on based on emote_target_type.
+ *
+ *
+ * If you want to call something on the target object itself while it's still in scope, override act_on_target().
+ *
  *
  * Arguments:
  * * user - Person that is trying to send the emote.
@@ -274,26 +324,37 @@
  */
 /datum/emote/proc/select_param(mob/user, params)
 
-	if(target_behavior == EMOTE_TARGET_RAW)
+	if(target_behavior == EMOTE_TARGET_BHVR_RAW)
+		return replacetext(message_param, "%t", params)
+
+	if(target_behavior == EMOTE_TARGET_BHVR_NUM)
+		if(!isnum(text2num(params)))
+			return null
+		act_on_target(user, text2num(params))
 		return replacetext(message_param, "%t", params)
 
 	var/full_target = find_target(user, params, emote_target_type)
 	if(full_target)
+		// If we find an actual target obj/item/whatever, see if we'd want to perform some action on it and jump out
 		act_on_target(user, full_target)
 		return replacetext(message_param, "%t", full_target)
 
+	// no target found, contingency plans
 	switch(target_behavior)
-		if(EMOTE_TARGET_MUST_MATCH)
+		if(EMOTE_TARGET_BHVR_MUST_MATCH)
 			return null
-		if(EMOTE_TARGET_DEFAULT_TO_BASE)
+		if(EMOTE_TARGET_BHVR_DEFAULT_TO_BASE)
 			return message
-		if(EMOTE_TARGET_USE_PARAMS_ANYWAY)
+		if(EMOTE_TARGET_BHVR_USE_PARAMS_ANYWAY)
 			return replacetext(message_param, "%t", params)
 
 	CRASH("Emote tried to select_param with invalid target behavior.")
 
 /**
- * Perform some action or specific behavior towards the target of the emote.
+ * Perform an action on the target of an emote, if one was found.
+ *
+ * This gets called in select_param if a valid object target was found, and should let you interact with the
+ * object being targeted while it's still in scope.
  *
  * * user: Person who is triggering the emote.
  * * Target: The target of the emote itself.
@@ -379,19 +440,35 @@
 /datum/emote/proc/find_target(mob/user, fragment, emote_target_type)
 	var/target = null
 
+	fragment = lowertext(fragment)
+
 	if(emote_target_type & EMOTE_TARGET_MOB)
 		for(var/mob/living/M in view(user.client))
-			if(findtext(M.name, fragment))
+			if(findtext(lowertext(M.name), fragment))
 				target = M
 				break
 
 	if(!target && emote_target_type & EMOTE_TARGET_OBJ)
 		for(var/obj/thing in view(user.client))
-			if(findtext(thing.name, fragment))
+			if(findtext(lowertext(thing.name), fragment))
 				target = thing
 				break
 
 	return target
+
+/**
+ * Return whether a user should be able to vocalize emotes or not, due to a mask or inability to speak.
+ * If this returns false, any mouth emotes will be replaced with muzzled noises.
+ */
+/datum/emote/proc/can_vocalize_emotes(mob/user)
+	if(user.mind?.miming)
+		// mimes get special treatment, though they can't really "vocalize" we don't want to replace their message.
+		return TRUE
+	if(!muzzle_ignore && !user.can_speak())
+		return FALSE
+
+	return TRUE
+
 
 /**
  * Check to see if the user should play a sound when performing the emote.
@@ -404,6 +481,8 @@
  */
 /datum/emote/proc/should_play_sound(mob/user, intentional = FALSE)
 	if(only_forced_audio && intentional)
+		return FALSE
+	if((emote_type & EMOTE_MOUTH) && !can_vocalize_emotes(user))
 		return FALSE
 	return TRUE
 

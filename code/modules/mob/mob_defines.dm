@@ -101,7 +101,8 @@
 
 	/// Cooldown on audio effects from emotes.
 	var/audio_emote_cd_status = EMOTE_READY
-	/// If set, overrides the cooldown on every emote that doesn't play audio.
+
+	/// Override for cooldowns on non-audio emotes. Should be a number in deciseconds.
 	var/emote_cooldown_override = null
 
 	/// Tracks last uses of emotes for cooldown purposes

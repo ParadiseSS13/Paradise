@@ -16,10 +16,9 @@
 	key_third_person = "claps"
 	message = "claps."
 	message_mime = "claps silently."
-	muzzle_ignore = TRUE
+	message_param = "claps at %t."
 	hands_use_check = TRUE
 	emote_type = EMOTE_SOUND
-	audio_cooldown = 5 SECONDS
 	vary = TRUE
 
 /datum/emote/living/carbon/clap/run_emote(mob/user, params, type_override, intentional)
@@ -51,24 +50,64 @@
 						'sound/misc/clap3.ogg',
 						'sound/misc/clap4.ogg')
 
+/datum/emote/living/carbon/cross
+	key = "cross"
+	key_third_person = "crosses"
+	message = "crosses their arms."
+	hands_use_check = TRUE
+
+/datum/emote/living/carbon/chuckle
+	key = "chuckle"
+	key_third_person = "chuckles"
+	message = "chuckles."
+	message_mime = "appears to chuckle."
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	muzzled_noises = list("joyful", "upbeat")
+
+
+/datum/emote/living/carbon/cough
+	key = "cough"
+	key_third_person = "coughs"
+	message = "coughs!"
+	message_mime = "appears to cough!"
+	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	vary = TRUE
+	age_based = TRUE
+	volume = 120
+
+/datum/emote/living/carbon/cough/get_sound(mob/living/user)
+	. = ..()
+	if(istype(user, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		if(H.gender == FEMALE)
+			if(H.dna.species.female_cough_sounds)
+				return pick(H.dna.species.female_cough_sounds)
+		else
+			if(H.dna.species.male_cough_sounds)
+				return pick(H.dna.species.male_cough_sounds)
+
+
 /datum/emote/living/carbon/moan
 	key = "moan"
 	key_third_person = "moans"
 	message = "moans!"
 	message_mime = "appears to moan!"
-	emote_type = EMOTE_AUDIBLE
+	muzzled_noises = list("pained")
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/giggle
 	key = "giggle"
 	key_third_person = "giggles"
 	message = "giggles."
 	message_mime = "giggles silently!"
+	muzzled_noises = list("bubbly")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/gurgle
 	key = "gurgle"
 	key_third_person = "gurgles"
 	message = "makes an uncomfortable gurgle."
+	muzzled_noises = list("unpleasant", "guttural")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/inhale
@@ -76,6 +115,7 @@
 	key_third_person = "inhales"
 	message = "breathes in."
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	muzzled_noises = list("breathy")
 
 /datum/emote/living/carbon/inhale/sharp
 	key = "inhale_s"
@@ -87,6 +127,7 @@
 	key_third_person = "kisses"
 	message = "blows a kiss."
 	message_param = "blows a kiss at %t!"
+	muzzled_noises = list("smooching")
 
 /datum/emote/living/carbon/wave
 	key = "wave"
@@ -100,6 +141,7 @@
 	key_third_person = "yawns"
 	message = "yawns."
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	muzzled_noises = list("tired", "lazy", "sleepy")
 
 /datum/emote/living/carbon/exhale
 	key = "exhale"
@@ -113,6 +155,7 @@
 	message = "laughs."
 	message_mime = "laughs silently!"
 	message_param = "laughs at %t."
+	muzzled_noises = list("happy", "joyful")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/scowl
@@ -125,36 +168,20 @@
 	key_third_person = "groans"
 	message = "groans!"
 	message_mime = "appears to groan!"
+	message_param = "groans at %t."
+	muzzled_noises = list("pained")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-
-/datum/emote/living/carbon/sigh
-	key = "sigh"
-	key_third_person = "sighs"
-	message = "sighs."
-	message_param = "sighs at %t."
-	muzzled_noises = list("dejected")
-	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-
-/datum/emote/living/carbon/sigh/happy
-	key = "sigh"
-	key_third_person = "sighs"
-	message = "sighs contentedly."
-	muzzled_noises = list("chill", "relaxed")
-	message_param = "sighs contentedly at %t."
 
 /datum/emote/living/carbon/sign
 	key = "sign"
 	key_third_person = "signs"
 	message = "signs."
 	message_param = "signs the number %t."
+	param_desc = "number(0-10)"
 	// Humans get their own proc since they have fingers
 	mob_type_blacklist_typecache = list(/mob/living/carbon/human)
 	hands_use_check = TRUE
-
-/datum/emote/living/carbon/sign/select_param(mob/user, params)
-	. = ..()
-	if(!isnum(text2num(params)))
-		return message
+	target_behavior = EMOTE_TARGET_BHVR_NUM
 
 /datum/emote/living/carbon/faint
 	key = "faint"
