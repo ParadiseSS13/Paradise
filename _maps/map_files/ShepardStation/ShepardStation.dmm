@@ -3638,8 +3638,7 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/power/solar_control{
-	id = "foreport";
-	name = "Fore Port Solar Control"
+	name = "Fore Starboard Solar Control"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
@@ -20230,7 +20229,6 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/solar_control{
-	id = "aftport";
 	name = "Aft Port Solar Control"
 	},
 /turf/simulated/floor/plating,
@@ -78058,13 +78056,12 @@
 /turf/simulated/floor/plating,
 /area/atmos)
 "rvR" = (
-/obj/machinery/power/solar_control{
-	id = "auxsolareast";
-	name = "Fore Port Solar Control"
-	},
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/machinery/power/solar_control{
+	name = "Fore Port Solar Control"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
