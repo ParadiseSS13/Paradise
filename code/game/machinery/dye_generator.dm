@@ -26,6 +26,10 @@
 		set_light(0)
 	update_icon()
 
+/obj/machinery/dye_generator/extinguish_light()
+	set_light(0)
+	underlays.Cut()
+
 /obj/machinery/dye_generator/update_icon()
 	cut_overlays()
 	underlays.Cut()
