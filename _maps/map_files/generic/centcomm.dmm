@@ -2797,8 +2797,8 @@
 /area/syndicate_mothership)
 "ka" = (
 /obj/structure/rack,
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
+/obj/item/storage/backpack/duffel/syndie/shotgun,
+/obj/item/storage/backpack/duffel/syndie/shotgun,
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
 /turf/simulated/floor/plasteel/dark,
@@ -3409,7 +3409,7 @@
 /obj/item/storage/backpack/duffel/clown,
 /obj/item/storage/backpack/duffel/captain,
 /obj/item/storage/backpack/duffel/science,
-/obj/item/storage/backpack/duffel/syndie/ammo,
+/obj/item/storage/backpack/duffel/syndie,
 /obj/item/storage/backpack/duffel/syndie/med,
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -5865,7 +5865,7 @@
 /area/admin)
 "ul" = (
 /obj/structure/table/glass,
-/obj/item/storage/backpack/duffel/syndie/surgery_fake,
+/obj/item/storage/backpack/duffel/syndie/med/surgery_fake,
 /obj/item/circular_saw,
 /obj/item/surgicaldrill,
 /obj/item/clothing/gloves/color/latex/nitrile,
