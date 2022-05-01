@@ -7266,7 +7266,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/late/gateway,
 /obj/machinery/ai_status_display{
 	pixel_x = -32
 	},
@@ -47459,7 +47458,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/landmark/spawner/late/gateway,
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
@@ -99133,7 +99131,6 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
