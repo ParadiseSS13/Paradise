@@ -11,7 +11,6 @@
 /proc/auxtools_expr_stub()
 	CRASH("auxtools not loaded")
 
-// Called in world/New()
 /world/proc/enable_auxtools_debugger()
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if (debug_server)
@@ -23,3 +22,13 @@
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if (debug_server)
 		call(debug_server, "auxtools_shutdown")()
+
+/// This is here so that the debugger is initialized before (mostly) everything else.
+/// Makes it possible to set breakpoints in the New() of things assigned to
+/// global variables or objects included in a compiled map file.
+/datum/debugger
+
+/datum/debugger/New()
+	world.enable_auxtools_debugger()
+
+GLOBAL_REAL(Debugger, /datum/debugger) = new
