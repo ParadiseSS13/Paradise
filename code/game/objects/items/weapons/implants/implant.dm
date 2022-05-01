@@ -4,6 +4,10 @@
 #define IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL (1<<1)
 /// If used, an implant will always trigger when the user makes an emote.
 #define IMPLANT_EMOTE_TRIGGER_ALWAYS (IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL | IMPLANT_EMOTE_TRIGGER_INTENTIONAL)
+/// If used, an implant will trigger on the user's first death.
+#define IMPLANT_TRIGGER_DEATH_ONCE (1<<2)
+/// If used, an implant will trigger any time a user dies.
+#define IMPLANT_TRIGGER_DEATH_ANY (1<<3)
 
 /obj/item/implant
 	name = "implant"
@@ -20,10 +24,12 @@
 	var/uses = -1
 	flags = DROPDEL
 
-	/// Emotes that activate this implant when used.
+	/// List of emote keys that activate this implant when used.
 	var/trigger_emotes
-	/// What type of emote (intentional, unintentional, or both) will trigger the implant.
-	var/trigger_causes = IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL
+	/// What type of action will trigger this emote. Bitfield of IMPLANT_EMOTE_* defines.
+	var/trigger_causes
+
+	var/has_triggered_on_death = FALSE
 
 /obj/item/implant/proc/unregister_emotes()
 	if(imp_in && LAZYLEN(trigger_emotes))
@@ -35,7 +41,7 @@
  * * user: User who is trying to associate the implant to themselves.
  * * emote_key: Key of the emote that should trigger the implant.
  */
-/obj/item/implant/proc/set_trigger(mob/user, emote_key, on_implant = FALSE)
+/obj/item/implant/proc/set_trigger(mob/user, emote_key, on_implant = FALSE, silent = TRUE)
 
 	if(imp_in != user)
 		return FALSE
@@ -44,16 +50,19 @@
 		return FALSE
 
 	if(LAZYIN(trigger_emotes, emote_key) && !on_implant)
-		to_chat(user, "<span class='warning'> You've already registered [emote_key]!")
+		if(!silent)
+			to_chat(user, "<span class='warning'> You've already registered [emote_key]!")
 		return FALSE
 
 	if(emote_key == "me" || emote_key == "custom")
-		to_chat(user, "<span class='warning'> You can't trigger [src] with a custom emote.")
+		if(!silent)
+			to_chat(user, "<span class='warning'> You can't trigger [src] with a custom emote.")
 		return FALSE
 
 
 	if(!(emote_key in user.usable_emote_keys(trigger_causes & IMPLANT_EMOTE_TRIGGER_INTENTIONAL)))
-		to_chat(user, "<span class='warning'> You can't trigger [src] with that emote! Try *help to see emotes you can use.</span>")
+		if(!silent)
+			to_chat(user, "<span class='warning'> You can't trigger [src] with that emote! Try *help to see emotes you can use.</span>")
 		return FALSE
 
 	if(!(emote_key in user.usable_emote_keys(trigger_causes & IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL)))
@@ -62,22 +71,42 @@
 	LAZYADD(trigger_emotes, emote_key)
 	RegisterSignal(user, COMSIG_MOB_EMOTED(emote_key), .proc/on_emote)
 
-/obj/item/implant/proc/on_emote(mob/living/user, /datum/emote/emote, key, emote_type, message, intentional)
+/obj/item/implant/proc/on_emote(mob/living/user, datum/emote/fired_emote, key, emote_type, message, intentional)
 	SIGNAL_HANDLER
 
 	if(!implanted || !imp_in)
 		return
 
-	if(intentional && (trigger_causes & IMPLANT_EMOTE_TRIGGER_INTENTIONAL) || (!intentional && (trigger_causes & IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL)))
+	if(!(intentional && (trigger_causes & IMPLANT_EMOTE_TRIGGER_INTENTIONAL)) && !(!intentional && (trigger_causes & IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL)))
 		return
 
-	trigger(key, user, intentional)
+	add_attack_logs(user, user, "[intentional ? "intentionally" : "unintentionally"] [src] was [intentional ? "intentionally" : "unintentionally"] triggered with the emote [fired_emote].")
 
+	emote_trigger(key, user, intentional)
 
-/obj/item/implant/proc/trigger(emote, mob/source, force)
+/obj/item/implant/proc/on_death(mob/source, gibbed)
+	SIGNAL_HANDLER
+
+	if(!implanted || !imp_in)
+		return
+
+	// This should help avoid infinite recursion for things like dust that call death()
+	if(has_triggered_on_death && (trigger_causes & IMPLANT_TRIGGER_DEATH_ONCE))
+		return
+
+	has_triggered_on_death = TRUE
+
+	add_attack_logs(source, source, "had their [src] implant triggered on death.")
+
+	death_trigger(source, gibbed)
+
+/obj/item/implant/proc/emote_trigger(emote, mob/source, force)
 	return
 
-/obj/item/implant/proc/activate()
+/obj/item/implant/proc/death_trigger(mob/source, gibbed)
+	return
+
+/obj/item/implant/proc/activate(cause)
 	return
 
 /obj/item/implant/ui_action_click()
@@ -105,13 +134,20 @@
 	src.loc = source
 	imp_in = source
 	implanted = 1
+	if(trigger_emotes)
+		if(!(trigger_causes & IMPLANT_EMOTE_TRIGGER_INTENTIONAL | IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL))
+			CRASH("Implant [src] has trigger emotes defined but no trigger cause with which to use them!")
+		if(!activated && (trigger_causes & IMPLANT_EMOTE_TRIGGER_INTENTIONAL))
+			CRASH("Implant [src] has intentional emote triggers on a passive implant")
+		// If you can't activate the implant manually, you shouldn't be able to deliberately activate it with an emote
+		for(var/emote in trigger_emotes)
+			set_trigger(source, emote, TRUE, TRUE)
 	if(activated)
-		if(trigger_emotes)
-			for(var/emote in trigger_emotes)
-				set_trigger(source, emote, TRUE)
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.Grant(source)
+	if(trigger_causes & (IMPLANT_TRIGGER_DEATH_ONCE | IMPLANT_TRIGGER_DEATH_ANY))
+		RegisterSignal(source, COMSIG_MOB_DEATH, .proc/on_death)
 	if(ishuman(source))
 		var/mob/living/carbon/human/H = source
 		H.sec_hud_set_implants()
@@ -133,6 +169,9 @@
 	if(ishuman(source))
 		var/mob/living/carbon/human/H = source
 		H.sec_hud_set_implants()
+
+	if(trigger_causes & (IMPLANT_TRIGGER_DEATH_ONCE | IMPLANT_TRIGGER_DEATH_ANY))
+		UnregisterSignal(source, COMSIG_MOB_DEATH)
 
 	unregister_emotes()
 
