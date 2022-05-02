@@ -101,6 +101,34 @@
 	display_name = "a fannypack"
 	path = /obj/item/storage/belt/fannypack
 
+/datum/gear/wallet
+	display_name = "a standart leather wallet"
+	path = /obj/item/storage/wallet
+
+/datum/gear/walletb
+	display_name = "a blue wallet"
+	path = /obj/item/storage/wallet/color/blue
+
+/datum/gear/walletr
+	display_name = "a red wallet"
+	path = /obj/item/storage/wallet/color/red
+
+/datum/gear/wallety
+	display_name = "a yellow wallet"
+	path = /obj/item/storage/wallet/color/yellow
+
+/datum/gear/walletg
+	display_name = "a green wallet"
+	path = /obj/item/storage/wallet/color/green
+
+/datum/gear/walletp
+	display_name = "a pink wallet"
+	path = /obj/item/storage/wallet/color/pink
+
+/datum/gear/walletb
+	display_name = "a black wallet"
+	path = /obj/item/storage/wallet/color/black
+
 /datum/gear/blackbandana
 	display_name = "bandana, black"
 	path = /obj/item/clothing/mask/bandana/black
