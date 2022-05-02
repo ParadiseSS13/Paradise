@@ -116,6 +116,14 @@
 	shot_cost = 600
 	fire_sound = 'sound/weapons/laser.ogg'
 
+/obj/item/spacepod_equipment/weaponry/solaris
+	name = "solaris system"
+	desc = "A stronger vesion of laser systems for pods. Fires high concetrated bursts of energy"
+	icon_state = "weapon_laser"
+	projectile_type = /obj/item/projectile/beam/laser/heavylaser
+	shot_cost = 900
+	fire_sound = 'sound/weapons/lasercannonfire.ogg'
+
 // MINING LASERS
 /obj/item/spacepod_equipment/weaponry/mining_laser_basic
 	name = "weak mining laser system"

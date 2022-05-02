@@ -127,6 +127,18 @@
 	materials = list(MAT_METAL=10000,MAT_GLASS=5000,MAT_GOLD=1000,MAT_SILVER=2000)
 	locked = 1
 
+/datum/design/pod_gun_solaris
+	construction_time = 200
+	name = "Spacepod Equipment (Heavy laser)"
+	desc = "Allows for the construction of a spacepod mounted  heavy laser."
+	id = "podgun_solaris"
+	build_type = PODFAB
+	req_tech = list("combat" = 4, "magnets" = 4, "engineering" = 4)
+	build_path = /obj/item/spacepod_equipment/weaponry/solaris
+	category = list("Pod_Weaponry")
+	materials = list(MAT_METAL=20000,MAT_GLASS=10000,MAT_GOLD=2000,MAT_SILVER=4000)
+	locked = 1
+
 /datum/design/pod_mining_laser_basic
 	construction_time = 200
 	name = "Basic Mining Laser"
