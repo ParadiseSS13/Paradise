@@ -131,7 +131,7 @@
 			AC.ui_interact(user)
 
 		if("Voice")
-			var/voice_choice = input(user, "Perhaps...", "Voice effects") as null|anything in list("Comic Sans", "Wingdings", "Swedish", "Chav", "Mute")
+			var/voice_choice = input(user, "Perhaps...", "Voice effects") as null|anything in list("Comic Sans", "Wingdings", "Swedish", "Староимперский", "Mute")
 			var/voice_mutation
 			switch(voice_choice)
 				if("Comic Sans")
@@ -140,8 +140,8 @@
 					voice_mutation = GLOB.wingdingsblock
 				if("Swedish")
 					voice_mutation = GLOB.swedeblock
-				if("Chav")
-					voice_mutation = GLOB.chavblock
+				if("Староимперский")
+					voice_mutation = GLOB.auld_imperial_block
 				if("Mute")
 					voice_mutation = GLOB.muteblock
 			if(voice_mutation)

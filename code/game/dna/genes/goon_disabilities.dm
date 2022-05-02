@@ -78,87 +78,107 @@
 	block = GLOB.fatblock
 
 // WAS: /datum/bioEffect/chav
-/datum/dna/gene/disability/speech/chav
-	name = "Chav"
-	desc = "Forces the language center of the subject's brain to construct sentences in a more rudimentary manner."
-	activation_message = "Ye feel like a rite prat like, innit?"
-	deactivation_message = "You no longer feel like being rude and sassy."
-	mutation = CHAV
-	//List of swappable words. Normal word first, chav word second.
-	var/static/list/chavlinks = list(
-	"arrest" = "nick",
-	"arrested" = "nicked",
-	"ass" = "arse",
-	"bad" = "pants",
-	"bar" = "spoons",
-	"brain" = "noggin",
-	"break" = "smash",
-	"broke" = "smashed",
-	"broken" = "gone kaput",
-	"comdom" = "knob'ed",
-	"cool" = "ace",
-	"crazy" = "well mad",
-	"cup of tea" = "cuppa",
-	"destroyed" = "rekt",
-	"dick" = "prat",
-	"disappointed" = "gutted",
-	"disgusting" = "minging",
-	"disposals" = "bins",
-	"drink" = "bevvy",
-	"engineer" = "sparky",
-	"excited" = "jacked",
-	"fight" = "scuffle",
-	"food" = "nosh",
-	"friend" = "blud",
-	"fuck" = "fook",
-	"get" = "giz",
-	"girl" = "bird",
-	"go away" = "jog on",
-	"good" = "mint",
-	"great" = "bangin'",
-	"happy" = "chuffed",
-	"hello" = "orite",
-	"hi" = "sup",
-	"idiot" = "twit",
-	"isn't it" = "innit",
-	"kill" = "bang",
-	"killed" = "banged",
-	"man" = "bloke",
-	"mess" = "shambles",
-	"mistake" = "cock-up",
-	"murder" = "hench",
-	"murdered" = "henched",
-	"no" = "naw",
-	"really" = "propa",
-	"robust" = "'ard",
-	"run" = "leg it",
-	"sec" = "cops",
-	"security" = "coppers",
-	"silly" = "daft",
-	"steal" = "nick",
-	"stole" = "nicked",
-	"surprised" = "gobsmacked",
-	"suspicious" = "dodgy",
-	"tired" = "knackered",
-	"wet" = "moist",
-	"what" = "wot",
-	"window" = "windy",
-	"windows" = "windies",
-	"yes" = "ye",
-	"yikes" = "blimey",
-	"your" = "yur"
+// WAS: /datum/dna/gene/disability/speech/chav
+/datum/dna/gene/disability/speech/auld_imperial
+	name = "Староимпѣрская рѣчь"
+	desc = "Заставляет языковой центра мозга субъекта произносить слова на староимперский манер."
+	activation_message = "Охъ, где бы отвѣдать мягкихъ ѳранцузскихъ булокъ, да выпить ароматнаго чаю глоточекъ?"
+	deactivation_message = "Изысканность вашей речи улетучивается, как запах дорогих духов… Блядь."
+	mutation = AULD_IMPERIAL
+	// Слова для замены
+	var/static/list/low_cultural_words = list(
+		"бля"="ох", "блядь"="ох", "башка"="голова", "башке"="голове", "башку"="голову", "бошка"="голова", "бошке"="голове", "бошку"="голову", "дебил"="остолоп", "ёбаный"="проклятый", "ёбаные"="проклятые", "ёбаных"="проклятых", "ёбаная"="проклятая", "ёбаное"="проклятое", "ебаный"="проклятый", "ебаные"="проклятые", "ебаных"="проклятых", "ебаная"="проклятая", "ебаное"="проклятое", "ебучий"="проклятый", "ебучие"="проклятые", "ебучих"="проклятых", "ебучая"="проклятая", "ебучее"="проклятое", "до пизды"="всё равно", "до жопы"="много", "дохуя"="очень много", "дура"="глупышка", "дуре"="глупышке", "дурой"="глупышкой", "дуру"="глупышку", "дурак"="болван", "жопа"="попа", "жопы"="попы", "идиот"="шельмец", "мразь"="мерзавец", "мудак"="подлец", "нахуй"="к чёрту", "нахуя"="зачем", "наёбщик"="плут", "наёбывать"="плутовать", "нихуя"="ничего", "охуел"="поражён", "охуела"="поражена", "охуевать"="поражаться", "охуеваю"="поражаюсь", "охуеваешь"="поражаетесь", "охуеваете"="поражаетесь", "охуевает"="поражается", "охуевают"="поражаются", "пидарас"="безобразник", "пидараса"="безобразника", "пидарасе"="безобразнике", "пидарасу"="безобразнику", "пидарасом"="безобразником", "пидарасы"="безобразники", "пидор"="безобразник", "пидора"="безобразника", "пидоре"="безобразнике", "пидору"="безобразнику", "пидором"="безобразником", "пидоры"="безобразники", "пидар"="безобразник", "пидара"="безобразника", "пидаре"="безобразнике", "пидару"="безобразнику", "пидаром"="безобразником", "пидары"="безобразники", "пиздец"="провал", "срочник"="недотёпа", "срочники"="недотёпы", "срочникам"="недотёпам", "срочников"="недотёп", "пиздеца"="провала", "пиздеце"="провале", "пиздецом"="провалом", "писец"="провал", "сдох"="погиб", "сдыхать"="погибать", "сдыхаю"="гибну", "сдыхает"="гибнет", "сдыхают"="гибнут", "сдохну"="погибну", "сдохнуть"="погибнуть", "сдохла"="погибла", "сдохло"="погибло", "сдохли"="погибли", "говно"="дрянь", "похуй"="жаль", "СБ"="охрана", "АВД"="агент", "ПНТ"="представитель", "НТР"="представитель", "варден"="смотритель", "КМ"="квартирмейстер", "кэп"="капитан", "кэпа"="капитана", "кэпе"="капитане", "кэпу"="капитану", "кэпом"="капитаном", "сука"="шельма", "суке"="шельме", "суки"="шельмы", "сукой"="шельмой", "схуяли"="почему", "твое"="Ваше", "твои"="Ваши", "твоими"="Вашими", "твоих"="Ваших", "твой"="Ваш", "твоя"="Ваша", "твоё"="Ваше", "тебе"="Вам", "тебя"="Вас", "тобой"="Вами", "тупой"="недоумок", "тупого"="недоумка", "тупому"="недоумку", "тупом"="недоумке", "тупым"="недоумком", "ты"="Вы", "урод"="голубчик", "урода"="голубчика", "уроду"="голубчику", "уроде"="голубчике", "уродом"="голубчиком", "хуй там"="отнюдь", "срочно"="поскорее", "отпиздить"="побить", "пиздить"="избивать", "пиздят"="избивают", "ебут"="избивают", "ебать"="бить", "заебало"="опротивело", "чел"="сударь", "чела"="сударя", "челе"="сударе", "челу"="сударю", "челом"="сударем", "челам"="сударям", "челы"="судари", "челик"="сударь", "челика"="сударя", "челике"="сударе", "челику"="сударю", "челиком"="сударем", "челикам"="сударям", "челики"="судари", "мужик"="мещанин", "мужика"="мещанина", "мужике"="мещанине", "мужику"="мещанину", "мужиком"="мещанином", "мужикам"="мещанам", "мужики"="мещане", "бомж"="юродивый", "бомжа"="юродивого", "бомже"="юродивом", "бомжу"="юродивому", "бомжом"="юродивым", "бомжам"="юродивым", "бомжи"="юродивые", "шлюха"="куртизанка", "даун"="глупыш",
 	)
+	var/static/regex/low_cultural_words_regex = regex("(^|\\s|-)([low_cultural_words.Join("|")])(?=($|\\s|\\.|,|:|!|\\?|-))", "g")
+	// Список слов для добавления словоерса
+	var/static/list/word_for_slovoers = list("ну","да","вот","так","помогите","представитель","шеф","прошу","смотритель","варден","офицер","детектив","капитан","магистрат","вы")
+	var/static/regex/slovoers_regex = regex("(^|\\s|-)([word_for_slovoers.Join("|")])", "ig")
+	// Согласные буквы. Буква «й» считалась гласной
+	var/static/list/consonant = list("б","в","г","д","ж","з","к","л","м","н","п","р","с","т","ф","х","ш","щ")
+	var/static/list/consonant_big = list("Б","В","Г","Д","Ж","З","К","Л","М","Н","П","Р","С","Т","Ф","Х","Ш","Щ")
+	var/static/regex/consonant_regexp = regex("([consonant.Join("|")])(?=\\s|,|-|!|\\?|$)", "g")
+	var/static/regex/consonant_big_regexp = regex("([consonant_big.Join("|")])(?=\\s|,|-|!|\\?|$)", "g")
 
-/datum/dna/gene/disability/speech/chav/New()
+// /datum/dna/gene/disability/speech/auld_imperial/New()
+/datum/dna/gene/disability/speech/auld_imperial/New()
 	..()
-	block = GLOB.chavblock
+	block = GLOB.auld_imperial_block
 
-/datum/dna/gene/disability/speech/chav/OnSay(mob/M, message)
-	var/static/regex/R = regex("\\b([chavlinks.Join("|")])\\b", "g")
-	message = R.Replace(message, /datum/dna/gene/disability/speech/chav/proc/replace_speech)
+// /datum/dna/gene/disability/speech/auld_imperial/OnSay(mob/M, message)
+/datum/dna/gene/disability/speech/auld_imperial/OnSay(mob/M, message)
+	if(!M.is_muzzled())
+		// Замены слов
+		message = low_cultural_words_regex.Replace_char(message, /datum/dna/gene/disability/speech/auld_imperial/proc/replace_speech)
+
+		// словоерс
+		if(prob(50))
+			message = slovoers_regex.Replace_char(message, /datum/dna/gene/disability/speech/auld_imperial/proc/add_slovoers)
+
+		// Добавлять «ъ» в конце слов на согласный
+		message = consonant_regexp.Replace_char(message, /datum/dna/gene/disability/speech/auld_imperial/proc/add_er)
+		message = consonant_big_regexp.Replace_char(message, /datum/dna/gene/disability/speech/auld_imperial/proc/add_er)
+
+		// Прилагательные на -ый, -ій, в родительном падеже оканчиваются на -аго, -яго.
+		message = replacetextEx_char(message,"ого ","аго ")
+		message = replacetextEx_char(message,"его ","яго ")
+		message = replacetextEx_char(message,"ОГО ","АГО ")
+		message = replacetextEx_char(message,"ЕГО ","ЯГО ")
+
+		// Прилагательные на -ые, -ие оканчиваются на ‑ыя, -ія.
+		message = replacetextEx_char(message,"ые ","ыя ")
+		message = replacetextEx_char(message,"ие ","ія ")
+		message = replacetextEx_char(message,"ЫЕ ","ЫЯ ")
+		message = replacetextEx_char(message,"ИЕ ","ІЯ ")
+
+		// Заменять «и» на «i», если после него гласная (в том числе «й»)
+		message = replacetextEx_char(message,"иа","iа")
+		message = replacetextEx_char(message,"ие","iе")
+		message = replacetextEx_char(message,"иё","iё")
+		message = replacetextEx_char(message,"ии","iи")
+		message = replacetextEx_char(message,"ий","iй")
+		message = replacetextEx_char(message,"ио","iо")
+		message = replacetextEx_char(message,"иу","iу")
+		message = replacetextEx_char(message,"иэ","iэ")
+		message = replacetextEx_char(message,"ию","iю")
+		message = replacetextEx_char(message,"ия","iя")
+		message = replacetextEx_char(message,"ИА","IА")
+		message = replacetextEx_char(message,"ИЕ","IЕ")
+		message = replacetextEx_char(message,"ИЁ","IЁ")
+		message = replacetextEx_char(message,"ИИ","IИ")
+		message = replacetextEx_char(message,"ИЙ","IЙ")
+		message = replacetextEx_char(message,"ИО","IО")
+		message = replacetextEx_char(message,"ИУ","IУ")
+		message = replacetextEx_char(message,"ИЭ","IЭ")
+		message = replacetextEx_char(message,"ИЮ","IЮ")
+		message = replacetextEx_char(message,"ИЯ","IЯ")
+
+		// Местоимение «её» → «ея»
+		message = replacetextEx_char(message," её"," ея")
+		message = replacetextEx_char(message," ЕЁ"," ЕЯ")
+		message = replacetextEx_char(message,"её ","ея ")
+		message = replacetextEx_char(message,"ЕЁ ","ЕЯ ")
+
+		// заменять «ё» на «їо»
+		message = replacetextEx_char(message,"ё","їо")
+		message = replacetextEx_char(message,"Ё","Їо")
+
+		if(prob(50))
+			// Периодически заменять «е» на ять «ѣ»
+			message = replacetextEx_char(message,"е","ѣ")
+
+		if(prob(5))
+			// редко заменять «ф» на фиту «ѳ»
+			message = replacetextEx_char(message,"ф","ѳ")
+			message = replacetextEx_char(message,"Ф","Ѳ")
+
 	return message
-/datum/dna/gene/disability/speech/chav/proc/replace_speech(matched)
-	return chavlinks[matched]
+
+/datum/dna/gene/disability/speech/auld_imperial/proc/add_slovoers(matched)
+	return "[matched]-съ"
+/datum/dna/gene/disability/speech/auld_imperial/proc/add_er(matched)
+	return "[matched]ъ"
+/datum/dna/gene/disability/speech/auld_imperial/proc/replace_speech(matched, first, second)
+	return "[first][low_cultural_words[second]]"
 
 // WAS: /datum/bioEffect/swedish
 /datum/dna/gene/disability/speech/swedish

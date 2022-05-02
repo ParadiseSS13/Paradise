@@ -8,18 +8,18 @@
 // mob/var/list/mutations
 
 // Used in preferences.
-#define DISABILITY_FLAG_NEARSIGHTED 1
-#define DISABILITY_FLAG_FAT         2
-#define DISABILITY_FLAG_BLIND       4
-#define DISABILITY_FLAG_MUTE        8
-#define DISABILITY_FLAG_COLOURBLIND 16
-#define DISABILITY_FLAG_WINGDINGS   32
-#define DISABILITY_FLAG_NERVOUS     64
-#define DISABILITY_FLAG_SWEDISH     128
-#define DISABILITY_FLAG_LISP        256
-#define DISABILITY_FLAG_DIZZY       512
-#define DISABILITY_FLAG_CHAV        1024
-#define DISABILITY_FLAG_DEAF        2048
+#define DISABILITY_FLAG_NEARSIGHTED   1
+#define DISABILITY_FLAG_FAT           2
+#define DISABILITY_FLAG_BLIND         4
+#define DISABILITY_FLAG_MUTE          8
+#define DISABILITY_FLAG_COLOURBLIND   16
+#define DISABILITY_FLAG_WINGDINGS     32
+#define DISABILITY_FLAG_NERVOUS       64
+#define DISABILITY_FLAG_SWEDISH       128
+#define DISABILITY_FLAG_LISP          256
+#define DISABILITY_FLAG_DIZZY         512
+#define DISABILITY_FLAG_AULD_IMPERIAL 1024
+#define DISABILITY_FLAG_DEAF          2048
 
 ///////////////////////////////////////
 // MUTATIONS
@@ -58,7 +58,7 @@
 #define DIZZY			"dizzy"				// Trippy.
 #define LISP			"lisp"
 #define RADIOACTIVE 	"radioactive"
-#define CHAV			"chav"
+#define AULD_IMPERIAL	"auld_imperial"
 #define SWEDISH			"swedish"
 #define SCRAMBLED		"scrambled"
 #define HORNS			"horns"
