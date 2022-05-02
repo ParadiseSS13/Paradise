@@ -77,7 +77,7 @@
 				item_words = "[item.blood_color != "#030303" ? "blood-stained":"oil-stained"] [item_words]"
 			var/submsg = "[p_they(TRUE)] [action] [bicon(item)] \a [item_words]"
 			if(accessories)
-				submsg += " with a [accessories]"
+				submsg += " with [accessories]"
 			if(limb_name)
 				submsg += " [preposition] [p_their()] [limb_name]"
 			if(item.blood_DNA)
