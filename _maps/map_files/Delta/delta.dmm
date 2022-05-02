@@ -24673,7 +24673,7 @@
 	},
 /obj/machinery/button/windowtint{
 	dir = 4;
-	id = "HOS";
+	id = "HoS";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -25488,7 +25488,7 @@
 /area/security/processing)
 "bmd" = (
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "processing"
+	id = "Processing"
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -26189,7 +26189,7 @@
 /area/security/brig)
 "bnC" = (
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "HOS"
+	id = "HoS"
 	},
 /turf/simulated/floor/plating,
 /area/security/hos)
@@ -31127,7 +31127,7 @@
 	},
 /obj/machinery/button/windowtint{
 	dir = 1;
-	id = "processing";
+	id = "Processing";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -39230,7 +39230,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "processing"
+	id = "Processing"
 	},
 /turf/simulated/floor/plating,
 /area/security/processing)
@@ -39926,7 +39926,7 @@
 	},
 /obj/machinery/button/windowtint{
 	dir = 1;
-	id = "det";
+	id = "Detective";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -40842,7 +40842,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "det"
+	id = "Detective"
 	},
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
@@ -43206,7 +43206,7 @@
 	},
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "processing"
+	id = "Processing"
 	},
 /turf/simulated/floor/plating,
 /area/security/processing)
@@ -43899,7 +43899,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "processing"
+	id = "Processing"
 	},
 /turf/simulated/floor/plating,
 /area/security/processing)
@@ -44642,7 +44642,7 @@
 /area/magistrateoffice)
 "bYR" = (
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "magi"
+	id = "Magistrate"
 	},
 /turf/simulated/floor/plating,
 /area/magistrateoffice)
@@ -53569,7 +53569,7 @@
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "processing"
+	id = "Processing"
 	},
 /turf/simulated/floor/plating,
 /area/security/processing)
@@ -93358,7 +93358,7 @@
 /area/assembly/chargebay)
 "iaK" = (
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "magi"
+	id = "Magistrate"
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -93595,8 +93595,7 @@
 	dir = 4
 	},
 /obj/machinery/button/windowtint{
-	id = "magi";
-	pixel_x = null;
+	id = "Magistrate";
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -94571,7 +94570,7 @@
 /area/security/detectives_office)
 "lAG" = (
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "processing"
+	id = "Processing"
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
@@ -95844,7 +95843,7 @@
 "oSH" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "processing"
+	id = "Processing"
 	},
 /turf/simulated/floor/plating,
 /area/security/processing)
@@ -96038,12 +96037,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/permasolitary)
-"ppV" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "det"
-	},
-/turf/simulated/floor/plating,
-/area/magistrateoffice)
 "pvv" = (
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 25
@@ -97905,7 +97898,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "det"
+	id = "Detective"
 	},
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
@@ -98257,7 +98250,7 @@
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "det"
+	id = "Detective"
 	},
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
@@ -98576,7 +98569,7 @@
 /area/toxins/misc_lab)
 "wdH" = (
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "magi"
+	id = "Magistrate"
 	},
 /obj/structure/cable,
 /obj/machinery/door/poddoor{
@@ -98832,7 +98825,7 @@
 /area/security/securearmoury)
 "xgP" = (
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "magi"
+	id = "Magistrate"
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -149476,7 +149469,7 @@ meB
 bTk
 bVp
 bXB
-ppV
+bYR
 caM
 ccE
 ces
