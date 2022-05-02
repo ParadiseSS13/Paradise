@@ -80250,18 +80250,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
-"dzu" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating,
-/area/security/detectives_office)
 "dzr" = (
 /obj/structure/chair/wood{
 	dir = 4

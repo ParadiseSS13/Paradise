@@ -21759,30 +21759,6 @@
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"aZg" = (
-/obj/machinery/atmospherics/pipe/simple/visible/red{
-	dir = 5
-	},
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/engine/supermatter)
-"aZh" = (
-/obj/machinery/atmospherics/pipe/simple/visible/green,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/engine,
-/area/engine/engineering)
 "aZj" = (
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod One"
@@ -22277,12 +22253,6 @@
 	name = "Supermatter Engine Room";
 	req_access_txt = "10"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "bap" = (
