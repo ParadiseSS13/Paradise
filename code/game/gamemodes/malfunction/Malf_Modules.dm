@@ -89,10 +89,6 @@
 	button_icon_state = "choose_module"
 	auto_use_uses = FALSE // This is an infinite ability.
 
-/datum/action/innate/ai/choose_modules/Grant(mob/living/L)
-	. = ..()
-	owner_AI.malf_picker = new /datum/module_picker
-
 /datum/action/innate/ai/choose_modules/Trigger()
 	. = ..()
 	owner_AI.malf_picker.use(owner_AI)
@@ -128,7 +124,7 @@
 
 /datum/module_picker/proc/use(mob/user)
 	var/dat
-	dat += {"<B>Select use of processing time: (currently #[processing_time] left.)</B><BR>
+	dat += {"<B>Select use of processing time: (currently [processing_time] left.)</B><BR>
 			<HR>
 			<B>Install Module:</B><BR>
 			<I>The number afterwards is the amount of processing time it consumes.</I><BR>"}
@@ -497,6 +493,9 @@
 	if(!istype(target))
 		to_chat(ranged_ability_user, "<span class='warning'>You can only overload machines!</span>")
 		return
+	if(target.flags_2 & NO_MALF_EFFECT_2)
+		to_chat(ranged_ability_user, "<span class='warning'>That machine can't be overloaded!</span>")
+		return
 
 	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, FALSE, use_reverb = FALSE)
 	attached_action.adjust_uses(-1)
@@ -549,7 +548,7 @@
 	if(!istype(target))
 		to_chat(ranged_ability_user, "<span class='warning'>You can only animate machines!</span>")
 		return
-	if(!target.can_be_overridden())
+	if(target.flags_2 & NO_MALF_EFFECT_2)
 		to_chat(ranged_ability_user, "<span class='warning'>That machine can't be overridden!</span>")
 		return
 

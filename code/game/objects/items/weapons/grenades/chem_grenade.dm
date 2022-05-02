@@ -176,7 +176,7 @@
 			if(I.reagents.total_volume)
 				to_chat(user, "<span class='notice'>You add [I] to the assembly.</span>")
 				user.drop_item()
-				I.loc = src
+				I.forceMove(src)
 				beakers += I
 			else
 				to_chat(user, "<span class='notice'>[I] is empty.</span>")
@@ -190,10 +190,8 @@
 
 		user.drop_item()
 		nadeassembly = A
-		if(nadeassembly.has_prox_sensors())
-			AddComponent(/datum/component/proximity_monitor)
 		A.master = src
-		A.loc = src
+		A.forceMove(src)
 		assemblyattacher = user.ckey
 		stage = WIRED
 		to_chat(user, "<span class='notice'>You add [A] to [src]!</span>")
@@ -218,13 +216,12 @@
 		payload_name = null
 		label = null
 		if(nadeassembly)
-			nadeassembly.loc = get_turf(src)
+			nadeassembly.forceMove(get_turf(src))
 			nadeassembly.master = null
 			nadeassembly = null
-			qdel(GetComponent(/datum/component/proximity_monitor))
 		if(beakers.len)
 			for(var/obj/O in beakers)
-				O.loc = get_turf(src)
+				O.forceMove(get_turf(src))
 			beakers = list()
 		update_icon()
 
@@ -307,8 +304,6 @@
 /obj/item/grenade/chem_grenade/proc/CreateDefaultTrigger(typekey)
 	if(ispath(typekey,/obj/item/assembly))
 		nadeassembly = new(src)
-		if(nadeassembly.has_prox_sensors())
-			AddComponent(/datum/component/proximity_monitor)
 		nadeassembly.a_left = new /obj/item/assembly/igniter(nadeassembly)
 		nadeassembly.a_left.holder = nadeassembly
 		nadeassembly.a_left.secured = 1
@@ -515,6 +510,7 @@
 
 
 /obj/item/grenade/chem_grenade/cleaner
+	belt_icon = "grenade"
 	payload_name = "cleaner"
 	desc = "BLAM!-brand foaming space cleaner. In a special applicator for rapid cleaning of wide areas."
 	stage = READY

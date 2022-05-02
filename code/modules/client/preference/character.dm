@@ -7,7 +7,6 @@
 	var/be_random_name = FALSE				//whether we are a random name every round
 	var/gender = MALE						//gender of character (well duh)
 	var/age = 30							//age of character
-	var/spawnpoint = "Arrivals Shuttle" 	//where this character will spawn (0-2).
 	var/b_type = "A+"						//blood type (not-chooseable)
 	var/underwear = "Nude"					//underwear type
 	var/undershirt = "Nude"					//undershirt type
@@ -862,7 +861,7 @@
 				icon_state = "[coloured_tail]_s"
 			else
 				icon_state = "[current_species.tail]_s"
-		
+
 		if(icon)
 			var/icon/temp = new(icon, icon_state)
 			if(current_species.bodyflags & HAS_SKIN_COLOR)

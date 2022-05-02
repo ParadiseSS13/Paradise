@@ -97,28 +97,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	spawner_list = GLOB.latejoin
 	return ..()
 
-/obj/effect/landmark/spawner/late/cryo
-	name = "Late Join Cryo"
-
-/obj/effect/landmark/spawner/late/cryo/Initialize(mapload)
-	spawner_list = GLOB.latejoin_cryo
-	return ..()
-
-/obj/effect/landmark/spawner/late/cyborg
-	name = "Late Join Cyborg"
-	icon_state = "Borg"
-
-/obj/effect/landmark/spawner/late/cyborg/Initialize(mapload)
-	spawner_list = GLOB.latejoin_cyborg
-	return ..()
-
-/obj/effect/landmark/spawner/late/gateway
-	name = "Late Join Gateway"
-
-/obj/effect/landmark/spawner/late/gateway/Initialize(mapload)
-	spawner_list = GLOB.latejoin_gateway
-	return ..()
-
 /obj/effect/landmark/spawner/carp
 	name = "carpspawn"
 	icon_state = "Carp"
