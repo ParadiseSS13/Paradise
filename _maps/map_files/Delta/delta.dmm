@@ -32945,11 +32945,6 @@
 	},
 /area/turret_protected/ai)
 "bBg" = (
-/obj/effect/landmark{
-	icon = 'icons/effects/spawner_icons.dmi';
-	icon_state = "AI";
-	name = "tripai"
-	},
 /obj/item/radio/intercom/custom{
 	pixel_x = 28;
 	pixel_y = -8
@@ -32969,6 +32964,7 @@
 	pixel_x = -28;
 	pixel_y = 5
 	},
+/obj/effect/landmark/start/ai,
 /turf/simulated/floor/greengrid,
 /area/turret_protected/ai)
 "bBi" = (
