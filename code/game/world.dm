@@ -5,9 +5,6 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
 	// This is BAD.
 
-	// Right off the bat
-	enable_auxtools_debugger()
-
 	SSmetrics.world_init_time = REALTIMEOFDAY
 
 	// Do sanity checks to ensure RUST actually exists

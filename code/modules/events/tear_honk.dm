@@ -17,7 +17,7 @@
 	name = "Honkmensional Tear"
 	desc = "A tear in the dimensional fabric of sanity."
 
-/obj/effect/tear/honk/spew_critters()
+/obj/effect/tear/honk/spawn_mobs()
 	for(var/i in 1 to 6)
 		var/mob/living/simple_animal/hostile/retaliate/clown/goblin/G = new(get_turf(src))
 		if(prob(50))

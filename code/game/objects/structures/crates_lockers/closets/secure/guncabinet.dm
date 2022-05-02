@@ -23,26 +23,27 @@
 /obj/structure/closet/secure_closet/guncabinet/update_overlays()
 	cut_overlays()
 	if(!opened)
-		var/lazors = 0
-		var/shottas = 0
+		var/lasers = 0
+		var/ballistics = 0
 		for(var/obj/item/gun/G in contents)
 			if(istype(G, /obj/item/gun/energy))
-				lazors++
-			if(istype(G, /obj/item/gun/projectile/))
-				shottas++
-		if(lazors || shottas)
+				lasers++
+			if(istype(G, /obj/item/gun/projectile))
+				ballistics++
+		if(lasers || ballistics)
 			for(var/i = 0 to 2)
+				if(!lasers && !ballistics) //This may seem redundant but needed here to prevent adding the gun overlay without guns
+					continue
 				var/image/gun = image(icon(icon))
-
-				if(lazors > 0 && (shottas <= 0 || prob(50)))
-					lazors--
+				if(lasers && (!ballistics || prob(50)))
+					lasers--
 					gun.icon_state = "laser"
-				else if(shottas > 0)
-					shottas--
+				else if(ballistics)
+					ballistics--
 					gun.icon_state = "projectile"
 
 				gun.pixel_x = i*4
-				overlays += gun
+				add_overlay(gun)
 
 		add_overlay("door")
 		if(broken)

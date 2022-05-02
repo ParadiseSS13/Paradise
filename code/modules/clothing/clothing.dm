@@ -737,6 +737,13 @@ BLIND     // can't see anything
 
 	return FALSE
 
+/obj/item/clothing/under/proc/detach_accessory(obj/item/clothing/accessory/A, mob/user)
+	accessories -= A
+	A.on_removed(user)
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_w_uniform()
+
 /obj/item/clothing/under/examine(mob/user)
 	. = ..()
 	switch(sensor_mode)
@@ -802,10 +809,8 @@ BLIND     // can't see anything
 		return
 	if(!Adjacent(user))
 		return
-	A.on_removed(user)
-	accessories -= A
+	detach_accessory(A, user)
 	to_chat(user, "<span class='notice'>You remove [A] from [src].</span>")
-	usr.update_inv_w_uniform()
 
 /obj/item/clothing/under/emp_act(severity)
 	if(accessories.len)

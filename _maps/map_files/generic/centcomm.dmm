@@ -13201,12 +13201,12 @@
 /area/holodeck/source_beach)
 "Zw" = (
 /obj/structure/closet/secure_closet/guncabinet,
-/obj/item/gun/energy/toxgun{
+/obj/item/gun/energy/plasma_pistol{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/energy/toxgun,
-/obj/item/gun/energy/toxgun{
+/obj/item/gun/energy/plasma_pistol,
+/obj/item/gun/energy/plasma_pistol{
 	pixel_x = 3;
 	pixel_y = -3
 	},

@@ -36,6 +36,9 @@
 	var/hunger_drain = HUNGER_FACTOR
 	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
 	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
+	var/hunger_icon = 'icons/mob/screen_hunger.dmi'
+	var/hunger_type
+	var/hunger_level
 
 	var/siemens_coeff = 1 //base electrocution coefficient
 
@@ -449,7 +452,7 @@
 		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
 			to_chat(user, "<span class='warning'>They have no blood!</span>")
 			return
-		if(target.mind && target.mind.has_antag_datum(/datum/antagonist/vampire))
+		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/vampire) || target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)))
 			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
 			return
 		if(HAS_TRAIT(target, TRAIT_SKELETONIZED))
