@@ -30,6 +30,12 @@
 
 /obj/item/chameleon/afterattack(atom/target, mob/user , proximity)
 	if(!proximity) return
+	if(!check_sprite(target))
+		return
+	if(target.alpha < 255)
+		return
+	if(target.invisibility != 0)
+		return
 	if(!active_dummy)
 		if(istype(target,/obj/item) && !istype(target, /obj/item/disk/nuclear))
 			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
@@ -39,6 +45,11 @@
 			saved_icon_state = target.icon_state
 			saved_overlays = target.overlays
 			saved_underlays = target.underlays
+
+/obj/item/chameleon/proc/check_sprite(atom/target)
+	if(target.icon_state in icon_states(target.icon))
+		return TRUE
+	return FALSE
 
 /obj/item/chameleon/proc/toggle()
 	if(!can_use || !saved_item) return
@@ -136,8 +147,8 @@
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/relaymove(mob/user, direction)
-	if(istype(loc, /turf/space) || !direction)
-		return //No magical space movement!
+	if(!isturf(loc) || istype(loc, /turf/space) || !direction)
+		return // No magical movement!
 
 	if(can_move)
 		can_move = 0
