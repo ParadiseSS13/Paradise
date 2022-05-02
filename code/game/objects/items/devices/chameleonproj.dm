@@ -1,5 +1,5 @@
 /obj/item/chameleon
-	name = "chameleon-projector"
+	name = "chameleon projector"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
 	flags = CONDUCT
@@ -105,12 +105,12 @@
 
 /obj/effect/dummy/chameleon/attackby()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your chameleon-projector deactivates.</span>")
+		to_chat(M, "<span class='danger'>Your chameleon projector deactivates.</span>")
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/attack_hand()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your chameleon-projector deactivates.</span>")
+		to_chat(M, "<span class='danger'>Your chameleon projector deactivates.</span>")
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/attack_animal()
@@ -124,14 +124,14 @@
 
 /obj/effect/dummy/chameleon/ex_act(severity) //no longer bomb-proof
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your chameleon-projector deactivates.</span>")
+		to_chat(M, "<span class='danger'>Your chameleon projector deactivates.</span>")
 		spawn()
 			M.ex_act(severity)
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/bullet_act()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your chameleon-projector deactivates.</span>")
+		to_chat(M, "<span class='danger'>Your chameleon projector deactivates.</span>")
 	..()
 	master.disrupt()
 
