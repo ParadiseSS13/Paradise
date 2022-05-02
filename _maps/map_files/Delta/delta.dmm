@@ -31419,11 +31419,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /turf/simulated/floor/greengrid,
 /area/turret_protected/ai)
 "byd" = (
@@ -36881,6 +36876,10 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -37657,9 +37656,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/machinery/power/terminal{
 	dir = 1
 	},
 /turf/simulated/floor/greengrid,
@@ -93121,6 +93117,16 @@
 	icon_state = "red"
 	},
 /area/security/brig)
+"gPN" = (
+/obj/machinery/alarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/ai)
 "gSt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -96211,6 +96217,25 @@
 	icon_state = "red"
 	},
 /area/hallway/secondary/exit)
+"pIC" = (
+/obj/structure/showcase{
+	density = 0;
+	dir = 8;
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "robot_old";
+	name = "Cyborg Statue";
+	pixel_x = 9;
+	pixel_y = 2
+	},
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/aisat)
 "pJE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -97220,6 +97245,15 @@
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
+"suP" = (
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tcommsat/chamber)
 "swV" = (
 /obj/machinery/hydroponics/constructable,
 /obj/item/seeds/glowshroom,
@@ -108044,7 +108078,7 @@ bTE
 bVS
 bXI
 qrT
-ccU
+suP
 caW
 ceP
 ccU
@@ -108550,7 +108584,7 @@ spM
 btd
 bIk
 bJV
-bBf
+gPN
 bNM
 bXI
 bVS
@@ -110609,7 +110643,7 @@ bJX
 brs
 bNM
 bPN
-bVT
+pIC
 blG
 bmS
 bXP
