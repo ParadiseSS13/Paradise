@@ -88,7 +88,7 @@
 			qdel(active_dummy)
 		active_dummy = null
 		can_use = FALSE
-		spawn(50) can_use = 1
+		addtimer(VARSET_CALLBACK(src, can_use, TRUE), 5 SECONDS)
 
 /obj/item/chameleon/proc/eject_all()
 	for(var/atom/movable/A in active_dummy)
@@ -157,15 +157,15 @@
 		can_move = FALSE
 		switch(user.bodytemperature)
 			if(300 to INFINITY)
-				spawn(10) can_move = 1
+				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 1 SECONDS)
 			if(295 to 300)
-				spawn(13) can_move = 1
+				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 1.3 SECONDS)
 			if(280 to 295)
-				spawn(16) can_move = 1
+				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 1.6 SECONDS)
 			if(260 to 280)
-				spawn(20) can_move = 1
+				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 2 SECONDS)
 			else
-				spawn(25) can_move = 1
+				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 2.5 SECONDS)
 		step(src, direction)
 	return
 
