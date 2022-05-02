@@ -896,10 +896,16 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/proc/toggle_bolt(mob/user)
 	if(wires.is_cut(WIRE_DOOR_BOLTS))
 		to_chat(user, "<span class='warning'>The door bolt control wire has been cut - Door bolts permanently dropped.</span>")
-	else if(lock())
-		to_chat(user, "<span class='notice'>The door bolts have been dropped.</span>")
-	else if(unlock())
+		return
+
+	if(unlock()) // Trying to unbolt
 		to_chat(user, "<span class='notice'>The door bolts have been raised.</span>")
+		return
+
+	if(lock()) // Trying to bolt
+		to_chat(user, "<span class='notice'>The door bolts have been dropped.</span>")
+		user.create_log(MISC_LOG, "Bolted", src)
+		add_hiddenprint(user)
 
 /obj/machinery/door/airlock/proc/toggle_emergency_status(mob/user)
 	emergency = !emergency
