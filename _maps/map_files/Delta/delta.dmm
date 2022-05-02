@@ -92866,16 +92866,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
-"gdJ" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai)
 "ggp" = (
 /obj/machinery/vending/coffee/free,
 /obj/structure/sign/electricshock{
@@ -94501,6 +94491,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
+"krE" = (
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tcommsat/chamber)
 "kxq" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -94533,17 +94532,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"kBA" = (
-/obj/structure/chair/office/dark{
-	dir = 4
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai)
 "kCi" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -94714,6 +94702,16 @@
 	icon_state = "red"
 	},
 /area/security/seceqstorage)
+"lpi" = (
+/obj/machinery/alarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/ai)
 "lqK" = (
 /obj/effect/spawner/random_spawners/grille_maybe,
 /turf/simulated/floor/plating,
@@ -94898,6 +94896,17 @@
 	icon_state = "grimy"
 	},
 /area/chapel/office)
+"lLq" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/ai)
 "lMo" = (
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -94907,25 +94916,6 @@
 "lTi" = (
 /turf/simulated/floor/wood,
 /area/maintenance/abandonedbar)
-"lTR" = (
-/obj/structure/showcase{
-	density = 0;
-	dir = 8;
-	icon = 'icons/mob/robots.dmi';
-	icon_state = "robot_old";
-	name = "Cyborg Statue";
-	pixel_x = 9;
-	pixel_y = 2
-	},
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/aisat)
 "lVT" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -95399,10 +95389,7 @@
 	},
 /area/crew_quarters/fitness)
 "mZE" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
+/obj/item/toy/AI,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -95591,14 +95578,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
-"ntb" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai)
 "nte" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 4
@@ -95802,6 +95781,25 @@
 	icon_state = "neutral"
 	},
 /area/maintenance/starboard)
+"occ" = (
+/obj/structure/showcase{
+	density = 0;
+	dir = 8;
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "robot_old";
+	name = "Cyborg Statue";
+	pixel_x = 9;
+	pixel_y = 2
+	},
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/aisat)
 "odY" = (
 /obj/machinery/camera{
 	c_tag = "Aft Starboard Solars"
@@ -96085,6 +96083,14 @@
 	icon_state = "redcorner"
 	},
 /area/security/permasolitary)
+"pdo" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/ai)
 "pfp" = (
 /obj/machinery/atm{
 	pixel_x = 32
@@ -96778,6 +96784,15 @@
 	icon_state = "red"
 	},
 /area/security/brig)
+"rfm" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/ai)
 "rje" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -98645,15 +98660,6 @@
 	icon_state = "red"
 	},
 /area/security/seceqstorage)
-"weJ" = (
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
 "wgn" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -107319,7 +107325,7 @@ btd
 btd
 bwG
 bxY
-mZE
+rfm
 bBf
 bCU
 bBf
@@ -108105,7 +108111,7 @@ bTE
 bVS
 bXI
 qrT
-weJ
+krE
 caW
 ceP
 ccU
@@ -108351,7 +108357,7 @@ bCV
 bBg
 btd
 btd
-bBf
+mZE
 bIj
 bJU
 biX
@@ -108611,7 +108617,7 @@ spM
 btd
 bIk
 bJV
-gdJ
+lpi
 bNM
 bXI
 bVS
@@ -108868,7 +108874,7 @@ bEF
 hoK
 bIl
 bip
-ntb
+pdo
 bNM
 bPJ
 bRD
@@ -109375,7 +109381,7 @@ btd
 btd
 bBd
 byg
-kBA
+lLq
 bBf
 bCZ
 bBf
@@ -110670,7 +110676,7 @@ bJX
 brs
 bNM
 bPN
-lTR
+occ
 blG
 bmS
 bXP
