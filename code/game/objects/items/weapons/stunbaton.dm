@@ -36,7 +36,7 @@
 
 /obj/item/melee/baton/throw_impact(atom/hit_atom)
 	..()
-	if(status && prob(throw_hit_chance))
+	if(status && prob(throw_hit_chance) && !issilicon(hit_atom))
 		baton_stun(hit_atom)
 
 /obj/item/melee/baton/loaded/New() //this one starts with a cell pre-installed.
