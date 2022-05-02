@@ -159,7 +159,7 @@
 					else
 						contained = "\[ [contained]\]"
 				var/turf/bombturf = get_turf(loc)
-				add_attack_logs(user, src, "has completed with [contained]", ATKLOG_MOST)
+				add_attack_logs(user, src, "has completed with [contained]", ATKLOG_FEW)
 				log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z]. [contained]")
 			else
 				to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
