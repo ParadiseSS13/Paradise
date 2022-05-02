@@ -1966,27 +1966,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		return TRUE
 	return FALSE
 
-/**
- * Proc which gets all adjacent turfs to `src`, including the turf that `src` is on.
- *
- * This is similar to doing `for(var/turf/T in range(1, src))`. However it is slightly more performant.
- * Additionally, the above proc becomes more costly the more atoms there are nearby. This proc does not care about that.
- */
-/atom/proc/get_all_adjacent_turfs()
-	var/turf/src_turf = get_turf(src)
-	var/list/_list = list(
-		src_turf,
-		get_step(src_turf, NORTH),
-		get_step(src_turf, NORTHEAST),
-		get_step(src_turf, NORTHWEST),
-		get_step(src_turf, SOUTH),
-		get_step(src_turf, SOUTHEAST),
-		get_step(src_turf, SOUTHWEST),
-		get_step(src_turf, EAST),
-		get_step(src_turf, WEST)
-	)
-	return _list
-
 // Check if the source atom contains another atom
 /atom/proc/contains(atom/location)
 	if(!location)
@@ -2094,22 +2073,3 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	output["CONTENT"] = content
 
 	return output
-
-
-/proc/is_maintainer(mob/user)
-	#ifdef TESTING // Account for local test mode
-	return TRUE
-	#endif
-
-	// Check if this user is a maint, or on a test server
-	var/ip_check = (user.client.address == "127.0.0.1" || user.client.address == null)
-
-	var/rank_check = FALSE
-
-	if(user.client.holder)
-		rank_check = (findtext(user.client.holder.rank, "Maintainer") > 0) // Accounts for "Maintainers", "Maintainer", "Host & Maintainer", etc
-
-	if(ip_check || rank_check)
-		return TRUE
-
-	return FALSE

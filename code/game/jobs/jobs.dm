@@ -88,14 +88,12 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 	"pAI"
 ))
 
-GLOBAL_LIST_INIT(whitelisted_positions, list(
-	"Nanotrasen Representative",
-	"Barber",
-))
-
+// TODO: Remove
+GLOBAL_LIST_EMPTY(whitelisted_positions)
 
 /proc/check_job_karma(job)
 	return (job in GLOB.whitelisted_positions)
+// END TODO
 
 /proc/get_job_datums()
 	var/list/occupations = list()

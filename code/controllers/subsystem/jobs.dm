@@ -48,11 +48,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/Debug(text)
-	if(!GLOB.debug2)
-		return 0
 	job_debug.Add(text)
-	return 1
-
 
 /datum/controller/subsystem/jobs/proc/GetJob(rank)
 	if(!occupations.len)

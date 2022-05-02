@@ -16,10 +16,14 @@
 	..()
 	inv_overlay = image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
 
+/obj/item/clothing/accessory/Moved(atom/OldLoc, Dir, Forced)
+	. = ..()
+	if(has_suit)
+		has_suit.detach_accessory(src, null)
+
 /obj/item/clothing/accessory/Destroy()
 	if(has_suit)
-		has_suit.accessories -= src
-		on_removed(null)
+		has_suit.detach_accessory(src, null)
 	return ..()
 
 //when user attached an accessory to S
