@@ -23569,7 +23569,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
+	dir = 10;
+	initialize_directions = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -32170,7 +32171,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
+	dir = 10;
+	initialize_directions = 10
 	},
 /turf/simulated/floor/greengrid,
 /area/turret_protected/ai)
@@ -32191,7 +32193,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+	dir = 6
 	},
 /turf/simulated/floor/greengrid,
 /area/turret_protected/ai)
@@ -37638,7 +37640,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -38484,6 +38486,9 @@
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -92172,6 +92177,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/lab)
+"epj" = (
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tcommsat/chamber)
 "eqc" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/cable{
@@ -93091,6 +93105,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
+"gIJ" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/ai)
 "gJk" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -93117,16 +93142,6 @@
 	icon_state = "red"
 	},
 /area/security/brig)
-"gPN" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/ai)
 "gSt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -93426,6 +93441,25 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/misc_lab)
+"hDr" = (
+/obj/structure/showcase{
+	density = 0;
+	dir = 8;
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "robot_old";
+	name = "Cyborg Statue";
+	pixel_x = 9;
+	pixel_y = 2
+	},
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/aisat)
 "hDZ" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -93653,6 +93687,14 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
+"ico" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/ai)
 "idq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -94496,6 +94538,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
+"kuL" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/ai)
 "kxq" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -94702,6 +94753,16 @@
 /obj/effect/spawner/random_spawners/grille_maybe,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
+"lqV" = (
+/obj/machinery/alarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/ai)
 "lso" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -96217,25 +96278,6 @@
 	icon_state = "red"
 	},
 /area/hallway/secondary/exit)
-"pIC" = (
-/obj/structure/showcase{
-	density = 0;
-	dir = 8;
-	icon = 'icons/mob/robots.dmi';
-	icon_state = "robot_old";
-	name = "Cyborg Statue";
-	pixel_x = 9;
-	pixel_y = 2
-	},
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/turret_protected/aisat)
 "pJE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -97245,15 +97287,6 @@
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
-"suP" = (
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
 "swV" = (
 /obj/machinery/hydroponics/constructable,
 /obj/item/seeds/glowshroom,
@@ -107292,7 +107325,7 @@ btd
 btd
 bwG
 bxY
-byg
+kuL
 bBf
 bCU
 bBf
@@ -108078,7 +108111,7 @@ bTE
 bVS
 bXI
 qrT
-suP
+epj
 caW
 ceP
 ccU
@@ -108584,7 +108617,7 @@ spM
 btd
 bIk
 bJV
-gPN
+lqV
 bNM
 bXI
 bVS
@@ -108841,7 +108874,7 @@ bEF
 hoK
 bIl
 bip
-bBf
+ico
 bNM
 bPJ
 bRD
@@ -109348,7 +109381,7 @@ btd
 btd
 bBd
 byg
-bIn
+gIJ
 bBf
 bCZ
 bBf
@@ -110643,7 +110676,7 @@ bJX
 brs
 bNM
 bPN
-pIC
+hDr
 blG
 bmS
 bXP
