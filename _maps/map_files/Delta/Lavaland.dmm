@@ -1502,10 +1502,6 @@
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "eX" = (
-/obj/machinery/camera{
-	c_tag = "Mining Storage";
-	network = list("Mining Outpost")
-	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3477,6 +3473,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc{
+	dir = 1;
 	name = "Mining EVA APC";
 	pixel_x = 1;
 	pixel_y = 24
@@ -3632,6 +3629,9 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "qk" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "qt" = (
@@ -4296,9 +4296,6 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "wR" = (
-/obj/machinery/light_switch{
-	pixel_y = -25
-	},
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "wX" = (
@@ -4967,6 +4964,11 @@
 "EJ" = (
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Mining Storage";
+	dir = 8;
+	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -6751,6 +6753,12 @@
 /obj/machinery/status_display,
 /turf/simulated/wall,
 /area/mine/production)
+"ZU" = (
+/obj/machinery/light_switch{
+	pixel_y = -25
+	},
+/turf/simulated/floor/bluegrid,
+/area/mine/maintenance)
 
 (1,1,1) = {"
 aa
@@ -19057,7 +19065,7 @@ ab
 La
 qk
 bQ
-qk
+ZU
 La
 ee
 GZ
