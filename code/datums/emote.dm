@@ -1,6 +1,9 @@
 
 // Defines are in code\__DEFINES\emotes.dm
 
+/// Sentinel; if this is set, then you'll be able to use
+#define DEFAULT_STAT_ALLOWED "defaultstat"
+
 /**
  * # Emote
  *
@@ -54,8 +57,13 @@
 	var/emote_target_type = EMOTE_TARGET_ANY
 	/// In which state can you use this emote? (Check stat.dm for a full list of them)
 	var/stat_allowed = CONSCIOUS
+	/// What's the highest state in which you can use this emote?
+	/// If this is set to DEFAULT_STAT_ALLOWED, it'll work as if it was set to stat_allowed.
+	var/max_stat_allowed = DEFAULT_STAT_ALLOWED
 	/// In which state can this emote be forced out of you?
 	var/unintentional_stat_allowed = CONSCIOUS
+	/// Same as above, what's the highest state in which you can have this emote forced out of you?
+	var/max_unintentional_stat_allowed = DEFAULT_STAT_ALLOWED
 	/// Sound to play when emote is called. If you want to adjust this dynamically, see get_sound().
 	var/sound
 	/// Whether or not to vary the sound of the emote.
@@ -393,7 +401,9 @@
 		return FALSE
 
 	if(status_check && !is_type_in_typecache(user, mob_type_ignore_stat_typecache))
-		if((intentional && user.stat > stat_allowed) || (!intentional && (user.stat > unintentional_stat_allowed)))
+		var/max_stat = max_stat_allowed == DEFAULT_STAT_ALLOWED ? stat_allowed : max_stat_allowed
+		var/max_unintentional_stat = max_unintentional_stat_allowed == DEFAULT_STAT_ALLOWED ? unintentional_stat_allowed : max_unintentional_stat_allowed
+		if(intentional && (user.stat > stat_allowed || user.stat < max_stat) || (!intentional && (user.stat > unintentional_stat_allowed || user.stat < max_unintentional_stat)))
 			if(!intentional)
 				return FALSE
 			switch(user.stat)
@@ -517,3 +527,6 @@
 				ghost.show_message("[ghost_follow_link(src, ghost)] [ghost_text]")
 
 	visible_message(text)
+
+
+#undef DEFAULT_STAT_ALLOWED

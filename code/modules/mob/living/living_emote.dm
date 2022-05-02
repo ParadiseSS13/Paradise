@@ -263,12 +263,14 @@
 	message_robot = "dreams of electric sheep..."
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	stat_allowed = UNCONSCIOUS
+	max_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/nightmare
 	key = "nightmare"
 	message = "writhes in their sleep."
 	emote_type = EMOTE_VISIBLE
 	stat_allowed = UNCONSCIOUS
+	max_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/nightmare/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
