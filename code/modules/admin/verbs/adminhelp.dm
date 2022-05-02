@@ -1,7 +1,5 @@
-
-
 //This is a list of words which are ignored by the parser when comparing message contents for names. MUST BE IN LOWER CASE!
-GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown","the","a","an","of","monkey","alien","as"))
+GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of", "monkey", "alien", "as"))
 
 /client/verb/adminhelp()
 	set category = "Admin"
@@ -12,27 +10,28 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown","the","a","an","of","mo
 		to_chat(src, "<font color='red'>Error: Admin-PM: You cannot send adminhelps (Muted).</font>")
 		return
 
-	adminhelped = 1 //Determines if they get the message to reply by clicking the name.
+	adminhelped = TRUE //Determines if they get the message to reply by clicking the name.
 
 	var/msg
-	var/list/type = list("Mentorhelp","Adminhelp")
-	var/selected_type = input("Pick a category.", "Admin Help", null, null) as null|anything in type
+	var/list/type = list("Mentorhelp", "Adminhelp")
+	var/selected_type = input("Pick a category.", "Admin Help") as null|anything in type
 	if(selected_type)
-		msg = clean_input("Please enter your message.", "Admin Help", null)
+		msg = clean_input("Please enter your message.", selected_type)
 
-	//clean the input msg
 	if(!msg)
 		return
 
 	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
 		return
 
-	msg = sanitize_simple(copytext_char(msg,1,MAX_MESSAGE_LEN))
-	if(!msg)	return
+	msg = sanitize_simple(copytext_char(msg, 1, MAX_MESSAGE_LEN))
+	if(!msg) // No message after sanitisation
+		return
+
 	if(selected_type == "Mentorhelp")
-		SSmentor_tickets.newHelpRequest(src, msg)
+		SSmentor_tickets.newHelpRequest(src, msg) // Mhelp
 	else
-		SStickets.newHelpRequest(src, msg)
+		SStickets.newHelpRequest(src, msg) // Ahelp
 
 	//show it to the person adminhelping too
 	to_chat(src, "<span class='boldnotice'>[selected_type]</b>: [msg]</span>")
@@ -54,7 +53,7 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown","the","a","an","of","mo
 			var/inactive_mentors = mentorcount[3]
 
 			if(active_mentors <= 0)
-				if(inactive_mentors > 0)
+				if(inactive_mentors)
 					alerttext = " | **ALL MENTORS AFK**"
 				else
 					alerttext = " | **NO MENTORS ONLINE**"

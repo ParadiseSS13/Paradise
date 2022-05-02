@@ -17,7 +17,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(alert("Вы уверены что хотите решить ВСЕ Ментор Тикеты?","Решить все Ментор Тикеты?","Да","Нет") != "Да")
+	if(alert("Are you sure you want to resolve ALL open mentor tickets?","Resolve all open mentor tickets?","Yes","No") != "Yes")
 		return
 
 	SSmentor_tickets.resolveAllOpenTickets()

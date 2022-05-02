@@ -17,7 +17,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(alert("Вы уверены что хотите решить ВСЕ Админ Тикеты?","Решить все Админ Тикеты?","Да","Нет") != "Да")
+	if(alert("Are you sure you want to resolve ALL open admin tickets?","Resolve all open admin tickets?","Yes","No") != "Yes")
 		return
 
 	SStickets.resolveAllOpenTickets()
