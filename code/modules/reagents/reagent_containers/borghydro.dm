@@ -23,7 +23,7 @@
 		"spaceacillin" = list('icons/effects/effects.dmi', "greenglow"), \
 		"charcoal" = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
-	
+
 
 /obj/item/reagent_containers/borghypo/syndicate
 	name = "syndicate cyborg hypospray"
@@ -33,6 +33,8 @@
 	recharge_time = 2
 	reagent_ids = list( \
 		"syndicate_nanites" = list('icons/mob/swarmer.dmi', "swarmer_ranged"), \
+		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
+		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"), \
 		"potass_iodide" = list('icons/obj/decals.dmi', "radiation"), \
 		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
 	bypass_protection = 1
