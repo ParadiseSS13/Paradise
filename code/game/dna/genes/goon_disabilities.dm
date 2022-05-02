@@ -174,44 +174,41 @@
 
 /datum/dna/gene/disability/speech/swedish/OnSay(mob/M, message)
 	// svedish
-	message = replacetextEx_char(message,"Я",pick("А","Я"))
-	message = replacetextEx_char(message,"я",pick("а","я"))
+	message = replacetextEx(message,"W","V")
+	message = replacetextEx(message,"w","v")
+	message = replacetextEx(message,"J","Y")
+	message = replacetextEx(message,"j","y")
+	message = replacetextEx(message,"A",pick("Å","Ä","Æ","A"))
+	message = replacetextEx(message,"a",pick("å","ä","æ","a"))
+	message = replacetextEx(message,"BO","BJO")
+	message = replacetextEx(message,"Bo","Bjo")
+	message = replacetextEx(message,"bo","bjo")
+	message = replacetextEx(message,"O",pick("Ö","Ø","O"))
+	message = replacetextEx(message,"o",pick("ö","ø","o"))
 
-	message = replacetextEx_char(message,"Ю",pick("У","Ю"))
-	message = replacetextEx_char(message,"ю",pick("у","ю"))
+	message = replacetextEx_char(message,"А",pick("Å","Ä","А"))
+	message = replacetextEx_char(message,"а",pick("å","ä","а"))
 
-	message = replacetextEx_char(message,"Е",pick("Е","Э"))
-	message = replacetextEx_char(message,"е",pick("е","э"))
+	message = replacetextEx_char(message,"О",pick("Ö","Ø","О"))
+	message = replacetextEx_char(message,"о",pick("ö","ø","о"))
 
-	message = replacetextEx_char(message,"В",pick("Ф","В"))
-	message = replacetextEx_char(message,"в",pick("ф","в"))
+	message = replacetextEx_char(message," и ",pick(" & "," и "))
+	message = replacetextEx_char(message," И ",pick(" & "," и "))
 
-	message = replacetextEx_char(message,"Т",pick("Д","Т"))
-	message = replacetextEx_char(message,"т",pick("д","т"))
+	message = replacetextEx_char(message,"АЕ","Æ")
+	message = replacetextEx_char(message,"ае","æ")
 
-	message = replacetextEx_char(message,"Д",pick("Д","Т"))
-	message = replacetextEx_char(message,"д",pick("д","т"))
+	message = replacetextEx_char(message,"ОЕ","Œ")
+	message = replacetextEx_char(message,"ое","œ")
 
-	message = replacetextEx_char(message,"З",pick("Ж","З"))
-	message = replacetextEx_char(message,"з",pick("ж","з"))
+	message = replacetextEx_char(message,"АУ","Ꜽ")
+	message = replacetextEx_char(message,"ау","ꜽ")
 
-	message = replacetextEx_char(message,"С",pick("Ш","Щ","Ж","С"))
-	message = replacetextEx_char(message,"с",pick("ш","щ","ж","с"))
+	message = replacetextEx_char(message,"ОО","Ꝏ")
+	message = replacetextEx_char(message,"оо","ꝏ")
 
-	message = replacetextEx_char(message,"Ш",pick("Ш","Щ","Ж","С"))
-	message = replacetextEx_char(message,"ш",pick("ш","щ","ж","с"))
-
-	message = replacetextEx_char(message,"Щ",pick("Ш","Щ","Ж","С"))
-	message = replacetextEx_char(message,"щ",pick("ш","щ","ж","с"))
-
-	message = replacetextEx_char(message,"Ж",pick("Ш","Щ","Ж","С"))
-	message = replacetextEx_char(message,"ж",pick("ш","щ","ж","с"))
-
-	message = replacetextEx_char(message,"Ч",pick("Ш","Щ","Ч"))
-	message = replacetextEx_char(message,"ч",pick("ш","щ","ч"))
-
-	if(prob(10) && !M.is_muzzled())
-		message += " Борк[pick("",", борк",", борк, борк")]!"
+	if(prob(30) && !M.is_muzzled())
+		message += " Bork[pick("",", bork",", bork, bork")]!"
 	return message
 
 // WAS: /datum/bioEffect/unintelligable
