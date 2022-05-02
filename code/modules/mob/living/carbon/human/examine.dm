@@ -48,28 +48,30 @@
 
 	// All the things wielded/worn that can be reasonably described with a common template:
 	var/list/message_parts = list(
-		list("[p_are()] holding", l_hand, "in", "left hand", null),
-		list("[p_are()] holding", r_hand, "in", "right hand", null),
-		list("[p_are()] wearing", head, "on", "head", null),
+		list("[p_are()] holding", l_hand, "in", "left hand"),
+		list("[p_are()] holding", r_hand, "in", "right hand"),
+		list("[p_are()] wearing", head, "on", "head"),
 		list("[p_are()] wearing", !skipjumpsuit && w_uniform, null, null, length(w_uniform.accessories) && "[english_accessory_list(w_uniform)]"),
-		list("[p_are()] wearing", wear_suit, null, null, null),
-		list("[p_are()] carrying", !skipsuitstorage && s_store, "on", wear_suit && wear_suit.name, null),
-		list("[p_have()]", back, "on", "back", null),
-		list("[p_have()]", !skipgloves && gloves, "on", "hands", null),
-		list("[p_have()]", belt, "about", "waist", null),
-		list("[p_are()] wearing", !skipshoes && shoes, "on", "feet", null),
-		list("[p_have()]", !skipmask && wear_mask, "on", "face", null),
-		list("[p_have()]", glasses, "covering", "eyes", null),
-		list("[p_have()]", !skipears && l_ear, "on", "left ear", null),
-		list("[p_have()]", !skipears && r_ear, "on", "right ear", null),
-		list("[p_are()] wearing", wear_id, null, null, null),
+		list("[p_are()] wearing", wear_suit, null, null),
+		list("[p_are()] carrying", !skipsuitstorage && s_store, "on", wear_suit && wear_suit.name),
+		list("[p_have()]", back, "on", "back"),
+		list("[p_have()]", !skipgloves && gloves, "on", "hands"),
+		list("[p_have()]", belt, "about", "waist"),
+		list("[p_are()] wearing", !skipshoes && shoes, "on", "feet"),
+		list("[p_have()]", !skipmask && wear_mask, "on", "face"),
+		list("[p_have()]", glasses, "covering", "eyes"),
+		list("[p_have()]", !skipears && l_ear, "on", "left ear"),
+		list("[p_have()]", !skipears && r_ear, "on", "right ear"),
+		list("[p_are()] wearing", wear_id, null, null),
 	)
 	for(var/parts in message_parts)
 		var/action = parts[1]
 		var/obj/item/item = parts[2]
 		var/preposition = parts[3]
 		var/limb_name = parts[4]
-		var/accessories = parts[5]
+		var/accessories = null
+		if(length(parts) >= 5)
+			accessories = parts[5]
 
 		if(item && !(item.flags & ABSTRACT))
 			var/item_words = item.name
