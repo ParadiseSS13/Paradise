@@ -123,6 +123,11 @@
 	typepath = /obj/item/clothing/gloves/color/black/krav_maga/sec
 	protected_jobs = list("Head Of Security", "Warden")
 
+/datum/theft_objective/unica
+	name = "Unica 6 auto-revolver"
+	typepath = /obj/item/gun/projectile/revolver/mateba
+	protected_jobs = list("Head Of Security")
+
 /datum/theft_objective/number
 	var/min=0
 	var/max=0
