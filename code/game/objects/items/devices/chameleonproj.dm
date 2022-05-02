@@ -48,9 +48,7 @@
 			saved_underlays = target.underlays
 
 /obj/item/chameleon/proc/check_sprite(atom/target)
-	if(target.icon_state in icon_states(target.icon))
-		return TRUE
-	return FALSE
+	return (target.icon_state in icon_states(target.icon))
 
 /obj/item/chameleon/proc/toggle()
 	if(!can_use || !saved_item)
@@ -119,12 +117,12 @@
 
 /obj/effect/dummy/chameleon/attackby()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your chameleon projector deactivates.</span>")
+		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/attack_hand()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your chameleon projector deactivates.</span>")
+		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/attack_animal()
@@ -138,14 +136,14 @@
 
 /obj/effect/dummy/chameleon/ex_act(severity) //no longer bomb-proof
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your chameleon projector deactivates.</span>")
+		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
 		spawn()
 			M.ex_act(severity)
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/bullet_act()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your chameleon projector deactivates.</span>")
+		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
 	..()
 	master.disrupt()
 
