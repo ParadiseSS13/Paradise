@@ -106,7 +106,7 @@ const AirStatus = (props, context) => {
               fractionDigits="1"
               color={Danger2Colour(air.danger.plasma)} />
           </LabeledList.Item>
-          {air.contents.other > 0 && (
+          {air.contents.other > 0.1 && (
             <LabeledList.Item label="Other">
               <ProgressBar
                 value={air.contents.other / 100}
