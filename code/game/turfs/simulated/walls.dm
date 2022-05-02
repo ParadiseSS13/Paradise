@@ -51,7 +51,7 @@
 	. = ..()
 
 //Appearance
-/turf/simulated/wall/examine(mob/user)
+/turf/simulated/wall/examine(mob/user) // If you change this, consider changing the examine_status proc of false walls to match
 	. = ..()
 
 	if(!damage)
