@@ -149,7 +149,7 @@
 				/obj/item/dnascrambler = 1,
 				/obj/item/storage/backpack/satchel_flat = 2,
 				/obj/item/storage/toolbox/syndicate = 2,
-				/obj/item/storage/backpack/duffel/syndie/surgery_fake = 2,
+				/obj/item/storage/backpack/duffel/syndie/med/surgery_fake = 2,
 				/obj/item/storage/belt/military/traitor = 2,
 				/obj/item/storage/box/syndie_kit/space = 2,
 				/obj/item/multitool/ai_detect = 2,
