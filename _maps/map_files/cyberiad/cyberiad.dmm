@@ -5376,7 +5376,6 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/solar{
-	id = "portsolar";
 	name = "Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -5389,7 +5388,6 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/solar{
-	id = "portsolar";
 	name = "Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -6591,7 +6589,6 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/solar{
-	id = "auxsolareast";
 	name = "Port Auxiliary Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -7485,7 +7482,6 @@
 "atF" = (
 /obj/structure/cable,
 /obj/machinery/power/solar{
-	id = "auxsolareast";
 	name = "Port Auxiliary Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -12317,7 +12313,6 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/solar_control{
-	id = "auxsolareast";
 	name = "Fore Port Solar Control"
 	},
 /turf/simulated/floor/plating,
@@ -13781,7 +13776,6 @@
 	pixel_y = 32
 	},
 /obj/machinery/power/solar_control{
-	id = "auxsolareast";
 	name = "Fore Starboard Solar Control"
 	},
 /turf/simulated/floor/plating,
@@ -17380,7 +17374,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aPL" = (
-/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -17542,7 +17535,6 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -17944,7 +17936,6 @@
 /area/maintenance/electrical)
 "aQZ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -17986,7 +17977,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -18488,7 +18478,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -19874,7 +19863,6 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -21350,7 +21338,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/effect/landmark/spawner/late/cryo,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -25348,7 +25335,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -25361,7 +25347,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/landmark/spawner/late/gateway,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -30695,14 +30680,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
-"bsy" = (
-/obj/effect/landmark{
-	icon = 'icons/effects/spawner_icons.dmi';
-	icon_state = "mech";
-	name = "Marauder Entry"
-	},
-/turf/simulated/floor/plasteel,
-/area/bridge)
 "bsz" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -30714,19 +30691,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/bridge)
-"bsA" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/landmark{
-	icon = 'icons/effects/spawner_icons.dmi';
-	icon_state = "mech";
-	name = "Marauder Entry"
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
@@ -31972,11 +31936,6 @@
 	icon_state = "4-8"
 	},
 /obj/item/radio/beacon,
-/obj/effect/landmark{
-	icon = 'icons/effects/spawner_icons.dmi';
-	icon_state = "mech";
-	name = "Marauder Entry"
-	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "bvD" = (
@@ -66533,7 +66492,6 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/solar{
-	id = "portsolar";
 	name = "Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -66600,7 +66558,6 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/solar{
-	id = "portsolar";
 	name = "Port Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -70021,7 +69978,6 @@
 /obj/structure/cable,
 /obj/machinery/power/solar_control{
 	dir = 4;
-	id = "portsolar";
 	name = "Aft Port Solar Control"
 	},
 /turf/simulated/floor/plating,
@@ -74111,7 +74067,6 @@
 	},
 /obj/machinery/power/solar_control{
 	dir = 1;
-	id = "starboardsolar";
 	name = "Aft Starboard Solar Control"
 	},
 /turf/simulated/floor/plating,
@@ -76253,7 +76208,6 @@
 	pixel_y = 30
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/effect/landmark/spawner/late/cyborg,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluecorners"
@@ -77869,7 +77823,6 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "dnW" = (
-/obj/structure/closet/emcloset,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
@@ -77934,6 +77887,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "doc" = (
@@ -77976,7 +77930,6 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/solar{
-	id = "starboardsolar";
 	name = "Starboard Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -78159,7 +78112,6 @@
 "doG" = (
 /obj/structure/cable,
 /obj/machinery/power/solar{
-	id = "starboardsolar";
 	name = "Starboard Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -111032,7 +110984,7 @@ blY
 bnW
 bpt
 bqS
-bsy
+bqS
 bxA
 bvX
 bxo
@@ -111546,7 +111498,7 @@ kwt
 bnY
 bpu
 bqU
-bsA
+bsF
 bxD
 bvX
 bxq
@@ -112060,7 +112012,7 @@ kwt
 boa
 bpw
 bqV
-bsA
+bsF
 bxO
 bvX
 bxt

@@ -639,9 +639,6 @@ Class Procs:
 /obj/machinery/proc/on_deconstruction()
 	return
 
-/obj/machinery/proc/can_be_overridden()
-	. = 1
-
 /obj/machinery/zap_act(power, zap_flags)
 	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
 		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE)
