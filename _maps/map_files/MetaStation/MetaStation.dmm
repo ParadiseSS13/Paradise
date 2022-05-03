@@ -28814,9 +28814,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
-	})
+/area/maintenance/maintcentral)
 "bDm" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/stripes/line,
@@ -120518,14 +120516,14 @@ bbh
 bcM
 bel
 bfO
-bht
-bht
+bhq
+bhq
 bkO
-bht
-bht
+bhq
+bhq
 bht
 brS
-bje
+bqc
 bya
 bym
 thC
@@ -120782,7 +120780,7 @@ bmF
 boy
 btP
 brT
-bje
+bqc
 byu
 bym
 bzX
@@ -121039,7 +121037,7 @@ bpU
 boz
 bqe
 buB
-bje
+bqc
 bye
 bym
 bym
@@ -121296,7 +121294,7 @@ bje
 bje
 bht
 bvn
-bje
+bqc
 byv
 aLy
 bym
