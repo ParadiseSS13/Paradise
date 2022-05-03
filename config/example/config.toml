@@ -781,6 +781,8 @@ donations_url = "https://www.patreon.com/ParadiseStation"
 ban_appeals_url = "https://www.paradisestation.org/forum/55-unban-requests/"
 # URL for the CentComm ban DB. Doesnt change much. Ckey is slapped on the end
 centcomm_ban_db_url = "https://centcom.melonmesa.com/ban/search/"
+# URL for the game stats page, if applicable. Round ID is appended right on the end. Include a trailing slash if necessary.
+#round_stats_url = "https://affectedarc07.github.io/ParaStats/#/round/"
 
 
 ################################################################

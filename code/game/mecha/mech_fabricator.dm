@@ -25,6 +25,8 @@
 	var/list/categories = null
 	/// Unused. Ensures backwards compatibility with some maps.
 	var/id = null
+	/// Defines what direction this thing spits out it's produced parts
+	var/output_dir = SOUTH
 	// Variables
 	/// Production time multiplier. A lower value means faster production. Updated by [CheckParts()][/atom/proc/CheckParts].
 	var/time_coeff = 1
@@ -87,6 +89,15 @@
 	materials.retrieve_all()
 	QDEL_NULL(local_designs)
 	return ..()
+
+/obj/machinery/mecha_part_fabricator/multitool_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!I.tool_start_check(src, user, 0))
+		return
+	output_dir = turn(output_dir, -90)
+	to_chat(user, "<span class='notice'>You change [src] to output to the [dir2text(output_dir)].</span>")
 
 /obj/machinery/mecha_part_fabricator/RefreshParts()
 	var/coef_mats = 0
@@ -196,12 +207,12 @@
   */
 /obj/machinery/mecha_part_fabricator/proc/build_design_timer_finish(datum/design/D, list/final_cost)
 	// Spawn the item (in a lockbox if restricted) OR mob (e.g. IRC body)
-	var/atom/A = new D.build_path(get_step(src, SOUTH))
+	var/atom/A = new D.build_path(get_step(src, output_dir))
 	if(istype(A, /obj/item))
 		var/obj/item/I = A
 		I.materials = final_cost
 		if(D.locked)
-			var/obj/item/storage/lockbox/research/large/L = new(get_step(src, SOUTH))
+			var/obj/item/storage/lockbox/research/large/L = new(get_step(src, output_dir))
 			I.forceMove(L)
 			L.name += " ([I.name])"
 			L.origin_tech = I.origin_tech

@@ -7,7 +7,6 @@
 	var/be_random_name = FALSE				//whether we are a random name every round
 	var/gender = MALE						//gender of character (well duh)
 	var/age = 30							//age of character
-	var/spawnpoint = "Arrivals Shuttle" 	//where this character will spawn (0-2).
 	var/b_type = "A+"						//blood type (not-chooseable)
 	var/underwear = "Nude"					//underwear type
 	var/undershirt = "Nude"					//undershirt type
