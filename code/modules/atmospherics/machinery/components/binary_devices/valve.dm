@@ -69,7 +69,7 @@
 		close()
 	else
 		open()
-	to_chat(user, "<span class='notice'>You [open?"open":"close"] [src]</span>")
+	to_chat(user, "<span class='notice'>You [open ? "open" : "close"] [src].</span>")
 
 /obj/machinery/atmospherics/binary/valve/digital		// can be controlled by AI
 	name = "digital valve"
