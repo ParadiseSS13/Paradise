@@ -5882,8 +5882,7 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+	icon_state = "white"
 	},
 /area/medical/medbay3)
 "aAw" = (
@@ -52067,7 +52066,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluecorner"
+	dir = 4;
+	icon_state = "whiteblue"
 	},
 /area/medical/medbay3)
 "cRO" = (
@@ -81296,7 +81296,7 @@
 	c_tag = "Medbay Main Hallway- Surgical Junction"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluecorner"
+	icon_state = "white"
 	},
 /area/medical/medbay3)
 "qdr" = (
@@ -85524,13 +85524,6 @@
 	icon_state = "dark"
 	},
 /area/security/main)
-"skU" = (
-/obj/effect/turf_decal/stripes/white/line,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner"
-	},
-/area/medical/medbay3)
 "sln" = (
 /obj/machinery/door/poddoor/preopen{
 	name = "Space Shutters";
@@ -119752,10 +119745,10 @@ cRL
 daP
 qdp
 aAp
-cRL
+cfF
 cRM
-cwq
-skU
+cRL
+czJ
 cCa
 los
 daP
