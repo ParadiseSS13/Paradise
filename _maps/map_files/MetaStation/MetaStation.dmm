@@ -74,7 +74,6 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
 "abW" = (
@@ -289,9 +288,18 @@
 	},
 /area/medical/cmostore)
 "adP" = (
-/obj/effect/landmark/burnturf,
-/turf/simulated/floor/plating/airless,
-/area/solar/auxstarboard)
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "adS" = (
 /turf/simulated/wall,
 /area/crew_quarters/dorms)
@@ -995,11 +1003,6 @@
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/stripes/corner,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -24
@@ -3202,7 +3205,6 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/effect/landmark/damageturf,
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
@@ -3941,9 +3943,13 @@
 /turf/space,
 /area/space/nearstation)
 "auq" = (
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating/airless,
-/area/solar/port)
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/break_room)
 "aus" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -4528,6 +4534,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "awf" = (
@@ -21346,7 +21353,6 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/landmark/damageturf,
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
@@ -42966,7 +42972,6 @@
 /obj/item/solar_assembly,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/cable_coil,
-/obj/effect/landmark/damageturf,
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
@@ -50744,7 +50749,6 @@
 /area/toxins/explab)
 "cNv" = (
 /obj/machinery/power/smes,
-/obj/effect/landmark/damageturf,
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
@@ -50988,15 +50992,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
 "cOc" = (
-/obj/structure/cable/yellow,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -24
+	},
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -54828,13 +54830,11 @@
 	},
 /area/medical/medbay3)
 "daQ" = (
-/obj/effect/landmark/burnturf,
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating/airless,
-/area/solar/port)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "daR" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -73250,6 +73250,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -80420,9 +80425,9 @@
 	dir = 5
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
@@ -88770,7 +88775,6 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "tVa" = (
-/obj/effect/landmark/damageturf,
 /obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-2"
@@ -110509,7 +110513,7 @@ aaa
 aaa
 abq
 aaa
-auq
+lio
 aaa
 aaa
 aaa
@@ -111537,7 +111541,7 @@ aaa
 aaa
 abq
 aaa
-auq
+lio
 aaa
 aaa
 aaa
@@ -112308,7 +112312,7 @@ aaa
 aaa
 abq
 atj
-daQ
+emm
 atj
 atj
 atj
@@ -115803,7 +115807,7 @@ akx
 alw
 apH
 xgb
-adY
+bmq
 bmr
 rcI
 adY
@@ -123083,7 +123087,7 @@ pVQ
 hpa
 pVQ
 pVQ
-pVQ
+daQ
 hPi
 abU
 wkm
@@ -133879,7 +133883,7 @@ xXD
 sdj
 bdN
 csa
-cEN
+bPl
 cOc
 cPc
 cPc
@@ -134136,8 +134140,8 @@ qbl
 cPf
 bdN
 hrM
-emj
 cEN
+adP
 cJk
 cGs
 emj
@@ -139482,7 +139486,7 @@ qgn
 qgn
 wUa
 xrx
-bpn
+auq
 lQJ
 gYM
 hHE
@@ -140973,7 +140977,7 @@ cya
 acx
 acx
 adj
-adP
+agH
 agH
 agH
 agH
