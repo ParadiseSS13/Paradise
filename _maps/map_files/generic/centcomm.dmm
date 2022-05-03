@@ -8655,12 +8655,6 @@
 /area/admin)
 "HB" = (
 /obj/structure/closet/secure_closet/guncabinet,
-/obj/item/ammo_box/shotgun/beanbag,
-/obj/item/ammo_box/shotgun/beanbag,
-/obj/item/ammo_box/shotgun/beanbag,
-/obj/item/gun/projectile/shotgun/automatic/combat,
-/obj/item/gun/projectile/shotgun/automatic/combat,
-/obj/item/gun/projectile/shotgun/automatic/combat,
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
@@ -8668,6 +8662,12 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/gun/projectile/shotgun/automatic/combat,
+/obj/item/gun/projectile/shotgun/automatic/combat,
+/obj/item/gun/projectile/shotgun/automatic/combat,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "HC" = (
@@ -8703,15 +8703,15 @@
 /area/shuttle/gamma/space)
 "HM" = (
 /obj/structure/closet/secure_closet/guncabinet,
-/obj/item/gun/energy/ionrifle,
-/obj/item/gun/energy/ionrifle,
-/obj/item/gun/energy/ionrifle,
 /obj/machinery/light/spot{
 	dir = 4
 	},
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
+/obj/item/gun/energy/immolator/multi,
+/obj/item/gun/energy/immolator/multi,
+/obj/item/gun/energy/immolator/multi,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "HO" = (
@@ -9266,6 +9266,8 @@
 /obj/machinery/autolathe/upgraded/gamma,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "JN" = (
@@ -9301,6 +9303,7 @@
 /area/tdome/tdomeobserve)
 "JR" = (
 /obj/structure/closet/secure_closet/guncabinet,
+/obj/item/gun/medbeam,
 /obj/item/gun/medbeam,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
@@ -11738,8 +11741,7 @@
 /area/holodeck/source_knightarena)
 "TR" = (
 /obj/machinery/door/airlock/centcom{
-	name = "Special Operations Dock";
-	req_access_txt = "101"
+	name = "Special Operations Dock"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -24831,7 +24833,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -25602,7 +25604,7 @@ Db
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -25859,7 +25861,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -26630,7 +26632,7 @@ aN
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -26887,7 +26889,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -27658,7 +27660,7 @@ aN
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -28172,7 +28174,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -28943,7 +28945,7 @@ aN
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -29200,7 +29202,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -29971,7 +29973,7 @@ aN
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -30228,7 +30230,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -30999,7 +31001,7 @@ Db
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
