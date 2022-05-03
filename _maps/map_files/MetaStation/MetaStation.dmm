@@ -14743,10 +14743,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/structure/extinguisher_cabinet{
-	name = "south bump";
-	pixel_y = -30
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16049,13 +16045,12 @@
 	},
 /area/hallway/primary/central)
 "bbo" = (
-/obj/structure/sign/double/map/left{
-	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
-	icon_state = "map-left-MS";
-	pixel_y = 32
-	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16063,11 +16058,6 @@
 	},
 /area/hallway/primary/central)
 "bbp" = (
-/obj/structure/sign/double/map/right{
-	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
-	icon_state = "map-right-MS";
-	pixel_y = 32
-	},
 /obj/machinery/camera{
 	c_tag = "Central Primary Hallway - Fore"
 	},
@@ -16097,13 +16087,14 @@
 	},
 /area/hallway/primary/central)
 "bbt" = (
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
+/obj/machinery/alarm{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redcorner"
+	dir = 1;
+	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
 "bbv" = (
@@ -17519,12 +17510,13 @@
 /turf/simulated/wall/r_wall,
 /area/storage/tech)
 "beD" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/structure/sign/double/map/right{
+	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
+	icon_state = "map-right-MS";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -17585,9 +17577,10 @@
 	},
 /area/storage/tech)
 "beH" = (
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+/obj/structure/sign/double/map/left{
+	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
+	icon_state = "map-left-MS";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -17741,6 +17734,10 @@
 	},
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-16"
+	},
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -34592,7 +34589,7 @@
 "bTe" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical{
-	name = Paramedic's Office
+	name = "Paramedic's Office"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -34861,14 +34858,19 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "bTH" = (
-/obj/machinery/newscaster{
-	name = "south bump";
-	pixel_y = -32
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_y = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/sign/directions/bridge{
+	pixel_y = -8;
+	dir = 8
 	},
-/area/crew_quarters/courtroom)
+/obj/structure/sign/directions/engineering{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/maintenance/maintcentral)
 "bTL" = (
 /obj/structure/table/wood,
 /obj/machinery/light{
@@ -38418,18 +38420,18 @@
 /turf/space,
 /area/solar/auxport)
 "ccU" = (
-/obj/machinery/alarm{
+/obj/structure/sign/directions/security{
 	dir = 1;
-	name = "south bump";
-	pixel_y = -24
+	pixel_y = 8
 	},
-/obj/structure/disposalpipe/segment{
+/obj/structure/sign/directions/engineering{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
+/obj/structure/sign/directions/bridge{
+	pixel_y = -8
 	},
-/area/hallway/primary/central)
+/turf/simulated/wall/r_wall,
+/area/hallway/primary/fore)
 "ccW" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -46109,6 +46111,9 @@
 /area/medical/virology)
 "czF" = (
 /obj/machinery/door/firedoor,
+/obj/structure/sign/directions/evac{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -55398,32 +55403,21 @@
 /turf/simulated/wall,
 /area/library)
 "deE" = (
-/obj/structure/sign/directions/medical{
-	dir = 4;
-	pixel_y = 8
+/obj/structure/sign/poster/random{
+	pixel_x = -32
 	},
-/obj/structure/sign/directions/evac{
-	dir = 4
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
 	},
-/obj/structure/sign/directions/science{
-	dir = 4;
-	pixel_y = -8
-	},
-/turf/simulated/wall/r_wall,
-/area/ai_monitored/storage/eva{
-	name = "E.V.A. Storage"
-	})
+/area/hallway/primary/central)
 "deF" = (
-/obj/structure/sign/directions/medical{
-	dir = 8;
-	pixel_y = 8
-	},
-/obj/structure/sign/directions/evac{
-	dir = 8
-	},
 /obj/structure/sign/directions/science{
-	dir = 8;
 	pixel_y = -8
+	},
+/obj/structure/sign/directions/evac,
+/obj/structure/sign/directions/medical{
+	pixel_y = 8
 	},
 /turf/simulated/wall,
 /area/maintenance/maintcentral)
@@ -69212,8 +69206,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "kaK" = (
-/turf/simulated/floor/plating/airless,
-/area/maintenance/spacehut)
+/obj/structure/sign/directions/medical{
+	pixel_y = 8
+	},
+/obj/structure/sign/directions/evac,
+/obj/structure/sign/directions/science{
+	pixel_y = -8
+	},
+/turf/simulated/wall,
+/area/crew_quarters/courtroom)
 "kaZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -78928,6 +78929,18 @@
 	icon_state = "C1"
 	},
 /area/hallway/primary/central)
+"oYS" = (
+/obj/structure/sign/directions/medical{
+	pixel_y = 8
+	},
+/obj/structure/sign/directions/evac,
+/obj/structure/sign/directions/science{
+	pixel_y = -8
+	},
+/turf/simulated/wall/r_wall,
+/area/ai_monitored/storage/eva{
+	name = "E.V.A. Storage"
+	})
 "oZX" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -79939,12 +79952,21 @@
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
 "pEP" = (
-/obj/effect/spawner/window,
-/obj/structure/sign/directions/bridge{
-	pixel_y = -8
+/obj/structure/sign/directions/security{
+	pixel_y = 8;
+	dir = 1
 	},
-/turf/simulated/floor/plating,
-/area/medical/research)
+/obj/structure/sign/directions/engineering{
+	dir = 4
+	},
+/obj/structure/sign/directions/bridge{
+	pixel_y = -8;
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/bridge/meeting_room{
+	name = "\improper Command Hallway"
+	})
 "pET" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -108051,7 +108073,7 @@ aaa
 aaa
 aaa
 aaa
-kaK
+arA
 wKV
 ckO
 cIn
@@ -119327,9 +119349,10 @@ bzS
 bqc
 bqc
 bFB
-bFB
+pEP
 bJe
 bKN
+oYS
 bMS
 bMS
 bMS
@@ -119338,7 +119361,6 @@ bMS
 bMS
 bMS
 bMS
-deE
 bMR
 bek
 bnl
@@ -123163,7 +123185,7 @@ aMf
 aMf
 aMf
 aKo
-aMf
+ccU
 bbp
 fJp
 jtg
@@ -124181,7 +124203,7 @@ aqu
 aKL
 aJk
 aNt
-aMk
+aZS
 aMk
 aMk
 toL
@@ -124191,8 +124213,8 @@ aMk
 aYA
 aXb
 aYA
-aZS
-bbt
+kaK
+bbs
 lDm
 fHQ
 bfV
@@ -124230,7 +124252,7 @@ cfr
 cft
 cib
 bCG
-pEP
+cHM
 cIu
 cIu
 cIu
@@ -124447,7 +124469,7 @@ kQx
 aMk
 aVD
 aNC
-bTH
+aNC
 aMk
 beH
 oPf
@@ -128065,18 +128087,18 @@ bht
 bht
 bht
 bht
-bht
+bTH
 bJD
 bLr
-bht
-bht
-bht
-bht
-bht
-bht
-bht
-bht
 deF
+bht
+bht
+bht
+bht
+bht
+bht
+bht
+bht
 bNp
 cXn
 bqR
@@ -128318,10 +128340,10 @@ bvs
 bjm
 mdE
 byF
+bfV
 bCB
-bfV
 bEp
-bfV
+deE
 bHL
 bcN
 bLs
@@ -128333,10 +128355,10 @@ bTW
 bVn
 bXP
 bYr
-bNp
+bbt
 bNp
 bek
-ccU
+bfK
 cte
 cte
 cte
