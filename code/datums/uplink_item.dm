@@ -721,7 +721,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Bulldog - 12g Ammo Duffel Bag"
 	desc = "A duffel bag filled with enough 12g ammo to supply an entire team, at a discounted price."
 	reference = "12ADB"
-	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgun
+	item = /obj/item/storage/backpack/duffel/syndie/shotgun
 	cost = 12 // normally 18
 	gamemodes = list(/datum/game_mode/nuclear)
 
@@ -729,7 +729,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Bulldog - 12g XL Magazine Duffel Bag"
 	desc = "A duffel bag containing three 16 round drum magazines(Slug, Buckshot, Dragon's Breath)."
 	reference = "12XLDB"
-	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
+	item = /obj/item/storage/backpack/duffel/syndie/shotgunXLmags
 	cost = 12 // normally 18
 	gamemodes = list(/datum/game_mode/nuclear)
 
@@ -745,7 +745,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "C-20r - .45 Ammo Duffel Bag"
 	desc = "A duffel bag filled with enough .45 ammo to supply an entire team, at a discounted price."
 	reference = "45ADB"
-	item = /obj/item/storage/backpack/duffel/syndie/ammo/smg
+	item = /obj/item/storage/backpack/duffel/syndie/smg
 	cost = 14 // normally 20
 	gamemodes = list(/datum/game_mode/nuclear)
 
@@ -1324,7 +1324,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Surgery Duffelbag"
 	desc = "The Syndicate surgery duffelbag comes with a full set of surgery tools, a straightjacket and a muzzle. The bag itself is also made of very light materials and won't slow you down while it is equipped."
 	reference = "SSDB"
-	item = /obj/item/storage/backpack/duffel/syndie/surgery
+	item = /obj/item/storage/backpack/duffel/syndie/med/surgery
 	cost = 2
 
 /datum/uplink_item/device_tools/bonerepair
