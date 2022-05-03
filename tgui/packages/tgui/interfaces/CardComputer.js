@@ -236,15 +236,6 @@ export const CardComputer = (props, context) => {
                       onClick={() => act("assign", { assign_target: v })} />
                   ))}
                 </LabeledList.Item>
-                <LabeledList.Item label="Restricted">
-                  {data.jobs_karma.map(v => (
-                    <Button
-                      selected={v === data.modify_rank}
-                      color={data.jobFormats[v] ? data.jobFormats[v] : ""}
-                      key={v} content={v}
-                      onClick={() => act("assign", { assign_target: v })} />
-                  ))}
-                </LabeledList.Item>
                 {!!data.iscentcom && (
                   <LabeledList.Item label="CentCom" labelColor={deptCols.centcom}>
                     {data.jobs_centcom.map(v => (
