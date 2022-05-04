@@ -44,26 +44,30 @@ FIRE ALARM
 	show_alert_level = FALSE
 
 /obj/machinery/firealarm/update_icon()
-
+	underlays.Cut()
+	if(light)
+		if(overlays)
+			underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
+		if(!wiresexposed)
+			underlays += emissive_appearance(icon, "firealarm_lightmask")
 	if(wiresexposed)
 		switch(buildstage)
 			if(2)
-				icon_state="fire_b2"
+				icon_state="firealarm_b2"
 			if(1)
-				icon_state="fire_b1"
+				icon_state="firealarm_b1"
 			if(0)
-				icon_state="fire_b0"
-
+				icon_state="firealarm_b0"
 		return
-
+	
 	if(stat & BROKEN)
-		icon_state = "firex"
+		icon_state = "firealarm_broken"
 	else if(stat & NOPOWER)
-		icon_state = "firep"
+		icon_state = "firealarm_off"
 	else if(!detecting)
-		icon_state = "fire1"
+		icon_state = "firealarm_detect"
 	else
-		icon_state = "fire0"
+		icon_state = "firealarm_on"
 
 /obj/machinery/firealarm/emag_act(mob/user)
 	if(!emagged)
