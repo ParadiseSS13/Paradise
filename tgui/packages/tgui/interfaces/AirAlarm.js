@@ -85,27 +85,32 @@ const AirStatus = (props, context) => {
           <LabeledList.Item label="Oxygen">
             <ProgressBar
               value={air.contents.oxygen / 100}
+              fractionDigits="1"
               color={Danger2Colour(air.danger.oxygen)} />
           </LabeledList.Item>
           <LabeledList.Item label="Nitrogen">
             <ProgressBar
               value={air.contents.nitrogen / 100}
+              fractionDigits="1"
               color={Danger2Colour(air.danger.nitrogen)} />
           </LabeledList.Item>
           <LabeledList.Item label="Carbon Dioxide">
             <ProgressBar
               value={air.contents.co2 / 100}
+              fractionDigits="1"
               color={Danger2Colour(air.danger.co2)} />
           </LabeledList.Item>
           <LabeledList.Item label="Toxins">
             <ProgressBar
               value={air.contents.plasma / 100}
+              fractionDigits="1"
               color={Danger2Colour(air.danger.plasma)} />
           </LabeledList.Item>
-          {air.contents.other > 0 && (
+          {air.contents.other > 0.1 && (
             <LabeledList.Item label="Other">
               <ProgressBar
                 value={air.contents.other / 100}
+                fractionDigits="1"
                 color={Danger2Colour(air.danger.other)} />
             </LabeledList.Item>
           )}
