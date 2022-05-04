@@ -24805,7 +24805,6 @@
 	name = "Delivery Desk";
 	req_access_txt = "50"
 	},
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "buw" = (
@@ -26981,6 +26980,7 @@
 	name = "Captain's Junction";
 	sortType = 18
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
 "byI" = (
