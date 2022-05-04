@@ -140,3 +140,9 @@
 		return FALSE
 	var/obj/item/organ/external/E = I
 	return istype(E.dna.species, /datum/species/vox)
+
+/obj/machinery/cooker/deepfryer/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_unfasten_wrench(user, I, 30)
