@@ -122,10 +122,11 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			return "delta"
 
 /proc/update_firealarms()
+	var/security_level = get_security_level()
 	for(var/obj/machinery/firealarm/FA in GLOB.machines)
 		if(is_station_contact(FA.z))
 			FA.cut_overlays()
-			FA.add_overlay("overlay_[get_security_level()]")
+			FA.add_overlay("overlay_[security_level]")
 
 /proc/num2seclevel(num)
 	switch(num)
