@@ -146,7 +146,6 @@
 		trigger.forceMove(src)
 		trigger.master = src
 		trigger.holder = src
-		AddComponent(/datum/component/proximity_monitor)
 		to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
 		return TRUE
 	else if(istype(W, /obj/item/assembly))
@@ -166,7 +165,6 @@
 	trigger.master = null
 	trigger.holder = null
 	trigger = null
-	qdel(GetComponent(/datum/component/proximity_monitor))
 
 /obj/item/clothing/mask/muzzle/safety/shock/proc/can_shock(obj/item/clothing/C)
 	if(istype(C))
@@ -187,10 +185,6 @@
 		M.Stuttering(1)
 		M.Jitter(20)
 	return
-
-/obj/item/clothing/mask/muzzle/safety/shock/HasProximity(atom/movable/AM)
-	if(trigger)
-		trigger.HasProximity(AM)
 
 
 /obj/item/clothing/mask/muzzle/safety/shock/hear_talk(mob/living/M as mob, list/message_pieces)

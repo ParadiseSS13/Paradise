@@ -511,3 +511,5 @@
 	if(istype(I, /datum/mind))
 		var/datum/mind/B = I
 		return B.current.client
+
+#define SERVER_MESSAGES_REDIS_CHANNEL "byond.servermessages"
