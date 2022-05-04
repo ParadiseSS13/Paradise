@@ -51,13 +51,7 @@ FIRE ALARM
 		if(!wiresexposed)
 			underlays += emissive_appearance(icon, "firealarm_lightmask")
 	if(wiresexposed)
-		switch(buildstage)
-			if(2)
-				icon_state="firealarm_b2"
-			if(1)
-				icon_state="firealarm_b1"
-			if(0)
-				icon_state="firealarm_b0"
+		icon_state = "firealarm_b[buildstage]"
 		return
 	
 	if(stat & BROKEN)
