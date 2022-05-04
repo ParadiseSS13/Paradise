@@ -217,4 +217,4 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				continue
 			L.fire_mode = TRUE
 			L.update()
-		update_firealarms()
+	update_firealarms()
