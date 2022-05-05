@@ -1291,13 +1291,6 @@
 	icon_state = "red"
 	},
 /area/security/main)
-"afJ" = (
-/obj/structure/rack{
-	dir = 1
-	},
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "afK" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -19865,9 +19858,7 @@
 	c_tag = "Dormitories East";
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "aVx" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -22531,7 +22522,7 @@
 	c_tag = "Dormitories West"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 1;
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/dorms)
@@ -131648,7 +131639,7 @@ csP
 ctI
 cvc
 cgs
-afJ
+ctF
 dia
 cAP
 cCi

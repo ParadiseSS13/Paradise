@@ -25894,8 +25894,7 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central)
 "bou" = (
@@ -80249,15 +80248,6 @@
 	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
-/area/crew_quarters/theatre)
-"dzr" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
 /area/crew_quarters/theatre)
 "dzv" = (
 /obj/item/target,
