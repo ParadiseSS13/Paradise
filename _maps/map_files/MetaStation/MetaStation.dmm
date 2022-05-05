@@ -8341,14 +8341,10 @@
 	req_access = null;
 	req_one_access_txt = "1;4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/main)
 "avl" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/main)
 "avm" = (
 /obj/item/phone{
@@ -8366,9 +8362,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/main)
 "avn" = (
 /obj/item/trash/syndi_cakes,
@@ -8945,9 +8939,7 @@
 	name = "custom placement";
 	pixel_y = -28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/main)
 "awH" = (
 /obj/machinery/computer/secure_data{
@@ -9402,9 +9394,7 @@
 	network = list("interrogation");
 	pixel_y = -30
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/main)
 "axB" = (
 /obj/structure/cable/yellow{
@@ -12275,9 +12265,7 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aEa" = (
 /obj/structure/cable/yellow{
@@ -12289,9 +12277,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aEb" = (
 /obj/structure/cable/yellow{
@@ -12934,16 +12920,12 @@
 	dir = 4
 	},
 /obj/effect/landmark/spawner/blob,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aFt" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aFu" = (
 /obj/structure/cable/yellow{
@@ -13473,9 +13455,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aGE" = (
 /obj/machinery/flasher{
@@ -14083,9 +14063,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aHX" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -14126,9 +14104,7 @@
 /area/crew_quarters/sleep)
 "aIa" = (
 /obj/machinery/vending/detdrobe,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aIb" = (
 /obj/structure/cable/yellow,
@@ -14270,9 +14246,7 @@
 	dir = 4;
 	pixel_x = -26
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/main)
 "aIs" = (
 /obj/item/flag/mime,
@@ -14409,9 +14383,7 @@
 	},
 /obj/item/storage/box/evidence,
 /obj/item/flashlight/seclite,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aIH" = (
 /obj/structure/cable/yellow{
@@ -15416,9 +15388,7 @@
 	name = "detective's camera";
 	pictures_left = 30
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aKO" = (
 /obj/effect/spawner/window/reinforced,
@@ -15444,9 +15414,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aKT" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -30654,15 +30622,11 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/hallway/primary/port)
 "bto" = (
 /obj/structure/chair/comfy/beige,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/hallway/primary/port)
 "btp" = (
 /obj/structure/cable/yellow{
@@ -30670,16 +30634,12 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/hallway/primary/port)
 "btq" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/chips,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/hallway/primary/port)
 "btr" = (
 /obj/machinery/vending/coffee,
@@ -31949,9 +31909,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/assistant,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/hallway/primary/port)
 "bvB" = (
 /turf/simulated/floor/carpet,
@@ -31971,9 +31929,7 @@
 /obj/structure/chair/comfy/beige{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/hallway/primary/port)
 "bvE" = (
 /obj/machinery/vending/cola,
@@ -33133,9 +33089,7 @@
 /obj/structure/chair/comfy/beige{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/hallway/primary/port)
 "bxN" = (
 /obj/structure/cable/yellow{
@@ -33153,9 +33107,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/assistant,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/hallway/primary/port)
 "bxP" = (
 /obj/machinery/vending/snack,
@@ -34093,17 +34045,13 @@
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-10"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/hallway/primary/port)
 "bzC" = (
 /obj/structure/chair/comfy/beige{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/hallway/primary/port)
 "bzD" = (
 /obj/machinery/camera{
@@ -35588,9 +35536,7 @@
 /obj/item/screwdriver{
 	pixel_y = 10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bDd" = (
 /obj/structure/showcase{
@@ -35601,9 +35547,7 @@
 	name = "Cyborg Statue";
 	pixel_y = 20
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bDe" = (
 /obj/structure/cable/yellow{
@@ -35613,9 +35557,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bDf" = (
 /obj/structure/table/wood,
@@ -35626,9 +35568,7 @@
 	},
 /obj/item/folder/blue,
 /obj/item/pen/multi,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bDg" = (
 /obj/machinery/light_switch{
@@ -35643,9 +35583,7 @@
 	name = "Cyborg Statue";
 	pixel_y = 20
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bDh" = (
 /obj/machinery/light/small{
@@ -35664,9 +35602,7 @@
 	pixel_x = 5;
 	pixel_y = -1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bDi" = (
 /obj/machinery/light/small{
@@ -35687,9 +35623,7 @@
 	pixel_y = 31
 	},
 /obj/item/flashlight/lamp,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bDk" = (
 /obj/structure/cable/yellow{
@@ -36683,9 +36617,7 @@
 	icon_state = "0-8"
 	},
 /obj/structure/filingcabinet,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bFe" = (
 /obj/item/radio/intercom{
@@ -36736,17 +36668,13 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bFj" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bFk" = (
 /obj/structure/transit_tube{
@@ -36768,9 +36696,7 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bFo" = (
 /obj/structure/cable/yellow{
@@ -37520,9 +37446,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bGU" = (
 /obj/machinery/shieldwallgen{
@@ -37591,9 +37515,7 @@
 	},
 /area/atmos)
 "bHc" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/detectives_office)
 "bHd" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -37634,9 +37556,7 @@
 /obj/machinery/computer/message_monitor{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bHj" = (
 /obj/structure/table/wood,
@@ -38182,25 +38102,19 @@
 /obj/machinery/light/small,
 /obj/item/storage/box/donkpockets,
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bIA" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-21"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bIB" = (
 /obj/structure/filingcabinet{
 	pixel_x = 3
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bID" = (
 /obj/structure/table/reinforced,
@@ -38504,9 +38418,7 @@
 	pixel_y = 4
 	},
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bJm" = (
 /obj/machinery/requests_console{
@@ -38526,9 +38438,7 @@
 	pixel_y = 6
 	},
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bJn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -39123,9 +39033,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bKo" = (
 /obj/structure/window/reinforced,
@@ -42331,9 +42239,7 @@
 	},
 /obj/structure/table/wood,
 /obj/item/pen/multi,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bRp" = (
 /obj/structure/window/reinforced{
@@ -66488,9 +66394,7 @@
 	c_tag = "Chapel Office";
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "cSg" = (
 /obj/machinery/door/poddoor{
@@ -66771,9 +66675,7 @@
 	pixel_x = -24
 	},
 /obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "cSL" = (
 /obj/machinery/requests_console{
@@ -66788,9 +66690,7 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "cSN" = (
 /obj/structure/closet/firecloset,
@@ -67192,17 +67092,13 @@
 	pixel_x = -32
 	},
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "cTB" = (
 /obj/structure/chair,
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start/chaplain,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "cTC" = (
 /obj/structure/cable/yellow{
@@ -67227,9 +67123,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 30
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "cTE" = (
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -67482,9 +67376,7 @@
 "cUk" = (
 /obj/structure/table/wood,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "cUl" = (
 /obj/structure/cable/yellow{
@@ -67497,9 +67389,7 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "cUm" = (
 /obj/structure/table,
@@ -67768,9 +67658,7 @@
 	})
 "cUP" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "cUQ" = (
 /obj/machinery/portable_atmospherics/canister/air,
@@ -68556,9 +68444,7 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "cWS" = (
 /obj/structure/cable/yellow{
@@ -69584,9 +69470,7 @@
 	name = "\improper Secure Lab"
 	})
 "cZs" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "cZt" = (
 /obj/structure/cable/yellow{
@@ -69595,9 +69479,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "cZu" = (
 /obj/machinery/door/firedoor,
@@ -71480,9 +71362,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "deL" = (
 /obj/structure/table/wood,
@@ -71640,9 +71520,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "dfv" = (
 /obj/machinery/door/poddoor{
@@ -72918,9 +72796,7 @@
 /obj/structure/chair/comfy/beige,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/hallway/primary/port)
 "eQf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -78583,9 +78459,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/security/detectives_office)
 "tvr" = (
 /obj/machinery/firealarm{
@@ -78996,9 +78870,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "uzt" = (
 /turf/simulated/floor/plasteel{
@@ -79141,9 +79013,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "uTZ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -79188,9 +79058,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/hallway/primary/port)
 "vaO" = (
 /turf/simulated/wall,
@@ -79797,9 +79665,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "wIs" = (
 /obj/structure/grille,
@@ -79895,9 +79761,7 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/chapel/office)
 "wVS" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
