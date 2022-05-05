@@ -152,7 +152,7 @@
 			// I know its a very rare occurance, but I wouldnt doubt people using this to withdraw consent right when sec captures them
 			message_admins("[key_name_admin(usr)] was disconnected due to withdrawing their ToS consent.")
 			to_chat(usr, "<span class='boldannounce'>Your ToS consent has been withdrawn. You have been kicked from the server</span>")
-			del(src)
+			qdel(src)
 
 	switch(href_list["action"])
 		if("openLink")
