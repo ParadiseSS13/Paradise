@@ -11193,14 +11193,21 @@
 /area/crew_quarters/sleep)
 "aBu" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/area/security/brig)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/central)
 "aBw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -14134,16 +14141,6 @@
 	dir = 10;
 	icon_state = "red"
 	},
-/area/security/brig)
-"aHM" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
 /area/security/brig)
 "aHN" = (
 /obj/structure/cable/yellow{
@@ -17367,23 +17364,6 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
-"aOY" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
 "aOZ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
@@ -18552,9 +18532,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/security/brig)
 "aRQ" = (
 /obj/machinery/atmospherics/binary/valve,
@@ -79867,9 +79845,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/security/brig)
 "rEw" = (
 /obj/structure/cable/yellow{
@@ -81400,9 +81376,7 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "vDc" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/security/brig)
 "vDW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -110980,7 +110954,7 @@ akD
 aAn
 gKb
 aKA
-aHM
+aRP
 bfm
 aCk
 akD
@@ -111753,7 +111727,7 @@ aGr
 alM
 aqJ
 aAm
-aBu
+arY
 aAN
 aDN
 aFp
@@ -112008,7 +111982,7 @@ akD
 aAn
 gKb
 aKB
-aHM
+aRP
 bfF
 hYq
 amV
@@ -114864,7 +114838,7 @@ bMR
 bUM
 blg
 blg
-aOY
+aBu
 bqv
 bsl
 bMR
