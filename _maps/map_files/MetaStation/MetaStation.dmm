@@ -1384,13 +1384,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "akw" = (
+/obj/effect/landmark/spawner/xeno,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
-/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "akx" = (
@@ -3929,13 +3928,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
 "auk" = (
+/obj/effect/landmark/spawner/xeno,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
-/obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
 "aul" = (
@@ -17047,8 +17045,8 @@
 "bdw" = (
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -18127,6 +18125,7 @@
 /obj/machinery/ai_status_display{
 	pixel_x = -32
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "bfD" = (
@@ -18145,6 +18144,7 @@
 	pixel_x = 32;
 	step_size = 0
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "bfI" = (
@@ -18176,12 +18176,12 @@
 	},
 /area/hallway/primary/central)
 "bfN" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "bfO" = (
@@ -19391,13 +19391,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engimaint)
 "bid" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
+/obj/machinery/alarm{
 	dir = 8;
-	icon_state = "vault"
+	name = "east bump";
+	pixel_x = 24
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "bie" = (
 /obj/structure/table,
@@ -19506,11 +19508,18 @@
 	},
 /area/atmos/control)
 "bim" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/structure/showcase{
+	density = 0;
+	desc = "An old, deactivated cyborg. Whilst once actively used to guard against intruders, it now simply intimidates them with its cold, steely gaze.";
+	dir = 4;
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "robot_old";
+	name = "Cyborg Statue";
+	pixel_x = -9;
+	pixel_y = 2
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
@@ -20249,38 +20258,54 @@
 	name = "Customs"
 	})
 "bjQ" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/ai_status_display{
+	pixel_x = 32;
+	step_size = 0
+	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/turret_protected/ai)
 "bjR" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "AI Core Shutters";
-	name = "AI Chamber Entrance Shutters";
-	opacity = 0
-	},
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "AI Core Shutters";
+	name = "AI Chamber Entrance Shutters"
+	},
 /turf/simulated/floor/plating,
 /area/turret_protected/ai)
 "bjS" = (
-/obj/machinery/newscaster/security_unit{
-	pixel_x = 26;
-	pixel_y = 13
-	},
-/turf/simulated/floor/plasteel{
+/obj/machinery/light_switch{
 	dir = 4;
-	icon_state = "vault"
+	name = "west bump";
+	pixel_x = -24
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "bjV" = (
 /obj/machinery/hologram/holopad,
+/obj/machinery/door/window/brigdoor/westleft{
+	name = "Secondary AI Core Access";
+	req_access_txt = "16"
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/turret_protected/ai)
 "bjW" = (
@@ -20304,18 +20329,6 @@
 	},
 /area/turret_protected/ai)
 "bjX" = (
-/obj/machinery/door/window/southright{
-	base_state = "left";
-	dir = 8;
-	icon_state = "left";
-	name = "AI Core Door";
-	req_access = null;
-	req_access_txt = "16"
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/machinery/turretid/lethal{
 	check_synth = 1;
 	name = "AI Chamber Turret Control";
@@ -20323,15 +20336,27 @@
 	pixel_y = -23;
 	req_access_txt = "75"
 	},
-/obj/machinery/power/apc{
-	cell_type = 5000;
-	dir = 1;
-	name = "north bump Important Area";
-	pixel_y = 24
+/obj/machinery/flasher{
+	id = "AI";
+	pixel_x = -8;
+	pixel_y = -24
+	},
+/obj/machinery/door/window/brigdoor/westleft{
+	req_access_txt = "16";
+	name = "Primary AI Core Access"
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/turret_protected/ai)
 "bjY" = (
@@ -20989,20 +21014,31 @@
 	network = list("SS13","MiniSat");
 	start_active = 1
 	},
-/obj/machinery/door/window/southright{
-	dir = 4;
-	name = "AI Core Door";
-	req_access = null;
-	req_access_txt = "16"
+/obj/machinery/power/apc{
+	cell_type = 5000;
+	name = "south bump Important Area";
+	pixel_y = -24
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/door/window/brigdoor/eastright{
+	name = "Primary AI Core Access";
+	req_access_txt = "16"
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/turret_protected/ai)
 "blE" = (
@@ -21017,32 +21053,38 @@
 	})
 "blF" = (
 /obj/machinery/ai_slipper,
-/obj/machinery/flasher{
-	id = "AI";
-	pixel_x = 24;
-	pixel_y = -24
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
 	},
-/obj/machinery/requests_console{
-	department = "AI";
-	departmentType = 5;
-	name = "AI Requests Console";
-	pixel_x = 32;
-	pixel_y = 32
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/turret_protected/ai)
 "blG" = (
 /obj/machinery/hologram/holopad,
+/obj/machinery/door/window/brigdoor/eastright{
+	name = "Tertiary AI Core Access";
+	req_access_txt = "16"
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/turret_protected/ai)
 "blI" = (
@@ -21082,14 +21124,14 @@
 	},
 /area/turret_protected/ai)
 "blK" = (
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/ai_status_display{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/turret_protected/ai)
 "blL" = (
@@ -21677,11 +21719,17 @@
 	name = "Customs"
 	})
 "bmT" = (
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
+/obj/machinery/newscaster/security_unit{
+	pixel_x = -26;
+	pixel_y = -2
 	},
-/turf/simulated/floor/bluegrid,
+/obj/machinery/porta_turret{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
 /area/turret_protected/ai)
 "bmU" = (
 /obj/structure/table/wood,
@@ -22239,8 +22287,8 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 10
+	pixel_x = -5;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -22428,7 +22476,9 @@
 	name = "\improper Captain's Quarters"
 	})
 "boJ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "boK" = (
@@ -22673,9 +22723,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "bpi" = (
 /obj/machinery/door/poddoor{
@@ -22758,9 +22806,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "bpw" = (
 /obj/machinery/light,
@@ -23408,13 +23454,14 @@
 /area/atmos/distribution)
 "bqX" = (
 /obj/structure/table/reinforced,
-/obj/item/folder/blue{
-	pixel_x = 5
-	},
-/obj/item/pen/multi,
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/item/folder/blue{
+	pixel_x = -2;
+	pixel_y = 3
+	},
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -69137,10 +69184,20 @@
 	c_tag = "AI Chamber - Starboard";
 	network = list("SS13","MiniSat")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
 	},
+/obj/structure/showcase{
+	density = 0;
+	desc = "An old, deactivated cyborg. Whilst once actively used to guard against intruders, it now simply intimidates them with its cold, steely gaze.";
+	dir = 8;
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "robot_old";
+	name = "Cyborg Statue";
+	pixel_x = 9;
+	pixel_y = 2
+	},
+/turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "jNq" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -73649,6 +73706,22 @@
 	icon_state = "dark"
 	},
 /area/security/seceqstorage)
+"lSK" = (
+/obj/machinery/requests_console{
+	department = "AI";
+	departmentType = 5;
+	name = "AI Requests Console";
+	pixel_x = 30;
+	pixel_y = -7
+	},
+/obj/machinery/porta_turret{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/turret_protected/ai)
 "lTc" = (
 /obj/machinery/light{
 	dir = 4
@@ -74262,6 +74335,12 @@
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
 	})
+"mkL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
 "mld" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/structure/extinguisher_cabinet{
@@ -74667,6 +74746,12 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"mvP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
 "mwo" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -76486,6 +76571,9 @@
 /area/security/brig)
 "nlQ" = (
 /obj/machinery/cryopod/robot,
+/obj/machinery/computer/cryopod/robot{
+	pixel_x = 29
+	},
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "nmh" = (
@@ -80862,6 +80950,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/prison/cell_block/A)
+"pKG" = (
+/obj/structure/showcase{
+	density = 0;
+	desc = "An old, deactivated cyborg. Whilst once actively used to guard against intruders, it now simply intimidates them with its cold, steely gaze.";
+	dir = 8;
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "robot_old";
+	name = "Cyborg Statue";
+	pixel_x = 9;
+	pixel_y = 2
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
 "pKM" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -81860,6 +81961,15 @@
 	icon_state = "dark"
 	},
 /area/storage/tech)
+"qfR" = (
+/obj/machinery/porta_turret{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/turret_protected/ai)
 "qfW" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
@@ -91657,6 +91767,12 @@
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology)
+"vlP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
 "vml" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
@@ -92853,6 +92969,19 @@
 	icon_state = "whiteblue"
 	},
 /area/security/permabrig)
+"vTZ" = (
+/obj/structure/showcase{
+	density = 0;
+	desc = "An old, deactivated cyborg. Whilst once actively used to guard against intruders, it now simply intimidates them with its cold, steely gaze.";
+	dir = 4;
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "robot_old";
+	name = "Cyborg Statue";
+	pixel_x = -9;
+	pixel_y = 2
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
 "vUD" = (
 /obj/machinery/power/emitter{
 	anchored = 1;
@@ -94064,6 +94193,11 @@
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -126680,7 +126814,7 @@ cUE
 cIu
 cFO
 cBJ
-cFO
+cBJ
 cBJ
 cFO
 cJp
@@ -151307,14 +151441,14 @@ aQF
 aaa
 aaa
 aXL
-aXL
-bid
-bfC
-bjQ
-bjV
+bdI
+qfR
 blK
+vTZ
+bjV
+bim
 bfC
-bid
+bjS
 bog
 bqX
 bri
@@ -151564,14 +151698,14 @@ aQF
 aaa
 aXL
 aXL
-aXL
+bdI
 uUX
 nvN
 nvN
 bjY
-nvN
-nvN
-nvN
+vlP
+lSK
+mvP
 bpt
 brm
 bri
@@ -151820,7 +151954,7 @@ rqY
 aQF
 aaa
 aXL
-aXL
+bdI
 bdu
 jgJ
 bdL
@@ -151828,7 +151962,7 @@ bdI
 bjX
 bdI
 bdI
-bmT
+jgJ
 hLH
 mcP
 bri
@@ -152077,7 +152211,7 @@ bdJ
 bdP
 aef
 aXL
-aXL
+bdI
 aXI
 bih
 bnQ
@@ -152334,15 +152468,15 @@ rzT
 aQF
 aaa
 aXL
-aXL
+bdI
 bhZ
 bdw
-bim
+bdL
 bdI
 blD
 bdI
 bdI
-bdL
+jgJ
 uHX
 bif
 bri
@@ -152592,14 +152726,14 @@ aQF
 aaa
 aXL
 aXL
-aXL
+bdI
 wAP
 bfN
 bhH
 biU
 boJ
-boJ
-boJ
+bmT
+mkL
 bph
 brQ
 bri
@@ -152849,10 +152983,10 @@ aQF
 aaa
 aaa
 aXL
-aXL
-bid
-bfH
-bjS
+bdI
+qfR
+bjQ
+pKG
 blG
 jNj
 bfH
