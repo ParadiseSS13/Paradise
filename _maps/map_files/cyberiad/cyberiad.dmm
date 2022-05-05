@@ -12579,9 +12579,8 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 4
 	},
 /area/maintenance/abandonedbar)
 "aET" = (
@@ -17221,9 +17220,8 @@
 /area/crew_quarters/dorms)
 "aQs" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 1
 	},
 /area/hallway/primary/starboard/west)
 "aQt" = (
@@ -22856,9 +22854,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 4
 	},
 /area/hallway/secondary/entry)
 "bcX" = (
@@ -29866,9 +29863,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 8
 	},
 /area/hallway/secondary/entry)
 "bsm" = (
@@ -32977,16 +32973,14 @@
 /turf/simulated/wall,
 /area/crew_quarters/bar)
 "bzf" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 1
 	},
 /area/hallway/primary/starboard/west)
 "bzg" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 1
 	},
 /area/hallway/primary/starboard/west)
 "bzh" = (
@@ -32994,9 +32988,8 @@
 	c_tag = "Starboard Primary Hallway 2"
 	},
 /obj/structure/closet/crate/can,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 1
 	},
 /area/hallway/primary/starboard/west)
 "bzi" = (
@@ -37147,9 +37140,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitecorner"
-	},
+/turf/simulated/floor/plasteel/white/corner,
 /area/hallway/primary/starboard/west)
 "bJd" = (
 /obj/structure/cable{
@@ -37157,9 +37148,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 8
 	},
 /area/hallway/primary/starboard/west)
 "bJe" = (
@@ -37175,9 +37165,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/turf/simulated/floor/plasteel/white/side,
 /area/hallway/primary/starboard/west)
 "bJf" = (
 /obj/structure/cable{
@@ -42136,9 +42124,8 @@
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
 	name = "Surgery Cleaner"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 4
 	},
 /area/assembly/robotics)
 "bSK" = (
@@ -42282,9 +42269,7 @@
 /obj/item/scalpel{
 	pixel_y = 12
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitecorner"
-	},
+/turf/simulated/floor/plasteel/white/corner,
 /area/assembly/robotics)
 "bSX" = (
 /obj/effect/decal/warning_stripes/blue/partial,
@@ -42305,9 +42290,7 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitecorner"
-	},
+/turf/simulated/floor/plasteel/white/corner,
 /area/medical/research)
 "bTa" = (
 /obj/structure/table/reinforced,
@@ -42475,9 +42458,8 @@
 /area/quartermaster/office)
 "bTw" = (
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 9
 	},
 /area/medical/research)
 "bTx" = (
@@ -43113,9 +43095,8 @@
 	},
 /area/medical/genetics)
 "bUK" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 5
 	},
 /area/medical/research)
 "bUL" = (
@@ -43504,9 +43485,8 @@
 	dir = 4;
 	pixel_x = 5
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 8
 	},
 /area/assembly/robotics)
 "bVE" = (
@@ -43514,9 +43494,8 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 8
 	},
 /area/medical/research)
 "bVF" = (
@@ -43524,9 +43503,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/lightsout,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/turf/simulated/floor/plasteel/white/side,
 /area/medical/research)
 "bVG" = (
 /obj/machinery/door/firedoor,
@@ -43854,9 +43831,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 9
 	},
 /area/medical/research)
 "bWl" = (
@@ -46092,9 +46068,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 9
 	},
 /area/medical/research)
 "caz" = (
@@ -46543,9 +46518,8 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "cbn" = (
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 9
 	},
 /area/medical/research)
 "cbo" = (
@@ -47033,9 +47007,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 5
 	},
 /area/medical/research)
 "cck" = (
@@ -47588,9 +47561,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 9
 	},
 /area/medical/research)
 "cde" = (
@@ -47797,9 +47769,8 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 5
 	},
 /area/medical/research)
 "cdG" = (
@@ -48285,9 +48256,8 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 5
 	},
 /area/medical/research)
 "ceN" = (
@@ -49706,9 +49676,8 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 5
 	},
 /area/medical/research)
 "chN" = (
@@ -49731,9 +49700,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 9
 	},
 /area/medical/research)
 "chO" = (
@@ -51439,9 +51407,8 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 5
 	},
 /area/medical/research)
 "clk" = (
@@ -51736,9 +51703,8 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 5
 	},
 /area/medical/research)
 "clZ" = (
@@ -52996,9 +52962,8 @@
 	name = "west bump";
 	pixel_x = -27
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 5
 	},
 /area/medical/research)
 "coD" = (
@@ -53445,9 +53410,8 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 5
 	},
 /area/medical/research)
 "cps" = (
@@ -53461,9 +53425,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 9
 	},
 /area/medical/research)
 "cpu" = (
@@ -54515,9 +54478,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 9
 	},
 /area/medical/research)
 "cro" = (

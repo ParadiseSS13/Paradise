@@ -1765,9 +1765,8 @@
 	},
 /area/hallway/secondary/entry)
 "ank" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 4
 	},
 /area/hallway/secondary/entry)
 "anl" = (
@@ -1991,9 +1990,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 8
 	},
 /area/hallway/secondary/entry)
 "anR" = (
@@ -2128,9 +2126,7 @@
 /area/hallway/secondary/entry)
 "aof" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/turf/simulated/floor/plasteel/white/side,
 /area/maintenance/fore2)
 "aog" = (
 /obj/structure/sink/kitchen{
@@ -2152,9 +2148,7 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/turf/simulated/floor/plasteel/white/side,
 /area/maintenance/fore2)
 "aoi" = (
 /obj/structure/sink/kitchen{
@@ -2163,9 +2157,7 @@
 	pixel_y = 25
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/turf/simulated/floor/plasteel/white/side,
 /area/maintenance/fore2)
 "aon" = (
 /obj/machinery/door/airlock/maintenance{
@@ -2618,9 +2610,8 @@
 "apy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 1
 	},
 /area/maintenance/fore2)
 "apz" = (
@@ -2634,9 +2625,8 @@
 "apA" = (
 /obj/structure/table,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 1
 	},
 /area/maintenance/fore2)
 "apF" = (
@@ -12224,9 +12214,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "aLF" = (
 /obj/machinery/door/airlock/maintenance{
@@ -19217,9 +19205,7 @@
 "baM" = (
 /obj/structure/kitchenspike,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "baN" = (
 /obj/structure/lattice/catwalk,
@@ -19955,21 +19941,15 @@
 /area/crew_quarters/kitchen)
 "bcp" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bcq" = (
 /mob/living/simple_animal/hostile/retaliate/goat,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bcr" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bcs" = (
 /obj/machinery/light{
@@ -19992,9 +19972,7 @@
 "bcu" = (
 /obj/structure/closet/secure_closet/freezer/meat,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bcv" = (
 /obj/structure/closet/secure_closet/freezer/meat,
@@ -20003,9 +19981,7 @@
 	pixel_x = 30
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bcw" = (
 /obj/machinery/door/firedoor,
@@ -20047,9 +20023,7 @@
 "bcz" = (
 /obj/machinery/vending/chefdrobe,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bcA" = (
 /obj/structure/chair{
@@ -20638,9 +20612,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bdJ" = (
 /obj/structure/cable{
@@ -20655,9 +20627,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bdK" = (
 /obj/structure/cable{
@@ -20671,9 +20641,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bdL" = (
 /obj/structure/cable{
@@ -20685,9 +20653,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/chef,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bdM" = (
 /obj/structure/cable{
@@ -20698,9 +20664,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bdN" = (
 /obj/machinery/alarm{
@@ -21245,9 +21209,7 @@
 	},
 /obj/structure/kitchenspike,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bff" = (
 /obj/machinery/alarm{
@@ -21256,15 +21218,11 @@
 	pixel_y = -24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bfg" = (
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bfh" = (
 /obj/machinery/power/apc{
@@ -21273,16 +21231,12 @@
 	},
 /obj/structure/cable,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bfi" = (
 /obj/machinery/chem_master/condimaster,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bfj" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
@@ -21790,9 +21744,7 @@
 /obj/machinery/door/airlock/freezer{
 	req_access_txt = "28"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bgv" = (
 /obj/machinery/hologram/holopad,
@@ -23206,9 +23158,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 4
 	},
 /area/hallway/primary/central/nw)
 "bjp" = (
@@ -23232,9 +23183,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 4
 	},
 /area/crew_quarters/kitchen)
 "bjs" = (
@@ -31696,9 +31646,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/locker/locker_toilet)
 "bBl" = (
 /obj/effect/spawner/window/reinforced,
@@ -54315,26 +54263,20 @@
 /obj/machinery/shower{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/locker/locker_toilet)
 "cyC" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/locker/locker_toilet)
 "cyD" = (
 /obj/machinery/shower{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/locker/locker_toilet)
 "cyE" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -54534,9 +54476,7 @@
 /area/civilian/barber)
 "cyY" = (
 /obj/machinery/cryopod/right,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "cyZ" = (
 /obj/machinery/light{
@@ -54548,9 +54488,7 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "cza" = (
 /obj/machinery/cryopod,
@@ -54558,9 +54496,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "czb" = (
 /obj/machinery/vending/coffee,
@@ -55065,9 +55001,7 @@
 /turf/simulated/floor/plasteel,
 /area/gateway)
 "cAc" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/locker/locker_toilet)
 "cAd" = (
 /obj/item/bikehorn/rubberducky,
@@ -55078,9 +55012,7 @@
 	dir = 5
 	},
 /obj/effect/landmark/start/assistant,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/locker/locker_toilet)
 "cAe" = (
 /obj/machinery/door/airlock{
@@ -55192,15 +55124,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "cAr" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "cAs" = (
 /obj/machinery/cryopod,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "cAt" = (
 /obj/structure/table,
@@ -55733,9 +55661,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/locker/locker_toilet)
 "cBG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -55914,9 +55840,7 @@
 	name = "west bump";
 	pixel_x = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "cBZ" = (
 /obj/structure/table,
@@ -56889,9 +56813,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "cEw" = (
 /obj/structure/window/reinforced{
@@ -60057,9 +59979,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "cLs" = (
 /obj/machinery/vending/cola,
@@ -62032,9 +61952,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "cPZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -62155,9 +62073,7 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "cQk" = (
 /obj/structure/table,
@@ -65846,9 +65762,7 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/medical/medbay)
 "cYS" = (
 /obj/structure/curtain/open/shower,
@@ -66270,9 +66184,7 @@
 	},
 /area/medical/medbay)
 "cZL" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/medical/medbay)
 "cZM" = (
 /obj/machinery/light{
@@ -88047,9 +87959,8 @@
 /area/maintenance/fore2)
 "dZQ" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 8
 	},
 /area/maintenance/fore2)
 "dZR" = (
@@ -88061,9 +87972,8 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 1
 	},
 /area/maintenance/fore2)
 "dZT" = (
@@ -89143,9 +89053,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "haD" = (
 /obj/machinery/power/apc{
@@ -91763,9 +91671,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "oHv" = (
 /obj/structure/table/reinforced,
@@ -91846,9 +91752,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "oZY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -92024,9 +91928,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "pGk" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -92277,9 +92179,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "qqW" = (
 /obj/structure/table,
@@ -93134,9 +93034,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "sPz" = (
 /obj/machinery/light/small{
@@ -93371,9 +93269,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "tsN" = (
 /obj/structure/closet/secure_closet/scientist,
@@ -93471,9 +93367,7 @@
 /obj/machinery/shower{
 	pixel_y = 22
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/security/permabrig)
 "tFO" = (
 /obj/machinery/door/airlock/security/glass{
@@ -94383,9 +94277,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/sleep)
 "wia" = (
 /obj/machinery/vending/coffee,

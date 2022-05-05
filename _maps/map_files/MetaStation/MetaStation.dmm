@@ -22035,9 +22035,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 4
 	},
 /area/hallway/secondary/entry{
 	name = "Arrivals"
@@ -28799,9 +28798,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 4
 	},
 /area/hallway/secondary/entry{
 	name = "Arrivals"
@@ -35404,9 +35402,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 4
 	},
 /area/medical/research)
 "bCH" = (
@@ -49673,9 +49670,8 @@
 /area/medical/reception)
 "cib" = (
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 4
 	},
 /area/medical/research)
 "cic" = (
@@ -51313,9 +51309,8 @@
 /area/medical/reception)
 "clM" = (
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 8
 	},
 /area/medical/reception)
 "clN" = (
@@ -51512,9 +51507,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 8
 	},
 /area/medical/reception)
 "cmt" = (
@@ -52068,9 +52062,8 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 4
 	},
 /area/medical/research)
 "cnG" = (
@@ -52690,9 +52683,8 @@
 	pixel_x = 24
 	},
 /obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 4
 	},
 /area/medical/research)
 "coW" = (
@@ -53148,9 +53140,8 @@
 	dir = 1;
 	network = list("SS13","RD")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 1
 	},
 /area/assembly/robotics)
 "cpS" = (
@@ -53416,9 +53407,8 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 4
 	},
 /area/medical/research)
 "cqB" = (
@@ -54082,9 +54072,8 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 4
 	},
 /area/medical/research)
 "csc" = (
@@ -55214,14 +55203,11 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/turf/simulated/floor/plasteel/white/side,
 /area/medical/research)
 "cus" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 6
 	},
 /area/medical/research)
 "cut" = (
@@ -55997,9 +55983,8 @@
 	pixel_y = 30
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 10
 	},
 /area/medical/research)
 "cvY" = (
@@ -56654,9 +56639,8 @@
 /area/toxins/lab)
 "cxO" = (
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 5
 	},
 /area/medical/research)
 "cxP" = (
@@ -57132,9 +57116,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 4
 	},
 /area/medical/research)
 "cyX" = (
@@ -57568,9 +57551,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 6
 	},
 /area/medical/research)
 "czR" = (
@@ -57991,9 +57973,8 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
 "cAI" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 5
 	},
 /area/medical/research)
 "cAK" = (
@@ -58479,9 +58460,8 @@
 	name = "\improper Toxins Lab"
 	})
 "cBO" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 4
 	},
 /area/medical/research)
 "cBP" = (
@@ -59378,9 +59358,7 @@
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/turf/simulated/floor/plasteel/white/side,
 /area/medical/medbreak)
 "cDs" = (
 /obj/machinery/light/small{
@@ -59555,9 +59533,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 6
 	},
 /area/medical/research)
 "cDK" = (
@@ -60138,9 +60115,7 @@
 	pixel_y = 4
 	},
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/turf/simulated/floor/plasteel/white/side,
 /area/medical/medbreak)
 "cFg" = (
 /obj/structure/sign/double/map/right{
@@ -60152,9 +60127,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/turf/simulated/floor/plasteel/white/side,
 /area/medical/medbreak)
 "cFh" = (
 /obj/machinery/vending/coffee,
@@ -60163,18 +60136,14 @@
 	icon_state = "map-left-MS";
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/turf/simulated/floor/plasteel/white/side,
 /area/medical/medbreak)
 "cFi" = (
 /obj/machinery/vending/cigarette,
 /obj/structure/noticeboard{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/turf/simulated/floor/plasteel/white/side,
 /area/medical/medbreak)
 "cFj" = (
 /obj/structure/cable/yellow{
@@ -63065,9 +63034,8 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 8
 	},
 /area/medical/research)
 "cLv" = (
@@ -63474,9 +63442,8 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 10
 	},
 /area/medical/research)
 "cMr" = (
@@ -63955,9 +63922,8 @@
 	name = "east bump";
 	pixel_x = 27
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 9
 	},
 /area/medical/research)
 "cNa" = (
@@ -64824,9 +64790,8 @@
 	pixel_y = 5
 	},
 /obj/item/bonegel,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 4
 	},
 /area/assembly/robotics)
 "cOS" = (
@@ -65284,9 +65249,8 @@
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
 	name = "Surgery Cleaner"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 4
 	},
 /area/assembly/robotics)
 "cPR" = (
@@ -65309,9 +65273,8 @@
 	},
 /obj/item/robotanalyzer,
 /obj/item/robotanalyzer,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 8
 	},
 /area/assembly/robotics)
 "cPS" = (
@@ -65319,9 +65282,8 @@
 	dir = 1;
 	name = "Robotics Operating Computer"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
+/turf/simulated/floor/plasteel/white/side{
+	dir = 1
 	},
 /area/assembly/robotics)
 "cPT" = (
@@ -66562,9 +66524,8 @@
 	dir = 4
 	},
 /obj/item/mmi/robotic_brain,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitecorner"
+/turf/simulated/floor/plasteel/white/corner{
+	dir = 1
 	},
 /area/assembly/robotics)
 "cSy" = (
