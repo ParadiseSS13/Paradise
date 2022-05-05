@@ -17050,11 +17050,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/camera/motion{
-	start_active = 1;
-	network = list("SS13","MiniSat");
-	c_tag = "AI Chamber - Fore"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -19337,6 +19332,11 @@
 	icon_state = "robot_old";
 	name = "Cyborg Statue";
 	pixel_y = 20
+	},
+/obj/machinery/camera/motion{
+	start_active = 1;
+	network = list("SS13","MiniSat");
+	c_tag = "AI Chamber - Fore"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
