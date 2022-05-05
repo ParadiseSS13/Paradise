@@ -22812,7 +22812,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/science{
-	name = "Robotics Lab";
+	name = "Abandoned Robotics Lab";
 	welded = 1
 	},
 /turf/simulated/floor/plating,
@@ -30312,11 +30312,10 @@
 /area/hydroponics)
 "bwb" = (
 /obj/structure/table,
-/obj/item/storage/firstaid,
-/obj/item/storage/firstaid,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/item/storage/firstaid,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "bwc" = (
@@ -31698,7 +31697,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "byK" = (
-/obj/machinery/door/airlock/welded,
+/obj/machinery/door/airlock/maintenance,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -31711,7 +31710,7 @@
 /area/maintenance/fore)
 "byL" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/machine,
+/obj/random/toolbox,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "byM" = (
@@ -32457,7 +32456,7 @@
 /area/engine/engineering)
 "bAo" = (
 /obj/machinery/door/airlock/science{
-	name = "Robotics Lab";
+	name = "Abandoned Robotics Lab";
 	welded = 1
 	},
 /obj/structure/disposalpipe/segment{
@@ -34469,8 +34468,6 @@
 /obj/item/storage/box/lights/mixed,
 /obj/item/wrench,
 /obj/item/wrench,
-/obj/item/multitool,
-/obj/item/multitool,
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
@@ -35265,7 +35262,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/science{
-	name = "Robotics Lab";
+	name = "Abandoned Robotics Lab";
 	welded = 1
 	},
 /turf/simulated/floor/plating,
@@ -36182,11 +36179,7 @@
 /area/storage/tech)
 "bGV" = (
 /obj/structure/rack,
-/obj/item/assembly/timer,
-/obj/item/assembly/timer,
-/obj/item/stack/cable_coil/random,
-/obj/item/multitool,
-/obj/item/multitool,
+/obj/item/storage/firstaid/machine,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -37942,8 +37935,11 @@
 /area/storage/tech)
 "bKA" = (
 /obj/structure/rack,
-/obj/random/toolbox,
-/obj/random/toolbox,
+/obj/item/assembly/timer,
+/obj/item/assembly/timer,
+/obj/item/stack/cable_coil/random,
+/obj/item/multitool,
+/obj/item/multitool,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "bKB" = (
@@ -42854,7 +42850,7 @@
 	},
 /area/engine/engineering)
 "bUt" = (
-/obj/machinery/door/airlock/welded,
+/obj/machinery/door/airlock/maintenance,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
