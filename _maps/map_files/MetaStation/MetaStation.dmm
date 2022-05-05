@@ -18,9 +18,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "aaD" = (
 /obj/effect/landmark/spawner/carp,
@@ -1237,9 +1235,7 @@
 	dir = 4;
 	network = list("SS13","Prison")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/security/permabrig)
 "aeN" = (
 /obj/effect/spawner/window/reinforced,
@@ -1562,9 +1558,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/security/permabrig)
 "afz" = (
 /obj/structure/cable/yellow{
@@ -1572,9 +1566,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/security/permabrig)
 "afA" = (
 /obj/structure/chair/stool,
@@ -1604,9 +1596,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/security/permabrig)
 "afC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -1801,9 +1791,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/security/permabrig)
 "aga" = (
 /obj/structure/cable/yellow{
@@ -1817,9 +1805,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/security/permabrig)
 "agb" = (
 /obj/structure/cable/yellow{
@@ -29231,9 +29217,7 @@
 	},
 /obj/item/soap/deluxe,
 /obj/effect/landmark/spawner/xeno,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
 	})
@@ -29244,9 +29228,7 @@
 /obj/structure/sink{
 	pixel_y = 17
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
 	})
@@ -29261,9 +29243,7 @@
 	pixel_y = -24
 	},
 /obj/effect/landmark/start/captain,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
 	})
@@ -29271,9 +29251,7 @@
 /obj/machinery/door/airlock/silver{
 	name = "Bathroom"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
 	})
@@ -37245,9 +37223,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "bGp" = (
 /obj/structure/table/wood,
@@ -38078,9 +38054,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "bIi" = (
 /obj/machinery/atmospherics/binary/volume_pump/on{
@@ -39828,9 +39802,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/chemistry)
 "bLI" = (
 /obj/structure/chair/wood/wings,
@@ -40617,9 +40589,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "bNA" = (
 /obj/item/radio/intercom{
@@ -41832,9 +41802,7 @@
 /obj/item/clothing/mask/breath/medical,
 /obj/item/storage/firstaid/machine,
 /obj/item/storage/firstaid/machine,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "bQb" = (
 /obj/structure/closet/firecloset,
@@ -43816,9 +43784,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "bUz" = (
 /obj/structure/cable/yellow{
@@ -43826,9 +43792,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "bUA" = (
 /obj/structure/window/reinforced{
@@ -44146,9 +44110,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "bVk" = (
 /obj/machinery/power/apc{
@@ -44165,9 +44127,7 @@
 	c_tag = "Research Division - Airlock";
 	network = list("SS13","RD")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "bVl" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -44359,9 +44319,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "bVD" = (
 /obj/structure/disposalpipe/junction{
@@ -47725,9 +47683,7 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay2{
 	name = "Medbay Storage"
 	})
@@ -48119,9 +48075,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/paramedic)
 "cem" = (
 /obj/effect/decal/warning_stripes/east,
@@ -48163,9 +48117,7 @@
 	req_access_txt = "66"
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/paramedic)
 "cer" = (
 /obj/structure/window/reinforced{
@@ -48354,9 +48306,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/paramedic)
 "ceT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -48676,9 +48626,7 @@
 /area/medical/research)
 "cfx" = (
 /obj/effect/landmark/start/paramedic,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/paramedic)
 "cfy" = (
 /obj/structure/cable/yellow{
@@ -49404,14 +49352,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
 "cha" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
 "chb" = (
 /obj/item/cigbutt,
@@ -49633,9 +49577,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/lightsout,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay2{
 	name = "Medbay Storage"
 	})
@@ -49654,9 +49596,7 @@
 	dir = 10
 	},
 /obj/effect/landmark/start/doctor,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay2{
 	name = "Medbay Storage"
 	})
@@ -49833,9 +49773,7 @@
 	},
 /area/medical/research)
 "cic" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cie" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -49844,9 +49782,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cig" = (
 /obj/structure/cable/yellow{
@@ -49855,9 +49791,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cij" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -49873,9 +49807,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay2{
 	name = "Medbay Storage"
 	})
@@ -50468,9 +50400,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cjt" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay2{
 	name = "Medbay Storage"
 	})
@@ -50516,9 +50446,7 @@
 	name = "Medbay Storage"
 	})
 "cjz" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/paramedic)
 "cjA" = (
 /obj/structure/cable/yellow{
@@ -50652,9 +50580,7 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cjM" = (
 /obj/structure/cable/yellow{
@@ -50665,9 +50591,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cjN" = (
 /obj/structure/cable/yellow{
@@ -50681,9 +50605,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cjO" = (
 /turf/simulated/floor/plasteel{
@@ -50793,9 +50715,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "cke" = (
 /obj/machinery/sparker{
@@ -50970,9 +50890,7 @@
 "ckB" = (
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "ckD" = (
 /obj/structure/grille,
@@ -51029,9 +50947,7 @@
 	req_access_txt = "5"
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay2{
 	name = "Medbay Storage"
 	})
@@ -51045,9 +50961,7 @@
 /area/maintenance/aft)
 "ckK" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "ckL" = (
 /obj/item/storage/box/bodybags{
@@ -51067,9 +50981,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay2{
 	name = "Medbay Storage"
 	})
@@ -51101,9 +51013,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/doctor,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "ckO" = (
 /obj/structure/cable/yellow{
@@ -51122,9 +51032,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "ckP" = (
 /obj/item/healthanalyzer,
@@ -51144,9 +51052,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "ckS" = (
 /obj/machinery/light,
@@ -51166,9 +51072,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "ckX" = (
 /obj/structure/table,
@@ -51444,9 +51348,7 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "clF" = (
 /obj/machinery/atmospherics/pipe/simple/insulated,
@@ -51495,17 +51397,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "clL" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "clM" = (
 /obj/machinery/door/firedoor,
@@ -51520,9 +51418,7 @@
 /area/maintenance/asmaint)
 "clO" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "clP" = (
 /obj/structure/closet/emcloset,
@@ -51541,9 +51437,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
 "clT" = (
 /obj/structure/cable/yellow{
@@ -51666,9 +51560,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "cmi" = (
 /obj/effect/spawner/window/reinforced,
@@ -51701,9 +51593,7 @@
 /turf/simulated/wall/r_wall,
 /area/toxins/lab)
 "cmq" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "cmr" = (
 /obj/structure/sign/directions/science{
@@ -51940,9 +51830,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "cmX" = (
 /turf/simulated/wall,
@@ -52702,9 +52590,7 @@
 /obj/item/pen,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "coy" = (
 /obj/machinery/power/apc{
@@ -52716,9 +52602,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "coz" = (
 /obj/machinery/light{
@@ -52825,9 +52709,7 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
 "coL" = (
 /obj/machinery/vending/wallmed{
@@ -52864,9 +52746,7 @@
 /obj/machinery/r_n_d/protolathe,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
 "coQ" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -52927,9 +52807,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/explab)
 "cpb" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/exam_room)
 "cpc" = (
 /obj/structure/cable/yellow{
@@ -52949,9 +52827,7 @@
 	})
 "cpd" = (
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
 "cpe" = (
 /obj/machinery/reagentgrinder,
@@ -53390,9 +53266,7 @@
 /area/medical/research)
 "cpU" = (
 /obj/structure/closet/secure_closet/medical2,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "cpV" = (
 /obj/item/surgicaldrill,
@@ -53407,9 +53281,7 @@
 	},
 /obj/structure/table/tray,
 /obj/item/scalpel,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "cpW" = (
 /obj/structure/cable/yellow{
@@ -53417,29 +53289,21 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "cpX" = (
 /obj/item/hemostat,
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "cpY" = (
 /obj/item/bonegel,
 /obj/item/bonesetter,
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "cpZ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/chemistry)
 "cqa" = (
 /obj/structure/cable{
@@ -53505,9 +53369,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start/scientist,
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
 "cqh" = (
 /obj/machinery/r_n_d/circuit_imprinter{
@@ -53516,9 +53378,7 @@
 /obj/item/reagent_containers/glass/beaker/sulphuric,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
 "cqi" = (
 /obj/machinery/shower{
@@ -53526,9 +53386,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cqj" = (
 /obj/machinery/door/window/northleft{
@@ -53668,9 +53526,7 @@
 	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cqC" = (
 /obj/structure/cable/yellow{
@@ -54103,9 +53959,7 @@
 	},
 /area/medical/reception)
 "crE" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "crF" = (
 /obj/machinery/light/small{
@@ -54116,9 +53970,7 @@
 /area/maintenance/aft)
 "crG" = (
 /obj/structure/closet/secure_closet/medical3,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "crH" = (
 /obj/structure/cable/yellow{
@@ -54126,9 +53978,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "crI" = (
 /obj/machinery/camera{
@@ -54152,37 +54002,27 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "crK" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
 "crL" = (
 /obj/structure/chair/stool,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
 "crM" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
 "crN" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
 "crO" = (
 /obj/machinery/firealarm{
@@ -54192,9 +54032,7 @@
 	},
 /obj/structure/closet/firecloset,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "crP" = (
 /obj/structure/sign/chemistry{
@@ -54261,9 +54099,7 @@
 /obj/item/retractor,
 /obj/item/cautery,
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "crW" = (
 /obj/item/radio/intercom{
@@ -54728,9 +54564,7 @@
 	dir = 6
 	},
 /obj/effect/landmark/start/doctor,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/exam_room)
 "csH" = (
 /obj/structure/cable/yellow{
@@ -54846,9 +54680,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start/doctor,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/exam_room)
 "csO" = (
 /obj/structure/cable/yellow{
@@ -54910,9 +54742,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "csT" = (
 /obj/machinery/light{
@@ -54948,9 +54778,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
 "csW" = (
 /obj/structure/table,
@@ -54972,9 +54800,7 @@
 "csX" = (
 /obj/structure/closet/secure_closet/chemical,
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/chemistry)
 "csY" = (
 /obj/machinery/door/firedoor,
@@ -55053,9 +54879,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "ctg" = (
 /obj/structure/cable/yellow{
@@ -55070,9 +54894,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "ctj" = (
 /obj/structure/cable/yellow{
@@ -55219,9 +55041,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "ctJ" = (
 /obj/machinery/door/firedoor,
@@ -55291,9 +55111,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "ctP" = (
 /obj/structure/chair/office/light{
@@ -55334,16 +55152,12 @@
 	pixel_x = -28
 	},
 /obj/structure/closet/crate/freezer/iv_storage,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "ctV" = (
 /obj/machinery/optable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "ctW" = (
 /obj/structure/cable/yellow{
@@ -55354,17 +55168,13 @@
 /obj/machinery/computer/operating{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "ctX" = (
 /obj/item/circular_saw,
 /obj/item/FixOVein,
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "ctY" = (
 /obj/machinery/door_control{
@@ -55419,9 +55229,7 @@
 	},
 /obj/machinery/vending/chemdrobe,
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/chemistry)
 "cuj" = (
 /obj/machinery/computer/rdconsole/experiment,
@@ -55473,17 +55281,13 @@
 	c_tag = "Research Division Hallway - Central";
 	network = list("SS13","RD")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cup" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cuq" = (
 /obj/structure/table,
@@ -55495,9 +55299,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
 "cur" = (
 /obj/structure/cable/yellow{
@@ -55572,9 +55374,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
 "cuz" = (
 /obj/structure/table/reinforced,
@@ -55583,9 +55383,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
 "cuA" = (
 /obj/structure/chair/office/light{
@@ -55593,9 +55391,7 @@
 	pixel_y = 3
 	},
 /obj/effect/landmark/start/scientist,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
 "cuB" = (
 /obj/structure/table/reinforced,
@@ -55608,15 +55404,11 @@
 	pixel_x = 3
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
 "cuC" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
 "cuD" = (
 /obj/effect/decal/warning_stripes/south,
@@ -55762,9 +55554,7 @@
 /area/maintenance/aft)
 "cuX" = (
 /obj/machinery/iv_drip,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "cva" = (
 /obj/structure/sink{
@@ -55777,15 +55567,11 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "cvb" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "cvc" = (
 /obj/machinery/door/firedoor,
@@ -55833,9 +55619,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cvj" = (
 /turf/simulated/wall,
@@ -55907,9 +55691,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
 "cvr" = (
 /obj/structure/cable/yellow{
@@ -55923,9 +55705,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
 "cvs" = (
 /obj/structure/cable/yellow{
@@ -55943,9 +55723,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
 "cvt" = (
 /obj/structure/cable/yellow{
@@ -56019,9 +55797,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cvy" = (
 /obj/structure/cable/yellow{
@@ -56040,9 +55816,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cvz" = (
 /obj/structure/cable/yellow{
@@ -56056,9 +55830,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cvA" = (
 /obj/structure/cable/yellow{
@@ -56077,9 +55849,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cvC" = (
 /obj/structure/cable/yellow{
@@ -56102,9 +55872,7 @@
 	dir = 2;
 	icon_state = "pipe-j2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cvE" = (
 /obj/structure/cable/yellow{
@@ -56122,9 +55890,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/lightsout,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cvF" = (
 /obj/structure/cable/yellow{
@@ -56137,9 +55903,7 @@
 /obj/structure/disposalpipe/junction{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cvH" = (
 /obj/structure/cable/yellow{
@@ -56156,9 +55920,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cvI" = (
 /obj/structure/cable/yellow{
@@ -56306,16 +56068,12 @@
 	name = "Privacy Shutters Control";
 	pixel_x = 25
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "cvU" = (
 /obj/machinery/smartfridge/medbay,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/chemistry)
 "cvV" = (
 /obj/structure/closet/wardrobe/grey,
@@ -56384,18 +56142,14 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "cwf" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
 /obj/machinery/disposal,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "cwg" = (
 /obj/structure/cable/yellow{
@@ -56407,9 +56161,7 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "cwh" = (
 /obj/structure/extinguisher_cabinet{
@@ -56498,9 +56250,7 @@
 	name = "Medbay Reception";
 	req_access_txt = "5"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "cwy" = (
 /obj/machinery/status_display,
@@ -56533,9 +56283,7 @@
 	c_tag = "Locker Room Port";
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "cwD" = (
 /obj/structure/table,
@@ -56557,9 +56305,7 @@
 	pixel_x = -4;
 	pixel_y = -24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "cwE" = (
 /obj/structure/table/reinforced,
@@ -56584,9 +56330,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
 "cwI" = (
 /obj/structure/rack,
@@ -56624,18 +56368,14 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cwO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cwP" = (
 /obj/structure/cable/yellow{
@@ -56646,9 +56386,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cwQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -56657,18 +56395,14 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cwR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cwS" = (
 /obj/machinery/camera{
@@ -56676,15 +56410,11 @@
 	dir = 1;
 	network = list("SS13","RD")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cwT" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cwV" = (
 /turf/simulated/floor/plasteel{
@@ -56723,9 +56453,7 @@
 	pixel_y = -24
 	},
 /obj/structure/cable/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
 "cxa" = (
 /obj/item/radio/intercom{
@@ -56738,9 +56466,7 @@
 	network = list("SS13","RD")
 	},
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
 "cxe" = (
 /obj/structure/cable/yellow{
@@ -56776,15 +56502,11 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "cxo" = (
 /obj/machinery/bodyscanner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "cxp" = (
 /turf/simulated/floor/plasteel{
@@ -56868,9 +56590,7 @@
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/chemistry)
 "cxC" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -57042,16 +56762,12 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cxQ" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cxR" = (
 /obj/structure/table/reinforced,
@@ -57282,9 +56998,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "cyr" = (
 /obj/machinery/light_switch{
@@ -57313,9 +57027,7 @@
 	name = "Chemistry Junction";
 	sortType = 11
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cyu" = (
 /obj/structure/sign/fire,
@@ -57357,9 +57069,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/chemistry)
 "cyy" = (
 /obj/machinery/door/firedoor,
@@ -57376,9 +57086,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/chemistry)
 "cyz" = (
 /obj/machinery/hologram/holopad,
@@ -57386,9 +57094,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/chemistry)
 "cyB" = (
 /obj/machinery/chem_master{
@@ -57422,9 +57128,7 @@
 /area/medical/chemistry)
 "cyI" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "cyK" = (
 /obj/machinery/door/firedoor,
@@ -57541,9 +57245,7 @@
 	name = "RD Junction";
 	sortType = 13
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "czc" = (
 /obj/machinery/requests_console{
@@ -57578,9 +57280,7 @@
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/crew_quarters/hor)
 "czf" = (
 /obj/structure/cable/yellow{
@@ -57634,9 +57334,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "czi" = (
 /obj/structure/cable/yellow{
@@ -57653,9 +57351,7 @@
 	icon_state = "2-8"
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "czj" = (
 /obj/machinery/portable_atmospherics/scrubber/huge,
@@ -57709,9 +57405,7 @@
 	},
 /obj/effect/landmark/start/doctor,
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "czo" = (
 /obj/structure/chair{
@@ -57738,9 +57432,7 @@
 	icon_state = "pipe-c"
 	},
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "czp" = (
 /turf/simulated/wall,
@@ -57750,9 +57442,7 @@
 	c_tag = "Medbay Hallway Fore";
 	network = list("SS13","Medbay")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "czr" = (
 /obj/structure/bed,
@@ -57760,14 +57450,10 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "czs" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "czt" = (
 /obj/structure/cable/yellow{
@@ -57776,9 +57462,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "czu" = (
 /obj/machinery/light/small{
@@ -57917,9 +57601,7 @@
 /obj/structure/disposalpipe/junction{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "czF" = (
 /obj/machinery/door/firedoor,
@@ -58053,9 +57735,7 @@
 	icon_state = "pipe-c"
 	},
 /obj/effect/decal/warning_stripes/southwestcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "czV" = (
 /obj/structure/disposalpipe/segment{
@@ -58182,9 +57862,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/chemistry)
 "cAj" = (
 /obj/item/stack/packageWrap,
@@ -58211,9 +57889,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "cAo" = (
 /obj/structure/table/reinforced,
@@ -58237,9 +57913,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "cAq" = (
 /obj/item/storage/box/rxglasses{
@@ -58261,9 +57935,7 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "cAu" = (
 /obj/item/reagent_containers/dropper,
@@ -58354,9 +58026,7 @@
 /area/hallway/primary/aft)
 "cAB" = (
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/crew_quarters/hor)
 "cAC" = (
 /obj/machinery/portable_atmospherics/canister/air,
@@ -58518,9 +58188,7 @@
 	icon_state = "pipe-y"
 	},
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "cAV" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
@@ -58550,9 +58218,7 @@
 /area/medical/chemistry)
 "cAY" = (
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/crew_quarters/hor)
 "cBa" = (
 /obj/structure/cable/yellow{
@@ -58566,15 +58232,11 @@
 /area/hallway/primary/fore)
 "cBb" = (
 /obj/effect/decal/warning_stripes/southwest,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/crew_quarters/hor)
 "cBc" = (
 /obj/effect/decal/warning_stripes/southeast,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/crew_quarters/hor)
 "cBd" = (
 /obj/machinery/chem_heater{
@@ -58627,9 +58289,7 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/crew_quarters/hor)
 "cBi" = (
 /obj/machinery/magnetic_module,
@@ -58690,9 +58350,7 @@
 	id_tag = null;
 	name = "Recovery Ward"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "cBp" = (
 /obj/machinery/door/firedoor,
@@ -58941,9 +58599,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cBQ" = (
 /obj/structure/cable/yellow{
@@ -59102,9 +58758,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "cCf" = (
 /obj/structure/cable{
@@ -59282,9 +58936,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/northeastcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "cCs" = (
 /obj/structure/flora/ausbushes/fernybush,
@@ -59330,9 +58982,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "cCv" = (
 /obj/structure/chair,
@@ -59352,9 +59002,7 @@
 	},
 /obj/effect/landmark/start/doctor,
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "cCw" = (
 /obj/item/stack/cable_coil,
@@ -59377,9 +59025,7 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cCy" = (
 /obj/machinery/door/firedoor,
@@ -59401,9 +59047,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "cCz" = (
 /obj/structure/cable/yellow{
@@ -59529,9 +59173,7 @@
 	icon_state = "pipe-c"
 	},
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "cCM" = (
 /obj/structure/cable/yellow{
@@ -59544,9 +59186,7 @@
 	icon_state = "pipe-c"
 	},
 /obj/effect/decal/warning_stripes/northwestcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "cCN" = (
 /obj/structure/sink{
@@ -59576,9 +59216,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cCP" = (
 /obj/machinery/firealarm{
@@ -59685,9 +59323,7 @@
 /obj/item/reagent_containers/dropper,
 /obj/machinery/cell_charger,
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/cryo)
 "cCZ" = (
 /obj/structure/cable/yellow{
@@ -59748,9 +59384,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cDf" = (
 /turf/simulated/wall/r_wall,
@@ -60211,9 +59845,7 @@
 	dir = 1;
 	network = list("SS13","Medbay")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "cEj" = (
 /obj/machinery/light/small{
@@ -60256,9 +59888,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cEm" = (
 /obj/machinery/navbeacon{
@@ -60295,9 +59925,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/cryo)
 "cEu" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -60326,9 +59954,7 @@
 	})
 "cEz" = (
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/cryo)
 "cEA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -60354,9 +59980,7 @@
 "cED" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/cryo)
 "cEE" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -60458,9 +60082,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/cryo)
 "cES" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
@@ -60496,9 +60118,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/cryo)
 "cEV" = (
 /obj/machinery/hologram/holopad,
@@ -60560,9 +60180,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cFb" = (
 /obj/item/radio/intercom{
@@ -60573,9 +60191,7 @@
 	dir = 4;
 	pixel_x = 11
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cFc" = (
 /obj/structure/cable/yellow{
@@ -60662,9 +60278,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cFl" = (
 /obj/machinery/door_control{
@@ -60723,9 +60337,7 @@
 "cFr" = (
 /obj/machinery/vending/medical,
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/cryo)
 "cFs" = (
 /turf/simulated/floor/plasteel{
@@ -60743,32 +60355,24 @@
 	name = "Privacy Shutters Control";
 	pixel_x = 25
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cFx" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
 "cFz" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
 "cFA" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/machinery/meter,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -60776,9 +60380,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -60786,9 +60388,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -60796,9 +60396,7 @@
 /obj/machinery/atmospherics/trinary/mixer{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -60956,9 +60554,7 @@
 /obj/item/roller,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/cryo)
 "cFY" = (
 /obj/effect/decal/warning_stripes/south,
@@ -60976,9 +60572,7 @@
 /turf/simulated/floor/plating,
 /area/medical/genetics_cloning)
 "cGb" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/genetics_cloning)
 "cGc" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -61059,9 +60653,7 @@
 /obj/machinery/camera{
 	c_tag = "Medbay Surgery 1 North"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cGj" = (
 /obj/structure/window/reinforced{
@@ -61137,14 +60729,10 @@
 	pixel_x = 4;
 	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cGo" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cGp" = (
 /obj/structure/cable/yellow{
@@ -61153,9 +60741,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cGs" = (
 /obj/machinery/door/firedoor,
@@ -61279,9 +60865,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cGD" = (
 /obj/structure/cable/yellow{
@@ -61317,9 +60901,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -61335,9 +60917,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -61353,9 +60933,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -61368,17 +60946,13 @@
 	dir = 10
 	},
 /obj/effect/landmark/start/scientist,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
 "cGO" = (
 /obj/machinery/bodyscanner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cGP" = (
 /obj/structure/sign/biohazard,
@@ -61513,9 +61087,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbreak)
 "cHb" = (
 /obj/structure/cable/yellow{
@@ -61616,9 +61188,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbreak)
 "cHi" = (
 /obj/item/cigbutt,
@@ -61673,9 +61243,7 @@
 	dir = 1;
 	icon_state = "pipe-j2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cHm" = (
 /obj/machinery/door/firedoor,
@@ -61789,9 +61357,7 @@
 	},
 /area/medical/medbay3)
 "cHA" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -61818,9 +61384,7 @@
 	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/northwest,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/misc_lab{
 	name = "\improper Research Testing Range"
 	})
@@ -61831,17 +61395,13 @@
 	icon_state = "2-4"
 	},
 /obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/misc_lab{
 	name = "\improper Research Testing Range"
 	})
 "cHF" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -61851,9 +61411,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -61864,9 +61422,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -61878,9 +61434,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -61898,9 +61452,7 @@
 	})
 "cHK" = (
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/misc_lab{
 	name = "\improper Research Testing Range"
 	})
@@ -61917,9 +61469,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -62019,9 +61569,7 @@
 	name = "west bump";
 	pixel_x = -27
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cHU" = (
 /obj/structure/sign/securearea{
@@ -62117,9 +61665,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/genetics_cloning)
 "cIg" = (
 /obj/machinery/door/firedoor,
@@ -62237,18 +61783,14 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cIr" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
 /obj/machinery/disposal,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cIt" = (
 /obj/item/radio/intercom{
@@ -62272,9 +61814,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cIw" = (
 /obj/structure/cable/yellow{
@@ -62296,9 +61836,7 @@
 /area/assembly/robotics)
 "cIy" = (
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cIA" = (
 /obj/machinery/light{
@@ -62364,9 +61902,7 @@
 	})
 "cIE" = (
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -62384,9 +61920,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/patient_a)
 "cIG" = (
 /obj/structure/cable/yellow{
@@ -62400,9 +61934,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -62421,9 +61953,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -62440,9 +61970,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -62552,9 +62080,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/patient_b)
 "cIV" = (
 /obj/machinery/light{
@@ -62660,9 +62186,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -62694,9 +62218,7 @@
 	pixel_y = 26
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cJk" = (
 /obj/machinery/mecha_part_fabricator,
@@ -62708,9 +62230,7 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cJl" = (
 /obj/structure/cable/yellow{
@@ -62721,9 +62241,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cJm" = (
 /obj/machinery/mecha_part_fabricator,
@@ -62732,9 +62250,7 @@
 	network = list("SS13","RD")
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cJn" = (
 /obj/structure/sign/nosmoking_2{
@@ -62748,9 +62264,7 @@
 /obj/item/storage/belt/utility,
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cJo" = (
 /obj/item/radio/intercom{
@@ -62778,9 +62292,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cJs" = (
 /obj/structure/sign/securearea,
@@ -62793,9 +62305,7 @@
 	dir = 4;
 	name = "emergency shower"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -62871,9 +62381,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/patient_a)
 "cJC" = (
 /obj/structure/chair{
@@ -62937,9 +62445,7 @@
 	name = "Emergency NanoMed";
 	pixel_x = -25
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/patient_a)
 "cJN" = (
 /obj/item/reagent_containers/syringe/antiviral,
@@ -62982,9 +62488,7 @@
 	name = "Emergency NanoMed";
 	pixel_x = 25
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/patient_b)
 "cJR" = (
 /obj/structure/cable/yellow{
@@ -63023,9 +62527,7 @@
 /area/maintenance/asmaint)
 "cJY" = (
 /obj/machinery/iv_drip,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cKb" = (
 /obj/structure/sink{
@@ -63038,15 +62540,11 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cKc" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cKe" = (
 /obj/effect/spawner/window/reinforced,
@@ -63060,9 +62558,7 @@
 	},
 /obj/item/clothing/glasses/science,
 /obj/effect/decal/warning_stripes/southwest,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/misc_lab{
 	name = "\improper Research Testing Range"
 	})
@@ -63075,9 +62571,7 @@
 /obj/structure/table,
 /obj/structure/cable/yellow,
 /obj/effect/decal/warning_stripes/southeast,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/misc_lab{
 	name = "\improper Research Testing Range"
 	})
@@ -63164,9 +62658,7 @@
 	},
 /obj/machinery/light,
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/misc_lab{
 	name = "\improper Research Testing Range"
 	})
@@ -63238,16 +62730,12 @@
 	pixel_x = -28
 	},
 /obj/structure/closet/crate/freezer/iv_storage,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cKA" = (
 /obj/machinery/optable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cKB" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -63273,15 +62761,11 @@
 /obj/machinery/computer/operating{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cKE" = (
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -63305,9 +62789,7 @@
 /obj/item/circular_saw,
 /obj/item/FixOVein,
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cKI" = (
 /turf/simulated/wall,
@@ -63342,9 +62824,7 @@
 /obj/machinery/light,
 /obj/structure/table/tray,
 /obj/item/scalpel,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cKM" = (
 /turf/simulated/wall,
@@ -63446,9 +62926,7 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/patient_a)
 "cKV" = (
 /obj/machinery/door/airlock/maintenance{
@@ -63501,9 +62979,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/patient_a)
 "cLb" = (
 /obj/structure/table,
@@ -63525,9 +63001,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/patient_a)
 "cLc" = (
 /obj/machinery/light/small{
@@ -63549,9 +63023,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/patient_b)
 "cLd" = (
 /turf/simulated/wall,
@@ -63566,9 +63038,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/patient_b)
 "cLg" = (
 /obj/machinery/alarm{
@@ -63587,9 +63057,7 @@
 /area/hallway/primary/aft)
 "cLh" = (
 /obj/structure/closet/secure_closet/medical3,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cLi" = (
 /obj/structure/cable/yellow{
@@ -63597,17 +63065,13 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cLj" = (
 /obj/item/retractor,
 /obj/item/cautery,
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cLl" = (
 /obj/structure/table,
@@ -63675,9 +63139,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cLt" = (
 /obj/structure/cable/yellow{
@@ -63691,9 +63153,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cLu" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -63863,21 +63323,15 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "cLO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "cLP" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "cLQ" = (
 /obj/item/transfer_valve{
@@ -63960,9 +63414,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start/doctor,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cLZ" = (
 /obj/structure/table,
@@ -64005,9 +63457,7 @@
 	pixel_x = -28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/patient_b)
 "cMc" = (
 /obj/structure/table,
@@ -64041,9 +63491,7 @@
 /obj/item/stack/packageWrap,
 /obj/item/stack/packageWrap,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cMh" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -64073,9 +63521,7 @@
 	},
 /obj/item/stack/cable_coil,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cMm" = (
 /obj/structure/cable/yellow{
@@ -64103,9 +63549,7 @@
 	},
 /obj/machinery/photocopier,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cMp" = (
 /obj/structure/cable/yellow{
@@ -64116,9 +63560,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/lightsout,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cMq" = (
 /obj/machinery/firealarm{
@@ -64187,9 +63629,7 @@
 	name = "manual outlet valve"
 	},
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -64250,9 +63690,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "cMB" = (
 /obj/structure/cable/yellow{
@@ -64266,9 +63704,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "cMC" = (
 /obj/structure/cable/yellow{
@@ -64287,9 +63723,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "cMD" = (
 /obj/structure/cable/yellow{
@@ -64369,9 +63803,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "cMH" = (
 /obj/structure/cable/yellow{
@@ -64383,9 +63815,7 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/effect/landmark/lightsout,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "cMK" = (
 /obj/machinery/door/firedoor,
@@ -64423,9 +63853,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "cMN" = (
 /obj/structure/cable/yellow{
@@ -64580,15 +64008,11 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cMW" = (
 /obj/structure/closet/secure_closet/medical2,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cMX" = (
 /obj/structure/table,
@@ -64614,9 +64038,7 @@
 	pixel_y = 4
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cMY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
@@ -64653,9 +64075,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cNd" = (
 /obj/structure/sign/securearea{
@@ -64680,9 +64100,7 @@
 	},
 /obj/machinery/disposal,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cNf" = (
 /obj/machinery/alarm{
@@ -64695,9 +64113,7 @@
 	},
 /obj/machinery/r_n_d/circuit_imprinter,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cNg" = (
 /obj/structure/cable/yellow{
@@ -64712,9 +64128,7 @@
 "cNi" = (
 /obj/item/hemostat,
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cNj" = (
 /obj/structure/cable/yellow{
@@ -64740,9 +64154,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cNm" = (
 /obj/machinery/atmospherics/pipe/simple/insulated,
@@ -64765,9 +64177,7 @@
 	tag_interior_door = "tox_airlock_interior"
 	},
 /obj/effect/decal/warning_stripes/southwestcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -64775,9 +64185,7 @@
 /obj/item/bonegel,
 /obj/item/bonesetter,
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "cNt" = (
 /obj/structure/cable,
@@ -64866,9 +64274,7 @@
 	name = "CMO's Junction";
 	sortType = 10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cNG" = (
 /obj/structure/cable/yellow{
@@ -64972,9 +64378,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cNR" = (
 /obj/structure/cable/yellow{
@@ -65007,9 +64411,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cNV" = (
 /obj/structure/cable/yellow{
@@ -65083,9 +64485,7 @@
 	},
 /obj/item/clothing/glasses/hud/diagnostic,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cNZ" = (
 /obj/structure/cable/yellow{
@@ -65120,9 +64520,7 @@
 	name = "manual inlet valve"
 	},
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -65171,9 +64569,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cOh" = (
 /obj/structure/cable/yellow{
@@ -65290,9 +64686,7 @@
 	pixel_y = -24
 	},
 /obj/effect/decal/warning_stripes/northwestcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -65457,9 +64851,7 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "cOL" = (
 /obj/machinery/power/apc{
@@ -65475,9 +64867,7 @@
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/patient_b)
 "cOM" = (
 /obj/structure/cable/yellow{
@@ -65540,15 +64930,11 @@
 	pixel_y = 2
 	},
 /obj/effect/landmark/start/roboticist,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cOT" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cOU" = (
 /obj/machinery/door_control{
@@ -65566,9 +64952,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cOW" = (
 /obj/structure/window/reinforced{
@@ -65578,15 +64962,11 @@
 	pixel_x = 2
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cOX" = (
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cOZ" = (
 /turf/simulated/floor/plasteel{
@@ -65725,9 +65105,7 @@
 	pixel_x = 3
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cPp" = (
 /obj/item/bedsheet/medical,
@@ -65815,9 +65193,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cPC" = (
 /obj/structure/table,
@@ -66060,9 +65436,7 @@
 	},
 /obj/machinery/vending/robodrobe,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cPW" = (
 /obj/machinery/door/window/eastleft{
@@ -66071,9 +65445,7 @@
 	req_access_txt = "29"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cPX" = (
 /obj/structure/sink{
@@ -66122,9 +65494,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/patient_a)
 "cQc" = (
 /obj/structure/window/reinforced{
@@ -66187,9 +65557,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/patient_b)
 "cQg" = (
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -66359,9 +65727,7 @@
 	},
 /obj/structure/cable/yellow,
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "cQA" = (
 /obj/structure/morgue{
@@ -66502,9 +65868,7 @@
 	pixel_y = 4
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "cQP" = (
 /obj/machinery/door/airlock/maintenance{
@@ -66525,9 +65889,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cQR" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
@@ -66611,16 +65973,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "cRe" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "cRg" = (
 /obj/structure/closet/emcloset,
@@ -66632,9 +65990,7 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/southwest,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "cRh" = (
 /turf/simulated/wall,
@@ -66745,9 +66101,7 @@
 	},
 /obj/item/storage/box/bodybags,
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cRv" = (
 /obj/machinery/power/apc{
@@ -67284,9 +66638,7 @@
 	name = "biohazard containment door"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cSv" = (
 /obj/item/twohanded/required/kirbyplants{
@@ -67531,9 +66883,7 @@
 	name = "biohazard containment door"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cSX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -67712,9 +67062,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -68047,9 +67395,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -68097,9 +67443,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cUf" = (
 /obj/structure/cable{
@@ -68195,9 +67539,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cUq" = (
 /obj/structure/cable/yellow{
@@ -68214,9 +67556,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cUr" = (
 /obj/structure/cable/yellow{
@@ -68234,9 +67574,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cUs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -68374,9 +67712,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cUG" = (
 /obj/structure/reagent_dispensers/peppertank{
@@ -68610,9 +67946,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -68753,9 +68087,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "cVL" = (
 /obj/structure/table/reinforced,
@@ -68932,9 +68264,7 @@
 "cWg" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -68947,9 +68277,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -69062,9 +68390,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -69098,9 +68424,7 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -69116,9 +68440,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -69330,9 +68652,7 @@
 	pixel_y = 2
 	},
 /obj/effect/decal/warning_stripes/southwest,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -69343,9 +68663,7 @@
 	pixel_x = 28
 	},
 /obj/effect/decal/warning_stripes/southeast,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -69358,9 +68676,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -69904,9 +69220,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -69923,9 +69237,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -69933,9 +69245,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70067,9 +69377,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70081,17 +69389,13 @@
 /obj/item/slime_scanner,
 /obj/item/slime_scanner,
 /obj/effect/decal/warning_stripes/southeastcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
 "cYR" = (
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70298,9 +69602,7 @@
 "cZu" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70339,9 +69641,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/start/doctor,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "cZz" = (
 /obj/structure/cable/yellow{
@@ -70384,9 +69684,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70437,9 +69735,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70448,9 +69744,7 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/southwestcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70518,9 +69812,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70562,16 +69854,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
 "dab" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70640,9 +69928,7 @@
 	})
 "daq" = (
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70665,9 +69951,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70681,9 +69965,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70792,9 +70074,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/southwestcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70839,9 +70119,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "daO" = (
 /obj/structure/cable/yellow{
@@ -70858,9 +70136,7 @@
 	},
 /area/medical/medbay3)
 "daP" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "daQ" = (
 /obj/structure/cable/yellow{
@@ -70879,9 +70155,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70953,9 +70227,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/lightsout,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71010,9 +70282,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/cryo)
 "dbm" = (
 /obj/structure/cable/yellow{
@@ -71031,9 +70301,7 @@
 /area/engine/chiefs_office)
 "dbo" = (
 /obj/effect/decal/warning_stripes/northwestcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71056,9 +70324,7 @@
 /area/engine/chiefs_office)
 "dbr" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71069,9 +70335,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71083,9 +70347,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay2{
 	name = "Medbay Storage"
 	})
@@ -71129,17 +70391,13 @@
 	pixel_y = 2
 	},
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
 "dbA" = (
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71243,9 +70501,7 @@
 	pixel_y = 5
 	},
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "dbH" = (
 /obj/structure/cable/yellow{
@@ -71283,9 +70539,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/start/scientist,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71357,9 +70611,7 @@
 /obj/machinery/atmospherics/binary/pump{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71377,9 +70629,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71400,9 +70650,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71415,9 +70663,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71435,9 +70681,7 @@
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71500,9 +70744,7 @@
 	req_access_txt = "55"
 	},
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71524,9 +70766,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71540,9 +70780,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -72173,9 +71411,7 @@
 	dir = 5
 	},
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -72186,9 +71422,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -72472,9 +71706,7 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -72501,9 +71733,7 @@
 	pixel_y = 28
 	},
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "dfR" = (
 /obj/structure/sign/biohazard{
@@ -72513,9 +71743,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/northwest,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "dfT" = (
 /obj/structure/cable/yellow{
@@ -72547,9 +71775,7 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "dfV" = (
 /obj/structure/cable/yellow{
@@ -72564,9 +71790,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "dfW" = (
 /obj/structure/table/reinforced,
@@ -72616,9 +71840,7 @@
 	pixel_y = -24
 	},
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "dfZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -72753,9 +71975,7 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/southeast,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "dgI" = (
 /obj/structure/table,
@@ -72954,20 +72174,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/genetics)
 "dhB" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/genetics)
 "dhD" = (
 /obj/effect/landmark/start/geneticist,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/genetics)
 "dhE" = (
 /obj/structure/cable/yellow{
@@ -73049,9 +72263,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "dnu" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -73072,9 +72284,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -73120,9 +72330,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "dxo" = (
 /obj/effect/spawner/random_spawners/fungus_probably,
@@ -73419,9 +72627,7 @@
 "dZe" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/cryo)
 "dZM" = (
 /obj/machinery/door/poddoor{
@@ -73532,9 +72738,7 @@
 /area/maintenance/asmaint)
 "eiF" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
 "ekd" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -73911,9 +73115,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "ftd" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -73932,9 +73134,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "ftF" = (
 /obj/structure/cable/yellow{
@@ -73994,9 +73194,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "fzX" = (
 /obj/effect/spawner/random_spawners/fungus_maybe,
@@ -74217,9 +73415,7 @@
 	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/northwest,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -74305,9 +73501,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "gnZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -74713,9 +73907,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -74837,9 +74029,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/chemistry)
 "hCZ" = (
 /obj/structure/cable/yellow{
@@ -75140,9 +74330,7 @@
 "ihM" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "iic" = (
 /obj/structure/cable/yellow{
@@ -75201,9 +74389,7 @@
 /area/maintenance/fpmaint)
 "ikO" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "ilf" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
@@ -75346,9 +74532,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
 "izl" = (
 /obj/structure/chair/stool,
@@ -75608,9 +74792,7 @@
 /area/maintenance/aft)
 "jgD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "jhQ" = (
 /obj/structure/cable/yellow{
@@ -75624,9 +74806,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -76147,9 +75327,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "kIq" = (
 /obj/machinery/light/small{
@@ -76183,9 +75361,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -76622,9 +75798,7 @@
 "mfz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "mhq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -76836,9 +76010,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -77349,9 +76521,7 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "nVz" = (
 /obj/machinery/firealarm{
@@ -77484,9 +76654,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -77603,9 +76771,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay2{
 	name = "Medbay Storage"
 	})
@@ -77626,9 +76792,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/chemistry)
 "oVK" = (
 /obj/structure/chair{
@@ -77690,9 +76854,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -77906,9 +77068,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "pue" = (
 /obj/effect/decal/warning_stripes/north,
@@ -77974,9 +77134,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/chemistry)
 "pAO" = (
 /obj/structure/chair{
@@ -78195,9 +77353,7 @@
 	name = "Chapel Junction";
 	sortType = 17
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "qeW" = (
 /obj/structure/cable/yellow{
@@ -78236,9 +77392,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "qob" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -78721,9 +77875,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -78973,9 +78125,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "say" = (
 /obj/structure/window/reinforced,
@@ -79236,9 +78386,7 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -79582,9 +78730,7 @@
 /area/hallway/primary/aft)
 "tSj" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "tST" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -79751,9 +78897,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -79810,9 +78954,7 @@
 	})
 "uov" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery1)
 "uqy" = (
 /obj/item/wrench,
@@ -79957,9 +79099,7 @@
 	dir = 10
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/medbay3)
 "uOL" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -80327,9 +79467,7 @@
 /obj/structure/chair/stool,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
 "vOE" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -80560,9 +79698,7 @@
 "wyc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgery2)
 "wyX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -80838,9 +79974,7 @@
 	})
 "xkY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "xno" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -81041,9 +80175,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/reception)
 "xUe" = (
 /turf/simulated/floor/plasteel{
@@ -81071,9 +80203,7 @@
 "yag" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/surgeryobs)
 "yaq" = (
 /turf/simulated/floor/plating,
