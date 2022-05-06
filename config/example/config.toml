@@ -145,7 +145,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 35
+sql_version = 36
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -742,6 +742,8 @@ instance_id = "paradise_main"
 internal_ip = "127.0.0.1"
 # Are we handling TOS consents on an external service?
 external_tos_handler = false
+# Whether to load test_tiny instead of the normal map.
+load_test_map = false
 
 
 ################################################################
@@ -781,6 +783,8 @@ donations_url = "https://www.patreon.com/ParadiseStation"
 ban_appeals_url = "https://www.paradisestation.org/forum/55-unban-requests/"
 # URL for the CentComm ban DB. Doesnt change much. Ckey is slapped on the end
 centcomm_ban_db_url = "https://centcom.melonmesa.com/ban/search/"
+# URL for the game stats page, if applicable. Round ID is appended right on the end. Include a trailing slash if necessary.
+#round_stats_url = "https://affectedarc07.github.io/ParaStats/#/round/"
 
 
 ################################################################

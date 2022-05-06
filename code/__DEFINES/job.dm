@@ -56,13 +56,3 @@
 #define JOB_ASSISTANT			(1<<13)
 #define JOB_EXPLORER			(1<<14)
 #define JOB_BARBER				(1<<15)
-
-#define JOBCAT_KARMA			(1<<3)
-
-// #define JOB_NANO				(1<<0) // AA07 2022-04-10 - Moved to ENGSEC (Non karma): Define kept for history sake
-// #define JOB_BLUESHIELD		(1<<1) // AA07 2022-02-23 - Moved to ENGSEC (Non karma): Define kept for history sake
-// #define JOB_BARBER			(1<<3) // AA07 2022-04-07 - Moved to SUPPORT (Non karma): Define kept for history sake
-// #define JOB_MECHANIC			(1<<4) // AA07 2021-10-02 - Removed: Kept for history sake
-// #define JOB_BRIGDOC			(1<<5) // AA07 2021-12-01 - Removed: Kept for history sake
-// #define JOB_JUDGE			(1<<6) // AA07 2021-10-09 - Moved to ENGSEC (Non karma): Define kept for history sake
-// #define JOB_PILOT			(1<<7) // AA07 2021-10-02 - Removed: Kept for history sake
