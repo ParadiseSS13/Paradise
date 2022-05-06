@@ -33,7 +33,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	var/tiles_in_y_direction = 1
 	var/id_to_link
 	var/radio_frequency = 1379
-	req_access_txt = ACCESS_EXTERNAL_AIRLOCKS
+	req_access_txt = ACCESS_EXTERNAL_AIRLOCKS //If req_one_access_txt is set, this is ignored
 	var/door_name = "external access"
 	var/door_type = /obj/machinery/door/airlock/external/glass
 	var/one_door_interior //For square airlocks, if you set this then a) only one door will spawn, and b) you can choose if the door should go opposite to how it normally goes. Please use the define
@@ -95,7 +95,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 /obj/effect/spawner/airlock/proc/handle_door_stuff(obj/machinery/door/airlock/A, is_this_an_interior_airlock) //This sets up the door vars correctly and then locks it before first use
 	A.set_frequency(radio_frequency)
 	A.id_tag = is_this_an_interior_airlock ? INNER_DOOR_TAG : OUTER_DOOR_TAG
-	A.req_access_txt = "[req_access_txt]"
+	set_access_helper(A)
 	A.name = door_name
 	A.lock()
 
@@ -116,14 +116,14 @@ This spawner places pipe leading up to the interior door, you will need to finis
 		if(WEST)
 			the_button.pixel_x -= 7
 			the_button.pixel_y -= 25
-	the_button.req_access_txt = "[req_access_txt]"
+	set_access_helper(the_button)
 	return the_button
 
 /obj/effect/spawner/airlock/proc/handle_control_placement() //Stick the sensor and controller on the same bit of wall, this will ONLY be unsuitable if airlocks are on both the south and west turfs
 	var/turf/T = get_turf(src)
 	var/obj/machinery/airlock_sensor/AS = new(T)
 	var/obj/machinery/embedded_controller/radio/airlock/airlock_controller/AC = new(T, id_to_link, radio_frequency, OUTER_DOOR_TAG, INNER_DOOR_TAG, AIRPUMP_TAG, SENSOR_TAG)
-	AC.req_access_txt = "[req_access_txt]"
+	set_access_helper(AC)
 	AS.id_tag = SENSOR_TAG
 	AS.set_frequency(radio_frequency)
 	if(interior_direction != WEST && exterior_direction != WEST) //If west wall is free, place stuff there
@@ -201,6 +201,11 @@ This spawner places pipe leading up to the interior door, you will need to finis
 		created_pump.id_tag = AIRPUMP_TAG
 		created_pump.set_frequency(radio_frequency)
 
+/obj/effect/spawner/airlock/proc/set_access_helper(var/obj/I)
+	if(req_one_access_txt == "0")
+		I.req_access_txt = "[req_access_txt]"
+	else
+		I.req_one_access_txt = "[req_one_access_txt]"
 
 //Premade airlocks for mappers, probably won't need all of these but whatever
 /obj/effect/spawner/airlock/s_to_n
