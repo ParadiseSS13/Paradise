@@ -201,7 +201,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 		created_pump.id_tag = AIRPUMP_TAG
 		created_pump.set_frequency(radio_frequency)
 
-/obj/effect/spawner/airlock/proc/set_access_helper(var/obj/I)
+/obj/effect/spawner/airlock/proc/set_access_helper(obj/I)
 	if(req_one_access_txt == "0")
 		I.req_access_txt = "[req_access_txt]"
 	else
