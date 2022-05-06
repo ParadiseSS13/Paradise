@@ -126,6 +126,9 @@ SUBSYSTEM_DEF(mapping)
 
 // Loads in the station
 /datum/controller/subsystem/mapping/proc/loadStation()
+	if(GLOB.configuration.system.load_test_map)
+		log_startup_progress("Loading test map, overridden by configuration.")
+		map_datum = new /datum/map/test_tiny
 	ASSERT(map_datum.map_path)
 	if(!fexists(map_datum.map_path))
 		// Make a VERY OBVIOUS error
