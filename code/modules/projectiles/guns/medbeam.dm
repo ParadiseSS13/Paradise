@@ -10,8 +10,8 @@
 	var/last_check = 0
 	var/check_delay = 10 //Check los as often as possible, max resolution is SSobj tick though
 	var/max_range = 8
-	var/active = 0
-	var/datum/beam/current_beam = null
+	var/active = FALSE
+	var/beam_UID = null
 
 	weapon_weight = WEAPON_MEDIUM
 
@@ -32,8 +32,9 @@
 
 /obj/item/gun/medbeam/proc/LoseTarget()
 	if(active)
-		qdel(current_beam)
-		active = 0
+		qdel(locateUID(beam_UID))
+		beam_UID = null
+		active = FALSE
 		on_beam_release(current_target)
 	current_target = null
 
@@ -46,10 +47,10 @@
 		return
 
 	current_target = target
-	active = 1
-	current_beam = new(user,current_target,time=6000,beam_icon_state="medbeam",btype=/obj/effect/ebeam/medical)
-	spawn(0)
-		current_beam.Start()
+	active = TRUE
+	var/datum/beam/current_beam = new(user,current_target,time=6000,beam_icon_state="medbeam",btype=/obj/effect/ebeam/medical)
+	beam_UID = current_beam.UID()
+	INVOKE_ASYNC(current_beam, /datum/beam.proc/Start)
 
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
@@ -78,6 +79,7 @@
 
 /obj/item/gun/medbeam/proc/los_check(mob/user,mob/target)
 	var/turf/user_turf = user.loc
+	var/datum/beam/current_beam = locateUID(beam_UID)
 	if(!istype(user_turf))
 		return 0
 	var/obj/dummy = new(user_turf)
