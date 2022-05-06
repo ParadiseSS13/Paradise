@@ -33605,13 +33605,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
+/obj/machinery/bluespace_beacon,
 /turf/simulated/floor/plasteel,
 /area/teleporter)
 "bPp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/item/radio/beacon,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
@@ -33620,7 +33620,6 @@
 /area/teleporter)
 "bPq" = (
 /obj/structure/table,
-/obj/item/hand_tele,
 /obj/machinery/light_switch{
 	name = "north bump";
 	pixel_y = 24
@@ -33639,6 +33638,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/item/radio/beacon,
+/obj/item/hand_tele,
 /turf/simulated/floor/plasteel,
 /area/teleporter)
 "bPy" = (
@@ -34500,10 +34501,10 @@
 	name = "E.V.A. Storage"
 	})
 "bRY" = (
-/obj/machinery/bluespace_beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/teleporter)
 "bRZ" = (
@@ -91774,6 +91775,12 @@
 	},
 /turf/simulated/wall,
 /area/medical/reception)
+"vkO" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/ai_monitored/storage/eva{
+	name = "E.V.A. Storage"
+	})
 "vkR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -121180,7 +121187,7 @@ bJs
 bKO
 buj
 fla
-bOR
+vkO
 bXV
 bTF
 bWA
