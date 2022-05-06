@@ -79,7 +79,6 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	var/obj/machinery/access_button/the_button = spawn_button(T, is_this_an_interior_airlock ? interior_direction : exterior_direction)
 	if(one_door_only == DOOR_NORMAL_PLACEMENT) //We only need one door, we are done
 		return
-	the_button.command = "[is_this_an_interior_airlock ? "cycle_interior" : "cycle_exterior"]"
 	if(!(tiles_in_x_direction % 2) && (is_this_an_interior_airlock && north_or_south_interior || !is_this_an_interior_airlock && north_or_south_exterior)) //Handle extra airlock for aesthetics
 		A = new door_type(get_step(T, EAST))
 		handle_door_stuff(A, is_this_an_interior_airlock)
@@ -90,6 +89,8 @@ This spawner places pipe leading up to the interior door, you will need to finis
 		handle_door_stuff(A, is_this_an_interior_airlock)
 		if(one_door_only == DOOR_FLIPPED_PLACEMENT)
 			the_button.forceMove(get_step(the_button, NORTH))
+	if(!one_door_only)
+		the_button.command = "[is_this_an_interior_airlock ? "cycle_interior" : "cycle_exterior"]"
 
 /obj/effect/spawner/airlock/proc/handle_door_stuff(obj/machinery/door/airlock/A, is_this_an_interior_airlock) //This sets up the door vars correctly and then locks it before first use
 	A.set_frequency(radio_frequency)
