@@ -16160,7 +16160,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/turret_protected/ai_upload_foyer)
 "bbm" = (
@@ -38982,10 +38982,6 @@
 	},
 /area/hydroponics)
 "cds" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Atmospherics Maintenance";
-	req_access_txt = "24"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -39003,6 +38999,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "24"
+	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "cdw" = (
@@ -67610,6 +67610,9 @@
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
