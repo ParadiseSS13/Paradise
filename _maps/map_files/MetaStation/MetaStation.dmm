@@ -36395,6 +36395,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -63008,7 +63009,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	desc = "Epsilon Eridani Sector - 'Meta' Class Outpost - Commissioned 11/03/2553 - NSS Cerebron";
+	desc = "Epsilon Eridani Sector - 'Meta' Class Outpost - Commissioned 11/03/2557 - NSS Cerebron";
 	icon_state = "plaque";
 	name = "Commission Plaque"
 	},
