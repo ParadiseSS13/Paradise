@@ -292,7 +292,7 @@
 	build_path = /obj/machinery/computer/syndie_supplycomp
 	origin_tech = "programming=3;syndicate=3"
 
-obj/item/circuitboard/syndicatesupplycomp/public
+/obj/item/circuitboard/syndicatesupplycomp/public
 	name = "Circuit board (Syndicate Public Supply Pad Console)"
 	build_path = /obj/machinery/computer/syndie_supplycomp/public
 	origin_tech = "programming=3;syndicate=3"

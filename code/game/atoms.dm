@@ -28,7 +28,7 @@
 
 	//Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
-
+	
 	//Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
 
