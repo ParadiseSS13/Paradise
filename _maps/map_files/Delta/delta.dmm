@@ -91615,6 +91615,13 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/medical/research/nhallway)
+"oBY" = (
+/obj/structure/bed/dogbed{
+	name = "kitty basket"
+	},
+/mob/living/simple_animal/pet/cat/floppa,
+/turf/simulated/floor/wood,
+/area/blueshield)
 "oCc" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/northwest,
@@ -171619,7 +171626,7 @@ bJh
 aaa
 pty
 ppQ
-iLo
+oBY
 dBT
 dDj
 dFi

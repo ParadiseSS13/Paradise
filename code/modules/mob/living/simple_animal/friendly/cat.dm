@@ -28,6 +28,15 @@
 	var/mob/living/simple_animal/mouse/movement_target
 	var/eats_mice = 1
 
+/mob/living/simple_animal/pet/cat/floppa
+	name = "Big Floppa"
+	desc = "He looks like he is about to commit a warcrime.."
+	icon_state = "floppa"
+	icon_living = "floppa"
+	icon_dead = "floppa_dead"
+	icon_resting = "floppa_rest"
+	unique_pet = TRUE
+
 //RUNTIME IS ALIVE! SQUEEEEEEEE~
 /mob/living/simple_animal/pet/cat/Runtime
 	name = "Runtime"
