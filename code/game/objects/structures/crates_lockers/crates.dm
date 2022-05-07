@@ -47,6 +47,7 @@
 
 	playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
 	for(var/obj/O in src) //Objects
+		O.layer = src.layer + 0.1
 		O.forceMove(loc)
 	for(var/mob/M in src) //Mobs
 		M.forceMove(loc)
@@ -59,9 +60,7 @@
 	return TRUE
 
 /obj/structure/closet/crate/close()
-	if(!src.opened)
-		return FALSE
-	if(!src.can_close())
+	if(!src.opened || !src.can_close())
 		return FALSE
 
 	playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)

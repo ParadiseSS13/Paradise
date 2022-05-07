@@ -71,19 +71,17 @@
 	return TRUE
 
 /obj/structure/closet/proc/dump_contents()
-	var/turf/T = get_turf(src)
+	var/atom/L = drop_location()
 	for(var/atom/movable/AM in src)
-		AM.forceMove(T)
+		AM.layer = src.layer + 0.1
+		AM.forceMove(L)
 		if(throwing) // you keep some momentum when getting out of a thrown closet
 			step(AM, dir)
 	if(throwing)
 		throwing.finalize(FALSE)
 
 /obj/structure/closet/proc/open()
-	if(opened)
-		return FALSE
-
-	if(!can_open())
+	if(opened || !can_open())
 		return FALSE
 
 	dump_contents()
@@ -98,9 +96,7 @@
 	return TRUE
 
 /obj/structure/closet/proc/close()
-	if(!opened)
-		return FALSE
-	if(!can_close())
+	if(!opened || !can_close())
 		return FALSE
 
 	var/itemcount = 0
