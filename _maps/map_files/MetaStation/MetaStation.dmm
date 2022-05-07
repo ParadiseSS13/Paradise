@@ -2173,6 +2173,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "anD" = (
@@ -61390,6 +61393,12 @@
 	icon_state = "dark"
 	},
 /area/security/main)
+"fPw" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fore)
 "fPC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -130779,7 +130788,7 @@ aAc
 alW
 alW
 alW
-alW
+fPw
 alW
 alW
 baa
