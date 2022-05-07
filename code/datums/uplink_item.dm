@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/name = "item name"
 	var/category = "item category"
 	var/desc = "Item Description"
-	var/reference = "Item Reference"
+	var/reference = null
 	var/item = null
 	var/cost = 0
 	var/last = 0 // Appear last
@@ -314,7 +314,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/jobspecific/pickpocketgloves
 	name = "Pickpocket's Gloves"
 	desc = "A pair of sleek gloves to aid in pickpocketing. While wearing these, you can loot your target without them knowing. Pickpocketing puts the item directly into your hand."
-	reference = "PG"
+	reference = "PPG"
 	item = /obj/item/clothing/gloves/color/black/thief
 	cost = 6
 	job = list("Assistant")
@@ -1061,6 +1061,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/explosives/detomatix/nuclear
 	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crewmembers who have their message feature enabled. The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer. It has a chance to detonate your PDA. This version comes with a program to toggle your nuclear shuttle blast doors remotely."
 	item = /obj/item/cartridge/syndicate/nuclear
+	reference = "DEPCN"
 	excludefrom = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
@@ -1075,6 +1076,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/explosives/grenadier
 	name = "Grenadier's belt"
 	desc = "A belt containing 26 lethally dangerous and destructive grenades."
+	reference = "GRB"
 	item = /obj/item/storage/belt/grenade/full
 	cost = 30
 	surplus = 0
@@ -1534,7 +1536,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Dropwall generator box"
 	desc = "A box of 5 dropwall shield generators, which can be used to make temporary directional shields that block projectiles, thrown objects, and reduce explosions. Configure the direction before throwing."
 	item = /obj/item/storage/box/syndie_kit/dropwall
-	reference = "ESD"
+	reference = "DWG"
 	cost = 10
 	gamemodes = list(/datum/game_mode/nuclear)
 
