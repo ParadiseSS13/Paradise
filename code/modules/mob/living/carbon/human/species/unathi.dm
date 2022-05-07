@@ -135,8 +135,8 @@
 	name = "Ash Walker"
 	name_plural = "Ash Walkers"
 
-	blurb = "These reptillian creatures appear to be related to the Unathi, but seem significantly less evolved. \
-	They roam the wastes of Lavaland, worshipping a dead city and capturing unsuspecting miners."
+	blurb = "Пеплоходцы — рептильные гуманоиды, по-видимому, родственные унати. Но кажутся значительно менее развитыми. \
+	Они бродят по пустошам Лаваленда, поклоняются мёртвому городу и ловят ничего не подозревающих шахтёров."
 
 	language = "Sinta'unathi"
 	default_language = "Sinta'unathi"

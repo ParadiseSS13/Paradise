@@ -2,7 +2,7 @@
 //The ash walker den consumes corpses or unconscious mobs to create ash walker eggs. For more info on those, check ghost_role_spawners.dm
 /obj/structure/lavaland/ash_walker
 	name = "necropolis tendril nest"
-	desc = "A vile tendril of corruption. It's surrounded by a nest of rapidly growing eggs..."
+	desc = "Щупальце искажённой злобы. Вокруг него обустроено гнездо, полное быстро растущих яиц…"
 	icon = 'icons/mob/nest.dmi'
 	icon_state = "ash_walker_nest"
 
@@ -36,7 +36,7 @@
 /obj/structure/lavaland/ash_walker/proc/consume()
 	for(var/mob/living/H in view(src, 1)) //Only for corpse right next to/on same tile
 		if(H.stat)
-			visible_message("<span class='warning'>Serrated tendrils eagerly pull [H] to [src], tearing the body apart as its blood seeps over the eggs.</span>")
+			visible_message("<span class='warning'>Шипастые усики жадно подтаскивают тело [H] и разрывают его на куски, окропляя кровью растущие яйца.</span>")
 			playsound(get_turf(src),'sound/magic/demon_consume.ogg', 100, 1)
 			for(var/obj/item/W in H)
 				if(!H.unEquip(W))
@@ -51,12 +51,12 @@
 /obj/structure/lavaland/ash_walker/proc/spawn_mob()
 	if(meat_counter >= ASH_WALKER_SPAWN_THRESHOLD)
 		new /obj/effect/mob_spawn/human/ash_walker(get_step(loc, pick(GLOB.alldirs)))
-		visible_message("<span class='danger'>One of the eggs swells to an unnatural size and tumbles free. It's ready to hatch!</span>")
+		visible_message("<span class='danger'>Одно из яиц вырастает до огромных размеров и открепляется от щупальца. Оно готово к вылуплению!</span>")
 		meat_counter -= ASH_WALKER_SPAWN_THRESHOLD
 
 /obj/effect/mob_spawn/human/ash_walker
 	name = "ash walker egg"
-	desc = "A man-sized yellow egg, spawned from some unfathomable creature. A humanoid silhouette lurks within."
+	desc = "Жёлтое яйцо размером с человека, порождённое каким-то непостижимым существом. Внутри проглядывает гуманоидный силуэт."
 	mob_name = "an ash walker"
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "large_egg"
@@ -67,22 +67,22 @@
 	anchored = FALSE
 	move_resist = MOVE_FORCE_NORMAL
 	density = FALSE
-	important_info = "Do not leave Lavaland without admin permission. Do not attack the mining outpost without being provoked."
-	description = "You are an ashwalker, a native inhabitant of Lavaland. Try to survive with nothing but spears and other tribal technology. Bring dead bodies back to your tendril to create more of your kind. You are free to attack miners and other outsiders."
-	flavour_text = "Your tribe worships the Necropolis. The wastes are sacred ground, its monsters a blessed bounty. \
-	You have seen lights in the distance... they foreshadow the arrival of outsiders that seek to tear apart the Necropolis and its domain. Fresh sacrifices for your nest."
+	important_info = "Не покидайте Лаваленд без разрешения администратора. Нападать на шахтёрский аванпост можно только в ответ на агрессию."
+	description = "Вы — пеплоходец, дикарь из племени коренных обитателей Лаваленда. Выживайте, охотьтесь и защищайте своё гнездо. Пользуйтесь примитивными племенными технологиями. Скармливайте трупы щупальцу в гнезде, дабы оно порождало яйца новых пеплоходцев. Вам разрешено атаковать шахтёров и других чужаков."
+	flavour_text = "Ваше племя поклоняется Некрополю. Пустоши для вас — священные земли, а местные чудища — их щедрые дары умелым охотникам. \
+	Вы видели вдали огни… Они предвещают прибытие чужаков, желающих разорить ваши земли и даже сам Некрополь. Но для вас они — лишь очередные подношения для гнезда."
 	assignedrole = "Ash Walker"
 
 /obj/effect/mob_spawn/human/ash_walker/special(mob/living/carbon/human/new_spawn)
 	new_spawn.rename_character(new_spawn.real_name, new_spawn.dna.species.get_random_name(new_spawn.gender))
 
-	to_chat(new_spawn, "<b>Drag the corpses of men and beasts to your nest. It will absorb them to create more of your kind. Glory to the Necropolis!</b>")
+	to_chat(new_spawn, "<b>Добывайте для гнезда трупы гуманоидов и зверей. Щупальце поглотит их, порождая яйца новых пеплоходцев. Слава Некрополю!</b>")
 
 /obj/effect/mob_spawn/human/ash_walker/New()
 	. = ..()
 	var/area/A = get_area(src)
 	if(A)
-		notify_ghosts("An ash walker egg is ready to hatch in \the [A.name].", source = src, action = NOTIFY_ATTACK, flashwindow = FALSE)
+		notify_ghosts("Яйцо пеплоходца готово вылупиться в [A.name].", source = src, action = NOTIFY_ATTACK, flashwindow = FALSE)
 
 /datum/outfit/ashwalker
 	name ="Ashwalker"
