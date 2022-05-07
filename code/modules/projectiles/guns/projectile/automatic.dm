@@ -136,13 +136,13 @@
 
 //Type-U3 Uzi//
 /obj/item/gun/projectile/automatic/mini_uzi
-	name = "\improper 'Type U3' Uzi"
+	name = "\improper ''Type U3 Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
 	icon_state = "mini-uzi"
 	origin_tech = "combat=4;materials=2;syndicate=4"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
-	burst_size = 2
+	burst_size = 4
 
 //M-90gl Carbine//
 /obj/item/gun/projectile/automatic/m90
@@ -155,7 +155,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = 0
+	can_suppress = 1
 	var/obj/item/gun/projectile/revolver/grenadelauncher/underbarrel
 	burst_size = 3
 	fire_delay = 2
@@ -166,7 +166,7 @@
 	update_icon()
 
 /obj/item/gun/projectile/automatic/m90/afterattack(var/atom/target, var/mob/living/user, flag, params)
-	if(select == 2)
+	if(select == 0)
 		underbarrel.afterattack(target, user, flag, params)
 	else
 		..()
@@ -184,13 +184,11 @@
 	..()
 	overlays.Cut()
 	switch(select)
-		if(0)
-			overlays += "[initial(icon_state)]semi"
 		if(1)
 			overlays += "[initial(icon_state)]burst"
-		if(2)
+		if(0)
 			overlays += "[initial(icon_state)]gren"
-	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
+	icon_state = "[initial(icon_state)][magazine ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 	if(magazine)
 		overlays += image(icon = icon, icon_state = "m90-[CEILING(get_ammo(0)/6, 1)*6]")
 		item_state = "m90-[CEILING(get_ammo(0)/7.5, 1)]"
@@ -207,13 +205,8 @@
 			fire_delay = initial(fire_delay)
 			to_chat(user, "<span class='notice'>You switch to [burst_size] round burst.</span>")
 		if(1)
-			select = 2
-			to_chat(user, "<span class='notice'>You switch to grenades.</span>")
-		if(2)
 			select = 0
-			burst_size = 1
-			fire_delay = 0
-			to_chat(user, "<span class='notice'>You switch to semi-auto.</span>")
+			to_chat(user, "<span class='notice'>You switch to grenades.</span>")
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 	update_icon()
 

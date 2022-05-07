@@ -88,6 +88,7 @@
 /obj/item/gun/projectile/automatic/pistol/deagle
 	name = "desert eagle"
 	desc = "A robust .50 AE handgun."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "deagle"
 	force = 14.0
 	mag_type = /obj/item/ammo_box/magazine/m50

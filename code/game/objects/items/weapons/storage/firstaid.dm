@@ -198,16 +198,54 @@
 	med_bot_skin = "bezerk"
 	syndicate_aligned = TRUE
 
+/obj/item/storage/firstaid/tactical
+	name = "NT first-aid kit"
+	icon_state = "NTfirstaid"
+	desc = "I hope you've got insurance."
+	max_w_class = WEIGHT_CLASS_NORMAL
+	treatment_oxy = "perfluorodecalin"
+	treatment_brute = "bicaridine"
+	treatment_fire = "kelotane"
+	treatment_tox = "charcoal"
+	req_one_access =list(ACCESS_SYNDICATE)
+	med_bot_skin = "bezerk"
+	syndicate_aligned = FALSE
+
 /obj/item/storage/firstaid/tactical/New()
 	..()
 	if(empty)
 		return
-	new /obj/item/reagent_containers/hypospray/combat(src)
+	new /obj/item/defibrillator/compact/loaded(src)
 	new /obj/item/reagent_containers/applicator/dual/syndi(src) // Because you ain't got no time to look at what damage dey taking yo
-	new /obj/item/defibrillator/compact/combat/loaded(src)
+	new /obj/item/reagent_containers/hypospray/combat(src)
 	new /obj/item/clothing/glasses/hud/health/night(src)
 
 /obj/item/storage/firstaid/tactical/empty
+	empty = TRUE
+
+/obj/item/storage/firstaid/syndie
+	name = "first-aid tacticool kit"
+	icon_state = "bezerk"
+	desc = "I hope you've got insurance."
+	max_w_class = WEIGHT_CLASS_NORMAL
+	treatment_oxy = "perfluorodecalin"
+	treatment_brute = "bicaridine"
+	treatment_fire = "kelotane"
+	treatment_tox = "charcoal"
+	req_one_access =list(ACCESS_SYNDICATE)
+	med_bot_skin = "bezerk"
+	syndicate_aligned = TRUE
+
+/obj/item/storage/firstaid/syndie/New()
+	..()
+	if(empty)
+		return
+	new /obj/item/reagent_containers/hypospray/combat(src)
+	new /obj/item/healthanalyzer/advanced(src)
+	new /obj/item/reagent_containers/applicator/dual/syndi(src)
+	new /obj/item/clothing/glasses/hud/health/night(src)
+
+/obj/item/storage/firstaid/syndie/empty
 	empty = TRUE
 
 /obj/item/storage/firstaid/surgery

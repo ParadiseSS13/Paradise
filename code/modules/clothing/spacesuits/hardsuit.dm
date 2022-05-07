@@ -414,6 +414,21 @@
 	item_color = "commsoff"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/comms
 
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/med
+	name = "Elite medical syndicate hardsuit helmet"
+	desc = "An elite version of the syndicate helmet. This one is made special for medics."
+	icon_state = "hardsuit1-smedelite"
+	item_state = "hardsuit0-smedelite"
+	item_color = "smedelite"
+
+/obj/item/clothing/suit/space/hardsuit/syndi/elite/med
+	name = "Elite medical syndicate hardsuit helmet"
+	desc = "An elite version of the syndicate hardsuit. This one is made special for medics."
+	icon_state = "hardsuit1-smedelite"
+	item_state = "hardsuit0-smedelite"
+	item_color = "smedelite"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/med
+
 //Strike team hardsuits
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
 	armor = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100, fire = 100, acid = 100) //Almost as good as DS gear, but unlike DS can switch to combat for mobility

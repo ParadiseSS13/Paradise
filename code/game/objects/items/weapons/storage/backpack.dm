@@ -455,6 +455,32 @@
 	new /obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon(src)
 
+/obj/item/storage/backpack/duffel/syndie/ammo/lmg
+    desc = "A large duffel bag containing 5 LMG box magazines"
+
+/obj/item/storage/backpack/duffel/syndie/ammo/lmg/New()
+	..()
+	for(var/i in 1 to 5)
+		new /obj/item/ammo_box/magazine/mm556x45(src)
+
+/obj/item/storage/backpack/duffel/syndie/ammo/carbine
+    desc = "A large duffel bag containing a lot of 5.56 toploader magazines, and a 40mm Grenade Ammo Box"
+
+/obj/item/storage/backpack/duffel/syndie/ammo/carbine/New()
+	..()
+	new /obj/item/ammo_box/a40mm(src)
+	..()
+	for(var/i in 1 to 9)
+		new /obj/item/ammo_box/magazine/m556(src)
+
+/obj/item/storage/backpack/duffel/syndie/ammo/uzi
+    desc = "A large duffel bag, packed to the brim with Type U3 Uzi magazines"
+
+/obj/item/storage/backpack/duffel/syndie/ammo/uzi/New()
+	..()
+	for(var/i in 1 to 10)
+		new /obj/item/ammo_box/magazine/uzim9mm(src)
+
 /obj/item/storage/backpack/duffel/mining_conscript/
 	name = "mining conscription kit"
 	desc = "A kit containing everything a crewmember needs to support a shaft miner in the field."
@@ -504,13 +530,21 @@
 	new /obj/item/clothing/glasses/chameleon/thermal(src)
 
 /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
-	desc = "A large duffel bag containing a tactical medkit, a medical beam gun and a pair of syndicate magboots."
+	desc = "A large duffel bag containing a tactical medkit, a medical beam,  gun and a pair of syndicate magboots."
 
 /obj/item/storage/backpack/duffel/syndie/med/medicalbundle/New()
 	..()
-	new /obj/item/storage/firstaid/tactical(src)
-	new /obj/item/clothing/shoes/magboots/syndie(src)
-	new /obj/item/gun/medbeam(src)
+	new /obj/item/storage/firstaid/syndie(src)
+	new /obj/item/reagent_containers/applicator/dual/syndi(src)
+	new /obj/item/reagent_containers/hypospray/combat(src)
+	new /obj/item/defibrillator/compact/combat/loaded(src)
+	new /obj/item/handheld_defibrillator/syndie(src)
+	new /obj/item/organ/internal/cyberimp/arm/medibeam(src)
+	new /obj/item/organ/internal/cyberimp/arm/surgery(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/autoimplanter(src)
+	new /obj/item/clothing/suit/space/hardsuit/syndi/elite/med(src)
+	new /obj/item/bodyanalyzer/advanced(src)
 
 /obj/item/storage/backpack/duffel/syndie/c4/New()
 	..()

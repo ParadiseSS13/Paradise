@@ -209,9 +209,9 @@
 	SpinAnimation()
 
 /obj/item/projectile/bullet/meteorshot/weak
-	damage = 10
-	weaken = 1
-	stun = 1
+	damage = 50
+	weaken = 3
+	stun = 3
 
 /obj/item/projectile/bullet/mime
 	damage = 0

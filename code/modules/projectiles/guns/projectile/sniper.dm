@@ -40,6 +40,9 @@
 		icon_state = "sniper-mag"
 	else
 		icon_state = "sniper"
+	..()
+	icon_state = "[initial(icon_state)][magazine ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	return
 
 /obj/item/gun/projectile/automatic/sniper_rifle/compact //holds very little ammo, lacks zooming, and bullets are primarily damage dealers, but the gun lacks the downsides of the full size rifle
 	name = "compact sniper rifle"
@@ -65,7 +68,7 @@
 	icon_state = ".50mag"
 	origin_tech = "combat=6"
 	ammo_type = /obj/item/ammo_casing/point50
-	max_ammo = 6
+	max_ammo = 5
 	caliber = ".50"
 
 /obj/item/ammo_box/magazine/sniper_rounds/update_icon()
@@ -110,7 +113,7 @@
 	desc = "A .50 bullet casing, specialised in sending the target to sleep, instead of hell."
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/soporific
-	icon_state = ".50"
+	icon_state = ".50sop"
 	harmful = FALSE
 
 /obj/item/projectile/bullet/sniper/soporific
@@ -128,7 +131,33 @@
 
 	return ..()
 
+//hemorrhage ammo
+/obj/item/ammo_box/magazine/sniper_rounds/explosive
+	name = "sniper rounds (boom)"
+	desc = "What did you mean by saying warcrimes? There wasn't any millitary"
+	icon_state = "explosive"
+	ammo_type = /obj/item/ammo_casing/explosive
+	max_ammo = 5
 
+/obj/item/ammo_casing/explosive
+	desc = "A .50 bullet casing, specialised in destruction"
+	caliber = ".50"
+	projectile_type = /obj/item/projectile/bullet/sniper/explosive
+	icon_state = ".50exp"
+
+/obj/item/projectile/bullet/sniper/explosive
+	armour_penetration = 50
+	damage = 85
+	stun = 3
+	dismemberment = 0
+	weaken = 3
+	breakthings = TRUE
+
+/obj/item/projectile/bullet/sniper/explosive/on_hit(var/atom/target, blocked = 0, hit_zone)
+	if((blocked != 100) && (!ismob(target, /mob/living) && breakthings))
+		explosion(target, -1, 1, 3, 5, cause = "[type] fired by [key_name(firer)]")
+
+	return ..()
 
 //hemorrhage ammo
 /obj/item/ammo_box/magazine/sniper_rounds/haemorrhage
@@ -142,7 +171,7 @@
 	desc = "A .50 bullet casing, specialised in causing massive bloodloss"
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/haemorrhage
-	icon_state = ".50"
+	icon_state = ".50exp"
 
 /obj/item/projectile/bullet/sniper/haemorrhage
 	armour_penetration = 15
@@ -163,6 +192,7 @@
 /obj/item/ammo_box/magazine/sniper_rounds/penetrator
 	name = "sniper rounds (penetrator)"
 	desc = "An extremely powerful round capable of passing straight through cover and anyone unfortunate enough to be behind it."
+	icon_state = "penetrator"
 	ammo_type = /obj/item/ammo_casing/penetrator
 	origin_tech = "combat=6"
 	max_ammo = 5
@@ -171,7 +201,7 @@
 	desc = "A .50 caliber penetrator round casing."
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/penetrator
-	icon_state = ".50"
+	icon_state = ".50pen"
 
 /obj/item/projectile/bullet/sniper/penetrator
 	icon_state = "gauss"

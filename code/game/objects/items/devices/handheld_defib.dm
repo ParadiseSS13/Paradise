@@ -87,3 +87,11 @@
 	cooldown = FALSE
 	icon_state = "[icon_base]-on"
 	playsound(loc, "sound/weapons/flash.ogg", 75, 1)
+
+/obj/item/handheld_defibrillator/syndie
+	name = "combat handheld defibrillator"
+	desc = "Used to restart stopped hearts(Not nanotrasen's pigs hearts"
+	icon_state = "sdefib-on"
+	item_state = "sdefib"
+	charge_time = 30
+	icon_base = "sdefib"
