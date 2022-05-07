@@ -171,6 +171,15 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = 0
 
+/obj/item/clothing/glasses/hud/hydroponic/sunglasses
+	name = "Hydroponic sunglasses"
+	desc = "For cool botanists only"
+	icon_state = "sunhudhydro"
+	item_state = "sunhudhydro"
+	see_in_dark = 1
+	flash_protect = 1
+	tint = 1
+
 /obj/item/clothing/glasses/hud/security/tajblind
 	name = "sleek veil"
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an in-built security HUD."

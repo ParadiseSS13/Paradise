@@ -64,5 +64,5 @@
 	new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
-	new /obj/item/clothing/glasses/thermal(src)
+	new /obj/item/clothing/glasses/thermal/sunglasses(src)
 	new /obj/item/megaphone(src)

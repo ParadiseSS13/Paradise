@@ -38308,10 +38308,7 @@
 /obj/item/rcd_ammo,
 /obj/item/rcd_ammo,
 /obj/item/rcd_ammo,
-/obj/item/clothing/glasses/meson{
-	pixel_x = 1;
-	pixel_y = 9
-	},
+/obj/item/clothing/glasses/meson/sunglasses,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

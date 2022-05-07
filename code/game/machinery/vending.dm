@@ -1577,7 +1577,8 @@
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
 					  /obj/item/clothing/head/powdered_wig = 1,
 					  /obj/item/gun/magic/wand = 1,
-					  /obj/item/clothing/mask/balaclava=1,
+					  /obj/item/clothing/mask/balaclava =1,
+					  /obj/item/clothing/glasses/thermal_fake = 1,
 					  /obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1,
 				   /obj/item/clothing/head/hgpiratecap = 1,
