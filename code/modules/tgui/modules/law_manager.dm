@@ -201,7 +201,14 @@
 	return law_sets
 
 /datum/ui_module/law_manager/proc/is_malf(var/mob/user)
-	return (is_admin(user) && !owner.is_slaved()) || is_special_character(owner)
+	if(is_admin(user) && !owner.is_slaved())
+		return TRUE
+	if(isAI(owner))
+		var/mob/living/silicon/ai/malf = owner
+		return malf.malf_picker
+	else
+		var/mob/living/silicon/robot/silic = owner
+		return silic.module.module_type == "Malf" || silic.emagged
 
 /mob/living/silicon/proc/is_slaved()
 	return FALSE
