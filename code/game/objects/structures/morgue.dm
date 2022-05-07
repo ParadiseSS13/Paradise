@@ -200,6 +200,7 @@
 		connected.connected = null
 		connected.update()
 		add_fingerprint(user)
+		playsound(loc, connected.open_sound, 50, 1)
 		qdel(src)
 		return
 	return
