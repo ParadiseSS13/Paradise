@@ -62641,6 +62641,7 @@
 	name = "Chemistry Desk";
 	req_access_txt = "33"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteyellowfull"
@@ -67772,12 +67773,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard)
-"iTA" = (
-/obj/structure/computerframe{
-	dir = 8
-	},
-/turf/simulated/floor/grass,
-/area/maintenance/aft2)
 "iTB" = (
 /obj/machinery/power/apc{
 	dir = 4;
@@ -93037,6 +93032,7 @@
 	name = "Chemistry Desk"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteyellowfull"
@@ -93431,6 +93427,12 @@
 	},
 /turf/simulated/floor/grass,
 /area/security/permabrig)
+"waF" = (
+/obj/structure/computerframe{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/maintenance/aft2)
 "wce" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
@@ -126791,7 +126793,7 @@ cMp
 cJl
 ddR
 cYZ
-iTA
+waF
 dbK
 cYT
 cuB
