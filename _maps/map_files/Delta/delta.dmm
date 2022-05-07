@@ -66505,6 +66505,11 @@
 /area/medical/medbay)
 "cTZ" = (
 /obj/machinery/smartfridge/medbay,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "chemdesk1";
+	name = "Chemistry Desk Shutters"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
