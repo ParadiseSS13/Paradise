@@ -256,7 +256,9 @@
 	new /obj/item/clothing/accessory/blue(src)
 	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
 	new /obj/item/clothing/under/rank/centcom/blueshield(src)
-
+	new /obj/item/clothing/under/fluff/jay_turtleneck(src)
+	new /obj/item/clothing/mask/gas/sechailer/blue(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
 
 /obj/structure/closet/secure_closet/ntrep
 	name = "\improper Nanotrasen Representative's locker"
