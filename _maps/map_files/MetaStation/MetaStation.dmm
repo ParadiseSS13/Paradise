@@ -1851,7 +1851,6 @@
 /area/maintenance/disposal)
 "amr" = (
 /obj/machinery/door/airlock/engineering{
-	name = "Fore Port Solar Access";
 	req_access_txt = "10"
 	},
 /obj/structure/cable/yellow{
@@ -1859,6 +1858,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "ams" = (
@@ -4495,8 +4495,7 @@
 /area/engine/gravitygenerator)
 "avW" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Supply Bay Bridge Access";
-	req_access_txt = "12"
+	name = "Supply Bay Bridge Access"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4506,6 +4505,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "avX" = (
@@ -4878,7 +4878,6 @@
 /area/engine/gravitygenerator)
 "axd" = (
 /obj/machinery/door/airlock/engineering{
-	name = "Fore Starboard Solar Access";
 	req_access_txt = "10"
 	},
 /obj/structure/cable/yellow{
@@ -4886,6 +4885,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
 "axe" = (
@@ -5833,8 +5833,7 @@
 /area/maintenance/fore)
 "aAg" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Supply Bay Bridge Access";
-	req_access_txt = "12"
+	name = "Supply Bay Bridge Access"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/yellow{
@@ -5842,6 +5841,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aAh" = (
@@ -6154,7 +6154,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/airlock/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
@@ -22443,9 +22443,9 @@
 "boK" = (
 /obj/machinery/door/window{
 	dir = 1;
-	name = "Captain's Bedroom";
-	req_access_txt = "20"
+	name = "Captain's Bedroom"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/captain,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
@@ -27038,8 +27038,7 @@
 "byz" = (
 /obj/machinery/door/window{
 	dir = 2;
-	name = "Captain's Desk";
-	req_access_txt = "20"
+	name = "Captain's Desk"
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -27839,8 +27838,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/bridge)
 "bAi" = (
@@ -81709,7 +81718,7 @@
 	},
 /obj/item/reagent_containers/syringe,
 /obj/machinery/door/window/westleft{
-	name = "Chemistry Desk";
+	name = "Private Medbay Desk";
 	req_access_txt = "5"
 	},
 /turf/simulated/floor/plasteel{
@@ -81717,12 +81726,6 @@
 	icon_state = "whiteyellowfull"
 	},
 /area/medical/chemistry)
-"pZF" = (
-/obj/structure/bookcase,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/bridge)
 "qal" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -123920,7 +123923,7 @@ bsa
 boE
 byp
 byq
-pZF
+bAi
 xhX
 uRT
 bFK
