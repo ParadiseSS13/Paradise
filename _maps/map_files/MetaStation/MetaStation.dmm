@@ -3684,7 +3684,7 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "atN" = (
 /obj/structure/closet/lasertag/red,
@@ -4226,7 +4226,7 @@
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/wood,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "avy" = (
 /obj/structure/rack,
@@ -7281,7 +7281,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "aET" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -10043,7 +10043,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "aMd" = (
 /obj/structure/cable/yellow{
@@ -13716,7 +13716,7 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "aVu" = (
 /obj/machinery/newscaster{
@@ -13726,7 +13726,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "aVv" = (
 /obj/effect/landmark/start/shaft_miner,
@@ -14847,7 +14847,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "aYt" = (
 /obj/structure/disposalpipe/segment,
@@ -15385,7 +15385,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "aZH" = (
 /obj/structure/chair/office/dark{
@@ -34967,7 +34967,7 @@
 /obj/effect/turf_decal/woodsiding,
 /turf/simulated/floor/wood,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "bTr" = (
 /obj/structure/closet/crate,
@@ -64278,7 +64278,7 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "hnL" = (
 /obj/structure/chair{
@@ -64495,7 +64495,7 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "huo" = (
 /obj/machinery/meter,
@@ -64858,7 +64858,7 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "hBZ" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
@@ -66723,7 +66723,7 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "ixZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -72452,7 +72452,7 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "lpJ" = (
 /obj/machinery/disposal,
@@ -73689,7 +73689,7 @@
 /obj/effect/turf_decal/woodsiding,
 /turf/simulated/floor/wood,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "lSc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -75891,7 +75891,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "mXQ" = (
 /obj/structure/cable/yellow{
@@ -78240,7 +78240,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "oiX" = (
 /obj/effect/spawner/window/reinforced,
@@ -80431,7 +80431,7 @@
 /obj/item/reagent_containers/glass/rag,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "pvv" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -83954,7 +83954,7 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/wood,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "rll" = (
 /obj/structure/table/glass,
@@ -84623,7 +84623,7 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "rAm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -90392,7 +90392,7 @@
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "uws" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -90945,7 +90945,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "uKW" = (
 /obj/structure/disposalpipe/segment,
@@ -93120,7 +93120,7 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/cafeteria{
-	name = "\improper  Cafe"
+	name = "\improper Cafe"
 	})
 "vSH" = (
 /obj/structure/disposalpipe/segment{
