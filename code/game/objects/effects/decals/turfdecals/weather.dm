@@ -10,3 +10,8 @@
 	name = "snow corner piece"
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow_corner"
+
+/obj/effect/turf_decal/weather/dirt
+	name = "dirt siding"
+	icon = 'icons/turf/decals.dmi'
+	icon_state = "dirt_side"
