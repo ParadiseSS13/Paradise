@@ -21798,12 +21798,11 @@
 	},
 /area/hallway/primary/starboard)
 "bne" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
+/area/maintenance/fore)
 "bnf" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -61393,12 +61392,6 @@
 	icon_state = "dark"
 	},
 /area/security/main)
-"fPw" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fore)
 "fPC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -73708,9 +73701,6 @@
 /area/maintenance/fpmaint)
 "lSd" = (
 /obj/machinery/space_heater,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /obj/structure/sign/pods{
 	pixel_y = 32
 	},
@@ -110995,7 +110985,7 @@ gEK
 skI
 fAH
 uta
-fAH
+adY
 avQ
 aAg
 pHQ
@@ -111252,7 +111242,7 @@ hkF
 aKU
 ctl
 aOB
-bne
+bmq
 avS
 aOB
 aOB
@@ -130788,7 +130778,7 @@ aAc
 alW
 alW
 alW
-fPw
+bne
 alW
 alW
 baa
