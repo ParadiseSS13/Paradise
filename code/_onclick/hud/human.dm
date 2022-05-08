@@ -217,6 +217,16 @@
 	toggleable_inventory += inv_box
 
 	inv_box = new /obj/screen/inventory()
+	inv_box.name = "neck"
+	inv_box.icon = ui_style
+	inv_box.icon_state = "neck"
+	inv_box.screen_loc = ui_neck
+	inv_box.slot_id = slot_neck
+	inv_box.color = ui_color
+	inv_box.alpha = ui_alpha
+	toggleable_inventory += inv_box
+
+	inv_box = new /obj/screen/inventory()
 	inv_box.name = "back"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "back"
@@ -441,6 +451,9 @@
 		if(H.wear_mask)
 			H.wear_mask.screen_loc = ui_mask
 			H.client.screen += H.wear_mask
+		if(H.neck)
+			H.neck.screen_loc = ui_neck
+			H.client.screen += H.neck
 		if(H.head)
 			H.head.screen_loc = ui_head
 			H.client.screen += H.head
@@ -453,6 +466,7 @@
 		if(H.w_uniform)	H.w_uniform.screen_loc = null
 		if(H.wear_suit)	H.wear_suit.screen_loc = null
 		if(H.wear_mask)	H.wear_mask.screen_loc = null
+		if(H.neck) 		H.neck.screen_loc = null
 		if(H.head)		H.head.screen_loc = null
 
 /datum/hud/human/persistent_inventory_update()

@@ -625,6 +625,8 @@
 			return !H.gloves && (I.slot_flags & SLOT_GLOVES)
 		if(slot_shoes)
 			return !H.shoes && (I.slot_flags & SLOT_FEET)
+		if(slot_neck)
+			return !H.neck && (I.slot_flags & SLOT_NECK)
 		if(slot_belt)
 			if(H.belt)
 				return FALSE

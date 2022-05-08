@@ -250,6 +250,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		slot_w_uniform,\
 		slot_wear_suit,\
 		slot_wear_mask,\
+		slot_neck,\
 		slot_head,\
 		slot_shoes,\
 		slot_gloves,\
@@ -330,6 +331,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(H.gloves)
 					if(!(H.gloves.flags & NODROP))
+						return 2
+					else
+						return 0
+				return 1
+			if(slot_neck)
+				if(!(slot_flags & SLOT_NECK))
+					return 0
+				if(H.neck)
+					if(!(H.neck.flags & NODROP))
 						return 2
 					else
 						return 0

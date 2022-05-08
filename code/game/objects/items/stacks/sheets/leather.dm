@@ -125,7 +125,7 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	new/datum/stack_recipe("leather shoes", /obj/item/clothing/shoes/leather, 2),
 	new/datum/stack_recipe("leather overcoat", /obj/item/clothing/suit/jacket/leather/overcoat, 10),
 	new/datum/stack_recipe("FireSuit", /obj/item/clothing/suit/fire/firefighter, 15),
-	new/datum/stack_recipe("hide mantle", /obj/item/clothing/suit/unathi/mantle, 4)))
+	new/datum/stack_recipe("hide mantle", /obj/item/clothing/neck/mantle/unathi, 4)))
 
 /obj/item/stack/sheet/leather/New(loc, new_amount, merge = TRUE)
 	recipes = GLOB.leather_recipes
