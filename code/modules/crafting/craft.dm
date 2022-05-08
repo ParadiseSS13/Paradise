@@ -38,8 +38,8 @@
 	get_surroundings - takes a list of things and makes a list of key-types to values-amounts of said type in the list
 	check_contents - takes a recipe and a key-type list and checks if said recipe can be done with available stuff
 	check_tools - takes recipe, a key-type list, and a user and checks if there are enough tools to do the stuff, checks bugs one level deep
-	construct_item - takes a recipe and a user, call all the checking procs, calls do_after, checks all the things again, calls del_reqs, creates result, calls CheckParts of said result with argument being list returned by deel_reqs
-	del_reqs - takes recipe and a user, loops over the recipes reqs var and tries to find everything in the list make by get_environment and delete it/add to parts list, then returns the said list
+	construct_item - takes a recipe and a user, call all the checking procs, calls do_after, checks all the things again, calls requirements_deletion, creates result, calls CheckParts of said result with argument being list returned by deel_reqs
+	requirements_deletion - takes recipe and a user, loops over the recipes reqs var and tries to find everything in the list make by get_environment and delete it/add to parts list, then returns the said list
 */
 
 
@@ -186,6 +186,11 @@
 			SSblackbox.record_feedback("tally", "object_crafted", 1, craft_result.type)
 	return 0
 			
+/*
+ * requirements_deletion() is a function that takes crafting_recipe and user mob as input, returns the list of parts the crafting_recipe result is consists of
+ * Firstly it process the surroundings adding the right amount of ingredients to the appropriate lists, combining splitted items into new recipe result part
+ * Then it deletes everything it used to create recipe result part and returns the list of parts
+*/
 
 /datum/personal_crafting/proc/requirements_deletion(datum/crafting_recipe/recipe, mob/user)
 	var/list/surroundings = get_environment(user)
