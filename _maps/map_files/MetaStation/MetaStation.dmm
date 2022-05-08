@@ -45652,17 +45652,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 9;
+	icon_state = "whiteblue"
 	},
 /area/medical/reception)
 "cCg" = (
@@ -54719,15 +54711,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 10;
+	icon_state = "whiteblue"
 	},
 /area/medical/reception)
 "dvY" = (
@@ -82934,15 +82920,9 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 5;
+	icon_state = "whiteblue"
 	},
 /area/medical/reception)
 "rXk" = (
@@ -85659,15 +85639,9 @@
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 6;
+	icon_state = "whiteblue"
 	},
 /area/medical/reception)
 "tqt" = (
