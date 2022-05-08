@@ -93497,6 +93497,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
 "xLY" = (
@@ -114356,7 +114357,7 @@ bWs
 ehr
 bZe
 cab
-cdT
+bTY
 uXx
 yaE
 dgu
