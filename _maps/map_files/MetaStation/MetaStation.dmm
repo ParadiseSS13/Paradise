@@ -841,18 +841,8 @@
 	})
 "aih" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
@@ -876,18 +866,8 @@
 	pixel_x = 5;
 	pixel_y = 3
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
@@ -898,74 +878,34 @@
 /area/crew_quarters/arcade)
 "ail" = (
 /obj/structure/closet/athletic_mixed,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
 	})
 "aim" = (
 /obj/structure/closet/boxinggloves,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
 	})
 "ain" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/structure/sign/pods{
 	pixel_y = 32
 	},
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
 	})
 "aio" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
@@ -1068,21 +1008,11 @@
 /turf/simulated/wall,
 /area/crew_quarters/arcade)
 "ajb" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-20"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
@@ -1678,21 +1608,11 @@
 	},
 /obj/item/stock_parts/manipulator,
 /obj/item/stock_parts/manipulator,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/siding{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/lab)
 "alI" = (
@@ -1745,23 +1665,6 @@
 "amb" = (
 /obj/structure/window/reinforced{
 	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/crew_quarters/fitness{
-	name = "\improper Recreation Area"
-	})
-"amc" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3539,15 +3442,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "ati" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "atj" = (
@@ -3680,18 +3577,8 @@
 	})
 "atN" = (
 /obj/structure/closet/lasertag/red,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
@@ -3702,18 +3589,8 @@
 /obj/item/clothing/ears/earmuffs,
 /obj/item/clothing/accessory/red,
 /obj/item/clothing/head/soft/red,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
@@ -3727,36 +3604,16 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
 	})
 "atQ" = (
 /obj/structure/closet/lasertag/blue,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
@@ -3823,18 +3680,8 @@
 "atW" = (
 /obj/machinery/light,
 /obj/machinery/vending/cola,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
@@ -4020,20 +3867,10 @@
 	},
 /area/quartermaster/office)
 "auy" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/structure/morgue,
 /obj/effect/landmark/spawner/rev,
+/obj/structure/morgue,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "auz" = (
@@ -4074,39 +3911,12 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
 	})
-"auI" = (
-/obj/structure/morgue,
-/obj/effect/landmark/spawner/rev,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "auO" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 4
@@ -4127,18 +3937,8 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
@@ -4343,18 +4143,8 @@
 	name = "east bump";
 	pixel_x = 27
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
@@ -4832,23 +4622,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "awZ" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	name = "north bump";
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/locker)
 "axb" = (
@@ -5035,18 +4815,8 @@
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/execution)
 "axB" = (
@@ -5596,11 +5366,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/maintenance{
+	name = "Fore-Starboard Maintenance"
+	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
+/area/engine/gravitygenerator)
 "azu" = (
 /obj/item/stack/sheet/cardboard,
 /obj/item/flashlight,
@@ -6431,19 +6202,9 @@
 "aCx" = (
 /obj/structure/closet/secure_closet/freezer/money,
 /obj/item/clothing/head/bearpelt,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/bot_white/right,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/nuke_storage)
 "aCy" = (
@@ -6474,19 +6235,9 @@
 /obj/structure/closet/fireaxecabinet{
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/bot_white/left,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/nuke_storage)
 "aCD" = (
@@ -6742,19 +6493,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/bot_white/right,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/nuke_storage)
 "aDF" = (
@@ -6774,18 +6515,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/nuke_storage)
 "aDH" = (
@@ -6806,19 +6537,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/bot_white/left,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/nuke_storage)
 "aDK" = (
@@ -7301,23 +7022,13 @@
 	pixel_y = -2
 	},
 /obj/item/storage/belt/champion,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/bot_white/right,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/nuke_storage)
 "aEZ" = (
@@ -7350,19 +7061,9 @@
 /obj/structure/closet/crate{
 	name = "Silver Crate"
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/bot_white/left,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/nuke_storage)
 "aFd" = (
@@ -7646,19 +7347,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aGn" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/bot_white/right,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/nuke_storage)
 "aGo" = (
@@ -7914,18 +7605,8 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -29
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "aGY" = (
@@ -8113,20 +7794,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/supply/vault,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/nuke_storage)
 "aHC" = (
@@ -8709,18 +8380,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/construction/Storage{
 	name = "Storage Wing"
@@ -9256,18 +8917,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/construction/Storage{
 	name = "Storage Wing"
@@ -10101,7 +9752,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/security/general,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -10986,10 +10637,6 @@
 /area/maintenance/fpmaint)
 "aOD" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Auxiliary Tool Storage";
-	req_access_txt = "12"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/turf_decal/tile/yellow,
@@ -11002,6 +10649,9 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plasteel,
 /area/storage/tools)
 "aOG" = (
@@ -11627,20 +11277,10 @@
 	name = "\improper Restrooms"
 	})
 "aQz" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/closet/secure_closet/personal,
 /obj/item/clothing/under/assistantformal,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/locker)
 "aQA" = (
@@ -11654,18 +11294,8 @@
 	icon_state = "map-left-MS";
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/locker)
 "aQB" = (
@@ -11676,18 +11306,8 @@
 	icon_state = "map-right-MS";
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/locker)
 "aQC" = (
@@ -11727,19 +11347,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/machinery/vending/clothing,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/locker)
 "aQJ" = (
@@ -12019,21 +11629,11 @@
 "aRn" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/item/clothing/under/assistantformal,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/locker)
 "aRo" = (
@@ -13263,7 +12863,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/security/general,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
 "aUt" = (
@@ -13401,18 +13001,8 @@
 	pixel_y = 32
 	},
 /obj/machinery/computer/station_alert,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/engineering)
 "aUN" = (
@@ -13601,18 +13191,8 @@
 	dir = 1
 	},
 /obj/machinery/vending/artvend,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/locker)
 "aVo" = (
@@ -13626,23 +13206,13 @@
 	},
 /area/quartermaster/storage)
 "aVp" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/machinery/vending/autodrobe,
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/locker)
 "aVq" = (
@@ -13664,19 +13234,9 @@
 /obj/structure/sign/pods{
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/locker)
 "aVs" = (
@@ -14266,18 +13826,8 @@
 	pixel_x = -24
 	},
 /obj/machinery/computer/sm_monitor,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/engineering)
 "aWO" = (
@@ -14341,18 +13891,8 @@
 /obj/machinery/computer/monitor{
 	name = "Engineering Power Monitoring Console"
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/engineering)
 "aWY" = (
@@ -15069,18 +14609,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/engineering)
 "aYV" = (
@@ -15095,18 +14625,8 @@
 	pixel_x = -24;
 	pixel_y = 8
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/engineering)
 "aYW" = (
@@ -15293,12 +14813,6 @@
 	name = "Arrivals"
 	})
 "aZr" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -15306,7 +14820,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "aZt" = (
@@ -15443,18 +14957,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/turret_protected/ai_upload_foyer)
 "aZO" = (
@@ -15611,50 +15115,20 @@
 /turf/simulated/wall/r_wall,
 /area/assembly/showroom)
 "bad" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/locker)
 "baf" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/closet/wardrobe/grey,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/locker)
 "bag" = (
 /obj/machinery/vending/shoedispenser,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/locker)
 "bai" = (
@@ -16073,18 +15547,8 @@
 /area/crew_quarters/locker)
 "bbg" = (
 /obj/structure/closet/firecloset,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/primary/central)
 "bbh" = (
@@ -16094,34 +15558,8 @@
 	icon_state = "1-2"
 	},
 /obj/structure/closet/emcloset,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/hallway/primary/central)
-"bbi" = (
-/obj/structure/closet/emcloset,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/primary/central)
 "bbj" = (
@@ -16156,19 +15594,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/turret_protected/ai_upload_foyer)
 "bbm" = (
@@ -16266,20 +15694,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/tech_storage,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/storage/tech)
 "bby" = (
@@ -16309,18 +15727,8 @@
 /area/crew_quarters/locker)
 "bbB" = (
 /obj/machinery/vending/snack,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/primary/central)
 "bbC" = (
@@ -16341,18 +15749,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/primary/central)
 "bbE" = (
@@ -16375,18 +15773,8 @@
 	pixel_y = 32
 	},
 /obj/machinery/computer/station_alert,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "bbL" = (
@@ -16579,23 +15967,13 @@
 	req_access = list(75)
 	},
 /obj/effect/landmark/start/cyborg,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/machinery/power/apc{
 	cell_type = 5000;
 	name = "south bump Important Area";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/turret_protected/ai_upload_foyer)
 "bcm" = (
@@ -16635,18 +16013,8 @@
 	pixel_x = 29
 	},
 /obj/effect/landmark/start/cyborg,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/turret_protected/ai_upload_foyer)
 "bcq" = (
@@ -17061,33 +16429,8 @@
 	},
 /area/storage/tech)
 "bdy" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/engine/chiefs_office)
-"bdz" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "bdA" = (
@@ -17098,18 +16441,8 @@
 /obj/machinery/camera{
 	c_tag = "Chief Engineer's Office"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "bdB" = (
@@ -17162,18 +16495,8 @@
 	pixel_y = 32
 	},
 /obj/machinery/computer/card/minor/ce,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "bdF" = (
@@ -17653,18 +16976,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/storage/tech)
 "beF" = (
@@ -17686,18 +16999,8 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/storage/tech)
 "beH" = (
@@ -17730,18 +17033,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "beJ" = (
@@ -17808,22 +17101,12 @@
 "beN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "beP" = (
@@ -17877,18 +17160,8 @@
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/primary/central)
 "beW" = (
@@ -17947,18 +17220,8 @@
 	name = "Chief Engineer Requests Console";
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "bff" = (
@@ -18410,36 +17673,16 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/storage/tech)
 "bgo" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/storage/tech)
 "bgp" = (
@@ -18502,18 +17745,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/storage/tech)
 "bgt" = (
@@ -18540,18 +17773,8 @@
 	pixel_y = 5;
 	req_access_txt = "11"
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "bgv" = (
@@ -18894,16 +18117,6 @@
 	pixel_y = 26;
 	pixel_x = 26
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
@@ -18913,7 +18126,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "bhh" = (
@@ -19125,18 +18338,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/storage/tech)
 "bhK" = (
@@ -19154,23 +18357,13 @@
 /area/janitor)
 "bhL" = (
 /obj/machinery/hologram/holopad,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/storage/tech)
 "bhM" = (
@@ -19178,23 +18371,13 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/storage/tech)
 "bhQ" = (
@@ -19343,23 +18526,13 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/storage/tech)
 "bib" = (
@@ -20016,18 +19189,8 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/storage/tech)
 "bjx" = (
@@ -20077,18 +19240,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/storage/tech)
 "bjC" = (
@@ -20151,52 +19304,22 @@
 	network = list("engine");
 	pixel_x = 30
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "bjH" = (
 /obj/structure/filingcabinet/chestdrawer,
 /mob/living/simple_animal/parrot/Poly,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/keycard_auth{
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "bjI" = (
 /obj/structure/closet/secure_closet/engineering_chief,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/item/megaphone,
 /obj/machinery/alarm{
 	dir = 1;
@@ -20204,7 +19327,7 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "bjK" = (
@@ -20279,18 +19402,8 @@
 	name = "Secondary AI Core Access";
 	req_access_txt = "16"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/turret_protected/ai)
 "bjW" = (
@@ -20330,18 +19443,8 @@
 	req_access_txt = "16";
 	name = "Primary AI Core Access"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/turret_protected/ai)
 "bjY" = (
@@ -20839,18 +19942,8 @@
 	icon_state = "map-left-MS";
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/primary/starboard)
 "blm" = (
@@ -20860,18 +19953,8 @@
 	pixel_y = 32
 	},
 /obj/structure/closet/firecloset,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/primary/starboard)
 "bln" = (
@@ -20896,8 +19979,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "darkgrey"
 	},
 /area/storage/tech)
 "blr" = (
@@ -21003,18 +20085,8 @@
 	name = "Primary AI Core Access";
 	req_access_txt = "16"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/turret_protected/ai)
 "blE" = (
@@ -21029,18 +20101,8 @@
 	})
 "blF" = (
 /obj/machinery/ai_slipper,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/turret_protected/ai)
 "blG" = (
@@ -21049,18 +20111,8 @@
 	name = "Tertiary AI Core Access";
 	req_access_txt = "16"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/turret_protected/ai)
 "blI" = (
@@ -21412,18 +20464,8 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "bmn" = (
@@ -21573,18 +20615,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "bmF" = (
@@ -21906,19 +20938,9 @@
 /obj/item/stack/spacecash/c1000{
 	amount = 100000
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/bot_white/left,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/nuke_storage)
 "bnw" = (
@@ -22021,18 +21043,8 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "bnN" = (
@@ -22154,23 +21166,13 @@
 	},
 /obj/item/lighter/zippo,
 /obj/item/clothing/glasses/meson,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/button/windowtint{
 	id = "CE";
 	pixel_y = -24;
 	req_access_txt = "56"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "boc" = (
@@ -22281,18 +21283,8 @@
 	network = list("MiniSat","tcomm");
 	pixel_y = -30
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "bop" = (
@@ -22677,7 +21669,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/turret_protected/ai)
 "bpi" = (
 /obj/machinery/door/poddoor{
@@ -22760,7 +21754,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/turret_protected/ai)
 "bpw" = (
 /obj/machinery/light,
@@ -24411,18 +23407,8 @@
 /area/hallway/primary/port)
 "btr" = (
 /obj/machinery/vending/coffee,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/primary/port)
 "bts" = (
@@ -25542,18 +24528,8 @@
 	name = "west bump";
 	pixel_x = -32
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/primary/port)
 "bvF" = (
@@ -26365,16 +25341,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -26392,7 +25358,7 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/ai_monitored/storage/eva{
 	name = "E.V.A. Storage"
@@ -26654,18 +25620,8 @@
 /area/hallway/primary/port)
 "bxP" = (
 /obj/machinery/vending/snack,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/primary/port)
 "bxQ" = (
@@ -27225,21 +26181,11 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/ai_monitored/storage/eva{
 	name = "E.V.A. Storage"
@@ -27540,18 +26486,8 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/primary/port)
 "bzE" = (
@@ -27582,34 +26518,14 @@
 /area/hallway/primary/port)
 "bzG" = (
 /obj/structure/closet/firecloset,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/primary/port)
 "bzH" = (
 /obj/structure/closet/emcloset,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/primary/port)
 "bzJ" = (
@@ -27828,18 +26744,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/bridge)
 "bAi" = (
@@ -27856,21 +26762,11 @@
 	},
 /area/bridge)
 "bAk" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "bAl" = (
@@ -28010,18 +26906,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/engineering)
 "bAQ" = (
@@ -29628,13 +28514,16 @@
 /area/crew_quarters/theatre)
 "bEE" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	name = "Fore-Starboard Maintenance"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
+/area/engine/gravitygenerator)
 "bEF" = (
 /obj/structure/table/wood,
 /obj/structure/sign/poster/random{
@@ -31848,21 +30737,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/ai_monitored/storage/eva{
 	name = "E.V.A. Storage"
@@ -32591,18 +31470,8 @@
 /area/medical/reception)
 "bNl" = (
 /obj/machinery/vending/coffee,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/bridge/meeting_room{
 	name = "\improper Command Hallway"
@@ -32742,14 +31611,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "bNH" = (
-/obj/machinery/recharge_station,
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
+/obj/machinery/cryopod/robot,
+/obj/machinery/computer/cryopod/robot{
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
@@ -32881,14 +31748,6 @@
 	icon_state = "whitegreenfull"
 	},
 /area/crew_quarters/sleep)
-"bNZ" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 5
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/starboard2)
 "bOa" = (
 /turf/simulated/floor/plasteel/dark,
 /area/tcommsat/server)
@@ -33222,16 +32081,6 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -33244,7 +32093,7 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/ai_monitored/storage/eva{
 	name = "E.V.A. Storage"
@@ -33304,18 +32153,8 @@
 	pixel_y = -32
 	},
 /obj/machinery/vending/cigarette,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/bridge/meeting_room{
 	name = "\improper Command Hallway"
@@ -33427,21 +32266,11 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/ai_monitored/storage/eva{
 	name = "E.V.A. Storage"
@@ -33685,21 +32514,11 @@
 /area/ntrep)
 "bQd" = (
 /obj/machinery/suit_storage_unit/standard_unit,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/ai_monitored/storage/eva{
 	name = "E.V.A. Storage"
@@ -33719,26 +32538,6 @@
 "bQf" = (
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
-"bQh" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "bQi" = (
 /obj/machinery/power/apc{
 	dir = 4;
@@ -34030,21 +32829,11 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/teleporter)
 "bQZ" = (
@@ -34319,16 +33108,6 @@
 /area/gateway)
 "bRQ" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -34343,7 +33122,7 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/ai_monitored/storage/eva{
 	name = "E.V.A. Storage"
@@ -34695,21 +33474,11 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/teleporter)
 "bSQ" = (
@@ -34991,18 +33760,8 @@
 /area/library)
 "bTB" = (
 /obj/structure/closet/emcloset,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/library)
 "bTC" = (
@@ -35033,22 +33792,12 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "bTF" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/structure/dispenser/oxygen,
 /obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/ai_monitored/storage/eva{
 	name = "E.V.A. Storage"
@@ -35382,21 +34131,11 @@
 /area/hallway/primary/central)
 "bUN" = (
 /obj/machinery/suit_storage_unit/mime,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/ai_monitored/storage/eva{
 	name = "E.V.A. Storage"
@@ -35505,21 +34244,11 @@
 /area/maintenance/port)
 "bVb" = (
 /obj/machinery/suit_storage_unit/clown,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/ai_monitored/storage/eva{
 	name = "E.V.A. Storage"
@@ -35595,12 +34324,6 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/siding{
 	dir = 10
 	},
@@ -35615,7 +34338,7 @@
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/research)
 "bVk" = (
@@ -36101,16 +34824,6 @@
 /area/hallway/primary/central)
 "bWA" = (
 /obj/machinery/suit_storage_unit/standard_unit,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -36118,7 +34831,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/ai_monitored/storage/eva{
 	name = "E.V.A. Storage"
@@ -36276,6 +34989,9 @@
 /obj/item/cigbutt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
 "bWV" = (
@@ -36944,21 +35660,11 @@
 /area/library)
 "bYw" = (
 /obj/machinery/suit_storage_unit/standard_unit,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/ai_monitored/storage/eva{
 	name = "E.V.A. Storage"
@@ -36968,12 +35674,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port2)
 "bYy" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -36983,7 +35683,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "bYA" = (
@@ -37037,22 +35737,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
-"bYH" = (
-/obj/machinery/hologram/holopad,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/chapel/main)
 "bYJ" = (
 /obj/structure/table/wood,
 /obj/item/storage/secure/briefcase{
@@ -37105,16 +35789,6 @@
 	pixel_y = -26;
 	req_access_txt = "19"
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -37122,7 +35796,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/ai_monitored/storage/eva{
 	name = "E.V.A. Storage"
@@ -38161,22 +36835,12 @@
 /obj/structure/morgue{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/machinery/camera{
 	dir = 1;
 	c_tag = "Morgue"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "cbK" = (
@@ -38554,23 +37218,13 @@
 	req_access_txt = "66";
 	pixel_y = -24
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/disposalpipe/junction{
 	dir = 4;
 	icon_state = "pipe-j2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/primary/central)
 "ccE" = (
@@ -39119,18 +37773,8 @@
 	dir = 1
 	},
 /obj/machinery/disposal,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/primary/central)
 "cek" = (
@@ -39802,23 +38446,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "cgk" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "cgn" = (
@@ -42305,17 +40939,11 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/reagent_dispensers/oil,
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "cnA" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/siding{
 	dir = 8
 	},
@@ -42332,7 +40960,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/research)
 "cnB" = (
@@ -42405,18 +41033,8 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/maintenance/aft2)
 "cnO" = (
@@ -42436,11 +41054,11 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -42576,25 +41194,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay3)
-"coq" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/structure/morgue{
-	dir = 8
-	},
-/obj/effect/landmark/spawner/rev,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "cor" = (
 /obj/machinery/door_control{
 	id = "turbinevent";
@@ -42685,19 +41284,13 @@
 	},
 /area/library)
 "coy" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "coz" = (
@@ -42710,16 +41303,10 @@
 	},
 /area/hallway/primary/aft)
 "coA" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/structure/chair/stool,
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "coB" = (
@@ -43247,18 +41834,8 @@
 /area/maintenance/starboard2)
 "cqj" = (
 /obj/machinery/hologram/holopad,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/chapel/main)
 "cqk" = (
@@ -43625,16 +42202,6 @@
 	name = "Arrivals"
 	})
 "crm" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 4;
@@ -43652,7 +42219,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "crq" = (
@@ -43914,11 +42481,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
-"csj" = (
-/obj/effect/decal/cleanable/blood,
-/obj/effect/landmark/spawner/xeno,
-/turf/simulated/floor/plating,
-/area/maintenance/starboard2)
 "csk" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/chef/classic,
@@ -44974,12 +43536,6 @@
 /area/maintenance/aft)
 "cvH" = (
 /obj/structure/filingcabinet/chestdrawer,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -44990,7 +43546,7 @@
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "cvI" = (
@@ -45012,14 +43568,8 @@
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-20"
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "cvP" = (
@@ -45466,14 +44016,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "cwY" = (
@@ -45637,7 +44181,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "whitebluefull"
 	},
 /area/medical/cmo)
 "cxB" = (
@@ -46180,16 +44724,6 @@
 	},
 /area/maintenance/aft)
 "czn" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -46202,7 +44736,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "czo" = (
@@ -46284,21 +44818,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "czx" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/doppler_array,
 /obj/machinery/light,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -46690,17 +45214,11 @@
 	dir = 4
 	},
 /obj/machinery/disposal,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "cAO" = (
@@ -46724,22 +45242,12 @@
 /area/maintenance/asmaint)
 "cAT" = (
 /obj/machinery/door/airlock/medical,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/effect/mapping_helpers/airlock/access/all/medical/morgue,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "cBa" = (
@@ -47049,18 +45557,8 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/research)
 "cBQ" = (
@@ -47317,25 +45815,6 @@
 /obj/item/reagent_containers/food/drinks/cans/beer,
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint)
-"cCx" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/structure/morgue{
-	dir = 8
-	},
-/obj/effect/landmark/spawner/rev,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "cCy" = (
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
@@ -47792,18 +46271,8 @@
 /obj/structure/morgue{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "cDU" = (
@@ -47952,16 +46421,6 @@
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint)
 "cEk" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -47974,7 +46433,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "cEl" = (
@@ -48085,19 +46544,9 @@
 	},
 /area/medical/genetics_cloning)
 "cEF" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/maintenance/aft2)
 "cEG" = (
@@ -48288,20 +46737,10 @@
 /turf/simulated/wall,
 /area/medical/medbreak)
 "cFe" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/storage)
 "cFf" = (
@@ -48498,26 +46937,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/assembly/chargebay)
-"cFQ" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "cFT" = (
 /obj/structure/lattice,
 /obj/structure/railing{
@@ -48595,17 +47014,11 @@
 	},
 /area/medical/genetics)
 "cGe" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "cGg" = (
@@ -48798,18 +47211,8 @@
 	},
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/chapel/main)
 "cGF" = (
@@ -48841,18 +47244,8 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/research)
 "cGR" = (
@@ -49263,18 +47656,8 @@
 /area/maintenance/starboard2)
 "cHX" = (
 /obj/structure/chair,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/chapel/main)
 "cHY" = (
@@ -49469,8 +47852,6 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/item/soap/nanotrasen,
-/obj/item/reagent_containers/spray/cleaner,
 /obj/item/wrench/medical,
 /obj/machinery/firealarm{
 	dir = 1;
@@ -49761,19 +48142,9 @@
 	name = "\improper Departure Lounge"
 	})
 "cJB" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "cJD" = (
@@ -49924,22 +48295,6 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/coldroom)
-"cKc" = (
-/obj/structure/closet/firecloset,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/hallway/primary/central)
 "cKe" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -50066,7 +48421,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreycheck"
+	},
 /area/crew_quarters/hor)
 "cKx" = (
 /obj/machinery/light{
@@ -50647,12 +49004,6 @@
 "cMG" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -50662,7 +49013,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "cMK" = (
@@ -50792,16 +49143,6 @@
 /obj/item/stack/rods{
 	amount = 50
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -50810,20 +49151,14 @@
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/ai_monitored/storage/eva{
 	name = "E.V.A. Storage"
 	})
 "cNk" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "cNm" = (
@@ -51350,21 +49685,11 @@
 	id = "CHAP2"
 	},
 /obj/machinery/light/small,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/chapel/main)
 "cOZ" = (
@@ -51559,21 +49884,11 @@
 /turf/simulated/wall,
 /area/maintenance/apmaint)
 "cPH" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "cPI" = (
@@ -51600,19 +49915,9 @@
 	icon_state = "map-left-MS";
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
@@ -51623,19 +49928,9 @@
 	icon_state = "map-right-MS";
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
@@ -52320,18 +50615,8 @@
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
@@ -52553,18 +50838,8 @@
 /obj/item/reagent_containers/food/snacks/grown/poppy,
 /obj/item/reagent_containers/food/snacks/grown/poppy,
 /obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/chapel/main)
 "cSS" = (
@@ -52573,18 +50848,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/chapel/main)
 "cST" = (
@@ -52599,40 +50864,20 @@
 /obj/structure/noticeboard{
 	pixel_y = 29
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/chapel/main)
 "cSU" = (
 /obj/item/candle,
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/light_switch{
 	name = "north bump";
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/chapel/main)
 "cSV" = (
@@ -53106,18 +51351,8 @@
 	c_tag = "Chapel - Fore"
 	},
 /obj/structure/table/wood,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/chapel/main)
 "cUz" = (
@@ -53272,14 +51507,14 @@
 	},
 /area/chapel/main)
 "cUY" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/sofa/pew/left,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
 	},
 /area/chapel/main)
 "cUZ" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/sofa/pew/right,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"
@@ -53295,19 +51530,9 @@
 /obj/structure/morgue{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "cVc" = (
@@ -53448,14 +51673,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/spacehut)
 "cVw" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/sofa/pew/left,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "chapel"
 	},
 /area/chapel/main)
 "cVz" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/sofa/pew/right,
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
@@ -53807,18 +52032,8 @@
 /obj/structure/chair{
 	pixel_y = -2
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/chapel/main)
 "cWO" = (
@@ -53917,12 +52132,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cXb" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-2"
@@ -53933,7 +52142,7 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "cXh" = (
@@ -54194,40 +52403,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"cYb" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/crew_quarters/fitness{
-	name = "\improper Recreation Area"
-	})
 "cYd" = (
 /obj/structure/closet/masks,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
@@ -54511,17 +52690,11 @@
 /area/space)
 "cZq" = (
 /obj/structure/table,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/item/toy/cards/deck{
 	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "cZr" = (
@@ -54729,23 +52902,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "dam" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "dan" = (
@@ -54848,32 +53011,20 @@
 /area/toxins/explab)
 "dax" = (
 /obj/structure/chair/sofa/corp/left,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "day" = (
 /obj/structure/chair/sofa/corp/right,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "daF" = (
@@ -54910,15 +53061,9 @@
 	},
 /area/medical/research)
 "daL" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "daM" = (
@@ -54948,14 +53093,8 @@
 /area/security/brig)
 "daO" = (
 /obj/machinery/vending/chinese,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "daP" = (
@@ -55040,18 +53179,8 @@
 /area/crew_quarters/theatre)
 "dbb" = (
 /obj/structure/closet/emcloset,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/hallway/primary/central)
 "dbc" = (
@@ -55103,14 +53232,8 @@
 	},
 /area/medical/medbay3)
 "dby" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "dbA" = (
@@ -55524,14 +53647,8 @@
 /obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "dei" = (
@@ -55554,16 +53671,6 @@
 /obj/item/candle,
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "custom placement";
@@ -55571,7 +53678,7 @@
 	pixel_y = -6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/chapel/main)
 "deo" = (
@@ -55617,16 +53724,6 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -55636,7 +53733,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/research)
 "deu" = (
@@ -55776,20 +53873,10 @@
 /turf/simulated/floor/carpet,
 /area/chapel/main)
 "deT" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/maintenance/aft2)
 "deU" = (
@@ -56035,6 +54122,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -57266,18 +55354,8 @@
 /turf/space,
 /area/space/nearstation)
 "dQb" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "dQq" = (
@@ -57299,22 +55377,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/tcommsat/server)
 "dRT" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/storage)
 "dRX" = (
@@ -57693,21 +55761,11 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/evidence)
 "dZB" = (
@@ -57718,21 +55776,11 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/research)
 "dZI" = (
@@ -59023,21 +57071,11 @@
 	},
 /area/medical/biostorage)
 "eJg" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/portable_atmospherics/scrubber/huge,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/storage)
 "eJh" = (
@@ -59047,16 +57085,6 @@
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
 "eJr" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/chair/office/light{
 	dir = 8
 	},
@@ -59064,7 +57092,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -59103,7 +57131,7 @@
 	icon_state = "grille";
 	color = null
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "eKV" = (
 /obj/structure/lattice/catwalk,
@@ -59501,16 +57529,6 @@
 	},
 /area/security/permabrig)
 "eVO" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/light,
 /obj/machinery/door_control{
 	pixel_y = -24;
@@ -59521,7 +57539,7 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "eVZ" = (
@@ -59705,18 +57723,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/evidence)
 "fau" = (
@@ -59830,15 +57838,13 @@
 /turf/simulated/floor/plating,
 /area/security/range)
 "fdc" = (
-/obj/machinery/recharge_station,
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/light_switch{
+/obj/machinery/alarm{
 	dir = 4;
-	name = "custom placement";
-	pixel_x = -24;
-	pixel_y = 8
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
@@ -59970,19 +57976,9 @@
 /turf/space,
 /area/solar/auxport)
 "fho" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "fhs" = (
@@ -60037,16 +58033,6 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "fiU" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /obj/structure/extinguisher_cabinet{
@@ -60059,7 +58045,7 @@
 	network = list("Research","SS13")
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/storage)
 "fiV" = (
@@ -60331,23 +58317,13 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/storage/tech)
 "fpk" = (
@@ -60594,7 +58570,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -60604,6 +58579,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "fvH" = (
@@ -60679,21 +58656,6 @@
 	icon_state = "whitegreen"
 	},
 /area/medical/virology)
-"fxK" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "fxV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/cable/yellow{
@@ -60701,18 +58663,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/evidence)
 "fyt" = (
@@ -60860,20 +58812,10 @@
 	},
 /area/security/permabrig)
 "fCO" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/storage)
 "fCQ" = (
@@ -62124,21 +60066,11 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "ggT" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/storage)
 "ghD" = (
@@ -62814,19 +60746,13 @@
 	},
 /area/bridge)
 "gDC" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "gDK" = (
@@ -63057,23 +60983,13 @@
 	},
 /area/security/processing)
 "gLa" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "armory";
 	name = "Armory Shutter"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/securearmoury)
 "gLu" = (
@@ -63375,12 +61291,6 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "gTL" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -63390,7 +61300,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "gTS" = (
@@ -63429,22 +61339,12 @@
 /turf/simulated/floor/grass/no_creep,
 /area/maintenance/asmaint)
 "gVS" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "gVX" = (
@@ -63935,7 +61835,6 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
 "hiy" = (
@@ -64366,18 +62265,12 @@
 /obj/item/cartridge/signal/toxins{
 	pixel_y = 6
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/item/clothing/glasses/welding/superior{
 	pixel_y = -12;
 	pixel_x = -6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "hsq" = (
@@ -64581,18 +62474,8 @@
 /obj/structure/closet/crate,
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/item/wrench,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/execution)
 "hxd" = (
@@ -64673,6 +62556,7 @@
 "hzA" = (
 /obj/structure/table,
 /obj/item/soap/nanotrasen,
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -65123,21 +63007,11 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "hJJ" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/engine/chiefs_office)
 "hKu" = (
@@ -65186,16 +63060,6 @@
 	},
 /area/security/brig)
 "hLa" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/table,
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the test chamber.";
@@ -65205,7 +63069,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -65246,18 +63110,8 @@
 /obj/item/reagent_containers/food/snacks/grown/harebell,
 /obj/item/reagent_containers/food/snacks/grown/harebell,
 /obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/chapel/main)
 "hLX" = (
@@ -65280,22 +63134,12 @@
 	},
 /area/crew_quarters/bar)
 "hMv" = (
+/obj/effect/landmark/spawner/rev,
 /obj/structure/morgue{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "hMS" = (
@@ -65546,18 +63390,8 @@
 /turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing)
 "hVK" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -66238,18 +64072,8 @@
 /area/engine/engineering)
 "iot" = (
 /obj/machinery/vending/suitdispenser,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/locker)
 "ioy" = (
@@ -66704,16 +64528,6 @@
 	},
 /area/security/permabrig)
 "iyl" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -66729,7 +64543,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "iyv" = (
@@ -66795,18 +64609,8 @@
 "iAS" = (
 /obj/machinery/vending/hatdispenser,
 /obj/machinery/light,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/locker)
 "iAT" = (
@@ -66852,19 +64656,9 @@
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
 "iBi" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "iBq" = (
@@ -67220,23 +65014,13 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/evidence)
 "iKb" = (
@@ -67262,6 +65046,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
@@ -67542,13 +65327,14 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "iQm" = (
@@ -67564,16 +65350,6 @@
 	},
 /area/hallway/primary/aft)
 "iQC" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -67583,7 +65359,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -67986,7 +65762,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 9;
 	icon_state = "darkblue"
 	},
 /area/medical/cmo)
@@ -69089,22 +66865,12 @@
 	},
 /area/security/main)
 "jMN" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/door/window/northleft{
 	name = "Mass Driver Control Door"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/tox,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -69392,16 +67158,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "jSe" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
@@ -69410,7 +67166,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/storage)
 "jSg" = (
@@ -69566,9 +67322,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "jXe" = (
@@ -70447,22 +68204,12 @@
 /obj/machinery/camera{
 	c_tag = "Evidence Storage"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/item/storage/secure/safe{
 	pixel_y = 32;
 	name = "evidence safe"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/evidence)
 "kzm" = (
@@ -70756,14 +68503,8 @@
 /obj/machinery/computer/card/minor/rd{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "kFl" = (
@@ -70880,16 +68621,6 @@
 	},
 /area/security/main)
 "kHQ" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
@@ -70899,7 +68630,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/storage)
 "kHZ" = (
@@ -71035,12 +68766,6 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "kLJ" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -71052,7 +68777,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "kLN" = (
@@ -71123,21 +68848,11 @@
 	},
 /area/medical/virology)
 "kNi" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/storage)
 "kNG" = (
@@ -71297,7 +69012,7 @@
 	icon_state = "brokengrille"
 	},
 /obj/item/reagent_containers/food/snacks/grown/poppy,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "kQx" = (
 /obj/item/twohanded/required/kirbyplants{
@@ -71417,19 +69132,13 @@
 	name = "Toxins Launch Room"
 	})
 "kTH" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "kTP" = (
@@ -71440,23 +69149,13 @@
 /turf/simulated/floor/plating/airless,
 /area/toxins/xenobiology)
 "kUf" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/storage)
 "kUj" = (
@@ -72054,6 +69753,13 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/atmos)
+"lgi" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "lgr" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -72398,12 +70104,6 @@
 	})
 "lpJ" = (
 /obj/machinery/disposal,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/structure/sign/securearea{
 	pixel_x = -32
 	},
@@ -72416,7 +70116,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "lpU" = (
@@ -72449,12 +70149,6 @@
 /area/crew_quarters/dorms)
 "lrA" = (
 /obj/structure/table,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = -8;
 	pixel_y = 1
@@ -72468,7 +70162,7 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "lrD" = (
@@ -72643,21 +70337,11 @@
 	name = "Toxins Launch Room"
 	})
 "lvP" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -72886,17 +70570,11 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "lDG" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "lDV" = (
@@ -73384,23 +71062,13 @@
 	},
 /area/toxins/xenobiology)
 "lNd" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
 	name = "Robotics Junction";
 	sortType = 14
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "lNl" = (
@@ -74983,16 +72651,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "mCN" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -75008,7 +72666,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "mCX" = (
@@ -75280,9 +72938,7 @@
 /area/toxins/test_chamber)
 "mMD" = (
 /obj/structure/table/glass,
-/obj/item/clothing/accessory/stethoscope{
-	pixel_y = 6
-	},
+/obj/item/soap/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -75548,7 +73204,9 @@
 	},
 /area/medical/surgery1)
 "mTU" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	name = "Aft Secondary Maintenance"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/yellow{
@@ -75556,7 +73214,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
@@ -75725,14 +73382,8 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "mWI" = (
@@ -75785,12 +73436,6 @@
 /obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "custom placement";
@@ -75798,7 +73443,7 @@
 	pixel_y = -8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "mXy" = (
@@ -75990,9 +73635,6 @@
 /area/security/permabrig)
 "naY" = (
 /obj/structure/chair/stool/bar{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -76299,16 +73941,6 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -76324,7 +73956,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/research)
 "nia" = (
@@ -76551,10 +74183,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "nlQ" = (
-/obj/machinery/cryopod/robot,
-/obj/machinery/computer/cryopod/robot{
-	pixel_x = 29
-	},
+/obj/structure/reagent_dispensers/oil,
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "nmh" = (
@@ -76634,23 +74263,13 @@
 	},
 /area/medical/surgery1)
 "nqr" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/table,
 /obj/structure/table,
 /obj/item/wrench,
 /obj/item/crowbar,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -76751,16 +74370,6 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "nsy" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
@@ -76774,7 +74383,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "nsB" = (
@@ -77256,15 +74865,9 @@
 	},
 /area/medical/chemistry)
 "nFh" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "nGj" = (
@@ -77551,16 +75154,6 @@
 	},
 /area/engine/engineering)
 "nRl" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -77570,7 +75163,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -77647,22 +75240,12 @@
 /turf/simulated/floor/greengrid,
 /area/assembly/chargebay)
 "nUG" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/effect/landmark/start/roboticist,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "nUW" = (
@@ -77835,7 +75418,9 @@
 	dir = 6
 	},
 /obj/item/megaphone,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreycheck"
+	},
 /area/crew_quarters/hor)
 "nYP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -78086,17 +75671,11 @@
 	},
 /area/medical/medbay3)
 "ofZ" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/machinery/computer/crew{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "ogq" = (
@@ -78118,12 +75697,6 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "oha" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -78135,7 +75708,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "oic" = (
@@ -78153,18 +75726,8 @@
 	},
 /area/medical/research)
 "oiv" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/chapel/main)
 "oiC" = (
@@ -78334,16 +75897,6 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "ooH" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -78351,7 +75904,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -78500,37 +76053,17 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "otS" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/structure/morgue{
-	dir = 8
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/morgue{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "ouz" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
@@ -78546,7 +76079,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "ovM" = (
@@ -78749,16 +76282,6 @@
 /obj/item/stack/sheet/glass,
 /obj/item/wrench,
 /obj/item/clothing/glasses/welding,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/siding{
 	dir = 8
 	},
@@ -78768,7 +76291,7 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/lab)
 "oDp" = (
@@ -78948,16 +76471,6 @@
 /turf/simulated/wall,
 /area/medical/reception)
 "oIa" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/table,
 /obj/machinery/camera{
 	c_tag = "Science Toxins Test";
@@ -78969,7 +76482,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -79309,7 +76822,9 @@
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "oRw" = (
-/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "oRx" = (
@@ -79417,16 +76932,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "oUU" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/light_switch{
 	name = "custom placement";
 	pixel_y = 26;
@@ -79445,7 +76950,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "oVx" = (
@@ -80431,16 +77936,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "pxr" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
@@ -80449,25 +77944,15 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
 	})
 "pxG" = (
 /obj/structure/morgue,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "pyX" = (
@@ -80476,20 +77961,10 @@
 	name = "Arrivals"
 	})
 "pzC" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/item/storage/belt/utility,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "pzQ" = (
@@ -80611,23 +78086,13 @@
 	},
 /area/hallway/primary/starboard)
 "pBW" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/item/wrench,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "pCg" = (
@@ -81524,23 +78989,13 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "pXO" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/item/stack/cable_coil,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "pXV" = (
@@ -81878,12 +79333,6 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -81896,7 +79345,7 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/research)
 "qeD" = (
@@ -81996,18 +79445,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/storage/tech)
 "qfR" = (
@@ -82151,7 +79590,9 @@
 	name = "\improper Mining Office"
 	})
 "qlX" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	name = "Aft-Starboard Maintenance"
+	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -82160,7 +79601,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
@@ -82709,7 +80149,7 @@
 	},
 /area/hallway/primary/central)
 "qCm" = (
-/obj/structure/reagent_dispensers/watertank,
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "qCv" = (
@@ -82778,24 +80218,15 @@
 	},
 /obj/item/pen,
 /obj/item/paper,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/security/securearmoury)
 "qFl" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "qFz" = (
@@ -83193,16 +80624,6 @@
 	},
 /area/medical/medbay3)
 "qSE" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/table,
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the test chamber.";
@@ -83211,7 +80632,7 @@
 	network = list("Toxins")
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -83285,18 +80706,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
@@ -83433,18 +80844,12 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "rbg" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 2;
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "rbo" = (
@@ -83512,7 +80917,6 @@
 /area/security/brig)
 "rbN" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -83734,16 +81138,6 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "rhH" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -83752,7 +81146,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -84233,16 +81627,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
 "ruj" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/portable_atmospherics/pump,
@@ -84250,7 +81634,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/storage)
 "ruH" = (
@@ -85144,7 +82528,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 10;
 	icon_state = "darkblue"
 	},
 /area/medical/cmo)
@@ -85277,6 +82661,9 @@
 	name = "custom placement";
 	pixel_x = -24;
 	pixel_y = -6
+	},
+/obj/item/clothing/accessory/stethoscope{
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -85736,23 +83123,13 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/securearmoury)
 "scF" = (
@@ -85788,16 +83165,6 @@
 /turf/simulated/floor/plasteel,
 /area/medical/research)
 "sdq" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/table,
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/glasses/science,
@@ -85807,7 +83174,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -86210,18 +83577,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "soO" = (
@@ -86574,16 +83931,6 @@
 /turf/simulated/floor/plating,
 /area/magistrateoffice)
 "syi" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -86595,7 +83942,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "syP" = (
@@ -86935,18 +84282,8 @@
 	},
 /area/security/processing)
 "sIm" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "sJe" = (
@@ -87410,21 +84747,11 @@
 	},
 /area/engine/break_room)
 "sSk" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -87707,18 +85034,8 @@
 	dir = 9
 	},
 /obj/machinery/space_heater,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/execution)
 "tbx" = (
@@ -87926,12 +85243,6 @@
 /area/medical/surgery2)
 "tgu" = (
 /obj/structure/table,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/machinery/recharger,
 /obj/machinery/camera{
 	dir = 1;
@@ -87942,7 +85253,7 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "tgC" = (
@@ -88277,7 +85588,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/security/general,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
 "toU" = (
@@ -88392,22 +85703,6 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research)
-"tsi" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/assembly/robotics)
 "tsm" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
@@ -88538,16 +85833,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "twL" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/machinery/alarm{
 	dir = 1;
 	name = "south bump";
@@ -88570,16 +85855,10 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "twN" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -88592,7 +85871,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "txp" = (
@@ -88802,12 +86081,6 @@
 "tCw" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/firecloset,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -88819,7 +86092,7 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/research)
 "tCE" = (
@@ -89025,14 +86298,8 @@
 	pixel_x = 6;
 	pixel_y = 10
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "tIh" = (
@@ -89182,8 +86449,7 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+	icon_state = "whitebluefull"
 	},
 /area/medical/cmo)
 "tPc" = (
@@ -89428,22 +86694,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engimaint)
 "tVd" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "tVw" = (
@@ -89629,16 +86885,6 @@
 	},
 /area/security/securearmoury)
 "ubf" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
@@ -89647,7 +86893,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -89700,14 +86946,8 @@
 /obj/machinery/photocopier/faxmachine{
 	department = "Research Director's Office"
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "ucO" = (
@@ -89792,18 +87032,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/locker)
 "ueQ" = (
@@ -89882,23 +87112,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
-"ugs" = (
-/obj/structure/morgue,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/landmark/spawner/rev,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
 "ugu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -90342,12 +87555,6 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "uxc" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	icon_state = "pipe-c"
@@ -90359,7 +87566,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "uxy" = (
@@ -90628,21 +87835,11 @@
 /area/security/permabrig)
 "uEE" = (
 /obj/machinery/shieldwallgen,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/teleporter)
 "uEX" = (
@@ -90938,12 +88135,6 @@
 	},
 /area/medical/research)
 "uMx" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/structure/table,
 /obj/machinery/computer/med_data/laptop{
 	dir = 1;
@@ -90951,7 +88142,7 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "uMG" = (
@@ -91106,16 +88297,6 @@
 	},
 /area/bridge)
 "uRX" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	icon_state = "pipe-c"
@@ -91128,7 +88309,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/assembly/robotics)
 "uSc" = (
@@ -91152,20 +88333,10 @@
 	},
 /area/medical/exam_room)
 "uSj" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/storage)
 "uSA" = (
@@ -91356,21 +88527,11 @@
 	},
 /area/security/permabrig)
 "uXI" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/table,
 /obj/item/clothing/mask/gas,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -91498,6 +88659,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
@@ -91896,19 +89058,9 @@
 	},
 /area/maintenance/aft)
 "vmv" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/closet/wardrobe/black,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/crew_quarters/locker)
 "vmA" = (
@@ -92026,21 +89178,6 @@
 /obj/item/shard,
 /turf/space,
 /area/space/nearstation)
-"vrf" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/assembly/robotics)
 "vrB" = (
 /obj/machinery/light{
 	dir = 8
@@ -92427,16 +89564,6 @@
 	},
 /area/medical/medbay3)
 "vAc" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/door/window/westleft{
 	name = "Mass Driver Door"
 	},
@@ -92445,7 +89572,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/tox,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -92593,18 +89720,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "vDG" = (
@@ -92828,20 +89945,10 @@
 	},
 /area/toxins/xenobiology)
 "vLA" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/storage)
 "vLP" = (
@@ -92969,19 +90076,9 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/research)
 "vRv" = (
@@ -93204,16 +90301,6 @@
 	},
 /area/security/brig)
 "vWq" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-2"
@@ -93224,7 +90311,7 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "vXb" = (
@@ -93251,17 +90338,11 @@
 	},
 /area/medical/reception)
 "vXJ" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "vXM" = (
@@ -93714,18 +90795,8 @@
 /area/security/brig)
 "wkM" = (
 /obj/machinery/vending/cola,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/bridge/meeting_room{
 	name = "\improper Command Hallway"
@@ -93980,15 +91051,9 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "wsN" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/landmark/start/research_director,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/hor)
 "wta" = (
@@ -94056,16 +91121,6 @@
 	name = "Toxins Launch Room"
 	})
 "wuc" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/table,
 /obj/machinery/driver_button{
 	id_tag = "toxinsdriver";
@@ -94081,7 +91136,7 @@
 	network = list("Research","SS13")
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -94212,18 +91267,8 @@
 /area/toxins/xenobiology)
 "wyB" = (
 /obj/machinery/shieldwallgen,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/teleporter)
 "wyE" = (
@@ -94515,16 +91560,6 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "wED" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
@@ -94534,7 +91569,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/storage)
 "wEZ" = (
@@ -94557,21 +91592,11 @@
 	},
 /obj/item/stock_parts/matter_bin,
 /obj/item/stock_parts/micro_laser,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/siding{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/lab)
 "wGr" = (
@@ -94709,16 +91734,6 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "wMR" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
@@ -94727,7 +91742,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/storage)
 "wNA" = (
@@ -95605,16 +92620,6 @@
 	},
 /area/toxins/xenobiology)
 "xmI" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 4;
@@ -95631,7 +92636,7 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "xnb" = (
@@ -95924,21 +92929,11 @@
 /area/hallway/primary/aft)
 "xvB" = (
 /obj/machinery/disposal,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/medical/morgue)
 "xvX" = (
@@ -96761,16 +93756,6 @@
 	},
 /area/crew_quarters/bar)
 "xRN" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/alarm{
@@ -96779,7 +93764,7 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/storage)
 "xSh" = (
@@ -97158,43 +94143,13 @@
 	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
-"ydZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/crew_quarters/fitness{
-	name = "\improper Recreation Area"
-	})
 "yed" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -97238,16 +94193,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "yeU" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen,
@@ -97262,7 +94207,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/toxins/launch{
 	name = "Toxins Launch Room"
@@ -97343,21 +94288,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/machinery/door/airlock/security,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkgrey"
 	},
 /area/security/evidence)
 "ygK" = (
@@ -109464,9 +106399,9 @@ aaa
 aaa
 aaa
 aaa
-ajo
 aaa
-ajo
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -109721,9 +106656,9 @@ aaa
 aaa
 aaa
 aaa
-abq
 aaa
-abq
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -109978,9 +106913,9 @@ aef
 prB
 aef
 aef
-abq
 aaa
-abq
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -110235,9 +107170,9 @@ cdT
 iNL
 cdT
 cdT
-abq
 aaa
-abq
+aaa
+aaa
 aaa
 uSA
 aaa
@@ -113841,7 +110776,7 @@ bZP
 cnS
 bZP
 seM
-crG
+cpD
 biO
 ctM
 crG
@@ -114354,8 +111289,8 @@ bMZ
 bZP
 icW
 srJ
-ooD
-ooD
+lgi
+apb
 apb
 apb
 ooD
@@ -114603,9 +111538,9 @@ bZP
 cIT
 csH
 csv
-bVF
+crG
 dgI
-dbA
+crG
 crG
 crG
 bZP
@@ -114858,7 +111793,7 @@ bTY
 avU
 bZP
 cyw
-fNr
+crG
 wjL
 fkr
 bZP
@@ -121079,7 +118014,7 @@ fPa
 cJM
 cyN
 cUK
-bYH
+cqj
 cTh
 aaa
 aaa
@@ -121508,7 +118443,7 @@ aaa
 abq
 aaa
 aZJ
-cKc
+bbg
 bNp
 bek
 bjA
@@ -122022,7 +118957,7 @@ aXE
 aOG
 aaa
 aZJ
-bbi
+dbb
 bNp
 qWN
 acw
@@ -122081,9 +119016,9 @@ bSX
 czC
 cIm
 otS
-coq
-coq
-fxK
+hMv
+hMv
+sIm
 iyl
 cbJ
 cIm
@@ -122595,9 +119530,9 @@ cHs
 cGh
 cIm
 vWq
-cFQ
 vCS
-bQh
+vCS
+vCS
 crm
 cDT
 cIm
@@ -122851,10 +119786,10 @@ xkY
 cGg
 bib
 cIm
-cCx
 hMv
 hMv
-coq
+hMv
+hMv
 czn
 cDT
 cIm
@@ -123109,9 +120044,9 @@ cCA
 cKo
 cIm
 pxG
-auI
-auI
-ugs
+auy
+auy
+auy
 czn
 cDT
 cIm
@@ -123365,8 +120300,8 @@ dhx
 dhB
 cGj
 cIm
-fxK
-fxK
+sIm
+sIm
 cPH
 cgk
 cEk
@@ -126445,7 +123380,7 @@ pBW
 dQb
 pXO
 bAk
-tsi
+qFl
 wez
 uEX
 qnt
@@ -126700,7 +123635,7 @@ kWj
 mWN
 lNd
 iBi
-tsi
+qFl
 iBi
 fho
 cDF
@@ -126947,7 +123882,7 @@ cUE
 cIu
 cFO
 cBJ
-cBJ
+cFO
 cBJ
 cFO
 cJp
@@ -126957,7 +123892,7 @@ cJp
 cJp
 oUU
 pzC
-vrf
+dQb
 qFl
 eVO
 cJp
@@ -131019,7 +127954,7 @@ aYP
 aLl
 iLl
 bdW
-bEE
+eMs
 bgg
 bhC
 bjr
@@ -133556,9 +130491,9 @@ aij
 cWS
 akj
 ald
-amc
-amc
-amc
+aio
+aio
+aio
 apW
 arm
 aDd
@@ -133813,9 +130748,9 @@ cZz
 amN
 cXD
 cXZ
-ydZ
 qWG
-cYb
+qWG
+qWG
 cYe
 cYx
 cYz
@@ -134070,9 +131005,9 @@ aij
 ajn
 akl
 ald
-amc
-amc
-amc
+aio
+aio
+aio
 apW
 aro
 xdI
@@ -134402,7 +131337,7 @@ coM
 cte
 crQ
 xUe
-bNZ
+cwd
 cte
 cte
 cte
@@ -134658,7 +131593,7 @@ cFN
 coN
 cte
 crR
-csj
+cuH
 oRw
 cuE
 fvO
@@ -135432,7 +132367,7 @@ cLV
 cwG
 vGR
 cuG
-bUz
+fvO
 cwG
 cye
 cmB
@@ -135687,9 +132622,9 @@ coQ
 cte
 cqE
 cwG
-fvO
 ptn
 cwG
+bUz
 cuH
 cyf
 cmB
@@ -135946,7 +132881,7 @@ cqH
 cqi
 cwG
 cuH
-bUz
+cwG
 cwG
 cHV
 cmB
@@ -136672,7 +133607,7 @@ aXx
 bAL
 aCg
 bfd
-bdz
+bdy
 beJ
 bgv
 bhS
@@ -136929,7 +133864,7 @@ aXF
 aYU
 aCg
 bbK
-bdz
+bdy
 beK
 bgw
 bhT
@@ -139991,7 +136926,7 @@ avV
 avI
 amk
 aBZ
-nwp
+bEE
 aBZ
 aCg
 aEn
@@ -152095,7 +149030,7 @@ bdI
 bjX
 bdI
 bdI
-jgJ
+bdL
 hLH
 mcP
 bri
@@ -152609,7 +149544,7 @@ bdI
 blD
 bdI
 bdI
-jgJ
+bdL
 uHX
 bif
 bri
