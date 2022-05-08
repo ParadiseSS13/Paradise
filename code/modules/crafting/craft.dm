@@ -175,14 +175,15 @@
 	var/list/parts = del_reqs(recipe, user)
 	if(!parts)
 		return ", missing component."
-					
-	var/atom/movable/craft_result = new recipe.result (get_turf(user.loc))
-	craft_result.CheckParts(parts, recipe)
-	if(isitem(craft_result))
-		user.put_in_hands(craft_result)
+	
+	for(var/possible_result in recipe.result)
+		var/atom/movable/craft_result = new possible_result (get_turf(user.loc))
+		craft_result.CheckParts(parts, recipe)
+		if(isitem(craft_result))
+			user.put_in_hands(craft_result)
 
-	if(send_feedback)
-		SSblackbox.record_feedback("tally", "object_crafted", 1, craft_result.type)
+		if(send_feedback)
+			SSblackbox.record_feedback("tally", "object_crafted", 1, craft_result.type)
 	return 0
 			
 
