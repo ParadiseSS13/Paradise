@@ -172,7 +172,7 @@
 	if(!check_pathtools(user, recipe, contents))
 		return ", missing tool."
 	
-	var/list/parts = del_reqs(recipe, user)
+	var/list/parts = requirements_deletion(recipe, user)
 	if(!parts)
 		return ", missing component."
 	
@@ -187,10 +187,11 @@
 	return 0
 			
 
-/datum/personal_crafting/proc/del_reqs(datum/crafting_recipe/recipe, mob/user)
+/datum/personal_crafting/proc/requirements_deletion(datum/crafting_recipe/recipe, mob/user)
 	var/list/surroundings = get_environment(user)
 	var/list/parts_list_for_return = list()
-	var/list/things_for_deletion = list()
+	var/list/reagent_containers_for_deletion = list()
+	var/list/item_stacks_for_deletion = list()
 
 	for(var/thing in recipe.reqs)
 		var/needed_amount = recipe.reqs[thing]
@@ -200,25 +201,21 @@
 				part_reagent = new thing()
 				parts_list_for_return += part_reagent
 
-			for(var/obj/item/reagent_containers/container in surroundings)
+			for(var/obj/item/reagent_containers/container in (surroundings - reagent_containers_for_deletion))
 				var/datum/reagent/contained_reagent = container.reagents.get_reagent(thing)
 				if(!contained_reagent)
 					continue
 				
-				if(contained_reagent.volume > needed_amount)
-					things_for_deletion[container] = list(contained_reagent, needed_amount)
-					part_reagent.volume = needed_amount
-					part_reagent.data = contained_reagent.data
-					needed_amount = 0
+				var/extracted_amount = min(contained_reagent.volume, needed_amount)
+				reagent_containers_for_deletion[container] = list(contained_reagent, extracted_amount)
+				part_reagent.volume += extracted_amount
+				part_reagent.data += contained_reagent.data
+				needed_amount -= extracted_amount
+				if(needed_amount <= 0)
 					break
-				else
-					needed_amount -= contained_reagent.volume
-					things_for_deletion[container] = list(contained_reagent, contained_reagent.volume)
-					part_reagent.volume += contained_reagent.volume
-					part_reagent.data += contained_reagent.data
 	
 			if(needed_amount > 0)
-				return null
+				stack_trace("Bad things happened in [__FILE__] at [__LINE__], we didn't have as many reagents as we expected!")
 
 		else if(ispath(thing, /obj/item/stack))
 			var/obj/item/stack/part_stack = locate(thing) in parts_list_for_return
@@ -227,47 +224,40 @@
 				part_stack.amount = 0
 				parts_list_for_return += part_stack
 
-			for(var/obj/item/stack/item_stack in (surroundings - things_for_deletion))
+			for(var/obj/item/stack/item_stack in (surroundings - item_stacks_for_deletion))
 				if(!istype(item_stack, thing))
 					continue
 				
-				if(item_stack.amount > needed_amount)
-					things_for_deletion[item_stack] = needed_amount
-					part_stack.amount += needed_amount
-					needed_amount = 0
+				var/extracted_amount = min(item_stack.amount, needed_amount)
+				item_stacks_for_deletion[item_stack] = extracted_amount
+				part_stack.amount += extracted_amount
+				needed_amount -= extracted_amount
+				if(needed_amount <= 0)
 					break
-				else
-					needed_amount -= item_stack.amount
-					part_stack.amount += item_stack.amount
-					things_for_deletion[item_stack] = item_stack.amount
 			
 			if(needed_amount > 0)
-				return null
+				stack_trace("Bad things happened in [__FILE__] at [__LINE__], we didn't have as many items as we expected!")
 
 		else
 			var/atom/movable/part_atom = locate(thing) in (surroundings - parts_list_for_return)
 			if(!part_atom)
-				return null
+				stack_trace("Bad things happened in [__FILE__] at [__LINE__], we didn't manage to find the atom we need for crafting!")
 			parts_list_for_return += part_atom
 
-	for(var/thing in things_for_deletion)
-		if(istype(thing, /obj/item/reagent_containers))
-			var/obj/item/reagent_containers/container_to_clear = thing
-			var/datum/reagent/reagent_to_delete = things_for_deletion[thing][1]
-			var/amount_to_delete = things_for_deletion[thing][2]
+	for(var/obj/item/reagent_containers/container_to_clear as anything in reagent_containers_for_deletion)
+		var/datum/reagent/reagent_to_delete = reagent_containers_for_deletion[container_to_clear][1]
+		var/amount_to_delete = reagent_containers_for_deletion[container_to_clear][2]
 
-			if(amount_to_delete < reagent_to_delete.volume)
-				reagent_to_delete.volume -= amount_to_delete
-			else
-				container_to_clear.reagents.reagent_list -= reagent_to_delete
-			container_to_clear.reagents.conditional_update(container_to_clear)
-			container_to_clear.update_icon()
+		if(amount_to_delete < reagent_to_delete.volume)
+			reagent_to_delete.volume -= amount_to_delete
+		else
+			container_to_clear.reagents.reagent_list -= reagent_to_delete
+		container_to_clear.reagents.conditional_update(container_to_clear)
+		container_to_clear.update_icon()
 
-		else if(istype(thing, /obj/item/stack))
-			var/obj/item/stack/stack_to_delete = thing
-			var/amount_to_delete = things_for_deletion[thing]
-
-			stack_to_delete.use(amount_to_delete)
+	for(var/obj/item/stack/stack_to_delete as anything in item_stacks_for_deletion)
+		var/amount_to_delete = item_stacks_for_deletion[stack_to_delete]
+		stack_to_delete.use(amount_to_delete)
 
 	return parts_list_for_return
 
