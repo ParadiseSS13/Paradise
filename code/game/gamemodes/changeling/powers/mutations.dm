@@ -188,6 +188,7 @@
 /obj/item/gun/magic/tentacle
 	name = "tentacle"
 	desc = "A fleshy tentacle that can stretch out and grab things or people."
+	icon = 'icons/obj/items.dmi'
 	icon_state = "tentacle"
 	item_state = "tentacle"
 	flags = ABSTRACT | NODROP | NOBLUDGEON | DROPDEL
