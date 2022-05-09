@@ -3,12 +3,20 @@ GLOBAL_LIST_EMPTY(all_objectives)
 GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number - /datum/theft_objective/unique))
 
 /datum/objective
-	var/datum/mind/owner = null			//Who owns the objective.
-	var/explanation_text = "Nothing"	//What that person is supposed to do.
-	var/datum/mind/target = null		//If they are focused on a particular person.
-	var/target_amount = 0				//If they are focused on a particular number. Steal objectives have their own counter.
-	var/completed = 0					//currently only used for custom objectives.
-	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
+	/// Mind who owns the objective.
+	var/datum/mind/owner = null
+	/// What the owner is supposed to do to complete the objective.
+	var/explanation_text = "Nothing"
+	/// If the objective should have `find_target()` called for it.
+	var/needs_target = TRUE
+	/// The target of the objective.
+	var/datum/mind/target = null
+	/// If they are focused on a particular number. Steal objectives have their own counter.
+	var/target_amount = 0
+	/// If the objective has been completed.
+	var/completed = FALSE
+	/// If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
+	var/martyr_compatible = FALSE
 
 /datum/objective/New(text)
 	GLOB.all_objectives += src
@@ -44,6 +52,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/proc/find_target()
+	if(!needs_target)
+		return
+
 	var/list/possible_targets = list()
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target))
@@ -204,13 +215,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return 0
 
 /datum/objective/protect/mindslave //subytpe for mindslave implants
+	needs_target = FALSE // To be clear, this objective should have a target, but it will always be manually set to the mindslaver through the mindslave antag datum.
 
 /datum/objective/protect/mindslave/on_target_cryo()
 	if(owner?.current)
-		to_chat(owner.current, "<BR><span class='userdanger'>You notice that your master has entered cryogenic storage, and revert to your normal self, until they return again. You are no longer a mindslave!</span>")
 		SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
 		owner.remove_antag_datum(/datum/antagonist/mindslave)
-		SSticker.mode.implanted.Remove(owner)
+		to_chat(owner.current, "<BR><span class='userdanger'>You notice that your master has entered cryogenic storage, and revert to your normal self.</span>")
 		log_admin("[key_name(owner.current)]'s mindslave master has cryo'd, and is no longer a mindslave.")
 		message_admins("[key_name_admin(owner.current)]'s mindslave master has cryo'd, and is no longer a mindslave.") //Since they were on antag hud earlier, this feels important to log
 		qdel(src)
@@ -219,6 +230,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	martyr_compatible = 0 //Technically you won't get both anyway.
 	explanation_text = "Hijack the shuttle by escaping on it with no loyalist Nanotrasen crew on board and free. \
 	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive."
+	needs_target = FALSE
 
 /datum/objective/hijack/check_completion()
 	if(!owner.current || owner.current.stat)
@@ -237,6 +249,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/hijackclone
 	explanation_text = "Hijack the shuttle by ensuring only you (or your copies) escape."
 	martyr_compatible = 0
+	needs_target = FALSE
 
 /datum/objective/hijackclone/check_completion()
 	if(!owner.current)
@@ -268,6 +281,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/block
 	explanation_text = "Do not allow any lifeforms, be it organic or synthetic to escape on the shuttle alive. AIs, Cyborgs, Maintenance drones, and pAIs are not considered alive."
 	martyr_compatible = 1
+	needs_target = FALSE
 
 /datum/objective/block/check_completion()
 	if(!istype(owner.current, /mob/living/silicon))
@@ -293,6 +307,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/escape
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
+	needs_target = FALSE
 
 /datum/objective/escape/check_completion()
 	if(issilicon(owner.current))
@@ -352,6 +367,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/die
 	explanation_text = "Die a glorious death."
+	needs_target = FALSE
 
 /datum/objective/die/check_completion()
 	if(!owner.current || owner.current.stat == DEAD || isbrain(owner.current))
@@ -364,6 +380,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/survive
 	explanation_text = "Stay alive until the end."
+	needs_target = FALSE
 
 /datum/objective/survive/check_completion()
 	if(!owner.current || owner.current.stat == DEAD || isbrain(owner.current))
@@ -375,6 +392,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/nuclear
 	explanation_text = "Destroy the station with a nuclear device."
 	martyr_compatible = 1
+	needs_target = FALSE
 
 /datum/objective/steal
 	var/datum/theft_objective/steal_target
@@ -462,6 +480,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal/exchange
 	martyr_compatible = 0
+	needs_target = FALSE
 
 /datum/objective/steal/exchange/proc/set_faction(faction, otheragent)
 	target = otheragent
@@ -484,6 +503,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	steal_target = targetinfo
 
 /datum/objective/download
+	needs_target = FALSE
+
 /datum/objective/download/proc/gen_amount_goal()
 	target_amount = rand(10,20)
 	explanation_text = "Download [target_amount] research levels."
@@ -496,6 +517,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/capture
+	needs_target = FALSE
+
 /datum/objective/capture/proc/gen_amount_goal()
 	target_amount = rand(5,10)
 	explanation_text = "Accumulate [target_amount] capture points."
@@ -509,6 +532,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/absorb
+	needs_target = FALSE
+
 /datum/objective/absorb/proc/gen_amount_goal(lowbound = 4, highbound = 6)
 	target_amount = rand (lowbound,highbound)
 	if(SSticker)
@@ -560,6 +585,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal_five_of_type
 	explanation_text = "Steal at least five items!"
+	needs_target = FALSE
 	var/list/wanted_items = list()
 
 /datum/objective/steal_five_of_type/New()
@@ -607,6 +633,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return stolen_count >= 5
 
 /datum/objective/blood
+	needs_target = FALSE
 
 /datum/objective/blood/New()
 	gen_amount_goal()
@@ -642,4 +669,5 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/wizchaos
 	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
+	needs_target = FALSE
 	completed = 1
