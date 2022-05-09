@@ -67,7 +67,7 @@ def main(relative_root):
         base_icon = NamedTemporaryFile(delete=False)
 
         ours_icon.write(run_shell_command_binary("git show ORIG_HEAD:{}".format(path)))
-        theirs_icon.write(run_shell_command_binary("git show master:{}".format(path)))
+        theirs_icon.write(run_shell_command_binary("git show master220:{}".format(path)))
         base_icon.write(run_shell_command_binary("git show {}:{}".format(common_ancestor_hash, path)))
 
         # So it being "open" doesn't prevent other programs from using it
