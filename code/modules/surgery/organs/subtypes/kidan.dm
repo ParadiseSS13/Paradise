@@ -129,6 +129,18 @@
 	icon_state = "brain2"
 	mmi_icon = 'icons/obj/species_organs/kidan.dmi'
 	mmi_icon_state = "mmi_full"
+	parent_organ = "chest"
+
+/obj/item/organ/internal/brain/on_life()
+	. = ..()
+	var/obj/item/organ/external/organ = owner.get_organ("head")
+	if(!istype(organ))
+		owner.Slowed(20)
+		owner.Confused(40)
+		owner.Silence(20)
+		owner.Stuttering(40)
+		owner.EyeBlind(5)
+		owner.EyeBlurry(20)
 
 /obj/item/organ/internal/lungs/kidan
 	species_type = /datum/species/kidan
@@ -139,6 +151,20 @@
 	species_type = /datum/species/kidan
 	name = "kidan kidneys"
 	icon = 'icons/obj/species_organs/kidan.dmi'
+
+/obj/item/organ/external/head/kidan
+	species_type = /datum/species/kidan
+
+/obj/item/organ/external/head/kidan/remove(var/mob/living/user, var/ignore_children)
+	if(iskidan(src.owner))
+		src.owner.adjustBrainLoss(60)
+
+	. = ..()
+
+/obj/item/organ/external/head/kidan/replaced(var/mob/living/carbon/human/target)
+	. = ..()
+	if(iskidan(target))
+		target.adjustBrainLoss(30)
 
 #undef KIDAN_LANTERN_HUNGERCOST
 #undef KIDAN_LANTERN_MINHUNGER

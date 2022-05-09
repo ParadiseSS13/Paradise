@@ -105,7 +105,7 @@
 	// if(E.parent_organ && !target.get_organ(E.parent_organ))
 	// 	// No rayman allowed
 	// 	return 0
-	if(!is_correct_limb(E))
+	if(!is_correct_limb(E, target))
 		to_chat(user, "<span class='warning'>This is not the correct limb type for this surgery!</span>")
 		return 0
 
@@ -132,8 +132,10 @@
 	return 0
 
 
-/datum/surgery_step/limb/attach/proc/is_correct_limb(obj/item/organ/external/E)
+/datum/surgery_step/limb/attach/proc/is_correct_limb(obj/item/organ/external/E, mob/living/carbon/human/target)
 	if(E.is_robotic())
+		return 0
+	if(target.dna.species.type == /datum/species/kidan && !istype(E, /obj/item/organ/external/head/kidan))
 		return 0
 	return 1
 

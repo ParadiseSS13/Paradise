@@ -226,18 +226,27 @@
 			m_type = 2
 
 		if("clack", "clacks")
+			var/obj/item/organ/external/head = src.get_organ("head")
 			var/M = handle_emote_param(param)
 			mineral_scan_pulse(get_turf(src), range = world.view)
-			message = "трещит своей нижней челюстью[M ? " на [M]" : ""]."
-			playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
+			if(head)
+				message = "трещит своей нижней челюстью[M ? " на [M]" : ""]."
+				playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
+			else
+				message = "отчаянно дёргается."
 
 		if("click", "clicks")
+			var/obj/item/organ/external/head = src.get_organ("head")
 			var/M = handle_emote_param(param)
 			mineral_scan_pulse(get_turf(src), range = world.view)
-			message = "щелкает своей нижней челюстью[M ? " на [M]" : ""]."
-			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
-			m_type = 2
+			if(head)
+				message = "щелкает своей нижней челюстью[M ? " на [M]" : ""]."
+				playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
+				m_type = 2
+			else
+				message = "отчаянно дёргается."
+				m_type = 2
 
 		if("creaks", "creak")
 			var/M = handle_emote_param(param)
@@ -449,14 +458,21 @@
 								G.affecting.forceMove(oldloc)
 								message = "делает кувырок через [G.affecting]!"
 						else
-							if(prob(5))
+
+							if(iskidan(src) && !src.get_organ("head"))
 								message = "пытается кувыркнуться и с грохотом падает на пол!"
 								SpinAnimation(5,1)
 								sleep(3)
 								Weaken(2)
 							else
-								message = "делает кувырок!"
-								SpinAnimation(5,1)
+								if(prob(5))
+									message = "пытается кувыркнуться и с грохотом падает на пол!"
+									SpinAnimation(5,1)
+									sleep(3)
+									Weaken(2)
+								else
+									message = "делает кувырок!"
+									SpinAnimation(5,1)
 
 		if("aflap", "aflaps")
 			if(!restrained())
