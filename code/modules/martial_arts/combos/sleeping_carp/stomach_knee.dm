@@ -10,8 +10,9 @@
 		target.visible_message("<span class='warning'>[user] knees [target] in the stomach!</span>", \
 						  "<span class='userdanger'>[user] winds you with a knee in the stomach!</span>")
 		target.audible_message("<b>[target]</b> gags!")
-		target.AdjustLoseBreath(3)
-		target.Weaken(2)
+		target.AdjustLoseBreath(10)
+		target.Weaken(3)
+		target.adjustStaminaLoss(15)
 		playsound(get_turf(target), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Stomach Knee", ATKLOG_ALL)
 		if(prob(80))
