@@ -399,9 +399,8 @@ GLOBAL_VAR(bomb_set)
 					message_admins("[key_name_admin(usr)] engaged a nuclear bomb [ADMIN_JMP(src)]")
 					if(!is_syndicate)
 						set_security_level("delta")
-					GLOB.bomb_set = TRUE // There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke
-				else
-					GLOB.bomb_set = TRUE
+				GLOB.bomb_set = TRUE
+				GLOB.the_gateway.toggleoff()
 			else
 				if(!is_syndicate)
 					set_security_level(previous_level)

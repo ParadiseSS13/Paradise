@@ -812,6 +812,9 @@
 		if(!options.Find(destination))//figure out if this translation works
 			message_admins("<span class='boldannounce'>EXPLOIT:</span> [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
 			return
+		if(GLOB.bomb_set && !(ACCESS_SYNDICATE in req_access))
+			atom_say("Error: Quarantine protocol enabled.")
+			return
 		switch(SSshuttle.moveShuttle(shuttleId, destination, TRUE, usr))
 			if(0)
 				atom_say("Shuttle departing! Please stand away from the doors.")

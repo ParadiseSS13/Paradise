@@ -114,6 +114,9 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	if(world.time < wait)
 		to_chat(user, "<span class='notice'>Error: Warpspace triangulation in progress. Estimated time to completion: [round(((wait - world.time) / 10) / 60)] minutes.</span>")
 		return
+	if(is_station_level(z) && GLOB.bomb_set)
+		atom_say("Error: Quarantine protocol enabled.")
+		return
 
 	for(var/obj/machinery/gateway/G in linked)
 		G.active = 1
