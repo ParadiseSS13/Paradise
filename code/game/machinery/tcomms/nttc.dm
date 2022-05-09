@@ -23,27 +23,18 @@
 		"Cyborg" = "airadio",
 		"Personal AI" = "airadio",
 		"Robot" = "airadio",
-		// Civilian + Varients
-		"Assistant" = "radio",
-		"Businessman" = "radio",
+		// Civilian
 		"Civilian" = "radio",
-		"Tourist" = "radio",
-		"Trader" = "radio",
 		// Command (Solo command, not department heads)
 		"Blueshield" = "comradio",
 		"Captain" = "comradio",
 		"Head of Personnel" = "comradio",
 		"Nanotrasen Representative" = "comradio",
 		// Engineeering
-		"Atmospheric Technician" = "engradio",
 		"Chief Engineer" = "engradio",
-		"Electrician" = "engradio",
-		"Engine Technician" = "engradio",
 		"Life Support Specialist" = "engradio",
-		"Maintenance Technician" = "engradio",
 		"Mechanic" = "engradio",
 		"Station Engineer" = "engradio",
-		"Trainee Engineer" = "engradio",
 		// Central Command
 		"Emergency Response Team Engineer" = "dsquadradio", // I know this says deathsquad but the class for responseteam is neon green. No.
 		"Emergency Response Team Leader" = "dsquadradio",
@@ -57,65 +48,35 @@
 		"Chief Medical Officer" = "medradio",
 		"Coroner" = "medradio",
 		"Medical Doctor" = "medradio",
-		"Student Medical Doctor" = "medradio",
-		"Microbiologist" = "medradio",
-		"Nurse" = "medradio",
 		"Paramedic" = "medradio",
-		"Pharmacologist" = "medradio",
-		"Pharmacist" = "medradio",
 		"Psychiatrist" = "medradio",
-		"Psychologist" = "medradio",
-		"Surgeon" = "medradio",
-		"Therapist" = "medradio",
 		"Virologist" = "medradio",
 		// Science
-		"Anomalist" = "sciradio",
-		"Biomechanical Engineer" = "sciradio",
-		"Chemical Researcher" = "sciradio",
 		"Geneticist" = "sciradio",
-		"Mechatronic Engineer" = "sciradio",
-		"Plasma Researcher" = "sciradio",
 		"Research Director" = "sciradio",
 		"Roboticist" = "sciradio",
-		"Student Roboticist" = "sciradio",
 		"Scientist" = "sciradio",
-		"Student Scientist" = "sciradio",
-		"Xenoarcheologist" = "sciradio",
-		"Xenobiologist" = "sciradio",
 		// Security
 		"Brig Physician" = "secradio",
 		"Detective" = "secradio",
-		"Forensic Technician" = "secradio",
 		"Head of Security" = "secradio",
-		"Human Resources Agent" = "secradio",
 		"Internal Affairs Agent" = "secradio",
 		"Magistrate" = "secradio",
 		"Security Officer" = "secradio",
-		"Security Cadet" = "secradio",
 		"Security Pod Pilot" = "secradio",
 		"Warden" = "secradio",
 		// Supply
 		"Quartermaster" = "supradio",
 		"Cargo Technician" = "supradio",
 		"Shaft Miner" = "supradio",
-		"Spelunker" = "supradio",
 		// Service
 		"Barber" = "srvradio",
 		"Bartender" = "srvradio",
-		"Beautician" = "srvradio",
-		"Botanical Researcher" = "srvradio",
 		"Botanist" = "srvradio",
-		"Butcher" = "srvradio",
 		"Chaplain" = "srvradio",
 		"Chef" = "srvradio",
 		"Clown" = "srvradio",
-		"Cook" = "srvradio",
-		"Culinary Artist" = "srvradio",
-		"Custodial Technician" = "srvradio",
-		"Hair Stylist" = "srvradio",
-		"Hydroponicist" = "srvradio",
 		"Janitor" = "srvradio",
-		"Journalist" = "srvradio",
 		"Librarian" = "srvradio",
 		"Mime" = "srvradio",
 	)
@@ -238,8 +199,8 @@
 		tcm.pass = FALSE
 	// All job and coloring shit
 	if(toggle_job_color || toggle_name_color)
-		var/job = tcm.sender_job
-		job_class = all_jobs[job]
+		var/rank = tcm.sender_rank
+		job_class = all_jobs[rank]
 
 	if(toggle_name_color)
 		var/new_name = "<span class=\"[job_class]\">" + tcm.sender_name + "</span>"
@@ -282,8 +243,8 @@
 
 	// Makes heads of staff bold
 	if(toggle_command_bold)
-		var/job = tcm.sender_job
-		if((job in ert_jobs) || (job in heads) || (job in cc_jobs))
+		var/rank = tcm.sender_rank
+		if((rank in ert_jobs) || (rank in heads) || (rank in cc_jobs))
 			for(var/datum/multilingual_say_piece/S in message_pieces)
 				if(S.message)
 					S.message = "<b>[capitalize(S.message)]</b>" // This only capitalizes the first word

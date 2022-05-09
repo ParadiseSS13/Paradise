@@ -179,6 +179,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/sender_name = "Error"
 	/// What job are they
 	var/sender_job = "Error"
+	/// What rank are they
+	var/sender_rank = "Error"
 	/// Pieces of the message
 	var/list/message_pieces = list()
 	/// Source Z-level
