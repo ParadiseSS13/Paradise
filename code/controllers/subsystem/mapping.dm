@@ -129,9 +129,14 @@ SUBSYSTEM_DEF(mapping)
 
 // Loads in the station
 /datum/controller/subsystem/mapping/proc/loadStation()
-	if(GLOB.configuration.system.load_test_map)
-		log_startup_progress("Loading test map, overridden by configuration.")
-		map_datum = new /datum/map/test_tiny
+	if(GLOB.configuration.system.override_map)
+		log_startup_progress("Station map overridden by configuration to [GLOB.configuration.system.override_map].")
+		var/map_datum_path = text2path(GLOB.configuration.system.override_map)
+		if(map_datum_path)
+			map_datum = new map_datum_path
+		else
+			to_chat(world, "<span class='narsie'>ERROR: The map datum specified to load is invalid. Falling back to... cyberiad probably?</span>")
+
 	ASSERT(map_datum.map_path)
 	if(!fexists(map_datum.map_path))
 		// Make a VERY OBVIOUS error

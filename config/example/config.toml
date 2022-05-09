@@ -744,8 +744,10 @@ instance_id = "paradise_main"
 internal_ip = "127.0.0.1"
 # Are we handling TOS consents on an external service?
 external_tos_handler = false
-# Whether to load test_tiny instead of the normal map.
-load_test_map = false
+# Path to the map datum to load, overriding the defaults and `data/next_map.txt`.
+# Do not use in production.
+# Comment out to disable.
+#override_map = "/datum/map/test_tiny"
 
 
 ################################################################
