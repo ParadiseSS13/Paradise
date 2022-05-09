@@ -26,8 +26,8 @@
 	var/internal_ip = "127.0.0.1"
 	/// Are we using an external handler for TOS
 	var/external_tos_handler = FALSE
-	/// Whether to load test_tiny instead of the normal map
-	var/load_test_map = FALSE
+	/// Map datum of the map to use, overriding the defaults, and `data/next_map.txt`
+	var/override_map = null
 
 /datum/configuration_section/system_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
@@ -47,4 +47,4 @@
 	CONFIG_LOAD_STR(instance_id, data["instance_id"])
 	CONFIG_LOAD_STR(internal_ip, data["internal_ip"])
 
-	CONFIG_LOAD_BOOL(load_test_map, data["load_test_map"])
+	CONFIG_LOAD_STR(override_map, data["override_map"])
