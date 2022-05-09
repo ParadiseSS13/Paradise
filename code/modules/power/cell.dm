@@ -28,10 +28,7 @@
 /obj/item/stock_parts/cell/New()
 	..()
 	START_PROCESSING(SSobj, src)
-	if(istype(loc,/obj/item) || istype(loc,/mob) || istype(loc,/obj/mecha)) //Если оружие, борг или экзоскелет, то полность заряжен
-		charge = maxcharge
-	else
-		charge = round(maxcharge/10,1)
+	charge = maxcharge
 
 	if(ratingdesc)
 		desc += " This one has a power rating of [DisplayPower(maxcharge)], and you should not swallow it."
