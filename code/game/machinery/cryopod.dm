@@ -205,13 +205,14 @@
 	name = "cryogenic freezer"
 	desc = "A man-sized pod for entering suspended animation."
 	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "body_scanner_0"
+	icon_state = "bodyscanner-open"
 	density = 1
 	anchored = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
-	base_icon_state = "body_scanner_0"
-	var/occupied_icon_state = "body_scanner_1"
+	dir = WEST
+	base_icon_state = "bodyscanner-open"
+	var/occupied_icon_state = "bodyscanner"
 	var/on_store_message = "has entered long-term storage."
 	var/on_store_name = "Cryogenic Oversight"
 	var/on_enter_occupant_message = "You feel cool air surround you. You go numb as your senses turn inward."
@@ -219,7 +220,6 @@
 	var/disallow_occupant_types = list()
 
 	var/mob/living/occupant = null       // Person waiting to be despawned.
-	var/orient_right = null       // Flips the sprite.
 	// 15 minutes-ish safe period before being despawned.
 	var/time_till_despawn = 9000 // This is reduced by 90% if a player manually enters cryo
 	var/willing_time_divisor = 10
@@ -263,17 +263,11 @@
 	)
 
 /obj/machinery/cryopod/right
-	orient_right = 1
-	icon_state = "body_scanner_0-r"
+	dir = EAST
 
 /obj/machinery/cryopod/New()
 	announce = new /obj/item/radio/intercom(src)
-
-	if(orient_right)
-		icon_state = "[base_icon_state]-r"
-	else
-		icon_state = base_icon_state
-
+	icon_state = base_icon_state
 	..()
 
 /obj/machinery/cryopod/Initialize()
@@ -727,8 +721,7 @@
 	silent = TRUE
 
 /obj/machinery/cryopod/offstation/right
-	orient_right = TRUE
-	icon_state = "body_scanner_0-r"
+	dir = EAST
 
 /obj/machinery/computer/cryopod/robot
 	name = "robotic storage console"
