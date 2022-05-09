@@ -36,9 +36,9 @@
 	SSticker.mode.vampire_enthralled += owner
 	..()
 
-/datum/antagonist/mindslave/thrall/on_removal()
+/datum/antagonist/mindslave/thrall/Destroy(force, ...)
 	SSticker.mode.vampire_enthralled -= owner
-	..()
+	return ..()
 
 /datum/antagonist/mindslave/thrall/apply_innate_effects(mob/living/new_body)
 	..()
@@ -51,6 +51,8 @@
 	M.RemoveSpell(/obj/effect/proc_holder/spell/vampire/thrall_commune)
 
 /datum/antagonist/vampire/Destroy(force, ...)
+	SSticker.mode.vampires -= owner
+	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
 	QDEL_NULL(subclass)
 	QDEL_LIST(powers)
@@ -88,18 +90,17 @@
 		qdel(ability)
 		owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp loses his vision based powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
-/datum/antagonist/vampire/remove_innate_effects(mob/living/old_body)
-	var/mob/living/L = old_body || owner.current
+/datum/antagonist/vampire/remove_innate_effects(mob/living/mob_override)
+	mob_override = ..()
 	for(var/P in powers)
 		remove_ability(P)
-	var/datum/hud/hud = L.hud_used
+	var/datum/hud/hud = mob_override.hud_used
 	if(hud?.vampire_blood_display)
 		hud.remove_vampire_hud()
-	L.dna.species.hunger_type = initial(L.dna.species.hunger_type)
-	L.dna.species.hunger_icon = initial(L.dna.species.hunger_icon)
+	mob_override.dna.species.hunger_type = initial(mob_override.dna.species.hunger_type)
+	mob_override.dna.species.hunger_icon = initial(mob_override.dna.species.hunger_icon)
 	owner.current.alpha = 255
 	REMOVE_TRAITS_IN(owner.current, "vampire")
-	return ..()
 
 #define BLOOD_GAINED_MODIFIER 0.5
 
@@ -188,10 +189,6 @@
 				var/datum/vampire_passive/power = p
 				to_chat(owner.current, "<span class='boldnotice'>[power.gain_desc]</span>")
 
-/datum/antagonist/vampire/on_removal()
-	SSticker.mode.vampires -= owner
-	owner.current.create_log(CONVERSION_LOG, "De-vampired")
-	..()
 
 /datum/antagonist/vampire/on_gain()
 	SSticker.mode.vampires += owner
@@ -321,14 +318,14 @@
 		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
 	to_chat(owner.current, dat)
 
-/datum/antagonist/vampire/apply_innate_effects(mob/living/new_body)
-	. = ..()
+/datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override)
+	mob_override = ..()
 	if(!owner.som) //thralls and mindslaves
 		owner.som = new()
 		owner.som.masters += owner
-	var/mob/living/L = new_body || owner.current
-	L.dna.species.hunger_type = "vampire"
-	L.dna.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
+
+	mob_override.dna.species.hunger_type = "vampire"
+	mob_override.dna.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 	check_vampire_upgrade(FALSE)
 
 /datum/hud/proc/remove_vampire_hud()
