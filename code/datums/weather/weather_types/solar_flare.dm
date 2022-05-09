@@ -5,7 +5,7 @@
 	telegraph_duration = 30 SECONDS
 	telegraph_message = null // handled via event announcement
 
-	weather_message = "<span class='userdanger'><i>A solar flare has arrived! Find shelter!</i></span>"
+	weather_message = "<span class='userdanger'><i>A solar flare has arrived! Do not conduct space walks or approach windows until the flare has passed!</i></span>"
 	weather_overlay = "light_ash"
 	weather_duration_lower = 5 MINUTES
 	weather_duration_upper = 10 MINUTES
@@ -35,9 +35,21 @@
 	// Solars produce 40x as much power. 240KW becomes 9.6MW. Enough to cause APCs to arc all over the station if >=2 solars are hotwired.
 	SSsun.solar_gen_rate = initial(SSsun.solar_gen_rate) * 40
 
+/datum/weather/solar_flare/can_weather_act(mob/living/L)
+	. = ..()
+	if(.) //yeah whatever he's already affected lets skip the costly check
+		return TRUE
+	if(!. && istype(L, /mob/living/simple_animal)) //while this might break immersion, I don't want to spam the server with calling this on simplemobs
+		return
+	for(var/turf/T in oview(L))
+		if(isspaceturf(T))
+			return TRUE
+	return
+
 /datum/weather/solar_flare/weather_act(mob/living/L)
-	L.adjustFireLoss(1)
-	if(prob(10))
+	L.adjustFireLoss(4)
+	L.flash_eyes()
+	if(prob(25))
 		to_chat(L, "<span class='warning'>The solar flare burns you! Seek shelter!</span>")
 
 /datum/weather/solar_flare/end()
