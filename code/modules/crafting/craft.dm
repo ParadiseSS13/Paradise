@@ -248,7 +248,8 @@
 		else
 			var/atom/movable/part_atom = locate(thing) in (surroundings - parts_list_for_return)
 			if(!part_atom)
-				stack_trace("Bad things happened in [__FILE__] at [__LINE__], we didn't manage to find the atom we need for crafting!")
+				stack_trace("While crafting [recipe], the [thing] went missing!")
+				continue
 			parts_list_for_return += part_atom
 
 	for(var/obj/item/reagent_containers/container_to_clear as anything in reagent_containers_for_deletion)
