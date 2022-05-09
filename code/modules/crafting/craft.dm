@@ -242,7 +242,8 @@
 					break
 			
 			if(needed_amount > 0)
-				stack_trace("Bad things happened in [__FILE__] at [__LINE__], we didn't have as many items as we expected!")
+				stack_trace("While crafting [recipe], some of [thing] went missing (still need [needed_amount])!")
+				continue
 
 		else
 			var/atom/movable/part_atom = locate(thing) in (surroundings - parts_list_for_return)
