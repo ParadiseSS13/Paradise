@@ -220,7 +220,8 @@
 					break
 	
 			if(needed_amount > 0)
-				stack_trace("Bad things happened in [__FILE__] at [__LINE__], we didn't have as many reagents as we expected!")
+				stack_trace("While crafting [recipe], some of [thing] went missing (still need [needed_amount])!")
+				continue // ignore the error, and continue crafting for player's benefit
 
 		else if(ispath(thing, /obj/item/stack))
 			var/obj/item/stack/part_stack = locate(thing) in parts_list_for_return
