@@ -451,9 +451,6 @@
 		"fluorine"
 	],
 	"traitor_poison_bottle": [
-		"sarin",
-		"cyanide",
-		"sulfonal",
 		"initropidril",
 		"coniine",
 		"venom",
@@ -461,7 +458,6 @@
 		"amanitin",
 		"polonium",
 		"curare",
-		"pancuronium",
 		"sodium_thiopental",
 		"gibbis",
 		"nanomachines",
