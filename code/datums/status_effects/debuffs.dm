@@ -235,15 +235,16 @@
 	id = "drunkenness"
 	var/alert_thrown = FALSE
 
-#define THRESHOLD_SLUR 30
-#define THRESHOLD_BRAWLING 30
-#define THRESHOLD_CONFUSION 40
-#define THRESHOLD_SPARK 50
-#define THRESHOLD_VOMIT 60
-#define THRESHOLD_BLUR 75
-#define THRESHOLD_COLLAPSE 75
-#define THRESHOLD_FAINT 90
-#define THRESHOLD_BRAIN_DAMAGE 120
+// the number of seconds of the status effect required for each effect to kick in.
+#define THRESHOLD_SLUR 60 SECONDS
+#define THRESHOLD_BRAWLING 60 SECONDS
+#define THRESHOLD_CONFUSION 80 SECONDS
+#define THRESHOLD_SPARK 100 SECONDS
+#define THRESHOLD_VOMIT 120 SECONDS
+#define THRESHOLD_BLUR 150 SECONDS
+#define THRESHOLD_COLLAPSE 150 SECONDS
+#define THRESHOLD_FAINT 180 SECONDS
+#define THRESHOLD_BRAIN_DAMAGE 240 SECONDS
 #define DRUNK_BRAWLING /datum/martial_art/drunk_brawling
 
 /datum/status_effect/transient/drunkenness/on_remove()
@@ -277,14 +278,14 @@
 			liver_multiplier = L.alcohol_intensity
 		actual_strength *= liver_multiplier
 
-	// THRESHOLD_SLUR (30)
+	// THRESHOLD_SLUR (60 SECONDS)
 	if(actual_strength >= THRESHOLD_SLUR)
 		owner.Slur(actual_strength)
 		if(!alert_thrown)
 			alert_thrown = TRUE
 			owner.throw_alert("drunk", /obj/screen/alert/drunk)
 			owner.sound_environment_override = SOUND_ENVIRONMENT_PSYCHOTIC
-	// THRESHOLD_BRAWLING (30)
+	// THRESHOLD_BRAWLING (60 SECONDS)
 	if(M)
 		if(actual_strength >= THRESHOLD_BRAWLING)
 			if(!istype(M.martial_art, DRUNK_BRAWLING))
@@ -292,24 +293,24 @@
 				MA.teach(owner, TRUE)
 		else if(istype(M.martial_art, DRUNK_BRAWLING))
 			M.martial_art.remove(src)
-	// THRESHOLD_CONFUSION (40)
+	// THRESHOLD_CONFUSION (80 SECONDS)
 	if(actual_strength >= THRESHOLD_CONFUSION && prob(33))
 		owner.AdjustConfused(6 SECONDS / alcohol_resistance, bound_lower = 2 SECONDS)
 		owner.AdjustDizzy(6 SECONDS / alcohol_resistance, bound_lower = 2 SECONDS)
-	// THRESHOLD_SPARK (50)
+	// THRESHOLD_SPARK (100 SECONDS)
 	if(is_ipc && actual_strength >= THRESHOLD_SPARK && prob(25))
 		do_sparks(3, 1, owner)
-	// THRESHOLD_VOMIT (60)
+	// THRESHOLD_VOMIT (120 SECONDS)
 	if(!is_ipc && actual_strength >= THRESHOLD_VOMIT && prob(8))
 		owner.fakevomit()
-	// THRESHOLD_BLUR (75)
+	// THRESHOLD_BLUR (150 SECONDS)
 	if(actual_strength >= THRESHOLD_BLUR)
 		owner.EyeBlurry(20 SECONDS / alcohol_resistance)
-	// THRESHOLD_COLLAPSE (75)
+	// THRESHOLD_COLLAPSE (150 SECONDS)
 	if(actual_strength >= THRESHOLD_COLLAPSE && prob(10))
 		owner.emote("collapse")
 		do_sparks(3, 1, src)
-	// THRESHOLD_FAINT (90)
+	// THRESHOLD_FAINT (180 SECONDS)
 	if(actual_strength >= THRESHOLD_FAINT && prob(10))
 		owner.Paralyse(10 SECONDS / alcohol_resistance)
 		owner.Drowsy(60 SECONDS / alcohol_resistance)
@@ -317,7 +318,7 @@
 			L.receive_damage(1, TRUE)
 		if(!is_ipc)
 			owner.adjustToxLoss(1)
-	// THRESHOLD_BRAIN_DAMAGE (120)
+	// THRESHOLD_BRAIN_DAMAGE (240 SECONDS)
 	if(actual_strength >= THRESHOLD_BRAIN_DAMAGE && prob(10))
 		owner.adjustBrainLoss(1)
 
@@ -354,6 +355,8 @@
 			var/mob/living/carbon/human/H = new_owner
 			set_duration = H.dna.species.spec_stun(H, set_duration)
 		duration = set_duration
+	if(duration == 0)
+		return FALSE
 	. = ..()
 	if(. && (needs_update_stat || issilicon(owner)))
 		owner.update_stat()
@@ -566,12 +569,15 @@
 /datum/status_effect/transient/blindness/calc_decay()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
+		if(HAS_TRAIT(owner, TRAIT_BLIND))
+			return 0
+
+		if(isnull(H.dna.species.vision_organ)) // species that have no eyes
+			return ..()
+
 		var/obj/item/organ/vision = H.get_int_organ(H.dna.species.vision_organ)
 
-		if(vision.is_broken())
-			return 0.2 SECONDS
-
-		if(vision.is_bruised() || HAS_TRAIT(owner, TRAIT_BLIND)) // doesn't decay if you have damaged eyesight.
+		if(!vision || vision.is_broken() || vision.is_bruised()) //got no eyes or broken eyes
 			return 0
 
 	return ..() //default decay rate

@@ -336,7 +336,7 @@
 		return
 	var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed()
 	if(P)
-		P.duration = max(world.time + amount, P.duration)
+		P.duration = world.time + amount
 	else if(amount > 0)
 		P = apply_status_effect(STATUS_EFFECT_PARALYZED, amount)
 	return P
@@ -379,13 +379,15 @@
 	return S
 
 /mob/living/proc/SetSleeping(amount, ignore_canstun = FALSE)
-	if(frozen && !ignore_canstun) // If the mob has been admin frozen, sleeping should not be changeable
+	if(frozen) // If the mob has been admin frozen, sleeping should not be changeable
 		return
 	if(status_flags & GODMODE)
 		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
+	if(amount <= 0 && S)
+		qdel(S)
 	if(S)
-		S.duration += amount
+		S.duration = amount + world.time
 	else if(amount > 0)
 		S = apply_status_effect(/datum/status_effect/incapacitating/sleeping, amount)
 	return S
@@ -579,7 +581,7 @@
 	return has_status_effect(STATUS_EFFECT_WEAKENED)
 
 /mob/living/proc/AmountWeakened() //How many deciseconds remain in our Weakened status effect
-	var/datum/status_effect/incapacitating/weakened/P = IsWeakened()
+	var/datum/status_effect/incapacitating/weakened/P = IsWeakened(FALSE)
 	if(P)
 		return P.duration - world.time
 	return 0
@@ -589,7 +591,7 @@
 		return
 	if(absorb_stun(amount, ignore_canstun))
 		return
-	var/datum/status_effect/incapacitating/weakened/P = IsWeakened()
+	var/datum/status_effect/incapacitating/weakened/P = IsWeakened(FALSE)
 	if(P)
 		P.duration = max(world.time + amount, P.duration)
 	else if(amount > 0)
@@ -599,7 +601,7 @@
 /mob/living/proc/SetWeakened(amount, ignore_canstun = FALSE) //Sets remaining duration
 	if(IS_STUN_IMMUNE(src, ignore_canstun))
 		return
-	var/datum/status_effect/incapacitating/weakened/P = IsWeakened()
+	var/datum/status_effect/incapacitating/weakened/P = IsWeakened(FALSE)
 	if(amount <= 0)
 		if(P)
 			qdel(P)
@@ -617,7 +619,7 @@
 		return
 	if(absorb_stun(amount, ignore_canstun))
 		return
-	var/datum/status_effect/incapacitating/weakened/P = IsWeakened()
+	var/datum/status_effect/incapacitating/weakened/P = IsWeakened(FALSE)
 	if(P)
 		P.duration += amount
 	else if(amount > 0)

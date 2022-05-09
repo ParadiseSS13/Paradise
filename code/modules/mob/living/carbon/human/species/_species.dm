@@ -413,7 +413,9 @@
 	return TRUE
 
 /datum/species/proc/spec_stun(mob/living/carbon/human/H, amount)
-	. = stun_mod * H.physiology.stun_mod * amount
+	. = amount
+	if(!H.frozen) //admin freeze has no breaks
+		. = stun_mod * H.physiology.stun_mod * amount
 
 /datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return
