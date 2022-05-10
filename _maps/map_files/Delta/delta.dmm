@@ -36213,6 +36213,7 @@
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "bHa" = (
+/obj/item/flag/grey,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "neutral"
@@ -42634,12 +42635,15 @@
 	},
 /area/hallway/primary/port)
 "bTZ" = (
-/obj/item/flag/grey,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "yellow"
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/area/storage/primary)
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/storage/office)
 "bUa" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -92459,6 +92463,9 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
+"fcY" = (
+/turf/simulated/wall,
+/area/storage/office)
 "fdI" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -92820,6 +92827,24 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
+"geE" = (
+/obj/structure/table,
+/obj/item/camera_film{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/camera_film{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/machinery/alarm{
+	name = "north bump";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/storage/office)
 "ggp" = (
 /obj/machinery/vending/coffee/free,
 /obj/structure/sign/electricshock{
@@ -93327,6 +93352,17 @@
 	icon_state = "white"
 	},
 /area/hallway/primary/central)
+"hra" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/firealarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/storage/office)
 "hsQ" = (
 /obj/structure/chair/sofa/corp/right{
 	dir = 4
@@ -94114,24 +94150,6 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
-"jxL" = (
-/obj/structure/table,
-/obj/item/camera_film{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/camera_film{
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
-/area/storage/office)
 "jAm" = (
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "Brig";
@@ -96150,16 +96168,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
-"pta" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
-/area/storage/office)
 "pvv" = (
 /obj/structure/closet/secure_closet/security,
 /obj/machinery/camera{
@@ -96892,9 +96900,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/exit)
-"rBy" = (
-/turf/simulated/wall,
-/area/storage/office)
 "rBP" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -98337,16 +98342,6 @@
 	icon_state = "red"
 	},
 /area/security/prisonershuttle)
-"vnK" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
-/area/storage/office)
 "vnM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -98619,17 +98614,6 @@
 	icon_state = "red"
 	},
 /area/hallway/secondary/exit)
-"vTK" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
-/area/storage/office)
 "vUu" = (
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -98828,6 +98812,16 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/sorting)
+"wUq" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/storage/office)
 "wVr" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -131257,9 +131251,9 @@ aty
 bDN
 apU
 bFp
-pta
+bTZ
 bMF
-pta
+bTZ
 bUt
 bSx
 bUI
@@ -131514,10 +131508,10 @@ bCg
 bDP
 bDS
 sab
-jxL
-vnK
-vTK
-rBy
+geE
+wUq
+hra
+fcY
 jUa
 bUI
 bWH
@@ -131774,7 +131768,7 @@ sab
 bKA
 bLZ
 bOx
-rBy
+fcY
 bTY
 bWO
 cgC
@@ -133314,7 +133308,7 @@ bFq
 bHe
 bIU
 bOv
-bTZ
+bMK
 bPY
 bDQ
 bSA
