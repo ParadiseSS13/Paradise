@@ -134,7 +134,7 @@
 	return
 
 /obj/item/gun/energy/update_icon()
-	overlays.Cut()
+	cut_overlays()
 	var/ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/iconState = "[icon_state]_charge"
@@ -142,7 +142,7 @@
 	if(!initial(item_state))
 		itemState = icon_state
 	if(modifystate)
-		overlays += "[icon_state]_[shot.select_name]"
+		add_overlay("[icon_state]_[shot.select_name]")
 		iconState += "_[shot.select_name]"
 		if(itemState)
 			itemState += "[shot.select_name]"
@@ -151,16 +151,16 @@
 	else
 		if(!shaded_charge)
 			for(var/i = ratio, i >= 1, i--)
-				overlays += image(icon = icon, icon_state = iconState, pixel_x = ammo_x_offset * (i -1))
+				add_overlay(image(icon = icon, icon_state = iconState, pixel_x = ammo_x_offset * (i -1)))
 		else
-			overlays += image(icon = icon, icon_state = "[icon_state]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
+			add_overlay(image(icon = icon, icon_state = "[icon_state]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]"))
 	if(gun_light && can_flashlight)
 		var/iconF = "flight"
 		if(gun_light.on)
 			iconF = "flight_on"
-		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
+		add_overlay(image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset))
 	if(bayonet && can_bayonet)
-		overlays += knife_overlay
+		add_overlay(knife_overlay)
 	if(itemState)
 		itemState += "[ratio]"
 		item_state = itemState

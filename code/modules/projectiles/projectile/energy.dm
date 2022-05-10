@@ -176,7 +176,7 @@
 	if(R.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
 		no_worky()
 		return
-	set_criminal_status(usr, R, SEC_RECORD_STATUS_ARREST, "Target tagged by Detective Revolver", "Detective Revolver")
+	set_criminal_status(firer, R, SEC_RECORD_STATUS_ARREST, "Target tagged by Detective Revolver", "Detective Revolver")
 	qdel(src)
 
 /obj/item/projectile/energy/warrant_generator/proc/no_worky()
@@ -189,17 +189,21 @@
 /obj/item/projectile/energy/tracker_shot/on_hit(atom/target)
 	. = ..()
 	if(!ishuman(target))
-		no_worky()
+		no_worky(target)
 		return
 	for(var/obj/item/gun/energy/detective/D in firer)
-		if(D.tracking)
-			no_worky(TRUE)
+		if(D.tracking_target)
+			no_worky(tracking_already = TRUE)
 			return
 		D.start_pointing(target)
 	qdel(src)
 
-/obj/item/projectile/energy/tracker_shot/proc/no_worky(tracking_already)
+/obj/item/projectile/energy/tracker_shot/proc/no_worky(atom/target, tracking_already)
 	if(tracking_already)
 		to_chat(firer, "<span class='danger'>Weapon Alert: You are already tracking a target!</span>")
 		return
-	to_chat(firer, "<span class='danger'>Weapon Alert: unable to track this target!</span>")
+	to_chat(firer, "<span class='danger'>Weapon Alert: unable to track [target]!</span>")
+
+/obj/item/projectile/energy/detective/lethal
+	name = "tracker shot"
+	damage = 60

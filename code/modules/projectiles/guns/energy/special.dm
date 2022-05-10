@@ -757,47 +757,46 @@
 	M.mimic_type = mimic_type
 	..()
 
-
 /obj/item/gun/energy/detective
 	name = "placeholder_det_energy"
 	desc = "Placeholder description text for energy revolver"
 	icon_state = "det_placeholder"
 	ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/warrant_generator, /obj/item/ammo_casing/energy/tracker)
 	/// If true, this gun is tracking something and cannot track another mob
-	var/tracking
+	var/tracking_target
 
-
-/obj/item/gun/energy/detective/process(atom/target)
-	if(tracking)
-		point_at(target)
-
-/obj/item/gun/energy/detective/proc/start_pointing()
-	tracking = TRUE
+/obj/item/gun/energy/detective/proc/start_pointing(atom/target)
+	tracking_target = target
+	point_at()
 	addtimer(CALLBACK(src, .proc/stop_pointing), 30 SECONDS, TIMER_UNIQUE)
 
 /obj/item/gun/energy/detective/proc/stop_pointing()
-	tracking = FALSE
+	tracking_target = null
 
-/obj/item/gun/energy/detective/proc/point_at(atom/target)
+/obj/item/gun/energy/detective/proc/point_at()
 	update_icon() //This cuts any existing range overlays
-	if(!target)
+	if(!tracking_target)
 		return
 
-	var/turf/T = get_turf(target)
-	var/turf/L = get_turf(src)
+	var/turf/T = get_turf(tracking_target)
+	var/turf/L = get_turf(usr)
 
 	if(!(T && L) || (T.z != L.z))
 		return
-	dir = get_dir(L, T)
+
+	var/pointer_dir = get_dir(L, T)
+	var/range_icon
 	switch(get_dist(L, T))
 		if(-1)
-			add_overlay("[icon_state]_direct")
+			range_icon = "det_placeholder_direct"
 		if(1 to 8)
-			add_overlay("[icon_state]_close")
+			range_icon = "det_placeholder_close"
 		if(9 to 16)
-			add_overlay("[icon_state]_medium")
+			range_icon = "det_placeholder_medium"
 		if(16 to INFINITY)
-			add_overlay("[icon_state]_far")
+			range_icon = "det_placeholder_far"
+	add_overlay(image(icon = icon, icon_state = range_icon, dir = pointer_dir))
+	addtimer(CALLBACK(src, .proc/point_at), 2 SECONDS, TIMER_UNIQUE)
 
 #undef PLASMA_CHARGE_USE_PER_SECOND
 #undef PLASMA_DISCHARGE_LIMIT

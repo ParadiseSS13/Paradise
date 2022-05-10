@@ -317,20 +317,17 @@
 
 /obj/item/ammo_casing/energy/detective
 	projectile_type = /obj/item/projectile/energy/detective
-	muzzle_flash_effect = null
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/warrant_generator
 	projectile_type = /obj/item/projectile/energy/warrant_generator
-	muzzle_flash_effect = null
 	e_cost = 50
 	delay = 10 SECONDS
 	select_name = "disable"
 
 /obj/item/ammo_casing/energy/tracker
 	projectile_type = /obj/item/projectile/energy/tracker_shot
-	muzzle_flash_effect = null
 	e_cost = 150
 	delay = 10 SECONDS
 	select_name = "disable"
