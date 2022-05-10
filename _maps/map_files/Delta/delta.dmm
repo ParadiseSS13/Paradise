@@ -22811,9 +22811,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/science{
-	name = "Abandoned Robotics Lab";
-	welded = 1
+/obj/machinery/door/airlock/maintenance{
+	name = "Abandoned Robotics Lab"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
@@ -32451,9 +32450,8 @@
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bAo" = (
-/obj/machinery/door/airlock/science{
-	name = "Abandoned Robotics Lab";
-	welded = 1
+/obj/machinery/door/airlock/maintenance{
+	name = "Abandoned Robotics Lab"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -33237,6 +33235,8 @@
 /area/hallway/primary/central)
 "bBY" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/item/clothing/gloves/color/white,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -34424,6 +34424,10 @@
 	pixel_x = 10;
 	pixel_y = -6
 	},
+/obj/item/assembly/timer{
+	pixel_x = -4;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "bDN" = (
@@ -35198,15 +35202,15 @@
 /area/maintenance/fore)
 "bFn" = (
 /obj/structure/table/reinforced,
+/obj/item/reagent_containers/glass/bucket{
+	pixel_x = 6;
+	pixel_y = 15
+	},
 /obj/machinery/cell_charger{
 	pixel_x = -1;
 	pixel_y = 2
 	},
 /obj/item/stock_parts/cell/high/plus,
-/obj/item/reagent_containers/glass/bucket{
-	pixel_x = 6;
-	pixel_y = 15
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "bFo" = (
@@ -35222,14 +35226,13 @@
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "bFp" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Abandoned Robotics Lab"
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/science{
-	name = "Abandoned Robotics Lab";
-	welded = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
@@ -36202,11 +36205,11 @@
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
+/obj/item/clothing/head/hardhat/orange,
+/obj/item/clothing/head/hardhat/orange,
 /obj/machinery/camera{
 	c_tag = "Tool Storage"
 	},
-/obj/item/clothing/head/hardhat/orange,
-/obj/item/clothing/head/hardhat/orange,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "bHa" = (
@@ -37112,6 +37115,8 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/item/flashlight,
+/obj/item/flashlight,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "bIR" = (
@@ -37892,13 +37897,24 @@
 	},
 /area/storage/tech)
 "bKA" = (
-/obj/structure/rack,
-/obj/item/assembly/timer,
-/obj/item/assembly/timer,
-/obj/item/flashlight,
-/obj/item/flashlight,
-/turf/simulated/floor/plating,
-/area/maintenance/fore)
+/obj/structure/table,
+/obj/item/vending_refill/snack{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/vending_refill/cola,
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
+/obj/machinery/newscaster{
+	name = "east bump";
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/storage/office)
 "bKB" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/status_display{
@@ -38516,12 +38532,25 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "bLZ" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutral"
+/obj/structure/table,
+/obj/item/vending_refill/cigarette{
+	pixel_x = 2;
+	pixel_y = 2
 	},
-/area/maintenance/fore)
+/obj/item/vending_refill/coffee,
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/storage/office)
 "bMa" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -38837,8 +38866,20 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/fore)
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/storage/office)
 "bMG" = (
 /obj/structure/table/reinforced,
 /obj/item/gps,
@@ -39700,12 +39741,21 @@
 	},
 /area/storage/tech)
 "bOx" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/tray,
-/obj/item/reagent_containers/spray/cleaner,
-/obj/item/clothing/gloves/color/white,
-/turf/simulated/floor/plasteel,
-/area/maintenance/fore)
+/obj/structure/table,
+/obj/item/toner{
+	pixel_y = 6
+	},
+/obj/item/toner{
+	pixel_y = 3
+	},
+/obj/item/toner,
+/obj/item/toner{
+	pixel_y = -4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/storage/office)
 "bOy" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Tool Storage"
@@ -42792,14 +42842,18 @@
 	},
 /area/engine/engineering)
 "bUt" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/public/glass{
+	name = "Office Supply"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/decal/warning_stripes/white,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/fore)
+/turf/simulated/floor/plasteel,
+/area/storage/office)
 "bUu" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering Break Room";
@@ -94060,6 +94114,24 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
+"jxL" = (
+/obj/structure/table,
+/obj/item/camera_film{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/camera_film{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/machinery/alarm{
+	name = "north bump";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/storage/office)
 "jAm" = (
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "Brig";
@@ -96078,6 +96150,16 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
+"pta" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/storage/office)
 "pvv" = (
 /obj/structure/closet/secure_closet/security,
 /obj/machinery/camera{
@@ -96810,6 +96892,9 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/exit)
+"rBy" = (
+/turf/simulated/wall,
+/area/storage/office)
 "rBP" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -98252,6 +98337,16 @@
 	icon_state = "red"
 	},
 /area/security/prisonershuttle)
+"vnK" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/storage/office)
 "vnM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -98524,6 +98619,17 @@
 	icon_state = "red"
 	},
 /area/hallway/secondary/exit)
+"vTK" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/firealarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/storage/office)
 "vUu" = (
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -131151,9 +131257,9 @@ aty
 bDN
 apU
 bFp
-aty
+pta
 bMF
-aty
+pta
 bUt
 bSx
 bUI
@@ -131408,10 +131514,10 @@ bCg
 bDP
 bDS
 sab
-bDS
-aFH
-aor
-awX
+jxL
+vnK
+vTK
+rBy
 jUa
 bUI
 bWH
@@ -131668,7 +131774,7 @@ sab
 bKA
 bLZ
 bOx
-awX
+rBy
 bTY
 bWO
 cgC
