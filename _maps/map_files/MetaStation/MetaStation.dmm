@@ -50278,7 +50278,6 @@
 	name = "\improper Departure Lounge"
 	})
 "cQU" = (
-/obj/structure/chair,
 /obj/structure/sign/double/map/left{
 	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
 	icon_state = "map-left-MS";
