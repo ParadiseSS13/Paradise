@@ -4560,15 +4560,9 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "awV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
 	},
 /obj/machinery/power/apc{
 	dir = 1;
@@ -5687,7 +5681,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aAJ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -5846,6 +5839,10 @@
 /area/security/detectives_office)
 "aBF" = (
 /obj/machinery/cryopod/right,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitegreen"
@@ -5943,17 +5940,14 @@
 	pixel_y = -30;
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
 /area/crew_quarters/sleep)
 "aBS" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
@@ -31712,9 +31706,6 @@
 /obj/machinery/camera{
 	c_tag = "Cryodorms"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -31725,7 +31716,10 @@
 	pixel_y = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
@@ -53858,6 +53852,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitegreen"
@@ -63521,6 +63516,14 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
+"hZJ" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
+/area/crew_quarters/sleep)
 "hZT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -67807,9 +67810,6 @@
 /obj/machinery/cryopod,
 /obj/machinery/light/small{
 	dir = 1
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -75475,6 +75475,16 @@
 	icon_state = "escape"
 	},
 /area/atmos)
+"oai" = (
+/obj/machinery/cryopod/right,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitegreen"
+	},
+/area/crew_quarters/sleep)
 "oaj" = (
 /obj/structure/table/glass,
 /obj/structure/cable/yellow{
@@ -85055,6 +85065,14 @@
 	icon_state = "white"
 	},
 /area/toxins/xenobiology)
+"tay" = (
+/obj/machinery/cryopod/right,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitegreen"
+	},
+/area/crew_quarters/sleep)
 "taO" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
@@ -131657,8 +131675,8 @@ avv
 bNY
 aBF
 dfc
-aBF
-aBF
+tay
+oai
 aLl
 aED
 aLl
@@ -131912,7 +131930,7 @@ mKy
 atW
 avv
 awV
-aAJ
+hZJ
 aAJ
 aAJ
 aBR
