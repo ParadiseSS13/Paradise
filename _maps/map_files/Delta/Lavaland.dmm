@@ -965,7 +965,7 @@
 /area/mine/living_quarters)
 "cK" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal/mining,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -1692,6 +1692,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "fz" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -3499,7 +3500,7 @@
 	},
 /area/mine/living_quarters)
 "og" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal/mining,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3788,7 +3789,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "rP" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal/mining,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
@@ -4052,7 +4053,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "ur" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal/mining,
 /obj/structure/sign/poster/random{
 	pixel_x = 32
 	},
@@ -4373,6 +4374,13 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"xH" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
+/area/mine/living_quarters)
 "xL" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
@@ -4530,7 +4538,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "ze" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal/mining,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4820,6 +4828,13 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"CX" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/mine/living_quarters)
 "Db" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -4922,7 +4937,7 @@
 /area/mine/living_quarters)
 "DU" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal/mining,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -5900,6 +5915,12 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"PW" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/mine/living_quarters)
 "Qo" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/extinguisher_cabinet{
@@ -6385,6 +6406,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"UX" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "browncorner"
+	},
+/area/mine/living_quarters)
 "Vb" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -6629,7 +6657,7 @@
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "YQ" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal/mining,
 /obj/effect/turf_decal/bot,
 /obj/structure/sign/poster/random{
 	pixel_x = -32
@@ -16753,8 +16781,8 @@ ad
 WO
 DU
 YQ
-IK
-IK
+xH
+xH
 gL
 mT
 Qo
@@ -17010,12 +17038,12 @@ ai
 Zf
 Jk
 ZL
-Lc
-Lc
+ZL
+ZL
 KV
 ML
 FK
-rZ
+PW
 fo
 Fe
 BD
@@ -17272,7 +17300,7 @@ Ad
 PQ
 vZ
 TO
-rZ
+PW
 fp
 Fe
 gh
@@ -17525,11 +17553,11 @@ WO
 Jk
 ZL
 ZL
-HH
+UX
 QM
 TS
 FK
-rZ
+PW
 fr
 Fe
 dX
@@ -17784,7 +17812,7 @@ ur
 ze
 eX
 FY
-td
+CX
 EJ
 fz
 fI

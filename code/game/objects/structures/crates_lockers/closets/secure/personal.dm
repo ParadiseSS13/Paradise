@@ -11,17 +11,20 @@
 		new /obj/item/storage/backpack(src)
 	else
 		new /obj/item/storage/backpack/satchel_norm(src)
-	new /obj/item/radio/headset( src )
-
+	new /obj/item/radio/headset(src)
 
 /obj/structure/closet/secure_closet/personal/patient
 	name = "patient's closet"
 
 /obj/structure/closet/secure_closet/personal/patient/populate_contents()
-	new /obj/item/clothing/under/color/white( src )
-	new /obj/item/clothing/shoes/white( src )
+	new /obj/item/clothing/under/color/white(src)
+	new /obj/item/clothing/shoes/white(src)
 
+/obj/structure/closet/secure_closet/personal/mining
+	name = "personal miner's locker"
 
+/obj/structure/closet/secure_closet/personal/mining/populate_contents()
+	new /obj/item/stack/sheet/cardboard(src)
 
 /obj/structure/closet/secure_closet/personal/cabinet
 	icon_state = "cabinetdetective_locked"
@@ -46,8 +49,8 @@
 			icon_state = icon_opened
 
 /obj/structure/closet/secure_closet/personal/cabinet/populate_contents()
-	new /obj/item/storage/backpack/satchel/withwallet( src )
-	new /obj/item/radio/headset( src )
+	new /obj/item/storage/backpack/satchel/withwallet(src)
+	new /obj/item/radio/headset(src)
 
 /obj/structure/closet/secure_closet/personal/attackby(obj/item/W, mob/user, params)
 	if(opened || !istype(W, /obj/item/card/id))

@@ -9093,7 +9093,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/westarrival)
 "aUE" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal/mining,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -44875,7 +44875,7 @@
 	},
 /area/security/processing)
 "dNG" = (
-/obj/structure/closet/secure_closet/brig,
+/obj/structure/closet/secure_closet/brig/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -45510,7 +45510,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dQP" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal/mining,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -68756,7 +68756,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding8"
 	},
-/obj/structure/closet/secure_closet/brig,
+/obj/structure/closet/secure_closet/brig/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -78855,7 +78855,7 @@
 	},
 /area/atmos)
 "lAZ" = (
-/obj/structure/closet/secure_closet/brig,
+/obj/structure/closet/secure_closet/brig/evidence,
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
@@ -79401,7 +79401,7 @@
 /area/hallway/secondary/exit)
 "lJF" = (
 /obj/machinery/light,
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal/mining,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -97627,7 +97627,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding8"
 	},
-/obj/structure/closet/secure_closet/brig,
+/obj/structure/closet/secure_closet/brig/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -99311,7 +99311,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
-/obj/structure/closet/secure_closet/brig,
+/obj/structure/closet/secure_closet/brig/evidence,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -113229,7 +113229,7 @@
 	},
 /area/hallway/primary/central/sw)
 "tKh" = (
-/obj/structure/closet/secure_closet/brig,
+/obj/structure/closet/secure_closet/brig/evidence,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
