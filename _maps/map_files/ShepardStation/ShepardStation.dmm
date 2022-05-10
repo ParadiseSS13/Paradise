@@ -7642,16 +7642,6 @@
 	icon_state = "dark"
 	},
 /area/security/hos)
-"bHT" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/power/terminal{
-	dir = 4
-	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
 "bIi" = (
 /obj/structure/grille,
 /obj/structure/window/basic{
@@ -14576,13 +14566,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/library)
-"dhS" = (
-/obj/structure/disposalpipe/junction{
-	dir = 2;
-	icon_state = "pipe-j2"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/starboard)
 "dhU" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
@@ -15747,15 +15730,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/medical/psych)
-"duy" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/effect/spawner/window/reinforced/tinted,
-/turf/simulated/floor/plating,
-/area/turret_protected/ai)
 "duX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -21860,10 +21834,16 @@
 	},
 /area/security/brig)
 "ePG" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/turf/simulated/wall,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "greencorner"
+	},
 /area/hallway/primary/central/east)
 "ePN" = (
 /obj/structure/disposalpipe/segment{
@@ -22340,14 +22320,6 @@
 	icon_state = "long"
 	},
 /area/security/prison/cell_block/A)
-"eVu" = (
-/obj/structure/girder,
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/starboard)
 "eVQ" = (
 /obj/structure/sign/fire{
 	pixel_y = 32
@@ -27276,9 +27248,12 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/chief)
 "fUK" = (
-/obj/structure/lattice,
-/turf/space,
-/area/maintenance/apmaint)
+/obj/structure/disposalpipe/junction{
+	dir = 2;
+	icon_state = "pipe-j2"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/starboard)
 "fUN" = (
 /turf/simulated/wall,
 /area/security/prisonershuttle)
@@ -27714,6 +27689,14 @@
 	icon_state = "showroomfloor"
 	},
 /area/crew_quarters/kitchen)
+"gag" = (
+/obj/structure/girder,
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/starboard)
 "gan" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/status_display{
@@ -35828,14 +35811,16 @@
 	},
 /area/medical/virology)
 "hOk" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "specops_home";
-	locked = 1
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
 	},
-/area/space/nearstation)
+/turf/simulated/floor/plating,
+/area/maintenance/starboard)
 "hOm" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/extinguisher_cabinet{
@@ -39443,6 +39428,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
+"iFO" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/turret_protected/aisat_interior)
 "iGd" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
@@ -51551,17 +51540,6 @@
 	icon_state = "green"
 	},
 /area/hydroponics)
-"lhA" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 6
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/starboard)
 "lhN" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -56340,9 +56318,6 @@
 	icon_state = "delivery"
 	},
 /area/security/brig)
-"mme" = (
-/turf/space,
-/area/maintenance/apmaint)
 "mmp" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -67120,9 +67095,15 @@
 	},
 /area/security/permabrig)
 "oHi" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/turret_protected/aisat_interior)
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/power/terminal{
+	dir = 4
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
 "oHs" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -67745,6 +67726,14 @@
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"oNB" = (
+/obj/docking_port/stationary/whiteship{
+	dir = 8;
+	id = "whiteship_arrhodes";
+	name = "North of Arrhodes"
+	},
+/turf/space,
+/area/space)
 "oNE" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/disposalpipe/segment,
@@ -73275,6 +73264,15 @@
 	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
+"qbd" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/effect/spawner/window/reinforced/tinted,
+/turf/simulated/floor/plating,
+/area/turret_protected/ai)
 "qbg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -85068,14 +85066,11 @@
 	},
 /area/toxins/misc_lab)
 "sKn" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/obj/effect/spawner/window/reinforced/tinted,
-/turf/simulated/floor/plating,
-/area/turret_protected/ai)
+/turf/simulated/wall,
+/area/hallway/primary/central/east)
 "sKp" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel,
@@ -87464,18 +87459,6 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
-"tlk" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "greencorner"
-	},
-/area/hallway/primary/central/east)
 "tlm" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -104168,6 +104151,15 @@
 	icon_state = "yellowcorner"
 	},
 /area/engine/controlroom)
+"xam" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/spawner/window/reinforced/tinted,
+/turf/simulated/floor/plating,
+/area/turret_protected/ai)
 "xap" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Office";
@@ -120794,9 +120786,9 @@ fvW
 duo
 duo
 duo
-duo
-aNg
-duo
+qXW
+qXW
+qXW
 duo
 duo
 duo
@@ -121036,8 +121028,8 @@ duo
 qXW
 duo
 sJj
-fUK
-fUK
+aNg
+aNg
 ttC
 ttC
 ttC
@@ -121242,13 +121234,13 @@ aNg
 tLo
 aNg
 uZW
-tPw
+vSG
 uZW
 aNg
 faw
 aNg
 ack
-hOk
+tPw
 uZW
 aNg
 tLo
@@ -121293,8 +121285,8 @@ duo
 qXW
 duo
 aNg
-fUK
-mme
+aNg
+jGG
 fvW
 lhk
 ttC
@@ -121756,13 +121748,13 @@ oXY
 uZW
 vnc
 uZW
-tPw
+vSG
 uZW
 xec
 tDV
 pZl
 uZW
-vSG
+tPw
 uZW
 xvy
 uZW
@@ -145355,8 +145347,8 @@ kiD
 oZi
 vRA
 mby
-sKn
-duy
+xam
+qbd
 svn
 svn
 svn
@@ -145613,7 +145605,7 @@ oZi
 oZi
 cTl
 svn
-bHT
+oHi
 ayE
 lKz
 wvk
@@ -148462,7 +148454,7 @@ mDV
 bkT
 qWi
 vsl
-oHi
+iFO
 vsl
 vsl
 uNa
@@ -149932,7 +149924,7 @@ duo
 duo
 duo
 duo
-duo
+oNB
 duo
 duo
 duo
@@ -150562,7 +150554,7 @@ hZv
 mDG
 grn
 hZv
-ePG
+sKn
 uWG
 qRE
 fPx
@@ -150819,7 +150811,7 @@ hZv
 iUz
 grn
 hZv
-ePG
+sKn
 qsa
 sJN
 rew
@@ -154937,15 +154929,15 @@ kQD
 wje
 uYL
 aIK
-tlk
-tlk
+ePG
+ePG
 pXa
-tlk
+ePG
 pVq
 rZA
 mzg
-tlk
-tlk
+ePG
+ePG
 tWD
 qFg
 xxa
@@ -161874,8 +161866,8 @@ mzV
 mzV
 mzV
 aeG
-dhS
-eVu
+fUK
+gag
 oaz
 oaz
 tjH
@@ -163673,7 +163665,7 @@ dng
 snh
 lZH
 gWV
-lhA
+hOk
 hFo
 ewX
 ldh
