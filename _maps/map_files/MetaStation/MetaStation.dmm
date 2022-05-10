@@ -16689,6 +16689,12 @@
 /obj/effect/decal/warning_stripes/arrow,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"bec" = (
+/obj/structure/sign/vacuum,
+/turf/simulated/wall/r_wall,
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
 "bed" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -58158,7 +58164,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 8;
+	dir = 2;
 	name = "Lockdown Shutters";
 	id_tag = "PermaLockdown"
 	},
@@ -66127,7 +66133,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 8;
+	dir = 2;
 	name = "Lockdown Shutters";
 	id_tag = "PermaLockdown"
 	},
@@ -70920,7 +70926,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 8;
+	dir = 2;
 	name = "Lockdown Shutters";
 	id_tag = "PermaLockdown"
 	},
@@ -93355,12 +93361,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/securearmoury)
-"xCp" = (
-/obj/structure/sign/vacuum,
-/turf/simulated/wall/r_wall,
-/area/hallway/secondary/exit{
-	name = "\improper Departure Lounge"
-	})
 "xCv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -122579,7 +122579,7 @@ deo
 cLS
 cUC
 jYM
-xCp
+bec
 jYM
 cXz
 jYM
