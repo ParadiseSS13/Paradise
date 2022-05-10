@@ -540,7 +540,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bR" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bT" = (

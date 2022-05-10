@@ -7,17 +7,18 @@
 /obj/machinery/sleeper
 	name = "sleeper"
 	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper-open"
+	icon_state = "sleeper_open"
 	var/base_icon = "sleeper"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	dir = WEST
-	var/orient = "LEFT" // "RIGHT" changes the dir suffix to "-r"
+	var/secured = TRUE
 	var/mob/living/carbon/human/occupant = null
 	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
 	var/emergency_chems = list("ephedrine") // Desnowflaking
 	var/amounts = list(5, 10)
 	/// Beaker loaded into the sleeper. Used for dialysis.
+	var/beaker_slot = TRUE
 	var/obj/item/reagent_containers/glass/beaker = null
 	/// Whether the machine is currently performing dialysis.
 	var/filtering = FALSE
@@ -302,7 +303,7 @@
 	add_fingerprint(usr)
 
 /obj/machinery/sleeper/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(istype(I, /obj/item/reagent_containers/glass) && beaker_slot)
 		if(!beaker)
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
@@ -323,31 +324,23 @@
 
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
-		if(panel_open)
-			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-			return
-		if(!ismob(G.affecting))
-			return
-		if(occupant)
-			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-			return
-		if(G.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[G.affecting] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
+		if(!permitted_check(G.affecting, user))
 			return
 
-		visible_message("[user] starts putting [G.affecting.name] into the sleeper.")
+		visible_message("[user] starts putting [G.affecting.name] into [src].")
 
 		if(do_after(user, 20, target = G.affecting))
 			if(occupant)
-				to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
+				to_chat(user, "<span class='boldnotice'>[src] is already occupied!</span>")
 				return
 			if(!G || !G.affecting)
 				return
 			var/mob/M = G.affecting
 			M.forceMove(src)
 			occupant = M
-			icon_state = "[base_icon]"
-			to_chat(M, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
+			update_icon()
+			if(!istype(src, /obj/machinery/sleeper/bodyscanner))
+				to_chat(M, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
 			add_fingerprint(user)
 			qdel(G)
 			SStgui.update_uis(src)
@@ -355,17 +348,24 @@
 
 	return ..()
 
-
 /obj/machinery/sleeper/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
 /obj/machinery/sleeper/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
 	if(occupant)
 		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
-		return TRUE
-	if(default_deconstruction_screwdriver(user, "[base_icon]-o", "[base_icon]-open", I))
-		return TRUE
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(anchored)
+		panel_open = !panel_open
+		panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
+		if(!panel_open)
+			cut_overlays()
+		else
+			add_overlay("sleeper_panel")
 
 /obj/machinery/sleeper/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -377,12 +377,8 @@
 	if(panel_open)
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
-	if(dir == EAST)
-		orient = "LEFT"
-		setDir(WEST)
-	else
-		orient = "RIGHT"
-		setDir(EAST)
+	to_chat(user, "<span class='notice'>You rotate [src] around.</span>")
+	setDir(turn(dir, 90))
 
 /obj/machinery/sleeper/ex_act(severity)
 	if(filtering)
@@ -424,6 +420,14 @@
 	else
 		filtering = TRUE
 
+/obj/machinery/sleeper/update_icon()
+	if(occupant)
+		flick("[base_icon]_closing", src)
+		icon_state = "[base_icon]"
+	else
+		flick("[base_icon]_opening", src)
+		icon_state = "[base_icon]_open"
+
 /obj/machinery/sleeper/proc/go_out()
 	if(filtering)
 		toggle_filter()
@@ -431,7 +435,7 @@
 		return
 	occupant.forceMove(loc)
 	occupant = null
-	icon_state = "[base_icon]-open"
+	update_icon()
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(loc)
@@ -459,14 +463,13 @@
 		to_chat(user, "There's no occupant in the sleeper!")
 
 /obj/machinery/sleeper/verb/eject()
-	set name = "Eject Sleeper"
+	set name = "Eject Occupant"
 	set category = "Object"
 	set src in oview(1)
 
 	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 
-	icon_state = "[base_icon]-open"
 	go_out()
 	add_fingerprint(usr)
 	return
@@ -492,9 +495,9 @@
 		return
 	var/mob/living/L = O
 	if(L == user)
-		visible_message("[user] starts climbing into the sleeper.")
+		visible_message("[user] starts climbing into [src].")
 	else
-		visible_message("[user] starts putting [L.name] into the sleeper.")
+		visible_message("[user] starts putting [L.name] into [src].")
 	if(do_after(user, 20, target = L))
 		if(!permitted_check(O, user))
 			return
@@ -502,8 +505,9 @@
 			return
 		L.forceMove(src)
 		occupant = L
-		icon_state = "[base_icon]"
-		to_chat(L, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
+		update_icon()
+		if(!istype(src, /obj/machinery/sleeper/bodyscanner))
+			to_chat(L, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
 		add_fingerprint(user)
 		if(user.pulling == L)
 			user.stop_pulling()
@@ -554,26 +558,17 @@
 	set src in oview(1)
 	if(usr.stat != 0 || !(ishuman(usr)))
 		return
-	if(occupant)
-		to_chat(usr, "<span class='boldnotice'>The sleeper is already occupied!</span>")
+	if(!permitted_check(usr, usr))
 		return
-	if(panel_open)
-		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-		return
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
-		return
-	visible_message("[usr] starts climbing into the sleeper.")
+	visible_message("[usr] starts climbing into [src].")
 	if(do_after(usr, 20, target = usr))
 		if(occupant)
-			to_chat(usr, "<span class='boldnotice'>The sleeper is already occupied!</span>")
+			to_chat(usr, "<span class='boldnotice'>[src] is already occupied!</span>")
 			return
 		usr.stop_pulling()
 		usr.forceMove(src)
 		occupant = usr
-		icon_state = "[base_icon]"
+		update_icon()
 
 		for(var/obj/O in src)
 			qdel(O)
@@ -583,8 +578,8 @@
 	return
 
 /obj/machinery/sleeper/syndie
-	icon_state = "sleeper_s-open"
-	base_icon = "sleeper_s"
+	icon_state = "sleeper_syndie_open"
+	base_icon = "sleeper_syndie"
 	possible_chems = list("epinephrine", "ether", "salbutamol", "styptic_powder", "silver_sulfadiazine")
 	emergency_chems = list("epinephrine")
 	controls_inside = TRUE

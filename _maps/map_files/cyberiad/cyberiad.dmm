@@ -37368,7 +37368,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "bHG" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -48388,7 +48388,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -52544,7 +52544,7 @@
 	},
 /area/medical/surgery1)
 "ckV" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -52618,7 +52618,7 @@
 	},
 /area/medical/cmo)
 "clc" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";

@@ -1,17 +1,12 @@
-/obj/machinery/bodyscanner
+/obj/machinery/sleeper/bodyscanner
 	name = "body scanner"
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "bodyscanner-open"
-	density = TRUE
-	dir = WEST
-	anchored = TRUE
-	idle_power_usage = 1250
-	active_power_usage = 2500
+	icon_state = "bodyscanner_open"
+	base_icon = "bodyscanner"
 	light_color = "#00FF00"
-	var/mob/living/carbon/human/occupant
+	beaker_slot = FALSE
 	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
 
-/obj/machinery/bodyscanner/detailed_examine()
+/obj/machinery/sleeper/bodyscanner/detailed_examine()
 	return "The advanced scanner detects and reports internal injuries such as bone fractures, internal bleeding, and organ damage. \
 			This is useful if you are about to perform surgery.<br>\
 			<br>\
@@ -19,26 +14,7 @@
 			Right-click the scanner and click 'Eject Occupant' to remove them. You can enter the scanner yourself in a similar way, using the 'Enter Body Scanner' \
 			verb."
 
-
-/obj/machinery/bodyscanner/Destroy()
-	go_out()
-	return ..()
-
-/obj/machinery/bodyscanner/power_change()
-	..()
-	if(!(stat & (BROKEN|NOPOWER)))
-		set_light(2)
-	else
-		set_light(0)
-
-/obj/machinery/bodyscanner/process()
-	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
-		if(M == occupant)
-			continue
-		else
-			M.forceMove(loc)
-
-/obj/machinery/bodyscanner/New()
+/obj/machinery/sleeper/bodyscanner/New()
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/bodyscanner(null)
@@ -48,169 +24,42 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 
-/obj/machinery/bodyscanner/attackby(obj/item/I, mob/user)
-	if(exchange_parts(user, I))
-		return
-
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/TYPECAST_YOUR_SHIT = I
-		if(panel_open)
-			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-			return
-		if(!ishuman(TYPECAST_YOUR_SHIT.affecting))
-			return
-		if(occupant)
-			to_chat(user, "<span class='notice'>The scanner is already occupied!</span>")
-			return
-		if(TYPECAST_YOUR_SHIT.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[TYPECAST_YOUR_SHIT.affecting] will not fit into [src] because [TYPECAST_YOUR_SHIT.affecting.p_they()] [TYPECAST_YOUR_SHIT.affecting.p_have()] a fucking slime latched onto [TYPECAST_YOUR_SHIT.affecting.p_their()] head.</span>")
-			return
-		var/mob/living/carbon/human/M = TYPECAST_YOUR_SHIT.affecting
-		if(M.abiotic())
-			to_chat(user, "<span class='notice'>Subject may not hold anything in their hands.</span>")
-			return
-		M.forceMove(src)
-		occupant = M
-		icon_state = "bodyscanner"
-		add_fingerprint(user)
-		qdel(TYPECAST_YOUR_SHIT)
-		SStgui.update_uis(src)
-		return
-
-	return ..()
-
-/obj/machinery/bodyscanner/crowbar_act(mob/user, obj/item/I)
-	if(default_deconstruction_crowbar(user, I))
-		return TRUE
-
-/obj/machinery/bodyscanner/screwdriver_act(mob/user, obj/item/I)
-	if(default_deconstruction_screwdriver(user, "bodyscanner-o", "bodyscanner-open", I))
-		return TRUE
-
-/obj/machinery/bodyscanner/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(occupant)
-		to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
-		return
-	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-		return
-	if(dir == EAST)
-		setDir(WEST)
-	else
-		setDir(EAST)
-
-/obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/human/H, mob/user)
-	if(!istype(H))
-		return FALSE //not human
-	if(user.incapacitated())
-		return FALSE //user shouldn't be doing things
-	if(H.anchored)
-		return FALSE //mob is anchored???
-	if(get_dist(user, src) > 1 || get_dist(user, H) > 1)
-		return FALSE //doesn't use adjacent() to allow for non-cardinal (fuck my life)
-	if(!ishuman(user) && !isrobot(user))
-		return FALSE //not a borg or human
-	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-		return FALSE //panel open
-	if(occupant)
-		to_chat(user, "<span class='notice'>[src] is already occupied.</span>")
-		return FALSE //occupied
-	if(H.buckled)
-		return FALSE
-	if(H.abiotic())
-		to_chat(user, "<span class='notice'>Subject may not hold anything in their hands.</span>")
-		return FALSE
-	if(H.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[H] will not fit into [src] because [H.p_they()] [H.p_have()] a slime latched onto [H.p_their()] head.</span>")
-		return
-
-	if(H == user)
-		visible_message("[user] climbs into [src].")
-	else
-		visible_message("[user] puts [H] into the body scanner.")
-
-	H.forceMove(src)
-	occupant = H
-	icon_state = "bodyscanner"
-	add_fingerprint(user)
-	SStgui.update_uis(src)
-
-/obj/machinery/bodyscanner/attack_ai(user)
-	return attack_hand(user)
-
-/obj/machinery/bodyscanner/attack_ghost(user)
-	ui_interact(user)
-
-/obj/machinery/bodyscanner/attack_hand(user)
-	if(stat & (NOPOWER|BROKEN))
-		return
-
-	if(occupant == user)
-		return // you cant reach that
-
-	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-		return
-
-	ui_interact(user)
-
-/obj/machinery/bodyscanner/relaymove(mob/user)
-	if(user.incapacitated())
-		return FALSE //maybe they should be able to get out with cuffs, but whatever
-	go_out()
-
-/obj/machinery/bodyscanner/verb/eject()
-	set src in oview(1)
-	set category = "Object"
-	set name = "Eject Body Scanner"
-
-	if(usr.incapacitated())
-		return
-	go_out()
-	add_fingerprint(usr)
-
-/obj/machinery/bodyscanner/proc/go_out()
-	if(!occupant)
-		return
-	occupant.forceMove(loc)
-	occupant = null
-	icon_state = "bodyscanner-open"
-	// eject trash the occupant dropped
-	for(var/atom/movable/A in contents - component_parts)
-		A.forceMove(loc)
-	SStgui.update_uis(src)
-
-/obj/machinery/bodyscanner/force_eject_occupant(mob/target)
-	go_out()
-
-/obj/machinery/bodyscanner/ex_act(severity)
+/obj/machinery/sleeper/bodyscanner/ex_act(severity)
 	if(occupant)
 		occupant.ex_act(severity)
 	..()
 
-/obj/machinery/bodyscanner/handle_atom_del(atom/A)
-	..()
-	if(A == occupant)
-		occupant = null
-		updateUsrDialog()
+/obj/machinery/sleeper/bodyscanner/verb/move_inside_scanner()
+	set name = "Enter Body Scanner"
+	set category = "Object"
+	set src in oview(1)
+	if(usr.stat != 0 || !(ishuman(usr)))
+		return
+	if(!permitted_check(usr, usr))
+		return
+	visible_message("[usr] starts climbing into [src].")
+	if(do_after(usr, 20, target = usr))
+		if(occupant)
+			to_chat(usr, "<span class='boldnotice'>[src] is already occupied!</span>")
+			return
+		usr.stop_pulling()
+		usr.forceMove(src)
+		occupant = usr
 		update_icon()
 
-/obj/machinery/bodyscanner/narsie_act()
-	go_out()
-	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
-	qdel(src)
+/obj/machinery/sleeper/bodyscanner/move_inside()
+	set hidden = TRUE
 
-/obj/machinery/bodyscanner/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/sleeper/bodyscanner/remove_beaker()
+	set hidden = TRUE
+
+/obj/machinery/sleeper/bodyscanner/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "BodyScanner", "Body Scanner", 690, 600)
 		ui.open()
 
-/obj/machinery/bodyscanner/ui_data(mob/user)
+/obj/machinery/sleeper/bodyscanner/ui_data(mob/user)
 	var/list/data = list()
 
 	data["occupied"] = occupant ? TRUE : FALSE
@@ -337,7 +186,7 @@
 	data["occupant"] = occupantData
 	return data
 
-/obj/machinery/bodyscanner/ui_act(action, params)
+/obj/machinery/sleeper/bodyscanner/ui_act(action, params)
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))
@@ -360,7 +209,7 @@
 		else
 			return FALSE
 
-/obj/machinery/bodyscanner/proc/generate_printing_text()
+/obj/machinery/sleeper/bodyscanner/proc/generate_printing_text()
 	var/dat = ""
 
 	dat = "<font color='blue'><b>Occupant Statistics:</b></font><br>" //Blah obvious

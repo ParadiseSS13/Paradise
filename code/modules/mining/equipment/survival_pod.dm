@@ -150,7 +150,7 @@
 //Sleeper
 /obj/machinery/sleeper/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
-	icon_state = "sleeper-open"
+	icon_state = "sleeper_open"
 	density = FALSE
 
 /obj/machinery/sleeper/survival_pod/New()
@@ -165,6 +165,9 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
+
+/obj/machinery/sleeper/survival_pod/wrench_act(mob/user, obj/item/I)
+	return
 
 //NanoMed
 /obj/machinery/vending/wallmed/survival_pod

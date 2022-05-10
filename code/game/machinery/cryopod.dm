@@ -184,14 +184,12 @@
 	name = "cryogenic freezer"
 	desc = "A man-sized pod for entering suspended animation."
 	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "bodyscanner-open"
+	icon_state = "bodyscanner_open"
 	density = 1
 	anchored = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
 	dir = WEST
-	base_icon_state = "bodyscanner-open"
-	var/occupied_icon_state = "bodyscanner"
 	var/on_store_message = "has entered long-term storage."
 	var/on_store_name = "Cryogenic Oversight"
 	var/on_enter_occupant_message = "You feel cool air surround you. You go numb as your senses turn inward."
@@ -246,13 +244,20 @@
 
 /obj/machinery/cryopod/New()
 	announce = new /obj/item/radio/intercom(src)
-	icon_state = base_icon_state
 	..()
 
 /obj/machinery/cryopod/Initialize()
 	..()
 
 	find_control_computer()
+
+/obj/machinery/cryopod/update_icon()
+	if(occupant)
+		flick("bodyscanner_closing", src)
+		icon_state = "bodyscanner"
+	else
+		flick("bodyscanner_opening", src)
+		icon_state = "bodyscanner_open"
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)
 	for(var/obj/machinery/computer/cryopod/C in get_area(src).contents)
@@ -400,8 +405,6 @@
 			announce_rank = G.fields["rank"]
 			qdel(G)
 
-	icon_state = base_icon_state
-
 	//Make an announcement and log the person entering storage.
 	control_computer.frozen_crew += "[occupant.real_name]"
 
@@ -435,6 +438,7 @@
 		else
 			occupant.ghostize(TRUE)
 	QDEL_NULL(occupant)
+	update_icon()
 	name = initial(name)
 
 
@@ -486,7 +490,7 @@
 				to_chat(user, "<span class='notice'>You stop putting [M] into the cryopod.</span>")
 				return
 
-			icon_state = occupied_icon_state
+			update_icon()
 
 			to_chat(M, "<span class='notice'>[on_enter_occupant_message]</span>")
 			to_chat(M, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
@@ -568,10 +572,11 @@
 		return
 	E.forceMove(src)
 	time_till_despawn = initial(time_till_despawn) / willing_factor
-	icon_state = occupied_icon_state
 	to_chat(E, "<span class='notice'>[on_enter_occupant_message]</span>")
 	to_chat(E, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
 	occupant = E
+	update_icon()
+
 	name = "[name] ([occupant.name])"
 	time_entered = world.time
 	if(findtext("[E.key]","@",1,2))
@@ -596,7 +601,6 @@
 	if(usr != occupant)
 		to_chat(usr, "The cryopod is in use and locked!")
 		return
-	icon_state = base_icon_state
 
 	//Eject any items that aren't meant to be in the pod.
 	var/list/items = contents
@@ -645,10 +649,11 @@
 		usr.forceMove(src)
 		occupant = usr
 		time_till_despawn = initial(time_till_despawn) / willing_time_divisor
-		icon_state = occupied_icon_state
 		to_chat(usr, "<span class='notice'>[on_enter_occupant_message]</span>")
 		to_chat(usr, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
 		occupant = usr
+		update_icon()
+
 		time_entered = world.time
 
 		add_fingerprint(usr)
@@ -662,7 +667,7 @@
 
 	occupant.forceMove(get_turf(src))
 	occupant = null
-	icon_state = base_icon_state
+	update_icon()
 	name = initial(name)
 
 	return
@@ -694,14 +699,18 @@
 	name = "robotic storage unit"
 	desc = "A storage unit for robots."
 	icon = 'icons/obj/robot_storage.dmi'
-	icon_state = "pod_0"
-	base_icon_state = "pod_0"
-	occupied_icon_state = "pod_1"
+	icon_state = "pod_open"
 	on_store_message = "has entered robotic storage."
 	on_store_name = "Robotic Storage Oversight"
 	on_enter_occupant_message = "The storage unit broadcasts a sleep signal to you. Your systems start to shut down, and you enter low-power mode."
 	allow_occupant_types = list(/mob/living/silicon/robot)
 	disallow_occupant_types = list(/mob/living/silicon/robot/drone)
+
+/obj/machinery/cryopod/robot/update_icon()
+	if(occupant)
+		icon_state = "pod_closed"
+	else
+		icon_state = "pod_open"
 
 /obj/machinery/cryopod/robot/despawn_occupant()
 	var/mob/living/silicon/robot/R = occupant

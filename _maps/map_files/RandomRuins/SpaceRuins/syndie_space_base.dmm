@@ -3414,7 +3414,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "Kt" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /obj/machinery/light{
 	dir = 4
 	},

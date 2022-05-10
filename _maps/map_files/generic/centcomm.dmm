@@ -3654,7 +3654,7 @@
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/admin)
 "mv" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "mw" = (
@@ -6030,7 +6030,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "uK" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "uL" = (
@@ -11691,7 +11691,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
 "TG" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},

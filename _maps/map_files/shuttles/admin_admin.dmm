@@ -348,7 +348,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bi" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bk" = (

@@ -43842,7 +43842,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -53460,7 +53460,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "coi" = (
-/obj/machinery/bodyscanner{
+/obj/machinery/sleeper/bodyscanner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -57735,7 +57735,7 @@
 	},
 /area/medical/surgery1)
 "cxo" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -62344,7 +62344,7 @@
 	name = "\improper Toxins Lab"
 	})
 "cGO" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

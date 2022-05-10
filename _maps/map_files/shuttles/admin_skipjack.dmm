@@ -550,7 +550,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "Vl" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /obj/machinery/light,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)

@@ -74733,7 +74733,7 @@
 	c_tag = "Medbay Cloning";
 	dir = 1
 	},
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -79867,7 +79867,7 @@
 	},
 /area/medical/morgue)
 "dwF" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80740,7 +80740,7 @@
 	},
 /area/crew_quarters/theatre)
 "dyk" = (
-/obj/machinery/bodyscanner{
+/obj/machinery/sleeper/bodyscanner{
 	dir = 4
 	},
 /obj/item/radio/intercom{
@@ -82634,7 +82634,7 @@
 	},
 /area/maintenance/starboard)
 "dCn" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
@@ -95563,7 +95563,7 @@
 /turf/simulated/floor/plating,
 /area/medical/virology)
 "nGL" = (
-/obj/machinery/bodyscanner{
+/obj/machinery/sleeper/bodyscanner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -97998,7 +97998,7 @@
 	},
 /area/security/securearmoury)
 "uQK" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/sleeper/bodyscanner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
