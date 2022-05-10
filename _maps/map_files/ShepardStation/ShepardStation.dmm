@@ -2163,7 +2163,9 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -22014,8 +22016,10 @@
 	},
 /area/hallway/primary/central/ne)
 "eRn" = (
-/obj/machinery/cryopod/right,
 /obj/structure/window/reinforced,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitegreen"
@@ -25634,11 +25638,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 2;
 	icon_state = "pipe-c"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -31354,8 +31353,10 @@
 /turf/space,
 /area/space/nearstation)
 "gOC" = (
-/obj/machinery/cryopod/right,
 /obj/structure/window/reinforced,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},
@@ -33714,7 +33715,7 @@
 /area/engine/break_room)
 "hpg" = (
 /obj/machinery/bodyscanner{
-	dir = 4
+	dir = 2
 	},
 /obj/machinery/light{
 	dir = 1
@@ -35005,7 +35006,6 @@
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "hCL" = (
-/obj/machinery/cryopod/right,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -35013,6 +35013,9 @@
 	dir = 8;
 	name = "west bump";
 	pixel_x = -24
+	},
+/obj/machinery/cryopod{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -37808,11 +37811,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/space,
 /area/space/nearstation)
 "iiT" = (
@@ -40519,7 +40517,9 @@
 	layer = 4;
 	pixel_x = -32
 	},
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -48893,11 +48893,6 @@
 "kBK" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
@@ -64474,12 +64469,8 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /turf/simulated/floor/plating,
-/area/engine/engineering)
+/area/space/nearstation)
 "odp" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
@@ -64887,9 +64878,11 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
 "ohO" = (
-/obj/machinery/cryopod/right,
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/machinery/cryopod{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -71008,7 +71001,9 @@
 /turf/simulated/floor/plating,
 /area/security/evidence)
 "pyH" = (
-/obj/machinery/sleeper,
+/obj/machinery/sleeper{
+	dir = 2
+	},
 /obj/structure/sign/nosmoking_1{
 	pixel_y = 32
 	},
@@ -95171,7 +95166,9 @@
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "vcL" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -106755,7 +106752,9 @@
 	c_tag = "Cryodorms";
 	dir = 4
 	},
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
