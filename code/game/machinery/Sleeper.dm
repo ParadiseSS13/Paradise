@@ -93,7 +93,7 @@
 
 /obj/machinery/sleeper/relaymove(mob/user as mob)
 	if(user.incapacitated())
-		return 0 //maybe they should be able to get out with cuffs, but whatever
+		return FALSE //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
 /obj/machinery/sleeper/process()
@@ -535,7 +535,7 @@
 		to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
+		to_chat(user, "<span class='boldnotice'>[src] is already occupied!</span>")
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
