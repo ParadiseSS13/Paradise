@@ -42306,11 +42306,6 @@
 	c_tag = "Aft Primary Hallway - Fore";
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "purplecorner"
@@ -122212,7 +122207,7 @@ cgy
 bCz
 cgy
 cAA
-cmm
+cPI
 jma
 nYF
 crI
