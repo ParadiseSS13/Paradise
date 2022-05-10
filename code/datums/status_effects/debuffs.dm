@@ -472,7 +472,7 @@
 /// This is multiplied with [/mob/var/hallucination] to determine the final cooldown. A higher hallucination value means shorter cooldown.
 #define HALLUCINATE_COOLDOWN_FACTOR 0.003
 /// Percentage defining the chance at which an hallucination may spawn past the cooldown.
-#define HALLUCINATE_CHANCE 80
+#define HALLUCINATE_CHANCE 8
 // Severity weights, should sum up to 100!
 #define HALLUCINATE_MINOR_WEIGHT 60
 #define HALLUCINATE_MODERATE_WEIGHT 30
@@ -480,10 +480,13 @@
 
 /datum/status_effect/transient/hallucination
 	id = "hallucination"
-	tick_interval = 2 SECONDS
 	var/next_hallucination = 0
 
 /datum/status_effect/transient/hallucination/tick()
+	. = ..()
+	if(!.)
+		return
+
 	if(next_hallucination > world.time)
 		return
 
