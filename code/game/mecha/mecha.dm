@@ -1183,7 +1183,7 @@
 		dir = dir_in
 		log_message("[mmi_as_oc] moved in as pilot.")
 		if(!hasInternalDamage())
-			to_chat(occupant, sound(nominalsound, volume=50))
+			occupant << sound(nominalsound, volume=50)
 		GrantActions(brainmob)
 		return TRUE
 	else
