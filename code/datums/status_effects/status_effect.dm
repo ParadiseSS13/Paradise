@@ -288,6 +288,7 @@
 /datum/status_effect/transient/tick()
 	if(QDELETED(src) || QDELETED(owner))
 		return
+	. = TRUE
 	strength += calc_decay()
 	if(strength <= 0)
 		qdel(src)

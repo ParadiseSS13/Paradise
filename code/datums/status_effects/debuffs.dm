@@ -161,14 +161,24 @@
 	id = "confusion"
 	var/static/image/overlay
 
-/datum/status_effect/transient/confusion/on_apply()
-	if(!overlay)
-		var/matrix/M = matrix()
-		M.Scale(0.6)
-		overlay = image('icons/effects/effects.dmi', "confusion", pixel_y = 20)
-		overlay.transform = M
+/datum/status_effect/transient/confusion/tick()
+	. = ..()
+	if(!.)
+		return
+	if(!owner.stat) //add or remove the overlay if they are alive or unconscious/dead
+		add_overlay()
+	else if(overlay)
+		owner.cut_overlay(overlay)
+		overlay = null
+
+/datum/status_effect/transient/confusion/proc/add_overlay()
+	if(overlay)
+		return
+	var/matrix/M = matrix()
+	M.Scale(0.6)
+	overlay = image('icons/effects/effects.dmi', "confusion", pixel_y = 20)
+	overlay.transform = M
 	owner.add_overlay(overlay)
-	return ..()
 
 /datum/status_effect/transient/confusion/on_remove()
 	owner.cut_overlay(overlay)
