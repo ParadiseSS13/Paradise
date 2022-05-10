@@ -21,10 +21,15 @@
 		return
 	master = _master
 	greet_text = _greet_text
-	return ..()
+	..()
 
-/datum/antagonist/mindslave/Destroy()
+/datum/antagonist/mindslave/Destroy(force, ...)
+	if(owner.som)
+		owner.som.serv -= owner
+		owner.som.leave_serv_hud(owner)
 	master = null
+	SSticker.mode.implanted[owner] = null
+	SSticker.mode.implanted -= owner
 	return ..()
 
 /datum/antagonist/mindslave/on_gain()
@@ -42,22 +47,11 @@
 	hud.join_hud(master.current)
 	set_antag_hud(master.current, "hudmaster")
 	slaved.add_serv_hud(master, "master")
-
-	// Add an obey and protect objective.
-	var/datum/objective/protect/serve_objective = new
-	serve_objective.target = master
-	serve_objective.owner = owner
-	var/role = master.assigned_role ? master.assigned_role : master.special_role
-	serve_objective.explanation_text = "Obey every order from and protect [master.current.real_name], the [role]."
-	objectives += serve_objective
 	return ..()
 
-/datum/antagonist/mindslave/on_removal()
-	if(owner.som)
-		var/datum/mindslaves/slaved = owner.som
-		slaved.serv -= owner
-		slaved.leave_serv_hud(owner)
-	return ..()
+/datum/antagonist/mindslave/give_objectives()
+	var/explanation_text = "Obey every order from and protect [master.current.real_name], the [master.assigned_role ? master.assigned_role : master.special_role]."
+	add_objective(/datum/objective/protect/mindslave, explanation_text, master)
 
 /datum/antagonist/mindslave/greet()
 	var/mob/living/carbon/human/mindslave = owner.current
