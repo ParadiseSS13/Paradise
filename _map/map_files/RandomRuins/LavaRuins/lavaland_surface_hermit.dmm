@@ -170,13 +170,20 @@
 "J" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/powered)
 "K" = (
 /obj/effect/baseturf_helper,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"M" = (
+/obj/item/cultivator/rake{
+	desc = "Эту тяпку создал великий столяр, на кончике красуется змей, который обвивает рукоять. Детализация чешуек просто поражает, глаза холодно смотрят прямо в душу, несмотря на спокойное состояние змея.";
+	name = "Резная тяпка"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/powered)
 "X" = (
@@ -299,7 +306,7 @@ a
 b
 b
 m
-o
+M
 o
 t
 w
