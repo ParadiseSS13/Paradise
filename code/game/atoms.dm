@@ -1003,8 +1003,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return
 
 /atom/vv_edit_var(var_name, var_value)
-	if(!GLOB.debug2)
-		admin_spawned = TRUE
 	. = ..()
 	switch(var_name)
 		if("light_power", "light_range", "light_color")

@@ -170,7 +170,6 @@
 		to_chat(usr, "<span class='notice'>You detach [assembly] from [src]</span>")
 		usr.put_in_hands(assembly)
 		assembly = null
-		qdel(GetComponent(/datum/component/proximity_monitor))
 		update_icon()
 	else
 		to_chat(usr, "<span class='notice'>There is no assembly to remove.</span>")
@@ -187,8 +186,6 @@
 		assembly = W
 		user.drop_item()
 		W.forceMove(src)
-		if(assembly.has_prox_sensors())
-			AddComponent(/datum/component/proximity_monitor)
 		overlays += "assembly"
 	else
 		..()
@@ -283,7 +280,6 @@
 /obj/item/reagent_containers/glass/beaker/drugs/meth
 	list_reagents = list("methamphetamine" = 10)
 
-
 /obj/item/reagent_containers/glass/bucket
 	desc = "It's a bucket."
 	name = "bucket"
@@ -317,6 +313,10 @@
         reagents.clear_reagents()
 
 /obj/item/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
+	if(istype(D, /obj/item/mop))
+		var/obj/item/mop/m = D
+		m.wet_mop(src, user)
+		return
 	if(isprox(D))
 		to_chat(user, "You add [D] to [src].")
 		qdel(D)

@@ -419,7 +419,7 @@
 		/obj/item/storage/bag/trash/cyborg,
 		/obj/item/mop/advanced/cyborg,
 		/obj/item/lightreplacer/cyborg,
-		/obj/item/holosign_creator,
+		/obj/item/holosign_creator/janitor,
 		/obj/item/extinguisher/mini
 	)
 	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_lube, /obj/item/restraints/handcuffs/cable/zipties/cyborg)

@@ -146,6 +146,9 @@
 	set name = "Test Nature Map Generator"
 	set category = "Debug"
 
+	if(!check_rights(R_MAINTAINER))
+		return
+
 	var/datum/mapGenerator/nature/N = new()
 	var/startInput = clean_input("Start turf of Map, (X;Y;Z)", "Map Gen Settings", "1;1;1")
 	var/endInput = clean_input("End turf of Map (X;Y;Z)", "Map Gen Settings", "[world.maxx];[world.maxy];[mob ? mob.z : 1]")

@@ -211,6 +211,9 @@
 			if(HAS_TRAIT(L, TRAIT_PACIFISM) && selected.harmful)
 				to_chat(L, "<span class='warning'>You don't want to harm other living beings!</span>")
 				return
+			if(user.mind?.martial_art?.no_guns)
+				to_chat(L, "<span class='warning'>[L.mind.martial_art.no_guns_message]</span>")
+				return
 			selected.action(target, params)
 	else if(selected && selected.is_melee())
 		if(isliving(target) && selected.harmful && HAS_TRAIT(L, TRAIT_PACIFISM))
@@ -1171,7 +1174,7 @@
 		if(istype(mmi_as_oc, /obj/item/mmi/robotic_brain))
 			var/obj/item/mmi/robotic_brain/R = mmi_as_oc
 			if(R.imprinted_master)
-				to_chat(brainmob, "<span class='notice'>Your imprint to [R.imprinted_master] has been temporarily disabled. You should help the crew and not commit harm.</span>")
+				to_chat(brainmob, "<span class='biggerdanger'>Your imprint to [R.imprinted_master] has been temporarily disabled. You should help the crew and not commit harm.</span>")
 		mmi_as_oc.loc = src
 		mmi_as_oc.mecha = src
 		Entered(mmi_as_oc)
@@ -1180,7 +1183,7 @@
 		dir = dir_in
 		log_message("[mmi_as_oc] moved in as pilot.")
 		if(!hasInternalDamage())
-			to_chat(occupant, sound(nominalsound, volume=50))
+			occupant << sound(nominalsound, volume=50)
 		GrantActions(brainmob)
 		return TRUE
 	else
