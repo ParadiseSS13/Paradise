@@ -359,13 +359,12 @@
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(anchored)
-		panel_open = !panel_open
-		panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
-		if(!panel_open)
-			cut_overlays()
-		else
-			add_overlay("sleeper_panel")
+	panel_open = !panel_open
+	panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
+	if(panel_open)
+		add_overlay("sleeper_panel")
+	else
+		cut_overlay("sleeper_panel")
 
 /obj/machinery/sleeper/wrench_act(mob/user, obj/item/I)
 	. = TRUE
