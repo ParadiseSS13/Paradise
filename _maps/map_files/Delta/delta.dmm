@@ -29689,19 +29689,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
-"buT" = (
-/obj/structure/table/reinforced,
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
-/obj/item/book/manual/engineering_construction,
-/obj/item/book/manual/engineering_guide,
-/obj/item/book/manual/engineering_hacking,
-/obj/item/clothing/head/hardhat/orange,
-/turf/simulated/floor/plasteel,
-/area/space)
 "buU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -36218,6 +36205,8 @@
 /obj/machinery/camera{
 	c_tag = "Tool Storage"
 	},
+/obj/item/clothing/head/hardhat/orange,
+/obj/item/clothing/head/hardhat/orange,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "bHa" = (
@@ -130637,7 +130626,7 @@ bmP
 awX
 bqe
 brW
-buT
+aaa
 aaa
 aaa
 aaa
