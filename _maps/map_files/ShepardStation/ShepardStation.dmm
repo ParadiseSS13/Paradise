@@ -2754,12 +2754,6 @@
 	icon_state = "long"
 	},
 /area/engine/equipmentstorage)
-"aGS" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 9
-	},
-/turf/space,
-/area/space)
 "aHa" = (
 /obj/structure/table,
 /obj/item/radio/intercom{
@@ -7648,6 +7642,16 @@
 	icon_state = "dark"
 	},
 /area/security/hos)
+"bHT" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/power/terminal{
+	dir = 4
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
 "bIi" = (
 /obj/structure/grille,
 /obj/structure/window/basic{
@@ -11731,11 +11735,6 @@
 	name = "Gateway Access";
 	req_access_txt = "62"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
@@ -14578,15 +14577,12 @@
 /turf/simulated/floor/wood,
 /area/library)
 "dhS" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
+/obj/structure/disposalpipe/junction{
+	dir = 2;
+	icon_state = "pipe-j2"
 	},
-/obj/machinery/power/terminal{
-	dir = 4
-	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
+/turf/simulated/floor/plating,
+/area/maintenance/starboard)
 "dhU" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
@@ -15754,14 +15750,12 @@
 "duy" = (
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d2 = 4;
+	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 6
-	},
+/obj/effect/spawner/window/reinforced/tinted,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/turret_protected/ai)
 "duX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -21866,14 +21860,11 @@
 	},
 /area/security/brig)
 "ePG" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/obj/effect/spawner/window/reinforced/tinted,
-/turf/simulated/floor/plating,
-/area/turret_protected/ai)
+/turf/simulated/wall,
+/area/hallway/primary/central/east)
 "ePN" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -22350,11 +22341,13 @@
 	},
 /area/security/prison/cell_block/A)
 "eVu" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 10
+/obj/structure/girder,
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
 	},
-/turf/space,
-/area/space)
+/turf/simulated/floor/plating,
+/area/maintenance/starboard)
 "eVQ" = (
 /obj/structure/sign/fire{
 	pixel_y = 32
@@ -27721,10 +27714,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/crew_quarters/kitchen)
-"gag" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/turret_protected/aisat_interior)
 "gan" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/status_display{
@@ -39454,18 +39443,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
-"iFO" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "greencorner"
-	},
-/area/hallway/primary/central/east)
 "iGd" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
@@ -49227,11 +49204,6 @@
 /area/hallway/secondary/entry/south)
 "kFX" = (
 /obj/effect/spawner/random_spawners/fungus_maybe,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /turf/simulated/wall/r_wall,
 /area/hallway/primary/central/se)
 "kGp" = (
@@ -51585,9 +51557,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
 /turf/simulated/floor/plating,
-/area/maintenance/port)
+/area/maintenance/starboard)
 "lhN" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -67146,13 +67120,9 @@
 	},
 /area/security/permabrig)
 "oHi" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/wall/r_wall,
-/area/engine/engineering)
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/turret_protected/aisat_interior)
 "oHs" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -67775,14 +67745,6 @@
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
-"oNB" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/wall,
-/area/maintenance/auxsolarstarboard)
 "oNE" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/disposalpipe/segment,
@@ -73313,13 +73275,6 @@
 	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
-"qbd" = (
-/obj/structure/disposalpipe/junction{
-	dir = 2;
-	icon_state = "pipe-j2"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/starboard)
 "qbg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -85113,11 +85068,14 @@
 	},
 /area/toxins/misc_lab)
 "sKn" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/turf/simulated/wall,
-/area/hallway/primary/central/east)
+/obj/effect/spawner/window/reinforced/tinted,
+/turf/simulated/floor/plating,
+/area/turret_protected/ai)
 "sKp" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel,
@@ -87507,13 +87465,17 @@
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "tlk" = (
-/obj/structure/girder,
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "greencorner"
+	},
+/area/hallway/primary/central/east)
 "tlm" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -104206,15 +104168,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/engine/controlroom)
-"xam" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/spawner/window/reinforced/tinted,
-/turf/simulated/floor/plating,
-/area/turret_protected/ai)
 "xap" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Office";
@@ -125098,7 +125051,7 @@ vRS
 ndn
 nGh
 aGj
-oHi
+ndn
 dtY
 hwR
 vuA
@@ -132850,7 +132803,7 @@ aNg
 aNg
 gIy
 aNg
-lhA
+ack
 vCO
 bar
 iMk
@@ -145402,8 +145355,8 @@ kiD
 oZi
 vRA
 mby
-xam
-ePG
+sKn
+duy
 svn
 svn
 svn
@@ -145660,7 +145613,7 @@ oZi
 oZi
 cTl
 svn
-dhS
+bHT
 ayE
 lKz
 wvk
@@ -148509,7 +148462,7 @@ mDV
 bkT
 qWi
 vsl
-gag
+oHi
 vsl
 vsl
 uNa
@@ -150609,7 +150562,7 @@ hZv
 mDG
 grn
 hZv
-sKn
+ePG
 uWG
 qRE
 fPx
@@ -150866,7 +150819,7 @@ hZv
 iUz
 grn
 hZv
-sKn
+ePG
 qsa
 sJN
 rew
@@ -154984,15 +154937,15 @@ kQD
 wje
 uYL
 aIK
-iFO
-iFO
+tlk
+tlk
 pXa
-iFO
+tlk
 pVq
 rZA
 mzg
-iFO
-iFO
+tlk
+tlk
 tWD
 qFg
 xxa
@@ -157468,7 +157421,7 @@ iVs
 oHD
 iVs
 kll
-oNB
+apc
 lBS
 nbh
 dEx
@@ -161921,8 +161874,8 @@ mzV
 mzV
 mzV
 aeG
-qbd
-tlk
+dhS
+eVu
 oaz
 oaz
 tjH
@@ -163720,7 +163673,7 @@ dng
 snh
 lZH
 gWV
-duy
+lhA
 hFo
 ewX
 ldh
@@ -166486,10 +166439,10 @@ duo
 duo
 duo
 aNg
-eVu
-aGS
-eVu
-aGS
+sUk
+bIP
+sUk
+bIP
 aNg
 duo
 duo
