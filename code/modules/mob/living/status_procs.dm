@@ -349,8 +349,7 @@
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SILENCED)
 
 /mob/living/proc/Silence(amount)
-	var/datum/status_effect/transient/silence/S = AmountSilenced()
-	SetSilence(max(amount, S.strength))
+	SetSilence(max(amount, AmountSilenced()))
 
 /mob/living/proc/SetSilence(amount)
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SILENCED, amount)

@@ -294,24 +294,24 @@
 		else if(istype(M.martial_art, DRUNK_BRAWLING))
 			M.martial_art.remove(src)
 	// THRESHOLD_CONFUSION (80 SECONDS)
-	if(actual_strength >= THRESHOLD_CONFUSION && prob(33))
-		owner.AdjustConfused(6 SECONDS / alcohol_resistance, bound_lower = 2 SECONDS)
-		owner.AdjustDizzy(6 SECONDS / alcohol_resistance, bound_lower = 2 SECONDS)
+	if(actual_strength >= THRESHOLD_CONFUSION && prob(3.3))
+		owner.AdjustConfused(6 SECONDS / alcohol_resistance, bound_lower = 2 SECONDS, bound_upper = 1 MINUTES)
+		owner.AdjustDizzy(6 SECONDS / alcohol_resistance, bound_lower = 2 SECONDS, bound_upper = 2 MINUTES)
 	// THRESHOLD_SPARK (100 SECONDS)
-	if(is_ipc && actual_strength >= THRESHOLD_SPARK && prob(25))
+	if(is_ipc && actual_strength >= THRESHOLD_SPARK && prob(2.5))
 		do_sparks(3, 1, owner)
 	// THRESHOLD_VOMIT (120 SECONDS)
-	if(!is_ipc && actual_strength >= THRESHOLD_VOMIT && prob(8))
+	if(!is_ipc && actual_strength >= THRESHOLD_VOMIT && prob(0.8))
 		owner.fakevomit()
 	// THRESHOLD_BLUR (150 SECONDS)
 	if(actual_strength >= THRESHOLD_BLUR)
 		owner.EyeBlurry(20 SECONDS / alcohol_resistance)
 	// THRESHOLD_COLLAPSE (150 SECONDS)
-	if(actual_strength >= THRESHOLD_COLLAPSE && prob(10))
+	if(actual_strength >= THRESHOLD_COLLAPSE && prob(1))
 		owner.emote("collapse")
 		do_sparks(3, 1, src)
 	// THRESHOLD_FAINT (180 SECONDS)
-	if(actual_strength >= THRESHOLD_FAINT && prob(10))
+	if(actual_strength >= THRESHOLD_FAINT && prob(1))
 		owner.Paralyse(10 SECONDS / alcohol_resistance)
 		owner.Drowsy(60 SECONDS / alcohol_resistance)
 		if(L)
@@ -319,7 +319,7 @@
 		if(!is_ipc)
 			owner.adjustToxLoss(1)
 	// THRESHOLD_BRAIN_DAMAGE (240 SECONDS)
-	if(actual_strength >= THRESHOLD_BRAIN_DAMAGE && prob(10))
+	if(actual_strength >= THRESHOLD_BRAIN_DAMAGE && prob(1))
 		owner.adjustBrainLoss(1)
 
 #undef THRESHOLD_SLUR
@@ -545,12 +545,13 @@
 /datum/status_effect/transient/eye_blurry/calc_decay()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
+
+		if(isnull(H.dna.species.vision_organ)) //species has no eyes
+			return ..()
+
 		var/obj/item/organ/vision = H.get_int_organ(H.dna.species.vision_organ)
 
-		if(vision.is_broken())
-			return 0.2 SECONDS
-
-		if(vision.is_bruised()) // doesn't decay if you have damaged eyesight.
+		if(!vision || vision.is_bruised() || vision.is_broken()) // doesn't decay if you have damaged eyesight.
 			return 0
 
 		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold)) // decays faster if you rest your eyes with a blindfold.

@@ -12,7 +12,7 @@
 
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/M)
 	M.AdjustDrunk(alcohol_perc STATUS_EFFECT_CONSTANT)
-	M.AdjustDizzy(dizzy_adj)
+	M.AdjustDizzy(dizzy_adj, bound_upper = 1.5 MINUTES)
 	return ..()
 
 /datum/reagent/consumable/ethanol/reaction_obj(obj/O, volume)
