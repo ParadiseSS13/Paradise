@@ -632,6 +632,41 @@
 
 /obj/item/gun/energy/detective
 	name = "placeholder_det_energy"
-	desc = "Placeholder description toext for energy revolver"
-	icon_state = "disabler"
+	desc = "Placeholder description text for energy revolver"
+	icon_state = "det_placeholder"
 	ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/warrant_generator, /obj/item/ammo_casing/energy/tracker)
+	/// If true, this gun is tracking something and cannot track another mob
+	var/tracking
+
+
+/obj/item/gun/energy/detective/process(atom/target)
+	if(tracking)
+		point_at(target)
+
+/obj/item/gun/energy/detective/proc/start_pointing()
+	tracking = TRUE
+	addtimer(CALLBACK(src, .proc/stop_pointing), 30 SECONDS, TIMER_UNIQUE)
+
+/obj/item/gun/energy/detective/proc/stop_pointing()
+	tracking = FALSE
+
+/obj/item/gun/energy/detective/proc/point_at(atom/target)
+	update_icon() //This cuts any existing range overlays
+	if(!target)
+		return
+
+	var/turf/T = get_turf(target)
+	var/turf/L = get_turf(src)
+
+	if(!(T && L) || (T.z != L.z))
+		return
+	dir = get_dir(L, T)
+	switch(get_dist(L, T))
+		if(-1)
+			add_overlay("[icon_state]_direct")
+		if(1 to 8)
+			add_overlay("[icon_state]_close")
+		if(9 to 16)
+			add_overlay("[icon_state]_medium")
+		if(16 to INFINITY)
+			add_overlay("[icon_state]_far")

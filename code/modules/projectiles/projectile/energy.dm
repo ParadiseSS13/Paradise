@@ -143,27 +143,54 @@
 
 /obj/item/projectile/energy/detective
 	name = "placeholder name"
+	damage = 5
+	stamina = 25
 
 /obj/item/projectile/energy/warrant_generator
 	name = "warrant generator"
-	//todo: ref to shooter
+	damage = 5
 
 /obj/item/projectile/energy/warrant_generator/on_hit(atom/target)
 	. = ..()
 	if(!ishuman(target))
+		no_worky()
 		return
 	var/mob/living/carbon/human/target_to_mark = target
 	var/perpname = target_to_mark.get_visible_name(TRUE)
-	if(!perpname)
+	if(!perpname || perpname == "Unknown")
+		no_worky()
 		return
-	var/datum/data/record/Record = find_record("name", perpname, GLOB.data_core.security)
-	if(!Record)
+	var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
+	if(!R)
+		no_worky()
 		return
-	if(Record.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
+	if(R.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
+		no_worky()
 		return
-	set_criminal_status(usr, Record, setcriminal, SEC_RECORD_STATUS_ARREST, "Detective Revolver")
-
+	set_criminal_status(usr, R, SEC_RECORD_STATUS_ARREST, "Target tagged by Detective Revolver", "Detective Revolver")
 	qdel(src)
+
+/obj/item/projectile/energy/warrant_generator/proc/no_worky()
+	to_chat(firer, "<span class='danger'>Weapon Alert: unable to generate warrant on this target!</span>")
 
 /obj/item/projectile/energy/tracker_shot
 	name = "tracker shot"
+	damage = 5
+
+/obj/item/projectile/energy/tracker_shot/on_hit(atom/target)
+	. = ..()
+	if(!ishuman(target))
+		no_worky()
+		return
+	for(var/obj/item/gun/energy/detective/D in firer)
+		if(D.tracking)
+			no_worky(TRUE)
+			return
+		D.start_pointing(target)
+	qdel(src)
+
+/obj/item/projectile/energy/tracker_shot/proc/no_worky(tracking_already)
+	if(tracking_already)
+		to_chat(firer, "<span class='danger'>Weapon Alert: You are already tracking a target!</span>")
+		return
+	to_chat(firer, "<span class='danger'>Weapon Alert: unable to track this target!</span>")
