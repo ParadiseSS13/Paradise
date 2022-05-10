@@ -29,6 +29,7 @@
 	icon_state = "dirt"
 	canSmoothWith = list(/obj/effect/decal/cleanable/dirt, /turf/simulated/wall, /obj/structure/falsewall)
 	smooth = SMOOTH_MORE
+	mouse_opacity = FALSE
 
 /obj/effect/decal/cleanable/dirt/Initialize(mapload)
 	. = ..()
@@ -43,6 +44,7 @@
 	layer = TURF_LAYER
 	icon = 'icons/effects/dirt.dmi'
 	icon_state = "dust"
+	mouse_opacity = FALSE
 
 /obj/effect/decal/cleanable/dirt/blackpowder
 	name = "black powder"
