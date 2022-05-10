@@ -341,7 +341,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					data["jobs_service"] = GLOB.service_positions
 					data["jobs_supply"] = GLOB.supply_positions - "Head of Personnel"
 					data["jobs_assistant"] = GLOB.assistant_positions
-					data["jobs_karma"] = GLOB.whitelisted_positions
 					data["jobs_centcom"] = get_all_centcom_jobs()
 					data["jobFormats"] = SSjobs.format_jobs_for_id_computer(modify)
 					data["current_skin"] = modify.icon_state
