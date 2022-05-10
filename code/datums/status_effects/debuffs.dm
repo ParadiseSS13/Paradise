@@ -159,7 +159,7 @@
  */
 /datum/status_effect/transient/confusion
 	id = "confusion"
-	var/static/image/overlay
+	var/image/overlay
 
 /datum/status_effect/transient/confusion/tick()
 	. = ..()
@@ -202,8 +202,8 @@
 	return ..()
 
 /datum/status_effect/transient/dizziness/tick()
-	..()
-	if(QDELETED(src))
+	. = ..()
+	if(!.)
 		return
 	var/dir = sin(world.time * 2)
 	px_diff = cos(world.time * 3) * min(strength * 0.2, 32) * dir
@@ -224,8 +224,8 @@
 	id = "drowsiness"
 
 /datum/status_effect/transient/drowsiness/tick()
-	..()
-	if(QDELETED(src))
+	. = ..()
+	if(!.)
 		return
 	owner.EyeBlurry(4 SECONDS)
 	if(prob(5))
@@ -266,7 +266,7 @@
 
 /datum/status_effect/transient/drunkenness/tick()
 	. = ..()
-	if(QDELETED(src))
+	if(!.)
 		return
 
 	// Adjust actual drunkenness based on trait and organ presence
@@ -461,9 +461,10 @@
 	owner.do_jitter_animation(strength / 20, 1)
 
 /datum/status_effect/transient/jittery/tick()
-	..()
-	if(owner)
-		owner.do_jitter_animation(strength / 20, 1)
+	. = ..()
+	if(!.)
+		return
+	owner.do_jitter_animation(strength / 20, 1)
 
 /datum/status_effect/transient/jittery/calc_decay()
 	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
@@ -548,9 +549,10 @@
 	owner.update_blurry_effects()
 
 /datum/status_effect/transient/eye_blurry/tick()
-	..()
-	if(owner)
-		owner.update_blurry_effects()
+	. = ..()
+	if(!.)
+		return
+	owner.update_blurry_effects()
 
 /datum/status_effect/transient/eye_blurry/calc_decay()
 	if(ishuman(owner))
@@ -573,9 +575,10 @@
 	id = "blindness"
 
 /datum/status_effect/transient/blindness/tick()
-	..()
-	if(owner)
-		owner.update_blind_effects()
+	. = ..()
+	if(!.)
+		return
+	owner.update_blind_effects()
 
 /datum/status_effect/transient/blindness/on_remove()
 	owner.update_blind_effects()
@@ -600,9 +603,10 @@
 	id = "drugged"
 
 /datum/status_effect/transient/drugged/tick()
-	..()
-	if(owner)
-		owner.update_druggy_effects()
+	. = ..()
+	if(!.)
+		return
+	owner.update_druggy_effects()
 
 /datum/status_effect/transient/drugged/on_remove()
 	if(owner)
