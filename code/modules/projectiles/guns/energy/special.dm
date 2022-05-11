@@ -791,7 +791,7 @@
 	var/turf/L = get_turf(src)
 
 	if(!(T && L) || (T.z != L.z))
-		to_chat(user, "<span class='danger'>Weapon Alert: Target no longer detected in the sector!</span>")
+		visible_message("<span class='danger'>Weapon Alert: Target no longer detected in the sector!</span>")
 		stop_pointing()
 		return
 
@@ -799,13 +799,13 @@
 	var/range_icon
 	switch(get_dist(L, T))
 		if(-1 to 1)
-			range_icon = "det_placeholder_direct"
+			range_icon = "[icon_state]_direct"
 		if(2 to 8)
-			range_icon = "det_placeholder_close"
+			range_icon = "[icon_state]_close"
 		if(9 to 16)
-			range_icon = "det_placeholder_medium"
+			range_icon = "[icon_state]_medium"
 		if(16 to INFINITY)
-			range_icon = "det_placeholder_far"
+			range_icon = "[icon_state]_far"
 	add_overlay(image(icon = icon, icon_state = range_icon, dir = pointer_dir))
 	addtimer(CALLBACK(src, .proc/point_at), 2 SECONDS, TIMER_UNIQUE)
 
