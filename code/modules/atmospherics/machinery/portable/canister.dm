@@ -171,8 +171,12 @@ update_flag
 
 	if(update_flag & 1)
 		add_overlay("can-open")
+	if(update_flag & 2)
+		add_overlay("can-connector")
 	if(update_flag & 4)
 		add_overlay("can-o0")
+	if(update_flag & 8)
+		add_overlay("can-o1")
 	else if(update_flag & 16)
 		add_overlay("can-o2")
 	else if(update_flag & 32)
