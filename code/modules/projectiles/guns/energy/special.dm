@@ -803,6 +803,7 @@
 			user.EyeBlurry(10 SECONDS_TO_LIFE_CYCLES)
 			user.flash_eyes(1, TRUE)
 			user.unEquip(src)
+			cell.charge = 0 //ha ha you lose
 			return
 	..()
 
