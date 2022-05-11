@@ -772,7 +772,6 @@
 	/// Used to track if the gun is overcharged
 	var/overcharged
 
-
 /obj/item/gun/energy/detective/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message("[user] starts [overcharged ? "restoring" : "removing"] the safety limits on [src].", "You start [overcharged ? "restoring" : "removing"] the safety limits on [src]")
@@ -790,6 +789,22 @@
 		update_ammo_types()
 		select_fire(user)
 	user.visible_message("[user] [overcharged ? "removes" : "restores"] the safety limits on [src].", "You [overcharged ? "remove" : "restore" ] the safety limits on [src]")
+
+/obj/item/gun/energy/detective/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(!istype(I, /obj/item/ammo_box/magazine/detective/speedcharger))
+		return
+	var/obj/item/ammo_box/magazine/detective/speedcharger/S = I
+	if(!S.charge)
+		to_chat(user, "<span class='notice'>[S] has no charge to give!</span>")
+		return
+	if(cell.charge == cell.maxcharge)
+		to_chat(user, "<span class='notice'>[src] is already at full power!</span>")
+		return
+	var/new_speedcharger_charge = cell.give(S.charge)
+	S.charge -= new_speedcharger_charge
+	S.update_icon()
+	update_icon()
 
 /obj/item/gun/energy/detective/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
 	if(overcharged)

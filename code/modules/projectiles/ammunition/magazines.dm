@@ -527,3 +527,16 @@
 
 /obj/item/ammo_box/magazine/toy/smgm45/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
+
+/obj/item/ammo_box/magazine/detective/speedcharger //yes this doesn't really belong here but nowhere else works
+	name = "E-revolver charge pack"
+	desc = "One-use charge pack for the detectives energy revolver."
+	icon_state = "chargepack"
+	var/charge = 1000
+
+/obj/item/ammo_box/magazine/detective/speedcharger/update_icon()
+	var/icon_base = initial(icon_state)
+	var/charge_percent = (charge / initial(charge) * 100) //calculates charge %
+	var/charge_percent_rounded = round(charge_percent, 25) // to the nearest 25%
+	icon_state = "[icon_base]-[charge_percent_rounded]"
+	desc = "[initial(desc)] There is [charge_percent]% charge left!"

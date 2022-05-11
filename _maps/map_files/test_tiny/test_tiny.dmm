@@ -11,6 +11,10 @@
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"d" = (
+/obj/item/ammo_box/magazine/detective/speedcharger,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "p" = (
 /obj/machinery/light{
 	dir = 1
@@ -32047,8 +32051,8 @@ u
 x
 x
 I
-x
-x
+d
+d
 u
 a
 a
