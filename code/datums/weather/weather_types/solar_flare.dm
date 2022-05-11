@@ -15,9 +15,10 @@
 	end_duration = 10 // wind_down() does not do anything for this event, so we just trigger end() semi-immediately
 	end_message = null
 	area_type = /area/space // read generate_area_list() as well below
-	protected_areas = list()
+	protected_areas = list(/area/shuttle/arrival/station, /area/hallway/secondary/entry)
 	target_trait = STATION_LEVEL
 	immunity_type = "burn"
+	var/damage = 4
 
 /datum/weather/solar_flare/generate_area_list()
 	..()
@@ -39,15 +40,18 @@
 	. = ..()
 	if(.) //If true the mob is already affected, no need to keep processing
 		return TRUE
-	if(!. && istype(L, /mob/living/simple_animal)) //while this might break immersion, I don't want to spam the server with calling this on simplemobs
+	if(istype(L, /mob/living/simple_animal)) //while this might break immersion, I don't want to spam the server with calling this on simplemobs
 		return
 	for(var/turf/T in oview(L))
-		if(isspaceturf(T))
+		if(isspaceturf(T) || istransparentturf(T))
 			return TRUE
 	return
 
 /datum/weather/solar_flare/weather_act(mob/living/L)
-	L.adjustFireLoss(4)
+	var/adjusted_damage = damage
+	if(get_area(L) in protected_areas) //we do wanna protect new arrivals from horrible death
+		adjusted_damage = 1
+	L.adjustFireLoss(adjusted_damage)
 	L.flash_eyes()
 	if(prob(25))
 		to_chat(L, "<span class='warning'>The solar flare burns you! Seek shelter!</span>")
