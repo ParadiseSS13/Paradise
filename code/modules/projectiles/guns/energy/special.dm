@@ -772,9 +772,6 @@
 	/// Used to track if the gun is overcharged
 	var/overcharged
 
-/obj/item/gun/energy/detective/Initialize(mapload, ...)
-	. = ..()
-
 
 /obj/item/gun/energy/detective/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -806,7 +803,6 @@
 			cell.charge = 0 //ha ha you lose
 			return
 	..()
-
 
 /obj/item/gun/energy/detective/proc/start_pointing(target_UID)
 	tracking_target_UID = target_UID
