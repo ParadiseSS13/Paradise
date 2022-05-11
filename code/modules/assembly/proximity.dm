@@ -15,7 +15,7 @@
 
 /obj/item/assembly/prox_sensor/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
+	AddComponent(/datum/component/proximity_monitor, _always_active = TRUE)
 
 /obj/item/assembly/prox_sensor/describe()
 	if(timing)

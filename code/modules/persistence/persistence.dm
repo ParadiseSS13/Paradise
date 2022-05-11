@@ -45,8 +45,7 @@
 /atom/serialize()
 	var/list/data = ..()
 	for(var/thing in vars_to_save())
-		if(vars[thing] != initial(vars[thing]))
-			data[thing] = vars[thing]
+		data[thing] = vars[thing] // Can't check initial() because it doesn't work on a list index
 	return data
 
 

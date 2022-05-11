@@ -3,25 +3,23 @@
 	icon_state = "questionmark"
 	color = "#00FF00"
 	var/lootcount = 1		//how many items will be spawned
-	var/lootdoubles = 1		//if the same item can be spawned twice
+	var/lootdoubles = TRUE		//if the same item can be spawned twice
 	var/list/loot			//a list of possible items to spawn e.g. list(/obj/item, /obj/structure, /obj/effect)
 
-/obj/effect/spawner/lootdrop/New()
-	..()
-	if(loot && loot.len)
-		for(var/i = lootcount, i > 0, i--)
-			if(!loot.len) break
-			var/lootspawn = pickweight(loot)
-			if(!lootdoubles)
-				loot.Remove(lootspawn)
-
-			if(lootspawn)
-				new lootspawn(loc)
+/obj/effect/spawner/lootdrop/Initialize(mapload)
+	. = ..()
+	while(lootcount)
+		var/lootspawn = pickweight(loot)
+		if(!lootdoubles)
+			loot.Remove(lootspawn)
+		if(lootspawn)
+			new lootspawn(get_turf(src))
+		lootcount--
 	qdel(src)
 
 /obj/effect/spawner/lootdrop/armory_contraband
 	name = "armory contraband gun spawner"
-	lootdoubles = 0
+	lootdoubles = FALSE
 
 	loot = list(
 				/obj/item/gun/projectile/automatic/pistol = 8,
@@ -151,7 +149,7 @@
 				/obj/item/dnascrambler = 1,
 				/obj/item/storage/backpack/satchel_flat = 2,
 				/obj/item/storage/toolbox/syndicate = 2,
-				/obj/item/storage/backpack/duffel/syndie/surgery_fake = 2,
+				/obj/item/storage/backpack/duffel/syndie/med/surgery_fake = 2,
 				/obj/item/storage/belt/military/traitor = 2,
 				/obj/item/storage/box/syndie_kit/space = 2,
 				/obj/item/multitool/ai_detect = 2,
@@ -181,8 +179,7 @@
 
 /obj/effect/spawner/lootdrop/crate_spawner // for ruins
 	name = "lootcrate spawner"
-	lootdoubles = 0
-
+	lootdoubles = FALSE
 	loot = list(
 				/obj/structure/closet/crate/secure/loot = 20,
 				"" = 80,
@@ -193,7 +190,6 @@
 /obj/effect/spawner/lootdrop/trade_sol/
 	name = "trader item spawner"
 	lootcount = 6
-	lootdoubles = 1
 	color = "#00FFFF"
 
 
@@ -218,7 +214,6 @@
 
 /obj/effect/spawner/lootdrop/trade_sol/minerals
 	name = "2. minerals"
-	lootdoubles = 1
 	loot = list(
 				// Common stuff you get from mining which isn't already present on the station
 				// Note that plasma and derived hybrid materials are NOT included in this list because plasma is the trader's objective!
@@ -240,20 +235,13 @@
 				/obj/item/stack/sheet/mineral/sandstone = 50
 				)
 
-/obj/effect/spawner/lootdrop/trade_sol/minerals/New()
-	if(loot && loot.len)
-		for(var/i = lootcount, i > 0, i--)
-			if(!loot.len)
-				break
-			var/lootspawn = pickweight(loot)
-			if(!lootdoubles)
-				loot.Remove(lootspawn)
-			if(lootspawn)
-				var/obj/item/stack/sheet/S = new lootspawn(get_turf(src))
-				S.amount = 25
+/obj/effect/spawner/lootdrop/trade_sol/minerals/Initialize(mapload)
+	while(lootcount)
+		var/lootspawn = pickweight(loot)
+		var/obj/item/stack/sheet/S = new lootspawn(get_turf(src))
+		S.amount = 25
+		lootcount--
 	. = ..()
-	qdel(src)
-
 
 /obj/effect/spawner/lootdrop/trade_sol/donksoft
 	name = "3. donksoft gear"
@@ -366,16 +354,14 @@
 				/obj/vehicle/space/speedbike = 50
 				)
 
-/obj/effect/spawner/lootdrop/trade_sol/vehicle/New()
-	if(!loot.len)
-		return
-	var/lootspawn = pickweight(loot)
-	var/obj/vehicle/V = new lootspawn(get_turf(src))
-	if(V.key_type)
-		new V.key_type(get_turf(src))
+/obj/effect/spawner/lootdrop/trade_sol/vehicle/Initialize(mapload)
+	while(lootcount)
+		var/lootspawn = pickweight(loot)
+		var/obj/vehicle/V = new lootspawn(get_turf(src))
+		if(V.key_type)
+			V.inserted_key = new V.key_type(V)
+		lootcount--
 	. = ..()
-	qdel(src)
-
 
 /obj/effect/spawner/lootdrop/trade_sol/serv
 	name = "10. service gear"
@@ -423,6 +409,6 @@
 			/obj/item/reagent_containers/food/snacks/bigbiteburger,
 			/obj/item/reagent_containers/food/snacks/superbiteburger)
 
-/obj/effect/spawner/lootdrop/three_course_meal/New()
+/obj/effect/spawner/lootdrop/three_course_meal/Initialize(mapload)
 	loot = list(pick(soups) = 1,pick(salads) = 1,pick(mains) = 1)
 	. = ..()

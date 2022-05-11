@@ -1,7 +1,7 @@
 // Hellhound
 /mob/living/simple_animal/hostile/hellhound
 	// Sprites by FoS: https://www.paradisestation.org/forum/profile/335-fos
-	name = "Lesser Hellhound"
+	name = "lesser hellhound"
 	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. A firey, lava-like substance drips from it."
 	icon_state = "hellhound"
 	icon_living = "hellhound"
@@ -101,7 +101,7 @@
 			target = user
 
 /mob/living/simple_animal/hostile/hellhound/greater
-	name = "Greater Hellhound"
+	name = "greater hellhound"
 	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. Greater hounds are far stronger than their lesser kin, and typically employed by powerful bluespace entities."
 	icon_state = "hellhoundgreater"
 	icon_living = "hellhoundgreater"
@@ -152,3 +152,11 @@
 	var/datum/effect_system/smoke_spread/sleeping/smoke = new
 	smoke.set_up(10, 0, loc)
 	smoke.start()
+
+/mob/living/simple_animal/hostile/hellhound/tear
+	name = "frenzied hellhound"
+	maxHealth = 300
+	health = 300
+	melee_damage_lower = 30
+	melee_damage_upper = 50
+	faction = list("rift")

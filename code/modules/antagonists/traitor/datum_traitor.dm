@@ -23,9 +23,9 @@
 
 	owner.som.masters += owner
 	SSticker.mode.traitors |= owner
-	return ..()
+	..()
 
-/datum/antagonist/traitor/on_removal()
+/datum/antagonist/traitor/Destroy(force, ...)
 	// Remove all associated malf AI abilities.
 	if(isAI(owner.current))
 		var/mob/living/silicon/ai/A = owner.current
@@ -46,7 +46,6 @@
 		owner.som = null
 
 	owner.current.client.chatOutput?.clear_syndicate_codes()
-	assigned_targets.Cut()
 	SSticker.mode.traitors -= owner
 	return ..()
 

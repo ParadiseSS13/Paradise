@@ -160,6 +160,8 @@ SUBSYSTEM_DEF(vote)
 	. = announce_result()
 	var/restart = 0
 	if(.)
+		for(var/option in choices)
+			SSblackbox.record_feedback("nested tally", "votes", choices[option], list(mode, option), ignore_seal = TRUE)
 		switch(mode)
 			if("restart")
 				if(. == "Restart Round")
@@ -182,12 +184,12 @@ SUBSYSTEM_DEF(vote)
 				var/datum/map/top_voted_map
 				for(var/x in subtypesof(/datum/map))
 					var/datum/map/M = x
-					// Set top voted map
-					if(. == "[initial(M.fluff_name)] ([initial(M.technical_name)])")
-						top_voted_map = M
+					if(initial(M.voteable))
+						// Set top voted map
+						if(. == "[initial(M.fluff_name)] ([initial(M.technical_name)])")
+							top_voted_map = M
 				to_chat(world, "<font color='purple'>Map for next round: [initial(top_voted_map.fluff_name)] ([initial(top_voted_map.technical_name)])</font>")
 				SSmapping.next_map = new top_voted_map
-
 
 	if(restart)
 		SSticker.reboot_helper("Restart vote successful.", "restart vote")
@@ -239,7 +241,8 @@ SUBSYSTEM_DEF(vote)
 				question = "Map for next round"
 				for(var/x in subtypesof(/datum/map))
 					var/datum/map/M = x
-					choices.Add("[initial(M.fluff_name)] ([initial(M.technical_name)])")
+					if(initial(M.voteable))
+						choices.Add("[initial(M.fluff_name)] ([initial(M.technical_name)])")
 
 			if("custom")
 				question = html_encode(input(usr,"What is the vote for?") as text|null)

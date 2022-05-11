@@ -125,7 +125,8 @@
 	set category = "Debug"
 
 	// It's gated by "Debug Verbs", so might as well gate it to the debug permission
-	if(!check_rights(R_DEBUG))
+	// AA: This seems harmless but is **incredibly** powerful and dangerous. Maints only.
+	if(!check_rights(R_MAINTAINER))
 		return
 
 	var/refstring = clean_input("Which reference?","Ref")

@@ -120,7 +120,7 @@
 				list("entry" = "Nitrogen", "units" = "%", "val" = "[round(n2_level*100,0.1)]", "bad_high" = 105, "poor_high" = 85, "poor_low" = 50, "bad_low" = 40),
 				list("entry" = "Carbon Dioxide", "units" = "%", "val" = "[round(co2_level*100,0.1)]", "bad_high" = 10, "poor_high" = 5, "poor_low" = 0, "bad_low" = 0),
 				list("entry" = "Plasma", "units" = "%", "val" = "[round(plasma_level*100,0.01)]", "bad_high" = 0.5, "poor_high" = 0, "poor_low" = 0, "bad_low" = 0),
-				list("entry" = "Other", "units" = "%", "val" = "[round(unknown_level, 0.01)]", "bad_high" = 1, "poor_high" = 0.5, "poor_low" = 0, "bad_low" = 0)
+				list("entry" = "Other", "units" = "%", "val" = "[round(unknown_level*100,0.01)]", "bad_high" = 1, "poor_high" = 0.5, "poor_low" = 0, "bad_low" = 0)
 			)
 
 	if(isnull(results))

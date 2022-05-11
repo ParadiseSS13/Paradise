@@ -1214,6 +1214,10 @@
 /area/mine/production)
 "cL" = (
 /obj/machinery/space_heater,
+/obj/item/gps/ruin{
+	gpstag = "BASE0";
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating,
 /area/mine/production)
 "cM" = (

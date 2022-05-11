@@ -4,6 +4,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "flash"
 	item_state = "flashtool"	//looks exactly like a flash (and nothing like a flashbang)
+	belt_icon = "flash"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3

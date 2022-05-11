@@ -4,6 +4,7 @@
 	icon_state = "stunbaton"
 	var/base_icon = "stunbaton"
 	item_state = "baton"
+	belt_icon = "stunbaton"
 	slot_flags = SLOT_BELT
 	force = 10
 	throwforce = 7
@@ -81,7 +82,7 @@
 
 /obj/item/melee/baton/throw_impact(atom/hit_atom)
 	..()
-	if(prob(throw_hit_chance) && turned_on && isliving(hit_atom))
+	if(prob(throw_hit_chance) && turned_on && isliving(hit_atom) && !issilicon(hit_atom))
 		baton_stun(hit_atom)
 
 /**

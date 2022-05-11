@@ -7,7 +7,6 @@
 	var/be_random_name = FALSE				//whether we are a random name every round
 	var/gender = MALE						//gender of character (well duh)
 	var/age = 30							//age of character
-	var/spawnpoint = "Arrivals Shuttle" 	//where this character will spawn (0-2).
 	var/b_type = "A+"						//blood type (not-chooseable)
 	var/underwear = "Nude"					//underwear type
 	var/undershirt = "Nude"					//undershirt type
@@ -62,10 +61,6 @@
 	var/job_engsec_high = 0
 	var/job_engsec_med = 0
 	var/job_engsec_low = 0
-
-	var/job_karma_high = 0
-	var/job_karma_med = 0
-	var/job_karma_low = 0
 
 	//Keeps track of preferrence for not getting any wanted jobs
 	var/alternate_option = 2
@@ -171,9 +166,6 @@
 					job_engsec_high=:job_engsec_high,
 					job_engsec_med=:job_engsec_med,
 					job_engsec_low=:job_engsec_low,
-					job_karma_high=:job_karma_high,
-					job_karma_med=:job_karma_med,
-					job_karma_low=:job_karma_low,
 					flavor_text=:flavor_text,
 					med_record=:med_record,
 					sec_record=:sec_record,
@@ -230,9 +222,6 @@
 						"job_engsec_high" = job_engsec_high,
 						"job_engsec_med" = job_engsec_med,
 						"job_engsec_low" = job_engsec_low,
-						"job_karma_high" = job_karma_high,
-						"job_karma_med" = job_karma_med,
-						"job_karma_low" = job_karma_low,
 						"flavor_text" = flavor_text,
 						"med_record" = med_record,
 						"sec_record" = sec_record,
@@ -284,7 +273,6 @@
 			job_support_high, job_support_med, job_support_low,
 			job_medsci_high, job_medsci_med, job_medsci_low,
 			job_engsec_high, job_engsec_med, job_engsec_low,
-			job_karma_high, job_karma_med, job_karma_low,
 			flavor_text,
 			med_record,
 			sec_record,
@@ -312,7 +300,6 @@
 			:job_support_high, :job_support_med, :job_support_low,
 			:job_medsci_high, :job_medsci_med, :job_medsci_low,
 			:job_engsec_high, :job_engsec_med, :job_engsec_low,
-			:job_karma_high, :job_karma_med, :job_karma_low,
 			:flavor_text,
 			:med_record,
 			:sec_record,
@@ -360,9 +347,6 @@
 		"job_engsec_high" = job_engsec_high,
 		"job_engsec_med" = job_engsec_med,
 		"job_engsec_low" = job_engsec_low,
-		"job_karma_high" = job_karma_high,
-		"job_karma_med" = job_karma_med,
-		"job_karma_low" = job_karma_low,
 		"flavor_text" = flavor_text,
 		"med_record" = med_record,
 		"sec_record" = sec_record,
@@ -433,15 +417,12 @@
 	job_engsec_high = text2num(query.item[33])
 	job_engsec_med = text2num(query.item[34])
 	job_engsec_low = text2num(query.item[35])
-	job_karma_high = text2num(query.item[36])
-	job_karma_med = text2num(query.item[37])
-	job_karma_low = text2num(query.item[38])
 
 	//Miscellaneous
-	flavor_text = query.item[39]
-	med_record = query.item[40]
-	sec_record = query.item[41]
-	gen_record = query.item[42]
+	flavor_text = query.item[36]
+	med_record = query.item[37]
+	sec_record = query.item[38]
+	gen_record = query.item[39]
 	// Apparently, the preceding vars weren't always encoded properly...
 	if(findtext(flavor_text, "<")) // ... so let's clumsily check for tags!
 		flavor_text = html_encode(flavor_text)
@@ -451,23 +432,23 @@
 		sec_record = html_encode(sec_record)
 	if(findtext(gen_record, "<"))
 		gen_record = html_encode(gen_record)
-	disabilities = text2num(query.item[43])
-	player_alt_titles = params2list(query.item[44])
-	organ_data = params2list(query.item[45])
-	rlimb_data = params2list(query.item[46])
-	nanotrasen_relation = query.item[47]
-	speciesprefs = text2num(query.item[48])
+	disabilities = text2num(query.item[40])
+	player_alt_titles = params2list(query.item[41])
+	organ_data = params2list(query.item[42])
+	rlimb_data = params2list(query.item[43])
+	nanotrasen_relation = query.item[44]
+	speciesprefs = text2num(query.item[45])
 
 	//socks
-	socks = query.item[49]
-	body_accessory = query.item[50]
-	loadout_gear = query.item[51]
-	autohiss_mode = text2num(query.item[52])
-
-	h_grad_style = query.item[54]
-	h_grad_offset_x = query.item[55] // parsed down below
-	h_grad_colour = query.item[56]
-	h_grad_alpha = query.item[57]
+	socks = query.item[46]
+	body_accessory = query.item[47]
+	loadout_gear = query.item[48]
+	autohiss_mode = text2num(query.item[49])
+	// Index [50] is the slot
+	h_grad_style = query.item[51]
+	h_grad_offset_x = query.item[52] // parsed down below
+	h_grad_colour = query.item[53]
+	h_grad_alpha = query.item[54]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -528,9 +509,6 @@
 	job_engsec_high = sanitize_integer(job_engsec_high, 0, 65535, initial(job_engsec_high))
 	job_engsec_med = sanitize_integer(job_engsec_med, 0, 65535, initial(job_engsec_med))
 	job_engsec_low = sanitize_integer(job_engsec_low, 0, 65535, initial(job_engsec_low))
-	job_karma_high = sanitize_integer(job_karma_high, 0, 65535, initial(job_karma_high))
-	job_karma_med = sanitize_integer(job_karma_med, 0, 65535, initial(job_karma_med))
-	job_karma_low = sanitize_integer(job_karma_low, 0, 65535, initial(job_karma_low))
 	disabilities = sanitize_integer(disabilities, 0, 65535, initial(disabilities))
 
 	socks			= sanitize_text(socks, initial(socks))
@@ -862,7 +840,7 @@
 				icon_state = "[coloured_tail]_s"
 			else
 				icon_state = "[current_species.tail]_s"
-		
+
 		if(icon)
 			var/icon/temp = new(icon, icon_state)
 			if(current_species.bodyflags & HAS_SKIN_COLOR)
@@ -1444,8 +1422,6 @@
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-norm"), ICON_OVERLAY)
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
-	else if(job_karma_high)
-		switch(job_karma_high)
 			if(JOB_NANO)
 				clothes_s = new /icon(uniform_dmi, "officer_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
@@ -1528,11 +1504,9 @@
 		job_support_med |= job_support_high
 		job_engsec_med |= job_engsec_high
 		job_medsci_med |= job_medsci_high
-		job_karma_med |= job_karma_high
 		job_support_high = 0
 		job_engsec_high = 0
 		job_medsci_high = 0
-		job_karma_high = 0
 
 	if(job.department_flag == JOBCAT_SUPPORT)
 		job_support_low &= ~job.flag
@@ -1574,20 +1548,6 @@
 				job_medsci_med |= job.flag
 			if(3)
 				job_medsci_low |= job.flag
-
-		return 1
-	else if(job.department_flag == JOBCAT_KARMA)
-		job_karma_low &= ~job.flag
-		job_karma_med &= ~job.flag
-		job_karma_high &= ~job.flag
-
-		switch(level)
-			if(1)
-				job_karma_high |= job.flag
-			if(2)
-				job_karma_med |= job.flag
-			if(3)
-				job_karma_low |= job.flag
 
 		return 1
 
@@ -1685,11 +1645,6 @@
 	job_engsec_med = 0
 	job_engsec_low = 0
 
-	job_karma_high = 0
-	job_karma_med = 0
-	job_karma_low = 0
-
-
 /datum/character_save/proc/GetJobDepartment(datum/job/job, level)
 	if(!job || !level)	return 0
 	switch(job.department_flag)
@@ -1717,14 +1672,6 @@
 					return job_engsec_med
 				if(3)
 					return job_engsec_low
-		if(JOBCAT_KARMA)
-			switch(level)
-				if(1)
-					return job_karma_high
-				if(2)
-					return job_karma_med
-				if(3)
-					return job_karma_low
 	return 0
 
 /datum/character_save/proc/SetJobDepartment(datum/job/job, level)
@@ -1734,17 +1681,14 @@
 			job_support_high = 0
 			job_medsci_high = 0
 			job_engsec_high = 0
-			job_karma_high = 0
 			return 1
 		if(2)//Set current highs to med, then reset them
 			job_support_med |= job_support_high
 			job_medsci_med |= job_medsci_high
 			job_engsec_med |= job_engsec_high
-			job_karma_med |= job_karma_high
 			job_support_high = 0
 			job_medsci_high = 0
 			job_engsec_high = 0
-			job_karma_high = 0
 
 	switch(job.department_flag)
 		if(JOBCAT_SUPPORT)
@@ -1777,16 +1721,6 @@
 					job_engsec_low &= ~job.flag
 				else
 					job_engsec_low |= job.flag
-		if(JOBCAT_KARMA)
-			switch(level)
-				if(2)
-					job_karma_high = job.flag
-					job_karma_med &= ~job.flag
-				if(3)
-					job_karma_med |= job.flag
-					job_karma_low &= ~job.flag
-				else
-					job_karma_low |= job.flag
 	return 1
 
 /datum/character_save/proc/copy_to(mob/living/carbon/human/character)
@@ -1957,7 +1891,7 @@
 
 //Check if the user has ANY job selected.
 /datum/character_save/proc/check_any_job()
-	return(job_support_high || job_support_med || job_support_low || job_medsci_high || job_medsci_med || job_medsci_low || job_engsec_high || job_engsec_med || job_engsec_low || job_karma_high || job_karma_med || job_karma_low)
+	return(job_support_high || job_support_med || job_support_low || job_medsci_high || job_medsci_med || job_medsci_low || job_engsec_high || job_engsec_med || job_engsec_low)
 
 
 /datum/character_save/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Head of Security", "Bartender"), widthPerColumn = 400, height = 700)
@@ -2018,9 +1952,6 @@
 			else
 				rank = job.title
 			lastJob = job
-			if(!is_job_whitelisted(user, job.title))
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[KARMA]</b></td></tr>"
-				continue
 			if(jobban_isbanned(user, job.title))
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[BANNED]</b></td></tr>"
 				continue

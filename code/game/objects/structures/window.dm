@@ -515,6 +515,7 @@
 	name = "window tint control"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "light0"
+	anchored = TRUE
 	desc = "A remote control switch for polarized windows."
 	var/range = 7
 	var/id = 0
