@@ -46,7 +46,7 @@
 	..()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(cell.charge > shot.e_cost)
-		overlays += "decloner_spin"
+		add_overlay("decloner_spin")
 
 // Flora Gun //
 /obj/item/gun/energy/floragun
@@ -761,35 +761,46 @@
 	name = "placeholder_det_energy"
 	desc = "Placeholder description text for energy revolver"
 	icon_state = "det_placeholder"
+	modifystate = TRUE
+	atom_say_verb = "coldly states"
 	ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/warrant_generator, /obj/item/ammo_casing/energy/tracker)
+	ammo_x_offset = 4
 	/// If true, this gun is tracking something and cannot track another mob
-	var/tracking_target
+	var/tracking_target_UID
+	/// Used to track the looping timer for deletion
+	var/tracking_timer
 
-/obj/item/gun/energy/detective/proc/start_pointing(atom/target)
-	tracking_target = target
-	point_at()
+/obj/item/gun/energy/detective/proc/start_pointing(target_UID)
+	tracking_target_UID = target_UID
+	tracking_timer = addtimer(CALLBACK(src, .proc/point_at), 1 SECONDS, TIMER_LOOP|TIMER_STOPPABLE)
 	addtimer(CALLBACK(src, .proc/stop_pointing), 30 SECONDS, TIMER_UNIQUE)
 
 /obj/item/gun/energy/detective/proc/stop_pointing()
-	tracking_target = null
+	tracking_target_UID = null
+	deltimer(tracking_timer)
+	update_icon()
+	locateUID()
 
 /obj/item/gun/energy/detective/proc/point_at()
 	update_icon() //This cuts any existing range overlays
+	var/tracking_target = locateUID(tracking_target_UID)
 	if(!tracking_target)
 		return
 
 	var/turf/T = get_turf(tracking_target)
-	var/turf/L = get_turf(usr)
+	var/turf/L = get_turf(src)
 
 	if(!(T && L) || (T.z != L.z))
+		to_chat(user, "<span class='danger'>Weapon Alert: Target no longer detected in the sector!</span>")
+		stop_pointing()
 		return
 
 	var/pointer_dir = get_dir(L, T)
 	var/range_icon
 	switch(get_dist(L, T))
-		if(-1)
+		if(-1 to 1)
 			range_icon = "det_placeholder_direct"
-		if(1 to 8)
+		if(2 to 8)
 			range_icon = "det_placeholder_close"
 		if(9 to 16)
 			range_icon = "det_placeholder_medium"

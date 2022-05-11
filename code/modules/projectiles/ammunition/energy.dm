@@ -324,7 +324,7 @@
 	projectile_type = /obj/item/projectile/energy/warrant_generator
 	e_cost = 50
 	delay = 10 SECONDS
-	select_name = "disable"
+	select_name = "ion"
 
 /obj/item/ammo_casing/energy/tracker
 	projectile_type = /obj/item/projectile/energy/tracker_shot

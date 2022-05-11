@@ -192,10 +192,10 @@
 		no_worky(target)
 		return
 	for(var/obj/item/gun/energy/detective/D in firer)
-		if(D.tracking_target)
+		if(D.tracking_target_UID)
 			no_worky(tracking_already = TRUE)
 			return
-		D.start_pointing(target)
+		D.start_pointing(target.UID())
 	qdel(src)
 
 /obj/item/projectile/energy/tracker_shot/proc/no_worky(atom/target, tracking_already)
