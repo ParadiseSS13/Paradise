@@ -11,8 +11,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/datum/mind/owner
 	/// Should the owner mob get a greeting text? Determines whether or not the `greet()` proc is called.
 	var/silent = FALSE
-	/// List of antagonist datums that this type can't coexist with.
-	var/list/typecache_datum_blacklist
+	/// List of other antag datum types that this type can't coexist with.
+	var/list/antag_datum_blacklist
 	/// Should this datum be deleted when the owner's mind is deleted.
 	var/delete_on_mind_deletion = TRUE
 	/// Used to determine if the player jobbanned from this role. Things like `SPECIAL_ROLE_TRAITOR` should go here to determine the role.
@@ -44,13 +44,19 @@ GLOBAL_LIST_EMPTY(antagonists)
 	GLOB.antagonists += src
 	objectives = list()
 	assigned_targets = list()
-	typecache_datum_blacklist = typecacheof(typecache_datum_blacklist)
 
-/datum/antagonist/Destroy()
+/datum/antagonist/Destroy(force, ...)
 	QDEL_LIST(objectives)
 	GLOB.antagonists -= src
+	if(!silent)
+		farewell()
+	remove_innate_effects()
+	antag_memory = null
+	var/datum/team/team = get_team()
+	team?.remove_member(owner)
 	if(owner)
 		LAZYREMOVE(owner.antag_datums, src)
+	restore_last_hud_and_role()
 	owner = null
 	return ..()
 
@@ -65,17 +71,9 @@ GLOBAL_LIST_EMPTY(antagonists)
 		return FALSE
 	for(var/i in tested.antag_datums)
 		var/datum/antagonist/A = i
-		if(is_type_in_typecache(src, A.typecache_datum_blacklist))
+		if(LAZYIN(A.antag_datum_blacklist, type))
 			return FALSE
 	return TRUE
-
-/**
- * This will be called in `add_antag_datum` before owner assignment.
- *
- * Should return antagonist datum without owner.
- */
-/datum/antagonist/proc/specialization(datum/mind/new_owner)
-	return src
 
 /**
  * Removes antagonist datum effects from the old body and applies it to the new one.
@@ -97,14 +95,16 @@ GLOBAL_LIST_EMPTY(antagonists)
  * If they're a clown, removes their clumsy mutataion.
  *
  * Arguments:
- * * new_body - the new body that the antag mob is transferring into.
+ * * mob/living/mob_override - a mob to apply effects to. Can be null.
  */
-/datum/antagonist/proc/apply_innate_effects(mob/living/new_body)
-	var/mob/living/L = new_body || owner.current
+/datum/antagonist/proc/apply_innate_effects(mob/living/mob_override)
+	SHOULD_CALL_PARENT(TRUE)
+	var/mob/living/L = mob_override || owner.current
 	if(antag_hud_type && antag_hud_name)
 		add_antag_hud(L)
-	// If `new_body` exists it means we're only transferring this datum, we don't need to show the clown any text.
-	handle_clown_mutation(L, new_body ? null : clown_gain_text, TRUE)
+	// If `mob_override` exists it means we're only transferring this datum, we don't need to show the clown any text.
+	handle_clown_mutation(L, mob_override ? null : clown_gain_text, TRUE)
+	return L
 
 /**
  * This handles the removal of antag huds/special abilities.
@@ -113,14 +113,16 @@ GLOBAL_LIST_EMPTY(antagonists)
  * If they're a clown, gives them back their clumsy mutataion.
  *
  * Arguments:
- * * old_body - the old body the antag is leaving behind.
+ * * mob/living/mob_override - a mob to remove effects from. Can be null.
  */
-/datum/antagonist/proc/remove_innate_effects(mob/living/old_body)
-	var/mob/living/L = old_body || owner.current
+/datum/antagonist/proc/remove_innate_effects(mob/living/mob_override)
+	SHOULD_CALL_PARENT(TRUE)
+	var/mob/living/L = mob_override || owner.current
 	if(antag_hud_type && antag_hud_name)
 		remove_antag_hud(L)
-	// If `old_body` exists it means we're only transferring this datum, we don't need to show the clown any text.
-	handle_clown_mutation(L, old_body ? null : clown_removal_text)
+	// If `mob_override` exists it means we're only transferring this datum, we don't need to show the clown any text.
+	handle_clown_mutation(L, mob_override ? null : clown_removal_text)
+	return L
 
 /**
  * Adds this datum's antag hud to `antag_mob`.
@@ -184,8 +186,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/give_objectives()
 	return
 
-#define NO_TARGET_OBJECTIVES list(/datum/objective/escape, /datum/objective/hijack, /datum/objective/survive, /datum/objective/block, /datum/objective/die)
-
 /**
  * Create and add an objective of the given type.
  *
@@ -194,13 +194,20 @@ GLOBAL_LIST_EMPTY(antagonists)
  *
  * Arguments:
  * * objective_type - A type path of an objective, for example: /datum/objective/steal
+ * * explanation_text - the explanation text that will be passed into the objective's `New()` proc
+ * * mob/target_override - a target for the objective
  */
-/datum/antagonist/proc/add_objective(objective_type)
-	var/datum/objective/O = new objective_type
+/datum/antagonist/proc/add_objective(objective_type, explanation_text = "", mob/target_override = null)
+	var/datum/objective/O = new objective_type(explanation_text)
 	O.owner = owner
 
-	if(is_type_in_list(O, NO_TARGET_OBJECTIVES))
-		objectives += O // No need to find a target, just add the objective and return.
+	if(target_override)
+		O.target = target_override
+		objectives += O
+		return
+
+	if(!O.needs_target)
+		objectives += O
 		return
 
 	O.find_target()
@@ -229,8 +236,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 			assigned_targets += "[O.target]"
 
 	objectives += O
-
-#undef NO_TARGET_OBJECTIVES
 
 /**
  * Announces all objectives of this datum, and only this datum.
@@ -262,22 +267,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(is_banned(owner.current) && replace_banned)
 		INVOKE_ASYNC(src, .proc/replace_banned_player)
 	return TRUE
-
-/**
- * Called when `remove_antag_datum()` is called on the owner's mind.
- *
- * Removes all effects this datum granted and deletes itself afterwards.
- */
-/datum/antagonist/proc/on_removal()
-	if(!silent)
-		farewell()
-	remove_innate_effects()
-	antag_memory = null
-	var/datum/team/team = get_team()
-	team?.remove_member(owner)
-	LAZYREMOVE(owner.antag_datums, src)
-	restore_last_hud_and_role()
-	qdel(src)
 
 /**
  * Re-sets the antag hud and `special_role` of the owner to that of the previous antag datum they had before this one was added.

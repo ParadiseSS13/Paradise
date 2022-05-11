@@ -11,7 +11,6 @@
 	active_power_usage = 0
 	max_integrity = 150
 	integrity_failure = 50
-	var/id = 0
 	var/obscured = 0
 	var/sunfrac = 0
 	var/adir = SOUTH // actual dir
@@ -270,7 +269,6 @@
 	integrity_failure = 100
 	var/icon_screen = "solar"
 	var/icon_keyboard = "power_key"
-	var/id = 0
 	var/cdir = 0
 	var/targetdir = 0		// target angle in manual tracking (since it updates every game minute)
 	var/gen = 0
