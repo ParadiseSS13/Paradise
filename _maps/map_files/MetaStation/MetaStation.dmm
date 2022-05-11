@@ -32358,9 +32358,6 @@
 /area/library)
 "bQc" = (
 /obj/machinery/disposal,
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/alarm{
 	name = "north bump";
 	pixel_y = 24
@@ -32372,6 +32369,9 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/ntrep)
@@ -67549,8 +67549,8 @@
 	},
 /area/security/armoury)
 "kfU" = (
-/obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "kgx" = (
@@ -84139,7 +84139,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurplefull"
+	icon_state = "darkpurplefull"
 	},
 /area/toxins/server)
 "sCU" = (
