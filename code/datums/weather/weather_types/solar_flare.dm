@@ -39,7 +39,7 @@
 	. = ..()
 	if(.) //If true the mob is already affected, no need to keep processing
 		return TRUE
-	if(!. && istype(L, /mob/living/simple_animal)) //while this might break immersion, I don't want to spam the server with calling this on simplemobs
+	if(istype(L, /mob/living/simple_animal)) //while this might break immersion, I don't want to spam the server with calling this on simplemobs
 		return
 	for(var/turf/T in oview(L))
 		if(isspaceturf(T))
