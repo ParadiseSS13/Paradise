@@ -5348,12 +5348,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/airlock/maintenance{
-	name = "Fore-Starboard Maintenance"
-	},
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
-/area/engine/gravitygenerator)
+/area/maintenance/fsmaint)
 "azu" = (
 /obj/item/stack/sheet/cardboard,
 /obj/item/flashlight,
@@ -13324,7 +13323,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /turf/simulated/floor/plasteel,
-/area/construction)
+/area/maintenance/fpmaint)
 "aVG" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
@@ -28400,18 +28399,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/theatre)
-"bEE" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/maintenance{
-	name = "Fore-Starboard Maintenance"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/turf/simulated/floor/plating,
-/area/engine/gravitygenerator)
 "bEF" = (
 /obj/structure/table/wood,
 /obj/structure/sign/poster/random{
@@ -34140,10 +34127,6 @@
 	})
 "bVf" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/maintenance{
-	name = "Aft-Port Maintenance"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -34151,8 +34134,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
-/area/medical/surgeryobs)
+/area/maintenance/apmaint)
 "bVg" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster/security_unit{
@@ -46961,10 +46947,6 @@
 /area/medical/cryo)
 "cGn" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/maintenance{
-	name = "Aft Maintenance"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -46972,8 +46954,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
-/area/medical/surgeryobs)
+/area/maintenance/aft)
 "cGo" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/apmaint)
@@ -51890,21 +51875,6 @@
 	icon_state = "darkgrey"
 	},
 /area/chapel/main)
-"cWO" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Aft-Starboard Maintenance"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/turf/simulated/floor/plating,
-/area/medical/research)
 "cWR" = (
 /obj/effect/landmark/damageturf,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -73160,9 +73130,6 @@
 	},
 /area/medical/surgery1)
 "mTU" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Aft Secondary Maintenance"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/yellow{
@@ -73170,9 +73137,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
-/area/toxins/mixing)
+/area/maintenance/aft2)
 "mUf" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -79696,9 +79665,6 @@
 	name = "\improper Mining Office"
 	})
 "qlX" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Aft-Starboard Maintenance"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -79707,9 +79673,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
-/area/toxins/mixing)
+/area/maintenance/asmaint)
 "qma" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel{
@@ -85438,12 +85406,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/maintenance{
-	name = "Starboard Secondary Maintenance"
-	},
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
-/area/medical/research)
+/area/maintenance/starboard2)
 "tgV" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -106820,7 +106787,7 @@ abq
 aOB
 aOB
 aOB
-aHk
+aOB
 aLD
 aLB
 aLB
@@ -107077,7 +107044,7 @@ abq
 aOB
 aHm
 anw
-aHk
+aOB
 aPr
 aML
 aLB
@@ -107334,7 +107301,7 @@ aOB
 aOB
 adY
 adY
-aHk
+aOB
 aLF
 aML
 aML
@@ -107591,7 +107558,7 @@ nGk
 aOB
 aHn
 adY
-aHk
+aOB
 aLG
 aML
 aML
@@ -107848,18 +107815,18 @@ adY
 aAA
 aOB
 adY
-aHk
-aHk
-aHk
+aOB
+aOB
+aOB
 aVF
-aHk
-aHk
-aHk
-aHk
-aHk
-aHk
-aHk
-aWD
+aOB
+aOB
+aOB
+aOB
+aOB
+aOB
+aOB
+aOB
 baM
 bBt
 bhV
@@ -130789,7 +130756,7 @@ tgO
 pwP
 cFc
 eMh
-cWO
+qlX
 lLx
 aeg
 emj
@@ -137137,7 +137104,7 @@ avV
 avI
 amk
 aBZ
-bEE
+nwp
 aBZ
 aCg
 aEn
