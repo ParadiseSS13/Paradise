@@ -154,12 +154,19 @@
 	name = "placeholder name"
 	damage = 5
 	stamina = 25
+	eyeblur = 5
 
-/obj/item/projectile/energy/warrant_generator
+/obj/item/projectile/energy/detective/overcharged
+	name = "overcharged shot"
+	damage = 60
+	stamina = 0
+	eyeblur = 10
+
+/obj/item/projectile/energy/detective/warrant_generator
 	name = "warrant generator"
-	damage = 5
+	stamina = 0
 
-/obj/item/projectile/energy/warrant_generator/on_hit(atom/target)
+/obj/item/projectile/energy/detective/warrant_generator/on_hit(atom/target)
 	. = ..()
 	if(!ishuman(target))
 		no_worky()
@@ -179,14 +186,14 @@
 	set_criminal_status(firer, R, SEC_RECORD_STATUS_ARREST, "Target tagged by Detective Revolver", "Detective Revolver")
 	qdel(src)
 
-/obj/item/projectile/energy/warrant_generator/proc/no_worky()
+/obj/item/projectile/energy/detective/warrant_generator/proc/no_worky()
 	to_chat(firer, "<span class='danger'>Weapon Alert: unable to generate warrant on this target!</span>")
 
-/obj/item/projectile/energy/tracker_shot
+/obj/item/projectile/energy/detective/tracker_shot
 	name = "tracker shot"
-	damage = 5
+	stamina = 0
 
-/obj/item/projectile/energy/tracker_shot/on_hit(atom/target)
+/obj/item/projectile/energy/detective/tracker_shot/on_hit(atom/target)
 	. = ..()
 	if(!ishuman(target))
 		no_worky(target)
@@ -198,12 +205,8 @@
 		D.start_pointing(target.UID())
 	qdel(src)
 
-/obj/item/projectile/energy/tracker_shot/proc/no_worky(atom/target, tracking_already)
+/obj/item/projectile/energy/detective/tracker_shot/proc/no_worky(atom/target, tracking_already)
 	if(tracking_already)
 		to_chat(firer, "<span class='danger'>Weapon Alert: You are already tracking a target!</span>")
 		return
 	to_chat(firer, "<span class='danger'>Weapon Alert: unable to track [target]!</span>")
-
-/obj/item/projectile/energy/detective/lethal
-	name = "tracker shot"
-	damage = 60

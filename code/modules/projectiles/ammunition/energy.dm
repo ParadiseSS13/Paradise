@@ -317,17 +317,22 @@
 
 /obj/item/ammo_casing/energy/detective
 	projectile_type = /obj/item/projectile/energy/detective
-	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	select_name = "kill"
 
-/obj/item/ammo_casing/energy/warrant_generator
-	projectile_type = /obj/item/projectile/energy/warrant_generator
+/obj/item/ammo_casing/energy/detective/warrant_generator
+	projectile_type = /obj/item/projectile/energy/detective/warrant_generator
 	e_cost = 50
-	delay = 10 SECONDS
+	delay = 3 SECONDS
 	select_name = "ion"
 
-/obj/item/ammo_casing/energy/tracker
-	projectile_type = /obj/item/projectile/energy/tracker_shot
-	e_cost = 150
-	delay = 10 SECONDS
+/obj/item/ammo_casing/energy/detective/tracker
+	projectile_type = /obj/item/projectile/energy/detective/tracker_shot
+	e_cost = 50
+	delay = 3 SECONDS
 	select_name = "disable"
+
+/obj/item/ammo_casing/energy/detective/overcharge
+	projectile_type = /obj/item/projectile/energy/detective/overcharged
+	e_cost = 200
+	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
+	select_name = "kill"

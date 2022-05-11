@@ -763,12 +763,49 @@
 	icon_state = "det_placeholder"
 	modifystate = TRUE
 	atom_say_verb = "coldly states"
-	ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/warrant_generator, /obj/item/ammo_casing/energy/tracker)
+	ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/warrant_generator, /obj/item/ammo_casing/energy/detective/tracker)
 	ammo_x_offset = 4
 	/// If true, this gun is tracking something and cannot track another mob
 	var/tracking_target_UID
 	/// Used to track the looping timer for deletion
 	var/tracking_timer
+	/// Used to track if the gun is overcharged
+	var/overcharged
+
+/obj/item/gun/energy/detective/Initialize(mapload, ...)
+	. = ..()
+
+
+/obj/item/gun/energy/detective/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	user.visible_message("[user] starts [overcharged ? "restoring" : "removing"] the safety limits on [src].", "You start [overcharged ? "restoring" : "removing"] the safety limits on [src]")
+	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
+		user.visible_message("[user] stops modifying the safety limits on [src].", "You stop modifying the [src]'s safety limits")
+		return
+	if(!overcharged)
+		overcharged = TRUE
+		ammo_type = list(/obj/item/ammo_casing/energy/detective/overcharge)
+		update_ammo_types()
+		select_fire(user)
+	else // Unable to early return due to the visible message at the end
+		overcharged = FALSE
+		ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/warrant_generator, /obj/item/ammo_casing/energy/detective/tracker)
+		update_ammo_types()
+		select_fire(user)
+	user.visible_message("[user] [overcharged ? "removes" : "restores"] the safety limits on [src].", "You [overcharged ? "remove" : "restore" ] the safety limits on [src]")
+
+/obj/item/gun/energy/detective/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+	if(overcharged)
+		if(prob(clamp((100 - ((cell.charge / 1000) * 100)), 30, 80)))	//minimum probability of 30, maximum of 80
+			playsound(user, fire_sound, 50, 1)
+			to_chat(user, "<span class='userdanger'>[src]'s energy cell overloads!</span>")
+			user.apply_damage(60, BURN, pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
+			user.EyeBlurry(10 SECONDS_TO_LIFE_CYCLES)
+			user.flash_eyes(1, TRUE)
+			user.unEquip(src)
+			return
+	..()
+
 
 /obj/item/gun/energy/detective/proc/start_pointing(target_UID)
 	tracking_target_UID = target_UID

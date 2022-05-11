@@ -17,14 +17,23 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"t" = (
+/obj/item/gun/energy/detective,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "u" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "x" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"y" = (
+/obj/item/multitool,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "F" = (
 /obj/machinery/light,
+/mob/living/carbon/human/skrell,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "I" = (
@@ -32293,7 +32302,7 @@ a
 a
 u
 x
-x
+y
 x
 x
 x
@@ -32807,7 +32816,7 @@ a
 a
 u
 x
-x
+t
 x
 x
 x
