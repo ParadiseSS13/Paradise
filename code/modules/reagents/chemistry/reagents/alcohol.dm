@@ -535,7 +535,7 @@
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/M)
 	var/update_flag = STATUS_UPDATE_NONE
-	update_flag |= M.Stun(2 SECONDS, FALSE)
+	M.Stun(2 SECONDS)
 	return ..() | update_flag
 
 /datum/reagent/consumable/ethanol/irish_cream
