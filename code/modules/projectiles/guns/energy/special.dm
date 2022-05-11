@@ -856,7 +856,6 @@
 		if(16 to INFINITY)
 			range_icon = "[icon_state]_far"
 	add_overlay(image(icon = icon, icon_state = range_icon, dir = pointer_dir))
-	addtimer(CALLBACK(src, .proc/point_at), 2 SECONDS, TIMER_UNIQUE)
 
 #undef PLASMA_CHARGE_USE_PER_SECOND
 #undef PLASMA_DISCHARGE_LIMIT
