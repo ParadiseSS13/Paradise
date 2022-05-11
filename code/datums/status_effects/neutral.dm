@@ -63,6 +63,7 @@
 	ADD_TRAIT(owner, TRAIT_RESISTLOWPRESSURE, REAPER_LIGHTER)
 	ADD_TRAIT(owner, TRAIT_NOBREATH, REAPER_LIGHTER)
 	ADD_TRAIT(owner, TRAIT_BYPASS_WELDED_VENTS, REAPER_LIGHTER)
+	owner.throw_alert("reaper_lighter", /obj/screen/alert/countdown/reaper_lighter)
 	return TRUE
 
 /datum/status_effect/reaper_lighter/on_remove()

@@ -530,19 +530,12 @@ so as to remain in compliance with the most up-to-date laws."
 	var/mob/dead/observer/G = usr
 	G.reenter_corpse()
 
-/obj/screen/alert/notify_action
-	name = "Body created"
-	desc = "A body was created. You can enter it."
-	icon_state = "template"
-	timeout = 300
-	var/atom/target = null
-	var/action = NOTIFY_JUMP
+/obj/screen/alert/countdown
 	var/show_time_left = FALSE // If true you need to call START_PROCESSING manually
 	var/image/time_left_overlay // The last image showing the time left
-	var/image/signed_up_overlay // image showing that you're signed up
-	var/datum/candidate_poll/poll // If set, on Click() it'll register the player as a candidate
+	var/red_timer_limit = 10 SECONDS //The timer will turn red once it reaches this
 
-/obj/screen/alert/notify_action/process()
+/obj/screen/alert/countdown/process()
 	if(show_time_left)
 		var/timeleft = timeout - world.time
 		if(timeleft <= 0)
@@ -552,7 +545,7 @@ so as to remain in compliance with the most up-to-date laws."
 			overlays -= time_left_overlay
 
 		var/obj/O = new
-		O.maptext = "<span style='font-family: \"Small Fonts\"; font-weight: bold; font-size: 32px; color: [(timeleft <= 10 SECONDS) ? "red" : "white"];'>[CEILING(timeleft / 10, 1)]</span>"
+		O.maptext = "<span style='font-family: \"Small Fonts\"; font-weight: bold; font-size: 32px; color: [(timeleft <= red_timer_limit) ? "red" : "white"];'>[CEILING(timeleft / 10, 1)]</span>"
 		O.maptext_width = O.maptext_height = 128
 		var/matrix/M = new
 		M.Translate(4, 16)
@@ -567,14 +560,41 @@ so as to remain in compliance with the most up-to-date laws."
 		qdel(O)
 	..()
 
-/obj/screen/alert/notify_action/Destroy()
+
+/obj/screen/alert/countdown/reaper_lighter
+	name = "Reaper's Lighter"
+	desc = "Get moving! You will be pulled back to your starting vent once this countdown is over!"
+	icon_state = "lighter"
+	timeout = 12 SECONDS
+	red_timer_limit = 6 SECONDS
+	show_time_left = TRUE
+
+/obj/screen/alert/countdown/reaper_lighter/Initialize()
+	START_PROCESSING(SSprocessing, src)
+	return ..()
+
+/obj/screen/alert/countdown/reaper_lighter/Destroy()
+	STOP_PROCESSING(SSprocessing, src)
+	return ..()
+
+/obj/screen/alert/countdown/notify_action
+	name = "Body created"
+	desc = "A body was created. You can enter it."
+	icon_state = "template"
+	timeout = 300
+	var/atom/target = null
+	var/action = NOTIFY_JUMP
+	var/image/signed_up_overlay // image showing that you're signed up
+	var/datum/candidate_poll/poll // If set, on Click() it'll register the player as a candidate
+
+/obj/screen/alert/countdown/notify_action/Destroy()
 	target = null
 	if(signed_up_overlay)
 		overlays -= signed_up_overlay
 		qdel(signed_up_overlay)
 	return ..()
 
-/obj/screen/alert/notify_action/Click()
+/obj/screen/alert/countdown/notify_action/Click()
 	if(!usr || !usr.client)
 		return
 	var/mob/dead/observer/G = usr
@@ -601,7 +621,7 @@ so as to remain in compliance with the most up-to-date laws."
 			if(NOTIFY_FOLLOW)
 				G.ManualFollow(target)
 
-/obj/screen/alert/notify_action/Topic(href, href_list)
+/obj/screen/alert/countdown/notify_action/Topic(href, href_list)
 	if(!href_list["signup"])
 		return
 	if(!poll)
@@ -613,7 +633,7 @@ so as to remain in compliance with the most up-to-date laws."
 		poll.sign_up(G)
 	update_signed_up_alert()
 
-/obj/screen/alert/notify_action/proc/update_signed_up_alert()
+/obj/screen/alert/countdown/notify_action/proc/update_signed_up_alert()
 	if(!signed_up_overlay)
 		signed_up_overlay = image('icons/mob/screen_gen.dmi', icon_state = "selector")
 		signed_up_overlay.layer = FLOAT_LAYER
@@ -623,7 +643,7 @@ so as to remain in compliance with the most up-to-date laws."
 	else
 		overlays -= signed_up_overlay
 
-/obj/screen/alert/notify_action/proc/display_stacks(stacks = 1)
+/obj/screen/alert/countdown/notify_action/proc/display_stacks(stacks = 1)
 	if(stacks <= 1)
 		return
 
