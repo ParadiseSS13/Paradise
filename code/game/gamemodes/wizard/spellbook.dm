@@ -271,6 +271,7 @@
 	spell_type = /obj/effect/proc_holder/spell/reaper_lighter
 	log_name = "RL"
 	category = "Mobility"
+	cost = 1
 
 /datum/spellbook_entry/greaterknock
 	name = "Greater Knock"

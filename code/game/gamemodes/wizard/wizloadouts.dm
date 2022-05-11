@@ -57,10 +57,11 @@
 	desc = "Cloned over and over, the souls aboard this station yearn for a deserved rest.<br> \
 		Bring them to the afterlife, one trigger pull at a time. <br> \
 		You will likely need to scavenge additional ammo or weapons aboard the station. <br><br>\
-		</i>Provides a .357 Revolver, 4 speedloaders of ammo, Reaper's Lighter, Smoke, Knock, Summon Item, No Clothes, and Bind Soul, with a unique armored coat.<i>"
+		</i>Provides a .357 Revolver, 6 speedloaders of ammo, Reaper's Lighter, Smoke, Knock, Disable Tech, Summon Item, No Clothes, and Bind Soul, with a unique armored coat.<i>"
 	log_name = "GR"
-	items_path = list(/obj/item/gun/projectile/revolver, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/clothing/under/syndicate)
-	spells_path = list(/obj/effect/proc_holder/spell/reaper_lighter, /obj/effect/proc_holder/spell/smoke, /obj/effect/proc_holder/spell/aoe_turf/knock, \
+	items_path = list(/obj/item/gun/projectile/revolver, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, \
+		/obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/clothing/under/syndicate)
+	spells_path = list(/obj/effect/proc_holder/spell/reaper_lighter, /obj/effect/proc_holder/spell/smoke, /obj/effect/proc_holder/spell/aoe_turf/knock, /datum/spellbook_entry/disabletech, \
 		/obj/effect/proc_holder/spell/summonitem, /obj/effect/proc_holder/spell/noclothes, /obj/effect/proc_holder/spell/lichdom/gunslinger)
 	category = "Unique"
 	destroy_spellbook = TRUE

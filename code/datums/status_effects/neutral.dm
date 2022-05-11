@@ -49,3 +49,27 @@
 /datum/status_effect/charging
 	id = "charging"
 	alert_type = null
+
+/datum/status_effect/reaper_lighter
+	id = "reaper_lighter"
+	duration = -1
+	alert_type = null
+	status_type = STATUS_EFFECT_UNIQUE
+
+/datum/status_effect/reaper_lighter/on_apply()
+	ADD_TRAIT(owner, TRAIT_RESISTHEAT, REAPER_LIGHTER)
+	ADD_TRAIT(owner, TRAIT_RESISTCOLD, REAPER_LIGHTER)
+	ADD_TRAIT(owner, TRAIT_RESISTHIGHPRESSURE, REAPER_LIGHTER)
+	ADD_TRAIT(owner, TRAIT_RESISTLOWPRESSURE, REAPER_LIGHTER)
+	ADD_TRAIT(owner, TRAIT_NOBREATH, REAPER_LIGHTER)
+	ADD_TRAIT(owner, TRAIT_BYPASS_WELDED_VENTS, REAPER_LIGHTER)
+	return TRUE
+
+/datum/status_effect/reaper_lighter/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_RESISTHEAT, REAPER_LIGHTER)
+	REMOVE_TRAIT(owner, TRAIT_RESISTCOLD, REAPER_LIGHTER)
+	REMOVE_TRAIT(owner, TRAIT_RESISTHIGHPRESSURE, REAPER_LIGHTER)
+	REMOVE_TRAIT(owner, TRAIT_RESISTLOWPRESSURE, REAPER_LIGHTER)
+	REMOVE_TRAIT(owner, TRAIT_NOBREATH, REAPER_LIGHTER)
+	REMOVE_TRAIT(owner, TRAIT_BYPASS_WELDED_VENTS, REAPER_LIGHTER)
+	return TRUE

@@ -3,18 +3,18 @@
 	desc = "Use this spell next to a vent to turn to smoke and crawl through it, even if the vents are welded. If you do not leave the vents within 15 seconds, you will be pulled back to where you started."
 
 	school = "transmutation"
-	charge_max = 15 SECONDS
+	charge_max = 12 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
-	cooldown_min = 3 SECONDS //3 seconds reduction per rank
+	level_max = 0 //cannot be improved
 	should_recharge_after_cast = FALSE //We start recharging manually once we leave the vent system
 	nonabstract_req = 1
 	sound = 'sound/items/zippolight.ogg'
 	action_icon_state = "lighter"
 
-	var/max_ventcrawl_time = 15 SECONDS
-	var/ventcrawl_warning_time = 10 SECONDS
+	var/max_ventcrawl_time = 12 SECONDS
+	var/ventcrawl_warning_time = 6 SECONDS
 	var/time_to_leave = 0 //Set when cast, if you are still in vent by that time, you're pulled back
 	var/time_to_warn = 0 //Set when cast, warn the user they're going to leave soon.
 	var/warned = FALSE //So we dont repeat warnings over and over
@@ -31,13 +31,13 @@
 /obj/effect/proc_holder/spell/reaper_lighter/valid_target(obj/machinery/atmospherics/unary/target, user)
 	return is_type_in_list(target, GLOB.ventcrawl_machinery)
 
-/obj/effect/proc_holder/spell/reaper_lighter/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/reaper_lighter/cast(list/targets, mob/living/user = usr)
 	var/obj/machinery/atmospherics/unary/target = targets[1]
 
 	if(!target)
 		charge_counter = charge_max
 		return FALSE
-	toggle_traits(user)
+	user.apply_status_effect(STATUS_EFFECT_REAPER_LIGHTER)
 	in_progress = TRUE
 	spawn_smoke(get_turf(target))
 	starting_vent_turf = get_turf(target)
@@ -47,13 +47,13 @@
 	START_PROCESSING(SSfastprocess, src)
 
 /obj/effect/proc_holder/spell/reaper_lighter/process()
-	var/mob/user = action.owner
+	var/mob/living/user = action.owner
 	if(in_progress)
 		if(!warned && world.time > time_to_warn)
 			warned = TRUE
 			to_chat(user, "<span class='warning'>You will be pulled back to your entry vent soon!</span>")
 		if(world.time > time_to_leave)
-			toggle_traits(user)
+			user.remove_status_effect(STATUS_EFFECT_REAPER_LIGHTER)
 			in_progress = FALSE
 			warned = FALSE
 			start_recharge()
@@ -67,19 +67,3 @@
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1, 0, T)
 	smoke.start()
-
-/obj/effect/proc_holder/spell/reaper_lighter/proc/toggle_traits(mob/user)
-	if(!in_progress)
-		ADD_TRAIT(user, TRAIT_RESISTHEAT, REAPER_LIGHTER)
-		ADD_TRAIT(user, TRAIT_RESISTCOLD, REAPER_LIGHTER)
-		ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, REAPER_LIGHTER)
-		ADD_TRAIT(user, TRAIT_RESISTLOWPRESSURE, REAPER_LIGHTER)
-		ADD_TRAIT(user, TRAIT_NOBREATH, REAPER_LIGHTER)
-		ADD_TRAIT(user, TRAIT_BYPASS_WELDED_VENTS, REAPER_LIGHTER)
-	else
-		REMOVE_TRAIT(user, TRAIT_RESISTHEAT, REAPER_LIGHTER)
-		REMOVE_TRAIT(user, TRAIT_RESISTCOLD, REAPER_LIGHTER)
-		REMOVE_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, REAPER_LIGHTER)
-		REMOVE_TRAIT(user, TRAIT_RESISTLOWPRESSURE, REAPER_LIGHTER)
-		REMOVE_TRAIT(user, TRAIT_NOBREATH, REAPER_LIGHTER)
-		REMOVE_TRAIT(user, TRAIT_BYPASS_WELDED_VENTS, REAPER_LIGHTER)

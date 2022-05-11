@@ -100,3 +100,5 @@
 #define STATUS_EFFECT_CRUSHERDAMAGETRACKING /datum/status_effect/crusher_damage //tracks total kinetic crusher damage on a target
 
 #define STATUS_EFFECT_SYPHONMARK /datum/status_effect/syphon_mark //tracks kills for the KA death syphon module
+
+#define STATUS_EFFECT_REAPER_LIGHTER /datum/status_effect/reaper_lighter //ventcrawling with the reaper's lighter spell

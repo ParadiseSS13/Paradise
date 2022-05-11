@@ -427,40 +427,44 @@
 
 GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
 
-/mob/living/handle_ventcrawl(atom/clicked_on, smoke_crawler = FALSE) // -- TLE -- Merged by Carn
+/mob/living/handle_ventcrawl(atom/clicked_on) // -- TLE -- Merged by Carn
 	if(!Adjacent(clicked_on))
 		return
 
 	var/ventcrawlerlocal = 0
+	var/magicalcrawler = FALSE //I don't care about your conditions and do_afters I'm a wizard
+
 	if(ventcrawler)
 		ventcrawlerlocal = ventcrawler
 
-	if(smoke_crawler)
+	if(has_status_effect(STATUS_EFFECT_REAPER_LIGHTER))
 		ventcrawlerlocal = VENTCRAWLER_ALWAYS
+		magicalcrawler = TRUE
 
 	if(!ventcrawlerlocal)
 		return
 
-	if(stat)
-		to_chat(src, "You must be conscious to do this!")
-		return
+	if(!magicalcrawler)
+		if(stat)
+			to_chat(src, "You must be conscious to do this!")
+			return
 
-	if(lying && !smoke_crawler)
-		to_chat(src, "You can't vent crawl while you're stunned!")
-		return
+		if(lying)
+			to_chat(src, "You can't vent crawl while you're stunned!")
+			return
 
-	if(has_buckled_mobs())
-		to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
-		return
-	if(buckled)
-		to_chat(src, "<span class='warning'>You can't vent crawl while buckled!</span>")
-		return
-	if(ishuman(src) && !smoke_crawler)
-		var/mob/living/carbon/human/H = src
-		if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/contortionist))//IMMA SPCHUL SNOWFLAKE
-			var/obj/item/clothing/under/contortionist/C = H.w_uniform
-			if(!C.check_clothing(src))//return values confuse me right now
-				return
+		if(has_buckled_mobs())
+			to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
+			return
+		if(buckled)
+			to_chat(src, "<span class='warning'>You can't vent crawl while buckled!</span>")
+			return
+		if(ishuman(src))
+			var/mob/living/carbon/human/H = src
+			if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/contortionist))//IMMA SPCHUL SNOWFLAKE
+				var/obj/item/clothing/under/contortionist/C = H.w_uniform
+				if(!C.check_clothing(src))//return values confuse me right now
+					return
 
 	var/obj/machinery/atmospherics/unary/vent_found
 
@@ -478,7 +482,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	if(vent_found)
 		if(vent_found.parent && (vent_found.parent.members.len || vent_found.parent.other_atmosmch))
-			if(!smoke_crawler)
+			if(!magicalcrawler)
 				visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
 								"<span class='notice'>You begin climbing into the ventilation system...</span>")
 
@@ -544,7 +548,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		var/obj/effect/proc_holder/spell/reaper_lighter/S = locate(/obj/effect/proc_holder/spell/reaper_lighter) in mind.spell_list
 		if(S)
 			S.spawn_smoke(get_turf(src))
-			S.toggle_traits(src)
+			remove_status_effect(STATUS_EFFECT_REAPER_LIGHTER)
 			S.in_progress = FALSE
 			S.warned = FALSE
 			S.start_recharge()
