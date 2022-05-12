@@ -11593,6 +11593,12 @@
 	temperature = 254.95
 	},
 /area/space)
+"jGE" = (
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/plasteel/dark{
+	temperature = 254.95
+	},
+/area/space)
 "jGX" = (
 /obj/item/camera_assembly,
 /turf/simulated/floor/wood{
@@ -19050,6 +19056,13 @@
 	temperature = 254.95
 	},
 /area/space)
+"pht" = (
+/obj/structure/table/wood,
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/plasteel/dark{
+	temperature = 254.95
+	},
+/area/space)
 "phM" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/knife,
@@ -19993,6 +20006,7 @@
 /area/shuttle/arrival/station)
 "pUb" = (
 /obj/structure/barricade/wooden,
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel/dark{
 	temperature = 254.95
 	},
@@ -21453,6 +21467,12 @@
 	dir = 4
 	},
 /turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/space)
+"qWS" = (
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/carpet/red{
 	temperature = 254.95
 	},
 /area/space)
@@ -87555,11 +87575,11 @@ tnj
 tnj
 jIH
 tnj
-tnj
-tnj
-tnj
-tnj
-tnj
+eZL
+eZL
+eZL
+eZL
+eZL
 tnj
 tnj
 fUl
@@ -87812,11 +87832,11 @@ tnj
 tnj
 tnj
 tnj
-tnj
+eZL
 vkU
 ndK
 vkU
-tnj
+eZL
 tnj
 tnj
 tnj
@@ -88068,13 +88088,13 @@ fUl
 fUl
 tnj
 tnj
-tnj
-tnj
+eZL
+eZL
 vkU
 jGZ
 vkU
-tnj
-tnj
+eZL
+eZL
 tnj
 tnj
 tnj
@@ -88325,13 +88345,13 @@ tnj
 tnj
 tnj
 tnj
-tnj
+eZL
 vkU
 dyv
 nqV
 mdI
 vkU
-tnj
+eZL
 tnj
 tnj
 tnj
@@ -88581,15 +88601,15 @@ tnj
 tnj
 tnj
 tnj
-tnj
-tnj
+eZL
+eZL
 vkU
 jGZ
 jGZ
 iWI
 vkU
-tnj
-tnj
+eZL
+eZL
 tnj
 tnj
 tnj
@@ -88838,7 +88858,7 @@ tnj
 tnj
 tnj
 tnj
-tnj
+eZL
 ndK
 nxJ
 jGZ
@@ -88846,7 +88866,7 @@ rXJ
 xXG
 kdO
 ndK
-tnj
+eZL
 tnj
 tnj
 tnj
@@ -89095,7 +89115,7 @@ tnj
 tin
 tnj
 tnj
-tnj
+eZL
 ndK
 cvw
 jGZ
@@ -89103,7 +89123,7 @@ jit
 jGZ
 jGZ
 pyI
-tnj
+eZL
 tnj
 tnj
 tnj
@@ -89351,8 +89371,8 @@ tnj
 tnj
 tin
 tnj
-tnj
-tnj
+eZL
+eZL
 vkU
 jGZ
 jGZ
@@ -89360,8 +89380,8 @@ jGZ
 jGZ
 tTo
 vkU
-tnj
-tnj
+eZL
+eZL
 tnj
 tnj
 fUl
@@ -89547,9 +89567,9 @@ rAb
 rAb
 jJU
 mVN
-cox
-cox
-bFy
+qWS
+qWS
+jGE
 jJU
 bFy
 cox
@@ -89608,7 +89628,7 @@ tnj
 tnj
 tnj
 tnj
-tnj
+eZL
 vkU
 jGZ
 jHm
@@ -89618,7 +89638,7 @@ hXE
 hXE
 dyv
 vkU
-tnj
+eZL
 tnj
 tnj
 tnj
@@ -89803,8 +89823,8 @@ rAb
 rAb
 rAb
 jJU
-mVN
-cox
+pht
+qWS
 eca
 pUb
 jJU
@@ -89865,7 +89885,7 @@ tnj
 tnj
 tnj
 tnj
-tnj
+eZL
 vkU
 jGZ
 jGZ
@@ -89875,7 +89895,7 @@ jGZ
 jGZ
 jGZ
 vkU
-tnj
+eZL
 tnj
 tnj
 tnj
@@ -90060,10 +90080,10 @@ rAb
 rAb
 rAb
 jJU
-bFy
+jGE
 pZt
 kQv
-bFy
+jGE
 jJU
 bFy
 cox
@@ -90122,7 +90142,7 @@ tnj
 tnj
 tnj
 tnj
-tnj
+eZL
 pne
 jGZ
 jGZ
@@ -90132,7 +90152,7 @@ wGs
 jGZ
 jHm
 pne
-tnj
+eZL
 tnj
 tnj
 tnj
@@ -90317,7 +90337,7 @@ rAb
 rAb
 rAb
 jJU
-bFy
+jGE
 pZt
 pZt
 pZt
@@ -90379,7 +90399,7 @@ tnj
 tnj
 tnj
 tnj
-tnj
+eZL
 vkU
 jGZ
 jGZ
@@ -90389,7 +90409,7 @@ jit
 jGZ
 jGZ
 vkU
-tnj
+eZL
 tnj
 tnj
 tnj
@@ -90636,7 +90656,7 @@ tnj
 tnj
 tnj
 tnj
-tnj
+eZL
 vkU
 mdI
 tpY
@@ -90646,7 +90666,7 @@ jGZ
 myk
 gIf
 vkU
-tnj
+eZL
 tnj
 tnj
 tnj
@@ -90893,8 +90913,8 @@ tnj
 tnj
 jIH
 tnj
-tnj
-tnj
+eZL
+eZL
 ndK
 hXE
 jGZ
@@ -90902,8 +90922,8 @@ jGZ
 hXE
 hFy
 pUS
-tnj
-tnj
+eZL
+eZL
 tnj
 tnj
 tnj
@@ -91151,7 +91171,7 @@ tnj
 tnj
 tnj
 tnj
-tnj
+eZL
 pyI
 isr
 hXE
@@ -91159,7 +91179,7 @@ hXE
 hXE
 fCl
 ndK
-tnj
+eZL
 tnj
 tnj
 tnj
@@ -91408,7 +91428,7 @@ tnj
 tnj
 tnj
 tnj
-tnj
+eZL
 vkU
 jGZ
 jHm
@@ -91416,7 +91436,7 @@ jGZ
 jGZ
 mbS
 vkU
-tnj
+eZL
 tnj
 tnj
 tnj
@@ -91665,7 +91685,7 @@ tnj
 tnj
 fUl
 tnj
-tnj
+eZL
 vkU
 kdO
 ues
@@ -91673,7 +91693,7 @@ jGZ
 qjT
 wFq
 vkU
-tnj
+eZL
 tnj
 tin
 tin
@@ -91922,15 +91942,15 @@ tnj
 tnj
 tnj
 tnj
-tnj
-tnj
+eZL
+eZL
 vkU
 ues
 jGZ
 hGU
 vkU
-tnj
-tnj
+eZL
+eZL
 tnj
 tnj
 tnj
@@ -92180,13 +92200,13 @@ cVq
 tnj
 tnj
 tnj
-tnj
+eZL
 vkU
 hMq
 uUH
 pRd
 vkU
-tnj
+eZL
 tnj
 tnj
 tnj
@@ -92437,13 +92457,13 @@ tnj
 tnj
 tnj
 tnj
-tnj
-tnj
+eZL
+eZL
 vkU
 vkU
 vkU
-tnj
-tnj
+eZL
+eZL
 tnj
 tnj
 tnj
@@ -92630,10 +92650,10 @@ rAb
 rAb
 rAb
 jJU
-bFy
+jGE
 pZt
 qAx
-bFy
+jGE
 jJU
 bFy
 bFy
@@ -92695,11 +92715,11 @@ tnj
 tnj
 tin
 tnj
-tnj
-tnj
-tnj
-tnj
-tnj
+eZL
+eZL
+eZL
+eZL
+eZL
 tnj
 tnj
 tnj
@@ -92887,10 +92907,10 @@ rAb
 rAb
 rAb
 jJU
-bFy
-cox
+jGE
+qWS
 gIn
-bFy
+jGE
 jJU
 arj
 bFy
@@ -93145,9 +93165,9 @@ rAb
 rAb
 jJU
 bFy
-cox
-cox
-bFy
+qWS
+qWS
+jGE
 jJU
 bFy
 bFy
