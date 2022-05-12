@@ -150,7 +150,6 @@ export const ActiveConversation = (props, context) => {
 
 export const MessengerList = (props, context) => {
   const { act } = useBackend(context);
-  const [searchTerm, setSearchTerm] = useLocalState(context, 'searchTerm', '');
 
   const data = props.data;
 
@@ -161,6 +160,8 @@ export const MessengerList = (props, context) => {
     silent,
     toff,
   } = data;
+
+  const [searchTerm, setSearchTerm] = useLocalState(context, 'searchTerm', '');
 
   return (
     <Box>
