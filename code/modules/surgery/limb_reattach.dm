@@ -135,7 +135,7 @@
 /datum/surgery_step/limb/attach/proc/is_correct_limb(obj/item/organ/external/E, mob/living/carbon/human/target)
 	if(E.is_robotic())
 		return 0
-	if(target.dna.species.type == /datum/species/kidan && !istype(E, /obj/item/organ/external/head/kidan))
+	if(target.dna.species.type == /datum/species/kidan && istype(E, /obj/item/organ/external/head) && !istype(E, /obj/item/organ/external/head/kidan))
 		return 0
 	return 1
 
