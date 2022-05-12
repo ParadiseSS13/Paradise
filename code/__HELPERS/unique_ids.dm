@@ -57,7 +57,21 @@ GLOBAL_LIST_EMPTY(uid_log)
 	return null
 
 /**
-  * Opens a lof of UIDs
+ * Returns TRUE if the datum `D` is the same type as one of the datums in a list of UIDs from the list `L`.
+ */
+/proc/is_type_in_UID_list(datum/D, list/L)
+	if(!length(L))
+		return FALSE
+
+	for(var/datum_UID in L)
+		var/datum/A = locateUID(datum_UID)
+		if(istype(D, A))
+			return TRUE
+
+	return FALSE
+
+/**
+  * Opens a log of UIDs
   *
   * In-round ability to view what has created a UID, and how many times a UID for that path has been declared
   */

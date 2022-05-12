@@ -5,12 +5,13 @@
 	button_icon_state = "chameleon_skin"
 	dna_cost = 2
 	chemical_cost = 25
-	req_human = 1
+	req_human = TRUE
+	power_type = CHANGELING_PURCHASABLE_POWER
 
 /datum/action/changeling/chameleon_skin/sting_action(mob/user)
-	var/mob/living/carbon/human/H = user //SHOULD always be human, because req_human = 1
+	var/mob/living/carbon/human/H = user //SHOULD always be human, because req_human = TRUE
 	if(!istype(H)) // req_human could be done in can_sting stuff.
-		return
+		return FALSE
 	if(H.dna.GetSEState(GLOB.chameleonblock))
 		H.dna.SetSEState(GLOB.chameleonblock, 0)
 		singlemutcheck(H, GLOB.chameleonblock, MUTCHK_FORCED)

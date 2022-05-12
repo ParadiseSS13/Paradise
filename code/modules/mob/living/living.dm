@@ -211,7 +211,7 @@
 		return 0
 	if(invisibility || alpha == 0)//cloaked
 		return 0
-	if(digitalcamo)
+	if(HAS_TRAIT(src, TRAIT_AI_UNTRACKABLE))
 		return 0
 
 	// Now, are they viewable by a camera? (This is last because it's the most intensive check)
