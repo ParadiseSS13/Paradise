@@ -621,6 +621,14 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 	if(stat & BROKEN)
 		return
+	// check if anything's preventing us from raising
+	var/turf/T = get_turf(src)
+	for(var/atom/A in T)
+		if(A == src)
+			continue
+		if(A.density)
+			return
+
 	set_raised_raising(raised, TRUE)
 	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
 	update_icon()

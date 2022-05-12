@@ -4,7 +4,7 @@
 	var/spell_type = null
 	var/desc = ""
 	var/category = "Offensive"
-	var/log_name = "XX" //What it shows up as in logs
+	var/log_name = null //What it shows up as in logs
 	var/cost = 2
 	var/refundable = TRUE
 	var/obj/effect/proc_holder/spell/S = null //Since spellbooks can be used by only one person anyway we can track the actual spell
@@ -289,7 +289,7 @@
 /datum/spellbook_entry/charge
 	name = "Charge"
 	spell_type = /obj/effect/proc_holder/spell/charge
-	log_name = "CH"
+	log_name = "CHG"
 	category = "Assistance"
 	cost = 1
 

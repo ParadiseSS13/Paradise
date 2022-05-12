@@ -152,7 +152,7 @@
 			// I know its a very rare occurance, but I wouldnt doubt people using this to withdraw consent right when sec captures them
 			message_admins("[key_name_admin(usr)] was disconnected due to withdrawing their ToS consent.")
 			to_chat(usr, "<span class='boldannounce'>Your ToS consent has been withdrawn. You have been kicked from the server</span>")
-			del(src)
+			qdel(src)
 
 	switch(href_list["action"])
 		if("openLink")
@@ -381,12 +381,6 @@
 
 	Master.UpdateTickRate()
 
-	// Check total playercount
-	var/playercount = 0
-	for(var/mob/M in GLOB.player_list)
-		if(M.client)
-			playercount += 1
-
 	// Tell clients about active testmerges
 	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
 		to_chat(src, GLOB.revision_info.get_testmerge_chatmessage(TRUE))
@@ -397,10 +391,14 @@
 	if(_2fa_alert)
 		to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
 
+	// This happens "asyncronously"
+	if(karmaholder)
+		karmaholder.processRefunds(mob)
+
 
 /client/proc/is_connecting_from_localhost()
-	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
-	if(!isnull(address) && (address in localhost_addresses))
+	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
+	if((!address && !world.port) || (address in localhost_addresses))
 		return TRUE
 	return FALSE
 

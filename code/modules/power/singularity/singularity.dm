@@ -6,6 +6,7 @@
 	anchored = TRUE
 	density = TRUE
 	layer = MASSIVE_OBJ_LAYER
+	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
 	light_range = 6
 	appearance_flags = LONG_GLIDE
 	var/current_size = 1
@@ -116,7 +117,7 @@
 		//  it might mean we are stuck in a corner somewere. So move around to try to expand.
 		move()
 	if(current_size >= STAGE_TWO)
-		radiation_pulse(src, min(5000, (energy * 4.5) + 1000), RAD_DISTANCE_COEFFICIENT * 0.1)
+		radiation_pulse(src, min(5000, (energy * 4.5) + 1000), RAD_DISTANCE_COEFFICIENT * 0.5)
 		if(prob(event_chance))//Chance for it to run a special event TODO:Come up with one or two more that fit
 			event()
 	eat()
@@ -431,3 +432,16 @@
 	explosion(src.loc,(dist),(dist*2),(dist*4))
 	qdel(src)
 	return(gain)
+
+/obj/singularity/onetile
+	dissipate = FALSE
+	move_self = FALSE
+	grav_pull = TRUE
+
+/obj/singularity/onetile/admin_investigate_setup()
+	return
+
+/obj/singularity/onetile/process()
+	eat()
+	if(prob(1))
+		mezzer()

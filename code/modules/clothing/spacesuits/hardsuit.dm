@@ -633,6 +633,10 @@
 		current_charges--
 		if(recharge_rate)
 			START_PROCESSING(SSobj, src)
+		if(istype(hitby, /obj/item/projectile))
+			var/obj/item/projectile/P = hitby
+			if(P.shield_buster)
+				current_charges = max(0, current_charges - 3)
 		if(current_charges <= 0)
 			owner.visible_message("<span class='warning'>[owner]'s shield overloads!</span>")
 			shield_state = "broken"

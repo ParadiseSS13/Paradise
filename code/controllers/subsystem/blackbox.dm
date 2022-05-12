@@ -176,9 +176,10 @@ SUBSYSTEM_DEF(blackbox)
   * * increment - If using "amount", how much to increment why
   * * data - The actual data to logged
   * * overwrite - Do we want to overwrite the existing key
+  * * ignore_seal - Does the feedback go in regardless of blackbox sealed status? (EG: map vote results)
   */
-/datum/controller/subsystem/blackbox/proc/record_feedback(key_type, key, increment, data, overwrite)
-	if(sealed || !key_type || !istext(key) || !isnum(increment || !data))
+/datum/controller/subsystem/blackbox/proc/record_feedback(key_type, key, increment, data, overwrite, ignore_seal)
+	if((sealed && !ignore_seal) || !key_type || !istext(key) || !isnum(increment || !data))
 		return
 	var/datum/feedback_variable/FV = find_feedback_datum(key, key_type)
 	switch(key_type)

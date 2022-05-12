@@ -2,6 +2,7 @@
 	name = "flashbang"
 	icon_state = "flashbang"
 	item_state = "flashbang"
+	belt_icon = "flashbang"
 	origin_tech = "materials=2;combat=3"
 	light_power = 10
 	light_color = LIGHT_COLOR_WHITE

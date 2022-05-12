@@ -1103,7 +1103,6 @@
 		switch(href_list["traitor"])
 			if("clear")
 				if(has_antag_datum(/datum/antagonist/traitor))
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a traitor!</B></FONT></span>")
 					remove_antag_datum(/datum/antagonist/traitor)
 					log_admin("[key_name(usr)] has de-traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-traitored [key_name_admin(current)]")
@@ -1413,9 +1412,14 @@
 
 	edit_memory()
 
-
-// Datum antag mind procs
-/datum/mind/proc/add_antag_datum(datum_type_or_instance, team)
+/**
+ * Create and/or add the `datum_type_or_instance` antag datum to the src mind.
+ *
+ * Arguments:
+ * * datum_type - an antag datum typepath or instance
+ * * datum/team/team - the antag team that the src mind should join, if any
+ */
+/datum/mind/proc/add_antag_datum(datum_type_or_instance, datum/team/team = null)
 	if(!datum_type_or_instance)
 		return
 	var/datum/antagonist/A
@@ -1425,11 +1429,6 @@
 			return
 	else
 		A = new datum_type_or_instance()
-	//Choose snowflake variation if antagonist handles it
-	var/datum/antagonist/S = A.specialization(src)
-	if(S && S != A)
-		qdel(A)
-		A = S
 	if(!A.can_be_owned(src))
 		qdel(A)
 		return
@@ -1443,25 +1442,33 @@
 	A.on_gain()
 	return A
 
+/**
+ * Remove the specified `datum_type` antag datum from the src mind.
+ *
+ * Arguments:
+ * * datum_type - an antag datum typepath
+ */
 /datum/mind/proc/remove_antag_datum(datum_type)
 	if(!datum_type)
 		return
 	var/datum/antagonist/A = has_antag_datum(datum_type)
-	if(A)
-		if(!A.owner?.current)
-			CRASH("attempted to remove an antag datum ([A.type]) that didn't have an owner or owner.current")
-		A.on_removal()
-		return TRUE
+	qdel(A)
 
-
+/**
+ * Removes all antag datums from the src mind.
+ */
 /datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
 	for(var/a in antag_datums)
 		var/datum/antagonist/A = a
-		if(!A.owner?.current)
-			stack_trace("attempted to remove an antag datum ([A.type]) that didn't have an owner or owner.current")
-			continue
-		A.on_removal()
+		qdel(A)
 
+/**
+ * Returns an antag datum instance if the src mind has the specified `datum_type`. Returns `null` otherwise.
+ *
+ * Arguments:
+ * * datum_type - an antag datum typepath
+ * * check_subtypes - TRUE if this proc will consider subtypes of `datum_type` as valid. FALSE if only the exact same type should be considered.
+ */
 /datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
 	if(!datum_type)
 		return

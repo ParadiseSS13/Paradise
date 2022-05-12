@@ -12,6 +12,8 @@ export const SpecMenu = (props, context) => {
           <UmbrMenu />
           <Divider vertical={1} />
           <GarMenu />
+          <Divider vertical={1} />
+          <DantMenu />
         </Flex>
       </Window.Content>
     </Window>
@@ -24,7 +26,7 @@ const HemoMenu = (props, context) => {
     subclasses,
   } = data;
   return (
-    <Flex.Item grow={1} basis="33%">
+    <Flex.Item grow={1} basis="25%">
       <Section title="Hemomancer">
         <h3>Focuses on blood magic and the manipulation of blood around you.</h3>
         <p><b>Vampiric claws</b>: Unlocked at 150 blood, allows you to summon a robust pair of claws that attack rapidly and drain a targets blood.</p>
@@ -50,7 +52,7 @@ const UmbrMenu = (props, context) => {
     subclasses,
   } = data;
   return (
-    <Flex.Item grow={1} basis="33%">
+    <Flex.Item grow={1} basis="25%">
       <Section title="Umbrae">
         <h3>Focuses on darkness, stealth ambushing and mobility.</h3>
         <p><b>Cloak of darkness</b>: Unlocked at 150 blood, when toggled, allows you to become nearly invisible and move rapidly when in dark regions. While active, burn damage is more effective against you.</p>
@@ -77,7 +79,7 @@ const GarMenu = (props, context) => {
     subclasses,
   } = data;
   return (
-    <Flex.Item grow={1} basis="33%">
+    <Flex.Item grow={1} basis="25%">
       <Section title="Gargantua">
         <h3>Focuses on tenacity and melee damage.</h3>
         <p><b>Rejuvenate</b>: Will heal you at an increased rate based on how much damage you have taken.</p>
@@ -92,6 +94,34 @@ const GarMenu = (props, context) => {
         <Button
           content="Gargantua"
           onClick={() => act('gargantua')}
+        />
+      </Section>
+    </Flex.Item>
+  );
+};
+
+const DantMenu = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    subclasses,
+  } = data;
+  return (
+    <Flex.Item grow={1} basis="25%">
+      <Section title="Dantalion">
+        <h3>Focuses on thralling and illusions.</h3>
+        <p><b>Enthrall</b>: Unlocked at 150 blood, Thralls your target to your will, requires you to stand still. Does not work on mindshielded or already enthralled/mindslaved people.</p>
+        <p><b>Thrall Cap</b>: You can only thrall a max of 1 person at a time. This can be increased at 400 blood, 600 blood and at full power to a max of 4 thralls.</p>
+        <p><b>Thrall commune</b>: Unlocked at 150 blood, Allows you to talk to your thralls, your thralls can talk back in the same way.</p>
+        <p><b>Pacify</b>: Unlocked at 250 blood, allows you to pacify a target, preventing them from causing harm for 40 seconds.</p>
+        <p><b>Decoy</b>: Unlocked at 400 blood, briefly turn invisible and send out an illusion to fool everyone nearby.</p>
+        <p><b>Rally Thralls</b>: All nearby thralls get all incapacitating effects removed from them.</p>
+        <p><b>Full Power</b>
+          <Divider />
+          <b>Mass Hysteria</b>: Casts a powerful illusion that, blinds then make everyone nearby percieve others to looks like random animals.
+        </p>
+        <Button
+          content="Dantalion"
+          onClick={() => act('dantalion')}
         />
       </Section>
     </Flex.Item>

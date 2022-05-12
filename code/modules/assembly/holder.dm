@@ -50,8 +50,6 @@
 	A2.holder = src
 	a_left = A1
 	a_right = A2
-	if(has_prox_sensors())
-		AddComponent(/datum/component/proximity_monitor)
 	name = "[A1.name]-[A2.name] assembly"
 	update_icon()
 	return TRUE
@@ -183,10 +181,10 @@
 			return FALSE
 		if(a_left)
 			a_left.holder = null
-			a_left.loc = T
+			a_left.forceMove(T)
 		if(a_right)
 			a_right.holder = null
-			a_right.loc = T
+			a_right.forceMove(T)
 		qdel(src)
 
 

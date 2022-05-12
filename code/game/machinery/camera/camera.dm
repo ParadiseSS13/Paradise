@@ -33,6 +33,7 @@
 
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 /obj/machinery/camera/Initialize(mapload)
 	. = ..()

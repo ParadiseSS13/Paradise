@@ -22,8 +22,8 @@
 		/obj/screen/alert/too_much_oxy = "too_much_oxy",
 		/obj/screen/alert/too_much_co2 = "too_much_co2",
 		/obj/screen/alert/too_much_tox = "too_much_tox",
-		/obj/screen/alert/fat = "nutrition",
-		/obj/screen/alert/starving = "nutrition",
+		/obj/screen/alert/hunger/fat = "nutrition",
+		/obj/screen/alert/hunger/starving = "nutrition",
 		/obj/screen/alert/hot = "temp",
 		/obj/screen/alert/cold = "temp",
 		/obj/screen/alert/highpressure = "pressure",
@@ -470,6 +470,9 @@
 			I = get_image(H)
 		I.override = TRUE
 		add_icon(I)
+
+/obj/effect/hallucination/delusion/long
+	duration = 30 SECONDS
 
 /**
   * Returns the image to use as override to the target's appearance.

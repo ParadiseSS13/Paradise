@@ -5,9 +5,6 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
 	// This is BAD.
 
-	// Right off the bat
-	enable_auxtools_debugger()
-
 	SSmetrics.world_init_time = REALTIMEOFDAY
 
 	// Do sanity checks to ensure RUST actually exists
@@ -144,11 +141,17 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	return
 	#endif
 
+	// Send the stats URL if applicable
+	if(GLOB.configuration.url.round_stats_url && GLOB.round_id)
+		var/stats_link = "[GLOB.configuration.url.round_stats_url][GLOB.round_id]"
+		to_chat(world, "<span class='notice'>Stats for this round can be viewed at <a href=\"[stats_link]\">[stats_link]</a></span>")
+
 	// If the server has been gracefully shutdown in TGS, have a 60 seconds grace period for SQL updates and stuff
 	var/secs_before_auto_reconnect = 10
 	if(GLOB.slower_restart)
 		secs_before_auto_reconnect = 60
 		server_announce_global("Reboot will take a little longer due to pending backend changes.")
+
 
 	// Send the reboot banner to all players
 	for(var/client/C in GLOB.clients)

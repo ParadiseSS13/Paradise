@@ -15,9 +15,9 @@
 
 /obj/item/storage/belt/update_icon()
 	if(use_item_overlays)
-		overlays.Cut()
+		cut_overlays()
 		for(var/obj/item/I in contents)
-			overlays += "[I.name]"
+			add_overlay("[I.belt_icon]")
 	..()
 
 /obj/item/storage/belt/proc/can_use()
@@ -203,6 +203,7 @@
 		/obj/item/wirecutters,
 		/obj/item/wrench,
 		/obj/item/reagent_containers/spray/weedspray,
+		/obj/item/reagent_containers/spray/plantbgone,
 		/obj/item/reagent_containers/spray/pestspray
 		)
 
@@ -273,7 +274,7 @@
 	storage_slots = 6
 	use_item_overlays = TRUE
 	can_hold = list(
-		"/obj/item/soulstone"
+		/obj/item/soulstone
 		)
 
 /obj/item/storage/belt/soulstone/full/populate_contents()
@@ -290,7 +291,7 @@
 	materials = list(MAT_GOLD=400)
 	storage_slots = TRUE
 	can_hold = list(
-		"/obj/item/clothing/mask/luchador"
+		/obj/item/clothing/mask/luchador
 		)
 
 /obj/item/storage/belt/military
@@ -401,13 +402,14 @@
 		/obj/item/flashlight,
 		/obj/item/reagent_containers/spray,
 		/obj/item/soap,
-		/obj/item/holosign_creator,
+		/obj/item/holosign_creator/janitor,
 		/obj/item/melee/flyswatter,
+		/obj/item/storage/bag/trash
 		)
 
 /obj/item/storage/belt/janitor/full/populate_contents()
 	new /obj/item/lightreplacer(src)
-	new /obj/item/holosign_creator(src)
+	new /obj/item/holosign_creator/janitor(src)
 	new /obj/item/reagent_containers/spray/cleaner(src)
 	new /obj/item/soap(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)

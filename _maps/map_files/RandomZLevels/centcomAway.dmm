@@ -666,7 +666,6 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/solar{
-	id = "centcomawaysolar";
 	name = "Starboard Solar Array"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -1066,7 +1065,6 @@
 /area/awaymission/centcomAway/hangar)
 "dk" = (
 /obj/machinery/power/solar_control{
-	id = "centcomawaysolar";
 	name = "Solar Control";
 	track = 1
 	},
@@ -2549,8 +2547,7 @@
 	},
 /obj/item/radio/intercom{
 	name = "custom placement";
-	pixel_y = 25;
-	dir = 2
+	pixel_y = 25
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -2922,7 +2919,6 @@
 "iC" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Centcom Security";
-	opacity = 1;
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/carpet,
@@ -3438,7 +3434,6 @@
 "jN" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Centcom Security";
-	opacity = 1;
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/plasteel{
@@ -3551,7 +3546,6 @@
 "kc" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Special Operations";
-	opacity = 1;
 	req_access_txt = "103"
 	},
 /turf/simulated/floor/plasteel{
@@ -3601,7 +3595,6 @@
 "kk" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Centcom Security";
-	opacity = 1;
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/plasteel{
@@ -3986,7 +3979,6 @@
 "lj" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Centcom Security";
-	opacity = 1;
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/plasteel{
@@ -4215,7 +4207,6 @@
 "lP" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome Administration";
-	opacity = 1;
 	req_access_txt = "102"
 	},
 /turf/simulated/floor/plating,
@@ -5717,7 +5708,6 @@
 "pF" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome";
-	opacity = 1;
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/plasteel{
@@ -5804,7 +5794,6 @@
 "pR" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome Administration";
-	opacity = 1;
 	req_access_txt = "102"
 	},
 /turf/simulated/floor/plasteel{

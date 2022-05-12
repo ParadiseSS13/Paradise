@@ -256,6 +256,12 @@
 	item_color = "noble_boot"
 	item_state = "noble_boot"
 
+/obj/item/clothing/shoes/furboots
+	name = "fur boots"
+	desc = "Warm, furry boots."
+	icon_state = "furboots"
+	item_state = "furboots"
+
 /obj/item/clothing/shoes/sandal/white
 	name = "white sandals"
 	desc = "Medical sandals that nerds wear."

@@ -444,7 +444,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Syndicate Forward Base"
 	icon_state = "syndie-ship"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	nad_allowed = TRUE
 	ambientsounds = HIGHSEC_SOUNDS
 
@@ -534,14 +534,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Wizard's Den"
 	icon_state = "yellow"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/ninja
 	name = "\improper Ninja Area Parent"
 	icon_state = "ninjabase"
 	requires_power = FALSE
 	no_teleportlocs = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/ninja/outpost
 	name = "\improper SpiderClan Outpost"
@@ -549,18 +549,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/ninja/holding
 	name = "\improper SpiderClan Holding Facility"
 
-/area/vox_station
-	name = "\improper Vox Base"
-	icon_state = "yellow"
-	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	no_teleportlocs = TRUE
-
 /area/trader_station
 	name = "Trade Base"
 	icon_state = "yellow"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/trader_station/sol
 	name = "Jupiter Station 6"

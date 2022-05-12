@@ -42,6 +42,10 @@
 	var/board_type = /obj/machinery/smartfridge
 	var/fill_level
 	var/icon_addon
+	var/icon_lightmask = "smartfridge"
+
+	var/light_range_on = 1
+	var/light_power_on = 0.5
 
 /obj/machinery/smartfridge/Initialize(mapload)
 	. = ..()
@@ -72,7 +76,7 @@
 			while(amount--)
 				var/obj/item/I = new typekey(src)
 				item_quants[I.name] += 1
-		update_icon()
+	update_icon()
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/reagent_containers/food/snacks/grown,
@@ -102,11 +106,20 @@
 /obj/machinery/smartfridge/power_change()
 	var/old_stat = stat
 	..()
+	if((stat & (BROKEN|NOPOWER)))
+		set_light(0)
+	else
+		set_light(light_range_on, light_power_on)
 	if(old_stat != stat)
 		update_icon()
 
+/obj/machinery/smartfridge/extinguish_light()
+	set_light(0)
+	underlays.Cut()
+
 /obj/machinery/smartfridge/update_icon()
 	cut_overlays()
+	underlays.Cut()
 	if(panel_open)
 		add_overlay("[icon_state]_panel")
 	if(stat & (BROKEN|NOPOWER))
@@ -122,6 +135,8 @@
 			add_overlay("[icon_state][fill_level]")
 	if(icon_addon)
 		add_overlay("[icon_addon]")
+	if(light)
+		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask")
 
 /obj/machinery/smartfridge/proc/update_fridge_contents()
 	switch(length(contents))
@@ -273,7 +288,7 @@
 
 			var/index = text2num(params["index"])
 			var/amount = text2num(params["amount"])
-			if(isnull(index) || !ISINDEXSAFE(item_quants, index) || isnull(amount))
+			if(isnull(index) || !ISINDEXSAFE(item_quants, index) || !amount)
 				return FALSE
 			var/K = item_quants[index]
 			var/count = item_quants[K]
@@ -455,6 +470,7 @@
 	name = "\improper Circuit Board Storage"
 	desc = "A storage unit for circuits."
 	icon_state = "circuits"
+	icon_lightmask = "circuits"
 	visible_contents = TRUE
 	board_type = /obj/machinery/smartfridge/secure/circuits
 
@@ -635,6 +651,7 @@
 	name = "disk compartmentalizer"
 	desc = "A machine capable of storing a variety of disks. Denoted by most as the DSU (disk storage unit)."
 	icon_state = "disktoaster"
+	icon_lightmask = "disktoaster"
 	pass_flags = PASSTABLE
 	visible_contents = FALSE
 	board_type = /obj/machinery/smartfridge/disks
@@ -740,6 +757,9 @@
 	active_power_usage = 200
 	can_dry = TRUE
 	visible_contents = FALSE
+	light_range_on = null
+	light_power_on = null
+
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
 	. = ..()

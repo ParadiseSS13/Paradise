@@ -133,12 +133,12 @@
 
 /datum/design/plasmapistol
 	name = "Plasma Pistol"
-	desc = "A specialized firearm designed to fire lethal bolts of toxins."
+	desc = "A specialized firearm designed to fire heated bolts of plasma. Can be charged up for a shield breaking shot."
 	id = "ppistol"
-	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5)
+	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5, "plasmatech" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000, MAT_PLASMA = 3000)
-	build_path = /obj/item/gun/energy/toxgun
+	build_path = /obj/item/gun/energy/plasma_pistol
 	locked = 1
 	category = list("Weapons")
 
@@ -279,4 +279,14 @@
 	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000,  MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000) // Big gun, big cost
 	build_path = /obj/item/gun/energy/bsg
 	locked = TRUE
+	category = list("Weapons")
+
+/datum/design/dropwall
+	name = "Dropwall Generator"
+	desc = "A prototype shield generator design that was inspired by shellguard munitions spartan division. Generates a directional shield to block projectiles and explosions."
+	id = "drop_wall"
+	req_tech = list("combat" = 5, "materials" = 5, "engineering" = 5, "magnets" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 8000, MAT_GLASS = 5000, MAT_SILVER = 500, MAT_TITANIUM = 500, MAT_PLASMA = 500)
+	build_path = /obj/item/grenade/barrier/dropwall
 	category = list("Weapons")

@@ -141,3 +141,21 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	if(input_color)
 		picked_color = input_color
 		update_icon()
+
+/obj/structure/marker_beacon/dock_marker
+	name = "docking beacon"
+	desc = "An illumination device used to designate docking ports. It is anchored in place and pulsing steadily."
+	icon_state = "dockingmarker"
+	flags = NODECONSTRUCT
+
+/obj/structure/marker_beacon/dock_marker/update_icon()
+	set_light(light_range, light_power, LIGHT_COLOR_BLUE)
+
+/obj/structure/marker_beacon/dock_marker/attackby()
+	return
+
+/obj/structure/marker_beacon/dock_marker/attack_hand()
+	return
+
+/obj/structure/marker_beacon/dock_marker/AltClick()
+	return

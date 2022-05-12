@@ -245,6 +245,7 @@
 					D.nextstate = opening ? FD_OPEN : FD_CLOSED
 				else if(!(D.density ^ opening))
 					INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/open : /obj/machinery/door/firedoor.proc/close))
+					INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/deactivate_alarm : /obj/machinery/door/firedoor.proc/activate_alarm))
 
 /**
   * Generate a firealarm alert for this area
