@@ -1,6 +1,6 @@
 import { filter } from 'common/collections';
 import { useBackend, useLocalState } from "../../backend";
-import { Box, Button, Icon, LabeledList, Section } from "../../components";
+import { Box, Button, Icon, Input, LabeledList, Section } from "../../components";
 
 export const pda_messenger = (props, context) => {
   const { act, data } = useBackend(context);
@@ -150,6 +150,8 @@ export const ActiveConversation = (props, context) => {
 
 export const MessengerList = (props, context) => {
   const { act } = useBackend(context);
+  const [searchTerm, setSearchTerm] = useLocalState(context, 'searchTerm', '');
+
   const data = props.data;
 
   const {
@@ -204,6 +206,7 @@ export const MessengerList = (props, context) => {
             </Box>
           ) || (
             <Box>
+              Search: <Input value={searchTerm} onInput={(e, value) => { setSearchTerm(value); }} />
               <PDAList title="Current Conversations" data={data}
                 pdas={convopdas}
                 msgAct="Select Conversation" />
@@ -235,6 +238,8 @@ const PDAList = (props, context) => {
     plugins,
   } = data;
 
+  const [searchTerm, setSearchTerm] = useLocalState(context, 'searchTerm', '');
+
   if (!pdas || !pdas.length) {
     return (
       <Section level={2} title={title}>
@@ -245,24 +250,26 @@ const PDAList = (props, context) => {
 
   return (
     <Section level={2} title={title}>
-      {pdas.map(pda => (
-        <Box key={pda.uid}>
-          <Button
-            icon="arrow-circle-down"
-            content={pda.Name}
-            onClick={() => act(msgAct, { target: pda.uid })} />
-          {!!charges && plugins.map(plugin => (
+      {pdas
+        .filter(pda => { return pda.Name.toLowerCase().includes(searchTerm.toLowerCase()); })
+        .map(pda => (
+          <Box key={pda.uid}>
             <Button
-              key={plugin.uid}
-              icon={plugin.icon}
-              content={plugin.name}
-              onClick={() => act("Messenger Plugin", {
-                plugin: plugin.uid,
-                target: pda.uid,
-              })} />
-          ))}
-        </Box>
-      ))}
+              icon="arrow-circle-down"
+              content={pda.Name}
+              onClick={() => act(msgAct, { target: pda.uid })} />
+            {!!charges && plugins.map(plugin => (
+              <Button
+                key={plugin.uid}
+                icon={plugin.icon}
+                content={plugin.name}
+                onClick={() => act("Messenger Plugin", {
+                  plugin: plugin.uid,
+                  target: pda.uid,
+                })} />
+            ))}
+          </Box>
+        ))}
     </Section>
   );
 };
