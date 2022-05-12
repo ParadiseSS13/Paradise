@@ -3846,6 +3846,10 @@
 /obj/structure/alien/weeds/node,
 /turf/simulated/floor/vault,
 /area/space)
+"den" = (
+/obj/structure/mineral_door/iron,
+/turf/simulated/floor/carpet/blue,
+/area/space)
 "dew" = (
 /obj/structure/extinguisher_cabinet,
 /turf/simulated/wall/mineral/iron,
@@ -4249,6 +4253,10 @@
 /turf/simulated/floor/plating/asteroid/snow/temperature{
 	temperature = 254.95
 	},
+/area/space)
+"duF" = (
+/obj/machinery/dye_generator,
+/turf/simulated/floor/carpet/red,
 /area/space)
 "duV" = (
 /mob/living/simple_animal/seal,
@@ -6092,6 +6100,10 @@
 	icon_state = "smoothrocks-21"
 	},
 /area/space)
+"eQd" = (
+/obj/item/grown/log,
+/turf/simulated/floor/vault,
+/area/space)
 "eQe" = (
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel/dark{
@@ -6228,7 +6240,8 @@
 /area/space)
 "eVt" = (
 /obj/effect/mob_spawn/human/doctor/alive{
-	pickable_species = list("Human")
+	pickable_species = list("Human");
+	name = "old cryogenics pod"
 	},
 /turf/simulated/floor/vault,
 /area/space)
@@ -9002,6 +9015,10 @@
 	},
 /turf/simulated/floor/vault,
 /area/space)
+"htX" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/carpet/blue,
+/area/space)
 "hue" = (
 /obj/structure/bonfire,
 /turf/simulated/floor/plating/asteroid/snow/temperature{
@@ -11593,6 +11610,15 @@
 	temperature = 254.95
 	},
 /area/space)
+"jGf" = (
+/obj/structure/alien/weeds,
+/obj/item/ammo_box/magazine/m556/arg{
+	name = "M3394 Magazine"
+	},
+/turf/simulated/floor/carpet/red{
+	temperature = 254.95
+	},
+/area/space)
 "jGE" = (
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel/dark{
@@ -12856,6 +12882,12 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/engine{
+	temperature = 254.95
+	},
+/area/space)
+"kEX" = (
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/plating/asteroid{
 	temperature = 254.95
 	},
 /area/space)
@@ -15718,7 +15750,8 @@
 "mFs" = (
 /obj/effect/mob_spawn/human/bartender/alive{
 	dir = 8;
-	pickable_species = list("Human")
+	pickable_species = list("Human");
+	name = "old cryogenics pod"
 	},
 /turf/simulated/floor/vault,
 /area/space)
@@ -18533,6 +18566,7 @@
 /obj/item/stock_parts/cell/hyper,
 /obj/item/circuitboard/smes,
 /obj/item/stock_parts/capacitor/quadratic,
+/obj/item/stock_parts/cell/hyper,
 /turf/simulated/floor/vault,
 /area/space)
 "oKH" = (
@@ -20938,6 +20972,13 @@
 /obj/item/clothing/suit/hooded/wintercoat/science,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/arrival/station)
+"qxX" = (
+/obj/structure/alien/weeds,
+/obj/item/ammo_box/magazine/m556/arg{
+	name = "M3394 Magazine"
+	},
+/turf/simulated/floor/vault,
+/area/space)
 "qyu" = (
 /obj/structure/flora/tree/pine{
 	icon_state = "pine_3"
@@ -25992,6 +26033,10 @@
 /obj/machinery/computer/cryopod,
 /turf/simulated/wall/mineral/wood,
 /area/shuttle/abandoned)
+"usJ" = (
+/obj/item/storage/box/barber,
+/turf/simulated/floor/carpet/red,
+/area/space)
 "usO" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -27683,6 +27728,9 @@
 /turf/simulated/floor/plating/asteroid{
 	temperature = 254.95
 	},
+/area/space)
+"vLm" = (
+/turf/simulated/floor/carpet/red,
 /area/space)
 "vLo" = (
 /obj/effect/spawner/window/reinforced,
@@ -29447,6 +29495,13 @@
 	temperature = 254.95
 	},
 /area/space)
+"xjg" = (
+/mob/living/simple_animal/hostile/feral_cat,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroid2";
+	temperature = 254.95
+	},
+/area/space)
 "xjC" = (
 /obj/structure/fence/door{
 	dir = 4
@@ -30364,6 +30419,10 @@
 	temperature = 254.95
 	},
 /area/space)
+"xWZ" = (
+/obj/structure/chair/barber,
+/turf/simulated/floor/carpet/red,
+/area/space)
 "xXA" = (
 /obj/structure/flora/rock/jungle{
 	icon_state = "rock5"
@@ -30392,7 +30451,8 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/turf/simulated/floor/vault,
+/obj/structure/sign/barber,
+/turf/simulated/floor/carpet/red,
 /area/space)
 "xYl" = (
 /obj/structure/window/reinforced,
@@ -33468,7 +33528,7 @@ bgt
 gJe
 lwm
 aCT
-aCT
+kEX
 aCT
 aCT
 rJa
@@ -35032,7 +35092,7 @@ tnj
 tnj
 tnj
 aCT
-lwm
+xjg
 aCT
 bgt
 bgt
@@ -35789,7 +35849,7 @@ lrO
 aCT
 aCT
 aCT
-aCT
+kEX
 uTz
 gJe
 pon
@@ -37604,7 +37664,7 @@ aCT
 aCT
 nas
 aCT
-aCT
+kEX
 bgt
 bgt
 gJe
@@ -62296,7 +62356,7 @@ kVd
 jJU
 gJe
 xYn
-jAX
+qxX
 jAX
 cpY
 xYn
@@ -65639,7 +65699,7 @@ gJe
 xYn
 piO
 hiB
-ikb
+jGf
 nox
 mOe
 ikb
@@ -69461,8 +69521,8 @@ eOp
 eOp
 gJe
 xYn
-gwG
-gwG
+eQd
+eQd
 fuv
 gwG
 fuv
@@ -69718,9 +69778,9 @@ eOp
 gJe
 gJe
 xYn
-gwG
-gwG
-gwG
+eQd
+eQd
+eQd
 hTM
 lEF
 rdq
@@ -69975,7 +70035,7 @@ gJe
 gJe
 xYn
 xYn
-gwG
+eQd
 hTM
 hTM
 hTM
@@ -70232,8 +70292,8 @@ gJe
 gJe
 xYn
 xYn
-gwG
-gwG
+eQd
+eQd
 gwG
 gwG
 gwG
@@ -71034,8 +71094,8 @@ jJU
 uJG
 jJU
 jJU
-gwG
-gwG
+den
+htX
 jJU
 jJU
 tCx
@@ -71291,7 +71351,7 @@ gwG
 bKq
 htI
 jJU
-gwG
+vLm
 xYb
 iUN
 nHI
@@ -71548,8 +71608,8 @@ gwG
 fjH
 bOV
 thg
-gwG
-gwG
+vLm
+vLm
 thg
 xVU
 bOR
@@ -71805,8 +71865,8 @@ rCV
 rPr
 jWM
 jJU
-gwG
-gwG
+xWZ
+usJ
 jJU
 xYn
 xYn
@@ -72063,7 +72123,7 @@ cFR
 muy
 bUK
 jJU
-gwG
+duF
 xYn
 xYn
 gJe
