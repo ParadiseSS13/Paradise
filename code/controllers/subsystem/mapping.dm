@@ -60,12 +60,15 @@ SUBSYSTEM_DEF(mapping)
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
 
-	// Spawn Lavaland ruins and rivers.
-	log_startup_progress("Populating lavaland...")
-	var/lavaland_setup_timer = start_watch()
-	seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
-	spawn_rivers(level_name_to_num(MINING))
-	log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
+	if(GLOB.configuration.ruins.enable_lavaland)
+		// Spawn Lavaland ruins and rivers.
+		log_startup_progress("Populating lavaland...")
+		var/lavaland_setup_timer = start_watch()
+		seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
+		spawn_rivers(level_name_to_num(MINING))
+		log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
+	else
+		log_startup_progress("Skipping lavaland ruins...")
 
 	// Now we make a list of areas for teleport locs
 	teleportlocs = list()
@@ -126,9 +129,14 @@ SUBSYSTEM_DEF(mapping)
 
 // Loads in the station
 /datum/controller/subsystem/mapping/proc/loadStation()
-	if(GLOB.configuration.system.load_test_map)
-		log_startup_progress("Loading test map, overridden by configuration.")
-		map_datum = new /datum/map/test_tiny
+	if(GLOB.configuration.system.override_map)
+		log_startup_progress("Station map overridden by configuration to [GLOB.configuration.system.override_map].")
+		var/map_datum_path = text2path(GLOB.configuration.system.override_map)
+		if(map_datum_path)
+			map_datum = new map_datum_path
+		else
+			to_chat(world, "<span class='narsie'>ERROR: The map datum specified to load is invalid. Falling back to... cyberiad probably?</span>")
+
 	ASSERT(map_datum.map_path)
 	if(!fexists(map_datum.map_path))
 		// Make a VERY OBVIOUS error
@@ -154,6 +162,9 @@ SUBSYSTEM_DEF(mapping)
 
 // Loads in lavaland
 /datum/controller/subsystem/mapping/proc/loadLavaland()
+	if(!GLOB.configuration.ruins.enable_lavaland)
+		log_startup_progress("Skipping Lavaland...")
+		return
 	var/watch = start_watch()
 	log_startup_progress("Loading Lavaland...")
 	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = SELFLOOPING, traits = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK))
