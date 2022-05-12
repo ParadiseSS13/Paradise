@@ -5850,11 +5850,6 @@
 "aqI" = (
 /turf/simulated/wall/r_wall,
 /area/security/brig)
-"aqL" = (
-/obj/structure/lattice,
-/obj/effect/landmark/spawner/carp,
-/turf/space,
-/area/space)
 "aqM" = (
 /obj/machinery/computer/arcade/battle{
 	dir = 8
@@ -10603,7 +10598,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Brig Cell 5";
-	dir = 8
+	dir = 9
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel,
@@ -126353,9 +126348,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
+abp
 amW
-aqL
+aab
 aqZ
 aab
 aab
