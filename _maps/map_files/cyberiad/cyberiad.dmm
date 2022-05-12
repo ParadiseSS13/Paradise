@@ -13784,6 +13784,9 @@
 /obj/structure/chair{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "Courtroom Lobby"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "blue"
@@ -15532,10 +15535,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
-	},
-/obj/machinery/camera{
-	c_tag = "Courtroom Lobby";
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
