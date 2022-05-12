@@ -44830,11 +44830,6 @@
 /obj/structure/sign/biohazard,
 /turf/simulated/wall,
 /area/toxins/xenobiology)
-"cAc" = (
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/effect/turf_decal/stripes/white/line,
-/turf/simulated/floor/plating,
-/area/maintenance/aft2)
 "cAe" = (
 /obj/machinery/door/window/northleft{
 	name = "Science Chemistry"
@@ -51310,7 +51305,6 @@
 	},
 /area/security/permabrig)
 "cUN" = (
-/obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -54198,7 +54192,6 @@
 "dhW" = (
 /obj/machinery/atmospherics/binary/pump{
 	name = "Waste Out";
-	on = 1;
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -125115,7 +125108,7 @@ krx
 bnx
 cOp
 mtr
-cAc
+dTn
 jFH
 ePS
 ido
@@ -125372,7 +125365,7 @@ nbM
 lKa
 aiz
 iHc
-cAc
+dTn
 mVS
 dTn
 dTn
