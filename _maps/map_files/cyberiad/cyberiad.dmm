@@ -58449,12 +58449,6 @@
 "cxh" = (
 /turf/simulated/wall,
 /area/medical/ward)
-"cxi" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitegreencorner"
-	},
-/area/crew_quarters/sleep)
 "cxj" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -113023,7 +113017,7 @@ axe
 aFH
 aNU
 aLP
-cxi
+aPM
 aPM
 aPM
 aPM
