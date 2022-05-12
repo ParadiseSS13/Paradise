@@ -20,7 +20,7 @@
 	var/F = investigate_subject2file(subject)
 	if(!F)	return
 	GLOB.investigate_log_subjects |= subject
-	F << "<small>[time_stamp()] \ref[src] ([x],[y],[z])</small> || [src] [message]<br>"
+	F << "<small>[time_stamp()] \ref[src] ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)</small> || [src] [message]<br>"
 
 /proc/log_investigate(message, subject)
 	if(!message) return
