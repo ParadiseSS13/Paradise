@@ -10504,9 +10504,6 @@
 	id = "Cell 2";
 	name = "Cell 2 Locker"
 	},
-/obj/machinery/camera{
-	c_tag = "Brig Cell 2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
@@ -10516,9 +10513,6 @@
 	},
 /area/security/prison/cell_block/A)
 "azO" = (
-/obj/machinery/camera{
-	c_tag = "Brig Cell 4"
-	},
 /obj/structure/closet/secure_closet/brig{
 	id = "Cell 4";
 	name = "Cell 4 Locker"
@@ -11583,6 +11577,10 @@
 /obj/structure/bed,
 /obj/item/bedsheet,
 /obj/machinery/light/small,
+/obj/machinery/camera{
+	c_tag = "Brig Cell 2";
+	dir = 1
+	},
 /turf/simulated/floor/carpet/cyan,
 /area/security/prison/cell_block/A)
 "aCr" = (
@@ -11605,6 +11603,10 @@
 /obj/machinery/flasher{
 	id = "Cell 4";
 	pixel_y = -28
+	},
+/obj/machinery/camera{
+	c_tag = "Brig Cell 4";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
@@ -41266,6 +41268,9 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/west,
+/obj/machinery/camera{
+	c_tag = "Cargo Recieving Dock"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bPZ" = (
@@ -45613,10 +45618,6 @@
 	id = "QMLoad"
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/camera{
-	c_tag = "Cargo Recieving Dock";
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "bYz" = (
@@ -79861,7 +79862,7 @@
 /area/maintenance/aft2)
 "kIR" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/space,
 /area/space/nearstation)
 "kLx" = (
