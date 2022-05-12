@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/reaper_lighter
 	name = "Reaper's Lighter"
-	desc = "Use this spell next to a vent to turn to smoke and crawl through it, even if the vents are welded. If you do not leave the vents within 15 seconds, you will be pulled back to where you started."
+	desc = "Use this spell next to a vent to turn to smoke and crawl through it, even if the vents are welded. If you do not leave the vents within 12 seconds, you will be pulled back to where you started."
 
 	school = "transmutation"
 	charge_max = 12 SECONDS
