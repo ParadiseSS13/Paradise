@@ -35,14 +35,19 @@
 	var/icon_off
 	/// Icon for the panel overlay, defaults to icon_state + _panel
 	var/icon_panel
+	/// Icon for the lightmask, defaults to icon_state + _off, _lightmask if one is defined.
+	var/icon_lightmask
 	// Power
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	var/vend_power_usage = 150
 
+	var/light_range_on = 1
+	var/light_power_on = 0.5
+
 	// Vending-related
 	/// No sales pitches if off
-	var/active = 1
+	var/active = TRUE
 	/// If off, vendor is busy and unusable until current action finishes
 	var/vend_ready = TRUE
 	/// How long vendor takes to vend one item.
@@ -161,6 +166,7 @@
 
 /obj/machinery/vending/update_icon()
 	cut_overlays()
+	underlays.Cut()
 	if(panel_open)
 		add_overlay("[icon_panel ? "[icon_panel]_panel" : "[icon_state]_panel"]")
 	if(icon_addon)
@@ -169,6 +175,9 @@
 		add_overlay("[icon_off ? "[icon_off]_off" : "[icon_state]_off"]")
 		if(stat & BROKEN)
 			add_overlay("[icon_broken ? "[icon_broken]_broken" : "[icon_state]_broken"]")
+		return
+	if(light)
+		underlays += emissive_appearance(icon, "[icon_lightmask ? "[icon_lightmask]_lightmask" : "[icon_state]_off"]")
 
 /*
  * Reimp, flash the screen on and off repeatedly.
@@ -193,10 +202,12 @@
 
 	for(var/i in 1 to amount)
 		force_no_power_icon_state = TRUE
+		set_light(0)
 		update_icon()
 		sleep(rand(1, 3))
 
 		force_no_power_icon_state = FALSE
+		set_light(light_range_on, light_power_on)
 		update_icon()
 		sleep(rand(1, 10))
 	update_icon()
@@ -808,6 +819,10 @@
 	if(shoot_inventory && prob(shoot_chance))
 		throw_item()
 
+/obj/machinery/vending/extinguish_light()
+	set_light(0)
+	underlays.Cut()
+
 /obj/machinery/vending/proc/speak(message)
 	if(stat & NOPOWER)
 		return
@@ -821,11 +836,16 @@
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
+	if((stat & (BROKEN|NOPOWER)))
+		set_light(0)
+	else
+		set_light(light_range_on, light_power_on)
 	update_icon()
 
 /obj/machinery/vending/obj_break(damage_flag)
 	if(!(stat & BROKEN))
 		stat |= BROKEN
+		set_light(0)
 		update_icon()
 
 		var/dump_amount = 0
@@ -905,6 +925,7 @@
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
 	icon_state = "boozeomat"        //////////////18 drink entities below, plus the glasses, in case someone wants to edit the number of bottles
 	icon_deny = "boozeomat_deny"
+	icon_lightmask = "smartfridge"
 	icon_panel = "smartfridge"
 	icon_broken = "smartfridge"
 	products = list(/obj/item/reagent_containers/food/drinks/bottle/gin = 5,
@@ -946,6 +967,7 @@
 	desc = "A vending machine which dispenses hot drinks."
 	ads_list = list("Have a drink!","Drink up!","It's good for you!","Would you like a hot joe?","I'd kill for some coffee!","The best beans in the galaxy.","Only the finest brew for you.","Mmmm. Nothing like a coffee.","I like coffee, don't you?","Coffee helps you work!","Try some tea.","We hope you like the best!","Try our new chocolate!","Admin conspiracies")
 	icon_state = "coffee"
+	icon_lightmask = "coffee"
 	icon_vend = "coffee_vend"
 	icon_panel = "screen_vendor"
 	item_slot = TRUE
@@ -1006,6 +1028,8 @@
 	slogan_list = list("Try our new nougat bar!","Twice the calories for half the price!")
 	ads_list = list("The healthiest!","Award-winning chocolate bars!","Mmm! So good!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Have some more Getmore!","Best quality snacks straight from mars.","We love chocolate!","Try our new jerky!")
 	icon_state = "snack"
+	icon_lightmask = "nutri"
+	icon_off = "nutri"
 	icon_panel = "thin_vendor"
 	products = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 6,/obj/item/reagent_containers/food/drinks/dry_ramen = 6,/obj/item/reagent_containers/food/snacks/chips =6,
 					/obj/item/reagent_containers/food/snacks/sosjerky = 6,/obj/item/reagent_containers/food/snacks/no_raisin = 6,/obj/item/reagent_containers/food/snacks/pistachios =6,
@@ -1025,6 +1049,7 @@
 	desc = "A self-serving Chinese food machine, for all your Chinese food needs."
 	slogan_list = list("Taste 5000 years of culture!","Mr. Chang, approved for safe consumption in over 10 sectors!","Chinese food is great for a date night, or a lonely night!","You can't go wrong with Mr. Chang's authentic Chinese food!")
 	icon_state = "chang"
+	icon_lightmask = "chang"
 	products = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 6, /obj/item/reagent_containers/food/snacks/chinese/tao = 6, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 6, /obj/item/reagent_containers/food/snacks/chinese/newdles = 6,
 					/obj/item/reagent_containers/food/snacks/chinese/rice = 6, /obj/item/reagent_containers/food/snacks/fortunecookie = 6)
 	prices = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 50, /obj/item/reagent_containers/food/snacks/chinese/tao = 50, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 50, /obj/item/reagent_containers/food/snacks/chinese/newdles = 50,
@@ -1038,6 +1063,7 @@
 	name = "\improper Robust Softdrinks"
 	desc = "A soft drink vendor provided by Robust Industries, LLC."
 	icon_state = "Cola_Machine"
+	icon_lightmask = "Cola_Machine"
 	icon_panel = "thin_vendor"
 	slogan_list = list("Robust Softdrinks: More robust than a toolbox to the head!")
 	ads_list = list("Refreshing!","Hope you're thirsty!","Over 1 million drinks sold!","Thirsty? Why not cola?","Please, have a drink!","Drink up!","The best drinks in space.")
@@ -1058,6 +1084,7 @@
 	desc = "Cartridges for PDA's."
 	slogan_list = list("Carts to go!")
 	icon_state = "cart"
+	icon_lightmask = "med"
 	icon_deny = "cart_deny"
 	icon_panel = "wide_vendor"
 	products = list(/obj/item/pda =10,/obj/item/cartridge/mob_hunt_game = 25,/obj/item/cartridge/medical = 10,/obj/item/cartridge/chemistry = 10,
@@ -1076,6 +1103,7 @@
 	name = "\improper Liberation Station"
 	desc = "An overwhelming amount of <b>ancient patriotism</b> washes over you just by looking at the machine."
 	icon_state = "liberationstation"
+	icon_lightmask = "liberationstation"
 	req_access_txt = "1"
 	slogan_list = list("Liberation Station: Your one-stop shop for all things second amendment!","Be a patriot today, pick up a gun!","Quality weapons for cheap prices!","Better dead than red!")
 	ads_list = list("Float like an astronaut, sting like a bullet!","Express your second amendment today!","Guns don't kill people, but you can!","Who needs responsibilities when you have guns?")
@@ -1093,6 +1121,7 @@
 	name = "\improper Syndicate Donksoft Toy Vendor"
 	desc = "An ages 8 and up approved vendor that dispenses toys. If you were to find the right wires, you can unlock the adult mode setting!"
 	icon_state = "syndi"
+	icon_lightmask = "syndi"
 	slogan_list = list("Get your cool toys today!","Trigger a valid hunter today!","Quality toy weapons for cheap prices!","Give them to HoPs for all access!","Give them to HoS to get permabrigged!")
 	ads_list = list("Feel robust with your toys!","Express your inner child today!","Toy weapons don't kill people, but valid hunters do!","Who needs responsibilities when you have toy weapons?","Make your next murder FUN!")
 	vend_reply = "Come back for more!"
@@ -1123,6 +1152,7 @@
 	ads_list = list("Probably not bad for you!","Don't believe the scientists!","It's good for you!","Don't quit, buy more!","Smoke!","Nicotine heaven.","Best cigarettes since 2150.","Award-winning cigs.")
 	vend_delay = 34
 	icon_state = "cigs"
+	icon_lightmask = "cigs"
 	products = list(
 		/obj/item/storage/fancy/cigarettes/cigpack_robust = 12,
 		/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
@@ -1183,6 +1213,7 @@
 	name = "\improper NanoMed Plus"
 	desc = "Medical drug dispenser."
 	icon_state = "med"
+	icon_lightmask = "med"
 	icon_deny = "med_deny"
 	icon_panel = "wide_vendor"
 	ads_list = list("Go save some lives!","The best stuff for your medbay.","Only the finest tools.","Natural chemicals!","This stuff saves lives.","Don't you want some?","Ping!")
@@ -1218,6 +1249,7 @@
 	ads_list = list("Go save some lives!","The best stuff for your medbay.","Only the finest tools.","Natural chemicals!","This stuff saves lives.","Don't you want some?")
 	icon_state = "wallmed"
 	icon_deny = "wallmed_deny"
+	icon_lightmask = "wallmed"
 	icon_panel = "wallmed"
 	icon_broken = "wallmed"
 	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
@@ -1243,6 +1275,7 @@
 	desc = "A security equipment vendor."
 	ads_list = list("Crack capitalist skulls!","Beat some heads in!","Don't forget - harm is good!","Your weapons are right here.","Handcuffs!","Freeze, scumbag!","Don't tase me bro!","Tase them, bro.","Why not have a donut?")
 	icon_state = "sec"
+	icon_lightmask = "sec"
 	icon_deny = "sec_deny"
 	icon_panel = "wide_vendor"
 	req_access_txt = "1"
@@ -1259,6 +1292,7 @@
 	ads_list = list("We like plants!","Don't you want some?","The greenest thumbs ever.","We like big plants.","Soft soil...")
 	icon_state = "nutri"
 	icon_deny = "nutri_deny"
+	icon_lightmask = "nutri"
 	icon_panel = "thin_vendor"
 	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 20,/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 13,/obj/item/reagent_containers/glass/bottle/nutrient/rh = 6,/obj/item/reagent_containers/spray/pestspray = 20,
 					/obj/item/reagent_containers/syringe = 5,/obj/item/storage/bag/plants = 5,/obj/item/cultivator = 3,/obj/item/shovel/spade = 3,/obj/item/plant_analyzer = 4)
@@ -1271,6 +1305,7 @@
 	slogan_list = list("THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!","Hands down the best seed selection on the station!","Also certain mushroom varieties available, more for experts! Get certified today!")
 	ads_list = list("We like plants!","Grow some crops!","Grow, baby, growww!","Aw h'yeah son!")
 	icon_state = "seeds"
+	icon_lightmask = "seeds"
 	icon_panel = "thin_vendor"
 	products = list(/obj/item/seeds/aloe =3,
 					/obj/item/seeds/ambrosia = 3,
@@ -1357,6 +1392,7 @@
 	name = "\improper AutoDrobe"
 	desc = "A vending machine for costumes."
 	icon_state = "theater"
+	icon_lightmask = "theater"
 	icon_deny = "theater_deny"
 	slogan_list = list("Dress for success!","Suited and booted!","It's show time!","Why leave style up to fate? Use AutoDrobe!")
 	vend_delay = 15
@@ -1493,6 +1529,7 @@
 	desc = "A kitchen and restaurant equipment vendor."
 	ads_list = list("Mm, food stuffs!","Food and food accessories.","Get your plates!","You like forks?","I like forks.","Woo, utensils.","You don't really need these...")
 	icon_state = "dinnerware"
+	icon_lightmask = "dinnerware"
 	products = list(/obj/item/storage/bag/tray = 8,
 					/obj/item/kitchen/utensil/fork = 6,
 					/obj/item/trash/plate = 20,
@@ -1521,6 +1558,7 @@
 	name = "\improper BODA"
 	desc = "Old sweet water vending machine."
 	icon_state = "sovietsoda"
+	icon_lightmask = "sovietsoda"
 	ads_list = list("For Tsar and Country.","Have you fulfilled your nutrition quota today?","Very nice!","We are simple people, for this is all we eat.","If there is a person, there is a problem. If there is no person, then there is no problem.")
 	products = list(/obj/item/reagent_containers/food/drinks/drinkingglass/soda = 30)
 	contraband = list(/obj/item/reagent_containers/food/drinks/drinkingglass/cola = 20)
@@ -1532,6 +1570,7 @@
 	desc = "Tools for tools."
 	icon_state = "tool"
 	icon_deny = "tool_deny"
+	icon_lightmask = "tool"
 	icon_panel = "generic"
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
@@ -1572,6 +1611,7 @@
 	desc = "All the tools you need to create your own robot army."
 	icon_state = "robotics"
 	icon_deny = "robotics_deny"
+	icon_lightmask = "robotics"
 	req_access_txt = "29"
 	products = list(/obj/item/clothing/suit/storage/labcoat = 4,/obj/item/clothing/under/rank/roboticist = 4,/obj/item/stack/cable_coil = 4,/obj/item/flash = 4,
 					/obj/item/stock_parts/cell/high = 12, /obj/item/assembly/prox_sensor = 3,/obj/item/assembly/signaler = 3,/obj/item/healthanalyzer = 3,
@@ -1585,6 +1625,8 @@
 	slogan_list = list("Enjoy your meal.","Enough calories to support strenuous labor.")
 	ads_list = list("The healthiest!","Award-winning chocolate bars!","Mmm! So good!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Have some more Getmore!","Best quality snacks straight from mars.","We love chocolate!","Try our new jerky!")
 	icon_state = "sustenance"
+	icon_lightmask = "nutri"
+	icon_off = "nutri"
 	icon_panel = "thin_vendor"
 	products = list(/obj/item/reagent_containers/food/snacks/tofu = 24,
 					/obj/item/reagent_containers/food/drinks/ice = 12,
@@ -1599,6 +1641,7 @@
 	name = "\improper Hatlord 9000"
 	desc = "It doesn't seem the slightest bit unusual. This frustrates you immensely."
 	icon_state = "hats"
+	icon_lightmask = "hats"
 	icon_panel = "syndi"
 	icon_broken = "wide_vendor"
 	ads_list = list("Warning, not all hats are dog/monkey compatible. Apply forcefully with care.","Apply directly to the forehead.","Who doesn't love spending cash on hats?!","From the people that brought you collectable hat crates, Hatlord!")
@@ -1616,6 +1659,7 @@
 	name = "\improper Suitlord 9000"
 	desc = "You wonder for a moment why all of your shirts and pants come conjoined. This hurts your head and you stop thinking about it."
 	icon_state = "suits"
+	icon_lightmask = "suits"
 	icon_panel = "syndi"
 	icon_broken = "wide_vendor"
 	ads_list = list("Pre-Ironed, Pre-Washed, Pre-Wor-*BZZT*","Blood of your enemies washes right out!","Who are YOU wearing?","Look dapper! Look like an idiot!","Dont carry your size? How about you shave off some pounds you fat lazy- *BZZT*")
@@ -1630,6 +1674,7 @@
 	name = "\improper Shoelord 9000"
 	desc = "Wow, hatlord looked fancy, suitlord looked streamlined, and this is just normal. The guy who designed these must be an idiot."
 	icon_state = "shoes"
+	icon_lightmask = "shoes"
 	icon_panel = "syndi"
 	icon_broken = "wide_vendor"
 	ads_list = list("Put your foot down!","One size fits all!","IM WALKING ON SUNSHINE!","No hobbits allowed.","NO PLEASE WILLY, DONT HURT ME- *BZZT*")
@@ -1645,6 +1690,7 @@
 	ads_list = list("Probably not bad for you!","Don't believe the scientists!","It's good for you!","Don't quit, buy more!","Smoke!","Nicotine heaven.","Best cigarettes since 2150.","Award-winning cigs.")
 	vend_delay = 34
 	icon_state = "cigs"
+	icon_lightmask = "cigs"
 	products = list(/obj/item/storage/fancy/cigarettes/syndicate = 10,/obj/item/lighter/random = 5)
 
 /obj/machinery/vending/syndisnack
@@ -1653,6 +1699,8 @@
 	slogan_list = list("Try our new nougat bar!","Twice the calories for half the price!")
 	ads_list = list("The healthiest!","Award-winning chocolate bars!","Mmm! So good!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Have some more Getmore!","Best quality snacks straight from mars.","We love chocolate!","Try our new jerky!")
 	icon_state = "snack"
+	icon_lightmask = "nutri"
+	icon_off = "nutri"
 	icon_panel = "thin_vendor"
 	products = list(/obj/item/reagent_containers/food/snacks/chips =6,/obj/item/reagent_containers/food/snacks/sosjerky = 6,
 					/obj/item/reagent_containers/food/snacks/syndicake = 6, /obj/item/reagent_containers/food/snacks/cheesiehonkers = 6)
@@ -1662,6 +1710,7 @@
 	name = "\improper ClothesMate" //renamed to make the slogan rhyme
 	desc = "A vending machine for clothing."
 	icon_state = "clothes"
+	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	slogan_list = list("Dress for success!","Prepare to look swagalicious!","Look at all this free swag!","Why leave style up to fate? Use the ClothesMate!")
 	vend_delay = 15
@@ -1760,6 +1809,7 @@
 	ads_list = list("Just like Kindergarten!","Now with 1000% more vibrant colors!","Screwing with the janitor was never so easy!","Creativity is at the heart of every spessman.")
 	vend_delay = 15
 	icon_state = "artvend"
+	icon_lightmask = "artvend"
 	icon_panel = "screen_vendor"
 	products = list(/obj/item/stack/cable_coil/random = 10,/obj/item/camera = 4,/obj/item/camera_film = 6,
 	/obj/item/storage/photo_album = 2,/obj/item/stack/wrapping_paper = 4,/obj/item/stack/tape_roll = 5,/obj/item/stack/packageWrap = 4,
@@ -1776,6 +1826,7 @@
 	ads_list = list("House-training costs extra!","Now with 1000% more cat hair!","Allergies are a sign of weakness!","Dogs are man's best friend. Remember that Vulpkanin!"," Heat lamps for Unathi!"," Vox-y want a cracker?")
 	vend_delay = 15
 	icon_state = "crittercare"
+	icon_lightmask = "crittercare"
 	icon_panel = "drobe"
 	products = list(/obj/item/clothing/accessory/petcollar = 5, /obj/item/storage/firstaid/aquatic_kit/full =5, /obj/item/fish_eggs/goldfish = 5,
 					/obj/item/fish_eggs/clownfish = 5, /obj/item/fish_eggs/shark = 5, /obj/item/fish_eggs/feederfish = 10,
@@ -1800,6 +1851,7 @@
 	name = "\improper SecDrobe"
 	desc = "A vending machine for security and security-related clothing!"
 	icon_state = "secdrobe"
+	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	ads_list = list("Beat perps in style!", "It's red so you can't see the blood!", "You have the right to be fashionable!", "Now you can be the fashion police you always wanted to be!")
 	vend_reply = "Thank you for using the SecDrobe!"
@@ -1839,6 +1891,7 @@
 	name = "\improper DetDrobe"
 	desc = "A machine for all your detective needs, as long as you only need clothes."
 	icon_state = "detdrobe"
+	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	ads_list = list("Apply your brilliant deductive methods in style!", "They already smell of cigarettes!")
 	vend_reply = "Thank you for using the DetDrobe!"
@@ -1866,6 +1919,7 @@
 	name = "\improper MediDrobe"
 	desc = "A vending machine rumoured to be capable of dispensing clothing for medical personnel."
 	icon_state = "base_drobe"
+	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "medidrobe"
 	ads_list = list("Make those blood stains look fashionable!")
@@ -1901,6 +1955,7 @@
 	name = "\improper ViroDrobe"
 	desc = "An unsterilized machine for dispending virology related clothing."
 	icon_state = "base_drobe"
+	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "virodrobe"
 	ads_list = list("Viruses getting you down? Nothing a change of clothes can't fix!", "Upgrade to sterilized clothing today!")
@@ -1924,6 +1979,7 @@
 	name = "\improper ChemDrobe"
 	desc = "A vending machine for dispensing chemistry related clothing."
 	icon_state = "base_drobe"
+	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "chemdrobe"
 	ads_list = list("Our clothes are 0.5% more resistant to acid spills! Get yours now!")
@@ -1948,6 +2004,7 @@
 	name = "\improper GeneDrobe"
 	desc = "A machine for dispensing clothing related to genetics."
 	icon_state = "base_drobe"
+	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "genedrobe"
 	ads_list = "Perfect for the mad scientist in you!"
@@ -1967,6 +2024,7 @@
 	name = "\improper SciDrobe"
 	desc = "A simple vending machine suitable to dispense well tailored science clothing. Endorsed by Space Cubans."
 	icon_state = "base_drobe"
+	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "scidrobe"
 	ads_list = list("Longing for the smell of plasma burnt flesh?", "Buy your science clothing now!", "Made with 10% Auxetics, so you don't have to worry about losing your arm!")
@@ -1991,6 +2049,7 @@
 	name = "\improper RoboDrobe"
 	desc = "A vending machine designed to dispense clothing known only to roboticists."
 	icon_state = "base_drobe"
+	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "robodrobe"
 	ads_list = list("You turn me TRUE, use defines!","0110001101101100011011110111010001101000011001010111001101101000011001010111001001100101")
@@ -2010,6 +2069,7 @@
 	name = "\improper EngiDrobe"
 	desc = "A vending machine renowned for vending industrial grade clothing."
 	icon_state = "yellow_drobe"
+	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "engidrobe"
 	ads_list = list("Guaranteed to protect your feet from industrial accidents!", "Afraid of radiation? Then wear yellow!")
@@ -2038,6 +2098,7 @@
 	name = "\improper AtmosDrobe"
 	desc = "This relatively unknown vending machine delivers clothing for Atmospherics Technicians, an equally unknown job."
 	icon_state = "yellow_drobe"
+	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "atmosdrobe"
 	ads_list = list("Guaranteed to protect your feet from atmospheric accidents!", "Get your inflammable clothing right here!")
@@ -2066,6 +2127,7 @@
 	name = "\improper CargoDrobe"
 	desc = "A highly advanced vending machine for buying cargo related clothing for free... most of the time."
 	icon_state = "yellow_drobe"
+	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "cargodrobe"
 	ads_list = list("Upgraded Assistant Style! Pick yours today!", "These shorts are comfy and easy to wear, get yours now!")
@@ -2088,6 +2150,7 @@
 	name = "\improper ChefDrobe"
 	desc = "This vending machine might not dispense meat, but it certainly dispenses chef related clothing."
 	icon_state = "base_drobe"
+	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "chefdrobe"
 	ads_list = list("Our clothes are guaranteed to protect you from food splatters!", "Comfortable enough for a CQC practice!")
@@ -2109,6 +2172,7 @@
 	name = "\improper BarDrobe"
 	desc = "A stylish vendor to dispense the most stylish bar clothing!"
 	icon_state = "bardrobe"
+	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	ads_list = list("Guaranteed to prevent stains from spilled drinks!")
 	vend_reply = "Thank you for using the BarDrobe!"
@@ -2128,6 +2192,7 @@
 	name = "\improper HydroDrobe"
 	desc = "A machine with a catchy name. It dispenses botany related clothing and gear."
 	icon_state = "hydrobe"
+	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	ads_list = list("Do you love soil? Then buy our clothes!", "Get outfits to match your green thumb here!")
 	vend_reply = "Thank you for using the HydroDrobe!"
