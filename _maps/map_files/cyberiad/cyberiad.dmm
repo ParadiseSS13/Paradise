@@ -51703,12 +51703,6 @@
 "cjZ" = (
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
-"cka" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating/airless,
-/area/toxins/test_area)
 "ckb" = (
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
@@ -61710,6 +61704,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "cDN" = (
@@ -62153,7 +62150,10 @@
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "cET" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "cFb" = (
@@ -139027,7 +139027,7 @@ aaa
 aaa
 aab
 cic
-cka
+cjZ
 cjZ
 clB
 cbw
@@ -139041,7 +139041,7 @@ cdH
 cie
 cie
 cDM
-cET
+cjZ
 cic
 aab
 aaa
@@ -139284,7 +139284,7 @@ aaa
 aaa
 aab
 cic
-cjZ
+cET
 clA
 cie
 cbS
