@@ -484,7 +484,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/medical
 	slowdown = 0.5
 
-	//Security
+//Security
 /obj/item/clothing/head/helmet/space/hardsuit/security
 	name = "security hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
@@ -517,6 +517,24 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
 	jetpack = /obj/item/tank/jetpack/suit
 
+//Blueshield hardsuit
+/obj/item/clothing/head/helmet/space/hardsuit/blueshield
+	name = "blueshield's hardsuit helmet"
+	desc = "A special bulky helmet worn by the Blueshield Lieutenant. Has blue highlights and Blueshield`s sign on the chest plate. Heavy armoured, space ready and fire resistant."
+	icon_state = "hardsuit0-blueshield"
+	item_state = "hardsuit0-blueshield"
+	item_color = "blueshield"
+	armor = list("melee" = 40, "bullet" = 20, "laser" = 30, "energy" = 15, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 80)
+
+/obj/item/clothing/suit/space/hardsuit/blueshield
+	name = "blueshield's hardsuit"
+	desc = "A special bulky suit worn by the Blueshield Lieutenant. Has blue highlights and Blueshield`s sign on the chest plate. Heavy armoured, space ready and fire resistant."
+	icon_state = "hardsuit-blueshield"
+	item_state = "hardsuit-blueshield"
+	item_color = "blueshield"
+	armor = list("melee" = 40, "bullet" = 20, "laser" = 30, "energy" = 15, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 80)
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/blueshield
+	jetpack = /obj/item/tank/jetpack/suit
 
 //Singuloth armor
 /obj/item/clothing/head/helmet/space/hardsuit/singuloth

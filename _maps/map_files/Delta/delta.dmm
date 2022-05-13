@@ -22165,6 +22165,10 @@
 	},
 /area/janitor)
 "cdK" = (
+/obj/structure/bed/dogbed{
+	name = "kitty basket"
+	},
+/mob/living/simple_animal/pet/cat/floppa,
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
 	},
@@ -91587,13 +91591,6 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/medical/research/nhallway)
-"oBY" = (
-/obj/structure/bed/dogbed{
-	name = "kitty basket"
-	},
-/mob/living/simple_animal/pet/cat/floppa,
-/turf/simulated/floor/wood,
-/area/blueshield)
 "oCc" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/northwest,
@@ -94809,10 +94806,10 @@
 	},
 /area/atmos)
 "ppQ" = (
-/obj/item/flag/nt,
 /obj/item/radio/intercom{
 	pixel_y = 24
 	},
+/obj/machinery/suit_storage_unit/blueshield,
 /turf/simulated/floor/wood,
 /area/blueshield)
 "pql" = (
@@ -171605,7 +171602,7 @@ bJh
 aaa
 pty
 ppQ
-oBY
+iLo
 dBT
 dDj
 dFi

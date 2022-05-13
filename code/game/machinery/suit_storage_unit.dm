@@ -139,6 +139,14 @@
 /obj/machinery/suit_storage_unit/clown/secure
 	secure = TRUE
 
+/obj/machinery/suit_storage_unit/blueshield
+	name = "blueshield suit storage unit"
+	suit_type = /obj/item/clothing/suit/space/hardsuit/blueshield
+	req_acces = list(ACCESS_BLUESHIELD)
+
+/obj/machinery/suit_storage_unit/blueshield
+	secure = TRUE
+
 /obj/machinery/suit_storage_unit/mime
 	name = "mime suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/eva/mime
