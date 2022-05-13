@@ -164,7 +164,7 @@
 	category = list("initial", "Electronics")
 
 /datum/design/airalarm_electronics
-	name = "Air Alarm Electronics"
+	name = "Электроника воздушной сигнализации (Air Alarm)" // Air Alarm Electronics
 	id = "airalarm_electronics"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)

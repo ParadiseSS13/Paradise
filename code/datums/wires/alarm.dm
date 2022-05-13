@@ -4,7 +4,7 @@
 	wire_count = 5
 	window_x = 385
 	window_y = 90
-	proper_name = "Air alarm"
+	proper_name = "Воздушная сигнализация"
 
 /datum/wires/alarm/New(atom/_holder)
 	wires = list(
@@ -22,9 +22,9 @@
 /datum/wires/alarm/get_status()
 	. = ..()
 	var/obj/machinery/alarm/A = holder
-	. += "The Air Alarm is [A.locked ? "" : "un"]locked."
-	. += "The Air Alarm is [(A.shorted || (A.stat & (NOPOWER|BROKEN))) ? "offline." : "working properly!"]"
-	. += "The 'AI control allowed' light is [A.aidisabled ? "off" : "on"]."
+	. += "Воздушная сигнализация [A.locked ? "за" : "раз"]блокирована."
+	. += "Воздушная сигнализация [(A.shorted || (A.stat & (NOPOWER|BROKEN))) ? "отключена." : "отлично работает!"]"
+	. += "Лампочка «Доступ ИИ» [A.aidisabled ? "погасла" : "зажглась"]."
 
 /datum/wires/alarm/on_cut(wire, mend)
 	var/obj/machinery/alarm/A = holder

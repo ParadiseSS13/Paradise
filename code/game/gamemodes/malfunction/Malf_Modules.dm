@@ -437,18 +437,18 @@
 
 //Air Alarm Safety Override: Unlocks the ability to enable flooding on all air alarms.
 /datum/AI_Module/large/break_air_alarms
-	module_name = "Air Alarm Safety Override"
+	module_name = "Нарушение протоколов атмосферной безопасности"
 	mod_pick_name = "allow_flooding"
-	description = "Gives you the ability to disable safeties on all air alarms. This will allow you to use the environmental mode Flood, which disables scrubbers as well as pressure checks on vents. \
-	Anyone can check the air alarm's interface and may be tipped off by their nonfunctionality."
+	description = "Позволяет отключить предохранители на всех воздушных сигнализациях. После этого их можно будет переключить на режим «Потоп», отключающий вытяжки и проверку давления. \
+	Любой, кто проверит интерфейс воздушной сигнализации, может заметить проблему."
 	one_purchase = TRUE
 	cost = 50
 	power_type = /datum/action/innate/ai/break_air_alarms
-	unlock_text = "<span class='notice'>You remove the safety overrides on all air alarms, but you leave the confirm prompts open. You can hit 'Yes' at any time... you bastard.</span>"
+	unlock_text = "<span class='notice'>Вы снимаете протоколы безопасности всех воздушных сигнализаций, но не подтверждаете запрос. Вы можете подтвердить его когда угодно… больной вы ублюдок.</span>"
 
 /datum/action/innate/ai/break_air_alarms
-	name = "Override Air Alarm Safeties"
-	desc = "Enables the Flood setting on all air alarms."
+	name = "Нарушение протокола безопасности воздушных сигнализаций"
+	desc = "Добавляет режим «Потоп» во все воздушные сигнализации."
 	button_icon_state = "break_air_alarms"
 	uses = 1
 
@@ -457,7 +457,7 @@
 		if(!is_station_level(AA.z))
 			continue
 		AA.emagged = TRUE
-	to_chat(owner, "<span class='notice'>All air alarm safeties on the station have been overriden. Air alarms may now use the Flood environmental mode.")
+	to_chat(owner, "<span class='notice'>Все ограничения атмосферных протоколов безопасности станции сняты. Воздушные сигнализации теперь могут быть переключены в режим «Потоп».")
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, 0)
 
 
