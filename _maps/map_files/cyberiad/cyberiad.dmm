@@ -19360,7 +19360,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
 "aUO" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -19671,7 +19670,6 @@
 	},
 /area/crew_quarters/dorms)
 "aVx" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light{
 	dir = 1
 	},
