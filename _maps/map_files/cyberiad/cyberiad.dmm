@@ -12088,7 +12088,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "bluered"
+	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/dorms)
 "aDw" = (
