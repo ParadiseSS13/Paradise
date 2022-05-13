@@ -12,7 +12,7 @@
 
 //Prevents AIs tracking you.
 /datum/action/changeling/digitalcamo/sting_action(mob/user)
-	if(HAS_TRAIT(user, TRAIT_AI_UNTRACKABLE))
+	if(HAS_TRAIT_FROM(user, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT))
 		REMOVE_TRAIT(user, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT)
 		to_chat(user, "<span class='notice'>We return to normal.</span>")
 	else

@@ -31,9 +31,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
 
-	if(!length(possible_changelings))
-		return FALSE
-
 	changeling_amount = 1 + round(num_players() / 10)
 
 	for(var/i in 1 to changeling_amount)

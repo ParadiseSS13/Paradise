@@ -531,9 +531,9 @@
 
 /datum/language/ling/broadcast(mob/living/speaker, message, speaker_mask)
 	var/datum/antagonist/changeling/cling = speaker.mind?.has_antag_datum(/datum/antagonist/changeling)
-	if(speaker.mind && cling)
+	if(cling)
 		..(speaker, message, cling.changelingID)
-	else if(speaker.mind && speaker.mind.linglink)
+	else if(speaker.mind?.linglink)
 		..()
 	else
 		..(speaker,message)

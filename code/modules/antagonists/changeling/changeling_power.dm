@@ -74,8 +74,6 @@
 
 /datum/action/changeling/proc/can_sting(mob/user, mob/target)
 	SHOULD_CALL_PARENT(TRUE)
-	if(!ishuman(user))
-		return FALSE
 	if(req_human && (!ishuman(user) || issmall(user)))
 		to_chat(user, "<span class='warning'>We cannot do that in this form!</span>")
 		return FALSE

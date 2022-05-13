@@ -88,11 +88,8 @@
 	if(cling.absorbed_count < initial(power.req_dna))
 		to_chat(owner, "<span class='warning'>We must absorb more victims before we can evolve this ability!</span>")
 		return FALSE
-	if(initial(power.dna_cost) < 0)
-		to_chat(owner, "<span class='warning'>We cannot evolve this ability.</span>")
-		return FALSE
 	if(cling.genetic_points < initial(power.dna_cost))
-		to_chat(owner, "<span class='warning'>We have reached our capacity for abilities.</span>")
+		to_chat(owner, "<span class='warning'>We cannot afford to evolve this ability!</span>")
 		return FALSE
 	if(HAS_TRAIT(owner, TRAIT_FAKEDEATH)) // To avoid potential exploits by buying new powers while in stasis, which clears your verblist.
 		to_chat(owner, "<span class='warning'>We lack the energy to evolve new abilities right now.</span>")

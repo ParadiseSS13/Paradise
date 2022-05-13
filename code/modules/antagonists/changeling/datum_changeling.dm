@@ -7,7 +7,7 @@
 	antag_hud_name = "hudchangeling"
 	antag_hud_type = ANTAG_HUD_CHANGELING
 	clown_gain_text = "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself."
-	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
+	clown_removal_text = "As your changeling nature fades, you return to your own clumsy, clownish self."
 	wiki_page_name = "Changeling"
 	/// List of [/datum/dna] which have been absorbed through the DNA sting or absorb power.
 	var/list/absorbed_dna
@@ -55,6 +55,13 @@
 	var/regenerating = FALSE
 
 
+/datum/antagonist/changeling/New()
+	..()
+	if(!length(innate_powers))
+		innate_powers = get_powers_of_type(CHANGELING_INNATE_POWER)
+	if(!length(purchaseable_powers))
+		purchaseable_powers = get_powers_of_type(CHANGELING_PURCHASABLE_POWER)
+
 /datum/antagonist/changeling/on_gain()
 	SSticker.mode.changelings |= owner
 	var/honorific = owner.current.gender == FEMALE ? "Ms." : "Mr."
@@ -65,13 +72,9 @@
 	else
 		changelingID = "[honorific] [rand(1,999)]"
 
-	if(!length(innate_powers))
-		innate_powers = get_powers_of_type(CHANGELING_INNATE_POWER)
-	if(!length(purchaseable_powers))
-		purchaseable_powers = get_powers_of_type(CHANGELING_PURCHASABLE_POWER)
 	absorbed_dna = list()
 	protected_dna = list()
-	acquired_powers= list()
+	acquired_powers = list()
 	absorbed_languages = list()
 
 	var/mob/living/carbon/human/H = owner.current

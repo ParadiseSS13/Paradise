@@ -363,7 +363,7 @@
 
 /datum/status_effect/speedlegs/on_apply()
 	cling = owner.mind.has_antag_datum(/datum/antagonist/changeling)
-	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, "changeling")
+	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, CHANGELING_TRAIT)
 	return TRUE
 
 /datum/status_effect/speedlegs/tick()

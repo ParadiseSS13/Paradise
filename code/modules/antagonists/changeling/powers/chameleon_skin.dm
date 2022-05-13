@@ -10,8 +10,6 @@
 
 /datum/action/changeling/chameleon_skin/sting_action(mob/user)
 	var/mob/living/carbon/human/H = user //SHOULD always be human, because req_human = TRUE
-	if(!istype(H)) // req_human could be done in can_sting stuff.
-		return FALSE
 	if(H.dna.GetSEState(GLOB.chameleonblock))
 		H.dna.SetSEState(GLOB.chameleonblock, 0)
 		singlemutcheck(H, GLOB.chameleonblock, MUTCHK_FORCED)
