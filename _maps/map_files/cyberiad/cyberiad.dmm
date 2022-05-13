@@ -17843,11 +17843,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/turf/simulated/floor/mineral/tranquillite,
 /area/mimeoffice)
 "aRI" = (
 /obj/structure/cable{
@@ -18507,11 +18503,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/turf/simulated/floor/mineral/tranquillite,
 /area/mimeoffice)
 "aTr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -20322,11 +20314,7 @@
 	},
 /area/chapel/main)
 "aXi" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/turf/simulated/floor/mineral/tranquillite,
 /area/mimeoffice)
 "aXj" = (
 /obj/structure/morgue,
@@ -20639,11 +20627,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/turf/simulated/floor/mineral/tranquillite,
 /area/mimeoffice)
 "aXV" = (
 /obj/structure/cable{
@@ -20651,11 +20635,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/turf/simulated/floor/mineral/tranquillite,
 /area/mimeoffice)
 "aXW" = (
 /obj/structure/cable{
@@ -21458,11 +21438,7 @@
 	},
 /obj/item/paper_bin,
 /obj/item/toy/crayon/mime,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/turf/simulated/floor/mineral/tranquillite,
 /area/mimeoffice)
 "aZM" = (
 /obj/machinery/firealarm{
@@ -21470,11 +21446,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/turf/simulated/floor/mineral/tranquillite,
 /area/mimeoffice)
 "aZN" = (
 /obj/structure/cable{
@@ -22192,22 +22164,14 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/turf/simulated/floor/mineral/tranquillite,
 /area/mimeoffice)
 "bbB" = (
 /obj/structure/closet/secure_closet/mime,
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/turf/simulated/floor/mineral/tranquillite,
 /area/mimeoffice)
 "bbC" = (
 /obj/structure/cable{
@@ -22239,11 +22203,7 @@
 	},
 /obj/machinery/hologram/holopad,
 /obj/effect/landmark/start/mime,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/turf/simulated/floor/mineral/tranquillite,
 /area/mimeoffice)
 "bbE" = (
 /obj/structure/cable{
@@ -23051,11 +23011,7 @@
 	c_tag = "Mime's Office";
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/turf/simulated/floor/mineral/tranquillite,
 /area/mimeoffice)
 "bdt" = (
 /obj/structure/statue/tranquillite/mime,
@@ -23064,11 +23020,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/turf/simulated/floor/mineral/tranquillite,
 /area/mimeoffice)
 "bdu" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -23900,11 +23852,7 @@
 	name = "Mime's Office";
 	req_access_txt = "46"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/turf/simulated/floor/mineral/tranquillite,
 /area/mimeoffice)
 "bfb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -40343,8 +40291,9 @@
 	name = "Biohazard Shutter";
 	opacity = 0
 	},
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "bot"
 	},
 /area/medical/research)
 "bPl" = (
@@ -56036,7 +55985,6 @@
 /area/medical/psych)
 "cuy" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "bluefull"
 	},
 /area/medical/cmostore)
@@ -56805,7 +56753,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "bluefull"
 	},
 /area/medical/cmostore)
@@ -68984,7 +68931,6 @@
 	location = "Kitchen"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "bot"
 	},
 /area/maintenance/fsmaint)
@@ -72975,7 +72921,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "bot"
 	},
 /area/maintenance/fsmaint)

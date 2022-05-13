@@ -5603,7 +5603,6 @@
 	},
 /obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/security/brig)
@@ -5916,7 +5915,6 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/security/brig)
@@ -5938,7 +5936,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/security/brig)
@@ -6394,7 +6391,6 @@
 "aqL" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/security/brig)
@@ -6414,7 +6410,6 @@
 /area/security/brig)
 "aqN" = (
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/security/brig)
@@ -6899,7 +6894,6 @@
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/security/brig)
@@ -7540,7 +7534,6 @@
 /obj/structure/table,
 /obj/item/storage/box/cups,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/security/brig)
@@ -8179,7 +8172,6 @@
 "auU" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/security/brig)
@@ -8194,7 +8186,6 @@
 "auW" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/security/brig)
@@ -19128,7 +19119,6 @@
 	},
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/quartermaster/office)
@@ -20063,7 +20053,6 @@
 	},
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/quartermaster/office)
@@ -20859,7 +20848,6 @@
 	},
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/quartermaster/office)
@@ -21438,7 +21426,6 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/quartermaster/office)
@@ -22097,7 +22084,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/quartermaster/office)
@@ -22111,7 +22097,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/quartermaster/office)
@@ -22120,7 +22105,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/quartermaster/office)
@@ -22133,7 +22117,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/quartermaster/office)
@@ -22472,7 +22455,6 @@
 	},
 /obj/item/toy/figure/crew/cargotech,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/quartermaster/office)
@@ -22500,7 +22482,6 @@
 	},
 /obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/quartermaster/office)
@@ -22785,7 +22766,6 @@
 	},
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/quartermaster/office)
@@ -22796,7 +22776,6 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/quartermaster/office)
@@ -26806,7 +26785,6 @@
 "blx" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -32586,7 +32564,6 @@
 "bwV" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/engine/break_room)
@@ -33972,7 +33949,6 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/engine/break_room)
@@ -34410,7 +34386,6 @@
 /obj/item/storage/box/donkpockets,
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/engine/break_room)
@@ -34424,7 +34399,6 @@
 	},
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/engine/break_room)
@@ -40451,7 +40425,6 @@
 	req_access_txt = "28"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -40683,7 +40656,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -41962,7 +41934,6 @@
 	req_access_txt = "28"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -41981,7 +41952,6 @@
 	req_access_txt = "28"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -42112,7 +42082,6 @@
 	pixel_y = -2
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -42539,7 +42508,6 @@
 	req_access_txt = "28"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -42758,7 +42726,6 @@
 /area/atmos)
 "bSt" = (
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -42771,7 +42738,6 @@
 	dir = 2
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -42792,7 +42758,6 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -42803,7 +42768,6 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -43525,7 +43489,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -44120,7 +44083,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -44133,7 +44095,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -44857,7 +44818,6 @@
 	},
 /obj/structure/closet/secure_closet/freezer/fridge,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -44874,7 +44834,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -45454,7 +45413,6 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -45472,7 +45430,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -45483,7 +45440,6 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -45877,7 +45833,6 @@
 	},
 /obj/machinery/kitchen_machine/oven,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -51812,7 +51767,6 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/research)
@@ -51985,7 +51939,6 @@
 /obj/structure/chair/stool,
 /mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/research)
@@ -52070,7 +52023,6 @@
 /obj/structure/table/glass,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/research)
@@ -52091,7 +52043,6 @@
 /area/maintenance/incinerator)
 "cnI" = (
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/research)
@@ -52657,14 +52608,12 @@
 /obj/structure/chair/stool,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/research)
 "coU" = (
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/research)
@@ -53149,7 +53098,6 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/research)
@@ -53377,7 +53325,6 @@
 	},
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/research)
@@ -53579,18 +53526,10 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/atmos)
 "cqU" = (
-/turf/simulated/floor/plasteel{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/atmos)
 "cqV" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -53602,11 +53541,7 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/plasteel{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/atmos)
 "cqW" = (
 /obj/structure/girder,
@@ -54008,7 +53943,6 @@
 	},
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/research)
@@ -54022,7 +53956,6 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/research)
@@ -54034,7 +53967,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/research)
@@ -54055,7 +53987,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/research)
@@ -54262,11 +54193,7 @@
 /obj/item/stack/rods{
 	amount = 25
 	},
-/turf/simulated/floor/plasteel{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/atmos)
 "csv" = (
 /obj/structure/table/wood,
@@ -54753,7 +54680,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/research)
@@ -57144,7 +57070,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -57578,7 +57503,6 @@
 	},
 /obj/item/radio/off,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -57588,7 +57512,6 @@
 	},
 /obj/effect/landmark/start/research_director,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -57600,7 +57523,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -57991,7 +57913,6 @@
 /area/toxins/storage)
 "cAN" = (
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -58003,7 +57924,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -58016,7 +57936,6 @@
 	},
 /obj/item/circuitboard/teleporter,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -58035,7 +57954,6 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -58147,7 +58065,6 @@
 	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -58520,7 +58437,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -58540,7 +58456,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -58555,7 +58470,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -58567,7 +58481,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -58580,7 +58493,6 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -59150,7 +59062,6 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -59542,7 +59453,6 @@
 	},
 /obj/item/twohanded/required/kirbyplants/dead,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -59554,7 +59464,6 @@
 	},
 /obj/machinery/suit_storage_unit/rd/secure,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -59590,7 +59499,6 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -59678,7 +59586,6 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -60574,7 +60481,6 @@
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/medbreak)
@@ -60990,7 +60896,6 @@
 	icon_state = "pipe-j2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/medbreak)
@@ -61015,7 +60920,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/medbreak)
@@ -61036,7 +60940,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/medbreak)
@@ -61072,7 +60975,6 @@
 	},
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/medbreak)
@@ -61642,7 +61544,6 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/medbreak)
@@ -61719,7 +61620,6 @@
 	},
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/medbreak)
@@ -61734,7 +61634,6 @@
 	network = list("SS13","Medbay")
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/medbreak)
@@ -61970,7 +61869,6 @@
 /obj/structure/chair/stool,
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/medbreak)
@@ -61983,13 +61881,11 @@
 	},
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/medbreak)
 "cIZ" = (
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/medbreak)
@@ -61997,7 +61893,6 @@
 /obj/item/cigbutt,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/medbreak)
@@ -62445,7 +62340,6 @@
 "cKj" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/medbreak)
@@ -62456,7 +62350,6 @@
 	},
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/medbreak)
@@ -65069,7 +64962,6 @@
 	department = "Research Director's Office"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -72825,7 +72717,6 @@
 "ffD" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -73525,7 +73416,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -73748,7 +73638,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -75035,7 +74924,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
@@ -75767,7 +75655,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -78199,7 +78086,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -79025,7 +78911,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
@@ -79524,7 +79409,6 @@
 "wyX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/research)
@@ -79569,7 +79453,6 @@
 "wBj" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
