@@ -56628,9 +56628,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/flasher_button{
-	id = "permaflash";
-	pixel_y = -24
+/obj/machinery/computer/cryopod{
+	pixel_y = -30;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
@@ -64282,11 +64282,10 @@
 /turf/simulated/floor/wood,
 /area/security/main)
 "ivD" = (
-/obj/structure/bed,
-/obj/item/bedsheet/red,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/machinery/cryopod,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -66962,7 +66961,8 @@
 /obj/machinery/door_control{
 	name = "Panic Button";
 	id = "PermaLockdown";
-	pixel_y = -24
+	pixel_y = -24;
+	pixel_x = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -66974,6 +66974,11 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/flasher_button{
+	id = "permaflash";
+	pixel_y = -24;
+	pixel_x = -8
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
@@ -70159,8 +70164,8 @@
 	},
 /obj/machinery/flasher{
 	id = "permaflash";
-	pixel_y = -23;
-	pixel_x = 23
+	pixel_y = -24;
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
