@@ -45496,7 +45496,8 @@
 /obj/machinery/button/windowtint{
 	dir = 4;
 	id = "HOS";
-	pixel_x = -24
+	pixel_x = -24;
+	pixel_y = 6
 	},
 /turf/simulated/floor/wood,
 /area/lawoffice)
