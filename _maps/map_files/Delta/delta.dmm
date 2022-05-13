@@ -29633,6 +29633,11 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
+/obj/machinery/camera{
+	c_tag = "Security Hallway North";
+	dir = 8;
+	network = list("SS13","Security")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -42297,15 +42302,15 @@
 	},
 /area/hallway/primary/central)
 "bXb" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Prisoner Processing";
-	req_access_txt = "63"
-	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/security{
+	name = "Prisoner Processing";
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
@@ -90451,7 +90456,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/security/glass{
+/obj/machinery/door/airlock/security{
 	name = "Prisoner Processing";
 	req_access_txt = "63"
 	},
@@ -92690,6 +92695,21 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
+"qKw" = (
+/obj/machinery/door/airlock/security{
+	name = "Prisoner Processing";
+	req_access_txt = "63"
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredfull"
+	},
+/area/security/processing)
 "qOO" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -92881,14 +92901,6 @@
 	},
 /area/security/permabrig)
 "reH" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/camera{
-	c_tag = "Security Hallway North";
-	dir = 8;
-	network = list("SS13","Security")
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -92898,10 +92910,6 @@
 	},
 /area/security/brig)
 "rfB" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Prisoner Processing";
-	req_access_txt = "63"
-	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
 	d1 = 4;
@@ -92923,6 +92931,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/door/airlock/security{
+	name = "Prisoner Processing";
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
@@ -94280,7 +94292,7 @@
 	dir = 4
 	},
 /obj/machinery/door_timer/cell_5{
-	pixel_y = 31
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -147339,7 +147351,7 @@ bPz
 bPz
 bPz
 bPz
-bPz
+frI
 gKi
 bsZ
 lAG
@@ -149653,7 +149665,7 @@ goP
 goP
 pYY
 kYn
-bXb
+qKw
 bvw
 goP
 biv
