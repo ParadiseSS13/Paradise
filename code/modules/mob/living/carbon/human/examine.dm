@@ -274,9 +274,6 @@
 				else if(!client)
 					msg += "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
 
-	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDEFACE || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
-		msg += "Their features seem unnaturally tight and drawn.\n"
-
 	if(decaylevel == 1)
 		msg += "[p_they(TRUE)] [p_are()] starting to smell.\n"
 	if(decaylevel == 2)
