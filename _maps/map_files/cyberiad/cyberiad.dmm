@@ -38706,7 +38706,6 @@
 	pixel_x = 3;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/toxins/lab)

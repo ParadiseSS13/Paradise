@@ -53210,7 +53210,6 @@
 /obj/machinery/r_n_d/circuit_imprinter{
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel/white,
