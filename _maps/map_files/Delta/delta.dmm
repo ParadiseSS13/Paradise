@@ -19531,6 +19531,13 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Quartermaster's Desk";
+	departmentType = 2;
+	name = "Quartermaster's Requests Console";
+	pixel_x = 30
+	},
 /obj/structure/bed/dogbed,
 /turf/simulated/floor/plasteel{
 	dir = 6;

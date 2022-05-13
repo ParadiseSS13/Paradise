@@ -49095,9 +49095,10 @@
 /area/maintenance/asmaint2)
 "cdQ" = (
 /obj/machinery/requests_console{
-	department = "Cargo Bay";
+	announcementConsole = 1;
+	department = "Quartermaster's Desk";
 	departmentType = 2;
-	name = "Cargo Requests Console";
+	name = "Quartermaster's Requests Console";
 	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel,

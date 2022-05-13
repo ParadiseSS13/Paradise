@@ -20557,8 +20557,10 @@
 	},
 /obj/item/pen/red,
 /obj/machinery/requests_console{
-	department = "Cargo Bay";
+	announcementConsole = 1;
+	department = "Quartermaster's Desk";
 	departmentType = 2;
+	name = "Quartermaster's Requests Console";
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
