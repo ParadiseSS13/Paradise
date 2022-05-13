@@ -2797,8 +2797,8 @@
 /area/syndicate_mothership)
 "ka" = (
 /obj/structure/rack,
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
+/obj/item/storage/backpack/duffel/syndie/shotgun,
+/obj/item/storage/backpack/duffel/syndie/shotgun,
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
 /turf/simulated/floor/plasteel/dark,
@@ -3409,7 +3409,7 @@
 /obj/item/storage/backpack/duffel/clown,
 /obj/item/storage/backpack/duffel/captain,
 /obj/item/storage/backpack/duffel/science,
-/obj/item/storage/backpack/duffel/syndie/ammo,
+/obj/item/storage/backpack/duffel/syndie,
 /obj/item/storage/backpack/duffel/syndie/med,
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -5865,7 +5865,7 @@
 /area/admin)
 "ul" = (
 /obj/structure/table/glass,
-/obj/item/storage/backpack/duffel/syndie/surgery_fake,
+/obj/item/storage/backpack/duffel/syndie/med/surgery_fake,
 /obj/item/circular_saw,
 /obj/item/surgicaldrill,
 /obj/item/clothing/gloves/color/latex/nitrile,
@@ -8028,14 +8028,6 @@
 /obj/structure/chair/comfy/black,
 /turf/simulated/floor/carpet,
 /area/centcom/control)
-"EX" = (
-/obj/machinery/porta_turret/centcom/pulse,
-/obj/effect/spawner/window/reinforced/plasma,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
-	},
-/area/centcom/gamma)
 "EZ" = (
 /obj/machinery/computer/bsa_control/admin,
 /turf/simulated/floor/carpet,
@@ -8663,12 +8655,6 @@
 /area/admin)
 "HB" = (
 /obj/structure/closet/secure_closet/guncabinet,
-/obj/item/ammo_box/shotgun/beanbag,
-/obj/item/ammo_box/shotgun/beanbag,
-/obj/item/ammo_box/shotgun/beanbag,
-/obj/item/gun/projectile/shotgun/automatic/combat,
-/obj/item/gun/projectile/shotgun/automatic/combat,
-/obj/item/gun/projectile/shotgun/automatic/combat,
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
@@ -8676,6 +8662,12 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/gun/projectile/shotgun/automatic/combat,
+/obj/item/gun/projectile/shotgun/automatic/combat,
+/obj/item/gun/projectile/shotgun/automatic/combat,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "HC" = (
@@ -8711,15 +8703,15 @@
 /area/shuttle/gamma/space)
 "HM" = (
 /obj/structure/closet/secure_closet/guncabinet,
-/obj/item/gun/energy/ionrifle,
-/obj/item/gun/energy/ionrifle,
-/obj/item/gun/energy/ionrifle,
 /obj/machinery/light/spot{
 	dir = 4
 	},
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
+/obj/item/gun/energy/immolator/multi,
+/obj/item/gun/energy/immolator/multi,
+/obj/item/gun/energy/immolator/multi,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "HO" = (
@@ -9274,6 +9266,8 @@
 /obj/machinery/autolathe/upgraded/gamma,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "JN" = (
@@ -9309,6 +9303,7 @@
 /area/tdome/tdomeobserve)
 "JR" = (
 /obj/structure/closet/secure_closet/guncabinet,
+/obj/item/gun/medbeam,
 /obj/item/gun/medbeam,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
@@ -11746,8 +11741,7 @@
 /area/holodeck/source_knightarena)
 "TR" = (
 /obj/machinery/door/airlock/centcom{
-	name = "Special Operations Dock";
-	req_access_txt = "101"
+	name = "Special Operations Dock"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -24839,7 +24833,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -25610,7 +25604,7 @@ Db
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -25867,7 +25861,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -26638,7 +26632,7 @@ aN
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -26895,7 +26889,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -27666,7 +27660,7 @@ aN
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -28180,7 +28174,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -28951,7 +28945,7 @@ aN
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -29168,7 +29162,7 @@ Gd
 GR
 uC
 Te
-EX
+JH
 Hi
 Hi
 NL
@@ -29208,7 +29202,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -29979,7 +29973,7 @@ aN
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN
@@ -30236,7 +30230,7 @@ aN
 aN
 aN
 aN
-Db
+aN
 aN
 aN
 aN
@@ -31007,7 +31001,7 @@ Db
 aN
 aN
 aN
-aN
+Db
 aN
 aN
 aN

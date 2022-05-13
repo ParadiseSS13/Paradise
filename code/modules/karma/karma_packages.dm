@@ -22,7 +22,7 @@
 // If you are ever removing something from the karma store, **DO NOT** delete its definition datum.
 // Just set redunable = TRUE on it so people can get their karma refund
 
-// Jobs
+// Jobs - These no longer exist in the codebase
 /datum/karma_package/job
 	category = "Karma Jobs"
 
