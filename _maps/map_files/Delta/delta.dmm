@@ -15053,7 +15053,6 @@
 "aRR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/quartermaster/office)
@@ -37527,7 +37526,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
@@ -37536,7 +37534,6 @@
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
@@ -37551,7 +37548,6 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
@@ -37565,13 +37561,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
 "bMu" = (
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
@@ -37580,7 +37574,6 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
@@ -37685,7 +37678,6 @@
 /area/storage/primary)
 "bMI" = (
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellow"
 	},
 /area/storage/primary)
@@ -42444,7 +42436,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
@@ -42459,7 +42450,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
@@ -42473,7 +42463,6 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
@@ -43127,7 +43116,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellow"
 	},
 /area/hallway/primary/port)
@@ -54951,13 +54939,11 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/engine/engineering)
 "czl" = (
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/engine/engineering)
@@ -55578,7 +55564,6 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/engine/engineering)
@@ -56415,7 +56400,6 @@
 /area/maintenance/port)
 "cCt" = (
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/engine/engine_smes)
@@ -56424,7 +56408,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/engine/engine_smes)
@@ -56459,7 +56442,6 @@
 /area/maintenance/port)
 "cCz" = (
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/maintenance/port)
@@ -56708,11 +56690,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
-	},
-/area/crew_quarters/locker)
-"cDp" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
 	},
 /area/crew_quarters/locker)
 "cDq" = (
@@ -74280,7 +74257,6 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellow"
 	},
 /area/hallway/secondary/construction)
@@ -76920,9 +76896,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
 "dwU" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/theatre)
 "dwV" = (
 /obj/machinery/door/window{
@@ -77555,9 +77529,7 @@
 /obj/structure/table/wood,
 /obj/item/newspaper,
 /obj/item/clothing/head/bowlerhat,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/theatre)
 "dyj" = (
 /obj/structure/table/wood,
@@ -77976,15 +77948,6 @@
 	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
-/area/crew_quarters/theatre)
-"dzr" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
 /area/crew_quarters/theatre)
 "dzv" = (
 /obj/item/target,
@@ -79018,9 +78981,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/theatre)
 "dBt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -79402,9 +79363,7 @@
 /obj/structure/table/wood,
 /obj/item/clothing/head/papersack/smiley,
 /obj/item/pen,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/theatre)
 "dCt" = (
 /turf/simulated/floor/plasteel{
@@ -81362,9 +81321,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start/virologist,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/medical/virology)
 "dHq" = (
 /obj/structure/table/glass,
@@ -81868,9 +81825,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/medical/virology)
 "dIo" = (
 /obj/machinery/light{
@@ -82458,9 +82413,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/medical/virology)
 "dJZ" = (
 /obj/machinery/vending/virodrobe,
@@ -90800,9 +90753,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/maintenance/starboard)
 "kpH" = (
 /obj/machinery/door/airlock/external{
@@ -91117,9 +91068,7 @@
 	},
 /obj/item/clothing/gloves/color/black,
 /obj/item/taperecorder,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/maintenance/starboard)
 "lAG" = (
 /obj/machinery/door/airlock/security/glass{
@@ -94414,9 +94363,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/theatre)
 "tUp" = (
 /obj/structure/table/reinforced,
@@ -146333,7 +146280,7 @@ cxw
 cyS
 cAm
 cYh
-cDp
+hZL
 cvV
 cGS
 cHa
@@ -147910,7 +147857,7 @@ sZT
 aOx
 dwU
 dyh
-dzr
+dBr
 tSS
 dBr
 dCs

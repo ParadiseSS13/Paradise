@@ -1824,7 +1824,6 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "red"
 	},
 /area/security/brig)
@@ -8883,7 +8882,6 @@
 /obj/item/seeds/orange,
 /obj/item/seeds/orange,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "green"
 	},
 /area/security/permabrig)
@@ -16845,7 +16843,6 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/crew_quarters/courtroom)
@@ -16865,7 +16862,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/crew_quarters/courtroom)
@@ -16876,7 +16872,6 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/crew_quarters/courtroom)
@@ -16898,7 +16893,6 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/crew_quarters/courtroom)
@@ -28015,14 +28009,12 @@
 "bnW" = (
 /obj/machinery/computer/station_alert,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellow"
 	},
 /area/bridge)
 "bnX" = (
 /obj/machinery/computer/communications,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/bridge)
@@ -29325,7 +29317,6 @@
 	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "red"
 	},
 /area/bridge)
@@ -29712,7 +29703,6 @@
 "brS" = (
 /obj/machinery/computer/crew,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "green"
 	},
 /area/bridge)
@@ -31349,7 +31339,6 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/bridge)
@@ -31455,7 +31444,6 @@
 "bwc" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/bridge)
@@ -31497,13 +31485,11 @@
 "bwh" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/hallway/primary/central/ne)
 "bwi" = (
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/hallway/primary/central/ne)
@@ -32014,7 +32000,6 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/bridge)
@@ -32059,7 +32044,6 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/bridge)
@@ -32103,7 +32087,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/bridge)
@@ -32124,7 +32107,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/bridge)
@@ -32147,7 +32129,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/bridge)
@@ -32241,7 +32222,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/bridge)
@@ -32290,7 +32270,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/bridge)
@@ -32342,7 +32321,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/bridge)
@@ -32381,7 +32359,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/bridge)
@@ -33568,7 +33545,6 @@
 "bAy" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/hallway/primary/central/nw)
@@ -33589,7 +33565,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/hallway/primary/central/nw)
@@ -33602,7 +33577,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/bridge)
@@ -33649,7 +33623,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/bridge)
@@ -34415,7 +34388,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "green"
 	},
 /area/hallway/secondary/exit)
@@ -34457,7 +34429,6 @@
 /area/medical/reception)
 "bCX" = (
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "green"
 	},
 /area/hallway/secondary/exit)
@@ -34490,7 +34461,6 @@
 /area/hallway/primary/starboard/west)
 "bDb" = (
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/hallway/primary/starboard/west)
@@ -34570,7 +34540,6 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "green"
 	},
 /area/hallway/secondary/exit)
@@ -34608,7 +34577,6 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "green"
 	},
 /area/hallway/secondary/exit)
@@ -37058,7 +37026,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/hallway/primary/starboard/west)
@@ -43008,7 +42975,6 @@
 	pixel_x = -5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/medical/cmostore)
@@ -47035,7 +47001,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/hallway/primary/starboard/west)
@@ -56812,7 +56777,6 @@
 /area/medical/cmostore)
 "cvV" = (
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/medical/cmostore)
@@ -61507,7 +61471,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellow"
 	},
 /area/hallway/primary/aft)
@@ -62270,7 +62233,6 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellow"
 	},
 /area/engine/chiefs_office)
@@ -66802,7 +66764,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/binary/pump{
-	dir = 0;
 	name = "Air to Mix"
 	},
 /turf/simulated/floor/plasteel,
@@ -67019,7 +66980,6 @@
 	},
 /obj/item/storage/firstaid/fire,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/medical/cmostore)
@@ -67373,7 +67333,6 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellow"
 	},
 /area/engine/chiefs_office)
@@ -67418,7 +67377,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellow"
 	},
 /area/engine/chiefs_office)
@@ -69128,14 +69086,12 @@
 /area/atmos)
 "cXX" = (
 /obj/machinery/atmospherics/binary/pump{
-	dir = 0;
 	name = "Mix to Port"
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cXY" = (
 /obj/machinery/atmospherics/binary/pump{
-	dir = 0;
 	name = "Air to Port"
 	},
 /turf/simulated/floor/plasteel,
@@ -69148,7 +69104,6 @@
 /area/atmos)
 "cYa" = (
 /obj/machinery/atmospherics/binary/pump{
-	dir = 0;
 	name = "Pure to Port"
 	},
 /turf/simulated/floor/plasteel,
@@ -70180,7 +70135,6 @@
 	},
 /obj/item/storage/firstaid,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/medical/cmostore)
@@ -71191,7 +71145,6 @@
 /area/atmos)
 "ddt" = (
 /obj/machinery/atmospherics/binary/pump{
-	dir = 0;
 	name = "Port to Filter"
 	},
 /turf/simulated/floor/plasteel,
@@ -72343,7 +72296,6 @@
 /area/maintenance/starboardsolar)
 "dfT" = (
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/maintenance/storage)
@@ -72359,7 +72311,6 @@
 "dgb" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/maintenance/storage)
@@ -72831,7 +72782,6 @@
 	sensors = list("o2_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/atmos)
@@ -78688,7 +78638,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellow"
 	},
 /area/hallway/primary/aft)
@@ -79010,7 +78959,6 @@
 "oQa" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/hallway/primary/starboard/west)
@@ -79797,7 +79745,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellow"
 	},
 /area/hallway/primary/aft)

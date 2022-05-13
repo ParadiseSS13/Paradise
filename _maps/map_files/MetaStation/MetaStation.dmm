@@ -34452,9 +34452,7 @@
 	name = "Bar Storage";
 	req_access_txt = "25"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bAw" = (
 /obj/machinery/slot_machine{
@@ -38033,7 +38031,6 @@
 /area/atmos)
 "bIr" = (
 /obj/machinery/atmospherics/binary/pump{
-	dir = 0;
 	name = "Air to Mix"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -42148,7 +42145,6 @@
 /area/atmos)
 "bRd" = (
 /obj/machinery/atmospherics/binary/pump{
-	dir = 0;
 	name = "Air to Port"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -42158,7 +42154,6 @@
 /area/atmos)
 "bRe" = (
 /obj/machinery/atmospherics/binary/pump{
-	dir = 0;
 	name = "Mix to Port"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -42168,7 +42163,6 @@
 /area/atmos)
 "bRf" = (
 /obj/machinery/atmospherics/binary/pump{
-	dir = 0;
 	name = "Pure to Port"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -43660,7 +43654,6 @@
 /area/hallway/primary/aft)
 "bUv" = (
 /obj/machinery/atmospherics/binary/pump{
-	dir = 0;
 	name = "Mix to Port"
 	},
 /obj/item/crowbar,
@@ -44320,7 +44313,6 @@
 	pixel_x = -27
 	},
 /obj/machinery/atmospherics/binary/pump{
-	dir = 0;
 	name = "Air to Port"
 	},
 /obj/machinery/light/small{
