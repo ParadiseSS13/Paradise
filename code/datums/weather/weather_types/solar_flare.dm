@@ -42,7 +42,7 @@
 		return TRUE
 	if(istype(L, /mob/living/simple_animal)) //while this might break immersion, I don't want to spam the server with calling this on simplemobs
 		return FALSE
-	for(var/turf/T in oview(L))
+	for(var/turf/T in oview(get_turf(L)))
 		if(isspaceturf(T) || istransparentturf(T))
 			return TRUE
 	return FALSE
