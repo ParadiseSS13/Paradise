@@ -130,7 +130,7 @@
  * * bound_upper - Maximum bound to set up to. Defaults to infinity.
  */
 /mob/living/proc/AdjustConfused(amount, bound_lower = 0, bound_upper = INFINITY)
-	SetConfused(clamp(get_confusion() + amount, bound_lower, bound_upper))
+	SetConfused(directional_bounded_sum(get_confusion(), amount, bound_lower, bound_upper))
 
 // DIZZY
 
@@ -161,7 +161,7 @@
  * * bound_upper - Maximum bound to set up to. Defaults to infinity.
  */
 /mob/living/proc/AdjustDizzy(amount, bound_lower = 0, bound_upper = INFINITY)
-	SetDizzy(clamp(get_dizziness() + amount, bound_lower, bound_upper))
+	SetDizzy(directional_bounded_sum(get_dizziness(), amount, bound_lower, bound_upper))
 
 // DROWSY
 
@@ -192,7 +192,7 @@
  * * bound_upper - Maximum bound to set up to. Defaults to infinity.
  */
 /mob/living/proc/AdjustDrowsy(amount, bound_lower = 0, bound_upper = INFINITY)
-	SetDrowsy(clamp(get_drowsiness() + amount, bound_lower, bound_upper))
+	SetDrowsy(directional_bounded_sum(get_drowsiness(), amount, bound_lower, bound_upper))
 
 // DRUNK
 
@@ -223,7 +223,7 @@
  * * bound_upper - Maximum bound to set up to. Defaults to infinity.
  */
 /mob/living/proc/AdjustDrunk(amount, bound_lower = 0, bound_upper = INFINITY)
-	SetDrunk(clamp(get_drunkenness() + amount, bound_lower, bound_upper))
+	SetDrunk(directional_bounded_sum(get_drunkenness(), amount, bound_lower, bound_upper))
 
 // DRUGGY
 
@@ -237,7 +237,7 @@
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DRUGGED, amount)
 
 /mob/living/proc/AdjustDruggy(amount, bound_lower = 0, bound_upper = INFINITY)
-	SetDruggy(clamp(amount, bound_lower, bound_upper))
+	SetDruggy(directional_bounded_sum(AmountDruggy(), amount, bound_lower, bound_upper))
 
 // EYE_BLIND
 /mob/living/proc/AmountBlinded()
@@ -250,7 +250,7 @@
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_BLINDED, amount)
 
 /mob/living/proc/AdjustEyeBlind(amount, bound_lower = 0, bound_upper = INFINITY, updating = TRUE)
-	SetEyeBlind(clamp(amount + AmountBlinded(), bound_lower, bound_upper))
+	SetEyeBlind(directional_bounded_sum(AmountBlinded(), amount, bound_lower, bound_upper))
 
 // EYE_BLURRY
 /mob/living/proc/AmountEyeBlurry()
@@ -263,7 +263,7 @@
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_BLURRY_EYES, amount)
 
 /mob/living/proc/AdjustEyeBlurry(amount, bound_lower = 0, bound_upper = INFINITY)
-	SetEyeBlurry(clamp(amount, bound_lower, bound_upper))
+	SetEyeBlurry(directional_bounded_sum(AmountEyeBlurry(), amount, bound_lower, bound_upper))
 
 // HALLUCINATION
 /mob/living/proc/AmountHallucinate()
@@ -276,7 +276,7 @@
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_HALLUCINATION, amount)
 
 /mob/living/proc/AdjustHallucinate(amount, bound_lower = 0, bound_upper = INFINITY)
-	SetHallucinate(clamp(amount + AmountHallucinate(), bound_lower, bound_upper))
+	SetHallucinate(directional_bounded_sum(AmountHallucinate(), amount, bound_lower, bound_upper))
 
 // JITTER
 /mob/living/proc/AmountJitter()
@@ -292,8 +292,7 @@
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_JITTER, amount)
 
 /mob/living/proc/AdjustJitter(amount, bound_lower = 0, bound_upper = INFINITY, force = 0)
-	var/new_value = directional_bounded_sum(AmountJitter(), amount, bound_lower, bound_upper)
-	SetJitter(new_value, force)
+	SetJitter(directional_bounded_sum(AmountJitter(), amount, bound_lower, bound_upper), force)
 
 // LOSE_BREATH
 
@@ -309,7 +308,7 @@
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_LOSE_BREATH, amount)
 
 /mob/living/proc/AdjustLoseBreath(amount, bound_lower = 0, bound_upper = INFINITY)
-	SetLoseBreath(clamp(amount + AmountLoseBreath(), bound_lower, bound_upper))
+	SetLoseBreath(directional_bounded_sum(AmountLoseBreath(), amount, bound_lower, bound_upper))
 
 // PARALYSE
 /mob/living/proc/IsParalyzed()
@@ -342,7 +341,7 @@
 	return P
 
 /mob/living/proc/AdjustParalysis(amount, bound_lower = 0, bound_upper = INFINITY, ignore_canstun = FALSE)
-	return SetParalysis(clamp(amount + AmountParalyzed(), bound_lower, bound_upper), ignore_canstun)
+	return SetParalysis(directional_bounded_sum(AmountParalyzed(), amount, bound_lower, bound_upper), ignore_canstun)
 
 // SILENT
 /mob/living/proc/AmountSilenced()
@@ -355,7 +354,7 @@
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SILENCED, amount)
 
 /mob/living/proc/AdjustSilence(amount, bound_lower = 0, bound_upper = INFINITY)
-	SetSilence(clamp(AmountSilenced() + amount, bound_lower, bound_upper))
+	SetSilence(directional_bounded_sum(AmountSilenced(), amount, bound_lower, bound_upper))
 
 // SLEEPING
 /mob/living/proc/IsSleeping()
@@ -400,7 +399,7 @@
 	return S
 
 /mob/living/proc/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY)
-	SetSleeping(clamp(amount, bound_lower, bound_upper))
+	SetSleeping(directional_bounded_sum(AmountSleeping(), amount, bound_lower, bound_upper))
 
 // SLOWED
 /mob/living/proc/IsSlowed()
@@ -450,7 +449,7 @@
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SLURRING, amount)
 
 /mob/living/proc/AdjustSlur(amount, bound_lower = 0, bound_upper = INFINITY)
-	SetSlur(clamp(amount + AmountSluring(), bound_lower, bound_upper))
+	SetSlur(directional_bounded_sum(AmountSluring(), amount, bound_lower, bound_upper))
 
 // CULTSLURRING
 /mob/living/proc/AmountCultSlurring()
@@ -463,7 +462,7 @@
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_CULT_SLUR, amount)
 
 /mob/living/proc/AdjustCultSlur(amount, bound_lower = 0, bound_upper = INFINITY)
-	SetCultSlur(clamp(amount, bound_lower, bound_upper))
+	SetCultSlur(directional_bounded_sum(AmountCultSlurring(), amount, bound_lower, bound_upper))
 
 /* STUN */
 /mob/living/proc/IsStunned() //If we're stunned
@@ -572,7 +571,7 @@
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_STAMMER, amount)
 
 /mob/living/proc/AdjustStuttering(amount, bound_lower = 0, bound_upper = INFINITY, ignore_canstun = FALSE)
-	SetStuttering(clamp(amount + AmountStuttering(), bound_lower, bound_upper), ignore_canstun)
+	SetStuttering(directional_bounded_sum(AmountStuttering(), amount, bound_lower, bound_upper), ignore_canstun)
 
 // WEAKEN
 
