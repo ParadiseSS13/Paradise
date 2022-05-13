@@ -26005,7 +26005,6 @@
 "bjG" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/engine/chiefs_office)
@@ -48265,7 +48264,6 @@
 	},
 /obj/effect/landmark/start/chief_engineer,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/engine/chiefs_office)
