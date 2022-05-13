@@ -104954,6 +104954,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
+"wZK" = (
+/mob/living/simple_animal/bot/secbot/pingsky,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/turret_protected/aisat_interior)
 "wZP" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
@@ -148554,7 +148560,7 @@ mZL
 aHG
 sXU
 xpP
-xpP
+wZK
 tZZ
 nsR
 vsl
