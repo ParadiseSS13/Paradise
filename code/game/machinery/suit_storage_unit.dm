@@ -142,7 +142,7 @@
 /obj/machinery/suit_storage_unit/blueshield
 	name = "blueshield suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/blueshield
-	req_acces = list(ACCESS_BLUESHIELD)
+	req_access = list(ACCESS_BLUESHIELD)
 
 /obj/machinery/suit_storage_unit/blueshield
 	secure = TRUE
