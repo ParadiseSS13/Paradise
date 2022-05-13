@@ -4521,7 +4521,8 @@
 "aua" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/engine/controlroom)
 "aub" = (
@@ -4548,7 +4549,8 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/engine/controlroom)
 "auh" = (
@@ -12723,7 +12725,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/maintenance/incinerator)
 "aMP" = (
@@ -13149,7 +13152,8 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/security/execution)
 "aNR" = (
@@ -13174,7 +13178,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/security/execution)
 "aNT" = (
@@ -13648,7 +13653,8 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/security/execution)
 "aPi" = (
@@ -13774,7 +13780,8 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/maintenance/incinerator)
 "aPs" = (
@@ -14361,7 +14368,8 @@
 /area/security/permabrig)
 "aQJ" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/security/execution)
 "aQK" = (
@@ -14371,7 +14379,8 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/security/execution)
 "aQM" = (
@@ -14561,7 +14570,8 @@
 "aQZ" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/atmos)
 "aRa" = (
@@ -14680,7 +14690,8 @@
 /area/atmos)
 "aRi" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/atmos)
 "aRj" = (
@@ -15225,7 +15236,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/atmos)
 "aSL" = (
@@ -16744,7 +16756,8 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/atmos)
 "aVE" = (
@@ -18299,7 +18312,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/atmos)
 "aYN" = (
@@ -19912,7 +19926,8 @@
 "bbN" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/atmos)
 "bbO" = (
@@ -20226,7 +20241,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/construction/hallway)
 "bcB" = (
@@ -20425,7 +20441,8 @@
 	},
 /obj/structure/closet/secure_closet/brig,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/security/permabrig)
 "bcZ" = (
@@ -20436,7 +20453,8 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/security/permabrig)
 "bda" = (
@@ -20459,13 +20477,15 @@
 	},
 /obj/structure/closet/secure_closet/brig,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/security/permabrig)
 "bdd" = (
 /obj/structure/closet/secure_closet/brig,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/security/permabrig)
 "bde" = (
@@ -21303,7 +21323,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/atmos)
 "beR" = (
@@ -21740,7 +21761,8 @@
 	},
 /obj/structure/closet/secure_closet/brig,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/security/permabrig)
 "bfU" = (
@@ -23242,7 +23264,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/ai)
 "biY" = (
@@ -23741,7 +23764,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/bridge)
 "bkg" = (
@@ -24072,7 +24096,8 @@
 "bkO" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/atmos)
 "bkP" = (
@@ -24421,7 +24446,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "blH" = (
@@ -24608,7 +24634,8 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/security/interrogation)
 "bmc" = (
@@ -25013,7 +25040,8 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/atmos)
 "bmM" = (
@@ -25429,13 +25457,15 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/construction/hallway)
 "bnP" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/construction/hallway)
 "bnR" = (
@@ -26013,7 +26043,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/bridge)
 "boU" = (
@@ -26175,7 +26206,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/security/interrogation)
 "bpj" = (
@@ -27475,7 +27507,8 @@
 /obj/structure/chair,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/construction/hallway)
 "bsc" = (
@@ -28335,7 +28368,8 @@
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/security/interrogation)
 "buf" = (
@@ -29724,7 +29758,8 @@
 "bwG" = (
 /obj/machinery/porta_turret,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/ai)
 "bwH" = (
@@ -31387,7 +31422,8 @@
 /area/bridge)
 "bAs" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/bridge)
 "bAt" = (
@@ -31636,7 +31672,8 @@
 /area/security/brig)
 "bBd" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/ai)
 "bBf" = (
@@ -31659,7 +31696,8 @@
 /area/engine/gravitygenerator)
 "bBj" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/engine/gravitygenerator)
 "bBk" = (
@@ -32138,7 +32176,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/bridge)
 "bCk" = (
@@ -32169,7 +32208,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/bridge)
 "bCl" = (
@@ -32489,7 +32529,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/bridge)
 "bCB" = (
@@ -32505,7 +32546,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/bridge)
 "bCC" = (
@@ -32644,7 +32686,8 @@
 "bCU" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/ai)
 "bCV" = (
@@ -33208,7 +33251,8 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/bridge)
 "bDU" = (
@@ -33306,7 +33350,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/bridge)
 "bEd" = (
@@ -33373,7 +33418,8 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/bridge)
 "bEl" = (
@@ -33421,7 +33467,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/bridge)
 "bEo" = (
@@ -35472,7 +35519,8 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/ai)
 "bIk" = (
@@ -36245,7 +36293,8 @@
 "bJZ" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/engine/break_room)
 "bKa" = (
@@ -36281,7 +36330,8 @@
 	req_access_txt = "11"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/engine/break_room)
 "bKd" = (
@@ -37731,7 +37781,8 @@
 /obj/item/storage/box/bodybags,
 /obj/item/clothing/gloves/color/latex,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/security/detectives_office)
 "bNo" = (
@@ -37938,7 +37989,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bNR" = (
@@ -37992,7 +38044,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/engine/break_room)
 "bNX" = (
@@ -38001,7 +38054,8 @@
 "bNY" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/engine/break_room)
 "bNZ" = (
@@ -38533,7 +38587,8 @@
 	},
 /obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/security/detectives_office)
 "bPj" = (
@@ -38794,7 +38849,8 @@
 "bPI" = (
 /obj/machinery/porta_turret,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bPJ" = (
@@ -38821,13 +38877,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bPN" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bPO" = (
@@ -39277,7 +39335,8 @@
 /area/turret_protected/ai_upload)
 "bQL" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/ai_upload)
 "bQM" = (
@@ -40507,7 +40566,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/construction/hallway)
 "bTt" = (
@@ -40523,7 +40583,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bTu" = (
@@ -40539,7 +40600,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bTv" = (
@@ -40599,7 +40661,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bTB" = (
@@ -40669,7 +40732,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bTH" = (
@@ -40690,7 +40754,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bTI" = (
@@ -40707,7 +40772,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bTK" = (
@@ -40724,7 +40790,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bTL" = (
@@ -40759,7 +40826,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bTN" = (
@@ -40775,7 +40843,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/construction/hallway)
 "bTO" = (
@@ -40815,7 +40884,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/construction/hallway)
 "bTS" = (
@@ -40961,7 +41031,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/engine/break_room)
 "bUg" = (
@@ -41652,7 +41723,8 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/engine/break_room)
 "bVA" = (
@@ -41903,7 +41975,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/engine/break_room)
 "bWg" = (
@@ -41937,7 +42010,8 @@
 	icon_state = "Block"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/engine/break_room)
 "bWj" = (
@@ -42591,7 +42665,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bXK" = (
@@ -42612,7 +42687,8 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bXM" = (
@@ -42623,7 +42699,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bXN" = (
@@ -42632,7 +42709,8 @@
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/borg,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bXO" = (
@@ -42644,7 +42722,8 @@
 /obj/item/folder/yellow,
 /obj/item/aicard,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bXP" = (
@@ -42654,7 +42733,8 @@
 	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/turret_protected/aisat)
 "bXQ" = (
@@ -43164,7 +43244,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/tcommsat/chamber)
 "bZi" = (
@@ -43940,7 +44021,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/tcommsat/chamber)
 "caY" = (
@@ -46266,7 +46348,8 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/engine/break_room)
 "cgE" = (
@@ -50740,7 +50823,8 @@
 "cqL" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/construction/hallway)
 "cqM" = (
@@ -57306,7 +57390,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/security/execution)
 "cFO" = (
@@ -75780,7 +75865,8 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/medical/morgue)
 "dvw" = (
@@ -76221,7 +76307,8 @@
 "dww" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/medical/morgue)
 "dwx" = (
@@ -77916,7 +78003,8 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/medical/morgue)
 "dAe" = (
@@ -77939,7 +78027,8 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/medical/morgue)
 "dAg" = (
@@ -77950,7 +78039,8 @@
 "dAh" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/medical/morgue)
 "dAi" = (
@@ -87054,7 +87144,8 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/medical/morgue)
 "dXr" = (
@@ -92208,7 +92299,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/medical/morgue)
 "pAC" = (
@@ -93418,7 +93510,8 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/atmos)
 "sso" = (
@@ -93744,7 +93837,8 @@
 /area/security/seceqstorage)
 "tdC" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "vault"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/medical/morgue)
 "tge" = (
