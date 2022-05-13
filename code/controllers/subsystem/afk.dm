@@ -16,8 +16,7 @@ SUBSYSTEM_DEF(afk)
 	if(GLOB.configuration.afk.warning_minutes <= 0 || GLOB.configuration.afk.auto_cryo_minutes <= 0 || GLOB.configuration.afk.auto_despawn_minutes <= 0)
 		flags |= SS_NO_FIRE
 	else
-		non_cryo_antags = list(SPECIAL_ROLE_ABDUCTOR_AGENT, SPECIAL_ROLE_ABDUCTOR_SCIENTIST, \
-							SPECIAL_ROLE_SHADOWLING, SPECIAL_ROLE_WIZARD, SPECIAL_ROLE_WIZARD_APPRENTICE, SPECIAL_ROLE_NUKEOPS)
+		non_cryo_antags = list(SPECIAL_ROLE_ABDUCTOR_AGENT, SPECIAL_ROLE_ABDUCTOR_SCIENTIST, SPECIAL_ROLE_WIZARD, SPECIAL_ROLE_WIZARD_APPRENTICE, SPECIAL_ROLE_NUKEOPS)
 	return ..()
 
 /datum/controller/subsystem/afk/fire()

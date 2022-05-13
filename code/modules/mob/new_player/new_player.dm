@@ -242,7 +242,7 @@
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
 				return FALSE
 
-		AttemptLateSpawn(href_list["SelectedJob"],client.prefs.active_character.spawnpoint)
+		AttemptLateSpawn(href_list["SelectedJob"])
 		return
 
 	if(!ready && href_list["preference"])
@@ -258,8 +258,6 @@
 	if(!job.is_position_available())
 		return FALSE
 	if(jobban_isbanned(src, rank))
-		return FALSE
-	if(!is_job_whitelisted(src, rank))
 		return FALSE
 	if(!job.player_old_enough(client))
 		return FALSE
@@ -302,7 +300,7 @@
 	else
 		return 0
 
-/mob/new_player/proc/AttemptLateSpawn(rank, spawning_at)
+/mob/new_player/proc/AttemptLateSpawn(rank)
 	if(src != usr)
 		return 0
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
@@ -338,7 +336,6 @@
 
 	//Find our spawning point.
 	var/join_message
-	var/datum/spawnpoint/S
 
 	if(IsAdminJob(rank))
 		if(IsERTSpawnJob(rank))
@@ -349,19 +346,8 @@
 			character.forceMove(pick(GLOB.aroomwarp))
 		join_message = "has arrived"
 	else
-		if(spawning_at)
-			S = GLOB.spawntypes[spawning_at]
-		if(S && istype(S))
-			if(S.check_job_spawning(rank))
-				character.forceMove(pick(S.turfs))
-				join_message = S.msg
-			else
-				to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
-				character.forceMove(pick(GLOB.latejoin))
-				join_message = "has arrived on the station"
-		else
-			character.forceMove(pick(GLOB.latejoin))
-			join_message = "has arrived on the station"
+		character.forceMove(pick(GLOB.latejoin))
+		join_message = "has arrived on the station"
 
 	character.lastarea = get_area(loc)
 	// Moving wheelchair if they have one

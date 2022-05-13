@@ -28,7 +28,6 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 
 	// TEAM ANTAGS
 	// Higher numbers here, because they require more experience to be played correctly
-	ROLE_SHADOWLING = 20,
 	ROLE_REV = 10,
 	ROLE_OPERATIVE = 20,
 	ROLE_CULTIST = 20,

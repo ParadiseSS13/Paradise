@@ -2923,7 +2923,6 @@
 	})
 "gj" = (
 /obj/machinery/power/solar_control{
-	id = "russolar";
 	track = 2
 	},
 /obj/structure/cable{
@@ -3298,17 +3297,13 @@
 	},
 /area/derelict/crew_quarters)
 "gY" = (
-/obj/machinery/power/solar{
-	id = "russolar"
-	},
+/obj/machinery/power/solar,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
 /area/derelict/solar_control)
 "gZ" = (
-/obj/machinery/power/solar{
-	id = "russolar"
-	},
+/obj/machinery/power/solar,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2";
@@ -3452,9 +3447,7 @@
 	},
 /area/derelict/crew_quarters)
 "hp" = (
-/obj/machinery/power/solar{
-	id = "russolar"
-	},
+/obj/machinery/power/solar,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -3472,9 +3465,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "hr" = (
-/obj/machinery/power/solar{
-	id = "russolar"
-	},
+/obj/machinery/power/solar,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -3484,9 +3475,7 @@
 	},
 /area/derelict/solar_control)
 "hs" = (
-/obj/machinery/power/solar{
-	id = "russolar"
-	},
+/obj/machinery/power/solar,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -5609,9 +5598,7 @@
 	},
 /area/derelict/crew_quarters)
 "lH" = (
-/obj/machinery/power/solar{
-	id = "russolar"
-	},
+/obj/machinery/power/solar,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
