@@ -552,7 +552,6 @@
 	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
@@ -40199,7 +40198,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
@@ -40454,7 +40452,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
@@ -54652,7 +54649,6 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
@@ -57236,7 +57232,6 @@
 "eRc" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
@@ -59785,7 +59780,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
@@ -60015,7 +60009,6 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
@@ -67502,7 +67495,6 @@
 /area/security/securearmoury)
 "keQ" = (
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
@@ -68666,7 +68658,6 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
@@ -70137,7 +70128,6 @@
 	pixel_y = -6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
@@ -70876,7 +70866,6 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
@@ -73257,7 +73246,6 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
@@ -76442,7 +76430,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
@@ -78780,7 +78767,6 @@
 "pQv" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
@@ -81162,7 +81148,6 @@
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
@@ -83097,7 +83082,6 @@
 "rXS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
@@ -94097,7 +94081,6 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
@@ -94512,7 +94495,6 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "cafeteria"
 	},
 /area/medical/scibreak)
