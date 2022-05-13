@@ -9,7 +9,7 @@
 	invocation_type = "none"
 	level_max = 0 //cannot be improved
 	should_recharge_after_cast = FALSE //We start recharging manually once we leave the vent system
-	nonabstract_req = 1
+	nonabstract_req = TRUE
 	sound = 'sound/items/zippolight.ogg'
 	action_icon_state = "lighter"
 
