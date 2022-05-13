@@ -97,8 +97,6 @@
   */
 /obj/item/painter/CtrlClick(mob/user)
 	. = ..()
-	if(!ishuman(user)) // Only want human players doing this
-		return
 	if(loc != user) // Not being held
 		return
 
