@@ -3422,10 +3422,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"alw" = (
-/obj/structure/grille,
-/turf/space,
-/area/space/nearstation)
 "alB" = (
 /turf/simulated/floor/plasteel,
 /area/security/range)
@@ -5813,7 +5809,6 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -50445,7 +50440,6 @@
 "chG" = (
 /obj/structure/table/glass,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitered"
@@ -52601,7 +52595,6 @@
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "cmd" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -118756,12 +118749,12 @@ dem
 cQZ
 doE
 aab
-alw
-alw
-alw
-alw
-alw
-alw
+alv
+alv
+alv
+alv
+alv
+alv
 ayi
 aab
 aab
@@ -119013,7 +119006,7 @@ dem
 cQZ
 doE
 aab
-alw
+alv
 aab
 aab
 aaa
