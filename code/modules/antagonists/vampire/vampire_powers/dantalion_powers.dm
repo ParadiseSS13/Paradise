@@ -118,9 +118,9 @@
 	var/title = isvampirethrall(user) ? "Thrall" : "<b>Vampire Master</b>" // if admins give this to a non vampire/thrall it is not my problem
 	var/message = "[user.real_name] ([title]): [input]"
 	for(var/mob/M in targets)
-		to_chat(M, "<span class='shadowling'>[message]</span>")
+		to_chat(M, "<span class='dantalion'>[message]</span>")
 	for(var/mob/M in GLOB.dead_mob_list)
-		to_chat(M, "<span class='shadowling'>([ghost_follow_link(user, ghost=M)]): [message] </span>")
+		to_chat(M, "<span class='dantalion'>([ghost_follow_link(user, ghost=M)]): [message] </span>")
 	log_say("(DANTALION) [input]", user)
 	user.create_log(SAY_LOG, "(DANTALION) [input]")
 

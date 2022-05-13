@@ -647,27 +647,6 @@
 				counter = 0
 		jobs += "</tr></table>"
 
-	//Whitelisted positions
-		counter = 0
-		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='dddddd'><th colspan='[length(GLOB.whitelisted_positions)]'><a href='?src=[UID()];jobban3=whitelistdept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Whitelisted Positions</a></th></tr><tr align='center'>"
-		for(var/jobPos in GLOB.whitelisted_positions)
-			if(!jobPos)	continue
-			var/datum/job/job = SSjobs.GetJob(jobPos)
-			if(!job) continue
-
-			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
-				counter++
-			else
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
-				counter++
-
-			if(counter >= 5) //So things dont get squiiiiished!
-				jobs += "</tr><tr align='center'>"
-				counter = 0
-		jobs += "</tr></table>"
-
 		body = "<body>[jobs]</body>"
 		dat = "<tt>[header][body]</tt>"
 		usr << browse(dat, "window=jobban2;size=800x490")
@@ -735,12 +714,6 @@
 			if("nonhumandept")
 				joblist += "pAI"
 				for(var/jobPos in GLOB.nonhuman_positions)
-					if(!jobPos)	continue
-					var/datum/job/temp = SSjobs.GetJob(jobPos)
-					if(!temp) continue
-					joblist += temp.title
-			if("whitelistdept")
-				for(var/jobPos in GLOB.whitelisted_positions)
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue

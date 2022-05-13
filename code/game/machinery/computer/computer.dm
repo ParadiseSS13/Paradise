@@ -84,7 +84,7 @@
 	if(!(stat & BROKEN) && light)
 		underlays += emissive_appearance(icon, "[icon_state]_light_mask")
 
-	if(!icon_keyboard)
+	if(icon_keyboard)
 		add_overlay("[icon_keyboard]")
 
 /obj/machinery/computer/power_change()

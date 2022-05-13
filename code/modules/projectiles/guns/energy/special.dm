@@ -1,3 +1,6 @@
+#define PLASMA_CHARGE_USE_PER_SECOND 2.5
+#define PLASMA_DISCHARGE_LIMIT 5
+
 // Ion Rifles //
 /obj/item/gun/energy/ionrifle
 	name = "ion rifle"
@@ -303,17 +306,142 @@
 	ammo_x_offset = 3
 	can_holster = TRUE  // you'll never see it coming
 
-/obj/item/gun/energy/toxgun
+/obj/item/gun/energy/plasma_pistol
 	name = "plasma pistol"
-	desc = "A specialized firearm designed to fire lethal bolts of toxins."
+	desc = "A specialized firearm designed to fire heated bolts of plasma. Can be overloaded for a high damage shield breaking shot."
 	icon_state = "toxgun"
-	fire_sound = 'sound/effects/stealthoff.ogg'
-
+	item_state = "toxgun"
+	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi') //This apperently exists, and I have the sprites so sure.
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
-	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
+	ammo_type = list(/obj/item/ammo_casing/energy/weak_plasma, /obj/item/ammo_casing/energy/charged_plasma)
 	shaded_charge = 1
 	can_holster = TRUE
+	atom_say_verb = "beeps"
+	bubble_icon = "swarmer"
+	light_color = "#89078E"
+	light_power = 4
+	var/overloaded = FALSE
+	var/warned = FALSE
+	var/charging = FALSE
+	var/mob/living/carbon/holder = null
+
+/obj/item/gun/energy/plasma_pistol/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSfastprocess, src)
+
+/obj/item/gun/energy/plasma_pistol/Destroy()
+	STOP_PROCESSING(SSfastprocess, src)
+	holder = null
+	return ..()
+
+/obj/item/gun/energy/plasma_pistol/process()
+	..()
+	if(overloaded)
+		cell.charge -= PLASMA_CHARGE_USE_PER_SECOND / 5 //2.5 per second, 25 every 10 seconds
+		if(cell.charge <= PLASMA_CHARGE_USE_PER_SECOND * 10 && !warned)
+			warned = TRUE
+			playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 75, 1)
+			atom_say("Caution, charge low. Forced discharge in under 10 seconds.")
+		if(cell.charge <= PLASMA_DISCHARGE_LIMIT)
+			discharge()
+
+/obj/item/gun/energy/plasma_pistol/attack_self(mob/living/user)
+	if(overloaded)
+		to_chat(user, "<span class='warning'>[src] is already overloaded!</span>")
+		return
+	if(cell.charge <= 140) //at least 6 seconds of charge time
+		to_chat(user, "<span class='warning'>[src] does not have enough charge to be overloaded.</span>")
+		return
+	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
+	charging = TRUE
+	if(do_after(user, 2.5 SECONDS, target = src))
+		select_fire(user)
+		overloaded = TRUE
+		cell.charge -= 125
+		playsound(loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
+		atom_say("Overloading successful.")
+		set_light(3) //extra visual effect to make it more noticable to user and victims alike
+		holder = user
+		RegisterSignal(holder, COMSIG_CARBON_SWAP_HANDS, .proc/discharge)
+	charging = FALSE
+
+/obj/item/gun/energy/plasma_pistol/proc/reset_overloaded()
+	select_fire()
+	set_light(0)
+	overloaded = FALSE
+	warned = FALSE
+	UnregisterSignal(holder, COMSIG_CARBON_SWAP_HANDS)
+	holder = null
+
+/obj/item/gun/energy/plasma_pistol/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
+	if(charging)
+		return
+	return ..()
+
+/obj/item/gun/energy/plasma_pistol/process_chamber()
+	if(overloaded)
+		do_sparks(2, 1, src)
+		reset_overloaded()
+	..()
+	update_icon()
+
+/obj/item/gun/energy/plasma_pistol/emp_act(severity)
+	..()
+	if(prob(100 / severity) && overloaded)
+		discharge()
+
+/obj/item/gun/energy/plasma_pistol/dropped(mob/user)
+	. = ..()
+	if(overloaded)
+		discharge()
+
+/obj/item/gun/energy/plasma_pistol/equipped(mob/user, slot, initial)
+	. = ..()
+	if(overloaded)
+		discharge()
+
+/obj/item/gun/energy/plasma_pistol/proc/discharge() //25% of the time, plasma leak. Otherwise, shoot at a random mob / turf nearby. If no proper mob is found when mob is picked, fire at a turf instead
+	SIGNAL_HANDLER
+	reset_overloaded()
+	do_sparks(2, 1, src)
+	update_icon()
+	if(prob(25))
+		visible_message("<span class='danger'>[src] vents heated plasma!</span>")
+		var/turf/simulated/T = get_turf(src)
+		if(istype(T))
+			T.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,15)
+		return
+	if(prob(50))
+		var/list/mob_targets = list()
+		for(var/mob/living/M in oview(get_turf(src), 7))
+			mob_targets += M
+		if(length(mob_targets))
+			var/mob/living/target = pick(mob_targets)
+			shootAt(target)
+			visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
+			return
+
+	visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
+	var/list/turf_targets = list()
+	for(var/turf/T in orange(get_turf(src), 7))
+		turf_targets += T
+	if(length(turf_targets))
+		var/turf/target = pick(turf_targets)
+		shootAt(target)
+
+
+/obj/item/gun/energy/plasma_pistol/proc/shootAt(atom/movable/target)
+	var/turf/T = get_turf(src)
+	var/turf/U = get_turf(target)
+	if(!T || !U)
+		return
+	var/obj/item/projectile/energy/charged_plasma/O = new /obj/item/projectile/energy/charged_plasma(T)
+	playsound(get_turf(src), 'sound/weapons/marauder.ogg', 75, 1)
+	O.current = T
+	O.yo = U.y - T.y
+	O.xo = U.x - T.x
+	O.fire()
 
 /obj/item/gun/energy/bsg
 	name = "\improper B.S.G"
@@ -628,3 +756,6 @@
 	var/obj/item/ammo_casing/energy/mimic/M = ammo_type[select]
 	M.mimic_type = mimic_type
 	..()
+
+#undef PLASMA_CHARGE_USE_PER_SECOND
+#undef PLASMA_DISCHARGE_LIMIT

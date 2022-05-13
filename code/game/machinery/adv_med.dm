@@ -71,7 +71,7 @@
 			return
 		M.forceMove(src)
 		occupant = M
-		icon_state = "body_scanner_1"
+		icon_state = "bodyscanner"
 		add_fingerprint(user)
 		qdel(TYPECAST_YOUR_SHIT)
 		SStgui.update_uis(src)
@@ -178,7 +178,7 @@
 		return
 	occupant.forceMove(loc)
 	occupant = null
-	icon_state = "body_scanner_0"
+	icon_state = "bodyscanner-open"
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts)
 		A.forceMove(loc)

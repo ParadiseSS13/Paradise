@@ -192,36 +192,6 @@
 		S.reagents.add_reagent("????", 5)
 	return S
 
-//shadowling tumor
-/obj/item/organ/internal/shadowtumor
-	name = "black tumor"
-	desc = "A tiny black mass with red tendrils trailing from it. It seems to shrivel in the light."
-	icon_state = "blacktumor"
-	origin_tech = "biotech=5"
-	w_class = WEIGHT_CLASS_TINY
-	parent_organ = "head"
-	slot = "brain_tumor"
-	max_integrity = 3
-
-/obj/item/organ/internal/shadowtumor/New()
-	..()
-	START_PROCESSING(SSobj, src)
-
-/obj/item/organ/internal/shadowtumor/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/item/organ/internal/shadowtumor/process()
-	if(isturf(loc))
-		var/turf/T = loc
-		var/light_count = T.get_lumcount()*10
-		if(light_count > 4 && obj_integrity > 0) //Die in the light
-			obj_integrity--
-		else if(light_count < 2 && obj_integrity < max_integrity) //Heal in the dark
-			obj_integrity++
-		if(obj_integrity <= 0)
-			visible_message("<span class='warning'>[src] collapses in on itself!</span>")
-			qdel(src)
 
 //debug and adminbus....
 

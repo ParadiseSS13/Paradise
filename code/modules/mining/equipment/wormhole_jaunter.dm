@@ -42,7 +42,7 @@
 		to_chat(user, "<span class='notice'>[src] found no beacons in the world to anchor a wormhole to.</span>")
 		return
 	var/chosen_beacon = pick(L)
-	var/obj/effect/portal/jaunt_tunnel/J = new(get_turf(src), get_turf(chosen_beacon), src, 100)
+	var/obj/effect/portal/jaunt_tunnel/J = new(get_turf(src), get_turf(chosen_beacon), src, 100, user)
 	J.emagged = emagged
 	if(adjacent)
 		try_move_adjacent(J)

@@ -702,9 +702,7 @@
 						if(!thief_mode)
 							usr.visible_message("<span class='danger'>\The [usr] takes \the [A] off of \the [src]'s [U]!</span>", \
 												"<span class='danger'>You take \the [A] off of \the [src]'s [U]!</span>")
-						A.on_removed(usr)
-						U.accessories -= A
-						update_inv_w_uniform()
+						U.detach_accessory(A, usr)
 
 	if(href_list["criminal"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))

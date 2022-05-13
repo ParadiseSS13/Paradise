@@ -116,7 +116,8 @@
 				if(!thing)
 					continue
 				var/datum/D = thing
-				if(D.vv_edit_var(variable, initial(D.vars[variable])) != FALSE)
+				// This originally did initial(D.vars[variable]) but initial() doesn't work on a list index
+				if(D.vv_edit_var(variable, D.vars[variable]) != FALSE)
 					accepted++
 				else
 					rejected++

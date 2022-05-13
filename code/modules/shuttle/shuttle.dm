@@ -595,6 +595,8 @@
 		for(var/atom/movable/AM in T1)
 			if(AM.pulledby)
 				AM.pulledby.stop_pulling()
+			if(AM.flags_2 & IMMUNE_TO_SHUTTLECRUSH_2)
+				continue
 			if(ismob(AM))
 				var/mob/M = AM
 				if(M.buckled)

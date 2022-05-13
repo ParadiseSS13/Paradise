@@ -7,6 +7,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	density = 1
 	anchored = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	flags_2 = NO_MALF_EFFECT_2
 	var/active = 0
 
 /obj/machinery/gateway/Initialize()

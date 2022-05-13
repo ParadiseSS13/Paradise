@@ -1703,5 +1703,10 @@
 	item_color = "kikerimask"
 	species_restricted = list("Vox")
 
+/obj/item/id_decal/aa07
+	name = "lifetime ID card decal"
+	desc = "Make your ID look like the property of a nerd. Applies to any ID."
+	decal_icon_state = "lifetimeid"
+
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT
