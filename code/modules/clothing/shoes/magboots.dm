@@ -138,6 +138,7 @@
 	put_on_delay = 10 SECONDS
 	slowdown_active = SHOES_SLOWDOWN
 	magboot_state = "gravboots"
+	magpulse_name = "micro gravitational traction system"
 	var/datum/martial_art/grav_stomp/style = new //Only works with core and cell installed.
 	var/jumpdistance = 5
 	var/jumpspeed = 3
@@ -148,7 +149,12 @@
 	var/obj/item/assembly/signaler/anomaly/grav/core = null
 	var/obj/item/stock_parts/cell/cell = null
 
+/obj/item/clothing/shoes/magboots/gravity/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
 /obj/item/clothing/shoes/magboots/gravity/Destroy()
+	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(style)
 	QDEL_NULL(cell)
 	QDEL_NULL(core)
@@ -180,14 +186,15 @@
 	..()
 
 /obj/item/clothing/shoes/magboots/gravity/process()
-	if(cell) //There should be a cell here, but safety first
-		if(cell.charge <= power_consumption_rate * 2 && magpulse)
-			if(ishuman(loc))
-				var/mob/living/carbon/human/user = loc
-				to_chat(user, "<span class='warning'>[src] has ran out of charge, and turned off!</span>")
-				attack_self(user)
-		else
-			cell.use(power_consumption_rate)
+	if(!cell) //There should be a cell here, but safety first
+		return
+	if(cell.charge <= power_consumption_rate * 2 && magpulse)
+		if(ishuman(loc))
+			var/mob/living/carbon/human/user = loc
+			to_chat(user, "<span class='warning'>[src] has ran out of charge, and turned off!</span>")
+			attack_self(user)
+	else
+		cell.use(power_consumption_rate)
 
 /obj/item/clothing/shoes/magboots/gravity/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
