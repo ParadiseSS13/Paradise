@@ -10,6 +10,7 @@
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
 	var/alien = 0
 	var/syndiemmi = FALSE //Whether or not this is a Syndicate MMI
+	var/mmi_item_name = "Man-Machine Interface" //Used to name the item when installing a brain
 	var/mob/living/carbon/brain/brainmob = null//The current occupant.
 	var/obj/item/organ/internal/brain/held_brain = null // This is so MMI's aren't brainscrubber 9000's
 	var/mob/living/silicon/robot/robot = null//Appears unused.
@@ -60,12 +61,12 @@
 
 			held_brain = B
 			if(istype(O,/obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
-				name = "Man-Machine Interface: Alien - [brainmob.real_name]"
+				name = "[mmi_item_name]: Alien - [brainmob.real_name]"
 				icon = 'icons/mob/alien.dmi'
 				become_occupied("AlienMMI")
 				alien = 1
 			else
-				name = "Man-Machine Interface: [brainmob.real_name]"
+				name = "[mmi_item_name]: [brainmob.real_name]"
 				icon = B.mmi_icon
 				become_occupied("[B.mmi_icon_state]")
 				alien = 0
@@ -149,7 +150,7 @@
 	held_brain.dna = brainmob.dna.Clone()
 	held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
 
-	name = "Man-Machine Interface: [brainmob.real_name]"
+	name = "[mmi_item_name]: [brainmob.real_name]"
 	become_occupied("mmi_full")
 
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
@@ -261,6 +262,7 @@
 	desc = "Syndicate's own brand of MMI. Mindslaves any brain inserted into it for as long as it's in. Cyborgs made with this MMI will be slaved to the owner. Does not fit into NT AI cores."
 	origin_tech = "biotech=4;programming=4;syndicate=2"
 	syndiemmi = TRUE
+	mmi_item_name = "Syndicate Man-Machine Interface"
 
 /obj/item/mmi/syndie/attack_self(mob/user)
 	if(!mindslave_master && ishuman(user))
