@@ -257,42 +257,6 @@
 	if(radio && istype(A, /mob/living/carbon/brain))
 		radio_action.Remove(A)
 
-/obj/item/mmi/syndie
-	name = "\improper Syndicate Man-Machine Interface"
-	desc = "Syndicate's own brand of MMI. Mindslaves any brain inserted into it for as long as it's in. Cyborgs made with this MMI will be slaved to the owner. Does not fit into NT AI cores."
-	origin_tech = "biotech=4;programming=4;syndicate=2"
-	syndiemmi = TRUE
-	mmi_item_name = "Syndicate Man-Machine Interface"
-
-/obj/item/mmi/syndie/attackby(obj/item/O, mob/user, params)
-	if(!master_uid && ishuman(user) && istype(O,/obj/item/organ/internal/brain))
-		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
-		master_uid = user.UID()
-		if(!user.mind.has_antag_datum(/datum/antagonist/traitor))
-			message_admins("[user] has mindslaved [O] using a Syndicate MMI, but they are not a traitor!")
-	..()
-
-/obj/item/mmi/syndie/become_occupied(new_icon)
-	..()
-	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave) //Overrides any previous mindslaving
-
-	if(master_uid)
-		var/mob/living/carbon/human/master = locateUID(master_uid)
-
-		if(master)
-			to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will!</span>")
-			brainmob.mind.add_antag_datum(new /datum/antagonist/mindslave(master.mind))
-			return
-
-	//Edgecase handling, shouldn't get here
-	to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will. You are now loyal to the Syndicate! Assist Syndicate Agents to the best of your abilities.</span>")
-	message_admins("[src] received a brain but has no master. A generic syndicate zeroth law will be installed instead of a full mindslaving.")
-
-/obj/item/mmi/syndie/dropbrain(turf/dropspot)
-	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave)
-	master_uid = null
-	to_chat(brainmob, "<span class='userdanger'>You are no longer a mindslave: You have complete and free control of your own faculties once more!</span>")
-	..()
 
 /obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
 	if(!brainmob)
@@ -335,3 +299,41 @@
 
 	. = ..()
 	brainmob.update_runechat_msg_location()
+
+
+/obj/item/mmi/syndie
+	name = "\improper Syndicate Man-Machine Interface"
+	desc = "Syndicate's own brand of MMI. Mindslaves any brain inserted into it for as long as it's in. Cyborgs made with this MMI will be slaved to the owner. Does not fit into NT AI cores."
+	origin_tech = "biotech=4;programming=4;syndicate=2"
+	syndiemmi = TRUE
+	mmi_item_name = "Syndicate Man-Machine Interface"
+
+/obj/item/mmi/syndie/attackby(obj/item/O, mob/user, params)
+	if(!master_uid && ishuman(user) && istype(O,/obj/item/organ/internal/brain))
+		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
+		master_uid = user.UID()
+		if(!user.mind.has_antag_datum(/datum/antagonist/traitor))
+			message_admins("[user] has mindslaved [O] using a Syndicate MMI, but they are not a traitor!")
+	..()
+
+/obj/item/mmi/syndie/become_occupied(new_icon)
+	..()
+	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave) //Overrides any previous mindslaving
+
+	if(master_uid)
+		var/mob/living/carbon/human/master = locateUID(master_uid)
+
+		if(master)
+			to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will!</span>")
+			brainmob.mind.add_antag_datum(new /datum/antagonist/mindslave(master.mind))
+			return
+
+	//Edgecase handling, shouldn't get here
+	to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will. You are now loyal to the Syndicate! Assist Syndicate Agents to the best of your abilities.</span>")
+	message_admins("[src] received a brain but has no master. A generic syndicate zeroth law will be installed instead of a full mindslaving.")
+
+/obj/item/mmi/syndie/dropbrain(turf/dropspot)
+	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave)
+	master_uid = null
+	to_chat(brainmob, "<span class='userdanger'>You are no longer a mindslave: You have complete and free control of your own faculties once more!</span>")
+	..()
