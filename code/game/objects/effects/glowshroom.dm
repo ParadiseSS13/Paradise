@@ -16,6 +16,10 @@
 	var/spreadIntoAdjacentChance = 60
 	var/obj/item/seeds/myseed = /obj/item/seeds/glowshroom
 
+/obj/structure/glowshroom/extinguish_light()
+	visible_message("<span class='warning'>[src] withers away!</span>")
+	qdel(src)
+
 /obj/structure/glowshroom/glowcap
 	name = "glowcap"
 	desc = "Mycena Ruthenia, a species of mushroom that, while it does glow in the dark, is not actually bioluminescent."
@@ -27,6 +31,9 @@
 	desc = "Mycena Umbra, a species of mushroom that emits shadow instead of light."
 	icon_state = "shadowshroom"
 	myseed = /obj/item/seeds/glowshroom/shadowshroom
+
+/obj/structure/glowshroom/shadowshroom/extinguish_light()
+	return
 
 /obj/structure/glowshroom/single/Spread()
 	return

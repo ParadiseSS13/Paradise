@@ -69,16 +69,6 @@
 	list_reagents = list("nutriment" = 6, "nanomachines" = 10, "vitamin" = 1)
 	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
 
-/obj/item/reagent_containers/food/snacks/roburgerbig
-	name = "roburger"
-	desc = "This massive patty looks like poison. Beep."
-	icon_state = "roburger"
-	filling_color = "#CCCCCC"
-	volume = 120
-	bitesize = 3
-	list_reagents = list("nutriment" = 6, "nanomachines" = 70, "vitamin" = 5)
-	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 2)
-
 /obj/item/reagent_containers/food/snacks/xenoburger
 	name = "xenoburger"
 	desc = "Smells caustic and tastes like heresy."

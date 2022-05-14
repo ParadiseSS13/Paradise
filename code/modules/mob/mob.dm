@@ -516,8 +516,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/reset_perspective(atom/A)
 	if(client)
 		if(istype(A, /atom/movable))
-			client.perspective = EYE_PERSPECTIVE
-			client.eye = A
+			if(is_ventcrawling(src))
+				client.eye = get_turf(A)
+				client.perspective = MOB_PERSPECTIVE
+			else
+				client.perspective = EYE_PERSPECTIVE
+				client.eye = A
 		else
 			if(isturf(loc))
 				client.eye = client.mob
@@ -723,10 +727,18 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/update_flavor_text()
 	set src in usr
 	if(usr != src)
-		to_chat(usr, "No.")
+		to_chat(usr, "<span class='notice'>You can't change the flavor text of this mob</span>")
+		return
+	if(stat)
+		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
+		return
+	
 	var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance.","Flavor Text",html_decode(flavor_text)) as message|null
 
 	if(msg != null)
+		if(stat)
+			to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
+			return
 		msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 		msg = html_encode(msg)
 
@@ -1095,6 +1107,14 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/activate_hand(selhand)
 	return
 
+/mob/proc/add_to_respawnable_list()
+	GLOB.respawnable_list += src
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, .proc/remove_from_respawnable_list)
+
+/mob/proc/remove_from_respawnable_list()
+	GLOB.respawnable_list -= src
+	UnregisterSignal(src, COMSIG_PARENT_QDELETING)
+
 /mob/dead/observer/verb/respawn()
 	set name = "Respawn as NPC"
 	set category = "Ghost"
@@ -1107,26 +1127,21 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
-	if((usr in GLOB.respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
+	if((usr in GLOB.respawnable_list) && (stat == DEAD || isobserver(usr)))
 		var/list/creatures = list("Mouse")
-		for(var/mob/living/L in GLOB.alive_mob_list)
-			if(safe_respawn(L.type) && L.stat!=2)
-				if(!L.key)
-					creatures += L
+		for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
+			if(L.npc_safe(src) && L.stat != DEAD && !L.key)
+				creatures += L
 		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
 		switch(picked)
 			if("Mouse")
-				GLOB.respawnable_list -= usr
+				remove_from_respawnable_list()
 				become_mouse()
-				spawn(5)
-					GLOB.respawnable_list += usr
 			else
 				var/mob/living/NPC = picked
 				if(istype(NPC) && !NPC.key)
-					GLOB.respawnable_list -= usr
+					remove_from_respawnable_list()
 					NPC.key = key
-					spawn(5)
-						GLOB.respawnable_list += usr
 	else
 		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
 		return
@@ -1496,11 +1511,6 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	if(!mind)
 		return FALSE
 
-	//Allows fullpower vampires to bypass holy areas
-	var/datum/vampire/vampire = mind.vampire
-	if(vampire && vampire.get_ability(/datum/vampire_passive/full))
-		return FALSE
-
 	//Allows cult to bypass holy areas once they summon
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(iscultist(src) && gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
@@ -1512,3 +1522,13 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 	to_chat(src, "<span class='warning'>Your powers are useless on this holy ground.</span>")
 	return TRUE
+
+/mob/proc/reset_visibility()
+	invisibility = initial(invisibility)
+	alpha = initial(alpha)
+	add_to_all_human_data_huds()
+
+/mob/proc/make_invisible()
+	invisibility = INVISIBILITY_OBSERVER
+	alpha = 128
+	remove_from_all_data_huds()

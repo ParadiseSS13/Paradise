@@ -3,7 +3,8 @@
 	name = "suit storage unit"
 	desc = "An industrial U-Stor-It Storage unit designed to accomodate all kinds of space suits. Its on-board equipment also allows the user to decontaminate the contents through a UV-ray purging cycle. There's a warning label dangling from the control pad, reading \"STRICTLY NO BIOLOGICALS IN THE CONFINES OF THE UNIT\"."
 	icon = 'icons/obj/machines/suit_storage.dmi'
-	icon_state = "close"
+	icon_state = "classic"
+	base_icon_state = "classic"
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 250
@@ -48,6 +49,10 @@
 	var/list/occupant_typecache
 	var/atom/movable/occupant = null
 
+/obj/machinery/suit_storage_unit/industrial
+	name = "industrial suit storage unit"
+	icon_state = "industrial"
+	base_icon_state = "industrial"
 
 /obj/machinery/suit_storage_unit/standard_unit
 	suit_type	= /obj/item/clothing/suit/space/eva
@@ -71,6 +76,8 @@
 
 /obj/machinery/suit_storage_unit/engine
 	name = "engineering suit storage unit"
+	icon_state = "industrial"
+	base_icon_state = "industrial"
 	suit_type	= /obj/item/clothing/suit/space/hardsuit/engine
 	mask_type	= /obj/item/clothing/mask/breath
 	boots_type = /obj/item/clothing/shoes/magboots
@@ -81,12 +88,23 @@
 
 /obj/machinery/suit_storage_unit/ce
 	name = "chief engineer's suit storage unit"
+	icon_state = "industrial"
+	base_icon_state = "industrial"
 	suit_type	= /obj/item/clothing/suit/space/hardsuit/engine/elite
 	mask_type	= /obj/item/clothing/mask/gas
 	boots_type = /obj/item/clothing/shoes/magboots/advance
 	req_access	= list(ACCESS_CE)
 
 /obj/machinery/suit_storage_unit/ce/secure
+	secure = TRUE
+
+/obj/machinery/suit_storage_unit/rd
+	name = "research director's suit storage unit"
+	suit_type	= /obj/item/clothing/suit/space/hardsuit/rd
+	mask_type	= /obj/item/clothing/mask/gas
+	req_access	= list(ACCESS_RD)
+
+/obj/machinery/suit_storage_unit/rd/secure
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/security
@@ -98,15 +116,12 @@
 /obj/machinery/suit_storage_unit/security/secure
 	secure = TRUE
 
-/obj/machinery/suit_storage_unit/security/pod_pilot
-	req_access = list(ACCESS_PILOT)
-	
 /obj/machinery/suit_storage_unit/security/hos
 	name = "Head of Security's suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
 	mask_type = /obj/item/clothing/mask/gas/sechailer/hos
 	req_access = list(ACCESS_HOS)
-	
+
 /obj/machinery/suit_storage_unit/security/hos/secure
 	secure = TRUE
 
@@ -284,43 +299,43 @@
 
 /obj/machinery/suit_storage_unit/Destroy()
 	SStgui.close_uis(wires)
-	QDEL_NULL(suit)
-	QDEL_NULL(helmet)
-	QDEL_NULL(mask)
-	QDEL_NULL(boots)
-	QDEL_NULL(storage)
 	QDEL_NULL(wires)
 	return ..()
 
 /obj/machinery/suit_storage_unit/update_icon()
 	cut_overlays()
+	if(panel_open)
+		add_overlay("[base_icon_state]_panel")
 
 	if(uv)
 		if(uv_super)
-			add_overlay("super")
-		else if(occupant)
-			add_overlay("uvhuman")
+			add_overlay("[base_icon_state]_uvstrong")
+			add_overlay("[base_icon_state]_super")
 		else
-			add_overlay("uv")
-	else if(state_open)
-		if(stat & BROKEN)
-			add_overlay("broken")
-		else
-			add_overlay("open")
-			if(suit)
-				add_overlay("suit")
-			if(helmet)
-				add_overlay("helm")
-			if(storage)
-				add_overlay("storage")
-	else if(occupant)
-		add_overlay("human")
+			add_overlay("[base_icon_state]_uv")
+		add_overlay("[base_icon_state]_lights_red")
+		return
+
+	if(state_open)
+		add_overlay("[base_icon_state]_open")
+		add_overlay("[base_icon_state]_ready")
+		if(suit)
+			add_overlay("[base_icon_state]_suit")
+		if(helmet)
+			add_overlay("[base_icon_state]_helm")
+		if(storage)
+			add_overlay("[base_icon_state]_storage")
+		return
+	add_overlay("[base_icon_state]_ready")
+	add_overlay("[base_icon_state]_lights_closed")
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked)
 		if(shock(user, 100))
 			return
 	if(!is_operational())
+		if(user.a_intent != INTENT_HELP)
+			return ..()
 		if(panel_open)
 			to_chat(usr, "<span class='warning'>Close the maintenance panel first.</span>")
 		else
@@ -346,8 +361,8 @@
 	if(shocked && !(stat & NOPOWER))
 		if(shock(user, 100))
 			return
-	if(default_deconstruction_screwdriver(user, "panel", "close", I))
-		I.play_tool_sound(user, I.tool_volume)
+	if(default_deconstruction_screwdriver(user, "[base_icon_state]", "[base_icon_state]", I))
+		update_icon()
 
 /**
   * Tries to store the item into whatever slot it can go, returns true if the item is stored successfully.

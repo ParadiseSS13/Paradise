@@ -8,3 +8,4 @@
 	author = "Forces beyond your comprehension"
 	unique = TRUE
 	title = "The codex gigas"
+	has_drm = TRUE

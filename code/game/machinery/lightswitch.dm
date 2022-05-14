@@ -22,12 +22,16 @@
 	switch(w_dir)
 		if(NORTH)
 			pixel_y = 25
+			dir = NORTH
 		if(SOUTH)
 			pixel_y = -25
+			dir = SOUTH
 		if(EAST)
 			pixel_x = 25
+			dir = EAST
 		if(WEST)
 			pixel_x = -25
+			dir = WEST
 	if(SSradio)
 		set_frequency(frequency)
 	spawn(5)
@@ -45,6 +49,7 @@
 /obj/machinery/light_switch/Initialize()
 	..()
 	set_frequency(frequency)
+	name = "light switch"
 
 /obj/machinery/light_switch/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)

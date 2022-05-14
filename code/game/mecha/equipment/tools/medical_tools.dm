@@ -270,11 +270,6 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/critfail()
-	..()
-	if(reagents)
-		reagents.set_reacting(TRUE)
-
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/can_attach(obj/mecha/medical/M)
 	if(..())
 		if(istype(M))

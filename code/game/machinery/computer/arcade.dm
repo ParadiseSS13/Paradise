@@ -15,7 +15,8 @@
 	..()
 	if(!circuit)
 		var/choice = pick(subtypesof(/obj/machinery/computer/arcade))
-		new choice(loc)
+		var/obj/machinery/computer/arcade/chosen = new choice(loc)
+		chosen.dir = dir
 		qdel(src)
 		return
 	Reset()
@@ -257,6 +258,7 @@
 		enemy_name = "Cuban Pete"
 		name = "Outbomb Cuban Pete"
 
+		add_hiddenprint(user)
 		updateUsrDialog()
 
 // *** THE ORION TRAIL ** //
@@ -556,7 +558,7 @@
 				playsound(loc, 'sound/effects/supermatter.ogg', 100, TRUE)
 				atom_say("A miniature black hole suddenly appears in front of [src], devouring [usr] alive!")
 				usr.Stun(10) //you can't run :^)
-				var/S = new /obj/singularity/academy(usr.loc)
+				var/S = new /obj/singularity/onetile(usr.loc)
 				emagged = 0 //immediately removes emagged status so people can't kill themselves by sprinting up and interacting
 				sleep(50)
 				atom_say("[S] winks out, just as suddenly as it appeared.")
@@ -962,6 +964,7 @@
 		to_chat(user, "<span class='notice'>You override the cheat code menu and skip to Cheat #[rand(1, 50)]: Realism Mode.</span>")
 		name = "The Orion Trail: Realism Edition"
 		desc = "Learn how our ancestors got to Orion, and try not to die in the process!"
+		add_hiddenprint(user)
 		newgame()
 		emagged = 1
 

@@ -22,8 +22,8 @@
 	else
 		return ..()
 
-/datum/construction/mecha/spawn_result(name)
-	SSblackbox.record_feedback("tally", "mechas_created", 1, "[name]")
+/datum/construction/mecha/spawn_result(mob/user, result_name)
+	SSblackbox.record_feedback("tally", "mechas_created", 1, "[result_name]")
 
 /datum/construction/reversible/mecha/custom_action(index as num, diff as num, atom/used_atom, mob/user as mob)
 	if(istype(used_atom, /obj/item/stack/cable_coil))
@@ -65,8 +65,8 @@
 /datum/construction/mecha/ripley_chassis/action(atom/used_atom,mob/user as mob)
 	return check_all_steps(used_atom,user)
 
-/datum/construction/mecha/ripley_chassis/spawn_result()
-	..("Ripley")
+/datum/construction/mecha/ripley_chassis/spawn_result(mob/user, result_name)
+	..(user, "Ripley")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/ripley(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -270,8 +270,8 @@
 /datum/construction/mecha/gygax_chassis/action(atom/used_atom,mob/user as mob)
 	return check_all_steps(used_atom,user)
 
-/datum/construction/mecha/gygax_chassis/spawn_result()
-	..("Gygax")
+/datum/construction/mecha/gygax_chassis/spawn_result(mob/user, result_name)
+	..(user, "Gygax")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/gygax(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -545,8 +545,8 @@
 /datum/construction/mecha/firefighter_chassis/action(atom/used_atom,mob/user as mob)
 	return check_all_steps(used_atom,user)
 
-/datum/construction/mecha/firefighter_chassis/spawn_result()
-	..("Firefighter Ripley")
+/datum/construction/mecha/firefighter_chassis/spawn_result(mob/user, result_name)
+	..(user, "Firefighter Ripley")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/firefighter(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -764,16 +764,16 @@
 	qdel(used_atom)
 	return 1
 
-/datum/construction/mecha/honker_chassis/spawn_result()
-	..("Honker")
+/datum/construction/mecha/honker_chassis/spawn_result(mob/user, result_name)
+	..(user, "Honker")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
-	const_holder.construct = new /datum/construction/mecha/honker(const_holder)
+	const_holder.construct = new /datum/construction/reversible/mecha/honker(const_holder)
 	const_holder.density = 1
 	qdel(src)
 	return
 
 
-/datum/construction/mecha/honker
+/datum/construction/reversible/mecha/honker
 	result = "/obj/mecha/combat/honker"
 	steps = list(list("key"=/obj/item/bikehorn),//1
 					 list("key"=/obj/item/clothing/shoes/clown_shoes),//2
@@ -788,10 +788,10 @@
 					 list("key"=/obj/item/bikehorn),//11
 					 )
 
-/datum/construction/mecha/honker/action(atom/used_atom,mob/user as mob)
+/datum/construction/reversible/mecha/honker/action(atom/used_atom,mob/user as mob)
 	return check_step(used_atom,user)
 
-/datum/construction/mecha/honker/custom_action(step, atom/used_atom, mob/user)
+/datum/construction/reversible/mecha/honker/custom_action(index, diff, atom/used_atom, mob/user)
 	if(!..())
 		return 0
 
@@ -800,7 +800,7 @@
 		user.visible_message("HONK!")
 
 	//TODO: better messages.
-	switch(step)
+	switch(index)
 		if(10)
 			user.visible_message("[user] installs the central control module into the [holder].", "You install the central control module into the [holder].")
 			qdel(used_atom)
@@ -836,15 +836,15 @@
 	qdel(used_atom)
 	return 1
 
-/datum/construction/mecha/reticence_chassis/spawn_result()
-	..("Reticence")
+/datum/construction/mecha/reticence_chassis/spawn_result(mob/user, result_name)
+	..(user, "Reticence")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
-	const_holder.construct = new /datum/construction/mecha/reticence(const_holder)
+	const_holder.construct = new /datum/construction/reversible/mecha/reticence(const_holder)
 	const_holder.density = 1
 	qdel(src)
 	return
 
-/datum/construction/mecha/reticence
+/datum/construction/reversible/mecha/reticence
 	result = "/obj/mecha/combat/reticence"
 	steps = list(list("key"=/obj/effect/dummy/mecha_emote_step),//1
 					 list("key"=/obj/item/clothing/suit/suspenders),//2
@@ -857,10 +857,10 @@
 					 list("key"=/obj/item/circuitboard/mecha/reticence/main),//9
 					 )
 
-/datum/construction/mecha/reticence/action(atom/used_atom,mob/user)
+/datum/construction/reversible/mecha/reticence/action(atom/used_atom,mob/user)
 	return check_step(used_atom,user)
 
-/datum/construction/mecha/reticence/custom_action(step, atom/used_atom, mob/user)
+/datum/construction/reversible/mecha/reticence/custom_action(index, diff, atom/used_atom, mob/user)
 	if(!..())
 		return 0
 
@@ -870,7 +870,7 @@
 		qdel(used_atom)
 
 	//TODO: better messages.
-	switch(step)
+	switch(index)
 		if(9)
 			user.visible_message("[user] installs the central control module into the [holder].", "<span class='notice'>You install the central control module into the [holder].</span>")
 			qdel(used_atom)
@@ -910,8 +910,8 @@
 /datum/construction/mecha/durand_chassis/action(atom/used_atom,mob/user as mob)
 	return check_all_steps(used_atom,user)
 
-/datum/construction/mecha/durand_chassis/spawn_result()
-	..("Durand")
+/datum/construction/mecha/durand_chassis/spawn_result(mob/user, result_name)
+	..(user, "Durand")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/durand(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -1188,8 +1188,8 @@
 /datum/construction/mecha/phazon_chassis/action(atom/used_atom,mob/user as mob)
 	return check_all_steps(used_atom,user)
 
-/datum/construction/mecha/phazon_chassis/spawn_result()
-	..("Phazon")
+/datum/construction/mecha/phazon_chassis/spawn_result(mob/user, result_name)
+	..(user, "Phazon")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/phazon(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -1507,8 +1507,8 @@
 /datum/construction/mecha/odysseus_chassis/action(atom/used_atom,mob/user as mob)
 	return check_all_steps(used_atom,user)
 
-/datum/construction/mecha/odysseus_chassis/spawn_result()
-	..("Odysseus")
+/datum/construction/mecha/odysseus_chassis/spawn_result(mob/user, result_name)
+	..(user, "Odysseus")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/odysseus(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'

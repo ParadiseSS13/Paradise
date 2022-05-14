@@ -21,7 +21,7 @@
 	if(QDELETED(parent_machine))
 		parent_machine = null
 	var/turf/T = get_turf(src)
-	if(isspaceturf(T))
+	if(isspaceturf(T) || T.density) // Don't want snowclouds or snow on walls
 		qdel(src)
 		return
 	var/turf_hotness
@@ -83,7 +83,7 @@
 
 /obj/effect/snow/process()
 	var/turf/T = get_turf(src)
-	if(isspaceturf(T))
+	if(isspaceturf(T) || T.density) // Don't want snowclouds or snow on walls
 		qdel(src)
 		return
 	else if(issimulatedturf(T))

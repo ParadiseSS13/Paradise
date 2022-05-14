@@ -31,6 +31,9 @@
 				if(Process_Spacemove(east_vs_west))
 					Move(get_step(src, east_vs_west), east_vs_west)
 
+/mob/living/simple_animal/crab/npc_safe(mob/user)
+	return TRUE
+
 //COFFEE! SQUEEEEEEEEE!
 /mob/living/simple_animal/crab/Coffee
 	name = "Coffee"

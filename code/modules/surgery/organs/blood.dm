@@ -67,7 +67,7 @@
 			if(BP.open)
 				temp_bleed += 0.5
 
-			if(BP.internal_bleeding)
+			if(BP.status & ORGAN_INT_BLEEDING)
 				internal_bleeding_rate += 0.5
 
 		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects naturally decreases

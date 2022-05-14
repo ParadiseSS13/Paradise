@@ -1,4 +1,4 @@
-// Teleporter, Wormhole generator, Gravitational catapult, Armor booster modules,
+// Teleporter, Gravitational catapult, Armor booster modules,
 // Repair droid, Tesla Energy relay, Generators
 
 ////////////////////////////////////////////// TELEPORTER ///////////////////////////////////////////////
@@ -28,53 +28,6 @@
 	origin_tech = "bluespace=7"
 	energy_drain = 1000
 	tele_precision = 1
-
-
-////////////////////////////////////////////// WORMHOLE GENERATOR //////////////////////////////////////////
-
-/obj/item/mecha_parts/mecha_equipment/wormhole_generator
-	name = "mounted wormhole generator"
-	desc = "An exosuit module that allows generating of small quasi-stable wormholes."
-	icon_state = "mecha_wholegen"
-	origin_tech = "bluespace=4;magnets=4;plasmatech=2"
-	equip_cooldown = 50
-	energy_drain = 300
-	range = MECHA_RANGED
-
-/obj/item/mecha_parts/mecha_equipment/wormhole_generator/action(atom/target)
-	if(!action_checks(target) || !is_teleport_allowed(loc.z))
-		return
-	var/list/theareas = get_areas_in_range(100, chassis)
-	if(!theareas.len)
-		return
-	var/area/thearea = pick(theareas)
-	var/list/L = list()
-	var/turf/pos = get_turf(src)
-	for(var/turf/T in get_area_turfs(thearea.type))
-		if(!T.density && pos.z == T.z)
-			var/clear = 1
-			for(var/obj/O in T)
-				if(O.density)
-					clear = 0
-					break
-			if(clear)
-				L+=T
-	if(!L.len)
-		return
-	var/turf/target_turf = pick(L)
-	if(!target_turf)
-		return
-	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(target), target_turf)
-	P.icon = 'icons/obj/objects.dmi'
-	P.failchance = 0
-	P.icon_state = "anom"
-	P.name = "wormhole"
-	message_admins("[key_name_admin(chassis.occupant, chassis.occupant.client)]([ADMIN_QUE(chassis.occupant,"?")]) ([ADMIN_FLW(chassis.occupant,"FLW")]) used a Wormhole Generator in ([loc.x],[loc.y],[loc.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>JMP</a>)",0,1)
-	log_game("[key_name(chassis.occupant)] used a Wormhole Generator in ([loc.x],[loc.y],[loc.z])")
-	src = null
-	spawn(rand(150,300))
-		qdel(P)
-	return 1
 
 /////////////////////////////////////// GRAVITATIONAL CATAPULT ///////////////////////////////////////////
 
@@ -148,7 +101,7 @@
 //////////////////////////// ARMOR BOOSTER MODULES //////////////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster //what is that noise? A BAWWW from TK mutants.
-	name = "Armor Booster Module (Close Combat Weaponry)"
+	name = "armor booster module (Close combat weaponry)"
 	desc = "Boosts exosuit armor against armed melee attacks. Requires energy to operate."
 	icon_state = "mecha_abooster_ccw"
 	origin_tech = "materials=4;combat=4"
@@ -166,7 +119,7 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
-	name = "Armor Booster Module (Ranged Weaponry)"
+	name = "armor booster module (Ranged weaponry)"
 	desc = "Boosts exosuit armor against ranged attacks. Completely blocks taser shots. Requires energy to operate."
 	icon_state = "mecha_abooster_proj"
 	origin_tech = "materials=4;combat=3;engineering=3"
@@ -186,7 +139,7 @@
 ////////////////////////////////// REPAIR DROID //////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid
-	name = "Repair Droid"
+	name = "repair droid"
 	desc = "Automated repair droid. Scans exosuit for damage and repairs it. Can fix almost all types of external or internal damage."
 	icon_state = "repair_droid"
 	origin_tech ="magnets=3;programming=3;engineering=4"
@@ -243,18 +196,20 @@
 		set_ready_state(1)
 		return
 	var/h_boost = health_boost
-	var/repaired = 0
+	var/repaired = FALSE
 	if(chassis.internal_damage & MECHA_INT_SHORT_CIRCUIT)
-		h_boost *= -2
+		h_boost = 0
+		chassis.take_damage(2, BURN) //short circuiting droids do damage
+		repaired = TRUE
 	else if(chassis.internal_damage && prob(15))
 		for(var/int_dam_flag in repairable_damage)
 			if(chassis.internal_damage & int_dam_flag)
 				chassis.clearInternalDamage(int_dam_flag)
-				repaired = 1
+				repaired = TRUE
 				break
-	if(h_boost<0 || chassis.obj_integrity < chassis.max_integrity)
+	if(chassis.obj_integrity < chassis.max_integrity && h_boost > 0)
 		chassis.obj_integrity += min(h_boost, chassis.max_integrity-chassis.obj_integrity)
-		repaired = 1
+		repaired = TRUE
 	if(repaired)
 		if(!chassis.use_power(energy_drain))
 			STOP_PROCESSING(SSobj, src)
@@ -435,23 +390,6 @@
 /obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon,mob/user, params)
 	load_fuel(weapon)
 
-/obj/item/mecha_parts/mecha_equipment/generator/critfail()
-	..()
-	var/turf/simulated/T = get_turf(src)
-	if(!istype(T))
-		return
-	var/datum/gas_mixture/GM = new
-	if(prob(10))
-		GM.toxins += 100
-		GM.temperature = 1500+T0C //should be enough to start a fire
-		T.visible_message("[src] suddenly disgorges a cloud of heated plasma.")
-		qdel(src)
-	else
-		GM.toxins += 5
-		GM.temperature = istype(T) ? T.air.return_temperature() : T20C
-		T.visible_message("[src] suddenly disgorges a cloud of plasma.")
-	T.assume_air(GM)
-
 /obj/item/mecha_parts/mecha_equipment/generator/process()
 	if(!chassis)
 		STOP_PROCESSING(SSobj, src)
@@ -490,9 +428,6 @@
 	fuel_per_cycle_active = 30
 	power_per_cycle = 50
 	var/rad_per_cycle = 30
-
-/obj/item/mecha_parts/mecha_equipment/generator/nuclear/critfail()
-	return
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
 	if(..())

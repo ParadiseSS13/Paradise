@@ -1,54 +1,67 @@
+/*
+######################################################################################
+##																					##
+##								IMPORTANT README									##
+##																					##
+##	  Changing any /datum/gear typepaths --WILL-- break people's loadouts.			##
+##	The typepaths are stored directly in the `characters.gear` column of the DB.	##
+##		Please inform the server host if you wish to modify any of these.			##
+##																					##
+######################################################################################
+*/
+
+
 /datum/gear/shoes
-	subtype_path = /datum/gear/shoes
+	main_typepath = /datum/gear/shoes
 	slot = slot_shoes
 	sort_category = "Shoes"
 
 /datum/gear/shoes/sandals
-	display_name = "sandals, wooden"
+	display_name = "Sandals, wooden"
 	path = /obj/item/clothing/shoes/sandal
 
 /datum/gear/shoes/winterboots
-	display_name = "winter boots"
+	display_name = "Winter boots"
 	path = /obj/item/clothing/shoes/winterboots
 
 /datum/gear/shoes/workboots
-	display_name = "work boots"
+	display_name = "Work boots"
 	path = /obj/item/clothing/shoes/workboots
 
 /datum/gear/shoes/fancysandals
-	display_name = "sandals, fancy"
+	display_name = "Sandals, fancy"
 	path = /obj/item/clothing/shoes/sandal/fancy
 
 /datum/gear/shoes/dressshoes
-	display_name = "dress shoes"
+	display_name = "Dress shoes"
 	path = /obj/item/clothing/shoes/centcom
 
 /datum/gear/shoes/cowboyboots
-	display_name = "cowboy boots, brown"
+	display_name = "Cowboy boots, brown"
 	path = /obj/item/clothing/shoes/cowboy
 
 /datum/gear/shoes/cowboyboots_black
-	display_name = "cowboy boots, black"
+	display_name = "Cowboy boots, black"
 	path = /obj/item/clothing/shoes/cowboy/black
 
 /datum/gear/shoes/cowboyboots/white
-	display_name = "cowboy boots, white"
+	display_name = "Cowboy boots, white"
 	path = /obj/item/clothing/shoes/cowboy/white
 
 /datum/gear/shoes/cowboyboots/pink
-	display_name = "cowboy boots, pink"
+	display_name = "Cowboy boots, pink"
 	path = /obj/item/clothing/shoes/cowboy/pink
 
 /datum/gear/shoes/jackboots
-	display_name = "jackboots"
+	display_name = "Jackboots"
 	path = /obj/item/clothing/shoes/jackboots
 
 /datum/gear/shoes/jacksandals
-	display_name = "jacksandals"
+	display_name = "Jacksandals"
 	path = /obj/item/clothing/shoes/jackboots/jacksandals
 
 /datum/gear/shoes/laceup
-	display_name = "laceup shoes"
+	display_name = "Laceup shoes"
 	path = /obj/item/clothing/shoes/laceup
 
 /datum/gear/shoes/blackshoes

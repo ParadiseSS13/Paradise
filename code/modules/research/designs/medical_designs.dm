@@ -155,7 +155,7 @@
 	build_path = /obj/item/reagent_scanner
 	category = list("Medical")
 
-/datum/design/item/scalpel_laser1
+/datum/design/scalpel_laser1
 	name = "Basic Laser Scalpel"
 	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks basic and could be improved."
 	id = "scalpel_laser1"
@@ -165,7 +165,7 @@
 	build_path = /obj/item/scalpel/laser/laser1
 	category = list("Medical")
 
-/datum/design/item/scalpel_laser2
+/datum/design/scalpel_laser2
 	name = "Improved Laser Scalpel"
 	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks somewhat advanced."
 	id = "scalpel_laser2"
@@ -175,7 +175,7 @@
 	build_path = /obj/item/scalpel/laser/laser2
 	category = list("Medical")
 
-/datum/design/item/scalpel_laser3
+/datum/design/scalpel_laser3
 	name = "Advanced Laser Scalpel"
 	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks to be the pinnacle of precision energy cutlery!"
 	id = "scalpel_laser3"
@@ -185,7 +185,7 @@
 	build_path = /obj/item/scalpel/laser/laser3
 	category = list("Medical")
 
-/datum/design/item/scalpel_manager
+/datum/design/scalpel_manager
 	name = "Incision Management System"
 	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
 	id = "scalpel_manager"
@@ -560,7 +560,7 @@
 	req_tech = list("materials" = 2, "biotech" = 3, "magnets" = 3, "programming" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
-	build_path = /obj/item/implantcase/track
+	build_path = /obj/item/implantcase/tracking
 	category = list("Medical")
 
 //Cybernetic organs

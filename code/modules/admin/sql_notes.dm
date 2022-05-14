@@ -1,7 +1,13 @@
-// Do not attemtp to remove the blank string from the server arg. It will break DB saving.
-/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, server = "", checkrights = 1, show_after = TRUE, automated = FALSE)
+/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, checkrights = 1, show_after = TRUE, automated = FALSE, sanitise_html = TRUE) // Dont you EVER disable this last param unless you know what you're doing
 	if(checkrights && !check_rights(R_ADMIN|R_MOD))
 		return
+	if(IsAdminAdvancedProcCall() && !sanitise_html)
+		// *sigh*
+		to_chat(usr, "<span class='boldannounce'>Unsanitized note add blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to possibly inject HTML into notes via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to possibly inject HTML into notes via advanced proc-call")
+		return
+
 	if(!SSdbcore.IsConnected())
 		if(usr)
 			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
@@ -53,12 +59,11 @@
 	else if(usr && (usr.ckey == ckey(adminckey))) // Don't ckeyize special note sources
 		adminckey = ckey(adminckey)
 
-	if(!server)
-		if(GLOB.configuration.general.server_name)
-			server = GLOB.configuration.general.server_name
-
 	// Force cast this to 1/0 incase someone tries to feed bad data
 	automated = !!automated
+
+	if(sanitise_html)
+		notetext = html_encode(notetext)
 
 	var/datum/db_query/query_noteadd = SSdbcore.NewQuery({"
 		INSERT INTO notes (ckey, timestamp, notetext, adminckey, server, crew_playtime, round_id, automated)
@@ -67,7 +72,7 @@
 		"targetckey" = target_ckey,
 		"notetext" = notetext,
 		"adminkey" = adminckey,
-		"server" = server,
+		"server" = GLOB.configuration.system.instance_id,
 		"crewnum" = crew_number,
 		"roundid" = GLOB.round_id,
 		"automated" = automated
@@ -115,8 +120,10 @@
 		return
 	qdel(query_del_note)
 
-	log_admin("[usr ? key_name(usr) : "Bot"] has removed a note made by [adminckey] from [ckey]: [notetext]")
-	message_admins("[usr ? key_name_admin(usr) : "Bot"] has removed a note made by [adminckey] from [ckey]:<br>[notetext]")
+	var/safe_text = html_encode(notetext)
+
+	log_admin("[usr ? key_name(usr) : "Bot"] has removed a note made by [adminckey] from [ckey]: [safe_text]")
+	message_admins("[usr ? key_name_admin(usr) : "Bot"] has removed a note made by [adminckey] from [ckey]:<br>[safe_text]")
 	show_note(ckey)
 
 /proc/edit_note(note_id)
@@ -147,9 +154,12 @@
 		var/new_note = input("Input new note", "New Note", "[old_note]") as message|null
 		if(!new_note)
 			return
-		var/edit_text = "Edited by [usr.ckey] on [SQLtime()] from \"[old_note]\" to \"[new_note]\"<hr>"
+
+		var/safe_text = html_encode(new_note)
+
+		var/edit_text = "Edited by [usr.ckey] on [SQLtime()] from \"[old_note]\" to \"[safe_text]\"<hr>"
 		var/datum/db_query/query_update_note = SSdbcore.NewQuery("UPDATE notes SET notetext=:new_note, last_editor=:akey, edits = CONCAT(IFNULL(edits,''),:edit_text) WHERE id=:note_id", list(
-			"new_note" = new_note,
+			"new_note" = safe_text,
 			"akey" = usr.ckey,
 			"edit_text" = edit_text,
 			"note_id" = note_id
@@ -157,8 +167,8 @@
 		if(!query_update_note.warn_execute())
 			qdel(query_update_note)
 			return
-		log_admin("[usr ? key_name(usr) : "Bot"] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
-		message_admins("[usr ? key_name_admin(usr) : "Bot"] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
+		log_admin("[usr ? key_name(usr) : "Bot"] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[safe_text]\"")
+		message_admins("[usr ? key_name_admin(usr) : "Bot"] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[safe_text]\"")
 		show_note(target_ckey)
 		qdel(query_update_note)
 
@@ -212,7 +222,7 @@
 				output += " <a href='?_src_=holder;removenote=[id]'>\[Remove Note\]</a> [automated ? "\[Automated Note\]" : "<a href='?_src_=holder;editnote=[id]'>\[Edit Note\]</a>"]"
 				if(last_editor)
 					output += " <font size='2'>Last edit by [last_editor] <a href='?_src_=holder;noteedits=[id]'>(Click here to see edit log)</a></font>"
-			output += "<br>[notetext]<hr style='background:#000000; border:0; height:1px'>"
+			output += "<br>[replacetext(notetext, "\n", "<br>")]<hr style='background:#000000; border:0; height:1px'>"
 		qdel(query_get_notes)
 	else if(index)
 		var/index_ckey

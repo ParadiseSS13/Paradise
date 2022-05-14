@@ -13,7 +13,7 @@
 	throw_speed = 1
 	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30)
 
 	// Built automatically from the corresponding vending machine.
 	// If null, considered to be full. Otherwise, is list(/typepath = amount).
@@ -152,3 +152,61 @@
 /obj/item/vending_refill/robotics
 	machine_name = "Robotech Deluxe"
 	icon_state = "refill_engi"
+
+//Departmental clothing vendors
+
+/obj/item/vending_refill/secdrobe
+	machine_name = "SecDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/detdrobe
+	machine_name = "DetDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/medidrobe
+	machine_name = "MediDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/virodrobe
+	machine_name = "ViroDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/chemdrobe
+	machine_name = "ChemDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/genedrobe
+	machine_name = "GeneDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/scidrobe
+	machine_name = "SciDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/robodrobe
+	machine_name = "RoboDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/engidrobe
+	machine_name = "EngiDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/atmosdrobe
+	machine_name = "AtmosDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/cargodrobe
+	machine_name = "CargoDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/chefdrobe
+	machine_name = "ChefDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/bardrobe
+	machine_name = "BarDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/hydrodrobe
+	machine_name = "HydroDrobe"
+	icon_state = "refill_clothes"

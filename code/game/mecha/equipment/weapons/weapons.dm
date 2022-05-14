@@ -64,12 +64,12 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy
-	name = "General Energy Weapon"
+	name = "general energy weapon"
 	size = 2
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
 	equip_cooldown = 8
-	name = "CH-PS \"Firedart\" Laser"
+	name = "\improper CH-PS \"Firedart\" Laser"
 	icon_state = "mecha_laser"
 	origin_tech = "magnets=3;combat=3;engineering=3"
 	energy_drain = 30
@@ -77,17 +77,19 @@
 	fire_sound = 'sound/weapons/laser.ogg'
 	harmful = TRUE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
-	name = "CH-PD Disabler"
-	origin_tech = "combat=3"
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler
+	equip_cooldown = 8
+	name = "\improper CH-DS \"Peacemaker\" disabler"
+	desc = "A weapon for combat exosuits. Shoots basic disablers."
+	icon_state = "mecha_disabler"
+	energy_drain = 30
 	projectile = /obj/item/projectile/beam/disabler
-	projectiles_per_shot = 2
-	projectile_delay = 1
+	fire_sound = 'sound/weapons/taser2.ogg'
 	harmful = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	equip_cooldown = 10
-	name = "CH-LC \"Solaris\" Laser Cannon"
+	name = "\improper CH-LC \"Solaris\" Laser Cannon"
 	icon_state = "mecha_laser"
 	origin_tech = "magnets=4;combat=4;engineering=3"
 	energy_drain = 60
@@ -105,7 +107,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
 	equip_cooldown = 35
-	name = "P-X Tesla Cannon"
+	name = "\improper P-X Tesla Cannon"
 	desc = "A weapon for combat exosuits. Fires bolts of electricity similar to the experimental tesla engine"
 	icon_state = "mecha_laser"
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
@@ -116,7 +118,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray
 	equip_cooldown = 35
-	name = "S-1 X-Ray Projector"
+	name = "\improper S-1 X-Ray Projector"
 	desc = "A weapon for combat exosuits. Fires beams of X-Rays that pass through solid matter."
 	icon_state = "mecha_laser"
 	origin_tech = "materials=3;combat=5;magnets=2;syndicate=2"
@@ -126,13 +128,13 @@
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray/triple
-	name = "X-XR Triple-barrel X-Ray Stream Projector"
+	name = "\improper X-XR Triple-barrel X-Ray Stream Projector"
 	projectiles_per_shot = 3
 	projectile_delay = 1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator
 	equip_cooldown = 35
-	name = "ZFI Immolation Beam Gun"
+	name = "\improper ZFI Immolation Beam Gun"
 	desc = "A weapon for combat exosuits. Fires beams of extreme heat that set targets on fire."
 	icon_state = "mecha_laser"
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
@@ -143,7 +145,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse
 	equip_cooldown = 30
-	name = "eZ-13 mk2 Heavy pulse rifle"
+	name = "eZ-13 mk2 Heavy Pulse Rifle"
 	icon_state = "mecha_pulse"
 	energy_drain = 120
 	origin_tech = "materials=3;combat=6;powerstorage=4"
@@ -172,7 +174,7 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
-	name = "PBT \"Pacifier\" Mounted Taser"
+	name = "\improper PBT \"Pacifier\" Mounted Taser"
 	icon_state = "mecha_taser"
 	origin_tech = "combat=3"
 	energy_drain = 20
@@ -182,7 +184,7 @@
 	size = 1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/honker
-	name = "HoNkER BlAsT 5000"
+	name = "\improper HoNkER BlAsT 5000"
 	icon_state = "mecha_honker"
 	energy_drain = 200
 	equip_cooldown = 150
@@ -242,7 +244,7 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic
-	name = "General Ballisic Weapon"
+	name = "general ballisic weapon"
 	size = 2
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/action_checks(atom/target)
 	if(..())
@@ -272,7 +274,7 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
-	name = "FNX-66 Carbine"
+	name = "\improper FNX-66 Carbine"
 	icon_state = "mecha_carbine"
 	origin_tech = "materials=4;combat=4"
 	equip_cooldown = 5
@@ -298,11 +300,11 @@
 	return 0
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
-	name = "LBX AC 10 \"Scattershot\""
+	name = "\improper LBX AC 10 \"Scattershot\""
 	icon_state = "mecha_scatter"
 	origin_tech = "combat=4"
 	equip_cooldown = 20
-	projectile = /obj/item/projectile/bullet/midbullet
+	projectile = /obj/item/projectile/bullet/midbullet2
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	projectiles = 40
 	projectile_energy_cost = 25
@@ -311,7 +313,7 @@
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
-	name = "Ultra AC 2"
+	name = "\improper Ultra AC 2"
 	icon_state = "mecha_uac2"
 	origin_tech = "combat=4"
 	equip_cooldown = 10
@@ -325,11 +327,11 @@
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/dual
-	name = "XMG-9 Autocannon"
+	name = "\improper XMG-9 Autocannon"
 	projectiles_per_shot = 6
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
-	name = "SRM-8 Light Missile Rack"
+	name = "\improper SRM-8 Light Missile Rack"
 	icon_state = "mecha_missilerack"
 	origin_tech = "combat=5;materials=4;engineering=4"
 	projectile = /obj/item/missile
@@ -361,7 +363,7 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
-	name = "SRX-13 Heavy Missile Launcher"
+	name = "\improper SRX-13 Heavy Missile Launcher"
 	heavy_missile = 1
 
 /obj/item/missile
@@ -383,7 +385,7 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
-	name = "SGL-6 Flashbang Launcher"
+	name = "\improper SGL-6 Flashbang Launcher"
 	icon_state = "mecha_grenadelnchr"
 	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/grenade/flashbang
@@ -409,7 +411,7 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang//Because I am a heartless bastard -Sieve
-	name = "SOB-3 Clusterbang Launcher"
+	name = "\improper SOB-3 Clusterbang Launcher"
 	desc = "A weapon for combat exosuits. Launches primed clusterbangs. You monster."
 	origin_tech = "combat=4;materials=4"
 	projectiles = 3
@@ -425,7 +427,7 @@
 	return//Extra bit of security
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar
-	name = "Banana Mortar"
+	name = "banana mortar"
 	icon_state = "mecha_bananamrtr"
 	projectile = /obj/item/grown/bananapeel
 	fire_sound = 'sound/items/bikehorn.ogg'
@@ -455,7 +457,7 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar
-	name = "Mousetrap Mortar"
+	name = "mousetrap mortar"
 	icon_state = "mecha_mousetrapmrtr"
 	projectile = /obj/item/assembly/mousetrap
 	fire_sound = 'sound/items/bikehorn.ogg'
@@ -485,7 +487,7 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
-	name = "PCMK-6 Bola Launcher"
+	name = "\improper PCMK-6 Bola Launcher"
 	icon_state = "mecha_bola"
 	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/restraints/legcuffs/bola

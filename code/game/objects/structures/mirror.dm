@@ -23,6 +23,10 @@
 			if(WEST)
 				pixel_x = 32
 
+/obj/structure/mirror/Destroy()
+	QDEL_LIST_ASSOC_VAL(ui_users)
+	return ..()
+
 /obj/structure/mirror/attack_hand(mob/user)
 	if(broken)
 		return
@@ -115,7 +119,7 @@
 		if("Body")
 			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
 			for(var/species in GLOB.whitelisted_species)
-				if(is_alien_whitelisted(H, species))
+				if(can_use_species(H, species))
 					race_list += species
 
 			var/datum/ui_module/appearance_changer/AC = ui_users[user]

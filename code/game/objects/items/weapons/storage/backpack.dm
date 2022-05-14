@@ -60,7 +60,7 @@
 	resistance_flags = FIRE_PROOF
 	flags_2 = NO_MAT_REDEMPTION_2
 	cant_hold = list(/obj/item/storage/backpack/holding)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
 
 /obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/backpack/holding))
@@ -340,8 +340,8 @@
 /obj/item/storage/backpack/duffel/syndie
 	name = "suspicious looking duffelbag"
 	desc = "A large duffelbag for holding extra tactical supplies."
-	icon_state = "duffel-syndimed"
-	item_state = "duffel-syndimed"
+	icon_state = "duffel-syndiammo"
+	item_state = "duffel-syndiammo"
 	origin_tech = "syndicate=1"
 	silent = TRUE
 	slowdown = 0
@@ -350,27 +350,23 @@
 /obj/item/storage/backpack/duffel/syndie/med
 	name = "suspicious duffelbag"
 	desc = "A black and red duffelbag with a red and white cross sewn onto it."
+	icon_state = "duffel-syndimed"
+	item_state = "duffel-syndimed"
 
-/obj/item/storage/backpack/duffel/syndie/ammo
-	name = "suspicious duffelbag"
-	desc = "A black and red duffelbag with a patch depicting shotgun shells sewn onto it."
-	icon_state = "duffel-syndiammo"
-	item_state = "duffel-syndiammo"
-
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun
+/obj/item/storage/backpack/duffel/syndie/shotgun
 	desc = "A large duffelbag, packed to the brim with Bulldog shotgun ammo."
 
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgun/populate_contents()
+/obj/item/storage/backpack/duffel/syndie/shotgun/populate_contents()
 	for(var/i in 1 to 6)
 		new /obj/item/ammo_box/magazine/m12g(src)
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
 
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
+/obj/item/storage/backpack/duffel/syndie/shotgunXLmags
 	desc = "A large duffelbag, containing three types of extended drum magazines."
 
-/obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags/populate_contents()
+/obj/item/storage/backpack/duffel/syndie/shotgunXLmags/populate_contents()
 	new /obj/item/ammo_box/magazine/m12g/XtrLrg(src)
 	new /obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon(src)
@@ -393,10 +389,10 @@
 	new /obj/item/clothing/suit/hooded/explorer(src)
 
 
-/obj/item/storage/backpack/duffel/syndie/ammo/smg
+/obj/item/storage/backpack/duffel/syndie/smg
 	desc = "A large duffel bag, packed to the brim with C-20r magazines."
 
-/obj/item/storage/backpack/duffel/syndie/ammo/smg/populate_contents()
+/obj/item/storage/backpack/duffel/syndie/smg/populate_contents()
 	for(var/i in 1 to 10)
 		new /obj/item/ammo_box/magazine/smgm45(src)
 
@@ -433,15 +429,13 @@
 
 /obj/item/storage/backpack/duffel/syndie/x4/populate_contents()
 	for(var/i in 1 to 3)
-		new /obj/item/grenade/plastic/x4(src)
+		new /obj/item/grenade/plastic/c4/x4(src)
 
-/obj/item/storage/backpack/duffel/syndie/surgery
+/obj/item/storage/backpack/duffel/syndie/med/surgery
 	name = "surgery duffelbag"
 	desc = "A suspicious looking duffelbag for holding surgery tools."
-	icon_state = "duffel-syndimed"
-	item_state = "duffel-syndimed"
 
-/obj/item/storage/backpack/duffel/syndie/surgery/populate_contents()
+/obj/item/storage/backpack/duffel/syndie/med/surgery/populate_contents()
 	new /obj/item/scalpel(src)
 	new /obj/item/hemostat(src)
 	new /obj/item/retractor(src)
@@ -454,13 +448,11 @@
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
 
-/obj/item/storage/backpack/duffel/syndie/surgery_fake //for maint spawns
+/obj/item/storage/backpack/duffel/syndie/med/surgery_fake //for maint spawns
 	name = "surgery duffelbag"
 	desc = "A suspicious looking duffelbag for holding surgery tools."
-	icon_state = "duffel-syndimed"
-	item_state = "duffel-syndimed"
 
-/obj/item/storage/backpack/duffel/syndie/surgery_fake/populate_contents()
+/obj/item/storage/backpack/duffel/syndie/med/surgery_fake/populate_contents()
 	new /obj/item/scalpel(src)
 	new /obj/item/hemostat(src)
 	new /obj/item/retractor(src)

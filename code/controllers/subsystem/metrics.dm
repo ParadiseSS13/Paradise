@@ -28,6 +28,7 @@ SUBSYSTEM_DEF(metrics)
 	out["elapsed_real"] = (REALTIMEOFDAY - world_init_time)
 	out["client_count"] = length(GLOB.clients)
 	out["round_id"] = text2num(GLOB.round_id) // This is so we can filter the metrics by a single round ID
+	out["server_id"] = GLOB.configuration.system.instance_id // And this is so we can filter by instance ID
 
 	// Funnel in all SS metrics
 	var/list/ss_data = list()

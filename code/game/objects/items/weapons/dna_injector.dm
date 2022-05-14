@@ -4,6 +4,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "dnainjector"
 	item_state = "dnainjector"
+	belt_icon = "syringe"
 	var/block = 0
 	var/datum/dna2/record/buf = null
 	throw_speed = 3
@@ -394,6 +395,28 @@
 /obj/item/dnainjector/antimidgit/Initialize()
 	block = GLOB.smallsizeblock
 	..()
+
+/obj/item/dnainjector/eatmut
+	name = "DNA-Injector (Matter Eater)"
+	desc = "Gives you an appetite for anything."
+	datatype = DNA2_BUF_SE
+	value = 0xFFF
+	forcedmutation = TRUE
+
+/obj/item/dnainjector/eatmut/Initialize()
+	block = GLOB.eatblock
+	return ..()
+
+/obj/item/dnainjector/antieat
+	name = "DNA-Injector (Anti-Matter Eater)"
+	desc = "Makes you regain your normal appetite."
+	datatype = DNA2_BUF_SE
+	value = 0x001
+	forcedmutation = TRUE
+
+/obj/item/dnainjector/antieat/Initialize()
+	block = GLOB.eatblock
+	return ..()
 
 /////////////////////////////////////
 /obj/item/dnainjector/antiglasses

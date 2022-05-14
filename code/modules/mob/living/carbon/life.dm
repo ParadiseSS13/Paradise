@@ -306,8 +306,6 @@
 			AdjustSleeping(1)
 			Paralyse(5)
 
-	if(confused)
-		AdjustConfused(-1)
 
 	//Jitteryness
 	if(jitteriness)
@@ -324,7 +322,7 @@
 
 /mob/living/carbon/handle_sleeping()
 	if(..())
-		if(mind?.vampire)
+		if(mind?.has_antag_datum(/datum/antagonist/vampire))
 			if(istype(loc, /obj/structure/closet/coffin))
 				adjustBruteLoss(-1, FALSE)
 				adjustFireLoss(-1, FALSE)

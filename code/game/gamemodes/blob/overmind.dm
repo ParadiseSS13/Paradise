@@ -77,6 +77,15 @@
 
 	blob_talk(message)
 
+/mob/camera/blob/proc/add_mob_to_overmind(mob/living/simple_animal/hostile/blob/B)
+	B.color = blob_reagent_datum?.complementary_color
+	B.overmind = src
+	blob_mobs += B
+	RegisterSignal(B, COMSIG_PARENT_QDELETING, .proc/on_blob_mob_death)
+
+/mob/camera/blob/proc/on_blob_mob_death(mob/living/simple_animal/hostile/blob/B)
+	blob_mobs -= B
+
 /mob/camera/blob/proc/blob_talk(message)
 	log_say("(BLOB) [message]", src)
 

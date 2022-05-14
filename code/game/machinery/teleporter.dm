@@ -41,10 +41,7 @@
 /obj/machinery/computer/teleporter/proc/link_power_station()
 	if(power_station)
 		return
-	for(dir in list(NORTH,EAST,SOUTH,WEST))
-		power_station = locate(/obj/machinery/teleport/station, get_step(src, dir))
-		if(power_station)
-			break
+	power_station = locate(/obj/machinery/teleport/station, orange(1, src))
 	return power_station
 
 /obj/machinery/computer/teleporter/attackby(obj/item/I, mob/living/user, params)
@@ -371,7 +368,7 @@
 	if(!is_teleport_allowed(z) && !admin_usage)
 		to_chat(M, "You can't use this here.")
 		return
-	if(power_station && power_station.engaged && !panel_open && !blockAI(M) && !istype(M, /obj/spacepod))
+	if(power_station && power_station.engaged && !panel_open && !blockAI(M))
 		if(!teleport(M) && isliving(M)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
 			visible_message("<span class='warning'>[src] emits a loud buzz, as its teleport portal flickers and fails!</span>")
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)

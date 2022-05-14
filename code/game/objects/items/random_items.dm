@@ -232,12 +232,8 @@
 /obj/structure/closet/secure_closet/random_drinks
 	name = "unlabelled booze closet"
 	req_access = list(ACCESS_BAR)
-	icon_state = "cabinetdetective_locked"
-	icon_closed = "cabinetdetective"
-	icon_locked = "cabinetdetective_locked"
-	icon_opened = "cabinetdetective_open"
-	icon_broken = "cabinetdetective_broken"
-	icon_off = "cabinetdetective_broken"
+	icon_state = "cabinet"
+	open_door_sprite = "cabinet_door"
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25

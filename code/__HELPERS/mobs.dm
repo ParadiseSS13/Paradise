@@ -158,21 +158,23 @@
 
 	return m_style
 
-/proc/random_body_accessory(species = "Vulpkanin")
-	var/body_accessory = null
+/**
+  * Returns a random body accessory for a given species name. Can be null based on is_optional argument.
+  *
+  * Arguments:
+  * * species - The name of the species to filter valid body accessories.
+  * * is_optional - Whether *no* body accessory (null) is an option.
+ */
+/proc/random_body_accessory(species = "Vulpkanin", is_optional = TRUE)
 	var/list/valid_body_accessories = list()
-	for(var/B in GLOB.body_accessory_by_name)
-		var/datum/body_accessory/A = GLOB.body_accessory_by_name[B]
-		if(!istype(A))
-			valid_body_accessories += "None" //The only null entry should be the "None" option.
-			continue
-		if(species in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
-			valid_body_accessories += B
+	if(is_optional)
+		valid_body_accessories += null
 
-	if(valid_body_accessories.len)
-		body_accessory = pick(valid_body_accessories)
+	if(GLOB.body_accessory_by_species[species])
+		for(var/name in GLOB.body_accessory_by_species[species])
+			valid_body_accessories += name
 
-	return body_accessory
+	return length(valid_body_accessories) ? pick(valid_body_accessories) : null
 
 /proc/random_name(gender, species = "Human")
 
@@ -333,7 +335,7 @@
 
 	msg_admin_attack("[key_name_admin(user)] vs [target_info]: [what_done]", loglevel)
 
-/proc/do_mob(mob/user, mob/target, time = 30, uninterruptible = 0, progress = 1, list/extra_checks = list())
+/proc/do_mob(mob/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE)
 	if(!user || !target)
 		return 0
 	var/user_loc = user.loc
@@ -359,7 +361,9 @@
 		if(!user || !target)
 			. = 0
 			break
-		if(uninterruptible)
+		if(only_use_extra_checks)
+			if(check_for_true_callbacks(extra_checks))
+				break
 			continue
 
 		if(drifting && !user.inertia_dir)
@@ -641,7 +645,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
  * 	where active is defined as conscious (STAT = 0) and not an antag
 */
 /proc/check_active_security_force()
-	var/sec_positions = GLOB.security_positions - "Magistrate" - "Brig Physician"
+	var/sec_positions = GLOB.security_positions - "Magistrate"
 	var/total = 0
 	var/active = 0
 	var/dead = 0

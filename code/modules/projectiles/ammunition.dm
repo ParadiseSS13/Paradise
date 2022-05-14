@@ -123,8 +123,6 @@
 	for(var/i in 1 to max_ammo)
 		stored_ammo += new ammo_type(src)
 	update_icon()
-	initial_mats = materials.Copy()
-	update_mat_value()
 
 /obj/item/ammo_box/Destroy()
 	QDEL_LIST(stored_ammo)
@@ -139,6 +137,8 @@
 		stored_ammo -= b
 		if(keep)
 			stored_ammo.Insert(1,b)
+		if(!initial_mats)
+			initial_mats = materials.Copy()
 		update_mat_value()
 		update_icon()
 		return b

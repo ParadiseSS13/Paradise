@@ -1,25 +1,23 @@
 /datum/game_mode
-	// this includes admin-appointed traitors and multitraitors. Easy!
+	/// A list of all minds which have the traitor antag datum.
 	var/list/datum/mind/traitors = list()
-	var/list/datum/mind/implanter = list()
+	/// An associative list with mindslave minds as keys and their master's minds as values.
 	var/list/datum/mind/implanted = list()
-
-	var/datum/mind/exchange_red
-	var/datum/mind/exchange_blue
 
 /datum/game_mode/traitor
 	name = "traitor"
 	config_tag = "traitor"
 	restricted_jobs = list("Cyborg")//They are part of the AI if he is traitor so are they, they use to get double chances
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Internal Affairs Agent", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General")
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
-
+	/// A list containing references to the minds of soon-to-be traitors. This is seperate to avoid duplicate entries in the `traitors` list.
 	var/list/datum/mind/pre_traitors = list()
-	var/traitors_possible = 4 //hard limit on traitors if scaling is turned off
-	var/const/traitor_scaling_coeff = 5.0 //how much does the amount of players get divided by to determine traitors
-	var/antag_datum = /datum/antagonist/traitor //what type of antag to create
+	/// Hard limit on traitors if scaling is turned off.
+	var/traitors_possible = 4
+	/// How much the amount of players get divided by to determine the number of traitors.
+	var/const/traitor_scaling_coeff = 5
 
 /datum/game_mode/traitor/announce()
 	to_chat(world, "<B>The current game mode is - Traitor!</B>")
@@ -33,9 +31,13 @@
 
 	var/list/possible_traitors = get_players_for_role(ROLE_TRAITOR)
 
+	for(var/datum/mind/candidate in possible_traitors)
+		if(candidate.special_role == SPECIAL_ROLE_VAMPIRE) // no traitor vampires
+			possible_traitors.Remove(candidate)
+
 	// stop setup if no possible traitors
-	if(!possible_traitors.len)
-		return 0
+	if(!length(possible_traitors))
+		return FALSE
 
 	var/num_traitors = 1
 
@@ -44,26 +46,23 @@
 	else
 		num_traitors = max(1, min(num_players(), traitors_possible))
 
-	for(var/j = 0, j < num_traitors, j++)
-		if(!possible_traitors.len)
+	for(var/i in 1 to num_traitors)
+		if(!length(possible_traitors))
 			break
-		var/datum/mind/traitor = pick(possible_traitors)
+		var/datum/mind/traitor = pick_n_take(possible_traitors)
 		pre_traitors += traitor
 		traitor.special_role = SPECIAL_ROLE_TRAITOR
 		traitor.restricted_roles = restricted_jobs
-		possible_traitors.Remove(traitor)
 
-	if(!pre_traitors.len)
-		return 0
-	return 1
+	if(!length(pre_traitors))
+		return FALSE
+	return TRUE
 
 
 /datum/game_mode/traitor/post_setup()
-	for(var/datum/mind/traitor in pre_traitors)
-		var/datum/antagonist/traitor/new_antag = new antag_datum()
-		addtimer(CALLBACK(traitor, /datum/mind.proc/add_antag_datum, new_antag), rand(10,100))
-	if(!exchange_blue)
-		exchange_blue = -1 //Block latejoiners from getting exchange objectives
+	for(var/t in pre_traitors)
+		var/datum/mind/traitor = t
+		traitor.add_antag_datum(/datum/antagonist/traitor)
 	..()
 
 
@@ -71,44 +70,37 @@
 	..()
 	return//Traitors will be checked as part of check_extra_completion. Leaving this here as a reminder.
 
-/datum/game_mode/traitor/process()
-	// Make sure all objectives are processed regularly, so that objectives
-	// which can be checked mid-round are checked mid-round.
-	for(var/datum/mind/traitor_mind in traitors)
-		for(var/datum/objective/objective in traitor_mind.objectives)
-			objective.check_completion()
-	return 0
-
-
 /datum/game_mode/proc/auto_declare_completion_traitor()
-	if(traitors.len)
+	if(length(traitors))
 		var/text = "<FONT size = 2><B>The traitors were:</B></FONT><br>"
 		for(var/datum/mind/traitor in traitors)
-			var/traitorwin = 1
+			var/traitorwin = TRUE
 			text += printplayer(traitor)
 
 			var/TC_uses = 0
-			var/uplink_true = 0
+			var/used_uplink = FALSE
 			var/purchases = ""
 			for(var/obj/item/uplink/H in GLOB.world_uplinks)
-				if(H && H.uplink_owner && H.uplink_owner==traitor.key)
+				if(H && H.uplink_owner && H.uplink_owner == traitor.key)
 					TC_uses += H.used_TC
-					uplink_true=1
+					used_uplink = TRUE
 					purchases += H.purchase_log
 
-			if(uplink_true) text += " (used [TC_uses] TC) [purchases]"
+			if(used_uplink)
+				text += " (used [TC_uses] TC) [purchases]"
 
+			var/all_objectives = traitor.get_all_objectives()
 
-			if(traitor.objectives && traitor.objectives.len)//If the traitor had no objectives, don't need to process this.
+			if(length(all_objectives))//If the traitor had no objectives, don't need to process this.
 				var/count = 1
-				for(var/datum/objective/objective in traitor.objectives)
+				for(var/datum/objective/objective in all_objectives)
 					if(objective.check_completion())
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
 						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
-						traitorwin = 0
+						traitorwin = FALSE
 					count++
 
 			var/special_role_text
@@ -151,8 +143,7 @@
 			for(var/datum/mind/mindslave in SSticker.mode.implanted)
 				text += printplayer(mindslave)
 				var/datum/mind/master_mind = SSticker.mode.implanted[mindslave]
-				var/mob/living/carbon/human/master = master_mind.current
-				text += " (slaved by: <b>[master]</b>)<br>"
+				text += " (slaved by: <b>[master_mind.current]</b>)<br>"
 
 		var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 		var/responses = jointext(GLOB.syndicate_code_response, ", ")
@@ -161,4 +152,4 @@
 					<b>The code responses were:</b> <span class='danger'>[responses]</span><br><br>"
 
 		to_chat(world, text)
-	return 1
+	return TRUE

@@ -49,6 +49,7 @@ Bonus
 			healed += min(E.brute_dam, get_damage) + min(E.burn_dam, get_damage)
 			E.heal_damage(get_damage, get_damage, 0, 0)
 		M.adjustToxLoss(healed)
+		M.UpdateAppearance()
 
 
 	else
@@ -56,6 +57,7 @@ Bonus
 			M.adjustFireLoss(-get_damage)
 			M.adjustBruteLoss(-get_damage)
 			M.adjustToxLoss(get_damage)
+			M.UpdateAppearance()
 		else
 			return
 

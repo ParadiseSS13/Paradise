@@ -242,7 +242,7 @@
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/eyes/cybernetic/xray,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
 		/obj/item/organ/internal/cyberimp/arm/combat/centcom
 	)
 
@@ -253,8 +253,8 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_centcom_access("NT Undercover Operative"), "Civilian")
-	H.sec_hud_set_ID() // Force it to show as Civ on sec huds
+		apply_to_card(I, H, get_centcom_access("NT Undercover Operative"), "Assistant")
+	H.sec_hud_set_ID() // Force it to show as assistant on sec huds
 
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
@@ -324,13 +324,6 @@
 		/obj/item/flash = 1,
 		/obj/item/gun/energy/noisecannon = 1
 	)
-
-/datum/outfit/admin/vox/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(isvoxarmalis(H))
-		. = ..()
-	else
-		H.equip_vox_raider()
-		H.regenerate_icons()
 
 /datum/outfit/admin/vox/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -668,7 +661,7 @@
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/flash,
-		/obj/item/organ/internal/cyberimp/chest/nutriment,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security
 	)
 	implants = list(/obj/item/implant/mindshield,
@@ -731,7 +724,7 @@
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/chest/nutriment,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/arm/flash,
 		/obj/item/organ/internal/eyes/cybernetic/shield
@@ -1102,22 +1095,17 @@
 		apply_to_card(I, H, get_all_accesses(), "Ancient One", "data")
 
 	if(H.mind)
-		if(!H.mind.vampire)
-			H.make_vampire()
-			if(H.mind.vampire)
-				H.mind.vampire.bloodusable = 9999
-				H.mind.vampire.bloodtotal = 9999
-				H.mind.vampire.check_vampire_upgrade(0)
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shapeshift/bats)
-				to_chat(H, "You have gained the ability to shapeshift into bat form. This is a weak form with no abilities, only useful for stealth.")
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shapeshift/hellhound)
-				to_chat(H, "You have gained the ability to shapeshift into lesser hellhound form. This is a combat form with different abilities, tough but not invincible. It can regenerate itself over time by resting.")
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/raise_vampires)
-				to_chat(H, "You have gained the ability to Raise Vampires. This extremely powerful AOE ability affects all humans near you. Vampires/thralls are healed. Corpses are raised as vampires. Others are stunned, then brain damaged, then killed.")
-				H.dna.SetSEState(GLOB.jumpblock, 1)
-				singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
-				H.update_mutations()
-				H.gene_stability = 100
+		if(!H.mind.has_antag_datum(/datum/antagonist/vampire))
+			H.mind.make_vampire(TRUE)
+		var/datum/antagonist/vampire/V = H.mind.has_antag_datum(/datum/antagonist/vampire)
+		V.bloodusable = 9999
+		V.bloodtotal = 9999
+		H.mind.offstation_role = TRUE
+		V.add_subclass(SUBCLASS_ANCIENT, FALSE)
+		H.dna.SetSEState(GLOB.jumpblock, TRUE)
+		singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
+		H.update_mutations()
+		H.gene_stability = 100
 
 /datum/outfit/admin/wizard
 	name = "Blue Wizard"

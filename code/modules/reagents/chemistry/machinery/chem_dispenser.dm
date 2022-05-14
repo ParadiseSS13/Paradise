@@ -319,6 +319,19 @@
 		return
 	ui_interact(user)
 
+/obj/machinery/chem_dispenser/AltClick(mob/user)
+	if(!is_drink || !Adjacent(user))
+		return
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(anchored)
+		to_chat(user, "<span class='warning'>[src] is anchored to the floor!</span>")
+		return
+	pixel_x = 0
+	pixel_y = 0
+	setDir(turn(dir, 90))
+
 /obj/machinery/chem_dispenser/soda
 	icon_state = "soda_dispenser"
 	name = "soda fountain"

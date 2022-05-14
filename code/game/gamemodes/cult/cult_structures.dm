@@ -321,7 +321,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	selection_title = "Archives"
 	creation_message = "<span class='cultitalic'>You invoke the dark magic of the tomes creating a %ITEM%!</span>"
 	choosable_items = list("Shuttle Curse" = /obj/item/shuttle_curse, "Zealot's Blindfold" = /obj/item/clothing/glasses/hud/health/night/cultblind,
-							"Veil Shifter" = /obj/item/cult_shift) //Add void torch to veil shifter spawn
+							"Veil Shifter" = /obj/item/cult_shift, "Reality sunderer" = /obj/item/portal_amulet) //Add void torch to veil shifter spawn
 
 /obj/structure/cult/functional/archives/Initialize(mapload)
 	. = ..()

@@ -38,6 +38,8 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/movement_configuration/movement
 	/// Holder for the overflow configuration datum
 	var/datum/configuration_section/overflow_configuration/overflow
+	/// Holder for the redis configuration datum
+	var/datum/configuration_section/redis_configuration/redis
 	/// Holder for the ruins configuration datum
 	var/datum/configuration_section/ruin_configuration/ruins
 	/// Holder for the system configuration datum
@@ -46,12 +48,24 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/datum/configuration_section/url_configuration/url
 	/// Holder for the voting configuration datum
 	var/datum/configuration_section/vote_configuration/vote
+	/// Raw data. Stored here to avoid passing data between procs constantly
+	var/list/raw_data = list()
 
 
 /datum/server_configuration/Destroy(force)
 	SHOULD_CALL_PARENT(FALSE)
 	// This is going to stay existing. I dont care.
 	return QDEL_HINT_LETMELIVE
+
+/datum/server_configuration/vv_get_var(var_name)
+	if(var_name == "raw_data") // NO!
+		return FALSE
+	. = ..()
+
+/datum/server_configuration/vv_edit_var(var_name, var_value)
+	if(var_name == "raw_data") // NO!
+		return FALSE
+	. = ..()
 
 /datum/server_configuration/CanProcCall(procname)
 	return FALSE // No thanks
@@ -76,6 +90,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	metrics = new()
 	movement = new()
 	overflow = new()
+	redis = new()
 	ruins = new()
 	system = new()
 	url = new()
@@ -85,34 +100,67 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/config_file = "config/config.toml"
 	if(!fexists(config_file))
 		config_file = "config/example/config.toml" // Fallback to example if user hasnt setup config properly
-	var/raw_json = rustg_toml2json(config_file)
-	var/list/raw_config_data = json_decode(raw_json)
+	raw_data = rustg_read_toml_file(config_file)
 
 	// Now pass through all our stuff
-	admin.load_data(raw_config_data["admin_configuration"])
-	afk.load_data(raw_config_data["afk_configuration"])
-	custom_sprites.load_data(raw_config_data["custom_sprites_configuration"])
-	database.load_data(raw_config_data["database_configuration"])
-	discord.load_data(raw_config_data["discord_configuration"])
-	event.load_data(raw_config_data["event_configuration"])
-	gamemode.load_data(raw_config_data["gamemode_configuration"])
-	gateway.load_data(raw_config_data["gateway_configuration"])
-	general.load_data(raw_config_data["general_configuration"])
-	ipintel.load_data(raw_config_data["ipintel_configuration"])
-	jobs.load_data(raw_config_data["job_configuration"])
-	logging.load_data(raw_config_data["logging_configuration"])
-	mc.load_data(raw_config_data["mc_configuration"])
-	metrics.load_data(raw_config_data["metrics_configuration"])
-	movement.load_data(raw_config_data["movement_configuration"])
-	overflow.load_data(raw_config_data["overflow_configuration"])
-	ruins.load_data(raw_config_data["ruin_configuration"])
-	system.load_data(raw_config_data["system_configuration"])
-	url.load_data(raw_config_data["url_configuration"])
-	vote.load_data(raw_config_data["voting_configuration"])
+	load_all_sections()
+
+	// Clear our list to save RAM
+	raw_data = list()
 
 	// And report the load
 	DIRECT_OUTPUT(world.log, "Config loaded in [stop_watch(start)]s")
 
+/datum/server_configuration/proc/load_all_sections()
+	safe_load(admin, "admin_configuration")
+	safe_load(afk, "afk_configuration")
+	safe_load(custom_sprites, "custom_sprites_configuration")
+	safe_load(database, "database_configuration")
+	safe_load(discord, "discord_configuration")
+	safe_load(event, "event_configuration")
+	safe_load(gamemode, "gamemode_configuration")
+	safe_load(gateway, "gateway_configuration")
+	safe_load(general, "general_configuration")
+	safe_load(ipintel, "ipintel_configuration")
+	safe_load(jobs, "job_configuration")
+	safe_load(logging, "logging_configuration")
+	safe_load(mc, "mc_configuration")
+	safe_load(metrics, "metrics_configuration")
+	safe_load(movement, "movement_configuration")
+	safe_load(overflow, "overflow_configuration")
+	safe_load(redis, "redis_configuration")
+	safe_load(ruins, "ruin_configuration")
+	safe_load(system, "system_configuration")
+	safe_load(url, "url_configuration")
+	safe_load(vote, "voting_configuration")
+
+// Proc to load up instance-specific overrides
+/datum/server_configuration/proc/load_overrides()
+	var/override_file = "config/overrides_[world.port].toml"
+	if(!fexists(override_file))
+		DIRECT_OUTPUT(world.log, "Overrides not found for this instance.")
+		return
+
+	DIRECT_OUTPUT(world.log, "Overrides found for this instance. Loading them.")
+	var/start = start_watch() // Time tracking
+
+	raw_data = rustg_read_toml_file(override_file)
+
+	// Now safely load our overrides.
+	// Due to the nature of config wrappers, only vars that exist in the config file are applied to the config datums.
+	// This means that an override missing a key doesnt null it out from the main server
+	load_all_sections()
+
+	// Clear our list to save RAM
+	raw_data = list()
+
+	// And report the load
+	DIRECT_OUTPUT(world.log, "Config overrides loaded in [stop_watch(start)]s")
+
+// Only loads the data for a config section if that key exists in the JSON
+/datum/server_configuration/proc/safe_load(datum/configuration_section/CS, section)
+	if(!isnull(raw_data[section]))
+		CS.load_data(raw_data[section])
 
 /datum/configuration_section
 	/// See __config_defines.dm

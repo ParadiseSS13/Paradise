@@ -1,5 +1,5 @@
 
-/obj/effect/proc_holder/spell/targeted/click/chaplain_bless
+/obj/effect/proc_holder/spell/chaplain_bless
 	name = "Bless"
 	desc = "Blesses a single person."
 
@@ -9,23 +9,21 @@
 	invocation = "none"
 	invocation_type = "none"
 
-	max_targets = 1
-	include_user = FALSE
-	allowed_type = /mob/living/carbon/human
 	selection_activated_message = "<span class='notice'>You prepare a blessing. Click on a target to start blessing.</span>"
 	selection_deactivated_message = "<span class='notice'>The crew will be blessed another time.</span>"
-	range = 1
-	click_radius = -1 // Only precision clicking
 	cooldown_min = 20
 	action_icon_state = "shield"
 
-/obj/effect/proc_holder/spell/targeted/click/chaplain_bless/valid_target(mob/living/carbon/human/target, user)
-	if(!..())
-		return FALSE
+/obj/effect/proc_holder/spell/chaplain_bless/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.range = 1
+	T.click_radius = -1
+	return T
 
+/obj/effect/proc_holder/spell/chaplain_bless/valid_target(mob/living/carbon/human/target, mob/user)
 	return target.mind && target.ckey && !target.stat
 
-/obj/effect/proc_holder/spell/targeted/click/chaplain_bless/cast(list/targets, mob/living/user = usr)
+/obj/effect/proc_holder/spell/chaplain_bless/cast(list/targets, mob/living/user = usr)
 	if(!istype(user))
 		to_chat(user, "Somehow, you are not a living mob. This should never happen. Report this bug.")
 		revert_cast()

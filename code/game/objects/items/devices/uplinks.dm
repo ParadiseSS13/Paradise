@@ -130,10 +130,9 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/active = 0
 
 // The hidden uplink MUST be inside an obj/item's contents.
-/obj/item/uplink/hidden/New()
-	spawn(2)
-		if(!istype(src.loc, /obj/item))
-			qdel(src)
+/obj/item/uplink/hidden/New(loc)
+	if(!isitem(loc))
+		qdel(src)
 	..()
 
 // Toggles the uplink on and off. Normally this will bypass the item's normal functions and go to the uplink menu, if activated.

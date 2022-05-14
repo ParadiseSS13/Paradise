@@ -13,12 +13,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!GLOB.nologevent)
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in GLOB.admins)
-			if(R_ADMIN & C.holder.rights)
-				if(C.prefs.atklog == ATKLOG_NONE)
-					continue
-				var/msg = rendered
-				if(C.prefs.atklog <= loglevel)
-					to_chat(C, msg)
+			if((C.holder.rights & R_ADMIN) && (C.prefs?.atklog <= loglevel))
+				to_chat(C, rendered)
 
 /**
  * Sends a message to the staff able to see admin tickets
@@ -124,13 +120,12 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		body += "<A href='?_src_=holder;boot2=[M.UID()]'>Kick</A> | "
 		body += "<A href='?_src_=holder;newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</A> | "
 		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
-		body += "<A href='?_src_=holder;appearanceban=[M.UID()];dbbanaddckey=[M.ckey]'>Appearance Ban</A> | "
 		body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
 		body += "<A href='?_src_=holder;viewkarma=[M.ckey]'>View Karma</A> | "
 		if(GLOB.configuration.url.forum_playerinfo_url)
 			body += "<A href='?_src_=holder;webtools=[M.ckey]'>WebInfo</A> | "
 	if(M.client)
-		if(check_watchlist(M.client.ckey))
+		if(M.client.watchlisted)
 			body += "<A href='?_src_=holder;watchremove=[M.ckey]'>Remove from Watchlist</A> | "
 			body += "<A href='?_src_=holder;watchedit=[M.ckey]'>Edit Watchlist Reason</A> "
 		else
@@ -316,19 +311,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(key)
 		SSipintel.vpn_whitelist_panel(key)
 
-/datum/admins/proc/Jobbans()
-	if(!check_rights(R_BAN))
-		return
-
-	var/dat = "<B>Job Bans!</B><HR><table>"
-	for(var/t in GLOB.jobban_keylist)
-		var/r = t
-		if( findtext(r,"##") )
-			r = copytext( r, 1, findtext(r,"##") )//removes the description
-		dat += text("<tr><td>[t] (<A href='?src=[UID()];removejobban=[r]'>unban</A>)</td></tr>")
-	dat += "</table>"
-	usr << browse(dat, "window=ban;size=400x400")
-
 /datum/admins/proc/Game()
 	if(!check_rights(R_ADMIN))
 		return
@@ -408,7 +390,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 /datum/admins/proc/end_round()
 	set category = "Server"
 	set name = "End Round"
-	set desc = "Instantly ends the round and brings up the scoreboard, like shadowlings or wizards dying."
+	set desc = "Instantly ends the round and brings up the scoreboard, in the same way that wizards dying do."
 	if(!check_rights(R_SERVER))
 		return
 	var/input = sanitize(copytext(input(usr, "What text should players see announcing the round end? Input nothing to cancel.", "Specify Announcement Text", "Shift Has Ended!"), 1, MAX_MESSAGE_LEN))
@@ -624,43 +606,84 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
-/proc/is_special_character(mob/M as mob) // returns 1 for specail characters and 2 for heroes of gamemode
-	if(!SSticker || !SSticker.mode)
-		return 0
+/**
+  * A proc that return whether the mob is a "Special Character" aka Antagonist
+  *
+  * Arguments:
+  * * M - the mob you're checking
+  */
+/proc/is_special_character(mob/M)
+	if(!SSticker.mode)
+		return FALSE
 	if(!istype(M))
-		return 0
-	if((M.mind in SSticker.mode.head_revolutionaries) || (M.mind in SSticker.mode.revolutionaries))
-		if(SSticker.mode.config_tag == "revolution")
-			return 2
-		return 1
-	if(M.mind in SSticker.mode.cult)
-		if(SSticker.mode.config_tag == "cult")
-			return 2
-		return 1
-	if(M.mind in SSticker.mode.syndicates)
-		if(SSticker.mode.config_tag == "nuclear")
-			return 2
-		return 1
-	if(M.mind in SSticker.mode.wizards)
-		if(SSticker.mode.config_tag == "wizard")
-			return 2
-		return 1
-	if(M.mind in SSticker.mode.changelings)
-		if(SSticker.mode.config_tag == "changeling")
-			return 2
-		return 1
-	if(M.mind in SSticker.mode.abductors)
-		if(SSticker.mode.config_tag == "abduction")
-			return 2
-		return 1
+		return FALSE
 	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
 		if(R.emagged)
-			return 1
-	if(M.mind&&M.mind.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
-		return 1
+			return TRUE
+	if(M.mind?.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
+		return TRUE
+	return FALSE
 
-	return 0
+/**
+  * A proc that return an array of capitalized strings containing name of the antag types they are
+  *
+  * Arguments:
+  * * M - the mob you're checking
+  */
+/proc/get_antag_type_strings_list(mob/M) // return an array of all the antag types they are with name
+	var/list/antag_list = list()
+
+	if(!SSticker.mode || !istype(M) || !M.mind)
+		return FALSE
+
+	if(M.mind in SSticker.mode.head_revolutionaries)
+		antag_list += "Head Rev"
+	if(M.mind in SSticker.mode.revolutionaries)
+		antag_list += "Revolutionary"
+	if(M.mind in SSticker.mode.cult)
+		antag_list += "Cultist"
+	if(M.mind in SSticker.mode.syndicates)
+		antag_list += "Nuclear Operative"
+	if(M.mind in SSticker.mode.wizards)
+		antag_list += "Wizard"
+	if(M.mind in SSticker.mode.changelings)
+		antag_list += "Changeling"
+	if(M.mind in SSticker.mode.abductors)
+		antag_list += "Abductor"
+	if(M.mind.has_antag_datum(/datum/antagonist/vampire))
+		antag_list += "Vampire"
+	if(M.mind.has_antag_datum(/datum/antagonist/mindslave/thrall))
+		antag_list += "Vampire Thrall"
+	if(M.mind.has_antag_datum(/datum/antagonist/traitor))
+		antag_list += "Traitor"
+	if(M.mind.has_antag_datum(/datum/antagonist/mindslave, FALSE))
+		antag_list += "Mindslave"
+	if(isrobot(M))
+		var/mob/living/silicon/robot/R = M
+		if(R.emagged)
+			antag_list += "Emagged Borg"
+	if(!length(antag_list) && M.mind.special_role) // Snowflake check. If none of the above but still special, then other antag. Technically not accurate.
+		antag_list += "Other Antag(s)"
+	return antag_list
+
+/**
+  * A proc that return a string containing all the singled out antags . Empty string if not antag
+  *
+  * Usually, you'd return a FALSE, but since this is consumed by javascript you're in
+  * for a world of hurt if you pass a byond FALSE which get converted into a fucking string anyway and pass for TRUE in check. Fuck.
+  * It always append "(May be other antag)"
+  * Arguments:
+  * * M - the mob you're checking
+  * *
+  */
+/proc/get_antag_type_truncated_plaintext_string(mob/M as mob)
+	var/list/antag_list = get_antag_type_strings_list(M)
+
+	if(length(antag_list))
+		return antag_list.Join(" &amp; ") + " " + "(May be other antag)"
+
+	return ""
 
 /datum/admins/proc/spawn_atom(object as text)
 	set category = "Debug"

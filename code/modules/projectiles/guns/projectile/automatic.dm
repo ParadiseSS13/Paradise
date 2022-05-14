@@ -175,7 +175,7 @@
 /obj/item/gun/projectile/automatic/m90/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_casing))
 		if(istype(A, underbarrel.magazine.ammo_type))
-			underbarrel.attack_self()
+			underbarrel.attack_self(user)
 			underbarrel.attackby(A, user, params)
 	else
 		return ..()
@@ -234,8 +234,8 @@
 
 //ARG Assault Rifle//
 /obj/item/gun/projectile/automatic/ar
-	name = "ARG"
-	desc = "A robust assault rile used by Nanotrasen fighting forces."
+	name = "\improper ARG"
+	desc = "A robust assault rifle used by Nanotrasen fighting forces."
 	icon_state = "arg"
 	item_state = "arg"
 	slot_flags = 0

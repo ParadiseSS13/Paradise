@@ -20,7 +20,7 @@
 	var/list/speech_synthesizer_langs = list()	//which languages can be vocalized by the speech synthesizer
 	var/designation = ""
 	var/obj/item/camera/siliconcam/aiCamera = null //photography
-//Used in say.dm, allows for pAIs to have different say flavor text, as well as silicons, although the latter is not implemented.
+	//Used in say.dm, allows for pAIs to have different say flavor text, as well as silicons, although the latter is not implemented.
 	var/speak_statement = "states"
 	var/speak_exclamation = "declares"
 	var/speak_query = "queries"
@@ -34,9 +34,7 @@
 
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
-	var/d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED //There is only one kind of diag hud
-
-	var/obj/item/radio/common_radio
+	var/d_hud = DATA_HUD_DIAGNOSTIC_BASIC //There is only one kind of diag hud
 
 /mob/living/silicon/New()
 	GLOB.silicon_mob_list |= src
@@ -46,12 +44,13 @@
 	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, .proc/alarm_triggered)
 	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, .proc/alarm_cancelled)
 
-/mob/living/silicon/Initialize()
+/mob/living/silicon/Initialize(mapload)
 	. = ..()
-	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
-	diag_hud.add_to_hud(src)
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+		diag_hud.add_to_hud(src)
 	diag_hud_set_status()
 	diag_hud_set_health()
+
 
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud
@@ -65,7 +64,11 @@
 	QDEL_NULL(crew_monitor)
 	QDEL_NULL(law_manager)
 	QDEL_NULL(power_monitor)
+	QDEL_NULL(aiCamera)
 	return ..()
+
+/mob/living/silicon/proc/get_radio()
+	return
 
 /mob/living/silicon/proc/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
 	return
@@ -311,10 +314,10 @@
 /mob/living/silicon/proc/remove_med_sec_hud()
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
-	for(var/datum/atom_hud/data/diagnostic/diagsensor in GLOB.huds)
-		diagsensor.remove_hud_from(src)
+	var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
 	secsensor.remove_hud_from(src)
 	medsensor.remove_hud_from(src)
+	diagsensor.remove_hud_from(src)
 
 
 /mob/living/silicon/proc/add_sec_hud()
@@ -326,8 +329,8 @@
 	medsensor.add_hud_to(src)
 
 /mob/living/silicon/proc/add_diag_hud()
-	for(var/datum/atom_hud/data/diagnostic/diagsensor in GLOB.huds)
-		diagsensor.add_hud_to(src)
+	var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
+	diagsensor.add_hud_to(src)
 
 
 /mob/living/silicon/proc/toggle_sensor_mode()

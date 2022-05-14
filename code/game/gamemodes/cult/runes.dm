@@ -346,7 +346,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 					"<span class='cultitalic'>Your wounds have been healed. Now spread the blood to others.</span>")
 					for(var/obj/item/organ/external/E in H.bodyparts)
 						E.mend_fracture()
-						E.internal_bleeding = FALSE
+						E.fix_internal_bleeding()
 					for(var/datum/disease/critical/crit in H.viruses) // cure all crit conditions
 						crit.cure()
 
@@ -461,7 +461,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 
 	if(!is_level_reachable(user.z))
-		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
+		to_chat(user, "<span class='cultitalic'>You are too far away from the station to teleport!</span>")
 		log_game("Teleport rune failed - user in away mission")
 		fail_invoke()
 		return
@@ -903,6 +903,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	new_human.alpha = 150 //Makes them translucent
 	new_human.equipOutfit(/datum/outfit/ghost_cultist) //give them armor
 	new_human.apply_status_effect(STATUS_EFFECT_SUMMONEDGHOST) //ghosts can't summon more ghosts, also lets you see actual ghosts
+	for(var/obj/item/organ/external/current_organ in new_human.bodyparts)
+		current_organ.limb_flags |= CANNOT_DISMEMBER //you can't chop of the limbs of a ghost, silly
 	ghosts++
 	playsound(src, 'sound/misc/exit_blood.ogg', 50, TRUE)
 	user.visible_message("<span class='warning'>A cloud of red mist forms above [src], and from within steps... a [new_human.gender == FEMALE ? "wo" : ""]man.</span>",

@@ -1,4 +1,5 @@
 /obj/item/reagent_containers/food/drinks/cans
+	container_type = NONE
 	var/canopened = FALSE
 	var/is_glass = 0
 	var/is_plastic = 0
@@ -6,10 +7,6 @@
 	var/can_shake = TRUE
 	var/can_burst = FALSE
 	var/burst_chance = 0
-
-/obj/item/reagent_containers/food/drinks/cans/New()
-	..()
-	flags &= ~OPENCONTAINER
 
 /obj/item/reagent_containers/food/drinks/cans/examine(mob/user)
 	. = ..()
@@ -26,7 +23,7 @@
 		return ..()
 	playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), 1)
 	canopened = TRUE
-	flags |= OPENCONTAINER
+	container_type |= OPENCONTAINER
 	to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
 	return ..()
 
@@ -111,7 +108,7 @@
 /obj/item/reagent_containers/food/drinks/cans/proc/fizzy_open(mob/user, burstopen = FALSE)
 	playsound(loc, 'sound/effects/canopenfizz.ogg', rand(10, 50), 1)
 	canopened = TRUE
-	flags |= OPENCONTAINER
+	container_type |= OPENCONTAINER
 
 	if(!burstopen && user)
 		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")

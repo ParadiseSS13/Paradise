@@ -43,7 +43,7 @@
 	var/foldable_amt = 0
 
 	/// Lazy list of mobs which are currently viewing the storage inventory.
-	var/list/mobs_viewing 
+	var/list/mobs_viewing
 
 /obj/item/storage/Initialize(mapload)
 	. = ..()
@@ -84,6 +84,14 @@
 	QDEL_NULL(closer)
 	LAZYCLEARLIST(mobs_viewing)
 	return ..()
+
+/obj/item/storage/forceMove(atom/destination)
+	. = ..()
+	if(!ismob(destination.loc))
+		for(var/mob/player in mobs_viewing)
+			if(player == destination)
+				continue
+			hide_from(player)
 
 /obj/item/storage/MouseDrop(obj/over_object)
 	if(!ismob(usr)) //so monkeys can take off their backpacks -- Urist
@@ -353,6 +361,14 @@
 			to_chat(usr, "<span class='warning'>[src] cannot hold [I].</span>")
 		return FALSE
 
+	if(length(cant_hold) && istype(I, /obj/item/storage)) //Checks nested storage contents for restricted objects, we don't want people sneaking the NAD in via boxes now, do we?
+		var/obj/item/storage/S = I
+		for(var/obj/A in S.return_inv())
+			if(is_type_in_typecache(A, cant_hold))
+				if(!stop_messages)
+					to_chat(usr, "<span class='warning'>[src] rejects [I] because of its contents.</span>")
+				return FALSE
+
 	if(I.w_class > max_w_class)
 		if(!stop_messages)
 			to_chat(usr, "<span class='warning'>[I] is too big for [src].</span>")
@@ -524,9 +540,6 @@
 		show_to(user)
 	else
 		..()
-		for(var/mob/M in range(1))
-			if(M.s_active == src)
-				close(M)
 	add_fingerprint(user)
 
 /obj/item/storage/equipped(mob/user, slot, initial)

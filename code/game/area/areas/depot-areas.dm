@@ -147,13 +147,6 @@
 	detected_mech = TRUE
 	increase_alert("Hostile mecha detected: [E]")
 
-/area/syndicate_depot/core/proc/saw_pod(obj/spacepod/P)
-	if(detected_pod)
-		return
-	detected_pod = TRUE
-	if(!called_backup)
-		increase_alert("Hostile spacepod detected: [P]")
-
 /area/syndicate_depot/core/proc/saw_double_agent(mob/living/M)
 	if(detected_double_agent)
 		return

@@ -5,9 +5,6 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
 	// This is BAD.
 
-	// Right off the bat
-	enable_auxtools_debugger()
-
 	SSmetrics.world_init_time = REALTIMEOFDAY
 
 	// Do sanity checks to ensure RUST actually exists
@@ -22,11 +19,15 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 
 	//temporary file used to record errors with loading config and the database, moved to log directory once logging is set up
 	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = GLOB.sql_log = "data/logs/config_error.log"
-	GLOB.configuration.load_configuration()
+	GLOB.configuration.load_configuration() // Load up the base config.toml
+	// Load up overrides for this specific instance, based on port
+	// If this instance is listening on port 6666, the server will look for config/overrides_6666.toml
+	GLOB.configuration.load_overrides()
 
 	// Right off the bat, load up the DB
 	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
 	SSdbcore.SetRoundID() // Set the round ID here
+	SSinstancing.seed_data() // Set us up in the DB
 
 	// Setup all log paths and stamp them with startups, including round IDs
 	SetupLogs()
@@ -50,7 +51,7 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 
 	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
 
-	startup_procs() // Call procs that need to occur on startup (Generate lists, load MOTD, etc)
+	investigate_reset()
 
 	update_status()
 
@@ -69,13 +70,6 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 /world/proc/InitTGS()
 	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
 	GLOB.revision_info.load_tgs_info() // Loads git and TM info from TGS itself
-
-// This is basically a replacement for hook/startup. Please dont shove random bullshit here
-// If it doesnt need to happen IMMEDIATELY on world load, make a subsystem for it
-/world/proc/startup_procs()
-	LoadBans() // Load up who is banned and who isnt. DONT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
-	jobban_loadbanfile() // Load up jobbans. Again, DO NOT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
-	investigate_reset() // This is part of the admin investigate system. PLEASE DONT SS THIS EITHER
 
 /// List of all world topic spam prevention handlers. See code/modules/world_topic/_spam_prevention_handler.dm
 GLOBAL_LIST_EMPTY(world_topic_spam_prevention_handlers)
@@ -147,11 +141,17 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	return
 	#endif
 
+	// Send the stats URL if applicable
+	if(GLOB.configuration.url.round_stats_url && GLOB.round_id)
+		var/stats_link = "[GLOB.configuration.url.round_stats_url][GLOB.round_id]"
+		to_chat(world, "<span class='notice'>Stats for this round can be viewed at <a href=\"[stats_link]\">[stats_link]</a></span>")
+
 	// If the server has been gracefully shutdown in TGS, have a 60 seconds grace period for SQL updates and stuff
 	var/secs_before_auto_reconnect = 10
 	if(GLOB.slower_restart)
 		secs_before_auto_reconnect = 60
 		server_announce_global("Reboot will take a little longer due to pending backend changes.")
+
 
 	// Send the reboot banner to all players
 	for(var/client/C in GLOB.clients)
@@ -197,8 +197,14 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	var/s = ""
 
 	if(GLOB.configuration.general.server_name)
-		s += "<b>[GLOB.configuration.general.server_name]</b> &#8212; "
-	s += "<b>[station_name()]</b> "
+		s += "<b>[GLOB.configuration.general.server_name]</b>] &#8212; "
+
+		s += "<b>[station_name()]</b>"
+	else // else so it neatly closes the byond hub initial square bracket even without a server name
+		s += "<b>[station_name()]</b>]"
+
+	if(GLOB.configuration.url.discord_url)
+		s += " (<a href=\"[GLOB.configuration.url.discord_url]\">Discord</a>)"
 
 	if(GLOB.configuration.general.server_tag_line)
 		s += "<br>[GLOB.configuration.general.server_tag_line]"
@@ -209,6 +215,9 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		s += "<br><b>STARTING</b>"
 
 	s += "<br>"
+
+	s += "\["
+
 	var/list/features = list()
 
 	if(!GLOB.enter_allowed)
@@ -244,6 +253,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.http_log = "[GLOB.log_directory]/http.log"
 	GLOB.sql_log = "[GLOB.log_directory]/sql.log"
 	GLOB.chat_debug_log = "[GLOB.log_directory]/chat_debug.log"
+	GLOB.karma_log = "[GLOB.log_directory]/karma.log"
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
@@ -252,6 +262,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	start_log(GLOB.http_log)
 	start_log(GLOB.sql_log)
 	start_log(GLOB.chat_debug_log)
+	start_log(GLOB.karma_log)
 
 	#ifdef REFERENCE_TRACKING
 	GLOB.gc_log = "[GLOB.log_directory]/gc_debug.log"
@@ -277,4 +288,5 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 /world/Del()
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
 	disable_auxtools_debugger() // Disables the debugger if running. See above comment
+	rustg_redis_disconnect() // Disconnects the redis connection. See above.
 	..()

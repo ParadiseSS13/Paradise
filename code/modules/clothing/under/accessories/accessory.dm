@@ -16,10 +16,14 @@
 	..()
 	inv_overlay = image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
 
+/obj/item/clothing/accessory/Moved(atom/OldLoc, Dir, Forced)
+	. = ..()
+	if(has_suit)
+		has_suit.detach_accessory(src, null)
+
 /obj/item/clothing/accessory/Destroy()
 	if(has_suit)
-		has_suit.accessories -= src
-		on_removed(null)
+		has_suit.detach_accessory(src, null)
 	return ..()
 
 //when user attached an accessory to S
@@ -454,7 +458,7 @@
 	icon_state = "skull"
 	item_state = "skull"
 	item_color = "skull"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 0, "acid" = 25)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/talisman
@@ -463,7 +467,7 @@
 	icon_state = "talisman"
 	item_state = "talisman"
 	item_color = "talisman"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 0, "acid" = 25)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/locket

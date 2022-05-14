@@ -501,7 +501,7 @@
 		log_game("Teleport spell failed - no other teleport runes")
 		return
 	if(!is_level_reachable(user.z))
-		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
+		to_chat(user, "<span class='cultitalic'>You are too far away from the station to teleport!</span>")
 		log_game("Teleport spell failed - user in away mission")
 		return
 

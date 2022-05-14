@@ -16,8 +16,21 @@
 			qdel(query_watchfind)
 			return
 		else
+			qdel(query_watchfind)
 			target_ckey = new_ckey
-	if(check_watchlist(target_ckey))
+
+	var/already_watched = FALSE
+	var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM watch WHERE ckey=:target_ckey", list(
+		"target_ckey" = target_ckey
+	))
+	if(!query_watch.warn_execute())
+		qdel(query_watch)
+		return
+	if(query_watch.NextRow())
+		already_watched = TRUE
+	qdel(query_watch)
+
+	if(already_watched)
 		to_chat(usr, "<span class='redtext'>[target_ckey] is already on the watchlist.</span>")
 		return
 	var/reason = input(usr,"Please state the reason","Reason") as message|null
@@ -132,18 +145,3 @@
 		output += "<br>[reason]<hr style='background:#000000; border:0; height:1px'>"
 	usr << browse(output, "window=watchwin;size=900x500")
 	qdel(query_watchlist)
-
-/proc/check_watchlist(target_ckey)
-	var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM watch WHERE ckey=:target_ckey", list(
-		"target_ckey" = target_ckey
-	))
-	if(!query_watch.warn_execute())
-		qdel(query_watch)
-		return
-	if(query_watch.NextRow())
-		var/entry = query_watch.item[1]
-		qdel(query_watch)
-		return entry
-	else
-		qdel(query_watch)
-		return 0

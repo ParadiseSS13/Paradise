@@ -44,30 +44,16 @@
 	irradiate = 10
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 
-/obj/item/projectile/energy/dart
-	name = "dart"
-	icon_state = "toxin"
-	damage = 5
-	damage_type = TOX
-	weaken = 5
-	range = 7
-
-/obj/item/projectile/energy/shuriken
-	name = "shuriken"
-	icon_state = "toxin"
-	damage = 10
-	damage_type = TOX
-	weaken = 5
-	stutter = 5
-
 /obj/item/projectile/energy/bolt
 	name = "bolt"
 	icon_state = "cbbolt"
 	damage = 15
 	damage_type = TOX
-	nodamage = 0
-	weaken = 5
-	stutter = 5
+	nodamage = FALSE
+	stamina = 60
+	eyeblur = 10
+	weaken = 1
+	slur = 5
 
 /obj/item/projectile/energy/bolt/large
 	damage = 20
@@ -148,9 +134,17 @@
 			add_attack_logs(src, M, "Hit lightly by [src]")
 			M.apply_damage(rand(1, 5), BURN)
 
-/obj/item/projectile/energy/toxplasma
+/obj/item/projectile/energy/weak_plasma
 	name = "plasma bolt"
-	icon_state = "energy"
-	damage = 20
-	damage_type = TOX
-	irradiate = 20
+	icon_state = "plasma_light"
+	damage = 12.5
+	damage_type = BURN
+
+/obj/item/projectile/energy/charged_plasma
+	name = "charged plasma bolt"
+	icon_state = "plasma_heavy"
+	damage = 45
+	damage_type = BURN
+	armour_penetration = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.
+	shield_buster = TRUE
+	is_reflectable = FALSE //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard.

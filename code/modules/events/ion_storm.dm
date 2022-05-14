@@ -31,6 +31,9 @@
 				to_chat(M, "<span class='danger'>[message] ...LAWS UPDATED</span>")
 				to_chat(M, "<br>")
 
+				for(var/player in GLOB.dead_mob_list)
+					to_chat(player, "<span class='deadsay'><b>[M] ([ghost_follow_link(M, player)])</b> has recieved an ion law:\n<b>'[message]'</b></span>")
+
 	if(botEmagChance)
 		for(var/mob/living/simple_animal/bot/bot in GLOB.machines)
 			if(prob(botEmagChance))
@@ -485,7 +488,7 @@
 						if(3) //X is Ying an abstract
 							message = "THE [ionabstract] IS [ionverb] THE [ionadjectiveshalf][ionobjects]"
 
-		if(40 to INFINITY) //Static laws
+		else //Static laws
 			message = uppertext(generate_static_ion_law())
 
 	return message

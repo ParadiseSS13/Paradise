@@ -28,7 +28,7 @@
 
 	if(mind)
 		mind.transfer_to(O)
-		O.mind.original = O
+		O.mind.set_original_mob(O)
 	else
 		O.key = key
 
@@ -81,7 +81,7 @@
 	if(mind)		//TODO
 		mind.transfer_to(O)
 		if(O.mind.assigned_role == "Cyborg")
-			O.mind.original = O
+			O.mind.set_original_mob(O)
 		else if(mind && mind.special_role)
 			O.mind.store_memory("In case you look at this after being borged, the objectives are only here until I find a way to make them not show up for you, as I can't simply delete them without screwing up round-end reporting. --NeoFite")
 	else
@@ -267,42 +267,3 @@
 	to_chat(pai, "<B>You have become a pAI! Your name is [pai.name].</B>")
 	pai.update_pipe_vision()
 	qdel(src)
-
-/mob/proc/safe_respawn(MP)
-	if(!MP)
-		return 0
-
-	if(!GAMEMODE_IS_NUCLEAR)
-		if(ispath(MP, /mob/living/simple_animal/pet/cat/Syndi))
-			return 0
-	if(ispath(MP, /mob/living/simple_animal/pet/cat))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/dog/corgi))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/crab))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/chicken))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/cow))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/parrot))
-		return 1
-	if(!GAMEMODE_IS_NUCLEAR)
-		if(ispath(MP, /mob/living/simple_animal/pet/dog/fox/Syndifox))
-			return 0
-	if(ispath(MP, /mob/living/simple_animal/pet/dog/fox))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/chick))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/dog/pug))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/butterfly))
-		return 1
-
-	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, ROLE_BORER) && !jobban_isbanned(src, ROLE_SYNDICATE))
-		return 1
-
-	if(ispath(MP, /mob/living/simple_animal/diona) && !jobban_isbanned(src, ROLE_NYMPH))
-		return 1
-
-	return 0

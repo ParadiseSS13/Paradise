@@ -52,6 +52,8 @@
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!head_accessory_style || !H || H.ha_style == head_accessory_style || !(head_accessory_style in GLOB.head_accessory_styles_list))
 		return
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, head_accessory_style) & COMSIG_HUMAN_NO_CHANGE_APPEARANCE)
+		return FALSE
 
 	H.ha_style = head_accessory_style
 
@@ -103,6 +105,8 @@
 	var/found
 	if(!body_accessory_style || (body_accessory && body_accessory.name == body_accessory_style))
 		return
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, body_accessory_style) & COMSIG_HUMAN_NO_CHANGE_APPEARANCE)
+		return FALSE
 
 	for(var/B in GLOB.body_accessory_by_name)
 		if(B == body_accessory_style)
@@ -114,7 +118,8 @@
 
 	m_styles["tail"] = "None"
 	update_tail_layer()
-	return 1
+	update_wing_layer()
+	return TRUE
 
 /mob/living/carbon/human/proc/change_alt_head(alternate_head)
 	var/obj/item/organ/external/head/H = get_organ("head")
@@ -153,6 +158,12 @@
 	else
 		//this shouldn't happen
 		H.h_style = "Bald"
+	// Gradient
+	H.h_grad_style = "None"
+	H.h_grad_offset_x = 0
+	H.h_grad_offset_y = 0
+	H.h_grad_colour = "#000000"
+	H.h_grad_alpha = 255
 
 	update_hair()
 
@@ -310,6 +321,25 @@
 	update_body()
 	return 1
 
+/mob/living/carbon/human/proc/change_hair_gradient(style, offset_raw, color, alpha)
+	var/obj/item/organ/external/head/H = get_organ("head")
+	if(!H)
+		return
+
+	if(!isnull(style))
+		H.h_grad_style = style
+	if(!isnull(offset_raw))
+		var/list/expl = splittext(offset_raw, ",")
+		if(length(expl) == 2)
+			H.h_grad_offset_x = clamp(text2num(expl[1]) || 0, -16, 16)
+			H.h_grad_offset_y = clamp(text2num(expl[2]) || 0, -16, 16)
+	if(!isnull(color))
+		H.h_grad_colour = color
+	if(!isnull(alpha))
+		H.h_grad_alpha = clamp(alpha, 0, 255)
+
+	update_hair()
+
 /mob/living/carbon/human/proc/update_dna()
 	check_dna()
 	dna.ready_dna(src)
@@ -325,7 +355,7 @@
 				continue
 			if(blacklist.len && (current_species_name in blacklist))
 				continue
-			if((IS_WHITELISTED in current_species.species_traits) && !is_alien_whitelisted(src, current_species_name))
+			if((IS_WHITELISTED in current_species.species_traits) && !can_use_species(src, current_species_name))
 				continue
 
 		valid_species += current_species_name
@@ -443,17 +473,18 @@
 	return sortTim(valid_markings, /proc/cmp_text_asc)
 
 /mob/living/carbon/human/proc/generate_valid_body_accessories()
-	var/list/valid_body_accessories = new()
+	var/list/valid_body_accessories = list()
 	for(var/B in GLOB.body_accessory_by_name)
 		var/datum/body_accessory/A = GLOB.body_accessory_by_name[B]
-		if(check_rights(R_ADMIN, 0, src))
+		if(isnull(A))
+			continue
+		else if(check_rights(R_ADMIN, FALSE, src))
 			valid_body_accessories = GLOB.body_accessory_by_name.Copy()
-		else
-			if(!istype(A))
-				valid_body_accessories["None"] = "None" //The only null entry should be the "None" option.
-				continue
-			if(dna.species.name in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
-				valid_body_accessories += B
+			break
+		else if(dna.species.name in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
+			valid_body_accessories += B
+	if(dna.species.optional_body_accessory)
+		valid_body_accessories += "None"
 
 	return sortTim(valid_body_accessories, /proc/cmp_text_asc)
 

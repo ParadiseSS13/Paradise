@@ -1,0 +1,948 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/turf/space,
+/area/space)
+"ab" = (
+/obj/structure/rack,
+/obj/item/gun/energy/noisecannon,
+/obj/item/gun/energy/noisecannon,
+/obj/item/gun/energy/noisecannon,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"ac" = (
+/obj/machinery/computer/camera_advanced/shuttle_docker/admin/vox,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"ad" = (
+/obj/machinery/door/airlock/hatch{
+	frequency = 1331;
+	id_tag = "vox_northwest_lock";
+	locked = 1;
+	req_access_txt = "152"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"ae" = (
+/obj/machinery/computer/shuttle/admin/vox,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"ai" = (
+/obj/machinery/door/airlock/external,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/administration)
+"aj" = (
+/obj/docking_port/mobile{
+	dir = 2;
+	dwidth = 9;
+	height = 18;
+	id = "admin";
+	name = "skipjack";
+	roundstart_move = "cc_bay_1";
+	timid = 1;
+	width = 19
+	},
+/obj/machinery/door/airlock/external,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/administration)
+"aq" = (
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "vox_west_sensor";
+	pixel_x = 25;
+	req_access_txt = "152"
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"au" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	icon_state = "propulsion_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/administration)
+"av" = (
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1331;
+	master_tag = "vox_west_control";
+	req_one_access_txt = "152"
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/administration)
+"az" = (
+/turf/space,
+/area/shuttle/administration)
+"aB" = (
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "vox_east_sensor";
+	pixel_x = -25;
+	req_access_txt = "152"
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"aG" = (
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "vox_west_control";
+	pixel_x = 24;
+	req_access_txt = "152";
+	tag_airpump = "vox_west_vent";
+	tag_chamber_sensor = "vox_west_sensor";
+	tag_exterior_door = "vox_northwest_lock";
+	tag_interior_door = "vox_southwest_lock"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"aH" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/administration)
+"aI" = (
+/obj/item/clothing/head/bearpelt,
+/obj/item/xenos_claw,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"aJ" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/administration)
+"aM" = (
+/obj/machinery/door/airlock/hatch{
+	frequency = 1331;
+	id_tag = "vox_northeast_lock";
+	locked = 1;
+	req_access_txt = "152"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"aN" = (
+/obj/machinery/door/airlock/hatch{
+	frequency = 1331;
+	id_tag = "vox_southwest_lock";
+	locked = 1;
+	req_access_txt = "152"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"aP" = (
+/obj/item/broken_bottle,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"aR" = (
+/obj/item/stack/spacecash/c50,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"aT" = (
+/obj/item/clothing/mask/breath,
+/obj/machinery/light,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"aU" = (
+/obj/item/stack/spacecash/c50,
+/obj/machinery/light,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"bb" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"bd" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"bj" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/broken_device,
+/obj/item/robot_parts/chest,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"bo" = (
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 8;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/administration)
+"bt" = (
+/obj/item/storage/toolbox/syndicate,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"bv" = (
+/obj/structure/table,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"bC" = (
+/obj/machinery/atmospherics/unary/tank/nitrogen{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"bD" = (
+/obj/structure/rack,
+/obj/item/rcd,
+/obj/item/rcd_ammo,
+/obj/item/rcd_ammo,
+/obj/item/rcd_ammo,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"bG" = (
+/obj/machinery/sleeper/upgraded{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"bJ" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/administration)
+"bO" = (
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1331;
+	master_tag = "vox_east_control";
+	req_access_txt = "152"
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/administration)
+"bQ" = (
+/obj/structure/rack,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"bR" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"bV" = (
+/obj/structure/shuttle/engine/propulsion{
+	icon_state = "propulsion_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/administration)
+"bY" = (
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/clothing/mask/breath,
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"ca" = (
+/obj/structure/rack,
+/obj/item/clothing/accessory/storage/black_vest,
+/obj/item/clothing/suit/space/vox/stealth,
+/obj/item/clothing/head/helmet/space/vox/stealth,
+/obj/item/clothing/mask/breath,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"cb" = (
+/obj/structure/rack,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"cf" = (
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "vox_east_control";
+	pixel_x = -24;
+	req_access_txt = "152";
+	tag_airpump = "vox_east_vent";
+	tag_chamber_sensor = "vox_east_sensor";
+	tag_exterior_door = "vox_northeast_lock";
+	tag_interior_door = "vox_southeast_lock"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"cg" = (
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "vox_west_control";
+	req_one_access_txt = "152"
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/administration)
+"ci" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/administration)
+"cj" = (
+/obj/item/clothing/mask/breath,
+/obj/item/stack/spacecash/c50,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"ck" = (
+/obj/item/clothing/head/collectable/xenom,
+/obj/item/clothing/head/chicken,
+/obj/item/aiModule/syndicate,
+/obj/item/storage/box/zipties,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"cl" = (
+/obj/item/stack/spacecash/c1000,
+/obj/item/stack/spacecash/c500,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"cm" = (
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/administration)
+"cn" = (
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "vox_east_control";
+	req_one_access_txt = "152"
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/administration)
+"co" = (
+/obj/machinery/door/airlock/hatch{
+	frequency = 1331;
+	id_tag = "vox_southeast_lock";
+	locked = 1;
+	req_access_txt = "152"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"cp" = (
+/obj/structure/AIcore,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"cu" = (
+/obj/item/clothing/head/bearpelt,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"cv" = (
+/obj/item/xenos_claw,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"cw" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/administration)
+"cx" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/machinery/recharger,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"eP" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"jg" = (
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"nk" = (
+/obj/structure/rack,
+/obj/item/clothing/accessory/storage/black_vest,
+/obj/item/clothing/suit/space/vox/pressure,
+/obj/item/clothing/head/helmet/space/vox/pressure,
+/obj/item/clothing/mask/breath,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"qa" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/weed_extract,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"sd" = (
+/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/light,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"ue" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/pickaxe,
+/obj/item/storage/firstaid/toxin,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"wb" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/administration)
+"wk" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"wB" = (
+/obj/structure/rack,
+/obj/item/clothing/accessory/storage/black_vest,
+/obj/item/clothing/suit/space/vox/carapace,
+/obj/item/clothing/head/helmet/space/vox/carapace,
+/obj/item/clothing/mask/breath,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"wZ" = (
+/obj/structure/rack,
+/obj/item/clothing/accessory/storage/black_vest,
+/obj/item/clothing/suit/space/vox/medic,
+/obj/item/clothing/head/helmet/space/vox/medic,
+/obj/item/clothing/mask/breath,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"xi" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/circular_saw,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"zD" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/administration)
+"CD" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"Gs" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/scalpel,
+/obj/item/stack/cable_coil,
+/obj/item/storage/firstaid/regular,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"IH" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/table,
+/mob/living/simple_animal/bot/floorbot{
+	on = 0
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"Jk" = (
+/obj/structure/table,
+/obj/machinery/door_control{
+	id = "voxshutters";
+	name = "remote shutter control";
+	req_access_txt = "152"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"JJ" = (
+/obj/structure/rack,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"MT" = (
+/obj/structure/rack,
+/obj/item/pneumatic_cannon,
+/obj/item/harpoon,
+/obj/item/harpoon,
+/obj/item/harpoon,
+/obj/item/harpoon,
+/obj/item/tank/internals/nitrogen,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"Ua" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/optable,
+/obj/item/organ/internal/brain,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"Vl" = (
+/obj/machinery/bodyscanner,
+/obj/machinery/light,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"XB" = (
+/obj/machinery/portable_atmospherics/canister/toxins,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+"XK" = (
+/obj/item/clothing/head/collectable/petehat{
+	desc = "It smells faintly of reptile.";
+	name = "fancy leader hat"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/administration)
+
+(1,1,1) = {"
+zD
+zD
+zD
+zD
+zD
+zD
+bo
+bo
+bo
+zD
+zD
+zD
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(2,1,1) = {"
+av
+jg
+jg
+aN
+jg
+jg
+jg
+jg
+jg
+bC
+bJ
+bV
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(3,1,1) = {"
+ad
+aq
+aG
+cg
+zD
+zD
+jg
+cx
+jg
+XB
+bJ
+bV
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(4,1,1) = {"
+zD
+zD
+zD
+zD
+az
+zD
+jg
+qa
+jg
+sd
+zD
+zD
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(5,1,1) = {"
+az
+az
+az
+az
+au
+cw
+jg
+IH
+jg
+bD
+zD
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(6,1,1) = {"
+az
+az
+zD
+bo
+bo
+zD
+jg
+bj
+bt
+JJ
+zD
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(7,1,1) = {"
+az
+au
+aH
+aP
+aT
+zD
+bb
+zD
+zD
+zD
+zD
+zD
+zD
+zD
+zD
+zD
+zD
+zD
+"}
+(8,1,1) = {"
+zD
+zD
+aP
+cj
+cp
+zD
+bd
+bR
+bR
+wB
+wZ
+nk
+ca
+ci
+CD
+bR
+ae
+zD
+"}
+(9,1,1) = {"
+ai
+jg
+jg
+ck
+jg
+bb
+jg
+jg
+jg
+jg
+jg
+jg
+jg
+bb
+jg
+jg
+wk
+wb
+"}
+(10,1,1) = {"
+aj
+jg
+bY
+cl
+cu
+bb
+jg
+jg
+jg
+jg
+jg
+jg
+jg
+bb
+XK
+jg
+bR
+wb
+"}
+(11,1,1) = {"
+zD
+zD
+aI
+aR
+cv
+zD
+bd
+wk
+bv
+ab
+MT
+bQ
+cb
+ci
+eP
+Jk
+ac
+zD
+"}
+(12,1,1) = {"
+az
+au
+aJ
+jg
+aU
+zD
+bb
+zD
+zD
+zD
+zD
+zD
+zD
+zD
+zD
+zD
+zD
+zD
+"}
+(13,1,1) = {"
+az
+az
+zD
+cm
+cm
+zD
+jg
+ue
+jg
+bG
+zD
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(14,1,1) = {"
+az
+az
+az
+az
+au
+cw
+jg
+Gs
+jg
+jg
+zD
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(15,1,1) = {"
+zD
+zD
+zD
+zD
+az
+zD
+jg
+xi
+jg
+Vl
+zD
+zD
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(16,1,1) = {"
+aM
+aB
+cf
+cn
+zD
+zD
+jg
+Ua
+jg
+jg
+bJ
+bV
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(17,1,1) = {"
+bO
+jg
+jg
+co
+jg
+jg
+jg
+jg
+jg
+bC
+bJ
+bV
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(18,1,1) = {"
+zD
+zD
+zD
+zD
+zD
+zD
+cm
+cm
+cm
+zD
+zD
+zD
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(19,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}

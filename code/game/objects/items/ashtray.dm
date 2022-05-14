@@ -38,7 +38,7 @@
 	if(contents.len == max_butts)
 		icon_state = icon_full
 		desc = initial(desc) + " It's stuffed full."
-	if(contents.len > max_butts * 0.5)
+	else if(contents.len > max_butts * 0.5)
 		icon_state = icon_half
 		desc = initial(desc) + " It's half-filled."
 	else

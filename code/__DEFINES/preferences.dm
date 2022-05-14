@@ -85,7 +85,6 @@
 #define EXP_TYPE_CREW			"Crew"
 #define EXP_TYPE_SPECIAL		"Special"
 #define EXP_TYPE_GHOST			"Ghost"
-#define EXP_TYPE_EXEMPT			"Exempt"
 #define EXP_TYPE_COMMAND		"Command"
 #define EXP_TYPE_ENGINEERING	"Engineering"
 #define EXP_TYPE_MEDICAL		"Medical"
@@ -94,7 +93,6 @@
 #define EXP_TYPE_SECURITY		"Security"
 #define EXP_TYPE_SILICON		"Silicon"
 #define EXP_TYPE_SERVICE		"Service"
-#define EXP_TYPE_WHITELIST		"Whitelist"
 
 #define EXP_DEPT_TYPE_LIST		list(EXP_TYPE_SUPPLY, EXP_TYPE_SERVICE, EXP_TYPE_MEDICAL, EXP_TYPE_ENGINEERING, EXP_TYPE_SCIENCE, EXP_TYPE_SECURITY, EXP_TYPE_COMMAND, EXP_TYPE_SILICON, EXP_TYPE_SPECIAL, EXP_TYPE_GHOST)
 
@@ -115,3 +113,11 @@
 #define _2FA_ENABLED_IP "ENABLED_IP"
 /// Client will be prompted for 2FA always
 #define _2FA_ENABLED_ALWAYS "ENABLED_ALWAYS"
+
+
+#define MAX_SAVE_SLOTS 30 // Save slots for regular players
+#define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
+
+#define TAB_CHAR 0
+#define TAB_GAME 1
+#define TAB_GEAR 2

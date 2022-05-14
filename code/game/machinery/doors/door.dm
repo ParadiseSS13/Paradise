@@ -9,7 +9,7 @@
 	layer = OPEN_DOOR_LAYER
 	power_channel = ENVIRON
 	max_integrity = 350
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70)
 	flags = PREVENT_CLICK_UNDER
 	damage_deflection = 10
 	var/closingLayer = CLOSED_DOOR_LAYER
@@ -149,6 +149,25 @@
 				B.door_opened(src)
 		else
 			do_animate("deny")
+			if(HAS_TRAIT(user, TRAIT_FORCE_DOORS))
+				var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
+
+				if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+					if(!V.bloodusable)
+						REMOVE_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
+						return
+				if(welded)
+					to_chat(user, "<span class='warning'>The door is welded.</span>")
+					return
+				if(locked)
+					to_chat(user, "<span class='warning'>The door is bolted.</span>")
+					return
+				if(density)
+					visible_message("<span class='danger'>[user] forces the door open!</span>")
+					playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+					open(TRUE)
+				if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+					V.bloodusable = max(V.bloodusable - 5, 0)
 
 /obj/machinery/door/attack_ai(mob/user)
 	return attack_hand(user)
@@ -361,6 +380,31 @@
 		return 1
 	return 0
 
+/obj/machinery/door/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
+	if(hasPower() && unres_sides)
+		if(unres_sides & NORTH)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_n") //layer=src.layer+1
+			I.pixel_y = 32
+			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
+			add_overlay(I)
+		if(unres_sides & SOUTH)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_s") //layer=src.layer+1
+			I.pixel_y = -32
+			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
+			add_overlay(I)
+		if(unres_sides & EAST)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_e") //layer=src.layer+1
+			I.pixel_x = 32
+			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
+			add_overlay(I)
+		if(unres_sides & WEST)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_w") //layer=src.layer+1
+			I.pixel_x = -32
+			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
+			add_overlay(I)
+	else
+		set_light(0)
+
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'
 
@@ -377,11 +421,6 @@
 /obj/machinery/door/proc/disable_lockdown()
 	if(!stat) //Opens only powered doors.
 		open() //Open everything!
-
-/obj/machinery/door/ex_act(severity)
-	//if it blows up a wall it should blow up a door
-	..(severity ? max(1, severity - 1) : 0)
-
 
 /obj/machinery/door/GetExplosionBlock()
 	return density ? real_explosion_block : 0

@@ -1,11 +1,17 @@
 ///////////////////ORGAN DEFINES///////////////////
 
 // Organ defines.
-#define ORGAN_BROKEN     1
-#define ORGAN_ROBOT      2
-#define ORGAN_SPLINTED   4
-#define ORGAN_DEAD       8
-#define ORGAN_MUTATED    16
+#define ORGAN_BROKEN       (1 << 0)
+#define ORGAN_ROBOT        (1 << 1)
+#define ORGAN_SPLINTED     (1 << 2)
+#define ORGAN_DEAD         (1 << 3)
+#define ORGAN_MUTATED      (1 << 4)
+#define ORGAN_INT_BLEEDING (1 << 5)
+#define ORGAN_DISFIGURED   (1 << 6)
+
+// For limb resistance flags
+#define CANNOT_BREAK		(1 << 0)
+#define CANNOT_DISMEMBER 	(1 << 1)
 
 #define PROCESS_ACCURACY 10
 
@@ -152,6 +158,9 @@
 #define ENVIRONMENT_SMASH_WALLS 2   //walls
 #define ENVIRONMENT_SMASH_RWALLS 4  //rwalls
 
+// Reproduction
+#define DEFAULT_MAX_OFFSPRING 8
+
 ///Flags used by the flags parameter of electrocute act.
 
 ///Makes it so that the shock doesn't take gloves into account.
@@ -175,6 +184,9 @@
 #define HOSTILE_SPAWN 1
 #define FRIENDLY_SPAWN 2
 
+///Max amount of living Xenobio mobs allowed at any given time (excluding slimes).
+#define MAX_GOLD_CORE_MOBS 45
+
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
 #define EYE_SHINE_THRESHOLD 6	//dark_view threshold past which a humanoid's eyes will 'shine' in the dark.
@@ -197,8 +209,6 @@
 #define UNHEALING_EAR_DAMAGE 100
 
 //Human sub-species
-#define isshadowling(A) (is_species(A, /datum/species/shadow/ling))
-#define isshadowlinglesser(A) (is_species(A, /datum/species/shadow/ling/lesser))
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))
 #define ismonkeybasic(A) (is_species(A, /datum/species/monkey))
@@ -223,6 +233,7 @@
 #define ismachineperson(A) (is_species(A, /datum/species/machine))
 #define isdrask(A) (is_species(A, /datum/species/drask))
 #define iswryn(A) (is_species(A, /datum/species/wryn))
+#define ismoth(A) (is_species(A, /datum/species/moth))
 
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
 #define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))

@@ -78,8 +78,7 @@
 	name = "small parcel"
 	desc = "A small wrapped package."
 	icon = 'icons/obj/storage.dmi'
-	icon_state = "deliverycrateSmall"
-	item_state = "deliverypackage"
+	icon_state = "deliverycrate2"
 	var/obj/item/wrapped = null
 	var/giftwrapped = 0
 	var/sortTag = 0
@@ -96,14 +95,12 @@
 		var/atom/A = i
 		A.emp_act(severity)
 
-/obj/item/smallDelivery/attack_self(mob/user as mob)
-	if(wrapped && wrapped.loc) //sometimes items can disappear. For example, bombs. --rastaf0
-		wrapped.loc = user.loc
+/obj/item/smallDelivery/attack_self(mob/user)
+	if(wrapped?.loc == src) //sometimes items can disappear. For example, bombs. --rastaf0
+		wrapped.forceMove(get_turf(src))
 		if(ishuman(user))
 			user.put_in_hands(wrapped)
-		else
-			wrapped.loc = get_turf(src)
-	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
+	playsound(src, 'sound/items/poster_ripped.ogg', 50, TRUE)
 	qdel(src)
 
 /obj/item/smallDelivery/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -162,6 +159,8 @@
 	var/obj/target = A
 
 	if(is_type_in_list(target, no_wrap))
+		return
+	if(is_type_in_list(A.loc, list(/obj/item/smallDelivery, /obj/structure/bigDelivery)))
 		return
 	if(target.anchored)
 		return
@@ -312,7 +311,7 @@
 	flushing = 1
 	flick("intake-closing", src)
 	var/deliveryCheck = 0
-	var/obj/structure/disposalholder/H = new()	// virtual holder object which actually
+	var/obj/structure/disposalholder/H = new(src)	// virtual holder object which actually
 													// travels through the pipes.
 	for(var/obj/structure/bigDelivery/O in src)
 		deliveryCheck = 1

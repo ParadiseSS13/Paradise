@@ -36,8 +36,9 @@
 	name = get_visible_name()
 	pulse = handle_pulse(times_fired)
 
-	if(mind?.vampire)
-		mind.vampire.handle_vampire()
+	var/datum/antagonist/vampire/V = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(V)
+		V.handle_vampire()
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
 
@@ -363,6 +364,9 @@
 		bodytemperature += 11
 	else
 		bodytemperature += (BODYTEMP_HEATING_MAX + (fire_stacks * 12))
+		var/datum/antagonist/vampire/V = mind?.has_antag_datum(/datum/antagonist/vampire)
+		if(V && !V.get_ability(/datum/vampire_passive/full) && stat != DEAD)
+			V.bloodusable = max(V.bloodusable - 5, 0)
 
 /mob/living/carbon/human/proc/get_thermal_protection()
 	if(HAS_TRAIT(src, TRAIT_RESISTHEAT))
@@ -786,35 +790,25 @@
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return
-	if(mind?.vampire && (mind in SSticker.mode.vampires)) //Vampires
-		switch(nutrition)
-			if(NUTRITION_LEVEL_FULL to INFINITY)
-				throw_alert("nutrition", /obj/screen/alert/fat/vampire)
-			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-				throw_alert("nutrition", /obj/screen/alert/full/vampire)
-			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-				throw_alert("nutrition", /obj/screen/alert/well_fed/vampire)
-			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-				throw_alert("nutrition", /obj/screen/alert/fed/vampire)
-			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				throw_alert("nutrition", /obj/screen/alert/hungry/vampire)
-			else
-				throw_alert("nutrition", /obj/screen/alert/starving/vampire)
-
-	else //Any other non-vampires
-		switch(nutrition)
-			if(NUTRITION_LEVEL_FULL to INFINITY)
-				throw_alert("nutrition", /obj/screen/alert/fat)
-			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-				throw_alert("nutrition", /obj/screen/alert/full)
-			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-				throw_alert("nutrition", /obj/screen/alert/well_fed)
-			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-				throw_alert("nutrition", /obj/screen/alert/fed)
-			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				throw_alert("nutrition", /obj/screen/alert/hungry)
-			else
-				throw_alert("nutrition", /obj/screen/alert/starving)
+	var/new_hunger
+	switch(nutrition)
+		if(NUTRITION_LEVEL_FULL to INFINITY)
+			new_hunger = "fat"
+		if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+			new_hunger = "full"
+		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+			new_hunger = "well_fed"
+		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+			new_hunger = "fed"
+		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+			new_hunger = "hungry"
+		else
+			new_hunger = "starving"
+	if(dna.species.hunger_type)
+		new_hunger += "/[dna.species.hunger_type]"
+	if(dna.species.hunger_level != new_hunger)
+		dna.species.hunger_level = new_hunger
+		throw_alert("nutrition", "/obj/screen/alert/hunger/[new_hunger]", icon_override = dna.species.hunger_icon)
 
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high
@@ -836,7 +830,7 @@
 
 			if(prob(I.embedded_fall_chance))
 				BP.receive_damage(I.w_class*I.embedded_fall_pain_multiplier)
-				BP.embedded_objects -= I
+				BP.remove_embedded_object(I)
 				I.forceMove(get_turf(src))
 				visible_message("<span class='danger'>[I] falls out of [name]'s [BP.name]!</span>","<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
 				if(!has_embedded_objects())

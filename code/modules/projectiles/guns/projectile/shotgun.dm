@@ -204,10 +204,6 @@
 	..()
 	post_sawoff()
 
-/obj/item/gun/projectile/shotgun/riot/buckshot	//comes pre-loaded with buckshot rather than rubber
-	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/buckshot
-
-
 ///////////////////////
 // BOLT ACTION RIFLE //
 ///////////////////////

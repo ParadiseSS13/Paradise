@@ -71,8 +71,6 @@
 	laser_act(target, user, params)
 
 /obj/item/laser_pointer/proc/laser_act(atom/target, mob/living/user, params)
-	if( !(user in (viewers(7,target))) )
-		return
 	if(!diode)
 		to_chat(user, "<span class='notice'>You point [src] at [target], but nothing happens!</span>")
 		return
@@ -81,6 +79,9 @@
 		return
 	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
 		to_chat(user, "<span class='warning'>Your fingers can't press the button!</span>")
+		return
+	if(!(target in view(7, get_turf(src)))) // Use the turf as center so it won't use the potential xray of the user
+		to_chat(user, "<span class='warning'>There is something in the way!</span>")
 		return
 
 	add_fingerprint(user)

@@ -66,14 +66,14 @@
 
 		var/mob/living/carbon/human/H = target
 		var/headarmor = 0 // Target's head armor
-		armor_block = H.run_armor_check(affecting, "melee","","",armour_penetration) // For normal attack damage
+		armor_block = H.run_armor_check(affecting, MELEE,"","",armour_penetration) // For normal attack damage
 
 		//If they have a hat/helmet and the user is targeting their head.
 		if(istype(H.head, /obj/item/clothing/head) && affecting == "head")
 
 			// If their head has an armor value, assign headarmor to it, else give it 0.
-			if(H.head.armor.getRating("melee"))
-				headarmor = H.head.armor.getRating("melee")
+			if(H.head.armor.getRating(MELEE))
+				headarmor = H.head.armor.getRating(MELEE)
 			else
 				headarmor = 0
 		else
@@ -84,7 +84,7 @@
 
 	else
 		//Only humans can have armor, right?
-		armor_block = target.run_armor_check(affecting, "melee")
+		armor_block = target.run_armor_check(affecting, MELEE)
 		if(affecting == "head")
 			armor_duration = duration + force
 	armor_duration /= 10

@@ -146,7 +146,6 @@
 		trigger.forceMove(src)
 		trigger.master = src
 		trigger.holder = src
-		AddComponent(/datum/component/proximity_monitor)
 		to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
 		return TRUE
 	else if(istype(W, /obj/item/assembly))
@@ -166,7 +165,6 @@
 	trigger.master = null
 	trigger.holder = null
 	trigger = null
-	qdel(GetComponent(/datum/component/proximity_monitor))
 
 /obj/item/clothing/mask/muzzle/safety/shock/proc/can_shock(obj/item/clothing/C)
 	if(istype(C))
@@ -188,10 +186,6 @@
 		M.Jitter(20)
 	return
 
-/obj/item/clothing/mask/muzzle/safety/shock/HasProximity(atom/movable/AM)
-	if(trigger)
-		trigger.HasProximity(AM)
-
 
 /obj/item/clothing/mask/muzzle/safety/shock/hear_talk(mob/living/M as mob, list/message_pieces)
 	if(trigger)
@@ -212,7 +206,7 @@
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 25, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 25, RAD = 0, FIRE = 0, ACID = 0)
 	actions_types = list(/datum/action/item_action/adjust)
 
 	sprite_sheets = list(
@@ -313,7 +307,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	w_class = WEIGHT_CLASS_SMALL
-	var/voicechange = 0
+	var/voicechange = FALSE
 	var/temporaryname = " the Horse"
 	var/originalname = ""
 
@@ -346,6 +340,10 @@
 		return
 	if(user.real_name == "[originalname][temporaryname]" || user.real_name == "A Horse With No Name") //if it's somehow changed while the mask is on it doesn't revert
 		user.real_name = originalname
+
+/obj/item/clothing/mask/horsehead/change_speech_verb()
+	if(voicechange)
+		return pick("whinnies", "neighs", "says")
 
 /obj/item/clothing/mask/face
 	flags_inv = HIDEFACE

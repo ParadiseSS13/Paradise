@@ -28,6 +28,12 @@
 
 #undef NONSENSICAL_VALUE
 
+/atom/proc/remove_light()
+	light_power = 0
+	light_range = 0
+	light_color = 0
+	update_light()
+
 // Will update the light (duh).
 // Creates or destroys it if needed, makes it update values, makes sure it's got the correct source turf...
 /atom/proc/update_light()

@@ -4,12 +4,13 @@
 	icon_state = "stunbaton"
 	var/base_icon = "stunbaton"
 	item_state = "baton"
+	belt_icon = "stunbaton"
 	slot_flags = SLOT_BELT
 	force = 10
 	throwforce = 7
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	/// How many life ticks does the stun last for
 	var/stunforce = 7
 	/// Is the baton currently turned on
@@ -81,7 +82,7 @@
 
 /obj/item/melee/baton/throw_impact(atom/hit_atom)
 	..()
-	if(prob(throw_hit_chance) && turned_on && isliving(hit_atom))
+	if(prob(throw_hit_chance) && turned_on && isliving(hit_atom) && !issilicon(hit_atom))
 		baton_stun(hit_atom)
 
 /**
@@ -158,7 +159,7 @@
 		deductcharge(hitcost)
 		return
 
-	if(isrobot(M)) // Can't stunbaton borgs
+	if(issilicon(M)) // Can't stunbaton borgs and AIs
 		return ..()
 
 	if(!isliving(M))

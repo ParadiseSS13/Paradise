@@ -11,7 +11,7 @@
 	var/list/allowed_types = list() //Types of mech that the kit will work on.
 
 /obj/item/paintkit/titansfist
-	name = "APLU \"Ripley\" customisation kit"
+	name = "\improper APLU \"Ripley\" customisation kit"
 	desc = "A kit containing all the needed tools and parts to turn an APLU \"Ripley\" into a Titan's Fist worker mech."
 	icon_state = "paintkit_2"
 
@@ -21,10 +21,8 @@
 	allowed_types = list("ripley","firefighter")
 
 /obj/item/paintkit/mercenary
-	name = "Mercenary APLU \"Ripley\" kit"
+	name = "\improper mercenary APLU \"Ripley\" kit"
 	desc = "A kit containing all the needed tools and parts to turn an APLU \"Ripley\" into an old Mercenaries APLU."
-
-
 	new_name = "APLU \"Strike the Earth!\""
 	new_desc = "Looks like an over worked, under maintained Ripley with some horrific damage."
 	new_icon = "earth"

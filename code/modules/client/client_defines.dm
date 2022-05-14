@@ -56,9 +56,6 @@
 
 	var/global/obj/screen/click_catcher/void
 
-	var/karma_spent = 0
-	var/karma_tab = 0
-
 	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
 
 	var/ip_intel = "Disabled"
@@ -114,10 +111,31 @@
 	/// Is the client watchlisted
 	var/watchlisted = FALSE
 
+	/// Client's pAI save
+	var/datum/pai_save/pai_save
+
+	/// List of the clients CUIs
+	var/list/datum/custom_user_item/cui_entries = list()
+
+	/// The client's karma holder
+	var/datum/karma_holder/karmaholder
+
+	/// The client's job ban holder
+	var/datum/job_ban_holder/jbh = new()
+
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS
 		// But guess what, if I have the ability to overengineer something, I am going to do it
 		if("tos_consent")
+			return FALSE
+		// Dont fuck with this
+		if("cui_entries")
+			return FALSE
+		// or this
+		if("karmaholder")
+			return FALSE
+		// or this
+		if("jbh")
 			return FALSE
 	return ..()

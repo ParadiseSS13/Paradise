@@ -396,10 +396,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.age = record_found.fields["age"]
 		new_character.dna.blood_type = record_found.fields["blood_type"]
 	else
+		// We make a random character
 		new_character.change_gender(pick(MALE,FEMALE))
-		var/datum/preferences/A = new()
-		A.real_name = G_found.real_name
-		A.copy_to(new_character)
+		var/datum/character_save/S = new
+		S.randomise()
+		S.real_name = G_found.real_name
+		S.copy_to(new_character)
 
 	if(!new_character.real_name)
 		new_character.real_name = random_name(new_character.gender)
@@ -410,7 +412,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.mind.special_verbs = list()
 	else
 		new_character.mind_initialize()
-	if(!new_character.mind.assigned_role)	new_character.mind.assigned_role = "Civilian"//If they somehow got a null assigned role.
+	if(!new_character.mind.assigned_role)	new_character.mind.assigned_role = "Assistant" //If they somehow got a null assigned role.
 
 	//DNA
 	if(record_found)//Pull up their name from database records if they did have a mind.
@@ -439,7 +441,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if("traitor")
 			if(new_character.mind.has_antag_datum(/datum/antagonist/traitor))
 				var/datum/antagonist/traitor/T = new_character.mind.has_antag_datum(/datum/antagonist/traitor)
-				T.equip_traitor(src)
+				T.give_uplink()
 			else
 				new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 		if("Wizard")
@@ -1058,7 +1060,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(istype(H.loc, /obj/machinery/cryopod))
 			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>De-Spawn</A></TD>"
 		else
-			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>Cryo</A></TD>"
+			var/area/A = get_area(H)
+			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1;fast_despawn=[A.fast_despawn]'>Cryo</A></TD>"
 		msg += "</TR>"
 	msg += "</TABLE></BODY></HTML>"
 	src << browse(msg, "window=Player_ssd_afk_check;size=600x300")

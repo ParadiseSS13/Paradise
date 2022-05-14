@@ -1,0 +1,5 @@
+#define SPELL_TARGET_CLOSEST 1
+#define SPELL_TARGET_RANDOM 2
+
+#define SPELL_SELECTION_RANGE "range"
+#define SPELL_SELECTION_VIEW "view"

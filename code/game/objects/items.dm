@@ -2,11 +2,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 /obj/item
 	name = "item"
 	icon = 'icons/obj/items.dmi'
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 	move_resist = null // Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers
-	var/image/blood_overlay = null //this saves our blood splatter overlay, which will be processed not to go over the edges of the sprite
-	var/blood_overlay_color = null
 	var/item_state = null
 	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -35,7 +34,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/drop_sound
 	///Whether or not we use stealthy audio levels for this item's attack sounds
 	var/stealthy_audio = FALSE
-
+	/// Allows you to override the attack animation with an attack effect
+	var/attack_effect_override
 	var/list/attack_verb //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/w_class = WEIGHT_CLASS_NORMAL
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
@@ -120,6 +120,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	// item hover FX
 	/// Is this item inside a storage object?
 	var/in_storage = FALSE
+	// For assigning a belt overlay icon state in belts.dmi
+	var/belt_icon = null
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
 
@@ -163,6 +165,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
+	else if(istype(loc, /obj/item/storage))
+		var/obj/item/storage/S = loc
+		S.remove_from_storage(src)
 	QDEL_LIST(actions)
 	master = null
 	return ..()
@@ -229,6 +234,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 			msg += "<span class='danger'>No extractable materials detected.</span><BR>"
 		msg += "*--------*"
 		. += msg
+
+	if(HAS_TRAIT(src, TRAIT_BUTCHERS_HUMANS))
+		. += "<span class='warning'>Can be used to butcher dead people into meat while on harm intent.</span>"
 
 /obj/item/burn()
 	if(!QDELETED(src))
@@ -705,6 +713,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	openToolTip(user, src, params, title = name, content = "[desc]", theme = "")
 
 /obj/item/MouseEntered(location, control, params)
+	. = ..()
 	if(in_inventory || in_storage)
 		var/timedelay = 8
 		var/mob/user = usr

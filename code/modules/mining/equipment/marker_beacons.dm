@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	desc = "Prism-brand path illumination devices. Used by miners to mark paths and warn of danger."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "marker"
-	armor = list("melee" = 50, "bullet" = 75, "laser" = 75, "energy" = 75, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 25, "acid" = 0)
+	armor = list(MELEE = 50, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 25, BIO = 100, RAD = 100, FIRE = 25, ACID = 0)
 	max_integrity = 50
 	merge_type = /obj/item/stack/marker_beacon
 	max_amount = 100
@@ -73,7 +73,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "marker"
 	layer = BELOW_OPEN_DOOR_LAYER
-	armor = list("melee" = 50, "bullet" = 75, "laser" = 75, "energy" = 75, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 25, "acid" = 0)
+	armor = list(MELEE = 50, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 25, BIO = 100, RAD = 100, FIRE = 25, ACID = 0)
 	max_integrity = 50
 	anchored = TRUE
 	light_range = 2
@@ -141,3 +141,21 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	if(input_color)
 		picked_color = input_color
 		update_icon()
+
+/obj/structure/marker_beacon/dock_marker
+	name = "docking beacon"
+	desc = "An illumination device used to designate docking ports. It is anchored in place and pulsing steadily."
+	icon_state = "dockingmarker"
+	flags = NODECONSTRUCT
+
+/obj/structure/marker_beacon/dock_marker/update_icon()
+	set_light(light_range, light_power, LIGHT_COLOR_BLUE)
+
+/obj/structure/marker_beacon/dock_marker/attackby()
+	return
+
+/obj/structure/marker_beacon/dock_marker/attack_hand()
+	return
+
+/obj/structure/marker_beacon/dock_marker/AltClick()
+	return

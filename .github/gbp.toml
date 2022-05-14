@@ -1,0 +1,17 @@
+no_balance_label = "GBP: No Update"
+reset_label = "GBP: Reset"
+
+[points]
+"Administration" = 2
+"Balance" = -8
+"Code Improvement" = 1
+"Feature" = -9
+"Fix" = 3
+"GC Related" = 12
+"Grammar and Formatting" = 1
+"High Priority" = 20
+"Infrastructure" = 5
+"Performance" = 12
+"Refactor" = 3
+"Sound" = 1
+"Sprites" = 1
