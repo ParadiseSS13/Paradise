@@ -61,12 +61,12 @@
 
 			held_brain = B
 			if(istype(O,/obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
-				name = "[mmi_item_name]: Alien - [brainmob.real_name]"
+				name = "\improper [mmi_item_name]: Alien - [brainmob.real_name]"
 				icon = 'icons/mob/alien.dmi'
 				become_occupied("AlienMMI")
 				alien = 1
 			else
-				name = "[mmi_item_name]: [brainmob.real_name]"
+				name = "\improper [mmi_item_name]: [brainmob.real_name]"
 				icon = B.mmi_icon
 				become_occupied("[B.mmi_icon_state]")
 				alien = 0
@@ -150,7 +150,7 @@
 	held_brain.dna = brainmob.dna.Clone()
 	held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
 
-	name = "[mmi_item_name]: [brainmob.real_name]"
+	name = "\improper [mmi_item_name]: [brainmob.real_name]"
 	become_occupied("mmi_full")
 
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
