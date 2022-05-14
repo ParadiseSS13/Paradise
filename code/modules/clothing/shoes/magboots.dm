@@ -133,7 +133,7 @@
 	desc = "These experimental boots try to get around the restrictions of magboots by installing miniture gravitational generators in the soles. Sadly, power hungry, and needs a gravitational anomaly core."
 	icon_state = "gravboots0"
 	origin_tech = "materials=6;magnets=6;engineering=6"
-	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/ghop) //In other news, combining magboots with jumpboots is a mess
+	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/gravity_jump) //In other news, combining magboots with jumpboots is a mess
 	strip_delay = 10 SECONDS
 	put_on_delay = 10 SECONDS
 	slowdown_active = SHOES_SLOWDOWN

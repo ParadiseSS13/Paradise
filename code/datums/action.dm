@@ -443,11 +443,11 @@
 	use_itemicon = FALSE
 
 
-/datum/action/item_action/ghop
+/datum/action/item_action/gravity_jump
 	name = "Gravity jump"
 	desc = "Directs a pulse of gravity in front of the user, pulling them foward rapidly."
 
-/datum/action/item_action/ghop/Trigger()
+/datum/action/item_action/gravity_jump/Trigger()
 	if(!IsAvailable())
 		return FALSE
 
