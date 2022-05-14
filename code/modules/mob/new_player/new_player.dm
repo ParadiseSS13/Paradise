@@ -87,6 +87,8 @@
 	..()
 
 	statpanel("Lobby")
+	if(client.statpanel == "Status" && SSticker?.current_state == GAME_STATE_PREGAME)
+		stat("Time To Start: [SSticker.ticker_going ? round(SSticker.pregame_timeleft / 10) : "DELAYED"]")
 	if(client.statpanel=="Lobby" && SSticker)
 		if(SSticker.hide_mode)
 			stat("Game Mode:", "Secret")
