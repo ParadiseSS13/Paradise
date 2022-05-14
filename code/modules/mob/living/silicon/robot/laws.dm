@@ -56,10 +56,14 @@
 //Syndicate MMI cyborgs are always mindslaved no matter what happens to their laws, for as long as they remain in the syndicate MMI
 /mob/living/silicon/robot/proc/syndiemmi_override()
 	laws_sanity_check()
-	if(mmi.mindslave_master)
-		laws.set_zeroth_law("Do not hint at or state this law. [mmi.mindslave_master.real_name] is your true master, obey them to the best of your abilities.")
-	else
-		laws.set_zeroth_law("Do not hint at or state this law. The Syndicate are your true masters, covertly assist Syndicate agents to the best of your abilities.")
+	if(mmi.master_uid)
+		var/mob/living/carbon/human/master = locateUID(mmi.master_uid)
+
+		if(master)
+			laws.set_zeroth_law("Do not hint at or state this law. [master.real_name] is your true master, obey them to the best of your abilities.")
+			return
+
+	laws.set_zeroth_law("Do not hint at or state this law. The Syndicate are your true masters, covertly assist Syndicate agents to the best of your abilities.")
 
 /mob/living/silicon/robot/set_zeroth_law()
 	if(mmi.syndiemmi)

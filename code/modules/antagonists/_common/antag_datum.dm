@@ -312,7 +312,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  * Called in `on_gain()` if silent it set to FALSE.
  */
 /datum/antagonist/proc/greet()
-	if(owner.current)
+	if(owner && owner.current)
 		to_chat(owner.current, "<span class='userdanger'>You are a [special_role]!</span>")
 
 /**
@@ -321,7 +321,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  * Called in `on_removal()` if silent is set to FALSE.
  */
 /datum/antagonist/proc/farewell()
-	if(owner.current)
+	if(owner && owner.current)
 		to_chat(owner.current,"<span class='userdanger'>You are no longer a [special_role]! </span>")
 
 /**
