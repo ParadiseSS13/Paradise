@@ -41,7 +41,7 @@
 	if(!antable)
 		return
 	var/turf/T = get_turf(src)
-	if(isturf(loc) && !locate(/obj/structure/table) in T)
+	if(isturf(loc) && (T.temperature in 280 to 325) && !locate(/obj/structure/table) in T)
 		if(ant_location == T)
 			if(prob(15))
 				if(!locate(/obj/effect/decal/ants) in T)
