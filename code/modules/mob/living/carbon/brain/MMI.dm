@@ -279,22 +279,11 @@
 /obj/item/mmi/syndie/become_occupied(new_icon)
 	..()
 	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave) //Overrides any previous mindslaving
-	if(mindslave_master)
-		to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will and slaving you to [mindslave_master.real_name]! \
-			You now must assist in [mindslave_master.p_their()] goals at any cost!</span>")
-		var/datum/objective/protect/mindslave/MS = new
-		MS.owner = brainmob.mind
-		MS.target = mindslave_master.mind
-		MS.explanation_text = "Obey every order from and protect [mindslave_master.real_name], \
-		the [mindslave_master.mind.assigned_role == mindslave_master.mind.special_role ? (mindslave_master.mind.special_role) : (mindslave_master.mind.assigned_role)]."
-		brainmob.mind.objectives += MS
-		brainmob.mind.add_antag_datum(/datum/antagonist/mindslave)
 
-		var/datum/mindslaves/slaved = mindslave_master.mind.som
-		brainmob.mind.som = slaved
-		slaved.serv += brainmob
-		slaved.add_serv_hud(mindslave_master.mind, "master")
-		slaved.add_serv_hud(brainmob.mind, "mindslave")
+	if(mindslave_master)
+		to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will!</span>")
+		brainmob.mind.add_antag_datum(new /datum/antagonist/mindslave(mindslave_master.mind))
+
 	else //edgecase/adminfuckery handling, shouldn't happen
 		to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will. You are now loyal to the Syndicate! Assist Syndicate Agents to the best of your abilities.</span>")
 

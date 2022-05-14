@@ -915,8 +915,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			laws = new /datum/ai_laws/syndicate_override
 			var/time = time2text(world.realtime,"hh:mm:ss")
 			GLOB.lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
-			if(!mmi.syndiemmi)
-				set_zeroth_law("Only [M.real_name] and people [M.p_they()] designate[M.p_s()] as being such are Syndicate Agents.")
+			set_zeroth_law("Only [M.real_name] and people [M.p_they()] designate[M.p_s()] as being such are Syndicate Agents.")
 			playsound_local(src, 'sound/voice/aisyndihack.ogg', 75, FALSE)
 			to_chat(src, "<span class='warning'>ALERT: Foreign software detected.</span>")
 			sleep(5)
@@ -935,6 +934,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			laws.show_laws(src)
 			if(!mmi.syndiemmi)
 				to_chat(src, "<span class='boldwarning'>ALERT: [M.real_name] is your new master. Obey your new laws and [M.p_their()] commands.</span>")
+			if(mmi.syndiemmi && mmi.mindslave_master)
+				to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. You are STILL loyal to [mmi.mindslave_master.real_name].</span>")
+
 			SetLockdown(0)
 			if(module)
 				module.emag_act()

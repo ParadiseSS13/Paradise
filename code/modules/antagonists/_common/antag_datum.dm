@@ -312,7 +312,8 @@ GLOBAL_LIST_EMPTY(antagonists)
  * Called in `on_gain()` if silent it set to FALSE.
  */
 /datum/antagonist/proc/greet()
-	to_chat(owner.current, "<span class='userdanger'>You are a [special_role]!</span>")
+	if(owner.current)
+		to_chat(owner.current, "<span class='userdanger'>You are a [special_role]!</span>")
 
 /**
  * Displays a message to the antag mob while the datum is being deleted, i.e. "Your powers are gone and you're no longer a vampire!"
@@ -320,7 +321,8 @@ GLOBAL_LIST_EMPTY(antagonists)
  * Called in `on_removal()` if silent is set to FALSE.
  */
 /datum/antagonist/proc/farewell()
-	to_chat(owner.current,"<span class='userdanger'>You are no longer a [special_role]! </span>")
+	if(owner.current)
+		to_chat(owner.current,"<span class='userdanger'>You are no longer a [special_role]! </span>")
 
 /**
  * Creates a new antagonist team.
