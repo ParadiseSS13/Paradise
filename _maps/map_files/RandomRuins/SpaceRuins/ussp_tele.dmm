@@ -168,7 +168,6 @@
 /area/derelict/teleporter)
 "B" = (
 /obj/machinery/power/apc/noalarm{
-	dir = 0;
 	name = "Worn-out APC";
 	pixel_y = -24
 	},
