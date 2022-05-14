@@ -129,13 +129,13 @@
 
 
 /obj/item/clothing/shoes/magboots/gravity
-	name = "Gravitational boots"
+	name = "gravitational boots"
 	desc = "These experimental boots try to get around the restrictions of magboots by installing miniture gravitational generators in the soles. Sadly, power hungry, and needs a gravitational anomaly core."
 	icon_state = "gravboots0"
 	origin_tech = "materials=6;magnets=6;engineering=6"
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/ghop) //In other news, combining magboots with jumpboots is a mess
-	strip_delay = 100
-	put_on_delay = 100
+	strip_delay = 10 SECONDS
+	put_on_delay = 10 SECONDS
 	slowdown_active = SHOES_SLOWDOWN
 	magboot_state = "gravboots"
 	var/datum/martial_art/grav_stomp/style = new //Only works with core and cell installed.
@@ -149,6 +149,7 @@
 	var/obj/item/stock_parts/cell/cell = null
 
 /obj/item/clothing/shoes/magboots/gravity/Destroy()
+	QDEL_NULL(style)
 	QDEL_NULL(cell)
 	QDEL_NULL(core)
 	return ..()
@@ -156,7 +157,7 @@
 /obj/item/clothing/shoes/magboots/gravity/examine(mob/user)
 	. = ..()
 	if(core && cell)
-		. += "<span class='notice'>[src] is fully operational!</span>"
+		. += "<span class='notice'>[src] are fully operational!</span>"
 		. += "<span class='notice'>The boots are [round(cell.percent())]% charged.</span>"
 	else if(core)
 		. += "<span class='warning'>It has a gravitational anomaly core installed, but no power cell installed.</span>"
@@ -181,7 +182,7 @@
 /obj/item/clothing/shoes/magboots/gravity/process()
 	if(cell) //There should be a cell here, but safety first
 		if(cell.charge <= power_consumption_rate * 2 && magpulse)
-			if(istype(loc, /mob/living/carbon/human))
+			if(ishuman(loc))
 				var/mob/living/carbon/human/user = loc
 				to_chat(user, "<span class='warning'>[src] has ran out of charge, and turned off!</span>")
 				attack_self(user)
@@ -237,8 +238,7 @@
 	if(!ishuman(user))
 		return
 	if(slot == slot_shoes && cell && core)
-		var/mob/living/carbon/human/H = user
-		style.teach(H,1)
+		style.teach(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/dropped(mob/user)
 	..()
