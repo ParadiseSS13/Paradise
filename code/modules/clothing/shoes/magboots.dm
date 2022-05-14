@@ -130,12 +130,14 @@
 
 /obj/item/clothing/shoes/magboots/gravity
 	name = "Gravitational boots"
-	desc = "Mention experimental, add core stuff."
-	icon_state = "magboots0"
+	desc = "These experimental boots try to get around the restrictions of magboots by installing miniture gravitational generators in the soles. Sadly, power hungry, and needs a gravitational anomaly core."
+	icon_state = "gravboots0"
 	origin_tech = "materials=6;magnets=6;engineering=6"
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/ghop) //In other news, combining magboots with jumpboots is a mess
 	strip_delay = 100
 	put_on_delay = 100
+	slowdown_active = SHOES_SLOWDOWN
+	magboot_state = "gravboots"
 	var/datum/martial_art/grav_stomp/style = new //Only works with core and cell installed.
 	var/jumpdistance = 5
 	var/jumpspeed = 3
@@ -162,6 +164,19 @@
 		. += "<span class='warning'>It has a power installed, but no gravitational anomaly core installed.</span>"
 	else
 		. += "<span class='warning'>It is missing a gravitational anomaly core and a power cell.</span>"
+
+/obj/item/clothing/shoes/magboots/gravity/attack_self(mob/user)
+	if(!cell)
+		to_chat(user, "<span class='warning'>Your boots do not have a power cell!</span>")
+		return
+	else if(cell.charge <= power_consumption_rate && !magpulse)
+		to_chat(user, "<span class='warning'>Your boots do not have enough charge!</span>")
+		return
+	if(!core)
+		to_chat(user, "<span class='warning'>There's no core installed!</span>")
+		return
+
+	..()
 
 /obj/item/clothing/shoes/magboots/gravity/process()
 	if(cell) //There should be a cell here, but safety first
@@ -214,7 +229,6 @@
 		to_chat(user, "<span class='notice'>You insert [I] into [src], and [src] starts to warm up.</span>")
 		I.forceMove(src)
 		core = I
-		update_icon()
 	else
 		return ..()
 
@@ -222,7 +236,7 @@
 	..()
 	if(!ishuman(user))
 		return
-	if(slot == slot_shoes)
+	if(slot == slot_shoes && cell && core)
 		var/mob/living/carbon/human/H = user
 		style.teach(H,1)
 
