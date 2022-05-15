@@ -74,15 +74,6 @@
 	else
 		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
 
-/client/verb/hublist()
-	set name = "hublist"
-	set desc = "Зацените игровые сервера проекта SS220"
-	set hidden = TRUE
-	if(!GLOB.hublist)
-		to_chat(src, "<span class='danger'>The hublist data is not set in the server configuration.</span>")
-		return
-	hublistpanel()
-
 /client/verb/hotkeys_help()
 	set name = "Hotkey Help"
 	set category = "OOC"

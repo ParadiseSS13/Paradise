@@ -380,18 +380,6 @@ window "rpane"
 		saved-params = "is-checked"
 		text = "Donate"
 		command = "Donate"
-	elem "hublist"
-		type = BUTTON
-		pos = 682,7
-		size = 60x16
-		anchor1 = none
-		anchor2 = none
-		font-style = "bold"
-		text-color = #ffffff
-		background-color = #008080
-		saved-params = "is-checked"
-		text = "Сервера"
-		command = "hublist"
 	elem "browseb"
 		type = BUTTON
 		pos = 561,7

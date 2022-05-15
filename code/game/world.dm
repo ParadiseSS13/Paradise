@@ -187,7 +187,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 /world/proc/load_motd()
 	GLOB.join_motd = file2text("config/motd.txt")
 	GLOB.join_tos = file2text("config/tos.txt")
-	GLOB.hublist = file2text("config/hublist.txt")
 
 /proc/load_configuration()
 	config = new /datum/configuration()

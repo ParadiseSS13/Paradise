@@ -3,7 +3,6 @@ GLOBAL_REAL(config, /datum/configuration)
 GLOBAL_VAR(host)
 GLOBAL_VAR(join_motd)
 GLOBAL_VAR(join_tos)
-GLOBAL_VAR(hublist)
 GLOBAL_VAR_INIT(game_version, "ParaCode")
 GLOBAL_VAR_INIT(game_year, (text2num(time2text(world.realtime, "YYYY")) + 544))
 

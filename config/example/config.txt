@@ -536,14 +536,5 @@ RESPAWN_DELAY_DRONE 10
 # Log all timers on timer auto reset
 LOG_TIMERS_ON_BUCKET_RESET
 
-## Hublist url for dynamic servers list
-#HUBLIST_URL http://example.com
-
 ## List of IP addresses (separated with space) to be ignored by the world/Topic rate limiting. Useful if you have other services
 TOPIC_FILTERING_WHITELIST 127.0.0.1
-
-## Enable player count statuses and available slots for Queue Engine
-#QUEUE_ENGINE_ENABLED
-
-## Webhook address to send data
-#QUEUE_ENGINE_WEBHOOK http://127.0.0.1:3000/api/v1/webhooks/status/7777
