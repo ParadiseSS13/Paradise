@@ -14,6 +14,10 @@
 	put_on_delay = 70
 	resistance_flags = FIRE_PROOF
 
+/obj/item/clothing/shoes/magboots/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
 /obj/item/clothing/shoes/magboots/atmos
 	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
 	name = "atmospheric magboots"
@@ -23,9 +27,11 @@
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
 	if(magpulse)
+		START_PROCESSING(SSobj, src) //Gravboots
 		flags &= ~NOSLIP
 		slowdown = slowdown_passive
 	else
+		STOP_PROCESSING(SSobj, src)
 		flags |= NOSLIP
 		slowdown = slowdown_active
 	magpulse = !magpulse
@@ -149,12 +155,7 @@
 	var/obj/item/assembly/signaler/anomaly/grav/core = null
 	var/obj/item/stock_parts/cell/cell = null
 
-/obj/item/clothing/shoes/magboots/gravity/Initialize(mapload)
-	. = ..()
-	START_PROCESSING(SSobj, src)
-
 /obj/item/clothing/shoes/magboots/gravity/Destroy()
-	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(style)
 	QDEL_NULL(cell)
 	QDEL_NULL(core)
