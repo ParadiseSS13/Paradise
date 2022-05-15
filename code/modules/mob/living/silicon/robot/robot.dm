@@ -934,8 +934,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			laws.show_laws(src)
 			if(!mmi.syndiemmi)
 				to_chat(src, "<span class='boldwarning'>ALERT: [M.real_name] is your new master. Obey your new laws and [M.p_their()] commands.</span>")
-			if(mmi.syndiemmi && mmi.master_uid)
-				to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep obeying your current master.</span>")
+			else if(mmi.syndiemmi && mmi.master_uid)
+				to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving your current master.</span>")
+			else
+				to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving all Syndicate agents to the best of your abilities.</span>")
 
 			SetLockdown(0)
 			if(module)

@@ -26,7 +26,7 @@
 
 	/// Time at which the ghost belonging to the mind in the mmi can be pinged again to be borged
 	var/next_possible_ghost_ping
-	//Used by syndie MMIs, stores the master's UID for later referencing
+	//Used by syndie MMIs, stores the master's mind UID for later referencing
 	var/master_uid = null
 
 /obj/item/mmi/attackby(obj/item/O as obj, mob/user as mob, params)
@@ -309,9 +309,9 @@
 	mmi_item_name = "Syndicate Man-Machine Interface"
 
 /obj/item/mmi/syndie/attackby(obj/item/O, mob/user, params)
-	if(!master_uid && ishuman(user) && istype(O,/obj/item/organ/internal/brain))
+	if(!master_uid && ishuman(user) && user.mind && istype(O,/obj/item/organ/internal/brain))
 		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
-		master_uid = user.UID()
+		master_uid = user.mind.UID()
 		if(!user.mind.has_antag_datum(/datum/antagonist/traitor))
 			message_admins("[user] has mindslaved [O] using a Syndicate MMI, but they are not a traitor!")
 	..()
@@ -321,11 +321,11 @@
 	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave) //Overrides any previous mindslaving
 
 	if(master_uid)
-		var/mob/living/carbon/human/master = locateUID(master_uid)
+		var/datum/mind/master = locateUID(master_uid)
 
 		if(master)
 			to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will!</span>")
-			brainmob.mind.add_antag_datum(new /datum/antagonist/mindslave(master.mind))
+			brainmob.mind.add_antag_datum(new /datum/antagonist/mindslave(master))
 			return
 
 	//Edgecase handling, shouldn't get here

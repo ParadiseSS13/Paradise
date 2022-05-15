@@ -63,7 +63,8 @@
 							You must lay down your life to protect [master.current.p_them()] and assist in [master.current.p_their()] goals at any cost.</span>")
 
 /datum/antagonist/mindslave/farewell()
-	to_chat(owner.current, "<span class='biggerdanger'>You are no longer a mindslave of [master.current]!</span>")
+	if(owner && owner.current)
+		to_chat(owner.current, "<span class='biggerdanger'>You are no longer a mindslave of [master.current]!</span>")
 
 /datum/antagonist/mindslave/add_antag_hud(mob/living/antag_mob)
 	. = ..()

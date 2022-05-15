@@ -57,13 +57,13 @@
 /mob/living/silicon/robot/proc/syndiemmi_override()
 	laws_sanity_check()
 	if(mmi.master_uid)
-		var/mob/living/carbon/human/master = locateUID(mmi.master_uid)
+		var/datum/mind/master = locateUID(mmi.master_uid)
 
-		if(master)
-			laws.set_zeroth_law("Do not hint at or state this law. [master.real_name] is your true master, obey them to the best of your abilities.")
+		if(master && master.current)
+			laws.set_zeroth_law("Do not state this law. [master.current.real_name] is your true master, serve them to the best of your abilities.")
 			return
 
-	laws.set_zeroth_law("Do not hint at or state this law. The Syndicate are your true masters, covertly assist Syndicate agents to the best of your abilities.")
+	laws.set_zeroth_law("Do not state this law. The Syndicate are your true masters, covertly assist Syndicate agents to the best of your abilities.")
 
 /mob/living/silicon/robot/set_zeroth_law()
 	if(mmi.syndiemmi)
