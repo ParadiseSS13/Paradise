@@ -189,7 +189,7 @@
 /obj/item/clothing/shoes/magboots/gravity/process()
 	if(!cell) //There should be a cell here, but safety first
 		return
-	if(cell.charge <= power_consumption_rate * 2 && magpulse)
+	if(cell.charge <= power_consumption_rate * 2)
 		if(ishuman(loc))
 			var/mob/living/carbon/human/user = loc
 			to_chat(user, "<span class='warning'>[src] has ran out of charge, and turned off!</span>")
@@ -256,7 +256,7 @@
 	if(H.get_item_by_slot(slot_shoes) == src)
 		style.remove(H)
 		if(magpulse)
-			to_chat(user, "<span class='notice'>As [src] is removed, it deactivates.</span>")
+			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
 			attack_self(user)
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
