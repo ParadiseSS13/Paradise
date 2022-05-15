@@ -238,15 +238,12 @@ gamemode_probabilities = [
 	{gamemode = "nuclear", probability = 2},
 	{gamemode = "raginmages", probability = 0},
 	{gamemode = "revolution", probability = 0},
-	{gamemode = "shadowling", probability = 1},
 	{gamemode = "traitor", probability = 2},
 	{gamemode = "traitorchan", probability = 3},
 	{gamemode = "traitorvamp", probability = 3},
 	{gamemode = "vampire", probability = 3},
 	{gamemode = "wizard", probability = 2},
 ]
-# Maximum cycles (2s) before a shadowling starts to take damage if they dont hatch
-shadowling_max_age = 600 # 20 minutes
 # Do we want the amount of traitors to scale with population?
 traitor_scaling = true
 # Protect mindshielded roles from being antagonists
