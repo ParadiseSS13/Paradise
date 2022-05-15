@@ -67,8 +67,12 @@
 #define SET_STATUS_EFFECT_STRENGTH(T, A) \
 	A = max(A, 0);\
 	if(A) {;\
-		var/datum/status_effect/transient/S = has_status_effect(T) || apply_status_effect(T);\
-		S.strength = A;\
+		var/datum/status_effect/transient/S = has_status_effect(T);\
+		if(!S) {;\
+			apply_status_effect(T, A);\
+		} else {;\
+			S.strength = A;\
+		};\
 	} else {;\
 		remove_status_effect(T);\
 	}
@@ -387,7 +391,7 @@
 	if(S)
 		S.duration = amount + world.time
 	else if(amount > 0)
-		S = apply_status_effect(/datum/status_effect/incapacitating/sleeping, amount)
+		S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount)
 	return S
 
 /mob/living/proc/PermaSleeping() /// used for admin freezing.
@@ -395,7 +399,7 @@
 	if(S)
 		S.duration = -1
 	else
-		S = apply_status_effect(/datum/status_effect/incapacitating/sleeping, -1)
+		S = apply_status_effect(STATUS_EFFECT_SLEEPING, -1)
 	return S
 
 /mob/living/proc/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY)

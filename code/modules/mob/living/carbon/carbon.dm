@@ -231,7 +231,7 @@
 					if(H.w_uniform)
 						H.w_uniform.add_fingerprint(M)
 				AdjustSleeping(-10 SECONDS)
-				if(AmountSleeping() == 0)
+				if(!AmountSleeping())
 					StopResting()
 				AdjustParalysis(-6 SECONDS)
 				AdjustStunned(-6 SECONDS)

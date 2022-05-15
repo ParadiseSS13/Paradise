@@ -182,6 +182,7 @@
 
 /datum/status_effect/transient/confusion/on_remove()
 	owner.cut_overlay(overlay)
+	overlay = null
 	return ..()
 
 /**
@@ -365,7 +366,7 @@
 			var/mob/living/carbon/human/H = new_owner
 			set_duration = H.dna.species.spec_stun(H, set_duration)
 		duration = set_duration
-	if(duration == 0)
+	if(!duration)
 		return FALSE
 	. = ..()
 	if(. && (needs_update_stat || issilicon(owner)))
@@ -387,14 +388,16 @@
 /datum/status_effect/incapacitating/immobilized
 	id = "immobilized"
 
-//WEAKENED
+//WEAKENED - prevents movement and action, victim falls over
 /datum/status_effect/incapacitating/weakened
 	id = "weakened"
 
+//PARALYZED - prevents movement and action, victim falls over, victim cannot hear or see.
 /datum/status_effect/incapacitating/paralyzed
 	id = "paralyzed"
 	needs_update_stat = TRUE
 
+//SLEEPING - victim falls over, cannot act, cannot see or hear, heals under certain conditions.
 /datum/status_effect/incapacitating/sleeping
 	id = "sleeping"
 	tick_interval = 2 SECONDS
@@ -524,11 +527,11 @@
   * Arguments:
   * * H - The type path of the hallucination to spawn.
   */
-/datum/status_effect/transient/hallucination/proc/hallucinate(obj/effect/hallucination/H)
-	ASSERT(ispath(H))
+/datum/status_effect/transient/hallucination/proc/hallucinate(obj/effect/hallucination/hallucination_type)
+	ASSERT(ispath(hallucination_type))
 	if(owner.ckey)
-		add_attack_logs(null, owner, "Received hallucination [H]", ATKLOG_ALL)
-	return new H(get_turf(owner), owner)
+		add_attack_logs(null, owner, "Received hallucination [hallucination_type]", ATKLOG_ALL)
+	return new hallucination_type(get_turf(owner), owner)
 
 #undef HALLUCINATE_COOLDOWN_MIN
 #undef HALLUCINATE_COOLDOWN_MAX
@@ -546,12 +549,6 @@
 	. = ..()
 
 /datum/status_effect/transient/eye_blurry/on_remove()
-	owner.update_blurry_effects()
-
-/datum/status_effect/transient/eye_blurry/tick()
-	. = ..()
-	if(!.)
-		return
 	owner.update_blurry_effects()
 
 /datum/status_effect/transient/eye_blurry/calc_decay()
@@ -574,10 +571,8 @@
 /datum/status_effect/transient/blindness
 	id = "blindness"
 
-/datum/status_effect/transient/blindness/tick()
+/datum/status_effect/transient/blindness/on_apply()
 	. = ..()
-	if(!.)
-		return
 	owner.update_blind_effects()
 
 /datum/status_effect/transient/blindness/on_remove()
@@ -602,12 +597,9 @@
 /datum/status_effect/transient/drugged
 	id = "drugged"
 
-/datum/status_effect/transient/drugged/tick()
+/datum/status_effect/transient/drugged/on_apply()
 	. = ..()
-	if(!.)
-		return
 	owner.update_druggy_effects()
 
 /datum/status_effect/transient/drugged/on_remove()
-	if(owner)
-		owner.update_druggy_effects()
+	owner.update_druggy_effects()

@@ -285,6 +285,11 @@
 	/// How much strength left before expiring? time in deciseconds.
 	var/strength = 0
 
+/datum/status_effect/transient/on_creation(mob/living/new_owner, set_duration)
+	if(isnum(set_duration))
+		strength = set_duration
+	. = ..()
+
 /datum/status_effect/transient/tick()
 	if(QDELETED(src) || QDELETED(owner))
 		return FALSE

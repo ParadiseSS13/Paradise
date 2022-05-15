@@ -99,7 +99,7 @@
 		head_attack_message = " on the head"
 		//Weaken the target for the duration that we calculated and divide it by 5.
 		if(armor_duration)
-			var/stun_time = (min(armor_duration, 10)) * 2 SECONDS
+			var/stun_time = (min(armor_duration, 10)) STATUS_EFFECT_CONSTANT
 			target.Weaken(stun_time)
 
 	//Display an attack message.
