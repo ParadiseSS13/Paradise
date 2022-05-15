@@ -527,7 +527,7 @@
   * Arguments:
   * * H - The type path of the hallucination to spawn.
   */
-/datum/status_effect/transient/hallucination/proc/hallucinate(obj/effect/hallucination/hallucination_type)
+/datum/status_effect/transient/hallucination/proc/hallucinate(hallucination_type)
 	ASSERT(ispath(hallucination_type))
 	if(owner.ckey)
 		add_attack_logs(null, owner, "Received hallucination [hallucination_type]", ATKLOG_ALL)
