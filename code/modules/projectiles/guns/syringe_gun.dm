@@ -120,6 +120,8 @@
 	syringes = null
 
 	if(chambered)
+		if(chambered.BB)
+			qdel(chambered.BB)
 		qdel(chambered)
 
 	QDEL_NULL(internal_beaker)
@@ -137,17 +139,17 @@
 		. += "<span class='notice'>You can see the chambered syringe contains [chambered.BB.reagents.total_volume] units."
 
 /// If user is null in this proc, messages will just be ignored
-/obj/item/gun/syringe/rapidsyringe/proc/insert_single_syringe(var/obj/item/reagent_containers/syringe/new_syringe, mob/user)
+/obj/item/gun/syringe/rapidsyringe/proc/insert_single_syringe(obj/item/reagent_containers/syringe/new_syringe, mob/user)
 	if(new_syringe.reagents.total_volume)
 		if(user)
-			to_chat(user, "<span class='warning'>[src] only accepts empty syringes.")
+			to_chat(user, "<span class='warning'>[src] only accepts empty syringes.</span>")
 		return FALSE
 	var/in_clip = length(syringes) + (chambered?.BB ? 1 : 0)
 	if(in_clip < max_syringes)
 		if(user)
 			if(!user.unEquip(new_syringe))
 				return
-			to_chat(user, "<span class='notice'>You load [new_syringe] into [src]!</span>")
+			to_chat(user, "<span class='notice'>You load \the [new_syringe] into [src].</span>")
 		syringes.Add(new_syringe)
 		new_syringe.loc = src
 		process_chamber() // Chamber the syringe if none is already
@@ -196,7 +198,7 @@
 			return
 
 		if(internal_beaker.reagents.holder_full())
-			to_chat(user, "<span class='warning'>[src]'s internal reservoir is full.</span>")
+			to_chat(user, "<span class='warning'>[src]'s internal reservoir is full!</span>")
 			return
 
 		var/trans = incoming.reagents.trans_to(internal_beaker, incoming.amount_per_transfer_from_this)
@@ -301,21 +303,27 @@
 		handle_suicide(user, user)
 	return TOXLOSS
 
-/// Version that comes loaded with syringes
+/// Version that comes pre-loaded with a given amount of syringes.
 /obj/item/gun/syringe/rapidsyringe/preloaded
+	/// The number of syringes to reload. If not set, defaults to max_syringes.
+	var/number_to_preload
 
 /obj/item/gun/syringe/rapidsyringe/preloaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/reagent_containers/syringe/new_syringe
-	for(var/i in 0 to max_syringes)
+	for(var/i in 0 to (number_to_preload == null ? max_syringes : number_to_preload))
 		new_syringe = new()
 		insert_single_syringe(new_syringe)
 
+/// Version that comes loaded with half of the standard amount of syringes. Used in the uplink.
+/obj/item/gun/syringe/rapidsyringe/preloaded/half
+	var/number_to_preload = max_syringes / 2
 
-// For the admemes
+
+/// For shenanigans. This is essentially an RSG that never needs to be refilled.
 /obj/item/gun/syringe/rapidsyringe/preloaded/beaker_blaster
 	name = "beaker buster"
-	desc = "An incredibly stupid syringe gun presumably cobbled together with the power of bluespace and powerful stimulants. Can shoot large amounts of reagents with an endless supply of syringes."
+	desc = "A syringe gun presumably cobbled together with the power of bluespace and powerful stimulants. Can shoot large amounts of reagents with an endless supply of syringes."
 	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50)
 	max_syringes = 3  // doesn't really matter since they regen
 
