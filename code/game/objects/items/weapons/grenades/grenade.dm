@@ -83,6 +83,11 @@
 
 /obj/item/grenade/proc/prime()
 
+
+/obj/item/grenade/proc/unprime()
+	active = FALSE
+	icon_state = initial(icon_state)
+
 /obj/item/grenade/proc/update_mob()
 	if(ismob(loc))
 		var/mob/M = loc
