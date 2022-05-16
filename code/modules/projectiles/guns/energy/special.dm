@@ -759,10 +759,10 @@
 
 /obj/item/gun/energy/detective
 	name = "placeholder_det_energy"
-	desc = "Placeholder description text for energy revolver"
+	desc = "Placeholder description text for energy revolver. Shift-click to clear active tracked target."
 	icon_state = "det_placeholder"
 	modifystate = TRUE
-	ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/warrant_generator, /obj/item/ammo_casing/energy/detective/tracker)
+	ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/tracker_warrant)
 	ammo_x_offset = 4
 	/// If true, this gun is tracking something and cannot track another mob
 	var/tracking_target_UID
@@ -771,15 +771,24 @@
 	/// Used to track if the gun is overcharged
 	var/overcharged
 	/// Yes, this gun has a radio, welcome to 2022
-	var/obj/item/radio/Announcer
+	var/obj/item/radio/headset/det_gun/Announcer
 
-/obj/item/radio/headset/gun
+/obj/item/radio/headset/det_gun
 	requires_tcomms = FALSE
 
 /obj/item/gun/energy/detective/Initialize(mapload, ...)
 	. = ..()
-	Announcer = new /obj/item/radio/headset/gun(src)
+	Announcer = new /obj/item/radio/headset/det_gun(src)
 	Announcer.recalculateChannels((list("Security" = 0)))
+
+/obj/item/gun/energy/detective/ShiftClick(mob/user)
+	. = ..()
+	var/tracking_target = locateUID(tracking_target_UID)
+	if(!tracking_target)
+		return
+	if(alert("Do you really want to clear the tracker?", "Tracker reset", "Yes", "No") == "Yes")
+		to_chat(user, "<span class='notice'>[src] stops tracking [tracking_target]</span>")
+		stop_pointing()
 
 /obj/item/gun/energy/detective/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -794,7 +803,7 @@
 		select_fire(user)
 	else // Unable to early return due to the visible message at the end
 		overcharged = FALSE
-		ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/warrant_generator, /obj/item/ammo_casing/energy/detective/tracker)
+		ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/tracker_warrant)
 		update_ammo_types()
 		select_fire(user)
 	user.visible_message("[user] [overcharged ? "removes" : "restores"] the safety limits on [src].", "You [overcharged ? "remove" : "restore" ] the safety limits on [src]")
@@ -819,10 +828,12 @@
 	if(overcharged)
 		if(prob(clamp((100 - ((cell.charge / cell.maxcharge) * 100)), 30, 80)))	//minimum probability of 30, maximum of 80
 			playsound(user, fire_sound, 50, 1)
-			to_chat(user, "<span class='userdanger'>[src]'s energy cell overloads!</span>")
+			visible_message("<span class='userdanger'>[src]'s energy cell overloads!</span>")
 			user.apply_damage(60, BURN, pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
 			user.EyeBlurry(10 SECONDS_TO_LIFE_CYCLES)
 			user.flash_eyes(2, TRUE)
+			do_sparks(rand(5, 9), FALSE, src)
+			playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
 			user.unEquip(src)
 			cell.charge = 0 //ha ha you lose
 			return
@@ -832,7 +843,7 @@
 	tracking_target_UID = target_UID
 	Announcer.autosay("Alert: Detective's revolver discharged in tracking mode. Tracking: [locateUID(tracking_target_UID)] at [get_area_name(src)].", src, "Security")
 	tracking_timer = addtimer(CALLBACK(src, .proc/point_at), 1 SECONDS, TIMER_LOOP|TIMER_STOPPABLE)
-	addtimer(CALLBACK(src, .proc/stop_pointing), 30 SECONDS, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, .proc/stop_pointing), 2 MINUTES, TIMER_UNIQUE)
 
 /obj/item/gun/energy/detective/proc/stop_pointing()
 	tracking_target_UID = null

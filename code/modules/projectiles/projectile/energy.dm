@@ -149,7 +149,6 @@
 	shield_buster = TRUE
 	is_reflectable = FALSE //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard.
 
-
 /obj/item/projectile/energy/detective
 	name = "placeholder name"
 	damage = 5
@@ -158,43 +157,23 @@
 
 /obj/item/projectile/energy/detective/overcharged
 	name = "overcharged shot"
-	damage = 60
-	stamina = 0
+	damage = 45
+	stamina = 15
 	eyeblur = 10
 
-/obj/item/projectile/energy/detective/warrant_generator
-	name = "warrant generator"
-	stamina = 0
-
-/obj/item/projectile/energy/detective/warrant_generator/on_hit(atom/target)
-	. = ..()
-	if(!ishuman(target))
-		no_worky()
-		return
-	var/mob/living/carbon/human/target_to_mark = target
-	var/perpname = target_to_mark.get_visible_name(TRUE)
-	if(!perpname || perpname == "Unknown")
-		no_worky()
-		return
-	var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
-	if(!R || R.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
-		no_worky()
-		return
-	set_criminal_status(firer, R, SEC_RECORD_STATUS_ARREST, "Target tagged by Detective Revolver", "Detective Revolver")
-	qdel(src)
-
-/obj/item/projectile/energy/detective/warrant_generator/proc/no_worky()
-	to_chat(firer, "<span class='danger'>Weapon Alert: unable to generate warrant on this target!</span>")
-
-/obj/item/projectile/energy/detective/tracker_shot
+/obj/item/projectile/energy/detective/tracker_warrant_shot
 	name = "tracker shot"
 	stamina = 0
 
-/obj/item/projectile/energy/detective/tracker_shot/on_hit(atom/target)
+/obj/item/projectile/energy/detective/tracker_warrant_shot/on_hit(atom/target)
 	. = ..()
 	if(!ishuman(target))
 		no_worky(target)
 		return
+	start_tracking(target)
+	set_warrant(target)
+
+/obj/item/projectile/energy/detective/tracker_warrant_shot/proc/start_tracking(atom/target)
 	for(var/obj/item/gun/energy/detective/D in firer)
 		if(D.tracking_target_UID)
 			no_worky(tracking_already = TRUE)
@@ -202,8 +181,24 @@
 		D.start_pointing(target.UID())
 	qdel(src)
 
-/obj/item/projectile/energy/detective/tracker_shot/proc/no_worky(atom/target, tracking_already)
+/obj/item/projectile/energy/detective/tracker_warrant_shot/proc/set_warrant(atom/target)
+	var/mob/living/carbon/human/target_to_mark = target
+	var/perpname = target_to_mark.get_visible_name(TRUE)
+	if(!perpname || perpname == "Unknown")
+		no_worky(warrant_fail = TRUE)
+		return
+	var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
+	if(!R || R.fields["criminal"] == (SEC_RECORD_STATUS_EXECUTE || SEC_RECORD_STATUS_ARREST))
+		to_chat(firer, "<span class='danger'>Weapon Alert: Target already set to higher warrant status!</span>")
+		return
+	set_criminal_status(firer, R, SEC_RECORD_STATUS_SEARCH, "Target tagged by Detective Revolver", "Detective Revolver")
+	qdel(src)
+
+/obj/item/projectile/energy/detective/tracker_warrant_shot/proc/no_worky(atom/target, tracking_already, warrant_fail)
 	if(tracking_already)
 		to_chat(firer, "<span class='danger'>Weapon Alert: You are already tracking a target!</span>")
+		return
+	if(warrant_fail)
+		to_chat(firer, "<span class='danger'>Weapon Alert: unable to generate warrant on [target]!</span>")
 		return
 	to_chat(firer, "<span class='danger'>Weapon Alert: unable to track [target]!</span>")

@@ -320,17 +320,10 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_det_energy.ogg'
 	select_name = "disabler"
 
-/obj/item/ammo_casing/energy/detective/warrant_generator
-	projectile_type = /obj/item/projectile/energy/detective/warrant_generator
+/obj/item/ammo_casing/energy/detective/tracker_warrant
+	projectile_type = /obj/item/projectile/energy/detective/tracker_warrant_shot
 	e_cost = 50
-	delay = 3 SECONDS
-	select_name = "warrant generator"
-
-/obj/item/ammo_casing/energy/detective/tracker
-	projectile_type = /obj/item/projectile/energy/detective/tracker_shot
-	e_cost = 50
-	delay = 3 SECONDS
-	select_name = "tracker"
+	select_name = "tracker and warrant generator"
 
 /obj/item/ammo_casing/energy/detective/overcharge
 	projectile_type = /obj/item/projectile/energy/detective/overcharged
