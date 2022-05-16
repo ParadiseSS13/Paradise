@@ -1195,3 +1195,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return
 	. = density
 	density = new_value
+
+///This check is used by swarmers and deconstruction grenades to check if removing this atom would lead to hull breaches.
+/atom/proc/safety_check()
+	var/isonshuttle = istype(get_area(src), /area/shuttle)
+	for(var/turf/T in range(1, src))
+		var/area/A = get_area(T)
+		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
+			return TRUE

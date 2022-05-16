@@ -3,6 +3,7 @@
 #define DECON_WINDOWS	"toggle deconstruct windows"
 #define RECYCLE			"toggle recycle items"
 #define CONSUME_ALL		"toggle destroy unrecycleable items"
+#define DECONSTRUCT_ATTEMPTS 3
 
 /obj/item/grenade/deconstruction
 	name = "material repossession device"
@@ -11,7 +12,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	atom_say_verb = "beeps"
 	bubble_icon = "swarmer"
-	det_time = 10 SECONDS //While an antag can (and will) use this, because of the suddden deconstruction with it primarly being an engineering tool, longer prime time.
+	det_time = 10 SECONDS
 	var/obj/item/assembly/signaler/anomaly/vortex/core = null
 	var/obj/item/radio/radio //Internal radio to annouce to engineering when used / where
 
@@ -28,7 +29,7 @@
 	. = ..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_PLASTIC, MAT_BLUESPACE), 0, TRUE, null, null, null, TRUE)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-	materials.max_amount = 150000 //stack is 100000, so yeah. Should be fine.
+	materials.max_amount = 150000 //stack is 100000, and it dumps after each item, so it should be impossible to overfill
 	radio = new /obj/item/radio(src)
 	radio.listening = 0
 	radio.config(list("Engineering" = 0))
@@ -57,6 +58,9 @@
 		else
 			announce_radio_message("Begining authorised agressive repossession in [Gibberish(A.name, 90)]!")
 		anchored = TRUE
+		playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, 0)
+		addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, loc, 'sound/machines/warning-buzzer.ogg', 60, 0), 3.5 SECONDS)
+		addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, loc, 'sound/machines/warning-buzzer.ogg', 60, 0), 7 SECONDS)//So the alarm plays 3 times
 	return ..()
 
 /obj/item/grenade/deconstruction/attack_hand(mob/user)
@@ -66,6 +70,7 @@
 		atom_say("Repossession aborted. Have a Nanotrasen Day.")
 		announce_radio_message("Repossession aborted.")
 		dont_prime = TRUE
+		playsound(loc, 'sound/machines/terminal_off.ogg', 60, 0)
 	else
 		return ..()
 
@@ -153,7 +158,7 @@
 	if(dont_prime)
 		dont_prime = FALSE
 		return
-	deconstruct_obj(3)
+	deconstruct_obj(DECONSTRUCT_ATTEMPTS)
 	addtimer(CALLBACK(src, .proc/reboot), 60 SECONDS)
 	on_cooldown = TRUE
 
@@ -164,23 +169,36 @@
 /obj/item/grenade/deconstruction/proc/deconstruct_obj(loops = 0) //We want structures fully deconstructed, no frames or anything, so multiple go arounds.
 	if(deconstruct_walls)
 		for(var/turf/simulated/wall/W in view(7, src))
-			if(safety_check(W) && !emagged)
+			var/area/A = get_turf(src)
+			if(W.safety_check() && !emagged)
+				continue
+			if(istype(A, /area/engine/supermatter) & !emagged)
 				continue
 			W.dismantle_wall() //Indestructible walls overide this to false
 
 	for(var/obj/structure/S in view(7, src)) //Two runs for objects of structures and machinery, so we don't try to disasemble mechs, or items, or some other strange typepath.
+		var/area/A = get_turf(src)
 		if(S.resistance_flags & INDESTRUCTIBLE)
 			continue
-		if(safety_check(S) && !emagged)
+		if(S.safety_check() && !emagged)
+			continue
+		if(istype(A, /area/engine/supermatter) & !emagged)
 			continue
 		if(istype(S, /obj/structure/window) && !deconstruct_windows)
+			continue
+		if(istype(S, /obj/structure/blob) && !istype(S, /obj/structure/blob/normal)) //I'll let it work on weak blobs, but not on any strong blob structures.
+			continue
+		if(S.invisibility > 30) //for those weird invisible structures that control stuff (looking at you spacevines)
 			continue
 		S.deconstruct(TRUE)
 
 	for(var/obj/machinery/O in view(7, src))
+		var/area/A = get_turf(src)
 		if(O.resistance_flags & INDESTRUCTIBLE)
 			continue
-		if(safety_check(O) && !emagged)
+		if(O.safety_check() && !emagged)
+			continue
+		if(istype(A, /area/engine/supermatter) & !emagged)
 			continue
 		if(istype(O, /obj/machinery/door) && !deconstruct_doors)
 			continue
@@ -188,6 +206,7 @@
 
 	if(loops)
 		deconstruct_obj(loops -= 1)
+
 	else if(recycle || consume_all)
 		deconstruct_items()
 
@@ -220,12 +239,6 @@
 					qdel(O)
 					materials.retrieve_all()
 
-/obj/item/grenade/deconstruction/proc/safety_check(atom/O)
-	var/isonshuttle = istype(get_area(O), /area/shuttle) //Probably should be global as swarmers use this
-	for(var/turf/T in range(1, O))
-		var/area/A = get_area(T)
-		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
-			return TRUE
 
 /obj/item/grenade/deconstruction/proc/reboot()
 	on_cooldown = FALSE
@@ -242,10 +255,9 @@
 /obj/item/grenade/deconstruction/proc/announce_radio_message(message)
 	radio.autosay(message, name, "Engineering", list(z))
 
-//TODO: CONFIGURE VISUALS
-
 #undef DECON_WALL
 #undef DECON_DOOR
 #undef DECON_WINDOWS
 #undef RECYCLE
 #undef CONSUME_ALL
+#undef DECONSTRUCT_ATTEMPTS

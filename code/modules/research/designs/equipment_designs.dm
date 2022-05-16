@@ -302,6 +302,18 @@
 	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 5000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	category = list("Equipment")
 
+/datum/design/deconstruction
+	name = "R-3 Material Repossession Device"
+	desc = "The R-3 material repossession device was designed by NT to remove unwanted constructions from their stations, and reclaim the materials from it."
+	id = "deconstruction"
+	req_tech = list("combat" = 7, "materials" = 7, "engineering" = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 4000, MAT_SILVER = 4000, MAT_PLASMA = 4000,  MAT_TITANIUM = 8000)
+	build_path = /obj/item/grenade/deconstruction
+	locked = TRUE
+	access_requirement = list(ACCESS_CE) //This is not a science toy, this is an engineering toy.
+	category = list("Equipment")
+
 /datum/design/bluespace_closet
 	name = "Bluespace Closet"
 	desc = "A storage unit that moves and stores through the fourth dimension."
