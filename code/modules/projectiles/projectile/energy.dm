@@ -151,18 +151,24 @@
 
 /obj/item/projectile/energy/detective
 	name = "placeholder name"
+	icon_state = "omnilaser"
+	light_color = LIGHT_COLOR_CYAN
 	damage = 5
 	stamina = 25
 	eyeblur = 5
 
 /obj/item/projectile/energy/detective/overcharged
 	name = "overcharged shot"
+	icon_state = "spark"
+	light_color = LIGHT_COLOR_DARKRED
 	damage = 45
 	stamina = 15
 	eyeblur = 10
 
 /obj/item/projectile/energy/detective/tracker_warrant_shot
 	name = "tracker shot"
+	icon_state = "purple_laser"
+	light_color = LIGHT_COLOR_PURPLE
 	stamina = 0
 
 /obj/item/projectile/energy/detective/tracker_warrant_shot/on_hit(atom/target)

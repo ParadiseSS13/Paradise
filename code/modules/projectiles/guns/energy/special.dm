@@ -793,7 +793,7 @@
 /obj/item/gun/energy/detective/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message("[user] starts [overcharged ? "restoring" : "removing"] the safety limits on [src].", "You start [overcharged ? "restoring" : "removing"] the safety limits on [src]")
-	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 10 SECONDS, volume = I.tool_volume))
 		user.visible_message("[user] stops modifying the safety limits on [src].", "You stop modifying the [src]'s safety limits")
 		return
 	if(!overcharged)
@@ -849,7 +849,6 @@
 	tracking_target_UID = null
 	deltimer(tracking_timer)
 	update_icon()
-	locateUID()
 
 /obj/item/gun/energy/detective/proc/point_at()
 	update_icon() //This cuts any existing range overlays
