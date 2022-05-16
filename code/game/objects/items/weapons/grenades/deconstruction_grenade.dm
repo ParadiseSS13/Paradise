@@ -17,7 +17,7 @@
 	for(var/obj/O in range(7, src))
 		if(istype(O, /obj/item))
 			continue
-		if(resistance_flags & INDESTRUCTIBLE)
+		if(O.resistance_flags & INDESTRUCTIBLE)
 			continue
 		O.deconstruct(TRUE)
 	if(loops)
