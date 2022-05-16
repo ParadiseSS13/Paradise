@@ -938,11 +938,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons/RSG
 	name = "Rapid Syringe Gun"
-	desc = "A rapid syringe gun able to hold six shot and fire them rapidly. Great together with the bioterror syringe"
+	desc = "A rapid syringe gun able to fill and fire syringes automatically from an internal reagent reservoir."
 	reference = "RSG"
 	item = /obj/item/gun/syringe/rapidsyringe
-	cost = 4
-	gamemodes = list(/datum/game_mode/nuclear)
+	cost = 12
 
 /datum/uplink_item/stealthy_weapons/silencer
 	name = "Universal Suppressor"
