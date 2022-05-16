@@ -12,10 +12,6 @@
 	damage = 5
 	stamina = 80
 
-/obj/item/projectile/bullet/c38
-	name = ".38 bullet"
-	damage = 25
-
 /obj/item/projectile/bullet/weakbullet/booze
 
 /obj/item/projectile/bullet/weakbullet/booze/on_hit(atom/target, blocked = 0)
