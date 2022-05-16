@@ -210,8 +210,9 @@ export const MessengerList = (props, context) => {
               Search: <Input value={searchTerm} onInput={(e, value) => { setSearchTerm(value); }} />
               <PDAList title="Current Conversations" data={data}
                 pdas={convopdas}
-                msgAct="Select Conversation" />
-              <PDAList title="Other PDAs" pdas={pdas} msgAct="Message" data={data} />
+                msgAct="Select Conversation"
+                searchTerm={searchTerm} />
+              <PDAList title="Other PDAs" pdas={pdas} msgAct="Message" data={data} searchTerm={searchTerm} />
             </Box>
           )}
         </Box>
@@ -232,14 +233,13 @@ const PDAList = (props, context) => {
     pdas,
     title,
     msgAct,
+    searchTerm,
   } = props;
 
   const {
     charges,
     plugins,
   } = data;
-
-  const [searchTerm, setSearchTerm] = useLocalState(context, 'searchTerm', '');
 
   if (!pdas || !pdas.length) {
     return (
