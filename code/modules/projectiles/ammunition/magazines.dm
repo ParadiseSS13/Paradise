@@ -1,7 +1,7 @@
-////////////////INTERNAL MAGAZINES//////////////////////
 /obj/item/ammo_box/magazine
 	icon_state = "enforcer" // placeholder icon
 
+////////////////INTERNAL MAGAZINES//////////////////////
 /obj/item/ammo_box/magazine/internal
 	desc = "Oh god, this shouldn't be here"
 
