@@ -1,6 +1,16 @@
-import { useBackend } from "../backend";
-import { Button, Box, Section, ProgressBar, LabeledList, Knob, NumberInput, Flex, Grid } from "../components";
-import { Window } from "../layouts";
+import { useBackend } from '../backend';
+import {
+  Button,
+  Box,
+  Section,
+  ProgressBar,
+  LabeledList,
+  Knob,
+  NumberInput,
+  Flex,
+  Grid,
+} from '../components';
+import { Window } from '../layouts';
 import { formatPower } from '../format';
 
 export const Pacman = (props, context) => {
@@ -27,18 +37,14 @@ export const Pacman = (props, context) => {
   let output_watts = output_set * power_gen;
   let fuel_sec = Math.round(fuel_stored / fuel_usage);
   let fuel_min = Math.round(fuel_sec / 60);
-  let usage = fuel_sec > 120
-    ? `${fuel_min} minutes`
-    : `${fuel_sec} seconds`;
+  let usage = fuel_sec > 120 ? `${fuel_min} minutes` : `${fuel_sec} seconds`;
   return (
     <Window>
       <Window.Content>
-        {((broken || !anchored) && (
+        {(broken || !anchored) && (
           <Section title="Status">
             {!!broken && (
-              <Box color="orange">
-                The generator is malfunctioning!
-              </Box>
+              <Box color="orange">The generator is malfunctioning!</Box>
             )}
             {!broken && !anchored && (
               <Box color="orange">
@@ -46,20 +52,23 @@ export const Pacman = (props, context) => {
               </Box>
             )}
           </Section>
-        ))}
-        {((!broken && !!anchored) && (
+        )}
+        {!broken && !!anchored && (
           <div>
             <Section
               title="Status"
-              buttons={(<Button
-                icon={active ? 'power-off' : 'times'}
-                content={active ? 'On' : 'Off'}
-                tooltip="Toggles the generator on/off. Requires fuel."
-                tooltipPosition="left"
-                disabled={!has_fuel}
-                selected={active}
-                onClick={() => act('toggle_power')} />
-              )}>
+              buttons={
+                <Button
+                  icon={active ? 'power-off' : 'times'}
+                  content={active ? 'On' : 'Off'}
+                  tooltip="Toggles the generator on/off. Requires fuel."
+                  tooltipPosition="left"
+                  disabled={!has_fuel}
+                  selected={active}
+                  onClick={() => act('toggle_power')}
+                />
+              }
+            >
               <Flex direction="row">
                 <Flex.Item width="50%" className="ml-1">
                   <LabeledList>
@@ -70,9 +79,11 @@ export const Pacman = (props, context) => {
                         maxValue={output_max}
                         step={1}
                         className="mt-1"
-                        onDrag={(e, value) => act('change_power', {
-                          change_power: value,
-                        })}
+                        onDrag={(e, value) =>
+                          act('change_power', {
+                            change_power: value,
+                          })
+                        }
                       />
                       ({formatPower(output_watts)})
                     </LabeledList.Item>
@@ -87,7 +98,8 @@ export const Pacman = (props, context) => {
                           green: [-Infinity, 0.33],
                           orange: [0.33, 0.66],
                           red: [0.66, Infinity],
-                        }}>
+                        }}
+                      >
                         {tmp_current} &#8451;
                       </ProgressBar>
                     </LabeledList.Item>
@@ -101,23 +113,25 @@ export const Pacman = (props, context) => {
                       {tmp_overheat > 1 && tmp_overheat <= 20 && (
                         <Box color="orange">Temperature High</Box>
                       )}
-                      {tmp_overheat === 0 && (
-                        <Box color="green">Optimal</Box>
-                      )}
+                      {tmp_overheat === 0 && <Box color="green">Optimal</Box>}
                     </LabeledList.Item>
                   </LabeledList>
                 </Flex.Item>
               </Flex>
             </Section>
-            <Section title="Fuel" buttons={(
-              <Button
-                icon="eject"
-                content="Eject Fuel"
-                tooltip="Ejects fuel. Generator needs to be offline."
-                tooltipPosition="left"
-                disabled={active || is_ai || !has_fuel}
-                onClick={() => act('eject_fuel')} />
-            )} >
+            <Section
+              title="Fuel"
+              buttons={
+                <Button
+                  icon="eject"
+                  content="Eject Fuel"
+                  tooltip="Ejects fuel. Generator needs to be offline."
+                  tooltipPosition="left"
+                  disabled={active || is_ai || !has_fuel}
+                  onClick={() => act('eject_fuel')}
+                />
+              }
+            >
               <Grid>
                 <Grid.Column>
                   <LabeledList>
@@ -131,7 +145,8 @@ export const Pacman = (props, context) => {
                           red: [-Infinity, 0.33],
                           orange: [0.33, 0.66],
                           green: [0.66, Infinity],
-                        }} >
+                        }}
+                      >
                         {Math.round(fuel_stored / 1000)} dm&sup3;
                       </ProgressBar>
                     </LabeledList.Item>
@@ -143,20 +158,15 @@ export const Pacman = (props, context) => {
                       {fuel_usage / 1000} dm&sup3;/s
                     </LabeledList.Item>
                     <LabeledList.Item label="Fuel depletion">
-                      {!!has_fuel && (fuel_usage
-                        ? usage
-                        : "N/A")}
-                      {!has_fuel && (
-                        <Box color="red">
-                          Out of fuel
-                        </Box>)}
+                      {!!has_fuel && (fuel_usage ? usage : 'N/A')}
+                      {!has_fuel && <Box color="red">Out of fuel</Box>}
                     </LabeledList.Item>
                   </LabeledList>
                 </Grid.Column>
               </Grid>
             </Section>
           </div>
-        ))}
+        )}
       </Window.Content>
     </Window>
   );

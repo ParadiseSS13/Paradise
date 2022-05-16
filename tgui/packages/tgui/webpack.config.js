@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 
-const createStats = verbose => ({
+const createStats = (verbose) => ({
   assets: verbose,
   builtAt: verbose,
   cached: false,
@@ -20,14 +20,13 @@ module.exports = (env = {}, argv) => {
     mode: argv.mode === 'production' ? 'production' : 'development',
     context: __dirname,
     entry: {
-      tgui: [
-        path.resolve(__dirname, './index.js'),
-      ],
+      tgui: [path.resolve(__dirname, './index.js')],
     },
     output: {
-      path: argv.mode === 'production'
-        ? path.resolve(__dirname, './public')
-        : path.resolve(__dirname, './public/.tmp'),
+      path:
+        argv.mode === 'production'
+          ? path.resolve(__dirname, './public')
+          : path.resolve(__dirname, './public/.tmp'),
       filename: '[name].bundle.js',
       chunkFilename: '[name].chunk.js',
     },
@@ -44,16 +43,19 @@ module.exports = (env = {}, argv) => {
               loader: 'babel-loader',
               options: {
                 presets: [
-                  ['@babel/preset-env', {
-                    modules: 'commonjs',
-                    useBuiltIns: 'entry',
-                    corejs: '3',
-                    spec: false,
-                    loose: true,
-                    targets: {
-                      ie: '8',
+                  [
+                    '@babel/preset-env',
+                    {
+                      modules: 'commonjs',
+                      useBuiltIns: 'entry',
+                      corejs: '3',
+                      spec: false,
+                      loose: true,
+                      targets: {
+                        ie: '8',
+                      },
                     },
-                  }],
+                  ],
                 ],
                 plugins: [
                   '@babel/plugin-transform-jscript',
@@ -120,10 +122,7 @@ module.exports = (env = {}, argv) => {
   // Add a bundle analyzer to the plugins array
   if (argv.analyze) {
     const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-    config.plugins = [
-      ...config.plugins,
-      new BundleAnalyzerPlugin(),
-    ];
+    config.plugins = [...config.plugins, new BundleAnalyzerPlugin()];
   }
 
   // Production specific options
@@ -147,11 +146,14 @@ module.exports = (env = {}, argv) => {
         assetNameRegExp: /\.css$/g,
         cssProcessor: require('cssnano'),
         cssProcessorPluginOptions: {
-          preset: ['default', {
-            discardComments: {
-              removeAll: true,
+          preset: [
+            'default',
+            {
+              discardComments: {
+                removeAll: true,
+              },
             },
-          }],
+          ],
         },
         canPrint: true,
       }),

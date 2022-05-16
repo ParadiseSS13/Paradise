@@ -19,7 +19,7 @@ $color-shadow: rgba(0, 0, 0, 0.1) !default;
   transition: color 250ms, background-color 250ms;
 
   &:hover {
-    color: rgba(255, 255, 255, 1.0);
+    color: rgba(255, 255, 255, 1);
     background-color: #cc0000;
     transition: color 0ms, background-color 0ms;
   }
