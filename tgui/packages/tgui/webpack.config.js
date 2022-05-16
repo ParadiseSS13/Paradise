@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const BuildNotifierPlugin = require('webpack-build-notifier');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 
 const createStats = verbose => ({
@@ -161,12 +160,6 @@ module.exports = (env = {}, argv) => {
 
   // Development specific options
   if (argv.mode !== 'production') {
-    config.plugins = [
-      ...config.plugins,
-      new BuildNotifierPlugin({
-        suppressSuccess: true,
-      }),
-    ];
     if (argv.hot) {
       config.plugins.push(new webpack.HotModuleReplacementPlugin());
     }
