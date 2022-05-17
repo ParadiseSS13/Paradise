@@ -146,6 +146,7 @@
 	icon = 'icons/obj/doors/1x2blast_hor.dmi'
 	width = 2
 	dir = EAST
+
 /obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver
 	icon = 'icons/obj/doors/1x4blast_vert.dmi'
 	width = 4
