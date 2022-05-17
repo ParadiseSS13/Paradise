@@ -132,7 +132,8 @@
 
 /obj/item/gun/syringe/rapidsyringe/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to unload an empty syringe.</span>"
+	. += "<span class='notice'>Use in hand to unload an empty syringe.</span>"
+	. += "<span class='notice'>Alt-click to toggle the amount of reagents per shot.</span>"
 	. += "A switch on the side is set to [get_units_per_shot()] unit\s per shot."
 	. += "Its internal reservoir contains [internal_beaker.reagents.total_volume]/[internal_beaker.reagents.maximum_volume] units."
 	if(chambered.BB)
@@ -317,7 +318,7 @@
 
 /// Version that comes loaded with half of the standard amount of syringes. Used in the uplink.
 /obj/item/gun/syringe/rapidsyringe/preloaded/half
-	var/number_to_preload = max_syringes / 2
+	number_to_preload = max_syringes / 2
 
 
 /// For shenanigans. This is essentially an RSG that never needs to be refilled.
