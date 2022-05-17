@@ -239,7 +239,6 @@
 
 /obj/machinery/light/spot
 	name = "spotlight"
-	fitting = "large tube"
 	light_type = /obj/item/light/tube/large
 	brightness_range = 12
 	brightness_power = 4
