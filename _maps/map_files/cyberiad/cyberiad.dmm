@@ -509,6 +509,10 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "HoS"
 	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating,
 /area/security/hos)
 "adr" = (
@@ -631,6 +635,11 @@
 /obj/structure/table/wood,
 /obj/machinery/recharger{
 	pixel_y = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4052,6 +4061,11 @@
 /area/security/main)
 "amS" = (
 /obj/machinery/hologram/holopad,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/carpet,
 /area/security/hos)
 "amT" = (
@@ -4070,6 +4084,11 @@
 	id_tag = "hosofficedoor";
 	name = "Head of Security";
 	req_access_txt = "58"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4103,6 +4122,11 @@
 "anb" = (
 /obj/structure/chair{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/carpet,
 /area/security/hos)
@@ -78949,7 +78973,7 @@
 "fMR" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prisoner Lockers";
-	req_access_txt = "63"
+	req_access_txt = "1"
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -80826,6 +80850,21 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"rlW" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "HoS"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/security/hos)
 "rlX" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
@@ -81732,6 +81771,14 @@
 /obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/engine/engineering)
+"wSi" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/carpet,
+/area/security/hos)
 "wVD" = (
 /obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel{
@@ -81917,6 +81964,16 @@
 "ydz" = (
 /turf/simulated/floor/plasteel,
 /area/security/prisonlockers)
+"yfL" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/hos)
 "yix" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -117238,10 +117295,10 @@ aaa
 aaa
 aaa
 aaa
-adq
+rlW
 adI
-aiY
-ajV
+yfL
+wSi
 anb
 ajV
 aiY
