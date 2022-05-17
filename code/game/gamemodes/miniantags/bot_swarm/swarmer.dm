@@ -383,7 +383,7 @@
 	return FALSE
 
 /turf/simulated/wall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-  if(!..())
+	if(!..())
 		return FALSE
 	var/area/A = get_turf(src)
 	if(safety_check())
