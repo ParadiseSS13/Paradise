@@ -577,7 +577,7 @@
 	log_message("Hit by [AM].")
 	if(isitem(AM))
 		var/obj/item/I = AM
-		add_attack_logs(I.thrownby, OCCUPANT_LOGGING, "threw [AM] at mech [src]")
+		add_attack_logs(locateUID(I.thrownby), OCCUPANT_LOGGING, "threw [AM] at mech [src]")
 	. = ..()
 
 /obj/mecha/bullet_act(obj/item/projectile/Proj) //wrapper
@@ -1183,7 +1183,7 @@
 		dir = dir_in
 		log_message("[mmi_as_oc] moved in as pilot.")
 		if(!hasInternalDamage())
-			to_chat(occupant, sound(nominalsound, volume=50))
+			occupant << sound(nominalsound, volume=50)
 		GrantActions(brainmob)
 		return TRUE
 	else
