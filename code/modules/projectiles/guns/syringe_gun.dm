@@ -98,7 +98,7 @@
 // Not quite a syringe gun, but also not completely unlike one either.
 /obj/item/gun/syringe/rapidsyringe
 	name = "rapid syringe gun"
-	desc = "A syndicate rapid syringe gun based on a NanoTrasen prototype. Capable of storing and filling syringes from an internal reservoir.\nIt has a large flap on the side that you can dump a box or bag of syringes into, and a port for filling it with liquid."
+	desc = "A syndicate rapid syringe gun based on an archived NanoTrasen prototype. Capable of storing and filling syringes from an internal reservoir.\nIt has a large flap on the side that you can dump a box or bag of syringes into, and a port for filling it with liquid."
 	icon_state = "rapidsyringegun"
 	max_syringes = 14  // full two boxes worth
 	/// Index of possible transfer amounts to select
