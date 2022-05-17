@@ -74,7 +74,7 @@
 
 
 
-/mob/living/proc/apply_effect(effect = 0, effecttype = STUN, blocked = 0) ///TODO NUKE THIS FROM ORBIT
+/mob/living/proc/apply_effect(effect = 0, effecttype = STUN, blocked = 0)
 	blocked = (100 - blocked) / 100
 	if(!effect || (blocked <= 0))
 		return FALSE
@@ -101,7 +101,7 @@
 	updatehealth("apply effect")
 	return TRUE
 
-/mob/living/proc/apply_effects(stun = 0, weaken = 0, paralyze = 0, irradiate = 0, slur = 0, stutter = 0, eyeblur = 0, drowsy = 0, blocked = 0, stamina = 0, jitter = 0) ///TODO NUKE THIS FROM ORBIT
+/mob/living/proc/apply_effects(stun = 0, weaken = 0, paralyze = 0, irradiate = 0, slur = 0, stutter = 0, eyeblur = 0, drowsy = 0, blocked = 0, stamina = 0, jitter = 0)
 	if(blocked >= 100)
 		return FALSE
 	if(stun)
