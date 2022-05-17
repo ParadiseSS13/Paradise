@@ -206,7 +206,7 @@
 	. = ..()
 	if(!.)
 		return
-	var/dir = sin(world.time * 2)
+	var/dir = sin(world.time)
 	px_diff = cos(world.time * 3) * min(strength * 0.2, 32) * dir
 	py_diff = sin(world.time * 3) * min(strength * 0.2, 32) * dir
 	owner.client?.pixel_x = px_diff
