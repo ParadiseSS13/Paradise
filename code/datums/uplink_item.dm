@@ -938,9 +938,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons/RSG
 	name = "Rapid Syringe Gun"
-	desc = "A rapid syringe gun able to fill and fire syringes automatically from an internal reagent reservoir. Comes pre-loaded with 7 syringes by default."
+	desc = "A syndicate rapid syringe gun able to fill and fire syringes automatically from an internal reagent reservoir. Comes pre-loaded with 7 empty syringes."
 	reference = "RSG"
-	item = /obj/item/gun/syringe/rapidsyringe
+	item = /obj/item/gun/syringe/rapidsyringe/preloaded/half
 	cost = 12
 
 /datum/uplink_item/stealthy_weapons/silencer
