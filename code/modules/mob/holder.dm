@@ -68,7 +68,7 @@
 		return
 
 	var/obj/item/holder/H = new holder_type(loc)
-	src.forceMove(H)
+	forceMove(H)
 	H.name = name
 	if(has_variant)
 		H.icon_state = icon_state
