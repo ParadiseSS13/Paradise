@@ -2145,7 +2145,6 @@
 	aiControlDisabled = 1;
 	id_tag = "prisonereducation";
 	name = "Prisoner Education Chamber";
-	req_access = null;
 	req_access_txt = "3"
 	},
 /obj/structure/cable/yellow{
@@ -3841,7 +3840,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Armory";
-	req_access = null;
 	req_access_txt = "3"
 	},
 /turf/simulated/floor/plasteel,
@@ -4555,7 +4553,6 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Head of Security's Office";
-	req_access = null;
 	req_access_txt = "58"
 	},
 /obj/structure/cable/yellow{
@@ -8329,7 +8326,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Interrogation Monitoring";
-	req_access = null;
 	req_one_access_txt = "1;4"
 	},
 /turf/simulated/floor/plasteel/grimy,
@@ -11703,7 +11699,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Detective's Office";
-	req_access = null;
 	req_access_txt = "4"
 	},
 /turf/simulated/floor/plasteel,
@@ -13434,7 +13429,6 @@
 "aGB" = (
 /obj/machinery/door/airlock/security{
 	name = "Court Cell";
-	req_access = null;
 	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -15154,7 +15148,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Security-Storage Backroom";
-	req_access = null;
 	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -15924,7 +15917,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Court Cell";
-	req_access = null;
 	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -16451,7 +16443,6 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Security-Storage Backroom";
-	req_access = null;
 	req_access_txt = "63"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -16939,7 +16930,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Brig";
-	req_access = null;
 	req_access_txt = "63; 42"
 	},
 /turf/simulated/floor/plasteel,
@@ -17189,8 +17179,7 @@
 	id = "engsm";
 	name = "Radiation Shutters Control";
 	pixel_x = 24;
-	req_access_txt = "10";
-	req_one_access = null
+	req_access_txt = "10"
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/engine,
@@ -26163,7 +26152,6 @@
 	dir = 8;
 	icon_state = "left";
 	name = "AI Core Door";
-	req_access = null;
 	req_access_txt = "16"
 	},
 /obj/machinery/turretid/lethal{
@@ -26826,7 +26814,6 @@
 /obj/machinery/door/window/southright{
 	dir = 4;
 	name = "AI Core Door";
-	req_access = null;
 	req_access_txt = "16"
 	},
 /turf/simulated/floor/plasteel{
@@ -27070,7 +27057,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Interrogation";
-	req_access = null;
 	req_one_access_txt = "1;4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -27948,7 +27934,6 @@
 "bnI" = (
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod Four";
-	req_access = null;
 	req_access_txt = "32"
 	},
 /turf/simulated/floor/plating,
@@ -28115,7 +28100,6 @@
 "boa" = (
 /obj/machinery/door/airlock/security{
 	name = "Customs Desk";
-	req_access = null;
 	req_access_txt = "1"
 	},
 /turf/simulated/floor/plasteel,
@@ -30127,7 +30111,6 @@
 "bsj" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Quarters";
-	req_access = null;
 	req_access_txt = "20"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -34171,7 +34154,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
-	req_access = null;
 	req_access_txt = "57"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -34280,7 +34262,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
-	req_access = null;
 	req_access_txt = "57"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -34296,7 +34277,6 @@
 "bAg" = (
 /obj/machinery/door/airlock/command{
 	name = "Command Desk";
-	req_access = null;
 	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -35614,7 +35594,6 @@
 "bDl" = (
 /obj/machinery/door/airlock/command{
 	name = "Emergency Escape";
-	req_access = null;
 	req_access_txt = "20"
 	},
 /obj/structure/cable/yellow{
@@ -36031,7 +36010,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Council Chamber";
-	req_access = null;
 	req_access_txt = "19"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -36073,7 +36051,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Captain's Quarters";
-	req_access = null;
 	req_access_txt = "20"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -36690,7 +36667,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock{
-	id_tag = null;
 	name = "Vacant Office"
 	},
 /turf/simulated/floor/wood,
@@ -47911,7 +47887,6 @@
 /area/maintenance/starboard)
 "cel" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Paramedic";
 	req_access_txt = "66"
 	},
@@ -47961,7 +47936,6 @@
 /area/hydroponics)
 "ceq" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Paramedic";
 	req_access_txt = "66"
 	},
@@ -50028,9 +50002,7 @@
 	},
 /obj/item/clothing/accessory/stethoscope,
 /obj/item/clothing/accessory/stethoscope,
-/obj/item/gun/syringe,
 /obj/structure/table/glass,
-/obj/item/gun/syringe,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
@@ -50789,7 +50761,6 @@
 /area/maintenance/aft)
 "ckI" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Medbay Storage";
 	req_access_txt = "5"
 	},
@@ -52912,7 +52883,6 @@
 "cpD" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Medbay Storage";
 	req_access_txt = "5"
 	},
@@ -54857,7 +54827,6 @@
 "ctJ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Medical Reception";
 	req_access_txt = "5"
 	},
@@ -56716,7 +56685,6 @@
 "cye" = (
 /obj/structure/table,
 /obj/item/restraints/handcuffs/cable/white,
-/obj/item/gun/syringe,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cyf" = (
@@ -56880,7 +56848,6 @@
 "cyy" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Chemistry Lab";
 	req_access_txt = "5; 33"
 	},
@@ -58141,7 +58108,6 @@
 "cBo" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Recovery Ward"
 	},
 /turf/simulated/floor/plasteel/white,
@@ -58818,7 +58784,6 @@
 "cCy" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Recovery Ward"
 	},
 /obj/structure/cable/yellow{
@@ -63738,7 +63703,6 @@
 	master_tag = "virology_airlock_control";
 	pixel_x = 10;
 	pixel_y = 25;
-	req_access = null;
 	req_access_txt = "39"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -63928,7 +63892,6 @@
 	tag_airpump = "tox_airlock_apump";
 	tag_chamber_sensor = "tox_airlock_sensor";
 	tag_exterior_door = "tox_airlock_exterior";
-	tag_exterior_sensor = null;
 	tag_interior_door = "tox_airlock_interior"
 	},
 /obj/effect/decal/warning_stripes/southwestcorner,
@@ -64341,7 +64304,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Research Division Server Room";
-	req_access = null;
 	req_access_txt = "30"
 	},
 /obj/structure/cable/yellow{
@@ -78675,7 +78637,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Captain's Quarters";
-	req_access = null;
 	req_access_txt = "20"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,

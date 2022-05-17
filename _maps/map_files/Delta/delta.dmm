@@ -51551,7 +51551,6 @@
 "csb" = (
 /obj/machinery/door/airlock/security{
 	name = "Security Checkpoint";
-	req_access = null;
 	req_access_txt = "1"
 	},
 /obj/structure/barricade/wooden,
@@ -62625,7 +62624,6 @@
 	pixel_y = 5
 	},
 /obj/item/storage/box/syringes,
-/obj/item/gun/syringe,
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
@@ -87589,7 +87587,6 @@
 "dXZ" = (
 /obj/structure/table/reinforced,
 /obj/structure/bedsheetbin,
-/obj/item/gun/syringe,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
 /area/medical/surgery)
