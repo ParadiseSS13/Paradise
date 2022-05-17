@@ -318,7 +318,11 @@
 
 /// Version that comes loaded with half of the standard amount of syringes. Used in the uplink.
 /obj/item/gun/syringe/rapidsyringe/preloaded/half
+
+/obj/item/gun/syringe/rapidsyringe/preloaded/half/Initialize(mapload)
 	number_to_preload = max_syringes / 2
+	. = ..()
+
 
 
 /// For shenanigans. This is essentially an RSG that never needs to be refilled.
