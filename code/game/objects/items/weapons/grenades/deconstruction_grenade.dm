@@ -13,6 +13,7 @@
 	atom_say_verb = "beeps"
 	bubble_icon = "swarmer"
 	det_time = 10 SECONDS
+	light_power = 4
 	var/obj/item/assembly/signaler/anomaly/vortex/core = null
 	var/obj/item/radio/radio //Internal radio to annouce to engineering when used / where
 
@@ -23,7 +24,6 @@
 	var/deconstruct_windows = FALSE
 
 	var/on_cooldown = FALSE
-	var/dont_prime = FALSE //because grenades use spawn, if we want to stop a grenade that has been activated, we need to stop it on prime.
 
 /obj/item/grenade/deconstruction/Initialize(mapload)
 	. = ..()
@@ -58,6 +58,7 @@
 		else
 			announce_radio_message("Begining authorised agressive repossession in [Gibberish(A.name, 90)]!")
 		anchored = TRUE
+		set_light(8)
 		playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, 0)
 		addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, loc, 'sound/machines/warning-buzzer.ogg', 60, 0), 3.5 SECONDS)
 		addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, loc, 'sound/machines/warning-buzzer.ogg', 60, 0), 7 SECONDS)//So the alarm plays 3 times
@@ -69,7 +70,6 @@
 		unprime()
 		atom_say("Repossession aborted. Have a Nanotrasen Day.")
 		announce_radio_message("Repossession aborted.")
-		dont_prime = TRUE
 		playsound(loc, 'sound/machines/terminal_off.ogg', 60, 0)
 	else
 		return ..()
@@ -149,14 +149,11 @@
 	return TRUE
 
 /obj/item/grenade/deconstruction/prime()
-	unprime()
-	if(!core) //someone somewhere will triger it without a core.
+	if(!active) //For if it has been deactivated
 		return
+	unprime()
 	if(get_turf(src) == level_name_to_num(CENTCOMM)) //Safety first.
 		atom_say("Activation denied: Area does not need repossession ")
-		return
-	if(dont_prime)
-		dont_prime = FALSE
 		return
 	deconstruct_obj(DECONSTRUCT_ATTEMPTS)
 	addtimer(CALLBACK(src, .proc/reboot), 60 SECONDS)
@@ -165,6 +162,7 @@
 /obj/item/grenade/deconstruction/unprime()
 	..()
 	anchored = FALSE
+	set_light(0)
 
 /obj/item/grenade/deconstruction/proc/deconstruct_obj(loops = 0) //We want structures fully deconstructed, no frames or anything, so multiple go arounds.
 	if(deconstruct_walls)
@@ -174,6 +172,8 @@
 				continue
 			if(istype(A, /area/engine/supermatter) & !emagged)
 				continue
+			if(loops == DECONSTRUCT_ATTEMPTS) //We only want to do this on first go so we don't display frames disapering
+				new /obj/effect/temp_visual/fadeout(get_turf(W), W)
 			W.dismantle_wall() //Indestructible walls overide this to false
 
 	for(var/obj/structure/S in view(7, src)) //Two runs for objects of structures and machinery, so we don't try to disasemble mechs, or items, or some other strange typepath.
@@ -190,6 +190,8 @@
 			continue
 		if(S.invisibility > 30) //for those weird invisible structures that control stuff (looking at you spacevines)
 			continue
+		if(loops == DECONSTRUCT_ATTEMPTS)
+			new /obj/effect/temp_visual/fadeout(get_turf(S), S)
 		S.deconstruct(TRUE)
 
 	for(var/obj/machinery/O in view(7, src))
@@ -202,6 +204,8 @@
 			continue
 		if(istype(O, /obj/machinery/door) && !deconstruct_doors)
 			continue
+		if(loops == DECONSTRUCT_ATTEMPTS)
+			new /obj/effect/temp_visual/fadeout(get_turf(O), O)
 		O.deconstruct(TRUE)
 
 	if(loops)
@@ -218,26 +222,27 @@
 			var/list/curently_recycling = list(I) //This needs to be done to handle everything inside boxes and bags nicely
 			curently_recycling += I.GetAllContents()
 			curently_recycling = reverselist(curently_recycling) //Deconstruct the stuff in the box in the bag, then the box, then the bag.
-			for(var/i in curently_recycling)
-				var/atom/movable/A = i
-				if(QDELETED(A))
+			for(var/atom/movable/A in curently_recycling)
+				if(!istype(A, /obj/item)&& isliving(A))
+					A.forceMove(get_turf(A)) //soul in a soul shard, for example
 					continue
-				else if(isliving(A))
-					A.forceMove(get_turf(A))
+				var/obj/item/O = A
+				if(QDELETED(O))
 					continue
-				if(I.resistance_flags & INDESTRUCTIBLE)
-					A.forceMove(get_turf(A)) //No eating objective items in bags
+				else if(isliving(O))
+					O.forceMove(get_turf(O))
 					continue
-				else if(istype(A, /obj/item))
-					var/obj/item/O = A
-					var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-					var/material_amount = materials.get_item_material_amount(O)
-					if(!material_amount)
-						qdel(O)
-						continue
-					materials.insert_item(O, multiplier = 0.8) //Slight material loss, but still incredibly good.
+				if(O.resistance_flags & INDESTRUCTIBLE)
+					O.forceMove(get_turf(O)) //No eating objective items in bags
+					continue
+				var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+				var/material_amount = materials.get_item_material_amount(O)
+				if(!material_amount)
 					qdel(O)
-					materials.retrieve_all()
+					continue
+				materials.insert_item(O, multiplier = 0.8) //Slight material loss, but still incredibly good.
+				qdel(O)
+				materials.retrieve_all()
 
 
 /obj/item/grenade/deconstruction/proc/reboot()
@@ -254,6 +259,26 @@
 
 /obj/item/grenade/deconstruction/proc/announce_radio_message(message)
 	radio.autosay(message, name, "Engineering", list(z))
+
+
+/obj/effect/temp_visual/fadeout
+	duration = 2.5 SECONDS
+
+/obj/effect/temp_visual/fadeout/New(loc, atom/target)
+	..()
+	icon = target.icon
+	icon_state = target.icon_state
+	alpha = target.alpha * 0.66
+	dir = target.dir
+	update_icon()
+	addtimer(CALLBACK(src, .proc/fade, 4), 0.5 SECONDS)
+
+/obj/effect/temp_visual/fadeout/proc/fade(loops)
+	alpha = alpha * 0.66
+	loops -= 1
+	if(loops > 0)
+		addtimer(CALLBACK(src, .proc/fade, loops), 0.5 SECONDS)
+
 
 #undef DECON_WALL
 #undef DECON_DOOR
