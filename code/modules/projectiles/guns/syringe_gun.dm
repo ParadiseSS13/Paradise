@@ -109,6 +109,8 @@
 	var/list/possible_transfer_amounts = list(5, 10, 15)
 	/// Amount of reagents to transfer out at once if no syringe is loaded
 	var/reservoir_transfer_amount = 15
+	/// Whether or not we've alerted the user that the reservoir is empty.
+	var/alarmed = FALSE
 
 /obj/item/gun/syringe/rapidsyringe/Initialize(mapload)
 	. = ..()
@@ -152,8 +154,10 @@
 			if(!user.unEquip(new_syringe))
 				return
 			to_chat(user, "<span class='notice'>You load \the [new_syringe] into [src].</span>")
+			playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 		syringes.Add(new_syringe)
 		new_syringe.forceMove(src)
+
 		process_chamber() // Chamber the syringe if none is already
 		return TRUE
 	else
@@ -186,6 +190,7 @@
 				total_inserted++
 
 		if(total_inserted)
+			playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 			to_chat(user, "<span class='notice'>You load [total_inserted] empty syringes into [src].")
 			// Chamber a syringe.
 			process_chamber()
@@ -207,6 +212,9 @@
 		var/trans = incoming.reagents.trans_to(internal_beaker, incoming.amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You transfer [trans] unit\s of the solution to [src]'s internal reservoir.</span>")
 		update_loaded_syringe()
+
+		// Reset the reagent alarm
+		alarmed = FALSE
 
 	else
 		return ..()
@@ -248,9 +256,18 @@
 	if(transfer_amount_selection > length(possible_transfer_amounts))
 		transfer_amount_selection = 1
 
+	playsound(src, 'sound/weapons/gun_interactions/selector.ogg', 25, 1)
 	to_chat(user, "<span class='notice'>[src] will now fill each syringe with up to [get_units_per_shot()] units.</span>")
 	update_loaded_syringe()
 
+/// Play an alert when the reservoir has run out of reagents so people don't unknowingly dump empty syringes into their foes
+/// Running out of syringes is just handled by *click*
+/obj/item/gun/syringe/rapidsyringe/afterattack(atom/target, mob/living/user, flag, params)
+	. = ..()
+	if(!alarmed && !internal_beaker.reagents.total_volume && (!chambered?.BB || !chambered.BB.reagents.total_volume))
+		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 25, 1, frequency=60000)
+		to_chat(user, "<span class='userdanger'>[src] beeps: Internal reservoir empty!</span>")
+		alarmed = TRUE
 
 /// Update the chambered syringe's contents based on the reservoir contents.
 /// Makes sure that what's contained in the syringe is representative of the mix as a whole.
