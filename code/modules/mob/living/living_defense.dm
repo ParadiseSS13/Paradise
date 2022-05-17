@@ -110,9 +110,9 @@
 
 		if(blocked)
 			return TRUE
-
-		if(thrown_item.thrownby)
-			add_attack_logs(thrown_item.thrownby, src, "Hit with thrown [thrown_item]", !thrown_item.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
+		var/mob/thrower = locateUID(thrown_item.thrownby)
+		if(thrower)
+			add_attack_logs(thrower, src, "Hit with thrown [thrown_item]", !thrown_item.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
 		if(nosell_hit)
 			return ..()
 		visible_message("<span class='danger'>[src] is hit by [thrown_item]!</span>", "<span class='userdanger'>You're hit by [thrown_item]!</span>")
