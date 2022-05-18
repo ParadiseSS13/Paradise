@@ -244,8 +244,9 @@ LINEN BINS
 
 /obj/structure/bedsheetbin/Destroy()
 	QDEL_LIST(sheets)
-	hidden.forceMove(get_turf(src))
-	hidden = null
+	if(hidden)
+		hidden.forceMove(get_turf(src))
+		hidden = null
 	return ..()
 
 

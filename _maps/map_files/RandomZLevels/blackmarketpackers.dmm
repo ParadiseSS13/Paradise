@@ -45,6 +45,7 @@
 /area/space/nearstation)
 "au" = (
 /obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun;
 	lethal = 1;
 	name = "ship defense turret"
 	},
@@ -2325,6 +2326,7 @@
 "hv" = (
 /obj/machinery/porta_turret{
 	check_synth = 1;
+	installation = /obj/item/gun/energy/gun;
 	lethal = 1;
 	name = "ship defense turret"
 	},
@@ -2652,6 +2654,7 @@
 "iF" = (
 /obj/machinery/porta_turret{
 	check_synth = 1;
+	installation = /obj/item/gun/energy/gun;
 	lethal = 1;
 	name = "ship defense turret"
 	},

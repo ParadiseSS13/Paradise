@@ -3,19 +3,20 @@
  * functions, where each successive invocation is supplied the return
  * value of the previous.
  */
-export const flow = (...funcs) => (input, ...rest) => {
-  let output = input;
-  for (let func of funcs) {
-    // Recurse into the array of functions
-    if (Array.isArray(func)) {
-      output = flow(...func)(output, ...rest);
+export const flow =
+  (...funcs) =>
+  (input, ...rest) => {
+    let output = input;
+    for (let func of funcs) {
+      // Recurse into the array of functions
+      if (Array.isArray(func)) {
+        output = flow(...func)(output, ...rest);
+      } else if (func) {
+        output = func(output, ...rest);
+      }
     }
-    else if (func) {
-      output = func(output, ...rest);
-    }
-  }
-  return output;
-};
+    return output;
+  };
 
 /**
  * Composes single-argument functions from right to left.
@@ -31,11 +32,14 @@ export const flow = (...funcs) => (input, ...rest) => {
  */
 export const compose = (...funcs) => {
   if (funcs.length === 0) {
-    return arg => arg;
+    return (arg) => arg;
   }
   if (funcs.length === 1) {
     return funcs[0];
   }
-  return funcs.reduce((a, b) => (value, ...rest) =>
-    a(b(value, ...rest), ...rest));
+  return funcs.reduce(
+    (a, b) =>
+      (value, ...rest) =>
+        a(b(value, ...rest), ...rest)
+  );
 };
