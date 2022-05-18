@@ -1,6 +1,6 @@
-import { useBackend } from "../backend";
-import { Button, LabeledList, Section, Box, ProgressBar } from "../components";
-import { Window } from "../layouts";
+import { useBackend } from '../backend';
+import { Button, LabeledList, Section, Box, ProgressBar } from '../components';
+import { Window } from '../layouts';
 
 export const BlueSpaceArtilleryControl = (props, context) => {
   const { act, data } = useBackend(context);
@@ -38,8 +38,9 @@ export const BlueSpaceArtilleryControl = (props, context) => {
             <LabeledList.Item label="Target">
               <Button
                 icon="crosshairs"
-                content={data.target ? data.target : "None"}
-                onClick={() => act("recalibrate")} />
+                content={data.target ? data.target : 'None'}
+                onClick={() => act('recalibrate')}
+              />
             </LabeledList.Item>
             {data.ready === 1 && !!data.target && (
               <LabeledList.Item label="Firing">
@@ -47,7 +48,8 @@ export const BlueSpaceArtilleryControl = (props, context) => {
                   icon="skull"
                   content="FIRE!"
                   color="red"
-                  onClick={() => act("fire")} />
+                  onClick={() => act('fire')}
+                />
               </LabeledList.Item>
             )}
             {!data.connected && (
@@ -55,7 +57,8 @@ export const BlueSpaceArtilleryControl = (props, context) => {
                 <Button
                   icon="wrench"
                   content="Complete Deployment"
-                  onClick={() => act("build")} />
+                  onClick={() => act('build')}
+                />
               </LabeledList.Item>
             )}
           </LabeledList>

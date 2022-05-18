@@ -40622,11 +40622,6 @@
 	},
 /area/security/processing)
 "bTo" = (
-/obj/structure/rack,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/electrical,
-/obj/item/screwdriver,
-/obj/item/multitool,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -88558,8 +88553,6 @@
 	},
 /area/maintenance/starboard)
 "fox" = (
-/obj/machinery/recharger,
-/obj/structure/table/reinforced,
 /obj/machinery/door_control{
 	id = "Secure Armory";
 	name = "Secure Armory Shutter Control";
@@ -88567,7 +88560,8 @@
 	pixel_y = -28;
 	req_access_txt = "3"
 	},
-/obj/effect/decal/warning_stripes/northeast,
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
 "fqy" = (
@@ -88695,6 +88689,7 @@
 /obj/item/grenade/barrier,
 /obj/item/grenade/barrier,
 /obj/item/grenade/barrier,
+/obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -90429,15 +90424,12 @@
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
 "kiL" = (
-/obj/structure/rack,
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/item/ammo_box/shotgun/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
+/obj/machinery/flasher/portable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -90451,8 +90443,32 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "kkM" = (
-/obj/vehicle/secway,
-/obj/item/key/security,
+/obj/structure/rack,
+/obj/item/storage/box/rubbershot{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/tranquilizer,
+/obj/item/storage/box/beanbag{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/beanbag{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/beanbag{
+	pixel_x = 3;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -90614,7 +90630,10 @@
 	},
 /area/maintenance/starboard)
 "kTO" = (
-/obj/structure/dispenser/oxygen,
+/obj/structure/table/reinforced,
+/obj/item/storage/box/chemimp,
+/obj/item/storage/box/trackimp,
+/obj/item/storage/lockbox/mindshield,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -91163,14 +91182,11 @@
 /turf/simulated/floor/plating,
 /area/security/seceqstorage)
 "mqS" = (
-/obj/structure/table/reinforced,
 /obj/machinery/alarm{
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/item/storage/box/chemimp,
-/obj/item/storage/box/trackimp,
-/obj/item/storage/lockbox/mindshield,
+/obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -94128,8 +94144,7 @@
 	req_access_txt = "35"
 	},
 /obj/machinery/door/window/eastleft{
-	name = "Hydroponics Desk";
-	req_access_txt = "35"
+	name = "Hydroponics Desk"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -95043,21 +95058,16 @@
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
 "wMd" = (
-/obj/structure/table/reinforced,
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = 32
 	},
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/flashlight/seclite,
-/obj/item/flashlight/seclite,
-/obj/item/flashlight/seclite,
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/cable,
+/obj/vehicle/secway,
+/obj/item/key/security,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -95393,10 +95403,21 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "xUI" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/teargas,
+/obj/structure/rack,
+/obj/item/storage/box/seccarts{
+	pixel_x = 3;
+	pixel_y = 2
+	},
 /obj/item/storage/box/handcuffs,
-/obj/item/storage/box/flashbangs,
+/obj/item/storage/box/flashbangs{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/storage/box/handcuffs,
+/obj/item/storage/box/teargas{
+	pixel_x = -3;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
