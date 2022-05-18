@@ -1,25 +1,12 @@
-import { useBackend } from "../../backend";
-import { Box, LabeledList, ProgressBar } from "../../components";
+import { useBackend } from '../../backend';
+import { Box, LabeledList, ProgressBar } from '../../components';
 
 export const pai_bioscan = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    holder,
-    dead,
-    health,
-    brute,
-    oxy,
-    tox,
-    burn,
-    temp,
-  } = data.app_data;
+  const { holder, dead, health, brute, oxy, tox, burn, temp } = data.app_data;
 
   if (!holder) {
-    return (
-      <Box color="red">
-        Error: No biological host found.
-      </Box>
-    );
+    return <Box color="red">Error: No biological host found.</Box>;
   }
   return (
     <LabeledList>
@@ -47,24 +34,16 @@ export const pai_bioscan = (props, context) => {
         />
       </LabeledList.Item>
       <LabeledList.Item label="Oxygen Damage">
-        <Box color="blue">
-          {oxy}
-        </Box>
+        <Box color="blue">{oxy}</Box>
       </LabeledList.Item>
       <LabeledList.Item label="Toxin Damage">
-        <Box color="green">
-          {tox}
-        </Box>
+        <Box color="green">{tox}</Box>
       </LabeledList.Item>
       <LabeledList.Item label="Burn Damage">
-        <Box color="orange">
-          {burn}
-        </Box>
+        <Box color="orange">{burn}</Box>
       </LabeledList.Item>
       <LabeledList.Item label="Brute Damage">
-        <Box color="red">
-          {brute}
-        </Box>
+        <Box color="red">{brute}</Box>
       </LabeledList.Item>
     </LabeledList>
   );
