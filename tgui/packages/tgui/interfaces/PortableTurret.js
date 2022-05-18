@@ -38,16 +38,18 @@ export const PortableTurret = (props, context) => {
                 content={on ? 'On' : 'Off'}
                 selected={on}
                 disabled={locked}
-                onClick={() => act('power')} />
+                onClick={() => act('power')}
+              />
             </LabeledList.Item>
             {!!lethal_is_configurable && (
               <LabeledList.Item label="Lethals">
                 <Button
                   icon={lethal ? 'exclamation-triangle' : 'times'}
                   content={lethal ? 'On' : 'Off'}
-                  color={lethal ? "bad" : ""}
+                  color={lethal ? 'bad' : ''}
                   disabled={locked}
-                  onClick={() => act('lethal')} />
+                  onClick={() => act('lethal')}
+                />
               </LabeledList.Item>
             )}
             {!!access_is_configurable && (
@@ -57,7 +59,8 @@ export const PortableTurret = (props, context) => {
                   content={one_access ? 'On' : 'Off'}
                   selected={one_access}
                   disabled={locked}
-                  onClick={() => act('one_access')} />
+                  onClick={() => act('one_access')}
+                />
               </LabeledList.Item>
             )}
           </LabeledList>
@@ -70,25 +73,29 @@ export const PortableTurret = (props, context) => {
                 checked={neutralize_criminals}
                 content="Wanted Criminals"
                 disabled={locked}
-                onClick={() => act('autharrest')} />
+                onClick={() => act('autharrest')}
+              />
               <Button.Checkbox
                 fluid
                 checked={neutralize_norecord}
                 content="No Sec Record"
                 disabled={locked}
-                onClick={() => act('authnorecord')} />
+                onClick={() => act('authnorecord')}
+              />
               <Button.Checkbox
                 fluid
                 checked={check_weapons}
                 content="Unauthorized Weapons"
                 disabled={locked}
-                onClick={() => act('authweapon')} />
+                onClick={() => act('authweapon')}
+              />
               <Button.Checkbox
                 fluid
                 checked={neutralize_noaccess}
                 content="Unauthorized Access"
                 disabled={locked}
-                onClick={() => act('authaccess')} />
+                onClick={() => act('authaccess')}
+              />
             </Section>
             <Section title="Other Targets">
               <Button.Checkbox
@@ -96,19 +103,22 @@ export const PortableTurret = (props, context) => {
                 checked={neutralize_unidentified}
                 content="Unidentified Lifesigns (Xenos, Animals, Etc)"
                 disabled={locked}
-                onClick={() => act('authxeno')} />
+                onClick={() => act('authxeno')}
+              />
               <Button.Checkbox
                 fluid
                 checked={neutralize_cyborgs}
                 content="Cyborgs"
                 disabled={locked}
-                onClick={() => act('authborgs')} />
+                onClick={() => act('authborgs')}
+              />
               <Button.Checkbox
                 fluid
                 checked={neutralize_all}
                 content="All Non-Synthetics"
                 disabled={locked}
-                onClick={() => act('authsynth')} />
+                onClick={() => act('authsynth')}
+              />
             </Section>
           </Fragment>
         )}
@@ -116,17 +126,24 @@ export const PortableTurret = (props, context) => {
           <AccessList
             accesses={regions}
             selectedList={selectedAccess}
-            accessMod={ref => act('set', {
-              access: ref,
-            })}
+            accessMod={(ref) =>
+              act('set', {
+                access: ref,
+              })
+            }
             grantAll={() => act('grant_all')}
             denyAll={() => act('clear_all')}
-            grantDep={ref => act('grant_region', {
-              region: ref,
-            })}
-            denyDep={ref => act('deny_region', {
-              region: ref,
-            })} />
+            grantDep={(ref) =>
+              act('grant_region', {
+                region: ref,
+              })
+            }
+            denyDep={(ref) =>
+              act('deny_region', {
+                region: ref,
+              })
+            }
+          />
         )}
       </Window.Content>
     </Window>
