@@ -142,9 +142,9 @@
 	if(istype(AM, /obj/item))
 		playsound(src, honksound, 50, TRUE, -1)
 		var/obj/item/I = AM
-		if(I.throwforce < src.health && I.thrownby && ishuman(I.thrownby))
-			var/mob/living/carbon/human/H = I.thrownby
-			retaliate(H)
+		var/mob/thrower = locateUID(I.thrownby)
+		if(I.throwforce < src.health && ishuman(thrower))
+			retaliate(thrower)
 	..()
 
 /mob/living/simple_animal/bot/honkbot/proc/bike_horn() //use bike_horn

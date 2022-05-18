@@ -265,12 +265,3 @@
 		PDA.ownjob = C.assignment
 		PDA.ownrank = C.rank
 		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
-
-/datum/job/proc/would_accept_job_transfer_from_player(mob/player)
-	if(!transfer_allowed)
-		return FALSE
-	if(!check_job_karma(title))
-		return TRUE
-	if(!istype(player))
-		return FALSE
-	return is_job_whitelisted(player, title)

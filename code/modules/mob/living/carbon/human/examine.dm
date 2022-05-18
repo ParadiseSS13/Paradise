@@ -51,7 +51,7 @@
 		list("[p_are()] holding", l_hand, "in", "left hand"),
 		list("[p_are()] holding", r_hand, "in", "right hand"),
 		list("[p_are()] wearing", head, "on", "head"),
-		list("[p_are()] wearing", !skipjumpsuit && w_uniform, null, null),
+		list("[p_are()] wearing", !skipjumpsuit && w_uniform, null, null, length(w_uniform?.accessories) && "[english_accessory_list(w_uniform)]"),
 		list("[p_are()] wearing", wear_suit, null, null),
 		list("[p_are()] carrying", !skipsuitstorage && s_store, "on", wear_suit && wear_suit.name),
 		list("[p_have()]", back, "on", "back"),
@@ -69,15 +69,20 @@
 		var/obj/item/item = parts[2]
 		var/preposition = parts[3]
 		var/limb_name = parts[4]
+		var/accessories = null
+		if(length(parts) >= 5)
+			accessories = parts[5]
 
-		if (item && !(item.flags & ABSTRACT))
+		if(item && !(item.flags & ABSTRACT))
 			var/item_words = item.name
-			if (item.blood_DNA)
+			if(item.blood_DNA)
 				item_words = "[item.blood_color != "#030303" ? "blood-stained":"oil-stained"] [item_words]"
 			var/submsg = "[p_they(TRUE)] [action] [bicon(item)] \a [item_words]"
-			if (limb_name)
+			if(accessories)
+				submsg += " with [accessories]"
+			if(limb_name)
 				submsg += " [preposition] [p_their()] [limb_name]"
-			if (item.blood_DNA)
+			if(item.blood_DNA)
 				submsg = "<span class='warning'>[submsg]!</span>\n"
 			else
 				submsg = "[submsg].\n"
@@ -85,11 +90,11 @@
 			continue
 		else
 			// no items worn, thus revealing the skin
-			switch (limb_name)
-				if ("hands")
-					if (blood_DNA)
+			switch(limb_name)
+				if("hands")
+					if(blood_DNA)
 						msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!</span>\n"
-				if ("eyes")
+				if("eyes")
 					if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
 						msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
 			continue
@@ -268,9 +273,6 @@
 					msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.</span>\n"
 				else if(!client)
 					msg += "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
-
-	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDEFACE || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
-		msg += "Their features seem unnaturally tight and drawn.\n"
 
 	if(decaylevel == 1)
 		msg += "[p_they(TRUE)] [p_are()] starting to smell.\n"

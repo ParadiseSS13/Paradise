@@ -57,7 +57,7 @@ SUBSYSTEM_DEF(ticker)
 	var/round_end_announced = FALSE
 	/// Is the ticker currently processing? If FALSE, roundstart is delayed
 	var/ticker_going = TRUE
-	/// Gamemode result (For things like shadowlings or nukies which can end multiple ways)
+	/// Gamemode result (For things like cult or nukies which can end multiple ways)
 	var/mode_result = "undefined"
 	/// Server end state (Did we end properly or reboot or nuke or what)
 	var/end_state = "undefined"

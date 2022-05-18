@@ -3,20 +3,54 @@ SUBSYSTEM_DEF(instancing)
 	runlevels = RUNLEVEL_INIT | RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	wait = 30 SECONDS
 	flags = SS_KEEP_TIMING
+	// This SS has the default init value since it needs to happen after the DB & redis
+
+	/// Associative list of registered commands. K = command name | V = command datum
+	var/list/datum/server_command/registered_commands = list()
 
 /datum/controller/subsystem/instancing/Initialize(start_timeofday)
-	// Dont even bother if we arent connected
-	if(!SSdbcore.IsConnected())
+	// Make sure no one broke things. This check will trip up CI
+	if(init_order >= SSredis.init_order)
+		CRASH("SSinstancing was set to init before SSredis. Who broke it?")
+
+	// Dont even bother if we arent connected to redis or the DB
+	if(!SSdbcore.IsConnected() || !SSredis.connected)
 		flags |= SS_NO_FIRE
 		return ..()
-	update_heartbeat() // Make sure you do this before announcing to peers, or no one will hear your announcement
-	var/startup_msg = "The server <code>[GLOB.configuration.general.server_name]</code> is now starting up. The map is [SSmapping.map_datum.fluff_name] ([SSmapping.map_datum.technical_name]). You can connect with the <code>Switch Server</code> verb."
-	message_all_peers(startup_msg)
+
+	// Setup our commands
+	for(var/sct in subtypesof(/datum/server_command))
+		var/datum/server_command/SC = new sct()
+		if(isnull(SC.command_name))
+			stack_trace("[SC.type] has no comamnd name set!")
+			continue
+
+		if(SC.command_name in registered_commands)
+			stack_trace("A command with the name '[SC.command_name]' already exists!")
+
+		registered_commands[SC.command_name] = SC
+
+	var/amount_registered = length(registered_commands)
+	log_startup_progress("Registered [amount_registered] server command[amount_registered == 1 ? "" : "s"].")
+
+	// Announce startup to peers
+	var/datum/server_command/new_round_announce/NRA = registered_commands["new_round_announce"]
+	NRA.custom_dispatch(GLOB.configuration.general.server_name, SSmapping.map_datum.fluff_name, SSmapping.map_datum.technical_name)
 	return ..()
 
 /datum/controller/subsystem/instancing/fire(resumed)
 	update_heartbeat()
 	update_playercache()
+
+/datum/controller/subsystem/instancing/proc/execute_command(source, command, list/arguments)
+	var/datum/server_command/SC = registered_commands[command]
+	if(!SC)
+		CRASH("Attempted to execute command with ID '[command]' from [source], but that command didnt exist!")
+
+	if((source == GLOB.configuration.system.instance_id) && SC.ignoreself)
+		return // Dont self respond
+
+	SC.execute(source, arguments)
 
 /**
   * Playercache updater
@@ -101,59 +135,6 @@ SUBSYSTEM_DEF(instancing)
 		)
 		dbq.warn_execute(FALSE) // Do NOT async execute here because world/New() shouldnt sleep. EVER. You get issues if you do.
 		qdel(dbq)
-
-
-/**
-  * Message all peers
-  *
-  * Wrapper for [topic_all_peers] to format the input into a message topic. Will send a server-wide announcement to the other servers
-  *
-  * Arguments:
-  * * message - Message to send to the other servers
-  */
-/datum/controller/subsystem/instancing/proc/message_all_peers(message)
-	if(!SSdbcore.IsConnected())
-		return
-	var/topic_string = "instance_announce&msg=[url_encode(message)]"
-	topic_all_peers(topic_string)
-
-/**
-  * Sends a topic to all peers
-  *
-  * Sends a raw topic to the other servers. WILL APPEND &key=[commskey] ON THE END. PLEASE ACCOUNT FOR THIS.
-  *
-  * Arguments:
-  * * raw_topic - The raw topic to send to the other servers
-  */
-/datum/controller/subsystem/instancing/proc/topic_all_peers(raw_topic)
-	// Someone here is going to say "AA you shouldnt put load on the DB server you can do sorting in BYOND"
-	// Well let me put it this way. The DB server is an entirely different machine to BYOND, with this entire dataset being stored in its RAM, not even on disk
-	// By making the DB server do the work, we can offload from BYOND, which is already strained
-	var/datum/db_query/dbq1 = SSdbcore.NewQuery({"
-		SELECT server_id, key_name, key_value FROM instance_data_cache WHERE server_id IN
-		(SELECT server_id FROM instance_data_cache WHERE server_id !=:sid AND
-		key_name='heartbeat' AND last_updated BETWEEN NOW() - INTERVAL 60 SECOND AND NOW())
-		AND key_name IN ("topic_key", "internal_ip", "server_port")"}, list(
-		"sid" = GLOB.configuration.system.instance_id
-	))
-	if(!dbq1.warn_execute())
-		qdel(dbq1)
-		return
-
-	var/servers_outer = list()
-	while(dbq1.NextRow())
-		if(!servers_outer[dbq1.item[1]])
-			servers_outer[dbq1.item[1]] = list()
-
-		servers_outer[dbq1.item[1]][dbq1.item[2]] = dbq1.item[3] // This should assoc load our data
-
-	qdel(dbq1)
-
-	for(var/server in servers_outer)
-		var/server_data = servers_outer[server]
-		// TODO: Move this to redis PubSub. world.Export() cannot be trusted. Redis is more reliable anyway
-		world.Export("byond://[server_data["internal_ip"]]:[server_data["server_port"]]?[raw_topic]&key=[server_data["topic_key"]]")
-
 
 /**
   * Player checker

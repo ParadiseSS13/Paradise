@@ -170,7 +170,6 @@
 		to_chat(usr, "<span class='notice'>You detach [assembly] from [src]</span>")
 		usr.put_in_hands(assembly)
 		assembly = null
-		qdel(GetComponent(/datum/component/proximity_monitor))
 		update_icon()
 	else
 		to_chat(usr, "<span class='notice'>There is no assembly to remove.</span>")
@@ -187,8 +186,6 @@
 		assembly = W
 		user.drop_item()
 		W.forceMove(src)
-		if(assembly.has_prox_sensors())
-			AddComponent(/datum/component/proximity_monitor)
 		overlays += "assembly"
 	else
 		..()
