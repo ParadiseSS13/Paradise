@@ -196,7 +196,7 @@ emp_act
 	return 0
 
 /mob/living/carbon/human/proc/check_reflect(def_zone) //Reflection checks for anything in your l_hand, r_hand, or wear_suit based on the reflection chance var of the object
-	if(head.IsReflect(def_zone) == 1)
+	if(head.?.IsReflect(def_zone))
 		return 1
 	if(wear_suit && istype(wear_suit, /obj/item/))
 		var/obj/item/I = wear_suit
