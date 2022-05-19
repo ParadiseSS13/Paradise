@@ -162,15 +162,16 @@
 	set name = "Resurrection"
 
 	var/mob/living/carbon/C = usr
-	if(!C.stat)
+	if(C.stat != DEAD)
 		to_chat(C, "<span class='notice'>You're not dead yet!</span>")
 		return
 	to_chat(C, "<span class='notice'>Death is not your end!</span>")
+	addtimer(CALLBACK(C, .proc/resurrect, C), rand(80 SECONDS, 120 SECONDS))
 
-	spawn(rand(800,1200))
-		C.revive()
-		to_chat(C, "<span class='notice'>You have regenerated.</span>")
-		C.visible_message("<span class='warning'>[usr] appears to wake from the dead, having healed all wounds.</span>")
+/mob/living/carbon/proc/resurrect(var/mob/living/carbon/user)
+	user.revive()
+	to_chat(user, "<span class='notice'>You have regenerated.</span>")
+	user.visible_message("<span class='warning'>[user] appears to wake from the dead, having healed all wounds.</span>")
 	return 1
 
 /obj/item/wildwest_communicator
