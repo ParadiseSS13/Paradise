@@ -727,9 +727,10 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot)
-	if(!user.ventcrawler)
-		user.ventcrawler = 2
 	..()
+	if(slot == slot_w_uniform)
+		if(!user.ventcrawler)
+			user.ventcrawler = 2
 
 /obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user)
 	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
