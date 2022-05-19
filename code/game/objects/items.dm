@@ -2,6 +2,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 /obj/item
 	name = "item"
 	icon = 'icons/obj/items.dmi'
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 	move_resist = null // Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers
@@ -81,7 +82,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	// non-clothing items
 	var/datum/dog_fashion/dog_fashion = null
 
-	var/mob/thrownby = null
+	/// UID of a /mob
+	var/thrownby
 
 	//So items can have custom embedd values
 	//Because customisation is king
@@ -119,6 +121,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	// item hover FX
 	/// Is this item inside a storage object?
 	var/in_storage = FALSE
+	// For assigning a belt overlay icon state in belts.dmi
+	var/belt_icon = null
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
 
@@ -162,6 +166,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
+	else if(istype(loc, /obj/item/storage))
+		var/obj/item/storage/S = loc
+		if(!QDELETED(S)) // Can happen when the storage gets deleted, thus deleting the contents
+			S.remove_from_storage(src) // Not required to call. Will only cause runtimes
 	QDEL_LIST(actions)
 	master = null
 	return ..()
@@ -644,7 +652,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		return hit_atom.hitby(src, 0, itempush, throwingdatum = throwingdatum)
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
-	thrownby = thrower
+	thrownby = thrower?.UID()
 	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force)
 

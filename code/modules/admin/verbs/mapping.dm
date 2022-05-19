@@ -190,7 +190,8 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	var/list/map_datums = list()
 	for(var/x in subtypesof(/datum/map))
 		var/datum/map/M = x
-		map_datums["[initial(M.fluff_name)] ([initial(M.technical_name)])"] = M // Put our map in
+		if(initial(M.voteable))
+			map_datums["[initial(M.fluff_name)] ([initial(M.technical_name)])"] = M // Put our map in
 
 	var/target_map_name = input(usr, "Select target map", "Next map", null) as null|anything in map_datums
 

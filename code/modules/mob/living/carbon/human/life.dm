@@ -790,35 +790,25 @@
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return
-	if(mind?.has_antag_datum(/datum/antagonist/vampire)) //Vampires
-		switch(nutrition)
-			if(NUTRITION_LEVEL_FULL to INFINITY)
-				throw_alert("nutrition", /obj/screen/alert/fat/vampire)
-			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-				throw_alert("nutrition", /obj/screen/alert/full/vampire)
-			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-				throw_alert("nutrition", /obj/screen/alert/well_fed/vampire)
-			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-				throw_alert("nutrition", /obj/screen/alert/fed/vampire)
-			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				throw_alert("nutrition", /obj/screen/alert/hungry/vampire)
-			else
-				throw_alert("nutrition", /obj/screen/alert/starving/vampire)
-
-	else //Any other non-vampires
-		switch(nutrition)
-			if(NUTRITION_LEVEL_FULL to INFINITY)
-				throw_alert("nutrition", /obj/screen/alert/fat)
-			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-				throw_alert("nutrition", /obj/screen/alert/full)
-			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-				throw_alert("nutrition", /obj/screen/alert/well_fed)
-			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-				throw_alert("nutrition", /obj/screen/alert/fed)
-			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				throw_alert("nutrition", /obj/screen/alert/hungry)
-			else
-				throw_alert("nutrition", /obj/screen/alert/starving)
+	var/new_hunger
+	switch(nutrition)
+		if(NUTRITION_LEVEL_FULL to INFINITY)
+			new_hunger = "fat"
+		if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+			new_hunger = "full"
+		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+			new_hunger = "well_fed"
+		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+			new_hunger = "fed"
+		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+			new_hunger = "hungry"
+		else
+			new_hunger = "starving"
+	if(dna.species.hunger_type)
+		new_hunger += "/[dna.species.hunger_type]"
+	if(dna.species.hunger_level != new_hunger)
+		dna.species.hunger_level = new_hunger
+		throw_alert("nutrition", "/obj/screen/alert/hunger/[new_hunger]", icon_override = dna.species.hunger_icon)
 
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high

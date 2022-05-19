@@ -622,7 +622,8 @@
 		return
 
 	var/datum/gas_mixture/environment = location.return_air()
-	var/total = environment.oxygen + environment.nitrogen + environment.carbon_dioxide + environment.toxins
+	var/known_total = environment.oxygen + environment.nitrogen + environment.carbon_dioxide + environment.toxins
+	var/total = environment.total_moles()
 	if(total == 0)
 		return null
 
@@ -635,23 +636,24 @@
 
 	cur_tlv = TLV["oxygen"]
 	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen*GET_PP)
-	var/oxygen_percent = round(environment.oxygen / total * 100, 2)
+	var/oxygen_percent = environment.oxygen / total * 100
 
 	cur_tlv = TLV["nitrogen"]
 	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen*GET_PP)
-	var/nitrogen_percent = round(environment.nitrogen / total * 100, 2)
+	var/nitrogen_percent = environment.nitrogen / total * 100
 
 	cur_tlv = TLV["carbon dioxide"]
 	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide*GET_PP)
-	var/co2_percent = round(environment.carbon_dioxide / total * 100, 2)
+	var/co2_percent = environment.carbon_dioxide / total * 100
 
 	cur_tlv = TLV["plasma"]
 	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.toxins*GET_PP)
-	var/plasma_percent = round(environment.toxins / total * 100, 2)
+	var/plasma_percent = environment.toxins / total * 100
 
 	cur_tlv = TLV["other"]
-	var/other_moles = environment.total_trace_moles()
-	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles * GET_PP)
+	var/other_moles = total - known_total
+	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles*GET_PP)
+	var/other_percent = other_moles / total * 100
 
 	cur_tlv = TLV["temperature"]
 	var/temperature_dangerlevel = cur_tlv.get_danger_level(environment.temperature)
@@ -667,7 +669,7 @@
 	percentages["nitrogen"] = nitrogen_percent
 	percentages["co2"] = co2_percent
 	percentages["plasma"] = plasma_percent
-	percentages["other"] = other_moles
+	percentages["other"] = other_percent
 	data["contents"] = percentages
 
 	var/list/danger = list()

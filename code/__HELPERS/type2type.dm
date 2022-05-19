@@ -213,6 +213,7 @@
 	if(rights & R_MOD)			. += "[seperator]+MODERATOR"
 	if(rights & R_MENTOR)		. += "[seperator]+MENTOR"
 	if(rights & R_VIEWRUNTIMES)	. += "[seperator]+VIEWRUNTIMES"
+	if(rights & R_MAINTAINER)	. += "[seperator]+MAINTAINER"
 	return .
 
 /proc/ui_style2icon(ui_style)

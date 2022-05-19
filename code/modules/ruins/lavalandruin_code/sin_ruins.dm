@@ -123,11 +123,8 @@
 			fool.monkeyize()
 			fool.forceMove(return_turf)
 			return
-	T.ChangeTurf(/turf/simulated/floor/chasm)
+	T.ChangeTurf(/turf/simulated/floor/chasm/pride)
 	var/turf/simulated/floor/chasm/C = T
-	C.drop_x = T.x
-	C.drop_y = T.y
-	C.drop_z = pick(levels)
 	C.drop(user)
 
 // Envy

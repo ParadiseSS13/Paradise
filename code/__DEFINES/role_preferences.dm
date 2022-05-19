@@ -21,7 +21,6 @@
 #define ROLE_NINJA				"space ninja"
 #define ROLE_MONKEY				"monkey"
 #define ROLE_GANG				"gangster"
-#define ROLE_SHADOWLING			"shadowling"
 #define ROLE_ABDUCTOR			"abductor"
 #define ROLE_REVENANT			"revenant"
 #define ROLE_HOG_GOD			"hand of god: god" // We're prolly gonna port this one day or another
@@ -66,7 +65,6 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_REVENANT, 										// Revenant
 	ROLE_REV = /datum/game_mode/revolution, 			// Revolutionary
 	ROLE_SENTIENT, 										// Sentient animal
-	ROLE_SHADOWLING = /datum/game_mode/shadowling, 		// Shadowling
 	ROLE_DEMON, 										// Slaguther demon
 	ROLE_NINJA, 										// Space ninja
 	ROLE_TRADER, 										// Trader

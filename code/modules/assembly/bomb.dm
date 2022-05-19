@@ -12,10 +12,6 @@
 	var/obj/item/tank/bombtank = null //the second part of the bomb is a plasma tank
 	origin_tech = "materials=1;engineering=1"
 
-/obj/item/onetankbomb/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
-
 /obj/item/onetankbomb/examine(mob/user)
 	. = ..()
 	. += bombtank.examine(user)
@@ -41,10 +37,10 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
-	bombassembly.loc = user.loc
+	bombassembly.forceMove(user.loc)
 	bombassembly.master = null
 	bombassembly = null
-	bombtank.loc = user.loc
+	bombtank.forceMove(user.loc)
 	bombtank.master = null
 	bombtank = null
 	qdel(src)
@@ -119,11 +115,11 @@
 
 	R.bombassembly = S	//Tell the bomb about its assembly part
 	S.master = R		//Tell the assembly about its new owner
-	S.loc = R			//Move the assembly out of the fucking way
+	S.forceMove(R)			//Move the assembly out of the fucking way
 
 	R.bombtank = src	//Same for tank
 	master = R
-	loc = R
+	forceMove(R)
 	R.update_icon()
 	return
 
