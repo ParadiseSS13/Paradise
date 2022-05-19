@@ -115,7 +115,7 @@ a.popt {text-decoration: none;}
     float: right;
     text-align: center;
 }
-#options .sub {clear: both; display: none; width: 160px;}
+#options .sub {clear: both; display: none; width: 240px;}
 #options .sub.scroll {overflow-y: scroll;}
 #options .sub a {padding: 5px 0 5px 8px; line-height: 30px; font-size: 0.9em; clear: both;}
 #options .sub span {
@@ -174,7 +174,7 @@ a.popt {text-decoration: none;}
 .changeFont a {display: block; text-decoration: none; padding: 3px; color: #333;}
 .changeFont a:hover {background: #ccc;}
 
-.highlightPopup {padding: 10px; text-align: center;}
+.highlightPopup {padding: 10px; text-align: center; color: #000;}
 .highlightPopup input[type=text] {display: block; width: 215px; text-align: left; margin-top: 5px;}
 .highlightPopup input.highlightColor {background-color: #FFFF00;}
 .highlightPopup input.highlightTermSubmit {margin-top: 5px;}
@@ -201,7 +201,7 @@ a.popt {text-decoration: none;}
 .filterMessages {padding: 5px;}
 .filterMessages div {padding: 2px 0;}
 .filterMessages input {}
-.filterMessages label {}
+.filterMessages label {color: #000;}
 
 .icon-stack {height: 1em; line-height: 1em; width: 1em; vertical-align: middle; margin-top: -2px;}
 

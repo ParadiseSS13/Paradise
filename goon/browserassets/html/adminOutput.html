@@ -10,7 +10,7 @@ opts.showMessagesFilters = { /* Contains the current filters. "show: false" filt
 };
 opts.filterHideAll = false;
 
-$subOptions.append('<a href="#" class="filterMessagesOpt" id="filterMessagesOpt"><span>Filter Messages</span> <i class="icon-filter"></i></a>');
+$subOptions.append('<a href="#" class="filterMessagesOpt" id="filterMessagesOpt"><span>Фильтр сообщений</span> <i class="icon-filter"></i></a>');
 
 function toggleFilter(type) {
 	if (type == 'All') {
@@ -23,7 +23,7 @@ function toggleFilter(type) {
 			});
 			$('#messages .entry *:nth-child(1):not(.internal)').parent('.entry').addClass('hidden').attr('data-filter', 'All');
 			opts.filterHideAll = true;
-			internalOutput('<span class="internal boldnshit">Hiding <strong>ALL</strong> messages. Uhhh are you sure about this?</span>');
+			internalOutput('<span class="internal boldnshit">Теперь скрываются <strong>ВСЕ</strong> сообщения. А… вы точно именно <i>этого</i> хотели?</span>');
 		} else {
 			$.each(opts.showMessagesFilters, function (key) {
 				opts.showMessagesFilters[key].show = true;
@@ -33,7 +33,7 @@ function toggleFilter(type) {
 			});
 			$('#messages .entry.hidden[data-filter]').removeClass('hidden');
 			opts.filterHideAll = false;
-			internalOutput('<span class="internal boldnshit">Showing <strong>ALL</strong> messages</span>');
+			internalOutput('<span class="internal boldnshit">Теперь показываются <strong>ВСЕ</strong> сообщения</span>');
 		}
 	} else {
 		var onoff = !opts.showMessagesFilters[type].show;
@@ -44,7 +44,7 @@ function toggleFilter(type) {
 			if (key != 'All') {
 				if (allTrue) {
 					allTrue = (val.show ? true : false);
-				} 
+				}
 				if (allFalse) {
 					allFalse = (val.show ? false : true);
 				}
@@ -75,26 +75,26 @@ function toggleFilter(type) {
 			}
 		}
 
-		var msg = (onoff ? 'Showing' : 'Filtering <strong>OUT</strong>') + " messages of type <strong>"+type+"</strong>";
+		var msg = "Сообщения <strong>«"+type+"»</strong> теперь <strong>" + (onoff ? 'показ' : 'скр')+"ываются</strong> .";
 		internalOutput('<span class="internal boldnshit">'+msg+'</span>');
 	}
 	console.log('filters is: ', opts.showMessagesFilters);
 }
 
-$subOptions.on('click', '#filterMessagesOpt', function (e) {
-	if ($('#filterMessages').is(':visible')) 
+$subOptions.on('click', '#filterMessagesOpt', function () {
+	if ($('#filterMessages').is(':visible'))
 		return;
 
-	var content = '<div class="head">Filter Messsages</div>' +
+	var content = '<div class="head">Фильтр сообщений</div>' +
 		'<div id="filterMessages" class="filterMessages">';
 	$.each(opts.showMessagesFilters, function (key, val) {
 		content += '<div><input type="checkbox" id="filter_'+key+'" name="'+key+'" value="'+key+'" '+(val.show ? 'checked="checked" ' : '')+'/> <label for="filter_'+key+'">'+key+'</label></div>';
 	});
 	content += '</div>';
-	createPopup(content, 150);
+	createPopup(content, 180);
 });
 
-$('body').on('click', '#filterMessages input', function () {
+$('body').on('click', '#filterMessages input', function() {
 	var type = $(this).val();
 	console.log('hit change event with type: '+type);
 	toggleFilter(type);

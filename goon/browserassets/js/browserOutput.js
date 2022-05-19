@@ -248,7 +248,7 @@ function highlightTerms(el) {
 				try{
 					new RegExp(opts.highlightTerms[i], "gmi"); // check to make sure the pattern wont cause issues
 				} catch(e){
-					el.innerHTML += '<br/><span style="color:#000;background-color:#FFFF00;" class="bold"> Your highlight regex pattern -- ' + opts.highlightTerms[i] + ' -- is malformed.<br/>Your highlights have been disabled until they are next edited<br/>Thrown exception: '+e+'</span>';
+					el.innerHTML += '<br/><span style="color:#000;background-color:#FFFF00;" class="bold"> Ваше регулярное выражение для подсветки строк -- ' + opts.highlightTerms[i] + ' -- некорректно.<br/>Подсветка строк отключена до следующего изменения.<br/>Ошибка: '+e+'</span>';
 					regexHasError = true;
 					return;
 				}
@@ -340,25 +340,27 @@ function output(message, flag) {
 		var bodyHeight = $('body').height();
 		var messagesHeight = $messages.outerHeight();
 		var scrollPos = $('body,html').scrollTop();
+		var $newMessages = $('#newMessages');
 
 		//Should we snap the output to the bottom?
 		if (bodyHeight + scrollPos >= messagesHeight - opts.scrollSnapTolerance) {
 			atBottom = true;
-			if ($('#newMessages').length) {
-				$('#newMessages').remove();
+			if ($newMessages.length) {
+				$newMessages.remove();
 			}
 		//If not, put the new messages box in
 		} else {
-			if ($('#newMessages').length) {
-				var messages = $('#newMessages .number').text();
-				messages = parseInt(messages);
-				messages++;
-				$('#newMessages .number').text(messages);
-				if (messages == 2) {
-					$('#newMessages .messageWord').append('s');
-				}
+			if ($newMessages.length) {
+				var msgQntParsed = $('.newMsg_num', $newMessages).text();
+				var msgQnt = parseInt(msgQntParsed);
+				msgQnt++;
+				var wordNew = declensionRu(msgQnt, 'новое', 'новых', 'новых');
+				var wordMsg = declensionRu(msgQnt, 'сообщение', 'сообщения', 'сообщений');
+				$('.newMsg_num', $newMessages).text(msgQnt);
+				$('.newMsg_wordNew', $newMessages).text(wordNew);
+				$('.newMsg_wordMsg', $newMessages).text(wordMsg);
 			} else {
-				$messages.after('<a href="#" id="newMessages"><span class="number">1</span> new <span class="messageWord">message</span> <i class="icon-double-angle-down"></i></a>');
+				$messages.after('<a href="#" id="newMessages"><span class="number newMsg_num">1</span> <span class="newMsg_wordNew">новое</span> <span class="newMsg_wordMsg">сообщение</span> <i class="icon-double-angle-down"></i></a>');
 			}
 		}
 	}
@@ -515,7 +517,7 @@ function ehjaxCallback(data) {
 		// if (opts.pingDisabled) {return;}
 		opts.pongTime = Date.now();
 		var pingDuration = Math.ceil((opts.pongTime - opts.pingTime) / 2);
-		$('#pingMs').text(pingDuration+'ms');
+		$('#pingMs').text(pingDuration+' мс');
 		pingDuration = Math.min(pingDuration, 255);
 		opts.lastPingDuration = pingDuration;
 		var red = pingDuration;
@@ -526,7 +528,7 @@ function ehjaxCallback(data) {
 		runByond('?_src_=chat&proc=pingstat&param[lastPingDuration]='+opts.lastPingDuration);
 	} else if (data == 'roundrestart') {
 		opts.restarting = true;
-		internalOutput('<div class="connectionClosed internal restarting">The connection has been closed because the server is restarting. Please wait while you automatically reconnect.</div>', 'internal');
+		internalOutput('<div class="connectionClosed internal restarting">Сервер перезагружается, поэтому соединение было закрыто. Пожалуйста, дождитесь автоматического переподключения.</div>', 'internal');
 	} else if (data == 'stopaudio') {
 		$('.dectalk').remove();
 	} else {
@@ -544,7 +546,7 @@ function ehjaxCallback(data) {
 		if (data.clientData) {
 			if (opts.restarting) {
 				opts.restarting = false;
-				$('.connectionClosed.restarting:not(.restored)').addClass('restored').text('The round restarted and you successfully reconnected!');
+				$('.connectionClosed.restarting:not(.restored)').addClass('restored').text('Раунд перезапущен и вы успешно переподключились!');
 			}
 			if (!data.clientData.ckey && !data.clientData.ip && !data.clientData.compid) {
 				//TODO: Call shutdown perhaps
@@ -571,8 +573,8 @@ function ehjaxCallback(data) {
 		} else if (data.dectalk) {
 			var message = '<audio class="dectalk" src="'+data.dectalk+'" autoplay="autoplay"></audio>';
 			if (data.decTalkTrigger) {
-				message = '<a href="#" class="stopAudio icon-stack" title="Stop Audio" style="color: black;"><i class="icon-volume-off"></i><i class="icon-ban-circle" style="color: red;"></i></a> '+
-				'<span class="italic">You hear a strange robotic voice...</span>' + message;
+				message = '<a href="#" class="stopAudio icon-stack" title="Остановить аудио" style="color: black;"><i class="icon-volume-off"></i><i class="icon-ban-circle" style="color: red;"></i></a> '+
+					'<span class="italic">Вы слышите странный роботизированный голос…</span>' + message;
 			}
 			internalOutput(message, 'preventLink');
 		}
@@ -603,17 +605,17 @@ function reboot(timeRaw) {
 	const intervalSecs = 1; // tick every 1 second
 
 	rebootFinished();
-	internalOutput('<div class="rebooting internal">The server is restarting. <a href="byond://winset?command=.reconnect" id="reconnectTimer">Reconnect (' + timeLeftSecs + ')</a></div>', 'internal');
+	internalOutput('<div class="rebooting internal">Сервер перезапускается. <a href="byond://winset?command=.reconnect" id="reconnectTimer">Переподключиться (' + timeLeftSecs + ')</a></div>', 'internal');
 
 	opts.rebootIntervalHandler = setInterval(function() {
 		timeLeftSecs -= intervalSecs;
 		if (timeLeftSecs <= 0) {
-			$("#reconnectTimer").text('Reconnecting...');
+			$("#reconnectTimer").text('Переподключение…');
 			window.location.href = 'byond://winset?command=.reconnect';
 			clearInterval(opts.rebootIntervalHandler)
 			opts.rebootIntervalHandler = null;
 		} else {
-			$("#reconnectTimer").text('Reconnect (' + timeLeftSecs + ')');
+			$("#reconnectTimer").text('Переподключиться (' + timeLeftSecs + ')');
 		}
 	}, intervalSecs * 1000);
 }
@@ -622,7 +624,7 @@ function rebootFinished() {
 	if (opts.rebootIntervalHandler != null) {
 		clearInterval(opts.rebootIntervalHandler)
 	}
-	$("<span> Reconnected automatically!</span>").insertBefore("#reconnectTimer");
+	$("<span> Вы автоматически переподключились!</span>").insertBefore("#reconnectTimer");
 	$("#reconnectTimer").remove();
 }
 
@@ -674,7 +676,7 @@ function wingetMacros(macros) {
 
 if (typeof $ === 'undefined') {
 	var div = document.getElementById('loading').childNodes[1];
-	div += '<br><br>ERROR: Jquery did not load.';
+	div += '<br><br>ОШИБКА: библиотека jQuery не загружена.';
 }
 
 $(function() {
@@ -687,10 +689,10 @@ $(function() {
 			if (!opts.noResponse) { //Only actually append a message if the previous ping didn't also fail (to prevent spam)
 				opts.noResponse = true;
 				opts.noResponseCount++;
-				internalOutput('<div class="connectionClosed internal" data-count="'+opts.noResponseCount+'">You are either AFK, experiencing lag or the connection has closed. <a href="byond://winset?command=.reconnect">(Reconnect)</a></div>', 'internal');
+				internalOutput('<div class="connectionClosed internal" data-count="'+opts.noResponseCount+'">Либо Вы AFK, либо связь лагает, либо соединение было закрыто. <a href="byond://winset?command=.reconnect">(Переподключиться)</a></div>', 'internal');
 			}
 		} else if (opts.noResponse) { //Previous ping attempt failed ohno
-			$('.connectionClosed[data-count="'+opts.noResponseCount+'"]:not(.restored)').addClass('restored').text('Your connection has been restored (probably)!');
+			$('.connectionClosed[data-count="'+opts.noResponseCount+'"]:not(.restored)').addClass('restored').text('Соединение восстановлено! Наверное.');
 			opts.noResponse = false;
 		}
 		if (opts.messageCount > opts.messageLimit) { // Prune old messages beyond the message limit
@@ -729,18 +731,18 @@ $(function() {
 
 	if (savedConfig.sfontSize) {
 		$messages.css('font-size', savedConfig.sfontSize);
-		internalOutput('<span class="internal boldnshit">Loaded font size setting of: '+savedConfig.sfontSize+'</span>', 'internal');
+		internalOutput('<span class="internal boldnshit">Загружена настройка размера шрифта: '+savedConfig.sfontSize+'</span>', 'internal');
 	}
 	if (savedConfig.sfontType) {
 		$messages.css('font-family', savedConfig.sfontType);
-		internalOutput('<span class="internal boldnshit">Loaded font type setting of: '+savedConfig.sfontType+'</span>', 'internal');
+		internalOutput('<span class="internal boldnshit">Загружена настройка гарнитуры шрифта: '+savedConfig.sfontType+'</span>', 'internal');
 	}
 	if (savedConfig.spingDisabled) {
 		if (savedConfig.spingDisabled == 'true') {
 			opts.pingDisabled = true;
 			$('#ping').hide();
 		}
-		internalOutput('<span class="internal boldnshit">Loaded ping display of: '+(opts.pingDisabled ? 'hidden' : 'visible')+'</span>', 'internal');
+		internalOutput('<span class="internal boldnshit">Загружена настройка отображения пинга: '+(opts.pingDisabled ? 'показывать' : 'скрывать')+'.</span>', 'internal');
 	}
 	if (savedConfig.shighlightTerms) {
 		var savedTerms = $.parseJSON(savedConfig.shighlightTerms);
@@ -752,39 +754,41 @@ $(function() {
 		}
 		if (actualTerms) {
 			actualTerms = actualTerms.substring(0, actualTerms.length - 2);
-			internalOutput('<span class="internal boldnshit">Loaded highlight strings of: ' + actualTerms+'</span>', 'internal');
+			internalOutput('<span class="internal boldnshit">Загружена подсветка строк: ' + actualTerms+'</span>', 'internal');
 			opts.highlightTerms = savedTerms;
 		}
 	}
 	if (savedConfig.shighlightColor) {
 		opts.highlightColor = savedConfig.shighlightColor;
-		internalOutput('<span class="internal boldnshit">Loaded highlight color of: '+savedConfig.shighlightColor+'</span>', 'internal');
+		internalOutput('<span class="internal boldnshit">Загружен цвет подсветки: '+savedConfig.shighlightColor+'</span>', 'internal');
 	}
 	if (savedConfig.shighlightRegexEnable) {
 		opts.highlightRegexEnable = savedConfig.shighlightRegexEnable;
-		internalOutput('<span class="internal boldnshit">Loaded highlight regex enable of: '+savedConfig.shighlightRegexEnable+'</span>', 'internal');
+		internalOutput('<span class="internal boldnshit">Загружена настройка использования регулярных выражений: '+savedConfig.shighlightRegexEnable+'</span>', 'internal');
 	}
 	if (savedConfig.shideSpam) {
 		opts.hideSpam = $.parseJSON(savedConfig.shideSpam);
-		internalOutput('<span class="internal boldnshit">Loaded hide spam preference of: ' + savedConfig.shideSpam + '</span>', 'internal');
+		internalOutput('<span class="internal boldnshit">Загружена настройка сокрытия дублей строк: ' + savedConfig.shideSpam + '</span>', 'internal');
 	}
+
+	$("head").append("<link>");
+	var css = $("head").children(":last");
+	css.attr({
+		rel:  "stylesheet",
+		type: "text/css",
+		href: "./browserOutput.css"
+	});
+
 	if (savedConfig.darkChat == "on") {
-		   $("head").append("<link>");
-		   var css = $("head").children(":last");
-		   css.attr({
-		     rel:  "stylesheet",
-		     type: "text/css",
-		     href: "./browserOutput-dark.css"
-		  });
-	} else {
-		   $("head").append("<link>");
-		   var css = $("head").children(":last");
-		   css.attr({
-		     rel:  "stylesheet",
-		     type: "text/css",
-		     href: "./browserOutput.css"
-		  });
+		$("head").append("<link>");
+		var $css_dark = $("head").children(":last");
+		$css_dark.attr({
+			rel:  "stylesheet",
+			type: "text/css",
+			href: "./browserOutput-dark.css"
+		});
 	}
+
 	if(localStorage){
 		var backlog = localStorage.getItem('backlog')
 		$messages.html(backlog)
@@ -881,7 +885,7 @@ $(function() {
 		// Hardcoded because else there would be no feedback message.
 		if (k == 113) { // F2
 			runByond('byond://winset?screenshot=auto');
-			internalOutput('Screenshot taken', 'internal');
+			internalOutput('Скриншот снят', 'internal');
 		}
 
 		var c = "";
@@ -960,16 +964,16 @@ $(function() {
 
 
 	/*****************************************
-	*
-	* OPTIONS INTERFACE EVENTS
-	*
-	******************************************/
+	 *
+	 * OPTIONS INTERFACE EVENTS
+	 *
+	 ******************************************/
 
 	$('body').on('click', '#newMessages', function(e) {
 		var messagesHeight = $messages.outerHeight();
 		$('body,html').scrollTop(messagesHeight);
 		$('#newMessages').remove();
-        runByond("byond://winset?mapwindow.map.focus=true");
+		runByond("byond://winset?mapwindow.map.focus=true");
 	});
 
 	$('#toggleOptions').click(function(e) {
@@ -1015,7 +1019,7 @@ $(function() {
 		fontSize = fontSize - 1 + 'px';
 		$messages.css({'font-size': fontSize});
 		setCookie('fontsize', fontSize, 365);
-		internalOutput('<span class="internal boldnshit">Font size set to '+fontSize+'</span>', 'internal');
+		internalOutput('<span class="internal boldnshit">Размер шрифта уменьшен до: '+fontSize+'</span>', 'internal');
 	});
 
 	$('#increaseFont').click(function(e) {
@@ -1023,21 +1027,21 @@ $(function() {
 		fontSize = fontSize + 1 + 'px';
 		$messages.css({'font-size': fontSize});
 		setCookie('fontsize', fontSize, 365);
-		internalOutput('<span class="internal boldnshit">Font size set to '+fontSize+'</span>', 'internal');
+		internalOutput('<span class="internal boldnshit">Размер шрифта увеличен до: '+fontSize+'</span>', 'internal');
 	});
 
 	$('#chooseFont').click(function(e) {
 		if ($('.popup .changeFont').is(':visible')) {return;}
-		var popupContent = '<div class="head">Change Font</div>' +
+		var popupContent = '<div class="head">Изменить шрифт</div>' +
 			'<div id="changeFont" class="changeFont">'+
-				'<a href="#" data-font="Verdana" style="font-family: Verdana;">Verdana (Default)</a>'+
-				'<a href="#" data-font="\'Helvetica Neue\', Helvetica, Arial" style="font-family: \'Helvetica Neue\', Helvetica, Arial;">Arial / Helvetica</a>'+
-				'<a href="#" data-font="Times New Roman" style="font-family: Times New Roman;">Times New Roman</a>'+
-				'<a href="#" data-font="Georgia" style="font-family: Georgia;">Georgia</a>'+
-				'<a href="#" data-font="Courier New" style="font-family: Courier New;">Courier New</a>'+
-				'<a href="#" data-font="Lucida Console" style="font-family: Lucida Console;">Lucida Console</a>'+
-				'<a href="#" data-font="Wingdings" style="font-family: Wingdings;">Wingdings</a>'+
-				'<a href="#" data-font="Comic Sans MS" style="font-family: Comic Sans MS;">Comic Sans MS</a>'+
+			'<a href="#" data-font="Verdana" style="font-family: Verdana;">Verdana (по-умолчанию)</a>'+
+			'<a href="#" data-font="\'Helvetica Neue\', Helvetica, Arial" style="font-family: \'Helvetica Neue\', Helvetica, Arial;">Arial / Helvetica</a>'+
+			'<a href="#" data-font="Times New Roman" style="font-family: Times New Roman;">Times New Roman</a>'+
+			'<a href="#" data-font="Georgia" style="font-family: Georgia;">Georgia</a>'+
+			'<a href="#" data-font="Courier New" style="font-family: Courier New;">Courier New</a>'+
+			'<a href="#" data-font="Lucida Console" style="font-family: Lucida Console;">Lucida Console</a>'+
+			'<a href="#" data-font="Wingdings" style="font-family: Wingdings;">Wingdings</a>'+
+			'<a href="#" data-font="Comic Sans MS" style="font-family: Comic Sans MS;">Comic Sans MS</a>'+
 			'</div>';
 		createPopup(popupContent, 200);
 	});
@@ -1051,7 +1055,7 @@ $(function() {
 	$('#toggleHideSpam').click(function(e) {
 		opts.hideSpam = !opts.hideSpam;
 		setCookie('hidespam', opts.hideSpam, 365);
-		internalOutput('<span class="internal boldnshit">Duplicate chat line condensing set to ' + opts.hideSpam + '</span>', 'internal');
+		internalOutput('<span class="internal boldnshit">Сжатие дублирующихся строк <b>' + (opts.hideSpam ? 'в' : 'от') + 'ключено</b>.</span>', 'internal');
 	});
 
 	$('#togglePing').click(function(e) {
@@ -1097,8 +1101,8 @@ $(function() {
 				saved = saved.replace(/</g, '&lt;');
 
 				// Generate final output and open the window
-				var finalText = '<head><title>Chat Log</title></head> \
-					<iframe src="saveInstructions.html" id="instructions" style="border:none;" height="220" width="100%"></iframe>'+
+				var finalText = '<head><title>Логи чата</title></head> \
+					<iframe src="saveInstructions.html" id="instructions" style="border:none;" height="240" width="100%"></iframe>'+
 					saved
 				openWindow(finalText);
 			} else {						// request returned http error
@@ -1126,7 +1130,7 @@ $(function() {
 				type: 'GET',
 				url: 'browserOutput.css',
 				success: function(styleData) {
-					var chatLogHtml = '<head><title>Chat Log</title><style>' + styleData + '</style></head><body>' + $messages.html() + '</body>';
+					var chatLogHtml = '<head><title>Логи чата</title><style>' + styleData + '</style></head><body>' + $messages.html() + '</body>';
 
 					var currentData = new Date();
 					var formattedDate = (currentData.getMonth() + 1) + '.' + currentData.getDate() + '.' + currentData.getFullYear();
@@ -1139,7 +1143,7 @@ $(function() {
 				}
 			});
 		} else {
-			output('<span class="big red">This function does not supported on your version of Internet Explorer (9 or less). Please, update to the latest version.</span>', 'internal');
+			output('<span class="big red">Эта функция не поддерживается вашей версией Internet Explorer (9 или ниже). Пожалуйста, обновитесь.</span>', 'internal');
 		}
 	});
 
@@ -1149,16 +1153,16 @@ $(function() {
 		for (var i = 0; i < opts.highlightLimit; i++) {
 			termInputs += '<div><input type="text" name="highlightTermInput'+i+'" id="highlightTermInput'+i+'" class="highlightTermInput'+i+'" maxlength="255" value="" /></div>';
 		}
-		var popupContent = '<div class="head">String Highlighting</div>' +
+		var popupContent = '<div class="head">Подсветка строк</div>' +
 			'<div class="highlightPopup" id="highlightPopup">' +
-				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.<br>'+
-		    			'<input name="highlightRegex" id="highlightRegexEnable" type="checkbox">Enable Regex</input>'+
-		    		'<br><a href="" onclick="window.open(\'https://www.paradisestation.org/wiki/index.php/Guide_to_Regex\')">See here for details</a></div>' +
+				'<div>Укажите до '+opts.highlightLimit+' строк, которые нужно подсвечивать при их появлении в чате.<br>'+
+					'<label><input name="highlightRegex" id="highlightRegexEnable" type="checkbox"> Разрешить регулярки</label>'+
+					'<br><a href="" onclick="window.open(\'https://wiki.ss220.space/index.php/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE_%D1%80%D0%B5%D0%B3%D1%83%D0%BB%D1%8F%D1%80%D0%BD%D1%8B%D0%BC_%D0%B2%D1%8B%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F%D0%BC_(Regex)\')">Подробнее о регулярках</a></div>' +
 				'<form id="highlightTermForm">' +
 					termInputs +
 					'<div><input type="text" name="highlightColor" id="highlightColor" class="highlightColor" '+
-						'style="background-color: '+(opts.highlightColor ? opts.highlightColor : '#FFFF00')+'" value="'+(opts.highlightColor ? opts.highlightColor : '#FFFF00')+'" maxlength="7" /></div>' +
-					'<div><input type="submit" name="highlightTermSubmit" id="highlightTermSubmit" class="highlightTermSubmit" value="Save" /></div>' +
+					'style="background-color: '+(opts.highlightColor ? opts.highlightColor : '#FFFF00')+'" value="'+(opts.highlightColor ? opts.highlightColor : '#FFFF00')+'" maxlength="7" /></div>' +
+					'<div><input type="submit" name="highlightTermSubmit" id="highlightTermSubmit" class="highlightTermSubmit" value="Сохранить" /></div>' +
 				'</form>' +
 			'</div>';
 		createPopup(popupContent, 250);
@@ -1207,7 +1211,7 @@ $(function() {
 		}
 
 		regexHasError = false; //they changed the regex so it might be valid now
-		internalOutput('<span class="internal boldnshit">Highlights have been updated.</span>',"internal") // simplest way to test if pattern works, why reinvent the wheel?
+		internalOutput('<span class="internal boldnshit">Подсветка строк обновлена.</span>',"internal") // simplest way to test if pattern works, why reinvent the wheel?
 
 		var $popup = $('#highlightPopup').closest('.popup');
 		$popup.remove();
@@ -1225,13 +1229,16 @@ $(function() {
 	});
 
 	$('#toggleDarkChat').click(function(e) {
-		internalOutput('<span class="internal boldnshit">Dark Chat toggled. Reconnecting to chat.</span>', 'internal');
 		var backlog = $messages.html()
+		var toggleText;
 		if(getCookie('darkChat') == "on"){
+			toggleText = 'Включена';
 			setCookie('darkChat', "off", 365)
 		} else {
+			toggleText = 'Отключена';
 			setCookie('darkChat', "on", 365)
 		}
+		internalOutput('<span class="internal boldnshit">'+toggleText+' тёмная тема чата. Переподключение к чату…</span>', 'internal');
 		localStorage.setItem('backlog', backlog)
 		location.reload();
 	});
@@ -1249,3 +1256,21 @@ $(function() {
 	$('#userBar').show();
 	opts.priorChatSize = $(window).height() + $(window).width();
 });
+
+function declensionRu (num, single_name, double_name, multiple_name) {
+	var shorten = num % 100;
+
+	if (shorten >= 10 && shorten <= 20) {
+		return multiple_name;
+	}
+
+	var lastDigit = shorten % 10;
+
+	if (lastDigit === 1) {
+		return single_name;
+	} else if (lastDigit >= 2 && lastDigit <= 4) {
+		return double_name;
+	} else {
+		return multiple_name;
+	}
+}
