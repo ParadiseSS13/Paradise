@@ -232,8 +232,8 @@
 	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	blood_overlay_type = "armor"
 	armor = list(MELEE = 15, BULLET = 50, LASER = 10, ENERGY = 10, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
-	strip_delay = 70
-	put_on_delay = 50
+	strip_delay = 7 SECONDS
+	put_on_delay = 5 SECONDS
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "ablative armor vest"
@@ -246,8 +246,8 @@
 	blood_overlay_type = "armor"
 	armor = list(MELEE = 10, BULLET = 10, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	strip_delay = 70
-	put_on_delay = 50
+	strip_delay = 7 SECONDS
+	put_on_delay = 5 SECONDS
 	var/hit_reflect_chance = 33 // when worn with the helmet will give a total reflection chance of about 40 (40.6% exactly)
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect()
