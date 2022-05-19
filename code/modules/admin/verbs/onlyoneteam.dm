@@ -76,7 +76,7 @@
 			return
 		if(H.l_hand == src)
 			return
-		var/mob/A = thrownby
+		var/mob/A = locateUID(thrownby)
 		if((H in GLOB.team_alpha) && (A in GLOB.team_alpha))
 			to_chat(A, "<span class='warning'>He's on your team!</span>")
 			return

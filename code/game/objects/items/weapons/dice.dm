@@ -315,7 +315,7 @@
 	diceroll(user)
 
 /obj/item/dice/throw_impact(atom/target)
-	diceroll(thrownby)
+	diceroll(locateUID(thrownby))
 	. = ..()
 
 /obj/item/dice/proc/diceroll(mob/user)

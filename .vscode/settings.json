@@ -18,6 +18,12 @@
 	],
 	"eslint.format.enable": true,
 	"[javascript]": {
-		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+		"editor.rulers": [80]
 	},
+	"[typescript]": {
+		"editor.rulers": [80]
+	},
+	"[scss]": {
+		"editor.rulers": [80]
+	}
 }
