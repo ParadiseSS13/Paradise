@@ -617,6 +617,14 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			return 1
 
 /obj/machinery/porta_turret/proc/check_popUp()
+	/// Whitelist to determine what objects can be put over turrets while letting them deploy
+	var/static/list/deployment_whitelist = typecacheof(list(
+	/obj/structure/window/reinforced,
+	/obj/structure/window/basic,
+	/obj/structure/window/plasmabasic,
+	/obj/structure/window/plasmareinforced,
+	/obj/machinery/door/window,
+	))
 	if(disabled)
 		return
 	if(raising || raised)
@@ -631,14 +639,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(A == src)
 			continue
 		if(A.density)
-			/// Whitelist to determine what objects can be put over turrets while letting them deploy
-			var/static/list/deployment_whitelist = typecacheof(list(
-			/obj/structure/window/reinforced,
-			/obj/structure/window/basic,
-			/obj/structure/window/plasmabasic,
-			/obj/structure/window/plasmareinforced,
-			/obj/machinery/door/window,
-			))
 			if(is_type_in_typecache(A, deployment_whitelist))
 				continue
 			return
