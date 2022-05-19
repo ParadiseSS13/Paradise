@@ -248,7 +248,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	strip_delay = 70
 	put_on_delay = 50
-	var/hit_reflect_chance = 30
+	var/hit_reflect_chance = 33
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect()
 	var/mob/living/carbon/human/user = loc
