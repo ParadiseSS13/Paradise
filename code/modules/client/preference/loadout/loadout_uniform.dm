@@ -192,7 +192,7 @@
 /datum/gear/uniform/skirt/job/security
 	display_name = "skirt, security"
 	path = /obj/item/clothing/under/rank/security/skirt
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/uniform/skirt/job/head_of_security
 	display_name = "skirt, hos"
