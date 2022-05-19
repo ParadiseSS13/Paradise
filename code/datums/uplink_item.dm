@@ -1248,6 +1248,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "FRAME"
 	item = /obj/item/cartridge/frame
 	cost = 4
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/agent_card
 	name = "Agent ID Card"
@@ -1736,7 +1737,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	The briefcase also feels a little heavier to hold; it has been manufactured to pack a little bit more of a punch if your client needs some convincing."
 	reference = "CASH"
 	item = /obj/item/storage/secure/briefcase/syndie
-	cost = 5 
+	cost = 5
 
 /datum/uplink_item/badass/plasticbag
 	name = "Plastic Bag"
