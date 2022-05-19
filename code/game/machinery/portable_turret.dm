@@ -66,6 +66,10 @@
 	var/scan_range = 7
 	var/always_up = FALSE		//Will stay active
 	var/has_cover = TRUE		//Hides the cover
+	/// Whitelist to determine what objects can be put over turrets
+	var/list/deployment_whitelist = list(/obj/structure/window/reinforced, /obj/structure/window/basic, /obj/structure/window/plasmabasic, /obj/structure/window/plasmareinforced)
+	/// Deployment override to allow turret popup on dense turfs, for admin turrets
+	var/deployment_override
 
 
 /obj/machinery/porta_turret/Initialize(mapload)
@@ -614,21 +618,27 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(target(M))
 			return 1
 
-/obj/machinery/porta_turret/proc/popUp()	//pops the turret up
+/obj/machinery/porta_turret/proc/check_popUp()
 	if(disabled)
 		return
 	if(raising || raised)
 		return
 	if(stat & BROKEN)
 		return
+	if(deployment_override)
+		popUp()
 	// check if anything's preventing us from raising
 	var/turf/T = get_turf(src)
 	for(var/atom/A in T)
 		if(A == src)
 			continue
 		if(A.density)
+			if(is_type_in_list(A, deployment_whitelist))
+				continue
 			return
+	popUp()
 
+/obj/machinery/porta_turret/proc/popUp()	//pops the turret up
 	set_raised_raising(raised, TRUE)
 	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
 	update_icon()
@@ -682,7 +692,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(target)
 		last_target = target
 		if(has_cover)
-			popUp()				//pop the turret up if it's not already up.
+			check_popUp()				//pop the turret up if it's not already up.
 		// Set angle
 		set_angle(get_angle(src, target))
 		shootAt(target)
@@ -738,6 +748,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	check_weapons = TRUE
 	check_anomalies = TRUE
 	region_max = REGION_CENTCOMM // Non-turretcontrolled turrets at CC can have their access customized to check for CC accesses.
+	deployment_override = TRUE
 
 /obj/machinery/porta_turret/centcom/pulse
 	name = "pulse turret"
