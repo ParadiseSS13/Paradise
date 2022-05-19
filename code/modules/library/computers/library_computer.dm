@@ -427,7 +427,7 @@
 		return
 	var/obj/item/book/B = new(loc)
 
-	if(!newbook.programmatic)
+	if(FALSE) //we just gonna keep this here for a bit :)
 		B.name = "Book: [newbook.title]"
 		B.title = newbook.title
 		B.author = newbook.author

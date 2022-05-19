@@ -57,7 +57,6 @@ GLOBAL_DATUM_INIT(library_catalog, /datum/library_catalog, new())
 		var/datum/cachedbook/CB = new()
 		CB.title = B.name
 		CB.author = B.author
-		CB.path=typepath
 		CB.id = "M[newid]"
 		newid++
 		cached_books["[CB.id]"]=CB
