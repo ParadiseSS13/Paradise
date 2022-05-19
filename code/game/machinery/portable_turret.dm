@@ -66,9 +66,7 @@
 	var/scan_range = 7
 	var/always_up = FALSE		//Will stay active
 	var/has_cover = TRUE		//Hides the cover
-	/// Whitelist to determine what objects can be put over turrets
-	var/list/deployment_whitelist = list(/obj/structure/window/reinforced, /obj/structure/window/basic, /obj/structure/window/plasmabasic, /obj/structure/window/plasmareinforced)
-	/// Deployment override to allow turret popup on dense turfs, for admin turrets
+	/// Deployment override to allow turret popup on/under dense turfs/objects, for admin/CC turrets
 	var/deployment_override
 
 
@@ -633,7 +631,15 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(A == src)
 			continue
 		if(A.density)
-			if(is_type_in_list(A, deployment_whitelist))
+			/// Whitelist to determine what objects can be put over turrets while letting them deploy
+			var/static/list/deployment_whitelist = typecacheof(list(
+			/obj/structure/window/reinforced,
+			/obj/structure/window/basic,
+			/obj/structure/window/plasmabasic,
+			/obj/structure/window/plasmareinforced,
+			/obj/machinery/door/window,
+			))
+			if(is_type_in_typecache(A, deployment_whitelist))
 				continue
 			return
 	pop_up()
