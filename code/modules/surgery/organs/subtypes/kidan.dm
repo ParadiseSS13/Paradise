@@ -131,7 +131,7 @@
 	mmi_icon_state = "mmi_full"
 	parent_organ = "chest"
 
-/obj/item/organ/internal/brain/on_life()
+/obj/item/organ/internal/brain/kidan/on_life()
 	. = ..()
 	var/obj/item/organ/external/organ = owner.get_organ("head")
 	if(!istype(organ))
