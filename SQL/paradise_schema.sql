@@ -310,13 +310,13 @@ CREATE TABLE `privacy` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `karma`
+-- Table structure for table `karma_log`
 --
 
-DROP TABLE IF EXISTS `karma`;
+DROP TABLE IF EXISTS `karma_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `karma` (
+CREATE TABLE `karma_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `spendername` text NOT NULL,
   `spenderkey` text NOT NULL,
