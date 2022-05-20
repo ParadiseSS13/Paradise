@@ -61344,7 +61344,7 @@
 /obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/ointment,
 /obj/machinery/computer/mob_healer_terminal{
-	pixel_y = 32
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
