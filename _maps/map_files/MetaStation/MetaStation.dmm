@@ -1006,6 +1006,9 @@
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-20"
 	},
+/obj/machinery/computer/mob_battle_terminal/red{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -4130,6 +4133,9 @@
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 27
+	},
+/obj/machinery/computer/mob_battle_terminal/blue{
+	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
