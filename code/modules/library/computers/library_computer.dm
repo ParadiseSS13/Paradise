@@ -15,6 +15,7 @@
 	var/upload_category = "Fiction"
 	///Page number for TGUI Tabs
 	var/logged_in = FALSE
+	var/selected_report
 	var/num_pages = 0
 	var/num_results = 0
 	var/datum/cachedbook/selected_book = new()
@@ -30,8 +31,6 @@
 	var/checkoutperiod = 5 // In minutes
 
 	var/static/list/category_choices
-
-	var/static/datum/library_catalog/programmatic_books = new()
 
 	var/datum/cachedbook/testtest
 
@@ -106,10 +105,19 @@
 		)
 	data["selectedbook"] = selected_book_data
 
-	//should only be getting booklist when we opening up the page
+	data["programmatic_booklist"] = list()
+	for(var/book in GLOB.library_catalog.books)
+		var/datum/programmaticbook/PB = book
+		var/list/book_data = list(
+			title = PB.title  ? PB.title : "not specified",
+			author = PB.author ? PB.author : "Nanotrasen",
+			id = PB.id,
+		)
+		data["programmatic_booklist"] += list(book_data)
+	//should only be generating the cached booklist when we absolutely need to
 	if(!cached_booklist || length(cached_booklist) < 1)
 		populate_booklist()
-	data["booklist"] = cached_booklist
+	data["external_booklist"] = cached_booklist
 	data["checkout_data"] = list()
 
 	for(var/datum/borrowbook/b in checkouts)
@@ -133,6 +141,7 @@
 		data["checkout_data"] += list(checkout_data)
 
 	// Transfer modal information if there is one
+	data["selected_report"] = selected_report
 	data["modal"] = ui_modal_data(src)
 
 	return data
@@ -140,57 +149,51 @@
 /obj/machinery/computer/library/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	if(stat & (NOPOWER|BROKEN))
-		return
 
-	if(ui_act_modal(action, params, ui, state))
-		return TRUE
+	if(ui_act_modal(action, params))
+		return
 
 	switch(action)
 		if("incrementpage") // Select Page
 			archive_page_num++
 			populate_booklist()
 
-		else if("deincrementpage")
-			if(archive_page_num >= 2)
+		if("deincrementpage")
+			if(archive_page_num > 1)
 				archive_page_num--
 				populate_booklist()
 
-		else if("search")
+		if("search")
 			//search()
 
-		else if("orderbook")
-			var/datum/cachedbook/orderedbook = GLOB.library_catalog.getBookByID(params["id"])
+		if("order_external_book")
+			var/datum/cachedbook/orderedbook = GLOB.library_catalog.getBookByID(params["bookid"])
 			testtest = orderedbook
 			if(orderedbook)
 				make_external_book(orderedbook)
-
-		else if("set_search_parameters")
+		if("order_programmatic_book")
+			var/datum/programmaticbook/PB = GLOB.library_catalog.getProgrammaticBookByID(params["bookid"])
+			if(PB)
+				make_programmatic_book(PB)
+		if("set_search_parameters")
 			if(params["searchtitle"])
 				query.title = params["searchtitle"]
-			else if(params["searchauthor"])
+			if(params["searchauthor"])
 				query.author = params["searchauthor"]
-			else if(params["searchcategories"])
-			//stuff
-			else if(params["searchrating"])
-			//stuff
-
-		else if("edit_selected_book")
-			else if(params["selected_title"])
+		if("edit_selected_book")
+			if(params["selected_title"])
 				selected_book.title = params["selected_title"]
-			else if(params["selected_author"])
+			if(params["selected_author"])
 				selected_book.author = params["selected_author"]
-			else if(params["selected_summary"])
-				selected_book.summary =["selected_summary"]
+			if(params["selected_summary"])
+				selected_book.summary = params["seleced_summary"]
 
-		else if("reportbook")
-			flagbook(params["id"])
-
-		else if("uploadbook")
+		if("submitreport")
+			reportbook(params["id"], params["report_type"])
+		if("set_report")
+			selected_report = params["report_type"]
+		if("uploadbook")
 			upload_book()
-
-		else
-			return FALSE
 
 	add_fingerprint(usr)
 
@@ -208,6 +211,32 @@
 					ui_modal_input(src, id, "Please input the new author:", null, arguments, selected_book.author)
 				if("edit_summary")
 					ui_modal_input(src, id, "Please input the new summary:", null, arguments, selected_book.summary)
+				if("expand_info")
+					var/datum/programmaticbook/PB = GLOB.library_catalog.getProgrammaticBookByID(arguments["bookid"])
+					if(PB)
+						ui_modal_message(src, id, "", arguments = list(
+							title = PB.title,
+							author = PB.author,
+							summary = PB.summary ? PB.summary : "No Summary Provided",
+							rating = "No Rating Provided",
+						))
+						return //If we've succesfully opened the modal for our programmatic book, we don't need to do more logic
+					var/datum/cachedbook/CB = GLOB.library_catalog.getBookByID(arguments["bookid"])
+					if(CB)
+						ui_modal_message(src, id, "", arguments = list(
+							title = CB.title,
+							author = CB.author,
+							summary = CB.summary ? CB.summary : "No Summary Provided",
+							rating = CB.rating ? CB.rating : "No Rating Provided",
+						))
+				if("report_book")
+					var/datum/cachedbook/CB = GLOB.library_catalog.getBookByID(arguments["bookid"])
+					var/list/report_content = GLOB.library_catalog.report_types
+					ui_modal_message(src, id, "", arguments = list(
+						title = CB.title,
+						ckey = CB.ckey,
+						report_content = report_content
+					))
 				else
 					return FALSE
 		if(UI_MODAL_ANSWER)
@@ -307,16 +336,16 @@
 		)
 		cached_booklist += list(book_data)
 //flag book shit
-/obj/machinery/computer/library/proc/flagbook(bookid, report_reason)
+/obj/machinery/computer/library/proc/reportbook(bookid, report_type)
+	var/report_message
 	if(!SSdbcore.IsConnected())
+		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for [report_message] but the flag was not succesfully saved to the Database. Please investigate further.")
 		alert("Connection to Archive has been severed. Aborting.")
 		return
 	if(bookid)
 		var/datum/cachedbook/B = getBookByID(bookid)
 		if(B)
-			if((input(usr, "Are you sure you want to flag [B.title] for the reason: [report_reason]?", "Flag Book #[B.id]") in list("Yes", "No")) == "Yes")
-				GLOB.library_catalog.flag_book_by_id(usr, bookid, report_reason)
-
+			GLOB.library_catalog.flag_book_by_id(usr, bookid)
 
 //Not sure what the fuck this does yet
 /obj/machinery/computer/library/proc/get_page(archive_page_num)
@@ -426,18 +455,22 @@
 	if(!newbook || !newbook.id)
 		return
 	var/obj/item/book/B = new(loc)
-
-	if(FALSE) //we just gonna keep this here for a bit :)
-		B.name = "Book: [newbook.title]"
-		B.title = newbook.title
-		B.author = newbook.author
-		B.summary = newbook.summary
-		B.dat = newbook.content
-		B.rating = newbook.rating
-		B.icon_state = "book[rand(1,16)]"
-		B.copyright = TRUE
+	B.name = "Book: [newbook.title]"
+	B.title = newbook.title
+	B.author = newbook.author
+	B.summary = newbook.summary
+	B.dat = newbook.content
+	B.rating = newbook.rating
+	B.icon_state = "book[rand(1,16)]"
+	B.copyright = TRUE
 	visible_message("[src]'s printer hums as it produces a completely bound book. How did it do that?")
 
+/obj/machinery/computer/library/proc/make_programmatic_book(datum/programmaticbook/newbook)
+	if(!newbook || !newbook.path)
+		return
+
+	new newbook.path(loc)
+	visible_message("[src]'s printer hums as it produces a completely bound book. How did it do that?")
 
 /obj/machinery/computer/library/checkout/emag_act(mob/user)
 	if(density && !emagged)

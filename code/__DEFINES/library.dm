@@ -35,3 +35,13 @@
 #define LIB_CATEGORY_MEDICAL     "Medical"
 #define LIB_CATEGORY_RESEARCH    "Science"
 #define LIB_CATEGORY_COMMAND     "Command"
+
+//Library Report button defines
+
+#define LIB_REPORT_HATESPEECH    1
+#define LIB_REPORT_EROTICA		 2
+#define LIB_REPORT_OOC           3
+#define LIB_REPORT_COPYPASTA     4
+#define LIB_REPORT_BLANK         5
+#define LIB_REPORT_NOEFFORT      6
+#define LIB_REPORT_OTHER         7

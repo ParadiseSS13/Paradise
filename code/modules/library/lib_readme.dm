@@ -3,20 +3,6 @@
 //	Library SQL Configuration
 //
 //*******************************
-
-// Deprecated! See global.dm for new SQL config vars -- TLE
-/*
-#define SQL_ADDRESS ""
-#define SQL_DB ""
-#define SQL_PORT "3306"
-#define SQL_LOGIN ""
-#define SQL_PASS ""
-*/
-
-//*******************************
-// Requires Dantom.DB library ( http://www.byond.com/developer/Dantom/DB )
-
-
 /*
    The Library
    ------------

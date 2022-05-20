@@ -1,20 +1,63 @@
 import { useBackend, useLocalState } from '../backend';
+import { Fragment } from 'inferno';
 import { Box, Button, Flex, Icon, Input, LabeledList, Section, Table, Tabs } from '../components';
 import { Window } from '../layouts';
-import { ComplexModal, modalOpen } from './common/ComplexModal';
+import { ComplexModal, modalOpen, modalRegisterBodyOverride} from './common/ComplexModal';
+
+const expandModalBodyOverride = (modal, context) => {
+  const { act, data } = useBackend(context);
+  const expandinfo = modal.args;
+  return (
+    <Section level={2} m="-1rem" pb="1rem">
+      <LabeledList>
+        <LabeledList.Item label="Title">{expandinfo.title}</LabeledList.Item>
+        <LabeledList.Item label="Author">{expandinfo.author}</LabeledList.Item>
+        <LabeledList.Item label="Summary">{expandinfo.summary}</LabeledList.Item>
+        <LabeledList.Item label="Rating">{expandinfo.rating}</LabeledList.Item>
+      </LabeledList>
+    </Section>
+  );
+};
+
+const reportModalBodyOverride = (modal, context) => {
+  const { act, data } = useBackend(context);
+  const report_content = modal.args;
+  const {
+    selected_report
+  } = data;
+
+  return (
+    <Section level={2} m="-1rem" pb="1rem" title="Report this book for Rule Violations">
+      <LabeledList>
+        <LabeledList.Item label="Title">{report_content.title}</LabeledList.Item>
+        <LabeledList.Item label="Reasons">
+            <Box>
+              {report_content
+                .map(report_content => (
+                <Fragment key={report_content.type}>
+                  <Button
+                    content={report_content.description}
+                    selected = {report_content.type === selected_report}
+                    onClick={() => act('set_report', {
+                      report_type: report_content.type,
+                    })}
+                  />
+                  <br />
+                </Fragment>
+              ))}
+            </Box>
+          </LabeledList.Item>
+      </LabeledList>
+    </Section>
+  );
+};
 
 export const LibraryComputer = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const {
-    booklist,
-    usertype,
-    loginstate,
-    selectedbook,
-  } = data;
-
   return (
     <Window resizable>
+      <ComplexModal/>
       <Window.Content scrollable className="Layout__content--flexColumn">
         <LibraryComputerNavigation />
         <LibraryPageContent />
@@ -37,7 +80,7 @@ const LibraryComputerNavigation = (properties, context) => {
         selected={1 === tabIndex}
         onClick={() => setTabIndex(1)}>
         <Icon name="list" />
-        General Literature
+        Corporate Literature
       </Tabs.Tab>
       <Tabs.Tab
         selected={2 === tabIndex}
@@ -75,9 +118,8 @@ const LibraryBooksList = (properties, context) => {
   const { act, data } = useBackend(context);
 
   const {
-    booklist,
-    usertype,
-    loginstate,
+    external_booklist,
+    archive_pagenumber,
   } = data;
 
   return (
@@ -92,52 +134,98 @@ const LibraryBooksList = (properties, context) => {
           <Table.Cell>Category</Table.Cell>
           <Table.Cell textAlign="middle">Actions</Table.Cell>
         </Table.Row>
-        {booklist
-          .map(booklist => (
+        {external_booklist
+          .map(external_booklist => (
             <Table.Row
-              key={booklist.id}>
-              <Table.Cell>{booklist.id}</Table.Cell>
-              <Table.Cell textAlign="left"><Icon name="book" /> {booklist.title}</Table.Cell>
-              <Table.Cell textAlign="left">{booklist.author}</Table.Cell>
+              key={external_booklist.id}>
+              <Table.Cell>{external_booklist.id}</Table.Cell>
+              <Table.Cell textAlign="left"><Icon name="book" /> {external_booklist.title}</Table.Cell>
+              <Table.Cell textAlign="left">{external_booklist.author}</Table.Cell>
               <Table.Cell>nil</Table.Cell>
-              <Table.Cell>{booklist.category}</Table.Cell>
+              <Table.Cell>{external_booklist.category}</Table.Cell>
               <Table.Cell textAlign="right">
                 <Button
                   content="Report"
                   icon="flag"
                   color="bad"
-                  onClick={() => act('reportbook')}
+                  onClick={() => modalOpen(context, 'report_book',{
+                    bookid: external_booklist.id,
+                  })}
                 />
                 <Button
                   content="Order"
                   icon="print"
-                  onClick={() => act('orderbook', {
-                    id: booklist.id,
+                  onClick={() => act('order_external_book', {
+                    bookid: external_booklist.id,
                   })}
                 />
                 <Button
                   content="More..."
-                  onClick={() => act('expandinfo')}
+                  onClick={() => modalOpen(context, 'expand_info',{
+                    bookid: external_booklist.id,
+                  })}
                 />
               </Table.Cell>
             </Table.Row>
           ))}
       </Table>
+      <div className="CameraConsole__toolbarRight">
+          <Button
+            icon="chevron-left"
+            disabled={archive_pagenumber === 1}
+            onClick={() => act('deincrementpage')}
+          />
+          <Button
+            icon="chevron-right"
+            onClick={() => act('incrementpage')}
+          />
+        </div>
     </Section>
   );
 };
 
 const ProgramatticBooks = (properties, context) => {
   const { act, data } = useBackend(context);
+
   const {
-    selectedbook,
+    programmatic_booklist,
   } = data;
 
   return (
     <Section
-      title="Book System Upload">
-      <Flex />
-
+      title="Corporate Book Catalog">
+      <Table className="LibraryBooks__list">
+        <Table.Row bold>
+          <Table.Cell>SSID</Table.Cell>
+          <Table.Cell>Title</Table.Cell>
+          <Table.Cell>Author</Table.Cell>
+          <Table.Cell textAlign="middle">Actions</Table.Cell>
+        </Table.Row>
+        {programmatic_booklist
+          .map(programmatic_booklist => (
+            <Table.Row
+              key={programmatic_booklist.id}>
+              <Table.Cell>{programmatic_booklist.id}</Table.Cell>
+              <Table.Cell textAlign="left"><Icon name="book" /> {programmatic_booklist.title}</Table.Cell>
+              <Table.Cell textAlign="left">{programmatic_booklist.author}</Table.Cell>
+              <Table.Cell textAlign="right">
+                <Button
+                  content="Order"
+                  icon="print"
+                  onClick={() => act('order_programmatic_book', {
+                    bookid: programmatic_booklist.id,
+                  })}
+                />
+                <Button
+                  content="More..."
+                  onClick={() => modalOpen(context, 'expand_info',{
+                    bookid: programmatic_booklist.id,
+                  })}
+                />
+              </Table.Cell>
+            </Table.Row>
+          ))}
+      </Table>
     </Section>
   );
 };
@@ -198,6 +286,8 @@ const UploadBooks = (properties, context) => {
   );
 };
 
+
+
 const PatronManager = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
@@ -247,3 +337,6 @@ const PatronManager = (properties, context) => {
     </Section>
   );
 };
+
+modalRegisterBodyOverride('expand_info', expandModalBodyOverride);
+modalRegisterBodyOverride('report_book', reportModalBodyOverride );
