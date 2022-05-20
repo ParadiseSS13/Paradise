@@ -252,7 +252,7 @@
 // Switch the amount of reagents used per shot.
 /obj/item/gun/syringe/rapidsyringe/AltClick(mob/living/user)
 
-	transfer_amount_selection = transfer_amount_selection + 1
+	transfer_amount_selection++
 	if(transfer_amount_selection > length(possible_transfer_amounts))
 		transfer_amount_selection = 1
 
