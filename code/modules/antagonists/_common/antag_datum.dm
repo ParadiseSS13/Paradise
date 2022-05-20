@@ -47,6 +47,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 /datum/antagonist/Destroy(force, ...)
 	QDEL_LIST(objectives)
+	remove_owner_from_gamemode()
 	GLOB.antagonists -= src
 	if(!silent)
 		farewell()
@@ -59,6 +60,18 @@ GLOBAL_LIST_EMPTY(antagonists)
 	restore_last_hud_and_role()
 	owner = null
 	return ..()
+
+/**
+ * Adds the owner to their respective gamemode's list. For example `SSticker.mode.traitors |= owner`.
+ */
+/datum/antagonist/proc/add_owner_to_gamemode()
+	return
+
+/**
+ * Removes the owner from their respective gamemode's list. For example `SSticker.mode.traitors -= owner`.
+ */
+/datum/antagonist/proc/remove_owner_from_gamemode()
+	return
 
 /**
  * Loops through the owner's `antag_datums` list and determines if this one is blacklisted by any others.
@@ -255,6 +268,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/on_gain()
 	owner.special_role = special_role
+	add_owner_to_gamemode()
 	if(give_objectives)
 		give_objectives()
 	if(!silent)
