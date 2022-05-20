@@ -51,5 +51,3 @@ Creative Commons 3.0 BY-SA license (https://creativecommons.org/licenses/by-sa/3
 unless otherwise indicated.
 
 
-
-
