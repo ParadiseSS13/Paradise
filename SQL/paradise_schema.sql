@@ -333,13 +333,13 @@ CREATE TABLE `karma` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `karmatotals`
+-- Table structure for table `karma_totals`
 --
 
-DROP TABLE IF EXISTS `karmatotals`;
+DROP TABLE IF EXISTS `karma_totals`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `karmatotals` (
+CREATE TABLE `karma_totals` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `byondkey` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `karma` int(11) NOT NULL,
