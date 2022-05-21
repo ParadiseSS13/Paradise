@@ -84,7 +84,7 @@ scriptLines.append("mysql -u root -proot < SQL/paradise_schema.sql\n")
 scriptLines.append("mysqldump -d -u root -proot -p paradise_gamedb > FRESH_SCHEMA.sql\n")
 
 # Now diff. This should exit 1 if they are different
-scriptLines.append("diff UPDATED_SCHEMA.sql FRESH_SCHEMA.sql'\n")
+scriptLines.append("diff UPDATED_SCHEMA.sql FRESH_SCHEMA.sql\n")
 
 outputScript = open("tools/ci/validate_sql.sh", "w+")
 outputScript.writelines(scriptLines)
