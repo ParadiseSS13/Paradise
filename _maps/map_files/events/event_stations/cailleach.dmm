@@ -28925,7 +28925,7 @@
 "wQr" = (
 /obj/machinery/door_control{
 	icon_state = "doorctrl-p";
-	id = medshut
+	id = "medshut"
 	},
 /turf/simulated/wall/r_wall,
 /area/space)
