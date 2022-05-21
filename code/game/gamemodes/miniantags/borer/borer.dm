@@ -590,10 +590,10 @@
 	GrantBorerActions()
 	RemoveInfestActions()
 	forceMove(get_turf(host))
-	machine = null
+	unset_machine()
 
 	host.reset_perspective(null)
-	host.machine = null
+	host.unset_machine()
 
 	var/mob/living/carbon/H = host
 	H.borer = null
