@@ -2317,7 +2317,10 @@
 /obj/structure/table/wood{
 	icon_state = "wood_table-5"
 	},
-/obj/item/nullrod/whip,
+/obj/item/reagent_containers/food/drinks/bottle/wine,
+/obj/item/reagent_containers/food/drinks/bottle/wine,
+/obj/item/reagent_containers/food/drinks/bottle/wine,
+/obj/item/reagent_containers/food/drinks/bottle/wine,
 /turf/simulated/floor/carpet/black{
 	icon_state = "carpet-21";
 	temperature = 254.95
@@ -4003,6 +4006,7 @@
 /obj/item/circuitboard/protolathe,
 /obj/item/circuitboard/rdconsole/public,
 /obj/item/circuitboard/circuit_imprinter,
+/obj/item/circuitboard/destructive_analyzer,
 /turf/simulated/floor/vault,
 /area/space)
 "dkF" = (
@@ -9447,6 +9451,12 @@
 /turf/simulated/floor/beach/away/water/deep/wood_floor{
 	temperature = 254.95
 	},
+/area/space)
+"hMA" = (
+/obj/structure/table,
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/box/monkeycubes,
+/turf/simulated/floor/vault,
 /area/space)
 "hMD" = (
 /obj/item/shard,
@@ -15846,6 +15856,7 @@
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/coffee,
 /obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/clothing/gloves/color/latex/nitrile,
 /turf/simulated/floor/vault,
 /area/space)
 "mFs" = (
@@ -22833,6 +22844,7 @@
 /obj/item/reagent_containers/food/pill/mannitol,
 /obj/item/reagent_containers/food/pill/mannitol,
 /obj/item/reagent_containers/food/pill/mannitol,
+/obj/item/circuitboard/chem_dispenser,
 /turf/simulated/floor/vault,
 /area/space)
 "rOQ" = (
@@ -24171,6 +24183,13 @@
 /obj/item/stack/spacecash/c1000,
 /obj/item/stack/spacecash/c1000,
 /turf/simulated/floor/carpet/red{
+	temperature = 254.95
+	},
+/area/space)
+"sOL" = (
+/obj/structure/chair/sofa/pew/right,
+/obj/item/reagent_containers/food/drinks/bottle/wine,
+/turf/simulated/floor/wood{
 	temperature = 254.95
 	},
 /area/space)
@@ -71992,7 +72011,7 @@ gwG
 jJU
 jJU
 eJl
-fjH
+hMA
 gwG
 fYh
 hmA
@@ -73077,7 +73096,7 @@ brk
 eSs
 bNT
 brk
-rVN
+sOL
 rVN
 rVN
 brk
