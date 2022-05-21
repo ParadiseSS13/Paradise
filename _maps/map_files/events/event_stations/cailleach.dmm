@@ -19873,7 +19873,7 @@
 "pPY" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
-	id_tag = medshut
+	id_tag = "medshut"
 	},
 /obj/structure/barricade/wooden/crude/snow,
 /obj/structure/fans/tiny,
