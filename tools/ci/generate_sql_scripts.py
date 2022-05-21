@@ -16,14 +16,13 @@ for fileName in sqlFiles:
 orderedSqlFiles = sorted(orderedSqlFiles)
 
 for index in orderedSqlFiles:
-    # Yes I know half of the casts below this are probably not necassary, but python is very picky
     # AND YES I KNOW THIS IS SNOWFLAKEY AS HELL, BUT IT MUST BE DONE FOR PROPER CI
     if index in [16, 17, 31]:
-        orderedSqlFiles[index] = str(index) + "-" + (str(int(index)+1)) + ".py"
+        orderedSqlFiles[index] = "{}-{}.py".format(index, index + 1)
     else:
-        orderedSqlFiles[index] = str(index) + "-" + (str(int(index)+1)) + ".sql"
+        orderedSqlFiles[index] = "{}-{}.sql".format(index, index + 1)
 
-print("Found " + str(len(orderedSqlFiles)) + " SQL update files to validate")
+print("Found {} SQL update files to validate".format(len(orderedSqlFiles)))
 
 # FROM THIS POINT ON, DO NOT SORT THAT LIST
 # Go back up two directories
@@ -54,34 +53,35 @@ for file in orderedSqlFiles:
     if file.endswith(".py"):
         # Begin snowflakery
         if file == "16-17.py":
-            scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root paradise_gamedb feedback round\n")
+            scriptLines.append("python3 SQL/updates/{} 127.0.0.1 root root paradise_gamedb feedback round\n".format(file))
         elif file == "17-18.py":
-            scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root paradise_gamedb feedback feedback_2\n")
+            scriptLines.append("python3 SQL/updates/{} 127.0.0.1 root root paradise_gamedb feedback feedback_2\n".format(file))
         elif file == "31-32.py":
-            scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root paradise_gamedb\n")
+            scriptLines.append("python3 SQL/updates/{} 127.0.0.1 root root paradise_gamedb\n".format(file))
         else:
             print("ERROR: CI failed due to invalid python file in SQL/updates")
             exit(1)
     else:
-        inFile = open("SQL/updates/" + file, "r")
+        inFile = open("SQL/updates/{}".format(file), "r")
         fileLines = inFile.readlines()
         inFile.close()
         # Add in a line which tells it to use the paradise DB
         fileLines.insert(0, "USE `paradise_gamedb`;\n")
 
         # Write new files to be used by the testing script
-        outFile = open("tools/ci/sql_tmp/" + file, "w+")
+        outFile = open("tools/ci/sql_tmp/{}".format(file), "w+")
         outFile.writelines(fileLines)
         outFile.close()
 
         # Add a line to the script being made that tells it to use this SQL file
-        scriptLines.append("mysql -u root -proot < tools/ci/sql_tmp/" + str(file) + "\n")
+        scriptLines.append("mysql -u root -proot < tools/ci/sql_tmp/{}\n".format(file))
 
 # Dump the DB to a file to do diff checking with
-scriptLines.append("mysqldump -d -u root -proot -p paradise_gamedb --skip-auto-increment > UPDATED_SCHEMA.sql\n")
+# We need the awful sed stuff here so that we can remove AUTO_INCREMENT saved values
+scriptLines.append("mysqldump -d -u root -proot -p paradise_gamedb | sed 's/ AUTO_INCREMENT=[0-9]*\b//' > UPDATED_SCHEMA.sql\n")
 scriptLines.append("mysql -u root -proot -e 'DROP DATABASE paradise_gamedb;'\n")
 scriptLines.append("mysql -u root -proot < SQL/paradise_schema.sql\n")
-scriptLines.append("mysqldump -d -u root -proot -p paradise_gamedb --skip-auto-increment > FRESH_SCHEMA.sql\n")
+scriptLines.append("mysqldump -d -u root -proot -p paradise_gamedb | sed 's/ AUTO_INCREMENT=[0-9]*\b//' > FRESH_SCHEMA.sql\n")
 
 # Now diff. This should exit 1 if they are different
 scriptLines.append("diff UPDATED_SCHEMA.sql FRESH_SCHEMA.sql\n")
