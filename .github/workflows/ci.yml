@@ -52,8 +52,8 @@ jobs:
           tools/ci/generate_maplist.sh
           tools/ci/dm.sh -DCIMAP paradise.dme
 
-  unit_tests_and_sql:
-    name: Unit Tests + SQL Validation
+  unit_tests:
+    name: Unit Tests
     runs-on: ubuntu-20.04
     strategy:
       matrix:
@@ -73,11 +73,10 @@ jobs:
         with:
           path: $HOME/BYOND
           key: ${{ runner.os }}-byond
-      - name: Setup & Validate DB
+      - name: Setup DB
         run: |
           sudo systemctl start mysql
-          python3 tools/ci/generate_sql_scripts.py
-          tools/ci/validate_sql.sh
+          mysql -u root -proot < SQL/paradise_schema.sql
       - name: Install RUST_G Deps
         run: |
           sudo dpkg --add-architecture i386
@@ -95,6 +94,25 @@ jobs:
           tools/ci/dm.sh -DCIBUILDING paradise.dme
           echo '${{ matrix.maptype }}' > data/next_map.txt
           tools/ci/run_server.sh
+
+  sql_validation:
+    name: Full SQL Validation
+    runs-on: ubuntu-20.04
+    services:
+      mariadb:
+        image: mariadb:latest
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306
+        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup & Validate DB
+        run: |
+          sudo systemctl start mysql
+          python3 tools/ci/generate_sql_scripts.py
+          tools/ci/validate_sql.sh
 
   windows_dll_tests:
     name: Windows RUSTG Validation

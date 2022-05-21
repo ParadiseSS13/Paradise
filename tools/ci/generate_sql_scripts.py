@@ -77,8 +77,14 @@ for file in orderedSqlFiles:
         # Add a line to the script being made that tells it to use this SQL file
         scriptLines.append("mysql -u root -proot < tools/ci/sql_tmp/" + str(file) + "\n")
 
+# Dump the DB to a file to do diff checking with
+scriptLines.append("mysqldump -d -u root -proot -p paradise_gamedb > UPDATED_SCHEMA.sql'\n")
 scriptLines.append("mysql -u root -proot -e 'DROP DATABASE paradise_gamedb;'\n")
 scriptLines.append("mysql -u root -proot < SQL/paradise_schema.sql\n")
+scriptLines.append("mysqldump -d -u root -proot -p paradise_gamedb > FRESH_SCHEMA.sql'\n")
+
+# Now diff. This should exit 1 if they are different
+scriptLines.append("diff UPDATED_SCHEMA.sql FRESH_SCHEMA.sql'\n")
 
 outputScript = open("tools/ci/validate_sql.sh", "w+")
 outputScript.writelines(scriptLines)
