@@ -166,10 +166,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
-	else if(istype(loc, /obj/item/storage))
-		var/obj/item/storage/S = loc
-		if(!QDELETED(S)) // Can happen when the storage gets deleted, thus deleting the contents
-			S.remove_from_storage(src) // Not required to call. Will only cause runtimes
 	QDEL_LIST(actions)
 	master = null
 	return ..()
