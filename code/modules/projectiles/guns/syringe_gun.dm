@@ -98,7 +98,7 @@
 // Not quite a syringe gun, but also not completely unlike one either.
 /obj/item/gun/syringe/rapidsyringe
 	name = "rapid syringe gun"
-	desc = "A syndicate rapid syringe gun based on an archived NanoTrasen prototype. Capable of storing and filling syringes from an internal reservoir.\nIt has a large flap on the side that you can dump a box or bag of syringes into, and a port for filling it with liquid."
+	desc = "A syndicate rapid syringe gun based on an archived NanoTrasen prototype. Capable of storing and filling syringes from an internal reservoir. It has a large flap on the side that you can dump a box or bag of syringes into, and a port for filling it with liquid."
 	icon_state = "rapidsyringegun"
 	max_syringes = 14  // full two boxes worth
 	/// Index of possible transfer amounts to select
@@ -111,17 +111,14 @@
 	var/reservoir_transfer_amount = 15
 	/// Whether or not we've alerted the user that the reservoir is empty.
 	var/alarmed = FALSE
-	container_type = 0  // We'll handle it ourselves tyvm
+	container_type = AMOUNT_VISIBLE | TRANSPARENT  // We'll handle it ourselves tyvm
 
 /obj/item/gun/syringe/rapidsyringe/Initialize(mapload)
 	. = ..()
 	create_reagents(reservoir_volume)
 
 /obj/item/gun/syringe/rapidsyringe/Destroy()
-	for(var/syringe in syringes)
-		qdel(syringe)
-
-	syringes = null
+	QDEL_LIST(syringes)
 
 	if(chambered)
 		if(chambered.BB)
@@ -130,17 +127,18 @@
 
 	return ..()
 
+/obj/item/gun/syringe/rapidsyringe/build_reagent_description(mob/user)
+	. = list("<span class='notice'>There's a little window for the internal reservoir.</span>")
+	. += ..()
+
 /obj/item/gun/syringe/rapidsyringe/proc/get_units_per_shot()
 	return possible_transfer_amounts[transfer_amount_selection]
 
 /obj/item/gun/syringe/rapidsyringe/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use in hand to unload an empty syringe.</span>"
-	. += "<span class='notice'>Alt-click to toggle the amount of reagents per shot.</span>"
-	. += "A switch on the side is set to [get_units_per_shot()] unit\s per shot."
-	. += "Its internal reservoir contains [reagents.total_volume]/[reagents.maximum_volume] units."
+	. += "A switch on the side is set to [get_units_per_shot()] unit\s per shot, <span class='notice'>alt-click to change it.</span>"
 	if(chambered?.BB)
-		. += "<span class='notice'>You can see the chambered syringe contains [chambered.BB.reagents.total_volume] units."
+		. += "<span class='notice'>The chambered syringe contains [chambered.BB.reagents.total_volume] units."
 
 /// If user is null in this proc, messages will just be ignored
 /obj/item/gun/syringe/rapidsyringe/proc/insert_single_syringe(obj/item/reagent_containers/syringe/new_syringe, mob/user)
@@ -149,21 +147,21 @@
 			to_chat(user, "<span class='warning'>[src] only accepts empty syringes.</span>")
 		return FALSE
 	var/in_clip = length(syringes) + (chambered?.BB ? 1 : 0)
-	if(in_clip < max_syringes)
-		if(user)
-			if(!user.unEquip(new_syringe))
-				return
-			to_chat(user, "<span class='notice'>You load \the [new_syringe] into [src].</span>")
-			playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
-		syringes.Add(new_syringe)
-		new_syringe.forceMove(src)
-
-		process_chamber() // Chamber the syringe if none is already
-		return TRUE
-	else
+	if(in_clip >= max_syringes)
 		if(user)
 			to_chat(user, "<span class='warning'>[src] is full!</span>")
 		return FALSE
+
+	if(user)
+		if(!user.unEquip(new_syringe))
+			return
+		to_chat(user, "<span class='notice'>You load \the [new_syringe] into [src].</span>")
+		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
+	syringes.Add(new_syringe)
+	new_syringe.forceMove(src)
+
+	process_chamber() // Chamber the syringe if none is already
+	return TRUE
 
 /obj/item/gun/syringe/rapidsyringe/attackby(obj/item/A, mob/user, params, show_msg)
 
@@ -201,6 +199,9 @@
 	else if(istype(A, /obj/item/reagent_containers))
 		// Loading with chemicals (but not from syringes)
 		var/obj/item/reagent_containers/incoming = A
+		if(!incoming.is_drainable())
+			return
+
 		if(!incoming.reagents.total_volume)
 			to_chat(user, "<span class='warning'>[incoming] is empty!</span>")
 			return
@@ -223,6 +224,10 @@
 /obj/item/gun/syringe/rapidsyringe/afterattack(atom/target, mob/living/user, flag, params)
 	if(istype(target, /obj/item/reagent_containers) && !istype(target, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/destination = target
+
+		if(!destination.is_refillable())
+			return
+
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'>[src]'s internal reservoir is empty!</span>")
 			return
