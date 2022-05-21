@@ -310,13 +310,13 @@ CREATE TABLE `privacy` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `karma`
+-- Table structure for table `karma_log`
 --
 
-DROP TABLE IF EXISTS `karma`;
+DROP TABLE IF EXISTS `karma_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `karma` (
+CREATE TABLE `karma_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `spendername` text NOT NULL,
   `spenderkey` text NOT NULL,
@@ -333,13 +333,13 @@ CREATE TABLE `karma` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `karmatotals`
+-- Table structure for table `karma_totals`
 --
 
-DROP TABLE IF EXISTS `karmatotals`;
+DROP TABLE IF EXISTS `karma_totals`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `karmatotals` (
+CREATE TABLE `karma_totals` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `byondkey` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `karma` int(11) NOT NULL,
@@ -348,6 +348,15 @@ CREATE TABLE `karmatotals` (
   KEY `byondkey` (`byondkey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25715 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+CREATE TABLE `karma_purchases` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`ckey` VARCHAR(32) NOT NULL COLLATE 'utf8_general_ci',
+	`purchase` VARCHAR(64) NOT NULL COLLATE 'utf8_general_ci',
+	`purchase_time` DATETIME NOT NULL DEFAULT current_timestamp(),
+	PRIMARY KEY (`id`) USING BTREE,
+	UNIQUE INDEX `ckey` (`ckey`, `purchase`) USING BTREE
+) COLLATE='utf8_general_ci' ENGINE=InnoDB;
 
 --
 -- Table structure for table `library`
@@ -386,32 +395,6 @@ CREATE TABLE `legacy_population` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2550 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `whitelist`
---
-
-DROP TABLE IF EXISTS `whitelist`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `whitelist` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `job` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `species` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `ckey` (`ckey`)
-) ENGINE=InnoDB AUTO_INCREMENT=4080 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 --
 -- Table structure for table `watch`
