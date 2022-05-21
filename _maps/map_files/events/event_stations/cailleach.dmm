@@ -197,10 +197,8 @@
 	},
 /area/space)
 "afX" = (
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-4";
-	temperature = 254.95
-	},
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/wood,
 /area/space)
 "agk" = (
 /obj/structure/flora/rock/pile,
@@ -245,9 +243,7 @@
 	icon_state = "reinforced_table-2"
 	},
 /obj/item/rod_of_asclepius,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "aih" = (
 /obj/structure/window/reinforced{
@@ -479,6 +475,13 @@
 /obj/machinery/floodlight,
 /turf/simulated/floor/grass{
 	icon_state = "grass-203";
+	temperature = 254.95
+	},
+/area/space)
+"aqG" = (
+/mob/living/simple_animal/deer,
+/turf/simulated/floor/plating/asteroid/snow/temperature{
+	icon_state = "snow1";
 	temperature = 254.95
 	},
 /area/space)
@@ -794,9 +797,12 @@
 	},
 /area/space)
 "aCk" = (
-/obj/effect/landmark/start/coroner,
-/turf/simulated/floor/carpet/royalblack,
-/area/shuttle/arrival/station)
+/obj/effect/landmark/start/research_director,
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/space)
 "aCT" = (
 /turf/simulated/floor/plating/asteroid{
 	temperature = 254.95
@@ -953,7 +959,7 @@
 	icon_state = "reinforced_table-4"
 	},
 /obj/machinery/chem_dispenser/beer/upgraded,
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/floor/wood,
 /area/space)
 "aKg" = (
 /obj/structure/flora/rock/pile/icy,
@@ -1012,6 +1018,19 @@
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
+/area/space)
+"aMU" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/suit/hooded/wintercoat/engineering,
+/obj/item/clothing/suit/hooded/wintercoat/engineering,
+/obj/item/clothing/suit/hooded/wintercoat/engineering,
+/obj/item/clothing/suit/hooded/wintercoat/engineering,
+/obj/item/clothing/suit/hooded/wintercoat/engineering,
+/obj/item/clothing/suit/hooded/wintercoat/engineering,
+/obj/item/clothing/suit/hooded/wintercoat/engineering,
+/obj/item/clothing/suit/hooded/wintercoat/engineering,
+/obj/item/clothing/suit/hooded/wintercoat/engineering,
+/turf/simulated/floor/engine,
 /area/space)
 "aNz" = (
 /obj/structure/cable{
@@ -2927,12 +2946,6 @@
 	icon_state = "smoothrocks-207"
 	},
 /area/space)
-"coi" = (
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-127";
-	temperature = 254.95
-	},
-/area/space)
 "cok" = (
 /obj/item/clothing/head/helmet/riot,
 /obj/structure/alien/weeds,
@@ -3023,6 +3036,10 @@
 	temperature = 254.95
 	},
 /area/space)
+"cuw" = (
+/obj/effect/landmark/start/chemist,
+/turf/simulated/floor/wood,
+/area/space)
 "cuH" = (
 /obj/item/gun/energy/lasercannon,
 /turf/simulated/floor/plating/asteroid/snow/temperature{
@@ -3045,7 +3062,6 @@
 /area/space)
 "cva" = (
 /obj/item/crowbar,
-/obj/effect/landmark/start/research_director,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/arrival/station)
 "cvn" = (
@@ -3310,9 +3326,11 @@
 	},
 /area/space)
 "cFY" = (
-/turf/simulated/mineral/bscrystal{
-	icon_state = "smoothrocks-1"
+/obj/structure/chair/wood{
+	dir = 4
 	},
+/obj/effect/landmark/start/scientist,
+/turf/simulated/floor/wood,
 /area/space)
 "cGr" = (
 /obj/machinery/cooker/deepfryer,
@@ -3388,6 +3406,18 @@
 	icon_state = "smoothrocks-39"
 	},
 /area/space)
+"cKM" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos,
+/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos,
+/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos,
+/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos,
+/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos,
+/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos,
+/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos,
+/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos,
+/turf/simulated/floor/engine,
+/area/space)
 "cMl" = (
 /obj/structure/flora/ausbushes/sparsegrass{
 	icon_state = "sparsegrass_3"
@@ -3436,9 +3466,7 @@
 /obj/item/storage/box/gloves{
 	map_json_data = "#?lbr;#?qt;content#?qt;:[#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/gloves/color/latex#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/gloves/color/latex#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/gloves/color/latex#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/gloves/color/latex#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/gloves/color/latex#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/gloves/color/latex#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/gloves/color/latex#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/gloves/color/latex#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/gloves/color/latex#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/gloves/color/latex#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/gloves/color/latex#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/gloves/color/latex#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/gloves/color/latex#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/gloves/color/latex#?qt;#?rbr;],#?qt;slots#?qt;:7,#?qt;max_w_class#?qt;:2,#?qt;max_c_w_class#?qt;:14#?rbr;"
 	},
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "cOl" = (
 /turf/simulated/mineral/gold{
@@ -3636,9 +3664,7 @@
 	icon_state = "wood_table-1"
 	},
 /obj/item/paper_bin,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "cXj" = (
 /mob/living/simple_animal/hostile/russian/ranged/mosin,
@@ -3855,10 +3881,9 @@
 /turf/simulated/wall/mineral/iron,
 /area/space)
 "deE" = (
-/obj/item/crowbar,
-/obj/effect/landmark/start/blueshield,
-/turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/arrival/station)
+/obj/item/pickaxe,
+/turf/simulated/floor/wood,
+/area/space)
 "deO" = (
 /obj/structure/cult/forge,
 /turf/simulated/floor/indestructible/necropolis{
@@ -4011,9 +4036,9 @@
 	},
 /area/space)
 "dly" = (
-/obj/effect/landmark/start/head_of_personnel,
-/turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/arrival/station)
+/obj/effect/landmark/start/scientist,
+/turf/simulated/floor/wood,
+/area/space)
 "dlD" = (
 /obj/structure/fence/corner{
 	dir = 10
@@ -4156,6 +4181,10 @@
 /turf/simulated/floor/plating/lava/smooth{
 	temperature = 300.05
 	},
+/area/space)
+"dpD" = (
+/obj/effect/landmark/start/shaft_miner,
+/turf/simulated/floor/wood,
 /area/space)
 "dpF" = (
 /obj/structure/table/wood{
@@ -4315,9 +4344,12 @@
 /turf/simulated/mineral,
 /area/space)
 "dzF" = (
-/obj/effect/landmark/start/chief_engineer,
-/turf/simulated/floor/carpet/royalblack,
-/area/shuttle/arrival/station)
+/obj/structure/table/wood{
+	icon_state = "wood_table-4"
+	},
+/obj/item/storage/box/lights/mixed,
+/turf/simulated/floor/wood,
+/area/space)
 "dzT" = (
 /turf/simulated/floor/plating/ice{
 	icon_state = "ice_turf-239";
@@ -4370,6 +4402,13 @@
 /turf/simulated/floor/beach/water{
 	temperature = 254.95
 	},
+/area/space)
+"dCh" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/landmark/start/roboticist,
+/turf/simulated/floor/wood,
 /area/space)
 "dCn" = (
 /obj/effect/decal/cleanable/cobweb2,
@@ -4458,9 +4497,7 @@
 	icon_state = "wood_table-2"
 	},
 /obj/item/paper_bin,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "dGI" = (
 /obj/structure/barricade/sandbags{
@@ -4678,6 +4715,12 @@
 "dSK" = (
 /obj/item/seeds/chili/ghost,
 /turf/simulated/mineral/random/high_chance,
+/area/space)
+"dTb" = (
+/obj/machinery/door/airlock/wood/glass{
+	layer = 3.1
+	},
+/turf/simulated/floor/wood,
 /area/space)
 "dTH" = (
 /obj/structure/table/wood{
@@ -4903,12 +4946,6 @@
 	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/engine{
-	temperature = 254.95
-	},
-/area/space)
-"ehu" = (
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor/carpet/red{
 	temperature = 254.95
 	},
 /area/space)
@@ -5847,9 +5884,15 @@
 	},
 /area/space)
 "eIb" = (
-/obj/effect/landmark/start/captain,
-/turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/arrival/station)
+/obj/structure/table/wood,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding/superior,
+/obj/item/clothing/gloves/color/red/insulated,
+/obj/item/clothing/gloves/color/red/insulated,
+/obj/item/storage/box/lights/mixed,
+/turf/simulated/floor/wood,
+/area/space)
 "eIP" = (
 /obj/machinery/cryopod/right,
 /turf/simulated/floor/wood{
@@ -5937,9 +5980,7 @@
 /area/space)
 "eLB" = (
 /obj/structure/closet/crate,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "eMa" = (
 /turf/simulated/wall/mineral/wood,
@@ -6382,9 +6423,9 @@
 	},
 /area/space)
 "faC" = (
-/obj/effect/landmark/start/virologist,
-/turf/simulated/floor/carpet/royalblack,
-/area/shuttle/arrival/station)
+/obj/effect/landmark/start/magistrate,
+/turf/simulated/floor/wood,
+/area/space)
 "faM" = (
 /obj/structure/fence/corner{
 	dir = 6
@@ -6543,10 +6584,7 @@
 /area/space)
 "fgp" = (
 /obj/machinery/computer/borgupload,
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-137";
-	temperature = 254.95
-	},
+/turf/simulated/floor/carpet/red,
 /area/space)
 "fgB" = (
 /obj/structure/flora/ausbushes/sparsegrass{
@@ -6662,10 +6700,7 @@
 "foB" = (
 /obj/machinery/space_heater,
 /obj/item/storage/box/lights/mixed,
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-110";
-	temperature = 254.95
-	},
+/turf/simulated/floor/carpet/red,
 /area/space)
 "foP" = (
 /obj/item/toy/plushie/octopus,
@@ -6712,6 +6747,10 @@
 	icon_state = "ironsand5";
 	temperature = 254.95
 	},
+/area/space)
+"fpN" = (
+/obj/effect/landmark/start/head_of_personnel,
+/turf/simulated/floor/carpet/red,
 /area/space)
 "fpT" = (
 /obj/structure/window/reinforced,
@@ -6780,10 +6819,6 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/vault,
 /area/space)
-"fuN" = (
-/obj/effect/landmark/start/internal_affairs,
-/turf/simulated/floor/carpet/royalblack,
-/area/shuttle/arrival/station)
 "fuW" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/grass{
@@ -7088,9 +7123,7 @@
 /obj/item/storage/box/masks{
 	map_json_data = "#?lbr;#?qt;content#?qt;:[#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;,#?lbr;#?qt;type#?qt;:#?qt;/obj/item/clothing/mask/surgical#?qt;#?rbr;],#?qt;slots#?qt;:7,#?qt;max_w_class#?qt;:2,#?qt;max_c_w_class#?qt;:14#?rbr;"
 	},
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "fHI" = (
 /obj/item/seeds/berry{
@@ -7107,6 +7140,11 @@
 	icon_state = "grass-0";
 	temperature = 254.95
 	},
+/area/space)
+"fIT" = (
+/obj/effect/landmark/start/atmospheric,
+/obj/item/clothing/gloves/color/red/insulated,
+/turf/simulated/floor/engine,
 /area/space)
 "fJm" = (
 /obj/structure/chair/sofa/pew/left,
@@ -7130,6 +7168,10 @@
 /turf/simulated/floor/plasteel{
 	temperature = 254.95
 	},
+/area/space)
+"fLr" = (
+/obj/effect/landmark/start/nanotrasen_rep,
+/turf/simulated/floor/wood,
 /area/space)
 "fLZ" = (
 /obj/structure/railing{
@@ -7793,13 +7835,6 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/sepia,
 /area/space)
-"gol" = (
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-127";
-	temperature = 254.95
-	},
-/area/space)
 "gox" = (
 /obj/machinery/recharger{
 	icon_state = "rechargeroff"
@@ -7951,6 +7986,13 @@
 /turf/simulated/floor/plating/abductor{
 	icon_state = "alienpod7"
 	},
+/area/space)
+"gwR" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/effect/landmark/start/chief_medical_officer,
+/turf/simulated/floor/wood,
 /area/space)
 "gxr" = (
 /mob/living/simple_animal/hostile/skeleton/arctic,
@@ -8170,6 +8212,11 @@
 	icon_state = "smoothrocks-12"
 	},
 /area/space)
+"gHi" = (
+/obj/item/crowbar,
+/obj/effect/landmark/start/chief_engineer,
+/turf/simulated/floor/engine,
+/area/space)
 "gIf" = (
 /obj/item/shard{
 	pixel_x = 5
@@ -8198,9 +8245,7 @@
 /area/space)
 "gJx" = (
 /obj/machinery/recharge_station/upgraded,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "gJF" = (
 /obj/structure/table/reinforced,
@@ -8307,10 +8352,7 @@
 /area/space)
 "gNP" = (
 /mob/living/simple_animal/pet/cat,
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-157";
-	temperature = 254.95
-	},
+/turf/simulated/floor/carpet/red,
 /area/space)
 "gNQ" = (
 /obj/structure/table/wood,
@@ -8412,11 +8454,11 @@
 	},
 /area/space)
 "gUM" = (
-/obj/vehicle/snowmobile/blue,
-/obj/item/key/snowmobile,
-/turf/simulated/floor/wood{
-	temperature = 254.95
+/obj/vehicle/snowmobile/blue{
+	vehicle_move_delay = .8
 	},
+/obj/item/key/snowmobile,
+/turf/simulated/floor/wood,
 /area/space)
 "gVh" = (
 /obj/structure/mineral_door/wood,
@@ -8486,6 +8528,11 @@
 	pixel_y = -3
 	},
 /turf/simulated/mineral/random/high_chance,
+/area/space)
+"gYh" = (
+/obj/effect/landmark/start/atmospheric,
+/obj/item/crowbar,
+/turf/simulated/floor/engine,
 /area/space)
 "gYm" = (
 /obj/structure/table/wood,
@@ -8837,10 +8884,19 @@
 /turf/simulated/floor/vault,
 /area/space)
 "hks" = (
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-110";
-	temperature = 254.95
-	},
+/obj/structure/table/reinforced,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/turf/simulated/floor/engine,
 /area/space)
 "hkK" = (
 /obj/structure/flora/ausbushes/palebush{
@@ -8954,11 +9010,9 @@
 	},
 /area/space)
 "hrp" = (
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-38";
-	temperature = 254.95
-	},
+/obj/effect/landmark/start/security_officer,
+/obj/structure/chair/wood,
+/turf/simulated/floor/engine,
 /area/space)
 "hrr" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -9248,6 +9302,10 @@
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating/asteroid/snow/temperature,
 /area/space)
+"hGF" = (
+/obj/machinery/pipedispenser,
+/turf/simulated/floor/engine,
+/area/space)
 "hGH" = (
 /obj/structure/sink{
 	dir = 4;
@@ -9265,10 +9323,7 @@
 /area/space)
 "hHj" = (
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-157";
-	temperature = 254.95
-	},
+/turf/simulated/floor/carpet/red,
 /area/space)
 "hHt" = (
 /obj/machinery/door/airlock/wood/glass{
@@ -9439,6 +9494,8 @@
 /obj/item/mounted/frame/apc_frame,
 /obj/item/mounted/frame/apc_frame,
 /obj/item/mounted/frame/apc_frame,
+/obj/item/clothing/gloves/color/red/insulated,
+/obj/item/clothing/gloves/color/red/insulated,
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
@@ -9497,6 +9554,13 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow/temperature{
 	icon_state = "snow10";
+	temperature = 254.95
+	},
+/area/space)
+"hQR" = (
+/obj/machinery/space_heater,
+/turf/simulated/floor/plating/ironsand{
+	icon_state = "ironsand13";
 	temperature = 254.95
 	},
 /area/space)
@@ -9917,12 +9981,6 @@
 	temperature = 254.95
 	},
 /area/space)
-"igh" = (
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-141";
-	temperature = 254.95
-	},
-/area/space)
 "igx" = (
 /obj/item/beach_ball,
 /turf/simulated/floor/beach/sand{
@@ -9999,9 +10057,9 @@
 	},
 /area/space)
 "ilo" = (
-/obj/effect/landmark/start/magistrate,
-/turf/simulated/floor/carpet/royalblack,
-/area/shuttle/arrival/station)
+/obj/structure/closet/secure_closet/security,
+/turf/simulated/floor/engine,
+/area/space)
 "ilv" = (
 /obj/structure/closet/cabinet,
 /turf/simulated/floor/wood{
@@ -10347,12 +10405,9 @@
 	},
 /area/space)
 "iCY" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/mob/living/simple_animal/deer,
-/turf/simulated/floor/plating/asteroid/snow/temperature{
-	icon_state = "snow6";
-	temperature = 254.95
-	},
+/obj/item/stack/sheet/wood,
+/obj/structure/girder,
+/turf/simulated/wall/mineral/wood,
 /area/space)
 "iDa" = (
 /obj/item/stack/sheet/mineral/uranium{
@@ -10519,6 +10574,10 @@
 	icon_state = "asteroid11";
 	temperature = 254.95
 	},
+/area/space)
+"iMt" = (
+/obj/effect/landmark/start/captain,
+/turf/simulated/floor/wood,
 /area/space)
 "iMu" = (
 /obj/structure/railing{
@@ -10884,9 +10943,25 @@
 /obj/item/clothing/suit/hooded/wintercoat/miner,
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson,
+/obj/item/clothing/suit/hooded/wintercoat/miner,
+/obj/item/clothing/suit/hooded/wintercoat/miner,
+/obj/item/clothing/suit/hooded/wintercoat/miner,
+/obj/item/clothing/suit/hooded/wintercoat/miner,
+/obj/item/clothing/suit/hooded/wintercoat/miner,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/turf/simulated/floor/wood,
 /area/space)
 "jar" = (
 /turf/simulated/mineral/titanium{
@@ -11247,9 +11322,8 @@
 /obj/structure/table/wood{
 	icon_state = "wood_table-8"
 	},
-/turf/simulated/floor/carpet/red{
-	temperature = 254.95
-	},
+/obj/item/areaeditor/blueprints,
+/turf/simulated/floor/carpet/red,
 /area/space)
 "jrs" = (
 /obj/structure/fence/door,
@@ -11309,14 +11383,15 @@
 	temperature = 254.95
 	},
 /area/space)
+"jvc" = (
+/obj/effect/landmark/start/internal_affairs,
+/turf/simulated/floor/wood,
+/area/space)
 "jvm" = (
 /obj/structure/table/wood{
 	icon_state = "wood_table-2"
 	},
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-137";
-	temperature = 254.95
-	},
+/turf/simulated/floor/carpet/red,
 /area/space)
 "jvr" = (
 /turf/simulated/mineral/uranium{
@@ -11591,6 +11666,10 @@
 	temperature = 254.95
 	},
 /area/space)
+"jES" = (
+/obj/effect/landmark/start/paramedic,
+/turf/simulated/floor/wood,
+/area/space)
 "jFp" = (
 /obj/structure/flora/rock{
 	icon_state = "rock4"
@@ -11598,6 +11677,10 @@
 /turf/simulated/floor/plating/asteroid/snow/temperature{
 	temperature = 254.95
 	},
+/area/space)
+"jFT" = (
+/obj/effect/landmark/start/atmospheric,
+/turf/simulated/floor/engine,
 /area/space)
 "jGa" = (
 /turf/simulated/mineral/uranium{
@@ -12275,10 +12358,7 @@
 /area/space)
 "jZg" = (
 /obj/machinery/space_heater,
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-38";
-	temperature = 254.95
-	},
+/turf/simulated/floor/carpet/red,
 /area/space)
 "jZp" = (
 /turf/simulated/floor/plating/ice{
@@ -12442,10 +12522,7 @@
 /area/space)
 "kjT" = (
 /obj/structure/closet/crate,
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-55";
-	temperature = 254.95
-	},
+/turf/simulated/floor/carpet/red,
 /area/space)
 "kke" = (
 /obj/structure/railing{
@@ -12483,9 +12560,7 @@
 /obj/structure/table/wood{
 	icon_state = "wood_table-2"
 	},
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "kmh" = (
 /obj/structure/barricade/sandbags{
@@ -12528,9 +12603,7 @@
 	icon_state = "reinforced_table-8"
 	},
 /obj/machinery/kitchen_machine/microwave/upgraded,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "knT" = (
 /obj/structure/railing{
@@ -12759,9 +12832,7 @@
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/hud/health,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "kyR" = (
 /mob/living/simple_animal/hostile/skeleton/arctic,
@@ -12905,9 +12976,7 @@
 "kGr" = (
 /obj/structure/closet/crate,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/carpet/red{
-	temperature = 254.95
-	},
+/turf/simulated/floor/carpet/red,
 /area/space)
 "kGs" = (
 /turf/simulated/wall/indestructible/necropolis,
@@ -12968,6 +13037,10 @@
 	},
 /obj/structure/girder,
 /turf/simulated/floor/plating,
+/area/space)
+"kHv" = (
+/obj/machinery/door/airlock/research,
+/turf/simulated/floor/wood,
 /area/space)
 "kHA" = (
 /obj/structure/flora/tree/dead{
@@ -13209,16 +13282,17 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/engine,
 /area/space)
+"kOb" = (
+/obj/item/clothing/gloves/color/red/insulated,
+/turf/simulated/floor/engine,
+/area/space)
 "kOB" = (
 /obj/structure/table/wood{
 	icon_state = "wood_table-4"
 	},
 /obj/item/paper_bin,
 /obj/item/card/id/captains_spare,
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-127";
-	temperature = 254.95
-	},
+/turf/simulated/floor/carpet/red,
 /area/space)
 "kOF" = (
 /obj/structure/table/reinforced{
@@ -13562,10 +13636,7 @@
 /obj/machinery/door/airlock/wood/glass{
 	layer = 3.1
 	},
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-203";
-	temperature = 254.95
-	},
+/turf/simulated/floor/carpet/red,
 /area/space)
 "kZi" = (
 /turf/simulated/mineral/diamond{
@@ -13573,9 +13644,9 @@
 	},
 /area/space)
 "kZT" = (
-/obj/effect/landmark/start/roboticist,
-/turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/arrival/station)
+/obj/machinery/space_heater,
+/turf/simulated/floor/wood,
+/area/space)
 "kZY" = (
 /turf/simulated/mineral/titanium{
 	icon_state = "smoothrocks-141"
@@ -14204,13 +14275,12 @@
 	},
 /area/space)
 "lys" = (
-/obj/effect/landmark/start/nanotrasen_rep,
-/turf/simulated/floor/carpet/royalblack,
-/area/shuttle/arrival/station)
-"lyE" = (
-/obj/effect/landmark/start/head_of_security,
-/turf/simulated/floor/carpet/royalblack,
-/area/shuttle/arrival/station)
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/obj/effect/landmark/start/roboticist,
+/turf/simulated/floor/wood,
+/area/space)
 "lyK" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -14760,9 +14830,12 @@
 	},
 /area/space)
 "lQd" = (
-/obj/effect/landmark/start/security_officer,
-/turf/simulated/floor/carpet/royalblack,
-/area/shuttle/arrival/station)
+/obj/vehicle/motorcycle{
+	vehicle_move_delay = .7
+	},
+/obj/item/clothing/suit/hooded/wintercoat/security,
+/turf/simulated/floor/engine,
+/area/space)
 "lQt" = (
 /obj/item/reagent_containers/glass/beaker,
 /turf/simulated/floor/wood{
@@ -14909,6 +14982,14 @@
 /turf/simulated/floor/wood{
 	temperature = 254.95
 	},
+/area/space)
+"lYU" = (
+/obj/structure/table/wood,
+/obj/item/clothing/gloves/color/red/insulated,
+/obj/item/clothing/gloves/color/red/insulated,
+/obj/item/clothing/gloves/color/red/insulated,
+/obj/item/clothing/gloves/color/red/insulated,
+/turf/simulated/floor/wood,
 /area/space)
 "lZi" = (
 /obj/item/gun/energy/laser,
@@ -15365,10 +15446,7 @@
 /area/space)
 "mrg" = (
 /obj/machinery/computer/card,
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-110";
-	temperature = 254.95
-	},
+/turf/simulated/floor/carpet/red,
 /area/space)
 "mri" = (
 /obj/structure/fence/corner{
@@ -15465,9 +15543,9 @@
 	},
 /area/space)
 "mvN" = (
-/obj/effect/landmark/start/chief_medical_officer,
-/turf/simulated/floor/carpet/royalblack,
-/area/shuttle/arrival/station)
+/obj/structure/ore_box,
+/turf/simulated/floor/wood,
+/area/space)
 "mvZ" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
@@ -15561,10 +15639,23 @@
 	},
 /area/space)
 "mzL" = (
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-239";
-	temperature = 254.95
-	},
+/obj/structure/table/reinforced,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/storage/box/lights/mixed,
+/turf/simulated/floor/engine,
 /area/space)
 "mzS" = (
 /turf/simulated/mineral/plasma{
@@ -15648,9 +15739,20 @@
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/turf/simulated/floor/wood,
 /area/space)
 "mDd" = (
 /obj/item/stack/cable_coil/orange,
@@ -15666,11 +15768,10 @@
 	},
 /area/space)
 "mEf" = (
-/obj/machinery/cryopod/robot/right,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
-/area/shuttle/abandoned)
+/obj/effect/landmark/start/warden,
+/obj/structure/chair/wood,
+/turf/simulated/floor/engine,
+/area/space)
 "mEz" = (
 /obj/effect/turf_decal/stripes/asteroid,
 /turf/simulated/floor/plating/asteroid{
@@ -16044,9 +16145,7 @@
 	icon_state = "wood_table-10"
 	},
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "mRo" = (
 /obj/structure/window/reinforced/tinted,
@@ -16463,9 +16562,7 @@
 /area/space)
 "niH" = (
 /obj/structure/computerframe,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "nji" = (
 /obj/structure/chair/sofa/corp/right{
@@ -16691,6 +16788,12 @@
 /obj/item/gun/projectile/shotgun/riot,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/carpet/red{
+	temperature = 254.95
+	},
+/area/space)
+"nuh" = (
+/obj/item/areaeditor/permit,
+/turf/simulated/floor/wood{
 	temperature = 254.95
 	},
 /area/space)
@@ -17074,9 +17177,9 @@
 /turf/simulated/floor/sepia,
 /area/space)
 "nJS" = (
-/obj/effect/landmark/start/chemist,
-/turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/arrival/station)
+/obj/effect/landmark/start/psychiatrist,
+/turf/simulated/floor/wood,
+/area/space)
 "nKd" = (
 /obj/structure/flora/ausbushes/sparsegrass{
 	icon_state = "sparsegrass_2"
@@ -17129,9 +17232,13 @@
 /obj/item/reagent_containers/food/snacks/beans,
 /obj/item/reagent_containers/food/snacks/beans,
 /obj/item/reagent_containers/food/snacks/beans,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/turf/simulated/floor/wood,
 /area/space)
 "nMu" = (
 /obj/structure/table/wood,
@@ -17621,10 +17728,7 @@
 /obj/item/flashlight/lamp{
 	icon_state = "lamp-on"
 	},
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-239";
-	temperature = 254.95
-	},
+/turf/simulated/floor/carpet/red,
 /area/space)
 "odr" = (
 /obj/machinery/computer/monitor{
@@ -17983,9 +18087,13 @@
 /obj/item/reagent_containers/glass/beaker/waterbottle/large,
 /obj/item/reagent_containers/glass/beaker/waterbottle/large,
 /obj/item/reagent_containers/glass/beaker/waterbottle/large,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/turf/simulated/floor/wood,
 /area/space)
 "orf" = (
 /obj/item/clothing/head/radiation{
@@ -18077,11 +18185,9 @@
 	},
 /area/space)
 "otx" = (
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-223";
-	temperature = 254.95
-	},
+/obj/item/stack/sheet/wood,
+/obj/structure/girder,
+/turf/simulated/floor/wood,
 /area/space)
 "otC" = (
 /obj/machinery/hydroponics/soil,
@@ -18909,6 +19015,10 @@
 	temperature = 254.95
 	},
 /area/space)
+"paq" = (
+/obj/machinery/pipedispenser/disposal,
+/turf/simulated/floor/engine,
+/area/space)
 "paG" = (
 /turf/simulated/mineral/plasma{
 	icon_state = "smoothrocks-223"
@@ -19247,10 +19357,7 @@
 /obj/machinery/door/airlock/wood/glass{
 	layer = 3.1
 	},
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-55";
-	temperature = 254.95
-	},
+/turf/simulated/floor/carpet/red,
 /area/space)
 "poQ" = (
 /turf/simulated/mineral/uranium{
@@ -19710,6 +19817,8 @@
 /obj/item/apc_electronics,
 /obj/item/apc_electronics,
 /obj/item/apc_electronics,
+/obj/item/clothing/gloves/color/red/insulated,
+/obj/item/clothing/gloves/color/red/insulated,
 /turf/simulated/floor/engine{
 	temperature = 254.95
 	},
@@ -19736,7 +19845,6 @@
 	},
 /area/space)
 "pHl" = (
-/obj/effect/landmark/start/engineer,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/arrival/station)
 "pHs" = (
@@ -19819,6 +19927,9 @@
 "pKw" = (
 /obj/structure/table/reinforced{
 	icon_state = "reinforced_table-9"
+	},
+/obj/item/gun/energy/emitter{
+	name = "MM-2200 Emitter Cannon"
 	},
 /turf/simulated/floor/engine{
 	temperature = 254.95
@@ -21102,10 +21213,12 @@
 	},
 /area/space)
 "qCj" = (
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-191";
-	temperature = 254.95
-	},
+/obj/structure/table/reinforced,
+/obj/item/kitchen/knife/combat,
+/obj/item/kitchen/knife/combat,
+/obj/item/kitchen/knife/combat,
+/obj/item/kitchen/knife/combat,
+/turf/simulated/floor/engine,
 /area/space)
 "qCs" = (
 /obj/structure/fence{
@@ -21147,15 +21260,11 @@
 	temperature = 254.95
 	},
 /area/space)
-"qEZ" = (
-/obj/effect/landmark/start/detective,
-/turf/simulated/floor/carpet/royalblack,
-/area/shuttle/arrival/station)
 "qFA" = (
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/obj/machinery/space_heater,
+/obj/effect/landmark/start/virologist,
 /turf/simulated/floor/wood,
 /area/space)
 "qFZ" = (
@@ -21242,9 +21351,7 @@
 /obj/machinery/mineral/ore_redemption{
 	icon_state = "ore_redemption-off"
 	},
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "qLi" = (
 /turf/simulated/mineral/diamond{
@@ -21812,9 +21919,20 @@
 	},
 /area/space)
 "reu" = (
-/obj/effect/landmark/start/atmospheric,
-/turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/arrival/station)
+/obj/structure/table/reinforced,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/turf/simulated/floor/engine,
+/area/space)
 "reK" = (
 /obj/structure/table/wood{
 	dir = 1;
@@ -22185,9 +22303,9 @@
 	},
 /area/space)
 "rrv" = (
-/obj/effect/landmark/start/scientist,
-/turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/arrival/station)
+/obj/effect/landmark/start/geneticist,
+/turf/simulated/floor/wood,
+/area/space)
 "rrz" = (
 /obj/structure/flora/rock/pile{
 	icon_state = "rockpile3"
@@ -22439,9 +22557,7 @@
 	icon_state = "wood_table-1"
 	},
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "rAH" = (
 /turf/simulated/mineral/diamond{
@@ -22486,11 +22602,10 @@
 	},
 /area/space)
 "rCq" = (
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-203";
-	temperature = 254.95
+/obj/structure/table/wood{
+	icon_state = "wood_table-1"
 	},
+/turf/simulated/floor/wood,
 /area/space)
 "rCI" = (
 /obj/structure/table/reinforced{
@@ -22526,10 +22641,8 @@
 	},
 /area/space)
 "rEp" = (
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-223";
-	temperature = 254.95
-	},
+/obj/item/crowbar,
+/turf/simulated/floor/engine,
 /area/space)
 "rEy" = (
 /obj/structure/flora/ausbushes/sparsegrass{
@@ -23248,9 +23361,9 @@
 	},
 /area/space)
 "skt" = (
-/obj/effect/landmark/start/geneticist,
-/turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/arrival/station)
+/obj/effect/landmark/start/engineer,
+/turf/simulated/floor/engine,
+/area/space)
 "skT" = (
 /obj/machinery/conveyor{
 	dir = 4
@@ -23450,9 +23563,7 @@
 	icon_state = "wood_table-3"
 	},
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "ssQ" = (
 /obj/structure/alien/weeds,
@@ -23478,10 +23589,9 @@
 	},
 /area/space)
 "sub" = (
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-21";
-	temperature = 254.95
-	},
+/obj/effect/landmark/start/head_of_security,
+/obj/structure/chair/wood,
+/turf/simulated/floor/engine,
 /area/space)
 "sun" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -23493,9 +23603,9 @@
 	},
 /area/space)
 "suo" = (
-/obj/effect/landmark/start/psychiatrist,
-/turf/simulated/floor/carpet/royalblack,
-/area/shuttle/arrival/station)
+/obj/item/crowbar,
+/turf/simulated/floor/wood,
+/area/space)
 "suO" = (
 /obj/structure/window/reinforced{
 	color = "#0d8395"
@@ -23938,9 +24048,7 @@
 /obj/item/storage/bag/ore,
 /obj/item/storage/bag/ore,
 /obj/item/storage/bag/ore,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "sKL" = (
 /turf/simulated/floor/plating/asteroid/snow/temperature{
@@ -24090,9 +24198,7 @@
 /obj/machinery/mineral/equipment_vendor{
 	icon_state = "mining-off"
 	},
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "sPZ" = (
 /obj/structure/flora/tree/pine,
@@ -24204,10 +24310,7 @@
 /area/space)
 "sTq" = (
 /obj/machinery/computer/aiupload,
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-21";
-	temperature = 254.95
-	},
+/turf/simulated/floor/carpet/red,
 /area/space)
 "sTB" = (
 /obj/structure/table/wood,
@@ -24287,13 +24390,8 @@
 	},
 /area/space)
 "sYT" = (
-/obj/machinery/pipedispenser,
-/obj/structure/spider/stickyweb{
-	icon_state = "stickyweb2"
-	},
-/turf/simulated/floor/engine{
-	temperature = 254.95
-	},
+/obj/effect/landmark/start/doctor,
+/turf/simulated/floor/wood,
 /area/space)
 "sZd" = (
 /obj/structure/table/reinforced,
@@ -24322,9 +24420,9 @@
 	},
 /area/space)
 "tal" = (
-/obj/effect/landmark/start/doctor,
-/turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/arrival/station)
+/obj/machinery/space_heater,
+/turf/simulated/floor/engine,
+/area/space)
 "taI" = (
 /turf/simulated/mineral/silver{
 	icon_state = "smoothrocks-38"
@@ -24421,9 +24519,17 @@
 	},
 /area/space)
 "tdT" = (
-/obj/effect/landmark/start/warden,
-/turf/simulated/floor/carpet/royalblack,
-/area/shuttle/arrival/station)
+/obj/structure/table/reinforced,
+/obj/item/clothing/suit/hooded/wintercoat/security,
+/obj/item/clothing/suit/hooded/wintercoat/security,
+/obj/item/clothing/suit/hooded/wintercoat/security,
+/obj/item/clothing/suit/hooded/wintercoat/security,
+/obj/item/clothing/suit/hooded/wintercoat/security,
+/obj/item/clothing/suit/hooded/wintercoat/security,
+/obj/item/clothing/suit/hooded/wintercoat/security,
+/obj/item/clothing/suit/hooded/wintercoat/security,
+/turf/simulated/floor/engine,
+/area/space)
 "tdZ" = (
 /obj/machinery/door/airlock/research/glass{
 	layer = 3.1
@@ -24807,10 +24913,11 @@
 	},
 /area/space)
 "trY" = (
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-74";
-	temperature = 254.95
+/obj/effect/landmark/start/detective,
+/obj/structure/chair/wood{
+	dir = 1
 	},
+/turf/simulated/floor/engine,
 /area/space)
 "tsk" = (
 /obj/item/crowbar,
@@ -25051,9 +25158,7 @@
 /area/space)
 "tDl" = (
 /obj/machinery/suit_storage_unit/mining,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "tDA" = (
 /obj/structure/flora/ausbushes/sparsegrass{
@@ -25196,10 +25301,11 @@
 	},
 /area/space)
 "tMS" = (
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-38";
-	temperature = 254.95
+/obj/effect/landmark/start/security_officer,
+/obj/structure/chair/wood{
+	dir = 1
 	},
+/turf/simulated/floor/engine,
 /area/space)
 "tNe" = (
 /obj/structure/barricade/wooden/crude,
@@ -25947,10 +26053,8 @@
 	},
 /area/space)
 "uoS" = (
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-157";
-	temperature = 254.95
-	},
+/obj/machinery/door/airlock/security/glass,
+/turf/simulated/floor/engine,
 /area/space)
 "upm" = (
 /turf/simulated/floor/plating/asteroid{
@@ -26066,9 +26170,13 @@
 /obj/item/clothing/suit/hooded/wintercoat/medical,
 /obj/item/clothing/suit/hooded/wintercoat/medical,
 /obj/item/clothing/suit/hooded/wintercoat/medical,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/obj/item/clothing/suit/hooded/wintercoat/medical,
+/obj/item/clothing/suit/hooded/wintercoat/medical,
+/obj/item/clothing/suit/hooded/wintercoat/medical,
+/obj/item/clothing/suit/hooded/wintercoat/medical,
+/obj/item/clothing/suit/hooded/wintercoat/medical,
+/obj/item/clothing/suit/hooded/wintercoat/medical,
+/turf/simulated/floor/wood,
 /area/space)
 "utk" = (
 /obj/structure/spider/stickyweb,
@@ -26148,6 +26256,10 @@
 	icon_state = "snow8";
 	temperature = 254.95
 	},
+/area/space)
+"uxE" = (
+/obj/effect/landmark/start/blueshield,
+/turf/simulated/floor/carpet/red,
 /area/space)
 "uxH" = (
 /obj/structure/flora/rock/pile/icy{
@@ -26993,9 +27105,7 @@
 	pixel_x = -1;
 	pixel_y = 4
 	},
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "vfM" = (
 /obj/structure/window/reinforced{
@@ -27362,9 +27472,7 @@
 /area/space)
 "vsR" = (
 /obj/machinery/computer/security,
-/turf/simulated/floor/wood{
-	temperature = 254.95
-	},
+/turf/simulated/floor/wood,
 /area/space)
 "vtb" = (
 /obj/structure/barricade/sandbags{
@@ -27521,9 +27629,9 @@
 	},
 /area/space)
 "vDf" = (
-/obj/effect/landmark/start/paramedic,
-/turf/simulated/floor/carpet/royalblack,
-/area/shuttle/arrival/station)
+/obj/effect/landmark/start/roboticist,
+/turf/simulated/floor/wood,
+/area/space)
 "vDq" = (
 /obj/structure/sink/puddle,
 /turf/simulated/floor/grass{
@@ -27654,13 +27762,17 @@
 /obj/structure/chair/comfy/black{
 	dir = 1
 	},
-/turf/simulated/floor/carpet/red{
-	icon_state = "carpet-157";
-	temperature = 254.95
-	},
+/turf/simulated/floor/carpet/red,
 /area/space)
 "vGW" = (
 /turf/simulated/wall,
+/area/space)
+"vHN" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/landmark/start/coroner,
+/turf/simulated/floor/wood,
 /area/space)
 "vIB" = (
 /mob/living/simple_animal/bunny,
@@ -28135,10 +28247,16 @@
 	},
 /area/space)
 "wbM" = (
-/obj/structure/closet/crate,
-/turf/simulated/floor/carpet/red{
-	temperature = 254.95
-	},
+/obj/structure/table/reinforced,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/gloves/combat,
+/turf/simulated/floor/engine,
 /area/space)
 "wbS" = (
 /obj/item/trash/spentcasing,
@@ -28341,6 +28459,26 @@
 	icon_state = "snow11";
 	temperature = 254.95
 	},
+/area/space)
+"wnn" = (
+/obj/structure/table/wood,
+/obj/item/clothing/suit/hooded/wintercoat/science,
+/obj/item/clothing/suit/hooded/wintercoat/science,
+/obj/item/clothing/suit/hooded/wintercoat/science,
+/obj/item/clothing/suit/hooded/wintercoat/science,
+/obj/item/clothing/suit/hooded/wintercoat/science,
+/obj/item/clothing/suit/hooded/wintercoat/science,
+/obj/item/clothing/suit/hooded/wintercoat/science,
+/obj/item/clothing/suit/hooded/wintercoat/science,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/turf/simulated/floor/wood,
 /area/space)
 "wnr" = (
 /obj/item/mounted/frame/apc_frame,
@@ -29013,9 +29151,7 @@
 	icon_state = "wood_table-4"
 	},
 /obj/item/paper_bin,
-/turf/simulated/floor/carpet/red{
-	temperature = 254.95
-	},
+/turf/simulated/floor/carpet/red,
 /area/space)
 "wSe" = (
 /obj/machinery/door/airlock/medical,
@@ -32839,9 +32975,9 @@ rAb
 rAb
 rAb
 rAb
-rAb
-rAb
-rAb
+qqc
+qqc
+qqc
 rAb
 rAb
 rAb
@@ -33095,9 +33231,9 @@ rAb
 rAb
 rAb
 rAb
-rAb
-rAb
-rAb
+qqc
+qqc
+qqc
 rAb
 rAb
 rAb
@@ -33350,7 +33486,7 @@ bgt
 rAb
 rAb
 rAb
-rAb
+qqc
 rkz
 cVx
 qXf
@@ -33606,10 +33742,10 @@ bgt
 qkV
 gJe
 rAb
-rAb
-rAb
+lrO
+lrO
 bgt
-brk
+nuh
 brk
 brk
 rAb
@@ -33664,7 +33800,7 @@ gfl
 pOp
 gfl
 gfl
-gfl
+xUh
 gfl
 swe
 jed
@@ -33863,8 +33999,8 @@ bgt
 rnH
 gJe
 rAb
-rAb
-rAb
+lrO
+lrO
 brk
 brk
 sOY
@@ -34120,8 +34256,8 @@ bgt
 gJe
 rAb
 rAb
-rAb
-rAb
+lrO
+lrO
 fqH
 bIq
 brk
@@ -34129,7 +34265,7 @@ llC
 rAb
 wdI
 brk
-brk
+hXz
 brk
 sOY
 bgt
@@ -34165,7 +34301,7 @@ vxv
 pVK
 cbW
 cbW
-gfl
+xUh
 gfl
 gfl
 gfl
@@ -34381,7 +34517,7 @@ rAb
 bgt
 xYo
 brk
-brk
+hXz
 bgt
 rAb
 bgt
@@ -35147,8 +35283,8 @@ gJe
 rAb
 rAb
 rAb
-jvr
-fXx
+rAb
+rAb
 khS
 pDu
 brk
@@ -35402,9 +35538,9 @@ bgt
 bgt
 gJe
 rAb
-rAb
-rAb
-rAb
+cFY
+cFY
+vDf
 rAb
 rAb
 brk
@@ -35659,10 +35795,10 @@ bgt
 paR
 gJe
 rAb
-rAb
-rAb
-rAb
-rAb
+cFY
+cFY
+deE
+dCh
 rAb
 oBQ
 rAb
@@ -35915,19 +36051,19 @@ qgM
 bgt
 bgt
 bgt
-gJe
-gJe
 rAb
-rAb
-rAb
-rAb
+cFY
+cFY
+suo
+suo
+kHv
 brk
 bgt
 brk
 bgt
 bgt
 brk
-brk
+hXz
 brk
 oBQ
 gtb
@@ -36172,12 +36308,12 @@ iXu
 xDp
 bgt
 bgt
-usz
-gJe
 rAb
-rAb
-rAb
-rAb
+dly
+dly
+aaX
+deE
+kHv
 brk
 brk
 bgt
@@ -36429,11 +36565,11 @@ pZt
 xNE
 bgt
 bgt
-bwM
-gJe
-gJe
 rAb
-rAb
+wnn
+eIb
+aaX
+lys
 rAb
 oBQ
 rAb
@@ -36686,10 +36822,10 @@ lcT
 xNE
 bgt
 bgt
-gJe
 rAb
-rAb
-rAb
+aCk
+aaX
+aaX
 rAb
 rAb
 brk
@@ -36757,7 +36893,7 @@ nqz
 tKz
 gfl
 dJA
-xGy
+hGF
 cbW
 cbW
 cbW
@@ -36943,12 +37079,12 @@ vgH
 bgt
 bgt
 bgt
-cFY
 rAb
 rAb
 rAb
 rAb
 rAb
+aaX
 bgt
 brk
 brk
@@ -37016,10 +37152,10 @@ gfl
 gfl
 sgl
 cav
-xGy
+skt
+aMU
 wdK
-wdK
-xGy
+skt
 aRu
 cbW
 iXu
@@ -37203,10 +37339,10 @@ paR
 gJe
 rAb
 rAb
-rAb
-rAb
-rAb
-brk
+eOp
+eOp
+eOp
+eOp
 brk
 brk
 brk
@@ -37268,15 +37404,15 @@ gfl
 aWs
 gfl
 gfl
+xUh
+xUh
 gfl
 gfl
-gfl
-sYT
 jJA
-xGy
-xGy
+skt
+skt
 wdK
-xGy
+skt
 pHz
 cbW
 pZt
@@ -37461,9 +37597,9 @@ usz
 gJe
 gJe
 rAb
-rAb
-rAb
-brk
+eOp
+eOp
+eOp
 xqz
 brk
 bgt
@@ -37525,15 +37661,15 @@ gfl
 bBm
 gfl
 gfl
+xUh
+xUh
 gfl
 gfl
-gfl
-vFb
 jEw
-xGy
-xGy
-xGy
-xGy
+gHi
+kOb
+fIT
+skt
 pHz
 cbW
 pZt
@@ -37718,14 +37854,14 @@ vUc
 bgt
 gJe
 gJe
-rAb
-rAb
+aaX
+aaX
 brk
 brk
 brk
 brk
 rAb
-brk
+hXz
 gSs
 uVU
 rEj
@@ -37787,9 +37923,9 @@ gfl
 gfl
 vFb
 cav
-xGy
-xGy
-xGy
+gYh
+cKM
+jFT
 wdK
 ubL
 cbW
@@ -37975,8 +38111,8 @@ gJe
 rAb
 rAb
 rAb
-rAb
-rAb
+aaX
+aaX
 lJo
 brk
 brk
@@ -38042,7 +38178,7 @@ nqz
 gfl
 gfl
 gfl
-xGy
+paq
 cbW
 cbW
 cbW
@@ -39007,7 +39143,7 @@ bgt
 bgt
 bgt
 brk
-brk
+hXz
 bgt
 rAb
 oan
@@ -40048,7 +40184,7 @@ axT
 brk
 brk
 jGX
-brk
+hXz
 oEO
 jeS
 jwJ
@@ -41120,7 +41256,7 @@ gfl
 gfl
 gfl
 gfl
-gfl
+xUh
 gfl
 gfl
 xZf
@@ -41364,7 +41500,7 @@ gfl
 tKz
 gfl
 gfl
-gfl
+xUh
 gfl
 gfl
 tKz
@@ -46972,10 +47108,10 @@ qAx
 pZt
 wnx
 hbR
-reu
+pHl
 bNc
 bNc
-skt
+pHl
 ajl
 vEj
 oLJ
@@ -47231,8 +47367,8 @@ tAw
 hbR
 rvm
 pHl
-tal
-dly
+pHl
+pHl
 ajl
 vEj
 oLJ
@@ -47749,7 +47885,7 @@ usO
 sBW
 hXm
 pzb
-aCk
+oLJ
 oLJ
 oLJ
 nTB
@@ -48008,7 +48144,7 @@ hXm
 hAh
 tXp
 oLJ
-qEZ
+oLJ
 uwJ
 hAh
 tXt
@@ -48264,9 +48400,9 @@ xVI
 hbR
 hAh
 qXr
-suo
 oLJ
-tdT
+oLJ
+oLJ
 mAa
 meb
 meb
@@ -48517,7 +48653,7 @@ hbR
 dhX
 rlT
 nCj
-deE
+cva
 hbR
 hAh
 nOr
@@ -48778,7 +48914,7 @@ tsk
 hbR
 hAh
 rgI
-vDf
+oLJ
 oLJ
 oLJ
 tdZ
@@ -49037,7 +49173,7 @@ hAh
 qcL
 oLJ
 oLJ
-fuN
+oLJ
 mAa
 meb
 meb
@@ -49292,8 +49428,8 @@ qVI
 hXm
 hAh
 lvo
-mvN
-faC
+oLJ
+oLJ
 hle
 hAh
 sKL
@@ -49548,7 +49684,7 @@ jLr
 sBW
 hXm
 gQp
-lyE
+oLJ
 oLJ
 oLJ
 wcP
@@ -49806,7 +49942,7 @@ sBW
 hXm
 hAh
 ffk
-lys
+oLJ
 oLJ
 vzq
 hAh
@@ -50056,10 +50192,10 @@ eXg
 etD
 wnx
 hbR
-eIb
+pHl
 sbO
-nJS
-kZT
+pHl
+pHl
 ajl
 vEj
 oLJ
@@ -50316,10 +50452,10 @@ hbR
 wtc
 iqp
 fEy
-rrv
+pHl
 ajl
 vEj
-lQd
+oLJ
 oLJ
 gye
 vzq
@@ -50578,7 +50714,7 @@ hXm
 hAh
 lMP
 seo
-dzF
+oLJ
 jOm
 hAh
 pZt
@@ -50835,7 +50971,7 @@ hXm
 hAh
 hAh
 cxj
-ilo
+oLJ
 bGT
 hAh
 pZt
@@ -51634,7 +51770,7 @@ gfl
 nmD
 gfl
 kWf
-gfl
+xdx
 kHk
 gfl
 gfl
@@ -52405,7 +52541,7 @@ gfl
 ggE
 gfl
 gfl
-gfl
+xdx
 jJU
 cbj
 tXP
@@ -52661,7 +52797,7 @@ kHk
 jJU
 dew
 gfl
-gfl
+xUh
 jJU
 jJU
 jJU
@@ -52908,7 +53044,7 @@ ouH
 alW
 jJK
 sDK
-cZG
+hQR
 sqb
 gfl
 tKz
@@ -53944,10 +54080,10 @@ ksa
 gfl
 gfl
 ksa
-gfl
+xdx
 gfl
 tKz
-gfl
+xdx
 ksa
 gfl
 ksa
@@ -54222,9 +54358,9 @@ pWJ
 hDc
 cbW
 mCX
-brk
-aaZ
-aaZ
+sYT
+vHN
+vHN
 vLo
 xGy
 xGy
@@ -54453,13 +54589,13 @@ mvZ
 mQC
 ksa
 gfl
+xUh
+jJU
+jJU
+jJU
+jJU
+nEm
 gfl
-jJU
-jJU
-jJU
-jJU
-nEm
-nEm
 nEm
 nEm
 jJU
@@ -54479,15 +54615,15 @@ kmn
 wTq
 cbW
 usX
-brk
+aaX
 fHl
 cNj
 vLo
 liW
 xGy
 xGy
-xGy
-xGy
+tal
+tal
 luQ
 aPj
 cbW
@@ -54716,8 +54852,8 @@ pZt
 oMX
 jJU
 jJU
-jJU
-jJU
+uoS
+uoS
 jJU
 jJU
 eok
@@ -54735,17 +54871,17 @@ aDD
 xdg
 cZG
 awa
-brk
-brk
-brk
-brk
-brk
+aaX
+aaX
+nJS
+aaX
+aaX
 vgs
 xGy
 xGy
 xGy
-xGy
-xGy
+tal
+tal
 tAh
 cbW
 cbW
@@ -54971,12 +55107,12 @@ jJU
 jJU
 dAQ
 iXu
-ssw
-eWc
-pZt
-pZt
-hDc
-pZt
+jJU
+ilo
+xGy
+xGy
+tMS
+jJU
 pZt
 jJU
 jJU
@@ -54993,16 +55129,16 @@ kGB
 xdg
 gZS
 vfp
-brk
+cuw
 aib
 kyF
-brk
+aaX
 vgs
 xGy
 xGy
 xGy
 xGy
-xGy
+tal
 yat
 cbW
 cbW
@@ -55228,13 +55364,13 @@ pZt
 pZt
 pZt
 gIn
+jJU
+mEf
+rEp
+rEp
+tMS
+jJU
 vgH
-gMx
-qAx
-pZt
-pZt
-pZt
-dPO
 jpz
 jJU
 jJU
@@ -55250,10 +55386,10 @@ bId
 pZt
 cbW
 knE
-brk
-oXd
+cuw
+gwR
 qFA
-aaX
+sYT
 vLo
 lxs
 xGy
@@ -55484,14 +55620,14 @@ etD
 pZt
 pZt
 pZt
-pZt
-pZt
-pZt
-pZt
-pZt
-bXk
-pZt
-lcT
+jJU
+jJU
+sub
+rEp
+rEp
+tMS
+jJU
+jJU
 pZt
 pZt
 tSs
@@ -55507,12 +55643,12 @@ cZG
 tXt
 cbW
 mGo
-brk
-brk
+jES
 aaX
 aaX
+sYT
 vLo
-xGy
+tal
 wZq
 cbW
 ubz
@@ -55741,14 +55877,14 @@ pZt
 vxv
 pZt
 pZt
-pZt
-pZt
-fzZ
-pZt
-pZt
-pZt
-pZt
-pZt
+liW
+hrp
+xGy
+xGy
+xGy
+xGy
+trY
+liW
 pZt
 pZt
 pZt
@@ -55765,8 +55901,8 @@ pZt
 cbW
 gDB
 wQa
-aaX
-aaX
+rrv
+sYT
 wgi
 vLo
 uFL
@@ -55998,14 +56134,14 @@ pZt
 pZt
 pZt
 pZt
-jBc
-gIn
-pZt
-pZt
-pZt
-pZt
-pZt
-pZt
+liW
+hrp
+wbM
+xGy
+xGy
+qCj
+tMS
+liW
 pZt
 pZt
 pZt
@@ -56022,8 +56158,8 @@ etD
 cbW
 cbW
 dbR
-aaX
-aaX
+rrv
+sYT
 eYu
 rrQ
 gfl
@@ -56255,14 +56391,14 @@ pZt
 mth
 pPr
 pZt
-pZt
-pZt
-pZt
-iCY
-pZt
-pZt
-pZt
-iXu
+liW
+hrp
+reu
+xGy
+xGy
+tdT
+tMS
+liW
 pZt
 pZt
 vxv
@@ -56279,8 +56415,8 @@ pVK
 tmz
 kfc
 xDQ
-aaX
-aaX
+rrv
+sYT
 xhI
 ojm
 tKz
@@ -56512,17 +56648,17 @@ pZt
 pZt
 pZt
 pZt
+jJU
+jJU
+hks
+xGy
+xGy
+mzL
+jJU
+jJU
 pZt
 pZt
-lcT
-pZt
-pZt
-pZt
-pZt
-pZt
-pZt
-pZt
-pZt
+nKE
 fzZ
 pZt
 pZt
@@ -56764,18 +56900,18 @@ pZt
 pZt
 pZt
 pZt
+nKE
 pZt
 pZt
 pZt
 pZt
 pZt
-pZt
-pZt
-pZt
-pZt
-pZt
-pZt
-pZt
+jJU
+xGy
+xGy
+xGy
+xGy
+jJU
 dAQ
 pZt
 pZt
@@ -57027,12 +57163,12 @@ pZt
 pZt
 pZt
 nWN
-pZt
-pZt
-vxv
-pZt
-pZt
-bXk
+jJU
+lQd
+lQd
+lQd
+lQd
+jJU
 jrG
 pZt
 pZt
@@ -57256,8 +57392,8 @@ pZt
 pZt
 jrG
 jit
-brk
-brk
+aaX
+aaX
 gUM
 jit
 jit
@@ -57284,12 +57420,12 @@ vxv
 pZt
 pZt
 pZt
-pZt
-pZt
-pZt
-pZt
-pZt
-pZt
+jJU
+jJU
+jJU
+jJU
+jJU
+jJU
 pZt
 pZt
 pZt
@@ -57514,8 +57650,8 @@ pZt
 pZt
 jit
 tDl
-brk
-brk
+dpD
+aaX
 gUM
 gUM
 jit
@@ -57771,10 +57907,10 @@ eOp
 vgH
 jit
 tDl
-brk
-brk
-brk
-brk
+dpD
+aaX
+aaX
+dpD
 jit
 awp
 uNj
@@ -58027,11 +58163,11 @@ pVK
 eOp
 eOp
 wpe
-brk
-brk
+aaX
+aaX
 qKY
-brk
-bNe
+aaX
+mvN
 gZS
 vCo
 tnj
@@ -58067,7 +58203,7 @@ vgH
 pZt
 pZt
 eMa
-mEf
+nPP
 lBx
 lBx
 hqv
@@ -58285,10 +58421,10 @@ eOp
 pZt
 jit
 sKA
-brk
-brk
-brk
-bNe
+aaX
+aaX
+aaX
+mvN
 jit
 jit
 jnv
@@ -58541,11 +58677,11 @@ eOp
 eOp
 eOp
 jit
-brk
-hXz
-brk
-brk
-brk
+aaX
+kZT
+aaX
+aaX
+dpD
 jaq
 gZS
 jZp
@@ -58799,11 +58935,11 @@ eOp
 guB
 jit
 sPL
-brk
+aaX
 sPL
-brk
-brk
-brk
+aaX
+aaX
+dpD
 jit
 jit
 awp
@@ -59059,9 +59195,9 @@ jit
 jit
 jit
 jit
-brk
-brk
-brk
+aaX
+aaX
+aaX
 gZS
 ohm
 epC
@@ -59317,8 +59453,8 @@ bgt
 bgt
 jit
 jit
-jQk
-jQk
+dTb
+dTb
 jit
 enV
 pxZ
@@ -61925,7 +62061,7 @@ pVK
 pZt
 pZt
 pZt
-etD
+aqG
 pZt
 rSX
 mqk
@@ -65752,7 +65888,7 @@ hON
 brk
 brk
 brk
-brk
+hXz
 fdx
 eEW
 nCW
@@ -66032,7 +66168,7 @@ jQk
 jQk
 kxb
 jit
-kxb
+iCY
 gMx
 sKL
 hdv
@@ -66285,11 +66421,11 @@ jit
 jit
 niH
 niH
-tMS
-sub
+vLm
+vLm
 dGo
-jai
-kxb
+rCq
+otx
 jit
 jit
 fzZ
@@ -66539,15 +66675,15 @@ dAQ
 pZt
 jit
 gJx
-brk
-brk
-brk
-hks
-uoS
-brk
-brk
-brk
-brk
+aaX
+aaX
+aaX
+vLm
+vLm
+jvc
+aaX
+jvc
+jvc
 jit
 sKL
 sKL
@@ -66796,13 +66932,13 @@ pZt
 pZt
 jit
 gJx
-brk
+aaX
 klX
 rAy
-hks
-uoS
+vLm
+vLm
 eLB
-brk
+jvc
 jit
 jit
 jit
@@ -67052,13 +67188,13 @@ lgz
 lQZ
 pZt
 lRm
-brk
-brk
-brk
-hrp
-coi
-uoS
-brk
+aaX
+aaX
+iMt
+hHj
+vLm
+vLm
+aaX
 jit
 jit
 aMI
@@ -67309,16 +67445,16 @@ tag
 ouH
 mqk
 lIk
-tMS
+vLm
 kjT
-cgC
-gol
-otx
+vLm
+hHj
+hHj
 fgp
 jit
 jit
 brk
-afX
+vLm
 fdx
 pZt
 pZt
@@ -67542,7 +67678,7 @@ gdn
 aaX
 aaX
 aaX
-gdn
+lYU
 hiR
 dhI
 vFk
@@ -67566,16 +67702,16 @@ sbh
 elM
 gfh
 jQk
-hks
-ehu
-cox
-cox
+vLm
+hHj
+vLm
+vLm
 hHj
 jit
 jit
 brk
 jZg
-cZM
+vLm
 fdx
 bXk
 pZt
@@ -67826,11 +67962,11 @@ euP
 mrg
 kGr
 wRz
-cox
-qCj
+vLm
+vLm
 poM
-cgC
-cgC
+vLm
+vLm
 kOB
 vFX
 fdx
@@ -68080,14 +68216,14 @@ wan
 pMI
 wZL
 xwB
-hks
-cox
+vLm
+vLm
 jpN
-wbM
-rEp
+kjT
+vLm
 kYM
-rCq
-nDj
+hHj
+vLm
 ocn
 vFX
 fdx
@@ -68337,16 +68473,16 @@ acG
 wpg
 bCc
 jQk
-hks
-wbM
-cox
-cox
+vLm
+kjT
+jZg
+uxE
 gNP
 jit
 jit
 eCx
-trY
-igh
+vLm
+vLm
 fdx
 ssw
 pZt
@@ -68594,16 +68730,16 @@ dbi
 pxp
 ouH
 euP
-trY
-nDj
-nDj
-mzL
-qCj
+vLm
+fpN
+jZg
+vLm
+vLm
 sTq
 jit
 jit
 brk
-qSS
+vLm
 fdx
 lcT
 pZt
@@ -68852,12 +68988,12 @@ bLE
 etD
 xwB
 vsR
-brk
-xWy
-trY
-mzL
-uoS
-brk
+aaX
+dzF
+vLm
+vLm
+vLm
+aaX
 jit
 jit
 ops
@@ -69108,14 +69244,14 @@ pZt
 pZt
 pZt
 dqO
-brk
-brk
+aaX
+aaX
 mRd
-jai
+rCq
 foB
-uoS
-bIq
-brk
+vLm
+afX
+aaX
 jit
 jit
 jit
@@ -69365,16 +69501,16 @@ idE
 ssw
 oMI
 jit
-brk
-brk
-eCx
-brk
-hks
-uoS
-brk
-brk
-brk
-brk
+aaX
+fLr
+tPf
+aaX
+vLm
+vLm
+faC
+aaX
+aaX
+aaX
 jit
 pZt
 pZt
@@ -69626,7 +69762,7 @@ jit
 jit
 niH
 niH
-trY
+vLm
 jvm
 ssx
 cWA
@@ -69882,11 +70018,11 @@ tXt
 pZt
 jit
 jit
-kxb
+iCY
 uDS
 dbX
-kxb
-kxb
+iCY
+iCY
 jit
 sKL
 vgH
@@ -72665,7 +72801,7 @@ odR
 jJU
 skT
 brk
-brk
+hXz
 brk
 wqi
 rmP
@@ -72922,7 +73058,7 @@ pZt
 jJU
 brk
 brk
-brk
+hXz
 bAj
 brk
 tuC
@@ -75507,7 +75643,7 @@ tin
 pZt
 sKL
 jit
-brk
+hXz
 brk
 obQ
 jit
