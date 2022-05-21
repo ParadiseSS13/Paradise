@@ -774,7 +774,7 @@
 	controlling = FALSE
 
 	reset_perspective(null)
-	machine = null
+	unset_machine()
 
 	host.verbs -= /mob/living/carbon/proc/release_control
 	host.verbs -= /mob/living/carbon/proc/punish_host
