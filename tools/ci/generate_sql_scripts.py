@@ -78,10 +78,10 @@ for file in orderedSqlFiles:
 
 # Dump the DB to a file to do diff checking with
 # We need the awful sed stuff here so that we can remove AUTO_INCREMENT saved values
-scriptLines.append("mysqldump -d -u root -proot -p paradise_gamedb | sed 's/ AUTO_INCREMENT=[0-9]*\\b//' | sed 's/ COLLATE=utf8mb4_unicode_ci|utf8mb4_0900_ai_ci\\b//' > UPDATED_SCHEMA.sql\n")
+scriptLines.append("mysqldump -d -u root -proot -p paradise_gamedb | sed 's/ AUTO_INCREMENT=[0-9]*\\b//' | sed 's/ COLLATE=(utf8mb4_unicode_ci|utf8mb4_0900_ai_ci)//' > UPDATED_SCHEMA.sql\n")
 scriptLines.append("mysql -u root -proot -e 'DROP DATABASE paradise_gamedb;'\n")
 scriptLines.append("mysql -u root -proot < SQL/paradise_schema.sql\n")
-scriptLines.append("mysqldump -d -u root -proot -p paradise_gamedb | sed 's/ AUTO_INCREMENT=[0-9]*\\b//' | sed 's/ COLLATE=utf8mb4_unicode_ci|utf8mb4_0900_ai_ci\\b//' > FRESH_SCHEMA.sql\n")
+scriptLines.append("mysqldump -d -u root -proot -p paradise_gamedb | sed 's/ AUTO_INCREMENT=[0-9]*\\b//' | sed 's/ COLLATE=(utf8mb4_unicode_ci|utf8mb4_0900_ai_ci)//' > FRESH_SCHEMA.sql\n")
 
 # Now diff. This should exit 1 if they are different
 scriptLines.append("diff UPDATED_SCHEMA.sql FRESH_SCHEMA.sql\n")
