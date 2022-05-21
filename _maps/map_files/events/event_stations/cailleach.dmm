@@ -8371,7 +8371,7 @@
 /area/space)
 "gUM" = (
 /obj/vehicle/snowmobile/blue{
-	vehicle_move_delay = .8
+	vehicle_move_delay = 0.8
 	},
 /obj/item/key/snowmobile,
 /turf/simulated/floor/wood,
@@ -14738,7 +14738,7 @@
 /area/space)
 "lQd" = (
 /obj/vehicle/motorcycle{
-	vehicle_move_delay = .7
+	vehicle_move_delay = 0.7
 	},
 /obj/item/clothing/suit/hooded/wintercoat/security,
 /turf/simulated/floor/engine,
