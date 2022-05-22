@@ -46,7 +46,7 @@
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
 		return 0
 
-	for(var/i in 1 to stored_ammo.len)
+	for(var/i in 1 to length(stored_ammo))
 		var/obj/item/ammo_casing/bullet = stored_ammo[i]
 		if(!bullet || !bullet.BB) // found a spent ammo
 			stored_ammo[i] = R
@@ -251,7 +251,7 @@
 	var/ammo = ammo_count()
 	if(!ammo)
 		return 0
-	if(istype(contents[contents.len], /obj/item/ammo_casing/rubber9mm))
+	if(istype(contents[length(contents)], /obj/item/ammo_casing/rubber9mm))
 		return 1
 	return 0
 
@@ -463,7 +463,7 @@
 	var/ammo = ammo_count()
 	if(!ammo)
 		return 0
-	if(istype(contents[contents.len], /obj/item/ammo_casing/caseless/foam_dart/riot))
+	if(istype(contents[length(contents)], /obj/item/ammo_casing/caseless/foam_dart/riot))
 		return 1
 	return 0
 

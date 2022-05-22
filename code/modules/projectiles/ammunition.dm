@@ -53,7 +53,7 @@
 		if(isturf(loc))
 			var/boolets = 0
 			for(var/obj/item/ammo_casing/bullet in loc)
-				if(box.stored_ammo.len >= box.max_ammo)
+				if(length(box.stored_ammo) >= box.max_ammo)
 					break
 				if(bullet.BB)
 					if(box.give_round(bullet, 0))
@@ -62,7 +62,7 @@
 					continue
 			if(boolets > 0)
 				box.update_icon()
-				to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s.</span>")
+				to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [length(box.stored_ammo)] shell\s.</span>")
 				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 			else
 				to_chat(user, "<span class='warning'>You fail to collect anything!</span>")
@@ -132,10 +132,10 @@
 	return ..()
 
 /obj/item/ammo_box/proc/get_round(keep = 0)
-	if(!stored_ammo.len)
+	if(!length(stored_ammo))
 		return null
 	else
-		var/b = stored_ammo[stored_ammo.len]
+		var/b = stored_ammo[length(stored_ammo)]
 		stored_ammo -= b
 		if(keep)
 			stored_ammo.Insert(1,b)
@@ -150,7 +150,7 @@
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
 		return 0
 
-	if(stored_ammo.len < max_ammo)
+	if(length(stored_ammo) < max_ammo)
 		stored_ammo += R
 		R.loc = src
 		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
@@ -246,7 +246,7 @@
 
 //Behavior for magazines
 /obj/item/ammo_box/magazine/proc/ammo_count()
-	return stored_ammo.len
+	return length(stored_ammo)
 
 /obj/item/ammo_box/magazine/proc/empty_magazine()
 	var/turf_mag = get_turf(src)
