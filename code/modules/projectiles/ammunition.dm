@@ -222,14 +222,14 @@
 		if(AMMO_MULTI_SPRITE_STEP_NONE)
 			icon_state = icon_base
 		if(AMMO_MULTI_SPRITE_STEP_ON_OFF)
-			icon_state = "[icon_base][stored_ammo.len ? "" : "-0"]"
+			icon_state = "[icon_base][length(stored_ammo) ? "" : "-0"]"
 		else
 			var/shown_ammo = CEILING(length(stored_ammo), multi_sprite_step)
 			if(shown_ammo == CEILING(max_ammo, multi_sprite_step))
 				icon_state = icon_base
 			else
 				icon_state = "[icon_base]-[shown_ammo]"
-	desc = "[initial(desc)] There are [stored_ammo.len] shell\s left!"
+	desc = "[initial(desc)] There are [length(stored_ammo)] shell\s left!"
 
 /obj/item/ammo_box/proc/update_mat_value()
 	var/num_ammo = 0
