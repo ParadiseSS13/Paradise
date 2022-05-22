@@ -36,8 +36,7 @@
 		hide(T.intact)
 	center = T
 
-	if(SSradio)
-		SSradio.add_object(src, freq, RADIO_MAGNETS)
+	SSradio.add_object(src, freq, RADIO_MAGNETS)
 
 	spawn()
 		magnetic_process()
@@ -199,8 +198,7 @@
 /obj/machinery/magnetic_controller/Initialize(mapload)
 	. = ..()
 
-	if(SSradio)
-		radio_connection = SSradio.add_object(src, frequency, RADIO_MAGNETS)
+	radio_connection = SSradio.add_object(src, frequency, RADIO_MAGNETS)
 
 	if(path) // check for default path
 		filter_path() // renders rpath
@@ -218,8 +216,7 @@
 				magnets.Add(M)
 
 /obj/machinery/magnetic_controller/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
+	SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
 

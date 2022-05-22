@@ -62,9 +62,6 @@ GLOBAL_LIST_EMPTY(holopads)
 /obj/machinery/hologram/holopad/Initialize(mapload)
 	. = ..()
 	GLOB.holopads += src
-
-/obj/machinery/hologram/holopad/Initialize()
-	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/holopad(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)

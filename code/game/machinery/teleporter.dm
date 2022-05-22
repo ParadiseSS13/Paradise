@@ -336,10 +336,6 @@
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	RefreshParts()
 
-/obj/machinery/teleport/hub/Initialize()
-	..()
-	link_power_station()
-
 /obj/machinery/teleport/hub/Destroy()
 	if(power_station)
 		power_station.teleporter_hub = null
@@ -522,10 +518,6 @@
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
-	link_console_and_hub()
-
-/obj/machinery/teleport/station/Initialize()
-	..()
 	link_console_and_hub()
 
 /obj/machinery/teleport/station/RefreshParts()

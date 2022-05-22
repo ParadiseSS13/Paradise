@@ -129,8 +129,9 @@
 		frequency = new_frequency
 		radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
 
+// this is an override, in addition to the one in airlock_control.dm
 /obj/machinery/door/airlock/Initialize()
-	..()
+	. = ..()
 	if(frequency)
 		set_frequency(frequency)
 
@@ -196,10 +197,6 @@
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
-
-/obj/machinery/airlock_sensor/Initialize()
-	..()
-	set_frequency(frequency)
 
 /obj/machinery/airlock_sensor/Initialize(mapload)
 	. = ..()
