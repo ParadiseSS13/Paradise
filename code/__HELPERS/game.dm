@@ -509,7 +509,7 @@
 			var/mobs_nearby = FALSE
 			for(var/mob/living/M in orange(nearby_mobs_range, T))
 				if(!M.is_dead())
-					if(only_exclude_mobs_with_mind && !M.client)
+					if(only_exclude_mobs_with_mind && !M.client && !istype(get_area(T), /area/toxins/xenobiology)) //we add an exception here for xenobiology vents because it's usually filled with gold slime mobs who attack hostile mobs
 						continue
 					mobs_nearby = TRUE
 					break
@@ -520,7 +520,7 @@
 			var/visible_by_mobs = FALSE
 			for(var/mob/living/M in viewers(world.view, T))
 				if(!M.is_dead())
-					if(only_exclude_mobs_with_mind && !M.client)
+					if(only_exclude_mobs_with_mind && !M.client && !istype(get_area(T), /area/toxins/xenobiology)) //again, nasty xenobio vent exception
 						continue
 					visible_by_mobs = TRUE
 					break
