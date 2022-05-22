@@ -486,7 +486,7 @@
   * * station_levels_only - Whether to only consider vents that are in a Z-level with a STATION_LEVEL trait
   * * z_level - The Z-level number to look for vents in. Defaults to all
   */
-/proc/get_valid_vent_spawns(unwelded_only = TRUE, exclude_mobs_nearby = FALSE, nearby_mobs_range = world.view, exclude_visible_by_mobs = FALSE, min_network_size = 50, station_levels_only = TRUE, z_level = 0)
+/proc/get_valid_vent_spawns(unwelded_only = TRUE, exclude_mobs_nearby = FALSE, nearby_mobs_range = world.view, exclude_visible_by_mobs = FALSE, min_network_size = 50, station_levels_only = TRUE, z_level = 0, only_exclude_mobs_with_mind = FALSE)
 	ASSERT(min_network_size >= 0)
 	ASSERT(z_level >= 0)
 
@@ -509,6 +509,8 @@
 			var/mobs_nearby = FALSE
 			for(var/mob/living/M in orange(nearby_mobs_range, T))
 				if(!M.is_dead())
+					if(only_exclude_mobs_with_mind && !M.client)
+						continue
 					mobs_nearby = TRUE
 					break
 			if(mobs_nearby)
@@ -518,6 +520,8 @@
 			var/visible_by_mobs = FALSE
 			for(var/mob/living/M in viewers(world.view, T))
 				if(!M.is_dead())
+					if(only_exclude_mobs_with_mind && !M.client)
+						continue
 					visible_by_mobs = TRUE
 					break
 			if(visible_by_mobs)
