@@ -41,8 +41,8 @@
 	icon_screen = "slime_comp"
 	icon_keyboard = "rd_key"
 
-/obj/machinery/computer/camera_advanced/xenobio/New()
-	..()
+/obj/machinery/computer/camera_advanced/xenobio/Initialize(mapload)
+	. = ..()
 	for(var/obj/machinery/monkey_recycler/recycler in GLOB.monkey_recyclers)
 		if(get_area(recycler.loc) == get_area(loc))
 			connected_recycler = recycler

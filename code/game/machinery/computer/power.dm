@@ -27,14 +27,12 @@
 	circuit = /obj/item/circuitboard/powermonitor/secret
 	is_secret_monitor = TRUE
 
-/obj/machinery/computer/monitor/New()
-	..()
+/obj/machinery/computer/monitor/Initialize(mapload)
+	. = ..()
 	GLOB.power_monitors += src
 	GLOB.power_monitors = sortAtom(GLOB.power_monitors)
 	power_monitor = new(src)
 
-/obj/machinery/computer/monitor/Initialize()
-	..()
 	GLOB.powermonitor_repository.update_cache()
 	powernet = find_powernet()
 	history["supply"] = list()

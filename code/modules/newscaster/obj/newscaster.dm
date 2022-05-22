@@ -54,17 +54,15 @@
 	name = "security newscaster"
 	is_security = TRUE
 
-/obj/machinery/newscaster/New()
+/obj/machinery/newscaster/Initialize(mapload)
+	. = ..()
 	GLOB.allNewscasters += src
 	unit_number = length(GLOB.allNewscasters)
 	update_icon() //for any custom ones on the map...
 	if(!last_views)
 		last_views = list()
 	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
-	..()
 
-/obj/machinery/newscaster/Initialize(mapload)
-	. = ..()
 	if(is_security)
 		name = "security newscaster"
 	else

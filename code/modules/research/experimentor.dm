@@ -78,12 +78,6 @@
 			if(initial(tempCheck.icon_state) != null)
 				critical_items += I
 
-/obj/machinery/r_n_d/experimentor/New()
-	..()
-	spawn(1)
-		trackedIan = locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_living_list
-		trackedRuntime = locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_living_list
-
 /obj/machinery/r_n_d/experimentor/Initialize(mapload)
 	. = ..()
 	component_parts = list()
@@ -95,6 +89,14 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(src)
 	SetTypeReactions()
 	RefreshParts()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/r_n_d/experimentor/LateInitialize()
+	. = ..()
+	// GLOB.mob_living_list gets populated in /mob/Initialize()
+	// so we need to delay searching for those until after the Initialize()
+	trackedIan = locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_living_list
+	trackedRuntime = locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_living_list
 
 /obj/machinery/r_n_d/experimentor/RefreshParts()
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)

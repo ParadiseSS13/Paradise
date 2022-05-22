@@ -35,8 +35,8 @@
 
 // create a new disposal
 // find the attached trunk (if present)
-/obj/machinery/disposal/New()
-	..()
+/obj/machinery/disposal/Initialize(mapload)
+	. = ..()
 	trunk_check()
 	//gas.volume = 1.05 * CELLSTANDARD
 	update()

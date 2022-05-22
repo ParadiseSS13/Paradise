@@ -42,9 +42,9 @@
 	var/prisoner_time
 	var/prisoner_hasrecord = FALSE
 
-/obj/machinery/door_timer/New()
+/obj/machinery/door_timer/Initialize(mapload)
+	. = ..()
  	GLOB.celltimers_list += src
- 	return ..()
 
 /obj/machinery/door_timer/Destroy()
  	GLOB.celltimers_list -= src

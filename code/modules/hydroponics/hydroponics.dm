@@ -32,8 +32,8 @@
 	var/self_sustaining = FALSE //If the tray generates nutrients and water on its own
 	hud_possible = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
 
-/obj/machinery/hydroponics/New()
-	..()
+/obj/machinery/hydroponics/Initialize(mapload)
+	. = ..()
 	var/datum/atom_hud/data/hydroponic/hydro_hud = GLOB.huds[DATA_HUD_HYDROPONIC]
 	prepare_huds()
 	hydro_hud.add_to_hud(src)

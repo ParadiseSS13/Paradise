@@ -59,8 +59,8 @@ GLOBAL_LIST_EMPTY(holopads)
 	var/ringing = FALSE
 	var/dialling_input = FALSE //The user is currently selecting where to send their call
 
-/obj/machinery/hologram/holopad/New()
-	..()
+/obj/machinery/hologram/holopad/Initialize(mapload)
+	. = ..()
 	GLOB.holopads += src
 
 /obj/machinery/hologram/holopad/Initialize()

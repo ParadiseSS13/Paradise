@@ -15,8 +15,8 @@
 	var/enabled = TRUE
 	var/cc_beacon = FALSE //can be teleported to even if on zlevel2
 
-/obj/machinery/bluespace_beacon/New()
-	..()
+/obj/machinery/bluespace_beacon/Initialize(mapload)
+	. = ..()
 	create_beacon()
 
 /obj/machinery/bluespace_beacon/proc/create_beacon()
