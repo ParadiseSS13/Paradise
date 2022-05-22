@@ -624,6 +624,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	/obj/structure/window/plasmabasic,
 	/obj/structure/window/plasmareinforced,
 	/obj/machinery/door/window,
+	/obj/structure/railing,
 	))
 	if(disabled)
 		return
