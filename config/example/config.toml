@@ -238,15 +238,12 @@ gamemode_probabilities = [
 	{gamemode = "nuclear", probability = 2},
 	{gamemode = "raginmages", probability = 0},
 	{gamemode = "revolution", probability = 0},
-	{gamemode = "shadowling", probability = 1},
 	{gamemode = "traitor", probability = 2},
 	{gamemode = "traitorchan", probability = 3},
 	{gamemode = "traitorvamp", probability = 3},
 	{gamemode = "vampire", probability = 3},
 	{gamemode = "wizard", probability = 2},
 ]
-# Maximum cycles (2s) before a shadowling starts to take damage if they dont hatch
-shadowling_max_age = 600 # 20 minutes
 # Do we want the amount of traitors to scale with population?
 traitor_scaling = true
 # Protect mindshielded roles from being antagonists
@@ -607,6 +604,8 @@ redis_connstring = "redis://127.0.0.1/"
 [ruin_configuration]
 # This section contains configuration for all space ruins and lava ruins
 
+# Whether to load the lavaland Z-level.
+enable_lavaland = true
 # Globally enable and disable placing of space ruins. Lava ruins will still place.
 enable_space_ruins = false
 # Minimum number of extra zlevels to generate and fill with ruins
@@ -742,8 +741,10 @@ instance_id = "paradise_main"
 internal_ip = "127.0.0.1"
 # Are we handling TOS consents on an external service?
 external_tos_handler = false
-# Whether to load test_tiny instead of the normal map.
-load_test_map = false
+# Path to the map datum to load, overriding the defaults and `data/next_map.txt`.
+# Do not use in production.
+# Comment out to disable.
+#override_map = "/datum/map/test_tiny"
 
 
 ################################################################

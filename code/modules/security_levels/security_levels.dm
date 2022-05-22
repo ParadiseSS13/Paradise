@@ -37,10 +37,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				GLOB.security_level = SEC_LEVEL_GREEN
 				unset_stationwide_emergency_lighting()
 				post_status("alert", "outline")
-				for(var/obj/machinery/firealarm/FA in GLOB.machines)
-					if(is_station_contact(FA.z))
-						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")
+				update_firealarms()
 
 			if(SEC_LEVEL_BLUE)
 				if(GLOB.security_level < SEC_LEVEL_BLUE)
@@ -51,10 +48,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 				post_status("alert", "outline")
 				unset_stationwide_emergency_lighting()
-				for(var/obj/machinery/firealarm/FA in GLOB.machines)
-					if(is_station_contact(FA.z))
-						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_blue")
+				update_firealarms()
 
 			if(SEC_LEVEL_RED)
 				if(GLOB.security_level < SEC_LEVEL_RED)
@@ -66,14 +60,11 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in GLOB.airlocks
 				if(R && is_station_level(R.z))
-					R.locked = 0
+					R.locked = FALSE
 					R.update_icon()
 
 				post_status("alert", "redalert")
-				for(var/obj/machinery/firealarm/FA in GLOB.machines)
-					if(is_station_contact(FA.z))
-						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
+				update_firealarms()
 
 			if(SEC_LEVEL_GAMMA)
 				GLOB.security_announcement_up.Announce("Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location.", "Attention! Gamma security level activated!", 'sound/effects/new_siren.ogg', new_sound2 = 'sound/AI/gamma.ogg')
@@ -82,16 +73,11 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				if(GLOB.security_level < SEC_LEVEL_RED)
 					for(var/obj/machinery/door/airlock/highsecurity/red/R in GLOB.airlocks)
 						if(is_station_level(R.z))
-							R.locked = 0
+							R.locked = FALSE
 							R.update_icon()
 
 				post_status("alert", "gammaalert")
-
-				for(var/obj/machinery/firealarm/FA in GLOB.machines)
-					if(is_station_contact(FA.z))
-						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_gamma")
-						FA.update_icon()
+				update_firealarms()
 
 			if(SEC_LEVEL_EPSILON)
 				for(var/mob/M in GLOB.player_list)
@@ -109,11 +95,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				GLOB.security_level = SEC_LEVEL_DELTA
 
 				post_status("alert", "deltaalert")
-
-				for(var/obj/machinery/firealarm/FA in GLOB.machines)
-					if(is_station_contact(FA.z))
-						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
+				update_firealarms()
 				set_stationwide_emergency_lighting()
 				SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
 				return
@@ -138,6 +120,13 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			return "epsilon"
 		if(SEC_LEVEL_DELTA)
 			return "delta"
+
+/proc/update_firealarms()
+	var/security_level = get_security_level()
+	for(var/obj/machinery/firealarm/FA in GLOB.machines)
+		if(is_station_contact(FA.z))
+			FA.cut_overlays()
+			FA.add_overlay("overlay_[security_level]")
 
 /proc/num2seclevel(num)
 	switch(num)
@@ -229,7 +218,4 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				continue
 			L.fire_mode = TRUE
 			L.update()
-	for(var/obj/machinery/firealarm/FA in GLOB.machines)
-		if(is_station_contact(FA.z))
-			FA.overlays.Cut()
-			FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
+	update_firealarms()

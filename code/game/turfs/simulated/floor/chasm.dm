@@ -26,7 +26,7 @@
 		))
 	var/drop_x = 1
 	var/drop_y = 1
-	var/drop_z = 1
+	var/drop_z = 2 // so that it doesn't send you to CC if something fucks up.
 
 /turf/simulated/floor/chasm/Entered(atom/movable/AM)
 	..()
@@ -189,3 +189,10 @@
 
 /turf/simulated/floor/chasm/CanPass(atom/movable/mover, turf/target)
 	return 1
+
+/turf/simulated/floor/chasm/pride/Initialize(mapload)
+	. = ..()
+	drop_x = x
+	drop_y = y
+	var/list/target_z = levels_by_trait(SPAWN_RUINS)
+	drop_z = pick(target_z)

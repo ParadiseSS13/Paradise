@@ -323,17 +323,6 @@
 
 	. += _memory_edit_role_enabled(ROLE_OPERATIVE)
 
-/datum/mind/proc/memory_edit_shadowling(mob/living/carbon/human/H)
-	. = _memory_edit_header("shadowling")
-	if(src in SSticker.mode.shadows)
-		. += "<b><font color='red'>SHADOWLING</font></b>|thrall|<a href='?src=[UID()];shadowling=clear'>no</a>"
-	else if(src in SSticker.mode.shadowling_thralls)
-		. += "Shadowling|<b><font color='red'>THRALL</font></b>|<a href='?src=[UID()];shadowling=clear'>no</a>"
-	else
-		. += "<a href='?src=[UID()];shadowling=shadowling'>shadowling</a>|<a href='?src=[UID()];shadowling=thrall'>thrall</a>|<b>NO</b>"
-
-	. += _memory_edit_role_enabled(ROLE_SHADOWLING)
-
 /datum/mind/proc/memory_edit_abductor(mob/living/carbon/human/H)
 	. = _memory_edit_header("abductor")
 	if(src in SSticker.mode.abductors)
@@ -472,8 +461,6 @@
 		sections["vampire"] = memory_edit_vampire(H)
 		/** NUCLEAR ***/
 		sections["nuclear"] = memory_edit_nuclear(H)
-		/** SHADOWLING **/
-		sections["shadowling"] = memory_edit_shadowling(H)
 		/** Abductors **/
 		sections["abductor"] = memory_edit_abductor(H)
 	sections["eventmisc"] = memory_edit_eventmisc(H)
@@ -1116,7 +1103,6 @@
 		switch(href_list["traitor"])
 			if("clear")
 				if(has_antag_datum(/datum/antagonist/traitor))
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a traitor!</B></FONT></span>")
 					remove_antag_datum(/datum/antagonist/traitor)
 					log_admin("[key_name(usr)] has de-traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-traitored [key_name_admin(current)]")
@@ -1340,44 +1326,6 @@
 					log_admin("[key_name(usr)] has de-mindslaved [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-mindslaved [key_name_admin(current)]")
 
-	else if(href_list["shadowling"])
-		switch(href_list["shadowling"])
-			if("clear")
-				SSticker.mode.update_shadow_icons_removed(src)
-				if(src in SSticker.mode.shadows)
-					SSticker.mode.shadows -= src
-					special_role = null
-					to_chat(current, "<span class='userdanger'>Your powers have been quenched! You are no longer a shadowling!</span>")
-					message_admins("[key_name_admin(usr)] has de-shadowlinged [current].")
-					log_admin("[key_name(usr)] has de-shadowlinged [current].")
-					current.spellremove(current)
-					current.remove_language("Shadowling Hivemind")
-				else if(src in SSticker.mode.shadowling_thralls)
-					SSticker.mode.remove_thrall(src,0)
-					message_admins("[key_name_admin(usr)] has de-thrall'ed [current].")
-					log_admin("[key_name(usr)] has de-thralled [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-thralled [key_name_admin(current)]")
-			if("shadowling")
-				if(!ishuman(current))
-					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
-					return
-				SSticker.mode.shadows += src
-				special_role = SPECIAL_ROLE_SHADOWLING
-				to_chat(current, "<span class='shadowling'><b>Something stirs deep in your mind. A red light floods your vision, and slowly you remember. Though your human disguise has served you well, the \
-				time is nigh to cast it off and enter your true form. You have disguised yourself amongst the humans, but you are not one of them. You are a shadowling, and you are to ascend at all costs.\
-				</b></span>")
-				SSticker.mode.finalize_shadowling(src)
-				SSticker.mode.update_shadow_icons_added(src)
-				log_admin("[key_name(usr)] has shadowlinged [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has shadowlinged [key_name_admin(current)]")
-			if("thrall")
-				if(!ishuman(current))
-					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
-					return
-				SSticker.mode.add_thrall(src)
-				message_admins("[key_name_admin(usr)] has thralled [current].")
-				log_admin("[key_name(usr)] has thralled [current].")
-
 	else if(href_list["abductor"])
 		switch(href_list["abductor"])
 			if("clear")
@@ -1464,9 +1412,14 @@
 
 	edit_memory()
 
-
-// Datum antag mind procs
-/datum/mind/proc/add_antag_datum(datum_type_or_instance, team)
+/**
+ * Create and/or add the `datum_type_or_instance` antag datum to the src mind.
+ *
+ * Arguments:
+ * * datum_type - an antag datum typepath or instance
+ * * datum/team/team - the antag team that the src mind should join, if any
+ */
+/datum/mind/proc/add_antag_datum(datum_type_or_instance, datum/team/team = null)
 	if(!datum_type_or_instance)
 		return
 	var/datum/antagonist/A
@@ -1476,11 +1429,6 @@
 			return
 	else
 		A = new datum_type_or_instance()
-	//Choose snowflake variation if antagonist handles it
-	var/datum/antagonist/S = A.specialization(src)
-	if(S && S != A)
-		qdel(A)
-		A = S
 	if(!A.can_be_owned(src))
 		qdel(A)
 		return
@@ -1494,25 +1442,33 @@
 	A.on_gain()
 	return A
 
+/**
+ * Remove the specified `datum_type` antag datum from the src mind.
+ *
+ * Arguments:
+ * * datum_type - an antag datum typepath
+ */
 /datum/mind/proc/remove_antag_datum(datum_type)
 	if(!datum_type)
 		return
 	var/datum/antagonist/A = has_antag_datum(datum_type)
-	if(A)
-		if(!A.owner?.current)
-			CRASH("attempted to remove an antag datum ([A.type]) that didn't have an owner or owner.current")
-		A.on_removal()
-		return TRUE
+	qdel(A)
 
-
+/**
+ * Removes all antag datums from the src mind.
+ */
 /datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
 	for(var/a in antag_datums)
 		var/datum/antagonist/A = a
-		if(!A.owner?.current)
-			stack_trace("attempted to remove an antag datum ([A.type]) that didn't have an owner or owner.current")
-			continue
-		A.on_removal()
+		qdel(A)
 
+/**
+ * Returns an antag datum instance if the src mind has the specified `datum_type`. Returns `null` otherwise.
+ *
+ * Arguments:
+ * * datum_type - an antag datum typepath
+ * * check_subtypes - TRUE if this proc will consider subtypes of `datum_type` as valid. FALSE if only the exact same type should be considered.
+ */
 /datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
 	if(!datum_type)
 		return

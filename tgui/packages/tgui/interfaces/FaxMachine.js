@@ -1,6 +1,6 @@
-import { useBackend } from "../backend";
-import { Button, LabeledList, Section } from "../components";
-import { Window } from "../layouts";
+import { useBackend } from '../backend';
+import { Button, LabeledList, Section } from '../components';
+import { Window } from '../layouts';
 
 export const FaxMachine = (props, context) => {
   const { act, data } = useBackend(context);
@@ -14,8 +14,9 @@ export const FaxMachine = (props, context) => {
                 icon={data.scan_name ? 'eject' : 'id-card'}
                 selected={data.scan_name}
                 content={data.scan_name ? data.scan_name : '-----'}
-                tooltip={data.scan_name ? "Eject ID" : "Insert ID"}
-                onClick={() => act("scan")} />
+                tooltip={data.scan_name ? 'Eject ID' : 'Insert ID'}
+                onClick={() => act('scan')}
+              />
             </LabeledList.Item>
             <LabeledList.Item label="Authorize">
               <Button
@@ -23,42 +24,49 @@ export const FaxMachine = (props, context) => {
                 selected={data.authenticated}
                 disabled={data.nologin}
                 content={data.realauth ? 'Log Out' : 'Log In'}
-                onClick={() => act("auth")} />
+                onClick={() => act('auth')}
+              />
             </LabeledList.Item>
           </LabeledList>
         </Section>
         <Section title="Fax Menu">
           <LabeledList>
-            <LabeledList.Item label="Network">
-              {data.network}
-            </LabeledList.Item>
+            <LabeledList.Item label="Network">{data.network}</LabeledList.Item>
             <LabeledList.Item label="Document">
               <Button
                 icon={data.paper ? 'eject' : 'paperclip'}
                 disabled={!data.authenticated && !data.paper}
                 content={data.paper ? data.paper : '-----'}
-                onClick={() => act("paper")} />
+                onClick={() => act('paper')}
+              />
               {!!data.paper && (
                 <Button
                   icon="pencil-alt"
                   content="Rename"
-                  onClick={() => act("rename")} />
+                  onClick={() => act('rename')}
+                />
               )}
             </LabeledList.Item>
             <LabeledList.Item label="Sending To">
               <Button
                 icon="print"
-                content={data.destination ? data.destination : "-----"}
+                content={data.destination ? data.destination : '-----'}
                 disabled={!data.authenticated}
-                onClick={() => act("dept")} />
+                onClick={() => act('dept')}
+              />
             </LabeledList.Item>
             <LabeledList.Item label="Action">
               <Button
                 icon="envelope"
-                content={data.sendError ? data.sendError : "Send"}
-                disabled={!data.paper || !data.destination
-                  || !data.authenticated || data.sendError}
-                onClick={() => act("send")} />
+                content={data.sendError ? data.sendError : 'Send'}
+                disabled={
+                  !data.paper ||
+                  !data.destination ||
+                  !data.authenticated ||
+                  data.sendError
+                }
+                onClick={() => act('send')}
+              />
             </LabeledList.Item>
           </LabeledList>
         </Section>

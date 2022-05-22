@@ -254,14 +254,20 @@
 	return FALSE
 
 /obj/machinery/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(!..())
+		return FALSE
 	S.DismantleMachine(src)
 	return TRUE
 
 /obj/machinery/light/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(!..())
+		return FALSE
 	S.DisIntegrate(src)
 	return TRUE
 
 /obj/machinery/door/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(!..())
+		return FALSE
 	var/isonshuttle = istype(get_area(src), /area/shuttle)
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
@@ -277,6 +283,8 @@
 	return TRUE
 
 /obj/machinery/camera/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(!..())
+		return FALSE
 	S.DisIntegrate(src)
 	toggle_cam(S, 0)
 	return TRUE
@@ -290,6 +298,8 @@
 	return FALSE
 
 /obj/machinery/field/generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(!..())
+		return FALSE
 	if(!active)
 		S.DisIntegrate(src)
 		return TRUE
@@ -297,14 +307,20 @@
 	return FALSE
 
 /obj/machinery/gravity_generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(!..())
+		return FALSE
 	S.DisIntegrate(src)
 	return TRUE
 
 /obj/machinery/vending/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)//It's more visually interesting than dismantling the machine
+	if(!..())
+		return FALSE
 	S.DisIntegrate(src)
 	return TRUE
 
 /obj/machinery/turretid/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(!..())
+		return FALSE
 	S.DisIntegrate(src)
 	return TRUE
 
@@ -364,15 +380,15 @@
 	to_chat(S, "<span class='warning'>This cryogenic sleeper should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
 	return FALSE
 
-/obj/structure/cryofeed/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This cryogenic feed should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
-	return FALSE
-
 /obj/machinery/computer/cryopod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(!..())
+		return FALSE
 	to_chat(S, "<span class='warning'>This cryopod control computer should be preserved, it contains useful items and information about the inhabitants. Aborting.</span>")
 	return FALSE
 
 /turf/simulated/wall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(!..())
+		return FALSE
 	var/isonshuttle = istype(loc, /area/shuttle)
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
@@ -387,6 +403,8 @@
 	return ..()
 
 /obj/structure/window/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(!..())
+		return FALSE
 	var/isonshuttle = istype(get_area(src), /area/shuttle)
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
