@@ -153,8 +153,8 @@
 	icon_state = "sleeper-open"
 	density = FALSE
 
-/obj/machinery/sleeper/survival_pod/New()
-	..()
+/obj/machinery/sleeper/survival_pod/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper/survival(null)
 	var/obj/item/stock_parts/matter_bin/B = new(null)

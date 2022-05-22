@@ -53,7 +53,7 @@ FIRE ALARM
 	if(wiresexposed)
 		icon_state = "firealarm_b[buildstage]"
 		return
-	
+
 	if(stat & BROKEN)
 		icon_state = "firealarm_broken"
 	else if(stat & NOPOWER)
@@ -274,11 +274,11 @@ FIRE ALARM
 
 	myArea = get_area(src)
 	LAZYADD(myArea.firealarms, src)
-	update_icon()
 
 /obj/machinery/firealarm/Initialize(mapload)
 	. = ..()
 	name = "fire alarm"
+	update_icon()
 
 /obj/machinery/firealarm/Destroy()
 	LAZYREMOVE(myArea.firealarms, src)

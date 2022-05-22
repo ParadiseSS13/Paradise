@@ -17,8 +17,8 @@
 	var/list/prize_list // Initialized just below! (if you're wondering why - check CONTRIBUTING.md, look for: "hidden" init proc)
 	var/dirty_items = FALSE // Used to refresh the static/redundant data in case the machine gets VV'd
 
-/obj/machinery/mineral/equipment_vendor/New()
-	..()
+/obj/machinery/mineral/equipment_vendor/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mining_equipment_vendor(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -277,8 +277,8 @@
 /obj/machinery/mineral/equipment_vendor/golem
 	name = "golem ship equipment vendor"
 
-/obj/machinery/mineral/equipment_vendor/golem/New()
-	..()
+/obj/machinery/mineral/equipment_vendor/golem/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mining_equipment_vendor/golem(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -308,8 +308,8 @@
 	name = "labor camp equipment vendor"
 	desc = "An equipment vendor for scum, points collected at an ore redemption machine can be spent here."
 
-/obj/machinery/mineral/equipment_vendor/labor/New()
-	..()
+/obj/machinery/mineral/equipment_vendor/labor/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mining_equipment_vendor/labor(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

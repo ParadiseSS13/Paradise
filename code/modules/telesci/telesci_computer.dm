@@ -30,8 +30,8 @@
 	var/max_crystals = 4
 	var/obj/item/gps/inserted_gps
 
-/obj/machinery/computer/telescience/New()
-	..()
+/obj/machinery/computer/telescience/Initialize(mapload)
+	. = ..()
 	recalibrate()
 
 /obj/machinery/computer/telescience/Destroy()

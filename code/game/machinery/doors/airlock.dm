@@ -123,8 +123,8 @@ About the new airlock wires panel:
 */
 // You can find code for the airlock wires in the wire datum folder.
 
-/obj/machinery/door/airlock/New()
-	..()
+/obj/machinery/door/airlock/Initialize(mapload)
+	. = ..()
 	wires = new(src)
 
 /*

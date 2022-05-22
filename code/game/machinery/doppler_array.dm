@@ -29,6 +29,9 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 /obj/machinery/doppler_array/New()
 	..()
 	GLOB.doppler_arrays += src
+
+/obj/machinery/doppler_array/Initialize(mapload)
+	. = ..()
 	explosion_target = rand(8, 20)
 	toxins_tech = new /datum/tech/toxins(src)
 

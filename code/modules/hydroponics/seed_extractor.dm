@@ -48,8 +48,8 @@
 	var/max_seeds = 1000
 	var/seed_multiplier = 1
 
-/obj/machinery/seed_extractor/New()
-	..()
+/obj/machinery/seed_extractor/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/seed_extractor(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
