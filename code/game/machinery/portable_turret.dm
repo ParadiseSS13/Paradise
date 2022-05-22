@@ -616,15 +616,15 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(target(M))
 			return 1
 
-/obj/machinery/porta_turret/proc/check_popUp()
+/obj/machinery/porta_turret/proc/check_pop_up()
 	/// Whitelist to determine what objects can be put over turrets while letting them deploy
 	var/static/list/deployment_whitelist = typecacheof(list(
-	/obj/structure/window/reinforced,
-	/obj/structure/window/basic,
-	/obj/structure/window/plasmabasic,
-	/obj/structure/window/plasmareinforced,
-	/obj/machinery/door/window,
-	/obj/structure/railing,
+		/obj/structure/window/reinforced,
+		/obj/structure/window/basic,
+		/obj/structure/window/plasmabasic,
+		/obj/structure/window/plasmareinforced,
+		/obj/machinery/door/window,
+		/obj/structure/railing,
 	))
 	if(disabled)
 		return
@@ -699,7 +699,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(target)
 		last_target = target
 		if(has_cover)
-			check_popUp()				//pop the turret up if it's not already up.
+			check_pop_up()				//pop the turret up if it's not already up.
 		// Set angle
 		set_angle(get_angle(src, target))
 		shootAt(target)
