@@ -224,7 +224,7 @@
 		if(AMMO_MULTI_SPRITE_STEP_ON_OFF)
 			icon_state = "[icon_base][stored_ammo.len ? "" : "-0"]"
 		else
-			var/shown_ammo = CEILING(stored_ammo.len, multi_sprite_step)
+			var/shown_ammo = CEILING(length(stored_ammo), multi_sprite_step)
 			if(shown_ammo == CEILING(max_ammo, multi_sprite_step))
 				icon_state = icon_base
 			else
