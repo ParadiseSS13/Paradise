@@ -44,7 +44,7 @@
 
 /obj/machinery/door_timer/Initialize(mapload)
 	. = ..()
- 	GLOB.celltimers_list += src
+	GLOB.celltimers_list += src
 
 /obj/machinery/door_timer/Destroy()
  	GLOB.celltimers_list -= src

@@ -20,7 +20,7 @@
 
 /obj/machinery/computer/prisoner/Initialize(mapload)
 	. = ..()
- 	GLOB.prisoncomputer_list += src
+	GLOB.prisoncomputer_list += src
 
 /obj/machinery/computer/prisoner/Destroy()
  	GLOB.prisoncomputer_list -= src
