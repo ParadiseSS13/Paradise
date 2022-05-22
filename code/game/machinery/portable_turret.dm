@@ -67,7 +67,7 @@
 	var/always_up = FALSE		//Will stay active
 	var/has_cover = TRUE		//Hides the cover
 	/// Deployment override to allow turret popup on/under dense turfs/objects, for admin/CC turrets
-	var/deployment_override
+	var/deployment_override = FALSE
 
 
 /obj/machinery/porta_turret/Initialize(mapload)
