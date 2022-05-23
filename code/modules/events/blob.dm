@@ -10,9 +10,6 @@
 		log_and_message_admins("Warning: Could not spawn any mobs for event Blob")
 
 /datum/event/blob/start()
-	var/turf/T = pick(GLOB.blobstart)
-	if(!T)
-		return kill()
 	INVOKE_ASYNC(src, .proc/make_blob)
 
 /datum/event/blob/proc/make_blob()
