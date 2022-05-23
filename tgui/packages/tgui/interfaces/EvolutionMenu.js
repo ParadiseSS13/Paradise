@@ -1,7 +1,7 @@
-import { Fragment } from "inferno";
-import { useBackend } from "../backend";
-import { Box, Button, Flex, Section } from "../components";
-import { Window } from "../layouts";
+import { Fragment } from 'inferno';
+import { useBackend } from '../backend';
+import { Box, Button, Flex, Section } from '../components';
+import { Window } from '../layouts';
 
 export const EvolutionMenu = (props, context) => {
   return (
@@ -16,10 +16,7 @@ export const EvolutionMenu = (props, context) => {
 
 const EvolutionPoints = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    evo_points,
-    can_respec,
-  } = data;
+  const { evo_points, can_respec } = data;
   return (
     <Section title="Evolution Points" height={5.5}>
       <Flex>
@@ -51,12 +48,7 @@ const EvolutionPoints = (props, context) => {
 
 const Abilities = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    evo_points,
-    ability_list,
-    purchsed_abilities,
-    view_mode,
-  } = data;
+  const { evo_points, ability_list, purchsed_abilities, view_mode } = data;
   return (
     <Section
       title="Abilities"
@@ -64,23 +56,28 @@ const Abilities = (props, context) => {
       buttons={
         <Fragment>
           <Button
-            icon={!view_mode ? "check-square-o" : "square-o"}
+            icon={!view_mode ? 'check-square-o' : 'square-o'}
             selected={!view_mode}
             content="Compact"
-            onClick={() => act('set_view_mode', {
-              mode: 0,
-            })}
+            onClick={() =>
+              act('set_view_mode', {
+                mode: 0,
+              })
+            }
           />
           <Button
-            icon={view_mode ? "check-square-o" : "square-o"}
+            icon={view_mode ? 'check-square-o' : 'square-o'}
             selected={view_mode}
             content="Expanded"
-            onClick={() => act('set_view_mode', {
-              mode: 1,
-            })}
+            onClick={() =>
+              act('set_view_mode', {
+                mode: 1,
+              })
+            }
           />
         </Fragment>
-      }>
+      }
+    >
       {ability_list.map((ability, i) => (
         <Box key={i} p={0.5} mx={-1} className="candystripe">
           <Flex align="center">
@@ -94,7 +91,7 @@ const Abilities = (props, context) => {
             )}
             <Flex.Item mr={3} textAlign="right" grow={1}>
               <Box as="span" color="label">
-                Cost: {' '}
+                Cost:{' '}
               </Box>
               <Box as="span" bold color="#1b945c">
                 {ability.cost}
@@ -103,11 +100,16 @@ const Abilities = (props, context) => {
             <Flex.Item textAlign="right">
               <Button
                 mr={0.5}
-                disabled={(ability.cost > evo_points) || purchsed_abilities.includes(ability.name)}
+                disabled={
+                  ability.cost > evo_points ||
+                  purchsed_abilities.includes(ability.name)
+                }
                 content="Evolve"
-                onClick={() => act('purchase', {
-                  power_name: ability.name,
-                })}
+                onClick={() =>
+                  act('purchase', {
+                    power_name: ability.name,
+                  })
+                }
               />
             </Flex.Item>
           </Flex>

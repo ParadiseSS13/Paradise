@@ -10,7 +10,7 @@
 import { callByond } from './byond';
 import { UI_DISABLED, UI_INTERACTIVE } from './constants';
 
-export const backendUpdate = state => ({
+export const backendUpdate = (state) => ({
   type: 'backend/update',
   payload: state,
 });
@@ -20,7 +20,7 @@ export const backendSetSharedState = (key, nextState) => ({
   payload: { key, nextState },
 });
 
-export const backendDeleteSharedState = keys => ({
+export const backendDeleteSharedState = (keys) => ({
   type: 'backend/deleteSharedState',
   payload: keys,
 });
@@ -47,8 +47,7 @@ export const backendReducer = (state, action) => {
         const value = payload.shared[key];
         if (value === '') {
           shared[key] = undefined;
-        }
-        else {
+        } else {
           shared[key] = JSON.parse(value);
         }
       }
@@ -80,7 +79,7 @@ export const backendReducer = (state, action) => {
 
   if (type === 'backend/deleteSharedState') {
     let shared = { ...state.shared };
-    payload.forEach(key => delete shared[key]);
+    payload.forEach((key) => delete shared[key]);
     return {
       ...state,
       shared: shared,
@@ -120,7 +119,7 @@ export const backendReducer = (state, action) => {
  *   act: (action: string, params?: object) => void,
  * }}
  */
-export const useBackend = context => {
+export const useBackend = (context) => {
   const { store } = context;
   const state = store.getState();
   const ref = state.config.ref;
@@ -151,12 +150,10 @@ export const useLocalState = (context, key, initialState) => {
   const { store } = context;
   const state = store.getState();
   const sharedStates = state.shared ?? {};
-  const sharedState = (key in sharedStates)
-    ? sharedStates[key]
-    : initialState;
+  const sharedState = key in sharedStates ? sharedStates[key] : initialState;
   return [
     sharedState,
-    nextState => {
+    (nextState) => {
       store.dispatch(backendSetSharedState(key, nextState));
     },
   ];
@@ -192,12 +189,10 @@ export const useSharedState = (context, key, initialState) => {
   const state = store.getState();
   const ref = state.config.ref;
   const sharedStates = state.shared ?? {};
-  const sharedState = (key in sharedStates)
-    ? sharedStates[key]
-    : initialState;
+  const sharedState = key in sharedStates ? sharedStates[key] : initialState;
   return [
     sharedState,
-    nextState => {
+    (nextState) => {
       callByond('', {
         src: ref,
         action: 'tgui:setSharedState',
