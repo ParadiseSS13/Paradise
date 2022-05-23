@@ -497,11 +497,12 @@
 			var/turf/T = get_turf(vent)
 			var/mobs_nearby = FALSE
 			for(var/mob/living/M in orange(7, T))
-				if(!M.is_dead())
-					if(!M.client && !istype(get_area(T), /area/toxins/xenobiology)) //we add an exception here for xenobiology vents because it's usually filled with gold slime mobs who attack hostile mobs
-						continue
-					mobs_nearby = TRUE
-					break
+				if(M.is_dead()) //we don't care about dead mobs
+					continue
+				if(!M.client && !istype(get_area(T), /area/toxins/xenobiology)) //we add an exception here for clientless mobs (apart from ones near xenobiology vents because it's usually filled with gold slime mobs who attack hostile mobs)
+					continue
+				mobs_nearby = TRUE
+				break
 			if(mobs_nearby)
 				continue
 		if(!vent.parent) // This seems to have been an issue in the past, so this is here until it's definitely fixed
