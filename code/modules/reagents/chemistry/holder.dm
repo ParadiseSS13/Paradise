@@ -577,6 +577,11 @@
 				var/check = reaction_check(A, R)
 				if(!check)
 					continue
+				if(ishuman(A) && method == REAGENT_INGEST)
+					var/mob/living/carbon/human/H = A
+					if(R.id == H.dna.species.exotic_blood)
+						H.blood_volume = min(H.blood_volume + round(R.volume * volume_modifier, 0.1), BLOOD_VOLUME_NORMAL)
+						continue //Purges the chemical
 				R.reaction_mob(A, method, R.volume * volume_modifier, show_message)
 			if("TURF")
 				R.reaction_turf(A, R.volume * volume_modifier, R.color)
