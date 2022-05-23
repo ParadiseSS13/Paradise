@@ -70,11 +70,18 @@
 /turf/space,
 /area/security/securearmoury)
 "abP" = (
-/obj/structure/sign/securearea{
-	pixel_x = -30
+/obj/structure/window/reinforced{
+	dir = 8
 	},
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/machinery/suit_storage_unit/security,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmoury)
 "abY" = (
 /obj/machinery/camera/motion{
 	c_tag = "Armory Exterior";
@@ -414,10 +421,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/suit_storage_unit/security,
+/obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -843,30 +847,11 @@
 /area/security/prisonlockers)
 "aei" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8"
+	icon_state = "0-8"
 	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	name = "Warden's Office";
-	req_access_txt = "3"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/security/armoury)
 "aej" = (
 /obj/structure/window/reinforced{
@@ -1268,12 +1253,8 @@
 	},
 /area/security/warden)
 "afm" = (
-/obj/structure/grille,
-/obj/structure/sign/securearea{
-	pixel_x = -30
-	},
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/turf/simulated/wall/r_wall,
+/area/security/warden)
 "afo" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -1452,9 +1433,13 @@
 /turf/simulated/wall/r_wall,
 /area/security/armoury)
 "agu" = (
-/obj/structure/sign/securearea,
-/turf/simulated/wall/r_wall,
-/area/security/securearmoury)
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/security/armoury)
 "agy" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -1463,8 +1448,16 @@
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "agD" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1551,23 +1544,32 @@
 	dir = 1
 	},
 /obj/structure/rack,
-/obj/item/storage/box/beanbag{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/beanbag,
-/obj/item/storage/box/beanbag{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/beanbag{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/beanbag,
-/obj/item/storage/box/beanbag,
 /obj/structure/window/reinforced{
 	dir = 4
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/beanbag{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/beanbag{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/beanbag{
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1577,12 +1579,12 @@
 "agS" = (
 /obj/structure/rack,
 /obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -3;
+	pixel_x = 3;
 	pixel_y = 3
 	},
 /obj/item/gun/projectile/shotgun/riot,
 /obj/item/gun/projectile/shotgun/riot{
-	pixel_x = 3;
+	pixel_x = -3;
 	pixel_y = -3
 	},
 /obj/structure/window/reinforced{
@@ -1872,6 +1874,9 @@
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /obj/effect/decal/warning_stripes/southwestcorner,
+/obj/item/storage/secure/safe{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2017,12 +2022,12 @@
 	dir = 1
 	},
 /obj/item/gun/energy/laser{
-	pixel_x = -3;
+	pixel_x = 3;
 	pixel_y = 3
 	},
 /obj/item/gun/energy/laser,
 /obj/item/gun/energy/laser{
-	pixel_x = 3;
+	pixel_x = -3;
 	pixel_y = -3
 	},
 /obj/structure/window/reinforced{
@@ -2159,12 +2164,12 @@
 "aiN" = (
 /obj/structure/rack,
 /obj/item/gun/energy/gun{
-	pixel_x = -3;
+	pixel_x = 3;
 	pixel_y = 3
 	},
 /obj/item/gun/energy/gun,
 /obj/item/gun/energy/gun{
-	pixel_x = 3;
+	pixel_x = -3;
 	pixel_y = -3
 	},
 /obj/structure/window/reinforced{
@@ -2523,12 +2528,12 @@
 /obj/structure/rack,
 /obj/structure/window/reinforced,
 /obj/item/gun/energy/disabler{
-	pixel_x = -3;
+	pixel_x = 3;
 	pixel_y = 3
 	},
 /obj/item/gun/energy/disabler,
 /obj/item/gun/energy/disabler{
-	pixel_x = 3;
+	pixel_x = -3;
 	pixel_y = -3
 	},
 /obj/structure/window/reinforced{
@@ -2891,9 +2896,15 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/item/shield/riot{
+	pixel_x = 3;
+	pixel_y = 3
+	},
 /obj/item/shield/riot,
-/obj/item/shield/riot,
-/obj/item/shield/riot,
+/obj/item/shield/riot{
+	pixel_x = -3;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -3267,11 +3278,6 @@
 	},
 /area/security/armoury)
 "alj" = (
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -3642,7 +3648,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/warden)
+/area/security/securearmoury)
 "alW" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
@@ -4305,19 +4311,12 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "anv" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/structure/grille,
+/obj/structure/sign/securearea{
+	pixel_y = -32
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/warden)
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "anw" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
@@ -4784,20 +4783,11 @@
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
 "aor" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/structure/sign/securearea{
+	pixel_y = -32
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/warden)
+/turf/space,
+/area/space)
 "aos" = (
 /obj/structure/chair/office/dark,
 /obj/structure/cable{
@@ -4806,6 +4796,14 @@
 	icon_state = "4-8"
 	},
 /obj/effect/landmark/start/warden,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -52071,7 +52069,9 @@
 	},
 /area/medical/surgery1)
 "ckV" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/bodyscanner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -81924,9 +81924,18 @@
 /turf/space,
 /area/space/nearstation)
 "xWL" = (
-/obj/structure/table,
-/turf/simulated/floor/plasteel,
-/area/security/prisonershuttle)
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmoury)
 "xWN" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -107010,14 +107019,14 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
+aMr
+afO
+afO
+aab
 awB
-auV
-aec
-xWL
+ada
+adt
+awB
 akZ
 goy
 goy
@@ -107267,14 +107276,14 @@ aaa
 aaa
 aaa
 aaa
-aMr
 afO
-afO
-aab
-awB
-ada
-adt
-awB
+ahF
+ahF
+ahF
+ahF
+ahF
+ahF
+ahF
 akZ
 ufw
 hEu
@@ -107781,7 +107790,7 @@ aaa
 aaa
 aaa
 aaa
-afO
+aab
 ahF
 ahF
 ahF
@@ -108295,7 +108304,7 @@ aaa
 aaa
 aaa
 aaa
-aab
+afO
 ahF
 ahF
 ahF
@@ -108552,7 +108561,7 @@ aaa
 aaa
 aaa
 afO
-afO
+afX
 ahF
 ahF
 ahF
@@ -108809,15 +108818,15 @@ aaa
 aaa
 afO
 afX
-afX
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-akZ
+anv
+agt
+agt
+agt
+ale
+agt
+agt
+agt
+agt
 vDY
 tCY
 egq
@@ -109065,15 +109074,15 @@ aaa
 aaa
 afO
 afX
-afm
 afX
+aaa
 agt
-agt
-agt
-ale
-agt
-agt
-agt
+ahH
+aif
+alg
+aiw
+aYm
+alf
 agt
 aqv
 aqv
@@ -109325,13 +109334,13 @@ afX
 afO
 aaa
 agt
-ahH
-aif
+ahR
+aij
+acH
+aew
+anW
 alg
-aiw
-aYm
-alf
-agt
+agu
 aey
 aeU
 afk
@@ -109582,14 +109591,14 @@ afO
 aaa
 aaa
 agt
-ahR
-aij
-acH
-aew
+agt
+ahG
 anW
-alg
-alU
-amz
+adb
+adv
+adP
+alT
+amy
 agD
 aos
 apg
@@ -109839,16 +109848,16 @@ aaa
 aaa
 aaa
 agt
-agt
-ahG
-anW
-adb
-adv
-adP
+ahT
+ain
+acH
+aeR
+acH
+ali
 aei
-amy
-anv
-aor
+amz
+anz
+aou
 apf
 aqw
 aqX
@@ -110096,13 +110105,13 @@ aab
 aaa
 aaa
 agt
-ahT
-ain
-acH
-aeR
-acH
-ali
-apP
+ahS
+aik
+aiz
+ajk
+aqR
+alh
+afm
 amz
 anz
 aou
@@ -110353,12 +110362,12 @@ aab
 aaa
 aaa
 agt
-ahS
-aik
-aiz
-ajk
-aqR
-alh
+agt
+agt
+agt
+ajn
+akl
+ajn
 agt
 amA
 any
@@ -110609,14 +110618,14 @@ afX
 aab
 aaa
 aaa
-agt
-agt
-agt
-agt
-ajn
-akl
-ajn
-agt
+aaa
+aab
+aaa
+aiv
+abP
+ajj
+xWL
+afm
 amC
 agL
 afl
@@ -111122,8 +111131,8 @@ afX
 afX
 aab
 aaa
-aaa
-agu
+aor
+aiv
 aiv
 aiv
 aiv
@@ -114204,7 +114213,7 @@ aaa
 aaa
 afO
 afO
-afX
+anv
 akB
 acc
 ach
@@ -114461,7 +114470,7 @@ aaa
 aaa
 aaa
 afO
-abP
+afO
 akB
 acb
 alB
