@@ -6573,11 +6573,8 @@
 	},
 /area/engine/engineering)
 "aEe" = (
-/obj/machinery/atmospherics/unary/outlet_injector{
-	frequency = 1443;
-	icon_state = "on";
+/obj/machinery/atmospherics/unary/outlet_injector/on{
 	id = "air_in";
-	on = 1;
 	dir = 1
 	},
 /turf/simulated/floor/engine/vacuum,
