@@ -59222,10 +59222,10 @@
 	},
 /area/security/main)
 "fTT" = (
-/obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitehall"
@@ -76544,6 +76544,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -123219,7 +123220,7 @@ bcX
 cee
 cHM
 cgB
-iFm
+fTT
 cie
 ckZ
 cHQ
@@ -123476,7 +123477,7 @@ bcX
 cee
 cfu
 cic
-fTT
+iFm
 cie
 ckZ
 cHQ
