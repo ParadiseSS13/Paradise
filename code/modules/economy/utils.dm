@@ -16,7 +16,6 @@
 /obj/proc/get_card_account(obj/item/card/I)
 	if(istype(I, /obj/item/card/id))
 		var/obj/item/card/id/C = I
-		var/attempt_pin=0
 		var/datum/money_account/D = get_money_account(C.associated_account_number)
 		if(D)
 			return D
@@ -27,7 +26,6 @@
 		var/obj/item/card/id/I=H.get_idcard()
 		if(!I || !istype(I))
 			return null
-		var/attempt_pin=0
 		var/datum/money_account/D = get_money_account(I.associated_account_number)
 		return D
 	else if(issilicon(src))
