@@ -82,7 +82,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	// non-clothing items
 	var/datum/dog_fashion/dog_fashion = null
 
-	var/mob/thrownby = null
+	/// UID of a /mob
+	var/thrownby
 
 	//So items can have custom embedd values
 	//Because customisation is king
@@ -165,9 +166,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
-	else if(istype(loc, /obj/item/storage))
-		var/obj/item/storage/S = loc
-		S.remove_from_storage(src)
 	QDEL_LIST(actions)
 	master = null
 	return ..()
@@ -650,7 +648,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		return hit_atom.hitby(src, 0, itempush, throwingdatum = throwingdatum)
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
-	thrownby = thrower
+	thrownby = thrower?.UID()
 	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force)
 
