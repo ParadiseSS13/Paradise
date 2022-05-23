@@ -86378,7 +86378,7 @@
 /area/security/brig)
 "tKm" = (
 /obj/machinery/vending/security,
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
