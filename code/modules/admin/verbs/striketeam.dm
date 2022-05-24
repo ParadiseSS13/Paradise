@@ -39,7 +39,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	// Find ghosts willing to be DS
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
 	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, COMMANDOS_POSSIBLE, "Join the DeathSquad?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
-	if(!commando_ghosts.len)
+	if(!length(commando_ghosts))
 		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
 		return
 
@@ -54,7 +54,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		if(commando_number <= 0)
 			break
 
-		if(!commando_ghosts.len)
+		if(!length(commando_ghosts))
 			break
 
 		var/use_ds_borg = FALSE
@@ -72,9 +72,8 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			continue
 
 		if(use_ds_borg)
-			var/mob/living/silicon/robot/deathsquad/R = new()
-			R.forceMove(get_turf(L))
-			var/rnum = rand(1,1000)
+			var/mob/living/silicon/robot/deathsquad/R = new(get_turf(L))
+			var/rnum = rand(1, 1000)
 			var/borgname = "Epsilon [rnum]"
 			R.name = borgname
 			R.custom_name = borgname

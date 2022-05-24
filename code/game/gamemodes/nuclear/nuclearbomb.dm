@@ -546,7 +546,7 @@ GLOBAL_VAR(bomb_set)
 		STOP_PROCESSING(SSobj, src)
 		return ..()
 
-	if(GLOB.nukedisc_respawn.len > 0)
+	if(length(GLOB.nukedisc_respawn))
 		GLOB.poi_list.Remove(src)
 		var/obj/item/disk/nuclear/NEWDISK = new(pick(GLOB.nukedisc_respawn))
 		transfer_fingerprints_to(NEWDISK)
