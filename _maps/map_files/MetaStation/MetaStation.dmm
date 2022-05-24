@@ -30266,9 +30266,9 @@
 /turf/simulated/floor/wood,
 /area/library)
 "bKx" = (
-/obj/structure/lattice,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/visible,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "bKy" = (
@@ -35057,11 +35057,11 @@
 /turf/simulated/floor/wood,
 /area/library)
 "bXO" = (
-/obj/structure/lattice,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "bXP" = (
@@ -41733,9 +41733,9 @@
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "cqQ" = (
-/obj/structure/lattice,
 /obj/machinery/atmospherics/binary/pump/on,
 /obj/structure/disposalpipe/segment,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/maintenance/incinerator)
 "cqR" = (
@@ -42521,8 +42521,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "cts" = (
-/obj/structure/lattice,
 /obj/structure/disposalpipe/segment,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "ctt" = (
@@ -44138,7 +44138,8 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk,
+/turf/space,
 /area/maintenance/incinerator)
 "cyo" = (
 /turf/simulated/floor/plasteel{
@@ -134013,7 +134014,7 @@ clA
 clA
 cyn
 abq
-abq
+aaa
 aaa
 aaa
 aaa
