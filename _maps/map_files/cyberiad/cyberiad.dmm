@@ -21,9 +21,8 @@
 	},
 /area/toxins/misc_lab)
 "aad" = (
-/obj/structure/closet/emcloset{
-	opened = 1
-	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aae" = (
@@ -20973,7 +20972,6 @@
 /area/bridge)
 "aYh" = (
 /obj/effect/decal/cleanable/blood,
-/obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aYi" = (
@@ -28227,7 +28225,7 @@
 /area/hallway/primary/central/ne)
 "bnu" = (
 /obj/machinery/atm{
-	pixel_x = 24
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -29503,7 +29501,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atm{
-	pixel_x = 24
+	pixel_x = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -45764,7 +45762,7 @@
 	dir = 4
 	},
 /obj/machinery/atm{
-	pixel_x = -24
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -109633,7 +109631,7 @@ aPi
 aVD
 aQl
 aMA
-aad
+aEN
 aEN
 aRw
 biM
@@ -110143,7 +110141,7 @@ aNP
 aBn
 aBn
 aEl
-aGb
+aad
 aVD
 aYh
 bal
