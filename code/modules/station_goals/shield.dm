@@ -44,7 +44,7 @@
 	desc = "Used to control the satellite network."
 	circuit = /obj/item/circuitboard/computer/sat_control
 	icon_screen = "accelerator"
-	icon_keyboard = "accelerator_key"
+	icon_keyboard = "rd_key"
 	var/notice
 
 /obj/machinery/computer/sat_control/attack_hand(mob/user)
