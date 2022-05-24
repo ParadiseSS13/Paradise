@@ -39,6 +39,11 @@
 
 #define MOVEMENT_DELAY_BUFFER 0.75
 #define MOVEMENT_DELAY_BUFFER_DELTA 1.25
+#define CONFUSION_LIGHT_COEFFICIENT		0.15
+#define CONFUSION_HEAVY_COEFFICIENT		0.075
+#define CONFUSION_MAX					80 SECONDS
+
+
 /client/Move(n, direct)
 	if(world.time < move_delay)
 		return
@@ -156,10 +161,6 @@
 						M.other_mobs = null
 						M.animate_movement = 2
 
-#define CONFUSION_LIGHT_COEFFICIENT		0.15
-#define CONFUSION_HEAVY_COEFFICIENT		0.075
-#define CONFUSION_MAX					80 SECONDS
-
 	else
 		var/mob/living/L = mob
 		if(L)
@@ -174,10 +175,6 @@
 			if(newdir)
 				direct = newdir
 				n = get_step(mob, direct)
-
-#undef CONFUSION_LIGHT_COEFFICIENT
-#undef CONFUSION_HEAVY_COEFFICIENT
-#undef CONFUSION_MAX
 
 	var/prev_pulling_loc = null
 	if(mob.pulling)
@@ -209,6 +206,10 @@
 
 	for(var/obj/O in mob)
 		O.on_mob_move(direct, mob)
+
+#undef CONFUSION_LIGHT_COEFFICIENT
+#undef CONFUSION_HEAVY_COEFFICIENT
+#undef CONFUSION_MAX
 
 
 /mob/proc/SelfMove(turf/n, direct, movetime)
