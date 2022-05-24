@@ -1,6 +1,15 @@
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Box, Button, Dimmer, Divider, Flex, Icon, LabeledList, Section } from '../components';
+import {
+  Box,
+  Button,
+  Dimmer,
+  Divider,
+  Flex,
+  Icon,
+  LabeledList,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 export const SuitStorage = (props, context) => {
@@ -10,20 +19,11 @@ export const SuitStorage = (props, context) => {
     <Window resizable>
       <Window.Content display="flex" className="Layout__content--flexColumn">
         {!!uv && (
-          <Dimmer
-            backgroundColor="black"
-            opacity={0.85}>
+          <Dimmer backgroundColor="black" opacity={0.85}>
             <Flex>
-              <Flex.Item
-                bold
-                textAlign="center"
-                mb={2}>
-                <Icon
-                  name="spinner"
-                  spin={1}
-                  size={4}
-                  mb={4}
-                /><br />
+              <Flex.Item bold textAlign="center" mb={2}>
+                <Icon name="spinner" spin={1} size={4} mb={4} />
+                <br />
                 Disinfection of contents in progress...
               </Flex.Item>
             </Flex>
@@ -38,15 +38,7 @@ export const SuitStorage = (props, context) => {
 
 const StoredItems = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    helmet,
-    suit,
-    magboots,
-    mask,
-    storage,
-    open,
-    locked,
-  } = data;
+  const { helmet, suit, magboots, mask, storage, open, locked } = data;
   return (
     <Section
       title="Stored Items"
@@ -60,20 +52,46 @@ const StoredItems = (props, context) => {
             onClick={() => act('cook')}
           />
           <Button
-            content={locked ? "Unlock" : "Lock"}
-            icon={locked ? "unlock" : "lock"}
+            content={locked ? 'Unlock' : 'Lock'}
+            icon={locked ? 'unlock' : 'lock'}
             disabled={open}
             onClick={() => act('toggle_lock')}
           />
         </Fragment>
-      }>
-      {(open && !locked) ? (
+      }
+    >
+      {open && !locked ? (
         <LabeledList>
-          <ItemRow object={helmet} label="Helmet" missingText="helmet" eject="dispense_helmet" />
-          <ItemRow object={suit} label="Suit" missingText="suit" eject="dispense_suit" />
-          <ItemRow object={magboots} label="Boots" missingText="boots" eject="dispense_boots" />
-          <ItemRow object={mask} label="Breathmask" missingText="mask" eject="dispense_mask" />
-          <ItemRow object={storage} label="Storage" missingText="storage item" eject="dispense_storage" />
+          <ItemRow
+            object={helmet}
+            label="Helmet"
+            missingText="helmet"
+            eject="dispense_helmet"
+          />
+          <ItemRow
+            object={suit}
+            label="Suit"
+            missingText="suit"
+            eject="dispense_suit"
+          />
+          <ItemRow
+            object={magboots}
+            label="Boots"
+            missingText="boots"
+            eject="dispense_boots"
+          />
+          <ItemRow
+            object={mask}
+            label="Breathmask"
+            missingText="mask"
+            eject="dispense_mask"
+          />
+          <ItemRow
+            object={storage}
+            label="Storage"
+            missingText="storage item"
+            eject="dispense_storage"
+          />
         </LabeledList>
       ) : (
         <Flex height="100%">
@@ -82,13 +100,15 @@ const StoredItems = (props, context) => {
             grow="1"
             textAlign="center"
             align="center"
-            color="label">
+            color="label"
+          >
             <Icon
-              name={locked ? "lock" : "exclamation-circle"}
+              name={locked ? 'lock' : 'exclamation-circle'}
               size="5"
               mb={3}
-            /><br />
-            {locked ? "The unit is locked." : "The unit is closed."}
+            />
+            <br />
+            {locked ? 'The unit is locked.' : 'The unit is closed.'}
           </Flex.Item>
         </Flex>
       )}
@@ -98,12 +118,7 @@ const StoredItems = (props, context) => {
 
 const ItemRow = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    object,
-    label,
-    missingText,
-    eject,
-  } = props;
+  const { object, label, missingText, eject } = props;
   return (
     <LabeledList.Item label={label}>
       <Box my={0.5}>
@@ -126,17 +141,14 @@ const ItemRow = (props, context) => {
 
 const OpenToggle = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    open,
-    locked,
-  } = data;
+  const { open, locked } = data;
   return (
     <Section>
       <Button
         fluid
-        content={open ? "Close Suit Storage Unit" : "Open Suit Storage Unit"}
-        icon={open ? "times-circle" : "expand"}
-        color={open ? "red" : "green"}
+        content={open ? 'Close Suit Storage Unit' : 'Open Suit Storage Unit'}
+        icon={open ? 'times-circle' : 'expand'}
+        color={open ? 'red' : 'green'}
         disabled={locked}
         textAlign="center"
         onClick={() => act('toggle_open')}

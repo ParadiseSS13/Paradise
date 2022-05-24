@@ -442,6 +442,19 @@
 	button_icon_state = "jetboot"
 	use_itemicon = FALSE
 
+
+/datum/action/item_action/gravity_jump
+	name = "Gravity jump"
+	desc = "Directs a pulse of gravity in front of the user, pulling them foward rapidly."
+
+/datum/action/item_action/gravity_jump/Trigger()
+	if(!IsAvailable())
+		return FALSE
+
+	var/obj/item/clothing/shoes/magboots/gravity/G = target
+	G.dash(usr)
+
+
 ///prset for organ actions
 /datum/action/item_action/organ_action
 	check_flags = AB_CHECK_CONSCIOUS

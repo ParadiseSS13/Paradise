@@ -15,7 +15,7 @@
 	name = "bear trap"
 	throw_speed = 1
 	throw_range = 1
-	icon_state = "beartrap"
+	icon_state = "beartrap0"
 	desc = "A trap used to catch bears and other legged creatures."
 	origin_tech = "engineering=4"
 	var/armed = 0
@@ -25,7 +25,9 @@
 
 /obj/item/restraints/legcuffs/beartrap/New()
 	..()
-	icon_state = "[initial(icon_state)][armed]"
+
+/obj/item/restraints/legcuffs/beartrap/update_icon()
+	icon_state = "beartrap[armed]"
 
 /obj/item/restraints/legcuffs/beartrap/Destroy()
 	QDEL_NULL(IED)
@@ -41,7 +43,7 @@
 	..()
 	if(ishuman(user) && !user.stat && !user.restrained())
 		armed = !armed
-		icon_state = "[initial(icon_state)][armed]"
+		update_icon()
 		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
 
 /obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user) //Let's get explosive.
@@ -93,7 +95,7 @@
 		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/hostile/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
 			var/mob/living/L = AM
 			armed = 0
-			icon_state = "[initial(icon_state)][armed]"
+			update_icon()
 			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
 			L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
 					"<span class='userdanger'>You trigger \the [src]!</span>")

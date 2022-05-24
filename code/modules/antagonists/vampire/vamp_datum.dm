@@ -32,22 +32,20 @@
 	antag_hud_type = ANTAG_HUD_VAMPIRE
 	antag_hud_name = "vampthrall"
 
-/datum/antagonist/mindslave/thrall/on_gain()
+/datum/antagonist/mindslave/thrall/add_owner_to_gamemode()
 	SSticker.mode.vampire_enthralled += owner
-	..()
 
-/datum/antagonist/mindslave/thrall/Destroy(force, ...)
+/datum/antagonist/mindslave/thrall/remove_owner_from_gamemode()
 	SSticker.mode.vampire_enthralled -= owner
-	return ..()
 
-/datum/antagonist/mindslave/thrall/apply_innate_effects(mob/living/new_body)
-	..()
-	var/datum/mind/M = new_body?.mind || owner
+/datum/antagonist/mindslave/thrall/apply_innate_effects(mob/living/mob_override)
+	mob_override = ..()
+	var/datum/mind/M = mob_override.mind
 	M.AddSpell(new /obj/effect/proc_holder/spell/vampire/thrall_commune)
 
-/datum/antagonist/mindslave/thrall/remove_innate_effects(mob/living/old_body)
-	..()
-	var/datum/mind/M = old_body?.mind || owner
+/datum/antagonist/mindslave/thrall/remove_innate_effects(mob/living/mob_override)
+	mob_override = ..()
+	var/datum/mind/M = mob_override.mind
 	M.RemoveSpell(/obj/effect/proc_holder/spell/vampire/thrall_commune)
 
 /datum/antagonist/vampire/Destroy(force, ...)

@@ -371,22 +371,22 @@ SUBSYSTEM_DEF(air)
 		count++
 	return count
 
-/datum/controller/subsystem/air/proc/setup_overlays()
-	GLOB.plmaster = new /obj/effect/overlay()
-	GLOB.plmaster.icon = 'icons/effects/tile_effects.dmi'
-	GLOB.plmaster.icon_state = "plasma"
-	GLOB.plmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	GLOB.plmaster.anchored = TRUE  // should only appear in vis_contents, but to be safe
-	GLOB.plmaster.layer = FLY_LAYER
-	GLOB.plmaster.appearance_flags = TILE_BOUND
+/obj/effect/overlay/turf
+	icon = 'icons/effects/tile_effects.dmi'
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	anchored = TRUE  // should only appear in vis_contents, but to be safe
+	layer = FLY_LAYER
+	appearance_flags = TILE_BOUND | RESET_TRANSFORM
 
-	GLOB.slmaster = new /obj/effect/overlay()
-	GLOB.slmaster.icon = 'icons/effects/tile_effects.dmi'
-	GLOB.slmaster.icon_state = "sleeping_agent"
-	GLOB.slmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	GLOB.slmaster.anchored = TRUE  // should only appear in vis_contents, but to be safe
-	GLOB.slmaster.layer = FLY_LAYER
-	GLOB.slmaster.appearance_flags = TILE_BOUND
+/obj/effect/overlay/turf/plasma
+	icon_state = "plasma"
+
+/obj/effect/overlay/turf/sleeping_agent
+	icon_state = "sleeping_agent"
+
+/datum/controller/subsystem/air/proc/setup_overlays()
+	GLOB.plmaster = new /obj/effect/overlay/turf/plasma
+	GLOB.slmaster = new /obj/effect/overlay/turf/sleeping_agent
 
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY

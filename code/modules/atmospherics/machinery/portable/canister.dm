@@ -149,8 +149,8 @@ update_flag
 (note: colors has to be applied every icon update)
 */
 
-	if(destroyed)
-		overlays = 0
+	if(stat & BROKEN)
+		cut_overlays()
 		icon_state = text("[]-1", canister_color["prim"])//yes, I KNOW the colours don't reflect when the can's borked, whatever.
 		return
 
@@ -160,27 +160,27 @@ update_flag
 	if(check_change()) //Returns 1 if no change needed to icons.
 		return
 
-	overlays.Cut()
+	cut_overlays()
 
 	for(var/C in canister_color)
 		if(C == "prim")
 			continue
 		if(canister_color[C] == "none")
 			continue
-		overlays.Add(canister_color[C])
+		add_overlay(canister_color[C])
 
 	if(update_flag & 1)
-		overlays += "can-open"
+		add_overlay("can-open")
 	if(update_flag & 2)
-		overlays += "can-connector"
+		add_overlay("can-connector")
 	if(update_flag & 4)
-		overlays += "can-o0"
+		add_overlay("can-o0")
 	if(update_flag & 8)
-		overlays += "can-o1"
+		add_overlay("can-o1")
 	else if(update_flag & 16)
-		overlays += "can-o2"
+		add_overlay("can-o2")
 	else if(update_flag & 32)
-		overlays += "can-o3"
+		add_overlay("can-o3")
 
 	update_flag &= ~68 //the flag 64 represents change, not states. As such, we have to reset them to be able to detect a change on the next go.
 	return
@@ -222,7 +222,7 @@ update_flag
 		holding = null
 
 /obj/machinery/portable_atmospherics/canister/process_atmos()
-	if(destroyed)
+	if(stat & BROKEN)
 		return
 
 	..()

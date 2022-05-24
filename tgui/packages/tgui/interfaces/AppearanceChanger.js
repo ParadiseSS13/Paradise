@@ -1,6 +1,6 @@
-import { useBackend } from "../backend";
-import { LabeledList, Button } from "../components";
-import { Window } from "../layouts";
+import { useBackend } from '../backend';
+import { LabeledList, Button } from '../components';
+import { Window } from '../layouts';
 
 export const AppearanceChanger = (props, context) => {
   const { act, data } = useBackend(context);
@@ -51,7 +51,19 @@ export const AppearanceChanger = (props, context) => {
 
   let has_colours = false;
   // Yes this if statement is awful, but I would rather do it here than inside the template
-  if (change_eye_color || change_skin_tone || change_skin_color || change_head_accessory_color || change_hair_color || change_secondary_hair_color || change_facial_hair_color || change_secondary_facial_hair_color || change_head_marking_color || change_body_marking_color || change_tail_marking_color) {
+  if (
+    change_eye_color ||
+    change_skin_tone ||
+    change_skin_color ||
+    change_head_accessory_color ||
+    change_hair_color ||
+    change_secondary_hair_color ||
+    change_facial_hair_color ||
+    change_secondary_facial_hair_color ||
+    change_head_marking_color ||
+    change_body_marking_color ||
+    change_tail_marking_color
+  ) {
     has_colours = true;
   }
 
@@ -61,14 +73,12 @@ export const AppearanceChanger = (props, context) => {
         <LabeledList>
           {!!change_race && (
             <LabeledList.Item label="Species">
-              {species.map(s => (
+              {species.map((s) => (
                 <Button
                   key={s.specimen}
                   content={s.specimen}
                   selected={s.specimen === specimen}
-                  onClick={
-                    () => act('race', { race: s.specimen })
-                  }
+                  onClick={() => act('race', { race: s.specimen })}
                 />
               ))}
             </LabeledList.Item>
@@ -77,41 +87,35 @@ export const AppearanceChanger = (props, context) => {
             <LabeledList.Item label="Gender">
               <Button
                 content="Male"
-                selected={gender === "male"}
-                onClick={
-                  () => act('gender', { gender: "male" })
-                }
+                selected={gender === 'male'}
+                onClick={() => act('gender', { gender: 'male' })}
               />
               <Button
                 content="Female"
-                selected={gender === "female"}
-                onClick={
-                  () => act('gender', { gender: "female" })
-                }
+                selected={gender === 'female'}
+                onClick={() => act('gender', { gender: 'female' })}
               />
               {!has_gender && (
                 <Button
                   content="Genderless"
-                  selected={gender === "plural"}
-                  onClick={
-                    () => act('gender', { gender: "plural" })
-                  }
+                  selected={gender === 'plural'}
+                  onClick={() => act('gender', { gender: 'plural' })}
                 />
               )}
             </LabeledList.Item>
           )}
-          {!!has_colours && (
-            <ColorContent />
-          )}
+          {!!has_colours && <ColorContent />}
           {!!change_head_accessory && (
             <LabeledList.Item label="Head accessory">
-              {head_accessory_styles.map(s => (
+              {head_accessory_styles.map((s) => (
                 <Button
                   key={s.headaccessorystyle}
                   content={s.headaccessorystyle}
                   selected={s.headaccessorystyle === head_accessory_style}
-                  onClick={
-                    () => act('head_accessory', { head_accessory: s.headaccessorystyle })
+                  onClick={() =>
+                    act('head_accessory', {
+                      head_accessory: s.headaccessorystyle,
+                    })
                   }
                 />
               ))}
@@ -119,35 +123,45 @@ export const AppearanceChanger = (props, context) => {
           )}
           {!!change_hair && (
             <LabeledList.Item label="Hair">
-              {hair_styles.map(s => (
+              {hair_styles.map((s) => (
                 <Button
                   key={s.hairstyle}
                   content={s.hairstyle}
                   selected={s.hairstyle === hair_style}
-                  onClick={
-                    () => act('hair', { hair: s.hairstyle })
-                  }
+                  onClick={() => act('hair', { hair: s.hairstyle })}
                 />
               ))}
             </LabeledList.Item>
           )}
           {!!change_hair_gradient && (
             <LabeledList.Item label="Hair Gradient">
-              <Button content="Change Style" onClick={() => act('hair_gradient')} />
-              <Button content="Change Offset" onClick={() => act('hair_gradient_offset')} />
-              <Button content="Change Color" onClick={() => act('hair_gradient_colour')} />
-              <Button content="Change Alpha" onClick={() => act('hair_gradient_alpha')} />
+              <Button
+                content="Change Style"
+                onClick={() => act('hair_gradient')}
+              />
+              <Button
+                content="Change Offset"
+                onClick={() => act('hair_gradient_offset')}
+              />
+              <Button
+                content="Change Color"
+                onClick={() => act('hair_gradient_colour')}
+              />
+              <Button
+                content="Change Alpha"
+                onClick={() => act('hair_gradient_alpha')}
+              />
             </LabeledList.Item>
           )}
           {!!change_facial_hair && (
             <LabeledList.Item label="Facial hair">
-              {facial_hair_styles.map(s => (
+              {facial_hair_styles.map((s) => (
                 <Button
                   key={s.facialhairstyle}
                   content={s.facialhairstyle}
                   selected={s.facialhairstyle === facial_hair_style}
-                  onClick={
-                    () => act('facial_hair', { facial_hair: s.facialhairstyle })
+                  onClick={() =>
+                    act('facial_hair', { facial_hair: s.facialhairstyle })
                   }
                 />
               ))}
@@ -155,13 +169,13 @@ export const AppearanceChanger = (props, context) => {
           )}
           {!!change_head_markings && (
             <LabeledList.Item label="Head markings">
-              {head_marking_styles.map(s => (
+              {head_marking_styles.map((s) => (
                 <Button
                   key={s.headmarkingstyle}
                   content={s.headmarkingstyle}
                   selected={s.headmarkingstyle === head_marking_style}
-                  onClick={
-                    () => act('head_marking', { head_marking: s.headmarkingstyle })
+                  onClick={() =>
+                    act('head_marking', { head_marking: s.headmarkingstyle })
                   }
                 />
               ))}
@@ -169,13 +183,13 @@ export const AppearanceChanger = (props, context) => {
           )}
           {!!change_body_markings && (
             <LabeledList.Item label="Body markings">
-              {body_marking_styles.map(s => (
+              {body_marking_styles.map((s) => (
                 <Button
                   key={s.bodymarkingstyle}
                   content={s.bodymarkingstyle}
                   selected={s.bodymarkingstyle === body_marking_style}
-                  onClick={
-                    () => act('body_marking', { body_marking: s.bodymarkingstyle })
+                  onClick={() =>
+                    act('body_marking', { body_marking: s.bodymarkingstyle })
                   }
                 />
               ))}
@@ -183,13 +197,13 @@ export const AppearanceChanger = (props, context) => {
           )}
           {!!change_tail_markings && (
             <LabeledList.Item label="Tail markings">
-              {tail_marking_styles.map(s => (
+              {tail_marking_styles.map((s) => (
                 <Button
                   key={s.tailmarkingstyle}
                   content={s.tailmarkingstyle}
                   selected={s.tailmarkingstyle === tail_marking_style}
-                  onClick={
-                    () => act('tail_marking', { tail_marking: s.tailmarkingstyle })
+                  onClick={() =>
+                    act('tail_marking', { tail_marking: s.tailmarkingstyle })
                   }
                 />
               ))}
@@ -197,13 +211,15 @@ export const AppearanceChanger = (props, context) => {
           )}
           {!!change_body_accessory && (
             <LabeledList.Item label="Body accessory">
-              {body_accessory_styles.map(s => (
+              {body_accessory_styles.map((s) => (
                 <Button
                   key={s.bodyaccessorystyle}
                   content={s.bodyaccessorystyle}
                   selected={s.bodyaccessorystyle === body_accessory_style}
-                  onClick={
-                    () => act('body_accessory', { body_accessory: s.bodyaccessorystyle })
+                  onClick={() =>
+                    act('body_accessory', {
+                      body_accessory: s.bodyaccessorystyle,
+                    })
                   }
                 />
               ))}
@@ -211,14 +227,12 @@ export const AppearanceChanger = (props, context) => {
           )}
           {!!change_alt_head && (
             <LabeledList.Item label="Alternate head">
-              {alt_head_styles.map(s => (
+              {alt_head_styles.map((s) => (
                 <Button
                   key={s.altheadstyle}
                   content={s.altheadstyle}
                   selected={s.altheadstyle === alt_head_style}
-                  onClick={
-                    () => act('alt_head', { alt_head: s.altheadstyle })
-                  }
+                  onClick={() => act('alt_head', { alt_head: s.altheadstyle })}
                 />
               ))}
             </LabeledList.Item>
@@ -233,31 +247,63 @@ const ColorContent = (props, context) => {
   const { act, data } = useBackend(context);
 
   const colorOptions = [
-    { key: "change_eye_color", text: "Change eye color", action: "eye_color" },
-    { key: "change_skin_tone", text: "Change skin tone", action: "skin_tone" },
-    { key: "change_skin_color", text: "Change skin color", action: "skin_color" },
-    { key: "change_head_accessory_color", text: "Change head accessory color", action: "head_accessory_color" },
-    { key: "change_hair_color", text: "Change hair color", action: "hair_color" },
-    { key: "change_secondary_hair_color", text: "Change secondary hair color", action: "secondary_hair_color" },
-    { key: "change_facial_hair_color", text: "Change facial hair color", action: "facial_hair_color" },
-    { key: "change_secondary_facial_hair_color", text: "Change secondary facial hair color", action: "secondary_facial_hair_color" },
-    { key: "change_head_marking_color", text: "Change head marking color", action: "head_marking_color" },
-    { key: "change_body_marking_color", text: "Change body marking color", action: "body_marking_color" },
-    { key: "change_tail_marking_color", text: "Change tail marking color", action: "tail_marking_color" },
+    { key: 'change_eye_color', text: 'Change eye color', action: 'eye_color' },
+    { key: 'change_skin_tone', text: 'Change skin tone', action: 'skin_tone' },
+    {
+      key: 'change_skin_color',
+      text: 'Change skin color',
+      action: 'skin_color',
+    },
+    {
+      key: 'change_head_accessory_color',
+      text: 'Change head accessory color',
+      action: 'head_accessory_color',
+    },
+    {
+      key: 'change_hair_color',
+      text: 'Change hair color',
+      action: 'hair_color',
+    },
+    {
+      key: 'change_secondary_hair_color',
+      text: 'Change secondary hair color',
+      action: 'secondary_hair_color',
+    },
+    {
+      key: 'change_facial_hair_color',
+      text: 'Change facial hair color',
+      action: 'facial_hair_color',
+    },
+    {
+      key: 'change_secondary_facial_hair_color',
+      text: 'Change secondary facial hair color',
+      action: 'secondary_facial_hair_color',
+    },
+    {
+      key: 'change_head_marking_color',
+      text: 'Change head marking color',
+      action: 'head_marking_color',
+    },
+    {
+      key: 'change_body_marking_color',
+      text: 'Change body marking color',
+      action: 'body_marking_color',
+    },
+    {
+      key: 'change_tail_marking_color',
+      text: 'Change tail marking color',
+      action: 'tail_marking_color',
+    },
   ];
 
   return (
     <LabeledList.Item label="Colors">
-      {colorOptions.map(c => (
-        !!data[c.key] && (
-          <Button
-            content={c.text}
-            onClick={
-              () => act(c.action)
-            }
-          />
-        )
-      ))}
+      {colorOptions.map(
+        (c) =>
+          !!data[c.key] && (
+            <Button content={c.text} onClick={() => act(c.action)} />
+          )
+      )}
     </LabeledList.Item>
   );
 };
