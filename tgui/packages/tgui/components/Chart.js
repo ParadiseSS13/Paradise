@@ -18,15 +18,15 @@ const normalizeData = (data, scale, rangeX, rangeY) => {
     min[1] = rangeY[0];
     max[1] = rangeY[1];
   }
-  const normalized = map(point => {
+  const normalized = map((point) => {
     return zipWith((value, min, max, scale) => {
-      return (value - min) / (max - min) * scale;
+      return ((value - min) / (max - min)) * scale;
     })(point, min, max, scale);
   })(data);
   return normalized;
 };
 
-const dataToPolylinePoints = data => {
+const dataToPolylinePoints = (data) => {
   let points = '';
   for (let i = 0; i < data.length; i++) {
     const point = data[i];
@@ -84,7 +84,7 @@ class LineChart extends Component {
     const points = dataToPolylinePoints(normalized);
     return (
       <Box position="relative" {...rest}>
-        {props => (
+        {(props) => (
           <div ref={this.ref} {...props}>
             <svg
               viewBox={`0 0 ${viewBox[0]} ${viewBox[1]}`}
@@ -96,13 +96,15 @@ class LineChart extends Component {
                 right: 0,
                 bottom: 0,
                 overflow: 'hidden',
-              }}>
+              }}
+            >
               <polyline
                 transform={`scale(1, -1) translate(0, -${viewBox[1]})`}
                 fill={fillColor}
                 stroke={strokeColor}
                 strokeWidth={strokeWidth}
-                points={points} />
+                points={points}
+              />
             </svg>
           </div>
         )}
@@ -113,7 +115,7 @@ class LineChart extends Component {
 
 LineChart.defaultHooks = pureComponentHooks;
 
-const Stub = props => null;
+const Stub = (props) => null;
 
 // IE8: No inline svg support
 export const Chart = {

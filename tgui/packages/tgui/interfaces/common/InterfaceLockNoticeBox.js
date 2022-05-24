@@ -30,9 +30,7 @@ export const InterfaceLockNoticeBox = (props, context) => {
     return (
       <NoticeBox color={siliconUser && 'grey'}>
         <Flex align="center">
-          <Flex.Item>
-            Interface lock status:
-          </Flex.Item>
+          <Flex.Item>Interface lock status:</Flex.Item>
           <Flex.Item grow="1" />
           <Flex.Item>
             <Button
@@ -44,7 +42,8 @@ export const InterfaceLockNoticeBox = (props, context) => {
                 if (onLockStatusChange) {
                   onLockStatusChange(!locked);
                 }
-              }} />
+              }}
+            />
           </Flex.Item>
         </Flex>
       </NoticeBox>
@@ -53,8 +52,7 @@ export const InterfaceLockNoticeBox = (props, context) => {
   // For everyone else
   return (
     <NoticeBox>
-      Swipe {accessText}{' '}
-      to {locked ? 'unlock' : 'lock'} this interface.
+      Swipe {accessText} to {locked ? 'unlock' : 'lock'} this interface.
     </NoticeBox>
   );
 };

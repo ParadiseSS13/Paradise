@@ -577,7 +577,7 @@
 	log_message("Hit by [AM].")
 	if(isitem(AM))
 		var/obj/item/I = AM
-		add_attack_logs(I.thrownby, OCCUPANT_LOGGING, "threw [AM] at mech [src]")
+		add_attack_logs(locateUID(I.thrownby), OCCUPANT_LOGGING, "threw [AM] at mech [src]")
 	. = ..()
 
 /obj/mecha/bullet_act(obj/item/projectile/Proj) //wrapper

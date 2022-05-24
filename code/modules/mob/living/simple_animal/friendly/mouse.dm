@@ -83,7 +83,7 @@
 
 /mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M as mob)
 	if(M.a_intent == INTENT_HELP)
-		get_scooped(M)
+		get_scooped(M, TRUE)
 	..()
 
 /mob/living/simple_animal/mouse/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
