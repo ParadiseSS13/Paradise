@@ -403,7 +403,7 @@
 	T.range = 5
 	return T
 
-/obj/effect/proc_holder/spell/aoe_turf/repulse/cast(list/targets, mob/user = usr, stun_amt = 2)
+/obj/effect/proc_holder/spell/aoe_turf/repulse/cast(list/targets, mob/user = usr, stun_amt = 4 SECONDS)
 	var/list/thrownatoms = list()
 	var/atom/throwtarget
 	var/distfromcaster
@@ -422,7 +422,7 @@
 		if(distfromcaster == 0)
 			if(isliving(AM))
 				var/mob/living/M = AM
-				M.Weaken(5)
+				M.Weaken(10 SECONDS)
 				M.adjustBruteLoss(5)
 				to_chat(M, "<span class='userdanger'>You're slammed into the floor by a mystical force!</span>")
 		else

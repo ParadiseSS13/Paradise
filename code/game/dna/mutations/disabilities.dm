@@ -24,7 +24,7 @@
 
 /datum/mutation/disability/hallucinate/on_life(mob/living/carbon/human/H)
 	if(prob(1))
-		H.AdjustHallucinate(45)
+		H.AdjustHallucinate(45 SECONDS)
 
 /datum/mutation/disability/epilepsy
 	name = "Epilepsy"
@@ -37,10 +37,10 @@
 	block = GLOB.epilepsyblock
 
 /datum/mutation/disability/epilepsy/on_life(mob/living/carbon/human/H)
-	if((prob(1) && H.paralysis < 1))
+	if((prob(1) && !H.IsParalyzed()))
 		H.visible_message("<span class='danger'>[H] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
-		H.Paralyse(10)
-		H.Jitter(1000)
+		H.Paralyse(20 SECONDS)
+		H.Jitter(2000 SECONDS)
 
 /datum/mutation/disability/cough
 	name = "Coughing"
@@ -53,7 +53,7 @@
 	block = GLOB.coughblock
 
 /datum/mutation/disability/cough/on_life(mob/living/carbon/human/H)
-	if((prob(5) && H.paralysis <= 1))
+	if((prob(5) && H.AmountParalyzed() <= 1))
 		H.drop_item()
 		H.emote("cough")
 
@@ -79,8 +79,8 @@
 	block = GLOB.twitchblock
 
 /datum/mutation/disability/tourettes/on_life(mob/living/carbon/human/H)
-	if((prob(10) && H.paralysis <= 1))
-		H.Stun(10)
+	if((prob(10) && H.AmountParalyzed() <= 1))
+		H.Stun(20 SECONDS)
 		switch(rand(1, 3))
 			if(1)
 				H.emote("twitch")
@@ -104,7 +104,7 @@
 
 /datum/mutation/disability/nervousness/on_life(mob/living/carbon/human/H)
 	if(prob(10))
-		H.Stuttering(10)
+		H.Stuttering(20 SECONDS)
 
 /datum/mutation/disability/blindness
 	name = "Blindness"
@@ -546,7 +546,7 @@
 /datum/mutation/disability/dizzy/on_life(mob/living/carbon/human/M)
 	if(!istype(M))
 		return
-	M.Dizzy(300)
+	M.Dizzy(600 SECONDS)
 
 /datum/mutation/disability/dizzy/deactivate(mob/living/M)
 	..()

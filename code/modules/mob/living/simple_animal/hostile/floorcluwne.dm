@@ -209,7 +209,7 @@
 		if(STAGE_HAUNT)
 
 			if(prob(5))
-				H.AdjustEyeBlurry(1)
+				H.AdjustEyeBlurry(2 SECONDS)
 
 			if(prob(5))
 				H.playsound_local(src,'sound/spookoween/insane_low_laugh.ogg', 1)
@@ -226,7 +226,7 @@
 		if(STAGE_SPOOK)
 
 			if(prob(4))
-				H.slip("???", 5, 2)
+				H.slip("???", 10 SECONDS)
 				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
 
 			if(prob(3))
@@ -254,7 +254,7 @@
 		if(STAGE_TORMENT)
 
 			if(prob(5))
-				H.slip("???", 5, 2)
+				H.slip("???", 10 SECONDS)
 				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
 
 			if(prob(5))
@@ -279,7 +279,7 @@
 				to_chat(H, "<font face='Comic Sans MS'><i>!?REHTOMKNOH eht esiarp uoy oD</i></font>")
 				to_chat(H, "<span class='warning'>Something grabs your foot!</span>")
 				H.playsound_local(src,'sound/hallucinations/i_see_you1.ogg', 25)
-				H.Stun(10)
+				H.Stun(20 SECONDS)
 
 			if(prob(5))
 				to_chat(H, "<font face='Comic Sans MS'><i>!KNOH ?od nottub siht seod tahW</i></font>")
@@ -320,7 +320,7 @@
 				manifested = TRUE
 				Manifest()
 				to_chat(H, "<span class='userdanger'>You feel the floor closing in on your feet!</span>")
-				H.Weaken(30)
+				H.Weaken(60 SECONDS)
 				H.emote("scream")
 				H.adjustBruteLoss(10)
 				if(!eating)

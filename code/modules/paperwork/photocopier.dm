@@ -494,7 +494,7 @@
 			new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
 			toner = 0
 
-/obj/machinery/photocopier/MouseDrop_T(mob/target, mob/user)
+/obj/machinery/photocopier/MouseDrop_T(mob/target, mob/living/user)
 	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai))
 		return
 	if(check_mob()) //is target mob or another mob on this photocopier already?
@@ -502,7 +502,7 @@
 	src.add_fingerprint(user)
 	if(target == user && !user.incapacitated())
 		visible_message("<span class='warning'>[usr] jumps onto [src]!</span>")
-	else if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.stunned && !user.paralysis)
+	else if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
 		if(target.anchored) return
 		if(!ishuman(user)) return
 		visible_message("<span class='warning'>[usr] drags [target.name] onto [src]!</span>")

@@ -248,7 +248,7 @@
 				burn_loss = brute_loss				//Damage gets reduced from 120 to up to 60 combined brute+burn
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(30, 120)
-			Weaken(20 SECONDS_TO_LIFE_CYCLES - (bomb_armor * 1.6 / 10) SECONDS_TO_LIFE_CYCLES) 	//Between ~4 and ~20 seconds of knockdown depending on bomb armor
+			Weaken(20 SECONDS - (bomb_armor * 1.6 / 10) SECONDS) 	//Between ~4 and ~20 seconds of knockdown depending on bomb armor
 
 		if(EXPLODE_LIGHT)
 			brute_loss = 30
@@ -256,7 +256,7 @@
 				brute_loss = 15 * (2 - round(bomb_armor * 0.01, 0.05)) //Reduced from 30 to up to 15
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(15, 60)
-			Weaken(16 SECONDS_TO_LIFE_CYCLES - (bomb_armor * 1.6 / 10) SECONDS_TO_LIFE_CYCLES) //Between no knockdown to ~16 seconds depending on bomb armor
+			Weaken(16 SECONDS - (bomb_armor * 1.6 / 10) SECONDS) //Between no knockdown to ~16 seconds depending on bomb armor
 			valid_limbs = list("l_hand", "l_foot", "r_hand", "r_foot")
 			limb_loss_chance = 25
 
@@ -1635,7 +1635,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(H.health <= HEALTH_THRESHOLD_CRIT)
 			H.adjustOxyLoss(-15 * cpr_modifier)
 			H.SetLoseBreath(0)
-			H.AdjustParalysis(-1)
+			H.AdjustParalysis(-2 SECONDS)
 			H.updatehealth("cpr")
 			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
 

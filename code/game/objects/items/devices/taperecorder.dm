@@ -108,7 +108,7 @@
 	if(mytape && recording)
 		var/ending = copytext(msg, length(msg))
 		mytape.timestamp += mytape.used_capacity
-		if(M.stuttering)
+		if(M.AmountStuttering())
 			mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] stammers, \"[msg]\""
 			return
 		if(M.getBrainLoss() >= 60)

@@ -4,7 +4,7 @@
 	explaination_text = "Hits the opponent with invisible nunchucks."
 
 /datum/martial_combo/mimejutsu/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(!target.stat && !target.stunned && !target.IsWeakened())
+	if(!target.stat && !target.IsStunned() && !target.IsWeakened())
 		var/damage = rand(5, 8) + user.dna.species.punchdamagelow
 		if(!damage)
 			playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
