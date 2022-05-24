@@ -380,7 +380,7 @@
 		S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount)
 	return S
 
-/mob/living/proc/SetSleeping(amount, ignore_canstun = FALSE)
+/mob/living/proc/SetSleeping(amount, ignore_canstun = FALSE, voluntary = FALSE)
 	if(frozen) // If the mob has been admin frozen, sleeping should not be changeable
 		return
 	if(status_flags & GODMODE)
@@ -392,6 +392,10 @@
 		S.duration = amount + world.time
 	else if(amount > 0)
 		S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount)
+		if(voluntary)
+			S.voluntary = TRUE
+	if(!voluntary && S)
+		S.voluntary = FALSE
 	return S
 
 /mob/living/proc/PermaSleeping() /// used for admin freezing.

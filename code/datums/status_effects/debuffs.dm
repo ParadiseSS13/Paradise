@@ -402,6 +402,7 @@
 	id = "sleeping"
 	tick_interval = 2 SECONDS
 	needs_update_stat = TRUE
+	var/voluntary = FALSE
 
 /datum/status_effect/incapacitating/sleeping/tick()
 	if(!iscarbon(owner))
