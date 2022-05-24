@@ -22,7 +22,7 @@
 		spawn_locs += get_turf(L)
 	if(!spawn_locs) //If we can't find either, just spawn the revenant at the player's location
 		spawn_locs += get_turf(player_mind.current)
-	if(!spawn_locs) //If we can't find THAT, then just retry
+	if(!spawn_locs) //If we can't find THAT, then give up
 		kill()
 		return
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(pick(spawn_locs))

@@ -30,9 +30,9 @@
 		var/list/spawn_locs = list()
 		for(var/obj/effect/landmark/spawner/rev/R in GLOB.landmarks_list)
 			spawn_locs += get_turf(R)
-		if(!spawn_locs) //If we can't find either, just spawn the revenant at the player's location
+		if(!spawn_locs) //If we can't find a good place, just spawn the revenant at the player's location
 			spawn_locs += get_turf(player_mind.current)
-		if(!spawn_locs) //If we can't find THAT, then just retry
+		if(!spawn_locs) //If we can't find THAT, then give up
 			kill()
 			return
 		var/mob/living/simple_animal/revenant/revvie = new /mob/living/simple_animal/revenant/(pick(spawn_locs))

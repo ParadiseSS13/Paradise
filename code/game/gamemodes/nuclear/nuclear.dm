@@ -99,9 +99,7 @@
 		qdel(S)
 		continue
 
-	var/obj/effect/landmark/nuke_spawn
-	for(var/obj/effect/landmark/spawner/nuclear_bomb in GLOB.landmarks_list)
-		nuke_spawn = get_turf(nuclear_bomb)
+	var/obj/effect/landmark/nuke_spawn = get_turf(locate(/obj/effect/landmark/spawner/nuclear_bomb))
 
 	var/nuke_code = rand(10000, 99999)
 	var/leader_selected = 0
