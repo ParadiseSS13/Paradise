@@ -3014,6 +3014,9 @@
 	pixel_y = 24
 	},
 /obj/effect/landmark/start/security_officer,
+/obj/machinery/camera{
+	c_tag = "Brig Briefing Room East"
+	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "akJ" = (
@@ -3774,22 +3777,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel,
-/area/security/main)
-"amp" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/camera{
-	c_tag = "Brig Briefing Room East";
-	dir = 8
-	},
-/obj/effect/landmark/start/security_officer,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "amq" = (
@@ -116534,7 +116521,7 @@ anA
 anH
 akH
 alC
-amp
+anV
 amP
 anV
 auX
