@@ -673,8 +673,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		burn_mod = 0.66		
 		if(owner && (ROBOTIC in owner.dna.species.species_traits))
 			return
-		if(!HAS_TRAIT(owner, ROBOTIC)) //prevent machine species from loosing limbs to a single hit
-			dismember_at_max_damage = TRUE
+		dismember_at_max_damage = TRUE
 
 	else
 		tough = TRUE
