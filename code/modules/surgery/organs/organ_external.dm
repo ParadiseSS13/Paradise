@@ -670,10 +670,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 	//robot limbs take reduced damage
 	if(!make_tough)
 		brute_mod = 0.66
-		burn_mod = 0.66
+		burn_mod = 0.66		
+		if(owner && (ROBOTIC in owner.dna.species.species_traits))
+			return
 		if(!HAS_TRAIT(owner, ROBOTIC)) //prevent machine species from loosing limbs to a single hit
 			dismember_at_max_damage = TRUE
-			return
+
 	else
 		tough = TRUE
 	// Robot parts also lack bones
