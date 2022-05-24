@@ -237,12 +237,10 @@ SUBSYSTEM_DEF(ticker)
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
 	// Generate the list of empty playable AI cores in the world
-	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
-		if(S.name != "AI")
+	for(var/obj/effect/landmark/start/ai/A in GLOB.landmarks_list)
+		if(locate(/mob/living) in get_turf(A))
 			continue
-		if(locate(/mob/living) in S.loc)
-			continue
-		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(S))
+		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(A))
 
 
 	// Setup pregenerated newsfeeds
@@ -259,7 +257,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Delete starting landmarks (not AI ones because we need those for AI-ize)
 	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
-		if(S.name != "AI")
+		if(!istype(S, /obj/effect/landmark/start/ai))
 			qdel(S)
 
 	SSdbcore.SetRoundStart()
