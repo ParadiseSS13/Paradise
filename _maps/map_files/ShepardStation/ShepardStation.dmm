@@ -4733,8 +4733,7 @@
 /area/security/lobby)
 "bak" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "black"
+	icon_state = "dark"
 	},
 /area/hallway/primary/starboard/east)
 "ban" = (
@@ -9462,13 +9461,6 @@
 	icon_state = "long"
 	},
 /area/hallway/primary/central/ne)
-"bZm" = (
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "black"
-	},
-/area/hallway/primary/starboard/east)
 "bZr" = (
 /obj/effect/decal/warning_stripes/northeast,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -29910,7 +29902,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "blackcorner"
+	},
 /area/hallway/primary/starboard/east)
 "gwC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -36350,7 +36344,6 @@
 	},
 /area/security/prisonlockers)
 "hOS" = (
-/obj/structure/table,
 /obj/machinery/camera{
 	c_tag = "Hydroponics Storage";
 	dir = 10
@@ -36358,7 +36351,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/item/book/manual/hydroponics_pod_people,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -46588,8 +46580,6 @@
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "jYM" = (
-/obj/structure/table,
-/obj/item/paper/hydroponics,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -59841,8 +59831,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "black"
+	icon_state = "dark"
 	},
 /area/hallway/primary/starboard/east)
 "mTj" = (
@@ -62042,7 +62031,9 @@
 	name = "Sci R&D";
 	sortType = 12
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "blackcorner"
+	},
 /area/hallway/primary/starboard/east)
 "nqr" = (
 /obj/machinery/power/apc{
@@ -103141,6 +103132,8 @@
 "wxK" = (
 /obj/structure/rack,
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/item/book/manual/hydroponics_pod_people,
+/obj/item/paper/hydroponics,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -109593,7 +109586,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/glass{
-	name = "Service Hall"
+	name = "Service Hall";
+	req_access_txt = "25;26;27;28;35;37;43;44"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -159371,7 +159365,7 @@ vOd
 pQK
 mTc
 bak
-bZm
+vvW
 sPu
 sPu
 sPu
