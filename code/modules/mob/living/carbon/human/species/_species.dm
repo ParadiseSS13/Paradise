@@ -416,7 +416,9 @@
 	return TRUE
 
 /datum/species/proc/spec_stun(mob/living/carbon/human/H, amount)
-	. = stun_mod * H.physiology.stun_mod * amount
+	. = amount
+	if(!H.frozen) //admin freeze has no breaks
+		. = stun_mod * H.physiology.stun_mod * amount
 
 /datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return
@@ -505,7 +507,7 @@
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			target.visible_message("<span class='danger'>[user] has weakened [target]!</span>", \
 							"<span class='userdanger'>[user] has weakened [target]!</span>")
-			target.apply_effect(4, WEAKEN, armor_block)
+			target.apply_effect(8 SECONDS, WEAKEN, armor_block)
 			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
 			target.forcesay(GLOB.hit_appends)
@@ -525,7 +527,7 @@
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		var/randn = rand(1, 100)
 		if(randn <= 25)
-			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, MELEE))
+			target.apply_effect(4 SECONDS, WEAKEN, target.run_armor_check(affecting, MELEE))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			target.visible_message("<span class='danger'>[user] has pushed [target]!</span>")
 			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)

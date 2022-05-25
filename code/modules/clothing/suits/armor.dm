@@ -429,7 +429,7 @@
 			if(dist_from_user == 0)
 				if(isliving(AM))
 					var/mob/living/M = AM
-					M.Weaken(3)
+					M.Weaken(6 SECONDS)
 					to_chat(M, "<span class='userdanger'>You're slammed into the floor by [owner]'s reactive armor!</span>")
 					add_attack_logs(owner, M, "[M] was thrown by [owner]'s [src]", ATKLOG_ALMOSTALL)
 			else

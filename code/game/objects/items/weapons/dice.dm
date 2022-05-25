@@ -203,7 +203,7 @@
 		if(7)
 			//Throw
 			T.visible_message("<span class='userdanger'>Unseen forces throw [user]!</span>")
-			user.Stun(6)
+			user.Stun(12 SECONDS)
 			user.adjustBruteLoss(50)
 			var/throw_dir = GLOB.cardinal
 			var/atom/throw_target = get_edge_target_turf(user, throw_dir)

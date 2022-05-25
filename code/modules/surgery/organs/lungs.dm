@@ -56,7 +56,7 @@
 	if(!is_robotic() || emp_proof)
 		return
 	if(owner)
-		owner.LoseBreath(20)
+		owner.LoseBreath(40 SECONDS)
 
 /obj/item/organ/internal/lungs/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	..()
@@ -81,7 +81,7 @@
 			owner.bleed(1)
 		if(prob(4))
 			owner.custom_emote(1, "gasps for air!")
-			owner.AdjustLoseBreath(5)
+			owner.AdjustLoseBreath(10 SECONDS)
 
 /obj/item/organ/internal/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
 	if((H.status_flags & GODMODE))
@@ -180,7 +180,7 @@
 			if(!H.co2overloadtime) // If it's the first breath with too much CO2 in it, lets start a counter, then have them pass out after 12s or so.
 				H.co2overloadtime = world.time
 			else if(world.time - H.co2overloadtime > 120)
-				H.Paralyse(3)
+				H.Paralyse(6 SECONDS)
 				H.apply_damage_type(HUMAN_MAX_OXYLOSS, co2_damage_type) // Lets hurt em a little, let them know we mean business
 				if(world.time - H.co2overloadtime > 300) // They've been in here 30s now, lets start to kill them for their own good!
 					H.apply_damage_type(15, co2_damage_type)
@@ -240,9 +240,9 @@
 
 	if(breath.sleeping_agent)	// If there's some other shit in the air lets deal with it here.
 		if(SA_pp > SA_para_min)
-			H.Paralyse(3) // 3 gives them one second to wake up and run away a bit!
+			H.Paralyse(6 SECONDS) // 6 seconds gives them one second to wake up and run away a bit!
 			if(SA_pp > SA_sleep_min) // Enough to make us sleep as well
-				H.AdjustSleeping(8, bound_lower = 0, bound_upper = 10)
+				H.AdjustSleeping(16 SECONDS, bound_lower = 0, bound_upper = 20 SECONDS)
 		else if(SA_pp > 0.01)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
 			if(prob(20))
 				H.emote(pick("giggle", "laugh"))

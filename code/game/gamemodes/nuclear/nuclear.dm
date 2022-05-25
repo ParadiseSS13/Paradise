@@ -94,14 +94,12 @@
 
 	var/list/turf/synd_spawn = list()
 
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/A = thing
-		if(A.name == "Syndicate-Spawn")
-			synd_spawn += get_turf(A)
-			qdel(A)
-			continue
+	for(var/obj/effect/landmark/spawner/syndie/S in GLOB.landmarks_list)
+		synd_spawn += get_turf(S)
+		qdel(S)
+		continue
 
-	var/obj/effect/landmark/nuke_spawn = locate("landmark*Nuclear-Bomb")
+	var/obj/effect/landmark/nuke_spawn = get_turf(locate(/obj/effect/landmark/spawner/nuclear_bomb))
 
 	var/nuke_code = rand(10000, 99999)
 	var/leader_selected = 0
