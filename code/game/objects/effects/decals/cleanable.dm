@@ -43,7 +43,7 @@
 				add_blood = bloodiness
 			bloodiness -= add_blood
 			H.bloody_feet[blood_state] = min(MAX_SHOE_BLOODINESS, H.bloody_feet[blood_state] + add_blood)
-			H.bloody_feet["blood_alpha"] = alpha - 155
+			H.bloody_feet["blood_alpha"] = 150 * (alpha/255)
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.blood_state = blood_state
