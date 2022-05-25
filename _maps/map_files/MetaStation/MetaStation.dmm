@@ -17294,8 +17294,13 @@
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "bfD" = (
-/obj/structure/barricade/wooden,
-/obj/structure/grille,
+/obj/structure/girder,
+/obj/effect/spawner/lootdrop{
+	name = "normal or broken grille spawner";
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	icon_state = "grille";
+	color = null
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bfG" = (
@@ -44370,6 +44375,7 @@
 /obj/structure/bed/roller,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/landmark/damageturf,
+/obj/item/toy/plushie/snakeplushie,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "cyV" = (
@@ -44999,10 +45005,6 @@
 	},
 /area/toxins/xenobiology)
 "cBc" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
 /obj/structure/girder,
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
@@ -50288,9 +50290,6 @@
 "cSa" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 4
-	},
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -57024,7 +57023,7 @@
 	icon = 'icons/obj/objects.dmi';
 	icon_state = "drone";
 	name = "drone exhibit";
-	desc = "A hollowed out shell of an unlucky construction drone"
+	desc = "The hollowed out shell of an unlucky construction drone"
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/carpet,
@@ -74305,18 +74304,13 @@
 /turf/simulated/floor/plating,
 /area/security/brig)
 "nwY" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/spawner/lootdrop{
-	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
-	icon_state = "grille";
-	color = null
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 10
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint)
+/area/maintenance/starboard2)
 "nxh" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
@@ -76722,12 +76716,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
-"oRw" = (
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/starboard2)
 "oRx" = (
 /obj/machinery/door/airlock/security/glass,
 /obj/machinery/door/firedoor,
@@ -131440,7 +131428,7 @@ coM
 cte
 crQ
 xUe
-cwd
+nwY
 cte
 cte
 cte
@@ -131459,7 +131447,7 @@ meT
 cPc
 cVn
 cXW
-nwY
+meT
 emj
 emj
 emj
@@ -131697,7 +131685,7 @@ coN
 cte
 crR
 cuH
-oRw
+cwG
 cuE
 fvO
 cwG
@@ -132213,7 +132201,7 @@ cqC
 csk
 ctp
 cww
-xUe
+cwG
 cSa
 cyd
 cmB
