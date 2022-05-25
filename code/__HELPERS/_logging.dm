@@ -37,7 +37,7 @@ GLOBAL_PROTECT(log_end)
 		rustg_log_write(GLOB.world_game_log, "DEBUG: [text][GLOB.log_end]")
 
 	for(var/client/C in GLOB.admins)
-		if(check_rights(R_DEBUG | R_VIEWRUNTIMES, 0, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
+		if(check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
 			to_chat(C, "DEBUG: [text]")
 
 /proc/log_game(text)
