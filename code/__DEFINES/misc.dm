@@ -357,6 +357,7 @@
 #define BLOOD_STATE_HUMAN			"blood"
 #define BLOOD_STATE_XENO			"xeno"
 #define BLOOD_STATE_NOT_BLOODY		"no blood whatsoever"
+#define BLOOD_STATE_BASE_ALPHA		"blood_alpha"
 
 //for obj explosion block calculation
 #define EXPLOSION_BLOCK_PROC -1

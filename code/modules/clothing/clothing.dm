@@ -454,7 +454,7 @@ BLIND     // can't see anything
 	slot_flags = SLOT_FEET
 
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
-	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
+	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0, BLOOD_STATE_BASE_ALPHA = 150)
 
 	permeability_coefficient = 0.50
 	slowdown = SHOES_SLOWDOWN
