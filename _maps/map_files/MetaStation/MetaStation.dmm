@@ -551,7 +551,7 @@
 /area/security/permabrig)
 "acT" = (
 /obj/structure/table,
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -35082,7 +35082,7 @@
 /area/bridge)
 "bBP" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library,
 /turf/simulated/floor/wood,
 /area/library)
 "bBQ" = (
@@ -42257,7 +42257,7 @@
 	name = "requests board";
 	pixel_x = 32
 	},
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library,
 /turf/simulated/floor/wood,
 /area/library)
 "bRi" = (
@@ -42884,7 +42884,6 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/machinery/libraryscanner,
 /turf/simulated/floor/wood,
 /area/library)
 "bSA" = (

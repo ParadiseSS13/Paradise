@@ -11940,7 +11940,7 @@
 	pixel_y = 32
 	},
 /obj/structure/table,
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -49337,7 +49337,7 @@
 /area/library)
 "cnn" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library,
 /obj/machinery/newscaster{
 	name = "east bump";
 	pixel_x = 32
@@ -49834,7 +49834,6 @@
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
-/obj/machinery/libraryscanner,
 /turf/simulated/floor/plasteel/grimy,
 /area/library)
 "coA" = (

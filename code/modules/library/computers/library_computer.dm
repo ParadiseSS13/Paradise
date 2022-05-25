@@ -1,5 +1,6 @@
 #define MAX_BOOK_FLAGS 3	// maximum number of times a book can be flagged before being removed from results
 #define MAX_PLAYER_UPLOADS 5 //Maximum number of books that can be uploaded by a ckey
+#define LIBRARY_BOOKS_PER_PAGE 25
 
 /obj/machinery/computer/library
 	name = "Library Computer"
@@ -30,19 +31,16 @@
 	var/static/list/forbidden
 	var/checkoutperiod = 5 // In minutes
 
-	var/static/list/category_choices
-
-	var/datum/cachedbook/testtest
+	//Search Terms
 
 /obj/machinery/computer/library/Initialize(mapload)
 	. = ..()
-	if(!category_choices)
-		category_choices = list() //need to populate this lol
 	if(!forbidden)
 		forbidden = list(
 			/obj/item/book/manual/random,
 			/obj/item/book/manual/nuclear
 		)
+	populate_booklist()
 
 /obj/machinery/computer/library/attack_ai(mob/user)
 	return attack_hand(user)
@@ -50,6 +48,7 @@
 /obj/machinery/computer/library/attack_hand(mob/user)
 	if(..())
 		return
+	populate_booklist() //we need to build our booklist before starting to open our UI because of ASYNC or else TGUI crashes
 	ui_interact(user)
 
 /obj/machinery/computer/library/attackby(obj/item/O, mob/user, params)
@@ -82,7 +81,6 @@
 		return
 	return ..()
 
-///TGUI SHIT, DONT NEED TO WORRY BOUT
 /obj/machinery/computer/library/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
@@ -92,31 +90,34 @@
 /obj/machinery/computer/library/ui_data(mob/user)	//data stuff hurrr
 	var/list/data = list()
 
-	data["loggedin"] = logged_in
+	//data["loggedin"] = logged_in
 	data["archive_pagenumber"] = archive_page_num
-	data["num_pages"] = num_pages
+	data["num_pages"] = getmaxpages()
 
+	data["searchcontent"] = list(
+		title = query.title,
+		author = query.author,
+	)
+	data["book_categories"] = list() //unfortunately this cannot be static data b/c of the selected variable
+	for(var/c in GLOB.library_catalog.categories)
+		var/datum/library_category/category = c
+		var/category_info = list(
+			"category_id" = category.category_id,
+			"description" = category.description,
+			"selected" = category.selected,
+		)
+
+		data["book_categories"] += list(category_info)
 	data["selectedbook"] = list()
 	var/list/selected_book_data = list(
 		title = selected_book.title ? selected_book.title : "not specified",
 		author = selected_book.author ? selected_book.author : "not specified",
 		summary = selected_book.summary ? selected_book.summary : "no summary",
-		copyright = selected_book.copyright,
+		copyright = selected_book.copyright ? selected_book.copyright : FALSE,
 		)
 	data["selectedbook"] = selected_book_data
 
-	data["programmatic_booklist"] = list()
-	for(var/book in GLOB.library_catalog.books)
-		var/datum/programmaticbook/PB = book
-		var/list/book_data = list(
-			title = PB.title  ? PB.title : "not specified",
-			author = PB.author ? PB.author : "Nanotrasen",
-			id = PB.id,
-		)
-		data["programmatic_booklist"] += list(book_data)
 	//should only be generating the cached booklist when we absolutely need to
-	if(!cached_booklist || length(cached_booklist) < 1)
-		populate_booklist()
 	data["external_booklist"] = cached_booklist
 	data["checkout_data"] = list()
 
@@ -140,11 +141,49 @@
 		)
 		data["checkout_data"] += list(checkout_data)
 
+
+
+	data["inventory_list"] = list()
+	for(var/book in inventory)
+		var/datum/cachedbook/CB = book
+		var/list/book_data = list(
+			title = CB.title  ? CB.title : "not specified",
+			author = CB.author ? CB.author : "not specified",
+			summary = CB.summary ? CB.summary : "no summary",
+			id = PB.id,
+			libraryid = PB.libraryid,
+		)
+		static_data["programmatic_booklist"] += list(book_data)
 	// Transfer modal information if there is one
 	data["selected_report"] = selected_report
 	data["modal"] = ui_modal_data(src)
 
 	return data
+
+/obj/machinery/computer/library/ui_static_data(mob/user)
+	var/list/static_data = list()
+
+	//Report Categories will never change within a round so they don't need to sent more than once
+	static_data["report_categories"] = list()
+	for(var/r in GLOB.library_catalog.report_types)
+		var/datum/library_category/report = r
+		var/report_info = list(
+			category_id = report.category_id,
+			description = report.description,
+		)
+		static_data["report_categories"] += list(report_info)
+
+	static_data["programmatic_booklist"] = list()
+	for(var/book in GLOB.library_catalog.books)
+		var/datum/programmaticbook/PB = book
+		var/list/book_data = list(
+			title = PB.title  ? PB.title : "not specified",
+			author = PB.author ? PB.author : "Nanotrasen",
+			id = PB.id,
+		)
+		static_data["programmatic_booklist"] += list(book_data)
+
+	return static_data
 
 /obj/machinery/computer/library/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -157,18 +196,32 @@
 		if("incrementpage") // Select Page
 			archive_page_num++
 			populate_booklist()
-
+		if("incrementpagemax")
+			archive_page_num = getmaxpages()
+			populate_booklist()
 		if("deincrementpage")
 			if(archive_page_num > 1)
 				archive_page_num--
 				populate_booklist()
+		if("deincrementpagemax")
+			archive_page_num = 1
+			populate_booklist()
 
+		if("toggle_category")
+			for(var/c in GLOB.library_catalog.categories)
+				var/datum/library_category/category = c
+				if(category.category_id == text2num(params["category_id"]))
+					//you may be wondering why this is 1 & 2 and not a bool, this is because TGUI throws a hissy fit at 0 values
+					if(category.selected == 2)
+						category.selected = 1
+					else
+						category.selected = 2
+					break //we don't need to keep checking after this point
 		if("search")
 			//search()
 
 		if("order_external_book")
 			var/datum/cachedbook/orderedbook = GLOB.library_catalog.getBookByID(params["bookid"])
-			testtest = orderedbook
 			if(orderedbook)
 				make_external_book(orderedbook)
 		if("order_programmatic_book")
@@ -191,7 +244,7 @@
 		if("submitreport")
 			reportbook(params["id"], params["report_type"])
 		if("set_report")
-			selected_report = params["report_type"]
+			selected_report =  text2num(params["report_type"])
 		if("uploadbook")
 			upload_book()
 
@@ -211,6 +264,8 @@
 					ui_modal_input(src, id, "Please input the new author:", null, arguments, selected_book.author)
 				if("edit_summary")
 					ui_modal_input(src, id, "Please input the new summary:", null, arguments, selected_book.summary)
+				if("setpagenumber")
+					ui_modal_input(src, id, "Please input a page number:", null, arguments, archive_page_num)
 				if("expand_info")
 					var/datum/programmaticbook/PB = GLOB.library_catalog.getProgrammaticBookByID(arguments["bookid"])
 					if(PB)
@@ -231,11 +286,10 @@
 						))
 				if("report_book")
 					var/datum/cachedbook/CB = GLOB.library_catalog.getBookByID(arguments["bookid"])
-					var/list/report_content = GLOB.library_catalog.report_types
 					ui_modal_message(src, id, "", arguments = list(
+						id = CB.id,
 						title = CB.title,
 						ckey = CB.ckey,
-						report_content = report_content
 					))
 				else
 					return FALSE
@@ -254,6 +308,11 @@
 					if(!length(answer))
 						return
 					selected_book.summary = answer
+				if("setpagenumber")
+					if(!length(answer))
+						return
+					archive_page_num = clamp(answer, 1, getmaxpages())
+					populate_booklist()
 				else
 					return FALSE
 		else
@@ -412,6 +471,15 @@
 	qdel(count_query)
 	return 0
 
+/obj/machinery/computer/library/proc/getmaxpages()
+	var/book_count = get_num_results()
+	var/page_count = round(book_count/LIBRARY_BOOKS_PER_PAGE)
+	/*Since 'round' gets the floor value it's likely there will be 1 page more than the page count amount (almost guaranteed),
+	* we double check this by reversing our math and adding one to the count in this case. */
+	if((page_count * LIBRARY_BOOKS_PER_PAGE) > length(book_count))
+		page_count++
+	return page_count
+
 /obj/machinery/computer/library/proc/get_pagelist()
 	var/pagelist = "<div class='pages'>"
 	var/start = max(1, archive_page_num - 3)
@@ -472,7 +540,7 @@
 	new newbook.path(loc)
 	visible_message("[src]'s printer hums as it produces a completely bound book. How did it do that?")
 
-/obj/machinery/computer/library/checkout/emag_act(mob/user)
+/obj/machinery/computer/library/emag_act(mob/user)
 	if(density && !emagged)
 		emagged = 1
 		to_chat(user, "<span class='notice'>You override the library computer's printing restrictions.</span>")

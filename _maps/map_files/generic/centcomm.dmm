@@ -686,7 +686,7 @@
 /area/holodeck/source_snowfield)
 "cP" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library,
 /turf/simulated/floor/engine/cult,
 /area/wizard_station)
 "cQ" = (
@@ -4350,8 +4350,8 @@
 /area/shuttle/trade/sol)
 "oG" = (
 /obj/machinery/door/poddoor/impassable{
-	name = "Shuttle Dock Door";
-	id_tag = "nukeop_ready"
+	id_tag = "nukeop_ready";
+	name = "Shuttle Dock Door"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -5678,8 +5678,8 @@
 /obj/machinery/door_control/no_emag{
 	id = "ASSAULT";
 	name = "Mech Storage";
-	req_access_txt = "114";
-	pixel_y = -24
+	pixel_y = -24;
+	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -6846,8 +6846,8 @@
 "yZ" = (
 /obj/machinery/door/airlock/external{
 	name = "Supply Shuttle";
-	req_access_txt = "106";
-	opacity = 0
+	opacity = 0;
+	req_access_txt = "106"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -7521,8 +7521,8 @@
 "CM" = (
 /obj/machinery/door/airlock/external{
 	name = "Supply Shuttle";
-	req_access_txt = "106";
-	opacity = 0
+	opacity = 0;
+	req_access_txt = "106"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
@@ -7865,12 +7865,12 @@
 "El" = (
 /obj/effect/mapping_helpers/airlock/unres,
 /obj/machinery/door/airlock/centcom{
-	name = "Escape Pod Dock";
-	req_access_txt = "101";
 	aiControlDisabled = 1;
-	max_integrity = 3000;
+	auto_close_time = 25;
 	hackProof = 1;
-	auto_close_time = 25
+	max_integrity = 3000;
+	name = "Escape Pod Dock";
+	req_access_txt = "101"
 	},
 /turf/simulated/floor/wood,
 /area/centcom/evac)
@@ -9342,8 +9342,8 @@
 "Kb" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
-	name = "CentCom Security";
-	id_tag = "sec"
+	id_tag = "sec";
+	name = "CentCom Security"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9388,8 +9388,8 @@
 "Ki" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
-	name = "Thunderdome Access";
-	id_tag = "CC"
+	id_tag = "CC";
+	name = "Thunderdome Access"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9696,8 +9696,8 @@
 /obj/machinery/door_control/no_emag{
 	id = "ASSAULT";
 	name = "Mech Storage";
-	req_access_txt = "114";
-	pixel_y = -24
+	pixel_y = -24;
+	req_access_txt = "114"
 	},
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
@@ -10008,9 +10008,9 @@
 /area/centcom/control)
 "MD" = (
 /obj/machinery/door/airlock/centcom{
+	hackProof = 1;
 	locked = 1;
-	name = "CentCom Auxiliary Announcement Closet (Steve)";
-	hackProof = 1
+	name = "CentCom Auxiliary Announcement Closet (Steve)"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -10100,9 +10100,9 @@
 /obj/machinery/door_control/no_emag{
 	id = "CCDOCK2";
 	name = "Special Operations Secondary Dock";
-	req_access_txt = "114";
+	pixel_x = 6;
 	pixel_y = -3;
-	pixel_x = 6
+	req_access_txt = "114"
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
@@ -10583,8 +10583,8 @@
 /obj/machinery/door_control/no_emag{
 	id = "CCDOCK2";
 	name = "Special Operations Secondary Dock";
-	req_access_txt = "114";
-	pixel_y = 24
+	pixel_y = 24;
+	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -11346,8 +11346,8 @@
 /area/centcom/control)
 "RW" = (
 /obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
-	name = "Privacy Shield";
-	id_tag = "specopsoffice"
+	id_tag = "specopsoffice";
+	name = "Privacy Shield"
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
@@ -12111,8 +12111,8 @@
 /area/centcom/specops)
 "VD" = (
 /obj/machinery/door/poddoor/multi_tile/impassable/two_tile_hor{
-	name = "Special Operations Secondary Dock";
-	id_tag = "CCDOCK2"
+	id_tag = "CCDOCK2";
+	name = "Special Operations Secondary Dock"
 	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
@@ -12532,8 +12532,8 @@
 /area/centcom/evac)
 "Xh" = (
 /obj/machinery/door/poddoor/multi_tile/impassable/two_tile_ver{
-	name = "Privacy Shield";
-	id_tag = "specopsoffice"
+	id_tag = "specopsoffice";
+	name = "Privacy Shield"
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
@@ -12808,8 +12808,8 @@
 /obj/machinery/door_control/no_emag{
 	id = "CCDOCK2";
 	name = "Special Operations Secondary Dock";
-	req_access_txt = "114";
-	pixel_y = -24
+	pixel_y = -24;
+	req_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

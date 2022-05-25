@@ -1,43 +1,43 @@
 //library category defines
 
 //General Categories
-#define LIB_CATEGORY_FICTION     "Fiction"
-#define LIB_CATEGORY_NONFICTION  "Non-Fiction"
-#define LIB_CATEGORY_RELIGION    "Religious"
-#define LIB_CATEGORY_FANTASY     "Fantasy"
-#define LIB_CATEGORY_HORROR      "Horror"
-#define LIB_CATEGORY_ROMANCE     "Romance"
-#define LIB_CATEGORY_MYSTERY     "Mystery"
-#define LIB_CATEGORY_ADVENTURE   "Adventure"
-#define LIB_CATEGORY_HISTORY     "History"
-#define LIB_CATEGORY_PHILOSOPHY  "Philosophy"
-#define LIB_CATEGORY_DRAMA       "Drama and Thriller"
+#define LIB_CATEGORY_FICTION     1
+#define LIB_CATEGORY_NONFICTION  2
+#define LIB_CATEGORY_RELIGION    3
+#define LIB_CATEGORY_FANTASY     4
+#define LIB_CATEGORY_HORROR      5
+#define LIB_CATEGORY_ROMANCE     6
+#define LIB_CATEGORY_MYSTERY     7
+#define LIB_CATEGORY_ADVENTURE   8
+#define LIB_CATEGORY_HISTORY     9
+#define LIB_CATEGORY_PHILOSOPHY  10
+#define LIB_CATEGORY_DRAMA       11
+#define LIB_CATEGORY_POETRY      12
 
 
 //Other Categories, ss13 related
-#define LIB_CATEGORY_EXPERIMENT  "Experiment Notes"
-#define LIB_CATEGORY_EXPERIMENT  "Legal Document"
-#define LIB_CATEGORY_BIOGRAPHY   "Biography"
-#define LIB_CATEGORY_GUIDE       "Guides and References"
-#define LIB_CATEGORY_PAPERWORK   "Paperwork"
-#define LIB_CATEGORY_COOKING     "Culinary Arts"
-#define LIB_CATEGORY_DESIGN      "Decor and Design"
-#define LIB_CATEGORY_COMBAT      "Martial Arts and Combat"
-#define LIB_CATEGORY_DRAMA       "Theatre"
-#define LIB_CATEGORY_EXPLORATION "Exploration"
+#define LIB_CATEGORY_EXPERIMENT  13
+#define LIB_CATEGORY_LEGAL       14
+#define LIB_CATEGORY_BIOGRAPHY   15
+#define LIB_CATEGORY_GUIDE       16
+#define LIB_CATEGORY_PAPERWORK   17
+#define LIB_CATEGORY_COOKING     18
+#define LIB_CATEGORY_DESIGN      19
+#define LIB_CATEGORY_COMBAT      20
+#define LIB_CATEGORY_THEATRE     21
+#define LIB_CATEGORY_EXPLORATION 22
 
 //Departmental
-#define LIB_CATEGORY_LAW         "Law"
-#define LIB_CATEGORY_SECURITY    "Security"
-#define LIB_CATEGORY_SUPPLY      "Cargo"
-#define LIB_CATEGORY_ENGINEERING "Engineering"
-#define LIB_CATEGORY_SERVICE     "Service"
-#define LIB_CATEGORY_MEDICAL     "Medical"
-#define LIB_CATEGORY_RESEARCH    "Science"
-#define LIB_CATEGORY_COMMAND     "Command"
+#define LIB_CATEGORY_LAW         23
+#define LIB_CATEGORY_SECURITY    24
+#define LIB_CATEGORY_SUPPLY      25
+#define LIB_CATEGORY_ENGINEERING 26
+#define LIB_CATEGORY_SERVICE     27
+#define LIB_CATEGORY_MEDICAL     28
+#define LIB_CATEGORY_RESEARCH    29
+#define LIB_CATEGORY_COMMAND     30
 
 //Library Report button defines
-
 #define LIB_REPORT_HATESPEECH    1
 #define LIB_REPORT_EROTICA		 2
 #define LIB_REPORT_OOC           3

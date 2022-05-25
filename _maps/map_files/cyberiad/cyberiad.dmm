@@ -2360,7 +2360,7 @@
 	name = "north bump";
 	pixel_y = 32
 	},
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -28931,7 +28931,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library,
 /turf/simulated/floor/wood,
 /area/library)
 "bqe" = (
@@ -29506,7 +29506,7 @@
 /area/library)
 "brx" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library,
 /turf/simulated/floor/wood,
 /area/library)
 "bry" = (
@@ -29531,7 +29531,6 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/obj/machinery/libraryscanner,
 /turf/simulated/floor/wood,
 /area/library)
 "brC" = (

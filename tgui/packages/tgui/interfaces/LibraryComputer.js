@@ -1,6 +1,6 @@
 import { useBackend, useLocalState } from '../backend';
 import { Fragment } from 'inferno';
-import { Box, Button, Flex, Icon, Input, LabeledList, Section, Table, Tabs } from '../components';
+import { Box, Button, Icon, LabeledList, Section, Table, Tabs} from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen, modalRegisterBodyOverride} from './common/ComplexModal';
 
@@ -23,7 +23,8 @@ const reportModalBodyOverride = (modal, context) => {
   const { act, data } = useBackend(context);
   const report_content = modal.args;
   const {
-    selected_report
+    selected_report,
+    report_categories,
   } = data;
 
   return (
@@ -32,14 +33,14 @@ const reportModalBodyOverride = (modal, context) => {
         <LabeledList.Item label="Title">{report_content.title}</LabeledList.Item>
         <LabeledList.Item label="Reasons">
             <Box>
-              {report_content
-                .map(report_content => (
-                <Fragment key={report_content.type}>
+              {report_categories
+                .map(report_categories => (
+                <Fragment key={report_categories.category_id}>
                   <Button
-                    content={report_content.description}
-                    selected = {report_content.type === selected_report}
-                    onClick={() => act('set_report', {
-                      report_type: report_content.type,
+                    content={report_categories.description}
+                    selected={report_categories.category_id === selected_report}
+                    onClick={() => act('select_report', {
+                      report_type: report_categories.category_id,
                     })}
                   />
                   <br />
@@ -48,6 +49,10 @@ const reportModalBodyOverride = (modal, context) => {
             </Box>
           </LabeledList.Item>
       </LabeledList>
+      <Button.Confirm bold
+        content="Submit Report"
+        onClick={() => act('submit_report')}
+      />
     </Section>
   );
 };
@@ -109,9 +114,82 @@ const LibraryPageContent = (props, context) => {
       return <UploadBooks />;
     case 3:
       return <PatronManager />;
+    case 4:
+        return <Inventory />;
     default:
       return "WE SHOULDN'T BE HERE!";
   }
+};
+
+const SearchTools = (properties, context) => {
+  const { act, data } = useBackend(context);
+
+  const {
+    searchcontent,
+    book_categories,
+  } = data;
+
+  return (
+      <Table>
+        <Table.Row bold>
+          <Table.Cell>
+            <Button
+             fluid
+             textAlign="left"
+             icon="pen"
+             width="auto"
+             content={searchcontent.title ? searchcontent.title : "Input Title"}
+             onClick={() => modalOpen(context, 'edit_search_title')} />
+          </Table.Cell>
+          <Table.Cell>
+            <Button
+             fluid
+             textAlign="left"
+             icon="pen"
+             width="auto"
+             content={searchcontent.author ? searchcontent.author : "Input Author"}
+             onClick={() => modalOpen(context, 'edit_search_author')} />
+          </Table.Cell>
+          <Table.Cell>
+            <Button
+             fluid
+             textAlign="left"
+             icon="pen"
+             width="auto"
+             content={searchcontent.author ? searchcontent.author : "Input Rating"}
+             onClick={() => modalOpen(context, 'edit_search_rating')} />
+          </Table.Cell>
+        </Table.Row>
+        <Table.Row bold>
+          <Table.Cell>
+            Select Categories:
+            {book_categories.filter(category => category.selected === 1)
+                .map(book_categories => (
+                <Button
+                    key={book_categories.category_id}
+                    content={book_categories.description}
+                    icon="plus"
+                    onClick={() => act('toggle_category', {
+                      category_id: book_categories.category_id,
+                    })}
+                  />
+              ))} <hr /> Selected Categories:
+            {book_categories.filter(category => category.selected === 2)
+              .map(book_categories => (
+              <Button
+                key={book_categories.category_id}
+                content={book_categories.description}
+                selected={book_categories.selected}
+                icon="unlink"
+                onClick={() => act('toggle_category', {
+                  category_id: book_categories.category_id,
+                })}
+              />
+            ))}
+          </Table.Cell>
+        </Table.Row>
+      </Table>
+  );
 };
 
 const LibraryBooksList = (properties, context) => {
@@ -120,11 +198,38 @@ const LibraryBooksList = (properties, context) => {
   const {
     external_booklist,
     archive_pagenumber,
+    num_pages,
   } = data;
 
   return (
-    <Section
-      title="Book System Access">
+    <Section title="Book System Access">
+      <SearchTools />
+      <div className="CameraConsole__toolbarRight">
+        <Button
+          icon="angle-double-left"
+            disabled={archive_pagenumber === 1}
+            onClick={() => act('deincrementpagemax')}
+          />
+        <Button
+          icon="chevron-left"
+            disabled={archive_pagenumber === 1}
+            onClick={() => act('deincrementpage')}
+          />
+          <Button bold
+            content={archive_pagenumber}
+            onClick={() => modalOpen('setpagenumber')}
+          />
+          <Button
+            icon="chevron-right"
+            disabled = {archive_pagenumber === num_pages}
+            onClick={() => act('incrementpage')}
+          />
+          <Button
+            icon="angle-double-right"
+            disabled={archive_pagenumber === num_pages}
+            onClick={() => act('incrementpagemax')}
+          />
+        </div>
       <Table className="LibraryBooks__list">
         <Table.Row bold>
           <Table.Cell>SSID</Table.Cell>
@@ -169,17 +274,6 @@ const LibraryBooksList = (properties, context) => {
             </Table.Row>
           ))}
       </Table>
-      <div className="CameraConsole__toolbarRight">
-          <Button
-            icon="chevron-left"
-            disabled={archive_pagenumber === 1}
-            onClick={() => act('deincrementpage')}
-          />
-          <Button
-            icon="chevron-right"
-            onClick={() => act('incrementpage')}
-          />
-        </div>
     </Section>
   );
 };
@@ -311,9 +405,7 @@ const PatronManager = (properties, context) => {
               <Table.Cell><Icon name="user-tag" /> {checkout_data.patron_name}</Table.Cell>
               <Table.Cell textAlign="left">{checkout_data.title}</Table.Cell>
               <Table.Cell>
-                {checkout_data.timeleft >= 0
-                  ? checkout_data.timeleft
-                  : "LATE"}
+                {checkout_data.timeleft >= 0 ? checkout_data.timeleft : "LATE"}
               </Table.Cell>
               <Table.Cell textAlign="left">
                 <Button
@@ -329,6 +421,52 @@ const PatronManager = (properties, context) => {
                   color="bad"
                   disabled={!checkout_data.allow_fine}
                   onClick={() => act('applyfine')}
+                />
+              </Table.Cell>
+            </Table.Row>
+          ))}
+      </Table>
+    </Section>
+  );
+};
+
+const Inventory = (properties, context) => {
+  const { act, data } = useBackend(context);
+
+  const {
+    inventory_list,
+  } = data;
+
+  return (
+    <Section
+      title="Corporate Book Catalog">
+      <Table className="LibraryBooks__list">
+        <Table.Row bold>
+          <Table.Cell>SSID</Table.Cell>
+          <Table.Cell>Title</Table.Cell>
+          <Table.Cell>Author</Table.Cell>
+          <Table.Cell textAlign="middle">Actions</Table.Cell>
+        </Table.Row>
+        {programmatic_booklist
+          .map(programmatic_booklist => (
+            <Table.Row
+              key={programmatic_booklist.id}>
+              <Table.Cell>{programmatic_booklist.id}</Table.Cell>
+              <Table.Cell textAlign="left"><Icon name="book" /> {programmatic_booklist.title}</Table.Cell>
+              <Table.Cell textAlign="left">{programmatic_booklist.author}</Table.Cell>
+              <Table.Cell textAlign="right">
+                <Button
+                  content="Order"
+                  icon="print"
+                  onClick={() => act('order_programmatic_book', {
+                    bookid: programmatic_booklist.id,
+                  })}
+                />
+                <Button
+                  content="More..."
+                  onClick={() => modalOpen(context, 'expand_info',{
+                    bookid: programmatic_booklist.id,
+                  })}
                 />
               </Table.Cell>
             </Table.Row>
