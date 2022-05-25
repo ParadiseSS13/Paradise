@@ -266,8 +266,6 @@
 	return TRUE
 
 /obj/machinery/door/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	if(!..())
-		return FALSE
 	var/isonshuttle = istype(get_area(src), /area/shuttle)
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
@@ -387,8 +385,6 @@
 	return FALSE
 
 /turf/simulated/wall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	if(!..())
-		return FALSE
 	var/isonshuttle = istype(loc, /area/shuttle)
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
@@ -403,19 +399,17 @@
 	return ..()
 
 /obj/structure/window/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	if(!..())
-		return FALSE
 	var/isonshuttle = istype(get_area(src), /area/shuttle)
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
 		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			S.target = null
-			return TRUE
+			return FALSE
 		else if(istype(A, /area/engine/supermatter))
 			to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
 			S.target = null
-			return TRUE
+			return FALSE
 	return ..()
 
 /obj/item/stack/cable_coil/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)//Wiring would be too effective as a resource
@@ -629,7 +623,7 @@
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
 			L.electrocute_act(100, src, 1, flags = SHOCK_NOGLOVES | SHOCK_ILLUSION)
 			if(isrobot(L) || ismachineperson(L))
-				L.Weaken(5)
+				L.Weaken(10 SECONDS)
 			qdel(src)
 	..()
 

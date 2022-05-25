@@ -21,18 +21,18 @@
 /obj/item/projectile/bullet/weakbullet/booze/on_hit(atom/target, blocked = 0)
 	if(..(target, blocked))
 		var/mob/living/M = target
-		M.AdjustDizzy(20)
-		M.AdjustSlur(20)
-		M.AdjustConfused(20)
-		M.AdjustEyeBlurry(20)
-		M.AdjustDrowsy(20)
+		M.AdjustDizzy(40 SECONDS)
+		M.AdjustSlur(40 SECONDS)
+		M.AdjustConfused(40 SECONDS)
+		M.AdjustEyeBlurry(40 SECONDS)
+		M.AdjustDrowsy(40 SECONDS)
 		for(var/datum/reagent/consumable/ethanol/A in M.reagents.reagent_list)
-			M.AdjustParalysis(2)
-			M.AdjustDizzy(10)
-			M.AdjustSlur(10)
-			M.AdjustConfused(10)
-			M.AdjustEyeBlurry(10)
-			M.AdjustDrowsy(10)
+			M.AdjustParalysis(4 SECONDS)
+			M.AdjustDizzy(20 SECONDS)
+			M.AdjustSlur(20 SECONDS)
+			M.AdjustConfused(20 SECONDS)
+			M.AdjustEyeBlurry(20 SECONDS)
+			M.AdjustDrowsy(20 SECONDS)
 			A.volume += 5 //Because we can
 
 /obj/item/projectile/bullet/weakbullet2
@@ -113,7 +113,7 @@
 /obj/item/projectile/bullet/pellet/assassination/on_hit(atom/target, blocked = 0)
 	if(..(target, blocked))
 		var/mob/living/M = target
-		M.AdjustSilence(2)	// HELP MIME KILLING ME IN MAINT
+		M.AdjustSilence(4 SECONDS)	// HELP MIME KILLING ME IN MAINT
 
 /obj/item/projectile/bullet/pellet/overload/on_hit(atom/target, blocked = 0)
  	..()
@@ -158,10 +158,9 @@
 /obj/item/projectile/bullet/stunshot //taser slugs for shotguns, nothing special
 	name = "stunshot"
 	damage = 5
-	stun = 5
-	weaken = 5
-	stutter = 5
-	jitter = 20
+	weaken = 10 SECONDS
+	stutter = 10 SECONDS
+	jitter = 40 SECONDS
 	range = 7
 	icon_state = "spark"
 	color = "#FFFF00"
@@ -186,8 +185,7 @@
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "dust"
 	damage = 30
-	stun = 1
-	weaken = 4
+	weaken = 8 SECONDS
 	hitsound = 'sound/effects/meteorimpact.ogg'
 
 /obj/item/projectile/bullet/meteorshot/on_hit(atom/target, blocked = 0)
@@ -211,7 +209,7 @@
 	if(special_effects)
 		if(iscarbon(target))
 			var/mob/living/carbon/M = target
-			M.Silence(10)
+			M.Silence(20 SECONDS)
 		else if(istype(target, /obj/mecha/combat/honker))
 			var/obj/mecha/chassis = target
 			chassis.occupant_message("A mimetech anti-honk bullet has hit \the [chassis]!")
@@ -278,7 +276,7 @@
 	icon_state = "neurotoxin"
 	damage = 5
 	damage_type = TOX
-	weaken = 5
+	weaken = 10 SECONDS
 
 /obj/item/projectile/bullet/neurotoxin/on_hit(atom/target, blocked = 0)
 	if(isalien(target))

@@ -96,7 +96,7 @@
 			add_attack_logs(user, C, "tail whipped")
 			if(user.restrained())
 				if(prob(50))
-					user.Weaken(5)
+					user.Weaken(10 SECONDS)
 					user.visible_message("<span class='danger'>[user] loses [user.p_their()] balance!</span>", "<span class='danger'>You lose your balance!</span>")
 					return
 			if(user.getStaminaLoss() >= 60) //Bit higher as you don't need to start, just would need to keep going with the tail lash.

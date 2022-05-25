@@ -21,9 +21,9 @@
 	var/powered = FALSE //if there's a cell in the defib with enough power for a revive, blocks paddles from reviving otherwise
 	var/obj/item/twohanded/shockpaddles/paddles
 	var/obj/item/stock_parts/cell/high/cell = null
-	var/safety = TRUE //if you can zap people with the defibs on harm mode
+	var/safety = TRUE //if this is FALSE you can zap people with the defibs on harm mode
 	var/combat = FALSE //can we revive through space suits?
-	var/heart_attack = FALSE //can it give instant heart attacks when zapped on harm intent with combat?
+	var/heart_attack = FALSE //if TRUE it always cause heart attacks if it is a combat defib.
 	base_icon_state = "defibpaddles"
 	var/obj/item/twohanded/shockpaddles/paddle_type = /obj/item/twohanded/shockpaddles
 
@@ -237,6 +237,7 @@
 	paddle_type = /obj/item/twohanded/shockpaddles/syndicate
 	combat = TRUE
 	safety = FALSE
+	heart_attack = TRUE
 
 /obj/item/defibrillator/compact/combat/loaded/Initialize(mapload)
 	. = ..()
@@ -251,7 +252,6 @@
 	paddle_type = /obj/item/twohanded/shockpaddles/advanced
 	combat = TRUE
 	safety = TRUE
-	heart_attack = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Objective item, better not have it destroyed.
 
 	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
@@ -374,10 +374,10 @@
 			H.visible_message("<span class='danger'>[user] has touched [H.name] with [src]!</span>", \
 					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")
 			H.adjustStaminaLoss(50)
-			H.Weaken(5)
+			H.Weaken(10 SECONDS)
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
-			if(!H.undergoing_cardiac_arrest() && (prob(10) || (defib.combat && !defib.heart_attack) || prob(10) && (defib.combat && defib.heart_attack))) // Your heart explodes.
+			if(!H.undergoing_cardiac_arrest() && (prob(10) || (defib.combat && defib.heart_attack) || prob(10) && (defib.combat))) // If the victim is not having a heart attack, and a 10% chance passes, or the defib has heart attack variable to TRUE while being a combat defib, or if another 10% chance passes with combat being TRUE
 				H.set_heartattack(TRUE)
 			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 			add_attack_logs(user, M, "Stunned with [src]")
@@ -471,7 +471,7 @@
 						user.visible_message("<span class='boldnotice'>[defib] pings: Resuscitation successful.</span>")
 						H.update_revive()
 						H.KnockOut()
-						H.Paralyse(5)
+						H.Paralyse(10 SECONDS)
 						H.emote("gasp")
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
@@ -540,7 +540,7 @@
 			H.visible_message("<span class='danger'>[user] has touched [H.name] with [src]!</span>", \
 					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")
 			H.adjustStaminaLoss(50)
-			H.Weaken(5)
+			H.Weaken(10 SECONDS)
 			if(!H.undergoing_cardiac_arrest() && prob(10)) // Your heart explodes.
 				H.set_heartattack(TRUE)
 			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
@@ -595,7 +595,7 @@
 						playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
 						H.update_revive(FALSE)
 						H.KnockOut(FALSE)
-						H.Paralyse(5)
+						H.Paralyse(10 SECONDS)
 						H.emote("gasp")
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))

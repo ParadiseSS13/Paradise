@@ -11,7 +11,7 @@
 	act = lowertext(act)
 	switch(act)
 		if("me")
-			if(silent)
+			if(HAS_TRAIT(src, TRAIT_MUTE))
 				return
 			if(src.client)
 				if(check_mute(client.ckey, MUTE_IC))
@@ -106,7 +106,7 @@
 			message = "<B>[src]</B> hisses softly."
 			m_type = 1
 		if("collapse")
-			Paralyse(2)
+			Paralyse(4 SECONDS)
 			message = text("<B>[]</B> collapses!", src)
 			m_type = 2
 		if("help")

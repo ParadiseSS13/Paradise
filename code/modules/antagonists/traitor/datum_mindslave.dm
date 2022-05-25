@@ -28,13 +28,9 @@
 		owner.som.serv -= owner
 		owner.som.leave_serv_hud(owner)
 	master = null
-	SSticker.mode.implanted[owner] = null
-	SSticker.mode.implanted -= owner
 	return ..()
 
 /datum/antagonist/mindslave/on_gain()
-	SSticker.mode.implanted[owner] = master
-
 	var/datum/mindslaves/slaved = master.som
 	if(!slaved) // If the master didn't already have this, we need to make a new mindslaves datum.
 		slaved = new
@@ -48,6 +44,13 @@
 	set_antag_hud(master.current, "hudmaster")
 	slaved.add_serv_hud(master, "master")
 	return ..()
+
+/datum/antagonist/mindslave/add_owner_to_gamemode()
+	SSticker.mode.implanted[owner] = master
+
+/datum/antagonist/mindslave/remove_owner_from_gamemode()
+	SSticker.mode.implanted[owner] = null
+	SSticker.mode.implanted -= owner
 
 /datum/antagonist/mindslave/give_objectives()
 	var/explanation_text = "Obey every order from and protect [master.current.real_name], the [master.assigned_role ? master.assigned_role : master.special_role]."
@@ -63,7 +66,8 @@
 							You must lay down your life to protect [master.current.p_them()] and assist in [master.current.p_their()] goals at any cost.</span>")
 
 /datum/antagonist/mindslave/farewell()
-	to_chat(owner.current, "<span class='biggerdanger'>You are no longer a mindslave of [master.current]!</span>")
+	if(owner && owner.current)
+		to_chat(owner.current, "<span class='biggerdanger'>You are no longer a mindslave of [master.current]!</span>")
 
 /datum/antagonist/mindslave/add_antag_hud(mob/living/antag_mob)
 	. = ..()

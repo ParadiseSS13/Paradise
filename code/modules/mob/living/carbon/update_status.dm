@@ -6,7 +6,7 @@
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 			return
-		if(paralysis || sleeping || (check_death_method() && getOxyLoss() > 50) || HAS_TRAIT(src, TRAIT_FAKEDEATH) || health <= HEALTH_THRESHOLD_CRIT && check_death_method())
+		if(IsParalyzed() || IsSleeping() || (check_death_method() && getOxyLoss() > 50) || HAS_TRAIT(src, TRAIT_FAKEDEATH) || health <= HEALTH_THRESHOLD_CRIT && check_death_method())
 			if(stat == CONSCIOUS)
 				KnockOut()
 				create_debug_log("fell unconscious, trigger reason: [reason]")

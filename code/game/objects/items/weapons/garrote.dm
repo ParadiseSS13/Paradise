@@ -89,12 +89,12 @@
 
 	if(G && istype(G))
 		if(improvised) // Improvised garrotes start you off with a passive grab, but keep you stunned like an agressive grab.
-			M.Stun(1)
+			M.Stun(2 SECONDS)
 		else
 			G.state = GRAB_NECK
 			G.hud.icon_state = "kill"
 			G.hud.name = "kill"
-			M.AdjustSilence(1)
+			M.AdjustSilence(2 SECONDS)
 
 	garrote_time = world.time + 10
 	START_PROCESSING(SSobj, src)
@@ -153,15 +153,15 @@
 		return
 
 	if(G.state < GRAB_NECK) // Only possible with improvised garrotes, essentially this will stun people as if they were aggressively grabbed. Allows for resisting out if you're quick, but not running away.
-		strangling.Stun(3)
+		strangling.Stun(6 SECONDS)
 
 	if(improvised)
-		strangling.stuttering = max(strangling.stuttering, 3)
+		strangling.Stuttering(6 SECONDS)
 		strangling.apply_damage(2, OXY, "head")
 		return
 
 
-	strangling.Silence(3) // Non-improvised effects
+	strangling.Silence(6 SECONDS) // Non-improvised effects
 	strangling.apply_damage(4, OXY, "head")
 
 

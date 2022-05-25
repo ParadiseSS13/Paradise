@@ -46,7 +46,7 @@
 	for(var/mob/living/carbon/C in range(T, 1))
 		if(C.can_breathe_gas())
 			C.emote("gasp")
-			C.AdjustLoseBreath(1)
+			C.AdjustLoseBreath(2 SECONDS)
 			C.reagents.add_reagent("toxin", 10)
 			C.reagents.add_reagent("neurotoxin2", 20)
 

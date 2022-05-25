@@ -110,7 +110,7 @@
 				master.emote("scream")
 				master.remove_status_effect(STATUS_EFFECT_HISGRACE)
 				flags &= ~NODROP
-				master.Weaken(3)
+				master.Weaken(6 SECONDS)
 				master.adjustBruteLoss(1000)
 				playsound(master, 'sound/effects/splat.ogg', 100, FALSE)
 			else

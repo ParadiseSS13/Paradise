@@ -522,12 +522,10 @@
 		return
 
 	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == MOVE_INTENT_RUN))
-		M.Stun(5)
-		M.Weaken(5)
+		M.Weaken(10 SECONDS)
 
 	else if(istype(M,/mob/living/carbon/human/))
-		M.Stun(2)
-		M.Weaken(2)
+		M.Weaken(4 SECONDS)
 
 
 	to_chat(M, "Gravity!")
