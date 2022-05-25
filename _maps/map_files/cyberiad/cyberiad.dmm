@@ -65659,23 +65659,6 @@
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
-"cNe" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/grille,
-/obj/structure/window/reinforced{
-	dir = 5;
-	max_integrity = 1e+007
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
-"cNf" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced{
-	dir = 5;
-	max_integrity = 1e+007
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
 "cNg" = (
 /obj/structure/sign/barsign,
 /turf/simulated/wall,
@@ -122031,7 +122014,7 @@ cJu
 cKw
 cJt
 cLZ
-cNe
+cAe
 daF
 dbe
 dbY
@@ -122545,7 +122528,7 @@ cJv
 cKA
 cJt
 cMc
-cNf
+cAe
 cep
 cyJ
 dce
@@ -122802,7 +122785,7 @@ cep
 cIj
 cKS
 cMb
-cNf
+cAe
 cep
 cyJ
 dcd
