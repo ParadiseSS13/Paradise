@@ -57,8 +57,8 @@
 	if(!signal || signal.encryption != code)
 		return
 
-	if(ismob(loc) && on)
-		var/mob/M = loc
+	if(isliving(loc) && on)
+		var/mob/living/M = loc
 		var/turf/T = M.loc
 		if(istype(T, /turf))
 			if(!M.moved_recently && M.last_move)
@@ -70,7 +70,7 @@
 		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
 		do_sparks(3, 1, M)
 
-		M.Weaken(5)
+		M.Weaken(10 SECONDS)
 
 	if(master)
 		master.receive_signal()

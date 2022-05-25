@@ -76,8 +76,10 @@
 		if(owner.restrained())
 			return FALSE
 	if(check_flags & AB_CHECK_STUNNED)
-		if(owner.stunned || owner.IsWeakened())
-			return FALSE
+		if(isliving(owner))
+			var/mob/living/L = owner
+			if(L.IsStunned() || L.IsWeakened())
+				return FALSE
 	if(check_flags & AB_CHECK_LYING)
 		if(owner.lying)
 			return FALSE

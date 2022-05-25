@@ -113,12 +113,12 @@
 			continue
 		new /obj/effect/temp_visual/blood_tendril(blood_turf)
 
-	addtimer(CALLBACK(src, .proc/apply_slowdown, T, area_of_affect, 3, user), 0.5 SECONDS)
+	addtimer(CALLBACK(src, .proc/apply_slowdown, T, area_of_affect, 6 SECONDS, user), 0.5 SECONDS)
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils/proc/apply_slowdown(turf/T, distance, slowed_amount, mob/user)
 	for(var/mob/living/L in range(distance, T))
 		if(L.affects_vampire(user))
-			L.AdjustSlowed(slowed_amount)
+			L.Slowed(slowed_amount)
 			L.visible_message("<span class='warning'>[L] gets ensared in blood tendrils, restricting [L.p_their()] movement!</span>")
 			new /obj/effect/temp_visual/blood_tendril/long(get_turf(L))
 
@@ -234,8 +234,8 @@
 		H.adjustBruteLoss(2)
 		owner.heal_overall_damage(8, 2, TRUE)
 		owner.adjustStaminaLoss(-15)
-		owner.AdjustStunned(-1)
-		owner.AdjustWeakened(-1)
+		owner.AdjustStunned(-2 SECONDS)
+		owner.AdjustWeakened(-2 SECONDS)
 		if(drain_amount == 10)
 			to_chat(H, "<span class='warning'>You feel your life force draining!</b></span>")
 
