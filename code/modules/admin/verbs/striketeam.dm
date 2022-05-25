@@ -50,8 +50,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	var/is_leader = TRUE // set to FALSE after leader is spawned
 
 	for(var/obj/effect/landmark/spawner/ds/L in GLOB.landmarks_list)
-
-		if(commando_number <= 0)
+		if(!commando_number)
 			break
 
 		if(!length(commando_ghosts))
