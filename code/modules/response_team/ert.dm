@@ -138,7 +138,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	if(role == "Cyborg")
 		var/mob/living/silicon/robot/ert/R = new GLOB.active_team.borg_path(spawn_location)
 		if(GLOB.active_team.cyborg_security_permitted)
-			R.force_modules = list("Security")
+			R.force_modules = list("Security", "Engineering", "Medical")
 		return R
 
 	var/mob/living/carbon/human/M = new(null)
