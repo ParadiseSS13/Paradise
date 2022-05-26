@@ -827,25 +827,15 @@ structure_check() searches for nearby cultist structures required for the invoca
 		visible_message("<span class='warning'>[src] loses its glow and dissipates!</span>")
 		qdel(src)
 
-/obj/effect/rune/manifest
+/obj/effect/rune/spirit
 	cultist_name = "Spirit Realm"
-	cultist_desc = "manifests a spirit servant of the Dark One and allows you to ascend as a spirit yourself. The invoker must not move from atop the rune, and will take damage for each summoned spirit."
+	cultist_desc = "Allows you to ascend into the spirit realm as a dark spirit."
 	invocation = "Gal'h'rfikk harfrandid mud'gib!" //how the fuck do you pronounce this
 	icon_state = "spirit_realm"
 	construct_invoke = FALSE
 	var/mob/dead/observer/ghost = null //The cult ghost of the user
-	var/default_ghost_limit = 4 //Lowered by the amount of cult objectives done
-	var/minimum_ghost_limit = 2 //But cant go lower than this
-	var/ghosts = 0
 
-/obj/effect/rune/manifest/examine(mob/user)
-	. = ..()
-	if(iscultist(user) || user.stat == DEAD)
-		. += "<b>Amount of ghosts summoned:</b><span class='cultitalic'> [ghosts]</span>"
-		. += "<b>Maximum amount of ghosts:</b><span class='cultitalic'> [clamp(default_ghost_limit - SSticker.mode.cult_objs.sacrifices_done, minimum_ghost_limit, default_ghost_limit)]</span>"
-		. += "Lowers to a minimum of [minimum_ghost_limit] for each objective accomplished."
-
-/obj/effect/rune/manifest/invoke(list/invokers)
+/obj/effect/rune/spirit/invoke(list/invokers)
 	. = ..()
 	var/mob/living/user = invokers[1]
 	var/turf/T = get_turf(src)
@@ -854,92 +844,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		log_game("Manifest rune failed - user not standing on rune")
 		return
-	if(user.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
-		to_chat(user, "<span class='cultitalic'>Ghosts can't summon more ghosts!</span>")
-		fail_invoke()
-		log_game("Manifest rune failed - user is a ghost")
-		return
+	ghostify(user, T)
 
-	var/choice = alert(user, "You tear open a connection to the spirit realm...", null, "Summon a Cult Ghost", "Ascend as a Dark Spirit", "Cancel")
-	if(choice == "Summon a Cult Ghost")
-		if(!is_station_level(z) || istype(get_area(src), /area/space))
-			to_chat(user, "<span class='cultitalic'>The veil is not weak enough here to manifest spirits, you must be on station!</span>")
-			fail_invoke()
-			log_game("Manifest rune failed - not on station")
-			return
-		if(user.health <= 40)
-			to_chat(user, "<span class='cultitalic'>Your body is too weak to manifest spirits, heal yourself first.</span>")
-			fail_invoke()
-			log_game("Manifest rune failed - not enough health")
-			return list()
-		if(ghosts >= clamp(default_ghost_limit - SSticker.mode.cult_objs.sacrifices_done, minimum_ghost_limit, default_ghost_limit))
-			to_chat(user, "<span class='cultitalic'>You are sustaining too many ghosts to summon more!</span>")
-			fail_invoke()
-			log_game("Manifest rune failed - too many summoned ghosts")
-			return list()
-		summon_ghosts(user, T)
-
-	else if(choice == "Ascend as a Dark Spirit")
-		ghostify(user, T)
-
-
-/obj/effect/rune/manifest/proc/summon_ghosts(mob/living/user, turf/T)
-	notify_ghosts("Manifest rune created in [get_area(src)].", ghost_sound = 'sound/effects/ghost2.ogg', source = src)
-	var/list/ghosts_on_rune = list()
-	for(var/mob/dead/observer/O in T)
-		if(O.client && !iscultist(O) && !jobban_isbanned(O, ROLE_CULTIST) && !O.has_enabled_antagHUD && !QDELETED(src) && !QDELETED(O))
-			ghosts_on_rune += O
-	if(!length(ghosts_on_rune))
-		to_chat(user, "<span class='cultitalic'>There are no spirits near [src]!</span>")
-		fail_invoke()
-		log_game("Manifest rune failed - no nearby ghosts")
-		return list()
-
-	var/mob/dead/observer/ghost_to_spawn = pick(ghosts_on_rune)
-	var/mob/living/carbon/human/new_human = new(T)
-	new_human.real_name = ghost_to_spawn.real_name
-	new_human.key = ghost_to_spawn.key
-	new_human.gender = ghost_to_spawn.gender
-	new_human.alpha = 150 //Makes them translucent
-	new_human.equipOutfit(/datum/outfit/ghost_cultist) //give them armor
-	new_human.apply_status_effect(STATUS_EFFECT_SUMMONEDGHOST) //ghosts can't summon more ghosts, also lets you see actual ghosts
-	for(var/obj/item/organ/external/current_organ in new_human.bodyparts)
-		current_organ.limb_flags |= CANNOT_DISMEMBER //you can't chop of the limbs of a ghost, silly
-	ghosts++
-	playsound(src, 'sound/misc/exit_blood.ogg', 50, TRUE)
-	user.visible_message("<span class='warning'>A cloud of red mist forms above [src], and from within steps... a [new_human.gender == FEMALE ? "wo" : ""]man.</span>",
-						"<span class='cultitalic'>Your blood begins flowing into [src]. You must remain in place and conscious to maintain the forms of those summoned. This will hurt you slowly but surely...</span>")
-
-	var/obj/machinery/shield/cult/weak/shield = new(T)
-	SSticker.mode.add_cultist(new_human.mind, 0)
-	to_chat(new_human, "<span class='cultlarge'>You are a servant of the [SSticker.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [SSticker.cultdat.entity_name], and you are to serve them at all costs.</span>")
-
-	while(!QDELETED(src) && !QDELETED(user) && !QDELETED(new_human) && (user in T))
-		if(new_human.InCritical())
-			to_chat(user, "<span class='cultitalic'>You feel your connection to [new_human.real_name] severs as they are destroyed.</span>")
-			if(ghost)
-				to_chat(ghost, "<span class='cultitalic'>You feel your connection to [new_human.real_name] severs as they are destroyed.</span>")
-			break
-		if(user.stat || user.health <= 40)
-			to_chat(user, "<span class='cultitalic'>Your body can no longer sustain the connection, and your link to the spirit realm fades.</span>")
-			if(ghost)
-				to_chat(ghost, "<span class='cultitalic'>Your body is damaged and your connection to the spirit realm weakens, any ghost you may have manifested are destroyed.</span>")
-			break
-		user.apply_damage(0.1, BRUTE)
-		user.apply_damage(0.1, BURN)
-		sleep(2) //Takes two pylons to sustain the damage taken by summoning one ghost
-
-	qdel(shield)
-	ghosts--
-	if(new_human)
-		new_human.visible_message("<span class='warning'>[new_human] suddenly dissolves into bones and ashes.</span>",
-								  "<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
-		for(var/obj/item/I in new_human.get_all_slots())
-			new_human.unEquip(I)
-		SSticker.mode.remove_cultist(new_human.mind, FALSE)
-		new_human.dust()
-
-/obj/effect/rune/manifest/proc/ghostify(mob/living/user, turf/T)
+/obj/effect/rune/spirit/proc/ghostify(mob/living/user, turf/T)
 	user.add_atom_colour(RUNE_COLOR_DARKRED, ADMIN_COLOUR_PRIORITY)
 	user.visible_message("<span class='warning'>[user] freezes statue-still, glowing an unearthly red.</span>",
 					"<span class='cult'>You see what lies beyond. All is revealed. In this form you find that your voice booms above all others.</span>")
@@ -970,6 +877,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		CM.Remove(ghost)
 		V.Remove(ghost)
 		//GM.Remove(ghost)
+	ghost = null
 	user.remove_atom_colour(ADMIN_COLOUR_PRIORITY, RUNE_COLOR_DARKRED)
 	user = null
 	rune_in_use = FALSE

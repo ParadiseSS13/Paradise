@@ -237,7 +237,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	var/constructs = 0
 	for(var/I in cult)
 		var/datum/mind/M = I
-		if(ishuman(M.current) && !M.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+		if(ishuman(M.current))
 			cultists++
 		else if(isconstruct(M.current))
 			constructs++
