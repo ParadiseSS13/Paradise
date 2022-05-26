@@ -180,17 +180,22 @@
 	if(mob.pulling)
 		prev_pulling_loc = mob.pulling.loc
 
-	. = mob.SelfMove(n, direct, delay) // The actual movement
+	if(!(direct & (direct - 1))) // cardinal direction
+		. = mob.SelfMove(n, direct, delay)
+	else // diagonal movements take twice as long
+		. = mob.SelfMove(n, direct, delay * 2)
+		if(mob.loc == n)
+			// only incur the extra delay if the move was *actually* diagonal
+			// There would be a bit of visual jank if we try to walk diagonally next to a wall
+			// and the move ends up being cardinal, rather than diagonal,
+			// but that's better than it being jank on every *successful* diagonal move.
+			delay = mob.movement_delay() * 2
+	move_delay += delay
 
 	if(prev_pulling_loc && mob.pulling?.face_while_pulling && (mob.pulling.loc != prev_pulling_loc))
 		mob.setDir(get_dir(mob, mob.pulling)) // Face welding tanks and stuff when pulling
 	else
 		mob.setDir(direct)
-
-	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
-		delay = mob.movement_delay() * 2 //Will prevent mob diagonal moves from smoothing accurately, sadly
-
-	move_delay += delay
 
 	for(var/obj/item/grab/G in mob)
 		if(G.state == GRAB_NECK)
