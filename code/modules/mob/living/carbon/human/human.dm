@@ -894,6 +894,10 @@
 		to_chat(user, "<span class='warning'>Unable to locate a record for this person.</span>")
 		return
 
+	if(found_record.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
+		to_chat(user, "<span class='warning'>Unable to modify the criminal status of a person with an active Execution order. Use a security computer instead.</span>")
+		return
+
 	var/static/list/possible_status = list(
 		SEC_RECORD_STATUS_NONE,
 		SEC_RECORD_STATUS_ARREST,
