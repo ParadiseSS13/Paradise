@@ -353,6 +353,9 @@
 #define BLOOD_LOSS_IN_SPREAD		20
 #define BLOOD_AMOUNT_PER_DECAL		20
 
+//Blood smears
+#define BLOOD_SPLATTER_ALPHA_SLIME 150
+
 //Bloody shoe blood states
 #define BLOOD_STATE_HUMAN			"blood"
 #define BLOOD_STATE_XENO			"xeno"
