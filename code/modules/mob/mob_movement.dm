@@ -189,7 +189,7 @@
 			// There would be a bit of visual jank if we try to walk diagonally next to a wall
 			// and the move ends up being cardinal, rather than diagonal,
 			// but that's better than it being jank on every *successful* diagonal move.
-			delay = mob.movement_delay() * 2
+			delay *= 2
 	move_delay += delay
 
 	if(prev_pulling_loc && mob.pulling?.face_while_pulling && (mob.pulling.loc != prev_pulling_loc))
