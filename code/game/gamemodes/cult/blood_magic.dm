@@ -292,7 +292,7 @@
 		if(!ishuman(target) || iscultist(target))
 			return
 		var/mob/living/carbon/human/H = target
-		H.hallucination = max(H.hallucination, 120)
+		H.Hallucinate(120 SECONDS)
 		attached_action.charges--
 		attached_action.desc = attached_action.base_desc
 		attached_action.desc += "<br><b><u>Has [attached_action.charges] use\s remaining</u></b>."
@@ -447,18 +447,17 @@
 	else
 		to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
 		// These are in life cycles, so double the time that's stated.
-		L.Weaken(5)
-		L.Stun(5)
+		L.Weaken(10 SECONDS)
 		L.flash_eyes(1, TRUE)
 		if(issilicon(target))
 			var/mob/living/silicon/S = L
 			S.emp_act(EMP_HEAVY)
 		else if(iscarbon(target))
 			var/mob/living/carbon/C = L
-			C.Silence(3)
-			C.Stuttering(8)
-			C.CultSlur(10)
-			C.Jitter(8)
+			C.Silence(6 SECONDS)
+			C.Stuttering(16 SECONDS)
+			C.CultSlur(20 SECONDS)
+			C.Jitter(16 SECONDS)
 	uses--
 	..()
 
@@ -558,7 +557,7 @@
 			if(!C.handcuffed)
 				C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult/used(C)
 				C.update_handcuffed()
-				C.Silence(6)
+				C.Silence(12 SECONDS)
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")
 				add_attack_logs(user, C, "shackled")
 				uses--
@@ -796,7 +795,7 @@
 				if(H.stat == DEAD)
 					to_chat(user, "<span class='warning'>[H.p_their(TRUE)] blood has stopped flowing, you'll have to find another way to extract it.</span>")
 					return
-				if(H.cultslurring)
+				if(H.AmountCultSlurring())
 					to_chat(user, "<span class='danger'>[H.p_their(TRUE)] blood has been tainted by an even stronger form of blood magic, it's no use to us like this!</span>")
 					return
 				if(H.dna && !(NO_BLOOD in H.dna.species.species_traits) && H.dna.species.exotic_blood == null)

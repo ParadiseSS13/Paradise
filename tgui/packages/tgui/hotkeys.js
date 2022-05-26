@@ -51,11 +51,7 @@ export const KEY_Z = 90;
 export const KEY_EQUAL = 187;
 export const KEY_MINUS = 189;
 
-const MODIFIER_KEYS = [
-  KEY_CTRL,
-  KEY_ALT,
-  KEY_SHIFT,
-];
+const MODIFIER_KEYS = [KEY_CTRL, KEY_ALT, KEY_SHIFT];
 
 const NO_PASSTHROUGH_KEYS = [
   KEY_ESCAPE,
@@ -82,8 +78,7 @@ const createHotkeyString = (ctrlKey, altKey, shiftKey, keyCode) => {
   }
   if (keyCode >= 48 && keyCode <= 90) {
     str += String.fromCharCode(keyCode);
-  }
-  else {
+  } else {
     str += '[' + keyCode + ']';
   }
   return str;
@@ -92,7 +87,7 @@ const createHotkeyString = (ctrlKey, altKey, shiftKey, keyCode) => {
 /**
  * Parses the event and compiles information about the keypress.
  */
-const getKeyData = e => {
+const getKeyData = (e) => {
   const keyCode = window.event ? e.which : e.keyCode;
   const { ctrlKey, altKey, shiftKey } = e;
   return {
@@ -156,13 +151,7 @@ const handleHotKey = (e, eventType, dispatch) => {
     return;
   }
   const keyData = getKeyData(e);
-  const {
-    ctrlKey,
-    altKey,
-    keyCode,
-    hasModifierKeys,
-    keyString,
-  } = keyData;
+  const { ctrlKey, altKey, keyCode, hasModifierKeys, keyString } = keyData;
   // Dispatch a detected hotkey as a store action
   if (hasModifierKeys && !MODIFIER_KEYS.includes(keyCode)) {
     logger.log(keyString);
@@ -172,9 +161,10 @@ const handleHotKey = (e, eventType, dispatch) => {
       // stack in order for this to be a fatal error.
       setTimeout(() => {
         throw new Error(
-          'OOPSIE WOOPSIE!! UwU We made a fucky wucky!! A wittle'
-          + ' fucko boingo! The code monkeys at our headquarters are'
-          + ' working VEWY HAWD to fix this!');
+          'OOPSIE WOOPSIE!! UwU We made a fucky wucky!! A wittle' +
+            ' fucko boingo! The code monkeys at our headquarters are' +
+            ' working VEWY HAWD to fix this!'
+        );
       });
     }
     dispatch({
@@ -189,7 +179,7 @@ const handleHotKey = (e, eventType, dispatch) => {
  * unfocused. Conveniently fires events when the browser window
  * is closed from the outside.
  */
-const subscribeToLossOfFocus = listenerFn => {
+const subscribeToLossOfFocus = (listenerFn) => {
   let timeout;
   document.addEventListener('focusout', () => {
     timeout = setTimeout(listenerFn);
@@ -203,13 +193,13 @@ const subscribeToLossOfFocus = listenerFn => {
 /**
  * Subscribe to keydown/keyup events with globally tracked key state.
  */
-const subscribeToKeyPresses = listenerFn => {
-  document.addEventListener('keydown', e => {
+const subscribeToKeyPresses = (listenerFn) => {
+  document.addEventListener('keydown', (e) => {
     const keyCode = window.event ? e.which : e.keyCode;
     listenerFn(e, 'keydown');
     keyState[keyCode] = true;
   });
-  document.addEventListener('keyup', e => {
+  document.addEventListener('keyup', (e) => {
     const keyCode = window.event ? e.which : e.keyCode;
     listenerFn(e, 'keyup');
     keyState[keyCode] = false;
@@ -217,7 +207,7 @@ const subscribeToKeyPresses = listenerFn => {
 };
 
 // Middleware
-export const hotKeyMiddleware = store => {
+export const hotKeyMiddleware = (store) => {
   const { dispatch } = store;
   // Subscribe to key events
   subscribeToKeyPresses((e, eventType) => {
@@ -236,7 +226,7 @@ export const hotKeyMiddleware = store => {
     });
   }
   // Pass through store actions (do nothing)
-  return next => action => next(action);
+  return (next) => (action) => next(action);
 };
 
 // Reducer

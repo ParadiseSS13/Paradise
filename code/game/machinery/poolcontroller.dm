@@ -122,15 +122,15 @@
 
 		if(drownee.stat == DEAD)	//Dead spacemen don't drown more
 			return
-		if(drownee.losebreath > 20)	//You've probably got bigger problems than drowning at this point, so we won't add to it until you get that under control.
+		if(drownee.AmountLoseBreath() > 40 SECONDS)	//You've probably got bigger problems than drowning at this point, so we won't add to it until you get that under control.
 			return
 
 		add_attack_logs(src, drownee, "Drowned", isLivingSSD(drownee) ? null : ATKLOG_ALL)
 		if(drownee.stat) //Mob is in critical.
-			drownee.AdjustLoseBreath(3, bound_lower = 0, bound_upper = 20)
+			drownee.AdjustLoseBreath(6 SECONDS, bound_lower = 0, bound_upper = 40 SECONDS)
 			drownee.visible_message("<span class='danger'>\The [drownee] appears to be drowning!</span>","<span class='userdanger'>You're quickly drowning!</span>") //inform them that they are fucked.
 		else
-			drownee.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 20)		//For every time you drown, you miss 2 breath attempts. Hope you catch on quick!
+			drownee.AdjustLoseBreath(4 SECONDS, bound_lower = 0, bound_upper = 40 SECONDS)		//For every time you drown, you miss 2 breath attempts. Hope you catch on quick!
 			if(prob(35)) //35% chance to tell them what is going on. They should probably figure it out before then.
 				drownee.visible_message("<span class='danger'>\The [drownee] flails, almost like [drownee.p_they()] [drownee.p_are()] drowning!</span>","<span class='userdanger'>You're lacking air!</span>") //*gasp* *gasp* *gasp* *gasp* *gasp*
 

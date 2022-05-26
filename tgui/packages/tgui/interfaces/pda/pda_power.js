@@ -1,4 +1,4 @@
-import { useBackend } from "../../backend";
+import { useBackend } from '../../backend';
 import { PowerMonitorMainContent } from '../PowerMonitor';
 
 export const pda_power = (props, context) => {

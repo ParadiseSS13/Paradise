@@ -26,7 +26,7 @@
 		))
 	var/drop_x = 1
 	var/drop_y = 1
-	var/drop_z = 1
+	var/drop_z = 2 // so that it doesn't send you to CC if something fucks up.
 
 /turf/simulated/floor/chasm/Entered(atom/movable/AM)
 	..()
@@ -120,7 +120,7 @@
 		AM.forceMove(T)
 		if(isliving(AM))
 			var/mob/living/L = AM
-			L.Weaken(5)
+			L.Weaken(10 SECONDS)
 			L.adjustBruteLoss(30)
 	falling_atoms -= AM
 
@@ -150,7 +150,7 @@
 	if(isliving(AM))
 		var/mob/living/L = AM
 		L.notransform = TRUE
-		L.Stun(200)
+		L.Stun(400 SECONDS)
 		L.resting = TRUE
 	var/oldtransform = AM.transform
 	var/oldcolor = AM.color
@@ -189,3 +189,10 @@
 
 /turf/simulated/floor/chasm/CanPass(atom/movable/mover, turf/target)
 	return 1
+
+/turf/simulated/floor/chasm/pride/Initialize(mapload)
+	. = ..()
+	drop_x = x
+	drop_y = y
+	var/list/target_z = levels_by_trait(SPAWN_RUINS)
+	drop_z = pick(target_z)

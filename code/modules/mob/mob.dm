@@ -92,7 +92,7 @@
 				if(type & 1 && !has_vision(information_only=TRUE))
 					return
 	// Added voice muffling for Issue 41.
-	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != DEAD))
+	if(stat == UNCONSCIOUS)
 		to_chat(src, "<I>... You can almost hear someone talking ...</I>")
 	else
 		to_chat(src, msg)
@@ -732,7 +732,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(stat)
 		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
 		return
-	
+
 	var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance.","Flavor Text",html_decode(flavor_text)) as message|null
 
 	if(msg != null)
@@ -1156,7 +1156,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return
 
 	//find a viable mouse candidate
-	var/list/found_vents = get_valid_vent_spawns(min_network_size = 0, station_levels_only = FALSE, z_level = z)
+	var/list/found_vents = get_valid_vent_spawns(min_network_size = 0)
 	if(length(found_vents))
 		var/obj/vent_found = pick(found_vents)
 		var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
