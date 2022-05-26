@@ -591,7 +591,6 @@
 	if(ishuman(A))
 		var/mob/living/carbon/human/H = A
 		if(R.id == H.dna.species.exotic_blood)
-			//this is the same formula from the species handle_reagent proc
 			H.blood_volume = min(H.blood_volume + round(R.volume * volume_modifier, 0.1), BLOOD_VOLUME_NORMAL)
 			del_reagent(R)
 			return TRUE
