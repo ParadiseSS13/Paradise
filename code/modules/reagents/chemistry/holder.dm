@@ -592,7 +592,7 @@
 		var/mob/living/carbon/human/H = A
 		if(R.id == H.dna.species.exotic_blood)
 			H.blood_volume = min(H.blood_volume + round(R.volume * volume_modifier, 0.1), BLOOD_VOLUME_NORMAL)
-			del_reagent(R)
+			del_reagent(R.id)
 			return TRUE
 	return FALSE
 
