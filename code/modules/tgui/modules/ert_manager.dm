@@ -8,6 +8,8 @@
 	var/janitor_slots = 0
 	var/paranormal_slots = 0
 	var/cyborg_slots = 0
+	/// The below is a toggle for if sec cyborgs are enabled or not
+	var/cyborg_security = FALSE
 
 /datum/ui_module/ert_manager/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -36,6 +38,7 @@
 	data["jan"] = janitor_slots
 	data["par"] = paranormal_slots
 	data["cyb"] = cyborg_slots
+	data["secborg"] = cyborg_security
 	data["total"] = commander_slots + security_slots + medical_slots + engineering_slots + janitor_slots + paranormal_slots + cyborg_slots
 	data["spawnpoints"] = GLOB.emergencyresponseteamspawn.len
 	return data
@@ -47,6 +50,8 @@
 	switch(action)
 		if("ert_type")
 			ert_type = params["ert_type"]
+			if(ert_type != "Red")
+				cyborg_security = FALSE
 		if("toggle_com")
 			commander_slots = commander_slots ? 0 : 1
 		if("set_sec")
@@ -61,6 +66,8 @@
 			paranormal_slots = text2num(params["set_par"])
 		if("set_cyb")
 			cyborg_slots = text2num(params["set_cyb"])
+		if("toggle_secborg")
+			cyborg_security = cyborg_security ? 0 : 1
 		if("dispatch_ert")
 			var/datum/response_team/D
 			switch(ert_type)
@@ -90,10 +97,10 @@
 			if(cyborg_slots > 0)
 				slots_list += "cyborg: [cyborg_slots]"
 			var/slot_text = english_list(slots_list)
-			notify_ghosts("An ERT is being dispatched. Open positions: [slot_text]")
+			notify_ghosts("an ERT is being dispatched. Type: [ert_type]. Open positions: [slot_text]")
 			message_admins("[key_name_admin(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]", 1)
 			log_admin("[key_name(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]")
 			GLOB.event_announcement.Announce("Attention, [station_name()]. We are attempting to assemble an ERT. Standby.", "ERT Protocol Activated")
-			trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
+			trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, cyborg_security)
 		else
 			return FALSE

@@ -127,6 +127,15 @@ export const ERTManager = (props, context) => {
                   }
                 />
               ))}
+              <Button
+                style={{
+                  'margin-left': '2px',
+                }}
+                disabled={data.ert_type !== 'Red'}
+                color={data.secborg ? 'red' : ''}
+                content={data.secborg > 0 ? 'Security' : 'Regular'}
+                onClick={() => act('toggle_secborg')}
+              />
             </LabeledList.Item>
             <LabeledList.Item label="Total Slots">
               <Box color={data.total > data.spawnpoints ? 'red' : 'green'}>
