@@ -76,7 +76,7 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/Initialize(timeofday)
 	setup_overlays() // Assign icons and such for gas-turf-overlays
 	icon_manager = new() // Sets up icon manager for pipes
-	if(active_turfs.len)
+	if(length(active_turfs))
 		log_debug("failed sanity check: active_turfs is not empty before initialization ([active_turfs.len])")
 	setup_allturfs()
 	setup_atmos_machinery(GLOB.machines)
