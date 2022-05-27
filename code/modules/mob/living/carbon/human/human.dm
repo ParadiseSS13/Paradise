@@ -705,45 +705,7 @@
 						U.detach_accessory(A, usr)
 
 	if(href_list["criminal"])
-		if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
-			if(usr.incapacitated())
-				return
-			var/found_record = 0
-			var/perpname = get_visible_name(TRUE)
-
-			if(perpname != "Unknown")
-				for(var/datum/data/record/E in GLOB.data_core.general)
-					if(E.fields["name"] == perpname)
-						for(var/datum/data/record/R in GLOB.data_core.security)
-							if(R.fields["id"] == E.fields["id"])
-
-								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED, "Cancel")
-								var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Security HUD", null, null) as text)), 1, MAX_MESSAGE_LEN)
-								if(!t1)
-									t1 = "(none)"
-
-								if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE) && setcriminal != "Cancel")
-									found_record = 1
-									if(R.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
-										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
-									else
-										var/rank
-										if(ishuman(usr))
-											var/mob/living/carbon/human/U = usr
-											rank = U.get_assignment()
-										else if(isrobot(usr))
-											var/mob/living/silicon/robot/U = usr
-											rank = "[U.modtype] [U.braintype]"
-										else if(isAI(usr))
-											rank = "AI"
-										set_criminal_status(usr, R, setcriminal, t1, rank)
-								break // Git out of the securiy records loop!
-						if(found_record)
-							break // Git out of the general records
-
-			if(!found_record)
-				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
-
+		try_set_criminal_status(usr)
 	if(href_list["secrecord"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
 			if(usr.incapacitated())
@@ -907,6 +869,69 @@
 		var/mob/M = locate(href_list["lookmob"])
 		src.examinate(M)
 	. = ..()
+
+/mob/living/carbon/human/proc/try_set_criminal_status(mob/user)
+	if(!hasHUD(user, EXAMINE_HUD_SECURITY_WRITE))
+		return
+	if(user.incapacitated())
+		return
+
+	var/perpname = get_visible_name(TRUE)
+	if(perpname == "Unknown")
+		to_chat(user, "<span class='warning'>Unable to locate a record for this person.</span>")
+		return
+
+	var/datum/data/record/found_record
+	outer:
+		for(var/datum/data/record/E in GLOB.data_core.general)
+			if(E.fields["name"] == perpname)
+				for(var/datum/data/record/R in GLOB.data_core.security)
+					if(R.fields["id"] == E.fields["id"])
+						found_record = R
+						break outer
+
+	if(!found_record)
+		to_chat(user, "<span class='warning'>Unable to locate a record for this person.</span>")
+		return
+
+	if(found_record.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
+		to_chat(user, "<span class='warning'>Unable to modify the criminal status of a person with an active Execution order. Use a security computer instead.</span>")
+		return
+
+	var/static/list/possible_status = list(
+		SEC_RECORD_STATUS_NONE,
+		SEC_RECORD_STATUS_ARREST,
+		SEC_RECORD_STATUS_SEARCH,
+		SEC_RECORD_STATUS_MONITOR,
+		SEC_RECORD_STATUS_DEMOTE,
+		SEC_RECORD_STATUS_INCARCERATED,
+		SEC_RECORD_STATUS_PAROLLED,
+		SEC_RECORD_STATUS_RELEASED,
+	)
+
+	var/new_status = input(user, "Set the new criminal status for [perpname].", "Security HUD", found_record.fields["criminal"]) as null|anything in possible_status
+	if(!new_status)
+		return
+
+	var/reason = copytext(trim(sanitize(input(user, "Enter reason:", "Security HUD") as text)), 1, MAX_MESSAGE_LEN)
+	if(!reason)
+		reason = "(none)"
+
+	if(!hasHUD(user, EXAMINE_HUD_SECURITY_WRITE))
+		return
+	if(found_record.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
+		to_chat(user, "<span class='warning'>Unable to modify the criminal status of a person with an active Execution order. Use a security computer instead.</span>")
+		return
+	var/rank
+	if(ishuman(user))
+		var/mob/living/carbon/human/U = user
+		rank = U.get_assignment()
+	else if(isrobot(user))
+		var/mob/living/silicon/robot/U = user
+		rank = "[U.modtype] [U.braintype]"
+	else if(isAI(user))
+		rank = "AI"
+	set_criminal_status(user, found_record, new_status, reason, rank)
 
 
 ///check_eye_prot()
