@@ -2715,9 +2715,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/security/main)
 "aqe" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -48408,7 +48406,9 @@
 	name = "\improper Departure Lounge"
 	})
 "cLB" = (
-/obj/structure/table,
+/obj/machinery/computer/rdconsole/experiment{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -81609,8 +81609,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "rwk" = (
-/obj/machinery/atmospherics/binary/pump{
-	on = 1;
+/obj/machinery/atmospherics/binary/pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
