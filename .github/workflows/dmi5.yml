@@ -5,7 +5,7 @@ on: pull_request_target
 jobs:
   check-dmi5:
     runs-on: ubuntu-latest
-    name: Checks all icons to make sure there are none in DMI5
+
     steps:
     - uses: ParadiseSS13/DMI5Checker@v1
       with:
