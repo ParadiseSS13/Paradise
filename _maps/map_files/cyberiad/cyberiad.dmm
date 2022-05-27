@@ -1660,8 +1660,8 @@
 /area/security/brig)
 "ahm" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/sop_security,
-/obj/item/book/manual/sop_legal,
+/obj/item/book/manual/wiki/sop_security,
+/obj/item/book/manual/wiki/sop_legal,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -3658,7 +3658,7 @@
 /obj/item/folder/red{
 	pixel_y = 3
 	},
-/obj/item/book/manual/sop_legal,
+/obj/item/book/manual/wiki/sop_legal,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -3911,7 +3911,7 @@
 /obj/item/folder/red{
 	pixel_y = 3
 	},
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/security/main)
@@ -4469,7 +4469,7 @@
 /obj/item/folder/red{
 	pixel_y = 3
 	},
-/obj/item/book/manual/sop_security,
+/obj/item/book/manual/wiki/sop_security,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
@@ -4574,7 +4574,7 @@
 /area/security/brig)
 "aok" = (
 /obj/structure/table,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -5097,7 +5097,7 @@
 /area/security/warden)
 "apf" = (
 /obj/structure/table,
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -5107,7 +5107,7 @@
 /area/security/warden)
 "apg" = (
 /obj/structure/table,
-/obj/item/book/manual/sop_legal,
+/obj/item/book/manual/wiki/sop_legal,
 /obj/item/paper/armory,
 /obj/item/clipboard,
 /turf/simulated/floor/plasteel{
@@ -9116,13 +9116,13 @@
 /area/space/nearstation)
 "axp" = (
 /obj/structure/bookcase,
-/obj/item/book/manual/sop_engineering,
-/obj/item/book/manual/sop_medical,
-/obj/item/book/manual/sop_security,
-/obj/item/book/manual/sop_service,
-/obj/item/book/manual/sop_supply,
-/obj/item/book/manual/sop_general,
-/obj/item/book/manual/sop_legal,
+/obj/item/book/manual/wiki/sop_engineering,
+/obj/item/book/manual/wiki/sop_medical,
+/obj/item/book/manual/wiki/sop_security,
+/obj/item/book/manual/wiki/sop_service,
+/obj/item/book/manual/wiki/sop_supply,
+/obj/item/book/manual/wiki/sop_general,
+/obj/item/book/manual/wiki/sop_legal,
 /obj/machinery/requests_console{
 	department = "Internal Affairs Office";
 	name = "Internal Affairs Requests Console";
@@ -11427,7 +11427,7 @@
 /area/maintenance/fore)
 "aCi" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/item/pen/multi/gold,
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
@@ -12853,7 +12853,7 @@
 /area/hallway/primary/fore)
 "aFB" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/item/clothing/glasses/sunglasses,
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
@@ -14224,7 +14224,7 @@
 /area/crew_quarters/courtroom)
 "aJe" = (
 /obj/structure/table,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -24393,13 +24393,13 @@
 /area/chapel/office)
 "bfY" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/sop_service,
+/obj/item/book/manual/wiki/sop_service,
 /turf/simulated/floor/wood,
 /area/library)
 "bfZ" = (
 /obj/structure/table/wood,
 /obj/structure/disposalpipe/segment,
-/obj/item/book/manual/sop_general,
+/obj/item/book/manual/wiki/sop_general,
 /turf/simulated/floor/wood,
 /area/library)
 "bga" = (
@@ -28590,7 +28590,7 @@
 /area/bridge)
 "bpu" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/sop_command,
+/obj/item/book/manual/wiki/sop_command,
 /obj/item/aicard,
 /obj/item/multitool,
 /turf/simulated/floor/plasteel{
@@ -30030,7 +30030,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/table,
-/obj/item/book/manual/sop_service,
+/obj/item/book/manual/wiki/sop_service,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -33829,7 +33829,7 @@
 /turf/simulated/floor/carpet,
 /area/bridge/meeting_room)
 "bBv" = (
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet,
 /area/bridge/meeting_room)
@@ -34578,7 +34578,7 @@
 /area/quartermaster/storage)
 "bDy" = (
 /obj/structure/table,
-/obj/item/book/manual/sop_general,
+/obj/item/book/manual/wiki/sop_general,
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
@@ -35453,10 +35453,10 @@
 /area/crew_quarters/captain)
 "bFL" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/item/coin/plasma,
-/obj/item/book/manual/sop_general,
-/obj/item/book/manual/sop_command,
+/obj/item/book/manual/wiki/sop_general,
+/obj/item/book/manual/wiki/sop_command,
 /obj/item/megaphone,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
@@ -35877,7 +35877,7 @@
 /area/medical/chemistry)
 "bGA" = (
 /obj/structure/table,
-/obj/item/book/manual/robotics_cyborgs{
+/obj/item/book/manual/wiki/robotics_cyborgs{
 	pixel_x = 2;
 	pixel_y = 5
 	},
@@ -37692,7 +37692,7 @@
 /obj/item/flash/synthetic,
 /obj/item/flash/synthetic,
 /obj/item/flash/synthetic,
-/obj/item/book/manual/sop_science{
+/obj/item/book/manual/wiki/sop_science{
 	pixel_y = -14
 	},
 /obj/item/flash/synthetic,
@@ -39380,7 +39380,7 @@
 /obj/item/pen,
 /obj/item/hand_labeler,
 /obj/structure/table/glass,
-/obj/item/book/manual/sop_science{
+/obj/item/book/manual/wiki/sop_science{
 	pixel_y = -14
 	},
 /turf/simulated/floor/plasteel/white,
@@ -40419,7 +40419,7 @@
 "bPE" = (
 /obj/structure/table/glass,
 /obj/item/pen/multi,
-/obj/item/book/manual/sop_science{
+/obj/item/book/manual/wiki/sop_science{
 	pixel_y = -14
 	},
 /obj/item/paper_bin/nanotrasen,
@@ -43269,7 +43269,7 @@
 	},
 /obj/item/folder/yellow,
 /obj/item/eftpos,
-/obj/item/book/manual/sop_supply,
+/obj/item/book/manual/wiki/sop_supply,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bVs" = (
@@ -44077,9 +44077,9 @@
 /obj/item/folder/blue,
 /obj/item/stamp/hop,
 /obj/item/eftpos,
-/obj/item/book/manual/sop_service,
-/obj/item/book/manual/sop_supply,
-/obj/item/book/manual/sop_command,
+/obj/item/book/manual/wiki/sop_service,
+/obj/item/book/manual/wiki/sop_supply,
+/obj/item/book/manual/wiki/sop_command,
 /obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
@@ -47248,15 +47248,15 @@
 	dir = 1
 	},
 /obj/structure/bookcase,
-/obj/item/book/manual/sop_engineering,
-/obj/item/book/manual/sop_medical,
-/obj/item/book/manual/sop_science,
-/obj/item/book/manual/sop_security,
-/obj/item/book/manual/sop_service,
-/obj/item/book/manual/sop_supply,
-/obj/item/book/manual/sop_general,
-/obj/item/book/manual/sop_legal,
-/obj/item/book/manual/sop_command,
+/obj/item/book/manual/wiki/sop_engineering,
+/obj/item/book/manual/wiki/sop_medical,
+/obj/item/book/manual/wiki/sop_science,
+/obj/item/book/manual/wiki/sop_security,
+/obj/item/book/manual/wiki/sop_service,
+/obj/item/book/manual/wiki/sop_supply,
+/obj/item/book/manual/wiki/sop_general,
+/obj/item/book/manual/wiki/sop_legal,
+/obj/item/book/manual/wiki/sop_command,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "ccM" = (
@@ -49474,7 +49474,7 @@
 /area/medical/medbreak)
 "chD" = (
 /obj/structure/table/glass,
-/obj/item/book/manual/sop_medical,
+/obj/item/book/manual/wiki/sop_medical,
 /obj/item/megaphone,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
@@ -53162,7 +53162,7 @@
 	pixel_y = 6
 	},
 /obj/item/paper/blueshield,
-/obj/item/book/manual/sop_command,
+/obj/item/book/manual/wiki/sop_command,
 /turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "cpg" = (
@@ -53633,7 +53633,7 @@
 "cpV" = (
 /obj/structure/table,
 /obj/item/clipboard,
-/obj/item/book/manual/experimentor,
+/obj/item/book/manual/wiki/experimentor,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -58822,7 +58822,7 @@
 	pixel_y = -24
 	},
 /obj/structure/table,
-/obj/item/book/manual/sop_engineering,
+/obj/item/book/manual/wiki/sop_engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -65137,7 +65137,7 @@
 	pixel_x = -2;
 	pixel_y = 4
 	},
-/obj/item/book/manual/sop_engineering,
+/obj/item/book/manual/wiki/sop_engineering,
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "cPa" = (
@@ -65480,7 +65480,7 @@
 /obj/structure/table,
 /obj/item/storage/box/monkeycubes,
 /obj/item/storage/box/monkeycubes,
-/obj/item/book/manual/sop_science,
+/obj/item/book/manual/wiki/sop_science,
 /turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology)
 "cPK" = (
@@ -67571,7 +67571,7 @@
 	pixel_y = 30
 	},
 /obj/structure/table,
-/obj/item/book/manual/engineering_guide,
+/obj/item/book/manual/wiki/engineering_guide,
 /obj/item/book/manual/engineering_particle_accelerator{
 	pixel_y = 6
 	},
@@ -67587,11 +67587,11 @@
 	pixel_y = 28
 	},
 /obj/structure/table,
-/obj/item/book/manual/engineering_hacking{
+/obj/item/book/manual/wiki/hacking{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/book/manual/engineering_construction,
+/obj/item/book/manual/wiki/engineering_construction,
 /obj/item/book/manual/supermatter_engine,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -73286,7 +73286,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/stack/packageWrap,
-/obj/item/book/manual/sop_service,
+/obj/item/book/manual/wiki/sop_service,
 /obj/item/pen/blue{
 	pixel_y = 4
 	},
@@ -76735,7 +76735,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/table/reinforced,
-/obj/item/book/manual/sop_engineering,
+/obj/item/book/manual/wiki/sop_engineering,
 /obj/item/folder/yellow,
 /obj/item/stamp/ce,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -78095,11 +78095,11 @@
 /area/engine/engineering)
 "jDf" = (
 /obj/structure/table,
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
-/obj/item/book/manual/sop_security,
+/obj/item/book/manual/wiki/sop_security,
 /obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"

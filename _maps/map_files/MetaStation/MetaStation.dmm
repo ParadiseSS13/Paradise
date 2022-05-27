@@ -864,7 +864,7 @@
 /area/security/permabrig)
 "adB" = (
 /obj/structure/table,
-/obj/item/book/manual/chef_recipes{
+/obj/item/book/manual/wiki/chef_recipes{
 	pixel_x = 2;
 	pixel_y = 6
 	},
@@ -3207,7 +3207,7 @@
 /obj/item/storage/secure/briefcase{
 	pixel_x = -2
 	},
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/item/cartridge/detective,
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -5838,7 +5838,7 @@
 "aoL" = (
 /obj/structure/table,
 /obj/item/folder/red,
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -6429,7 +6429,7 @@
 	icon_state = "right";
 	name = "windoor"
 	},
-/obj/item/book/manual/engineering_hacking,
+/obj/item/book/manual/wiki/hacking,
 /obj/item/tape/random,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
@@ -6681,7 +6681,7 @@
 /area/security/main)
 "arc" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -8576,7 +8576,7 @@
 /area/maintenance/starboard)
 "avD" = (
 /obj/structure/rack,
-/obj/item/book/manual/engineering_guide{
+/obj/item/book/manual/wiki/engineering_guide{
 	pixel_x = 3;
 	pixel_y = 4
 	},
@@ -8939,7 +8939,7 @@
 /obj/structure/table,
 /obj/item/folder/red,
 /obj/item/folder/red,
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -15488,7 +15488,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/item/camera{
 	desc = "A one use - polaroid camera. 30 photos left.";
 	name = "detective's camera";
@@ -18370,8 +18370,8 @@
 /area/storage/primary)
 "aRW" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/security_space_law,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/item/cartridge/lawyer,
 /obj/item/pen/multi,
 /obj/machinery/computer/security/telescreen{
@@ -21754,7 +21754,7 @@
 /area/crew_quarters/courtroom)
 "aZW" = (
 /obj/structure/table,
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -21763,11 +21763,11 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -25491,7 +25491,7 @@
 	})
 "biv" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -25791,7 +25791,7 @@
 /area/janitor)
 "bjb" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "neutral"
@@ -29629,14 +29629,14 @@
 /turf/simulated/floor/plasteel/dark,
 /area/turret_protected/ai)
 "brb" = (
-/obj/item/book/manual/engineering_hacking{
+/obj/item/book/manual/wiki/hacking{
 	pixel_x = 4;
 	pixel_y = 5
 	},
-/obj/item/book/manual/engineering_construction{
+/obj/item/book/manual/wiki/engineering_construction{
 	pixel_y = 3
 	},
-/obj/item/book/manual/engineering_guide{
+/obj/item/book/manual/wiki/engineering_guide{
 	pixel_x = -4
 	},
 /obj/structure/table/glass,
@@ -33598,7 +33598,7 @@
 	})
 "byC" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "Captain's Quarters APC";
@@ -36137,7 +36137,7 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -40919,7 +40919,7 @@
 	name = "\improper Mining Office"
 	})
 "bOh" = (
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -45502,7 +45502,7 @@
 /area/hallway/primary/central)
 "bYs" = (
 /obj/structure/table,
-/obj/item/book/manual/chef_recipes{
+/obj/item/book/manual/wiki/chef_recipes{
 	pixel_x = 2;
 	pixel_y = 6
 	},
@@ -51168,7 +51168,7 @@
 "cll" = (
 /obj/item/wrench,
 /obj/structure/table/glass,
-/obj/item/book/manual/sop_service{
+/obj/item/book/manual/wiki/sop_service{
 	pixel_x = 2;
 	pixel_y = 5
 	},
@@ -55059,7 +55059,7 @@
 "ctS" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/book/manual/experimentor,
+/obj/item/book/manual/wiki/experimentor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
@@ -62124,7 +62124,7 @@
 	pixel_y = 32
 	},
 /obj/structure/rack,
-/obj/item/book/manual/robotics_cyborgs{
+/obj/item/book/manual/wiki/robotics_cyborgs{
 	pixel_x = 2;
 	pixel_y = 5
 	},
@@ -68706,7 +68706,7 @@
 	c_tag = "Departure Lounge - Security Post";
 	dir = 1
 	},
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -4;
 	pixel_y = 4
 	},

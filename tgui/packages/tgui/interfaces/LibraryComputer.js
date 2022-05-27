@@ -1,20 +1,53 @@
 import { useBackend, useLocalState } from '../backend';
 import { Fragment } from 'inferno';
-import { Box, Button, Icon, LabeledList, Section, Table, Tabs} from '../components';
+import {
+  Box,
+  Button,
+  Dropdown,
+  Flex,
+  Icon,
+  LabeledList,
+  Section,
+  Table,
+  Tabs,
+  NoticeBox,} from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen, modalRegisterBodyOverride} from './common/ComplexModal';
+import { FlexItem } from '../components/Flex';
 
 const expandModalBodyOverride = (modal, context) => {
   const { act, data } = useBackend(context);
   const expandinfo = modal.args;
+
   return (
     <Section level={2} m="-1rem" pb="1rem">
       <LabeledList>
         <LabeledList.Item label="Title">{expandinfo.title}</LabeledList.Item>
         <LabeledList.Item label="Author">{expandinfo.author}</LabeledList.Item>
         <LabeledList.Item label="Summary">{expandinfo.summary}</LabeledList.Item>
-        <LabeledList.Item label="Rating">{expandinfo.rating}</LabeledList.Item>
+        <LabeledList.Item label="Rating">{expandinfo.rating}<Icon name="star" verticalAlign="middle"/></LabeledList.Item>
+        {!expandinfo.isProgrammatic &&
+        <LabeledList.Item label="Categories">{expandinfo.categories.join(", ")}</LabeledList.Item>}
       </LabeledList>
+      <br />
+      <Button
+        content="Report Book"
+        icon="flag"
+        color="bad"
+        disabled={expandinfo.isProgrammatic}
+        onClick={() => modalOpen(context, 'report_book',{
+          bookid: expandinfo.id,
+        })}
+      />
+      <Button
+        content="Rate Book"
+        icon="star"
+        color="caution"
+        disabled={expandinfo.isProgrammatic}
+        onClick={() =>  modalOpen(context, 'rate_info', {
+          bookid: expandinfo.id,
+        })}
+      />
     </Section>
   );
 };
@@ -25,6 +58,7 @@ const reportModalBodyOverride = (modal, context) => {
   const {
     selected_report,
     report_categories,
+    user_ckey,
   } = data;
 
   return (
@@ -39,7 +73,7 @@ const reportModalBodyOverride = (modal, context) => {
                   <Button
                     content={report_categories.description}
                     selected={report_categories.category_id === selected_report}
-                    onClick={() => act('select_report', {
+                    onClick={() => act('set_report', {
                       report_type: report_categories.category_id,
                     })}
                   />
@@ -50,16 +84,77 @@ const reportModalBodyOverride = (modal, context) => {
           </LabeledList.Item>
       </LabeledList>
       <Button.Confirm bold
+        icon="paper-plane"
         content="Submit Report"
-        onClick={() => act('submit_report')}
+        onClick={() => act('submit_report', {
+          bookid: report_content.id,
+          user_ckey: user_ckey,
+        })}
+      />
+    </Section>
+  );
+};
+
+const RatingTools = (properties, context) => {
+  const { act, data } = useBackend(context);
+
+  const {
+    selected_rating,
+  } = data;
+
+  let ratingVals = Array(10).fill().map((_, n) => 1 + n)
+  return (
+      <Fragment>
+        <Box bold margin-left="2em" fontSize="150%">{selected_rating + "/10"}<Icon name="star" verticalAlign="middle"/></Box>
+        <Flex>
+          {ratingVals.map(rating_num => (
+            <FlexItem key={rating_num}>
+              <Button key={rating_num}
+              bold
+              icon="star"
+              color={selected_rating >= rating_num ? "caution" : "default"}
+              onClick={() => act('set_rating',{
+                rating_value: rating_num,
+              })}
+              />
+            </FlexItem>
+          ))}
+        </Flex>
+      </Fragment>
+  );
+};
+
+const rateModalBodyOverride = (modal, context) => {
+  const { act, data } = useBackend(context);
+  const rate_content = modal.args;
+
+  const {
+    user_ckey,
+  } = data;
+  return (
+    <Section level={2} m="-1rem" pb="1rem">
+      <LabeledList>
+        <LabeledList.Item label="Title">{rate_content.title}</LabeledList.Item>
+        <LabeledList.Item label="Author">{rate_content.author}</LabeledList.Item>
+        <LabeledList.Item label="Rating">{rate_content.current_rating ? rate_content.current_rating : 0}<Icon name="star" verticalAlign="middle"/></LabeledList.Item>
+        <LabeledList.Item label="Total Ratings">{rate_content.number_ratings ? rate_content.number_ratings : 0}</LabeledList.Item>
+      </LabeledList>
+      <br />
+      <RatingTools/>
+      <br />
+      <Button.Confirm
+        content="Submit"
+        icon="paper-plane"
+        onClick={() => act('rate_book', {
+          bookid: rate_content.id,
+          user_ckey: user_ckey,
+        })}
       />
     </Section>
   );
 };
 
 export const LibraryComputer = (props, context) => {
-  const { act, data } = useBackend(context);
-
   return (
     <Window resizable>
       <ComplexModal/>
@@ -72,7 +167,11 @@ export const LibraryComputer = (props, context) => {
 };
 
 const LibraryComputerNavigation = (properties, context) => {
+  const { data } = useBackend(context);
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+  const {
+    login_state,
+  } = data
   return (
     <Tabs>
       <Tabs.Tab
@@ -93,11 +192,19 @@ const LibraryComputerNavigation = (properties, context) => {
         <Icon name="list" />
         Upload Book
       </Tabs.Tab>
+      {login_state &&
       <Tabs.Tab
         selected={3 === tabIndex}
         onClick={() => setTabIndex(3)}>
         <Icon name="list" />
         Patron Manager
+      </Tabs.Tab>
+      }
+      <Tabs.Tab
+        selected={4 === tabIndex}
+        onClick={() => setTabIndex(4)}>
+        <Icon name="list" />
+        Inventory
       </Tabs.Tab>
     </Tabs>
   );
@@ -115,7 +222,7 @@ const LibraryPageContent = (props, context) => {
     case 3:
       return <PatronManager />;
     case 4:
-        return <Inventory />;
+      return <Inventory />;
     default:
       return "WE SHOULDN'T BE HERE!";
   }
@@ -127,68 +234,130 @@ const SearchTools = (properties, context) => {
   const {
     searchcontent,
     book_categories,
+    user_ckey,
   } = data;
 
+  let categoryMap = []
+  {book_categories.map(category => (
+    categoryMap[category.description] = category.category_id
+  ))}
+
   return (
-      <Table>
-        <Table.Row bold>
-          <Table.Cell>
+    <Flex flex-direction="row">
+      <FlexItem width="40%">
+        <Box fontSize="1.2rem" bold>
+          <Icon
+            name="edit"
+            verticalAlign="middle"
+            size={1.5}
+            mr="1rem"
+          />
+          Search Inputs
+        </Box>
+        <LabeledList>
+          <LabeledList.Item label="Title">
             <Button
-             fluid
-             textAlign="left"
-             icon="pen"
-             width="auto"
-             content={searchcontent.title ? searchcontent.title : "Input Title"}
-             onClick={() => modalOpen(context, 'edit_search_title')} />
-          </Table.Cell>
-          <Table.Cell>
+              textAlign="left"
+              icon="pen"
+              width="auto"
+              content={searchcontent.title ? searchcontent.title : "Input Title"}
+              onClick={() => modalOpen(context, 'edit_search_title')} />
+          </LabeledList.Item>
+          <LabeledList.Item label="Author">
             <Button
-             fluid
-             textAlign="left"
-             icon="pen"
-             width="auto"
-             content={searchcontent.author ? searchcontent.author : "Input Author"}
-             onClick={() => modalOpen(context, 'edit_search_author')} />
-          </Table.Cell>
-          <Table.Cell>
-            <Button
-             fluid
-             textAlign="left"
-             icon="pen"
-             width="auto"
-             content={searchcontent.author ? searchcontent.author : "Input Rating"}
-             onClick={() => modalOpen(context, 'edit_search_rating')} />
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row bold>
-          <Table.Cell>
-            Select Categories:
-            {book_categories.filter(category => category.selected === 1)
-                .map(book_categories => (
+              textAlign="left"
+              icon="pen"
+              width="auto"
+              content={searchcontent.author ? searchcontent.author : "Input Author"}
+              onClick={() => modalOpen(context, 'edit_search_author')} />
+          </LabeledList.Item>
+          <LabeledList.Item label="Ratings">
+            <Flex>
+              <FlexItem>
                 <Button
-                    key={book_categories.category_id}
-                    content={book_categories.description}
-                    icon="plus"
-                    onClick={() => act('toggle_category', {
-                      category_id: book_categories.category_id,
-                    })}
-                  />
-              ))} <hr /> Selected Categories:
-            {book_categories.filter(category => category.selected === 2)
+                  margin-right=".4em"
+                  width="min-content"
+                  content={searchcontent.ratingmin}
+                  onClick={() => modalOpen(context, 'edit_search_ratingmin')} />
+              </FlexItem>
+              <FlexItem>&nbsp;&nbsp;To&nbsp;&nbsp;</FlexItem>
+              <FlexItem>
+                <Button
+                  margin-left=".4em"
+                  width="min-content"
+                  content={searchcontent.ratingmax}
+                  onClick={() => modalOpen(context, 'edit_search_ratingmax')} />
+              </FlexItem>
+            </Flex>
+          </LabeledList.Item>
+        </LabeledList>
+      </FlexItem>
+      <FlexItem width="40%">
+        <Box fontSize="1.2rem" bold>
+          <Icon
+            name="clipboard-list"
+            verticalAlign="middle"
+            size={1.5}
+            mr="1rem"
+          />
+          Book Categories
+        </Box>
+        <LabeledList>
+          <LabeledList.Item label="Select Categories">
+          <Dropdown
+              width="190px"
+              options={book_categories.map((c) => c.description)}
+              onSelected={(val) => act('toggle_search_category', {
+                category_id: categoryMap[val]
+              })} />
+          </LabeledList.Item>
+        </LabeledList>
+          <br />
+            {book_categories.filter(category => searchcontent.categories.includes(category.category_id))
               .map(book_categories => (
-              <Button
-                key={book_categories.category_id}
-                content={book_categories.description}
-                selected={book_categories.selected}
-                icon="unlink"
-                onClick={() => act('toggle_category', {
-                  category_id: book_categories.category_id,
-                })}
-              />
-            ))}
-          </Table.Cell>
-        </Table.Row>
-      </Table>
+                <Button
+                  key={book_categories.category_id}
+                  content={book_categories.description}
+                  selected
+                  icon="unlink"
+                  onClick={() => act('toggle_search_category', {
+                  category_id: book_categories.category_id
+                  })} />
+              ))}
+      </FlexItem>
+      <FlexItem>
+        <Box fontSize="1.2rem" bold>
+          <Icon
+            name="search-plus"
+            verticalAlign="middle"
+            size={1.5}
+            mr="1rem"
+          />
+          Search Actions
+        </Box>
+        <Button
+          content="Clear Search"
+          icon="eraser"
+          onClick={() => act('clear_search')}
+        />
+        {searchcontent.ckey
+         ? <Button
+              content="Stop Showing My Books"
+              color="bad"
+              icon="search"
+              onClick={() => act('clear_ckey_search')}
+          />
+         : <Button
+            content="Find My Books"
+            icon="search"
+            onClick={() => act('find_users_books', {
+              user_ckey: user_ckey,
+            })}
+          />
+        }
+
+      </FlexItem>
+    </Flex>
   );
 };
 
@@ -199,11 +368,12 @@ const LibraryBooksList = (properties, context) => {
     external_booklist,
     archive_pagenumber,
     num_pages,
+    login_state,
   } = data;
 
   return (
     <Section title="Book System Access">
-      <SearchTools />
+      <SearchTools /><hr />
       <div className="CameraConsole__toolbarRight">
         <Button
           icon="angle-double-left"
@@ -217,7 +387,7 @@ const LibraryBooksList = (properties, context) => {
           />
           <Button bold
             content={archive_pagenumber}
-            onClick={() => modalOpen('setpagenumber')}
+            onClick={() => modalOpen(context, 'setpagenumber')}
           />
           <Button
             icon="chevron-right"
@@ -230,7 +400,7 @@ const LibraryBooksList = (properties, context) => {
             onClick={() => act('incrementpagemax')}
           />
         </div>
-      <Table className="LibraryBooks__list">
+      <Table className="Library__Booklist">
         <Table.Row bold>
           <Table.Cell>SSID</Table.Cell>
           <Table.Cell>Title</Table.Cell>
@@ -244,19 +414,15 @@ const LibraryBooksList = (properties, context) => {
             <Table.Row
               key={external_booklist.id}>
               <Table.Cell>{external_booklist.id}</Table.Cell>
-              <Table.Cell textAlign="left"><Icon name="book" /> {external_booklist.title}</Table.Cell>
+              <Table.Cell textAlign="left"><Icon name="book" /> {external_booklist.title.length > 45
+                                                                ? external_booklist.title.substr(0,45) + "..."
+                                                                : external_booklist.title}
+              </Table.Cell>
               <Table.Cell textAlign="left">{external_booklist.author}</Table.Cell>
-              <Table.Cell>nil</Table.Cell>
-              <Table.Cell>{external_booklist.category}</Table.Cell>
+              <Table.Cell>{external_booklist.rating}<Icon name="star" verticalAlign="middle"/></Table.Cell>
+              <Table.Cell>{external_booklist.categories.join(", ").substr(0,45)}</Table.Cell>
               <Table.Cell textAlign="right">
-                <Button
-                  content="Report"
-                  icon="flag"
-                  color="bad"
-                  onClick={() => modalOpen(context, 'report_book',{
-                    bookid: external_booklist.id,
-                  })}
-                />
+                {login_state &&
                 <Button
                   content="Order"
                   icon="print"
@@ -264,6 +430,7 @@ const LibraryBooksList = (properties, context) => {
                     bookid: external_booklist.id,
                   })}
                 />
+                }
                 <Button
                   content="More..."
                   onClick={() => modalOpen(context, 'expand_info',{
@@ -283,12 +450,13 @@ const ProgramatticBooks = (properties, context) => {
 
   const {
     programmatic_booklist,
+    login_state,
   } = data;
 
   return (
     <Section
       title="Corporate Book Catalog">
-      <Table className="LibraryBooks__list">
+      <Table className="Library__Booklist">
         <Table.Row bold>
           <Table.Cell>SSID</Table.Cell>
           <Table.Cell>Title</Table.Cell>
@@ -303,6 +471,7 @@ const ProgramatticBooks = (properties, context) => {
               <Table.Cell textAlign="left"><Icon name="book" /> {programmatic_booklist.title}</Table.Cell>
               <Table.Cell textAlign="left">{programmatic_booklist.author}</Table.Cell>
               <Table.Cell textAlign="right">
+              {login_state &&
                 <Button
                   content="Order"
                   icon="print"
@@ -310,6 +479,7 @@ const ProgramatticBooks = (properties, context) => {
                     bookid: programmatic_booklist.id,
                   })}
                 />
+}
                 <Button
                   content="More..."
                   onClick={() => modalOpen(context, 'expand_info',{
@@ -328,54 +498,101 @@ const UploadBooks = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
     selectedbook,
+    book_categories,
+    user_ckey
   } = data;
 
+  let categoryMap = []
+  {book_categories.map(category => (
+    categoryMap[category.description] = category.category_id
+  ))}
+
   return (
-    <Section
-      title="Book System Upload">
+    <Section title="Book System Upload">
+      {selectedbook.copyright
+        ? <NoticeBox color="red">WARNING: You cannot upload or modify the attributes of a copyrighted book</NoticeBox>
+        : <br />
+      }
+
+      <Box fontSize="1.2rem" bold>
+          <Icon
+            name="search-plus"
+            verticalAlign="middle"
+            size={3}
+            mr="1rem"
+          />
+          Book Uploader
+      </Box>
+      <Flex>
+        <FlexItem>
       <LabeledList>
         <LabeledList.Item label="Title">
           <Button
-            fluid
             textAlign="left"
             icon="pen"
             width="auto"
             disabled={selectedbook.copyright}
             content={selectedbook.title}
-            onClick={() => modalOpen(context, 'edit_title')} />
+            onClick={() => modalOpen(context, 'edit_selected_title')} />
         </LabeledList.Item>
         <LabeledList.Item label="Author">
           <Button
-            fluid
             textAlign="left"
             icon="pen"
             width="auto"
             disabled={selectedbook.copyright}
             content={selectedbook.author}
-            onClick={() => modalOpen(context, 'edit_author')} />
+            onClick={() => modalOpen(context, 'edit_selected_author')} />
         </LabeledList.Item>
-        <LabeledList.Item label="Copyright">
-          {selectedbook.copyright}
-        </LabeledList.Item>
-        <LabeledList.Item label="Summary">
-          {selectedbook.summary}
+        <LabeledList.Item label="Select Categories">
+          <Dropdown
+              width="190px"
+              options={book_categories.map((c) => c.description)}
+              onSelected={(val) => act('toggle_upload_category', {
+                category_id: categoryMap[val]
+              })} />
+          </LabeledList.Item>
+        </LabeledList>
+          <br />
+            {book_categories.filter(category => selectedbook.categories.includes(category.category_id))
+              .map(book_categories => (
+                <Button
+                  key={book_categories.category_id}
+                  content={book_categories.description}
+                  disabled={selectedbook.copyright}
+                  selected
+                  icon="unlink"
+                  onClick={() => act('toggle_upload_category', {
+                  category_id: book_categories.category_id
+                  })} />
+              ))}
+      </FlexItem>
+      <FlexItem>
+        <LabeledList>
+      <LabeledList.Item label="Summary">
           <Button
-            fluid
-            textAlign="right"
             icon="pen"
             width="auto"
             disabled={selectedbook.copyright}
             content="Edit Summary"
-            onClick={() => modalOpen(context, 'edit_summary')} />
+            onClick={() => modalOpen(context, 'edit_selected_summary')} />
         </LabeledList.Item>
-      </LabeledList>
-      <Button
-        fluid
-        textAlign="center"
+        <LabeledList.Item>
+          {selectedbook.summary}
+        </LabeledList.Item>
+        </LabeledList>
+      </FlexItem>
+      </Flex>
+      <br />
+      <Button.Confirm bold
+        icon="upload"
         width="auto"
         disabled={selectedbook.copyright}
         content="Upload Book"
-        onClick={() => act('uploadbook')} />
+        onClick={() => act('uploadbook', {
+          user_ckey:user_ckey,
+        })} />
+
     </Section>
   );
 };
@@ -391,7 +608,7 @@ const PatronManager = (properties, context) => {
   return (
     <Section
       title="Checked Out Books">
-      <Table className="LibraryBooks__list">
+      <Table className="Library__Booklist">
         <Table.Row bold>
           <Table.Cell>Patron</Table.Cell>
           <Table.Cell>Title</Table.Cell>
@@ -412,8 +629,10 @@ const PatronManager = (properties, context) => {
                   content="Mark Lost"
                   icon="flag"
                   color="bad"
-                  disabled={!checkout_data.allow_fine}
-                  onClick={() => act('reportlost')}
+                  disabled={checkout_data.timeleft >= 0}
+                  onClick={() => act('reportlost', {
+                    libraryid:checkout_data.libraryid
+                  })}
                 />
                 <Button
                   content="Apply Fine"
@@ -439,36 +658,22 @@ const Inventory = (properties, context) => {
 
   return (
     <Section
-      title="Corporate Book Catalog">
-      <Table className="LibraryBooks__list">
+      title="Library Inventory">
+      <Table className="Library__Booklist">
         <Table.Row bold>
-          <Table.Cell>SSID</Table.Cell>
+          <Table.Cell>LIB ID</Table.Cell>
           <Table.Cell>Title</Table.Cell>
           <Table.Cell>Author</Table.Cell>
-          <Table.Cell textAlign="middle">Actions</Table.Cell>
+          <Table.Cell>Status</Table.Cell>
         </Table.Row>
-        {programmatic_booklist
-          .map(programmatic_booklist => (
+        {inventory_list
+          .map(inventory_list => (
             <Table.Row
-              key={programmatic_booklist.id}>
-              <Table.Cell>{programmatic_booklist.id}</Table.Cell>
-              <Table.Cell textAlign="left"><Icon name="book" /> {programmatic_booklist.title}</Table.Cell>
-              <Table.Cell textAlign="left">{programmatic_booklist.author}</Table.Cell>
-              <Table.Cell textAlign="right">
-                <Button
-                  content="Order"
-                  icon="print"
-                  onClick={() => act('order_programmatic_book', {
-                    bookid: programmatic_booklist.id,
-                  })}
-                />
-                <Button
-                  content="More..."
-                  onClick={() => modalOpen(context, 'expand_info',{
-                    bookid: programmatic_booklist.id,
-                  })}
-                />
-              </Table.Cell>
+              key={inventory_list.id}>
+              <Table.Cell>{inventory_list.libraryid}</Table.Cell>
+              <Table.Cell textAlign="left"><Icon name="book" /> {inventory_list.title}</Table.Cell>
+              <Table.Cell textAlign="left">{inventory_list.author}</Table.Cell>
+              <Table.Cell textAlign="left">{inventory_list.checked_out ? "Checked Out" : "Available"}</Table.Cell>
             </Table.Row>
           ))}
       </Table>
@@ -478,3 +683,4 @@ const Inventory = (properties, context) => {
 
 modalRegisterBodyOverride('expand_info', expandModalBodyOverride);
 modalRegisterBodyOverride('report_book', reportModalBodyOverride );
+modalRegisterBodyOverride('rate_info', rateModalBodyOverride);

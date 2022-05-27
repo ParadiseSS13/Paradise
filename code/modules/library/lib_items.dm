@@ -1,8 +1,12 @@
+#define BARCODE_MODE_SCAN_SELECT     1
+#define BARCODE_MODE_SCAN_INVENTORY  2
+#define BARCODE_MODE_CHECKOUT        3
+#define BARCODE_MODE_CHECKIN         4
 /* Library Items
  *
  * Contains:
  *		Bookcase
- *		Book
+ *		Book Binder
  *		Barcode Scanner
  */
 
@@ -14,26 +18,16 @@
 /obj/structure/bookcase
 	name = "bookcase"
 	icon = 'icons/obj/library.dmi'
-	icon_state = "book-0"
+	icon_state = "bookshelf-0"
 	anchored = 1
 	density = 1
 	opacity = 1
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
-	var/tmp/busy = 0
 	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/bible, /obj/item/tome) //Things allowed in the bookcase
 
-/obj/structure/bookcase/Initialize()
-	..()
-	for(var/obj/item/I in loc)
-		if(is_type_in_list(I, allowed_books))
-			I.forceMove(src)
-	update_icon()
-
-/obj/structure/bookcase/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(busy) //So that you can't mess with it while deconstructing
-		return TRUE
+/obj/structure/bookcase/attackby(obj/item/O, mob/user)
 	if(is_type_in_list(O, allowed_books))
 		if(!user.drop_item())
 			return
@@ -43,26 +37,10 @@
 	else if(istype(O, /obj/item/storage/bag/books))
 		var/obj/item/storage/bag/books/B = O
 		for(var/obj/item/T in B.contents)
-			if(istype(T, /obj/item/book) || istype(T, /obj/item/spellbook) || istype(T, /obj/item/tome) || istype(T, /obj/item/storage/bible))
+			if(is_type_in_list(T, allowed_books))
 				B.remove_from_storage(T, src)
 		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
 		update_icon()
-		return TRUE
-	else if(istype(O, /obj/item/wrench))
-		user.visible_message("<span class='warning'>[user] starts disassembling \the [src].</span>", \
-		"<span class='notice'>You start disassembling \the [src].</span>")
-		playsound(get_turf(src), O.usesound, 50, 1)
-		busy = TRUE
-
-		if(do_after(user, 50 * O.toolspeed, target = src))
-			playsound(get_turf(src), O.usesound, 75, 1)
-			user.visible_message("<span class='warning'>[user] disassembles \the [src].</span>", \
-			"<span class='notice'>You disassemble \the [src].</span>")
-			busy = FALSE
-			density = 0
-			deconstruct(TRUE)
-		else
-			busy = FALSE
 		return TRUE
 	else if(istype(O, /obj/item/pen))
 		rename_interactive(user, O)
@@ -71,10 +49,10 @@
 		return ..()
 
 /obj/structure/bookcase/attack_hand(mob/user as mob)
-	if(contents.len)
+	if(length(contents))
 		var/obj/item/book/choice = input("Which book would you like to remove from [src]?") as null|anything in contents
 		if(choice)
-			if(user.incapacitated() || user.lying || !Adjacent(user))
+			if(user.incapacitated() || !Adjacent(user))
 				return
 			if(!user.get_active_hand())
 				user.put_in_hands(choice)
@@ -90,11 +68,31 @@
 	qdel(src)
 
 /obj/structure/bookcase/update_icon()
-	if(contents.len < 5)
-		icon_state = "book-[contents.len]"
+	if(length(contents) < 5)
+		icon_state = "bookshelf-[length(contents)]"
 	else
-		icon_state = "book-5"
+		icon_state = "bookshelf-5"
 
+
+/obj/structure/bookcase/screwdriver_act(mob/user, obj/item/I)
+	if(flags & NODECONSTRUCT)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		return
+	TOOL_DISMANTLE_SUCCESS_MESSAGE
+	deconstruct(TRUE)
+
+/obj/structure/bookcase/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] [src].</span>")
 
 /obj/structure/bookcase/manuals/medical
 	name = "Medical Manuals bookcase"
@@ -110,12 +108,12 @@
 
 /obj/structure/bookcase/manuals/engineering/Initialize()
 	. = ..()
-	new /obj/item/book/manual/engineering_construction(src)
+	new /obj/item/book/manual/wiki/engineering_construction(src)
 	new /obj/item/book/manual/engineering_particle_accelerator(src)
-	new /obj/item/book/manual/engineering_hacking(src)
-	new /obj/item/book/manual/engineering_guide(src)
+	new /obj/item/book/manual/wiki/hacking(src)
+	new /obj/item/book/manual/wiki/engineering_guide(src)
 	new /obj/item/book/manual/engineering_singularity_safety(src)
-	new /obj/item/book/manual/robotics_cyborgs(src)
+	new /obj/item/book/manual/wiki/robotics_cyborgs(src)
 	update_icon()
 
 /obj/structure/bookcase/manuals/research_and_development
@@ -131,145 +129,202 @@
 
 /obj/structure/bookcase/sop/Initialize()
 	. = ..()
-	new /obj/item/book/manual/sop_command(src)
-	new /obj/item/book/manual/sop_engineering(src)
-	new /obj/item/book/manual/sop_general(src)
-	new /obj/item/book/manual/sop_legal(src)
-	new /obj/item/book/manual/sop_medical(src)
-	new /obj/item/book/manual/sop_science(src)
-	new /obj/item/book/manual/sop_security(src)
-	new /obj/item/book/manual/sop_service(src)
-	new /obj/item/book/manual/sop_supply(src)
+	new /obj/item/book/manual/wiki/sop_command(src)
+	new /obj/item/book/manual/wiki/sop_engineering(src)
+	new /obj/item/book/manual/wiki/sop_general(src)
+	new /obj/item/book/manual/wiki/sop_legal(src)
+	new /obj/item/book/manual/wiki/sop_medical(src)
+	new /obj/item/book/manual/wiki/sop_science(src)
+	new /obj/item/book/manual/wiki/sop_security(src)
+	new /obj/item/book/manual/wiki/sop_service(src)
+	new /obj/item/book/manual/wiki/sop_supply(src)
+	update_icon()
+
+/obj/structure/bookcase/random
+	var/category = null
+	var/book_count = 5
+	icon_state = "random_bookcase"
+	anchored = TRUE
+
+/obj/structure/bookcase/random/Initialize()
+	. = ..()
+	var/list/books = GLOB.library_catalog.getRandomBooks(book_count)
+	for(var/b in books)
+		var/datum/cachedbook/book = b
+		var/obj/item/book/B = new(src) //this really should be a constructor that accepts cachedbook datums at some point tbh
+		B.author = book.author
+		B.title = book.title
+		B.pages = book.content
+		B.summary = book.summary
+		B.categories = book.categories
+		B.copyright = TRUE
+		B.rating = book.rating
+		B.name = "Book: [book.title]"
+		B.icon_state =	"book[rand(1,8)]"
 	update_icon()
 
 /*
- * Book
+ * Book binder
  */
-/obj/item/book
-	name = "book"
+/obj/machinery/bookbinder
+	name = "Book Binder"
 	icon = 'icons/obj/library.dmi'
-	icon_state ="book"
-	throw_speed = 1
-	throw_range = 5
-	force = 2
-	w_class = WEIGHT_CLASS_NORMAL		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
-	attack_verb = list("bashed", "whacked")
-	resistance_flags = FLAMMABLE
-	drop_sound = 'sound/items/handling/book_drop.ogg'
-	pickup_sound =  'sound/items/handling/book_pickup.ogg'
+	icon_state = "binder"
+	anchored = 1
+	density = 1
 
-	var/title		 // The real name of the book.
-	var/dat			 // Actual page content
-	var/summary
-	var/author		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
-	var/rating       //Book Rating - Only Applicable to books that are printed from database
+	var/datum/cachedbook/selected_content = new()
+	var/printing = FALSE
 
-	///0 - Normal book, 1 - Special Book
-	var/unique = 0
-	///Prevents book from being uploaded - For all printed books
-	var/copyright = FALSE
+/obj/machinery/bookbinder/attack_ai(mob/user)
+	return attack_hand(user)
 
-	var/libraryid // Game time in 1/10th seconds
-	var/due_date
-
-	var/carved = FALSE	 // Has the book been hollowed out for use as a secret storage item?
-	var/obj/item/store	// What's in the book?
-	/// Book DRM. If this var is TRUE, it cannot be scanned and re-uploaded
-
-/obj/item/book/attack_self(mob/user as mob)
-	if(carved)
-		if(store)
-			to_chat(user, "<span class='notice'>[store] falls out of [title]!</span>")
-			store.forceMove(get_turf(loc))
-			store = null
-			return
-		else
-			to_chat(user, "<span class='notice'>The pages of [title] have been cut out!</span>")
-			return
-	if(src.dat)
-		user << browse("<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]", "window=book")
-		if(!isobserver(user))
-			user.visible_message("[user] opens a book titled \"[title]\" and begins reading intently.")
-		onclose(user, "book")
-	else
-		to_chat(user, "This book is completely blank!")
-
-/obj/item/book/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(carved)
-		if(!store)
-			if(W.w_class < WEIGHT_CLASS_NORMAL)
-				user.drop_item()
-				W.forceMove(src)
-				store = W
-				to_chat(user, "<span class='notice'>You put [W] in [title].</span>")
-				return
-			else
-				to_chat(user, "<span class='notice'>[W] won't fit in [title].</span>")
-				return
-		else
-			to_chat(user, "<span class='notice'>There's already something in [title]!</span>")
-			return
-	if(istype(W, /obj/item/pen))
-		if(unique)
-			to_chat(user, "These pages don't seem to take the ink well. Looks like you can't modify it.")
-			return
-		var/choice = input("What would you like to change?") in list("Title", "Contents", "Author", "Cancel")
-		switch(choice)
-			if("Title")
-				var/newtitle = reject_bad_text(stripped_input(usr, "Write a new title:"))
-				if(!newtitle)
-					to_chat(usr, "The title is invalid.")
-					return 1
-				else
-					src.name = newtitle
-					src.title = newtitle
-			if("Contents")
-				var/content = strip_html(input(usr, "Write your book's contents (HTML NOT allowed):") as message|null, MAX_BOOK_MESSAGE_LEN)
-				if(!content)
-					to_chat(usr, "The content is invalid.")
-					return 1
-				else
-					src.dat += content
-			if("Author")
-				var/newauthor = stripped_input(usr, "Write the author's name:")
-				if(!newauthor)
-					to_chat(usr, "The name is invalid.")
-					return 1
-				else
-					src.author = newauthor
-		return 1
-	else if(istype(W, /obj/item/barcodescanner))
-		var/obj/item/barcodescanner/scanner = W
-		scanner.scanBook(src, user)
+/obj/machinery/bookbinder/attack_hand(mob/user)
+	if(..())
 		return
-	else if(istype(W, /obj/item/kitchen/knife) && !carved)
-		carve_book(user, W)
+	ui_interact(user)
+
+/obj/machinery/bookbinder/attack_ghost(mob/user)
+	ui_interact(user)
+
+/obj/machinery/bookbinder/attackby(obj/item/I, mob/user)
+	if(default_unfasten_wrench(user, I))
+		power_change()
+		return
+	if(istype(I, /obj/item/paper))
+		select_paper(I)
+	if(istype(I, /obj/item/paper_bundle))
+		select_paper_stack(I)
+	if(istype(I, /obj/item/book))
+		select_book(I)
 	else
 		return ..()
 
-/obj/item/book/wirecutter_act(mob/user, obj/item/I)
-	return carve_book(user, I)
+/obj/machinery/bookbinder/proc/select_paper(obj/item/paper/P)
+	selected_content.title = P.name
+	selected_content.author = null
+	selected_content.content = list(P.info)
 
-/obj/item/book/attack(mob/M, mob/living/user)
-	if(user.a_intent == INTENT_HELP)
-		force = 0
-		attack_verb = list("educated")
-	else
-		force = initial(force)
-		attack_verb = list("bashed", "whacked")
-	..()
+/obj/machinery/bookbinder/proc/select_paper_stack(obj/item/paper_bundle/P)
+	selected_content.title = P.name
+	selected_content.author = null
+	selected_content.content = list()
+	for(var/obj/item/paper/I in P.contents)
+		selected_content += I.info
 
-/obj/item/book/proc/carve_book(mob/user, obj/item/I)
-	if(!I.sharp && I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
-		to_chat(user, "<span class='warning>You can't carve [title] using that!</span>")
+/obj/machinery/bookbinder/proc/select_book(obj/item/book/B)
+	if(!B || B.protected || B.carved)
 		return
-	if(carved)
+	selected_content.title = B.title
+	selected_content.author = B.author
+	selected_content.author = B.summary
+	selected_content.content = B.pages
+	selected_content.categories = B.categories
+
+/obj/machinery/bookbinder/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "BookBinder", name, 600, 400, master_ui, state)
+		ui.open()
+
+/obj/machinery/bookbinder/ui_data(mob/user)
+	var/list/data = list()
+
+	var/list/selected_book_data = list(
+		title = selected_content.title ? selected_content.title : "not specified",
+		author = selected_content.author ? selected_content.author : "not specified",
+		summary = selected_content.summary ? selected_content.summary : "no summary",
+		copyright = selected_content.copyright ? selected_content.copyright : FALSE,
+		categories = selected_content.categories,
+		)
+	data["selectedbook"] = selected_book_data
+	data["modal"] = ui_modal_data(src)
+	return data
+
+/obj/machinery/bookbinder/ui_static_data(mob/user)
+	var/list/static_data = list()
+
+	static_data["book_categories"] = list()
+	for(var/datum/library_category/category in GLOB.library_catalog.categories)
+		var/category_info = list(
+			"category_id" = category.category_id,
+			"description" = category.description,
+		)
+		static_data["book_categories"] += list(category_info)
+
+	return static_data
+
+/obj/machinery/bookbinder/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
 		return
-	to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
-	if(I.use_tool(src, user, 30, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You carve out the pages from [title]! You didn't want to read it anyway.</span>")
-		carved = TRUE
-		return TRUE
+
+	if(ui_act_modal(action, params))
+		return
+
+	switch(action)
+		if("print_book")
+			if(!printing)
+				print_book()
+			else
+				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+		if("toggle_binder_category")
+			if(text2num(params["category_id"]) in selected_content.categories)
+				selected_content.categories -= text2num(params["category_id"])
+			else
+				if(length(selected_content.categories) >= 3)
+					playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+					return
+				selected_content.categories += text2num(params["category_id"])
+	add_fingerprint(usr)
+
+/obj/machinery/bookbinder/proc/ui_act_modal(action, list/params)
+	. = TRUE
+	var/id = params["id"] // The modal's ID
+	var/list/arguments = istext(params["arguments"]) ? json_decode(params["arguments"]) : params["arguments"]
+	switch(ui_modal_act(src, action, params))
+		if(UI_MODAL_OPEN)
+			switch(id)
+				if("edit_selected_title")
+					ui_modal_input(src, id, "Please input the new title:", null, arguments, selected_content.title)
+				if("edit_selected_author")
+					ui_modal_input(src, id, "Please input the new author:", null, arguments, selected_content.author)
+				if("edit_selected_summary")
+					ui_modal_input(src, id, "Please input the new summary:", null, arguments, selected_content.summary)
+				else
+					return FALSE
+		if(UI_MODAL_ANSWER)
+			var/answer = params["answer"]
+			switch(id)
+				if("edit_selected_title")
+					if(length(answer) >= MAX_NAME_LEN)
+						return
+					selected_content.title = strip_html(answer)
+				if("edit_selected_author")
+					if(length(answer) >= MAX_NAME_LEN)
+						return
+					selected_content.author = strip_html(answer)
+				if("edit_selected_summary")
+					if(length(answer) >= MAX_SUMMARY_LEN)
+						return
+					selected_content.summary = strip_html(answer)
+				else
+					return FALSE
+		else
+			return FALSE
+
+/obj/machinery/bookbinder/proc/print_book()
+	printing = TRUE
+	visible_message("[src] begins to hum as it warms up its printing drums.")
+	sleep(150)
+	src.visible_message("[src] whirs as it prints and binds a new book.")
+	var/obj/item/book/b = new(loc)
+	b.pages = selected_content.content
+	b.title = selected_content.title
+	b.summary = selected_content.summary
+	b.categories = selected_content.categories
+	b.icon_state = "book[rand(1,16)]"
+	printing = FALSE
+
 /*
  * Barcode Scanner
  */
@@ -281,26 +336,26 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
+	var/list/modes = list(BARCODE_MODE_SCAN_SELECT, BARCODE_MODE_SCAN_INVENTORY, BARCODE_MODE_CHECKOUT, BARCODE_MODE_CHECKIN)
 	/// Associated Library Computer, needed to perform actions
 	var/obj/machinery/computer/library/computer
-	// 0 - Scan only, 1 - Attempt to Add to Inventory, 2 - Checkout Book, 3 - Check In Book
-	var/mode = 0
+	var/mode = BARCODE_MODE_SCAN_SELECT
 
 /obj/item/barcodescanner/attack_self(mob/user as mob)
 	if(!check_connection(user))
 		return
 	mode++
-	if(mode > 3)
-		mode = 0
+	if(mode > length(modes))
+		mode = modes[1]
 	var/modedesc
 	switch(mode)
-		if(0)
+		if(BARCODE_MODE_SCAN_SELECT)
 			modedesc = "Scan book to computer."
-		if(1)
+		if(BARCODE_MODE_SCAN_INVENTORY)
 			modedesc = "Scan book into to general inventory."
-		if(2)
+		if(BARCODE_MODE_CHECKOUT)
 			modedesc = "Checkout Book"
-		if(3)
+		if(BARCODE_MODE_CHECKIN)
 			modedesc = "Checkin Book"
 		else
 			modedesc = "ERROR"
@@ -312,19 +367,19 @@
 		return
 
 	if(ID.registered_name)
-		computer.patron_name = ID.registered_name
+		computer.user_data.patron_name = ID.registered_name
 	else
-		computer.patron_name = null
-		computer.patron_account = null //account number should reset every scan so we don't accidently have an account number but no name
+		computer.user_data.patron_name = null
+		computer.user_data.patron_account = null //account number should reset every scan so we don't accidently have an account number but no name
 		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 		to_chat(user, "[src]'s screen flashes: 'ERROR! No name associated with this ID Card'")
 		return //no point in continuing if the ID card has no associated name!
 
 	playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
 	if(ID.associated_account_number)
-		computer.patron_account = ID.associated_account_number
+		computer.user_data.patron_account = ID.associated_account_number
 	else
-		computer.patron_account = null
+		computer.user_data.patron_account = null
 		to_chat(user, "[src]'s screen flashes: 'WARNING! Patron without associated account number Selected'")
 		return
 
@@ -334,34 +389,34 @@
 	if(!check_connection(user))
 		return
 
-	switch(mode) // 0 - Scan only, 1 - Attempt to Add to Inventory, 2 - Checkout Book, 3 - Check In Book
-		if(0)
+	switch(mode)
+		if(BARCODE_MODE_SCAN_SELECT)
 			computer.select_book(B)
 			playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
 			to_chat(user, "[src]'s screen flashes: 'Book selected in library computer.'")
-		if(1)
+		if(BARCODE_MODE_SCAN_INVENTORY)
 			if(computer.inventoryAdd(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
 				to_chat(user, "[src]'s screen flashes: 'Title added to general inventory.'")
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 				to_chat(user, "[src]'s screen flashes: 'Title already in general inventory.'")
-		if(2)
+		if(BARCODE_MODE_CHECKOUT)
 			var/confirm
-			if(!computer.patron_account)
-				confirm = alert("Warning: patron does not have an associated account number! Are you sure you want to checkout [B] to [computer.patron_name]?", "Confirm Checkout", "Yes", "No")
+			if(!computer.user_data.patron_account)
+				confirm = alert("Warning: patron does not have an associated account number! Are you sure you want to checkout [B] to [computer.user_data.patron_name]?", "Confirm Checkout", "Yes", "No")
 			else
-				confirm = alert("Are you sure you want to checkout [B] to [computer.patron_name]?", "Confirm Checkout", "Yes", "No")
+				confirm = alert("Are you sure you want to checkout [B] to [computer.user_data.patron_name]?", "Confirm Checkout", "Yes", "No")
 
 			if(confirm == "No")
 				return
 			if(computer.checkout(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
-				to_chat(user, "[src]'s screen flashes: 'Title checked out to [computer.patron_name].'")
+				to_chat(user, "[src]'s screen flashes: 'Title checked out to [computer.user_data.patron_name].'")
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 				to_chat(user, "[src]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'")
-		if(3)
+		if(BARCODE_MODE_CHECKIN)
 			if(computer.checkin(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
 				to_chat(user, "[src]'s screen flashes: 'Title checked back into general inventory.'")

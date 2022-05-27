@@ -1254,7 +1254,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "nf" = (
-/obj/item/book/manual/chef_recipes{
+/obj/item/book/manual/wiki/chef_recipes{
 	pixel_x = 2;
 	pixel_y = 6
 	},

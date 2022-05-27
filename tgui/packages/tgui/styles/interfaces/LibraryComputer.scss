@@ -2,7 +2,7 @@
 @use '../colors.scss';
 @use '../functions.scss' as *;
 
-.LibraryBooks__list {
+.Library__Booklist {
   tr > td {
     text-align: center;
   }
@@ -10,7 +10,6 @@
   tr:not(:first-child) {
     height: 24px;
     line-height: 24px;
-    cursor: pointer;
 
     transition: background-color 50ms;
     &:hover, &:focus {
@@ -19,6 +18,12 @@
   }
 }
 
-.LibraryBooks__listRow--arrest {
-  background-color: colors.bg(#890e26);
+.Library__SearchContainer {
+
+  background-color: rgba(base.$color-bg, .5);
+  tr {
+    td:first-child {
+      width: 60%;
+    }
+  }
 }
