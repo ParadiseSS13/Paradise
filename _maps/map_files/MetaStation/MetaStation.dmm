@@ -23761,7 +23761,6 @@
 	name = "Arrivals"
 	})
 "buE" = (
-/obj/machinery/computer/supplycomp/public,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Bridge";
@@ -23780,6 +23779,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/computer/supplycomp,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -24525,7 +24525,7 @@
 	})
 "bvY" = (
 /obj/structure/window/reinforced,
-/obj/machinery/computer/supplycomp/public{
+/obj/machinery/computer/supplycomp{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
