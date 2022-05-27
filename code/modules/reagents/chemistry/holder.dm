@@ -571,11 +571,25 @@
 				var/check = reaction_check(A, R)
 				if(!check)
 					continue
+				if(handle_exotic_blood(A, R, method, volume_modifier))
+					continue
 				R.reaction_mob(A, method, R.volume * volume_modifier, show_message)
 			if("TURF")
 				R.reaction_turf(A, R.volume * volume_modifier, R.color)
 			if("OBJ")
 				R.reaction_obj(A, R.volume * volume_modifier)
+
+/datum/reagents/proc/handle_exotic_blood(atom/A, datum/reagent/R, method, volume_modifier)
+	if(!R || !method || method != REAGENT_INGEST)
+		return FALSE
+	if(ishuman(A))
+		var/mob/living/carbon/human/H = A
+		if(R.id == H.dna.species.exotic_blood)
+			H.blood_volume = min(H.blood_volume + round(R.volume * volume_modifier, 0.1), BLOOD_VOLUME_NORMAL)
+			del_reagent(R.id)
+			return TRUE
+	return FALSE
+
 
 /datum/reagents/proc/add_reagent_list(list/list_reagents, list/data = null) // Like add_reagent but you can enter a list. Format it like this: list("toxin" = 10, "beer" = 15)
 	for(var/r_id in list_reagents)
