@@ -146,6 +146,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/structure/extinguisher_cabinet{
+	name = "south bump";
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -18747,12 +18751,11 @@
 	},
 /area/crew_quarters/bar)
 "biX" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 27
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -19032,10 +19035,6 @@
 /area/storage/tech)
 "bjA" = (
 /obj/machinery/light,
-/obj/structure/extinguisher_cabinet{
-	name = "south bump";
-	pixel_y = -30
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -21651,11 +21650,13 @@
 	},
 /area/hallway/primary/port)
 "bpI" = (
-/obj/machinery/atm{
-	pixel_x = 32
+/obj/effect/turf_decal/tile/bar,
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 27
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
@@ -23311,10 +23312,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
 "btL" = (
-/obj/structure/extinguisher_cabinet{
-	name = "east bump";
-	pixel_x = 27
-	},
 /obj/structure/sign/double/map/right{
 	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
 	icon_state = "map-right-MS";
@@ -35070,15 +35067,11 @@
 /turf/space,
 /area/space/nearstation)
 "bXP" = (
-/obj/structure/extinguisher_cabinet{
-	name = "west bump";
-	pixel_x = -27
+/obj/item/chair/stool{
+	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/central)
+/turf/simulated/floor/plating,
+/area/maintenance/aft2)
 "bXQ" = (
 /obj/machinery/camera{
 	dir = 8;
@@ -40481,13 +40474,16 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cnh" = (
-/obj/structure/bookcase{
-	name = "Holy Bookcase"
+/obj/structure/disposalpipe/segment,
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "neutralcorner"
 	},
-/area/chapel/main)
+/area/hallway/primary/central)
 "cnj" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -46893,6 +46889,9 @@
 	},
 /area/medical/research)
 "cGA" = (
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "chapel"
@@ -47824,6 +47823,7 @@
 "cJz" = (
 /obj/structure/table,
 /obj/item/toy/figure/crew/geneticist,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "cJA" = (
@@ -57233,7 +57233,7 @@
 	id = "roboticsprivacy2";
 	req_access_txt = "29"
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/closet/secure_closet/roboticist,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -63414,10 +63414,6 @@
 /area/atmos/control)
 "ibQ" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/extinguisher_cabinet{
-	name = "east bump";
-	pixel_x = 27
-	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -63984,6 +63980,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
+"irg" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atm{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "isf" = (
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
@@ -70365,6 +70370,15 @@
 	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
+"lDI" = (
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 27
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "lEb" = (
 /obj/structure/closet/crate/hydroponics,
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
@@ -76156,10 +76170,6 @@
 /area/medical/chemistry)
 "oDj" = (
 /obj/structure/table,
-/obj/item/stack/sheet/metal,
-/obj/item/stack/sheet/glass,
-/obj/item/wrench,
-/obj/item/clothing/glasses/welding,
 /obj/effect/turf_decal/siding{
 	dir = 8
 	},
@@ -76173,6 +76183,10 @@
 	dir = 10;
 	network = list("Research","SS13")
 	},
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/wrench,
+/obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -81983,8 +81997,6 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "rDg" = (
-/obj/structure/table_frame,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -116819,7 +116831,7 @@ cRh
 cSO
 cZI
 cSO
-cnh
+cSO
 cwy
 cSO
 aaa
@@ -117256,15 +117268,15 @@ bfJ
 ibQ
 biX
 bhp
-bpI
 bhp
-bhp
+irg
+cnh
 brO
 bhp
 vNb
 biK
 bzR
-bdb
+lDI
 bqb
 bdb
 bdb
@@ -122968,7 +122980,7 @@ rDg
 cBO
 cFx
 cyV
-vZo
+bXP
 cJu
 cLl
 coG
@@ -126528,7 +126540,7 @@ bNp
 bSW
 bTW
 bVn
-bXP
+bNp
 bYr
 bbt
 bNp
@@ -127038,7 +127050,7 @@ bdc
 bdc
 bdc
 bwS
-bdc
+bpI
 lsQ
 kwt
 bdc
