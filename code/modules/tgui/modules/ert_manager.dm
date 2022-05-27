@@ -14,7 +14,7 @@
 /datum/ui_module/ert_manager/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ERTManager", name, 350, 430, master_ui, state)
+		ui = new(user, src, ui_key, "ERTManager", name, 350, 470, master_ui, state)
 		ui.autoupdate = TRUE
 		ui.open()
 
@@ -66,8 +66,10 @@
 			paranormal_slots = text2num(params["set_par"])
 		if("set_cyb")
 			cyborg_slots = text2num(params["set_cyb"])
+			if(!cyborg_slots)
+				cyborg_security = FALSE
 		if("toggle_secborg")
-			cyborg_security = cyborg_security ? 0 : 1
+			cyborg_security = cyborg_security ? FALSE : TRUE
 		if("dispatch_ert")
 			var/datum/response_team/D
 			switch(ert_type)
