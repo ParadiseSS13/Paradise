@@ -84,7 +84,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 			if(donator_level > 0)
 				if((prefs.toggles & PREFTOGGLE_DONATOR_PUBLIC))
-					var/icon/donator = icon('icons/ooc_tag_16x.dmi', "donator")
+					var/icon/donator = icon('icons/ooc_tag_16x.png')
 					display_name = "[bicon(donator)][display_name]"
 
 			if(holder)
@@ -131,7 +131,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 	if(!check_rights(R_SERVER))	return
 
-	GLOB.normal_ooc_colour = DEFAULT_PLAYER_OOC_COLOUR 
+	GLOB.normal_ooc_colour = DEFAULT_PLAYER_OOC_COLOUR
 	message_admins("[key_name_admin(usr)] has reset the default player OOC color")
 	log_admin("[key_name(usr)] has reset the default player OOC color")
 
