@@ -134,7 +134,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	// Everyone who said yes was afk
 	GLOB.active_team.cannot_send_team()
 
-/client/proc/create_response_team(new_gender, role, turf/spawn_location, secborg_permitted)
+/client/proc/create_response_team(new_gender, role, turf/spawn_location)
 	if(role == "Cyborg")
 		var/mob/living/silicon/robot/ert/R = new GLOB.active_team.borg_path(spawn_location)
 		if(GLOB.active_team.cyborg_security_permitted)
