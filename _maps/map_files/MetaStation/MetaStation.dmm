@@ -80211,10 +80211,10 @@
 /area/toxins/test_chamber)
 "qIk" = (
 /obj/structure/window/reinforced,
-/obj/machinery/computer/supplycomp{
+/obj/machinery/door/firedoor,
+/obj/machinery/computer/supplycomp/public{
 	dir = 1
 	},
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "qIB" = (
