@@ -284,6 +284,7 @@
 
 /obj/screen/parallax_layer/random/asteroids
 	icon_state = "asteroids"
+	layer = 4
 
 /obj/screen/parallax_layer/planet
 	icon_state = "planet"
