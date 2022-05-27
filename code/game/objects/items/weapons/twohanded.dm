@@ -252,11 +252,12 @@
 	. = ..()
 	if(wielded && charge == max_charge)
 		if(isliving(M))
+			var/mob/living/target = M
 			charge = 0
 			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
 			user.visible_message("<span class='danger'>[user] slams the charged axe into [M.name] with all [user.p_their()] might!</span>")
 			do_sparks(1, 1, src)
-			M.Weaken(4)
+			target.Weaken(8 SECONDS)
 			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
 			M.throw_at(throw_target, 5, 1)
 
@@ -615,7 +616,7 @@
 		icon_state = "chainsaw0"
 	..()
 
-/obj/item/twohanded/chainsaw/attack(mob/target, mob/living/user)
+/obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user)
 	if(wielded)
 		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
 		if(isrobot(target))
@@ -624,7 +625,7 @@
 		if(!isliving(target))
 			return
 		else
-			target.Weaken(4)
+			target.Weaken(8 SECONDS)
 			..()
 		return
 	else
@@ -695,7 +696,7 @@
 				var/obj/item/clothing/shoes/magboots/M = H.shoes
 				if(M.magpulse)
 					continue
-			H.Weaken(2)
+			H.Weaken(4 SECONDS)
 			step_towards(H, pull)
 			step_towards(H, pull)
 			step_towards(H, pull)
@@ -736,21 +737,20 @@
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, 200, 4)
 
-/obj/item/twohanded/mjollnir/attack(mob/M, mob/user)
+/obj/item/twohanded/mjollnir/attack(mob/living/M, mob/user)
 	..()
 	if(wielded)
 		//if(charged == 5)
 		//charged = 0
 		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		if(isliving(M))
-			M.Stun(3)
-			shock(M)
+		M.Stun(6 SECONDS)
+		shock(M)
 
 /obj/item/twohanded/mjollnir/throw_impact(atom/target)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		L.Stun(3)
+		L.Stun(6 SECONDS)
 		shock(L)
 
 /obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.

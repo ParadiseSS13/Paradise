@@ -48,7 +48,7 @@
 		if(!user.mind || !user.mind.isholy)
 			user.adjustBruteLoss(force)
 			user.adjustFireLoss(sanctify_force)
-			user.Weaken(5)
+			user.Weaken(10 SECONDS)
 			user.unEquip(src, 1)
 			user.visible_message("<span class='warning'>[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!</span>", \
 			"<span class='warning'>[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!</span>")
@@ -325,28 +325,6 @@
 	sharp = TRUE
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "honked")
 
-/obj/item/nullrod/whip
-	name = "holy whip"
-	desc = "A whip, blessed with the power to banish evil shadowy creatures. What a terrible night to be in spess."
-	icon_state = "chain"
-	item_state = "chain"
-	slot_flags = SLOT_BELT
-	attack_verb = list("whipped", "lashed")
-	hitsound = 'sound/weapons/slash.ogg'
-
-/obj/item/nullrod/whip/New()
-	..()
-	desc = "What a terrible night to be on the [station_name()]."
-
-/obj/item/nullrod/whip/afterattack(atom/movable/AM, mob/user, proximity)
-	if(!proximity)
-		return
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
-		if(is_shadow(H))
-			var/phrase = pick("Die monster! You don't belong in this world!!!", "You steal men's souls and make them your slaves!!!", "Your words are as empty as your soul!!!", "Mankind ill needs a savior such as you!!!")
-			user.say("[phrase]")
-			H.adjustBruteLoss(12) //Bonus damage
 
 /obj/item/nullrod/fedora
 	name = "binary fedora"
@@ -537,7 +515,7 @@
 		if(src == holder.l_hand || src == holder.r_hand)
 			for(var/mob/living/carbon/human/H in range(5, loc))
 				if(H.mind.assigned_role == "Clown")
-					H.Silence(10)
+					H.Silence(20 SECONDS)
 					animate_fade_grayscale(H,20)
 					if(prob(10))
 						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your honk!</span>")

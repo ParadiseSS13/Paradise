@@ -21,9 +21,8 @@
 			return
 
 	user.do_attack_animation(M)
-	M.Weaken(5)
-	M.apply_effect(STUTTER, 5)
-	M.Stun(5)
+	M.Weaken(10 SECONDS)
+	M.apply_effect(STUTTER, 10 SECONDS)
 
 	M.visible_message("<span class='danger'>[user] has prodded [M] with [src]!</span>", \
 					"<span class='userdanger'>[user] has prodded you with [src]!</span>")

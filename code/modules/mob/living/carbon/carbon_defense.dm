@@ -60,11 +60,10 @@
 				visible_message("<span class='danger'>[M] has shocked [src]!</span>", "<span class='userdanger'>[M] has shocked you!</span>")
 
 				do_sparks(5, TRUE, src)
-				var/power = M.powerlevel + rand(0,3)
+				var/power = (M.powerlevel + rand(0,3)) STATUS_EFFECT_CONSTANT
 				Stun(power)
-				if(stuttering < power)
-					stuttering = power
-				if (prob(stunprob) && M.powerlevel >= 8)
+				Stuttering(power)
+				if(prob(stunprob) && M.powerlevel >= 8)
 					adjustFireLoss(M.powerlevel * rand(6,10))
 					updatehealth("slime attack")
 		return 1

@@ -28,22 +28,11 @@
 		var/datum/mind/player_mind = new /datum/mind(key_of_revenant)
 		player_mind.active = 1
 		var/list/spawn_locs = list()
-		for(var/thing in GLOB.landmarks_list)
-			var/obj/effect/landmark/L = thing
-			if(isturf(L.loc))
-				switch(L.name)
-					if("revenantspawn")
-						spawn_locs += L.loc
-		if(!spawn_locs) //If we can't find any revenant spawns, try the carp spawns
-			for(var/thing in GLOB.landmarks_list)
-				var/obj/effect/landmark/L = thing
-				if(isturf(L.loc))
-					switch(L.name)
-						if("carpspawn")
-							spawn_locs += L.loc
-		if(!spawn_locs) //If we can't find either, just spawn the revenant at the player's location
+		for(var/obj/effect/landmark/spawner/rev/R in GLOB.landmarks_list)
+			spawn_locs += get_turf(R)
+		if(!spawn_locs) //If we can't find a good place, just spawn the revenant at the player's location
 			spawn_locs += get_turf(player_mind.current)
-		if(!spawn_locs) //If we can't find THAT, then just retry
+		if(!spawn_locs) //If we can't find THAT, then give up
 			kill()
 			return
 		var/mob/living/simple_animal/revenant/revvie = new /mob/living/simple_animal/revenant/(pick(spawn_locs))

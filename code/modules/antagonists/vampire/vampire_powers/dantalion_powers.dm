@@ -71,7 +71,7 @@
 	H.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall(user.mind, greet_text))
 	if(jobban_isbanned(H, ROLE_VAMPIRE))
 		SSticker.mode.replace_jobbanned_player(H, SPECIAL_ROLE_VAMPIRE_THRALL)
-	H.Stun(2)
+	H.Stun(4 SECONDS)
 	user.create_log(CONVERSION_LOG, "vampire enthralled", H)
 	H.create_log(CONVERSION_LOG, "was vampire enthralled", user)
 
@@ -118,9 +118,9 @@
 	var/title = isvampirethrall(user) ? "Thrall" : "<b>Vampire Master</b>" // if admins give this to a non vampire/thrall it is not my problem
 	var/message = "[user.real_name] ([title]): [input]"
 	for(var/mob/M in targets)
-		to_chat(M, "<span class='shadowling'>[message]</span>")
+		to_chat(M, "<span class='dantalion'>[message]</span>")
 	for(var/mob/M in GLOB.dead_mob_list)
-		to_chat(M, "<span class='shadowling'>([ghost_follow_link(user, ghost=M)]): [message] </span>")
+		to_chat(M, "<span class='dantalion'>([ghost_follow_link(user, ghost=M)]): [message] </span>")
 	log_say("(DANTALION) [input]", user)
 	user.create_log(SAY_LOG, "(DANTALION) [input]")
 

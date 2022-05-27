@@ -142,3 +142,9 @@
 
 #define EMP_HEAVY 1
 #define EMP_LIGHT 2
+
+/*
+* converts life cycle values into deciseconds. try and avoid usage of this.
+* this is needed as many functions for stun durations used to output cycles as values, but we now track stun times in deciseconds.
+*/
+#define STATUS_EFFECT_CONSTANT * 20

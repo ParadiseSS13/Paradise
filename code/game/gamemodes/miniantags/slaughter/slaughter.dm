@@ -157,7 +157,7 @@
 /obj/effect/proc_holder/spell/sense_victims/cast(list/targets, mob/user)
 	var/mob/living/victim = targets[1]
 	to_chat(victim, "<span class='userdanger'>You feel an awful sense of being watched...</span>")
-	victim.Stun(3) //HUE
+	victim.Stun(6 SECONDS) //HUE
 	var/area/A = get_area(victim)
 	if(!A)
 		to_chat(user, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
