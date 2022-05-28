@@ -155,7 +155,7 @@
 #undef BLOOD_GAINED_MODIFIER
 
 /**
- * Remove the vampire's current subclass and the specified one.
+ * Remove the vampire's current subclass and add the specified one.
  *
  * Arguments:
  * * new_subclass_type - a [/datum/vampire_subclass] typepath

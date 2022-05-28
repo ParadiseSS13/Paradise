@@ -9,7 +9,7 @@
 	var/improved_rejuv_healing = FALSE
 	/// maximun number of thralls a vampire may have at a time. incremented as they grow stronger, up to a cap at full power.
 	var/thrall_cap = 1
-	/// If true, lets the vampire have access to their full power abilities without needing a certain number of drained humans.
+	/// If true, lets the vampire have access to their full power abilities without meeting the blood requirement, or needing a certain number of drained humans.
 	var/full_power_override = FALSE
 
 /datum/vampire_subclass/proc/add_subclass_ability(datum/antagonist/vampire/vamp)
