@@ -182,8 +182,8 @@
 
 	if(!(direct & (direct - 1))) // cardinal direction
 		. = mob.SelfMove(n, direct, delay)
-	else // diagonal movements take twice as long
-		var/diag_delay = delay * 1.412
+	else // diagonal movements take longer
+		var/diag_delay = delay * SQRT_2
 		. = mob.SelfMove(n, direct, diag_delay)
 		if(mob.loc == n)
 			// only incur the extra delay if the move was *actually* diagonal
