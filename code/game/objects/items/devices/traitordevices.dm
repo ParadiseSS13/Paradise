@@ -40,7 +40,7 @@
 		spawn((wavelength+(intensity*4))*10)
 			if(M)
 				if(intensity >= 5)
-					M.apply_effect(round(intensity/1.5), PARALYZE)
+					M.Paralyse(intensity * 40/3)
 				M.rad_act(intensity * 10)
 	else
 		to_chat(user, "<span class='warning'>The radioactive microlaser is still recharging.</span>")
@@ -292,8 +292,7 @@
 /obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)
 	for(var/mob/living/M in fragging_location)//Hit everything in the turf
 		M.apply_damage(20, BRUTE)
-		M.Stun(3)
-		M.Weaken(3)
+		M.Weaken(6 SECONDS)
 		to_chat(M, "<span_class='warning'>[user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
 
 /obj/item/paper/teleporter

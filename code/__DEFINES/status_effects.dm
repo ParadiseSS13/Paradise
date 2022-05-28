@@ -46,13 +46,7 @@
 // DEBUFFS //
 /////////////
 
-//#define STATUS_EFFECT_STUN /datum/status_effect/incapacitating/stun //the affected is stunned
-
 //#define STATUS_EFFECT_KNOCKDOWN /datum/status_effect/incapacitating/knockdown //the affected is knocked down
-
-//#define STATUS_EFFECT_UNCONSCIOUS /datum/status_effect/incapacitating/unconscious //the affected is unconscious
-
-//#define STATUS_EFFECT_SLEEPING /datum/status_effect/incapacitating/sleeping //the affected is asleep
 
 //#define STATUS_EFFECT_BELLIGERENT /datum/status_effect/belligerent //forces the affected to walk, doing damage if they try to run
 
@@ -86,6 +80,31 @@
 
 /// If a moth is in a cocoon
 #define STATUS_EFFECT_COCOONED /datum/status_effect/cocooned
+
+//human status effects
+// incapacitating
+#define STATUS_EFFECT_STUN /datum/status_effect/incapacitating/stun
+#define STATUS_EFFECT_WEAKENED /datum/status_effect/incapacitating/weakened
+#define STATUS_EFFECT_IMMOBILIZED /datum/status_effect/incapacitating/immobilized
+#define STATUS_EFFECT_SLEEPING /datum/status_effect/incapacitating/sleeping
+#define STATUS_EFFECT_SLOWED /datum/status_effect/incapacitating/slowed
+#define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
+
+// transient
+#define STATUS_EFFECT_CONFUSION /datum/status_effect/transient/confusion
+#define STATUS_EFFECT_DIZZINESS /datum/status_effect/transient/dizziness
+#define STATUS_EFFECT_DROWSINESS /datum/status_effect/transient/drowsiness
+#define STATUS_EFFECT_DRUNKENNESS /datum/status_effect/transient/drunkenness
+#define STATUS_EFFECT_SILENCED /datum/status_effect/transient/silence
+#define STATUS_EFFECT_JITTER /datum/status_effect/transient/jittery
+#define STATUS_EFFECT_CULT_SLUR /datum/status_effect/transient/cult_slurring
+#define STATUS_EFFECT_STAMMER /datum/status_effect/transient/stammering
+#define STATUS_EFFECT_SLURRING /datum/status_effect/transient/slurring
+#define STATUS_EFFECT_LOSE_BREATH /datum/status_effect/transient/lose_breath
+#define STATUS_EFFECT_HALLUCINATION /datum/status_effect/transient/hallucination
+#define STATUS_EFFECT_BLURRY_EYES /datum/status_effect/transient/eye_blurry
+#define STATUS_EFFECT_BLINDED /datum/status_effect/transient/blindness
+#define STATUS_EFFECT_DRUGGED /datum/status_effect/transient/drugged
 
 /////////////
 // NEUTRAL //

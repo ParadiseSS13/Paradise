@@ -196,12 +196,9 @@
 
 #define STATUS_UPDATE_HEALTH 1
 #define STATUS_UPDATE_STAT 2
-#define STATUS_UPDATE_CANMOVE 4
 #define STATUS_UPDATE_STAMINA 8
 #define STATUS_UPDATE_BLIND 16
-#define STATUS_UPDATE_BLURRY 32
 #define STATUS_UPDATE_NEARSIGHTED 64
-#define STATUS_UPDATE_DRUGGY 128
 
 #define STATUS_UPDATE_NONE 0
 #define STATUS_UPDATE_ALL (~0)
@@ -209,8 +206,6 @@
 #define UNHEALING_EAR_DAMAGE 100
 
 //Human sub-species
-#define isshadowling(A) (is_species(A, /datum/species/shadow/ling))
-#define isshadowlinglesser(A) (is_species(A, /datum/species/shadow/ling/lesser))
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))
 #define ismonkeybasic(A) (is_species(A, /datum/species/monkey))
@@ -302,4 +297,4 @@
 #define FLASH_PROTECTION_WELDER 2
 
 #define MAX_EYE_BLURRY_FILTER_SIZE 2
-#define EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER 0.1
+#define EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER 0.005

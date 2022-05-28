@@ -1,7 +1,7 @@
 /obj/machinery/r_n_d/server
 	name = "R&D Server"
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "RD-server"
+	icon_state = "RD-server-off"
 	var/datum/research/files
 	var/health = 100
 	var/list/id_with_upload = list()		//List of R&D consoles with upload to server access.
@@ -46,9 +46,9 @@
 
 /obj/machinery/r_n_d/server/update_icon()
 	if(stat & NOPOWER)
-		icon_state = "[initial(icon_state)]-off"
-		return
-	icon_state = "[initial(icon_state)]-on"
+		icon_state = "RD-server-off"
+	else
+		icon_state = "RD-server-on"
 
 /obj/machinery/r_n_d/server/power_change()
 	. = ..()

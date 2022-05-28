@@ -7,12 +7,18 @@ export const Photocopier = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window resizable>
-      <Window.Content scrollable display="flex" className="Layout__content--flexColumn">
+      <Window.Content
+        scrollable
+        display="flex"
+        className="Layout__content--flexColumn"
+      >
         <Section title="Photocopier" color="silver">
           <LabeledList>
             <LabeledList.Item label="Copies">
               <Flex>
-                <Box width="2em" bold>{data.copynumber}</Box>
+                <Box width="2em" bold>
+                  {data.copynumber}
+                </Box>
                 <Fragment float="right">
                   <Button
                     fluid
@@ -39,15 +45,22 @@ export const Photocopier = (props, context) => {
                 fluid
                 textAlign="center"
                 disabled={!data.copyitem && !data.mob}
-                content={data.copyitem ? data.copyitem : (data.mob ? data.mob+"'s ass!" : "document")}
-                onClick={() => act('removedocument')} />
+                content={
+                  data.copyitem
+                    ? data.copyitem
+                    : data.mob
+                    ? data.mob + "'s ass!"
+                    : 'document'
+                }
+                onClick={() => act('removedocument')}
+              />
             </LabeledList.Item>
             <LabeledList.Item label="Inserted Folder">
               <Button
                 fluid
                 textAlign="center"
                 disabled={!data.folder}
-                content={data.folder ? data.folder : "folder"}
+                content={data.folder ? data.folder : 'folder'}
                 onClick={() => act('removefolder')}
               />
             </LabeledList.Item>
@@ -90,27 +103,35 @@ const Files = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Section title="Scanned Files">
-      {data.files.map(file => (
-        <Section key={file.name}
+      {data.files.map((file) => (
+        <Section
+          key={file.name}
           title={file.name}
-          buttons={(
+          buttons={
             <Flex>
               <Button
                 icon="print"
                 content="Print"
                 disabled={data.toner <= 0}
-                onClick={() => act('filecopy', {
-                  uid: file.uid,
-                })} />
+                onClick={() =>
+                  act('filecopy', {
+                    uid: file.uid,
+                  })
+                }
+              />
               <Button.Confirm
                 icon="trash-alt"
                 content="Delete"
                 color="bad"
-                onClick={() => act('deletefile', {
-                  uid: file.uid,
-                })} />
+                onClick={() =>
+                  act('deletefile', {
+                    uid: file.uid,
+                  })
+                }
+              />
             </Flex>
-          )} />
+          }
+        />
       ))}
     </Section>
   );

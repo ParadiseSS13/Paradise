@@ -253,10 +253,7 @@
 	payload = /obj/item/grenade/gas/knockout
 
 ////////////Clusterbuster of Clusterbusters////////////
-
-/obj/item/grenade/clusterbuster/mega_fox
-	name = "\improper Mega Troublemaking Grenade."
-	payload = /obj/item/grenade/clusterbuster/fox
+//As a note: be extrodinarily careful about make the payload clusterbusters as it can quickly destroy the MC/Server
 
 /obj/item/grenade/clusterbuster/mega_bang
 	name = "For when stunlocking is just too short."
@@ -266,10 +263,3 @@
 	name = "Mega SyndiWrath."
 	payload = /obj/item/grenade/clusterbuster/syndieminibomb
 
-/obj/item/grenade/clusterbuster/mega_honk_evil
-	name = "\improper Mega Evil Mega Honk Grenade."
-	payload = /obj/item/grenade/clusterbuster/honk_evil
-
-/obj/item/grenade/clusterbuster/mega_emp
-	name = "Electromagnetic Storm"
-	payload = /obj/item/grenade/clusterbuster/emp
