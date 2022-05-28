@@ -24815,7 +24815,6 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bwA" = (
-/obj/machinery/door/airlock/maintenance/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -24826,6 +24825,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
 "bwC" = (
@@ -44417,9 +44417,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plating,
 /area/maintenance/aft)
 "czn" = (
 /obj/structure/cable/yellow{
@@ -49791,24 +49789,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
-"cQn" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/landmark/damageturf,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
 "cQo" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -50699,7 +50679,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cTz" = (
@@ -69217,6 +69196,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "kZN" = (
@@ -108536,8 +108516,8 @@ cdT
 bTY
 eBk
 aoX
-bTY
 auC
+bTY
 axq
 bVR
 rvu
@@ -115008,7 +114988,7 @@ chy
 czm
 bZU
 cxH
-chy
+vCt
 bWP
 oZX
 deM
@@ -115266,7 +115246,7 @@ iwW
 bZU
 bZU
 dYK
-cQn
+ujB
 bZU
 cRh
 cRh
@@ -133718,7 +133698,7 @@ dbV
 csB
 nOF
 oFQ
-arr
+asJ
 asJ
 kry
 aoG
