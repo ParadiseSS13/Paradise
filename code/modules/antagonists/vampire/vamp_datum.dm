@@ -154,6 +154,32 @@
 
 #undef BLOOD_GAINED_MODIFIER
 
+/**
+ * Remove the vampire's current subclass and the specified one.
+ *
+ * Arguments:
+ * * new_subclass_type - a [/datum/vampire_subclass] typepath
+ */
+/datum/antagonist/vampire/proc/change_subclass(new_subclass_type)
+	if(isnull(new_subclass_type))
+		return
+	clear_subclass(FALSE)
+	add_subclass(new_subclass_type)
+
+/**
+ * Remove and delete the vampire's current subclass and all associated abilities.
+ *
+ * Arguments:
+ * * give_specialize_power - if the [specialize][/obj/effect/proc_holder/spell/vampire/self/specialize] power should be given back or not
+ */
+/datum/antagonist/vampire/proc/clear_subclass(give_specialize_power = TRUE)
+	if(give_specialize_power)
+		// Choosing a subclass in the first place removes this from `upgrade_tiers`, so add it back if needed.
+		upgrade_tiers |= /obj/effect/proc_holder/spell/vampire/self/specialize
+	QDEL_LIST(powers)
+	QDEL_NULL(subclass)
+	check_vampire_upgrade()
+
 /datum/antagonist/vampire/proc/check_vampire_upgrade(announce = TRUE)
 	var/list/old_powers = powers.Copy()
 
