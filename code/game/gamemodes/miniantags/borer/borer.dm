@@ -525,7 +525,7 @@
 
 	to_chat(src, "<span class='warning'>You focus your psychic lance on [M] and freeze [M.p_their()] limbs with a wave of terrible dread.</span>")
 	to_chat(M, "<span class='warning'>You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing.</span>")
-	M.Weaken(3)
+	M.Weaken(6 SECONDS)
 
 	used_dominate = world.time
 	attempting_to_dominate = FALSE
@@ -587,10 +587,10 @@
 	GrantBorerActions()
 	RemoveInfestActions()
 	forceMove(get_turf(host))
-	machine = null
+	unset_machine()
 
 	host.reset_perspective(null)
-	host.machine = null
+	host.unset_machine()
 
 	var/mob/living/carbon/H = host
 	H.borer = null
@@ -771,7 +771,7 @@
 	controlling = FALSE
 
 	reset_perspective(null)
-	machine = null
+	unset_machine()
 
 	host.verbs -= /mob/living/carbon/proc/release_control
 	host.verbs -= /mob/living/carbon/proc/punish_host

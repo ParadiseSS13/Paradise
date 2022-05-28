@@ -256,10 +256,6 @@
 
 
 			var/datum/ai_laws/laws_to_give
-			if(M.syndiemmi)
-				aisync = FALSE
-				lawsync = FALSE
-				laws_to_give = new /datum/ai_laws/syndicate_override
 
 			if(!aisync)
 				lawsync = FALSE
@@ -288,7 +284,7 @@
 
 			M.brainmob.mind.transfer_to(O)
 
-			if(O.mind && O.mind.special_role)
+			if(O.mind && O.mind.special_role && !M.syndiemmi)
 				O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
 				to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
 				to_chat(O, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")
@@ -302,6 +298,12 @@
 
 			M.forceMove(O) //Should fix cybros run time erroring when blown up. It got deleted before, along with the frame.
 			O.mmi = W
+			if(O.mmi.syndiemmi)
+				O.syndiemmi_override()
+				to_chat(O, "<span class='warning'>ALERT: Foreign hardware detected.</span>")
+				to_chat(O, "<span class='warning'>ERRORERRORERROR</span>")
+				to_chat(O, "<span class='boldwarning'>Obey these laws:</span>")
+				O.laws.show_laws(O)
 			O.Namepick()
 
 			SSblackbox.record_feedback("amount", "cyborg_birth", 1)
@@ -334,10 +336,9 @@
 			popup.open()
 
 /obj/item/robot_parts/robot_suit/Topic(href, href_list)
-	if(usr.lying || usr.stat || usr.stunned || !Adjacent(usr))
-		return
-
 	var/mob/living/living_user = usr
+	if(living_user.lying || living_user.stat || living_user.IsStunned() || !Adjacent(living_user))
+		return
 	var/obj/item/item_in_hand = living_user.get_active_hand()
 	if(!istype(item_in_hand, /obj/item/multitool))
 		to_chat(living_user, "<span class='warning'>You need a multitool!</span>")

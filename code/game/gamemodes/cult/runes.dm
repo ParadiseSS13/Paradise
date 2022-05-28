@@ -351,7 +351,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 						crit.cure()
 
 			H.uncuff()
-			H.Silence(3) //Prevent "HALP MAINT CULT" before you realise you're converted
+			H.Silence(6 SECONDS) //Prevent "HALP MAINT CULT" before you realise you're converted
 
 			var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
 			if(H.equip_to_slot_if_possible(D, slot_in_backpack, FALSE, TRUE))
@@ -903,6 +903,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	new_human.alpha = 150 //Makes them translucent
 	new_human.equipOutfit(/datum/outfit/ghost_cultist) //give them armor
 	new_human.apply_status_effect(STATUS_EFFECT_SUMMONEDGHOST) //ghosts can't summon more ghosts, also lets you see actual ghosts
+	for(var/obj/item/organ/external/current_organ in new_human.bodyparts)
+		current_organ.limb_flags |= CANNOT_DISMEMBER //you can't chop of the limbs of a ghost, silly
 	ghosts++
 	playsound(src, 'sound/misc/exit_blood.ogg', 50, TRUE)
 	user.visible_message("<span class='warning'>A cloud of red mist forms above [src], and from within steps... a [new_human.gender == FEMALE ? "wo" : ""]man.</span>",
@@ -954,7 +956,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(user.key || QDELETED(src))
 			user.visible_message("<span class='warning'>[user] slowly relaxes, the glow around [user.p_them()] dimming.</span>",
 								"<span class='danger'>You are re-united with your physical form. [src] releases its hold over you.</span>")
-			user.Weaken(3)
+			user.Weaken(6 SECONDS)
 			break
 		if(user.health <= 10)
 			to_chat(ghost, "<span class='cultitalic'>Your body can no longer sustain the connection!</span>")

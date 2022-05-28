@@ -124,14 +124,14 @@
 	if(slot == slot_shoes)
 		return TRUE
 
-/obj/item/clothing/shoes/clown_shoes/slippers/ui_action_click(mob/user, action)
+/obj/item/clothing/shoes/clown_shoes/slippers/ui_action_click(mob/living/user, action)
 	if(recharging_time > world.time)
 		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
 		return
 	var/prev_dir = user.dir
 	var/prev_pass_flags = user.pass_flags
 	user.pass_flags |= PASSMOB
-	user.Weaken(2)
+	user.Weaken(4 SECONDS)
 	user.dir = prev_dir
 	playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
 	recharging_time = world.time + recharging_rate
@@ -255,6 +255,12 @@
 	icon_state = "noble_boot"
 	item_color = "noble_boot"
 	item_state = "noble_boot"
+
+/obj/item/clothing/shoes/furboots
+	name = "fur boots"
+	desc = "Warm, furry boots."
+	icon_state = "furboots"
+	item_state = "furboots"
 
 /obj/item/clothing/shoes/sandal/white
 	name = "white sandals"

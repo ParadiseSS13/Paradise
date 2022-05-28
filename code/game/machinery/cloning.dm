@@ -282,7 +282,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	check_brine()
 	//Get the clone body ready
 	maim_clone(H)
-	H.Paralyse(4)
+	H.Paralyse(8 SECONDS)
 
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
 		clonemind.transfer_to(H)
@@ -327,7 +327,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			connected_message("Clone Rejected: Deceased.")
 
 		else if(occupant.cloneloss > (100 - heal_level))
-			occupant.Paralyse(4)
+			occupant.Paralyse(8 SECONDS)
 
 			 //Slowly get that clone healed and finished.
 			occupant.adjustCloneLoss(-((speed_coeff/2)))
@@ -446,8 +446,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 				SSticker.mode.ascend(H)
 	if(H.mind in SSticker.mode.changelings)
 		SSticker.mode.update_change_icons_added(H.mind)
- 	if((H.mind in SSticker.mode.shadowling_thralls) || (H.mind in SSticker.mode.shadows))
- 		SSticker.mode.update_shadow_icons_added(H.mind)
 
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(message)

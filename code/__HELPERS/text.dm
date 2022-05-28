@@ -13,7 +13,7 @@
  */
 // Can be used almost the same way as normal input for text
 /proc/clean_input(Message, Title, Default, mob/user=usr)
-	var/txt = input(user, Message, Title, Default) as text | null
+	var/txt = input(user, Message, Title, html_decode(Default)) as text | null
 	if(txt)
 		return html_encode(txt)
 
@@ -55,7 +55,7 @@
 
 // Used to get a properly sanitized multiline input, of max_length
 /proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
-	var/name = input(user, message, title, default) as message|null
+	var/name = input(user, message, title, html_decode(default)) as message|null
 	if(no_trim)
 		return copytext(html_encode(name), 1, max_length)
 	else
@@ -82,7 +82,7 @@
 
 // Used to get a sanitized input.
 /proc/stripped_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
-	var/name = html_encode(input(user, message, title, default) as text|null)
+	var/name = sanitize(input(user, message, title, html_decode(default)) as text|null)
 	if(!no_trim)
 		name = trim(name) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
 	return copytext(name, 1, max_length)
@@ -93,7 +93,7 @@
 		return null
 	var/client/C = user.client // Save it in a var in case the client disconnects from the mob
 	C.typing = TRUE
-	var/msg = input(user, message, title, default) as text|null
+	var/msg = input(user, message, title, html_decode(default)) as text|null
 	if(!C)
 		return null
 	C.typing = FALSE

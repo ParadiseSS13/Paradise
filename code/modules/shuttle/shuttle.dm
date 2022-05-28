@@ -595,6 +595,8 @@
 		for(var/atom/movable/AM in T1)
 			if(AM.pulledby)
 				AM.pulledby.stop_pulling()
+			if(AM.flags_2 & IMMUNE_TO_SHUTTLECRUSH_2)
+				continue
 			if(ismob(AM))
 				var/mob/M = AM
 				if(M.buckled)
@@ -611,7 +613,7 @@
 									a hyperspace ripple[L.anchored ? "":" and is thrown clear"]!</span>",
 									"<span class='userdanger'>You feel an immense \
 									crushing pressure as the space around you ripples.</span>")
-							L.Paralyse(10)
+							L.Paralyse(20 SECONDS)
 							L.ex_act(2)
 
 			// Move unanchored atoms

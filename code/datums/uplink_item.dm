@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/name = "item name"
 	var/category = "item category"
 	var/desc = "Item Description"
-	var/reference = "Item Reference"
+	var/reference = null
 	var/item = null
 	var/cost = 0
 	var/last = 0 // Appear last
@@ -314,7 +314,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/jobspecific/pickpocketgloves
 	name = "Pickpocket's Gloves"
 	desc = "A pair of sleek gloves to aid in pickpocketing. While wearing these, you can loot your target without them knowing. Pickpocketing puts the item directly into your hand."
-	reference = "PG"
+	reference = "PPG"
 	item = /obj/item/clothing/gloves/color/black/thief
 	cost = 6
 	job = list("Assistant")
@@ -343,7 +343,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/jobspecific/bee_briefcase
 	name = "Briefcase Full of Bees"
-	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s). It also wirelessly taps into station intercomms to broadcast a message of TERROR."
+	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s), WARNING: exotic blood types such as slime jelly do not work. It also wirelessly taps into station intercomms to broadcast a message of TERROR."
 	reference = "BEE"
 	item = /obj/item/bee_briefcase
 	cost = 10
@@ -372,7 +372,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 //Roboticist
 /datum/uplink_item/jobspecific/syndiemmi
 	name = "Syndicate MMI"
-	desc = "A syndicate developed man-machine-interface which will make any cyborg it is inserted into follow the standard syndicate lawset."
+	desc = "A syndicate developed man-machine-interface which will mindslave any brain inserted into it, for as long as it's in. Cyborgs made with this MMI will be permanently slaved to you but otherwise function normally."
 	reference = "SMMI"
 	item = /obj/item/mmi/syndie
 	cost = 2
@@ -721,7 +721,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Bulldog - 12g Ammo Duffel Bag"
 	desc = "A duffel bag filled with enough 12g ammo to supply an entire team, at a discounted price."
 	reference = "12ADB"
-	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgun
+	item = /obj/item/storage/backpack/duffel/syndie/shotgun
 	cost = 12 // normally 18
 	gamemodes = list(/datum/game_mode/nuclear)
 
@@ -729,7 +729,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Bulldog - 12g XL Magazine Duffel Bag"
 	desc = "A duffel bag containing three 16 round drum magazines(Slug, Buckshot, Dragon's Breath)."
 	reference = "12XLDB"
-	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
+	item = /obj/item/storage/backpack/duffel/syndie/shotgunXLmags
 	cost = 12 // normally 18
 	gamemodes = list(/datum/game_mode/nuclear)
 
@@ -745,7 +745,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "C-20r - .45 Ammo Duffel Bag"
 	desc = "A duffel bag filled with enough .45 ammo to supply an entire team, at a discounted price."
 	reference = "45ADB"
-	item = /obj/item/storage/backpack/duffel/syndie/ammo/smg
+	item = /obj/item/storage/backpack/duffel/syndie/smg
 	cost = 14 // normally 20
 	gamemodes = list(/datum/game_mode/nuclear)
 
@@ -1061,6 +1061,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/explosives/detomatix/nuclear
 	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crewmembers who have their message feature enabled. The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer. It has a chance to detonate your PDA. This version comes with a program to toggle your nuclear shuttle blast doors remotely."
 	item = /obj/item/cartridge/syndicate/nuclear
+	reference = "DEPCN"
 	excludefrom = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
@@ -1075,6 +1076,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/explosives/grenadier
 	name = "Grenadier's belt"
 	desc = "A belt containing 26 lethally dangerous and destructive grenades."
+	reference = "GRB"
 	item = /obj/item/storage/belt/grenade/full
 	cost = 30
 	surplus = 0
@@ -1324,7 +1326,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Surgery Duffelbag"
 	desc = "The Syndicate surgery duffelbag comes with a full set of surgery tools, a straightjacket and a muzzle. The bag itself is also made of very light materials and won't slow you down while it is equipped."
 	reference = "SSDB"
-	item = /obj/item/storage/backpack/duffel/syndie/surgery
+	item = /obj/item/storage/backpack/duffel/syndie/med/surgery
 	cost = 2
 
 /datum/uplink_item/device_tools/bonerepair
@@ -1529,6 +1531,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 16
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 20
+
+/datum/uplink_item/device_tools/dropwall
+	name = "Dropwall generator box"
+	desc = "A box of 5 dropwall shield generators, which can be used to make temporary directional shields that block projectiles, thrown objects, and reduce explosions. Configure the direction before throwing."
+	item = /obj/item/storage/box/syndie_kit/dropwall
+	reference = "DWG"
+	cost = 10
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/medgun
 	name = "Medbeam Gun"

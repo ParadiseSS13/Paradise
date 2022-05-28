@@ -71,21 +71,21 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			S.message = "[uppertext(S.message)]!!!"
 			verb = pick("yells", "roars", "hollers")
 
-		if(slurring)
+		if(AmountSluring())
 			if(robot)
 				S.message = slur(S.message, list("@", "!", "#", "$", "%", "&", "?"))
 			else
 				S.message = slur(S.message)
 			verb = "slurs"
 
-		if(stuttering)
+		if(AmountStuttering())
 			if(robot)
 				S.message = robostutter(S.message)
 			else
 				S.message = stutter(S.message)
 			verb = "stammers"
 
-		if(cultslurring)
+		if(AmountCultSlurring())
 			S.message = cultslur(S.message)
 			verb = "slurs"
 

@@ -254,10 +254,14 @@
 	return FALSE
 
 /obj/machinery/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(!..())
+		return FALSE
 	S.DismantleMachine(src)
 	return TRUE
 
 /obj/machinery/light/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(!..())
+		return FALSE
 	S.DisIntegrate(src)
 	return TRUE
 
@@ -277,6 +281,8 @@
 	return TRUE
 
 /obj/machinery/camera/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(!..())
+		return FALSE
 	S.DisIntegrate(src)
 	toggle_cam(S, 0)
 	return TRUE
@@ -290,6 +296,8 @@
 	return FALSE
 
 /obj/machinery/field/generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(!..())
+		return FALSE
 	if(!active)
 		S.DisIntegrate(src)
 		return TRUE
@@ -297,14 +305,20 @@
 	return FALSE
 
 /obj/machinery/gravity_generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(!..())
+		return FALSE
 	S.DisIntegrate(src)
 	return TRUE
 
 /obj/machinery/vending/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)//It's more visually interesting than dismantling the machine
+	if(!..())
+		return FALSE
 	S.DisIntegrate(src)
 	return TRUE
 
 /obj/machinery/turretid/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(!..())
+		return FALSE
 	S.DisIntegrate(src)
 	return TRUE
 
@@ -364,11 +378,9 @@
 	to_chat(S, "<span class='warning'>This cryogenic sleeper should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
 	return FALSE
 
-/obj/structure/cryofeed/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This cryogenic feed should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
-	return FALSE
-
 /obj/machinery/computer/cryopod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(!..())
+		return FALSE
 	to_chat(S, "<span class='warning'>This cryopod control computer should be preserved, it contains useful items and information about the inhabitants. Aborting.</span>")
 	return FALSE
 
@@ -393,11 +405,11 @@
 		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			S.target = null
-			return TRUE
+			return FALSE
 		else if(istype(A, /area/engine/supermatter))
 			to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
 			S.target = null
-			return TRUE
+			return FALSE
 	return ..()
 
 /obj/item/stack/cable_coil/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)//Wiring would be too effective as a resource
@@ -611,7 +623,7 @@
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
 			L.electrocute_act(100, src, 1, flags = SHOCK_NOGLOVES | SHOCK_ILLUSION)
 			if(isrobot(L) || ismachineperson(L))
-				L.Weaken(5)
+				L.Weaken(10 SECONDS)
 			qdel(src)
 	..()
 

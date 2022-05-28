@@ -31,7 +31,7 @@
 	desc = "It's the heavy-duty black polymer kind. Time to take out the trash!"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
-
+	belt_icon = "trashbag"
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
 	slot_flags = null
@@ -75,6 +75,7 @@
 	name = "trash bag of holding"
 	desc = "The latest and greatest in custodial convenience, a trashbag that is capable of holding vast quantities of garbage."
 	icon_state = "bluetrashbag"
+	belt_icon = "trashbag_blue"
 	origin_tech = "materials=4;bluespace=4;engineering=4;plasmatech=3"
 	max_combined_w_class = 60
 	storage_slots = 60
@@ -120,7 +121,7 @@
 			if(H.get_item_by_slot(slot_head) == src)
 				if(H.internal)
 					return
-				H.AdjustLoseBreath(1)
+				H.AdjustLoseBreath(2 SECONDS)
 	else
 		storage_slots = 7
 		STOP_PROCESSING(SSobj, src)
@@ -402,7 +403,7 @@
 
 	if(ishuman(M))
 		if(prob(10))
-			M.Weaken(2)
+			M.Weaken(4 SECONDS)
 
 /obj/item/storage/bag/tray/proc/rebuild_overlays()
 	overlays.Cut()

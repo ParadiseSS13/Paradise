@@ -6,6 +6,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "defib-on"
 	item_state = "defib"
+	belt_icon = "defib"
 
 	var/icon_base = "defib"
 	var/cooldown = FALSE
@@ -62,10 +63,9 @@
 				else
 					to_chat(user, "<span class='danger'>[H] doesn't respond!</span>")
 
-			H.AdjustParalysis(3)
-			H.AdjustStunned(5)
-			H.AdjustWeakened(5)
-			H.AdjustStuttering(10)
+			H.AdjustParalysis(6 SECONDS)
+			H.AdjustWeakened(10 SECONDS)
+			H.AdjustStuttering(20 SECONDS)
 			to_chat(H, "<span class='danger'>You feel a powerful jolt!</span>")
 			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 

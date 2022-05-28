@@ -16,11 +16,11 @@
 	// Settings
 	/// Whether the baton can stun silicon mobs
 	var/affect_silicon = FALSE
-	/// The stun time (in life cycles) for non-silicons
-	var/stun_time = 6 SECONDS_TO_LIFE_CYCLES
-	/// The stun time (in life cycles) for silicons
-	var/stun_time_silicon = 10 SECONDS_TO_LIFE_CYCLES
-	/// Cooldown in deciseconds between two knockdowns
+	/// The stun time (in seconds) for non-silicons
+	var/stun_time = 6 SECONDS
+	/// The stun time (in seconds) for silicons
+	var/stun_time_silicon = 10 SECONDS
+	/// Cooldown in seconds between two knockdowns
 	var/cooldown = 4 SECONDS
 	/// Sound to play when knocking someone down
 	var/stun_sound = 'sound/effects/woodhit.ogg'
@@ -38,7 +38,7 @@
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		user.visible_message("<span class='danger'>[user] accidentally clubs [user.p_them()]self with [src]!</span>", \
 							 "<span class='userdanger'>You accidentally club yourself with [src]!</span>")
-		user.Weaken(force * 3)
+		user.Weaken(stun_time)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(force * 2, BRUTE, "head")

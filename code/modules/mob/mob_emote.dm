@@ -155,7 +155,7 @@
 		message = "attempts a flip and crashes to the floor!"
 		user.SpinAnimation(5, 1)
 		sleep(0.3 SECONDS)
-		user.Weaken(2)
+		user.Weaken(4 SECONDS)
 	else
 		user.SpinAnimation(5, 1)
 
@@ -179,8 +179,8 @@
 	if(prob(5))
 		user.spin(32, 1)
 		to_chat(user, "<span class='warning'>You spin too much!</span>")
-		user.Dizzy(12)
-		user.Confused(12)
+		user.Dizzy(24 SECONDS)
+		user.Confused(24 SECONDS)
 	else
 		user.spin(20, 1)
 

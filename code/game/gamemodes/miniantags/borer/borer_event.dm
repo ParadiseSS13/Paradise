@@ -17,7 +17,10 @@
 		log_and_message_admins("Warning: Could not spawn any mobs for event Borer Infestation")
 
 /datum/event/borer_infestation/start()
-	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
+	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE)
+	if(!length(vents))
+		message_admins("Warning: No suitable vents detected for spawning borers. Force picking from station vents regardless of state!")
+		vents = get_valid_vent_spawns(unwelded_only = FALSE, min_network_size = 0)
 	while(spawncount && length(vents))
 		var/obj/vent = pick_n_take(vents)
 		new /mob/living/simple_animal/borer(vent.loc)

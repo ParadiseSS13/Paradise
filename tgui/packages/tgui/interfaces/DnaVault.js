@@ -1,19 +1,22 @@
 import { useBackend } from '../backend';
-import { Box, Button, Grid, LabeledList, ProgressBar, Section } from '../components';
+import {
+  Box,
+  Button,
+  Grid,
+  LabeledList,
+  ProgressBar,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 export const DnaVault = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    completed,
-  } = data;
+  const { completed } = data;
   return (
     <Window>
       <Window.Content>
         <DnaVaultDataBase />
-        {!!completed && (
-          <GeneTherapySelection />
-        )}
+        {!!completed && <GeneTherapySelection />}
       </Window.Content>
     </Window>
   );
@@ -21,14 +24,7 @@ export const DnaVault = (props, context) => {
 
 const DnaVaultDataBase = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    dna,
-    dna_max,
-    plants,
-    plants_max,
-    animals,
-    animals_max,
-  } = data;
+  const { dna, dna_max, plants, plants_max, animals, animals_max } = data;
   const average_progress = 0.66;
   const bad_progress = 0.33;
   return (
@@ -41,7 +37,8 @@ const DnaVaultDataBase = (props, context) => {
               good: [average_progress, Infinity],
               average: [bad_progress, average_progress],
               bad: [-Infinity, bad_progress],
-            }}>
+            }}
+          >
             {dna + ' / ' + dna_max + ' Samples'}
           </ProgressBar>
         </LabeledList.Item>
@@ -52,7 +49,8 @@ const DnaVaultDataBase = (props, context) => {
               good: [average_progress, Infinity],
               average: [bad_progress, average_progress],
               bad: [-Infinity, bad_progress],
-            }}>
+            }}
+          >
             {plants + ' / ' + plants_max + ' Samples'}
           </ProgressBar>
         </LabeledList.Item>
@@ -63,7 +61,8 @@ const DnaVaultDataBase = (props, context) => {
               good: [average_progress, Infinity],
               average: [bad_progress, average_progress],
               bad: [-Infinity, bad_progress],
-            }}>
+            }}
+          >
             {animals + ' / ' + animals_max + ' Samples'}
           </ProgressBar>
         </LabeledList.Item>
@@ -74,17 +73,10 @@ const DnaVaultDataBase = (props, context) => {
 
 const GeneTherapySelection = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    choiceA,
-    choiceB,
-    used,
-  } = data;
+  const { choiceA, choiceB, used } = data;
   return (
     <Section title="Personal Gene Therapy">
-      <Box
-        bold
-        textAlign="center"
-        mb={1}>
+      <Box bold textAlign="center" mb={1}>
         Applicable Gene Therapy Treatments
       </Box>
       {(!used && (
@@ -95,9 +87,12 @@ const GeneTherapySelection = (props, context) => {
               bold
               content={choiceA}
               textAlign="center"
-              onClick={() => act('gene', {
-                choice: choiceA,
-              })} />
+              onClick={() =>
+                act('gene', {
+                  choice: choiceA,
+                })
+              }
+            />
           </Grid.Column>
           <Grid.Column>
             <Button
@@ -105,16 +100,16 @@ const GeneTherapySelection = (props, context) => {
               bold
               content={choiceB}
               textAlign="center"
-              onClick={() => act('gene', {
-                choice: choiceB,
-              })} />
+              onClick={() =>
+                act('gene', {
+                  choice: choiceB,
+                })
+              }
+            />
           </Grid.Column>
         </Grid>
       )) || (
-        <Box
-          bold
-          textAlign="center"
-          mb={1}>
+        <Box bold textAlign="center" mb={1}>
           Users DNA deemed unstable. Unable to provide more upgrades.
         </Box>
       )}

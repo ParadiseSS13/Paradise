@@ -245,6 +245,7 @@
 					D.nextstate = opening ? FD_OPEN : FD_CLOSED
 				else if(!(D.density ^ opening))
 					INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/open : /obj/machinery/door/firedoor.proc/close))
+					INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/deactivate_alarm : /obj/machinery/door/firedoor.proc/activate_alarm))
 
 /**
   * Generate a firealarm alert for this area
@@ -521,12 +522,10 @@
 		return
 
 	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == MOVE_INTENT_RUN))
-		M.Stun(5)
-		M.Weaken(5)
+		M.Weaken(10 SECONDS)
 
 	else if(istype(M,/mob/living/carbon/human/))
-		M.Stun(2)
-		M.Weaken(2)
+		M.Weaken(4 SECONDS)
 
 
 	to_chat(M, "Gravity!")

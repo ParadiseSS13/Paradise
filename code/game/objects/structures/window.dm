@@ -194,17 +194,17 @@
 				if(2)
 					M.visible_message("<span class='danger'>[user] bashes [M] against \the [src]!</span>")
 					if(prob(50))
-						M.Weaken(1)
+						M.Weaken(2 SECONDS)
 					M.apply_damage(10)
 					take_damage(25)
 				if(3)
 					M.visible_message("<span class='danger'><big>[user] crushes [M] against \the [src]!</big></span>")
-					M.Weaken(5)
+					M.Weaken(10 SECONDS)
 					M.apply_damage(20)
 					take_damage(50)
 				if(4)
 					visible_message("<span class='danger'><big>[user] smashes [M] against \the [src]!</big></span>")
-					M.Weaken(5)
+					M.Weaken(10 SECONDS)
 					M.apply_damage(30)
 					take_damage(75)
 	else
@@ -515,6 +515,7 @@
 	name = "window tint control"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "light0"
+	anchored = TRUE
 	desc = "A remote control switch for polarized windows."
 	var/range = 7
 	var/id = 0

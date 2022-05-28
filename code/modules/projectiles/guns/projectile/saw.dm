@@ -105,11 +105,12 @@
 
 /obj/item/ammo_box/magazine/mm556x45
 	name = "box magazine (5.56x45mm)"
-	icon_state = "a762-50"
+	icon_state = "a762"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/mm556x45
 	caliber = "mm55645"
 	max_ammo = 50
+	multi_sprite_step = 10
 
 /obj/item/ammo_box/magazine/mm556x45/bleeding
 	name = "box magazine (Bleeding 5.56x45mm)"
@@ -130,10 +131,6 @@
 	name = "box magazine (Incendiary 5.56x45mm)"
 	origin_tech = "combat=4"
 	ammo_type = /obj/item/ammo_casing/mm556x45/incen
-
-/obj/item/ammo_box/magazine/mm556x45/update_icon()
-	..()
-	icon_state = "a762-[round(ammo_count(),10)]"
 
 //casings//
 

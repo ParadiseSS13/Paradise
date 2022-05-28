@@ -31,7 +31,9 @@
 		for(var/obj/item/W in M)
 			M.unEquip(W)
 		//teleport person to cell
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)	//so they black out before warping
 		M.loc = pick(GLOB.prisonwarp)
 		if(istype(M, /mob/living/carbon/human))
@@ -1069,7 +1071,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(istype(H.loc, /obj/machinery/cryopod))
 			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>De-Spawn</A></TD>"
 		else
-			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>Cryo</A></TD>"
+			var/area/A = get_area(H)
+			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1;fast_despawn=[A.fast_despawn]'>Cryo</A></TD>"
 		msg += "</TR>"
 	msg += "</TABLE></BODY></HTML>"
 	src << browse(msg, "window=Player_ssd_afk_check;size=600x300")

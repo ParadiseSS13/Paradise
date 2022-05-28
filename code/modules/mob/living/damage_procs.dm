@@ -97,8 +97,7 @@
 		if(DROWSY)
 			Drowsy(effect * blocked)
 		if(JITTER)
-			if(status_flags & CANSTUN)
-				Jitter(effect * blocked)
+			Jitter(effect * blocked)
 	updatehealth("apply effect")
 	return TRUE
 

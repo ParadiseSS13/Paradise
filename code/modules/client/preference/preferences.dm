@@ -4,7 +4,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_GUARDIAN = 0,
 	ROLE_TRAITOR = 7,
 	ROLE_CHANGELING = 14,
-	ROLE_SHADOWLING = 14,
 	ROLE_WIZARD = 14,
 	ROLE_REV = 14,
 	ROLE_VAMPIRE = 14,
@@ -72,7 +71,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/sound = SOUND_DEFAULT
 	var/UI_style_color = "#ffffff"
 	var/UI_style_alpha = 255
-	var/clientfps = 0
+	var/clientfps = 63
 	var/atklog = ATKLOG_ALL
 	var/fuid							// forum userid
 

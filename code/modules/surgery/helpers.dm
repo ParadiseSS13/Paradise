@@ -14,6 +14,10 @@
 		if(M == user)
 			return // no self surgery
 
+		if(M.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+			to_chat(user, "<span class='notice'>You realise that a ghost probably doesn't have any useful organs.</span>")
+			return //no cult ghost surgery please
+
 		if(istype(M, /mob/living/carbon/human))
 			H = M
 			affecting = H.get_organ(check_zone(selected_zone))
@@ -122,13 +126,14 @@
 		return 0.99
 	if(M.reagents.has_reagent("morphine"))//Just as effective as Hydrocodone, but has an addiction chance
 		return 0.99
-	if(M.drunk >= 80)//really damn drunk
+	var/drunk = M.get_drunkenness()
+	if(drunk >= 80)//really damn drunk
 		return 0.95
-	if(M.drunk >= 40)//pretty drunk
+	if(drunk >= 40)//pretty drunk
 		return 0.9
 	if(M.reagents.has_reagent("sal_acid")) //it's better than nothing, as far as painkillers go.
 		return 0.85
-	if(M.drunk >= 15)//a little drunk
+	if(drunk >= 15)//a little drunk
 		return 0.85
 	return 0.8 //20% failure chance
 
@@ -147,9 +152,9 @@
 /proc/can_operate(mob/living/carbon/M)
 	if(locate(/obj/machinery/optable, M.loc) && (M.lying || M.resting))
 		return TRUE
-	if(locate(/obj/structure/bed, M.loc) && (M.buckled || M.lying || M.IsWeakened() || M.stunned || M.paralysis || M.sleeping || M.stat))
+	if(locate(/obj/structure/bed, M.loc) && (M.buckled || M.lying || M.IsWeakened() || M.IsStunned() || M.IsParalyzed() || M.IsSleeping() || M.stat))
 		return TRUE
-	if(locate(/obj/structure/table, M.loc) && (M.lying || M.IsWeakened() || M.stunned || M.paralysis || M.sleeping || M.stat))
+	if(locate(/obj/structure/table, M.loc) && (M.lying || M.IsWeakened() || M.IsStunned() || M.IsParalyzed() || M.IsSleeping()  || M.stat))
 		return TRUE
 	return FALSE
 

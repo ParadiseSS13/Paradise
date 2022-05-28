@@ -31,12 +31,6 @@
 	if(istype(W, /obj/item/photo))
 		return PHOTO
 
-/obj/item/clipboard/proc/checkTopPaper()
-	if(toppaper.loc != src) //Oh no! We're missing a top sheet! Better get another one to be at the top.
-		toppaper = locate(/obj/item/paper) in src
-		if(!toppaper) //In case there's no paper, try find a paper bundle instead (why is paper_bundle not a subtype of paper?)
-			toppaper = locate(/obj/item/paper_bundle) in src
-
 /obj/item/clipboard/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) && toppaper)
@@ -136,7 +130,9 @@
 		if(isPaperwork(P))
 			usr.put_in_hands(P)
 			to_chat(usr, "<span class='notice'>You remove [P] from [src].</span>")
-			checkTopPaper() //So we don't accidentally make the top sheet not be on the clipboard
+			toppaper = locate(/obj/item/paper) in src
+			if(!toppaper) //In case there's no paper, try find a paper bundle instead
+				toppaper = locate(/obj/item/paper_bundle) in src
 	else if(href_list["viewOrWrite"])
 		var/obj/item/P = locate(href_list["viewOrWrite"]) in src
 		if(!isPaperwork(P))

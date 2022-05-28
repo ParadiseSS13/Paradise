@@ -2,6 +2,7 @@
 	name = "flashbang"
 	icon_state = "flashbang"
 	item_state = "flashbang"
+	belt_icon = "flashbang"
 	origin_tech = "materials=2;combat=3"
 	light_power = 10
 	light_color = LIGHT_COLOR_WHITE
@@ -46,22 +47,19 @@
 		M.show_message("<span class='warning'>BANG</span>", 2)
 
 		var/distance = max(1, get_dist(source_turf, get_turf(M)))
-		var/stun_amount = max(10 / distance, 3)
+		var/stun_amount = max(20 SECONDS / distance, 6 SECONDS)
 
 		// Flash
 		if(flash)
 			if(M.flash_eyes(affect_silicon = TRUE))
-				M.Stun(stun_amount)
 				M.Weaken(stun_amount)
 
 		// Bang
 		var/ear_safety = M.check_ear_prot()
 		if(bang)
 			if(!distance || A.loc == M || A.loc == M.loc) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
-				M.Stun(10)
-				M.Weaken(10)
+				M.Weaken(20 SECONDS)
 			if(!ear_safety)
-				M.Stun(stun_amount)
 				M.Weaken(stun_amount)
 				M.AdjustEarDamage(5, 15)
 				if(iscarbon(M))

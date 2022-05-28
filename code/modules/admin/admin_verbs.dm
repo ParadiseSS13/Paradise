@@ -88,7 +88,6 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/cmd_admin_dress,
 	/client/proc/cmd_admin_gib_self,
 	/client/proc/drop_bomb,
-	/client/proc/cinematic,
 	/client/proc/one_click_antag,
 	/client/proc/cmd_admin_add_freeform_ai_law,
 	/client/proc/cmd_admin_add_random_ai_law,
@@ -145,7 +144,6 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	))
 GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/cmd_admin_list_open_jobs,
-	/client/proc/Debug2,
 	/client/proc/cmd_debug_make_powernets,
 	/client/proc/debug_controller,
 	/client/proc/cmd_debug_mob_lists,
@@ -156,11 +154,9 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/toggledebuglogs,
 	/client/proc/cmd_display_del_log,
 	/client/proc/cmd_display_del_log_simple,
-	/client/proc/debugNatureMapGenerator,
 	/client/proc/check_bomb_impacts,
 	/client/proc/test_movable_UI,
 	/client/proc/test_snap_UI,
-	/client/proc/cinematic,
 	/proc/machine_upgrade,
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,
@@ -225,6 +221,14 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	/client/proc/resolveAllAdminTickets,
 	/client/proc/resolveAllMentorTickets
 ))
+// In this list are verbs that should ONLY be executed by maintainers, aka people who know how badly this will break the server
+// If you are adding something here, you MUST justify it
+GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
+	/client/proc/ticklag, // This adjusts the server tick rate and is VERY easy to hard lockup the server with
+	/client/proc/debugNatureMapGenerator, // This lags like hell, and is very easy to nuke half the server with
+	/client/proc/vv_by_ref, // This allows you to lookup **ANYTHING** in the server memory by spamming refs. Locked for security.
+	/client/proc/cinematic, // This will break everyone's screens in the round. Dont use this for adminbus.
+))
 
 /client/proc/on_holder_add()
 	if(chatOutput && chatOutput.loaded)
@@ -270,10 +274,13 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			verbs += GLOB.admin_verbs_mentor
 		if(holder.rights & R_PROCCALL)
 			verbs += GLOB.admin_verbs_proccall
+		if(holder.rights & R_MAINTAINER)
+			verbs += GLOB.admin_verbs_maintainer
 		if(holder.rights & R_VIEWRUNTIMES)
 			verbs += /client/proc/view_runtimes
 			verbs += /client/proc/cmd_display_del_log
 			verbs += /client/proc/cmd_display_del_log_simple
+			verbs += /client/proc/toggledebuglogs
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 
@@ -919,7 +926,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	set name = "Toggle Debug Log Messages"
 	set category = "Preferences"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_VIEWRUNTIMES | R_DEBUG))
 		return
 
 	prefs.toggles ^= PREFTOGGLE_CHAT_DEBUGLOGS

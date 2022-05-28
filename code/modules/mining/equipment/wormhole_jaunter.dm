@@ -42,7 +42,7 @@
 		to_chat(user, "<span class='notice'>[src] found no beacons in the world to anchor a wormhole to.</span>")
 		return
 	var/chosen_beacon = pick(L)
-	var/obj/effect/portal/jaunt_tunnel/J = new(get_turf(src), get_turf(chosen_beacon), src, 100)
+	var/obj/effect/portal/jaunt_tunnel/J = new(get_turf(src), get_turf(chosen_beacon), src, 100, user)
 	J.emagged = emagged
 	if(adjacent)
 		try_move_adjacent(J)
@@ -85,7 +85,7 @@
 		playsound(M,'sound/weapons/resonator_blast.ogg', 50, 1)
 		if(iscarbon(M))
 			var/mob/living/carbon/L = M
-			L.Weaken(6)
+			L.Weaken(12 SECONDS)
 			if(ishuman(L))
 				shake_camera(L, 20, 1)
 				addtimer(CALLBACK(L, /mob/living/carbon.proc/vomit), 20)

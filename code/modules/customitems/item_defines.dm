@@ -651,7 +651,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.head == src)
-			H.Slur(3) //always slur
+			H.Slur(6 SECONDS) //always slur
 
 /obj/item/clothing/head/beret/fluff/linda //Epic_Charger: Linda Clark
 	name = "Green beret"
@@ -1702,6 +1702,11 @@
 	item_state = "kikerimask"
 	item_color = "kikerimask"
 	species_restricted = list("Vox")
+
+/obj/item/id_decal/aa07
+	name = "lifetime ID card decal"
+	desc = "Make your ID look like the property of a nerd. Applies to any ID."
+	decal_icon_state = "lifetimeid"
 
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT

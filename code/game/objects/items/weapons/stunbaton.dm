@@ -4,6 +4,7 @@
 	icon_state = "stunbaton"
 	var/base_icon = "stunbaton"
 	item_state = "baton"
+	belt_icon = "stunbaton"
 	slot_flags = SLOT_BELT
 	force = 10
 	throwforce = 7
@@ -11,7 +12,7 @@
 	attack_verb = list("beaten")
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	/// How many life ticks does the stun last for
-	var/stunforce = 7
+	var/stunforce = 14 SECONDS
 	/// Is the baton currently turned on
 	var/turned_on = FALSE
 	/// How much power does it cost to stun someone
@@ -81,7 +82,7 @@
 
 /obj/item/melee/baton/throw_impact(atom/hit_atom)
 	..()
-	if(prob(throw_hit_chance) && turned_on && isliving(hit_atom))
+	if(prob(throw_hit_chance) && turned_on && isliving(hit_atom) && !issilicon(hit_atom))
 		baton_stun(hit_atom)
 
 /**
@@ -193,7 +194,6 @@
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
-	L.Stun(stunforce)
 	L.Weaken(stunforce)
 	L.Stuttering(stunforce)
 
@@ -212,7 +212,7 @@
 	if(cell)
 		deductcharge(1000 / severity)
 
-/obj/item/melee/baton/wash(mob/user, atom/source)
+/obj/item/melee/baton/wash(mob/living/user, atom/source)
 	if(turned_on && cell?.charge)
 		flick("baton_active", source)
 		user.Stun(stunforce)
@@ -234,7 +234,7 @@
 	item_state = "prod"
 	force = 3
 	throwforce = 5
-	stunforce = 5
+	stunforce = 10 SECONDS
 	hitcost = 2000
 	throw_hit_chance = 10
 	slot_flags = SLOT_BACK

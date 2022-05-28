@@ -32,6 +32,11 @@
 	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
 	var/list/client_mobs_in_contents
 
+	/// Either FALSE, [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
+	var/blocks_emissive = FALSE
+	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
+	var/atom/movable/emissive_blocker/em_block
+
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
 	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))
@@ -39,9 +44,36 @@
 		return
 	. = ..()
 
+/atom/movable/Initialize(mapload)
+	. = ..()
+	switch(blocks_emissive)
+		if(EMISSIVE_BLOCK_GENERIC)
+			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, plane = EMISSIVE_PLANE, alpha = src.alpha)
+			gen_emissive_blocker.color = EM_BLOCK_COLOR
+			gen_emissive_blocker.dir = dir
+			gen_emissive_blocker.appearance_flags |= appearance_flags
+			add_overlay(list(gen_emissive_blocker))
+		if(EMISSIVE_BLOCK_UNIQUE)
+			render_target = ref(src)
+			em_block = new(src, render_target)
+			add_overlay(list(em_block))
+
+/atom/movable/proc/update_emissive_block()
+	if(!blocks_emissive)
+		return
+	else if (blocks_emissive == EMISSIVE_BLOCK_GENERIC)
+		var/mutable_appearance/gen_emissive_blocker = emissive_blocker(icon, icon_state, alpha = src.alpha, appearance_flags = src.appearance_flags)
+		gen_emissive_blocker.dir = dir
+		return gen_emissive_blocker
+	else if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
+		if(!em_block && !QDELETED(src))
+			render_target = ref(src)
+			em_block = new(src, render_target)
+		add_overlay(list(em_block))
+
 /atom/movable/Destroy()
 	unbuckle_all_mobs(force = TRUE)
-
+	QDEL_NULL(em_block)
 	. = ..()
 	if(loc)
 		loc.handle_atom_del(src)
@@ -140,7 +172,8 @@
 	var/atom/oldloc = loc
 
 	if(loc != newloc)
-		glide_for(movetime)
+		if(movetime > 0)
+			glide_for(movetime)
 		if(!(direct & (direct - 1))) //Cardinal move
 			. = ..(newloc, direct) // don't pass up movetime
 		else //Diagonal move, split it into cardinal moves
@@ -149,45 +182,45 @@
 			// The `&& moving_diagonally` checks are so that a forceMove taking
 			// place due to a Crossed, Bumped, etc. call will interrupt
 			// the second half of the diagonal movement, or the second attempt
-			// at a first half if step() fails because we hit something.
+			// at a first half if the cardinal Move() fails because we hit something.
 			if(direct & NORTH)
 				if(direct & EAST)
-					if(step(src, NORTH) && moving_diagonally)
+					if(Move(get_step(src,  NORTH),  NORTH) && moving_diagonally)
 						first_step_dir = NORTH
 						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, EAST)
-					else if(moving_diagonally && step(src, EAST))
+						. = Move(get_step(src,  EAST),  EAST)
+					else if(moving_diagonally && Move(get_step(src,  EAST),  EAST))
 						first_step_dir = EAST
 						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, NORTH)
+						. = Move(get_step(src,  NORTH),  NORTH)
 				else if(direct & WEST)
-					if(step(src, NORTH) && moving_diagonally)
+					if(Move(get_step(src,  NORTH),  NORTH) && moving_diagonally)
 						first_step_dir = NORTH
 						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, WEST)
-					else if(moving_diagonally && step(src, WEST))
+						. = Move(get_step(src,  WEST),  WEST)
+					else if(moving_diagonally && Move(get_step(src,  WEST),  WEST))
 						first_step_dir = WEST
 						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, NORTH)
+						. = Move(get_step(src,  NORTH),  NORTH)
 			else if(direct & SOUTH)
 				if(direct & EAST)
-					if(step(src, SOUTH) && moving_diagonally)
+					if(Move(get_step(src,  SOUTH),  SOUTH) && moving_diagonally)
 						first_step_dir = SOUTH
 						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, EAST)
-					else if(moving_diagonally && step(src, EAST))
+						. = Move(get_step(src,  EAST),  EAST)
+					else if(moving_diagonally && Move(get_step(src,  EAST),  EAST))
 						first_step_dir = EAST
 						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, SOUTH)
+						. = Move(get_step(src,  SOUTH),  SOUTH)
 				else if(direct & WEST)
-					if(step(src, SOUTH) && moving_diagonally)
+					if(Move(get_step(src,  SOUTH),  SOUTH) && moving_diagonally)
 						first_step_dir = SOUTH
 						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, WEST)
-					else if(moving_diagonally && step(src, WEST))
+						. = Move(get_step(src,  WEST),  WEST)
+					else if(moving_diagonally && Move(get_step(src,  WEST),  WEST))
 						first_step_dir = WEST
 						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, SOUTH)
+						. = Move(get_step(src,  SOUTH),  SOUTH)
 			if(moving_diagonally == SECOND_DIAG_STEP)
 				if(!.)
 					setDir(first_step_dir)

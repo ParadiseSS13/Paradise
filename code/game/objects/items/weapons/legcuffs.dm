@@ -15,7 +15,7 @@
 	name = "bear trap"
 	throw_speed = 1
 	throw_range = 1
-	icon_state = "beartrap"
+	icon_state = "beartrap0"
 	desc = "A trap used to catch bears and other legged creatures."
 	origin_tech = "engineering=4"
 	var/armed = 0
@@ -25,7 +25,9 @@
 
 /obj/item/restraints/legcuffs/beartrap/New()
 	..()
-	icon_state = "[initial(icon_state)][armed]"
+
+/obj/item/restraints/legcuffs/beartrap/update_icon()
+	icon_state = "beartrap[armed]"
 
 /obj/item/restraints/legcuffs/beartrap/Destroy()
 	QDEL_NULL(IED)
@@ -41,7 +43,7 @@
 	..()
 	if(ishuman(user) && !user.stat && !user.restrained())
 		armed = !armed
-		icon_state = "[initial(icon_state)][armed]"
+		update_icon()
 		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
 
 /obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user) //Let's get explosive.
@@ -93,7 +95,7 @@
 		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/hostile/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
 			var/mob/living/L = AM
 			armed = 0
-			icon_state = "[initial(icon_state)][armed]"
+			update_icon()
 			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
 			L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
 					"<span class='userdanger'>You trigger \the [src]!</span>")
@@ -151,10 +153,12 @@
 	name = "bola"
 	desc = "A restraining device designed to be thrown at the target. Upon connecting with said target, it will wrap around their legs, making it difficult for them to move quickly."
 	icon_state = "bola"
+	item_state = "bola"
 	breakouttime = 35//easy to apply, easy to break out of
 	gender = NEUTER
 	origin_tech = "engineering=3;combat=1"
 	hitsound = 'sound/effects/snap.ogg'
+	///the duration of the stun in seconds
 	var/weaken = 0
 
 /obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
@@ -180,14 +184,16 @@
 	name = "reinforced bola"
 	desc = "A strong bola, made with a long steel chain. It looks heavy, enough so that it could trip somebody."
 	icon_state = "bola_r"
+	item_state = "bola_r"
 	breakouttime = 70
 	origin_tech = "engineering=4;combat=3"
-	weaken = 1
+	weaken = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/energy //For Security
 	name = "energy bola"
 	desc = "A specialized hard-light bola designed to ensnare fleeing criminals and aid in arrests."
 	icon_state = "ebola"
+	item_state = "ebola"
 	hitsound = 'sound/weapons/tase.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	breakouttime = 60

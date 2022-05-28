@@ -455,27 +455,27 @@
 			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
 		else if(C.mind.assigned_role == "Mime")
 			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
-			C.AdjustDizzy(volume)
+			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 		else
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
-			C.AdjustDizzy(volume)
+			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 	ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
 	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
 	C.AddElement(/datum/element/waddling)
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
-	if(!istype(M))
-		return ..()
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
 		M.emote("giggle")
-	if(M?.mind.assigned_role == "Clown")
+	if(!M.mind)
+		return ..() | update_flags
+	if(M.mind.assigned_role == "Clown")
 		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
 	else
-		M.AdjustDizzy(10, 0, 500)
-		M.Druggy(15)
+		M.AdjustDizzy(20 SECONDS, 0, 1000 SECONDS)
+		M.Druggy(30 SECONDS)
 		if(prob(10))
-			M.EyeBlurry(5)
+			M.EyeBlurry(10 SECONDS)
 		if(prob(6))
 			var/list/clown_message = list("You feel light-headed.",
 			"You can't see straight.",
@@ -489,7 +489,7 @@
 			"Your legs feel like jelly.",
 			"You feel like telling a pun.")
 			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
-		if(M?.mind.assigned_role == "Mime")
+		if(M.mind.assigned_role == "Mime")
 			update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
 	return ..() | update_flags
 

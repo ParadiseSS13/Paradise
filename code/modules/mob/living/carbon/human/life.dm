@@ -97,25 +97,7 @@
 		SetEyeBlurry(0)
 
 	else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
-		EyeBlind(2)
-		EyeBlurry(2)
-
-	else
-		//blindness
-		if(HAS_TRAIT(src, TRAIT_BLIND)) // Disabled-blind, doesn't get better on its own
-
-		else if(eye_blind)		       // Blindness, heals slowly over time
-			AdjustEyeBlind(-1)
-
-		else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold) && eye_blurry)	//resting your eyes with a blindfold heals blurry eyes faster
-			AdjustEyeBlurry(-3)
-
-		//blurry sight
-		if(vision.is_bruised())   // Vision organs impaired? Permablurry.
-			EyeBlurry(2)
-
-		if(eye_blurry)	           // Blurry eyes heal slowly
-			AdjustEyeBlurry(-1)
+		EyeBlind(4 SECONDS)
 
 	if(getBrainLoss() >= 60 && stat != DEAD)
 		if(prob(3))
@@ -560,7 +542,7 @@
 			if(satiety < 0)
 				satiety++
 				if(prob(round(-satiety/40)))
-					Jitter(5)
+					Jitter(10 SECONDS)
 				hunger_rate = 3 * hunger_drain
 			hunger_rate *= physiology.hunger_mod
 			adjust_nutrition(-hunger_rate)
@@ -603,67 +585,6 @@
 
 	handle_trace_chems()
 
-/mob/living/carbon/human/handle_drunk()
-	var/slur_start = 30 //12u ethanol, 30u whiskey FOR HUMANS
-	var/confused_start = 40
-	var/brawl_start = 30
-	var/blur_start = 75
-	var/vomit_start = 60
-	var/pass_out = 90
-	var/spark_start = 50 //40u synthanol
-	var/collapse_start = 75
-	var/braindamage_start = 120
-	var/alcohol_strength = drunk
-	var/sober_str = !HAS_TRAIT(src, TRAIT_ALCOHOL_TOLERANCE) ? 1 : 2
-
-	alcohol_strength /= sober_str
-
-	var/obj/item/organ/internal/liver/L
-	if(!ismachineperson(src))
-		L = get_int_organ(/obj/item/organ/internal/liver)
-		if(L)
-			alcohol_strength *= L.alcohol_intensity
-		else
-			alcohol_strength *= 5
-
-	if(alcohol_strength >= slur_start) //slurring
-		Slur(drunk)
-	if(mind)
-		if(alcohol_strength >= brawl_start) //the drunken martial art
-			if(!istype(mind.martial_art, /datum/martial_art/drunk_brawling))
-				var/datum/martial_art/drunk_brawling/F = new
-				F.teach(src, TRUE)
-		else if(alcohol_strength < brawl_start) //removing the art
-			if(istype(mind.martial_art, /datum/martial_art/drunk_brawling))
-				mind.martial_art.remove(src)
-	if(alcohol_strength >= confused_start && prob(33)) //confused walking
-		if(!confused)
-			Confused(1)
-		AdjustConfused(3 / sober_str)
-	if(alcohol_strength >= blur_start) //blurry eyes
-		EyeBlurry(10 / sober_str)
-	if(!ismachineperson(src)) //stuff only for non-synthetics
-		if(alcohol_strength >= vomit_start) //vomiting
-			if(prob(8))
-				fakevomit()
-		if(alcohol_strength >= pass_out)
-			Paralyse(5 / sober_str)
-			Drowsy(30 / sober_str)
-			if(L)
-				L.receive_damage(0.1, 1)
-			adjustToxLoss(0.1)
-	else //stuff only for synthetics
-		if(alcohol_strength >= spark_start && prob(25))
-			do_sparks(3, 1, src)
-		if(alcohol_strength >= collapse_start && prob(10))
-			emote("collapse")
-			do_sparks(3, 1, src)
-		if(alcohol_strength >= braindamage_start && prob(10))
-			adjustBrainLoss(1)
-
-	if(!has_booze())
-		AdjustDrunk(-0.5)
-
 /mob/living/carbon/human/proc/has_booze() //checks if the human has ethanol or its subtypes inside
 	for(var/A in reagents.reagent_list)
 		var/datum/reagent/R = A
@@ -682,8 +603,8 @@
 		return
 
 	if(getBrainLoss() >= 100) // braindeath
-		AdjustLoseBreath(10, bound_lower = 0, bound_upper = 25)
-		Weaken(30)
+		AdjustLoseBreath(20 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
+		Weaken(60 SECONDS)
 
 	if(!check_death_method())
 		if(health <= HEALTH_THRESHOLD_DEAD)
@@ -695,12 +616,12 @@
 		if(health <= HEALTH_THRESHOLD_CRIT)
 			if(prob(5))
 				emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
-			AdjustStuttering(5, bound_lower = 0, bound_upper = 5)
+			SetStuttering(10 SECONDS)
 			EyeBlurry(5)
 			if(prob(7))
-				AdjustConfused(2)
+				AdjustConfused(4 SECONDS)
 			if(prob(5))
-				Paralyse(2)
+				Paralyse(4 SECONDS)
 			switch(health)
 				if(-INFINITY to -100)
 					adjustOxyLoss(1)
@@ -711,12 +632,12 @@
 					if(prob(health * -0.2))
 						var/datum/disease/D = new /datum/disease/critical/heart_failure
 						ForceContractDisease(D)
-					Paralyse(5)
+					Paralyse(10 SECONDS)
 				if(-99 to -80)
 					adjustOxyLoss(1)
 					if(prob(4))
 						to_chat(src, "<span class='userdanger'>Your chest hurts...</span>")
-						Paralyse(2)
+						Paralyse(4 SECONDS)
 						var/datum/disease/D = new /datum/disease/critical/heart_failure
 						ForceContractDisease(D)
 				if(-79 to -50)
@@ -729,9 +650,9 @@
 						ForceContractDisease(D)
 					if(prob(6))
 						to_chat(src, "<span class='userdanger'>You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!</span>")
-						Weaken(3)
+						Weaken(6 SECONDS)
 					if(prob(3))
-						Paralyse(2)
+						Paralyse(4 SECONDS)
 				if(-49 to 0)
 					adjustOxyLoss(1)
 					if(prob(3))
@@ -739,7 +660,7 @@
 						ForceContractDisease(D)
 					if(prob(5))
 						to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
-						Weaken(3)
+						Weaken(6 SECONDS)
 
 /mob/living/carbon/human/update_health_hud()
 	if(!client)
@@ -790,35 +711,25 @@
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return
-	if(mind?.has_antag_datum(/datum/antagonist/vampire)) //Vampires
-		switch(nutrition)
-			if(NUTRITION_LEVEL_FULL to INFINITY)
-				throw_alert("nutrition", /obj/screen/alert/fat/vampire)
-			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-				throw_alert("nutrition", /obj/screen/alert/full/vampire)
-			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-				throw_alert("nutrition", /obj/screen/alert/well_fed/vampire)
-			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-				throw_alert("nutrition", /obj/screen/alert/fed/vampire)
-			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				throw_alert("nutrition", /obj/screen/alert/hungry/vampire)
-			else
-				throw_alert("nutrition", /obj/screen/alert/starving/vampire)
-
-	else //Any other non-vampires
-		switch(nutrition)
-			if(NUTRITION_LEVEL_FULL to INFINITY)
-				throw_alert("nutrition", /obj/screen/alert/fat)
-			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-				throw_alert("nutrition", /obj/screen/alert/full)
-			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-				throw_alert("nutrition", /obj/screen/alert/well_fed)
-			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-				throw_alert("nutrition", /obj/screen/alert/fed)
-			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				throw_alert("nutrition", /obj/screen/alert/hungry)
-			else
-				throw_alert("nutrition", /obj/screen/alert/starving)
+	var/new_hunger
+	switch(nutrition)
+		if(NUTRITION_LEVEL_FULL to INFINITY)
+			new_hunger = "fat"
+		if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+			new_hunger = "full"
+		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+			new_hunger = "well_fed"
+		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+			new_hunger = "fed"
+		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+			new_hunger = "hungry"
+		else
+			new_hunger = "starving"
+	if(dna.species.hunger_type)
+		new_hunger += "/[dna.species.hunger_type]"
+	if(dna.species.hunger_level != new_hunger)
+		dna.species.hunger_level = new_hunger
+		throw_alert("nutrition", "/obj/screen/alert/hunger/[new_hunger]", icon_override = dna.species.hunger_icon)
 
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high
@@ -873,7 +784,7 @@
 	var/temp = PULSE_NORM
 
 	if(blood_volume <= BLOOD_VOLUME_BAD)//how much blood do we have
-		temp = PULSE_THREADY	//not enough :(
+		temp = PULSE_THREADY	//not enough :(     ) fuck you bracket colouriser
 
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		temp = PULSE_NONE		//pretend that we're dead. unlike actual death, can be inflienced by meds
@@ -1019,8 +930,8 @@
 		adjustBrainLoss(3)
 	else if(prob(10))
 		adjustBrainLoss(1)
-	Weaken(5)
-	AdjustLoseBreath(20, bound_lower = 0, bound_upper = 25)
+	Weaken(10 SECONDS)
+	AdjustLoseBreath(40 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
 	adjustOxyLoss(20)
 
 

@@ -70,14 +70,6 @@
 	egg_progress += pick(0, 1, 2)
 	egg_progress += calc_variable_progress()
 
-	// Detect & stop people attempting to bring a gateway white spider infection back to the main station.
-	if(awaymission_infection)
-		var/turf/T = get_turf(owner)
-		if(istype(T) && !is_away_level(T.z))
-			owner.gib()
-			qdel(src)
-			return
-
 	// Once at least one egg has hatched from you, you'll need help to reach medbay.
 	if(eggs_hatched >= 1)
 		owner.SetConfused(45)
@@ -99,6 +91,16 @@
 	return extra_progress
 
 /obj/item/organ/internal/body_egg/terror_eggs/proc/hatch_egg()
+	// Detect & stop people attempting to bring a gateway white spider infection back to the main station.
+	if(awaymission_infection)
+		var/turf/T = get_turf(owner)
+		if(istype(T) && !is_away_level(T.z))
+			owner.gib()
+			// give a hint of the cause of death
+			new /obj/effect/decal/cleanable/spiderling_remains(T)
+			qdel(src)
+			return
+
 	var/infection_completed = FALSE
 	var/obj/structure/spider/spiderling/terror_spiderling/S = new(get_turf(owner))
 	switch(eggs_hatched)
@@ -116,7 +118,7 @@
 	S.immediate_ventcrawl = TRUE
 	eggs_hatched++
 	to_chat(owner, "<span class='warning'>A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!</span>")
-	owner.Paralyse(10)
+	owner.Paralyse(20 SECONDS)
 	if(infection_completed && !QDELETED(src))
 		qdel(src)
 

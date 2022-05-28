@@ -21,9 +21,6 @@ GLOBAL_LIST(global_map) // This is the array of zlevels | list(list(1,5),list(4,
 GLOBAL_LIST_EMPTY(wizardstart)
 GLOBAL_LIST_EMPTY(newplayer_start)
 GLOBAL_LIST_EMPTY(latejoin)
-GLOBAL_LIST_EMPTY(latejoin_gateway)
-GLOBAL_LIST_EMPTY(latejoin_cryo)
-GLOBAL_LIST_EMPTY(latejoin_cyborg)
 GLOBAL_LIST_EMPTY(prisonwarp)	//prisoners go to these
 GLOBAL_LIST_EMPTY(syndieprisonwarp)	//contractor targets go to these
 GLOBAL_LIST_EMPTY(xeno_spawn)//Aliens spawn at these.
@@ -38,7 +35,7 @@ GLOBAL_LIST_EMPTY(tdomeadmin)
 GLOBAL_LIST_EMPTY(aroomwarp)
 GLOBAL_LIST_EMPTY(prisonsecuritywarp)	//prison security goes to these
 GLOBAL_LIST_EMPTY(prisonwarped)	//list of players already warped
-GLOBAL_LIST_EMPTY(blobstart)
+GLOBAL_LIST_EMPTY(nukedisc_respawn)
 GLOBAL_LIST_EMPTY(ninjastart)
 GLOBAL_LIST_EMPTY(carplist) //list of all carp-spawn landmarks
 GLOBAL_LIST_EMPTY(syndicateofficer)
@@ -53,4 +50,3 @@ GLOBAL_LIST_EMPTY(space_ruins_templates)
 GLOBAL_LIST_EMPTY(lava_ruins_templates)
 GLOBAL_LIST_EMPTY(shelter_templates)
 GLOBAL_LIST_EMPTY(shuttle_templates)
-

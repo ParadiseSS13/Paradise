@@ -4,6 +4,7 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cleaner"
 	item_state = "cleaner"
+	belt_icon = "space_cleaner"
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 	slot_flags = SLOT_BELT
@@ -150,6 +151,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "pepperspray"
 	item_state = "pepperspray"
+	belt_icon = null
 	volume = 40
 	spray_maxrange = 4
 	amount_per_transfer_from_this = 5
@@ -162,6 +164,7 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "sunflower"
 	item_state = "sunflower"
+	belt_icon = null
 	amount_per_transfer_from_this = 1
 	volume = 10
 	list_reagents = list("water" = 10)
@@ -235,5 +238,6 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbgone"
 	item_state = "plantbgone"
+	belt_icon = null
 	volume = 100
 	list_reagents = list("glyphosate" = 100)

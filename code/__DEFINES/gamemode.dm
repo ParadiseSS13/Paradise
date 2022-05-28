@@ -38,8 +38,6 @@
 #define SPECIAL_ROLE_NUKEOPS "Syndicate"
 #define SPECIAL_ROLE_PYROCLASTIC_SLIME 	"Pyroclastic Anomaly Slime"
 #define SPECIAL_ROLE_REVENANT "Revenant"
-#define SPECIAL_ROLE_SHADOWLING "Shadowling"
-#define SPECIAL_ROLE_SHADOWLING_THRALL "Shadowling Thrall"
 #define SPECIAL_ROLE_SLAUGHTER_DEMON "Slaughter Demon"
 #define SPECIAL_ROLE_SUPER "Super"
 #define SPECIAL_ROLE_SYNDICATE_DEATHSQUAD "Syndicate Commando"
