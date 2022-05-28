@@ -72,7 +72,7 @@
 	if(!C.affects_vampire()) // no parameter here so holy always protects
 		return
 	C.extinguish_light()
-	C.EyeBlind(10)
+	C.EyeBlind(20 SECONDS)
 	STOP_PROCESSING(SSobj, src) // won't wither away once you are trapped
 	..()
 	if(!iscarbon(loc)) // if it fails to latch onto someone for whatever reason, delete itself, we don't want unarmed ones lying around.
@@ -83,8 +83,9 @@
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/attack_tk(mob/user)
 	if(iscarbon(user))
+		var/mob/living/carbon/C = user
 		to_chat(user, "<span class='userdanger'>The snare sends a psychic backlash!</span>")
-		user.EyeBlind(10)
+		C.EyeBlind(20 SECONDS)
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/process()
 	var/turf/T = get_turf(src)

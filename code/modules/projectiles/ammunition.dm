@@ -53,7 +53,7 @@
 		if(isturf(loc))
 			var/boolets = 0
 			for(var/obj/item/ammo_casing/bullet in loc)
-				if(box.stored_ammo.len >= box.max_ammo)
+				if(length(box.stored_ammo) >= box.max_ammo)
 					break
 				if(bullet.BB)
 					if(box.give_round(bullet, 0))
@@ -62,7 +62,7 @@
 					continue
 			if(boolets > 0)
 				box.update_icon()
-				to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s.</span>")
+				to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [length(box.stored_ammo)] shell\s.</span>")
 				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 			else
 				to_chat(user, "<span class='warning'>You fail to collect anything!</span>")
@@ -95,12 +95,15 @@
 		return TRUE
 	return ..()
 
+#define AMMO_MULTI_SPRITE_STEP_NONE null
+#define AMMO_MULTI_SPRITE_STEP_ON_OFF -1
+
 //Boxes of ammo
 /obj/item/ammo_box
 	name = "ammo box (generic)"
 	desc = "A box of ammo?"
-	icon_state = "357"
 	icon = 'icons/obj/ammo.dmi'
+	icon_state = "10mmbox" // placeholder icon
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	item_state = "syringe_kit"
@@ -112,8 +115,7 @@
 	var/list/stored_ammo = list()
 	var/ammo_type = /obj/item/ammo_casing
 	var/max_ammo = 7
-	var/multiple_sprites = 0
-	var/icon_prefix // boxes with multiple sprites use this as their base
+	var/multi_sprite_step = AMMO_MULTI_SPRITE_STEP_NONE // see update_icon() for details
 	var/caliber
 	var/multiload = 1
 	var/list/initial_mats //For calculating refund values.
@@ -130,10 +132,10 @@
 	return ..()
 
 /obj/item/ammo_box/proc/get_round(keep = 0)
-	if(!stored_ammo.len)
+	if(!length(stored_ammo))
 		return null
 	else
-		var/b = stored_ammo[stored_ammo.len]
+		var/b = stored_ammo[length(stored_ammo)]
 		stored_ammo -= b
 		if(keep)
 			stored_ammo.Insert(1,b)
@@ -148,7 +150,7 @@
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
 		return 0
 
-	if(stored_ammo.len < max_ammo)
+	if(length(stored_ammo) < max_ammo)
 		stored_ammo += R
 		R.loc = src
 		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
@@ -208,14 +210,26 @@
 		to_chat(user, "<span class='notice'>You remove a round from \the [src]!</span>")
 		update_icon()
 
+// `multi_sprite_step` governs whether there are different sprites for different degrees of being loaded.
+// AMMO_MULTI_SPRITE_STEP_NONE - just a single `icon_state`, no shenanigans
+// AMMO_MULTI_SPRITE_STEP_ON_OFF - empty sprite `[icon_state]-0`, full sprite `[icon_state]`, no inbetween
+// (positive integer) - sprites for intermediate degrees of being loaded are present in the .dmi
+//   and are named `[icon_state]-[ammo_count]`, with `ammo_count` being incremented in steps of `multi_sprite_step`
+//   ... except the very final full mag sprite with is just `[icon_state]`
 /obj/item/ammo_box/update_icon()
-	var/icon_base = initial(icon_prefix) ? initial(icon_prefix) : initial(icon_state)
-	switch(multiple_sprites)
-		if(1)
-			icon_state = "[icon_base]-[stored_ammo.len]"
-		if(2)
-			icon_state = "[icon_base]-[stored_ammo.len ? "[max_ammo]" : "0"]"
-	desc = "[initial(desc)] There are [stored_ammo.len] shell\s left!"
+	var/icon_base = initial(icon_state)
+	switch(multi_sprite_step)
+		if(AMMO_MULTI_SPRITE_STEP_NONE)
+			icon_state = icon_base
+		if(AMMO_MULTI_SPRITE_STEP_ON_OFF)
+			icon_state = "[icon_base][length(stored_ammo) ? "" : "-0"]"
+		else
+			var/shown_ammo = CEILING(length(stored_ammo), multi_sprite_step)
+			if(shown_ammo == CEILING(max_ammo, multi_sprite_step))
+				icon_state = icon_base
+			else
+				icon_state = "[icon_base]-[shown_ammo]"
+	desc = "[initial(desc)] There are [length(stored_ammo)] shell\s left!"
 
 /obj/item/ammo_box/proc/update_mat_value()
 	var/num_ammo = 0
@@ -232,7 +246,7 @@
 
 //Behavior for magazines
 /obj/item/ammo_box/magazine/proc/ammo_count()
-	return stored_ammo.len
+	return length(stored_ammo)
 
 /obj/item/ammo_box/magazine/proc/empty_magazine()
 	var/turf_mag = get_turf(src)

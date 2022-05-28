@@ -228,7 +228,7 @@
 /obj/machinery/computer/security/mining
 	name = "outpost camera monitor"
 	desc = "Used to access the various cameras on the outpost."
-	icon_keyboard = "mining_key"
+	icon_keyboard = "tech_key"
 	icon_screen = "mining"
 	light_color = "#F9BBFC"
 	network = list("Mining Outpost")

@@ -336,10 +336,9 @@
 			popup.open()
 
 /obj/item/robot_parts/robot_suit/Topic(href, href_list)
-	if(usr.lying || usr.stat || usr.stunned || !Adjacent(usr))
-		return
-
 	var/mob/living/living_user = usr
+	if(living_user.lying || living_user.stat || living_user.IsStunned() || !Adjacent(living_user))
+		return
 	var/obj/item/item_in_hand = living_user.get_active_hand()
 	if(!istype(item_in_hand, /obj/item/multitool))
 		to_chat(living_user, "<span class='warning'>You need a multitool!</span>")

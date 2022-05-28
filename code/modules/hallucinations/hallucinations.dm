@@ -1,14 +1,3 @@
-#define HALLUCINATE_COOLDOWN_MIN 20 SECONDS
-#define HALLUCINATE_COOLDOWN_MAX 50 SECONDS
-/// This is multiplied with [/mob/var/hallucination] to determine the final cooldown. A higher hallucination value means shorter cooldown.
-#define HALLUCINATE_COOLDOWN_FACTOR 0.03
-/// Percentage defining the chance at which an hallucination may spawn past the cooldown.
-#define HALLUCINATE_CHANCE 80
-// Severity weights, should sum up to 100!
-#define HALLUCINATE_MINOR_WEIGHT 60
-#define HALLUCINATE_MODERATE_WEIGHT 30
-#define HALLUCINATE_MAJOR_WEIGHT 10
-
 GLOBAL_LIST_INIT(hallucinations, list(
 	HALLUCINATE_MINOR = list(
 		/obj/effect/hallucination/bolts = 10,
@@ -39,41 +28,6 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		/obj/effect/hallucination/loose_energy_ball = 10,
 	)
 ))
-
-/**
-  * Called as part of [/mob/living/proc/handle_status_effects] to handle hallucinations.
-  */
-/mob/living/carbon/proc/handle_hallucinations()
-	if(!hallucination || next_hallucination > world.time)
-		return
-
-	next_hallucination = world.time + rand(HALLUCINATE_COOLDOWN_MIN, HALLUCINATE_COOLDOWN_MAX) / (hallucination * HALLUCINATE_COOLDOWN_FACTOR)
-	if(!prob(HALLUCINATE_CHANCE))
-		return
-
-	// Pick a severity
-	var/severity = HALLUCINATE_MINOR
-	switch(rand(100))
-		if(0 to HALLUCINATE_MINOR_WEIGHT)
-			severity = HALLUCINATE_MINOR
-		if((HALLUCINATE_MINOR_WEIGHT + 1) to (HALLUCINATE_MINOR_WEIGHT + HALLUCINATE_MODERATE_WEIGHT))
-			severity = HALLUCINATE_MODERATE
-		if((HALLUCINATE_MINOR_WEIGHT + HALLUCINATE_MODERATE_WEIGHT + 1) to 100)
-			severity = HALLUCINATE_MAJOR
-
-	hallucinate(pickweight(GLOB.hallucinations[severity]))
-
-/**
-  * Spawns an hallucination for the mob.
-  *
-  * Arguments:
-  * * H - The type path of the hallucination to spawn.
-  */
-/mob/living/carbon/proc/hallucinate(obj/effect/hallucination/H)
-	ASSERT(ispath(H))
-	if(ckey)
-		add_attack_logs(null, src, "Received hallucination [H]", ATKLOG_ALL)
-	return new H(get_turf(src), src)
 
 /**
   * # Hallucination
@@ -188,11 +142,3 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		target?.playsound_local(source, snd, volume, vary, frequency)
 		return
 	addtimer(CALLBACK(target, /mob/.proc/playsound_local, source, snd, volume, vary, frequency), time)
-
-#undef HALLUCINATE_COOLDOWN_MIN
-#undef HALLUCINATE_COOLDOWN_MAX
-#undef HALLUCINATE_COOLDOWN_FACTOR
-#undef HALLUCINATE_CHANCE
-#undef HALLUCINATE_MINOR_WEIGHT
-#undef HALLUCINATE_MODERATE_WEIGHT
-#undef HALLUCINATE_MAJOR_WEIGHT

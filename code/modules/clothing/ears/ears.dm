@@ -15,8 +15,8 @@
 /obj/item/clothing/ears/earmuffs/equipped(mob/user, slot)
 	. = ..()
 	if(ishuman(user) && ((slot == slot_l_ear) || (slot == slot_r_ear)))
-		ADD_TRAIT(user, TRAIT_DEAF, CLOTHING_TRAIT)
+		ADD_TRAIT(user, TRAIT_DEAF, "[CLOTHING_TRAIT][UID()]")
 
 /obj/item/clothing/ears/earmuffs/dropped(mob/user)
 	. = ..()
-	REMOVE_TRAIT(user, TRAIT_DEAF, CLOTHING_TRAIT)
+	REMOVE_TRAIT(user, TRAIT_DEAF, "[CLOTHING_TRAIT][UID()]")

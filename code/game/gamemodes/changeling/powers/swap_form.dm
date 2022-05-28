@@ -35,8 +35,8 @@
 	var/datum/changeling/changeling = user.mind.changeling
 
 	to_chat(user, "<span class='notice'>We tighten our grip. We must hold still....</span>")
-	target.do_jitter_animation(500)
-	user.do_jitter_animation(500)
+	target.Jitter(1000 SECONDS)
+	user.Jitter(1000 SECONDS)
 
 	if(!do_mob(user, target, 10 SECONDS))
 		to_chat(user, "<span class='warning'>The body swap has been interrupted!</span>")
@@ -62,7 +62,7 @@
 		GLOB.non_respawnable_keys -= ghost.ckey //they have a new body, let them be able to re-enter their corpse if they die
 		user.key = ghost.key
 	qdel(ghost)
-	user.Paralyse(2)
+	user.Paralyse(4 SECONDS)
 	target.add_language("Changeling")
 	user.remove_language("Changeling")
 	user.regenerate_icons()

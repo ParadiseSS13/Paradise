@@ -445,13 +445,15 @@
 	setBrainLoss(0)
 	setStaminaLoss(0)
 	SetSleeping(0)
-	SetParalysis(0, 1, 1)
-	SetStunned(0, 1, 1)
-	SetWeakened(0, 1, 1)
+	SetParalysis(0, TRUE)
+	SetStunned(0, TRUE)
+	SetWeakened(0, TRUE)
 	SetSlowed(0)
+	SetImmobilized(0)
 	SetLoseBreath(0)
 	SetDizzy(0)
 	SetJitter(0)
+	SetStuttering(0)
 	SetConfused(0)
 	SetDrowsy(0)
 	radiation = 0
@@ -511,14 +513,13 @@
 	return
 
 /mob/living/proc/remove_CC(should_update_canmove = TRUE)
-	SetWeakened(0, FALSE)
-	SetStunned(0, FALSE)
-	SetParalysis(0, FALSE)
-	SetSleeping(0, FALSE)
+	SetWeakened(0)
+	SetStunned(0)
+	SetParalysis(0)
+	SetImmobilized(0)
+	SetSleeping(0)
 	setStaminaLoss(0)
 	SetSlowed(0)
-	if(should_update_canmove)
-		update_canmove()
 
 /mob/living/proc/UpdateDamageIcon()
 	return
@@ -726,7 +727,7 @@
 
 /mob/living/proc/Exhaust()
 	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
-	Weaken(5)
+	Weaken(10 SECONDS)
 
 /mob/living/proc/get_visible_name()
 	return name
@@ -916,8 +917,9 @@
 	if(isturf(loc))
 		var/turf/T = loc
 		. += T.slowdown
-	if(slowed)
-		. += 10
+	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
+	if(S)
+		. += S.slowdown_value
 	if(forced_look)
 		. += 3
 	if(ignorewalk)
@@ -925,7 +927,7 @@
 	else
 		switch(m_intent)
 			if(MOVE_INTENT_RUN)
-				if(drowsyness > 0)
+				if(get_drowsiness() > 0)
 					. += 6
 				. += GLOB.configuration.movement.base_run_speed
 			if(MOVE_INTENT_WALK)
@@ -1027,14 +1029,6 @@
 				GLOB.dead_mob_list += src
 	. = ..()
 	switch(var_name)
-		if("weakened")
-			SetWeakened(var_value)
-		if("stunned")
-			SetStunned(var_value)
-		if("paralysis")
-			SetParalysis(var_value)
-		if("sleeping")
-			SetSleeping(var_value)
 		if("maxHealth")
 			updatehealth()
 		if("resize")

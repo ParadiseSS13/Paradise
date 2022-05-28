@@ -13,32 +13,20 @@
 		return acct
 
 
-/obj/proc/get_card_account(obj/item/card/I, mob/user=null, terminal_name="", transaction_purpose="", require_pin=0)
-	if(terminal_name=="")
-		terminal_name=src.name
+/obj/proc/get_card_account(obj/item/card/I)
 	if(istype(I, /obj/item/card/id))
 		var/obj/item/card/id/C = I
-		var/attempt_pin=0
 		var/datum/money_account/D = get_money_account(C.associated_account_number)
-		if(require_pin && user)
-			attempt_pin = input(user,"Enter pin code", "Transaction") as num
-			if(D.remote_access_pin != attempt_pin)
-				return null
 		if(D)
 			return D
 
-/mob/proc/get_worn_id_account(require_pin=0, mob/user=null)
+/mob/proc/get_worn_id_account()
 	if(ishuman(src))
 		var/mob/living/carbon/human/H=src
 		var/obj/item/card/id/I=H.get_idcard()
 		if(!I || !istype(I))
 			return null
-		var/attempt_pin=0
 		var/datum/money_account/D = get_money_account(I.associated_account_number)
-		if(require_pin && user)
-			attempt_pin = input(user,"Enter pin code", "Transaction") as num
-			if(D.remote_access_pin != attempt_pin)
-				return null
 		return D
 	else if(issilicon(src))
 		return GLOB.station_account

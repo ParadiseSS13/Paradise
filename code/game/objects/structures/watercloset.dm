@@ -496,7 +496,7 @@
 			H.lip_style = null //Washes off lipstick
 			H.lip_color = initial(H.lip_color)
 			H.regenerate_icons()
-		user.AdjustDrowsy(-rand(2,3)) //Washing your face wakes you up if you're falling asleep
+			H.AdjustDrowsy(-rand(4 SECONDS, 6 SECONDS)) //Washing your face wakes you up if you're falling asleep
 	else
 		user.clean_blood()
 

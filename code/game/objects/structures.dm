@@ -4,7 +4,7 @@
 	max_integrity = 300
 	face_while_pulling = TRUE
 	var/climbable
-	var/mob/climber
+	var/mob/living/climber
 	var/broken = FALSE
 
 /obj/structure/New()
@@ -94,7 +94,7 @@
 
 		if(M.lying) return //No spamming this on people.
 
-		M.Weaken(5)
+		M.Weaken(10 SECONDS)
 		to_chat(M, "<span class='warning'>You topple as \the [src] moves under you!</span>")
 
 		if(prob(25))
@@ -132,15 +132,15 @@
 			H.UpdateDamageIcon()
 	return
 
-/obj/structure/proc/can_touch(mob/user)
-	if(!user)
+/obj/structure/proc/can_touch(mob/living/user)
+	if(!istype(user))
 		return 0
 	if(!Adjacent(user))
 		return 0
 	if(user.restrained() || user.buckled)
 		to_chat(user, "<span class='notice'>You need your hands and legs free for this.</span>")
 		return 0
-	if(user.stat || user.paralysis || user.sleeping || user.lying || user.IsWeakened())
+	if(user.stat || user.IsParalyzed() || user.IsSleeping() || user.lying || user.IsWeakened())
 		return 0
 	if(issilicon(user))
 		to_chat(user, "<span class='notice'>You need hands for this.</span>")
