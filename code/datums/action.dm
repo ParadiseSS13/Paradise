@@ -76,8 +76,10 @@
 		if(owner.restrained())
 			return FALSE
 	if(check_flags & AB_CHECK_STUNNED)
-		if(owner.stunned || owner.IsWeakened())
-			return FALSE
+		if(isliving(owner))
+			var/mob/living/L = owner
+			if(L.IsStunned() || L.IsWeakened())
+				return FALSE
 	if(check_flags & AB_CHECK_LYING)
 		if(owner.lying)
 			return FALSE
@@ -441,6 +443,19 @@
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "jetboot"
 	use_itemicon = FALSE
+
+
+/datum/action/item_action/gravity_jump
+	name = "Gravity jump"
+	desc = "Directs a pulse of gravity in front of the user, pulling them foward rapidly."
+
+/datum/action/item_action/gravity_jump/Trigger()
+	if(!IsAvailable())
+		return FALSE
+
+	var/obj/item/clothing/shoes/magboots/gravity/G = target
+	G.dash(usr)
+
 
 ///prset for organ actions
 /datum/action/item_action/organ_action

@@ -68,20 +68,20 @@
 		return
 	for(var/atom/movable/AM in pod)
 		pod.eject(AM)
-		if(ismob(AM))
-			var/mob/M = AM
-			M.Weaken(5)
+		if(isliving(AM))
+			var/mob/living/L = AM
+			L.Weaken(10 SECONDS)
 
 
 /obj/structure/transit_tube/station/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/grab) && hatch_state == TRANSIT_TUBE_OPEN)
 		var/obj/item/grab/G = W
 		if(ismob(G.affecting) && G.state >= GRAB_AGGRESSIVE)
-			var/mob/GM = G.affecting
+			var/mob/living/GM = G.affecting
 			for(var/obj/structure/transit_tube_pod/pod in loc)
 				pod.visible_message("<span class='warning'>[user] starts putting [GM] into [pod]!</span>")
 				if(do_after(user, 30, target = GM) && GM && G && G.affecting == GM)
-					GM.Weaken(5)
+					GM.Weaken(10 SECONDS)
 					Bumped(GM)
 					qdel(G)
 				break

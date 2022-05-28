@@ -76,16 +76,17 @@
 			add_overlay("[icon_keyboard]_off")
 		return
 
-	// This whole block lets screens ignore lighting and be visible even in the darkest room
+	// This whole block lets screens and keyboards ignore lighting and be visible even in the darkest room
 	var/overlay_state = icon_screen
 	if(stat & BROKEN)
 		overlay_state = "[icon_state]_broken"
 	add_overlay("[overlay_state]")
 	if(!(stat & BROKEN) && light)
-		underlays += emissive_appearance(icon, "[icon_state]_light_mask")
+		underlays += emissive_appearance(icon, "[icon_state]_lightmask")
 
 	if(icon_keyboard)
 		add_overlay("[icon_keyboard]")
+		underlays += emissive_appearance(icon, "[icon_keyboard]_lightmask")
 
 /obj/machinery/computer/power_change()
 	..()

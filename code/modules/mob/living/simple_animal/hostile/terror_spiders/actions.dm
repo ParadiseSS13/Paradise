@@ -189,8 +189,7 @@
 	if(isliving(AM) && !isterrorspider(AM))
 		var/mob/living/M = AM
 		to_chat(M, "<span class='userdanger'>You get stuck in [src] for a moment.</span>")
-		M.Stun(4) // 8 seconds.
-		M.Weaken(4) // 8 seconds.
+		M.Weaken(8 SECONDS)
 		if(iscarbon(M))
 			web_special_ability(M)
 			addtimer(CALLBACK(src, .proc/after_carbon_crossed, M), 7 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)

@@ -49,12 +49,12 @@
 	if(!gripped_item && proximity && target && ishuman(target))
 		H = target
 		if(H.lying)
-			H.AdjustSleeping(-5)
-			if(H.sleeping == 0)
+			H.AdjustSleeping(-10 SECONDS)
+			if(!H.IsSleeping())
 				H.StopResting()
-			H.AdjustParalysis(-3)
-			H.AdjustStunned(-3)
-			H.AdjustWeakened(-3)
+			H.AdjustParalysis(-6 SECONDS)
+			H.AdjustStunned(-6 SECONDS)
+			H.AdjustWeakened(-6 SECONDS)
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			user.visible_message( \
 				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\

@@ -68,7 +68,7 @@
 			if(!HAS_TRAIT(src, TRAIT_NOPAIN))
 				emote("scream")
 			custom_emote(1, "collapses!")
-		Weaken(5) //can't emote while weakened, apparently.
+		Weaken(10 SECONDS) //can't emote while weakened, apparently.
 
 
 /mob/living/carbon/human/proc/handle_grasp()

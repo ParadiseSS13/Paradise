@@ -1,19 +1,8 @@
 //Here are the procs used to modify status effects of a mob.
 
-// We use these to automatically apply their effects when they are changed, as
-// opposed to setting them manually and having to either wait for the next `Life`
-// or update by hand
-
 // The `updating` argument is only available on effects that cause a visual/physical effect on the mob itself
 // when applied, such as Stun, Weaken, and Jitter - stuff like Blindness, which has a client-side effect,
 // lacks this argument.
-
-// Ideally, code should only read the vars in this file, and not ever directly
-// modify them
-
-// If you want a mob type to ignore a given status effect, just override the corresponding
-// `SetSTATE` proc - since all of the other procs are wrappers around that,
-// calling them will have no effect
 
 // BOOLEAN STATES
 
@@ -26,48 +15,69 @@
 
 
 // STATUS EFFECTS
-// All of these decrement over time - at a rate of 1 per life cycle unless otherwise noted
+// All of these are handed by a status_effect in `debuffs.dm` their durations are measured in deciseconds, so the seconds define is used wherever possible, even with decimal seconds values.
 // Status effects sorted alphabetically:
 /*
-	* Confused				*
+	* Confused()				*
 			Movement is scrambled
-	* Dizzy					*
-			The screen goes all warped
+	* Dizzy()					*
+			The screen shifts in random directions slightly.
 	* Drowsy
 			You begin to yawn, and have a chance of incrementing "Paralysis"
-	* Druggy				*
+	* Druggy()				*
 			A trippy overlay appears.
-	* Drunk					*
-			Essentially what your "BAC" is - the higher it is, the more alcohol you have in you
-	* EyeBlind				*
+	* Drunk()					*
+			Gives you a wide variety of negative effects related to being drunk, all scaling up with alcohol consumption.
+	* EyeBlind()				*
 			You cannot see. Prevents EyeBlurry from healing naturally.
-	* EyeBlurry				*
+	* EyeBlurry()				*
 			A hazy overlay appears on your screen.
-	* Hallucination			*
+	* Hallucinate()			*
 			Your character will imagine various effects happening to them, vividly.
-	* Jitter				*
+	* Immobilize()
+			Your character cannot walk, however they can act.
+	* Jitter()				*
 			Your character will visibly twitch. Higher values amplify the effect.
-	* LoseBreath			*
+	* LoseBreath()			*
 			Your character is unable to breathe.
-	* Paralysis				*
+	* Paralysis()				*
 			Your character is knocked out.
-	* Silent				*
+	* Silence()				*
 			Your character is unable to speak.
-	* Sleeping				*
+	* Sleeping()				*
 			Your character is asleep.
-	* Slowed				*
-			Your character moves slower.
-	* Slurring				*
+	* Slowed()				*
+			Your character moves slower. The amount of slowdown is variable, defaulting to 10, which is a massive amount.
+	* Slurring()				*
 			Your character cannot enunciate clearly.
-	* CultSlurring			*
+	* CultSlurring()			*
 			Your character cannot enunciate clearly while mumbling about elder codes.
-	* Stunned				*
+	* Stun()				*
 			Your character is unable to move, and drops stuff in their hands. They keep standing, though.
-	* Stuttering			*
+	* Stuttering()			*
 			Your character stutters parts of their messages.
-	* Weakened				*
-			Your character collapses, but is still conscious.
+	* Weaken()				*
+			Your character collapses, but is still conscious. does not need to be called in tandem with Stun().
 */
+
+#define RETURN_STATUS_EFFECT_STRENGTH(T) \
+	var/datum/status_effect/transient/S = has_status_effect(T);\
+	return S ? S.strength : 0
+
+#define SET_STATUS_EFFECT_STRENGTH(T, A) \
+	A = max(A, 0);\
+	if(A) {;\
+		var/datum/status_effect/transient/S = has_status_effect(T);\
+		if(!S) {;\
+			apply_status_effect(T, A);\
+		} else {;\
+			S.strength = A;\
+		};\
+	} else {;\
+		remove_status_effect(T);\
+	}
+
+#define IS_STUN_IMMUNE(source, ignore_canstun) ((source.status_flags & GODMODE) || (!ignore_canstun && !(source.status_flags & CANSTUN)))
 
 /mob/living
 
@@ -77,27 +87,6 @@
 	/*
 	STATUS EFFECTS
 	*/
-
-/mob // On `/mob` for now, to support legacy code
-	var/confused = 0
-	var/cultslurring = 0
-	var/dizziness = 0
-	var/drowsyness = 0
-	var/druggy = 0
-	var/drunk = 0
-	var/eye_blind = 0
-	var/eye_blurry = 0
-	var/hallucination = 0
-	var/jitteriness = 0
-	var/losebreath = 0
-	var/paralysis = 0
-	var/silent = 0
-	var/sleeping = 0
-	var/slowed = 0
-	var/slurring = 0
-	var/stunned = 0
-	var/stuttering = 0
-	var/weakened = 0
 
 // RESTING
 
@@ -118,311 +107,526 @@
 
 // SCALAR STATUS EFFECTS
 
-// CONFUSED
+/**
+ * Returns current amount of [confusion][/datum/status_effect/decaying/confusion], 0 if none.
+ */
+/mob/living/proc/get_confusion()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_CONFUSION)
 
-/mob/living/Confused(amount)
-	SetConfused(max(confused, amount))
+/**
+ * Sets [confusion][/datum/status_effect/decaying/confusion] if it's higher than zero.
+ */
+/mob/living/proc/SetConfused(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_CONFUSION, amount)
 
-/mob/living/SetConfused(amount)
-	confused = max(amount, 0)
+/**
+ * Sets [confusion][/datum/status_effect/decaying/confusion] if it's higher than current.
+ */
+/mob/living/proc/Confused(amount)
+	SetConfused(max(get_confusion(), amount))
 
-/mob/living/AdjustConfused(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(confused, amount, bound_lower, bound_upper)
-	SetConfused(new_value)
+/**
+ * Sets [confusion][/datum/status_effect/decaying/confusion] to current amount + given, clamped between lower and higher bounds.
+ *
+ * Arguments:
+ * * amount - Amount to add. Can be negative to reduce duration.
+ * * bound_lower - Minimum bound to set at least to. Defaults to 0.
+ * * bound_upper - Maximum bound to set up to. Defaults to infinity.
+ */
+/mob/living/proc/AdjustConfused(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetConfused(directional_bounded_sum(get_confusion(), amount, bound_lower, bound_upper))
 
 // DIZZY
 
-/mob/living/Dizzy(amount)
-	SetDizzy(max(dizziness, amount))
+/**
+ * Returns current amount of [dizziness][/datum/status_effect/decaying/dizziness], 0 if none.
+ */
+/mob/living/proc/get_dizziness()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DIZZINESS)
 
-/mob/living/SetDizzy(amount)
-	dizziness = max(amount, 0)
+/**
+ * Sets [dizziness][/datum/status_effect/decaying/dizziness] if it's higher than zero.
+ */
+/mob/living/proc/SetDizzy(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DIZZINESS, amount)
 
-/mob/living/AdjustDizzy(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(dizziness, amount, bound_lower, bound_upper)
-	SetDizzy(new_value)
+/**
+ * Sets [dizziness][/datum/status_effect/decaying/dizziness] if it's higher than current.
+ */
+/mob/living/proc/Dizzy(amount)
+	SetDizzy(max(get_dizziness(), amount))
+
+/**
+ * Sets [dizziness][/datum/status_effect/decaying/dizziness] to current amount + given, clamped between lower and higher bounds.
+ *
+ * Arguments:
+ * * amount - Amount to add. Can be negative to reduce duration.
+ * * bound_lower - Minimum bound to set at least to. Defaults to 0.
+ * * bound_upper - Maximum bound to set up to. Defaults to infinity.
+ */
+/mob/living/proc/AdjustDizzy(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetDizzy(directional_bounded_sum(get_dizziness(), amount, bound_lower, bound_upper))
 
 // DROWSY
 
-/mob/living/Drowsy(amount)
-	SetDrowsy(max(drowsyness, amount))
+/**
+ * Returns current amount of [drowsiness][/datum/status_effect/decaying/drowsiness], 0 if none.
+ */
+/mob/living/proc/get_drowsiness()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DROWSINESS)
 
-/mob/living/SetDrowsy(amount)
-	drowsyness = max(amount, 0)
+/**
+ * Sets [drowsiness][/datum/status_effect/decaying/drowsiness] if it's higher than zero.
+ */
+/mob/living/proc/SetDrowsy(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DROWSINESS, amount)
 
-/mob/living/AdjustDrowsy(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(drowsyness, amount, bound_lower, bound_upper)
-	SetDrowsy(new_value)
+/**
+ * Sets [drowsiness][/datum/status_effect/decaying/drowsiness] if it's higher than current.
+ */
+/mob/living/proc/Drowsy(amount)
+	SetDrowsy(max(get_drowsiness(), amount))
+
+/**
+ * Sets [drowsiness][/datum/status_effect/decaying/drowsiness] to current amount + given, clamped between lower and higher bounds.
+ *
+ * Arguments:
+ * * amount - Amount to add. Can be negative to reduce duration.
+ * * bound_lower - Minimum bound to set at least to. Defaults to 0.
+ * * bound_upper - Maximum bound to set up to. Defaults to infinity.
+ */
+/mob/living/proc/AdjustDrowsy(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetDrowsy(directional_bounded_sum(get_drowsiness(), amount, bound_lower, bound_upper))
 
 // DRUNK
 
-/mob/living/Drunk(amount)
-	SetDrunk(max(drunk, amount))
+/**
+ * Returns current amount of [drunkenness][/datum/status_effect/decaying/drunkenness], 0 if none.
+ */
+/mob/living/proc/get_drunkenness()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DRUNKENNESS)
 
-/mob/living/SetDrunk(amount)
-	drunk = max(amount, 0)
+/**
+ * Sets [drunkenness][/datum/status_effect/decaying/drunkenness] if it's higher than zero.
+ */
+/mob/living/proc/SetDrunk(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DRUNKENNESS, amount)
 
-/mob/living/AdjustDrunk(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(drunk, amount, bound_lower, bound_upper)
-	SetDrunk(new_value)
+/**
+ * Sets [drunkenness][/datum/status_effect/decaying/drunkenness] if it's higher than current.
+ */
+/mob/living/proc/Drunk(amount)
+	SetDrunk(max(get_drunkenness(), amount))
+
+/**
+ * Sets [drunkenness][/datum/status_effect/decaying/drunkenness] to current amount + given, clamped between lower and higher bounds.
+ *
+ * Arguments:
+ * * amount - Amount to add. Can be negative to reduce duration.
+ * * bound_lower - Minimum bound to set at least to. Defaults to 0.
+ * * bound_upper - Maximum bound to set up to. Defaults to infinity.
+ */
+/mob/living/proc/AdjustDrunk(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetDrunk(directional_bounded_sum(get_drunkenness(), amount, bound_lower, bound_upper))
 
 // DRUGGY
 
-/mob/living/Druggy(amount, updating = TRUE)
-	return SetDruggy(max(druggy, amount), updating)
+/mob/living/proc/AmountDruggy()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DRUGGED)
 
-/mob/living/SetDruggy(amount, updating = TRUE)
-	. = STATUS_UPDATE_DRUGGY
-	if((!!amount) == (!!druggy)) // We're not changing from + to 0 or vice versa
-		. = STATUS_UPDATE_NONE
-		updating = FALSE
-	druggy = max(amount, 0)
-	// We transitioned to/from 0, so update the druggy overlays
-	if(updating)
-		update_druggy_effects()
+/mob/living/proc/Druggy(amount)
+	SetDruggy(max(AmountDruggy(), amount))
 
-/mob/living/AdjustDruggy(amount, bound_lower = 0, bound_upper = INFINITY, updating = TRUE)
-	var/new_value = directional_bounded_sum(druggy, amount, bound_lower, bound_upper)
-	return SetDruggy(new_value, updating)
+/mob/living/proc/SetDruggy(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DRUGGED, amount)
+
+/mob/living/proc/AdjustDruggy(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetDruggy(directional_bounded_sum(AmountDruggy(), amount, bound_lower, bound_upper))
 
 // EYE_BLIND
+/mob/living/proc/AmountBlinded()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_BLINDED)
 
-/mob/living/EyeBlind(amount, updating = TRUE)
-	return SetEyeBlind(max(eye_blind, amount), updating)
+/mob/living/proc/EyeBlind(amount)
+	SetEyeBlind(max(AmountBlinded(), amount))
 
-/mob/living/SetEyeBlind(amount, updating = TRUE)
-	. = STATUS_UPDATE_BLIND
-	if((!!amount) == (!!eye_blind)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
-	eye_blind = max(amount, 0)
-	// We transitioned to/from 0, so update the eye blind overlays
-	if(updating)
-		update_blind_effects()
+/mob/living/proc/SetEyeBlind(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_BLINDED, amount)
 
-/mob/living/AdjustEyeBlind(amount, bound_lower = 0, bound_upper = INFINITY, updating = TRUE)
-	var/new_value = directional_bounded_sum(eye_blind, amount, bound_lower, bound_upper)
-	return SetEyeBlind(new_value, updating)
+/mob/living/proc/AdjustEyeBlind(amount, bound_lower = 0, bound_upper = INFINITY, updating = TRUE)
+	SetEyeBlind(directional_bounded_sum(AmountBlinded(), amount, bound_lower, bound_upper))
 
 // EYE_BLURRY
+/mob/living/proc/AmountEyeBlurry()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_BLURRY_EYES)
 
-/mob/living/EyeBlurry(amount, updating = TRUE)
-	return SetEyeBlurry(max(eye_blurry, amount), updating)
+/mob/living/proc/EyeBlurry(amount)
+	SetEyeBlurry(max(AmountEyeBlurry(), amount))
 
-/mob/living/SetEyeBlurry(amount, updating = TRUE)
-	. = STATUS_UPDATE_BLURRY
-	//if they're both above max or equal that means we won't change the blur filter
-	if(amount > MAX_EYE_BLURRY_FILTER_SIZE / EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER && eye_blurry > MAX_EYE_BLURRY_FILTER_SIZE / EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER || eye_blurry == amount)
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
+/mob/living/proc/SetEyeBlurry(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_BLURRY_EYES, amount)
 
-	eye_blurry = max(amount, 0)
-	if(updating)
-		update_blurry_effects()
-
-/mob/living/AdjustEyeBlurry(amount, bound_lower = 0, bound_upper = INFINITY, updating = TRUE)
-	var/new_value = directional_bounded_sum(eye_blurry, amount, bound_lower, bound_upper)
-	return SetEyeBlurry(new_value, updating)
+/mob/living/proc/AdjustEyeBlurry(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetEyeBlurry(directional_bounded_sum(AmountEyeBlurry(), amount, bound_lower, bound_upper))
 
 // HALLUCINATION
+/mob/living/proc/AmountHallucinate()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_HALLUCINATION)
 
-/mob/living/Hallucinate(amount)
-	SetHallucinate(max(hallucination, amount))
+/mob/living/proc/Hallucinate(amount)
+	SetHallucinate(max(AmountHallucinate(), amount))
 
-/mob/living/SetHallucinate(amount)
-	hallucination = max(amount, 0)
+/mob/living/proc/SetHallucinate(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_HALLUCINATION, amount)
 
-/mob/living/AdjustHallucinate(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(hallucination, amount, bound_lower, bound_upper)
-	SetHallucinate(new_value)
+/mob/living/proc/AdjustHallucinate(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetHallucinate(directional_bounded_sum(AmountHallucinate(), amount, bound_lower, bound_upper))
 
 // JITTER
+/mob/living/proc/AmountJitter()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_JITTER)
 
-/mob/living/Jitter(amount, force = 0)
-	SetJitter(max(jitteriness, amount), force)
+/mob/living/proc/Jitter(amount, ignore_canstun = FALSE)
+	SetJitter(max(AmountJitter(), amount), ignore_canstun)
 
-/mob/living/SetJitter(amount, force = 0)
+/mob/living/proc/SetJitter(amount, ignore_canstun = FALSE)
 	// Jitter is also associated with stun
-	if(status_flags & CANSTUN || force)
-		jitteriness = max(amount, 0)
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_JITTER, amount)
 
-/mob/living/AdjustJitter(amount, bound_lower = 0, bound_upper = INFINITY, force = 0)
-	var/new_value = directional_bounded_sum(jitteriness, amount, bound_lower, bound_upper)
-	SetJitter(new_value, force)
+/mob/living/proc/AdjustJitter(amount, bound_lower = 0, bound_upper = INFINITY, force = 0)
+	SetJitter(directional_bounded_sum(AmountJitter(), amount, bound_lower, bound_upper), force)
 
 // LOSE_BREATH
 
-/mob/living/LoseBreath(amount)
-	SetLoseBreath(max(losebreath, amount))
+/mob/living/proc/AmountLoseBreath()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_LOSE_BREATH)
 
-/mob/living/SetLoseBreath(amount)
+/mob/living/proc/LoseBreath(amount)
+	SetLoseBreath(max(AmountLoseBreath(), amount))
+
+/mob/living/proc/SetLoseBreath(amount)
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
-		losebreath = 0
-		return FALSE
-	losebreath = max(amount, 0)
+		return
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_LOSE_BREATH, amount)
 
-/mob/living/AdjustLoseBreath(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(losebreath, amount, bound_lower, bound_upper)
-	SetLoseBreath(new_value)
+/mob/living/proc/AdjustLoseBreath(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetLoseBreath(directional_bounded_sum(AmountLoseBreath(), amount, bound_lower, bound_upper))
 
 // PARALYSE
+/mob/living/proc/IsParalyzed()
+	return has_status_effect(STATUS_EFFECT_PARALYZED)
 
-/mob/living/Paralyse(amount, updating = 1, force = 0)
-	return SetParalysis(max(paralysis, amount), updating, force)
+/mob/living/proc/AmountParalyzed()
+	var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed()
+	if(P)
+		return P.duration - world.time
+	return 0
 
-/mob/living/SetParalysis(amount, updating = 1, force = 0)
-	. = STATUS_UPDATE_STAT
-	if((!!amount) == (!!paralysis)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
-	if(status_flags & CANPARALYSE || force)
-		paralysis = max(amount, 0)
-		if(updating)
-			update_canmove()
-			update_stat("paralysis")
+/mob/living/proc/Paralyse(amount, ignore_canstun = FALSE)
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed()
+	if(P)
+		P.duration = max(world.time + amount, P.duration)
+	else if(amount > 0)
+		P = apply_status_effect(STATUS_EFFECT_PARALYZED, amount)
+	return P
 
-/mob/living/AdjustParalysis(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
-	var/new_value = directional_bounded_sum(paralysis, amount, bound_lower, bound_upper)
-	return SetParalysis(new_value, updating, force)
+/mob/living/proc/SetParalysis(amount, ignore_canstun = FALSE)
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed()
+	if(P)
+		P.duration = world.time + amount
+	else if(amount > 0)
+		P = apply_status_effect(STATUS_EFFECT_PARALYZED, amount)
+	return P
+
+/mob/living/proc/AdjustParalysis(amount, bound_lower = 0, bound_upper = INFINITY, ignore_canstun = FALSE)
+	return SetParalysis(directional_bounded_sum(AmountParalyzed(), amount, bound_lower, bound_upper), ignore_canstun)
 
 // SILENT
+/mob/living/proc/AmountSilenced()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SILENCED)
 
-/mob/living/Silence(amount)
-	SetSilence(max(silent, amount))
+/mob/living/proc/Silence(amount)
+	SetSilence(max(amount, AmountSilenced()))
 
-/mob/living/SetSilence(amount)
-	silent = max(amount, 0)
+/mob/living/proc/SetSilence(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SILENCED, amount)
 
-/mob/living/AdjustSilence(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(silent, amount, bound_lower, bound_upper)
-	SetSilence(new_value)
+/mob/living/proc/AdjustSilence(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetSilence(directional_bounded_sum(AmountSilenced(), amount, bound_lower, bound_upper))
 
 // SLEEPING
+/mob/living/proc/IsSleeping()
+	return has_status_effect(STATUS_EFFECT_SLEEPING)
 
-/mob/living/Sleeping(amount, updating = 1, no_alert = FALSE)
-	return SetSleeping(max(sleeping, amount), updating, no_alert)
+/mob/living/proc/AmountSleeping() //How many deciseconds remain in our sleep
+	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
+	if(S)
+		return S.duration - world.time
+	return 0
 
-/mob/living/SetSleeping(amount, updating = 1, no_alert = FALSE)
+/mob/living/proc/Sleeping(amount, ignore_canstun = FALSE)
+	if(status_flags & GODMODE)
+		return
+	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
+	if(S)
+		S.duration = max(world.time + amount, S.duration)
+	else if(amount > 0)
+		S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount)
+	return S
+
+/mob/living/proc/SetSleeping(amount, ignore_canstun = FALSE)
 	if(frozen) // If the mob has been admin frozen, sleeping should not be changeable
 		return
-	. = STATUS_UPDATE_STAT
-	if((!!amount) == (!!sleeping)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
-	sleeping = max(amount, 0)
-	if(updating)
-		update_sleeping_effects(no_alert)
-		update_stat("sleeping")
-		update_canmove()
+	if(status_flags & GODMODE)
+		return
+	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
+	if(amount <= 0 && S)
+		qdel(S)
+	if(S)
+		S.duration = amount + world.time
+	else if(amount > 0)
+		S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount)
+	return S
 
-/mob/living/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, no_alert = FALSE)
-	var/new_value = directional_bounded_sum(sleeping, amount, bound_lower, bound_upper)
-	return SetSleeping(new_value, updating, no_alert)
+/mob/living/proc/PermaSleeping() /// used for admin freezing.
+	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
+	if(S)
+		S.duration = -1
+	else
+		S = apply_status_effect(STATUS_EFFECT_SLEEPING, -1)
+	return S
+
+/mob/living/proc/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetSleeping(directional_bounded_sum(AmountSleeping(), amount, bound_lower, bound_upper))
 
 // SLOWED
+/mob/living/proc/IsSlowed()
+	return has_status_effect(STATUS_EFFECT_SLOWED)
 
-/mob/living/Slowed(amount, updating = 1)
-	SetSlowed(max(slowed, amount), updating)
+/mob/living/proc/Slowed(amount, _slowdown_value)
+	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
+	if(S)
+		S.duration = max(world.time + amount, S.duration)
+		S.slowdown_value = _slowdown_value
+	else if(amount > 0)
+		S = apply_status_effect(STATUS_EFFECT_SLOWED, amount, _slowdown_value)
+	return S
 
-/mob/living/SetSlowed(amount, updating = 1)
-	slowed = max(amount, 0)
+/mob/living/proc/SetSlowed(amount, _slowdown_value)
+	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
+	if(amount <= 0 || _slowdown_value <= 0)
+		if(S)
+			qdel(S)
+	else
+		if(S)
+			S.duration = amount
+			S.slowdown_value = _slowdown_value
+		else
+			S = apply_status_effect(STATUS_EFFECT_SLOWED, amount, _slowdown_value)
+	return S
 
-/mob/living/AdjustSlowed(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1)
-	var/new_value = directional_bounded_sum(slowed, amount, bound_lower, bound_upper)
-	SetSlowed(new_value, updating)
+
+/mob/living/proc/AdjustSlowedDuration(amount)
+	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
+	if(S)
+		S.duration += amount
+
+/mob/living/proc/AdjustSlowedIntensity(intensity)
+	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
+	if(S)
+		S.slowdown_value += intensity
 
 // SLURRING
+/mob/living/proc/AmountSluring()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SLURRING)
 
-/mob/living/Slur(amount)
-	SetSlur(max(slurring, amount))
+/mob/living/proc/Slur(amount)
+	SetSlur(max(AmountSluring(), amount))
 
-/mob/living/SetSlur(amount)
-	slurring = max(amount, 0)
+/mob/living/proc/SetSlur(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SLURRING, amount)
 
-	if(slurring && drunk)
-		throw_alert("drunk", /obj/screen/alert/drunk)
-		sound_environment_override = SOUND_ENVIRONMENT_PSYCHOTIC
-	else
-		clear_alert("drunk")
-		sound_environment_override = SOUND_ENVIRONMENT_NONE
-
-/mob/living/AdjustSlur(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(slurring, amount, bound_lower, bound_upper)
-	SetSlur(new_value)
+/mob/living/proc/AdjustSlur(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetSlur(directional_bounded_sum(AmountSluring(), amount, bound_lower, bound_upper))
 
 // CULTSLURRING
+/mob/living/proc/AmountCultSlurring()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_CULT_SLUR)
 
-/mob/living/CultSlur(amount)
-	SetCultSlur(max(cultslurring, amount))
+/mob/living/proc/CultSlur(amount)
+	SetCultSlur(max(AmountCultSlurring(), amount))
 
-/mob/living/SetCultSlur(amount)
-	cultslurring = max(amount, 0)
+/mob/living/proc/SetCultSlur(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_CULT_SLUR, amount)
 
-/mob/living/AdjustCultSlur(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(cultslurring, amount, bound_lower, bound_upper)
-	SetCultSlur(new_value)
+/mob/living/proc/AdjustCultSlur(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetCultSlur(directional_bounded_sum(AmountCultSlurring(), amount, bound_lower, bound_upper))
 
-// STUN
+/* STUN */
+/mob/living/proc/IsStunned() //If we're stunned
+	return has_status_effect(STATUS_EFFECT_STUN)
 
-/mob/living/Stun(amount, updating = 1, force = 0)
-	return SetStunned(max(stunned, amount), updating, force)
+/mob/living/proc/AmountStun() //How many deciseconds remain in our stun
+	var/datum/status_effect/incapacitating/stun/S = IsStunned()
+	if(S)
+		return S.duration - world.time
+	return 0
 
-/mob/living/SetStunned(amount, updating = 1, force = 0) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
-	. = STATUS_UPDATE_CANMOVE
-	if((!!amount) == (!!stunned)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
+/mob/living/proc/Stun(amount, ignore_canstun = FALSE) //Can't go below remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_stun(amount, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/stun/S = IsStunned()
+	if(S)
+		S.duration = max(world.time + amount, S.duration)
+	else if(amount > 0)
+		S = apply_status_effect(STATUS_EFFECT_STUN, amount)
+	return S
 
-	if(status_flags & CANSTUN || force)
-		if(absorb_stun(amount, force))
-			return STATUS_UPDATE_NONE
-		stunned = max(amount, 0)
-		if(updating)
-			update_canmove()
+/mob/living/proc/SetStunned(amount, ignore_canstun = FALSE) //Sets remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/stun/S = IsStunned()
+	if(amount <= 0)
+		if(S)
+			qdel(S)
 	else
-		return STATUS_UPDATE_NONE
+		if(absorb_stun(amount, ignore_canstun))
+			return
+		if(S)
+			S.duration = world.time + amount
+		else
+			S = apply_status_effect(STATUS_EFFECT_STUN, amount)
+	return S
 
-/mob/living/AdjustStunned(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
-	var/new_value = directional_bounded_sum(stunned, amount, bound_lower, bound_upper)
-	return SetStunned(new_value, updating, force)
+/mob/living/proc/AdjustStunned(amount, ignore_canstun = FALSE) //Adds to remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_stun(amount, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/stun/S = IsStunned()
+	if(S)
+		S.duration += amount
+	else if(amount > 0)
+		S = apply_status_effect(STATUS_EFFECT_STUN, amount)
+	return S
+
+/mob/living/proc/IsImmobilized()
+	return has_status_effect(STATUS_EFFECT_IMMOBILIZED)
+
+/mob/living/proc/Immobilize(amount, ignore_canstun = FALSE)
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_stun(amount, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/immobilized/I = IsImmobilized()
+	if(I)
+		I.duration = max(world.time + amount, I.duration)
+	else if(amount > 0)
+		I = apply_status_effect(STATUS_EFFECT_IMMOBILIZED, amount)
+	return I
+
+/mob/living/proc/SetImmobilized(amount, ignore_canstun = FALSE) //Sets remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/immobilized/I = IsImmobilized()
+	if(amount <= 0)
+		if(I)
+			qdel(I)
+	else
+		if(absorb_stun(amount, ignore_canstun))
+			return
+		if(I)
+			I.duration = world.time + amount
+		else
+			I = apply_status_effect(STATUS_EFFECT_IMMOBILIZED, amount)
+	return I
+
+/mob/living/proc/AdjustImmobilized(amount, ignore_canstun = FALSE) //Adds to remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_stun(amount, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/immobilized/I = IsImmobilized()
+	if(I)
+		I.duration += amount
+	else if(amount > 0)
+		I = apply_status_effect(STATUS_EFFECT_IMMOBILIZED, amount)
+	return I
 
 // STUTTERING
 
+/mob/living/proc/AmountStuttering()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_STAMMER)
 
-/mob/living/Stuttering(amount, force = 0)
-	SetStuttering(max(stuttering, amount), force)
+/mob/living/proc/Stuttering(amount, ignore_canstun = FALSE)
+	SetStuttering(max(AmountStuttering(), amount), ignore_canstun)
 
-/mob/living/SetStuttering(amount, force = 0)
-	//From mob/living/apply_effect: "Stuttering is often associated with Stun"
-	if(status_flags & CANSTUN || force)
-		stuttering = max(amount, 0)
+/mob/living/proc/SetStuttering(amount, ignore_canstun = FALSE)
+	if(IS_STUN_IMMUNE(src, ignore_canstun)) //Often applied with a stun
+		return
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_STAMMER, amount)
 
-/mob/living/AdjustStuttering(amount, bound_lower = 0, bound_upper = INFINITY, force = 0)
-	var/new_value = directional_bounded_sum(stuttering, amount, bound_lower, bound_upper)
-	SetStuttering(new_value, force)
+/mob/living/proc/AdjustStuttering(amount, bound_lower = 0, bound_upper = INFINITY, ignore_canstun = FALSE)
+	SetStuttering(directional_bounded_sum(AmountStuttering(), amount, bound_lower, bound_upper), ignore_canstun)
 
 // WEAKEN
 
-/mob/living/Weaken(amount, updating = 1, force = 0)
-	return SetWeakened(max(weakened, amount), updating, force)
+/mob/living/proc/IsWeakened()
+	return has_status_effect(STATUS_EFFECT_WEAKENED)
 
-/mob/living/SetWeakened(amount, updating = 1, force = 0)
-	. = STATUS_UPDATE_CANMOVE
-	if((!!amount) == (!!weakened)) // We're not changing from + to 0 or vice versa
-		updating = FALSE
-		. = STATUS_UPDATE_NONE
-	if(status_flags & CANWEAKEN || force)
-		if(absorb_stun(amount, force))
-			return STATUS_UPDATE_NONE
-		weakened = max(amount, 0)
-		if(updating)
-			update_canmove()	//updates lying, canmove and icons
+/mob/living/proc/AmountWeakened() //How many deciseconds remain in our Weakened status effect
+	var/datum/status_effect/incapacitating/weakened/P = IsWeakened(FALSE)
+	if(P)
+		return P.duration - world.time
+	return 0
+
+/mob/living/proc/Weaken(amount, ignore_canstun = FALSE) //Can't go below remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_stun(amount, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/weakened/P = IsWeakened(FALSE)
+	if(P)
+		P.duration = max(world.time + amount, P.duration)
+	else if(amount > 0)
+		P = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
+	return P
+
+/mob/living/proc/SetWeakened(amount, ignore_canstun = FALSE) //Sets remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/weakened/P = IsWeakened(FALSE)
+	if(amount <= 0)
+		if(P)
+			qdel(P)
 	else
-		return STATUS_UPDATE_NONE
+		if(absorb_stun(amount, ignore_canstun))
+			return
+		if(P)
+			P.duration = world.time + amount
+		else
+			P = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
+	return P
 
-/mob/living/AdjustWeakened(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
-	var/new_value = directional_bounded_sum(weakened, amount, bound_lower, bound_upper)
-	return SetWeakened(new_value, updating, force)
+/mob/living/proc/AdjustWeakened(amount, ignore_canstun = FALSE) //Adds to remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_stun(amount, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/weakened/P = IsWeakened(FALSE)
+	if(P)
+		P.duration += amount
+	else if(amount > 0)
+		P = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
+	return P
 
 //
 //		DISABILITIES
@@ -434,6 +638,7 @@
 	var/val_change = !HAS_TRAIT(src, TRAIT_BLIND)
 	. = val_change ? STATUS_UPDATE_BLIND : STATUS_UPDATE_NONE
 	ADD_TRAIT(src, TRAIT_BLIND, source)
+	EyeBlind(2 SECONDS)
 	if(val_change && updating)
 		update_blind_effects()
 
@@ -536,3 +741,6 @@
 
 /mob/living/proc/reset_shocked()
 	flags_2 &= ~ SHOCKED_2
+
+#undef RETURN_STATUS_EFFECT_STRENGTH
+#undef SET_STATUS_EFFECT_STRENGTH
