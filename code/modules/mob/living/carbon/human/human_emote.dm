@@ -91,7 +91,6 @@
 	key_third_person = "screams"
 	message = "screams!"
 	message_mime = "acts out a scream!"
-	message_monkey = "screeches!"
 	muzzled_noises = list("very loud")
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 	only_forced_audio = FALSE

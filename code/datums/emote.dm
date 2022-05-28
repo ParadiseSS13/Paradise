@@ -152,7 +152,7 @@
 		else
 			log_emote(msg, user)
 
-		var/dchatmsg = "<b>[user]</b> [msg]"
+		var/displayed_msg = "<b>[user]</b> [msg]"
 
 		var/user_turf = get_turf(user)
 		if(user.client)
@@ -160,12 +160,12 @@
 				if(!ghost.client || isnewplayer(ghost))
 					continue
 				if(ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT && !(ghost in viewers(user_turf, null)))
-					ghost.show_message("<span class='emote'>[ghost_follow_link(user, ghost)] [dchatmsg]</span>")
+					ghost.show_message("<span class='emote'>[ghost_follow_link(user, ghost)] [displayed_msg]</span>")
 
 		if(emote_type & EMOTE_VISIBLE || user.mind?.miming)
-			user.audible_message(dchatmsg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
+			user.audible_message(displayed_msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
 		else
-			user.visible_message(dchatmsg, blind_message = "<span class='emote'>You hear how <b>[user]</b> [msg]</span>")
+			user.visible_message(displayed_msg, blind_message = "<span class='emote'>You hear how <b>[user]</b> [msg]</span>")
 
 		if(!(emote_type & (EMOTE_FORCE_NO_RUNECHAT | EMOTE_SOUND) || suppressed))
 			runechat_emote(user, msg)
@@ -178,17 +178,17 @@
  * If you want to change the way the playsound call works, override this.
  */
 /datum/emote/proc/play_sound_effect(mob/user, intentional, sound_path, sound_volume)
-	if(age_based && istype(user, /mob/living/carbon/human))
+	if(age_based && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		playsound(user, sound_path, sound_volume, vary, frequency = H.get_age_pitch())
 	else
 		playsound(user, sound_path, sound_volume, vary)
 
 /**
- * # Send an emote to runechat for all (listening) users in the vicinity.
+ * Send an emote to runechat for all (listening) users in the vicinity.
  *
- * * user: The user of the emote.
- * * text: The text of the emote.
+ * * user - The user of the emote.
+ * * text - The text of the emote.
  */
 /datum/emote/proc/runechat_emote(mob/user, text)
 	var/runechat_text = text
@@ -226,7 +226,7 @@
 	if(get_sound(user) && should_play_sound(user, intentional) && !user.can_use_audio_emote())
 		return FALSE
 	var/cooldown_in_use
-	if(user.emote_cooldown_override != null)
+	if(!isnull(user.emote_cooldown_override))
 		// if the user has a a cooldown override in place, apply that instead.
 		cooldown_in_use = user.emote_cooldown_override
 	else
@@ -251,7 +251,7 @@
 	return sound //by default just return this var.
 
 /**
- * # Get the volume of the audio emote to play.
+ * Get the volume of the audio emote to play.
  *
  * Override this if you want to dynamically change the volume of an emote.
  *
@@ -264,7 +264,7 @@
 	return volume
 
 /**
- * # Replace pronouns in the inputed string with the user's proper pronouns.
+ * Replace pronouns in the inputed string with the user's proper pronouns.
  *
  * Specifically replaces they/them/their pronouns with the user's pronouns, as well as %s (like theirs)
  *
@@ -314,7 +314,7 @@
 		. = message_simple
 
 /**
- * # Replaces the %t in the message in message_param by params.
+ * Replaces the %t in the message in message_param by params.
  *
  * The behavior of this proc is particularly dependent on `target_behavior` and `emote_target_type`.
  * If target_behavior is EMOTE_TARGET_BHVR_RAW, we ignore any sort of target searching.
@@ -364,8 +364,8 @@
  * This gets called in select_param if a valid object target was found, and should let you interact with the
  * object being targeted while it's still in scope.
  *
- * * user: Person who is triggering the emote.
- * * Target: The target of the emote itself.
+ * * user - Person who is triggering the emote.
+ * * Target - The target of the emote itself.
  */
 /datum/emote/proc/act_on_target(mob/user, target)
 	return
@@ -441,9 +441,9 @@
 /**
  * Find a target for the emote based on the message parameter fragment passed in.
  *
- * * user: The user looking for a target.
- * * fragment: The mesage parameter or fragment of text they're using to try to find a target.
- * * emote_target_type: Define denoting the type of target to use when searching.
+ * * user - The user looking for a target.
+ * * fragment - The mesage parameter or fragment of text they're using to try to find a target.
+ * * emote_target_type - Define denoting the type of target to use when searching.
  *
  * Returns a matched target, or null if a specific match couldn't be made.
  */
