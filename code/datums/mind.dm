@@ -296,7 +296,10 @@
 		. += "<b><font color='red'>VAMPIRE</font></b>|<a href='?src=[UID()];vampire=clear'>no</a>"
 		. += "<br>Usable blood: <a href='?src=[UID()];vampire=edit_usable_blood'>[vamp.bloodusable]</a>"
 		. += " | Total blood: <a href='?src=[UID()];vampire=edit_total_blood'>[vamp.bloodtotal]</a>"
-		. += "<br>Subclass: <a href='?src=[UID()];vampire=change_subclass'>[!QDELETED(vamp.subclass) ? capitalize(vamp.subclass.name) : "None"]</a>"
+		var/has_subclass = !QDELETED(vamp.subclass)
+		. += "<br>Subclass: <a href='?src=[UID()];vampire=change_subclass'>[has_subclass ? capitalize(vamp.subclass.name) : "None"]</a>"
+		if(has_subclass)
+			. += " | Force full power: <a href='?src=[UID()];vampire=full_power_override'>[vamp.subclass.full_power_override ? "Yes" : "No"]</a>"
 		if(length(vamp.objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];vampire=autoobjectives'>Randomize!</a>"
 	else
@@ -1021,7 +1024,7 @@
 					return
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
 				vamp.bloodtotal = new_total
-				vamp.check_vampire_upgrade(TRUE)
+				vamp.check_vampire_upgrade()
 				log_admin("[key_name(usr)] has set [key_name(current)]'s usable blood to [new_total].")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s total blood to [new_total].")
 
@@ -1048,6 +1051,21 @@
 					vamp.change_subclass(subclass_type)
 					log_admin("[key_name(usr)] has removed [key_name(current)]'s vampire subclass.")
 					message_admins("[key_name_admin(usr)] has removed [key_name_admin(current)]'s vampire subclass.")
+
+			if("full_power_override")
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(vamp.subclass.full_power_override)
+					vamp.subclass.full_power_override = FALSE
+					for(var/power in vamp.powers)
+						if(!is_type_in_list(power, vamp.subclass.fully_powered_abilities))
+							continue
+						vamp.remove_ability(power)
+				else
+					vamp.subclass.full_power_override = TRUE
+
+				vamp.check_vampire_upgrade()
+				log_admin("[key_name(usr)] set [key_name(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
+				message_admins("[key_name_admin(usr)] set [key_name_admin(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
 
 			if("autoobjectives")
 				var/datum/antagonist/vampire/V = has_antag_datum(/datum/antagonist/vampire)
