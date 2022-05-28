@@ -40211,9 +40211,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "cmi" = (
-/obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-20"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -73180,13 +73177,13 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "mWN" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/disposal,
 /obj/machinery/light/small{
 	dir = 4
 	},
 /obj/structure/disposalpipe/trunk,
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "mXw" = (
