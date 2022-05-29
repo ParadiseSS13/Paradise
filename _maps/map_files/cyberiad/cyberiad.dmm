@@ -20744,7 +20744,7 @@
 /obj/machinery/door/airlock{
 	name = "Garden"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
