@@ -153,15 +153,13 @@
 					message = "flips over [G.affecting]!"
 					return ..()
 
+	user.SpinAnimation(5, 1)
+
 	if(prob(5))
 		message = "attempts a flip and crashes to the floor!"
-		user.SpinAnimation(5, 1)
 		sleep(0.3 SECONDS)
-		var/mob/living/L = user
 		if(istype(L))
 			L.Weaken(4 SECONDS)
-	else
-		user.SpinAnimation(5, 1)
 
 	. = ..()
 	message = initial(message)
