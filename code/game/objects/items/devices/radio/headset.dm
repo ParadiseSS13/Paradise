@@ -152,6 +152,14 @@
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
 
+/obj/item/radio/headset/headset_brigphys
+	name = "brig physician's bowman headset"
+	desc = "This is used by your elite security's medical personnel. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	icon_state = "sec_headset_alt"
+	item_state = "sec_headset_alt"
+	ks2type = /obj/item/encryptionkey/headset_medsec
+
 /obj/item/radio/headset/headset_iaa
 	name = "internal affairs bowman headset"
 	desc = "This is used by your elite legal team. Protects ears from flashbangs."

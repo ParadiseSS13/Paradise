@@ -223,7 +223,7 @@
 	new /obj/item/clothing/suit/storage/brigdoc(src)
 	new /obj/item/clothing/under/rank/security/brigphys(src)
 	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/radio/headset/headset_sec/alt(src)
+	new /obj/item/radio/headset/headset_brigphys(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
 
 
