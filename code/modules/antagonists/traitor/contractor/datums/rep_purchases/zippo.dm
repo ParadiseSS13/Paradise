@@ -12,5 +12,6 @@
 	name = "contractor zippo lighter"
 	desc = "An unique black and gold zippo commonly carried by elite Syndicate agents."
 	icon_state = "contractorzippo"
+	item_state = "contractorzippo"
 	icon_on = "contractorzippoon"
 	icon_off = "contractorzippo"

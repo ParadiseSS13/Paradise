@@ -210,6 +210,7 @@
 	desc = "All craftsspacemanship is of the highest quality. It is encrusted with refined plasma sheets. On the item is an image of a dwarf and the words 'Strike the Earth!' etched onto the side."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "purple_zippo_off"
+	item_state = "purplezippo"
 	icon_on = "purple_zippo_on"
 	icon_off = "purple_zippo_off"
 
@@ -218,6 +219,7 @@
 	desc = "A golden lighter, engraved with some ornaments and a G."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "guessip"
+	item_state = "rubysfluffzippo"
 	icon_on = "guessipon"
 	icon_off = "guessip"
 
@@ -1583,7 +1585,7 @@
 	item_state = "asmer_accordion"
 
 
-/obj/item/clothing/head/fluff/pinesalad_horns //Pineapple Salad: Dan Jello 
+/obj/item/clothing/head/fluff/pinesalad_horns //Pineapple Salad: Dan Jello
 	name = "Bluespace Horns"
 	desc = "A pair of fake horns. Now with added bluespace!"
 	icon = 'icons/obj/custom_items.dmi'
