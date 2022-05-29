@@ -4740,6 +4740,9 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
+/obj/structure/sign/electricshock{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "axv" = (
@@ -4959,6 +4962,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/sign/electricshock{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -7664,6 +7670,9 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/structure/sign/electricshock{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plating,
 /area/construction/Storage{
 	name = "Storage Wing"
@@ -8326,6 +8335,9 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/structure/sign/electricshock{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plating,
 /area/construction/Storage{
 	name = "Storage Wing"
@@ -16262,6 +16274,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/box,
+/obj/structure/sign/electricshock{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "bdq" = (
@@ -39215,20 +39230,17 @@
 	},
 /area/medical/cryo)
 "cji" = (
-/obj/effect/spawner/window/reinforced/plasma,
-/obj/structure/cable/yellow,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
-/obj/structure/sign/electricshock,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Xenolab";
-	name = "test chamber blast door"
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
 	},
-/turf/simulated/floor/engine,
-/area/toxins/test_chamber)
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology)
 "cjj" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
@@ -44972,10 +44984,8 @@
 /area/storage/primary)
 "cBb" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
+/obj/structure/sign/electricshock{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -57231,7 +57241,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/sign/electricshock,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Xenolab";
 	name = "test chamber blast door"
@@ -63495,6 +63504,28 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
+"ihm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/sign/electricshock{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology)
 "ihq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/yellow{
@@ -65636,7 +65667,6 @@
 /area/hallway/primary/aft)
 "jmx" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/electricshock,
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
@@ -67219,7 +67249,6 @@
 	name = "Xenobio Pen 1 Blast Door";
 	id_tag = "xenobio1"
 	},
-/obj/structure/sign/electricshock,
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
@@ -70650,7 +70679,6 @@
 /area/medical/scibreak)
 "lJO" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/electricshock,
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
@@ -79118,6 +79146,9 @@
 	},
 /obj/machinery/light,
 /obj/effect/turf_decal/box,
+/obj/structure/sign/electricshock{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "qcw" = (
@@ -82236,6 +82267,9 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/structure/sign/electricshock{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -91475,7 +91509,6 @@
 	id_tag = "xenobio8";
 	name = "Xenobio Pen 8 Blast Door"
 	},
-/obj/structure/sign/electricshock,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -139379,14 +139412,14 @@ uQm
 uQm
 lJO
 cZr
-cEd
+ihm
 jcD
 cZr
 eBr
 gJt
 cJb
 cZr
-tau
+cji
 cBb
 cZr
 lJO
@@ -140407,7 +140440,7 @@ uQm
 uQm
 jmx
 cZr
-cEd
+ihm
 kjo
 cZr
 wCn
@@ -140415,7 +140448,7 @@ wCn
 wCn
 cZr
 iUe
-kjo
+cBb
 cZr
 jmx
 uQm
@@ -142722,7 +142755,7 @@ dcD
 oBT
 jWt
 ckp
-cji
+ckp
 ckp
 vCK
 ckp
