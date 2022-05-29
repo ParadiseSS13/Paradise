@@ -7321,6 +7321,11 @@
 /area/maintenance/fpmaint)
 "aGn" = (
 /obj/effect/turf_decal/bot_white/right,
+/obj/machinery/camera/motion{
+	c_tag = "Vault";
+	dir = 10;
+	network = list("SS13","vault")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -7349,11 +7354,6 @@
 	},
 /area/security/nuke_storage)
 "aGq" = (
-/obj/machinery/camera/motion{
-	c_tag = "Vault";
-	dir = 1;
-	network = list("SS13","vault")
-	},
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
