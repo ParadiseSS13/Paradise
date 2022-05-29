@@ -42,7 +42,7 @@
 
 /datum/station_state/proc/count()
 	var/station_zlevel = level_name_to_num(MAIN_STATION)
-	for(var/turf/T in block(locate(1,1,station_zlevel), locate(world.maxx,world.maxy,station_zlevel)))
+	for(var/turf/T in block(locate(1, 1, station_zlevel), locate(world.maxx, world.maxy, station_zlevel)))
 
 		if(istype(T,/turf/simulated/floor))
 			if(!(T:burnt))
