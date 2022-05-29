@@ -21,6 +21,16 @@
 	build_path = /obj/item/storage/backpack/holding
 	category = list("Bluespace")
 
+/datum/design/sat_holding
+	name = "Satchel of Holding"
+	desc = "A satchel that opens into a localized pocket of Blue Space."
+	id = "sat_holding"
+	req_tech = list("bluespace" = 6, "materials" = 5, "engineering" = 5, "plasmatech" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_GOLD = 3000, MAT_DIAMOND = 1500, MAT_URANIUM = 250, MAT_BLUESPACE = 2000)
+	build_path = /obj/item/storage/backpack/holding/satchel
+	category = list("Bluespace")
+
 /datum/design/bluespace_belt
 	name = "Belt of Holding"
 	desc = "An astonishingly complex belt popularized by a rich blue-space technology magnate."

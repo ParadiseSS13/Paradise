@@ -89,6 +89,12 @@
 	else
 		. = ..()
 
+/obj/item/storage/backpack/holding/satchel
+	name = "Satchel of holding"
+	desc = "A satchel that opens into a localized pocket of Blue Space."
+	icon_state = "holdingsat"
+	item_state = "holdingsat"
+
 /obj/item/storage/backpack/holding/singularity_act(current_size)
 	var/dist = max((current_size - 2),1)
 	explosion(src.loc,(dist),(dist*2),(dist*4))
