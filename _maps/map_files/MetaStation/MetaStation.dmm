@@ -7484,9 +7484,8 @@
 "aGQ" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "aGR" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -8660,9 +8659,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "aJE" = (
 /turf/simulated/floor/plasteel,
@@ -10009,9 +10007,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aMU" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -11347,9 +11343,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "aQL" = (
 /obj/machinery/light/small{
@@ -12295,9 +12290,8 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "aTp" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "aTq" = (
 /obj/structure/chair/stool,
@@ -12327,9 +12321,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/landmark/lightsout,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "aTu" = (
 /obj/structure/cable/yellow{
@@ -12448,9 +12441,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -13160,9 +13152,8 @@
 /obj/item/stock_parts/cell{
 	maxcharge = 2000
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aVp" = (
 /obj/machinery/vending/autodrobe,
@@ -13178,9 +13169,7 @@
 /obj/structure/closet/crate,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aVr" = (
 /obj/machinery/camera{
@@ -13435,9 +13424,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "aVR" = (
 /obj/structure/cable/yellow{
@@ -13902,8 +13890,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
+	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
 "aXi" = (
@@ -13927,9 +13916,8 @@
 	name = "old sink";
 	pixel_y = 25
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aXo" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/red{
@@ -14042,9 +14030,8 @@
 /area/quartermaster/office)
 "aXB" = (
 /obj/structure/closet/crate/internals,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aXE" = (
 /obj/structure/table,
@@ -17741,9 +17728,7 @@
 /obj/structure/sign/poster/official/here_for_your_safety{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bgA" = (
 /obj/structure/cable/yellow{
@@ -18240,6 +18225,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "bhL" = (
@@ -18780,9 +18766,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/janitor)
 "biZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -18791,9 +18776,8 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/janitor)
 "bja" = (
 /obj/structure/closet/l3closet/janitor,
@@ -18804,9 +18788,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/janitor)
 "bjb" = (
 /obj/structure/table/wood,
@@ -19554,9 +19537,8 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/janitor)
 "bkN" = (
 /obj/structure/cable/yellow{
@@ -19565,9 +19547,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/janitor)
 "bkO" = (
 /obj/structure/cable/yellow{
@@ -20413,9 +20394,8 @@
 	name = "Wags-His-Tail";
 	real_name = "Wags-His-Tail"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/janitor)
 "bmD" = (
 /obj/structure/cable/yellow{
@@ -20423,9 +20403,8 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/janitor)
 "bmE" = (
 /obj/machinery/newscaster{
@@ -20496,9 +20475,8 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/janitor)
 "bmR" = (
 /obj/structure/cable/yellow{
@@ -21118,15 +21096,13 @@
 /obj/item/grenade/chem_grenade/cleaner,
 /obj/item/storage/box/mousetraps,
 /obj/item/storage/box/mousetraps,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/janitor)
 "bov" = (
 /obj/structure/janitorialcart,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/janitor)
 "bow" = (
 /obj/effect/turf_decal/bot,
@@ -21141,9 +21117,8 @@
 	dir = 1
 	},
 /obj/machinery/disposal,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/janitor)
 "boy" = (
 /obj/item/storage/box/lights/mixed,
@@ -21291,9 +21266,8 @@
 	dir = 1
 	},
 /obj/item/clothing/gloves/color/orange,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/janitor)
 "boO" = (
 /obj/structure/cable/yellow{
@@ -21790,9 +21764,8 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start/janitor,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/janitor)
 "bpS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -27908,9 +27881,8 @@
 	},
 /obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet{
 	name = "\improper Auxiliary Restrooms"
 	})
@@ -27932,9 +27904,7 @@
 	name = "old sink";
 	pixel_y = 25
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet{
 	name = "\improper Auxiliary Restrooms"
 	})
@@ -28526,9 +28496,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet{
 	name = "\improper Auxiliary Restrooms"
 	})
@@ -29099,17 +29067,13 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet{
 	name = "\improper Auxiliary Restrooms"
 	})
 "bHm" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet{
 	name = "\improper Auxiliary Restrooms"
 	})
@@ -29619,9 +29583,8 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet{
 	name = "\improper Auxiliary Restrooms"
 	})
@@ -29635,9 +29598,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet{
 	name = "\improper Auxiliary Restrooms"
 	})
@@ -30317,9 +30278,7 @@
 	name = "Shower"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet{
 	name = "\improper Auxiliary Restrooms"
 	})
@@ -31546,9 +31505,8 @@
 	},
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/vomit,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet{
 	name = "\improper Auxiliary Restrooms"
 	})
@@ -31868,9 +31826,7 @@
 	},
 /obj/item/soap/nanotrasen,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet{
 	name = "\improper Auxiliary Restrooms"
 	})
@@ -36059,7 +36015,8 @@
 	name = "Locker Room"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
+	dir = 1;
+	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
 "caI" = (
@@ -37375,7 +37332,7 @@
 	name = "Locker Room"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
+	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
 "cdQ" = (
@@ -57065,9 +57022,8 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "eSt" = (
 /obj/structure/chair/comfy/black{
@@ -66085,9 +66041,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "jCz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -69247,6 +69202,9 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "Brig Cell 5"
+	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "lcc" = (
@@ -77471,9 +77429,6 @@
 	name = "Cell 5 Locker"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/camera{
-	c_tag = "Brig Cell 5"
-	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "pps" = (
@@ -87264,9 +87219,7 @@
 "umD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet{
 	name = "\improper Auxiliary Restrooms"
 	})
@@ -91994,9 +91947,8 @@
 "wSP" = (
 /obj/machinery/hydroponics/soil,
 /obj/effect/turf_decal/bot,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
