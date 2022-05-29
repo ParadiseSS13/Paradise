@@ -70682,7 +70682,6 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/machinery/light,
 /obj/machinery/light{
 	dir = 8
 	},
