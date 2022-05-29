@@ -1030,9 +1030,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	Weaken(weaken)
 	return TRUE
 
-/mob/living/carbon/proc/can_eat(flags = 255)
-	return 1
-
 /mob/living/carbon/proc/eat(var/obj/item/reagent_containers/food/toEat, mob/user, var/bitesize_override)
 	if(!istype(toEat))
 		return 0
@@ -1106,10 +1103,11 @@ so that different stomachs can handle things in different ways VB*/
 	if(toEat.consume_sound)
 		playsound(loc, toEat.consume_sound, rand(10,50), 1)
 	if(toEat.reagents.total_volume)
-		if(can_taste_container)
-			taste(toEat.reagents)
 		var/fraction = min(this_bite/toEat.reagents.total_volume, 1)
 		if(fraction)
+			if(can_taste_container)
+				taste(toEat.reagents)
+				toEat.check_liked(fraction, src)
 			toEat.reagents.reaction(src, toEat.apply_type, fraction)
 			toEat.reagents.trans_to(src, this_bite*toEat.transfer_efficiency)
 

@@ -20,6 +20,8 @@
 		"brain" =    /obj/item/organ/internal/brain,
 		"eyes" =     /obj/item/organ/internal/eyes)
 
+	disliked_food = NONE
+
 /datum/species/shadow/ling/handle_life(mob/living/carbon/human/H)
 	if(!H.weakeyes)
 		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs

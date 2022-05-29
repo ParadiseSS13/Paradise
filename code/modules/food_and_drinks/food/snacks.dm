@@ -116,13 +116,7 @@
 			reagents.trans_to(collected, bitesize)
 		else
 			reagents.trans_to(collected, reagents.total_volume)
-			if(trash)
-				var/obj/item/TrashItem
-				if(ispath(trash,/obj/item))
-					TrashItem = new trash(src)
-				else if(istype(trash,/obj/item))
-					TrashItem = trash
-				TrashItem.forceMove(loc)
+			generate_trash(loc)
 			qdel(src)
 		return TRUE
 	else

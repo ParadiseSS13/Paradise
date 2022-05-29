@@ -25,7 +25,6 @@
 	species_traits = list(IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_SCAN, NO_INTORGANS, NO_PAIN, NO_DNA, RADIMMUNE, VIRUSIMMUNE, NO_GERMS, NO_DECAY, NOTRANSSTING) //Computers that don't decay? What a lie!
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
-	dietflags = 0		//IPCs can't eat, so no diet
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 	blood_color = COLOR_BLOOD_MACHINE
 	flesh_color = "#AAAAAA"
@@ -78,6 +77,10 @@
 	var/datum/action/innate/change_monitor/monitor
 
 	speciesbox = /obj/item/storage/box/survival_machine
+
+	liked_food = NONE
+	disliked_food = NONE
+	toxic_food = NONE
 
 /datum/species/machine/on_species_gain(mob/living/carbon/human/H)
 	..()

@@ -11,6 +11,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 1, "sugar" = 1)
 	tastes = list("ice cream" = 1)
+	foodtype = SUGAR | DAIRY
 
 /obj/item/reagent_containers/food/snacks/icecream/New()
 	..()
@@ -40,9 +41,10 @@
 
 /obj/item/reagent_containers/food/snacks/icecreamsandwich
 	name = "icecream sandwich"
-	desc = "Portable Ice-cream in it's own packaging."
+	desc = "Portable Ice-cream in its own packaging."
 	icon_state = "icecreamsandwich"
 	list_reagents = list("nutriment" = 2, "ice" = 2)
+	foodtype = SUGAR | DAIRY
 
 
 //////////////////////
@@ -54,6 +56,7 @@
 	desc = "Goreng Pisang, also known as fried bananas."
 	icon_state = "friedbanana"
 	list_reagents = list("sugar" = 5, "nutriment" = 8, "cornoil" = 4)
+	foodtype = FRIED | FRUIT | SUGAR
 
 /obj/item/reagent_containers/food/snacks/ricepudding
 	name = "rice pudding"
@@ -63,6 +66,7 @@
 	filling_color = "#FFFBDB"
 	list_reagents = list("nutriment" = 7, "vitamin" = 2)
 	tastes = list("rice" = 1, "sweetness" = 1)
+	foodtype = GRAIN | SUGAR
 
 /obj/item/reagent_containers/food/snacks/spacylibertyduff
 	name = "spacy liberty duff"
@@ -73,6 +77,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "psilocybin" = 6)
 	tastes = list("jelly" = 1, "mushroom" = 1)
+	foodtype = FRUIT | SUGAR
 
 /obj/item/reagent_containers/food/snacks/amanitajelly
 	name = "amanita jelly"
@@ -83,6 +88,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "amanitin" = 6, "psilocybin" = 3)
 	tastes = list("jelly" = 1, "mushroom" = 1)
+	foodtype = VEGETABLES | SUGAR
 
 /obj/item/reagent_containers/food/snacks/candiedapple
 	name = "candied apple"
@@ -92,6 +98,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 3, "sugar" = 2)
 	tastes = list("apple" = 2, "sweetness" = 2)
+	foodtype = FRUIT | SUGAR
 
 /obj/item/reagent_containers/food/snacks/mint
 	name = "mint"

@@ -14,6 +14,7 @@
 	antable = FALSE
 	list_reagents = list("nutriment" = 1, "sodiumchloride" = 1, "sugar" = 3)
 	tastes = list("crisps" = 1)
+	foodtype = JUNKFOOD | FRIED
 
 /obj/item/reagent_containers/food/snacks/sosjerky
 	name = "Scaredy's Private Reserve Beef Jerky"
@@ -25,6 +26,7 @@
 	antable = FALSE
 	list_reagents = list("protein" = 1, "sugar" = 3)
 	tastes = list("chewy beef" = 1)
+	foodtype = JUNKFOOD | MEAT
 
 /obj/item/reagent_containers/food/snacks/pistachios
 	name = "pistachios"
@@ -36,6 +38,7 @@
 	antable = FALSE
 	list_reagents = list("plantmatter" = 2, "sodiumchloride" = 1, "sugar" = 4)
 	tastes = list("pistachios" = 1)
+	foodtype = JUNKFOOD
 
 /obj/item/reagent_containers/food/snacks/no_raisin
 	name = "4no Raisins"
@@ -47,6 +50,7 @@
 	antable = FALSE
 	list_reagents = list("plantmatter" = 2, "sugar" = 4)
 	tastes = list("dried raisins" = 1)
+	foodtype = JUNKFOOD | FRUIT
 
 /obj/item/reagent_containers/food/snacks/spacetwinkie
 	name = "Space Twinkie"
@@ -57,6 +61,7 @@
 	junkiness = 25
 	list_reagents = list("sugar" = 4)
 	tastes = list("twinkies" = 1)
+	foodtype = JUNKFOOD | SUGAR
 
 /obj/item/reagent_containers/food/snacks/cheesiehonkers
 	name = "Cheesie Honkers"
@@ -68,6 +73,7 @@
 	antable = FALSE
 	list_reagents = list("nutriment" = 1, "fake_cheese" = 2, "sugar" = 3)
 	tastes = list("cheese" = 1, "crisps" = 2)
+	foodtype = JUNKFOOD | DAIRY
 
 /obj/item/reagent_containers/food/snacks/syndicake
 	name = "Syndi-Cakes"
@@ -79,6 +85,7 @@
 	antable = FALSE
 	list_reagents = list("nutriment" = 4, "salglu_solution" = 5)
 	tastes = list("sweetness" = 3, "cake" = 1)
+	foodtype = JUNKFOOD
 
 /obj/item/reagent_containers/food/snacks/tastybread
 	name = "bread tube"
@@ -90,6 +97,7 @@
 	antable = FALSE
 	list_reagents = list("nutriment" = 2, "sugar" = 4)
 	tastes = list("bread" = 1)
+	foodtype = JUNKFOOD | GRAIN
 
 
 //////////////////////
@@ -101,9 +109,11 @@
 	desc = "Homemade beef jerky made from the finest space cows."
 	list_reagents = list("nutriment" = 3, "vitamin" = 1)
 	junkiness = 0
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/no_raisin/healthy
 	name = "homemade raisins"
 	desc = "homemade raisins, the best in all of spess."
 	list_reagents = list("nutriment" = 3, "vitamin" = 2)
 	junkiness = 0
+	foodtype = FRUIT

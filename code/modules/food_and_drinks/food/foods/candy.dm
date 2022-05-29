@@ -13,6 +13,7 @@
 	icon = 'icons/obj/food/candy.dmi'
 	icon_state = "candy"
 	tastes = list("candy" = 1)
+	foodtype = SUGAR
 
 // ***********************************************************
 // Candy Ingredients / Flavorings / Byproduct
@@ -78,6 +79,7 @@
 	desc = "Chocolate fudge surrounding sweet cherries. Good for tricking kids into eating some fruit."
 	icon_state = "fudge_cherry"
 	filling_color = "#7D5F46"
+	foodtype = SUGAR | FRUIT
 
 /obj/item/reagent_containers/food/snacks/candy/fudge/cookies_n_cream
 	name = "cookies 'n' cream fudge"
@@ -295,6 +297,7 @@
 	icon_state = "gworm_blue"
 	filling_color = "#863353"
 	list_reagents = list("poisonberryjuice" = 12)
+	foodtype = SUGAR | TOXIC
 
 /obj/item/reagent_containers/food/snacks/candy/gummyworm/green
 	name = "gummy worm"

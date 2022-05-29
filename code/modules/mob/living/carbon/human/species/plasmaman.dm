@@ -9,7 +9,6 @@
 	species_traits = list(IS_WHITELISTED, RADIMMUNE, NO_BLOOD, NO_HUNGER, NOTRANSSTING)
 	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
 	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
-	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE //skeletons can't taste anything
@@ -40,6 +39,9 @@
 
 	speciesbox = /obj/item/storage/box/survival_plasmaman
 	flesh_color = "#8b3fba"
+
+	disliked_food = DAIRY | FRUIT | VEGETABLES
+	liked_food = GRAIN | MEAT
 
 /datum/species/plasmaman/say_filter(mob/M, message, datum/language/speaking)
 	if(copytext(message, 1, 2) != "*")

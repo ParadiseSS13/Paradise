@@ -25,7 +25,6 @@
 
 	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, IS_WHITELISTED, NOTRANSSTING)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
-	dietflags = DIET_OMNI
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS
 
 	silent_steps = TRUE
@@ -88,6 +87,9 @@
 		"is deeply inhaling oxygen!")
 
 	speciesbox = /obj/item/storage/box/survival_vox
+
+	disliked_food = GROSS | DAIRY | FRIED
+	liked_food = GRAIN | MEAT | FRUIT
 
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

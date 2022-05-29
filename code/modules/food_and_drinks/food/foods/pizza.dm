@@ -8,6 +8,7 @@
 	slices_num = 6
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
+	foodtype = GRAIN | DAIRY
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/margherita
 	name = "margherita pizza"
@@ -32,6 +33,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/meatpizzaslice
 	list_reagents = list("protein" = 30, "tomatojuice" = 6, "vitamin" = 8)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "meat" = 1)
+	foodtype = GRAIN | DAIRY | MEAT
 
 /obj/item/reagent_containers/food/snacks/meatpizzaslice
 	name = "meat pizza slice"
@@ -48,6 +50,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/mushroompizzaslice
 	list_reagents = list("plantmatter" = 30, "vitamin" = 5)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "mushroom" = 1)
+	foodtype = GRAIN | DAIRY | VEGETABLES
 
 
 /obj/item/reagent_containers/food/snacks/mushroompizzaslice
@@ -57,6 +60,7 @@
 	icon_state = "mushroompizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "mushroom" = 1)
+	foodtype = GRAIN | DAIRY | VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/vegetablepizza
 	name = "vegetable pizza"
@@ -65,6 +69,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/vegetablepizzaslice
 	list_reagents = list("plantmatter" = 25, "tomatojuice" = 6, "oculine" = 12, "vitamin" = 5)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "carrot" = 1, "vegetables" = 1)
+	foodtype = GRAIN | DAIRY | VEGETABLES
 
 
 /obj/item/reagent_containers/food/snacks/vegetablepizzaslice
@@ -74,6 +79,7 @@
 	icon_state = "vegetablepizzaslice"
 	filling_color = "#BAA14C"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "carrot" = 1, "vegetables" = 1)
+	foodtype = GRAIN | DAIRY | VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza
 	name = "hawaiian pizza"
@@ -82,6 +88,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/hawaiianpizzaslice
 	list_reagents = list("protein" = 15, "tomatojuice" = 6, "plantmatter" = 20, "pineapplejuice" = 6, "vitamin" = 5)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "pineapple" = 1)
+	foodtype = GRAIN | DAIRY | FRUIT | MEAT
 
 /obj/item/reagent_containers/food/snacks/hawaiianpizzaslice
 	name = "hawaiian pizza slice"
@@ -90,6 +97,7 @@
 	icon_state = "hawaiianpizzaslice"
 	filling_color = "#e5b437"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "pineapple" = 1)
+	foodtype = GRAIN | DAIRY | FRUIT | MEAT
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/macpizza
 	name = "mac 'n' cheese pizza"
@@ -99,6 +107,7 @@
 	list_reagents = list("nutriment" = 40, "vitamin" = 5) //More nutriment because carbs, but it's not any more vitaminicious
 	filling_color = "#ffe45d"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "pasta" = 1)
+	foodtype = GRAIN | DAIRY
 
 /obj/item/reagent_containers/food/snacks/macpizzaslice
 	name = "mac 'n' cheese pizza slice"
@@ -107,6 +116,7 @@
 	icon_state = "macpizzaslice"
 	filling_color = "#ffe45d"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "pasta" = 1)
+	foodtype = GRAIN | DAIRY
 
 
 //////////////////////

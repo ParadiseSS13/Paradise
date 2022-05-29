@@ -11,6 +11,7 @@
 	filling_color = "#4D2F5E"
 	list_reagents = list("nutriment" = 6, "vitamin" = 2)
 	tastes = list("eggplant" = 2, "cheese" = 2)
+	foodtype = VEGETABLES | DAIRY
 
 /obj/item/reagent_containers/food/snacks/soylentgreen
 	name = "soylent green"
@@ -20,6 +21,7 @@
 	filling_color = "#B8E6B5"
 	list_reagents = list("nutriment" = 10, "vitamin" = 1)
 	tastes = list("waffles" = 7, "people" = 1)
+	foodtype = GROSS
 
 /obj/item/reagent_containers/food/snacks/soylentviridians
 	name = "soylent virdians"
@@ -29,6 +31,7 @@
 	filling_color = "#E6FA61"
 	list_reagents = list("nutriment" = 10, "vitamin" = 1)
 	tastes = list("waffles" = 10)
+	foodtype = VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/monkeysdelight
 	name = "monkey's delight"
@@ -39,6 +42,7 @@
 	bitesize = 6
 	list_reagents = list("nutriment" = 10, "banana" = 5, "vitamin" = 5)
 	tastes = list("banana" = 1, "the jungle" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/dionaroast
 	name = "roast diona"
@@ -48,6 +52,7 @@
 	filling_color = "#75754B"
 	list_reagents = list("plantmatter" = 4, "nutriment" = 2, "radium" = 2, "vitamin" = 4)
 	tastes = list("chewy vegetables" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/tofurkey
 	name = "tofurkey"
@@ -57,6 +62,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 12, "ether" = 3)
 	tastes = list("tofu" = 1)
+	foodtype = VEGETABLES
 
 
 //////////////////////
@@ -72,6 +78,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "omnizine" = 8, "vitamin" = 6)
 	tastes = list("divinity" = 1, "lettuce" = 1)
+	foodtype = VEGETABLES | FRUIT
 
 /obj/item/reagent_containers/food/snacks/herbsalad
 	name = "herb salad"
@@ -82,6 +89,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "vitamin" = 2)
 	tastes = list("lettuce" = 1, "apple" = 1)
+	foodtype = VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/validsalad
 	name = "valid salad"
@@ -92,7 +100,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "salglu_solution" = 5, "vitamin" = 2)
 	tastes = list("fried potato" = 1, "lettuce" = 1, "meat" = 1, "valids" = 1)
-
+	foodtype = VEGETABLES
 
 //////////////////////
 //	Donk Pockets	//
@@ -105,6 +113,7 @@
 	filling_color = "#DEDEAB"
 	list_reagents = list("nutriment" = 4)
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
+	foodtype = JUNKFOOD | MEAT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket
 	name = "warm Donk-pocket"
@@ -113,6 +122,7 @@
 	filling_color = "#DEDEAB"
 	list_reagents = list("nutriment" = 4)
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
+	foodtype = JUNKFOOD | MEAT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket/Post_Consume(mob/living/M)
 	M.reagents.add_reagent("omnizine", 15)
@@ -123,6 +133,7 @@
 	icon_state = "donkpocket"
 	filling_color = "#DEDEAB"
 	list_reagents = list("nutriment" = 4, "weak_omnizine" = 3)
+	foodtype = JUNKFOOD | MEAT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/syndidonkpocket
 	name = "Donk-pocket"
@@ -131,6 +142,7 @@
 	filling_color = "#DEDEAB"
 	bitesize = 100 //nom the whole thing at once.
 	list_reagents = list("nutriment" = 1)
+	foodtype = JUNKFOOD | MEAT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/syndidonkpocket/Post_Consume(mob/living/M)
 	M.reagents.add_reagent("omnizine", 15)
@@ -152,6 +164,7 @@
 	bitesize = 3
 	list_reagents = list("slimejelly" = 5)
 	tastes = list("jelly" = 3)
+	foodtype = MEAT | TOXIC
 
 /obj/item/reagent_containers/food/snacks/popcorn
 	name = "popcorn"
@@ -163,6 +176,7 @@
 	bitesize = 0.1 //this snack is supposed to be eating during looooong time. And this it not dinner food! --rastaf0
 	list_reagents = list("nutriment" = 2)
 	tastes = list("popcorn" = 3, "butter" = 1)
+	foodtype = JUNKFOOD | FRIED
 
 /obj/item/reagent_containers/food/snacks/popcorn/New()
 	..()
@@ -182,3 +196,4 @@
 	filling_color = "#A8A8A8"
 	bitesize = 4
 	list_reagents = list("nutriment" = 20, "iron" = 3, "vitamin" = 2)
+	foodtype = GROSS

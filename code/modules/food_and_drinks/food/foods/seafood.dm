@@ -8,6 +8,7 @@
 	bitesize = 6
 	list_reagents = list("protein" = 3, "carpotoxin" = 2, "vitamin" = 2)
 	tastes = list("white fish" = 1)
+	foodtype = MEAT | TOXIC
 
 /obj/item/reagent_containers/food/snacks/salmonmeat
 	name = "raw salmon"
@@ -18,6 +19,7 @@
 	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 2)
 	tastes = list("raw salmon" = 1)
+	foodtype = MEAT | RAW
 
 /obj/item/reagent_containers/food/snacks/salmonsteak
 	name = "salmon steak"
@@ -29,6 +31,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 4, "vitamin" = 2)
 	tastes = list("cooked salmon" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/catfishmeat
 	name = "raw catfish"
@@ -39,6 +42,7 @@
 	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 2)
 	tastes = list("catfish" = 1)
+	foodtype = MEAT | RAW
 
 /obj/item/reagent_containers/food/snacks/fishfingers
 	name = "fish fingers"
@@ -49,6 +53,7 @@
 	bitesize = 1
 	list_reagents = list("nutriment" = 4)
 	tastes = list("fish" = 1, "bread" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/fishburger
 	name = "Fillet-O-Carp sandwich"
@@ -59,6 +64,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "fish" = 4)
+	foodtype = MEAT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/cubancarp
 	name = "cuban carp"
@@ -70,6 +76,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "capsaicin" = 1)
 	tastes = list("fish" = 4, "batter" = 1, "hot peppers" = 1)
+	foodtype = MEAT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/fishandchips
 	name = "fish and chips"
@@ -80,6 +87,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6)
 	tastes = list("fish" = 1, "chips" = 1)
+	foodtype = MEAT | GRAIN | FRIED
 
 /obj/item/reagent_containers/food/snacks/sashimi
 	name = "carp sashimi"
@@ -89,6 +97,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "capsaicin" = 5)
 	tastes = list("raw carp" = 1, "hot peppers" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/fried_shrimp
 	name = "fried shrimp"
@@ -98,6 +107,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("shrimp" = 1, "bread crumbs" = 1)
+	foodtype = MEAT | FRIED
 
 /obj/item/reagent_containers/food/snacks/boiled_shrimp
 	name = "boiled shrimp"
@@ -107,6 +117,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("shrimp" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/shrimp_skewer
 	name = "shrimp skewer"
@@ -117,6 +128,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("shrimp" = 4)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/fish_skewer
 	name = "fish skewer"
@@ -127,6 +139,7 @@
 	bitesize = 3
 	list_reagents = list("protein" = 6, "vitamin" = 4)
 	tastes = list("shrimp" = 1, "batter" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sliceable/Ebi_maki
 	name = "ebi maki roll"
@@ -138,6 +151,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("shrimp" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sushi_Ebi
 	name = "ebi sushi"
@@ -147,6 +161,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("shrimp" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sliceable/Ikura_maki
 	name = "ikura maki roll"
@@ -158,6 +173,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("salmon roe" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/sushi_Ikura
 	name = "ikura sushi"
@@ -167,6 +183,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
 	tastes = list("salmon roe" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/sliceable/Sake_maki
 	name = "sake maki roll"
@@ -178,6 +195,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("raw salmon" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sushi_Sake
 	name = "sake sushi"
@@ -187,6 +205,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("raw salmon" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sliceable/SmokedSalmon_maki
 	name = "smoked salmon maki roll"
@@ -198,6 +217,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("smoked salmon" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon
 	name = "smoked salmon sushi"
@@ -207,6 +227,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("smoked salmon" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sliceable/Tamago_maki
 	name = "tamago maki roll"
@@ -218,6 +239,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("egg" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sushi_Tamago
 	name = "tamago sushi"
@@ -227,6 +249,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("egg" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sliceable/Inari_maki
 	name = "inari maki roll"
@@ -238,6 +261,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("fried tofu" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/sushi_Inari
 	name = "inari sushi"
@@ -247,6 +271,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("fried tofu" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/sliceable/Masago_maki
 	name = "masago maki roll"
@@ -258,6 +283,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("goldfish roe" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/sushi_Masago
 	name = "masago sushi"
@@ -267,6 +293,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
 	tastes = list("goldfish roe" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/sliceable/Tobiko_maki
 	name = "tobiko maki roll"
@@ -278,6 +305,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("shark roe" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/sushi_Tobiko
 	name = "tobiko sushi"
@@ -287,6 +315,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
 	tastes = list("shark roe" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/sliceable/TobikoEgg_maki
 	name = "tobiko and egg maki roll"
@@ -298,6 +327,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("shark roe" = 1, "rice" = 1, "egg" = 1, "seaweed" = 1)
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg
 	name = "tobiko and egg sushi"
@@ -307,6 +337,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
 	tastes = list("shark roe" = 1, "rice" = 1, "egg" = 1, "seaweed" = 1)
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/sliceable/Tai_maki
 	name = "tai maki roll"
@@ -318,6 +349,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
 	tastes = list("catfish" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sushi_Tai
 	name = "tai sushi"
@@ -327,6 +359,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("catfish" = 1, "rice" = 1, "seaweed" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sushi_Unagi
 	name = "unagi sushi"
@@ -336,3 +369,4 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
 	tastes = list("grilled eel" = 1, "seaweed" = 1)
+	foodtype = MEAT

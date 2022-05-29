@@ -341,6 +341,7 @@
 	if(istype(I, /obj/item/reagent_containers/food/snacks/customizable))
 		var/obj/item/reagent_containers/food/snacks/customizable/origin = I
 		ingredients += origin.ingredients
+		foodtype |= origin.foodtype
 	user.drop_item()
 	cooktype[basename] = 1
 	I.loc = src

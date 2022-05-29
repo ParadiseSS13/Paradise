@@ -10,6 +10,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 7, "vitamin" = 1)
 	tastes = list("taco" = 4, "meat" = 2, "cheese" = 2, "lettuce" = 1)
+	foodtype = MEAT | VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/burrito
 	name = "burrito"
@@ -19,6 +20,7 @@
 	filling_color = "#A36A1F"
 	list_reagents = list("nutriment" = 4, "vitamin" = 1)
 	tastes = list("torilla" = 2, "meat" = 3)
+	foodtype = MEAT | VEGETABLES
 
 
 /obj/item/reagent_containers/food/snacks/chimichanga
@@ -28,6 +30,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#A36A1F"
 	list_reagents = list("omnizine" = 4, "cheese" = 2) //Deadpool reference. Deal with it.
+	foodtype = MEAT | VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/enchiladas
 	name = "enchiladas"
@@ -38,6 +41,7 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 8, "capsaicin" = 6)
 	tastes = list("hot peppers" = 1, "meat" = 3, "cheese" = 1, "sour cream" = 1)
+	foodtype = MEAT | VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/cornchips
 	name = "corn chips"
@@ -47,6 +51,7 @@
 	trash = /obj/item/trash/chips
 	filling_color = "#E8C31E"
 	list_reagents = list("nutriment" = 3)
+	foodtype = FRIED | GRAIN
 
 
 //////////////////////
@@ -61,6 +66,7 @@
 	antable = FALSE
 	list_reagents = list("nutriment" = 1, "beans" = 3, "msg" = 4, "sugar" = 2)
 	tastes = list("noodle" = 1, "vegetables" = 1)
+	foodtype = FRIED | VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball
 	name = "sweet & sour chicken balls"
@@ -70,6 +76,7 @@
 	junkiness = 25
 	list_reagents = list("nutriment" = 2, "msg" = 4, "sugar" = 2)
 	tastes = list("chicken" = 1, "sweetness" = 1)
+	foodtype = FRIED | MEAT
 
 /obj/item/reagent_containers/food/snacks/chinese/tao
 	name = "Admiral Yamamoto carp"
@@ -79,6 +86,7 @@
 	antable = FALSE
 	list_reagents = list("nutriment" = 1, "protein" = 1, "msg" = 4, "sugar" = 4)
 	tastes = list("chicken" = 1)
+	foodtype = FRIED | MEAT
 
 /obj/item/reagent_containers/food/snacks/chinese/newdles
 	name = "chinese newdles"
@@ -88,6 +96,7 @@
 	antable = FALSE
 	list_reagents = list("nutriment" = 1, "msg" = 4, "sugar" = 3)
 	tastes = list("noodles" = 1)
+	foodtype = FRIED | GRAIN | VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/chinese/rice
 	name = "fried rice"
@@ -98,6 +107,7 @@
 	antable = FALSE
 	list_reagents = list("nutriment" = 1, "rice" = 3, "msg" = 4, "sugar" = 2)
 	tastes = list("rice" = 1)
+	foodtype = FRIED | GRAIN | VEGETABLES
 
 
 //////////////////////
@@ -112,6 +122,7 @@
 	filling_color = "#F0F2E4"
 	list_reagents = list("nutriment" = 5)
 	tastes = list("custard" = 1)
+	foodtype = DAIRY
 
 /obj/item/reagent_containers/food/snacks/yakiimo
 	name = "yaki imo"
@@ -121,19 +132,21 @@
 	list_reagents = list("nutriment" = 5, "vitamin" = 4)
 	filling_color = "#8B1105"
 	tastes = list("sweet potato" = 1)
+	foodtype = VEGETABLES | SUGAR
 
 
 //////////////////////
 //	Middle Eastern	//
 //////////////////////
 
-/obj/item/reagent_containers/food/snacks/human/kabob
+/obj/item/reagent_containers/food/snacks/kabob
 	name = "-kabob"
 	icon_state = "kabob"
 	desc = "Human meat, on a stick."
 	trash = /obj/item/stack/rods
 	filling_color = "#A85340"
 	list_reagents = list("nutriment" = 8)
+	foodtype = MEAT | FRIED
 
 /obj/item/reagent_containers/food/snacks/monkeykabob
 	name = "meat-kabob"
@@ -142,6 +155,7 @@
 	trash = /obj/item/stack/rods
 	filling_color = "#A85340"
 	list_reagents = list("nutriment" = 8)
+	foodtype = MEAT | FRIED
 
 /obj/item/reagent_containers/food/snacks/tofukabob
 	name = "tofu-kabob"
@@ -150,3 +164,4 @@
 	trash = /obj/item/stack/rods
 	filling_color = "#FFFEE0"
 	list_reagents = list("nutriment" = 8)
+	foodtype = VEGETABLES | FRIED

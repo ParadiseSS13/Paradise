@@ -1,6 +1,8 @@
 /datum/species
 	var/name                     // Species name.
-	var/name_plural 			// Pluralized name (since "[name]s" is not always valid)
+	var/name_plural 			 // Pluralized name (since "[name]s" is not always valid)
+	var/a = "a"					 // the "a" or "an" in "a Vulpkanin" or "an Abductor", use with singular version
+
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
 	var/deform = 'icons/mob/human_races/r_def_human.dmi' // Mutated icon set.
 
@@ -76,7 +78,6 @@
 	var/can_craft = TRUE // Can this mob using crafting or not?
 
 	var/bodyflags = 0
-	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
 
 	var/blood_color = COLOR_BLOOD_BASE //Red.
 	var/flesh_color = "#d1aa2e" //Gold.
@@ -164,6 +165,10 @@
 
 	// Species specific boxes
 	var/speciesbox
+
+	var/toxic_food = TOXIC
+	var/disliked_food = GROSS
+	var/liked_food = FRIED | JUNKFOOD | SUGAR
 
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ

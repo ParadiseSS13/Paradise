@@ -18,7 +18,6 @@
 	is_small = 1
 	has_fine_manipulation = 0
 	ventcrawler = VENTCRAWLER_NUDE
-	dietflags = DIET_OMNI
 	show_ssd = 0
 	eyes = "blank_eyes"
 	death_message = "lets out a faint chimper as it collapses and stops moving..."

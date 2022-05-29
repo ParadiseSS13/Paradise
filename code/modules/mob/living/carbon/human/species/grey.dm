@@ -24,11 +24,13 @@
 	species_traits = list(LIPS, IS_WHITELISTED, CAN_WINGDINGS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS
-	dietflags = DIET_HERB
 	has_gender = FALSE
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#a598ad"
 	blood_color = "#A200FF"
+
+	disliked_food = SUGAR | FRIED
+	liked_food = VEGETABLES | GRAIN | MEAT
 
 /datum/species/grey/handle_dna(mob/living/carbon/human/H, remove)
 	..()

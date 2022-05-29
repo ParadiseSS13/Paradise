@@ -1,6 +1,7 @@
 /datum/species/abductor
 	name = "Abductor"
 	name_plural = "Abductors"
+	a = "an"
 	icobase = 'icons/mob/human_races/r_abductor.dmi'
 	deform = 'icons/mob/human_races/r_abductor.dmi'
 	language = "Abductor Mindlink"
@@ -20,7 +21,6 @@
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 	blood_color = "#FF5AFF"
 	female_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
@@ -28,6 +28,9 @@
 	female_sneeze_sound = 'sound/effects/mob_effects/sneeze.ogg' //Abductors always scream like guys
 	var/team = 1
 	var/scientist = FALSE // vars to not pollute spieces list with castes
+
+	toxic_food = NONE
+	disliked_food = NONE
 
 /datum/species/abductor/can_understand(mob/other) //Abductors can understand everyone, but they can only speak over their mindlink to another team-member
 	return TRUE

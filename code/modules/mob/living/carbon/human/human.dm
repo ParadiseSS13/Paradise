@@ -1719,9 +1719,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(C.scan_reagents)
 			return 1
 
-/mob/living/carbon/human/can_eat(flags = 255)
-	return dna.species && (dna.species.dietflags & flags)
-
 /mob/living/carbon/human/selfFeed(var/obj/item/reagent_containers/food/toEat, fullness)
 	if(!check_has_mouth())
 		to_chat(src, "Where do you intend to put \the [toEat]? You don't have a mouth!")

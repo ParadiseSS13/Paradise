@@ -6,6 +6,7 @@
 	var/can_shake = TRUE
 	var/can_burst = FALSE
 	var/burst_chance = 0
+	foodtype = SUGAR
 
 /obj/item/reagent_containers/food/drinks/cans/New()
 	..()

@@ -18,7 +18,6 @@
 	species_traits = list(LIPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING
-	dietflags = DIET_CARN
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 
 	cold_level_1 = 280 //Default 260 - Lower is better
@@ -72,6 +71,9 @@
 		"is holding their breath!")
 
 	var/datum/action/innate/tail_lash/lash
+
+	disliked_food = VEGETABLES | FRUIT | GRAIN
+	liked_food = MEAT | RAW | EGG
 
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)

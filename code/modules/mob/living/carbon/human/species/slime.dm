@@ -29,7 +29,6 @@
 	species_traits = list(LIPS, IS_WHITELISTED, NO_SCAN, EXOTIC_COLOR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
-	dietflags = DIET_CARN
 	reagent_tag = PROCESS_ORG
 
 	flesh_color = "#5fe8b1"
@@ -66,6 +65,9 @@
 	var/reagent_skin_coloring = FALSE
 	var/datum/action/innate/regrow/grow
 	var/datum/action/innate/slimecolor/recolor
+
+	disliked_food = SUGAR | FRIED
+	liked_food = MEAT | TOXIC | RAW
 
 /datum/species/slime/on_species_gain(mob/living/carbon/human/H)
 	..()
