@@ -10,6 +10,8 @@
 	var/deity_name = "Christ"
 	/// Is the sprite of this bible customisable
 	var/customisable = FALSE
+	var/god_punishment = 0 //used for diffrent abuse with bible (healing self is one of them)
+	var/last_used = 0
 
 	/// Associative list of accociative lists of bible variants, used for the radial menu
 	var/static/list/bible_variants = list(
@@ -67,8 +69,13 @@
 				H.UpdateDamageIcon()
 	return
 
+/obj/item/storage/bible/proc/god_forgive()
+	god_punishment = max(0, god_punishment - round((world.time - last_used) / (30 SECONDS))) //forgive 1 sin every 30 seconds
+	last_used = world.time
+
 /obj/item/storage/bible/attack(mob/living/M, mob/living/user)
 	add_attack_logs(user, M, "Hit with [src]")
+	god_forgive() //god forgives everyone
 	if(!iscarbon(user))
 		M.LAssailant = null
 	else
@@ -90,6 +97,7 @@
 
 	if(M.stat != DEAD && ishuman(M))
 		var/mob/living/carbon/human/H = M
+		var/mob/living/carbon/human/chaplain = user
 		if(prob(60))
 			bless(H)
 			H.visible_message("<span class='danger>[user] heals [H == user ? "[user.p_them()]self" : "[H]"] with the power of [deity_name]!</span>",
@@ -101,6 +109,18 @@
 				to_chat(M, "<span class='warning'>You feel dumber.</span>")
 			H.visible_message("<span class='danger'>[user] beats [H == user ? "[user.p_them()]self" : "[H]"] over the head with [src]!</span>")
 			playsound(src.loc, "punch", 25, 1, -1)
+		if(H == chaplain)
+			god_punishment++
+
+		if(god_punishment == 5)
+			to_chat(chaplain, "<h1><span class='danger'>Вы злоупотребляете покровительством бога [deity_name], остановитесь и подумайте.</span></h1>")
+		else if(god_punishment > 5) //lets apply punishment AFTER heal
+			chaplain.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
+			playsound(get_turf(chaplain), 'sound/magic/lightningshock.ogg', 50, 1, -1)
+			chaplain.adjustFireLoss(65)
+			chaplain.Weaken(5)
+			to_chat(chaplain, "<span class='userdanger'>Вы злоупотребили волей бога и за что были наказаны!</span>")
+
 	else
 		M.visible_message("<span class='danger'>[user] smacks [M]'s lifeless corpse with [src].</span>")
 		playsound(src.loc, "punch", 25, 1, -1)
