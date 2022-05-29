@@ -794,7 +794,7 @@
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
-	else if(isAI(user) || (isrobot(user) || emagged) && !iscogscarab(user))
+	else if(isAI(user) || isrobot(user) || emagged)
 		return TRUE
 	else
 		return !locked
@@ -803,7 +803,7 @@
 	if(buildstage != 2)
 		return STATUS_CLOSE
 
-	if(aidisabled && (isAI(user) || isrobot(user) && !iscogscarab(user)))
+	if(aidisabled && (isAI(user) || isrobot(user)))
 		to_chat(user, "<span class='warning'>Отключение контроля ИИ над интерфейсом [src].</span>")
 		return STATUS_CLOSE
 

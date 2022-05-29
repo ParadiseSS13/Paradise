@@ -388,11 +388,6 @@
 		new /obj/structure/girder/cult(loc)
 		qdel(src)
 
-/obj/structure/girder/ratvar_act()
-	if(prob(25))
-		new /obj/structure/clockwork/wall_gear(loc)
-		qdel(src)
-
 /obj/structure/girder/displaced
 	name = "displaced girder"
 	icon_state = "displaced"

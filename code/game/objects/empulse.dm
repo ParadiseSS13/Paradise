@@ -11,8 +11,6 @@
 	if(heavy_range > 1)
 		if(cause == "cult")
 			new /obj/effect/temp_visual/emp/pulse/cult(epicenter)
-		else if(cause == "clock")
-			new /obj/effect/temp_visual/emp/pulse/clock(epicenter)
 		else
 			new /obj/effect/temp_visual/emp/pulse(epicenter)
 
@@ -23,8 +21,6 @@
 		M << 'sound/effects/empulse.ogg'
 	for(var/atom/T in range(light_range, epicenter))
 		if(cause == "cult" && iscultist(T))
-			continue
-		if(cause == "clock" && isclocker(T))
 			continue
 		var/distance = get_dist(epicenter, T)
 		var/will_affect = FALSE
@@ -46,8 +42,6 @@
 		if(will_affect)
 			if(cause == "cult")
 				new /obj/effect/temp_visual/emp/cult(T.loc)
-			else if(cause == "clock")
-				new /obj/effect/temp_visual/emp/clock(T.loc)
 			else
 				new /obj/effect/temp_visual/emp(T.loc)
 	return TRUE

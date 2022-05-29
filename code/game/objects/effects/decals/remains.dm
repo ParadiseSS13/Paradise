@@ -24,7 +24,7 @@
 /obj/effect/decal/remains/robot
 	name = "remains"
 	desc = "They look like the remains of something mechanical. They have a strange aura about them."
-	icon = 'icons/effects/robot.dmi'
+	icon = 'icons/mob/robots.dmi'
 	icon_state = "remainsrobot"
 	anchored = TRUE
 

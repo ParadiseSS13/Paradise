@@ -44,8 +44,6 @@
 		return FALSE
 	if(istype(R, /mob/living/silicon/robot/drone))
 		return FALSE
-	if(iscogscarab(R))
-		return FALSE
 	if(R.scrambledcodes)
 		return FALSE
 	if(!atoms_share_level(get_turf(src), get_turf(R)))

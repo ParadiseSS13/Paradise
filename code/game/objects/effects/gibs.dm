@@ -10,9 +10,6 @@
 /proc/robogibs(atom/location)
 	new /obj/effect/gibspawner/robot(get_turf(location))
 
-/proc/clockgibs(atom/location)
-	new /obj/effect/gibspawner/clock(get_turf(location))
-
 /obj/effect/gibspawner
 	var/sparks = 0 //whether sparks spread on Gib()
 	var/list/gibtypes = list()

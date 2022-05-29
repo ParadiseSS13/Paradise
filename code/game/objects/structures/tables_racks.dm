@@ -558,8 +558,8 @@
 	icon_state = "brass_table"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	frame = /obj/structure/table_frame/brass
-	framestack = /obj/item/stack/sheet/brass
-	buildstack = /obj/item/stack/sheet/brass
+	framestack = /obj/item/stack/tile/brass
+	buildstack = /obj/item/stack/tile/brass
 	framestackamount = 1
 	buildstackamount = 1
 	canSmoothWith = list(/obj/structure/table/reinforced/brass)
@@ -632,13 +632,13 @@
 	to_chat(user, "<span class='notice'>It is held together by some <b>screws</b> and <b>bolts</b>.</span>")
 
 /obj/structure/table/tray/flip()
-	return
+	return 0
 
 /obj/structure/table/tray/narsie_act()
-	return
+	return 0
 
 /obj/structure/table/tray/ratvar_act()
-	return
+	return 0
 
 /*
  * Racks

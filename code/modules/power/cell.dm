@@ -49,10 +49,7 @@
 
 /obj/item/stock_parts/cell/process()
 	if(self_recharge)
-		if(locate(/obj/item/clockwork/integration_cog) in loc)
-			return
-		else
-			give(chargerate * 0.25)
+		give(chargerate * 0.25)
 	else
 		return PROCESS_KILL
 

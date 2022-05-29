@@ -219,13 +219,7 @@
 	sync_organ_dna(assimilate=0)
 	update_eyes()
 	update_body()
-	return TRUE
-
-/mob/living/carbon/human/proc/get_eye_color()
-	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
-	if(E)
-		return E.eye_colour
-	return FALSE
+	return 1
 
 /mob/living/carbon/human/proc/change_hair_color(var/colour = "#000000", var/secondary)
 	var/obj/item/organ/external/head/H = get_organ("head")

@@ -49,11 +49,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/datum/wires/robot/wires = null
 
-	var/opened = FALSE
+	var/opened = 0
 	var/custom_panel = null
 	var/list/custom_panel_names = list("Cricket")
-	var/list/custom_eye_names = list("Robot","Cricket","Noble","Standard")
-	var/emagged = FALSE
+	var/list/custom_eye_names = list("Cricket","Standard")
+	var/emagged = 0
 	var/is_emaggable = TRUE
 	var/eye_protection = 0
 	var/ear_protection = 0
@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// Value incoming burn damage to borgs is multiplied by.
 	var/burn_mod = 1
 
-	var/list/limited_modules = list() //A limited pickable modules goes into this list. If empty all modules will be available(default ones)
+	var/list/force_modules = list()
 	var/allow_rename = TRUE
 	var/weapons_unlock = FALSE
 	var/static_radio_channels = FALSE
@@ -77,7 +77,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	//var/list/laws = list()
 	var/viewalerts = 0
 	var/modtype = "Default"
+	var/lower_mod = 0
 	var/datum/effect_system/spark_spread/spark_system //So they can initialize sparks whenever/N
+	var/jeton = 0
 	var/low_power_mode = 0 //whether the robot has no charge left.
 	var/weapon_lock = 0
 	var/weaponlock_time = 120
@@ -152,9 +154,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(mmi == null)
 		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
 		mmi.icon_state = "boris"
-
-	if(mmi.clock)
-		ratvar_act(TRUE)
 
 	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
 		cell = new default_cell_type(src)
@@ -314,22 +313,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	QDEL_NULL(self_diagnosis)
 	return ..()
 
-/mob/living/silicon/robot/proc/pick_module(var/forced_module = null)
+/mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
 	var/list/modules = list("Generalist", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
-	if(islist(limited_modules) && limited_modules.len)
-		modules = limited_modules.Copy()
-	if(mmi?.alien)
-		forced_module = "Hunter"
+	if(islist(force_modules) && force_modules.len)
+		modules = force_modules.Copy()
+	if(mmi != null && mmi.alien)
+		modules = list("Hunter")
 	if(mmi?.syndicate)
 		modules = list("Syndicate Saboteur", "Syndicate Medical", "Syndicate Bloodhound")
-	if(mmi?.clock || isclocker(src))
-		forced_module = "Clockwork"
-	if(forced_module)
-		modtype = forced_module
-	else
-		modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
+	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
 	if(!modtype)
 		return
 	designation = modtype
@@ -342,7 +336,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Generalist")
 			module = new /obj/item/robot_module/standard(src)
 			module.channels = list("Engineering" = 1, "Medical" = 1, "Security" = 1, "Service" = 1, "Supply" = 1)
-			module_sprites["Basic"] = "Robot-STD"
+			module_sprites["Basic"] = "robot_old"
 			module_sprites["Android"] = "droid"
 			module_sprites["Default"] = "Standard"
 			module_sprites["Noble-STD"] = "Noble-STD"
@@ -350,11 +344,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Service")
 			module = new /obj/item/robot_module/butler(src)
 			module.channels = list("Service" = 1)
-			module_sprites["Waitress"] = "Robot-LDY"
+			module_sprites["Waitress"] = "Service"
 			module_sprites["Kent"] = "toiletbot"
-			module_sprites["Bro"] = "Robot-RLX"
+			module_sprites["Bro"] = "Brobot"
 			module_sprites["Rich"] = "maximillion"
-			module_sprites["Default"] = "Robot-MAN"
+			module_sprites["Default"] = "Service2"
 			module_sprites["Standard"] = "Standard-Serv"
 			module_sprites["Noble-SRV"] = "Noble-SRV"
 			module_sprites["Cricket"] = "Cricket-SERV"
@@ -365,7 +359,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module.channels = list("Supply" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Mining Outpost")
-			module_sprites["Basic"] = "Robot-MNR"
+			module_sprites["Basic"] = "Miner_old"
 			module_sprites["Advanced Droid"] = "droid-miner"
 			module_sprites["Treadhead"] = "Miner"
 			module_sprites["Standard"] = "Standard-Mine"
@@ -378,10 +372,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module.channels = list("Medical" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Medical")
-			module_sprites["Basic"] = "Robot-MED"
+			module_sprites["Basic"] = "Medbot"
 			module_sprites["Surgeon"] = "surgeon"
 			module_sprites["Advanced Droid"] = "droid-medical"
-			module_sprites["Needles"] = "Robot-SRG"
+			module_sprites["Needles"] = "medicalrobot"
 			module_sprites["Standard"] = "Standard-Medi"
 			module_sprites["Noble-MED"] = "Noble-MED"
 			module_sprites["Cricket"] = "Cricket-MEDI"
@@ -402,7 +396,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 					return
 			module = new /obj/item/robot_module/security(src)
 			module.channels = list("Security" = 1)
-			module_sprites["Basic"] = "Robot-SEC"
+			module_sprites["Basic"] = "secborg"
 			module_sprites["Red Knight"] = "Security"
 			module_sprites["Black Knight"] = "securityrobot"
 			module_sprites["Bloodhound"] = "bloodhound"
@@ -416,8 +410,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module.channels = list("Engineering" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Engineering")
-			module_sprites["Basic"] = "Robot-ENG"
-			module_sprites["Antique"] = "Robot-ENG2"
+			module_sprites["Basic"] = "Engineering"
+			module_sprites["Antique"] = "engineerrobot"
 			module_sprites["Landmate"] = "landmate"
 			module_sprites["Standard"] = "Standard-Engi"
 			module_sprites["Noble-ENG"] = "Noble-ENG"
@@ -427,8 +421,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Janitor")
 			module = new /obj/item/robot_module/janitor(src)
 			module.channels = list("Service" = 1)
-			module_sprites["Basic"] = "Robot-JAN"
-			module_sprites["Mopbot"]  = "Robot-JAN2"
+			module_sprites["Basic"] = "JanBot2"
+			module_sprites["Mopbot"]  = "janitorrobot"
 			module_sprites["Mop Gear Rex"] = "mopgearrex"
 			module_sprites["Standard"] = "Standard-Jani"
 			module_sprites["Noble-CLN"] = "Noble-CLN"
@@ -464,12 +458,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			spawn_syndicate_borgs(src, "Bloodhound", get_turf(src))
 			qdel(src)
 			return
-
-		if("Clockwork")
-			module = new /obj/item/robot_module/clockwork(src)
-			icon = 'icons/mob/clockwork_mobs.dmi'
-			icon_state = "cyborg"
-			status_flags &= ~CANPUSH
 
 	//languages
 	module.add_languages(src)
@@ -556,7 +544,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	module.remove_subsystems_and_actions(src)
 	QDEL_NULL(module)
 
-	camera?.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
+	camera.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
 	rename_character(real_name, get_default_name("Default"))
 	languages = list()
 	speech_synthesizer_langs = list()
@@ -865,11 +853,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
 			mmi.install_radio()
 			qdel(W)
-	else if(istype(W, /obj/item/clockwork/clockslab) && isclocker(src) && isclocker(user))
-		locked = !locked
-		to_chat(user, "You [ locked ? "lock" : "unlock"] [src]'s interface.")
-		to_chat(src, "<span class='notice'>[user] [ locked ? "locked" : "unlocked"] your interface.</span>")
-		update_icons()
 	else
 		return ..()
 
@@ -983,9 +966,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/emag_act(user as mob)
 	if(!ishuman(user) && !issilicon(user))
 		return
-	if(isclocker(src))
-		to_chat(user, "<span class='danger'>As you try to emag, a magic force keeps the cover locked!</span>")
-		return
 	var/mob/living/M = user
 	if(!opened)//Cover is closed
 		if(!is_emaggable)
@@ -998,8 +978,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 	if(opened)//Cover is open
-		if(emagged)
-			return//Prevents the X has hit Y with Z message also you cant emag them twice
+		if(emagged)	return//Prevents the X has hit Y with Z message also you cant emag them twice
 		if(wiresexposed)
 			to_chat(user, "You must close the panel first")
 			return
@@ -1050,17 +1029,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			update_icons()
 		return
 
-/mob/living/silicon/robot/ratvar_act(weak = FALSE)
-	if(isclocker(src) && module?.type == /obj/item/robot_module/clockwork)
-		return
-	if(!weak)
-		if(module)
-			reset_module()
-		pick_module("Clockwork")
-	SSticker.mode.add_clocker(mind)
-	UnlinkSelf()
-	laws = new /datum/ai_laws/ratvar
-
 /mob/living/silicon/robot/verb/toggle_own_cover()
 	set category = "Robot Commands"
 	set name = "Toggle Cover"
@@ -1102,15 +1070,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	overlays.Cut()
 	if(stat != DEAD && !(paralysis || stunned || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)
-			if(!isclocker(src))
-				overlays += "eyes-[custom_panel]"
-			else
-				overlays += "eyes-[custom_panel]-clocked"
+			overlays += "eyes-[custom_panel]"
 		else
-			if(!isclocker(src))
-				overlays += "eyes-[icon_state]"
-			else
-				overlays += "eyes-[icon_state]-clocked"
+			overlays += "eyes-[icon_state]"
 	else
 		overlays -= "eyes"
 	if(opened)
@@ -1540,7 +1502,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scrambledcodes = 1
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
-	limited_modules = list("Engineering", "Medical", "Security")
+	force_modules = list("Engineering", "Medical", "Security")
 	static_radio_channels = 1
 	allow_rename = FALSE
 	weapons_unlock = TRUE
@@ -1579,7 +1541,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/ert/gamma
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
-	limited_modules = list("Combat", "Engineering", "Medical")
+	force_modules = list("Combat", "Engineering", "Medical")
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
 	magpulse = 1

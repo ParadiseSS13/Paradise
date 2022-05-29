@@ -40,7 +40,6 @@
 	/turf/simulated/wall/r_wall,
 	/obj/structure/falsewall,
 	/obj/structure/falsewall/reinforced,
-	/obj/structure/falsewall/clockwork,
 	/turf/simulated/wall/rust,
 	/turf/simulated/wall/r_wall/rust,
 	/turf/simulated/wall/r_wall/coated)
@@ -305,10 +304,6 @@
 
 	if(try_wallmount(I, user, params))
 		return
-
-	if(try_reform(I, user, params))
-		return
-
 	// The magnetic gripper does a separate attackby, so bail from this one
 	if(istype(I, /obj/item/gripper))
 		return
@@ -444,15 +439,6 @@
 		return TRUE
 	return FALSE
 
-/turf/simulated/wall/proc/try_reform(obj/item/I, mob/user, params)
-	if(I.enchant_type == REFORM_SPELL && (src.type == /turf/simulated/wall)) //fuck
-		I.deplete_spell()
-		ChangeTurf(/turf/simulated/floor/plating)
-		new /obj/structure/falsewall/clockwork(src) //special falsewalls
-		playsound(src, 'sound/magic/cult_spell.ogg', 100, 1)
-		return TRUE
-	return FALSE
-
 /turf/simulated/wall/singularity_pull(S, current_size)
 	..()
 	wall_singularity_pull(current_size)
@@ -469,11 +455,6 @@
 /turf/simulated/wall/narsie_act()
 	if(prob(20))
 		ChangeTurf(/turf/simulated/wall/cult)
-
-/turf/simulated/wall/ratvar_act()
-	if(prob(20))
-		ChangeTurf(/turf/simulated/wall/clockwork)
-
 
 /turf/simulated/wall/acid_act(acidpwr, acid_volume)
 	if(explosion_block >= 2)
