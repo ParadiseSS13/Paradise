@@ -60616,6 +60616,7 @@
 	id_tag = "armory";
 	name = "Armory Shutter"
 	},
+/obj/effect/turf_decal/caution/stand_clear,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
