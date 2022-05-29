@@ -570,15 +570,15 @@
 				stop_pulling()
 
 /mob/living/proc/pull_grabbed(turf/old_turf, direct, movetime)
-	if(!src.Adjacent(old_turf))
+	if(!Adjacent(old_turf))
 		return
 	// yes, this is four distinct `for` loops. No, they can't be merged.
 	var/list/grabbing = list()
-	for(var/mob/M in src.ret_grab())
+	for(var/mob/M in ret_grab())
 		if(src != M)
 			grabbing |= M
 	for(var/mob/M in grabbing)
-		M.im_in_the_middle_of_being_grab_pulled_dont_shuffle_me_pls = TRUE
+		M.currently_grab_pulled = TRUE
 		M.animate_movement = SYNC_STEPS
 	for(var/i in 1 to length(grabbing))
 		var/mob/M = grabbing[i]
@@ -597,20 +597,20 @@
 				continue
 		// By this time the `old_turf` is definitely occupied by something immovable.
 		// So try to move them into some other adjacent turf, in a believable way
-		if(src.Adjacent(M))
+		if(Adjacent(M))
 			continue // they are already adjacent
 		for(var/turf/dest in possible_dest)
 			if(M.Move(dest, get_dir(M, dest), movetime))
 				break
 	for(var/mob/M in grabbing)
-		M.im_in_the_middle_of_being_grab_pulled_dont_shuffle_me_pls = null
+		M.currently_grab_pulled = null
 		M.animate_movement = SLIDE_STEPS
 
 	for(var/obj/item/grab/G in src)
 		if(G.state == GRAB_NECK)
-			src.setDir(angle2dir((dir2angle(direct) + 202.5) % 365))
+			setDir(angle2dir((dir2angle(direct) + 202.5) % 365))
 		G.adjust_position()
-	for(var/obj/item/grab/G in src.grabbed_by)
+	for(var/obj/item/grab/G in grabbed_by)
 		G.adjust_position()
 
 

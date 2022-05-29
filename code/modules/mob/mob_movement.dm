@@ -11,7 +11,7 @@
 		return TRUE
 	if(ismob(mover))
 		var/mob/moving_mob = mover
-		if((im_in_the_middle_of_being_grab_pulled_dont_shuffle_me_pls && moving_mob.im_in_the_middle_of_being_grab_pulled_dont_shuffle_me_pls))
+		if((currently_grab_pulled && moving_mob.currently_grab_pulled))
 			return FALSE
 		if(mover in buckled_mobs)
 			return TRUE
