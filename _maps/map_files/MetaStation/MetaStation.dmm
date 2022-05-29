@@ -41528,9 +41528,8 @@
 	pixel_x = 5;
 	pixel_y = 23
 	},
-/obj/machinery/atmospherics/binary/pump{
-	dir = 1;
-	on = 1
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 1
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
@@ -41615,9 +41614,6 @@
 /obj/structure/sign/fire{
 	pixel_x = 32
 	},
-/obj/machinery/atmospherics/binary/pump{
-	on = 1
-	},
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	layer = 3.1;
@@ -41626,6 +41622,7 @@
 	pixel_x = -5;
 	pixel_y = -23
 	},
+/obj/machinery/atmospherics/binary/pump/on,
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "cqK" = (
@@ -86717,13 +86714,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "tZI" = (
-/obj/machinery/atmospherics/unary/outlet_injector{
+/obj/machinery/atmospherics/unary/outlet_injector/on{
 	frequency = 1441;
-	icon_state = "on";
-	id = "engine-waste_out";
 	name = "engine outlet injector";
-	on = 1;
-	volume_rate = 200
+	volume_rate = 200;
+	id = "engine-waste_out"
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
