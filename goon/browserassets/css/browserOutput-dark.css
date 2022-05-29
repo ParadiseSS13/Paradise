@@ -58,11 +58,11 @@ h1.alert, h2.alert			{color: #FFF;}
 .kidan					{color: #C64C05;}
 .drask					{color: #a3d4eb;}
 .shadowling				{color: #Cb2799;}
-.cultspeech				{color: #AF0000;}
-.cultitalic				{color: #A60000;}
-.cultlarge				{color: #A60000;}
-.narsie					{color: #A60000;}
-.narsiesmall			{color: #A60000;}
+.clock					{color: #e6a400;}
+.clockspeech			{color: #cc9200;}
+.clockitalic			{color: #e6a400;}
+.clocklarge				{color: #e6a400;}
+.ratvar					{color: #e6a400;}
 .interface				{color: #9031C4;}
 .purple					{color: #9031C4;}
 .skeleton				{color: #C8C8C8;}

@@ -653,6 +653,10 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return 0
 	if(!istype(M))
 		return 0
+	if(isrobot(M))
+		var/mob/living/silicon/robot/R = M
+		if(R.emagged)
+			return 1
 	if((M.mind in SSticker.mode.head_revolutionaries) || (M.mind in SSticker.mode.revolutionaries))
 		if(SSticker.mode.config_tag == "revolution")
 			return 2
@@ -677,10 +681,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(SSticker.mode.config_tag == "abduction")
 			return 2
 		return 1
-	if(isrobot(M))
-		var/mob/living/silicon/robot/R = M
-		if(R.emagged)
-			return 1
 	if(M.mind&&M.mind.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
 		return 1
 

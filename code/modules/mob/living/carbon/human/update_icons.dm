@@ -657,6 +657,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/mutable_appearance/bloodsies = mutable_appearance(dna.species.blood_mask, "bloodyhands", layer = -GLOVES_LAYER)
 			bloodsies.color = hand_blood_color
 			overlays_standing[GLOVES_LAYER]	= bloodsies
+		else if(HAS_TRAIT(src, CLOCK_HANDS))
+			var/mutable_appearance/flashies = mutable_appearance(dna.species.blood_mask, "clockedhands", layer = -GLOVES_LAYER)
+			flashies.color = CLOCK_COLOR
+			overlays_standing[GLOVES_LAYER]	= flashies
 	apply_overlay(GLOVES_LAYER)
 
 
@@ -1324,6 +1328,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(iscultist(src) && SSticker.mode.cult_ascendant)
 		var/istate = pick("halo1", "halo2", "halo3", "halo4", "halo5", "halo6")
 		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, -HALO_LAYER)
+		overlays_standing[HALO_LAYER] = new_halo_overlay
+	else if(isclocker(src) && SSticker.mode.crew_reveal)
+		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', "haloclock", -HALO_LAYER)
 		overlays_standing[HALO_LAYER] = new_halo_overlay
 
 	apply_overlay(HALO_LAYER)

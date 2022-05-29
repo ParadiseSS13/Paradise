@@ -2163,17 +2163,6 @@
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
-"hG" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile/block{
-	dir = 8
-	},
-/obj/structure/table/reinforced/brass,
-/obj/item/weldingtool/experimental/brass,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "hH" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -2273,8 +2262,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/obj/structure/table/reinforced/brass,
-/obj/item/clockwork/weapon/ratvarian_spear,
+/obj/structure/table/wood,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "ir" = (
@@ -2370,7 +2358,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/table/reinforced/brass,
+/obj/structure/table/wood,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "iX" = (
@@ -2393,7 +2381,7 @@
 "iZ" = (
 /obj/structure/stone_tile/surrounding,
 /obj/structure/stone_tile/center/cracked,
-/obj/structure/table/reinforced/brass,
+/obj/structure/table/wood,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "ja" = (
@@ -2589,20 +2577,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"kk" = (
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "kl" = (
 /obj/structure/fluff/drake_statue/falling,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -2618,8 +2592,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/table/reinforced/brass,
-/obj/item/storage/toolbox/brass,
+/obj/structure/table/wood,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "ko" = (
@@ -2748,19 +2721,6 @@
 	tag = "icon-whitegreen (WEST)"
 	},
 /area/mine/living_quarters)
-"kY" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "le" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -3534,7 +3494,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/chair/brass,
+/obj/structure/chair/wood,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "oA" = (
@@ -3607,7 +3567,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/obj/structure/chair/brass,
+/obj/structure/chair/wood,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "qb" = (
@@ -3680,20 +3640,6 @@
 /obj/structure/bookcase,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
-"qC" = (
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "qD" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/light/small{
@@ -3719,10 +3665,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
-"qS" = (
-/obj/structure/clockwork/wall_gear,
-/turf/simulated/wall/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "qT" = (
 /turf/simulated/wall/rust,
 /area/mine/laborcamp)
@@ -3926,7 +3868,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/obj/structure/chair/brass{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
@@ -3980,17 +3922,6 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
-"tu" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile,
-/obj/structure/table/reinforced/brass,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "ty" = (
 /obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -4277,17 +4208,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
-"wr" = (
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile/block/cracked{
-	dir = 1
-	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "wA" = (
 /obj/structure/sign/restroom,
 /turf/simulated/wall,
@@ -4406,7 +4326,7 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/structure/chair/brass{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
@@ -4483,18 +4403,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
-"yH" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile,
-/obj/structure/table/reinforced/brass,
-/obj/item/wirecutters/brass,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "yK" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -4578,21 +4486,6 @@
 /obj/machinery/suit_storage_unit/lavaland,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
-"zM" = (
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/table/reinforced/brass,
-/obj/item/storage/toolbox/brass,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "Ad" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -4703,7 +4596,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/table/reinforced/brass,
+/obj/structure/table/wood,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "Bm" = (
@@ -4866,18 +4759,6 @@
 	tag = "icon-wood-broken6"
 	},
 /area/mine/laborcamp)
-"Dh" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile,
-/obj/structure/table/reinforced/brass,
-/obj/item/weldingtool/experimental/brass,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "Dl" = (
 /obj/structure/stone_tile/cracked{
 	dir = 1
@@ -4903,29 +4784,14 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/chair/brass{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "Dw" = (
 /obj/structure/stone_tile/slab/cracked,
-/obj/structure/table/reinforced/brass,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
-"DL" = (
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/table/reinforced/brass,
-/obj/item/wrench/brass,
+/obj/structure/table/wood,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "DP" = (
@@ -5264,7 +5130,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/chair/brass{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/boss,
@@ -5951,11 +5817,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
-"Qy" = (
-/obj/structure/stone_tile/slab/cracked,
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "QD" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -6000,7 +5861,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/chair/brass{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/boss,
@@ -6100,7 +5961,7 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/obj/structure/table/reinforced/brass,
+/obj/structure/table/wood,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "Sn" = (
@@ -6111,7 +5972,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/obj/structure/table/reinforced/brass,
+/obj/structure/table/wood,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "Ss" = (
@@ -6377,17 +6238,6 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
-"UJ" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile,
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "UK" = (
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 1
@@ -6585,34 +6435,6 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
-"Xl" = (
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
-"XW" = (
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/table/reinforced/brass,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "Ym" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -6628,23 +6450,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/mine/living_quarters)
-"YI" = (
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/table/reinforced/brass,
-/obj/item/stack/tile/brass{
-	amount = 10
-	},
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "YJ" = (
 /obj/machinery/door/airlock{
 	name = "Labor Camp Storage"
@@ -6702,7 +6507,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/obj/structure/chair/brass{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/boss,
@@ -6734,7 +6539,7 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/structure/table/reinforced/brass,
+/obj/structure/table/wood,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "Zs" = (
@@ -6752,16 +6557,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
-"Zx" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile/block{
-	dir = 8
-	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "ZA" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -31206,7 +31001,7 @@ aj
 (96,1,1) = {"
 aa
 aa
-qS
+aa
 CE
 Sk
 mY
@@ -31465,10 +31260,10 @@ aa
 aa
 xo
 ng
-Qy
+nf
 gC
 mq
-qS
+aa
 aa
 aa
 aa
@@ -31978,11 +31773,11 @@ aj
 aa
 aa
 iO
-kY
+mq
 ng
 nc
 gT
-qC
+gC
 xo
 aa
 aa
@@ -32234,7 +32029,7 @@ aj
 (100,1,1) = {"
 aa
 aa
-XW
+km
 gC
 mW
 gC
@@ -32752,7 +32547,7 @@ hD
 mq
 Tl
 UH
-Qy
+nf
 hD
 aa
 aa
@@ -33263,7 +33058,7 @@ aj
 aa
 aa
 aa
-qS
+aa
 aa
 nf
 aa
@@ -33777,9 +33572,9 @@ aj
 aa
 aa
 aa
-qS
+aa
 ng
-qC
+gC
 aa
 aa
 aa
@@ -34295,7 +34090,7 @@ mq
 mz
 nc
 xU
-XW
+km
 aa
 aa
 aa
@@ -34805,11 +34600,11 @@ aj
 aa
 aa
 Dw
-Zx
+mW
 nc
 mY
-qC
-qS
+gC
+aa
 aa
 aa
 aa
@@ -35068,8 +34863,8 @@ nf
 aa
 aa
 aa
-qS
-DL
+aa
+km
 iO
 aa
 aa
@@ -35319,13 +35114,13 @@ aj
 aa
 aa
 aa
-qS
+aa
 aa
 nc
 aa
 aa
 aa
-Zx
+mW
 mq
 sS
 nf
@@ -35838,11 +35633,11 @@ aa
 mq
 aa
 aa
-yH
+ij
 QR
 mW
 uM
-kk
+nc
 aa
 ab
 ab
@@ -36350,13 +36145,13 @@ aa
 aa
 nc
 gC
-Qy
-qS
+nf
+aa
 aa
 mS
 no
-YI
-hG
+nc
+Sm
 aa
 ab
 ab
@@ -36612,7 +36407,7 @@ gC
 aa
 mq
 gC
-qS
+aa
 aa
 aa
 ab
@@ -36868,7 +36663,7 @@ gC
 mq
 mW
 nc
-wr
+ng
 aa
 aa
 aa
@@ -37117,10 +36912,10 @@ aj
 (119,1,1) = {"
 aa
 aa
-qS
+aa
 Bj
 Dm
-UJ
+mY
 mS
 iZ
 aa
@@ -37636,7 +37431,7 @@ aa
 hE
 nc
 nf
-qS
+aa
 aa
 aa
 aa
@@ -40716,11 +40511,11 @@ aj
 aa
 aa
 aa
-qS
+aa
 Sk
 ng
 mq
-qS
+aa
 aa
 aa
 aa
@@ -40973,7 +40768,7 @@ aj
 aa
 aa
 aa
-tu
+ij
 nf
 mq
 qa
@@ -41233,7 +41028,7 @@ aa
 Zq
 Hg
 ng
-kY
+mq
 iZ
 aa
 aa
@@ -41487,11 +41282,11 @@ aj
 aa
 aa
 aa
-qS
+aa
 mq
 hE
 ng
-qS
+aa
 aa
 aa
 aa
@@ -42001,7 +41796,7 @@ aj
 aa
 aa
 aa
-wr
+ng
 Sk
 IH
 Sk
@@ -42263,7 +42058,7 @@ Eh
 mZ
 mZ
 nf
-Dh
+ij
 aa
 aa
 ab
@@ -42513,7 +42308,7 @@ aj
 "}
 (140,1,1) = {"
 aa
-qS
+aa
 Dw
 Sk
 mZ
@@ -42521,7 +42316,7 @@ SJ
 mZ
 Sk
 Zq
-qS
+aa
 aa
 ad
 ab
@@ -42771,7 +42566,7 @@ aj
 (141,1,1) = {"
 aa
 aa
-zM
+iO
 mq
 Jy
 mZ
@@ -43033,7 +42828,7 @@ ng
 Sk
 nf
 Sk
-Xl
+mS
 aa
 aa
 aa
@@ -43288,7 +43083,7 @@ aa
 aa
 aa
 Zq
-tu
+ij
 Sn
 aa
 aa
@@ -43545,7 +43340,7 @@ aa
 aa
 aa
 aa
-qS
+aa
 aa
 aa
 aa

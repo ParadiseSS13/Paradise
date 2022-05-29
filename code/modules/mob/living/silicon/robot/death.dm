@@ -16,7 +16,10 @@
 	playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
 
 	flick("gibbed-r", animation)
-	robogibs(loc)
+	if(isclocker(src))
+		clockgibs(loc)
+	else
+		robogibs(loc)
 
 	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list -= src

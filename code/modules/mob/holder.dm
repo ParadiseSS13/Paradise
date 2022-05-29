@@ -94,6 +94,11 @@
 	name = "maintenance drone"
 	icon_state = "drone-emagged"
 
+/obj/item/holder/cogscarab
+	name = "cogscarab"
+	desc = "A strange, drone-like machine. It constantly emits the hum of gears."
+	icon_state = "cogscarab"
+
 /obj/item/holder/pai
 	name = "pAI"
 	desc = "It's a little robot."

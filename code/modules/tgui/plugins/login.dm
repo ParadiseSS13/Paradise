@@ -136,6 +136,9 @@ GLOBAL_LIST(ui_logins)
 	else if(login_type == LOGIN_TYPE_AI && isAI(usr))
 		state.name = usr.name
 		state.rank = "AI"
+	else if(iscogscarab(usr))
+		to_chat(usr, "<span class='warning'>Access Denied</span>")
+		return
 	else if(login_type == LOGIN_TYPE_ROBOT && isrobot(usr))
 		var/mob/living/silicon/robot/R = usr
 		state.name = usr.name

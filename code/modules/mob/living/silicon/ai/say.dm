@@ -30,6 +30,8 @@
 		jobname = "No ID"
 	else if(isAI(speaker))
 		jobname = "AI"
+	else if(iscogscarab(speaker))
+		jobname = "Unknown"
 	else if(isrobot(speaker))
 		jobname = "Cyborg"
 	else if(ispAI(speaker))

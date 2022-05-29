@@ -32,6 +32,12 @@
 		/mob/living/silicon/proc/subsystem_power_monitor
 	)
 
+/mob/living/silicon/robot/cogscarab
+	silicon_subsystems = list(
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager
+	)
+
 /mob/living/silicon/robot/syndicate
 	register_alarms = 0
 

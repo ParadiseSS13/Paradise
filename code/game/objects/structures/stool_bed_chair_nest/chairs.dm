@@ -425,7 +425,7 @@
 	desc = "A spinny chair made of brass. It looks uncomfortable."
 	icon_state = "brass_chair"
 	max_integrity = 150
-	buildstacktype = /obj/item/stack/tile/brass
+	buildstacktype = /obj/item/stack/sheet/brass
 	buildstackamount = 1
 	item_chair = null
 	var/turns = 0

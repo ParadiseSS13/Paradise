@@ -16,7 +16,7 @@
 	var/to_transfer = 0
 	var/max_amount = 50 //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
 	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
-	var/recipe_width = 400 //Width of the recipe popup 
+	var/recipe_width = 400 //Width of the recipe popup
 	var/recipe_height = 400 //Height of the recipe popup
 	var/is_cyborg = 0 // It's 1 if module is used by a cyborg, and uses its storage
 	var/cost = 1 // How much energy from storage it costs
@@ -202,14 +202,38 @@
 				to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor or lattice!</span>")
 				return FALSE
 
-		if(R.no_cult_structure && (locate(/obj/structure/cult) in usr.drop_location()))
-			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
-			return FALSE
-
+		if(R.cult_structure)
+			if(!is_level_reachable(usr.z))
+				to_chat(usr, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
+				return FALSE
+			if(locate(/obj/structure/cult) in usr.drop_location())
+				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+				return FALSE
+			if(locate(/obj/structure/clockwork) in usr.drop_location())
+				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+				return FALSE
+		var/area/A = get_area(usr)
+		if(R.result_type == /obj/structure/clockwork/functional/beacon)
+			if(!is_station_level(usr.z))
+				to_chat(usr, "<span class='warning'>The beacon cannot guide from this place! It must be on station!</span>")
+				return FALSE
+			if(istype(A, /area/space))
+				to_chat(usr, "<span class='warning'>The beacon must be inside the station itself to properly work.")
+				return FALSE
+			if(A.get_beacon())
+				to_chat(usr, "<span class='warning'>This area already has beacon!</span>")
+				return FALSE
 		if(R.time)
 			to_chat(usr, "<span class='notice'>Building [R.title] ...</span>")
 			if(!do_after(usr, R.time, target = usr))
-				return 0
+				return FALSE
+
+		if(R.cult_structure && locate(/obj/structure/cult) in get_turf(src)) //Check again after do_after to prevent queuing construction exploit.
+			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+			return FALSE
+		if(R.cult_structure && locate(/obj/structure/clockwork) in get_turf(src))
+			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+			return FALSE
 
 		if(get_amount() < R.req_amount * multiplier)
 			return

@@ -166,6 +166,7 @@
 			I.appearance_flags = old_appearance_flags
 	else
 		..()
+
 /datum/action/item_action/toggle_light
 	name = "Toggle Light"
 
@@ -299,6 +300,23 @@
 	..()
 	name = "Zip/Unzip [target.name]"
 	button.name = name
+
+/datum/action/item_action/activate
+
+/datum/action/item_action/activate/New(Target)
+	..()
+	name = "Activate [target.name]"
+	button.name = name
+
+/datum/action/item_action/activate/once
+
+/datum/action/item_action/activate/once/New(Target)
+	..()
+	UpdateButtonIcon()
+
+/datum/action/item_action/activate/once/Trigger(attack_self)
+	. = ..()
+	qdel(src)
 
 /datum/action/item_action/halt
 	name = "HALT!"

@@ -739,7 +739,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	max_integrity = 80
 	armor = list("melee" = 60, "bullet" = 25, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
 	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
-	glass_type = /obj/item/stack/tile/brass
+	glass_type = /obj/item/stack/sheet/brass
 	reinf = FALSE
 	cancolor = FALSE
 	var/made_glow = FALSE
@@ -751,9 +751,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	QDEL_LIST(debris)
 	if(fulltile)
 		new /obj/effect/temp_visual/ratvar/window(get_turf(src))
-		debris += new/obj/item/stack/tile/brass(src, 2)
+		debris += new/obj/item/stack/sheet/brass(src, 2)
 	else
-		debris += new/obj/item/stack/tile/brass(src, 1)
+		debris += new/obj/item/stack/sheet/brass(src, 1)
 
 /obj/structure/window/reinforced/clockwork/setDir(direct)
 	if(!made_glow)

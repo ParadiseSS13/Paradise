@@ -20,6 +20,10 @@
 	if(prob(20))
 		ChangeTurf(/turf/simulated/wall/cult)
 
+/turf/simulated/shuttle/ratvar_act()
+	if(prob(20))
+		ChangeTurf(/turf/simulated/floor/clockwork)
+
 //sub-type to be used for interior shuttle walls
 //won't get an underlay of the destination turf on shuttle move
 /turf/simulated/shuttle/wall/interior/copyTurf(turf/T)

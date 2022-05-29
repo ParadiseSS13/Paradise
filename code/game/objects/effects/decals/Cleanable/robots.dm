@@ -1,7 +1,7 @@
 /obj/effect/decal/cleanable/blood/gibs/robot
 	name = "robot debris"
 	desc = "It's a useless heap of junk... <i>or is it?</i>"
-	icon = 'icons/mob/robots.dmi'
+	icon = 'icons/effects/robot.dmi'
 	icon_state = "gib1"
 	basecolor = "#030303"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6", "gib7")

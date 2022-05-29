@@ -60,6 +60,7 @@
 	damage_deflection = 10
 	var/area/area
 	var/areastring = null
+	var/obj/item/clockwork/integration_cog/cog //Is there a cog siphoning power?
 	var/obj/item/stock_parts/cell/cell
 	var/start_charge = 90				// initial cell charge %
 	var/cell_type = 2500	//Base cell has 2500 capacity. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
@@ -105,6 +106,7 @@
 	var/global/list/status_overlays_environ
 	var/indestructible = 0 // If set, prevents aliens from destroying it
 	var/keep_preset_name = 0
+
 
 	var/report_power_alarm = TRUE
 
@@ -213,6 +215,7 @@
 		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
 		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
 
+	cog = null // Or you can't put it in
 	var/area/A = get_area(src)
 
 
@@ -248,6 +251,8 @@
 				. += "Electronics installed but not wired."
 			else /* if(!has_electronics && !terminal) */
 				. += "There are no electronics nor connected wires."
+			if(user.Adjacent(src) && cog)
+				. += "<span class='warning'>[src]'s innards have been replaced by strange brass machinery!</span>"
 		else
 			if(stat & MAINT)
 				. += "The cover is closed. Something wrong with it: it doesn't work."
@@ -255,6 +260,8 @@
 				. += "The cover is broken. It may be hard to force it open."
 			else
 				. += "The cover is closed."
+	if(cog && isclocker(user))
+		. += "<span class='clock'>There is an integration cog installed!</span>"
 
 // update the APC icon to show the three base states
 // also add overlays for indicator lights
@@ -567,6 +574,40 @@
 			if(opened==2)
 				opened = 1
 			update_icon()
+	else if(istype(W, /obj/item/clockwork/integration_cog))
+		if(!isclocker(user))
+			to_chat(user, "<span class='warning'>You fiddle around with [src], to no avail.</span>")
+			return
+		if(cog)
+			to_chat(user, "<span class='warning'>This APC already has a cog!</span>")
+			return
+		if(!opened)
+			playsound(src, 'sound/items/crowbar.ogg', 50, TRUE)
+			user.visible_message("[user] starts slicing [src]'s cover lock.", \
+			"<span class='notice'>You start slicing [src]'s cover lock apart with [W].</span>")
+			if(!do_after(user, 4 SECONDS, target = src))
+				return
+			user.visible_message("<span class='warning'>[user] slices [src]'s cover lock, and it swings wide open!</span>", \
+			"<span class='clock'>You slice [src]'s cover lock apart with [W], and the cover swings open.</span>")
+			opened = TRUE
+			update_icon()
+		else
+			user.visible_message("<span class='warning'>[user] presses [W] into [src]!</span>", \
+			"<span class='clock'>You hold [W] in place within [src], and it slowly begins to warm up...</span>")
+			playsound(src, 'sound/machines/click.ogg', 50, TRUE)
+			if(!do_after(user, 7 SECONDS, target = src))
+				return
+			user.visible_message("<span class='warning'>[user] installs [W] in [src]!</span>", \
+			"<span class='clock'>Replicant alloy rapidly covers the APC's innards, replacing the machinery.</span><br>\
+			<span class='clockitalic'>This APC will now passively provide power for the cult!</span>")
+			playsound(user, 'sound/machines/clockcult/integration_cog_install.ogg', 50, TRUE)
+			user.unEquip(W, 1)
+			W.forceMove(src)
+			cog = W
+			START_PROCESSING(SSfastprocess, W)
+			opened = FALSE
+			locked = FALSE
+			update_icon()
 		return
 	else
 		return ..()
@@ -611,6 +652,15 @@
 							"<span class='notice'>You remove the power control board.</span>")
 						new /obj/item/apc_electronics(loc)
 						return
+		else if(cog)
+			user.visible_message("[user] starts prying [cog] from [src].", \
+			"<span class='notice'>You painstakingly start tearing [cog] out of [src]'s guts...</span>")
+			if(I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
+				user.visible_message("[user] destroys [cog] in [src]!", \
+				"<span class='notice'>[cog] comes free with a clank and snaps in two as the machinery returns to normal!</span>")
+				playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+				QDEL_NULL(cog)
+			return
 		else if(opened!=2) //cover isn't removed
 			opened = 0
 			coverlocked = TRUE //closing cover relocks it
@@ -806,7 +856,7 @@
 /obj/machinery/power/apc/ui_data(mob/user)
 	var/list/data = list()
 	data["locked"] = is_locked(user)
-	data["normallyLocked"] = locked
+	data["normallyLocked"] = cog ? !isclocker(user) : locked
 	data["isOperating"] = operating
 	data["externalPower"] = main_status
 	data["powerCellStatus"] = cell ? cell.percent() : null
@@ -913,7 +963,7 @@
 /obj/machinery/power/apc/proc/is_authenticated(mob/user as mob)
 	if(user.can_admin_interact())
 		return 1
-	if(isAI(user) || isrobot(user))
+	if(isAI(user) || isrobot(user) && !iscogscarab(user))
 		return 1
 	else
 		return !locked
@@ -921,7 +971,7 @@
 /obj/machinery/power/apc/proc/is_locked(mob/user as mob)
 	if(user.can_admin_interact())
 		return 0
-	if(isAI(user) || isrobot(user))
+	if(isAI(user) || isrobot(user) && !iscogscarab(user))
 		return 0
 	else
 		return locked

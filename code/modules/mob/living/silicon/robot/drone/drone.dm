@@ -20,7 +20,6 @@
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
-	ionpulse = 1
 	modules_break = FALSE
 
 	// We need to keep track of a few module items so we don't need to do list operations
@@ -80,7 +79,6 @@
 
 	verbs -= /mob/living/silicon/robot/verb/Namepick
 	module = new /obj/item/robot_module/drone(src)
-	module += new /obj/item/borg/upgrade/thrusters(src)
 
 	//Allows Drones to hear the Engineering channel.
 	module.channels = list("Engineering" = 1)
@@ -236,6 +234,17 @@
 	laws.show_laws(src)
 	to_chat(src, "<span class='boldwarning'>ALERT: [H.real_name] is your new master. Obey your new laws and [H.real_name]'s commands.</span>")
 	return
+
+/mob/living/silicon/robot/drone/ratvar_act(weak)
+	if(client)
+		var/mob/living/silicon/robot/cogscarab/cog = new (get_turf(src))
+		if(mind)
+			SSticker.mode.add_clocker(mind)
+			mind.transfer_to(cog)
+		else
+			cog.key = client.key
+	spawn_dust()
+	gib()
 
 //DRONE LIFE/DEATH
 

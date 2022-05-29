@@ -133,12 +133,12 @@
 	desc = "Four pieces of brass arranged in a square. It's slightly warm to the touch."
 	icon_state = "brass_frame"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	framestack = /obj/item/stack/tile/brass
+	framestack = /obj/item/stack/sheet/brass
 	framestackamount = 1
 
 /obj/structure/table_frame/brass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/tile/brass))
-		var/obj/item/stack/tile/brass/W = I
+	if(istype(I, /obj/item/stack/sheet/brass))
+		var/obj/item/stack/sheet/brass/W = I
 		if(W.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
 			return

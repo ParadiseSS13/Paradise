@@ -187,6 +187,14 @@
 	overlays_file = SSticker.cultdat?.airlock_unruned_overlays_file
 	update_icon()
 
+/obj/structure/door_assembly/door_assembly_clock
+	name = "clock airlock assembly"
+	icon = 'icons/obj/doors/airlocks/clockwork/pinion_airlock.dmi'
+	base_name = "clock airlock"
+	overlays_file = 'icons/obj/doors/airlocks/clockwork/overlays.dmi'
+	airlock_type = /obj/machinery/door/airlock/clockwork
+	glass_type = /obj/machinery/door/airlock/clockwork/glass
+
 /obj/structure/door_assembly/door_assembly_centcom
 	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/centcom/overlays.dmi'

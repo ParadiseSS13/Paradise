@@ -195,6 +195,11 @@
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	qdel(src)
 
+/obj/machinery/bodyscanner/ratvar_act()
+	go_out()
+	new /obj/effect/decal/cleanable/blood/gibs/clock(get_turf(src))
+	qdel(src)
+
 /obj/machinery/bodyscanner/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)

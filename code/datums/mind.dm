@@ -229,6 +229,37 @@
 
 	. += _memory_edit_role_enabled(ROLE_CULTIST)
 
+/datum/mind/proc/memory_edit_clockwork(mob/living/carbon/human/H)
+	. = _memory_edit_header("clockwork")
+	if(src in SSticker.mode.clockwork_cult)
+		. += "<a href='?src=[UID()];clock=clear'>no</a>|<b><font color='red'>CLOCKER</font></b>"
+		. += "<br>Give <a href='?src=[UID()];clock=clockslab'>clockslab</a>|<a href='?src=[UID()];clock=brassmetal'>brassmetal</a>."
+	else
+		. += "<b>NO</b>|<a href='?src=[UID()];clock=clocker'>clocker</a>"
+
+	. += _memory_edit_role_enabled(ROLE_CLOCKER)
+
+
+/datum/mind/proc/memory_edit_clockwork_silicon()
+	. = _memory_edit_header("clockwork")
+	if(istype(current, /mob/living/silicon/robot))
+		if(src in SSticker.mode.clockwork_cult)
+			. += "<a href='?src=[UID()];siliclock=clearrobot'>no</a>|<b><font color='red'>CLOCKER</font></b>"
+		else
+			. += "<b>NO</b>|<a href='?src=[UID()];siliclock=clockrobot'>clocker</a>"
+	else if(istype(current, /mob/living/silicon/ai))
+		if(src in SSticker.mode.clockwork_cult)
+			. += "no|<b><font color='red'>CLOCKER</font></b>"
+		else
+			. += "<b>NO</b>|<a href='?src=[UID()];siliclock=clockai'>clocker</a>"
+			. += "<b>By making AI clocker, all his slave cyborg will also become clockers! <font color='red'>The process cannot be undone!</font></b>"
+
+/*
+. += "<a href='?src=[UID()];siliclock=clear'>no</a>|<b><font color='red'>CLOCKER</font></b>"
+	else
+		. += "<b>NO</b>|<a href='?src=[UID()];siliclock=clocker'>clocker</a>"
+*/
+
 /datum/mind/proc/memory_edit_wizard(mob/living/carbon/human/H)
 	. = _memory_edit_header("wizard")
 	if(src in SSticker.mode.wizards)
@@ -402,9 +433,14 @@
 
 /datum/mind/proc/memory_edit_silicon()
 	. = "<i><b>Silicon</b></i>: "
+	var/mob/living/silicon/silicon = current
+	. = "<br>Current Laws:<b>[silicon.laws.name]</b> <a href='?src=[UID()];silicon=lawmanager'>Law Manager</a>"
 	var/mob/living/silicon/robot/robot = current
 	if(istype(robot) && robot.emagged)
-		. += "<br>Cyborg: <b><font color='red'>Is emagged!</font></b> <a href='?src=[UID()];silicon=unemag'>Unemag!</a><br>0th law: [robot.laws.zeroth_law]"
+		if(robot.emagged)
+			. += "<br>Cyborg: <b><font color='red'>Is emagged!</font></b> <a href='?src=[UID()];silicon=unemag'>Unemag!</a>"
+		if(robot.laws.zeroth_law)
+			. += "<br>0th law: [robot.laws.zeroth_law?.law]"
 	var/mob/living/silicon/ai/ai = current
 	if(istype(ai) && ai.connected_robots.len)
 		var/n_e_robots = 0
@@ -446,6 +482,7 @@
 		"implant",
 		"revolution",
 		"cult",
+		"clockwork",
 		"wizard",
 		"changeling",
 		"vampire", // "traitorvamp",
@@ -480,9 +517,13 @@
 	if(!issilicon(current))
 		/** CULT ***/
 		sections["cult"] = memory_edit_cult(H)
+		/** CLOCKWORK **/
+		sections["clockwork"] = memory_edit_clockwork(H)
 	/** SILICON ***/
 	if(issilicon(current))
 		sections["silicon"] = memory_edit_silicon()
+		/** CLOCKWORK SILICON **/
+		sections["siliclock"] = memory_edit_clockwork_silicon()
 	/*
 		This prioritizes antags relevant to the current round to make them appear at the top of the panel.
 		Traitorchan and traitorvamp are snowflaked in because they have multiple sections.
@@ -928,6 +969,53 @@
 				if(!SSticker.mode.cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H))
 					to_chat(usr, "<span class='warning'>Spawning runed metal failed!</span>")
 				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with 10 runed metal sheets")
+
+	else if(href_list["clock"])
+		switch(href_list["clock"])
+			if("clear")
+				if(src in SSticker.mode.clockwork_cult)
+					SSticker.mode.remove_clocker(src)
+					special_role = null
+					log_admin("[key_name(usr)] has de-clocked [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-clocked [key_name_admin(current)]")
+			if("clocker")
+				if(!(src in SSticker.mode.clockwork_cult))
+					to_chat(current, CLOCK_GREETING)
+					SSticker.mode.add_clocker(src)
+					to_chat(current, "<span class='clockitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve Ratvar above all else. Bring It back.</span>")
+					log_and_message_admins("[key_name(usr)] has clocked [key_name(current)]")
+			if("clockslab")
+				var/mob/living/carbon/human/H = current
+				if(!SSticker.mode.clock_give_item(/obj/item/clockwork/clockslab, H))
+					to_chat(usr, "<span class='warning'>Spawning Clock slab failed!</span>")
+				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with a clock slab")
+			if("brassmetal")
+				var/mob/living/carbon/human/H = current
+				if(!SSticker.mode.clock_give_item(/obj/item/stack/sheet/brass/ten, H))
+					to_chat(usr, "<span class='warning'>Spawning brass metal failed!</span>")
+				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with 10 brass metal sheets")
+	else if(href_list["siliclock"])
+		switch(href_list["siliclock"])
+			if("clearrobot")
+				var/mob/living/silicon/robot/robot = current
+				if(src in SSticker.mode.clockwork_cult)
+					SSticker.mode.remove_clocker(src)
+					robot.clear_supplied_laws()
+					robot.laws = new /datum/ai_laws/crewsimov
+					log_admin("[key_name(usr)] has de-clocked [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-clocked [key_name_admin(current)]")
+			if("clockrobot")
+				if(!(src in SSticker.mode.clockwork_cult))
+					current.ratvar_act(TRUE)
+					to_chat(current, "<span class='clockitalic'>Assist your new compatriots in their brass dealings. Their goal is yours, and yours is theirs. You serve Ratvar above all else. Bring It back.</span>")
+					log_and_message_admins("[key_name(usr)] has clocked [key_name(current)]")
+			if("clockai")
+				var/mob/living/silicon/ai/ai = current
+				if(!(src in SSticker.mode.clockwork_cult))
+					ai.ratvar_act(TRUE)
+					to_chat(current, "<span class='clockitalic'>Assist your new compatriots in their brass dealings. Their goal is yours, and yours is theirs. You serve Ratvar above all else. Bring It back.</span>")
+					log_and_message_admins("[key_name(usr)] has clocked [key_name(current)]")
+
 
 	else if(href_list["wizard"])
 
@@ -1545,6 +1633,11 @@
 
 	else if(href_list["silicon"])
 		switch(href_list["silicon"])
+			if("lawmanager")
+				var/mob/living/silicon/S = current
+				var/datum/ui_module/law_manager/L = new(S)
+				L.ui_interact(usr, state = GLOB.admin_state)
+				log_and_message_admins("has opened [S]'s law manager.")
 			if("unemag")
 				var/mob/living/silicon/robot/R = current
 				if(istype(R))

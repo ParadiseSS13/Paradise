@@ -579,6 +579,9 @@
 /obj/machinery/door/airlock/cult/narsie_act()
 	return
 
+/obj/machinery/door/airlock/cult/ratvar_act()
+	new /obj/machinery/door/airlock/clockwork(get_turf(src))
+	qdel(src)
 /obj/machinery/door/airlock/cult/friendly
 	friendly = TRUE
 
@@ -622,6 +625,68 @@
 /obj/machinery/door/airlock/cult/weak
 	name = "brittle cult airlock"
 	desc = "An airlock hastily corrupted by blood magic, it is unusually brittle in this state."
+	normal_integrity = 150
+	damage_deflection = 5
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+//////////////////////////////////
+/*
+	Clockwork Airlocks
+*/
+
+/obj/machinery/door/airlock/clockwork
+	name = "clockwork airlock"
+	icon = 'icons/obj/doors/airlocks/clockwork/pinion_airlock.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/clockwork/overlays.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_clock
+	damage_deflection = 10
+	hackProof = TRUE
+	aiControlDisabled = AICONTROLDISABLED_ON
+	paintable = FALSE
+	/// Will the door let anyone through
+	var/friendly = FALSE
+
+/obj/machinery/door/airlock/clockwork/Initialize()
+	. = ..()
+	new /obj/effect/temp_visual/ratvar/door(get_turf(src))
+
+/obj/machinery/door/airlock/clockwork/canAIControl(mob/user)
+	return (isclocker(user) && !isAllPowerLoss())
+
+/obj/machinery/door/airlock/clockwork/allowed(mob/living/L)
+	if(!density)
+		return TRUE
+	if(friendly || isclocker(L))
+		return TRUE
+	else
+		new /obj/effect/temp_visual/ratvar/door(loc)
+		var/atom/throwtarget
+		throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
+		SEND_SOUND(L, pick(sound('sound/hallucinations/turn_around1.ogg', 0, 1, 50), sound('sound/hallucinations/turn_around2.ogg', 0, 1, 50)))
+		L.Weaken(2)
+		L.throw_at(throwtarget, 5, 1,src)
+		return FALSE
+
+/obj/machinery/door/airlock/clockwork/narsie_act()
+	new /obj/machinery/door/airlock/cult(get_turf(src))
+	qdel(src)
+
+/obj/machinery/door/airlock/clockwork/ratvar_act()
+	return
+
+/obj/machinery/door/airlock/clockwork/friendly
+	friendly = TRUE
+
+/obj/machinery/door/airlock/clockwork/glass
+	glass = TRUE
+	opacity = 0
+
+/obj/machinery/door/airlock/clockwork/glass/friendly
+	friendly = TRUE
+
+/obj/machinery/door/airlock/clockwork/weak
+	name = "brittle clockwork airlock"
+	desc = "An airlock made from pure-hands into some brass moving structure."
 	normal_integrity = 150
 	damage_deflection = 5
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -776,6 +841,9 @@
 	paintable = FALSE
 
 /obj/machinery/door/airlock/multi_tile/narsie_act()
+	return
+
+/obj/machinery/door/airlock/multi_tile/ratvar_act()
 	return
 
 /obj/machinery/door/airlock/multi_tile/glass
