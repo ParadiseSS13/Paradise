@@ -30,7 +30,7 @@
 	desc = "Мудрый служебный пес, названный в честь единственной собаки удостоившийся боевой награды."
 	icon_state = "german_shep2"
 	icon_living = "german_shep2"
-	icon_resting = ""
+	icon_resting = "german_shep2_rest"
 	icon_dead = "german_shep2_dead"
 
 /mob/living/simple_animal/pet/dog/security/show_inv(mob/user)
