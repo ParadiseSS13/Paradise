@@ -53238,7 +53238,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/medical/ward)
+/area/medical/virology/lab{
+	name = "\improper Virology Lobby"
+	})
 "cnx" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -120176,7 +120178,7 @@ cDf
 cmn
 cnH
 cpb
-cQn
+cpC
 cTB
 czX
 cmJ
@@ -120433,7 +120435,7 @@ cDf
 cmp
 cnK
 cpe
-cQn
+cpC
 dgm
 cFp
 cJG
