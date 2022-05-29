@@ -70686,8 +70686,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
