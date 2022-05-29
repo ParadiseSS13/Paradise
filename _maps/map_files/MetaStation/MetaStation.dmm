@@ -167,6 +167,11 @@
 /obj/item/seeds/wheat/rice,
 /obj/item/seeds/wheat/rice,
 /obj/item/seeds/wheat/rice,
+/obj/machinery/camera{
+	c_tag = "Prison Forestry";
+	network = list("Prison","SS13");
+	dir = 4
+	},
 /turf/simulated/floor/grass,
 /area/security/permabrig)
 "acL" = (
@@ -75727,6 +75732,11 @@
 	},
 /obj/structure/table,
 /obj/structure/bedsheetbin,
+/obj/machinery/camera{
+	c_tag = "Prison Laundry";
+	network = list("Prison","SS13");
+	dir = 9
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cmo"
@@ -90384,11 +90394,6 @@
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/corn,
 /obj/item/seeds/corn,
-/obj/machinery/camera{
-	c_tag = "Prison Forestry";
-	network = list("Prison","SS13");
-	dir = 4
-	},
 /turf/simulated/floor/grass,
 /area/security/permabrig)
 "waF" = (
