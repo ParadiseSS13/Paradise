@@ -12514,6 +12514,11 @@
 	lootcount = 3;
 	name = "3maintenance loot spawner"
 	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -32837,6 +32842,11 @@
 	pixel_x = 8;
 	pixel_y = 8
 	},
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue";
@@ -50052,6 +50062,11 @@
 	},
 /obj/structure/table,
 /obj/item/paper_bin,
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -52169,6 +52184,7 @@
 	dir = 4
 	},
 /obj/machinery/button/windowtint{
+	anchored = 1;
 	id = "privateroom";
 	pixel_x = -24;
 	pixel_y = 24
@@ -53379,6 +53395,11 @@
 	},
 /obj/machinery/shower{
 	pixel_y = 20
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -69569,6 +69590,7 @@
 	network = list("SS13","Security")
 	},
 /obj/machinery/button/windowtint{
+	anchored = 1;
 	id = "Interrogation";
 	pixel_x = 24
 	},
@@ -69803,6 +69825,11 @@
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -73469,6 +73496,11 @@
 	},
 /obj/machinery/computer/monitor{
 	name = "Grid Power Monitoring Computer"
+	},
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -83213,6 +83245,11 @@
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plating,
 /area/library/abandoned)
@@ -126165,6 +126202,11 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -130039,6 +130081,11 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -133072,6 +133119,11 @@
 /obj/structure/cable,
 /obj/machinery/shower{
 	dir = 1
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
