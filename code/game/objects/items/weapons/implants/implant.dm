@@ -9,6 +9,16 @@
 /// If used, an implant will trigger any time a user dies.
 #define IMPLANT_TRIGGER_DEATH_ANY (1<<3)
 
+// Defines related to the way that the implant is activated. This is the value for implant.activated
+#define IMPLANT_ACTIVATED_PASSIVE 0
+#define IMPLANT_ACTIVATED_ACTIVE 1
+
+/**
+ * # Implants
+ *
+ * Code for implants that can be inserted into a person and have some sort of passive or triggered action.
+ *
+ */
 /obj/item/implant
 	name = "implant"
 	icon = 'icons/obj/implants.dmi'
@@ -16,19 +26,24 @@
 	origin_tech = "materials=2;biotech=3;programming=2"
 
 	actions_types = list(/datum/action/item_action/hands_free/activate)
-	var/activated = 1 //1 for implant types that can be activated, 0 for ones that are "always on" like mindshield implants
+	/// How the implant is activated. 1 for implants that are activated, 0 for passive/always on ones like mindshield implants.
+	var/activated = IMPLANT_ACTIVATED_ACTIVE
+	/// Whether the implant is implanted. Null if it's never been inserted, TRUE if it's currently inside someone, or FALSE if it's been removed.
 	var/implanted = null
+	/// Who the implant is inside of.
 	var/mob/living/imp_in = null
 	item_color = "b"
-	var/allow_multiple = 0
+	/// Whether multiple implants of this same type can be inserted into someone.
+	var/allow_multiple = FALSE
+	/// Amount of times that the implant can be triggered by the user. If the implant can't be used, it can't be inserted.
 	var/uses = -1
 	flags = DROPDEL
 
 	/// List of emote keys that activate this implant when used.
-	var/trigger_emotes
+	var/list/trigger_emotes
 	/// What type of action will trigger this emote. Bitfield of IMPLANT_EMOTE_* defines.
 	var/trigger_causes
-
+	/// Whether this implant has already triggered on death or not, to prevent it firing multiple times.
 	var/has_triggered_on_death = FALSE
 
 /obj/item/implant/proc/unregister_emotes()
@@ -38,8 +53,10 @@
 
 /**
  * Set the emote that will trigger the implant.
- * * user: User who is trying to associate the implant to themselves.
- * * emote_key: Key of the emote that should trigger the implant.
+ * * user - User who is trying to associate the implant to themselves.
+ * * emote_key - Key of the emote that should trigger the implant.
+ * * on_implant - Whether this proc is being called during the implantation of the implant.
+ * * silent - If true, the user won't get any to_chat messages if an implantation fails.
  */
 /obj/item/implant/proc/set_trigger(mob/user, emote_key, on_implant = FALSE, silent = TRUE)
 
@@ -133,7 +150,7 @@
 
 	src.loc = source
 	imp_in = source
-	implanted = 1
+	implanted = TRUE
 	if(trigger_emotes)
 		if(!(trigger_causes & IMPLANT_EMOTE_TRIGGER_INTENTIONAL | IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL))
 			CRASH("Implant [src] has trigger emotes defined but no trigger cause with which to use them!")
@@ -160,7 +177,7 @@
 /obj/item/implant/proc/removed(mob/source)
 	src.loc = null
 	imp_in = null
-	implanted = 0
+	implanted = FALSE
 
 	for(var/X in actions)
 		var/datum/action/A = X

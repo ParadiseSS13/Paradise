@@ -2,7 +2,7 @@
 	name = "death alarm implant"
 	desc = "An alarm which monitors host vital signs and transmits a radio message upon death."
 	var/mobname = "Will Robinson"
-	activated = 0
+	activated = IMPLANT_ACTIVATED_PASSIVE
 	var/static/list/stealth_areas = typecacheof(list(/area/syndicate_mothership, /area/shuttle/syndicate_elite))
 	trigger_causes = IMPLANT_TRIGGER_DEATH_ANY
 

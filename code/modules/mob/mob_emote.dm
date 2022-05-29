@@ -128,7 +128,9 @@
 	if(!can_run_emote(user, TRUE, intentional))
 		return FALSE
 
-	if(user.lying || user.IsWeakened())
+	var/mob/living/L = user
+
+	if(user.lying || (istype(L) && L.IsWeakened()))
 		message = "flops and flails around on the floor."
 	else if(params)
 		message_param = "flips in %t's general direction."
@@ -155,7 +157,9 @@
 		message = "attempts a flip and crashes to the floor!"
 		user.SpinAnimation(5, 1)
 		sleep(0.3 SECONDS)
-		user.Weaken(4 SECONDS)
+		var/mob/living/L = user
+		if(istype(L))
+			L.Weaken(4 SECONDS)
 	else
 		user.SpinAnimation(5, 1)
 
@@ -179,8 +183,10 @@
 	if(prob(5))
 		user.spin(32, 1)
 		to_chat(user, "<span class='warning'>You spin too much!</span>")
-		user.Dizzy(24 SECONDS)
-		user.Confused(24 SECONDS)
+		var/mob/living/L = user
+		if(istype(L))
+			L.Dizzy(24 SECONDS)
+			L.Confused(24 SECONDS)
 	else
 		user.spin(20, 1)
 
