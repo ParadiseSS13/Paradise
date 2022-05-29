@@ -10485,12 +10485,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "azM" = (
-/obj/machinery/atmospherics/binary/pump{
-	dir = 8;
-	on = 1
-	},
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
@@ -59723,10 +59722,8 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "czQ" = (
-/obj/machinery/atmospherics/binary/pump{
-	dir = 1;
-	name = "Gas Pump";
-	on = 1
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/incinerator)
@@ -60368,15 +60365,14 @@
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "cBj" = (
-/obj/machinery/atmospherics/binary/pump{
-	dir = 8;
-	on = 1
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
 /obj/structure/sign/fire{
 	pixel_y = 32
+	},
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 8
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
@@ -61732,12 +61728,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cDU" = (
-/obj/machinery/atmospherics/binary/pump{
-	dir = 4;
-	on = 1
-	},
 /obj/structure/sign/fire{
 	pixel_y = -32
+	},
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
@@ -61780,11 +61775,10 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/machinery/atmospherics/binary/pump{
-	dir = 4;
-	on = 1
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/incinerator)
 "cEa" = (
@@ -75975,9 +75969,6 @@
 	name = "\improper AI Satellite Hallway"
 	})
 "dlV" = (
-/obj/machinery/atmospherics/binary/pump{
-	on = 1
-	},
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	layer = 3.1;
@@ -75992,13 +75983,10 @@
 /obj/structure/sign/fire{
 	pixel_x = -32
 	},
+/obj/machinery/atmospherics/binary/pump/on,
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dlW" = (
-/obj/machinery/atmospherics/binary/pump{
-	dir = 1;
-	on = 1
-	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
 	master_tag = "turbine_control";
@@ -76011,6 +75999,9 @@
 	},
 /obj/structure/sign/fire{
 	pixel_x = 32
+	},
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 1
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
