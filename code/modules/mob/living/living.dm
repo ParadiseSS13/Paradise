@@ -584,8 +584,6 @@
 		var/mob/M = grabbing[i]
 		if(QDELETED(M))  // old code warned me that M could go missing during a move, so I'm cargo-culting it here
 			continue
-		if(src.Adjacent(M))
-			continue  // they are already adjacent to us
 		// compile a list of turfs we can maybe move them towards
 		// importantly, this should happen before actually trying to move them to either of those
 		// otherwise they can be moved twice (since `Move` returns TRUE only if it managed to
@@ -599,6 +597,8 @@
 				continue
 		// By this time the `old_turf` is definitely occupied by something immovable.
 		// So try to move them into some other adjacent turf, in a believable way
+		if(src.Adjacent(M))
+			continue // they are already adjacent
 		for(var/turf/dest in possible_dest)
 			if(M.Move(dest, get_dir(M, dest), movetime))
 				break
