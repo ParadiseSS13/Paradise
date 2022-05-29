@@ -213,7 +213,9 @@
 	info_links = info
 	var/i = 0
 	for(i=1,i<=fields,i++)
-		addtofield(i, "<font face=\"[deffont]\"><A href='?src=[UID()];write=[i]'>write</A></font>", 1)
+		var/write_1 = "<font face=\"[deffont]\"><A href='?src=[UID()];write=[i]'>write</A></font>"
+		var/write_2 = "<font face=\"[deffont]\"><A href='?src=[UID()];auto_write=[i]'><span style=\"color: #409F47; font-size: 10px\">\[A\]</span></A></font>"
+		addtofield(i, "[write_1][write_2]", 1)
 	info_links = info_links + "<font face=\"[deffont]\"><A href='?src=[UID()];write=end'>write</A></font>"
 
 
@@ -266,52 +268,92 @@
 		\[time\] : Inserts the current station time in HH:MM:SS.<br>
 	</BODY></HTML>"}, "window=paper_help")
 
+/obj/item/paper/proc/topic_href_write(var/id, var/input_element)
+	var/obj/item/item_write = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
+	add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
+	if(!istype(item_write, /obj/item/pen))
+		if(!istype(item_write, /obj/item/toy/crayon))
+			return
+
+	// if paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
+	if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/clipboard) || istype(src.loc, /obj/item/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr)) ) )
+		return
+
+	input_element = parsepencode(input_element, item_write, usr) // Encode everything from pencode to html
+
+	if(id!="end")
+		addtofield(text2num(id), input_element) // He wants to edit a field, let him.
+	else
+		info += input_element // Oh, he wants to edit to the end of the file, let him.
+
+	populatefields()
+	updateinfolinks()
+
+	item_write.on_write(src,usr)
+
+	show_content(usr, forceshow = 1, infolinks = 1)
+
+	update_icon()
+
 /obj/item/paper/Topic(href, href_list)
 	..()
 	if(!usr || (usr.stat || usr.restrained()))
 		return
 
-	if(href_list["write"])
+	if(href_list["auto_write"])
+		var/id = href_list["auto_write"]
+
+		var/const/sign_text = "\[Поставить подпись\]"
+		var/const/time_text = "\[Написать текущее время\]"
+		var/const/date_text = "\[Написать текущую дату\]"
+		var/const/num_text = "\[Написать номер аккаунта\]"
+		var/const/pin_text = "\[Написать пин-код\]"
+		var/const/station_text = "\[Написать название станции\]"
+
+		//пункты текста в меню
+		var/list/menu_list = list()
+		menu_list.Add(usr.real_name) //настоящее имя персонажа, даже если оно спрятано
+
+		//если игрок маскируется или имя отличается, добавляется новый вариант ответа
+		if (usr.real_name != usr.name || usr.name != "unknown")
+			menu_list.Add("[usr.name]")
+
+		menu_list.Add(usr.job,		//текущая работа
+			num_text,		//номер аккаунта
+			pin_text,		//номер пин-кода
+			sign_text,  	//подпись
+			time_text,  	//время
+			date_text,  	//дата
+			station_text, 	//название станции
+			usr.gender,		//пол
+			usr.dna.species	//раса
+		)
+
+		var/input_element = input("Выберите текст который хотите добавить:", "Выбор пункта") as null|anything in menu_list
+
+		//форматируем выбранные пункты меню в pencode и внутренние данные
+		switch(input_element)
+			if (sign_text)
+				input_element = "\[sign\]"
+			if (time_text)
+				input_element = "\[time\]"
+			if (date_text)
+				input_element = "\[date\]"
+			if (station_text)
+				input_element = "\[station\]"
+			if (num_text)
+				input_element = usr.mind.initial_account.account_number
+			if (pin_text)
+				input_element = usr.mind.initial_account.remote_access_pin
+
+		topic_href_write(id, input_element)
+
+
+	if(href_list["write"] )
 		var/id = href_list["write"]
-		//var/t = strip_html_simple(input(usr, "What text do you wish to add to " + (id=="end" ? "the end of the paper" : "field "+id) + "?", "[name]", null),8192) as message
-		//var/t =  strip_html_simple(input("Enter what you want to write:", "Write", null, null)  as message, MAX_MESSAGE_LEN)
-		var/t =  input("Enter what you want to write:", "Write", null, null)  as message
-		var/obj/item/i = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
-		add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
-		if(!istype(i, /obj/item/pen))
-			if(!istype(i, /obj/item/toy/crayon))
-				return
+		var/input_element =  input("Enter what you want to write:", "Write", null, null)  as message
 
-
-		// if paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
-		if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/clipboard) || istype(src.loc, /obj/item/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr)) ) )
-			return
-/*
-		t = checkhtml(t)
-
-		// check for exploits
-		for(var/bad in paper_blacklist)
-			if(findtext(t,bad))
-				to_chat(usr, "<span class='notice'>You think to yourself, \</span>"Hm.. this is only paper...\"")
-				log_admin("PAPER: [key_name(usr)] tried to use forbidden word in [src]: [bad].")
-				message_admins("PAPER: [key_name_admin(usr)] tried to use forbidden word in [src]: [bad].")
-				return
-*/
-		t = parsepencode(t, i, usr) // Encode everything from pencode to html
-
-		if(id!="end")
-			addtofield(text2num(id), t) // He wants to edit a field, let him.
-		else
-			info += t // Oh, he wants to edit to the end of the file, let him.
-
-		populatefields()
-		updateinfolinks()
-
-		i.on_write(src,usr)
-
-		show_content(usr, forceshow = 1, infolinks = 1)
-
-		update_icon()
+		topic_href_write(id, input_element)
 
 
 /obj/item/paper/attackby(obj/item/P, mob/living/user, params)
