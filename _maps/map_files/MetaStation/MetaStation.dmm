@@ -44983,13 +44983,8 @@
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "cBb" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/sign/electricshock{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/obj/structure/sign/electricshock,
+/turf/simulated/wall,
 /area/toxins/xenobiology)
 "cBc" = (
 /obj/structure/girder,
@@ -63503,28 +63498,6 @@
 	name = "trash spawner"
 	},
 /turf/simulated/floor/plating,
-/area/toxins/xenobiology)
-"ihm" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/sign/electricshock{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
 /area/toxins/xenobiology)
 "ihq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -82267,9 +82240,6 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
-	},
-/obj/structure/sign/electricshock{
-	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -138642,13 +138612,13 @@ uQm
 gsM
 pXn
 lSn
-cZr
+cBb
 nEM
 fqk
 udg
 dUJ
 qYi
-cZr
+cBb
 unZ
 fUb
 hSV
@@ -139411,8 +139381,8 @@ cxU
 uQm
 uQm
 lJO
-cZr
-ihm
+cBb
+cEd
 jcD
 cZr
 eBr
@@ -139420,8 +139390,8 @@ gJt
 cJb
 cZr
 cji
+kjo
 cBb
-cZr
 lJO
 uQm
 uQm
@@ -140439,8 +140409,8 @@ cxU
 uQm
 uQm
 jmx
-cZr
-ihm
+cBb
+cEd
 kjo
 cZr
 wCn
@@ -140448,8 +140418,8 @@ wCn
 wCn
 cZr
 iUe
+kjo
 cBb
-cZr
 jmx
 uQm
 uQm
