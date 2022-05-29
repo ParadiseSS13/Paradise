@@ -56,10 +56,10 @@
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
 
 	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is holding their breath!")
+		"пытается откусить себе язык!",
+		"выдавливает когтями свои глазницы!",
+		"сворачивает себе шею!",
+		"задерживает дыхание!")
 
 	disliked_food = VEGETABLES | FRUIT | GRAIN
 	liked_food = MEAT | RAW | DAIRY | GROSS | EGG

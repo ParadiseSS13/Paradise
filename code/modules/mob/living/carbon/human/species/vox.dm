@@ -80,11 +80,11 @@
 		"tail" =   list("path" = /obj/item/organ/external/tail/vox))
 
 	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is holding their breath!",
-		"is deeply inhaling oxygen!")
+		"пытается откусить себе язык!",
+		"вонзает когти себе в глазницы!",
+		"сворачивает себе шею!",
+		"задерживает дыхание!",
+		"глубоко вдыхает кислород!")
 
 	speciesbox = /obj/item/storage/box/survival_vox
 
@@ -123,7 +123,7 @@
 			H.equip_or_collect(internal_tank, slot_l_hand)
 			to_chat(H, "<span class='boldannounce'>Could not find an empty slot for internals! Please report this as a bug</span>")
 	H.internal = internal_tank
-	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [internal_tank]. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
+	to_chat(H, "<span class='notice'>Теперь вы живете на азоте из [internal_tank]. Кислород токсичен для вашего вида, поэтому вы должны дышать только азотом.</span>")
 	H.update_action_buttons_icon()
 
 /datum/species/vox/on_species_gain(mob/living/carbon/human/H)
@@ -217,11 +217,11 @@
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
 
 	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is holding their breath!",
-		"is huffing oxygen!")
+		"пытается откусить себе язык!",
+		"вонзает когти в глазницы!",
+		"сворачивает себе шею!",
+		"задерживает дыхание!",
+		"пыхтит кислородом!")
 
 /datum/species/vox/armalis/handle_reagents() //Skip the Vox oxygen reagent toxicity. Armalis are above such things.
 	return TRUE

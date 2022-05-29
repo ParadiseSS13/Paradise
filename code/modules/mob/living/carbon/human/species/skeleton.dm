@@ -32,9 +32,10 @@
 	heat_level_3 = INFINITY
 
 	suicide_messages = list(
-		"is snapping their own bones!",
-		"is collapsing into a pile!",
-		"is twisting their skull off!")
+		"ломает себе кости!",
+		"сваливается в кучу!",
+		"разваливается!",
+		"откручивает себе череп!")
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/golem,
 	) //Has default darksight of 2.
@@ -53,8 +54,8 @@
 			for(var/obj/item/organ/external/L in our_organs)
 				if(L.mend_fracture())
 					break // We're only checking one limb here, bucko
-		if(prob(3))
-			H.say(pick("Thanks Mr. Skeltal", "Thank for strong bones", "Doot doot!"))
+		if(prob(25)) //25% шанс на случайную шутливую фразу
+			H.say(pick("Спасибо Мистеру Скелтал!", "От такого молока челюсть отвисает!", "Я вижу четКость своих решений!", "Надо не забыть пересчитать косточки...", "Маленькие скелеты паКостят!", "Хорошо что у меня язык без костей!", "Теперь я не буду ЧЕРЕПашкой!", "Теперь мне не нужны костыли!", "Костян плохого не посоветует!", "Ощущаешь мою ловКость?", "Я чувствую такую лёгКость!", "Большая редКость найти любимую жидКость!", "Моя любимая жидКость!", "Аж закостенел!", "Теперь я вешу скелетонну!", "Спасибо за крепкие кости!", "Ду-ду!", "Вы замечали что мы все в одной плосКости?"))
 		return TRUE
 
 	return ..()

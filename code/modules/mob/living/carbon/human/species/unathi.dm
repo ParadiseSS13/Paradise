@@ -65,10 +65,10 @@
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
 
 	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is holding their breath!")
+		"пытается откусить себе язык!",
+		"вонзает когти себе в глазницы!",
+		"сворачивает себе шею!",
+		"задерживает дыхание!")
 
 	var/datum/action/innate/tail_lash/lash
 
@@ -87,7 +87,7 @@
 		lash.Remove(H)
 
 /datum/action/innate/tail_lash
-	name = "Tail lash"
+	name = "Взмах хвостом"
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "tail"
 	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
@@ -95,16 +95,25 @@
 /datum/action/innate/tail_lash/Activate()
 	var/mob/living/carbon/human/user = owner
 	if((user.restrained() && user.pulledby) || user.buckled)
-		to_chat(user, "<span class='warning'>You need freedom of movement to tail lash!</span>")
+		to_chat(user, "<span class='warning'>Вам нужно больше свободы движений для взмаха хвостом!</span>")
 		return
 	if(user.getStaminaLoss() >= 50)
-		to_chat(user, "<span class='warning'>Rest before tail lashing again!</span>")
+		to_chat(user, "<span class='warning'>Передохните перед повторным взмахом хвоста!</span>")
 		return
 	for(var/mob/living/carbon/human/C in orange(1))
 		var/obj/item/organ/external/E = C.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
+
+		var/E_ru //русифицируем орган
+		switch (E)
+			if ("l_leg") E_ru = "левую ногу"
+			if ("r_leg") E_ru = "правую ногу"
+			if ("l_foot") E_ru = "левую ступню"
+			if ("r_foot") E_ru = "правую ступню"
+			if ("groin") E_ru = "пах"
+
 		if(E)
-			user.changeNext_move(CLICK_CD_MELEE)
-			user.visible_message("<span class='danger'>[user] smacks [C] in [E] with their tail! </span>", "<span class='danger'>You hit [C] in [E] with your tail!</span>")
+			user.changeNext_move(CLICK_CD_MELEE) //User бьет С в Е. Сука... С - это цель. Е - это орган.
+			user.visible_message("<span class='danger'>[user] хлещет [C] в [E_ru] своим хвостом! </span>", "<span class='danger'>Вы хлестаете [C] в [E_ru] своим хвостом!</span>")
 			user.adjustStaminaLoss(15)
 			C.apply_damage(5, BRUTE, E)
 			user.spin(20, 1)
@@ -113,20 +122,20 @@
 			if(user.restrained())
 				if(prob(50))
 					user.Weaken(2)
-					user.visible_message("<span class='danger'>[user] loses [user.p_their()] balance!</span>", "<span class='danger'>You lose your balance!</span>")
+					user.visible_message("<span class='danger'>[user] теря[pluralize_ru(user.gender,"ет","ют")] [genderize_ru(user.gender,"его","её","свое","их")] равновесие!</span>", "<span class='danger'>Вы теряете равновесие!</span>")
 					return
 			if(user.getStaminaLoss() >= 60) //Bit higher as you don't need to start, just would need to keep going with the tail lash.
-				to_chat(user, "<span class='warning'>You run out of momentum!</span>")
+				to_chat(user, "<span class='warning'>Вы выбились из сил!</span>")
 				return
 
 /datum/action/innate/tail_lash/IsAvailable()
 	. = ..()
 	var/mob/living/carbon/human/user = owner
 	if(!user.bodyparts_by_name["tail"])
-		to_chat(user, "<span class='warning'>You have NO TAIL!</span>")
+		to_chat(user, "<span class='warning'>У вас НЕТ ХВОСТА!</span>")
 		return FALSE
 	if(!istype(user.bodyparts_by_name["tail"], /obj/item/organ/external/tail/unathi))
-		to_chat(user, "<span class='warning'>You have to weak tail!</span>")
+		to_chat(user, "<span class='warning'>У вас слабый хвост!</span>")
 		return FALSE
 	return .
 

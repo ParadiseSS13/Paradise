@@ -60,9 +60,9 @@
 		)
 
 	suicide_messages = list(
-		"is losing branches!",
-		"pulls out a secret stash of herbicide and takes a hearty swig!",
-		"is pulling themselves apart!")
+		"теряет ветви!",
+		"вытаскивает из тайника бутыль с гербицидом и делает большой глоток!",
+		"разваливается на множество нимф!")
 
 	disliked_food = MEAT | RAW | EGG
 	liked_food = VEGETABLES | FRUIT

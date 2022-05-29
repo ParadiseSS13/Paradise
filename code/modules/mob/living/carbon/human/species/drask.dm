@@ -27,10 +27,10 @@
 	is of breathable density."
 
 	suicide_messages = list(
-		"is self-warming with friction!",
-		"is jamming fingers through their big eyes!",
-		"is sucking in warm air!",
-		"is holding their breath!")
+		"трёт себя до возгорания!",
+		"давит пальцами на свои большие глаза!",
+		"втягивает теплый воздух!",
+		"задерживает дыхание!")
 
 	species_traits = list(LIPS, IS_WHITELISTED)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT

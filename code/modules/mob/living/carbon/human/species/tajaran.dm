@@ -63,10 +63,10 @@
 								 /mob/living/simple_animal/tribble)
 
 	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is holding their breath!")
+		"пытается откусить себе язык!",
+		"вонзает когти себе в глазницы!",
+		"сворачивает себе шею!",
+		"задерживает дыхание!")
 
 	disliked_food = VEGETABLES | FRUIT | GRAIN | GROSS
 	liked_food = MEAT | RAW | DAIRY | EGG

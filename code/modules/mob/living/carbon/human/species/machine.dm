@@ -19,7 +19,7 @@
 	burn_mod = 1  // So they take 50% extra damage from brute/burn overall // nope
 	tox_mod = 0
 	clone_mod = 0
-	death_message = "gives a short series of shrill beeps, their chassis shuddering before falling limp, nonfunctional."
+	death_message = "издаёт резкие пронзительные звуки и, конвульсивно подёргивая шасси,  окончательно отключается."
 	death_sounds = list('sound/voice/borg_deathsound.ogg') //I've made this a list in the event we add more sounds for dead robots.
 
 	species_traits = list(IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_SCAN, NO_INTORGANS, NO_PAIN, NO_DNA, RADIMMUNE, VIRUSIMMUNE, NO_GERMS, NO_DECAY, NOTRANSSTING) //Computers that don't decay? What a lie!
@@ -126,7 +126,7 @@
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 
 	if(!head_organ) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
-		to_chat(H, "<span class='warning'>Where's your head at? Can't change your monitor/display without one.</span>")
+		to_chat(H, "<span class='warning'>Куда делась голова? Невозможно сменить дисплей без неё.</span>")
 		return
 
 	var/datum/robolimb/robohead = GLOB.all_robolimbs[head_organ.model]
@@ -135,7 +135,7 @@
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
 		var/optic_colour = input(H, "Select optic colour", H.m_colours["head"]) as color|null
 		if(H.incapacitated(TRUE, TRUE, TRUE))
-			to_chat(H, "<span class='warning'>You were interrupted while changing the colour of your optics.</span>")
+			to_chat(H, "<span class='warning'>Ваша попытка сменить отображаемый цвет была прервана.</span>")
 			return
 		if(optic_colour)
 			H.change_markings(optic_colour, "head")
@@ -163,7 +163,7 @@
 		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
 
 		if(H.incapacitated(TRUE, TRUE, TRUE))
-			to_chat(H, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
+			to_chat(H, "<span class='warning'>Ваша попытка сменить изображения на дисплее была прервана.</span>")
 			return
 
 		if(new_style)

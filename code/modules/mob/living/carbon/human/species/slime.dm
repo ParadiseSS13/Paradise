@@ -58,9 +58,11 @@
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right/unbreakable)
 		)
 	suicide_messages = list(
-		"is melting into a puddle!",
-		"is ripping out their own core!",
-		"is turning a dull, brown color and melting into a puddle!")
+		"тает в лужу!",
+		"растекается в лужу!",
+		"становится растаявшим желе!",
+		"вырывает собственное ядро!",
+		"становится коричневым, тусклым и растекается в лужу!")
 
 	var/reagent_skin_coloring = FALSE
 	var/datum/action/innate/regrow/grow
@@ -130,10 +132,10 @@
 	var/datum/species/slime/S = H.dna.species
 	if(S.reagent_skin_coloring)
 		S.reagent_skin_coloring = FALSE
-		to_chat(H, "You adjust your internal chemistry to filter out pigments from things you consume.")
+		to_chat(H, "Вы настраиваете свою внутреннюю химию, чтобы отфильтровывать пигменты из употребляемых продуктов.")
 	else
 		S.reagent_skin_coloring = TRUE
-		to_chat(H, "You adjust your internal chemistry to permit pigments in chemicals you consume to tint you.")
+		to_chat(H, "Вы настраиваете свою внутреннюю химию, позволяя окрашивать себя пигментами употребляемых веществ.")
 
 /datum/action/innate/regrow
 	name = "Regrow limbs"
@@ -144,7 +146,7 @@
 /datum/action/innate/regrow/Activate()
 	var/mob/living/carbon/human/H = owner
 	if(H.nutrition < SLIMEPERSON_MINHUNGER)
-		to_chat(H, "<span class='warning'>You're too hungry to regenerate a limb!</span>")
+		to_chat(H, "<span class='warning'>Вы слишком голодны для регенерации конечности!</span>")
 		return
 
 	var/list/missing_limbs = list()
@@ -160,7 +162,7 @@
 			missing_limbs[initial(limb.name)] = l
 
 	if(!missing_limbs.len)
-		to_chat(H, "<span class='warning'>You're not missing any limbs!</span>")
+		to_chat(H, "<span class='warning'>Ваши конечности на месте!</span>")
 		return
 
 	var/limb_select = input(H, "Choose a limb to regrow", "Limb Regrowth") as null|anything in missing_limbs
@@ -168,14 +170,27 @@
 		return
 	var/chosen_limb = missing_limbs[limb_select]
 
-	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on [H.p_their()] missing [limb_select]...</span>", "<span class='notice'>You begin to focus on regrowing your missing [limb_select]... (This will take [round(SLIMEPERSON_REGROWTHDELAY/10)] seconds, and you must hold still.)</span>")
+	//перевод конечности со склонением
+	var/chosen_limb_rus = chosen_limb
+	switch (chosen_limb_rus)
+		if ("l_leg", 	"left leg", 	"the left leg") 	chosen_limb_rus = "левой ноги"
+		if ("r_leg", 	"right leg", 	"the right leg") 	chosen_limb_rus = "правой ноги"
+		if ("l_foot", 	"left foot", 	"the left foot") 	chosen_limb_rus = "левой ступни"
+		if ("r_foot", 	"right foot", 	"the right foot") 	chosen_limb_rus = "правой ступни"
+		if ("groin", 	"lower body", 	"the lower body") 	chosen_limb_rus = "нижней части тела"
+		if ("l_arm", 	"left arm", 	"the left arm") 	chosen_limb_rus = "левой руки"
+		if ("r_arm", 	"right arm", 	"the right arm") 	chosen_limb_rus = "правой руки"
+		if ("l_hand", 	"left hand", 	"the left hand") 	chosen_limb_rus = "левой кисти"
+		if ("r_hand", 	"right hand", 	"the right hand") 	chosen_limb_rus = "правой кисти"
+
+	H.visible_message("<span class='notice'>[H] замирает и концентрируется на [genderize_ru(H.gender,"его","её","своей","их")] потерянной [chosen_limb_rus]...</span>", "<span class='notice'>Вы концентрируетесь на отращивании [chosen_limb_rus]... (Это займет [round(SLIMEPERSON_REGROWTHDELAY/10)] секунд, нужно подождать в спокойствии.)</span>")
 	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, FALSE, H, extra_checks = list(CALLBACK(H, /mob.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
 		if(H.incapacitated(ignore_lying = TRUE, extra_checks = list(CALLBACK(H, /mob.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
-			to_chat(H, "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>")
+			to_chat(H, "<span class='warning'>Вы не можете регенерировать недостающие конечности в текущем состоянии</span>")
 			return
 
 		if(H.nutrition < SLIMEPERSON_MINHUNGER)
-			to_chat(H, "<span class='warning'>You're too hungry to regenerate a limb!</span>")
+			to_chat(H, "<span class='warning'>Вы слишком голодны чтобы регенерировать!</span>")
 			return
 
 		var/obj/item/organ/external/O = H.bodyparts_by_name[chosen_limb]
@@ -183,7 +198,7 @@
 		var/stored_brute = 0
 		var/stored_burn = 0
 		if(istype(O))
-			to_chat(H, "<span class='warning'>You distribute the damaged tissue around your body, out of the way of your new pseudopod!</span>")
+			to_chat(H, "<span class='warning'>Вы распределяете поврежденную ткань по всему телу, освобождая место для ложноножки!</span>")
 			var/obj/item/organ/external/doomedStump = O
 			stored_brute = doomedStump.brute_dam
 			stored_burn = doomedStump.burn_dam
@@ -194,7 +209,7 @@
 		// Parent check
 		var/obj/item/organ/external/potential_parent = H.bodyparts_by_name[initial(limb_path.parent_organ)]
 		if(!istype(potential_parent))
-			to_chat(H, "<span class='danger'>You've lost the organ that you've been growing your new part on!</span>")
+			to_chat(H, "<span class='danger'>Вы потеряли орган, на котором выращивали новую конечность!</span>")
 			return // No rayman for you
 		// Grah this line will leave a "not used" warning, in spite of the fact that the new() proc WILL do the thing.
 		// Bothersome.
@@ -206,9 +221,23 @@
 		H.updatehealth()
 		H.UpdateDamageIcon()
 		H.adjust_nutrition(-SLIMEPERSON_HUNGERCOST)
-		H.visible_message("<span class='notice'>[H] finishes regrowing [H.p_their()] missing [new_limb]!</span>", "<span class='notice'>You finish regrowing your [limb_select]</span>")
+
+		//перевод конечности со склонением
+		var/new_limb_rus = new_limb.name
+		switch (new_limb_rus)
+			if ("l_leg", 	"left leg", 	"the left leg") 	new_limb_rus = "левую ногу"
+			if ("r_leg", 	"right leg", 	"the right leg") 	new_limb_rus = "правую ногу"
+			if ("l_foot", 	"left foot", 	"the left foot") 	new_limb_rus = "левую ступню"
+			if ("r_foot", 	"right foot", 	"the right foot") 	new_limb_rus = "правую ступню"
+			if ("groin", 	"lower body", 	"the lower body") 	new_limb_rus = "нижнюю часть тела"
+			if ("l_arm", 	"left arm", 	"the left arm") 	new_limb_rus = "левую руку"
+			if ("r_arm", 	"right arm", 	"the right arm") 	new_limb_rus = "правую руку"
+			if ("l_hand", 	"left hand", 	"the left hand") 	new_limb_rus = "левую кисть"
+			if ("r_hand", 	"right hand", 	"the right hand") 	new_limb_rus = "правую кисть"
+
+		H.visible_message("<span class='notice'>[H] отращивает [genderize_ru(H.gender,"его","её","своей","их")] потерянную [new_limb_rus]!</span>", "<span class='notice'>Вы отрастили [new_limb_rus]</span>")
 	else
-		to_chat(H, "<span class='warning'>You need to hold still in order to regrow a limb!</span>")
+		to_chat(H, "<span class='warning'>Для отращивания конечности вам нужно стоять на месте!</span>")
 
 #undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD

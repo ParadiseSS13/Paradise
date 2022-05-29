@@ -23,10 +23,10 @@
 	//Has default darksight of 2.
 
 	suicide_messages = list(
-		"is twisting their own neck!",
-		"is letting some O2 in!",
-		"realizes the existential problem of being made out of plasma!",
-		"shows their true colors, which happens to be the color of plasma!")
+		"сворачивает себе шею!",
+		"впускает себе немного O2!",
+		"осознает экзистенциальную проблему быть рождённым из плазмы!",
+		"показывает свою истинную природу, которая оказывается плазмой!")
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/plasmaman,
@@ -43,9 +43,16 @@
 	disliked_food = DAIRY | FRUIT | VEGETABLES
 	liked_food = GRAIN | MEAT
 
+//внёс перевод акцента речи, шипящий звук. Но я не смог осилить и он почему-то по прежнему не работает, похоже не тут настраивается -- ПУПС
 /datum/species/plasmaman/say_filter(mob/M, message, datum/language/speaking)
 	if(copytext(message, 1, 2) != "*")
 		message = replacetext(message, "s", stutter("ss"))
+		message = replacetextEx_char(message, "С", "ш")
+		message = replacetextEx_char(message, "с", "ш")
+		message = replacetextEx_char(message, "Ш", stutter("Шш"))
+		message = replacetextEx_char(message, "ш", stutter("шш"))
+		message = replacetextEx_char(message, "Щ", stutter("Щщ"))
+		message = replacetextEx_char(message, "щ", stutter("щщ"))
 	return message
 
 /datum/species/plasmaman/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -155,7 +162,7 @@
 				if(environment.oxygen && environment.oxygen >= OXYCONCEN_PLASMEN_IGNITION) //Same threshhold that extinguishes fire
 					H.adjust_fire_stacks(0.5)
 					if(!H.on_fire && H.fire_stacks > 0)
-						H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
+						H.visible_message("<span class='danger'>Тело [H] вступает в реакцию с атмосферой и загорается!</span>","<span class='userdanger'>Ваше тело вступает в реакцию с атмосферой и загорается!</span>")
 					H.IgniteMob()
 	else
 		if(H.fire_stacks)
