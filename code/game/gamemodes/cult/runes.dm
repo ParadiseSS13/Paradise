@@ -176,10 +176,14 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/proc/invoke(list/invokers)
 	//This proc contains the effects of the rune as well as things that happen afterwards. If you want it to spawn an object and then delete itself, have both here.
+	SHOULD_CALL_PARENT(TRUE)
+	var/ghost_invokers = 0
 	for(var/M in invokers)
 		var/mob/living/L = M
 		if(!L)
 			return
+		if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+			ghost_invokers++
 		if(invocation)
 			if(!L.IsVocal())
 				L.emote("gestures ominously.")
@@ -190,6 +194,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 			L.apply_damage(invoke_damage, BRUTE)
 			to_chat(L, "<span class='cultitalic'>[src] saps your strength!</span>")
 	do_invoke_glow()
+	SSblackbox.record_feedback("nested tally", "runes_invoked", 1, list("[initial(cultist_name)]", "[length(SSticker.mode.cult)]")) // the name of the rune, and the number of cultists in the cult when it was invoked
+	if(ghost_invokers)
+		SSblackbox.record_feedback("nested tally", "runes_invoked_with_ghost", 1, list("[initial(cultist_name)]", "[ghost_invokers]")) //the name of the rune and the number of ghosts used to invoke it.
 
 /**
   * Spawns the phase in/out effects for a cult teleport.
