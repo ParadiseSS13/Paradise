@@ -40,7 +40,7 @@
 
 	var/last_log = 0
 	var/obj/machinery/machine = null
-	var/other_mobs = null
+	var/im_in_the_middle_of_being_grab_pulled_dont_shuffle_me_pls = null
 	var/memory = ""
 	var/next_move = null
 	var/notransform = null	//Carbon
