@@ -19,18 +19,18 @@
 		if(penetrated_text)
 			to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
 		else
-			to_chat(src, "<span class='userdanger'>Your armor was penetrated!</span>")
+			to_chat(src, "<span class='userdanger'>Ваша броня пробита!</span>")
 
 	if(armor >= 100)
 		if(absorb_text)
 			to_chat(src, "<span class='userdanger'>[absorb_text]</span>")
 		else
-			to_chat(src, "<span class='userdanger'>Your armor absorbs the blow!</span>")
+			to_chat(src, "<span class='userdanger'>Ваша броня поглощает удар!</span>")
 	else if(armor > 0)
 		if(soften_text)
 			to_chat(src, "<span class='userdanger'>[soften_text]</span>")
 		else
-			to_chat(src, "<span class='userdanger'>Your armor softens the blow!</span>")
+			to_chat(src, "<span class='userdanger'>Ваша броня смягчает удар!</span>")
 	return armor
 
 //if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
@@ -67,9 +67,9 @@
 		if(!illusion)
 			adjustFireLoss(shock_damage)
 		visible_message(
-			"<span class='danger'>[src] was shocked by \the [source]!</span>",
-			"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>",
-			"<span class='italics'>You hear a heavy electrical crack.</span>")
+			"<span class='danger'>[src.name] получил разряд током [source]!</span>",
+			"<span class='userdanger'>Вы чувствуете электрический разряд проходящий через ваше тело!</span>",
+			"<span class='italics'>Вы слышите сильный электрический треск.</span>")
 		return shock_damage
 
 /mob/living/emp_act(severity)
@@ -108,12 +108,12 @@
 		if(!I.throwforce)// Otherwise, if the item's throwforce is 0...
 			playsound(loc, 'sound/weapons/throwtap.ogg', 1, volume, -1)//...play throwtap.ogg.
 		if(!blocked)
-			visible_message("<span class='danger'>[src] has been hit by [I].</span>",
-							"<span class='userdanger'>[src] has been hit by [I].</span>")
-			var/armor = run_armor_check(zone, "melee", "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", I.armour_penetration)
+			visible_message("<span class='danger'>[src] получил удар [I].</span>",
+							"<span class='userdanger'>[src] получил удар [I].</span>")
+			var/armor = run_armor_check(zone, "melee", "Броня защитила [parse_zone(zone)].", "Ваша броня смягчила удар по [parse_zone(zone)].", I.armour_penetration)
 			apply_damage(I.throwforce, dtype, zone, armor, is_sharp(I), I)
 			if(I.thrownby)
-				add_attack_logs(I.thrownby, src, "Hit with thrown [I]", !I.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
+				add_attack_logs(I.thrownby, src, "получил удар брошенным [I]", !I.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
 		else
 			return 1
 	else
@@ -124,7 +124,7 @@
 /mob/living/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(M.occupant, TRAIT_PACIFISM))
-			to_chat(M.occupant, "<span class='warning'>You don't want to harm other living beings!</span>")
+			to_chat(M.occupant, "<span class='warning'>Вы не хотите навредить живым существам!</span>")
 			return
 		M.do_attack_animation(src)
 		if(M.damtype == "brute")
@@ -142,21 +142,21 @@
 			else
 				return
 		updatehealth("mech melee attack")
-		M.occupant_message("<span class='danger'>You hit [src].</span>")
-		visible_message("<span class='danger'>[M.name] hits [src]!</span>", "<span class='userdanger'>[M.name] hits you!</span>")
+		M.occupant_message("<span class='danger'>Вы ударили [src].</span>")
+		visible_message("<span class='danger'>[M.name] ударил [src]!</span>", "<span class='userdanger'>[M.name] ударил вас!</span>")
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
 	else
 		step_away(src,M)
 		add_attack_logs(M.occupant, src, "Mecha-pushed with [M]", ATKLOG_ALL)
-		M.occupant_message("<span class='warning'>You push [src] out of the way.</span>")
-		visible_message("<span class='warning'>[M] pushes [src] out of the way.</span>")
+		M.occupant_message("<span class='warning'>Вы толкнули [src] в сторону.</span>")
+		visible_message("<span class='warning'>[M] отталкивает [src] в сторону.</span>")
 
 //Mobs on Fire
 /mob/living/proc/IgniteMob()
 	if(fire_stacks > 0 && !on_fire)
 		on_fire = 1
-		visible_message("<span class='warning'>[src] catches fire!</span>", \
-						"<span class='userdanger'>You're set on fire!</span>")
+		visible_message("<span class='warning'>[src] загорается!</span>", \
+						"<span class='userdanger'>Вы горите!</span>")
 		set_light(light_range + 3,l_color = "#ED9200")
 		throw_alert("fire", /obj/screen/alert/fire)
 		update_fire()
@@ -260,7 +260,7 @@
 
 	for(var/obj/item/grab/G in grabbed_by)
 		if(G.assailant == user)
-			to_chat(user, "<span class='notice'>You already grabbed [src].</span>")
+			to_chat(user, "<span class='notice'>Вы уже схватили [src].</span>")
 			return
 
 	add_attack_logs(user, src, "Grabbed passively", ATKLOG_ALL)
@@ -280,13 +280,13 @@
 			visible_message("<span class='warning'>[user] has grabbed [src] from behind!</span>")
 	else*///This is an example of how you can make special types of grabs simply based on direction.
 	if(!supress_message)
-		visible_message("<span class='warning'>[user] has grabbed [src] passively!</span>")
+		visible_message("<span class='warning'>[user] схватил[genderize_ru(user.gender,"","а", "о","и")] [src]!</span>")
 
 	return G
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)
 	if(!SSticker)
-		to_chat(M, "You cannot attack people before the game has started.")
+		to_chat(M, "Вы не можете нападать на людей пока игра не началась.")
 		return
 
 	if(M.buckled)
@@ -295,13 +295,13 @@
 		return // can't attack while eating!
 
 	if(HAS_TRAIT(src, TRAIT_PACIFISM))
-		to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+		to_chat(M, "<span class='warning'>Вы не хотите никому навредить!</span>")
 		return FALSE
 
 	if(stat != DEAD)
 		add_attack_logs(M, src, "Slime'd")
 		M.do_attack_animation(src)
-		visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", "<span class='userdanger'>\The [M.name] glomps you!</span>")
+		visible_message("<span class='danger'>\The [M.name] поглоща[pluralize_ru(M.gender,"ет","ют")] [src]!</span>", "<span class='userdanger'>\The [M.name] поглоща[pluralize_ru(M.gender,"ет","ют")] вас!</span>")
 		return TRUE
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
@@ -310,7 +310,7 @@
 		M.custom_emote(1, "[M.friendly] [src].")
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_PACIFISM))
-		to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+		to_chat(M, "<span class='warning'>Вы не хотите никому навредить!</span>")
 		return FALSE
 
 	if(M.attack_sound)
@@ -324,37 +324,37 @@
 /mob/living/attack_larva(mob/living/carbon/alien/larva/L)
 	switch(L.a_intent)
 		if(INTENT_HELP)
-			visible_message("<span class='notice'>[L.name] rubs its head against [src].</span>")
+			visible_message("<span class='notice'>[L.name] тр[pluralize_ru(L.gender,"ет","ут")]ся головой о [src].</span>")
 			return 0
 
 		else
 			if(HAS_TRAIT(L, TRAIT_PACIFISM))
-				to_chat(L, "<span class='warning'>You don't want to hurt anyone!</span>")
+				to_chat(L, "<span class='warning'>Вы не хотите никому навредить!</span>")
 				return
 
 			L.do_attack_animation(src)
 			if(prob(90))
 				add_attack_logs(L, src, "Larva attacked")
-				visible_message("<span class='danger'>[L.name] bites [src]!</span>", \
-						"<span class='userdanger'>[L.name] bites [src]!</span>")
+				visible_message("<span class='danger'>[L.name] куса[pluralize_ru(L.gender,"ет","ют")] [src]!</span>", \
+						"<span class='userdanger'>[L.name] куса[pluralize_ru(L.gender,"ет","ют")] [src]!</span>")
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 				return 1
 			else
-				visible_message("<span class='danger'>[L.name] has attempted to bite [src]!</span>", \
-					"<span class='userdanger'>[L.name] has attempted to bite [src]!</span>")
+				visible_message("<span class='danger'>[L.name] пыта[pluralize_ru(L.gender,"ет","ют")]ся укусить [src]!</span>", \
+					"<span class='userdanger'>[L.name] пыта[pluralize_ru(L.gender,"ет","ют")]ся укусить [src]!</span>")
 	return 0
 
 /mob/living/attack_alien(mob/living/carbon/alien/humanoid/M)
 	switch(M.a_intent)
 		if(INTENT_HELP)
-			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
+			visible_message("<span class='notice'>[M] ласка[pluralize_ru(M.gender,"ет","ют")] [src] своей серповидной рукой.</span>")
 			return FALSE
 		if(INTENT_GRAB)
 			grabbedby(M)
 			return FALSE
 		if(INTENT_HARM)
 			if(HAS_TRAIT(M, TRAIT_PACIFISM))
-				to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+				to_chat(M, "<span class='warning'>Вы не хотите никому навредить!</span>")
 				return FALSE
 			M.do_attack_animation(src)
 			return TRUE
