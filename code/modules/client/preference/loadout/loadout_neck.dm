@@ -69,6 +69,16 @@
 	path = /obj/item/clothing/neck/cloak/captain
 	allowed_roles = list("Captain")
 
+/datum/gear/neck/cloak/job/nanotrasen_representative
+	display_name = "cloak, nanotrasen representative"
+	path = /obj/item/clothing/neck/cloak/nanotrasen_representative
+	allowed_roles = list("Nanotrasen Representative")
+
+/datum/gear/neck/cloak/job/blueshield
+	display_name = "cloak, blueshield"
+	path = /obj/item/clothing/neck/cloak/blueshield
+	allowed_roles = list("Blueshield")
+
 /datum/gear/neck/cloak/job/chief_engineer
 	display_name = "cloak, chief engineer"
 	path = /obj/item/clothing/neck/cloak/chief_engineer

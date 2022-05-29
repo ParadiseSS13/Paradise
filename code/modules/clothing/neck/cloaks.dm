@@ -51,6 +51,16 @@
 	desc = "Worn by the Head of Personnel. It smells faintly of bureaucracy."
 	icon_state = "hopcloak"
 
+/obj/item/clothing/neck/cloak/nanotrasen_representative
+	name = "NanoTrasen Representative's cloak"
+	desc = "Worn by a NanoTrasen representative. A faint whisper of denunciation can be heard from under the cloak."
+	icon_state = "ntrcloak"
+
+/obj/item/clothing/neck/cloak/blueshield
+	name = "Blueshield's cloak"
+	desc = "Worn by a Blueshield officer, that faithfully defends its goals."
+	icon_state = "blueshieldcloak"
+
 /obj/item/clothing/neck/cloak/healer
 	name = "healer's cloak"
 	desc = "Worn by the best and most skilled healers, the handlers of hyposprays, pills, auto-menders and first-aid kits."
