@@ -72785,7 +72785,6 @@
 	dir = 8
 	},
 /obj/structure/plasticflaps{
-	opacity = 1;
 	name = "Prisoner Transfer"
 	},
 /turf/simulated/floor/plasteel,
