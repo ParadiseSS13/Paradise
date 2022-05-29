@@ -834,6 +834,13 @@
 			if(miming)
 				m_type = 1
 
+		if("snuffle")
+			message = pluralize_ru(gender,"шмыгает","шмыгают") + " носом."
+			m_type = 2
+			if(miming)
+				message = "беззвучно " + message
+				m_type = 1
+
 		if("snore", "snores")
 			if(miming)
 				message = "крепко спит."

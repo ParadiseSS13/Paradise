@@ -32,7 +32,7 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3)
-				M.emote("sniff")
+				M.emote("snuffle")
 			else
 				M.emote("sneeze")
 				A.spread(5)
