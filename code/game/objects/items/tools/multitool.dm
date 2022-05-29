@@ -118,3 +118,10 @@
 	toolspeed = 0.1
 	origin_tech = "magnets=5;engineering=5;abductor=3"
 	shows_wire_information = TRUE
+
+/obj/item/multitool/brass
+	name = "brass multitool"
+	desc = "A multitool made of brass. You feel some signals coming out."
+	icon_state = "multitool_brass"
+	toolspeed = 0.5
+	resistance_flags = FIRE_PROOF | ACID_PROOF

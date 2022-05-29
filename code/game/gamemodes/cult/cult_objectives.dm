@@ -133,7 +133,7 @@
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(is_admin_level(H.z)) //We can't sacrifice people that are on the centcom z-level
 			continue
-		if(H.mind && !is_convertable_to_cult(H.mind) && (H.stat != DEAD) && (H.mind.offstation_role != TRUE))
+		if(H.mind && !iscultist(H) && !is_convertable_to_cult(H.mind) && (H.stat != DEAD) && !H.mind.offstation_role)
 			target_candidates += H.mind
 	if(!length(target_candidates))	//There are no living unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
 		for(var/mob/living/carbon/human/H in GLOB.player_list)
@@ -166,7 +166,7 @@
 		var/area/summon = pick(return_sorted_areas() - summon_spots)
 		var/valid_spot = FALSE
 		if(summon && is_station_level(summon.z) && summon.valid_territory) // Check if there's a turf that you can walk on, if not it's not valid
-			for(var/turf/T in get_area_turfs(summon))
+			for(var/turf/T as anything in get_area_turfs(summon))
 				if(!T.density)
 					var/clear = TRUE
 					for(var/obj/O in T)

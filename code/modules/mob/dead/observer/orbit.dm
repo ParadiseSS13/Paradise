@@ -96,6 +96,7 @@
 					)
 					if(SSticker && SSticker.mode)
 						other_antags += list(
+							"Clockwork cultist" = (mind in SSticker.mode.clockwork_cult),
 							"Cultist" = (mind in SSticker.mode.cult),
 							"Wizard" = (mind in SSticker.mode.wizards),
 							"Wizard's Apprentice" = (mind in SSticker.mode.apprentices),

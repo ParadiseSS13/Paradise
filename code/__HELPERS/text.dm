@@ -670,3 +670,24 @@
 
 	// return the split html object to the caller
 	return s
+
+
+// Returns the rot13'ed text
+/proc/rot13(text = "")
+	var/lentext = length(text)
+	var/char = ""
+	var/ascii = 0
+	. = ""
+	for(var/i = 1, i <= lentext, i += length(char))
+		char = text[i]
+		ascii = text2ascii(char)
+		switch(ascii)
+			if(65 to 77, 97 to 109) //A to M, a to m
+				ascii += 13
+			if(78 to 90, 110 to 122) //N to Z, n to z
+				ascii -= 13
+			if(1072 to 1084, 1040 to 1052)
+				ascii += 13
+			if(1085 to 1097, 1053 to 1065)
+				ascii -= 13
+		. += ascii2text(ascii)

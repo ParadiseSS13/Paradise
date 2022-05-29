@@ -254,6 +254,8 @@
 						M_job = "AI"
 					else if(ispAI(M))
 						M_job = "pAI"
+					else if(iscogscarab(M))
+						M_job = "Cogscarab"
 					else if(isrobot(M))
 						M_job = "Cyborg"
 					else
@@ -469,6 +471,36 @@
 
 			dat += "<br><a href='?src=[UID()];cult_newsummonlocations=[UID()]'>Reroll summoning locations</a>"
 			dat += "<br><a href='?src=[UID()];cult_unlocknarsie=[UID()]'>Unlock Nar'Sie summoning</a>"
+
+		if(length(SSticker.mode.clockwork_cult))
+			var/datum/game_mode/gamemode = SSticker.mode
+			var/datum/objective/cur_demand_obj = gamemode.clocker_objs.obj_demand
+			dat += check_role_table("Clockers", SSticker.mode.clockwork_cult)
+			if(cur_demand_obj)
+				dat += "<br>Current clock cult objective: <br>[cur_demand_obj.explanation_text]"
+			else if(gamemode.clocker_objs.clock_status == RATVAR_NEEDS_SUMMONING)
+				dat += "<br>Current clock cult objective: Summon Ratvar"
+			else if(gamemode.clocker_objs.clock_status == RATVAR_HAS_RISEN)
+				dat += "<br>Current clock cult objective: Bring to Ratvar"
+			else if(gamemode.clocker_objs.clock_status == RATVAR_HAS_FALLEN)
+				dat += "<br>Current clock cult objective: Kill all non-clockers"
+			else
+				dat += "<br>Current clock cult objective: None! (This is most likely a bug, or var editing gone wrong.)"
+			dat += "<br>Power needed: [GLOB.clockwork_power]/[gamemode.clocker_objs.power_goal]"
+			dat += "<br>Beacons needed: [length(GLOB.clockwork_beacons)]/[gamemode.clocker_objs.beacon_goal]"
+			dat += "<br>Clockers needed: [SSticker.mode.get_clockers()]/[gamemode.clocker_objs.clocker_goal] Reveal:[SSticker.mode.crew_reveal_number]"
+			dat += "<br>Summoning locations: [english_list(gamemode.clocker_objs.obj_summon.ritual_spots)]"
+			dat += "<br><a href='?src=[UID()];clock_mindspeak=[UID()]'>Clock Cult Mindspeak</a>"
+
+			if(gamemode.clocker_objs.clock_status == RATVAR_DEMANDS_POWER)
+				dat += "<br><a href='?src=[UID()];clock_adjustpower=[UID()]'>POWER CHANGE</a>"
+				dat += "<br><a href='?src=[UID()];clock_adjustbeacon=[UID()]'>BEACON CHANGE</a>"
+				dat += "<br><a href='?src=[UID()];clock_adjustclocker=[UID()]'>CLOCKER CHANGE</a>"
+			else
+				dat += "<br>The cult reached power demand! Summon available!</a>"
+
+			dat += "<br><a href='?src=[UID()];clock_newsummonlocations=[UID()]'>Reroll summoning locations</a>"
+			dat += "<br><a href='?src=[UID()];clock_unlockratvar=[UID()]'>Unlock Ratvar summoning</a>"
 
 		if(SSticker.mode.traitors.len)
 			dat += check_role_table("Traitors", SSticker.mode.traitors)

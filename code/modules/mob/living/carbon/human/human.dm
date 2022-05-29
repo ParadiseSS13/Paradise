@@ -192,6 +192,8 @@
 			if(mind.vampire)
 				stat("Всего крови", "[mind.vampire.bloodtotal]")
 				stat("Доступная кровь", "[mind.vampire.bloodusable]")
+			if(isclocker(mind.current))
+				stat("Total Power", "[GLOB.clockwork_power]")
 
 	if(istype(loc, /obj/spacepod)) // Spacdpods!
 		var/obj/spacepod/S = loc

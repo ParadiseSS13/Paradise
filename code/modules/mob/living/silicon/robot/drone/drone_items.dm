@@ -64,6 +64,22 @@
 		return
 	..()
 
+/obj/item/gripper/cogscarab
+	name = "ancient gripper"
+	desc = "A brass grasping tool for supporting workmates."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "clock_gripper"
+
+/obj/item/gripper/cogscarab/New()
+	//Has a list of items that it can hold.
+	can_hold += list(
+		/obj/item/clockwork/integration_cog,
+		/obj/item/clockwork/shard,
+		/obj/item/stack/sheet,
+		/obj/item/mmi/robotic_brain/clockwork
+	)
+	..()
+
 
 /obj/item/gripper/New()
 	..()

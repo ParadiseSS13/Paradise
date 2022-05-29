@@ -1,0 +1,37 @@
+@use 'sass:color';
+@use 'sass:meta';
+
+$clockwork: #825B17;
+
+@use '../colors.scss' with (
+  $fg-map-keys: (),
+  $bg-map-keys: (),
+);
+@use '../base.scss' with (
+  $color-bg: color.scale($clockwork, $lightness: -45%),
+  $border-radius: 2px,
+);
+
+.theme-clockwork {
+  // Components
+  @include meta.load-css('../components/Button.scss', $with: (
+    'color-default': $clockwork,
+    'color-transparent-text': rgba(255, 214, 198, 0.75),
+  ));
+  @include meta.load-css('../components/ProgressBar.scss', $with: (
+    'color-default': $clockwork,
+    'color-background': rgba(0, 0, 0, 0.5),
+  ));
+  @include meta.load-css('../components/Section.scss');
+
+  // Layouts
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  @include meta.load-css('../layouts/TitleBar.scss', $with: (
+    'color-background': color.scale($clockwork, $lightness: -25%),
+  ));
+
+  .Layout__content {
+    background-image: url('../../assets/bg-ratvar.svg');
+  }
+}

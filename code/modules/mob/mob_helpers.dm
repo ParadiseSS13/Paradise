@@ -685,6 +685,70 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		newphrase+="[newletter]";counter-=1
 	return newphrase
 
+/mob/proc/clockslur(n)
+	var/phrase = html_decode(n)
+	var/leng = length_char(phrase)
+	var/counter=length_char(phrase)
+	var/newphrase=""
+	var/newletter=""
+	while(counter>=1)
+		newletter=copytext_char(phrase,(leng-counter)+1,(leng-counter)+2)
+		if(rand(1,2)==2)
+			if(lowertext(newletter)=="o")
+				newletter="UL"
+			if(lowertext(newletter)=="n")
+				newletter="n-q"
+			if(lowertext(newletter)=="a")
+				newletter="aha"
+			if(lowertext(newletter)=="u")
+				newletter="u-"
+			if(lowertext(newletter)=="i")
+				newletter=" KI "
+			if(lowertext(newletter)=="r")
+				newletter=" RAT "
+			if(lowertext(newletter)=="t")
+				newletter=" TV "
+			if(lowertext(newletter)=="v")
+				newletter=" VAR "
+			if(lowertext(newletter)=="о")
+				newletter="УЛ"
+			if(lowertext(newletter)=="н")
+				newletter="н-к"
+			if(lowertext(newletter)=="а")
+				newletter="аха"
+			if(lowertext(newletter)=="у")
+				newletter="у-"
+			if(lowertext(newletter)=="и")
+				newletter=" КИ "
+			if(lowertext(newletter)=="р")
+				newletter=" РАТ "
+			if(lowertext(newletter)=="т")
+				newletter=" ТВ "
+			if(lowertext(newletter)=="в")
+				newletter=" ВАР "
+		if(rand(1,4)==4)
+			if(newletter==" ")
+				newletter=" light... "
+			if(newletter=="П")
+				newletter=" ПРОСНИСЬ... "
+			if(newletter=="К")
+				newletter=" УВИДЬ... "
+		switch(rand(1,15))
+			if(1)
+				newletter="'"
+			if(2)
+				newletter+="n-ta"
+			if(3)
+				newletter="sg-u"
+			if(4)
+				newletter="a'tyh"
+			if(5)
+				newletter="t,ybe"
+			else
+				pass()
+		newphrase+="[newletter]";counter-=1
+	return rot13(newphrase)
+
 /mob/proc/get_preference(toggleflag)
 	if(!client)
 		return FALSE

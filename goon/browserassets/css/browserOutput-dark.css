@@ -66,6 +66,11 @@ h1.alert, h2.alert			{color: #FFF;}
 .interface				{color: #8c00ff;}
 .purple					{color: #8c00ff;}
 .skeleton				{color: #C0C0C0C0;}
+.clock					{color: #e6a400;}
+.clockspeech			{color: #cc9200;}
+.clockitalic			{color: #e6a400;}
+.clocklarge				{color: #e6a400;}
+.ratvar					{color: #e6a400;}
 
 .revennotice				{color: #6685F5;}
 .revenboldnotice			{color: #6685F5;}

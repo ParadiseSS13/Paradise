@@ -100,3 +100,15 @@
 		return
 	var/time_left = max(0, (A.death_time - world.time) / 10)
 	return round(time_left)
+
+/obj/effect/countdown/clockworkgate
+	name = "gateway countdown"
+	text_size = 1
+	color = "#BE8700"
+
+/obj/effect/countdown/clockworkgate/get_value()
+	var/obj/structure/clockwork/functional/celestial_gateway/G = attached_to
+	if(!istype(G))
+		return
+	else if(G.obj_integrity && !G.purpose_fulfilled)
+		return "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'>[GATEWAY_RATVAR_ARRIVAL - G.seconds_until_activation]</div>"

@@ -482,6 +482,10 @@
 					SSticker.mode.remove_cultist(target.mind) // This proc will handle message generation.
 					praying = FALSE
 					return
+				if(isclocker(target))
+					SSticker.mode.remove_clocker(target.mind)
+					praying = FALSE
+					return
 
 				if(target.mind.vampire && !target.mind.vampire.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
 					target.mind.vampire.nullified = max(120, target.mind.vampire.nullified + 120)

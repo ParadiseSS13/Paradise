@@ -342,3 +342,21 @@
 	if(shift_x || shift_y)
 		O.off_floor = TRUE
 		O.layer = BELOW_MOB_LAYER
+
+/mob/living/silicon/robot/cogscarab/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+	if(!T)
+		T = get_turf(src)
+
+	var/obj/effect/decal/cleanable/blood/clock/streak/oil = locate() in T
+	var/list/oils = get_atoms_of_type(T, oil, TRUE, 0, 0)
+	if(shift_x || shift_y)
+		oils = get_atoms_of_type(T, oil, TRUE, shift_x, shift_y)
+		oil = locate() in oils
+	if(!oil)
+		oil = new(T)
+
+	oil.pixel_x = (shift_x)
+	oil.pixel_y = (shift_y)
+	if(shift_x || shift_y)
+		oil.off_floor = TRUE
+		oil.layer = BELOW_MOB_LAYER

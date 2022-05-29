@@ -404,6 +404,11 @@
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	qdel(src)
 
+/obj/machinery/sleeper/ratvar_act()
+	go_out()
+	new /obj/effect/decal/cleanable/blood/gibs/clock(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
+	qdel(src)
+
 /obj/machinery/sleeper/proc/toggle_filter()
 	if(filtering || !beaker)
 		filtering = FALSE

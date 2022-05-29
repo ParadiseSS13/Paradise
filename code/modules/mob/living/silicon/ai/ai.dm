@@ -147,6 +147,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	proc_holder_list = new()
 
+	if(B?.clock || isclocker(B?.brainmob))
+		laws = new /datum/ai_laws/ratvar
+		overlays += "clockwork_frame"
 	if(L)
 		if(istype(L, /datum/ai_laws))
 			laws = L
@@ -637,6 +640,16 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	return
 
+/mob/living/silicon/ai/ratvar_act()
+	if(isclocker(src))
+		return
+	SSticker.mode.add_clocker(mind)
+	laws = new /datum/ai_laws/ratvar
+	overlays += "clockwork_frame"
+	for(var/mob/living/silicon/robot/R in connected_robots)
+		to_chat(R, "<span class='danger'>ERROR: Master AI has be&# &#@)!-")
+		to_chat(R, "<span class='clocklarge'>\"Your master is under my control, so do you\"")
+		R.ratvar_act(TRUE)
 
 /mob/living/silicon/ai/Topic(href, href_list)
 	if(usr != src)

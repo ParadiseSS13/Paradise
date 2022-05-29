@@ -170,6 +170,15 @@
 /mob/proc/AdjustCultSlur()
 	return
 
+/mob/proc/ClockSlur()
+	return
+
+/mob/proc/SetClockSlur()
+	return
+
+/mob/proc/AdjustClockSlur()
+	return
+
 /mob/proc/Stun()
 	return
 

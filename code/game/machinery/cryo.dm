@@ -495,6 +495,11 @@
 	color = "red"//force the icon to red
 	light_color = LIGHT_COLOR_RED
 
+/obj/machinery/atmospherics/unary/cryo_cell/ratvar_act()
+	go_out()
+	new /obj/effect/decal/cleanable/blood/gibs/clock(get_turf(src))
+	qdel(src)
+
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_inside()
 	set name = "Залезть внутрь"
 	set category = "Object"

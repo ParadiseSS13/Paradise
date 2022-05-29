@@ -129,6 +129,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			S.message = cultslur(S.message)
 			verb = "slurs"
 
+		if(clockslurring)
+			S.message = clockslur(S.message)
+			verb = "slurs"
+
 		if(!IsVocal())
 			S.message = ""
 	return list("verb" = verb)

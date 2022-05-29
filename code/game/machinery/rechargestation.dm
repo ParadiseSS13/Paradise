@@ -36,7 +36,7 @@
 	component_parts += new /obj/item/stock_parts/capacitor/adv(null)
 	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
 	component_parts += new /obj/item/stock_parts/cell/super(null)
-	RefreshParts()	
+	RefreshParts()
 
 /obj/machinery/recharge_station/upgraded/New()
 	..()
@@ -91,6 +91,11 @@
 /obj/machinery/recharge_station/narsie_act()
 	go_out()
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
+	qdel(src)
+
+/obj/machinery/recharge_station/ratvar_act()
+	go_out()
+	new /obj/effect/decal/cleanable/blood/gibs/clock(get_turf(loc))
 	qdel(src)
 
 /obj/machinery/recharge_station/Bumped(var/mob/AM)

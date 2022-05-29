@@ -288,6 +288,14 @@
 			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] strikes down [src]!</span>")
 			investigate_log("has been destroyed by Nar'Sie","singulo")
 			qdel(src)
+	if(istype(A, /obj/singularity/ratvar))
+		if(current_size == STAGE_SIX)
+			visible_message("<span class='userdanger'>Rat'var is consumed by [src]!</span>")
+			qdel(A)
+		else
+			visible_message("<span class='userdanger'>Rat'var strikes down [src]!</span>")
+			investigate_log("has been destroyed by Ratvar","singulo")
+			qdel(src)
 
 	return
 

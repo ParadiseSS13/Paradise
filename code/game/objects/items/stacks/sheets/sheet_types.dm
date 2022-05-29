@@ -128,7 +128,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	amount = 50
 
 /obj/item/stack/sheet/metal/ratvar_act()
-	new /obj/item/stack/tile/brass(loc, amount)
+	new /obj/item/stack/sheet/brass(loc, amount)
 	qdel(src)
 
 /obj/item/stack/sheet/metal/narsie_act()
@@ -373,12 +373,12 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
  */
 
 GLOBAL_LIST_INIT(cult_recipes, list ( \
-	new /datum/stack_recipe/cult("runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, 1, time = 50, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE),
-	new /datum/stack_recipe/cult("runed girder (used to make cult walls)", /obj/structure/girder/cult, 1, time = 10, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
-	new /datum/stack_recipe/cult("pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
-	new /datum/stack_recipe/cult("forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
-	new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, and veil shifters)", /obj/structure/cult/functional/archives, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
-	new /datum/stack_recipe/cult("altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE),
+	new /datum/stack_recipe/cult("runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, 1, time = 50, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
+	new /datum/stack_recipe/cult("runed girder (used to make cult walls)", /obj/structure/girder/cult, 1, time = 10, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE), \
+	new /datum/stack_recipe/cult("pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE), \
+	new /datum/stack_recipe/cult("forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE), \
+	new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, and veil shifters)", /obj/structure/cult/functional/archives, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE), \
+	new /datum/stack_recipe/cult("altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	))
 
 /obj/item/stack/sheet/runed_metal
@@ -396,10 +396,16 @@ GLOBAL_LIST_INIT(cult_recipes, list ( \
 	icon_state = SSticker.cultdat?.runed_metal_icon_state
 
 /obj/item/stack/sheet/runed_metal/ratvar_act()
-	new /obj/item/stack/tile/brass(loc, amount)
+	new /obj/item/stack/sheet/brass(loc, amount)
 	qdel(src)
 
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
+	if(isclocker(user))
+		user.visible_message("<span class='warning'>[user] drops [src] with burning wounds appearing!</span>", \
+		"<span class='cultlarge'>\"Go ahead. Try again.\"</span>")
+		user.drop_item()
+		user.adjustFireLoss(20)
+		return
 	if(!iscultist(user))
 		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
 		return
@@ -433,19 +439,23 @@ GLOBAL_LIST_INIT(cult_recipes, list ( \
  * Brass
  */
 GLOBAL_LIST_INIT(brass_recipes, list (\
-	new/datum/stack_recipe("wall gear", /obj/structure/clockwork/wall_gear, 3, time = 10, one_per_turf = TRUE, on_floor = TRUE), \
+	new /datum/stack_recipe("herald's beacon", /obj/structure/clockwork/functional/beacon, 6, time = 80, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
+	new /datum/stack_recipe("altar of credence", /obj/structure/clockwork/functional/altar, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE), \
+	new /datum/stack_recipe("wall gear", /obj/structure/clockwork/wall_gear, 1, time = 10, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE), \
+	new /datum/stack_recipe("Eternal workshop", /obj/structure/clockwork/functional/workshop, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE), \
 	null,
-	new/datum/stack_recipe/window("brass windoor", /obj/machinery/door/window/clockwork, 2, time = 30, on_floor = TRUE, window_checks = TRUE), \
-	null,
-	new/datum/stack_recipe/window("directional brass window", /obj/structure/window/reinforced/clockwork, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe/window("fulltile brass window", /obj/structure/window/reinforced/clockwork/fulltile, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("brass chair", /obj/structure/chair/brass, 1, time = 0, one_per_turf = TRUE, on_floor = TRUE), \
-	new/datum/stack_recipe("brass table frame", /obj/structure/table_frame/brass, 1, time = 5, one_per_turf = TRUE, on_floor = TRUE), \
-	))
+	new /datum/stack_recipe_list("windows and furniture", list(
+		new/datum/stack_recipe/window("directional brass window", /obj/structure/window/reinforced/clockwork, time = 0, on_floor = TRUE, window_checks = TRUE), \
+		new/datum/stack_recipe/window("fulltile brass window", /obj/structure/window/reinforced/clockwork/fulltile, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
+		new/datum/stack_recipe/window("brass windoor", /obj/machinery/door/window/clockwork, 2, time = 30, on_floor = TRUE, window_checks = TRUE), \
+		new/datum/stack_recipe("brass chair", /obj/structure/chair/brass, 1, time = 0, one_per_turf = TRUE, on_floor = TRUE), \
+		new/datum/stack_recipe("brass table frame", /obj/structure/table_frame/brass, 1, time = 5, one_per_turf = TRUE, on_floor = TRUE), \
+	)),
+))
 
-/obj/item/stack/tile/brass
+/obj/item/stack/sheet/brass
 	name = "brass"
-	desc = "Sheets made out of brass."
+	desc = "Specially hand-crafted sheets of brass."
 	singular_name = "brass sheet"
 	icon_state = "sheet-brass"
 	item_state = "sheet-brass"
@@ -455,20 +465,42 @@ GLOBAL_LIST_INIT(brass_recipes, list (\
 	max_amount = 50
 	throw_speed = 1
 	throw_range = 3
-	turf_type = /turf/simulated/floor/clockwork
+	merge_type = /obj/item/stack/sheet/brass
 
-/obj/item/stack/tile/brass/narsie_act()
+/obj/item/stack/sheet/brass/narsie_act()
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
 	qdel(src)
 
-/obj/item/stack/tile/brass/New(loc, amount=null)
+/obj/item/stack/sheet/brass/attack_self(mob/living/user)
+	if(iscultist(user))
+		user.visible_message("<span class='warning'>[user] drops [src] with burning wounds appearing!</span>", \
+		"<span class='clocklarge'>\"How dare you even to hold this piece of my art?\"</span>")
+		user.drop_item()
+		user.adjustFireLoss(20)
+		return
+	if(!isclocker(user))
+		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
+		return
+	if(!is_level_reachable(user.z))
+		to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
+		return
+
+	return ..()
+
+/obj/item/stack/sheet/brass/New(loc, amount=null)
 	recipes = GLOB.brass_recipes
 	. = ..()
-	pixel_x = 0
-	pixel_y = 0
 
-/obj/item/stack/tile/brass/fifty
+/obj/item/stack/sheet/brass/ten
+	amount = 10
+
+/obj/item/stack/sheet/brass/fifty
 	amount = 50
+
+/obj/item/stack/sheet/brass/cyborg
+	materials = list()
+	is_cyborg = 1
+
 
 /*
  * Bones

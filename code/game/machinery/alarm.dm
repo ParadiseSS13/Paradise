@@ -796,7 +796,7 @@
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
-	else if(isAI(user) || isrobot(user) || emagged)
+	else if(isAI(user) || (isrobot(user) || emagged) && !iscogscarab(user))
 		return TRUE
 	else
 		return !locked

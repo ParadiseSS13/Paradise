@@ -1485,6 +1485,18 @@ About the new airlock wires panel:
 	A.stealth_airlock_material = airlock_material
 	qdel(src)
 
+/obj/machinery/door/airlock/ratvar_act(weak = FALSE)
+	var/obj/machinery/door/airlock/clockwork/A
+	if(weak)
+		A = new/obj/machinery/door/airlock/clockwork/weak(get_turf(src))
+	else
+		if(glass)
+			A = new/obj/machinery/door/airlock/clockwork/glass(get_turf(src))
+		else
+			A = new/obj/machinery/door/airlock/clockwork(get_turf(src))
+	A.name = name
+	qdel(src)
+
 /obj/machinery/door/airlock/proc/ai_control_callback()
 	if(aiControlDisabled == AICONTROLDISABLED_ON)
 		aiControlDisabled = AICONTROLDISABLED_OFF

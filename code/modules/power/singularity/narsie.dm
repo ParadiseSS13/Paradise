@@ -44,9 +44,12 @@
 
 	narsie_spawn_animation()
 
-	sleep(7 SECONDS)
+	addtimer(CALLBACK(src, .proc/call_shuttle), 7 SECONDS)
+
+/obj/singularity/narsie/large/proc/call_shuttle()
 	SSshuttle.emergency.request(null, 0.3)
 	SSshuttle.emergency.canRecall = FALSE // Cannot recall
+
 
 /obj/singularity/narsie/large/Destroy()
 	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS FALLEN</b></font>")

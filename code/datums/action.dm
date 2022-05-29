@@ -167,6 +167,7 @@
 			I.appearance_flags = old_appearance_flags
 	else
 		..()
+
 /datum/action/item_action/toggle_light
 	name = "Toggle Light"
 
@@ -301,6 +302,18 @@
 	name = "Zip/Unzip [target.name]"
 	button.name = name
 
+/datum/action/item_action/activate
+
+/datum/action/item_action/activate/New(Target)
+	..()
+	name = "Activate [target.name]"
+	button.name = name
+
+/datum/action/item_action/activate/enchant
+
+/datum/action/item_action/activate/enchant/New(Target)
+	..()
+	UpdateButtonIcon()
 /datum/action/item_action/halt
 	name = "HALT!"
 

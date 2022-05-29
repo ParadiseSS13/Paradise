@@ -327,3 +327,6 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 /obj/effect/gateway/Crossed(atom/movable/AM, oldloc)
 	return
+
+/obj/effect/clockwork/overlay/floor/bloodcult
+	icon_state = "cult"

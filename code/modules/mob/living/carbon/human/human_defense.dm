@@ -437,6 +437,11 @@ emp_act
 	if(!I.force)
 		return 0 //item force is zero
 
+	if(wear_suit?.enchant_type == ABSORB_SPELL)
+		visible_message("<span class='warning'>[src]'s [wear_suit] shines as it absorbs the hit!</span>", "<span class='warning'>Your [wear_suit] shines as absorbs the hit!</span>")
+		wear_suit.deplete_spell()
+		return 0
+
 	var/armor = run_armor_check(affecting, "melee", "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
 	if(weapon_sharp && prob(getarmor(user.zone_selected, "melee")))
@@ -522,18 +527,24 @@ emp_act
 		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold)
 			if(can_embed(I))
 				if(prob(I.embed_chance) && !(PIERCEIMMUNE in dna.species.species_traits))
-					throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
-					var/obj/item/organ/external/L = pick(bodyparts)
-					L.embedded_objects |= I
-					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
-					I.forceMove(src)
-					L.receive_damage(I.w_class*I.embedded_impact_pain_multiplier)
-					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
+					embed_item_inside(I)
 					hitpush = FALSE
 					skipcatch = TRUE //can't catch the now embedded item
 	if(!blocked)
 		dna.species.spec_hitby(AM, src)
 	return ..()
+
+/mob/living/carbon/human/proc/embed_item_inside(var/obj/item/I)
+	if(ismob(I.loc))
+		var/mob/M = I.loc
+		M.remove_from_mob(I)
+	throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+	var/obj/item/organ/external/L = pick(bodyparts)
+	L.embedded_objects |= I
+	I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
+	I.forceMove(src)
+	L.receive_damage(I.w_class*I.embedded_impact_pain_multiplier)
+	visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
 
