@@ -1,8 +1,8 @@
 /mob/living/simple_animal/hostile/retaliate/araneus
-	name = "Sergeant Araneus"
-	real_name = "Sergeant Araneus"
-	voice_name = "unidentifiable voice"
-	desc = "A fierce companion for any person of power, this spider has been carefully trained by Nanotrasen specialists. Its beady, staring eyes send shivers down your spine."
+	name = "Сержант Арахний"
+	real_name = "Сержант Арахний"
+	voice_name = "неизвестный голос"
+	desc = "Свирепый компаньон любого влиятельного лица, этот паук был тщательно обучен специалистами NanoTrasen. От пристального взгляда его глаз-бусинок у вас по спине бегают мурашки."
 	faction = list("spiders")
 	icon_state = "guard"
 	icon_living = "guard"
@@ -19,4 +19,4 @@
 	unique_pet = TRUE
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 2, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	gender = FEMALE
-	
+
