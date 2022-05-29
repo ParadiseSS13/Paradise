@@ -4193,9 +4193,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "avQ" = (
 /obj/effect/landmark/spawner/xeno,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -8134,9 +8132,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "aIv" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -14130,9 +14126,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "aXL" = (
 /turf/simulated/wall/r_wall,
 /area/construction/hallway{
@@ -18121,9 +18115,7 @@
 	dir = 4;
 	icon_state = "darkbluecorners"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "bhB" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -22286,9 +22278,7 @@
 	})
 "bri" = (
 /turf/simulated/wall/r_wall,
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "brk" = (
 /turf/simulated/wall/r_wall,
 /area/turret_protected/tcomeast{
@@ -23030,9 +23020,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "bsV" = (
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
@@ -23112,9 +23100,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "btg" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -23905,9 +23891,7 @@
 	dir = 1;
 	icon_state = "darkbluecorners"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "buY" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -23926,18 +23910,14 @@
 	dir = 1;
 	icon_state = "darkbluecorners"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "buZ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "bva" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -23945,9 +23925,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "bvc" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -23965,9 +23943,7 @@
 	dir = 4;
 	icon_state = "darkbluecorners"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "bvd" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/hatch{
@@ -23988,9 +23964,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "bve" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -24901,9 +24875,7 @@
 	dir = 1;
 	icon_state = "darkbluecorners"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "bwM" = (
 /turf/space,
 /area/space/nearstation)
@@ -25265,9 +25237,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "bxH" = (
 /obj/machinery/slot_machine,
 /obj/machinery/computer/security/telescreen/entertainment{
@@ -25983,9 +25953,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "bzf" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -26006,9 +25974,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "bzg" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -26030,9 +25996,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "bzh" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
@@ -26625,9 +26589,7 @@
 	dir = 8;
 	icon_state = "darkbluecorners"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "bAB" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/pie,
@@ -27566,9 +27528,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "bDb" = (
 /obj/machinery/power/smes{
 	charge = 5e+006
@@ -27613,9 +27573,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "bDj" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
@@ -74788,9 +74746,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "nPw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -78705,9 +78661,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/aisat_interior{
-	name = "\improper MiniSat Central Foyer"
-	})
+/area/turret_protected/aisat_interior)
 "pUh" = (
 /obj/item/storage/box/monkeycubes,
 /obj/item/storage/box/monkeycubes/stokcubes,
