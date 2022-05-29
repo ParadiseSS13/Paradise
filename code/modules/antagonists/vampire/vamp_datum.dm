@@ -90,8 +90,7 @@
 
 /datum/antagonist/vampire/remove_innate_effects(mob/living/mob_override)
 	mob_override = ..()
-	for(var/P in powers)
-		remove_ability(P)
+	remove_all_powers()
 	var/datum/hud/hud = mob_override.hud_used
 	if(hud?.vampire_blood_display)
 		hud.remove_vampire_hud()
@@ -176,9 +175,16 @@
 	if(give_specialize_power)
 		// Choosing a subclass in the first place removes this from `upgrade_tiers`, so add it back if needed.
 		upgrade_tiers[/obj/effect/proc_holder/spell/vampire/self/specialize] = 150
-	QDEL_LIST(powers)
+	remove_all_powers()
 	QDEL_NULL(subclass)
 	check_vampire_upgrade()
+
+/**
+ * Removes all of the vampire's current powers.
+ */
+/datum/antagonist/vampire/proc/remove_all_powers()
+	for(var/power in powers)
+		remove_ability(power)
 
 /datum/antagonist/vampire/proc/check_vampire_upgrade(announce = TRUE)
 	var/list/old_powers = powers.Copy()

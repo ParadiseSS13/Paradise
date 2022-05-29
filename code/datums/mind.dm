@@ -1027,7 +1027,7 @@
 				if(new_total < vamp.bloodtotal)
 					if(alert(usr, "Note that reducing the vampire's total blood may remove some active powers. Continue?", "Confirm New Total", "Yes", "No") == "No")
 						return
-					QDEL_LIST(vamp.powers)
+					vamp.remove_all_powers()
 
 				vamp.bloodtotal = new_total
 				vamp.check_vampire_upgrade()
