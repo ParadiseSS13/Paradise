@@ -86,7 +86,7 @@
 		return TRUE
 	if(undergoing_cardiac_arrest())
 		return TRUE
-	if(istype(dna?.species, /datum/species/machine) && health < 0)
+	if(ismachineperson(src) && health < 0)
 		return TRUE
 	return FALSE
 
@@ -169,7 +169,7 @@
 //called when a living mob changes health
 /mob/living/proc/med_hud_set_health()
 	var/image/holder = hud_list[HEALTH_HUD]
-	if(istype(dna?.species, /datum/species/machine))
+	if(ismachineperson(src))
 		holder = hud_list[DIAG_HUD]
 	holder.icon_state = "hud[RoundHealth(src)]"
 
@@ -184,7 +184,7 @@
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/carbon/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
-	if(istype(dna?.species, /datum/species/machine))
+	if(ismachineperson(src))
 		holder = hud_list[DIAG_STAT_HUD]
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	// To the right of health bar
