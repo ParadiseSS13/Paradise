@@ -69,11 +69,12 @@
 	usesound = 'sound/items/jaws_pry.ogg'
 	force = 15
 	toolspeed = 0.25
+	ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 	var/airlock_open_time = 100 // Time required to open powered airlocks
 
 /obj/item/crowbar/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting [user.p_their()] head in [src]. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, 'sound/items/jaws_pry.ogg', 50, 1, -1)
+	user.visible_message("<span class='suicide'>[user] помеща[pluralize_ru(user.gender,'ет','ют')] свою голову между лезвиями [src.declent_ru(GENITIVE)]. Похоже, [genderize_ru(user.gender,'он','она','оно','они')] пыта[pluralize_ru(user.gender,'ется','ются')] использовать [src.declent_ru(ACCUSATIVE)] для самоубийства!</span>")
+    	playsound(loc, 'sound/items/jaws_pry.ogg', 50, 1, -1)
 	return BRUTELOSS
 
 /obj/item/crowbar/power/attack_self(mob/user)

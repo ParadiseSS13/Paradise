@@ -1,3 +1,11 @@
+// Падежи русского языка
+#define NOMINATIVE 1 // Именительный: кто это? Клоун и ассистуха
+#define GENITIVE 2 // Родительный: откусить кусок от кого? От клоуна и ассистухи
+#define DATIVE 3 // Дательный: дать полный доступ кому? Клоуну и ассистухе
+#define ACCUSATIVE 4 // Винительный: обвинить кого? Клоуна и ассистуху
+#define INSTRUMENTAL 5 // Творительный: возить по полу кем? Клоуном и ассистухой
+#define PREPOSITIONAL 6 // Предложный: прохладная история о ком? О клоуне и об ассистухе
+
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
@@ -28,7 +36,7 @@
 
 	//Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
-	
+
 	//Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
 
@@ -54,6 +62,9 @@
 	var/chat_color
 	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
 	var/chat_color_darkened
+	/// Список склонений названия атома. Пример заполнения в любом наследнике атома
+	/// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
+	var/list/ru_names
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -1035,3 +1046,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return
 	. = density
 	density = new_value
+
+// Процедура выбора правильного падежа для любого предмета,если у него указан словарь «ru_names», примерно такой:
+// ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
+/atom/proc/declent_ru(case_id, list/ru_names_override)
+	var/list/list_to_use = ru_names_override || ru_names
+	if(length(list_to_use))
+		return list_to_use[case_id] || name
+	return name
