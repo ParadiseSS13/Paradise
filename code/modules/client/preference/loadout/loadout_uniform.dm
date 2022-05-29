@@ -101,6 +101,10 @@
 	display_name = "a kilt"
 	path = /obj/item/clothing/under/kilt
 
+/datum/gear/uniform/suit/executive
+	display_name = "executive suit"
+	path = /obj/item/clothing/under/suit_jacket/really_black
+
 /datum/gear/uniform/skirt
 	subtype_path = /datum/gear/uniform/skirt
 
