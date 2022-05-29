@@ -79140,14 +79140,12 @@
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "gLY" = (
-/obj/machinery/atmospherics/unary/outlet_injector{
-	dir = 1;
+/obj/machinery/atmospherics/unary/outlet_injector/on{
 	frequency = 1441;
-	icon_state = "on";
-	id = "engine-waste_out";
 	name = "engine outlet injector";
-	on = 1;
-	volume_rate = 200
+	volume_rate = 200;
+	dir = 1;
+	id = "engine-waste_out"
 	},
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)
