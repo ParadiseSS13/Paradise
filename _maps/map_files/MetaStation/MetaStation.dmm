@@ -85643,7 +85643,9 @@
 	id_tag = "paramedic";
 	name = "Paramedic Garage"
 	},
-/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
