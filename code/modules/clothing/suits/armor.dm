@@ -442,6 +442,16 @@
 		disable(rand(2, 5))
 		return TRUE
 
+/obj/item/clothing/suit/armor/reactive/random //Spawner for random reactive armor
+	name = "Random Reactive Armor"
+
+/obj/item/clothing/suit/armor/reactive/random/New()
+	..()
+	var/list/types = list(/obj/item/clothing/suit/armor/reactive/teleport, /obj/item/clothing/suit/armor/reactive/fire, /obj/item/clothing/suit/armor/reactive/stealth, /obj/item/clothing/suit/armor/reactive/tesla, /obj/item/clothing/suit/armor/reactive/repulse)
+	var/A = pick(types)
+	new A(loc)
+	qdel(src)
+
 //All of the armor below is mostly unused
 
 
