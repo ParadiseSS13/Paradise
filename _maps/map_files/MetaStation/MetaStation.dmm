@@ -2453,9 +2453,6 @@
 	},
 /obj/structure/closet/crate/freezer/iv_storage,
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/machinery/camera{
-	c_tag = "Medbay Cold Storage"
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/item/radio/intercom{
 	name = "north bump";
@@ -2715,7 +2712,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/security/main)
 "aqe" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -4503,6 +4502,9 @@
 	dir = 8
 	},
 /obj/structure/statue/chickenstatue,
+/obj/machinery/camera{
+	c_tag = "Mr. Chang's"
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "awO" = (
@@ -11790,9 +11792,6 @@
 "aRS" = (
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Courtroom"
 	},
 /obj/structure/chair/comfy/black,
 /obj/structure/sign/poster/official/random{
@@ -27252,9 +27251,6 @@
 	name = "\improper Captain's Quarters"
 	})
 "bCh" = (
-/obj/machinery/camera{
-	c_tag = "Council Chamber"
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -27520,6 +27516,10 @@
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
+	},
+/obj/machinery/camera{
+	c_tag = "Atmospherics - Port-Aft";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -28555,10 +28555,6 @@
 	pixel_x = 28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/camera{
-	dir = 8;
-	c_tag = "Library Fore"
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
@@ -30134,6 +30130,10 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/machinery/camera{
+	c_tag = "Library Fore";
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/library)
 "bKk" = (
@@ -31441,9 +31441,6 @@
 	name = "\improper MiniSat Exterior"
 	})
 "bNY" = (
-/obj/machinery/camera{
-	c_tag = "Cryodorms"
-	},
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -33947,14 +33944,13 @@
 	},
 /area/medical/virology)
 "bVa" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/machinery/camera{
+	network = list("Research","SS13");
+	c_tag = "RD Observation Cage";
+	dir = 10
 	},
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
-/area/maintenance/port)
+/turf/simulated/floor/engine,
+/area/crew_quarters/hor)
 "bVb" = (
 /obj/machinery/suit_storage_unit/clown,
 /obj/effect/turf_decal/stripes/line{
@@ -35024,12 +35020,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "bXK" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Storage Room";
-	req_access_txt = "12"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bXL" = (
@@ -38933,10 +38926,6 @@
 /obj/structure/table,
 /obj/item/book/manual/hydroponics_pod_people,
 /obj/item/paper,
-/obj/machinery/camera{
-	c_tag = "Hydroponics - Foyer";
-	dir = 1
-	},
 /obj/machinery/light,
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -38949,6 +38938,10 @@
 /area/hallway/primary/central)
 "ciq" = (
 /obj/machinery/vending/hydronutrients,
+/obj/machinery/camera{
+	c_tag = "Hydroponics - Foyer";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -41391,6 +41384,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Council Chamber";
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42138,11 +42135,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "csh" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Storage Room";
-	req_access_txt = "12"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "csi" = (
@@ -44920,9 +44914,6 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -47560,7 +47551,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/medical/cryo)
+/area/medical/surgeryobs)
 "cID" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -52861,14 +52852,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "dbC" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Storage Room";
-	req_access_txt = "12"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "dbE" = (
@@ -52991,11 +52979,6 @@
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/machinery/light{
 	dir = 4
-	},
-/obj/machinery/camera{
-	network = list("Research","SS13");
-	c_tag = "Science - Server Room";
-	dir = 8
 	},
 /obj/machinery/firealarm{
 	dir = 4;
@@ -55690,6 +55673,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Engineering - Desk";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "yellow"
@@ -57719,15 +57706,13 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "fjl" = (
-/obj/item/stack/sheet/glass{
-	amount = 50;
+/obj/structure/table,
+/obj/item/stack/sheet/glass/fifty{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/structure/table,
+/obj/item/stack/sheet/metal/fifty,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -58432,6 +58417,10 @@
 /area/engine/engineering)
 "fzW" = (
 /obj/machinery/suit_storage_unit/security,
+/obj/machinery/camera{
+	c_tag = "Armory - Internal";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -58452,10 +58441,6 @@
 /obj/item/book/manual/sop_medical,
 /obj/machinery/light{
 	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Chemistry";
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -58527,10 +58512,6 @@
 	},
 /area/quartermaster/office)
 "fDO" = (
-/obj/machinery/camera{
-	c_tag = "Atmospherics - Port-Aft";
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
 /obj/machinery/light{
 	dir = 8
@@ -60768,11 +60749,6 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/machinery/camera{
-	network = list("Research","SS13");
-	c_tag = "Xenobiology Lab - Fore";
-	dir = 4
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -61190,17 +61166,12 @@
 /turf/simulated/floor/plasteel,
 /area/medical/research)
 "gZV" = (
-/obj/structure/table,
-/obj/item/storage/belt/utility,
-/obj/machinery/light,
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
+/obj/machinery/camera{
+	c_tag = "Brig - Hallway - Starboard";
+	dir = 10
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
-/area/quartermaster/office)
+/turf/simulated/floor/plasteel,
+/area/security/brig)
 "gZY" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -61977,9 +61948,6 @@
 /obj/item/clothing/glasses/welding/superior{
 	pixel_y = -12;
 	pixel_x = -6
-	},
-/obj/structure/window/reinforced{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
@@ -66649,12 +66617,6 @@
 	},
 /area/security/brig)
 "jNj" = (
-/obj/machinery/camera/motion{
-	start_active = 1;
-	dir = 8;
-	c_tag = "AI Chamber - Starboard";
-	network = list("SS13","MiniSat")
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -66667,6 +66629,12 @@
 	name = "Cyborg Statue";
 	pixel_x = 9;
 	pixel_y = 2
+	},
+/obj/machinery/camera/motion{
+	start_active = 1;
+	dir = 9;
+	c_tag = "AI Chamber - Starboard";
+	network = list("SS13","MiniSat")
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
@@ -67502,6 +67470,11 @@
 	pixel_x = -24;
 	pixel_y = -6
 	},
+/obj/machinery/camera{
+	network = list("Research","SS13");
+	c_tag = "Xenobiology Lab - Fore";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -67577,6 +67550,9 @@
 	dir = 1
 	},
 /obj/machinery/cryopod,
+/obj/machinery/camera{
+	c_tag = "Cryodorms"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreen"
@@ -69378,6 +69354,10 @@
 	pixel_x = -30
 	},
 /obj/machinery/reagentgrinder,
+/obj/machinery/camera{
+	c_tag = "Chemistry";
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteyellow"
@@ -73323,7 +73303,8 @@
 /obj/item/clothing/gloves/color/latex,
 /obj/machinery/camera{
 	c_tag = "Science - Research Office";
-	network = list("Research","SS13")
+	network = list("Research","SS13");
+	dir = 6
 	},
 /obj/machinery/recharger{
 	pixel_y = 4
@@ -73470,10 +73451,6 @@
 	},
 /area/lawoffice)
 "ndp" = (
-/obj/machinery/camera{
-	c_tag = "Engineering - Desk";
-	dir = 1
-	},
 /obj/machinery/light,
 /obj/machinery/status_display{
 	dir = 4;
@@ -75860,6 +75837,17 @@
 	icon_state = "escape"
 	},
 /area/atmos)
+"otp" = (
+/obj/structure/table,
+/obj/item/storage/belt/utility,
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/quartermaster/office)
 "ots" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/constructable_frame/machine_frame,
@@ -78263,6 +78251,9 @@
 	name = "north bump";
 	pixel_y = 24
 	},
+/obj/machinery/camera{
+	c_tag = "Medbay Cold Storage"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -79273,10 +79264,6 @@
 /area/security/permabrig)
 "qeK" = (
 /obj/machinery/light,
-/obj/machinery/camera{
-	c_tag = "Brig - Hallway - Starboard";
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
 	},
@@ -83571,6 +83558,11 @@
 	name = "east bump";
 	pixel_x = 27
 	},
+/obj/machinery/camera{
+	network = list("Research","SS13");
+	c_tag = "Science - Server Room";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -84548,6 +84540,9 @@
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Courtroom"
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
@@ -86252,9 +86247,6 @@
 	pixel_x = 6;
 	pixel_y = 10
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -86969,10 +86961,8 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "udI" = (
-/obj/machinery/camera{
-	network = list("Research","SS13");
-	c_tag = "RD Observation Cage";
-	dir = 1
+/obj/structure/window/reinforced{
+	dir = 8
 	},
 /turf/simulated/floor/engine,
 /area/crew_quarters/hor)
@@ -90228,6 +90218,15 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
+"vUm" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/crew_quarters/hor)
 "vUD" = (
 /obj/machinery/power/emitter{
 	anchored = 1;
@@ -92415,10 +92414,6 @@
 /obj/structure/rack,
 /obj/machinery/light{
 	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Armory - Internal";
-	dir = 4
 	},
 /obj/item/shield/riot{
 	pixel_x = 3;
@@ -110576,7 +110571,7 @@ ftd
 bUF
 cdT
 whX
-bVa
+avU
 bTY
 bZP
 uoQ
@@ -113640,7 +113635,7 @@ awb
 cqY
 jYX
 boh
-bhn
+otp
 bfw
 btv
 bvN
@@ -113897,7 +113892,7 @@ fnE
 nDF
 bbT
 boh
-gZV
+bhn
 bfw
 btv
 bVW
@@ -120520,7 +120515,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+abq
 aaa
 aaa
 udK
@@ -120777,13 +120772,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
+abq
+abq
+abq
 udK
 jbb
 udK
-aaa
+abq
 udK
 jbb
 abW
@@ -124406,7 +124401,7 @@ gRG
 akL
 hXX
 cpK
-apP
+gZV
 apz
 hQZ
 lcg
@@ -128586,8 +128581,8 @@ kvG
 cGF
 cxV
 cCV
-cBL
-pQx
+vUm
+udI
 udI
 kvG
 cBZ
@@ -129102,7 +129097,7 @@ cxa
 doV
 cBL
 pQx
-pQx
+bVa
 kvG
 mfG
 cwR
