@@ -59495,7 +59495,8 @@
 "geV" = (
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/unary/outlet_injector/on,
-/turf/simulated/floor/plating,
+/obj/structure/lattice/catwalk,
+/turf/space,
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
