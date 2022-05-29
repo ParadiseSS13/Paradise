@@ -1201,8 +1201,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "ajS" = (
-/obj/machinery/suit_storage_unit/engine/secure,
 /obj/effect/turf_decal/bot,
+/obj/machinery/suit_storage_unit/engine,
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
 "akg" = (
@@ -1370,8 +1370,8 @@
 /obj/machinery/camera{
 	c_tag = "Engineering - Storage"
 	},
-/obj/machinery/suit_storage_unit/engine/secure,
 /obj/effect/turf_decal/bot,
+/obj/machinery/suit_storage_unit/engine,
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
 "akR" = (
@@ -7569,10 +7569,10 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
 "aGX" = (
-/obj/machinery/suit_storage_unit/ce/secure,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -29
 	},
+/obj/machinery/suit_storage_unit/ce,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -8152,7 +8152,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/machinery/suit_storage_unit/engine,
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
 "aIA" = (
@@ -13719,7 +13719,7 @@
 	dir = 1;
 	pixel_y = 2
 	},
-/obj/machinery/suit_storage_unit/captain/secure,
+/obj/machinery/suit_storage_unit/captain,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
@@ -48086,7 +48086,6 @@
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "cKw" = (
-/obj/machinery/suit_storage_unit/rd/secure,
 /obj/machinery/camera{
 	network = list("Research","SS13");
 	dir = 4;
@@ -48095,6 +48094,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/machinery/suit_storage_unit/rd,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -86185,11 +86185,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"tFx" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/suit_storage_unit/engine/secure,
-/turf/simulated/floor/plasteel,
-/area/engine/hardsuitstorage)
 "tFX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -134427,7 +134422,7 @@ isf
 qQy
 avA
 aBZ
-tFx
+ajS
 aIv
 aID
 aJQ
