@@ -164,7 +164,7 @@
 	if(isnull(new_subclass_type))
 		return
 	clear_subclass(FALSE)
-	add_subclass(new_subclass_type)
+	add_subclass(new_subclass_type, log_choice = FALSE)
 
 /**
  * Remove and delete the vampire's current subclass and all associated abilities.
@@ -175,7 +175,7 @@
 /datum/antagonist/vampire/proc/clear_subclass(give_specialize_power = TRUE)
 	if(give_specialize_power)
 		// Choosing a subclass in the first place removes this from `upgrade_tiers`, so add it back if needed.
-		upgrade_tiers |= /obj/effect/proc_holder/spell/vampire/self/specialize
+		upgrade_tiers[/obj/effect/proc_holder/spell/vampire/self/specialize] = 150
 	QDEL_LIST(powers)
 	QDEL_NULL(subclass)
 	check_vampire_upgrade()

@@ -1022,10 +1022,16 @@
 				var/new_total = input(usr, "Select a new value:", "Modify total blood") as null|num
 				if(isnull(new_total) || new_total < 0)
 					return
+
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(new_total < vamp.bloodtotal)
+					if(alert(usr, "Note that reducing the vampire's total blood may remove some active powers. Continue?", "Confirm New Total", "Yes", "No") == "No")
+						return
+					QDEL_LIST(vamp.powers)
+
 				vamp.bloodtotal = new_total
 				vamp.check_vampire_upgrade()
-				log_admin("[key_name(usr)] has set [key_name(current)]'s usable blood to [new_total].")
+				log_admin("[key_name(usr)] has set [key_name(current)]'s total blood to [new_total].")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s total blood to [new_total].")
 
 			if("change_subclass")
@@ -1063,7 +1069,7 @@
 				else
 					vamp.subclass.full_power_override = TRUE
 
-				vamp.check_vampire_upgrade()
+				vamp.check_full_power_upgrade()
 				log_admin("[key_name(usr)] set [key_name(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
 				message_admins("[key_name_admin(usr)] set [key_name_admin(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
 
