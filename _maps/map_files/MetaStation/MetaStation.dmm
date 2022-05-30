@@ -46398,18 +46398,6 @@
 	icon_state = "solarpanel"
 	},
 /area/solar/port)
-"cFl" = (
-/obj/machinery/door_control{
-	id = "Skynet_launch";
-	name = "Mech Bay Door Control";
-	pixel_x = 26;
-	pixel_y = 6;
-	req_one_access_txt = "29"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/aft)
 "cFm" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/assembly/chargebay)
@@ -122148,7 +122136,7 @@ cmm
 sxv
 cEv
 cmm
-cFl
+cmm
 rDW
 cRS
 cIt
