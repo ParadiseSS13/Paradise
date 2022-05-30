@@ -621,10 +621,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if((status & ORGAN_BROKEN) || (limb_flags & CANNOT_BREAK))
 		return
 	if(owner)
-		owner.visible_message(\
-			"<span class='warning'>You hear a loud cracking sound coming from \the [owner].</span>",\
-			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
-			"You hear a sickening crack.")
+		owner.audible_message(
+			"<span class='warning'>You hear a sickening crack coming from \the [owner].</span>",
+			"<span class='danger'>[owner]'s [name] appears to buckle unnaturally!</span>"
+		)
+		to_chat(owner, "<span class='userdanger'>Something feels like it shattered in your [name]!</span>")
 		playsound(owner, "bonebreak", 150, 1)
 		if(!HAS_TRAIT(owner, TRAIT_NOPAIN))
 			owner.emote("scream")
