@@ -192,7 +192,7 @@
 		var/revivable
 		if(!ghost_can_reenter()) // DNR or AntagHUD
 			revivable = FALSE
-		else if(istype(dna.species, /datum/species/machine))
+		else if(ismachineperson(src))
 			revivable = TRUE
 		else if(timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT))
 			revivable = TRUE
