@@ -175,7 +175,7 @@
 		var/user_turf = get_turf(user)
 		if(user.client)
 			for(var/mob/ghost as anything in GLOB.dead_mob_list)
-				if(!ghost.client || isnewplayer(ghost))
+				if(!ghost.client)
 					continue
 				if(ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT && !(ghost in viewers(user_turf, null)))
 					ghost.show_message("<span class='emote'>[ghost_follow_link(user, ghost)] [displayed_msg]</span>")
@@ -578,7 +578,7 @@
 	var/origin_turf = get_turf(src)
 	if(client)
 		for(var/mob/ghost as anything in GLOB.dead_mob_list)
-			if(!ghost.client || isnewplayer(ghost))
+			if(!ghost.client)
 				continue
 			if(ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT && !(ghost in viewers(origin_turf, null)))
 				ghost.show_message("[ghost_follow_link(src, ghost)] [ghost_text]")
