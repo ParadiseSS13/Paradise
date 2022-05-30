@@ -77,7 +77,7 @@
 
 /datum/emote/living/carbon/cough/get_sound(mob/living/user)
 	. = ..()
-	if(istype(user, /mob/living/carbon/human))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.gender == FEMALE)
 			if(H.dna.species.female_cough_sounds)

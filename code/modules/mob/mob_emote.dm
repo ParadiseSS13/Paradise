@@ -134,7 +134,7 @@
 		message = "flops and flails around on the floor."
 	else if(params)
 		message_param = "flips in %t's general direction."
-	else if(istype(user, /mob/living/carbon/human))
+	else if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(istype(H.get_active_hand(), /obj/item/grab))
 			var/obj/item/grab/G = H.get_active_hand()

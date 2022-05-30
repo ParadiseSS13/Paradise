@@ -7,7 +7,7 @@
 	// Let IPCs (and people with robo-heads) make beep-boop noises
 
 	var/found_machine_head = FALSE
-	if(istype(user, /mob/living/carbon/human))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(ismachineperson(H))
 			found_machine_head = TRUE

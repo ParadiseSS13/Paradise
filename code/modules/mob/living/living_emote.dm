@@ -88,24 +88,24 @@
 /datum/emote/living/deathgasp/get_sound(mob/living/user)
 	. = ..()
 
-	if(istype(user, /mob/living/simple_animal))
+	if(isanimal(user))
 		var/mob/living/simple_animal/S = user
 		if(S.deathmessage)
 			message_simple = S.deathmessage
 		return S.death_sound
 
-	if(istype(user, /mob/living/carbon/human))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.dna.species)
 			message = H.dna.species.death_message
 			return pick(H.dna.species.death_sounds)
 
-	if(istype(user, /mob/living/carbon/alien))
+	if(isalien(user))
 		var/mob/living/carbon/alien/A = user
 		message_alien = A.death_message
 		return A.death_sound
 
-	if(istype(user, /mob/living/silicon))
+	if(issilicon(user))
 		var/mob/living/silicon/SI = user
 		return SI.death_sound
 
@@ -217,7 +217,7 @@
 
 /datum/emote/living/scream/get_sound(mob/living/user)
 	. = ..()
-	if(istype(user, /mob/living/carbon/alien))
+	if(isalien(user))
 		return "sound/voice/hiss5.ogg"
 
 
@@ -360,6 +360,10 @@
 	key = "me"
 	key_third_person = "custom"
 	message = null
+	mob_type_blacklist_typecache = list(
+		/mob/living/carbon/brain,	// nice try
+		/mob/living/captive_brain
+	)
 
 /datum/emote/living/custom/can_run_emote(mob/user, status_check, intentional)
 	. = ..()
