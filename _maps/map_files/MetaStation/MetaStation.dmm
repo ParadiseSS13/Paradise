@@ -76385,10 +76385,10 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/sink{
-	pixel_y = 29
-	},
 /mob/living/simple_animal/mouse/brown/Tom,
+/obj/structure/sink{
+	pixel_y = 22
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "oMo" = (
