@@ -130,13 +130,13 @@ export const ERTManager = (props, context) => {
               ))}
             </LabeledList.Item>
             <LabeledList.Item label="Security Module">
-            <Button
-                disabled={(data.ert_type !== 'Red' || !data.cyb)}
-                icon={data.secborg ? 'toggle-on' : 'toggle-off'}
-                color={data.secborg ? 'red' : ''}
-                content={data.secborg ? 'Enabled' : (data.ert_type !== 'Red' ? 'Unavailable' : 'Disabled')}
-                onClick={() => act('toggle_secborg')}
-              />
+              <Button
+                  disabled={(data.ert_type !== 'Red' || !data.cyb)}
+                  icon={data.secborg ? 'toggle-on' : 'toggle-off'}
+                  color={data.secborg ? 'red' : ''}
+                  content={data.secborg ? 'Enabled' : (data.ert_type !== 'Red' ? 'Unavailable' : 'Disabled')}
+                  onClick={() => act('toggle_secborg')}
+                />
             </LabeledList.Item>
             <LabeledList.Item label="Total Slots">
               <Box color={data.total > data.spawnpoints ? 'red' : 'green'}>
