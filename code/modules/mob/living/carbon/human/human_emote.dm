@@ -388,6 +388,8 @@
 
 /datum/emote/living/carbon/human/proc/can_wag(mob/user)
 	var/mob/living/carbon/human/H = user
+	if(!(H.dna.species.bodyflags & TAIL_WAGGING))
+		return FALSE
 	var/obscured = H.wear_suit && (H.wear_suit.flags_inv & HIDETAIL)
 	if(!istype(H))
 		return FALSE
@@ -408,7 +410,7 @@
 	H.start_tail_wagging()
 
 
-/datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check = TRUE , intentional)
+/datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check = TRUE, intentional)
 	if(!..())
 		return FALSE
 
@@ -423,21 +425,11 @@
 	message = "stops wagging their tail."
 
 /datum/emote/living/carbon/human/wag/stop/run_emote(mob/user, params, type_override, intentional)
-
 	. = ..()
 	if(!.)
 		return FALSE
 	var/mob/living/carbon/human/H = user
 	H.stop_tail_wagging()
-
-// TODO what is going on here
-/datum/emote/living/carbon/human/wag/select_message_type(mob/user, intentional)
-	. = ..()
-	var/mob/living/carbon/human/H = user
-	if(!H.dna || !H.dna.species)
-		return
-	if(H.dna.species.bodyflags & TAIL_WAGGING)
-		. = null
 
 ///Snowflake emotes only for le epic chimp
 /datum/emote/living/carbon/human/monkey

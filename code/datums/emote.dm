@@ -342,7 +342,6 @@
  * Returns the new message, or msg directly, if no change was needed.
  */
 /datum/emote/proc/select_message_type(mob/user, msg, intentional)
-	// Basically, we don't care that the others can use datum variables, because they're never going to change.
 	. = msg
 	if(user.mind && user.mind.miming && message_mime)
 		. = message_mime

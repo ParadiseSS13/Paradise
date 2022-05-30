@@ -95,7 +95,7 @@
 				if(P.message_param && P.param_desc)
 					// Add our parameter description, like flap-user
 					full_key = P.key + "\[[EMOTE_PARAM_SEPARATOR][P.param_desc]\]"
-				if(istype(H) && species_type_whitelist_typecache && H.dna && is_type_in_typecache(H.dna.species, species_type_whitelist_typecache))
+				if(istype(H) && P.species_type_whitelist_typecache && H.dna && is_type_in_typecache(H.dna.species, P.species_type_whitelist_typecache))
 					species_emotes += full_key
 				else
 					base_keys += full_key
