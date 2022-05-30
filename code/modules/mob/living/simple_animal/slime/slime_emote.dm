@@ -9,7 +9,7 @@
 /datum/emote/living/simple_animal/slime/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	if(!.)
-		return TRUE
+		return FALSE
 
 	if(mood)
 		var/mob/living/simple_animal/slime/S = user
@@ -31,7 +31,7 @@
 /datum/emote/living/simple_animal/slime/light
 	key = "light"
 	key_third_person = "lights"
-	message = "lights up for a bit, then stops." 
+	message = "lights up for a bit, then stops."
 
 /datum/emote/living/simple_animal/slime/vibrate
 	key = "vibrate"

@@ -177,7 +177,7 @@
 /datum/emote/spin/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	if(!.)
-		return TRUE
+		return FALSE
 	if(prob(5))
 		user.spin(32, 1)
 		to_chat(user, "<span class='warning'>You spin too much!</span>")

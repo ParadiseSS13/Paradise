@@ -79,22 +79,35 @@
 	message_monkey = "lets out a faint chimper as it collapses and stops moving..."
 	message_simple = "stops moving..."
 
+	// Still allow silicons to deathgasp
+	mob_type_blacklist_typecache = list(
+		/mob/living/carbon/brain,
+		/mob/living/captive_brain
+	)
+
 /datum/emote/living/deathgasp/get_sound(mob/living/user)
 	. = ..()
-	var/death_sound = null
-	var/mob/living/simple_animal/S = user
-	if(istype(S) && S.deathmessage)
-		message_simple = S.deathmessage
-	var/mob/living/carbon/human/H = user
-	if(istype(H) && H.dna.species)
-		message = H.dna.species.death_message
-		death_sound = pick(H.dna.species.death_sounds)
-	var/mob/living/carbon/alien/A = user
-	if(istype(A))
-		message_alien = A.death_message
-		death_sound = A.death_sound
 
-	return death_sound
+	if(istype(user, /mob/living/simple_animal))
+		var/mob/living/simple_animal/S = user
+		if(S.deathmessage)
+			message_simple = S.deathmessage
+		return S.death_sound
+
+	if(istype(user, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		if(H.dna.species)
+			message = H.dna.species.death_message
+			return pick(H.dna.species.death_sounds)
+
+	if(istype(user, /mob/living/carbon/alien))
+		var/mob/living/carbon/alien/A = user
+		message_alien = A.death_message
+		return A.death_sound
+
+	if(istype(user, /mob/living/silicon))
+		var/mob/living/silicon/SI = user
+		return SI.death_sound
 
 /datum/emote/living/drool
 	key = "drool"
@@ -275,7 +288,7 @@
 /datum/emote/living/nightmare/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	if(!.)
-		return
+		return FALSE
 	user.dir = pick(GLOB.cardinal)
 
 /datum/emote/living/stare

@@ -241,7 +241,7 @@
 /datum/emote/living/carbon/human/slap/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	if(!.)
-		return
+		return FALSE
 	var/obj/item/slapper/N = new(user)
 	if(user.put_in_hands(N))
 		to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
@@ -412,7 +412,7 @@
 		return FALSE
 	. = ..()
 	if(!.)
-		return TRUE
+		return FALSE
 	var/mob/living/carbon/human/H = user
 	H.start_tail_wagging()
 
@@ -551,7 +551,7 @@
 		return FALSE
 	. = ..()
 	if(!.)
-		return TRUE
+		return FALSE
 	mineral_scan_pulse(get_turf(src), range = world.view)
 
 /datum/emote/living/carbon/human/clack/click
