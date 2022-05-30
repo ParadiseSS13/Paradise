@@ -12964,14 +12964,14 @@
 	name = "Arrivals"
 	})
 "aUP" = (
-/obj/machinery/flasher{
-	id = "AI";
-	pixel_y = 24
-	},
 /obj/machinery/camera/motion{
 	c_tag = "AI Upload Chamber";
 	network = list("SS13","RD","AIUpload");
 	dir = 6
+	},
+/obj/machinery/firealarm{
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/greengrid,
 /area/turret_protected/ai_upload)
@@ -56830,15 +56830,6 @@
 	icon_state = "dark"
 	},
 /area/security/range)
-"eNv" = (
-/obj/structure/sign/directions/bridge{
-	dir = 1;
-	pixel_y = -8
-	},
-/turf/simulated/wall/r_wall,
-/area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
-	})
 "eNR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/yellow{
@@ -57664,15 +57655,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
-"fjz" = (
-/obj/structure/sign/directions/bridge{
-	dir = 1;
-	pixel_y = -8
-	},
-/turf/simulated/wall/r_wall,
-/area/bridge/meeting_room{
-	name = "\improper Command Hallway"
-	})
 "fjU" = (
 /obj/machinery/atmospherics/pipe/simple/insulated,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -58466,6 +58448,15 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
+"fDN" = (
+/obj/structure/sign/directions/bridge{
+	dir = 1;
+	pixel_y = -8
+	},
+/turf/simulated/wall/r_wall,
+/area/bridge/meeting_room{
+	name = "\improper Command Hallway"
+	})
 "fDO" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
 /obj/machinery/light{
@@ -68688,6 +68679,18 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
+"kQC" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Central Primary Hallway - Aft-Starboard Corner";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "kRc" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -69913,6 +69916,17 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
+"ltc" = (
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/bridge)
 "ltg" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
@@ -83182,6 +83196,15 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
+"shG" = (
+/obj/structure/sign/directions/bridge{
+	dir = 1;
+	pixel_y = -8
+	},
+/turf/simulated/wall/r_wall,
+/area/crew_quarters/captain{
+	name = "\improper Captain's Quarters"
+	})
 "shY" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -90145,18 +90168,6 @@
 /area/crew_quarters/locker/locker_toilet{
 	name = "\improper Restrooms"
 	})
-"vTf" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/camera{
-	c_tag = "Central Primary Hallway - Aft-Starboard Corner";
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/central)
 "vTk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/office/light,
@@ -94404,17 +94415,6 @@
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
 	})
-"ykf" = (
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
-	},
-/area/bridge)
 "ykK" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -119780,7 +119780,7 @@ bAa
 bwd
 bqc
 bFI
-fjz
+fDN
 bCi
 bKV
 bOe
@@ -120545,7 +120545,7 @@ bsb
 btT
 pXV
 boE
-ykf
+ltc
 byq
 byq
 byq
@@ -123892,7 +123892,7 @@ bhw
 bhw
 bEh
 bhw
-eNv
+shG
 bJw
 bLi
 bOC
@@ -126476,7 +126476,7 @@ bYr
 bbt
 bNp
 bek
-vTf
+kQC
 cte
 cte
 cte
