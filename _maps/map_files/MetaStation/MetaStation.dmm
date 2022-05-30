@@ -69014,12 +69014,13 @@
 	},
 /area/medical/chemistry)
 "kXm" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 28
-	},
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
+	},
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	pixel_y = 25
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
