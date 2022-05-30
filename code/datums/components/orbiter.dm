@@ -145,6 +145,7 @@
 		orbiter.loc = target_loc
 		// Setting loc directly doesn't fire COMSIG_MOVABLE_MOVED, so we need to do it ourselves
 		SEND_SIGNAL(orbiter, COMSIG_MOVABLE_MOVED, current_loc, target_loc, null)
+	orbiter.animate_movement = SYNC_STEPS
 
 /**
  * End the orbit and clean up our transformation.
@@ -158,6 +159,7 @@
 		return
 
 	if(orbiter)
+		orbiter.animate_movement = SLIDE_STEPS
 		if(!QDELETED(parent))
 			SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, orbiter)
 
