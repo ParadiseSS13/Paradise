@@ -58744,6 +58744,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
+"fKW" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Solitary Confinement 2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
+/area/security/permabrig)
 "fLa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -60820,7 +60835,7 @@
 /area/medical/medbay3)
 "gSd" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Solitary Confinement"
+	name = "Solitary Confinement 1"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -66702,7 +66717,8 @@
 /obj/machinery/flasher_button{
 	id = "permaflash";
 	pixel_y = -24;
-	pixel_x = -8
+	pixel_x = -8;
+	name = "Prison Flasher"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
@@ -89078,9 +89094,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/security/execution)
 "vmO" = (
 /obj/structure/chair/office/light,
@@ -119463,7 +119477,7 @@ aaa
 abW
 rIT
 ipz
-gSd
+fKW
 fTc
 fTc
 hgp
