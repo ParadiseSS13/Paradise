@@ -447,9 +447,8 @@
 
 /obj/item/clothing/suit/armor/reactive/random/New()
 	..()
-	var/list/types = subtypesof(/obj/item/clothing/suit/armor/reactive) - /obj/item/clothing/suit/armor/reactive/random
-	var/A = pick(types)
-	new A(loc)
+	var/spawnpath = pick(subtypesof(/obj/item/clothing/suit/armor/reactive) - /obj/item/clothing/suit/armor/reactive/random)
+	new spawnpath(loc)
 	qdel(src)
 
 //All of the armor below is mostly unused
