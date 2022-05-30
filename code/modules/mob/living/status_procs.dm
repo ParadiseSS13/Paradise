@@ -86,7 +86,12 @@ STATUS EFFECTS
 /mob/living/proc/lay_down()
 	set_body_position(LYING_DOWN)
 
-/mob/living/proc/stand_up()
+/mob/living/proc/stand_up(instant = TRUE)
+	set waitfor = FALSE
+	if(!instant && !do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, /mob/living/proc/can_stand)), only_use_extra_checks = TRUE))
+		return
+	if(resting || body_position == STANDING_UP || HAS_TRAIT(src, TRAIT_FLOORED))
+		return
 	set_body_position(STANDING_UP)
 
 /mob/living/proc/set_body_position(new_value)
@@ -641,6 +646,45 @@ STATUS EFFECTS
 		else
 			P = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
 	return P
+
+/mob/living/proc/IsKnockedDown()
+	return has_status_effect(STATUS_EFFECT_FLOORED)
+
+/mob/living/proc/AmountKnockDown()
+	var/datum/status_effect/incapacitating/floored/F = IsKnockedDown()
+	if(F)
+		return F.duration - world.time
+	return 0
+
+/mob/living/proc/KnockDown(amount, ignore_canstun = FALSE) //Can't go below remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_stun(amount, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/floored/F = IsKnockedDown()
+	if(F)
+		F.duration = max(world.time + amount, F.duration)
+	else if(amount > 0)
+		F = apply_status_effect(STATUS_EFFECT_FLOORED, amount)
+	return F
+
+/mob/living/proc/SetKnockDown(amount, ignore_canstun = FALSE) //Sets remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/floored/F = IsKnockedDown()
+	if(amount <= 0)
+		if(F)
+			qdel(F)
+	else
+		if(absorb_stun(amount, ignore_canstun))
+			return
+		if(F)
+			F.duration = world.time + amount
+		else
+			F = apply_status_effect(STATUS_EFFECT_FLOORED, amount)
+	return F
+
+
 
 /mob/living/proc/AdjustWeakened(amount, ignore_canstun = FALSE) //Adds to remaining duration
 	if(IS_STUN_IMMUNE(src, ignore_canstun))

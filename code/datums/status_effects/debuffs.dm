@@ -380,6 +380,20 @@
 	owner.update_canmove()
 	return ..()
 
+//FLOORED - forces the victim prone.
+/datum/status_effect/incapacitating/floored
+	id = "floored"
+
+/datum/status_effect/incapacitating/floored/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_FLOORED, "[id]")
+
+/datum/status_effect/incapacitating/floored/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_FLOORED, "[id]")
+
+
 //STUN - prevents movement and actions, victim stays standing
 /datum/status_effect/incapacitating/stun
 	id = "stun"

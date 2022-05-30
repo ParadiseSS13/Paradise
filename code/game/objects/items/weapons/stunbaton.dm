@@ -193,10 +193,9 @@
 		H.forcesay(GLOB.hit_appends)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
-
-	L.Weaken(stunforce)
+	L.Confused(stunforce)// REVERT LATER
 	L.Stuttering(stunforce)
-
+	L.Jitter(stunforce)// REVERT LATER
 	if(user)
 		L.lastattacker = user.real_name
 		L.lastattackerckey = user.ckey
@@ -205,6 +204,8 @@
 		add_attack_logs(user, L, "stunned")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	deductcharge(hitcost)
+	spawn(20)// REVERT LATER
+		L.KnockDown(5 SECONDS) // REVERT LATER
 
 
 /obj/item/melee/baton/emp_act(severity)
