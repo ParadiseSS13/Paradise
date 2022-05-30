@@ -70266,6 +70266,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
+"lDD" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "cautioncorner"
+	},
+/area/hallway/primary/starboard)
 "lDG" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -77921,7 +77928,6 @@
 	c_tag = "Starboard Primary Hallway - Engineering";
 	dir = 1
 	},
-/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cautioncorner"
@@ -133668,7 +133674,7 @@ aGX
 bam
 bnr
 xVd
-bqx
+lDD
 aoG
 bSG
 asJ
