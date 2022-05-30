@@ -55,6 +55,7 @@
 /datum/emote/living/carbon/human/eyebrow
 	key = "eyebrow"
 	message = "raises an eyebrow."
+	message_param = "raises an eyebrow at %t."
 
 /datum/emote/living/carbon/human/grumble
 	key = "grumble"
@@ -89,6 +90,7 @@
 	key_third_person = "screams"
 	message = "screams!"
 	message_mime = "acts out a scream!"
+	message_postfix = "at %t!"
 	muzzled_noises = list("very loud")
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 	only_forced_audio = FALSE
@@ -428,7 +430,7 @@
 	var/mob/living/carbon/human/H = user
 	H.stop_tail_wagging()
 
-
+// TODO what is going on here
 /datum/emote/living/carbon/human/wag/select_message_type(mob/user, intentional)
 	. = ..()
 	var/mob/living/carbon/human/H = user

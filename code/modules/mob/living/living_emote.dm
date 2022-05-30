@@ -6,6 +6,7 @@
 		/mob/living/silicon,
 		/mob/living/simple_animal/bot
 	)
+	message_postfix = "at %t."
 
 /datum/emote/living/should_play_sound(mob/user, intentional)
 	. = ..()
@@ -23,6 +24,7 @@
 	key_third_person = "bows"
 	message = "bows."
 	message_param = "bows to %t."
+	message_postfix = "to %t."
 
 /datum/emote/living/burp
 	key = "burp"
@@ -255,11 +257,13 @@
 	key = "smile"
 	key_third_person = "smiles"
 	message = "smiles."
+	message_param = "smiles at %t."
 
 /datum/emote/living/smug
 	key = "smug"
 	key_third_person = "smugs"
 	message = "grins smugly."
+	message_param = "grins smugly at %t."
 
 /datum/emote/living/sniff
 	key = "sniff"
@@ -379,7 +383,8 @@
 /datum/emote/living/custom/run_emote(mob/user, params, type_override = null, intentional = FALSE)
 	var/custom_emote
 	var/custom_emote_type
-	else if(QDELETED(user))
+
+	if(QDELETED(user))
 		return FALSE
 	else if(check_mute(user?.client?.ckey, MUTE_IC))
 		to_chat(user, "<span class='boldwarning'>You cannot send IC messages (muted).</span>")
@@ -403,8 +408,8 @@
 	message = custom_emote
 	emote_type = custom_emote_type
 	. = ..()
-	message = null
-	emote_type = EMOTE_VISIBLE
+	message = initial(message)
+	emote_type = initial(emote_type)
 
 /datum/emote/living/custom/replace_pronoun(mob/user, message)
 	// Trust the user said what they mean

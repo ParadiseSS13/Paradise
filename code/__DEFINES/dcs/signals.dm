@@ -355,6 +355,10 @@
 #define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"
 	#define COMPONENT_BLOCK_SWAP (1<<0)
 
+/// From /datum/emote/select_param(): (target, key, intentional)
+#define COMSIG_MOB_EMOTE_AT "mob_emote_at"
+	#define COMPONENT_BLOCK_EMOTE_ACTION (1<<2)
+
 // /mob/living signals
 
 ///from base of mob/living/resist() (/mob/living)

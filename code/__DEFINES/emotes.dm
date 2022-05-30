@@ -45,6 +45,7 @@
 // Emote parameter types
 // If nothing is passed in for a target, this can determine the possible target.
 
+// Our emote code will search around the user to find a matching target to use, based on the second set of defines.
 // This first set of defines denotes the behavior if a match can't be found.
 
 /// If this is set and a valid target is not found, the emote will not execute.
@@ -66,3 +67,9 @@
 #define EMOTE_TARGET_OBJ (1<<1)
 /// The target will check nearby mobs and objects.
 #define EMOTE_TARGET_ANY (EMOTE_TARGET_MOB | EMOTE_TARGET_OBJ)
+
+/// If passed as message_param, will default to using the message's postfix.
+#define EMOTE_PARAM_USE_POSTFIX 1
+
+/// If returned from act_on_target(), emote execution will stop.
+#define EMOTE_ACT_STOP_EXECUTION 1

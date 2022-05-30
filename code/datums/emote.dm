@@ -34,7 +34,11 @@
 	/// Sounds emitted when the user is muzzled. Generally used like "[user] makes a pick(muzzled_noises) noise!"
 	var/muzzled_noises = list("strong", "weak")
 	/// Message with %t at the end to allow adding params to the message, like for mobs doing an emote relatively to something else.
+	/// Set this to EMOTE_PARAM_USE_POSTFIX to just use the postfix.
 	var/message_param = ""
+	/// Message postfix with %t used when we don't want to use message_param for our targeting. Used for things like message_monkey or message_mime.
+	/// Punctuation from the message will be stripped when this is applied, so make sure it's punctuated as well.
+	var/message_postfix = ""
 	/// Description appended to the emote name describing what the target should be, like for help commands.
 	var/param_desc = "target"
 	/// Whether the emote is visible or audible.
@@ -123,12 +127,25 @@
 /datum/emote/proc/run_emote(mob/user, params, type_override, intentional = FALSE)
 	. = TRUE
 	var/msg = select_message_type(user, message, intentional)
-	// TODO I don't think this provides a good way to handle targeted emotes when message_param doesn't exist
-	// Like, wouldn't you want to be able to scream at someone as a monkey?
 	if(params && message_param)
-		msg = select_param(user, params)
-		if(!msg)
-			to_chat(user, "<span class='warning'> '[params]' isn't a valid parameter for [key].")
+		// In this case, we did make some changes to the message that will be used, and we want to add the postfix on with the new parameters.
+		// This is applicable to things like mimes, who this lets have a target on their canned emote responses.
+		// Note that we only do this if we would otherwise have a message param, meaning there should be some target by default.
+		// If we're using EMOTE_PARAM_USE_POSTFIX, we don't want to bother specifying a message_param and just want to use the postfix for everything.
+		if(message_param == EMOTE_PARAM_USE_POSTFIX || (msg != message && message_postfix))
+			if(!message_postfix)
+				CRASH("Emote was specified to use postfix but message_postfix is empty.")
+			msg = select_param(user, params, "[remove_ending_punctuation(msg)] [message_postfix]", msg)
+		else if(msg == message)
+			// In this case, we're not making any substitutions in select_message_type, but we do have some params we want to sub in.
+			msg = select_param(user, params, message_param, message)
+
+		// If this got propogated up, jump out.
+		if(msg == EMOTE_ACT_STOP_EXECUTION)
+			return TRUE
+
+		if(isnull(msg))
+			to_chat(user, "<span class='warning'>'[params]' isn't a valid parameter for [key].</span>")
 			return TRUE
 
 	msg = replace_pronoun(user, msg)
@@ -185,7 +202,7 @@
  * Returns TRUE if the emote was able to be run (or failed successfully), or FALSE if the emote is unusable.
  */
 /datum/emote/proc/try_run_emote(mob/user, params, type_override, intentional = FALSE)
-	if(!can_run_emote(user))
+	if(!can_run_emote(user, intentional = intentional))
 		return FALSE
 
 	// You can use this signal to block execution of emotes from components/other sources.
@@ -356,34 +373,39 @@
  * Arguments:
  * * user - Person that is trying to send the emote.
  * * params - Parameters added after the emote.
+ * * substitution_str - String to substitute the target into.
+ * * base_message - If passed, the original message before any sort of modification occurred. Useful when dealing with non-standard message types.
  *
- * Returns the modified string, or null if the given parameter is invalid.
+ * Returns the modified string, or null if the given parameter is invalid. May also return EMOTE_ACT_STOP_EXECUTION if acting on the target should stop emote execution.
  */
-/datum/emote/proc/select_param(mob/user, params)
+/datum/emote/proc/select_param(mob/user, params, substitution, base_message)
 
 	if(target_behavior == EMOTE_TARGET_BHVR_RAW)
-		return replacetext(message_param, "%t", params)
+		return replacetext(substitution, "%t", params)
 
 	if(target_behavior == EMOTE_TARGET_BHVR_NUM)
 		if(!isnum(text2num(params)))
 			return null
 		act_on_target(user, text2num(params))
-		return replacetext(message_param, "%t", params)
+		return replacetext(substitution, "%t", params)
 
 	var/full_target = find_target(user, params, emote_target_type)
 	if(full_target)
 		// If we find an actual target obj/item/whatever, see if we'd want to perform some action on it and jump out
-		act_on_target(user, full_target)
-		return replacetext(message_param, "%t", full_target)
+		// Fire off a signal first to see if our interaction should be stopped for some reason
+		if(!SEND_SIGNAL(src, COMSIG_MOB_EMOTE_AT, full_target, key, intentional) & COMPONENT_BLOCK_EMOTE_ACTION)
+			if(act_on_target(user, full_target) == EMOTE_ACT_STOP_EXECUTION)
+				return EMOTE_ACT_STOP_EXECUTION
+		return replacetext(substitution, "%t", full_target)
 
 	// no target found, contingency plans
 	switch(target_behavior)
 		if(EMOTE_TARGET_BHVR_MUST_MATCH)
 			return null
 		if(EMOTE_TARGET_BHVR_DEFAULT_TO_BASE)
-			return message
+			return base_message
 		if(EMOTE_TARGET_BHVR_USE_PARAMS_ANYWAY)
-			return replacetext(message_param, "%t", params)
+			return replacetext(substitution, "%t", params)
 
 	CRASH("Emote tried to select_param with invalid target behavior.")
 
@@ -432,7 +454,7 @@
 	if(status_check && !is_type_in_typecache(user, mob_type_ignore_stat_typecache))
 		var/max_stat = max_stat_allowed == DEFAULT_STAT_ALLOWED ? stat_allowed : max_stat_allowed
 		var/max_unintentional_stat = max_unintentional_stat_allowed == DEFAULT_STAT_ALLOWED ? unintentional_stat_allowed : max_unintentional_stat_allowed
-		if(intentional && (user.stat > stat_allowed || user.stat < max_stat) || (!intentional && (user.stat > unintentional_stat_allowed || user.stat < max_unintentional_stat)))
+		if((intentional && (user.stat > stat_allowed || user.stat < max_stat)) || (!intentional && (user.stat > unintentional_stat_allowed || user.stat < max_unintentional_stat)))
 			if(!intentional)
 				return FALSE
 			switch(user.stat)
@@ -524,6 +546,12 @@
 	if((emote_type & EMOTE_MOUTH) && !can_vocalize_emotes(user))
 		return FALSE
 	return TRUE
+
+/datum/emote/proc/remove_ending_punctuation(msg)
+	var/static/list/end_punctuation = list(".", "?", "!")
+	if(copytext(msg, -1) in end_punctuation)
+		msg = copytext(msg, 1, -1)
+	return msg
 
 /**
 * Allows the intrepid coder to send a basic emote
