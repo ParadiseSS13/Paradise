@@ -182,14 +182,15 @@
 
 	if(!(direct & (direct - 1))) // cardinal direction
 		. = mob.SelfMove(n, direct, delay)
-	else // diagonal movements take twice as long
-		. = mob.SelfMove(n, direct, delay * 2)
+	else // diagonal movements take longer
+		var/diag_delay = delay * SQRT_2
+		. = mob.SelfMove(n, direct, diag_delay)
 		if(mob.loc == n)
 			// only incur the extra delay if the move was *actually* diagonal
 			// There would be a bit of visual jank if we try to walk diagonally next to a wall
 			// and the move ends up being cardinal, rather than diagonal,
 			// but that's better than it being jank on every *successful* diagonal move.
-			delay *= 2
+			delay = diag_delay
 	move_delay += delay
 
 	if(prev_pulling_loc && mob.pulling?.face_while_pulling && (mob.pulling.loc != prev_pulling_loc))
