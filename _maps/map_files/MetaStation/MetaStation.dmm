@@ -7757,6 +7757,9 @@
 	id_tag = "hydro_service";
 	name = "Service Desk Shutter"
 	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
 "aHB" = (
@@ -27076,7 +27079,7 @@
 	id = "gateshutter";
 	name = "Gateway Shutter Control";
 	pixel_y = -34;
-	req_access_txt = "19"
+	req_access_txt = "62"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -31373,7 +31376,7 @@
 	id = "gateshutter";
 	name = "Gateway Shutter Control";
 	pixel_y = -26;
-	req_access_txt = "19"
+	req_access_txt = "62"
 	},
 /obj/machinery/firealarm{
 	dir = 8;
@@ -35672,7 +35675,20 @@
 	})
 "bZy" = (
 /obj/machinery/smartfridge,
-/turf/simulated/wall,
+/obj/machinery/door/window/northleft{
+	req_one_access_txt = "35;28";
+	name = "Anti-Theft Shield"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "hydro_service";
+	name = "Service Desk Shutter"
+	},
+/obj/machinery/door/window/southleft{
+	req_access_txt = "35";
+	name = "Hydroponics Window"
+	},
+/turf/simulated/floor/plasteel,
 /area/hydroponics)
 "bZz" = (
 /turf/simulated/floor/plasteel{
@@ -35696,6 +35712,10 @@
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Hydroponics";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -36204,7 +36224,7 @@
 	id = "hydro_service";
 	name = "Service Shutter Control";
 	pixel_y = 24;
-	req_access_txt = "28";
+	req_access_txt = "35";
 	pixel_x = -24
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -37994,12 +38014,11 @@
 	name = "east bump";
 	pixel_x = 27
 	},
-/obj/machinery/camera{
-	c_tag = "Hydroponics";
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
@@ -60093,7 +60112,7 @@
 /obj/machinery/smartfridge/medbay,
 /obj/machinery/door/window/westright{
 	name = "Anti-Theft Shield";
-	req_access_txt = "5"
+	req_one_access_txt = "5;33"
 	},
 /obj/machinery/door/window/eastleft{
 	name = "Chemistry Desk";
@@ -69935,9 +69954,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "lug" = (
-/obj/machinery/door/window/brigdoor/northleft{
-	name = "Research Director Observation"
-	},
+/obj/machinery/door/window/northleft,
 /obj/effect/mapping_helpers/airlock/access/all/science/rd,
 /turf/simulated/floor/engine,
 /area/crew_quarters/hor)
@@ -78937,7 +78954,7 @@
 /obj/item/reagent_containers/syringe,
 /obj/machinery/door/window/westleft{
 	name = "Private Medbay Desk";
-	req_access_txt = "5"
+	req_one_access_txt = "5;33"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -129043,7 +129060,7 @@ bsp
 aoG
 vfe
 hmM
-bZv
+aoG
 njo
 cdr
 cde
