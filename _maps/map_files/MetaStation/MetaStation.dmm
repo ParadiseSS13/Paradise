@@ -13278,8 +13278,7 @@
 	},
 /area/turret_protected/ai_upload)
 "aVz" = (
-/obj/item/radio/intercom{
-	name = "south bump";
+/obj/item/radio/intercom/private{
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -15878,13 +15877,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "bcl" = (
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1447;
-	name = "custom placement";
-	pixel_x = -26;
-	pixel_y = 26
-	},
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -15913,6 +15905,11 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
+	},
+/obj/item/radio/intercom/private{
+	pixel_x = -26;
+	name = "custom placement";
+	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
