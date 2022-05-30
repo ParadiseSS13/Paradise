@@ -31,7 +31,7 @@
 			// if an emote's on cooldown, don't spam them with messages of not being able to use it
 			silenced = TRUE
 			continue
-		if(P.run_emote(src, param, type_override, intentional))
+		if(P.try_run_emote(src, param, type_override, intentional))
 			return TRUE
 	if(intentional && !silenced && !force_silence)
 		log_world("<span class='notice'>Unusable emote '[emote_key]'. Say *help for a list. </span>")
@@ -124,9 +124,6 @@
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
 
 /datum/emote/flip/run_emote(mob/user, params, type_override, intentional)
-
-	if(!can_run_emote(user, TRUE, intentional))
-		return FALSE
 
 	var/mob/living/L = user
 

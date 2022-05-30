@@ -23,9 +23,6 @@
 
 /datum/emote/living/carbon/clap/run_emote(mob/user, params, type_override, intentional)
 
-	if(!can_run_emote(user))
-		return FALSE
-
 	var/mob/living/carbon/human/H = user
 
 	if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] || !H.bodyparts_by_name[BODY_ZONE_R_ARM])

@@ -335,8 +335,17 @@
 ///from /mob/say_dead(): (mob/speaker, message)
 #define COMSIG_MOB_DEADSAY "mob_deadsay"
 	#define MOB_DEADSAY_SIGNAL_INTERCEPT (1<<0)
+
+/// Signal fired when an emote is used but before it's executed.
+///from /datum/emote/proc/try_run_emote(): (key, intentional)
+#define COMSIG_MOB_PREEMOTE "mob_preemote"
+	// Use these to block execution of emotes from components.
+	/// Return this to block an emote and let the user know the emote is unusable.
+	#define COMPONENT_BLOCK_EMOTE_UNUSABLE (1<<0)
+	/// Return this to block an emote silently.
+	#define COMPONENT_BLOCK_EMOTE_SILENT (1<<1)
 /// General signal fired when a mob does any old emote
-///from /mob/living/emote(): (key, intentional)
+///from /datum/emote/proc/run_emote(): (key, intentional)
 #define COMSIG_MOB_EMOTE "mob_emote"
 /// Specific signal used to track when a specific emote is used.
 /// From /datum/emote/run_emote(): (P, key, m_type, message, intentional)

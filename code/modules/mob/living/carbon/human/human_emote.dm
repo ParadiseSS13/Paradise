@@ -24,8 +24,6 @@
 		return custom_message
 
 /datum/emote/living/carbon/human/run_emote(mob/user, params, type_override, intentional)
-	if(!can_run_emote(user))
-		return FALSE
 	var/mob/living/carbon/human/H = user
 	if(emote_type & EMOTE_MOUTH && !H.mind?.miming)
 		if(H.getOxyLoss() > 35)		// no screaming if you don't have enough breath to scream
@@ -269,8 +267,6 @@
 
 /datum/emote/living/carbon/human/highfive/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/carbon/user_carbon = user
-	if(!can_run_emote(user))
-		return FALSE
 	if(user_carbon.has_status_effect(STATUS_EFFECT_HIGHFIVE))
 		user.visible_message("[src] drops his raised hand, frowning.", "You were left hanging...")
 		user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
@@ -300,9 +296,6 @@
 	hands_use_check = TRUE
 
 /datum/emote/living/carbon/human/handshake/run_emote(mob/user, params, type_override, intentional)
-	if(!can_run_emote(user))
-		return FALSE
-
 	var/mob/living/target
 	for(var/mob/living/A in oview(5, user))
 		if(params == A.name)
@@ -361,8 +354,6 @@
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/fart/run_emote(mob/user, params, type_override, intentional)
-	if(!can_run_emote(user, intentional = intentional))
-		return FALSE
 	var/farted_on_something = FALSE
 	for(var/atom/A in get_turf(src))
 		farted_on_something = A.fart_act(src) || farted_on_something
@@ -408,8 +399,6 @@
 	return TRUE
 
 /datum/emote/living/carbon/human/wag/run_emote(mob/user, params, type_override, intentional)
-	if(!can_run_emote(user))
-		return FALSE
 	. = ..()
 	if(!.)
 		return FALSE
@@ -433,8 +422,6 @@
 
 /datum/emote/living/carbon/human/wag/stop/run_emote(mob/user, params, type_override, intentional)
 
-	if(!can_run_emote(user))
-		return FALSE
 	. = ..()
 	if(!.)
 		return FALSE
@@ -547,8 +534,6 @@
 	sound = "sound/effects/Kidanclack.ogg"
 
 /datum/emote/living/carbon/human/clack/run_emote(mob/user, params, type_override, intentional)
-	if(!can_run_emote(user))
-		return FALSE
 	. = ..()
 	if(!.)
 		return FALSE

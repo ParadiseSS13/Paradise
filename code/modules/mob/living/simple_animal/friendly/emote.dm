@@ -72,10 +72,8 @@
 
 /datum/emote/living/simple_animal/pet/cat/meow/run_emote(mob/user, params, type_override, intentional)
 
-	if(can_run_emote(user, intentional))
-		var/mob/living/simple_animal/pet/cat/C = user
-		message = pick(C.emote_hear)
-
+	var/mob/living/simple_animal/pet/cat/C = user
+	message = pick(C.emote_hear)
 	. = ..()
 
 /datum/emote/living/simple_animal/pet/cat/hiss

@@ -379,8 +379,6 @@
 /datum/emote/living/custom/run_emote(mob/user, params, type_override = null, intentional = FALSE)
 	var/custom_emote
 	var/custom_emote_type
-	if(!can_run_emote(user, TRUE, intentional))
-		return FALSE
 	else if(QDELETED(user))
 		return FALSE
 	else if(check_mute(user?.client?.ckey, MUTE_IC))

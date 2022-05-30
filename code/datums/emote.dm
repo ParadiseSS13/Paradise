@@ -109,6 +109,9 @@
  * - Sends the emote to users
  * - Runechats the emote
  *
+ * You most likely want to use try_run_emote() anywhere you would otherwise call this directly,
+ * 	as that will incorporate can_run_emote() checking as well.
+ *
  * Arguments:
  * * user - Person that is trying to send the emote.
  * * params - Parameters added after the emote.
@@ -119,8 +122,6 @@
  */
 /datum/emote/proc/run_emote(mob/user, params, type_override, intentional = FALSE)
 	. = TRUE
-	if(!can_run_emote(user, TRUE, intentional))
-		return FALSE
 	var/msg = select_message_type(user, message, intentional)
 	// TODO I don't think this provides a good way to handle targeted emotes when message_param doesn't exist
 	// Like, wouldn't you want to be able to scream at someone as a monkey?
@@ -174,8 +175,36 @@
 	SEND_SIGNAL(user, COMSIG_MOB_EMOTE, key, intentional)
 
 /**
+ * Try to run an emote, checking can_run_emote once before executing the emote itself.
+ *
+ * * user - User of the emote
+ * * params - Params of the emote to be passed to run_emote
+ * * type_override - emote type to override the existing one with, if given.
+ * * intentional - Whether or not the emote was triggered intentionally (if false, the emote was forced by code).
+ *
+ * Returns TRUE if the emote was able to be run (or failed successfully), or FALSE if the emote is unusable.
+ */
+/datum/emote/proc/try_run_emote(mob/user, params, type_override, intentional = FALSE)
+	if(!can_run_emote(user))
+		return FALSE
+
+	// You can use this signal to block execution of emotes from components/other sources.
+	var/sig_res = SEND_SIGNAL(src, COMSIG_MOB_PREEMOTE, key, intentional)
+	switch(sig_res)
+		if(COMPONENT_BLOCK_EMOTE_UNUSABLE)
+			return FALSE
+		if(COMPONENT_BLOCK_EMOTE_SILENT)
+			return TRUE
+
+	return run_emote(user, params, type_override, intentional)
+
+/**
  * Play the sound effect in an emote.
  * If you want to change the way the playsound call works, override this.
+ * * user - The user of the emote.
+ * * intentional - Whether or not the emote was triggered intentionally.
+ * * sound_path - Filesystem path to the audio clip to play.
+ * * sound_volume - Volume at which to play the audio clip.
  */
 /datum/emote/proc/play_sound_effect(mob/user, intentional, sound_path, sound_volume)
 	if(age_based && ishuman(user))
