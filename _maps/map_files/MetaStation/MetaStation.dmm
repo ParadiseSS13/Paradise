@@ -78957,9 +78957,8 @@
 	pixel_x = -5
 	},
 /obj/item/reagent_containers/syringe,
-/obj/machinery/door/window/westleft{
-	name = "Private Medbay Desk";
-	req_one_access_txt = "5;33"
+/obj/structure/window/reinforced{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
