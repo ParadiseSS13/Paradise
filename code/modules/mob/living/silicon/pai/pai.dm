@@ -130,7 +130,7 @@
 	if(stat == DEAD)
 		icon_state = "[chassis]_dead"
 	else
-		icon_state = resting ? "[chassis]_rest" : "[chassis]"
+		icon_state = IS_HORIZONTAL(src) ? "[chassis]_rest" : "[chassis]"
 
 // this function shows the information about being silenced as a pAI in the Status panel
 /mob/living/silicon/pai/proc/show_silenced()
@@ -328,16 +328,17 @@
 	verbs -= /mob/living/silicon/pai/proc/choose_verbs
 
 
-/mob/living/silicon/pai/lay_down()
+/mob/living/silicon/pai/rest()
 	set name = "Rest"
 	set category = "IC"
 
+	resting = !resting
 	// Pass lying down or getting up to our pet human, if we're in a rig.
 	if(stat == CONSCIOUS && istype(loc,/obj/item/paicard))
-		resting = 0
+		lay_down() //todo test
 	else
-		resting = !resting
-		to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
+		stand_up() //todo test
+	to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
 
 	update_icons()
 	update_canmove()
@@ -385,7 +386,7 @@
 /mob/living/silicon/pai/proc/close_up()
 
 	last_special = world.time + 200
-	resting = 0
+	stand_up()
 	if(loc == card)
 		return
 
@@ -471,9 +472,9 @@
 		H.icon = 'icons/mob/pai.dmi'
 		H.icon_state = "[chassis]_dead"
 		return
-	if(resting)
+	if(IS_HORIZONTAL(src))
 		icon_state = "[chassis]"
-		resting = 0
+		stand_up()
 	if(custom_sprite)
 		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'

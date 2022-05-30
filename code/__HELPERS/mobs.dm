@@ -363,6 +363,7 @@
 			break
 		if(only_use_extra_checks)
 			if(check_for_true_callbacks(extra_checks))
+				. = 0
 				break
 			continue
 

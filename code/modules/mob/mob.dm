@@ -1070,6 +1070,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	drop_l_hand()
 	drop_r_hand()
 
+/mob/living/fall()
+	..()
+	set_body_position(LYING_DOWN)
+
 /mob/proc/facedir(ndir)
 	if(!canface())
 		return 0

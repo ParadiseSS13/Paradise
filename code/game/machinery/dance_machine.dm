@@ -401,8 +401,10 @@
 		sleep(speed)
 		for(var/i in 1 to speed)
 			M.setDir(pick(GLOB.cardinal))
-			M.resting = !M.resting
-			M.update_canmove()
+			if(IS_HORIZONTAL(M))
+				M.stand_up()
+			else
+				M.lay_down()
 		 time--
 
 /obj/machinery/disco/proc/dance5(mob/living/M)

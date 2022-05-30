@@ -13,7 +13,7 @@ In all, this is a lot like the monkey code. /N
 	switch(M.a_intent)
 		if(INTENT_HELP)
 			AdjustSleeping(-10 SECONDS)
-			StopResting()
+			stand_up()
 			AdjustParalysis(-6 SECONDS)
 			AdjustStunned(-6 SECONDS)
 			AdjustWeakened(-6 SECONDS)

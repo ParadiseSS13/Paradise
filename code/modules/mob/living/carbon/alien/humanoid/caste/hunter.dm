@@ -17,7 +17,7 @@
 	. += ..()	//but they still need to slow down on stun
 
 /mob/living/carbon/alien/humanoid/hunter/handle_environment()
-	if(m_intent == MOVE_INTENT_RUN || resting)
+	if(m_intent == MOVE_INTENT_RUN || IS_HORIZONTAL(src))
 		..()
 	else
 		adjustPlasma(-heal_rate)

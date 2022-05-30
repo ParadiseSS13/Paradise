@@ -34,7 +34,7 @@
 /mob/living/carbon/human/proc/handle_stance()
 	// Don't need to process any of this if they aren't standing anyways
 	// unless their stance is damaged, and we want to check if they should stay down
-	if(!stance_damage && (lying || resting) && (life_tick % 4) == 0)
+	if(!stance_damage && IS_HORIZONTAL(src) && (life_tick % 4) == 0)
 		return
 
 	stance_damage = 0
@@ -64,10 +64,9 @@
 
 	// standing is poor
 	if(stance_damage >= 8)
-		if(!(lying || resting))
-			if(!HAS_TRAIT(src, TRAIT_NOPAIN))
-				emote("scream")
-			custom_emote(1, "collapses!")
+		if(!HAS_TRAIT(src, TRAIT_NOPAIN))
+			emote("scream")
+		custom_emote(1, "collapses!")
 		Weaken(10 SECONDS) //can't emote while weakened, apparently.
 
 

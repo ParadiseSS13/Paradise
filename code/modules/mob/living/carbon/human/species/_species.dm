@@ -239,10 +239,13 @@
 	. = 0	//We start at 0.
 
 	if(has_gravity(H))
-		if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
-			. -= 1
-		else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
-			. -= 0.5
+		if(!IS_HORIZONTAL(H))
+			if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
+				. -= 1
+			else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
+				. -= 0.5
+		else
+			. += GLOB.configuration.movement.crawling_speed_reduction
 
 		var/ignoreslow = FALSE
 		if(HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN))

@@ -64,7 +64,7 @@
 
 // Whether the mob is capable of standing or not
 /mob/living/proc/can_stand()
-	return !(IsWeakened() || IsParalyzed() || stat || HAS_TRAIT(src, TRAIT_FAKEDEATH))
+	return (IsWeakened() || IsParalyzed() || stat || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 
 // Whether the mob is capable of actions or not
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE, list/extra_checks = list(), use_default_checks = TRUE)
@@ -78,30 +78,24 @@
 		return TRUE
 
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
-/mob/living/update_canmove(delay_action_updates = 0)
-	var/fall_over = !can_stand()
-	var/buckle_lying = !(buckled && !buckled.buckle_lying)
-	if(fall_over || resting || IsStunned() || (buckled && buckle_lying != 0))
+/mob/living/update_canmove (delay_action_updates = 0)
+	var/fall_over = can_stand()
+	var/buckle_lying = buckled?.buckle_lying
+	if(IsStunned() || buckle_lying)
 		drop_r_hand()
 		drop_l_hand()
-	else
-		lying = 0
-		canmove = 1
-	if(buckled)
-		lying = 90 * buckle_lying
-	else if((fall_over || resting) && !lying)
-		fall(fall_over)
+	else if(!fall_over)
+		canmove = TRUE
+	if(buckle_lying)
+		set_lying_angle(90 * buckle_lying)
 
-	canmove = !(fall_over || resting || IsStunned() || IsFrozen() || buckled || IsImmobilized())
-	density = !lying
-	if(lying)
-		if(layer == initial(layer))
-			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
-	else
-		if(layer == LYING_MOB_LAYER)
-			layer = initial(layer)
+	if(fall_over)
+		fall()
+	else if(!resting)
+		stand_up()
 
-	update_transform()
+	canmove = !(fall_over || IsStunned() || IsFrozen() || buckled || IsImmobilized())
+
 	if(!delay_action_updates)
 		update_action_buttons_icon()
 	return canmove

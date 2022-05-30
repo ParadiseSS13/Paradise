@@ -213,7 +213,7 @@
 	owner.client?.pixel_y = py_diff
 
 /datum/status_effect/transient/dizziness/calc_decay()
-	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
+	return (-0.2 + (IS_HORIZONTAL(owner) ? -0.8 : 0)) SECONDS
 
 /**
  * # Drowsiness
@@ -234,7 +234,7 @@
 		owner.Paralyse(10 SECONDS)
 
 /datum/status_effect/transient/drowsiness/calc_decay()
-	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
+	return (-0.2 + (IS_HORIZONTAL(owner) ? -0.8 : 0)) SECONDS
 
 /**
  * # Drukenness
@@ -470,7 +470,7 @@
 	owner.do_jitter_animation(strength / 20, 1)
 
 /datum/status_effect/transient/jittery/calc_decay()
-	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
+	return (-0.2 + (IS_HORIZONTAL(owner) ? -0.8 : 0)) SECONDS
 
 /datum/status_effect/transient/stammering
 	id = "stammer"

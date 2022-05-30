@@ -51,7 +51,7 @@
 		if(H.lying)
 			H.AdjustSleeping(-10 SECONDS)
 			if(!H.IsSleeping())
-				H.StopResting()
+				H.stand_up()
 			H.AdjustParalysis(-6 SECONDS)
 			H.AdjustStunned(-6 SECONDS)
 			H.AdjustWeakened(-6 SECONDS)

@@ -164,7 +164,7 @@
 	health = clamp(health, 0, maxHealth)
 	med_hud_set_health()
 
-/mob/living/simple_animal/StartResting(updating = 1)
+/mob/living/simple_animal/lay_down()
 	..()
 	if(icon_resting && stat != DEAD)
 		icon_state = icon_resting
@@ -172,7 +172,7 @@
 			collar_type = "[initial(collar_type)]_rest"
 			regenerate_icons()
 
-/mob/living/simple_animal/StopResting(updating = 1)
+/mob/living/simple_animal/stand_up()
 	..()
 	if(icon_resting && stat != DEAD)
 		icon_state = icon_living
@@ -202,7 +202,7 @@
 /mob/living/simple_animal/proc/handle_automated_movement()
 	set waitfor = FALSE
 	if(!stop_automated_movement && wander)
-		if((isturf(loc) || allow_movement_on_non_turfs) && !resting && !buckled && canmove)		//This is so it only moves if it's not inside a closet, gentics machine, etc.
+		if((isturf(loc) || allow_movement_on_non_turfs) && !IS_HORIZONTAL(src) && !buckled && canmove)		//This is so it only moves if it's not inside a closet, gentics machine, etc.
 			turns_since_move++
 			if(turns_since_move >= turns_per_move)
 				if(!(stop_automated_movement_when_pulled && pulledby)) //Soma animals don't move when pulled
@@ -541,7 +541,7 @@
 		. |= pcollar.GetAccess()
 
 /mob/living/simple_animal/update_canmove(delay_action_updates = 0)
-	if(IsParalyzed() || IsStunned() || IsWeakened() || stat || resting)
+	if(IsParalyzed() || IsStunned() || IsWeakened() || stat || IS_HORIZONTAL(src))
 		drop_r_hand()
 		drop_l_hand()
 		canmove = 0

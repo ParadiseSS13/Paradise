@@ -173,7 +173,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		add_ai_verbs(src)
 
 	// Remove inherited verbs that effectively do nothing for AIs, or lead to unintended behaviour.
-	verbs -= /mob/living/verb/lay_down
+	verbs -= /mob/living/verb/rest
 	verbs -= /mob/living/verb/mob_sleep
 	verbs -= /mob/living/verb/resist
 	verbs -= /mob/living/verb/stop_pulling1

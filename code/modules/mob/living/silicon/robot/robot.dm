@@ -162,7 +162,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	add_robot_verbs()
 
 	// Remove inherited verbs that effectively do nothing for cyborgs, or lead to unintended behaviour.
-	verbs -= /mob/living/verb/lay_down
+	verbs -= /mob/living/verb/rest
 	verbs -= /mob/living/verb/mob_sleep
 
 	// Install a default cell into the borg if none is there yet

@@ -17,7 +17,7 @@
 
 	status_flags = CANPARALYSE|CANPUSH
 	var/heal_rate = 5
-
+	rotate_on_lying = FALSE
 	var/large = FALSE
 	var/heat_protection = 0.5
 	var/leaping = FALSE
@@ -30,7 +30,7 @@
 	..()
 	create_reagents(1000)
 	verbs += /mob/living/verb/mob_sleep
-	verbs += /mob/living/verb/lay_down
+	verbs += /mob/living/verb/rest
 	alien_organs += new /obj/item/organ/internal/brain/xeno
 	alien_organs += new /obj/item/organ/internal/xenos/hivenode
 	alien_organs += new /obj/item/organ/internal/ears

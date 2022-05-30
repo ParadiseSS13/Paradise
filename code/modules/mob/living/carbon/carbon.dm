@@ -232,7 +232,7 @@
 						H.w_uniform.add_fingerprint(M)
 				AdjustSleeping(-10 SECONDS)
 				if(!AmountSleeping())
-					StopResting()
+					stand_up()
 				AdjustParalysis(-6 SECONDS)
 				AdjustStunned(-6 SECONDS)
 				AdjustWeakened(-6 SECONDS)
@@ -831,6 +831,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return FALSE
 
 /mob/living/carbon/fall(forced)
+	..()
 	loc.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
 
 /mob/living/carbon/is_muzzled()
