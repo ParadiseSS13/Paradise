@@ -14347,6 +14347,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -14894,8 +14895,12 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -15530,7 +15535,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -15876,8 +15882,8 @@
 	broadcasting = 1;
 	frequency = 1447;
 	name = "custom placement";
-	pixel_x = -28;
-	pixel_y = 28
+	pixel_x = -26;
+	pixel_y = 26
 	},
 /obj/structure/cable/yellow{
 	d2 = 4;
@@ -15904,6 +15910,9 @@
 	cell_type = 5000;
 	name = "south bump Important Area";
 	pixel_y = -24
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -15946,6 +15955,15 @@
 	pixel_x = 29
 	},
 /obj/effect/landmark/start/cyborg,
+/obj/machinery/firealarm{
+	dir = 1;
+	name = "custom placement";
+	pixel_y = 24;
+	pixel_x = 26
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -20757,14 +20775,15 @@
 	name = "\improper Captain's Quarters"
 	})
 "bnE" = (
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
 /obj/structure/dresser,
 /obj/structure/sign/bobross{
 	pixel_y = 32
+	},
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "custom placement";
+	pixel_x = 24;
+	pixel_y = -6
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
@@ -22897,15 +22916,16 @@
 	dir = 1;
 	pixel_y = 2
 	},
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
 /obj/item/card/id/captains_spare,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/light_switch{
+	name = "custom placement";
+	pixel_y = -6;
+	pixel_x = -24;
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
@@ -23557,16 +23577,11 @@
 	name = "\improper Captain's Quarters"
 	})
 "buh" = (
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
 /obj/machinery/keycard_auth{
-	pixel_x = 24;
-	pixel_y = 24
+	pixel_x = 26
 	},
 /obj/machinery/computer/communications{
 	dir = 8
@@ -28487,6 +28502,10 @@
 /obj/machinery/photocopier{
 	pixel_y = 3
 	},
+/obj/machinery/camera{
+	c_tag = "Library Fore";
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/library)
 "bFw" = (
@@ -28692,6 +28711,10 @@
 	dir = 8;
 	name = "west bump";
 	pixel_x = -24
+	},
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
@@ -30068,10 +30091,6 @@
 	dir = 4;
 	name = "west bump";
 	pixel_x = -24
-	},
-/obj/machinery/camera{
-	c_tag = "Library Fore";
-	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -32205,9 +32224,8 @@
 	},
 /obj/machinery/light_switch{
 	dir = 8;
-	name = "custom placement";
-	pixel_x = 24;
-	pixel_y = 6
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/wood,
 /area/ntrep)
@@ -37214,10 +37232,6 @@
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
 	pixel_y = -30
-	},
-/obj/machinery/camera{
-	c_tag = "Central Primary Hallway - Aft-Starboard Corner";
-	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -54411,7 +54425,6 @@
 	dir = 4
 	},
 /obj/item/storage/firstaid/regular,
-/obj/item/paper,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -56817,6 +56830,15 @@
 	icon_state = "dark"
 	},
 /area/security/range)
+"eNv" = (
+/obj/structure/sign/directions/bridge{
+	dir = 1;
+	pixel_y = -8
+	},
+/turf/simulated/wall/r_wall,
+/area/crew_quarters/captain{
+	name = "\improper Captain's Quarters"
+	})
 "eNR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/yellow{
@@ -57642,6 +57664,15 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
+"fjz" = (
+/obj/structure/sign/directions/bridge{
+	dir = 1;
+	pixel_y = -8
+	},
+/turf/simulated/wall/r_wall,
+/area/bridge/meeting_room{
+	name = "\improper Command Hallway"
+	})
 "fjU" = (
 /obj/machinery/atmospherics/pipe/simple/insulated,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -90114,6 +90145,18 @@
 /area/crew_quarters/locker/locker_toilet{
 	name = "\improper Restrooms"
 	})
+"vTf" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Central Primary Hallway - Aft-Starboard Corner";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "vTk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/office/light,
@@ -94361,6 +94404,17 @@
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
 	})
+"ykf" = (
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/bridge)
 "ykK" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -119726,7 +119780,7 @@ bAa
 bwd
 bqc
 bFI
-bFI
+fjz
 bCi
 bKV
 bOe
@@ -120491,7 +120545,7 @@ bsb
 btT
 pXV
 boE
-nGj
+ykf
 byq
 byq
 byq
@@ -123838,7 +123892,7 @@ bhw
 bhw
 bEh
 bhw
-bhw
+eNv
 bJw
 bLi
 bOC
@@ -126422,7 +126476,7 @@ bYr
 bbt
 bNp
 bek
-bfK
+vTf
 cte
 cte
 cte
