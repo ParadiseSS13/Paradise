@@ -25979,9 +25979,6 @@
 	pixel_y = -32
 	},
 /obj/machinery/light,
-/obj/structure/displaycase{
-	start_showpiece_type = /obj/item/reagent_containers/food/snacks/donut/sprinkles
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -31009,6 +31006,9 @@
 /area/security/brig)
 "bzq" = (
 /obj/effect/decal/warning_stripes/northwest,
+/obj/structure/displaycase{
+	start_showpiece_type = /obj/item/reagent_containers/food/snacks/donut/sprinkles
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
