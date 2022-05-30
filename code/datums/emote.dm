@@ -393,7 +393,7 @@
 	if(full_target)
 		// If we find an actual target obj/item/whatever, see if we'd want to perform some action on it and jump out
 		// Fire off a signal first to see if our interaction should be stopped for some reason
-		if(!SEND_SIGNAL(src, COMSIG_MOB_EMOTE_AT, full_target, key, intentional) & COMPONENT_BLOCK_EMOTE_ACTION)
+		if(!(SEND_SIGNAL(src, COMSIG_MOB_EMOTE_AT, full_target, key) & COMPONENT_BLOCK_EMOTE_ACTION))
 			if(act_on_target(user, full_target) == EMOTE_ACT_STOP_EXECUTION)
 				return EMOTE_ACT_STOP_EXECUTION
 		return replacetext(substitution, "%t", full_target)
