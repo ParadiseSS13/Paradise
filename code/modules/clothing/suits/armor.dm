@@ -447,7 +447,7 @@
 
 /obj/item/clothing/suit/armor/reactive/random/New()
 	..()
-	var/list/types = subtypesof(/obj/item/clothing/suit/armor/reactive)
+	var/list/types = subtypesof(/obj/item/clothing/suit/armor/reactive) - /obj/item/clothing/suit/armor/reactive/random
 	var/A = pick(types)
 	new A(loc)
 	qdel(src)
