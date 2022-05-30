@@ -466,6 +466,11 @@
 	message = "rolls."
 	hands_use_check = TRUE
 
+/datum/emote/living/carbon/human/monkey/roll/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(.)
+		user.SpinAnimation(10, 1)
+
 /datum/emote/living/carbon/human/monkey/scratch
 	key = "scratch"
 	key_third_person = "scratches"
