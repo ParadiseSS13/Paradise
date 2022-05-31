@@ -12140,11 +12140,6 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "aSU" = (
@@ -14957,21 +14952,19 @@
 	},
 /area/hallway/primary/fore)
 "aZS" = (
-/obj/structure/sign/directions/bridge{
+/obj/structure/sign/directions/science{
 	pixel_y = -8;
-	dir = 4;
 	pixel_x = 32
 	},
-/obj/structure/sign/directions/engineering{
-	dir = 4;
+/obj/structure/sign/directions/evac{
 	pixel_x = 32
 	},
-/obj/structure/sign/directions/security{
+/obj/structure/sign/directions/medical{
 	pixel_y = 8;
-	dir = 1;
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
+	dir = 4;
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
@@ -15773,6 +15766,9 @@
 "bbM" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-18"
+	},
+/obj/structure/sign/electricshock{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -22647,14 +22643,24 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "brN" = (
+/obj/structure/sign/directions/bridge{
+	pixel_y = -8;
+	dir = 4;
+	pixel_x = 32
+	},
+/obj/structure/sign/directions/engineering{
+	dir = 4;
+	pixel_x = 32
+	},
 /obj/structure/sign/directions/security{
+	pixel_y = 8;
 	dir = 1;
-	pixel_y = -24
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redcorner"
+	icon_state = "neutralcorner"
 	},
-/area/hallway/primary/fore)
+/area/hallway/primary/central)
 "brO" = (
 /obj/machinery/light{
 	dir = 4
@@ -24693,19 +24699,17 @@
 	},
 /area/bridge)
 "bwl" = (
-/obj/structure/sign/directions/science{
-	pixel_y = -8;
-	pixel_x = 32
+/obj/structure/sign/directions/engineering{
+	dir = 4;
+	pixel_x = -32
 	},
-/obj/structure/sign/directions/evac{
-	pixel_x = 32
-	},
-/obj/structure/sign/directions/medical{
+/obj/structure/sign/directions/security{
+	dir = 8;
 	pixel_y = 8;
-	pixel_x = 32
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 8;
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
@@ -33537,27 +33541,6 @@
 "bTG" = (
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
-"bTH" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/structure/sign/directions/medical{
-	pixel_y = 8;
-	pixel_x = 32
-	},
-/obj/structure/sign/directions/evac{
-	pixel_x = 32
-	},
-/obj/structure/sign/directions/science{
-	pixel_y = -8;
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/central)
 "bTL" = (
 /obj/structure/table/wood,
 /obj/machinery/light{
@@ -35667,19 +35650,17 @@
 /area/hallway/primary/central)
 "bZi" = (
 /obj/structure/sign/directions/science{
-	pixel_y = -8;
-	pixel_x = -32
+	pixel_y = 24
 	},
 /obj/structure/sign/directions/evac{
-	pixel_x = -32
+	pixel_y = 32
 	},
 /obj/structure/sign/directions/medical{
-	pixel_y = 8;
-	pixel_x = -32
+	pixel_y = 40
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
+	dir = 4;
+	icon_state = "redcorner"
 	},
 /area/hallway/primary/central)
 "bZj" = (
@@ -37890,13 +37871,22 @@
 	},
 /area/hallway/primary/aft)
 "cfr" = (
+/obj/structure/sign/directions/science{
+	pixel_y = -8;
+	pixel_x = -32
+	},
 /obj/structure/sign/directions/evac{
-	pixel_x = 32
+	pixel_x = -32
+	},
+/obj/structure/sign/directions/medical{
+	pixel_y = 8;
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purplecorner"
+	dir = 1;
+	icon_state = "neutralcorner"
 	},
-/area/hallway/primary/aft)
+/area/hallway/primary/central)
 "cfs" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "CMO"
@@ -40538,6 +40528,15 @@
 /area/bridge/meeting_room{
 	name = "\improper Command Hallway"
 	})
+"cnl" = (
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redcorner"
+	},
+/area/hallway/primary/fore)
 "cnm" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command,
@@ -48420,12 +48419,14 @@
 	},
 /area/toxins/explab)
 "cLE" = (
-/obj/structure/sign/directions/engineering{
-	dir = 4;
+/obj/structure/sign/directions/science{
+	pixel_y = -8;
 	pixel_x = -32
 	},
-/obj/structure/sign/directions/security{
-	dir = 8;
+/obj/structure/sign/directions/evac{
+	pixel_x = -32
+	},
+/obj/structure/sign/directions/medical{
 	pixel_y = 8;
 	pixel_x = -32
 	},
@@ -53392,19 +53393,23 @@
 	},
 /area/chapel/office)
 "deD" = (
-/obj/structure/sign/directions/science{
-	pixel_y = -8;
-	pixel_x = -32
+/obj/machinery/light{
+	dir = 4
 	},
-/obj/structure/sign/directions/evac{
-	pixel_x = -32
-	},
+/obj/effect/turf_decal/tile/bar,
 /obj/structure/sign/directions/medical{
 	pixel_y = 8;
-	pixel_x = -32
+	pixel_x = 32
+	},
+/obj/structure/sign/directions/evac{
+	pixel_x = 32
+	},
+/obj/structure/sign/directions/science{
+	pixel_y = -8;
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 4;
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
@@ -53418,24 +53423,13 @@
 	},
 /area/hallway/primary/central)
 "deF" = (
-/obj/structure/sign/directions/bridge{
-	pixel_y = -8;
-	pixel_x = 32
-	},
-/obj/structure/sign/directions/engineering{
-	dir = 4;
-	pixel_x = 32
-	},
-/obj/structure/sign/directions/security{
-	dir = 1;
-	pixel_y = 8;
+/obj/structure/sign/directions/evac{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellowcorner"
+	icon_state = "purplecorner"
 	},
-/area/hallway/primary/central)
+/area/hallway/primary/aft)
 "deH" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -67252,6 +67246,25 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"kaK" = (
+/obj/structure/sign/directions/bridge{
+	pixel_y = -8;
+	pixel_x = 32
+	},
+/obj/structure/sign/directions/engineering{
+	dir = 4;
+	pixel_x = 32
+	},
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_y = 8;
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/central)
 "kaZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -87293,21 +87306,6 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
-"ukv" = (
-/obj/structure/sign/directions/science{
-	pixel_y = 24
-	},
-/obj/structure/sign/directions/evac{
-	pixel_y = 32
-	},
-/obj/structure/sign/directions/medical{
-	pixel_y = 40
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redcorner"
-	},
-/area/hallway/primary/central)
 "ukO" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -92896,11 +92894,11 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/sign/securearea{
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
+	},
+/obj/structure/sign/securearea{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -116818,7 +116816,7 @@ pET
 bkI
 bhc
 bfV
-bZi
+cLE
 bfV
 bFL
 bFA
@@ -117336,10 +117334,10 @@ bzR
 sWV
 bqb
 bdb
-aZS
+brN
 bJd
 bKM
-bwl
+aZS
 bMR
 bMR
 bRO
@@ -122246,7 +122244,7 @@ jma
 nYF
 crI
 csT
-cfr
+deF
 cuc
 cuc
 cuc
@@ -122446,7 +122444,7 @@ pvo
 aqu
 aKL
 aJk
-brN
+cnl
 aMk
 aMk
 aMk
@@ -122458,7 +122456,7 @@ aYA
 aXb
 aYA
 aMk
-ukv
+bZi
 lDm
 fHQ
 bfV
@@ -126574,7 +126572,7 @@ bbB
 bMR
 nWH
 bfV
-cLE
+bwl
 bjm
 bCB
 bfV
@@ -126591,7 +126589,7 @@ deE
 bHL
 bcN
 bLs
-deD
+cfr
 bQF
 bNp
 bSW
@@ -127090,11 +127088,11 @@ bey
 bgd
 oWL
 bUM
-deF
+kaK
 blg
 blk
 bVl
-bTH
+deD
 dwp
 bdc
 eMF
