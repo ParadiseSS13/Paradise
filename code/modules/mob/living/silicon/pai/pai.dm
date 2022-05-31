@@ -130,7 +130,7 @@
 	if(stat == DEAD)
 		icon_state = "[chassis]_dead"
 	else
-		icon_state = IS_HORIZONTAL(src) ? "[chassis]_rest" : "[chassis]"
+		icon_state = resting ? "[chassis]_rest" : "[chassis]"
 
 // this function shows the information about being silenced as a pAI in the Status panel
 /mob/living/silicon/pai/proc/show_silenced()
@@ -333,11 +333,11 @@
 	set category = "IC"
 
 	resting = !resting
-	// Pass lying down or getting up to our pet human, if we're in a rig.
-	if(stat == CONSCIOUS && istype(loc,/obj/item/paicard))
-		lay_down() //todo test
+	if(resting)
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT)
 	else
-		stand_up() //todo test
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT)
+
 	to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
 
 	update_icons()
