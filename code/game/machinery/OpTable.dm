@@ -65,7 +65,7 @@
   */
 /obj/machinery/optable/proc/update_patient()
 	var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, loc)
-	if(IS_HORIZONTAL(M))
+	if(M && IS_HORIZONTAL(M))
 		patient = M
 	else
 		patient = null
