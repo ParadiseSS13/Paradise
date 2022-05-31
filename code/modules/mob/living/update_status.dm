@@ -78,7 +78,7 @@
 		return TRUE
 
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
-/mob/living/update_canmove (delay_action_updates = 0)
+/mob/living/update_canmove(delay_action_updates = 0)
 	var/fall_over = can_stand()
 	var/buckle_lying = buckled?.buckle_lying
 	if(IsStunned() || buckle_lying)

@@ -108,6 +108,8 @@ STATUS EFFECTS
 	if(layer == initial(layer)) //to avoid things like hiding larvas.
 		layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
 	pixel_y = PIXEL_Y_OFFSET_LYING
+	ADD_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
+	ADD_TRAIT(src, TRAIT_PULL_BLOCKED, LYING_DOWN_TRAIT)
 	set_density(FALSE)
 	set_lying_angle(pick(90, 270))
 
@@ -115,6 +117,8 @@ STATUS EFFECTS
 	if(layer == LYING_MOB_LAYER)
 		layer = initial(layer)
 	set_density(initial(density))
+	REMOVE_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
+	REMOVE_TRAIT(src, TRAIT_PULL_BLOCKED, LYING_DOWN_TRAIT)
 	set_lying_angle(0)
 	pixel_y = 0
 

@@ -80,6 +80,9 @@
 			Process_Incorpmove(direct)
 			return
 
+		if(!(L.mobility_flags & MOBILITY_MOVE))
+			return
+
 	if(mob.remote_control) //we're controlling something, our movement is relayed to it
 		return mob.remote_control.relaymove(mob, direct)
 
@@ -95,9 +98,6 @@
 
 	if(mob.buckled) //if we're buckled to something, tell it we moved.
 		return mob.buckled.relaymove(mob, direct)
-
-	if(!mob.canmove)
-		return
 
 	if(!mob.lastarea)
 		mob.lastarea = get_area(mob.loc)

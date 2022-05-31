@@ -195,6 +195,7 @@
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 	L.Confused(stunforce)// REVERT LATER
 	L.Stuttering(stunforce)
+	L.adjustStaminaLoss(70)// REVERT LATER
 	L.Jitter(stunforce)// REVERT LATER
 	if(user)
 		L.lastattacker = user.real_name
