@@ -26406,6 +26406,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/command,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/command/hop,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
@@ -26504,6 +26505,7 @@
 "bAa" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/command/hop,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
