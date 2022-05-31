@@ -179,7 +179,7 @@ a.popt {text-decoration: none;}
 
 .highlightPopup {padding: 10px; text-align: center;}
 .highlightPopup input[type=text] {display: block; width: 215px; text-align: left; margin-top: 5px;}
-.highlightPopup input.highlightColor {background-color: #ffff0026}
+.highlightPopup input.highlightColor {background-color: #ffff0026;}
 .highlightPopup input.highlightTermSubmit {margin-top: 5px;}
 
 /* ADMIN CONTEXT MENU */
