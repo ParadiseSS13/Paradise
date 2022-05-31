@@ -10,6 +10,9 @@
 	add_attack_logs(src, null, "Fallen unconscious", ATKLOG_ALL)
 	log_game("[key_name(src)] fell unconscious at [atom_loc_line(get_turf(src))]")
 	stat = UNCONSCIOUS
+	ADD_TRAIT(src, TRAIT_FLOORED, "stat_trait")
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "stat_trait")
+	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, "stat_trait")
 	if(updating)
 		update_sight()
 		update_blind_effects()
@@ -26,6 +29,7 @@
 	add_attack_logs(src, null, "Woken up", ATKLOG_ALL)
 	log_game("[key_name(src)] woke up at [atom_loc_line(get_turf(src))]")
 	stat = CONSCIOUS
+	REMOVE_TRAITS_IN(src, "stat_trait")
 	if(updating)
 		update_sight()
 		update_blind_effects()

@@ -67,7 +67,7 @@
 	hud_used?.reload_fullscreen()
 	update_sight()
 	update_action_buttons_icon()
-
+	fall()
 	update_damage_hud()
 	update_health_hud()
 	med_hud_set_health()
