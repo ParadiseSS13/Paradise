@@ -10,7 +10,7 @@
 
 //Recover from stuns.
 /datum/action/changeling/epinephrine/sting_action(mob/living/user)
-	if(user.lying)
+	if(IS_HORIZONTAL(user))
 		to_chat(user, "<span class='notice'>We arise.</span>")
 	else
 		to_chat(user, "<span class='notice'>Adrenaline rushes through us.</span>")

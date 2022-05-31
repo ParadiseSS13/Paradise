@@ -537,7 +537,7 @@
 	if(pullee && !isturf(pullee.loc) && pullee.loc != loc)
 		log_game("DEBUG: [src]'s pull on [pullee] was broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
 		stop_pulling()
-	if(restrained())
+	if(restrained() || HAS_TRAIT(src, TRAIT_PULL_BLOCKED))
 		stop_pulling()
 
 	var/turf/T = loc
@@ -554,7 +554,7 @@
 			if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
 				if(isliving(pulling))
 					var/mob/living/M = pulling
-					if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
+					if(IS_HORIZONTAL(M) && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
 						M.makeTrail(T)
 				pulling.Move(T, get_dir(pulling, T), movetime) // the pullee tries to reach our previous position
 				if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
@@ -754,7 +754,7 @@
 		animate(src, pixel_y = pixel_y - 2, time = 10, loop = -1)
 		floating = TRUE
 	else if(((!on || fixed) && floating))
-		animate(src, pixel_y = get_standard_pixel_y_offset(lying), time = 10)
+		animate(src, pixel_y = get_standard_pixel_y_offset(), time = 10)
 		floating = FALSE
 
 /mob/living/proc/can_use_vents()
@@ -878,10 +878,10 @@
 
 	return loc_temp
 
-/mob/living/proc/get_standard_pixel_x_offset(lying = 0)
+/mob/living/proc/get_standard_pixel_x_offset()
 	return initial(pixel_x)
 
-/mob/living/proc/get_standard_pixel_y_offset(lying = 0)
+/mob/living/proc/get_standard_pixel_y_offset()
 	return initial(pixel_y)
 
 /mob/living/proc/spawn_dust()

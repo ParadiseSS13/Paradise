@@ -81,8 +81,10 @@
 			if(L.IsStunned() || L.IsWeakened())
 				return FALSE
 	if(check_flags & AB_CHECK_LYING)
-		if(owner.lying)
-			return FALSE
+		if(isliving(owner))
+			var/mob/living/L = owner
+			if(IS_HORIZONTAL(L))
+				return FALSE
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		if(owner.stat)
 			return FALSE

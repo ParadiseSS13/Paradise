@@ -224,18 +224,17 @@
 			if(player_logged)
 				M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.", \
 				"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
-			if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+			if(IS_HORIZONTAL(src)) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
 				add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
 				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
 					if(H.w_uniform)
 						H.w_uniform.add_fingerprint(M)
 				AdjustSleeping(-10 SECONDS)
-				if(!AmountSleeping())
-					stand_up()
 				AdjustParalysis(-6 SECONDS)
 				AdjustStunned(-6 SECONDS)
 				AdjustWeakened(-6 SECONDS)
+				stand_up() // help them up if possible
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(!player_logged)
 					M.visible_message( \
@@ -441,8 +440,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "You must be conscious to do this!")
 		return
 
-	if(lying)
-		to_chat(src, "You can't vent crawl while you're stunned!")
+	if((mobility_flags & MOBILITY_MOVE))
+		to_chat(src, "You can't vent crawl while you cannot move!")
 		return
 
 	if(has_buckled_mobs())
@@ -1044,7 +1043,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return FALSE
 
-	if((lying) && (!(tilesSlipped)))
+	if(IS_HORIZONTAL(src) && !tilesSlipped)
 		return FALSE
 
 	if(!(slipAny))

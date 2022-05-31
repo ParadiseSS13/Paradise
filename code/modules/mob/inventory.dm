@@ -72,9 +72,14 @@
 	return 0
 
 /mob/proc/put_in_hand_check(obj/item/W, skip_lying_check)
-	if(!skip_lying_check && lying && !(W.flags & ABSTRACT))	return 0
-	if(!istype(W))	return 0
-	return 1
+	if(!istype(W))
+		return FALSE
+	return TRUE
+
+/mob/living/put_in_hand_check(obj/item/W, skip_lying_check)
+	. = ..()
+	if(!skip_lying_check && IS_HORIZONTAL(src) && !(W.flags & ABSTRACT))
+		. = FALSE
 
 //Puts the item into our active hand if possible. returns 1 on success.
 /mob/proc/put_in_active_hand(obj/item/W)

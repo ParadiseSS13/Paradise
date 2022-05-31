@@ -54,7 +54,7 @@
 		to_chat(src, "<span class='alertalien'>It is unsafe to leap without gravity!</span>")
 		//It's also extremely buggy visually, so it's balance+bugfix
 		return
-	if(lying)
+	if(IS_HORIZONTAL(src))
 		return
 
 	else //Maybe uses plasma in the future, although that wouldn't make any sense...

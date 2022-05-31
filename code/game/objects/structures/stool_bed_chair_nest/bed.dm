@@ -98,8 +98,8 @@
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
 	density = FALSE
 	icon_state = "down"
-	M.pixel_x = M.get_standard_pixel_x_offset(M.lying)
-	M.pixel_y = M.get_standard_pixel_y_offset(M.lying)
+	M.pixel_x = M.get_standard_pixel_x_offset()
+	M.pixel_y = M.get_standard_pixel_y_offset()
 
 /obj/item/roller
 	name = "roller bed"

@@ -508,7 +508,7 @@
 							"<span class='userdanger'>[user] has weakened [target]!</span>")
 			target.apply_effect(8 SECONDS, WEAKEN, armor_block)
 			target.forcesay(GLOB.hit_appends)
-		else if(target.lying)
+		else if(IS_HORIZONTAL(target))
 			target.forcesay(GLOB.hit_appends)
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 

@@ -19,7 +19,7 @@
 		var/obj/item/organ/external/E = Y
 		E.process()
 
-		if(!lying && world.time - l_move_time < 15)
+		if(!IS_HORIZONTAL(src) && world.time - l_move_time < 15)
 		//Moving around with fractured ribs won't do you any good
 			if(E.is_broken() && E.internal_organs && E.internal_organs.len && prob(15))
 				var/obj/item/organ/internal/I = pick(E.internal_organs)

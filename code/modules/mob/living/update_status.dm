@@ -74,7 +74,7 @@
 		extra_checks += CALLBACK(src, /mob/living.proc/IsWeakened)
 		extra_checks += CALLBACK(src, /mob/living.proc/IsStunned)
 
-	if(stat || IsParalyzed() || (!ignore_restraints && restrained()) || (!ignore_lying && lying) || check_for_true_callbacks(extra_checks))
+	if(stat || IsParalyzed() || (!ignore_restraints && restrained()) || (!ignore_lying && IS_HORIZONTAL(src)) || check_for_true_callbacks(extra_checks))
 		return TRUE
 
 /mob/living/proc/update_stamina()

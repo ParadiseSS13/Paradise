@@ -1,10 +1,15 @@
 /mob/CanPass(atom/movable/mover, turf/target, height=0)
+	var/horizontal = FALSE
+	if(isliving(src))
+		var/mob/living/L = src
+		horizontal = IS_HORIZONTAL(L)
+
 	if(height==0)
 		return 1
 	if(istype(mover, /obj/item/projectile))
-		return (!density || lying)
+		return (!density || horizontal)
 	if(mover.throwing)
-		return (!density || lying || (mover.throwing.thrower == src))
+		return (!density || horizontal || (mover.throwing.thrower == src))
 	if(mover.checkpass(PASSMOB))
 		return 1
 	if(buckled == mover)
@@ -15,7 +20,7 @@
 			return TRUE
 		if(mover in buckled_mobs)
 			return TRUE
-	return (!mover.density || !density || lying)
+	return (!mover.density || !density || horizontal)
 
 
 /client/verb/toggle_throw_mode()

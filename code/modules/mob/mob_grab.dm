@@ -195,7 +195,7 @@
 		return
 	if(!assailant.Adjacent(affecting)) // To prevent teleportation via grab
 		return
-	if(affecting.lying && state != GRAB_KILL)
+	if(IS_HORIZONTAL(affecting) && state != GRAB_KILL)
 		animate(affecting, pixel_x = 0, pixel_y = 0, 5, 1, LINEAR_EASING)
 		return //KJK
 	/*	if(force_down) //THIS GOES ABOVE THE RETURN LABELED KJK
@@ -335,7 +335,7 @@
 
 				if(INTENT_HARM) //This checks that the user is on harm intent.
 					if(last_hit_zone == "head") //This checks the hitzone the user has selected. In this specific case, they have the head selected.
-						if(affecting.lying)
+						if(IS_HORIZONTAL(affecting))
 							return
 						assailant.visible_message("<span class='danger'>[assailant] thrusts [assailant.p_their()] head into [affecting]'s skull!</span>") //A visible message for what is going on.
 						var/damage = 5

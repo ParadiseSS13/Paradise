@@ -420,13 +420,13 @@
 					M = null
 
 				if(M)
-					if(lying)
+					if(IS_HORIZONTAL(src))
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
 						message = "<B>[src]</B> flips in [M]'s general direction."
 						SpinAnimation(5,1)
 				else
-					if(lying || IsWeakened())
+					if(IS_HORIZONTAL(src))
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
 						var/obj/item/grab/G
