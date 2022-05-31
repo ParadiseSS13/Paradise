@@ -20,7 +20,7 @@
 		wetlevel = min(wetlevel + 1,5)
 
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
-	if(lying && surgeries.len)
+	if(IS_HORIZONTAL(src) && surgeries.len)
 		if(user != src && user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
