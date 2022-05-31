@@ -4743,9 +4743,6 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/obj/structure/sign/electricshock{
-	pixel_y = -32
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "axv" = (
@@ -4965,9 +4962,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/sign/electricshock{
-	pixel_y = -32
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -7672,9 +7666,6 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/sign/electricshock{
-	pixel_x = -32
-	},
 /turf/simulated/floor/plating,
 /area/construction/Storage{
 	name = "Storage Wing"
@@ -8338,9 +8329,6 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/electricshock{
-	pixel_x = 32
-	},
 /turf/simulated/floor/plating,
 /area/construction/Storage{
 	name = "Storage Wing"
@@ -38411,11 +38399,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cgV" = (
-/obj/structure/table,
 /obj/item/book/manual/hydroponics_pod_people,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "cgW" = (
@@ -38542,7 +38530,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "chr" = (
-/obj/structure/table,
 /obj/item/seeds/wheat,
 /obj/item/seeds/sugarcane,
 /obj/item/seeds/potato,
@@ -38557,6 +38544,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "chs" = (
@@ -62467,6 +62455,10 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/exam_room)
+"hEZ" = (
+/obj/structure/sign/electricshock,
+/turf/simulated/wall,
+/area/storage/primary)
 "hFN" = (
 /obj/structure/chair{
 	dir = 1
@@ -67086,6 +67078,10 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"jXC" = (
+/obj/structure/sign/electricshock,
+/turf/simulated/wall,
+/area/maintenance/fpmaint)
 "jYj" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8;
@@ -115149,7 +115145,7 @@ aEX
 aGn
 aBb
 aaa
-aOB
+jXC
 aOB
 aRB
 aOB
@@ -115397,7 +115393,7 @@ auG
 aOB
 oUa
 axZ
-aOB
+jXC
 aaa
 aBb
 aCy
@@ -116682,7 +116678,7 @@ gCo
 ehO
 mOD
 axu
-aOB
+jXC
 aaa
 aaa
 abq
@@ -116691,7 +116687,7 @@ aaa
 abq
 aaa
 aaa
-aOA
+hEZ
 aOA
 aOA
 kDt
