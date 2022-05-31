@@ -3657,6 +3657,13 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK";
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "atV" = (
@@ -5256,13 +5263,6 @@
 	},
 /area/security/brig)
 "azf" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_y = 32
-	},
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/plating,
@@ -42884,6 +42884,13 @@
 /area/toxins/lab)
 "cuu" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK";
+	pixel_x = 32
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "cuv" = (
@@ -49043,6 +49050,13 @@
 "cNJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK";
+	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
 /area/construction)
@@ -74021,6 +74035,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
+"nlB" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK";
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "nlQ" = (
 /obj/structure/reagent_dispensers/oil,
 /turf/simulated/floor/plasteel,
@@ -79238,6 +79265,9 @@
 /area/assembly/robotics)
 "qcE" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/construction)
 "qcH" = (
@@ -93887,6 +93917,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK";
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "xRE" = (
@@ -107273,7 +107310,7 @@ aaa
 abq
 abq
 aOB
-adY
+nlB
 aOB
 aOB
 alL
