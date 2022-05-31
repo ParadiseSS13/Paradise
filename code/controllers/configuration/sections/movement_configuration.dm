@@ -5,7 +5,7 @@
 	/// Base walk speed before modifiers
 	var/base_walk_speed = 4
 	///crawling speed modifier
-	var/crawling_speed_reduction = 1.5
+	var/crawling_speed_reduction = 2
 	/// Move delay for humanoids
 	var/human_delay = 1.5
 	/// Move delay for cyborgs
