@@ -2243,9 +2243,14 @@
 /turf/simulated/wall,
 /area/mimeoffice)
 "aoi" = (
-/obj/structure/sign/securearea,
-/turf/simulated/wall/r_wall,
-/area/bridge)
+/obj/structure/sign/securearea{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "aok" = (
 /obj/structure/cable,
 /obj/structure/cable{
@@ -4905,6 +4910,9 @@
 	icon_state = "1-8"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/structure/sign/electricshock{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "axV" = (
@@ -7666,6 +7674,9 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/structure/sign/electricshock{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plating,
 /area/construction/Storage{
 	name = "Storage Wing"
@@ -8329,6 +8340,9 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/structure/sign/electricshock{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plating,
 /area/construction/Storage{
 	name = "Storage Wing"
@@ -15045,9 +15059,22 @@
 	},
 /area/hallway/primary/central)
 "bac" = (
-/obj/structure/sign/securearea,
-/turf/simulated/wall/r_wall,
-/area/assembly/showroom)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/sign/securearea{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/bridge/meeting_room{
+	name = "\improper Command Hallway"
+	})
 "bad" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -15124,6 +15151,9 @@
 	icon_state = "1-4"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/structure/sign/electricshock{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bao" = (
@@ -31025,10 +31055,20 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bMU" = (
-/obj/structure/sign/securearea,
-/turf/simulated/wall/r_wall,
-/area/ai_monitored/storage/eva{
-	name = "E.V.A. Storage"
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/sign/securearea{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/bridge/meeting_room{
+	name = "\improper Command Hallway"
 	})
 "bMV" = (
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -31908,24 +31948,21 @@
 	pixel_x = -27
 	},
 /obj/structure/table/reinforced,
-/obj/item/clothing/head/welding,
-/obj/item/storage/belt/utility,
-/obj/item/multitool,
-/obj/item/stock_parts/cell/high/plus,
 /obj/item/storage/toolbox/electrical{
-	pixel_x = 4;
+	pixel_x = 1;
 	pixel_y = 4
 	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
+/obj/item/storage/toolbox/mechanical,
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/item/stock_parts/cell/high/plus,
+/obj/item/multitool,
+/obj/item/storage/belt/utility,
+/obj/item/clothing/head/welding,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -35982,6 +36019,9 @@
 "caD" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
+	},
+/obj/structure/sign/securearea{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
@@ -62456,9 +62496,22 @@
 	},
 /area/medical/exam_room)
 "hEZ" = (
-/obj/structure/sign/electricshock,
-/turf/simulated/wall,
-/area/storage/primary)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/sign/securearea{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/bridge/meeting_room{
+	name = "\improper Command Hallway"
+	})
 "hFN" = (
 /obj/structure/chair{
 	dir = 1
@@ -67079,9 +67132,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "jXC" = (
-/obj/structure/sign/electricshock,
-/turf/simulated/wall,
-/area/maintenance/fpmaint)
+/obj/structure/sign/securearea{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "jYj" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8;
@@ -115145,7 +115203,7 @@ aEX
 aGn
 aBb
 aaa
-jXC
+aOB
 aOB
 aRB
 aOB
@@ -115393,7 +115451,7 @@ auG
 aOB
 oUa
 axZ
-jXC
+aOB
 aaa
 aBb
 aCy
@@ -116678,7 +116736,7 @@ gCo
 ehO
 mOD
 axu
-jXC
+aOB
 aaa
 aaa
 abq
@@ -116687,7 +116745,7 @@ aaa
 abq
 aaa
 aaa
-hEZ
+aOA
 aOA
 aOA
 kDt
@@ -117747,8 +117805,8 @@ bqc
 bFC
 bEw
 bJs
-bKO
 bMU
+bMS
 bPi
 cNi
 bRQ
@@ -118518,8 +118576,8 @@ bqc
 bHv
 bVT
 bJh
-bKO
 bMU
+bMS
 bxq
 bOS
 bSi
@@ -118784,7 +118842,7 @@ bMS
 bYw
 bKU
 bYw
-bMU
+bMS
 caD
 bek
 bfV
@@ -120840,8 +120898,8 @@ eQf
 bUX
 adP
 bYJ
-bac
-bMR
+bSc
+aoi
 bek
 bcX
 cdZ
@@ -121086,8 +121144,8 @@ byq
 bDM
 bNS
 bwi
-aoi
-bJw
+bkW
+bac
 bKO
 bQr
 bQr
@@ -122628,8 +122686,8 @@ byq
 bDW
 bwi
 bwi
-aoi
-bJs
+bkW
+hEZ
 bLi
 bxp
 bQp
@@ -122896,8 +122954,8 @@ bTN
 ejG
 bWN
 bYN
-bac
-bNp
+bSc
+jXC
 bek
 bcX
 cef
