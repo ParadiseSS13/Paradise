@@ -77,7 +77,7 @@
 		spells += new_spell
 		new_spell.Grant(owner, src)
 		to_chat(owner, "<span class='cult'>Your wounds glow with power, you have prepared a [new_spell.name] invocation!</span>")
-		SSblackbox.record_feedback("tally", "cult_spells_prepared", 1, "[name]")
+		SSblackbox.record_feedback("tally", "cult_spells_prepared", 1, "[new_spell.name]")
 	channeling = FALSE
 
 /datum/action/innate/cult/blood_magic/proc/remove_spell(message = "Pick a spell to remove.")
