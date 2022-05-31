@@ -309,7 +309,7 @@
 		return
 
 	if(!isturf(loc) || !(mobility_flags & MOBILITY_MOVE) || buckled)
-		return //If it can't move, dont let it move. (The buckled check probably isn't necessary thanks to canmove)
+		return //If it can't move, dont let it move.
 
 //-----SPEECH
 	/* Parrot speech mimickry!
