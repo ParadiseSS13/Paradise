@@ -379,7 +379,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .revennotice			{color: #6685F5;}
 .revenboldnotice			{color: #6685F5;	font-weight: bold;}
 .revenbignotice			{color: #6685F5;	font-weight: bold; font-size: 120%;}
-.revenminor			{color: #823abb}
+.revenminor			{color: #823abb;}
 .revenwarning			{color: #760fbb;	font-style: italic;}
 .revendanger			{color: #760fbb;	font-weight: bold; font-size: 120%;}
 
