@@ -14,7 +14,7 @@
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 			return
-		if(!is_component_functioning("actuator") || !is_component_functioning("power cell") || IsParalyzed() || IsSleeping() || IS_HORIZONTAL(src) || IsStunned() || IsWeakened() || getOxyLoss() > maxHealth * 0.5)
+		if(!is_component_functioning("actuator") || !is_component_functioning("power cell") || HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED) || getOxyLoss() > maxHealth * 0.5)
 			if(stat == CONSCIOUS)
 				KnockOut()
 				update_headlamp()

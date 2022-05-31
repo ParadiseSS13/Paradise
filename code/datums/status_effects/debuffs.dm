@@ -390,6 +390,7 @@
 
 /datum/status_effect/incapacitating/floored/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_FLOORED, "[id]")
+	return ..()
 
 
 //STUN - prevents movement and actions, victim stays standing
@@ -406,6 +407,7 @@
 /datum/status_effect/incapacitating/stun/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, "[id]")
+	return ..()
 
 //IMMOBILIZED - prevents movement, victim can still stand and act
 /datum/status_effect/incapacitating/immobilized
@@ -419,6 +421,7 @@
 
 /datum/status_effect/incapacitating/immobilized/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+	return ..()
 
 //WEAKENED - prevents movement and action, victim falls over
 /datum/status_effect/incapacitating/weakened
@@ -436,6 +439,7 @@
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 	REMOVE_TRAIT(owner, TRAIT_FLOORED, "[id]")
 	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, "[id]")
+	return ..()
 
 //PARALYZED - prevents movement and action, victim falls over, victim cannot hear or see.
 /datum/status_effect/incapacitating/paralyzed
@@ -450,6 +454,7 @@
 
 /datum/status_effect/incapacitating/paralyzed/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_KNOCKEDOUT, "[id]")
+	return ..()
 
 //SLEEPING - victim falls over, cannot act, cannot see or hear, heals under certain conditions.
 /datum/status_effect/incapacitating/sleeping
