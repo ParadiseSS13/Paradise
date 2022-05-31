@@ -386,7 +386,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .specialnotice			{color: #4A6F82; 	font-weight: bold; font-size: 120%;}
 
 /* /vg/ */
-.good				{color: green;}
+.good				{color: #00FF00;}
 .average				{color: #FF8000;}
 .bad				{color: #FF0000;}
 /* /vg/ Saycode Rewrite */
