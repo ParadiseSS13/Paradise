@@ -556,9 +556,6 @@
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/A in contents)
 		A.forceMove(T)
-		if(isliving(A))
-			var/mob/living/L = A
-			L.update_canmove()
 	occupant = null
 
 /obj/machinery/suit_storage_unit/proc/close_machine(atom/movable/target = null)

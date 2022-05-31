@@ -60,6 +60,3 @@
 
 /mob/proc/update_health_hud()
 	return
-
-/mob/proc/update_canmove()
-	return 1

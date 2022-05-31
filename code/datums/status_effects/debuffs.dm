@@ -371,13 +371,11 @@
 	. = ..()
 	if(. && (needs_update_stat || issilicon(owner)))
 		owner.update_stat()
-	owner.update_canmove()
 
 
 /datum/status_effect/incapacitating/on_remove()
-	if(needs_update_stat || issilicon(owner)) //silicons need stat updates in addition to normal canmove updates
+	if(needs_update_stat || issilicon(owner)) //silicons need stat updates
 		owner.update_stat()
-	owner.update_canmove()
 	return ..()
 
 //FLOORED - forces the victim prone.

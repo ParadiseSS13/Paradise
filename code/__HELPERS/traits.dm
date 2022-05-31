@@ -204,6 +204,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define INNATE_TRAIT "innate"
 #define VAMPIRE_TRAIT "vampire"
 #define LYING_DOWN_TRAIT "lying_down"
+#define SLIME_TRAIT "slime"
+
 
 // unique trait sources
 #define STATUE_MUTE "statue"
@@ -214,6 +216,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CULT_EYES "cult_eyes"
 #define DOGGO_SPACESUIT "doggo_spacesuit"
 #define FLOORCLUWNE "floorcluwne"
+#define LOCKDOWN_TRAIT "lockdown"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"

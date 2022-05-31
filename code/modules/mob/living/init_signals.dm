@@ -3,6 +3,9 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_KNOCKEDOUT), .proc/on_knockedout_trait_gain)
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_KNOCKEDOUT), .proc/on_knockedout_trait_loss)
 
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_FAKEDEATH), .proc/on_fakedeath_trait_gain)
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_FAKEDEATH), .proc/on_fakedeath_trait_loss)
+
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED), .proc/on_immobilized_trait_gain)
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_IMMOBILIZED), .proc/on_immobilized_trait_loss)
 
@@ -21,7 +24,7 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_RESTRAINED), .proc/on_restrained_trait_gain)
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_RESTRAINED), .proc/on_restrained_trait_loss)
 
-/mob/living
+/mob/living //todo move this
 	var/mobility_flags = MOBILITY_FLAGS_DEFAULT
 
 /// Called when [TRAIT_KNOCKEDOUT] is added to the mob.
@@ -125,4 +128,14 @@
 /mob/living/proc/on_restrained_trait_loss(datum/source)
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_RESTRAINED)
+
+/// Called when [TRAIT_FAKEDEATH] is added to the mob.
+/mob/living/proc/on_fakedeath_trait_gain(datum/source)
+	SIGNAL_HANDLER
+	ADD_TRAIT(src, TRAIT_KNOCKEDOUT, TRAIT_FAKEDEATH)
+
+/// Called when [TRAIT_FAKEDEATH] is removed from the mob.
+/mob/living/proc/on_fakedeath_trait_loss(datum/source)
+	SIGNAL_HANDLER
+	REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, TRAIT_FAKEDEATH)
 

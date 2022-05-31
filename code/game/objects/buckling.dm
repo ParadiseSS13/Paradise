@@ -77,7 +77,7 @@
 	M.buckled = src
 	M.setDir(dir)
 	buckled_mobs |= M
-	M.update_canmove()
+	ADD_TRAIT(M, TRAIT_IMMOBILIZED, "buckled") // might break vehicles, needs testing
 	M.throw_alert("buckled", /obj/screen/alert/restrained/buckled)
 	post_buckle_mob(M)
 
@@ -96,7 +96,7 @@
 		. = buckled_mob
 		buckled_mob.buckled = null
 		buckled_mob.anchored = initial(buckled_mob.anchored)
-		buckled_mob.update_canmove()
+		REMOVE_TRAIT(buckled_mob, TRAIT_IMMOBILIZED, "buckled")
 		buckled_mob.clear_alert("buckled")
 		buckled_mobs -= buckled_mob
 		SEND_SIGNAL(src, COMSIG_MOVABLE_UNBUCKLE, buckled_mob, force)

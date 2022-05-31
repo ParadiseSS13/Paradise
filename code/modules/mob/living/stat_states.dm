@@ -13,7 +13,6 @@
 	if(updating)
 		update_sight()
 		update_blind_effects()
-		update_canmove()
 		set_typing_indicator(FALSE)
 	return 1
 
@@ -30,7 +29,6 @@
 	if(updating)
 		update_sight()
 		update_blind_effects()
-		update_canmove()
 	return 1
 
 /mob/living/proc/can_be_revived()
@@ -57,7 +55,6 @@
 		remove_from_respawnable_list()
 	timeofdeath = null
 	if(updating)
-		update_canmove()
 		update_blind_effects()
 		update_sight()
 		updatehealth("update revive")

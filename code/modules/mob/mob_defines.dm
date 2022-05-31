@@ -51,7 +51,7 @@
 	var/sec_record = ""
 	var/gen_record = ""
 	var/lying = 0 //todo kill this?
-	var/lying_prev = 0 // and this?
+	var/lying_prev = 0
 	var/lastpuke = 0
 	var/can_strip = 1
 	var/list/languages = list()         // For speaking/listening.

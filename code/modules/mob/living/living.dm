@@ -496,7 +496,6 @@
 			human_mob.restore_blood()
 			human_mob.decaylevel = 0
 			human_mob.remove_all_embedded_objects()
-
 	SEND_SIGNAL(src, COMSIG_LIVING_AHEAL)
 	restore_all_organs()
 	surgeries.Cut() //End all surgeries.
@@ -513,7 +512,7 @@
 		human_mob.update_dna()
 	return
 
-/mob/living/proc/remove_CC(should_update_canmove = TRUE)
+/mob/living/proc/remove_CC()
 	SetWeakened(0)
 	SetStunned(0)
 	SetParalysis(0)
@@ -674,7 +673,7 @@
 		var/obj/C = loc
 		C.container_resist(src)
 
-	else if(canmove)
+	else if((mobility_flags & MOBILITY_MOVE))
 		if(on_fire)
 			resist_fire() //stop, drop, and roll
 		else

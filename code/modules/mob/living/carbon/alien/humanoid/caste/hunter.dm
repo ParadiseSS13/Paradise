@@ -99,7 +99,6 @@
 		if(leaping)
 			leaping = 0
 			update_icons()
-			update_canmove()
 
 
 /mob/living/carbon/alien/humanoid/float(on)

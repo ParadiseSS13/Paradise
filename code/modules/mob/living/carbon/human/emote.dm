@@ -864,7 +864,7 @@
 				var/mob/M = handle_emote_param(param, 1, 1, 1) //Check to see if the param is valid (mob with the param name is in view) but exclude ourselves, only check mobs in our immediate vicinity (1 tile distance) and return the whole mob instead of just its name.
 
 				if(M)
-					if(M.canmove && !M.r_hand && !M.restrained())
+					if(!HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && !M.r_hand && !M.restrained())
 						message = "<B>[src]</B> shakes hands with [M]."
 					else
 						message = "<B>[src]</B> holds out [p_their()] hand to [M]."

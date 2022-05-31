@@ -77,29 +77,6 @@
 	if(stat || IsParalyzed() || (!ignore_restraints && restrained()) || (!ignore_lying && lying) || check_for_true_callbacks(extra_checks))
 		return TRUE
 
-//Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
-/mob/living/update_canmove(delay_action_updates = 0)
-	var/fall_over = can_stand()
-	var/buckle_lying = buckled?.buckle_lying
-	if(IsStunned() || buckle_lying)
-		drop_r_hand()
-		drop_l_hand()
-	else if(!fall_over)
-		canmove = TRUE
-	if(buckle_lying)
-		set_lying_angle(90 * buckle_lying)
-
-	if(fall_over)
-		fall()
-	else if(!resting)
-		stand_up()
-
-	canmove = !(fall_over || IsStunned() || IsFrozen() || buckled || IsImmobilized())
-
-	if(!delay_action_updates)
-		update_action_buttons_icon()
-	return canmove
-
 /mob/living/proc/update_stamina()
 	return
 

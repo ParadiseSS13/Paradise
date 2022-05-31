@@ -254,8 +254,8 @@
 	..()
 	block = GLOB.chameleonblock
 
-/datum/mutation/stealth/chameleon/on_life(mob/M)
-	if((world.time - M.last_movement) >= 30 && !M.stat && M.canmove && !M.restrained())
+/datum/mutation/stealth/chameleon/on_life(mob/living/M) //look if a ghost gets this, its an admins problem
+	if((world.time - M.last_movement) >= 30 && !M.stat && (M.mobility_flags & MOBILITY_STAND) && !M.restrained())
 		if(M.invisibility != INVISIBILITY_OBSERVER)
 			M.alpha -= 25
 	else
@@ -497,9 +497,9 @@
 
 	if(istype(user.loc,/turf/))
 		if(user.restrained())//Why being pulled while cuffed prevents you from moving
-			for(var/mob/M in range(user, 1))
+			for(var/mob/living/M in range(user, 1))
 				if(M.pulling == user)
-					if(!M.restrained() && M.stat == 0 && M.canmove && user.Adjacent(M))
+					if(!M.restrained() && M.stat == 0 && !(M.mobility_flags & MOBILITY_STAND) && user.Adjacent(M))
 						failure = TRUE
 					else
 						M.stop_pulling()

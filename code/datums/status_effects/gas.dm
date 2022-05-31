@@ -17,12 +17,12 @@
 		to_chat(owner, "<span class='userdanger'>You become frozen in a cube!</span>")
 	cube = icon('icons/effects/freeze.dmi', "ice_cube")
 	owner.add_overlay(cube)
-	owner.update_canmove()
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 	return ..()
 
 /datum/status_effect/freon/tick()
-	owner.update_canmove()
 	if(can_melt && owner.bodytemperature >= BODYTEMP_NORMAL)
+		REMOVE_TRAITS_IN(owner, "[id]")
 		qdel(src)
 
 /datum/status_effect/freon/proc/owner_resist()
@@ -31,14 +31,14 @@
 		if(!QDELETED(src))
 			to_chat(owner, "You break out of the ice cube!")
 			owner.remove_status_effect(/datum/status_effect/freon)
-			owner.update_canmove()
+			REMOVE_TRAITS_IN(owner, "[id]")
 
 /datum/status_effect/freon/on_remove()
 	if(!owner.stat)
 		to_chat(owner, "The cube melts!")
 	owner.cut_overlay(cube)
 	owner.adjust_bodytemperature(100)
-	owner.update_canmove()
+	REMOVE_TRAITS_IN(owner, "[id]")
 	UnregisterSignal(owner, COMSIG_LIVING_RESIST)
 
 /datum/status_effect/freon/watcher

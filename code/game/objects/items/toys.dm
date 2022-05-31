@@ -426,7 +426,7 @@
 
 /obj/item/toy/cards/deck/MouseDrop(atom/over_object)
 	var/mob/M = usr
-	if(usr.stat || !ishuman(usr) || !usr.canmove || usr.restrained())
+	if(usr.stat || !ishuman(usr) || HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) || usr.restrained())
 		return
 	if(Adjacent(usr))
 		if(over_object == M  && loc != M)
@@ -487,7 +487,7 @@
 /obj/item/toy/cards/cardhand/Topic(href, href_list)
 	if(..())
 		return
-	if(usr.stat || !ishuman(usr) || !usr.canmove)
+	if(usr.stat || !ishuman(usr) || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	var/mob/living/carbon/human/cardUser = usr
 	var/O = src
@@ -569,7 +569,7 @@
 	set name = "Flip Card"
 	set category = "Object"
 	set src in range(1)
-	if(usr.stat || !ishuman(usr) || !usr.canmove || usr.restrained())
+	if(usr.stat || !ishuman(usr) || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
 		return
 	if(!flipped)
 		flipped = 1
@@ -631,7 +631,7 @@
 
 
 /obj/item/toy/cards/singlecard/attack_self(mob/user)
-	if(usr.stat || !ishuman(usr) || !usr.canmove || usr.restrained())
+	if(usr.stat || !ishuman(usr) || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
 		return
 	Flip()
 

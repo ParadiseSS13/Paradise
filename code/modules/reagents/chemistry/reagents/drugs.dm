@@ -8,7 +8,7 @@
 
 /datum/reagent/lithium/on_mob_life(mob/living/M)
 	if(isturf(M.loc) && !istype(M.loc, /turf/space))
-		if(M.canmove && !M.restrained())
+		if((M.mobility_flags & MOBILITY_MOVE) && !M.restrained())
 			step(M, pick(GLOB.cardinal))
 	if(prob(5))
 		M.emote(pick("twitch","drool","moan"))
@@ -44,7 +44,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.Druggy(30 SECONDS)
 	if(isturf(M.loc) && !istype(M.loc, /turf/space))
-		if(M.canmove && !M.restrained())
+		if((M.mobility_flags & MOBILITY_MOVE) && !M.restrained())
 			step(M, pick(GLOB.cardinal))
 	if(prob(7))
 		M.emote(pick("twitch","drool","moan","giggle"))

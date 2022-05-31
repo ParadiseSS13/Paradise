@@ -749,41 +749,42 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/Topic(href, href_list)
 	..()
 	//strip panel
-	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
-		if(href_list["internal"])
-			var/slot = text2num(href_list["internal"])
-			var/obj/item/ITEM = get_item_by_slot(slot)
-			if(ITEM && istype(ITEM, /obj/item/tank))
-				visible_message("<span class='danger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>", \
-								"<span class='userdanger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>")
+	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained() || !in_range(src, usr))
+		return
+	if(href_list["internal"])
+		var/slot = text2num(href_list["internal"])
+		var/obj/item/ITEM = get_item_by_slot(slot)
+		if(ITEM && istype(ITEM, /obj/item/tank))
+			visible_message("<span class='danger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>", \
+							"<span class='userdanger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>")
 
-				var/no_mask
-				if(!get_organ_slot("breathing_tube"))
-					if(!(wear_mask && wear_mask.flags & AIRTIGHT))
-						if(!(head && head.flags & AIRTIGHT))
-							no_mask = 1
-				if(no_mask)
-					to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
-					return
+			var/no_mask
+			if(!get_organ_slot("breathing_tube"))
+				if(!(wear_mask && wear_mask.flags & AIRTIGHT))
+					if(!(head && head.flags & AIRTIGHT))
+						no_mask = 1
+			if(no_mask)
+				to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
+				return
 
-				if(do_mob(usr, src, POCKET_STRIP_DELAY))
-					if(internal)
-						internal = null
-						update_action_buttons_icon()
-					else
-						var/no_mask2
-						if(!get_organ_slot("breathing_tube"))
-							if(!(wear_mask && wear_mask.flags & AIRTIGHT))
-								if(!(head && head.flags & AIRTIGHT))
-									no_mask2 = 1
-						if(no_mask2)
-							to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
-							return
-						internal = ITEM
-						update_action_buttons_icon()
+			if(do_mob(usr, src, POCKET_STRIP_DELAY))
+				if(internal)
+					internal = null
+					update_action_buttons_icon()
+				else
+					var/no_mask2
+					if(!get_organ_slot("breathing_tube"))
+						if(!(wear_mask && wear_mask.flags & AIRTIGHT))
+							if(!(head && head.flags & AIRTIGHT))
+								no_mask2 = 1
+					if(no_mask2)
+						to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
+						return
+					internal = ITEM
+					update_action_buttons_icon()
 
-					visible_message("<span class='danger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>", \
-									"<span class='userdanger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>")
+				visible_message("<span class='danger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>", \
+								"<span class='userdanger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>")
 
 /mob/living/carbon/get_item_by_slot(slot_id)
 	switch(slot_id)
@@ -863,7 +864,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/resist_fire()
 	fire_stacks -= 5
 	Weaken(3, TRUE) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
-	update_canmove()
 	spin(32, 2)
 	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_them()]self out!</span>",
 		"<span class='notice'>You stop, drop, and roll!</span>")

@@ -170,7 +170,6 @@
 /proc/wabbajack(mob/living/M)
 	if(istype(M) && M.stat != DEAD && !M.notransform)
 		M.notransform = TRUE
-		M.canmove = FALSE
 		M.icon = null
 		M.overlays.Cut()
 		M.invisibility = 101

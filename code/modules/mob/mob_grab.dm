@@ -246,7 +246,7 @@
 		return
 	if(world.time < (last_upgrade + UPGRADE_COOLDOWN))
 		return
-	if(!assailant.canmove || assailant.lying)
+	if(!(assailant.mobility_flags & MOBILITY_MOVE) || IS_HORIZONTAL(assailant))
 		qdel(src)
 		return
 

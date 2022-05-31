@@ -523,7 +523,7 @@
 	toggle_veil()
 
 /obj/item/clothing/glasses/proc/toggle_veil()
-	if(usr.canmove && !usr.incapacitated())
+	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !usr.incapacitated())
 		if(up)
 			up = !up
 			tint = initial(tint)

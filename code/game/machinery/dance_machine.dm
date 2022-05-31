@@ -470,13 +470,13 @@
 				if(!(M in rangers))
 					rangers[M] = TRUE
 					M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played, use_reverb = FALSE)
-		for(var/mob/L in rangers)
+		for(var/mob/living/L in rangers)
 			if(get_dist(src, L) > 10)
 				rangers -= L
 				if(!L || !L.client)
 					continue
 				L.stop_sound_channel(CHANNEL_JUKEBOX)
-			else if(prob(9) && L.canmove && isliving(L))
+			else if(prob(9) && (L.mobility_flags & MOBILITY_STAND) && isliving(L))
 				dance(L)
 	else if(active)
 		active = FALSE

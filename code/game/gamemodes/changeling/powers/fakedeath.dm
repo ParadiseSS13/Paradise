@@ -17,7 +17,6 @@
 		user.timeofdeath = world.time
 	ADD_TRAIT(user, TRAIT_FAKEDEATH, "changeling")		//play dead
 	user.updatehealth("fakedeath sting")
-	user.update_canmove()
 	user.mind.changeling.regenerating = TRUE
 
 	addtimer(CALLBACK(src, .proc/ready_to_regenerate, user), LING_FAKEDEATH_TIME)
