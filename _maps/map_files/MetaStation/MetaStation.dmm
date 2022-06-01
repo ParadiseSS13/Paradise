@@ -23376,13 +23376,13 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "btN" = (
-/obj/structure/chair/office/dark{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/structure/chair/office/dark{
+	dir = 4
 	},
 /obj/effect/landmark/start/head_of_personnel,
 /turf/simulated/floor/wood,
@@ -47976,9 +47976,16 @@
 /area/medical/chemistry)
 "cJX" = (
 /obj/structure/table,
-/obj/item/eftpos,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/item/stamp/granted{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/stamp/denied{
+	pixel_x = 4;
+	pixel_y = -2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -57775,7 +57782,9 @@
 	pixel_y = 3
 	},
 /obj/item/stack/sheet/metal/fifty,
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -58565,9 +58574,9 @@
 /area/medical/research)
 "fDw" = (
 /obj/structure/table,
-/obj/item/book/manual/sop_supply{
-	pixel_x = -3;
-	pixel_y = 4
+/obj/item/eftpos{
+	pixel_y = 7;
+	pixel_x = -4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -75971,10 +75980,11 @@
 /area/atmos)
 "otp" = (
 /obj/structure/table,
-/obj/item/storage/belt/utility,
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
+/obj/item/book/manual/sop_supply,
+/obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -89711,6 +89721,9 @@
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "vBK" = (
