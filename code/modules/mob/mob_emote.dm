@@ -124,9 +124,6 @@
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
 
 /datum/emote/flip/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
-	if(!.)
-		return FALSE
 
 	if(isobserver(user))
 		user.SpinAnimation(5, 1)
@@ -164,10 +161,9 @@
 		sleep(0.3 SECONDS)
 		if(istype(L))
 			L.Weaken(4 SECONDS)
+		return ..()
 
 	. = ..()
-	message = initial(message)
-	message_param = initial(message_param)
 
 /datum/emote/spin
 	key = "spin"

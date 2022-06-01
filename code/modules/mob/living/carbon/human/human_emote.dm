@@ -115,7 +115,7 @@
 
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
 	var/mob/living/carbon/human/human = user
-	if(human.mind?.miming)
+	if(human.mind?.miming || !istype(human))
 		return
 	if(human.gender == FEMALE)
 		return human.dna.species.female_scream_sound

@@ -220,7 +220,11 @@
 		if(COMPONENT_BLOCK_EMOTE_SILENT)
 			return TRUE
 
-	return run_emote(user, params, type_override, intentional)
+	. = run_emote(user, params, type_override, intentional)
+
+	// safeguard in case these get modified
+	message = initial(message)
+	message_param = initial(message_param)
 
 /**
  * Play the sound effect in an emote.
@@ -233,9 +237,9 @@
 /datum/emote/proc/play_sound_effect(mob/user, intentional, sound_path, sound_volume)
 	if(age_based && ishuman(user))
 		var/mob/living/carbon/human/H = user
-		playsound(user, sound_path, sound_volume, vary, frequency = H.get_age_pitch())
+		playsound(user.loc, sound_path, sound_volume, vary, frequency = H.get_age_pitch())
 	else
-		playsound(user, sound_path, sound_volume, vary)
+		playsound(user.loc, sound_path, sound_volume, vary)
 
 /**
  * Send an emote to runechat for all (listening) users in the vicinity.
