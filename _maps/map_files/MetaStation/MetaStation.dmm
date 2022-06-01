@@ -66592,13 +66592,22 @@
 	},
 /area/medical/cmo)
 "jJR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /obj/structure/sign/directions/bridge{
 	dir = 1;
-	pixel_y = -8
+	pixel_y = 24
 	},
-/turf/simulated/wall/r_wall,
-/area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/bridge/meeting_room{
+	name = "\improper Command Hallway"
 	})
 "jJW" = (
 /obj/structure/cable/yellow{
@@ -66911,11 +66920,20 @@
 	name = "Storage Wing"
 	})
 "jQo" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
 /obj/structure/sign/directions/bridge{
 	dir = 1;
-	pixel_y = -8
+	pixel_y = 24
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
 /area/bridge/meeting_room{
 	name = "\improper Command Hallway"
 	})
@@ -119894,8 +119912,8 @@ bAa
 bwd
 bqc
 bFI
+bFI
 jQo
-bCi
 bKV
 bOe
 bPo
@@ -124006,8 +124024,8 @@ bhw
 bhw
 bEh
 bhw
+bhw
 jJR
-bJw
 bLi
 bOC
 bOU
