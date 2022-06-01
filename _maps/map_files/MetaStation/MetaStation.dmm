@@ -6379,6 +6379,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -83737,6 +83738,10 @@
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"stI" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/wood,
+/area/crew_quarters/mrchangs)
 "stW" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -129899,7 +129904,7 @@ atO
 avr
 awO
 ayb
-aAC
+stI
 aAC
 aPW
 avr
