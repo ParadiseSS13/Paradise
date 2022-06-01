@@ -40052,7 +40052,9 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "clC" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "clE" = (
@@ -130218,8 +130220,8 @@ cte
 cte
 jyT
 cte
-cwG
 clC
+cwG
 cmB
 hdR
 xcw
