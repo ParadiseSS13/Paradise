@@ -4464,6 +4464,7 @@
 "awE" = (
 /obj/machinery/space_heater,
 /obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "awK" = (
@@ -66065,15 +66066,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
-"jzc" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/port)
 "jzk" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/disposalpipe/segment{
@@ -89294,6 +89286,15 @@
 /obj/item/shard,
 /turf/space,
 /area/space/nearstation)
+"vqQ" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/port)
 "vrB" = (
 /obj/structure/chair/stool{
 	dir = 4
@@ -110883,7 +110884,7 @@ aaa
 abq
 abq
 alL
-aAZ
+aEU
 awf
 aOB
 aaa
@@ -112974,7 +112975,7 @@ bpF
 bok
 bpO
 bfw
-jzc
+vqQ
 bvK
 bxY
 bzJ
