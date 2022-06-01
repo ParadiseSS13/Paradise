@@ -48039,7 +48039,10 @@
 	},
 /area/medical/cryo)
 "cKl" = (
-/obj/machinery/vending/cola,
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "cKm" = (
@@ -131423,8 +131426,8 @@ aaa
 aiY
 ajl
 apM
-atS
 cKl
+atS
 aiY
 aiY
 amW
