@@ -1,13 +1,13 @@
-/datum/emote/living/simple_animal/friendly
-	mob_type_allowed_typecache = list(/mob/living/simple_animal/friendly)
+/datum/emote/living/simple_animal
+	mob_type_allowed_typecache = list(/mob/living/simple_animal)
 
-/datum/emote/living/simple_animal/friendly/diona_chirp
+/datum/emote/living/simple_animal/diona_chirp
 	key = "chirp"
 	key_third_person = "chirps"
 	message = "chirps!"
 	sound = "sound/creatures/nymphchirp.ogg"
 	emote_type = EMOTE_SOUND
-	mob_type_allowed_typecache = list(/mob/living/simple_animal/friendly/diona)
+	mob_type_allowed_typecache = list(/mob/living/simple_animal/diona)
 
 // Dog emotes
 
@@ -17,6 +17,8 @@
 /datum/emote/living/simple_animal/pet/dog/bark
 	key = "bark"
 	key_third_person = "barks"
+	message = "barks."
+	message_param = "barks at %t."
 	emote_type = EMOTE_SOUND
 
 /datum/emote/living/simple_animal/pet/dog/bark/get_sound(mob/living/user)
@@ -31,6 +33,7 @@
 	key = "yelp"
 	key_third_person = "yelps"
 	message = "yelps!"
+	message_param = "yelps at %t!"
 	emote_type = EMOTE_SOUND
 
 /datum/emote/living/simple_animal/pet/dog/yelp/get_sound(mob/living/user)
@@ -41,6 +44,7 @@
 	key = "growl"
 	key_third_person = "growls"
 	message = "growls!"
+	message_param = "growls at %t!"
 	emote_type = EMOTE_SOUND
 	sound = "growl"
 
@@ -53,6 +57,7 @@
 	key = "squeak"
 	key_third_person = "squeaks"
 	message = "squeaks!"
+	message_param = "squeaks at %t!"
 	emote_type = EMOTE_SOUND
 
 /datum/emote/living/simple_animal/mouse/squeak/get_sound(mob/living/user)
@@ -67,6 +72,8 @@
 /datum/emote/living/simple_animal/pet/cat/meow
 	key = "meow"
 	key_third_person = "meows"
+	message = "meows."
+	message_param = "meows at %t."
 	sound = "sound/creatures/cat_meow.ogg"
 	emote_type = EMOTE_SOUND
 
@@ -81,7 +88,6 @@
 	key_third_person = "hisses"
 	message = "hisses!"
 	message_param = "hisses at %t!"
-
 
 /datum/emote/living/simple_animal/pet/cat/purr
 	key = "purr"

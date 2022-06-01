@@ -184,7 +184,9 @@
 					ghost.show_message("<span class='emote'>[ghost_follow_link(user, ghost)] [displayed_msg]</span>")
 
 		if(isobserver(user))
-			user.visible_message("<span class=deadsay>[displayed_msg]</span>")
+			for(var/mob/dead/observer/ghost in viewers(user))
+				ghost.show_message("<span class=deadsay>[displayed_msg]</span>", EMOTE_VISIBLE)
+
 		else if(emote_type & EMOTE_VISIBLE || user.mind?.miming)
 			user.audible_message(displayed_msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
 		else
