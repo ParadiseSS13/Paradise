@@ -8,6 +8,8 @@
 #define IMPLANT_TRIGGER_DEATH_ONCE (1<<2)
 /// If used, an implant will trigger any time a user dies.
 #define IMPLANT_TRIGGER_DEATH_ANY (1<<3)
+/// If used, an implant will NOT trigger on death when a user is gibbed.
+#define IMPLANT_TRIGGER_NOT_WHEN_GIBBED (1<<4)
 
 // Defines related to the way that the implant is activated. This is the value for implant.activated
 #define IMPLANT_ACTIVATED_PASSIVE 0
@@ -105,6 +107,9 @@
 	SIGNAL_HANDLER
 
 	if(!implanted || !imp_in)
+		return
+
+	if(gibbed & trigger_causes & IMPLANT_TRIGGER_NOT_WHEN_GIBBED)
 		return
 
 	// This should help avoid infinite recursion for things like dust that call death()

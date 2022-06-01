@@ -389,8 +389,8 @@
 
 /datum/emote/living/carbon/human/fart/run_emote(mob/user, params, type_override, intentional)
 	var/farted_on_something = FALSE
-	for(var/atom/A in get_turf(src))
-		farted_on_something = A.fart_act(src) || farted_on_something
+	for(var/atom/A in get_turf(user))
+		farted_on_something = A.fart_act(user) || farted_on_something
 	if(!farted_on_something)
 		. = ..()
 

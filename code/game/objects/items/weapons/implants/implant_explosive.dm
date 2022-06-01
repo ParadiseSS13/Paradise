@@ -142,7 +142,7 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 	actions_types = list(/datum/action/item_action/hands_free/activate/always)
-	trigger_causes = IMPLANT_TRIGGER_DEATH_ONCE
+	trigger_causes = IMPLANT_TRIGGER_DEATH_ONCE | IMPLANT_TRIGGER_NOT_WHEN_GIBBED
 
 /obj/item/implant/dust/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
