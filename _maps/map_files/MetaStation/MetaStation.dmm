@@ -5968,12 +5968,6 @@
 	icon_state = "whitegreenfull"
 	},
 /area/crew_quarters/sleep)
-"aBS" = (
-/obj/machinery/cryopod,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitegreenfull"
-	},
-/area/crew_quarters/sleep)
 "aBT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -132219,7 +132213,7 @@ koi
 ayi
 ayi
 ayi
-aBS
+ayi
 aLl
 gip
 aLl
