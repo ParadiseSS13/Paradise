@@ -88784,7 +88784,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/starboard2)
 "uZP" = (
 /obj/machinery/chem_dispenser,
 /obj/machinery/door_control{
