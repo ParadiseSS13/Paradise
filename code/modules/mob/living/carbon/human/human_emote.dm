@@ -25,8 +25,8 @@
 
 /datum/emote/living/carbon/human/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/carbon/human/H = user
-	if(emote_type & EMOTE_MOUTH && !H.mind?.miming)
-		if(H.getOxyLoss() > 35)		// no screaming if you don't have enough breath to scream
+	if((emote_type & EMOTE_MOUTH) && !H.mind?.miming)
+		if(H.getOxyLoss() > 10 || H.AmountLoseBreath() >= 8 SECONDS)		// no screaming if you don't have enough breath to scream
 			H.emote("gasp")
 			return TRUE
 	. = ..()
