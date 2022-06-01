@@ -58,7 +58,7 @@
 		if(iscultist(M))
 			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='cult[(large ? "large" : "")]'>[title]([ghost_follow_link(user, ghost=M)]): [message]</span>")
+			to_chat(M, "<span class='cult[(large ? "large" : "")]'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
 
 	log_say("(CULT) [message]", user)
 
@@ -70,15 +70,18 @@
 	return TRUE
 
 /datum/action/innate/cult/comm/spirit/cultist_commune(mob/living/user, message)
-	var/my_message
+
+	var/living_message
 	if(!message)
 		return
-	my_message = "<span class='cultlarge'>The [user.name]: [message]</span>"
+	var/title = "The [user.name]"
+	living_message = "<span class='cultlarge'>[title]: [message]</span>"
+
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
-			to_chat(M, my_message)
+			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='cultspeech'>([ghost_follow_link(user, ghost=M)]) [my_message] </span>")
+			to_chat(M, "<span class='cultspeech'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
 
 
 //Objectives
