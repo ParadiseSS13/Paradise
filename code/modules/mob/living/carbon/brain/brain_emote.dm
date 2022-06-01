@@ -3,6 +3,7 @@
  */
 /datum/emote/living/carbon/brain
 	mob_type_allowed_typecache = list(/mob/living/carbon/brain)
+	/// The message that will be displayed to themselves, since brains can't really see their own emotes
 	var/self_message
 
 /datum/emote/living/carbon/brain/run_emote(mob/user, params, type_override, intentional)

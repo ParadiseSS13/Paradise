@@ -325,6 +325,7 @@
 	message_mime = "makes a rude gesture!"
 	message_simple = "makes an angry noise!"
 	message_robot = "makes a particularly offensive series of beeps!"
+	message_postfix = "at %t!"
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/tilt
