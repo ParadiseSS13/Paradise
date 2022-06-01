@@ -51923,6 +51923,7 @@
 	pixel_x = -2
 	},
 /obj/item/pen,
+/obj/machinery/light,
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "cXB" = (
@@ -72070,9 +72071,6 @@
 "moE" = (
 /obj/structure/chair/comfy/beige{
 	dir = 8
-	},
-/obj/machinery/light{
-	dir = 4
 	},
 /turf/simulated/floor/carpet,
 /area/medical/psych)
