@@ -7393,6 +7393,9 @@
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/structure/sign/securearea{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating,
 /area/construction/Storage{
 	name = "Storage Wing"
@@ -7786,10 +7789,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/security/nuke_storage)
-"aHC" = (
-/obj/structure/sign/securearea,
-/turf/simulated/wall/r_wall,
 /area/security/nuke_storage)
 "aHD" = (
 /turf/simulated/wall/r_wall,
@@ -8496,22 +8495,19 @@
 /area/hallway/primary/fore)
 "aJi" = (
 /obj/structure/cable/yellow{
-	d1 = 4;
+	d1 = 1;
 	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+	icon_state = "1-8"
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
+	d1 = 1;
 	d2 = 4;
-	icon_state = "2-4"
+	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "redcorner"
+	},
 /area/hallway/primary/fore)
 "aJk" = (
 /obj/structure/cable/yellow{
@@ -84726,19 +84722,22 @@
 /area/security/permabrig)
 "sRB" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
+	d1 = 4;
 	d2 = 8;
-	icon_state = "1-8"
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
+	d1 = 2;
 	d2 = 4;
-	icon_state = "1-4"
+	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/fore)
 "sRU" = (
 /obj/machinery/camera{
@@ -115527,7 +115526,7 @@ aCy
 aDF
 aEZ
 aGo
-aHC
+aBb
 aGu
 aHj
 aLW
@@ -116041,7 +116040,7 @@ aDt
 aDH
 aEZ
 aGq
-aHC
+aBb
 aGu
 aHR
 wpu
@@ -118613,7 +118612,7 @@ yha
 aHI
 fhC
 aJa
-sRB
+aJi
 aMf
 aaa
 aaa
@@ -120925,7 +120924,7 @@ neW
 pKE
 qpy
 aHM
-aJi
+sRB
 aKE
 aKk
 aaa
