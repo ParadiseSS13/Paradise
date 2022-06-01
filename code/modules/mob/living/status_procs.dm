@@ -110,6 +110,7 @@ STATUS EFFECTS
 	pixel_y = PIXEL_Y_OFFSET_LYING
 	ADD_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
 	ADD_TRAIT(src, TRAIT_PULL_BLOCKED, LYING_DOWN_TRAIT)
+	RegisterSignal(src, COMSIG_POST_ATOM_DIR_CHANGE, .proc/orient_crawling)
 	set_density(FALSE)
 	set_lying_angle(pick(90, 270))
 
@@ -119,8 +120,28 @@ STATUS EFFECTS
 	set_density(initial(density))
 	REMOVE_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
 	REMOVE_TRAIT(src, TRAIT_PULL_BLOCKED, LYING_DOWN_TRAIT)
+	UnregisterSignal(src, COMSIG_POST_ATOM_DIR_CHANGE)
 	set_lying_angle(0)
 	pixel_y = 0
+
+/* makes sure the crawlers head is pointing in the direction they crawl
+* effectively splits the dirs down across the diagonal bottom left to top right.
+
+this corner points the head left # # /
+								 # / #
+								 / # # this corner points the the head right
+
+*/
+/mob/living/proc/orient_crawling(datum/source, new_dir)
+	SIGNAL_HANDLER
+	if(new_dir in list(WEST, NORTH, NORTHWEST, SOUTHWEST))
+		set_lying_angle(270) // point right
+	if(new_dir in list(EAST, SOUTH, NORTHEAST, SOUTHEAST))
+		set_lying_angle(90) //point left
+
+	if(new_dir == SOUTH)
+		dir = NORTH //no powersliding on their back
+
 
 /**
  * Changes the inclination angle of a mob, used by humans and others to differentiate between standing up and prone positions.
