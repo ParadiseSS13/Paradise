@@ -2356,6 +2356,9 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/securearea{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2577,14 +2580,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
-"apH" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
-/turf/simulated/wall/r_wall,
-/area/maintenance/fpmaint)
 "apI" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/cable/yellow{
@@ -3043,6 +3038,10 @@
 	id = "garbage"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/structure/sign/securearea{
+	name = "\improper STAY CLEAR HEAVY MACHINERY";
+	pixel_y = -32
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "arH" = (
@@ -3766,10 +3765,11 @@
 /area/maintenance/disposal)
 "aug" = (
 /obj/structure/sign/securearea{
-	name = "\improper STAY CLEAR HEAVY MACHINERY"
+	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
+	name = "KEEP CLEAR: DOCKING AREA"
 	},
-/turf/simulated/wall,
-/area/maintenance/disposal)
+/turf/simulated/wall/r_wall,
+/area/hallway/secondary/entry)
 "auj" = (
 /obj/machinery/camera/autoname{
 	dir = 4
@@ -42935,9 +42935,17 @@
 	},
 /area/medical/surgeryobs)
 "cuz" = (
-/obj/structure/sign/securearea,
-/turf/simulated/wall,
-/area/maintenance/aft2)
+/obj/effect/spawner/lootdrop{
+	name = "normal or broken grille spawner";
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	icon_state = "grille";
+	color = null
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "cuB" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8
@@ -43515,13 +43523,6 @@
 	},
 /turf/simulated/floor/grass/no_creep,
 /area/medical/exam_room)
-"cwm" = (
-/obj/structure/reagent_dispensers/fueltank,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
 "cwq" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -51156,6 +51157,9 @@
 	},
 /area/security/permabrig)
 "cUN" = (
+/obj/structure/sign/securearea{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -79466,10 +79470,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
-"qjS" = (
-/obj/structure/sign/securearea,
-/turf/simulated/wall/r_wall,
-/area/toxins/storage)
 "qkD" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -81292,8 +81292,16 @@
 	},
 /area/security/permabrig)
 "rlH" = (
-/obj/structure/sign/securearea,
-/turf/simulated/wall/r_wall,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/securearea{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/toxins/mixing)
 "rlJ" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
@@ -91746,14 +91754,6 @@
 	icon_state = "red"
 	},
 /area/security/processing)
-"wHZ" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
-	name = "KEEP CLEAR: DOCKING AREA"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry)
 "wJK" = (
 /obj/structure/cable/yellow{
 	d2 = 2;
@@ -92929,6 +92929,12 @@
 "xrZ" = (
 /obj/structure/closet/firecloset,
 /obj/effect/decal/cleanable/cobweb2,
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'HIGH VOLTAGE'";
+	icon_state = "shock";
+	name = "HIGH VOLTAGE";
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "xsF" = (
@@ -103203,9 +103209,9 @@ aaa
 aaa
 ajo
 abq
-aJv
+aug
 mea
-wHZ
+kmF
 abq
 ajo
 aaa
@@ -112174,8 +112180,8 @@ tvx
 apc
 aGN
 arE
-aug
-bss
+akt
+cuz
 aHv
 adY
 jGH
@@ -112432,7 +112438,7 @@ aoV
 aqs
 arG
 akt
-cwm
+nGk
 avY
 vtP
 aNn
@@ -113711,7 +113717,7 @@ agX
 anm
 akx
 alw
-apH
+aky
 xrZ
 bmq
 bmr
@@ -125634,7 +125640,7 @@ cPb
 cOp
 tgC
 cUN
-cuz
+coG
 oUw
 meX
 pmI
@@ -126908,7 +126914,7 @@ bdN
 bdN
 bdN
 bdN
-rlH
+cEK
 hyp
 cgG
 cEK
@@ -127679,7 +127685,7 @@ bdN
 cnt
 pKM
 cPc
-aoN
+rlH
 uMG
 mVD
 coG
@@ -127936,7 +127942,7 @@ bdN
 aeA
 pKM
 bdN
-qjS
+bXG
 tRD
 rjj
 cOp
