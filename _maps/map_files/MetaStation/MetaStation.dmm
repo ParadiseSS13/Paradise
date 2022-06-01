@@ -20420,13 +20420,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bmA" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /mob/living/simple_animal/mouse,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bmB" = (
@@ -35555,7 +35549,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bYX" = (
@@ -49398,11 +49391,9 @@
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "cOU" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
-/area/maintenance/medmaint)
+/area/maintenance/port)
 "cOV" = (
 /obj/machinery/button/windowtint{
 	dir = 1;
@@ -49852,6 +49843,7 @@
 "cQt" = (
 /obj/effect/landmark/burnturf,
 /obj/machinery/light/small,
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
 "cQu" = (
@@ -60038,6 +60030,10 @@
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
 	})
+"gof" = (
+/mob/living/simple_animal/mouse,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "goq" = (
 /turf/simulated/wall,
 /area/security/range)
@@ -63289,16 +63285,9 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/lab)
 "hYD" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /mob/living/simple_animal/mouse,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
+/area/maintenance/asmaint)
 "hYL" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -70497,7 +70486,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "lFe" = (
@@ -107300,7 +107288,7 @@ alL
 aOB
 aOB
 adY
-adY
+bmA
 aOB
 aLF
 aML
@@ -108071,7 +108059,7 @@ lwN
 lwN
 lwN
 lwN
-bmA
+lwN
 lwN
 jeY
 lwN
@@ -110963,7 +110951,7 @@ cpD
 crG
 bZP
 coj
-crG
+gof
 crG
 bZP
 aaa
@@ -112738,7 +112726,7 @@ cdT
 cdT
 cdT
 cdT
-bTY
+cOU
 xOy
 aSM
 aSM
@@ -113461,7 +113449,7 @@ awh
 hka
 aKd
 adY
-adY
+bmA
 aOB
 bmK
 bgA
@@ -114241,7 +114229,7 @@ frx
 frx
 frx
 frx
-hYD
+frx
 tWP
 aOB
 aPR
@@ -120988,7 +120976,7 @@ pVQ
 pVQ
 pVQ
 hpa
-cOU
+pVQ
 pVQ
 pVQ
 hPi
@@ -130504,7 +130492,7 @@ flh
 bPl
 emj
 emj
-emj
+hYD
 cKJ
 cPc
 meT
@@ -134535,7 +134523,7 @@ ayv
 ayv
 pHq
 aLl
-isf
+avA
 qQy
 avA
 aBZ
@@ -135302,7 +135290,7 @@ bnI
 aLl
 atU
 lEo
-avA
+isf
 utW
 aLl
 mdS
