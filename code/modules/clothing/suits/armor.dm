@@ -445,8 +445,8 @@
 /obj/item/clothing/suit/armor/reactive/random //Spawner for random reactive armor
 	name = "Random Reactive Armor"
 
-/obj/item/clothing/suit/armor/reactive/random/New()
-	..()
+/obj/item/clothing/suit/armor/reactive/random/Initialize(mapload)
+	. = ..()
 	var/spawnpath = pick(subtypesof(/obj/item/clothing/suit/armor/reactive) - /obj/item/clothing/suit/armor/reactive/random)
 	new spawnpath(loc)
 	qdel(src)
