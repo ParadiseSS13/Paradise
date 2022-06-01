@@ -208,8 +208,13 @@
 		to_chat(user, "<span class='warning'>You can't be that cool without a cigarette between your lips.</span>")
 		return TRUE
 
+	var/obj/item/clothing/mask/cigarette/cig = H.wear_mask
+
+	if(!cig.lit)
+		to_chat(user, "<span class='warning'>You have to light that [cig] first, cool cat.</span>")
+		return TRUE
+
 	if(H.getOxyLoss() > 30)
-		var/obj/item/clothing/mask/cigarette/cig = H.wear_mask
 		user.visible_message(
 			"<span class='warning'>[user] gasps for air and swallows their cigarette!</span>",
 			"<span class='warning'>You gasp for air and accidentally swallow your [cig]!</span>"
