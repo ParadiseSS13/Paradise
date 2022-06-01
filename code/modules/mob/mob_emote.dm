@@ -124,6 +124,13 @@
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
 
 /datum/emote/flip/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	if(isobserver(user))
+		user.SpinAnimation(5, 1)
+		return TRUE
 
 	var/mob/living/L = user
 
@@ -152,7 +159,7 @@
 
 	user.SpinAnimation(5, 1)
 
-	if(prob(5))
+	if(prob(5) && ishuman(user))
 		message = "attempts a flip and crashes to the floor!"
 		sleep(0.3 SECONDS)
 		if(istype(L))
@@ -168,21 +175,21 @@
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE | EMOTE_FORCE_NO_RUNECHAT
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)
-	mob_type_blacklist_typecache = list(/mob/living/carbon/brain, /mob/camera)
+	mob_type_blacklist_typecache = list(/mob/living/carbon/brain, /mob/camera, /mob/living/silicon/ai)
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
 
 /datum/emote/spin/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	if(!.)
 		return FALSE
-	if(prob(5))
-		user.spin(32, 1)
-		to_chat(user, "<span class='warning'>You spin too much!</span>")
-		var/mob/living/L = user
-		if(istype(L))
-			L.Dizzy(24 SECONDS)
-			L.Confused(24 SECONDS)
-	else
+
+	if(prob(95) || isobserver(user))
 		user.spin(20, 1)
+		return TRUE
 
-
+	user.spin(32, 1)
+	to_chat(user, "<span class='warning'>You spin too much!</span>")
+	var/mob/living/L = user
+	if(istype(L))
+		L.Dizzy(24 SECONDS)
+		L.Confused(24 SECONDS)

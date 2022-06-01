@@ -31,6 +31,8 @@
 	var/message_monkey = ""
 	/// Message to display if the user is a simple_animal.
 	var/message_simple = ""
+	/// Message to display if the user is a spooky observer ghost.
+	var/message_observer = ""
 	/// Sounds emitted when the user is muzzled. Generally used like "[user] makes a pick(muzzled_noises) noise!"
 	var/muzzled_noises = list("strong", "weak")
 	/// Message with %t at the end to allow adding params to the message, like for mobs doing an emote relatively to something else.
@@ -174,19 +176,21 @@
 		var/displayed_msg = "<b>[user]</b> [msg]"
 
 		var/user_turf = get_turf(user)
-		if(user.client)
+		if(user.client && !isobserver(user))
 			for(var/mob/ghost as anything in GLOB.dead_mob_list)
 				if(!ghost.client)
 					continue
 				if(ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT && !(ghost in viewers(user_turf, null)))
 					ghost.show_message("<span class='emote'>[ghost_follow_link(user, ghost)] [displayed_msg]</span>")
 
-		if(emote_type & EMOTE_VISIBLE || user.mind?.miming)
+		if(isobserver(user))
+			user.visible_message("<span class=deadsay>[displayed_msg]</span>")
+		else if(emote_type & EMOTE_VISIBLE || user.mind?.miming)
 			user.audible_message(displayed_msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
 		else
 			user.visible_message(displayed_msg, blind_message = "<span class='emote'>You hear how <b>[user]</b> [msg]</span>")
 
-		if(!(emote_type & (EMOTE_FORCE_NO_RUNECHAT | EMOTE_SOUND) || suppressed))
+		if(!(emote_type & (EMOTE_FORCE_NO_RUNECHAT | EMOTE_SOUND) || suppressed) && !isobserver(user))
 			runechat_emote(user, msg)
 
 	SEND_SIGNAL(user, COMSIG_MOB_EMOTED(key), src, key, emote_type, message, intentional)
@@ -358,6 +362,8 @@
 		. = message_monkey
 	else if(isanimal(user) && message_simple)
 		. = message_simple
+	else if(isobserver(user) && message_observer)
+		. = message_observer
 
 /**
  * Replaces the %t in the message in message_param by params.
