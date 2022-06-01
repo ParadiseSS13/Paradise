@@ -69715,11 +69715,6 @@
 	},
 /area/security/range)
 "liW" = (
-/obj/machinery/camera{
-	c_tag = "Prison Cafeteria";
-	network = list("Prison","SS13");
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -90961,6 +90956,10 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/machinery/camera{
+	c_tag = "Prison Cafeteria";
+	network = list("Prison","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -101359,7 +101358,7 @@ aaa
 aaa
 aaa
 aaa
-abq
+aaa
 aaa
 aaa
 aaa
@@ -101616,7 +101615,7 @@ aaa
 aaa
 aaa
 aaa
-abq
+aaa
 aaa
 aaa
 aaa
@@ -101872,8 +101871,8 @@ aaa
 aaa
 aaa
 aaa
-abq
-abq
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -102428,8 +102427,8 @@ aaa
 aaa
 aaa
 aaa
-ajo
 aaa
+ajo
 aaa
 aaa
 aaa
@@ -102685,8 +102684,8 @@ aaa
 aaa
 aaa
 aaa
-abq
 aaa
+abq
 aaa
 aaa
 aaa
@@ -102903,11 +102902,11 @@ aaa
 arA
 abq
 abq
-abq
-abq
-abq
-abq
-abq
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -102942,8 +102941,8 @@ aaa
 hIZ
 aaa
 aaa
-abq
 aaa
+abq
 aaa
 aaa
 aaa
@@ -103162,19 +103161,19 @@ abq
 aaa
 aaa
 aaa
-abq
 aaa
 aaa
 aaa
 aaa
 aaa
-abq
+aaa
+aaa
 ajo
-aaa
+abq
 aJv
 mea
 wHZ
-aaa
+abq
 ajo
 aaa
 aaa
@@ -103199,8 +103198,8 @@ kmF
 bUO
 kmF
 aaa
-abq
 aaa
+abq
 aaa
 aaa
 aaa
@@ -103442,10 +103441,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
 abq
-aaa
-aaa
+abq
+abq
+abq
 abq
 abq
 ajo
@@ -103455,9 +103454,9 @@ abq
 kmF
 vZD
 kmF
-aaa
 abq
-aaa
+abq
+abq
 aaa
 aaa
 aaa
@@ -103713,8 +103712,8 @@ kmF
 bUO
 kmF
 kmF
-abq
 aaa
+abq
 aaa
 aaa
 aaa
@@ -104449,7 +104448,7 @@ abq
 abq
 aaa
 aaa
-abq
+aaa
 aaa
 iju
 abq
