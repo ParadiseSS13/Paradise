@@ -20,7 +20,7 @@
 
 			// Punctuation for emotes is important so we can try to catch it here
 
-			if(cur_emote.message && cur_emote.remove_ending_punctuation(cur_emote.message) == cur_emote.message())
+			if(cur_emote.message && cur_emote.remove_ending_punctuation(cur_emote.message) == cur_emote.message)
 				Fail("emote [cur_emote] is missing punctuation on its message.")
 
 			if(cur_emote.message_param)
@@ -51,7 +51,7 @@
 			Fail("emote [cur_emote]'s max_unintentional_stat_allowed is greater than its unintentional_stat_allowed, and would be unusable.")
 
 
-/datum/unit_test/emote/proc/has_punctuation(/datum/emote/E, msg)
+/datum/unit_test/emote/proc/has_punctuation(datum/emote/E, msg)
 	return E.remove_ending_punctuation(msg) == msg
 
 
