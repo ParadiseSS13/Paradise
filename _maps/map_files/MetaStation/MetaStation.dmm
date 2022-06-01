@@ -1480,12 +1480,16 @@
 	name = "\improper Recreation Area"
 	})
 "alm" = (
-/obj/machinery/cryopod,
-/obj/machinery/light/small{
+/obj/machinery/cryopod{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Cryodorms";
+	dir = 1
+	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 4;
 	icon_state = "whitegreen"
 	},
 /area/crew_quarters/sleep)
@@ -4065,13 +4069,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "avD" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitegreenfull"
-	},
-/area/crew_quarters/sleep)
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "avE" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5861,11 +5862,12 @@
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "aBF" = (
-/obj/machinery/cryopod{
+/obj/machinery/cryopod,
+/obj/machinery/light/small{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 8;
 	icon_state = "whitegreen"
 	},
 /area/crew_quarters/sleep)
@@ -21493,10 +21495,7 @@
 /area/hallway/primary/starboard)
 "bpf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/computer/cryopod{
-	pixel_y = 30
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
@@ -33796,10 +33795,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "bUA" = (
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
 /obj/effect/landmark/burnturf,
 /obj/machinery/light/small{
 	dir = 8
@@ -67512,11 +67507,6 @@
 	icon_state = "caution"
 	},
 /area/atmos)
-"khi" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/three,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
 "khy" = (
 /obj/structure/chair/wood/wings{
 	dir = 8
@@ -83193,10 +83183,16 @@
 	},
 /area/medical/surgery2)
 "sdX" = (
-/obj/structure/closet,
-/obj/item/stock_parts/matter_bin,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/computer/cryopod{
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
+/area/crew_quarters/sleep)
 "seE" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
@@ -85001,11 +84997,6 @@
 /obj/machinery/cryopod{
 	dir = 4
 	},
-/obj/machinery/camera{
-	c_tag = "Cryodorms";
-	dir = 1
-	},
-/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitegreen"
@@ -131706,10 +131697,10 @@ mKy
 auH
 avv
 bNY
-aBF
+tay
 dfc
-aBF
-aBF
+tay
+tay
 aLl
 aED
 aLl
@@ -132476,9 +132467,9 @@ aeN
 aeN
 avv
 avv
-bpf
-aBF
+sdX
 tay
+alm
 aLl
 aLl
 aLl
@@ -132733,7 +132724,7 @@ air
 air
 avv
 aDe
-avD
+bpf
 ath
 aAJ
 aVc
@@ -132990,7 +132981,7 @@ air
 air
 avv
 ayi
-alm
+aBF
 ayi
 ayi
 aLl
@@ -134017,9 +134008,9 @@ aLl
 aLl
 aLl
 aLl
-khi
-sdX
+avD
 rbR
+wYm
 bVY
 aLl
 nYq
