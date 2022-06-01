@@ -109,7 +109,7 @@
 
 /obj/item/melee/spellblade
 	name = "spellblade"
-	desc = "An enchanted blade with a series of a runes along the side."
+	desc = "An enchanted blade with a series of runes along the side."
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "spellblade"
 	item_state = "spellblade"
