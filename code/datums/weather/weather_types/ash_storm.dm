@@ -30,11 +30,11 @@
 	var/datum/looping_sound/weak_outside_ashstorm/sound_wo = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/weak_inside_ashstorm/sound_wi = new(list(), FALSE, TRUE)
 
-/datum/weather/ash_storm/proc/is_shuttle_docked()
-	var/obj/docking_port/mobile/M = SSshuttle.getShuttle("mining")
+/datum/weather/ash_storm/proc/is_shuttle_docked(shuttleId, dockId)
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	var/obj/docking_port/stationary/S = M.get_docked()
 
-	if(S.id == "mining_away")
+	if(S.id == dockId)
 		return TRUE
 	else
 		return FALSE
@@ -46,11 +46,14 @@
 	for(var/z in impacted_z_levels)
 		eligible_areas += GLOB.space_manager.areas_in_z["[z]"]
 
-	// Don't play storm audio if the shuttle is not at the mining station
-	var/isShuttleDocked = is_shuttle_docked()
-
-	if(isShuttleDocked == FALSE)
+	// Don't play storm audio to shuttles that are not at lavaland
+	var/miningShuttleDocked = is_shuttle_docked("mining", "mining_away")
+	if(miningShuttleDocked == FALSE)
 		eligible_areas -= get_areas(/area/shuttle/mining)
+
+	var/laborShuttleDocked = is_shuttle_docked("laborcamp", "laborcamp_away")
+	if(laborShuttleDocked == FALSE)
+		eligible_areas -= get_areas(/area/shuttle/siberia)
 
 	for(var/i in 1 to eligible_areas.len)
 		var/area/place = eligible_areas[i]
