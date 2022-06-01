@@ -17874,10 +17874,6 @@
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/pump,
-/obj/machinery/camera{
-	dir = 4;
-	c_tag = "Starboard Primary Hallway - Atmospherics"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "blueyellow";
 	dir = 10
@@ -80563,7 +80559,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/camera{
-	dir = 4;
+	dir = 1;
 	c_tag = "Atmospherics - Desk"
 	},
 /turf/simulated/floor/plasteel{
@@ -93344,6 +93340,10 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/camera{
+	dir = 4;
+	c_tag = "Starboard Primary Hallway - Atmospherics"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellow";
 	dir = 10
