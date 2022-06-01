@@ -510,6 +510,9 @@
 	if(human_mob)
 		human_mob.update_eyes()
 		human_mob.update_dna()
+
+	resting = FALSE
+	stand_up() // wake the fuck up badmin, we've got an "event" to burn
 	return
 
 /mob/living/proc/remove_CC()
