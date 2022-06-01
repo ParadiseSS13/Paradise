@@ -1441,6 +1441,9 @@
 /obj/structure/bookcase{
 	name = "bookcase (Reference)"
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "alh" = (
@@ -51923,7 +51926,6 @@
 	pixel_x = -2
 	},
 /obj/item/pen,
-/obj/machinery/light,
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "cXB" = (
