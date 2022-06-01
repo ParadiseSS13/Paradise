@@ -189,6 +189,6 @@
 	. = ..()
 	if(. && isliving(user))
 		var/mob/living/L = user
-		L.SetSleeping(2)
+		L.SetSleeping(2 SECONDS)
 
 
