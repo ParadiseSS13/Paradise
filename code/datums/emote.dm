@@ -480,7 +480,7 @@
 		if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 			// Don't let people blow their cover by mistake
 			return FALSE
-		if(hands_use_check && !user.can_use_hands())
+		if(hands_use_check && !user.can_use_hands() && (iscarbon(user)))
 			if(!intentional)
 				return FALSE
 			to_chat(user, "<span class='warning'>You cannot use your hands to [key] right now!</span>")
