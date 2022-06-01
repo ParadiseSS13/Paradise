@@ -19731,6 +19731,7 @@
 /area/shuttle/arrival/station)
 "aVX" = (
 /obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/arrival/station)
 "aVY" = (
