@@ -34,10 +34,7 @@
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	var/obj/docking_port/stationary/S = M.get_docked()
 
-	if(S.id == dockId)
-		return TRUE
-	else
-		return FALSE
+	return S.id == dockId
 
 /datum/weather/ash_storm/proc/update_eligible_areas()
 	var/list/inside_areas = list()
@@ -48,11 +45,11 @@
 
 	// Don't play storm audio to shuttles that are not at lavaland
 	var/miningShuttleDocked = is_shuttle_docked("mining", "mining_away")
-	if(miningShuttleDocked == FALSE)
+	if(!miningShuttleDocked)
 		eligible_areas -= get_areas(/area/shuttle/mining)
 
 	var/laborShuttleDocked = is_shuttle_docked("laborcamp", "laborcamp_away")
-	if(laborShuttleDocked == FALSE)
+	if(!laborShuttleDocked)
 		eligible_areas -= get_areas(/area/shuttle/siberia)
 
 	for(var/i in 1 to eligible_areas.len)
