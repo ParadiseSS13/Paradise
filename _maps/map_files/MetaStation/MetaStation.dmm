@@ -8485,16 +8485,16 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/fore)
@@ -120914,9 +120914,9 @@ neW
 pKE
 qpy
 aHM
-aJh
-aNL
-aMf
+aJi
+aKE
+aKk
 aaa
 aaa
 aOG
@@ -121171,9 +121171,9 @@ lNw
 uhK
 xWb
 aiF
-aJi
-aKE
-aKk
+aJk
+aNL
+aMf
 aaa
 aaa
 abq
