@@ -177,6 +177,7 @@
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)
 	mob_type_blacklist_typecache = list(/mob/living/carbon/brain, /mob/camera, /mob/living/silicon/ai)
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
+	cooldown = 2 SECONDS // how long the spin takes, any faster and mobs can spin
 
 /datum/emote/spin/run_emote(mob/user, params, type_override, intentional)
 	. = ..()

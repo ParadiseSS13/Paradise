@@ -464,6 +464,8 @@
 			if(!intentional)
 				return FALSE
 			switch(user.stat)
+				if(CONSCIOUS)
+					to_chat(user, "<span class='warning'>You cannot [key] while conscious!</span>")
 				if(UNCONSCIOUS)
 					to_chat(user, "<span class='warning'>You cannot [key] while unconscious!</span>")
 				if(DEAD)
