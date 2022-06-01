@@ -1,10 +1,13 @@
 /datum/emote/living/silicon
 	// Humans are allowed for the sake of IPCs
 	mob_type_allowed_typecache = list(/mob/living/silicon, /mob/living/simple_animal/bot, /mob/living/carbon/human)
+	mob_type_blacklist_typecache = list()
 
 /datum/emote/living/silicon/can_run_emote(mob/user, status_check, intentional)
 	. = ..()
 	// Let IPCs (and people with robo-heads) make beep-boop noises
+	if(!.)
+		return FALSE
 
 	var/found_machine_head = FALSE
 	if(ishuman(user))
@@ -24,7 +27,7 @@
 	key_third_person = "screams"
 	message = "screams!"
 	message_param = "screams at %t!"
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_SOUND | EMOTE_AUDIBLE
 	vary = TRUE
 	sound = "sound/goonstation/voice/robot_scream.ogg"
 	volume = 80
@@ -34,7 +37,7 @@
 	key_third_person = "pings"
 	message = "pings."
 	message_param = "pings at %t."
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_SOUND | EMOTE_AUDIBLE
 	sound = "sound/machines/ping.ogg"
 
 /datum/emote/living/silicon/buzz
@@ -42,14 +45,14 @@
 	key_third_person = "buzzes"
 	message = "buzzes."
 	message_param = "buzzes at %t."
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_SOUND | EMOTE_AUDIBLE
 	sound = "sound/machines/buzz-sigh.ogg"
 
 /datum/emote/living/silicon/buzz2
 	key = "buzz2"
 	message = "emits an irritated buzzing sound."
 	message_param = "emits an irritated buzzing sound at %t."
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_SOUND | EMOTE_AUDIBLE
 	sound = "sound/machines/buzz-two.ogg"
 
 /datum/emote/living/silicon/beep
@@ -57,28 +60,28 @@
 	key_third_person = "beeps"
 	message = "beeps."
 	message_param = "beeps at %t."
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_SOUND | EMOTE_AUDIBLE
 	sound = "sound/machines/twobeep.ogg"
 
 /datum/emote/living/silicon/yes
 	key = "yes"
 	message = "emits an affirmative blip"
 	message_param = "emits an affirmative blip at %t."
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_SOUND | EMOTE_AUDIBLE
 	sound = "sound/machines/synth_yes.ogg"
 
 /datum/emote/living/silicon/no
 	key = "no"
 	message = "emits a negative blip"
 	message_param = "emits a negative blip at %t."
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_SOUND | EMOTE_AUDIBLE
 	sound = "sound/machines/synth_no.ogg"
 
 /datum/emote/living/silicon/law
 	key = "law"
 	message = "shows its legal authorization barcode."
 	message_param = "show %t its legal authorization barcode."
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_SOUND | EMOTE_AUDIBLE
 	sound = "sound/voice/biamthelaw.ogg"
 
 /datum/emote/living/silicon/law/can_run_emote(mob/user, status_check, intentional)

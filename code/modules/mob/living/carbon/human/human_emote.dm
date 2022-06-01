@@ -62,6 +62,7 @@
 	key_third_person = "grumbles"
 	message = "grumbles!"
 	message_mime = "seems to grumble!"
+	message_postfix = "at %t!"
 	muzzled_noises = list("bothered")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
@@ -77,6 +78,7 @@
 	key_third_person = "mumbles"
 	message = "mumbles!"
 	message_mime = "seems to be speaking sweet nothings!"
+	message_postfix = "at %t!"
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/human/nod
@@ -97,7 +99,10 @@
 	vary = TRUE
 	age_based = TRUE
 	cooldown = 5 SECONDS
-	mob_type_blacklist_typecache = (/mob/living/carbon/human/monkey)  // screech instead
+	mob_type_blacklist_typecache = list(
+		/mob/living/carbon/human/monkey, // screech instead
+		/mob/living/silicon // Robot sounds
+	)
 
 /datum/emote/living/carbon/human/scream/select_message_type(mob/user, msg, intentional)
 	. = ..()
