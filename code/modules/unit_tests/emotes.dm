@@ -44,10 +44,10 @@
 				if(msg && !has_punctuation(cur_emote, msg))
 					Fail("emote [cur_emote] is missing punctuation on special message '[msg]'")
 
-		if(cur_emote.max_stat_allowed < cur_emote.stat_allowed)
+		if(isnum(cur_emote.max_stat_allowed) && cur_emote.max_stat_allowed < cur_emote.stat_allowed)
 			Fail("emote [cur_emote]'s max_stat_allowed is greater than its stat_allowed, and would be unusable.")
 
-		if(cur_emote.max_unintentional_stat_allowed < cur_emote.unintentional_stat_allowed)
+		if(isnum(cur_emote.max_unintentional_stat_allowed) && cur_emote.max_unintentional_stat_allowed < cur_emote.unintentional_stat_allowed)
 			Fail("emote [cur_emote]'s max_unintentional_stat_allowed is greater than its unintentional_stat_allowed, and would be unusable.")
 
 
