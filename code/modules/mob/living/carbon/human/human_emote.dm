@@ -306,6 +306,28 @@
 	key = "handshake"
 	message = "holds out their hand."
 	hands_use_check = TRUE
+	emote_target_type = EMOTE_TARGET_MOB
+	target_behavior = EMOTE_TARGET_BHVR_DEFAULT_TO_BASE
+
+/datum/emote/living/carbon/human/handshake/act_on_target(mob/user, target)
+	. = ..()
+	if(!target)
+		user.visible_message(
+			"[user] seems to shake hands with empty space.",
+			"You shake the air's hand."
+		)
+		return EMOTE_ACT_STOP_EXECUTION
+
+	if(!user.Adjacent(target) || !ishuman(target))
+		message_param = "extends a hand towards %t."
+		return TRUE
+
+	var/mob/living/carbon/human/human_target = target
+
+	if(human_target.canmove && !human_target.r_hand && !human_target.restrained())
+		message_param = "shakes hands with %t."
+	else
+		message_param = "holds out [user.p_their()] hand to %t."
 
 /datum/emote/living/carbon/human/handshake/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/target
