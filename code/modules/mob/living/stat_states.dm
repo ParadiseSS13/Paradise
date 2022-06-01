@@ -35,9 +35,6 @@
 
 /mob/living/proc/can_be_revived()
 	. = TRUE
-	// if(health <= min_health)
-	if(health <= HEALTH_THRESHOLD_DEAD)
-		return FALSE
 
 // death() is used to make a mob die
 
@@ -52,7 +49,7 @@
 	log_game("[key_name(src)] came back to life at [atom_loc_line(get_turf(src))]")
 	stat = CONSCIOUS
 	GLOB.dead_mob_list -= src
-	GLOB.alive_mob_list += src
+	GLOB.alive_mob_list |= src
 	if(mind)
 		remove_from_respawnable_list()
 	timeofdeath = null
