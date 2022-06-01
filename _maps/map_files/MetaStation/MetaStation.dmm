@@ -71386,9 +71386,6 @@
 /obj/machinery/computer/supplycomp{
 	dir = 8
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
