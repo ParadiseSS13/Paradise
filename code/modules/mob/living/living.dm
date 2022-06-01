@@ -451,6 +451,7 @@
 	SetWeakened(0, TRUE)
 	SetSlowed(0)
 	SetImmobilized(0)
+	SetKnockDown(0)
 	SetLoseBreath(0)
 	SetDizzy(0)
 	SetJitter(0)
