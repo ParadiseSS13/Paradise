@@ -18,32 +18,6 @@
 			if(isnull(cur_emote.emote_type))
 				Fail("emote [cur_emote] has a null target type.")
 
-			// Punctuation for emotes is important so we can try to catch it here
-
-			if(cur_emote.message && cur_emote.remove_ending_punctuation(cur_emote.message) == cur_emote.message)
-				Fail("emote [cur_emote] is missing punctuation on its message.")
-
-			if(cur_emote.message_param)
-				if(!has_punctuation(cur_emote, cur_emote.message_param))
-					Fail("emote [cur_emote] is missing punctuation on its message param.")
-				if(cur_emote.message_postfix && !has_punctuation(cur_emote, cur_emote.message_postfix))
-					Fail("emote [cur_emote] is missing punctuation on its message postfix.")
-
-			var/list/messages_to_check = list(
-				cur_emote.message_AI,
-				cur_emote.message_alien,
-				cur_emote.message_larva,
-				cur_emote.message_mime,
-				cur_emote.message_monkey,
-				cur_emote.message_observer,
-				cur_emote.message_robot,
-				cur_emote.message_simple
-			)
-
-			for(var/msg in messages_to_check)
-				if(msg && !has_punctuation(cur_emote, msg))
-					Fail("emote [cur_emote] is missing punctuation on special message '[msg]'")
-
 		if(isnum(cur_emote.max_stat_allowed) && cur_emote.max_stat_allowed < cur_emote.stat_allowed)
 			Fail("emote [cur_emote]'s max_stat_allowed is greater than its stat_allowed, and would be unusable.")
 
