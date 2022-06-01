@@ -114,6 +114,7 @@
 	icon_state = "spellblade"
 	item_state = "spellblade"
 	hitsound = 'sound/weapons/rapierhit.ogg'
+	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	armour_penetration = 50
 	block_chance = 50
@@ -226,7 +227,7 @@
 
 /datum/enchantment/fire
 	name = "fire"
-	desc = "this blade will self immolate on hit, releasing a ball of fire. it also makes the weilder immune to fire"
+	desc = "this blade ignites on striking a foe, releasing a ball of fire. It also makes the wielder immune to fire"
 	cooldown = 8 SECONDS
 	var/applied_traits = FALSE
 
@@ -254,7 +255,7 @@
 
 /datum/enchantment/forcewall
 	name = "forcewall"
-	desc = "this blade will provide you great shielding against attack for a short duration after you strike someone"
+	desc = "this blade will partially shield you against attacks and stuns for a short duration after striking a foe"
 	cooldown = 4 SECONDS
 
 /datum/enchantment/forcewall/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
@@ -265,11 +266,11 @@
 
 /datum/enchantment/bluespace
 	name = "bluespace"
-	desc = "this blade slices through space itself, jumping its weilder to a far away target"
+	desc = "this the fabric of space, transporting its wielder over medium distances to strike foes"
 	cooldown = 2.5 SECONDS
 	ranged = TRUE
-	// the number of cycles of stun applied by the teleport strike
-	power = 2
+	// the number of deciseconds of stun applied by the teleport strike
+	power = 5
 
 /datum/enchantment/bluespace/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
 	if(proximity) // don't put it on cooldown if adjacent
