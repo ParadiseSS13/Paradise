@@ -17100,7 +17100,7 @@
 	},
 /obj/machinery/airlock_sensor{
 	id_tag = "sol_sensor";
-	pixel_x = 12;
+	pixel_x = 11;
 	pixel_y = -25
 	},
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
@@ -17722,7 +17722,7 @@
 	frequency = 1379;
 	master_tag = "sol_airlock";
 	name = "exterior access button";
-	pixel_x = -13;
+	pixel_x = -10;
 	pixel_y = -23
 	},
 /turf/simulated/floor/plating,
@@ -19484,8 +19484,8 @@
 	frequency = 1379;
 	master_tag = "sol_airlock";
 	name = "interior access button";
-	pixel_x = -25;
-	pixel_y = -25
+	pixel_x = -22;
+	pixel_y = -23
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
