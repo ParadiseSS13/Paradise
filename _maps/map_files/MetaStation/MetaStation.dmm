@@ -20542,6 +20542,14 @@
 	icon_state = "red"
 	},
 /area/security/checkpoint2)
+"bmT" = (
+/obj/machinery/porta_turret{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
+/area/turret_protected/ai)
 "bmU" = (
 /obj/structure/table/wood,
 /obj/item/storage/photo_album{
@@ -20550,8 +20558,7 @@
 /obj/item/camera{
 	pixel_y = 4
 	},
-/obj/item/radio/intercom{
-	name = "west bump";
+/obj/item/radio/intercom/private{
 	pixel_x = -28
 	},
 /turf/simulated/floor/carpet,
@@ -71211,14 +71218,6 @@
 	icon_state = "dark"
 	},
 /area/security/seceqstorage)
-"lSK" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
-	},
-/area/turret_protected/ai)
 "lTc" = (
 /obj/machinery/light{
 	dir = 4
@@ -148943,7 +148942,7 @@ nvN
 nvN
 bjY
 vlP
-lSK
+bmT
 mvP
 bpt
 brm
@@ -149971,7 +149970,7 @@ bfN
 bhH
 biU
 boJ
-lSK
+bmT
 mkL
 bph
 brQ
