@@ -92,6 +92,7 @@
 	panel = "Shadowling Abilities"
 	charge_max = 300 //Used to be twice this, buffed
 	clothes_req = 0
+	phase_allowed = TRUE
 	range = -1
 	include_user = 1
 	action_icon_state = "shadow_walk"

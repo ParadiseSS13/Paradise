@@ -99,6 +99,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/human_req = 0 //spell can only be cast by humans
 	var/nonabstract_req = 0 //spell can only be cast by mobs that are physical entities
 	var/stat_allowed = 0 //see if it requires being conscious/alive, need to set to 1 for ghostpells
+	var/phase_allowed = FALSE // If true, the spell can be cast while phased, eg. blood crawling, ethereal jaunting
 	var/invocation = "HURP DURP" //what is uttered when the wizard casts the spell
 	var/invocation_emote_self = null
 	var/invocation_type = "none" //can be none, whisper and shout
@@ -578,6 +579,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			if(show_message)
 				to_chat(user, "<span class='notice'>You can't cast this spell while incapacitated.</span>")
 			return 0
+		if(!phase_allowed && istype(user.loc, /obj/effect/dummy) || istype(user.loc, /obj/effect/immovablerod/wizard))
+			if(show_message)
+				to_chat(user, "<span class='notice'>[name] cannot be cast unless you are completely manifested in the material plane!</span>")
+			return FALSE
 		if(ishuman(user) && (invocation_type == "whisper" || invocation_type == "shout") && user.is_muzzled())
 			if(show_message)
 				to_chat(user, "Mmmf mrrfff!")
