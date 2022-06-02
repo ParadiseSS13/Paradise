@@ -20344,8 +20344,7 @@
 "bmo" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster/security_unit{
-	pixel_x = -30;
-	pixel_y = 1
+	pixel_x = -30
 	},
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Captain's Office"
@@ -20543,18 +20542,6 @@
 	icon_state = "red"
 	},
 /area/security/checkpoint2)
-"bmT" = (
-/obj/machinery/newscaster/security_unit{
-	pixel_x = -26;
-	pixel_y = -2
-	},
-/obj/machinery/porta_turret{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
-	},
-/area/turret_protected/ai)
 "bmU" = (
 /obj/structure/table/wood,
 /obj/item/storage/photo_album{
@@ -22235,6 +22222,12 @@
 	pixel_y = 3
 	},
 /obj/item/pen/multi,
+/obj/machinery/requests_console{
+	department = "AI";
+	departmentType = 5;
+	name = "AI Requests Console";
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -22263,6 +22256,9 @@
 /obj/item/pen/multi,
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/machinery/newscaster/security_unit{
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -71216,13 +71212,6 @@
 	},
 /area/security/seceqstorage)
 "lSK" = (
-/obj/machinery/requests_console{
-	department = "AI";
-	departmentType = 5;
-	name = "AI Requests Console";
-	pixel_x = 30;
-	pixel_y = -7
-	},
 /obj/machinery/porta_turret{
 	dir = 8
 	},
@@ -149982,7 +149971,7 @@ bfN
 bhH
 biU
 boJ
-bmT
+lSK
 mkL
 bph
 brQ
