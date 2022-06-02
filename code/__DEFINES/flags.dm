@@ -142,6 +142,7 @@
 #define ACID_PROOF		(1<<5) //acid stuck on it doesn't melt it.
 #define INDESTRUCTIBLE	(1<<6) //doesn't take damage
 #define FREEZE_PROOF	(1<<7) //can't be frozen
+#define NO_MALF_EFFECT	(1<<8) //So malf cannot blow certain things
 
 #define MEAT 		1
 #define VEGETABLES 	2

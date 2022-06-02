@@ -640,9 +640,6 @@ Class Procs:
 /obj/machinery/proc/on_deconstruction()
 	return
 
-/obj/machinery/proc/can_be_overridden()
-	. = 1
-
 /obj/machinery/tesla_act(power, explosive = FALSE)
 	..()
 	if(prob(85) && explosive)

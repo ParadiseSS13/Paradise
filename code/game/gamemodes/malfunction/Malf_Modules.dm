@@ -503,6 +503,9 @@
 	if(!istype(target))
 		to_chat(ranged_ability_user, "<span class='warning'>You can only overload machines!</span>")
 		return
+	if(target.resistance_flags & NO_MALF_EFFECT)
+		to_chat(ranged_ability_user, "<span class='warning'>That machine can't be overloaded!</span>")
+		return
 
 	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, 0)
 	attached_action.adjust_uses(-1)
@@ -555,7 +558,7 @@
 	if(!istype(target))
 		to_chat(ranged_ability_user, "<span class='warning'>You can only animate machines!</span>")
 		return
-	if(!target.can_be_overridden())
+	if(target.resistance_flags & NO_MALF_EFFECT)
 		to_chat(ranged_ability_user, "<span class='warning'>That machine can't be overridden!</span>")
 		return
 
