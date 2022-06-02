@@ -53,12 +53,12 @@
 	else
 		title = "<b>[(isconstruct(user) ? "Construct" : isshade(user) ? "" : "Acolyte")] [user.real_name]</b>"
 
-	living_message = "<span class='cult[(large ? "large" : "")]'>[title]: [message]</span>"
+	living_message = "<span class='cult[(large ? "large" : "speech")]'>[title]: [message]</span>"
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
 			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='cult[(large ? "large" : "")]'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
+			to_chat(M, "<span class='cult[(large ? "large" : "speech")]'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
 
 	log_say("(CULT) [message]", user)
 
