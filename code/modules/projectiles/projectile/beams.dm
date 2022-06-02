@@ -22,6 +22,11 @@
 	icon_state = "heavylaser"
 	damage = 40
 
+/obj/item/projectile/beam/laser/slug
+	name = "laser slug beam"
+	damage = 50
+	stamina = 33
+
 /obj/item/projectile/beam/practice
 	name = "practice laser"
 	damage = 0
