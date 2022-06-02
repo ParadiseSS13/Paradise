@@ -199,7 +199,6 @@
 /atom/proc/setDir(newdir)
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
-	SEND_SIGNAL(src, COMSIG_POST_ATOM_DIR_CHANGE, newdir)
 
 /*
 	Sets the atom's pixel locations based on the atom's `dir` variable, and what pixel offset arguments are passed into it
