@@ -1484,6 +1484,7 @@
 					/obj/item/clothing/accessory/waistcoat = 1,
 					/obj/item/clothing/under/suit_jacket = 1,
 					/obj/item/clothing/head/that =1,
+					/obj/item/clothing/head/ratge = 1,
 					/obj/item/clothing/under/kilt = 1,
 					/obj/item/clothing/accessory/waistcoat = 1,
 					/obj/item/clothing/glasses/monocle =1,
