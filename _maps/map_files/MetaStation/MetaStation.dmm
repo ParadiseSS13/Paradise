@@ -19290,7 +19290,7 @@
 	},
 /obj/machinery/flasher{
 	id = "AI";
-	pixel_x = -8;
+	pixel_x = -10;
 	pixel_y = -24
 	},
 /obj/machinery/door/window/brigdoor/westleft{
