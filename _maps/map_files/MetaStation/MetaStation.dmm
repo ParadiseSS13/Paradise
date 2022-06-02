@@ -56589,7 +56589,7 @@
 	},
 /obj/machinery/airlock_sensor{
 	id_tag = "sol_sensor";
-	pixel_x = 12;
+	pixel_x = 11;
 	pixel_y = -25
 	},
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
