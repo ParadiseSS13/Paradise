@@ -230,7 +230,7 @@
 ///Checks to see if you are being grabbed and if so attemps to break it
 /client/proc/Process_Grab()
 	if(mob.grabbed_by.len)
-		if(mob.incapacitated(FALSE, TRUE, TRUE)) // Can't break out of grabs if you're incapacitated
+		if(mob.incapacitated(FALSE, TRUE)) // Can't break out of grabs if you're incapacitated
 			return TRUE
 		var/list/grabbing = list()
 

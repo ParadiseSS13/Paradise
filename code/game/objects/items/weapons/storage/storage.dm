@@ -98,7 +98,7 @@
 		return
 	var/mob/M = usr
 
-	if(istype(M.loc, /obj/mecha) || M.incapacitated(FALSE, TRUE, TRUE)) // Stops inventory actions in a mech as well as while being incapacitated
+	if(istype(M.loc, /obj/mecha) || M.incapacitated(FALSE, TRUE)) // Stops inventory actions in a mech as well as while being incapacitated
 		return
 
 	if(over_object == M && Adjacent(M)) // this must come before the screen objects only block
@@ -150,7 +150,7 @@
 
 /obj/item/storage/AltClick(mob/user)
 	. = ..()
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
 		show_to(user)
 		playsound(loc, "rustle", 50, TRUE, -5)
 		add_fingerprint(user)

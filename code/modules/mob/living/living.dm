@@ -244,7 +244,7 @@
 
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
-	if(incapacitated(ignore_lying = TRUE))
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return FALSE
@@ -652,7 +652,7 @@
 *///////////////////////
 
 /mob/living/can_resist()
-	return !((next_move > world.time) || incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE))
+	return !((next_move > world.time) || incapacitated(ignore_restraints = TRUE))
 
 /mob/living/verb/resist()
 	set name = "Resist"

@@ -974,7 +974,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		drop_l_hand()
 		stop_pulling()
 		throw_alert("handcuffed", /obj/screen/alert/restrained/handcuffed, new_master = src.handcuffed)
+		ADD_TRAIT(src, TRAIT_RESTRAINED, "handcuffed")
 	else
+		REMOVE_TRAIT(src, TRAIT_RESTRAINED, "handcuffed")
 		clear_alert("handcuffed")
 	update_action_buttons_icon() //some of our action buttons might be unusable when we're handcuffed.
 	update_inv_handcuffed()

@@ -67,14 +67,14 @@
 	return (IsWeakened() || IsParalyzed() || stat || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 
 // Whether the mob is capable of actions or not
-/mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE, list/extra_checks = list(), use_default_checks = TRUE)
+/mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, list/extra_checks = list(), use_default_checks = TRUE)
 	// By default, checks for weakness and stunned get added to the extra_checks list.
 	// Setting `use_default_checks` to FALSE means that you don't want it checking for these statuses or you are supplying your own checks.
 	if(use_default_checks)
 		extra_checks += CALLBACK(src, /mob/living.proc/IsWeakened)
 		extra_checks += CALLBACK(src, /mob/living.proc/IsStunned)
 
-	if(stat || IsParalyzed() || (!ignore_restraints && restrained()) || (!ignore_lying && IS_HORIZONTAL(src)) || check_for_true_callbacks(extra_checks))
+	if(stat || HAS_TRAIT_NOT_FROM(src, TRAIT_HANDS_BLOCKED, TRAIT_RESTRAINED) || (!ignore_restraints && restrained()) || check_for_true_callbacks(extra_checks))
 		return TRUE
 
 /mob/living/proc/update_stamina()

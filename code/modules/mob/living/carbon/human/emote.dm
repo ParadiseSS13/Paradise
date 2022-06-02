@@ -455,7 +455,7 @@
 								SpinAnimation(5,1)
 
 		if("spin", "spins")
-			if(!incapacitated(ignore_lying = TRUE))
+			if(!incapacitated())
 				if(prob(5))
 					spin(32, 1)
 					to_chat(src, "<span class='warning'>You spin too much!</span>")
