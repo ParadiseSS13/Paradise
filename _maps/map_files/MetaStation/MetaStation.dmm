@@ -3038,10 +3038,6 @@
 	id = "garbage"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/structure/sign/securearea{
-	name = "\improper STAY CLEAR HEAVY MACHINERY";
-	pixel_y = -32
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "arH" = (
@@ -42933,12 +42929,7 @@
 	},
 /area/medical/surgeryobs)
 "cuz" = (
-/obj/effect/spawner/lootdrop{
-	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
-	icon_state = "grille";
-	color = null
-	},
+/obj/structure/reagent_dispensers/fueltank,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
@@ -79956,6 +79947,12 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/coldroom)
+"qwm" = (
+/obj/structure/sign/securearea{
+	name = "\improper STAY CLEAR HEAVY MACHINERY"
+	},
+/turf/simulated/wall,
+/area/maintenance/disposal)
 "qwB" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
@@ -112163,8 +112160,8 @@ tvx
 apc
 aGN
 arE
-akt
-cuz
+qwm
+bss
 aHv
 adY
 jGH
@@ -112421,7 +112418,7 @@ aoV
 aqs
 arG
 akt
-nGk
+cuz
 avY
 vtP
 aNn
