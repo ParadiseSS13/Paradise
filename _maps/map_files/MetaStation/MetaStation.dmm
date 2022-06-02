@@ -10969,6 +10969,10 @@
 /obj/structure/table,
 /obj/item/seeds/tower,
 /obj/effect/turf_decal/stripes/line,
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
