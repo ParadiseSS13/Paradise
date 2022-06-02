@@ -77,7 +77,7 @@
 	M.buckled = src
 	M.setDir(dir)
 	buckled_mobs |= M
-	ADD_TRAIT(M, TRAIT_IMMOBILIZED, "buckled") // might break vehicles, needs testing
+	ADD_TRAIT(M, TRAIT_IMMOBILIZED, "buckled")
 	M.throw_alert("buckled", /obj/screen/alert/restrained/buckled)
 	post_buckle_mob(M)
 

@@ -79,13 +79,11 @@
 	if(moving)
 		return 0
 
+	var/mob/living/living_mob = null
 	if(isliving(mob))
-		var/mob/living/L = mob
-		if(L.incorporeal_move)//Move though walls
+		living_mob = mob
+		if(living_mob.incorporeal_move)//Move though walls
 			Process_Incorpmove(direct)
-			return
-
-		if(!(L.mobility_flags & MOBILITY_MOVE))
 			return
 
 	if(mob.remote_control) //we're controlling something, our movement is relayed to it
@@ -103,6 +101,9 @@
 
 	if(mob.buckled) //if we're buckled to something, tell it we moved.
 		return mob.buckled.relaymove(mob, direct)
+
+	if(living_mob && !(living_mob.mobility_flags & MOBILITY_MOVE))
+		return
 
 	if(!mob.lastarea)
 		mob.lastarea = get_area(mob.loc)
