@@ -19281,21 +19281,21 @@
 	},
 /area/turret_protected/ai)
 "bjX" = (
+/obj/machinery/door/window/brigdoor/westleft{
+	req_access_txt = "16";
+	name = "Primary AI Core Access"
+	},
 /obj/machinery/turretid/lethal{
 	check_synth = 1;
 	name = "AI Chamber Turret Control";
-	pixel_x = 3;
-	pixel_y = -23;
+	pixel_x = 5;
+	pixel_y = -24;
 	req_access_txt = "75"
 	},
 /obj/machinery/flasher{
 	id = "AI";
-	pixel_x = -10;
+	pixel_x = -8;
 	pixel_y = -24
-	},
-/obj/machinery/door/window/brigdoor/westleft{
-	req_access_txt = "16";
-	name = "Primary AI Core Access"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -29551,11 +29551,6 @@
 	icon_state = "bar"
 	},
 /area/crew_quarters/bar)
-"bIF" = (
-/turf/simulated/wall,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
 "bIG" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -147941,7 +147936,7 @@ bvw
 bxz
 bBn
 aXL
-bIF
+aXL
 aaa
 aXL
 aaa
@@ -151025,7 +151020,7 @@ bwa
 bzl
 bFf
 aXL
-bIF
+aXL
 aaa
 aXL
 aaa
