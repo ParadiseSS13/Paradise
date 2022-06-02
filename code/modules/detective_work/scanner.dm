@@ -106,19 +106,19 @@
 /obj/item/detective_scanner/afterattack(atom/A, mob/user)
 	scan(A, user)
 
-/obj/item/detective_scanner/proc/scan(atom/A, mob/user)
+/obj/item/detective_scanner/proc/scan(atom/scan_atom, mob/user)
 
 	if(!scanning)
 		// Can remotely scan objects and mobs.
-		if(!(A in view(world.view, user)))
+		if(!(scan_atom in view(world.view, user)))
 			return
 		if(loc != user)
 			return
 
 		scanning = TRUE
 
-		user.visible_message("[user] points [src] at [A] and performs a forensic scan.",
-		"<span class='notice'>You scan [A]. The scanner is now analysing the results...</span>")
+		user.visible_message("[user] points [src] at [scan_atom] and performs a forensic scan.",
+		"<span class='notice'>You scan [scan_atom]. The scanner is now analysing the results...</span>")
 
 
 		// GATHER INFORMATION
@@ -128,32 +128,33 @@
 		var/list/blood = list()
 		var/list/fibers = list()
 		var/list/reagents = list()
+		var/found_spy_device = FALSE
 
-		var/target_name = A.name
+		var/target_name = scan_atom.name
 
 		// Start gathering
 
-		if(length(A.blood_DNA))
-			blood = A.blood_DNA.Copy()
+		if(length(scan_atom.blood_DNA))
+			blood = scan_atom.blood_DNA.Copy()
 
-		if(length(A.suit_fibers))
-			fibers = A.suit_fibers.Copy()
+		if(length(scan_atom.suit_fibers))
+			fibers = scan_atom.suit_fibers.Copy()
 
-		if(ishuman(A))
+		if(ishuman(scan_atom))
 
-			var/mob/living/carbon/human/H = A
+			var/mob/living/carbon/human/H = scan_atom
 			if(istype(H.dna, /datum/dna) && !H.gloves)
 				fingerprints += md5(H.dna.uni_identity)
 
-		else if(!ismob(A))
+		else if(!ismob(scan_atom))
 
-			if(length(A.fingerprints))
-				fingerprints = A.fingerprints.Copy()
+			if(length(scan_atom.fingerprints))
+				fingerprints = scan_atom.fingerprints.Copy()
 
 			// Only get reagents from non-mobs.
-			if(A.reagents && length(A.reagents.reagent_list))
+			if(scan_atom.reagents && length(scan_atom.reagents.reagent_list))
 
-				for(var/datum/reagent/R in A.reagents.reagent_list)
+				for(var/datum/reagent/R in scan_atom.reagents.reagent_list)
 					reagents[R.name] = R.volume
 
 					// Get blood data from the blood reagent.
@@ -164,6 +165,10 @@
 							var/blood_type = R.data["blood_type"]
 							blood[blood_DNA] = blood_type
 
+			if(istype(scan_atom, /obj/item/clothing))
+				var/obj/item/clothing/scanned_clothing = scan_atom
+				if(scanned_clothing.spy_spider_attached)
+					found_spy_device = TRUE
 
 		// We gathered everything. Slowly display the results to the holder of the scanner.
 		var/found_something = FALSE
@@ -201,6 +206,12 @@
 				add_log("Reagent: <font color='red'>[R]</font> Volume: <font color='red'>[reagents[R]]</font>")
 			found_something = TRUE
 
+		if(found_spy_device)
+			sleep(10)
+			add_log("<span class='info'><B>Найдено шпионское устройство!</B></span>")
+			if(!(/obj/item/clothing/proc/remove_spy_spider in scan_atom.verbs))
+				scan_atom.verbs += /obj/item/clothing/proc/remove_spy_spider
+
 		// Get a new user
 		var/mob/holder = null
 		if(ismob(loc))
@@ -209,10 +220,10 @@
 		if(!found_something)
 			add_log("<I># No forensic traces found #</I>", FALSE) // Don't display this to the holder user
 			if(holder)
-				to_chat(holder, "<span class='notice'>Unable to locate any fingerprints, materials, fibers, or blood on [A]!</span>")
+				to_chat(holder, "<span class='notice'>Unable to locate any fingerprints, materials, fibers, or blood on [scan_atom]!</span>")
 		else
 			if(holder)
-				to_chat(holder, "<span class='notice'>You finish scanning [A].</span>")
+				to_chat(holder, "<span class='notice'>You finish scanning [scan_atom].</span>")
 
 		add_log("---------------------------------------------------------", FALSE)
 		scanning = FALSE

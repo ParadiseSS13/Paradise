@@ -22,7 +22,9 @@
 		..(over_object)
 
 /obj/item/clothing/suit/storage/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
+	. = ..()
+	if(istype(W, /obj/item/radio/spy_spider))
+		return
 	return pockets.attackby(W, user, params)
 
 /obj/item/clothing/suit/storage/emp_act(severity)

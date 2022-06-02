@@ -2472,6 +2472,7 @@
 	req_access_txt = "1"
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
+/obj/item/storage/lockbox/spy_kit,
 /obj/item/storage/lockbox/mindshield,
 /obj/item/storage/box/trackimp,
 /obj/item/storage/box/chemimp{
@@ -17314,6 +17315,7 @@
 /obj/item/restraints/handcuffs,
 /obj/item/flash,
 /obj/item/storage/box/bodybags,
+/obj/item/storage/lockbox/spy_kit,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
