@@ -12913,10 +12913,6 @@
 	name = "\improper Garden"
 	})
 "aUH" = (
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
 /obj/structure/window/reinforced{
 	dir = 1
 	},
