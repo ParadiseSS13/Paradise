@@ -71607,8 +71607,8 @@
 	frequency = 1379;
 	master_tag = "sol_airlock";
 	name = "exterior access button";
-	pixel_x = -13;
-	pixel_y = -23
+	pixel_x = -7;
+	pixel_y = -25
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
