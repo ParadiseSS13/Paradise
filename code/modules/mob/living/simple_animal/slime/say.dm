@@ -1,11 +1,11 @@
 /mob/living/simple_animal/slime/say_quote(text, datum/language/speaking)
-	var/verb = "blorbles"
+	var/verb = "булькает"
 	var/ending = copytext(text, length(text))
 
 	if(ending == "?")
-		verb = "inquisitively blorbles"
+		verb = "любознательно булькает"
 	else if(ending == "!")
-		verb = "loudly blorbles"
+		verb = "громко булькает"
 
 	return verb
 
