@@ -27206,7 +27206,7 @@
 	pixel_y = -23
 	},
 /obj/machinery/door_control/ticket_machine_button{
-	pixel_x = 32
+	pixel_x = 26
 	},
 /obj/structure/table/wood,
 /obj/item/paper_bin/nanotrasen{
@@ -28792,9 +28792,6 @@
 /turf/simulated/floor/wood,
 /area/library)
 "bGa" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
@@ -92784,6 +92781,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
+"xnn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluecorners"
+	},
+/area/bridge)
 "xnp" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -120180,7 +120187,7 @@ bwg
 crh
 lWi
 tdv
-tdv
+xnn
 bGa
 enU
 wHz
