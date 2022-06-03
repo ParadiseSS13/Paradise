@@ -4852,6 +4852,10 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/machinery/camera{
+	c_tag = "Brig Detective's Office";
+	dir = 8
+	},
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "axH" = (
