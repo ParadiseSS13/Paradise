@@ -92494,12 +92494,10 @@
 	dir = 8
 	},
 /obj/item/shield/riot{
-	pixel_x = 3;
 	pixel_y = 3
 	},
 /obj/item/shield/riot,
 /obj/item/shield/riot{
-	pixel_x = -3;
 	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
