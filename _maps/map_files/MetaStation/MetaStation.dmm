@@ -16588,6 +16588,10 @@
 /obj/structure/sign/pods{
 	pixel_y = 32
 	},
+/obj/machinery/camera{
+	c_tag = "Arrivals - Fore Arm";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "arrival"
@@ -17559,10 +17563,6 @@
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 27
-	},
-/obj/machinery/camera{
-	c_tag = "Arrivals - Fore Arm";
-	dir = 8
 	},
 /obj/machinery/light{
 	dir = 4
