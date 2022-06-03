@@ -34372,16 +34372,16 @@
 /area/toxins/lab)
 "bWh" = (
 /obj/structure/table/wood,
-/obj/item/folder/blue{
-	pixel_x = 4;
-	pixel_y = 6
-	},
-/obj/item/book/manual/sop_command,
 /obj/machinery/newscaster/security_unit{
 	pixel_x = -31
 	},
 /obj/machinery/camera{
 	c_tag = "Blueshield's Office"
+	},
+/obj/item/book/manual/sop_command,
+/obj/item/folder/blue{
+	pixel_x = 4;
+	pixel_y = 6
 	},
 /turf/simulated/floor/carpet/blue,
 /area/blueshield)
@@ -34488,15 +34488,6 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 8;
@@ -34564,6 +34555,8 @@
 	name = "Blueshield Requests Console";
 	pixel_x = -30
 	},
+/obj/item/paper_bin,
+/obj/item/pen/blue,
 /turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "bWD" = (
@@ -34678,16 +34671,22 @@
 /obj/item/poster/random_official,
 /obj/item/poster/random_official,
 /obj/item/poster/random_official,
-/obj/machinery/button/windowtint{
-	pixel_x = 24;
-	dir = 8;
-	id = "SHOW";
-	pixel_y = 6
-	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/button/windowtint{
+	pixel_x = 24;
+	dir = 8;
+	id = "SHOW";
+	pixel_y = 11
 	},
 /turf/simulated/floor/carpet,
 /area/assembly/showroom)
@@ -35283,7 +35282,7 @@
 /obj/machinery/button/windowtint{
 	dir = 1;
 	id = "NT";
-	pixel_x = -6;
+	pixel_x = -7;
 	pixel_y = -24
 	},
 /obj/machinery/door_control{
