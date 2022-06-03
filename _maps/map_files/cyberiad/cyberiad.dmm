@@ -23326,6 +23326,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/northeastcorner,
+/obj/machinery/camera{
+	c_tag = "Port Hallway 2"
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "bdr" = (
@@ -24826,13 +24829,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/chapel/office)
-"bgh" = (
-/obj/machinery/camera{
-	c_tag = "Port Hallway 2"
-	},
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel,
-/area/hallway/primary/port)
 "bgi" = (
 /obj/structure/chair{
 	dir = 1
@@ -102167,7 +102163,7 @@ aUE
 aUE
 aab
 beK
-bgh
+bgA
 bmf
 bkr
 bOn
