@@ -83204,6 +83204,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -27
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -93464,10 +93468,6 @@
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "xHu" = (
-/obj/structure/extinguisher_cabinet{
-	name = "west bump";
-	pixel_x = -27
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
