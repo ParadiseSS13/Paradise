@@ -81100,15 +81100,12 @@
 /area/atmos)
 "rhw" = (
 /obj/structure/mirror{
-	pixel_y = 28
-	},
-/obj/structure/sink{
-	pixel_y = 22
-	},
-/obj/machinery/camera{
-	c_tag = "Bar - Backroom"
+	pixel_y = 34
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/sink{
+	pixel_y = 17
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "rhH" = (
@@ -91497,6 +91494,10 @@
 	pixel_x = 6;
 	dir = 1;
 	name = "custom placement"
+	},
+/obj/machinery/camera{
+	c_tag = "Bar - Backroom";
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
