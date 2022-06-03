@@ -4853,7 +4853,7 @@
 	pixel_x = 24
 	},
 /obj/machinery/camera{
-	c_tag = "Brig Detective's Office";
+	c_tag = "Detective's Office";
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
