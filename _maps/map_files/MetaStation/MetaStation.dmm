@@ -11768,10 +11768,10 @@
 	pixel_x = 5
 	},
 /obj/structure/window/reinforced{
-	dir = 1
+	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 8
+	dir = 1
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
@@ -58496,10 +58496,10 @@
 	pixel_x = 5
 	},
 /obj/structure/window/reinforced{
-	dir = 1
+	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 4
+	dir = 1
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
