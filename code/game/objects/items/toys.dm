@@ -1098,16 +1098,16 @@
 	desc = "A silky nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian"
 	item_state = "plushie_nian"
-	var/cooldown = 0
+	var/cooldown = FALSE
 
 /obj/item/toy/plushie/nianplushie/attack_self(mob/user)
-	if(!cooldown)
-		playsound(user, 'sound/voice/scream_moth.ogg', 10, 0)
-		visible_message("<span class='danger'>Buzzzz!</span>")
-		cooldown = 1
-		spawn(30) cooldown = 0
-		return
-	..()
+	if(cooldown)
+		return ..()
+
+	playsound(user, 'sound/voice/scream_moth.ogg', 10, 0)
+	visible_message("<span class='danger'>Buzzzz!</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 30)
 
 /*
  * Foam Armblade
