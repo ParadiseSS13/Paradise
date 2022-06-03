@@ -23552,11 +23552,6 @@
 	},
 /area/bridge)
 "buc" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
 /obj/item/storage/fancy/donut_box,
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
@@ -25791,6 +25786,11 @@
 	pixel_y = 3
 	},
 /obj/structure/table/glass,
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
