@@ -28591,10 +28591,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "Central Primary Hallway - Port";
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -34306,10 +34302,6 @@
 	},
 /obj/machinery/light{
 	dir = 4
-	},
-/obj/machinery/camera{
-	c_tag = "Departure Lounge - Starboard Aft";
-	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit{
@@ -50506,6 +50498,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/camera{
+	c_tag = "Departure Lounge - Port Fore";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
@@ -50661,10 +50657,6 @@
 "cTq" = (
 /obj/machinery/light{
 	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Departure Lounge - Port Fore";
-	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-24"
@@ -50854,10 +50846,6 @@
 "cTV" = (
 /obj/machinery/light{
 	dir = 4
-	},
-/obj/machinery/camera{
-	c_tag = "Departure Lounge - Starboard Fore";
-	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
@@ -67040,6 +67028,16 @@
 	},
 /turf/space,
 /area/solar/auxport)
+"jSC" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/camera{
+	c_tag = "Departure Lounge - Starboard Aft";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit{
+	name = "\improper Departure Lounge"
+	})
 "jTe" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -86502,6 +86500,10 @@
 	name = "east bump";
 	pixel_x = 28
 	},
+/obj/machinery/camera{
+	c_tag = "Departure Lounge - Starboard Fore";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
@@ -92201,6 +92203,15 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/reception)
+"wWh" = (
+/obj/machinery/camera{
+	c_tag = "Central Primary Hallway - Port";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "wWG" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -117342,7 +117353,7 @@ biK
 bzR
 sWV
 bqb
-bdb
+wWh
 brN
 bJd
 bKM
@@ -122291,7 +122302,7 @@ cUB
 cUB
 dat
 bVX
-cLn
+jSC
 cTX
 cLn
 cXz
