@@ -18688,7 +18688,7 @@
 /area/security/permabrig)
 "aZG" = (
 /obj/machinery/camera{
-	c_tag = "Perma-Brig Solitary Hallway";
+	c_tag = "Perma-Brig Hallway Port";
 	network = list("SS13","Security")
 	},
 /obj/machinery/alarm{
@@ -18803,24 +18803,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hydroponics)
-"aZO" = (
-/obj/machinery/status_display{
-	pixel_y = 32
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredcorners"
-	},
-/area/security/permabrig)
 "aZP" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -18869,18 +18851,13 @@
 	pixel_y = 32
 	},
 /obj/machinery/camera{
-	c_tag = "Perma-Brig Hallway Starboard";
+	c_tag = "Perma-Brig Hallway";
 	network = list("SS13","Security")
 	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
@@ -18933,7 +18910,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "Perma-Brig Hallway";
+	c_tag = "Perma-Brig Hallway Starboard";
 	network = list("SS13","Security")
 	},
 /turf/simulated/floor/plasteel{
@@ -19637,11 +19614,6 @@
 	},
 /area/security/permabrig)
 "bbx" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -20301,18 +20273,6 @@
 	pixel_y = -32
 	},
 /obj/structure/closet/secure_closet/brig,
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
-	},
-/area/security/permabrig)
-"bcZ" = (
-/obj/structure/closet/secure_closet/brig,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 8
@@ -25746,6 +25706,10 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/door/airlock/maintenance{
+	name = "Mining Maintenance";
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
@@ -33992,32 +33956,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
-"bFT" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/security/detectives_office)
-"bFU" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/security/detectives_office)
 "bFV" = (
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/effect/spawner/window/reinforced,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
@@ -35059,11 +35003,6 @@
 /area/security/detectives_office)
 "bHK" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/security/detectives_office)
 "bHL" = (
@@ -35794,11 +35733,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/security/detectives_office)
 "bJw" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -88234,6 +88168,11 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -90146,7 +90085,7 @@
 "jfD" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Mining Maintenance";
-	req_access_txt = "48"
+	req_access_txt = "12"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -92697,11 +92636,6 @@
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle,
 /area/maintenance/fsmaint)
-"pjQ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/crittercare,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
 "pjY" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -94532,23 +94466,6 @@
 	icon_state = "neutralfull"
 	},
 /area/atmos)
-"tiS" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkredcorners"
-	},
-/area/security/permabrig)
 "tke" = (
 /obj/structure/table,
 /obj/item/storage/box/bodybags{
@@ -96182,10 +96099,6 @@
 "xgm" = (
 /turf/simulated/floor/plasteel/dark,
 /area/security/securearmoury)
-"xgC" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
-/turf/simulated/wall,
-/area/space)
 "xgR" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -144012,7 +143925,7 @@ oxO
 eNt
 aaa
 aaa
-bFT
+bLn
 bHK
 bJw
 bLp
@@ -144269,7 +144182,7 @@ uaL
 rDp
 aaa
 aaa
-bFU
+bLn
 bHL
 bJx
 bLq
@@ -144523,7 +144436,7 @@ eNt
 bfH
 ume
 oeH
-eNt
+rDp
 aaa
 aaa
 bLn
@@ -145037,7 +144950,7 @@ bHZ
 aZu
 aZu
 eNt
-rDp
+eNt
 aaa
 aaa
 bFW
@@ -146555,7 +146468,7 @@ aZu
 eNt
 eNt
 eNt
-xgC
+aZu
 aMv
 aWX
 hcQ
@@ -146793,7 +146706,7 @@ aaa
 aaa
 aaa
 aaa
-acF
+aaa
 acF
 abj
 abj
@@ -146802,7 +146715,7 @@ aaa
 aaa
 eNt
 qOd
-pjQ
+bWr
 bWr
 vId
 bWr
@@ -147051,7 +146964,7 @@ aaa
 aaa
 aaa
 aaa
-acF
+aaa
 acF
 abj
 abj
@@ -147309,7 +147222,7 @@ aaa
 aaa
 aaa
 aaa
-acF
+aaa
 acF
 alW
 abj
@@ -147567,7 +147480,7 @@ aaa
 aaa
 aaa
 aaa
-acF
+aaa
 acF
 alW
 abj
@@ -147825,7 +147738,7 @@ aaa
 aaa
 aaa
 aaa
-acF
+aaa
 acF
 abj
 rDp
@@ -148083,7 +147996,7 @@ aaa
 aaa
 aaa
 aaa
-acF
+aaa
 acF
 eNt
 aZu
@@ -148341,7 +148254,7 @@ aaa
 aaa
 aaa
 aaa
-acF
+aaa
 acF
 acF
 acF
@@ -150418,9 +150331,9 @@ aJx
 aVm
 aWP
 aJx
-aZO
+aZL
 bbx
-bcZ
+bdd
 bsL
 biB
 qYC
@@ -151447,8 +151360,8 @@ aVr
 aZr
 aJx
 aZR
-tiS
-bcZ
+bbt
+bdd
 bsL
 biF
 bkn
