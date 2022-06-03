@@ -55005,7 +55005,6 @@
 	dir = 2;
 	name = "Permabrig Kitchen"
 	},
-/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
