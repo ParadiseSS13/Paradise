@@ -18268,12 +18268,17 @@
 	icon_state = "pipe-c"
 	},
 /obj/structure/closet/jcloset,
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_switch{
 	dir = 8;
-	name = "east bump";
-	pixel_x = 24
+	name = "custom placement";
+	pixel_x = 24;
+	pixel_y = -6
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/firealarm{
+	name = "north bump";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "bhL" = (
@@ -21797,14 +21802,13 @@
 	dir = 4;
 	pixel_x = 11
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start/janitor,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "bpS" = (
@@ -22910,10 +22914,6 @@
 /area/engine/break_room)
 "bsE" = (
 /obj/machinery/light/small,
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
 /obj/vehicle/janicart,
 /turf/simulated/floor/plating,
 /area/janitor)
