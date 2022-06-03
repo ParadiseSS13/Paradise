@@ -90,3 +90,18 @@
 /obj/item/candle/eternal
 	desc = "A candle. This one seems to have an odd quality about the wax."
 	infinite = 1
+
+/obj/item/candle/get_spooked()
+	if(lit)
+		var/i
+		if(wax>150)
+			i = 1
+		else if(wax>80)
+			i = 2
+		else
+			i = 3
+		playsound(src.loc, 'sound/effects/candle_flicker.ogg', 15, 1)
+		flick("candle[i]["_flicker"]", src)
+		return TRUE
+	else
+		return FALSE
