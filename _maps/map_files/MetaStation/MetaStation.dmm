@@ -21986,11 +21986,11 @@
 	name = "\improper Captain's Quarters"
 	})
 "bqn" = (
-/obj/structure/mirror{
-	pixel_y = 28
-	},
 /obj/structure/sink{
 	pixel_y = 17
+	},
+/obj/structure/mirror{
+	pixel_y = 34
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
