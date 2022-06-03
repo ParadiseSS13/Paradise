@@ -10298,10 +10298,10 @@
 	},
 /area/crew_quarters/courtroom)
 "aNA" = (
-/obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
