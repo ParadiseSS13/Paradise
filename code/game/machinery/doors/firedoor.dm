@@ -162,10 +162,10 @@
 		return
 	if(!density) //In case someone opens it while it's getting welded
 		return
-	if(!welded)
-		WELDER_WELD_SUCCESS_MESSAGE
-	else
+	if(welded)
 		WELDER_UNWELD_SUCCESS_MESSAGE
+	else
+		WELDER_WELD_SUCCESS_MESSAGE
 	welded = !welded
 	update_icon()
 
