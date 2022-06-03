@@ -34380,6 +34380,9 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_x = -31
 	},
+/obj/machinery/camera{
+	c_tag = "Blueshield's Office"
+	},
 /turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "bWi" = (
@@ -34549,9 +34552,6 @@
 	})
 "bWB" = (
 /obj/machinery/computer/crew,
-/obj/machinery/camera{
-	c_tag = "Blueshield's Office"
-	},
 /turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "bWC" = (
@@ -35208,7 +35208,8 @@
 	desc = "The famous Nanotrasen-brand microwave, the multi-purpose cooking appliance every station needs! This one appears to be drawn onto a cardboard box.";
 	icon_state = "mw";
 	icon = 'icons/obj/kitchen.dmi';
-	pixel_y = 2
+	pixel_y = 2;
+	name = "\improper Nanotrasen-brand microwave"
 	},
 /obj/structure/noticeboard{
 	pixel_y = -32;
@@ -52025,7 +52026,7 @@
 "cXY" = (
 /obj/structure/filingcabinet/filingcabinet,
 /obj/machinery/camera{
-	dir = 10;
+	dir = 1;
 	c_tag = "Medbay Psychology Office"
 	},
 /turf/simulated/floor/wood,
@@ -74812,7 +74813,8 @@
 	icon_state = "television";
 	icon = 'icons/obj/computer.dmi';
 	pixel_x = 2;
-	pixel_y = 3
+	pixel_y = 3;
+	name = "\improper Nanotrasen corporate newsfeed"
 	},
 /turf/simulated/floor/carpet,
 /area/assembly/showroom)
