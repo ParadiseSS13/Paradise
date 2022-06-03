@@ -33955,6 +33955,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/camera/motion{
+	c_tag = "E.V.A. Storage";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -33977,10 +33981,6 @@
 	},
 /area/assembly/showroom)
 "bVe" = (
-/obj/machinery/camera/motion{
-	c_tag = "E.V.A. Storage";
-	dir = 8
-	},
 /obj/machinery/alarm{
 	dir = 8;
 	name = "east bump";
