@@ -154,10 +154,10 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	if(!welded)
-		WELDER_ATTEMPT_WELD_MESSAGE
-	else
+	if(welded)
 		WELDER_ATTEMPT_UNWELD_MESSAGE
+	else
+		WELDER_ATTEMPT_WELD_MESSAGE
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
 		return
 	if(!density) //In case someone opens it while it's getting welded
