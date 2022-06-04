@@ -129,7 +129,7 @@
 	else
 		stat |= NOPOWER
 
-/obj/machinery/chem_dispenser/update_icon()
+/obj/machinery/chem_dispenser/update_icon_state()
 	if(panel_open)
 		icon_state = "[initial(icon_state)]-o"
 		return
@@ -526,9 +526,8 @@
 
 	add_fingerprint(usr)
 
-/obj/item/handheld_chem_dispenser/update_icon()
-	cut_overlays()
-
+/obj/item/handheld_chem_dispenser/update_overlays()
+	. = ..()
 	if(cell && cell.charge)
 		var/image/power_light = image('icons/obj/chemical.dmi', src, "light_low")
 		var/percent = round((cell.charge / cell.maxcharge) * 100)
@@ -539,17 +538,16 @@
 				power_light.icon_state = "light_mid"
 			if(67 to INFINITY)
 				power_light.icon_state = "light_full"
-		add_overlay(power_light)
+		. += power_light
 
 		var/image/mode_light = image('icons/obj/chemical.dmi', src, "light_remove")
 		mode_light.icon_state = "light_[mode]"
-		add_overlay(mode_light)
+		. += mode_light
 
 		var/image/chamber_contents = image('icons/obj/chemical.dmi', src, "reagent_filling")
 		var/datum/reagent/R = GLOB.chemical_reagents_list[current_reagent]
 		chamber_contents.icon += R.color
-		add_overlay(chamber_contents)
-	..()
+		. += chamber_contents
 
 /obj/item/handheld_chem_dispenser/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
 	if(isrobot(loc) && cell.charge < cell.maxcharge)

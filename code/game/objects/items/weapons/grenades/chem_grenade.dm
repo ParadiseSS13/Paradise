@@ -51,7 +51,8 @@
 	return null
 
 
-/obj/item/grenade/chem_grenade/proc/update_overlays()
+/obj/item/grenade/chem_grenade/update_overlays()
+	. = ..()
 	underlays = list()
 	if(nadeassembly)
 		underlays += "[nadeassembly.a_left.icon_state]_left"
@@ -61,11 +62,10 @@
 		for(var/O in nadeassembly.a_right.attached_overlays)
 			underlays += "[O]_r"
 
-/obj/item/grenade/chem_grenade/update_icon()
+/obj/item/grenade/chem_grenade/update_icon_state()
 	if(nadeassembly)
 		icon = 'icons/obj/assemblies/new_assemblies.dmi'
 		icon_state = bomb_state
-		update_overlays()
 		var/obj/item/assembly/A = get_trigger()
 		if(stage != READY)
 			name = "bomb casing[label]"

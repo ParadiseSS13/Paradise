@@ -376,7 +376,7 @@
 
 			environment.merge(gas)
 
-/obj/machinery/alarm/update_icon()
+/obj/machinery/alarm/update_icon_state()
 	if(wiresexposed)
 		icon_state = "alarmx"
 		return

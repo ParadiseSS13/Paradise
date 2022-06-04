@@ -28,8 +28,8 @@
 	icon_state = "weldingmask"
 	item_state = "weldingmask"
 	materials = list(MAT_METAL=4000, MAT_GLASS=2000)
-	flash_protect = 2
-	tint = 2
+	flash_protect = FLASH_PROTECTION_WELDER
+	tint = FLASH_PROTECTION_WELDER
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 55)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
@@ -66,7 +66,7 @@
 
 /obj/item/clothing/mask/gas/explorer/adjustmask(user)
 	..()
-	w_class = mask_adjusted ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+	w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/mask/gas/explorer/folded/Initialize()
 	. = ..()

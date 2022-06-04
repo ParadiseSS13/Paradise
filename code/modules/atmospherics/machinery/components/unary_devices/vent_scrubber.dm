@@ -95,16 +95,9 @@
 	use_power(amount, power_channel)
 	return 1
 
-/obj/machinery/atmospherics/unary/vent_scrubber/update_icon(safety = 0)
-	..()
-
+/obj/machinery/atmospherics/unary/vent_scrubber/update_overlays()
+	. = ..()
 	plane = FLOOR_PLANE
-
-	if(!check_icon_cache())
-		return
-
-	overlays.Cut()
-
 	var/scrubber_icon = "scrubber"
 
 	var/turf/T = get_turf(src)
@@ -118,7 +111,7 @@
 	if(welded)
 		scrubber_icon = "scrubberweld"
 
-	overlays += SSair.icon_manager.get_atmos_icon("device", , , scrubber_icon)
+	. += SSair.icon_manager.get_atmos_icon("device", , , scrubber_icon)
 	update_pipe_image()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_underlays()

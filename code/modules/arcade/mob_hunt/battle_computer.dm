@@ -5,13 +5,13 @@
 	icon_state = "mob_battle_empty"
 	icon_screen = null
 	icon_keyboard = null
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	var/obj/item/nanomob_card/card
 	var/datum/mob_hunt/mob_info
 	var/obj/effect/landmark/battle_mob_point/avatar_point
 	var/obj/effect/nanomob/battle/avatar
-	var/ready = 0
+	var/ready = FALSE
 	var/team = "Grey"
 
 /obj/machinery/computer/mob_battle_terminal/red
@@ -32,12 +32,11 @@
 	..()
 	check_connection()
 
-/obj/machinery/computer/mob_battle_terminal/update_icon()
+/obj/machinery/computer/mob_battle_terminal/update_icon_state()
 	if(card)
 		icon_state = "mob_battle_loaded"
 	else
 		icon_state = "mob_battle_empty"
-	..()
 
 /obj/machinery/computer/mob_battle_terminal/Destroy()
 	eject_card(1)

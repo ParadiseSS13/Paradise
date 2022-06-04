@@ -5,6 +5,7 @@
 	item_state = "headphones0"
 	actions_types = list(/datum/action/item_action/change_headphones_song)
 	var/datum/song/headphones/song
+	var/playing = FALSE
 
 /obj/item/clothing/ears/headphones/Initialize(mapload)
 	. = ..()
@@ -35,12 +36,12 @@
 		return
 	return song.ui_act(action, params)
 
-/obj/item/clothing/ears/headphones/update_icon()
+/obj/item/clothing/ears/headphones/update_icon_state()
 	var/mob/living/carbon/human/user = loc
 	if(istype(user))
 		user.update_action_buttons_icon()
 		user.update_inv_ears()
-	..()
+	icon_state = item_state = "headphones[playing]"
 
 /obj/item/clothing/ears/headphones/item_action_slot_check(slot)
 	if(slot == slot_l_ear || slot == slot_r_ear)
@@ -50,14 +51,14 @@
   * Called by a component signal when our song starts playing.
   */
 /obj/item/clothing/ears/headphones/proc/start_playing()
-	icon_state = item_state = "headphones1"
+	playing = TRUE
 	update_icon()
 
 /**
   * Called by a component signal when our song stops playing.
   */
 /obj/item/clothing/ears/headphones/proc/stop_playing()
-	icon_state = item_state = "headphones0"
+	playing = FALSE
 	update_icon()
 
 /**

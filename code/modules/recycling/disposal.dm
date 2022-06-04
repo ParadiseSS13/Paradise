@@ -765,7 +765,7 @@
 // if invisible, append "f" to icon_state to show faded version
 // this will be revealed if a T-scanner is used
 // if visible, use regular icon_state
-/obj/structure/disposalpipe/update_icon()
+/obj/structure/disposalpipe/update_icon_state()
 	if(invisibility)
 		icon_state = "[base_icon_state]f"
 	else

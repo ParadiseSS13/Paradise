@@ -23,12 +23,11 @@
 	icon_state = "map_valve1"
 
 /obj/machinery/atmospherics/binary/valve/update_icon(animation)
-	..()
-
 	if(animation)
 		flick("valve[src.open][!src.open]",src)
 	else
 		icon_state = "valve[open]"
+	..()
 
 /obj/machinery/atmospherics/binary/valve/update_underlays()
 	if(..())
@@ -107,8 +106,7 @@
 	if(old_stat != stat)
 		update_icon()
 
-/obj/machinery/atmospherics/binary/valve/digital/update_icon()
-	..()
+/obj/machinery/atmospherics/binary/valve/digital/update_icon_state()
 	if(!powered())
 		icon_state = "valve[open]nopower"
 

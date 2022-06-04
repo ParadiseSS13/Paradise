@@ -343,7 +343,10 @@
 	icon_state = "dorm_available"
 	density = 0
 
-/obj/machinery/computer/shuttle/pod/update_icon()
+/obj/machinery/computer/shuttle/pod/update_icon_state()
+	return
+
+/obj/machinery/computer/shuttle/pod/update_overlays()
 	return
 
 /obj/machinery/computer/shuttle/pod/emag_act(mob/user as mob)

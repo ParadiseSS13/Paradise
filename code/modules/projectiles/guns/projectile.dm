@@ -22,14 +22,16 @@
 	return "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo. The description \
 			will tell you what caliber you need."
 
-/obj/item/gun/projectile/update_icon()
-	..()
+/obj/item/gun/projectile/update_icon_state()
 	if(current_skin)
 		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
 	else
 		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
+
+/obj/item/gun/projectile/update_overlays()
+	. = ..()
 	if(bayonet && can_bayonet)
-		overlays += knife_overlay
+		. += knife_overlay
 
 /obj/item/gun/projectile/process_chamber(eject_casing = 1, empty_chamber = 1)
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round

@@ -209,7 +209,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	if(!(resistance_flags & ON_FIRE) && (resistance_flags & FLAMMABLE) && !(resistance_flags & FIRE_PROOF))
 		resistance_flags |= ON_FIRE
 		SSfires.processing[src] = src
-		add_overlay(GLOB.fire_overlay, TRUE)
+		add_overlay(custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay)
 		return 1
 
 ///called when the obj is destroyed by fire
@@ -222,7 +222,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/proc/extinguish()
 	if(resistance_flags & ON_FIRE)
 		resistance_flags &= ~ON_FIRE
-		cut_overlay(GLOB.fire_overlay, TRUE)
+		cut_overlay(custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay, TRUE)
 		SSfires.processing -= src
 
 ///Called when the obj is hit by a tesla bolt.

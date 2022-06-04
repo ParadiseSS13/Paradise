@@ -26,7 +26,7 @@
 	update_icon()
 	return TRUE
 
-/obj/screen/buildmode/mode/update_icon()
+/obj/screen/buildmode/mode/update_icon_state()
 	icon_state = bd.mode.get_button_iconstate()
 
 /obj/screen/buildmode/help
@@ -45,6 +45,7 @@
 
 /obj/screen/buildmode/bdir/update_icon()
 	dir = bd.build_dir
+	..(NONE)
 
 /obj/screen/buildmode/bdir/Click()
 	bd.toggle_dirswitch()

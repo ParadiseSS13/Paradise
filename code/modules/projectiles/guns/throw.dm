@@ -41,7 +41,10 @@
 	loaded_projectiles = null
 	return ..()
 
-/obj/item/gun/throw/update_icon()
+/obj/item/gun/throw/update_icon_state()
+	return
+
+/obj/item/gun/throw/update_overlays()
 	return
 
 /obj/item/gun/throw/attackby(obj/item/I, mob/user, params)

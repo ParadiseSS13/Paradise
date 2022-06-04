@@ -49,16 +49,16 @@
 	else
 		return PROCESS_KILL
 
-/obj/item/stock_parts/cell/update_icon()
-	overlays.Cut()
+/obj/item/stock_parts/cell/update_overlays()
+	. = ..()
 	if(grown_battery)
-		overlays += image('icons/obj/power.dmi', "grown_wires")
+		. += image('icons/obj/power.dmi', "grown_wires")
 	if(charge < 0.01)
 		return
 	else if(charge/maxcharge >=0.995)
-		overlays += "cell-o2"
+		. += "cell-o2"
 	else
-		overlays += "cell-o1"
+		. += "cell-o1"
 
 /obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
 	return 100 * charge / maxcharge
@@ -315,9 +315,8 @@
 	rating = 12
 	ratingdesc = FALSE
 
-/obj/item/stock_parts/cell/infinite/abductor/update_icon()
+/obj/item/stock_parts/cell/infinite/abductor/update_overlays()
 	return
-
 
 /obj/item/stock_parts/cell/potato
 	name = "potato battery"

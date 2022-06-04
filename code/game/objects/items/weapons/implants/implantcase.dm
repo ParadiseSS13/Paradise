@@ -13,7 +13,7 @@
 	var/obj/item/implant/imp = null
 
 
-/obj/item/implantcase/update_icon()
+/obj/item/implantcase/update_icon_state()
 	if(imp)
 		icon_state = "implantcase-[imp.item_color]"
 		origin_tech = imp.origin_tech
@@ -38,8 +38,8 @@
 			I.imp.loc = src
 			imp = I.imp
 			I.imp = null
-			update_icon()
-			I.update_icon()
+			update_icon(UPDATE_ICON_STATE)
+			I.update_icon(UPDATE_ICON_STATE)
 		else
 			if(imp)
 				if(I.imp)
@@ -47,8 +47,8 @@
 				imp.loc = I
 				I.imp = imp
 				imp = null
-				update_icon()
-			I.update_icon()
+				update_icon(UPDATE_ICON_STATE)
+			I.update_icon(UPDATE_ICON_STATE)
 
 	/*else if(istype(W, /obj/item/ammo_casing/shotgun/implanter))
 		var/obj/item/ammo_casing/shotgun/implanter/I = W
@@ -57,7 +57,7 @@
 
 /obj/item/implantcase/New()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/implantcase/tracking

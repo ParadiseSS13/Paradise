@@ -21,7 +21,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/candle/update_icon()
+/obj/item/candle/update_icon_state()
 	var/i
 	if(wax>150)
 		i = 1
@@ -60,7 +60,7 @@
 			usr.visible_message(show_message)
 		set_light(CANDLE_LUM)
 		START_PROCESSING(SSobj, src)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/candle/process()
@@ -74,7 +74,7 @@
 			var/mob/M = src.loc
 			M.unEquip(src, 1) //src is being deleted anyway
 		qdel(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(isturf(loc)) //start a fire if possible
 		var/turf/T = loc
 		T.hotspot_expose(700, 5)
@@ -84,7 +84,7 @@
 	if(lit)
 		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
 		lit = 0
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		set_light(0)
 
 /obj/item/candle/eternal

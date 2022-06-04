@@ -38,7 +38,7 @@
 		if(!user.drop_item())
 			return
 		O.forceMove(src)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return TRUE
 	else if(istype(O, /obj/item/storage/bag/books))
 		var/obj/item/storage/bag/books/B = O
@@ -46,7 +46,7 @@
 			if(istype(T, /obj/item/book) || istype(T, /obj/item/spellbook) || istype(T, /obj/item/tome) || istype(T, /obj/item/storage/bible))
 				B.remove_from_storage(T, src)
 		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return TRUE
 	else if(istype(O, /obj/item/wrench))
 		user.visible_message("<span class='warning'>[user] starts disassembling \the [src].</span>", \
@@ -89,7 +89,7 @@
 			I.forceMove(get_turf(src))
 	qdel(src)
 
-/obj/structure/bookcase/update_icon()
+/obj/structure/bookcase/update_icon_state()
 	if(contents.len < 5)
 		icon_state = "book-[contents.len]"
 	else

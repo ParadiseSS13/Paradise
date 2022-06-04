@@ -88,9 +88,6 @@
 	default_deconstruction_crowbar(user, I)
 	return TRUE
 
-/obj/machinery/arcade/update_icon()
-	return
-
 /obj/machinery/arcade/proc/pay_with_cash(obj/item/stack/spacecash/cashmoney, mob/user)
 	if(cashmoney.amount < token_price)
 		to_chat(user, "[bicon(cashmoney)] <span class='warning'>That is not enough money.</span>")

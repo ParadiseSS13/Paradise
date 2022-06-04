@@ -29,11 +29,10 @@
 	desc = "A white folder."
 	icon_state = "folder_white"
 
-/obj/item/folder/update_icon()
-	overlays.Cut()
+/obj/item/folder/update_overlays()
+	. = ..()
 	if(contents.len)
-		overlays += "folder_paper"
-	..()
+		. += "folder_paper"
 
 /obj/item/folder/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/paper) || istype(W, /obj/item/photo) || istype(W, /obj/item/paper_bundle) || istype(W, /obj/item/documents))

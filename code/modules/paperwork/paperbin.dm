@@ -113,12 +113,11 @@
 			. += "<span class='notice'>There are no papers in the bin.</span>"
 
 
-/obj/item/paper_bin/update_icon()
+/obj/item/paper_bin/update_icon_state()
 	if(amount < 1)
 		icon_state = "paper_bin0"
 	else
 		icon_state = "paper_bin1"
-	..()
 
 /obj/item/paper_bin/carbon
 	name = "carbonless paper bin"

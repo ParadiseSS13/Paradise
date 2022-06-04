@@ -29,7 +29,7 @@
 	if(cell && severity)
 		emp_act(severity)
 
-/obj/item/gun/throw/crossbow/update_icon()
+/obj/item/gun/throw/crossbow/update_icon_state()
 	if(!tension)
 		if(!to_launch)
 			icon_state = "[initial(icon_state)]"

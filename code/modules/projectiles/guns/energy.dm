@@ -133,37 +133,37 @@
 	update_icon()
 	return
 
-/obj/item/gun/energy/update_icon()
-	overlays.Cut()
+/obj/item/gun/energy/update_overlays()
+	. = ..()
 	var/ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	var/iconState = "[icon_state]_charge"
-	var/itemState = null
+	var/new_icon_state = "[icon_state]_charge"
+	var/new_item_state
 	if(!initial(item_state))
-		itemState = icon_state
+		new_item_state = icon_state
 	if(modifystate)
-		overlays += "[icon_state]_[shot.select_name]"
-		iconState += "_[shot.select_name]"
-		if(itemState)
-			itemState += "[shot.select_name]"
+		. += "[icon_state]_[shot.select_name]"
+		new_icon_state += "_[shot.select_name]"
+		if(new_item_state)
+			new_item_state += "[shot.select_name]"
 	if(cell.charge < shot.e_cost)
-		overlays += "[icon_state]_empty"
+		. += "[icon_state]_empty"
 	else
 		if(!shaded_charge)
 			for(var/i = ratio, i >= 1, i--)
-				overlays += image(icon = icon, icon_state = iconState, pixel_x = ammo_x_offset * (i -1))
+				. += image(icon = icon, icon_state = new_icon_state, pixel_x = ammo_x_offset * (i -1))
 		else
-			overlays += image(icon = icon, icon_state = "[icon_state]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
+			. += image(icon = icon, icon_state = "[icon_state]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
 	if(gun_light && can_flashlight)
-		var/iconF = "flight"
+		var/flashlight = "flight"
 		if(gun_light.on)
-			iconF = "flight_on"
-		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
+			flashlight = "flight_on"
+		. += image(icon = icon, icon_state = flashlight, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
 	if(bayonet && can_bayonet)
-		overlays += knife_overlay
-	if(itemState)
-		itemState += "[ratio]"
-		item_state = itemState
+		. += knife_overlay
+	if(new_item_state)
+		new_item_state += "[ratio]"
+		item_state = new_item_state
 
 /obj/item/gun/energy/ui_action_click()
 	toggle_gunlight()

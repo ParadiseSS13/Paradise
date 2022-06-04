@@ -3,8 +3,8 @@
 	desc = "Converts plants into biomass, which can be used to construct useful items."
 	icon = 'icons/obj/biogenerator.dmi'
 	icon_state = "biogen-empty"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	var/processing = 0
@@ -44,7 +44,7 @@
 	..()
 	if(A == beaker)
 		beaker = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		updateUsrDialog()
 
 /obj/machinery/biogenerator/RefreshParts()
@@ -61,9 +61,9 @@
 	max_items = max_storage
 
 /obj/machinery/biogenerator/on_reagent_change()			//When the reagents change, change the icon as well.
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/biogenerator/update_icon()
+/obj/machinery/biogenerator/update_icon_state()
 	if(panel_open)
 		icon_state = "biogen-empty-o"
 	else if(!beaker)
@@ -87,7 +87,7 @@
 			var/obj/item/reagent_containers/glass/B = beaker
 			B.forceMove(loc)
 			beaker = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return
 
 	if(exchange_parts(user, O))
@@ -107,7 +107,7 @@
 				O.forceMove(src)
 				beaker = O
 				to_chat(user, "<span class='notice'>You add the container to the machine.</span>")
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				updateUsrDialog()
 		else
 			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
@@ -236,13 +236,13 @@
 		qdel(I)
 	if(S)
 		processing = 1
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		updateUsrDialog()
 		playsound(loc, 'sound/machines/blender.ogg', 50, 1)
 		use_power(S*30)
 		sleep(S+15/productivity)
 		processing = 0
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	else
 		menustat = "void"
 	return
@@ -256,7 +256,7 @@
 	else
 		if(remove_points)
 			points -= materials[MAT_BIOMASS]*multiplier/efficiency
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		updateUsrDialog()
 		return 1
 
@@ -301,14 +301,14 @@
 			--i
 
 	menustat = "complete"
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return .
 
 /obj/machinery/biogenerator/proc/detach()
 	if(beaker)
 		beaker.forceMove(loc)
 		beaker = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/biogenerator/Topic(href, href_list)
 	if(..() || panel_open)

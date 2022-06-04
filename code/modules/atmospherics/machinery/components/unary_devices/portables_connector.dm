@@ -15,8 +15,7 @@
 		connected_device.disconnect()
 	return ..()
 
-/obj/machinery/atmospherics/unary/portables_connector/update_icon()
-	..()
+/obj/machinery/atmospherics/unary/portables_connector/update_icon_state()
 	icon_state = "connector"
 
 /obj/machinery/atmospherics/unary/portables_connector/update_underlays()

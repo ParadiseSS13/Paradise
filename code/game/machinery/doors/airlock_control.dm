@@ -3,6 +3,7 @@
 // This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
 /obj/machinery/door/airlock
 	var/id_tag
+	var/airlock_state
 	var/shockedby = list()
 	var/cur_command = null	//the command the door is currently attempting to complete
 
@@ -161,7 +162,7 @@
 	var/alert = 0
 	var/previousPressure
 
-/obj/machinery/airlock_sensor/update_icon()
+/obj/machinery/airlock_sensor/update_icon_state()
 	if(on)
 		if(alert)
 			icon_state = "airlock_sensor_alert"
@@ -197,7 +198,7 @@
 
 			alert = (pressure < ONE_ATMOSPHERE*0.8)
 
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/airlock_sensor/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -237,7 +238,7 @@
 	var/command = "cycle"
 	var/on = 1
 
-/obj/machinery/access_button/update_icon()
+/obj/machinery/access_button/update_icon_state()
 	if(on)
 		icon_state = "access_button_standby"
 	else

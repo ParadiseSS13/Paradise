@@ -24,7 +24,7 @@
 /obj/item/gun/throw/piecannon/notify_ammo_count()
 	return "<span class='notice'>[src] has [get_ammocount()] of [max_capacity] pies left.</span>"
 
-/obj/item/gun/throw/piecannon/update_icon()
+/obj/item/gun/throw/piecannon/update_icon_state()
 	if(to_launch)
 		icon_state = "piecannon1"
 	else

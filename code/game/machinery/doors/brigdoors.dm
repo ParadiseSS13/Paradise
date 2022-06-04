@@ -145,7 +145,7 @@
 
 		if(targets.len==0)
 			stat |= BROKEN
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/door_timer/Destroy()
 	QDEL_NULL(Radio)
@@ -166,7 +166,7 @@
 			timer_end() // open doors, reset timer, clear status screen
 			timing = 0
 			. = PROCESS_KILL
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	else
 		timer_end()
 		return PROCESS_KILL
@@ -174,7 +174,7 @@
 // has the door power situation changed, if so update icon.
 /obj/machinery/door_timer/power_change()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 // open/closedoor checks if door_timer has power, if so it checks if the
@@ -359,7 +359,7 @@
 			prisoner_time = null
 			timing = TRUE
 			timer_start()
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		if("restart_timer")
 			if(timing)
 				var/reset_reason = sanitize(copytext(input(usr, "Reason for resetting timer:", name, "") as text|null, 1, MAX_MESSAGE_LEN))
@@ -396,7 +396,7 @@
 // if NOPOWER, display blank
 // if BROKEN, display blue screen of death icon AI uses
 // if timing=true, run update display function
-/obj/machinery/door_timer/update_icon()
+/obj/machinery/door_timer/update_icon_state()
 	if(stat & (NOPOWER))
 		icon_state = "frame"
 		return

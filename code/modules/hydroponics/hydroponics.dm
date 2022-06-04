@@ -275,25 +275,22 @@
 		return
 	return
 
-/obj/machinery/hydroponics/update_icon()
-	//Refreshes the icon and sets the luminosity
-	overlays.Cut()
+/obj/machinery/hydroponics/update_overlays()
+	. = ..()
 
 	if(self_sustaining)
 		if(istype(src, /obj/machinery/hydroponics/soil))
 			color = rgb(255, 175, 0)
 		else
-			overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "gaia_blessing")
+			. += "gaia_blessing"
 		set_light(3)
 
 	if(lid_state)
-		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "hydrocover")
-
-	update_icon_hoses()
+		. += "hydrocover"
 
 	if(myseed)
-		update_icon_plant()
-		update_icon_lights()
+		. += update_icon_plant()
+		. += update_icon_lights()
 
 	if(!self_sustaining)
 		if(myseed && myseed.get_gene(/datum/plant_gene/trait/glow))
@@ -302,7 +299,8 @@
 		else
 			set_light(0)
 
-	return
+/obj/machinery/hydroponics/update_icon_state()
+	update_icon_hoses()
 
 /obj/machinery/hydroponics/proc/update_icon_hoses()
 	var/n = 0
@@ -326,20 +324,19 @@
 		var/t_growthstate = clamp(round((age / myseed.maturation) * myseed.growthstages), 1, myseed.growthstages)
 		I = image(icon = myseed.growing_icon, icon_state = "[myseed.icon_grow][t_growthstate]")
 	I.layer = OBJ_LAYER + 0.01
-	overlays += I
+	. += I
 
 /obj/machinery/hydroponics/proc/update_icon_lights()
 	if(waterlevel <= 10)
-		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_lowwater3")
+		. += "over_lowwater3"
 	if(nutrilevel <= 2)
-		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_lownutri3")
+		. += "over_lownutri3"
 	if(plant_health <= (myseed.endurance / 2))
-		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_lowhealth3")
+		. += "over_lowhealth3"
 	if(weedlevel >= 5 || pestlevel >= 5 || toxic >= 40)
-		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_alert3")
+		. += "over_alert3"
 	if(harvest)
-		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_harvest3")
-
+		. += "over_harvest3"
 
 /obj/machinery/hydroponics/examine(user)
 	. = ..()

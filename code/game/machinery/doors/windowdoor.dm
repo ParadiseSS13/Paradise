@@ -25,7 +25,6 @@
 	if(set_dir)
 		setDir(set_dir)
 	if(req_access && req_access.len)
-		icon_state = "[icon_state]"
 		base_state = icon_state
 
 /obj/machinery/door/window/Destroy()
@@ -35,7 +34,7 @@
 	QDEL_NULL(electronics)
 	return ..()
 
-/obj/machinery/door/window/update_icon()
+/obj/machinery/door/window/update_icon_state()
 	if(density)
 		icon_state = base_state
 	else

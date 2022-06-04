@@ -353,7 +353,7 @@
 		var/turf/here = get_turf(src)
 		var/obj/item/clothing/under/U = H.w_uniform
 		// Suit sensors must be on maximum.
-		if(!U.has_sensor || U.sensor_mode < 3)
+		if(!U.has_sensor || U.sensor_mode < SENSOR_COORDS)
 			return FALSE
 		var/turf/there = get_turf(U)
 		return istype(there) && there.z == here.z

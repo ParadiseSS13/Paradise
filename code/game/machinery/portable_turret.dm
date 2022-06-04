@@ -145,7 +145,7 @@
 			eshot_sound = 'sound/weapons/pulse.ogg'
 
 GLOBAL_LIST_EMPTY(turret_icons)
-/obj/machinery/porta_turret/update_icon()
+/obj/machinery/porta_turret/update_icon_state()
 	if(!GLOB.turret_icons)
 		GLOB.turret_icons = list()
 		GLOB.turret_icons["open"] = image(icon, "openTurretCover")
@@ -155,18 +155,19 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	if(stat & BROKEN)
 		icon_state = "destroyed_target_prism"
-	else if(raised || raising)
-		if(powered() && enabled)
-			if(iconholder)
-				//lasers have a orange icon
-				icon_state = "orange_target_prism"
-			else
-				//almost everything has a blue icon
-				icon_state = "target_prism"
-		else
-			icon_state = "grey_target_prism"
-	else
+		return
+	if(!raised || !raising)
 		icon_state = "turretCover"
+		return
+	if(!powered() && !enabled)
+		icon_state = "grey_target_prism"
+		return
+	if(iconholder)
+		//lasers have a orange icon
+		icon_state = "orange_target_prism"
+	else
+		//almost everything has a blue icon
+		icon_state = "target_prism"
 
 /obj/machinery/porta_turret/proc/HasController()
 	var/area/A = get_area(src)
@@ -319,7 +320,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/porta_turret/attackby(obj/item/I, mob/user)
@@ -362,16 +363,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		wrenching = TRUE
 		if(do_after(user, 50 * I.toolspeed, target = src))
 			//This code handles moving the turret around. After all, it's a portable turret!
-			if(!anchored)
-				playsound(loc, I.usesound, 100, 1)
-				anchored = TRUE
-				update_icon()
-				to_chat(user, "<span class='notice'>You secure the exterior bolts on the turret.</span>")
-			else if(anchored)
-				playsound(loc, I.usesound, 100, 1)
-				anchored = FALSE
-				to_chat(user, "<span class='notice'>You unsecure the exterior bolts on the turret.</span>")
-				update_icon()
+			playsound(loc, I.usesound, 100, 1)
+			anchored = !anchored
+			update_icon(UPDATE_ICON_STATE)
+			to_chat(user, "<span class='notice'>You [anchored ? "" : "un"]secure the exterior bolts on the turret.</span>")
 		wrenching = FALSE
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
@@ -497,7 +492,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	stat |= BROKEN	//enables the BROKEN bit
 	if(spark_system)
 		spark_system.start()	//creates some sparks because they look cool
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/porta_turret/process()
 	//the main machinery process
@@ -631,7 +626,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	set_raised_raising(raised, TRUE)
 	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
 	flick_holder.layer = layer + 0.1
@@ -640,7 +635,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	qdel(flick_holder)
 
 	set_raised_raising(TRUE, FALSE)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/porta_turret/proc/popDown()	//pops the turret down
 	last_target = null
@@ -652,7 +647,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 	set_raised_raising(raised, TRUE)
 	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
 	flick_holder.layer = layer + 0.1
@@ -662,7 +657,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	set_raised_raising(FALSE, FALSE)
 	set_angle(0)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/porta_turret/on_assess_perp(mob/living/carbon/human/perp)
 	if((check_access || attacked) && !allowed(perp))
@@ -702,7 +697,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(!istype(T) || !istype(U))
 		return
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	var/obj/item/projectile/A
 	if(emagged || lethal)
 		if(eprojectile)
@@ -1038,7 +1033,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	req_access = list(ACCESS_SYNDICATE)
 	one_access = FALSE
 
-/obj/machinery/porta_turret/syndicate/update_icon()
+/obj/machinery/porta_turret/syndicate/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = icon_state_destroyed
 	else if(enabled)

@@ -26,7 +26,7 @@
 	..()
 	if(starts_with_tape)
 		mytape = new /obj/item/tape/random(src)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	soundloop = new(list(src))
 
 /obj/item/taperecorder/Destroy()
@@ -53,7 +53,7 @@
 			mytape = I
 			to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 			playsound(src, 'sound/items/taperecorder/taperecorder_close.ogg', 50, FALSE)
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 /obj/item/taperecorder/proc/eject(mob/user)
 	if(mytape)
@@ -62,7 +62,7 @@
 		stop()
 		user.put_in_hands(mytape)
 		mytape = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/taperecorder/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
@@ -92,7 +92,7 @@
 	eject(usr)
 
 
-/obj/item/taperecorder/update_icon()
+/obj/item/taperecorder/update_icon_state()
 	if(!mytape)
 		icon_state = "taperecorder_empty"
 	else if(recording)
@@ -101,7 +101,6 @@
 		icon_state = "taperecorder_playing"
 	else
 		icon_state = "taperecorder_idle"
-
 
 /obj/item/taperecorder/hear_talk(mob/living/M as mob, list/message_pieces)
 	var/msg = multilingual_to_message(message_pieces)
@@ -146,7 +145,7 @@
 		recording = TRUE
 		atom_say("Recording started.")
 		update_sound()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		mytape.timestamp += mytape.used_capacity
 		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] Recording started."
 		var/used = mytape.used_capacity	//to stop runtimes when you eject the tape
@@ -180,7 +179,7 @@
 		playsound(src, 'sound/items/taperecorder/taperecorder_stop.ogg', 50, FALSE)
 		atom_say("Playback stopped.")
 		playing = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_sound()
 
 
@@ -198,7 +197,7 @@
 		return
 
 	playing = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_sound()
 	atom_say("Playback started.")
 	playsound(src, 'sound/items/taperecorder/taperecorder_play.ogg', 50, FALSE)
@@ -285,7 +284,7 @@
 	var/used_capacity = 0
 	var/list/storedinfo = list()
 	var/list/timestamp = list()
-	var/ruined = 0
+	var/ruined = FALSE
 
 /obj/item/tape/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
@@ -308,22 +307,23 @@
 	to_chat(usr, "<span class='notice'>You erase the data from [src].</span>")
 	clear()
 
+/obj/item/tape/update_overlays()
+	. = ..()
+	if(ruined)
+		. += "ribbonoverlay"
+
 /obj/item/tape/proc/clear()
 	used_capacity = 0
 	storedinfo.Cut()
 	timestamp.Cut()
 
 /obj/item/tape/proc/ruin()
-	if(!ruined)
-		overlays += "ribbonoverlay"
-	ruined = 1
-
-
+	ruined = TRUE
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/tape/proc/fix()
-	overlays -= "ribbonoverlay"
-	ruined = 0
-
+	ruined = FALSE
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/tape/attackby(obj/item/I, mob/user)
 	if(ruined && istype(I, /obj/item/screwdriver))

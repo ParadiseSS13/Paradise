@@ -35,12 +35,14 @@
 	pixel_x = rand(-10.0, 10)
 	pixel_y = rand(-10.0, 10)
 	dir = pick(GLOB.alldirs)
-	update_icon()
+	update_appearance()
 
-/obj/item/ammo_casing/update_icon()
-	..()
-	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
+/obj/item/ammo_casing/update_desc()
+	. = ..()
 	desc = "[initial(desc)][BB ? "" : " This one is spent."]"
+
+/obj/item/ammo_casing/update_icon_state()
+	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
 
 /obj/item/ammo_casing/proc/newshot(params) //For energy weapons, shotgun shells and wands (!).
 	if(!BB)
@@ -208,14 +210,17 @@
 		to_chat(user, "<span class='notice'>You remove a round from \the [src]!</span>")
 		update_icon()
 
-/obj/item/ammo_box/update_icon()
+/obj/item/ammo_box/update_desc()
+	. = ..()
+	desc = "[initial(desc)] There are [stored_ammo.len] shell\s left!"
+
+/obj/item/ammo_box/update_icon_state()
 	var/icon_base = initial(icon_prefix) ? initial(icon_prefix) : initial(icon_state)
 	switch(multiple_sprites)
 		if(1)
 			icon_state = "[icon_base]-[stored_ammo.len]"
 		if(2)
 			icon_state = "[icon_base]-[stored_ammo.len ? "[max_ammo]" : "0"]"
-	desc = "[initial(desc)] There are [stored_ammo.len] shell\s left!"
 
 /obj/item/ammo_box/proc/update_mat_value()
 	var/num_ammo = 0

@@ -26,12 +26,13 @@
 	QDEL_NULL(cell)
 	return ..()
 
-/obj/machinery/space_heater/update_icon()
-	overlays.Cut()
+/obj/machinery/space_heater/update_icon_state()
 	icon_state = "sheater[on]"
+
+/obj/machinery/space_heater/update_overlays()
+	. = ..()
 	if(open)
-		overlays  += "sheater-open"
-	return
+		. += "sheater-open"
 
 /obj/machinery/space_heater/examine(mob/user)
 	. = ..()

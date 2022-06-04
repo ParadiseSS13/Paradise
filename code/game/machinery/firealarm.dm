@@ -43,13 +43,7 @@ FIRE ALARM
 	report_fire_alarms = FALSE
 	show_alert_level = FALSE
 
-/obj/machinery/firealarm/update_icon()
-	underlays.Cut()
-	if(light)
-		if(overlays)
-			underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
-		if(!wiresexposed)
-			underlays += emissive_appearance(icon, "firealarm_lightmask")
+/obj/machinery/firealarm/update_icon_state()
 	if(wiresexposed)
 		icon_state = "firealarm_b[buildstage]"
 		return
@@ -62,6 +56,20 @@ FIRE ALARM
 		icon_state = "firealarm_detect"
 	else
 		icon_state = "firealarm_on"
+
+/obj/machinery/firealarm/update_overlays()
+	. = ..()
+	underlays.Cut()
+	if(is_station_contact(z) && show_alert_level)
+		if(GLOB.security_level)
+			add_overlay("overlay_[get_security_level()]")
+		else
+			add_overlay("overlay_green")
+	if(light)
+		if(overlays)
+			underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
+		if(!wiresexposed)
+			underlays += emissive_appearance(icon, "firealarm_lightmask")
 
 /obj/machinery/firealarm/emag_act(mob/user)
 	if(!emagged)
@@ -265,12 +273,6 @@ FIRE ALARM
 		wiresexposed = TRUE
 		setDir(direction)
 		set_pixel_offsets_from_dir(26, -26, 26, -26)
-
-	if(is_station_contact(z) && show_alert_level)
-		if(GLOB.security_level)
-			overlays += image('icons/obj/monitors.dmi', "overlay_[get_security_level()]")
-		else
-			overlays += image('icons/obj/monitors.dmi', "overlay_green")
 
 	myArea = get_area(src)
 	LAZYADD(myArea.firealarms, src)

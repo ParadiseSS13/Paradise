@@ -78,12 +78,12 @@
 		return
 	return ..()
 
-/obj/vehicle/janicart/update_icon()
-	cut_overlays()
+/obj/vehicle/janicart/update_overlays()
+	. = ..()
 	if(mybag)
-		add_overlay("cart_garbage")
+		. += "cart_garbage"
 	if(floorbuffer)
-		add_overlay("cart_buffer")
+		. += "cart_buffer"
 
 
 /obj/vehicle/janicart/attack_hand(mob/user)

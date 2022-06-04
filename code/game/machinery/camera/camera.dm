@@ -75,14 +75,14 @@
 		return
 	if(!isEmpProof())
 		if(prob(150/severity))
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			var/list/previous_network = network
 			network = list()
 			GLOB.cameranet.removeCamera(src)
 			stat |= EMPED
 			set_light(0)
 			emped = emped+1  //Increase the number of consecutive EMP's
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			var/thisemp = emped //Take note of which EMP this proc is for
 			spawn(900)
 				if(!QDELETED(src))
@@ -244,7 +244,7 @@
 			new /obj/item/stack/cable_coil(loc, 2)
 	qdel(src)
 
-/obj/machinery/camera/update_icon()
+/obj/machinery/camera/update_icon_state()
 	if(!status)
 		icon_state = "[initial(icon_state)]1"
 	else if(stat & EMPED)
@@ -278,7 +278,7 @@
 			visible_message("<span class='danger'>\The [src] [change_msg]!</span>")
 
 		playsound(loc, toggle_sound, 100, 1)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	// now disconnect anyone using the camera
 	//Apparently, this will disconnect anyone even if the camera was re-activated.

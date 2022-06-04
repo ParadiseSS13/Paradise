@@ -9,7 +9,8 @@
 	..()
 	update_name()
 
-/obj/effect/proc_holder/spell/vampire/self/cloak/proc/update_name()
+/obj/effect/proc_holder/spell/vampire/self/cloak/update_name()
+	. = ..()
 	var/mob/living/user = loc
 	if(!ishuman(user) || !user.mind)
 		return

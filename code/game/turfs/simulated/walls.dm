@@ -17,7 +17,6 @@
 	var/damage = 0
 	var/damage_cap = 100 //Wall will break down to girders if damage reaches this point
 
-	var/damage_overlay
 	var/global/damage_overlays[8]
 
 	opacity = 1
@@ -82,27 +81,25 @@
 	return "You can deconstruct this by welding it, and then wrenching the girder.<br>\
 			You can build a wall by using metal sheets and making a girder, then adding more metal or plasteel."
 
-/turf/simulated/wall/proc/update_icon()
+/turf/simulated/wall/update_overlays()
+	. = ..()
 	if(!damage_overlays[1]) //list hasn't been populated
 		generate_overlays()
 
 	QUEUE_SMOOTH(src)
 	if(!damage)
-		if(damage_overlay)
-			overlays -= damage_overlays[damage_overlay]
-			damage_overlay = null
+		. += dent_decals
 		return
 
 	var/overlay = round(damage / damage_cap * damage_overlays.len) + 1
 	if(overlay > damage_overlays.len)
 		overlay = damage_overlays.len
 
-	if(damage_overlay && overlay == damage_overlay) //No need to update.
-		return
-	if(damage_overlay)
-		overlays -= damage_overlays[damage_overlay]
-	overlays += damage_overlays[overlay]
-	damage_overlay = overlay
+	if(length(dent_decals))
+		. += dent_decals
+
+	. += damage_overlays[overlay]
+	. += dent_decals
 
 /turf/simulated/wall/proc/generate_overlays()
 	var/alpha_inc = 256 / damage_overlays.len
@@ -370,8 +367,8 @@
 	if(I.use_tool(src, user, time, volume = I.tool_volume))
 		if(repairing)
 			WELDER_REPAIR_SUCCESS_MESSAGE
-			cut_overlay(dent_decals)
 			dent_decals?.Cut() // I feel like this isn't needed but it can't hurt to keep it in anyway
+			update_icon()
 			take_damage(-damage)
 		else
 			WELDER_SLICING_SUCCESS_MESSAGE
@@ -500,11 +497,10 @@
 	decal.pixel_y = y
 
 	if(LAZYLEN(dent_decals))
-		cut_overlay(dent_decals)
 		dent_decals += decal
 	else
 		dent_decals = list(decal)
 
-	add_overlay(dent_decals)
+	update_icon()
 
 #undef MAX_DENT_DECALS

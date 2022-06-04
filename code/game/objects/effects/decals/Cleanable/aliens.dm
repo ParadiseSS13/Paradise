@@ -18,6 +18,7 @@
 	basecolor = "#05EE05"
 
 /obj/effect/decal/cleanable/blood/gibs/xeno/update_icon()
+	. = ..()
 	color = "#FFFFFF"
 
 /obj/effect/decal/cleanable/blood/gibs/xeno/up

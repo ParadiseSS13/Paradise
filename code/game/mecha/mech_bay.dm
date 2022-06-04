@@ -122,7 +122,7 @@
 	var/obj/machinery/mech_bay_recharge_port/recharge_port
 
 
-/obj/machinery/computer/mech_bay_power_console/update_icon()
+/obj/machinery/computer/mech_bay_power_console/update_overlays()
 	if(!recharge_port || !recharge_port.recharging_mecha || !recharge_port.recharging_mecha.cell || !(recharge_port.recharging_mecha.cell.charge < recharge_port.recharging_mecha.cell.maxcharge) || stat & (NOPOWER|BROKEN))
 		icon_screen = "recharge_comp"
 	else

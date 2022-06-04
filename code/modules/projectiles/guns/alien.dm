@@ -11,7 +11,10 @@
 	restricted_species = list(/datum/species/vox/armalis)
 	sprite_sheets_inhand = list("Vox Armalis" = 'icons/mob/clothing/species/armalis/held.dmi') //Big guns big birds.
 
-/obj/item/gun/energy/noisecannon/update_icon()
+/obj/item/gun/energy/noisecannon/update_icon_state()
+	return
+
+/obj/item/gun/energy/noisecannon/update_overlays()
 	return
 
 //Casing

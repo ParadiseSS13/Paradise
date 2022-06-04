@@ -269,13 +269,12 @@
 		if("Toggle Cap")
 			to_chat(user, "<span class='notice'>You [capped ? "remove" : "replace"] the cap of [src].</span>")
 			capped = !capped
-			icon_state = "spraycan[capped ? "_cap" : ""]"
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		if("Change Drawing")
 			..()
 		if("Change Color")
 			colour = input(user,"Choose Color") as color
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 
 /obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user as mob, proximity)
 	if(!proximity)
@@ -300,8 +299,11 @@
 		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
 		..()
 
-/obj/item/toy/crayon/spraycan/update_icon()
-	overlays.Cut()
+/obj/item/toy/crayon/spraycan/update_icon_state()
+	icon_state = "spraycan[capped ? "_cap" : ""]"
+
+/obj/item/toy/crayon/spraycan/update_overlays()
+	. = ..()
 	var/image/I = image('icons/obj/crayons.dmi',icon_state = "[capped ? "spraycan_cap_colors" : "spraycan_colors"]")
 	I.color = colour
-	overlays += I
+	. += I

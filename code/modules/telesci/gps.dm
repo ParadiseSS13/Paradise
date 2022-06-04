@@ -41,12 +41,12 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	GLOB.poi_list.Remove(src)
 	return ..()
 
-/obj/item/gps/update_icon()
-	cut_overlays()
+/obj/item/gps/update_overlays()
+	. = ..()
 	if(emped)
-		add_overlay("emp")
+		. += "emp"
 	else if(tracking)
-		add_overlay("working")
+		. += "working"
 
 /obj/item/gps/emp_act(severity)
 	emped = TRUE

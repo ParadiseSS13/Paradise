@@ -277,8 +277,7 @@
 //		A.update_lights()
 	return ..()
 
-/obj/machinery/light/update_icon()
-
+/obj/machinery/light/update_icon_state()
 	switch(status)		// set icon_states
 		if(LIGHT_OK)
 			if(emergency_mode)
@@ -294,7 +293,6 @@
 		if(LIGHT_BROKEN)
 			icon_state = "[base_state]-broken"
 			on = FALSE
-	return
 
 /**
   * Updates the light's 'on' state and power consumption based on [/obj/machinery/light/var/on].

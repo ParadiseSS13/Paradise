@@ -137,7 +137,7 @@
 	update_icon()
 	return TRUE
 
-/obj/machinery/satellite/update_icon()
+/obj/machinery/satellite/update_icon_state()
 	icon_state = active ? "sat_active" : "sat_inactive"
 
 /obj/machinery/satellite/attackby(obj/item/I, mob/user, params)

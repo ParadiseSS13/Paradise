@@ -190,8 +190,7 @@
 	magazine.max_ammo = 6
 	update_icon()
 
-/obj/item/gun/projectile/shotgun/riot/update_icon() //Can't use the old proc as it makes it go to riotshotgun-short_sawn
-	..()
+/obj/item/gun/projectile/shotgun/riot/update_icon_state() //Can't use the old proc as it makes it go to riotshotgun-short_sawn
 	if(current_skin)
 		icon_state = "[current_skin]"
 	else

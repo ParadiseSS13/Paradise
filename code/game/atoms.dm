@@ -393,6 +393,73 @@
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
+/**
+ * Updates the appearence of the icon
+ *
+ * Mostly delegates to update_name, update_desc, and update_icon
+ *
+ * Arguments:
+ * - updates: A set of bitflags dictating what should be updated. Defaults to [ALL]
+ */
+/atom/proc/update_appearance(updates=ALL)
+	SHOULD_NOT_SLEEP(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+
+	. = NONE
+	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_APPEARANCE, updates)
+	if(updates & UPDATE_NAME)
+		. |= update_name(updates)
+	if(updates & UPDATE_DESC)
+		. |= update_desc(updates)
+	if(updates & UPDATE_ICON)
+		. |= update_icon(updates)
+
+/// Updates the name of the atom
+/atom/proc/update_name(updates=ALL)
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_NAME, updates)
+
+/// Updates the description of the atom
+/atom/proc/update_desc(updates=ALL)
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_DESC, updates)
+
+/// Updates the icon of the atom
+/atom/proc/update_icon(updates=ALL)
+	SIGNAL_HANDLER
+	SHOULD_CALL_PARENT(TRUE)
+
+	. = NONE
+	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON, updates)
+	if(updates & UPDATE_ICON_STATE)
+		update_icon_state()
+		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON_STATE)
+		. |= UPDATE_ICON_STATE
+
+	if(updates & UPDATE_OVERLAYS)
+		cut_overlays()
+		SEND_SIGNAL(src, COMSIG_ATOM_ADD_EMISSIVE_BLOCKER)
+		var/list/new_overlays = update_fire_overlay()
+		new_overlays += update_overlays(updates)
+		if(length(new_overlays))
+			add_overlay(new_overlays)
+		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, .)
+		. |= UPDATE_OVERLAYS
+
+	. |= SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates, .)
+
+/// Updates the icon state of the atom
+/atom/proc/update_icon_state()
+	return
+
+/// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one.
+/atom/proc/update_overlays()
+	. = list()
+
+/// Updates the fire overlay of the atom
+/atom/proc/update_fire_overlay()
+	return
+
 /atom/proc/relaymove()
 	return
 

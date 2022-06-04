@@ -46,10 +46,9 @@
 	signal()
 	return TRUE
 
-/obj/item/assembly/signaler/update_icon()
+/obj/item/assembly/signaler/update_icon_state()
 	if(holder)
 		holder.update_icon()
-	return
 
 /obj/item/assembly/signaler/interact(mob/user, flag1)
 	var/t1 = "-------"

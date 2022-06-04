@@ -96,7 +96,7 @@
 	opacity = 0
 	state = 1
 	air_update_turf(1)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	isSwitchingStates = 0
 
 	if(close_delay != -1)
@@ -117,10 +117,10 @@
 	opacity = 1
 	state = 0
 	air_update_turf(1)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	isSwitchingStates = 0
 
-/obj/structure/mineral_door/update_icon()
+/obj/structure/mineral_door/update_icon_state()
 	if(state)
 		icon_state = "[initial_state]open"
 	else

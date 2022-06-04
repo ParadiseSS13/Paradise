@@ -123,6 +123,7 @@
 /obj/screen/pull/update_icon(mob/mymob)
 	if(!mymob)
 		return
+	. = ..(NONE)
 	if(mymob.pulling)
 		icon_state = "pull"
 	else
@@ -223,6 +224,7 @@
 	name = "damage zone"
 	icon_state = "zone_sel"
 	screen_loc = ui_zonesel
+	var/overlay_file = 'icons/mob/zone_sel.dmi'
 	var/selecting = "chest"
 	var/static/list/hover_overlays_cache = list()
 	var/hovering
@@ -333,22 +335,16 @@
 	return 1
 
 /obj/screen/zone_sel/update_icon(mob/user)
-	overlays.Cut()
-	var/image/human = image('icons/mob/zone_sel.dmi', "human")
-	human.appearance_flags = RESET_COLOR
-	overlays += human
-	var/image/sel = image('icons/mob/zone_sel.dmi', "[selecting]")
+	. = ..(NONE)
+	cut_overlays()
+	var/image/sel = image(overlay_file, "[selecting]")
 	sel.appearance_flags = RESET_COLOR
-	overlays += sel
+	add_overlay(sel)
 	user.zone_selected = selecting
 
 /obj/screen/zone_sel/alien
 	icon = 'icons/mob/screen_alien.dmi'
-
-/obj/screen/zone_sel/alien/update_icon(mob/user)
-	overlays.Cut()
-	overlays += image('icons/mob/screen_alien.dmi', "[selecting]")
-	user.zone_selected = selecting
+	overlay_file = 'icons/mob/screen_alien.dmi'
 
 /obj/screen/zone_sel/robot
 	icon = 'icons/mob/screen_robot.dmi'
@@ -432,26 +428,26 @@
 	var/image/active_overlay
 	var/image/handcuff_overlay
 
-/obj/screen/inventory/hand/update_icon()
-	..()
+/obj/screen/inventory/hand/update_overlays()
+	. = ..()
 	if(!active_overlay)
 		active_overlay = image("icon"=icon, "icon_state"="hand_active")
 	if(!handcuff_overlay)
 		var/state = (slot_id == slot_r_hand) ? "markus" : "gabrielle"
 		handcuff_overlay = image("icon"='icons/mob/screen_gen.dmi', "icon_state"=state)
 
-	overlays.Cut()
+	cut_overlays()
 
 	if(hud && hud.mymob)
 		if(iscarbon(hud.mymob))
 			var/mob/living/carbon/C = hud.mymob
 			if(C.handcuffed)
-				overlays += handcuff_overlay
+				. += handcuff_overlay
 
 		if(slot_id == slot_l_hand && hud.mymob.hand)
-			overlays += active_overlay
+			. += active_overlay
 		else if(slot_id == slot_r_hand && !hud.mymob.hand)
-			overlays += active_overlay
+			. += active_overlay
 
 /obj/screen/inventory/hand/Click()
 	// At this point in client Click() code we have passed the 1/10 sec check and little else

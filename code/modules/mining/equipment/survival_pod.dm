@@ -232,7 +232,10 @@
 		var/obj/item/instrument/guitar/G = new(src)
 		load(G)
 
-/obj/machinery/smartfridge/survival_pod/update_icon()
+/obj/machinery/smartfridge/survival_pod/update_icon_state()
+	return
+
+/obj/machinery/smartfridge/survival_pod/update_overlays()
 	return
 
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)

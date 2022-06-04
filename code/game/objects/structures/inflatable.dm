@@ -171,7 +171,7 @@
 	density = 0
 	opacity = 0
 	state = 1
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	isSwitchingStates = 0
 
 /obj/structure/inflatable/door/proc/Close()
@@ -182,10 +182,10 @@
 	density = 1
 	opacity = 0
 	state = 0
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	isSwitchingStates = 0
 
-/obj/structure/inflatable/door/update_icon()
+/obj/structure/inflatable/door/update_icon_state()
 	if(state)
 		icon_state = "door_open"
 	else

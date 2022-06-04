@@ -4,7 +4,7 @@
 	ammo_type = /obj/item/ammo_casing/a357
 	max_ammo = 7
 	icon_state = "357-7" // DEFAULT icon, composed of prefix + "-" + max_ammo for multiple_sprites == 1 boxes
-	multiple_sprites = 1 // see: /obj/item/ammo_box/update_icon()
+	multiple_sprites = 1 // see: /obj/item/ammo_box/update_icon_state()
 	icon_prefix = "357" // icon prefix, used in above formula to generate dynamic icons
 
 /obj/item/ammo_box/c38

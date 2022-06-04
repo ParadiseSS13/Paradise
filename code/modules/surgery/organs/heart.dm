@@ -9,7 +9,7 @@
 	dead_icon = "heart-off"
 	var/icon_base = "heart"
 
-/obj/item/organ/internal/heart/update_icon()
+/obj/item/organ/internal/heart/update_icon_state()
 	if(beating)
 		icon_state = "[icon_base]-on"
 	else

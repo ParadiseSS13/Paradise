@@ -15,6 +15,7 @@
 	var/damage_deflection = 0
 
 	var/resistance_flags = NONE // INDESTRUCTIBLE
+	var/custom_fire_overlay // Update_fire_overlay will check if a different icon state should be used
 
 	var/acid_level = 0 //how much acid is on that obj
 
@@ -166,8 +167,10 @@
 /obj/proc/interact(mob/user)
 	return
 
-/obj/proc/update_icon()
-	SEND_SIGNAL(src, COMSIG_OBJ_UPDATE_ICON)
+/obj/update_fire_overlay()
+	. = list()
+	if(resistance_flags & ON_FIRE)
+		. += custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay
 
 /mob/proc/unset_machine()
 	if(machine)

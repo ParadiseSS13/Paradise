@@ -23,7 +23,7 @@
 	slot = parent_organ + "_device"
 	items_list = contents.Copy()
 
-/obj/item/organ/internal/cyberimp/arm/update_icon()
+/obj/item/organ/internal/cyberimp/arm/update_icon_state()
 	if(parent_organ == "r_arm")
 		transform = null
 	else // Mirroring the icon

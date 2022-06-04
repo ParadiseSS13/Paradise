@@ -108,9 +108,7 @@
 	to_chat(user, "<span class='notice'>You reverse the circulator's valve settings. The inlet of the circulator is now on the [get_inlet_side(dir)] side.</span>")
 	desc = "A gas circulator pump and heat exchanger. Its input port is on the [get_inlet_side(dir)] side, and its output port is on the [get_outlet_side(dir)] side."
 
-/obj/machinery/atmospherics/binary/circulator/update_icon()
-	..()
-
+/obj/machinery/atmospherics/binary/circulator/update_icon_state()
 	if(stat & (BROKEN|NOPOWER))
 		icon_state = "circ[side]-p"
 	else if(last_pressure_delta > 0)
@@ -120,5 +118,3 @@
 			icon_state = "circ[side]-slow"
 	else
 		icon_state = "circ[side]-off"
-
-	return 1

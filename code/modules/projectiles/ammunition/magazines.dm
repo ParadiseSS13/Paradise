@@ -231,13 +231,11 @@
 	multiple_sprites = 1
 	caliber = "9mm"
 
-/obj/item/ammo_box/magazine/enforcer/update_icon()
-	..()
-	overlays.Cut()
-
+/obj/item/ammo_box/magazine/enforcer/update_overlays()
+	. = ..()
 	var/ammo = ammo_count()
 	if(ammo && is_rubber())
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
+		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
 
 /obj/item/ammo_box/magazine/enforcer/examine(mob/user)
 	. = ..()
@@ -263,8 +261,7 @@
 	caliber = "4.6x30mm"
 	max_ammo = 20
 
-/obj/item/ammo_box/magazine/wt550m9/update_icon()
-	..()
+/obj/item/ammo_box/magazine/wt550m9/update_icon_state()
 	icon_state = "46x30mmt-[round(ammo_count(),4)]"
 
 /obj/item/ammo_box/magazine/wt550m9/wtap
@@ -286,8 +283,7 @@
 	caliber = "9mm"
 	max_ammo = 32
 
-/obj/item/ammo_box/magazine/uzim9mm/update_icon()
-	..()
+/obj/item/ammo_box/magazine/uzim9mm/update_icon_state()
 	icon_state = "uzi9mm-[round(ammo_count(),4)]"
 
 /obj/item/ammo_box/magazine/smgm9mm
@@ -313,8 +309,7 @@
 	ammo_type = /obj/item/ammo_casing/c9mm/inc
 	materials = list(MAT_METAL = 3000)
 
-/obj/item/ammo_box/magazine/smgm9mm/update_icon()
-	..()
+/obj/item/ammo_box/magazine/smgm9mm/update_icon_state()
 	icon_state = "[initial(icon_state)]-[round(ammo_count()+1,4)]"
 
 /obj/item/ammo_box/magazine/pistolm9mm
@@ -324,8 +319,7 @@
 	caliber = "9mm"
 	max_ammo = 15
 
-/obj/item/ammo_box/magazine/pistolm9mm/update_icon()
-	..()
+/obj/item/ammo_box/magazine/pistolm9mm/update_icon_state()
 	icon_state = "9x19p-[ammo_count() ? "8" : "0"]"
 
 /obj/item/ammo_box/magazine/smgm45
@@ -336,8 +330,7 @@
 	caliber = ".45"
 	max_ammo = 20
 
-/obj/item/ammo_box/magazine/smgm45/update_icon()
-	..()
+/obj/item/ammo_box/magazine/smgm45/update_icon_state()
 	icon_state = "[initial(icon_state)]-[round(ammo_count(),2)]"
 
 /obj/item/ammo_box/magazine/tommygunm45
@@ -441,8 +434,7 @@
 	icon_state = "smg9mm-20"
 	max_ammo = 20
 
-/obj/item/ammo_box/magazine/toy/smg/update_icon()
-	..()
+/obj/item/ammo_box/magazine/toy/smg/update_icon_state()
 	icon_state = "smg9mm-[round(ammo_count()+1,4)]"
 
 /obj/item/ammo_box/magazine/toy/smg/riot
@@ -464,15 +456,13 @@
 	multiple_sprites = 1
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
-/obj/item/ammo_box/magazine/toy/enforcer/update_icon()
-	..()
-	overlays.Cut()
-
+/obj/item/ammo_box/magazine/toy/enforcer/update_overlays()
+	. = ..()
 	var/ammo = ammo_count()
 	if(ammo && is_riot())
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-rd")
+		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-rd")
 	else if(ammo)
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-bd")
+		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-bd")
 
 /obj/item/ammo_box/magazine/toy/enforcer/proc/is_riot()//if the topmost bullet is a riot dart
 	var/ammo = ammo_count()
@@ -487,8 +477,7 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	max_ammo = 20
 
-/obj/item/ammo_box/magazine/toy/smgm45/update_icon()
-	..()
+/obj/item/ammo_box/magazine/toy/smgm45/update_icon_state()
 	icon_state = "c20r45-[round(ammo_count(),2)]"
 
 /obj/item/ammo_box/magazine/toy/m762
@@ -496,8 +485,7 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	max_ammo = 50
 
-/obj/item/ammo_box/magazine/toy/m762/update_icon()
-	..()
+/obj/item/ammo_box/magazine/toy/m762/update_icon_state()
 	icon_state = "a762-[round(ammo_count(),10)]"
 
 /obj/item/ammo_box/magazine/toy/m762/riot
@@ -512,8 +500,7 @@
 	caliber = "laser"
 	max_ammo = 20
 
-/obj/item/ammo_box/magazine/laser/update_icon()
-	..()
+/obj/item/ammo_box/magazine/laser/update_icon_state()
 	icon_state = "[initial(icon_state)]-[CEILING(ammo_count(0)/20, 1)*20]"
 
 /obj/item/ammo_box/magazine/toy/smgm45
@@ -521,8 +508,7 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	max_ammo = 20
 
-/obj/item/ammo_box/magazine/toy/smgm45/update_icon()
-	..()
+/obj/item/ammo_box/magazine/toy/smgm45/update_icon_state()
 	icon_state = "c20r45-[round(ammo_count(),2)]"
 
 /obj/item/ammo_box/magazine/toy/smgm45/riot

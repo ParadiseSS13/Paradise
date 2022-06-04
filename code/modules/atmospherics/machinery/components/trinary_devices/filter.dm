@@ -60,9 +60,7 @@
 	icon_state = "mmap"
 	flipped = 1
 
-/obj/machinery/atmospherics/trinary/filter/update_icon()
-	..()
-
+/obj/machinery/atmospherics/trinary/filter/update_icon_state()
 	if(flipped)
 		icon_state = "m"
 	else

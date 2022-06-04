@@ -26,7 +26,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recycler/RefreshParts()
 	var/amt_made = 0
@@ -48,7 +48,7 @@
 
 /obj/machinery/recycler/power_change()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
@@ -75,12 +75,11 @@
 		emagged = 1
 		if(emergency_mode)
 			emergency_mode = FALSE
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		to_chat(user, "<span class='notice'>You use the cryptographic sequencer on [src].</span>")
 
-/obj/machinery/recycler/update_icon()
-	..()
+/obj/machinery/recycler/update_icon_state()
 	var/is_powered = !(stat & (BROKEN|NOPOWER))
 	if(emergency_mode)
 		is_powered = 0
@@ -146,14 +145,14 @@
 /obj/machinery/recycler/proc/emergency_stop(mob/living/L)
 	playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 	emergency_mode = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	L.loc = loc
 	addtimer(CALLBACK(src, .proc/reboot), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 	emergency_mode = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recycler/proc/crush_living(mob/living/L)
 
@@ -174,7 +173,7 @@
 
 	if(!blood && !issilicon(L))
 		blood = 1
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 	// Remove and recycle the equipped items
 	if(eat_victim_items)

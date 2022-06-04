@@ -10,12 +10,12 @@
 
 /obj/item/conversion_kit/New()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/conversion_kit/update_icon()
+/obj/item/conversion_kit/update_icon_state()
 	icon_state = "[initial(icon_state)]_[open]"
 
 /obj/item/conversion_kit/attack_self(mob/user)
 	open = !open
 	to_chat(user, "<span class='notice'>You [open ? "open" : "close"] the conversion kit.</span>")
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)

@@ -55,7 +55,7 @@
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return FIRELOSS
 
-/obj/item/melee/baton/update_icon()
+/obj/item/melee/baton/update_icon_state()
 	if(turned_on)
 		icon_state = "[base_icon]_active"
 	else if(!cell)
@@ -99,7 +99,7 @@
 	if(cell.rigged)
 		cell = null
 		turned_on = FALSE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	if(cell.charge < (hitcost)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 		turned_on = FALSE
 		update_icon()
@@ -119,7 +119,7 @@
 		I.forceMove(src)
 		cell = I
 		to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/melee/baton/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
@@ -133,7 +133,7 @@
 	cell.update_icon()
 	cell = null
 	turned_on = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/melee/baton/attack_self(mob/user)
 	if(cell?.charge >= hitcost)

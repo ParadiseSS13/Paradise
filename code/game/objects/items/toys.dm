@@ -96,8 +96,8 @@
 				qdel(src)
 	return
 
-/obj/item/toy/balloon/update_icon()
-	if(src.reagents.total_volume >= 1)
+/obj/item/toy/balloon/update_icon_state()
+	if(reagents.total_volume >= 1)
 		icon_state = "waterballoon"
 		item_state = "waterballoon"
 	else
@@ -448,7 +448,7 @@
 	else
 		to_chat(usr, "<span class='notice'>You can't reach it from here.</span>")
 
-/obj/item/toy/cards/deck/update_icon()
+/obj/item/toy/cards/deck/update_icon_state()
 	switch(cards.len)
 		if(0)
 			icon_state = "deck_[deckstyle]_empty"
@@ -616,7 +616,7 @@
 		else
 			to_chat(user, "<span class='notice'>You can't mix cards from other decks.</span>")
 
-/obj/item/toy/cards/cardhand/update_icon()
+/obj/item/toy/cards/cardhand/update_icon_state()
 	switch(currenthand.len)
 		if(0 to 1)
 			return
@@ -628,7 +628,6 @@
 			icon_state = "[deckstyle]_hand4"
 		else
 			icon_state = "[deckstyle]_hand5"
-
 
 /obj/item/toy/cards/singlecard/attack_self(mob/user)
 	if(usr.stat || !ishuman(usr) || !usr.canmove || usr.restrained())
@@ -1125,13 +1124,12 @@
 	. = ..()
 	update_icon()
 
-/obj/item/toy/windup_toolbox/update_icon()
-	..()
-	cut_overlays()
+/obj/item/toy/windup_toolbox/update_overlays()
+	. = ..()
 	if(active)
-		add_overlay("single_latch_open")
+		. += "single_latch_open"
 	else
-		add_overlay("single_latch")
+		. += "single_latch"
 
 /obj/item/toy/windup_toolbox/attack_self(mob/user)
 	if(!active)
@@ -1465,7 +1463,7 @@
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 
-/obj/item/twohanded/toy/chainsaw/update_icon()
+/obj/item/twohanded/toy/chainsaw/update_icon_state()
 	if(wielded)
 		icon_state = "chainsaw[wielded]"
 	else

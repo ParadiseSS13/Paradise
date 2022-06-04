@@ -336,7 +336,7 @@
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDETAIL
 	visor_flags = STOPSPRESSUREDMAGE
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon()
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon_state()
 	icon_state = "hardsuit[on]-[item_color]"
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/New()
@@ -412,7 +412,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
 
-/obj/item/clothing/suit/space/hardsuit/syndi/update_icon()
+/obj/item/clothing/suit/space/hardsuit/syndi/update_icon_state()
 	icon_state = "hardsuit[on]-[item_color]"
 
 //Elite Syndie suit
@@ -457,7 +457,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom
 	sprite_sheets = null
 
-/obj/item/clothing/suit/space/hardsuit/syndi/freedom/update_icon()
+/obj/item/clothing/suit/space/hardsuit/syndi/freedom/update_icon_state()
 	return
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom
@@ -467,7 +467,7 @@
 	item_state = "griffinhat"
 	sprite_sheets = null
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom/update_icon()
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom/update_icon_state()
 	return
 
 //Medical hardsuit
@@ -477,7 +477,7 @@
 	icon_state = "hardsuit0-medical"
 	item_state = "medical_helm"
 	item_color = "medical"
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 60, FIRE = 60, ACID = 75)
 	scan_reagents = 1 //Generally worn by the CMO, so they'd get utility off of seeing reagents
 
@@ -498,7 +498,7 @@
 	icon_state = "hardsuit0-rd"
 	item_state = "rd"
 	item_color = "rd"
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 	scan_reagents = TRUE
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 100, BIO = 100, RAD = 60, FIRE = 60, ACID = 80)
 	var/hud_active = FALSE

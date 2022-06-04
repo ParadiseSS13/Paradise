@@ -42,8 +42,7 @@
 
 /obj/item/defibrillator/update_icon()
 	update_power()
-	update_overlays()
-	update_charge()
+	..()
 
 /obj/item/defibrillator/examine(mob/user)
 	. = ..()
@@ -58,23 +57,20 @@
 	else
 		powered = FALSE
 
-/obj/item/defibrillator/proc/update_overlays()
-	overlays.Cut()
+/obj/item/defibrillator/update_overlays()
+	. = ..()
 	if(paddles_on_defib)
-		overlays += "[icon_state]-paddles"
-	if(powered)
-		overlays += "[icon_state]-powered"
-	if(!cell)
-		overlays += "[icon_state]-nocell"
+		. += "[icon_state]-paddles"
 	if(!safety)
-		overlays += "[icon_state]-emagged"
-
-/obj/item/defibrillator/proc/update_charge()
-	if(powered) //so it doesn't show charge if it's unpowered
-		if(cell)
-			var/ratio = cell.charge / cell.maxcharge
-			ratio = CEILING(ratio*4, 1) * 25
-			overlays += "[icon_state]-charge[ratio]"
+		. += "[icon_state]-emagged"
+	if(powered)
+		. += "[icon_state]-powered"
+	if(powered && cell) 
+		var/ratio = cell.charge / cell.maxcharge
+		ratio = CEILING(ratio*4, 1) * 25
+		. += "[icon_state]-charge[ratio]"
+	if(!cell)
+		. += "[icon_state]-nocell"
 
 /obj/item/defibrillator/CheckParts(list/parts_list)
 	..()
@@ -309,7 +305,7 @@
 		update_icon()
 	return
 
-/obj/item/twohanded/shockpaddles/update_icon()
+/obj/item/twohanded/shockpaddles/update_icon_state()
 	icon_state = "[base_icon_state][wielded]"
 	item_state = "[base_icon_state][wielded]"
 	if(cooldown)

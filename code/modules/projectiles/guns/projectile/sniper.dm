@@ -35,7 +35,7 @@
 	QDEL_NULL(magazine)
 	magazine = new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
 
-/obj/item/gun/projectile/automatic/sniper_rifle/update_icon()
+/obj/item/gun/projectile/automatic/sniper_rifle/update_icon_state()
 	if(magazine)
 		icon_state = "sniper-mag"
 	else
@@ -53,7 +53,7 @@
 	can_suppress = FALSE
 	zoomable = FALSE
 
-/obj/item/gun/projectile/automatic/sniper_rifle/compact/update_icon()
+/obj/item/gun/projectile/automatic/sniper_rifle/compact/update_icon_state()
 	if(magazine)
 		icon_state = "snipercompact-mag"
 	else
@@ -68,7 +68,7 @@
 	max_ammo = 6
 	caliber = ".50"
 
-/obj/item/ammo_box/magazine/sniper_rounds/update_icon()
+/obj/item/ammo_box/magazine/sniper_rounds/update_icon_state()
 	if(ammo_count())
 		icon_state = "[initial(icon_state)]-ammo"
 	else
@@ -216,13 +216,13 @@
 	max_ammo = 6
 	caliber = "foam_force_sniper"
 
-/obj/item/ammo_box/magazine/toy/sniper_rounds/update_icon()
-	overlays.Cut()
+/obj/item/ammo_box/magazine/toy/sniper_rounds/update_icon_state()
+	return
 
+/obj/item/ammo_box/magazine/toy/sniper_rounds/update_overlays()
+	. = ..()
 	var/ammo = ammo_count()
 	if(ammo && istype(contents[contents.len], /obj/item/ammo_casing/caseless/foam_dart/sniper/riot))
-		overlays += image('icons/obj/ammo.dmi', icon_state = ".50mag-r")
+		. += ".50mag-r"
 	else if(ammo)
-		overlays += image('icons/obj/ammo.dmi', icon_state = ".50mag-f")
-	else
-		icon_state = "[initial(icon_state)]"
+		. += ".50mag-f"

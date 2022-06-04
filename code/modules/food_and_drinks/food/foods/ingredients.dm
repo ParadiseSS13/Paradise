@@ -154,14 +154,12 @@
 	tastes = list("dough" = 1, "sugar" = 1)
 
 
-/obj/item/reagent_containers/food/snacks/cookiedough/update_icon()
-    if(flat)
-        icon_state = "cookiedough_flat"
-        name = "flat pastry dough"
-    else
-        icon_state = "cookiedough"
-
-
+/obj/item/reagent_containers/food/snacks/cookiedough/update_icon_state()
+	if(flat)
+		icon_state = "cookiedough_flat"
+		name = "flat pastry dough"
+	else
+		icon_state = "cookiedough"
 
 // Dough + rolling pin = flat cookie dough // Flat dough + circular cutter = unbaked cookies
 /obj/item/reagent_containers/food/snacks/cookiedough/attackby(obj/item/I, mob/user, params)

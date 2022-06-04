@@ -20,7 +20,8 @@
 	..()
 	update_desc()
 
-/obj/machinery/power/generator/proc/update_desc()
+/obj/machinery/power/generator/update_desc()
+	. = ..()
 	desc = initial(desc) + " Its cold circulator is located on the [dir2text(cold_dir)] side, and its heat circulator is located on the [dir2text(hot_dir)] side."
 
 /obj/machinery/power/generator/Destroy()
@@ -68,16 +69,13 @@
 	else
 		..()
 
-/obj/machinery/power/generator/update_icon()
+/obj/machinery/power/generator/update_overlays()
 	if(stat & (NOPOWER|BROKEN))
-		overlays.Cut()
-	else
-		overlays.Cut()
-
-		if(lastgenlev != 0)
-			overlays += image('icons/obj/power.dmi', "teg-op[lastgenlev]")
-
-		overlays += image('icons/obj/power.dmi', "teg-oc[lastcirc]")
+		return
+	. = ..()
+	if(lastgenlev != 0)
+		. += "teg-op[lastgenlev]"
+		. += "teg-oc[lastcirc]"
 
 /obj/machinery/power/generator/process()
 	if(stat & (NOPOWER|BROKEN))

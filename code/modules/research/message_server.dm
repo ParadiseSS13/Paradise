@@ -117,8 +117,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 	active = !active
 	update_icon()
 
-/obj/machinery/message_server/update_icon()
-	..()
+/obj/machinery/message_server/update_icon_state()
 	icon_state = "[initial(icon_state)][panel_open ? "_o" : null][active ? null : "_off"]"
 
 /obj/machinery/blackbox_recorder

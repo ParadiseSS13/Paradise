@@ -427,8 +427,7 @@
 	else
 		return ..()
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon()
-	..()
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon_state()
 	if(slung && (slot_flags & SLOT_BELT) )
 		slung = 0
 		icon_state = "ishotgun-sawn"
@@ -469,7 +468,10 @@
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()
 	return 1
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon()
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon_state()
+	return
+
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_overlays()
 	return
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/A, mob/user, params)

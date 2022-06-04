@@ -298,23 +298,23 @@
 		return
 	to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
-/obj/structure/closet/update_icon()//Putting the welded stuff in updateicon() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
+/obj/structure/closet/update_icon_state()
 	if(!opened)
 		icon_state = icon_closed
 	else
 		icon_state = icon_opened
-	update_overlays()
 
-/obj/structure/closet/proc/update_overlays(transparent = FALSE)
+/obj/structure/closet/update_overlays(transparent = FALSE)
+	. = ..()
 	cut_overlays()
 	if(transparent && opened)
-		add_overlay("[open_door_sprite]_trans")
+		. += "[open_door_sprite]_trans"
 		return
 	if(opened)
-		add_overlay(open_door_sprite)
+		. += open_door_sprite
 		return
 	if(welded)
-		add_overlay("welded")
+		. += "welded"
 
 // Objects that try to exit a locker by stepping were doing so successfully,
 // and due to an oversight in turf/Enter() were going through walls.  That

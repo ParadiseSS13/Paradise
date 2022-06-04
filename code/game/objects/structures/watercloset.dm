@@ -5,11 +5,11 @@
 	desc = "The HT-451, a torque rotation-based, waste disposal unit for small matter. This one seems remarkably clean."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "toilet00"
-	density = 0
-	anchored = 1
-	var/open = 0			//if the lid is up
-	var/cistern = 0			//if the cistern bit is open
-	var/w_items = 0			//the combined w_class of all the items in the cistern
+	density = FALSE
+	anchored = TRUE
+	var/open = FALSE			//if the lid is up
+	var/cistern = FALSE			//if the cistern bit is open
+	var/w_items = NONE			//the combined w_class of all the items in the cistern
 	var/mob/living/swirlie = null	//the mob being given a swirlie
 
 
@@ -47,7 +47,7 @@
 	open = !open
 	update_icon()
 
-/obj/structure/toilet/update_icon()
+/obj/structure/toilet/update_icon_state()
 	icon_state = "toilet[open][cistern]"
 	if(!anchored)
 		pixel_x = 0
@@ -340,11 +340,11 @@
 		transfer_prints_to(S, TRUE)
 		qdel(src)
 
-/obj/machinery/shower/update_icon()
-	cut_overlays()
+/obj/machinery/shower/update_overlays()
+	. = ..()
 	if(on)
 		var/mutable_appearance/water_falling = mutable_appearance('icons/obj/watercloset.dmi', "water", ABOVE_MOB_LAYER)
-		add_overlay(water_falling)
+		. += water_falling
 
 /obj/machinery/shower/proc/handle_mist()
 	// If there is no mist, and the shower was turned on (on a non-freezing temp): make mist in 5 seconds
@@ -565,8 +565,7 @@
 			dir = dir_choices[selected]
 	update_icon()	//is this necessary? probably not
 
-/obj/structure/sink/update_icon()
-	..()
+/obj/structure/sink/update_icon_state()
 	layer = OBJ_LAYER
 	if(!anchored)
 		pixel_x = 0

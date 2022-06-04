@@ -226,8 +226,7 @@
 	max_integrity = 25
 	brute_resist = 0.25
 
-/obj/structure/blob/normal/update_icon()
-	..()
+/obj/structure/blob/normal/update_icon_state()
 	if(obj_integrity <= 15)
 		icon_state = "blob_damaged"
 		name = "fragile blob"

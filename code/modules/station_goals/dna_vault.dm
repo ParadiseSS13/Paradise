@@ -189,7 +189,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 
 	..()
 
-/obj/machinery/dna_vault/update_icon()
+/obj/machinery/dna_vault/update_icon_state()
 	..()
 	if(stat & NOPOWER)
 		icon_state = "vaultoff"

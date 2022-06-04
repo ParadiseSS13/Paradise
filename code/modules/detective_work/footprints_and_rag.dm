@@ -21,6 +21,7 @@
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 	has_lid = FALSE
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	var/wipespeed = 30
 
 /obj/item/reagent_containers/glass/rag/attack(atom/target as obj|turf|area, mob/user as mob , flag)

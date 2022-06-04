@@ -51,23 +51,18 @@
 	addtimer(CALLBACK(src, .proc/startgibbing, user), 33)
 	return OBLITERATION
 
-/obj/machinery/gibber/update_icon()
-	overlays.Cut()
-
+/obj/machinery/gibber/update_overlays()
+	. = ..()
 	if(dirty)
-		overlays += image('icons/obj/kitchen.dmi', "grbloody")
-
+		. += "grbloody"
 	if(stat & (NOPOWER|BROKEN))
 		return
-
 	if(!occupant)
-		overlays += image('icons/obj/kitchen.dmi', "grjam")
-
+		. += "grjam"
 	else if(operating)
-		overlays += image('icons/obj/kitchen.dmi', "gruse")
-
+		. += "gruse"
 	else
-		overlays += image('icons/obj/kitchen.dmi', "gridle")
+		. += "gridle"
 
 /obj/machinery/gibber/relaymove(mob/user)
 	if(locked)

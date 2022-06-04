@@ -124,7 +124,7 @@
 	H.cards += P
 	cards -= P
 	H.parentdeck = src
-	H.update_icon()
+	H.update_appearance()
 	user.visible_message("<span class='notice'>[user] draws a card.</span>","<span class='notice'>You draws a card.</span>")
 	to_chat(user,"<span class='notice'>It's [P].</span>")
 
@@ -258,7 +258,7 @@
 	user.unEquip(src, force = 1)
 	qdel(src)
 
-	H.update_icon()
+	H.update_appearance()
 	user.put_in_hands(H)
 
 /obj/item/cardhand
@@ -289,7 +289,7 @@
 			P.name = t
 		// SNOWFLAKE FOR CAG, REMOVE IF OTHER CARDS ARE ADDED THAT USE THIS.
 		P.card_icon = "cag_white_card"
-		update_icon()
+		update_appearance()
 	else if(istype(O,/obj/item/cardhand))
 		var/obj/item/cardhand/H = O
 		if((H.cards.len + cards.len) > maxcardlen)
@@ -300,7 +300,7 @@
 				H.cards += P
 			H.concealed = src.concealed
 			qdel(src)
-			H.update_icon()
+			H.update_appearance()
 			return
 		else
 			to_chat(user,"<span class='notice'>You cannot mix cards from other deck!</span>")
@@ -309,7 +309,7 @@
 
 /obj/item/cardhand/attack_self(mob/user as mob)
 	concealed = !concealed
-	update_icon()
+	update_appearance()
 	user.visible_message("<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>")
 
 /obj/item/cardhand/examine(mob/user)
@@ -373,18 +373,20 @@
 	cards -= card
 	H.parentdeck = parentdeck
 	H.concealed = concealed
-	H.update_icon()
+	H.update_appearance()
 
 	if(!cards.len)
 		qdel(src)
 		return
-	update_icon()
+	update_appearance()
 
-/obj/item/cardhand/verb/discard(mob/user as mob)
+/obj/item/cardhand/verb/discard()
 
 	set category = "Object"
 	set name = "Discard"
 	set desc = "Place (a) card(s) from your hand in front of you."
+
+	var/mob/living/carbon/human/M = usr
 
 	var/maxcards = min(cards.len,5)
 	var/discards = input("How many cards do you want to discard? You may discard up to [maxcards] card(s)") as num
@@ -407,57 +409,65 @@
 		cards -= card
 		H.concealed = FALSE
 		H.parentdeck = parentdeck
-		H.update_icon()
+		H.dir = usr.dir
+		H.update_appearance()
 		if(cards.len)
-			update_icon()
+			update_appearance()
 		if(H.cards.len)
-			user.visible_message("<span class='notice'>[user] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
-		H.loc = get_step(user, user.dir)
+			M.visible_message("<span class='notice'>[M] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
+		H.loc = get_step(M, M.dir)
 
 	if(!cards.len)
 		qdel(src)
 
-/obj/item/cardhand/update_icon(direction = 0)
-
-	if(!cards.len)
-		return
-	else if(cards.len > 1)
+/obj/item/cardhand/update_name()
+	. = ..()
+	if(cards.len > 1)
 		name = "hand of cards"
-		desc = "Some playing cards."
 	else
 		name = "a playing card"
+
+/obj/item/cardhand/update_desc()
+	. = ..()
+	if(cards.len > 1)
+		desc = "Some playing cards."
+	else
 		desc = "A playing card."
 
-	overlays.Cut()
+/obj/item/cardhand/update_overlays()
+	. = ..()
+	if(!cards.len)
+		return
+
+	var/matrix/M = matrix()
+	switch(dir)
+		if(NORTH)
+			M.Translate( 0,  0)
+		if(SOUTH)
+			M.Translate( 0,  4)
+		if(WEST)
+			M.Turn(90)
+			M.Translate( 3,  0)
+		if(EAST)
+			M.Turn(90)
+			M.Translate(-2,  0)
 
 	if(cards.len == 1)
 		var/datum/playingcard/P = cards[1]
 		var/image/I = new(icon, (concealed ? "[P.back_icon]" : "[P.card_icon]") )
+		I.transform = M
 		I.pixel_x += (-5+rand(10))
 		I.pixel_y += (-5+rand(10))
-		overlays += I
+		. += I
 		return
 
 	var/offset = FLOOR(20/cards.len + 1, 1)
 
-	var/matrix/M = matrix()
-	if(direction)
-		switch(direction)
-			if(NORTH)
-				M.Translate( 0,  0)
-			if(SOUTH)
-				M.Translate( 0,  4)
-			if(WEST)
-				M.Turn(90)
-				M.Translate( 3,  0)
-			if(EAST)
-				M.Turn(90)
-				M.Translate(-2,  0)
 	var/i = 0
 	for(var/datum/playingcard/P in cards)
 		var/image/I = new(icon, (concealed ? "[P.back_icon]" : "[P.card_icon]") )
 		//I.pixel_x = origin+(offset*i)
-		switch(direction)
+		switch(dir)
 			if(SOUTH)
 				I.pixel_x = 8-(offset*i)
 			if(WEST)
@@ -467,16 +477,16 @@
 			else
 				I.pixel_x = -7+(offset*i)
 		I.transform = M
-		overlays += I
+		. += I
 		i++
 
 /obj/item/cardhand/dropped(mob/user as mob)
 	..()
-	if(locate(/obj/structure/table, loc))
-		update_icon(user.dir)
-	else
-		update_icon()
+	dir = user.dir
+	update_appearance()
+
 
 /obj/item/cardhand/pickup(mob/user as mob)
 	. = ..()
-	update_icon()
+	dir = NORTH
+	update_appearance()

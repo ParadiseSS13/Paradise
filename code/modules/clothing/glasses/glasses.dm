@@ -271,8 +271,8 @@
 	icon_state = "sun"
 	item_state = "sunglasses"
 	see_in_dark = 1
-	flash_protect = 1
-	tint = 1
+	flash_protect = FLASH_PROTECTION_FLASH
+	tint = FLASH_PROTECTION_FLASH
 	prescription_upgradable = 1
 	dog_fashion = /datum/dog_fashion/head
 	sprite_sheets = list(
@@ -287,8 +287,8 @@
 	icon_state = "sun"
 	item_state = "sunglasses"
 	see_in_dark = 0
-	flash_protect = 0
-	tint = 0
+	flash_protect = FLASH_PROTECTION_NONE
+	tint = FLASH_PROTECTION_NONE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
@@ -340,8 +340,8 @@
 	icon_state = "sun"
 	item_state = "sunglasses"
 	see_in_dark = 1
-	flash_protect = 1
-	tint = 1
+	flash_protect = FLASH_PROTECTION_FLASH
+	tint = FLASH_PROTECTION_FLASH
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -366,8 +366,8 @@
 	icon_state = "welding-g"
 	item_state = "welding-g"
 	actions_types = list(/datum/action/item_action/toggle)
-	flash_protect = 2
-	tint = 2
+	flash_protect = FLASH_PROTECTION_WELDER
+	tint = FLASH_PROTECTION_WELDER
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -383,23 +383,23 @@
 	desc = "Welding goggles made from more expensive materials, strangely smells like potatoes."
 	icon_state = "rwelding-g"
 	item_state = "rwelding-g"
-	flash_protect = 2
-	tint = 0
+	flash_protect = FLASH_PROTECTION_WELDER
+	flash_protect = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/glasses/sunglasses/blindfold
 	name = "blindfold"
 	desc = "Covers the eyes, preventing sight."
 	icon_state = "blindfold"
 	item_state = "blindfold"
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 3				//to make them blind
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/sunglasses/blindfold/fake
 	name = "tattered blindfold"
 	desc = "A see-through blindfold perfect for cheating at games like pin the stunbaton on the clown."
-	flash_protect = 0
-	tint = 0
+	flash_protect = FLASH_PROTECTION_NONE
+	tint = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/glasses/sunglasses/prescription
 	prescription = 1
@@ -496,7 +496,7 @@
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
-	tint = 0
+	flash_protect = FLASH_PROTECTION_NONE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',

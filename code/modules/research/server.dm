@@ -44,7 +44,7 @@
 		tot_rating += SP.rating
 	heat_gen /= max(1, tot_rating)
 
-/obj/machinery/r_n_d/server/update_icon()
+/obj/machinery/r_n_d/server/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "RD-server-off"
 	else

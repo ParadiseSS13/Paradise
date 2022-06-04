@@ -113,9 +113,8 @@
 			buckled_mob.pixel_y = generic_pixel_y
 
 
-/obj/vehicle/update_icon()
+/obj/vehicle/update_icon_state()
 	return
-
 
 /obj/item/key
 	name = "key"
