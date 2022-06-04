@@ -71613,11 +71613,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"meX" = (
-/obj/effect/landmark/damageturf,
-/obj/structure/chair/stool,
-/turf/simulated/floor/plating,
-/area/maintenance/aft2)
 "mfm" = (
 /obj/structure/table,
 /obj/machinery/computer/med_data/laptop{
@@ -125642,7 +125637,7 @@ tgC
 cUN
 coG
 oUw
-meX
+rtk
 pmI
 jaP
 gkt
