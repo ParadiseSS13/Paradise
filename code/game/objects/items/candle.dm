@@ -9,6 +9,7 @@
 	var/lit = 0
 	var/infinite = 0
 	var/start_lit = 0
+	var/flickering = FALSE
 	light_color = "#E09D37"
 
 /obj/item/candle/New()
@@ -22,13 +23,10 @@
 	return ..()
 
 /obj/item/candle/update_icon()
-	var/i
-	if(wax>150)
-		i = 1
-	else if(wax>80)
-		i = 2
-	else i = 3
-	icon_state = "candle[i][lit ? "_lit" : ""]"
+	if(flickering)
+		icon_state = "candle[get_icon_index()]_flicker"
+	else
+		icon_state = "candle[get_icon_index()][lit ? "_lit" : ""]"
 
 /obj/item/candle/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
@@ -62,6 +60,24 @@
 		START_PROCESSING(SSobj, src)
 		update_icon()
 
+/obj/item/candle/proc/get_icon_index()
+	var/i
+	if(wax>150)
+		i = 1
+	else if(wax>80)
+		i = 2
+	else
+		i = 3
+	return i
+
+/obj/item/candle/proc/start_flickering()
+	flickering = TRUE
+	update_icon()
+	addtimer(CALLBACK(src, .proc/stop_flickering), 4 SECONDS, TIMER_UNIQUE)
+
+/obj/item/candle/proc/stop_flickering()
+	flickering = FALSE
+	update_icon()
 
 /obj/item/candle/process()
 	if(!lit)
@@ -93,15 +109,8 @@
 
 /obj/item/candle/get_spooked()
 	if(lit)
-		var/i
-		if(wax>150)
-			i = 1
-		else if(wax>80)
-			i = 2
-		else
-			i = 3
-		playsound(src.loc, 'sound/effects/candle_flicker.ogg', 15, 1)
-		flick("candle[i]["_flicker"]", src)
+		start_flickering()
+		playsound(src, 'sound/effects/candle_flicker.ogg', 15, 1)
 		return TRUE
 	else
 		return FALSE
