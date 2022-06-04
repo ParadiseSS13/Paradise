@@ -15,7 +15,7 @@
 	if(user.stat != DEAD)
 		user.emote("deathgasp")
 		user.timeofdeath = world.time
-	ADD_TRAIT(user, TRAIT_FAKEDEATH, "changeling")		//play dead
+	ADD_TRAIT(user, TRAIT_FAKEDEATH, CHANGELING_TRAIT)		//play dead
 	user.updatehealth("fakedeath sting")
 	user.update_canmove()
 	cling.regenerating = TRUE

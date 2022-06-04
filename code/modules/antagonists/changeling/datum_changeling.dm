@@ -85,7 +85,6 @@
 	SSticker.mode.changelings -= owner
 	chosen_sting = null
 	QDEL_LIST(acquired_powers)
-	QDEL_NULL(owner.current.middleClickOverride) // In case the old changeling has a targeted sting prepared (`datum/middleClickOverride`), delete it.
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
