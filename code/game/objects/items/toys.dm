@@ -1104,10 +1104,10 @@
 	if(cooldown)
 		return ..()
 
-	playsound(user, 'sound/voice/scream_moth.ogg', 10, 0)
+	playsound(src, 'sound/voice/scream_moth.ogg', 10, 0)
 	visible_message("<span class='danger'>Buzzzz!</span>")
 	cooldown = TRUE
-	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 30)
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
 /*
  * Foam Armblade
