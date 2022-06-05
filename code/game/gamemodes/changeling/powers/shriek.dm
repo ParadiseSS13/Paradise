@@ -46,5 +46,4 @@
 		L.on = 1
 		L.break_light_tube()
 	empulse(get_turf(user), 2, 4, 1)
-	user.SetConfused(0) //Prevents confusion via EMP'ing your own items. Allows for better use of EMP while attempted to escape combat.
 	return 1
