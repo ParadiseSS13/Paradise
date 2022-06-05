@@ -24,6 +24,7 @@
 	var/hack_message = "You disable the safety safeguards, enabling the \"Mad Scientist\" mode."
 	var/unhack_message = "You re-enable the safety safeguards, enabling the \"NT Standard\" mode."
 	var/is_drink = FALSE
+	var/list/recording_recipe
 
 /obj/machinery/chem_dispenser/get_cell()
 	return cell
@@ -187,6 +188,9 @@
 			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("dispense" = temp.id)))) // list in a list because Byond merges the first list...
 	data["chemicals"] = chemicals
 
+	data["recipes"] = saved_recipes
+	data["recordingRecipe"] = recording_recipe
+
 	return data
 
 /obj/machinery/chem_dispenser/ui_act(actions, params)
@@ -200,20 +204,23 @@
 		if("amount")
 			amount = clamp(round(text2num(params["amount"]), 1), 0, 50) // round to nearest 1 and clamp to 0 - 50
 		if("dispense")
-			if(!is_operational() || QDELETED(cell))
-				return
-			if(!beaker || !dispensable_reagents.Find(params["reagent"]))
-				return
-			var/datum/reagents/R = beaker.reagents
-			var/free = R.maximum_volume - R.total_volume
-			var/actual = min(amount, (cell.charge * powerefficiency) * 10, free)
-			if(!cell.use(actual / powerefficiency))
-				atom_say("Not enough energy to complete operation!")
-				return
-			R.add_reagent(params["reagent"], actual)
+			if(recording_recipe)
+				recording_recipe[reagent_name] += amount
+			else
+				if(!is_operational() || QDELETED(cell))
+					return
+				if(!beaker || !dispensable_reagents.Find(params["reagent"]))
+					return
+				var/datum/reagents/R = beaker.reagents
+				var/free = R.maximum_volume - R.total_volume
+				var/actual = min(amount, (cell.charge * powerefficiency) * 10, free)
+				if(!cell.use(actual / powerefficiency))
+					atom_say("Not enough energy to complete operation!")
+					return
+				R.add_reagent(params["reagent"], actual)
 		if("remove")
 			var/amount = text2num(params["amount"])
-			if(!beaker || !amount)
+			if(!beaker || !amount || recording_recipe)
 				return
 			var/datum/reagents/R = beaker.reagents
 			var/id = params["reagent"]
@@ -229,6 +236,68 @@
 				usr.put_in_hands(beaker)
 			beaker = null
 			update_icon()
+		if("dispense_recipe")
+			if(!is_operational() || QDELETED(cell))
+				return
+			var/list/chemicals_to_dispense = saved_recipes[params["recipe"]]
+			if(!LAZYLEN(chemicals_to_dispense))
+				return
+			for(var/key in chemicals_to_dispense)
+				var/reagent = GLOB.name2reagent[translate_legacy_chem_id(key)]
+				var/dispense_amount = chemicals_to_dispense[key]
+				if(!dispensable_reagents.Find(reagent))
+					return
+				if(!recording_recipe)
+					if(!beaker)
+						return
+					var/datum/reagents/R = beaker.reagents
+					var/free = R.maximum_volume - R.total_volume
+					var/actual = min(dispense_amount, (cell.charge * powerefficiency)*10, free)
+					if(actual)
+						if(!cell.use(actual / powerefficiency))
+							say("Not enough energy to complete operation!")
+							return
+						R.add_reagent(reagent, actual)
+						work_animation()
+				else
+					recording_recipe[key] += dispense_amount
+			. = TRUE
+		if("clear_recipes")
+			if(!is_operational())
+				return
+			var/yesno = alert("Clear all recipes?",, "Yes","No")
+			if(yesno == "Yes")
+				saved_recipes = list()
+			. = TRUE
+		if("record_recipe")
+			if(!is_operational())
+				return
+			recording_recipe = list()
+			. = TRUE
+		if("save_recording")
+			if(!is_operational())
+				return
+			var/name = stripped_input(usr,"Name","What do you want to name this recipe?", "Recipe", MAX_NAME_LEN)
+			if(!usr.canUseTopic(src, !issilicon(usr)))
+				return
+			if(saved_recipes[name] && alert("\"[name]\" already exists, do you want to overwrite it?",, "Yes", "No") == "No")
+				return
+			if(name && recording_recipe)
+				for(var/reagent in recording_recipe)
+					var/reagent_id = GLOB.name2reagent[translate_legacy_chem_id(reagent)]
+					if(!dispensable_reagents.Find(reagent_id))
+						visible_message("<span class='warning'>[src] buzzes.</span>", "<span class='italics'>You hear a faint buzz.</span>")
+						to_chat(usr, "<span class ='danger'>[src] cannot find <b>[reagent]</b>!</span>")
+						playsound(src, 'sound/machines/buzz-two.ogg', 50, 1)
+						return
+				saved_recipes[name] = recording_recipe
+				recording_recipe = null
+				. = TRUE
+		if("cancel_recording")
+			if(!is_operational())
+				return
+			recording_recipe = null
+			. = TRUE
 		else
 			return FALSE
 
