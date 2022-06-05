@@ -159,13 +159,13 @@
 		switch(pick(1,3))
 			if(1)
 				to_chat(H, "<span class='userdanger'>You hear a loud buzz in your head, silencing your thoughts!</span>")
-				H.Stun(3)
+				H.Stun(6 SECONDS)
 			if(2)
 				to_chat(H, "<span class='warning'>You hear an annoying buzz in your head.</span>")
-				H.AdjustConfused(15)
+				H.AdjustConfused(30 SECONDS)
 				H.adjustBrainLoss(5, 15)
 			if(3)
-				H.hallucination += 60
+				H.AdjustHallucinate(60 SECONDS)
 
 /obj/item/organ/internal/heart/gland/pop
 	cooldown_low = 900

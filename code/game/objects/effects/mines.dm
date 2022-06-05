@@ -47,7 +47,7 @@
 
 /obj/effect/mine/stun
 	name = "stun mine"
-	var/stun_time = 8
+	var/stun_time = 16 SECONDS
 
 /obj/effect/mine/stun/mineEffect(mob/living/victim)
 	if(isliving(victim))

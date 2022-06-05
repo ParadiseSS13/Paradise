@@ -99,7 +99,8 @@
 		head_attack_message = " on the head"
 		//Weaken the target for the duration that we calculated and divide it by 5.
 		if(armor_duration)
-			target.apply_effect(min(armor_duration, 10) , WEAKEN) // Never weaken more than a flash!
+			var/stun_time = (min(armor_duration, 10)) STATUS_EFFECT_CONSTANT
+			target.Weaken(stun_time)
 
 	//Display an attack message.
 	if(target != user)

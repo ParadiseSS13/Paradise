@@ -84,8 +84,7 @@
 
 /obj/item/projectile/bullet/sniper
 	damage = 70
-	stun = 5
-	weaken = 5
+	weaken = 10 SECONDS
 	armour_penetration = 50
 
 /obj/item/ammo_box/magazine/sniper_rounds/antimatter
@@ -129,13 +128,12 @@
 /obj/item/projectile/bullet/sniper/soporific
 	armour_penetration = 0
 	nodamage = 1
-	stun = 0
 	weaken = 0
 
 /obj/item/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && istype(target, /mob/living))
 		var/mob/living/L = target
-		L.SetSleeping(20)
+		L.SetSleeping(40 SECONDS)
 
 	return ..()
 
@@ -158,8 +156,7 @@
 /obj/item/projectile/bullet/sniper/haemorrhage
 	armour_penetration = 25
 	damage = 45
-	stun = 3
-	weaken = 3
+	weaken = 6 SECONDS
 
 /obj/item/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && iscarbon(target))
@@ -188,7 +185,6 @@
 	name = "penetrator round"
 	damage = 60
 	forcedodge = 1
-	stun = 0
 	dismemberment = 0
 	weaken = 0
 

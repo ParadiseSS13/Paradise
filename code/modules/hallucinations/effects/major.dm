@@ -73,7 +73,7 @@
 		return
 
 	step_towards(target, get_turf(src))
-	target.Weaken(4 SECONDS_TO_LIFE_CYCLES)
+	target.Weaken(4 SECONDS)
 	target.visible_message("<span class='warning'>[target] flails [target.p_their()] [I.name] as if striking something, only to trip!</span>",
 					  	   "<span class='userdanger'>[src] vanishes as you strike it with [I], causing you to stumble forward!</span>")
 	qdel(src)
@@ -381,7 +381,7 @@
 /obj/effect/hallucination/xeno_pouncer/throw_impact(A)
 	if(A == target)
 		forceMove(get_turf(target))
-		target.Weaken(5)
+		target.Weaken(10 SECONDS)
 		target.visible_message("<span class='danger'>[target] recoils backwards and falls flat!</span>",
 							   "<span class='userdanger'>[name] pounces on you!</span>")
 

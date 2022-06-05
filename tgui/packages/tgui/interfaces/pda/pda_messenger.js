@@ -1,6 +1,6 @@
 import { filter } from 'common/collections';
-import { useBackend, useLocalState } from '../../backend';
-import { Box, Button, Icon, LabeledList, Section } from '../../components';
+import { useBackend, useLocalState } from "../../backend";
+import { Box, Button, Icon, Input, LabeledList, Section } from "../../components";
 
 export const pda_messenger = (props, context) => {
   const { act, data } = useBackend(context);
@@ -156,9 +156,12 @@ export const ActiveConversation = (props, context) => {
 
 export const MessengerList = (props, context) => {
   const { act } = useBackend(context);
+
   const data = props.data;
 
   const { convopdas, pdas, charges, silent, toff } = data;
+
+  const [searchTerm, setSearchTerm] = useLocalState(context, 'searchTerm', '');
 
   return (
     <Box>
@@ -203,18 +206,12 @@ export const MessengerList = (props, context) => {
             <Box>No current conversations</Box>
           )) || (
             <Box>
-              <PDAList
-                title="Current Conversations"
-                data={data}
+              Search: <Input value={searchTerm} onInput={(e, value) => { setSearchTerm(value); }} />
+              <PDAList title="Current Conversations" data={data}
                 pdas={convopdas}
                 msgAct="Select Conversation"
-              />
-              <PDAList
-                title="Other PDAs"
-                pdas={pdas}
-                msgAct="Message"
-                data={data}
-              />
+                searchTerm={searchTerm} />
+              <PDAList title="Other PDAs" pdas={pdas} msgAct="Message" data={data} searchTerm={searchTerm} />
             </Box>
           )}
         </Box>
@@ -227,7 +224,12 @@ const PDAList = (props, context) => {
   const { act } = useBackend(context);
   const data = props.data;
 
-  const { pdas, title, msgAct } = props;
+  const {
+    pdas,
+    title,
+    msgAct,
+    searchTerm,
+  } = props;
 
   const { charges, plugins } = data;
 
@@ -241,29 +243,26 @@ const PDAList = (props, context) => {
 
   return (
     <Section level={2} title={title}>
-      {pdas.map((pda) => (
-        <Box key={pda.uid}>
-          <Button
-            icon="arrow-circle-down"
-            content={pda.Name}
-            onClick={() => act(msgAct, { target: pda.uid })}
-          />
-          {!!charges &&
-            plugins.map((plugin) => (
+      {pdas
+        .filter(pda => { return pda.Name.toLowerCase().includes(searchTerm.toLowerCase()); })
+        .map(pda => (
+          <Box key={pda.uid}>
+            <Button
+              icon="arrow-circle-down"
+              content={pda.Name}
+              onClick={() => act(msgAct, { target: pda.uid })} />
+            {!!charges && plugins.map(plugin => (
               <Button
                 key={plugin.uid}
                 icon={plugin.icon}
                 content={plugin.name}
-                onClick={() =>
-                  act('Messenger Plugin', {
-                    plugin: plugin.uid,
-                    target: pda.uid,
-                  })
-                }
-              />
+                onClick={() => act("Messenger Plugin", {
+                  plugin: plugin.uid,
+                  target: pda.uid,
+                })} />
             ))}
-        </Box>
-      ))}
+          </Box>
+        ))}
     </Section>
   );
 };
