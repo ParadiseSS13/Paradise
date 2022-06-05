@@ -18,7 +18,7 @@
 	response_harm   = "kicks"
 	faction = list("neutral")
 	attack_same = 1
-	attacktext = "kicks"
+	attacktext = "бодает"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 40
 	maxHealth = 40
@@ -118,7 +118,7 @@
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
-	attacktext = "kicks"
+	attacktext = "бодает"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
 	maxHealth = 50
@@ -184,7 +184,7 @@
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
-	attacktext = "kicks"
+	attacktext = "клюёт"
 	health = 3
 	maxHealth = 3
 	ventcrawler = 2
@@ -233,7 +233,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
-	attacktext = "kicks"
+	attacktext = "клюёт"
 	health = 15
 	maxHealth = 15
 	ventcrawler = 2
@@ -324,7 +324,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
-	attacktext = "kicks"
+	attacktext = "лягает"
 	health = 50
 	maxHealth = 50
 	can_collar = 1
@@ -348,7 +348,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
-	attacktext = "pecks"
+	attacktext = "клюёт"
 	health = 50
 	maxHealth = 50
 	can_collar = 1
@@ -371,7 +371,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
-	attacktext = "kicks"
+	attacktext = "щипает"
 	health = 50
 	maxHealth = 50
 	can_collar = 1
@@ -394,7 +394,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
-	attacktext = "kicks"
+	attacktext = "лягает"
 	health = 50
 	maxHealth = 50
 	can_collar = 1
@@ -418,7 +418,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
-	attacktext = "kicks"
+	attacktext = "лягает"
 	health = 50
 	maxHealth = 50
 	can_collar = 1

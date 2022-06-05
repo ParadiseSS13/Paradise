@@ -2,7 +2,7 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 10
 	attack_sound = 'sound/items/welder.ogg'
-	attacktext = "sears"
+	attacktext = "жжёт"
 	damage_transfer = 0.8
 	range = 10
 	playstyle_string = "As a <b>Chaos</b> type, you have only light damage resistance, but will ignite any enemy you bump into. In addition, your melee attacks will randomly teleport enemies."

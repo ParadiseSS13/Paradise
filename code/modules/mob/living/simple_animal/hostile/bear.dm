@@ -23,7 +23,7 @@
 	obj_damage = 60
 	melee_damage_lower = 20
 	melee_damage_upper = 30
-	attacktext = "mauls"
+	attacktext = "терзает"
 	friendly = "bear hugs"
 	attack_sound = 'sound/weapons/genhit3.ogg'
 

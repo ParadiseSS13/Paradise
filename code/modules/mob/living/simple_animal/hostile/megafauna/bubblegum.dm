@@ -32,7 +32,7 @@ Difficulty: Hard
 	desc = "In what passes for a heirarchy among slaughter demons, this one is king."
 	health = 2500
 	maxHealth = 2500
-	attacktext = "rends"
+	attacktext = "кромсает"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	icon_state = "bubblegum"
 	icon_living = "bubblegum"

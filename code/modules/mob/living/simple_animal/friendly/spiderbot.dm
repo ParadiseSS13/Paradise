@@ -14,7 +14,7 @@
 	melee_damage_lower = 2
 	melee_damage_upper = 2
 	melee_damage_type = BURN
-	attacktext = "shocks"
+	attacktext = "бьёт током"
 	attack_sound = "sparks"
 
 	response_help  = "pets"

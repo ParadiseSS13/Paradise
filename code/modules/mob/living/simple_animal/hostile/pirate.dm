@@ -18,7 +18,7 @@
 	obj_damage = 60
 	melee_damage_lower = 30
 	melee_damage_upper = 30
-	attacktext = "slashes"
+	attacktext = "рубит"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)

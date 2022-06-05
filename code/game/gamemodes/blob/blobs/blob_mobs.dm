@@ -50,7 +50,7 @@
 	melee_damage_upper = 4
 	obj_damage = 20
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
-	attacktext = "hits"
+	attacktext = "ударяет"
 	attack_sound = 'sound/weapons/genhit1.ogg'
 	flying = TRUE
 	speak_emote = list("pulses")
@@ -168,7 +168,7 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	obj_damage = 60
-	attacktext = "hits"
+	attacktext = "ударяет"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	speak_emote = list("gurgles")
 	minbodytemp = 0

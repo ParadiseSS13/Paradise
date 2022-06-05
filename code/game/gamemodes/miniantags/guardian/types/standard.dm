@@ -36,7 +36,7 @@
 	icon = 'icons/mob/animal.dmi'
 	icon_living = "seal"
 	icon_state = "seal"
-	attacktext = "slaps"
+	attacktext = "шлёпает"
 	speak_emote = list("barks")
 	melee_damage_lower = 0
 	melee_damage_upper = 0

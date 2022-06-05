@@ -24,7 +24,7 @@
 	environment_smash = 0
 	check_friendly_fire = TRUE
 	stop_automated_movement_when_pulled = TRUE
-	attacktext = "drills"
+	attacktext = "сверлит"
 	attack_sound = 'sound/weapons/circsawhit.ogg'
 	sentience_type = SENTIENCE_MINEBOT
 	speak_emote = list("states")

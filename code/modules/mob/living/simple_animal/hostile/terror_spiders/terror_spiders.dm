@@ -32,7 +32,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	// Melee attacks
 	melee_damage_lower = 15
 	melee_damage_upper = 20
-	attacktext = "bites"
+	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 	a_intent = INTENT_HARM
 

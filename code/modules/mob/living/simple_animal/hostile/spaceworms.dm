@@ -67,7 +67,7 @@
 
 	melee_damage_lower = 10//was 20, dear god
 	melee_damage_upper = 15//was 25, dear god
-	attacktext = "bites"
+	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 
 	animate_movement = SLIDE_STEPS

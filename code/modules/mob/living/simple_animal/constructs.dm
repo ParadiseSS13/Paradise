@@ -107,7 +107,7 @@
 	obj_damage = 90
 	melee_damage_lower = 30
 	melee_damage_upper = 30
-	attacktext = "smashes their armoured gauntlet into"
+	attacktext = "бьёт тяжёлой бронированной перчаткой"
 	speed = 3
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch3.ogg'
@@ -155,7 +155,7 @@
 	health = 75
 	melee_damage_lower = 25
 	melee_damage_upper = 25
-	attacktext = "slashes"
+	attacktext = "рубит"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_type = "wraith"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
@@ -183,7 +183,7 @@
 	obj_damage = 60
 	melee_damage_lower = 5
 	melee_damage_upper = 5
-	attacktext = "rams"
+	attacktext = "таранит"
 	environment_smash = 2
 	retreat_distance = 10
 	minimum_distance = 10 //AI artificers will flee like fuck
@@ -263,7 +263,7 @@
 	harm_intent_damage = 0
 	melee_damage_lower = 50
 	melee_damage_upper = 50
-	attacktext = "brutally crushes"
+	attacktext = "брутально сокрушает"
 	speed = 5
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch4.ogg'
@@ -294,7 +294,7 @@
 	health = 60
 	melee_damage_lower = 1
 	melee_damage_upper = 5
-	attacktext = "prods"
+	attacktext = "колет"
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	attack_sound = 'sound/weapons/tap.ogg'
 	construct_type = "harvester"

@@ -23,7 +23,7 @@
 	harm_intent_damage = 0
 	melee_damage_lower = 60 //Was 35, buffed
 	melee_damage_upper = 60
-	attacktext = "rends"
+	attacktext = "кромсает"
 	attack_sound = 'sound/weapons/slash.ogg'
 
 	minbodytemp = 0

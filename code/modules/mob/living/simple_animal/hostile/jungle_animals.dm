@@ -29,7 +29,7 @@
 	harm_intent_damage = 8
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	attacktext = "slashes"
+	attacktext = "кромсает"
 	attack_sound = 'sound/weapons/bite.ogg'
 
 	layer = 3.1		//so they can stay hidde under the /obj/structure/bush

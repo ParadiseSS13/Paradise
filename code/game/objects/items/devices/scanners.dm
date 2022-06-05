@@ -192,7 +192,7 @@ REAGENT SCANNER
 	P.info += "<br><br><b>Заметки:</b><br>"
 	if(in_range(user, src))
 		user.put_in_hands(P)
-		user.visible_message("<span class='notice'>[src] выдает лист с отчетом.</span>")
+		user.visible_message("<span class='notice'>[src.declent_ru(NOMINATIVE)] [pluralize_ru(src.gender,"выдаёт","выдают")] лист с отчётом.</span>")
 
 /obj/item/healthanalyzer/proc/show_results(mob/user)
 	var/datum/browser/popup = new(user, "scanner", scan_title, window_width, window_height)
@@ -256,7 +256,11 @@ REAGENT SCANNER
 	if(!scan_subject)
 		return
 
-	user.visible_message("<span class='notice'>[user] анализирует жизненные показатели [target].</span>", "<span class='notice'>Вы анализировали жизненные показатели [target].</span>")
+	if(user == target)
+		user.visible_message("<span class='notice'>[user.declent_ru(NOMINATIVE)] анализиру[pluralize_ru(user.gender,"ет","ют")] свои жизненные показатели.</span>", "<span class='notice'>[pluralize_ru(user.gender,"Ты анализируешь","Вы анализируете")] свои жизненные показатели.</span>")
+	else
+		user.visible_message("<span class='notice'>[user.declent_ru(NOMINATIVE)] анализиру[pluralize_ru(user.gender,"ет","ют")] жизненные показатели [target.declent_ru(ACCUSATIVE)].</span>", "<span class='notice'>[pluralize_ru(user.gender,"Ты анализируешь","Вы анализируете")] жизненные показатели [target.declent_ru(ACCUSATIVE)].</span>")
+
 	. = medical_scan_results(scan_subject, mode, advanced)
 	scanner.window_height += length(.) * 20
 	. = "<span class='highlight'>[jointext(., "<br>")]</span>"

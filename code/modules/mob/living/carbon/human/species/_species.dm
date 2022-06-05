@@ -409,7 +409,7 @@
 			to_chat(user, "<span class='warning'>Отсутствует кровь!</span>")
 			return
 		if(target.mind && target.mind.vampire && (target.mind in SSticker.mode.vampires))
-			to_chat(user, "<span class='warning'>Ваши клыки не могут пронзить холодную плоть [target.name].</span>")
+			to_chat(user, "<span class='warning'>[pluralize_ru(user.gender,"Твои","Ваши")] клыки не могут пронзить холодную плоть [target.declent_ru(GENITIVE)].</span>")
 			return
 		if(SKELETON in target.mutations)
 			to_chat(user, "<span class='warning'>В скелете нет ни капли крови!</span>")
@@ -431,9 +431,9 @@
 		//вносим проверку что это не диона, ведь у дионы свои атаки
 		//вносим проверку на тип атаки, иначе рвущие атаки будут рвать кулаками, а дионы хлестать кулаками.
 		switch (user.dna.species.unarmed_type)
-			if (/datum/unarmed_attack) attack_species += "[genderize_ru(user.gender,"","а","о","и")] кулаком"
-			if (/datum/unarmed_attack/diona) attack_species += "[genderize_ru(user.gender,"","а","о","и")]"
-			if (/datum/unarmed_attack/claws) attack_species += "[genderize_ru(user.gender,"","а","о","и")] когтями"
+			if (/datum/unarmed_attack/diona) continue
+			if (/datum/unarmed_attack/claws) attack_species += "когтями"
+			if (/datum/unarmed_attack) attack_species += "кулаком"
 
 		user.do_attack_animation(target, attack.animation_type)
 		if(attack.harmless)
@@ -543,7 +543,7 @@
 		if(M.hand)
 			temp = M.bodyparts_by_name["l_hand"]
 		if(!temp || !temp.is_usable())
-			to_chat(M, "<span class='warning'>Ты не можешь пользоваться своей рукой.</span>")
+			to_chat(M, "<span class='warning'>[pluralize_ru(M.gender,"Ты не можешь","Вы не можете")] пользоваться своей рукой.</span>")
 			return
 
 	if(M.mind)

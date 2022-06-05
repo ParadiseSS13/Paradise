@@ -15,7 +15,7 @@
 	ranged_cooldown_time = 40
 	var/jumpdistance = 4
 	var/jumpspeed = 1
-	attacktext = "bites"
+	attacktext = "грызёт"
 	attack_sound = 'sound/creatures/headcrab_attack.ogg'
 	speak_emote = list("hisses")
 	var/is_zombie = 0
@@ -73,7 +73,7 @@
 	speak = list('sound/creatures/zombie_idle1.ogg','sound/creatures/zombie_idle2.ogg','sound/creatures/zombie_idle3.ogg')
 	speak_chance = 50
 	speak_emote = list("groans")
-	attacktext = "bites"
+	attacktext = "грызёт"
 	attack_sound = 'sound/creatures/zombie_attack.ogg'
 	icon_state = "zombie2_s"
 	if(head_organ)

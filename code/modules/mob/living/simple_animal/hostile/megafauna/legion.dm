@@ -24,7 +24,7 @@ Difficulty: Medium
 	icon_living = "legion"
 	desc = "One of many."
 	icon = 'icons/mob/lavaland/legion.dmi'
-	attacktext = "chomps"
+	attacktext = "грызёт"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	speak_emote = list("echoes")
 	armour_penetration = 50

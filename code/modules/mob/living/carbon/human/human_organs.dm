@@ -93,8 +93,8 @@
 				if(!unEquip(r_hand))
 					continue
 
-			var/emote_scream = pick("кричит от боли и ", "издает резкий крик и ", "вскрикивает и ")
-			custom_emote(1, "[(NO_PAIN in dna.species.species_traits) ? "" : emote_scream ]бросает [p_they()] [p_were()] держали [p_their()] [E.name]!")
+			var/emote_scream = pick("крич[pluralize_ru(src.gender,"ит","ат")] от боли и ", "изда[pluralize_ru(src.gender,"ёт","ют")] резкий крик и ", "вскрикива[pluralize_ru(src.gender,"ет","ют")] и ")
+			custom_emote(1, "[(NO_PAIN in dna.species.species_traits) ? "" : emote_scream ]броса[pluralize_ru(src.gender,"ет","ют")] предмет, который держал[genderize_ru(src.gender,"","а","о","и")] в [E.declent_ru(PREPOSITIONAL)]!")
 
 		else if(E.is_malfunctioning())
 
@@ -109,7 +109,7 @@
 				if(!unEquip(r_hand))
 					continue
 
-			custom_emote(1, "бросает [p_they()] [p_were()] держали, [p_their()] [E.name] выходя из строя!")
+			custom_emote(1, "броса[pluralize_ru(src.gender,"ет","ют")] предмет, который держал[genderize_ru(src.gender,"","а","о","и")] держали, [genderize_ru(src.gender,"его","её","его","их")] [E.declent_ru(NOMINATIVE)] выход[pluralize_ru(E.gender,"ит","ят")] из строя!")
 
 			do_sparks(5, 0, src)
 
@@ -119,11 +119,11 @@
 		gloves.germ_level += 1
 
 /mob/living/carbon/human/proc/becomeSlim()
-	to_chat(src, "<span class='notice'>Вы снова чувстуете себя в форме!</span>")
+	to_chat(src, "<span class='notice'>[pluralize_ru(src.gender,"Ты","Вы")] снова чувствуе[pluralize_ru(src.gender,"шь","те")] себя в форме!</span>")
 	mutations.Remove(FAT)
 
 /mob/living/carbon/human/proc/becomeFat()
-	to_chat(src, "<span class='alert'>Вы вдруг чувствуете себя пухлым!</span>")
+	to_chat(src, "<span class='alert'>[pluralize_ru(src.gender,"Ты","Вы")] вдруг чувствуе[pluralize_ru(src.gender,"шь","те")] себя пухлым!</span>")
 	mutations.Add(FAT)
 
 //Handles chem traces

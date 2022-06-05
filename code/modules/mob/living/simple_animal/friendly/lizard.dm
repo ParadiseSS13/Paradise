@@ -8,7 +8,7 @@
 	speak_emote = list("hisses")
 	health = 5
 	maxHealth = 5
-	attacktext = "bites"
+	attacktext = "кусает"
 	obj_damage = 0
 	melee_damage_lower = 1
 	melee_damage_upper = 2

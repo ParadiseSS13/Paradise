@@ -21,7 +21,7 @@
 	turns_per_move = 0
 	melee_damage_lower = 1
 	melee_damage_upper = 1
-	attacktext = "stings"
+	attacktext = "жалит"
 	response_help  = "shoos"
 	response_disarm = "swats away"
 	response_harm   = "squashes"

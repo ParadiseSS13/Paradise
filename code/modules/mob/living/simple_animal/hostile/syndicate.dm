@@ -17,7 +17,7 @@
 	harm_intent_damage = 5
 	melee_damage_lower = 10
 	melee_damage_upper = 10
-	attacktext = "punches"
+	attacktext = "бьёт"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HARM
 	unsuitable_atmos_damage = 15
@@ -35,7 +35,7 @@
 	melee_damage_upper = 25
 	icon_state = "syndicate_sword"
 	icon_living = "syndicate_sword"
-	attacktext = "slashes"
+	attacktext = "рубит"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	armour_penetration = 28
 	status_flags = 0
@@ -234,7 +234,7 @@
 		// Does almost no danage in melee, but decent damage at range, and its shots go through glass.
 		melee_damage_lower = 10
 		melee_damage_upper = 10
-		attacktext = "punches"
+		attacktext = "бьёт"
 		attack_sound = 'sound/weapons/punch1.ogg'
 		ranged = 1
 		rapid = 3
@@ -264,7 +264,7 @@
 		// 50% chance of switching to extremely dangerous ranged variant
 		melee_damage_lower = 10
 		melee_damage_upper = 10
-		attacktext = "punches"
+		attacktext = "бьёт"
 		attack_sound = 'sound/weapons/punch1.ogg'
 		ranged = 1
 		retreat_distance = 3
@@ -355,7 +355,7 @@
 	obj_damage = 0
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	attacktext = "cuts"
+	attacktext = "терзает"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	faction = list("syndicate")
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)

@@ -35,7 +35,7 @@ Difficulty: Medium
 	desc = "Guardians of the necropolis."
 	health = 2500
 	maxHealth = 2500
-	attacktext = "chomps"
+	attacktext = "грызёт"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
 	icon_state = "dragon"

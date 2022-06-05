@@ -11,7 +11,7 @@
 	melee_damage_type = STAMINA
 	melee_damage_lower = 10
 	melee_damage_upper = 8
-	attacktext = "bites"
+	attacktext = "кусает"
 	var/obj/item/inventory_head
 	var/obj/item/inventory_mask
 

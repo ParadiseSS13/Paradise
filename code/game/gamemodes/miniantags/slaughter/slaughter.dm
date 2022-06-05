@@ -24,7 +24,7 @@
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	faction = list("slaughter")
-	attacktext = "wildly tears into"
+	attacktext = "неистово терзает"
 	maxHealth = 200
 	health = 200
 	environment_smash = 1
@@ -297,7 +297,7 @@
 	speak_emote = list("giggles", "titters", "chuckles")
 	emote_hear = list("gaffaws", "laughs")
 	response_help  = "hugs"
-	attacktext = "wildly tickles"
+	attacktext = "неистово щекочет"
 	maxHealth = 175
 	health = 175
 	melee_damage_lower = 25

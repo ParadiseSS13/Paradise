@@ -41,7 +41,7 @@
 	harm_intent_damage = 10
 	melee_damage_lower = 2
 	melee_damage_upper = 3
-	attacktext = "grips"
+	attacktext = "сжимает"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -81,7 +81,7 @@
 	harm_intent_damage = 10
 	melee_damage_lower = 5
 	melee_damage_upper = 10
-	attacktext = "claws"
+	attacktext = "бьёт"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -109,7 +109,7 @@
 	harm_intent_damage = 10
 	melee_damage_lower = 5
 	melee_damage_upper = 10
-	attacktext = "claws"
+	attacktext = "терзает"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)

@@ -10,7 +10,7 @@
 	health = 20
 	melee_damage_lower = 10
 	melee_damage_upper = 5
-	attacktext = "claws"
+	attacktext = "рвёт"
 	speak = list("Meow!", "Esp!", "Purr!", "HSSSSS")
 	speak_emote = list("purrs", "meows")
 	emote_hear = list("meows", "mews")
