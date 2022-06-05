@@ -62,9 +62,9 @@
 	var/poster_item_icon_state = "rolled_poster"
 
 /obj/structure/sign/poster/Initialize(mapload)
-	. = ..()
 	if(random_basetype)
 		randomise(random_basetype)
+	. = ..()
 	if(!ruined)
 		original_name = name
 		name = "poster - [name]"
