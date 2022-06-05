@@ -391,7 +391,7 @@
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] заблокировал[genderize_ru(target.gender,"","а","о","и")] попытку захвата [user]!</span>")
+		target.visible_message("<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] попытку захвата [user.declent_ru(GENITIVE)]!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.grab_act(user, target) == TRUE)
 		return TRUE
@@ -401,7 +401,7 @@
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>Вы не хотите навредить [target]!</span>")
+		to_chat(user, "<span class='warning'>[pluralize_ru(user.gender,"Ты не хочешь","Вы не хотите")] навредить [target.declent_ru(DATIVE)]!</span>")
 		return FALSE
 	//Vampire code
 	if(user.mind && user.mind.vampire && (user.mind in SSticker.mode.vampires) && !user.mind.vampire.draining && user.zone_selected == "head" && target != user)
@@ -420,7 +420,7 @@
 		return
 		//end vampire codes
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] заблокировал[genderize_ru(target.gender,"","а","о","и")] атаку [user]!</span>")
+		target.visible_message("<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] атаку [user.declent_ru(GENITIVE)]!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
 		return TRUE
@@ -438,7 +438,7 @@
 		user.do_attack_animation(target, attack.animation_type)
 		if(attack.harmless)
 			playsound(target.loc, attack.attack_sound, 25, 1, -1)
-			target.visible_message("<span class='danger'>[user] [attack_species] [target]!</span>")
+			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)]!</span>")
 			return FALSE
 		add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
 
@@ -454,7 +454,7 @@
 		damage += attack.damage
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, 1, -1)
-			target.visible_message("<span class='danger'>[user] попытал[genderize_ru(user.gender,"ся","ась","ось","ись")], но не [attack_species] [target]!</span>")
+			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)], но промахива[pluralize_ru(user.gender,"ется","ются")]!</span>")
 			return FALSE
 
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
@@ -462,12 +462,12 @@
 
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
 
-		target.visible_message("<span class='danger'>[user] [attack_species] [target]!</span>")
+		target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)]!</span>")
 
 		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
-			target.visible_message("<span class='danger'>[user] ослабил[genderize_ru(user.gender,"","а","о","и")] [target]!</span>", \
-							"<span class='userdanger'>[user] ослабил[genderize_ru(user.gender,"","а","о","и")] [target]!</span>")
+			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>", \
+							"<span class='userdanger'>[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			target.apply_effect(2, WEAKEN, armor_block)
 			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
@@ -476,7 +476,7 @@
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
-		target.visible_message("<span class='warning'>[target] заблокировал[genderize_ru(target.gender,"","а","о","и")] попытку обезоруживания [user]!</span>")
+		target.visible_message("<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] попытку обезоруживания [user.declent_ru(GENITIVE)]!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
@@ -490,7 +490,7 @@
 		if(randn <= 10)
 			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			target.visible_message("<span class='danger'>[user] толкнул[genderize_ru(user.gender,"","а","о","и")] [target]!</span>")
+			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] толка[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
 			if(!iscarbon(user))
 				target.LAssailant = null
@@ -503,7 +503,7 @@
 		if(randn <= 60)
 			//BubbleWrap: Disarming breaks a pull
 			if(target.pulling)
-				target.visible_message("<span class='danger'>[user] разорвал[genderize_ru(user.gender,"","а","о","и")] хватку [target] на [target.pulling]!</span>")
+				target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] разрыва[pluralize_ru(user.gender,"ет","ют")] хватку [target.declent_ru(GENITIVE)] на [target.pulling.declent_ru(PREPOSITIONAL)]!</span>")
 				talked = 1
 				target.stop_pulling()
 
@@ -511,14 +511,14 @@
 			if(istype(target.l_hand, /obj/item/grab))
 				var/obj/item/grab/lgrab = target.l_hand
 				if(lgrab.affecting)
-					target.visible_message("<span class='danger'>[user] разорвал[genderize_ru(user.gender,"","а","о","и")] хватку [target] на [lgrab.affecting]!</span>")
+					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] разрыва[pluralize_ru(user.gender,"ет","ют")] хватку [target.declent_ru(GENITIVE)] на [lgrab.affecting.declent_ru(PREPOSITIONAL)]!</span>")
 					talked = 1
 				spawn(1)
 					qdel(lgrab)
 			if(istype(target.r_hand, /obj/item/grab))
 				var/obj/item/grab/rgrab = target.r_hand
 				if(rgrab.affecting)
-					target.visible_message("<span class='danger'>[user] разорвал[genderize_ru(user.gender,"","а","о","и")] хватку [target] на [rgrab.affecting]!</span>")
+					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] разрыва[pluralize_ru(user.gender,"ет","ют")] хватку [target.declent_ru(GENITIVE)] на [rgrab.affecting.declent_ru(PREPOSITIONAL)]!</span>")
 					talked = 1
 				spawn(1)
 					qdel(rgrab)
@@ -526,13 +526,13 @@
 
 			if(!talked)	//BubbleWrap
 				if(target.drop_item())
-					target.visible_message("<span class='danger'>[user] обезоружил[genderize_ru(user.gender,"","а","о","и")] [target]!</span>")
+					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] обезоружи[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			return
 
 
 	playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-	target.visible_message("<span class='danger'>[user] попытал[genderize_ru(user.gender,"ся","ась","ось","ись")] обезоружить [target]!</span>")
+	target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] пыта[pluralize_ru(user.gender,"ется","ются")] обезоружить [target.declent_ru(ACCUSATIVE)]!</span>")
 
 /datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style) //Handles any species-specific attackhand events.
 	if(!istype(M))
@@ -551,7 +551,7 @@
 
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
-		H.visible_message("<span class='warning'>[M] попытал[genderize_ru(M.gender,"ся","ась","ось","ись")] коснуться [H]!</span>")
+		H.visible_message("<span class='warning'>[M.declent_ru(NOMINATIVE)] пыта[pluralize_ru(M.gender,"ется","ются")] коснуться [H.declent_ru(ACCUSATIVE)]!</span>")
 		return FALSE
 
 	switch(M.a_intent)

@@ -24,7 +24,7 @@
 		//Moving around with fractured ribs won't do you any good
 			if(E.is_broken() && E.internal_organs && E.internal_organs.len && prob(15))
 				var/obj/item/organ/internal/I = pick(E.internal_organs)
-				custom_pain("Вы чувствуете как в вашей [E.name] двигаются сломанные кости!")
+				custom_pain("Вы чувствуете как в вашей [E.declent_ru(PREPOSITIONAL)] двигаются сломанные кости!")
 				I.receive_damage(rand(3,5))
 
 	//handle_stance()
