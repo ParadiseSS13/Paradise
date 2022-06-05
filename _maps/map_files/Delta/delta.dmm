@@ -25812,7 +25812,6 @@
 /area/security/processing)
 "boV" = (
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
@@ -25820,6 +25819,7 @@
 	name = "Security Blast Door";
 	opacity = 0
 	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/brig)
 "boW" = (
@@ -41419,11 +41419,8 @@
 	},
 /area/hallway/primary/starboard)
 "bVq" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -42259,6 +42256,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -89680,10 +89678,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig - Prisoner Release";
-	req_access_txt = "63"
-	},
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
@@ -89691,18 +89685,8 @@
 	name = "Security Blast Door";
 	opacity = 0
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 4
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/security/brig)
 "irt" = (
 /turf/simulated/wall,
@@ -91384,6 +91368,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/east,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -91499,6 +91484,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -94934,6 +94923,18 @@
 	icon_state = "neutral"
 	},
 /area/maintenance/starboard)
+"ujP" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig - Prisoner Release";
+	req_access_txt = "63"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/security/brig)
 "ukv" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -96064,6 +96065,13 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig - Prisoner Release";
+	req_access_txt = "63"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -96218,10 +96226,25 @@
 /turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "xBA" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Secure Gate";
+	name = "Security Blast Door";
+	opacity = 0
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 4
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig - Prisoner Release";
+	req_access_txt = "63"
+	},
 /obj/effect/decal/warning_stripes/west,
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
 /area/security/brig)
 "xBJ" = (
 /obj/structure/railing{
@@ -148044,8 +148067,8 @@ bHX
 oSH
 bLB
 xaM
-oXm
-bzo
+bPt
+ujP
 bLB
 hTV
 hTV
