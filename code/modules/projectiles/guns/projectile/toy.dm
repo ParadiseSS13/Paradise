@@ -133,5 +133,11 @@
 	zoomable = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/sniper_rounds
 
+/obj/item/gun/projectile/automatic/sniper_rifle/toy/update_icon()
+	if(magazine)
+		icon_state = "sniper-mag"
+	else
+		icon_state = "sniper"
+
 /obj/item/gun/projectile/automatic/sniper_rifle/toy/process_chamber(eject_casing = 0, empty_chamber = 1)
 	..()
