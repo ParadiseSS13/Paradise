@@ -60,7 +60,7 @@
 	filling_color = "#DE4545"
 	list_reagents = list("nutriment" = 8, "synaptizine" = 5, "vitamin" = 4)
 	tastes = list("pasta" = 1, "tomato" = 1, "meat" = 1)
-	foodtype = GRAIN | VEGETABLES | MEAT
+	foodtype = GRAIN | MEAT
 
 /obj/item/reagent_containers/food/snacks/spesslaw
 	name = "spesslaw"

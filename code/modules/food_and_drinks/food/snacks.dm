@@ -292,6 +292,6 @@
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "deepfried_holder_icon"
 	list_reagents = list("nutriment" = 3)
-
+	foodtype = FRIED | JUNKFOOD | GROSS
 
 #undef MAX_WEIGHT_CLASS
