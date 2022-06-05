@@ -61,7 +61,7 @@
 	selection_color = "#ffeeff"
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Student Scientist","Xenoarcheologist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
+	alt_titles = list("Student Scientist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
 	minimal_player_age = 3
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
