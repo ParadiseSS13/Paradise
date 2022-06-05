@@ -67,7 +67,7 @@
 
 /obj/item/weaponcrafting/gunkit/accelerator
 	name = "accelerator laser cannon parts kit"
-	desc = "A suitcase containing the necessary gun parts to transform a standard laser gun into a accelerator laser cannon."
+	desc = "A suitcase containing the necessary gun parts to transform a standard laser gun into an accelerator laser cannon."
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 
 /obj/item/weaponcrafting/gunkit/plasma
