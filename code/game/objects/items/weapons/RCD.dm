@@ -692,6 +692,8 @@
 	matter = 100
 
 /obj/item/rcd/combat
+	icon_state = "combat-rcd"
+	item_state = "combat_rcd"
 	name = "combat RCD"
 	max_matter = MATTER_500
 	matter = MATTER_500

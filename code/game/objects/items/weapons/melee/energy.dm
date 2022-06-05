@@ -16,7 +16,7 @@
 	toolspeed = 1
 	light_power = 2
 	var/brightness_on = 2
-	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
 	var/nemesis_faction = FALSE
@@ -122,7 +122,7 @@
 /obj/item/melee/energy/sword/New()
 	..()
 	if(item_color == null)
-		item_color = pick("red", "blue", "green", "purple")
+		item_color = pick("red", "blue", "green", "purple", "yellow", "pink", "darkblue", "orange")
 
 /obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
@@ -177,6 +177,18 @@
 
 /obj/item/melee/energy/sword/saber/red
 	item_color = "red"
+
+/obj/item/melee/energy/sword/saber/darkblue
+	item_color = "darkblue"
+
+/obj/item/melee/energy/sword/saber/orange
+	item_color = "orange"
+
+/obj/item/melee/energy/sword/saber/pink
+	item_color = "pink"
+
+/obj/item/melee/energy/sword/saber/yellow
+	item_color = "yellow"
 
 /obj/item/melee/energy/sword/saber/attackby(obj/item/W, mob/living/user, params)
 	..()

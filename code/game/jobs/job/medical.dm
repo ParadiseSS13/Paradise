@@ -198,7 +198,7 @@
 	suit = /obj/item/clothing/suit/storage/labcoat/genetics
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_medsci
-	id = /obj/item/card/id/medical
+	id = /obj/item/card/id/genetics
 	suit_store = /obj/item/flashlight/pen
 	pda = /obj/item/pda/geneticist
 

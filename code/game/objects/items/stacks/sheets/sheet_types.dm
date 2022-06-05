@@ -152,7 +152,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	singular_name = "plasteel sheet"
 	desc = "This sheet is an alloy of iron and plasma."
 	icon_state = "sheet-plasteel"
-	item_state = "sheet-metal"
+	item_state = "sheet-plasteel"
 	materials = list(MAT_METAL=2000, MAT_PLASMA=2000)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 80)
 	resistance_flags = FIRE_PROOF
@@ -205,6 +205,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	gender = PLURAL
 	singular_name = "wood plank"
 	icon_state = "sheet-wood"
+	item_state = "sheet-wood"
 	origin_tech = "materials=1;biotech=1"
 	resistance_flags = FLAMMABLE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
@@ -344,6 +345,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	desc = "Large sheets of card, like boxes folded flat."
 	singular_name = "cardboard sheet"
 	icon_state = "sheet-card"
+	item_state = "sheet-card"
 	origin_tech = "materials=1"
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/cardboard
@@ -370,7 +372,7 @@ GLOBAL_LIST_INIT(cult_recipes, list ( \
 	desc = "Sheets of cold metal with shifting inscriptions writ upon them."
 	singular_name = "runed metal sheet"
 	icon_state = "sheet-runed"
-	item_state = "sheet-metal"
+	item_state = "sheet-runed"
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
 	recipe_width = 700
@@ -432,6 +434,7 @@ GLOBAL_LIST_INIT(brass_recipes, list (\
 	desc = "Sheets made out of brass."
 	singular_name = "brass sheet"
 	icon_state = "sheet-brass"
+	item_state = "sheet-brass"
 	icon = 'icons/obj/items.dmi'
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	throwforce = 10
@@ -496,6 +499,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	desc = "Compress dinosaur over millions of years, then refine, split and mold, and voila! You have plastic."
 	singular_name = "plastic sheet"
 	icon_state = "sheet-plastic"
+	item_state = "sheet-plastic"
 	throwforce = 7
 	origin_tech = "materials=1;biotech=1"
 	materials = list(MAT_PLASTIC = MINERAL_MATERIAL_AMOUNT)

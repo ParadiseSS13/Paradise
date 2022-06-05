@@ -38,6 +38,7 @@
 	name = "bluespace rapid part exchange device"
 	desc = "A version of the RPED that allows for replacement of parts and scanning from a distance, along with higher capacity for parts."
 	icon_state = "BS_RPED"
+	item_state = "BS_RPED"
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 400
 	max_w_class = WEIGHT_CLASS_NORMAL

@@ -277,7 +277,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/headset_iaa
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/read_only
-	id = /obj/item/card/id/security
+	id = /obj/item/card/id/iaa
 	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/clothing/accessory/lawyers_badge
 	l_hand = /obj/item/storage/briefcase

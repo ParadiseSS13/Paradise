@@ -620,6 +620,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien saw"
 	desc = "Do the aliens also lose this, and need to find an alien hatchet?"
 	icon = 'icons/obj/abductor.dmi'
+	item_state = "alien_saw"
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 

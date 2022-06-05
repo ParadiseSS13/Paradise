@@ -398,32 +398,39 @@
 							ACCESS_SYNDICATE_BOTANY,
 							ACCESS_SYNDICATE_ENGINE)
 	icon_state = "commander"
+	item_state = "syndieofficer-id"
 
 //Syndicate 'Taipan' access cards
 
 /obj/item/card/id/syndicate/scientist
 	icon_state = "syndiernd"
+	item_state = "syndiernd-id"
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_SCIENTIST, ACCESS_SYNDICATE_MEDICAL)
 
 /obj/item/card/id/syndicate/cargo
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_CARGO)
 	icon_state = "syndiecargo"
+	item_state = "syndiecargo-id"
 
 /obj/item/card/id/syndicate/kitchen
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_KITCHEN, ACCESS_SYNDICATE_BOTANY)
 	icon_state = "syndiechef"
+	item_state = "syndiechef-id"
 
 /obj/item/card/id/syndicate/engineer
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_ENGINE)
 	icon_state = "syndieengineer"
+	item_state = "syndieengineer-id"
 
 /obj/item/card/id/syndicate/medic
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_MEDICAL)
 	icon_state = "syndiemedical"
+	item_state = "syndiemedical-id"
 
 /obj/item/card/id/syndicate/botanist
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_BOTANY)
 	icon_state = "syndiebotany"
+	item_state = "syndiebotany-id"
 
 /obj/item/card/id/syndicate/comms_officer
 	initial_access = list(	ACCESS_MAINT_TUNNELS,
@@ -438,6 +445,7 @@
 							ACCESS_SYNDICATE_BOTANY,
 							ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 	icon_state = "commander"
+	item_state = "syndieofficer-id"
 
 /obj/item/card/id/syndicate/research_director
 	initial_access = list(	ACCESS_MAINT_TUNNELS,
@@ -451,6 +459,7 @@
 							ACCESS_SYNDICATE_BOTANY,
 							ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 	icon_state = "syndierd"
+	item_state = "syndierd-id"
 
 /obj/item/card/id/syndicate/afterattack(var/obj/item/O as obj, mob/user as mob, proximity)
 	if(!proximity)
@@ -673,6 +682,7 @@
 	desc = "An ID straight from the Syndicate."
 	registered_name = "Syndicate"
 	icon_state = "syndie"
+	item_state = "syndieofficer-id"
 	assignment = "Syndicate Overlord"
 	untrackable = 1
 	access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
@@ -706,6 +716,7 @@
 	name = "central command ID card"
 	desc = "An ID straight from Central Command."
 	icon_state = "centcom"
+	item_state = "centcomm-id"
 	registered_name = "Central Command"
 	assignment = "General"
 
@@ -716,6 +727,7 @@
 /obj/item/card/id/nanotrasen
 	name = "nanotrasen ID card"
 	icon_state = "nanotrasen"
+	item_state = "centcomm-id"
 
 /obj/item/card/id/prisoner
 	name = "prisoner ID card"
@@ -776,36 +788,42 @@
 	name = "Medical ID"
 	registered_name = "Medic"
 	icon_state = "medical"
+	item_state = "medical-id"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/security
 	name = "Security ID"
 	registered_name = "Officer"
 	icon_state = "security"
+	item_state = "security-id"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 
 /obj/item/card/id/research
 	name = "Research ID"
 	registered_name = "Scientist"
 	icon_state = "research"
+	item_state = "research-id"
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/supply
 	name = "Supply ID"
 	registered_name = "Cargonian"
 	icon_state = "cargo"
+	item_state = "cargo-id"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/engineering
 	name = "Engineering ID"
 	registered_name = "Engineer"
 	icon_state = "engineering"
+	item_state = "engineer-id"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS)
 
 /obj/item/card/id/hos
 	name = "Head of Security ID"
 	registered_name = "HoS"
 	icon_state = "HoS"
+	item_state = "hos-id"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
 			            ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
 			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
@@ -815,6 +833,7 @@
 	name = "Chief Medical Officer ID"
 	registered_name = "CMO"
 	icon_state = "CMO"
+	item_state = "cmo-id"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_HEADS,
 			ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY, ACCESS_RC_ANNOUNCE,
 			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_PSYCHIATRIST, ACCESS_PARAMEDIC, ACCESS_MINERAL_STOREROOM)
@@ -823,6 +842,7 @@
 	name = "Research Director ID"
 	registered_name = "RD"
 	icon_state = "RD"
+	item_state = "rd-id"
 	access = list(ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE,
 			            ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS,
 			            ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
@@ -832,6 +852,7 @@
 	name = "Chief Engineer ID"
 	registered_name = "CE"
 	icon_state = "CE"
+	item_state = "ce-id"
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
 			            ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
 			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
@@ -841,6 +862,7 @@
 	name = "Pink ID"
 	registered_name = "HONK!"
 	icon_state = "clown"
+	item_state = "clown-id"
 	desc = "Even looking at the card strikes you with deep fear."
 	access = list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 
@@ -848,12 +870,43 @@
 	name = "Black and White ID"
 	registered_name = "..."
 	icon_state = "mime"
+	item_state = "mime-id"
 	desc = "..."
 	access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
+
+/obj/item/card/id/qm
+	name = "Quartmaster ID"
+	registered_name = "QM"
+	icon_state = "qm"
+	item_state = "qm-id"
+	desc = "Glory to cargonia!"
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/genetics
+	name = "Genetics ID"
+	registered_name = "Genetics"
+	icon_state = "genetics"
+	item_state = "genetics-id"
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/warden
+	name = "Warden ID"
+	registered_name = "Warden"
+	icon_state = "warden"
+	item_state = "warden-id"
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
+
+/obj/item/card/id/iaa
+	name = "IAA ID"
+	registered_name = "IAA"
+	icon_state = "IAA"
+	item_state = "iaa-id"
+	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 
 /obj/item/card/id/rainbow
 	name = "Rainbow ID"
 	icon_state = "rainbow"
+	item_state = "clown-id"
 
 /obj/item/card/id/thunderdome/red
 	name = "Thunderdome Red ID"
@@ -877,6 +930,7 @@
 /obj/item/card/id/ert
 	name = "ERT ID"
 	icon_state = "ERT_empty"
+	item_state = "ert-id"
 
 /obj/item/card/id/ert/commander
 	icon_state = "ERT_leader"

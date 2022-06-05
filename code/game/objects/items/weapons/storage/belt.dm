@@ -241,6 +241,11 @@
 	..()
 	new /obj/item/flashlight/seclite(src)
 	update_icon()
+/obj/item/storage/belt/security/detective
+	name = "detective belt"
+	desc = "An old fashion security belt. Made of leather"
+	icon_state = "detective_beltt"
+	item_state = "detective_belt"
 
 /obj/item/storage/belt/security/response_team/New()
 	..()

@@ -138,7 +138,7 @@
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/headset_cargo
 	glasses = /obj/item/clothing/glasses/sunglasses
-	id = /obj/item/card/id/supply
+	id = /obj/item/card/id/qm
 	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/quartermaster
 	backpack = /obj/item/storage/backpack/cargo

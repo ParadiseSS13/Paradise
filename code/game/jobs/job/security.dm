@@ -82,7 +82,7 @@
 	head = /obj/item/clothing/head/warden
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	id = /obj/item/card/id/security
+	id = /obj/item/card/id/warden
 	l_pocket = /obj/item/flash
 	suit_store = /obj/item/gun/energy/dominator
 	pda = /obj/item/pda/warden

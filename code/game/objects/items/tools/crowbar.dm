@@ -37,6 +37,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	icon_state = "crowbar"
+	item_state = "alien_crowbar"
 	toolspeed = 0.1
 	origin_tech = "combat=4;engineering=4;abductor=3"
 

@@ -203,6 +203,7 @@
 	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "welder"
+	item_state = "alien_welder"
 	toolspeed = 0.1
 	light_intensity = 0
 	origin_tech = "plasmatech=5;engineering=5;abductor=3"
