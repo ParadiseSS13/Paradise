@@ -107,7 +107,7 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 		var/race = H.dna.species.name
 
 		switch(race)
-			if("Vox" || "Vox Armalis")
+			if("Vox", "Vox Armalis")
 				box = /obj/item/storage/box/survival_vox
 			if("Plasmaman")
 				box = /obj/item/storage/box/survival_plasmaman
@@ -121,7 +121,7 @@ var/global/all_taipan_jobs = list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,
 		var/race = H.dna.species.name
 
 		switch(race)
-			if("Vox" || "Vox Armalis")
+			if("Vox", "Vox Armalis")
 				H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(H), slot_wear_mask)
 				H.equip_to_slot_or_del(new /obj/item/tank/emergency_oxygen/vox(H), slot_l_hand)
 				H.internal = H.l_hand
