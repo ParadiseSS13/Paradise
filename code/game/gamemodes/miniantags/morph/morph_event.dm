@@ -8,9 +8,10 @@
 			key_of_morph = null
 			kill()
 			return
-		var/mob/C = pick(candidates)
-		key_of_morph = C.key
 
+
+		var/mob/picked = pick(candidates)
+		key_of_morph = picked.key
 		if(!key_of_morph)
 			kill()
 			return
@@ -20,13 +21,10 @@
 		if(!GLOB.xeno_spawn)
 			kill()
 			return
-		var/mob/living/simple_animal/hostile/morph/S = new /mob/living/simple_animal/hostile/morph(pick(GLOB.xeno_spawn))
-		player_mind.transfer_to(S)
-		player_mind.assigned_role = SPECIAL_ROLE_MORPH
-		player_mind.special_role = SPECIAL_ROLE_MORPH
-		SSticker.mode.traitors |= player_mind
-		to_chat(S, S.playstyle_string)
-		S << 'sound/magic/mutate.ogg'
+
+		var/mob/living/simple_animal/hostile/morph/morph = new /mob/living/simple_animal/hostile/morph(pick(GLOB.xeno_spawn))
+		player_mind.transfer_to(morph)
+		morph.make_morph_antag()
 		message_admins("[key_of_morph] has been made into morph by an event.")
 		log_game("[key_of_morph] was spawned as a morph by an event.")
 
