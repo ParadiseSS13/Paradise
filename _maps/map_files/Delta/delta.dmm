@@ -30633,9 +30633,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -32
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/xenozoo)
 "cLA" = (
@@ -73868,7 +73865,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/xenozoo)
+/area/maintenance/xenozoo,
+/obj/structure/closet/walllocker/emerglocker{
+	pixel_x = -32;
+	pixel_y = -32;
+	})
 "khe" = (
 /obj/machinery/computer/operating,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
