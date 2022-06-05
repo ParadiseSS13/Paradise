@@ -90617,8 +90617,8 @@
 	},
 /area/security/permahallway)
 "onr" = (
-/obj/machinery/suit_storage_unit/standard_unit,
 /obj/effect/decal/warning_stripes/southeast,
+/obj/machinery/suit_storage_unit/rd/secure,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "onT" = (
