@@ -8,6 +8,7 @@
 	icon_state = "spooky";
 	name = "Observer-Start"
 	},
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "p" = (
