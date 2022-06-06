@@ -792,7 +792,7 @@
 		if(alert("Do you want to clear the linked pinpointer?", "Pinpointer reset", "Yes", "No") == "Yes")
 			to_chat(user, "<span class='notice'>[src] is ready to be linked to a new pinpointer.</span>")
 			var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
-			C.linked_gun = null
+			C.linked_gun_UID = null
 			if(C.mode == MODE_DET)
 				C.stop_tracking()
 			linked_pinpointer_UID = null

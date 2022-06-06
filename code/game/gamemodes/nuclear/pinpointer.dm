@@ -353,36 +353,38 @@
 	var/target = null //for targeting in processing
 	var/target_set = FALSE //have we set a target at any point?
 	///Var to track the linked detective gun
-	var/obj/item/gun/energy/detective/linked_gun
+	var/linked_gun_UID
 
 /obj/item/pinpointer/crew/Initialize(mapload)
 	. = ..()
-	var/gun_to_link = locate(/obj/item/gun/energy/detective) in get_turf(src)
+	var/obj/item/gun/energy/detective/gun_to_link = locate(/obj/item/gun/energy/detective) in get_turf(src)
 	if(gun_to_link)
-		link_gun(gun_to_link)
+		link_gun(gun_to_link.UID())
 
 /obj/item/pinpointer/crew/Destroy()
-	if(linked_gun)
-		UnregisterSignal(linked_gun, COMSIG_DETGUN_TRACKING)
+	if(linked_gun_UID)
+		UnregisterSignal(locateUID(linked_gun_UID), COMSIG_DETGUN_TRACKING)
 	return ..()
 
 /obj/item/pinpointer/crew/attackby(obj/item/I, mob/living/user)
 	. = ..()
 	if(istype(I, /obj/item/gun/energy/detective))
-		link_gun(I)
+		link_gun(I.UID())
 
-/obj/item/pinpointer/crew/proc/link_gun(obj/item/gun/energy/detective/D)
-	if(D.linked_pinpointer_UID)
-		visible_message("<span class='notice'>The pinpointer pings to indicate it is already linked to a gun.</span>", "<span class='notice'>You hear a pinpointer pinging.</span>")
+/obj/item/pinpointer/crew/proc/link_gun(gun_UID)
+	var/obj/item/gun/energy/detective/D = locateUID(gun_UID)
+	if(D.linked_pinpointer_UID || linked_gun_UID)
+		visible_message("<span class='notice'>The pinpointer pings to indicate either it or the gun is already linked.</span>", "<span class='notice'>You hear a pinpointer pinging.</span>")
 		return
-	linked_gun = D
-	linked_gun.link_pinpointer(UID(src))
-	RegisterSignal(linked_gun, COMSIG_DETGUN_TRACKING, .proc/start_tracking)
+	D.link_pinpointer(UID())
+	linked_gun_UID = gun_UID
+	RegisterSignal(locateUID(linked_gun_UID), COMSIG_DETGUN_TRACKING, .proc/start_tracking, TRUE)
 
 /obj/item/pinpointer/crew/proc/start_tracking()
-	if(!linked_gun)
+	if(!linked_gun_UID)
 		return
-	var/target_UID = linked_gun.tracking_target_UID
+	var/obj/item/gun/energy/detective/D = locateUID(linked_gun_UID)
+	var/target_UID = D.tracking_target_UID
 	target = locateUID(target_UID)
 	target_set = TRUE
 	mode = MODE_DET
