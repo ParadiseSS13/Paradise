@@ -80,7 +80,6 @@
 			if(H.dna.species.male_cough_sounds)
 				return pick(H.dna.species.male_cough_sounds)
 
-
 /datum/emote/living/carbon/moan
 	key = "moan"
 	key_third_person = "moans"

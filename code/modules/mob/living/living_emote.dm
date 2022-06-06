@@ -403,6 +403,7 @@
 		custom_emote = params
 		if(type_override)
 			custom_emote_type = type_override
+
 	message = custom_emote
 	emote_type = custom_emote_type
 	. = ..()
