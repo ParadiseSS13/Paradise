@@ -282,7 +282,6 @@
 	flags = BLOCKHAIR|BLOCKHEADHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
-	species_disguise = "крыса"
 	ru_names = list(NOMINATIVE = "шлем ратге", GENITIVE = "шлема ратге", DATIVE = "шлему ратге", ACCUSATIVE = "шлем ратге", INSTRUMENTAL = "шлемом ратге", PREPOSITIONAL = "шлеме ратге")
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi',
