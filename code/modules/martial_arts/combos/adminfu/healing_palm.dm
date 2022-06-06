@@ -1,12 +1,12 @@
 /datum/martial_combo/adminfu/healing_palm
-	name = "Healing Palm"
+	name = "Исцеляющая ладонь"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HELP)
-	explaination_text = "Heals or revives a creature."
-	combo_text_override = "Grab, switch hands, Help"
+	explaination_text = "Исцелить или возродить существо."
+	combo_text_override = "Захват, смена рук, помощь"
 
 /datum/martial_combo/adminfu/healing_palm/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	user.do_attack_animation(target)
-	target.visible_message("<span class='warning'>[user] smacks [target] in the forehead!</span>")
+	target.visible_message("<span class='warning'>[user] шлепает ладонью по лбу [target]!</span>")
 
 		//its the staff of healing code..hush
 	if(istype(target,/mob))
@@ -31,8 +31,8 @@
 					ghost.reenter_corpse()
 					break
 		if(old_stat != DEAD)
-			to_chat(target, "<span class='notice'>You feel great!</span>")
+			to_chat(target, "<span class='notice'>Вы чувствуете себя изумительно!</span>")
 		else
-			to_chat(target, "<span class='notice'>You rise with a start, you're alive!!!</span>")
+			to_chat(target, "<span class='notice'>Вы восстали, вы живы!!!</span>")
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_FAIL

@@ -10,7 +10,7 @@
 	/// If you require to do the combo's on the same target
 	var/combos_require_same_target = TRUE
 	/// What does it do
-	var/explaination_text = "Ability to break shit"
+	var/explaination_text = "Умение ломать лица"
 	/// How to do the combo. If null it'll auto generate it from the steps
 	var/combo_text_override
 

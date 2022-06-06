@@ -1,5 +1,5 @@
 /datum/martial_art/plasma_fist
-	name = "Plasma Fist"
+	name = "Плазменный кулак"
 	combos = list(/datum/martial_combo/plasma_fist/tornado_sweep, /datum/martial_combo/plasma_fist/throwback, /datum/martial_combo/plasma_fist/plasma_fist)
 	has_explaination_verb = TRUE
 
@@ -19,4 +19,4 @@
 	return TRUE
 
 /datum/martial_art/plasma_fist/explaination_header(user)
-	to_chat(user, "<b><i>You clench your fists and have a flashback of knowledge...</i></b>")
+	to_chat(user, "<b><i>Вы сжимаете кулаки и вас озаряют воспоминания…</i></b>")

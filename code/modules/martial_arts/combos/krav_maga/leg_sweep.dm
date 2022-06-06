@@ -1,12 +1,12 @@
 /datum/martial_combo/krav_maga/leg_sweep
-	name = "Leg Sweep"
-	explaination_text = "Trips the victim, rendering them prone and unable to move for a short time."
+	name = "Подножка"
+	explaination_text = "Подсекает ноги оппонента, из-за чего он падает и некоторое время не может двигаться."
 
 /datum/martial_combo/krav_maga/leg_sweep/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(target.stat || target.IsWeakened())
 		return FALSE
-	target.visible_message("<span class='warning'>[user] leg sweeps [target]!</span>", \
-					  	"<span class='userdanger'>[user] leg sweeps you!</span>")
+	target.visible_message("<span class='warning'>[user] подсека[pluralize_ru(user.gender,"ет","ют")] ноги [target]!</span>", \
+					  	"<span class='userdanger'>[user] подсека[pluralize_ru(user.gender,"ет","ют")] вам ноги!</span>")
 	playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 	target.apply_damage(5, BRUTE)
 	target.Weaken(2)

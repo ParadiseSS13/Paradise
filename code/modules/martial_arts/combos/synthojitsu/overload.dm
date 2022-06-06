@@ -1,12 +1,12 @@
 /datum/martial_combo/synthojitsu/overload
-	name = "Overload"
+	name = "Перегрузка"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_HARM)
-	explaination_text = "Shocks opponent using spare energy."
+	explaination_text = "Ударяет противника током, используя энергию."
 
 /datum/martial_combo/synthojitsu/overload/perform_combo(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/MA)
 	. = MARTIAL_COMBO_FAIL
-	target.visible_message("<span class='warning'>[user] shocked [target]!</span>", \
-						"<span class='userdanger'>[user] shocked you!</span>")
+	target.visible_message("<span class='warning'>[user] бь[pluralize_ru(user.gender,"ёт","ют")] током [target]!</span>", \
+						"<span class='userdanger'>[user] бь[pluralize_ru(user.gender,"ёт","ют")] вас током!</span>")
 	target.apply_damage(10, BRUTE)
 	target.Weaken(1)
 	target.apply_damage(20, BURN)

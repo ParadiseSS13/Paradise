@@ -1,5 +1,5 @@
 /datum/martial_art/synthojitsu
-	name = "Synthojitsu"
+	name = "Синтдзюцу"
 	block_chance = 0
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/synthojitsu/lock, /datum/martial_combo/synthojitsu/overload, /datum/martial_combo/synthojitsu/reanimate)
@@ -17,8 +17,8 @@
 	D.apply_damage(5, BRUTE)
 	A.adjust_nutrition(-10)
 	playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
-	D.visible_message("<span class='danger'>[A] electrocuted [D]!</span>", \
-					  "<span class='userdanger'>[A] elecrtrocuted you!</span>")
+	D.visible_message("<span class='danger'>[A] ударил[genderize_ru(A.gender,"","а","о","и")] током [D]!</span>", \
+					  "<span class='userdanger'>[A] ударил[genderize_ru(A.gender,"","а","о","и")] вас током!</span>")
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	return TRUE
 
@@ -29,13 +29,13 @@
 	D.apply_damage(30, STAMINA)
 	A.adjust_nutrition(-10)
 	playsound(get_turf(D), 'sound/weapons/contractorbatonhit.ogg', 50, 1, -1)
-	D.visible_message("<span class='danger'>[A] tapped [D]!</span>", \
-				  "<span class='userdanger'>[A] tapped you!</span>")
+	D.visible_message("<span class='danger'>[A] коснул[genderize_ru(A.gender,"ся","ась","ось","ись")] [D]!</span>", \
+				  "<span class='userdanger'>[A] коснул[genderize_ru(A.gender,"ся","ась","ось","ись")] вас!</span>")
 	return TRUE
 
 /obj/item/ipc_combat_upgrade
-	name = "IPC combat upgrade"
-	desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols."
+	name = "боевое улучшение КПБ
+	desc = "Продвинутая база данных, совместимая с позитронными системами. Содержит алгоритмы ближнего боя и процедуры перезаписи протоколов безопасности микробатарей."
 	icon = 'icons/obj/ipc_module.dmi'
 	icon_state ="viable"
 	var/is_used = FALSE
@@ -43,21 +43,21 @@
 /obj/item/ipc_combat_upgrade/attack_self(mob/user as mob)
 	if(!ismachineperson(user) || is_used == TRUE)
 		return
-	to_chat(user, "<span class='notice'>Installation sequence initialized. It will take some time...</span>")
+	to_chat(user, "<span class='notice'>Начата установка. Ожидание завершения работы…</span>")
 	if(do_after(user, 100))
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/synthojitsu/F = new/datum/martial_art/synthojitsu(null)
 		F.teach(H)
 		H.adjustBrainLoss(50)
 		H.Weaken(5)
-		to_chat(H, "<span class='boldannounce'>Melee algorithms installed. Safety disabled.</span>")
+		to_chat(H, "<span class='boldannounce'>Алгоритмы ближнего боя установлены. Протоколы безопасности отключены.</span>")
 		is_used = TRUE
-		desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols.It's hardlocked"
-		name = "IPC combat upgrade"
+		desc = "Продвинутая база данных, совместимая с позитронными системами. Содержит алгоритмы ближнего боя и процедуры перезаписи протоколов безопасности микробатарей. Стоит блокировка."
+		name = "боевое улучшение IPC"
 		icon_state = "unviable"
 
 /datum/martial_art/synthojitsu/explaination_header(user)
-	to_chat(user, "<b><i>You reapload some of the basics of synthojitsu.</i></b>")
+	to_chat(user, "<b><i>Вы повторно загружаете основы Синдзюцу</i></b>")
 
 /datum/martial_art/synthojitsu/explaination_footer(user)
-	to_chat(user, "<b><i>In addition, your attacks will deal additional burn damage. Your disarm attempts will exhaust opponent. All attacks and combos will draw your internal battery.</i></b>")
+	to_chat(user, "<b><i>Ваши атаки будут наносить дополнительный обжигающий урон. Попытки обезоруживания истощат противника. Все атаки и комбинации истощат внутреннюю батарею.</i></b>")
