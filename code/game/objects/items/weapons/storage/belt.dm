@@ -244,7 +244,7 @@
 /obj/item/storage/belt/security/detective
 	name = "detective belt"
 	desc = "An old fashion security belt. Made of leather"
-	icon_state = "detective_beltt"
+	icon_state = "detective_belt"
 	item_state = "detective_belt"
 
 /obj/item/storage/belt/security/response_team/New()
