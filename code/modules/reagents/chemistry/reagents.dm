@@ -106,13 +106,6 @@
 				AD.last_addiction_dose = world.timeofday
 				AD.addiction_stage = 1
 
-/datum/reagent/proc/absorb_blood(mob/living/M)
-	// This merely deletes the blood reagent inside of the mob to look nice on health scans.
-	// The update to .blood_volume happens in `reaction_mob`
-	var/mob/living/carbon/C = M
-	if(istype(C) && M.get_blood_id() == id)
-		volume = 0
-
 /datum/reagent/proc/on_mob_death(mob/living/M)	//use this to have chems have a "death-triggered" effect
 	return
 
