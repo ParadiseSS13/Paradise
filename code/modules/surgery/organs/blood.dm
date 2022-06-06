@@ -343,3 +343,10 @@
 	if(shift_x || shift_y)
 		O.off_floor = TRUE
 		O.layer = BELOW_MOB_LAYER
+
+/mob/living/proc/absorb_blood()
+	// This merely deletes the blood reagent inside of the mob to look nice on health scans.
+	// The update to .blood_volume happens in `/datum/reagent/proc/reaction_mob`
+	var/id = get_blood_id()
+	if(id)
+		reagents.del_reagent(get_blood_id())

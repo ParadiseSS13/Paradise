@@ -65,6 +65,11 @@
 			C.reagents.add_reagent("toxin", volume * 0.5)
 		else
 			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
+		// This does not absorb the blood we are getting in *this* reagent transfer operation,
+		// (because the actual transfer has not happened yet. Because reasons) but it does process
+		// the blood already in the mob.
+		// This one only matters if the mob is dead.
+		M.absorb_blood()
 
 /datum/reagent/proc/reaction_obj(obj/O, volume)
 	return
@@ -100,6 +105,13 @@
 			if(AD && istype(AD, src))
 				AD.last_addiction_dose = world.timeofday
 				AD.addiction_stage = 1
+
+/datum/reagent/proc/absorb_blood(mob/living/M)
+	// This merely deletes the blood reagent inside of the mob to look nice on health scans.
+	// The update to .blood_volume happens in `reaction_mob`
+	var/mob/living/carbon/C = M
+	if(istype(C) && M.get_blood_id() == id)
+		volume = 0
 
 /datum/reagent/proc/on_mob_death(mob/living/M)	//use this to have chems have a "death-triggered" effect
 	return
