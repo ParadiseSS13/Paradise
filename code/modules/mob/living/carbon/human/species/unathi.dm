@@ -103,14 +103,6 @@
 	for(var/mob/living/carbon/human/C in orange(1))
 		var/obj/item/organ/external/E = C.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
 
-		var/E_ru //русифицируем орган
-		switch (E)
-			if ("l_leg") E_ru = "левую ногу"
-			if ("r_leg") E_ru = "правую ногу"
-			if ("l_foot") E_ru = "левую ступню"
-			if ("r_foot") E_ru = "правую ступню"
-			if ("groin") E_ru = "пах"
-
 		if(E)
 			user.changeNext_move(CLICK_CD_MELEE) //User бьет С в Е. Сука... С - это цель. Е - это орган.
 			user.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] хлещет хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]! </span>", "<span class='danger'>[pluralize_ru(user.gender,"Ты хлещешь","Вы хлещете")] хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!</span>")
