@@ -40569,9 +40569,7 @@
 	pixel_x = -22;
 	pixel_y = 4
 	},
-/obj/machinery/computer/secure_data{
-	dir = 4
-	},
+/obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "blue"
