@@ -346,7 +346,6 @@
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
 	var/species_state = "human"
-	var/vox_oxygen_bonus = 0.05 //For upgraded robotic lungs
 
 /obj/item/organ/internal/lungs/cybernetic/examine(mob/user)
 	. = ..()
@@ -359,10 +358,10 @@
 	switch(species_state)
 		if("human")
 			safe_oxygen_min = 0
-			safe_oxygen_max = vox_oxygen_bonus
+			safe_oxygen_max = safe_toxins_max
 			safe_nitro_min = 16
 			oxy_damage_type = TOX
-			user.show_message("You configure [src] to replace vox lungs.")
+			to_chat(user, "<span class='notice'>You configure [src] to replace vox lungs.</span>")
 			species_state = "vox"
 		if("vox")
 			safe_oxygen_max = initial(safe_oxygen_max)
@@ -370,13 +369,13 @@
 			safe_toxins_max = 0
 			safe_nitro_min = initial(safe_nitro_min)
 			oxy_damage_type = OXY
-			user.show_message("You configure [src] to replace plasmamen lungs.")
+			to_chat(user, "<span class='notice'>You configure [src] to replace plasmamen lungs.</span>")
 			species_state = "plasmamen"
 		if("plasmamen")
 			safe_oxygen_min = initial(safe_oxygen_min)
 			safe_toxins_min = initial(safe_toxins_min)
 			safe_toxins_max = initial(safe_toxins_max)
-			user.show_message("You configure [src] back to default settings.")
+			to_chat(user, "<span class='notice'>You configure [src] back to default settings.</span>")
 			species_state = "human"
 
 /obj/item/organ/internal/lungs/cybernetic/upgraded
@@ -387,7 +386,6 @@
 
 	safe_toxins_max = 20
 	safe_co2_max = 20
-	vox_oxygen_bonus = 20
 
 	cold_level_1_threshold = 200
 	cold_level_2_threshold = 140
