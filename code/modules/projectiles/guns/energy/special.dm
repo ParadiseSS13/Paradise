@@ -793,7 +793,7 @@
 			to_chat(user, "<span class='notice'>[src] is ready to be linked to a new pinpointer.</span>")
 			var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
 			C.linked_gun = null
-			if(C.mode == MODE_DET) //This is not a global define, lovely eh?
+			if(C.mode == MODE_DET)
 				C.stop_tracking()
 			linked_pinpointer_UID = null
 
@@ -856,6 +856,10 @@
 	addtimer(CALLBACK(src, .proc/stop_pointing), 1 MINUTES, TIMER_UNIQUE)
 
 /obj/item/gun/energy/detective/proc/stop_pointing()
+	if(linked_pinpointer_UID)
+		var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
+		if(C.mode == MODE_DET)
+			C.stop_tracking()
 	tracking_target_UID = null
 
 #undef PLASMA_CHARGE_USE_PER_SECOND
