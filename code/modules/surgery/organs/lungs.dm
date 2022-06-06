@@ -345,6 +345,39 @@
 	icon_state = "lungs-c"
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
+	var/species_state = "human"
+	var/vox_oxygen_bonus = 0.05 //For upgraded robotic lungs
+
+/obj/item/organ/internal/lungs/cybernetic/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] is configured for [species_state] standards of atmosphere.</span>"
+
+/obj/item/organ/internal/lungs/cybernetic/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	switch(species_state)
+		if("human")
+			safe_oxygen_min = 0
+			safe_oxygen_max = vox_oxygen_bonus
+			safe_nitro_min = 16
+			oxy_damage_type = TOX
+			user.show_message("You configure [src] to replace vox lungs.")
+			species_state = "vox"
+		if("vox")
+			safe_oxygen_max = initial(safe_oxygen_max)
+			safe_toxins_min = 16
+			safe_toxins_max = 0
+			safe_nitro_min = initial(safe_nitro_min)
+			oxy_damage_type = OXY
+			user.show_message("You configure [src] to replace plasmamen lungs.")
+			species_state = "plasmamen"
+		if("plasmamen")
+			safe_oxygen_min = initial(safe_oxygen_min)
+			safe_toxins_min = initial(safe_toxins_min)
+			safe_toxins_max = initial(safe_toxins_max)
+			user.show_message("You configure [src] back to default settings.")
+			species_state = "human"
 
 /obj/item/organ/internal/lungs/cybernetic/upgraded
 	name = "upgraded cybernetic lungs"
@@ -354,6 +387,7 @@
 
 	safe_toxins_max = 20
 	safe_co2_max = 20
+	vox_oxygen_bonus = 20
 
 	cold_level_1_threshold = 200
 	cold_level_2_threshold = 140
