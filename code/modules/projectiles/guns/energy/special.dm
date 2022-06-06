@@ -843,7 +843,7 @@
 	tracking_target_UID = target_UID
 	Announcer.autosay("Alert: Detective's revolver discharged in tracking mode. Tracking: [locateUID(tracking_target_UID)] at [get_area_name(src)].", src, "Security")
 	tracking_timer = addtimer(CALLBACK(src, .proc/point_at), 1 SECONDS, TIMER_LOOP|TIMER_STOPPABLE)
-	addtimer(CALLBACK(src, .proc/stop_pointing), 2 MINUTES, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, .proc/stop_pointing), 1 MINUTES, TIMER_UNIQUE)
 
 /obj/item/gun/energy/detective/proc/stop_pointing()
 	tracking_target_UID = null
