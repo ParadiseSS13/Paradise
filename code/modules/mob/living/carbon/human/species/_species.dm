@@ -431,7 +431,7 @@
 		//вносим проверку что это не диона, ведь у дионы свои атаки
 		//вносим проверку на тип атаки, иначе рвущие атаки будут рвать кулаками, а дионы хлестать кулаками.
 		switch (user.dna.species.unarmed_type)
-			if (/datum/unarmed_attack/diona) continue
+			if (/datum/unarmed_attack/diona) attack_species += ""
 			if (/datum/unarmed_attack/claws) attack_species += "когтями"
 			if (/datum/unarmed_attack) attack_species += "кулаком"
 
