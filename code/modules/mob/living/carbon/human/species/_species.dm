@@ -432,8 +432,8 @@
 		//вносим проверку на тип атаки, иначе рвущие атаки будут рвать кулаками, а дионы хлестать кулаками.
 		switch (user.dna.species.unarmed_type)
 			if (/datum/unarmed_attack/diona) attack_species += ""
-			if (/datum/unarmed_attack/claws) attack_species += "когтями"
-			if (/datum/unarmed_attack) attack_species += "кулаком"
+			if (/datum/unarmed_attack/claws) attack_species += "[genderize_ru(user.gender,"","а","о","и")] когтями"
+			if (/datum/unarmed_attack) attack_species += "[genderize_ru(user.gender,"","а","о","и")] кулаком"
 
 		user.do_attack_animation(target, attack.animation_type)
 		if(attack.harmless)
