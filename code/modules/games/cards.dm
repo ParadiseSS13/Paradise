@@ -289,6 +289,7 @@
 	var/concealed = FALSE
 	var/list/cards = list()
 	var/parentdeck = null
+	var/pickedcard = null
 
 /obj/item/cardhand/proc/update_values()
 	if(parentdeck)
@@ -331,9 +332,42 @@
 	..()
 
 /obj/item/cardhand/attack_self(mob/user as mob)
+	if(length(cards) == 1)
+		turn_hand(user)
+		return
+	user.set_machine(src)
+	interact(user)
+
+/obj/item/cardhand/proc/turn_hand(mob/user)
 	concealed = !concealed
 	update_icon()
 	user.visible_message("<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>")
+
+/obj/item/cardhand/interact(mob/user)
+	var/dat = "You have:<BR>"
+	for(var/t in cards)
+		dat += "<A href='?src=[UID()];pick=[t]'>The [t].</A><BR>"
+	dat += "Which card will you remove next?<BR>"
+	dat += "<A href='?src=[UID()];pick=Turn'>Turn the hand over.</A>"
+	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
+	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
+	popup.set_content(dat)
+	popup.open()
+
+/obj/item/cardhand/Topic(href, href_list)
+	if(..())
+		return
+	if(usr.stat || !ishuman(usr))
+		return
+	var/mob/living/carbon/human/cardUser = usr
+	if(href_list["pick"])
+		if(href_list["pick"] == "Turn")
+			turn_hand(usr)
+		else
+			if(cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
+				pickedcard = href_list["pick"]
+				Removecard()
+		cardUser << browse(null, "window=cardhand")
 
 /obj/item/cardhand/examine(mob/user)
 	. = ..()
@@ -383,12 +417,15 @@
 	var/pickablecards = list()
 	for(var/datum/playingcard/P in cards)
 		pickablecards[P.name] = P
-	var/pickedcard = input("Which card do you want to remove from the hand?") as null|anything in pickablecards
+	if(!pickedcard)
+		pickedcard = input("Which card do you want to remove from the hand?") as null|anything in pickablecards
 
 	if(QDELETED(src))
 		return
 
 	var/datum/playingcard/card = pickablecards[pickedcard]
+	user.visible_message("<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>", "<span class='notice'>You take the [pickedcard] from your hand.</span>")
+	pickedcard = null
 
 	var/obj/item/cardhand/H = new(get_turf(src))
 	user.put_in_hands(H)
@@ -397,8 +434,8 @@
 	H.parentdeck = parentdeck
 	H.update_values()
 	H.concealed = concealed
+	H.dir = NORTH
 	H.update_icon()
-
 	if(!cards.len)
 		qdel(src)
 		return
@@ -445,7 +482,7 @@
 	if(!cards.len)
 		qdel(src)
 
-/obj/item/cardhand/update_icon(direction = 0)
+/obj/item/cardhand/update_icon()
 
 	if(!cards.len)
 		return
