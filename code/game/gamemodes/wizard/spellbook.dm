@@ -499,10 +499,10 @@
 	log_name = "SI"
 	category = "Weapons and Armors"
 
-/datum/spellbook_entry/item/spell_blade //Yes spellblade is technicaly a staff, but you can melee with it and it is not called a staff so I am putting it here
+/datum/spellbook_entry/item/spell_blade
 	name = "Spellblade"
-	desc = "A magical sword that is quite good at slashing people, but is even better at shooting magical projectiles that can potentialy delimb at range."
-	item_path = /obj/item/gun/magic/staff/spellblade
+	desc = "A magical sword that can be enchanted by using it in hand to have a unique on-hit effect. Lighting: arcs electricity between nearby targets, stunning and damaging them. Fire: creates a massive ball of fire on hit, and makes the wielder immune to fire. Bluespace: allows you to strike people from a range, teleporting you to them. Forceshield: on hit, makes you stun immune for 3 seconds and reduces damage by half."
+	item_path = /obj/item/melee/spellblade
 	log_name = "SB"
 	category = "Weapons and Armors"
 
