@@ -24236,7 +24236,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/tranquillite{
 	name = "Mime's Office";
-	req_access_txt = "46"
+	req_access_txt = "44"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -24640,7 +24640,7 @@
 /area/hydroponics)
 "bfI" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "46"
+	req_access_txt = "43"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -26281,7 +26281,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/bananium{
 	name = "Clown's Office";
-	req_access_txt = "46"
+	req_access_txt = "43"
 	},
 /turf/simulated/floor/wood,
 /area/clownoffice)
@@ -80920,6 +80920,19 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"rHR" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "44"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "rIF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/wall,
@@ -121461,7 +121474,7 @@ aXV
 aRH
 bbD
 aTq
-bfI
+rHR
 bho
 bho
 bbV
