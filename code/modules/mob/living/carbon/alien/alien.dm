@@ -17,7 +17,6 @@
 
 	status_flags = CANPARALYSE|CANPUSH
 	var/heal_rate = 5
-	rotate_on_lying = FALSE
 	var/large = FALSE
 	var/heat_protection = 0.5
 	var/leaping = FALSE
@@ -255,3 +254,7 @@ Des: Removes all infected images from the alien.
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+/mob/living/carbon/alien/on_lying_down(new_lying_angle)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT) //Xenos can't crawl

@@ -69,8 +69,6 @@
 	update_transform()
 
 /mob/living/carbon/alien/humanoid/update_transform() //The old method of updating lying/standing was update_icons(). Aliens still expect that.
-	if(IS_HORIZONTAL(src))
-		set_lying_angle(90) //Anything else looks lousy
 	..()
 	update_icons()
 

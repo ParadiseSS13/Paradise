@@ -5,7 +5,7 @@
 	var/final_pixel_y = pixel_y
 	var/final_dir = dir
 	var/changed = 0
-	if(lying_angle != lying_prev && rotate_on_lying)
+	if(lying_angle != lying_prev)
 		changed++
 		ntransform.TurnTo(lying_prev , lying_angle)
 		if(!lying_angle) //Lying to standing

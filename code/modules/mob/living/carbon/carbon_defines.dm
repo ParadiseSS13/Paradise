@@ -26,6 +26,5 @@
 	var/co2overloadtime = null
 	var/dreaming = 0 //How many dream images we have left to send
 	var/nightmare = 0
-	var/rotate_on_lying = TRUE
 
 	blood_volume = BLOOD_VOLUME_NORMAL
