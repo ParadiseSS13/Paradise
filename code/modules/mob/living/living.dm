@@ -518,6 +518,7 @@
 
 /mob/living/proc/remove_CC()
 	SetWeakened(0)
+	SetKnockDown(0)
 	SetStunned(0)
 	SetParalysis(0)
 	SetImmobilized(0)

@@ -387,6 +387,7 @@
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
+		M.SetKnockDown(0)
 	if(check < 30)
 		M.emote(pick("twitch", "twitch_s", "scream", "drool", "grumble", "mumble"))
 	M.Druggy(30 SECONDS)

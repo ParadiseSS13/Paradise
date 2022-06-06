@@ -59,6 +59,7 @@
 
 	U.SetWeakened(0)
 	U.SetStunned(0)
+	U.SetKnockDown(0)
 	U.SetParalysis(0)
 	U.SetSleeping(0)
 	U.SetConfused(0)

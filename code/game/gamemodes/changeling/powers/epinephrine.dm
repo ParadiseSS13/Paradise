@@ -19,6 +19,7 @@
 	user.SetParalysis(0)
 	user.SetStunned(0)
 	user.SetWeakened(0)
+	user.SetKnockDown(0)
 	user.reagents.add_reagent("synaptizine", 20)
 	user.adjustStaminaLoss(-75)
 
