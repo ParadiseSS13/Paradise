@@ -5,6 +5,7 @@
 #define MODE_SHIP 4
 #define MODE_OPERATIVE 5
 #define MODE_CREW 6
+#define MODE_DET 7
 #define SETTING_DISK 0
 #define SETTING_LOCATION 1
 #define SETTING_OBJECT 2
@@ -54,9 +55,13 @@
 		workbomb()
 
 /obj/item/pinpointer/attack_self(mob/user)
+	if(mode == MODE_DET)
+		return
 	cycle(user)
 
 /obj/item/pinpointer/proc/cycle(mob/user)
+	if(mode == MODE_DET)
+		return
 	if(cur_index > length(modes))
 		mode = MODE_OFF
 		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
@@ -347,8 +352,57 @@
 	modes = list(MODE_CREW)
 	var/target = null //for targeting in processing
 	var/target_set = FALSE //have we set a target at any point?
+	///Var to track the linked detective gun
+	var/obj/item/gun/energy/detective/linked_gun
+
+/obj/item/pinpointer/crew/Initialize(mapload)
+	. = ..()
+	var/gun_to_link = locate(/obj/item/gun/energy/detective) in get_turf(src)
+	if(gun_to_link)
+		link_gun(gun_to_link)
+
+/obj/item/pinpointer/crew/Destroy()
+	if(linked_gun)
+		UnregisterSignal(linked_gun, COMSIG_DETGUN_TRACKING)
+	return ..()
+
+/obj/item/pinpointer/crew/attackby(obj/item/I, mob/living/user)
+	. = ..()
+	if(istype(I, /obj/item/gun/energy/detective))
+		link_gun(I)
+
+/obj/item/pinpointer/crew/proc/link_gun(obj/item/gun/energy/detective/D)
+	if(D.linked_pinpointer_UID)
+		visible_message("<span class='notice'>The pinpointer pings to indicate it is already linked to a gun.</span>", "<span class='notice'>You hear a pinpointer pinging.</span>")
+		return
+	linked_gun = D
+	linked_gun.link_pinpointer(UID(src))
+	RegisterSignal(linked_gun, COMSIG_DETGUN_TRACKING, .proc/start_tracking)
+
+/obj/item/pinpointer/crew/proc/start_tracking()
+	if(!linked_gun)
+		return
+	var/target_UID = linked_gun.tracking_target_UID
+	target = locateUID(target_UID)
+	target_set = TRUE
+	mode = MODE_DET
+	visible_message("<span class='notice'>The pinpointer flickers as it begins tracking a target relayed from a detective's revolver.</span>", "<span class='notice'>You hear a pinpointer flickering.</span>")
+	addtimer(CALLBACK(src, .proc/stop_tracking), 1 MINUTES, TIMER_UNIQUE)
+	START_PROCESSING(SSfastprocess, src)
+
+/obj/item/pinpointer/crew/proc/stop_tracking()
+	visible_message("<span class='notice'>The pinpointer powers down, no longer recieving signals from a detective's revolver.</span>", "<span class='notice'>You hear a pinpointer powering down.</span>")
+	target = null
+	target_set = FALSE
+	mode = MODE_OFF
+	icon_state = icon_off
+	STOP_PROCESSING(SSfastprocess, src)
 
 /obj/item/pinpointer/crew/proc/trackable(mob/living/carbon/human/H)
+	if(mode == MODE_DET) // Sensors? Where we're going, we dont need sensors!
+		var/turf/here = get_turf(src)
+		var/turf/there = get_turf(H)
+		return istype(there) && istype(here) && there.z == here.z
 	if(H && istype(H.w_uniform, /obj/item/clothing/under))
 		var/turf/here = get_turf(src)
 		var/obj/item/clothing/under/U = H.w_uniform
@@ -360,7 +414,7 @@
 	return FALSE
 
 /obj/item/pinpointer/crew/process()
-	if(mode == MODE_CREW && target_set)
+	if(mode != MODE_OFF && target_set)
 		point_at(target)
 
 /obj/item/pinpointer/crew/point_at(atom/target)
@@ -371,6 +425,8 @@
 	..(target)
 
 /obj/item/pinpointer/crew/activate_mode(mode, mob/user)
+	if(mode == MODE_DET)
+		return
 	var/list/name_counts = list()
 	var/list/names = list()
 

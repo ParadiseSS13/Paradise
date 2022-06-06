@@ -758,20 +758,20 @@
 	..()
 
 /obj/item/gun/energy/detective
-	name = "placeholder_det_energy"
-	desc = "Placeholder description text for energy revolver. Shift-click to clear active tracked target."
+	name = "Detective's energy revolver"
+	desc = "A 'modern' take on the classic projectile revolver. Shift-click to clear active tracked target or clear linked pinpointer."
 	icon_state = "det_placeholder"
 	modifystate = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/tracker_warrant)
 	ammo_x_offset = 4
 	/// If true, this gun is tracking something and cannot track another mob
 	var/tracking_target_UID
-	/// Used to track the looping timer for deletion
-	var/tracking_timer
 	/// Used to track if the gun is overcharged
 	var/overcharged
 	/// Yes, this gun has a radio, welcome to 2022
 	var/obj/item/radio/headset/det_gun/Announcer
+	/// Used to link back to the pinpointer
+	var/linked_pinpointer_UID
 
 /obj/item/radio/headset/det_gun
 	requires_tcomms = FALSE
@@ -784,11 +784,21 @@
 /obj/item/gun/energy/detective/ShiftClick(mob/user)
 	. = ..()
 	var/tracking_target = locateUID(tracking_target_UID)
-	if(!tracking_target)
-		return
-	if(alert("Do you really want to clear the tracker?", "Tracker reset", "Yes", "No") == "Yes")
-		to_chat(user, "<span class='notice'>[src] stops tracking [tracking_target]</span>")
-		stop_pointing()
+	if(tracking_target)
+		if(alert("Do you want to clear the tracker?", "Tracker reset", "Yes", "No") == "Yes")
+			to_chat(user, "<span class='notice'>[src] stops tracking [tracking_target]</span>")
+			stop_pointing()
+	if(linked_pinpointer_UID)
+		if(alert("Do you want to clear the linked pinpointer?", "Pinpointer reset", "Yes", "No") == "Yes")
+			to_chat(user, "<span class='notice'>[src] is ready to be linked to a new pinpointer.</span>")
+			var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
+			C.linked_gun = null
+			if(C.mode == MODE_DET) //This is not a global define, lovely eh?
+				C.stop_tracking()
+			linked_pinpointer_UID = null
+
+/obj/item/gun/energy/detective/proc/link_pinpointer(pinpointer_UID)
+	linked_pinpointer_UID = pinpointer_UID
 
 /obj/item/gun/energy/detective/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -842,40 +852,11 @@
 /obj/item/gun/energy/detective/proc/start_pointing(target_UID)
 	tracking_target_UID = target_UID
 	Announcer.autosay("Alert: Detective's revolver discharged in tracking mode. Tracking: [locateUID(tracking_target_UID)] at [get_area_name(src)].", src, "Security")
-	tracking_timer = addtimer(CALLBACK(src, .proc/point_at), 1 SECONDS, TIMER_LOOP|TIMER_STOPPABLE)
+	SEND_SIGNAL(src, COMSIG_DETGUN_TRACKING)
 	addtimer(CALLBACK(src, .proc/stop_pointing), 1 MINUTES, TIMER_UNIQUE)
 
 /obj/item/gun/energy/detective/proc/stop_pointing()
 	tracking_target_UID = null
-	deltimer(tracking_timer)
-	update_icon()
-
-/obj/item/gun/energy/detective/proc/point_at()
-	update_icon() //This cuts any existing range overlays
-	var/tracking_target = locateUID(tracking_target_UID)
-	if(!tracking_target)
-		return
-
-	var/turf/T = get_turf(tracking_target)
-	var/turf/L = get_turf(src)
-
-	if(!(T && L) || (T.z != L.z))
-		visible_message("<span class='danger'>Weapon Alert: Target no longer detected in the sector!</span>")
-		stop_pointing()
-		return
-
-	var/pointer_dir = get_dir(L, T)
-	var/range_icon
-	switch(get_dist(L, T))
-		if(-1 to 1)
-			range_icon = "[icon_state]_direct"
-		if(2 to 8)
-			range_icon = "[icon_state]_close"
-		if(9 to 16)
-			range_icon = "[icon_state]_medium"
-		if(16 to INFINITY)
-			range_icon = "[icon_state]_far"
-	add_overlay(image(icon = icon, icon_state = range_icon, dir = pointer_dir))
 
 #undef PLASMA_CHARGE_USE_PER_SECOND
 #undef PLASMA_DISCHARGE_LIMIT

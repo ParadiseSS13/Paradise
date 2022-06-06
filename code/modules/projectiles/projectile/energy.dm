@@ -194,7 +194,7 @@
 		return
 	var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 	if(!R || R.fields["criminal"] == (SEC_RECORD_STATUS_EXECUTE || SEC_RECORD_STATUS_ARREST))
-		to_chat(firer, "<span class='danger'>Weapon Alert: Target already set to higher warrant status!</span>")
+		to_chat(firer, "<span class='danger'>Weapon Alert: Target already set to higher warrant status or has no record!</span>")
 		return
 	set_criminal_status(firer, R, SEC_RECORD_STATUS_SEARCH, "Target tagged by Detective Revolver", "Detective Revolver")
 	qdel(src)
