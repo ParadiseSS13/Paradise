@@ -6017,6 +6017,7 @@
 /area/shuttle/trade/sol)
 "uR" = (
 /obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/gamma/space)
 "uT" = (

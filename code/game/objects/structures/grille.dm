@@ -146,7 +146,7 @@
 	deconstruct()
 
 /obj/structure/grille/screwdriver_act(mob/user, obj/item/I)
-	if(!(istype(loc, /turf/simulated) || anchored))
+	if(!(anchored || istype(loc, /turf/simulated) || locate(/obj/structure/lattice) in get_turf(src)))
 		return
 	. = TRUE
 	if(shock(user, 90))
@@ -154,8 +154,11 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	anchored = !anchored
+	var/support = locate(/obj/structure/lattice) in get_turf(src)
+	if(!support)
+		support = get_turf(src)
 	user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
-							"<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
+							"<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] \the [support].</span>")
 
 /obj/structure/grille/proc/build_window(obj/item/stack/sheet/S, mob/user)
 	var/dir_to_set = SOUTHWEST
