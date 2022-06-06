@@ -132,9 +132,7 @@
 	volume = 100
 
 /datum/emote/living/carbon/human/gasp/get_sound(mob/user)
-
 	var/mob/living/carbon/human/H = user
-
 	if(H.is_muzzled())
 		// If you're muzzled you're not making noise
 		return
@@ -394,7 +392,6 @@
 	if(!farted_on_something)
 		. = ..()
 
-
 /datum/emote/living/carbon/sign/signal
 	key = "signal"
 	key_third_person = "signals"
@@ -512,6 +509,9 @@
 /datum/emote/living/carbon/human/monkey/tail
 	key = "tail"
 	message = "waves their tail."
+
+///////
+// More specific human species emotes
 
 /datum/emote/living/carbon/human/flap
 	key = "flap"

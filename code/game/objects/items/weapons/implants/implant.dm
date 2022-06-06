@@ -12,7 +12,9 @@
 #define IMPLANT_TRIGGER_NOT_WHEN_GIBBED (1<<4)
 
 // Defines related to the way that the implant is activated. This is the value for implant.activated
+/// The implant is passively active (like a mindshield)
 #define IMPLANT_ACTIVATED_PASSIVE 0
+/// The implant is activated manually by a trigger
 #define IMPLANT_ACTIVATED_ACTIVE 1
 
 /**
@@ -28,7 +30,7 @@
 	origin_tech = "materials=2;biotech=3;programming=2"
 
 	actions_types = list(/datum/action/item_action/hands_free/activate)
-	/// How the implant is activated. 1 for implants that are activated, 0 for passive/always on ones like mindshield implants.
+	/// How the implant is activated.
 	var/activated = IMPLANT_ACTIVATED_ACTIVE
 	/// Whether the implant is implanted. Null if it's never been inserted, TRUE if it's currently inside someone, or FALSE if it's been removed.
 	var/implanted = null
@@ -78,7 +80,6 @@
 			to_chat(user, "<span class='warning'> You can't trigger [src] with a custom emote.")
 		return FALSE
 
-
 	if(!(emote_key in user.usable_emote_keys(trigger_causes & IMPLANT_EMOTE_TRIGGER_INTENTIONAL)))
 		if(!silent)
 			to_chat(user, "<span class='warning'> You can't trigger [src] with that emote! Try *help to see emotes you can use.</span>")
@@ -100,7 +101,6 @@
 		return
 
 	add_attack_logs(user, user, "[intentional ? "intentionally" : "unintentionally"] [src] was [intentional ? "intentionally" : "unintentionally"] triggered with the emote [fired_emote].")
-
 	emote_trigger(key, user, intentional)
 
 /obj/item/implant/proc/on_death(mob/source, gibbed)
@@ -119,7 +119,6 @@
 	has_triggered_on_death = TRUE
 
 	add_attack_logs(source, source, "had their [src] implant triggered on death.")
-
 	death_trigger(source, gibbed)
 
 /obj/item/implant/proc/emote_trigger(emote, mob/source, force)
@@ -133,7 +132,6 @@
 
 /obj/item/implant/ui_action_click()
 	activate("action_button")
-
 
 //What does the implant do upon injection?
 //return 1 if the implant injects

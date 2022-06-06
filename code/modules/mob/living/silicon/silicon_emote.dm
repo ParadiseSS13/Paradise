@@ -65,14 +65,14 @@
 
 /datum/emote/living/silicon/yes
 	key = "yes"
-	message = "emits an affirmative blip"
+	message = "emits an affirmative blip."
 	message_param = "emits an affirmative blip at %t."
 	emote_type = EMOTE_SOUND | EMOTE_AUDIBLE
 	sound = "sound/machines/synth_yes.ogg"
 
 /datum/emote/living/silicon/no
 	key = "no"
-	message = "emits a negative blip"
+	message = "emits a negative blip."
 	message_param = "emits a negative blip at %t."
 	emote_type = EMOTE_SOUND | EMOTE_AUDIBLE
 	sound = "sound/machines/synth_no.ogg"
@@ -102,4 +102,3 @@
 	var/mob/living/silicon/robot/bot = user
 	if(!istype(bot) || !istype(bot.module, /obj/item/robot_module/security))
 		return FALSE
-

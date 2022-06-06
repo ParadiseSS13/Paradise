@@ -22,9 +22,7 @@
 	vary = TRUE
 
 /datum/emote/living/carbon/clap/run_emote(mob/user, params, type_override, intentional)
-
 	var/mob/living/carbon/human/H = user
-
 	if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] || !H.bodyparts_by_name[BODY_ZONE_R_ARM])
 		if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] && !H.bodyparts_by_name[BODY_ZONE_R_ARM])
 			// no arms...
@@ -60,7 +58,6 @@
 	message_mime = "appears to chuckle."
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	muzzled_noises = list("joyful", "upbeat")
-
 
 /datum/emote/living/carbon/cough
 	key = "cough"
@@ -190,5 +187,3 @@
 	if(. && isliving(user))
 		var/mob/living/L = user
 		L.SetSleeping(2 SECONDS)
-
-

@@ -25,7 +25,6 @@
 	. = ..()
 
 	var/mob/living/simple_animal/pet/dog/D = user
-
 	message = pick(D.speak_emote)
 	return pick(D.bark_sound)
 
@@ -78,7 +77,6 @@
 	emote_type = EMOTE_SOUND
 
 /datum/emote/living/simple_animal/pet/cat/meow/run_emote(mob/user, params, type_override, intentional)
-
 	var/mob/living/simple_animal/pet/cat/C = user
 	message = pick(C.emote_hear)
 	. = ..()

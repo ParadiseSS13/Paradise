@@ -81,7 +81,6 @@
 	message_monkey = "lets out a faint chimper as it collapses and stops moving..."
 	message_simple = "stops moving..."
 
-	// Still allow silicons to deathgasp
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/brain,
 		/mob/living/captive_brain
@@ -222,7 +221,6 @@
 	if(isalien(user))
 		return "sound/voice/hiss5.ogg"
 
-
 /datum/emote/living/shake
 	key = "shake"
 	key_third_person = "shakes"
@@ -346,7 +344,6 @@
 /datum/emote/living/twitch_s
 	key = "twitch_s"
 	message = "twitches."
-
 
 /datum/emote/living/whimper
 	key = "whimper"

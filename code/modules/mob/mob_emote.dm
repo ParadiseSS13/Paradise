@@ -102,7 +102,6 @@
 				all_keys += P.key
 
 	base_keys = sortList(base_keys)
-
 	message += base_keys.Join(", ")
 	message += "."
 	message = message.Join("")

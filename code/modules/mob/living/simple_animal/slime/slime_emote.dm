@@ -3,7 +3,7 @@
 
 /datum/emote/living/simple_animal/slime
 	mob_type_allowed_typecache = list(/mob/living/simple_animal/slime)
-	/// Apply mood of the emote. Pass MOOD_RESET
+	/// Apply mood of the emote. Set this to MOOD_RESET to cause the emote to reset the mood back to default.
 	var/mood
 
 /datum/emote/living/simple_animal/slime/run_emote(mob/user, params, type_override, intentional)

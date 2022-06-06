@@ -27,9 +27,3 @@
 
 /datum/unit_test/emote/proc/has_punctuation(datum/emote/E, msg)
 	return E.remove_ending_punctuation(msg) == msg
-
-
-
-
-
-
