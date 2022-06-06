@@ -3152,7 +3152,7 @@
 /obj/machinery/computer/general_air_control{
 	frequency = 1222;
 	name = "Bomb Mix Monitor";
-	sensors = list("burn_sensor" = "Burn Mix");
+	sensors = list("burn_sensor"="Burn Mix");
 	dir = 1
 	},
 /obj/machinery/door_control{
@@ -4744,7 +4744,7 @@
 "axq" = (
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -5588,7 +5588,7 @@
 "aAc" = (
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -17362,7 +17362,7 @@
 /obj/structure/girder,
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -22891,7 +22891,7 @@
 "bss" = (
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -27321,7 +27321,7 @@
 "bCm" = (
 /obj/machinery/vending/cigarette{
 	pixel_y = 2;
-	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 7, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 3, /obj/item/storage/fancy/cigarettes/cigpack_robust = 2, /obj/item/storage/fancy/cigarettes/cigpack_carp = 3, /obj/item/storage/fancy/cigarettes/cigpack_midori = 1, /obj/item/storage/box/matches = 10, /obj/item/lighter/random = 4)
+	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate=7,/obj/item/storage/fancy/cigarettes/cigpack_uplift=3,/obj/item/storage/fancy/cigarettes/cigpack_robust=2,/obj/item/storage/fancy/cigarettes/cigpack_carp=3,/obj/item/storage/fancy/cigarettes/cigpack_midori=1,/obj/item/storage/box/matches=10,/obj/item/lighter/random=4)
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
@@ -38133,7 +38133,7 @@
 "cga" = (
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -42944,7 +42944,7 @@
 /obj/structure/girder,
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -43238,7 +43238,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -43534,7 +43534,7 @@
 	},
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -45004,7 +45004,7 @@
 /obj/structure/girder,
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -45445,7 +45445,7 @@
 	},
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -47789,7 +47789,7 @@
 "cJs" = (
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -49924,7 +49924,7 @@
 /obj/structure/girder,
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -50836,7 +50836,7 @@
 	},
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -52376,7 +52376,7 @@
 /obj/structure/girder,
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -55483,7 +55483,7 @@
 	input_tag = "waste_in";
 	name = "Gas Mix Tank Control";
 	output_tag = "waste_out";
-	sensors = list("waste_sensor" = "Tank")
+	sensors = list("waste_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel{
@@ -55799,7 +55799,7 @@
 	input_tag = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	output_tag = "co2_out";
-	sensors = list("co2_sensor" = "Tank")
+	sensors = list("co2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/structure/window/reinforced{
@@ -56814,7 +56814,7 @@
 "eJT" = (
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -61187,7 +61187,7 @@
 	frequency = 1443;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
+	sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -61261,7 +61261,7 @@
 	input_tag = "tox_in";
 	name = "Toxin Supply Control";
 	output_tag = "tox_out";
-	sensors = list("tox_sensor" = "Tank")
+	sensors = list("tox_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/structure/window/reinforced{
@@ -63012,7 +63012,7 @@
 "hQX" = (
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -66637,7 +66637,7 @@
 /obj/structure/lattice,
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -71244,7 +71244,7 @@
 /obj/machinery/computer/general_air_control{
 	frequency = 1441;
 	name = "Tank Monitor";
-	sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank");
+	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank");
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -71607,7 +71607,7 @@
 "meT" = (
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -71735,7 +71735,7 @@
 	},
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -75913,7 +75913,7 @@
 	input_tag = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	output_tag = "n2o_out";
-	sensors = list("n2o_sensor" = "Tank")
+	sensors = list("n2o_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/structure/window/reinforced{
@@ -76314,7 +76314,7 @@
 "oFQ" = (
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -81082,7 +81082,7 @@
 	input_tag = "n2_in";
 	name = "Nitrogen Supply Control";
 	output_tag = "n2_out";
-	sensors = list("n2_sensor" = "Tank")
+	sensors = list("n2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -82784,7 +82784,7 @@
 "rUv" = (
 /obj/effect/spawner/lootdrop{
 	name = "normal or broken grille spawner";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	icon_state = "grille";
 	color = null
 	},
@@ -87084,7 +87084,7 @@
 	input_tag = "o2_in";
 	name = "Oxygen Supply Control";
 	output_tag = "o2_out";
-	sensors = list("o2_sensor" = "Tank")
+	sensors = list("o2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -91770,7 +91770,7 @@
 	name = "Mixed Air Supply Control";
 	output_tag = "air_out";
 	pressure_setting = 2000;
-	sensors = list("air_sensor" = "Tank")
+	sensors = list("air_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -139442,9 +139442,9 @@ aOd
 gZY
 vIy
 aCg
-jdX
+gkt
 mBA
-xzD
+dvc
 mBA
 opU
 wUa
