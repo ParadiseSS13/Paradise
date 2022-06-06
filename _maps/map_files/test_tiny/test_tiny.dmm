@@ -3,41 +3,177 @@
 /turf/space,
 /area/space)
 "b" = (
+/turf/simulated/wall,
+/area/shuttle/arrival/station)
+"c" = (
+/obj/structure/table/wood,
+/obj/item/dice/d20,
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"d" = (
+/obj/machinery/camera{
+	c_tag = "Bar South";
+	dir = 1
+	},
+/obj/machinery/gameboard,
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"f" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"g" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"h" = (
+/obj/structure/table/wood,
+/obj/item/clothing/head/cakehat,
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"k" = (
+/obj/machinery/light,
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"l" = (
+/obj/structure/table/wood,
+/obj/item/kitchen/utensil/fork,
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"m" = (
+/obj/machinery/light,
+/obj/structure/chair/wood/wings{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"p" = (
+/obj/structure/chair/wood/wings{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"q" = (
+/obj/structure/table/wood,
+/obj/item/deck/cards,
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"t" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"u" = (
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"x" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/shuttle/arrival/station)
+"C" = (
+/obj/structure/table/wood,
+/obj/item/candle,
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"E" = (
+/obj/structure/piano,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"F" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"G" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"H" = (
+/obj/structure/chair/wood/wings{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"I" = (
+/obj/structure/chair/wood/wings{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"J" = (
+/obj/machinery/computer/arcade{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"K" = (
+/obj/machinery/light/small,
+/obj/structure/chair/wood/wings{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"O" = (
+/obj/structure/chair/wood/wings{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"P" = (
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"R" = (
 /obj/effect/landmark{
 	icon = 'icons/effects/spawner_icons.dmi';
 	icon_state = "spooky";
 	name = "Observer-Start"
 	},
 /obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"p" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"u" = (
-/turf/simulated/wall/mineral/titanium,
-/area/shuttle/arrival/station)
-"x" = (
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"F" = (
-/obj/machinery/light,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"I" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/wood,
 /area/shuttle/arrival/station)
 "U" = (
 /obj/machinery/light{
-	dir = 4
+	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/wood,
+/area/shuttle/arrival/station)
+"V" = (
+/obj/structure/sign/barsign,
+/turf/simulated/wall,
+/area/shuttle/arrival/station)
+"Y" = (
+/obj/structure/chair/wood/wings,
+/turf/simulated/floor/wood,
 /area/shuttle/arrival/station)
 
 (1,1,1) = {"
@@ -31777,13 +31913,13 @@ a
 a
 a
 a
-u
-u
-u
-u
-u
-u
-u
+a
+a
+a
+a
+a
+a
+a
 a
 a
 a
@@ -32034,13 +32170,13 @@ a
 a
 a
 a
-u
-x
-x
-I
-x
-x
-u
+a
+a
+a
+a
+a
+a
+a
 a
 a
 a
@@ -32291,13 +32427,13 @@ a
 a
 a
 a
-u
-x
-x
-x
-x
-x
-u
+a
+a
+a
+a
+a
+a
+a
 a
 a
 a
@@ -32548,13 +32684,13 @@ a
 a
 a
 a
-u
-p
-x
-b
-x
-F
-u
+a
+a
+a
+a
+a
+a
+a
 a
 a
 a
@@ -32803,15 +32939,15 @@ a
 a
 a
 a
-a
-a
-u
+b
+b
 x
+b
 x
+b
 x
-x
-x
-u
+b
+b
 a
 a
 a
@@ -33060,15 +33196,15 @@ a
 a
 a
 a
-a
-a
+b
+E
 u
-x
-x
 U
-x
-x
 u
+U
+u
+J
+b
 a
 a
 a
@@ -33317,15 +33453,15 @@ a
 a
 a
 a
-a
-a
+b
+G
+I
+I
+u
+I
 u
 u
-u
-u
-u
-u
-u
+b
 a
 a
 a
@@ -33574,15 +33710,15 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+b
+u
+P
+l
+u
+C
+u
+f
+b
 a
 a
 a
@@ -33831,15 +33967,15 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+b
+g
+O
+O
+u
+O
+u
+k
+b
 a
 a
 a
@@ -34088,15 +34224,15 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+b
+u
+u
+u
+R
+u
+u
+u
+b
 a
 a
 a
@@ -34345,15 +34481,15 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+b
+u
+Y
+q
+C
+H
+u
+u
+x
 a
 a
 a
@@ -34602,15 +34738,15 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+b
+u
+Y
+c
+q
+H
+u
+u
+b
 a
 a
 a
@@ -34859,15 +34995,15 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+b
+g
+u
+u
+u
+u
+u
+m
+V
 a
 a
 a
@@ -35116,15 +35252,15 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+b
+u
+I
+I
+I
+I
+u
+d
+b
 a
 a
 a
@@ -35373,15 +35509,15 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+b
+u
+l
+h
+F
+l
+u
+K
+b
 a
 a
 a
@@ -35630,15 +35766,15 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+b
+t
+O
+p
+O
+p
+u
+t
+b
 a
 a
 a
@@ -35887,15 +36023,15 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+b
+b
+b
+b
+b
+b
+b
+b
+b
 a
 a
 a

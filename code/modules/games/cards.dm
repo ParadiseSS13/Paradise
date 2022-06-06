@@ -18,10 +18,18 @@
 	actions_types = list(/datum/action/item_action/draw_card, /datum/action/item_action/deal_card, /datum/action/item_action/deal_card_multi, /datum/action/item_action/shuffle)
 	var/list/cards = list()
 	var/cooldown = 0 // to prevent spam shuffle
+	var/deckstyle = null
 	throw_speed = 3
 	throw_range = 10
 	throwforce = 0
 	force = 0
+	var/card_hitsound
+	var/card_force = 0
+	var/card_throwforce = 0
+	var/card_throw_speed = 4
+	var/card_throw_range = 20
+	var/card_attack_verb
+	var/card_resistance_flags = FLAMMABLE
 
 /obj/item/deck/attackby(obj/O as obj, mob/user as mob)
 	if(istype(O,/obj/item/cardhand))
@@ -31,6 +39,7 @@
 				cards += P
 			qdel(H)
 			to_chat(user,"<span class='notice'>You place your cards on the bottom of [src]</span>.")
+			update_icon()
 			return
 		else
 			to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
@@ -44,6 +53,9 @@
 
 /obj/item/deck/attack_hand(mob/user as mob)
 	draw_card(user)
+
+/obj/item/deck/update_icon()
+	return
 
 // Datum actions
 /datum/action/item_action/draw_card
@@ -118,15 +130,17 @@
 
 	if(!H)
 		H = new(get_turf(src))
+		H.dir = NORTH
 		user.put_in_hands(H)
 
 	var/datum/playingcard/P = cards[1]
 	H.cards += P
 	cards -= P
 	H.parentdeck = src
+	H.update_values()
 	H.update_icon()
 	user.visible_message("<span class='notice'>[user] draws a card.</span>","<span class='notice'>You draws a card.</span>")
-	to_chat(user,"<span class='notice'>It's [P].</span>")
+	to_chat(user,"<span class='notice'>It's the [P].</span>")
 
 /obj/item/deck/verb/deal_card()
 
@@ -186,7 +200,9 @@
 	for(var/i in 1 to dcard)
 		H.cards += cards[1]
 		cards -= cards[1]
+		update_icon()
 		H.parentdeck = src
+		H.update_values()
 		H.concealed = TRUE
 		H.update_icon()
 	if(user == target)
@@ -267,16 +283,23 @@
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "empty"
 	w_class = WEIGHT_CLASS_TINY
-	throw_speed = 4
-	throw_range = 20
-	throwforce = 0
-	force = 0
 	var/maxcardlen = 20
 	actions_types = list(/datum/action/item_action/remove_card, /datum/action/item_action/discard)
 
 	var/concealed = FALSE
 	var/list/cards = list()
 	var/parentdeck = null
+
+/obj/item/cardhand/proc/update_values()
+	if(parentdeck)
+		var/obj/item/deck/D = parentdeck
+		hitsound = D.card_hitsound
+		force = D.card_force
+		throwforce = D.card_throwforce
+		throw_speed = D.card_throw_speed
+		throw_range = D.card_throw_range
+		attack_verb = D.card_attack_verb
+		resistance_flags = D.card_resistance_flags
 
 /obj/item/cardhand/attackby(obj/O as obj, mob/user as mob)
 	if(cards.len == 1 && istype(O, /obj/item/pen))
@@ -372,6 +395,7 @@
 	H.cards += card
 	cards -= card
 	H.parentdeck = parentdeck
+	H.update_values()
 	H.concealed = concealed
 	H.update_icon()
 
@@ -380,11 +404,13 @@
 		return
 	update_icon()
 
-/obj/item/cardhand/verb/discard(mob/user as mob)
+/obj/item/cardhand/verb/discard()
 
 	set category = "Object"
 	set name = "Discard"
 	set desc = "Place (a) card(s) from your hand in front of you."
+
+	var/mob/living/carbon/user = usr
 
 	var/maxcards = min(cards.len,5)
 	var/discards = input("How many cards do you want to discard? You may discard up to [maxcards] card(s)") as num
@@ -402,11 +428,13 @@
 		var/datum/playingcard/card = to_discard[discarding]
 		to_discard.Cut()
 
-		var/obj/item/cardhand/H = new(get_turf(src))
+		var/obj/item/cardhand/H = new type(get_turf(src))
 		H.cards += card
 		cards -= card
 		H.concealed = FALSE
 		H.parentdeck = parentdeck
+		H.update_values()
+		H.dir = user.dir
 		H.update_icon()
 		if(cards.len)
 			update_icon()
@@ -428,36 +456,37 @@
 		name = "a playing card"
 		desc = "A playing card."
 
-	overlays.Cut()
+	cut_overlays()
+
+	var/matrix/M = matrix()
+	switch(dir)
+		if(NORTH)
+			M.Translate( 0,  0)
+		if(SOUTH)
+			M.Turn(180)
+			M.Translate( 0,  4)
+		if(WEST)
+			M.Turn(-90)
+			M.Translate( 3,  0)
+		if(EAST)
+			M.Turn(90)
+			M.Translate(-2,  0)
 
 	if(cards.len == 1)
 		var/datum/playingcard/P = cards[1]
 		var/image/I = new(icon, (concealed ? "[P.back_icon]" : "[P.card_icon]") )
+		I.transform = M
 		I.pixel_x += (-5+rand(10))
 		I.pixel_y += (-5+rand(10))
-		overlays += I
+		add_overlay(I)
 		return
 
 	var/offset = FLOOR(20/cards.len + 1, 1)
-
-	var/matrix/M = matrix()
-	if(direction)
-		switch(direction)
-			if(NORTH)
-				M.Translate( 0,  0)
-			if(SOUTH)
-				M.Translate( 0,  4)
-			if(WEST)
-				M.Turn(90)
-				M.Translate( 3,  0)
-			if(EAST)
-				M.Turn(90)
-				M.Translate(-2,  0)
 	var/i = 0
 	for(var/datum/playingcard/P in cards)
 		var/image/I = new(icon, (concealed ? "[P.back_icon]" : "[P.card_icon]") )
 		//I.pixel_x = origin+(offset*i)
-		switch(direction)
+		switch(dir)
 			if(SOUTH)
 				I.pixel_x = 8-(offset*i)
 			if(WEST)
@@ -467,16 +496,15 @@
 			else
 				I.pixel_x = -7+(offset*i)
 		I.transform = M
-		overlays += I
+		add_overlay(I)
 		i++
 
 /obj/item/cardhand/dropped(mob/user as mob)
 	..()
-	if(locate(/obj/structure/table, loc))
-		update_icon(user.dir)
-	else
-		update_icon()
+	dir = user.dir
+	update_icon()
 
 /obj/item/cardhand/pickup(mob/user as mob)
 	. = ..()
+	dir = NORTH
 	update_icon()

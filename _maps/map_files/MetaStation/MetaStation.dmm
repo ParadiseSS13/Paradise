@@ -757,8 +757,8 @@
 /area/security/permabrig)
 "adp" = (
 /obj/structure/table,
-/obj/item/toy/cards/deck,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
+/obj/item/deck/cards,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "adq" = (
@@ -958,8 +958,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/item/toy/cards/deck,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
+/obj/item/deck/cards,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -14337,7 +14337,7 @@
 "aIp" = (
 /obj/structure/table,
 /obj/item/storage/pill_bottle/dice,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/sleep)
 "aIq" = (
@@ -31984,7 +31984,7 @@
 /turf/simulated/floor/plating,
 /area/ntrep)
 "bvz" = (
-/obj/item/toy/cards/deck{
+/obj/item/deck/cards{
 	pixel_y = 4
 	},
 /obj/structure/table/wood/poker,
@@ -36092,7 +36092,7 @@
 /obj/structure/table/wood/poker,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/gun/projectile/revolver/russian,/obj/item/clothing/mask/cigarette/cigar/cohiba,/obj/item/toy/cards/deck/syndicate);
+	loot = list(/obj/item/gun/projectile/revolver/russian,/obj/item/clothing/mask/cigarette/cigar/cohiba,/obj/item/deck/cards/syndicate);
 	name = "gambling valuables spawner"
 	},
 /turf/simulated/floor/wood,
@@ -43804,7 +43804,7 @@
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "bUF" = (
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
@@ -45888,7 +45888,7 @@
 	},
 /area/crew_quarters/kitchen)
 "bZe" = (
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/library)
@@ -56401,7 +56401,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cxk" = (
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/maintenance/aft)
@@ -56848,7 +56848,7 @@
 /area/maintenance/asmaint)
 "cyi" = (
 /obj/machinery/light_construct/small,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/maintenance/aft)

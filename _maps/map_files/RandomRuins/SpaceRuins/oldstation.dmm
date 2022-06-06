@@ -153,7 +153,7 @@
 "aC" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /obj/item/folder/blue,
 /obj/item/pen,
 /turf/simulated/floor/plasteel,
