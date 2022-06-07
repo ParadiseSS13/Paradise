@@ -36,6 +36,17 @@
 		desc = "A simple deck of playing cards. Multiplied by two. Does not necessarily come with twice the fun."
 		double = TRUE
 
+/obj/item/deck/cards/doublecards/update_icon()
+	switch(cards.len)
+		if(0)
+			icon_state = "deck_[deckstyle]_empty"
+		if(1 to 20)
+			icon_state = "deck_double_[deckstyle]_low"
+		if(22 to 52)
+			icon_state = "deck_double_[deckstyle]_half"
+		else
+			icon_state = "deck_double_[deckstyle]_full"
+
 /obj/item/deck/cards/syndicate
 	name = "suspicious looking deck of cards"
 	desc = "A deck of space-grade playing cards. They seem unusually rigid."
