@@ -357,7 +357,7 @@
 	dat += "Which card will you remove next?<BR>"
 	dat += "<A href='?src=[UID()];pick=Turn'>Turn the hand over.</A>"
 	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
+	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.set_content(dat)
 	popup.open()
 
