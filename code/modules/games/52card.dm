@@ -7,51 +7,65 @@
 	name = "deck of cards"
 	desc = "A simple deck of playing cards."
 	icon_state = "deck_nanotrasen_full"
-	deckstyle = "nanotrasen"
-	var/double = FALSE
+	deck_style = "nanotrasen"
 
-/obj/item/deck/cards/New()
-	..()
-	for(double, double != -1, double--)
-		for(var/suit in list("Spades","Clubs","Diamonds","Hearts"))
-			for(var/number in list("Ace","2","3","4","5","6","7","8","9","10","Jack","Queen","King"))
-				cards += new /datum/playingcard("[number] of [suit]", "sc_[number] of [suit]_[deckstyle]", "singlecard_down_[deckstyle]")
+/obj/item/deck/cards/build_deck()
+	for(var/suit in list("Spades","Clubs","Diamonds","Hearts"))
+		var/card_appearance
+		var/colour
+		var/rank
+		if(simple_deck)
+			if(suit in list("Spades","Clubs"))
+				colour = "black"
+			else
+				colour = "red"
+		for(var/number in list("Ace","2","3","4","5","6","7","8","9","10","Jack","Queen","King"))
+			if(simple_deck)
+				if(number in list("Jack","Queen","King"))
+					rank = "col"
+				else
+					rank = "num"
+				card_appearance = "sc_[colour]_[rank]_[deck_style]"
+			else
+				card_appearance = "sc_[number] of [suit]_[deck_style]"
+			cards += new /datum/playingcard("[number] of [suit]", card_appearance, "singlecard_down_[deck_style]")
 
-		for(var/i = 0, i<2, i++)
-			cards += new /datum/playingcard("Joker", "sc_Joker_[deckstyle]", "singlecard_down_[deckstyle]")
+	for(var/jokers in 1 to 2)
+		cards += new /datum/playingcard("Joker", "sc_Joker_[deck_style]", "singlecard_down_[deck_style]")
 
 /obj/item/deck/cards/update_icon()
-	switch(cards.len)
+	switch(length(cards))
 		if(0)
-			icon_state = "deck_[deckstyle]_empty"
+			icon_state = "deck_[deck_style]_empty"
 		if(1 to 10)
-			icon_state = "deck_[deckstyle]_low"
+			icon_state = "deck_[deck_style]_low"
 		if(11 to 26)
-			icon_state = "deck_[deckstyle]_half"
+			icon_state = "deck_[deck_style]_half"
 		else
-			icon_state = "deck_[deckstyle]_full"
+			icon_state = "deck_[deck_style]_full"
 
 /obj/item/deck/cards/doublecards
 		name = "double deck of cards"
+		icon_state = "deck_double_nanotrasen_full"
 		desc = "A simple deck of playing cards. Multiplied by two. Does not necessarily come with twice the fun."
-		double = TRUE
+		deck_size = 2
 
 /obj/item/deck/cards/doublecards/update_icon()
-	switch(cards.len)
+	switch(length(cards))
 		if(0)
-			icon_state = "deck_[deckstyle]_empty"
+			icon_state = "deck_[deck_style]_empty"
 		if(1 to 20)
-			icon_state = "deck_double_[deckstyle]_low"
+			icon_state = "deck_double_[deck_style]_low"
 		if(22 to 52)
-			icon_state = "deck_double_[deckstyle]_half"
+			icon_state = "deck_double_[deck_style]_half"
 		else
-			icon_state = "deck_double_[deckstyle]_full"
+			icon_state = "deck_double_[deck_style]_full"
 
 /obj/item/deck/cards/syndicate
 	name = "suspicious looking deck of cards"
 	desc = "A deck of space-grade playing cards. They seem unusually rigid."
 	icon_state = "deck_syndicate_full"
-	deckstyle = "syndicate"
+	deck_style = "syndicate"
 	card_hitsound = 'sound/weapons/bladeslice.ogg'
 	card_force = 5
 	card_throwforce = 10
@@ -60,38 +74,23 @@
 	card_resistance_flags = NONE
 
 /obj/item/deck/cards/black
-	deckstyle = "black"
+	deck_style = "black"
 
 /obj/item/deck/cards/syndicate/black
-	deckstyle = "black"
+	deck_style = "black"
 
-/obj/item/deck/tiny
+/obj/item/deck/cards/tiny
 	name = "deck of tiny cards"
 	desc = "A simple deck of tiny playing cards."
 	icon_state = "deck"
-	var/double = FALSE
+	deck_style = "simple"
+	simple_deck = TRUE
 
-/obj/item/deck/tiny/New()
-	..()
-	for(double, double != -1, double--)
-		for(var/suit in list("Spades","Clubs","Diamonds","Hearts"))
-			var/colour
-			if(suit == "Spades" || suit == "Clubs")
-				colour = "black_"
-			else
-				colour = "red_"
+/obj/item/deck/cards/tiny/update_icon()
+	return
 
-			for(var/number in list("Ace","2","3","4","5","6","7","8","9","10"))
-				cards += new /datum/playingcard("[number] of [suit]", "[colour]num")
-		
-			for(var/number in list("Jack","Queen","King"))
-				cards += new /datum/playingcard("[number] of [suit]", "[colour]col")
-
-			for(var/i = 0, i<2, i++)
-			cards += new /datum/playingcard("Joker", "joker")
-
-/obj/item/deck/tiny/doublecards
+/obj/item/deck/cards/tiny/doublecards
 	name = "double deck of tiny cards"
 	desc = "A simple deck of tiny playing cards. Multiplied by two. Does not necessarily come with twice the fun."
 	icon_state = "doubledeck"
-	double = TRUE
+	deck_size = 2

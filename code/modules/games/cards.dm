@@ -18,7 +18,9 @@
 	actions_types = list(/datum/action/item_action/draw_card, /datum/action/item_action/deal_card, /datum/action/item_action/deal_card_multi, /datum/action/item_action/shuffle)
 	var/list/cards = list()
 	var/cooldown = 0 // to prevent spam shuffle
-	var/deckstyle = null
+	var/deck_size = 1
+	var/deck_style = null
+	var/simple_deck = FALSE // For decks without a full set of sprites
 	throw_speed = 3
 	throw_range = 10
 	throwforce = 0
@@ -30,6 +32,14 @@
 	var/card_throw_range = 20
 	var/card_attack_verb
 	var/card_resistance_flags = FLAMMABLE
+
+/obj/item/deck/Initialize(mapload)
+	. = ..()
+	for(var/deck in 1 to deck_size)
+		build_deck()
+
+/obj/item/deck/proc/build_deck()
+	return
 
 /obj/item/deck/attackby(obj/O as obj, mob/user as mob)
 	if(istype(O,/obj/item/cardhand))
@@ -49,13 +59,10 @@
 
 /obj/item/deck/examine(mob/user)
 	. = ..()
-	. +="<span class='notice'>It contains [cards.len ? cards.len : "no"] cards</span>"
+	. +="<span class='notice'>It contains [length(cards) ? length(cards) : "no"] cards</span>"
 
 /obj/item/deck/attack_hand(mob/user as mob)
 	draw_card(user)
-
-/obj/item/deck/update_icon()
-	return
 
 // Datum actions
 /datum/action/item_action/draw_card
@@ -116,7 +123,7 @@
 	if(user.incapacitated() || !Adjacent(user))
 		return
 
-	if(!cards.len)
+	if(!length(cards))
 		to_chat(user,"<span class='notice'>There are no cards in the deck.</span>")
 		return
 
@@ -124,7 +131,7 @@
 	if(H && !(H.parentdeck == src))
 		to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
 		return
-	if(H && ((1 + H.cards.len) > H.maxcardlen))
+	if(H && ((1 + length(H.cards)) > H.maxcardlen))
 		to_chat(user,"<span class = 'warning'>You can't hold that many cards in one hand!</span>")
 		return
 
@@ -152,7 +159,7 @@
 	if(usr.incapacitated() || !Adjacent(usr))
 		return
 
-	if(!cards.len)
+	if(!length(cards))
 		to_chat(usr,"<span class='notice'>There are no cards in the deck.</span>")
 		return
 
@@ -177,7 +184,7 @@
 	if(usr.incapacitated() || !Adjacent(usr))
 		return
 
-	if(!cards.len)
+	if(!length(cards))
 		to_chat(usr,"<span class='notice'>There are no cards in the deck.</span>")
 		return
 
@@ -185,7 +192,7 @@
 	for(var/mob/living/player in viewers(3))
 		if(!player.incapacitated())
 			players += player
-	var/maxcards = max(min(cards.len,10),1)
+	var/maxcards = max(min(length(cards),10),1)
 	var/dcard = input("How many card(s) do you wish to deal? You may deal up to [maxcards] cards.") as num
 	if(dcard > maxcards)
 		return
@@ -303,7 +310,7 @@
 		resistance_flags = D.card_resistance_flags
 
 /obj/item/cardhand/attackby(obj/O as obj, mob/user as mob)
-	if(cards.len == 1 && istype(O, /obj/item/pen))
+	if(length(cards) == 1 && istype(O, /obj/item/pen))
 		var/datum/playingcard/P = cards[1]
 		if(P.name != "Blank Card")
 			to_chat(user,"<span class='notice'>You cannot write on that card.</span>")
@@ -316,7 +323,7 @@
 		update_icon()
 	else if(istype(O,/obj/item/cardhand))
 		var/obj/item/cardhand/H = O
-		if((H.cards.len + cards.len) > maxcardlen)
+		if((length(H.cards) + length(cards)) > maxcardlen)
 			to_chat(user,"<span class='warning'>You can't hold that many cards in one hand!</span>")
 			return
 		if(H.parentdeck == src.parentdeck)
@@ -371,7 +378,7 @@
 
 /obj/item/cardhand/examine(mob/user)
 	. = ..()
-	if((!concealed) && cards.len)
+	if((!concealed) && length(cards))
 		. +="<span class='notice'>It contains:</span>"
 		for(var/datum/playingcard/P in cards)
 			. +="<span class='notice'>the [P.name].</span>"
@@ -436,7 +443,7 @@
 	H.concealed = concealed
 	H.dir = NORTH
 	H.update_icon()
-	if(!cards.len)
+	if(!length(cards))
 		qdel(src)
 		return
 	update_icon()
@@ -449,7 +456,7 @@
 
 	var/mob/living/carbon/user = usr
 
-	var/maxcards = min(cards.len,5)
+	var/maxcards = min(length(cards),5)
 	var/discards = input("How many cards do you want to discard? You may discard up to [maxcards] card(s)") as num
 	if(discards > maxcards)
 		return
@@ -473,20 +480,20 @@
 		H.update_values()
 		H.dir = user.dir
 		H.update_icon()
-		if(cards.len)
+		if(length(cards))
 			update_icon()
-		if(H.cards.len)
+		if(length(H.cards))
 			user.visible_message("<span class='notice'>[user] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
 		H.loc = get_step(user, user.dir)
 
-	if(!cards.len)
+	if(!length(cards))
 		qdel(src)
 
 /obj/item/cardhand/update_icon()
 
-	if(!cards.len)
+	if(!length(cards))
 		return
-	else if(cards.len > 1)
+	else if(length(cards) > 1)
 		name = "hand of cards"
 		desc = "Some playing cards."
 	else
@@ -509,7 +516,7 @@
 			M.Turn(90)
 			M.Translate(-2,  0)
 
-	if(cards.len == 1)
+	if(length(cards) == 1)
 		var/datum/playingcard/P = cards[1]
 		var/image/I = new(icon, (concealed ? "[P.back_icon]" : "[P.card_icon]") )
 		I.transform = M
@@ -518,7 +525,7 @@
 		add_overlay(I)
 		return
 
-	var/offset = FLOOR(20/cards.len + 1, 1)
+	var/offset = FLOOR(20/length(cards) + 1, 1)
 	var/i = 0
 	for(var/datum/playingcard/P in cards)
 		var/image/I = new(icon, (concealed ? "[P.back_icon]" : "[P.card_icon]") )

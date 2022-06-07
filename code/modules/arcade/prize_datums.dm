@@ -84,13 +84,13 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/tiny_cards
 	name = "Deck of Tiny Cards"
 	desc = "Anyone fancy a tiny game of 52-card Pickup?"
-	typepath = /obj/item/deck/tiny
+	typepath = /obj/item/deck/cards/tiny
 	cost = 25
 
 /datum/prize_item/double_tiny_cards
 	name = "Double Deck of Tiny Cards"
 	desc = "Anyone fancy a tiny game of 108-card Pickup?"
-	typepath = /obj/item/deck/tiny/doublecards
+	typepath = /obj/item/deck/cards/tiny/doublecards
 	cost = 50
 
 /datum/prize_item/crayons
