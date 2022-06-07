@@ -528,8 +528,8 @@
 	id = "grapesoda"
 	description = "Beloved of children and teetotalers."
 	color = "#E6CDFF"
-	drink_name = "Grape soda"
-	drink_desc = "Made with real Grapes! Shocking!"
+	drink_name = "Grape Soda"
+	drink_desc = "Made with real grapes! Shocking!"
 	taste_description = "grape soda"
 
 /datum/reagent/consumable/drink/coco/icecoco
