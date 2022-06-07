@@ -21,7 +21,7 @@ If at half health it will start to charge from all sides with clones.
 
 When Bubblegum dies, it leaves behind a chest that contains:
  1. A H.E.C.K. mining suit
- 2. A spellblade that can slice off limbs at range
+ 2. A spellblade that can have a range of magical enchantments
 
 Difficulty: Hard
 

@@ -114,9 +114,9 @@
 	location_override = "the Captain's Office"
 
 /datum/theft_objective/reactive
-	name = "the reactive teleport armor"
-	typepath = /obj/item/clothing/suit/armor/reactive/teleport
-	protected_jobs = list("Research Director")
+	name = "any type of reactive armor"
+	typepath = /obj/item/clothing/suit/armor/reactive
+	protected_jobs = list("Research Director", "Scientist", "Roboticist") //no one with protolathe access, who will often be handed a core
 	location_override = "the Research Director's Office"
 
 /datum/theft_objective/steal/documents
