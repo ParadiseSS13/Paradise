@@ -61,14 +61,12 @@
 		update_icon()
 
 /obj/item/candle/proc/get_icon_index()
-	var/i
-	if(wax>150)
-		i = 1
-	else if(wax>80)
-		i = 2
+	if(wax > 150)
+		. = 1
+	else if(wax > 80)
+		. = 2
 	else
-		i = 3
-	return i
+		. = 3
 
 /obj/item/candle/proc/start_flickering()
 	flickering = TRUE
@@ -112,5 +110,5 @@
 		start_flickering()
 		playsound(src, 'sound/effects/candle_flicker.ogg', 15, 1)
 		return TRUE
-	else
-		return FALSE
+
+	return FALSE
