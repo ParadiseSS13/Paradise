@@ -19341,10 +19341,10 @@
 /area/crew_quarters/dorms)
 "aUK" = (
 /obj/structure/window/reinforced{
-	dir = 1
+	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 4
+	dir = 1
 	},
 /turf/simulated/floor/beach/water{
 	icon_state = "seadeep"
@@ -19589,13 +19589,13 @@
 /area/security/nuke_storage)
 "aVo" = (
 /obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/structure/table/wood,
 /obj/item/instrument/eguitar,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -123531,7 +123531,7 @@ aGY
 aGX
 aTZ
 aGY
-aMr
+aGX
 bkI
 bcn
 beb
