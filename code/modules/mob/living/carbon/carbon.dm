@@ -831,9 +831,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/proc/canBeHandcuffed()
 	return FALSE
 
-/mob/living/carbon/fall(forced)
+/mob/living/carbon/fall()
 	..()
-	loc.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
+	loc.handle_fall()//it's loc so it doesn't call the mob's handle_fall which does nothing
 
 /mob/living/carbon/is_muzzled()
 	return(istype(wear_mask, /obj/item/clothing/mask/muzzle))

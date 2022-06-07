@@ -488,9 +488,7 @@
 /turf/proc/acid_melt()
 	return
 
-/turf/handle_fall(mob/faller, forced)
-	if(!forced)
-		return
+/turf/handle_fall()
 	if(has_gravity(src))
 		playsound(src, "bodyfall", 50, TRUE)
 
