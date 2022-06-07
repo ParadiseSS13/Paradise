@@ -24,6 +24,8 @@
 		if(intentional && !force_silence)
 			log_world("<span class='notice'> '[emote_key]' emote does not exist. Say *help for a list.</span>")
 			to_chat(src, "<span class='notice'> '[emote_key]' emote does not exist. Say *help for a list.</span>")
+		else if(!intentional)
+			CRASH("Emote with key [emote_key] was attempted to be called, though doesn't exist!")
 		return FALSE
 	var/silenced = FALSE
 	for(var/datum/emote/P in key_emotes)
@@ -36,6 +38,8 @@
 	if(intentional && !silenced && !force_silence)
 		log_world("<span class='notice'>Unusable emote '[emote_key]'. Say *help for a list. </span>")
 		to_chat(src, "<span class='notice'>Unusable emote '[emote_key]'. Say *help for a list. </span>")
+	else if(!intentional)
+		stack_trace("Emote with key [emote_key] was called unintentionally but was unusable.")
 	return FALSE
 
 /**

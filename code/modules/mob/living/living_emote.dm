@@ -279,6 +279,8 @@
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	stat_allowed = UNCONSCIOUS
 	max_stat_allowed = UNCONSCIOUS
+	unintentional_stat_allowed = UNCONSCIOUS
+	max_unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/nightmare
 	key = "nightmare"
@@ -286,6 +288,8 @@
 	emote_type = EMOTE_VISIBLE
 	stat_allowed = UNCONSCIOUS
 	max_stat_allowed = UNCONSCIOUS
+	unintentional_stat_allowed = UNCONSCIOUS
+	max_unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/nightmare/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
