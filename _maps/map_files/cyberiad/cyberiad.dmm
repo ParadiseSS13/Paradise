@@ -19591,11 +19591,11 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/table/wood,
-/obj/item/instrument/eguitar,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/structure/table/wood,
+/obj/item/instrument/eguitar,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
