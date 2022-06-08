@@ -13,6 +13,34 @@
 	return 0
 
 /mob/proc/get_screen_colour()
+	SHOULD_CALL_PARENT(TRUE)
+	// OOC Colourblind setting takes priority over everything else.
+	if(client?.prefs)
+		switch(client.prefs.colourblind_mode)
+			if(COLOURBLIND_MODE_NONE)
+				. = null
+
+			/*
+				Also it goes without saying
+
+				For the love of god, do NOT mess with the matrix below.
+				The values may look arbitrary as hell, but they follow colour filtering rules
+				to accent specific colours and block out others, which helps different
+				forms of colourblindness.
+
+				Its not perfect but it helps.
+
+			*/
+			if(COLOURBLIND_MODE_DEUTER)
+				// Red-green (green weak, deuteranopia)
+				// Below is a colour matrix to account for that
+				. = list(
+					1.8, 0, -0.14, 0,
+					-1.05, 1, 0.1, 0,
+					 0.3, 0, 1, 0,
+					 0, 0, 0, 1
+				) // Time spent creating this matrix: 1 hour 32 minutes
+
 	return
 
 /mob/proc/update_client_colour(time = 10) //Update the mob's client.color with an animation the specified time in length.
@@ -41,6 +69,8 @@
   */
 /mob/proc/flash_screen_color(flash_color, flash_time)
 	if(!client)
+		return
+	if(client?.prefs.colourblind_mode != COLOURBLIND_MODE_NONE)
 		return
 	client.color = flash_color
 	INVOKE_ASYNC(client, /client/.proc/colour_transition, get_screen_colour(), flash_time)
