@@ -63,8 +63,20 @@
 
 			if(istype(P, /obj/item/aiModule/freeform))
 				var/obj/item/aiModule/freeform/M = P
+				if(!M.newFreeFormLaw)
+					to_chat(usr, "No law detected on module, please create one.")
+					return
 				laws.add_inherent_law(M.newFreeFormLaw)
 				to_chat(usr, "<span class='notice'>Added a freeform law.</span>")
+				return
+
+			if(istype(P, /obj/item/aiModule/syndicate))
+				var/obj/item/aiModule/syndicate/M = P
+				if(!M.newFreeFormLaw)
+					to_chat(usr, "No law detected on module, please create one.")
+					return
+				laws.add_ion_law(M.newFreeFormLaw)
+				to_chat(usr, "<span class='notice'>Added a hacked law.</span>")
 				return
 
 			if(istype(P, /obj/item/aiModule))
@@ -73,6 +85,8 @@
 					to_chat(usr, "<span class='warning'>This AI module can not be applied directly to AI cores.</span>")
 					return
 				laws = M.laws
+				to_chat(usr, "<span class='notice'>Added [M.laws.name] laws.</span>")
+				return
 
 			if(istype(P, /obj/item/mmi) && !brain)
 				var/obj/item/mmi/M = P
