@@ -6,7 +6,7 @@
 	icon_state = "0"
 	max_integrity = 500
 	var/state = 0
-	var/datum/ai_laws/laws = null
+	var/datum/ai_laws/laws = new /datum/ai_laws/crewsimov()
 	var/obj/item/circuitboard/aicore/circuit = null
 	var/obj/item/mmi/brain = null
 
