@@ -356,14 +356,14 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	switch(species_state)
-		if("human")
+		if("human") // from human to vox
 			safe_oxygen_min = 0
 			safe_oxygen_max = safe_toxins_max
 			safe_nitro_min = 16
 			oxy_damage_type = TOX
 			to_chat(user, "<span class='notice'>You configure [src] to replace vox lungs.</span>")
 			species_state = "vox"
-		if("vox")
+		if("vox") // from vox to plasmamen
 			safe_oxygen_max = initial(safe_oxygen_max)
 			safe_toxins_min = 16
 			safe_toxins_max = 0
@@ -371,7 +371,7 @@
 			oxy_damage_type = OXY
 			to_chat(user, "<span class='notice'>You configure [src] to replace plasmamen lungs.</span>")
 			species_state = "plasmamen"
-		if("plasmamen")
+		if("plasmamen") // from plasmamen to human
 			safe_oxygen_min = initial(safe_oxygen_min)
 			safe_toxins_min = initial(safe_toxins_min)
 			safe_toxins_max = initial(safe_toxins_max)
