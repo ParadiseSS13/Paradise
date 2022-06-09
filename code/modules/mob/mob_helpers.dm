@@ -23,13 +23,16 @@
 			/*
 				Also it goes without saying
 
-				For the love of god, do NOT mess with the matrix below.
+				For the love of god, do NOT mess with the matricies below.
 				The values may look arbitrary as hell, but they follow colour filtering rules
 				to accent specific colours and block out others, which helps different
-				forms of colourblindness.
+				forms of colourblindness. Its not perfect but it helps.
 
-				Its not perfect but it helps.
+				If you ever want to modify these matricies, test them with someone who
+				suffers that form of colourblindness, and ask if its an improvement or a hinderance.
+				I cannot stress this enough
 
+				-aa07
 			*/
 			if(COLOURBLIND_MODE_DEUTER)
 				// Red-green (green weak, deuteranopia)
@@ -50,6 +53,16 @@
 					0, 0.044, 1.087, 0,
 					0, 0,     0,     1
 				) // Time spent creating this matrix: 57 minutes
+
+			if(COLOURBLIND_MODE_TRIT)
+				// Blue-yellow (tritanopia)
+				// Below is a colour matrix to account for that
+				. = list(
+					 0.74,  0.07,  0, 0,
+					-0.405, 0.593, 0, 0,
+					 0.665, 0.335, 1, 0,
+					 0,     0,     0, 1
+				) // Time spent creating this matrix: 34 minutes
 
 	return
 

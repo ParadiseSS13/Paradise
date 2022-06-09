@@ -39,3 +39,5 @@
 		if("setvalue")
 			target_matrix[text2num(params["idx"])] = text2num(params["value"])
 			target_datum:color = target_matrix // Force apply
+
+	return TRUE
