@@ -20966,12 +20966,6 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
-"bey" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/simulated/floor/transparent/glass,
-/area/maintenance/fsmaint)
 "bez" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -145471,7 +145465,7 @@ eNt
 iRa
 wzJ
 aZu
-eNt
+aaa
 aaa
 aaa
 aaa
@@ -145727,7 +145721,7 @@ aaa
 eNt
 nyK
 wzJ
-bey
+eNt
 aZu
 eNt
 eNt
