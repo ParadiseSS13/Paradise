@@ -35,11 +35,21 @@
 				// Red-green (green weak, deuteranopia)
 				// Below is a colour matrix to account for that
 				. = list(
-					1.8, 0, -0.14, 0,
-					-1.05, 1, 0.1, 0,
-					 0.3, 0, 1, 0,
-					 0, 0, 0, 1
+					 1.8,  0, -0.14, 0,
+					-1.05, 1,  0.1,  0,
+					 0.3,  0,  1,    0,
+					 0,    0,  0,    1
 				) // Time spent creating this matrix: 1 hour 32 minutes
+
+			if(COLOURBLIND_MODE_PROT)
+				// Red-green (red weak, protanopia)
+				// Below is a colour matrix to account for that
+				. = list(
+					1, 0.475, 0.594, 0,
+					0, 0.482, -0.68, 0,
+					0, 0.044, 1.087, 0,
+					0, 0,     0,     1
+				) // Time spent creating this matrix: 57 minutes
 
 	return
 
