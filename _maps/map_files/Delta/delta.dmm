@@ -15670,7 +15670,7 @@
 	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/disposal)
+/area/maintenance/fsmaint)
 "aTF" = (
 /obj/machinery/light{
 	dir = 8
@@ -15749,11 +15749,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "aTL" = (
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
 /obj/structure/table,
 /obj/item/paper_bin{
 	pixel_x = -3;
@@ -15788,7 +15783,7 @@
 /area/security/permasolitary)
 "aTO" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/security/permasolitary)
 "aTP" = (
 /obj/structure/bed,
@@ -17456,7 +17451,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/status_display,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/security/permasolitary)
 "aWW" = (
 /turf/simulated/floor/plasteel{
@@ -18104,7 +18099,7 @@
 	input_tag = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	output_tag = "co2_out";
-	sensors = list("co2_sensor" = "Tank")
+	sensors = list("co2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel/dark,
@@ -19856,7 +19851,7 @@
 	input_tag = "o2_in";
 	name = "Oxygen Supply Control";
 	output_tag = "o2_out";
-	sensors = list("o2_sensor" = "Tank")
+	sensors = list("o2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -20078,7 +20073,7 @@
 	name = "Mixed Air Supply Control";
 	output_tag = "air_out";
 	pressure_setting = 2000;
-	sensors = list("air_sensor" = "Tank")
+	sensors = list("air_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 10
@@ -20247,7 +20242,8 @@
 /obj/item/clothing/mask/muzzle,
 /obj/item/clothing/glasses/sunglasses/blindfold,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "vault";
+	dir = 8
 	},
 /area/security/permabrig)
 "bcW" = (
@@ -20266,9 +20262,6 @@
 	},
 /area/maintenance/starboard2)
 "bcY" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = -32
 	},
@@ -21043,7 +21036,7 @@
 	input_tag = "tox_in";
 	name = "Toxin Supply Control";
 	output_tag = "tox_out";
-	sensors = list("tox_sensor" = "Tank")
+	sensors = list("tox_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -21549,6 +21542,9 @@
 	pixel_y = -30
 	},
 /obj/structure/closet/secure_closet/brig,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 8
@@ -22149,7 +22145,7 @@
 	input_tag = "n2_in";
 	name = "Nitrogen Supply Control";
 	output_tag = "n2_out";
-	sensors = list("n2_sensor" = "Tank")
+	sensors = list("n2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -23717,7 +23713,7 @@
 	input_tag = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	output_tag = "n2o_out";
-	sensors = list("n2o_sensor" = "Tank")
+	sensors = list("n2o_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -25642,7 +25638,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/starboard)
+/area/maintenance/fsmaint)
 "boF" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -25663,16 +25659,16 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/starboard)
+/area/maintenance/fsmaint)
 "boI" = (
-/obj/effect/decal/cleanable/cobweb2,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/fsmaint)
 "boJ" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Labor Camp Office";
@@ -25712,7 +25708,7 @@
 	req_access_txt = "12"
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/starboard)
+/area/maintenance/fsmaint)
 "boL" = (
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -29050,7 +29046,7 @@
 	input_tag = "waste_in";
 	name = "Gas Mix Tank Control";
 	output_tag = "waste_out";
-	sensors = list("waste_sensor" = "Tank")
+	sensors = list("waste_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel{
@@ -33962,7 +33958,6 @@
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/detectives_office)
 "bFW" = (
@@ -33991,7 +33986,7 @@
 	req_access_txt = "1"
 	},
 /turf/simulated/floor/plating,
-/area/security/brig)
+/area/maintenance/fsmaint)
 "bGb" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -38723,7 +38718,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
-/area/maintenance/starboard)
+/area/maintenance/fsmaint)
 "bQb" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/westleft{
@@ -38795,7 +38790,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/starboard)
+/area/maintenance/fsmaint)
 "bQh" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
@@ -72101,7 +72096,7 @@
 	dir = 4;
 	frequency = 1222;
 	name = "Bomb Mix Monitor";
-	sensors = list("burn_sensor" = "Burn Mix")
+	sensors = list("burn_sensor"="Burn Mix")
 	},
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 4
@@ -88213,6 +88208,9 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
+"fgM" = (
+/turf/simulated/wall,
+/area/security/execution)
 "fhF" = (
 /turf/space,
 /area/shuttle/gamma/station)
@@ -89058,12 +89056,8 @@
 	},
 /area/security/permabrig)
 "hcH" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
+/turf/simulated/wall,
+/area/security/permasolitary)
 "hcQ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -89602,6 +89596,17 @@
 	icon_state = "darkred"
 	},
 /area/security/seceqstorage)
+"iil" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/table/reinforced,
+/obj/item/storage/box/bodybags,
+/turf/simulated/floor/plasteel{
+	icon_state = "vault";
+	dir = 8
+	},
+/area/security/permabrig)
 "iiv" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
@@ -90854,6 +90859,10 @@
 	icon_state = "darkredfull"
 	},
 /area/security/brig)
+"lnY" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall,
+/area/maintenance/fsmaint)
 "loX" = (
 /obj/structure/closet/secure_closet/security,
 /obj/item/radio/intercom{
@@ -92265,6 +92274,16 @@
 	icon_state = "neutral"
 	},
 /area/maintenance/fore2)
+"otq" = (
+/obj/structure/table,
+/obj/item/paper,
+/obj/item/pen,
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
+/area/security/permabrig)
 "otH" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/light{
@@ -93245,6 +93264,9 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/brig)
+"qET" = (
+/turf/simulated/wall/rust,
+/area/maintenance/fsmaint)
 "qGn" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -141366,9 +141388,9 @@ bgP
 big
 bjK
 bni
-bng
+eNt
 boK
-bng
+eNt
 bsv
 bsv
 btH
@@ -141623,9 +141645,9 @@ bgT
 bih
 bjL
 boD
-bng
+eNt
 boE
-bng
+eNt
 aaa
 abj
 aaa
@@ -141882,7 +141904,7 @@ bjM
 boF
 bQa
 bQg
-bng
+eNt
 aaa
 abj
 btL
@@ -142137,9 +142159,9 @@ bfA
 bij
 bjN
 bsC
-bng
-dtx
-bqB
+eNt
+fAb
+lnY
 abj
 btL
 btL
@@ -142394,9 +142416,9 @@ usX
 bik
 bjO
 bbe
-bng
-dtx
-bqC
+eNt
+fAb
+qET
 aaa
 btL
 bvd
@@ -142651,9 +142673,9 @@ bbe
 bil
 bjQ
 bxy
-bng
+eNt
 boH
-bqC
+qET
 aaa
 btL
 bve
@@ -142908,9 +142930,9 @@ bbi
 bil
 bjR
 bJs
-bng
-boI
-bng
+eNt
+fAb
+eNt
 aaa
 btL
 bvf
@@ -143165,9 +143187,9 @@ bcG
 bim
 bjS
 bMn
-bng
-dtx
-bng
+eNt
+boI
+eNt
 abj
 btL
 btL
@@ -147263,7 +147285,7 @@ tgE
 iMM
 voo
 qZI
-aMv
+fgM
 ssp
 ppj
 aPi
@@ -147273,8 +147295,8 @@ aMv
 ygH
 ygH
 ygH
-ygH
-hcH
+now
+bWr
 eNt
 aaa
 aaa
@@ -147520,7 +147542,7 @@ tgE
 boG
 boG
 aOR
-aMv
+fgM
 qXF
 nPe
 lZw
@@ -147529,8 +147551,8 @@ rTE
 pcv
 aZE
 bbo
-bcV
 ygH
+bxP
 bwA
 eNt
 aaa
@@ -147777,17 +147799,17 @@ tgE
 oBE
 eqY
 boG
-aMv
+fgM
 vsy
 beD
 hzb
 jqB
 fdI
-aMv
+fgM
 aZF
 bbp
-bcV
 ygH
+uNz
 bWr
 eNt
 aaa
@@ -148031,20 +148053,20 @@ aaa
 aaa
 abj
 ygH
-ygH
-ygH
+aJx
+aJx
 yez
-aMv
-aMv
-aMv
-aMv
-aMv
-aMv
-aMv
+fgM
+fgM
+fgM
+fgM
+fgM
+fgM
+fgM
 aZG
 bbq
-aJx
 ygH
+bLA
 bGa
 bLA
 bLA
@@ -149065,14 +149087,14 @@ iUc
 aOX
 oaB
 fcg
-ygH
-ygH
-ygH
-ygH
+aJx
+aJx
+aJx
+aJx
 bOc
 bbt
 aJx
-bsL
+oei
 oei
 bwE
 oei
@@ -149328,8 +149350,8 @@ aWM
 aJx
 aZL
 bbt
-aJx
-bsL
+iil
+oei
 bix
 bmO
 oei
@@ -149585,8 +149607,8 @@ baP
 aYo
 aZM
 bbv
-aJx
-bsL
+bcV
+oei
 biy
 bkh
 oei
@@ -149838,12 +149860,12 @@ aPe
 aSr
 aJx
 aVo
-aWO
+otq
 aJx
 aZK
 bbt
-aJx
-bsL
+bcV
+oei
 bue
 bpi
 bmb
@@ -150100,7 +150122,7 @@ aJx
 ble
 bbw
 bcY
-bsL
+oei
 biA
 bki
 oei
@@ -150357,7 +150379,7 @@ aJx
 aZL
 bbx
 bdd
-bsL
+oei
 biB
 qYC
 oei
@@ -150614,7 +150636,7 @@ aYp
 aZP
 bbv
 bfT
-bsL
+oei
 bug
 bVA
 oei
@@ -150871,7 +150893,7 @@ aJx
 aZQ
 bby
 aJx
-bsL
+oei
 biD
 bkl
 oei
@@ -151128,7 +151150,7 @@ aJx
 bOc
 bbt
 bdb
-bsL
+oei
 biE
 bkm
 bmf
@@ -151385,7 +151407,7 @@ aJx
 aZR
 bbt
 bdd
-bsL
+oei
 biF
 bkn
 oei
@@ -152148,11 +152170,11 @@ aJC
 aNO
 aPe
 aQH
-mhu
-mhu
-mhu
-mhu
-mhu
+hcH
+hcH
+hcH
+hcH
+hcH
 aNS
 aKW
 pZf
@@ -152405,11 +152427,11 @@ hch
 aNP
 aPf
 aQI
-mhu
+hcH
 aTL
 aVu
 aWW
-mhu
+hcH
 aZT
 mmJ
 bde
@@ -152923,7 +152945,7 @@ aSt
 aTN
 aVw
 aWY
-mhu
+hcH
 bbH
 bbA
 mhu
@@ -153180,7 +153202,7 @@ mhu
 aTO
 aVx
 aWV
-mhu
+hcH
 aZW
 gBV
 mhu
@@ -153437,7 +153459,7 @@ aSt
 aTP
 aVy
 aWW
-mhu
+hcH
 aZX
 bbD
 mhu
@@ -153951,7 +153973,7 @@ mhu
 aTR
 aVA
 aWY
-mhu
+hcH
 iLL
 aQJ
 mhu
