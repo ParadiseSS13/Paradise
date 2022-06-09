@@ -146,12 +146,7 @@
 	chainsaw.wield(victim)
 	victim.reagents.add_reagent("adminordrazine", 25)
 
-	// Only mess with their screen colour if they arent IRL colourblind
-	if(victim.client?.prefs.colourblind_mode == COLOURBLIND_MODE_NONE)
-		victim.client.color = pure_red
-		animate(victim.client,color = red_splash, time = 10, easing = SINE_EASING|EASE_OUT)
-		spawn(10)
-			animate(victim.client,color = old_color, time = duration)//, easing = SINE_EASING|EASE_OUT)
+	victim.flash_screen_color(red_splash, 10)
 
 	spawn(duration)
 		to_chat(victim, "<span class='notice'>Your bloodlust seeps back into the bog of your subconscious and you regain self control.</span>")
