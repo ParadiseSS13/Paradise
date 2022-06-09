@@ -16616,8 +16616,19 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
 "bdT" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
@@ -36193,25 +36204,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/exam_room)
-"caX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel,
-/area/security/brig)
 "caY" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -39674,11 +39666,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 4;
 	icon_state = "redcorner"
 	},
 /area/security/brig)
@@ -41991,6 +41980,12 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"crD" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/security/brig)
 "crE" = (
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
@@ -52707,13 +52702,13 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
@@ -68064,8 +68059,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
@@ -83579,8 +83576,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 1;
 	icon_state = "redcorner"
 	},
 /area/security/brig)
@@ -117900,7 +117900,7 @@ lAl
 cPh
 hph
 xAI
-bdT
+crD
 aky
 arH
 tup
@@ -118670,7 +118670,7 @@ wnz
 kmj
 ioT
 hph
-ckr
+snL
 iTG
 akD
 lbR
@@ -118927,13 +118927,13 @@ uSc
 uSc
 rRp
 vdE
-kyL
+bdT
 apP
 akD
 nDb
 ufd
 ujg
-caX
+kyL
 qDl
 ufI
 ugL
@@ -119184,7 +119184,7 @@ vdE
 vdE
 vdE
 vdE
-kyL
+bdT
 apP
 akD
 nwK
@@ -119705,7 +119705,7 @@ apP
 apP
 apP
 ckF
-bdT
+crD
 jsH
 grE
 eYS
@@ -120475,7 +120475,7 @@ aHO
 aHO
 keN
 aHO
-snL
+ckr
 avB
 wlv
 wyP
@@ -122788,7 +122788,7 @@ maC
 hWk
 erZ
 oWE
-snL
+ckr
 vub
 psz
 fRm
