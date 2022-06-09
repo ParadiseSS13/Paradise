@@ -41866,7 +41866,6 @@
 /area/medical/virology)
 "crQ" = (
 /obj/structure/closet,
-/obj/item/storage/box/donkpockets,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/plating,
@@ -49363,10 +49362,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
-"cPE" = (
-/obj/item/storage/box/donkpockets,
-/turf/simulated/floor/plating,
-/area/maintenance/starboard2)
 "cPF" = (
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
@@ -130923,7 +130918,7 @@ cfS
 bZC
 chr
 cte
-cPE
+cwG
 twH
 crq
 bkp
