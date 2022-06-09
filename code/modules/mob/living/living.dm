@@ -445,13 +445,15 @@
 	setBrainLoss(0)
 	setStaminaLoss(0)
 	SetSleeping(0)
-	SetParalysis(0, 1, 1)
-	SetStunned(0, 1, 1)
-	SetWeakened(0, 1, 1)
+	SetParalysis(0, TRUE)
+	SetStunned(0, TRUE)
+	SetWeakened(0, TRUE)
 	SetSlowed(0)
+	SetImmobilized(0)
 	SetLoseBreath(0)
 	SetDizzy(0)
 	SetJitter(0)
+	SetStuttering(0)
 	SetConfused(0)
 	SetDrowsy(0)
 	radiation = 0
@@ -511,14 +513,13 @@
 	return
 
 /mob/living/proc/remove_CC(should_update_canmove = TRUE)
-	SetWeakened(0, FALSE)
-	SetStunned(0, FALSE)
-	SetParalysis(0, FALSE)
-	SetSleeping(0, FALSE)
+	SetWeakened(0)
+	SetStunned(0)
+	SetParalysis(0)
+	SetImmobilized(0)
+	SetSleeping(0)
 	setStaminaLoss(0)
 	SetSlowed(0)
-	if(should_update_canmove)
-		update_canmove()
 
 /mob/living/proc/UpdateDamageIcon()
 	return
@@ -539,31 +540,79 @@
 	if(restrained())
 		stop_pulling()
 
-	var/turf/T = loc
+	var/turf/old_loc = loc
 	. = ..()
 	if(.)
 		step_count++
-
-		if(pulling && pulling == pullee) // we were pulling a thing and didn't lose it during our move.
-			if(pulling.anchored)
-				stop_pulling()
-				return
-
-			var/pull_dir = get_dir(src, pulling)
-			if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
-				if(isliving(pulling))
-					var/mob/living/M = pulling
-					if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
-						M.makeTrail(T)
-				pulling.Move(T, get_dir(pulling, T), movetime) // the pullee tries to reach our previous position
-				if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
-					stop_pulling()
+		pull_pulled(old_loc, pullee, movetime)
+		pull_grabbed(old_loc, direct, movetime)
 
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1) //seperated from our puller and not in the middle of a diagonal move
 		pulledby.stop_pulling()
 
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
+
+/mob/living/proc/pull_pulled(turf/dest, atom/movable/pullee, movetime)
+	if(pulling && pulling == pullee) // we were pulling a thing and didn't lose it during our move.
+		if(pulling.anchored)
+			stop_pulling()
+			return
+
+		var/pull_dir = get_dir(src, pulling)
+		if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
+			if(isliving(pulling))
+				var/mob/living/M = pulling
+				if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
+					M.makeTrail(dest)
+			pulling.Move(dest, get_dir(pulling, dest), movetime) // the pullee tries to reach our previous position
+			if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
+				stop_pulling()
+
+/mob/living/proc/pull_grabbed(turf/old_turf, direct, movetime)
+	if(!Adjacent(old_turf))
+		return
+	// yes, this is four distinct `for` loops. No, they can't be merged.
+	var/list/grabbing = list()
+	for(var/mob/M in ret_grab())
+		if(src != M)
+			grabbing |= M
+	for(var/mob/M in grabbing)
+		M.currently_grab_pulled = TRUE
+		M.animate_movement = SYNC_STEPS
+	for(var/i in 1 to length(grabbing))
+		var/mob/M = grabbing[i]
+		if(QDELETED(M))  // old code warned me that M could go missing during a move, so I'm cargo-culting it here
+			continue
+		// compile a list of turfs we can maybe move them towards
+		// importantly, this should happen before actually trying to move them to either of those
+		// otherwise they can be moved twice (since `Move` returns TRUE only if it managed to
+		// *fully* move where you wanted it to; it can still move partially and return FALSE)
+		var/possible_dest = list()
+		for(var/turf/dest in orange(src, 1))
+			if(dest.Adjacent(M))
+				possible_dest |= dest
+		if(i == 1) // at least one of them should try to trail behind us, for aesthetics purposes
+			if(M.Move(old_turf, get_dir(M, old_turf), movetime))
+				continue
+		// By this time the `old_turf` is definitely occupied by something immovable.
+		// So try to move them into some other adjacent turf, in a believable way
+		if(Adjacent(M))
+			continue // they are already adjacent
+		for(var/turf/dest in possible_dest)
+			if(M.Move(dest, get_dir(M, dest), movetime))
+				break
+	for(var/mob/M in grabbing)
+		M.currently_grab_pulled = null
+		M.animate_movement = SLIDE_STEPS
+
+	for(var/obj/item/grab/G in src)
+		if(G.state == GRAB_NECK)
+			setDir(angle2dir((dir2angle(direct) + 202.5) % 365))
+		G.adjust_position()
+	for(var/obj/item/grab/G in grabbed_by)
+		G.adjust_position()
+
 
 /mob/living/proc/makeTrail(turf/T)
 	if(!has_gravity(src))
@@ -726,7 +775,7 @@
 
 /mob/living/proc/Exhaust()
 	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
-	Weaken(5)
+	Weaken(10 SECONDS)
 
 /mob/living/proc/get_visible_name()
 	return name
@@ -916,8 +965,9 @@
 	if(isturf(loc))
 		var/turf/T = loc
 		. += T.slowdown
-	if(slowed)
-		. += 10
+	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
+	if(S)
+		. += S.slowdown_value
 	if(forced_look)
 		. += 3
 	if(ignorewalk)
@@ -925,7 +975,7 @@
 	else
 		switch(m_intent)
 			if(MOVE_INTENT_RUN)
-				if(drowsyness > 0)
+				if(get_drowsiness() > 0)
 					. += 6
 				. += GLOB.configuration.movement.base_run_speed
 			if(MOVE_INTENT_WALK)
@@ -1027,14 +1077,6 @@
 				GLOB.dead_mob_list += src
 	. = ..()
 	switch(var_name)
-		if("weakened")
-			SetWeakened(var_value)
-		if("stunned")
-			SetStunned(var_value)
-		if("paralysis")
-			SetParalysis(var_value)
-		if("sleeping")
-			SetSleeping(var_value)
 		if("maxHealth")
 			updatehealth()
 		if("resize")

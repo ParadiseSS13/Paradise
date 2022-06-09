@@ -20,7 +20,7 @@
 	setBrainLoss(80, use_brain_mod = FALSE)
 	set_nutrition(9000)
 	overeatduration = 9000
-	Confused(30)
+	Confused(60 SECONDS)
 	if(mind)
 		mind.assigned_role = "Cluwne"
 

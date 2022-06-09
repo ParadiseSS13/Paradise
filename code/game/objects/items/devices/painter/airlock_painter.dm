@@ -14,6 +14,7 @@
 		"Freezer" = /obj/machinery/door/airlock/freezer,
 		"Maintenance" = /obj/machinery/door/airlock/maintenance,
 		"Medical" = /obj/machinery/door/airlock/medical,
+		"Virology" = /obj/machinery/door/airlock/virology,
 		"Mining" = /obj/machinery/door/airlock/mining,
 		"Public" = /obj/machinery/door/airlock/public,
 		"Research" = /obj/machinery/door/airlock/research,

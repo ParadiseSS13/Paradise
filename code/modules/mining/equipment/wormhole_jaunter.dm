@@ -85,7 +85,7 @@
 		playsound(M,'sound/weapons/resonator_blast.ogg', 50, 1)
 		if(iscarbon(M))
 			var/mob/living/carbon/L = M
-			L.Weaken(6)
+			L.Weaken(12 SECONDS)
 			if(ishuman(L))
 				shake_camera(L, 20, 1)
 				addtimer(CALLBACK(L, /mob/living/carbon.proc/vomit), 20)

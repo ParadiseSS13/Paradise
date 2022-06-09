@@ -37,12 +37,12 @@
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
 				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1), dna.species.blood_damage_type)
 				if(prob(5))
-					EyeBlurry(6)
+					EyeBlurry(12 SECONDS)
 					to_chat(src, "<span class='warning'>You feel very [word].</span>")
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
 				apply_damage_type(5, dna.species.blood_damage_type)
 				if(prob(15))
-					Paralyse(rand(1,3))
+					Paralyse(rand(2 SECONDS, 6 SECONDS))
 					to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 				death()
@@ -343,3 +343,10 @@
 	if(shift_x || shift_y)
 		O.off_floor = TRUE
 		O.layer = BELOW_MOB_LAYER
+
+/mob/living/proc/absorb_blood()
+	// This merely deletes the blood reagent inside of the mob to look nice on health scans.
+	// The update to .blood_volume happens in `/datum/reagent/proc/reaction_mob`
+	var/id = get_blood_id()
+	if(id)
+		reagents.del_reagent(get_blood_id())

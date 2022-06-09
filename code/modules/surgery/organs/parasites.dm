@@ -118,7 +118,7 @@
 	S.immediate_ventcrawl = TRUE
 	eggs_hatched++
 	to_chat(owner, "<span class='warning'>A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!</span>")
-	owner.Paralyse(10)
+	owner.Paralyse(20 SECONDS)
 	if(infection_completed && !QDELETED(src))
 		qdel(src)
 

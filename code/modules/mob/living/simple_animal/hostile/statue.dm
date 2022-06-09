@@ -194,7 +194,7 @@
 			continue
 		var/turf/T = get_turf(L.loc)
 		if(T && (T in targets))
-			L.EyeBlind(4)
+			L.EyeBlind(8 SECONDS)
 	return
 
 /mob/living/simple_animal/hostile/statue/sentience_act()

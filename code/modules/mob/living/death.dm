@@ -103,6 +103,6 @@
 
 /mob/living/proc/delayed_gib()
 	visible_message("<span class='danger'><b>[src]</b> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
-	Weaken(15)
-	do_jitter_animation(1000, -1)
-	addtimer(CALLBACK(src, .proc/gib), rand(20, 100))
+	Weaken(30 SECONDS)
+	do_jitter_animation(1000, -1) // jitter until they are gibbed
+	addtimer(CALLBACK(src, .proc/gib), rand(2 SECONDS, 10 SECONDS))

@@ -44,16 +44,21 @@
 		sleep(10)
 		user.whisper(message) // And whisper the actual message
 
-	var/my_message
+	var/title
+	var/large = FALSE
+	var/living_message
 	if(istype(user, /mob/living/simple_animal/slaughter/cult)) //Harbringers of the Slaughter
-		my_message = "<span class='cultlarge'><b>Harbringer of the Slaughter:</b> [message]</span>"
+		title = "<b>Harbringer of the Slaughter</b>"
+		large = TRUE
 	else
-		my_message = "<span class='cultspeech'><b>[(isconstruct(user) ? "Construct" : isshade(user) ? "" : "Acolyte")] [user.real_name]:</b> [message]</span>"
+		title = "<b>[(isconstruct(user) ? "Construct" : isshade(user) ? "" : "Acolyte")] [user.real_name]</b>"
+
+	living_message = "<span class='cult[(large ? "large" : "speech")]'>[title]: [message]</span>"
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
-			to_chat(M, my_message)
+			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='cultspeech'>([ghost_follow_link(user, ghost=M)]) [my_message] </span>")
+			to_chat(M, "<span class='cult[(large ? "large" : "speech")]'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
 
 	log_say("(CULT) [message]", user)
 
@@ -65,15 +70,18 @@
 	return TRUE
 
 /datum/action/innate/cult/comm/spirit/cultist_commune(mob/living/user, message)
-	var/my_message
+
+	var/living_message
 	if(!message)
 		return
-	my_message = "<span class='cultlarge'>The [user.name]: [message]</span>"
+	var/title = "The [user.name]"
+	living_message = "<span class='cultlarge'>[title]: [message]</span>"
+
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
-			to_chat(M, my_message)
+			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='cultspeech'>([ghost_follow_link(user, ghost=M)]) [my_message] </span>")
+			to_chat(M, "<span class='cultspeech'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
 
 
 //Objectives
