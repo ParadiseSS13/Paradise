@@ -32862,8 +32862,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteyellow"
+	icon_state = "white"
 	},
 /area/medical/chemistry)
 "bRV" = (
@@ -42744,7 +42743,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellow"
 	},
 /area/medical/chemistry)
 "cui" = (
@@ -42972,8 +42971,7 @@
 /area/maintenance/starboard2)
 "cuL" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteyellow"
+	icon_state = "white"
 	},
 /area/medical/chemistry)
 "cuM" = (
@@ -47887,8 +47885,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteyellow"
+	icon_state = "whiteyellowcorner"
 	},
 /area/medical/chemistry)
 "cJX" = (
@@ -63647,7 +63644,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellow"
 	},
 /area/medical/chemistry)
 "iiZ" = (
@@ -69317,8 +69314,8 @@
 "laE" = (
 /obj/machinery/chem_heater,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteyellowfull"
+	dir = 1;
+	icon_state = "whiteyellow"
 	},
 /area/medical/chemistry)
 "laU" = (
@@ -69785,12 +69782,6 @@
 	icon_state = "purplefull"
 	},
 /area/assembly/robotics)
-"lkN" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whiteyellow"
-	},
-/area/medical/chemistry)
 "lle" = (
 /obj/machinery/status_display{
 	dir = 4;
@@ -72101,8 +72092,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteyellowcorner"
+	icon_state = "white"
 	},
 /area/medical/chemistry)
 "mrA" = (
@@ -75844,6 +75834,9 @@
 	},
 /obj/effect/turf_decal/stripes/white/corner{
 	dir = 4
+	},
+/obj/structure/sign/directions/medical{
+	pixel_y = -39
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -86275,8 +86268,8 @@
 	},
 /obj/effect/landmark/start/chemist,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteyellowfull"
+	dir = 1;
+	icon_state = "whiteyellow"
 	},
 /area/medical/chemistry)
 "tHP" = (
@@ -88758,8 +88751,8 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteyellowfull"
+	dir = 5;
+	icon_state = "whiteyellow"
 	},
 /area/medical/chemistry)
 "vaw" = (
@@ -91995,8 +91988,8 @@
 /obj/item/stack/packageWrap,
 /obj/item/stack/packageWrap,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteyellowfull"
+	dir = 6;
+	icon_state = "whiteyellow"
 	},
 /area/medical/chemistry)
 "wRx" = (
@@ -92340,7 +92333,7 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
-	dir = 5;
+	dir = 1;
 	icon_state = "whiteyellow"
 	},
 /area/medical/chemistry)
@@ -93397,12 +93390,6 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
-"xCQ" = (
-/obj/structure/sign/directions/medical{
-	pixel_y = -7
-	},
-/turf/simulated/wall,
-/area/medical/chemistry)
 "xCT" = (
 /obj/machinery/atmospherics/trinary/mixer{
 	dir = 4;
@@ -119976,7 +119963,7 @@ oHy
 pLQ
 cEU
 opu
-xCQ
+bRb
 bRb
 wTc
 gvV
@@ -121006,7 +120993,7 @@ vAP
 ogq
 nxB
 tHA
-lkN
+cuL
 cuL
 cJW
 cdl
