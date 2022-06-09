@@ -829,9 +829,6 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
-"aib" = (
-/turf/simulated/wall,
-/area/security/interrogation)
 "aig" = (
 /obj/machinery/shower{
 	dir = 4
@@ -118111,7 +118108,7 @@ aky
 aky
 aHD
 aHD
-aib
+aHD
 dNU
 lGL
 dBT
