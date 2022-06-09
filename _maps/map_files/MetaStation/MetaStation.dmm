@@ -38571,7 +38571,6 @@
 	},
 /area/hallway/primary/central)
 "chP" = (
-/obj/machinery/door/airlock/medical/glass,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -38586,6 +38585,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/medical/virology,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/virology/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -48113,9 +48113,6 @@
 /area/maintenance/aft)
 "cLi" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
-	name = "Virology Access"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -48127,6 +48124,9 @@
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown";
 	opacity = 0
+	},
+/obj/machinery/door/airlock/virology{
+	name = "Virology Access"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -48731,9 +48731,6 @@
 	},
 /area/toxins/xenobiology)
 "cNA" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Isolation A"
-	},
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -48752,6 +48749,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/virology/glass{
+	name = "Isolation A"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -49482,9 +49482,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "cPT" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Test Subject Cell"
-	},
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -49508,6 +49505,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/virology/glass{
+	name = "Test Subject Cell"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -53414,14 +53414,6 @@
 /area/chapel/office)
 "dfO" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
-	autoclose = 0;
-	frequency = 1379;
-	id_tag = "viro_lab_airlock_exterior";
-	locked = 1;
-	name = "Virology Lab External Airlock";
-	req_access_txt = "39"
-	},
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1379;
@@ -53443,6 +53435,13 @@
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown";
 	opacity = 0
+	},
+/obj/machinery/door/airlock/virology{
+	name = "Virology Lab External Airlock";
+	frequency = 1379;
+	id_tag = "viro_lab_airlock_exterior";
+	locked = 1;
+	autoclose = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -54847,9 +54846,6 @@
 	},
 /area/crew_quarters/hor)
 "dSe" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Containment Cells"
-	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -54860,6 +54856,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/virology/glass{
+	name = "Containment Cells"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -66039,14 +66038,6 @@
 /area/maintenance/aft)
 "jDC" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
-	autoclose = 0;
-	frequency = 1379;
-	id_tag = "viro_lab_airlock_interior";
-	locked = 1;
-	name = "Virology Lab Internal Airlock";
-	req_access_txt = "39"
-	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
 	frequency = 1379;
@@ -66068,6 +66059,13 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/virology,
+/obj/machinery/door/airlock/virology{
+	name = "Virology Lab Internal Airlock";
+	id_tag = "viro_lab_airlock_interior";
+	frequency = 1379;
+	locked = 1;
+	autoclose = 0
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -92365,9 +92363,6 @@
 /turf/simulated/floor/bluegrid/telecomms/server,
 /area/toxins/server_coldroom)
 "xcF" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Isolation B"
-	},
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 4;
@@ -92386,6 +92381,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/virology/glass{
+	name = "Isolation B"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
