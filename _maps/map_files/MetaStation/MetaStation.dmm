@@ -9763,14 +9763,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aMr" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
 /obj/structure/mirror{
 	pixel_x = 28
 	},
 /obj/effect/landmark/start/assistant,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 12
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -11105,12 +11105,12 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aPS" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
 /obj/structure/mirror{
 	pixel_x = 28
+	},
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 12
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -12010,8 +12010,7 @@
 /area/quartermaster/storage)
 "aSB" = (
 /obj/machinery/hydroponics/soil,
-/obj/effect/turf_decal/bot,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -20809,6 +20808,19 @@
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
 	})
+"bnB" = (
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "bnE" = (
 /obj/structure/dresser,
 /obj/structure/sign/bobross{
@@ -21807,16 +21819,16 @@
 	},
 /area/quartermaster/office)
 "bpQ" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start/janitor,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
+	},
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 12
 	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
@@ -30974,22 +30986,12 @@
 /turf/simulated/floor/carpet,
 /area/security/vacantoffice)
 "bME" = (
-/obj/structure/disposalpipe/segment{
+/obj/effect/landmark/damageturf,
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/asmaint)
 "bMF" = (
 /obj/item/radio/intercom{
 	name = "north bump";
@@ -31343,10 +31345,7 @@
 "bNG" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/eggplant,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass/no_creep,
 /area/maintenance/asmaint)
 "bNH" = (
 /obj/machinery/light{
@@ -41017,6 +41016,9 @@
 /obj/item/cultivator,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/vending_refill/hydroseeds,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "coC" = (
@@ -42391,6 +42393,9 @@
 /obj/item/seeds/cannabis,
 /obj/item/seeds/cannabis,
 /obj/item/seeds/cannabis,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "csX" = (
@@ -43013,13 +43018,14 @@
 /obj/structure/sign/examroom{
 	pixel_x = -32
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
+	},
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -44830,10 +44836,7 @@
 "cAC" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/corn,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass/no_creep,
 /area/maintenance/asmaint)
 "cAD" = (
 /obj/structure/chair{
@@ -45273,10 +45276,7 @@
 "cBQ" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/tomato,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass/no_creep,
 /area/maintenance/asmaint)
 "cBR" = (
 /turf/simulated/wall/r_wall,
@@ -45832,10 +45832,7 @@
 "cDD" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/chili,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass/no_creep,
 /area/maintenance/asmaint)
 "cDE" = (
 /obj/effect/turf_decal/stripes/line{
@@ -46245,10 +46242,7 @@
 "cEG" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/chanter,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass/no_creep,
 /area/maintenance/asmaint)
 "cEI" = (
 /obj/effect/decal/cleanable/dirt,
@@ -46347,7 +46341,6 @@
 /area/medical/reception)
 "cEV" = (
 /obj/structure/window/reinforced,
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/siding,
 /turf/simulated/floor/grass/no_creep,
 /area/medical/genetics)
@@ -46355,7 +46348,6 @@
 /obj/machinery/door/window/southleft{
 	name = "Primate Pen"
 	},
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/siding,
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
 /turf/simulated/floor/grass/no_creep,
@@ -47257,10 +47249,7 @@
 "cHD" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/berry,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass/no_creep,
 /area/maintenance/asmaint)
 "cHJ" = (
 /obj/structure/bed,
@@ -47606,10 +47595,7 @@
 "cIM" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/banana,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass/no_creep,
 /area/maintenance/asmaint)
 "cIP" = (
 /mob/living/simple_animal/slime,
@@ -47844,6 +47830,9 @@
 	},
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -49885,10 +49874,7 @@
 "cQE" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/sugarcane,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/grass/no_creep,
 /area/maintenance/asmaint)
 "cQF" = (
 /obj/structure/closet/crate,
@@ -54787,7 +54773,7 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/structure/sink{
 	dir = 4;
-	pixel_x = 11
+	pixel_x = 12
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -60404,17 +60390,6 @@
 	icon_state = "dark"
 	},
 /area/toxins/server)
-"gBd" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/starboard)
 "gBG" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
@@ -65609,9 +65584,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
 /obj/effect/turf_decal/siding{
 	dir = 6
 	},
@@ -67752,6 +67724,10 @@
 	icon_state = "white"
 	},
 /area/toxins/lab)
+"kqz" = (
+/obj/effect/turf_decal/stripes/corner,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "kqP" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -69194,7 +69170,6 @@
 	dir = 1
 	},
 /obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
 	pixel_y = 25
 	},
 /turf/simulated/floor/plasteel{
@@ -72225,6 +72200,23 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
+"muo" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/aft)
 "muA" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
@@ -75582,15 +75574,8 @@
 	},
 /area/medical/reception)
 "ogE" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -78467,6 +78452,9 @@
 /area/medical/reception)
 "pMx" = (
 /obj/effect/landmark/damageturf,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "pMS" = (
@@ -81671,6 +81659,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"rvF" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/starboard)
 "rwh" = (
 /obj/machinery/power/supermatter_crystal/engine,
 /turf/simulated/floor/engine,
@@ -92085,9 +92084,8 @@
 /area/toxins/xenobiology)
 "wSP" = (
 /obj/machinery/hydroponics/soil,
-/obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
@@ -115894,7 +115892,7 @@ lDG
 dby
 ojt
 cTx
-bME
+muo
 bZU
 deI
 clm
@@ -131051,7 +131049,7 @@ cPc
 cHY
 emj
 cJD
-emj
+npj
 pMx
 coB
 cPc
@@ -131562,11 +131560,11 @@ cPc
 cVn
 cXW
 meT
-emj
-emj
-emj
-pMx
-emj
+kqz
+ogE
+ogE
+bME
+ogE
 csW
 cPc
 aaa
@@ -132071,7 +132069,7 @@ cPf
 bdN
 hrM
 cEN
-ogE
+bnB
 cJk
 cGs
 emj
@@ -132538,7 +132536,7 @@ boY
 bqx
 aoG
 aoG
-gBd
+rvF
 aoG
 rKM
 bUl
