@@ -78707,7 +78707,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/medical/morgue)
 "dBo" = (
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	name = "Virology Lobby";
 	req_access_txt = "5"
 	},
@@ -80901,7 +80901,7 @@
 	pixel_y = -24;
 	req_access_txt = "39"
 	},
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	autoclose = 0;
 	frequency = 1379;
 	id_tag = "viro_lab_airlock_interior";
@@ -80984,7 +80984,7 @@
 	},
 /area/medical/virology)
 "dHe" = (
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	name = "Virology";
 	req_access_txt = "39"
 	},
@@ -81528,7 +81528,7 @@
 	},
 /area/medical/virology)
 "dIl" = (
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	name = "Virology Bedroom";
 	req_access_txt = "39"
 	},
@@ -81756,7 +81756,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "dJa" = (
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	name = "Virology Office";
 	req_access_txt = "39"
 	},
@@ -83189,7 +83189,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/security/detectives_office)
 "dMB" = (
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	name = "Virology Lab";
 	req_access_txt = "39"
 	},
@@ -83807,7 +83807,7 @@
 	},
 /area/medical/virology)
 "dOg" = (
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	name = "Virology";
 	req_access_txt = "39"
 	},
@@ -86021,7 +86021,7 @@
 	pixel_x = -24;
 	req_access_txt = "39"
 	},
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	autoclose = 0;
 	frequency = 1379;
 	id_tag = "viro_lab_airlock_exterior";
@@ -87060,7 +87060,7 @@
 	},
 /area/medical/virology)
 "dWV" = (
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	name = "Isolation A";
 	req_access_txt = "39"
 	},
@@ -87071,7 +87071,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "dWW" = (
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	name = "Isolation B";
 	req_access_txt = "39"
 	},
@@ -87767,7 +87767,7 @@
 	},
 /area/medical/virology)
 "dYF" = (
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	name = "Monkey Pen";
 	req_access_txt = "39"
 	},

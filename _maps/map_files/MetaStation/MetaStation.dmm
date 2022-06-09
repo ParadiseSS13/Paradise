@@ -62703,7 +62703,7 @@
 	})
 "cKO" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	name = "Test Subject Cell";
 	req_access_txt = "39"
 	},
@@ -63618,7 +63618,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	name = "Containment Cells";
 	req_access_txt = "39"
 	},
@@ -63688,7 +63688,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	name = "Virology Access";
 	req_access_txt = "39"
 	},
@@ -63743,7 +63743,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	autoclose = 0;
 	frequency = 1449;
 	id_tag = "virology_airlock_interior";
@@ -63833,7 +63833,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	autoclose = 0;
 	frequency = 1449;
 	id_tag = "virology_airlock_exterior";
@@ -64580,7 +64580,7 @@
 /area/maintenance/starboardsolar)
 "cOz" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	name = "Isolation B";
 	req_access_txt = "39"
 	},
@@ -64592,7 +64592,7 @@
 /area/medical/virology)
 "cOA" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	name = "Isolation A";
 	req_access_txt = "39"
 	},
@@ -65000,7 +65000,7 @@
 /area/medical/virology)
 "cPt" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	name = "Break Room";
 	req_access_txt = "39"
 	},
@@ -69918,7 +69918,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	name = "Virology Access";
 	req_access_txt = "39"
 	},
