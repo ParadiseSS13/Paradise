@@ -27088,17 +27088,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
-"bBW" = (
-/obj/structure/chair/office/dark{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/wood,
-/area/library)
 "bBX" = (
 /obj/structure/closet/secure_closet/hop,
 /obj/item/megaphone,
@@ -28313,11 +28302,11 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "council blast";
 	name = "Council Blast Doors"
 	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/bridge)
 "bFd" = (
@@ -28779,11 +28768,15 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "council blast";
 	name = "Council Blast Doors"
 	},
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/bridge)
 "bGk" = (
@@ -28796,11 +28789,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "council blast";
 	name = "Council Blast Doors"
 	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/bridge)
 "bGl" = (
@@ -28834,11 +28827,11 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "council blast";
 	name = "Council Blast Doors"
 	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/bridge)
 "bGv" = (
@@ -29120,11 +29113,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "council blast";
 	name = "Council Blast Doors"
 	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/bridge)
 "bHz" = (
@@ -30453,21 +30446,6 @@
 /area/ai_monitored/storage/eva{
 	name = "E.V.A. Storage"
 	})
-"bKV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/bridge/meeting_room{
-	name = "\improper Command Hallway"
-	})
 "bKX" = (
 /obj/machinery/newscaster{
 	name = "south bump";
@@ -30502,6 +30480,13 @@
 /area/bridge/meeting_room{
 	name = "\improper Command Hallway"
 	})
+"bLg" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/bridge/meeting_room{
+	name = "\improper Command Hallway"
+	})
 "bLh" = (
 /obj/machinery/newscaster{
 	name = "south bump";
@@ -30510,13 +30495,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/bridge/meeting_room{
-	name = "\improper Command Hallway"
-	})
-"bLi" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -31038,6 +31016,21 @@
 "bMW" = (
 /turf/simulated/wall/r_wall,
 /area/teleporter)
+"bMX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/bridge/meeting_room{
+	name = "\improper Command Hallway"
+	})
 "bMZ" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -36598,27 +36591,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
-	},
-/area/medical/reception)
-"ccb" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
 	},
 /area/medical/reception)
 "ccc" = (
@@ -42834,10 +42806,21 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "cuL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/chemistry)
+/area/medical/reception)
 "cuM" = (
 /obj/structure/sign/examroom{
 	pixel_x = -32
@@ -48344,6 +48327,24 @@
 /obj/machinery/optable,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
+"cLX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitebluecorner"
+	},
+/area/medical/medbay3)
 "cMb" = (
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
@@ -48472,12 +48473,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint)
-"cMB" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/medbay3)
 "cMC" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -69662,6 +69657,11 @@
 	icon_state = "purplefull"
 	},
 /area/assembly/robotics)
+"lkN" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/chemistry)
 "lle" = (
 /obj/machinery/status_display{
 	dir = 4;
@@ -71266,11 +71266,16 @@
 	},
 /area/medical/research)
 "mcd" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/structure/chair/office/dark{
 	dir = 8
 	},
-/turf/simulated/floor/carpet,
-/area/crew_quarters/heads)
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/wood,
+/area/library)
 "mcj" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical,
@@ -81237,21 +81242,9 @@
 	},
 /area/medical/cmostore)
 "rot" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitebluecorner"
+	icon_state = "white"
 	},
 /area/medical/medbay3)
 "roH" = (
@@ -86015,6 +86008,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -92696,6 +92694,12 @@
 	icon_state = "darkbluecorners"
 	},
 /area/bridge)
+"xnp" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/carpet,
+/area/crew_quarters/heads)
 "xnG" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -114720,7 +114724,7 @@ bai
 bFw
 esf
 bHr
-bBW
+mcd
 cdT
 bqQ
 cPq
@@ -117047,7 +117051,7 @@ cvh
 iBq
 mik
 cuM
-rot
+cLX
 gLu
 cxp
 fLa
@@ -117302,30 +117306,30 @@ viO
 cxt
 rCs
 kPv
-cMB
+rot
 oQc
 lfm
 sLT
 qSD
-cMB
+rot
 bnm
 eFw
 dVk
-cMB
-cMB
-cMB
+rot
+rot
+rot
 xyc
-cMB
+rot
 aen
-cMB
-cMB
-cMB
+rot
+rot
+rot
 qSD
-cMB
+rot
 ctU
 eFw
 dVk
-cMB
+rot
 pdE
 hZT
 oOv
@@ -118051,7 +118055,7 @@ aPC
 bFH
 bMV
 bCi
-bKV
+bMX
 bNM
 bRS
 bRu
@@ -118843,7 +118847,7 @@ nGy
 mwo
 cjR
 nBF
-tDr
+cuL
 cmq
 wCo
 clQ
@@ -119100,7 +119104,7 @@ cia
 cia
 coo
 czu
-ccb
+tDr
 cDU
 gnQ
 czA
@@ -119330,7 +119334,7 @@ buB
 bqc
 bye
 bym
-mcd
+xnp
 bCa
 bsO
 biL
@@ -119850,7 +119854,7 @@ bqc
 bFI
 bFI
 jQo
-bKV
+bMX
 bOe
 bPo
 bRY
@@ -120899,8 +120903,8 @@ vAP
 ogq
 nxB
 tHA
-cuL
-cuL
+lkN
+lkN
 cJW
 cdl
 rYd
@@ -122677,7 +122681,7 @@ bwi
 bwi
 bkW
 hEZ
-bLi
+bLg
 bxp
 bQp
 bQp
@@ -123191,7 +123195,7 @@ bDX
 byq
 bkW
 bMm
-bLi
+bLg
 bOH
 abq
 abq
@@ -123705,7 +123709,7 @@ rOG
 iIA
 wUE
 hDx
-bLi
+bLg
 bZn
 bQc
 bTi
@@ -123962,7 +123966,7 @@ bEh
 bhw
 bhw
 jJR
-bLi
+bLg
 bOC
 bOU
 fsT
@@ -124219,7 +124223,7 @@ bEi
 bFV
 bhw
 bJw
-bLi
+bLg
 cUp
 bQe
 bRw
@@ -124990,7 +124994,7 @@ bEl
 bHC
 bhw
 bJp
-bLi
+bLg
 wkM
 bNh
 bQB
@@ -125247,7 +125251,7 @@ bEm
 bIy
 bhw
 bMG
-bLi
+bLg
 bOY
 bNh
 bRP
@@ -125504,7 +125508,7 @@ bEn
 bHH
 bhw
 bJB
-bLi
+bLg
 bNl
 bNh
 bQD
