@@ -4,6 +4,7 @@
 		"platymuus.dm-langclient",
 		"EditorConfig.EditorConfig",
 		"dbaeumer.vscode-eslint",
+		"anturk.dmi-editor",
 		"eamodio.gitlens"
     ]
 }
