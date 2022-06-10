@@ -11,9 +11,9 @@ html, body {
 }
 body {
 	background: #151515;
-    font-family: Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 9pt;
-    line-height: 1.2;
+	font-family: Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 9pt;
+	line-height: 1.2;
 	overflow-x: hidden;
 	overflow-y: scroll;
 	word-wrap: break-word;
@@ -49,9 +49,9 @@ a.popt {text-decoration: none;}
 	position: fixed;
 	width: 300px;
 	height: 150px;
-text-align: center;
+	text-align: center;
 	left: 50%;
-top: 50%;
+	top: 50%;
 	margin: -75px 0 0 -150px;
 }
 #loading i {display: block; padding-bottom: 3px;}
@@ -69,17 +69,17 @@ font-size: 14px;
 	right: 0;
 	padding: 8px;
 	background: #ddd;
-text-decoration: none;
-    font-variant: small-caps;
-    font-size: 1.1em;
-    font-weight: bold;
+	text-decoration: none;
+	font-variant: small-caps;
+	font-size: 1.1em;
+	font-weight: bold;
 	color: #333;
 }
 #newMessages:hover {background: #ccc;}
 #newMessages i {vertical-align: middle; padding-left: 3px;}
 #ping {
 	position: fixed;
-top: 0;
+	top: 0;
 	right: 40px;
 	width: 45px;
 	background: #ddd;
@@ -90,33 +90,33 @@ top: 0;
 #ping i {display: block; text-align: center;}
 #ping .ms {
 	display: block;
-text-align: center;
-font-size: 8pt;
+	text-align: center;
+	font-size: 8pt;
 	color: #000;
 	padding-top: 2px;
 }
 #options {
 	position: fixed;
-top: 0;
+	top: 0;
 	right: 0;
 }
 #options a {
 	background: #ddd;
-    height: 30px;
+	height: 30px;
 	padding: 5px 0;
 	display: block;
 	color: #333;
-text-decoration: none;
-    line-height: 28px;
-    border-top: 1px solid #b4b4b4;
+	text-decoration: none;
+	line-height: 28px;
+	border-top: 1px solid #b4b4b4;
 }
 #options a:hover {background: #ccc;}
 #options .toggle {
 	width: 40px;
-    background: #ccc;
-    border-top: 0;
-    float: right;
-    text-align: center;
+	background: #ccc;
+	border-top: 0;
+	float: right;
+	text-align: center;
 }
 #options .sub {clear: both; display: none; width: 160px;}
 #options .sub.scroll {overflow-y: scroll;}
@@ -124,33 +124,33 @@ text-decoration: none;
 #options .sub span {
 	display: block;
 	line-height: 30px;
-float: left;
+	float: left;
 }
 #options .sub i {
 	display: block;
 	padding: 0 5px;
-font-size: 1.1em;
+	font-size: 1.1em;
 	width: 22px;
-text-align: center;
+	text-align: center;
 	line-height: 30px;
-float: right;
+	float: right;
 }
 #options .decreaseFont {border-top: 0;}
 
 /* POPUPS */
 .popup {
 	position: fixed;
-top: 50%;
+	top: 50%;
 	left: 50%;
 	background: #ddd;
 }
 .popup .close {
 	position: absolute;
 	background: #aaa;
-top: 0;
+	top: 0;
 	right: 0;
 	color: #333;
-text-decoration: none;
+	text-decoration: none;
 	z-index: 2;
 	padding: 0 10px;
 	height: 30px;
@@ -163,9 +163,9 @@ text-decoration: none;
 	padding: 0 10px;
 	height: 30px;
 	line-height: 30px;
-text-transform: uppercase;
-font-size: 0.9em;
-font-weight: bold;
+	text-transform: uppercase;
+	font-size: 0.9em;
+	font-weight: bold;
 	border-bottom: 2px solid green;
 }
 .popup input {border: 1px solid #999; background: #fff; margin: 0; padding: 5px; outline: none; color: #333;}
@@ -192,7 +192,7 @@ font-weight: bold;
 .contextMenu a {
 	display: block;
 	padding: 2px 5px;
-text-decoration: none;
+	text-decoration: none;
 	color: #333;
 }
 
@@ -228,17 +228,17 @@ text-decoration: none;
 
 /* BADGE */
 .repeatBadge {
-    display: inline-block;
-    min-width: 0.5em;
-    font-size: 0.7em;
-    padding: 0.2em 0.3em;
-    line-height: 1;
-    color: white;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    background-color: crimson;
-    border-radius: 10px;
+	display: inline-block;
+	min-width: 0.5em;
+	font-size: 0.7em;
+	padding: 0.2em 0.3em;
+	line-height: 1;
+	color: white;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	background-color: crimson;
+	border-radius: 10px;
 }
 
 /* OUTPUT COLORS */
