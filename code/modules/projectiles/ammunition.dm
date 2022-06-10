@@ -144,7 +144,7 @@
 		if(!initial_mats)
 			initial_mats = materials.Copy()
 		update_mat_value()
-		update_icon_appearance()
+		update_appearance()
 		return b
 
 /obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = 0)

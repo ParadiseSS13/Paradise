@@ -123,11 +123,11 @@
 /obj/screen/pull/update_icon(mob/mymob)
 	if(!mymob)
 		return
-	. = ..(NONE)
 	if(mymob.pulling)
 		icon_state = "pull"
 	else
 		icon_state = "pull0"
+	..(NONE)
 
 /obj/screen/resist
 	name = "resist"

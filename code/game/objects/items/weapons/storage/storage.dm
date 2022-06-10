@@ -460,7 +460,7 @@
 
 	if(istype(src, /obj/item/storage/fancy))
 		var/obj/item/storage/fancy/F = src
-		F.update_icon(TRUE)
+		F.update_icon()
 
 	for(var/_M in mobs_viewing)
 		var/mob/M = _M
