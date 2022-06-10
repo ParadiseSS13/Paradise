@@ -105,7 +105,7 @@
 	display_name = "a wallet(leather)"
 	path = /obj/item/storage/wallet
 
-/datum/gear/walletb
+/datum/gear/walletbb
 	display_name = "a wallet(blue)"
 	path = /obj/item/storage/wallet/color/blue
 
