@@ -12,10 +12,10 @@ NORTH = 1
 SOUTH = 2
 EAST = 4
 WEST = 8
-SOUTHEAST = SOUTH|EAST
-SOUTHWEST = SOUTH|WEST
-NORTHEAST = NORTH|EAST
-NORTHWEST = NORTH|WEST
+SOUTHEAST = SOUTH | EAST
+SOUTHWEST = SOUTH | WEST
+NORTHEAST = NORTH | EAST
+NORTHWEST = NORTH | WEST
 
 CARDINALS = [NORTH, SOUTH, EAST, WEST]
 DIR_ORDER = [SOUTH, NORTH, EAST, WEST, SOUTHEAST, SOUTHWEST, NORTHEAST, NORTHWEST]
@@ -34,6 +34,7 @@ DIR_NAMES = {
     None: SOUTH,
 }
 
+
 class Dmi:
     version = "4.0"
 
@@ -45,6 +46,8 @@ class Dmi:
     @classmethod
     def from_file(cls, fname):
         image = Image.open(fname)
+        if image.mode != 'RGBA':
+            image = image.convert('RGBA')
 
         # no metadata = regular image file
         if 'Description' not in image.info:
@@ -121,7 +124,6 @@ class Dmi:
             if state.name == name:
                 return state
         raise KeyError(name)
-        return self.default_state
 
     def _assemble_comment(self):
         comment = "# BEGIN DMI\n"
@@ -132,7 +134,7 @@ class Dmi:
             comment += f"state = {escape(state.name)}\n"
             comment += f"\tdirs = {state.dirs}\n"
             comment += f"\tframes = {state.framecount}\n"
-            if state.framecount > 1 and len(state.delays): #any(x != 1 for x in state.delays):
+            if state.framecount > 1 and len(state.delays):  # any(x != 1 for x in state.delays):
                 comment += "\tdelay = " + ",".join(map(str, state.delays)) + "\n"
             if state.loop != 0:
                 comment += f"\tloop = {state.loop}\n"
@@ -172,6 +174,7 @@ class Dmi:
         if palette:
             output = output.convert('P')
         output.save(filename, 'png', optimize=True, pnginfo=pnginfo)
+
 
 class State:
     def __init__(self, dmi, name, *, loop=LOOP_UNLIMITED, rewind=False, movement=False, dirs=1):
@@ -214,9 +217,12 @@ class State:
     def get_frame(self, *args, **kwargs):
         return self.frames[self._frame_index(*args, **kwargs)]
 
+
 def escape(text):
-    assert '\\' not in text and '"' not in text
+    text = text.replace('\\', '\\\\')
+    text = text.replace('"', '\\"')
     return f'"{text}"'
+
 
 def unescape(text, quote='"'):
     if text == 'null':
@@ -224,30 +230,18 @@ def unescape(text, quote='"'):
     if not (text.startswith(quote) and text.endswith(quote)):
         raise ValueError(text)
     text = text[1:-1]
-    assert '\\' not in text and quote not in text
+    text = text.replace('\\"', '"')
+    text = text.replace('\\\\', '\\')
     return text
+
 
 def parse_num(value):
     if '.' in value:
         return float(value)
     return int(value)
 
+
 def parse_bool(value):
     if value not in ('0', '1'):
         raise ValueError(value)
     return value == '1'
-
-if __name__ == '__main__':
-    # test: can we load every DMI in the tree
-    import os
-
-    count = 0
-    for dirpath, dirnames, filenames in os.walk('.'):
-        if '.git' in dirnames:
-            dirnames.remove('.git')
-        for filename in filenames:
-            if filename.endswith('.dmi'):
-                Dmi.from_file(os.path.join(dirpath, filename))
-                count += 1
-
-    print(f"Successfully parsed {count} dmi files")
