@@ -5478,9 +5478,9 @@
 	},
 /area/security/evidence)
 "apM" = (
-/obj/structure/table,
-/obj/item/storage/fancy/donut_box,
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "apN" = (
@@ -115278,7 +115278,7 @@ aoJ
 amM
 anQ
 aoI
-apM
+aoR
 apR
 ahC
 ast
@@ -116043,7 +116043,7 @@ anA
 anA
 anA
 anA
-aoJ
+apM
 adY
 amm
 amN
