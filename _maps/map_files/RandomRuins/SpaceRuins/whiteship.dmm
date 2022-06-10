@@ -574,11 +574,11 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
 	},
-/obj/item/tank/emergency_oxygen/nitrogen{
+/obj/item/tank/internals/emergency_oxygen/nitrogen{
 	pixel_x = -1;
 	pixel_y = -2
 	},
-/obj/item/tank/emergency_oxygen/plasma{
+/obj/item/tank/internals/emergency_oxygen/plasma{
 	pixel_x = -6;
 	pixel_y = -2
 	},
@@ -943,7 +943,7 @@
 	},
 /obj/structure/fans/tiny,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/tank/emergency_oxygen/empty,
+/obj/item/tank/internals/emergency_oxygen/empty,
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/decal/remains/human{
@@ -1105,7 +1105,7 @@
 "uZ" = (
 /obj/machinery/optable,
 /obj/item/clothing/mask/breath/medical,
-/obj/item/tank/anesthetic,
+/obj/item/tank/internals/anesthetic,
 /obj/machinery/defibrillator_mount/loaded{
 	pixel_x = 26
 	},
@@ -2553,14 +2553,14 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/obj/item/tank/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluefull"
 	},
 /area/shuttle/abandoned)
 "WD" = (
-/obj/item/tank/emergency_oxygen/nitrogen{
+/obj/item/tank/internals/emergency_oxygen/nitrogen{
 	pixel_x = 6;
 	pixel_y = -2
 	},
@@ -2685,7 +2685,7 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/obj/item/tank/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluefull"

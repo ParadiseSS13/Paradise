@@ -38,7 +38,7 @@
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/neck/cloak/quartermaster(src)
 	new /obj/item/clothing/suit/fire/firefighter(src)
-	new /obj/item/tank/emergency_oxygen(src)
+	new /obj/item/tank/internals/emergency_oxygen(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/clothing/head/soft(src)

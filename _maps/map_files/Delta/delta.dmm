@@ -1017,12 +1017,12 @@
 /area/shuttle/vox)
 "aes" = (
 /obj/structure/rack,
-/obj/item/tank/nitrogen,
-/obj/item/tank/nitrogen,
-/obj/item/tank/nitrogen,
-/obj/item/tank/nitrogen,
-/obj/item/tank/nitrogen,
-/obj/item/tank/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "aet" = (
@@ -1420,7 +1420,7 @@
 /obj/item/harpoon,
 /obj/item/harpoon,
 /obj/item/harpoon,
-/obj/item/tank/nitrogen,
+/obj/item/tank/internals/nitrogen,
 /obj/machinery/light/spot{
 	dir = 4;
 	tag = "icon-tube1 (EAST)"
@@ -2015,7 +2015,7 @@
 	},
 /area/engine/mechanic_workshop/expedition)
 "aiU" = (
-/obj/item/tank/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/mask/breath,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
@@ -2317,15 +2317,15 @@
 /area/shuttle/syndicate)
 "akJ" = (
 /obj/structure/closet/crate/internals,
-/obj/item/tank/oxygen/red,
+/obj/item/tank/internals/oxygen/red,
 /obj/item/clothing/mask/gas,
-/obj/item/tank/oxygen/red,
+/obj/item/tank/internals/oxygen/red,
 /obj/item/clothing/mask/gas,
-/obj/item/tank/oxygen/red,
+/obj/item/tank/internals/oxygen/red,
 /obj/item/clothing/mask/gas,
-/obj/item/tank/oxygen/red,
+/obj/item/tank/internals/oxygen/red,
 /obj/item/clothing/mask/gas,
-/obj/item/tank/oxygen/red,
+/obj/item/tank/internals/oxygen/red,
 /obj/item/clothing/mask/gas,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -3393,7 +3393,7 @@
 /obj/item/robot_parts/r_arm,
 /obj/item/clothing/mask/surgical,
 /obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/tank/anesthetic,
+/obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /obj/item/robot_parts/l_leg,
 /obj/item/robot_parts/r_leg,
@@ -7787,7 +7787,7 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/clothing/glasses/meson,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -13957,7 +13957,7 @@
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
 /obj/item/wrench,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -14420,8 +14420,8 @@
 /area/maintenance/turbine)
 "bwX" = (
 /obj/structure/table/reinforced,
-/obj/item/tank/emergency_oxygen,
-/obj/item/tank/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/plasteel{
@@ -19076,7 +19076,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/safe/floor,
 /obj/item/pneumatic_cannon/ghetto,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
 /obj/item/clothing/gloves/color/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -21858,8 +21858,8 @@
 /area/engine/controlroom)
 "cch" = (
 /obj/structure/table/reinforced,
-/obj/item/tank/emergency_oxygen/engi,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/cable{
 	d1 = 2;
@@ -34540,7 +34540,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
-/obj/item/tank/plasma,
+/obj/item/tank/internals/plasma,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
@@ -40793,7 +40793,7 @@
 	pixel_x = -4;
 	pixel_y = -4
 	},
-/obj/item/tank/anesthetic,
+/obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /obj/item/reagent_containers/spray/cleaner{
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
@@ -46897,7 +46897,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
-/obj/item/tank/plasma,
+/obj/item/tank/internals/plasma,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 30
@@ -59496,7 +59496,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/wrench,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -61430,7 +61430,7 @@
 	name = "Engineering gear"
 	},
 /obj/effect/spawner/lootdrop/trade_sol/eng{
-	loot = list(/obj/item/pickaxe/drill/jackhammer = 50, /obj/item/storage/belt/utility/chief/full = 50, /obj/item/clothing/glasses/welding = 50, /obj/item/storage/belt/utility/full/multitool = 50, /obj/item/clothing/shoes/magboots = 50, /obj/item/rcd/combat = 50, /obj/item/rpd/bluespace = 50, /obj/item/tank/emergency_oxygen/double/full = 50, /obj/item/storage/backpack/holding = 50, /obj/item/clothing/glasses/meson/night = 50, /obj/item/clothing/glasses/material = 50, /obj/item/grenade/clusterbuster/metalfoam = 50, /obj/item/crowbar/power = 50, /obj/item/screwdriver/power = 50, /obj/item/t_scanner/extended_range = 50, /obj/item/borg/upgrade/abductor_engi = 50);
+	loot = list(/obj/item/pickaxe/drill/jackhammer = 50, /obj/item/storage/belt/utility/chief/full = 50, /obj/item/clothing/glasses/welding = 50, /obj/item/storage/belt/utility/full/multitool = 50, /obj/item/clothing/shoes/magboots = 50, /obj/item/rcd/combat = 50, /obj/item/rpd/bluespace = 50, /obj/item/tank/internals/emergency_oxygen/double = 50, /obj/item/storage/backpack/holding = 50, /obj/item/clothing/glasses/meson/night = 50, /obj/item/clothing/glasses/material = 50, /obj/item/grenade/clusterbuster/metalfoam = 50, /obj/item/crowbar/power = 50, /obj/item/screwdriver/power = 50, /obj/item/t_scanner/extended_range = 50, /obj/item/borg/upgrade/abductor_engi = 50);
 	lootcount = 8;
 	name = "8. Eng. gear"
 	},
@@ -63488,27 +63488,27 @@
 /area/hallway/primary/central/south)
 "hCW" = (
 /obj/structure/table,
-/obj/item/tank/emergency_oxygen/nitrogen{
+/obj/item/tank/internals/emergency_oxygen/nitrogen{
 	pixel_x = 6;
 	pixel_y = -2
 	},
-/obj/item/tank/emergency_oxygen/nitrogen{
+/obj/item/tank/internals/emergency_oxygen/nitrogen{
 	pixel_x = 6;
 	pixel_y = 4
 	},
-/obj/item/tank/emergency_oxygen/nitrogen{
+/obj/item/tank/internals/emergency_oxygen/nitrogen{
 	pixel_x = 6;
 	pixel_y = 10
 	},
-/obj/item/tank/emergency_oxygen/plasma{
+/obj/item/tank/internals/emergency_oxygen/plasma{
 	pixel_x = -6;
 	pixel_y = -2
 	},
-/obj/item/tank/emergency_oxygen/plasma{
+/obj/item/tank/internals/emergency_oxygen/plasma{
 	pixel_x = -6;
 	pixel_y = 4
 	},
-/obj/item/tank/emergency_oxygen/plasma{
+/obj/item/tank/internals/emergency_oxygen/plasma{
 	pixel_x = -6;
 	pixel_y = 10
 	},
@@ -70193,7 +70193,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/tank/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/mask/breath,
 /obj/structure/cable{
 	d1 = 1;
@@ -72980,7 +72980,7 @@
 /obj/structure/rack,
 /obj/item/crowbar,
 /obj/item/wrench,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard{
 	name = "Engineering Maintenance"
@@ -74631,7 +74631,7 @@
 /obj/structure/rack,
 /obj/item/crowbar/red,
 /obj/item/wrench,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 5
 	},
@@ -79773,8 +79773,8 @@
 /area/solar/starboard)
 "lMd" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/tank/emergency_oxygen/engi/empty,
-/obj/item/tank/emergency_oxygen/engi/empty,
+/obj/item/tank/internals/emergency_oxygen/engi/empty,
+/obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/item/reagent_containers/iv_bag/blood/AMinus,
 /obj/item/reagent_containers/iv_bag/blood/APlus,
 /obj/item/reagent_containers/iv_bag/blood/BMinus,
@@ -87661,7 +87661,7 @@
 /area/crew_quarters/chief)
 "nCm" = (
 /obj/structure/rack,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
 /obj/item/radio,
 /obj/machinery/firealarm{
 	dir = 1;
@@ -98692,10 +98692,10 @@
 	pixel_x = -29;
 	pixel_y = -12
 	},
-/obj/item/tank/emergency_oxygen/engi/full,
-/obj/item/tank/emergency_oxygen/engi/full,
-/obj/item/tank/emergency_oxygen/nitrogen,
-/obj/item/tank/emergency_oxygen/plasma,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/nitrogen,
+/obj/item/tank/internals/emergency_oxygen/plasma,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -98728,10 +98728,10 @@
 /obj/machinery/iv_drip,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/item/tank/emergency_oxygen/engi/full,
-/obj/item/tank/emergency_oxygen/engi/full,
-/obj/item/tank/emergency_oxygen/nitrogen,
-/obj/item/tank/emergency_oxygen/plasma,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/nitrogen,
+/obj/item/tank/internals/emergency_oxygen/plasma,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -105220,7 +105220,7 @@
 /obj/structure/rack,
 /obj/item/crowbar,
 /obj/item/wrench,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "rES" = (
@@ -115077,8 +115077,8 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/obj/item/tank/jetpack/oxygen,
-/obj/item/tank/oxygen,
+/obj/item/tank/jetpack/oxygen/security,
+/obj/item/tank/internals/oxygen,
 /obj/item/clothing/shoes/magboots,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/alarm{
@@ -132572,10 +132572,10 @@
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
-/obj/item/tank/emergency_oxygen/engi,
-/obj/item/tank/emergency_oxygen/engi,
-/obj/item/tank/emergency_oxygen/engi,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_y = -30
 	},

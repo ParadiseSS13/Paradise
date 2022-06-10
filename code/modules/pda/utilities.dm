@@ -46,7 +46,7 @@
 
 /datum/data/pda/utility/scanmode/medical/scan_mob(mob/living/M, mob/living/user)
 	user.visible_message("<span class='notice'>[user] analyzes [M]'s vitals.</span>", "<span class='notice'>You analyze [M]'s vitals.</span>")
-	
+
 	healthscan(user, M, 1)
 
 /datum/data/pda/utility/scanmode/dna

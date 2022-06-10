@@ -192,7 +192,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 
 	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber(src), slot_l_store)
 	equip_to_slot_or_del(new /obj/item/shield/energy(src), slot_r_store)
-	equip_to_slot_or_del(new /obj/item/tank/emergency_oxygen/double/full(src), slot_s_store)
+	equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double(src), slot_s_store)
 	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver/mateba(src), slot_belt)
 	equip_to_slot_or_del(new /obj/item/gun/energy/pulse(src), slot_r_hand)
 

@@ -2513,10 +2513,10 @@
 /obj/machinery/iv_drip,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/item/tank/emergency_oxygen/engi/full,
-/obj/item/tank/emergency_oxygen/engi/full,
-/obj/item/tank/emergency_oxygen/nitrogen,
-/obj/item/tank/emergency_oxygen/plasma,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/nitrogen,
+/obj/item/tank/internals/emergency_oxygen/plasma,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -2740,10 +2740,10 @@
 /obj/machinery/iv_drip,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/item/tank/emergency_oxygen/engi/full,
-/obj/item/tank/emergency_oxygen/engi/full,
-/obj/item/tank/emergency_oxygen/nitrogen,
-/obj/item/tank/emergency_oxygen/plasma,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/nitrogen,
+/obj/item/tank/internals/emergency_oxygen/plasma,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -3963,9 +3963,9 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "dpY" = (
 /obj/structure/closet/emcloset,
-/obj/item/tank/emergency_oxygen/vox,
+/obj/item/tank/internals/emergency_oxygen/double/vox,
 /obj/item/clothing/mask/breath/vox,
-/obj/item/tank/emergency_oxygen/plasma,
+/obj/item/tank/internals/emergency_oxygen/plasma,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "dqi" = (
@@ -4842,9 +4842,9 @@
 	dir = 4
 	},
 /obj/structure/closet/emcloset,
-/obj/item/tank/emergency_oxygen/plasma,
+/obj/item/tank/internals/emergency_oxygen/plasma,
 /obj/item/clothing/mask/breath/vox,
-/obj/item/tank/emergency_oxygen/vox,
+/obj/item/tank/internals/emergency_oxygen/double/vox,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -7713,8 +7713,8 @@
 /obj/structure/closet/emcloset,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/item/clothing/mask/breath/vox,
-/obj/item/tank/emergency_oxygen/vox,
-/obj/item/tank/emergency_oxygen/plasma,
+/obj/item/tank/internals/emergency_oxygen/double/vox,
+/obj/item/tank/internals/emergency_oxygen/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -11189,9 +11189,9 @@
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "jHd" = (
 /obj/structure/rack,
-/obj/item/tank/nitrogen,
-/obj/item/tank/nitrogen,
-/obj/item/tank/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
 /obj/item/pneumatic_cannon/ghetto,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11661,7 +11661,7 @@
 "kjC" = (
 /obj/structure/closet/emcloset,
 /obj/item/clothing/mask/breath/vox,
-/obj/item/tank/emergency_oxygen/vox,
+/obj/item/tank/internals/emergency_oxygen/double/vox,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -11669,7 +11669,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/item/tank/emergency_oxygen/plasma,
+/obj/item/tank/internals/emergency_oxygen/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -17856,8 +17856,8 @@
 	},
 /obj/structure/closet/emcloset,
 /obj/item/clothing/mask/breath/vox,
-/obj/item/tank/emergency_oxygen/vox,
-/obj/item/tank/emergency_oxygen/plasma,
+/obj/item/tank/internals/emergency_oxygen/double/vox,
+/obj/item/tank/internals/emergency_oxygen/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -18247,8 +18247,8 @@
 	dir = 1
 	},
 /obj/item/clothing/mask/breath/vox,
-/obj/item/tank/emergency_oxygen/vox,
-/obj/item/tank/emergency_oxygen/plasma,
+/obj/item/tank/internals/emergency_oxygen/double/vox,
+/obj/item/tank/internals/emergency_oxygen/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -21483,9 +21483,9 @@
 	},
 /obj/effect/turf_decal/tile/purple,
 /obj/structure/closet/emcloset,
-/obj/item/tank/emergency_oxygen/vox,
+/obj/item/tank/internals/emergency_oxygen/double/vox,
 /obj/item/clothing/mask/breath/vox,
-/obj/item/tank/emergency_oxygen/plasma,
+/obj/item/tank/internals/emergency_oxygen/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -30626,7 +30626,7 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "xCC" = (
 /obj/item/clothing/mask/breath/vox,
-/obj/item/tank/emergency_oxygen/vox,
+/obj/item/tank/internals/emergency_oxygen/double/vox,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -30634,7 +30634,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/item/tank/emergency_oxygen/plasma,
+/obj/item/tank/internals/emergency_oxygen/plasma,
 /obj/structure/closet/emcloset,
 /obj/item/storage/wallet/random,
 /turf/simulated/floor/plasteel{
@@ -31445,8 +31445,8 @@
 	dir = 8
 	},
 /obj/item/clothing/mask/breath/vox,
-/obj/item/tank/emergency_oxygen/vox,
-/obj/item/tank/emergency_oxygen/plasma,
+/obj/item/tank/internals/emergency_oxygen/double/vox,
+/obj/item/tank/internals/emergency_oxygen/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"

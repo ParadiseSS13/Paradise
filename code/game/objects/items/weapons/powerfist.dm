@@ -15,7 +15,7 @@
 	var/click_delay = 1.5
 	var/fisto_setting = 1
 	var/gasperfist = 3
-	var/obj/item/tank/tank = null //Tank used for the gauntlet's piston-ram.
+	var/obj/item/tank/internals/tank = null //Tank used for the gauntlet's piston-ram.
 
 
 /obj/item/melee/powerfist/Destroy()
@@ -30,9 +30,9 @@
 		. += "<span class='notice'>[bicon(tank)] It has [tank] mounted onto it.</span>"
 
 /obj/item/melee/powerfist/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/tank))
+	if(istype(W, /obj/item/tank/internals))
 		if(!tank)
-			var/obj/item/tank/IT = W
+			var/obj/item/tank/internals/IT = W
 			if(IT.volume <= 3)
 				to_chat(user, "<span class='warning'>[IT] is too small for [src].</span>")
 				return

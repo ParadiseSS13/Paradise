@@ -2660,7 +2660,7 @@
 	icon_state = "weeds1"
 	},
 /obj/structure/bed/nest,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
 /obj/item/clothing/suit/space/syndicate/orange,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/head/helmet/space/syndicate/orange,
@@ -5968,7 +5968,7 @@
 	req_access_txt = "271"
 	},
 /obj/item/clothing/suit/storage/labcoat,
-/obj/item/tank/air,
+/obj/item/tank/internals/air,
 /obj/item/clothing/mask/gas,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,

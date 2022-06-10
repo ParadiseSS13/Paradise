@@ -239,7 +239,7 @@
 	pixel_x = 32
 	},
 /obj/structure/closet/emcloset/anchored,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/flashlight/seclite,
 /obj/item/clothing/mask/gas,
 /obj/structure/sign/vacuum{
@@ -536,7 +536,7 @@
 	pixel_x = 32
 	},
 /obj/structure/closet/emcloset/anchored,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/flashlight/seclite,
 /obj/item/clothing/mask/gas,
 /obj/effect/decal/cleanable/dirt,
@@ -2285,12 +2285,12 @@
 	dir = 1
 	},
 /obj/structure/closet/crate/internals,
-/obj/item/tank/oxygen/yellow,
-/obj/item/tank/oxygen/yellow,
-/obj/item/tank/oxygen/yellow,
-/obj/item/tank/emergency_oxygen/double,
-/obj/item/tank/emergency_oxygen/double,
-/obj/item/tank/emergency_oxygen/double,
+/obj/item/tank/internals/oxygen/yellow,
+/obj/item/tank/internals/oxygen/yellow,
+/obj/item/tank/internals/oxygen/yellow,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
@@ -4961,7 +4961,7 @@
 /obj/item/clothing/gloves/combat{
 	pixel_y = -6
 	},
-/obj/item/tank/emergency_oxygen{
+/obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 4;
 	pixel_y = 4
 	},

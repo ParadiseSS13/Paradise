@@ -96,7 +96,7 @@
 "t" = (
 /obj/structure/rack,
 /obj/item/tank/jetpack/carbondioxide,
-/obj/item/tank/air,
+/obj/item/tank/internals/air,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
 "u" = (

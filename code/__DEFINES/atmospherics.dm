@@ -21,8 +21,8 @@
 #define MOLES_O2STANDARD		(MOLES_CELLSTANDARD*O2STANDARD)	// O2 standard value (21%)
 #define MOLES_N2STANDARD		(MOLES_CELLSTANDARD*N2STANDARD)	// N2 standard value (79%)
 #define CELL_VOLUME				2500	//liters in a cell
-#define BREATH_VOLUME			0.5		//liters in a normal breath
-#define BREATH_MOLES 			(ONE_ATMOSPHERE * BREATH_VOLUME /(T20C*R_IDEAL_GAS_EQUATION))
+//liters in a normal breath
+#define BREATH_VOLUME			1
 #define BREATH_PERCENTAGE		(BREATH_VOLUME/CELL_VOLUME)					//Amount of air to take a from a tile
 
 //EXCITED GROUPS
@@ -126,6 +126,8 @@
 #define TANK_RUPTURE_PRESSURE				(40.*ONE_ATMOSPHERE)	//Tank spills all contents into atmosphere
 #define TANK_FRAGMENT_PRESSURE				(50.*ONE_ATMOSPHERE)	//Boom 3x3 base explosion
 #define TANK_FRAGMENT_SCALE	    			(10.*ONE_ATMOSPHERE)	//+1 for each SCALE kPa aboe threshold
+#define TANK_MAX_RELEASE_PRESSURE 			(ONE_ATMOSPHERE * 3)
+#define TANK_MIN_RELEASE_PRESSURE 			0
 #define TANK_DEFAULT_RELEASE_PRESSURE 		16
 
 // Atmos alarm defines

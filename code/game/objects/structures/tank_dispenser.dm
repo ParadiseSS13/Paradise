@@ -30,11 +30,11 @@
 
 /obj/structure/dispenser/proc/initialize_tanks()
 	for(var/I in 1 to starting_plasma_tanks)
-		var/obj/item/tank/plasma/P = new(src)
+		var/obj/item/tank/internals/plasma/P = new(src)
 		stored_plasma_tanks.Add(P)
 
 	for(var/I in 1 to starting_oxygen_tanks)
-		var/obj/item/tank/oxygen/O = new(src)
+		var/obj/item/tank/internals/oxygen/O = new(src)
 		stored_oxygen_tanks.Add(O)
 
 /obj/structure/dispenser/update_icon()
@@ -89,11 +89,11 @@
 	return TRUE
 
 /obj/structure/dispenser/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/tank/oxygen) || istype(I, /obj/item/tank/air) || istype(I, /obj/item/tank/anesthetic))
+	if(istype(I, /obj/item/tank/internals/oxygen) || istype(I, /obj/item/tank/internals/air) || istype(I, /obj/item/tank/internals/anesthetic))
 		try_insert_tank(user, stored_oxygen_tanks, I)
 		return
 
-	if(istype(I, /obj/item/tank/plasma))
+	if(istype(I, /obj/item/tank/internals/plasma))
 		try_insert_tank(user, stored_plasma_tanks, I)
 		return
 
@@ -112,7 +112,7 @@
 	if(!LAZYLEN(tank_list))
 		return // There are no tanks left to withdraw.
 
-	var/obj/item/tank/T = tank_list[1]
+	var/obj/item/tank/internals/T = tank_list[1]
 	tank_list.Remove(T)
 
 	if(!user.put_in_hands(T))

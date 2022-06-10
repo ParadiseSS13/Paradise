@@ -84,11 +84,11 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/mob/living/simple_animal/bot/floorbot,
 					/mob/living/simple_animal/bot/medbot/syndicate,
 					/mob/living/simple_animal/bot/medbot/syndicate,
-					/obj/item/tank/air,
-					/obj/item/tank/air,
-					/obj/item/tank/air,
-					/obj/item/tank/air,
-					/obj/item/tank/air,
+					/obj/item/tank/internals/air,
+					/obj/item/tank/internals/air,
+					/obj/item/tank/internals/air,
+					/obj/item/tank/internals/air,
+					/obj/item/tank/internals/air,
 					/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
@@ -105,9 +105,9 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	contains = list(/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
-					/obj/item/tank/air,
-					/obj/item/tank/air,
-					/obj/item/tank/air)
+					/obj/item/tank/internals/air,
+					/obj/item/tank/internals/air,
+					/obj/item/tank/internals/air)
 	cost = 100
 	containername = "internals crate"
 
@@ -119,8 +119,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/clothing/mask/gas,
 					/obj/item/flashlight,
 					/obj/item/flashlight,
-					/obj/item/tank/oxygen/red,
-					/obj/item/tank/oxygen/red,
+					/obj/item/tank/internals/oxygen/red,
+					/obj/item/tank/internals/oxygen/red,
 					/obj/item/extinguisher,
 					/obj/item/extinguisher,
 					/obj/item/clothing/head/hardhat/red,
@@ -152,8 +152,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "Vox Life Support Supplies"
 	contains = list(/obj/item/clothing/mask/breath/vox,
 					/obj/item/clothing/mask/breath/vox,
-					/obj/item/tank/emergency_oxygen/vox,
-					/obj/item/tank/emergency_oxygen/vox)
+					/obj/item/tank/internals/emergency_oxygen/double/vox,
+					/obj/item/tank/internals/emergency_oxygen/double/vox)
 	cost = 500
 	containertype = /obj/structure/closet/crate/medical
 	containername = "vox life support supplies crate"
@@ -162,8 +162,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "Plasmaman Supply Kit"
 	contains = list(/obj/item/clothing/under/plasmaman,
 					/obj/item/clothing/under/plasmaman,
-					/obj/item/tank/plasma/plasmaman/belt/full,
-					/obj/item/tank/plasma/plasmaman/belt/full,
+					/obj/item/tank/internals/plasmaman/belt/full,
+					/obj/item/tank/internals/plasmaman/belt/full,
 					/obj/item/clothing/mask/breath,
 					/obj/item/clothing/mask/breath,
 					/obj/item/clothing/head/helmet/space/plasmaman,
@@ -315,7 +315,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/security/armory/red_hardsuit
 	name = "Syndicate Hardsuit Crate"
 	contains = list(/obj/item/clothing/suit/space/hardsuit/syndi,
-					/obj/item/tank/emergency_oxygen/syndi,
+					/obj/item/tank/internals/emergency_oxygen/engi/syndi,
 					/obj/item/clothing/mask/gas/syndicate)
 	cost = 6000
 	containername = "Syndicate Hardsuit crate"
@@ -323,7 +323,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/security/armory/elite_hardsuit
 	name = "Syndicate Elite Hardsuit Crate"
 	contains = list(/obj/item/clothing/suit/space/hardsuit/syndi/elite,
-					/obj/item/tank/emergency_oxygen/syndi,
+					/obj/item/tank/internals/emergency_oxygen/engi/syndi,
 					/obj/item/clothing/mask/gas/syndicate)
 	cost = 8000
 	containername = "Syndicate Elite Hardsuit crate"
@@ -331,7 +331,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/security/armory/shielded_hardsuit
 	name = "Syndicate Shielded Hardsuit Crate"
 	contains = list(/obj/item/clothing/suit/space/hardsuit/shielded/syndi,
-					/obj/item/tank/emergency_oxygen/syndi,
+					/obj/item/tank/internals/emergency_oxygen/engi/syndi,
 					/obj/item/clothing/mask/gas/syndicate)
 	cost = 40000
 	containername = "Syndicate Shielded Hardsuit crate"
@@ -511,9 +511,9 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/security/armory/eweapons
 	name = "Incendiary Weapons Crate"
 	contains = list(/obj/item/flamethrower/full,
-					/obj/item/tank/plasma,
-					/obj/item/tank/plasma,
-					/obj/item/tank/plasma,
+					/obj/item/tank/internals/plasma,
+					/obj/item/tank/internals/plasma,
+					/obj/item/tank/internals/plasma,
 					/obj/item/grenade/chem_grenade/incendiary,
 					/obj/item/grenade/chem_grenade/incendiary,
 					/obj/item/grenade/chem_grenade/incendiary)
@@ -878,7 +878,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	contains = list(/obj/item/cautery,
 					/obj/item/surgicaldrill,
 					/obj/item/clothing/mask/breath/medical,
-					/obj/item/tank/anesthetic,
+					/obj/item/tank/internals/anesthetic,
 					/obj/item/FixOVein,
 					/obj/item/hemostat,
 					/obj/item/scalpel,
@@ -933,9 +933,9 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/science/plasma
 	name = "Plasma Assembly Crate"
-	contains = list(/obj/item/tank/plasma,
-					/obj/item/tank/plasma,
-					/obj/item/tank/plasma,
+	contains = list(/obj/item/tank/internals/plasma,
+					/obj/item/tank/internals/plasma,
+					/obj/item/tank/internals/plasma,
 					/obj/item/assembly/igniter,
 					/obj/item/assembly/igniter,
 					/obj/item/assembly/igniter,

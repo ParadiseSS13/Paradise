@@ -1846,7 +1846,7 @@
 /area/awaymission/spacebattle/cruiser)
 "fG" = (
 /obj/structure/closet/crate/internals,
-/obj/item/tank/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
 /obj/item/storage/firstaid/o2,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/cruiser)
@@ -2239,7 +2239,7 @@
 /area/awaymission/spacebattle/cruiser)
 "hj" = (
 /obj/structure/closet/crate/secure/plasma,
-/obj/item/tank/plasma,
+/obj/item/tank/internals/plasma,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "hk" = (
@@ -2300,7 +2300,7 @@
 /area/awaymission/spacebattle/cruiser)
 "ht" = (
 /obj/structure/closet/crate/medical,
-/obj/item/tank/anesthetic,
+/obj/item/tank/internals/anesthetic,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "hu" = (

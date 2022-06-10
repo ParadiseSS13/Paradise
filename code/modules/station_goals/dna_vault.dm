@@ -306,7 +306,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			to_chat(H, "<span class='notice'>You feel resistant to airborne toxins.</span>")
 			var/obj/item/organ/internal/lungs/L = H.get_int_organ(/obj/item/organ/internal/lungs)
 			if(L)
-				L.tox_breath_dam_multiplier = 0
+				L.tox_breath_dam_min = 0
+				L.tox_breath_dam_max = 0
 			S.species_traits |= VIRUSIMMUNE
 		if(VAULT_NOBREATH)
 			to_chat(H, "<span class='notice'>Your lungs feel great.</span>")

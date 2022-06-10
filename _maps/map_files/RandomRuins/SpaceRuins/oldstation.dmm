@@ -864,7 +864,7 @@
 "gz" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/tank/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "blue"
@@ -2720,7 +2720,7 @@
 /area/ruin/space/ancientstation/atmos)
 "wq" = (
 /obj/structure/table,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -2860,10 +2860,10 @@
 /obj/structure/closet/crate/engineering{
 	name = "plasma tank crate"
 	},
-/obj/item/tank/plasma/full,
-/obj/item/tank/plasma/full,
-/obj/item/tank/plasma/full,
-/obj/item/tank/plasma/full,
+/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/plasma/full,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
@@ -4229,7 +4229,7 @@
 "IA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/tank/anesthetic,
+/obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

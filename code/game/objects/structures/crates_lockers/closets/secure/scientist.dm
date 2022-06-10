@@ -18,7 +18,7 @@
 	new /obj/item/clothing/shoes/white(src)
 //		new /obj/item/cartridge/signal/toxins(src)
 	new /obj/item/radio/headset/headset_sci(src)
-	new /obj/item/tank/air(src)
+	new /obj/item/tank/internals/air(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
 
@@ -65,7 +65,7 @@
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/radio/headset/heads/rd(src)
-	new /obj/item/tank/air(src)
+	new /obj/item/tank/internals/air(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/clothing/suit/armor/reactive/teleport(src)
 	new /obj/item/flash(src)

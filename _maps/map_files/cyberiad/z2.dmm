@@ -1922,7 +1922,7 @@
 /obj/item/storage/box/handcuffs,
 /obj/item/storage/box/flashbangs,
 /obj/item/clothing/mask/gas,
-/obj/item/tank/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/radio/headset/ert{
 	pixel_x = 6;
 	pixel_y = -6
@@ -2606,13 +2606,13 @@
 	},
 /area/centcom/specops)
 "cDm" = (
-/obj/item/tank/nitrogen,
+/obj/item/tank/internals/nitrogen,
 /obj/structure/table/wood,
-/obj/item/tank/nitrogen,
+/obj/item/tank/internals/nitrogen,
 /obj/item/clothing/mask/breath/vox,
 /obj/item/clothing/mask/breath/vox,
 /obj/item/clothing/mask/breath/vox,
-/obj/item/tank/nitrogen,
+/obj/item/tank/internals/nitrogen,
 /turf/unsimulated/floor/vox{
 	icon_state = "plastitanium"
 	},
@@ -5726,7 +5726,7 @@
 "eUO" = (
 /obj/structure/closet/l3closet/security,
 /obj/item/clothing/mask/gas,
-/obj/item/tank/emergency_oxygen/double/full,
+/obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/watertank/janitor{
 	max_integrity = 1500;
@@ -6207,7 +6207,7 @@
 /area/centcom/evac)
 "fku" = (
 /obj/structure/table/wood,
-/obj/item/tank/emergency_oxygen/vox,
+/obj/item/tank/internals/emergency_oxygen/double/vox,
 /obj/item/clothing/mask/breath/vox,
 /turf/unsimulated/floor{
 	dir = 8;
@@ -13675,7 +13675,7 @@
 "kNv" = (
 /obj/structure/closet/l3closet/security,
 /obj/item/clothing/mask/gas,
-/obj/item/tank/emergency_oxygen/double/full,
+/obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/watertank/janitor{
 	max_integrity = 1500;
@@ -14165,7 +14165,7 @@
 "ldQ" = (
 /obj/structure/closet/l3closet/security,
 /obj/item/clothing/mask/gas,
-/obj/item/tank/emergency_oxygen/double/full,
+/obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/watertank/janitor{
 	max_integrity = 1500;
@@ -17183,7 +17183,7 @@
 /area/centcom/zone1)
 "nkf" = (
 /obj/structure/table,
-/obj/item/tank/oxygen/yellow,
+/obj/item/tank/internals/oxygen/yellow,
 /obj/random/bomb_supply,
 /obj/item/clothing/under/rebeloutfit,
 /obj/item/clothing/neck/poncho/ponchoshame,
@@ -21158,7 +21158,7 @@
 "qbO" = (
 /obj/structure/closet/l3closet/security,
 /obj/item/clothing/mask/gas,
-/obj/item/tank/emergency_oxygen/double/full,
+/obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/watertank/janitor{
 	max_integrity = 1500;
@@ -23712,7 +23712,7 @@
 /obj/item/clothing/under/plasmaman/wizard,
 /obj/item/clothing/head/helmet/space/plasmaman/wizard,
 /obj/item/clothing/mask/breath,
-/obj/item/tank/plasma/plasmaman/belt/full,
+/obj/item/tank/internals/plasmaman/belt/full,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "bcarpet06"

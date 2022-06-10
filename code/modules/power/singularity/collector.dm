@@ -11,7 +11,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 //	use_power = NO_POWER_USE
 	max_integrity = 350
 	integrity_failure = 80
-	var/obj/item/tank/plasma/P = null
+	var/obj/item/tank/internals/plasma/P = null
 	var/last_power = 0
 	var/active = 0
 	var/locked = 0
@@ -55,7 +55,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		return 1
 	else if(istype(W, /obj/item/analyzer) && P)
 		atmosanalyzer_scan(P.air_contents, user)
-	else if(istype(W, /obj/item/tank/plasma))
+	else if(istype(W, /obj/item/tank/internals/plasma))
 		if(!src.anchored)
 			to_chat(user, "<span class='warning'>The [src] needs to be secured to the floor first.</span>")
 			return 1
@@ -104,7 +104,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 /obj/machinery/power/rad_collector/proc/eject()
 	locked = 0
-	var/obj/item/tank/plasma/Z = src.P
+	var/obj/item/tank/internals/plasma/Z = src.P
 	if(!Z)
 		return
 	Z.loc = get_turf(src)

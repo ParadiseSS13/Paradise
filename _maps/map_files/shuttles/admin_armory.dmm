@@ -1049,7 +1049,7 @@
 /area/shuttle/administration)
 "HN" = (
 /obj/structure/sign/poster/official/do_not_question,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/shuttle/wall{
 	icon_state = "swall3"
 	},
@@ -1395,12 +1395,12 @@
 /area/shuttle/administration)
 "Un" = (
 /obj/structure/table/reinforced,
-/obj/item/tank/emergency_oxygen/engi{
+/obj/item/tank/internals/emergency_oxygen/engi{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/tank/emergency_oxygen/engi,
-/obj/item/tank/emergency_oxygen/engi{
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi{
 	pixel_x = -3;
 	pixel_y = 3
 	},

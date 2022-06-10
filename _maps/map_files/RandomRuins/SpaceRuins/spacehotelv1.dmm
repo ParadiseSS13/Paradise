@@ -5072,7 +5072,7 @@
 /obj/item/storage/toolbox/electrical,
 /obj/item/wrench,
 /obj/item/clothing/gloves/color/fyellow,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "HN" = (
@@ -7648,7 +7648,7 @@
 "XI" = (
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/yellow,
-/obj/item/tank/emergency_oxygen/engi/empty,
+/obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/item/clothing/mask/breath,
 /obj/item/storage/toolbox/electrical,
 /obj/item/wrench,

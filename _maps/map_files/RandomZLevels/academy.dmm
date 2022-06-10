@@ -1086,8 +1086,8 @@
 /area/awaymission/academy/headmaster)
 "cU" = (
 /obj/structure/closet/crate/internals,
-/obj/item/tank/oxygen,
-/obj/item/tank/oxygen/red,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen/red,
 /obj/item/reagent_containers/food/pill/patch/silver_sulf,
 /turf/simulated/floor/plasteel{
 	dir = 8;
