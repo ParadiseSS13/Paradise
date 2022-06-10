@@ -11,6 +11,7 @@
 	var/tank_volume = 1000 //In units, how much the dispenser can hold
 	var/reagent_id = "water" //The ID of the reagent that the dispenser uses
 	var/lastrigger = "" // The last person to rig this fuel tank - Stored with the object. Only the last person matter for investigation
+	var/went_boom = FALSE /// If the dispenser is being blown up already. Used to avoid multiple boom calls due to itself exploding etc
 
 /obj/structure/reagent_dispensers/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
@@ -35,7 +36,10 @@
 			if(reagents)
 				reagents.temperature_reagents(exposed_temperature)
 
-/obj/structure/reagent_dispensers/proc/boom()
+/obj/structure/reagent_dispensers/proc/boom(rigtrigger = FALSE, log_attack = FALSE)
+	if(went_boom)
+		return
+	went_boom = TRUE
 	visible_message("<span class='danger'>[src] ruptures!</span>")
 	chem_splash(loc, 5, list(reagents))
 	qdel(src)
