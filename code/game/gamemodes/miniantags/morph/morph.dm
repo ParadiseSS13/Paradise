@@ -26,8 +26,8 @@
 	health = 150
 	environment_smash = 1
 	obj_damage = 50
-	melee_damage_lower = 10
-	melee_damage_upper = 10
+	melee_damage_lower = 15
+	melee_damage_upper = 15
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	vision_range = 1 // Only attack when target is close
@@ -228,7 +228,15 @@
 		ambush_attack(user, TRUE)
 		return TRUE
 
-	if (!morphed && prob(25))
+	if (istype(user, /mob/living/silicon/robot))
+		var/food_value = calc_food_gained(item)
+		if(food_value + gathered_food > 0)
+			var/mob/living/silicon/robot/borg = user
+			borg.adjustBruteLoss(20)
+			add_food(-5)
+			return TRUE
+
+	if (!morphed && prob(50))
 		var/food_value = calc_food_gained(item)
 		if(food_value + gathered_food > 0)
 			to_chat(user, "<span class='warning'>[src] just ate your [item]!</span>")
@@ -280,18 +288,19 @@
 
 /mob/living/simple_animal/hostile/morph/proc/allowed(atom/movable/item)
 	var/list/not_allowed = list(/obj/screen, /obj/singularity, /mob/living/simple_animal/hostile/morph)
-	return !!is_type_in_list(item, not_allowed)
+	return !is_type_in_list(item, not_allowed)
 
 /mob/living/simple_animal/hostile/morph/AIShouldSleep(list/possible_targets)
 	. = ..()
 	if(. && !morphed)
 		var/list/things = list()
 		for(var/atom/movable/item_in_view in view(src))
-			if(allowed(item_in_view))
+			if(istype(item_in_view, /obj) && allowed(item_in_view))
 				things += item_in_view
 		var/atom/movable/picked_thing = pick(things)
-		mimic_spell.take_form(new /datum/mimic_form(picked_thing, src), src)
-		prepare_ambush() // They cheat okay
+		if (picked_thing)
+			mimic_spell.take_form(new /datum/mimic_form(picked_thing, src), src)
+			prepare_ambush() // They cheat okay
 
 /mob/living/simple_animal/hostile/morph/AttackingTarget()
 	if(isliving(target)) // Eat Corpses to regen health

@@ -27,6 +27,7 @@
 	var/mob/C = pick(candidates)
 	user.use_food(hunger_cost)
 
+	playsound(user, "bonebreak", 75, TRUE)
 	var/mob/living/simple_animal/hostile/morph/new_morph = new /mob/living/simple_animal/hostile/morph(get_turf(user))
 	var/datum/mind/player_mind = new /datum/mind(C.key)
 	player_mind.active = TRUE

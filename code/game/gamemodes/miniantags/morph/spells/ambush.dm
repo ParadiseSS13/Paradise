@@ -1,4 +1,4 @@
-#define MORPH_AMBUSH_PERFECTION_TIME 15 SECONDS
+#define MORPH_AMBUSH_PERFECTION_TIME 10 SECONDS
 
 /obj/effect/proc_holder/spell/targeted/morph_spell/ambush
 	name = "Prepare Ambush"
