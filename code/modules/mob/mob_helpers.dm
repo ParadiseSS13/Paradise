@@ -13,6 +13,57 @@
 	return 0
 
 /mob/proc/get_screen_colour()
+	SHOULD_CALL_PARENT(TRUE)
+	// OOC Colourblind setting takes priority over everything else.
+	if(client?.prefs)
+		switch(client.prefs.colourblind_mode)
+			if(COLOURBLIND_MODE_NONE)
+				. = null
+
+			/*
+				Also it goes without saying
+
+				For the love of god, do NOT mess with the matricies below.
+				The values may look arbitrary as hell, but they follow colour filtering rules
+				to accent specific colours and block out others, which helps different
+				forms of colourblindness. Its not perfect but it helps.
+
+				If you ever want to modify these matricies, test them with someone who
+				suffers that form of colourblindness, and ask if its an improvement or a hinderance.
+				I cannot stress this enough
+
+				-aa07
+			*/
+			if(COLOURBLIND_MODE_DEUTER)
+				// Red-green (green weak, deuteranopia)
+				// Below is a colour matrix to account for that
+				. = list(
+					 1.8,  0, -0.14, 0,
+					-1.05, 1,  0.1,  0,
+					 0.3,  0,  1,    0,
+					 0,    0,  0,    1
+				) // Time spent creating this matrix: 1 hour 32 minutes
+
+			if(COLOURBLIND_MODE_PROT)
+				// Red-green (red weak, protanopia)
+				// Below is a colour matrix to account for that
+				. = list(
+					1, 0.475, 0.594, 0,
+					0, 0.482, -0.68, 0,
+					0, 0.044, 1.087, 0,
+					0, 0,     0,     1
+				) // Time spent creating this matrix: 57 minutes
+
+			if(COLOURBLIND_MODE_TRIT)
+				// Blue-yellow (tritanopia)
+				// Below is a colour matrix to account for that
+				. = list(
+					 0.74,  0.07,  0, 0,
+					-0.405, 0.593, 0, 0,
+					 0.665, 0.335, 1, 0,
+					 0,     0,     0, 1
+				) // Time spent creating this matrix: 34 minutes
+
 	return
 
 /mob/proc/update_client_colour(time = 10) //Update the mob's client.color with an animation the specified time in length.
@@ -41,6 +92,8 @@
   */
 /mob/proc/flash_screen_color(flash_color, flash_time)
 	if(!client)
+		return
+	if(client?.prefs.colourblind_mode != COLOURBLIND_MODE_NONE)
 		return
 	client.color = flash_color
 	INVOKE_ASYNC(client, /client/.proc/colour_transition, get_screen_colour(), flash_time)
