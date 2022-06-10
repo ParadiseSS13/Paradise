@@ -181,7 +181,7 @@
 			I.receive_damage(brute * 0.5)
 			brute -= brute * 0.5
 
-	if(status & ORGAN_BROKEN && prob(40) && brute)
+	if(status & ORGAN_BROKEN && prob(40) && brute && owner.stat)
 		owner.emote("scream")	//getting hit on broken hand hurts
 	if(status & ORGAN_SPLINTED && prob((brute + burn)*4)) //taking damage to splinted limbs removes the splints
 		status &= ~ORGAN_SPLINTED

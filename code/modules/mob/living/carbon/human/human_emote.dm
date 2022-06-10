@@ -80,6 +80,7 @@
 	message_mime = "seems to be speaking sweet nothings!"
 	message_postfix = "at %t!"
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/carbon/human/nod
 	key = "nod"
@@ -129,6 +130,7 @@
 	message_mime = "appears to be gasping!"
 	emote_type = EMOTE_SOUND  // Don't make this one a mouth emote since we don't want it to be caught by nobreath
 	age_based = TRUE
+	unintentional_stat_allowed = UNCONSCIOUS
 	volume = 100
 
 /datum/emote/living/carbon/human/gasp/get_sound(mob/user)

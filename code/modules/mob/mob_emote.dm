@@ -38,8 +38,6 @@
 	if(intentional && !silenced && !force_silence)
 		log_world("<span class='notice'>Unusable emote '[emote_key]'. Say *help for a list. </span>")
 		to_chat(src, "<span class='notice'>Unusable emote '[emote_key]'. Say *help for a list. </span>")
-	else if(!intentional)
-		stack_trace("Emote with key [emote_key] was called unintentionally but was unusable.")
 	return FALSE
 
 /**
