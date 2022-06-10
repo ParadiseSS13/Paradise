@@ -140,8 +140,6 @@
 	id = "applejuice"
 	description = "The sweet juice of an apple, fit for all ages."
 	color = "#ECFF56" // rgb: 236, 255, 86
-	drink_name = "Apple Juice"
-	drink_desc = "Apple juice. Maybe it would have been better in a pie..."
 	taste_description = "apple juice"
 
 /datum/reagent/consumable/drink/watermelonjuice
@@ -149,8 +147,6 @@
 	id = "watermelonjuice"
 	description = "Delicious juice made from watermelon."
 	color = "#863333" // rgb: 134, 51, 51
-	drink_name = "Watermelon Juice"
-	drink_desc = "Almost water."
 	taste_description = "watermelon juice"
 
 /datum/reagent/consumable/drink/lemonjuice
@@ -168,8 +164,6 @@
 	id = "grapejuice"
 	description = "This juice is known to stain shirts."
 	color = "#993399" // rgb: 153, 51, 153
-	drink_name = "Grape Juice"
-	drink_desc = "If you leave it out for long enough, it might turn into wine."
 	taste_description = "grape juice"
 
 /datum/reagent/consumable/drink/banana
@@ -257,8 +251,6 @@
 	id ="chocolate_milk"
 	description = "Chocolate-flavored milk, tastes like being a kid again."
 	color = "#85432C"
-	drink_name = "Chocolate milk"
-	drink_desc = "Smells like childhood. What would they need to add to make it taste like childhood too?"
 	taste_description = "chocolate milk"
 
 /datum/reagent/consumable/drink/hot_coco
@@ -510,8 +502,6 @@
 	id = "pumpkinjuice"
 	description = "Juiced from real pumpkin."
 	color = "#FFA500"
-	drink_name = "Pumpkin Juice"
-	drink_desc = "Healthy and tasty!"
 	taste_description = "autumn"
 
 /datum/reagent/consumable/drink/blumpkinjuice
@@ -519,8 +509,6 @@
 	id = "blumpkinjuice"
 	description = "Juiced from real blumpkin."
 	color = "#00BFFF"
-	drink_name = "Blumpkin Juice"
-	drink_desc = "Unhealthy and revolting! It seems to be glowing..."
 	taste_description = "caustic puke"
 
 /datum/reagent/consumable/drink/grape_soda
@@ -528,8 +516,6 @@
 	id = "grapesoda"
 	description = "Beloved of children and teetotalers."
 	color = "#E6CDFF"
-	drink_name = "Grape soda"
-	drink_desc = "Made with real Grapes! Shocking!"
 	taste_description = "grape soda"
 
 /datum/reagent/consumable/drink/coco/icecoco
