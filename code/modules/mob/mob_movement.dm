@@ -11,8 +11,8 @@
 		return TRUE
 	if(ismob(mover))
 		var/mob/moving_mob = mover
-		if((other_mobs && moving_mob.other_mobs))
-			return TRUE
+		if((currently_grab_pulled && moving_mob.currently_grab_pulled))
+			return FALSE
 		if(mover in buckled_mobs)
 			return TRUE
 	return (!mover.density || !density || lying)
@@ -131,50 +131,23 @@
 
 	delay = TICKS2DS(-round(-(DS2TICKS(delay)))) //Rounded to the next tick in equivalent ds
 
+
 	if(locate(/obj/item/grab, mob))
 		delay += 7
-		var/list/L = mob.ret_grab()
-		if(istype(L, /list))
-			if(L.len == 2)
-				L -= mob
-				var/mob/M = L[1]
-				if(M)
-					if((get_dist(mob, M) <= 1 || M.loc == mob.loc))
-						var/turf/prev_loc = mob.loc
-						. = mob.SelfMove(n, direct, delay)
-						if(M && isturf(M.loc)) // Mob may get deleted during parent call
-							var/diag = get_dir(mob, M)
-							if((diag - 1) & diag)
-							else
-								diag = null
-							if((get_dist(mob, M) > 1 || diag))
-								M.Move(prev_loc, get_dir(M.loc, prev_loc), delay)
-			else
-				for(var/mob/M in L)
-					M.other_mobs = 1
-					if(mob != M)
-						M.animate_movement = 3
-				for(var/mob/M in L)
-					spawn(0)
-						M.Move(get_step(M,direct), direct, delay)
-					spawn(1)
-						M.other_mobs = null
-						M.animate_movement = 2
 
-	else
-		var/mob/living/L = mob
-		if(L)
-			var/newdir = NONE
-			var/confusion = L.get_confusion()
-			if(confusion > CONFUSION_MAX)
-				newdir = pick(GLOB.alldirs)
-			else if(prob(confusion * CONFUSION_HEAVY_COEFFICIENT))
-				newdir = angle2dir(dir2angle(direct) + pick(90, -90))
-			else if(prob(confusion * CONFUSION_LIGHT_COEFFICIENT))
-				newdir = angle2dir(dir2angle(direct) + pick(45, -45))
-			if(newdir)
-				direct = newdir
-				n = get_step(mob, direct)
+	var/mob/living/living_mob = mob
+	if(istype(living_mob))
+		var/newdir = NONE
+		var/confusion = living_mob.get_confusion()
+		if(confusion > CONFUSION_MAX)
+			newdir = pick(GLOB.alldirs)
+		else if(prob(confusion * CONFUSION_HEAVY_COEFFICIENT))
+			newdir = angle2dir(dir2angle(direct) + pick(90, -90))
+		else if(prob(confusion * CONFUSION_LIGHT_COEFFICIENT))
+			newdir = angle2dir(dir2angle(direct) + pick(45, -45))
+		if(newdir)
+			direct = newdir
+			n = get_step(mob, direct)
 
 	var/prev_pulling_loc = null
 	if(mob.pulling)
@@ -197,13 +170,6 @@
 		mob.setDir(get_dir(mob, mob.pulling)) // Face welding tanks and stuff when pulling
 	else
 		mob.setDir(direct)
-
-	for(var/obj/item/grab/G in mob)
-		if(G.state == GRAB_NECK)
-			mob.setDir(angle2dir((dir2angle(direct) + 202.5) % 365))
-		G.adjust_position()
-	for(var/obj/item/grab/G in mob.grabbed_by)
-		G.adjust_position()
 
 	moving = 0
 	if(mob && .)
