@@ -1522,7 +1522,7 @@
 		if(internal_tank)
 			WR.crowbar_salvage += internal_tank
 			internal_tank.forceMove(WR)
-			cell = null
+			internal_tank = null
 	. = ..()
 
 /obj/mecha/CtrlClick(mob/living/L)
