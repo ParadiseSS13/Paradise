@@ -228,13 +228,14 @@
 		ambush_attack(user, TRUE)
 		return TRUE
 
-	if (istype(user, /mob/living/silicon/robot))
+	if (!morphed && istype(user, /mob/living/silicon/robot))
 		var/food_value = calc_food_gained(item)
 		if(food_value + gathered_food > 0)
+			to_chat(user, "<span class='warning'>Attacking [src] damaging your systems!</span>")
 			var/mob/living/silicon/robot/borg = user
-			borg.adjustBruteLoss(20)
+			borg.adjustBruteLoss(70)
 			add_food(-5)
-			return TRUE
+		return ..()
 
 	if (!morphed && prob(50))
 		var/food_value = calc_food_gained(item)
@@ -242,7 +243,7 @@
 			to_chat(user, "<span class='warning'>[src] just ate your [item]!</span>")
 			user.unEquip(item)
 			eat(item)
-			return TRUE
+			return ..()
 
 	restore_form()
 	return ..()
