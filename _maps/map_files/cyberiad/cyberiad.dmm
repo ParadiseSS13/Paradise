@@ -46605,6 +46605,7 @@
 	color = "#3E3E3E"
 	},
 /obj/item/pen/multi,
+/obj/item/lighter/zippo/rd,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/hor)
 "bPF" = (
@@ -55473,7 +55474,7 @@
 	dir = 8;
 	pixel_x = 22
 	},
-/obj/machinery/suit_storage_unit/standard_unit,
+/obj/machinery/suit_storage_unit/rd/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
