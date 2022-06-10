@@ -528,7 +528,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(!freq) //recieved on main frequency
 		if(!listening)
 			return -1
-	else if(syndiekey)
+	else if(syndiekey && !(freq in SSradio.syndicate_blacklist))
 		return canhear_range
 	else
 		var/accept = (freq==frequency && listening)
