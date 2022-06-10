@@ -14,7 +14,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "e" = (
-/obj/item/stack/tile/brass,
+/obj/structure/table/reinforced/brass,
 /turf/simulated/floor/clockwork{
 	oxygen = 14;
 	nitrogen = 23;
@@ -90,7 +90,7 @@
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "t" = (
-/obj/item/stack/tile/brass,
+/obj/structure/table/reinforced/brass,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "u" = (
@@ -116,7 +116,7 @@
 /area/lavaland/surface/outdoors/unexplored)
 "x" = (
 /obj/structure/clockwork/wall_gear,
-/obj/item/stack/tile/brass,
+/obj/structure/table/reinforced/brass,
 /turf/simulated/floor/clockwork{
 	oxygen = 14;
 	nitrogen = 23;
@@ -140,7 +140,7 @@
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "A" = (
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/clockwork{
 	oxygen = 14;
 	nitrogen = 23;
@@ -148,7 +148,7 @@
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "B" = (
-/obj/item/clockwork/weapon/ratvarian_spear,
+/obj/item/twohanded/ratvarian_spear,
 /turf/simulated/floor/clockwork{
 	oxygen = 14;
 	nitrogen = 23;
@@ -168,7 +168,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "E" = (
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "F" = (
@@ -180,7 +180,7 @@
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "G" = (
-/obj/item/stack/tile/brass/fifty,
+/obj/structure/table/reinforced/brass/fifty,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 

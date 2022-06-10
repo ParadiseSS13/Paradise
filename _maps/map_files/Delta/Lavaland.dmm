@@ -2274,7 +2274,7 @@
 	},
 /obj/structure/stone_tile,
 /obj/structure/table/reinforced/brass,
-/obj/item/clockwork/weapon/ratvarian_spear,
+/obj/item/twohanded/ratvarian_spear,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "ir" = (
@@ -2600,7 +2600,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "kl" = (
@@ -2758,7 +2758,7 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "le" = (
@@ -3691,7 +3691,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "qD" = (
@@ -4285,7 +4285,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "wA" = (
@@ -5953,7 +5953,7 @@
 /area/mine/living_quarters)
 "Qy" = (
 /obj/structure/stone_tile/slab/cracked,
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "QD" = (
@@ -6385,7 +6385,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "UK" = (
@@ -6596,7 +6596,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "XW" = (
@@ -6640,9 +6640,7 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced/brass,
-/obj/item/stack/tile/brass{
-	amount = 10
-	},
+/obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "YJ" = (
@@ -6759,7 +6757,7 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/clockgolem_remains,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "ZA" = (
