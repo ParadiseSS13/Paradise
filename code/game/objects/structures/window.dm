@@ -149,7 +149,7 @@
 		return
 	if(user.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
-		playsound(src, 'sound/effects/glassknock.ogg', 80, 1)
+		playsound(src, 'sound/effects/glassbang.ogg', 100, 1)
 		user.visible_message("<span class='warning'>[user] bangs against [src]!</span>", \
 							"<span class='warning'>You bang against [src]!</span>", \
 							"You hear a banging sound.")
