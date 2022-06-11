@@ -673,17 +673,16 @@
 // called when bot bumps into anything
 /mob/living/simple_animal/bot/mulebot/Bump(atom/obs)
 	if(wires.is_cut(WIRE_MOB_AVOIDANCE))	// usually just bumps, but if avoidance disabled knock over mobs
-		var/mob/M = obs
-		if(ismob(M))
-			if(istype(M,/mob/living/silicon/robot))
-				visible_message("<span class='danger'>[src] bumps into [M]!</span>")
+		var/mob/living/L = obs
+		if(ismob(L))
+			if(istype(L,/mob/living/silicon/robot))
+				visible_message("<span class='danger'>[src] bumps into [L]!</span>")
 			else
 				if(!paicard)
-					add_attack_logs(src, M, "Knocked down")
-					visible_message("<span class='danger'>[src] knocks over [M]!</span>")
-					M.stop_pulling()
-					M.Stun(8)
-					M.Weaken(5)
+					add_attack_logs(src, L, "Knocked down")
+					visible_message("<span class='danger'>[src] knocks over [L]!</span>")
+					L.stop_pulling()
+					L.Weaken(16 SECONDS)
 	return ..()
 
 /mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)

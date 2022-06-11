@@ -114,9 +114,9 @@
 	location_override = "the Captain's Office"
 
 /datum/theft_objective/reactive
-	name = "the reactive teleport armor"
-	typepath = /obj/item/clothing/suit/armor/reactive/teleport
-	protected_jobs = list("Research Director")
+	name = "any type of reactive armor"
+	typepath = /obj/item/clothing/suit/armor/reactive
+	protected_jobs = list("Research Director", "Scientist", "Roboticist") //no one with protolathe access, who will often be handed a core
 	location_override = "the Research Director's Office"
 
 /datum/theft_objective/steal/documents
@@ -146,7 +146,7 @@
 	name = "a supermatter sliver"
 	typepath = /obj/item/nuke_core/supermatter_sliver
 	protected_jobs = list("Chief Engineer", "Station Engineer", "Life Support Specialist") //Unlike other steal objectives, all jobs in the department have easy access, and would not be noticed at all stealing this
-	location_override = "Engineering. You can use the box and instructions provided to harvest the sliver."
+	location_override = "Engineering. You can use the box and instructions provided to harvest the sliver"
 	special_equipment = /obj/item/storage/box/syndie_kit/supermatter
 	job_possession = FALSE //The CE / engineers / atmos techs do not carry around supermater slivers.
 

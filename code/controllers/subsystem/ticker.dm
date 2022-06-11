@@ -57,7 +57,7 @@ SUBSYSTEM_DEF(ticker)
 	var/round_end_announced = FALSE
 	/// Is the ticker currently processing? If FALSE, roundstart is delayed
 	var/ticker_going = TRUE
-	/// Gamemode result (For things like shadowlings or nukies which can end multiple ways)
+	/// Gamemode result (For things like cult or nukies which can end multiple ways)
 	var/mode_result = "undefined"
 	/// Server end state (Did we end properly or reboot or nuke or what)
 	var/end_state = "undefined"
@@ -237,12 +237,10 @@ SUBSYSTEM_DEF(ticker)
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
 	// Generate the list of empty playable AI cores in the world
-	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
-		if(S.name != "AI")
+	for(var/obj/effect/landmark/start/ai/A in GLOB.landmarks_list)
+		if(locate(/mob/living) in get_turf(A))
 			continue
-		if(locate(/mob/living) in S.loc)
-			continue
-		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(S))
+		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(A))
 
 
 	// Setup pregenerated newsfeeds
@@ -259,7 +257,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Delete starting landmarks (not AI ones because we need those for AI-ize)
 	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
-		if(S.name != "AI")
+		if(!istype(S, /obj/effect/landmark/start/ai))
 			qdel(S)
 
 	SSdbcore.SetRoundStart()

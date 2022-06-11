@@ -121,3 +121,9 @@
 #define TAB_CHAR 0
 #define TAB_GAME 1
 #define TAB_GEAR 2
+
+// Colourblind modes
+#define COLOURBLIND_MODE_NONE "None"
+#define COLOURBLIND_MODE_DEUTER "Red-green (green weak, deuteranopia)"
+#define COLOURBLIND_MODE_PROT "Red-green (red weak, protanopia)"
+#define COLOURBLIND_MODE_TRIT "Blue-yellow (tritanopia)"

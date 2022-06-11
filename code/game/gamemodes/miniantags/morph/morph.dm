@@ -43,7 +43,7 @@
 	/// How much damage a successful ambush attack does
 	var/ambush_damage = 25
 	/// How much weaken a successful ambush attack applies
-	var/ambush_weaken = 3
+	var/ambush_weaken = 6 SECONDS
 	/// The spell the morph uses to morph
 	var/obj/effect/proc_holder/spell/mimic/morph/mimic_spell
 	/// The ambush action used by the morph

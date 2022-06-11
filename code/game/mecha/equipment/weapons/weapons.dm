@@ -213,14 +213,14 @@
 				continue
 		to_chat(M, "<font color='red' size='7'>HONK</font>")
 		M.SetSleeping(0)
-		M.Stuttering(20)
+		M.Stuttering(40 SECONDS)
 		M.AdjustEarDamage(0, 30)
-		M.Weaken(3)
+		M.Weaken(6 SECONDS)
 		if(prob(30))
-			M.Stun(10)
-			M.Paralyse(4)
+			M.Stun(20 SECONDS)
+			M.Paralyse(8 SECONDS)
 		else
-			M.Jitter(500)
+			M.Jitter(1000 SECONDS)
 		///else the mousetraps are useless
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M

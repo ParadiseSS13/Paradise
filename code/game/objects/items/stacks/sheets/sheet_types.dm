@@ -81,6 +81,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("research airlock assembly", /obj/structure/door_assembly/door_assembly_research, 4, time = 50, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("science airlock assembly", /obj/structure/door_assembly/door_assembly_science, 4, time = 50, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("medical airlock assembly", /obj/structure/door_assembly/door_assembly_med, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("virology airlock assembly", /obj/structure/door_assembly/door_assembly_viro, 4, time = 50, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("maintenance airlock assembly", /obj/structure/door_assembly/door_assembly_mai, 4, time = 50, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("external maintenance airlock assembly", /obj/structure/door_assembly/door_assembly_extmai, 4, time = 50, one_per_turf = 1, on_floor = 1), \
 		new /datum/stack_recipe("external airlock assembly", /obj/structure/door_assembly/door_assembly_ext, 4, time = 50, one_per_turf = 1, on_floor = 1),
@@ -341,7 +342,20 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	new /datum/stack_recipe("folder", /obj/item/folder),
 	new /datum/stack_recipe("cardboard tube", /obj/item/c_tube),
 	new /datum/stack_recipe("cardboard box", /obj/structure/closet/cardboard, 4),
-	new /datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5)
+	new /datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5),
+	null,
+	new /datum/stack_recipe("black pawn", /obj/item/chesspiece/bpawn, 1),
+	new /datum/stack_recipe("black rook", /obj/item/chesspiece/brook, 1),
+	new /datum/stack_recipe("black knight", /obj/item/chesspiece/bknight, 1),
+	new /datum/stack_recipe("black bishop", /obj/item/chesspiece/bbishop, 1),
+	new /datum/stack_recipe("black queen", /obj/item/chesspiece/bqueen, 1),
+	new /datum/stack_recipe("black king", /obj/item/chesspiece/bking, 1),
+	new /datum/stack_recipe("white pawn", /obj/item/chesspiece/wpawn, 1),
+	new /datum/stack_recipe("white rook", /obj/item/chesspiece/wrook, 1),
+	new /datum/stack_recipe("white knight", /obj/item/chesspiece/wknight, 1),
+	new /datum/stack_recipe("white bishop", /obj/item/chesspiece/wbishop, 1),
+	new /datum/stack_recipe("white queen", /obj/item/chesspiece/wqueen, 1),
+	new /datum/stack_recipe("white king", /obj/item/chesspiece/wking, 1)
 ))
 
 /obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)

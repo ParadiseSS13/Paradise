@@ -22,7 +22,6 @@
 		owner.som = new /datum/mindslaves
 
 	owner.som.masters += owner
-	SSticker.mode.traitors |= owner
 	..()
 
 /datum/antagonist/traitor/Destroy(force, ...)
@@ -46,8 +45,13 @@
 		owner.som = null
 
 	owner.current.client.chatOutput?.clear_syndicate_codes()
-	SSticker.mode.traitors -= owner
 	return ..()
+
+/datum/antagonist/traitor/add_owner_to_gamemode()
+	SSticker.mode.traitors |= owner
+
+/datum/antagonist/traitor/remove_owner_from_gamemode()
+	SSticker.mode.traitors -= owner
 
 /datum/antagonist/traitor/add_antag_hud(mob/living/antag_mob)
 	var/is_contractor = LAZYACCESS(GLOB.contractors, owner)

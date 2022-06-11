@@ -68,8 +68,8 @@
 
 /datum/reagent/consumable/drink/carrotjuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.AdjustEyeBlurry(-1, FALSE)
-	update_flags |= M.AdjustEyeBlind(-1, FALSE)
+	M.AdjustEyeBlurry(-2 SECONDS)
+	M.AdjustEyeBlind(-2 SECONDS)
 	switch(current_cycle)
 		if(1 to 20)
 			//nothing
@@ -140,6 +140,8 @@
 	id = "applejuice"
 	description = "The sweet juice of an apple, fit for all ages."
 	color = "#ECFF56" // rgb: 236, 255, 86
+	drink_name = "Apple Juice"
+	drink_desc = "Apple juice. Maybe it would have been better in a pie..."
 	taste_description = "apple juice"
 
 /datum/reagent/consumable/drink/watermelonjuice
@@ -147,6 +149,8 @@
 	id = "watermelonjuice"
 	description = "Delicious juice made from watermelon."
 	color = "#863333" // rgb: 134, 51, 51
+	drink_name = "Watermelon Juice"
+	drink_desc = "Almost water."
 	taste_description = "watermelon juice"
 
 /datum/reagent/consumable/drink/lemonjuice
@@ -164,6 +168,8 @@
 	id = "grapejuice"
 	description = "This juice is known to stain shirts."
 	color = "#993399" // rgb: 153, 51, 153
+	drink_name = "Grape Juice"
+	drink_desc = "If you leave it out for long enough, it might turn into wine."
 	taste_description = "grape juice"
 
 /datum/reagent/consumable/drink/banana
@@ -251,6 +257,8 @@
 	id ="chocolate_milk"
 	description = "Chocolate-flavored milk, tastes like being a kid again."
 	color = "#85432C"
+	drink_name = "Chocolate milk"
+	drink_desc = "Smells like childhood. What would they need to add to make it taste like childhood too?"
 	taste_description = "chocolate milk"
 
 /datum/reagent/consumable/drink/hot_coco
@@ -271,9 +279,9 @@
 	description = "Coffee is a brewed drink prepared from roasted seeds, commonly called coffee beans, of the coffee plant."
 	color = "#482000" // rgb: 72, 32, 0
 	nutriment_factor = 0
-	adj_dizzy = -5
-	adj_drowsy = -3
-	adj_sleepy = -2
+	adj_dizzy = -10 SECONDS
+	adj_drowsy = -6 SECONDS
+	adj_sleepy = -4 SECONDS
 	adj_temp_hot = 25
 	overdose_threshold = 45
 	addiction_chance = 2 // It's true.
@@ -291,14 +299,14 @@
 	if(holder.has_reagent("frostoil"))
 		holder.remove_reagent("frostoil", 5)
 	if(prob(50))
-		update_flags |= M.AdjustParalysis(-1, FALSE)
-		update_flags |= M.AdjustStunned(-1, FALSE)
-		update_flags |= M.AdjustWeakened(-1, FALSE)
+		M.AdjustParalysis(-2 SECONDS)
+		M.AdjustStunned(-2 SECONDS)
+		M.AdjustWeakened(-2 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/coffee/overdose_process(mob/living/M, severity)
 	if(volume > 45)
-		M.Jitter(5)
+		M.Jitter(10 SECONDS)
 	return list(0, STATUS_UPDATE_NONE)
 
 /datum/reagent/consumable/drink/coffee/icecoffee
@@ -327,7 +335,7 @@
 
 /datum/reagent/consumable/drink/coffee/soy_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.SetSleeping(0, FALSE)
+	M.SetSleeping(0)
 	if(prob(20))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 	return ..() | update_flags
@@ -346,7 +354,7 @@
 
 /datum/reagent/consumable/drink/coffee/cafe_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.SetSleeping(0, FALSE)
+	M.SetSleeping(0)
 	if(prob(20))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 	return ..() | update_flags
@@ -366,9 +374,9 @@
 	description = "Tasty black tea: It has antioxidants. It's good for you!"
 	color = "#101000" // rgb: 16, 16, 0
 	nutriment_factor = 0
-	adj_dizzy = -2
-	adj_drowsy = -1
-	adj_sleepy = -3
+	adj_dizzy = -4 SECONDS
+	adj_drowsy = -2 SECONDS
+	adj_sleepy = -6 SECONDS
 	adj_temp_hot = 20
 	addiction_chance = 1
 	addiction_chance_additional = 1
@@ -502,6 +510,8 @@
 	id = "pumpkinjuice"
 	description = "Juiced from real pumpkin."
 	color = "#FFA500"
+	drink_name = "Pumpkin Juice"
+	drink_desc = "Healthy and tasty!"
 	taste_description = "autumn"
 
 /datum/reagent/consumable/drink/blumpkinjuice
@@ -509,6 +519,8 @@
 	id = "blumpkinjuice"
 	description = "Juiced from real blumpkin."
 	color = "#00BFFF"
+	drink_name = "Blumpkin Juice"
+	drink_desc = "Unhealthy and revolting! It seems to be glowing..."
 	taste_description = "caustic puke"
 
 /datum/reagent/consumable/drink/grape_soda
@@ -516,6 +528,8 @@
 	id = "grapesoda"
 	description = "Beloved of children and teetotalers."
 	color = "#E6CDFF"
+	drink_name = "Grape Soda"
+	drink_desc = "Made with real grapes! Shocking!"
 	taste_description = "grape soda"
 
 /datum/reagent/consumable/drink/coco/icecoco

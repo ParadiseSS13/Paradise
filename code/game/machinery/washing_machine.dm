@@ -233,6 +233,9 @@
 		istype(W,/obj/item/bedsheet))
 
 		//YES, it's hardcoded... saves a var/can_be_washed for every single clothing item.
+		if( istype(W,/obj/item/clothing/under/plasmaman ) )
+			to_chat(user, "This item does not fit.")
+			return
 		if( istype(W,/obj/item/clothing/suit/space ) )
 			to_chat(user, "This item does not fit.")
 			return
@@ -246,9 +249,6 @@
 			to_chat(user, "This item does not fit.")
 			return
 		if( istype(W,/obj/item/clothing/suit/bomb_suit ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/suit/armor ) )
 			to_chat(user, "This item does not fit.")
 			return
 		if( istype(W,/obj/item/clothing/suit/armor ) )

@@ -29,6 +29,7 @@
 	icon_state = "oxygen"
 	spawn_contents = LINDA_SPAWN_20C | LINDA_SPAWN_OXYGEN
 	spawn_amount = 500
+	origin_tech = null
 
 /obj/item/grenade/gluon
 	desc = "An advanced grenade that releases a harmful stream of gluons inducing radiation in those nearby. These gluon streams will also make victims feel exhausted, and induce shivering. This extreme coldness will also wet any nearby floors."

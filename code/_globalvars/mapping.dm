@@ -35,7 +35,7 @@ GLOBAL_LIST_EMPTY(tdomeadmin)
 GLOBAL_LIST_EMPTY(aroomwarp)
 GLOBAL_LIST_EMPTY(prisonsecuritywarp)	//prison security goes to these
 GLOBAL_LIST_EMPTY(prisonwarped)	//list of players already warped
-GLOBAL_LIST_EMPTY(blobstart)
+GLOBAL_LIST_EMPTY(nukedisc_respawn)
 GLOBAL_LIST_EMPTY(ninjastart)
 GLOBAL_LIST_EMPTY(carplist) //list of all carp-spawn landmarks
 GLOBAL_LIST_EMPTY(syndicateofficer)

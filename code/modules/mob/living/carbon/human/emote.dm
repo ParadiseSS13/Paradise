@@ -449,7 +449,7 @@
 								message = "<B>[src]</B> attempts a flip and crashes to the floor!"
 								SpinAnimation(5,1)
 								sleep(3)
-								Weaken(2)
+								Weaken(4 SECONDS)
 							else
 								message = "<B>[src]</B> does a flip!"
 								SpinAnimation(5,1)
@@ -459,8 +459,8 @@
 				if(prob(5))
 					spin(32, 1)
 					to_chat(src, "<span class='warning'>You spin too much!</span>")
-					Dizzy(12)
-					Confused(12)
+					Dizzy(24 SECONDS)
+					Confused(24 SECONDS)
 				else
 					spin(20, 1)
 
@@ -500,9 +500,9 @@
 
 		if("faint", "faints")
 			message = "<B>[src]</B> faints."
-			if(sleeping)
+			if(IsSleeping())
 				return //Can't faint while asleep
-			AdjustSleeping(2)
+			AdjustSleeping(4 SECONDS)
 			m_type = 1
 
 		if("cough", "coughs")
@@ -842,7 +842,7 @@
 					m_type = 1
 
 		if("collapse", "collapses")
-			Paralyse(2)
+			Paralyse(4 SECONDS)
 			message = "<B>[src]</B> collapses!"
 			m_type = 2
 			if(miming)
