@@ -334,6 +334,11 @@
 	message_postfix = "at %t!"
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
+	mob_type_blacklist_typecache = list(
+		/mob/living/carbon/brain,
+		/mob/living/captive_brain
+	)
+
 /datum/emote/living/tilt
 	key = "tilt"
 	key_third_person = "tilts"
