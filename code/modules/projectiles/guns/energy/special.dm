@@ -200,6 +200,7 @@
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
+	item_state = "plasmacutteradv"
 	modifystate = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
