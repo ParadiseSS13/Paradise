@@ -363,7 +363,7 @@
 
 /datum/crafting_recipe/sad_trombone
 	name = "Sad trombone"
-	result = list(/obj/item/instrument/trombone/sad = 1)
+	result = list(/obj/item/instrument/trombone/sad)
 	time = 20
 	reqs = list(/obj/item/stack/sheet/mineral/bananium = 5)
 	category = CAT_MISC
