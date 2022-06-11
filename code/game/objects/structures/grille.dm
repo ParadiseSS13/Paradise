@@ -57,9 +57,8 @@
 		return
 
 	var/ratio = obj_integrity / max_integrity
-	ratio = CEILING(ratio*4, 1) * 25
 
-	if(ratio > 50)
+	if(ratio > 0.5)
 		return
 	icon_state = "grille50_[rand(0,3)]"
 
