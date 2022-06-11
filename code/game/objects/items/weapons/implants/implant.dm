@@ -41,7 +41,7 @@
 	var/allow_multiple = FALSE
 	/// Amount of times that the implant can be triggered by the user. If the implant can't be used, it can't be inserted.
 	var/uses = -1
-	flags = DROPDEL
+	flags = DROPDEL  // By default, don't let implants be harvestable.
 
 	/// List of emote keys that activate this implant when used.
 	var/list/trigger_emotes
@@ -133,12 +133,19 @@
 /obj/item/implant/ui_action_click()
 	activate("action_button")
 
-//What does the implant do upon injection?
-//return 1 if the implant injects
-//return -1 if the implant fails to inject
-//return 0 if there is no room for implant
+/**
+ * Try to implant ourselves into a mob.
+ *
+ * * source - The person the implant is being administered to.
+ * * user - The person who is doing the implanting.
+ *
+ * Returns
+ * 	1 if the implant injects successfully
+ *  -1 if the implant fails to inject
+ * 	0 if there's no room for the implant.
+ */
 /obj/item/implant/proc/implant(mob/source, mob/user)
-	var/obj/item/implant/imp_e = locate(src.type) in source
+	var/obj/item/implant/imp_e = locate(type) in source
 	if(!allow_multiple && imp_e && imp_e != src)
 		if(imp_e.uses < initial(imp_e.uses)*2)
 			if(uses == -1)
@@ -151,7 +158,7 @@
 			return 0
 
 
-	src.loc = source
+	loc = source
 	imp_in = source
 	implanted = TRUE
 	if(trigger_emotes)
@@ -177,8 +184,12 @@
 
 	return 1
 
+/**
+ * Clean up when an implant is removed.
+ * * source - the user who the implant was removed from.
+ */
 /obj/item/implant/proc/removed(mob/source)
-	src.loc = null
+	loc = null
 	imp_in = null
 	implanted = FALSE
 
@@ -195,7 +206,7 @@
 
 	unregister_emotes()
 
-	return 1
+	return TRUE
 
 /obj/item/implant/Destroy()
 	if(imp_in)
@@ -207,5 +218,5 @@
 	return "No information available"
 
 /obj/item/implant/dropped(mob/user)
-	. = 1
+	. = TRUE
 	..()
