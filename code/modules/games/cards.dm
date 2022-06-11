@@ -147,7 +147,7 @@
 	H.update_values()
 	H.update_icon()
 	user.visible_message("<span class='notice'>[user] draws a card.</span>","<span class='notice'>You draws a card.</span>")
-	to_chat(user,"<span class='notice'>It's the [P].</span>")
+	to_chat(user,"<span class='notice'>It's \the [P].</span>")
 
 /obj/item/deck/verb/deal_card()
 
@@ -431,7 +431,7 @@
 		return
 
 	var/datum/playingcard/card = pickablecards[pickedcard]
-	user.visible_message("<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>", "<span class='notice'>You take the [pickedcard] from your hand.</span>")
+	user.visible_message("<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>", "<span class='notice'>You take \the [pickedcard] from your hand.</span>")
 	pickedcard = null
 
 	var/obj/item/cardhand/H = new(get_turf(src))
