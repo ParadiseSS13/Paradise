@@ -65259,10 +65259,6 @@
 /obj/item/trash/candle,
 /turf/simulated/floor/carpet,
 /area/maintenance/aft)
-"cMf" = (
-/obj/machinery/door/airlock/maintenance,
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
 "cMg" = (
 /obj/effect/landmark/spawner/rev,
 /mob/living/simple_animal/slime,
@@ -65276,12 +65272,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cMi" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
@@ -72010,7 +72008,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dci" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dcj" = (
@@ -72873,7 +72873,6 @@
 /turf/simulated/floor/engine/co2,
 /area/atmos)
 "deo" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -72882,14 +72881,19 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dep" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -73254,15 +73258,6 @@
 "dfc" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
-"dff" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dfg" = (
@@ -73664,17 +73659,12 @@
 	},
 /area/maintenance/storage)
 "dge" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/maintenance{
-	name = "Biohazard Disposals";
 	req_access_txt = "12"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
-"dgf" = (
-/obj/machinery/door/airlock/maintenance,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "dgg" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel,
@@ -120527,7 +120517,7 @@ cAe
 cMi
 cAe
 cDm
-cMf
+cmt
 chf
 cep
 ctZ
@@ -121558,7 +121548,7 @@ cAe
 cep
 cEA
 cep
-cMf
+cmt
 cep
 chf
 cIk
@@ -122328,9 +122318,9 @@ chf
 chf
 chf
 chf
-cMf
+cmt
 chf
-cMf
+cmt
 chf
 cIl
 cJt
@@ -126977,7 +126967,7 @@ aaa
 aaa
 bGH
 cuQ
-dgf
+cjA
 cuQ
 bGH
 aaa
@@ -128255,14 +128245,14 @@ aab
 aab
 aab
 bGH
-dff
+cBx
 dhR
 bGH
 bGH
 bGH
 bGH
 cuQ
-dgf
+cjA
 cuQ
 bGH
 bGH
@@ -130060,7 +130050,7 @@ cuQ
 aaa
 cuQ
 cuQ
-dgf
+cjA
 cuQ
 bGG
 bKl
