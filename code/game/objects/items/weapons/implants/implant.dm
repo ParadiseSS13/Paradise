@@ -63,7 +63,6 @@
  * * silent - If true, the user won't get any to_chat messages if an implantation fails.
  */
 /obj/item/implant/proc/set_trigger(mob/user, emote_key, on_implant = FALSE, silent = TRUE)
-
 	if(imp_in != user)
 		return FALSE
 
