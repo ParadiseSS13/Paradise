@@ -98,11 +98,70 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 		)
 	return
 
-
-
 /datum/datacore/proc/manifest()
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		manifest_inject(H)
+
+	// load from the game
+	//for(var/mob/living/carbon/human/H in GLOB.player_list)
+	//	manifest_inject(H)
+	var/datum/db_query/general_records = SSdbcore.NewQuery({"
+		SELECT
+			id,
+			name,
+			rank,
+			age,
+			p_stat,
+			m_stat,
+			sex,
+			underwear,
+			socks,
+			dna
+		FROM
+			rs_records_general
+	"})
+	general_records.Execute()
+	while(general_records.NextRow())
+
+		// make a temporary object
+		var/mob/living/carbon/human/dummy = new()
+		dummy.mind = new()
+
+		var/list/data = json_decode(general_records.item[10])
+
+		// load the dna data
+		dummy.dna.deserialize(data)
+		dummy.sync_organ_dna(assimilate = TRUE)
+		dummy.UpdateAppearance()
+
+		dummy.age = general_records.item[4]
+		dummy.gender = lowertext(general_records.item[7])
+		dummy.underwear = general_records.item[8]
+		dummy.socks = general_records.item[9]
+
+		dummy.force_update_limbs()
+		dummy.update_eyes()
+		dummy.regenerate_icons()
+
+		//General Record
+		var/datum/data/record/G = new()
+		G.fields["id"]			= general_records.item[1]
+		G.fields["name"]		= general_records.item[2]
+		G.fields["real_rank"]	= general_records.item[3]
+		G.fields["rank"]		= general_records.item[3]
+		G.fields["age"]			= dummy.age
+		G.fields["fingerprint"]	= md5(dummy.dna.uni_identity)
+		G.fields["p_stat"]		= general_records.item[5]
+		G.fields["m_stat"]		= general_records.item[6]
+		G.fields["sex"]			= capitalize(dummy.gender)
+		G.fields["species"]		= dummy.dna.species.name
+		G.fields["photo"]		= get_id_photo(dummy)
+		G.fields["photo-south"] = "data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = SOUTH))]"
+		G.fields["photo-west"] = "data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = WEST))]"
+		G.fields["notes"] = "No notes found."
+		general += G
+		qdel(dummy)
+
+	qdel(general_records)
+
 
 /datum/datacore/proc/manifest_modify(name, assignment)
 	if(GLOB.PDA_Manifest.len)
@@ -130,7 +189,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 		foundrecord.fields["real_rank"] = real_title
 
 GLOBAL_VAR_INIT(record_id_num, 1001)
-/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H)
+/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H, id = null)
 	if(GLOB.PDA_Manifest.len)
 		GLOB.PDA_Manifest.Cut()
 
@@ -145,8 +204,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		else
 			assignment = "Unassigned"
 
-		var/id = num2hex(GLOB.record_id_num++, 6)
-
+		if(!id)
+			id = num2hex(GLOB.record_id_num++, 6)
 
 		//General Record
 		var/datum/data/record/G = new()

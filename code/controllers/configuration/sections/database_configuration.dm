@@ -2,7 +2,7 @@
 /datum/configuration_section/database_configuration
 	protection_state = PROTECTION_PRIVATE // NO! BAD!
 	/// SQL enabled or not
-	var/enabled = FALSE
+	var/enabled = TRUE
 	/// What SQL version are we on
 	var/version = 0
 	/// Address of the SQL server

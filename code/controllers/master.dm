@@ -97,6 +97,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(!GLOB)
 		new /datum/controller/global_vars
 
+	log_world("Master System Started (load here)")
+
 /datum/controller/master/Destroy()
 	..()
 	// Tell qdel() to Del() this object.

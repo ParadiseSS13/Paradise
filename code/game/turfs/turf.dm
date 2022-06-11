@@ -76,6 +76,10 @@
 
 	return INITIALIZE_HINT_NORMAL
 
+/turf/New(loc)
+	..(loc)
+	sync_to_db()
+
 /turf/Destroy(force)
 	. = QDEL_HINT_IWILLGC
 	if(!changing_turf)

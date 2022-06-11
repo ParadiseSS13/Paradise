@@ -25,10 +25,10 @@ SUBSYSTEM_DEF(mapping)
 			map_datum = text2path(lines[1])
 			map_datum = new map_datum
 		catch
-			map_datum = new /datum/map/cyberiad // Assume cyberiad if non-existent
+			map_datum = new /datum/map/test_tiny // Assume cyberiad if non-existent
 		fdel("data/next_map.txt") // Remove to avoid the same map existing forever
 	else
-		map_datum = new /datum/map/cyberiad // Assume cyberiad if non-existent
+		map_datum = new /datum/map/test_tiny // Assume cyberiad if non-existent
 
 /datum/controller/subsystem/mapping/Shutdown()
 	if(next_map) // Save map for next round
@@ -111,7 +111,30 @@ SUBSYSTEM_DEF(mapping)
 	else
 		world.name = station_name()
 
+	// Load database changes
+	loadDbTurfs()
+
 	return ..()
+
+/datum/controller/subsystem/mapping/proc/loadDbTurfs()
+	log_startup_progress("DB >> loading turfs...")
+	var/datum/db_query/query = SSdbcore.NewQuery({"
+		SELECT
+			x,y,z,
+			data,
+			air
+		FROM
+			rs_world_turfs
+	"})
+	query.Execute()
+	while(query.NextRow())
+		var/list/data = json_decode(query.item[4])
+		var/turf_path = text2path(data["type"])
+		var/turf/T = locate(text2num(query.item[1]),text2num(query.item[2]),text2num(query.item[3]))
+		log_startup_progress("DB >> spawning turf [turf_path] at [T.x],[T.y],[T.z]")
+		T.ChangeTurf(turf_path)
+		T.deserialize(data)
+	qdel(query)
 
 // Do not confuse with seedRuins()
 /datum/controller/subsystem/mapping/proc/handleRuins()

@@ -166,7 +166,7 @@
 	..()
 	ASSERT(parent_painter)
 	holder = parent_painter
-
+k
 /datum/painter/ui_host() // For TGUI things.
 	return holder
 

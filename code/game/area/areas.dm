@@ -16,14 +16,14 @@
 	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
 	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
 	var/lightswitch = TRUE
+	var/power_equip = TRUE
+	var/power_light = TRUE
+	var/power_environ = TRUE
 
 	var/debug = FALSE
 	var/requires_power = TRUE
 	var/always_unpowered = FALSE	//this gets overriden to 1 for space in area/New()
 
-	var/power_equip = TRUE
-	var/power_light = TRUE
-	var/power_environ = TRUE
 	var/used_equip = FALSE
 	var/used_light = FALSE
 	var/used_environ = FALSE

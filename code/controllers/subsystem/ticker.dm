@@ -16,7 +16,7 @@ SUBSYSTEM_DEF(ticker)
 	/// Current status of the game. See code\__DEFINES\game.dm
 	var/current_state = GAME_STATE_STARTUP
 	/// Do we want to force-start as soon as we can
-	var/force_start = FALSE
+	var/force_start = TRUE
 	/// Do we want to force-end as soon as we can
 	var/force_ending = FALSE
 	/// Leave here at FALSE ! setup() will take care of it when needed for Secret mode -walter0o
@@ -230,6 +230,7 @@ SUBSYSTEM_DEF(ticker)
 
 	watch = start_watch()
 	GLOB.data_core.manifest() // Create the manifest
+
 	log_debug("Manifest creation took [stop_watch(watch)]s")
 
 	// Update the MC and state to game playing
@@ -296,6 +297,9 @@ SUBSYSTEM_DEF(ticker)
 	#ifdef UNIT_TESTS
 	RunUnitTests()
 	#endif
+
+	GLOB.enable_sync = TRUE
+	log_startup_progress("database sync [GLOB.enable_sync]...")
 	return TRUE
 
 

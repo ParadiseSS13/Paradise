@@ -34,6 +34,7 @@
 	F.icon_state = floor_state
 	F.icon_regular_floor = floor_state
 	F.dir = floor_dir
+	F.sync_to_db()
 	return TRUE
 
 /datum/painter/floor/pick_color(mob/user)

@@ -1,3 +1,5 @@
+GLOBAL_VAR_INIT(enable_sync, FALSE)
+
 /*
 * Returns a byond list that can be passed to the "deserialize" proc
 * to bring a new instance of this atom to its original state
@@ -40,7 +42,7 @@
 
 // No need to save any state of an area by default
 /area/vars_to_save()
-	return list("name")
+	return list("name", "lightswitch", "power_equip", "power_light", "power_environ")
 
 /atom/serialize()
 	var/list/data = ..()
@@ -55,7 +57,91 @@
 			vars[thing] = data[thing]
 	..()
 
+/*
+	var/oxygen = 0
+	var/carbon_dioxide = 0
+	var/nitrogen = 0
+	var/toxins = 0
+	var/sleeping_agent = 0
+	var/agent_b = 0
+	var/temperature = 0 //in Kelvin
+*/
 
+/datum/gas_mixture/proc/vars_to_save()
+ 	return list("oxygen","carbon_dioxide","nitrogen","toxins","sleeping_agent","agent_b","temperature")
+
+/datum/gas_mixture/serialize()
+	var/list/data = ..()
+	for(var/thing in vars_to_save())
+		data[thing] = vars[thing] // Can't check initial() because it doesn't work on a list index
+	return data
+
+/datum/gas_mixture/deserialize(list/data)
+	for(var/thing in vars_to_save())
+		if(thing in data)
+			vars[thing] = data[thing]
+	..()
+
+/turf/vars_to_save()
+ 	return list("color","icon_state","icon_regular_floor","broken","burnt")
+
+/turf/serialize()
+	var/list/data = ..()
+	for(var/thing in vars_to_save())
+		data[thing] = vars[thing] // Can't check initial() because it doesn't work on a list index
+	return data
+
+/turf/deserialize(list/data)
+	for(var/thing in vars_to_save())
+		if(thing in data)
+			vars[thing] = data[thing]
+	..()
+
+
+/turf/proc/sync_to_db()
+	if (!GLOB.enable_sync)
+		return
+	to_chat(world, "DB >> new turf [type] at [x],[y],[z]")
+	var/datum/db_query/save_turf = SSdbcore.NewQuery({"
+			REPLACE INTO rs_world_turfs (
+				x,y,z,
+				data
+			)
+			VALUES (
+				[x],[y],[z],
+				'[json_encode(serialize())]'
+			)"})
+	save_turf.Execute()
+	qdel(save_turf)
+
+/turf/simulated/sync_to_db()
+	if (!air)
+		..()
+		return
+
+	if (!GLOB.enable_sync)
+		return
+	to_chat(world, "DB >> new sturf [type] at [x],[y],[z]")
+	var/datum/db_query/save_turf = SSdbcore.NewQuery({"
+			REPLACE INTO rs_world_turfs (
+				x,y,z,
+				data,
+				air
+			)
+			VALUES (
+				[x],[y],[z],
+				'[json_encode(serialize())]',
+				'[json_encode(air.serialize())]'
+			)"})
+	save_turf.Execute()
+	qdel(save_turf)
+
+
+/datum/gas_mixture/deserialize(list/data)
+	for(var/thing in vars_to_save())
+		if(thing in data)
+			vars[thing] = data[thing]
+	..()
 /*
 Whoops, forgot to put documentation here.
 What this does, is take a JSON string produced by running

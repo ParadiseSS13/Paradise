@@ -437,6 +437,8 @@ What are the archived variables for?
 
 	//Compares sample to self to see if within acceptable ranges that group processing may be enabled
 /datum/gas_mixture/proc/compare(datum/gas_mixture/sample)
+	if (!sample)
+		return FALSE
 	if((abs(oxygen - sample.oxygen) > MINIMUM_AIR_TO_SUSPEND) && \
 		((oxygen < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.oxygen) || (oxygen > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.oxygen)))
 		return FALSE

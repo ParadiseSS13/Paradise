@@ -223,7 +223,190 @@
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
 				return FALSE
 
-		LateChoices()
+		var/exists = 0
+
+		//check if saved
+		var/datum/db_query/query = SSdbcore.NewQuery("SELECT uid FROM rs_character_data WHERE ckey='[src.ckey]' AND alive = 1")
+		query.Execute()
+		while(query.NextRow())
+			exists = 1
+			break
+		qdel(query)
+
+		var/mob/living/carbon/human/character
+
+		if(!exists)
+			to_chat(usr, "DB >> No character found")
+			// check if not existed
+			var/cancel = 0
+			to_chat(src, "DB >> Checking if exists... [client.prefs.active_character.real_name]")
+			query = SSdbcore.NewQuery("SELECT uid FROM rs_character_data WHERE start_name='[client.prefs.active_character.real_name]'")
+			query.Execute()
+			while(query.NextRow())
+				cancel = 1
+				break
+			qdel(query)
+
+			if(!cancel)
+				to_chat(usr, "DB >> Create character")
+
+				var/id
+				var/datum/db_query/total = SSdbcore.NewQuery("SELECT id FROM rs_records_general")
+				total.Execute()
+				var/val = 1001 + total.rows.len
+				//world << "DEBUG: Row Count [val] key [num2hex(val,6)] "
+				id = num2hex(val,6)
+				to_chat(src, "DB >> Creating [client.prefs.active_character.real_name] with id [id]")
+				qdel(total)
+
+				// player is not recorded in database
+				character = create_character()
+				character.forceMove(pick(GLOB.latejoin))
+				character.lastarea = get_area(loc)
+
+				var/obj/item/organ/external/head/head_organ = character.get_organ("head")
+				var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
+
+				var/list/data = character.dna.serialize()
+				var/json_dna = json_encode(data)
+
+				// create the character object
+				var/datum/db_query/register_character = SSdbcore.NewQuery({"
+				INSERT INTO rs_character_data(
+						ckey,
+						start_name,
+						real_name,
+						gender,
+						age,
+						eye_color,
+						hair_color,
+						facial_hair_color,
+						hair_style,
+						underwear,
+						socks,
+						dna)
+					VALUES (
+						'[character.ckey]',
+						'[character.real_name]',
+						'[character.real_name]',
+						'[character.gender]',
+						[character.age],
+						'[eyes_organ.eye_color]',
+						'[head_organ.hair_colour]',
+						'[head_organ.facial_colour]',
+						'[head_organ.h_style]',
+						'[character.underwear]',
+						'[character.socks]',
+						'[json_dna]');
+				"})
+				register_character.Execute()
+				character.uid = text2num(register_character.last_insert_id)
+				qdel(register_character)
+
+				// create the record of the person
+				GLOB.data_core.manifest_inject(character, id)
+				var/datum/data/record/R = find_record("id", id, GLOB.data_core.general)
+
+				var/datum/db_query/general_record = SSdbcore.NewQuery({"
+				INSERT INTO
+					rs_records_general (
+						id,
+						name,
+						sex,
+						age,
+						underwear,
+						socks,
+						dna,
+						created)
+					VALUES (
+						'[R.fields["id"]]',
+						'[R.fields["name"]]',
+						'[R.fields["sex"]]',
+						'[R.fields["age"]]',
+						'[character.underwear]',
+						'[character.socks]',
+						'[json_dna]',
+						current_timestamp)
+				"})
+				general_record.Execute()
+				qdel(general_record)
+
+				to_chat(usr, "DB >> Registered [character.real_name] with database uid [character.uid]")
+			else
+				to_chat(src, alert("\red <b>Cannot Create character as someone was once created with this name!</b> Name's must be unique for each life"))
+		else
+			to_chat(usr, "DB >> loading old character")
+
+			var/datum/db_query/character_data = SSdbcore.NewQuery({"
+				SELECT
+					real_name,
+					uid,
+					dna,
+					age,
+					gender,
+					eye_color,
+					hair_color,
+					facial_hair_color,
+					hair_style,
+					underwear,
+					socks
+				FROM
+					rs_character_data
+				WHERE
+					ckey='[src.ckey]'
+					AND alive = 1
+			"})
+			character_data.Execute()
+			while(character_data.NextRow())
+				spawning = 1
+				close_spawn_windows()
+				to_chat(usr, "DB >> found old character [character_data.item[1]] with uid [character_data.item[2]]")
+				var/list/data = json_decode(character_data.item[3])
+				to_chat(usr, "DB >> decoding dna with [data.len] of data")
+
+				character = load_character()
+				character.forceMove(pick(GLOB.latejoin))
+				character.lastarea = get_area(loc)
+				character.uid = character_data.item[2]
+
+				// get organs for use
+				var/obj/item/organ/external/head/head_organ = character.get_organ("head")
+				var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
+
+				// load the dna data
+				character.dna.deserialize(data)
+				character.sync_organ_dna(assimilate = TRUE)
+				character.UpdateAppearance()
+
+				// load the current data
+				character.real_name = character_data.item[1]
+				character.name = character.real_name
+				character.age = character_data.item[4]
+				character.gender = character_data.item[5]
+				character.underwear = character_data.item[10]
+				character.socks = character_data.item[11]
+
+				// prep main organs
+				eyes_organ.eye_color = character_data.item[6]
+				head_organ.hair_colour = character_data.item[7]
+				head_organ.facial_colour = character_data.item[8]
+				head_organ.h_style = character_data.item[9]
+
+				// Do the initial caching of the player's body icons.
+				character.force_update_limbs()
+				character.update_eyes()
+				character.regenerate_icons()
+
+			qdel(character_data)
+
+		// Moving wheelchair if they have one
+		if(character.buckled && istype(character.buckled, /obj/structure/chair/wheelchair))
+			character.buckled.forceMove(character.loc)
+			character.buckled.dir = character.dir
+
+		qdel(src)
+
+		//LateChoices()
 
 	if(href_list["manifest"])
 		ViewManifest()
@@ -250,6 +433,22 @@
 			client.prefs.process_link(src, href_list)
 	else if(!href_list["late_join"])
 		new_player_panel()
+
+/mob/new_player/proc/load_character()
+	spawning = 1
+	close_spawn_windows()
+	var/mob/living/carbon/human/new_character = new(loc)
+	new_character.lastarea = get_area(loc)
+
+	stop_sound_channel(CHANNEL_LOBBYMUSIC)
+
+	if(mind)
+		mind.active = 0					//we wish to transfer the key manually
+		mind.set_original_mob(new_character)
+		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
+
+	new_character.key = key		//Manually transfer the key to log them in
+	return new_character
 
 /mob/new_player/proc/IsJobAvailable(rank)
 	var/datum/job/job = SSjobs.GetJob(rank)
