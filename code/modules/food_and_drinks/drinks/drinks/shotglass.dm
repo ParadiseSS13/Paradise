@@ -16,6 +16,7 @@
 	update_appearance()
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/update_name()
+	. = ..()
 	if(reagents.total_volume)
 		name = "shot glass of " + reagents.get_master_reagent_name() //No matter what, the glass will tell you the reagent's name. Might be too abusable in the future.
 		if(resistance_flags & ON_FIRE)
