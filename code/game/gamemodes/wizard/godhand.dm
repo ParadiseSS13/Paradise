@@ -63,9 +63,6 @@
 /obj/item/melee/touch_attack/fleshtostone/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !isliving(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //getting hard after touching yourself would also be bad
 		return
-	if(user.handcuffed)
-		to_chat(user, "<span class='warning'>You can't reach out!</span>")
-		return
 	var/mob/living/L = target
 	L.Stun(4 SECONDS)
 	new /obj/structure/closet/statue(L.loc, L)

@@ -330,7 +330,7 @@
 		reset_perspective(destination)
 		if(hud_used && length(client.parallax_layers))
 			hud_used.update_parallax()
-	if(isturf(destination) && !(mobility_flags & MOBILITY_STAND))
+	if(isturf(destination) && (mobility_flags & MOBILITY_STAND))
 		fall()
 	update_runechat_msg_location()
 

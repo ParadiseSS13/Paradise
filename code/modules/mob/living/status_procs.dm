@@ -124,7 +124,7 @@ STATUS EFFECTS
 	pixel_y = 0
 
 /* makes sure the crawlers head is pointing in the direction they crawl
-* effectively splits the down the middle.
+* effectively splits dirs down the middle.
 
 									 # | #
 moving this way points the head left # | # moving this way points the head right

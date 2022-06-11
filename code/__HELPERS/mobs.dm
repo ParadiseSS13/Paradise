@@ -370,7 +370,7 @@
 		if(drifting && !user.inertia_dir)
 			drifting = 0
 			user_loc = user.loc
-		var/mob/living/L = null
+		var/mob/living/L
 		if(isliving(user))
 			L = user
 

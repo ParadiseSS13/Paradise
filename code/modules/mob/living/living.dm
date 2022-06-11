@@ -726,7 +726,7 @@
 		var/obj/C = loc
 		C.container_resist(src)
 
-	else if((mobility_flags & MOBILITY_MOVE))
+	else if(mobility_flags & MOBILITY_MOVE)
 		if(on_fire)
 			resist_fire() //stop, drop, and roll
 		else

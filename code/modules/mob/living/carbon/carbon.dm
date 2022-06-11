@@ -441,7 +441,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "You must be conscious to do this!")
 		return
 
-	if((mobility_flags & MOBILITY_MOVE))
+	if(!(mobility_flags & MOBILITY_MOVE))
 		to_chat(src, "You can't vent crawl while you cannot move!")
 		return
 
