@@ -22,7 +22,8 @@
 
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is [(cell.charge / cell.maxcharge) * 100]% charged.</span>"
+	if(cell)
+		. += "<span class='notice'>It is [round(cell.percent())]% charged.</span>"
 
 
 /obj/item/gun/energy/detailed_examine()

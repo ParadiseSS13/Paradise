@@ -167,11 +167,6 @@
 	can_charge = 0
 	can_holster = TRUE
 
-/obj/item/gun/energy/plasmacutter/examine(mob/user)
-	. = ..()
-	if(cell)
-		. += "<span class='notice'>[src] is [round(cell.percent())]% charged.</span>"
-
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
 		if(cell.charge >= cell.maxcharge)
