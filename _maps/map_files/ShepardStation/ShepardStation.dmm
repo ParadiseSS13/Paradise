@@ -6241,6 +6241,11 @@
 	icon_state = "long"
 	},
 /area/turret_protected/ai)
+"bqC" = (
+/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/effect/turf_decal/bot_white,
+/turf/simulated/floor/engine,
+/area/atmos/control)
 "bqE" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/light{
@@ -9795,6 +9800,10 @@
 	icon_state = "wood-broken7"
 	},
 /area/security/vacantoffice2)
+"cdq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plating,
+/area/maintenance/storage)
 "cdr" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
@@ -15662,6 +15671,12 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/maintenance/atmos_control)
+"drk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/storage)
 "drr" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -22064,7 +22079,8 @@
 "eOj" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/decal/warning_stripes/white/hollow,
-/turf/simulated/floor/plating,
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/engine,
 /area/atmos/control)
 "eOr" = (
 /turf/simulated/floor/plating,
@@ -22382,6 +22398,12 @@
 	icon_state = "delivery"
 	},
 /area/atmos/control)
+"eSG" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/storage)
 "eSH" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -32504,6 +32526,24 @@
 /obj/effect/spawner/random_barrier/obstruction,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
+"gXC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/plating,
+/area/maintenance/storage)
 "gXL" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -36103,7 +36143,8 @@
 /area/chapel/main)
 "hLm" = (
 /obj/machinery/portable_atmospherics/scrubber,
-/turf/simulated/floor/plating,
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/engine,
 /area/maintenance/atmos_control)
 "hLr" = (
 /obj/structure/cable{
@@ -38868,7 +38909,8 @@
 "itr" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plating,
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/engine,
 /area/atmos/control)
 "itu" = (
 /obj/effect/decal/warning_stripes/east,
@@ -47462,7 +47504,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/decal/warning_stripes/white/hollow,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/atmos/control)
 "khE" = (
 /obj/structure/disposalpipe/segment{
@@ -48321,6 +48363,12 @@
 	icon_state = "dark"
 	},
 /area/security/brig)
+"ksc" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/storage)
 "ksr" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -48918,7 +48966,8 @@
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/scrubber,
-/turf/simulated/floor/plating,
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/engine,
 /area/maintenance/atmos_control)
 "kye" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
@@ -50049,6 +50098,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/prison/cell_block/A)
+"kJt" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/storage)
 "kJA" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/extinguisher_cabinet{
@@ -51893,6 +51948,9 @@
 "lfg" = (
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
@@ -54207,6 +54265,11 @@
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
 /area/crew_quarters/bar)
+"lHu" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/effect/decal/warning_stripes/blue/hollow,
+/turf/simulated/floor/engine,
+/area/atmos/control)
 "lHv" = (
 /obj/machinery/door/airlock/research{
 	name = "Toxins Storage";
@@ -61593,7 +61656,8 @@
 "nlV" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/warning_stripes/blue/hollow,
-/turf/simulated/floor/plating,
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/engine,
 /area/atmos/control)
 "nlY" = (
 /obj/structure/rack{
@@ -61722,7 +61786,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/atmos/control)
 "nmX" = (
 /turf/simulated/floor/plasteel{
@@ -63390,6 +63454,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
+"nHw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/storage)
 "nHD" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/canister/air,
@@ -66330,6 +66400,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
+"opU" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/storage)
 "opX" = (
 /obj/structure/sign/singulo{
 	pixel_y = 32
@@ -70456,6 +70533,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
+"pkn" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/storage)
 "pkq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -72741,7 +72824,9 @@
 /area/engine/engineering)
 "pLi" = (
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
-/turf/simulated/floor/plating,
+/obj/effect/turf_decal/bot_white,
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/engine,
 /area/atmos/control)
 "pLo" = (
 /obj/machinery/light/small{
@@ -77164,7 +77249,7 @@
 "qKR" = (
 /obj/structure/closet/secure_closet/atmos_personal,
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/atmos)
 "qKT" = (
 /obj/structure/disposalpipe/segment{
@@ -79723,7 +79808,8 @@
 /obj/machinery/portable_atmospherics/canister,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plating,
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/engine,
 /area/atmos/control)
 "rqi" = (
 /obj/effect/spawner/window/reinforced,
@@ -95181,6 +95267,12 @@
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/simulated/floor/plating/asteroid,
 /area/security/lobby)
+"uPb" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/storage)
 "uPf" = (
 /obj/structure/lattice/catwalk,
 /turf/space,
@@ -100072,7 +100164,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/atmos/control)
 "vQa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -100530,7 +100622,8 @@
 /area/crew_quarters/kitchen)
 "vUO" = (
 /obj/machinery/space_heater,
-/turf/simulated/floor/plating,
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/engine,
 /area/maintenance/atmos_control)
 "vUU" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -104772,6 +104865,21 @@
 	icon_state = "greencorner"
 	},
 /area/hallway/primary/starboard)
+"wPO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/turf/simulated/floor/plating,
+/area/maintenance/storage)
 "wPP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -110542,7 +110650,8 @@
 /area/hallway/secondary/entry/south)
 "yfz" = (
 /obj/machinery/portable_atmospherics/pump,
-/turf/simulated/floor/plating,
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/engine,
 /area/maintenance/atmos_control)
 "yfF" = (
 /turf/simulated/floor/plating,
@@ -129502,11 +129611,11 @@ duo
 duo
 duo
 duo
-sJj
-sJj
-sJj
-sJj
-sJj
+eBC
+duo
+aNg
+duo
+aNg
 aNg
 gIy
 uIF
@@ -129759,11 +129868,11 @@ duo
 duo
 duo
 duo
-duo
-duo
-aNg
-duo
-duo
+sJj
+sJj
+sJj
+sJj
+sJj
 duo
 qXW
 fZW
@@ -136214,8 +136323,8 @@ dln
 svq
 skg
 xdQ
-pLi
-nlV
+bqC
+lHu
 vPZ
 khD
 nmL
@@ -139828,9 +139937,9 @@ xOb
 tMV
 eIP
 eIP
-eIP
-eIP
-clU
+eSG
+cdq
+wPO
 eIP
 eIP
 mqO
@@ -140085,7 +140194,7 @@ eYk
 sBf
 qHk
 qHk
-eIP
+nHw
 qHk
 clU
 gwb
@@ -140342,7 +140451,7 @@ ess
 sBf
 aNg
 qHk
-eIP
+drk
 qHk
 mpN
 qHk
@@ -140856,11 +140965,11 @@ vfv
 sBf
 aNg
 qHk
-jwQ
-eIP
-clU
-eIP
-eIP
+opU
+uPb
+gXC
+utx
+qvU
 uaI
 duo
 duo
@@ -141113,11 +141222,11 @@ jPl
 sBf
 aNg
 qHk
-eIP
+pkn
 eIP
 clU
-eIP
-eIP
+ksc
+qvU
 uaI
 aNg
 aNg
@@ -141370,7 +141479,7 @@ okY
 sBf
 aNg
 qHk
-eIP
+pkn
 hua
 clU
 eIP
@@ -141884,7 +141993,7 @@ aNg
 aNg
 aNg
 qHk
-eIP
+kJt
 eIP
 icw
 eIP
