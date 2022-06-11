@@ -83,6 +83,8 @@
 			/obj/machinery/door/airlock/mining/glass = "Mining (Glass)",
 			/obj/machinery/door/airlock/medical = "Medical",
 			/obj/machinery/door/airlock/medical/glass = "Medical (Glass)",
+			/obj/machinery/door/airlock/virology = "Virology",
+			/obj/machinery/door/airlock/virology/glass = "Virology (Glass)",
 			/obj/machinery/door/airlock/research = "Research",
 			/obj/machinery/door/airlock/research/glass = "Research (Glass)",
 			/obj/machinery/door/airlock/science = "Science",
