@@ -160,3 +160,12 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/structure/marker_beacon/dock_marker/AltClick()
 	return
+
+/obj/structure/marker_beacon/dock_marker/collision
+	name = "collision beacon"
+	desc = "A Prism-brand collision illumination device. It is anchored in place and glowing steadily."
+	icon_state = "markerburgundy-on"
+
+/obj/structure/marker_beacon/dock_marker/collision/update_icon()
+	set_light(light_range, light_power, LIGHT_COLOR_FLARE)
+	return
