@@ -224,8 +224,8 @@
 /datum/action/item_action/toggle_mister
 	name = "Toggle Mister"
 
-/datum/action/item_action/toggle_note_effect
-	name = "Toggle Note Effect"
+/datum/action/item_action/toggle_music_notes
+	name = "Toggle Music Notes"
 
 /datum/action/item_action/toggle_helmet_light
 	name = "Toggle Helmet Light"

@@ -3,7 +3,7 @@
 	desc = "Unce unce unce unce."
 	icon_state = "headphones0"
 	item_state = "headphones0"
-	actions_types = list(/datum/action/item_action/change_headphones_song, /datum/action/item_action/toggle_note_effect)
+	actions_types = list(/datum/action/item_action/change_headphones_song, /datum/action/item_action/toggle_music_notes)
 	var/datum/song/headphones/song
 	var/on = 0
 
