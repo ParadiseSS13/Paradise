@@ -49,7 +49,6 @@
 
 
 /obj/item/flamethrower/update_icon_state()
-	cut_overlays()
 	if(lit)
 		item_state = "flamethrower_1"
 	else

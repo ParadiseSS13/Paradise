@@ -116,7 +116,7 @@
 /obj/item/borg/upgrade/restart/do_install(mob/living/silicon/robot/R)
 	if(R.health < 0)
 		to_chat(usr, "<span class='warning'>You have to repair the cyborg before using this module!</span>")
-		return FALSE
+		return
 
 	if(!R.key)
 		for(var/mob/dead/observer/ghost in GLOB.player_list)

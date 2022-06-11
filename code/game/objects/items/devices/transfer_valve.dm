@@ -153,7 +153,6 @@
 			toggle = 1
 
 /obj/item/transfer_valve/update_icon_state()
-	cut_overlays()
 	if(!tank_one && !tank_two && !attached_device)
 		icon_state = "valve_1"
 	else

@@ -317,9 +317,9 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	data["canLabel"] = can_label ? TRUE : FALSE
 	data["colorContainer"] = colorcontainer.Copy()
 	data["color_index"] = color_index
-	data["hasholding_tankTank"] = holding_tank ? TRUE : FALSE
+	data["hasHoldingTank"] = holding_tank ? TRUE : FALSE
 	if(holding_tank)
-		data["holding_tankTank"] = list("name" = holding_tank.name, "tankPressure" = round(holding_tank.air_contents.return_pressure()))
+		data["holdingTank"] = list("name" = holding_tank.name, "tankPressure" = round(holding_tank.air_contents.return_pressure()))
 	return data
 
 /obj/machinery/portable_atmospherics/canister/ui_act(action, params)

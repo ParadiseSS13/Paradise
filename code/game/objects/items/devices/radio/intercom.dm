@@ -61,8 +61,8 @@
 		if(direction)
 			setDir(direction)
 			set_pixel_offsets_from_dir(28, -28, 28, -28)
-		b_stat=1
-		on = 0
+		b_stat = TRUE
+		on = FALSE
 	GLOB.global_intercoms.Add(src)
 	update_icon(UPDATE_ICON_STATE)
 
@@ -185,8 +185,8 @@
 	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 2)
 		return
 	update_icon(UPDATE_ICON_STATE)
-	on = 1
-	b_stat = 0
+	on = TRUE
+	b_stat = FALSE
 	buildstage = 3
 	to_chat(user, "<span class='notice'>You secure the electronics!</span>")
 	update_icon(UPDATE_ICON_STATE)
@@ -202,8 +202,8 @@
 		return
 	WIRECUTTER_SNIP_MESSAGE
 	new /obj/item/stack/cable_coil(get_turf(src),5)
-	on = 0
-	b_stat = 1
+	on = FALSE
+	b_stat = TRUE
 	buildstage = 1
 	update_icon(UPDATE_ICON_STATE)
 	update_operating_status(FALSE)

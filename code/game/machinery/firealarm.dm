@@ -62,9 +62,9 @@ FIRE ALARM
 	underlays.Cut()
 	if(is_station_contact(z) && show_alert_level)
 		if(GLOB.security_level)
-			add_overlay("overlay_[get_security_level()]")
+			. += "overlay_[get_security_level()]"
 		else
-			add_overlay("overlay_green")
+			. += "overlay_green"
 	if(light)
 		if(overlays)
 			underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")

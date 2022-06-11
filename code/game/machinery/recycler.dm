@@ -6,12 +6,12 @@
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "grinder-o0"
 	layer = MOB_LAYER+1 // Overhead
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	damage_deflection = 15
 	var/emergency_mode = FALSE // Temporarily stops machine if it detects a mob
 	var/icon_name = "grinder-o"
-	var/blood = 0
+	var/blood = FALSE
 	var/eat_dir = WEST
 	var/amount_produced = 1
 	var/crush_damage = 1000
@@ -82,7 +82,7 @@
 /obj/machinery/recycler/update_icon_state()
 	var/is_powered = !(stat & (BROKEN|NOPOWER))
 	if(emergency_mode)
-		is_powered = 0
+		is_powered = FALSE
 	icon_state = icon_name + "[is_powered]" + "[(blood ? "bld" : "")]" // add the blood tag at the end
 
 // This is purely for admin possession !FUN!.
@@ -163,16 +163,16 @@
 	else
 		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 
-	var/gib = 1
+	var/gib = TRUE
 	// By default, the emagged recycler will gib all non-carbons. (human simple animal mobs don't count)
 	if(iscarbon(L))
-		gib = 0
+		gib = FALSE
 		if(L.stat == CONSCIOUS)
 			L.say("ARRRRRRRRRRRGH!!!")
 		add_mob_blood(L)
 
 	if(!blood && !issilicon(L))
-		blood = 1
+		blood = TRUE
 		update_icon(UPDATE_ICON_STATE)
 
 	// Remove and recycle the equipped items

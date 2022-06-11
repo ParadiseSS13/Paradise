@@ -306,7 +306,6 @@
 
 /obj/structure/closet/update_overlays(transparent = FALSE)
 	. = ..()
-	cut_overlays()
 	if(transparent && opened)
 		. += "[open_door_sprite]_trans"
 		return

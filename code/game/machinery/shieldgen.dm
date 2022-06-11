@@ -357,10 +357,10 @@
 /obj/machinery/shieldwallgen/attack_hand(mob/user)
 	if(state != 1)
 		to_chat(user, "<span class='warning'>The shield generator needs to be firmly secured to the floor first.</span>")
-		return
+		return TRUE
 	if(locked && !issilicon(user))
 		to_chat(user, "<span class='warning'>The controls are locked!</span>")
-		return
+		return TRUE
 	if(!power)
 		to_chat(user, "<span class='warning'>The shield generator needs to be powered by wire underneath.</span>")
 		return

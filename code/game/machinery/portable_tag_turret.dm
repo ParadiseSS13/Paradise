@@ -40,16 +40,16 @@
 /obj/machinery/porta_turret/tag/update_icon_state()
 	if(!anchored)
 		icon_state = "turretCover"
-		return ..()
+		return
 	if(stat & BROKEN)
 		icon_state = "[lasercolor]destroyed_target_prism"
-		return ..()
+		return
 	if(!powered())
 		icon_state = "[lasercolor]grey_target_prism"
-		return ..()
+		return
 	if(!enabled)
 		icon_state = "[lasercolor]grey_target_prism"
-		return ..()
+		return
 	if(iconholder)
 		//lasers have a orange icon
 		icon_state = "[lasercolor]orange_target_prism"

@@ -436,8 +436,6 @@
 		var/state = (slot_id == slot_r_hand) ? "markus" : "gabrielle"
 		handcuff_overlay = image("icon"='icons/mob/screen_gen.dmi', "icon_state"=state)
 
-	cut_overlays()
-
 	if(hud && hud.mymob)
 		if(iscarbon(hud.mymob))
 			var/mob/living/carbon/C = hud.mymob

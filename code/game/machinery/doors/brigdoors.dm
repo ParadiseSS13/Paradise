@@ -143,7 +143,7 @@
 			if(T.id == id)
 				targets += T
 
-		if(targets.len==0)
+		if(!length(targets))
 			stat |= BROKEN
 		update_icon(UPDATE_ICON_STATE)
 

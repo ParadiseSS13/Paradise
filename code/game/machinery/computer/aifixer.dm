@@ -92,20 +92,16 @@
 
 /obj/machinery/computer/aifixer/update_overlays()
 	. = ..()
-	if(stat & (NOPOWER|BROKEN))
-		return
+	if(active)
+		. += "ai-fixer-on"
+	if(occupant)
+		switch(occupant.stat)
+			if(0)
+				. += "ai-fixer-full"
+			if(2)
+				. += "ai-fixer-404"
 	else
-		var/overlay_layer = LIGHTING_LAYER+0.2 // +0.1 from the default computer overlays
-		if(active)
-			. += image(icon,"ai-fixer-on",overlay_layer)
-		if(occupant)
-			switch(occupant.stat)
-				if(0)
-					. += image(icon,"ai-fixer-full",overlay_layer)
-				if(2)
-					. += image(icon,"ai-fixer-404",overlay_layer)
-		else
-			. += image(icon,"ai-fixer-empty",overlay_layer)
+		. += "ai-fixer-empty"
 
 /obj/machinery/computer/aifixer/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(!..())

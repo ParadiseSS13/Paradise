@@ -210,7 +210,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		resistance_flags |= ON_FIRE
 		SSfires.processing[src] = src
 		add_overlay(custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay)
-		return 1
+		return TRUE
 
 ///called when the obj is destroyed by fire
 /obj/proc/burn()

@@ -86,4 +86,3 @@
 			icon_state = "tickets_3"	// Buncha tickets
 		else
 			icon_state = "tickets_4"	// Ticket snake
-	return ..()
