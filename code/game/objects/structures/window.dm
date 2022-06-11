@@ -156,7 +156,7 @@
 		add_fingerprint(user)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
-		playsound(src, 'sound/effects/glassknock.ogg', 80, 1)
+		playsound(src, 'sound/effects/glassknock.ogg', 50, 1)
 		user.visible_message("[user] knocks on [src].", \
 							"You knock on [src].", \
 							"You hear a knocking sound.")
