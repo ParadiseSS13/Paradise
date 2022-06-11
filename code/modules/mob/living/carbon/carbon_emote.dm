@@ -44,8 +44,7 @@
 				'sound/misc/clap1.ogg',
 				'sound/misc/clap2.ogg',
 				'sound/misc/clap3.ogg',
-				'sound/misc/clap4.ogg'
-			)
+				'sound/misc/clap4.ogg')
 
 /datum/emote/living/carbon/cross
 	key = "cross"
