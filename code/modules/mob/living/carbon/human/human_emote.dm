@@ -410,6 +410,7 @@
 	key = "wag"
 	key_third_person = "wags"
 	message = "starts wagging their tail."
+	emote_type = EMOTE_VISIBLE | EMOTE_FORCE_NO_RUNECHAT
 	species_type_whitelist_typecache = list(
 		/datum/species/unathi,
 		/datum/species/vulpkanin,

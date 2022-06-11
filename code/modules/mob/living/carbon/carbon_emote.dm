@@ -40,10 +40,12 @@
 		if(H?.mind.miming)
 			return
 		else
-			return pick('sound/misc/clap1.ogg',
-						'sound/misc/clap2.ogg',
-						'sound/misc/clap3.ogg',
-						'sound/misc/clap4.ogg')
+			return pick(
+				'sound/misc/clap1.ogg',
+				'sound/misc/clap2.ogg',
+				'sound/misc/clap3.ogg',
+				'sound/misc/clap4.ogg'
+			)
 
 /datum/emote/living/carbon/cross
 	key = "cross"
