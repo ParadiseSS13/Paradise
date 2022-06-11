@@ -80,7 +80,7 @@
 /datum/emote/living/silicon/law
 	key = "law"
 	message = "shows its legal authorization barcode."
-	message_param = "show %t its legal authorization barcode."
+	message_param = "shows %t its legal authorization barcode."
 	emote_type = EMOTE_SOUND | EMOTE_AUDIBLE
 	sound = "sound/voice/biamthelaw.ogg"
 
