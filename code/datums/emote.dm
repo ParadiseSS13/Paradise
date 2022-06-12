@@ -104,6 +104,13 @@
 	mob_type_ignore_stat_typecache = typecacheof(mob_type_ignore_stat_typecache)
 	species_type_whitelist_typecache = typecacheof(species_type_whitelist_typecache)
 
+/datum/emote/Destroy(force)
+	if(force)
+		return ..()
+	else
+		// if you're deleting an emote something has gone wrong
+		return QDEL_HINT_LETMELIVE
+
 /**
  * Handles the modifications and execution of emotes.
  *
@@ -469,13 +476,9 @@
 		if((intentional && (user.stat > stat_allowed || user.stat < max_stat)) || (!intentional && (user.stat > unintentional_stat_allowed || user.stat < max_unintentional_stat)))
 			if(!intentional)
 				return FALSE
-			switch(user.stat)
-				if(CONSCIOUS)
-					to_chat(user, "<span class='warning'>You cannot [key] while conscious!</span>")
-				if(UNCONSCIOUS)
-					to_chat(user, "<span class='warning'>You cannot [key] while unconscious!</span>")
-				if(DEAD)
-					to_chat(user, "<span class='warning'>You cannot [key] while dead!</span>")
+			var/stat = stat_to_text(user.stat)
+			if(stat)
+				to_chat(user, "<span class='warning'>You cannot [key] while [stat]!</span>")
 			return FALSE
 		if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 			// Don't let people blow their cover by mistake

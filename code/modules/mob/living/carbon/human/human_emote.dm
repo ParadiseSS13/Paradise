@@ -290,7 +290,7 @@
 	for(var/mob/living/L in orange(1))
 		if(L.has_status_effect(STATUS_EFFECT_HIGHFIVE) && L != user)
 			if(iswizard(user) && iswizard(L))
-				user.visible_message("<span class='bigdanger'><b>[user.name]</b> and <b>[L.name]</b> high-five EPICALLY!</span>")
+				user.visible_message("<span class='biggerdanger'><b>[user.name]</b> and <b>[L.name]</b> high-five EPICALLY!</span>")
 				user_carbon.status_flags |= GODMODE
 				L.status_flags |= GODMODE
 				explosion(get_turf(user), 5, 2, 1, 3)

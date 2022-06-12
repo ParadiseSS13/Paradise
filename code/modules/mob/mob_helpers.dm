@@ -727,3 +727,12 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	if(audio_emote_cd_status == EMOTE_ON_COOLDOWN)
 		// only reset emotes that probably weren't set by an admin
 		audio_emote_cd_status = EMOTE_READY
+
+/proc/stat_to_text(stat)
+	switch(stat)
+		if(CONSCIOUS)
+			return "conscious"
+		if(UNCONSCIOUS)
+			return "unconscious"
+		if(DEAD)
+			return "dead"
