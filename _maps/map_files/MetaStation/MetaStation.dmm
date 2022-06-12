@@ -7203,7 +7203,7 @@
 /area/security/permabrig)
 "aFQ" = (
 /obj/structure/table,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /obj/item/storage/fancy/cigarettes/cigpack_robust{
 	pixel_x = -4;
 	pixel_y = 6
@@ -8673,7 +8673,7 @@
 "aJF" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/table,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "aJG" = (
@@ -10989,7 +10989,7 @@
 /area/quartermaster/storage)
 "aPF" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck{
+/obj/item/deck/cards{
 	pixel_y = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -28200,7 +28200,7 @@
 	})
 "bEA" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck{
+/obj/item/deck/cards{
 	pixel_y = 4
 	},
 /turf/simulated/floor/wood,
@@ -33668,7 +33668,7 @@
 /turf/simulated/floor/carpet,
 /area/security/vacantoffice)
 "bUF" = (
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet,
 /area/security/vacantoffice)
@@ -35464,7 +35464,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
 "bZe" = (
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /obj/structure/table/wood,
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -45922,7 +45922,7 @@
 /area/medical/morgue)
 "cEl" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint)
 "cEm" = (
@@ -49076,7 +49076,7 @@
 "cOE" = (
 /obj/structure/table/wood/poker,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint)
 "cOF" = (
@@ -52127,7 +52127,7 @@
 /area/space)
 "cZq" = (
 /obj/structure/table,
-/obj/item/toy/cards/deck{
+/obj/item/deck/cards{
 	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -59371,7 +59371,7 @@
 /area/security/permabrig)
 "gcI" = (
 /obj/structure/table,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "gdb" = (
@@ -73074,7 +73074,7 @@
 /area/crew_quarters/hor)
 "mWI" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck{
+/obj/item/deck/cards{
 	pixel_y = 4
 	},
 /obj/structure/disposalpipe/segment{
