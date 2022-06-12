@@ -149,12 +149,12 @@
 	is_reflectable = FALSE //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard.
 
 /obj/item/projectile/energy/detective
-	name = "placeholder name"
+	name = "energy revolver shot"
 	icon_state = "omnilaser"
 	light_color = LIGHT_COLOR_CYAN
 	damage = 5
 	stamina = 25
-	eyeblur = 5
+	eyeblur = 2 SECONDS
 
 /obj/item/projectile/energy/detective/overcharged
 	name = "overcharged shot"
@@ -162,7 +162,7 @@
 	light_color = LIGHT_COLOR_DARKRED
 	damage = 45
 	stamina = 15
-	eyeblur = 10
+	eyeblur = 4 SECONDS
 
 /obj/item/projectile/energy/detective/tracker_warrant_shot
 	name = "tracker shot"
@@ -179,11 +179,14 @@
 	set_warrant(target)
 
 /obj/item/projectile/energy/detective/tracker_warrant_shot/proc/start_tracking(atom/target)
-	for(var/obj/item/gun/energy/detective/D in firer)
-		if(D.tracking_target_UID)
-			no_worky(tracking_already = TRUE)
-			return
-		D.start_pointing(target.UID())
+	var/obj/item/gun/energy/detective/D = firer_source_object
+	if(!D)
+		no_worky()
+		return
+	if(D.tracking_target_UID)
+		no_worky(tracking_already = TRUE)
+		return
+	D.start_pointing(target.UID())
 	qdel(src)
 
 /obj/item/projectile/energy/detective/tracker_warrant_shot/proc/set_warrant(atom/target)
@@ -193,7 +196,7 @@
 		no_worky(warrant_fail = TRUE)
 		return
 	var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
-	if(!R || R.fields["criminal"] == (SEC_RECORD_STATUS_EXECUTE || SEC_RECORD_STATUS_ARREST))
+	if(!R || (R.fields["criminal"] in list(SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_ARREST)))
 		to_chat(firer, "<span class='danger'>Weapon Alert: Target already set to higher warrant status or has no record!</span>")
 		return
 	set_criminal_status(firer, R, SEC_RECORD_STATUS_SEARCH, "Target tagged by Detective Revolver", "Detective Revolver")

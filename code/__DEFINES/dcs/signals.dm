@@ -765,6 +765,3 @@
 // /obj/machinery/door/airlock signals
 #define COMSIG_AIRLOCK_OPEN "airlock_open"
 #define COMSIG_AIRLOCK_CLOSE "airlock_close"
-
-// Detective gun signals
-#define COMSIG_DETGUN_TRACKING "detgun_tracking"

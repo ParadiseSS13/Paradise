@@ -759,7 +759,7 @@
 
 /obj/item/gun/energy/detective
 	name = "Detective's energy revolver"
-	desc = "A 'modern' take on the classic projectile revolver. Shift-click to clear active tracked target or clear linked pinpointer."
+	desc = "A 'modern' take on the classic projectile revolver."
 	icon_state = "det_placeholder"
 	modifystate = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/tracker_warrant)
@@ -773,8 +773,15 @@
 	/// Used to link back to the pinpointer
 	var/linked_pinpointer_UID
 
-/obj/item/radio/headset/det_gun
-	requires_tcomms = FALSE
+/obj/item/gun/energy/detective/Destroy()
+	QDEL_NULL(Announcer)
+	return ..()
+
+/obj/item/radio/headset/det_gun //nice headset bro
+
+/obj/item/gun/energy/detective/examine(mob/user)
+	. = ..()
+	. += "Shift-click to clear active tracked target or clear linked pinpointer."
 
 /obj/item/gun/energy/detective/Initialize(mapload, ...)
 	. = ..()
@@ -835,30 +842,31 @@
 	update_icon()
 
 /obj/item/gun/energy/detective/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
-	if(overcharged)
-		if(prob(clamp((100 - ((cell.charge / cell.maxcharge) * 100)), 30, 80)))	//minimum probability of 30, maximum of 80
-			playsound(user, fire_sound, 50, 1)
-			visible_message("<span class='userdanger'>[src]'s energy cell overloads!</span>")
-			user.apply_damage(60, BURN, pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
-			user.EyeBlurry(10 SECONDS_TO_LIFE_CYCLES)
-			user.flash_eyes(2, TRUE)
-			do_sparks(rand(5, 9), FALSE, src)
-			playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
-			user.unEquip(src)
-			cell.charge = 0 //ha ha you lose
-			return
-	..()
+	if(!overcharged)
+		return ..()
+	if(prob(clamp((100 - ((cell.charge / cell.maxcharge) * 100)), 30, 80)))	//minimum probability of 30, maximum of 80
+		playsound(user, fire_sound, 50, 1)
+		visible_message("<span class='userdanger'>[src]'s energy cell overloads!</span>")
+		user.apply_damage(60, BURN, pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
+		user.EyeBlurry(10 SECONDS)
+		user.flash_eyes(2, TRUE)
+		do_sparks(rand(5, 9), FALSE, src)
+		playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
+		user.unEquip(src)
+		cell.charge = 0 //ha ha you lose
 
 /obj/item/gun/energy/detective/proc/start_pointing(target_UID)
 	tracking_target_UID = target_UID
 	Announcer.autosay("Alert: Detective's revolver discharged in tracking mode. Tracking: [locateUID(tracking_target_UID)] at [get_area_name(src)].", src, "Security")
-	SEND_SIGNAL(src, COMSIG_DETGUN_TRACKING)
-	addtimer(CALLBACK(src, .proc/stop_pointing), 1 MINUTES, TIMER_UNIQUE)
+	var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
+	if(C)
+		C.start_tracking()
+		addtimer(CALLBACK(src, .proc/stop_pointing), 1 MINUTES, TIMER_UNIQUE)
 
 /obj/item/gun/energy/detective/proc/stop_pointing()
 	if(linked_pinpointer_UID)
 		var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
-		if(C.mode == MODE_DET)
+		if(C?.mode == MODE_DET)
 			C.stop_tracking()
 	tracking_target_UID = null
 
