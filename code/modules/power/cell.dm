@@ -19,6 +19,20 @@
 	var/ratingdesc = TRUE
 	var/grown_battery = FALSE // If it's a grown that acts as a battery, add a wire overlay to it.
 
+	var/sync_charge = 0
+
+	serialize()
+		var/list/data = ..()
+		data["maxcharge"] = maxcharge
+		data["charge"] = charge
+		return data
+
+	deserialize(list/data)
+		maxcharge = data["maxcharge"]
+		charge = data["charge"]
+		sync_charge = charge
+		..()
+
 /obj/item/stock_parts/cell/get_cell()
 	return src
 
@@ -29,9 +43,11 @@
 	if(ratingdesc)
 		desc += " This one has a power rating of [DisplayPower(maxcharge)], and you should not swallow it."
 	update_icon()
+	LAZYADD(GLOB.powercell_list, src)
 
 /obj/item/stock_parts/cell/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	LAZYREMOVE(GLOB.powercell_list, src)
 	return ..()
 
 /obj/item/stock_parts/cell/vv_edit_var(var_name, var_value)

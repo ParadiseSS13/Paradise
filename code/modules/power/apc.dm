@@ -122,6 +122,46 @@
 	var/emergency_power_timer
 	var/emergency_lights = FALSE
 
+	serialize()
+		var/list/data = ..()
+		data["opened"] = opened
+		data["beenhit"] = beenhit
+		data["shorted"] = shorted
+		data["lighting"] = lighting
+		data["equipment"] = equipment
+		data["environ"] = environ
+		data["operating"] = operating
+		data["charging"] = charging
+		data["chargemode"] = chargemode
+		data["chargecount"] = chargecount
+		data["locked"] = locked
+		data["coverlocked"] = coverlocked
+		data["has_electronics"] = has_electronics
+		data["autoflag"] = autoflag
+		data["emergency_lights"] = emergency_lights
+		data["nightshift_lights"] = nightshift_lights
+		return data
+
+	deserialize(list/data)
+		opened = data["opened"]
+		beenhit = data["beenhit"]
+		shorted = data["shorted"]
+		lighting = data["lighting"]
+		equipment = data["equipment"]
+		environ = data["environ"]
+		operating = data["operating"]
+		charging = data["charging"]
+		chargemode = data["chargemode"]
+		chargecount = data["chargecount"]
+		locked = data["locked"]
+		coverlocked = data["coverlocked"]
+		has_electronics = data["has_electronics"]
+		autoflag = data["autoflag"]
+		emergency_lights = data["emergency_lights"]
+		nightshift_lights = data["nightshift_lights"]
+		..()
+
+
 /obj/machinery/power/apc/worn_out
 	name = "\improper Worn out APC"
 	keep_preset_name = 1
@@ -482,6 +522,7 @@
 				"<span class='notice'>You insert the power cell.</span>")
 			chargecount = 0
 			update_icon()
+			check_for_sync()
 
 	else if(W.GetID())			// trying to unlock the interface with an ID card
 		togglelock(user)
@@ -539,6 +580,7 @@
 				locked = FALSE
 				to_chat(user, "<span class='notice'>You place the power control board inside the frame.</span>")
 				qdel(W)
+				check_for_sync()
 
 	else if(istype(W, /obj/item/mounted/frame/apc_frame) && opened)
 		if(!(stat & BROKEN || opened==2 || obj_integrity < max_integrity)) // There is nothing to repair
@@ -552,6 +594,7 @@
 				qdel(W)
 				opened = 1
 				update_icon()
+				check_for_sync()
 			return
 		if(has_electronics)
 			to_chat(user, "<span class='warning'>You cannot repair this APC until you remove the electronics still inside!</span>")
@@ -566,6 +609,7 @@
 			if(opened==2)
 				opened = 1
 			update_icon()
+			check_for_sync()
 		return
 	else
 		return ..()
@@ -614,6 +658,7 @@
 			opened = 0
 			coverlocked = TRUE //closing cover relocks it
 			update_icon()
+			check_for_sync()
 			return
 	else if(!(stat & BROKEN)) // b) on closed and not broken APC
 		if(coverlocked && !(stat & MAINT)) // locked...
@@ -625,6 +670,7 @@
 		else
 			opened = 1
 			update_icon()
+			check_for_sync()
 
 /obj/machinery/power/apc/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -653,6 +699,7 @@
 		panel_open = !panel_open
 		to_chat(user, "The wires have been [panel_open ? "exposed" : "unexposed"]")
 		update_icon()
+	check_for_sync()
 
 
 /obj/machinery/power/apc/wirecutter_act(mob/living/user, obj/item/I)
@@ -685,6 +732,7 @@
 			locked = !locked
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the APC interface.</span>")
 			update_icon()
+			check_for_sync()
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 
@@ -706,6 +754,7 @@
 			coverlocked = FALSE
 			visible_message("<span class='warning'>The APC cover is knocked down!</span>")
 			update_icon()
+			check_for_sync()
 
 /obj/machinery/power/apc/welder_act(mob/user, obj/item/I)
 	if(!opened || has_electronics || terminal)
@@ -741,6 +790,7 @@
 			locked = 0
 			to_chat(user, "You emag the APC interface.")
 			update_icon()
+			check_for_sync()
 
 // attack with hand - remove cell (if cover open) or interact with the APC
 /obj/machinery/power/apc/attack_hand(mob/user)
@@ -757,6 +807,7 @@
 			cell = null
 			charging = FALSE
 			update_icon()
+			check_for_sync()
 		return
 	if(stat & (BROKEN|MAINT))
 		return
@@ -952,6 +1003,7 @@
 				else
 					locked = !locked
 					update_icon()
+					check_for_sync()
 			else
 				to_chat(usr, "<span class='warning'>Access Denied!</span>")
 				return FALSE
@@ -967,19 +1019,23 @@
 			set_nightshift(!nightshift_lights)
 		if("charge")
 			chargemode = !chargemode
+			check_for_sync()
 		if("channel")
 			if(params["eqp"])
 				equipment = setsubsystem(text2num(params["eqp"]))
 				update_icon()
 				update()
+				check_for_sync()
 			else if(params["lgt"])
 				lighting = setsubsystem(text2num(params["lgt"]))
 				update_icon()
 				update()
+				check_for_sync()
 			else if(params["env"])
 				environ = setsubsystem(text2num(params["env"]))
 				update_icon()
 				update()
+				check_for_sync()
 		if("overload")
 			if(usr.has_unlimited_silicon_privilege)
 				INVOKE_ASYNC(src, /obj/machinery/power/apc.proc/overload_lighting)
@@ -994,6 +1050,7 @@
 				malfvacate()
 		if("emergency_lighting")
 			emergency_lights = !emergency_lights
+			check_for_sync()
 			for(var/obj/machinery/light/L in area)
 				INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
 				CHECK_TICK
@@ -1002,6 +1059,7 @@
 	operating = !operating
 	update()
 	update_icon()
+	check_for_sync()
 
 /obj/machinery/power/apc/proc/malfhack(mob/living/silicon/ai/malf)
 	if(!istype(malf))
@@ -1272,6 +1330,7 @@
 		if(report_power_alarm)
 			area.poweralert(FALSE, src)
 		autoflag = 0
+		check_for_sync()
 
 	// update icon & area power if anything changed
 
@@ -1325,11 +1384,13 @@
 	environ = 0
 	update_icon()
 	update()
+	check_for_sync()
 	spawn(600)
 		equipment = 3
 		environ = 3
 		update_icon()
 		update()
+		check_for_sync()
 	..()
 
 /obj/machinery/power/apc/blob_act(obj/structure/blob/B)
@@ -1349,6 +1410,7 @@
 		malfvacate(1)
 	update_icon()
 	update()
+	check_for_sync()
 
 // overload all the lights in this APC area
 
@@ -1410,6 +1472,7 @@
 	var/obj/item/stock_parts/cell/C = get_cell()
 	if(C)
 		C.charge = C.maxcharge
+		check_for_sync()
 
 #undef APC_UPDATE_ICON_COOLDOWN
 #undef APC_EXTERNAL_POWER_NOTCONNECTED

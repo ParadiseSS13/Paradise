@@ -53,6 +53,7 @@
 	broken = 1
 	icon_state = "[initial(icon_state)]burnt"
 	visible_message("<span class='notice'>[src] burns out!</span>")
+	check_for_sync()
 
 
 /obj/item/flash/proc/flash_recharge(mob/user)
@@ -182,6 +183,7 @@
 		broken = FALSE
 		times_used = 0
 		icon_state = "flash"
+		check_for_sync()
 
 /obj/item/flash/cameraflash
 	name = "camera"

@@ -865,6 +865,7 @@
 					to_chat(usr, "<span class='warning'>Repairing flash failed!</span>")
 				else
 					flash.broken = 0
+					flash.check_for_sync()
 					log_admin("[key_name(usr)] has repaired [key_name(current)]'s flash")
 					message_admins("[key_name_admin(usr)] has repaired [key_name_admin(current)]'s flash")
 

@@ -32,6 +32,38 @@
 	var/name_tag = null
 	var/obj/machinery/power/terminal/terminal = null
 
+	var/sync_charge = 0
+
+	serialize()
+		var/list/data = ..()
+		data["capacity"] = capacity
+		data["charge"] = charge
+		data["input_attempt"] = input_attempt
+		data["input_level"] = input_level
+		data["input_level_max"] = input_level_max
+		data["input_available"] = input_available
+		data["output_attempt"] = output_attempt
+		data["outputting"] = outputting
+		data["output_level"] = output_level
+		data["output_level_max"] = output_level_max
+		data["output_used"] = output_used
+		return data
+
+	deserialize(list/data)
+		capacity = data["capacity"]
+		charge = data["charge"]
+		input_attempt = data["input_attempt"]
+		input_level = data["input_level"]
+		input_level_max = data["input_level_max"]
+		input_available = data["input_available"]
+		output_attempt = data["output_attempt"]
+		outputting = data["outputting"]
+		output_level = data["output_level"]
+		output_level_max = data["output_level_max"]
+		output_used = data["output_used"]
+		sync_charge = charge
+		..()
+
 /obj/machinery/power/smes/Initialize(mapload)
 	. = ..()
 	component_parts = list()
@@ -44,6 +76,8 @@
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
+
+	LAZYADD(GLOB.smes_list, src)
 
 	dir_loop:
 		for(var/d in GLOB.cardinal)
@@ -239,6 +273,8 @@
 			investigate_log("<font color='red'>deleted</font> at ([area.name])","singulo")
 	if(terminal)
 		disconnect_terminal()
+
+	LAZYREMOVE(GLOB.smes_list, src)
 	return ..()
 
 /obj/machinery/power/smes/proc/chargedisplay()

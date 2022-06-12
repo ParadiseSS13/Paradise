@@ -12,6 +12,17 @@
 	var/w_items = 0			//the combined w_class of all the items in the cistern
 	var/mob/living/swirlie = null	//the mob being given a swirlie
 
+	serialize()
+		var/list/data = ..()
+		data["cistern"] = cistern
+		data["open"] = open
+		return data
+
+	deserialize(list/data)
+		cistern = data["cistern"]
+		open = data["open"]
+		..()
+
 
 /obj/structure/toilet/Initialize(mapload)
 	. = ..()
@@ -46,6 +57,7 @@
 
 	open = !open
 	update_icon()
+	check_for_sync()
 
 /obj/structure/toilet/update_icon()
 	icon_state = "toilet[open][cistern]"
@@ -121,6 +133,7 @@
 		user.visible_message("[user] [cistern ? "replaces the lid on the cistern" : "lifts the lid off the cistern"]!", "<span class='notice'>You [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]!</span>", "<span class='italics'>You hear grinding porcelain.</span>")
 		cistern = !cistern
 		update_icon()
+		check_for_sync()
 		return
 
 /obj/structure/toilet/wrench_act(mob/user, obj/item/I)
@@ -161,6 +174,7 @@
 			var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in dir_choices
 			dir = dir_choices[selected]
 	update_icon()	//is this necessary? probably not
+	check_for_sync()
 
 /obj/structure/toilet/proc/stash_goods(obj/item/I, mob/user)
 	if(!I)
@@ -239,6 +253,7 @@
 			anchored = 1
 			pixel_x = 0
 			pixel_y = 32
+	check_for_sync()
 
 #define SHOWER_FREEZING "freezing"
 #define SHOWER_NORMAL "normal"

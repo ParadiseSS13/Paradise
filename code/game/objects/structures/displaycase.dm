@@ -18,6 +18,15 @@
 	var/list/start_showpieces = list() //Takes sublists in the form of list("type" = /obj/item/bikehorn, "trophy_message" = "henk")
 	var/trophy_message = ""
 
+	serialize()
+		var/list/data = ..()
+		data["open"] = open
+		return data
+
+	deserialize(list/data)
+		open = data["open"]
+		..()
+
 /obj/structure/displaycase/Initialize(mapload)
 	. = ..()
 	if(start_showpieces.len && !start_showpiece_type)
@@ -83,6 +92,7 @@
 		playsound(src, "shatter", 70, TRUE)
 		update_icon()
 		trigger_alarm()
+		check_for_sync()
 
 /obj/structure/displaycase/proc/trigger_alarm()
 	set waitfor = FALSE
@@ -132,6 +142,7 @@
 			open = FALSE
 			obj_integrity = max_integrity
 			update_icon()
+			check_for_sync()
 	else
 		return ..()
 
@@ -175,6 +186,7 @@
 /obj/structure/displaycase/proc/toggle_lock()
 	open = !open
 	update_icon()
+	check_for_sync()
 
 /obj/structure/displaycase/attack_hand(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)

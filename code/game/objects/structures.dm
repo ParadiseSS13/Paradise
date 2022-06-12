@@ -11,10 +11,12 @@
 	serialize()
 		var/list/data = ..()
 		data["anchored"] = anchored
+		data["broken"] = broken
 		return data
 
 	deserialize(list/data)
 		anchored = data["anchored"]
+		broken = data["broken"]
 		..()
 
 /obj/structure/New()

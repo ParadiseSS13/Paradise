@@ -38,6 +38,7 @@
 /obj/structure/sign/barsign/obj_break(damage_flag)
 	if(!broken && !(flags & NODECONSTRUCT))
 		broken = TRUE
+		check_for_sync()
 
 /obj/structure/sign/barsign/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/metal(drop_location(), 2)
@@ -96,6 +97,7 @@
 		if(C.use(2))
 			to_chat(user, "<span class='notice'>You replace the burnt wiring.</span>")
 			broken = 0
+			check_for_sync()
 		else
 			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
 	else
@@ -106,6 +108,7 @@
 /obj/structure/sign/barsign/emp_act(severity)
     set_sign(new /datum/barsign/hiddensigns/empbarsign)
     broken = 1
+    check_for_sync()
 
 
 

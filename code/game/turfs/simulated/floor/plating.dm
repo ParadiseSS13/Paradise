@@ -131,6 +131,7 @@
 		burnt = FALSE
 		broken = FALSE
 		update_icon()
+		check_for_sync()
 
 /turf/simulated/floor/plating/remove_plating(mob/user)
 	if(baseturf == /turf/space)

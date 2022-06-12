@@ -17,6 +17,15 @@
 	var/opened = 0
 	var/material_drop = /obj/item/stack/sheet/metal
 
+	serialize()
+		var/list/data = ..()
+		data["opened"] = opened
+		return data
+
+	deserialize(list/data)
+		opened = data["opened"]
+		..()
+
 /obj/structure/extinguisher_cabinet/Initialize(mapload, direction = null)
 	. = ..()
 	name = "extinguisher cabinet"
@@ -46,6 +55,7 @@
 	playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 	opened = !opened
 	update_icon()
+	check_for_sync()
 
 /obj/structure/extinguisher_cabinet/Destroy()
 	QDEL_NULL(has_extinguisher)
@@ -73,15 +83,18 @@
 			has_extinguisher = O
 			update_icon()
 			to_chat(user, "<span class='notice'>You place [O] in [src].</span>")
+			check_for_sync()
 			return TRUE
 		else
 			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 			opened = !opened
+			check_for_sync()
 		update_icon()
 	else if(user.a_intent != INTENT_HARM)
 		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		opened = !opened
 		update_icon()
+		check_for_sync()
 	else
 		return ..()
 
@@ -123,6 +136,7 @@
 		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		opened = !opened
 	update_icon()
+	check_for_sync()
 
 /obj/structure/extinguisher_cabinet/attack_tk(mob/user)
 	if(has_extinguisher)
@@ -136,6 +150,7 @@
 		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		opened = !opened
 	update_icon()
+	check_for_sync()
 
 /obj/structure/extinguisher_cabinet/obj_break(damage_flag)
 	if(!broken && !(flags & NODECONSTRUCT))
@@ -145,6 +160,7 @@
 			has_extinguisher.forceMove(loc)
 			has_extinguisher = null
 		update_icon()
+		check_for_sync()
 
 /obj/structure/extinguisher_cabinet/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

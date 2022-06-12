@@ -13,6 +13,19 @@
 	var/set_temperature = 50		// in celcius, add T0C for kelvin
 	var/heating_power = 40000
 
+	serialize()
+		var/list/data = ..()
+		data["on"] = on
+		data["open"] = open
+		data["set_temperature"] = set_temperature
+		return data
+
+	deserialize(list/data)
+		on = data["on"]
+		open = data["open"]
+		set_temperature = data["set_temperature"]
+		..()
+
 /obj/machinery/space_heater/get_cell()
 	return cell
 
@@ -85,6 +98,7 @@
 	if(!open && user.machine == src)
 		user << browse(null, "window=spaceheater")
 		user.unset_machine()
+	check_for_sync()
 
 /obj/machinery/space_heater/attack_hand(mob/user as mob)
 	src.add_fingerprint(user)
@@ -116,6 +130,7 @@
 		on = !on
 		user.visible_message("<span class='notice'>[user] switches [on ? "on" : "off"] [src].</span>","<span class='notice'>You switch [on ? "on" : "off"] [src].</span>")
 		update_icon()
+		check_for_sync()
 	return
 
 
@@ -132,6 +147,7 @@
 
 				// limit to 20-90 degC
 				set_temperature = dd_range(0, 90, set_temperature + value)
+				check_for_sync()
 
 			if("cellremove")
 				if(open && cell && !usr.get_active_hand())
@@ -186,3 +202,4 @@
 		else
 			on = 0
 			update_icon()
+			check_for_sync()

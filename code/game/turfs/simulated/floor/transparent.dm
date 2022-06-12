@@ -40,6 +40,7 @@
 		burnt = FALSE
 		broken = FALSE
 		update_icon()
+		check_for_sync()
 
 /turf/simulated/floor/transparent/glass/crowbar_act(mob/user, obj/item/I)
 	if(!I || !user)

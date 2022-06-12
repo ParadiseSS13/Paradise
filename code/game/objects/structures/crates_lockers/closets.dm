@@ -25,6 +25,19 @@
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
 
+	serialize()
+		var/list/data = ..()
+		data["opened"] = opened
+		data["welded"] = welded
+		data["locked"] = locked
+		return data
+
+	deserialize(list/data)
+		opened = data["opened"]
+		welded = data["welded"]
+		locked = data["locked"]
+		..()
+
 // Please dont override this unless you absolutely have to
 /obj/structure/closet/Initialize(mapload)
 	. = ..()
@@ -103,6 +116,7 @@
 	update_icon()
 	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
 	density = FALSE
+	check_for_sync()
 	return TRUE
 
 /obj/structure/closet/proc/close()
@@ -146,6 +160,7 @@
 	update_icon()
 	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	density = TRUE
+	check_for_sync()
 	return TRUE
 
 /obj/structure/closet/proc/toggle(mob/user)
@@ -228,6 +243,7 @@
 			user.visible_message("<span class='notice'>[user] welds [src] [adjective]!</span>", "<span class='notice'>You weld [src] [adjective]!</span>")
 			welded = !welded
 			update_icon()
+			check_for_sync()
 			return
 
 /obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user)

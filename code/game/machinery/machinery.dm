@@ -125,6 +125,21 @@ Class Procs:
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
 
+	synced = TRUE
+
+	serialize()
+		var/list/data = ..()
+		data["anchored"] = anchored
+		data["panel_open"] = panel_open
+		data["stat"] = stat
+		return data
+
+	deserialize(list/data)
+		anchored = data["anchored"]
+		panel_open = data["panel_open"]
+		stat = data["stat"]
+		..()
+
 /*
  * reimp, attempts to flicker this machinery if the behavior is supported.
  */
@@ -454,6 +469,7 @@ Class Procs:
 			icon_state = icon_state_closed
 			to_chat(user, "<span class='notice'>You close the maintenance hatch of [src].</span>")
 		I.play_tool_sound(user, I.tool_volume)
+		check_for_sync()
 		return 1
 	return 0
 
@@ -466,6 +482,7 @@ Class Procs:
 		dir = turn(dir,-90)
 		to_chat(user, "<span class='notice'>You rotate [src].</span>")
 		I.play_tool_sound(user, I.tool_volume)
+		check_for_sync()
 		return TRUE
 	return FALSE
 

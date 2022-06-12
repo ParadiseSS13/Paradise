@@ -378,6 +378,7 @@
 		src.name = "[src.registered_name]'s ID Card ([src.assignment])"
 		to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
 		registered_user = user
+
 	else if(!registered_user || registered_user == user)
 		if(!registered_user)
 			registered_user = user
@@ -395,6 +396,7 @@
 						UpdateName()
 						to_chat(user, "<span class='notice'>Name changed to [new_name].</span>")
 						RebuildHTML()
+						check_for_sync()
 
 					if("Photo")
 						if(!Adjacent(user))
@@ -408,6 +410,7 @@
 						photo = newphoto
 						to_chat(user, "<span class='notice'>Photo changed. Select another occupation and take a new photo if you wish to appear with different clothes.</span>")
 						RebuildHTML()
+						check_for_sync()
 
 					if("Appearance")
 						var/list/appearances = list(
@@ -460,6 +463,7 @@
 							else
 								desc = "A card used to provide ID and determine access across the station."
 						to_chat(usr, "<span class='notice'>Appearance changed to [choice].</span>")
+						check_for_sync()
 
 					if("Sex")
 						var/new_sex = sanitize(stripped_input(user,"What sex would you like to put on this card?","Agent Card Sex", ishuman(user) ? capitalize(user.gender) : "Male", MAX_MESSAGE_LEN))
@@ -468,6 +472,7 @@
 						sex = new_sex
 						to_chat(user, "<span class='notice'>Sex changed to [new_sex].</span>")
 						RebuildHTML()
+						check_for_sync()
 
 					if("Age")
 						var/default = "21"
@@ -480,6 +485,7 @@
 						age = new_age
 						to_chat(user, "<span class='notice'>Age changed to [new_age].</span>")
 						RebuildHTML()
+						check_for_sync()
 
 					if("Occupation")
 						var/list/departments =list(
@@ -519,6 +525,7 @@
 						to_chat(user, "<span class='notice'>Occupation changed to [new_job].</span>")
 						UpdateName()
 						RebuildHTML()
+						check_for_sync()
 
 					if("Money Account")
 						var/new_account = input(user,"What money account would you like to link to this card?","Agent Card Account",12345) as num
@@ -540,6 +547,7 @@
 						blood_type = new_blood_type
 						to_chat(user, "<span class='notice'>Blood type changed to [new_blood_type].</span>")
 						RebuildHTML()
+						check_for_sync()
 
 					if("DNA Hash")
 						var/default = "\[UNSET\]"
@@ -554,6 +562,7 @@
 						dna_hash = new_dna_hash
 						to_chat(user, "<span class='notice'>DNA hash changed to [new_dna_hash].</span>")
 						RebuildHTML()
+						check_for_sync()
 
 					if("Fingerprint Hash")
 						var/default = "\[UNSET\]"
@@ -568,12 +577,14 @@
 						fingerprint_hash = new_fingerprint_hash
 						to_chat(user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
 						RebuildHTML()
+						check_for_sync()
 
 					if("Reset Access")
 						var/response = alert(user, "Are you sure you want to reset access saved on the card?","Reset Access", "No", "Yes")
 						if(response == "Yes")
 							access = initial_access.Copy() // Initial() doesn't work on lists
 							to_chat(user, "<span class='notice'>Card access reset.</span>")
+							check_for_sync()
 
 					if("Delete Card Information")
 						var/response = alert(user, "Are you sure you want to delete all information saved on the card?","Delete Card Information", "No", "Yes")
@@ -592,6 +603,7 @@
 							registered_user = null
 							to_chat(user, "<span class='notice'>All information has been deleted from \the [src].</span>")
 							RebuildHTML()
+							check_for_sync()
 	else
 		..()
 

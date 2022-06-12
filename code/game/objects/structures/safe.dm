@@ -182,6 +182,7 @@ GLOBAL_LIST_EMPTY(safes)
 			qdel(I)
 			broken = FALSE
 			update_icon()
+			check_for_sync()
 		else if(I.w_class + space <= maxspace)
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the safe!</span>")
@@ -352,6 +353,7 @@ GLOBAL_LIST_EMPTY(safes)
 	drill.soundloop.stop()
 	update_icon()
 	STOP_PROCESSING(SSobj, src)
+	check_for_sync()
 
 /**
   * # Floor Safe

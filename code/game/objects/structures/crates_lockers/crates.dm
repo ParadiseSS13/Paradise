@@ -59,6 +59,7 @@
 	if(climbable)
 		structure_shaken()
 
+	check_for_sync()
 	return TRUE
 
 /obj/structure/closet/crate/close()
@@ -83,6 +84,7 @@
 
 	icon_state = icon_closed
 	opened = FALSE
+	check_for_sync()
 	return TRUE
 
 /obj/structure/closet/crate/attackby(obj/item/W, mob/user, params)
@@ -229,6 +231,7 @@
 	if(ishuman(usr) || isrobot(usr))
 		add_fingerprint(usr)
 		togglelock(usr)
+		check_for_sync()
 		return
 	to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 

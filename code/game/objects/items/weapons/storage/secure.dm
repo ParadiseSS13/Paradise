@@ -57,6 +57,7 @@
 			if(do_after(user, 20 * W.toolspeed, target = src))
 				open = !open
 				user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
+				check_for_sync()
 			return
 
 		if((istype(W, /obj/item/multitool)) && (open == 1) && (!l_hacking))

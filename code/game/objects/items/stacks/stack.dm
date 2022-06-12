@@ -28,12 +28,23 @@
 	var/recipe_width = 400 //Width of the recipe popup
 	var/recipe_height = 400 //Height of the recipe popup
 
+	serialize()
+		var/list/data = ..()
+		data["amount"] = amount
+		return data
+
+	deserialize(list/data)
+		amount = data["amount"]
+		..()
+
 /obj/item/stack/New(loc, new_amount, merge = TRUE)
 	..()
 	if(new_amount != null)
 		amount = new_amount
+		check_for_sync()
 	while(amount > max_amount)
 		amount -= max_amount
+		check_for_sync()
 		new type(loc, max_amount, FALSE)
 	if(!merge_type)
 		merge_type = type
@@ -82,6 +93,7 @@
 		source.add_charge(newamount * cost)
 	else
 		amount += newamount
+		check_for_sync()
 	update_icon()
 
 /obj/item/stack/attack_self(mob/user)
@@ -278,6 +290,7 @@
 	if(check)
 		zero_amount()
 	update_icon()
+	check_for_sync()
 	return TRUE
 
 /obj/item/stack/proc/get_amount()

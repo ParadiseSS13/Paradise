@@ -1,4 +1,5 @@
 #define MAX_SYNC_OPERATIONS_PER_TICK 100
+#define MIN_CHARGE_DIFFERENCE 50
 
 SUBSYSTEM_DEF(dbcore)
 	name = "Database"
@@ -48,14 +49,36 @@ SUBSYSTEM_DEF(dbcore)
 			return
 
 /datum/controller/subsystem/dbcore/proc/syncToDb(force = FALSE)
+	var/synced_count = 0
+
+	// sync smes. can directly sync the item
+	for (var/obj/machinery/power/smes/smes in GLOB.smes_list)
+		if(abs(smes.sync_charge - smes.charge) > MIN_CHARGE_DIFFERENCE)
+			continue
+		smes.sync_charge = smes.charge
+		smes.sync_to_db()
+		synced_count += 1
+
+	// sync cells, will need fully sync parent
+	for (var/obj/item/stock_parts/cell/cell in GLOB.powercell_list)
+		if(abs(cell.sync_charge - cell.charge) > MIN_CHARGE_DIFFERENCE)
+			continue
+		cell.sync_charge = cell.charge
+		cell.check_for_sync()
+
+	// sync changed objects
 	var/index = 0
 	for(var/atom/A in GLOB.changed_objects)
 		A.sync_to_db()
 		LAZYREMOVE(GLOB.changed_objects, A)
 		index += 1
+		synced_count += 1
 		if(index > MAX_SYNC_OPERATIONS_PER_TICK && !force)
 			to_chat(world, "DB >> pausing sync to next tick")
-			return
+			break
+
+	// record results
+	to_chat(world, "DB >> synced with [synced_count] queries")
 
 /datum/controller/subsystem/dbcore/Recover()
 	connection = SSdbcore.connection

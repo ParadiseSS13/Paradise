@@ -29,18 +29,6 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 	var/map_json_data
 	var/synced = FALSE
 
-/obj/machinery
-	synced = TRUE
-
-	serialize()
-		var/list/data = ..()
-		data["anchored"] = anchored
-		return data
-
-	deserialize(list/data)
-		anchored = data["anchored"]
-		..()
-
 // This is so specific atoms can override these, and ignore certain ones
 /atom/proc/vars_to_save()
  	return list("color","dir","icon","icon_state","name","pixel_x","pixel_y") //

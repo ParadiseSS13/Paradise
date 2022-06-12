@@ -123,6 +123,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	current_overlay = pick(broken_states)
 	broken = TRUE
 	update_icon()
+	check_for_sync()
 
 /turf/simulated/floor/burn_tile()
 	if(burnt)
@@ -130,6 +131,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	current_overlay = pick(burnt_states)
 	burnt = TRUE
 	update_icon()
+	check_for_sync()
 
 /turf/simulated/floor/proc/make_plating()
 	return ChangeTurf(/turf/simulated/floor/plating)
@@ -227,6 +229,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		broken = 0
 		burnt = 0
 		current_overlay = null
+		check_for_sync()
 		if(user && !silent)
 			to_chat(user, "<span class='danger'>You remove the broken plating.</span>")
 	else

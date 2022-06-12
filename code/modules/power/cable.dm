@@ -39,6 +39,17 @@ By design, d1 is the smallest direction and d2 is the highest
 	layer = WIRE_LAYER //Just below unary stuff, which is at 2.45 and above pipes, which are at 2.4
 	color = COLOR_RED
 
+	serialize()
+		var/list/data = ..()
+		data["d1"] = d1
+		data["d2"] = d2
+		return data
+
+	deserialize(list/data)
+		d1 = data["d1"]
+		d2 = data["d2"]
+		..()
+
 /obj/structure/cable/yellow
 	color = COLOR_YELLOW
 
@@ -442,6 +453,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	P_list += power_list(loc, src, d1, 0, cable_only = 1)//... and on turf
 
+	check_for_sync()
 
 	if(P_list.len == 0)//if nothing in both list, then the cable was a lone cable, just delete it and its powernet
 		powernet.remove_cable(src)
@@ -699,6 +711,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 			new /obj/item/stack/cable_coil(get_turf(C), 1, paramcolor = C.color)
 			C.deconstruct()
 
+	C.check_for_sync()
+
 	return C
 
 // called when cable_coil is click on an installed obj/cable
@@ -762,6 +776,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 			if(NC.shock(user, 50))
 				if(prob(50)) //fail
 					NC.deconstruct()
+
+			NC.check_for_sync()
 			return
 
 	// exisiting cable doesn't point at our position, so see if it's a stub
@@ -810,6 +826,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 				C.deconstruct()
 				return
 
+		C.check_for_sync()
 		C.denode()// this call may have disconnected some cables that terminated on the centre of the turf, if so split the powernets.
 		return
 

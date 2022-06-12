@@ -223,6 +223,7 @@
 
 	if(!node)
 		on = 0
+		check_for_sync()
 
 	if(welded)
 		return 0
@@ -351,6 +352,8 @@
 		scrub_N2O = text2num(signal.data["n2o_scrub"])
 	if("toggle_n2o_scrub" in signal.data)
 		scrub_N2O = !scrub_N2O
+
+	check_for_sync()
 
 	if("init" in signal.data)
 		name = signal.data["init"]

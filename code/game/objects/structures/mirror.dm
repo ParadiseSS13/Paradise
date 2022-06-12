@@ -48,6 +48,7 @@
 		if(desc == initial(desc))
 			desc = "Oh no, seven years of bad luck!"
 		broken = TRUE
+		check_for_sync()
 
 /obj/structure/mirror/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

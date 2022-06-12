@@ -1,5 +1,7 @@
 GLOBAL_LIST_INIT(portals, list())					//for use by portals
 GLOBAL_LIST(cable_list)								//Index for all cables, so that powernets don't have to look through the entire world all the time
+GLOBAL_LIST(smes_list)
+GLOBAL_LIST(powercell_list)
 GLOBAL_LIST(chemical_reactions_list)			//list of all /datum/chemical_reaction datums. Used during chemical reactions
 GLOBAL_LIST(chemical_reagents_list)				//list of all /datum/reagent datums indexed by reagent id. Used by chemistry stuff
 GLOBAL_LIST_INIT(landmarks_list, list())				//list of all landmarks created

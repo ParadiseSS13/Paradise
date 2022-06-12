@@ -69,6 +69,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on
 	on = 1
 	icon_state = "map_vent_out"
+	check_for_sync()
 
 /obj/machinery/atmospherics/unary/vent_pump/siphon
 	pump_direction = 0
@@ -76,6 +77,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on
 	on = 1
 	icon_state = "map_vent_in"
+	check_for_sync()
 
 /obj/machinery/atmospherics/unary/vent_pump/New()
 	..()
@@ -152,6 +154,7 @@
 		return
 	if(!node)
 		on = FALSE
+		check_for_sync()
 	//broadcast_status() // from now air alarm/control computer should request update purposely --rastaf0
 	if(!on)
 		return FALSE
@@ -163,6 +166,7 @@
 				unsafe_pressure_release(M, air_contents.return_pressure())	//let's send everyone flying
 			welded = FALSE
 			update_icon()
+			check_for_sync()
 		return FALSE
 
 	var/datum/gas_mixture/environment = loc.return_air()
@@ -300,6 +304,8 @@
 	if("adjust_external_pressure" in signal.data)
 		external_pressure_bound = clamp(external_pressure_bound + text2num(signal.data["adjust_external_pressure"]), 0, ONE_ATMOSPHERE * 50)
 
+	check_for_sync()
+
 	if("init" in signal.data)
 		name = signal.data["init"]
 		return
@@ -320,6 +326,7 @@
 	user.visible_message("<span class='warning'>[user] furiously claws at [src]!</span>", "<span class='notice'>You manage to clear away the stuff blocking the vent.</span>", "<span class='italics'>You hear loud scraping noises.</span>")
 	welded = FALSE
 	update_icon()
+	check_for_sync()
 	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
 	pipe_image.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
@@ -339,6 +346,7 @@
 					playsound(loc, W.usesound, 100, 1)
 					open = 1
 					user.visible_message("[user] screwdrivers the vent open.", "You screwdriver the vent open.", "You hear a screwdriver.")
+			check_for_sync()
 		return
 	if(istype(W, /obj/item/paper))
 		if(!welded)
@@ -374,6 +382,7 @@
 			welded = FALSE
 			user.visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
 				"<span class='notice'>You unweld [src]!</span>")
+		check_for_sync()
 		update_icon()
 
 

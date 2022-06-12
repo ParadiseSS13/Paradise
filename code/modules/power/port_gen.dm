@@ -17,6 +17,17 @@
 	var/power_output = 1
 	var/base_icon = "portgen0"
 
+	serialize()
+		var/list/data = ..()
+		data["open"] = open
+		data["active"] = active
+		return data
+
+	deserialize(list/data)
+		open = data["open"]
+		active = data["active"]
+		..()
+
 /obj/machinery/power/port_gen/proc/IsBroken()
 	return (stat & (BROKEN|EMPED))
 
@@ -43,6 +54,7 @@
 		active = 0
 		handleInactive()
 		update_icon()
+		check_for_sync()
 
 /obj/machinery/power/powered()
 	return 1 //doesn't require an external power source
@@ -114,6 +126,19 @@
 	var/temperature = 0		//The current temperature
 	var/overheating = 0		//if this gets high enough the generator explodes
 
+	serialize()
+		var/list/data = ..()
+		data["sheets"] = sheets
+		data["sheet_left"] = sheet_left
+		data["temperature"] = temperature
+		return data
+
+	deserialize(list/data)
+		sheets = data["sheets"]
+		sheet_left = data["sheet_left"]
+		temperature = data["temperature"]
+		..()
+
 /obj/machinery/power/port_gen/pacman/Initialize()
 	..()
 	if(anchored)
@@ -177,6 +202,7 @@
 		var/amount = min(sheets, S.max_amount)
 		S.amount = amount
 		sheets -= amount
+		check_for_sync()
 
 /obj/machinery/power/port_gen/pacman/UseFuel()
 
@@ -188,6 +214,7 @@
 	if(needed_sheets > sheet_left)
 		sheets--
 		sheet_left = (1 + sheet_left) - needed_sheets
+		check_for_sync()
 	else
 		sheet_left -= needed_sheets
 
@@ -264,6 +291,7 @@
 
 	sheets = 0
 	sheet_left = 0
+	check_for_sync()
 	..()
 
 /obj/machinery/power/port_gen/pacman/emag_act(remaining_charges, mob/user)
@@ -285,6 +313,7 @@
 		sheets += amount
 		addstack.use(amount)
 		SStgui.update_uis(src)
+		check_for_sync()
 		return
 	else if(!active)
 		if(istype(O, /obj/item/wrench))
@@ -298,10 +327,12 @@
 
 			playsound(src.loc, O.usesound, 50, 1)
 			anchored = !anchored
+			check_for_sync()
 
 		else if(istype(O, /obj/item/screwdriver))
 			panel_open = !panel_open
 			playsound(src.loc, O.usesound, 50, 1)
+			check_for_sync()
 			if(panel_open)
 				to_chat(user, "<span class='notice'>You open the access panel.</span>")
 			else
