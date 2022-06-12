@@ -402,6 +402,8 @@
 	id = "sleeping"
 	tick_interval = 2 SECONDS
 	needs_update_stat = TRUE
+	/// Whether we decided to take a nap on our own.
+	/// As opposed to being hard knocked out with N2O or similar.
 	var/voluntary = FALSE
 
 /datum/status_effect/incapacitating/sleeping/tick()

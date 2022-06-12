@@ -395,6 +395,9 @@
 		if(voluntary)
 			S.voluntary = TRUE
 	if(!voluntary && S)
+		// Only set it one way (true => false)
+		// Otherwise if we are hard knocked out, and then try to nap, we'd be
+		// treated as "just lightly napping" and woken up by trivial stuff.
 		S.voluntary = FALSE
 	return S
 
