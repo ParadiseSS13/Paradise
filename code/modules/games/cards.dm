@@ -137,7 +137,6 @@
 
 	if(!H)
 		H = new(get_turf(src))
-		H.dir = NORTH
 		user.put_in_hands(H)
 
 	var/datum/playingcard/P = cards[1]
@@ -297,6 +296,7 @@
 	var/list/cards = list()
 	var/parentdeck = null
 	var/pickedcard = null
+	var/direction = NORTH
 
 /obj/item/cardhand/proc/update_values()
 	if(parentdeck)
@@ -441,7 +441,6 @@
 	H.parentdeck = parentdeck
 	H.update_values()
 	H.concealed = concealed
-	H.dir = NORTH
 	H.update_icon()
 	if(!length(cards))
 		qdel(src)
@@ -478,7 +477,7 @@
 		H.concealed = FALSE
 		H.parentdeck = parentdeck
 		H.update_values()
-		H.dir = user.dir
+		H.direction = user.dir
 		H.update_icon()
 		if(length(cards))
 			update_icon()
@@ -503,7 +502,7 @@
 	cut_overlays()
 
 	var/matrix/M = matrix()
-	switch(dir)
+	switch(direction)
 		if(NORTH)
 			M.Translate( 0,  0)
 		if(SOUTH)
@@ -530,7 +529,7 @@
 	for(var/datum/playingcard/P in cards)
 		var/image/I = new(icon, (concealed ? "[P.back_icon]" : "[P.card_icon]") )
 		//I.pixel_x = origin+(offset*i)
-		switch(dir)
+		switch(direction)
 			if(SOUTH)
 				I.pixel_x = 8-(offset*i)
 			if(WEST)
@@ -545,10 +544,10 @@
 
 /obj/item/cardhand/dropped(mob/user as mob)
 	..()
-	dir = user.dir
+	direction = user.dir
 	update_icon()
 
 /obj/item/cardhand/pickup(mob/user as mob)
 	. = ..()
-	dir = NORTH
+	direction = NORTH
 	update_icon()
