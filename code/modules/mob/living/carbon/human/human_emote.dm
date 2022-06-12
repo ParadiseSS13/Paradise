@@ -284,7 +284,7 @@
 /datum/emote/living/carbon/human/highfive/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/carbon/user_carbon = user
 	if(user_carbon.has_status_effect(STATUS_EFFECT_HIGHFIVE))
-		user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE, FALSE)
+		user.visible_message("[user.name] shakes [user.p_their()] hand around slightly, impatiently waiting for someone to high-five them.")
 		return TRUE
 	user_carbon.apply_status_effect(STATUS_EFFECT_HIGHFIVE)
 	for(var/mob/living/L in orange(1))
@@ -296,13 +296,13 @@
 				explosion(get_turf(user), 5, 2, 1, 3)
 				// explosions have a spawn so this makes sure that we don't get gibbed
 				addtimer(CALLBACK(src, .proc/wiz_cleanup, user_carbon, L), 1)
-				user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE, TRUE)
-				L.remove_status_effect(STATUS_EFFECT_HIGHFIVE, TRUE)
+				user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
+				L.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
 				return TRUE
 			user.visible_message("<b>[user.name]</b> and <b>[L.name]</b> high-five!")
 			playsound(user, 'sound/effects/snap.ogg', 50)
-			user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE, TRUE)
-			L.remove_status_effect(STATUS_EFFECT_HIGHFIVE, TRUE)
+			user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
+			L.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
 			return TRUE
 	. = ..()
 

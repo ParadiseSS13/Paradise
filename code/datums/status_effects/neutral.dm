@@ -55,18 +55,10 @@
 
 	return pick(missed_highfive_messages)
 
-/datum/status_effect/high_five/before_remove(success = FALSE)
-	. = TRUE  // return true so we don't cancel the removal
-	if(success)
-		// we should have already showed our success message
-		return .
-
+/datum/status_effect/high_five/on_timeout()
 	// show some emotionally damaging failure messages
 	// high risk, high reward
 	owner.visible_message("[owner] awkwardly lowers [owner.p_their()] hand, [get_missed_message()]")
-
-/datum/status_effect/high_five/on_timeout()
-	. = ..()
 	before_remove(FALSE)
 
 /datum/status_effect/charging
