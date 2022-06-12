@@ -40,6 +40,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	color = COLOR_RED
 
 	serialize()
+		updateicon()
 		var/list/data = ..()
 		data["d1"] = d1
 		data["d2"] = d2

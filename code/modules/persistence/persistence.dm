@@ -31,11 +31,11 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 
 // This is so specific atoms can override these, and ignore certain ones
 /atom/proc/vars_to_save()
- 	return list("color","dir","icon","icon_state","name","pixel_x","pixel_y") //
+ 	return list("color","dir","icon_state","name","pixel_x","pixel_y") //
 
 /atom/proc/map_important_vars()
 	// A list of important things to save in the map editor
- 	return list("color","dir","icon","icon_state","layer","name","pixel_x","pixel_y") //
+ 	return list("color","dir","icon_state","layer","name","pixel_x","pixel_y") //
 
 /area/map_important_vars()
 	// Keep the area default icons, to keep things nice and legible
@@ -83,36 +83,6 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 			vars[thing] = data[thing]
 	..()
 
-/turf/vars_to_save()
- 	return list("color","icon_state","icon_regular_floor","broken","burnt")
-
-/turf/serialize()
-	var/list/data = ..()
-	for(var/thing in vars_to_save())
-		data[thing] = vars[thing] // Can't check initial() because it doesn't work on a list index
-	return data
-
-/turf/deserialize(list/data)
-	for(var/thing in vars_to_save())
-		if(thing in data)
-			vars[thing] = data[thing]
-	..()
-
-/obj/vars_to_save()
- 	return list("obj_integrity")
-
-/obj/serialize()
-	var/list/data = ..()
-	for(var/thing in vars_to_save())
-		data[thing] = vars[thing] // Can't check initial() because it doesn't work on a list index
-	return data
-
-/obj/deserialize(list/data)
-	for(var/thing in vars_to_save())
-		if(thing in data)
-			vars[thing] = data[thing]
-	..()
-
 /atom
 	var/db_uid = -1
 	var/db_dirty = FALSE
@@ -123,20 +93,50 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 
 	if (!isturf(loc))
 		var/atom/A = loc
-		while(!isturf(A.loc))
-			A = A.loc
 		del_from_db()
-		A.check_for_sync()
+		try
+			while(!isturf(A.loc))
+				A = A.loc
+			if (istype(A, /obj))
+				var/obj/O = A
+				if (O && O.db_uid > 0)
+					O.check_for_sync()
+		catch
+			return
 		return
 	if (db_dirty)
 		return
 
-	to_chat(world, "DB >> registered [type] for sync")
+	//to_chat(world, "DB >> registered [type] for sync")
 	LAZYADD(GLOB.changed_objects, src)
 	db_dirty = TRUE
 
+/obj/proc/serialize_contents()
+	var/list/content_list = list()
+	for(var/thing in contents)
+		var/atom/movable/AM = thing
+		content_list.len++
+		content_list[content_list.len] = AM.serialize()
+	return content_list
+
+/obj/proc/deserialize_contents(list/content_data)
+	// clear existing
+	for(var/thing in contents)
+		qdel(thing)
+	// deserialize list
+	for(var/thing in content_data)
+		if(islist(thing))
+			list_to_object(thing, src)
+		else if(thing == null)
+			log_runtime(EXCEPTION("Null entry found in storage/deserialize."), src)
+		else
+			log_runtime(EXCEPTION("Non-list thing found in storage/deserialize."), src, list("Thing: [thing]"))
+
 /atom/proc/sync_to_db()
 	if (!GLOB.enable_sync || !synced)
+		return
+
+	if (!isturf(loc) || (x == 0 && y == 0 && z == 0))
 		return
 
 	var/datum/db_query/query = null
@@ -157,7 +157,7 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 		qdel(query)
 	else
 		// update in database
-		to_chat(world, "DB >> update obj [type] as [db_uid]")
+		//to_chat(world, "DB >> update obj [type] as [db_uid]")
 		query = SSdbcore.NewQuery({"
 				UPDATE rs_world_objects
 				SET
@@ -195,12 +195,12 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 	if (!GLOB.enable_sync)
 		return
 
-	to_chat(world, "DB >> check [type] for sync")
+	//to_chat(world, "DB >> check [type] for sync")
 	if (LAZYIN(GLOB.changed_objects, src))
-		to_chat(world, "DB >> skipping [type] for sync as registered")
+		//to_chat(world, "DB >> skipping [type] for sync as registered")
 		return
 
-	to_chat(world, "DB >> registered [type] for sync")
+	//to_chat(world, "DB >> registered [type] for sync")
 	LAZYADD(GLOB.changed_objects, src)
 
 
@@ -220,6 +220,7 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 	save_turf.Execute()
 	qdel(save_turf)
 	db_dirty = FALSE
+	db_saved = TRUE
 
 /turf/simulated/sync_to_db()
 	if (!air)
@@ -228,7 +229,7 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 
 	if (!GLOB.enable_sync)
 		return
-	to_chat(world, "DB >> new sturf [type] at [x],[y],[z]")
+	to_chat(world, "DB >> new sim turf [type] at [x],[y],[z]")
 	var/datum/db_query/save_turf = SSdbcore.NewQuery({"
 			REPLACE INTO rs_world_turfs (
 				x,y,z,
@@ -243,6 +244,23 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 	save_turf.Execute()
 	qdel(save_turf)
 	db_dirty = FALSE
+	db_saved = TRUE
+
+/turf/simulated/proc/sync_air_to_db()
+	if (!db_saved)
+		return FALSE
+	var/datum/db_query/query = SSdbcore.NewQuery({"
+		UPDATE rs_world_turfs SET
+			air = '[json_encode(air.serialize())]'
+		WHERE
+			x = [x] AND
+			y = [y] AND
+			z = [z]
+
+	"})
+	query.Execute()
+	qdel(query)
+	return TRUE
 
 
 /datum/gas_mixture/deserialize(list/data)

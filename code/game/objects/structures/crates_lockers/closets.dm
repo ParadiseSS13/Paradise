@@ -30,12 +30,14 @@
 		data["opened"] = opened
 		data["welded"] = welded
 		data["locked"] = locked
+		data["contents"] = serialize_contents()
 		return data
 
 	deserialize(list/data)
 		opened = data["opened"]
 		welded = data["welded"]
 		locked = data["locked"]
+		deserialize_contents(data["contents"])
 		..()
 
 // Please dont override this unless you absolutely have to

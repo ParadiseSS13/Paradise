@@ -35,6 +35,21 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/clawfootstep = FOOTSTEP_HARD_CLAW
 	var/heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
+	serialize()
+		var/list/data = ..()
+		data["icon_regular_floor"] = icon_regular_floor
+		data["broken"] = broken
+		data["burnt"] = burnt
+		data["icon_plating"] = icon_plating
+		return data
+
+	deserialize(list/data)
+		icon_regular_floor = data["icon_regular_floor"]
+		broken = data["broken"]
+		burnt = data["burnt"]
+		icon_plating = data["icon_plating"]
+		..()
+
 /turf/simulated/floor/Initialize(mapload)
 	. = ..()
 	if(icon_state in GLOB.icons_to_ignore_at_floor_init) //so damaged/burned tiles or plating icons aren't saved as the default

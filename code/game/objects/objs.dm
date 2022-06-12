@@ -31,6 +31,15 @@
 	/// Is it emagged or not?
 	var/emagged = FALSE
 
+	serialize()
+		var/list/data = ..()
+		data["obj_integrity"] = obj_integrity
+		return data
+
+	deserialize(list/data)
+		obj_integrity = data["obj_integrity"]
+		..()
+
 /obj/New()
 	..()
 	if(obj_integrity == null)
@@ -81,6 +90,7 @@
 		else
 			STOP_PROCESSING(SSfastprocess, src)
 	SStgui.close_uis(src)
+	LAZYREMOVE(GLOB.changed_objects,src)
 	del_from_db()
 	return ..()
 

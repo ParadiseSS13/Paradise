@@ -107,13 +107,16 @@
 	return ..()
 
 /datum/hud/proc/show_hud(version = 0)
-	if (!mymob)
-		return FALSE
+	try
+		if (!mymob)
+			return FALSE
 
-	if(!ismob(mymob))
-		return FALSE
+		if(!ismob(mymob))
+			return FALSE
 
-	if(!mymob.client)
+		if(!mymob.client)
+			return FALSE
+	catch
 		return FALSE
 
 	mymob.client.screen = list()

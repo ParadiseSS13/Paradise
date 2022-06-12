@@ -23,6 +23,8 @@ SUBSYSTEM_DEF(air)
 	var/cost_pipenets = 0
 	var/cost_deferred_pipenets = 0
 	var/cost_atmos_machinery = 0
+	var/archived_this_tick = 0
+	var/ticks_since_sync = 0
 
 	var/list/excited_groups = list()
 	var/list/active_turfs = list()
@@ -32,8 +34,6 @@ SUBSYSTEM_DEF(air)
 	var/list/atmos_machinery = list()
 	var/list/pipe_init_dirs_cache = list()
 	var/list/machinery_to_construct = list()
-
-
 
 	//Special functions lists
 	var/list/active_super_conductivity = list()
@@ -251,23 +251,44 @@ SUBSYSTEM_DEF(air)
 		if(T)
 			T.process_cell(fire_count)
 		if(MC_TICK_CHECK)
-			return
+			break
 
 /datum/controller/subsystem/air/proc/process_excited_groups(resumed = 0)
 	if(!resumed)
 		src.currentrun = excited_groups.Copy()
+
+
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
+	var/count = 0
+
+	var/sync = FALSE
+	ticks_since_sync += 1
+	if (ticks_since_sync > 5)
+		ticks_since_sync = 0
+		sync = TRUE
+
 	while(currentrun.len)
 		var/datum/excited_group/EG = currentrun[currentrun.len]
 		currentrun.len--
+
+		if (sync)
+			for(var/turf/simulated/T in EG.turf_list)
+				if (T.db_saved)
+					T.sync_air_to_db()
+					count += 1
+
 		EG.breakdown_cooldown++
 		if(EG.breakdown_cooldown == 10)
 			EG.self_breakdown()
 		else if(EG.breakdown_cooldown >= 20)
 			EG.dismantle()
 		if(MC_TICK_CHECK)
-			return
+			break
+
+	if (count > 0)
+		to_chat(world, "DB >> synced [count] active turfs")
+	archived_this_tick = 0
 
 /datum/controller/subsystem/air/proc/remove_from_active(turf/simulated/T)
 	active_turfs -= T

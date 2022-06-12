@@ -28,7 +28,6 @@ SUBSYSTEM_DEF(persistent_data)
 		A.persistent_save()
 
 /datum/controller/subsystem/persistent_data/proc/loadTurfs()
-	log_startup_progress("DB >> loading turfs...")
 	var/datum/db_query/query = SSdbcore.NewQuery({"
 		SELECT
 			x,y,z,
@@ -38,17 +37,28 @@ SUBSYSTEM_DEF(persistent_data)
 			rs_world_turfs
 	"})
 	query.Execute()
+	var/index = 0
 	while(query.NextRow())
-		var/list/data = json_decode(query.item[4])
-		var/turf_path = text2path(data["type"])
-		var/turf/T = locate(text2num(query.item[1]),text2num(query.item[2]),text2num(query.item[3]))
-		log_startup_progress("DB >> spawning turf [turf_path] at [T.x],[T.y],[T.z]")
-		T.ChangeTurf(turf_path)
-		T.deserialize(data)
+		try
+			var/list/data = json_decode(query.item[4])
+			var/list/air_data = list()
+			if(query.item[5])
+				air_data = json_decode(query.item[5])
+			var/turf_path = text2path(data["type"])
+			var/turf/T = locate(text2num(query.item[1]),text2num(query.item[2]),text2num(query.item[3]))
+			//log_startup_progress("DB >> spawning turf [turf_path] at [T.x],[T.y],[T.z]")
+			T.ChangeTurf(turf_path)
+			T.deserialize(data)
+			T.db_saved = TRUE
+			T.deserialize_air(air_data)
+			index += 1
+		catch
+			log_startup_progress("\red \b DB >> EXCEPTION deserializing turf [index]")
+
+	log_startup_progress("DB >> loaded [index] turfs...")
 	qdel(query)
 
 /datum/controller/subsystem/persistent_data/proc/loadObjects()
-	log_startup_progress("DB >> loading objs/mobs...")
 	var/datum/db_query/query = SSdbcore.NewQuery({"
 		SELECT
 			x,y,z,
@@ -58,19 +68,25 @@ SUBSYSTEM_DEF(persistent_data)
 			rs_world_objects
 	"})
 	query.Execute()
+	var/index = 0
 	while(query.NextRow())
-		var/list/data = json_decode(query.item[4])
-		var/turf_path = text2path(data["type"])
-		var/turf/T = locate(text2num(query.item[1]),text2num(query.item[2]),text2num(query.item[3]))
-		var/atom/A = list_to_object(data, T)
-		A.db_uid = text2num(query.item[5])
-		log_startup_progress("DB >> spawning [turf_path] at [A.x],[A.y],[A.z]")
-		if(istype(A, /obj))
-			var/obj/O = A
-			O?.update_icon()
-		if(ismob(A))
-			A.pixel_x = 0
-			A.pixel_y = 0
+		try
+			var/list/data = json_decode(query.item[4])
+			var/turf_path = text2path(data["type"])
+			var/turf/T = locate(text2num(query.item[1]),text2num(query.item[2]),text2num(query.item[3]))
+			var/atom/A = list_to_object(data, T)
+			A.db_uid = text2num(query.item[5])
+			//log_startup_progress("DB >> spawning [turf_path] at [A.x],[A.y],[A.z]")
+			if(istype(A, /obj))
+				var/obj/O = A
+				O?.update_icon()
+			if(ismob(A))
+				A.pixel_x = 0
+				A.pixel_y = 0
+			index += 1
+		catch
+			log_startup_progress("\red \b DB >> EXCEPTION deserializing object [index]")
+	log_startup_progress("DB >> loaded [index] objects...")
 	qdel(query)
 
 

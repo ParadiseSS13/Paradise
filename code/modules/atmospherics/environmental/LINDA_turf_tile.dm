@@ -265,6 +265,9 @@
 		air.archive()
 	temperature_archived = temperature
 	archived_cycle = SSair.times_fired
+	if (db_saved)
+		SSair.archived_this_tick += 1
+
 
 /turf/simulated/proc/update_visuals()
 	var/new_overlay_type = tile_graphic()

@@ -38,6 +38,22 @@
 	var/changing_turf = FALSE
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
+	var/db_saved = FALSE
+
+	serialize()
+		var/list/data = ..()
+		data["color"] = color
+		data["icon_state"] = icon_state
+		return data
+
+	deserialize(list/data)
+		color = data["color"]
+		icon_state = data["icon_state"]
+		..()
+
+	proc/deserialize_air(list/data)
+		return
+
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -99,6 +115,7 @@
 	visibilityChanged()
 	QDEL_LIST(blueprint_data)
 	initialized = FALSE
+	LAZYREMOVE(GLOB.changed_objects,src)
 	..()
 	del_from_db()
 
