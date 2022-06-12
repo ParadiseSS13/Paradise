@@ -277,28 +277,32 @@
 	if(user_carbon.restrained())
 		return FALSE
 
+/datum/emote/living/carbon/human/highfive/proc/wiz_cleanup(mob/user, mob/highfived)
+	user.status_flags &= ~GODMODE
+	highfived.status_flags &= ~GODMODE
+
 /datum/emote/living/carbon/human/highfive/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/carbon/user_carbon = user
 	if(user_carbon.has_status_effect(STATUS_EFFECT_HIGHFIVE))
-		user.visible_message("[src] drops his raised hand, frowning.", "You were left hanging...")
-		user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
+		user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE, FALSE)
 		return TRUE
-	message = "requests a highfive."
 	user_carbon.apply_status_effect(STATUS_EFFECT_HIGHFIVE)
 	for(var/mob/living/L in orange(1))
-		if(L.has_status_effect(STATUS_EFFECT_HIGHFIVE))
-			if((user_carbon.mind && user_carbon.mind.special_role == SPECIAL_ROLE_WIZARD) && (L.mind && L.mind.special_role == SPECIAL_ROLE_WIZARD))
-				user.visible_message("<span class='danger'><b>[user.name]</b> and <b>[L.name]</b> high-five EPICALLY!</span>")
-				user_carbon.status_flags |= (GODMODE)
+		if(L.has_status_effect(STATUS_EFFECT_HIGHFIVE) && L != user)
+			if(iswizard(user) && iswizard(L))
+				user.visible_message("<span class='bigdanger'><b>[user.name]</b> and <b>[L.name]</b> high-five EPICALLY!</span>")
+				user_carbon.status_flags |= GODMODE
 				L.status_flags |= GODMODE
-				explosion(user.loc,5,2,1,3)
-				user_carbon.status_flags &= ~GODMODE
-				L.status_flags &= ~GODMODE
+				explosion(get_turf(user), 5, 2, 1, 3)
+				// explosions have a spawn so this makes sure that we don't get gibbed
+				addtimer(CALLBACK(src, .proc/wiz_cleanup, user_carbon, L), 1)
+				user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE, TRUE)
+				L.remove_status_effect(STATUS_EFFECT_HIGHFIVE, TRUE)
 				return TRUE
 			user.visible_message("<b>[user.name]</b> and <b>[L.name]</b> high-five!")
-			playsound('sound/effects/snap.ogg', 50)
-			user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
-			L.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
+			playsound(user, 'sound/effects/snap.ogg', 50)
+			user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE, TRUE)
+			L.remove_status_effect(STATUS_EFFECT_HIGHFIVE, TRUE)
 			return TRUE
 	. = ..()
 
@@ -365,9 +369,9 @@
 	var/obj/item/organ/external/RH = H.get_organ("r_hand")
 	var/left_hand_good = FALSE
 	var/right_hand_good = FALSE
-	if(LH && (!(LH.status & ORGAN_SPLINTED)) && (!(LH.status & ORGAN_BROKEN)))
+	if(LH && !(LH.status & ORGAN_SPLINTED) && !(LH.status & ORGAN_BROKEN))
 		left_hand_good = TRUE
-	if(RH && (!(RH.status & ORGAN_SPLINTED)) && (!(RH.status & ORGAN_BROKEN)))
+	if(RH && !(RH.status & ORGAN_SPLINTED) && !(RH.status & ORGAN_BROKEN))
 		right_hand_good = TRUE
 
 	if(!left_hand_good && !right_hand_good)

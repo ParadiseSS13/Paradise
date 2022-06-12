@@ -282,6 +282,8 @@
 
 
 /mob/living/ex_act(severity)
+	if(status_flags & GODMODE)
+		return
 	..()
 	flash_eyes()
 
