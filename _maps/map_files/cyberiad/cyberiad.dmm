@@ -1035,18 +1035,16 @@
 	},
 /area/security/hos)
 "aeF" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "laborcamp_home";
-	locked = 1;
-	name = "Labor Camp Airlock";
-	req_access_txt = "2"
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d2 = 4;
+	icon_state = "0-4"
 	},
-/obj/structure/fans/tiny,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
 "aeG" = (
@@ -1054,6 +1052,11 @@
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
@@ -1205,6 +1208,11 @@
 /obj/structure/table,
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/clothing/shoes/orange,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "afc" = (
@@ -10583,22 +10591,13 @@
 /turf/simulated/wall,
 /area/solar/auxstarboard)
 "azV" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
+	d2 = 4;
+	icon_state = "2-4"
 	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "azW" = (
 /obj/structure/closet/secure_closet/brig{
@@ -105767,9 +105766,9 @@ atP
 auy
 adJ
 aea
-azV
-aeF
 aeY
+auy
+aeF
 awB
 aix
 agl
@@ -106025,7 +106024,7 @@ auV
 aff
 aec
 agy
-acY
+azV
 afa
 awB
 anl
