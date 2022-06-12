@@ -779,7 +779,7 @@
 /obj/item/gun/energy/detective/Initialize(mapload, ...)
 	. = ..()
 	Announcer = new /obj/item/radio/headset/det_gun(src)
-	Announcer.recalculateChannels((list("Security" = 0)))
+	Announcer.config(list("Security" = 1))
 
 /obj/item/gun/energy/detective/ShiftClick(mob/user)
 	. = ..()
