@@ -59,7 +59,6 @@
 	// show some emotionally damaging failure messages
 	// high risk, high reward
 	owner.visible_message("[owner] awkwardly lowers [owner.p_their()] hand, [get_missed_message()]")
-	before_remove(FALSE)
 
 /datum/status_effect/charging
 	id = "charging"
