@@ -697,7 +697,7 @@
 		// Switch between how we check the reagent type
 		if(strict)
 			if(R.type == reagent_type)
-				matches = FALSE
+				matches = TRUE
 		else
 			if(istype(R, reagent_type))
 				matches = TRUE
