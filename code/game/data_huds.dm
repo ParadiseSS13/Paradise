@@ -86,6 +86,8 @@
 		return TRUE
 	if(undergoing_cardiac_arrest())
 		return TRUE
+	if(ismachineperson(src) && health < 0)
+		return TRUE
 	return FALSE
 
 /// Whether a virus worthy displaying on the HUD is present.
@@ -167,8 +169,9 @@
 //called when a living mob changes health
 /mob/living/proc/med_hud_set_health()
 	var/image/holder = hud_list[HEALTH_HUD]
+	if(ismachineperson(src))
+		holder = hud_list[DIAG_HUD]
 	holder.icon_state = "hud[RoundHealth(src)]"
-
 
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/proc/med_hud_set_status()
@@ -181,12 +184,16 @@
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/carbon/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
+	if(ismachineperson(src))
+		holder = hud_list[DIAG_STAT_HUD]
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	// To the right of health bar
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		var/revivable
 		if(!ghost_can_reenter()) // DNR or AntagHUD
 			revivable = FALSE
+		else if(ismachineperson(src))
+			revivable = TRUE
 		else if(timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT))
 			revivable = TRUE
 

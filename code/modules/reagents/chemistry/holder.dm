@@ -241,6 +241,7 @@
 /datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
 		temperature_reagents(M.bodytemperature - 30)
+		M.absorb_blood()
 
 	for(var/thing in addiction_threshold_accumulated)
 		if(has_reagent(thing))
@@ -327,19 +328,13 @@
 	else if(update_flags & STATUS_UPDATE_STAT)
 		// update_stat is called in updatehealth
 		M.update_stat("reagent metabolism")
-	if(update_flags & STATUS_UPDATE_CANMOVE)
-		M.update_canmove()
 	if(update_flags & STATUS_UPDATE_STAMINA)
 		M.update_stamina()
 		M.update_health_hud()
 	if(update_flags & STATUS_UPDATE_BLIND)
 		M.update_blind_effects()
-	if(update_flags & STATUS_UPDATE_BLURRY)
-		M.update_blurry_effects()
 	if(update_flags & STATUS_UPDATE_NEARSIGHTED)
 		M.update_nearsighted_effects()
-	if(update_flags & STATUS_UPDATE_DRUGGY)
-		M.update_druggy_effects()
 	update_total()
 
 /datum/reagents/proc/death_metabolize(mob/living/M)

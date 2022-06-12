@@ -54,6 +54,10 @@
 	icon = 'icons/obj/doors/airlocks/station/science.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_science
 
+/obj/machinery/door/airlock/virology
+	icon = 'icons/obj/doors/airlocks/station/virology.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_viro
+
 //////////////////////////////////
 /*
 	Station Airlocks Glass
@@ -78,6 +82,10 @@
 	normal_integrity = 400
 
 /obj/machinery/door/airlock/medical/glass
+	opacity = 0
+	glass = TRUE
+
+/obj/machinery/door/airlock/virology/glass
 	opacity = 0
 	glass = TRUE
 
@@ -537,7 +545,7 @@
 			var/atom/throwtarget
 			throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
 			SEND_SOUND(L, pick(sound('sound/hallucinations/turn_around1.ogg', 0, 1, 50), sound('sound/hallucinations/turn_around2.ogg', 0, 1, 50)))
-			L.Weaken(2)
+			L.Weaken(4 SECONDS)
 			L.throw_at(throwtarget, 5, 1,src)
 		return FALSE
 

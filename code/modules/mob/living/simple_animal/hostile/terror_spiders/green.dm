@@ -87,9 +87,8 @@
 		..()
 		return
 	var/inject_target = pick("chest","head")
-	if(L.stunned || L.can_inject(null, FALSE, inject_target, FALSE))
-		if(L.eye_blurry < 60)
-			L.AdjustEyeBlurry(10)
+	if(L.IsStunned() || L.can_inject(null, FALSE, inject_target, FALSE))
+		L.AdjustEyeBlurry(20 SECONDS, 0, 120 SECONDS)
 		// instead of having a venom that only lasts seconds, we just add the eyeblur directly.
 		visible_message("<span class='danger'>[src] buries its fangs deep into the [inject_target] of [target]!</span>")
 	else
@@ -102,6 +101,5 @@
 
 /obj/structure/spider/terrorweb/green/web_special_ability(mob/living/carbon/C)
 	if(istype(C))
-		if(C.eye_blurry < 60)
-			C.AdjustEyeBlurry(30)
+		C.AdjustEyeBlurry(60 SECONDS, 0, 120 SECONDS)
 

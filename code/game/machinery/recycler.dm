@@ -183,7 +183,7 @@
 				eat(I, sound = 0)
 
 	// Instantly lie down, also go unconscious from the pain, before you die.
-	L.Paralyse(5)
+	L.Paralyse(10 SECONDS)
 
 	// For admin fun, var edit emagged to 2.
 	if(gib || emagged == 2)

@@ -1,5 +1,4 @@
-#define WATER_STUN_TIME 2 //Stun time for water, to edit/find easier
-#define WATER_WEAKEN_TIME 1 //Weaken time for water, to edit/find easier
+#define WATER_WEAKEN_TIME 4 SECONDS //Weaken time for slipping on water
 /turf/simulated
 	name = "station"
 	var/wet = 0
@@ -83,16 +82,16 @@
 
 			switch(src.wet)
 				if(TURF_WET_WATER)
-					if(!(M.slip("the wet floor", WATER_STUN_TIME, WATER_WEAKEN_TIME, tilesSlipped = 0, walkSafely = 1)))
+					if(!(M.slip("the wet floor", WATER_WEAKEN_TIME, tilesSlipped = 0, walkSafely = 1)))
 						M.inertia_dir = 0
 						return
 
 				if(TURF_WET_LUBE) //lube
-					M.slip("the floor", 0, 5, tilesSlipped = 3, walkSafely = 0, slipAny = 1)
+					M.slip("the floor", 10 SECONDS, tilesSlipped = 3, walkSafely = 0, slipAny = 1)
 
 
 				if(TURF_WET_ICE) // Ice
-					if(M.slip("the icy floor", 4, 2, tilesSlipped = 0, walkSafely = 0))
+					if(M.slip("the icy floor", 8 SECONDS, tilesSlipped = 0, walkSafely = 0))
 						M.inertia_dir = 0
 						if(prob(5))
 							var/obj/item/organ/external/affected = M.get_organ("head")
@@ -102,7 +101,7 @@
 								playsound(src, 'sound/weapons/genhit1.ogg', 50, 1)
 
 				if(TURF_WET_PERMAFROST) // Permafrost
-					M.slip("the frosted floor", 0, 5, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
+					M.slip("the frosted floor", 10 SECONDS, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
 
 /turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
 	. = ..()
@@ -110,5 +109,4 @@
 
 /turf/simulated/proc/is_shielded()
 
-#undef WATER_STUN_TIME
 #undef WATER_WEAKEN_TIME

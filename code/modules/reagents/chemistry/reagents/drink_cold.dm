@@ -7,9 +7,9 @@
 	id = "tonic"
 	description = "It tastes strange but at least the quinine keeps the Space Malaria at bay."
 	color = "#664300" // rgb: 102, 67, 0
-	adj_dizzy = -5
-	adj_drowsy = -3
-	adj_sleepy = -2
+	adj_dizzy = -10 SECONDS
+	adj_drowsy = -6 SECONDS
+	adj_sleepy = -4 SECONDS
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Tonic Water"
 	drink_desc = "Quinine tastes funny, but at least it'll keep that Space Malaria away."
@@ -20,8 +20,8 @@
 	id = "sodawater"
 	description = "A can of club soda. Why not make a scotch and soda?"
 	color = "#619494" // rgb: 97, 148, 148
-	adj_dizzy = -5
-	adj_drowsy = -3
+	adj_dizzy = -10 SECONDS
+	adj_drowsy = -6 SECONDS
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Soda Water"
 	drink_desc = "Soda water. Why not make a scotch and soda?"
@@ -49,7 +49,7 @@
 	description = "A refreshing beverage."
 	reagent_state = LIQUID
 	color = "#100800" // rgb: 16, 8, 0
-	adj_drowsy = -5
+	adj_drowsy = -10 SECONDS
 	drink_icon = "glass_brown"
 	drink_name = "Glass of Space Cola"
 	drink_desc = "A glass of refreshing Space Cola"
@@ -60,7 +60,7 @@
 	id = "nuka_cola"
 	description = "Cola, cola never changes."
 	color = "#100800" // rgb: 16, 8, 0
-	adj_sleepy = -2
+	adj_sleepy = -4 SECONDS
 	drink_icon = "nuka_colaglass"
 	drink_name = "Nuka Cola"
 	drink_desc = "Don't cry, Don't raise your eye, It's only nuclear wasteland"
@@ -69,9 +69,9 @@
 
 /datum/reagent/consumable/drink/cold/nuka_cola/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.Jitter(20)
-	update_flags |= M.Druggy(30, FALSE)
-	M.AdjustDizzy(5)
+	M.Jitter(40 SECONDS)
+	M.Druggy(60 SECONDS)
+	M.AdjustDizzy(10 SECONDS)
 	M.SetDrowsy(0)
 	ADD_TRAIT(M, TRAIT_GOTTAGONOTSOFAST, id)
 	return ..() | update_flags
@@ -85,8 +85,8 @@
 	id = "spacemountainwind"
 	description = "Blows right through you like a space wind."
 	color = "#102000" // rgb: 16, 32, 0
-	adj_drowsy = -7
-	adj_sleepy = -1
+	adj_drowsy = -14 SECONDS
+	adj_sleepy = -2 SECONDS
 	drink_icon = "Space_mountain_wind_glass"
 	drink_name = "Glass of Space Mountain Wind"
 	drink_desc = "Space Mountain Wind. As you know, there are no mountains in space, only wind."
@@ -97,7 +97,7 @@
 	id = "dr_gibb"
 	description = "A delicious blend of 42 different flavours"
 	color = "#102000" // rgb: 16, 32, 0
-	adj_drowsy = -6
+	adj_drowsy = -12 SECONDS
 	drink_icon = "dr_gibb_glass"
 	drink_name = "Glass of Dr. Gibb"
 	drink_desc = "Dr. Gibb. Not as dangerous as the name might imply."
@@ -175,7 +175,7 @@
 	taste_description = "coffee...soda?"
 
 /datum/reagent/consumable/drink/cold/rewriter/on_mob_life(mob/living/M)
-	M.Jitter(5)
+	M.Jitter(10 SECONDS)
 	return ..()
 
 /datum/reagent/consumable/drink/cold/arnold_palmer

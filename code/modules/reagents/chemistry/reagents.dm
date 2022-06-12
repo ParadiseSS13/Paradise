@@ -44,20 +44,32 @@
 	return
 
 /datum/reagent/proc/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
-	if(holder)  //for catching rare runtimes
-		if(method == REAGENT_TOUCH && penetrates_skin)
-			var/block  = M.get_permeability_protection()
-			var/amount = round(volume * (1 - block), 0.1)
-			if(M.reagents)
-				if(amount >= 1)
-					M.reagents.add_reagent(id, amount)
+	if(!holder)  //for catching rare runtimes
+		return
+	if(method == REAGENT_TOUCH && penetrates_skin)
+		var/block  = M.get_permeability_protection()
+		var/amount = round(volume * (1 - block), 0.1)
+		if(M.reagents)
+			if(amount >= 1)
+				M.reagents.add_reagent(id, amount)
 
-		if(method == REAGENT_INGEST) //Yes, even Xenos can get addicted to drugs.
-			var/can_become_addicted = M.reagents.reaction_check(M, src)
-			if(can_become_addicted)
-				if(is_type_in_list(src, M.reagents.addiction_list))
-					to_chat(M, "<span class='notice'>You feel slightly better, but for how long?</span>") //sate_addiction handles this now, but kept this for the feed back.
-		return TRUE
+	if(method == REAGENT_INGEST) //Yes, even Xenos can get addicted to drugs.
+		var/can_become_addicted = M.reagents.reaction_check(M, src)
+		if(can_become_addicted)
+			if(is_type_in_list(src, M.reagents.addiction_list))
+				to_chat(M, "<span class='notice'>You feel slightly better, but for how long?</span>") //sate_addiction handles this now, but kept this for the feed back.
+
+	var/mob/living/carbon/C = M
+	if(method == REAGENT_INGEST && istype(C) && C.get_blood_id() == id)
+		if(id == "blood" && !(data?["blood_type"] in get_safe_blood(C.dna?.blood_type)))
+			C.reagents.add_reagent("toxin", volume * 0.5)
+		else
+			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
+		// This does not absorb the blood we are getting in *this* reagent transfer operation,
+		// (because the actual transfer has not happened yet. Because reasons) but it does process
+		// the blood already in the mob.
+		// This one only matters if the mob is dead.
+		M.absorb_blood()
 
 /datum/reagent/proc/reaction_obj(obj/O, volume)
 	return
@@ -214,8 +226,7 @@
 		if(prob(6))
 			to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
 			M.visible_message("<span class='warning'>[M] gags and retches!</span>")
-			update_flags |= M.Stun(rand(2,4), FALSE)
-			update_flags |= M.Weaken(rand(2,4), FALSE)
+			M.Weaken(rand(4 SECONDS, 8 SECONDS))
 		if(prob(8))
 			M.emote(pick("twitch", "twitch_s", "shiver"))
 		if(prob(4))

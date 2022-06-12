@@ -117,52 +117,17 @@
 	if(incapacitated())
 		stop_pulling()
 
-//this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
+//this updates all special effects: mainly stamina
 /mob/living/proc/handle_status_effects() // We check for the status effect in this proc as opposed to the procs below to avoid excessive proc call overhead
-	if(stunned)
-		AdjustStunned(-1, updating = 1, force = 1)
-	if(weakened)
-		AdjustWeakened(-1, updating = 1, force = 1)
-	if(stuttering)
-		stuttering = max(stuttering - 1, 0)
-	if(silent)
-		AdjustSilence(-1)
-	if(druggy)
-		AdjustDruggy(-1)
-	if(slurring)
-		AdjustSlur(-1)
-	if(paralysis)
-		AdjustParalysis(-1, updating = 1, force = 1)
-	if(sleeping)
-		handle_sleeping()
-	if(slowed)
-		AdjustSlowed(-1)
-	if(drunk)
-		handle_drunk()
-	if(cultslurring)
-		AdjustCultSlur(-1)
-	if(confused)
-		AdjustConfused(-1)
+	return
 
 /mob/living/proc/update_damage_hud()
 	return
 
-/mob/living/proc/handle_sleeping()
-	AdjustSleeping(-1)
-	return sleeping
-
-/mob/living/proc/handle_drunk()
-	AdjustDrunk(-1)
-	return drunk
-
 /mob/living/proc/handle_disabilities()
 	//Eyes
 	if(HAS_TRAIT(src, TRAIT_BLIND) || stat)	//blindness from disability or unconsciousness doesn't get better on its own
-		EyeBlind(1)
-	else if(eye_blind)			//blindness, heals slowly over time
-		AdjustEyeBlind(-1)
-	else if(eye_blurry)			//blurry eyes heal slowly
-		AdjustEyeBlurry(-1)
+		EyeBlind(2 SECONDS)
 
 // Gives a mob the vision of being dead
 /mob/living/proc/grant_death_vision()

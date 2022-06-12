@@ -875,6 +875,12 @@
 
 		else
 			switch(href_list["preference"])
+				if("cbmode")
+					var/cb_mode = input(user, "Select a colourblind mode\nNote this will disable special screen effects such as the cursed heart warnings!") as null|anything in list(COLOURBLIND_MODE_NONE, COLOURBLIND_MODE_DEUTER, COLOURBLIND_MODE_PROT, COLOURBLIND_MODE_TRIT)
+					if(cb_mode)
+						colourblind_mode = cb_mode
+						user.update_client_colour(0)
+
 				if("publicity")
 					if(unlock_content)
 						toggles ^= PREFTOGGLE_MEMBER_PUBLIC

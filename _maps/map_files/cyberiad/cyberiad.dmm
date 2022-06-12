@@ -68422,7 +68422,6 @@
 "cTd" = (
 /obj/machinery/computer/operating{
 	dir = 1;
-	icon_state = "operatingb";
 	name = "Robotics Operating Computer";
 	stat = 1
 	},
