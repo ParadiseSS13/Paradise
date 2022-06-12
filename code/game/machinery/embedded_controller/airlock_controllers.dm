@@ -13,6 +13,31 @@
 	var/tag_shuttle_mech_sensor
 	var/tag_secure = 0
 
+	serialize()
+		var/list/data = ..()
+		data["tag_exterior_door"] = tag_exterior_door
+		data["tag_interior_door"] = tag_interior_door
+		data["tag_airpump"] = tag_airpump
+		data["tag_chamber_sensor"] = tag_chamber_sensor
+		data["tag_exterior_sensor"] = tag_exterior_sensor
+		data["tag_interior_sensor"] = tag_interior_sensor
+		data["tag_airlock_mech_sensor"] = tag_airlock_mech_sensor
+		data["tag_shuttle_mech_sensor"] = tag_shuttle_mech_sensor
+		data["tag_secure"] = tag_secure
+		return data
+
+	deserialize(list/data)
+		tag_exterior_door = data["tag_exterior_door"]
+		tag_interior_door = data["tag_interior_door"]
+		tag_airpump = data["tag_airpump"]
+		tag_chamber_sensor = data["tag_chamber_sensor"]
+		tag_exterior_sensor = data["tag_exterior_sensor"]
+		tag_interior_sensor = data["tag_interior_sensor"]
+		tag_airlock_mech_sensor = data["tag_airlock_mech_sensor"]
+		tag_shuttle_mech_sensor = data["tag_shuttle_mech_sensor"]
+		tag_secure = data["tag_secure"]
+		..()
+
 /obj/machinery/embedded_controller/radio/airlock/Initialize()
 	..()
 	program = new/datum/computer/file/embedded_program/airlock(src)

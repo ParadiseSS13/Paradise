@@ -78,6 +78,15 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/requires_tcomms = FALSE // Does this device require tcomms to work.If TRUE it wont function at all without tcomms. If FALSE, it will work without tcomms, just slowly
 	var/instant = FALSE // Should this device instantly communicate if there isnt tcomms
 
+	serialize()
+		var/list/data = ..()
+		data["on"] = on
+		return data
+
+	deserialize(list/data)
+		on = data["on"]
+		..()
+
 
 /obj/item/radio/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)

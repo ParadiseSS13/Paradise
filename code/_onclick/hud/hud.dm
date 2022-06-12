@@ -107,6 +107,9 @@
 	return ..()
 
 /datum/hud/proc/show_hud(version = 0)
+	if (!mymob)
+		return FALSE
+
 	if(!ismob(mymob))
 		return FALSE
 

@@ -20,6 +20,15 @@
 	var/grace = RAD_GEIGER_GRACE_PERIOD
 	var/datum/looping_sound/geiger/soundloop
 
+	serialize()
+		var/list/data = ..()
+		data["on"] = on
+		return data
+
+	deserialize(list/data)
+		on = data["on"]
+		..()
+
 	//Species-specific stuff.
 	species_restricted = list("exclude","Wryn")
 	sprite_sheets = list(
@@ -411,6 +420,15 @@
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
+
+	serialize()
+		var/list/data = ..()
+		data["on"] = on
+		return data
+
+	deserialize(list/data)
+		on = data["on"]
+		..()
 
 /obj/item/clothing/suit/space/hardsuit/syndi/update_icon()
 	icon_state = "hardsuit[on]-[item_color]"

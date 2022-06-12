@@ -120,6 +120,19 @@
 
 	var/report_danger_level = TRUE
 
+	serialize()
+		var/list/data = ..()
+		data["locked"] = locked
+		data["wiresexposed"] = wiresexposed
+		data["custom_name"] = custom_name
+		return data
+
+	deserialize(list/data)
+		locked = data["locked"]
+		wiresexposed = data["wiresexposed"]
+		custom_name = data["custom_name"]
+		..()
+
 /obj/machinery/alarm/monitor
 	report_danger_level = FALSE
 

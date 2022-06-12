@@ -17,6 +17,15 @@
 	var/on = 0
 	var/volume = 500
 
+	serialize()
+		var/list/data = ..()
+		data["on"] = on
+		return data
+
+	deserialize(list/data)
+		on = data["on"]
+		..()
+
 /obj/item/watertank/New()
 	..()
 	create_reagents(volume)

@@ -942,6 +942,15 @@
 	siemens_coefficient = 0
 	var/on = 0
 
+	serialize()
+		var/list/data = ..()
+		data["on"] = on
+		return data
+
+	deserialize(list/data)
+		on = data["on"]
+		..()
+
 /obj/item/clothing/suit/advanced_protective_suit/Destroy()
 	if(on)
 		on = 0

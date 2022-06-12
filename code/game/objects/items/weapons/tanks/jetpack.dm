@@ -11,6 +11,17 @@
 	var/stabilizers = 0
 	var/volume_rate = 500              //Needed for borg jetpack transfer
 
+	serialize()
+		var/list/data = ..()
+		data["on"] = on
+		data["stabilizers"] = stabilizers
+		return data
+
+	deserialize(list/data)
+		on = data["on"]
+		stabilizers = data["stabilizers"]
+		..()
+
 /obj/item/tank/jetpack/populate_gas()
 	if(gas_type)
 		switch(gas_type)

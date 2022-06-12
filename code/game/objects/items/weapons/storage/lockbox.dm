@@ -14,6 +14,15 @@
 	var/icon_closed = "lockbox"
 	var/icon_broken = "lockbox+b"
 
+	serialize()
+		var/list/data = ..()
+		data["locked"] = locked
+		return data
+
+	deserialize(list/data)
+		locked = data["locked"]
+		..()
+
 /obj/item/storage/lockbox/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(broken)

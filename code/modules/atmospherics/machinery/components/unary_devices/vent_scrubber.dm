@@ -38,6 +38,27 @@
 
 	connect_types = list(1,3) //connects to regular and scrubber pipes
 
+	serialize()
+		var/list/data = ..()
+		data["welded"] = welded
+		data["scrubbing"] = scrubbing
+		data["scrub_O2"] = scrub_O2
+		data["scrub_N2"] = scrub_N2
+		data["scrub_CO2"] = scrub_CO2
+		data["scrub_Toxins"] = scrub_Toxins
+		data["scrub_N2O"] = scrub_N2O
+		return data
+
+	deserialize(list/data)
+		welded = data["welded"]
+		scrubbing = data["scrubbing"]
+		scrub_O2 = data["scrub_O2"]
+		scrub_N2 = data["scrub_N2"]
+		scrub_CO2 = data["scrub_CO2"]
+		scrub_Toxins = data["scrub_Toxins"]
+		scrub_N2O = data["scrub_N2O"]
+		..()
+
 /obj/machinery/atmospherics/unary/vent_scrubber/on
 	on = TRUE
 

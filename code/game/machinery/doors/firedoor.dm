@@ -31,6 +31,17 @@
 	var/active_alarm = FALSE
 	var/list/affecting_areas
 
+	serialize()
+		var/list/data = ..()
+		data["boltslocked"] = boltslocked
+		data["active_alarm"] = active_alarm
+		return data
+
+	deserialize(list/data)
+		boltslocked = data["boltslocked"]
+		active_alarm = data["active_alarm"]
+		..()
+
 /obj/machinery/door/firedoor/Initialize(mapload)
 	. = ..()
 	CalculateAffectingAreas()

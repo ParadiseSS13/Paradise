@@ -14,6 +14,15 @@
 	settagwhitelist = list("id_tag")
 	var/drive_range = 50 //this is mostly irrelevant since current mass drivers throw into space, but you could make a lower-range mass driver for interstation transport or something I guess.
 
+	serialize()
+		var/list/data = ..()
+		data["id_tag"] = id_tag
+		return data
+
+	deserialize(list/data)
+		id_tag = data["id_tag"]
+		..()
+
 /obj/machinery/mass_driver/attackby(obj/item/W, mob/user as mob)
 
 	if(istype(W, /obj/item/multitool))

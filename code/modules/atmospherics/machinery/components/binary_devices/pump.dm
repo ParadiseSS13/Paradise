@@ -25,6 +25,15 @@ Thus, the two variables affect pump operation are set in New():
 
 	var/id = null
 
+	serialize()
+		var/list/data = ..()
+		data["id"] = id
+		return data
+
+	deserialize(list/data)
+		id = data["id"]
+		..()
+
 /obj/machinery/atmospherics/binary/pump/detailed_examine()
 	return "This moves gas from one pipe to another. A higher target pressure demands more energy. The side with the red end is the output."
 

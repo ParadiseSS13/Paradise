@@ -30,6 +30,15 @@
 	/// Whether the baton is toggled on (to allow attacking)
 	var/on = TRUE
 
+	serialize()
+		var/list/data = ..()
+		data["on"] = on
+		return data
+
+	deserialize(list/data)
+		on = data["on"]
+		..()
+
 /obj/item/melee/classic_baton/attack(mob/living/target, mob/living/user)
 	if(!on)
 		return ..()

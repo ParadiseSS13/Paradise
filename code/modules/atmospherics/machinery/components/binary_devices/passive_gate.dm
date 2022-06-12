@@ -13,6 +13,15 @@
 
 	var/id = null
 
+	serialize()
+		var/list/data = ..()
+		data["id"] = id
+		return data
+
+	deserialize(list/data)
+		id = data["id"]
+		..()
+
 /obj/machinery/atmospherics/binary/passive_gate/detailed_examine()
 	return "This is a one-way regulator, allowing gas to flow only at a specific pressure and flow rate. If the light is green, it is flowing."
 

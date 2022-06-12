@@ -6,6 +6,16 @@
 	var/climbable
 	var/mob/living/climber
 	var/broken = FALSE
+	synced = TRUE
+
+	serialize()
+		var/list/data = ..()
+		data["anchored"] = anchored
+		return data
+
+	deserialize(list/data)
+		anchored = data["anchored"]
+		..()
 
 /obj/structure/New()
 	..()

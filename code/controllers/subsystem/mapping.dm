@@ -111,30 +111,7 @@ SUBSYSTEM_DEF(mapping)
 	else
 		world.name = station_name()
 
-	// Load database changes
-	loadDbTurfs()
-
 	return ..()
-
-/datum/controller/subsystem/mapping/proc/loadDbTurfs()
-	log_startup_progress("DB >> loading turfs...")
-	var/datum/db_query/query = SSdbcore.NewQuery({"
-		SELECT
-			x,y,z,
-			data,
-			air
-		FROM
-			rs_world_turfs
-	"})
-	query.Execute()
-	while(query.NextRow())
-		var/list/data = json_decode(query.item[4])
-		var/turf_path = text2path(data["type"])
-		var/turf/T = locate(text2num(query.item[1]),text2num(query.item[2]),text2num(query.item[3]))
-		log_startup_progress("DB >> spawning turf [turf_path] at [T.x],[T.y],[T.z]")
-		T.ChangeTurf(turf_path)
-		T.deserialize(data)
-	qdel(query)
 
 // Do not confuse with seedRuins()
 /datum/controller/subsystem/mapping/proc/handleRuins()

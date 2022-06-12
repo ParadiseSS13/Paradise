@@ -37,6 +37,24 @@
 	//Multi-tile doors
 	var/width = 1
 
+	serialize()
+		var/list/data = ..()
+		data["density"] = density
+		data["locked"] = locked
+		data["welded"] = welded
+		data["opacity"] = opacity
+		data["layer"] = layer
+		return data
+
+	deserialize(list/data)
+		density = data["density"]
+		locked = data["locked"]
+		welded = data["welded"]
+		opacity = data["opacity"]
+		layer = data["layer"]
+		..()
+		set_init_door_layer()
+
 /obj/machinery/door/New()
 	..()
 	set_init_door_layer()

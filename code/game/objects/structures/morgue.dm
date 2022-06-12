@@ -254,6 +254,20 @@
 	var/locked = 0
 	var/open_sound = 'sound/items/deconstruct.ogg'
 
+	serialize()
+		var/list/data = ..()
+		data["locked"] = locked
+		data["id"] = id
+		data["cremating"] = cremating
+		return data
+
+	deserialize(list/data)
+		locked = data["locked"]
+		id = data["id"]
+		cremating = data["cremating"]
+		..()
+		update()
+
 /obj/structure/crematorium/Initialize(mapload)
 	. = ..()
 	update()

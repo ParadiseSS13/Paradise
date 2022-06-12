@@ -33,6 +33,18 @@ Pipelines + Other Objects -> Pipe network
 	var/pipe_color
 	var/image/pipe_image
 
+	serialize()
+		var/list/data = ..()
+		data["target_pressure"] = target_pressure
+		data["on"] = on
+		return data
+
+	deserialize(list/data)
+		target_pressure = data["target_pressure"]
+		on = data["on"]
+		..()
+
+
 /obj/machinery/atmospherics/New()
 	if (!armor)
 		armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)

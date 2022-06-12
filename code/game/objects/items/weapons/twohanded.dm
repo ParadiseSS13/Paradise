@@ -544,6 +544,15 @@
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	var/on = FALSE
 
+	serialize()
+		var/list/data = ..()
+		data["on"] = on
+		return data
+
+	deserialize(list/data)
+		on = data["on"]
+		..()
+
 /obj/item/twohanded/required/chainsaw/attack_self(mob/user)
 	on = !on
 	to_chat(user, "As you pull the starting cord dangling from [src], [on ? "it begins to whirr." : "the chain stops moving."]")

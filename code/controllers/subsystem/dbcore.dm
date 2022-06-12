@@ -1,3 +1,5 @@
+#define MAX_SYNC_OPERATIONS_PER_TICK 100
+
 SUBSYSTEM_DEF(dbcore)
 	name = "Database"
 	flags = SS_BACKGROUND
@@ -35,6 +37,7 @@ SUBSYSTEM_DEF(dbcore)
 	return ..()
 
 /datum/controller/subsystem/dbcore/fire()
+	syncToDb()
 	for(var/I in active_queries)
 		var/datum/db_query/Q = I
 		if(world.time - Q.last_activity_time > 5 MINUTES)
@@ -42,6 +45,16 @@ SUBSYSTEM_DEF(dbcore)
 			log_sql("Undeleted query: \"[Q.sql]\" LA: [Q.last_activity] LAT: [Q.last_activity_time]")
 			qdel(Q)
 		if(MC_TICK_CHECK)
+			return
+
+/datum/controller/subsystem/dbcore/proc/syncToDb(force = FALSE)
+	var/index = 0
+	for(var/atom/A in GLOB.changed_objects)
+		A.sync_to_db()
+		LAZYREMOVE(GLOB.changed_objects, A)
+		index += 1
+		if(index > MAX_SYNC_OPERATIONS_PER_TICK && !force)
+			to_chat(world, "DB >> pausing sync to next tick")
 			return
 
 /datum/controller/subsystem/dbcore/Recover()

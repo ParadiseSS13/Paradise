@@ -78,7 +78,7 @@
 
 /turf/New(loc)
 	..(loc)
-	sync_to_db()
+	check_for_sync()
 
 /turf/Destroy(force)
 	. = QDEL_HINT_IWILLGC
@@ -100,6 +100,7 @@
 	QDEL_LIST(blueprint_data)
 	initialized = FALSE
 	..()
+	del_from_db()
 
 /turf/attack_hand(mob/user as mob)
 	user.Move_Pulled(src)

@@ -32,6 +32,23 @@
 	//2: Do not pass input_pressure_min
 	//4: Do not pass output_pressure_max
 
+	serialize()
+		var/list/data = ..()
+		data["id_tag"] = id_tag
+		data["pressure_checks"] = pressure_checks
+		data["external_pressure_bound"] = external_pressure_bound
+		data["input_pressure_min"] = input_pressure_min
+		data["output_pressure_max"] = output_pressure_max
+		return data
+
+	deserialize(list/data)
+		id_tag = data["id_tag"]
+		pressure_checks = data["pressure_checks"]
+		external_pressure_bound = data["external_pressure_bound"]
+		input_pressure_min = data["input_pressure_min"]
+		output_pressure_max = data["output_pressure_max"]
+		..()
+
 /obj/machinery/atmospherics/binary/dp_vent_pump/New()
 	..()
 	if(!id_tag)

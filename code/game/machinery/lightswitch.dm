@@ -17,6 +17,18 @@
 	var/logic_connect = 0							//Set this to allow the switch to send out logic signals.
 
 
+	serialize()
+		var/list/data = ..()
+		data["logic_id_tag"] = logic_id_tag
+		data["on"] = on
+		return data
+
+	deserialize(list/data)
+		logic_id_tag = data["logic_id_tag"]
+		on = data["on"]
+		..()
+
+
 /obj/machinery/light_switch/New(turf/loc, w_dir=null)
 	..()
 	switch(w_dir)

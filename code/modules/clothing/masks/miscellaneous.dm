@@ -12,6 +12,15 @@
 	var/security_lock = FALSE // Requires brig access to remove 0 - Remove as normal
 	var/locked = FALSE //Indicates if a mask is locked, should always start as 0.
 
+	serialize()
+		var/list/data = ..()
+		data["locked"] = locked
+		return data
+
+	deserialize(list/data)
+		locked = data["locked"]
+		..()
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi'
 		)

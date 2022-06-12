@@ -46,6 +46,23 @@
 
 	connect_types = list(1,2) //connects to regular and supply pipes
 
+	serialize()
+		var/list/data = ..()
+		data["open"] = open
+		data["pressure_checks"] = pressure_checks
+		data["external_pressure_bound"] = external_pressure_bound
+		data["internal_pressure_bound"] = internal_pressure_bound
+		data["welded"] = welded
+		return data
+
+	deserialize(list/data)
+		open = data["open"]
+		pressure_checks = data["pressure_checks"]
+		external_pressure_bound = data["external_pressure_bound"]
+		internal_pressure_bound = data["internal_pressure_bound"]
+		welded = data["welded"]
+		..()
+
 /obj/machinery/atmospherics/unary/vent_pump/detailed_examine()
 	return "This pumps the contents of the attached pipe out into the atmosphere, if needed. It can be controlled from an Air Alarm."
 

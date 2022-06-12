@@ -5,9 +5,30 @@
 /mob/living/carbon
 	var/uid
 
+	serialize()
+		var/list/data = ..()
+		var/itemNum = -1
+		if (internal)
+			for(var/obj/item/I in get_all_slots())
+				itemNum += 1
+				if (I == internal)
+					break
+		data["internals"] = itemNum
+		return data
+
+	deserialize(list/data)
+		..()
+		if (data["internals"] >= 0)
+			var/itemNum = 0
+			for(var/obj/item/I in get_all_slots())
+				if (itemNum == data["internals"])
+					internal = I
+
+
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
-	GLOB.carbon_list += src
+	if (!LAZYIN(GLOB.carbon_list, src))
+		GLOB.carbon_list += src
 
 /mob/living/carbon/Destroy()
 	// This clause is here due to items falling off from limb deletion

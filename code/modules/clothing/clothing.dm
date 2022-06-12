@@ -706,7 +706,6 @@ BLIND     // can't see anything
 	for(var/obj/item/clothing/accessory/A in accessories)
 		accessories_list.len++
 		accessories_list[accessories_list.len] = A.serialize()
-
 	return data
 
 /obj/item/clothing/under/deserialize(list/data)

@@ -20,6 +20,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	can_be_hit = FALSE
 	suicidal_hands = TRUE
 
+	///When true will be synced to database
+	synced = TRUE
+
 	///Sound played when you hit something with the item
 	var/hitsound
 	///Played when the item is used, for example tools
@@ -193,6 +196,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	src.loc = null
 
 	src.loc = T
+	check_for_sync()
 
 /obj/item/examine(mob/user)
 	var/size
@@ -427,21 +431,25 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 	if(!silent)
 		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
+	check_for_sync()
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
 	in_inventory = TRUE
+	check_for_sync()
 
 // called when this item is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
 /obj/item/proc/on_exit_storage(obj/item/storage/S as obj)
 	in_storage = FALSE
+	check_for_sync()
 	return
 
 // called when this item is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.
 /obj/item/proc/on_enter_storage(obj/item/storage/S as obj)
 	in_storage = TRUE
+	check_for_sync()
 	return
 
 /**
@@ -480,6 +488,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
 		else if(slot == slot_l_hand || slot == slot_r_hand)
 			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
+	check_for_sync()
 
 /obj/item/proc/item_action_slot_check(slot, mob/user)
 	return 1

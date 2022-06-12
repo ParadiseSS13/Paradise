@@ -11,6 +11,15 @@
 
 	req_one_access_txt = "24;10"
 
+	serialize()
+		var/list/data = ..()
+		data["open"] = open
+		return data
+
+	deserialize(list/data)
+		open = data["open"]
+		..()
+
 /obj/machinery/atmospherics/binary/valve/examine(mob/user)
 	. = ..()
 	. += "It is currently [open ? "open" : "closed"]."
@@ -79,6 +88,15 @@
 	frequency = ATMOS_VENTSCRUB
 	var/id_tag = null
 	settagwhitelist = list("id_tag")
+
+	serialize()
+		var/list/data = ..()
+		data["id_tag"] = id_tag
+		return data
+
+	deserialize(list/data)
+		id_tag = data["id_tag"]
+		..()
 
 /obj/machinery/atmospherics/binary/valve/digital/Destroy()
 	if(SSradio)

@@ -24,6 +24,22 @@
 	// 8 for toxins concentration
 	// 16 for nitrogen concentration
 	// 32 for carbon dioxide concentration
+	serialize()
+		var/list/data = ..()
+		data["id_tag"] = id_tag
+		data["on"] = on
+		data["output"] = output
+		data["state"] = state
+		data["bolts"] = bolts
+		return data
+
+	deserialize(list/data)
+		id_tag = data["id_tag"]
+		on = data["on"]
+		output = data["output"]
+		state = data["state"]
+		bolts = data["bolts"]
+		..()
 
 /obj/machinery/air_sensor/update_icon()
 	icon_state = "gsensor[on]"

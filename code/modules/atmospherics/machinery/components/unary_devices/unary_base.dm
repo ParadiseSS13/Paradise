@@ -9,6 +9,15 @@
 
 	var/datum/pipeline/parent
 
+	serialize()
+		var/list/data = ..()
+		data["id_tag"] = id_tag
+		return data
+
+	deserialize(list/data)
+		id_tag = data["id_tag"]
+		..()
+
 /obj/machinery/atmospherics/unary/New()
 	..()
 	initialize_directions = dir

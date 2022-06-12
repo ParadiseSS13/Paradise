@@ -16,6 +16,15 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
+	serialize()
+		var/list/data = ..()
+		data["on"] = on
+		return data
+
+	deserialize(list/data)
+		on = data["on"]
+		..()
+
 /obj/item/clothing/head/hardhat/attack_self(mob/living/user)
 	toggle_helmet_light(user)
 

@@ -59,3 +59,4 @@
 /obj/item/clothing/suit/storage/deserialize(list/data)
 	qdel(pockets)
 	pockets = list_to_object(data["pockets"], src)
+	..()

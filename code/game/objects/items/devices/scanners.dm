@@ -19,6 +19,20 @@ REAGENT SCANNER
 	materials = list(MAT_METAL=150)
 	origin_tech = "magnets=1;engineering=1"
 
+	serialize()
+		var/list/data = ..()
+		data["on"] = on
+		return data
+
+	deserialize(list/data)
+		on = data["on"]
+		..()
+		icon_state = copytext_char(icon_state, 1, -1) + "[on]"
+		if(on)
+			START_PROCESSING(SSobj, src)
+		else
+			STOP_PROCESSING(SSobj, src)
+
 /obj/item/t_scanner/Destroy()
 	if(on)
 		STOP_PROCESSING(SSobj, src)

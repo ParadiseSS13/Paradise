@@ -50,6 +50,15 @@
 	var/radio_filter = null
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
+	serialize()
+		var/list/data = ..()
+		data["id_tag"] = id_tag
+		return data
+
+	deserialize(list/data)
+		id_tag = data["id_tag"]
+		..()
+
 /obj/machinery/embedded_controller/radio/Initialize()
 	..()
 	set_frequency(frequency)

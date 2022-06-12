@@ -258,6 +258,8 @@
 	for (thing in light_sources) // Cycle through the light sources on this atom and tell them to update.
 		L = thing
 		L.source_atom.update_light()
+
+	check_for_sync()
 	return TRUE
 
 // Change glide size for the duration of one movement

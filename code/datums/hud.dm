@@ -106,6 +106,7 @@ GLOBAL_LIST_INIT(huds, list(
 	return
 
 /mob/proc/add_click_catcher()
+	if(!client)	return
 	client.screen += client.void
 
 /mob/new_player/add_click_catcher()

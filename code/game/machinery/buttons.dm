@@ -21,6 +21,17 @@
 	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to, so you don't have to unlink from doors and stuff
 	var/logic_connect = 0							//Set this to allow the button to send out logic signals when pressed in addition to normal stuff
 
+	serialize()
+		var/list/data = ..()
+		data["id_tag"] = id_tag
+		data["logic_id_tag"] = logic_id_tag
+		return data
+
+	deserialize(list/data)
+		id_tag = data["id_tag"]
+		logic_id_tag = data["logic_id_tag"]
+		..()
+
 /obj/machinery/button/indestructible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
@@ -167,6 +178,15 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
+
+	serialize()
+		var/list/data = ..()
+		data["id"] = id
+		return data
+
+	deserialize(list/data)
+		id = data["id"]
+		..()
 
 /obj/machinery/ignition_switch/attack_ai(mob/user)
 	return attack_hand(user)

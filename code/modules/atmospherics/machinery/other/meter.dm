@@ -21,6 +21,17 @@
 	Mtoollink = TRUE
 	settagwhitelist = list("id_tag")
 
+	serialize()
+		var/list/data = ..()
+		data["id"] = id
+		data["id_tag"] = id_tag
+		return data
+
+	deserialize(list/data)
+		id = data["id"]
+		id_tag = data["id_tag"]
+		..()
+
 /obj/machinery/meter/New()
 	..()
 	SSair.atmos_machinery += src

@@ -18,12 +18,60 @@ SUBSYSTEM_DEF(persistent_data)
 	// Load all the data of registered atoms
 	for(var/atom/A in registered_atoms)
 		A.persistent_load()
+	loadTurfs()
+	loadObjects()
 	return ..()
 
 /datum/controller/subsystem/persistent_data/Shutdown()
 	// Save all the data of registered atoms
 	for(var/atom/A in registered_atoms)
 		A.persistent_save()
+
+/datum/controller/subsystem/persistent_data/proc/loadTurfs()
+	log_startup_progress("DB >> loading turfs...")
+	var/datum/db_query/query = SSdbcore.NewQuery({"
+		SELECT
+			x,y,z,
+			data,
+			air
+		FROM
+			rs_world_turfs
+	"})
+	query.Execute()
+	while(query.NextRow())
+		var/list/data = json_decode(query.item[4])
+		var/turf_path = text2path(data["type"])
+		var/turf/T = locate(text2num(query.item[1]),text2num(query.item[2]),text2num(query.item[3]))
+		log_startup_progress("DB >> spawning turf [turf_path] at [T.x],[T.y],[T.z]")
+		T.ChangeTurf(turf_path)
+		T.deserialize(data)
+	qdel(query)
+
+/datum/controller/subsystem/persistent_data/proc/loadObjects()
+	log_startup_progress("DB >> loading objs/mobs...")
+	var/datum/db_query/query = SSdbcore.NewQuery({"
+		SELECT
+			x,y,z,
+			data,
+			uid
+		FROM
+			rs_world_objects
+	"})
+	query.Execute()
+	while(query.NextRow())
+		var/list/data = json_decode(query.item[4])
+		var/turf_path = text2path(data["type"])
+		var/turf/T = locate(text2num(query.item[1]),text2num(query.item[2]),text2num(query.item[3]))
+		var/atom/A = list_to_object(data, T)
+		A.db_uid = text2num(query.item[5])
+		log_startup_progress("DB >> spawning [turf_path] at [A.x],[A.y],[A.z]")
+		if(istype(A, /obj))
+			var/obj/O = A
+			O?.update_icon()
+		if(ismob(A))
+			A.pixel_x = 0
+			A.pixel_y = 0
+	qdel(query)
 
 
 /**

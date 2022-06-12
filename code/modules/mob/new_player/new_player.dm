@@ -405,6 +405,7 @@
 			character.buckled.dir = character.dir
 
 		qdel(src)
+		character.sync_to_db()
 
 		//LateChoices()
 

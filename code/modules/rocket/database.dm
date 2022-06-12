@@ -10,12 +10,13 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/turf/start = locate(1,1,1)
-	var/turf/end = locate(world.maxx,world.maxy,1)
+	//var/turf/start = locate(1,1,1)
+	//var/turf/end = locate(world.maxx,world.maxy,1)
 
-	WorldSave(start,end)
-
+	//WorldSave(start,end)
 	log_and_message_admins("[key_name_admin(usr)] has started a debug save")
+	SSdbcore.syncToDb(TRUE)
+
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Backup Station") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 proc/db_truncate(table)
@@ -64,22 +65,8 @@ proc/disable_safe_updates()
 	//sanitized_text = replacetext(sanitized_text, "\"", "\\\"")
 	return sanitized_text
 
-// world saving
-proc/WorldSave(var/turf/start,var/turf/end)
-	to_chat(world, "<font size=2 color='red'><b>### Admin [usr.key] started world sync to database... this may take some time ###</b></font>")
-	sleep(2)
-
-	var/turf/nw = locate(min(start.x,end.x),max(start.y,end.y),min(start.z,end.z))
-	var/turf/se = locate(max(start.x,end.x),min(start.y,end.y),max(start.z,end.z))
-
-	var/objects = 0
-	var/turfs = 0
+proc/SaveAllAreas()
 	var/areas = 0
-	var/mobs = 0
-
-	disable_safe_updates()
-
-	// areas
 	db_truncate("rs_world_areas")
 	var/query_string = {"
 			INSERT INTO
@@ -115,9 +102,10 @@ proc/WorldSave(var/turf/start,var/turf/end)
 
 	to_chat(world, "DB >> saved [areas] areas")
 
+proc/SaveAllTurfs(var/turf/start,var/turf/end)
 	// turfs
 	db_truncate("rs_world_turfs")
-	query_string = {"
+	var/query_string = {"
 			INSERT INTO
 				rs_world_turfs (
 					x,y,z,
@@ -125,7 +113,9 @@ proc/WorldSave(var/turf/start,var/turf/end)
 					air
 				)
 			VALUES"}
-
+	var/turf/nw = locate(min(start.x,end.x),max(start.y,end.y),min(start.z,end.z))
+	var/turf/se = locate(max(start.x,end.x),min(start.y,end.y),max(start.z,end.z))
+	var/turfs = 0
 	for(var/pos_z=nw.z;pos_z<=se.z;pos_z++)
 		for(var/pos_y=nw.y;pos_y>=se.y;pos_y--)
 			for(var/pos_x=nw.x;pos_x<=se.x;pos_x++)
@@ -164,15 +154,26 @@ proc/WorldSave(var/turf/start,var/turf/end)
 	qdel(save_turfs)
 
 	to_chat(world, "DB >> saved [turfs] turfs")
+
+// world saving
+proc/WorldSave(var/turf/start,var/turf/end)
+	to_chat(world, "<font size=2 color='red'><b>### Admin [usr.key] started world sync to database... this may take some time ###</b></font>")
+	sleep(1)
+	var/objects = 0
+	var/mobs = 0
+	disable_safe_updates()
 	sleep(1)
 
+	for(var/obj/O in world)
+		if (!O.synced || !isturf(O.loc))
+			continue
+		objects += 1
+
+	to_chat(world, "DB >> saved [objects] objects")
 
 	// save turfs
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		if (H.uid > 0)
-
-
-
+	//for(var/mob/living/carbon/human/H in GLOB.player_list)
+	//	if (H.uid > 0)
 			//db_delete_all("rs_character_inventory","character_uid = [H.uid]")
 			/*
 			for (var/obj/item/I in H.contents)

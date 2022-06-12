@@ -15,6 +15,15 @@
 	var/id_tag = 1.0
 	var/protected = 1
 
+	serialize()
+		var/list/data = ..()
+		data["id_tag"] = id_tag
+		return data
+
+	deserialize(list/data)
+		id_tag = data["id_tag"]
+		..()
+
 /obj/machinery/door/poddoor/preopen
 	icon_state = "open"
 	density = FALSE

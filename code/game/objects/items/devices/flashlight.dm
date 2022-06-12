@@ -13,6 +13,16 @@
 	var/brightness_on = 4 //luminosity when on
 	var/togglesound = 'sound/weapons/empty.ogg'
 
+	serialize()
+		var/list/data = ..()
+		data["on"] = on
+		return data
+
+	deserialize(list/data)
+		on = data["on"]
+		..()
+		update_brightness()
+
 /obj/item/flashlight/Initialize()
 	. = ..()
 	if(on)

@@ -26,6 +26,19 @@
 	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 14
 
+	serialize()
+		var/list/data = ..()
+		data["locked"] = locked
+		data["code"] = code
+		data["open"] = open
+		return data
+
+	deserialize(list/data)
+		locked = data["locked"]
+		code = data["code"]
+		open = data["open"]
+		..()
+
 /obj/item/storage/secure/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))

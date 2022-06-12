@@ -6,6 +6,8 @@
 	icon_state = "body_m_s"
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	deathgasp_on_death = TRUE
+	///When true will be synced to database
+	synced = TRUE
 
 /mob/living/carbon/human/New(loc)
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
@@ -1857,7 +1859,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		var/obj/item/thing = get_item_by_slot(i)
 		if(thing != null)
 			equip_list[i] = thing.serialize()
-
 	return data
 
 /mob/living/carbon/human/deserialize(list/data)

@@ -30,6 +30,19 @@
 	idle_power_usage = 2
 	active_power_usage = 4
 
+	serialize()
+		var/list/data = ..()
+		data["id"] = id
+		data["normaldoorcontrol"] = normaldoorcontrol
+		data["specialfunctions"] = specialfunctions
+		return data
+
+	deserialize(list/data)
+		id = data["id"]
+		normaldoorcontrol = data["normaldoorcontrol"]
+		specialfunctions = data["specialfunctions"]
+		..()
+
 /obj/machinery/door_control/attack_ai(mob/user as mob)
 	if(wires & 2)
 		return attack_hand(user)

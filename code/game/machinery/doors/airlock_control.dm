@@ -5,6 +5,14 @@
 	var/id_tag
 	var/shockedby = list()
 	var/cur_command = null	//the command the door is currently attempting to complete
+	serialize()
+		var/list/data = ..()
+		data["id_tag"] = id_tag
+		return data
+
+	deserialize(list/data)
+		id_tag = data["id_tag"]
+		..()
 
 /obj/machinery/door/airlock/process()
 	if(arePowerSystemsOn() && cur_command)
@@ -160,6 +168,21 @@
 	var/on = 1
 	var/alert = 0
 	var/previousPressure
+
+	serialize()
+		var/list/data = ..()
+		data["id_tag"] = id_tag
+		data["master_tag"] = master_tag
+		data["on"] = on
+		data["alert"] = alert
+		return data
+
+	deserialize(list/data)
+		id_tag = data["id_tag"]
+		master_tag = data["master_tag"]
+		on = data["on"]
+		alert = data["alert"]
+		..()
 
 /obj/machinery/airlock_sensor/update_icon()
 	if(on)
