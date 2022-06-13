@@ -9,17 +9,10 @@
 	if(!.)
 		return FALSE
 
-	var/found_machine_head = FALSE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(ismachineperson(H))
-			found_machine_head = TRUE
-		else
-			var/obj/item/organ/external/head/head = H.get_organ("head")
-			if(head && head.is_robotic())
-				found_machine_head = TRUE
-
-		if(!found_machine_head)
+		var/obj/item/organ/external/head/head = H.get_organ("head")
+		if(head && !head.is_robotic())
 			return FALSE
 
 /datum/emote/living/silicon/scream

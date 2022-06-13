@@ -4,7 +4,7 @@
 
 // Emote types.
 // These determine how the emote is treated when not directly visible (or audible).
-// These also
+// These are also used in some cases for visible/audible messages.
 
 /// Emote is visible. These emotes will be runechatted.
 #define EMOTE_VISIBLE (1<<0)
@@ -18,7 +18,7 @@
 #define EMOTE_MOUTH (1<<4)
 
 // User audio cooldown system.
-// This is a value stored on the user and represents their ability to perform audio emotes.
+// This is a value stored on the user and represents their current ability to perform audio emotes.
 
 /// The user is not on emote cooldown, and is ready to emote whenever.
 #define EMOTE_READY 0

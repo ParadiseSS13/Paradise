@@ -45,7 +45,7 @@
  * * message: Content of the message. If none is provided, the user will be prompted to choose the input.
  * * intentional: Whether or not the user intendeded to perform the emote.
  */
-/mob/proc/custom_emote(m_type = EMOTE_VISIBLE, message = null, intentional = TRUE)
+/mob/proc/custom_emote(m_type = EMOTE_VISIBLE, message = null, intentional = FALSE)
 	var/input = ""
 	if(!message && !client)
 		CRASH("An empty custom emote was called from a client-less mob.")

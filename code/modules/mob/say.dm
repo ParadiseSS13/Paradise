@@ -41,7 +41,7 @@
 
 	set_typing_indicator(FALSE, TRUE)
 	if(use_me)
-		custom_emote(usr.emote_type, message)
+		custom_emote(usr.emote_type, message, intentional = TRUE)
 	else
 		usr.emote(message, intentional = TRUE)
 
