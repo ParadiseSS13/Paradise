@@ -1916,6 +1916,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(islist(equip_list[i]))
 			var/obj/item/clothing/C = list_to_object(equip_list[i], T)
 			equip_to_slot_if_possible(C, i)
+
+	// created hardsuit associations
+	var/obj/item/clothing/head/helmet/space/hardsuit/helmet = get_item_by_slot(slot_head)
+	var/obj/item/clothing/suit/space/hardsuit/suit = get_item_by_slot(slot_wear_suit)
+	if (helmet && suit)
+		helmet.suit = suit
+		suit.helmet = helmet
+
 	update_icons()
 
 	..()

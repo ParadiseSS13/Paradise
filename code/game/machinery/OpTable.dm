@@ -16,6 +16,18 @@
 	var/reagent_target_amount = 1
 	var/inject_amount = 1
 
+	serialize()
+		var/list/data = ..()
+		data["buckle_lying"] = buckle_lying
+		data["patient"] = patient?.serialize()
+		return data
+
+	deserialize(list/data)
+		buckle_lying = data["buckle_lying"]
+		qdel(patient)
+		patient = list_to_object(data["patient"], src)
+		..()
+
 /obj/machinery/optable/New()
 	..()
 	for(dir in list(NORTH,EAST,SOUTH,WEST))
@@ -68,6 +80,8 @@
 	if(M && M.lying)
 		patient = M
 	else
+		if(patient)
+			check_for_sync()
 		patient = null
 	if(!no_icon_updates)
 		if(patient && patient.pulse)
@@ -102,6 +116,7 @@
 		new_patient.s_active.close(new_patient)
 	add_fingerprint(user)
 	update_patient()
+	check_for_sync()
 
 /obj/machinery/optable/verb/climb_on()
 	set name = "Climb On Table"

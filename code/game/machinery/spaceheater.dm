@@ -18,12 +18,15 @@
 		data["on"] = on
 		data["open"] = open
 		data["set_temperature"] = set_temperature
+		data["cell"] = cell?.serialize()
 		return data
 
 	deserialize(list/data)
 		on = data["on"]
 		open = data["open"]
 		set_temperature = data["set_temperature"]
+		qdel(cell)
+		cell = list_to_object(data["cell"], src)
 		..()
 
 /obj/machinery/space_heater/get_cell()
@@ -78,6 +81,7 @@
 						C.add_fingerprint(user)
 
 						user.visible_message("<span class='notice'>[user] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
+						check_for_sync()
 		else
 			to_chat(user, "The hatch must be open to insert a power cell.")
 			return
@@ -156,6 +160,7 @@
 					cell.add_fingerprint(usr)
 					cell = null
 					usr.visible_message("<span class='notice'>[usr] removes the power cell from [src].</span>", "<span class='notice'>You remove the power cell from [src].</span>")
+					check_for_sync()
 
 
 			if("cellinstall")
@@ -166,7 +171,7 @@
 						cell = C
 						C.loc = src
 						C.add_fingerprint(usr)
-
+						check_for_sync()
 						usr.visible_message("<span class='notice'>[usr] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
 
 		updateDialog()

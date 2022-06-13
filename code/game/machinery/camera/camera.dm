@@ -22,6 +22,20 @@
 	var/invuln = null
 	var/obj/item/camera_assembly/assembly = null
 
+
+	serialize()
+		var/list/data = ..()
+		data["c_tag"] = c_tag
+		data["c_tag_order"] = c_tag_order
+		data["status"] = status
+		return data
+
+	deserialize(list/data)
+		c_tag = data["c_tag"]
+		c_tag_order = data["c_tag_order"]
+		status = data["status"]
+		..()
+
 	//OTHER
 
 	var/view_range = 7

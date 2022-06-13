@@ -12,6 +12,26 @@
 	var/toggle = 1
 	origin_tech = "materials=1;engineering=1"
 
+	serialize()
+		var/list/data = ..()
+		data["valve_open"] = valve_open
+		data["toggle"] = toggle
+		data["tank_one"] = tank_one?.serialize()
+		data["tank_two"] = tank_two?.serialize()
+		data["attached_device"] = attached_device?.serialize()
+		return data
+
+	deserialize(list/data)
+		valve_open = data["valve_open"]
+		toggle = data["toggle"]
+		qdel(tank_one)
+		tank_one = list_to_object(data["tank_one"], src)
+		qdel(tank_two)
+		tank_two = list_to_object(data["tank_two"], src)
+		qdel(attached_device)
+		attached_device = list_to_object(data["attached_device"], src)
+		..()
+
 /obj/item/transfer_valve/Destroy()
 	QDEL_NULL(tank_one)
 	QDEL_NULL(tank_two)

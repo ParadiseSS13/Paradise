@@ -62,7 +62,20 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/obj/item/paicard/pai = null	// A slot for a personal AI device
 	var/retro_mode = 0
 
+	serialize()
+		var/list/data = ..()
+		data["id"] = id?.serialize()
+		return data
 
+	deserialize(list/data)
+		qdel(id)
+		id = list_to_object(data["id"], src)
+		..()
+		if (id)
+			owner = id.registered_name
+			ownjob = id.assignment
+			ownrank = id.rank
+			name = "PDA-[owner] ([ownjob])"
 /*
  *	The Actual PDA
  */

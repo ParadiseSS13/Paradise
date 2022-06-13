@@ -378,6 +378,25 @@ BLIND     // can't see anything
 	strip_delay = 40
 	put_on_delay = 40
 
+	serialize()
+		var/list/data = ..()
+		data["mask_adjusted"] = mask_adjusted
+		data["flags_inv"] = flags_inv
+		data["slot_flags"] = slot_flags
+		data["flags_inv"] = flags_inv
+		data["flags_cover"] = flags_cover
+		data["flags"] = flags
+		return data
+
+	deserialize(list/data)
+		mask_adjusted = data["mask_adjusted"]
+		flags_inv = data["flags_inv"]
+		slot_flags = data["slot_flags"]
+		flags_inv = data["flags_inv"]
+		flags_cover = data["flags_cover"]
+		flags = data["flags"]
+		..()
+
 //Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(mob/user)
 	var/mob/living/carbon/human/H = usr //Used to check if the mask is on the head, to check if the hands are full, and to turn off internals if they were on when the mask was pushed out of the way.
@@ -436,6 +455,7 @@ BLIND     // can't see anything
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+	check_for_sync()
 
 // Changes the speech verb when wearing a mask if a value is returned
 /obj/item/clothing/mask/proc/change_speech_verb()

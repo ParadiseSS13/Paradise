@@ -9,20 +9,22 @@
 		var/list/data = ..()
 		var/itemNum = -1
 		if (internal)
-			for(var/obj/item/I in get_all_slots())
+			for(var/obj/item/I in contents)
 				itemNum += 1
 				if (I == internal)
 					break
-		data["internals"] = itemNum
+		data["internals_index"] = itemNum
 		return data
 
 	deserialize(list/data)
 		..()
-		if (data["internals"] >= 0)
+		var/internals_index = text2num(data["internals_index"])
+		if (internals_index >= 0)
 			var/itemNum = 0
-			for(var/obj/item/I in get_all_slots())
-				if (itemNum == data["internals"])
+			for(var/obj/item/I in contents)
+				if (itemNum == internals_index)
 					internal = I
+				itemNum += 1
 
 
 /mob/living/carbon/Initialize(mapload)

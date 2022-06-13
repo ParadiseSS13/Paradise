@@ -16,6 +16,16 @@
 	var/base_state
 	var/dpdir = 0	// directions as disposalpipe
 
+	serialize()
+		var/list/data = ..()
+		data["dpdir"] = dpdir
+		return data
+
+	deserialize(list/data)
+		dpdir = data["dpdir"]
+		..()
+
+
 /obj/structure/disposalconstruct/Initialize(mapload, pipe_type, direction)
 	. = ..()
 	if(pipe_type)
@@ -65,6 +75,7 @@
 		icon_state = "con[base_state]"
 	if(invisibility)				// if invisible, fade icon
 		icon -= rgb(0,0,0,128)
+	check_for_sync()
 
 // hide called by levelupdate if turf intact status changes
 // change visibility status and force update of icon
@@ -178,14 +189,17 @@
 			else
 				density = 1
 			to_chat(user, "You detach the [nicetype] from the underfloor.")
+			check_for_sync()
 		else
 			anchored = 1
 			if(ispipe)
 				level = 1 // We don't want disposal bins to disappear under the floors
 				density = 0
+				check_for_sync()
 			else
 				density = 1 // We don't want disposal bins or outlets to go density 0
 			to_chat(user, "You attach the [nicetype] to the underfloor.")
+			check_for_sync()
 		playsound(src.loc, I.usesound, 100, 1)
 		update()
 		return
@@ -203,6 +217,7 @@
 				var/pdir = CP.dpdir
 				if(istype(CP, /obj/structure/disposalpipe/broken))
 					pdir = CP.dir
+					check_for_sync()
 				if(pdir & dpdir)
 					to_chat(user, "There is already a [nicetype] at that location.")
 					return
@@ -223,6 +238,7 @@
 						P.dir = dir
 						P.dpdir = dpdir
 						P.update_icon()
+						P.check_for_sync()
 
 						//Needs some special treatment ;)
 						if(ptype == PIPE_DISPOSALS_SORT_RIGHT || ptype == PIPE_DISPOSALS_SORT_LEFT)
@@ -233,18 +249,21 @@
 						var/obj/machinery/disposal/P = new /obj/machinery/disposal(src.loc)
 						src.transfer_fingerprints_to(P)
 						P.mode = 0 // start with pump off
+						P.check_for_sync()
 
 					else if(ptype == PIPE_DISPOSALS_OUTLET) // Disposal outlet
 
 						var/obj/structure/disposaloutlet/P = new /obj/structure/disposaloutlet(src.loc)
 						src.transfer_fingerprints_to(P)
 						P.dir = dir
+						P.check_for_sync()
 
 					else if(ptype==PIPE_DISPOSALS_CHUTE) // Disposal outlet
 
 						var/obj/machinery/disposal/deliveryChute/P = new /obj/machinery/disposal/deliveryChute(src.loc)
 						src.transfer_fingerprints_to(P)
 						P.dir = dir
+						P.check_for_sync()
 
 					qdel(src)
 					return

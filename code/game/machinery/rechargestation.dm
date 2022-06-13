@@ -20,6 +20,17 @@
 	/// How efficiently the recharger is able to recharge consumable items such as metal, glass, chemicals in sprays, welding tool fuel, etc.
 	var/consumable_recharge_coeff
 
+	serialize()
+		var/list/data = ..()
+		data["occupant"] = occupant?.serialize()
+		return data
+
+	deserialize(list/data)
+		qdel(occupant)
+		occupant = list_to_object(data["occupant"], src)
+		..()
+
+
 /obj/machinery/recharge_station/Destroy()
 	go_out()
 	return ..()
@@ -166,6 +177,7 @@
 	occupant = null
 	build_icon()
 	use_power = IDLE_POWER_USE
+	check_for_sync()
 	return
 
 /obj/machinery/recharge_station/force_eject_occupant(mob/target)
@@ -236,4 +248,5 @@
 	add_fingerprint(user)
 	build_icon()
 	update_use_power(1)
+	check_for_sync()
 	return

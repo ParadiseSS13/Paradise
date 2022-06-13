@@ -14,6 +14,17 @@
 	idle_power_usage = 2
 	active_power_usage = 4
 
+	serialize()
+		var/list/data = ..()
+		data["on"] = on
+		data["id"] = id
+		return data
+
+	deserialize(list/data)
+		on = data["on"]
+		id = data["id"]
+		..()
+
 /obj/machinery/igniter/on
 	on = TRUE
 

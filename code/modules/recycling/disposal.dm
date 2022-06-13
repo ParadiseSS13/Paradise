@@ -32,6 +32,23 @@
 	active_power_usage = 600
 	idle_power_usage = 100
 
+	serialize()
+		var/list/data = ..()
+		data["mode"] = mode
+		data["flush"] = flush
+		data["flushing"] = flushing
+		data["flush_count"] = flush_count
+		data["air_contents"] = air_contents?.serialize()
+		return data
+
+	deserialize(list/data)
+		mode = data["mode"]
+		flush = data["flush"]
+		flushing = data["flushing"]
+		flush_count = data["flush_count"]
+		air_contents?.deserialize(data["air_contents"])
+		..()
+
 
 // create a new disposal
 // find the attached trunk (if present)
@@ -46,10 +63,12 @@
 	if(!T)
 		mode = 0
 		flush = 0
+		check_for_sync()
 	else
 		mode = initial(mode)
 		flush = initial(flush)
 		T.nicely_link_to_other_stuff(src)
+		check_for_sync()
 
 //When the disposalsoutlet is forcefully moved. Due to meteorshot (not the recall spell)
 /obj/machinery/disposal/Moved(atom/OldLoc, Dir)
@@ -69,6 +88,7 @@
 	C.update()
 	C.anchored = 0
 	C.density = 1
+	C.check_for_sync()
 	qdel(src)
 
 /obj/machinery/disposal/Destroy()
@@ -153,6 +173,7 @@
 	else if(mode==-1)
 		mode=0
 	to_chat(user, "You [mode ? "unfasten": "fasten"] the screws around the power connection.")
+	check_for_sync()
 
 /obj/machinery/disposal/welder_act(mob/user, obj/item/I)
 	if(mode != required_mode_to_deconstruct)
@@ -171,6 +192,7 @@
 		C.update()
 		C.anchored = 1
 		C.density = 1
+		C.check_for_sync()
 		qdel(src)
 
 // mouse drop another mob or self
@@ -328,6 +350,7 @@
 		icon_state = "disposal-broken"
 		mode = 0
 		flush = 0
+		check_for_sync()
 		return
 
 	// flush handle
@@ -347,6 +370,7 @@
 		overlays += image('icons/obj/pipes/disposal.dmi', "dispover-charge")
 	else if(mode == 2)
 		overlays += image('icons/obj/pipes/disposal.dmi', "dispover-ready")
+	check_for_sync()
 
 // timed process
 // charge the gas reservoir and perform flush if ready
@@ -395,8 +419,9 @@
 
 	// if full enough, switch to ready mode
 	if(air_contents.return_pressure() >= SEND_PRESSURE)
-		mode = 2
-		update()
+		if (mode != 2)
+			mode = 2
+			update()
 	return
 
 // perform a flush
@@ -577,7 +602,7 @@
 	dir = DOWN
 	spawn(1)
 		move()		// spawn off the movement process
-
+	check_for_sync()
 	return
 
 	// movement process, persists while holder is moving through pipes
@@ -605,6 +630,7 @@
 		//
 		if(!(count--))
 			active = 0
+	check_for_sync()
 	return
 
 
@@ -686,6 +712,17 @@
 	layer = DISPOSAL_PIPE_LAYER				// slightly lower than wires and other pipes
 	base_icon_state	// initial icon state on map
 
+	serialize()
+		var/list/data = ..()
+		data["dpdir"] = dpdir
+		data["health"] = health
+		return data
+
+	deserialize(list/data)
+		dpdir = data["dpdir"]
+		health = data["health"]
+		..()
+
 	// new pipe, set the icon_state as on map
 /obj/structure/disposalpipe/Initialize(mapload)
 	. = ..()
@@ -749,6 +786,7 @@
 // update the icon_state to reflect hidden status
 /obj/structure/disposalpipe/proc/update()
 	var/turf/T = get_turf(src)
+	check_for_sync()
 	if(T.transparent_floor)
 		update_icon()
 		return
@@ -930,7 +968,7 @@
 	C.density = FALSE
 	C.anchored = TRUE
 	C.update()
-
+	C.check_for_sync()
 	qdel(src)
 
 // *** TEST verb
@@ -1004,6 +1042,19 @@
 	var/negdir = 0
 	var/sortdir = 0
 
+	serialize()
+		var/list/data = ..()
+		data["posdir"] = posdir
+		data["negdir"] = negdir
+		data["posdir"] = posdir
+		return data
+
+	deserialize(list/data)
+		posdir = data["posdir"]
+		negdir = data["negdir"]
+		sortdir = data["sortdir"]
+		..()
+
 /obj/structure/disposalpipe/sortjunction/proc/updatedesc()
 	desc = "An underfloor disposal pipe with a package sorting mechanism."
 	if(sortType>0)
@@ -1021,6 +1072,7 @@
 		sortdir = turn(posdir, 90)
 
 	dpdir = sortdir | posdir | negdir
+	check_for_sync()
 
 /obj/structure/disposalpipe/sortjunction/Initialize(mapload)
 	. = ..()
@@ -1089,6 +1141,19 @@
 	var/negdir = 0
 	var/sortdir = 0
 
+	serialize()
+		var/list/data = ..()
+		data["posdir"] = posdir
+		data["negdir"] = negdir
+		data["posdir"] = posdir
+		return data
+
+	deserialize(list/data)
+		posdir = data["posdir"]
+		negdir = data["negdir"]
+		sortdir = data["sortdir"]
+		..()
+
 /obj/structure/disposalpipe/wrapsortjunction/Initialize(mapload)
 	. = ..()
 	posdir = dir
@@ -1102,6 +1167,7 @@
 	dpdir = sortdir | posdir | negdir
 
 	update()
+	check_for_sync()
 	return
 
 
@@ -1277,6 +1343,17 @@
 	var/obj/structure/disposalpipe/trunk/linkedtrunk
 	var/mode = 0
 
+	serialize()
+		var/list/data = ..()
+		data["mode"] = mode
+		data["active"] = active
+		return data
+
+	deserialize(list/data)
+		mode = data["mode"]
+		active = data["active"]
+		..()
+
 /obj/structure/disposaloutlet/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, .proc/setup), 0) // Wait of 0, but this wont actually do anything until the MC is firing
@@ -1322,11 +1399,13 @@
 			mode=1
 			playsound(src.loc, I.usesound, 50, 1)
 			to_chat(user, "You remove the screws around the power connection.")
+			check_for_sync()
 			return
 		else if(mode==1)
 			mode=0
 			playsound(src.loc, I.usesound, 50, 1)
 			to_chat(user, "You attach the screws around the power connection.")
+			check_for_sync()
 			return
 
 /obj/structure/disposaloutlet/welder_act(mob/user, obj/item/I)
@@ -1342,6 +1421,7 @@
 		C.anchored = TRUE
 		C.density = TRUE
 		transfer_fingerprints_to(C)
+		C.check_for_sync()
 		qdel(src)
 
 //When the disposalsoutlet is forcefully moved. Due to meteorshot or the recall item spell for instance
@@ -1360,6 +1440,7 @@
 	C.update()
 	C.anchored = 0
 	C.density = 1
+	C.check_for_sync()
 	qdel(src)
 
 // called when movable is expelled from a disposal pipe or outlet

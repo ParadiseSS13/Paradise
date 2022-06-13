@@ -15,6 +15,18 @@
 	var/obj/item/defibrillator/defib //this mount's defibrillator
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
 
+	serialize()
+		var/list/data = ..()
+		data["clamps_locked"] = clamps_locked
+		data["defib"] = defib?.serialize()
+		return data
+
+	deserialize(list/data)
+		clamps_locked = data["clamps_locked"]
+		qdel(defib)
+		defib = list_to_object(data["defib"], src)
+		..()
+
 /obj/machinery/defibrillator_mount/attack_ai()
 	return
 

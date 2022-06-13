@@ -22,6 +22,17 @@
 	var/obj/item/charging = null // The item that is being charged
 	var/using_power = FALSE // Whether the recharger is actually transferring power or not, used for icon
 
+	serialize()
+		var/list/data = ..()
+		data["charging"] = charging?.serialize()
+		return data
+
+	deserialize(list/data)
+		qdel(charging)
+		charging = list_to_object(data["charging"], src)
+		..()
+
+
 /obj/machinery/recharger/New()
 	..()
 	component_parts = list()
@@ -60,6 +71,7 @@
 			use_power = ACTIVE_POWER_USE
 			using_power = check_cell_needs_recharging(get_cell_from(G))
 			update_icon()
+			check_for_sync()
 		else
 			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
 		return TRUE
@@ -85,6 +97,7 @@
 		WRENCH_ANCHOR_MESSAGE
 	else
 		WRENCH_UNANCHOR_MESSAGE
+	check_for_sync()
 
 /obj/machinery/recharger/attack_hand(mob/user)
 	if(issilicon(user))
@@ -98,6 +111,7 @@
 		charging = null
 		use_power = IDLE_POWER_USE
 		update_icon()
+		check_for_sync()
 
 /obj/machinery/recharger/attack_tk(mob/user)
 	if(charging)
@@ -106,6 +120,7 @@
 		charging = null
 		use_power = IDLE_POWER_USE
 		update_icon()
+		check_for_sync()
 
 /obj/machinery/recharger/process()
 	if(stat & (NOPOWER|BROKEN) || !anchored)
@@ -129,6 +144,7 @@
 		if(B.cell)
 			B.cell.charge = 0
 	..(severity)
+	check_for_sync()
 
 /obj/machinery/recharger/power_change()
 	..()
