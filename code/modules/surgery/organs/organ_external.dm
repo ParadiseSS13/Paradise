@@ -181,7 +181,7 @@
 			I.receive_damage(brute * 0.5)
 			brute -= brute * 0.5
 
-	if(status & ORGAN_BROKEN && prob(40) && brute && owner.stat)
+	if(status & ORGAN_BROKEN && prob(40) && brute && !owner.stat)
 		owner.emote("scream")	//getting hit on broken hand hurts
 	if(status & ORGAN_SPLINTED && prob((brute + burn)*4)) //taking damage to splinted limbs removes the splints
 		status &= ~ORGAN_SPLINTED
@@ -626,7 +626,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
 		playsound(owner, "bonebreak", 150, 1)
-		if(!HAS_TRAIT(owner, TRAIT_NOPAIN))
+		if(!HAS_TRAIT(owner, TRAIT_NOPAIN) && !owner.stat)
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN

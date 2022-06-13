@@ -1,8 +1,9 @@
 
 // Defines are in code\__DEFINES\emotes.dm
 
-/// Sentinel; if this is set, then you'll be able to use
-#define DEFAULT_STAT_ALLOWED "defaultstat"
+/// Sentinel for emote stats.
+/// If this is set for max stat, then its value will be ignored.
+#define DEFAULT_MAX_STAT_ALLOWED "defaultstat"
 
 /**
  * # Emote
@@ -61,15 +62,27 @@
 	var/target_behavior = EMOTE_TARGET_BHVR_USE_PARAMS_ANYWAY
 	/// If our target behavior isn't to ignore, what should we look for with targets?
 	var/emote_target_type = EMOTE_TARGET_ANY
-	/// In which state can you use this emote? (Check stat.dm for a full list of them)
+
+	// Stat_allowed is the "lower threshold" for stat, and basically represents how alive you have to be to use it.
+	// on the other hand, max_stat_allowed is the "upper threshold" representing how 'dead' you can be while still using the emote.
+	// see stat.dm for the stats that you can actually use here.
+
+	// Typical use case might be setting unintentional_stat_allowed to UNCONSCIOUS to allow a mob to gasp whether or not they're conscious.
+	// A use case for max_stat alone would be in case you'd want someone to be able to do something while unconscious or dead. Unlikely, but the option will still be there.
+	// A use case for both at once would be fixing it somewhere in the middle, like only allowing mobs to snore while they're unconscious.
+
+	// (worth noting: this is flexible on purpose in case we ever increase the amount of life stats).
+
+	/// How conscious do you need to be to use this emote intentionally?
 	var/stat_allowed = CONSCIOUS
-	/// What's the highest state in which you can use this emote?
-	/// If this is set to DEFAULT_STAT_ALLOWED, it'll work as if it was set to stat_allowed.
-	var/max_stat_allowed = DEFAULT_STAT_ALLOWED
-	/// In which state can this emote be forced out of you? Note that if you set this, you'll want to make sure max_unintentional_stat_allowed is set too
+	/// How unconscious/dead can you be while still being able to use this emote intentionally?
+	/// If this is set to DEFAULT_STAT_ALLOWED, it'll behave as if it isn't set.
+	var/max_stat_allowed = DEFAULT_MAX_STAT_ALLOWED
+	/// How conscious do you need to be to have this emote forced out of you?
 	var/unintentional_stat_allowed = CONSCIOUS
-	/// Same as above, what's the highest state in which you can have this emote forced out of you?
-	var/max_unintentional_stat_allowed = DEFAULT_STAT_ALLOWED
+	/// Same as above, how unconscious/dead do you need to be to have this emote forced out of you?
+	/// If this is set to DEFAULT_STAT_ALLOWED, it'll behave as if it isn't set.
+	var/max_unintentional_stat_allowed = DEFAULT_MAX_STAT_ALLOWED
 	/// Sound to play when emote is called. If you want to adjust this dynamically, see get_sound().
 	var/sound
 	/// Whether or not to vary the sound of the emote.
@@ -171,7 +184,7 @@
 	var/sound_volume = get_volume(user)
 	// If our sound emote is forced by code, don't worry about cooldowns at all.
 	if(tmp_sound && should_play_sound(user, intentional) && sound_volume > 0)
-		if(user.start_audio_emote_cooldown(audio_cooldown))
+		if(!intentional || user.start_audio_emote_cooldown(audio_cooldown))
 			play_sound_effect(user, intentional, tmp_sound, sound_volume)
 
 	if(msg)
@@ -220,7 +233,7 @@
 		return FALSE
 
 	// You can use this signal to block execution of emotes from components/other sources.
-	var/sig_res = SEND_SIGNAL(src, COMSIG_MOB_PREEMOTE, key, intentional)
+	var/sig_res = SEND_SIGNAL(user, COMSIG_MOB_PREEMOTE, key, intentional)
 	switch(sig_res)
 		if(COMPONENT_BLOCK_EMOTE_UNUSABLE)
 			return FALSE
@@ -412,7 +425,7 @@
 	if(full_target)
 		// If we find an actual target obj/item/whatever, see if we'd want to perform some action on it and jump out
 		// Fire off a signal first to see if our interaction should be stopped for some reason
-		if(!(SEND_SIGNAL(src, COMSIG_MOB_EMOTE_AT, full_target, key) & COMPONENT_BLOCK_EMOTE_ACTION))
+		if(!(SEND_SIGNAL(user, COMSIG_MOB_EMOTE_AT, full_target, key) & COMPONENT_BLOCK_EMOTE_ACTION))
 			if(act_on_target(user, full_target) == EMOTE_ACT_STOP_EXECUTION)
 				return EMOTE_ACT_STOP_EXECUTION
 		return replacetext(substitution, "%t", full_target)
@@ -471,12 +484,13 @@
 		return FALSE
 
 	if(status_check && !is_type_in_typecache(user, mob_type_ignore_stat_typecache))
-		var/max_stat = max_stat_allowed == DEFAULT_STAT_ALLOWED ? stat_allowed : max_stat_allowed
-		var/max_unintentional_stat = max_unintentional_stat_allowed == DEFAULT_STAT_ALLOWED ? unintentional_stat_allowed : max_unintentional_stat_allowed
-		if((intentional && (user.stat > stat_allowed || user.stat < max_stat)) || (!intentional && (user.stat > unintentional_stat_allowed || user.stat < max_unintentional_stat)))
+		var/intentional_stat_check = (intentional && (user.stat <= stat_allowed && (max_stat_allowed == DEFAULT_MAX_STAT_ALLOWED || user.stat >= max_stat_allowed)))
+		var/unintentional_stat_check = (!intentional && (user.stat <= unintentional_stat_allowed && (max_unintentional_stat_allowed == DEFAULT_MAX_STAT_ALLOWED || user.stat >= max_unintentional_stat_allowed)))
+		if(!intentional_stat_check && !unintentional_stat_check)
+			var/stat = stat_to_text(user.stat)
 			if(!intentional)
 				return FALSE
-			var/stat = stat_to_text(user.stat)
+
 			if(stat)
 				to_chat(user, "<span class='warning'>You cannot [key] while [stat]!</span>")
 			return FALSE
@@ -540,7 +554,7 @@
  */
 /datum/emote/proc/can_vocalize_emotes(mob/user)
 	if(user.mind?.miming)
-		// mimes get special treatment, though they can't really "vocalize" we don't want to replace their message.
+		// mimes get special treatment; though they can't really "vocalize" we don't want to replace their message.
 		return TRUE
 	if(!muzzle_ignore && !user.can_speak())
 		return FALSE

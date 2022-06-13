@@ -65,7 +65,7 @@
 	var/list/all_keys = list()
 	for(var/key in GLOB.emote_list)
 		for(var/datum/emote/P in GLOB.emote_list[key])
-			if((P.key in all_keys))
+			if(P.key in all_keys)
 				continue
 			if(P.can_run_emote(src, status_check = FALSE, intentional = null))
 				all_keys += P.key
@@ -89,7 +89,7 @@
 	for(var/key in GLOB.emote_list)
 		for(var/datum/emote/P in GLOB.emote_list[key])
 			var/full_key = P.key
-			if((P.key in all_keys))
+			if(P.key in all_keys)
 				continue
 			if(P.can_run_emote(user, status_check = FALSE, intentional = TRUE))
 				if(P.message_param && P.param_desc)
@@ -179,7 +179,7 @@
 	if(!.)
 		return FALSE
 
-	if(prob(95) || isobserver(user))
+	if(prob(95) || isobserver(user) || !ishuman(user))
 		user.spin(20, 1)
 		return TRUE
 

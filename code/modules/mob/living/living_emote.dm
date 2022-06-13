@@ -115,14 +115,12 @@
 	key_third_person = "drools"
 	message = "drools."
 	unintentional_stat_allowed = UNCONSCIOUS
-	max_unintentional_stat_allowed = CONSCIOUS
 
 /datum/emote/living/quiver
 	key = "quiver"
 	key_third_person = "quivers"
 	message = "quivers."
 	unintentional_stat_allowed = UNCONSCIOUS
-	max_unintentional_stat_allowed = CONSCIOUS
 
 /datum/emote/living/frown
 	key = "frown"
@@ -164,11 +162,13 @@
 	key = "bshake"
 	key_third_person = "bshakes"
 	message = "shakes."
+	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/shudder
 	key = "shudder"
 	key_third_person = "shudders"
 	message = "shudders."
+	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/point
 	key = "point"
@@ -234,8 +234,7 @@
 	key = "shiver"
 	key_third_person = "shiver"
 	message = "shivers."
-	unintentional_stat_allowed = CONSCIOUS
-	max_unintentional_stat_allowed = UNCONSCIOUS
+	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/sigh
 	key = "sigh"
@@ -274,8 +273,7 @@
 	key_third_person = "sniffs"
 	message = "sniffs."
 	emote_type = EMOTE_AUDIBLE
-	unintentional_stat_allowed = CONSCIOUS
-	max_unintentional_stat_allowed = UNCONSCIOUS
+	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/snore
 	key = "snore"
@@ -285,6 +283,7 @@
 	message_simple = "stirs in their sleep."
 	message_robot = "dreams of electric sheep..."
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	// lock it so these emotes can only be used while unconscious
 	stat_allowed = UNCONSCIOUS
 	max_stat_allowed = UNCONSCIOUS
 	unintentional_stat_allowed = UNCONSCIOUS
@@ -357,12 +356,12 @@
 	key = "twitch"
 	key_third_person = "twitches"
 	message = "twitches violently."
-	unintentional_stat_allowed = CONSCIOUS
-	max_unintentional_stat_allowed = UNCONSCIOUS
+	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/twitch_s
 	key = "twitch_s"
 	message = "twitches."
+	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/whimper
 	key = "whimper"
@@ -386,9 +385,10 @@
 		/mob/living/captive_brain
 	)
 
-/datum/emote/living/custom/can_run_emote(mob/user, status_check, intentional)
-	. = ..()
-	return . && intentional
+	// Custom emotes should be able to be forced out regardless of context.
+	// It falls on the caller to determine whether or not it should actually be called.
+	max_unintentional_stat_allowed = CONSCIOUS
+	unintentional_stat_allowed = DEAD
 
 /datum/emote/living/custom/proc/check_invalid(mob/user, input)
 	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")

@@ -1537,8 +1537,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 	if(!is_component_functioning("power cell") || !cell || !cell.charge)
-		visible_message("The power warning light on <span class='name'>[src]</span> flashes urgently.",\
-						 "You announce you are operating in low power mode.")
+		visible_message("<span class='warning'>The power warning light on <span class='name'>[src]</span> flashes urgently.</span>",\
+						 "<span class='warning'>You announce you are operating in low power mode.</span>")
 		playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
 	else
 		to_chat(src, "<span class='warning'>You can only use this emote when you're out of charge.</span>")

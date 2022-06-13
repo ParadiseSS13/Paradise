@@ -69,6 +69,7 @@
 	vary = TRUE
 	age_based = TRUE
 	volume = 120
+	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/carbon/cough/get_sound(mob/living/user)
 	. = ..()
@@ -88,6 +89,7 @@
 	message_mime = "appears to moan!"
 	muzzled_noises = list("pained")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/carbon/giggle
 	key = "giggle"
@@ -103,6 +105,7 @@
 	message = "makes an uncomfortable gurgle."
 	muzzled_noises = list("unpleasant", "guttural")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/carbon/inhale
 	key = "inhale"
@@ -165,6 +168,7 @@
 	message_param = "groans at %t."
 	muzzled_noises = list("pained")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/carbon/sign
 	key = "sign"
