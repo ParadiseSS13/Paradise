@@ -115,12 +115,14 @@
 	key_third_person = "drools"
 	message = "drools."
 	unintentional_stat_allowed = UNCONSCIOUS
+	max_unintentional_stat_allowed = CONSCIOUS
 
 /datum/emote/living/quiver
 	key = "quiver"
 	key_third_person = "quivers"
 	message = "quivers."
 	unintentional_stat_allowed = UNCONSCIOUS
+	max_unintentional_stat_allowed = CONSCIOUS
 
 /datum/emote/living/frown
 	key = "frown"
@@ -232,7 +234,8 @@
 	key = "shiver"
 	key_third_person = "shiver"
 	message = "shivers."
-	unintentional_stat_allowed = UNCONSCIOUS
+	unintentional_stat_allowed = CONSCIOUS
+	max_unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/sigh
 	key = "sigh"
@@ -271,7 +274,8 @@
 	key_third_person = "sniffs"
 	message = "sniffs."
 	emote_type = EMOTE_AUDIBLE
-	unintentional_stat_allowed = UNCONSCIOUS
+	unintentional_stat_allowed = CONSCIOUS
+	max_unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/snore
 	key = "snore"
@@ -353,7 +357,8 @@
 	key = "twitch"
 	key_third_person = "twitches"
 	message = "twitches violently."
-	unintentional_stat_allowed = UNCONSCIOUS
+	unintentional_stat_allowed = CONSCIOUS
+	max_unintentional_stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/twitch_s
 	key = "twitch_s"

@@ -81,6 +81,7 @@
 	message_postfix = "at %t!"
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	unintentional_stat_allowed = UNCONSCIOUS
+	max_unintentional_stat_allowed = CONSCIOUS
 
 /datum/emote/living/carbon/human/nod
 	key = "nod"
@@ -131,6 +132,7 @@
 	emote_type = EMOTE_SOUND  // Don't make this one a mouth emote since we don't want it to be caught by nobreath
 	age_based = TRUE
 	unintentional_stat_allowed = UNCONSCIOUS
+	max_unintentional_stat_allowed = CONSCIOUS
 	volume = 100
 
 /datum/emote/living/carbon/human/gasp/get_sound(mob/user)
