@@ -28,7 +28,7 @@
 				card_appearance = "sc_[colour]_[rank]_[deck_style]"
 			else
 				card_appearance = "sc_[number] of [suit]_[deck_style]"
-			cards += new /datum/playingcard("\improper [number] of [suit]", card_appearance, "singlecard_down_[deck_style]")
+			cards += new /datum/playingcard("[number] of [suit]", card_appearance, "singlecard_down_[deck_style]")
 
 	for(var/jokers in 1 to 2)
 		cards += new /datum/playingcard("Joker", "sc_Joker_[deck_style]", "singlecard_down_[deck_style]")

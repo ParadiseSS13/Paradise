@@ -11,7 +11,7 @@
 		cards += new /datum/playingcard("[tarotname]", "tarot_major", "card_back_tarot")
 	for(var/suit in list("wands","pentacles","cups","swords"))
 		for(var/number in list("ace","two","three","four","five","six","seven","eight","nine","ten","page","knight","queen","king"))
-			cards += new /datum/playingcard("\improper [number] of [suit]", "tarot_[suit]", "card_back_tarot")
+			cards += new /datum/playingcard("[number] of [suit]", "tarot_[suit]", "card_back_tarot")
 
 /obj/item/deck/tarot/deckshuffle()
 	var/mob/living/user = usr
