@@ -14,6 +14,11 @@
 	var/icon_temperature = T20C //stop small changes in temperature causing icon refresh
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
+
+	deserialize(list/data)
+		..()
+		initialize_directions_he = initialize_directions
+
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/detailed_examine()
 	return "This radiates heat from the pipe's gas to space, cooling it down."
 

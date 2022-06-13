@@ -822,7 +822,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		clean_radiation()
 	if(islist(blood_DNA))
 		blood_DNA = null
-		return TRUE
+	return TRUE
 
 /**
   * Removes some radiation from an atom

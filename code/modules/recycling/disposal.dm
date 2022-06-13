@@ -39,6 +39,7 @@
 		data["flushing"] = flushing
 		data["flush_count"] = flush_count
 		data["air_contents"] = air_contents?.serialize()
+		data["contents"] = serialize_contents()
 		return data
 
 	deserialize(list/data)
@@ -47,7 +48,9 @@
 		flushing = data["flushing"]
 		flush_count = data["flush_count"]
 		air_contents?.deserialize(data["air_contents"])
+		deserialize_contents(data["contents"])
 		..()
+		update()
 
 
 // create a new disposal
@@ -133,6 +136,7 @@
 				S.remove_from_storage(O, src)
 			S.update_icon() // For content-sensitive icons
 			update()
+			check_for_sync()
 			return
 
 	var/obj/item/grab/G = I
@@ -147,6 +151,7 @@
 					C.show_message("<span class='warning'>[GM] has been placed in [src] by [user].</span>", 3)
 				qdel(G)
 				add_attack_logs(usr, GM, "Disposal'ed", !!GM.ckey ? null : ATKLOG_ALL)
+				check_for_sync()
 		return
 
 	if(!user.drop_item() || QDELETED(I))
@@ -722,6 +727,13 @@
 		dpdir = data["dpdir"]
 		health = data["health"]
 		..()
+		base_icon_state = icon_state
+		if(icon_state == "pipe-s")
+			dpdir = dir | turn(dir, 180)
+		else
+			dpdir = dir | turn(dir, -90)
+		update()
+
 
 	// new pipe, set the icon_state as on map
 /obj/structure/disposalpipe/Initialize(mapload)
@@ -1447,6 +1459,7 @@
 // by default does nothing, override for special behaviour
 
 /atom/movable/proc/pipe_eject(direction)
+	check_for_sync()
 	return
 
 /obj/effect/decal/cleanable/blood/gibs/pipe_eject(direction)

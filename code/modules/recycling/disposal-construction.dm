@@ -19,10 +19,14 @@
 	serialize()
 		var/list/data = ..()
 		data["dpdir"] = dpdir
+		data["ptype"] = ptype
+		data["base_state"] = base_state
 		return data
 
 	deserialize(list/data)
 		dpdir = data["dpdir"]
+		ptype = data["ptype"]
+		base_state = data["base_state"]
 		..()
 
 

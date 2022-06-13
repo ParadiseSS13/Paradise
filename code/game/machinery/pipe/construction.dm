@@ -15,6 +15,21 @@
 	level = 2
 	var/flipped = 0
 
+	serialize()
+		var/list/data = ..()
+		data["pipename"] = pipename
+		data["flipped"] = flipped
+		data["pipe_type"] = pipe_type
+		data["resistance_flags"] = resistance_flags
+		return data
+
+	deserialize(list/data)
+		pipename = data["pipename"]
+		flipped = data["flipped"]
+		pipe_type = data["pipe_type"]
+		resistance_flags = data["resistance_flags"]
+		..()
+
 /obj/item/pipe/New(loc, pipe_type, dir, obj/machinery/atmospherics/make_from)
 	..()
 	if(make_from)
@@ -162,6 +177,7 @@
 		icon_state = "m_[icon_state]"
 	if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/heat_exchanging))
 		resistance_flags |= FIRE_PROOF | LAVA_PROOF
+	check_for_sync()
 
 // called by turf to know if should treat as bent or not on placement
 /obj/item/pipe/proc/is_bent_pipe()
@@ -224,6 +240,7 @@
 			dir = 1
 		else if(dir==8)
 			dir = 4
+	check_for_sync()
 	return
 
 // returns all pipe's endpoints
@@ -322,6 +339,7 @@
 			dir = 4
 	else if(pipe_type in list(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W))
 		dir = 2
+	check_for_sync()
 
 /obj/item/pipe/attack_self(mob/user as mob)
 	return rotate()

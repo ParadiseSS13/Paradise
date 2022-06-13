@@ -129,6 +129,18 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
 
+	serialize()
+		var/list/data = ..()
+		if (blood_color)
+			data["blood_color"] = blood_color
+		return data
+
+	deserialize(list/data)
+		if(data["blood_color"])
+			blood_color = data["blood_color"]
+			add_blood_overlay()
+		..()
+
 /obj/item/New()
 	..()
 	for(var/path in actions_types)
@@ -655,6 +667,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		else
 			playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
 		return hit_atom.hitby(src, 0, itempush, throwingdatum = throwingdatum)
+	check_for_sync()
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
 	thrownby = thrower?.UID()
@@ -666,6 +679,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		. = callback.Invoke()
 	throw_speed = initial(throw_speed) //explosions change this.
 	in_inventory = FALSE
+	check_for_sync()
 
 /obj/item/proc/pwr_drain()
 	return 0 // Process Kill
@@ -676,6 +690,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(istype(loc,/obj/item/storage))
 		var/obj/item/storage/S = loc
 		S.remove_from_storage(src,newLoc)
+		newLoc.check_for_sync()
 		return 1
 	return 0
 

@@ -48,7 +48,7 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 /atom/serialize()
 	var/list/data = ..()
 	for(var/thing in vars_to_save())
-		data[thing] = vars[thing] // Can't check initial() because it doesn't work on a list index
+		data[thing] = sanitizeText(vars[thing]) // Can't check initial() because it doesn't work on a list index
 	return data
 
 
@@ -87,8 +87,14 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 	var/db_uid = -1
 	var/db_dirty = FALSE
 
-/atom/proc/check_for_sync()
+/atom/proc/check_for_sync(forced)
 	if (!GLOB.enable_sync || !synced)
+		return
+
+	if (forced)
+		if (LAZYIN(GLOB.changed_objects, src))
+			return
+		LAZYADD(GLOB.changed_objects, src)
 		return
 
 	if (!isturf(loc))
@@ -100,7 +106,7 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 			if (istype(A, /obj))
 				var/obj/O = A
 				if (O && O.db_uid > 0)
-					O.check_for_sync()
+					O.check_for_sync(forced)
 		catch
 			return
 		return
@@ -134,18 +140,19 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 			log_runtime(EXCEPTION("Non-list thing found in storage/deserialize."), src, list("Thing: [thing]"))
 
 /atom/proc/sync_to_db()
+	db_dirty = FALSE
 	if (!GLOB.enable_sync || !synced)
-		return
+		return FALSE
 
 	try
 		if (!isturf(loc) || (x == 0 && y == 0 && z == 0))
-			return
+			return FALSE
 
 		var/datum/db_query/query = null
 		var/data = sanitizeSQL("[json_encode(serialize())]")
 
 		if (!data)
-			return
+			return FALSE
 
 		if (db_uid <= 0)
 			to_chat(world, "DB >> new obj [type]")
@@ -175,11 +182,10 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 				"})
 			query.Execute()
 			qdel(query)
-		db_dirty = FALSE
-
 	catch
 		del_from_db()
-		return
+		return FALSE
+	return TRUE
 
 /atom/proc/del_from_db()
 	if(db_uid > 0)
@@ -199,26 +205,30 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 	db_uid = -1
 	return
 
-/turf/check_for_sync()
+/turf/check_for_sync(forced)
+	db_dirty = FALSE
 	if (!GLOB.enable_sync)
 		return
 
-	//to_chat(world, "DB >> check [type] for sync")
-	if (LAZYIN(GLOB.changed_objects, src))
-		//to_chat(world, "DB >> skipping [type] for sync as registered")
+	if (forced)
+		if (LAZYIN(GLOB.changed_objects, src))
+			return
+		LAZYADD(GLOB.changed_objects, src)
+		return
+
+	if (db_dirty)
 		return
 
 	//to_chat(world, "DB >> registered [type] for sync")
 	LAZYADD(GLOB.changed_objects, src)
 
-
 /turf/sync_to_db()
 	if (!GLOB.enable_sync)
-		return
+		return FALSE
 
 	try
 		var/data = json_encode(serialize())
-		if (!data) return
+		if (!data) return FALSE
 
 		to_chat(world, "DB >> new turf [type] at [x],[y],[z]")
 		var/datum/db_query/save_turf = SSdbcore.NewQuery({"
@@ -235,19 +245,19 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 		db_dirty = FALSE
 		db_saved = TRUE
 	catch
-		return
+		return FALSE
+	return TRUE
 
 /turf/simulated/sync_to_db()
 	if (!air)
-		..()
-		return
+		return ..()
 
 	if (!GLOB.enable_sync)
-		return
+		return FALSE
 
 	try
 		var/data = json_encode(serialize())
-		if (!data) return
+		if (!data) return FALSE
 
 		to_chat(world, "DB >> new sim turf [type] at [x],[y],[z]")
 		var/datum/db_query/save_turf = SSdbcore.NewQuery({"
@@ -266,7 +276,8 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 		db_dirty = FALSE
 		db_saved = TRUE
 	catch
-		return
+		return FALSE
+	return TRUE
 
 /turf/simulated/proc/sync_air_to_db()
 	if (!db_saved)

@@ -275,6 +275,7 @@ Pipelines + Other Objects -> Pipe network
 		SSair.machinery_to_construct.Add(src)
 		return
 	initialize_atmos_network()
+	check_for_sync()
 
 /obj/machinery/atmospherics/proc/initialize_atmos_network()
 	atmos_init()

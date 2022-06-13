@@ -14,6 +14,24 @@
 	var/limit = null
 	var/efficiency = null
 
+	serialize()
+		var/list/data = ..()
+		data["operating"] = operating
+		data["contents"] = serialize_contents()
+		return data
+
+	deserialize(list/data)
+		operating = data["operating"]
+		deserialize_contents(data["contents"])
+		..()
+		for(var/obj/item/G in contents)
+			if(istype(G,/obj/item/reagent_containers))
+				beaker = G
+				continue
+			if(is_type_in_list(G, blend_items) || is_type_in_list(G, juice_items))
+				holdingitems += G
+
+
 	//IMPORTANT NOTE! A negative number is a multiplier, a positive number is a flat amount to add. 0 means equal to the amount of the original reagent
 	var/list/blend_items = list (
 
@@ -175,6 +193,7 @@
 			beaker.loc = src
 			update_icon()
 			updateUsrDialog()
+			check_for_sync()
 		return TRUE //no afterattack
 
 	if(is_type_in_list(I, dried_items))
@@ -201,6 +220,7 @@
 			if(is_type_in_list(G, blend_items) || is_type_in_list(G, juice_items))
 				B.remove_from_storage(G, src)
 				holdingitems += G
+				check_for_sync()
 				if(holdingitems && holdingitems.len >= limit) //Sanity checking so the blender doesn't overfill
 					to_chat(user, "<span class='notice'>You fill the All-In-One grinder to the brim.</span>")
 					break
@@ -227,6 +247,7 @@
 		I.loc = src
 		holdingitems += I
 		src.updateUsrDialog()
+		check_for_sync()
 		return FALSE
 
 
@@ -312,6 +333,7 @@
 	beaker = null
 	update_icon()
 	updateUsrDialog()
+	check_for_sync()
 
 /obj/machinery/reagentgrinder/proc/eject()
 	if(usr.stat != 0)
@@ -324,6 +346,7 @@
 		holdingitems -= O
 	holdingitems = list()
 	updateUsrDialog()
+	check_for_sync()
 
 /obj/machinery/reagentgrinder/proc/is_allowed(obj/item/reagent_containers/O)
 	for (var/i in blend_items)
@@ -402,6 +425,7 @@
 				break
 
 		remove_object(O)
+	check_for_sync()
 
 /obj/machinery/reagentgrinder/proc/grind()
 
@@ -519,3 +543,5 @@
 		O.reagents.trans_to(beaker, amount)
 		if(!O.reagents.total_volume)
 			remove_object(O)
+
+	check_for_sync()

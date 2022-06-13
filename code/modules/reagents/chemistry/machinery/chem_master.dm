@@ -27,6 +27,31 @@
 	var/static/list/pill_bottle_wrappers
 	var/static/list/bottle_styles
 
+	serialize()
+		var/list/data = ..()
+		data["mode"] = mode
+		data["pillamount"] = pillamount
+		data["patchamount"] = patchamount
+		data["useramount"] = useramount
+		data["bottlesprite"] = bottlesprite
+		data["pillsprite"] = pillsprite
+		data["beaker"] = beaker?.serialize()
+		data["loaded_pill_bottle"] = loaded_pill_bottle?.serialize()
+		return data
+
+	deserialize(list/data)
+		mode = data["mode"]
+		pillamount = data["pillamount"]
+		patchamount = data["patchamount"]
+		useramount = data["useramount"]
+		bottlesprite = data["bottlesprite"]
+		pillsprite = data["pillsprite"]
+		qdel(beaker)
+		beaker = list_to_object(data["beaker"], src)
+		qdel(loaded_pill_bottle)
+		loaded_pill_bottle = list_to_object(data["loaded_pill_bottle"], src)
+		..()
+
 /obj/machinery/chem_master/New()
 	..()
 	create_reagents(100)
@@ -103,6 +128,7 @@
 		to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
 		SStgui.update_uis(src)
 		update_icon()
+		check_for_sync()
 
 	else if(istype(I, /obj/item/storage/pill_bottle))
 		if(loaded_pill_bottle)
@@ -117,6 +143,7 @@
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You add [I] into the dispenser slot!</span>")
 		SStgui.update_uis(src)
+		check_for_sync()
 	else
 		return ..()
 
@@ -136,6 +163,7 @@
 		if(loaded_pill_bottle)
 			loaded_pill_bottle.forceMove(get_turf(src))
 			loaded_pill_bottle = null
+		check_for_sync()
 		return TRUE
 
 /obj/machinery/chem_master/wrench_act(mob/user, obj/item/I)
@@ -209,6 +237,7 @@
 			if(!id || !amount)
 				return
 			R.trans_id_to(src, id, amount)
+			check_for_sync()
 		if("remove")
 			var/id = params["id"]
 			var/amount = text2num(params["amount"])
@@ -218,6 +247,7 @@
 				reagents.trans_id_to(beaker, id, amount)
 			else
 				reagents.remove_reagent(id, amount)
+			check_for_sync()
 		if("eject")
 			if(!beaker)
 				return
@@ -227,11 +257,13 @@
 			beaker = null
 			reagents.clear_reagents()
 			update_icon()
+			check_for_sync()
 		if("create_condi_bottle")
 			if(!condi || !reagents.total_volume)
 				return
 			var/obj/item/reagent_containers/food/condiment/P = new(loc)
 			reagents.trans_to(P, 50)
+			check_for_sync()
 		else
 			return FALSE
 
@@ -416,6 +448,7 @@
 					else
 						loaded_pill_bottle.wrapper_color = null
 						loaded_pill_bottle.cut_overlays()
+					check_for_sync()
 				if("addcustom")
 					var/amount = isgoodnumber(text2num(answer))
 					if(!amount || !arguments["id"])
@@ -436,6 +469,7 @@
 					P.name = "[answer] pack"
 					P.desc = "A small condiment pack. The label says it contains [answer]."
 					reagents.trans_to(P, 10)
+					check_for_sync()
 				if("create_pill")
 					if(condi || !reagents.total_volume)
 						return
@@ -460,6 +494,7 @@
 						// Load the pills in the bottle if there's one loaded
 						if(istype(loaded_pill_bottle) && length(loaded_pill_bottle.contents) < loaded_pill_bottle.storage_slots)
 							P.forceMove(loaded_pill_bottle)
+						check_for_sync()
 				if("create_pill_multiple")
 					if(condi || !reagents.total_volume)
 						return
@@ -469,6 +504,7 @@
 					if(!new_style)
 						return
 					pillsprite = new_style
+					check_for_sync()
 				if("create_patch")
 					if(condi || !reagents.total_volume)
 						return
@@ -500,6 +536,7 @@
 					if(condi || !reagents.total_volume)
 						return
 					ui_act("modal_open", list("id" = "create_patch", "arguments" = list("num" = answer)), ui, state)
+					check_for_sync()
 				if("create_bottle")
 					if(condi || !reagents.total_volume)
 						return
@@ -512,6 +549,7 @@
 					P.pixel_y = rand(-7, 7)
 					P.icon_state = length(bottle_styles) && bottle_styles[bottlesprite] || "bottle"
 					reagents.trans_to(P, 50)
+					check_for_sync()
 				if("change_bottle_style")
 					if(!bottle_styles)
 						return

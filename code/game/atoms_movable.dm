@@ -314,7 +314,7 @@
 			onTransitZ(old_z, dest_z)
 
 	Moved(old_loc, NONE)
-
+	check_for_sync()
 	return 1
 
 /atom/movable/proc/onTransitZ(old_z,new_z)
@@ -338,6 +338,7 @@
 			hud_used.update_parallax()
 	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
 	update_runechat_msg_location()
+	check_for_sync()
 
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
@@ -379,11 +380,13 @@
 	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
 	if(!QDELETED(hit_atom))
 		return hit_atom.hitby(src)
+	check_for_sync()
 
 /atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked, datum/thrownthing/throwingdatum)
 	if(!anchored && hitpush && (!throwingdatum || (throwingdatum.force >= (move_resist * MOVE_FORCE_PUSH_RATIO))))
 		step(src, AM.dir)
 	..()
+	AM?.check_for_sync()
 
 /atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY)
 	if(!target || (flags & NODROP) || speed <= 0)
@@ -458,7 +461,7 @@
 	SEND_SIGNAL(src, COMSIG_MOVABLE_POST_THROW, TT, spin)
 	SSthrowing.processing[src] = TT
 	TT.tick()
-
+	check_for_sync()
 	return TRUE
 
 //Overlays

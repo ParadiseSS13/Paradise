@@ -47,10 +47,10 @@
 
 	serialize()
 		var/list/data = ..()
-		data["header"] = header
-		data["info"] = info
-		data["footer"] = footer
-		data["stamps"] = stamps
+		data["header"] = sanitizeText(header)
+		data["info"] = sanitizeText(info)
+		data["footer"] = sanitizeText(footer)
+		data["stamps"] = sanitizeText(stamps)
 		data["fields"] = fields
 		return data
 

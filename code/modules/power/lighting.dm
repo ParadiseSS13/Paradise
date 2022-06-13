@@ -235,6 +235,25 @@
 	var/fire_mode = FALSE // if true, the light swaps over to emergency colour
 	var/no_emergency = FALSE	// if true, this light cannot ever have an emergency mode
 
+	serialize()
+		var/list/data = ..()
+		data["emergency_mode"] = emergency_mode
+		data["fire_mode"] = fire_mode
+		data["no_emergency"] = no_emergency
+		data["switchcount"] = switchcount
+		data["on"] = on
+		data["status"] = status
+		return data
+
+	deserialize(list/data)
+		emergency_mode = data["emergency_mode"]
+		fire_mode = data["fire_mode"]
+		no_emergency = data["no_emergency"]
+		switchcount = data["switchcount"]
+		on = data["on"]
+		status = data["status"]
+		..()
+
 /**
   * # Small light fixture
   *
@@ -406,12 +425,14 @@
 
 	on = FALSE
 	set_light(0)
+	check_for_sync()
 
 // attempt to set the light's on/off status
 // will not switch on if broken/burned/empty
 /obj/machinery/light/proc/seton(S)
 	on = (S && status == LIGHT_OK)
 	update()
+	check_for_sync()
 
 // examine verb
 /obj/machinery/light/examine(mob/user)
@@ -467,6 +488,7 @@
 					explode()
 			else
 				to_chat(user, "<span class='warning'>This type of light requires a [fitting].</span>")
+			check_for_sync()
 		return
 
 		// attempt to break the light
@@ -588,6 +610,7 @@
 	emergency_mode = TRUE
 	set_light(3, 1.7, bulb_emergency_colour)
 	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/update, override = TRUE)
+	check_for_sync()
 
 /obj/machinery/light/proc/emergency_lights_off(area/current_area, obj/machinery/power/apc/current_apc)
 	set_light(0, 0, 0) //you, sir, are off!
@@ -631,6 +654,7 @@
 	no_emergency = !no_emergency
 	to_chat(user, "<span class='notice'>Emergency lights for this fixture have been [no_emergency ? "disabled" : "enabled"].</span>")
 	update(FALSE)
+	check_for_sync()
 
 // attack with hand - remove tube/bulb
 // if hands aren't protected and the light is on, burn the player
@@ -703,6 +727,7 @@
 
 	status = LIGHT_EMPTY
 	update()
+	check_for_sync()
 	return L
 
 /obj/machinery/light/attack_tk(mob/user)
@@ -726,6 +751,7 @@
 			do_sparks(3, 1, src)
 	status = LIGHT_BROKEN
 	update()
+	check_for_sync()
 
 /obj/machinery/light/proc/fix()
 	if(status == LIGHT_OK)
@@ -733,6 +759,7 @@
 	status = LIGHT_OK
 	on = TRUE
 	update(FALSE, TRUE, FALSE)
+	check_for_sync()
 
 /obj/machinery/light/zap_act(power, zap_flags)
 	var/explosive = zap_flags & ZAP_MACHINE_EXPLOSIVE
@@ -750,6 +777,7 @@
 	var/area/A = get_area(src)
 	if(A)
 		seton(A.lightswitch && A.power_light)
+		check_for_sync()
 
 // called when on fire
 
@@ -795,6 +823,17 @@
 	var/brightness_power = 1
 	/// Light colour
 	var/brightness_color = null
+
+	serialize()
+		var/list/data = ..()
+		data["switchcount"] = switchcount
+		data["status"] = status
+		return data
+
+	deserialize(list/data)
+		switchcount = data["switchcount"]
+		status = data["status"]
+		..()
 
 /obj/item/light/ComponentInitialize()
 	. = ..()
@@ -941,11 +980,13 @@
 	addtimer(CALLBACK(src, .proc/enable_emergency_lighting), 5 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
 	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
 	update(FALSE)
+	check_for_sync()
 
 /obj/machinery/light/proc/enable_emergency_lighting()
 	visible_message("<span class='notice'>[src]'s emergency lighting flickers back to life.</span>")
 	no_emergency = FALSE
 	update(FALSE)
+	check_for_sync()
 
 #undef MAXIMUM_SAFE_BACKUP_CHARGE
 #undef EMERGENCY_LIGHT_POWER_USE

@@ -10,6 +10,22 @@
 	var/giftwrapped = 0
 	var/sortTag = 0
 
+	serialize()
+		var/list/data = ..()
+		data["giftwrapped"] = giftwrapped
+		data["init_welded"] = init_welded
+		data["sortTag"] = sortTag
+		data["wrapped"] = wrapped?.serialize()
+		return data
+
+	deserialize(list/data)
+		giftwrapped = data["giftwrapped"]
+		init_welded = data["init_welded"]
+		sortTag = data["sortTag"]
+		qdel(wrapped)
+		wrapped = list_to_object(data["wrapped"], src)
+		..()
+
 /obj/structure/bigDelivery/Destroy()
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/AM in contents)
@@ -29,6 +45,7 @@
 		if(istype(wrapped, /obj/structure/closet))
 			var/obj/structure/closet/O = wrapped
 			O.welded = init_welded
+			O.check_for_sync()
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/AM in src)
 		AM.loc = T
@@ -44,6 +61,7 @@
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
 			sortTag = O.currTag
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
+			check_for_sync()
 
 	else if(istype(W, /obj/item/shippingPackage))
 		var/obj/item/shippingPackage/sp = W
@@ -69,6 +87,7 @@
 				icon_state = "giftcloset"
 			if(WP.amount <= 0 && !WP.loc) //if we used our last wrapping paper, drop a cardboard tube
 				new /obj/item/c_tube( get_turf(user) )
+			check_for_sync()
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
 	else
@@ -82,6 +101,20 @@
 	var/obj/item/wrapped = null
 	var/giftwrapped = 0
 	var/sortTag = 0
+
+	serialize()
+		var/list/data = ..()
+		data["giftwrapped"] = giftwrapped
+		data["sortTag"] = sortTag
+		data["wrapped"] = wrapped?.serialize()
+		return data
+
+	deserialize(list/data)
+		giftwrapped = data["giftwrapped"]
+		sortTag = data["sortTag"]
+		qdel(wrapped)
+		wrapped = list_to_object(data["wrapped"], src)
+		..()
 
 /obj/item/smallDelivery/ex_act(severity)
 	for(var/atom/movable/AM in contents)
@@ -184,6 +217,7 @@
 		P.add_fingerprint(user)
 		O.add_fingerprint(user)
 		add_fingerprint(user)
+		P.check_for_sync()
 
 	else if(istype(target, /obj/structure/closet/crate))
 		var/obj/structure/bigDelivery/D = wrap_closet(target, user)
@@ -198,6 +232,8 @@
 			return FALSE
 		D.init_welded = C.welded
 		C.welded = TRUE
+		D.check_for_sync()
+		C.check_for_sync()
 	else
 		to_chat(user, "<span class='notice'>The object you are trying to wrap is unsuitable for the sorting machinery.</span>")
 		return FALSE
@@ -378,6 +414,20 @@
 	var/sortTag = 0
 	var/sealed = 0
 
+	serialize()
+		var/list/data = ..()
+		data["sealed"] = sealed
+		data["sortTag"] = sortTag
+		data["wrapped"] = wrapped?.serialize()
+		return data
+
+	deserialize(list/data)
+		sealed = data["sealed"]
+		sortTag = data["sortTag"]
+		qdel(wrapped)
+		wrapped = list_to_object(data["wrapped"], src)
+		..()
+
 /obj/item/shippingPackage/attackby(obj/item/O, mob/user, params)
 	if(sealed)
 		if(istype(O, /obj/item/pen))
@@ -387,6 +437,7 @@
 				return
 			user.visible_message("<span class='notice'>[user] addresses [src] to [str].</span>")
 			name = "Shipping package (RE: [str])"
+			check_for_sync()
 		return
 	if(wrapped)
 		to_chat(user, "<span class='notice'>[src] already contains \a [wrapped].</span>")
@@ -404,6 +455,7 @@
 			O.add_fingerprint(usr)
 			add_fingerprint(usr)
 			to_chat(user, "<span class='notice'>You put [O] in [src].</span>")
+			check_for_sync()
 
 /obj/item/shippingPackage/attack_self(mob/user)
 	if(sealed)
@@ -411,6 +463,7 @@
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 		user.unEquip(src)
 		wrapped.forceMove(get_turf(user))
+		wrapped.check_for_sync()
 		wrapped = null
 		qdel(src)
 	else if(wrapped)
@@ -418,12 +471,14 @@
 			if("Remove Object")
 				to_chat(user, "<span class='notice'>You shake out [src]'s contents onto the floor.</span>")
 				wrapped.forceMove(get_turf(user))
+				wrapped.check_for_sync()
 				wrapped = null
 			if("Seal Package")
 				to_chat(user, "<span class='notice'>You seal [src], preparing it for delivery.</span>")
 				icon_state = "shippack_sealed"
 				sealed = 1
 				update_desc()
+				check_for_sync()
 	else
 		if(alert("Do you want to tear up the package?",, "Yes", "No") == "Yes")
 			to_chat(user, "<span class='notice'>You shred [src].</span>")

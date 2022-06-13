@@ -22,26 +22,34 @@
 
 	level = 1
 
+	var/flipped = 0
+
+	deserialize(list/data)
+		..()
+		set_initial_directions()
+
+	proc/set_initial_directions()
+		switch(dir)
+			if(SOUTH, NORTH)
+				initialize_directions = SOUTH|NORTH
+			if(EAST, WEST)
+				initialize_directions = EAST|WEST
+			if(NORTHEAST)
+				initialize_directions = NORTH|EAST
+			if(NORTHWEST)
+				initialize_directions = NORTH|WEST
+			if(SOUTHEAST)
+				initialize_directions = SOUTH|EAST
+			if(SOUTHWEST)
+				initialize_directions = SOUTH|WEST
+
 /obj/machinery/atmospherics/pipe/simple/New()
 	..()
 	// Pipe colors and icon states are handled by an image cache - so color and icon should
 	//  be null. For mapping purposes color is defined in the object definitions.
 	icon = null
 	alpha = 255
-
-	switch(dir)
-		if(SOUTH, NORTH)
-			initialize_directions = SOUTH|NORTH
-		if(EAST, WEST)
-			initialize_directions = EAST|WEST
-		if(NORTHEAST)
-			initialize_directions = NORTH|EAST
-		if(NORTHWEST)
-			initialize_directions = NORTH|WEST
-		if(SOUTHEAST)
-			initialize_directions = SOUTH|EAST
-		if(SOUTHWEST)
-			initialize_directions = SOUTH|WEST
+	set_initial_directions()
 
 /obj/machinery/atmospherics/pipe/simple/atmos_init(initPipe = 1)
 	..()

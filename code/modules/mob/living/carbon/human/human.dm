@@ -1921,8 +1921,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/obj/item/clothing/head/helmet/space/hardsuit/helmet = get_item_by_slot(slot_head)
 	var/obj/item/clothing/suit/space/hardsuit/suit = get_item_by_slot(slot_wear_suit)
 	if (helmet && suit)
-		helmet.suit = suit
-		suit.helmet = helmet
+		var/helmetOn = helmet.on
+		qdel(helmet)
+		suit.ToggleHelmet()
+		helmet = get_item_by_slot(slot_head)
+		if(helmetOn)
+			helmet?.toggle_light(src)
 
 	update_icons()
 

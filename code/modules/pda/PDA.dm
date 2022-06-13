@@ -23,6 +23,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/owner = null
 	var/default_cartridge = 0 // Access level defined by cartridge
 	var/obj/item/cartridge/cartridge = null //current cartridge
+	var/obj/item/pen/pen = null //current pen
 	var/datum/data/pda/app/current_app = null
 	var/datum/data/pda/app/lastapp = null
 
@@ -62,20 +63,34 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/obj/item/paicard/pai = null	// A slot for a personal AI device
 	var/retro_mode = 0
 
+
 	serialize()
 		var/list/data = ..()
-		data["id"] = id?.serialize()
+		data["ownjob"] = ownjob
+		data["ownrank"] = ownrank
+		data["owner"] = owner
+		data["contents"] = serialize_contents()
 		return data
 
 	deserialize(list/data)
-		qdel(id)
-		id = list_to_object(data["id"], src)
+		ownjob = data["ownjob"]
+		ownrank = data["ownrank"]
+		owner = data["owner"]
+		deserialize_contents(data["contents"])
 		..()
-		if (id)
-			owner = id.registered_name
-			ownjob = id.assignment
-			ownrank = id.rank
-			name = "PDA-[owner] ([ownjob])"
+		for(var/obj/item/G in contents)
+			if(istype(G,/obj/item/cartridge))
+				cartridge = G
+				cartridge.update_programs(src)
+				continue
+			if(istype(G,/obj/item/pen))
+				pen = G
+				continue
+			if(istype(G,/obj/item/card/id))
+				id = G
+				continue
+		start_program(find_program(/datum/data/pda/app/main_menu))
+		silent = initial(silent)
 /*
  *	The Actual PDA
  */
@@ -88,7 +103,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
 		cartridge.update_programs(src)
-	new /obj/item/pen(src)
+	pen = new /obj/item/pen(src)
 	start_program(find_program(/datum/data/pda/app/main_menu))
 	silent = initial(silent)
 
@@ -228,16 +243,17 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return
 
 	if(can_use(user))
-		var/obj/item/pen/O = locate() in src
-		if(O)
-			to_chat(user, "<span class='notice'>You remove [O] from [src].</span>")
+		if(pen)
+			to_chat(user, "<span class='notice'>You remove [pen] from [src].</span>")
 			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
 			if(istype(loc, /mob))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
-					M.put_in_hands(O)
+					M.put_in_hands(pen)
+					M.check_for_sync()
 					return
-			O.forceMove(get_turf(src))
+			pen.forceMove(get_turf(src))
+			pen.check_for_sync()
 		else
 			to_chat(user, "<span class='warning'>This PDA does not have a pen in it.</span>")
 	else
@@ -253,6 +269,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 				user.drop_item()
 				I.forceMove(src)
 				id = I
+				check_for_sync()
 	else
 		var/obj/item/card/I = user.get_active_hand()
 		if(istype(I, /obj/item/card/id) && I:registered_name)
@@ -262,6 +279,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			id = I
 			user.put_in_hands(old_id)
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+			check_for_sync()
 	return
 
 /obj/item/pda/attackby(obj/item/C as obj, mob/user as mob, params)
@@ -311,13 +329,13 @@ GLOBAL_LIST_EMPTY(PDAs)
 		SStgui.update_uis(src)
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	else if(istype(C, /obj/item/pen))
-		var/obj/item/pen/O = locate() in src
-		if(O)
+		if(pen)
 			to_chat(user, "<span class='notice'>There is already a pen in \the [src].</span>")
 		else
+			pen = C
 			user.drop_item()
-			C.forceMove(src)
-			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
+			pen.forceMove(src)
+			to_chat(user, "<span class='notice'>You slide \the [pen] into \the [src].</span>")
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	else if(istype(C, /obj/item/nanomob_card))
 		if(cartridge && istype(cartridge, /obj/item/cartridge/mob_hunt_game))

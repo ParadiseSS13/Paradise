@@ -71,21 +71,34 @@ SUBSYSTEM_DEF(persistent_data)
 	var/index = 0
 	while(query.NextRow())
 		try
-			var/list/data = json_decode(query.item[4])
-			var/turf_path = text2path(data["type"])
-			var/turf/T = locate(text2num(query.item[1]),text2num(query.item[2]),text2num(query.item[3]))
-			var/atom/A = list_to_object(data, T)
-			A.db_uid = text2num(query.item[5])
-			//log_startup_progress("DB >> spawning [turf_path] at [A.x],[A.y],[A.z]")
-			if(istype(A, /obj))
-				var/obj/O = A
-				O?.update_icon()
-			if(ismob(A))
-				A.pixel_x = 0
-				A.pixel_y = 0
+			var/uid = text2num(query.item[5])
+			try
+				var/list/data = json_decode(query.item[4])
+				var/turf_path = text2path(data["type"])
+				var/turf/T = locate(text2num(query.item[1]),text2num(query.item[2]),text2num(query.item[3]))
+				var/atom/A = list_to_object(data, T)
+				A.db_uid = uid
+				//log_startup_progress("DB >> spawning [turf_path] at [A.x],[A.y],[A.z]")
+
+				// initialize atmospherics once all deserialization is done
+				if(istype(A, /obj/machinery/atmospherics))
+					var/obj/machinery/atmospherics/P = A
+					P.on_construction(P.dir, P.initialize_directions, P.color)
+
+				// update any icons
+				if(istype(A, /obj))
+					var/obj/O = A
+					O?.update_icon()
+
+				// reset any pixels for mobs
+				if(ismob(A))
+					A.pixel_x = 0
+					A.pixel_y = 0
+			catch
+				log_startup_progress("\red \b DB >> EXCEPTION deserializing uid [uid]")
 			index += 1
 		catch
-			log_startup_progress("\red \b DB >> EXCEPTION deserializing object [index]")
+			log_startup_progress("\red \b DB >> EXCEPTION deserializing index [index]")
 	log_startup_progress("DB >> loaded [index] objects...")
 	qdel(query)
 

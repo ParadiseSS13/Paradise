@@ -679,6 +679,7 @@ Class Procs:
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()
+	check_for_sync()
 	return
 
 /obj/machinery/proc/on_deconstruction()

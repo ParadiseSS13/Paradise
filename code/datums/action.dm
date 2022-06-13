@@ -153,7 +153,7 @@
 	if(target && attack_self)
 		var/obj/item/I = target
 		I.ui_action_click(owner, type)
-		to_chat(owner, "DB >> ui action sync initiated")
+		//to_chat(owner, "DB >> ui action sync initiated")
 		I.check_for_sync()
 	return TRUE
 

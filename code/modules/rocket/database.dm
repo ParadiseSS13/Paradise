@@ -2,22 +2,42 @@
 // database
 #define WORLD_ID 0
 
-/datum/admins/proc/debugSave()
+/datum/admins/proc/dbClearQueue()
 	set category = "Server"
-	set desc="Saves the main world (station only)"
-	set name="Backup Station"
+	set desc="Executes all items in the queue to be synced"
+	set name="Database Queue"
 
 	if(!check_rights(R_ADMIN))
 		return
-
-	//var/turf/start = locate(1,1,1)
-	//var/turf/end = locate(world.maxx,world.maxy,1)
-
-	//WorldSave(start,end)
-	log_and_message_admins("[key_name_admin(usr)] has started a debug save")
+	log_and_message_admins("[key_name_admin(usr)] has forced database queue")
 	SSdbcore.syncToDb(TRUE)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Databse Queue")
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Backup Station") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/datum/admins/proc/dbSaveAll()
+	set category = "Server"
+	set desc="Adds all items synced to the database to the queue and executes"
+	set name="Databse All"
+
+	if(!check_rights(R_ADMIN))
+		return
+	log_and_message_admins("[key_name_admin(usr)] has started full database sync...")
+	var/updated = 0
+	var/missing = 0
+	var/fixed = 0
+	for(var/atom/A in world)
+		if(A.db_uid <= 0) continue
+		if(A.sync_to_db())
+			updated += 1
+			if(istype(A, /turf/simulated))
+				for(var/obj/O in A.contents)
+					if(O.db_uid <= 0) continue
+					missing += 1
+					if(O.sync_to_db())
+						fixed += 1
+
+	log_and_message_admins("database sync has finished syncing [updated] records with [fixed]/[missing] missing handled")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Databse All")
 
 proc/db_truncate(table)
 	var/datum/db_query/record = SSdbcore.NewQuery("TRUNCATE TABLE [table]")
@@ -61,9 +81,10 @@ proc/disable_safe_updates()
 
 // Run all strings to be used in an SQL query through this proc first to properly escape out injection attempts.
 /proc/sanitizeSQL(var/t as text)
-	var/sanitized_text = replacetext(t, "'", "\\'")
-	//sanitized_text = replacetext(sanitized_text, "\"", "\\\"")
-	return sanitized_text
+	return replacetext(t, "'", "\\'")
+
+/proc/sanitizeText(var/t as text)
+	return replacetext(t, "\"", "\\\"")
 
 proc/SaveAllAreas()
 	var/areas = 0
