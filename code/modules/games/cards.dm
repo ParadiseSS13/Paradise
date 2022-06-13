@@ -426,6 +426,8 @@
 		pickablecards[P.name] = P
 	if(!pickedcard)
 		pickedcard = input("Which card do you want to remove from the hand?") as null|anything in pickablecards
+		if(!pickedcard)
+			return
 
 	if(QDELETED(src))
 		return
