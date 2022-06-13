@@ -108,7 +108,7 @@
 	if(!implanted || !imp_in)
 		return
 
-	if(gibbed & trigger_causes & IMPLANT_TRIGGER_NOT_WHEN_GIBBED)
+	if(gibbed && (trigger_causes & IMPLANT_TRIGGER_NOT_WHEN_GIBBED))
 		return
 
 	// This should help avoid infinite recursion for things like dust that call death()
@@ -117,7 +117,7 @@
 
 	has_triggered_on_death = TRUE
 
-	add_attack_logs(source, source, "had their [src] implant triggered on death.")
+	add_attack_logs(source, source, "had their [src] implant triggered on [gibbed ? "gib" : "death"].")
 	death_trigger(source, gibbed)
 
 /obj/item/implant/proc/emote_trigger(emote, mob/source, force)

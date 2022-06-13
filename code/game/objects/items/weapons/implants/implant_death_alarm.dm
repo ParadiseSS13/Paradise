@@ -18,6 +18,11 @@
 				<b>Integrity:</b> Implant will occasionally be degraded by the body's immune system and thus will occasionally malfunction."}
 	return dat
 
+/obj/item/implant/death_alarm/implant(mob/target)
+	. = ..()
+	if(.)
+		mobname = target.real_name
+
 /obj/item/implant/death_alarm/activate(cause) // Death signal sends name followed by the gibbed / not gibbed check
 	var/mob/M = imp_in
 	var/area/t = get_area(M)
@@ -45,7 +50,7 @@
 /obj/item/implant/death_alarm/emp_act(severity)			//for some reason alarms stop going off in case they are emp'd, even without this
 	activate("emp")	//let's shout that this dude is dead
 
-/obj/item/implant/death_alarm/implant/death_trigger(mob/source, gibbed)
+/obj/item/implant/death_alarm/death_trigger(mob/source, gibbed)
 	if(gibbed)
 		activate("gib")
 	else
