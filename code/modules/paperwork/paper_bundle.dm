@@ -15,6 +15,21 @@
 	var/page = 1
 	var/screen = 0
 
+	serialize()
+		var/data = ..()
+		data["amount"] = amount
+		data["screen"] = screen
+		data["page"] = page
+		data["content"] = serialize_contents()
+		return data
+
+	deserialize(list/data)
+		amount = data["amount"]
+		screen = data["screen"]
+		page = data["page"]
+		deserialize_contents(data["content"])
+		..()
+
 /obj/item/paper_bundle/New(default_papers = TRUE)
 	. = ..()
 	if(default_papers) // This is to avoid runtime occuring from a paper bundle being created without a paper in it.
@@ -44,6 +59,7 @@
 			var/mob/living/carbon/human/H = user
 			H.update_inv_l_hand()
 			H.update_inv_r_hand()
+		check_for_sync()
 	else if(istype(W, /obj/item/photo))
 		amount++
 		if(screen == 2)
@@ -51,6 +67,7 @@
 		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		user.unEquip(W)
 		W.loc = src
+		check_for_sync()
 	else if(istype(W, /obj/item/lighter))
 		burnpaper(W, user)
 	else if(istype(W, /obj/item/paper_bundle))
@@ -62,14 +79,14 @@
 			if(screen == 2)
 				screen = 1
 		to_chat(user, "<span class='notice'>You add \the [W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
+		check_for_sync()
 		qdel(W)
 	else
 		if(istype(W, /obj/item/pen) || istype(W, /obj/item/toy/crayon))
 			usr << browse("", "window=PaperBundle[UID()]") //Closes the dialog
 		P = src[page]
 		P.attackby(W, user, params)
-
-
+		check_for_sync()
 	update_icon()
 	if(winget(usr, "PaperBundle[UID()]", "is-visible") == "true") // NOT MY FAULT IT IS A BUILT IN PROC PLEASE DO NOT HIT ME
 		attack_self(usr) //Update the browsed page.
@@ -156,6 +173,7 @@
 				return
 			page++
 			playsound(src.loc, "pageturn", 50, 1)
+			check_for_sync()
 		if(href_list["prev_page"])
 			if(page == 1)
 				return
@@ -165,6 +183,7 @@
 				screen = 1
 			page--
 			playsound(src.loc, "pageturn", 50, 1)
+			check_for_sync()
 		if(href_list["remove"])
 			var/obj/item/W = src[page]
 			usr.put_in_hands(W)
@@ -183,6 +202,7 @@
 
 			amount--
 			update_icon()
+			check_for_sync()
 	else
 		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
 	if(istype(src.loc, /mob))
@@ -200,6 +220,7 @@
 	if((loc == usr && usr.stat == 0))
 		name = "[(n_name ? text("[n_name]") : "paper bundle")]"
 	add_fingerprint(usr)
+	check_for_sync()
 	return
 
 

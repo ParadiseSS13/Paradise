@@ -48,6 +48,7 @@
 /obj/item/gun/magic/process_chamber()
 	if(chambered && !chambered.BB) //if BB is null, i.e the shot has been fired...
 		charges--//... drain a charge
+		check_for_sync()
 	return
 
 /obj/item/gun/magic/New()

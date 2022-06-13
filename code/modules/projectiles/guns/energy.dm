@@ -20,6 +20,19 @@
 	/// Do you want the gun to fit into a turret, defaults to true, used for if a energy gun is too strong to be in a turret, or does not make sense to be in one.
 	var/can_fit_in_turrets = TRUE
 
+	serialize()
+		var/list/data = ..()
+		data["select"] = select
+		data["cell"] = cell?.serialize()
+		return data
+
+	deserialize(list/data)
+		select = data["select"]
+		qdel(cell)
+		cell = list_to_object(data["cell"], src)
+		..()
+		update_ammo_types()
+
 /obj/item/gun/energy/detailed_examine()
 	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. To recharge this weapon, use a weapon recharger."
 
@@ -87,6 +100,7 @@
 			var/mob/living/carbon/human/H = user //Otherwise the mob icon doesn't update, blame shitty human update_icons() code
 			H.update_inv_l_hand()
 			H.update_inv_r_hand()
+		check_for_sync()
 
 /obj/item/gun/energy/can_shoot()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
@@ -109,6 +123,7 @@
 		robocharge()
 	chambered = null //either way, released the prepared shot
 	newshot()
+	check_for_sync()
 
 /obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
 	if(!chambered && can_shoot())
@@ -131,6 +146,7 @@
 		chambered = null
 	newshot()
 	update_icon()
+	check_for_sync()
 	return
 
 /obj/item/gun/energy/update_icon()

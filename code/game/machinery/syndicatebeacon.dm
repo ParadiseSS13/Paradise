@@ -49,6 +49,7 @@
 			src.updateUsrDialog()
 			return
 		charges -= 1
+		check_for_sync()
 		if(prob(50))
 			temptext = "<font color=red><i><b>Double-crosser. You planned to betray us from the start. Allow us to repay the favor in kind.</b></i></font>"
 			updateUsrDialog()

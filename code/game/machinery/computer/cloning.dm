@@ -25,6 +25,27 @@
 
 	light_color = LIGHT_COLOR_DARKBLUE
 
+
+	serialize()
+		var/list/data = ..()
+		data["menu"] = menu
+		data["loading"] = loading
+		data["autoprocess"] = autoprocess
+		data["scan_mode"] = scan_mode
+		data["diskette"] = diskette?.serialize()
+		return data
+
+	deserialize(list/data)
+		menu = data["menu"]
+		loading = data["loading"]
+		autoprocess = data["autoprocess"]
+		scan_mode = data["scan_mode"]
+		qdel(diskette)
+		diskette = list_to_object(data["diskette"], src)
+		..()
+		set_scan_temp("Scanner ready.", "good")
+		updatemodules()
+
 /obj/machinery/computer/cloning/Initialize(mapload)
 	. = ..()
 	pods = list()
@@ -52,6 +73,7 @@
 				if(!(pod.occupant || pod.mess))
 					if(pod.growclone(R))
 						records.Remove(R)
+	check_for_sync()
 
 /obj/machinery/computer/cloning/proc/updatemodules()
 	src.scanner = findscanner()
@@ -76,6 +98,7 @@
 		P.connected = null
 		P.name = initial(P.name)
 	pods.Cut()
+	check_for_sync()
 
 /obj/machinery/computer/cloning/proc/findcloner()
 	var/num = 1
@@ -84,6 +107,7 @@
 			pods += P
 			P.connected = src
 			P.name = "[initial(P.name)] #[num++]"
+			check_for_sync()
 
 /obj/machinery/computer/cloning/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/disk/data)) //INSERT SOME DISKETTES
@@ -93,6 +117,7 @@
 			src.diskette = W
 			to_chat(user, "You insert [W].")
 			SStgui.update_uis(src)
+			check_for_sync()
 			return
 	else if(istype(W, /obj/item/multitool))
 		var/obj/item/multitool/M = W
@@ -103,6 +128,7 @@
 				P.connected = src
 				P.name = "[initial(P.name)] #[pods.len]"
 				to_chat(user, "<span class='notice'>You connect [P] to [src].</span>")
+				check_for_sync()
 	else
 		return ..()
 
@@ -212,6 +238,7 @@
 					menu = MENU_RECORDS
 				else
 					set_temp("Access denied.", "danger")
+					check_for_sync()
 			return
 
 	switch(action)
@@ -220,6 +247,7 @@
 				return
 			set_scan_temp("Scanner ready.", "good")
 			loading = TRUE
+			check_for_sync()
 
 			spawn(20)
 				if(can_brainscan() && scan_mode)
@@ -228,12 +256,15 @@
 					scan_mob(scanner.occupant)
 				loading = FALSE
 				SStgui.update_uis(src)
+				check_for_sync()
 		if("autoprocess")
 			autoprocess = text2num(params["on"]) > 0
+			check_for_sync()
 		if("lock")
 			if(isnull(scanner) || !scanner.occupant) //No locking an open scanner.
 				return
 			scanner.locked = !scanner.locked
+			scanner.check_for_sync()
 		if("view_rec")
 			var/ref = params["ref"]
 			if(!length(ref))
@@ -365,6 +396,7 @@
 		else
 			return FALSE
 
+	check_for_sync()
 	src.add_fingerprint(usr)
 
 /obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob, scan_brain = 0)

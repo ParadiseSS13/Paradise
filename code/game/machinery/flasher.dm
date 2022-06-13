@@ -16,6 +16,15 @@
 	var/base_state = "mflash"
 	anchored = 1
 
+	serialize()
+		var/list/data = ..()
+		data["id"] = id
+		return data
+
+	deserialize(list/data)
+		id = data["id"]
+		..()
+
 /obj/machinery/flasher/portable //Portable version of the flasher. Only flashes when anchored
 	name = "portable flasher"
 	desc = "A portable flashing device. Wrench to activate and deactivate. Cannot detect slow movements."
@@ -119,6 +128,15 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
+
+	serialize()
+		var/list/data = ..()
+		data["id"] = id
+		return data
+
+	deserialize(list/data)
+		id = data["id"]
+		..()
 
 /obj/machinery/flasher_button/attack_ai(mob/user as mob)
 	return attack_hand(user)

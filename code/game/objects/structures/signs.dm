@@ -67,6 +67,7 @@
 		S.desc = desc
 		S.icon_state = sign_state
 		to_chat(user, "You fasten \the [S] with your [tool].")
+		S.check_for_sync()
 		qdel(src)
 	else
 		return ..()

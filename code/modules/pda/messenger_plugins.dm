@@ -12,6 +12,7 @@
 
 	if(M && !M.toff && pda.cartridge.charges > 0)
 		pda.cartridge.charges--
+		pda.check_for_sync()
 		return 1
 	return 0
 
@@ -55,6 +56,7 @@
 		if(!P.detonate || P.hidden_uplink)
 			user.show_message("<span class='warning'>The target PDA does not seem to respond to the detonation command.</span>", 1)
 			pda.cartridge.charges++
+			pda.check_for_sync()
 		else if(prob(difficulty * 12))
 			user.show_message("<span class='warning'>An error flashes on your [pda].</span>", 1)
 		else if(prob(difficulty * 3))

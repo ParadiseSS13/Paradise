@@ -27,6 +27,26 @@
 	var/secure = FALSE		//Whether or not this creates a secure windoor
 	var/state = "01"	//How far the door assembly has progressed
 
+	serialize()
+		var/list/data = ..()
+		data["ini_dir"] = ini_dir
+		data["created_name"] = created_name
+		data["facing"] = facing
+		data["secure"] = secure
+		data["state"] = state
+		data["electronics"] = electronics?.serialize()
+		return data
+
+	deserialize(list/data)
+		ini_dir = data["ini_dir"]
+		created_name = data["created_name"]
+		facing = data["facing"]
+		secure = data["secure"]
+		state = data["electronics"]
+		qdel(electronics)
+		electronics = list_to_object(data["electronics"], src)
+		..()
+
 /obj/structure/windoor_assembly/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Alt-click to rotate it clockwise.</span>"
@@ -109,6 +129,7 @@
 						name = "secure anchored windoor assembly"
 					else
 						name = "secure windoor assembly"
+					check_for_sync()
 
 			//Adding cable to the assembly. Step 5 complete.
 			else if(iscoil(W) && anchored)
@@ -126,6 +147,7 @@
 						name = "secure wired windoor assembly"
 					else
 						name = "wired windoor assembly"
+					check_for_sync()
 			else
 				return ..()
 
@@ -144,13 +166,16 @@
 					to_chat(user, "<span class='notice'>You install the windoor electronics.</span>")
 					name = "near finished windoor assembly"
 					electronics = W
+					check_for_sync()
 				else
 					W.forceMove(loc)
+					check_for_sync()
 
 			else if(istype(W, /obj/item/pen))
 				var/t = rename_interactive(user, W)
 				if(!isnull(t))
 					created_name = t
+					check_for_sync()
 				return
 			else
 				return ..()
@@ -211,6 +236,7 @@
 			windoor.name = created_name
 		qdel(src)
 		windoor.close()
+	check_for_sync()
 
 /obj/structure/windoor_assembly/screwdriver_act(mob/user, obj/item/I)
 	if(state != "02" || !electronics)
@@ -227,6 +253,7 @@
 	ae = electronics
 	electronics = null
 	ae.forceMove(loc)
+	check_for_sync()
 
 /obj/structure/windoor_assembly/wirecutter_act(mob/user, obj/item/I)
 	if(state != "02")
@@ -245,6 +272,7 @@
 	else
 		name = "anchored windoor assembly"
 	update_icon()
+	check_for_sync()
 
 /obj/structure/windoor_assembly/wrench_act(mob/user, obj/item/I)
 	if(state != "01")
@@ -283,6 +311,7 @@
 		else
 			name = "windoor assembly"
 	update_icon()
+	check_for_sync()
 
 /obj/structure/windoor_assembly/welder_act(mob/user, obj/item/I)
 	if(state != "01")
@@ -321,6 +350,7 @@
 
 	ini_dir = dir
 	update_icon()
+	check_for_sync()
 	return TRUE
 
 /obj/structure/windoor_assembly/AltClick(mob/user)
@@ -349,4 +379,5 @@
 		to_chat(usr, "The windoor will now slide to the left.")
 
 	update_icon()
+	check_for_sync()
 	return

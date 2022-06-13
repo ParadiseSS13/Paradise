@@ -10,6 +10,15 @@
 	light_color = LIGHT_COLOR_WHITE
 	light_range_on = 2
 
+	serialize()
+		var/list/data = ..()
+		data["opened"] = opened
+		return data
+
+	deserialize(list/data)
+		opened = data["opened"]
+		..()
+
 
 // What the fuck even is this
 /obj/machinery/computer/aiupload/verb/AccessInternals()
@@ -24,6 +33,7 @@
 		to_chat(usr, "<span class='notice'>The access panel is now open.</span>")
 	else
 		to_chat(usr, "<span class='notice'>The access panel is now closed.</span>")
+	check_for_sync()
 	return
 
 

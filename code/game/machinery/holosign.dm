@@ -10,11 +10,23 @@
 	var/id = null
 	var/on_icon = "sign_on"
 
+	serialize()
+		var/list/data = ..()
+		data["id"] = id
+		data["lit"] = lit
+		return data
+
+	deserialize(list/data)
+		id = data["id"]
+		lit = data["lit"]
+		..()
+
 /obj/machinery/holosign/proc/toggle()
 	if(stat & (BROKEN|NOPOWER))
 		return
 	lit = !lit
 	update_icon()
+	check_for_sync()
 
 /obj/machinery/holosign/update_icon()
 	if(!lit)
@@ -26,6 +38,7 @@
 	if(stat & NOPOWER)
 		lit = 0
 	update_icon()
+	check_for_sync()
 
 /obj/machinery/holosign/surgery
 	name = "surgery holosign"
@@ -44,6 +57,17 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
+
+	serialize()
+		var/list/data = ..()
+		data["id"] = id
+		data["active"] = active
+		return data
+
+	deserialize(list/data)
+		id = data["id"]
+		active = data["active"]
+		..()
 
 /obj/machinery/holosign_switch/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
@@ -73,4 +97,6 @@
 				M.toggle()
 				return
 
+
+	check_for_sync()
 	return

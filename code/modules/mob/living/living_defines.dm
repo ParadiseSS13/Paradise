@@ -85,6 +85,7 @@
 		data["step_count"] = step_count
 		data["blood_volume"] = blood_volume
 		data["health"] = health
+		data["resting"] = resting
 		return data
 
 	deserialize(list/data)
@@ -98,4 +99,5 @@
 		step_count = data["step_count"]
 		blood_volume = data["blood_volume"]
 		health = data["health"]
+		resting = data["resting"]
 		..()

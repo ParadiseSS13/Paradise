@@ -70,6 +70,22 @@
 	var/zoom_amt = 3 //Distance in TURFs to move the user's screen forward (the "zoom" effect)
 	var/datum/action/toggle_scope_zoom/azoom
 
+	serialize()
+		var/list/data = ..()
+		data["chambered"] = chambered?.serialize()
+		data["gun_light"] = gun_light?.serialize()
+		data["bayonet"] = bayonet?.serialize()
+		return data
+
+	deserialize(list/data)
+		qdel(chambered)
+		chambered = list_to_object(data["chambered"], src)
+		qdel(gun_light)
+		gun_light = list_to_object(data["gun_light"], src)
+		qdel(bayonet)
+		bayonet = list_to_object(data["bayonet"], src)
+		..()
+
 /obj/item/gun/New()
 	..()
 	if(gun_light)
@@ -282,6 +298,7 @@
 		else
 			user.update_inv_r_hand()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
+	check_for_sync()
 
 /obj/item/gun/attack(mob/M, mob/user)
 	if(user.a_intent == INTENT_HARM) //Flogging
@@ -314,6 +331,7 @@
 				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
 				if(loc == user)
 					A.Grant(user)
+				check_for_sync()
 
 	if(unique_rename)
 		if(istype(I, /obj/item/pen))
@@ -337,6 +355,7 @@
 		knife_overlay.pixel_x = knife_x_offset
 		knife_overlay.pixel_y = knife_y_offset
 		overlays += knife_overlay
+		check_for_sync()
 	else
 		return ..()
 
@@ -357,6 +376,7 @@
 	else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
 		bayonet.forceMove(get_turf(user))
 		clear_bayonet()
+	check_for_sync()
 
 /obj/item/gun/proc/toggle_gunlight()
 	set name = "Toggle Gun Light"
@@ -374,6 +394,7 @@
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_gun_light(user)
+	check_for_sync()
 
 /obj/item/gun/proc/update_gun_light(mob/user = null)
 	if(gun_light)
@@ -396,6 +417,7 @@
 	if(knife_overlay)
 		overlays -= knife_overlay
 		knife_overlay = null
+	check_for_sync()
 	return TRUE
 
 /obj/item/gun/extinguish_light()

@@ -140,6 +140,7 @@
 		data["autoflag"] = autoflag
 		data["emergency_lights"] = emergency_lights
 		data["nightshift_lights"] = nightshift_lights
+		data["cell"] = cell?.serialize()
 		return data
 
 	deserialize(list/data)
@@ -159,6 +160,8 @@
 		autoflag = data["autoflag"]
 		emergency_lights = data["emergency_lights"]
 		nightshift_lights = data["nightshift_lights"]
+		qdel(cell)
+		cell = list_to_object(data["cell"], src)
 		..()
 
 

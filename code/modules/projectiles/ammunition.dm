@@ -120,6 +120,40 @@
 	var/multiload = 1
 	var/list/initial_mats //For calculating refund values.
 
+	serialize()
+		var/list/data = ..()
+		data["stored_ammo"] = serialize_ammo()
+		return data
+
+	deserialize(list/data)
+		deserialize_ammo(data["stored_ammo"])
+		..()
+		update_mat_value()
+
+/obj/item/ammo_box/proc/serialize_ammo()
+	var/list/content_list = list()
+	for(var/thing in stored_ammo)
+		var/atom/A = thing
+		content_list.len++
+		content_list[content_list.len] = A.serialize()
+	return content_list
+
+/obj/item/ammo_box/proc/deserialize_ammo(list/content_data)
+	// clear existing
+	for(var/thing in stored_ammo)
+		qdel(thing)
+	stored_ammo = list()
+	// deserialize list
+	for(var/thing in content_data)
+		if(islist(thing))
+			var spawned = list_to_object(thing, null)
+			if (spawned)
+				stored_ammo += spawned
+		else if(thing == null)
+			log_runtime(EXCEPTION("Null entry found in storage/deserialize."), src)
+		else
+			log_runtime(EXCEPTION("Non-list thing found in storage/deserialize."), src, list("Thing: [thing]"))
+
 /obj/item/ammo_box/New()
 	..()
 	for(var/i in 1 to max_ammo)
@@ -199,6 +233,7 @@
 		playsound(src, 'sound/weapons/gun_interactions/shotguninsert.ogg', 50, 1)
 		A.update_icon()
 		update_icon()
+	check_for_sync()
 
 	return num_loaded
 
@@ -243,6 +278,7 @@
 
 		var/value = max(materials_per * num_ammo, 500) //Enforce a minimum of 500 units even if empty.
 		materials[M] = value
+	check_for_sync()
 
 //Behavior for magazines
 /obj/item/ammo_box/magazine/proc/ammo_count()

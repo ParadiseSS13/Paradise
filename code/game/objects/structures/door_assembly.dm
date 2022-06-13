@@ -20,6 +20,30 @@
 	var/material_type = /obj/item/stack/sheet/metal
 	var/material_amt = 4
 
+	serialize()
+		var/list/data = ..()
+		data["noglass"] = noglass
+		data["mineral"] = mineral
+		data["base_name"] = base_name
+		data["created_name"] = created_name
+		data["heat_proof_finished"] = heat_proof_finished
+		data["glass"] = glass
+		data["state"] = state
+		data["electronics"] = electronics?.serialize()
+		return data
+
+	deserialize(list/data)
+		noglass = data["noglass"]
+		mineral = data["mineral"]
+		base_name = data["base_name"]
+		created_name = data["created_name"]
+		heat_proof_finished = data["heat_proof_finished"]
+		glass = data["glass"]
+		state = data["state"]
+		qdel(electronics)
+		electronics = list_to_object(data["electronics"], src)
+		..()
+
 /obj/structure/door_assembly/Initialize(mapload)
 	. = ..()
 	update_icon()
@@ -60,6 +84,7 @@
 		var/t = rename_interactive(user, W)
 		if(!isnull(t))
 			created_name = t
+			check_for_sync()
 		return
 
 	else if(iscoil(W) && state == AIRLOCK_ASSEMBLY_NEEDS_WIRES && anchored)
@@ -74,6 +99,7 @@
 			coil.use(1)
 			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 			to_chat(user, "<span class='notice'>You wire the airlock assembly.</span>")
+			check_for_sync()
 
 	else if(istype(W, /obj/item/airlock_electronics) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS && !istype(W, /obj/item/airlock_electronics/destroyed))
 		playsound(loc, W.usesound, 100, 1)
@@ -88,6 +114,7 @@
 			state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
 			name = "near finished airlock assembly"
 			electronics = W
+			check_for_sync()
 
 	else if(istype(W, /obj/item/stack/sheet) && (!glass || !mineral))
 		var/obj/item/stack/sheet/S = W
@@ -108,6 +135,7 @@
 									to_chat(user, "<span class='notice'>You install regular glass windows into the airlock assembly.</span>")
 								S.use(1)
 								glass = TRUE
+								check_for_sync()
 					if(!mineral)
 						if(istype(S, /obj/item/stack/sheet/mineral) && S.sheettype)
 							var/M = S.sheettype
@@ -122,6 +150,7 @@
 									var/mineralassembly = text2path("/obj/structure/door_assembly/door_assembly_[M]")
 									var/obj/structure/door_assembly/MA = new mineralassembly(loc)
 									transfer_assembly_vars(src, MA, TRUE)
+									check_for_sync()
 							else
 								to_chat(user, "<span class='warning'>You need at least two sheets to add a mineral cover!</span>")
 					else
@@ -132,6 +161,7 @@
 		return ..()
 	update_name()
 	update_icon()
+	check_for_sync()
 
 /obj/structure/door_assembly/crowbar_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
@@ -154,6 +184,7 @@
 		ae.forceMove(loc)
 	update_icon()
 	update_name()
+	check_for_sync()
 
 /obj/structure/door_assembly/screwdriver_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
@@ -190,6 +221,7 @@
 	electronics = null
 	qdel(src)
 	update_icon()
+	check_for_sync()
 
 /obj/structure/door_assembly/wirecutter_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
@@ -204,6 +236,7 @@
 	new/obj/item/stack/cable_coil(get_turf(user), 1)
 	state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	update_icon()
+	check_for_sync()
 
 /obj/structure/door_assembly/wrench_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
@@ -219,6 +252,7 @@
 		return
 	to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure the airlock assembly.</span>")
 	anchored = !anchored
+	check_for_sync()
 
 /obj/structure/door_assembly/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -257,6 +291,7 @@
 		to_chat(user, "<span class='notice'>You disassemble the airlock assembly.</span>")
 		deconstruct(TRUE)
 	update_icon()
+	check_for_sync()
 
 /obj/structure/door_assembly/update_icon()
 	overlays.Cut()
@@ -291,6 +326,7 @@
 		source.electronics.forceMove(target)
 	target.update_icon()
 	target.update_name()
+	target.check_for_sync()
 	qdel(source)
 
 /obj/structure/door_assembly/deconstruct(disassembled = TRUE)

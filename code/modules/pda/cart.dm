@@ -14,6 +14,15 @@
 	var/list/programs = list()
 	var/list/messenger_plugins = list()
 
+	serialize()
+		var/list/data = ..()
+		data["charges"] = charges
+		return data
+
+	deserialize(list/data)
+		charges = data["charges"]
+		..()
+
 /obj/item/cartridge/Destroy()
 	QDEL_NULL(radio)
 	QDEL_LIST(programs)

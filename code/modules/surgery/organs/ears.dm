@@ -16,6 +16,17 @@
 	// Multiplier for both long term and short term ear damage
 	var/damage_multiplier = 1
 
+	serialize()
+		var/list/data = ..()
+		data["ear_damage"] = ear_damage
+		data["deaf"] = deaf
+		return data
+
+	deserialize(list/data)
+		ear_damage = data["ear_damage"]
+		deaf = data["deaf"]
+		..()
+
 /obj/item/organ/internal/ears/on_life()
 	if(!iscarbon(owner))
 		return

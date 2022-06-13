@@ -115,6 +115,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 				to_chat(user, "<span class='warning'>Unsure which end of the wand is which, [user] fails to light [name] with [F].</span>")
 				explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
 			F.charges--
+			F.check_for_sync()
 
 	//can't think of any other way to update the overlays :<
 	user.update_inv_wear_mask()

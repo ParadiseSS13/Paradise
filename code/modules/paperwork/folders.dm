@@ -7,6 +7,15 @@
 	pressure_resistance = 2
 	resistance_flags = FLAMMABLE
 
+	serialize()
+		var/data = ..()
+		data["content"] = serialize_contents()
+		return data
+
+	deserialize(list/data)
+		deserialize_contents(data["content"])
+		..()
+
 /obj/item/folder/emp_act(severity)
 	..()
 	for(var/i in contents)
@@ -41,6 +50,7 @@
 		W.loc = src
 		to_chat(user, "<span class='notice'>You put [W] into [src].</span>")
 		update_icon()
+		check_for_sync()
 	else if(istype(W, /obj/item/pen))
 		rename_interactive(user, W)
 	else
@@ -92,6 +102,7 @@
 		//Update everything
 		attack_self(usr)
 		update_icon()
+		check_for_sync()
 	return
 
 /obj/item/folder/documents

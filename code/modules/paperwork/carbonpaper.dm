@@ -5,6 +5,17 @@
 	var/copied = 0
 	var/iscopy = 0
 
+	serialize()
+		var/list/data = ..()
+		data["copied"] = copied
+		data["iscopy"] = iscopy
+		return data
+
+	deserialize(list/data)
+		copied = data["copied"]
+		iscopy = data["iscopy"]
+		..()
+
 
 /obj/item/paper/carbon/update_icon()
 	if(iscopy)
@@ -46,5 +57,8 @@
 		copy.iscopy = 1
 		copy.update_icon()
 		c.update_icon()
+		c.check_for_sync()
+		copy.check_for_sync()
+
 	else
 		to_chat(usr, "There are no more carbon copies attached to this paper!")

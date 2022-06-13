@@ -41,6 +41,25 @@
 	var/static/total_copies = 0
 	var/static/max_copies_reached = FALSE
 
+	serialize()
+		var/list/data = ..()
+		data["copies"] = copies
+		data["toner"] = toner
+
+		data["copyitem"] = copyitem?.serialize()
+		data["folder"] = folder?.serialize()
+		return data
+
+	deserialize(list/data)
+		copies = data["copies"]
+		toner = data["toner"]
+
+		qdel(copyitem)
+		copyitem = list_to_object(data["copyitem"], src)
+		qdel(folder)
+		folder = list_to_object(data["folder"], src)
+		..()
+
 /obj/machinery/photocopier/attack_ai(mob/user)
 	return attack_hand(user)
 

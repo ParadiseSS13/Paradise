@@ -26,6 +26,15 @@
 
 	light_color = LIGHT_COLOR_RED
 
+	serialize()
+		var/list/data = ..()
+		data["current_page"] = current_page
+		return data
+
+	deserialize(list/data)
+		current_page = data["current_page"]
+		..()
+
 /obj/machinery/computer/secure_data/Initialize(mapload)
 	. = ..()
 	req_one_access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
@@ -270,6 +279,7 @@
 			return FALSE
 
 	add_fingerprint(usr)
+	check_for_sync()
 
 /**
   * Called in ui_act() to process modal actions
@@ -414,6 +424,7 @@
 		P.info += "<b>Security Record Lost!</b><br>"
 	is_printing = FALSE
 	SStgui.update_uis(src)
+	P.check_for_sync()
 
 /**
   * Called when the print cell log timer finishes
@@ -424,6 +435,7 @@
 	P.info = info
 	is_printing = FALSE
 	SStgui.update_uis(src)
+	P.check_for_sync()
 
 /obj/machinery/computer/secure_data/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))

@@ -45,6 +45,24 @@
 	var/const/signfont = "Times New Roman"
 	var/const/crayonfont = "Comic Sans MS"
 
+	serialize()
+		var/list/data = ..()
+		data["header"] = header
+		data["info"] = info
+		data["footer"] = footer
+		data["stamps"] = stamps
+		data["fields"] = fields
+		return data
+
+	deserialize(list/data)
+		header = data["header"]
+		info = data["info"]
+		footer = data["footer"]
+		stamps = data["stamps"]
+		fields = data["fields"]
+		..()
+		updateinfolinks()
+
 //lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
 
 /obj/item/paper/New()
@@ -263,6 +281,7 @@
 	overlays.Cut()
 	updateinfolinks()
 	update_icon()
+	check_for_sync()
 
 
 /obj/item/paper/proc/parsepencode(t, obj/item/pen/P, mob/user as mob)
@@ -351,6 +370,7 @@
 		show_content(usr, forceshow = 1, infolinks = 1)
 
 		update_icon()
+		check_for_sync()
 
 
 /obj/item/paper/attackby(obj/item/P, mob/living/user, params)
@@ -410,6 +430,7 @@
 		P.loc = B
 		B.amount++
 		B.update_icon()
+		B.check_for_sync()
 
 	else if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
 		if(user.is_literate())

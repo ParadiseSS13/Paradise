@@ -22,6 +22,32 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/target_dept = 0 //Which department this computer has access to. 0=all departments
 	var/obj/item/radio/Radio
 
+
+	serialize()
+		var/list/data = ..()
+		data["mode"] = mode
+		data["target_dept"] = target_dept
+		data["scan"] = scan?.serialize()
+		data["modify"] = modify?.serialize()
+		data["Radio"] = Radio?.serialize()
+		return data
+
+	deserialize(list/data)
+		mode = data["mode"]
+		target_dept = data["target_dept"]
+		qdel(scan)
+		scan = list_to_object(data["scan"], src)
+		qdel(modify)
+		modify = list_to_object(data["modify"], src)
+		qdel(Radio)
+		Radio = list_to_object(data["Radio"], src)
+		..()
+
+		if (Radio)
+			Radio.listening = 0
+			Radio.config(list("Command" = 0))
+			Radio.follow_target = src
+
 	//Cooldown for closing positions in seconds
 	//if set to -1: No cooldown... probably a bad idea
 	//if set to 0: Not able to close "original" positions. You can only close positions that you have opened before
@@ -146,6 +172,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	else
 		to_chat(usr, "There is nothing to remove from the console.")
+	check_for_sync()
 
 /obj/machinery/computer/card/attackby(obj/item/card/id/id_card, mob/user, params)
 	if(!istype(id_card))
@@ -164,6 +191,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	SStgui.update_uis(src)
 	attack_hand(user)
+	check_for_sync()
 
 //Check if you can't touch a job in any way whatsoever
 /obj/machinery/computer/card/proc/job_blacklisted_full(datum/job/job)
@@ -408,6 +436,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					I.forceMove(src)
 					scan = I
 					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+			check_for_sync()
 			return
 		if("modify") // inserting or removing the ID you plan to modify
 			if(modify)
@@ -430,9 +459,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					I.forceMove(src)
 					modify = I
 					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+			check_for_sync()
 			return
 		if("mode") // changing mode in the menu
 			mode = text2num(params["mode"])
+			check_for_sync()
 			return
 
 	// Everything below HERE requires auth
@@ -468,6 +499,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					modify.assignment = temp_t
 					log_game("[key_name(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[oldrank]\" to \"[temp_t]\".")
 					SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has transferred \"[modify.registered_name]\" the \"[oldrank]\" to \"[temp_t]\".")
+					check_for_sync()
 			else
 				var/list/access = list()
 				if(is_centcom() && islist(get_centcom_access(t1)))
@@ -484,6 +516,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						return
 
 					access = jobdatum.get_access()
+					check_for_sync()
 
 				var/jobnamedata = modify.getRankAndAssignment()
 				log_game("[key_name(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
@@ -506,6 +539,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				modify.access = access
 				modify.rank = t1
 				modify.assignment = t1
+				check_for_sync()
 			regenerate_id_name()
 			return
 		if("demote")
@@ -537,6 +571,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			modify.assignment = "Demoted"
 			modify.icon_state = "id"
 			regenerate_id_name()
+			check_for_sync()
 			return
 		if("terminate")
 			if(!has_idchange_access()) // because captain/HOP can use this even on dept consoles
@@ -558,6 +593,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			modify.assignment = "Terminated"
 			modify.access = list()
 			regenerate_id_name()
+			check_for_sync()
 			return
 		if("make_job_available") // MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
 			var/edit_job_target = params["job"]
@@ -574,6 +610,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			opened_positions[edit_job_target]++
 			log_game("[key_name(usr)] ([scan.assignment]) has opened a job slot for job \"[j.title]\".")
 			message_admins("[key_name_admin(usr)] has opened a job slot for job \"[j.title]\".")
+			check_for_sync()
 			return
 		if("make_job_unavailable") // MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
 			var/edit_job_target = params["job"]
@@ -591,6 +628,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			opened_positions[edit_job_target]--
 			log_game("[key_name(usr)] ([scan.assignment]) has closed a job slot for job \"[j.title]\".")
 			message_admins("[key_name_admin(usr)] has closed a job slot for job \"[j.title]\".")
+			check_for_sync()
 			return
 		if("remote_demote")
 			var/reason = sanitize(copytext(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
@@ -620,6 +658,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 								to_chat(usr, "<span class='warning'>[src]: Cannot demote, due to their current security status.</span>")
 								return FALSE
 							return
+			check_for_sync()
 			return
 
 	// Everything below here requires a full ID computer (dept consoles do not qualify)
@@ -639,12 +678,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				return FALSE
 			modify.registered_name = temp_name
 			regenerate_id_name()
+			check_for_sync()
 			return
 		if("account") // card account number
 			var/account_num = input(usr, "Account Number", "Input Number", null) as num|null
 			if(!scan || !modify)
 				return FALSE
 			modify.associated_account_number = clamp(round(account_num), 0, 999999)
+			check_for_sync()
 			return
 		if("skin")
 			if(!modify)
@@ -653,6 +694,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/skin_list = is_centcom() ? get_centcom_card_skins() : get_station_card_skins()
 			if(skin in skin_list)
 				modify.icon_state = skin
+			check_for_sync()
 			return
 		// Changing card access
 		if("set") // add/remove a single access number
@@ -663,24 +705,29 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					modify.access -= access
 				else
 					modify.access += access
+			check_for_sync()
 			return
 		if("grant_region")
 			var/region = text2num(params["region"])
 			if(isnull(region) || region < REGION_GENERAL || region > (is_centcom() ? REGION_CENTCOMM : REGION_COMMAND))
 				return
 			modify.access |= get_region_accesses(region)
+			check_for_sync()
 			return
 		if("deny_region")
 			var/region = text2num(params["region"])
 			if(isnull(region) || region < REGION_GENERAL || region > (is_centcom() ? REGION_CENTCOMM : REGION_COMMAND))
 				return
 			modify.access -= get_region_accesses(region)
+			check_for_sync()
 			return
 		if("clear_all")
 			modify.access = list()
+			check_for_sync()
 			return
 		if("grant_all")
 			modify.access = get_all_accesses()
+			check_for_sync()
 			return
 
 		// JOB SLOT MANAGEMENT functions
@@ -700,6 +747,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				SSjobs.prioritized_jobs += j
 			log_game("[key_name(usr)] ([scan ? scan.assignment : "ADMIN"]) [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".")
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+			check_for_sync()
 			return
 
 		if("wipe_all_logs") // Delete all records from 'records' section

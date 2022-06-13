@@ -14,6 +14,22 @@
 	slot_flags = SLOT_BELT
 	resistance_flags = FLAMMABLE
 
+	serialize()
+		var/data = ..()
+		data["content"] = serialize_contents()
+		return data
+
+	deserialize(list/data)
+		deserialize_contents(data["content"])
+		..()
+		for(var/obj/item/pen/P in contents)
+			containedpen = P
+			break
+		for(var/obj/item/I in contents)
+			if(isPaperwork(I) == PAPERWORK)
+				toppaper = I
+			break
+
 /obj/item/clipboard/New()
 	..()
 	update_icon()
@@ -55,6 +71,7 @@
 		user.put_in_hands(containedpen)
 		containedpen = null
 	update_icon()
+	check_for_sync()
 
 /obj/item/clipboard/proc/showClipboard(mob/user) //Show them what's on the clipboard
 	var/dat = "<title>[src]</title>"
@@ -89,6 +106,7 @@
 		if(isPaperwork(W) == PAPERWORK)
 			toppaper = W
 		update_icon()
+		check_for_sync()
 	else if(is_pen(W))
 		if(!toppaper) //If there's no paper we can write on, just stick the pen into the clipboard
 			penPlacement(user, W, TRUE)
@@ -109,6 +127,7 @@
 	else if(istype(W, /obj/item/stamp) && toppaper) //We can stamp the topmost piece of paper
 		toppaper.attackby(W, user)
 		update_icon()
+		check_for_sync()
 	else
 		return ..()
 
@@ -133,6 +152,7 @@
 			toppaper = locate(/obj/item/paper) in src
 			if(!toppaper) //In case there's no paper, try find a paper bundle instead
 				toppaper = locate(/obj/item/paper_bundle) in src
+			check_for_sync()
 	else if(href_list["viewOrWrite"])
 		var/obj/item/P = locate(href_list["viewOrWrite"]) in src
 		if(!isPaperwork(P))
@@ -151,6 +171,7 @@
 		to_chat(usr, "<span class='notice'>You flick the pages so that [P] is on top.</span>")
 		playsound(loc, "pageturn", 50, 1)
 		toppaper = P
+		check_for_sync()
 	update_icon()
 	showClipboard(usr)
 

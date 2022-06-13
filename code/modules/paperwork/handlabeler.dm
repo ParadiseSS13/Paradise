@@ -8,6 +8,19 @@
 	var/labels_left = 30
 	var/mode = 0
 
+	serialize()
+		var/list/data = ..()
+		data["label"] = label
+		data["labels_left"] = labels_left
+		data["mode"] = mode
+		return data
+
+	deserialize(list/data)
+		label = data["label"]
+		labels_left = data["labels_left"]
+		mode = data["mode"]
+		..()
+
 /obj/item/hand_labeler/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
@@ -33,6 +46,7 @@
 	A.AddComponent(/datum/component/label, label)
 	playsound(A, 'sound/items/handling/component_pickup.ogg', 20, TRUE)
 	labels_left--
+	check_for_sync()
 
 /obj/item/hand_labeler/attack_self(mob/user as mob)
 	mode = !mode
@@ -48,6 +62,7 @@
 		to_chat(user, "<span class='notice'>You set the text to '[str]'.</span>")
 	else
 		to_chat(user, "<span class='notice'>You turn off \the [src].</span>")
+	check_for_sync()
 
 /obj/item/hand_labeler/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hand_labeler_refill))
@@ -55,6 +70,7 @@
 		user.drop_item()
 		qdel(I)
 		labels_left = initial(labels_left)	//Yes, it's capped at its initial value
+		check_for_sync()
 	else
 		return ..()
 

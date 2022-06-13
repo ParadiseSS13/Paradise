@@ -15,6 +15,26 @@
 
 	light_color = LIGHT_COLOR_DARKRED
 
+	serialize()
+		var/list/data = ..()
+		data["id"] = id
+		data["status"] = status
+		data["timeleft"] = timeleft
+		data["stop"] = stop
+		data["screen"] = screen
+		data["inserted_id"] = inserted_id?.serialize()
+		return data
+
+	deserialize(list/data)
+		id = data["id"]
+		status = data["status"]
+		timeleft = data["timeleft"]
+		stop = data["stop"]
+		screen = data["screen"]
+		qdel(inserted_id)
+		inserted_id = list_to_object(data["inserted_id"], src)
+		..()
+
 /obj/machinery/computer/prisoner/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
@@ -140,4 +160,5 @@
 
 	src.add_fingerprint(usr)
 	src.updateUsrDialog()
+	src.check_for_sync()
 	return

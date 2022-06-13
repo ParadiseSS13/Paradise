@@ -37,6 +37,7 @@
 		to_chat(user, "<span class='notice'>Your head pounds for a moment, before your vision clears.  You are the avatar of the Wish Granter, and your power is LIMITLESS!  And it's all yours.  You need to make sure no one can take it from you.  No one can know, first.</span>")
 
 		charges--
+		check_for_sync()
 		insisting = FALSE
 
 		user.mind.add_antag_datum(/datum/antagonist/wishgranter)

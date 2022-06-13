@@ -256,6 +256,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		if(Zapstick.charges)
 			Zapstick.charges--
 			Zapstick.update_icon()
+			Zapstick.check_for_sync()
 			..()
 	else if(Pewgun)
 		if(Pewgun.chambered)
