@@ -111,6 +111,7 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 	LAZYADD(GLOB.changed_objects, src)
 	db_dirty = TRUE
 
+
 /obj/proc/serialize_contents()
 	var/list/content_list = list()
 	for(var/thing in contents)
@@ -320,3 +321,18 @@ in their list
 	var/atom/movable/thing = new path(loc)
 	thing.deserialize(data)
 	return thing
+
+/proc/list_to_datum(list/data)
+	if (!data)
+		return null
+	if(!islist(data))
+		throw EXCEPTION("You didn't give me a list, bucko")
+	if(!("type" in data))
+		throw EXCEPTION("No 'type' field in the data")
+	var/path = text2path(data["type"])
+	if(!path)
+		throw EXCEPTION("Path not found: [path]")
+
+	var/datum/D = new path()
+	D.deserialize(data)
+	return D

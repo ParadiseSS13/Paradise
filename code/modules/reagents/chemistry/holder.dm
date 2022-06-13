@@ -14,6 +14,27 @@
 	var/list/addiction_threshold_accumulated = new/list()
 	var/flags
 
+/datum/reagents/serialize()
+	var/data = list()
+	var/list/reagents_data = list()
+	for(var/datum/reagent/R in reagent_list)
+		reagents_data.len++
+		reagents_data[reagents_data.len] = R.serialize()
+	data["reagent_list"] = reagents_data
+	data["chem_temp"] = chem_temp
+	return data
+
+/datum/reagents/deserialize(data)
+	clear_reagents()
+	if(!data)
+		return
+	chem_temp = data["chem_temp"]
+	for(var/reagent in data["reagent_list"])
+		var/datum/reagent/R = list_to_datum(reagent)
+		if(R)
+			add_reagent(R.id, R.volume, null, T20C, TRUE)
+
+
 /datum/reagents/New(maximum = 100, temperature_minimum, temperature_maximum)
 	maximum_volume = maximum
 	if(temperature_minimum)
@@ -499,6 +520,7 @@
 			del_reagent(R.id)
 		else
 			total_volume += R.volume
+	my_atom?.check_for_sync()
 	return FALSE
 
 /datum/reagents/proc/clear_reagents()

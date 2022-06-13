@@ -18,13 +18,15 @@
 		return data
 
 	deserialize(list/data)
-		for(var/obj/I in stored_oxygen_tanks)
-			qdel(I)
-		for(var/obj/I in stored_plasma_tanks)
-			qdel(I)
+		QDEL_LIST(stored_plasma_tanks)
+		QDEL_LIST(stored_oxygen_tanks)
 		deserialize_contents(data["contents"])
 		..()
-		initialize_tanks()
+		for(var/obj/item/tank/internals/T in contents)
+			if(istype(T,/obj/item/tank/internals/oxygen))
+				stored_oxygen_tanks.Add(T)
+			if(istype(T,/obj/item/tank/internals/plasma))
+				stored_plasma_tanks.Add(T)
 
 /obj/structure/dispenser/oxygen
 	starting_plasma_tanks = 0

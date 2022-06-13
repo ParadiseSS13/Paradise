@@ -33,6 +33,17 @@
 	var/taste_mult = 1 //how easy it is to taste - the more the easier
 	var/taste_description = "metaphorical salt"
 
+	serialize()
+		var/list/data = ..()
+		data["id"] = id
+		data["volume"] = volume
+		return data
+
+	deserialize(list/data)
+		volume = data["id"]
+		volume = data["volume"]
+		..()
+
 /datum/reagent/Destroy()
 	. = ..()
 	holder = null

@@ -35,11 +35,13 @@
 		var/list/data = ..()
 		data["obj_integrity"] = obj_integrity
 		data["germ_level"] = germ_level
+		data["reagents"] = reagents?.serialize()
 		return data
 
 	deserialize(list/data)
 		obj_integrity = data["obj_integrity"]
 		germ_level = data["germ_level"]
+		reagents?.deserialize(data["reagents"])
 		..()
 
 /obj/New()

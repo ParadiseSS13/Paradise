@@ -1159,6 +1159,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			name = "[initial(name)]"
 		else
 			name = "[prefix][t]"
+		check_for_sync()
 	return t
 
 /atom/proc/set_angle(degrees)

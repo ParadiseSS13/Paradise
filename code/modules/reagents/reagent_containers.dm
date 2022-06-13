@@ -14,6 +14,19 @@
 	var/temperature_min = 0 // To limit the temperature of a reagent container can atain when exposed to heat/cold
 	var/temperature_max = 10000
 
+	serialize()
+		var/list/data = ..()
+		data["amount_per_transfer_from_this"] = amount_per_transfer_from_this
+		if(has_lid)
+			data["container_type"] = container_type
+		return data
+
+	deserialize(list/data)
+		amount_per_transfer_from_this = data["amount_per_transfer_from_this"]
+		if (has_lid)
+			container_type = data["container_type"]
+		..()
+
 /obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Set transfer amount"
 	set category = "Object"
@@ -27,6 +40,7 @@
 	var/N = input("Amount per transfer from this:", "[src]", default) as null|anything in possible_transfer_amounts
 	if(N)
 		amount_per_transfer_from_this = N
+	check_for_sync()
 
 /obj/item/reagent_containers/New()
 	create_reagents(volume, temperature_min, temperature_max)
@@ -55,11 +69,13 @@
 	if(has_lid)
 		container_type ^= REFILLABLE | DRAINABLE
 		update_icon()
+		check_for_sync()
 
 /obj/item/reagent_containers/proc/remove_lid()
 	if(has_lid)
 		container_type |= REFILLABLE | DRAINABLE
 		update_icon()
+		check_for_sync()
 
 /obj/item/reagent_containers/attack_self(mob/user)
 	if(has_lid)

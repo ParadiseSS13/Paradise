@@ -39,6 +39,16 @@
 	/// Holder for the completed fixture
 	var/obj/machinery/light/newlight = null
 
+	serialize()
+		var/list/data = ..()
+		data["stage"] = stage
+		return data
+
+	deserialize(list/data)
+		stage = data["stage"]
+		..()
+
+
 /obj/machinery/light_construct/Initialize(mapload, ndir, building)
 	. = ..()
 	if(fixture_type == "bulb")
@@ -84,6 +94,7 @@
 			icon_state = "bulb-construct-stage1"
 	new /obj/item/stack/cable_coil(get_turf(loc), 1, paramcolor = COLOR_RED)
 	WIRECUTTER_SNIP_MESSAGE
+	check_for_sync()
 
 /obj/machinery/light_construct/screwdriver_act(mob/living/user, obj/item/I)
 	if(stage != 2)
@@ -99,6 +110,7 @@
 	stage = 3
 	user.visible_message("<span class='notice'>[user] closes [src]'s casing.</span>", \
 		"<span class='notice'>You close [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
+	check_for_sync()
 
 	switch(fixture_type)
 		if("tube")
@@ -125,6 +137,7 @@
 		playsound(loc, coil.usesound, 50, 1)
 		user.visible_message("<span class='notice'>[user.name] adds wires to [src].</span>", \
 			"<span class='notice'>You add wires to [src].</span>", "<span class='notice'>You hear a noise.</span>")
+		check_for_sync()
 		return
 
 	return ..()

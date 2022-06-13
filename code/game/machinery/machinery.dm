@@ -141,6 +141,7 @@ Class Procs:
 		stat = data["stat"]
 		deserialize_components(data["components"])
 		..()
+		RefreshParts()
 
 
 /obj/machinery/proc/serialize_components()
