@@ -66,7 +66,7 @@
 	/// What's the highest state in which you can use this emote?
 	/// If this is set to DEFAULT_STAT_ALLOWED, it'll work as if it was set to stat_allowed.
 	var/max_stat_allowed = DEFAULT_STAT_ALLOWED
-	/// In which state can this emote be forced out of you?
+	/// In which state can this emote be forced out of you? Note that if you set this, you'll want to make sure max_unintentional_stat_allowed is set too
 	var/unintentional_stat_allowed = CONSCIOUS
 	/// Same as above, what's the highest state in which you can have this emote forced out of you?
 	var/max_unintentional_stat_allowed = DEFAULT_STAT_ALLOWED
