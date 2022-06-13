@@ -387,7 +387,6 @@
 
 	// Custom emotes should be able to be forced out regardless of context.
 	// It falls on the caller to determine whether or not it should actually be called.
-	max_unintentional_stat_allowed = CONSCIOUS
 	unintentional_stat_allowed = DEAD
 
 /datum/emote/living/custom/proc/check_invalid(mob/user, input)
