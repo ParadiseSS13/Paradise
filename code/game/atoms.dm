@@ -1013,6 +1013,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/vv_get_dropdown()
 	. = ..()
+	.["Manipulate Colour Matrix"] = "?_src_=vars;manipcolours=[UID()]"
 	var/turf/curturf = get_turf(src)
 	if(curturf)
 		.["Jump to turf"] = "?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"

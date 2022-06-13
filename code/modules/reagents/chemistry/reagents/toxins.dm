@@ -49,11 +49,12 @@
 
 /datum/reagent/slimejelly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(10))
-		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
-		update_flags |= M.adjustToxLoss(rand(2, 6) * REAGENTS_EFFECT_MULTIPLIER, FALSE) // avg 0.4 toxin per cycle, not unreasonable
-	else if(prob(40))
-		update_flags |= M.adjustBruteLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(M.get_blood_id() != id)  // no effect on slime people
+		if(prob(10))
+			to_chat(M, "<span class='danger'>Your insides are burning!</span>")
+			update_flags |= M.adjustToxLoss(rand(2, 6) * REAGENTS_EFFECT_MULTIPLIER, FALSE) // avg 0.4 toxin per cycle, not unreasonable
+		else if(prob(40))
+			update_flags |= M.adjustBruteLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/slimejelly/on_merge(list/mix_data)

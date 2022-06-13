@@ -284,6 +284,7 @@ CREATE TABLE `player` (
   `screentip_mode` tinyint(1) DEFAULT '8',
   `screentip_color` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#ffd391',
   `ghost_darkness_level` tinyint(1) UNSIGNED NOT NULL DEFAULT '255',
+  `colourblind_mode` VARCHAR(48) NOT NULL DEFAULT 'None' COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
