@@ -32,7 +32,7 @@
 			user.visible_message("[user] makes the sound of one hand clapping.")
 		return TRUE
 
-	. = ..()
+	return ..()
 
 /datum/emote/living/carbon/clap/get_sound(mob/living/user)
 	if(ishuman(user))

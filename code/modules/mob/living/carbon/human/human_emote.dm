@@ -29,7 +29,7 @@
 		if(H.getOxyLoss() > 10 || H.AmountLoseBreath() >= 8 SECONDS)		// no screaming if you don't have enough breath to scream
 			H.emote("gasp")
 			return TRUE
-	. = ..()
+	return ..()
 
 /datum/emote/living/carbon/human/airguitar
 	key = "airguitar"
@@ -224,7 +224,7 @@
 			qdel(cig)
 			H.adjustFireLoss(5)
 		return TRUE
-	. = ..()
+	return ..()
 
 /datum/emote/living/carbon/human/sneeze
 	key = "sneeze"
@@ -303,7 +303,7 @@
 			user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
 			L.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
 			return TRUE
-	. = ..()
+	return ..()
 
 /datum/emote/living/carbon/human/handshake
 	key = "handshake"
@@ -350,7 +350,7 @@
 	else
 		message_param = "holds out [user.p_their()] hand to %t."
 
-	. = ..()
+	return ..()
 
 /datum/emote/living/carbon/human/snap
 	key = "snap"
@@ -381,7 +381,7 @@
 		user.visible_message("<span class='danger'><b>[user]</b> snaps [p_their()] fingers right off!</span>")
 		playsound(user.loc, 'sound/effects/snap.ogg', 50, 1)
 		return TRUE
-	. = ..()
+	return ..()
 
 /datum/emote/living/carbon/human/fart
 	key = "fart"
@@ -395,7 +395,7 @@
 	for(var/atom/A in get_turf(user))
 		farted_on_something = A.fart_act(user) || farted_on_something
 	if(!farted_on_something)
-		. = ..()
+		return ..()
 
 /datum/emote/living/carbon/sign/signal
 	key = "signal"
