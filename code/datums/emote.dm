@@ -617,4 +617,4 @@
 	visible_message(text)
 
 
-#undef DEFAULT_STAT_ALLOWED
+#undef DEFAULT_MAX_STAT_ALLOWED
