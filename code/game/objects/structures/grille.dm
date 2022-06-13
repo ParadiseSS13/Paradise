@@ -52,6 +52,16 @@
 	. = ..()
 	update_icon()
 
+/obj/structure/grille/update_icon()
+	if(QDELETED(src) || broken)
+		return
+
+	var/ratio = obj_integrity / max_integrity
+
+	if(ratio > 0.5)
+		return
+	icon_state = "grille50_[rand(0,3)]"
+
 /obj/structure/grille/examine(mob/user)
 	. = ..()
 	if(anchored)
