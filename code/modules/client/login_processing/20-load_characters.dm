@@ -39,9 +39,6 @@
 		job_engsec_high,
 		job_engsec_med,
 		job_engsec_low,
-		job_karma_high,
-		job_karma_med,
-		job_karma_low,
 		flavor_text,
 		med_record,
 		sec_record,
@@ -85,7 +82,7 @@
 
 	while(Q.NextRow())
 		character_loaded = TRUE
-		var/datum/character_save/CS = C.prefs.character_saves[Q.item[53]] // Get the slot referenced by this query
+		var/datum/character_save/CS = C.prefs.character_saves[Q.item[50]] // Get the slot referenced by this query
 		CS.load(Q) // Let the save handle the query processing
 		CS.valid_save = TRUE
 

@@ -179,7 +179,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	QDEL_NULL(files)
 	QDEL_NULL(t_disk)
 	QDEL_NULL(d_disk)
-	QDEL_LIST(matching_designs)
+	matching_designs.Cut()
 	if(linked_destroy)
 		linked_destroy.linked_console = null
 		linked_destroy = null

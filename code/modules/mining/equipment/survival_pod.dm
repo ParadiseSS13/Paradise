@@ -16,6 +16,14 @@
 	var/datum/map_template/shelter/template
 	var/used = FALSE
 
+/obj/item/survivalcapsule/emag_act()
+	if(!emagged)
+		to_chat(usr, "<span class='warning'>You short out the safeties, allowing it to be placed in the station sector.</span>")
+		emagged = TRUE
+		return
+
+	to_chat(usr, "<span class='warning'>The safeties are already shorted out!</span>")
+
 /obj/item/survivalcapsule/proc/get_template()
 	if(template)
 		return
@@ -34,6 +42,11 @@
 	// Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
 	if(used == FALSE)
+		var/turf/UT = get_turf(usr)
+		if((UT.z == level_name_to_num(MAIN_STATION)) && !emagged)
+			to_chat(usr, "<span class='notice'>Error. Deployment was attempted on the station sector. Deployment aborted.</span>")
+			playsound(usr, 'sound/machines/terminal_error.ogg', 15, TRUE)
+			return
 		loc.visible_message("<span class='warning'>[src] begins to shake. Stand back!</span>")
 		used = TRUE
 		sleep(50)
@@ -330,7 +343,7 @@
 						/obj/item/his_grace,
 						/obj/item/gun/projectile/automatic/l6_saw,
 						/obj/item/gun/magic/staff/chaos,
-						/obj/item/gun/magic/staff/spellblade,
+						/obj/item/melee/spellblade,
 						/obj/item/gun/magic/wand/death,
 						/obj/item/gun/magic/wand/fireball,
 						/obj/item/stack/telecrystal/twenty,

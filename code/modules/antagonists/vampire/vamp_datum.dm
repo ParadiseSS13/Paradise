@@ -32,25 +32,25 @@
 	antag_hud_type = ANTAG_HUD_VAMPIRE
 	antag_hud_name = "vampthrall"
 
-/datum/antagonist/mindslave/thrall/on_gain()
+/datum/antagonist/mindslave/thrall/add_owner_to_gamemode()
 	SSticker.mode.vampire_enthralled += owner
-	..()
 
-/datum/antagonist/mindslave/thrall/on_removal()
+/datum/antagonist/mindslave/thrall/remove_owner_from_gamemode()
 	SSticker.mode.vampire_enthralled -= owner
-	..()
 
-/datum/antagonist/mindslave/thrall/apply_innate_effects(mob/living/new_body)
-	..()
-	var/datum/mind/M = new_body?.mind || owner
+/datum/antagonist/mindslave/thrall/apply_innate_effects(mob/living/mob_override)
+	mob_override = ..()
+	var/datum/mind/M = mob_override.mind
 	M.AddSpell(new /obj/effect/proc_holder/spell/vampire/thrall_commune)
 
-/datum/antagonist/mindslave/thrall/remove_innate_effects(mob/living/old_body)
-	..()
-	var/datum/mind/M = old_body?.mind || owner
+/datum/antagonist/mindslave/thrall/remove_innate_effects(mob/living/mob_override)
+	mob_override = ..()
+	var/datum/mind/M = mob_override.mind
 	M.RemoveSpell(/obj/effect/proc_holder/spell/vampire/thrall_commune)
 
 /datum/antagonist/vampire/Destroy(force, ...)
+	SSticker.mode.vampires -= owner
+	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
 	QDEL_NULL(subclass)
 	QDEL_LIST(powers)
@@ -88,18 +88,16 @@
 		qdel(ability)
 		owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp loses his vision based powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
-/datum/antagonist/vampire/remove_innate_effects(mob/living/old_body)
-	var/mob/living/L = old_body || owner.current
-	for(var/P in powers)
-		remove_ability(P)
-	var/datum/hud/hud = L.hud_used
+/datum/antagonist/vampire/remove_innate_effects(mob/living/mob_override)
+	mob_override = ..()
+	remove_all_powers()
+	var/datum/hud/hud = mob_override.hud_used
 	if(hud?.vampire_blood_display)
 		hud.remove_vampire_hud()
-	L.dna.species.hunger_type = initial(L.dna.species.hunger_type)
-	L.dna.species.hunger_icon = initial(L.dna.species.hunger_icon)
+	mob_override.dna.species.hunger_type = initial(mob_override.dna.species.hunger_type)
+	mob_override.dna.species.hunger_icon = initial(mob_override.dna.species.hunger_icon)
 	owner.current.alpha = 255
 	REMOVE_TRAITS_IN(owner.current, "vampire")
-	return ..()
 
 #define BLOOD_GAINED_MODIFIER 0.5
 
@@ -155,6 +153,39 @@
 
 #undef BLOOD_GAINED_MODIFIER
 
+/**
+ * Remove the vampire's current subclass and add the specified one.
+ *
+ * Arguments:
+ * * new_subclass_type - a [/datum/vampire_subclass] typepath
+ */
+/datum/antagonist/vampire/proc/change_subclass(new_subclass_type)
+	if(isnull(new_subclass_type))
+		return
+	clear_subclass(FALSE)
+	add_subclass(new_subclass_type, log_choice = FALSE)
+
+/**
+ * Remove and delete the vampire's current subclass and all associated abilities.
+ *
+ * Arguments:
+ * * give_specialize_power - if the [specialize][/obj/effect/proc_holder/spell/vampire/self/specialize] power should be given back or not
+ */
+/datum/antagonist/vampire/proc/clear_subclass(give_specialize_power = TRUE)
+	if(give_specialize_power)
+		// Choosing a subclass in the first place removes this from `upgrade_tiers`, so add it back if needed.
+		upgrade_tiers[/obj/effect/proc_holder/spell/vampire/self/specialize] = 150
+	remove_all_powers()
+	QDEL_NULL(subclass)
+	check_vampire_upgrade()
+
+/**
+ * Removes all of the vampire's current powers.
+ */
+/datum/antagonist/vampire/proc/remove_all_powers()
+	for(var/power in powers)
+		remove_ability(power)
+
 /datum/antagonist/vampire/proc/check_vampire_upgrade(announce = TRUE)
 	var/list/old_powers = powers.Copy()
 
@@ -174,7 +205,7 @@
 
 
 /datum/antagonist/vampire/proc/check_full_power_upgrade()
-	if(subclass.full_power_overide || (length(drained_humans) >= FULLPOWER_DRAINED_REQUIREMENT && bloodtotal >= FULLPOWER_BLOODTOTAL_REQUIREMENT))
+	if(subclass.full_power_override || (length(drained_humans) >= FULLPOWER_DRAINED_REQUIREMENT && bloodtotal >= FULLPOWER_BLOODTOTAL_REQUIREMENT))
 		subclass.add_full_power_abilities(src)
 
 
@@ -188,10 +219,6 @@
 				var/datum/vampire_passive/power = p
 				to_chat(owner.current, "<span class='boldnotice'>[power.gain_desc]</span>")
 
-/datum/antagonist/vampire/on_removal()
-	SSticker.mode.vampires -= owner
-	owner.current.create_log(CONVERSION_LOG, "De-vampired")
-	..()
 
 /datum/antagonist/vampire/on_gain()
 	SSticker.mode.vampires += owner
@@ -321,14 +348,14 @@
 		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
 	to_chat(owner.current, dat)
 
-/datum/antagonist/vampire/apply_innate_effects(mob/living/new_body)
-	. = ..()
+/datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override)
+	mob_override = ..()
 	if(!owner.som) //thralls and mindslaves
 		owner.som = new()
 		owner.som.masters += owner
-	var/mob/living/L = new_body || owner.current
-	L.dna.species.hunger_type = "vampire"
-	L.dna.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
+
+	mob_override.dna.species.hunger_type = "vampire"
+	mob_override.dna.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 	check_vampire_upgrade(FALSE)
 
 /datum/hud/proc/remove_vampire_hud()

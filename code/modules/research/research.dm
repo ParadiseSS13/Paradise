@@ -184,6 +184,17 @@ research holder datum.
 
 	return ..()
 
+///Gamma Armoury autolathe files
+/datum/research/autolathe/gamma
+
+/datum/research/autolathe/gamma/DesignHasReqs(datum/design/D)
+	return D && ((D.build_type & GAMMALATHE) || (D.build_type & (AUTOLATHE) && ("initial" in D.category)))
+
+/datum/research/autolathe/gamma/CanAddDesign2Known(datum/design/design)
+	if(design.build_type & GAMMALATHE)
+		return TRUE
+	return ..()
+
 //Biogenerator files
 /datum/research/biogenerator/New()
 	for(var/T in (subtypesof(/datum/tech)))

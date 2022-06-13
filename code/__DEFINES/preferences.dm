@@ -93,7 +93,6 @@
 #define EXP_TYPE_SECURITY		"Security"
 #define EXP_TYPE_SILICON		"Silicon"
 #define EXP_TYPE_SERVICE		"Service"
-#define EXP_TYPE_WHITELIST		"Whitelist"
 
 #define EXP_DEPT_TYPE_LIST		list(EXP_TYPE_SUPPLY, EXP_TYPE_SERVICE, EXP_TYPE_MEDICAL, EXP_TYPE_ENGINEERING, EXP_TYPE_SCIENCE, EXP_TYPE_SECURITY, EXP_TYPE_COMMAND, EXP_TYPE_SILICON, EXP_TYPE_SPECIAL, EXP_TYPE_GHOST)
 
@@ -122,3 +121,9 @@
 #define TAB_CHAR 0
 #define TAB_GAME 1
 #define TAB_GEAR 2
+
+// Colourblind modes
+#define COLOURBLIND_MODE_NONE "None"
+#define COLOURBLIND_MODE_DEUTER "Red-green (green weak, deuteranopia)"
+#define COLOURBLIND_MODE_PROT "Red-green (red weak, protanopia)"
+#define COLOURBLIND_MODE_TRIT "Blue-yellow (tritanopia)"

@@ -134,7 +134,7 @@
 	src.visible_message(text("<span class='danger'>[M] falls free of [src]!</span>"))
 	unbuckle_mob(M, force = TRUE)
 	M.emote("scream")
-	M.AdjustWeakened(10)
+	M.AdjustWeakened(20 SECONDS)
 
 /obj/structure/kitchenspike/post_unbuckle_mob(mob/living/M)
 	M.pixel_y = M.get_standard_pixel_y_offset(0)

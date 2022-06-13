@@ -1,5 +1,7 @@
 /// Config holder for all things regarding space ruins and lavaland ruins
 /datum/configuration_section/ruin_configuration
+	/// Whether to load the lavaland Z-level
+	var/enable_lavaland = TRUE
 	/// Enable or disable space ruins
 	var/enable_space_ruins = TRUE
 	/// Minimum number of extra zlevels to fill with ruins
@@ -15,6 +17,7 @@
 
 /datum/configuration_section/ruin_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
+	CONFIG_LOAD_BOOL(enable_lavaland, data["enable_lavaland"])
 	CONFIG_LOAD_BOOL(enable_space_ruins, data["enable_space_ruins"])
 	CONFIG_LOAD_NUM(extra_levels_min, data["minimum_zlevels"])
 	CONFIG_LOAD_NUM(extra_levels_max, data["maximum_zlevels"])

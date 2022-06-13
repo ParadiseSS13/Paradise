@@ -380,7 +380,7 @@
 	armour_penetration = 100
 	damage_type = BRUTE
 	hitsound = 'sound/effects/splat.ogg'
-	weaken = 3
+	weaken = 6 SECONDS
 
 /obj/item/projectile/hook/fire(setAngle)
 	if(firer)

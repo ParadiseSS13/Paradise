@@ -77,7 +77,7 @@
 	var/activated = FALSE
 	var/power_warned = FALSE
 
-	var/destruction_sleep_duration = 1 //Time that mech pilot is put to sleep for if mech is destroyed
+	var/destruction_sleep_duration = 2 SECONDS //Time that mech pilot is put to sleep for if mech is destroyed
 
 	var/melee_cooldown = 10
 	var/melee_can_hit = 1
@@ -390,9 +390,8 @@
 			L.take_overall_damage(5,0)
 			if(L.buckled)
 				L.buckled = 0
-			L.Stun(5)
-			L.Weaken(5)
-			L.apply_effect(STUTTER, 5)
+			L.Weaken(10 SECONDS)
+			L.apply_effect(STUTTER, 10 SECONDS)
 			playsound(src, pick(hit_sound), 50, 0, 0)
 			breakthrough = 1
 
@@ -577,7 +576,7 @@
 	log_message("Hit by [AM].")
 	if(isitem(AM))
 		var/obj/item/I = AM
-		add_attack_logs(I.thrownby, OCCUPANT_LOGGING, "threw [AM] at mech [src]")
+		add_attack_logs(locateUID(I.thrownby), OCCUPANT_LOGGING, "threw [AM] at mech [src]")
 	. = ..()
 
 /obj/mecha/bullet_act(obj/item/projectile/Proj) //wrapper
@@ -1183,7 +1182,7 @@
 		dir = dir_in
 		log_message("[mmi_as_oc] moved in as pilot.")
 		if(!hasInternalDamage())
-			to_chat(occupant, sound(nominalsound, volume=50))
+			occupant << sound(nominalsound, volume=50)
 		GrantActions(brainmob)
 		return TRUE
 	else
