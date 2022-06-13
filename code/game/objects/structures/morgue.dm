@@ -38,6 +38,15 @@
 	var/open_sound = 'sound/items/deconstruct.ogg'
 	var/status
 
+	serialize()
+		var/list/data = ..()
+		data["contents"] = serialize_contents()
+		return data
+
+	deserialize(list/data)
+		deserialize_contents(data["contents"])
+		..()
+
 /obj/structure/morgue/Initialize()
 	. = ..()
 	update()
@@ -387,6 +396,7 @@
 		locked = 0
 		update()
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+		check_for_sync()
 	return
 
 /obj/structure/crematorium/Destroy()

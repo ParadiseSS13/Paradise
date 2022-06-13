@@ -12,10 +12,12 @@
 	serialize()
 		var/list/data = ..()
 		data["id_tag"] = id_tag
+		data["air_contents"] = air_contents?.serialize()
 		return data
 
 	deserialize(list/data)
 		id_tag = data["id_tag"]
+		air_contents?.deserialize(data["air_contents"])
 		..()
 
 /obj/machinery/atmospherics/unary/New()

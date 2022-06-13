@@ -72,3 +72,30 @@
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
 	var/stam_paralyzed = FALSE //knocks you down
+
+	serialize()
+		var/list/data = ..()
+		data["maxHealth"] = maxHealth
+		data["bruteloss"] = bruteloss
+		data["oxyloss"] = oxyloss
+		data["toxloss"] = toxloss
+		data["fireloss"] = fireloss
+		data["cloneloss"] = cloneloss
+		data["staminaloss"] = staminaloss
+		data["step_count"] = step_count
+		data["blood_volume"] = blood_volume
+		data["health"] = health
+		return data
+
+	deserialize(list/data)
+		maxHealth = data["maxHealth"]
+		bruteloss = data["bruteloss"]
+		oxyloss = data["oxyloss"]
+		toxloss = data["toxloss"]
+		fireloss = data["fireloss"]
+		cloneloss = data["cloneloss"]
+		staminaloss = data["staminaloss"]
+		step_count = data["step_count"]
+		blood_volume = data["blood_volume"]
+		health = data["health"]
+		..()

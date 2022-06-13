@@ -7,10 +7,24 @@
 	icon_state = "dispenser"
 	density = 1
 	anchored = 1.0
-	var/starting_oxygen_tanks = MAX_TANK_STORAGE // The starting amount of oxygen tanks the dispenser gets when it's spawned
-	var/starting_plasma_tanks = MAX_TANK_STORAGE // Starting amount of plasma tanks
+	var/starting_oxygen_tanks = 0 // The starting amount of oxygen tanks the dispenser gets when it's spawned
+	var/starting_plasma_tanks = 0 // Starting amount of plasma tanks
 	var/list/stored_oxygen_tanks = list() // List of currently stored oxygen tanks
 	var/list/stored_plasma_tanks = list() // And plasma tanks
+
+	serialize()
+		var/list/data = ..()
+		data["contents"] = serialize_contents()
+		return data
+
+	deserialize(list/data)
+		for(var/obj/I in stored_oxygen_tanks)
+			qdel(I)
+		for(var/obj/I in stored_plasma_tanks)
+			qdel(I)
+		deserialize_contents(data["contents"])
+		..()
+		initialize_tanks()
 
 /obj/structure/dispenser/oxygen
 	starting_plasma_tanks = 0
@@ -104,6 +118,7 @@
 		else
 			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
 			anchored = 1
+		check_for_sync()
 		return
 	return ..()
 
@@ -120,6 +135,7 @@
 
 	to_chat(user, "<span class='notice'>You take [T] out of [src].</span>")
 	update_icon()
+	check_for_sync()
 
 /// Called when the user clicks on the dispenser with a tank. Tries to insert the tank into the dispenser, and updates the UI if successful.
 /obj/structure/dispenser/proc/try_insert_tank(mob/living/user, list/tank_list, obj/item/tank/T)
@@ -136,6 +152,7 @@
 	update_icon()
 	to_chat(user, "<span class='notice'>You put [T] in [src].</span>")
 	SStgui.update_uis(src)
+	check_for_sync()
 
 /obj/structure/tank_dispenser/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

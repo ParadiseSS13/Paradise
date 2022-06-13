@@ -51,10 +51,11 @@
 		add_avail(power_gen * power_output)
 		UseFuel()
 	else
+		if(active == 1)
+			check_for_sync()
 		active = 0
 		handleInactive()
 		update_icon()
-		check_for_sync()
 
 /obj/machinery/power/powered()
 	return 1 //doesn't require an external power source
@@ -90,6 +91,7 @@
 	if(duration)
 		spawn(duration)
 			stat &= ~EMPED
+	check_for_sync()
 
 /obj/machinery/power/port_gen/proc/explode()
 	explosion(src.loc, -1, 3, 5, -1)

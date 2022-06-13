@@ -13,6 +13,22 @@
 
 	var/maximum_pressure = 90*ONE_ATMOSPHERE
 
+	serialize()
+		var/list/data = ..()
+		data["destroyed"] = destroyed
+		data["air_contents"] = air_contents.serialize()
+		data["holding"] = holding?.serialize()
+		return data
+
+	deserialize(list/data)
+		destroyed = data["destroyed"]
+		air_contents.clear()
+		if(data["air_contents"])
+			air_contents.deserialize(data["air_contents"])
+		qdel(holding)
+		holding = list_to_object(data["holding"], src)
+		..()
+
 /obj/machinery/portable_atmospherics/New()
 	..()
 	SSair.atmos_machinery += src
@@ -110,6 +126,7 @@
 	else
 		holding = null
 	update_icon()
+	check_for_sync()
 	return TRUE
 
 /obj/machinery/portable_atmospherics/attackby(obj/item/W, mob/user, params)
@@ -125,6 +142,7 @@
 			T.loc = src
 			src.holding = T
 			update_icon()
+			check_for_sync()
 		return
 	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
 		atmosanalyzer_scan(air_contents, user)

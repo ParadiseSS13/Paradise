@@ -43,6 +43,16 @@ What are the archived variables for?
 
 	//PV = nRT
 
+	proc/clear()
+		oxygen = 0
+		carbon_dioxide = 0
+		nitrogen = 0
+		toxins = 0
+		sleeping_agent = 0
+		agent_b = 0
+		temperature = temperature = T20C
+		archive()
+
 	///joules per kelvin
 /datum/gas_mixture/proc/heat_capacity()
 	return HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b)

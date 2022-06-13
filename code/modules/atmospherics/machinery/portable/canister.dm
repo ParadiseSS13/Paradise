@@ -71,6 +71,21 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	var/release_log = ""
 	var/update_flag = 0
 
+	serialize()
+		var/list/data = ..()
+		data["filled"] = filled
+		data["valve_open"] = valve_open
+		data["can_label"] = can_label
+		data["release_pressure"] = release_pressure
+		return data
+
+	deserialize(list/data)
+		filled = data["filled"]
+		valve_open = data["valve_open"]
+		can_label = data["can_label"]
+		release_pressure = data["release_pressure"]
+		..()
+
 /obj/machinery/portable_atmospherics/canister/New()
 	..()
 	canister_color = list(
@@ -220,6 +235,7 @@ update_flag
 	if(holding)
 		holding.forceMove(T)
 		holding = null
+	check_for_sync()
 
 /obj/machinery/portable_atmospherics/canister/process_atmos()
 	if(stat & BROKEN)
@@ -338,6 +354,7 @@ update_flag
 				else
 					to_chat(usr, "<span class='warning'>As you attempted to rename it the pressure rose!</span>")
 					. = FALSE
+				check_for_sync()
 		if("pressure")
 			var/pressure = params["pressure"]
 			if(pressure == "reset")
@@ -355,6 +372,7 @@ update_flag
 			if(.)
 				release_pressure = clamp(round(pressure), can_min_release_pressure, can_max_release_pressure)
 				investigate_log("was set to [release_pressure] kPa by [key_name(usr)].", "atmos")
+				check_for_sync()
 		if("valve")
 			var/logmsg
 			valve_open = !valve_open
@@ -372,12 +390,14 @@ update_flag
 				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding || "air"].<br>"
 			investigate_log(logmsg, "atmos")
 			release_log += logmsg
+			check_for_sync()
 		if("eject")
 			if(holding)
 				if(valve_open)
 					valve_open = FALSE
 					release_log += "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding]<br>"
 				replace_tank(usr, FALSE)
+				check_for_sync()
 		if("recolor")
 			if(can_label)
 				var/ctype = params["ctype"]
@@ -389,6 +409,7 @@ update_flag
 				color_index[ctype] = newcolor
 				newcolor++ // javascript starts arrays at 0, byond (for some reason) starts them at 1, this converts JS values to byond values
 				canister_color[ctype] = colorcontainer[ctype]["options"][newcolor]["icon"]
+				check_for_sync()
 	add_fingerprint(usr)
 	update_icon()
 

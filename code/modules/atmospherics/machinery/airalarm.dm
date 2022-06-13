@@ -122,15 +122,27 @@
 
 	serialize()
 		var/list/data = ..()
+		data["buildstage"] = buildstage
 		data["locked"] = locked
 		data["wiresexposed"] = wiresexposed
 		data["custom_name"] = custom_name
+		data["mode"] = mode
+		data["preset"] = preset
+		data["target_temperature"] = target_temperature
+		data["thermostat_state"] = thermostat_state
+		data["regulating_temperature"] = regulating_temperature
 		return data
 
 	deserialize(list/data)
+		buildstage = data["buildstage"]
 		locked = data["locked"]
 		wiresexposed = data["wiresexposed"]
 		custom_name = data["custom_name"]
+		mode = data["mode"]
+		preset = data["preset"]
+		target_temperature = data["target_temperature"]
+		thermostat_state = data["thermostat_state"]
+		regulating_temperature = data["regulating_temperature"]
 		..()
 
 /obj/machinery/alarm/monitor
@@ -451,6 +463,7 @@
 	return TRUE
 
 /obj/machinery/alarm/proc/apply_mode()
+	check_for_sync()
 	switch(mode)
 		if(AALARM_MODE_SCRUBBING)
 			for(var/device_id in alarm_area.air_scrub_names)
@@ -569,6 +582,7 @@
 		post_alert(new_area_danger_level)
 
 	update_icon()
+	check_for_sync()
 
 /obj/machinery/alarm/proc/post_alert(alert_level)
 	if(!report_danger_level)
@@ -928,6 +942,7 @@
 				post_alert(ATMOS_ALARM_DANGER)
 			alarmActivated = TRUE
 			update_icon()
+			check_for_sync()
 
 		if("atmos_reset")
 			if(alarm_area.atmosalert(ATMOS_ALARM_NONE, src, TRUE))
@@ -965,9 +980,11 @@
 				to_chat(usr, "<span class='warning'>Temperature must be between [min_temperature_c]C and [max_temperature_c]C</span>")
 			else
 				target_temperature = input_temperature
+				check_for_sync()
 
 		if("thermostat_state")
 			thermostat_state = !thermostat_state
+			check_for_sync()
 
 /obj/machinery/alarm/emag_act(mob/user)
 	if(!emagged)
@@ -991,6 +1008,7 @@
 						locked = !locked
 						to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
 						SStgui.update_uis(src)
+						check_for_sync()
 					else
 						to_chat(user, "<span class='warning'>Access denied.</span>")
 				return
@@ -1009,6 +1027,7 @@
 				buildstage = 2
 				update_icon()
 				first_run()
+				check_for_sync()
 				return
 		if(0)
 			if(istype(I, /obj/item/airalarm_electronics))
@@ -1017,6 +1036,7 @@
 				qdel(I)
 				buildstage = 1
 				update_icon()
+				check_for_sync()
 				return
 	return ..()
 
@@ -1035,6 +1055,7 @@
 	new /obj/item/airalarm_electronics(user.drop_location())
 	buildstage = AIR_ALARM_FRAME
 	update_icon()
+	check_for_sync()
 
 /obj/machinery/alarm/multitool_act(mob/user, obj/item/I)
 	if(buildstage != AIR_ALARM_READY)
@@ -1057,6 +1078,7 @@
 		SCREWDRIVER_OPEN_PANEL_MESSAGE
 	else
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
+	check_for_sync()
 
 /obj/machinery/alarm/wirecutter_act(mob/user, obj/item/I)
 	if(buildstage != AIR_ALARM_READY)
@@ -1069,6 +1091,7 @@
 		new_coil.amount = 5
 		buildstage = AIR_ALARM_BUILDING
 		update_icon()
+		check_for_sync()
 	if(wiresexposed)
 		wires.Interact(user)
 
@@ -1113,10 +1136,12 @@
 	if(shorted)
 		shorted = FALSE
 		update_icon()
+		check_for_sync()
 
 /obj/machinery/alarm/proc/enable_ai_control_callback()
 	if(aidisabled)
 		aidisabled = FALSE
+		check_for_sync()
 
 /obj/machinery/alarm/all_access
 	name = "all-access air alarm"

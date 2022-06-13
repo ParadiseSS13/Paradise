@@ -69,6 +69,15 @@
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
+	serialize()
+		var/list/data = ..()
+		data["rating"] = rating
+		return data
+
+	deserialize(list/data)
+		rating = data["rating"]
+		..()
+
 /obj/item/stock_parts/New()
 	..()
 	src.pixel_x = rand(-5.0, 5)

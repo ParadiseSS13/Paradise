@@ -36,6 +36,22 @@ FIRE ALARM
 	var/report_fire_alarms = TRUE // Should triggered fire alarms also trigger an actual alarm?
 	var/show_alert_level = TRUE // Should fire alarms display the current alert level?
 
+
+	serialize()
+		var/list/data = ..()
+		data["detecting"] = detecting
+		data["working"] = working
+		data["wiresexposed"] = wiresexposed
+		data["buildstage"] = buildstage
+		return data
+
+	deserialize(list/data)
+		detecting = data["detecting"]
+		working = data["working"]
+		wiresexposed = data["wiresexposed"]
+		buildstage = data["buildstage"]
+		..()
+
 /obj/machinery/firealarm/no_alarm
 	report_fire_alarms = FALSE
 
@@ -53,7 +69,7 @@ FIRE ALARM
 	if(wiresexposed)
 		icon_state = "firealarm_b[buildstage]"
 		return
-	
+
 	if(stat & BROKEN)
 		icon_state = "firealarm_broken"
 	else if(stat & NOPOWER)

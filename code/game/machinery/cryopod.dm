@@ -241,6 +241,18 @@
 		/obj/item/mmi/robotic_brain
 	)
 
+	serialize()
+		var/list/data = ..()
+		data["contents"] = serialize_contents()
+		return data
+
+	deserialize(list/data)
+		deserialize_contents(data["contents"])
+		for(var/mob/living/carbon/human/E in contents)
+			occupant = E
+			break
+		..()
+
 /obj/machinery/cryopod/right
 	dir = EAST
 
@@ -436,6 +448,7 @@
 			occupant.ghostize(TRUE)
 	QDEL_NULL(occupant)
 	name = initial(name)
+	check_for_sync()
 
 
 /obj/machinery/cryopod/attackby(obj/item/I, mob/user, params)
@@ -583,6 +596,7 @@
 	log_admin("<span class='notice'>[key_name(E)] entered a stasis pod.</span>")
 	message_admins("[key_name_admin(E)] entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	add_fingerprint(E)
+	check_for_sync()
 
 
 /obj/machinery/cryopod/verb/eject()
@@ -653,6 +667,7 @@
 
 		add_fingerprint(usr)
 		name = "[name] ([usr.name])"
+		check_for_sync()
 
 	return
 
@@ -664,6 +679,7 @@
 	occupant = null
 	icon_state = base_icon_state
 	name = initial(name)
+	check_for_sync()
 
 	return
 

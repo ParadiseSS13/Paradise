@@ -10,6 +10,20 @@
 	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
 
+	serialize()
+		var/list/data = ..()
+		data["thermite"] = thermite
+		data["germ_level"] = germ_level
+		data["wet"] = wet
+		return data
+
+	deserialize(list/data)
+		thermite = data["thermite"]
+		germ_level = data["germ_level"]
+		if (data["wet"] > 0)
+			MakeSlippery(data["wet"])
+		..()
+
 	deserialize_air(list/data)
 		if(air)
 			air.deserialize(data)

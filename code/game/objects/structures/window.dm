@@ -30,6 +30,19 @@
 	/// Used to restore colours from polarised glass
 	var/old_color
 
+	serialize()
+		var/list/data = ..()
+		data["state"] = state
+		data["ini_dir"] = ini_dir
+		data["old_color"] = old_color
+		return data
+
+	deserialize(list/data)
+		state = data["state"]
+		ini_dir = data["ini_dir"]
+		old_color = data["old_color"]
+		..()
+
 /obj/structure/window/examine(mob/user)
 	. = ..()
 	if(reinf)
@@ -81,6 +94,7 @@
 		old_color = color
 		animate(src, color = "#222222", time = 0.5 SECONDS)
 		set_opacity(TRUE)
+	check_for_sync()
 
 /obj/structure/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
@@ -227,6 +241,7 @@
 		return
 	state = (state == WINDOW_OUT_OF_FRAME ? WINDOW_IN_FRAME : WINDOW_OUT_OF_FRAME)
 	to_chat(user, "<span class='notice'>You pry the window [state == WINDOW_IN_FRAME ? "into":"out of"] the frame.</span>")
+	check_for_sync()
 
 /obj/structure/window/screwdriver_act(mob/user, obj/item/I)
 	if(flags & NODECONSTRUCT)
@@ -252,6 +267,7 @@
 			air_update_turf(TRUE)
 			update_nearby_icons()
 			to_chat(user, "<span class='notice'>You [anchored ? "fasten the frame to":"unfasten the frame from"] the floor.</span>")
+			check_for_sync()
 
 	else //if we're not reinforced, we don't need to check or update state
 		if(decon_speed)
@@ -262,6 +278,7 @@
 		air_update_turf(TRUE)
 		update_nearby_icons()
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the window to":"unfasten the window from"] the floor.</span>")
+		check_for_sync()
 
 /obj/structure/window/wrench_act(mob/user, obj/item/I)
 	if(flags & NODECONSTRUCT)
@@ -297,6 +314,7 @@
 		obj_integrity = max_integrity
 		update_nearby_icons()
 		WELDER_REPAIR_SUCCESS_MESSAGE
+		check_for_sync()
 
 /obj/structure/window/proc/check_state(checked_state)
 	if(state == checked_state)
@@ -378,6 +396,7 @@
 	air_update_turf(1)
 	ini_dir = dir
 	add_fingerprint(usr)
+	check_for_sync()
 	return TRUE
 
 /obj/structure/window/verb/revrotate()
@@ -401,6 +420,7 @@
 	setDir(target_dir)
 	ini_dir = dir
 	add_fingerprint(usr)
+	check_for_sync()
 	return TRUE
 
 /obj/structure/window/AltClick(mob/user)
@@ -429,6 +449,7 @@
 	setDir(target_dir)
 	ini_dir = dir
 	add_fingerprint(user)
+	check_for_sync()
 	return TRUE
 
 /obj/structure/window/Destroy()
@@ -442,6 +463,7 @@
 	. = ..()
 	setDir(ini_dir)
 	move_update_air(T)
+	check_for_sync()
 
 /obj/structure/window/CanAtmosPass(turf/T)
 	if(!anchored || !density)
@@ -563,6 +585,7 @@
 	for(var/obj/structure/window/full/reinforced/polarized/W in range(src, range))
 		if(W.id == id || !W.id)
 			W.toggle_polarization()
+	check_for_sync()
 
 /obj/machinery/button/windowtint/power_change()
 	..()

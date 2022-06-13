@@ -129,6 +129,7 @@ Class Procs:
 
 	serialize()
 		var/list/data = ..()
+		data["components"] = serialize_components()
 		data["anchored"] = anchored
 		data["panel_open"] = panel_open
 		data["stat"] = stat
@@ -138,7 +139,33 @@ Class Procs:
 		anchored = data["anchored"]
 		panel_open = data["panel_open"]
 		stat = data["stat"]
+		deserialize_components(data["components"])
 		..()
+
+
+/obj/machinery/proc/serialize_components()
+	var/list/content_list = list()
+	for(var/thing in component_parts)
+		var/atom/A = thing
+		content_list.len++
+		content_list[content_list.len] = A.serialize()
+	return content_list
+
+/obj/machinery/proc/deserialize_components(list/content_data)
+	// clear existing
+	for(var/thing in component_parts)
+		qdel(thing)
+	component_parts = list()
+	// deserialize list
+	for(var/thing in content_data)
+		if(islist(thing))
+			var spawned = list_to_object(thing, null)
+			if (spawned)
+				component_parts += spawned
+		else if(thing == null)
+			log_runtime(EXCEPTION("Null entry found in storage/deserialize."), src)
+		else
+			log_runtime(EXCEPTION("Non-list thing found in storage/deserialize."), src, list("Thing: [thing]"))
 
 /*
  * reimp, attempts to flicker this machinery if the behavior is supported.

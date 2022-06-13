@@ -31,6 +31,17 @@
 	var/hidden_pain = FALSE //will it skip pain messages?
 	var/requires_robotic_bodypart = FALSE
 
+	serialize()
+		var/list/data = ..()
+		data["status"] = status
+		data["damage"] = damage
+		return data
+
+	deserialize(list/data)
+		status = data["status"]
+		damage = data["damage"]
+		..()
+
 
 /obj/item/organ/Destroy()
 	STOP_PROCESSING(SSobj, src)

@@ -27,6 +27,24 @@
 
 	light_color = LIGHT_COLOR_WHITE
 
+	serialize()
+		var/list/data = ..()
+		data["efficiency"] = efficiency
+		data["auto_eject_prefs"] = auto_eject_prefs
+		data["occupant"] = occupant?.serialize()
+		data["beaker"] = beaker?.serialize()
+		return data
+
+	deserialize(list/data)
+		efficiency = data["efficiency"]
+		auto_eject_prefs = data["auto_eject_prefs"]
+		qdel(occupant)
+		occupant = list_to_object(data["occupant"], src)
+		qdel(beaker)
+		beaker = list_to_object(data["beaker"], src)
+		..()
+
+
 /obj/machinery/atmospherics/unary/cryo_cell/detailed_examine()
 	return "The cryogenic chamber, or 'cryo', treats most damage types, most notably genetic damage. It also stabilizes patients \
 			in critical condition by placing them in stasis, so they can be treated at a later time.<br>\
@@ -114,11 +132,13 @@
 		occupant = null
 		updateUsrDialog()
 		update_icon()
+	check_for_sync()
 
 /obj/machinery/atmospherics/unary/cryo_cell/on_deconstruction()
 	if(beaker)
 		beaker.forceMove(drop_location())
 		beaker = null
+	check_for_sync()
 
 /obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O, mob/living/user)
 	if(O.loc == user) //no you can't pull things out of your ass
@@ -286,6 +306,7 @@
 				return
 			beaker.forceMove(get_step(loc, SOUTH))
 			beaker = null
+			check_for_sync()
 		if("ejectOccupant")
 			if(!occupant || isslime(usr) || ispAI(usr))
 				return
@@ -310,6 +331,7 @@
 		add_attack_logs(user, null, "Added [B] containing [B.reagents.log_list()] to a cryo cell at [COORD(src)]")
 		user.visible_message("[user] adds \a [B] to [src]!", "You add \a [B] to [src]!")
 		SStgui.update_uis(src)
+		check_for_sync()
 		return
 
 	if(exchange_parts(user, G))
@@ -440,6 +462,7 @@
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(get_step(loc, SOUTH))
+	check_for_sync()
 
 /obj/machinery/atmospherics/unary/cryo_cell/force_eject_occupant(mob/target)
 	go_out()
@@ -477,6 +500,7 @@
 	add_fingerprint(usr)
 	update_icon()
 	M.ExtinguishMob()
+	check_for_sync()
 	return 1
 
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()

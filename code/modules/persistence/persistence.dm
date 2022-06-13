@@ -136,29 +136,33 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 	if (!GLOB.enable_sync || !synced)
 		return
 
-	if (!isturf(loc) || (x == 0 && y == 0 && z == 0))
-		return
+	try
+		if (!isturf(loc) || (x == 0 && y == 0 && z == 0))
+			return
 
-	var/datum/db_query/query = null
-	var/data = sanitizeSQL("[json_encode(serialize())]")
+		var/datum/db_query/query = null
+		var/data = sanitizeSQL("[json_encode(serialize())]")
 
-	if (db_uid <= 0)
-		to_chat(world, "DB >> new obj [type]")
-		query = SSdbcore.NewQuery({"
-			INSERT INTO rs_world_objects (
-				data,
-				x,y,z)
-			VALUES (
-				'[data]',
-				[x],[y],[z])
-		"})
-		query.Execute()
-		db_uid = text2num(query.last_insert_id)
-		qdel(query)
-	else
-		// update in database
-		//to_chat(world, "DB >> update obj [type] as [db_uid]")
-		query = SSdbcore.NewQuery({"
+		if (!data)
+			return
+
+		if (db_uid <= 0)
+			to_chat(world, "DB >> new obj [type]")
+			query = SSdbcore.NewQuery({"
+				INSERT INTO rs_world_objects (
+					data,
+					x,y,z)
+				VALUES (
+					'[data]',
+					[x],[y],[z])
+			"})
+			query.Execute()
+			db_uid = text2num(query.last_insert_id)
+			qdel(query)
+		else
+			// update in database
+			//to_chat(world, "DB >> update obj [type] as [db_uid]")
+			query = SSdbcore.NewQuery({"
 				UPDATE rs_world_objects
 				SET
 					data = '[data]',
@@ -167,11 +171,14 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 					z = [z]
 				WHERE
 					uid = [db_uid]
+				"})
+			query.Execute()
+			qdel(query)
+		db_dirty = FALSE
 
-			"})
-		query.Execute()
-		qdel(query)
-	db_dirty = FALSE
+	catch
+		del_from_db()
+		return
 
 /atom/proc/del_from_db()
 	if(db_uid > 0)
@@ -207,20 +214,27 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 /turf/sync_to_db()
 	if (!GLOB.enable_sync)
 		return
-	to_chat(world, "DB >> new turf [type] at [x],[y],[z]")
-	var/datum/db_query/save_turf = SSdbcore.NewQuery({"
-			REPLACE INTO rs_world_turfs (
-				x,y,z,
-				data
-			)
-			VALUES (
-				[x],[y],[z],
-				'[json_encode(serialize())]'
-			)"})
-	save_turf.Execute()
-	qdel(save_turf)
-	db_dirty = FALSE
-	db_saved = TRUE
+
+	try
+		var/data = json_encode(serialize())
+		if (!data) return
+
+		to_chat(world, "DB >> new turf [type] at [x],[y],[z]")
+		var/datum/db_query/save_turf = SSdbcore.NewQuery({"
+				REPLACE INTO rs_world_turfs (
+					x,y,z,
+					data
+				)
+				VALUES (
+					[x],[y],[z],
+					'[data]'
+				)"})
+		save_turf.Execute()
+		qdel(save_turf)
+		db_dirty = FALSE
+		db_saved = TRUE
+	catch
+		return
 
 /turf/simulated/sync_to_db()
 	if (!air)
@@ -229,22 +243,29 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 
 	if (!GLOB.enable_sync)
 		return
-	to_chat(world, "DB >> new sim turf [type] at [x],[y],[z]")
-	var/datum/db_query/save_turf = SSdbcore.NewQuery({"
-			REPLACE INTO rs_world_turfs (
-				x,y,z,
-				data,
-				air
-			)
-			VALUES (
-				[x],[y],[z],
-				'[json_encode(serialize())]',
-				'[json_encode(air.serialize())]'
-			)"})
-	save_turf.Execute()
-	qdel(save_turf)
-	db_dirty = FALSE
-	db_saved = TRUE
+
+	try
+		var/data = json_encode(serialize())
+		if (!data) return
+
+		to_chat(world, "DB >> new sim turf [type] at [x],[y],[z]")
+		var/datum/db_query/save_turf = SSdbcore.NewQuery({"
+				REPLACE INTO rs_world_turfs (
+					x,y,z,
+					data,
+					air
+				)
+				VALUES (
+					[x],[y],[z],
+					'[json_encode(serialize())]',
+					'[json_encode(air.serialize())]'
+				)"})
+		save_turf.Execute()
+		qdel(save_turf)
+		db_dirty = FALSE
+		db_saved = TRUE
+	catch
+		return
 
 /turf/simulated/proc/sync_air_to_db()
 	if (!db_saved)
@@ -286,6 +307,8 @@ in their list
 	return list_to_object(data, loc)
 
 /proc/list_to_object(list/data, loc)
+	if (!data)
+		return null
 	if(!islist(data))
 		throw EXCEPTION("You didn't give me a list, bucko")
 	if(!("type" in data))

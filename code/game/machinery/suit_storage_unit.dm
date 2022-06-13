@@ -47,7 +47,52 @@
 	var/state_open = FALSE
 	/// If set, turned into typecache in Initialize, other wise, defaults to mob/living typecache
 	var/list/occupant_typecache
+
 	var/atom/movable/occupant = null
+	serialize()
+		var/list/data = ..()
+		data["locked"] = locked
+		data["safeties"] = safeties
+		data["broken"] = broken
+		data["secure"] = secure
+		data["shocked"] = shocked
+		data["uv"] = uv
+		data["uv_super"] = uv_super
+		data["uv_cycles"] = uv_cycles
+		data["state_open"] = state_open
+
+		data["suit"] = suit?.serialize()
+		data["suit"] = suit?.serialize()
+		data["helmet"] = helmet?.serialize()
+		data["mask"] = mask?.serialize()
+		data["boots"] = boots?.serialize()
+		data["storage"] = storage?.serialize()
+		return data
+
+	deserialize(list/data)
+		locked = data["locked"]
+		safeties = data["safeties"]
+		broken = data["broken"]
+		secure = data["secure"]
+		shocked = data["shocked"]
+		uv = data["uv"]
+		uv_super = data["uv_super"]
+		uv_cycles = data["uv_cycles"]
+		state_open = data["state_open"]
+
+		qdel(occupant)
+		occupant = list_to_object(data["occupant"], src)
+		qdel(suit)
+		suit = list_to_object(data["suit"], src)
+		qdel(helmet)
+		helmet = list_to_object(data["helmet"], src)
+		qdel(mask)
+		mask = list_to_object(data["mask"], src)
+		qdel(boots)
+		boots = list_to_object(data["boots"], src)
+		qdel(storage)
+		storage = list_to_object(data["storage"], src)
+		..()
 
 /obj/machinery/suit_storage_unit/industrial
 	name = "industrial suit storage unit"
@@ -372,22 +417,27 @@
 	if(istype(I, /obj/item/clothing/suit) && !suit)
 		if(try_store_item(I, user))
 			suit = I
+			check_for_sync()
 			return TRUE
 	if(istype(I, /obj/item/clothing/head) && !helmet)
 		if(try_store_item(I, user))
 			helmet = I
+			check_for_sync()
 			return TRUE
 	if(istype(I, /obj/item/clothing/mask) && !mask)
 		if(try_store_item(I, user))
 			mask = I
+			check_for_sync()
 			return TRUE
 	if(istype(I, /obj/item/clothing/shoes) && !boots)
 		if(try_store_item(I, user))
 			boots = I
+			check_for_sync()
 			return TRUE
 	if((istype(I, /obj/item/tank) || I.w_class <= WEIGHT_CLASS_SMALL) && !storage)
 		if(try_store_item(I, user))
 			storage = I
+			check_for_sync()
 			return TRUE
 	return FALSE
 
@@ -551,6 +601,7 @@
 		dropContents()
 	update_icon()
 	SStgui.update_uis(src)
+	check_for_sync()
 
 /obj/machinery/suit_storage_unit/dropContents()
 	var/turf/T = get_turf(src)
@@ -560,6 +611,7 @@
 			var/mob/living/L = A
 			L.update_canmove()
 	occupant = null
+	check_for_sync()
 
 /obj/machinery/suit_storage_unit/proc/close_machine(atom/movable/target = null)
 	state_open = FALSE
@@ -582,6 +634,7 @@
 		target.forceMove(src)
 	SStgui.update_uis(src)
 	update_icon()
+	check_for_sync()
 
 
 ////////
@@ -667,6 +720,7 @@
 		return
 	else
 		safeties = !safeties
+		check_for_sync()
 
 /obj/machinery/suit_storage_unit/proc/dispense_helmet()
 	if(!helmet)
@@ -674,6 +728,7 @@
 	else
 		helmet.forceMove(loc)
 		helmet = null
+		check_for_sync()
 
 /obj/machinery/suit_storage_unit/proc/dispense_suit()
 	if(!suit)
@@ -681,6 +736,7 @@
 	else
 		suit.forceMove(loc)
 		suit = null
+		check_for_sync()
 
 /obj/machinery/suit_storage_unit/proc/dispense_mask()
 	if(!mask)
@@ -688,6 +744,7 @@
 	else
 		mask.forceMove(loc)
 		mask = null
+		check_for_sync()
 
 /obj/machinery/suit_storage_unit/proc/dispense_boots()
 	if(!boots)
@@ -695,6 +752,7 @@
 	else
 		boots.forceMove(loc)
 		boots = null
+		check_for_sync()
 
 /obj/machinery/suit_storage_unit/proc/dispense_storage()
 	if(!storage)
@@ -702,6 +760,7 @@
 	else
 		storage.forceMove(loc)
 		storage = null
+		check_for_sync()
 
 /obj/machinery/suit_storage_unit/proc/toggle_open(mob/user as mob)
 	if(locked || uv)
@@ -711,6 +770,7 @@
 		eject_occupant(user)
 		return
 	state_open = !state_open
+		check_for_sync()
 
 /obj/machinery/suit_storage_unit/proc/toggle_lock(mob/user as mob)
 	if(occupant && safeties)
@@ -719,6 +779,7 @@
 	if(state_open)
 		return
 	locked = !locked
+		check_for_sync()
 
 /obj/machinery/suit_storage_unit/proc/eject_occupant(mob/user as mob)
 	if(locked)
@@ -737,6 +798,7 @@
 	if(!state_open)
 		state_open = 1
 	update_icon()
+	check_for_sync()
 	return
 
 /obj/machinery/suit_storage_unit/force_eject_occupant(mob/target)
@@ -783,6 +845,7 @@
 
 		add_fingerprint(usr)
 		SStgui.update_uis(src)
+		check_for_sync()
 		return
 	else
 		occupant = null
@@ -793,3 +856,4 @@
 /obj/machinery/suit_storage_unit/proc/check_electrified_callback()
 	if(!wires.is_cut(WIRE_ELECTRIFY))
 		shocked = FALSE
+		check_for_sync()

@@ -12,6 +12,18 @@
 	var/obj/item/stock_parts/cell/charging = null
 	var/chargelevel = -1
 
+	serialize()
+		var/list/data = ..()
+		data["charging"] = charging?.serialize()
+		data["chargelevel"] = chargelevel
+		return data
+
+	deserialize(list/data)
+		chargelevel = data["chargelevel"]
+		qdel(charging)
+		charging = list_to_object(data["charging"], src)
+		..()
+
 /obj/machinery/cell_charger/deconstruct()
 	if(charging)
 		charging.forceMove(drop_location())
@@ -68,6 +80,7 @@
 			user.visible_message("[user] inserts a cell into the charger.", "<span class='notice'>You insert a cell into the charger.</span>")
 			chargelevel = -1
 			updateicon()
+			check_for_sync()
 	else
 		return ..()
 
@@ -90,6 +103,7 @@
 	charging = null
 	chargelevel = -1
 	updateicon()
+	check_for_sync()
 
 /obj/machinery/cell_charger/attack_hand(mob/user)
 	if(!charging)
@@ -120,7 +134,7 @@
 
 	if(charging)
 		charging.emp_act(severity)
-
+	check_for_sync()
 	..(severity)
 
 

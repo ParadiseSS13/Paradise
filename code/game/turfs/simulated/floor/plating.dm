@@ -13,6 +13,15 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	smoothing_groups = list(SMOOTH_GROUP_TURF)
 
+	serialize()
+		var/list/data = ..()
+		data["unfastened"] = unfastened
+		return data
+
+	deserialize(list/data)
+		unfastened = data["unfastened"]
+		..()
+
 /turf/simulated/floor/plating/Initialize(mapload)
 	. = ..()
 	icon_plating = icon_state
@@ -110,6 +119,7 @@
 		return
 	to_chat(user, "<span class='notice'>You [unfastened ? "fasten" : "unfasten"] [src].</span>")
 	unfastened = !unfastened
+	check_for_sync()
 
 /turf/simulated/floor/plating/welder_act(mob/user, obj/item/I)
 	if(!broken && !burnt && !unfastened)

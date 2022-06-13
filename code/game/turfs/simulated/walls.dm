@@ -41,6 +41,19 @@
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
 
+	serialize()
+		var/list/data = ..()
+		data["engraving"] = engraving
+		data["damage"] = damage
+		data["rotting"] = rotting
+		return data
+
+	deserialize(list/data)
+		engraving = data["engraving"]
+		damage = data["damage"]
+		rotting = data["rotting"]
+		..()
+
 /turf/simulated/wall/Initialize(mapload)
 	. = ..()
 	if(smoothing_flags & SMOOTH_DIAGONAL_CORNERS && fixed_underlay) //Set underlays for the diagonal walls.
@@ -259,7 +272,9 @@
 		to_chat(user, "<span class='warning'>The thermite starts melting through the wall.</span>")
 
 	spawn(wait)
-		if(O)	qdel(O)
+		if(O)
+			qdel(O)
+	check_for_sync()
 	return
 
 //Interactions
@@ -355,6 +370,7 @@
 			repairing = FALSE
 			time = slicing_duration
 			WELDER_ATTEMPT_SLICING_MESSAGE
+			check_for_sync()
 		else
 			return
 
@@ -363,6 +379,7 @@
 			repairing = TRUE
 			time = max(5, damage / 5)
 			WELDER_ATTEMPT_REPAIR_MESSAGE
+			check_for_sync()
 		else
 			to_chat(user, "<span class='warning'>[src] doesn't need repairing.</span>")
 			return

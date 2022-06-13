@@ -19,6 +19,15 @@
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = 1
 
+	serialize()
+		var/list/data = ..()
+		data["d_state"] = d_state
+		return data
+
+	deserialize(list/data)
+		d_state = data["d_state"]
+		..()
+
 /turf/simulated/wall/r_wall/examine(mob/user)
 	. = ..()
 	switch(d_state)
@@ -44,12 +53,14 @@
 			d_state = RWALL_CUT_COVER
 			update_icon()
 			to_chat(user, "<span class='notice'>You press firmly on the cover, dislodging it.</span>")
+			check_for_sync()
 		return
 	else if(d_state == RWALL_SUPPORT_RODS && istype(I, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You begin slicing through the support rods...</span>")
 		if(I.use_tool(src, user, 70, volume = I.tool_volume) && d_state == RWALL_SUPPORT_RODS)
 			d_state = RWALL_SHEATH
 			update_icon()
+			check_for_sync()
 		return
 	else if(d_state == RWALL_SUPPORT_LINES && istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/S = I
@@ -57,6 +68,7 @@
 			d_state = RWALL_INTACT
 			update_icon()
 			to_chat(user, "<span class='notice'>You replace the outer grille.</span>")
+			check_for_sync()
 		else
 			to_chat(user, "<span class='warning'>You don't have enough rods for that!</span>")
 		return
@@ -73,6 +85,7 @@
 				update_icon()
 				QUEUE_SMOOTH_NEIGHBORS(src)
 				to_chat(user, "<span class='notice'>You repair the last of the damage.</span>")
+				check_for_sync()
 			return
 	else
 		return ..()
@@ -91,15 +104,18 @@
 		if(I.use_tool(src, user, 60, volume = I.tool_volume) && d_state == RWALL_COVER)
 			d_state = RWALL_CUT_COVER
 			to_chat(user, "<span class='notice'>You press firmly on the cover, dislodging it.</span>")
+			check_for_sync()
 	else if(d_state == RWALL_SUPPORT_RODS)
 		to_chat(user, "<span class='notice'>You begin slicing through the support rods...</span>")
 		if(I.use_tool(src, user, 100, volume = I.tool_volume) && d_state == RWALL_SUPPORT_RODS)
 			d_state = RWALL_SHEATH
+			check_for_sync()
 	else if(d_state == RWALL_CUT_COVER)
 		to_chat(user, "<span class='notice'>You begin welding the metal cover back to the frame...</span>")
 		if(I.use_tool(src, user, 60, volume = I.tool_volume) && d_state == RWALL_CUT_COVER)
 			to_chat(user, "<span class='notice'>The metal cover has been welded securely to the frame.</span>")
 			d_state = RWALL_COVER
+			check_for_sync()
 	update_icon()
 
 /turf/simulated/wall/r_wall/crowbar_act(mob/user, obj/item/I)
@@ -115,6 +131,7 @@
 				return
 			d_state = RWALL_BOLTS
 			to_chat(user, "<span class='notice'>You pry off the cover.</span>")
+			check_for_sync()
 		if(RWALL_SHEATH)
 			to_chat(user, "<span class='notice'>You struggle to pry off the outer sheath...</span>")
 			if(!I.use_tool(src, user, 100, volume = I.tool_volume))
@@ -129,6 +146,7 @@
 				return
 			d_state = RWALL_CUT_COVER
 			to_chat(user, "<span class='notice'>The metal cover has been pried back into place.</span>")
+			check_for_sync()
 	update_icon()
 
 /turf/simulated/wall/r_wall/screwdriver_act(mob/user, obj/item/I)
@@ -147,9 +165,11 @@
 	if(d_state == RWALL_SUPPORT_LINES)
 		d_state = RWALL_COVER
 		to_chat(user, "<span class='notice'>You unsecure the support lines.</span>")
+		check_for_sync()
 	else
 		d_state = RWALL_SUPPORT_LINES
 		to_chat(user, "<span class='notice'>The support lines have been secured.</span>")
+		check_for_sync()
 	update_icon()
 
 /turf/simulated/wall/r_wall/wirecutter_act(mob/user, obj/item/I)
@@ -162,6 +182,7 @@
 	update_icon()
 	new /obj/item/stack/rods(src)
 	to_chat(user, "<span class='notice'>You cut the outer grille.</span>")
+	check_for_sync()
 
 /turf/simulated/wall/r_wall/wrench_act(mob/user, obj/item/I)
 	if(d_state != RWALL_BOLTS && d_state != RWALL_SUPPORT_RODS)
@@ -183,6 +204,7 @@
 		d_state = RWALL_BOLTS
 		to_chat(user, "<span class='notice'>You tighten the bolts anchoring the support rods.</span>")
 	update_icon()
+	check_for_sync()
 
 /turf/simulated/wall/r_wall/try_decon(obj/item/I, mob/user, params) //Plasma cutter only works in the deconstruction steps!
 	return FALSE

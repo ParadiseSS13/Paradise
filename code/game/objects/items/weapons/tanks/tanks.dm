@@ -17,6 +17,21 @@
 	var/integrity = 3
 	var/volume = 70
 
+	serialize()
+		var/list/data = ..()
+		data["integrity"] = integrity
+		data["distribute_pressure"] = distribute_pressure
+		data["air_contents"] = air_contents.serialize()
+		return data
+
+	deserialize(list/data)
+		integrity = data["integrity"]
+		distribute_pressure = data["distribute_pressure"]
+		air_contents.clear()
+		if(data["air_contents"])
+			air_contents.deserialize(data["air_contents"])
+		..()
+
 
 /obj/item/tank/New()
 	..()
@@ -185,6 +200,7 @@
 				. = FALSE
 			if(.)
 				distribute_pressure = clamp(round(pressure), TANK_MIN_RELEASE_PRESSURE, TANK_MAX_RELEASE_PRESSURE)
+				check_for_sync()
 		if("internals")
 			toggle_internals(usr)
 		else

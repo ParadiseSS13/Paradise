@@ -25,6 +25,15 @@
 	var/precision = 0 //By default, turfs picked from a spray are random, set to 1 to make it always have at least one water effect per row
 	var/cooling_power = 2 //Sets the cooling_temperature of the water reagent datum inside of the extinguisher when it is refilled
 
+	serialize()
+		var/list/data = ..()
+		data["safety"] = safety
+		return data
+
+	deserialize(list/data)
+		safety = data["safety"]
+		..()
+
 /obj/item/extinguisher/mini
 	name = "pocket fire extinguisher"
 	desc = "A light and compact fibreglass-framed model fire extinguisher."
@@ -55,6 +64,7 @@
 	src.icon_state = "[sprite_name][!safety]"
 	src.desc = "The safety is [safety ? "on" : "off"]."
 	to_chat(user, "The safety is [safety ? "on" : "off"].")
+	check_for_sync()
 	return
 
 /obj/item/extinguisher/attack_obj(obj/O, mob/living/user, params)
@@ -85,6 +95,7 @@
 		return 1
 	else
 		return 0
+	check_for_sync()
 
 /obj/item/extinguisher/afterattack(atom/target, mob/user , flag)
 	. = ..()

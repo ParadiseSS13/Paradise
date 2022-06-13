@@ -69,6 +69,7 @@
 		// Ensure the storage cap is respected
 		if(++itemcount >= storage_capacity)
 			break
+	check_for_sync()
 
 // Fix for #383 - C4 deleting fridges with corpses
 /obj/structure/closet/Destroy()
@@ -104,6 +105,7 @@
 			step(AM2, dir)
 	if(throwing)
 		throwing.finalize(FALSE)
+	check_for_sync()
 
 /obj/structure/closet/proc/open()
 	if(opened)
@@ -441,6 +443,7 @@
 			return
 	UpdateTransparency(src, NewLoc)
 	forceMove(NewLoc)
+	check_for_sync()
 
 /obj/structure/closet/bluespace/close()
 	. = ..()

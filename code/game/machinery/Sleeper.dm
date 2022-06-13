@@ -31,6 +31,23 @@
 
 	light_color = LIGHT_COLOR_CYAN
 
+	serialize()
+		var/list/data = ..()
+		data["orient"] = orient
+		data["auto_eject_dead"] = auto_eject_dead
+		data["occupant"] = occupant?.serialize()
+		data["beaker"] = beaker?.serialize()
+		return data
+
+	deserialize(list/data)
+		orient = data["orient"]
+		auto_eject_dead = data["auto_eject_dead"]
+		qdel(occupant)
+		occupant = list_to_object(data["occupant"], src)
+		qdel(beaker)
+		beaker = list_to_object(data["beaker"], src)
+		..()
+
 /obj/machinery/sleeper/detailed_examine()
 	return "The sleeper allows you to clean the blood by means of dialysis, and to administer medication in a controlled environment.<br>\
 			<br>\
@@ -101,6 +118,7 @@
 			continue
 		else
 			M.forceMove(loc)
+			check_for_sync()
 
 	if(occupant)
 		if(auto_eject_dead && occupant.stat == DEAD)
@@ -312,6 +330,7 @@
 			I.forceMove(src)
 			user.visible_message("[user] adds \a [I] to [src]!", "You add \a [I] to [src]!")
 			SStgui.update_uis(src)
+			check_for_sync()
 			return
 
 		else
@@ -351,6 +370,7 @@
 			add_fingerprint(user)
 			qdel(G)
 			SStgui.update_uis(src)
+			check_for_sync()
 			return
 
 	return ..()
@@ -383,6 +403,7 @@
 	else
 		orient = "RIGHT"
 		setDir(EAST)
+	 check_for_sync()
 
 /obj/machinery/sleeper/ex_act(severity)
 	if(filtering)
@@ -398,10 +419,12 @@
 		updateUsrDialog()
 		update_icon()
 		SStgui.update_uis(src)
+		check_for_sync()
 	if(A == beaker)
 		beaker = null
 		updateUsrDialog()
 		SStgui.update_uis(src)
+		check_for_sync()
 
 /obj/machinery/sleeper/emp_act(severity)
 	if(filtering)
@@ -423,6 +446,7 @@
 		filtering = FALSE
 	else
 		filtering = TRUE
+	check_for_sync()
 
 /obj/machinery/sleeper/proc/go_out()
 	if(filtering)
@@ -436,6 +460,7 @@
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(loc)
 	SStgui.update_uis(src)
+	check_for_sync()
 
 /obj/machinery/sleeper/force_eject_occupant(mob/target)
 	go_out()
@@ -484,6 +509,7 @@
 		usr.put_in_hands(beaker)
 		beaker = null
 		SStgui.update_uis(src)
+		check_for_sync()
 	add_fingerprint(usr)
 	return
 
@@ -508,6 +534,7 @@
 		if(user.pulling == L)
 			user.stop_pulling()
 		SStgui.update_uis(src)
+		check_for_sync()
 		return
 	return
 
@@ -579,6 +606,7 @@
 			qdel(O)
 		add_fingerprint(usr)
 		SStgui.update_uis(src)
+		check_for_sync()
 		return
 	return
 
