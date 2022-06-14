@@ -442,6 +442,15 @@
 		disable(rand(2, 5))
 		return TRUE
 
+/obj/item/clothing/suit/armor/reactive/random //Spawner for random reactive armor
+	name = "Random Reactive Armor"
+
+/obj/item/clothing/suit/armor/reactive/random/Initialize(mapload)
+	. = ..()
+	var/spawnpath = pick(subtypesof(/obj/item/clothing/suit/armor/reactive) - /obj/item/clothing/suit/armor/reactive/random)
+	new spawnpath(loc)
+	qdel(src)
+
 //All of the armor below is mostly unused
 
 

@@ -81,6 +81,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("research airlock assembly", /obj/structure/door_assembly/door_assembly_research, 4, time = 50, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("science airlock assembly", /obj/structure/door_assembly/door_assembly_science, 4, time = 50, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("medical airlock assembly", /obj/structure/door_assembly/door_assembly_med, 4, time = 50, one_per_turf = 1, on_floor = 1),
+		new /datum/stack_recipe("virology airlock assembly", /obj/structure/door_assembly/door_assembly_viro, 4, time = 50, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("maintenance airlock assembly", /obj/structure/door_assembly/door_assembly_mai, 4, time = 50, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("external maintenance airlock assembly", /obj/structure/door_assembly/door_assembly_extmai, 4, time = 50, one_per_turf = 1, on_floor = 1), \
 		new /datum/stack_recipe("external airlock assembly", /obj/structure/door_assembly/door_assembly_ext, 4, time = 50, one_per_turf = 1, on_floor = 1),
@@ -160,7 +161,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	singular_name = "plasteel sheet"
 	desc = "This sheet is an alloy of iron and plasma."
 	icon_state = "sheet-plasteel"
-	item_state = "sheet-metal"
+	item_state = "sheet-plasteel"
 	materials = list(MAT_METAL=2000, MAT_PLASMA=2000)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
 	resistance_flags = FIRE_PROOF
@@ -218,6 +219,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	gender = PLURAL
 	singular_name = "wood plank"
 	icon_state = "sheet-wood"
+	item_state = "sheet-wood"
 	origin_tech = "materials=1;biotech=1"
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
@@ -264,6 +266,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	desc = "Is it cotton? Linen? Denim? Burlap? Canvas? You can't tell."
 	singular_name = "cloth roll"
 	icon_state = "sheet-cloth"
+	item_state = "sheet-cloth"
 	origin_tech = "materials=2"
 	resistance_flags = FLAMMABLE
 	force = 0
@@ -291,7 +294,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 	desc = "A fabric sown from incredibly durable threads, known for its usefulness in armor production."
 	singular_name = "durathread roll"
 	icon_state = "sheet-durathread"
-	item_state = "sheet-cloth"
+	item_state = "sheet-durathread"
 	resistance_flags = FLAMMABLE
 	force = 0
 	throwforce = 0
@@ -372,6 +375,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	desc = "Large sheets of card, like boxes folded flat."
 	singular_name = "cardboard sheet"
 	icon_state = "sheet-card"
+	item_state = "sheet-card"
 	origin_tech = "materials=1"
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/cardboard
@@ -398,7 +402,7 @@ GLOBAL_LIST_INIT(cult_recipes, list ( \
 	desc = "Sheets of cold metal with shifting inscriptions writ upon them."
 	singular_name = "runed metal sheet"
 	icon_state = "sheet-runed"
-	item_state = "sheet-metal"
+	item_state = "sheet-runed"
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
 	recipe_width = 700
@@ -406,6 +410,7 @@ GLOBAL_LIST_INIT(cult_recipes, list ( \
 /obj/item/stack/sheet/runed_metal/New()
 	. = ..()
 	icon_state = SSticker.cultdat?.runed_metal_icon_state
+	item_state = SSticker.cultdat?.runed_metal_item_state
 
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
 	if(!iscultist(user))
@@ -458,6 +463,7 @@ GLOBAL_LIST_INIT(brass_recipes, list (\
 	desc = "Sheets made out of brass."
 	singular_name = "brass sheet"
 	icon_state = "sheet-brass"
+	item_state = "sheet-brass"
 	icon = 'icons/obj/items.dmi'
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	throwforce = 10
@@ -486,6 +492,7 @@ GLOBAL_LIST_INIT(brass_recipes, list (\
 	name = "bones"
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "bone"
+	item_state = "bone"
 	singular_name = "bone"
 	desc = "Someone's been drinking their milk."
 	force = 7
@@ -522,6 +529,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	desc = "Compress dinosaur over millions of years, then refine, split and mold, and voila! You have plastic."
 	singular_name = "plastic sheet"
 	icon_state = "sheet-plastic"
+	item_state = "sheet-plastic"
 	throwforce = 7
 	origin_tech = "materials=1;biotech=1"
 	materials = list(MAT_PLASTIC = MINERAL_MATERIAL_AMOUNT)

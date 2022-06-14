@@ -33,7 +33,7 @@ Bonus
 		if(A.stage >= 3)
 			M.AdjustSlur(-4 SECONDS)
 			M.AdjustDrunk(-8 SECONDS)
-			M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3, 0, 1)
+			M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3)
 		if(A.stage >= 4)
 			M.AdjustDrowsy(-4 SECONDS)
 			if(RD.has_reagent("lsd"))
