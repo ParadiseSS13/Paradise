@@ -332,6 +332,8 @@
 
 	. = ..()	//calls mob.Login()
 
+	mob.update_client_colour(0) // Activate colourblind mode if they have one set
+
 
 	if(ckey in GLOB.clientmessages)
 		for(var/message in GLOB.clientmessages[ckey])

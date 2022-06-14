@@ -15,7 +15,7 @@
 	return "The advanced scanner detects and reports internal injuries such as bone fractures, internal bleeding, and organ damage. \
 			This is useful if you are about to perform surgery.<br>\
 			<br>\
-			Click your target with Grab intent, then click on the scanner to place them in it. Click the red terminal to operate. \
+			Click your target and drag them onto the scanner to place them inside. Click the body scanner in order to operate it. \
 			Right-click the scanner and click 'Eject Occupant' to remove them. You can enter the scanner yourself in a similar way, using the 'Enter Body Scanner' \
 			verb."
 
