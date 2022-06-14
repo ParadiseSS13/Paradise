@@ -54,14 +54,42 @@ Difficulty: Medium
 	var/revving_charge = FALSE
 	var/player_cooldown = 0
 	var/body_shield_enabled = FALSE
+	var/body_shield_cooldown = 0
+	var/body_shield_cooldown_time = 45 SECONDS // make define later
 	internal_type = /obj/item/gps/internal/ancient
 	medal_type = BOSS_MEDAL_DRAKE
 	score_type = DRAKE_SCORE
 	deathmessage = "explodes in a shower of alloys"
 	death_sound = 'sound/misc/demon_dies.ogg'
-	footstep_type = FOOTSTEP_MOB_HEAVY
+	footstep_type = FOOTSTEP_MOB_HEAVY //make stomp like bubble
 	attack_action_types = list()
 
+	var/mob/living/simple_animal/hostile/ancient_robot_leg/TR = null
+	var/mob/living/simple_animal/hostile/ancient_robot_leg/TL = null
+	var/mob/living/simple_animal/hostile/ancient_robot_leg/BR = null
+	var/mob/living/simple_animal/hostile/ancient_robot_leg/BL = null
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/Initialize(mapload, mob/living/ancient) //We spawn and move them to clear out area for the legs, rather than risk the legs getting put in a wall
+	. = ..()
+	TR = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src)
+	TL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src)
+	BR = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src)
+	BL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src)
+	addtimer(CALLBACK(src, .proc/leg_setup), 1 SECONDS)
+
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_setup()
+	var/turf/target_TR = locate(src.x + 2, src.y + 2, src.z)
+	TR.leg_movement(target_TR, 1)
+
+	var/turf/target_TL = locate(src.x - 2, src.y + 2, src.z)
+	TL.leg_movement(target_TL, 1)
+
+	var/turf/target_BR = locate(src.x + 2, src.y - 2, src.z)
+	BR.leg_movement(target_BR, 1)
+
+	var/turf/target_BL = locate(src.x - 2, src.y - 2, src.z)
+	BL.leg_movement(target_BL, 1)
 
 /obj/item/gps/internal/ancient
 	icon_state = null
@@ -91,10 +119,10 @@ Difficulty: Medium
 	if(prob(15 + anger_modifier))
 		triple_charge()
 
-	else if(prob(10+anger_modifier))
+	else if(prob(10 + anger_modifier))
 		do_special_move()
 
-	else if(prob(20) && !body_shield_enabled)
+	else if(prob(50) && !body_shield_enabled && !body_shield_cooldown)
 		body_shield()
 	else
 		visible_message("<span class='danger'>DOING FUCK ALL CAPTAIN</span>", "<span class='userdanger'>You deflect the projectile!</span>")
@@ -131,14 +159,12 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(atom/A)
 	if(charging)
-		if(isturf(A) || isobj(A) && A.density)
-			A.ex_act(EXPLODE_HEAVY)
 		DestroySurroundings()
 		if(isliving(A))
 			var/mob/living/L = A
 			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
 			forceMove(get_turf(L))
-			L.apply_damage(15, BRUTE) // ignores armor, might hit twice, TEST THIS SHIT.
+			L.apply_damage(15, BRUTE) // ignores armor, might hit twice, TEST THIS SHIT. it does
 			playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 			shake_camera(L, 4, 3)
 			shake_camera(src, 2, 3)
@@ -149,6 +175,7 @@ Difficulty: Medium
 	body_shield_enabled = TRUE
 	visible_message("<span class='danger'>SHIELD ON MOTHAFAKA</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 	addtimer(CALLBACK(src, .proc/disable_shield), 15 SECONDS)
+	body_shield_cooldown = world.time + body_shield_cooldown_time
 	//visable chat message / sound here
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/disable_shield()
@@ -173,8 +200,69 @@ Difficulty: Medium
 		return
 	..()
 
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/Moved(atom/OldLoc, Dir, Forced = FALSE)
+	if(charging)
+		DestroySurroundings()
+	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
+	return ..()
+
 ///mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(amount, updating_health = TRUE) //CHANGE THIS FOR CRITICAL DEATH KAABOOM
 //	if(swooping & SWOOP_INVULNERABLE)
 //		return FALSE
 //	return ..()
 
+/mob/living/simple_animal/hostile/ancient_robot_leg
+	name = "leg"
+	desc = "leg"
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "rubberducky"
+	maxHealth = INFINITY //it's fine trust me
+	health = INFINITY
+	faction = list("mining", "boss") // No attacking your leg
+	var/range = 5
+	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/core = null
+	var/fake_max_hp = 400
+	var/fake_hp = 400
+	var/fake_hp_regen = 10
+	var/transfer_rate = 0.5
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/Initialize(mapload, mob/living/ancient)
+	. = ..()
+	if(!ancient)
+		qdel(src) //no
+	core = ancient
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/Life(seconds, times_fired)
+	..()
+	health_and_snap_check(TRUE)
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
+	var/damage = amount * transfer_rate
+	core.adjustBruteLoss(damage)
+	if(damage && fake_hp <= 160) //warn that you are not doing much damage
+		src.visible_message("<span class='danger'>[src] looks too damaged to hurt it much more!</span>")
+	health_and_snap_check(FALSE)
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/proc/health_and_snap_check(regen = FALSE)
+	if(get_dist(get_turf(core),get_turf(src)) <= range)
+		return
+	else
+		forceMove(core.loc) //move to summoner's tile, don't recall
+	if(regen)
+		fake_hp = min(fake_hp + fake_hp_regen, fake_max_hp)
+	transfer_rate = 0.5 ^ (3 * (fake_hp / fake_max_hp)) * 0.5
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/proc/leg_movement(turf/T, speed) //byond doesn't like calling walk_towards on the legs directly
+	walk_towards(src, T, speed)
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/Bump(atom/A)
+	DestroySurroundings()
+	if(isliving(A))
+		var/mob/living/L = A
+		L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
+		forceMove(get_turf(L))
+		L.apply_damage(15, BRUTE) // ignores armor, might hit twice, TEST THIS SHIT. it does
+		playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
+		shake_camera(L, 4, 3)
+		shake_camera(src, 2, 3)
+	..()
