@@ -17,7 +17,6 @@
 	message = "claps."
 	message_mime = "claps silently."
 	message_param = "claps at %t."
-	hands_use_check = TRUE
 	emote_type = EMOTE_SOUND
 	vary = TRUE
 
