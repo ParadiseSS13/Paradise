@@ -175,6 +175,12 @@
 		item_state = itemState
 	if(current_skin)
 		icon_state = current_skin
+	var/mob/living/carbon/human/user = loc
+	if(istype(user))
+		if(user.hand) //this is kinda ew but whatever
+			user.update_inv_r_hand()
+		else
+			user.update_inv_l_hand()
 
 /obj/item/gun/energy/ui_action_click()
 	toggle_gunlight()
