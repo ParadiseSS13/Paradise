@@ -11,8 +11,8 @@
 		return TRUE
 	if(ismob(mover))
 		var/mob/moving_mob = mover
-		if((other_mobs && moving_mob.other_mobs))
-			return TRUE
+		if((currently_grab_pulled && moving_mob.currently_grab_pulled))
+			return FALSE
 		if(mover in buckled_mobs)
 			return TRUE
 	return (!mover.density || !density || lying)
@@ -128,36 +128,8 @@
 
 	if(locate(/obj/item/grab, mob))
 		delay += 7
-		var/list/L = mob.ret_grab()
-		if(istype(L, /list))
-			if(L.len == 2)
-				L -= mob
-				var/mob/M = L[1]
-				if(M)
-					if((get_dist(mob, M) <= 1 || M.loc == mob.loc))
-						var/turf/prev_loc = mob.loc
-						. = mob.SelfMove(n, direct, delay)
-						if(M && isturf(M.loc)) // Mob may get deleted during parent call
-							var/diag = get_dir(mob, M)
-							if((diag - 1) & diag)
-							else
-								diag = null
-							if((get_dist(mob, M) > 1 || diag))
-								M.Move(prev_loc, get_dir(M.loc, prev_loc), delay)
-			else
-				for(var/mob/M in L)
-					M.other_mobs = 1
-					if(mob != M)
-						M.animate_movement = 3
-				for(var/mob/M in L)
-					spawn(0)
-						M.Move(get_step(M,direct), direct, delay)
-					spawn(1)
-						M.other_mobs = null
-						M.animate_movement = 2
-
 	else if(mob.confused)
-		var/newdir = 0
+		var/newdir = NONE
 		if(mob.confused > 40)
 			newdir = pick(GLOB.alldirs)
 		else if(prob(mob.confused * 1.5))
@@ -175,13 +147,6 @@
 		delay = mob.movement_delay() * 1.41 //Will prevent mob diagonal moves from smoothing accurately, sadly
 
 	move_delay += delay
-
-	for(var/obj/item/grab/G in mob)
-		if(G.state == GRAB_NECK)
-			mob.setDir(angle2dir((dir2angle(direct) + 202.5) % 365))
-		G.adjust_position()
-	for(var/obj/item/grab/G in mob.grabbed_by)
-		G.adjust_position()
 
 	moving = 0
 	if(mob && .)
