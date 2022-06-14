@@ -103,13 +103,13 @@ if (typeof String.prototype.trim !== 'function') {
 //Polyfill for string.prototype.includes. Why the fuck. Just why the fuck.
 if (!String.prototype.includes) {
 	String.prototype.includes = function(search, start) {
-	  'use strict';
+		'use strict';
 
-	  if (search instanceof RegExp) {
-		throw TypeError('first argument must not be a RegExp');
-	  }
-	  if (start === undefined) { start = 0; }
-	  return this.indexOf(search, start) !== -1;
+		if (search instanceof RegExp) {
+			throw TypeError('first argument must not be a RegExp');
+		}
+	if (start === undefined) { start = 0; }
+	return this.indexOf(search, start) !== -1;
 	};
 }
 
@@ -307,7 +307,7 @@ function output(message, flag) {
 				if (!!$(messageHtml).children().attr('class')) {
 					messageClasses = messageClasses.concat($(messageHtml).children().attr('class').split(/\s+/));
 				}
-				var tempCount = 0;
+
 				for (var i = 0; i < messageClasses.length; i++) { //Every class
 					var thisClass = messageClasses[i];
 					$.each(opts.showMessagesFilters, function(key, val) { //Every filter
@@ -323,7 +323,6 @@ function output(message, flag) {
 						if (filteredOut) return false;
 					});
 					if (filteredOut) break;
-					tempCount++;
 				}
 			} else {
 				if (!opts.showMessagesFilters['Misc'].show) {
@@ -766,21 +765,21 @@ $(function() {
 		internalOutput('<span class="internal boldnshit">Loaded hide spam preference of: ' + savedConfig.shideSpam + '</span>', 'internal');
 	}
 	if (savedConfig.darkChat == "on") {
-		   $("head").append("<link>");
-		   var css = $("head").children(":last");
-		   css.attr({
-		     rel:  "stylesheet",
-		     type: "text/css",
-		     href: "./browserOutput-dark.css"
-		  });
+		$("head").append("<link>");
+		var css = $("head").children(":last");
+		css.attr({
+			rel:  "stylesheet",
+			type: "text/css",
+			href: "./browserOutput-dark.css"
+		});
 	} else {
-		   $("head").append("<link>");
-		   var css = $("head").children(":last");
-		   css.attr({
-		     rel:  "stylesheet",
-		     type: "text/css",
-		     href: "./browserOutput.css"
-		  });
+		$("head").append("<link>");
+		var css = $("head").children(":last");
+		css.attr({
+			rel:  "stylesheet",
+			type: "text/css",
+			href: "./browserOutput.css"
+		});
 	}
 	if(localStorage){
 		var backlog = localStorage.getItem('backlog')
@@ -1125,8 +1124,8 @@ $(function() {
 		var popupContent = '<div class="head">String Highlighting</div>' +
 			'<div class="highlightPopup" id="highlightPopup">' +
 				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.<br>'+
-		    			'<input name="highlightRegex" id="highlightRegexEnable" type="checkbox">Enable Regex</input>'+
-		    		'<br><a href="" onclick="window.open(\'https://www.paradisestation.org/wiki/index.php/Guide_to_Regex\')">See here for details</a></div>' +
+					'<input name="highlightRegex" id="highlightRegexEnable" type="checkbox">Enable Regex</input>'+
+					'<br><a href="" onclick="window.open(\'https://www.paradisestation.org/wiki/index.php/Guide_to_Regex\')">See here for details</a></div>' +
 				'<form id="highlightTermForm">' +
 					termInputs +
 					'<div><input type="text" name="highlightColor" id="highlightColor" class="highlightColor" '+

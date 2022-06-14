@@ -28,6 +28,7 @@
 				add_blood = bloodiness
 			bloodiness -= add_blood
 			S.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS, S.bloody_shoes[blood_state] + add_blood)
+			S.bloody_shoes[BLOOD_BASE_ALPHA] = BLOODY_FOOTPRINT_BASE_ALPHA * (alpha/255)
 			if(blood_DNA && blood_DNA.len)
 				S.add_blood(H.blood_DNA, basecolor)
 			S.blood_state = blood_state
@@ -42,6 +43,7 @@
 				add_blood = bloodiness
 			bloodiness -= add_blood
 			H.bloody_feet[blood_state] = min(MAX_SHOE_BLOODINESS, H.bloody_feet[blood_state] + add_blood)
+			H.bloody_feet[BLOOD_BASE_ALPHA] = BLOODY_FOOTPRINT_BASE_ALPHA * (alpha/255)
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.blood_state = blood_state

@@ -131,9 +131,7 @@
 		return
 	to_chat(victim, "<span class='reallybig redtext'>RIP AND TEAR</span>")
 	SEND_SOUND(victim, sound('sound/misc/e1m1.ogg'))
-	var/old_color = victim.client.color
 	var/red_splash = list(1,0,0,0.8,0.2,0, 0.8,0,0.2,0.1,0,0)
-	var/pure_red = list(0,0,0,0,0,0,0,0,0,1,0,0)
 
 	new /obj/effect/hallucination/delusion(get_turf(victim), victim, 'icons/mob/mob.dmi', "daemon")
 
@@ -146,10 +144,8 @@
 	chainsaw.wield(victim)
 	victim.reagents.add_reagent("adminordrazine", 25)
 
-	victim.client.color = pure_red
-	animate(victim.client,color = red_splash, time = 10, easing = SINE_EASING|EASE_OUT)
-	spawn(10)
-		animate(victim.client,color = old_color, time = duration)//, easing = SINE_EASING|EASE_OUT)
+	victim.flash_screen_color(red_splash, 10)
+
 	spawn(duration)
 		to_chat(victim, "<span class='notice'>Your bloodlust seeps back into the bog of your subconscious and you regain self control.</span>")
 		qdel(chainsaw)
