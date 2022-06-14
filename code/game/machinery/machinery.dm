@@ -129,7 +129,7 @@ Class Procs:
 
 	serialize()
 		var/list/data = ..()
-		data["components"] = serialize_components()
+		data["component_parts"] = serialize_components()
 		data["anchored"] = anchored
 		data["panel_open"] = panel_open
 		data["stat"] = stat
@@ -139,9 +139,13 @@ Class Procs:
 		anchored = data["anchored"]
 		panel_open = data["panel_open"]
 		stat = data["stat"]
-		deserialize_components(data["components"])
+		deserialize_components(data["component_parts"])
 		..()
 		RefreshParts()
+
+	on_persistent_load()
+		..()
+		locate_machinery()
 
 
 /obj/machinery/proc/serialize_components()

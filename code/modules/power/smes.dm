@@ -64,6 +64,20 @@
 		sync_charge = charge
 		..()
 
+	on_persistent_load()
+		..()
+		dir_loop:
+			for(var/d in GLOB.cardinal)
+				var/turf/T = get_step(src, d)
+				for(var/obj/machinery/power/terminal/term in T)
+					if(term && term.dir == turn(d, 180))
+						terminal = term
+						terminal.master = src
+						stat &= ~BROKEN
+						break dir_loop
+		update_icon()
+
+
 /obj/machinery/power/smes/Initialize(mapload)
 	. = ..()
 	component_parts = list()

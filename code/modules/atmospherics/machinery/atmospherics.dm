@@ -44,6 +44,9 @@ Pipelines + Other Objects -> Pipe network
 		on = data["on"]
 		..()
 
+	on_persistent_load()
+		on_construction(dir, initialize_directions, color)
+		..()
 
 /obj/machinery/atmospherics/New()
 	if (!armor)

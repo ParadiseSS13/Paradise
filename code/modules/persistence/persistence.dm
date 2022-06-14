@@ -187,10 +187,14 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 		return FALSE
 	return TRUE
 
+/atom/proc/on_persistent_load()
+	return
+
 /atom/proc/del_from_db()
 	if(db_uid > 0)
 		db_delete("rs_world_objects", "uid = [db_uid]")
 		db_uid = -1
+		db_dirty = FALSE
 
 /mob/serialize()
 	var/list/data = ..()
@@ -202,7 +206,10 @@ GLOBAL_VAR_INIT(enable_sync, FALSE)
 	..()
 
 /turf/del_from_db()
-	db_uid = -1
+	if(db_saved)
+		db_delete("rs_world_turfs", "x = [x] AND y = [y] AND z = [z]")
+		db_dirty = FALSE
+		db_saved = FALSE
 	return
 
 /turf/check_for_sync(forced)

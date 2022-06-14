@@ -69,6 +69,7 @@ SUBSYSTEM_DEF(persistent_data)
 	"})
 	query.Execute()
 	var/index = 0
+	var/list/deserialized = new()
 	while(query.NextRow())
 		try
 			var/uid = text2num(query.item[5])
@@ -80,15 +81,7 @@ SUBSYSTEM_DEF(persistent_data)
 				A.db_uid = uid
 				//log_startup_progress("DB >> spawning [turf_path] at [A.x],[A.y],[A.z]")
 
-				// initialize atmospherics once all deserialization is done
-				if(istype(A, /obj/machinery/atmospherics))
-					var/obj/machinery/atmospherics/P = A
-					P.on_construction(P.dir, P.initialize_directions, P.color)
-
-				// update any icons
-				if(istype(A, /obj))
-					var/obj/O = A
-					O?.update_icon()
+				deserialized.Add(A)
 
 				// reset any pixels for mobs
 				if(ismob(A))
@@ -102,6 +95,8 @@ SUBSYSTEM_DEF(persistent_data)
 	log_startup_progress("DB >> loaded [index] objects...")
 	qdel(query)
 
+	for(var/atom/A in deserialized)
+		A.on_persistent_load()
 
 /**
   * Proc to register an atom with SSpersistent_data

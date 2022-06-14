@@ -44,6 +44,11 @@
 		reagents?.deserialize(data["reagents"])
 		..()
 
+	on_persistent_load()
+		..()
+		update_icon()
+		return
+
 /obj/New()
 	..()
 	if(obj_integrity == null)

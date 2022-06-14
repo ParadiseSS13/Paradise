@@ -41,6 +41,13 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("light office chair", /obj/structure/chair/office/light, 5, one_per_turf = 1, on_floor = 1),
 	)),
 
+	new /datum/stack_recipe_list("plumbing", list(
+		new/datum/stack_recipe("sink", /obj/structure/sink, 2, time = 15, one_per_turf = 1, on_floor = 1), \
+		new/datum/stack_recipe("shower", /obj/machinery/shower, 2, time = 15, one_per_turf = 1, on_floor = 1), \
+		new/datum/stack_recipe("toilet", /obj/structure/toilet, 2, time = 15, one_per_turf = 1, on_floor = 1), \
+		new/datum/stack_recipe("mirror", /obj/structure/mirror, 2, time = 5, one_per_turf = 1, on_wall = 1), \
+	)),
+
 	new /datum/stack_recipe_list("comfy chairs", list(
 		new /datum/stack_recipe("beige comfy chair", /obj/structure/chair/comfy/beige, 2, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("black comfy chair", /obj/structure/chair/comfy/black, 2, one_per_turf = 1, on_floor = 1),
@@ -149,6 +156,9 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	new /datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("Metal crate", /obj/structure/closet/crate, 10, time = 50, one_per_turf = 1),
 	new /datum/stack_recipe("Mass Driver frame", /obj/machinery/mass_driver_frame, 3, time = 50, one_per_turf = 1),
+	null,
+	new/datum/stack_recipe("freezer closet", /obj/structure/closet/crate/freezer, 2, time = 15, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("refrigerator closet", /obj/structure/closet/secure_closet/freezer/fridge_empty, 2, time = 15, one_per_turf = 1, on_floor = 1), \
 	null,
 	new /datum/stack_recipe_list("airlock assemblies", list(
 		new /datum/stack_recipe("high security airlock assembly", /obj/structure/door_assembly/door_assembly_highsecurity, 6, time = 50, one_per_turf = 1, on_floor = 1),

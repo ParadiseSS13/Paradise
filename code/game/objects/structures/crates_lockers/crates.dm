@@ -342,6 +342,12 @@
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
 
+/obj/structure/closet/secure_closet/freezer/fridge_empty
+	name = "Refrigerator"
+	icon_state = "fridge1"
+	icon_closed = "fridge"
+	icon_opened = "fridgeopen"
+
 /obj/structure/closet/crate/freezer/return_air()
 	var/datum/gas_mixture/gas = (..())
 	if(!gas)	return null

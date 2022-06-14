@@ -16,6 +16,63 @@
 	var/list/connected_parts = list()
 	var/pattern_idx=0
 
+	serialize()
+		var/list/data = ..()
+		data["pattern_idx"] = pattern_idx
+		data["state"] = state
+		data["circuit"] = circuit?.serialize()
+		data["component_parts"] = serialize_frame_components()
+		return data
+
+	deserialize(list/data)
+		pattern_idx = data["pattern_idx"]
+		state = data["state"]
+		qdel(circuit)
+		circuit = list_to_object(data["circuit"], src)
+
+		if (circuit)
+			req_components = circuit.req_components.Copy()
+			update_namelist()
+
+		deserialize_frame_components(data["component_parts"])
+		..()
+		if (!circuit) return
+
+		for(var/obj/item/P in component_parts)
+			for(var/I in req_components)
+				if(istype(P, I) && req_components[I] > 0)
+					if(istype(P, /obj/item/stack))
+						var/obj/item/stack/S = P
+						req_components[I] -= S.amount
+						break
+					req_components[I]--
+					break
+		update_req_desc()
+
+	proc/serialize_frame_components()
+		var/list/content_list = list()
+		for(var/thing in components)
+			var/atom/A = thing
+			content_list.len++
+			content_list[content_list.len] = A.serialize()
+		return content_list
+
+	proc/deserialize_frame_components(list/content_data)
+		// clear existing
+		for(var/thing in components)
+			qdel(thing)
+		components = list()
+		// deserialize list
+		for(var/thing in content_data)
+			if(islist(thing))
+				var spawned = list_to_object(thing, null)
+				if (spawned)
+					components += spawned
+			else if(thing == null)
+				log_runtime(EXCEPTION("Null entry found in storage/deserialize."), src)
+			else
+				log_runtime(EXCEPTION("Non-list thing found in storage/deserialize."), src, list("Thing: [thing]"))
+
 /obj/machinery/constructable_frame/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 5)
@@ -83,6 +140,7 @@
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = 2
 							icon_state = "box_1"
+							check_for_sync()
 						else
 							to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
 							return
@@ -111,6 +169,7 @@
 					req_components = circuit.req_components.Copy()
 					update_namelist()
 					update_req_desc()
+					check_for_sync()
 				else
 					to_chat(user, "<span class='danger'>This frame does not accept circuit boards of this type!</span>")
 				return
@@ -121,6 +180,8 @@
 				icon_state = "box_0"
 				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(src.loc,5)
 				A.amount = 5
+				check_for_sync()
+				A.check_for_sync()
 				return
 		if(3)
 			if(istype(P, /obj/item/crowbar))
@@ -139,6 +200,7 @@
 				req_components = null
 				components = null
 				icon_state = "box_1"
+				check_for_sync()
 				return
 
 			if(istype(P, /obj/item/screwdriver))
@@ -159,6 +221,7 @@
 						new_machine.component_parts += O
 					circuit.loc = null
 					new_machine.RefreshParts()
+					new_machine.check_for_sync()
 					qdel(src)
 				return
 
@@ -209,6 +272,7 @@
 						components += P
 						req_components[I]--
 						update_req_desc()
+						check_for_sync()
 						return 1
 				if(!success)
 					to_chat(user, "<span class='danger'>You cannot add that to the machine!</span>")
