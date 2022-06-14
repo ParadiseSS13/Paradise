@@ -11,7 +11,7 @@
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/head/head = H.get_organ("head")
+		var/obj/item/organ/external/head/head = H.get_organ(BODY_ZONE_HEAD)
 		if(head && !head.is_robotic())
 			return FALSE
 

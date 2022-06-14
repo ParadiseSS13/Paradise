@@ -36,9 +36,7 @@
 /datum/emote/living/carbon/clap/get_sound(mob/living/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H?.mind.miming)
-			return
-		else
+		if(!H?.mind.miming)
 			return pick(
 				'sound/misc/clap1.ogg',
 				'sound/misc/clap2.ogg',
