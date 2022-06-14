@@ -1,3 +1,6 @@
+/obj/item/ammo_box/magazine
+	icon_state = "enforcer" // placeholder icon
+
 ////////////////INTERNAL MAGAZINES//////////////////////
 /obj/item/ammo_box/magazine/internal
 	desc = "Oh god, this shouldn't be here"
@@ -43,7 +46,7 @@
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
 		return 0
 
-	for(var/i in 1 to stored_ammo.len)
+	for(var/i in 1 to length(stored_ammo))
 		var/obj/item/ammo_casing/bullet = stored_ammo[i]
 		if(!bullet || !bullet.BB) // found a spent ammo
 			stored_ammo[i] = R
@@ -195,7 +198,7 @@
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = "10mm"
 	max_ammo = 8
-	multiple_sprites = 2
+	multi_sprite_step = AMMO_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/m10mm/fire
 	name = "pistol magazine (10mm incendiary)"
@@ -221,14 +224,14 @@
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
 	max_ammo = 8
-	multiple_sprites = 1
+	multi_sprite_step = 1
 
 /obj/item/ammo_box/magazine/enforcer
 	name = "handgun magazine (9mm rubber)"
 	icon_state = "enforcer"
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 8
-	multiple_sprites = 1
+	multi_sprite_step = 1
 	caliber = "9mm"
 
 /obj/item/ammo_box/magazine/enforcer/update_icon()
@@ -248,7 +251,7 @@
 	var/ammo = ammo_count()
 	if(!ammo)
 		return 0
-	if(istype(contents[contents.len], /obj/item/ammo_casing/rubber9mm))
+	if(istype(contents[length(contents)], /obj/item/ammo_casing/rubber9mm))
 		return 1
 	return 0
 
@@ -258,14 +261,11 @@
 
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"
-	icon_state = "46x30mmt-20"
+	icon_state = "46x30mmt"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	caliber = "4.6x30mm"
 	max_ammo = 20
-
-/obj/item/ammo_box/magazine/wt550m9/update_icon()
-	..()
-	icon_state = "46x30mmt-[round(ammo_count(),4)]"
+	multi_sprite_step = 4
 
 /obj/item/ammo_box/magazine/wt550m9/wtap
 	name = "wt550 magazine (Armour Piercing 4.6x30mm)"
@@ -281,14 +281,11 @@
 
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
-	icon_state = "uzi9mm-32"
+	icon_state = "uzi9mm"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
 	max_ammo = 32
-
-/obj/item/ammo_box/magazine/uzim9mm/update_icon()
-	..()
-	icon_state = "uzi9mm-[round(ammo_count(),4)]"
+	multi_sprite_step = 4
 
 /obj/item/ammo_box/magazine/smgm9mm
 	name = "\improper SMG magazine (9mm)"
@@ -297,6 +294,7 @@
 	caliber = "9mm"
 	max_ammo = 21
 	materials = list(MAT_METAL = 2000)
+	multi_sprite_step = 4
 
 /obj/item/ammo_box/magazine/smgm9mm/ap
 	name = "\improper SMG magazine (Armour Piercing 9mm)"
@@ -313,20 +311,13 @@
 	ammo_type = /obj/item/ammo_casing/c9mm/inc
 	materials = list(MAT_METAL = 3000)
 
-/obj/item/ammo_box/magazine/smgm9mm/update_icon()
-	..()
-	icon_state = "[initial(icon_state)]-[round(ammo_count()+1,4)]"
-
 /obj/item/ammo_box/magazine/pistolm9mm
 	name = "pistol magazine (9mm)"
-	icon_state = "9x19p-8"
+	icon_state = "9x19p"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
 	max_ammo = 15
-
-/obj/item/ammo_box/magazine/pistolm9mm/update_icon()
-	..()
-	icon_state = "9x19p-[ammo_count() ? "8" : "0"]"
+	multi_sprite_step = AMMO_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/smgm45
 	name = "\improper SMG magazine (.45)"
@@ -335,10 +326,7 @@
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
 	max_ammo = 20
-
-/obj/item/ammo_box/magazine/smgm45/update_icon()
-	..()
-	icon_state = "[initial(icon_state)]-[round(ammo_count(),2)]"
+	multi_sprite_step = 2
 
 /obj/item/ammo_box/magazine/tommygunm45
 	name = "drum magazine (.45)"
@@ -354,14 +342,14 @@
 	ammo_type = /obj/item/ammo_casing/a50
 	caliber = ".50"
 	max_ammo = 7
-	multiple_sprites = 1
+	multi_sprite_step = 1
 
 /obj/item/ammo_box/magazine/m75
 	name = "specialized magazine (.75)"
 	icon_state = "75"
 	ammo_type = /obj/item/ammo_casing/caseless/a75
 	caliber = "75"
-	multiple_sprites = 2
+	multi_sprite_step = AMMO_MULTI_SPRITE_STEP_ON_OFF
 	max_ammo = 8
 
 /obj/item/ammo_box/magazine/m556
@@ -371,7 +359,7 @@
 	ammo_type = /obj/item/ammo_casing/a556
 	caliber = "a556"
 	max_ammo = 30
-	multiple_sprites = 2
+	multi_sprite_step = AMMO_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/m556/arg
 	name = "\improper ARG magazine (5.56mm)"
@@ -385,7 +373,7 @@
 	origin_tech = "combat=3;syndicate=1"
 	caliber = "shotgun"
 	max_ammo = 8
-	multiple_sprites = 2
+	multi_sprite_step = AMMO_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/m12g/buckshot
 	name = "shotgun magazine (12g buckshot slugs)"
@@ -396,7 +384,6 @@
 	name = "shotgun magazine (12g taser slugs)"
 	icon_state = "m12gs"
 	ammo_type = /obj/item/ammo_casing/shotgun/stunslug
-
 
 /obj/item/ammo_box/magazine/m12g/dragon
 	name = "shotgun magazine (12g dragon's breath)"
@@ -412,6 +399,7 @@
 	name = "shotgun magazine (12g meteor slugs)"
 	icon_state = "m12gbc"
 	ammo_type = /obj/item/ammo_casing/shotgun/meteorslug
+
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg
 	name = "\improper XL shotgun magazine (12g slugs)"
@@ -438,12 +426,9 @@
 
 /obj/item/ammo_box/magazine/toy/smg
 	name = "foam force SMG magazine"
-	icon_state = "smg9mm-20"
+	icon_state = "smg9mm"
 	max_ammo = 20
-
-/obj/item/ammo_box/magazine/toy/smg/update_icon()
-	..()
-	icon_state = "smg9mm-[round(ammo_count()+1,4)]"
+	multi_sprite_step = 4
 
 /obj/item/ammo_box/magazine/toy/smg/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
@@ -452,7 +437,7 @@
 	name = "foam force pistol magazine"
 	icon_state = "9x19p"
 	max_ammo = 8
-	multiple_sprites = 2
+	multi_sprite_step = AMMO_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/toy/pistol/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
@@ -461,7 +446,7 @@
 	name = "\improper Enforcer foam magazine"
 	icon_state = "enforcer"
 	max_ammo = 8
-	multiple_sprites = 1
+	multi_sprite_step = 1
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/toy/enforcer/update_icon()
@@ -478,27 +463,16 @@
 	var/ammo = ammo_count()
 	if(!ammo)
 		return 0
-	if(istype(contents[contents.len], /obj/item/ammo_casing/caseless/foam_dart/riot))
+	if(istype(contents[length(contents)], /obj/item/ammo_casing/caseless/foam_dart/riot))
 		return 1
 	return 0
 
-/obj/item/ammo_box/magazine/toy/smgm45
-	name = "donksoft SMG magazine"
-	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
-	max_ammo = 20
-
-/obj/item/ammo_box/magazine/toy/smgm45/update_icon()
-	..()
-	icon_state = "c20r45-[round(ammo_count(),2)]"
-
 /obj/item/ammo_box/magazine/toy/m762
 	name = "donksoft box magazine"
+	icon_state = "a762"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	max_ammo = 50
-
-/obj/item/ammo_box/magazine/toy/m762/update_icon()
-	..()
-	icon_state = "a762-[round(ammo_count(),10)]"
+	multi_sprite_step = 10
 
 /obj/item/ammo_box/magazine/toy/m762/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
@@ -511,19 +485,14 @@
 	origin_tech = "combat=3"
 	caliber = "laser"
 	max_ammo = 20
-
-/obj/item/ammo_box/magazine/laser/update_icon()
-	..()
-	icon_state = "[initial(icon_state)]-[CEILING(ammo_count(0)/20, 1)*20]"
+	multi_sprite_step = AMMO_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"
+	icon_state = "c20r45"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	max_ammo = 20
-
-/obj/item/ammo_box/magazine/toy/smgm45/update_icon()
-	..()
-	icon_state = "c20r45-[round(ammo_count(),2)]"
+	multi_sprite_step = 2
 
 /obj/item/ammo_box/magazine/toy/smgm45/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot

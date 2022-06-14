@@ -9,6 +9,7 @@
 	var/medium = 0.8
 	var/heavy = 0.4
 	var/delay = 7
+	trigger_causes = IMPLANT_TRIGGER_DEATH_ONCE // Not surviving that
 
 /obj/item/implant/explosive/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
@@ -22,9 +23,8 @@
 				"}
 	return dat
 
-/obj/item/implant/explosive/trigger(emote, mob/source, force)
-	if(force && emote == "deathgasp")
-		activate("death")
+/obj/item/implant/explosive/death_trigger(mob/source, gibbed)
+	activate("death")
 
 /obj/item/implant/explosive/activate(cause)
 	if(!cause || !imp_in)
@@ -142,6 +142,7 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 	actions_types = list(/datum/action/item_action/hands_free/activate/always)
+	trigger_causes = IMPLANT_TRIGGER_DEATH_ONCE | IMPLANT_TRIGGER_NOT_WHEN_GIBBED
 
 /obj/item/implant/dust/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
@@ -155,9 +156,8 @@
 				"}
 	return dat
 
-/obj/item/implant/dust/trigger(emote, mob/source, force)
-	if(force && emote == "deathgasp")
-		activate("death")
+/obj/item/implant/dust/death_trigger(emote, mob/source, force)
+	activate("death")
 
 /obj/item/implant/dust/activate(cause)
 	if(!cause || !imp_in || cause == "emp")

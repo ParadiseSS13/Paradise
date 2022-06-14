@@ -106,7 +106,7 @@
 	if(blood_volume)
 		blood_volume = max(blood_volume - amt, 0)
 		if(prob(10 * amt)) // +5% chance per internal bleeding site that we'll cough up blood on a given tick.
-			custom_emote(1, "coughs up blood!")
+			custom_emote(EMOTE_VISIBLE, "coughs up blood!")
 			add_splatter_floor(loc, 1)
 			return 1
 		else if(amt >= 1 && prob(5 * amt)) // +2.5% chance per internal bleeding site that we'll cough up blood on a given tick. Must be bleeding internally in more than one place to have a chance at this.
@@ -343,3 +343,10 @@
 	if(shift_x || shift_y)
 		O.off_floor = TRUE
 		O.layer = BELOW_MOB_LAYER
+
+/mob/living/proc/absorb_blood()
+	// This merely deletes the blood reagent inside of the mob to look nice on health scans.
+	// The update to .blood_volume happens in `/datum/reagent/proc/reaction_mob`
+	var/id = get_blood_id()
+	if(id)
+		reagents.del_reagent(get_blood_id())

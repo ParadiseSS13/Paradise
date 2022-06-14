@@ -48,10 +48,14 @@ SUBSYSTEM_DEF(mapping)
 	// Pick a random away mission.
 	if(GLOB.configuration.gateway.enable_away_mission)
 		load_away_mission()
+	else
+		log_startup_progress("Skipping away mission...")
 
 	// Seed space ruins
 	if(GLOB.configuration.ruins.enable_space_ruins)
 		handleRuins()
+	else
+		log_startup_progress("Skipping space ruins...")
 
 	// Makes a blank space level for the sake of randomness
 	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = list(REACHABLE))

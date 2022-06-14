@@ -362,6 +362,9 @@ GLOBAL_VAR(bomb_set)
 				to_chat(usr, "<span class='warning'>There is nothing to anchor to!</span>")
 				return FALSE
 			else
+				if(!yes_code && anchored && timing)
+					to_chat(usr, "<span class='warning'>The code is required to unanchor [src] when armed!</span>")
+					return
 				anchored = !(anchored)
 				if(anchored)
 					visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")

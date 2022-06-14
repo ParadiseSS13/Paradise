@@ -188,6 +188,36 @@
 /datum/status_effect/blood_rush/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
 
+/datum/status_effect/force_shield
+	id = "forceshield"
+	duration = 4 SECONDS
+	tick_interval = 0
+	var/mutable_appearance/shield
+
+/datum/status_effect/force_shield/on_apply()
+	. = ..()
+	if(!. || !ishuman(owner))
+		return
+	var/mutable_appearance/MA = mutable_appearance('icons/effects/effects.dmi', "shield-old", ABOVE_MOB_LAYER)
+	var/mob/living/carbon/human/H = owner
+	H.add_overlay(MA)
+	shield = MA
+	H.add_stun_absorption("[id]", INFINITY, 1)
+	H.physiology.stamina_mod *= 0.1
+	H.physiology.brute_mod *= 0.5
+	H.physiology.burn_mod *= 0.5
+
+/datum/status_effect/force_shield/on_remove()
+	. = ..()
+	var/mob/living/carbon/human/H = owner
+	H.cut_overlay(shield)
+	if(islist(owner.stun_absorption) && owner.stun_absorption["[id]"])
+		owner.stun_absorption -= "[id]"
+	H.physiology.stamina_mod /= 0.1
+	H.physiology.brute_mod /= 0.5
+	H.physiology.burn_mod /= 0.5
+
+
 /datum/status_effect/exercised
 	id = "Exercised"
 	duration = 1200
