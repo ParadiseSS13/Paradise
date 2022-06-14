@@ -355,7 +355,6 @@
 /datum/emote/living/carbon/human/snap
 	key = "snap"
 	key_third_person = "snaps"
-	hands_use_check = TRUE
 	message = "snaps their fingers."
 	message_param = "snaps their fingers at %t."
 	sound = "sound/effects/fingersnap.ogg"
