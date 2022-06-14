@@ -98,9 +98,6 @@
 
 /obj/effect/mob_spawn/proc/create(ckey, flavour = TRUE, name)
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
-	var/mob/living/carbon/human/H = M
-	if(H && !H.dna)
-		H.Initialize(null)
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name
 		if(M.dna)
