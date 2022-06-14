@@ -771,7 +771,7 @@
 	shaded_charge = TRUE
 	unique_reskin = TRUE
 	charge_sections = 5
-	inhand_charge_sections = 1
+	inhand_charge_sections = 3
 
 /obj/item/gun/energy/detective/Initialize(mapload, ...)
 	. = ..()
