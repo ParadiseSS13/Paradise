@@ -1,5 +1,6 @@
 /obj/item/organ/internal/eyes/nian
 	name = "nian eyeballs"
+	icon = 'icons/obj/species_organs/nian.dmi'
 	see_in_dark = 5
 	flash_protect = FLASH_PROTECTION_SENSITIVE //BURN THE MOTH EYES
 
