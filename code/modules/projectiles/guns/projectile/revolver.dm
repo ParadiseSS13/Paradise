@@ -98,6 +98,10 @@
 /obj/item/gun/projectile/revolver/detective/New()
 	..()
 	options["The Original"] = "detective"
+	options["Fitz Special"] = "detective_fitz"
+	options["Police Positive Special"] = "detective_police"
+	options["Blued Steel"] = "detective_blued"
+	options["Stainless Steel"] = "detective_stainless"
 	options["Leopard Spots"] = "detective_leopard"
 	options["Black Panther"] = "detective_panther"
 	options["Gold Trim"] = "detective_gold"

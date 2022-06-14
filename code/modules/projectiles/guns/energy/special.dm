@@ -13,6 +13,7 @@
 	can_holster = FALSE
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
+	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
 	flight_x_offset = 17
@@ -729,8 +730,7 @@
 /obj/item/gun/energy/temperature/proc/update_charge()
 	var/charge = cell.charge
 	switch(charge)
-		if(900 to INFINITY)		overlays += "900"
-		if(800 to 900)			overlays += "800"
+		if(800 to INFINITY)		overlays += "800"
 		if(700 to 800)			overlays += "700"
 		if(600 to 700)			overlays += "600"
 		if(500 to 600)			overlays += "500"
