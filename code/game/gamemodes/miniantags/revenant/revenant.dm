@@ -117,13 +117,12 @@
 	log_say(message, src)
 	if(copytext(message, 1, 2) == "*")
 		return emote(copytext(message, 2), intentional = TRUE)
-	var/rendered = "<span class='revennotice'><b>[src]</b> says, \"[message]\"</span>"
 
+	var/rendered
 	for(var/mob/M in GLOB.mob_list)
-		var/rendered = "<span class='revennotice'><b>[src]</b> [(isobserver(M) ? ("([ghost_follow_link(src, ghost=M)])") : "")] says, \"[message]\"</span>"
+		rendered = "<span class='revennotice'><b>[src]</b> [(isobserver(M) ? ("([ghost_follow_link(src, ghost=M)])") : "")] says, \"[message]\"</span>"
 		if(istype(M, /mob/living/simple_animal/revenant) || isobserver(M))
 			to_chat(M, rendered)
-	return
 
 /mob/living/simple_animal/revenant/Stat()
 	..()
