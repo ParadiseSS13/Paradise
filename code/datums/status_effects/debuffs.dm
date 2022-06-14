@@ -207,8 +207,9 @@
 	if(!.)
 		return
 	var/dir = sin(world.time)
-	px_diff = cos(world.time * 3) * min(strength * 0.2, 32) * dir
-	py_diff = sin(world.time * 3) * min(strength * 0.2, 32) * dir
+	var/amplitude = min(strength * 0.003, 32)
+	px_diff = cos(world.time * 3) * amplitude * dir
+	py_diff = sin(world.time * 3) * amplitude * dir
 	owner.client?.pixel_x = px_diff
 	owner.client?.pixel_y = py_diff
 
@@ -307,7 +308,6 @@
 	// THRESHOLD_CONFUSION (80 SECONDS)
 	if(actual_strength >= THRESHOLD_CONFUSION && prob(3.3))
 		owner.AdjustConfused(6 SECONDS / alcohol_resistance, bound_lower = 2 SECONDS, bound_upper = 1 MINUTES)
-		owner.AdjustDizzy(6 SECONDS / alcohol_resistance, bound_lower = 2 SECONDS, bound_upper = 2 MINUTES)
 	// THRESHOLD_SPARK (100 SECONDS)
 	if(is_ipc && actual_strength >= THRESHOLD_SPARK && prob(2.5))
 		do_sparks(3, 1, owner)

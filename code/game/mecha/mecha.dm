@@ -540,7 +540,7 @@
 /obj/mecha/attack_animal(mob/living/simple_animal/user)
 	log_message("Attack by simple animal. Attacker - [user].")
 	if(!user.melee_damage_upper && !user.obj_damage)
-		user.custom_emote(1, "[user.friendly] [src].")
+		user.custom_emote(EMOTE_VISIBLE, "[user.friendly] [src].")
 		return FALSE
 	else
 		var/play_soundeffect = 1

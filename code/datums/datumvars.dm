@@ -69,6 +69,7 @@
 
 /client/vv_get_dropdown()
 	. = list()
+	.["Manipulate Colour Matrix"] = "?_src_=vars;manipcolours=[UID()]"
 	. += "---"
 	.["Call Proc"] = "?_src_=vars;proc_call=[UID()]"
 	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
@@ -1335,6 +1336,19 @@
 		var/mob/living/carbon/human/H = locateUID(href_list["copyoutfit"])
 		if(istype(H))
 			H.copy_outfit()
+
+	if(href_list["manipcolours"])
+		if(!check_rights(R_DEBUG))
+			return
+
+		var/datum/target = locateUID(href_list["manipcolours"])
+		if(!(isatom(target) || isclient(target)))
+			to_chat(usr, "This can only be used on atoms and clients")
+			return
+
+		message_admins("[key_name_admin(usr)] is manipulating the colour matrix for [target]")
+		var/datum/ui_module/colour_matrix_tester/CMT = new(target=target)
+		CMT.ui_interact(usr)
 
 /client/proc/view_var_Topic_list(href, href_list, hsrc)
 	if(href_list["VarsList"])

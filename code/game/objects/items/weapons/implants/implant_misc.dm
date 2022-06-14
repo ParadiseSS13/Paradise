@@ -3,7 +3,7 @@
 	desc = "Lets you shoot your guns"
 	icon_state = "auth"
 	origin_tech = "magnets=2;programming=7;biotech=5;syndicate=5"
-	activated = 0
+	activated = IMPLANT_ACTIVATED_PASSIVE
 
 /obj/item/implant/weapons_auth/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>

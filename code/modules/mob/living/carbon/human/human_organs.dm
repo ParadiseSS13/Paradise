@@ -64,9 +64,10 @@
 
 	// standing is poor
 	if(stance_damage >= 8)
-		if(!HAS_TRAIT(src, TRAIT_NOPAIN))
-			emote("scream")
-		custom_emote(1, "collapses!")
+		if(IS_HORIZONTAL(src))
+			if(!HAS_TRAIT(src, TRAIT_NOPAIN))
+				emote("scream")
+			emote("collapses")
 		Weaken(10 SECONDS) //can't emote while weakened, apparently.
 
 
@@ -92,7 +93,7 @@
 					continue
 
 			var/emote_scream = pick("screams in pain and ", "lets out a sharp cry and ", "cries out and ")
-			custom_emote(1, "[HAS_TRAIT(src, TRAIT_NOPAIN) ? "" : emote_scream ]drops what [p_they()] [p_were()] holding in [p_their()] [E.name]!")
+			custom_emote(EMOTE_VISIBLE, "[HAS_TRAIT(src, TRAIT_NOPAIN) ? "" : emote_scream ]drops what [p_they()] [p_were()] holding in [p_their()] [E.name]!")
 
 		else if(E.is_malfunctioning())
 
@@ -107,7 +108,7 @@
 				if(!unEquip(r_hand))
 					continue
 
-			custom_emote(1, "drops what [p_they()] [p_were()] holding, [p_their()] [E.name] malfunctioning!")
+			custom_emote(EMOTE_VISIBLE, "drops what [p_they()] [p_were()] holding, [p_their()] [E.name] malfunctioning!")
 
 			do_sparks(5, 0, src)
 
