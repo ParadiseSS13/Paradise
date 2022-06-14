@@ -16,8 +16,7 @@ SUBSYSTEM_DEF(blackbox)
 	/// List of highest tech levels attained that isn't lost lost by destruction of RD computers
 	var/list/research_levels = list()
 	/// Associative list of any feedback variables that have had their format changed since creation and their current version, remember to update this
-	var/list/versions = list("traitor_objective" = 2,
-							"changeling_objective" = 2)
+	var/list/versions = list()
 
 /datum/controller/subsystem/blackbox/Recover()
 	feedback = SSblackbox.feedback
