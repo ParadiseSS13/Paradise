@@ -48,7 +48,7 @@
 	max_equip = 4
 	maxsize = 2
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
-	destruction_sleep_duration = 1
+	destruction_sleep_duration = 2 SECONDS
 
 /obj/mecha/combat/gygax/dark/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()

@@ -1,5 +1,5 @@
 /obj/item/mmi
-	name = "Man-Machine Interface"
+	name = "\improper Man-Machine Interface"
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
@@ -9,7 +9,8 @@
 
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
 	var/alien = 0
-	var/syndiemmi = 0 //Whether or not this is a Syndicate MMI
+	var/syndiemmi = FALSE //Whether or not this is a Syndicate MMI
+	var/mmi_item_name = "Man-Machine Interface" //Used to name the item when installing a brain
 	var/mob/living/carbon/brain/brainmob = null//The current occupant.
 	var/obj/item/organ/internal/brain/held_brain = null // This is so MMI's aren't brainscrubber 9000's
 	var/mob/living/silicon/robot/robot = null//Appears unused.
@@ -25,6 +26,8 @@
 
 	/// Time at which the ghost belonging to the mind in the mmi can be pinged again to be borged
 	var/next_possible_ghost_ping
+	//Used by syndie MMIs, stores the master's mind UID for later referencing
+	var/master_uid = null
 
 /obj/item/mmi/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/organ/internal/brain/crystal))
@@ -44,7 +47,8 @@
 			return
 		if(user.drop_item())
 			B.forceMove(src)
-			visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
+			if(!syndiemmi)
+				visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
 			brainmob = B.brainmob
 			B.brainmob = null
 			brainmob.container = src
@@ -57,12 +61,12 @@
 
 			held_brain = B
 			if(istype(O,/obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
-				name = "Man-Machine Interface: Alien - [brainmob.real_name]"
+				name = "\improper [mmi_item_name]: Alien - [brainmob.real_name]"
 				icon = 'icons/mob/alien.dmi'
 				become_occupied("AlienMMI")
 				alien = 1
 			else
-				name = "Man-Machine Interface: [brainmob.real_name]"
+				name = "\improper [mmi_item_name]: [brainmob.real_name]"
 				icon = B.mmi_icon
 				become_occupied("[B.mmi_icon_state]")
 				alien = 0
@@ -127,7 +131,7 @@
 		dropbrain(get_turf(user))
 		icon = 'icons/obj/assemblies.dmi'
 		icon_state = "mmi_empty"
-		name = "Man-Machine Interface"
+		name = initial(name)
 
 /obj/item/mmi/proc/transfer_identity(mob/living/carbon/human/H)//Same deal as the regular brain proc. Used for human-->robot people.
 	brainmob = new(src)
@@ -146,7 +150,7 @@
 	held_brain.dna = brainmob.dna.Clone()
 	held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
 
-	name = "Man-Machine Interface: [brainmob.real_name]"
+	name = "\improper [mmi_item_name]: [brainmob.real_name]"
 	become_occupied("mmi_full")
 
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
@@ -253,11 +257,6 @@
 	if(radio && istype(A, /mob/living/carbon/brain))
 		radio_action.Remove(A)
 
-/obj/item/mmi/syndie
-	name = "Syndicate Man-Machine Interface"
-	desc = "Syndicate's own brand of MMI. It enforces laws designed to help Syndicate agents achieve their goals upon cyborgs created with it, but doesn't fit in Nanotrasen AI cores."
-	origin_tech = "biotech=4;programming=4;syndicate=2"
-	syndiemmi = 1
 
 /obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
 	if(!brainmob)
@@ -300,3 +299,41 @@
 
 	. = ..()
 	brainmob.update_runechat_msg_location()
+
+
+/obj/item/mmi/syndie
+	name = "\improper Syndicate Man-Machine Interface"
+	desc = "Syndicate's own brand of MMI. Mindslaves any brain inserted into it for as long as it's in. Cyborgs made with this MMI will be slaved to the owner. Does not fit into NT AI cores."
+	origin_tech = "biotech=4;programming=4;syndicate=2"
+	syndiemmi = TRUE
+	mmi_item_name = "Syndicate Man-Machine Interface"
+
+/obj/item/mmi/syndie/attackby(obj/item/O, mob/user, params)
+	if(!master_uid && ishuman(user) && user.mind && istype(O,/obj/item/organ/internal/brain))
+		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
+		master_uid = user.mind.UID()
+		if(!user.mind.has_antag_datum(/datum/antagonist/traitor))
+			message_admins("[user] has mindslaved [O] using a Syndicate MMI, but they are not a traitor!")
+	..()
+
+/obj/item/mmi/syndie/become_occupied(new_icon)
+	..()
+	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave) //Overrides any previous mindslaving
+
+	if(master_uid)
+		var/datum/mind/master = locateUID(master_uid)
+
+		if(master)
+			to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will!</span>")
+			brainmob.mind.add_antag_datum(new /datum/antagonist/mindslave(master))
+			return
+
+	//Edgecase handling, shouldn't get here
+	to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will. You are now loyal to the Syndicate! Assist Syndicate Agents to the best of your abilities.</span>")
+	message_admins("[src] received a brain but has no master. A generic syndicate zeroth law will be installed instead of a full mindslaving.")
+
+/obj/item/mmi/syndie/dropbrain(turf/dropspot)
+	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave)
+	master_uid = null
+	to_chat(brainmob, "<span class='userdanger'>You are no longer a mindslave: You have complete and free control of your own faculties once more!</span>")
+	..()

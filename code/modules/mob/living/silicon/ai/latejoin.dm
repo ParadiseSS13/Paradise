@@ -33,28 +33,24 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	// Delete the old AI shell
 	qdel(src)
 
-// TODO: Move away from the insane name-based landmark system
 /mob/living/silicon/ai/proc/moveToAILandmark()
 	var/obj/loc_landmark
-	for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
-		if(sloc.name != "AI")
+	for(var/obj/effect/landmark/start/ai/A in GLOB.landmarks_list)
+		if(locate(/mob/living) in get_turf(A))
 			continue
-		if(locate(/mob/living) in sloc.loc)
-			continue
-		loc_landmark = sloc
+		loc_landmark = A
 	if(!loc_landmark)
 		for(var/obj/effect/landmark/tripai in GLOB.landmarks_list)
 			if(tripai.name == "tripai")
-				if(locate(/mob/living) in tripai.loc)
+				if(locate(/mob/living) in get_turf(tripai))
 					continue
 				loc_landmark = tripai
 	if(!loc_landmark)
-		to_chat(src, "Oh god sorry we can't find an unoccupied AI spawn location, so we're spawning you on top of someone.")
-		for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
-			if(sloc.name == "AI")
-				loc_landmark = sloc
+		to_chat(src, "Oh god sorry we can't find an unoccupied AI spawn location, so we're spawning you on top of someone.") //lol what is this message
+		for(var/obj/effect/landmark/start/ai/A in GLOB.landmarks_list)
+			loc_landmark = A
 
-	forceMove(loc_landmark.loc)
+	forceMove(get_turf(loc_landmark))
 	view_core()
 
 // Before calling this, make sure an empty core exists, or this will no-op

@@ -275,6 +275,7 @@
 		to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
 		S.target = null
 		return FALSE
+
 	S.DisIntegrate(src)
 	return TRUE
 
@@ -383,8 +384,6 @@
 	return FALSE
 
 /turf/simulated/wall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	if(!..())
-		return FALSE
 	var/area/A = get_turf(src)
 	if(safety_check())
 		to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
@@ -397,8 +396,6 @@
 	return ..()
 
 /obj/structure/window/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	if(!..())
-		return FALSE
 	var/area/A = get_turf(src)
 	if(safety_check())
 		to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
@@ -408,7 +405,6 @@
 		to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
 		S.target = null
 		return TRUE
-
 	return ..()
 
 /obj/item/stack/cable_coil/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)//Wiring would be too effective as a resource
@@ -622,7 +618,7 @@
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
 			L.electrocute_act(100, src, 1, flags = SHOCK_NOGLOVES | SHOCK_ILLUSION)
 			if(isrobot(L) || ismachineperson(L))
-				L.Weaken(5)
+				L.Weaken(10 SECONDS)
 			qdel(src)
 	..()
 

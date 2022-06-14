@@ -77,7 +77,7 @@
 	var/activated = FALSE
 	var/power_warned = FALSE
 
-	var/destruction_sleep_duration = 1 //Time that mech pilot is put to sleep for if mech is destroyed
+	var/destruction_sleep_duration = 2 SECONDS //Time that mech pilot is put to sleep for if mech is destroyed
 
 	var/melee_cooldown = 10
 	var/melee_can_hit = 1
@@ -390,9 +390,8 @@
 			L.take_overall_damage(5,0)
 			if(L.buckled)
 				L.buckled = 0
-			L.Stun(5)
-			L.Weaken(5)
-			L.apply_effect(STUTTER, 5)
+			L.Weaken(10 SECONDS)
+			L.apply_effect(STUTTER, 10 SECONDS)
 			playsound(src, pick(hit_sound), 50, 0, 0)
 			breakthrough = 1
 
@@ -541,7 +540,7 @@
 /obj/mecha/attack_animal(mob/living/simple_animal/user)
 	log_message("Attack by simple animal. Attacker - [user].")
 	if(!user.melee_damage_upper && !user.obj_damage)
-		user.custom_emote(1, "[user.friendly] [src].")
+		user.custom_emote(EMOTE_VISIBLE, "[user.friendly] [src].")
 		return FALSE
 	else
 		var/play_soundeffect = 1

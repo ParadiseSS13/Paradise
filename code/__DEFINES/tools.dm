@@ -34,6 +34,8 @@
 #define WELDER_FLOOR_SLICE_SUCCESS_MESSAGE	to_chat(user, "<span class='notice'>You slice [src] clear of [get_turf(src)]!</span>")
 #define WELDER_ATTEMPT_FLOOR_WELD_MESSAGE	user.visible_message("<span class='notice'>[user] begins welding [src] to [get_turf(src)]...</span>", "<span class='notice'>You begin welding [src] to [get_turf(src)]...</span>", "<span class='warning'>You hear welding.</span>")
 #define WELDER_FLOOR_WELD_SUCCESS_MESSAGE	to_chat(user, "<span class='notice'>You weld [src] to [get_turf(src)]!</span>")
+#define WELDER_ATTEMPT_UNWELD_MESSAGE		user.visible_message("<span class='notice'>[user] begins cutting through the weld on [src]...</span>", "<span class='notice'>You begin cutting through the weld on [src]...</span>", "<span class='warning'>You hear welding.</span>")
+#define WELDER_UNWELD_SUCCESS_MESSAGE		to_chat(user, "<span class='notice'>You finish unwelding [src]!</span>")
 
 //Wrench messages
 #define WRENCH_ANCHOR_MESSAGE				user.visible_message("<span class='notice'>[user] tightens the bolts on [src]!</span>", "<span class='notice'>You tighten the bolts on [src]!</span>", "<span class='warning'>You hear ratcheting.</span>")

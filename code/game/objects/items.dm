@@ -166,10 +166,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
-	else if(istype(loc, /obj/item/storage))
-		var/obj/item/storage/S = loc
-		if(!QDELETED(S)) // Can happen when the storage gets deleted, thus deleting the contents
-			S.remove_from_storage(src) // Not required to call. Will only cause runtimes
 	QDEL_LIST(actions)
 	master = null
 	return ..()
@@ -605,9 +601,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 				if(M.stat != DEAD)
 					to_chat(M, "<span class='danger'>You drop what you're holding and clutch at your eyes!</span>")
 					M.drop_item()
-				M.AdjustEyeBlurry(10)
-				M.Paralyse(1)
-				M.Weaken(2)
+				M.AdjustEyeBlurry(20 SECONDS)
+				M.Paralyse(2 SECONDS)
+				M.Weaken(4 SECONDS)
 			if(eyes.damage >= eyes.min_broken_damage)
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")
@@ -616,7 +612,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 			H.UpdateDamageIcon()
 	else
 		M.take_organ_damage(7)
-	M.AdjustEyeBlurry(rand(3,4))
+	M.AdjustEyeBlurry(rand(6 SECONDS, 8 SECONDS))
 	return
 
 /obj/item/singularity_pull(S, current_size)

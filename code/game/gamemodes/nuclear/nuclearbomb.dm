@@ -362,6 +362,9 @@ GLOBAL_VAR(bomb_set)
 				to_chat(usr, "<span class='warning'>There is nothing to anchor to!</span>")
 				return FALSE
 			else
+				if(!yes_code && anchored && timing)
+					to_chat(usr, "<span class='warning'>The code is required to unanchor [src] when armed!</span>")
+					return
 				anchored = !(anchored)
 				if(anchored)
 					visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
@@ -546,15 +549,15 @@ GLOBAL_VAR(bomb_set)
 		STOP_PROCESSING(SSobj, src)
 		return ..()
 
-	if(GLOB.blobstart.len > 0)
+	if(length(GLOB.nukedisc_respawn))
 		GLOB.poi_list.Remove(src)
-		var/obj/item/disk/nuclear/NEWDISK = new(pick(GLOB.blobstart))
+		var/obj/item/disk/nuclear/NEWDISK = new(pick(GLOB.nukedisc_respawn))
 		transfer_fingerprints_to(NEWDISK)
 		message_admins("[src] has been destroyed at ([diskturf.x], [diskturf.y], [diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[NEWDISK.x];Y=[NEWDISK.y];Z=[NEWDISK.z]'>JMP</a>).")
 		log_game("[src] has been destroyed in ([diskturf.x], [diskturf.y], [diskturf.z]). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z]).")
 		return QDEL_HINT_HARDDEL_NOW
 	else
-		error("[src] was supposed to be destroyed, but we were unable to locate a blobstart landmark to spawn a new one.")
+		error("[src] was supposed to be destroyed, but we were unable to locate a nukedisc_respawn landmark to spawn a new one.")
 	return QDEL_HINT_LETMELIVE // Cancel destruction unless forced.
 
 #undef NUKE_INTACT

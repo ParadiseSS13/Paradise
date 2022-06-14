@@ -49,9 +49,6 @@
 
 /mob/living/silicon/robot/death(gibbed)
 	if(can_die())
-		if(!gibbed && deathgasp_on_death)
-			emote("deathgasp", force = TRUE)
-
 		if(module)
 			module.handle_death(src, gibbed)
 

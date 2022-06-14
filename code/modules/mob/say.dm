@@ -2,6 +2,8 @@
 #define ILLEGAL_CHARACTERS_LIST list("<" = "", ">" = "", \
 	"\[" = "", "]" = "", "{" = "", "}" = "")
 
+#define USABLE_DEAD_EMOTES list("*flip", "*spin")
+
 /mob/proc/say()
 	return
 
@@ -39,9 +41,9 @@
 
 	set_typing_indicator(FALSE, TRUE)
 	if(use_me)
-		custom_emote(usr.emote_type, message)
+		custom_emote(usr.emote_type, message, intentional = TRUE)
 	else
-		usr.emote(message)
+		usr.emote(message, intentional = TRUE)
 
 
 /mob/proc/say_dead(message)
@@ -61,6 +63,13 @@
 
 		if(client.handle_spam_prevention(message, MUTE_DEADCHAT))
 			return
+
+
+	if(message in USABLE_DEAD_EMOTES)
+		emote(copytext(message, 2), intentional = TRUE)
+		log_emote(message, src)
+		create_log(DEADCHAT_LOG, message)
+		return
 
 	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts")], <span class='message'>\"[message]\"</span>", src)
 	create_log(DEADCHAT_LOG, message)
@@ -109,12 +118,6 @@
 		else if(ending == "?")
 			verb = "asks"
 	return verb
-
-
-/mob/proc/emote(act, type, message, force)
-	if(act == "me")
-		return custom_emote(type, message)
-
 
 /mob/proc/get_ear()
 	// returns an atom representing a location on the map from which this
@@ -220,4 +223,5 @@
 		. += S.message + " "
 	. = trim_right(.)
 
+#undef USABLE_DEAD_EMOTES
 #undef ILLEGAL_CHARACTERS_LIST

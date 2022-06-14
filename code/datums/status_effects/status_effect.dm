@@ -51,16 +51,18 @@
 	if(!owner)
 		qdel(src)
 		return
-	if(tick_interval < world.time)
+	if(tick_interval <= world.time)
 		tick()
 		tick_interval = world.time + initial(tick_interval)
 	if(duration != -1 && duration < world.time)
+		on_timeout()
 		qdel(src)
 
 /datum/status_effect/proc/on_apply() //Called whenever the buff is applied; returning FALSE will cause it to autoremove itself.
 	return TRUE
 /datum/status_effect/proc/tick() //Called every tick.
 /datum/status_effect/proc/on_remove() //Called whenever the buff expires or is removed; do note that at the point this is called, it is out of the owner's status_effects but owner is not yet null
+/datum/status_effect/proc/on_timeout()  // Called specifically whenever the status effect expires.
 /datum/status_effect/proc/be_replaced() //Called instead of on_remove when a status effect is replaced by itself or when a status effect with on_remove_on_mob_delete = FALSE has its mob deleted
 	owner.clear_alert(id)
 	LAZYREMOVE(owner.status_effects, src)
@@ -127,7 +129,7 @@
 	if(status_effects)
 		var/datum/status_effect/S1 = effect
 		for(var/datum/status_effect/S in status_effects)
-			if(initial(S1.id) == S.id && S.before_remove(arguments))
+			if(initial(S1.id) == S.id && S.before_remove(arglist(arguments)))
 				qdel(S)
 				. = TRUE
 
@@ -272,3 +274,35 @@
 /datum/status_effect/grouped/before_remove(source)
 	sources -= source
 	return !length(sources)
+
+/**
+ * # Transient Status Effect (basetype)
+ *
+ * A status effect that works off a (possibly decimal) counter before expiring, rather than a specified world.time.
+ * This allows for a more precise tweaking of status durations at runtime (e.g. paralysis).
+ */
+/datum/status_effect/transient
+	tick_interval = 0.2 SECONDS // SSfastprocess interval
+	alert_type = null
+	/// How much strength left before expiring? time in deciseconds.
+	var/strength = 0
+
+/datum/status_effect/transient/on_creation(mob/living/new_owner, set_duration)
+	if(isnum(set_duration))
+		strength = set_duration
+	. = ..()
+
+/datum/status_effect/transient/tick()
+	if(QDELETED(src) || QDELETED(owner))
+		return FALSE
+	. = TRUE
+	strength += calc_decay()
+	if(strength <= 0)
+		qdel(src)
+		return FALSE
+
+/**
+ * Returns how much strength should be adjusted per tick.
+ */
+/datum/status_effect/transient/proc/calc_decay()
+	return -0.2 SECONDS // 1 per second by default

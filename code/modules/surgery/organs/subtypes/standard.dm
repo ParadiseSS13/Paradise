@@ -62,7 +62,7 @@
 	if(hand && owner.canUnEquip(hand))
 		owner.unEquip(hand)
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
-		owner.custom_emote(1, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
+		owner.custom_emote(EMOTE_VISIBLE, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
 
 /obj/item/organ/external/arm/right
 	limb_name = "r_arm"
@@ -90,17 +90,17 @@
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
-	if(owner.weakened)
+	if(owner.AmountWeakened())
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, preventing you from getting back up!</span>")
-		owner.custom_emote(1, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
+		owner.custom_emote(EMOTE_VISIBLE, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
 	else
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping you to the ground!</span>")
-		owner.custom_emote(1, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
+		owner.custom_emote(EMOTE_VISIBLE, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
 	switch(severity)
 		if(1)
-			owner.AdjustWeakened(4)
+			owner.AdjustWeakened(8 SECONDS)
 		if(2)
-			owner.AdjustWeakened(2)
+			owner.AdjustWeakened(4 SECONDS)
 
 /obj/item/organ/external/leg/right
 	limb_name = "r_leg"
@@ -128,17 +128,17 @@
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
-	if(owner.weakened)
+	if(owner.AmountWeakened())
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, preventing you from getting back up!</span>")
-		owner.custom_emote(1, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
+		owner.custom_emote(EMOTE_VISIBLE, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
 	else
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping you to the ground!</span>")
-		owner.custom_emote(1, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
+		owner.custom_emote(EMOTE_VISIBLE, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
 	switch(severity)
 		if(1)
-			owner.AdjustWeakened(4)
+			owner.AdjustWeakened(8 SECONDS)
 		if(2)
-			owner.AdjustWeakened(2)
+			owner.AdjustWeakened(4 SECONDS)
 
 /obj/item/organ/external/foot/remove()
 	if(owner && owner.shoes) owner.unEquip(owner.shoes)
@@ -173,7 +173,7 @@
 	if(hand && owner.canUnEquip(hand))
 		owner.unEquip(hand)
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
-		owner.custom_emote(1, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
+		owner.custom_emote(EMOTE_VISIBLE, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
 
 /obj/item/organ/external/hand/remove()
 	if(owner)
@@ -284,7 +284,7 @@
 		return
 	switch(severity)
 		if(1)
-			owner?.AdjustConfused(30)
+			owner?.AdjustConfused(60 SECONDS)
 		if(2)
-			owner?.AdjustConfused(20)
+			owner?.AdjustConfused(40 SECONDS)
 	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, overloading your motor control!</span>")

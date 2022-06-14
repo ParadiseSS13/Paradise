@@ -52,12 +52,12 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		var/obj/item/organ/internal/eyes/eyes = H.get_organ_slot("eyes")
-		if(!H.eye_blind && eyes)
+		if(!H.AmountBlinded() && eyes)
 			if(H.glasses == src)
 				to_chat(H, "<span class='danger'>[src] overloads and blinds you!</span>")
 				H.flash_eyes(visual = TRUE)
-				H.EyeBlind(3)
-				H.EyeBlurry(5)
+				H.EyeBlind(6 SECONDS)
+				H.EyeBlurry(10 SECONDS)
 				eyes.receive_damage(5)
 
 /obj/item/clothing/glasses/meson

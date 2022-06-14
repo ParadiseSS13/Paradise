@@ -29,5 +29,4 @@
 	flag = BULLET
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
-	weaken = 5
-	stun = 5
+	weaken = 10 SECONDS
