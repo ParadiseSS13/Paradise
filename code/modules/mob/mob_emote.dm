@@ -132,6 +132,7 @@
 
 	if(user.lying || (istype(L) && L.IsWeakened()))
 		message = "flops and flails around on the floor."
+		return ..()
 	else if(params)
 		message_param = "flips in %t's general direction."
 	else if(ishuman(user))
