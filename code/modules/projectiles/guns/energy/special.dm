@@ -765,7 +765,7 @@
 	/// Used to track if the gun is overcharged
 	var/overcharged
 	/// Yes, this gun has a radio, welcome to 2022
-	var/obj/item/radio/headset/det_gun/Announcer
+	var/obj/item/radio/headset/Announcer
 	/// Used to link back to the pinpointer
 	var/linked_pinpointer_UID
 	shaded_charge = TRUE
@@ -784,19 +784,19 @@
 	QDEL_NULL(Announcer)
 	return ..()
 
-/obj/item/radio/headset/det_gun //nice headset bro
-
 /obj/item/gun/energy/detective/examine(mob/user)
 	. = ..()
-	. += "Shift-click to clear active tracked target or clear linked pinpointer."
+	. += "Ctrl-click to clear active tracked target or clear linked pinpointer."
 
 /obj/item/gun/energy/detective/Initialize(mapload, ...)
 	. = ..()
-	Announcer = new /obj/item/radio/headset/det_gun(src)
+	Announcer = new /obj/item/radio/headset(src)
 	Announcer.config(list("Security" = 1))
 
-/obj/item/gun/energy/detective/ShiftClick(mob/user)
+/obj/item/gun/energy/detective/CtrlClick(mob/user)
 	. = ..()
+	if(!istype(loc, /mob)) //don't do this next bit if this gun is on the floor
+		return
 	var/tracking_target = locateUID(tracking_target_UID)
 	if(tracking_target)
 		if(alert("Do you want to clear the tracker?", "Tracker reset", "Yes", "No") == "Yes")
