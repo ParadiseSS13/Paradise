@@ -185,8 +185,8 @@
 				to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
 	return 1
 
-// Safe location finder
-/proc/find_safe_turf(zlevel, list/zlevels, extended_safety_checks = FALSE)
+// Random safe location finder
+/proc/find_safe_turf(zlevel, list/zlevels)
 	if(!zlevels)
 		if(zlevel)
 			zlevels = list(zlevel)
@@ -198,38 +198,7 @@
 		var/x = rand(1, world.maxx)
 		var/y = rand(1, world.maxy)
 		var/z = pick(zlevels)
-		var/random_location = locate(x,y,z)
+		var/turf/random_location = locate(x, y, z)
 
-		if(!isfloorturf(random_location))
-			continue
-		var/turf/simulated/floor/F = random_location
-		if(!F.air)
-			continue
-
-		var/datum/gas_mixture/A = F.air
-
-		// Can most things breathe?
-		if(A.sleeping_agent)
-			continue
-		if(A.oxygen < 16)
-			continue
-		if(A.toxins)
-			continue
-		if(A.carbon_dioxide >= 10)
-			continue
-
-		// Aim for goldilocks temperatures and pressure
-		if((A.temperature <= 270) || (A.temperature >= 360))
-			continue
-		var/pressure = A.return_pressure()
-		if((pressure <= 20) || (pressure >= 550))
-			continue
-
-		if(extended_safety_checks)
-			if(islava(F)) //chasms aren't /floor, and so are pre-filtered
-				var/turf/simulated/floor/plating/lava/L = F
-				if(!L.is_safe())
-					continue
-
-		// DING! You have passed the gauntlet, and are "probably" safe.
-		return F
+		if(random_location.is_safe())
+			return random_location

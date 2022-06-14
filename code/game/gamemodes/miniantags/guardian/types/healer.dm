@@ -122,21 +122,16 @@
 	to_chat(src, "<span class='danger'>You begin to warp [A]</span>")
 	if(do_mob(src, A, 50))
 		if(!A.anchored)
-			if(beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
-				if(beacon.air)
-					var/datum/gas_mixture/Z = beacon.air
-					if(Z.oxygen >= 16 && !Z.toxins && Z.carbon_dioxide < 10 && !Z.sleeping_agent)
-						if((Z.temperature > 270) && (Z.temperature < 360))
-							var/pressure = Z.return_pressure()
-							if((pressure > 20) && (pressure < 550))
-								new /obj/effect/temp_visual/guardian/phase/out(get_turf(A))
-								do_teleport(A, beacon, 0)
-								new /obj/effect/temp_visual/guardian/phase(get_turf(A))
-						else
-							to_chat(src, "<span class='danger'>The beacon isn't in a safe location!</span>")
-					else
-						to_chat(src, "<span class='danger'>The beacon isn't in a safe location!</span>")
-			else
+			if(!beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
 				to_chat(src, "<span class='danger'>You need a beacon to warp things!</span>")
+				return
+			var/turf/T = beacon
+			if(T.is_safe())
+				new /obj/effect/temp_visual/guardian/phase/out(get_turf(A))
+				do_teleport(A, beacon, 0)
+				new /obj/effect/temp_visual/guardian/phase(get_turf(A))
+				return
+			to_chat(src, "<span class='danger'>The beacon isn't in a safe location!</span>")
+			return
 	else
 		to_chat(src, "<span class='danger'>You need to hold still!</span>")

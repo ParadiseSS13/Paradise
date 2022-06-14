@@ -250,6 +250,9 @@
 /turf/proc/BeforeChange()
 	return
 
+/turf/proc/is_safe()
+	return FALSE
+
 // I'm including `ignore_air` because BYOND lacks positional-only arguments
 /turf/proc/AfterChange(ignore_air = FALSE, keep_cabling = FALSE) //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
