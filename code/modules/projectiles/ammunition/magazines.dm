@@ -492,14 +492,21 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/detective/speedcharger //yes this doesn't really belong here but nowhere else works
-	name = "E-revolver charge pack"
-	desc = "One-use charge pack for the detectives energy revolver."
-	icon_state = "chargepack"
+	name = "DL-88 charge pack"
+	desc = "One-use charge pack for the DL-88 energy revolver."
+	icon_state = "handgun_ammo_battery"
 	var/charge = 1000
 
 /obj/item/ammo_box/magazine/detective/speedcharger/update_icon()
-	var/icon_base = initial(icon_state)
 	var/charge_percent = (charge / initial(charge) * 100) //calculates charge %
-	var/charge_percent_rounded = round(charge_percent, 25) // to the nearest 25%
-	icon_state = "[icon_base]-[charge_percent_rounded]"
+	var/charge_percent_rounded = round(charge_percent, 20) // to the nearest 25%
+	cut_overlays()
+	if(charge_percent_rounded)
+		add_overlay("hab_charge_[charge_percent_rounded]")
 	desc = "[initial(desc)] There is [charge_percent]% charge left!"
+
+/obj/item/ammo_box/magazine/detective/speedcharger/attack_self()
+	return
+
+/obj/item/ammo_box/magazine/detective/speedcharger/attackby()
+	return

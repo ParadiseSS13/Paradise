@@ -758,12 +758,12 @@
 	..()
 
 /obj/item/gun/energy/detective
-	name = "Detective's energy revolver"
+	name = "DL-88 energy revolver"
 	desc = "A 'modern' take on the classic projectile revolver."
-	icon_state = "det_placeholder"
+	icon_state = "handgun"
+	item_state = null
 	modifystate = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/tracker_warrant)
-	ammo_x_offset = 4
 	/// If true, this gun is tracking something and cannot track another mob
 	var/tracking_target_UID
 	/// Used to track if the gun is overcharged
@@ -772,6 +772,17 @@
 	var/obj/item/radio/headset/det_gun/Announcer
 	/// Used to link back to the pinpointer
 	var/linked_pinpointer_UID
+	shaded_charge = TRUE
+	unique_reskin = TRUE
+	charge_sections = 5
+	inhand_charge_sections = 1
+
+/obj/item/gun/energy/detective/Initialize(mapload, ...)
+	. = ..()
+	options["The Original"] = "handgun"
+	options["Golden Mamba"] = "handgun_golden-mamba"
+	options["NT's Finest"] = "handgun_nt-finest"
+	options["Cancel"] = null
 
 /obj/item/gun/energy/detective/Destroy()
 	QDEL_NULL(Announcer)
@@ -824,6 +835,7 @@
 		update_ammo_types()
 		select_fire(user)
 	user.visible_message("[user] [overcharged ? "removes" : "restores"] the safety limits on [src].", "You [overcharged ? "remove" : "restore" ] the safety limits on [src]")
+	update_icon()
 
 /obj/item/gun/energy/detective/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -854,6 +866,9 @@
 		playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
 		user.unEquip(src)
 		cell.charge = 0 //ha ha you lose
+		update_icon()
+		return
+	return ..()
 
 /obj/item/gun/energy/detective/proc/start_pointing(target_UID)
 	tracking_target_UID = target_UID

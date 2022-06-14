@@ -12,6 +12,7 @@
 	var/select = 1 //The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
 	var/can_charge = 1
 	var/charge_sections = 4
+	var/inhand_charge_sections = 4
 	ammo_x_offset = 2
 	var/shaded_charge = 0 //if this gun uses a stateful charge bar for more detail
 	var/selfcharge = 0
@@ -135,7 +136,9 @@
 
 /obj/item/gun/energy/update_icon()
 	cut_overlays()
+	icon_state = initial(icon_state)
 	var/ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
+	var/inhand_ratio = CEILING((cell.charge / cell.maxcharge) * inhand_charge_sections, 1)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/iconState = "[icon_state]_charge"
 	var/itemState = null
@@ -162,8 +165,10 @@
 	if(bayonet && can_bayonet)
 		add_overlay(knife_overlay)
 	if(itemState)
-		itemState += "[ratio]"
+		itemState += "[inhand_ratio]"
 		item_state = itemState
+	if(current_skin)
+		icon_state = current_skin
 
 /obj/item/gun/energy/ui_action_click()
 	toggle_gunlight()
