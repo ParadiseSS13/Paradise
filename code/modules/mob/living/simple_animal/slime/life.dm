@@ -433,7 +433,7 @@
 						to_say = "Я " + pick("идти…", "следовать…", "ползти…")
 					else // Not friendly enough
 						to_say = pick("Нет…", "Я не идти")
-			else if(findtext(phrase, "stop") || findtext_char(phrase, "фу") || findtext_char(phrase, "стоп") || findtext_char(phrase, "стой") || findtext_char(phrase, "стоять"))
+			else if(findtext(phrase, "stop") || findtext_char(phrase, "фу") || findtext_char(phrase, "стоп") || findtext_char(phrase, "стой") || findtext_char(phrase, "стоять") || findtext_char(phrase, "хватит"))
 				if(buckled) // We are asked to stop feeding
 					if (Friends[who] >= SLIME_FRIENDSHIP_STOPEAT)
 						Feedstop()
@@ -442,7 +442,7 @@
 							--Friends[who]
 							to_say = "Гррр…" // I'm angry but I do it
 						else
-							to_say = "Хорошо…"
+							to_say = pick("Хорошо…", "Ладно…")
 				else if(Target) // We are asked to stop chasing
 					if(Friends[who] >= SLIME_FRIENDSHIP_STOPCHASE)
 						Target = null
@@ -460,7 +460,7 @@
 							Leader = null
 							to_say = "Да… я [pick("стоп", "стоять")]…"
 						else
-							to_say = "Нет… [pick("всё равно", "буду")] идти…"
+							to_say = "Нет… [pick("всё равно", "буду", "хочу")] идти…"
 			else if(findtext(phrase, "stay") || findtext_char(phrase, "сидеть") || findtext_char(phrase, "ждать") || findtext_char(phrase, "жди"))
 				if(Leader)
 					if (Leader == who)
@@ -470,7 +470,7 @@
 						holding_still = (Friends[who] - Friends[Leader]) * 10
 						to_say = "Да… я [pick("ждать", "стоять")]…"
 					else
-						to_say = "Нет… [pick("всё равно", "буду")] [pick("идти", "ходить")]…"
+						to_say = "Нет… [pick("всё равно", "буду", "хочу")] [pick("идти", "ходить", "следовать")]…"
 				else
 					if(Friends[who] >= SLIME_FRIENDSHIP_STAY)
 						holding_still = Friends[who] * 10
@@ -486,7 +486,7 @@
 					for(var/mob/living/L in view(7,src)-list(src,who))
 						if(findtext_char(phrase, lowertext(L.name)))
 							if(isslime(L))
-								to_say = "НЕТ… [L] друг слайм"
+								to_say = "НЕТ… [L] друг слайма"
 								--Friends[who] //Don't ask a slime to attack its friend
 							else if(!Friends[L] || Friends[L] < 1)
 								Target = L
@@ -531,12 +531,12 @@
 				phrases += "Такой… голодный…"
 				phrases += "Сильно… голодный…"
 				phrases += "Хотеть… еда…"
-				phrases += "Нужен… еда…"
+				phrases += "Нужно… кушать…"
 			else if(nutrition < get_hunger_nutrition())
 				phrases += "Голодный…"
 				phrases += "Где еда?"
 				phrases += "Я хочу есть…"
-			phrases += "Равр…"
+			phrases += "Рррр…"
 			phrases += "Блоп…"
 			phrases += "Блорбл…"
 			if(rabid || attacked)
@@ -544,7 +544,7 @@
 				phrases += "Нхуу…"
 				phrases += "Унн…"
 			if(mood == ":3")
-				phrases += "Пурр…"
+				phrases += "Мурр…"
 			if(attacked)
 				phrases += "Гррр…"
 			if(bodytemperature < T0C)
@@ -565,15 +565,15 @@
 			if(powerlevel > 8)
 				phrases += "Зап… Бзз…"
 			if(mood == "sad")
-				phrases += "Скучный…"
+				phrases += "Скучно…"
 			if(slimes_near)
 				phrases += "Слайм друг…"
 			if(slimes_near > 1)
-				phrases += "Слаймы други…"
+				phrases += "Слаймы друзья…"
 			if(dead_slimes)
-				phrases += "Что случился?"
+				phrases += "Что случилось?"
 			if(!slimes_near)
-				phrases += "Одинокий…"
+				phrases += "Одиноко…"
 			for(var/M in friends_near)
 				phrases += "[M]… друг…"
 				if(nutrition < get_hunger_nutrition())
