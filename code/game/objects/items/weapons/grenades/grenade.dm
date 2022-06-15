@@ -62,6 +62,8 @@
 			. += "\The [src] is set for instant detonation."
 
 /obj/item/grenade/attack_self(mob/user as mob)
+	if(!can_activate())
+		return
 	if(!active)
 		if(clown_check(user))
 			to_chat(user, "<span class='warning'>You prime [src]! [det_time/10] seconds!</span>")
@@ -83,6 +85,11 @@
 
 /obj/item/grenade/proc/prime()
 
+/obj/item/grenade/proc/can_prime()
+	return TRUE
+
+/obj/item/grenade/proc/can_activate()
+	return TRUE
 
 /obj/item/grenade/proc/unprime()
 	active = FALSE

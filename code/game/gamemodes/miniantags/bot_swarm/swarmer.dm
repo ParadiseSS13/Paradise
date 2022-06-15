@@ -266,8 +266,9 @@
 	return TRUE
 
 /obj/machinery/door/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	var/area/A = get_turf(src)
-	if(safety_check())
+	var/area/A = get_area(src)
+	var/turf/T = get_turf(src)
+	if(T.adjacent_to_space())
 		to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 		S.target = null
 		return FALSE
@@ -384,8 +385,8 @@
 	return FALSE
 
 /turf/simulated/wall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	var/area/A = get_turf(src)
-	if(safety_check())
+	var/area/A = get_area(src)
+	if(adjacent_to_space())
 		to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 		S.target = null
 		return FALSE
@@ -396,8 +397,9 @@
 	return ..()
 
 /obj/structure/window/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	var/area/A = get_turf(src)
-	if(safety_check())
+	var/area/A = get_area(src)
+	var/turf/T = get_turf(src)
+	if(T.adjacent_to_space())
 		to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 		S.target = null
 		return FALSE

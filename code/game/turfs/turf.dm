@@ -579,3 +579,12 @@
 
 /turf/AllowDrop()
 	return TRUE
+
+
+///This check is used by swarmers and deconstruction grenades to check if removing this atom would lead to hull breaches.
+/turf/proc/adjacent_to_space()
+	var/isonshuttle = istype(get_area(src), /area/shuttle)
+	for(var/turf/T in range(1, src))
+		var/area/A = get_area(T)
+		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
+			return TRUE

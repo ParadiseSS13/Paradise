@@ -24,6 +24,7 @@
 	var/deconstruct_windows = FALSE
 
 	var/on_cooldown = FALSE
+	var/vocal_cooldown = FALSE
 
 /obj/item/grenade/deconstruction/Initialize(mapload)
 	. = ..()
@@ -42,26 +43,18 @@
 
 /obj/item/grenade/deconstruction/attack_self(mob/user as mob)
 	var/area/A = get_area(src)
-	if(!core)
-		atom_say("ERROR. No vortex core detected. Activation faliure.")
+	if(!can_activate())
 		return
-	if(on_cooldown)
-		atom_say("Internal capacitors still recharging. Please hold.")
-		return
-	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>[src] is stuck to your hand!</span>")
-		return
+	atom_say("Area repossession commencing. Please clear the area.") // sound / visuals after
+	if(!emagged)
+		announce_radio_message("Begining authorised repossession in [A.name]!")
 	else
-		atom_say("Area repossession commencing. Please clear the area.") // sound / visuals after
-		if(!emagged)
-			announce_radio_message("Begining authorised repossession in [A.name]!")
-		else
-			announce_radio_message("Begining authorised agressive repossession in [Gibberish(A.name, 90)]!")
-		anchored = TRUE
-		set_light(8)
-		playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, 0)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, loc, 'sound/machines/warning-buzzer.ogg', 60, 0), 3.5 SECONDS)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, loc, 'sound/machines/warning-buzzer.ogg', 60, 0), 7 SECONDS)//So the alarm plays 3 times
+		announce_radio_message("Begining authorised agressive repossession in [Gibberish(A.name, 90)]!")
+	anchored = TRUE
+	set_light(8)
+	playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, 0)
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, loc, 'sound/machines/warning-buzzer.ogg', 60, 0), 3.5 SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, loc, 'sound/machines/warning-buzzer.ogg', 60, 0), 7 SECONDS)//So the alarm plays 3 times
 	return ..()
 
 /obj/item/grenade/deconstruction/attack_hand(mob/user)
@@ -75,18 +68,22 @@
 		return ..()
 
 /obj/item/grenade/deconstruction/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/assembly/signaler/anomaly/vortex))
-		if(core)
-			to_chat(user, "<span class='notice'>[src] already has a [O]!</span>")
-			return
-		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[O] is stuck to your hand!</span>")
-			return
-		to_chat(user, "<span class='notice'>You insert [O] into [src], and [src] starts to warm up.</span>")
-		O.forceMove(src)
-		core = O
-		icon_state = "deconstruction_core"
-		update_icon()
+	if(!istype(O, /obj/item/assembly/signaler/anomaly/vortex))
+		return
+	if(core)
+		to_chat(user, "<span class='notice'>[src] already has a [O]!</span>")
+		return
+	if(!user.drop_item())
+		to_chat(user, "<span class='warning'>[O] is stuck to your hand!</span>")
+		return
+	to_chat(user, "<span class='notice'>You insert [O] into [src], and [src] starts to warm up.</span>")
+	O.forceMove(src)
+	core = O
+	update_icon()
+
+/obj/item/grenade/deconstruction/update_icon()
+	. = ..()
+	icon_state = "deconstruction_core"
 
 /obj/item/grenade/deconstruction/CtrlClick(mob/living/L)
 	radial_menu(L)
@@ -149,15 +146,41 @@
 	return TRUE
 
 /obj/item/grenade/deconstruction/prime()
-	if(!active) //For if it has been deactivated
-		return
-	unprime()
-	if(get_turf(src) == level_name_to_num(CENTCOMM)) //Safety first.
-		atom_say("Activation denied: Area does not need repossession ")
+	if(!can_prime())
 		return
 	deconstruct_obj(DECONSTRUCT_ATTEMPTS)
 	addtimer(CALLBACK(src, .proc/reboot), 60 SECONDS)
 	on_cooldown = TRUE
+
+/obj/item/grenade/deconstruction/can_prime()
+	if(!active) //For if it has been deactivated
+		return FALSE
+	unprime()
+	if(get_turf(src) == level_name_to_num(CENTCOMM)) //Safety first.
+		atom_say("Activation denied: Area does not need repossession ")
+		return FALSE
+	return TRUE
+
+/obj/item/grenade/deconstruction/can_activate()
+	if(!core)
+		if(!vocal_cooldown)
+			atom_say("ERROR. No vortex core detected. Activation faliure.")
+			vocal_cooldown = TRUE
+			addtimer(CALLBACK(src, .proc/vocal_reboot), 5 SECONDS)
+		return FALSE
+	if(on_cooldown)
+		if(!vocal_cooldown)
+			atom_say("Internal capacitors still recharging. Please hold.")
+			vocal_cooldown = TRUE
+			addtimer(CALLBACK(src, .proc/vocal_reboot), 5 SECONDS)
+		return FALSE
+	if(!usr.drop_item())
+		if(!vocal_cooldown)
+			to_chat(usr, "<span class='warning'>[src] is stuck to your hand!</span>")
+			vocal_cooldown = TRUE
+			addtimer(CALLBACK(src, .proc/vocal_reboot), 5 SECONDS)
+		return FALSE
+	return TRUE
 
 /obj/item/grenade/deconstruction/unprime()
 	..()
@@ -168,7 +191,7 @@
 	if(deconstruct_walls)
 		for(var/turf/simulated/wall/W in view(7, src))
 			var/area/A = get_turf(src)
-			if(W.safety_check() && !emagged)
+			if(W.adjacent_to_space() && !emagged)
 				continue
 			if(istype(A, /area/engine/supermatter) & !emagged)
 				continue
@@ -177,10 +200,11 @@
 			W.dismantle_wall() //Indestructible walls overide this to false
 
 	for(var/obj/structure/S in view(7, src)) //Two runs for objects of structures and machinery, so we don't try to disasemble mechs, or items, or some other strange typepath.
-		var/area/A = get_turf(src)
+		var/area/A = get_area(S)
+		var/turf/T = get_turf(S)
 		if(S.resistance_flags & INDESTRUCTIBLE)
 			continue
-		if(S.safety_check() && !emagged)
+		if(T.adjacent_to_space() && !emagged)
 			continue
 		if(istype(A, /area/engine/supermatter) & !emagged)
 			continue
@@ -195,10 +219,11 @@
 		S.deconstruct(TRUE)
 
 	for(var/obj/machinery/O in view(7, src))
-		var/area/A = get_turf(src)
+		var/area/A = get_area(O)
+		var/turf/T = get_turf(O)
 		if(O.resistance_flags & INDESTRUCTIBLE)
 			continue
-		if(O.safety_check() && !emagged)
+		if(T.adjacent_to_space() && !emagged)
 			continue
 		if(istype(A, /area/engine/supermatter) & !emagged)
 			continue
@@ -218,36 +243,40 @@
 	for(var/obj/item/I in oview(7, src))
 		if(I.resistance_flags & INDESTRUCTIBLE) //No eating objective items, thank you.
 			continue
-		if(length(I.materials) || consume_all)
-			var/list/curently_recycling = list(I) //This needs to be done to handle everything inside boxes and bags nicely
-			curently_recycling += I.GetAllContents()
-			curently_recycling = reverselist(curently_recycling) //Deconstruct the stuff in the box in the bag, then the box, then the bag.
-			for(var/atom/movable/A in curently_recycling)
-				if(!istype(A, /obj/item)&& isliving(A))
-					A.forceMove(get_turf(A)) //soul in a soul shard, for example
-					continue
-				var/obj/item/O = A
-				if(QDELETED(O))
-					continue
-				else if(isliving(O))
-					O.forceMove(get_turf(O))
-					continue
-				if(O.resistance_flags & INDESTRUCTIBLE)
-					O.forceMove(get_turf(O)) //No eating objective items in bags
-					continue
-				var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-				var/material_amount = materials.get_item_material_amount(O)
-				if(!material_amount)
-					qdel(O)
-					continue
-				materials.insert_item(O, multiplier = 0.8) //Slight material loss, but still incredibly good.
+		if(!length(I.materials) && !consume_all)
+			continue
+		var/list/curently_recycling = list(I) //This needs to be done to handle everything inside boxes and bags nicely
+		curently_recycling += I.GetAllContents()
+		curently_recycling = reverselist(curently_recycling) //Deconstruct the stuff in the box in the bag, then the box, then the bag.
+		for(var/atom/movable/A in curently_recycling)
+			if(!istype(A, /obj/item)&& isliving(A))
+				A.forceMove(get_turf(A)) //soul in a soul shard, for example
+				continue
+			var/obj/item/O = A
+			if(QDELETED(O))
+				continue
+			else if(isliving(O))
+				O.forceMove(get_turf(O))
+				continue
+			if(O.resistance_flags & INDESTRUCTIBLE)
+				O.forceMove(get_turf(O)) //No eating objective items in bags
+				continue
+			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+			var/material_amount = materials.get_item_material_amount(O)
+			if(!material_amount)
 				qdel(O)
-				materials.retrieve_all()
+				continue
+			materials.insert_item(O, multiplier = 0.8) //Slight material loss, but still incredibly good.
+			qdel(O)
+			materials.retrieve_all()
 
 
 /obj/item/grenade/deconstruction/proc/reboot()
 	on_cooldown = FALSE
 	atom_say("Capacitors charged. System ready for repossession")
+
+/obj/item/grenade/deconstruction/proc/vocal_reboot()
+	vocal_cooldown = FALSE
 
 /obj/item/grenade/deconstruction/emag_act(user as mob)
 	if(!emagged)
@@ -264,8 +293,8 @@
 /obj/effect/temp_visual/fadeout
 	duration = 2.5 SECONDS
 
-/obj/effect/temp_visual/fadeout/New(loc, atom/target)
-	..()
+/obj/effect/temp_visual/fadeout/Initialize(mapload, atom/target)
+	. = ..()
 	icon = target.icon
 	icon_state = target.icon_state
 	alpha = target.alpha * 0.66
