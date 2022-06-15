@@ -41,9 +41,9 @@
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
 	/// Are we a rusty wall or not?
-	var/rusted
+	var/rusted = FALSE
 	/// Have we got a rusty overlay?
-	var/rusted_applied = FALSE
+	var/rusted_overlay
 
 /turf/simulated/wall/Initialize(mapload)
 	. = ..()
@@ -99,9 +99,11 @@
 		generate_overlays()
 
 	QUEUE_SMOOTH(src)
-	if(rusted && !rusted_applied)
-		add_overlay(icon('icons/turf/overlays.dmi', pick("rust", "rust2"), pick(NORTH, SOUTH, EAST, WEST)))
-		rusted_applied = TRUE
+	if(!rusted_overlay)
+		rusted_overlay = icon('icons/turf/overlays.dmi', pick("rust", "rust2"), pick(NORTH, SOUTH, EAST, WEST))
+	if(rusted && rusted_overlay)
+		add_overlay(rusted_overlay)
+
 	if(!damage)
 		if(damage_overlay)
 			overlays -= damage_overlays[damage_overlay]
