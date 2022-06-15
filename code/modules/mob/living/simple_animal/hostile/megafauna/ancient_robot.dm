@@ -162,12 +162,13 @@ Difficulty: Medium
 		DestroySurroundings()
 		if(isliving(A))
 			var/mob/living/L = A
-			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
-			forceMove(get_turf(L))
-			L.apply_damage(15, BRUTE) // ignores armor, might hit twice, TEST THIS SHIT. it does
-			playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
-			shake_camera(L, 4, 3)
-			shake_camera(src, 2, 3)
+			if(!istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
+				L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
+				forceMove(get_turf(L))
+				L.apply_damage(15, BRUTE) // ignores armor, might hit twice, TEST THIS SHIT. it does
+				playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
+				shake_camera(L, 4, 3)
+				shake_camera(src, 2, 3)
 	..()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/body_shield()
@@ -219,6 +220,15 @@ Difficulty: Medium
 	maxHealth = INFINITY //it's fine trust me
 	health = INFINITY
 	faction = list("mining", "boss") // No attacking your leg
+	stop_automated_movement = 1
+	wander = 0
+	check_friendly_fire = 1
+	ranged = 1
+	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
+	projectiletype = /obj/item/projectile/ancient_robot_bullet
+	attacktext = "stomps on"
+	melee_damage_lower = 20
+	melee_damage_upper = 20
 	var/range = 5
 	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/core = null
 	var/fake_max_hp = 400
@@ -236,9 +246,13 @@ Difficulty: Medium
 	..()
 	health_and_snap_check(TRUE)
 
+/mob/living/simple_animal/hostile/ancient_robot_leg/Goto()
+		return // stops the legs from trying to move on their own
+
 /mob/living/simple_animal/hostile/ancient_robot_leg/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * transfer_rate
 	core.adjustBruteLoss(damage)
+	fake_hp = clamp(fake_hp - damage, 0, fake_max_hp)
 	if(damage && fake_hp <= 160) //warn that you are not doing much damage
 		src.visible_message("<span class='danger'>[src] looks too damaged to hurt it much more!</span>")
 	health_and_snap_check(FALSE)
@@ -258,11 +272,23 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/ancient_robot_leg/Bump(atom/A)
 	DestroySurroundings()
 	if(isliving(A))
-		var/mob/living/L = A
-		L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
-		forceMove(get_turf(L))
-		L.apply_damage(15, BRUTE) // ignores armor, might hit twice, TEST THIS SHIT. it does
-		playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
-		shake_camera(L, 4, 3)
-		shake_camera(src, 2, 3)
+		if(!istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
+			var/mob/living/L = A
+			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
+			forceMove(get_turf(L))
+			L.apply_damage(15, BRUTE) // ignores armor, might hit twice, TEST THIS SHIT. it does
+			playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
+			shake_camera(L, 4, 3)
+			shake_camera(src, 2, 3)
 	..()
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/OpenFire() // This is (idealy) to keep the turrets on the legs from shooting people that are close to the robot. The guns will only shoot if they won't hit the robot, or if the user is between a leg and another leg / robot
+	if(get_dist(target, core) < 3)
+		return
+	..()
+
+/obj/item/projectile/ancient_robot_bullet
+	damage = 10
+	armour_penetration = 40
+	damage_type = BRUTE
+	stamina = 10 //you actually have to dodge a bit, rather than just, you know, tank.
