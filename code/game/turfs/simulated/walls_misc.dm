@@ -40,7 +40,7 @@
 	smoothing_flags = null
 
 /turf/simulated/wall/rust/Initialize(mapload)
-	..()
+	. = ..()
 	var/turf/simulated/wall/target = ChangeTurf(/turf/simulated/wall)
 	target.rust()
 
@@ -51,7 +51,7 @@
 	smoothing_flags = null
 
 /turf/simulated/wall/r_wall/rust/Initialize(mapload)
-	..()
+	. = ..()
 	var/turf/simulated/wall/r_wall/target = ChangeTurf(/turf/simulated/wall/r_wall)
 	target.rust()
 

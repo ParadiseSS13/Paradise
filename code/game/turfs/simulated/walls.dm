@@ -43,7 +43,7 @@
 	/// Are we a rusty wall or not?
 	var/rusted
 	/// Have we got a rusty overlay?
-	var/rusted_applied
+	var/rusted_applied = FALSE
 
 /turf/simulated/wall/Initialize(mapload)
 	. = ..()

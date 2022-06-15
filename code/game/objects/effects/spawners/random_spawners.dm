@@ -73,7 +73,7 @@
 /obj/effect/spawner/random_spawners/wall_rusted_probably/randspawn(turf/T)
 	if(prob(75))
 		rustify(T)
-	qdel()
+	qdel(src)
 
 /obj/effect/spawner/random_spawners/wall_rusted_maybe
 	name = "rusted wall maybe"
@@ -82,7 +82,7 @@
 /obj/effect/spawner/random_spawners/wall_rusted_maybe/randspawn(turf/T)
 	if(prob(25))
 		rustify(T)
-	qdel()
+	qdel(src)
 
 /obj/effect/spawner/random_spawners/wall_rusted_always
 	name = "rusted wall always"
@@ -90,7 +90,7 @@
 
 /obj/effect/spawner/random_spawners/wall_rusted_always/randspawn(turf/T)
 	rustify(T)
-	qdel()
+	qdel(src)
 
 /obj/effect/spawner/random_spawners/cobweb_left_frequent
 	name = "cobweb left frequent"
