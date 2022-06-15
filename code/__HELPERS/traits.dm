@@ -218,6 +218,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define DOGGO_SPACESUIT "doggo_spacesuit"
 #define FLOORCLUWNE "floorcluwne"
 #define LOCKDOWN_TRAIT "lockdown"
+#define STAT_TRAIT "stat_trait"
+#define TRANSFORMING_TRAIT "transforming"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
