@@ -39,8 +39,8 @@ Difficulty: Medium
 	attacktext = "shocks"
 	attack_sound = 'sound/machines/defib_zap.ogg'
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
-	icon_state = "dragon"
-	icon_living = "dragon"
+	icon_state = "ancient_robot"
+	icon_living = "ancient_robot"
 	icon_dead = "dragon_dead"
 	friendly = "stares down"
 	speak_emote = list("BUZZES")
@@ -52,6 +52,7 @@ Difficulty: Medium
 	move_to_delay = 5
 	ranged = TRUE
 	pixel_x = -16
+	pixel_y = -16
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/dragon/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/dragon)
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
@@ -223,43 +224,49 @@ Difficulty: Medium
 			leg_control_system(input, -2, -2)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_walking_controler(dir) //This controls the legs. Here be pain.
-	if(1)
-		leg_walking_orderer("TR", "TL", "BR", "BL")
-	if(2)
-		leg_walking_orderer("BL", "BR", "TL", "TR")
-	if(4)
-		leg_walking_orderer("TR", "TL", "BR", "BL")
-	if(8)
-		leg_walking_orderer("BL", "BR", "TL", "TR")
-	if(5)
-		leg_walking_orderer("TR", "TL", "BR", "BL")
-	if(6)
-		leg_walking_orderer("BR", "TL", "BL", "TR")
-	if(9)
-		leg_walking_orderer("TL", "TR", "BL", "BR")
-	if(10)
-		leg_walking_orderer("BL", "TL", "BR", "TR")
+	switch(dir)
+		if(1)
+			leg_walking_orderer("TR", "TL", "BR", "BL")
+		if(2)
+			leg_walking_orderer("BL", "BR", "TL", "TR")
+		if(4)
+			leg_walking_orderer("TR", "TL", "BR", "BL")
+		if(8)
+			leg_walking_orderer("BL", "BR", "TL", "TR")
+		if(5)
+			leg_walking_orderer("TR", "TL", "BR", "BL")
+		if(6)
+			leg_walking_orderer("BR", "TL", "BL", "TR")
+		if(9)
+			leg_walking_orderer("TL", "TR", "BL", "BR")
+		if(10)
+			leg_walking_orderer("BL", "TL", "BR", "TR")
 
 
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_walking_orderer(A, B, C, D)
-	addtimer(CALLBACK(src, .proc/fix_specific_leg, A), 5)
-	addtimer(CALLBACK(src, .proc/fix_specific_leg, B), 10)
-	addtimer(CALLBACK(src, .proc/fix_specific_leg, C), 10)
-	addtimer(CALLBACK(src, .proc/fix_specific_leg, D), 15)
+	addtimer(CALLBACK(src, .proc/fix_specific_leg, A), 1)
+	addtimer(CALLBACK(src, .proc/fix_specific_leg, B), 2)
+	addtimer(CALLBACK(src, .proc/fix_specific_leg, C), 2)
+	addtimer(CALLBACK(src, .proc/fix_specific_leg, D), 3)
 
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_control_system(input, right, up)
 	var/turf/target = locate(src.x + right, src.y + up, src.z)
 	switch(input)
 		if("TR")
-			TR.leg_movement(target, 0.1)
+			TR.leg_movement(target, 0.5)
+			//TR.forceMove(target)
 		if("TL")
-			TL.leg_movement(target, 0.1)
+			TL.leg_movement(target, 0.5)
+			//TL.forceMove(target)
 		if("BR")
-			BR.leg_movement(target, 0.1)
+			BR.leg_movement(target, 0.5)
+			//BR.forceMove(target)
 		if("BL")
-			BL.leg_movement(target, 0.1)
+			BL.leg_movement(target, 0.5)
+			//BL.forceMove(target)
+	message_admins("[input] was told to move")
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/ex_act(severity, target)
 	if(severity == EXPLODE_LIGHT)
@@ -305,6 +312,8 @@ Difficulty: Medium
 	var/fake_hp_regen = 10
 	var/transfer_rate = 0.5
 	var/who_am_i = null
+	var/fuck_people_up = FALSE
+	var/datum/beam/leg_part
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Initialize(mapload, mob/living/ancient, who)
 	. = ..()
@@ -312,6 +321,7 @@ Difficulty: Medium
 		qdel(src) //no
 	core = ancient
 	who_am_i = who
+	leg_part = Beam(core, "rped_upgrade", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Life(seconds, times_fired)
 	..()
@@ -338,17 +348,19 @@ Difficulty: Medium
 		fake_hp = min(fake_hp + fake_hp_regen, fake_max_hp)
 	transfer_rate = 0.5 ^ (3 * (fake_hp / fake_max_hp)) * 0.5
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/proc/leg_movement(turf/T, speed) //byond doesn't like calling walk_towards on the legs directly
-	walk_towards(src, T, speed)
+/mob/living/simple_animal/hostile/ancient_robot_leg/proc/leg_movement(turf/T, movespeed) //byond doesn't like calling walk_towards on the legs directly
+	walk_towards(src, T, movespeed)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Bump(atom/A)
+	if(!core.charging)
+		return
 	DestroySurroundings()
 	if(isliving(A))
 		if(!istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
 			var/mob/living/L = A
 			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
 			forceMove(get_turf(L))
-			L.apply_damage(15, BRUTE) // ignores armor, might hit twice, TEST THIS SHIT. it does
+			L.apply_damage(5, BRUTE) // ignores armor, might hit twice, TEST THIS SHIT. it does
 			playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 			shake_camera(L, 4, 3)
 			shake_camera(src, 2, 3)
