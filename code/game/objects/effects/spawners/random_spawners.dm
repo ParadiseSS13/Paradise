@@ -64,16 +64,23 @@
 /obj/effect/spawner/random_spawners/wall_rusted_probably
 	name = "rusted wall probably"
 	icon_state = "rust"
-	result = list(
-	/turf/simulated/wall = 2,
-	/turf/simulated/wall/rust = 7)
+
+/obj/effect/spawner/random_spawners/wall_rusted_probably/randspawn(turf/T)
+	var/turf/simulated/wall/W = T
+	if(istype(W) && !W.rusted)
+		W.rust()
+	qdel()
 
 /obj/effect/spawner/random_spawners/wall_rusted_maybe
 	name = "rusted wall maybe"
 	icon_state = "rust"
-	result = list(
-	/turf/simulated/wall = 7,
-	/turf/simulated/wall/rust = 1)
+
+/obj/effect/spawner/random_spawners/wall_rusted_maybe/randspawn(turf/T)
+	var/turf/simulated/wall/W = T
+	if(istype(W) && !W.rusted)
+		W.rust()
+	qdel()
+
 
 /obj/effect/spawner/random_spawners/cobweb_left_frequent
 	name = "cobweb left frequent"

@@ -40,6 +40,8 @@
 	var/sheet_type = /obj/item/stack/sheet/metal
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
+	///Are we a rusty wall or not?
+	var/rusted
 
 /turf/simulated/wall/Initialize(mapload)
 	. = ..()
@@ -81,6 +83,13 @@
 /turf/simulated/wall/detailed_examine()
 	return "You can deconstruct this by welding it, and then wrenching the girder.<br>\
 			You can build a wall by using metal sheets and making a girder, then adding more metal or plasteel."
+
+/turf/simulated/wall/proc/rust()
+	if(rusted)
+		return
+	name = "rusted [name]"
+	add_overlay(icon('icons/turf/overlays.dmi', pick("rust", "rust2"), pick(NORTH, SOUTH, EAST, WEST)))
+	rusted = TRUE
 
 /turf/simulated/wall/proc/update_icon()
 	if(!damage_overlays[1]) //list hasn't been populated
