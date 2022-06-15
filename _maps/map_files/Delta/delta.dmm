@@ -983,6 +983,7 @@
 	id_tag = "s_docking_airlock"
 	},
 /obj/effect/decal/warning_stripes/east,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/shuttle/arrival/station)
 "ahC" = (
@@ -993,6 +994,7 @@
 	id_tag = "s_docking_airlock"
 	},
 /obj/effect/decal/warning_stripes/west,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/shuttle/arrival/station)
 "ahF" = (
