@@ -243,10 +243,10 @@ Difficulty: Medium
 
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_walking_orderer(A, B, C, D)
-	addtimer(CALLBACK(src, .proc/fix_specific_leg, A), 0.2)
-	addtimer(CALLBACK(src, .proc/fix_specific_leg, B), 0.4)
-	addtimer(CALLBACK(src, .proc/fix_specific_leg, C), 0.4)
-	addtimer(CALLBACK(src, .proc/fix_specific_leg, D), 0.6)
+	addtimer(CALLBACK(src, .proc/fix_specific_leg, A), 5)
+	addtimer(CALLBACK(src, .proc/fix_specific_leg, B), 10)
+	addtimer(CALLBACK(src, .proc/fix_specific_leg, C), 10)
+	addtimer(CALLBACK(src, .proc/fix_specific_leg, D), 15)
 
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_control_system(input, right, up)
