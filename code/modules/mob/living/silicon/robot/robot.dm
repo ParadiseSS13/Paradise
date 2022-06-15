@@ -1167,7 +1167,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	disconnect_from_ai()
 	lawupdate = 0
 	lockcharge = 0
-	REMOVE_TRAITS_IN(src, LOCKDOWN_TRAIT)
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LOCKDOWN_TRAIT)
+	REMOVE_TRAIT(src, TRAIT_UI_BLOCKED, LOCKDOWN_TRAIT)
+	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, LOCKDOWN_TRAIT)
 	scrambledcodes = 1
 	//Disconnect it's camera so it's not so easily tracked.
 	QDEL_NULL(camera)

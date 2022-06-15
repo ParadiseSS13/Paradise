@@ -22,7 +22,7 @@
 
 /datum/status_effect/freon/tick()
 	if(can_melt && owner.bodytemperature >= BODYTEMP_NORMAL)
-		REMOVE_TRAITS_IN(owner, "[id]")
+		REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 		qdel(src)
 
 /datum/status_effect/freon/proc/owner_resist()
@@ -31,14 +31,14 @@
 		if(!QDELETED(src))
 			to_chat(owner, "You break out of the ice cube!")
 			owner.remove_status_effect(/datum/status_effect/freon)
-			REMOVE_TRAITS_IN(owner, "[id]")
+			REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 
 /datum/status_effect/freon/on_remove()
 	if(!owner.stat)
 		to_chat(owner, "The cube melts!")
 	owner.cut_overlay(cube)
 	owner.adjust_bodytemperature(100)
-	REMOVE_TRAITS_IN(owner, "[id]")
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 	UnregisterSignal(owner, COMSIG_LIVING_RESIST)
 
 /datum/status_effect/freon/watcher

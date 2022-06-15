@@ -36,7 +36,8 @@
 	if(!has_primitive_form) //If the pre-change mob in question has no primitive set, this is going to be messy.
 		H.gib()
 		return
-	REMOVE_TRAITS_IN(H, "transforming")
+	REMOVE_TRAIT(H, TRAIT_IMMOBILIZED, "transforming")
+	REMOVE_TRAIT(H, TRAIT_HANDS_BLOCKED, "transforming")
 	to_chat(H, "<B>You are now a [H.dna.species.name].</B>")
 
 	return H
@@ -64,8 +65,8 @@
 
 	new /obj/effect/temp_visual/monkeyify/humanify(H.loc)
 	sleep(22)
-
-	REMOVE_TRAITS_IN(H, "transforming")
+	REMOVE_TRAIT(H, TRAIT_IMMOBILIZED, "transforming")
+	REMOVE_TRAIT(H, TRAIT_HANDS_BLOCKED, "transforming")
 	H.invisibility = initial(H.invisibility)
 
 	if(!has_greater_form) //If the pre-change mob in question has no primitive set, this is going to be messy.

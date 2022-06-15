@@ -29,7 +29,9 @@
 	add_attack_logs(src, null, "Woken up", ATKLOG_ALL)
 	log_game("[key_name(src)] woke up at [atom_loc_line(get_turf(src))]")
 	stat = CONSCIOUS
-	REMOVE_TRAITS_IN(src, "stat_trait")
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "stat_trait")
+	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, "stat_trait")
+	REMOVE_TRAIT(src, TRAIT_FLOORED, "stat_trait")
 	if(updating)
 		update_sight()
 		update_blind_effects()

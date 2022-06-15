@@ -64,7 +64,7 @@
 
 	// standing is poor
 	if(stance_damage >= 8)
-		if(IS_HORIZONTAL(src))
+		if(!IS_HORIZONTAL(src))
 			if(!HAS_TRAIT(src, TRAIT_NOPAIN))
 				emote("scream")
 			emote("collapses")

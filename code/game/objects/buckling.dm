@@ -80,7 +80,10 @@
 	ADD_TRAIT(M, TRAIT_IMMOBILIZED, "buckled")
 	M.throw_alert("buckled", /obj/screen/alert/restrained/buckled)
 	post_buckle_mob(M)
-
+	if(!buckle_lying)
+		M.set_body_position(STANDING_UP)
+	else
+		M.set_body_position(LYING_DOWN)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)
 	return TRUE
 
@@ -100,6 +103,10 @@
 		buckled_mob.clear_alert("buckled")
 		buckled_mobs -= buckled_mob
 		SEND_SIGNAL(src, COMSIG_MOVABLE_UNBUCKLE, buckled_mob, force)
+		if(buckled_mob.mobility_flags & MOBILITY_STAND)
+			buckled_mob.set_body_position(STANDING_UP)
+		else if(!buckle_lying)
+			buckled_mob.fall()
 
 		post_unbuckle_mob(.)
 
