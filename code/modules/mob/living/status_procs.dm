@@ -118,8 +118,7 @@ STATUS EFFECTS
 	if(layer == LYING_MOB_LAYER)
 		layer = initial(layer)
 	set_density(initial(density))
-	REMOVE_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
-	REMOVE_TRAIT(src, TRAIT_PULL_BLOCKED, LYING_DOWN_TRAIT)
+	REMOVE_TRAITS_IN(src, LYING_DOWN_TRAIT)
 	UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE)
 	set_lying_angle(0)
 	pixel_y = 0
