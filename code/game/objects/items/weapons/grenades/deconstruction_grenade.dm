@@ -188,7 +188,7 @@
 			continue
 		if(istype(S, /obj/structure/blob) && !istype(S, /obj/structure/blob/normal)) //I'll let it work on weak blobs, but not on any strong blob structures.
 			continue
-		if(S.invisibility > 30) //for those weird invisible structures that control stuff (looking at you spacevines)
+		if(S.invisibility > INVISIBILITY_HIDDEN_RUNES) //for those weird invisible structures that control stuff (looking at you spacevines)
 			continue
 		if(loops == DECONSTRUCT_ATTEMPTS)
 			new /obj/effect/temp_visual/fadeout(get_turf(S), S)
@@ -209,7 +209,7 @@
 		O.deconstruct(TRUE)
 
 	if(loops)
-		deconstruct_obj(loops -= 1)
+		deconstruct_obj(loops - 1)
 
 	else if(recycle || consume_all)
 		deconstruct_items()
