@@ -1369,7 +1369,7 @@
 	name = "russian revolver"
 	desc = "For fun and games!"
 	icon = 'icons/obj/guns/projectile.dmi'
-	icon_state = "detective_gold"
+	icon_state = "russianrevolver"
 	item_state = "gun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'

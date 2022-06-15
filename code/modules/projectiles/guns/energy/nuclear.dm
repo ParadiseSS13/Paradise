@@ -107,5 +107,5 @@
 	shaded_charge = FALSE
 
 /obj/item/gun/energy/gun/nuclear/detailed_examine()
-	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. To switch between stun and lethal, click the weapon \
+	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. To switch between disable and lethal, click the weapon \
 			in your hand. Unlike most weapons, this weapon recharges itself."
