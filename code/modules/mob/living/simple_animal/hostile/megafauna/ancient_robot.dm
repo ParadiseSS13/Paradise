@@ -1,3 +1,8 @@
+#define BODY_SHIELD_COOLDOWN_TIME = 45
+#define EXTRA_PLAYER_ANGER_NORMAL_CAP = 6
+#define EXTRA_PLAYER_ANGER_STATION_CAP = 3
+
+/// DISABLE MELEE WHEN CHARGING. TONE DOWN GUNS. PREVENT DOUBLE BUMP.
 
 
 /*
@@ -32,14 +37,14 @@ Difficulty: Medium
 	health = 2500
 	maxHealth = 2500
 	attacktext = "shocks"
-	attack_sound = 'sound/misc/demon_attack1.ogg'
+	attack_sound = 'sound/machines/defib_zap.ogg'
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
 	icon_state = "dragon"
 	icon_living = "dragon"
 	icon_dead = "dragon_dead"
 	friendly = "stares down"
 	speak_emote = list("BUZZES")
-	armour_penetration = 50
+	armour_penetration = 40
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 	melee_damage_type = BURN //Legs do the stomping, this is just a shock
@@ -55,7 +60,7 @@ Difficulty: Medium
 	var/player_cooldown = 0
 	var/body_shield_enabled = FALSE
 	var/body_shield_cooldown = 0
-	var/body_shield_cooldown_time = 45 SECONDS // make define later
+	var/extra_player_anger = 0
 	internal_type = /obj/item/gps/internal/ancient
 	medal_type = BOSS_MEDAL_DRAKE
 	score_type = DRAKE_SCORE
@@ -69,27 +74,25 @@ Difficulty: Medium
 	var/mob/living/simple_animal/hostile/ancient_robot_leg/BR = null
 	var/mob/living/simple_animal/hostile/ancient_robot_leg/BL = null
 
+///These variables are used to track what position the legs (should) be in, to hopefully make them move smoothly.
+	var/step_right = 0
+	var/step_up = 0
+	var/step_upright = 0
+
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Initialize(mapload, mob/living/ancient) //We spawn and move them to clear out area for the legs, rather than risk the legs getting put in a wall
 	. = ..()
-	TR = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src)
-	TL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src)
-	BR = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src)
-	BL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src)
+	TR = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, "TR")
+	TL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, "TL")
+	BR = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, "BR")
+	BL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, "BL")
 	addtimer(CALLBACK(src, .proc/leg_setup), 1 SECONDS)
 
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_setup()
-	var/turf/target_TR = locate(src.x + 2, src.y + 2, src.z)
-	TR.leg_movement(target_TR, 1)
-
-	var/turf/target_TL = locate(src.x - 2, src.y + 2, src.z)
-	TL.leg_movement(target_TL, 1)
-
-	var/turf/target_BR = locate(src.x + 2, src.y - 2, src.z)
-	BR.leg_movement(target_BR, 1)
-
-	var/turf/target_BL = locate(src.x - 2, src.y - 2, src.z)
-	BL.leg_movement(target_BL, 1)
+	fix_specific_leg("TR")
+	fix_specific_leg("TL")
+	fix_specific_leg("BR")
+	fix_specific_leg("BL")
 
 /obj/item/gps/internal/ancient
 	icon_state = null
@@ -102,7 +105,7 @@ Difficulty: Medium
 		return
 
 	anger_modifier = clamp(((maxHealth - health)/50),0,20)
-	ranged_cooldown = world.time + ranged_cooldown_time
+	ranged_cooldown = world.time + (ranged_cooldown_time * ((10 - extra_player_anger)/10))
 
 	//if(client)
 	//	switch(chosen_attack)
@@ -126,6 +129,8 @@ Difficulty: Medium
 		body_shield()
 	else
 		visible_message("<span class='danger'>DOING FUCK ALL CAPTAIN</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+
+	calculate_extra_player_anger()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/triple_charge()
 	charge(delay = 9)
@@ -176,7 +181,7 @@ Difficulty: Medium
 	body_shield_enabled = TRUE
 	visible_message("<span class='danger'>SHIELD ON MOTHAFAKA</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 	addtimer(CALLBACK(src, .proc/disable_shield), 15 SECONDS)
-	body_shield_cooldown = world.time + body_shield_cooldown_time
+	body_shield_cooldown = world.time + 4500
 	//visable chat message / sound here
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/disable_shield()
@@ -196,6 +201,66 @@ Difficulty: Medium
 	visible_message("<span class='danger'>halp I have no anomaly core</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 
 
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/calculate_extra_player_anger()// To make this fight harder, it scales it's attacks based on number of players. Capped lower on station.
+	var/anger = 0
+	var/cap = 0
+	for(var/mob/living/carbon/human/H in range(10, src))
+		if(stat == DEAD)
+			continue
+		anger += 1
+		cap = (is_station_level(loc.z) ? 1 : 2)
+	extra_player_anger = min(max(anger, 1), cap) - 1
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/fix_specific_leg(input) //Used to reset legs to specific locations
+	switch(input)
+		if("TR")
+			leg_control_system(input, 2, 2)
+		if("TL")
+			leg_control_system(input, -2, 2)
+		if("BR")
+			leg_control_system(input, 2, -2)
+		if("BL")
+			leg_control_system(input, -2, -2)
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_walking_controler(dir) //This controls the legs. Here be pain.
+	if(1)
+		leg_walking_orderer("TR", "TL", "BR", "BL")
+	if(2)
+		leg_walking_orderer("BL", "BR", "TL", "TR")
+	if(4)
+		leg_walking_orderer("TR", "TL", "BR", "BL")
+	if(8)
+		leg_walking_orderer("BL", "BR", "TL", "TR")
+	if(5)
+		leg_walking_orderer("TR", "TL", "BR", "BL")
+	if(6)
+		leg_walking_orderer("BR", "TL", "BL", "TR")
+	if(9)
+		leg_walking_orderer("TL", "TR", "BL", "BR")
+	if(10)
+		leg_walking_orderer("BL", "TL", "BR", "TR")
+
+
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_walking_orderer(A, B, C, D)
+	addtimer(CALLBACK(src, .proc/fix_specific_leg, A), 0.2)
+	addtimer(CALLBACK(src, .proc/fix_specific_leg, B), 0.4)
+	addtimer(CALLBACK(src, .proc/fix_specific_leg, C), 0.4)
+	addtimer(CALLBACK(src, .proc/fix_specific_leg, D), 0.6)
+
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_control_system(input, right, up)
+	var/turf/target = locate(src.x + right, src.y + up, src.z)
+	switch(input)
+		if("TR")
+			TR.leg_movement(target, 0.1)
+		if("TL")
+			TL.leg_movement(target, 0.1)
+		if("BR")
+			BR.leg_movement(target, 0.1)
+		if("BL")
+			BL.leg_movement(target, 0.1)
+
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/ex_act(severity, target)
 	if(severity == EXPLODE_LIGHT)
 		return
@@ -205,6 +270,8 @@ Difficulty: Medium
 	if(charging)
 		DestroySurroundings()
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
+	if(Dir)
+		leg_walking_controler(Dir)
 	return ..()
 
 ///mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(amount, updating_health = TRUE) //CHANGE THIS FOR CRITICAL DEATH KAABOOM
@@ -227,20 +294,24 @@ Difficulty: Medium
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	projectiletype = /obj/item/projectile/ancient_robot_bullet
 	attacktext = "stomps on"
+	armour_penetration = 40
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	var/range = 5
+	speed = -5
+	var/range = 4
 	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/core = null
 	var/fake_max_hp = 400
 	var/fake_hp = 400
 	var/fake_hp_regen = 10
 	var/transfer_rate = 0.5
+	var/who_am_i = null
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/Initialize(mapload, mob/living/ancient)
+/mob/living/simple_animal/hostile/ancient_robot_leg/Initialize(mapload, mob/living/ancient, who)
 	. = ..()
 	if(!ancient)
 		qdel(src) //no
 	core = ancient
+	who_am_i = who
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Life(seconds, times_fired)
 	..()
@@ -262,6 +333,7 @@ Difficulty: Medium
 		return
 	else
 		forceMove(core.loc) //move to summoner's tile, don't recall
+		core.fix_specific_leg(who_am_i)
 	if(regen)
 		fake_hp = min(fake_hp + fake_hp_regen, fake_max_hp)
 	transfer_rate = 0.5 ^ (3 * (fake_hp / fake_max_hp)) * 0.5
