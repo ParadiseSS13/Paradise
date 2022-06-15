@@ -101,6 +101,7 @@
 	QUEUE_SMOOTH(src)
 	if(rusted && !rusted_applied)
 		add_overlay(icon('icons/turf/overlays.dmi', pick("rust", "rust2"), pick(NORTH, SOUTH, EAST, WEST)))
+		rusted_applied = TRUE
 	if(!damage)
 		if(damage_overlay)
 			overlays -= damage_overlays[damage_overlay]
