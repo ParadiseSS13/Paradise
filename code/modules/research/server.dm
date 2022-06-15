@@ -17,9 +17,14 @@
 	req_access = list(ACCESS_RD) //Only the R&D can change server settings.
 	var/plays_sound = 0
 	var/syndicate = 0 //добавленный для синдибазы флаг
+	var/list/usage_logs
+	var/list/logs_for_logs_clearing
+	var/static/logs_decryption_key = null
 
 /obj/machinery/r_n_d/server/New()
 	..()
+	if(!logs_decryption_key)
+		logs_decryption_key = GenerateKey()
 	if(is_taipan(z))
 		syndicate = 1
 		req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
@@ -168,6 +173,38 @@
 		shock(user,50)
 	return
 
+/obj/machinery/r_n_d/server/proc/add_usage_log(mob/user, datum/design/built_design, obj/machinery/r_n_d/machine)
+	var/time_created = station_time_timestamp()
+	var/user_name = user.name
+	var/user_job = "no job"
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		user_name = human_user.get_authentification_name()
+		user_job = human_user.get_assignment()
+	var/blueprint_name = built_design.name
+	var/used_machine = machine.name
+
+	LAZYINITLIST(usage_logs)
+	usage_logs.len++
+	usage_logs[usage_logs.len] = list(time_created, user_name, user_job, blueprint_name, used_machine)
+
+/obj/machinery/r_n_d/server/proc/clear_logs(mob/user)
+	if(!LAZYLEN(usage_logs))
+		return
+	var/time_cleared = station_time_timestamp()
+	var/user_name = user.name
+	var/user_job = "no job"
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		user_name = human_user.get_authentification_name()
+		user_job = human_user.get_assignment()
+
+	LAZYINITLIST(logs_for_logs_clearing)
+	logs_for_logs_clearing.len++
+	logs_for_logs_clearing[logs_for_logs_clearing.len] = list(time_cleared, user_name, user_job)
+
+	LAZYCLEARLIST(usage_logs)
+
 /obj/machinery/r_n_d/server/centcom
 	name = "CentComm. Central R&D Database"
 	server_id = -1
@@ -231,12 +268,12 @@
 	if(href_list["main"])
 		screen = 0
 
-	else if(href_list["access"] || href_list["data"] || href_list["transfer"])
+	else if(href_list["access"] || href_list["data"] || href_list["transfer"] || href_list["logs"])
 		temp_server = null
 		consoles = list()
 		servers = list()
 		for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
-			if(S.server_id == text2num(href_list["access"]) || S.server_id == text2num(href_list["data"]) || S.server_id == text2num(href_list["transfer"]))
+			if(S.server_id == text2num(href_list["access"]) || S.server_id == text2num(href_list["data"]) || S.server_id == text2num(href_list["logs"]) || S.server_id == text2num(href_list["transfer"]))
 				temp_server = S
 				break
 		if(href_list["access"])
@@ -246,8 +283,13 @@
 					consoles += C
 		else if(href_list["data"])
 			screen = 2
-		else if(href_list["transfer"])
+		else if(href_list["logs"])
+			var/awaiting_input = input(usr, "Please input access key", "Security check") as text|null
+			if(awaiting_input != temp_server.logs_decryption_key)
+				return
 			screen = 3
+		else if(href_list["transfer"])
+			screen = 4
 			for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 				if(S == src)
 					continue
@@ -287,6 +329,9 @@
 					break
 		temp_server.files.RefreshResearch()
 
+	else if(href_list["clear_logs"])
+		temp_server.clear_logs(usr)
+
 	updateUsrDialog()
 	return
 
@@ -307,8 +352,10 @@
 					continue
 				dat += "[S.name] || "
 				dat += "<A href='?src=[UID()];access=[S.server_id]'>Access Rights</A> | "
-				dat += "<A href='?src=[UID()];data=[S.server_id]'>Data Management</A>"
-				if(badmin) dat += " | <A href='?src=[UID()];transfer=[S.server_id]'>Server-to-Server Transfer</A>"
+				dat += "<A href='?src=[UID()];data=[S.server_id]'>Data Management</A> | "
+				dat += "<A href='?src=[UID()];logs=[S.server_id]'>Logs</A>"
+				if(badmin)
+					dat += " | <A href='?src=[UID()];transfer=[S.server_id]'>Server-to-Server Transfer</A>"
 				dat += "<BR>"
 
 		if(1) //Access rights menu
@@ -351,7 +398,26 @@
 				dat += "<A href='?src=[UID()];reset_design=[D.id]'>(Delete)</A><BR>"
 			dat += "<HR><A href='?src=[UID()];main=1'>Main Menu</A>"
 
-		if(3) //Server Data Transfer
+		if(3) //Logs menu
+			dat += "[temp_server.name] Logs viewing<br><br>"
+			for(var/who_cleared in temp_server.logs_for_logs_clearing)
+				var/clear_time = who_cleared[1]
+				var/user_name = who_cleared[2]
+				var/user_job = who_cleared[3]
+				dat += "[clear_time]: [user_name] ([user_job]) cleared logs<BR>"
+
+			for(var/use_log in temp_server.usage_logs)
+				var/log_time = use_log[1]
+				var/user_name = use_log[2]
+				var/user_job = use_log[3]
+				var/blueprint_printed = use_log[4]
+				var/machine_name = use_log[5]
+				dat += "[log_time]: [user_name] ([user_job]) printed [blueprint_printed] using [machine_name]<BR>"
+
+			dat += "<BR><HR><A href='?src=[UID()];clear_logs=1'>Clear Logs</A>"
+			dat += "<BR><HR><A href='?src=[UID()];main=1'>Main Menu</A>"
+
+		if(4) //Server Data Transfer
 			dat += "[temp_server.name] Server to Server Transfer<BR><BR>"
 			dat += "Send Data to what server?<BR>"
 			for(var/obj/machinery/r_n_d/server/S in servers)

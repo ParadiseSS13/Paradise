@@ -191,6 +191,14 @@
 	add_overlay("[icon_state]-active")
 	addtimer(CALLBACK(src, .proc/build_design_timer_finish, D, final_cost), build_time)
 
+	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+		if(S.disabled)
+			continue
+		if(S.syndicate)
+			continue
+		if(istype(S, /obj/machinery/r_n_d/server/robotics) || istype(S, /obj/machinery/r_n_d/server/centcom))
+			S.add_usage_log(usr, D, src)
+
 	return TRUE
 
 /**

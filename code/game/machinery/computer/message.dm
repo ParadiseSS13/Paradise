@@ -503,3 +503,20 @@
 						info_links = info
 						overlays += "paper_words"
 						break
+
+
+/obj/item/paper/rnd_logs_key
+	name = "RnD logs Decryption Key"
+
+/obj/item/paper/rnd_logs_key/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/item/paper/rnd_logs_key/LateInitialize()
+	var/obj/machinery/r_n_d/server/located_server = locate() in GLOB.machines
+	if(!located_server)
+		return
+	var/decryption_key = located_server.logs_decryption_key
+	info = "<center><h2>RnD logs Access key</h2></center>\n\t<br>The new RnD logs access key is \"[decryption_key]\"."
+	info_links = info
+	overlays += "paper_words"

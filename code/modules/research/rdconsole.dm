@@ -464,6 +464,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	addtimer(CALLBACK(src, .proc/finish_machine, usr, amount, enough_materials, machine, being_built, coeff), time_to_construct)
 
+	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+		if(S.disabled)
+			continue
+		if(syndicate != S.syndicate)
+			continue
+		if(istype(S, /obj/machinery/r_n_d/server/core) || istype(S, /obj/machinery/r_n_d/server/centcom))
+			S.add_usage_log(usr, being_built, machine)
+
 /obj/machinery/computer/rdconsole/proc/finish_machine(mob/user, amount, enough_materials, obj/machinery/r_n_d/machine, datum/design/being_built, coeff)
 	if(machine)
 		if(enough_materials && being_built)
