@@ -401,9 +401,6 @@
 /obj/structure/chair/sofa/bench/right
 	icon_state = "bench_right"
 
-/obj/structure/chair/sofa/bench/corner
-	icon_state = "bench_corner"
-
 /obj/structure/chair/sofa/bamboo
 	name = "Bamboo Bench"
 	desc = "Not the most comfortable, but vegan!"

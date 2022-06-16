@@ -35,7 +35,6 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("bench (middle)", /obj/structure/chair/sofa/bench, 1, one_per_turf = TRUE, on_floor = TRUE), \
 		new /datum/stack_recipe("bench (left)", /obj/structure/chair/sofa/bench/left, 1, one_per_turf = TRUE, on_floor = TRUE), \
 		new /datum/stack_recipe("bench (right)", /obj/structure/chair/sofa/bench/right, 1, one_per_turf = TRUE, on_floor = TRUE), \
-		new /datum/stack_recipe("bench (corner)", /obj/structure/chair/sofa/bench/corner, 1, one_per_turf = TRUE, on_floor = TRUE), \
 		)), \
 	new /datum/stack_recipe("barber chair", /obj/structure/chair/barber, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wheelchair", /obj/structure/chair/wheelchair, 15, one_per_turf = 1, on_floor = 1),
