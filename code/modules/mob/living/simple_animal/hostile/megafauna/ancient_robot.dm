@@ -303,6 +303,14 @@ Difficulty: Medium
 	armour_penetration = 40
 	melee_damage_lower = 15
 	melee_damage_upper = 15
+	move_force = MOVE_FORCE_OVERPOWERING
+	move_resist = MOVE_FORCE_OVERPOWERING
+	pull_force = MOVE_FORCE_OVERPOWERING
+	sentience_type = SENTIENCE_BOSS
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	robust_searching = TRUE
+	ranged_ignores_vision = TRUE
+	stat_attack = DEAD
 	var/range = 4
 	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/core = null
 	var/fake_max_hp = 400
@@ -319,8 +327,9 @@ Difficulty: Medium
 		qdel(src) //no
 	core = ancient
 	who_am_i = who
-	leg_part = Beam(core.internal_gps, "rped_upgrade", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
 	ranged_cooldown_time = (rand(30, 60)) // keeps them not running on the same time
+	if(who_am_i == "TL" || who_am_i == "TR")
+		addtimer(CALLBACK(src, .proc/beam_setup), 1 SECONDS)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Life(seconds, times_fired)
 	..()
@@ -328,6 +337,12 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Goto()
 		return // stops the legs from trying to move on their own
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/proc/beam_setup()
+	if(who_am_i == "TL")
+		leg_part = Beam(core.BR, "rped_upgrade", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
+	else
+		leg_part = Beam(core.BL, "rped_upgrade", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * transfer_rate
@@ -338,14 +353,14 @@ Difficulty: Medium
 	health_and_snap_check(FALSE)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/health_and_snap_check(regen = FALSE)
+	if(regen)
+		fake_hp = min(fake_hp + fake_hp_regen, fake_max_hp)
+	transfer_rate = 0.5 ** (3 * (fake_hp / fake_max_hp)) * 0.5
 	if(get_dist(get_turf(core),get_turf(src)) <= range)
 		return
 	else
 		forceMove(core.loc) //move to summoner's tile, don't recall
 		core.fix_specific_leg(who_am_i)
-	if(regen)
-		fake_hp = min(fake_hp + fake_hp_regen, fake_max_hp)
-	transfer_rate = 0.5 ** (3 * (fake_hp / fake_max_hp)) * 0.5
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/leg_movement(turf/T, movespeed) //byond doesn't like calling walk_towards on the legs directly
 	walk_towards(src, T, movespeed)
