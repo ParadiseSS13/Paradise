@@ -19967,6 +19967,7 @@
 /area/shuttle/arrival/station)
 "aVX" = (
 /obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/arrival/station)
 "aVY" = (
@@ -52704,7 +52705,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	id_tag = null;
 	name = "Virology Lobby Hallway"
 	},
@@ -53262,7 +53263,7 @@
 /area/toxins/storage)
 "cnw" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	id_tag = null;
 	name = "Virology Lobby Hallway"
 	},
@@ -54538,7 +54539,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	autoclose = 0;
 	frequency = 1379;
 	id_tag = "viro_lab_airlock_exterior";
@@ -56291,7 +56292,7 @@
 /area/medical/virology)
 "csX" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	id_tag = null;
 	name = "Monkey Pen";
 	req_access_txt = "39"
@@ -56398,7 +56399,7 @@
 /area/medical/virology)
 "ctf" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	autoclose = 0;
 	frequency = 1379;
 	id_tag = "viro_lab_airlock_interior";
@@ -57787,7 +57788,7 @@
 /area/maintenance/asmaint2)
 "cvO" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	id_tag = null;
 	name = "Isolation B";
 	req_access_txt = "39"
@@ -57996,7 +57997,7 @@
 /area/medical/virology)
 "cwh" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	id_tag = null;
 	name = "Isolation A";
 	req_access_txt = "39"

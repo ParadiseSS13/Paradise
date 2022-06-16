@@ -983,6 +983,7 @@
 	id_tag = "s_docking_airlock"
 	},
 /obj/effect/decal/warning_stripes/east,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/shuttle/arrival/station)
 "ahC" = (
@@ -993,6 +994,7 @@
 	id_tag = "s_docking_airlock"
 	},
 /obj/effect/decal/warning_stripes/west,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/shuttle/arrival/station)
 "ahF" = (
@@ -32506,6 +32508,9 @@
 	pixel_x = -32;
 	pixel_y = 32
 	},
+/obj/item/radio/intercom/custom{
+	pixel_y = 25
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/turret_protected/ai)
 "bCY" = (
@@ -35227,6 +35232,7 @@
 	id = "AI";
 	pixel_y = 24
 	},
+/obj/machinery/ai_slipper,
 /turf/simulated/floor/plasteel/dark,
 /area/turret_protected/ai)
 "bIk" = (
@@ -63534,6 +63540,11 @@
 /area/medical/medbay)
 "cTZ" = (
 /obj/machinery/smartfridge/medbay,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "chemdesk1";
+	name = "Chemistry Desk Shutters"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/medbay)
 "cUa" = (
@@ -78431,7 +78442,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/medical/morgue)
 "dBo" = (
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	name = "Virology Lobby";
 	req_access_txt = "5"
 	},
@@ -80625,7 +80636,7 @@
 	pixel_y = -24;
 	req_access_txt = "39"
 	},
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	autoclose = 0;
 	frequency = 1379;
 	id_tag = "viro_lab_airlock_interior";
@@ -80708,7 +80719,7 @@
 	},
 /area/medical/virology)
 "dHe" = (
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	name = "Virology";
 	req_access_txt = "39"
 	},
@@ -81277,7 +81288,7 @@
 	},
 /area/medical/virology)
 "dIl" = (
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	name = "Virology Bedroom";
 	req_access_txt = "39"
 	},
@@ -81505,7 +81516,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "dJa" = (
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	name = "Virology Office";
 	req_access_txt = "39"
 	},
@@ -82946,7 +82957,7 @@
 	},
 /area/security/detectives_office)
 "dMB" = (
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	name = "Virology Lab";
 	req_access_txt = "39"
 	},
@@ -83564,7 +83575,7 @@
 	},
 /area/medical/virology)
 "dOg" = (
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	name = "Virology";
 	req_access_txt = "39"
 	},
@@ -85800,7 +85811,7 @@
 	pixel_x = -24;
 	req_access_txt = "39"
 	},
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	autoclose = 0;
 	frequency = 1379;
 	id_tag = "viro_lab_airlock_exterior";
@@ -86839,7 +86850,7 @@
 	},
 /area/medical/virology)
 "dWV" = (
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	name = "Isolation A";
 	req_access_txt = "39"
 	},
@@ -86850,7 +86861,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/medical/virology)
 "dWW" = (
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	name = "Isolation B";
 	req_access_txt = "39"
 	},
@@ -87548,7 +87559,7 @@
 	},
 /area/medical/virology)
 "dYF" = (
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	name = "Monkey Pen";
 	req_access_txt = "39"
 	},

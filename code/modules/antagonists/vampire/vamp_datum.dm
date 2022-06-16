@@ -49,12 +49,17 @@
 	M.RemoveSpell(/obj/effect/proc_holder/spell/vampire/thrall_commune)
 
 /datum/antagonist/vampire/Destroy(force, ...)
-	SSticker.mode.vampires -= owner
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
 	QDEL_NULL(subclass)
 	QDEL_LIST(powers)
 	return ..()
+
+/datum/antagonist/vampire/add_owner_to_gamemode()
+	SSticker.mode.vampires += owner
+
+/datum/antagonist/vampire/remove_owner_from_gamemode()
+	SSticker.mode.vampires -= owner
 
 /datum/antagonist/vampire/proc/adjust_nullification(base, extra)
 	// First hit should give full nullification, while subsequent hits increase the value slower
@@ -218,11 +223,6 @@
 			else if(istype(p, /datum/vampire_passive))
 				var/datum/vampire_passive/power = p
 				to_chat(owner.current, "<span class='boldnotice'>[power.gain_desc]</span>")
-
-
-/datum/antagonist/vampire/on_gain()
-	SSticker.mode.vampires += owner
-	..()
 
 /datum/antagonist/vampire/proc/check_sun()
 	var/ax = owner.current.x
