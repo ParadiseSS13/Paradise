@@ -232,7 +232,7 @@
 		return 1
 
 /obj/item/clothing/suit/space/hardsuit/on_mob_move(dir, mob)
-	if(!isnull(jetpack))
+	if(jetpack)
 		jetpack.on_mob_move(dir, mob)
 
 
