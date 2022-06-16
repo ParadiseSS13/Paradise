@@ -63545,6 +63545,11 @@
 	id_tag = "chemdesk1";
 	name = "Chemistry Desk Shutters"
 	},
+/obj/machinery/door/window/eastright{
+	dir = 2;
+	name = "Chemistry Desk";
+	req_access_txt = "33"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/medbay)
 "cUa" = (
@@ -65480,6 +65485,8 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteyellow"
@@ -67806,6 +67813,13 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	desc = "You have the public fridge, pal, lube off.";
+	icon_state = "left";
+	name = "Anti-Theft Shield";
+	req_access_txt = "5"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/chemistry)
@@ -81784,7 +81798,7 @@
 /area/hallway/secondary/exit)
 "dJE" = (
 /obj/structure/table/glass,
-/obj/item/wrench,
+/obj/item/wrench/medical,
 /obj/item/clothing/accessory/stethoscope,
 /obj/machinery/camera{
 	c_tag = "Medbay Cryogenics";
@@ -84024,7 +84038,7 @@
 "dPk" = (
 /obj/structure/table,
 /obj/item/crowbar,
-/obj/item/wrench,
+/obj/item/wrench/medical,
 /obj/item/restraints/handcuffs/cable,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
