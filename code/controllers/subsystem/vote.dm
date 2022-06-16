@@ -375,10 +375,13 @@ SUBSYSTEM_DEF(vote)
 		var/votes = choices[choices[i]]
 		if(!votes)
 			votes = 0
+		var/vote_count = null
+		if(check_rights(R_ADMIN, FALSE, C.mob))
+			vote_count = " ([votes] vote\s)"
 		if(current_votes[C.ckey] == i)
-			. += "<li><b><a href='?src=[UID()];vote=[i]'>[choices[i]] ([votes] vote\s)</a></b></li>"
+			. += "<li><b><a href='?src=[UID()];vote=[i]'>[choices[i]][vote_count]</a></b></li>"
 		else
-			. += "<li><a href='?src=[UID()];vote=[i]'>[choices[i]] ([votes] vote\s)</a></li>"
+			. += "<li><a href='?src=[UID()];vote=[i]'>[choices[i]][vote_count]</a></li>"
 
 	. += "</ul>"
 
