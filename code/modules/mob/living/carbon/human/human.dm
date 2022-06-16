@@ -2015,3 +2015,21 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			to_chat(usr, "[src] does not have any stored infomation!")
 	else
 		to_chat(usr, "OOC Metadata is not supported by this server!")
+
+/mob/living/carbon/human/verb/pose()
+	set name = "Set Pose"
+	set desc = "Sets a description which will be shown when someone examines you."
+	set category = "IC"
+
+	// no metagaming
+	if(stat)
+		return
+
+	pose = sanitize(copytext(input(usr, "This is [src]. [p_they(TRUE)] [p_are()]...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+
+/mob/living/carbon/human/verb/set_flavor()
+	set name = "Set Flavour Text"
+	set desc = "Sets an extended description of your character's features."
+	set category = "IC"
+
+	update_flavor_text()

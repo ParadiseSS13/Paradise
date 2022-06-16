@@ -252,7 +252,7 @@ em				{font-style: normal;font-weight: bold;}
 				{color: #638500;}
 .darkmblue 			{color: #6685f5;}
 .prefix				{font-weight: bold;}
-.ooc				{color: #fbd608;font-weight: bold;}
+.ooc				{font-weight: bold;}
 .looc				{color: #6699CC;}
 .adminobserverooc			{color: #0099cc;font-weight: bold;}
 .adminooc			{color: #b82e00;font-weight: bold;}
@@ -264,7 +264,7 @@ em				{font-style: normal;font-weight: bold;}
 .playerreply			{color: #8800bb;font-weight: bold;}
 .pmsend				{color: #6685f5;}
 .name				{font-weight: bold;}
-.say				{color: #a4bad6}
+.say				{color: #E8EBED}
 .yell				{font-weight: bold;}
 .siliconsay			{font-family: 'Courier New', Courier, monospace;}
 .deadsay				{color: #e2c1ff;}

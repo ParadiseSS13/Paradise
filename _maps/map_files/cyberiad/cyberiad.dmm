@@ -11810,7 +11810,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedbar)
 "aCP" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/abandonedbar)
 "aCQ" = (
 /obj/structure/window/reinforced{
@@ -13211,7 +13212,8 @@
 /area/maintenance/abandonedbar)
 "aGd" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/abandonedbar)
 "aGe" = (
 /obj/structure/table,
@@ -15825,7 +15827,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aMz" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/fsmaint)
 "aMA" = (
 /turf/simulated/wall,
@@ -19110,7 +19113,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aUf" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/electrical)
 "aUg" = (
 /obj/structure/cable{
@@ -19967,6 +19971,7 @@
 /area/shuttle/arrival/station)
 "aVX" = (
 /obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/arrival/station)
 "aVY" = (
@@ -52704,7 +52709,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	id_tag = null;
 	name = "Virology Lobby Hallway"
 	},
@@ -53262,7 +53267,7 @@
 /area/toxins/storage)
 "cnw" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	id_tag = null;
 	name = "Virology Lobby Hallway"
 	},
@@ -54538,7 +54543,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	autoclose = 0;
 	frequency = 1379;
 	id_tag = "viro_lab_airlock_exterior";
@@ -56291,7 +56296,7 @@
 /area/medical/virology)
 "csX" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	id_tag = null;
 	name = "Monkey Pen";
 	req_access_txt = "39"
@@ -56398,7 +56403,7 @@
 /area/medical/virology)
 "ctf" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	autoclose = 0;
 	frequency = 1379;
 	id_tag = "viro_lab_airlock_interior";
@@ -57787,7 +57792,7 @@
 /area/maintenance/asmaint2)
 "cvO" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	id_tag = null;
 	name = "Isolation B";
 	req_access_txt = "39"
@@ -57996,7 +58001,7 @@
 /area/medical/virology)
 "cwh" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	id_tag = null;
 	name = "Isolation A";
 	req_access_txt = "39"
@@ -58175,7 +58180,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cwA" = (
-/turf/simulated/wall/r_wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
 /area/maintenance/apmaint)
 "cwB" = (
 /obj/machinery/light/small{
@@ -63772,7 +63778,8 @@
 	},
 /area/toxins/misc_lab)
 "cIJ" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/aft2)
 "cIK" = (
 /turf/simulated/floor/wood{
@@ -79321,7 +79328,8 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "iez" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/apmaint)
 "ieI" = (
 /obj/machinery/atmospherics/binary/pump{

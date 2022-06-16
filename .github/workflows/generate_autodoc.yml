@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - name: 'Update Branch'
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 1
         ref: master
@@ -24,7 +24,7 @@ jobs:
       # Nojekyll is important to disable jeykll syntax, which can mess with files that start with underscores
 
     - name: 'Deploy Documentation'
-      uses: crazy-max/ghaction-github-pages@v2
+      uses: crazy-max/ghaction-github-pages@v3
       with:
         keep_history: false
         build_dir: dmdoc

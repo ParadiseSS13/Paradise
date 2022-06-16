@@ -1,4 +1,5 @@
 //Defines for bots are now found in code\__DEFINES\bots.dm
+// Emotes for bots are shared with silicon, and are found at code/modules/mob/living/silicon/emotes.dm
 
 // AI (i.e. game AI, not the AI player) controlled bots
 /mob/living/simple_animal/bot
