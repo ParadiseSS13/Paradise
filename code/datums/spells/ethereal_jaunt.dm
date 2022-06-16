@@ -70,6 +70,7 @@
 			for(var/turf/space/S in orange(7))
 				if(target.Move(S))
 					break
+		REMOVE_TRAIT(target, TRAIT_IMMOBILIZED, "jaunt")
 		target.remove_CC()
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/proc/jaunt_steam(mobloc)
