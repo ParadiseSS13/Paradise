@@ -26,10 +26,6 @@
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/space/nearstation)
-"ag" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/template_noop)
 "ah" = (
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ancientstation/hivebot)
@@ -5682,7 +5678,7 @@ aa
 aa
 aa
 aa
-ag
+uQ
 aa
 aa
 aa
@@ -5730,7 +5726,7 @@ aa
 aa
 aa
 aa
-ag
+uQ
 aa
 aa
 aa
