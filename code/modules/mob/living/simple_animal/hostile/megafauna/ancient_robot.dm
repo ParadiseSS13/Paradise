@@ -247,26 +247,25 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_walking_orderer(A, B, C, D)
 	addtimer(CALLBACK(src, .proc/fix_specific_leg, A), 1)
 	addtimer(CALLBACK(src, .proc/fix_specific_leg, B), 2)
-	addtimer(CALLBACK(src, .proc/fix_specific_leg, C), 2)
-	addtimer(CALLBACK(src, .proc/fix_specific_leg, D), 3)
+	addtimer(CALLBACK(src, .proc/fix_specific_leg, C), 3)
+	addtimer(CALLBACK(src, .proc/fix_specific_leg, D), 4)
 
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_control_system(input, right, up)
 	var/turf/target = locate(src.x + right, src.y + up, src.z)
 	switch(input)
 		if("TR")
-			TR.leg_movement(target, 0.5)
+			TR.leg_movement(target, 0.6)
 			//TR.forceMove(target)
 		if("TL")
-			TL.leg_movement(target, 0.5)
+			TL.leg_movement(target, 0.6)
 			//TL.forceMove(target)
 		if("BR")
-			BR.leg_movement(target, 0.5)
+			BR.leg_movement(target, 0.6)
 			//BR.forceMove(target)
 		if("BL")
-			BL.leg_movement(target, 0.5)
+			BL.leg_movement(target, 0.6)
 			//BL.forceMove(target)
-	message_admins("[input] was told to move")
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/ex_act(severity, target)
 	if(severity == EXPLODE_LIGHT)
@@ -302,9 +301,8 @@ Difficulty: Medium
 	projectiletype = /obj/item/projectile/ancient_robot_bullet
 	attacktext = "stomps on"
 	armour_penetration = 40
-	melee_damage_lower = 20
-	melee_damage_upper = 20
-	speed = -5
+	melee_damage_lower = 15
+	melee_damage_upper = 15
 	var/range = 4
 	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/core = null
 	var/fake_max_hp = 400
@@ -321,7 +319,8 @@ Difficulty: Medium
 		qdel(src) //no
 	core = ancient
 	who_am_i = who
-	leg_part = Beam(core, "rped_upgrade", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
+	leg_part = Beam(core.internal_gps, "rped_upgrade", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
+	ranged_cooldown_time = (rand(30, 60)) // keeps them not running on the same time
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Life(seconds, times_fired)
 	..()
@@ -346,7 +345,7 @@ Difficulty: Medium
 		core.fix_specific_leg(who_am_i)
 	if(regen)
 		fake_hp = min(fake_hp + fake_hp_regen, fake_max_hp)
-	transfer_rate = 0.5 ^ (3 * (fake_hp / fake_max_hp)) * 0.5
+	transfer_rate = 0.5 ** (3 * (fake_hp / fake_max_hp)) * 0.5
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/leg_movement(turf/T, movespeed) //byond doesn't like calling walk_towards on the legs directly
 	walk_towards(src, T, movespeed)
@@ -369,10 +368,11 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/ancient_robot_leg/OpenFire() // This is (idealy) to keep the turrets on the legs from shooting people that are close to the robot. The guns will only shoot if they won't hit the robot, or if the user is between a leg and another leg / robot
 	if(get_dist(target, core) < 3)
 		return
+	ranged_cooldown_time = (rand(30, 60)) // keeps them not running on the same time
 	..()
 
 /obj/item/projectile/ancient_robot_bullet
-	damage = 10
+	damage = 7.5
 	armour_penetration = 40
 	damage_type = BRUTE
-	stamina = 10 //you actually have to dodge a bit, rather than just, you know, tank.
+	stamina = 7.5 //you actually have to dodge a bit, rather than just, you know, tank.
