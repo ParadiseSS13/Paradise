@@ -101,7 +101,7 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
+    - uses: actions/setup-python@v4
       with:
         python-version: '3.8.2' # Script was made for 3.8.2
         architecture: 'x86' # This MUST be x86
