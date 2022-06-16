@@ -316,7 +316,7 @@ Difficulty: Medium
 	var/fake_max_hp = 400
 	var/fake_hp = 400
 	var/fake_hp_regen = 10
-	var/transfer_rate = 0.5
+	var/transfer_rate = 1
 	var/who_am_i = null
 	var/fuck_people_up = FALSE
 	var/datum/beam/leg_part
@@ -355,7 +355,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/health_and_snap_check(regen = FALSE)
 	if(regen)
 		fake_hp = min(fake_hp + fake_hp_regen, fake_max_hp)
-	transfer_rate = 0.5 ** (3 * (fake_hp / fake_max_hp)) * 0.5
+	transfer_rate = 0.5 ** (3 * (fake_hp / fake_max_hp))
 	if(get_dist(get_turf(core),get_turf(src)) <= range)
 		return
 	else
