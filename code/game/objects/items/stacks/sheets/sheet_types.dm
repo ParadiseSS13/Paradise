@@ -31,6 +31,12 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("sofa (right)", /obj/structure/chair/sofa/corp/right, 1, one_per_turf = TRUE, on_floor = TRUE), \
 		new /datum/stack_recipe("sofa (corner)", /obj/structure/chair/sofa/corp/corner, 1, one_per_turf = TRUE, on_floor = TRUE), \
 		)), \
+	new /datum/stack_recipe_list("benches", list( \
+		new /datum/stack_recipe("bench (middle)", /obj/structure/chair/sofa/bench, 1, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("bench (left)", /obj/structure/chair/sofa/bench/left, 1, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("bench (right)", /obj/structure/chair/sofa/bench/right, 1, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("bench (corner)", /obj/structure/chair/sofa/bench/corner, 1, one_per_turf = TRUE, on_floor = TRUE), \
+		)), \
 	new /datum/stack_recipe("barber chair", /obj/structure/chair/barber, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wheelchair", /obj/structure/chair/wheelchair, 15, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("bed", /obj/structure/bed, 2, one_per_turf = 1, on_floor = 1),
@@ -188,10 +194,16 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("wood table frame", /obj/structure/table_frame/wood, 2, time = 10), \
 	new /datum/stack_recipe("wooden chair", /obj/structure/chair/wood, 3, time = 10, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe_list("pews", list(
-		new /datum/stack_recipe("pew (middle)", /obj/structure/chair/sofa/pew, 1, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("pew (left)", /obj/structure/chair/sofa/pew/left, 1, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("pew (right)", /obj/structure/chair/sofa/pew/right, 1, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("pew (middle)", /obj/structure/chair/sofa/pew, 5, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("pew (left)", /obj/structure/chair/sofa/pew/left, 5, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("pew (right)", /obj/structure/chair/sofa/pew/right, 5, one_per_turf = TRUE, on_floor = TRUE),
 		)), \
+	new /datum/stack_recipe_list("bamboo benches", list(
+		new /datum/stack_recipe("bamboo bench (middle)", /obj/structure/chair/sofa/bamboo, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("bamboo bench (left)", /obj/structure/chair/sofa/bamboo/left, 2, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("bamboo bench (right)", /obj/structure/chair/sofa/bamboo/right, 2, one_per_turf = TRUE, on_floor = TRUE),
+		)), \
+	new /datum/stack_recipe("bamboo stool", /obj/structure/chair/stool/bamboo, 2, time = 10, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("bookcase", /obj/structure/bookcase, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("dresser", /obj/structure/dresser, 30, time = 50, one_per_turf = 1, on_floor = 1),

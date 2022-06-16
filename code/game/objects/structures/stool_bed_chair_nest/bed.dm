@@ -14,6 +14,7 @@
 	desc = "This is used to lie in, sleep in or strap on."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "bed"
+	dir = SOUTH
 	can_buckle = TRUE
 	anchored = TRUE
 	buckle_lying = TRUE
@@ -55,12 +56,29 @@
 		return
 	deconstruct(TRUE)
 
+/obj/structure/bed/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	rotate()
+
+/obj/structure/bed/verb/rotate()
+	set name = "Rotate Chair"
+	set category = "Object"
+	set src in oview(1)
+
+	if(usr.incapacitated())
+		return
+
+	setDir(turn(dir, 180)) //if you add north-south sprites, change this to 90
+
 /obj/structure/bed/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		if(buildstacktype)
 			new buildstacktype(loc, buildstackamount)
 	..()
-
 
 /*
  * Roller beds

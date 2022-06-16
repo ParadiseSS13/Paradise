@@ -34,20 +34,26 @@
 	new sheet_type(get_turf(src), sheet_amount)
 
 /turf/simulated/wall/rust
-	name = "rusted wall"
-	desc = "A rusted metal wall."
-	icon = 'icons/turf/walls/rusty_wall.dmi'
-	icon_state = "rusty_wall-0"
-	base_icon_state = "rusty_wall"
-	smoothing_flags = SMOOTH_BITMASK
+	name = "!deprecated, use rust spawner! rusted wall"
+	icon_state = "outdated"
+	icon = 'icons/turf/walls.dmi'
+	smoothing_flags = null
+
+/turf/simulated/wall/rust/Initialize(mapload)
+	. = ..()
+	var/turf/simulated/wall/target = ChangeTurf(/turf/simulated/wall)
+	target.rust()
 
 /turf/simulated/wall/r_wall/rust
-	name = "rusted reinforced wall"
-	desc = "A huge chunk of rusted reinforced metal."
-	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi'
-	icon_state = "rusty_reinforced_wall-0"
-	base_icon_state = "rusty_reinforced_wall"
-	smoothing_flags = SMOOTH_BITMASK
+	name = "!deprecated, use rust spawner! rusted reinforced wall"
+	icon = 'icons/turf/walls.dmi'
+	icon_state = "outdated"
+	smoothing_flags = null
+
+/turf/simulated/wall/r_wall/rust/Initialize(mapload)
+	. = ..()
+	var/turf/simulated/wall/r_wall/target = ChangeTurf(/turf/simulated/wall/r_wall)
+	target.rust()
 
 //Clockwork walls
 /turf/simulated/wall/clockwork

@@ -270,15 +270,36 @@
 /obj/structure/chair/sofa
 	name = "sofa"
 	icon_state = "sofamiddle"
+	color = rgb(141,70,0) //this sprite and benches support coloring currently
 	anchored = TRUE
 	item_chair = null
 	buildstackamount = 1
 	var/image/armrest = null
+	var/colorable = TRUE
 
 /obj/structure/chair/sofa/Initialize(mapload)
 	armrest = GetArmrest()
 	armrest.layer = ABOVE_MOB_LAYER
 	return ..()
+
+/obj/structure/chair/sofa/attacked_by(obj/item/I, mob/living/user)
+	. = ..()
+	if(!colorable)
+		return
+	if(istype(I, /obj/item/toy/crayon))
+		if(istype(I, /obj/item/toy/crayon/spraycan))
+			var/new_color = input("Please select sofa color.", "Sofa Color", color) as null|color
+			var/list/hsl = rgb2hsl(hex2num(copytext(new_color, 2, 4)), hex2num(copytext(new_color, 4, 6)), hex2num(copytext(new_color, 6, 8)))
+			hsl[3] = max(hsl[3], 0.4)
+			var/list/rgb = hsl2rgb(arglist(hsl))
+			color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+		else
+			var/obj/item/toy/crayon/C = I
+			color = C.colour
+	if(color)
+		cut_overlay(armrest)
+		armrest = GetArmrest()
+		update_armrest()
 
 /obj/structure/chair/sofa/proc/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "[icon_state]_armrest")
@@ -314,6 +335,8 @@
 	name = "sofa"
 	desc = "Soft and cushy."
 	icon_state = "corp_sofamiddle"
+	color = null
+	colorable = FALSE
 
 /obj/structure/chair/sofa/corp/left
 	icon_state = "corp_sofaend_left"
@@ -329,12 +352,70 @@
 	desc = "Rigid and uncomfortable, perfect for keeping you awake and alert."
 	icon_state = "pewmiddle"
 	buildstacktype = /obj/item/stack/sheet/wood
+	color = null
+	colorable = FALSE
 
 /obj/structure/chair/sofa/pew/left
 	icon_state = "pewend_left"
 
 /obj/structure/chair/sofa/pew/right
 	icon_state = "pewend_right"
+
+/obj/structure/chair/sofa/bench
+	name = "Bench"
+	desc = "You sit in this. Either by will or force."
+	icon_state = "bench_middle"
+	///icon for the cover seat
+	var/image/cover
+	///cover seat color
+	var/cover_color
+	color = null
+	colorable = FALSE
+
+/obj/structure/chair/sofa/bench/Initialize(mapload)
+	GetCover()
+	return ..()
+
+/obj/structure/chair/sofa/bench/proc/GetCover()
+	if(cover)
+		cut_overlay(cover)
+	cover = mutable_appearance('icons/obj/chairs.dmi', "[icon_state]_cover", color = cover_color) //this supports colouring, but not the base bench
+	add_overlay(cover)
+
+/obj/structure/chair/sofa/bench/handle_layer()
+	return
+
+/obj/structure/chair/sofa/bench/attacked_by(obj/item/I, mob/living/user)
+	. = ..()
+	if(istype(I, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/C = I
+		cover_color = C.colour
+	if(istype(I, /obj/item/toy/crayon/spraycan))
+		cover_color = input("Please select bench color.", "Bench Color", cover_color) as null|color
+	if(cover_color)
+		GetCover()
+
+/obj/structure/chair/sofa/bench/left
+	icon_state = "bench_left"
+
+/obj/structure/chair/sofa/bench/right
+	icon_state = "bench_right"
+
+/obj/structure/chair/sofa/bench/corner
+	icon_state = "bench_corner"
+
+/obj/structure/chair/sofa/bamboo
+	name = "Bamboo Bench"
+	desc = "Not the most comfortable, but vegan!"
+	icon_state = "bamboo_sofamiddle"
+	color = null
+	colorable = FALSE
+
+/obj/structure/chair/sofa/bamboo/left
+	icon_state = "bamboo_sofaend_left"
+
+/obj/structure/chair/sofa/bamboo/right
+	icon_state = "bamboo_sofaend_right"
 
 /obj/structure/chair/stool
 	name = "stool"
@@ -348,6 +429,12 @@
 	desc = "It has some unsavory stains on it..."
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/bar
+
+/obj/structure/chair/stool/bamboo
+	name = "bamboo stool"
+	desc = "Not the most comfortable, but vegan!"
+	icon_state = "bamboo_stool"
+	item_chair = /obj/item/chair/stool/bamboo
 
 /obj/item/chair
 	name = "chair"
@@ -387,6 +474,13 @@
 	icon_state = "bar_toppled"
 	item_state = "stool_bar"
 	origin_type = /obj/structure/chair/stool/bar
+
+/obj/item/chair/stool/bamboo
+	name = "bamboo stool"
+	desc = "Not the most comfortable, but vegan!"
+	item_state = "bamboo_stool"
+	icon_state = "bamboo_stool_toppled"
+	origin_type = /obj/structure/chair/stool/bamboo
 
 /obj/item/chair/attack_self(mob/user)
 	plant(user)
