@@ -12,7 +12,7 @@
 /turf/simulated/wall/indestructible/welder_act()
 	return
 
-/turf/simulated/wall/indestructible/thermitemelt(mob/user as mob, speed)
+/turf/simulated/wall/indestructible/thermitemelt(mob/user, speed)
 	return
 
 /turf/simulated/wall/indestructible/ex_act(severity)
