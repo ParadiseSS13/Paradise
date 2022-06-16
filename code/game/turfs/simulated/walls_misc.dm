@@ -33,28 +33,6 @@
 /turf/simulated/wall/cult/devastate_wall()
 	new sheet_type(get_turf(src), sheet_amount)
 
-/turf/simulated/wall/rust
-	name = "!deprecated, use rust spawner! rusted wall"
-	icon_state = "outdated"
-	icon = 'icons/turf/walls.dmi'
-	smoothing_flags = null
-
-/turf/simulated/wall/rust/Initialize(mapload)
-	. = ..()
-	var/turf/simulated/wall/target = ChangeTurf(/turf/simulated/wall)
-	target.rust()
-
-/turf/simulated/wall/r_wall/rust
-	name = "!deprecated, use rust spawner! rusted reinforced wall"
-	icon = 'icons/turf/walls.dmi'
-	icon_state = "outdated"
-	smoothing_flags = null
-
-/turf/simulated/wall/r_wall/rust/Initialize(mapload)
-	. = ..()
-	var/turf/simulated/wall/r_wall/target = ChangeTurf(/turf/simulated/wall/r_wall)
-	target.rust()
-
 //Clockwork walls
 /turf/simulated/wall/clockwork
 	name = "clockwork wall"

@@ -4153,7 +4153,8 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
 "qT" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/mine/laborcamp)
 "rj" = (
 /obj/structure/chair{
@@ -4657,7 +4658,8 @@
 /area/shuttle/siberia)
 "Gp" = (
 /obj/structure/sign/poster/contraband/clown,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/mine/laborcamp)
 "GD" = (
 /obj/structure/sign/poster/contraband/lusty_xenomorph,

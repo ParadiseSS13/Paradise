@@ -11810,7 +11810,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedbar)
 "aCP" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/abandonedbar)
 "aCQ" = (
 /obj/structure/window/reinforced{
@@ -13211,7 +13212,8 @@
 /area/maintenance/abandonedbar)
 "aGd" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/abandonedbar)
 "aGe" = (
 /obj/structure/table,
@@ -15825,7 +15827,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aMz" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/fsmaint)
 "aMA" = (
 /turf/simulated/wall,
@@ -19110,7 +19113,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aUf" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/electrical)
 "aUg" = (
 /obj/structure/cable{
@@ -58176,7 +58180,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cwA" = (
-/turf/simulated/wall/r_wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
 /area/maintenance/apmaint)
 "cwB" = (
 /obj/machinery/light/small{
@@ -63773,7 +63778,8 @@
 	},
 /area/toxins/misc_lab)
 "cIJ" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/aft2)
 "cIK" = (
 /turf/simulated/floor/wood{
@@ -79322,7 +79328,8 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "iez" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/apmaint)
 "ieI" = (
 /obj/machinery/atmospherics/binary/pump{

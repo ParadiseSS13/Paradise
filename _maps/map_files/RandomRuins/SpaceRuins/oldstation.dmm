@@ -23,7 +23,8 @@
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "af" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/template_noop)
 "ag" = (
 /obj/structure/lattice,
@@ -53,11 +54,13 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/ancientstation/hivebot)
 "al" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation/comm)
 "am" = (
 /obj/structure/sign/poster/official/nanotrasen_logo,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation/comm)
 "an" = (
 /obj/effect/spawner/window/reinforced,
@@ -132,7 +135,8 @@
 /turf/simulated/wall,
 /area/ruin/space/ancientstation/hivebot)
 "az" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation)
 "aA" = (
 /obj/structure/table,
@@ -207,7 +211,8 @@
 /area/ruin/space/ancientstation)
 "aK" = (
 /obj/structure/sign/poster/contraband/random,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation)
 "aL" = (
 /obj/structure/cable{
@@ -355,7 +360,8 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/ancientstation/betanorth)
 "bf" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation/betanorth)
 "bg" = (
 /obj/effect/decal/cleanable/dirt,
@@ -454,7 +460,8 @@
 /area/ruin/space/ancientstation/comm)
 "bs" = (
 /obj/structure/sign/poster/official/cleanliness,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation)
 "bt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -468,7 +475,8 @@
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "bu" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation/thetacorridor)
 "bv" = (
 /turf/simulated/wall,
@@ -509,7 +517,8 @@
 /area/ruin/space/ancientstation)
 "bD" = (
 /obj/structure/sign/greencross,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation)
 "bE" = (
 /obj/structure/cable{
@@ -567,7 +576,8 @@
 /area/ruin/space/ancientstation)
 "bL" = (
 /obj/structure/sign/science,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation)
 "bM" = (
 /obj/effect/spawner/window/reinforced,
@@ -588,10 +598,12 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "bP" = (
 /obj/structure/sign/poster/official/science,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation/thetacorridor)
 "bQ" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation/hivebot)
 "bR" = (
 /obj/effect/decal/cleanable/dirt,
@@ -860,7 +872,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "cA" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation/hydroponics)
 "cB" = (
 /obj/effect/spawner/window/reinforced,
@@ -989,7 +1002,8 @@
 /area/ruin/space/ancientstation/betanorth)
 "cS" = (
 /obj/structure/sign/poster/official/nanomichi_ad,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation/betanorth)
 "cT" = (
 /obj/machinery/light/small{
@@ -999,7 +1013,8 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/ancientstation/betanorth)
 "cU" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation/engi)
 "cV" = (
 /obj/structure/cable{
@@ -1089,7 +1104,8 @@
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "dg" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation/sec)
 "dh" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -1116,7 +1132,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/thetacorridor)
 "dj" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation/rnd)
 "dk" = (
 /obj/structure/transit_tube_pod{
@@ -1235,7 +1252,8 @@
 /area/ruin/space/ancientstation)
 "dA" = (
 /obj/structure/sign/poster/contraband/donut_corp,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation/sec)
 "dB" = (
 /obj/machinery/alarm/all_access{
@@ -1770,7 +1788,8 @@
 /area/ruin/space/ancientstation)
 "eN" = (
 /obj/structure/sign/poster/official/here_for_your_safety,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation/sec)
 "eO" = (
 /obj/structure/table,
@@ -2608,7 +2627,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/engi)
 "gs" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation/kitchen)
 "gt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3517,7 +3537,8 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/atmo)
 "ip" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation/atmo)
 "iq" = (
 /obj/effect/decal/cleanable/cobweb,
@@ -3554,7 +3575,8 @@
 	icon_state = "radiation";
 	name = "\improper HAZARDOUS RADIATION"
 	},
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/ancientstation/engi)
 "iu" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -3992,7 +4014,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation)
 "jt" = (
-/turf/simulated/wall/r_wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
 /area/ruin/space/ancientstation/proto)
 "ju" = (
 /obj/structure/cable{

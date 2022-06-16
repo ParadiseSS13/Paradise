@@ -3246,7 +3246,8 @@
 	},
 /area/maintenance/fore2)
 "are" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/fore2)
 "arf" = (
 /obj/machinery/computer/arcade{
@@ -4753,7 +4754,8 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/disposal)
 "auE" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/disposal)
 "auF" = (
 /obj/machinery/power/emitter,
@@ -4788,7 +4790,8 @@
 /turf/simulated/floor/plating,
 /area/engine/controlroom)
 "auL" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/electrical_shop)
 "auM" = (
 /obj/machinery/door/airlock/maintenance,
@@ -5605,7 +5608,8 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/fore2)
 "awx" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/security/checkpoint2)
 "awA" = (
 /obj/machinery/conveyor{
@@ -5825,7 +5829,8 @@
 /area/maintenance/fore)
 "awW" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/fore)
 "awX" = (
 /turf/simulated/wall,
@@ -5846,7 +5851,8 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/fore2)
 "awZ" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/janitor)
 "axa" = (
 /obj/machinery/door/firedoor,
@@ -8728,7 +8734,8 @@
 	},
 /area/hallway/primary/fore)
 "aDH" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/fore)
 "aDI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -12212,7 +12219,8 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "aLp" = (
-/turf/simulated/wall/r_wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
 /area/engine/controlroom)
 "aLq" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -12832,7 +12840,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/bar)
 "aMY" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/gambling_den)
 "aMZ" = (
 /obj/structure/cable{
@@ -21792,7 +21801,8 @@
 /turf/simulated/wall,
 /area/maintenance/starboard2)
 "bgt" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/starboard2)
 "bgu" = (
 /obj/machinery/door/airlock/freezer{
@@ -26675,7 +26685,8 @@
 /turf/simulated/wall,
 /area/maintenance/starboard)
 "bqC" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/starboard)
 "bqJ" = (
 /obj/structure/table,
@@ -46495,7 +46506,8 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat)
 "chv" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/teleporter)
 "chw" = (
 /obj/structure/lattice/catwalk,
@@ -46870,7 +46882,8 @@
 /area/maintenance/port)
 "ciq" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/port)
 "ciu" = (
 /obj/structure/chair/office/dark{
@@ -48282,7 +48295,8 @@
 /turf/simulated/wall/r_wall,
 /area/engine/engine_smes)
 "clw" = (
-/turf/simulated/wall/r_wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
 /area/engine/engine_smes)
 "clx" = (
 /obj/machinery/light/small{
@@ -48808,7 +48822,8 @@
 /turf/simulated/floor/plating,
 /area/security/range)
 "cmI" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/security/range)
 "cmL" = (
 /obj/structure/lattice,
@@ -55974,7 +55989,8 @@
 	},
 /area/maintenance/port)
 "cCx" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/port)
 "cCy" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -56173,7 +56189,8 @@
 	},
 /area/hallway/primary/central)
 "cDe" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/crew_quarters/locker/locker_toilet)
 "cDf" = (
 /obj/effect/decal/warning_stripes/south,
@@ -56700,7 +56717,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/fitness)
 "cEA" = (
-/turf/simulated/wall/r_wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
 /area/engine/engineering)
 "cEB" = (
 /obj/structure/plasticflaps{
@@ -58496,7 +58514,8 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
 "cIa" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/crew_quarters/fitness)
 "cIb" = (
 /obj/machinery/washing_machine,
@@ -58678,7 +58697,8 @@
 	},
 /area/maintenance/port)
 "cIw" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/electrical)
 "cIx" = (
 /turf/simulated/wall,
@@ -64475,7 +64495,8 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "cWc" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/medical/medbay3)
 "cWd" = (
 /turf/simulated/wall,
@@ -65173,7 +65194,8 @@
 	},
 /area/medical/medbay3)
 "cXI" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/medical/surgery)
 "cXJ" = (
 /turf/simulated/wall,
@@ -66343,7 +66365,8 @@
 /turf/space,
 /area/maintenance/starboardsolar)
 "daD" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/toxins/xenobiology)
 "daE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -66837,7 +66860,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port2)
 "dbM" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/port2)
 "dbO" = (
 /obj/machinery/light{
@@ -71007,7 +71031,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedbar)
 "dku" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/apmaint)
 "dkv" = (
 /obj/structure/table/wood,
@@ -74270,7 +74295,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "dsk" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/hallway/secondary/construction)
 "dsl" = (
 /obj/machinery/door/airlock/maintenance,
@@ -76491,7 +76517,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/toxins/mixing)
 "dxh" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/toxins/mixing)
 "dxi" = (
 /obj/structure/table/reinforced,
@@ -79465,7 +79492,8 @@
 	},
 /area/maintenance/starboard)
 "dDG" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/crew_quarters/theatre)
 "dDH" = (
 /obj/structure/dresser,
@@ -79529,7 +79557,8 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
 "dDT" = (
-/turf/simulated/wall/r_wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
 /area/toxins/mixing)
 "dDU" = (
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -79642,7 +79671,8 @@
 /turf/simulated/wall,
 /area/maintenance/aft)
 "dEp" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/aft)
 "dEq" = (
 /obj/effect/spawner/window/reinforced,
@@ -80010,7 +80040,8 @@
 /turf/simulated/floor/plasteel,
 /area/library/abandoned)
 "dFk" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/library/abandoned)
 "dFl" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
@@ -84323,7 +84354,8 @@
 	},
 /area/hallway/secondary/exit)
 "dPS" = (
-/turf/simulated/wall/r_wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
 /area/medical/virology)
 "dPT" = (
 /obj/structure/disposalpipe/segment,
@@ -84825,7 +84857,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "dQS" = (
-/turf/simulated/wall/r_wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
 /area/maintenance/apmaint)
 "dQT" = (
 /obj/structure/table,
@@ -93543,7 +93576,8 @@
 	},
 /area/security/brig)
 "qET" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/fsmaint)
 "qGn" = (
 /obj/machinery/hologram/holopad,
@@ -96784,7 +96818,8 @@
 	},
 /area/security/seceqstorage)
 "xPn" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/abandonedbar)
 "xPW" = (
 /obj/machinery/light,
