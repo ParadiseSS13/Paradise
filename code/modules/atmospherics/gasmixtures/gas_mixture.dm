@@ -130,12 +130,12 @@ What are the archived variables for?
 	removed.sleeping_agent = QUANTIZE((sleeping_agent / sum) * amount)
 	removed.agent_b = QUANTIZE((agent_b / sum) * amount)
 
-	oxygen -= removed.oxygen
-	nitrogen -= removed.nitrogen
-	carbon_dioxide -= removed.carbon_dioxide
-	toxins -= removed.toxins
-	sleeping_agent -= removed.sleeping_agent
-	agent_b -= removed.agent_b
+	oxygen = max(oxygen - removed.oxygen, 0)
+	nitrogen = max(nitrogen - removed.nitrogen, 0)
+	carbon_dioxide = max(carbon_dioxide - removed.carbon_dioxide, 0)
+	toxins = max(toxins - removed.toxins, 0)
+	sleeping_agent = max(sleeping_agent - removed.sleeping_agent, 0)
+	agent_b = max(agent_b - removed.agent_b, 0)
 
 	removed.temperature = temperature
 
@@ -159,12 +159,12 @@ What are the archived variables for?
 	removed.sleeping_agent = QUANTIZE(sleeping_agent * ratio)
 	removed.agent_b = QUANTIZE(agent_b * ratio)
 
-	oxygen -= removed.oxygen
-	nitrogen -= removed.nitrogen
-	carbon_dioxide -= removed.carbon_dioxide
-	toxins -= removed.toxins
-	sleeping_agent -= removed.sleeping_agent
-	agent_b -= removed.agent_b
+	oxygen = max(oxygen - removed.oxygen, 0)
+	nitrogen = max(nitrogen - removed.nitrogen, 0)
+	carbon_dioxide = max(carbon_dioxide - removed.carbon_dioxide, 0)
+	toxins = max(toxins - removed.toxins, 0)
+	sleeping_agent = max(sleeping_agent - removed.sleeping_agent, 0)
+	agent_b = max(agent_b - removed.agent_b, 0)
 
 	removed.temperature = temperature
 

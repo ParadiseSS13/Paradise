@@ -19967,6 +19967,7 @@
 /area/shuttle/arrival/station)
 "aVX" = (
 /obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/arrival/station)
 "aVY" = (
@@ -52704,7 +52705,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	id_tag = null;
 	name = "Virology Lobby Hallway"
 	},
@@ -53262,7 +53263,7 @@
 /area/toxins/storage)
 "cnw" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	id_tag = null;
 	name = "Virology Lobby Hallway"
 	},
@@ -53357,9 +53358,7 @@
 /obj/structure/sign/biohazard{
 	pixel_y = 32
 	},
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen"
@@ -54006,12 +54005,6 @@
 /turf/simulated/floor/wood,
 /area/blueshield)
 "coZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -54020,6 +54013,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreencorner"
 	},
@@ -54027,9 +54024,6 @@
 	name = "\improper Virology Lobby"
 	})
 "cpa" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -54038,7 +54032,12 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "white"
@@ -54384,11 +54383,6 @@
 /turf/space,
 /area/solar/port)
 "cpA" = (
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
 /obj/structure/sink{
 	dir = 4;
 	pixel_x = 12
@@ -54402,7 +54396,6 @@
 	name = "\improper Virology Lobby"
 	})
 "cpB" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -54546,7 +54539,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	autoclose = 0;
 	frequency = 1379;
 	id_tag = "viro_lab_airlock_exterior";
@@ -54563,7 +54556,6 @@
 	pixel_x = -24;
 	req_access_txt = "39"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -56300,7 +56292,7 @@
 /area/medical/virology)
 "csX" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	id_tag = null;
 	name = "Monkey Pen";
 	req_access_txt = "39"
@@ -56400,9 +56392,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
-	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -56410,7 +56399,7 @@
 /area/medical/virology)
 "ctf" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	autoclose = 0;
 	frequency = 1379;
 	id_tag = "viro_lab_airlock_interior";
@@ -56443,9 +56432,6 @@
 	},
 /area/medical/virology)
 "ctg" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -56455,21 +56441,21 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/west,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/medical/virology)
 "cth" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -56892,9 +56878,6 @@
 /area/hallway/primary/aft)
 "cuf" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -57032,6 +57015,9 @@
 	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -57052,7 +57038,7 @@
 /obj/structure/closet/l3closet,
 /obj/item/clothing/mask/gas,
 /obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel{
@@ -57165,9 +57151,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cuF" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
 /obj/structure/sign/poster/random{
 	pixel_x = -32
 	},
@@ -57180,7 +57163,6 @@
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen"
@@ -57191,9 +57173,6 @@
 "cuI" = (
 /obj/structure/bed,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},
@@ -57473,9 +57452,6 @@
 /obj/structure/closet/emcloset,
 /obj/structure/sign/biohazard{
 	pixel_y = -32
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
@@ -57812,7 +57788,7 @@
 /area/maintenance/asmaint2)
 "cvO" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	id_tag = null;
 	name = "Isolation B";
 	req_access_txt = "39"
@@ -57925,15 +57901,21 @@
 	},
 /area/medical/cmostore)
 "cvZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+	dir = 4
+	},
 /turf/simulated/wall/r_wall,
-/area/maintenance/aft)
+/area/medical/virology)
 "cwa" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/ai_status_display{
 	pixel_x = -32;
 	step_size = 0
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -57942,6 +57924,9 @@
 /area/medical/virology)
 "cwb" = (
 /obj/structure/closet/secure_closet/personal/patient,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitegreen"
@@ -58012,7 +57997,7 @@
 /area/medical/virology)
 "cwh" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/virology/glass{
 	id_tag = null;
 	name = "Isolation A";
 	req_access_txt = "39"
@@ -58506,11 +58491,10 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "cxn" = (
-/obj/machinery/atmospherics/unary/tank/air{
-	dir = 8
-	},
 /obj/effect/decal/warning_stripes/northeast,
-/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/obj/machinery/atmospherics/binary/valve/open{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cxo" = (
@@ -58522,11 +58506,14 @@
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cxp" = (
-/obj/machinery/atmospherics/binary/valve{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cxq" = (
@@ -58672,11 +58659,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cxE" = (
-/obj/machinery/atmospherics/binary/valve{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/warning_stripes/south,
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cxF" = (
@@ -58685,8 +58672,8 @@
 	layer = 4;
 	pixel_y = -32
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -59313,6 +59300,7 @@
 	req_access_txt = "12;24"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/binary/valve,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cyT" = (
@@ -59840,9 +59828,7 @@
 	pixel_x = -12;
 	pixel_y = 2
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -60031,7 +60017,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -60044,9 +60030,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	icon_state = "pipe-c"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
 	},
 /mob/living/carbon/human/monkey,
 /turf/simulated/floor/plasteel{
@@ -60306,7 +60289,7 @@
 /area/maintenance/incinerator)
 "cAY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
+	dir = 1
 	},
 /mob/living/carbon/human/monkey,
 /turf/simulated/floor/plasteel{
@@ -62297,9 +62280,6 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "cFx" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
@@ -62308,14 +62288,19 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreen"
 	},
 /area/medical/virology)
 "cFy" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -64373,12 +64358,10 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cKh" = (
@@ -72175,10 +72158,14 @@
 /turf/simulated/wall/r_wall,
 /area/medical/virology)
 "dcD" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 8
-	},
 /obj/effect/decal/warning_stripes/northwest,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
+/obj/machinery/portable_atmospherics/canister{
+	anchored = 1
+	},
+/obj/effect/spawner/random_spawners/cobweb_left_frequent,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dcE" = (
@@ -72478,17 +72465,14 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "ddu" = (
-/obj/structure/chair/stool{
+/obj/effect/decal/warning_stripes/southwest,
+/obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 5
+/obj/machinery/portable_atmospherics/canister/air{
+	anchored = 1;
+	filled = 1
 	},
-/obj/item/wrench,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "ddv" = (
@@ -72511,11 +72495,10 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "ddw" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
-	},
-/obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/decal/warning_stripes/southeast,
+/obj/machinery/atmospherics/binary/valve/open{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "ddx" = (
@@ -80256,6 +80239,11 @@
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/engine/supermatter)
+"nnA" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/maintenance/aft)
 "nps" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
@@ -81036,6 +81024,11 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"sAi" = (
+/obj/structure/chair/stool,
+/obj/item/wrench,
+/turf/simulated/floor/plating,
+/area/maintenance/aft)
 "sAz" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -116136,7 +116129,7 @@ crm
 csS
 cud
 cuF
-cvZ
+cxO
 dcD
 ddu
 chf
@@ -116397,8 +116390,8 @@ dcC
 cxp
 cxE
 cyS
-cYi
-cYi
+dlN
+nnA
 cKg
 cAI
 cOW
@@ -116655,7 +116648,7 @@ cxn
 ddw
 chf
 czg
-cep
+sAi
 cAm
 dfM
 cOT
@@ -116908,8 +116901,8 @@ csX
 cUT
 cQk
 cQk
-cQk
-cQk
+cvZ
+cvZ
 cQk
 cuc
 cuE

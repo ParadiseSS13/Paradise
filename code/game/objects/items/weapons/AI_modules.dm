@@ -188,7 +188,7 @@ AI MODULES
 /****************** New Freeform ******************/
 /obj/item/aiModule/freeform // Slightly more dynamic freeform module -- TLE
 	name = "\improper Freeform AI module"
-	var/newFreeFormLaw = "freeform"
+	var/newFreeFormLaw = ""
 	var/lawpos = 15
 	desc = "A 'freeform' AI module: '<freeform>'"
 	origin_tech = "programming=4;materials=4"

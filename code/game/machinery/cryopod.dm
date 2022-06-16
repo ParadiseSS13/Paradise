@@ -434,6 +434,8 @@
 			occupant.ghostize(FALSE) // Players despawned too early may not re-enter the game
 		else
 			occupant.ghostize(TRUE)
+
+	occupant.mind.remove_all_antag_datums()
 	QDEL_NULL(occupant)
 	name = initial(name)
 

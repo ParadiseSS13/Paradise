@@ -164,6 +164,8 @@
 
 		GLOB.karma_packages[KP.database_id] = KP
 
+	GLOB.emote_list = init_emote_list()
+
 
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()
@@ -197,3 +199,22 @@
 			if(assoc) //value gotten
 				L["[assoc]"] = D //put in association
 	return L
+
+
+/proc/init_emote_list()
+	. = list()
+	for(var/path in subtypesof(/datum/emote))
+		var/datum/emote/E = new path()
+		if(E.key)
+			if(!.[E.key])
+				.[E.key] = list(E)
+			else
+				.[E.key] += E
+		else if(E.message) //Assuming all non-base emotes have this
+			stack_trace("Keyless emote: [E.type]")
+
+		if(E.key_third_person) //This one is optional
+			if(!.[E.key_third_person])
+				.[E.key_third_person] = list(E)
+			else
+				.[E.key_third_person] |= E

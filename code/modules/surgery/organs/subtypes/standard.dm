@@ -62,7 +62,7 @@
 	if(hand && owner.canUnEquip(hand))
 		owner.unEquip(hand)
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
-		owner.custom_emote(1, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
+		owner.custom_emote(EMOTE_VISIBLE, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
 
 /obj/item/organ/external/arm/right
 	limb_name = "r_arm"
@@ -92,10 +92,10 @@
 		return
 	if(owner.AmountWeakened())
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, preventing you from getting back up!</span>")
-		owner.custom_emote(1, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
+		owner.custom_emote(EMOTE_VISIBLE, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
 	else
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping you to the ground!</span>")
-		owner.custom_emote(1, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
+		owner.custom_emote(EMOTE_VISIBLE, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
 	switch(severity)
 		if(1)
 			owner.AdjustWeakened(8 SECONDS)
@@ -130,10 +130,10 @@
 		return
 	if(owner.AmountWeakened())
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, preventing you from getting back up!</span>")
-		owner.custom_emote(1, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
+		owner.custom_emote(EMOTE_VISIBLE, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
 	else
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping you to the ground!</span>")
-		owner.custom_emote(1, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
+		owner.custom_emote(EMOTE_VISIBLE, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
 	switch(severity)
 		if(1)
 			owner.AdjustWeakened(8 SECONDS)
@@ -173,7 +173,7 @@
 	if(hand && owner.canUnEquip(hand))
 		owner.unEquip(hand)
 		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
-		owner.custom_emote(1, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
+		owner.custom_emote(EMOTE_VISIBLE, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
 
 /obj/item/organ/external/hand/remove()
 	if(owner)
