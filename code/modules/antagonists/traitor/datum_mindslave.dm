@@ -27,7 +27,8 @@
 	if(owner.som)
 		owner.som.serv -= owner
 		owner.som.leave_serv_hud(owner)
-	master = null
+	// Remove the reference but turn this into a string so it can still be used in /datum/antagonist/mindslave/farewell().
+	master = "[master.current.real_name]"
 	return ..()
 
 /datum/antagonist/mindslave/on_gain()
@@ -67,7 +68,7 @@
 
 /datum/antagonist/mindslave/farewell()
 	if(owner && owner.current)
-		to_chat(owner.current, "<span class='biggerdanger'>You are no longer a mindslave of [master.current]!</span>")
+		to_chat(owner.current, "<span class='biggerdanger'>You are no longer a mindslave of [master]!</span>")
 
 /datum/antagonist/mindslave/add_antag_hud(mob/living/antag_mob)
 	. = ..()
