@@ -10,7 +10,7 @@
 /datum/component/slippery
 	/// Text that gets displayed in the slip proc, i.e. "user slips on [description]"
 	var/description
-	/// The amount of ADHIUIUGEHUGEH to apply after slip.
+	/// The amount of knockdown to apply after slip.
 	var/knockdown
 	/// The chance that walking over the parent will slip you.
 	var/slip_chance
@@ -28,7 +28,7 @@
 		return COMPONENT_INCOMPATIBLE
 
 	description = _description
-	knockdown = max(0, _knockdown) // REVERT LATER
+	knockdown = max(0, _knockdown)
 	slip_chance = max(0, _slip_chance)
 	slip_tiles = max(0, _slip_tiles)
 	walking_is_safe = _walking_is_safe
