@@ -1208,9 +1208,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		clear_alert("locked")
 	lockcharge = state
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, LOCKDOWN_TRAIT)
-	ADD_TRAIT(src, TRAIT_UI_BLOCKED, LOCKDOWN_TRAIT)
-	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, LOCKDOWN_TRAIT)
+	if(state) // turn them off
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LOCKDOWN_TRAIT)
+		ADD_TRAIT(src, TRAIT_UI_BLOCKED, LOCKDOWN_TRAIT)
+		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, LOCKDOWN_TRAIT)
+	else
+		REMOVE_TRAITS_IN(src, LOCKDOWN_TRAIT)
 
 /mob/living/silicon/robot/proc/choose_icon(triesleft, list/module_sprites)
 

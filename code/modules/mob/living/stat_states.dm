@@ -51,6 +51,7 @@
 		remove_from_respawnable_list()
 	timeofdeath = null
 	if(updating)
+		update_stat()
 		update_blind_effects()
 		update_sight()
 		updatehealth("update revive")
