@@ -296,15 +296,12 @@
 	if(!colorable)
 		return
 	if(istype(I, /obj/item/toy/crayon))
-		if(istype(I, /obj/item/toy/crayon/spraycan))
-			var/new_color = input("Please select sofa color.", "Sofa Color", color) as null|color
-			var/list/hsl = rgb2hsl(hex2num(copytext(new_color, 2, 4)), hex2num(copytext(new_color, 4, 6)), hex2num(copytext(new_color, 6, 8)))
-			hsl[3] = max(hsl[3], 0.4)
-			var/list/rgb = hsl2rgb(arglist(hsl))
-			color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
-		else
-			var/obj/item/toy/crayon/C = I
-			color = C.colour
+		var/obj/item/toy/crayon/C = I
+		var/new_color = C.colour
+		var/list/hsl = rgb2hsl(hex2num(copytext(new_color, 2, 4)), hex2num(copytext(new_color, 4, 6)), hex2num(copytext(new_color, 6, 8)))
+		hsl[3] = max(hsl[3], 0.4)
+		var/list/rgb = hsl2rgb(arglist(hsl))
+		color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
 	if(color)
 		cut_overlay(armrest)
 		armrest = GetArmrest()
@@ -401,11 +398,8 @@
 /obj/structure/chair/sofa/bench/attacked_by(obj/item/I, mob/living/user)
 	. = ..()
 	if(istype(I, /obj/item/toy/crayon))
-		if(istype(I, /obj/item/toy/crayon/spraycan))
-			cover_color = input("Please select bench color.", "Bench Color", cover_color) as null|color
-		else
-			var/obj/item/toy/crayon/C = I
-			cover_color = C.colour
+		var/obj/item/toy/crayon/C = I
+		cover_color = C.colour
 	if(cover_color)
 		GetCover()
 
