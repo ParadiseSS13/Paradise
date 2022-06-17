@@ -18,9 +18,17 @@
 	vary = TRUE
 	channel = CHANNEL_ENGINE
 
+GLOBAL_DATUM_INIT(firealarm_soundloop, /datum/looping_sound/firealarm, new(list(), FALSE))
+
 /datum/looping_sound/firealarm
 	mid_sounds = 'sound/machines/fire_alarm.ogg'
 	mid_length = 20
 	volume = 80
 	extra_range = 15
 	falloff_exponent = 5
+
+/datum/looping_sound/firealarm/sound_loop(looped)
+	. = ..()
+	if(!length(output_atoms))
+		src.stop()
+

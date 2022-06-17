@@ -36,8 +36,6 @@ FIRE ALARM
 	var/report_fire_alarms = TRUE // Should triggered fire alarms also trigger an actual alarm?
 	var/show_alert_level = TRUE // Should fire alarms display the current alert level?
 
-	var/datum/looping_sound/firealarm/soundloop
-
 /obj/machinery/firealarm/no_alarm
 	report_fire_alarms = FALSE
 
@@ -276,7 +274,6 @@ FIRE ALARM
 		else
 			overlays += image('icons/obj/monitors.dmi', "overlay_green")
 
-	soundloop = new(list(src), FALSE)
 	myArea = get_area(src)
 	LAZYADD(myArea.firealarms, src)
 	update_icon()
@@ -286,7 +283,8 @@ FIRE ALARM
 	name = "fire alarm"
 
 /obj/machinery/firealarm/Destroy()
-	QDEL_NULL(soundloop)
+	for(src in GLOB.firealarm_soundloop.output_atoms)
+		GLOB.firealarm_soundloop.output_atoms -= src
 	LAZYREMOVE(myArea.firealarms, src)
 	return ..()
 

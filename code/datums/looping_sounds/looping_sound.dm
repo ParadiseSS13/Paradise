@@ -58,9 +58,11 @@
 	muted = FALSE
 	on_start()
 
-/datum/looping_sound/proc/stop(atom/remove_thing)
+/datum/looping_sound/proc/stop(atom/remove_thing, do_continue)
 	if(remove_thing)
 		output_atoms -= remove_thing
+		if(do_continue)
+			return
 	if(muted)
 		return
 	muted = TRUE

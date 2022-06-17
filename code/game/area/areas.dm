@@ -264,7 +264,7 @@
 		for(var/item in firealarms)
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()
-			F.soundloop.start()
+			GLOB.firealarm_soundloop.start(F)
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
@@ -290,7 +290,7 @@
 		for(var/item in firealarms)
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()
-			F.soundloop.stop()
+			GLOB.firealarm_soundloop.stop(F, TRUE)
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
