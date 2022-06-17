@@ -36,6 +36,8 @@ FIRE ALARM
 	var/report_fire_alarms = TRUE // Should triggered fire alarms also trigger an actual alarm?
 	var/show_alert_level = TRUE // Should fire alarms display the current alert level?
 
+	var/sounding_alarm = FALSE
+
 /obj/machinery/firealarm/no_alarm
 	report_fire_alarms = FALSE
 
@@ -53,7 +55,6 @@ FIRE ALARM
 	if(wiresexposed)
 		icon_state = "firealarm_b[buildstage]"
 		return
-	
 	if(stat & BROKEN)
 		icon_state = "firealarm_broken"
 	else if(stat & NOPOWER)
@@ -249,6 +250,7 @@ FIRE ALARM
 		return
 	var/area/A = get_area(src)
 	A.firereset(src)
+	sounding_alarm = FALSE
 
 /obj/machinery/firealarm/proc/alarm()
 	if(!working || !report_fire_alarms)
@@ -256,6 +258,12 @@ FIRE ALARM
 	var/area/A = get_area(src)
 	A.firealert(src) // Manually trigger alarms if the alarm isn't reported
 	update_icon()
+
+/obj/machinery/firealarm/proc/sound_alarm()
+	if(!sounding_alarm)
+		return
+	playsound(src, 'sound/machines/fire_alarm.ogg', 80, FALSE, 15, 5)
+	addtimer(CALLBACK(src, .proc/sound_alarm), 2 SECONDS, TIMER_UNIQUE)
 
 /obj/machinery/firealarm/New(location, direction, building)
 	. = ..()

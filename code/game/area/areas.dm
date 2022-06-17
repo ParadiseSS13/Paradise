@@ -270,6 +270,10 @@
 		if(!QDELETED(C) && is_station_level(C.z))
 			C.network |= "Fire Alarms"
 
+	for(var/obj/machinery/firealarm/fa in src)
+		fa.sounding_alarm = TRUE
+		fa.sound_alarm()
+
 	SSalarm.triggerAlarm("Fire", src, cameras, source)
 
 	START_PROCESSING(SSobj, src)
@@ -294,6 +298,9 @@
 		var/obj/machinery/camera/C = locateUID(thing)
 		if(!QDELETED(C) && is_station_level(C.z))
 			C.network -= "Fire Alarms"
+
+	for(var/obj/machinery/firealarm/fa in src)
+		fa.sounding_alarm = FALSE
 
 	SSalarm.cancelAlarm("Fire", src, source)
 
