@@ -14,15 +14,15 @@
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
-	brute_mod = 2.28 // 100% * 2.28 * 0.66 (robolimbs) ~= 150%
-	burn_mod = 2.28  // So they take 50% extra damage from brute/burn overall
+	brute_mod = 1.82 // 100% * 1.82 * 0.66 (robolimbs) ~= 120%
+	burn_mod = 2.28  // 100% * 2.28 * 0.66 (robolimbs) ~= 150%
 	tox_mod = 0
 	clone_mod = 0
 	death_message = "gives a short series of shrill beeps, their chassis shuddering before falling limp, nonfunctional."
 	death_sounds = list('sound/voice/borg_deathsound.ogg') //I've made this a list in the event we add more sounds for dead robots.
 
 	species_traits = list(IS_WHITELISTED, NO_BLOOD, NO_CLONESCAN, NO_INTORGANS)
-	inherent_traits = list(TRAIT_VIRUSIMMUNE, TRAIT_NOBREATH, TRAIT_RADIMMUNE, TRAIT_NOGERMS, TRAIT_NODECAY, TRAIT_NOPAIN, TRAIT_GENELESS) //Computers that don't decay? What a lie!
+	inherent_traits = list(TRAIT_VIRUSIMMUNE, TRAIT_NOBREATH, TRAIT_RADIMMUNE, TRAIT_NOGERMS, TRAIT_NODECAY, TRAIT_NOPAIN, TRAIT_GENELESS, TRAIT_RESISTCOLD, ) //Computers that don't decay? What a lie!
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
