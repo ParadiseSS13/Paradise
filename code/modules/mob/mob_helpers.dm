@@ -468,10 +468,11 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	set name = "Rest"
 	set category = "IC"
 
-	if(!do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, /mob/living/proc/can_stand)), only_use_extra_checks = TRUE))
-		return
 
-	resting = !resting
+	resting = !resting // this happens before the do_mob so that you can stay resting if you are stunned.
+
+	if(!do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, /mob/living/proc/cannot_stand)), only_use_extra_checks = TRUE))
+		return
 
 	if(body_position == STANDING_UP)
 		to_chat(src, "<span class='notice'>You are now resting.</span>")

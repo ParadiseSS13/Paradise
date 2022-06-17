@@ -88,7 +88,7 @@ STATUS EFFECTS
 
 /mob/living/proc/stand_up(instant = TRUE)
 	set waitfor = FALSE
-	if(!instant && !do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, /mob/living/proc/can_stand)), only_use_extra_checks = TRUE))
+	if(!instant && !do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, /mob/living/proc/cannot_stand)), only_use_extra_checks = TRUE))
 		return
 	if(resting || body_position == STANDING_UP || HAS_TRAIT(src, TRAIT_FLOORED))
 		return
