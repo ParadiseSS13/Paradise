@@ -48,6 +48,8 @@ Difficulty: Medium
 	icon_living = "ancient_robot"
 	friendly = "stares down"
 	speak_emote = list("BUZZES")
+	universal_speak = TRUE
+	universal_understand = TRUE
 	armour_penetration = 40
 	melee_damage_lower = 20
 	melee_damage_upper = 20
@@ -120,7 +122,7 @@ Difficulty: Medium
 	invisibility = 100
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Life(seconds, times_fired)
-	if(health <= 200)
+	if(health <= 200 && !exploding)
 		self_destruct()
 		exploding = TRUE
 	..()
@@ -227,7 +229,6 @@ Difficulty: Medium
 	visible_message("<span class='danger'>[src] creates some sort of energy shield!</span>")
 	addtimer(CALLBACK(src, .proc/disable_shield), 15 SECONDS)
 	add_overlay("shield")
-	//visable chat message / sound here
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/disable_shield()
 	visible_message("<span class='danger'>[src]'s shield fails!</span>")
@@ -235,7 +236,6 @@ Difficulty: Medium
 	body_shield_enabled = FALSE
 	body_shield_cooldown = TRUE
 	addtimer(CALLBACK(src, .proc/reset_shield_cooldown), 30 SECONDS)
-	//remove overlay here, sounds, ect.
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/reset_shield_cooldown()
 	body_shield_cooldown = FALSE
@@ -446,7 +446,7 @@ Difficulty: Medium
 	health_and_snap_check(TRUE)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Goto()
-		return // stops the legs from trying to move on their own
+	return // stops the legs from trying to move on their own
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/beam_setup()
 	leg_part = Beam(core.beam, "rped_upgrade", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
@@ -502,15 +502,12 @@ Difficulty: Medium
 	..()
 
 /obj/item/projectile/ancient_robot_bullet
-	damage = 7.5
-	armour_penetration = 20
+	damage = 10
 	damage_type = BRUTE
-	stamina = 7.5 //you actually have to dodge a bit, rather than just, you know, tank.
 
 /obj/item/projectile/rock
 	name= "thrown rock"
-	damage = 30
-	armour_penetration = 20
+	damage = 25
 	damage_type = BRUTE
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small1"
