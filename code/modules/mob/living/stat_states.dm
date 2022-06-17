@@ -44,14 +44,14 @@
 	create_attack_log("<font color='red'>Came back to life at [atom_loc_line(get_turf(src))]</font>")
 	add_attack_logs(src, null, "Came back to life", ATKLOG_ALL)
 	log_game("[key_name(src)] came back to life at [atom_loc_line(get_turf(src))]")
-	stat = CONSCIOUS
+	stat = UNCONSCIOUS // this is done as `WakeUp` early returns if they are `stat = DEAD`
+	WakeUp()
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list |= src
 	if(mind)
 		remove_from_respawnable_list()
 	timeofdeath = null
 	if(updating)
-		update_stat()
 		update_blind_effects()
 		update_sight()
 		updatehealth("update revive")
