@@ -47,6 +47,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	)),
 
 	new /datum/stack_recipe_list("comfy chairs", list(
+		new /datum/stack_recipe("corporate comfy chair", /obj/structure/chair/comfy/corp, 2, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("beige comfy chair", /obj/structure/chair/comfy/beige, 2, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("black comfy chair", /obj/structure/chair/comfy/black, 2, one_per_turf = 1, on_floor = 1),
 		new /datum/stack_recipe("brown comfy chair", /obj/structure/chair/comfy/brown, 2, one_per_turf = 1, on_floor = 1),

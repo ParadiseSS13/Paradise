@@ -18,6 +18,8 @@
 	var/movable = FALSE // For mobility checks
 	var/propelled = FALSE // Check for fire-extinguisher-driven chairs
 	var/comfort = 0
+	/// Used to handle rotation properly, should only be 1, 4, or 8
+	var/possible_dirs = 4
 
 /obj/structure/chair/narsie_act()
 	if(prob(20))
@@ -95,6 +97,9 @@
 			buckled_mob.setDir(direction)
 
 /obj/structure/chair/proc/handle_layer()
+	if(possible_dirs == 8) // We don't want chairs with corner dirs to sit over mobs, it is handled by armrests
+		layer = OBJ_LAYER
+		return
 	if(has_buckled_mobs() && dir == NORTH)
 		layer = ABOVE_MOB_LAYER
 	else
@@ -118,14 +123,14 @@
 	set src in oview(1)
 
 	if(GLOB.configuration.general.ghost_interaction)
-		setDir(turn(dir, 90))
+		setDir(turn(dir, (360 / possible_dirs))) //90 for 4 possible dirs, 45 for 8.
 		handle_rotation()
 		return
 
 	if(usr.incapacitated())
 		return
 
-	setDir(turn(dir, 90))
+	setDir(turn(dir, (360 / possible_dirs)))
 	handle_rotation()
 
 /obj/structure/chair/AltClick(mob/user)
@@ -171,13 +176,17 @@
 	item_chair = null
 	var/image/armrest = null
 
+/obj/structure/chair/comfy/corp
+	color = null
+	icon_state = "comfychair_corp"
+
 /obj/structure/chair/comfy/Initialize(mapload)
 	armrest = GetArmrest()
 	armrest.layer = ABOVE_MOB_LAYER
 	return ..()
 
 /obj/structure/chair/comfy/proc/GetArmrest()
-	return mutable_appearance('icons/obj/chairs.dmi', "comfychair_armrest")
+	return mutable_appearance('icons/obj/chairs.dmi', "[icon_state]_armrest")
 
 /obj/structure/chair/comfy/Destroy()
 	QDEL_NULL(armrest)
@@ -330,6 +339,7 @@
 
 /obj/structure/chair/sofa/corner
 	icon_state = "sofacorner"
+	possible_dirs = 8
 
 /obj/structure/chair/sofa/corp
 	name = "sofa"
@@ -346,6 +356,7 @@
 
 /obj/structure/chair/sofa/corp/corner
 	icon_state = "corp_sofacorner"
+	possible_dirs = 8
 
 /obj/structure/chair/sofa/pew
 	name = "pew"
@@ -364,15 +375,17 @@
 /obj/structure/chair/sofa/bench
 	name = "Bench"
 	desc = "You sit in this. Either by will or force."
-	icon_state = "bench_middle"
+	icon_state = "bench_middle_mapping"
+	base_icon_state = "bench_middle"
 	///icon for the cover seat
 	var/image/cover
 	///cover seat color
-	var/cover_color
+	var/cover_color = rgb(255,255,255)
 	color = null
 	colorable = FALSE
 
 /obj/structure/chair/sofa/bench/Initialize(mapload)
+	icon_state = base_icon_state //so the rainbow seats for mapper clarity are not in-game
 	GetCover()
 	return ..()
 
@@ -388,18 +401,21 @@
 /obj/structure/chair/sofa/bench/attacked_by(obj/item/I, mob/living/user)
 	. = ..()
 	if(istype(I, /obj/item/toy/crayon))
-		var/obj/item/toy/crayon/C = I
-		cover_color = C.colour
-	if(istype(I, /obj/item/toy/crayon/spraycan))
-		cover_color = input("Please select bench color.", "Bench Color", cover_color) as null|color
+		if(istype(I, /obj/item/toy/crayon/spraycan))
+			cover_color = input("Please select bench color.", "Bench Color", cover_color) as null|color
+		else
+			var/obj/item/toy/crayon/C = I
+			cover_color = C.colour
 	if(cover_color)
 		GetCover()
 
 /obj/structure/chair/sofa/bench/left
-	icon_state = "bench_left"
+	icon_state = "bench_left_mapping"
+	base_icon_state = "bench_left"
 
 /obj/structure/chair/sofa/bench/right
-	icon_state = "bench_right"
+	icon_state = "bench_right_mapping"
+	base_icon_state = "bench_right"
 
 /obj/structure/chair/sofa/bamboo
 	name = "Bamboo Bench"
