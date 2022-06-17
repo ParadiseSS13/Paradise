@@ -17,3 +17,10 @@
 	falloff_distance = 5
 	vary = TRUE
 	channel = CHANNEL_ENGINE
+
+/datum/looping_sound/firealarm
+	mid_sounds = 'sound/machines/fire_alarm.ogg'
+	mid_length = 20
+	volume = 80
+	extra_range = 15
+	falloff_exponent = 5
