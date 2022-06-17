@@ -1,6 +1,11 @@
-#define BODY_SHIELD_COOLDOWN_TIME = 45
-#define EXTRA_PLAYER_ANGER_NORMAL_CAP = 6
-#define EXTRA_PLAYER_ANGER_STATION_CAP = 3
+#define BODY_SHIELD_COOLDOWN_TIME 45 SECONDS
+#define EXTRA_PLAYER_ANGER_NORMAL_CAP 6
+#define EXTRA_PLAYER_ANGER_STATION_CAP 3
+#define BLUESPACE 1
+#define GRAV 2
+#define PYRO 3
+#define FLUX 4
+#define VORTEX 5
 
 /// DISABLE MELEE WHEN CHARGING. TONE DOWN GUNS. PREVENT DOUBLE BUMP.
 
@@ -34,14 +39,13 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/ancient_robot
 	name = "old ass hunk of junk"
 	desc = "what is this piece of shit?"
-	health = 2500
-	maxHealth = 2500
+	health = 2700 //slight more hp as insurance for it's self destruct
+	maxHealth = 2700
 	attacktext = "shocks"
 	attack_sound = 'sound/machines/defib_zap.ogg'
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
 	icon_state = "ancient_robot"
 	icon_living = "ancient_robot"
-	icon_dead = "dragon_dead"
 	friendly = "stares down"
 	speak_emote = list("BUZZES")
 	armour_penetration = 40
@@ -53,32 +57,33 @@ Difficulty: Medium
 	ranged = TRUE
 	pixel_x = -16
 	pixel_y = -16
+	del_on_death = TRUE
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/dragon/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/dragon)
-	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
+	internal_type = /obj/item/gps/internal/ancient
+	medal_type = BOSS_MEDAL_ROBOT
+	score_type = ROBOT_SCORE
+	deathmessage = "explodes in a shower of alloys"
+	footstep_type = FOOTSTEP_MOB_HEAVY //make stomp like bubble
+	attack_action_types = list()
+
 	var/charging = FALSE
 	var/revving_charge = FALSE
 	var/player_cooldown = 0
 	var/body_shield_enabled = FALSE
-	var/body_shield_cooldown = 0
+	var/body_shield_cooldown = FALSE
 	var/extra_player_anger = 0
-	internal_type = /obj/item/gps/internal/ancient
-	medal_type = BOSS_MEDAL_DRAKE
-	score_type = DRAKE_SCORE
-	deathmessage = "explodes in a shower of alloys"
-	death_sound = 'sound/misc/demon_dies.ogg'
-	footstep_type = FOOTSTEP_MOB_HEAVY //make stomp like bubble
-	attack_action_types = list()
+	var/mode = 0 //This variable controls the special attacks of the robot, one for each anomaly core.
+	var/exploding = TRUE
+
+/// Legs and the connector for the legs
 
 	var/mob/living/simple_animal/hostile/ancient_robot_leg/TR = null
 	var/mob/living/simple_animal/hostile/ancient_robot_leg/TL = null
 	var/mob/living/simple_animal/hostile/ancient_robot_leg/BR = null
 	var/mob/living/simple_animal/hostile/ancient_robot_leg/BL = null
+	var/obj/effect/abstract/beam = null
 
-///These variables are used to track what position the legs (should) be in, to hopefully make them move smoothly.
-	var/step_right = 0
-	var/step_up = 0
-	var/step_upright = 0
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Initialize(mapload, mob/living/ancient) //We spawn and move them to clear out area for the legs, rather than risk the legs getting put in a wall
 	. = ..()
@@ -86,7 +91,20 @@ Difficulty: Medium
 	TL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, "TL")
 	BR = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, "BR")
 	BL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, "BL")
+	beam = new /obj/effect/abstract(loc)
 	addtimer(CALLBACK(src, .proc/leg_setup), 1 SECONDS)
+	mode = rand(BLUESPACE, VORTEX) //picks one of the 5 cores.
+	if(mode == FLUX) // Main attack is flux, so flux makes it stronger
+		melee_damage_lower = 25
+		melee_damage_upper = 25
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/Destroy()
+	QDEL_NULL(TR)
+	QDEL_NULL(TL)
+	QDEL_NULL(BR)
+	QDEL_NULL(BL)
+	QDEL_NULL(beam)
+	return ..()
 
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_setup()
@@ -100,6 +118,12 @@ Difficulty: Medium
 	gpstag = "Malfunctioning Signal"
 	desc = "ERROR_NULL_ENTRY"
 	invisibility = 100
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/Life(seconds, times_fired)
+	if(health <= 200)
+		self_destruct()
+		exploding = TRUE
+	..()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/OpenFire()
 	if(charging)
@@ -134,14 +158,25 @@ Difficulty: Medium
 	calculate_extra_player_anger()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/triple_charge()
-	charge(delay = 9)
-	charge(delay = 6)
-	charge(delay = 3)
-	SetRecoveryTime(15)
+	if(mode == BLUESPACE)
+		charge(delay = 18)
+		charge(delay = 12)
+		charge(delay = 6)
+		SetRecoveryTime(30)
+	else
+		charge(delay = 9)
+		charge(delay = 6)
+		charge(delay = 3)
+		SetRecoveryTime(15)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/charge(atom/chargeat = target, delay = 5, chargepast = 2) //add limb charge as well
 	if(!chargeat)
 		return
+	if(mode == BLUESPACE)
+		new /obj/effect/temp_visual/bsg_kaboom(get_turf(src))
+		src.visible_message("<span class='danger'>[src] teleports somewhere nearbye!</span>")
+		do_teleport(src, target, 7, asoundin = 'sound/effects/phasein.ogg', safe_turf_pick = TRUE) //Teleport within 7 tiles of the target
+		new /obj/effect/temp_visual/bsg_kaboom(get_turf(src))
 	var/chargeturf = get_turf(chargeat)
 	if(!chargeturf)
 		return
@@ -149,7 +184,7 @@ Difficulty: Medium
 	var/turf/T = get_ranged_target_turf(chargeturf, dir, chargepast)
 	if(!T)
 		return
-	new /obj/effect/temp_visual/dragon_swoop/bubblegum(T) //make robotic target + beam
+	new /obj/effect/temp_visual/dragon_swoop/bubblegum/ancient_robot(T, beam)
 	charging = TRUE
 	revving_charge = TRUE
 	DestroySurroundings()
@@ -157,13 +192,18 @@ Difficulty: Medium
 	setDir(dir)
 	SLEEP_CHECK_DEATH(delay)
 	revving_charge = FALSE
-	var/movespeed = 0.7
+	var/movespeed = 0.8
 	walk_towards(src, T, movespeed)
 	SLEEP_CHECK_DEATH(get_dist(src, T) * movespeed)
 	walk(src, 0) // cancel the movement
 	charging = FALSE
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(atom/A)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/MeleeAction(patience = TRUE)
+	if(charging)
+		return
+	return ..()
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(atom/A) //list of bumped in current charge
 	if(charging)
 		DestroySurroundings()
 		if(isliving(A))
@@ -171,36 +211,78 @@ Difficulty: Medium
 			if(!istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
 				L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
 				forceMove(get_turf(L))
-				L.apply_damage(15, BRUTE) // ignores armor, might hit twice, TEST THIS SHIT. it does
+				var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
+				L.apply_damage(15, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration))
 				playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 				shake_camera(L, 4, 3)
 				shake_camera(src, 2, 3)
+				if(mode == GRAV)
+					var/atom/throw_target = get_edge_target_turf(L, get_dir(src, get_step_away(L, src)))
+					L.throw_at(throw_target, 3, 2)
 	..()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/body_shield()
 	//add overlay of shield, give it immunity to ranged (but not melee) during duration.
 	body_shield_enabled = TRUE
-	visible_message("<span class='danger'>SHIELD ON MOTHAFAKA</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+	visible_message("<span class='danger'>[src] creates some sort of energy shield!</span>")
 	addtimer(CALLBACK(src, .proc/disable_shield), 15 SECONDS)
-	body_shield_cooldown = world.time + 4500
+	add_overlay("shield")
 	//visable chat message / sound here
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/disable_shield()
-	visible_message("<span class='danger'>SHIELD DOWN CAPTAIN</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+	visible_message("<span class='danger'>[src]'s shield fails!</span>")
+	cut_overlay("shield")
 	body_shield_enabled = FALSE
+	body_shield_cooldown = TRUE
+	addtimer(CALLBACK(src, .proc/reset_shield_cooldown), 30 SECONDS)
 	//remove overlay here, sounds, ect.
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/reset_shield_cooldown()
+	body_shield_cooldown = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/bullet_act(obj/item/projectile/P)
 	if(body_shield_enabled)
 		visible_message("<span class='danger'>[src]'s shield deflects the projectile in a shower of sparks!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
-		playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 300, TRUE) // sparky sounds
+		playsound(src, pick('sound/effects/sparks1.ogg', 'sound/effects/sparks2.ogg', 'sound/effects/sparks3.ogg', 'sound/effects/sparks4.ogg'), 300, TRUE)
 		return
 	..()
 
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/devour(mob/living/L)
+	say("JKYZXAIZOBK GTGREYKX GIZOBK") //what can I say, I like the trope of something talking in cypher
+	visible_message("<span class='userdanger'>[src] disintigrates [L]!</span>","<span class='userdanger'>You analyse [L], restoring your health!</span>")
+	if(!is_station_level(z) || client)
+		adjustHealth(-L.maxHealth * 0.2)
+	L.dust()
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/do_special_move()
-	visible_message("<span class='danger'>halp I have no anomaly core</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/do_special_move() //This move has a diffrent effect for each anomaly type.
+	switch(mode)
+		if(BLUESPACE) //think on this
+			return
+		if(GRAV)
+			var/list/turfs = new/list()
+			var/rocks = 0
+			for(var/turf/T in view(6, target))
+				if(T.density)
+					continue
+				if(T in range (2, target))
+					continue
+				turfs += T
+			while(rocks < 3 && length(turfs))
+				var/turf/spot = pick(turfs)
+				turfs -= spot
+				new /obj/effect/temp_visual/rock(spot)
+				addtimer(CALLBACK(src, .proc/throw_rock, spot, target), 2 SECONDS)
+				rocks += 1
 
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/throw_rock(turf/spot, mob/target)
+	var/turf/T = get_turf(target)
+	if(!spot || !T)
+		return
+	var/obj/item/projectile/rock/O = new /obj/item/projectile/rock(spot)
+	O.current = spot
+	O.yo = T.y - spot.y
+	O.xo = T.x - spot.x
+	O.fire()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/calculate_extra_player_anger()// To make this fight harder, it scales it's attacks based on number of players. Capped lower on station.
 	var/anger = 0
@@ -209,8 +291,35 @@ Difficulty: Medium
 		if(stat == DEAD)
 			continue
 		anger += 1
-		cap = (is_station_level(loc.z) ? 1 : 2)
+		cap = (is_station_level(loc.z) ? EXTRA_PLAYER_ANGER_STATION_CAP : EXTRA_PLAYER_ANGER_NORMAL_CAP)
 	extra_player_anger = min(max(anger, 1), cap) - 1
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/self_destruct()
+	status_flags ^= GODMODE
+	say("OTZKMXOZE LGORAXK YKRL JKYZXAIZ GIZOBK")
+	visible_message("<span class='biggerdanger'>[src] begins to overload it's core. It is going to explode!</span>")
+	playsound(src,'sound/machines/alarm.ogg',100,0,5)
+	AIStatus = AI_OFF
+	addtimer(CALLBACK(src, .proc/kaboom), 10 SECONDS)
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/kaboom()
+	explosion(get_turf(src), -1, 10, 20, 20)
+	status_flags ^= GODMODE
+	death()
+
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/disable_legs()
+	TR.disabled = TRUE
+	TR.ranged = FALSE
+
+	TL.disabled = TRUE
+	TL.ranged = FALSE
+
+	BR.disabled = TRUE
+	BR.ranged = FALSE
+
+	BL.disabled = TRUE
+	BL.ranged = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/fix_specific_leg(input) //Used to reset legs to specific locations
 	switch(input)
@@ -278,12 +387,13 @@ Difficulty: Medium
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
 	if(Dir)
 		leg_walking_controler(Dir)
+		if(charging && mode == PYRO)
+			for(var/turf/T in range (1,src))
+				new /obj/effect/hotspot(T)
+				T.hotspot_expose(700,50,1)
+	beam.forceMove(get_turf(src))
 	return ..()
 
-///mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(amount, updating_health = TRUE) //CHANGE THIS FOR CRITICAL DEATH KAABOOM
-//	if(swooping & SWOOP_INVULNERABLE)
-//		return FALSE
-//	return ..()
 
 /mob/living/simple_animal/hostile/ancient_robot_leg
 	name = "leg"
@@ -303,6 +413,7 @@ Difficulty: Medium
 	armour_penetration = 40
 	melee_damage_lower = 15
 	melee_damage_upper = 15
+	obj_damage = 400
 	move_force = MOVE_FORCE_OVERPOWERING
 	move_resist = MOVE_FORCE_OVERPOWERING
 	pull_force = MOVE_FORCE_OVERPOWERING
@@ -311,14 +422,14 @@ Difficulty: Medium
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
 	stat_attack = DEAD
-	var/range = 4
+	var/range = 3
 	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/core = null
 	var/fake_max_hp = 400
 	var/fake_hp = 400
 	var/fake_hp_regen = 10
-	var/transfer_rate = 1
+	var/transfer_rate = 0.75
 	var/who_am_i = null
-	var/fuck_people_up = FALSE
+	var/disabled = FALSE
 	var/datum/beam/leg_part
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Initialize(mapload, mob/living/ancient, who)
@@ -328,8 +439,7 @@ Difficulty: Medium
 	core = ancient
 	who_am_i = who
 	ranged_cooldown_time = (rand(30, 60)) // keeps them not running on the same time
-	if(who_am_i == "TL" || who_am_i == "TR")
-		addtimer(CALLBACK(src, .proc/beam_setup), 1 SECONDS)
+	addtimer(CALLBACK(src, .proc/beam_setup), 1 SECONDS)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Life(seconds, times_fired)
 	..()
@@ -339,10 +449,7 @@ Difficulty: Medium
 		return // stops the legs from trying to move on their own
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/beam_setup()
-	if(who_am_i == "TL")
-		leg_part = Beam(core.BR, "rped_upgrade", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
-	else
-		leg_part = Beam(core.BL, "rped_upgrade", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
+	leg_part = Beam(core.beam, "rped_upgrade", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * transfer_rate
@@ -355,7 +462,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/health_and_snap_check(regen = FALSE)
 	if(regen)
 		fake_hp = min(fake_hp + fake_hp_regen, fake_max_hp)
-	transfer_rate = 0.5 ** (3 * (fake_hp / fake_max_hp))
+	transfer_rate = 0.75 * (fake_hp/fake_max_hp)
 	if(get_dist(get_turf(core),get_turf(src)) <= range)
 		return
 	else
@@ -364,30 +471,81 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/leg_movement(turf/T, movespeed) //byond doesn't like calling walk_towards on the legs directly
 	walk_towards(src, T, movespeed)
+	DestroySurroundings()
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Bump(atom/A)
 	if(!core.charging)
 		return
-	DestroySurroundings()
 	if(isliving(A))
 		if(!istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
 			var/mob/living/L = A
 			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
 			forceMove(get_turf(L))
-			L.apply_damage(5, BRUTE) // ignores armor, might hit twice, TEST THIS SHIT. it does
+			var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
+			L.apply_damage(5, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration))
 			playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 			shake_camera(L, 4, 3)
 			shake_camera(src, 2, 3)
 	..()
 
+/mob/living/simple_animal/hostile/ancient_robot_leg/MeleeAction(patience = TRUE)
+	if(core.charging || disabled)
+		return
+	return ..()
+
 /mob/living/simple_animal/hostile/ancient_robot_leg/OpenFire() // This is (idealy) to keep the turrets on the legs from shooting people that are close to the robot. The guns will only shoot if they won't hit the robot, or if the user is between a leg and another leg / robot
 	if(get_dist(target, core) < 3)
+		return
+	if(prob(33))
 		return
 	ranged_cooldown_time = (rand(30, 60)) // keeps them not running on the same time
 	..()
 
 /obj/item/projectile/ancient_robot_bullet
 	damage = 7.5
-	armour_penetration = 40
+	armour_penetration = 20
 	damage_type = BRUTE
 	stamina = 7.5 //you actually have to dodge a bit, rather than just, you know, tank.
+
+/obj/item/projectile/rock
+	name= "thrown rock"
+	damage = 30
+	armour_penetration = 20
+	damage_type = BRUTE
+	icon = 'icons/obj/meteor.dmi'
+	icon_state = "small1"
+
+/obj/effect/temp_visual/rock
+	name = "floating rock"
+	desc = "Might want to focus on dodging, rather than looking at it."
+	icon = 'icons/obj/meteor.dmi'
+	icon_state = "small1"
+	duration = 20
+
+/obj/effect/temp_visual/rock/Initialize(mapload)
+	. = ..()
+	src.visible_message("<span class='danger'>Debris from the battle field get compressed into a [src]!</span>")
+
+/obj/effect/temp_visual/dragon_swoop/bubblegum/ancient_robot //this is the worst path I have ever made
+	icon_state = "target"
+
+/obj/effect/temp_visual/dragon_swoop/bubblegum/ancient_robot/Initialize(mapload, target)
+	. = ..()
+	new /obj/effect/temp_visual/beam_target(get_turf(src), target) // Yup, we have to make *another* effect since beam doesn't work right with 64x64
+	set_light(4, l_color = "#ee2e27")
+
+/obj/effect/temp_visual/beam_target
+	var/datum/beam/charge
+
+/obj/effect/temp_visual/beam_target/Initialize(mapload, target)
+	. = ..()
+	charge = Beam(target, "target_beam", 'icons/effects/effects.dmi', time=1.5 SECONDS, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
+
+#undef BODY_SHIELD_COOLDOWN_TIME
+#undef EXTRA_PLAYER_ANGER_NORMAL_CAP
+#undef EXTRA_PLAYER_ANGER_STATION_CAP
+#undef BLUESPACE
+#undef GRAV
+#undef PYRO
+#undef FLUX
+#undef VORTEX
