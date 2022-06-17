@@ -400,10 +400,7 @@
 			user.visible_message("<span class='notice'>[user] places [src] on [M.name]'s chest.</span>", "<span class='warning'>You place [src] on [M.name]'s chest.</span>")
 			playsound(get_turf(src), 'sound/machines/defib_charge.ogg', 50, 0)
 
-			if(ghost && !ghost.client)
-				// In case the ghost's not getting deleted for some reason
-				H.key = ghost.key
-				log_runtime(EXCEPTION("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost."), src)
+			if(ghost && !ghost.client && !QDELETED(ghost))
 				QDEL_NULL(ghost)
 			var/tplus = world.time - H.timeofdeath
 			var/tlimit = DEFIB_TIME_LIMIT
