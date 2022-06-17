@@ -1,6 +1,7 @@
 #define BODY_SHIELD_COOLDOWN_TIME 45 SECONDS
 #define EXTRA_PLAYER_ANGER_NORMAL_CAP 6
 #define EXTRA_PLAYER_ANGER_STATION_CAP 3
+#define VORTEX_HEAL_CAP 250
 #define BLUESPACE 1
 #define GRAV 2
 #define PYRO 3
@@ -76,7 +77,7 @@ Difficulty: Medium
 	var/body_shield_cooldown = FALSE
 	var/extra_player_anger = 0
 	var/mode = 0 //This variable controls the special attacks of the robot, one for each anomaly core.
-	var/exploding = TRUE
+	var/exploding = FALSE
 
 /// Legs and the connector for the legs
 
@@ -96,7 +97,7 @@ Difficulty: Medium
 	beam = new /obj/effect/abstract(loc)
 	addtimer(CALLBACK(src, .proc/leg_setup), 1 SECONDS)
 	mode = rand(BLUESPACE, VORTEX) //picks one of the 5 cores.
-	if(mode == FLUX) // Main attack is flux, so flux makes it stronger
+	if(mode == FLUX) // Main attack is shock, so flux makes it stronger
 		melee_damage_lower = 25
 		melee_damage_upper = 25
 
@@ -146,14 +147,17 @@ Difficulty: Medium
 	//			lava_swoop()
 	//	return
 
-	if(prob(15 + anger_modifier))
-		triple_charge()
+	if(exploding)
+		return
 
-	else if(prob(10 + anger_modifier))
-		do_special_move()
+	if(prob(30 + anger_modifier))
+		triple_charge()
 
 	else if(prob(50) && !body_shield_enabled && !body_shield_cooldown)
 		body_shield()
+
+	else if(prob(60 + anger_modifier))
+		do_special_move()
 	else
 		visible_message("<span class='danger'>DOING FUCK ALL CAPTAIN</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 
@@ -254,14 +258,46 @@ Difficulty: Medium
 		adjustHealth(-L.maxHealth * 0.2)
 	L.dust()
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/do_special_move() //This move has a diffrent effect for each anomaly type.
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/do_special_move()
+	if(prob(20))
+		say("JKVRUEOTM XGC VUCKX")
+		var/list/turfs = new/list()
+		var/anomalies = 0
+		for(var/turf/T in view(5, src))
+			if(T.density)
+				continue
+			turfs += T
+		while(anomalies < 3 && length(turfs))
+			var/turf/spot = pick(turfs)
+			turfs -= spot
+			switch(mode)
+				if(BLUESPACE)
+					var/obj/effect/anomaly/bluespace/A = new(spot, 150, FALSE)
+					A.mass_teleporting = FALSE
+				if(GRAV)
+					new /obj/effect/anomaly/grav(spot, 150, FALSE)
+				if(PYRO)
+					var/obj/effect/anomaly/pyro/A = new(spot, 150, FALSE)
+					A.slimey = FALSE
+				if(FLUX)
+					var/obj/effect/anomaly/flux/A = new(spot, 150, FALSE)
+					A.explosive = FALSE
+				if(VORTEX)
+					new /obj/effect/anomaly/bhole(spot, 150, FALSE)
+			anomalies += 1
+		return
+	say("JKVRUEOTM LUIAYKJ VUCKX")
 	switch(mode)
-		if(BLUESPACE) //think on this
-			return
+		if(BLUESPACE)
+			if(ishuman(target))
+				var/mob/living/carbon/human/H = target
+				to_chat(H, "<span class='danger'>[src] starts to slow time around you!</span>")
+				H.apply_status_effect(STATUS_EFFECT_BLUESPACESLOWDOWN)
 		if(GRAV)
+			visible_message("<span class='danger'>Debris from the battlefield begin to get compressed into rocks!</span>")
 			var/list/turfs = new/list()
 			var/rocks = 0
-			for(var/turf/T in view(6, target))
+			for(var/turf/T in view(4, target))
 				if(T.density)
 					continue
 				if(T in range (2, target))
@@ -273,6 +309,50 @@ Difficulty: Medium
 				new /obj/effect/temp_visual/rock(spot)
 				addtimer(CALLBACK(src, .proc/throw_rock, spot, target), 2 SECONDS)
 				rocks += 1
+		if(PYRO)
+			visible_message("<span class='danger'>The ground begins to heat up around you!</span>")
+			var/list/turfs = new/list()
+			var/volcanos = 0
+			for(var/turf/T in view(4, target))
+				if(T.density)
+					continue
+				if(T in range(2, target))
+					continue
+				turfs += T
+			while(volcanos < 3 && length(turfs))
+				var/turf/spot = pick(turfs)
+				turfs -= spot
+				for(var/turf/around in range(1, spot))
+					new /obj/effect/temp_visual/lava_warning(around)
+				volcanos += 1
+		if(FLUX)
+			for(var/mob/living/carbon/human/H in view(7, src))
+				var/turf/T = get_turf(H)
+				var/turf/S = get_turf(src)
+				if(!S || !T)
+					return
+				var/obj/item/projectile/energy/shock_revolver/ancient/O = new /obj/item/projectile/energy/shock_revolver/ancient(S)
+				O.current = S
+				O.yo = T.y - S.y
+				O.xo = T.x - S.x
+				O.fire()
+		if(VORTEX)
+			visible_message("<span class='danger'>[src] begins to pull in materials towards themself!</span>")
+			for(var/obj/item/stack/O in range(5, src))
+				O.throw_at(src, 5, 10)
+			addtimer(CALLBACK(src, .proc/material_heal), 1 SECONDS)
+
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/material_heal()
+	var/heal_amount = 0
+	for(var/obj/item/stack/O in range(3, src))
+		if(!(istype(O, /obj/item/stack/sheet) || istype(O, /obj/item/stack/ore)))
+			continue
+		heal_amount += 5 * O.amount
+		qdel(O)
+	adjustBruteLoss(-min(heal_amount, (is_station_level(loc.z) ? VORTEX_HEAL_CAP / 5 : VORTEX_HEAL_CAP))) //Heavily capped on station, since as everything gets broken materials drop everywhere
+
+
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/throw_rock(turf/spot, mob/target)
 	var/turf/T = get_turf(target)
@@ -299,7 +379,6 @@ Difficulty: Medium
 	say("OTZKMXOZE LGORAXK YKRL JKYZXAIZ GIZOBK")
 	visible_message("<span class='biggerdanger'>[src] begins to overload it's core. It is going to explode!</span>")
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
-	AIStatus = AI_OFF
 	addtimer(CALLBACK(src, .proc/kaboom), 10 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/kaboom()
@@ -365,21 +444,23 @@ Difficulty: Medium
 	switch(input)
 		if("TR")
 			TR.leg_movement(target, 0.6)
-			//TR.forceMove(target)
 		if("TL")
 			TL.leg_movement(target, 0.6)
-			//TL.forceMove(target)
 		if("BR")
 			BR.leg_movement(target, 0.6)
-			//BR.forceMove(target)
 		if("BL")
 			BL.leg_movement(target, 0.6)
-			//BL.forceMove(target)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/ex_act(severity, target)
 	if(severity == EXPLODE_LIGHT)
 		return
 	..()
+
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/Goto()
+	if(!exploding)
+		return ..()
+	return
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	if(charging)
@@ -387,10 +468,17 @@ Difficulty: Medium
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
 	if(Dir)
 		leg_walking_controler(Dir)
-		if(charging && mode == PYRO)
-			for(var/turf/T in range (1,src))
-				new /obj/effect/hotspot(T)
-				T.hotspot_expose(700,50,1)
+		if(charging)
+			if(mode == PYRO)
+				var/turf/C = get_turf(src)
+				new /obj/effect/temp_visual/lava_warning(C)
+				for(var/turf/T in range (1,src))
+					new /obj/effect/hotspot(T)
+					T.hotspot_expose(700,50,1)
+			if(mode == VORTEX)
+				var/turf/C = get_turf(src)
+				C.ex_act(3)
+
 	beam.forceMove(get_turf(src))
 	return ..()
 
@@ -403,8 +491,9 @@ Difficulty: Medium
 	maxHealth = INFINITY //it's fine trust me
 	health = INFINITY
 	faction = list("mining", "boss") // No attacking your leg
-	stop_automated_movement = 1
-	wander = 0
+	weather_immunities = list("lava","ash")
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	flying = TRUE
 	check_friendly_fire = 1
 	ranged = 1
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
@@ -502,12 +591,12 @@ Difficulty: Medium
 	..()
 
 /obj/item/projectile/ancient_robot_bullet
-	damage = 10
+	damage = 5
 	damage_type = BRUTE
 
 /obj/item/projectile/rock
 	name= "thrown rock"
-	damage = 25
+	damage = 20
 	damage_type = BRUTE
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small1"
@@ -519,9 +608,14 @@ Difficulty: Medium
 	icon_state = "small1"
 	duration = 20
 
-/obj/effect/temp_visual/rock/Initialize(mapload)
-	. = ..()
-	src.visible_message("<span class='danger'>Debris from the battle field get compressed into a [src]!</span>")
+/obj/item/projectile/energy/shock_revolver/ancient
+	damage = 5
+
+/obj/item/projectile/energy/shock_revolver/ancien/Bump(atom/A, yes) // Don't want the projectile hitting the legs
+	if(!istype(/mob/living/simple_animal/hostile/ancient_robot_leg, A))
+		return ..()
+	var/turf/target_turf = get_turf(A)
+	loc = target_turf
 
 /obj/effect/temp_visual/dragon_swoop/bubblegum/ancient_robot //this is the worst path I have ever made
 	icon_state = "target"
@@ -541,6 +635,7 @@ Difficulty: Medium
 #undef BODY_SHIELD_COOLDOWN_TIME
 #undef EXTRA_PLAYER_ANGER_NORMAL_CAP
 #undef EXTRA_PLAYER_ANGER_STATION_CAP
+#undef VORTEX_HEAL_CAP
 #undef BLUESPACE
 #undef GRAV
 #undef PYRO
