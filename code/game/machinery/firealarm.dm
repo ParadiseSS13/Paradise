@@ -256,9 +256,6 @@ FIRE ALARM
 	A.firealert(src) // Manually trigger alarms if the alarm isn't reported
 	update_icon()
 
-/obj/machinery/firealarm/proc/sound_alarm()
-
-
 /obj/machinery/firealarm/New(location, direction, building)
 	. = ..()
 
@@ -283,8 +280,7 @@ FIRE ALARM
 	name = "fire alarm"
 
 /obj/machinery/firealarm/Destroy()
-	for(src in GLOB.firealarm_soundloop.output_atoms)
-		GLOB.firealarm_soundloop.output_atoms -= src
+	LAZYREMOVE(GLOB.firealarm_soundloop.output_atoms, src)
 	LAZYREMOVE(myArea.firealarms, src)
 	return ..()
 
