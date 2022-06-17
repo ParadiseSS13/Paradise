@@ -26,6 +26,7 @@ GLOBAL_DATUM_INIT(firealarm_soundloop, /datum/looping_sound/firealarm, new(list(
 	volume = 80
 	extra_range = 15
 	falloff_exponent = 5
+	channel = CHANNEL_FIREALARM
 
 /datum/looping_sound/firealarm/sound_loop(looped)
 	. = ..()
