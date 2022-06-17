@@ -96,7 +96,7 @@
 	name = "advanced energy gun"
 	desc = "An energy gun with an experimental miniaturized nuclear reactor that automatically charges the internal power cell."
 	icon_state = "nucgun"
-	item_state = "nucgun"
+	item_state = null
 	origin_tech = "combat=4;magnets=4;powerstorage=4"
 	var/fail_tick = 0
 	charge_delay = 5

@@ -334,8 +334,8 @@
 /obj/item/gun/projectile/revolver/doublebarrel
 	name = "double-barreled shotgun"
 	desc = "A true classic."
-	icon_state = "dshotgun"
-	item_state = "shotgun_db"
+	icon_state = "dbshotgun"
+	item_state = "dbshotgun"
 	lefthand_file = 'icons/mob/inhands/64x64_guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_guns_righthand.dmi'
 	inhand_x_dimension = 64
@@ -353,12 +353,12 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/New()
 	..()
-	options["Default"] = "dshotgun"
-	options["Dark Red Finish"] = "dshotgun-d"
-	options["Ash"] = "dshotgun-f"
-	options["Faded Grey"] = "dshotgun-g"
-	options["Maple"] = "dshotgun-l"
-	options["Rosewood"] = "dshotgun-p"
+	options["Default"] = "dbshotgun"
+	options["Dark Red Finish"] = "dbshotgun_d"
+	options["Ash"] = "dbshotgun_f"
+	options["Faded Grey"] = "dbshotgun_g"
+	options["Maple"] = "dbshotgun_l"
+	options["Rosewood"] = "dbshotgun_p"
 	options["Cancel"] = null
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
@@ -413,36 +413,38 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	sawn_desc = "I'm just here for the gasoline."
 	unique_reskin = FALSE
-	var/slung = 0
+	var/sawn = FALSE
+	var/sling = FALSE
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
+	..()
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_state)
 		var/obj/item/stack/cable_coil/C = A
-		if(C.use(10))
+		if(sling)
+			to_chat(user, "<span class='warning'>The shotgun already has a sling!</span>")
+		else if(C.use(10))
 			slot_flags = SLOT_BACK
-			icon_state = "ishotgunsling"
-			item_state = "ishotgunsling"
 			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
-			slung = 1
+			sling = TRUE
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling.</span>")
-			return
-	else
-		return ..()
+			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling!</span>")
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon()
 	..()
-	if(slung && (slot_flags & SLOT_BELT) )
-		slung = 0
+	if(sawn)
 		icon_state = "ishotgun-sawn"
 		item_state = "ishotgun_sawn"
+	if(sling)
+		icon_state = "ishotgunsling"
+		item_state = "ishotgunsling"
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
-	if(. && slung) //sawing off the gun removes the sling
+	if(. && sling) //sawing off the gun removes the sling
 		new /obj/item/stack/cable_coil(get_turf(src), 10)
-		slung = 0
+		sawn = TRUE
+		sling = FALSE
 		update_icon()
 
 //caneshotgun

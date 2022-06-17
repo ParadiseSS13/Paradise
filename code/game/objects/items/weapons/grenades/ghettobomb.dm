@@ -6,7 +6,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "improvised_grenade"
-	item_state = "flashbang"
+	item_state = "grenade"
 	throw_speed = 3
 	throw_range = 7
 	flags = CONDUCT

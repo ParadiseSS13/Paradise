@@ -1,6 +1,6 @@
 //Stetchkin//
 /obj/item/gun/projectile/automatic/pistol
-	name = "stechkin pistol"
+	name = "makarov pistol"
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
 	icon_state = "pistol"
 	w_class = WEIGHT_CLASS_SMALL
@@ -88,10 +88,6 @@
 	magout_sound = 'sound/weapons/gun_interactions/hpistol_magout.ogg'
 	can_suppress = 0
 
-/obj/item/gun/projectile/automatic/pistol/deagle/update_icon()
-	..()
-	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
-
 /obj/item/gun/projectile/automatic/pistol/deagle/gold
 	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
 	icon_state = "deagleg"
@@ -103,7 +99,7 @@
 	item_state = "deagleg"
 
 //APS Pistol//
-/obj/item/gun/projectile/automatic/pistol/APS
+/obj/item/gun/projectile/automatic/pistol/aps
 	name = "stechkin APS pistol"
 	desc = "The original russian version of a widely used Syndicate sidearm. Uses 9mm ammo."
 	icon_state = "aps"
