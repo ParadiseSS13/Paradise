@@ -54,7 +54,7 @@
 /datum/outfit/job/centcom/response_team/commander/amber
 	name = "RT Commander (Amber)"
 	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/color/black
+	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/armor/vest/ert/command
 	glasses = /obj/item/clothing/glasses/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer
@@ -136,7 +136,7 @@
 /datum/outfit/job/centcom/response_team/security/amber
 	name = "RT Security (Amber)"
 	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/color/black
+	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/armor/vest/ert/security
 	suit_store = /obj/item/gun/energy/gun/advtaser
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
@@ -155,7 +155,7 @@
 	name = "RT Security (Red)"
 
 	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/color/black
+	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/security
 	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
 	glasses = /obj/item/clothing/glasses/sunglasses
@@ -229,7 +229,7 @@
 /datum/outfit/job/centcom/response_team/engineer/amber
 	name = "RT Engineer (Amber)"
 	shoes = /obj/item/clothing/shoes/magboots
-	gloves = /obj/item/clothing/gloves/color/yellow
+	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson
@@ -248,7 +248,7 @@
 /datum/outfit/job/centcom/response_team/engineer/red
 	name = "RT Engineer (Red)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
-	gloves = /obj/item/clothing/gloves/color/yellow
+	gloves = /obj/item/clothing/gloves/combat
 	belt = /obj/item/storage/belt/utility/chief/full
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
@@ -274,7 +274,7 @@
 /datum/outfit/job/centcom/response_team/engineer/gamma
 	name = "RT Engineer (Gamma)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
-	gloves = /obj/item/clothing/gloves/color/yellow
+	gloves = /obj/item/clothing/gloves/combat
 	belt = /obj/item/storage/belt/utility/chief/full
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
 	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
@@ -316,7 +316,7 @@
 	name = "RT Medic (Amber)"
 
 	shoes = /obj/item/clothing/shoes/white
-	gloves = /obj/item/clothing/gloves/color/latex
+	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/armor/vest/ert/medical
 	suit_store = /obj/item/gun/energy/gun/mini
 	glasses = /obj/item/clothing/glasses/hud/health
@@ -345,7 +345,7 @@
 	name = "RT Medic (Red)"
 	rt_mob_job = "ERT Medical"
 	shoes = /obj/item/clothing/shoes/white
-	gloves = /obj/item/clothing/gloves/color/latex/nitrile
+	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	suit_store = /obj/item/gun/energy/gun
@@ -418,7 +418,7 @@
 	rt_mob_job = "ERT Paranormal"
 	uniform = /obj/item/clothing/under/rank/chaplain
 	back = /obj/item/storage/backpack/ert/security
-	gloves = /obj/item/clothing/gloves/color/black
+	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
 	l_ear = /obj/item/radio/headset/ert/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
@@ -487,7 +487,7 @@
 	uniform = /obj/item/clothing/under/color/purple/sensor
 	back = /obj/item/storage/backpack/ert/janitor
 	belt = /obj/item/storage/belt/janitor/full
-	gloves = /obj/item/clothing/gloves/color/yellow
+	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/galoshes
 	l_ear = /obj/item/radio/headset/ert/alt
 	id = /obj/item/card/id/centcom
