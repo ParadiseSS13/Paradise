@@ -188,3 +188,16 @@
 	if(. && isliving(user))
 		var/mob/living/L = user
 		L.SetSleeping(2 SECONDS)
+
+/datum/emote/living/carbon/fall
+	key = "fall"
+	key_third_person = "falls"
+	message = "falls."
+	message_mime = "plays dead."
+
+/datum/emote/living/carbon/fall/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(. && isliving(user))
+		var/mob/living/L = user
+		L.Weaken(4 SECONDS)
+		
