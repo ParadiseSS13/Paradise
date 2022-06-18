@@ -249,6 +249,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 			assigned_targets += "[O.target]"
 
 	objectives += O
+	return O
 
 /**
  * Announces all objectives of this datum, and only this datum.

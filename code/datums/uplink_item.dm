@@ -1755,7 +1755,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	else if(!AT)
 		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials not found.</span>")
 		return
-	else if(mind.changeling || mind.has_antag_datum(/datum/antagonist/vampire))
+	else if(ischangeling(usr) || mind.has_antag_datum(/datum/antagonist/vampire))
 		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials contain an abnormal signature. Aborting.</span>")
 		return
 
