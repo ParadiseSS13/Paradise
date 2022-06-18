@@ -231,7 +231,7 @@
 		return TRUE
 
 /datum/species/proc/spec_rad_act(amount)
-    return FALSE
+	return FALSE
 
 ////////////////
 // MOVE SPEED //
