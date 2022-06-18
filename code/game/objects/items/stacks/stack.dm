@@ -210,12 +210,15 @@
 		if(R.on_floor && !istype(get_turf(src), /turf/simulated))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
 			return FALSE
+		if(R.on_floor_or_lattice && !(istype(get_turf(src), /turf/simulated) || locate(/obj/structure/lattice) in get_turf(src)))
+			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor or lattice!</span>")
+			return FALSE
 
 		if(R.cult_structure)
 			if(usr.holy_check())
 				return
 			if(!is_level_reachable(usr.z))
-				to_chat(usr, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
+				to_chat(usr, "<span class='warning'>\The energies of this place interfere with the metal shaping!</span>")
 				return
 			if(locate(/obj/structure/cult) in get_turf(src))
 				to_chat(usr, "<span class='warning'>There is a structure here!</span>")

@@ -241,6 +241,7 @@
 /datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
 		temperature_reagents(M.bodytemperature - 30)
+		M.absorb_blood()
 
 	for(var/thing in addiction_threshold_accumulated)
 		if(has_reagent(thing))
@@ -696,10 +697,10 @@
 		// Switch between how we check the reagent type
 		if(strict)
 			if(R.type == reagent_type)
-				matches = FALSE
+				matches = TRUE
 		else
 			if(istype(R, reagent_type))
-				matches = FALSE
+				matches = TRUE
 		// We found a match, proceed to remove the reagent.	Keep looping, we might find other reagents of the same type.
 		if(matches)
 			// Have our other proc handle removement

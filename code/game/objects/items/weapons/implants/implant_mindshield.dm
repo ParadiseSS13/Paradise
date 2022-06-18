@@ -2,7 +2,7 @@
 	name = "mindshield implant"
 	desc = "Stops people messing with your mind."
 	origin_tech = "materials=2;biotech=4;programming=4"
-	activated = 0
+	activated = IMPLANT_ACTIVATED_PASSIVE
 
 /obj/item/implant/mindshield/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>

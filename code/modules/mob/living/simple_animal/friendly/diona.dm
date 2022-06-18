@@ -33,7 +33,6 @@
 	melee_damage_upper = 8
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
-	var/chirp_sound = 'sound/creatures/nymphchirp.ogg' //used in emote
 
 	speed = 0
 	stop_automated_movement = 0
@@ -276,31 +275,6 @@
 /mob/living/simple_animal/diona/put_in_active_hand(obj/item/W)
 	to_chat(src, "<span class='warning'>You don't have any hands!</span>")
 	return
-
-/mob/living/simple_animal/diona/emote(act, m_type = 1, message = null, force)
-	if(stat != CONSCIOUS)
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("chirp")
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
-		if("chirp")
-			message = "<B>\The [src]</B> chirps!"
-			m_type = 2 //audible
-			playsound(src, chirp_sound, 40, 1, 1)
-		if("help")
-			to_chat(src, "scream, chirp")
-
-	..()
 
 /mob/living/simple_animal/diona/npc_safe(mob/user)
 	if(!jobban_isbanned(user, ROLE_NYMPH))
