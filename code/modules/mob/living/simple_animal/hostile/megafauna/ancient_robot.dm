@@ -1,39 +1,42 @@
 #define BODY_SHIELD_COOLDOWN_TIME 45 SECONDS
 #define EXTRA_PLAYER_ANGER_NORMAL_CAP 6
 #define EXTRA_PLAYER_ANGER_STATION_CAP 3
-#define VORTEX_HEAL_CAP 250
 #define BLUESPACE 1
 #define GRAV 2
 #define PYRO 3
 #define FLUX 4
 #define VORTEX 5
 
-/// DISABLE MELEE WHEN CHARGING. TONE DOWN GUNS. PREVENT DOUBLE BUMP.
-
 
 /*
 
-ROBOT BITCH
+Ancient combat robot (a better name is still under work)
 
-Ash drakes spawn randomly wherever a lavaland creature is able to spawn. They are the draconic guardians of the Necropolis.
+An old 4 legged self learning robot made from a long gone civilization. Likes to scan and learn from things... Including crewmembers.
 
-It acts as a melee creature, chasing down and attacking its target while also using different attacks to augment its power that increase as it takes damage.
+Hybrid ranged / melee combatant, similar to bubblegum.
 
-Whenever possible, the drake will breathe fire directly at it's target, igniting and heavily damaging anything caught in the blast.
-It also often causes lava to pool from the ground around you - many nearby turfs will temporarily turn into lava, dealing damage to anything on the turfs.
-The drake also utilizes its wings to fly into the sky, flying after its target and attempting to slam down on them. Anything near when it slams down takes huge damage.
- - Sometimes it will chain these swooping attacks over and over, making swiftness a necessity.
- - Sometimes, it will encase its target in an arena of lava
+It has several attacks at it's disposal. It can melee with it's body and legs, however a person will not be hit by both at once unless poorly positioned. Legs also have a weak turret on each leg, that can be broken via damage.
 
-When an ash drake dies, it leaves behind a chest that can contain four things:
- 1. A spectral blade that allows its wielder to call ghosts to it, enhancing its power
- 2. A lava staff that allows its wielder to create lava
- 3. A spellbook and wand of fireballs
- 4. A bottle of dragon's blood with several effects, including turning its imbiber into a drake themselves.
+Every 45 seconds, it can deploy a shield for 15 seconds that blocked ranged attacks on it's body, but not melee, and not on legs.
 
-When butchered, they leave behind diamonds, sinew, bone, and ash drake hide. Ash drake hide can be used to create a hooded cloak that protects its wearer from ash storms.
+The main feature that makes it unique, is that it has 5 modes, based on each anomaly core, that can augment it's remaning attacks.
 
-Difficulty: Medium
+It can charge like bubblegum. If it has a pyro core, it makes a trail of fire and temporary lava. If it is bluespace, it charges with more delay between charges, but instead teleports between charges, to make it less predictable. Grav throws people if they bump into them during charge.
+
+It can spawn 3 anomalies around it for 15 seconds with a low chance. They do not explode / mass teleport / spawn slimes.
+
+Finaly, for each mode, it has a special attack.
+	- Bluespace causes it's current target to have half attack speed for 10 seconds.
+	- Grav picks up rocks from the terrain, and throws them at the target.
+	- Pyro turns 3x3 areas around the target (but not too close) into lava.
+	- Flux shoots weakened tesla revolver shots at all humans nearbye.
+	- Vortex causes a small earthquake, leading to rocks falling from the sky.
+
+Apon reaching critical HP (normaly death), it preps a 10 second self destruct, before exploding. Large tell, hard to miss.
+Loot: Anomaly core that matches the mode that was picked of the robot. A pinpointer that can point to tendrils, which should be fine, as by the time this is killed, the round should be an hour or more over.
+
+Difficulty: Hard
 
 */
 
@@ -158,6 +161,9 @@ Difficulty: Medium
 
 	else if(prob(60 + anger_modifier))
 		do_special_move()
+
+	else if(prob(15 + anger_modifier))
+		spawn_anomalies()
 	else
 		visible_message("<span class='danger'>DOING FUCK ALL CAPTAIN</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 
@@ -259,33 +265,6 @@ Difficulty: Medium
 	L.dust()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/do_special_move()
-	if(prob(20))
-		say("JKVRUEOTM XGC VUCKX")
-		var/list/turfs = new/list()
-		var/anomalies = 0
-		for(var/turf/T in view(5, src))
-			if(T.density)
-				continue
-			turfs += T
-		while(anomalies < 3 && length(turfs))
-			var/turf/spot = pick(turfs)
-			turfs -= spot
-			switch(mode)
-				if(BLUESPACE)
-					var/obj/effect/anomaly/bluespace/A = new(spot, 150, FALSE)
-					A.mass_teleporting = FALSE
-				if(GRAV)
-					new /obj/effect/anomaly/grav(spot, 150, FALSE)
-				if(PYRO)
-					var/obj/effect/anomaly/pyro/A = new(spot, 150, FALSE)
-					A.slimey = FALSE
-				if(FLUX)
-					var/obj/effect/anomaly/flux/A = new(spot, 150, FALSE)
-					A.explosive = FALSE
-				if(VORTEX)
-					new /obj/effect/anomaly/bhole(spot, 150, FALSE)
-			anomalies += 1
-		return
 	say("JKVRUEOTM LUIAYKJ VUCKX")
 	switch(mode)
 		if(BLUESPACE)
@@ -337,21 +316,38 @@ Difficulty: Medium
 				O.xo = T.x - S.x
 				O.fire()
 		if(VORTEX)
-			visible_message("<span class='danger'>[src] begins to pull in materials towards themself!</span>")
-			for(var/obj/item/stack/O in range(5, src))
-				O.throw_at(src, 5, 10)
-			addtimer(CALLBACK(src, .proc/material_heal), 1 SECONDS)
+			visible_message("<span class='danger'>[src] begins vibrate rapidly. It's causing an earthquake!</span>")
+			for(var/turf/turf in range(9,get_turf(target)))
+				if(prob(11))
+					new /obj/effect/temp_visual/target/ancient(turf)
 
-
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/material_heal()
-	var/heal_amount = 0
-	for(var/obj/item/stack/O in range(3, src))
-		if(!(istype(O, /obj/item/stack/sheet) || istype(O, /obj/item/stack/ore)))
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/spawn_anomalies()
+	say("JKVRUEOTM XGC VUCKX")
+	var/list/turfs = new/list()
+	var/anomalies = 0
+	for(var/turf/T in view(5, src))
+		if(T.density)
 			continue
-		heal_amount += 5 * O.amount
-		qdel(O)
-	adjustBruteLoss(-min(heal_amount, (is_station_level(loc.z) ? VORTEX_HEAL_CAP / 5 : VORTEX_HEAL_CAP))) //Heavily capped on station, since as everything gets broken materials drop everywhere
-
+		turfs += T
+	while(anomalies < 3 && length(turfs))
+		var/turf/spot = pick(turfs)
+		turfs -= spot
+		switch(mode)
+			if(BLUESPACE)
+				var/obj/effect/anomaly/bluespace/A = new(spot, 150, FALSE)
+				A.mass_teleporting = FALSE
+			if(GRAV)
+				new /obj/effect/anomaly/grav(spot, 150, FALSE)
+			if(PYRO)
+				var/obj/effect/anomaly/pyro/A = new(spot, 150, FALSE)
+				A.slimey = FALSE
+			if(FLUX)
+				var/obj/effect/anomaly/flux/A = new(spot, 150, FALSE)
+				A.explosive = FALSE
+			if(VORTEX)
+				new /obj/effect/anomaly/bhole(spot, 150, FALSE)
+		anomalies += 1
+	return
 
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/throw_rock(turf/spot, mob/target)
@@ -388,16 +384,12 @@ Difficulty: Medium
 
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/disable_legs()
-	TR.disabled = TRUE
 	TR.ranged = FALSE
 
-	TL.disabled = TRUE
 	TL.ranged = FALSE
 
-	BR.disabled = TRUE
 	BR.ranged = FALSE
 
-	BL.disabled = TRUE
 	BL.ranged = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/fix_specific_leg(input) //Used to reset legs to specific locations
@@ -411,23 +403,23 @@ Difficulty: Medium
 		if("BL")
 			leg_control_system(input, -2, -2)
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_walking_controler(dir) //This controls the legs. Here be pain.
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_walking_controler(dir) //This controls the legs. Here be pain. //define tr tl br bl // north south east west defines
 	switch(dir)
-		if(1)
+		if(NORTH)
 			leg_walking_orderer("TR", "TL", "BR", "BL")
-		if(2)
+		if(SOUTH)
 			leg_walking_orderer("BL", "BR", "TL", "TR")
-		if(4)
+		if(EAST)
 			leg_walking_orderer("TR", "TL", "BR", "BL")
-		if(8)
+		if(WEST)
 			leg_walking_orderer("BL", "BR", "TL", "TR")
-		if(5)
+		if(NORTHEAST)
 			leg_walking_orderer("TR", "TL", "BR", "BL")
-		if(6)
+		if(SOUTHEAST)
 			leg_walking_orderer("BR", "TL", "BL", "TR")
-		if(9)
+		if(NORTHWEST)
 			leg_walking_orderer("TL", "TR", "BL", "BR")
-		if(10)
+		if(SOUTHEAST)
 			leg_walking_orderer("BL", "TL", "BR", "TR")
 
 
@@ -439,8 +431,8 @@ Difficulty: Medium
 	addtimer(CALLBACK(src, .proc/fix_specific_leg, D), 4)
 
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_control_system(input, right, up)
-	var/turf/target = locate(src.x + right, src.y + up, src.z)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_control_system(input, right, up) // change to vert / hhorizontal
+	var/turf/target = locate(x + right, y + up, z)
 	switch(input)
 		if("TR")
 			TR.leg_movement(target, 0.6)
@@ -483,7 +475,7 @@ Difficulty: Medium
 	return ..()
 
 
-/mob/living/simple_animal/hostile/ancient_robot_leg
+/mob/living/simple_animal/hostile/ancient_robot_leg // make explosion immune
 	name = "leg"
 	desc = "leg"
 	icon = 'icons/obj/watercloset.dmi'
@@ -518,7 +510,6 @@ Difficulty: Medium
 	var/fake_hp_regen = 10
 	var/transfer_rate = 0.75
 	var/who_am_i = null
-	var/disabled = FALSE
 	var/datum/beam/leg_part
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Initialize(mapload, mob/living/ancient, who)
@@ -540,7 +531,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/beam_setup()
 	leg_part = Beam(core.beam, "rped_upgrade", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
+/mob/living/simple_animal/hostile/ancient_robot_leg/adjustHealth(amount, updating_health = TRUE)
 	var/damage = amount * transfer_rate
 	core.adjustBruteLoss(damage)
 	fake_hp = clamp(fake_hp - damage, 0, fake_max_hp)
@@ -578,7 +569,7 @@ Difficulty: Medium
 	..()
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/MeleeAction(patience = TRUE)
-	if(core.charging || disabled)
+	if(core.charging || core.exploding)
 		return
 	return ..()
 
@@ -611,7 +602,7 @@ Difficulty: Medium
 /obj/item/projectile/energy/shock_revolver/ancient
 	damage = 5
 
-/obj/item/projectile/energy/shock_revolver/ancien/Bump(atom/A, yes) // Don't want the projectile hitting the legs
+/obj/item/projectile/energy/shock_revolver/ancient/Bump(atom/A, yes) // Don't want the projectile hitting the legs
 	if(!istype(/mob/living/simple_animal/hostile/ancient_robot_leg, A))
 		return ..()
 	var/turf/target_turf = get_turf(A)
@@ -632,10 +623,30 @@ Difficulty: Medium
 	. = ..()
 	charge = Beam(target, "target_beam", 'icons/effects/effects.dmi', time=1.5 SECONDS, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
 
+/obj/effect/temp_visual/target/ancient
+
+/obj/effect/temp_visual/target/ancient/fall(list/flame_hit)
+	var/turf/T = get_turf(src)
+	playsound(T,'sound/magic/fleshtostone.ogg', 80, TRUE)
+	new /obj/effect/temp_visual/fireball/rock(T)
+	sleep(duration)
+	if(ismineralturf(T))
+		var/turf/simulated/mineral/M = T
+		M.gets_drilled()
+	playsound(T, 'sound/effects/meteorimpact.ogg', 80, TRUE)
+	for(var/mob/living/L in T.contents)
+		if(istype(L, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
+			continue
+		L.adjustBruteLoss(30)
+		to_chat(L, "<span class='userdanger'>You're hit by the falling rock!</span>")
+
+/obj/effect/temp_visual/fireball/rock
+	icon = 'icons/obj/meteor.dmi'
+	icon_state = "small1"
+
 #undef BODY_SHIELD_COOLDOWN_TIME
 #undef EXTRA_PLAYER_ANGER_NORMAL_CAP
 #undef EXTRA_PLAYER_ANGER_STATION_CAP
-#undef VORTEX_HEAL_CAP
 #undef BLUESPACE
 #undef GRAV
 #undef PYRO
