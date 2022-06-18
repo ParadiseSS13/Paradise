@@ -334,18 +334,18 @@
 
 /turf/simulated/wall/defile()
 	..()
-	if(prob(15))
+	if(prob(15) && !rusted)
 		new/obj/effect/temp_visual/revenant(loc)
-		ChangeTurf(/turf/simulated/wall/rust)
+		rust()
 
 /turf/simulated/wall/indestructible/defile()
 	return
 
 /turf/simulated/wall/r_wall/defile()
 	..()
-	if(prob(15))
+	if(prob(15) && !rusted)
 		new/obj/effect/temp_visual/revenant(loc)
-		ChangeTurf(/turf/simulated/wall/r_wall/rust)
+		rust()
 
 /mob/living/carbon/human/defile()
 	to_chat(src, "<span class='warning'>You suddenly feel [pick("sick and tired", "tired and confused", "nauseated", "dizzy")].</span>")

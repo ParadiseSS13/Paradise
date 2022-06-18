@@ -28,19 +28,17 @@
 	light_color = LIGHT_COLOR_WHITE
 
 /obj/machinery/atmospherics/unary/cryo_cell/detailed_examine()
-	return "The cryogenic chamber, or 'cryo', treats most damage types, most notably genetic damage. It also stabilizes patients \
-			in critical condition by placing them in stasis, so they can be treated at a later time.<br>\
+	return "The cryogenic chamber, or 'cryo', treats most damage types, most notably genetic damage. <br>\
 			<br>\
-			In order for it to work, it must be loaded with chemicals, and the temperature of the solution must reach a certain point. Additionally, it \
-			requires a supply of pure oxygen, provided by canisters that are attached. The most commonly used chemicals in the chambers is Cryoxadone, which \
-			heals most damage types including genetic damage.<br>\
+			In order for it to work, it must be loaded with chemical. Additionally, it requires a supply of pure oxygen, provided by canisters that are attached. \
+			The most commonly used chemicals in the chambers is Cryoxadone, which heals most damage types including genetic damage.<br>\
 			<br>\
 			Activating the freezer nearby, and setting it to a temperature setting below 150, is recommended before operation! Further, any clothing the patient \
 			is wearing that act as an insulator will reduce its effectiveness, and should be removed.<br>\
 			<br>\
 			Clicking the tube with a beaker full of chemicals in hand will place it in its storage to distribute when it is activated.<br>\
 			<br>\
-			Click your target with Grab intent, then click on the tube, with an empty hand, to place them in it. Click the tube again to open the menu. \
+			Click your target and drag them onto the cryo cell to place them inside it. Click the tube again to open the menu. \
 			Press the button on the menu to activate it. Once they have reached 100 health, right-click the cell and click 'Eject Occupant' to remove them. \
 			Remember to turn it off, once you've finished, to save power and chemicals!"
 
