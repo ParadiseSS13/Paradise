@@ -5668,14 +5668,6 @@
 /obj/item/flag/sec,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
-"aqp" = (
-/obj/structure/lattice,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
-/turf/space,
-/area/space/nearstation)
 "aqq" = (
 /obj/item/soap,
 /turf/simulated/floor/plating,
@@ -10663,10 +10655,7 @@
 	},
 /area/maintenance/abandonedbar)
 "aAc" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aAd" = (
@@ -39881,7 +39870,6 @@
 	},
 /area/medical/research)
 "bNo" = (
-/obj/structure/table,
 /obj/item/clothing/accessory/stethoscope,
 /obj/item/clothing/accessory/stethoscope{
 	pixel_y = 6
@@ -39910,6 +39898,7 @@
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
 	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -125814,7 +125803,7 @@ aaa
 aaa
 aaa
 aaa
-aqp
+ayi
 aab
 aqZ
 aqZ
@@ -127875,7 +127864,7 @@ amW
 amW
 amW
 amW
-aqp
+ayi
 amW
 amW
 amW

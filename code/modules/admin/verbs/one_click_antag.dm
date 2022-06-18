@@ -96,7 +96,7 @@
 
 		for(var/i = 0, i<numChangelings, i++)
 			H = pick(candidates)
-			H.mind.make_Changeling()
+			H.mind.add_antag_datum(/datum/antagonist/changeling)
 			candidates.Remove(H)
 
 		return 1

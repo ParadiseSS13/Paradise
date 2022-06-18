@@ -6,12 +6,13 @@
 	chemical_cost = 45
 	dna_cost = 1
 	req_dna = 5
+	power_type = CHANGELING_PURCHASABLE_POWER
 
 //Makes some spiderlings. Good for setting traps and causing general trouble.
 /datum/action/changeling/spiders/sting_action(mob/user)
-	for(var/i=0, i<2, i++)
+	for(var/i in 1 to 2)
 		var/obj/structure/spider/spiderling/S = new(user.loc)
 		S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
-	return 1
+	return TRUE

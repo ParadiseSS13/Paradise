@@ -5,7 +5,8 @@
 	button_icon_state = "last_resort"
 	chemical_cost = 20
 	dna_cost = 1
-	req_human = 1
+	req_human = TRUE
+	power_type = CHANGELING_PURCHASABLE_POWER
 
 /datum/action/changeling/headslug/try_to_sting(mob/user, mob/target)
     if(alert("Are you sure you wish to do this? This action cannot be undone.",,"Yes","No")=="No")
@@ -41,6 +42,12 @@
 			crab.origin.active = 1
 			crab.origin.transfer_to(crab)
 			to_chat(crab, "<span class='warning'>You burst out of the remains of your former body in a shower of gore!</span>")
+
+	// This is done because after the original changeling gibs below, ALL of their actions are qdeleted
+	// We need to store their power types so we can re-create them later.
+	for(var/datum/action/changeling/power in cling.acquired_powers)
+		cling.acquired_powers += power.type
+
 	user.gib()
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
-	return 1
+	return TRUE

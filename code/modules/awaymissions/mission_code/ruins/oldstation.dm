@@ -325,7 +325,7 @@
 
 /area/ruin/space/ancientstation/betanorth
 	name = "Beta Station North Corridor"
-	icon_state = "blue"
+	icon_state = "purple"
 
 /area/ruin/space/ancientstation/solar
 	name = "Station Solar Array"
@@ -342,7 +342,7 @@
 
 /area/ruin/space/ancientstation/hydroponics
 	name = "Charlie Station Hydroponics"
-	icon_state = "garden"
+	icon_state = "hydro"
 
 /area/ruin/space/ancientstation/kitchen
 	name = "Charlie Station Kitchen"
