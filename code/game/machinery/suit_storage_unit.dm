@@ -314,7 +314,7 @@
 			alert_lights = icon(icon, "[base_icon_state]_uvstrong")
 			add_overlay("[base_icon_state]_super")
 		else
-			lights = icon(icon, "[base_icon_state]_uv")
+			alert_lights = icon(icon, "[base_icon_state]_uv")
 		add_overlay("[base_icon_state]_lights_red")
 		if(occupant)
 			alert_lights = icon(icon, "[base_icon_state]_body")
