@@ -7,16 +7,13 @@
 		Armor
 */
 
-
-//Parent to shields and blades because muh copypasted code.
 /datum/action/changeling/weapon
 	name = "Organic Weapon"
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at coderbus"
 	chemical_cost = 1000
-	dna_cost = -1
 	genetic_damage = 1000
-
+	power_type = CHANGELING_UNOBTAINABLE_POWER
 	var/silent = FALSE
 	var/weapon_type
 	var/weapon_name_simple
@@ -39,7 +36,7 @@
 /datum/action/changeling/weapon/sting_action(mob/user)
 	if(!user.drop_item())
 		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
-		return
+		return FALSE
 	var/obj/item/W = new weapon_type(user, silent)
 	user.put_in_hands(W)
 	return W
@@ -50,9 +47,8 @@
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at coderbus"
 	chemical_cost = 1000
-	dna_cost = -1
 	genetic_damage = 1000
-
+	power_type = CHANGELING_UNOBTAINABLE_POWER
 	var/helmet_type = /obj/item
 	var/suit_type = /obj/item
 	var/suit_name_simple = "    "
@@ -61,9 +57,8 @@
 	var/blood_on_castoff = 0
 
 /datum/action/changeling/suit/try_to_sting(mob/user, mob/target)
-	var/datum/changeling/changeling = user.mind.changeling
-	if(!ishuman(user) || !changeling)
-		return
+	if(!ishuman(user))
+		return FALSE
 
 	var/mob/living/carbon/human/H = user
 	if(istype(H.wear_suit, suit_type) || istype(H.head, helmet_type))
@@ -79,18 +74,18 @@
 			H.add_splatter_floor()
 			playsound(H.loc, 'sound/effects/splat.ogg', 50, 1) //So real sounds
 
-		changeling.geneticdamage += genetic_damage //Casting off a space suit leaves you weak for a few seconds.
-		changeling.chem_recharge_slowdown -= recharge_slowdown
-		return
+		cling.genetic_damage += genetic_damage //Casting off a space suit leaves you weak for a few seconds.
+		cling.chem_recharge_slowdown -= recharge_slowdown
+		return FALSE
 	..(H, target)
 
 /datum/action/changeling/suit/sting_action(mob/living/carbon/human/user)
 	if(!user.unEquip(user.wear_suit))
 		to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
-		return
+		return FALSE
 	if(!user.unEquip(user.head))
 		to_chat(user, "\the [user.head] is stuck on your head, you cannot grow a [helmet_name_simple] over it!")
-		return
+		return FALSE
 
 	user.unEquip(user.head)
 	user.unEquip(user.wear_suit)
@@ -98,9 +93,8 @@
 	user.equip_to_slot_if_possible(new suit_type(user), slot_wear_suit, TRUE, TRUE)
 	user.equip_to_slot_if_possible(new helmet_type(user), slot_head, TRUE, TRUE)
 
-	var/datum/changeling/changeling = user.mind.changeling
-	changeling.chem_recharge_slowdown += recharge_slowdown
-	return 1
+	cling.chem_recharge_slowdown += recharge_slowdown
+	return TRUE
 
 
 //fancy headers yo
@@ -115,10 +109,11 @@
 	chemical_cost = 25
 	dna_cost = 2
 	genetic_damage = 10
-	req_human = 1
+	req_human = TRUE
 	max_genetic_damage = 20
 	weapon_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
+	power_type = CHANGELING_PURCHASABLE_POWER
 
 /obj/item/melee/arm_blade
 	name = "arm blade"
@@ -182,11 +177,12 @@
 	chemical_cost = 10
 	dna_cost = 2
 	genetic_damage = 5
-	req_human = 1
+	req_human = TRUE
 	max_genetic_damage = 10
 	weapon_type = /obj/item/gun/magic/tentacle
 	weapon_name_simple = "tentacle"
 	silent = TRUE
+	power_type = CHANGELING_PURCHASABLE_POWER
 
 /obj/item/gun/magic/tentacle
 	name = "tentacle"
@@ -355,22 +351,18 @@
 	chemical_cost = 20
 	dna_cost = 1
 	genetic_damage = 12
-	req_human = 1
+	req_human = TRUE
 	max_genetic_damage = 20
-
 	weapon_type = /obj/item/shield/changeling
 	weapon_name_simple = "shield"
+	power_type = CHANGELING_PURCHASABLE_POWER
 
 /datum/action/changeling/weapon/shield/sting_action(mob/user)
-	var/datum/changeling/changeling = user.mind.changeling //So we can read the absorbedcount.
-	if(!changeling)
-		return
-
 	var/obj/item/shield/changeling/S = ..(user)
 	if(!S)
-		return
-	S.remaining_uses = round(changeling.absorbedcount * 3)
-	return 1
+		return FALSE
+	S.remaining_uses = round(cling.absorbed_count * 3)
+	return TRUE
 
 /obj/item/shield/changeling
 	name = "shield-like mass"
@@ -410,9 +402,9 @@
 	chemical_cost = 20
 	dna_cost = 2
 	genetic_damage = 8
-	req_human = 1
+	req_human = TRUE
 	max_genetic_damage = 20
-
+	power_type = CHANGELING_PURCHASABLE_POWER
 	suit_type = /obj/item/clothing/suit/space/changeling
 	helmet_type = /obj/item/clothing/head/helmet/space/changeling
 	suit_name_simple = "flesh shell"
@@ -458,9 +450,9 @@
 	chemical_cost = 25
 	dna_cost = 2
 	genetic_damage = 11
-	req_human = 1
+	req_human = TRUE
 	max_genetic_damage = 20
-
+	power_type = CHANGELING_PURCHASABLE_POWER
 	suit_type = /obj/item/clothing/suit/armor/changeling
 	helmet_type = /obj/item/clothing/head/helmet/changeling
 	suit_name_simple = "armor"

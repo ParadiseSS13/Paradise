@@ -5,7 +5,8 @@
 	button_icon_state = "resonant_shriek"
 	chemical_cost = 30
 	dna_cost = 1
-	req_human = 1
+	req_human = TRUE
+	power_type = CHANGELING_PURCHASABLE_POWER
 
 //A flashy ability, good for crowd control and sowing chaos.
 /datum/action/changeling/resonant_shriek/sting_action(mob/user)
@@ -15,7 +16,7 @@
 				var/mob/living/carbon/human/H = M
 				if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 					continue
-			if(!M.mind || !M.mind.changeling)
+			if(!M.mind || !ischangeling(M))
 				M.AdjustEarDamage(0, 30)
 				M.AdjustConfused(40 SECONDS)
 				M.Jitter(100 SECONDS)
@@ -31,7 +32,7 @@
 		L.break_light_tube()
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
-	return 1
+	return TRUE
 
 /datum/action/changeling/dissonant_shriek
 	name = "Dissonant Shriek"
@@ -39,6 +40,7 @@
 	button_icon_state = "dissonant_shriek"
 	chemical_cost = 30
 	dna_cost = 1
+	power_type = CHANGELING_PURCHASABLE_POWER
 
 //A flashy ability, good for crowd control and sewing chaos.
 /datum/action/changeling/dissonant_shriek/sting_action(mob/user)
@@ -46,4 +48,4 @@
 		L.on = 1
 		L.break_light_tube()
 	empulse(get_turf(user), 2, 4, 1)
-	return 1
+	return TRUE

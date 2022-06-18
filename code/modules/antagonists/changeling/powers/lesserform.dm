@@ -6,31 +6,29 @@
 	chemical_cost = 5
 	dna_cost = 1
 	genetic_damage = 3
-	req_human = 1
+	req_human = TRUE
+	power_type = CHANGELING_PURCHASABLE_POWER
 
 //Transform into a monkey.
 /datum/action/changeling/lesserform/sting_action(mob/living/carbon/human/user)
-	var/datum/changeling/changeling = user.mind.changeling
 	if(!user)
-		return 0
+		return FALSE
 	if(user.has_brain_worms())
 		to_chat(user, "<span class='warning'>We cannot perform this ability at the present time!</span>")
-		return
+		return FALSE
 
 	var/mob/living/carbon/human/H = user
 
 	if(!istype(H) || !H.dna.species.primitive_form)
 		to_chat(H, "<span class='warning'>We cannot perform this ability in this form!</span>")
-		return
+		return FALSE
 
 	H.visible_message("<span class='warning'>[H] transforms!</span>")
-	changeling.geneticdamage = 30
+	cling.genetic_damage = 30
 	to_chat(H, "<span class='warning'>Our genes cry out!</span>")
 	H.monkeyize()
 
-	var/datum/action/changeling/humanform/HF = new
-	changeling.purchasedpowers += HF
-	HF.Grant(user)
+	cling.give_power(new /datum/action/changeling/humanform)
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
-	return 1
+	return TRUE

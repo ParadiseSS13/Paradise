@@ -6,6 +6,7 @@
 	chemical_cost = 20
 	dna_cost = 2
 	req_stat = UNCONSCIOUS
+	power_type = CHANGELING_PURCHASABLE_POWER
 	var/recent_uses = 1 //The factor of which the healing should be divided by
 	var/healing_ticks = 10
 	// The ideal total healing amount,

@@ -5,34 +5,34 @@
 	button_icon_state = "mindswap"
 	chemical_cost = 40
 	dna_cost = 1
-	req_human = 1 //Monkeys can't grab
+	req_human = TRUE //Monkeys can't grab
+	power_type = CHANGELING_PURCHASABLE_POWER
 
 /datum/action/changeling/swap_form/can_sting(mob/living/carbon/user)
 	if(!..())
-		return
+		return FALSE
 	var/obj/item/grab/G = user.get_active_hand()
 	if(!istype(G) || (G.state < GRAB_AGGRESSIVE))
 		to_chat(user, "<span class='warning'>We must have an aggressive grab on creature in our active hand to do this!</span>")
-		return
+		return FALSE
 	var/mob/living/carbon/human/target = G.affecting
 	if(HAS_TRAIT(target, TRAIT_BADDNA) || HAS_TRAIT(target, TRAIT_HUSK) || HAS_TRAIT(target, TRAIT_SKELETONIZED))
 		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
-		return
+		return FALSE
 	if(!istype(target) || !target.mind || issmall(target) || HAS_TRAIT(target, TRAIT_GENELESS))
 		to_chat(user, "<span class='warning'>[target] is not compatible with this ability.</span>")
-		return
-	if(target.mind.changeling)
+		return FALSE
+	if(ischangeling(target))
 		to_chat(user, "<span class='warning'>We are unable to swap forms with another changeling!</span>")
-		return
+		return FALSE
 	if(target.has_brain_worms() || user.has_brain_worms())
 		to_chat(user, "<span class='warning'>A foreign presence repels us from this body!</span>")
-		return
-	return 1
+		return FALSE
+	return TRUE
 
 /datum/action/changeling/swap_form/sting_action(mob/living/carbon/user)
 	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/human/target = G.affecting
-	var/datum/changeling/changeling = user.mind.changeling
 
 	to_chat(user, "<span class='notice'>We tighten our grip. We must hold still....</span>")
 	target.Jitter(1000 SECONDS)
@@ -44,18 +44,15 @@
 
 	to_chat(target, "<span class='userdanger'>[user] tightens [user.p_their()] grip as a painful sensation invades your body.</span>")
 
-	var/lingpowers = list()
-	for(var/power in changeling.purchasedpowers)
-		lingpowers += power
+	var/datum/dna/DNA = cling.get_dna(user.dna)
+	cling.absorbed_dna -= DNA
+	cling.protected_dna -= DNA
+	cling.absorbed_count--
+	if(!cling.get_dna(target.dna))
+		cling.absorb_dna(target)
+	cling.trim_dna()
 
-	changeling.absorbed_dna -= changeling.find_dna(user.dna)
-	changeling.protected_dna -= changeling.find_dna(user.dna)
-	changeling.absorbedcount -= 1
-	if(!changeling.has_dna(target.dna))
-		changeling.absorb_dna(target, user)
-	changeling.trim_dna()
-
-	var/mob/dead/observer/ghost = target.ghostize(0)
+	var/mob/dead/observer/ghost = target.ghostize(FALSE)
 	user.mind.transfer_to(target)
 	if(ghost && ghost.mind)
 		ghost.mind.transfer_to(user)
@@ -63,17 +60,9 @@
 		user.key = ghost.key
 	qdel(ghost)
 	user.Paralyse(4 SECONDS)
-	target.add_language("Changeling")
-	user.remove_language("Changeling")
 	user.regenerate_icons()
 	if(target.stat == DEAD && target.suiciding)  //If Target committed suicide, unset flag for User
-		target.suiciding = 0
-
-	for(var/power in lingpowers)
-		var/datum/action/changeling/S = power
-		target.mind.changeling.purchasedpowers += S
-		if(istype(S) && S.needs_button)
-			S.Grant(target)
+		target.suiciding = FALSE
 
 	to_chat(target, "<span class='warning'>Our genes cry out as we swap our [user] form for [target].</span>")
-	return 1
+	return TRUE
