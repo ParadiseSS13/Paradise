@@ -314,6 +314,8 @@
 		else
 			add_overlay("[base_icon_state]_uv")
 		add_overlay("[base_icon_state]_lights_red")
+		if(occupant)
+			add_overlay("[base_icon_state]_body")
 		return
 
 	if(state_open)
@@ -326,7 +328,10 @@
 		if(storage)
 			add_overlay("[base_icon_state]_storage")
 		return
+
 	add_overlay("[base_icon_state]_ready")
+	if(occupant)
+		add_overlay("[base_icon_state]_body")
 	add_overlay("[base_icon_state]_lights_closed")
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
