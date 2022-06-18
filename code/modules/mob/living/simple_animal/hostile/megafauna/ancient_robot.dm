@@ -98,7 +98,7 @@ Difficulty: Hard
 	BL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, "BL")
 	beam = new /obj/effect/abstract(loc)
 	addtimer(CALLBACK(src, .proc/leg_setup), 1 SECONDS)
-	mode = rand(BLUESPACE, VORTEX) //picks one of the 5 cores.
+	mode = pick(BLUESPACE, GRAV, PYRO, FLUX, VORTEX) //picks one of the 5 cores.
 	if(mode == FLUX) // Main attack is shock, so flux makes it stronger
 		melee_damage_lower = 25
 		melee_damage_upper = 25
