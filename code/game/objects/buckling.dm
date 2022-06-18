@@ -79,11 +79,11 @@
 	buckled_mobs |= M
 	ADD_TRAIT(M, TRAIT_IMMOBILIZED, "buckled")
 	M.throw_alert("buckled", /obj/screen/alert/restrained/buckled)
-	post_buckle_mob(M)
 	if(!buckle_lying)
 		M.set_body_position(STANDING_UP)
 	else
 		M.set_body_position(LYING_DOWN)
+	post_buckle_mob(M)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)
 	return TRUE
 
