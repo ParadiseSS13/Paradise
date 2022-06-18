@@ -44,10 +44,8 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	var/S = input("Select a DNA absorb from the air: ", "Absorb DNA", null) as null|anything in names
 	if(!S)
 		return
-	var/datum/dna/chosen_dna = names[S]
-	if(!chosen_dna)
-		return
 
+	var/datum/dna/chosen_dna = names[S]
 	cling.store_dna(chosen_dna)
 	to_chat(user, "<span class='notice'>We absorb the DNA of [S] from the air.</span>")
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))

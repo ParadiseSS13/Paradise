@@ -370,7 +370,7 @@
 	if(owner.stat || owner.staminaloss >= 90 || cling.chem_charges <= (stacks + 1) * 3)
 		to_chat(owner, "<span class='danger'>Our muscles relax without the energy to strengthen them.</span>")
 		owner.Weaken(6 SECONDS)
-		owner.remove_status_effect(STATUS_EFFECT_SPEEDLEGS)
+		qdel(src)
 	else
 		stacks++
 		cling.chem_charges -= stacks * 3 //At first the changeling may regenerate chemicals fast enough to nullify fatigue, but it will stack

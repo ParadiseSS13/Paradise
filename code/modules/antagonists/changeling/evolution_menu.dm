@@ -44,7 +44,7 @@
 	var/list/data = list(
 		"can_respec" = cling.can_respec,
 		"evo_points" = cling.genetic_points,
-		"purchsed_abilities" = purchased_abilities,
+		"purchased_abilities" = purchased_abilities,
 		"view_mode" = view_mode
 	)
 	return data

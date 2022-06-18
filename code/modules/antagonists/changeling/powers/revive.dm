@@ -3,6 +3,7 @@
 	desc = "We regenerate, healing all damage from our form."
 	button_icon_state = "revive"
 	req_stat = DEAD
+	bypass_fake_death = TRUE
 
 //Revive from regenerative stasis
 /datum/action/changeling/revive/sting_action(mob/living/carbon/user)

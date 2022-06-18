@@ -90,7 +90,7 @@
 
 /datum/antagonist/changeling/greet()
 	..()
-	SEND_SOUND(owner.current, sound('sound/ambience/antag/ling_aler.ogg'))
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/ling_alert.ogg'))
 	to_chat(owner.current, "<span class='danger'>Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</span>")
 
 /datum/antagonist/changeling/farewell()
@@ -174,7 +174,7 @@
 		H.hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#dd66dd'>[round(chem_charges)]</font></div>"
 	if(H.stat == DEAD)
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage * 0.5)
-		genetic_damage = max(LING_DEAD_GENETIC_DAMAGE_HEAL_CAP, genetic_damage - 1)
+		genetic_damage = directional_bounded_sum(genetic_damage, -1, LING_DEAD_GENETIC_DAMAGE_HEAL_CAP, 0)
 	else // Not dead? no chem/genetic_damage caps.
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage)
 		genetic_damage = max(0, genetic_damage - 1)
@@ -208,7 +208,7 @@
 	chem_recharge_rate = initial(chem_recharge_rate)
 	chem_charges = min(chem_charges, chem_storage)
 	chem_recharge_slowdown = initial(chem_recharge_slowdown)
-	mimicing = ""
+	mimicing = null
 
 /**
  * Removes a changeling's abilities.
@@ -276,8 +276,10 @@
 /**
  * Removes all the languages the mob `L` has absorbed throughout their life as a changeling and should no longer have.
  *
+ * Ignores languages the player has chosen from character creation, and species languages from the changeling mob's current species.
+ *
  * Arguments:
- * * list/new_languages - a list of [/datum/language] to be added
+ * * mob/living/L - the changeling mob to remove languages from
  */
 /datum/antagonist/changeling/proc/remove_unnatural_languages(mob/living/L)
 	var/list/ignored_languages = list()
@@ -399,6 +401,7 @@
 		return FALSE
 	if(get_dna(target.dna))
 		to_chat(user, "<span class='warning'>We already have this DNA in storage!</span>")
+		return FALSE
 	return TRUE
 
 /proc/ischangeling(mob/M)

@@ -39,6 +39,8 @@
 	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/target = G.affecting
 	cling.is_linking = TRUE
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
+
 	for(var/stage in 1 to 3)
 		switch(stage)
 			if(1)
@@ -51,14 +53,14 @@
 				to_chat(target, "<span class='userdanger'>A migraine throbs behind your eyes, you hear yourself screaming - but your mouth has not opened!</span>")
 				for(var/mob/M in GLOB.mob_list)
 					if(GLOB.all_languages["Changeling"] in M.languages)
-						to_chat(M, "<i><font color=#800080>We can sense a foreign presence in the hivemind...</font></i>")
+						to_chat(M, "<span class='changeling'>We can sense a foreign presence in the hivemind...</span>")
 				target.mind.linglink = TRUE
 				target.add_language("Changeling")
 				target.say(":g AAAAARRRRGGGGGHHHHH!!")
 				to_chat(target, "<font color=#800040><span class='boldannounce'>You can now communicate in the changeling hivemind, say \":g message\" to communicate!</span>")
 				target.reagents.add_reagent("salbutamol", 40) // So they don't choke to death while you interrogate them
-				sleep(180 SECONDS)
-		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
+				addtimer(CALLBACK(src, .proc/end_link, user, target), 180 SECONDS)
+
 		if(!do_mob(user, target, 2 SECONDS))
 			to_chat(user, "<span class='warning'>Our link with [target] has ended!</span>")
 			target.remove_language("Changeling")
@@ -66,6 +68,7 @@
 			target.mind.linglink = FALSE
 			return FALSE
 
+/datum/action/changeling/linglink/proc/end_link(mob/living/user, mob/living/carbon/target)
 	target.remove_language("Changeling")
 	cling.is_linking = FALSE
 	target.mind.linglink = FALSE

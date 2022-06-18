@@ -33,6 +33,8 @@
 	var/max_genetic_damage = 100
 	/// If this power is active or not. Used for toggleable abilities.
 	var/active = FALSE
+	/// If this power can be used while the changeling has the `TRAIT_FAKE_DEATH` trait.
+	var/bypass_fake_death = FALSE
 
 /*
  * Changeling code relies on on_purchase to grant powers.
@@ -86,7 +88,7 @@
 	if(req_stat < user.stat)
 		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
 		return FALSE
-	if(HAS_TRAIT(user, TRAIT_FAKEDEATH) && name != "Regenerate")
+	if(HAS_TRAIT(user, TRAIT_FAKEDEATH) && !bypass_fake_death)
 		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
 		return FALSE
 	if(cling.genetic_damage > max_genetic_damage)
