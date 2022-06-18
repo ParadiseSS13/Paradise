@@ -61,6 +61,11 @@
 			new buildstacktype(loc, buildstackamount)
 	..()
 
+/obj/structure/bed/post_buckle_mob(mob/living/M)
+	M.pixel_y = M.get_standard_pixel_y_offset()
+
+/obj/structure/bed/post_unbuckle_mob(mob/living/M)
+	M.pixel_y = M.get_standard_pixel_x_offset()
 
 /*
  * Roller beds
@@ -70,6 +75,7 @@
 	name = "roller bed"
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "down"
+	buckle_offset = 0
 	face_while_pulling = FALSE
 	resistance_flags = NONE
 	anchored = FALSE
@@ -93,13 +99,12 @@
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
 	density = TRUE
 	icon_state = "up"
-	M.pixel_y = initial(M.pixel_y)
+	..()
 
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
 	density = FALSE
 	icon_state = "down"
-	M.pixel_x = M.get_standard_pixel_x_offset()
-	M.pixel_y = M.get_standard_pixel_y_offset()
+	..()
 
 /obj/item/roller
 	name = "roller bed"

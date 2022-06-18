@@ -983,14 +983,13 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	update_inv_handcuffed()
 	update_hud_handcuffed()
 
-/mob/living/carbon/get_standard_pixel_y_offset(lying = 0)
-	if(lying)
+/mob/living/carbon/get_standard_pixel_y_offset()
+	if(IS_HORIZONTAL(src))
 		if(buckled)
-			return buckled.buckle_offset //tg just has this whole block removed, always returning -6. Paradise is special.
+			return buckled.buckle_offset
 		else
-			return -6
-	else
-		return initial(pixel_y)
+			return PIXEL_Y_OFFSET_LYING
+	return initial(pixel_y)
 
 /mob/living/carbon/emp_act(severity)
 	..()
