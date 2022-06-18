@@ -8244,9 +8244,7 @@
 	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/grown/poppy/lily,
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
-	},
+/turf/simulated/floor/grass,
 /area/security/lobby)
 "bNq" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
@@ -15181,8 +15179,7 @@
 /turf/simulated/floor/wood,
 /area/security/vacantoffice2)
 "djY" = (
-/obj/structure/flora/rock/jungle,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/grass,
 /area/security/lobby)
 "dkc" = (
 /obj/machinery/light{
@@ -16275,9 +16272,8 @@
 	name = "\improper Garden"
 	})
 "dwQ" = (
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
-	},
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/grass,
 /area/security/lobby)
 "dxd" = (
 /obj/structure/table,
@@ -25909,13 +25905,12 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
-/obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "bot"
+	icon_state = "redfull"
 	},
 /area/security/main)
 "fAA" = (
@@ -42323,6 +42318,10 @@
 	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
+"jdo" = (
+/obj/structure/window/reinforced,
+/turf/simulated/floor/grass,
+/area/security/lobby)
 "jdt" = (
 /obj/structure/closet/crate,
 /obj/item/crowbar,
@@ -47060,7 +47059,7 @@
 	dir = 4
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/grass,
 /area/security/lobby)
 "kbX" = (
 /obj/structure/table/reinforced,
@@ -49034,9 +49033,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
-	},
+/turf/simulated/floor/grass,
 /area/security/lobby)
 "kxJ" = (
 /obj/structure/sign/securearea{
@@ -51095,7 +51092,8 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid,
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/grass,
 /area/security/lobby)
 "kVf" = (
 /obj/structure/table,
@@ -51760,6 +51758,10 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/courtroom)
 "lbt" = (
+/obj/machinery/newscaster{
+	name = "north bump";
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -53153,7 +53155,7 @@
 "lrE" = (
 /obj/structure/window/reinforced,
 /obj/effect/overlay/coconut,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/grass,
 /area/security/lobby)
 "lrN" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -55071,7 +55073,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/security/prison/cell_block/A)
 "lPt" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -58312,7 +58314,8 @@
 	},
 /area/hallway/primary/central/east)
 "mzj" = (
-/turf/simulated/floor/plating/asteroid,
+/obj/structure/flora/rock/pile/largejungle,
+/turf/simulated/floor/grass,
 /area/security/lobby)
 "mzl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -61688,7 +61691,7 @@
 /area/mimeoffice)
 "nli" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command/glass{
+/obj/machinery/door/airlock/command{
 	name = "Head of Security";
 	req_access_txt = "58"
 	},
@@ -62652,7 +62655,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
 "nvb" = (
 /obj/structure/disposalpipe/segment,
@@ -66124,10 +66127,8 @@
 /turf/simulated/floor/carpet/cyan,
 /area/medical/cmo)
 "okW" = (
-/obj/structure/flora/ausbushes/reedbush,
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
-	},
+/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
+/turf/simulated/floor/grass,
 /area/security/lobby)
 "okX" = (
 /obj/machinery/computer/prisoner{
@@ -69019,7 +69020,7 @@
 	},
 /area/medical/psych)
 "oPP" = (
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
 "oPQ" = (
 /obj/effect/spawner/window/reinforced,
@@ -71078,10 +71079,8 @@
 /area/engine/break_room)
 "pob" = (
 /obj/structure/window/reinforced,
-/obj/structure/flora/ausbushes/reedbush,
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
-	},
+/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
+/turf/simulated/floor/grass,
 /area/security/lobby)
 "poe" = (
 /obj/structure/table/wood,
@@ -72579,10 +72578,6 @@
 "pHj" = (
 /obj/structure/window/reinforced,
 /obj/item/target,
-/obj/machinery/camera{
-	c_tag = "Research Toxins Test Chamber East";
-	network = list("Toxins","Research","SS13")
-	},
 /obj/effect/decal/warning_stripes/eastnorthwest,
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
@@ -79111,6 +79106,10 @@
 /area/maintenance/maintcentral)
 "rdY" = (
 /obj/effect/decal/warning_stripes/northwest,
+/obj/machinery/camera{
+	c_tag = "Research Toxins Test Chamber East";
+	network = list("Toxins","Research","SS13")
+	},
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
 "reb" = (
@@ -82166,13 +82165,11 @@
 	},
 /area/hallway/primary/port)
 "rPs" = (
-/obj/structure/chair/stool{
-	dir = 4
-	},
 /obj/effect/landmark/start/security_officer,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull"
+	icon_state = "bot"
 	},
 /area/security/main)
 "rPu" = (
@@ -84526,7 +84523,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/grass,
 /area/security/lobby)
 "soz" = (
 /obj/structure/table/wood,
@@ -87988,12 +87985,12 @@
 	},
 /area/ai_monitored/storage/eva)
 "tbI" = (
-/obj/machinery/floodlight{
-	anchored = 1;
-	on = 1
+/obj/structure/window/reinforced{
+	dir = 1
 	},
-/turf/simulated/floor/plasteel/airless,
-/area/toxins/test_area)
+/obj/structure/flora/junglebush/b,
+/turf/simulated/floor/grass,
+/area/security/lobby)
 "tbR" = (
 /obj/structure/closet/lasertag/blue,
 /obj/machinery/status_display{
@@ -90538,11 +90535,6 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/machinery/door/window/brigdoor{
-	id = "Cell 5";
-	name = "Cell 5";
-	req_access_txt = "2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "long"
@@ -92868,6 +92860,11 @@
 	icon_state = "white"
 	},
 /area/maintenance/fsmaint)
+"uhi" = (
+/obj/structure/window/reinforced,
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/grass,
+/area/security/lobby)
 "uhm" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -95541,7 +95538,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/structure/flora/ausbushes/sunnybush,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/grass,
 /area/security/lobby)
 "uPb" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -102706,8 +102703,9 @@
 /area/medical/surgeryobs)
 "wnK" = (
 /obj/effect/decal/warning_stripes/southeast,
-/obj/structure/chair{
-	dir = 8
+/obj/machinery/floodlight{
+	anchored = 1;
+	on = 1
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
@@ -103042,7 +103040,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/grass,
 /area/security/lobby)
 "wrp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -110584,6 +110582,12 @@
 	icon_state = "white"
 	},
 /area/hallway/primary/central/sw)
+"ybR" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurplecorner"
+	},
+/area/medical/research)
 "ybS" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -123581,7 +123585,7 @@ nWw
 jJU
 ftH
 wfb
-lbt
+soN
 bgj
 wfb
 duo
@@ -123838,7 +123842,7 @@ jRz
 wfb
 oIu
 wfb
-soN
+lbt
 aoY
 wfb
 aNg
@@ -135651,8 +135655,8 @@ bxw
 xJA
 qea
 pUo
-kxE
-mzj
+tbI
+djY
 ifA
 pob
 rLt
@@ -135911,7 +135915,7 @@ pUo
 kxE
 mzj
 dwQ
-pob
+jdo
 rLt
 lln
 sRQ
@@ -136168,7 +136172,7 @@ pUo
 bNm
 djY
 vig
-pob
+uhi
 rLt
 lln
 uQY
@@ -161546,7 +161550,7 @@ xXZ
 eVh
 nbh
 fcW
-oRM
+cTo
 ycF
 gIS
 gIS
@@ -162060,7 +162064,7 @@ ukl
 bYq
 jBu
 fcW
-htG
+ybR
 oDn
 aoP
 kDR
@@ -167150,7 +167154,7 @@ vMs
 vvl
 pHj
 kjI
-tbI
+vvl
 moK
 oTS
 nXM
