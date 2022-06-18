@@ -230,7 +230,7 @@
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
 		return TRUE
 
-/datum/species/proc/spec_rad_act(amount)
+/datum/species/proc/spec_rad_act(amount, src)
 	return FALSE
 
 ////////////////
