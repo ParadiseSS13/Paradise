@@ -21,6 +21,10 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	/// A list containing references to the minds of soon-to-be changelings. This is seperate to avoid duplicate entries in the `changelings` list.
 	var/list/datum/mind/pre_changelings = list()
 
+/datum/game_mode/changeling/Destroy(force, ...)
+	pre_changelings.Cut()
+	return ..()
+
 /datum/game_mode/changeling/announce()
 	to_chat(world, "<B>The current game mode is - Changeling!</B>")
 	to_chat(world, "<B>There are alien changelings on the station. Do not let the changelings succeed!</B>")
@@ -49,6 +53,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 /datum/game_mode/changeling/post_setup()
 	for(var/datum/mind/changeling as anything in pre_changelings)
 		changeling.add_antag_datum(/datum/antagonist/changeling)
+		pre_changelings -= changeling
 	..()
 
 /datum/game_mode/proc/auto_declare_completion_changeling()

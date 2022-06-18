@@ -1,4 +1,3 @@
-
 /datum/antagonist/changeling
 	name = "Changeling"
 	roundend_category = "changelings"
