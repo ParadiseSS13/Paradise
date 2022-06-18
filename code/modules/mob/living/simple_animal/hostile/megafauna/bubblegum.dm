@@ -59,7 +59,6 @@ Difficulty: Hard
 	var/enrage_till = 0
 	var/enrage_time = 70
 	var/revving_charge = FALSE
-	var/fuckthis = 0.7
 	internal_type = /obj/item/gps/internal/bubblegum
 	medal_type = BOSS_MEDAL_BUBBLEGUM
 	score_type = BUBBLEGUM_SCORE
@@ -189,8 +188,9 @@ Difficulty: Hard
 	animate(D, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 3)
 	SLEEP_CHECK_DEATH(delay)
 	revving_charge = FALSE
-	walk_towards(src, T, fuckthis)
-	SLEEP_CHECK_DEATH(get_dist(src, T) * fuckthis)
+	var/movespeed = 0.7
+	walk_towards(src, T, movespeed)
+	SLEEP_CHECK_DEATH(get_dist(src, T) * movespeed)
 	walk(src, 0) // cancel the movement
 	try_bloodattack()
 	charging = FALSE

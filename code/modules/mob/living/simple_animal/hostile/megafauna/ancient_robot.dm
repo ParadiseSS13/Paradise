@@ -90,7 +90,6 @@ Difficulty: Hard
 	var/mob/living/simple_animal/hostile/ancient_robot_leg/BL = null
 	var/obj/effect/abstract/beam = null
 
-
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Initialize(mapload, mob/living/ancient) //We spawn and move them to clear out area for the legs, rather than risk the legs getting put in a wall
 	. = ..()
 	TR = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, "TR")
@@ -111,7 +110,6 @@ Difficulty: Hard
 	QDEL_NULL(BL)
 	QDEL_NULL(beam)
 	return ..()
-
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_setup()
 	fix_specific_leg("TR")
@@ -138,18 +136,6 @@ Difficulty: Hard
 	anger_modifier = clamp(((maxHealth - health)/50),0,20)
 	ranged_cooldown = world.time + (ranged_cooldown_time * ((10 - extra_player_anger)/10))
 
-	//if(client)
-	//	switch(chosen_attack)
-	//		if(1)
-	//			fire_cone(meteors = FALSE)
-	//		if(2)
-	//			fire_cone()
-	//		if(3)
-	//			mass_fire()
-	//		if(4)
-	//			lava_swoop()
-	//	return
-
 	if(exploding)
 		return
 
@@ -164,8 +150,6 @@ Difficulty: Hard
 
 	else if(prob(15 + anger_modifier))
 		spawn_anomalies()
-	else
-		visible_message("<span class='danger'>DOING FUCK ALL CAPTAIN</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 
 	calculate_extra_player_anger()
 
@@ -349,7 +333,6 @@ Difficulty: Hard
 		anomalies += 1
 	return
 
-
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/throw_rock(turf/spot, mob/target)
 	var/turf/T = get_turf(target)
 	if(!spot || !T)
@@ -374,6 +357,7 @@ Difficulty: Hard
 	status_flags ^= GODMODE
 	say("OTZKMXOZE LGORAXK YKRL JKYZXAIZ GIZOBK")
 	visible_message("<span class='biggerdanger'>[src] begins to overload it's core. It is going to explode!</span>")
+	walk(src, 0)
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
 	addtimer(CALLBACK(src, .proc/kaboom), 10 SECONDS)
 
@@ -381,7 +365,6 @@ Difficulty: Hard
 	explosion(get_turf(src), -1, 10, 20, 20)
 	status_flags ^= GODMODE
 	death()
-
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/disable_legs()
 	TR.ranged = FALSE
@@ -423,16 +406,14 @@ Difficulty: Hard
 			leg_walking_orderer("BL", "TL", "BR", "TR")
 
 
-
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_walking_orderer(A, B, C, D)
 	addtimer(CALLBACK(src, .proc/fix_specific_leg, A), 1)
 	addtimer(CALLBACK(src, .proc/fix_specific_leg, B), 2)
 	addtimer(CALLBACK(src, .proc/fix_specific_leg, C), 3)
 	addtimer(CALLBACK(src, .proc/fix_specific_leg, D), 4)
 
-
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_control_system(input, right, up) // change to vert / hhorizontal
-	var/turf/target = locate(x + right, y + up, z)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_control_system(input, horizontal, vertical)
+	var/turf/target = locate(x + horizontal, y + vertical, z)
 	switch(input)
 		if("TR")
 			TR.leg_movement(target, 0.6)
@@ -447,7 +428,6 @@ Difficulty: Hard
 	if(severity == EXPLODE_LIGHT)
 		return
 	..()
-
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Goto()
 	if(!exploding)
@@ -474,8 +454,7 @@ Difficulty: Hard
 	beam.forceMove(get_turf(src))
 	return ..()
 
-
-/mob/living/simple_animal/hostile/ancient_robot_leg // make explosion immune
+/mob/living/simple_animal/hostile/ancient_robot_leg
 	name = "leg"
 	desc = "leg"
 	icon = 'icons/obj/watercloset.dmi'
@@ -487,7 +466,7 @@ Difficulty: Hard
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	flying = TRUE
 	check_friendly_fire = 1
-	ranged = 1
+	ranged = TRUE
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	projectiletype = /obj/item/projectile/ancient_robot_bullet
 	attacktext = "stomps on"
@@ -535,7 +514,10 @@ Difficulty: Hard
 	var/damage = amount * transfer_rate
 	core.adjustBruteLoss(damage)
 	fake_hp = clamp(fake_hp - damage, 0, fake_max_hp)
-	if(damage && fake_hp <= 160) //warn that you are not doing much damage
+	if(damage && ranged && fake_hp <= 200)
+		ranged = FALSE
+		src.visible_message("<span class='danger'>[src]'s turret breaks and pulls back in the leg!</span>")
+	if(damage && transfer_rate <= 0.25) //warn that you are not doing much damage
 		src.visible_message("<span class='danger'>[src] looks too damaged to hurt it much more!</span>")
 	health_and_snap_check(FALSE)
 
@@ -543,10 +525,13 @@ Difficulty: Hard
 	if(regen)
 		fake_hp = min(fake_hp + fake_hp_regen, fake_max_hp)
 	transfer_rate = 0.75 * (fake_hp/fake_max_hp)
+	if(fake_hp >= 300 && !ranged)
+		ranged = TRUE
+		src.visible_message("<span class='danger'>[src]'s turret pops out of it!</span>")
 	if(get_dist(get_turf(core),get_turf(src)) <= range)
 		return
 	else
-		forceMove(core.loc) //move to summoner's tile, don't recall
+		forceMove(core.loc)
 		core.fix_specific_leg(who_am_i)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/leg_movement(turf/T, movespeed) //byond doesn't like calling walk_towards on the legs directly
@@ -567,6 +552,17 @@ Difficulty: Hard
 			shake_camera(L, 4, 3)
 			shake_camera(src, 2, 3)
 	..()
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/ex_act(severity, target)
+	switch(severity)
+		if(1)
+			adjustBruteLoss(250)
+
+		if(2)
+			adjustBruteLoss(100)
+
+		if(3)
+			return
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/MeleeAction(patience = TRUE)
 	if(core.charging || core.exploding)
