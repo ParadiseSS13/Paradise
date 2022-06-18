@@ -171,6 +171,7 @@
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_rest"
 			regenerate_icons()
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN) //simple mobs cannot crawl
 
 /mob/living/simple_animal/stand_up()
 	..()
