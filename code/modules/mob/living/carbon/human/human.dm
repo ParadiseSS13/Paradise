@@ -2010,7 +2010,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	set src in view()
 
 /mob/living/carbon/human/rad_act(amount)
-	if(dna.species.spec_rad_act(amount))
+	if(dna.species.spec_rad_act(amount, src))
 		return
 	return ..()
 
