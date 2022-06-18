@@ -101,6 +101,11 @@
 	H.med_hud_set_health()
 	H.med_hud_set_status()
 
+/datum/species/machine/spec_rad_act(amount, mob/living/carbon/human/H)
+	if(amount >= RAD_MINIMUM_CONTAMINATION)
+		H.adjustBrainLoss(1)
+    return TRUE
+
 /datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 	if(!head_organ)
