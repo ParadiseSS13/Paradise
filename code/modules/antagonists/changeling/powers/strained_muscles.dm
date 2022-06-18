@@ -8,8 +8,13 @@
 	button_icon_state = "strained_muscles"
 	chemical_cost = 0
 	dna_cost = 1
-	req_human = 1
+	req_human = TRUE
 	max_genetic_damage = 0
+	power_type = CHANGELING_PURCHASABLE_POWER
+
+/datum/action/changeling/strained_muscles/Remove(mob/living/L)
+	L.remove_status_effect(STATUS_EFFECT_SPEEDLEGS)
+	..()
 
 /datum/action/changeling/strained_muscles/sting_action(mob/living/carbon/user)
 	if(!user.has_status_effect(STATUS_EFFECT_SPEEDLEGS))
@@ -22,4 +27,4 @@
 		user.remove_status_effect(STATUS_EFFECT_SPEEDLEGS)
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
-	return 1
+	return TRUE
