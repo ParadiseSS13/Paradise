@@ -12,8 +12,6 @@
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WALLS)
 
-	var/rotting = FALSE
-
 	var/damage = 0
 	var/damage_cap = 100 //Wall will break down to girders if damage reaches this point
 
@@ -59,11 +57,6 @@
 		fixed_underlay = string_assoc_list(fixed_underlay)
 		underlays += underlay_appearance
 
-/turf/simulated/wall/BeforeChange()
-	for(var/obj/effect/overlay/wall_rot/WR in src)
-		qdel(WR)
-	. = ..()
-
 //Appearance
 /turf/simulated/wall/examine(mob/user)	//If you change this, consider changing the examine_status proc of false walls to match
 	. = ..()
@@ -78,9 +71,6 @@
 			. += "<span class='warning'>It looks moderately damaged.</span>"
 		else
 			. += "<span class='danger'>It looks heavily damaged.</span>"
-
-	if(rotting)
-		. += "<span class='warning'>There is fungus growing on [src].</span>"
 
 /turf/simulated/wall/detailed_examine()
 	return "You can deconstruct this by welding it, and then wrenching the girder.<br>\
@@ -100,7 +90,7 @@
 
 	QUEUE_SMOOTH(src)
 	if(rusted && !rusted_overlay)
-		rusted_overlay = icon('icons/turf/overlays.dmi', pick("rust", "rust2"), pick(NORTH, SOUTH, EAST, WEST))
+		rusted_overlay = icon('icons/effects/effects.dmi', "rust", pick(NORTH, EAST, SOUTH, WEST))
 		add_overlay(rusted_overlay)
 
 	if(!damage)
@@ -139,9 +129,6 @@
 
 /turf/simulated/wall/proc/update_damage()
 	var/cap = damage_cap
-	if(rotting)
-		cap = cap / 10
-
 	if(damage >= cap)
 		dismantle_wall()
 	else
@@ -236,15 +223,6 @@
 			playsound(src, 'sound/effects/spray2.ogg', 100, TRUE)
 			return FALSE
 
-// Wall-rot effect, a nasty fungus that destroys walls.
-/turf/simulated/wall/proc/rot()
-	if(!rotting)
-		rotting = 1
-
-		var/number_rots = rand(2,3)
-		for(var/i=0, i<number_rots, i++)
-			new /obj/effect/overlay/wall_rot(src)
-
 /turf/simulated/wall/burn_down()
 	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
 		return
@@ -298,7 +276,7 @@
 /turf/simulated/wall/attack_hulk(mob/user, does_attack_animation = FALSE)
 	..(user, TRUE)
 
-	if(prob(hardness) || rotting)
+	if(prob(hardness))
 		playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		dismantle_wall(TRUE)
@@ -310,15 +288,6 @@
 
 /turf/simulated/wall/attack_hand(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
-	if(rotting)
-		if(hardness <= 10)
-			to_chat(user, "<span class='notice'>This wall feels rather unstable.</span>")
-			return
-		else
-			to_chat(user, "<span class='notice'>The wall crumbles under your touch.</span>")
-			dismantle_wall()
-			return
-
 	to_chat(user, "<span class='notice'>You push the wall but nothing happens!</span>")
 	playsound(src, 'sound/weapons/genhit.ogg', 25, 1)
 	add_fingerprint(user)
@@ -329,9 +298,6 @@
 
 	if(!isturf(user.loc))
 		return // No touching walls unless you're on a turf (pretty sure attackby can't be called anyways but whatever)
-
-	if(rotting && try_rot(I, user, params))
-		return
 
 	if(try_decon(I, user, params))
 		return
@@ -351,13 +317,6 @@
 	. = TRUE
 	if(thermite && I.use_tool(src, user, volume = I.tool_volume))
 		thermitemelt(user)
-		return
-	if(rotting)
-		if(I.use_tool(src, user, volume = I.tool_volume))
-			for(var/obj/effect/overlay/wall_rot/WR in src)
-				qdel(WR)
-			rotting = FALSE
-			to_chat(user, "<span class='notice'>You burn off the fungi with [I].</span>")
 		return
 
 	// Wall repair stuff

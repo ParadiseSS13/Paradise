@@ -218,9 +218,13 @@
 	layer = TURF_LAYER
 	plane = GAME_PLANE
 	icon = 'icons/effects/effects.dmi'
-	icon_state = "flour"
-	color = "#D5820B"
+	icon_state = "fungus"
 	scoop_reagents = list("fungus" = 10)
+
+/obj/effect/decal/cleanable/fungus/Initialize(mapload)
+	. = ..()
+	pixel_x += rand(-10, 10)
+	pixel_y += rand(-10, 10)
 
 /obj/effect/decal/cleanable/confetti //PARTY TIME!
 	name = "confetti"

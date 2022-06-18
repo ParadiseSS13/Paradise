@@ -49,17 +49,3 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "admin"
 	layer = 4.1
-
-/obj/effect/overlay/wall_rot
-	name = "Wallrot"
-	desc = "Ick..."
-	icon = 'icons/effects/wallrot.dmi'
-	anchored = 1
-	density = 1
-	layer = 5
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/obj/effect/overlay/wall_rot/New()
-	..()
-	pixel_x += rand(-10, 10)
-	pixel_y += rand(-10, 10)

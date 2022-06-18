@@ -1584,7 +1584,6 @@
 #include "code\modules\events\traders.dm"
 #include "code\modules\events\undead.dm"
 #include "code\modules\events\vent_clog.dm"
-#include "code\modules\events\wallrot.dm"
 #include "code\modules\events\wormholes.dm"
 #include "code\modules\events\wizard\ghost.dm"
 #include "code\modules\examine\examine.dm"
