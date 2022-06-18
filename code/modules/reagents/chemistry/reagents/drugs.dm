@@ -104,6 +104,7 @@
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-2 SECONDS)
 		M.AdjustWeakened(-2 SECONDS)
+		M.AdjustKnockDown(-2 SECONDS)
 		update_flags |= M.adjustStaminaLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
@@ -166,6 +167,7 @@
 	M.AdjustParalysis(-4 SECONDS)
 	M.AdjustStunned(-4 SECONDS)
 	M.AdjustWeakened(-4 SECONDS)
+	M.AdjustKnockDown(-4 SECONDS)
 	if(prob(15))
 		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
 	if(prob(8))
@@ -320,6 +322,7 @@
 	M.AdjustParalysis(-5 SECONDS)
 	M.AdjustStunned(-5 SECONDS)
 	M.AdjustWeakened(-5 SECONDS)
+	M.AdjustKnockDown(-5 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
 	M.SetSleeping(0)
 	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
@@ -589,6 +592,7 @@
 	M.AdjustParalysis(-3 SECONDS)
 	M.AdjustStunned(-3 SECONDS)
 	M.AdjustWeakened(-3 SECONDS)
+	M.AdjustKnockDown(-3 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-1.5, FALSE)
 	M.SetSleeping(0)
 	return ..() | update_flags
@@ -682,8 +686,9 @@
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[high_message]</span>")
 	M.AdjustParalysis(-4 SECONDS)
-	M.AdjustStunned(-2, FALSE)
-	M.AdjustWeakened(-2, FALSE)
+	M.AdjustStunned(-4 SECONDS)
+	M.AdjustWeakened(-4 SECONDS)
+	M.AdjustKnockDown(-4 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
 	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	M.Jitter(6 SECONDS)

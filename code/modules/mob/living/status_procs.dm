@@ -670,6 +670,18 @@ moving up or down retains their old lying angle
 			P = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
 	return P
 
+/mob/living/proc/AdjustWeakened(amount, ignore_canstun = FALSE) //Adds to remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_stun(amount, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/weakened/P = IsWeakened(FALSE)
+	if(P)
+		P.duration += amount
+	else if(amount > 0)
+		P = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
+	return P
+
 /mob/living/proc/IsKnockedDown()
 	return has_status_effect(STATUS_EFFECT_FLOORED)
 
@@ -707,19 +719,18 @@ moving up or down retains their old lying angle
 			F = apply_status_effect(STATUS_EFFECT_FLOORED, amount)
 	return F
 
-
-
-/mob/living/proc/AdjustWeakened(amount, ignore_canstun = FALSE) //Adds to remaining duration
+/mob/living/proc/AdjustKnockDown(amount, ignore_canstun = FALSE) //Adds to remaining duration
 	if(IS_STUN_IMMUNE(src, ignore_canstun))
 		return
 	if(absorb_stun(amount, ignore_canstun))
 		return
-	var/datum/status_effect/incapacitating/weakened/P = IsWeakened(FALSE)
-	if(P)
-		P.duration += amount
+	var/datum/status_effect/incapacitating/floored/F = IsKnockedDown()
+	if(F)
+		F.duration += amount
 	else if(amount > 0)
-		P = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
-	return P
+		F = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
+	return F
+
 
 //
 //		DISABILITIES

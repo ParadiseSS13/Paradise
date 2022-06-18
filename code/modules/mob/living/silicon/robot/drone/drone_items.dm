@@ -53,6 +53,7 @@
 			H.AdjustParalysis(-6 SECONDS)
 			H.AdjustStunned(-6 SECONDS)
 			H.AdjustWeakened(-6 SECONDS)
+			H.AdjustKnockDown(-6 SECONDS)
 			H.stand_up()
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			user.visible_message( \
