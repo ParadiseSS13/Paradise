@@ -561,6 +561,10 @@
 		if(!ismachineperson(src) && !isLivingSSD(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA) //Gosh damn snowflakey IPCs
 			var/datum/disease/D = new /datum/disease/critical/hypoglycemia
 			ForceContractDisease(D)
+		
+		if(ismachineperson(src) && !isLivingSSD(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
+			var/datum/disease/D = new /datum/disease/critical/powerfail
+			ForceContractDisease(D)
 
 		//metabolism change
 		if(nutrition > NUTRITION_LEVEL_FAT)
