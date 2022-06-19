@@ -104,7 +104,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 		var/list/signal = list("tag" = G.gpstag, "area" = null, "position" = null)
 		if(!G.emped)
-			signal["area"] = get_area_name(G, TRUE)
+			signal["area"] = (GT.z == T.z) ? get_area_name(G, TRUE) : "???"
 			signal["position"] = ATOM_COORDS(GT)
 		signals += list(signal)
 	data["signals"] = signals
