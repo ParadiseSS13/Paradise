@@ -13011,8 +13011,6 @@
 	pixel_x = -10
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/arrow,
-/obj/effect/decal/warning_stripes/yellow/partial,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -26693,6 +26691,16 @@
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/maintenance/starboard)
+"bqI" = (
+/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/machinery/door/window/northleft,
+/obj/effect/decal/warning_stripes/arrow,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/sorting)
 "bqJ" = (
 /obj/structure/table,
 /obj/item/camera{
@@ -137654,7 +137662,7 @@ aDL
 ayA
 ayA
 aIh
-aEN
+bqI
 aNx
 aQl
 aCF
