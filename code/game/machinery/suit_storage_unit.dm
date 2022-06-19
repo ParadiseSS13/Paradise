@@ -48,8 +48,6 @@
 	/// If set, turned into typecache in Initialize, other wise, defaults to mob/living typecache
 	var/list/occupant_typecache
 	var/atom/movable/occupant = null
-	///Tracks alert light overlay for easy light implementations
-	var/alert_lights
 
 /obj/machinery/suit_storage_unit/industrial
 	name = "industrial suit storage unit"
@@ -312,9 +310,9 @@
 	if(uv)
 		if(uv_super)
 			add_overlay("[base_icon_state]_super")
-			add_overlay(icon(icon, "[base_icon_state]_[occupant ? "body" : "uvstrong"]"))
+			add_overlay("[base_icon_state]_[occupant ? "body" : "uvstrong"]"))
 		else
-			add_overlay(icon(icon, "[base_icon_state]_[occupant ? "body" : "uv"]"))
+			add_overlay("[base_icon_state]_[occupant ? "body" : "uv"]"))
 		add_overlay("[base_icon_state]_lights_red")
 		return
 
@@ -329,7 +327,7 @@
 	else
 		add_overlay("[base_icon_state]_lights_closed")
 
-	add_overlay(icon(icon, "[base_icon_state]_[occupant ? "body" : "ready"]"))
+	add_overlay("[base_icon_state]_[occupant ? "body" : "ready"]"))
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked)
