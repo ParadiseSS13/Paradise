@@ -311,35 +311,25 @@
 
 	if(uv)
 		if(uv_super)
-			alert_lights = icon(icon, "[base_icon_state]_uvstrong")
 			add_overlay("[base_icon_state]_super")
+			add_overlay(icon(icon, "[base_icon_state]_[occupant ? "body" : "uvstrong"]"))
 		else
-			alert_lights = icon(icon, "[base_icon_state]_uv")
+			add_overlay(icon(icon, "[base_icon_state]_[occupant ? "body" : "uv"]"))
 		add_overlay("[base_icon_state]_lights_red")
-		if(occupant)
-			alert_lights = icon(icon, "[base_icon_state]_body")
-		add_overlay(alert_lights)
 		return
 
 	if(state_open)
 		add_overlay("[base_icon_state]_open")
-		alert_lights = icon(icon, "[base_icon_state]_ready")
-		if(occupant)
-			alert_lights = icon(icon, "[base_icon_state]_body")
-		add_overlay(alert_lights)
 		if(suit)
 			add_overlay("[base_icon_state]_suit")
 		if(helmet)
 			add_overlay("[base_icon_state]_helm")
 		if(storage)
 			add_overlay("[base_icon_state]_storage")
-		return
+	else
+		add_overlay("[base_icon_state]_lights_closed")
 
-	alert_lights = icon(icon, "[base_icon_state]_ready")
-	if(occupant)
-		alert_lights = icon(icon, "[base_icon_state]_body")
-	add_overlay(alert_lights)
-	add_overlay("[base_icon_state]_lights_closed")
+	add_overlay(icon(icon, "[base_icon_state]_[occupant ? "body" : "ready"]"))
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked)
