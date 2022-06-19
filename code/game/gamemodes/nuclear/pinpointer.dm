@@ -86,7 +86,7 @@
 		if(MODE_CREW)
 			return "You turn on the pinpointer."
 		if(MODE_TENDRIL)
-			return "HIGH ENERGY SCANNER ACTIVE"
+			return "High energy scanner active"
 
 /obj/item/pinpointer/proc/activate_mode(mode, mob/user) //for crew pinpointer
 	return
@@ -417,7 +417,7 @@
 
 /obj/item/pinpointer/tendril
 	name = "ancient scanning unit"
-	desc = "Convient that the scanning unit for the robot survived. Seems to point to the tendrils around here."
+	desc = "Convnient that the scanning unit for the robot survived. Seems to point to the tendrils around here."
 	icon_state = "pinoff_ancient"
 	icon_off = "pinoff_ancient"
 	icon_null = "pinonnull_ancient"

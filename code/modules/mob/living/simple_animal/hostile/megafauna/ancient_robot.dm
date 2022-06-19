@@ -6,6 +6,10 @@
 #define PYRO 3
 #define FLUX 4
 #define VORTEX 5
+#define TOP_RIGHT 1
+#define TOP_LEFT 2
+#define BOTTOM_RIGHT 3
+#define BOTTOM_LEFT 4
 
 
 /*
@@ -33,7 +37,7 @@ Finaly, for each mode, it has a special attack.
 	- Flux shoots weakened tesla revolver shots at all humans nearbye.
 	- Vortex causes a small earthquake, leading to rocks falling from the sky.
 
-Apon reaching critical HP (normaly death), it preps a 10 second self destruct, before exploding. Large tell, hard to miss.
+Upon reaching critical HP (normally death), it preps a 10 second self destruct, before exploding. Large tell, hard to miss.
 Loot: Anomaly core that matches the mode that was picked of the robot. A pinpointer that can point to tendrils, which should be fine, as by the time this is killed, the round should be an hour or more over.
 
 Difficulty: Hard
@@ -43,8 +47,8 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot
 	name = "old ass hunk of junk"
 	desc = "what is this piece of shit?"
-	health = 2700 //slight more hp as insurance for it's self destruct
-	maxHealth = 2700
+	health = 2500
+	maxHealth = 2500
 	attacktext = "shocks"
 	attack_sound = 'sound/machines/defib_zap.ogg'
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
@@ -64,12 +68,12 @@ Difficulty: Hard
 	pixel_x = -16
 	pixel_y = -16
 	del_on_death = TRUE
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/ancient/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/ancient)
+	crusher_loot = list(/obj/structure/closet/crate/necropolis/ancient/crusher)
 	internal_type = /obj/item/gps/internal/ancient
 	medal_type = BOSS_MEDAL_ROBOT
 	score_type = ROBOT_SCORE
-	deathmessage = "explodes in a shower of alloys"
+	deathmessage = "explodes into a shower of alloys"
 	footstep_type = FOOTSTEP_MOB_HEAVY //make stomp like bubble
 	attack_action_types = list()
 
@@ -92,32 +96,16 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Initialize(mapload, mob/living/ancient) //We spawn and move them to clear out area for the legs, rather than risk the legs getting put in a wall
 	. = ..()
-	TR = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, "TR")
-	TL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, "TL")
-	BR = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, "BR")
-	BL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, "BL")
+	TR = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, TOP_RIGHT)
+	TL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, TOP_LEFT)
+	BR = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, BOTTOM_RIGHT)
+	BL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, BOTTOM_LEFT)
 	beam = new /obj/effect/abstract(loc)
 	addtimer(CALLBACK(src, .proc/leg_setup), 1 SECONDS)
 	mode = pick(BLUESPACE, GRAV, PYRO, FLUX, VORTEX) //picks one of the 5 cores.
 	if(mode == FLUX) // Main attack is shock, so flux makes it stronger
 		melee_damage_lower = 25
 		melee_damage_upper = 25
-	switch(mode)
-		if(BLUESPACE)
-			loot += /obj/item/assembly/signaler/anomaly/bluespace
-			crusher_loot += /obj/item/assembly/signaler/anomaly/bluespace
-		if(GRAV)
-			loot += /obj/item/assembly/signaler/anomaly/grav
-			crusher_loot += /obj/item/assembly/signaler/anomaly/grav
-		if(PYRO)
-			loot += /obj/item/assembly/signaler/anomaly/pyro
-			crusher_loot += /obj/item/assembly/signaler/anomaly/pyro
-		if(FLUX)
-			loot += /obj/item/assembly/signaler/anomaly/flux
-			crusher_loot += /obj/item/assembly/signaler/anomaly/flux
-		if(VORTEX)
-			loot += /obj/item/assembly/signaler/anomaly/vortex
-			crusher_loot += /obj/item/assembly/signaler/anomaly/vortex
 
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Destroy()
@@ -129,10 +117,10 @@ Difficulty: Hard
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_setup()
-	fix_specific_leg("TR")
-	fix_specific_leg("TL")
-	fix_specific_leg("BR")
-	fix_specific_leg("BL")
+	fix_specific_leg(TOP_RIGHT)
+	fix_specific_leg(TOP_LEFT)
+	fix_specific_leg(BOTTOM_RIGHT)
+	fix_specific_leg(BOTTOM_LEFT)
 
 /obj/item/gps/internal/ancient
 	icon_state = null
@@ -140,11 +128,32 @@ Difficulty: Hard
 	desc = "ERROR_NULL_ENTRY"
 	invisibility = 100
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/Life(seconds, times_fired)
-	if(health <= 200 && !exploding)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/death(gibbed, allowed = FALSE)
+	if(allowed)
+		return ..()
+	else //but it refused
+		adjustBruteLoss(-1)
 		self_destruct()
 		exploding = TRUE
-	..()
+
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/drop_loot()
+	var/core_type = null
+	switch(mode)
+		if(BLUESPACE)
+			core_type = /obj/item/assembly/signaler/anomaly/bluespace
+		if(GRAV)
+			core_type = /obj/item/assembly/signaler/anomaly/grav
+		if(PYRO)
+			core_type = /obj/item/assembly/signaler/anomaly/pyro
+		if(FLUX)
+			core_type = /obj/item/assembly/signaler/anomaly/flux
+		if(VORTEX)
+			core_type = /obj/item/assembly/signaler/anomaly/vortex
+
+	var/crate_type = pick(loot)
+	var/obj/structure/closet/crate/C = new crate_type(loc)
+	new core_type(C)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/OpenFire()
 	if(charging)
@@ -381,7 +390,8 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/kaboom()
 	explosion(get_turf(src), -1, 10, 20, 20)
 	status_flags ^= GODMODE
-	death()
+	health = 0
+	death(allowed = TRUE)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/disable_legs()
 	TR.ranged = FALSE
@@ -392,35 +402,51 @@ Difficulty: Hard
 
 	BL.ranged = FALSE
 
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/face_atom(atom/A) //This is used to make the legs get near the core when a user is meleeing the core
+	. = ..()
+	switch(dir)
+		if(NORTH)
+			leg_control_system(TOP_RIGHT, 1, 2)
+			leg_control_system(TOP_LEFT, -1, 2)
+		if(SOUTH)
+			leg_control_system(BOTTOM_RIGHT, 1, -2)
+			leg_control_system(BOTTOM_LEFT, -1, -2)
+		if(EAST)
+			leg_control_system(TOP_RIGHT, 2, 1)
+			leg_control_system(BOTTOM_RIGHT, 2, -1)
+		if(WEST)
+			leg_control_system(TOP_LEFT, -2, 1)
+			leg_control_system(BOTTOM_LEFT, -2,- 1)
+
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/fix_specific_leg(input) //Used to reset legs to specific locations
 	switch(input)
-		if("TR")
+		if(TOP_RIGHT)
 			leg_control_system(input, 2, 2)
-		if("TL")
+		if(TOP_LEFT)
 			leg_control_system(input, -2, 2)
-		if("BR")
+		if(BOTTOM_RIGHT)
 			leg_control_system(input, 2, -2)
-		if("BL")
+		if(BOTTOM_LEFT)
 			leg_control_system(input, -2, -2)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_walking_controler(dir) //This controls the legs. Here be pain. //define tr tl br bl // north south east west defines
 	switch(dir)
 		if(NORTH)
-			leg_walking_orderer("TR", "TL", "BR", "BL")
+			leg_walking_orderer(TOP_RIGHT, TOP_LEFT, BOTTOM_RIGHT, BOTTOM_LEFT)
 		if(SOUTH)
-			leg_walking_orderer("BL", "BR", "TL", "TR")
+			leg_walking_orderer(BOTTOM_LEFT, BOTTOM_RIGHT, TOP_LEFT, TOP_RIGHT)
 		if(EAST)
-			leg_walking_orderer("TR", "TL", "BR", "BL")
+			leg_walking_orderer(TOP_RIGHT, TOP_LEFT, BOTTOM_RIGHT, BOTTOM_LEFT)
 		if(WEST)
-			leg_walking_orderer("BL", "BR", "TL", "TR")
+			leg_walking_orderer(BOTTOM_LEFT, BOTTOM_RIGHT, TOP_LEFT, TOP_RIGHT)
 		if(NORTHEAST)
-			leg_walking_orderer("TR", "TL", "BR", "BL")
+			leg_walking_orderer(TOP_RIGHT, TOP_LEFT, BOTTOM_RIGHT, BOTTOM_LEFT)
 		if(SOUTHEAST)
-			leg_walking_orderer("BR", "TL", "BL", "TR")
+			leg_walking_orderer(BOTTOM_RIGHT, TOP_LEFT, BOTTOM_LEFT, TOP_RIGHT)
 		if(NORTHWEST)
-			leg_walking_orderer("TL", "TR", "BL", "BR")
+			leg_walking_orderer(TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT)
 		if(SOUTHEAST)
-			leg_walking_orderer("BL", "TL", "BR", "TR")
+			leg_walking_orderer(BOTTOM_LEFT, TOP_LEFT, BOTTOM_RIGHT, TOP_RIGHT)
 
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_walking_orderer(A, B, C, D)
@@ -432,13 +458,13 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_control_system(input, horizontal, vertical)
 	var/turf/target = locate(x + horizontal, y + vertical, z)
 	switch(input)
-		if("TR")
+		if(TOP_RIGHT)
 			TR.leg_movement(target, 0.6)
-		if("TL")
+		if(TOP_LEFT)
 			TL.leg_movement(target, 0.6)
-		if("BR")
+		if(BOTTOM_RIGHT)
 			BR.leg_movement(target, 0.6)
-		if("BL")
+		if(BOTTOM_LEFT)
 			BL.leg_movement(target, 0.6)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/ex_act(severity, target)
