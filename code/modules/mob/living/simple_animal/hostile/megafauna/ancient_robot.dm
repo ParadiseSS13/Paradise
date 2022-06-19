@@ -33,7 +33,7 @@ Finaly, for each mode, it has a special attack.
 	- Flux shoots weakened tesla revolver shots at all humans nearbye.
 	- Vortex causes a small earthquake, leading to rocks falling from the sky.
 
-Apon reaching critical HP (normaly death), it preps a 10 second self destruct, before exploding. Large tell, hard to miss.
+Upon reaching critical HP (normally death), it preps a 10 second self destruct, before exploding. Large tell, hard to miss.
 Loot: Anomaly core that matches the mode that was picked of the robot. A pinpointer that can point to tendrils, which should be fine, as by the time this is killed, the round should be an hour or more over.
 
 Difficulty: Hard
@@ -69,7 +69,7 @@ Difficulty: Hard
 	internal_type = /obj/item/gps/internal/ancient
 	medal_type = BOSS_MEDAL_ROBOT
 	score_type = ROBOT_SCORE
-	deathmessage = "explodes in a shower of alloys"
+	deathmessage = "explodes into a shower of alloys"
 	footstep_type = FOOTSTEP_MOB_HEAVY //make stomp like bubble
 	attack_action_types = list()
 

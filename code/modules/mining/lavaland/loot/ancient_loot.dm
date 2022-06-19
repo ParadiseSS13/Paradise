@@ -4,11 +4,11 @@
 /obj/structure/closet/crate/necropolis/ancient/populate_contents()
 	new /obj/item/pinpointer/tendril(src) // in pinpointers, with the rest of them
 	var/list/common_ore = list(
-	/obj/item/stack/ore/uranium,
-	/obj/item/stack/ore/silver,
-	/obj/item/stack/ore/gold,
-	/obj/item/stack/ore/plasma,
-	/obj/item/stack/ore/titanium,
+		/obj/item/stack/ore/uranium,
+		/obj/item/stack/ore/silver,
+		/obj/item/stack/ore/gold,
+		/obj/item/stack/ore/plasma,
+		/obj/item/stack/ore/titanium,
 	)
 
 	for(var/res in common_ore)
@@ -16,10 +16,10 @@
 		R.amount = pick(15, 30)
 
 	var/list/rare_ore = list(
-	/obj/item/stack/ore/diamond,
-	/obj/item/stack/ore/bluespace_crystal,
-	/obj/item/stack/sheet/mineral/adamantine, //Perhaps this is what the robot is made out of.
-	/obj/item/stack/sheet/mineral/abductor // few ruins of it often spawn, should be fine.
+		/obj/item/stack/ore/diamond,
+		/obj/item/stack/ore/bluespace_crystal,
+		/obj/item/stack/sheet/mineral/adamantine, //Perhaps this is what the robot is made out of.
+		/obj/item/stack/sheet/mineral/abductor // few ruins of it often spawn, should be fine.
 	)
 
 	for(var/res in rare_ore)
