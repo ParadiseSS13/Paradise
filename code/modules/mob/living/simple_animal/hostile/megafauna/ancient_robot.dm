@@ -377,7 +377,7 @@ Difficulty: Hard
 			continue
 		anger += 1
 		cap = (is_station_level(loc.z) ? EXTRA_PLAYER_ANGER_STATION_CAP : EXTRA_PLAYER_ANGER_NORMAL_CAP)
-	extra_player_anger = min(max(anger, 1), cap) - 1
+	extra_player_anger = clamp(anger,1,cap) - 1
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/self_destruct()
 	status_flags ^= GODMODE
@@ -540,7 +540,7 @@ Difficulty: Hard
 		qdel(src) //no
 	core = ancient
 	who_am_i = who
-	ranged_cooldown_time = (rand(30, 60)) // keeps them not running on the same time
+	ranged_cooldown_time = rand(30, 60) // keeps them not running on the same time
 	addtimer(CALLBACK(src, .proc/beam_setup), 1 SECONDS)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Life(seconds, times_fired)
@@ -559,9 +559,9 @@ Difficulty: Hard
 	fake_hp = clamp(fake_hp - damage, 0, fake_max_hp)
 	if(damage && ranged && fake_hp <= 200)
 		ranged = FALSE
-		src.visible_message("<span class='danger'>[src]'s turret breaks and pulls back in the leg!</span>")
+		visible_message("<span class='danger'>[src]'s turret breaks and pulls back in the leg!</span>")
 	if(damage && transfer_rate <= 0.25) //warn that you are not doing much damage
-		src.visible_message("<span class='danger'>[src] looks too damaged to hurt it much more!</span>")
+		visible_message("<span class='danger'>[src] looks too damaged to hurt it much more!</span>")
 	health_and_snap_check(FALSE)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/health_and_snap_check(regen = FALSE)
@@ -570,7 +570,7 @@ Difficulty: Hard
 	transfer_rate = 0.75 * (fake_hp/fake_max_hp)
 	if(fake_hp >= 300 && !ranged)
 		ranged = TRUE
-		src.visible_message("<span class='danger'>[src]'s turret pops out of it!</span>")
+		visible_message("<span class='danger'>[src]'s turret pops out of it!</span>")
 	if(get_dist(get_turf(core),get_turf(src)) <= range)
 		return
 	else
