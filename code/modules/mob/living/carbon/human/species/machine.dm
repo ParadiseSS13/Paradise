@@ -117,6 +117,20 @@
 			H.update_hair()
 			H.update_fhair()
 
+/datum/species/machine/handle_life(mob/living/carbon/human/H)
+	if(H.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA - 30)
+		if(prob(8))
+			affected_mob.adjustBrainLoss(2)
+		if(prob(12))
+			affected_mob.Weaken(12 SECONDS)
+			affected_mob.Stuttering(20 SECONDS)
+			to_chat(affected_mob, "<span class='warning'>Power critical, redirecting all power to positronic brain.</span>")
+			affected_mob.emote("collapse")
+			affected_mob.adjustBrainLoss(1)
+		if(prob(12))
+			to_chat(affected_mob, "<span class='warning'>Power critical, redirecting power from servos.=</span>")
+			affected_mob.Slowed(rand(8 SECONDS, 32 SECONDS))
+
 // Allows IPC's to change their monitor display
 /datum/action/innate/change_monitor
 	name = "Change Monitor"
