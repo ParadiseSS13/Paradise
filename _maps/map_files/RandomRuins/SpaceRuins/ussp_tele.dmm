@@ -45,7 +45,8 @@
 /turf/simulated/floor/plating/airless,
 /area/derelict/teleporter)
 "j" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/derelict/teleporter)
 "k" = (
 /obj/structure/girder,

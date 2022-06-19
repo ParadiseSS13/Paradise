@@ -8,6 +8,7 @@
 	desc = "The by-product of human farming."
 	singular_name = "human skin piece"
 	icon_state = "sheet-hide"
+	item_state = "sheet-leather"
 
 GLOBAL_LIST_INIT(human_recipes, list( \
 	new/datum/stack_recipe("bloated human costume", /obj/item/clothing/suit/bloated_human, 5, on_floor = TRUE), \
@@ -23,6 +24,7 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 	desc = "A piece of generic skin."
 	singular_name = "generic skin piece"
 	icon_state = "sheet-hide"
+	item_state = "sheet-leather"
 
 /obj/item/stack/sheet/animalhide/corgi
 	name = "corgi hide"
@@ -106,6 +108,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	desc = "This hide was stripped of it's hair, but still needs tanning."
 	singular_name = "hairless hide piece"
 	icon_state = "sheet-hairlesshide"
+	item_state = "sheet-leather"
 	origin_tech = ""
 
 /obj/item/stack/sheet/wetleather
@@ -113,6 +116,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	desc = "This leather has been cleaned but still needs to be dried."
 	singular_name = "wet leather piece"
 	icon_state = "sheet-wetleather"
+	item_state = "sheet-leather"
 	origin_tech = ""
 	var/wetness = 30 //Reduced when exposed to high temperautres
 	var/drying_threshold_temperature = 500 //Kelvin to start drying
@@ -122,6 +126,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	desc = "The by-product of mob grinding."
 	singular_name = "leather piece"
 	icon_state = "sheet-leather"
+	item_state = "sheet-leather"
 	origin_tech = "materials=2"
 
 GLOBAL_LIST_INIT(leather_recipes, list (
@@ -146,6 +151,7 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	desc = "Long stringy filaments which presumably came from a watcher's wings."
 	singular_name = "watcher sinew"
 	icon_state = "sinew"
+	item_state = "sinew"
 	origin_tech = "biotech=4"
 
 GLOBAL_LIST_INIT(sinew_recipes, list ( \
@@ -161,6 +167,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	desc = "Pieces of a goliath's rocky hide, these might be able to make your suit a bit more durable to attack from the local fauna."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "goliath_hide"
+	item_state = "goliath_hide"
 	singular_name = "hide plate"
 	flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
@@ -206,6 +213,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	desc = "The strong, scaled hide of an ash drake."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "dragon_hide"
+	item_state = "dragon_hide"
 	singular_name = "drake plate"
 	flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL

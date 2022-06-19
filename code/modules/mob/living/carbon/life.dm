@@ -25,8 +25,7 @@
 
 	if(LAZYLEN(processing_patches))
 		handle_patches()
-	if(mind)
-		handle_changeling()
+
 	handle_wetness(times_fired)
 
 	// Increase germ_level regularly
@@ -219,9 +218,6 @@
 
 //remember to remove the "proc" of the child procs of these.
 /mob/living/carbon/proc/handle_blood()
-	return
-
-/mob/living/carbon/proc/handle_changeling()
 	return
 
 /mob/living/carbon/handle_mutations_and_radiation()
