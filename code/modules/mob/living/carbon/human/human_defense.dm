@@ -746,5 +746,5 @@ emp_act
 	return TRUE
 
 /mob/living/carbon/human/projectile_hit_check(obj/item/projectile/P)
-	return (IS_HORIZONTAL(src) && !resting) // hit mobs that are intentionally lying down to prevent combat crawling.
+	return HAS_TRAIT(src, TRAIT_FLOORED) // hit mobs that are intentionally lying down to prevent combat crawling.
 
