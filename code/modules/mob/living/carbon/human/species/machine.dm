@@ -103,7 +103,8 @@
 
 /datum/species/machine/spec_rad_act(amount, mob/living/carbon/human/H)
 	if(amount >= RAD_MINIMUM_CONTAMINATION)
-		H.adjustBrainLoss(1)
+		if(prob(20)
+			H.adjustBrainLoss(1)
 	return TRUE
 
 /datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
