@@ -462,6 +462,16 @@
 	tick_interval = 2 SECONDS
 	needs_update_stat = TRUE
 
+/datum/status_effect/incapacitating/sleeping/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(src, TRAIT_KNOCKEDOUT, "[id]")
+
+/datum/status_effect/incapacitating/sleeping/on_remove()
+	REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, "[id]")
+	return ..()
+
 /datum/status_effect/incapacitating/sleeping/tick()
 	if(!iscarbon(owner))
 		return

@@ -43,8 +43,8 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 
 		anchored = TRUE
 		admin_prev_sleeping = AmountSleeping()
-		PermaSleeping()
 		frozen = AO
+		PermaSleeping()
 
 	else
 		GLOB.frozen_atom_list -= src
