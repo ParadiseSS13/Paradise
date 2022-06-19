@@ -1,7 +1,8 @@
 /mob/living/carbon/human/key_down(_key, client/user)
 	switch(_key)
 		if("V")
-			rest()
+			if(!client.keys_held["Ctrl"] && !client.keys_held["Shift"])
+				rest()
 		if("H")
 			var/obj/item/clothing/accessory/holster/H = null
 			if(istype(w_uniform, /obj/item/clothing/under))
