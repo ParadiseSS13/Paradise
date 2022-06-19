@@ -57,7 +57,7 @@ export const CameraConsole = (props, context) => {
   return (
     <Window resizable>
       <Window.Content>
-        <Box fillPositionedParent>
+        <Box fillPositionedParent overflow="hidden">
           <Tabs>
             <Tabs.Tab
               key="Map"
@@ -90,8 +90,8 @@ export const CameraConsoleMapContent = (props, context) => {
   ] = prevNextCamera(cameras, activeCamera);
 
   return (
-    <Box overflow="hidden">
-      <Box height="520px" width="650px" top="200px" mb="0.5rem" overflow="hidden" resizable>
+    <Box height="100%" display="flex">
+      <Box height="100%" flex="0 0 500px" display="flex">
         <NanoMap onZoom={v => setZoom(v)}>
           {cameras.filter(cam => cam.z === 1).map(cm => (
             <NanoMap.NanoButton
@@ -110,35 +110,38 @@ export const CameraConsoleMapContent = (props, context) => {
           ))}
         </NanoMap>
       </Box>
-      <div className="CameraConsole__new__right">
-        <div className="CameraConsole__toolbar">
-          <b>Camera: </b>
-          {activeCamera
-            && activeCamera.name
-            || '—'}
-        </div>
-        <div className="CameraConsole__toolbarRight">
-          <Button
-            icon="chevron-left"
-            disabled={!prevCameraName}
-            onClick={() => act('switch_camera', {
-              name: prevCameraName,
-            })} />
-          <Button
-            icon="chevron-right"
-            disabled={!nextCameraName}
-            onClick={() => act('switch_camera', {
-              name: nextCameraName,
-            })} />
+      <Box height="100%" resizable className="CameraConsole__new__right">
+        <div className="CameraConsole__header">
+          <div className="CameraConsole__title">
+            <b>Camera: </b>
+            {activeCamera
+              && activeCamera.name
+              || '—'}
+          </div>
+          <div className="CameraConsole__toolbarRight">
+            <Button
+              icon="chevron-left"
+              disabled={!prevCameraName}
+              onClick={() => act('switch_camera', {
+                name: prevCameraName,
+              })} />
+            <Button
+              icon="chevron-right"
+              disabled={!nextCameraName}
+              onClick={() => act('switch_camera', {
+                name: nextCameraName,
+              })} />
+          </div>
         </div>
         <ByondUi resizable
           className="CameraConsole__map"
+          overflow="hidden"
           params={{
             id: mapRef,
             parent: config.window,
             type: 'map',
           }} />
-      </div>
+      </Box>
     </Box>
   );
 };

@@ -56,7 +56,7 @@ window.addEventListener('beforeunload', () => {
 /**
  * Get the bounding box of the DOM element.
  */
-const getBoundingBox = element => {
+export const getBoundingBox = element => {
   const rect = element.getBoundingClientRect();
   return {
     pos: [

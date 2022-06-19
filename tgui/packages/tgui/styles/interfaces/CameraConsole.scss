@@ -18,44 +18,26 @@ $color-background: rgba(0, 0, 0, 0.33) !default;
 }
 
 .CameraConsole__new__right {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 600px;
-  right: 0;
+  position: relative;
+  display: flex;
+  flex: 1;
+  height: 90%;
+  flex-direction: column;
   background-color: $color-background;
 }
 
-.CameraConsole__toolbar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 24px;
-  line-height: 24px;
-  margin: 3px 12px 0;
-  // background-color: #0a0;
-}
-
-.CameraConsole__toolbarRight {
-  position: absolute;
-  top: 0;
-  right: 0;
+.CameraConsole__header {
+  display: flex;
+  justify-content: space-between;
   height: 24px;
   line-height: 24px;
   margin: 4px 6px 0;
-  // background-color: #aa0;
 }
 
 .CameraConsole__map {
-  position: absolute;
-  top: 26px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  // background-color: #00a;
-  margin: 6px;
-  text-align: center;
+  display: flex;
+  overflow: hidden;
+  background-color: #00a;
 
   .NoticeBox {
     margin-top: calc(50% - 24px);

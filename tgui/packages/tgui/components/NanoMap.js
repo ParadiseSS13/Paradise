@@ -1,10 +1,9 @@
 import { Component } from 'inferno';
 import { Box, Icon, Tooltip, Button } from '.';
 import { useBackend } from "../backend";
-import { COLORS } from '../constants';
-import { Input } from './Input';
 import { LabeledList } from './LabeledList';
 import { Slider } from './Slider';
+import { getBoundingBox } from "./ByondUi";
 
 const pauseEvent = e => {
   if (e.stopPropagation) { e.stopPropagation(); }
@@ -19,12 +18,12 @@ export class NanoMap extends Component {
     super(props);
 
     // Auto center based on window size
-    const Xcenter = (window.innerWidth / 2) - 256;
+    const Xcenter = 0;
     const Ycenter = (window.innerHeight / 2) - 256;
 
     this.state = {
-      offsetX: 128,
-      offsetY: 48,
+      offsetX: Xcenter,
+      offsetY: Ycenter,
       transform: 'none',
       dragging: false,
       originX: null,
@@ -77,10 +76,22 @@ export class NanoMap extends Component {
     this.handleZoom = (_e, value) => {
       this.setState(state => {
         const newZoom = Math.min(Math.max(value, 1), 8);
-        let zoomDiff = (newZoom - state.zoom) * 1.5;
+        const zoomDiff = newZoom / state.zoom;
+        if (zoomDiff === 1) {
+          return;
+        }
+
         state.zoom = newZoom;
-        state.offsetX = state.offsetX - 262 * zoomDiff;
-        state.offsetY = state.offsetY - 256 * zoomDiff;
+
+        const container = document.getElementsByClassName('NanoMap__container');
+        if (container.length) {
+          const bounds = getBoundingBox(container[0]);
+          const currentCenterX = bounds.size[0] / 2 - state.offsetX;
+          const currentCenterY = bounds.size[1] / 2 - state.offsetY;
+          state.offsetX += currentCenterX - (currentCenterX * zoomDiff);
+          state.offsetY += currentCenterY - (currentCenterY * zoomDiff);
+        }
+
         if (props.onZoom) {
           props.onZoom(state.zoom);
         }
@@ -107,6 +118,7 @@ export class NanoMap extends Component {
       "background-image": "url(" + mapUrl + ")",
       "background-size": "cover",
       "background-repeat": "no-repeat",
+      "border": '1px solid rgba(0, 0, 0, .3)',
       "text-align": "center",
       "cursor": dragging ? "move" : "auto",
     };
@@ -127,7 +139,7 @@ export class NanoMap extends Component {
   }
 }
 
-const NanoMapMarker = (props, context) => {
+const NanoMapMarker = props => {
   const {
     x,
     y,
@@ -206,7 +218,7 @@ NanoMap.NanoButton = NanoButton;
 NanoMap.Marker = NanoMapMarker;
 
 
-const NanoMapZoomer = (props, context) => {
+const NanoMapZoomer = props => {
   return (
     <Box className="NanoMap__zoomer">
       <LabeledList>
