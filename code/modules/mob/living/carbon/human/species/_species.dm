@@ -230,6 +230,9 @@
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
 		return TRUE
 
+/datum/species/proc/spec_rad_act(amount, mob/living/carbon/human/H)
+	return FALSE
+
 ////////////////
 // MOVE SPEED //
 ////////////////
