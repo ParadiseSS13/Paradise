@@ -8,7 +8,7 @@
 		/obj/item/stack/ore/silver,
 		/obj/item/stack/ore/gold,
 		/obj/item/stack/ore/plasma,
-		/obj/item/stack/ore/titanium,
+		/obj/item/stack/ore/titanium
 	)
 
 	for(var/res in common_ore)

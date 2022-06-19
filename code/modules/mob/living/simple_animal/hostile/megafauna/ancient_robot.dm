@@ -159,11 +159,11 @@ Difficulty: Hard
 	if(charging)
 		return
 
-	anger_modifier = clamp(((maxHealth - health)/50),0,20)
-	ranged_cooldown = world.time + (ranged_cooldown_time * ((10 - extra_player_anger)/10))
-
 	if(exploding)
 		return
+
+	anger_modifier = clamp(((maxHealth - health)/50),0,20)
+	ranged_cooldown = world.time + (ranged_cooldown_time * ((10 - extra_player_anger)/10))
 
 	if(prob(30 + anger_modifier))
 		triple_charge()
@@ -184,7 +184,7 @@ Difficulty: Hard
 		charge(delay = 18)
 		charge(delay = 12)
 		charge(delay = 6)
-		SetRecoveryTime(30)
+		SetRecoveryTime(15)
 	else
 		charge(delay = 9)
 		charge(delay = 6)
@@ -199,6 +199,12 @@ Difficulty: Hard
 		src.visible_message("<span class='danger'>[src] teleports somewhere nearbye!</span>")
 		do_teleport(src, target, 7, asoundin = 'sound/effects/phasein.ogg', safe_turf_pick = TRUE) //Teleport within 7 tiles of the target
 		new /obj/effect/temp_visual/bsg_kaboom(get_turf(src))
+
+		TR.health_and_snap_check(FALSE)// We want the legs to instantly teleport with it, without regening
+		TL.health_and_snap_check(FALSE)
+		BR.health_and_snap_check(FALSE)
+		BL.health_and_snap_check(FALSE)
+
 	var/chargeturf = get_turf(chargeat)
 	if(!chargeturf)
 		return
@@ -268,14 +274,14 @@ Difficulty: Hard
 	..()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/devour(mob/living/L)
-	say("JKYZXAIZOBK GTGREYKX GIZOBK") //what can I say, I like the trope of something talking in cypher
+	say(pick("JKYZXAIZOBK GTGREYKX GIZOBK", "OTZKMXGZOTM YAHPKIZ YZXKTMZNY", "JKIUSVOROTM GTJ RKGXTOTM", "LOTJOTM IXOZOIGR CKGQTKYYKY")) //what can I say, I like the trope of something talking in cypher
 	visible_message("<span class='userdanger'>[src] disintigrates [L]!</span>","<span class='userdanger'>You analyse [L], restoring your health!</span>")
 	if(!is_station_level(z) || client)
 		adjustHealth(-L.maxHealth * 0.2)
 	L.dust()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/do_special_move()
-	say("JKVRUEOTM LUIAYKJ VUCKX")
+	say(pick("JKVRUEOTM LUIAYKJ VUCKX", "JKVRUEOTM KDVKXOSKTZGR GZZGIQ", "LUIAYOTM VUCKX OTZU GTUSGRUAY UHPKIZ", "VUCKX UL ZNK YAT OT ZNK NKGXZ UL SE IUXK"))
 	switch(mode)
 		if(BLUESPACE)
 			if(ishuman(target))
@@ -332,7 +338,7 @@ Difficulty: Hard
 					new /obj/effect/temp_visual/target/ancient(turf)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/spawn_anomalies()
-	say("JKVRUEOTM XGC VUCKX")
+	say(pick("JKVRUEOTM XGC VUCKX", "KXXUX OT GTUSGRE IUTZGOTSKTZ", "YZGHOROZE OT OTYZGHOROZE OT YZGHOROZE OT OTYZGH-"))
 	var/list/turfs = new/list()
 	var/anomalies = 0
 	for(var/turf/T in view(5, src))
@@ -381,7 +387,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/self_destruct()
 	status_flags ^= GODMODE
-	say("OTZKMXOZE LGORAXK YKRL JKYZXAIZ GIZOBK")
+	say(pick("OTZKMXOZE LGORAXK, YKRL JKYZXAIZ GIZOBK", "RUYY IKXZGOT, KTMGMKOTM XKIUBKXE JKTOGR", "VUCKX IUXKY 8-12 HXKGINKJ, UBKXRUGJOTM XKSGOTOTM IUXKY", "KXXUX KXXUX KXXUX KXXUX KXX-", "-ROQK ZKGXY OT XGOT- - -ZOSK ZU JOK"))
 	visible_message("<span class='biggerdanger'>[src] begins to overload it's core. It is going to explode!</span>")
 	walk(src, 0)
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
@@ -429,7 +435,7 @@ Difficulty: Hard
 		if(BOTTOM_LEFT)
 			leg_control_system(input, -2, -2)
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_walking_controler(dir) //This controls the legs. Here be pain. //define tr tl br bl // north south east west defines
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_walking_controler(dir) //This controls the legs. Here be pain.
 	switch(dir)
 		if(NORTH)
 			leg_walking_orderer(TOP_RIGHT, TOP_LEFT, BOTTOM_RIGHT, BOTTOM_LEFT)
@@ -480,7 +486,6 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	if(charging)
 		DestroySurroundings()
-	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
 	if(Dir)
 		leg_walking_controler(Dir)
 		if(charging)
@@ -522,6 +527,8 @@ Difficulty: Hard
 	pull_force = MOVE_FORCE_OVERPOWERING
 	sentience_type = SENTIENCE_BOSS
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	stop_automated_movement = 1
+	wander = 0
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
 	stat_attack = DEAD
@@ -619,6 +626,9 @@ Difficulty: Hard
 		return
 	ranged_cooldown_time = (rand(30, 60)) // keeps them not running on the same time
 	..()
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/Moved(atom/OldLoc, Dir, Forced = FALSE)
+	playsound(src, 'sound/effects/meteorimpact.ogg', 60, TRUE, 2, TRUE) //turned way down from bubblegum levels due to 4 legs
 
 /obj/item/projectile/ancient_robot_bullet
 	damage = 5
