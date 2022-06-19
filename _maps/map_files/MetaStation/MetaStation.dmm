@@ -3744,6 +3744,8 @@
 	req_access_txt = "31"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "aug" = (
@@ -6793,14 +6795,13 @@
 	opacity = 1
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/door/window/westleft,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
 /turf/simulated/floor/plasteel,
 /area/maintenance/fsmaint)
 "aEy" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/window/eastleft{
-	name = "Engineering Deliveries"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aEz" = (
@@ -23689,12 +23690,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "buw" = (
-/obj/machinery/door/window/westleft{
-	dir = 4;
-	name = "Bridge Deliveries"
-	},
 /obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "bridge blast";
 	name = "Bridge Blast Doors"
@@ -24040,6 +24036,9 @@
 	opacity = 1
 	},
 /obj/effect/turf_decal/bot,
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/machinery/door/window/westleft,
 /turf/simulated/floor/plasteel,
 /area/maintenance/maintcentral)
 "bvo" = (
@@ -28235,6 +28234,9 @@
 	id_tag = "atmos";
 	name = "Atmospherics Blast Door"
 	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/atmos/control)
 "bEL" = (
@@ -28841,7 +28843,6 @@
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
-	dir = 4;
 	location = "Atmospherics"
 	},
 /obj/structure/disposalpipe/segment,
@@ -28850,6 +28851,11 @@
 	id_tag = "atmos";
 	name = "Atmospherics Blast Door"
 	},
+/obj/machinery/door/window/northright{
+	name = "Atmospherics Access"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /turf/simulated/floor/plating,
 /area/atmos/control)
 "bGE" = (
@@ -33999,6 +34005,9 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
+/obj/machinery/door/window/southright,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/service/bar,
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
 "bVy" = (
@@ -34048,10 +34057,6 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/machinery/door/window/eastleft{
-	name = "Kitchen Delivery"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -34065,6 +34070,11 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/plasticflaps{
 	opacity = 1
+	},
+/obj/effect/mapping_helpers/airlock/access/any/service/kitchen,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/machinery/door/window/eastleft{
+	name = "Kitchen Delivery"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -35226,6 +35236,9 @@
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
+/obj/machinery/door/window/westright,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -36190,13 +36203,6 @@
 "cbm" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/door/window/northright{
-	name = "Hydroponics Delivery"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
@@ -41392,11 +41398,9 @@
 /turf/simulated/floor/plating,
 /area/toxins/lab)
 "cqo" = (
-/obj/machinery/door/window/eastright,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /obj/machinery/light_switch{
 	name = "north bump";
 	pixel_y = 24
@@ -41620,16 +41624,6 @@
 /area/quartermaster/office)
 "cqZ" = (
 /obj/effect/decal/warning_stripes/blue,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/door/window/southright{
-	name = "Medical Deliveries"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -42501,6 +42495,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -43184,7 +43181,6 @@
 /area/hallway/primary/fore)
 "cvY" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/window/reinforced,
 /obj/structure/disposalpipe/segment{
 	dir = 2;
 	icon_state = "pipe-c"
@@ -44912,13 +44908,13 @@
 "cBw" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
-	dir = 4;
 	location = "Medbay"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/door/window/northright,
+/obj/effect/mapping_helpers/airlock/access/any/medical/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cBx" = (
@@ -45320,6 +45316,7 @@
 	req_access_txt = "50";
 	name = "MuleBot Access"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cCD" = (
@@ -68385,12 +68382,15 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
-	dir = 8;
+	dir = 1;
 	location = "Hydroponics"
 	},
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
+/obj/machinery/door/window/southright,
+/obj/effect/mapping_helpers/airlock/access/any/service/hydroponics,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
 "kJT" = (
@@ -72477,10 +72477,6 @@
 /obj/effect/turf_decal/loading_area,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/machinery/door/window/northright{
-	name = "Atmospherics Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -83607,6 +83603,9 @@
 	opacity = 1
 	},
 /obj/effect/turf_decal/bot,
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
+/obj/machinery/door/window/northright,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard2)
 "svH" = (
@@ -86276,18 +86275,11 @@
 	})
 "tMV" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/door/window/southleft{
-	dir = 8;
-	name = "Bar Delivery"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/service/bar,
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "tNw" = (
 /obj/structure/table/wood,
@@ -86529,6 +86521,9 @@
 	id_tag = "Secure Gate";
 	name = "brig shutters"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
+/obj/machinery/door/window/eastright,
 /turf/simulated/floor/plasteel,
 /area/maintenance/fore)
 "tUn" = (
@@ -93093,13 +93088,6 @@
 	},
 /area/medical/surgeryobs)
 "xyP" = (
-/obj/machinery/door/window/eastright{
-	base_state = "left";
-	dir = 8;
-	icon_state = "left";
-	name = "Security Delivery";
-	req_access_txt = "1"
-	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/security/main)

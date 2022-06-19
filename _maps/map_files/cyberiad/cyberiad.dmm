@@ -2977,19 +2977,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/brig)
-"akE" = (
-/obj/machinery/door/window/eastright{
-	dir = 1;
-	name = "Security Delivery";
-	req_access_txt = "1"
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/brig)
 "akF" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -3860,6 +3847,9 @@
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/machinery/door/window/southright,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "amy" = (
@@ -22176,7 +22166,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "baM" = (
-/obj/structure/window/reinforced,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -23568,10 +23557,6 @@
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "bdL" = (
-/obj/machinery/door/window/southleft{
-	name = "Kitchen Delivery";
-	req_access_txt = "28"
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -23584,9 +23569,6 @@
 /obj/machinery/chem_master/condimaster{
 	name = "CondiMaster Neo";
 	pixel_x = -5
-	},
-/obj/structure/window/reinforced{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -31924,11 +31906,6 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bwe" = (
-/obj/machinery/door/window/eastright{
-	dir = 1;
-	name = "Bridge Delivery";
-	req_access_txt = "19"
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/bridge/meeting_room)
@@ -34255,6 +34232,9 @@
 	opacity = 1
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/door/window/southleft,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
 /turf/simulated/floor/plasteel,
 /area/bridge/meeting_room)
 "bBf" = (
@@ -40925,21 +40905,14 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
+/obj/machinery/door/window/eastright,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
 /area/medical/research)
 "bPk" = (
-/obj/machinery/door/window/eastright{
-	base_state = "left";
-	dir = 8;
-	icon_state = "left";
-	name = "Research Division Delivery";
-	req_access_txt = "47"
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
@@ -44830,16 +44803,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bWX" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/door/window/eastright{
-	base_state = "left";
-	dir = 1;
-	icon_state = "left";
-	name = "Medical Delivery";
-	req_access_txt = "5"
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -45674,10 +45637,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bYF" = (
-/obj/machinery/door/window/westleft{
-	name = "Janitoral Delivery";
-	req_access_txt = "26"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -45795,10 +45754,13 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/door/window/eastright,
+/obj/effect/mapping_helpers/airlock/access/any/service/janitor,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/maintenance/aft)
 "bYR" = (
@@ -47359,6 +47321,9 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
+/obj/machinery/door/window/westleft,
+/obj/effect/mapping_helpers/airlock/access/any/medical/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
 /turf/simulated/floor/plating,
 /area/medical/sleeper)
 "cbu" = (
@@ -48291,6 +48256,9 @@
 	id = "packageExternal"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/window/westright,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mail_sorting,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "ccZ" = (
@@ -62909,6 +62877,9 @@
 	opacity = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/window/northleft,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
 "cGV" = (
@@ -69764,6 +69735,9 @@
 	opacity = 1
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/service/bar,
+/obj/machinery/door/window/eastright,
 /turf/simulated/floor/plasteel,
 /area/maintenance/fsmaint)
 "cWv" = (
@@ -69852,13 +69826,8 @@
 /turf/simulated/floor/beach/sand,
 /area/hallway/secondary/exit)
 "cWG" = (
-/obj/machinery/door/window/southleft{
-	dir = 8;
-	name = "Bar Delivery";
-	req_access_txt = "25"
-	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "cWH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -70301,6 +70270,9 @@
 	codes_txt = "delivery";
 	location = "Kitchen"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/service/kitchen,
+/obj/machinery/door/window/northleft,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -74278,6 +74250,9 @@
 	opacity = 1
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/service/hydroponics,
+/obj/machinery/door/window/northleft,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -74796,11 +74771,6 @@
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "djt" = (
-/obj/machinery/door/window/eastright{
-	dir = 2;
-	name = "Hydroponics Delivery";
-	req_access_txt = "35"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
@@ -74825,9 +74795,6 @@
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
 "djw" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/machinery/alarm{
 	name = "north bump";
 	pixel_y = 24
@@ -115592,7 +115559,7 @@ bSu
 cbY
 ceT
 bSu
-bQV
+chf
 chf
 chf
 chf
@@ -118354,7 +118321,7 @@ aih
 aih
 aqX
 aqW
-akE
+aqW
 amw
 avq
 aCh
