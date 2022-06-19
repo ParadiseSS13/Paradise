@@ -458,7 +458,7 @@ Difficulty: Hard
 	name = "leg"
 	desc = "leg"
 	icon = 'icons/obj/watercloset.dmi'
-	icon_state = "rubberducky"
+	icon_state = "leg"
 	maxHealth = INFINITY //it's fine trust me
 	health = INFINITY
 	faction = list("mining", "boss") // No attacking your leg
@@ -508,7 +508,7 @@ Difficulty: Hard
 	return // stops the legs from trying to move on their own
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/beam_setup()
-	leg_part = Beam(core.beam, "rped_upgrade", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
+	leg_part = Beam(core.beam, "leg_connection", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/adjustHealth(amount, updating_health = TRUE)
 	var/damage = amount * transfer_rate
