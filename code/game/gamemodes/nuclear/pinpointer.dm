@@ -5,6 +5,7 @@
 #define MODE_SHIP 4
 #define MODE_OPERATIVE 5
 #define MODE_CREW 6
+#define MODE_TENDRIL 7
 #define SETTING_DISK 0
 #define SETTING_LOCATION 1
 #define SETTING_OBJECT 2
@@ -84,6 +85,8 @@
 			return "You point the pinpointer to the nearest operative."
 		if(MODE_CREW)
 			return "You turn on the pinpointer."
+		if(MODE_TENDRIL)
+			return "HIGH ENERGY SCANNER ACTIVE"
 
 /obj/item/pinpointer/proc/activate_mode(mode, mob/user) //for crew pinpointer
 	return
@@ -412,6 +415,48 @@
 	var/turf/there = get_turf(H)
 	return istype(there) && istype(here) && there.z == here.z
 
+/obj/item/pinpointer/tendril
+	name = "ancient scanning unit"
+	desc = "Convient that the scanning unit for the robot survived. Seems to point to the tendrils around here."
+	icon_state = "pinoff_ancient"
+	icon_off = "pinoff_ancient"
+	icon_null = "pinonnull_ancient"
+	icon_direct = "pinondirect_ancient"
+	icon_close = "pinonclose_ancient"
+	icon_medium = "pinonmedium_ancient"
+	icon_far = "pinonfar_ancient"
+	modes = list(MODE_TENDRIL)
+	var/obj/structure/spawner/lavaland/target = null
+
+/obj/item/pinpointer/tendril/process()
+	if(mode == MODE_TENDRIL)
+		worktendril()
+		point_at(target, FALSE)
+	else
+		icon_state = icon_off
+
+/obj/item/pinpointer/tendril/proc/worktendril()
+	if(mode == MODE_TENDRIL)
+		scan_for_tendrils()
+		point_at(target)
+	else
+		return FALSE
+
+/obj/item/pinpointer/tendril/proc/scan_for_tendrils()
+	if(mode == MODE_TENDRIL)
+		target = null //Resets nearest_op every time it scans
+		var/closest_distance = 1000
+		for(var/obj/structure/spawner/lavaland/T in GLOB.tendrils)
+			if(get_dist(T, get_turf(src)) < closest_distance)
+				target = T
+				closest_distance = get_dist(T, get_turf(src))
+
+/obj/item/pinpointer/tendril/examine(mob/user)
+	. = ..()
+	if(mode == MODE_TENDRIL)
+		. += "Number of high energy signatures remaining: [length(GLOB.tendrils)]"
+
+
 #undef MODE_OFF
 #undef MODE_DISK
 #undef MODE_NUKE
@@ -419,6 +464,7 @@
 #undef MODE_SHIP
 #undef MODE_OPERATIVE
 #undef MODE_CREW
+#undef MODE_TENDRIL
 #undef SETTING_DISK
 #undef SETTING_LOCATION
 #undef SETTING_OBJECT

@@ -64,8 +64,8 @@ Difficulty: Hard
 	pixel_x = -16
 	pixel_y = -16
 	del_on_death = TRUE
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/dragon/crusher)
-	loot = list(/obj/structure/closet/crate/necropolis/dragon)
+	crusher_loot = list(/obj/structure/closet/crate/necropolis/ancient/crusher)
+	loot = list(/obj/structure/closet/crate/necropolis/ancient)
 	internal_type = /obj/item/gps/internal/ancient
 	medal_type = BOSS_MEDAL_ROBOT
 	score_type = ROBOT_SCORE
@@ -102,6 +102,23 @@ Difficulty: Hard
 	if(mode == FLUX) // Main attack is shock, so flux makes it stronger
 		melee_damage_lower = 25
 		melee_damage_upper = 25
+	switch(mode)
+		if(BLUESPACE)
+			loot += /obj/item/assembly/signaler/anomaly/bluespace
+			crusher_loot += /obj/item/assembly/signaler/anomaly/bluespace
+		if(GRAV)
+			loot += /obj/item/assembly/signaler/anomaly/grav
+			crusher_loot += /obj/item/assembly/signaler/anomaly/grav
+		if(PYRO)
+			loot += /obj/item/assembly/signaler/anomaly/pyro
+			crusher_loot += /obj/item/assembly/signaler/anomaly/pyro
+		if(FLUX)
+			loot += /obj/item/assembly/signaler/anomaly/flux
+			crusher_loot += /obj/item/assembly/signaler/anomaly/flux
+		if(VORTEX)
+			loot += /obj/item/assembly/signaler/anomaly/vortex
+			crusher_loot += /obj/item/assembly/signaler/anomaly/vortex
+
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Destroy()
 	QDEL_NULL(TR)
@@ -457,7 +474,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg
 	name = "leg"
 	desc = "leg"
-	icon = 'icons/obj/watercloset.dmi'
+	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "leg"
 	maxHealth = INFINITY //it's fine trust me
 	health = INFINITY
