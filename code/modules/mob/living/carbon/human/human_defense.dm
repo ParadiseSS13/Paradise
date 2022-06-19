@@ -744,3 +744,7 @@ emp_act
 		to_chat(src, "<span class='danger'>Your [head.name] protects you from the [hot ? "hot" : "cold"] liquid!</span>")
 		return FALSE
 	return TRUE
+
+/mob/living/carbon/human/projectile_hit_check(obj/item/projectile/P)
+	return (IS_HORIZONTAL(src) && !resting) // hit mobs that are intentionally lying down to prevent combat crawling.
+

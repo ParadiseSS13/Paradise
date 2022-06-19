@@ -7,7 +7,7 @@
 	if(height==0)
 		return 1
 	if(istype(mover, /obj/item/projectile))
-		return (!density || horizontal)
+		return projectile_hit_check(mover)
 	if(mover.throwing)
 		return (!density || horizontal || (mover.throwing.thrower == src))
 	if(mover.checkpass(PASSMOB))
@@ -22,6 +22,8 @@
 			return TRUE
 	return (!mover.density || !density || horizontal)
 
+/mob/proc/projectile_hit_check(obj/item/projectile/P)
+	return !density
 
 /client/verb/toggle_throw_mode()
 	set hidden = 1
