@@ -26,6 +26,9 @@
 		R.amount = pick(10, 15) //ash drakes drop 5, this is perfectly fine
 
 
+/obj/structure/closet/crate/necropolis/ancient/ex_act(severity)
+	return
+
 /obj/structure/closet/crate/necropolis/ancient/crusher
 	name = "alloyed ancient supply cache"
 

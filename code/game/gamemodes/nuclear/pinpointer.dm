@@ -417,7 +417,7 @@
 
 /obj/item/pinpointer/tendril
 	name = "ancient scanning unit"
-	desc = "Convnient that the scanning unit for the robot survived. Seems to point to the tendrils around here."
+	desc = "Convenient that the scanning unit for the robot survived. Seems to point to the tendrils around here."
 	icon_state = "pinoff_ancient"
 	icon_off = "pinoff_ancient"
 	icon_null = "pinonnull_ancient"
