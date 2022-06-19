@@ -310,9 +310,9 @@
 	if(uv)
 		if(uv_super)
 			add_overlay("[base_icon_state]_super")
-			add_overlay("[base_icon_state]_[occupant ? "body" : "uvstrong"]"))
+			add_overlay("[base_icon_state]_[occupant ? "body" : "uvstrong"]")
 		else
-			add_overlay("[base_icon_state]_[occupant ? "body" : "uv"]"))
+			add_overlay("[base_icon_state]_[occupant ? "body" : "uv"]")
 		add_overlay("[base_icon_state]_lights_red")
 		return
 
@@ -327,7 +327,7 @@
 	else
 		add_overlay("[base_icon_state]_lights_closed")
 
-	add_overlay("[base_icon_state]_[occupant ? "body" : "ready"]"))
+	add_overlay("[base_icon_state]_[occupant ? "body" : "ready"]")
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked)
