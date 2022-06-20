@@ -1,16 +1,11 @@
-import { useBackend } from "../../backend";
+import { useBackend } from '../../backend';
 import { toFixed } from 'common/math';
-import { LabeledList, NumberInput, Button } from "../../components";
+import { LabeledList, NumberInput, Button } from '../../components';
 
 export const pai_radio = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const {
-    minFrequency,
-    maxFrequency,
-    frequency,
-    broadcasting,
-  } = data.app_data;
+  const { minFrequency, maxFrequency, frequency, broadcasting } = data.app_data;
 
   return (
     <LabeledList>
@@ -22,21 +17,24 @@ export const pai_radio = (props, context) => {
           minValue={minFrequency / 10}
           maxValue={maxFrequency / 10}
           value={frequency / 10}
-          format={value => toFixed(value, 1)}
-          onChange={(e, value) => act('freq', {
-            freq: value,
-          })} />
+          format={(value) => toFixed(value, 1)}
+          onChange={(e, value) =>
+            act('freq', {
+              freq: value,
+            })
+          }
+        />
         <Button
           tooltip="Reset"
           icon="undo"
-          onClick={() => act('freq', { freq: "145.9" })}
+          onClick={() => act('freq', { freq: '145.9' })}
         />
       </LabeledList.Item>
       <LabeledList.Item label="Broadcast Nearby Speech">
         <Button
           onClick={() => act('toggleBroadcast')}
           selected={broadcasting}
-          content={broadcasting ? "Enabled" : "Disabled"}
+          content={broadcasting ? 'Enabled' : 'Disabled'}
         />
       </LabeledList.Item>
     </LabeledList>

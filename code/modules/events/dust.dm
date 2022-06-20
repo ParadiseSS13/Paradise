@@ -39,6 +39,7 @@
 	var/endy = 0
 	var/endx = 0
 	var/startside = pick(GLOB.cardinal)
+	GLOB.meteor_list += src
 
 	switch(startside)
 		if(NORTH)
@@ -100,3 +101,7 @@
 
 /obj/effect/space_dust/ex_act(severity)
 	qdel(src)
+
+/obj/effect/space_dust/Destroy()
+	GLOB.meteor_list -= src
+	return ..()

@@ -140,7 +140,7 @@
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
 /mob/living/simple_animal/hostile/construct/armoured/bullet_act(obj/item/projectile/P)
-	if(istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam))
+	if(P.is_reflectable)
 		var/reflectchance = 80 - round(P.damage/3)
 		if(prob(reflectchance))
 			if((P.damage_type == BRUTE || P.damage_type == BURN))
@@ -288,10 +288,6 @@
 /mob/living/simple_animal/hostile/construct/behemoth/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
-
-/mob/living/simple_animal/hostile/construct/behemoth/Life(seconds, times_fired)
-	weakened = 0
-	return ..()
 
 
 /////////////////////////////Harvester/////////////////////////

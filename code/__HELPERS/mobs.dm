@@ -417,8 +417,8 @@
 	// By default, checks for weakness and stunned get added to the extra_checks list.
 	// Setting `use_default_checks` to FALSE means that you don't want the do_after to check for these statuses, or that you will be supplying your own checks.
 	if(use_default_checks)
-		extra_checks += CALLBACK(user, /mob.proc/IsWeakened)
-		extra_checks += CALLBACK(user, /mob.proc/IsStunned)
+		extra_checks += CALLBACK(user, /mob/living.proc/IsWeakened)
+		extra_checks += CALLBACK(user, /mob/living.proc/IsStunned)
 
 	while(world.time < endtime)
 		sleep(1)

@@ -232,28 +232,30 @@ const GASES = [
     'name': 'Agent B',
     'label': 'Agent B',
     'color': 'purple',
-  },  
+  },
 ];
 
 export const getGasLabel = (gasId, fallbackValue) => {
   const gasSearchString = String(gasId).toLowerCase();
-  const gas = GASES.find(gas => gas.id === gasSearchString
-    || gas.name.toLowerCase() === gasSearchString);
-  return gas && gas.label
-    || fallbackValue
-    || gasId;
+  const gas = GASES.find(
+    (gas) =>
+      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
+  );
+  return (gas && gas.label) || fallbackValue || gasId;
 };
 
-export const getGasColor = gasId => {
+export const getGasColor = (gasId) => {
   const gasSearchString = String(gasId).toLowerCase();
-  const gas = GASES.find(gas => gas.id === gasSearchString
-    || gas.name.toLowerCase() === gasSearchString);
+  const gas = GASES.find(
+    (gas) =>
+      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
+  );
   return gas && gas.color;
 };
 
 export const timeAgo = (ref_time, now_time) => {
   if (ref_time > now_time) {
-    return "in the future";
+    return 'in the future';
   }
 
   // deciseconds -> seconds
@@ -263,14 +265,14 @@ export const timeAgo = (ref_time, now_time) => {
   const diff = now_time - ref_time;
   if (diff > 3600) {
     const hours = Math.round(diff / 3600);
-    return hours + " hour" + (hours === 1 ? "" : "s") + " ago";
+    return hours + ' hour' + (hours === 1 ? '' : 's') + ' ago';
   } else if (diff > 60) {
     const mins = Math.round(diff / 60);
-    return mins + " minute" + (mins === 1 ? "" : "s") + " ago";
+    return mins + ' minute' + (mins === 1 ? '' : 's') + ' ago';
   } else {
     const secs = Math.round(diff);
-    return secs + " second" + (secs === 1 ? "" : "s") + " ago";
+    return secs + ' second' + (secs === 1 ? '' : 's') + ' ago';
   }
 
-  return "just now";
+  return 'just now';
 };

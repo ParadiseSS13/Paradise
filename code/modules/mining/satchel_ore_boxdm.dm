@@ -3,7 +3,7 @@
 
 /obj/structure/ore_box
 	icon = 'icons/obj/mining.dmi'
-	icon_state = "orebox0"
+	icon_state = "orebox"
 	name = "ore box"
 	desc = "A heavy wooden box, which can be filled with a lot of ores."
 	density = TRUE

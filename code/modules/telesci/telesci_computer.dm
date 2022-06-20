@@ -1,7 +1,7 @@
 /obj/machinery/computer/telescience
 	name = "telepad control console"
 	desc = "Used to teleport objects to and from the telescience telepad."
-	icon_keyboard = "telesci_key"
+	icon_keyboard = "tech_key"
 	icon_screen = "telesci"
 	circuit = /obj/item/circuitboard/telesci_console
 	req_access = list(ACCESS_RESEARCH)

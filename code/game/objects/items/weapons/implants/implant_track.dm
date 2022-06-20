@@ -1,7 +1,7 @@
 /obj/item/implant/tracking
 	name = "tracking implant"
 	desc = "Track with this."
-	activated = 0
+	activated = IMPLANT_ACTIVATED_PASSIVE
 	origin_tech = "materials=2;magnets=2;programming=2;biotech=2"
 	var/id = 1
 

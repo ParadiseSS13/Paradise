@@ -93,7 +93,7 @@
 /obj/structure/table/attack_hand(mob/living/user)
 	..()
 	if(climber)
-		climber.Weaken(2)
+		climber.Weaken(4 SECONDS)
 		climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You hear [climber.name] get knocked off the table</span>")
 	else if(Adjacent(user) && user.pulling && user.pulling.pass_flags & PASSTABLE)
 		user.Move_Pulled(src)
@@ -141,7 +141,7 @@
 /**
  * Determines whether a projectile crossing our turf should be stopped.
  * Return FALSE to stop the projectile.
- * 
+ *
  * Arguments:
  * * P - The projectile trying to cross.
  * * from - Where the projectile is located.
@@ -199,7 +199,7 @@
 			to_chat(user, "<span class='warning'>You cannot do this there is \a [blocking_object] in the way!</span>")
 			return FALSE
 		G.affecting.forceMove(get_turf(src))
-		G.affecting.Weaken(2)
+		G.affecting.Weaken(4 SECONDS)
 		item_placed(G.affecting)
 		G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
 									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
@@ -438,7 +438,7 @@
 		debris -= AM
 		if(istype(AM, /obj/item/shard))
 			AM.throw_impact(L)
-	L.Weaken(5)
+	L.Weaken(10 SECONDS)
 	qdel(src)
 
 /obj/structure/table/glass/deconstruct(disassembled = TRUE, wrench_disassembly = 0)

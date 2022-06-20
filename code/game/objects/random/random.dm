@@ -29,8 +29,8 @@
 /obj/random/tool
 	name = "Random Tool"
 	desc = "This is a random tool"
-	icon = 'icons/obj/items.dmi'
-	icon_state = "welder"
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "random_tool"
 
 /obj/random/tool/item_to_spawn()
 	return pick(/obj/item/screwdriver,\

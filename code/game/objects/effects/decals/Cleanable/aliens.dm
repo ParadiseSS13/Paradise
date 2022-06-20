@@ -43,6 +43,7 @@
 	desc = "It's a transparent semi-liquid from a slime or slime person. Don't lick it."
 	basecolor = "#0b8f70"
 	bloodiness = MAX_SHOE_BLOODINESS
+	alpha = BLOOD_SPLATTER_ALPHA_SLIME
 
 /obj/effect/decal/cleanable/blood/slime/can_bloodcrawl_in()
 	return FALSE

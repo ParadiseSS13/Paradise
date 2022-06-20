@@ -1,7 +1,4 @@
 {
-	"workbench.editorAssociations": {
-		"*.dmi": "imagePreview.previewEditor"
-	},
 	"gitlens.advanced.blame.customArguments": [
 		"--ignore-revs-file", "${workspaceRoot}/.git-blame-ignore-revs"
 	],
@@ -18,6 +15,12 @@
 	],
 	"eslint.format.enable": true,
 	"[javascript]": {
-		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+		"editor.rulers": [80]
 	},
+	"[typescript]": {
+		"editor.rulers": [80]
+	},
+	"[scss]": {
+		"editor.rulers": [80]
+	}
 }
