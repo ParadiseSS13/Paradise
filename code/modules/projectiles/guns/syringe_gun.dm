@@ -108,9 +108,9 @@
 	var/reservoir_volume = 300
 	/// Possible amounts to fill each syringe with, toggleable by alt-clicking.
 	var/list/possible_transfer_amounts = list(5, 10, 15)
-	/// Index of possible_transfer_amounts that's currently active
+	/// Index of possible_transfer_amounts that's currently active.
 	var/transfer_amount_selection = 1
-	/// Amount of reagents to transfer out at once if no syringe is loaded
+	/// Amount of reagents to transfer out at once if no syringe is loaded.
 	var/reservoir_transfer_amount = 15
 	/// Whether or not we've alerted the user that the reservoir is empty.
 	var/alarmed = TRUE  // start out alarmed so a click just after buying doesn't give it away
