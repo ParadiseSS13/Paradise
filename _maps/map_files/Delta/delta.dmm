@@ -4938,7 +4938,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/security/customs)
+/area/maintenance/fore)
 "avg" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -6093,7 +6093,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
-/area/maintenance/disposal)
+/area/maintenance/fore2)
 "axy" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -8610,7 +8610,7 @@
 	req_access_txt = "26"
 	},
 /turf/simulated/floor/plating,
-/area/janitor)
+/area/maintenance/fore)
 "aDt" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -12332,18 +12332,12 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
-"aLF" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "46"
-	},
-/turf/simulated/floor/plating,
-/area/clownoffice)
 "aLG" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "46"
 	},
 /turf/simulated/floor/plating,
-/area/mimeoffice)
+/area/maintenance/starboard)
 "aLH" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -44633,11 +44627,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -45332,11 +45321,6 @@
 	pixel_x = -24;
 	pixel_y = -6
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/button/windowtint{
 	dir = 4;
@@ -45955,7 +45939,6 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
@@ -78447,7 +78430,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
-/area/medical/research)
+/area/maintenance/apmaint)
 "dBj" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -82329,7 +82312,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/dark,
-/area/chapel/office)
+/area/maintenance/apmaint)
 "dKZ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -84579,7 +84562,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/aft)
+/area/maintenance/aft)
 "dQu" = (
 /obj/item/bonegel{
 	pixel_x = 6;
@@ -89939,6 +89922,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/clownoffice)
+"iwk" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/rust,
+/area/medical/surgery)
 "iwQ" = (
 /obj/machinery/light_switch{
 	name = "north bump";
@@ -90246,7 +90233,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/lawoffice)
+/area/maintenance/starboard2)
 "jav" = (
 /obj/machinery/door/airlock{
 	name = "Magistrate's Office";
@@ -96473,7 +96460,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/crew_quarters/theatre)
+/area/maintenance/fore)
 "wZe" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -147776,7 +147763,7 @@ aFt
 aFt
 cSX
 dDE
-cXI
+iwk
 dlz
 dlz
 dcF
@@ -148544,7 +148531,7 @@ cLo
 cMM
 aHQ
 cQf
-aLF
+aLG
 boG
 dDy
 dlz
