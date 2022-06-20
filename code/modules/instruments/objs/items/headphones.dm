@@ -3,8 +3,9 @@
 	desc = "Unce unce unce unce."
 	icon_state = "headphones0"
 	item_state = "headphones0"
-	actions_types = list(/datum/action/item_action/change_headphones_song)
+	actions_types = list(/datum/action/item_action/change_headphones_song, /datum/action/item_action/toggle_music_notes)
 	var/datum/song/headphones/song
+	var/on = FALSE
 
 /obj/item/clothing/ears/headphones/Initialize(mapload)
 	. = ..()
@@ -19,8 +20,14 @@
 	QDEL_NULL(song)
 	return ..()
 
-/obj/item/clothing/ears/headphones/attack_self(mob/user)
-	ui_interact(user)
+/obj/item/clothing/ears/headphones/ui_action_click(mob/user, actiontype)
+	if(actiontype == /datum/action/item_action/change_headphones_song)
+		ui_interact(user)
+	else
+		on = !on
+		icon_state = "headphones[on]"
+		item_state = "headphones[on]"
+		update_icon()
 
 /obj/item/clothing/ears/headphones/ui_data(mob/user)
 	return song.ui_data(user)

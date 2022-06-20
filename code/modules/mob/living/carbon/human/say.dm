@@ -83,8 +83,10 @@
 	if(has_changer)
 		return has_changer
 
-	if(mind && mind.changeling && mind.changeling.mimicing)
-		return mind.changeling.mimicing
+	if(mind)
+		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+		if(cling?.mimicing)
+			return cling.mimicing
 
 	if(GetSpecialVoice())
 		return GetSpecialVoice()

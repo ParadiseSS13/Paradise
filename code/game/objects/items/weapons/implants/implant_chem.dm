@@ -4,6 +4,7 @@
 	icon_state = "reagents"
 	origin_tech = "materials=3;biotech=4"
 	container_type = OPENCONTAINER
+	trigger_causes = IMPLANT_TRIGGER_DEATH_ANY
 
 /obj/item/implant/chem/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
@@ -30,12 +31,8 @@
 	GLOB.tracked_implants -= src
 	return ..()
 
-
-
-
-/obj/item/implant/chem/trigger(emote, mob/source, force)
-	if(force && emote == "deathgasp")
-		activate(reagents.total_volume)
+/obj/item/implant/chem/death_trigger(mob/victim, gibbed)
+	activate(reagents.total_volume)
 
 /obj/item/implant/chem/activate(cause)
 	if(!cause || !imp_in)	return 0

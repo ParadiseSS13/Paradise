@@ -757,17 +757,6 @@
 				if(!has_embedded_objects())
 					clear_alert("embeddedobject")
 
-/mob/living/carbon/human/handle_changeling()
-	if(mind.changeling)
-		mind.changeling.regenerate(src)
-		if(hud_used)
-			hud_used.lingchemdisplay.invisibility = 0
-			hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"
-	else
-		if(hud_used)
-			hud_used.lingchemdisplay.invisibility = 101
-
-
 /mob/living/carbon/human/proc/handle_pulse(times_fired)
 	if(times_fired % 5 == 1)
 		return pulse	//update pulse every 5 life ticks (~1 tick/sec, depending on server load)

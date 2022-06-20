@@ -62,7 +62,7 @@
 	SetLoseBreath(0)
 
 	if(!gibbed && deathgasp_on_death)
-		emote("deathgasp", force = TRUE)
+		emote("deathgasp")
 
 	if(mind && suiciding)
 		mind.suicided = TRUE
