@@ -225,6 +225,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define LOCKDOWN_TRAIT "lockdown"
 #define STAT_TRAIT "stat_trait"
 #define TRANSFORMING_TRAIT "transforming"
+#define BUCKLING_TRAIT "buckled"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
@@ -239,8 +240,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IMMOBILIZED "immobilized"
 /// Prevents voluntary standing or staying up on its own.
 #define TRAIT_FLOORED "floored"
-/// Forces user to stay standing
-#define TRAIT_FORCED_STANDING "forcedstanding"
 /// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
 #define TRAIT_HANDS_BLOCKED "handsblocked"
 /// Inability to access UI hud elements.

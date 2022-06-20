@@ -100,6 +100,8 @@ STATUS EFFECTS
 /mob/living/proc/set_body_position(new_value)
 	if(body_position == new_value)
 		return
+	if(buckled) // if they are buckled they aint movin nowhere
+		return
 	. = body_position
 	body_position = new_value
 	if(new_value == LYING_DOWN) // From standing to lying down.

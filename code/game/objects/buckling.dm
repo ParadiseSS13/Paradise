@@ -73,16 +73,16 @@
 	if(!check_loc && M.loc != loc)
 		M.forceMove(loc)
 
-	M.buckling = null
-	M.buckled = src
-	M.setDir(dir)
-	buckled_mobs |= M
-	ADD_TRAIT(M, TRAIT_IMMOBILIZED, "buckled")
-	M.throw_alert("buckled", /obj/screen/alert/restrained/buckled)
 	if(!buckle_lying)
 		M.set_body_position(STANDING_UP)
 	else
 		M.set_body_position(LYING_DOWN)
+	M.buckling = null
+	M.buckled = src
+	M.setDir(dir)
+	buckled_mobs |= M
+	ADD_TRAIT(M, TRAIT_IMMOBILIZED, BUCKLING_TRAIT)
+	M.throw_alert("buckled", /obj/screen/alert/restrained/buckled)
 	post_buckle_mob(M)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)
 	return TRUE
@@ -99,12 +99,12 @@
 		. = buckled_mob
 		buckled_mob.buckled = null
 		buckled_mob.anchored = initial(buckled_mob.anchored)
-		REMOVE_TRAIT(buckled_mob, TRAIT_IMMOBILIZED, "buckled")
+		REMOVE_TRAIT(buckled_mob, TRAIT_IMMOBILIZED, BUCKLING_TRAIT)
 		buckled_mob.clear_alert("buckled")
 		buckled_mobs -= buckled_mob
 		SEND_SIGNAL(src, COMSIG_MOVABLE_UNBUCKLE, buckled_mob, force)
-		if(buckled_mob.mobility_flags & MOBILITY_STAND)
-			buckled_mob.set_body_position(STANDING_UP)
+		if((buckled_mob.mobility_flags & MOBILITY_STAND) && !buckled_mob.resting)
+			buckled_mob.stand_up()
 		else if(!buckle_lying)
 			buckled_mob.fall()
 
