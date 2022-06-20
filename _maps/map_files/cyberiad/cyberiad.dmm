@@ -78738,14 +78738,18 @@
 	icon_state = "cult"
 	},
 /area/lawoffice)
-"ftp" = (
-/obj/structure/closet/radiation,
-/obj/machinery/light{
-	dir = 4
+"fwF" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
+/turf/simulated/floor/engine,
 /area/engine/engineering)
 "fAw" = (
 /obj/machinery/tcomms/core/station,
@@ -78773,19 +78777,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
-"fFT" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/engine,
-/area/engine/engineering)
 "fFY" = (
 /obj/effect/decal/warning_stripes/northwest,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -80566,6 +80557,15 @@
 	icon_state = "dark"
 	},
 /area/tcommsat/chamber)
+"oYa" = (
+/obj/structure/closet/radiation,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engine/engineering)
 "paA" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -106010,9 +106010,9 @@ aab
 aab
 aab
 aab
-aab
-aab
-aab
+aaa
+afX
+afX
 aab
 aab
 afX
@@ -106267,9 +106267,9 @@ aaa
 aaa
 aaa
 aab
-aaa
-aaa
-aaa
+afX
+afX
+dmD
 aaa
 aaa
 afX
@@ -106524,9 +106524,9 @@ aaa
 aaa
 aaa
 aab
-aab
-aab
-aab
+afX
+dmD
+dmD
 aab
 aab
 afX
@@ -106781,8 +106781,8 @@ aaa
 aaa
 aaa
 aab
-aaa
-aaa
+aab
+aab
 aaa
 aab
 aaa
@@ -108597,8 +108597,8 @@ afX
 dmD
 afX
 aaa
-aaa
-aaa
+afX
+afX
 aaa
 aaa
 aaa
@@ -108853,10 +108853,10 @@ aaa
 afX
 dmD
 afX
-aaa
-aaa
 aab
-aaa
+dmD
+afX
+afX
 aaa
 aaa
 aaa
@@ -109111,9 +109111,9 @@ afX
 afX
 afX
 aab
-aab
-aab
-aab
+dmD
+dmD
+afX
 aaa
 aaa
 aaa
@@ -109368,8 +109368,8 @@ aaa
 aaa
 aaa
 aab
-aaa
-aaa
+aab
+aab
 aaa
 aaa
 aab
@@ -111664,7 +111664,7 @@ cTx
 cWH
 qcg
 dfs
-fFT
+fwF
 kUR
 wiS
 hvD
@@ -113979,7 +113979,7 @@ vBs
 aMM
 ttp
 dsx
-ftp
+oYa
 cSU
 ePY
 cTA
