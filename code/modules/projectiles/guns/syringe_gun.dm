@@ -195,6 +195,7 @@
 
 	else if(istype(A, /obj/item/reagent_containers/syringe))
 		insert_single_syringe(A, user)
+		return TRUE
 
 	else if(istype(A, /obj/item/reagent_containers))
 		// Loading with chemicals (but not from syringes)
@@ -251,6 +252,13 @@
 		// Refill the syringe
 		update_loaded_syringe()
 		return TRUE
+	else if(!alarmed && !reagents.total_volume && (!chambered?.BB || !chambered.BB.reagents.total_volume))
+		// Play an alert when the reservoir has run out of reagents so people don't unknowingly dump empty syringes into their foes
+		// Running out of syringes is just handled by *click*
+		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 25, 1, frequency=60000)
+		to_chat(user, "<span class='userdanger'>[src] beeps: Internal reservoir empty!</span>")
+		alarmed = TRUE
+		return TRUE
 	else
 		return ..()
 
@@ -264,15 +272,6 @@
 	playsound(src, 'sound/weapons/gun_interactions/selector.ogg', 25, 1)
 	to_chat(user, "<span class='notice'>[src] will now fill each syringe with up to [get_units_per_shot()] units.</span>")
 	update_loaded_syringe()
-
-/// Play an alert when the reservoir has run out of reagents so people don't unknowingly dump empty syringes into their foes
-/// Running out of syringes is just handled by *click*
-/obj/item/gun/syringe/rapidsyringe/afterattack(atom/target, mob/living/user, flag, params)
-	. = ..()
-	if(!alarmed && !reagents.total_volume && (!chambered?.BB || !chambered.BB.reagents.total_volume))
-		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 25, 1, frequency=60000)
-		to_chat(user, "<span class='userdanger'>[src] beeps: Internal reservoir empty!</span>")
-		alarmed = TRUE
 
 /// Update the chambered syringe's contents based on the reservoir contents.
 /// Makes sure that what's contained in the syringe is representative of the mix as a whole.
