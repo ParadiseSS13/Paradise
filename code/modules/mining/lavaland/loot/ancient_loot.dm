@@ -34,5 +34,5 @@
 
 /obj/structure/closet/crate/necropolis/ancient/crusher/populate_contents()
 	. = ..()
-	//new /obj/item/crusher_trophy/robot_item_code_this(src)
+	new /obj/item/crusher_trophy/adaptive_intelligence_core(src)
 
