@@ -426,7 +426,7 @@
 	icon_medium = "pinonmedium_ancient"
 	icon_far = "pinonfar_ancient"
 	modes = list(MODE_TENDRIL)
-	var/obj/structure/spawner/lavaland/target = null
+	var/obj/structure/spawner/lavaland/target
 
 /obj/item/pinpointer/tendril/process()
 	if(mode == MODE_TENDRIL)
