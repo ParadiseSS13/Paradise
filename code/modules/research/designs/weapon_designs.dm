@@ -230,7 +230,7 @@
 
 /datum/design/xray
 	name = "Xray Laser Gun Parts Kit"
-	desc = "A full conversion kit for a laser gun allowing it fire through walls."
+	desc = "A full conversion kit for a laser gun allowing it to fire through walls."
 	id = "xray"
 	req_tech = list("combat" = 7, "magnets" = 5, "biotech" = 5, "powerstorage" = 4)
 	build_type = PROTOLATHE
