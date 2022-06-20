@@ -96,22 +96,24 @@
 	can_unsuppress = 0 //Permanently silenced
 
 // Not quite a syringe gun, but also not completely unlike one either.
+// Uses an internal reservoir instead of separately filled syringes, and can unload them
+// at a breakneck pace.
 /obj/item/gun/syringe/rapidsyringe
 	name = "rapid syringe gun"
 	desc = "A syndicate rapid syringe gun based on an archived NanoTrasen prototype. Capable of storing and filling syringes from an internal reservoir. It has a large flap on the side that you can dump a box or bag of syringes into, and a port for filling it with liquid."
 	icon_state = "rapidsyringegun"
 	max_syringes = 14  // full two boxes worth
-	/// Index of possible transfer amounts to select
-	var/transfer_amount_selection = 1
 	/// Maximum size of the internal reservoir
 	var/reservoir_volume = 300
-	/// Possible options for alt-clicking the
+	/// Possible amounts to fill each syringe with, toggleable by alt-clicking.
 	var/list/possible_transfer_amounts = list(5, 10, 15)
+	/// Index of possible_transfer_amounts that's currently active
+	var/transfer_amount_selection = 1
 	/// Amount of reagents to transfer out at once if no syringe is loaded
 	var/reservoir_transfer_amount = 15
 	/// Whether or not we've alerted the user that the reservoir is empty.
-	var/alarmed = TRUE  // start out alarmed so misclicks don't immediately give it away
-	container_type = AMOUNT_VISIBLE | TRANSPARENT  // We'll handle it ourselves tyvm
+	var/alarmed = TRUE  // start out alarmed so a click just after buying doesn't give it away
+	container_type = AMOUNT_VISIBLE | TRANSPARENT  // We'll handle transfers ourselves
 
 /obj/item/gun/syringe/rapidsyringe/Initialize(mapload)
 	. = ..()
@@ -252,12 +254,14 @@
 		// Refill the syringe
 		update_loaded_syringe()
 		return TRUE
-	else if(!alarmed && !reagents.total_volume && (!chambered?.BB || !chambered.BB.reagents.total_volume))
+	else if(!reagents.total_volume && (!chambered?.BB || !chambered.BB.reagents.total_volume))
 		// Play an alert when the reservoir has run out of reagents so people don't unknowingly dump empty syringes into their foes
 		// Running out of syringes is just handled by *click*
-		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 25, 1, frequency=60000)
-		to_chat(user, "<span class='userdanger'>[src] beeps: Internal reservoir empty!</span>")
-		alarmed = TRUE
+		if(!alarmed)
+			playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 25, 1, frequency=60000)
+			alarmed = TRUE
+		// always send the to_chat so there's still feedback if the gun tries to fire
+		to_chat(user, "<span class='userdanger'>[src] beeps: Internal chemical reservoir empty!</span>")
 		return TRUE
 	else
 		return ..()
@@ -330,7 +334,7 @@
 	if(!chambered?.BB)
 		visible_message("<span class='danger'>[user] puts [user.p_their()] mouth to [src]'s reagent port and swings [user.p_their()] head back, it looks like [user.p_theyre()] trying to commit suicide!</span>")
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='userdanger'>...but the reservoir is empty!</span>")
+			visible_message("<span class='danger'>...but there was nothing inside!</span>")
 			return SHAME
 		else
 			reagents.trans_to(user, reagents.total_volume)
@@ -358,13 +362,12 @@
 	number_to_preload = max_syringes / 2
 	. = ..()
 
-
-
-/// For shenanigans. This is essentially an RSG that never needs to be refilled.
+/// For shenanigans. This is essentially an RSG that never needs to be refilled with syringes.
 /obj/item/gun/syringe/rapidsyringe/preloaded/beaker_blaster
 	name = "beaker buster"
 	desc = "A syringe gun presumably cobbled together with the power of bluespace and powerful stimulants. Can shoot large amounts of reagents with an endless supply of syringes."
 	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50)
+	reservoir_volume = 10000  // stupid big
 	max_syringes = 3  // doesn't really matter since they regen
 
 /obj/item/gun/syringe/rapidsyringe/preloaded/beaker_blaster/process_chamber()
