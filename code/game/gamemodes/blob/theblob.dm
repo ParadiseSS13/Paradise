@@ -228,10 +228,11 @@
 	brute_resist = 0.25
 
 /obj/structure/blob/normal/update_name()
+	. = ..()
 	if(obj_integrity <= 15)
 		name = "fragile blob"
 	else
-		name = [overmind ? "blob" : "dead blob"]
+		name = "[overmind ? "blob" : "dead blob"]"
 
 /obj/structure/blob/normal/update_desc()
 	. = ..()
