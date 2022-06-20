@@ -65,7 +65,7 @@
 	M.pixel_y = M.get_standard_pixel_y_offset()
 
 /obj/structure/bed/post_unbuckle_mob(mob/living/M)
-	M.pixel_y = M.get_standard_pixel_x_offset()
+	M.pixel_y = M.get_standard_pixel_y_offset()
 
 /*
  * Roller beds

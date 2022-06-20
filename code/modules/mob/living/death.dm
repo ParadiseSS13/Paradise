@@ -67,7 +67,7 @@
 	hud_used?.reload_fullscreen()
 	update_sight()
 	update_action_buttons_icon()
-	fall()
+	ADD_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
 	update_damage_hud()
 	update_health_hud()
 	med_hud_set_health()
