@@ -371,7 +371,7 @@
 /obj/item/gun/syringe/rapidsyringe/preloaded/beaker_blaster/process_chamber()
 	. = ..()
 	// add a new syringe so it's technically infinite
-	insert_single_syringe(new /obj/item/reagent_containers/syringe())
+	insert_single_syringe(new /obj/item/reagent_containers/syringe)
 
 /obj/item/gun/syringe/rapidsyringe/preloaded/beaker_blaster/attack_self(mob/living/user)
 	// no printing infinite syringes.
