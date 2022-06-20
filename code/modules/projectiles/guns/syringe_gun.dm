@@ -49,18 +49,19 @@
 		return FALSE
 
 	var/obj/item/reagent_containers/syringe/S
-	if(chambered.BB) // Remove the chambered syringe first
+	if(length(syringes))
+		S = syringes[length(syringes)]
+	else if(chambered.BB)
+		// Remove the chambered syringe only if there's no syringe left
 		S = new()
 		chambered.BB.reagents.trans_to(S, chambered.BB.reagents.total_volume)
 		qdel(chambered.BB)
 		chambered.BB = null
-	else
-		S = syringes[length(syringes)]
+		process_chamber()
 
 	user.put_in_hands(S)
 	syringes.Remove(S)
-	process_chamber()
-	to_chat(user, "<span class='notice'>You unload [S] from \the [src]!</span>")
+	to_chat(user, "<span class='notice'>You unload [S] from [src]!</span>")
 	return TRUE
 
 /obj/item/gun/syringe/attackby(obj/item/A, mob/user, params, show_msg = TRUE)
@@ -69,7 +70,7 @@
 		if(in_clip < max_syringes)
 			if(!user.unEquip(A))
 				return
-			to_chat(user, "<span class='notice'>You load [A] into \the [src]!</span>")
+			to_chat(user, "<span class='notice'>You load [A] into [src]!</span>")
 			syringes.Add(A)
 			A.loc = src
 			process_chamber() // Chamber the syringe if none is already
@@ -178,15 +179,16 @@
 			return TRUE
 
 		var/total_inserted = 0
+		var/found_any_syringe = FALSE
 		for(var/obj/item/reagent_containers/syringe/S in container)
+			found_any_syringe = TRUE
 			if((length(syringes) + (chambered?.BB ? 1 : 0)) == max_syringes)
 				// full
 				break
 
-			// only allow empty syringes
-			if(!S.reagents.total_volume)
-				syringes += S
-				S.forceMove(src)
+			// only allow empty syringes.
+			// no user call here since it'd otherwise be spamming the user with chat messages.
+			if(insert_single_syringe(S))
 				total_inserted++
 
 		if(total_inserted)
@@ -194,6 +196,10 @@
 			to_chat(user, "<span class='notice'>You load [total_inserted] empty syringes into [src].")
 			// Chamber a syringe.
 			process_chamber()
+
+		else if(!found_any_syringe)
+			to_chat(user, "<span class='warning'>There are no empty syringes in [A]!</span>")
+			return TRUE
 
 	else if(istype(A, /obj/item/reagent_containers/syringe))
 		insert_single_syringe(A, user)
@@ -257,11 +263,12 @@
 	else if(!reagents.total_volume && (!chambered?.BB || !chambered.BB.reagents.total_volume))
 		// Play an alert when the reservoir has run out of reagents so people don't unknowingly dump empty syringes into their foes
 		// Running out of syringes is just handled by *click*
+		to_chat(user, "<span class='[alarmed ? "danger" : "userdanger"]'>[src] [alarmed ? "beeps" : "whines"]: Internal chemical reservoir empty!</span>")
 		if(!alarmed)
 			playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 25, 1, frequency=60000)
 			alarmed = TRUE
 		// always send the to_chat so there's still feedback if the gun tries to fire
-		to_chat(user, "<span class='userdanger'>[src] beeps: Internal chemical reservoir empty!</span>")
+
 		return TRUE
 	else
 		return ..()
