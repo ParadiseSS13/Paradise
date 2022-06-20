@@ -78738,6 +78738,15 @@
 	icon_state = "cult"
 	},
 /area/lawoffice)
+"ftp" = (
+/obj/structure/closet/radiation,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engine/engineering)
 "fAw" = (
 /obj/machinery/tcomms/core/station,
 /obj/machinery/camera{
@@ -78764,6 +78773,19 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
+"fFT" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/engine,
+/area/engine/engineering)
 "fFY" = (
 /obj/effect/decal/warning_stripes/northwest,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -78911,19 +78933,6 @@
 	filter_type = -1
 	},
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/engine,
-/area/engine/engineering)
-"gdQ" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "gei" = (
@@ -79809,15 +79818,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"kRj" = (
-/obj/structure/closet/radiation,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/engine/engineering)
 "kTA" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -111664,7 +111664,7 @@ cTx
 cWH
 qcg
 dfs
-gdQ
+fFT
 kUR
 wiS
 hvD
@@ -113979,7 +113979,7 @@ vBs
 aMM
 ttp
 dsx
-kRj
+ftp
 cSU
 ePY
 cTA
@@ -114226,7 +114226,7 @@ cZS
 cTj
 cUx
 cZS
-dcq
+cZS
 tbU
 gAm
 eMw
@@ -114483,7 +114483,7 @@ cLS
 cSZ
 dtc
 cWp
-dcq
+cZS
 hPB
 edp
 hPB
@@ -114740,12 +114740,12 @@ cOF
 deJ
 dfF
 qoT
-dcq
-dcq
-dcq
-dcq
-dcq
-dcq
+cZS
+cZS
+cZS
+cZS
+cZS
+cZS
 dcq
 deL
 dcq
