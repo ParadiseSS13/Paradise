@@ -391,9 +391,7 @@
 	if(S)
 		S.duration = amount + world.time
 	else if(amount > 0)
-		S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount)
-		if(voluntary)
-			S.voluntary = TRUE
+		S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount, voluntary)
 	if(!voluntary && S)
 		// Only set it one way (true => false)
 		// Otherwise if we are hard knocked out, and then try to nap, we'd be
