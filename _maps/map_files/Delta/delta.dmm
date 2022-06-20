@@ -89929,7 +89929,8 @@
 /area/clownoffice)
 "iwk" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/medical/surgery)
 "iwQ" = (
 /obj/machinery/light_switch{
