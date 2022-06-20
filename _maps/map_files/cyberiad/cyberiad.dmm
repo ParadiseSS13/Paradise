@@ -66008,8 +66008,8 @@
 	req_access_txt = "32"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -81244,6 +81244,15 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"szv" = (
+/obj/structure/closet/radiation,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engine/engineering)
 "sAi" = (
 /obj/structure/chair/stool,
 /obj/item/wrench,
@@ -113961,7 +113970,7 @@ vBs
 aMM
 ttp
 dsx
-cTm
+szv
 cSU
 ePY
 cTA
