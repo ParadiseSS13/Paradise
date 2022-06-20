@@ -4,7 +4,7 @@
 
 /datum/design/nuclear_gun
 	name = "Advanced Energy Gun Parts Kit"
-	desc = "The kit for an energy gun with an experimental miniaturized reactor."
+	desc = "A kit for an energy gun with an experimental miniaturized reactor."
 	id = "nuclear_gun"
 	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5)
 	build_type = PROTOLATHE
@@ -45,7 +45,7 @@
 
 /datum/design/ioncarbine
 	name = "Ion Carbine Parts Kit"
-	desc = "How to dismantle a cyborg : The gun."
+	desc = "How to dismantle a cyborg: The gun."
 	id = "ioncarbine"
 	req_tech = list("combat" = 5, "magnets" = 4)
 	build_type = PROTOLATHE
@@ -127,7 +127,7 @@
 
 /datum/design/plasmapistol
 	name = "Plasma Pistol Parts Kit"
-	desc = "A specialized firearm kit designed to fire heated bolts of plasma. Can be charged up for a shield breaking shot."
+	desc = "A kit for a specialized firearm designed to fire heated bolts of plasma. Can be charged up for a shield breaking shot."
 	id = "ppistol"
 	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5, "plasmatech" = 5)
 	build_type = PROTOLATHE
@@ -230,7 +230,7 @@
 
 /datum/design/xray
 	name = "Xray Laser Gun Parts Kit"
-	desc = "Not quite as menacing as it sounds"
+	desc = "A full conversion kit for a laser gun allowing it fire through walls."
 	id = "xray"
 	req_tech = list("combat" = 7, "magnets" = 5, "biotech" = 5, "powerstorage" = 4)
 	build_type = PROTOLATHE
