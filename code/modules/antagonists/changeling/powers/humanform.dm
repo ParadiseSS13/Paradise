@@ -9,20 +9,9 @@
 
 //Transform into a human.
 /datum/action/changeling/humanform/sting_action(mob/living/carbon/human/user)
-	var/datum/changeling/changeling = user.mind.changeling
-	var/list/names = list()
-	for(var/datum/dna/DNA in (changeling.absorbed_dna+changeling.protected_dna))
-		names += "[DNA.real_name]"
-
-	var/chosen_name = input("Select the target DNA: ", "Target DNA", null) as null|anything in names
-	if(!chosen_name)
-		return
-
-	var/datum/dna/chosen_dna = changeling.GetDNA(chosen_name)
-	if(!chosen_dna)
-		return
-	if(!user)
-		return 0
+	var/datum/dna/chosen_dna = cling.select_dna("Select the target DNA: ", "Target DNA")
+	if(!chosen_dna || !user)
+		return FALSE
 	to_chat(user, "<span class='notice'>We transform our appearance.</span>")
 	user.dna.SetSEState(GLOB.monkeyblock,0,1)
 	singlemutcheck(user,GLOB.monkeyblock, MUTCHK_FORCED)
@@ -37,8 +26,7 @@
 	user.sync_organ_dna(1)
 	user.UpdateAppearance()
 
-	changeling.purchasedpowers -= src
-	//O.mind.changeling.purchasedpowers += new /datum/action/changeling/lesserform(null)
-	src.Remove(user)
+	cling.acquired_powers -= src
+	Remove(user)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
-	return 1
+	return TRUE

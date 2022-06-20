@@ -3,36 +3,33 @@
 	desc = "Absorb the DNA of our victim. Requires us to strangle them."
 	button_icon_state = "absorb_dna"
 	chemical_cost = 0
-	dna_cost = 0
-	req_human = 1
+	power_type = CHANGELING_INNATE_POWER
+	req_human = TRUE
 	max_genetic_damage = 100
 
 /datum/action/changeling/absorbDNA/can_sting(mob/living/carbon/user)
 	if(!..())
-		return
+		return FALSE
 
-	var/datum/changeling/changeling = user.mind.changeling
-	if(changeling.isabsorbing)
+	if(cling.is_absorbing)
 		to_chat(user, "<span class='warning'>We are already absorbing!</span>")
-		return
+		return FALSE
 
 	var/obj/item/grab/G = user.get_active_hand()
 	if(!istype(G))
 		to_chat(user, "<span class='warning'>We must be grabbing a creature in our active hand to absorb them.</span>")
-		return
+		return FALSE
 	if(G.state <= GRAB_NECK)
 		to_chat(user, "<span class='warning'>We must have a tighter grip to absorb this creature.</span>")
-		return
+		return FALSE
 
-	var/mob/living/carbon/target = G.affecting
-	return changeling.can_absorb_dna(user,target)
+	return cling.can_absorb_dna(G.affecting)
 
 /datum/action/changeling/absorbDNA/sting_action(mob/user)
-	var/datum/changeling/changeling = user.mind.changeling
 	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/human/target = G.affecting
-	changeling.isabsorbing = 1
-	for(var/stage = 1, stage<=3, stage++)
+	cling.is_absorbing = TRUE
+	for(var/stage in 1 to 3)
 		switch(stage)
 			if(1)
 				to_chat(user, "<span class='notice'>This creature is compatible. We must hold still...</span>")
@@ -47,15 +44,15 @@
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "[stage]"))
 		if(!do_mob(user, target, 150))
 			to_chat(user, "<span class='warning'>Our absorption of [target] has been interrupted!</span>")
-			changeling.isabsorbing = 0
-			return
+			cling.is_absorbing = FALSE
+			return FALSE
 
 	to_chat(user, "<span class='notice'>We have absorbed [target]!</span>")
 	user.visible_message("<span class='danger'>[user] sucks the fluids from [target]!</span>")
 	to_chat(target, "<span class='danger'>You have been absorbed by the changeling!</span>")
 
-	if(!changeling.has_dna(target.dna))
-		changeling.absorb_dna(target, user)
+	if(!cling.get_dna(target.dna))
+		cling.absorb_dna(target)
 
 	if(user.nutrition < NUTRITION_LEVEL_WELL_FED)
 		user.set_nutrition(min((user.nutrition + target.nutrition), NUTRITION_LEVEL_WELL_FED))
@@ -73,7 +70,7 @@
 		else
 			recent_speech = target.say_log.Copy()
 
-		if(recent_speech.len)
+		if(length(recent_speech))
 			user.mind.store_memory("<B>Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!</B>")
 			to_chat(user, "<span class='boldnotice'>Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!</span>")
 			for(var/spoken_memory in recent_speech)
@@ -82,43 +79,23 @@
 			user.mind.store_memory("<B>We have no more knowledge of [target]'s speech patterns.</B>")
 			to_chat(user, "<span class='boldnotice'>We have no more knowledge of [target]'s speech patterns.</span>")
 
-		if(target.mind.changeling)//If the target was a changeling, suck out their extra juice and objective points!
-			changeling.chem_charges += min(target.mind.changeling.chem_charges, changeling.chem_storage)
-			changeling.absorbedcount += (target.mind.changeling.absorbedcount)
+		var/datum/antagonist/changeling/target_cling = target.mind.has_antag_datum(/datum/antagonist/changeling)
+		if(target_cling)//If the target was a changeling, suck out their extra juice and objective points!
+			cling.chem_charges += min(target_cling.chem_charges, cling.chem_storage)
+			cling.absorbed_count += (target_cling.absorbed_count)
 
-			target.mind.changeling.absorbed_dna.len = 1
-			target.mind.changeling.absorbedcount = 0
+			target_cling.absorbed_dna.len = 1
+			target_cling.absorbed_count = 0
 
-	changeling.chem_charges=min(changeling.chem_charges+10, changeling.chem_storage)
+	cling.chem_charges = min(cling.chem_charges + 10, cling.chem_storage)
 
-	changeling.isabsorbing = 0
-	changeling.canrespec = 1
+	cling.is_absorbing = FALSE
+	cling.can_respec = TRUE
 	var/datum/action/changeling/evolution_menu/E = locate() in user.actions
 	SStgui.update_uis(E)
 
-	target.death(0)
+	target.death(FALSE)
 	target.Drain()
-	return 1
-
-//Absorbs the target DNA.
-/datum/changeling/proc/absorb_dna(mob/living/carbon/T, mob/user)
-	T.dna.real_name = T.real_name //Set this again, just to be sure that it's properly set.
-	var/datum/dna/new_dna = T.dna.Clone()
-	//Steal all of their languages!
-	for(var/language in T.languages)
-		if(!(language in absorbed_languages))
-			absorbed_languages += language
-		user.changeling_update_languages(absorbed_languages)
-
-	absorbedcount++
-	store_dna(new_dna, user)
-
-/datum/changeling/proc/store_dna(datum/dna/new_dna, mob/user)
-	for(var/datum/objective/escape/escape_with_identity/E in user.mind.objectives)
-		if(E.target_real_name == new_dna.real_name)
-			protected_dna |= new_dna
-			return
-	absorbed_dna |= new_dna
-	trim_dna()
+	return TRUE
 
 #undef LING_ABSORB_RECENT_SPEECH

@@ -1,19 +1,16 @@
-//Augmented Eyesight: Gives you thermal and night vision - bye bye, flashlights. Also, high DNA cost because of how powerful it is.
-//Possible todo: make a custom message for directing a penlight/flashlight at the eyes - not sure what would display though.
-
 /datum/action/changeling/augmented_eyesight
 	name = "Augmented Eyesight"
 	desc = "Creates more light sensing rods in our eyes, allowing our vision to penetrate most blocking objects. Protects our vision from flashes while inactive."
 	helptext = "Grants us x-ray vision or flash protection. We will become a lot more vulnerable to flash-based devices while x-ray vision is active."
 	button_icon_state = "augmented_eyesight"
 	chemical_cost = 0
-	dna_cost = 2 //Would be 1 without thermal vision
+	dna_cost = 2
 	active = FALSE
+	power_type = CHANGELING_PURCHASABLE_POWER
 
-/datum/action/changeling/augmented_eyesight/on_purchase(mob/user) //The ability starts inactive, so we should be protected from flashes.
-	if(!istype(user))
+/datum/action/changeling/augmented_eyesight/on_purchase(mob/user, /datum/antagonist/changeling/C) //The ability starts inactive, so we should be protected from flashes.
+	if(!..())
 		return
-	..()
 	var/obj/item/organ/internal/eyes/E = user.get_organ_slot("eyes")
 	if(E)
 		E.flash_protect = FLASH_PROTECTION_WELDER //Adjust the user's eyes' flash protection
@@ -23,7 +20,7 @@
 
 /datum/action/changeling/augmented_eyesight/sting_action(mob/living/carbon/user)
 	if(!istype(user))
-		return
+		return FALSE
 	..()
 	var/obj/item/organ/internal/eyes/E = user.get_organ_slot("eyes")
 	if(E)

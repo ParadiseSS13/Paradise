@@ -6,6 +6,7 @@
 	chemical_cost = 20
 	dna_cost = 1
 	req_stat = UNCONSCIOUS
+	power_type = CHANGELING_PURCHASABLE_POWER
 
 //Heals the things that the other regenerative abilities don't.
 /datum/action/changeling/panacea/sting_action(mob/user)
@@ -41,4 +42,4 @@
 		D.cure()
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
-	return 1
+	return TRUE
