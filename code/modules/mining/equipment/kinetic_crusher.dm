@@ -75,7 +75,7 @@
 		A = target.apply_status_effect(STATUS_EFFECT_ADAPTIVELEARNING)
 	if(A)
 		temp_force_bonus = A.bonus_damage
-		A.bonus_damage += min(adaptive_damage_bonus, 20)
+		A.bonus_damage = min((A.bonus_damage + adaptive_damage_bonus), 20)
 	force += temp_force_bonus
 	..()
 	force -= temp_force_bonus
