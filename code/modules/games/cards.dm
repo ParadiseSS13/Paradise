@@ -18,20 +18,20 @@
 	actions_types = list(/datum/action/item_action/draw_card, /datum/action/item_action/deal_card, /datum/action/item_action/deal_card_multi, /datum/action/item_action/shuffle)
 	var/list/cards = list()
 	var/cooldown = 0 // to prevent spam shuffle
-	var/deck_size = 1
-	var/deck_style = null
+	var/deck_size = 1 // Decks default to a single pack, setting it higher will multiply them by that number
+	var/deck_style = null // Styling for the cards, if they have multiple sets of sprites
 	var/simple_deck = FALSE // For decks without a full set of sprites
 	throw_speed = 3
 	throw_range = 10
 	throwforce = 0
 	force = 0
-	var/card_hitsound
-	var/card_force = 0
-	var/card_throwforce = 0
-	var/card_throw_speed = 4
-	var/card_throw_range = 20
-	var/card_attack_verb
-	var/card_resistance_flags = FLAMMABLE
+	var/card_hitsound // Inherited card hit sound
+	var/card_force = 0 // Inherited card force
+	var/card_throwforce = 0 // Inherited card throw force
+	var/card_throw_speed = 4 // Inherited card throw speed
+	var/card_throw_range = 20 // Inherited card throw range
+	var/card_attack_verb // Inherited card verbs
+	var/card_resistance_flags = FLAMMABLE // Inherited card resistance
 
 /obj/item/deck/Initialize(mapload)
 	. = ..()
@@ -128,7 +128,7 @@
 		return
 
 	var/obj/item/cardhand/H = M.is_in_hands(/obj/item/cardhand)
-	if(H && !(H.parentdeck == src))
+	if(H && (H.parentdeck != src))
 		to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
 		return
 	if(H && ((1 + length(H.cards)) > H.maxcardlen))
@@ -142,6 +142,7 @@
 	var/datum/playingcard/P = cards[1]
 	H.cards += P
 	cards -= P
+	update_icon()
 	H.parentdeck = src
 	H.update_values()
 	H.update_icon()
@@ -294,9 +295,9 @@
 
 	var/concealed = FALSE
 	var/list/cards = list()
-	var/direction = NORTH
+	var/direction = NORTH // Tracked direction, which is used when updating the hand's appearance instead of messing with the local dir
 	var/parentdeck = null
-	var/pickedcard = null
+	var/pickedcard = null // The player's picked card they want to take out. Stored in the hand so it can be passed onto the verb
 
 /obj/item/cardhand/proc/update_values()
 	if(parentdeck)
@@ -351,11 +352,11 @@
 	user.visible_message("<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>")
 
 /obj/item/cardhand/interact(mob/user)
-	var/dat = "You have:<BR>"
+	var/dat = "You have:<br>"
 	for(var/t in cards)
-		dat += "<A href='?src=[UID()];pick=[t]'>The [t]</A><BR>"
-	dat += "Which card will you remove next?<BR>"
-	dat += "<A href='?src=[UID()];pick=Turn'>Turn the hand over</A>"
+		dat += "<a href='?src=[UID()];pick=[t]'>The [t]</a><br>"
+	dat += "Which card will you remove next?<br>"
+	dat += "<a href='?src=[UID()];pick=Turn'>Turn the hand over</a>"
 	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
 	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.set_content(dat)
@@ -378,7 +379,7 @@
 
 /obj/item/cardhand/examine(mob/user)
 	. = ..()
-	if((!concealed) && length(cards))
+	if(!concealed && length(cards))
 		. +="<span class='notice'>It contains:</span>"
 		for(var/datum/playingcard/P in cards)
 			. +="<span class='notice'>the [P.name].</span>"
@@ -457,7 +458,7 @@
 
 	var/mob/living/carbon/user = usr
 
-	var/maxcards = min(length(cards),5)
+	var/maxcards = min(length(cards), 5)
 	var/discards = input("How many cards do you want to discard? You may discard up to [maxcards] card(s)") as num
 	if(discards > maxcards)
 		return

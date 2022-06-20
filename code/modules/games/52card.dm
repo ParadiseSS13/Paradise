@@ -56,7 +56,7 @@
 			icon_state = "deck_[deck_style]_empty"
 		if(1 to 20)
 			icon_state = "deck_double_[deck_style]_low"
-		if(22 to 52)
+		if(21 to 52)
 			icon_state = "deck_double_[deck_style]_half"
 		else
 			icon_state = "deck_double_[deck_style]_full"
