@@ -110,7 +110,7 @@
 	/// Amount of reagents to transfer out at once if no syringe is loaded
 	var/reservoir_transfer_amount = 15
 	/// Whether or not we've alerted the user that the reservoir is empty.
-	var/alarmed = FALSE
+	var/alarmed = TRUE  // start out alarmed so misclicks don't immediately give it away
 	container_type = AMOUNT_VISIBLE | TRANSPARENT  // We'll handle it ourselves tyvm
 
 /obj/item/gun/syringe/rapidsyringe/Initialize(mapload)
@@ -223,7 +223,7 @@
 
 // Allow for emptying your deathmix, or for sec to find out what you were dumping into people
 /obj/item/gun/syringe/rapidsyringe/afterattack(atom/target, mob/living/user, flag, params)
-	if(istype(target, /obj/item/reagent_containers) && !istype(target, /obj/item/reagent_containers/syringe))
+	if(istype(target, /obj/item/reagent_containers))
 		var/obj/item/reagent_containers/destination = target
 
 		if(!destination.is_refillable())
