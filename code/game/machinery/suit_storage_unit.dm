@@ -309,25 +309,25 @@
 
 	if(uv)
 		if(uv_super)
-			. += "[base_icon_state]_uvstrong"
 			. += "[base_icon_state]_super"
+			. += "[base_icon_state]_[occupant ? "body" : "uvstrong"]"
 		else
-			. += "[base_icon_state]_uv"
+			. += "[base_icon_state]_[occupant ? "body" : "uv"]"
 		. += "[base_icon_state]_lights_red"
 		return
 
 	if(state_open)
 		. += "[base_icon_state]_open"
-		. += "[base_icon_state]_ready"
 		if(suit)
 			. += "[base_icon_state]_suit"
 		if(helmet)
 			. += "[base_icon_state]_helm"
 		if(storage)
 			. += "[base_icon_state]_storage"
-		return
-	. += "[base_icon_state]_ready"
-	. += "[base_icon_state]_lights_closed"
+	else
+		. += "[base_icon_state]_lights_closed"
+
+	. += "[base_icon_state]_[occupant ? "body" : "ready"]"
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked)

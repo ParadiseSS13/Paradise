@@ -66,7 +66,7 @@
 				if(!M.newFreeFormLaw)
 					to_chat(usr, "No law detected on module, please create one.")
 					return
-				laws.add_inherent_law(M.newFreeFormLaw)
+				laws.add_supplied_law(M.lawpos, M.newFreeFormLaw)
 				to_chat(usr, "<span class='notice'>Added a freeform law.</span>")
 				return
 
