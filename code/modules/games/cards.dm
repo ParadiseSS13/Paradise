@@ -19,7 +19,9 @@
 	var/list/cards = list()
 	var/cooldown = 0 // to prevent spam shuffle
 	var/deck_size = 1 // Decks default to a single pack, setting it higher will multiply them by that number
-	var/deck_style = null // Styling for the cards, if they have multiple sets of sprites
+	var/deck_total = 0 // The total number of cards. Set on init after the deck is fully built
+	var/card_style = null // Styling for the cards, if they have multiple sets of sprites
+	var/deck_style = null // Styling for the deck, it they has multiple sets of sprites
 	var/simple_deck = FALSE // For decks without a full set of sprites
 	throw_speed = 3
 	throw_range = 10
@@ -37,6 +39,7 @@
 	. = ..()
 	for(var/deck in 1 to deck_size)
 		build_deck()
+	deck_total = length(cards)
 
 /obj/item/deck/proc/build_deck()
 	return
