@@ -73218,7 +73218,6 @@
 /obj/item/rpd,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "dfp" = (
@@ -80892,6 +80891,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"qFC" = (
+/obj/structure/closet/radiation,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engine/engineering)
 "qGn" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 4
@@ -81244,15 +81252,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
-"szv" = (
-/obj/structure/closet/radiation,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/engine/engineering)
 "sAi" = (
 /obj/structure/chair/stool,
 /obj/item/wrench,
@@ -113970,7 +113969,7 @@ vBs
 aMM
 ttp
 dsx
-szv
+qFC
 cSU
 ePY
 cTA
