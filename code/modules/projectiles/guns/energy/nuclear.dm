@@ -66,7 +66,7 @@
 	desc = "An advanced energy revolver with the capacity to shoot both disablers and lasers."
 	cell_type = /obj/item/stock_parts/cell/hos_gun
 	icon_state = "bsgun"
-	item_state = "gun"
+	item_state = "bsgun"
 	force = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1

@@ -3,7 +3,7 @@
 	desc = "A stun baton for incapacitating people with."
 	icon_state = "stunbaton"
 	var/base_icon = "stunbaton"
-	item_state = "baton"
+	item_state = "stunbaton"
 	belt_icon = "stunbaton"
 	slot_flags = SLOT_BELT
 	force = 10
@@ -58,11 +58,13 @@
 /obj/item/melee/baton/update_icon()
 	if(turned_on)
 		icon_state = "[base_icon]_active"
+		item_state = "[base_icon]_active"
 	else if(!cell)
 		icon_state = "[base_icon]_nocell"
+		item_state = "[base_icon]"
 	else
 		icon_state = "[base_icon]"
-
+		item_state = "[base_icon]"
 /obj/item/melee/baton/examine(mob/user)
 	. = ..()
 	if(isrobot(user))

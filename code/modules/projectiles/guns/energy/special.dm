@@ -26,7 +26,6 @@
 	name = "ion carbine"
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
 	icon_state = "ioncarbine"
-	belt_icon = "ioncarbine"
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = SLOT_BELT
 	ammo_x_offset = 2
@@ -115,7 +114,7 @@
 	unique_frequency = TRUE
 	can_flashlight = 0
 	max_mod_capacity = 0
-	empty_state = "crossbow_empty"
+	empty_state = null
 	can_holster = TRUE
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/detailed_examine()
@@ -135,8 +134,6 @@
 	origin_tech = "combat=4;magnets=4;syndicate=2"
 	suppressed = 0
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
-	empty_state = "crossbowlarge_empty"
-	can_holster = FALSE
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large/cyborg
 	desc = "One and done!"
@@ -733,7 +730,8 @@
 /obj/item/gun/energy/temperature/proc/update_charge()
 	var/charge = cell.charge
 	switch(charge)
-		if(800 to INFINITY)		overlays += "800"
+		if(900 to INFINITY)		overlays += "900"
+		if(800 to 900)			overlays += "800"
 		if(700 to 800)			overlays += "700"
 		if(600 to 700)			overlays += "600"
 		if(500 to 600)			overlays += "500"

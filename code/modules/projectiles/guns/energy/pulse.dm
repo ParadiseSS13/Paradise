@@ -39,7 +39,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
 	icon_state = "pulse_pistol"
-	item_state = "gun"
+	item_state = null
 	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/pulse/pistol
 	can_charge = 0
