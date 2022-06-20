@@ -67402,11 +67402,16 @@
 /turf/space,
 /area/solar/port)
 "cRf" = (
-/obj/effect/spawner/window/reinforced/plasma,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cRg" = (
 /obj/machinery/access_button{
@@ -67509,17 +67514,14 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "cRp" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/obj/structure/table/reinforced,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/clothing/gloves/color/black,
-/obj/item/clothing/glasses/meson/engine,
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cRq" = (
 /obj/structure/cable/yellow{
@@ -67534,6 +67536,7 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_y = -32
 	},
+/obj/structure/closet/secure_closet/engineering_welding,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cRt" = (
@@ -68043,10 +68046,15 @@
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)
 "cSx" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/machinery/door/airlock/engineering/glass{
+	autoclose = 0;
+	frequency = 1379;
+	id_tag = "sm_airlock_exterior";
+	locked = 1;
+	name = "Supermatter Exterior Access";
+	req_access_txt = "10"
 	},
+/turf/simulated/floor/plating,
 /area/engine/engineering)
 "cSA" = (
 /obj/machinery/atmospherics/binary/pump/on{
@@ -68482,23 +68490,19 @@
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)
 "cTx" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
+	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cTA" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -68653,14 +68657,21 @@
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cTP" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
+	d1 = 2;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -69049,16 +69060,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cUM" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1379;
-	master_tag = "sm_airlock_control";
-	name = "Supermatter Access Button";
-	pixel_y = -24;
-	req_access_txt = "10"
-	},
-/obj/machinery/hologram/holopad,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cUN" = (
@@ -69356,23 +69358,14 @@
 	},
 /area/crew_quarters/toilet)
 "cVw" = (
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	frequency = 1379;
-	id_tag = "sm_airlock_interior";
-	locked = 1;
-	name = "Supermatter Interior Access";
-	req_access_txt = "10"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/plating,
 /area/engine/engineering)
 "cVx" = (
 /obj/structure/disposalpipe/segment{
@@ -69468,11 +69461,6 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -69749,8 +69737,19 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/bar)
 "cWH" = (
-/obj/structure/closet/firecloset,
-/turf/simulated/floor/plasteel,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/engine/engineering)
 "cWI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -69769,15 +69768,12 @@
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cWK" = (
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	frequency = 1379;
-	id_tag = "sm_airlock_exterior";
-	locked = 1;
-	name = "Supermatter Exterior Access";
-	req_access_txt = "10"
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
+	icon_state = "radiation";
+	name = "RADIOACTIVE AREA"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/wall/r_wall,
 /area/engine/engineering)
 "cWL" = (
 /obj/structure/table,
@@ -70367,12 +70363,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cYm" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/machinery/hologram/holopad,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "sm_airlock_control";
+	name = "Supermatter Access Button";
+	pixel_y = -24;
+	req_access_txt = "10"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -70521,22 +70520,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/storage/secure)
-"cYD" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1379;
-	master_tag = "sm_airlock_control";
-	name = "Supermatter Access Button";
-	pixel_y = 24;
-	req_access_txt = "10"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/engine/engineering)
 "cYH" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/radio/intercom{
@@ -70611,22 +70594,8 @@
 	},
 /area/hallway/primary/central/west)
 "cYQ" = (
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	frequency = 1379;
-	id_tag = "sm_airlock_exterior";
-	locked = 1;
-	name = "Supermatter Exterior Access";
-	req_access_txt = "10"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
+/obj/machinery/light,
+/turf/simulated/floor/noslip,
 /area/engine/engineering)
 "cYS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -70968,26 +70937,31 @@
 	network = list("engine");
 	pixel_y = 30
 	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cZQ" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "sm_airlock_control";
+	name = "Supermatter Access Button";
+	pixel_y = 24;
+	req_access_txt = "10"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/engine/engineering)
 "cZR" = (
-/obj/machinery/vending/assist,
-/turf/simulated/floor/plasteel,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/plating,
 /area/engine/engineering)
 "cZS" = (
 /turf/simulated/wall/r_wall,
@@ -71547,17 +71521,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dbr" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1379;
-	master_tag = "sm_airlock_control";
-	name = "Supermatter Access Button";
-	pixel_y = -24;
-	req_access_txt = "10"
-	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -72839,15 +72803,6 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "deA" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/wall/r_wall,
-/area/engine/engineering)
-"deB" = (
 /obj/machinery/door/airlock/engineering/glass{
 	autoclose = 0;
 	frequency = 1379;
@@ -72856,16 +72811,24 @@
 	name = "Supermatter Interior Access";
 	req_access_txt = "10"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
+/area/engine/engineering)
+"deB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/wall/r_wall,
 /area/engine/engineering)
 "deC" = (
 /obj/effect/spawner/window/reinforced/plasma,
@@ -73235,6 +73198,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
 "dfq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/plating,
+/area/engine/engineering)
+"dfr" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -73250,7 +73220,7 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"dfr" = (
+"dfs" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -73262,19 +73232,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/engine,
-/area/engine/engineering)
-"dfs" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/decal/warning_stripes/north,
-/obj/structure/table/reinforced,
-/obj/item/clothing/suit/radiation,
-/obj/item/clothing/head/radiation,
-/obj/item/clothing/glasses/meson,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "dft" = (
@@ -73697,15 +73654,16 @@
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
 "dgJ" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+/obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1379;
+	master_tag = "sm_airlock_control";
+	name = "Supermatter Access Button";
+	pixel_y = -24;
+	req_access_txt = "10"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -78574,7 +78532,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "eAt" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -78956,6 +78913,19 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"gdQ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/engine,
+/area/engine/engineering)
 "gei" = (
 /obj/structure/window/plasmareinforced{
 	dir = 4
@@ -79316,7 +79286,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall,
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/plating,
 /area/engine/engineering)
 "hSm" = (
 /obj/structure/table/wood,
@@ -79838,6 +79809,15 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"kRj" = (
+/obj/structure/closet/radiation,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engine/engineering)
 "kTA" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -80296,6 +80276,10 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/table/reinforced,
+/obj/item/clothing/suit/radiation,
+/obj/item/clothing/head/radiation,
+/obj/item/clothing/glasses/meson,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "mXT" = (
@@ -80779,8 +80763,24 @@
 	},
 /area/engine/engineering)
 "qcg" = (
-/obj/machinery/light,
-/turf/simulated/floor/noslip,
+/obj/machinery/door/airlock/engineering/glass{
+	autoclose = 0;
+	frequency = 1379;
+	id_tag = "sm_airlock_interior";
+	locked = 1;
+	name = "Supermatter Interior Access";
+	req_access_txt = "10"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/engine/engineering)
 "qdn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -80891,15 +80891,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
-"qFC" = (
-/obj/structure/closet/radiation,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/engine/engineering)
 "qGn" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 4
@@ -82061,16 +82052,35 @@
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
 "wEY" = (
-/obj/machinery/vending/engivend,
-/turf/simulated/floor/plasteel,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/table/reinforced,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/glasses/meson/engine,
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/engine,
 /area/engine/engineering)
 "wFO" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
+/obj/machinery/door/airlock/engineering/glass{
+	autoclose = 0;
+	frequency = 1379;
+	id_tag = "sm_airlock_exterior";
+	locked = 1;
+	name = "Supermatter Exterior Access";
+	req_access_txt = "10"
 	},
-/turf/simulated/wall/r_wall,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
 /area/engine/engineering)
 "wGJ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -109593,10 +109603,10 @@ cSM
 cTH
 cXJ
 cVj
-cWH
+cVj
+cVj
 cSv
-cSv
-pOj
+cZR
 fFY
 deF
 deF
@@ -109850,10 +109860,10 @@ dtk
 cVj
 cXx
 cVj
-wFO
-sZP
-sZP
-wnU
+cVj
+cVj
+cUM
+dfq
 hxf
 jbt
 cRb
@@ -110107,9 +110117,9 @@ dtl
 cVj
 duK
 cVj
+cWK
 sZP
-cTm
-cSN
+sZP
 wnU
 cRq
 lKP
@@ -110366,9 +110376,9 @@ cXx
 cVj
 sZP
 cTm
-ePY
-cRf
-cRp
+cSN
+wnU
+cVB
 xuG
 wGJ
 vmA
@@ -110621,7 +110631,7 @@ cVU
 jJn
 cXx
 cVj
-wFO
+sZP
 cTm
 ePY
 idF
@@ -110879,10 +110889,10 @@ uku
 cXx
 cVj
 cWK
-cSx
-cSx
+cTm
+ePY
 cVw
-cVB
+wEY
 xuG
 ffY
 jUZ
@@ -111134,12 +111144,12 @@ cTM
 cWf
 cWI
 cXF
-cUM
-cSU
-cYD
+cVj
+cSx
+dbr
 dbr
 deA
-dfq
+cVB
 xuG
 egO
 iRc
@@ -111390,9 +111400,9 @@ cUw
 cId
 cIw
 uku
-cTx
+duK
 cYm
-cYQ
+cSU
 cZQ
 dgJ
 deB
@@ -111648,13 +111658,13 @@ cIe
 cIy
 eAt
 cTP
-cVj
+cRp
 wFO
-tQJ
-dhv
-deC
+cTx
+cWH
+qcg
 dfs
-xuG
+gdQ
 kUR
 wiS
 hvD
@@ -111904,9 +111914,9 @@ cHk
 cRR
 cRR
 cZP
-cXx
+cRf
 cVj
-cSU
+cWK
 tQJ
 dhv
 deC
@@ -112165,7 +112175,7 @@ cXJ
 cVj
 cSU
 tQJ
-qcg
+dhv
 hQW
 mWa
 sud
@@ -112420,9 +112430,9 @@ cWj
 cWI
 cXF
 cVj
-wFO
-sZP
-sZP
+cSU
+tQJ
+cYQ
 euu
 cVB
 xuG
@@ -112677,10 +112687,10 @@ cZM
 cVj
 cXx
 cVj
-cVj
-cZR
-wEY
-scM
+cWK
+sZP
+sZP
+euu
 hbq
 lKP
 rhs
@@ -113969,7 +113979,7 @@ vBs
 aMM
 ttp
 dsx
-qFC
+kRj
 cSU
 ePY
 cTA
