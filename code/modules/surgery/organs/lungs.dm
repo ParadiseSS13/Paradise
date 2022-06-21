@@ -77,10 +77,10 @@
 
 	if(is_bruised())
 		if(prob(2) && !(NO_BLOOD in owner.dna.species.species_traits))
-			owner.custom_emote(1, "coughs up blood!")
+			owner.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
 			owner.bleed(1)
 		if(prob(4))
-			owner.custom_emote(1, "gasps for air!")
+			owner.custom_emote(EMOTE_VISIBLE, "gasps for air!")
 			owner.AdjustLoseBreath(10 SECONDS)
 
 /obj/item/organ/internal/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
@@ -345,6 +345,38 @@
 	icon_state = "lungs-c"
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
+	var/species_state = "human"
+
+/obj/item/organ/internal/lungs/cybernetic/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] is configured for [species_state] standards of atmosphere.</span>"
+
+/obj/item/organ/internal/lungs/cybernetic/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	switch(species_state)
+		if("human") // from human to vox
+			safe_oxygen_min = 0
+			safe_oxygen_max = safe_toxins_max
+			safe_nitro_min = 16
+			oxy_damage_type = TOX
+			to_chat(user, "<span class='notice'>You configure [src] to replace vox lungs.</span>")
+			species_state = "vox"
+		if("vox") // from vox to plasmamen
+			safe_oxygen_max = initial(safe_oxygen_max)
+			safe_toxins_min = 16
+			safe_toxins_max = 0
+			safe_nitro_min = initial(safe_nitro_min)
+			oxy_damage_type = OXY
+			to_chat(user, "<span class='notice'>You configure [src] to replace plasmamen lungs.</span>")
+			species_state = "plasmamen"
+		if("plasmamen") // from plasmamen to human
+			safe_oxygen_min = initial(safe_oxygen_min)
+			safe_toxins_min = initial(safe_toxins_min)
+			safe_toxins_max = initial(safe_toxins_max)
+			to_chat(user, "<span class='notice'>You configure [src] back to default settings.</span>")
+			species_state = "human"
 
 /obj/item/organ/internal/lungs/cybernetic/upgraded
 	name = "upgraded cybernetic lungs"

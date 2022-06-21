@@ -32,6 +32,7 @@
 	var/cooldown = 0
 	var/species_disguise = null
 	var/magical = FALSE
+	var/dyeable = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
@@ -454,7 +455,7 @@ BLIND     // can't see anything
 	slot_flags = SLOT_FEET
 
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
-	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
+	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0, BLOOD_BASE_ALPHA = BLOODY_FOOTPRINT_BASE_ALPHA)
 
 	permeability_coefficient = 0.50
 	slowdown = SHOES_SLOWDOWN

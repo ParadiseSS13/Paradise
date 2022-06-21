@@ -33,8 +33,8 @@
 	screen_loc = ui_lingstingdisplay
 
 /obj/screen/ling/sting/Click()
-	var/mob/living/carbon/U = usr
-	U.unset_sting()
+	var/datum/antagonist/changeling/cling = usr.mind.has_antag_datum(/datum/antagonist/changeling)
+	cling?.chosen_sting?.unset_sting()
 
 /obj/screen/ling/chems
 	name = "chemical storage"

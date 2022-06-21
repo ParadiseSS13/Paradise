@@ -2279,7 +2279,8 @@
 	name = "MO19 Research"
 	})
 "dZ" = (
-/turf/simulated/wall/r_wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
 /area/awaycontent/a2{
 	name = "MO19 Research"
 	})
@@ -2597,7 +2598,8 @@
 	name = "MO19 Research"
 	})
 "eK" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/awaycontent/a2{
 	name = "MO19 Research"
 	})
@@ -2698,7 +2700,8 @@
 /turf/simulated/wall,
 /area/awaycontent/a7)
 "eU" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/awaycontent/a7)
 "eV" = (
 /turf/simulated/wall/r_wall,
@@ -3257,7 +3260,8 @@
 /turf/simulated/floor/plating,
 /area/awaycontent/a7)
 "fP" = (
-/turf/simulated/wall/r_wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
 /area/awaycontent/a7)
 "fQ" = (
 /obj/structure/cable{
@@ -3546,7 +3550,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
 /area/awaycontent/a2{
 	name = "MO19 Research"
 	})
@@ -4495,7 +4500,8 @@
 	name = "MO19 Research"
 	})
 "hJ" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
 	})
@@ -5207,7 +5213,8 @@
 	})
 "iU" = (
 /obj/machinery/computer/security/telescreen/entertainment,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/awaycontent/a1{
 	name = "MO19 Arrivals"
 	})

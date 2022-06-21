@@ -208,12 +208,12 @@
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
 	else if(slot == slot_wear_suit)
-		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes")
+		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user)
 	. = ..()
 	if(user)
-		REMOVE_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes")
+		REMOVE_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
 
 /obj/item/clothing/head/hooded/flagellant_hood
 	name = "flagellant's robes"

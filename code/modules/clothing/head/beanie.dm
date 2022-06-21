@@ -11,6 +11,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		)
+	dyeable = TRUE
 
 /obj/item/clothing/head/beanie/black
 	name = "black beanie"
