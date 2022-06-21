@@ -119,6 +119,8 @@
 			H.update_fhair()
 
 /datum/species/machine/handle_life(mob/living/carbon/human/H)
+	if(isLivingSSD(affected_mob)) // We don't want AFK people dying from this.
+			return
 	if(H.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA - 30)
 		if(prob(3))
 			H.adjustBrainLoss(4)
