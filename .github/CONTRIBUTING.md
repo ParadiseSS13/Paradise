@@ -505,15 +505,14 @@ in the SQL/updates folder.
 * For map edit PRs, we do not accept 'change for the sake of change' remaps, unless you have very good reasoning to do so. Maintainers reserve the right to close your PR if we disagree with your reasoning.
 
 * Map Merge
-  * The following guideline for map merging applies to people who are **NOT** using StrongDMM, please see the StrongDMM section if you are.
-    * You **MUST** run Map Merge prior to opening your PR when updating existing maps to minimize the change differences (even when using third party mapping programs such as FastDMM.)
-    * Failure to run Map Merge on a map after using third party mapping programs (such as FastDMM) greatly increases the risk of the map's key dictionary becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
+  * The following guideline for map merging applies to **aALL** mapping contributers.
+    * Before committing a map change, you **MUST** run mapmerge2 to normalise your changes. You can do this manually before every commit with `"\tools\mapmerge2\Run Before Committing.bat"` or automatically by installing the hooks at `"\tools\hooks\Install.bat"`.
+    * Failure to run Map Merge on a map after editing greatly increases the risk of the map's key dictionary becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
 
 * StrongDMM
-  * When using StrongDMM, the following options **MUST** be enabled to avoid file bloat. They can be found under `File > Preferences > Save Options` in SDMM.
-    * Map save format: This **MUST** be set to **TGM** if you do not want to run Map Merge. Enabling this setting means SDMM will automatically map merge, letting you skip manual merging.
+  * When using StrongDMM, the following options should be enabled to avoid file bloat. They can be found under `File > Preferences` in SDMM2.
     * Sanitize Variables - Removes variables that are declared on the map, but are the same as default. (For example: A standard floor turf that has `dir = 2` declared on the map will have that variable deleted as it is redundant.)
-    * Clean Unused Keys - Removes content tile keys that are no longer used on the map, usually leftover keys from deletions or edits.
+    * Save format - Either `Initial` or `TGM`, never `DM`.
 
 * Variable Editing (Var-edits)
   * While var-editing an item within the editor is perfectly fine, it is preferred that when you are changing the base behavior of an item (how it functions) that you make a new subtype of that item within the code, especially if you plan to use the item in multiple locations on the same map, or across multiple maps. This makes it easier to make corrections as needed to all instances of the item at one time as opposed to having to find each instance of it and change them all individually.
