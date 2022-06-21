@@ -130,6 +130,12 @@
 
 	return ..()
 
+/obj/item/gun/syringe/rapidsyringe/vv_edit_var(var_name, var_value)
+	. = ..()
+	switch(var_name)
+		if("reservoir_volume")
+			reagents.maximum_volume = var_value
+
 /obj/item/gun/syringe/rapidsyringe/build_reagent_description(mob/user)
 	. = list("<span class='notice'>There's a little window for the internal reservoir.</span>")
 	. += ..()
@@ -141,7 +147,7 @@
 	. = ..()
 	. += "A switch on the side is set to [get_units_per_shot()] unit\s per shot, <span class='notice'>alt-click to change it.</span>"
 	if(chambered?.BB)
-		. += "<span class='notice'>The chambered syringe contains [chambered.BB.reagents.total_volume] units."
+		. += "<span class='notice'>The chambered syringe contains [round(chambered.BB.reagents.total_volume)] units."
 
 /// If user is null in this proc, messages will just be ignored
 /obj/item/gun/syringe/rapidsyringe/proc/insert_single_syringe(obj/item/reagent_containers/syringe/new_syringe, mob/user)
@@ -220,7 +226,7 @@
 			return
 
 		var/trans = incoming.reagents.trans_to(src, incoming.amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You transfer [trans] unit\s of the solution to [src]'s internal reservoir.</span>")
+		to_chat(user, "<span class='notice'>You transfer [round(trans)] unit\s of the solution to [src]'s internal reservoir.</span>")
 		update_loaded_syringe()
 
 		// Reset the reservoir alarm
