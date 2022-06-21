@@ -6796,7 +6796,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/window/westleft,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /turf/simulated/floor/plasteel,
 /area/maintenance/fsmaint)
 "aEy" = (
@@ -10847,8 +10847,7 @@
 	id = "engsm";
 	name = "Radiation Shutters Control";
 	pixel_x = 24;
-	req_access_txt = "10";
-	req_one_access = null
+	req_access_txt = "10"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -15262,8 +15261,7 @@
 /area/maintenance/fsmaint)
 "baE" = (
 /obj/machinery/door/airlock/external{
-	name = "Escape Pod Four";
-	req_access = null
+	name = "Escape Pod Four"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engimaint)
@@ -24036,7 +24034,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/machinery/door/window/westleft,
 /turf/simulated/floor/plasteel,
 /area/maintenance/maintcentral)
@@ -26456,8 +26454,7 @@
 /area/bridge)
 "bAg" = (
 /obj/machinery/door/airlock/command{
-	name = "Command Desk";
-	req_access = null
+	name = "Command Desk"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -27975,8 +27972,7 @@
 "bDX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Council Chamber";
-	req_access = null
+	name = "Council Chamber"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plasteel{
@@ -28425,7 +28421,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock{
-	id_tag = null;
 	name = "Vacant Office"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -28853,7 +28848,7 @@
 /obj/machinery/door/window/northright{
 	name = "Atmospherics Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /turf/simulated/floor/plating,
 /area/atmos/control)
@@ -34005,7 +34000,7 @@
 	opacity = 1
 	},
 /obj/machinery/door/window/southright,
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/access/any/service/bar,
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
@@ -34071,7 +34066,7 @@
 	opacity = 1
 	},
 /obj/effect/mapping_helpers/airlock/access/any/service/kitchen,
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/machinery/door/window/eastleft{
 	name = "Kitchen Delivery"
 	},
@@ -44911,7 +44906,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/window/northright,
 /obj/effect/mapping_helpers/airlock/access/any/medical/general,
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/structure/plasticflaps,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -54705,7 +54700,6 @@
 	id = "Processing";
 	name = "processing tint control";
 	req_access_txt = "63";
-	tag = null;
 	pixel_y = 24;
 	pixel_x = -6
 	},
@@ -68388,7 +68382,7 @@
 	},
 /obj/machinery/door/window/southright,
 /obj/effect/mapping_helpers/airlock/access/any/service/hydroponics,
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
 "kJT" = (
@@ -82941,9 +82935,7 @@
 /area/security/permabrig)
 "sbM" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security{
-	req_access = null
-	},
+/obj/machinery/door/airlock/security,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -83603,7 +83595,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/mapping_helpers/airlock/access/any/science/research,
 /obj/machinery/door/window/northright,
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard2)
 "svH" = (
@@ -86519,7 +86511,7 @@
 	id_tag = "Secure Gate";
 	name = "brig shutters"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /obj/machinery/door/window/eastright,
 /turf/simulated/floor/plasteel,
@@ -89008,7 +89000,6 @@
 "vmA" = (
 /obj/machinery/door/airlock/security{
 	name = "Execution Room";
-	req_access = null;
 	id_tag = "prisonereducation"
 	},
 /obj/machinery/door/firedoor,
@@ -89162,7 +89153,6 @@
 "vsx" = (
 /obj/machinery/door/airlock/security{
 	name = "Detective's Office";
-	req_access = null;
 	req_access_txt = "4"
 	},
 /obj/machinery/door/firedoor,
