@@ -202,4 +202,3 @@
 				if(prob(12))
 					to_chat(affected_mob, "<span class='warning'>You feel [pick("tired", "exhausted", "sluggish")].</span>")
 					affected_mob.Slowed(rand(8 SECONDS, 32 SECONDS))
-
