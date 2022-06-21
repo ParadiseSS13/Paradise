@@ -339,7 +339,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/spawn_anomalies()
 	say(pick("JKVRUEOTM XGC VUCKX", "KXXUX OT GTUSGRE IUTZGOTSKTZ", "YZGHOROZE OT OTYZGHOROZE OT YZGHOROZE OT OTYZGH-"))
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/anomalies = 0
 	for(var/turf/T in view(5, src))
 		if(T.density)
