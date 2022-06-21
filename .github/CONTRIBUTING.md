@@ -505,7 +505,7 @@ in the SQL/updates folder.
 * For map edit PRs, we do not accept 'change for the sake of change' remaps, unless you have very good reasoning to do so. Maintainers reserve the right to close your PR if we disagree with your reasoning.
 
 * Map Merge
-  * The following guideline for map merging applies to **aALL** mapping contributers.
+  * The following guideline for map merging applies to **ALL** mapping contributers.
     * Before committing a map change, you **MUST** run mapmerge2 to normalise your changes. You can do this manually before every commit with `"\tools\mapmerge2\Run Before Committing.bat"` or automatically by installing the hooks at `"\tools\hooks\Install.bat"`.
     * Failure to run Map Merge on a map after editing greatly increases the risk of the map's key dictionary becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
 
