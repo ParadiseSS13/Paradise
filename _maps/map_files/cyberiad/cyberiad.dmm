@@ -2461,7 +2461,7 @@
 	name = "north bump";
 	pixel_y = 32
 	},
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
@@ -8319,8 +8319,8 @@
 	dir = 4
 	},
 /obj/machinery/computer/cryopod{
-	pixel_y = -30;
-	dir = 1
+	dir = 1;
+	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
@@ -21253,8 +21253,8 @@
 	dir = 4
 	},
 /obj/machinery/computer/cryopod{
-	pixel_x = 30;
-	dir = 8
+	dir = 8;
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
@@ -23274,8 +23274,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor/preopen{
-	name = "Bridge Blast Doors";
-	id_tag = "bridge blast west"
+	id_tag = "bridge blast west";
+	name = "Bridge Blast Doors"
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
@@ -27054,8 +27054,8 @@
 "bkR" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor/preopen{
-	name = "Bridge Blast Doors";
-	id_tag = "bridge blast west"
+	id_tag = "bridge blast west";
+	name = "Bridge Blast Doors"
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
@@ -32217,8 +32217,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor/preopen{
-	name = "Bridge Blast Doors";
-	id_tag = "bridge blast west"
+	id_tag = "bridge blast west";
+	name = "Bridge Blast Doors"
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
@@ -32634,9 +32634,9 @@
 	req_access_txt = "28"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
 	id_tag = "kitchenhall";
-	name = "Kitchen Shutters";
-	dir = 2
+	name = "Kitchen Shutters"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -32651,9 +32651,9 @@
 	req_access_txt = "28"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
 	id_tag = "kitchenhall";
-	name = "Kitchen Shutters";
-	dir = 2
+	name = "Kitchen Shutters"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -32668,9 +32668,9 @@
 	req_access_txt = "28"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
 	id_tag = "kitchenhall";
-	name = "Kitchen Shutters";
-	dir = 2
+	name = "Kitchen Shutters"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -36512,8 +36512,8 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	name = "Robotics Lab Shutters";
-	id_tag = "robotics"
+	id_tag = "robotics";
+	name = "Robotics Lab Shutters"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -36555,8 +36555,8 @@
 /obj/item/folder/white,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	name = "Robotics Lab Shutters";
-	id_tag = "robotics"
+	id_tag = "robotics";
+	name = "Robotics Lab Shutters"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -36590,8 +36590,8 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	name = "Research and Development Lab Shutters";
-	id_tag = "rdlab"
+	id_tag = "rdlab";
+	name = "Research and Development Lab Shutters"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -36611,8 +36611,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	name = "Research and Development Lab Shutters";
-	id_tag = "rdlab"
+	id_tag = "rdlab";
+	name = "Research and Development Lab Shutters"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -36846,8 +36846,8 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	name = "Privacy Shutters";
-	id_tag = "hopqueue"
+	id_tag = "hopqueue";
+	name = "Privacy Shutters"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
@@ -41363,8 +41363,8 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	name = "Privacy Shutters";
-	id_tag = "hop"
+	id_tag = "hop";
+	name = "Privacy Shutters"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
@@ -42362,8 +42362,8 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	name = "Privacy Shutters";
-	id_tag = "hop"
+	id_tag = "hop";
+	name = "Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/heads)
@@ -43006,8 +43006,8 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	name = "Research and Development Lab Shutters";
-	id_tag = "rdlab2"
+	id_tag = "rdlab2";
+	name = "Research and Development Lab Shutters"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -43164,8 +43164,8 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	name = "Privacy Shutters";
-	id_tag = "hop"
+	id_tag = "hop";
+	name = "Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/heads)
@@ -44789,8 +44789,8 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
-	name = "Privacy Shutters";
-	id_tag = "hopqueue"
+	id_tag = "hopqueue";
+	name = "Privacy Shutters"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
@@ -54354,9 +54354,9 @@
 "cpy" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
 	id_tag = "viroshutters";
-	name = "Privacy Shutters";
-	dir = 2
+	name = "Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/medical/virology)
@@ -64272,8 +64272,8 @@
 	req_access_txt = "47"
 	},
 /obj/machinery/door/poddoor/preopen{
-	name = "Biohazard Shutter";
-	id_tag = "RnDChem"
+	id_tag = "RnDChem";
+	name = "Biohazard Shutter"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -64292,16 +64292,16 @@
 /obj/machinery/atmospherics/pipe/simple/insulated,
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/door/poddoor/preopen{
-	name = "Biohazard Shutter";
-	id_tag = "RnDChem"
+	id_tag = "RnDChem";
+	name = "Biohazard Shutter"
 	},
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
 "cJT" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/door/poddoor/preopen{
-	name = "Biohazard Shutter";
-	id_tag = "RnDChem"
+	id_tag = "RnDChem";
+	name = "Biohazard Shutter"
 	},
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
@@ -66795,7 +66795,7 @@
 /obj/structure/table,
 /obj/item/storage/box/monkeycubes,
 /obj/item/storage/box/monkeycubes,
-/obj/item/book/manual/sop_science,
+/obj/item/book/manual/wiki/sop_science,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -79145,11 +79145,11 @@
 /area/engine/supermatter)
 "gLY" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	frequency = 1441;
-	name = "engine outlet injector";
-	volume_rate = 200;
 	dir = 1;
-	id = "engine-waste_out"
+	frequency = 1441;
+	id = "engine-waste_out";
+	name = "engine outlet injector";
+	volume_rate = 200
 	},
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)

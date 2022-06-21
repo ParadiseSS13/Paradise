@@ -65177,10 +65177,6 @@
 	icon_state = "neutral"
 	},
 /area/medical/medbay3)
-"cXI" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
-/area/medical/surgery)
 "cXJ" = (
 /turf/simulated/wall,
 /area/medical/surgery1)
@@ -88450,7 +88446,7 @@
 "fqu" = (
 /obj/structure/table,
 /obj/item/folder/red,
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -96158,7 +96154,7 @@
 /area/maintenance/fsmaint)
 "weF" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/security_space_law{
+/obj/item/book/manual/wiki/security_space_law{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -148065,7 +148061,7 @@ imS
 aFt
 cSY
 dDE
-cXI
+iwk
 cZb
 cZY
 dcG
