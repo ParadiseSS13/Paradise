@@ -45,11 +45,12 @@
 	var/area/A = get_area(src)
 	if(A)
 		for(var/obj/machinery/camera/autoname/C in GLOB.machines)
-			if(C == src) continue
+			if(C == src)
+				continue
 			var/area/CA = get_area(C)
 			if(CA.type == A.type)
 				if(C.number)
-					number = max(number, C.number+1)
+					number = max(number, C.number + 1)
 		c_tag = "[A.name] #[number]"
 
 
