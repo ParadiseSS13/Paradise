@@ -179,7 +179,7 @@
 	set_warrant(target)
 
 /obj/item/projectile/energy/detective/tracker_warrant_shot/proc/start_tracking(atom/target)
-	var/obj/item/gun/energy/detective/D = firer_source_object
+	var/obj/item/gun/energy/detective/D = firer_source_atom
 	if(!D)
 		no_worky()
 		return

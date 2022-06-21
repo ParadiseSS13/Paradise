@@ -775,6 +775,8 @@
 
 /obj/item/gun/energy/detective/Initialize(mapload, ...)
 	. = ..()
+	Announcer = new /obj/item/radio/headset(src)
+	Announcer.config(list("Security" = 1))
 	options["The Original"] = "handgun"
 	options["Golden Mamba"] = "handgun_golden-mamba"
 	options["NT's Finest"] = "handgun_nt-finest"
@@ -788,14 +790,9 @@
 	. = ..()
 	. += "Ctrl-click to clear active tracked target or clear linked pinpointer."
 
-/obj/item/gun/energy/detective/Initialize(mapload, ...)
-	. = ..()
-	Announcer = new /obj/item/radio/headset(src)
-	Announcer.config(list("Security" = 1))
-
 /obj/item/gun/energy/detective/CtrlClick(mob/user)
 	. = ..()
-	if(!istype(loc, /mob)) //don't do this next bit if this gun is on the floor
+	if(!isliving(loc)) //don't do this next bit if this gun is on the floor
 		return
 	var/tracking_target = locateUID(tracking_target_UID)
 	if(tracking_target)
