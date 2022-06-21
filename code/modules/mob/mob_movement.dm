@@ -328,7 +328,7 @@
 					return AM
 				if(pulling == AM)
 					continue
-				if(get_turf(AM) == get_step(get_turf(src), src.dir)) //no moving fowards to push off and also push fowards junk in space
+				if(get_turf(AM) == get_step(get_turf(src), dir)) //no moving fowards to push off and also push fowards junk in space
 					continue
 				. = AM
 
