@@ -16,8 +16,8 @@ To install the [Git hooks], open the `tools/hooks/` folder and double-click
 
 If using a Git GUI which is not compatible with the hooks:
 
-* Before committing, double-click `Run Before Committing.bat`
-* When a merge has map conflicts, double-click `Resolve Map Conflicts.bat`
+* Before committing, double-click `Run_Before_Committing.bat`
+* When a merge has map conflicts, double-click `Resolve_Map_Conflicts.bat`
 
 The console will show whether the operation succeeded.
 

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-import sys
-import collections
+import sys, collections
 from . import dmm, mapmerge
 from hooks.merge_frontend import MergeDriver
 

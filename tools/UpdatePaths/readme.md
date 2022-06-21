@@ -1,12 +1,12 @@
 HOW TO USE:
-Drag one of the scripts in the “Scripts” folder onto the .bat file “Update Paths” to open it with the .bat file. Let the script run. 
+Drag one of the scripts in the “Scripts” folder onto the .bat file “Update_Paths” to open it with the .bat file. Let the script run.
 
 Use this tool before using mapmerge or opening the map in an editor.
 
 IMPORTANT:
 Please tie the script you are making to the associated PR on github and put it in the scripts folder when you are done.
 
-For example: 67107_Turf_Updates_2
+For example: 17980_rust_converter ties into https://github.com/ParadiseSS13/Paradise/pull/17980
 
 HOW TO MAKE A SCRIPT:
 This tool updates paths in the game to new paths. For instance:

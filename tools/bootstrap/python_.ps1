@@ -31,7 +31,7 @@ $Cache = "$Bootstrap/.cache"
 if ($Env:TG_BOOTSTRAP_CACHE) {
 	$Cache = $Env:TG_BOOTSTRAP_CACHE
 }
-$PythonVersion = ExtractVersion -Path "$Bootstrap/../../dependencies.sh" -Key "PYTHON_VERSION"
+$PythonVersion = ExtractVersion -Path "$Bootstrap/../../_build_dependencies.sh" -Key "PYTHON_VERSION"
 $PythonDir = "$Cache/python-$PythonVersion"
 $PythonExe = "$PythonDir/python.exe"
 $Log = "$Cache/last-command.log"

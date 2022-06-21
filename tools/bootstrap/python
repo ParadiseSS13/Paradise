@@ -18,7 +18,7 @@ if [ "$TG_BOOTSTRAP_CACHE" ]; then
 fi
 OldPWD="$PWD"
 cd "$Bootstrap/../.."
-. ./dependencies.sh  # sets PYTHON_VERSION
+. ./_build_dependencies.sh  # sets PYTHON_VERSION
 cd "$OldPWD"
 PythonVersion="$PYTHON_VERSION"
 PythonDir="$Cache/python-$PythonVersion"

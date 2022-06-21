@@ -1,8 +1,5 @@
 # A script and syntax for applying path updates to maps.
-import re
-import os
-import sys
-import argparse
+import re, os, sys, argparse
 from mapmerge2 import frontend
 from mapmerge2.dmm import *
 
@@ -187,7 +184,7 @@ def main(args):
 if __name__ == "__main__":
     prog = __spec__.name.replace('.__main__', '')
     if os.name == 'nt' and len(sys.argv) <= 1:
-        print("usage: drag-and-drop a path script .txt onto `Update Paths.bat`\n  or")
+        print("usage: drag-and-drop a path script .txt onto `Update_Paths.bat`\n  or")
 
     parser = argparse.ArgumentParser(prog=prog, description=desc, formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("update_source", help="update file path / line of update notation")
