@@ -1136,9 +1136,9 @@
 
 /datum/reagent/capulettium_plus/on_mob_life(mob/living/M)
 	M.Silence(4 SECONDS)
-	if((HAS_TRAIT(M, TRAIT_FAKEDEATH)) && !IS_HORIZONTAL(M))
+	if((HAS_TRAIT(M, TRAIT_FAKEDEATH)) && !M.resting)
 		fakerevive(M)
-	else if(!HAS_TRAIT(M, TRAIT_FAKEDEATH) && IS_HORIZONTAL(M))
+	else if(!HAS_TRAIT(M, TRAIT_FAKEDEATH) && M.resting)
 		fakedeath(M)
 	return ..()
 
