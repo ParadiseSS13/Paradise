@@ -184,6 +184,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOEXAMINE			"no_examine"
 #define TRAIT_NOPAIN			"no_pain"
 #define TRAIT_FORCE_DOORS 		"force_doors"
+#define TRAIT_AI_UNTRACKABLE	"AI_untrackable"
 
 //***** ITEM TRAITS *****//
 /// Show what machine/door wires do when held.
@@ -204,6 +205,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CULT_TRAIT "cult"
 #define INNATE_TRAIT "innate"
 #define VAMPIRE_TRAIT "vampire"
+#define CHANGELING_TRAIT "changeling"
 
 // unique trait sources
 #define STATUE_MUTE "statue"

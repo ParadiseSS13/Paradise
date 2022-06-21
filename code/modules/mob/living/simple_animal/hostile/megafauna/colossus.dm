@@ -262,6 +262,10 @@ Difficulty: Very Hard
 	. = ..()
 	if(isturf(target) || isobj(target))
 		target.ex_act(2)
+	if(isliving(target))
+		var/mob/living/L = target
+		if(L.stat == DEAD)
+			L.dust()
 
 /obj/item/gps/internal/colossus
 	icon_state = null
