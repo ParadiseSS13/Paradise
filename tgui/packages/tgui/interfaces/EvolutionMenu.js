@@ -48,7 +48,7 @@ const EvolutionPoints = (props, context) => {
 
 const Abilities = (props, context) => {
   const { act, data } = useBackend(context);
-  const { evo_points, ability_list, purchsed_abilities, view_mode } = data;
+  const { evo_points, ability_list, purchased_abilities, view_mode } = data;
   return (
     <Section
       title="Abilities"
@@ -84,7 +84,7 @@ const Abilities = (props, context) => {
             <Flex.Item ml={0.5} color="#dedede">
               {ability.name}
             </Flex.Item>
-            {purchsed_abilities.includes(ability.name) && (
+            {purchased_abilities.includes(ability.power_path) && (
               <Flex.Item ml={2} bold color="#1b945c">
                 (Purchased)
               </Flex.Item>
@@ -102,12 +102,12 @@ const Abilities = (props, context) => {
                 mr={0.5}
                 disabled={
                   ability.cost > evo_points ||
-                  purchsed_abilities.includes(ability.name)
+                  purchased_abilities.includes(ability.power_path)
                 }
                 content="Evolve"
                 onClick={() =>
                   act('purchase', {
-                    power_name: ability.name,
+                    power_path: ability.power_path,
                   })
                 }
               />

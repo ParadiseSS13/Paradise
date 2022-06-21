@@ -343,7 +343,7 @@
 						/obj/item/his_grace,
 						/obj/item/gun/projectile/automatic/l6_saw,
 						/obj/item/gun/magic/staff/chaos,
-						/obj/item/gun/magic/staff/spellblade,
+						/obj/item/melee/spellblade,
 						/obj/item/gun/magic/wand/death,
 						/obj/item/gun/magic/wand/fireball,
 						/obj/item/stack/telecrystal/twenty,

@@ -31,7 +31,9 @@
 		for(var/obj/item/W in M)
 			M.unEquip(W)
 		//teleport person to cell
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)	//so they black out before warping
 		M.loc = pick(GLOB.prisonwarp)
 		if(istype(M, /mob/living/carbon/human))
@@ -220,13 +222,22 @@
 	var/mute_string
 
 	switch(mute_type)
-		if(MUTE_IC)			mute_string = "IC (say and emote)"
-		if(MUTE_OOC)		mute_string = "OOC"
-		if(MUTE_PRAY)		mute_string = "pray"
-		if(MUTE_ADMINHELP)	mute_string = "adminhelp, admin PM and ASAY"
-		if(MUTE_DEADCHAT)	mute_string = "deadchat and DSAY"
-		if(MUTE_ALL)		mute_string = "everything"
-		else				return
+		if(MUTE_IC)
+			mute_string = "IC (say and emote)"
+		if(MUTE_OOC)
+			mute_string = "OOC"
+		if(MUTE_PRAY)
+			mute_string = "pray"
+		if(MUTE_ADMINHELP)
+			mute_string = "adminhelp, admin PM and ASAY"
+		if(MUTE_DEADCHAT)
+			mute_string = "deadchat and DSAY"
+		if(MUTE_EMOTE)
+			mute_string = "emote"
+		if(MUTE_ALL)
+			mute_string = "everything"
+		else
+			return
 
 	if(automute)
 		muteunmute = "auto-muted"

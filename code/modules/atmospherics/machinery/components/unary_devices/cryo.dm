@@ -28,19 +28,17 @@
 	light_color = LIGHT_COLOR_WHITE
 
 /obj/machinery/atmospherics/unary/cryo_cell/detailed_examine()
-	return "The cryogenic chamber, or 'cryo', treats most damage types, most notably genetic damage. It also stabilizes patients \
-			in critical condition by placing them in stasis, so they can be treated at a later time.<br>\
+	return "The cryogenic chamber, or 'cryo', treats most damage types, most notably genetic damage. <br>\
 			<br>\
-			In order for it to work, it must be loaded with chemicals, and the temperature of the solution must reach a certain point. Additionally, it \
-			requires a supply of pure oxygen, provided by canisters that are attached. The most commonly used chemicals in the chambers is Cryoxadone, which \
-			heals most damage types including genetic damage.<br>\
+			In order for it to work, it must be loaded with chemical. Additionally, it requires a supply of pure oxygen, provided by canisters that are attached. \
+			The most commonly used chemicals in the chambers is Cryoxadone, which heals most damage types including genetic damage.<br>\
 			<br>\
 			Activating the freezer nearby, and setting it to a temperature setting below 150, is recommended before operation! Further, any clothing the patient \
 			is wearing that act as an insulator will reduce its effectiveness, and should be removed.<br>\
 			<br>\
 			Clicking the tube with a beaker full of chemicals in hand will place it in its storage to distribute when it is activated.<br>\
 			<br>\
-			Click your target with Grab intent, then click on the tube, with an empty hand, to place them in it. Click the tube again to open the menu. \
+			Click your target and drag them onto the cryo cell to place them inside it. Click the tube again to open the menu. \
 			Press the button on the menu to activate it. Once they have reached 100 health, right-click the cell and click 'Eject Occupant' to remove them. \
 			Remember to turn it off, once you've finished, to save power and chemicals!"
 
@@ -402,8 +400,9 @@
 		occupant.bodytemperature += 2*(air_contents.temperature - occupant.bodytemperature)*current_heat_capacity/(current_heat_capacity + air_contents.heat_capacity())
 		occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature) // this is so ugly i'm sorry for doing it i'll fix it later i promise
 		if(occupant.bodytemperature < T0C)
-			occupant.Sleeping(max(5/efficiency, (1/occupant.bodytemperature)*2000/efficiency))
-			occupant.Paralyse(max(5/efficiency, (1/occupant.bodytemperature)*3000/efficiency))
+			var/stun_time = (max(5 / efficiency, (1 / occupant.bodytemperature) * 2000/efficiency)) STATUS_EFFECT_CONSTANT
+			occupant.Sleeping(stun_time)
+			occupant.Paralyse(stun_time)
 			if(air_contents.oxygen > 2)
 				if(occupant.getOxyLoss())
 					occupant.adjustOxyLoss(-6)
@@ -469,7 +468,7 @@
 		return
 	M.stop_pulling()
 	M.forceMove(src)
-	if(M.health > -100 && (M.health < 0 || M.sleeping))
+	if(M.health > -100 && (M.health < 0 || M.IsSleeping()))
 		to_chat(M, "<span class='boldnotice'>You feel a cold liquid surround you. Your skin starts to freeze up.</span>")
 	occupant = M
 //	M.metabslow = 1

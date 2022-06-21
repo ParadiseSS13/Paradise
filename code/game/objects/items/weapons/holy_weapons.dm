@@ -48,7 +48,7 @@
 		if(!user.mind || !user.mind.isholy)
 			user.adjustBruteLoss(force)
 			user.adjustFireLoss(sanctify_force)
-			user.Weaken(5)
+			user.Weaken(10 SECONDS)
 			user.unEquip(src, 1)
 			user.visible_message("<span class='warning'>[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!</span>", \
 			"<span class='warning'>[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!</span>")
@@ -515,7 +515,7 @@
 		if(src == holder.l_hand || src == holder.r_hand)
 			for(var/mob/living/carbon/human/H in range(5, loc))
 				if(H.mind.assigned_role == "Clown")
-					H.Silence(10)
+					H.Silence(20 SECONDS)
 					animate_fade_grayscale(H,20)
 					if(prob(10))
 						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your honk!</span>")

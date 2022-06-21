@@ -4,6 +4,7 @@
 	singular_name = "telecrystal"
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "telecrystal"
+	item_state = "telecrystal"
 	w_class = WEIGHT_CLASS_TINY
 	max_amount = 50
 	flags = NOBLUDGEON

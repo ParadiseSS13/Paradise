@@ -83,8 +83,10 @@
 	if(has_changer)
 		return has_changer
 
-	if(mind && mind.changeling && mind.changeling.mimicing)
-		return mind.changeling.mimicing
+	if(mind)
+		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+		if(cling?.mimicing)
+			return cling.mimicing
 
 	if(GetSpecialVoice())
 		return GetSpecialVoice()
@@ -100,7 +102,7 @@
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
 	if((breathes && !L) || breathes && L && (L.status & ORGAN_DEAD))
 		return FALSE
-	if(getOxyLoss() > 10 || losebreath >= 4)
+	if(getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS)
 		emote("gasp")
 		return FALSE
 	if(mind)
@@ -142,7 +144,7 @@
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
 
-		if(silent || HAS_TRAIT(src, TRAIT_MUTE))
+		if(HAS_TRAIT(src, TRAIT_MUTE))
 			S.message = ""
 
 		if(istype(wear_mask, /obj/item/clothing/mask/horsehead))

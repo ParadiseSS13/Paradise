@@ -158,7 +158,7 @@
 /mob/living/simple_animal/hostile/guardian/gib()
 	if(summoner)
 		to_chat(summoner, "<span class='danger'>Your [src] was blown up!</span>")
-		summoner.Weaken(10)// your fermillier has died! ROLL FOR CON LOSS!
+		summoner.Weaken(20 SECONDS)// your fermillier has died! ROLL FOR CON LOSS!
 	ghostize()
 	qdel(src)
 
@@ -253,7 +253,7 @@
 	if(has_guardian(user))
 		to_chat(user, "You already have a [mob_name]!")
 		return
-	if(user.mind && (user.mind.changeling || user.mind.has_antag_datum(/datum/antagonist/vampire)))
+	if(user.mind && (ischangeling(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)))
 		to_chat(user, "[ling_failure]")
 		return
 	if(used == TRUE)

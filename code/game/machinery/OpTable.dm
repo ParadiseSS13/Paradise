@@ -32,7 +32,7 @@
 	return ..()
 
 /obj/machinery/optable/detailed_examine()
-	return "Click your target with Grab intent, then click on the table with an empty hand, to place them on it."
+	return "Click your target and drag them onto the table to place them onto it."
 
 /obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)

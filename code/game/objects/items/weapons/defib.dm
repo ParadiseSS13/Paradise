@@ -374,7 +374,7 @@
 			H.visible_message("<span class='danger'>[user] has touched [H.name] with [src]!</span>", \
 					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")
 			H.adjustStaminaLoss(50)
-			H.Weaken(5)
+			H.Weaken(10 SECONDS)
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
 			if(!H.undergoing_cardiac_arrest() && (prob(10) || (defib.combat && defib.heart_attack) || prob(10) && (defib.combat))) // If the victim is not having a heart attack, and a 10% chance passes, or the defib has heart attack variable to TRUE while being a combat defib, or if another 10% chance passes with combat being TRUE
@@ -390,26 +390,24 @@
 		user.visible_message("<span class='warning'>[user] begins to place [src] on [M.name]'s chest.</span>", "<span class='warning'>You begin to place [src] on [M.name]'s chest.</span>")
 		busy = TRUE
 		update_icon()
+		var/mob/dead/observer/ghost = H.get_ghost(TRUE)
+		if(ghost && ghost.can_reenter_corpse)
+			to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+			window_flash(ghost.client)
+			notify_ghosts()
+			ghost << sound('sound/effects/genetics.ogg')
 		if(do_after(user, 30 * toolspeed, target = M)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
 			user.visible_message("<span class='notice'>[user] places [src] on [M.name]'s chest.</span>", "<span class='warning'>You place [src] on [M.name]'s chest.</span>")
 			playsound(get_turf(src), 'sound/machines/defib_charge.ogg', 50, 0)
-			var/mob/dead/observer/ghost = H.get_ghost(TRUE)
-			if(ghost && !ghost.client)
-				// In case the ghost's not getting deleted for some reason
-				H.key = ghost.key
-				log_runtime(EXCEPTION("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost."), src)
 
+			if(ghost && !ghost.client && !QDELETED(ghost))
 				QDEL_NULL(ghost)
 			var/tplus = world.time - H.timeofdeath
 			var/tlimit = DEFIB_TIME_LIMIT
 			var/tloss = DEFIB_TIME_LOSS
 			var/total_burn	= 0
 			var/total_brute	= 0
-			if(ghost && ghost.can_reenter_corpse)
-				to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
-				window_flash(ghost.client)
-				notify_ghosts()
-				ghost << sound('sound/effects/genetics.ogg')
+
 			if(do_after(user, 20 * toolspeed, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
 				for(var/obj/item/carried_item in H.contents)
 					if(istype(carried_item, /obj/item/clothing/suit/space))
@@ -471,7 +469,7 @@
 						user.visible_message("<span class='boldnotice'>[defib] pings: Resuscitation successful.</span>")
 						H.update_revive()
 						H.KnockOut()
-						H.Paralyse(5)
+						H.Paralyse(10 SECONDS)
 						H.emote("gasp")
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
@@ -540,7 +538,7 @@
 			H.visible_message("<span class='danger'>[user] has touched [H.name] with [src]!</span>", \
 					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")
 			H.adjustStaminaLoss(50)
-			H.Weaken(5)
+			H.Weaken(10 SECONDS)
 			if(!H.undergoing_cardiac_arrest() && prob(10)) // Your heart explodes.
 				H.set_heartattack(TRUE)
 			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
@@ -595,7 +593,7 @@
 						playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
 						H.update_revive(FALSE)
 						H.KnockOut(FALSE)
-						H.Paralyse(5)
+						H.Paralyse(10 SECONDS)
 						H.emote("gasp")
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))

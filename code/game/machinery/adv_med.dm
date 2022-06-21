@@ -15,7 +15,7 @@
 	return "The advanced scanner detects and reports internal injuries such as bone fractures, internal bleeding, and organ damage. \
 			This is useful if you are about to perform surgery.<br>\
 			<br>\
-			Click your target with Grab intent, then click on the scanner to place them in it. Click the red terminal to operate. \
+			Click your target and drag them onto the scanner to place them inside. Click the body scanner in order to operate it. \
 			Right-click the scanner and click 'Eject Occupant' to remove them. You can enter the scanner yourself in a similar way, using the 'Enter Body Scanner' \
 			verb."
 
@@ -241,8 +241,8 @@
 		occupantData["radLoss"] = occupant.radiation
 		occupantData["cloneLoss"] = occupant.getCloneLoss()
 		occupantData["brainLoss"] = occupant.getBrainLoss()
-		occupantData["paralysis"] = occupant.paralysis
-		occupantData["paralysisSeconds"] = round(occupant.paralysis * 0.25)
+		occupantData["paralysis"] = occupant.AmountParalyzed()
+		occupantData["paralysisSeconds"] = round(occupant.AmountParalyzed() * 0.25)
 		occupantData["bodyTempC"] = occupant.bodytemperature-T0C
 		occupantData["bodyTempF"] = (((occupant.bodytemperature-T0C) * 1.8) + 32)
 
@@ -407,7 +407,7 @@
 		extra_font = (occupant.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tApprox. Brain Damage %: [occupant.getBrainLoss()]<br>"
 
-		dat += "Paralysis Summary %: [occupant.paralysis] ([round(occupant.paralysis / 4)] seconds left!)<br>"
+		dat += "Paralysis Summary %: [occupant.IsParalyzed()] ([round(occupant.AmountParalyzed() / 10)] seconds left!)<br>"
 		dat += "Body Temperature: [occupant.bodytemperature-T0C]&deg;C ([occupant.bodytemperature*1.8-459.67]&deg;F)<br>"
 
 		dat += "<hr>"

@@ -164,7 +164,7 @@
 
 /obj/machinery/anomalous_crystal/emitter/Initialize(mapload)
 	. = ..()
-	generated_projectile = pick(/obj/item/projectile/magic/fireball/infernal,/obj/item/projectile/magic/spellblade,
+	generated_projectile = pick(/obj/item/projectile/magic/fireball/infernal,
 								 /obj/item/projectile/bullet/meteorshot, /obj/item/projectile/beam/xray, /obj/item/projectile/colossus)
 
 /obj/machinery/anomalous_crystal/emitter/ActivationReaction(mob/user, method)

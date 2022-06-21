@@ -5,9 +5,6 @@
 "b" = (
 /turf/simulated/mineral,
 /area/ruin/unpowered)
-"c" = (
-/turf/simulated/mineral,
-/area/space/nearstation)
 "d" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
@@ -15,7 +12,8 @@
 /turf/simulated/wall,
 /area/ruin/unpowered)
 "f" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/unpowered)
 "g" = (
 /turf/simulated/floor/plating,
@@ -64,9 +62,6 @@
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
-"r" = (
-/turf/simulated/floor/plating/asteroid/airless,
-/area/space/nearstation)
 
 (1,1,1) = {"
 a
@@ -852,8 +847,8 @@ b
 d
 d
 d
-r
-r
+d
+d
 a
 a
 a
@@ -894,8 +889,8 @@ b
 d
 d
 d
-r
-r
+d
+d
 d
 d
 d
@@ -936,7 +931,7 @@ b
 d
 d
 d
-r
+d
 d
 d
 d
@@ -978,7 +973,7 @@ b
 d
 d
 d
-r
+d
 d
 d
 d
@@ -1020,7 +1015,7 @@ b
 d
 d
 d
-r
+d
 d
 d
 d
@@ -1062,7 +1057,7 @@ d
 d
 d
 d
-r
+d
 d
 d
 d
@@ -1104,7 +1099,7 @@ b
 d
 d
 d
-r
+d
 d
 d
 d
@@ -1122,7 +1117,7 @@ b
 a
 a
 a
-c
+b
 a
 a
 a
@@ -1146,7 +1141,7 @@ b
 d
 d
 d
-r
+d
 d
 d
 d
@@ -1188,7 +1183,7 @@ b
 b
 b
 b
-r
+d
 d
 d
 d
@@ -1228,9 +1223,9 @@ b
 b
 b
 b
-c
-c
-c
+b
+b
+b
 d
 d
 d
@@ -1270,9 +1265,9 @@ b
 b
 b
 b
-c
-c
-c
+b
+b
+b
 d
 d
 d

@@ -60,13 +60,7 @@
 /turf/template_noop,
 /area/djstation/solars)
 "ai" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk,
-/turf/template_noop,
+/turf/simulated/floor/plasteel/dark,
 /area/djstation)
 "aj" = (
 /obj/structure/lattice,
@@ -130,12 +124,6 @@
 	},
 /turf/simulated/wall/mineral/titanium/interior,
 /area/djstation)
-"ar" = (
-/obj/machinery/power/solar/fake,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/djstation)
 "as" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -166,25 +154,6 @@
 /area/djstation)
 "av" = (
 /turf/simulated/floor/plating,
-/area/djstation)
-"aw" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/lattice/catwalk,
-/turf/template_noop,
 /area/djstation)
 "ax" = (
 /obj/structure/cable{
@@ -249,25 +218,6 @@
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
 /area/djstation/solars)
-"aD" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/djstation)
 "aE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -346,7 +296,6 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm{
-	dir = 0;
 	name = "Worn-out APC";
 	pixel_y = -24
 	},
@@ -524,9 +473,7 @@
 /obj/structure/safe/floor,
 /obj/item/gun/projectile/automatic/pistol,
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/djstation)
 "bi" = (
 /obj/machinery/status_display{
@@ -541,18 +488,14 @@
 /obj/item/storage/fancy/cigarettes/dromedaryco{
 	pixel_x = -26
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/djstation)
 "bj" = (
 /obj/machinery/light_switch{
 	name = "north bump";
 	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/djstation)
 "bk" = (
 /obj/structure/bed,
@@ -560,9 +503,7 @@
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/djstation)
 "bl" = (
 /obj/structure/table,
@@ -597,9 +538,7 @@
 /area/djstation)
 "bp" = (
 /obj/structure/chair/office/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/djstation)
 "bq" = (
 /obj/structure/table,
@@ -613,14 +552,10 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Cabin"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/djstation)
 "bs" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/djstation)
 "bt" = (
 /obj/structure/closet/crate/can,
@@ -691,30 +626,22 @@
 /area/djstation)
 "bA" = (
 /obj/structure/coatrack,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/djstation)
 "bB" = (
 /obj/structure/rack,
 /obj/item/newspaper{
 	desc = "An issue of The Griffon. Was Nanotrasen supplying this station at some point?"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/djstation)
 "bC" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/djstation)
 "bD" = (
 /obj/machinery/sleeper,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/plasteel/grimy,
 /area/djstation)
 "bE" = (
 /obj/machinery/door/airlock{
@@ -767,9 +694,7 @@
 /area/djstation)
 "bL" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/djstation)
 "bM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -783,9 +708,7 @@
 	pixel_x = 25;
 	pixel_y = -25
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/djstation)
 "bN" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -840,17 +763,13 @@
 	},
 /obj/item/pen,
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/djstation)
 "bT" = (
 /obj/structure/rack,
 /obj/item/clothing/under/retro/security,
 /obj/item/clothing/head/ushanka,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/djstation)
 "bU" = (
 /obj/machinery/door/airlock/external{
@@ -988,9 +907,9 @@ aa
 ab
 ak
 ad
-ar
+ae
 aa
-ar
+ae
 ad
 ad
 ab
@@ -1017,11 +936,11 @@ aa
 aa
 ab
 ad
-ar
-aw
-ar
-aw
-ar
+ae
+ax
+ae
+ax
+ae
 aa
 aa
 aa
@@ -1047,11 +966,11 @@ aa
 aa
 ab
 ad
-ar
-aw
-ar
-aw
-ar
+ae
+ax
+ae
+ax
+ae
 aa
 ao
 aL
@@ -1080,8 +999,8 @@ ad
 ae
 ax
 ae
-aw
-ar
+ax
+ae
 aa
 ao
 aY
@@ -1111,7 +1030,7 @@ ae
 ax
 ae
 ax
-ar
+ae
 aa
 ao
 aZ
@@ -1255,7 +1174,7 @@ af
 af
 af
 ah
-ai
+ah
 an
 at
 av
@@ -1298,7 +1217,7 @@ aU
 bp
 bx
 bG
-aV
+ai
 bT
 ao
 aa
@@ -1315,7 +1234,7 @@ af
 af
 af
 ah
-ai
+ah
 ap
 av
 aA
@@ -1328,7 +1247,7 @@ bf
 bq
 by
 bG
-aV
+ai
 aS
 ao
 ao
@@ -1355,7 +1274,7 @@ aQ
 ao
 aX
 bg
-aV
+ai
 bz
 bH
 bM
@@ -1471,7 +1390,7 @@ ae
 aC
 ae
 aC
-ar
+ae
 aa
 ao
 bj
@@ -1501,7 +1420,7 @@ ae
 aC
 ae
 aC
-ar
+ae
 aa
 ao
 bk
@@ -1527,11 +1446,11 @@ aa
 aa
 aj
 ad
-ar
-aD
-ar
-aD
-ar
+ae
+aC
+ae
+aC
+ae
 aa
 ao
 aL
@@ -1557,11 +1476,11 @@ aa
 aa
 ab
 ad
-ar
-aD
-ar
-aD
-ar
+ae
+aC
+ae
+aC
+ae
 aa
 aa
 aa
@@ -1588,9 +1507,9 @@ aa
 ab
 ad
 ad
-ar
+ae
 aa
-ar
+ae
 ad
 ad
 ab

@@ -208,9 +208,10 @@
 			stat("Chemicals", B.chemicals)
 
 		if(mind)
-			if(mind.changeling)
-				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
-				stat("Absorbed DNA", mind.changeling.absorbedcount)
+			var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+			if(cling)
+				stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
+				stat("Absorbed DNA", cling.absorbed_count)
 
 			var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
 			if(V)
@@ -248,7 +249,7 @@
 				burn_loss = brute_loss				//Damage gets reduced from 120 to up to 60 combined brute+burn
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(30, 120)
-			Weaken(20 SECONDS_TO_LIFE_CYCLES - (bomb_armor * 1.6 / 10) SECONDS_TO_LIFE_CYCLES) 	//Between ~4 and ~20 seconds of knockdown depending on bomb armor
+			Weaken(20 SECONDS - (bomb_armor * 1.6 / 10) SECONDS) 	//Between ~4 and ~20 seconds of knockdown depending on bomb armor
 
 		if(EXPLODE_LIGHT)
 			brute_loss = 30
@@ -256,7 +257,7 @@
 				brute_loss = 15 * (2 - round(bomb_armor * 0.01, 0.05)) //Reduced from 30 to up to 15
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(15, 60)
-			Weaken(16 SECONDS_TO_LIFE_CYCLES - (bomb_armor * 1.6 / 10) SECONDS_TO_LIFE_CYCLES) //Between no knockdown to ~16 seconds depending on bomb armor
+			Weaken(16 SECONDS - (bomb_armor * 1.6 / 10) SECONDS) //Between no knockdown to ~16 seconds depending on bomb armor
 			valid_limbs = list("l_hand", "l_foot", "r_hand", "r_foot")
 			limb_loss_chance = 25
 
@@ -705,45 +706,7 @@
 						U.detach_accessory(A, usr)
 
 	if(href_list["criminal"])
-		if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
-			if(usr.incapacitated())
-				return
-			var/found_record = 0
-			var/perpname = get_visible_name(TRUE)
-
-			if(perpname != "Unknown")
-				for(var/datum/data/record/E in GLOB.data_core.general)
-					if(E.fields["name"] == perpname)
-						for(var/datum/data/record/R in GLOB.data_core.security)
-							if(R.fields["id"] == E.fields["id"])
-
-								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED, "Cancel")
-								var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Security HUD", null, null) as text)), 1, MAX_MESSAGE_LEN)
-								if(!t1)
-									t1 = "(none)"
-
-								if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE) && setcriminal != "Cancel")
-									found_record = 1
-									if(R.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
-										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
-									else
-										var/rank
-										if(ishuman(usr))
-											var/mob/living/carbon/human/U = usr
-											rank = U.get_assignment()
-										else if(isrobot(usr))
-											var/mob/living/silicon/robot/U = usr
-											rank = "[U.modtype] [U.braintype]"
-										else if(isAI(usr))
-											rank = "AI"
-										set_criminal_status(usr, R, setcriminal, t1, rank)
-								break // Git out of the securiy records loop!
-						if(found_record)
-							break // Git out of the general records
-
-			if(!found_record)
-				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
-
+		try_set_criminal_status(usr)
 	if(href_list["secrecord"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
 			if(usr.incapacitated())
@@ -907,6 +870,69 @@
 		var/mob/M = locate(href_list["lookmob"])
 		src.examinate(M)
 	. = ..()
+
+/mob/living/carbon/human/proc/try_set_criminal_status(mob/user)
+	if(!hasHUD(user, EXAMINE_HUD_SECURITY_WRITE))
+		return
+	if(user.incapacitated())
+		return
+
+	var/perpname = get_visible_name(TRUE)
+	if(perpname == "Unknown")
+		to_chat(user, "<span class='warning'>Unable to locate a record for this person.</span>")
+		return
+
+	var/datum/data/record/found_record
+	outer:
+		for(var/datum/data/record/E in GLOB.data_core.general)
+			if(E.fields["name"] == perpname)
+				for(var/datum/data/record/R in GLOB.data_core.security)
+					if(R.fields["id"] == E.fields["id"])
+						found_record = R
+						break outer
+
+	if(!found_record)
+		to_chat(user, "<span class='warning'>Unable to locate a record for this person.</span>")
+		return
+
+	if(found_record.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
+		to_chat(user, "<span class='warning'>Unable to modify the criminal status of a person with an active Execution order. Use a security computer instead.</span>")
+		return
+
+	var/static/list/possible_status = list(
+		SEC_RECORD_STATUS_NONE,
+		SEC_RECORD_STATUS_ARREST,
+		SEC_RECORD_STATUS_SEARCH,
+		SEC_RECORD_STATUS_MONITOR,
+		SEC_RECORD_STATUS_DEMOTE,
+		SEC_RECORD_STATUS_INCARCERATED,
+		SEC_RECORD_STATUS_PAROLLED,
+		SEC_RECORD_STATUS_RELEASED,
+	)
+
+	var/new_status = input(user, "Set the new criminal status for [perpname].", "Security HUD", found_record.fields["criminal"]) as null|anything in possible_status
+	if(!new_status)
+		return
+
+	var/reason = copytext(trim(sanitize(input(user, "Enter reason:", "Security HUD") as text)), 1, MAX_MESSAGE_LEN)
+	if(!reason)
+		reason = "(none)"
+
+	if(!hasHUD(user, EXAMINE_HUD_SECURITY_WRITE))
+		return
+	if(found_record.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
+		to_chat(user, "<span class='warning'>Unable to modify the criminal status of a person with an active Execution order. Use a security computer instead.</span>")
+		return
+	var/rank
+	if(ishuman(user))
+		var/mob/living/carbon/human/U = user
+		rank = U.get_assignment()
+	else if(isrobot(user))
+		var/mob/living/silicon/robot/U = user
+		rank = "[U.modtype] [U.braintype]"
+	else if(isAI(user))
+		rank = "AI"
+	set_criminal_status(user, found_record, new_status, reason, rank)
 
 
 ///check_eye_prot()
@@ -1635,7 +1661,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(H.health <= HEALTH_THRESHOLD_CRIT)
 			H.adjustOxyLoss(-15 * cpr_modifier)
 			H.SetLoseBreath(0)
-			H.AdjustParalysis(-1)
+			H.AdjustParalysis(-2 SECONDS)
 			H.updatehealth("cpr")
 			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
 
@@ -1990,3 +2016,21 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			to_chat(usr, "[src] does not have any stored infomation!")
 	else
 		to_chat(usr, "OOC Metadata is not supported by this server!")
+
+/mob/living/carbon/human/verb/pose()
+	set name = "Set Pose"
+	set desc = "Sets a description which will be shown when someone examines you."
+	set category = "IC"
+
+	// no metagaming
+	if(stat)
+		return
+
+	pose = sanitize(copytext(input(usr, "This is [src]. [p_they(TRUE)] [p_are()]...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+
+/mob/living/carbon/human/verb/set_flavor()
+	set name = "Set Flavour Text"
+	set desc = "Sets an extended description of your character's features."
+	set category = "IC"
+
+	update_flavor_text()

@@ -86,7 +86,7 @@
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>[src] slips out of your hand and hits your head.</span>")
 		user.take_organ_damage(10)
-		user.Paralyse(20)
+		user.Paralyse(40 SECONDS)
 		return
 
 	if(M.stat != DEAD && ishuman(M))

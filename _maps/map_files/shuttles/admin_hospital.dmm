@@ -214,15 +214,6 @@
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
-"aQ" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
 "aR" = (
 /obj/structure/chair{
 	dir = 8
@@ -879,9 +870,9 @@ ab
 ah
 av
 aw
-aQ
+av
 aw
-aQ
+av
 bc
 aP
 aw

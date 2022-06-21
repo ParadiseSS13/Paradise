@@ -96,7 +96,7 @@
 
 		for(var/i = 0, i<numChangelings, i++)
 			H = pick(candidates)
-			H.mind.make_Changeling()
+			H.mind.add_antag_datum(/datum/antagonist/changeling)
 			candidates.Remove(H)
 
 		return 1
@@ -473,51 +473,37 @@
 		var/teamTwoMembers = 5
 		var/datum/character_save/S = new
 		S.randomise()
-		for(var/thing in GLOB.landmarks_list)
-			var/obj/effect/landmark/L = thing
-			if(L.name == "tdome1")
-				if(teamOneMembers<=0)
-					break
+		for(var/obj/effect/landmark/L in GLOB.tdome1)
+			if(!teamOneMembers)
+				break
+			var/mob/living/carbon/human/newMember = new(get_turf(L))
+			S.copy_to(newMember)
+			newMember.dna.ready_dna(newMember)
+			while((!theghost || !theghost.client) && candidates.len)
+				theghost = pick(candidates)
+				candidates.Remove(theghost)
+			if(!theghost)
+				qdel(newMember)
+				break
+			newMember.key = theghost.key
+			teamOneMembers--
+			to_chat(newMember, "You are a member of the <font color='green'><b>GREEN</b></font> Thunderdome team! Gear up and help your team destroy the red team!")
 
-				var/mob/living/carbon/human/newMember = new(L.loc)
-
-				S.copy_to(newMember)
-
-				newMember.dna.ready_dna(newMember)
-
-				while((!theghost || !theghost.client) && candidates.len)
-					theghost = pick(candidates)
-					candidates.Remove(theghost)
-
-				if(!theghost)
-					qdel(newMember)
-					break
-
-				newMember.key = theghost.key
-				teamOneMembers--
-				to_chat(newMember, "You are a member of the <font color = 'green'><b>GREEN</b></font> Thunderdome team! Gear up and help your team destroy the red team!")
-
-			if(L.name == "tdome2")
-				if(teamTwoMembers<=0)
-					break
-
-				var/mob/living/carbon/human/newMember = new(L.loc)
-
-				S.copy_to(newMember)
-
-				newMember.dna.ready_dna(newMember)
-
-				while((!theghost || !theghost.client) && candidates.len)
-					theghost = pick(candidates)
-					candidates.Remove(theghost)
-
-				if(!theghost)
-					qdel(newMember)
-					break
-
-				newMember.key = theghost.key
-				teamTwoMembers--
-				to_chat(newMember, "You are a member of the <font color = 'red'><b>RED</b></font> Thunderdome team! Gear up and help your team destroy the green team!")
+		for(var/obj/effect/landmark/L in GLOB.tdome2)
+			if(!teamTwoMembers)
+				break
+			var/mob/living/carbon/human/newMember = new(get_turf(L))
+			S.copy_to(newMember)
+			newMember.dna.ready_dna(newMember)
+			while((!theghost || !theghost.client) && candidates.len)
+				theghost = pick(candidates)
+				candidates.Remove(theghost)
+			if(!theghost)
+				qdel(newMember)
+				break
+			newMember.key = theghost.key
+			teamTwoMembers--
+			to_chat(newMember, "You are a member of the <font color='red'><b>RED</b></font> Thunderdome team! Gear up and help your team destroy the green team!")
 	else
 		return 0
 	return 1

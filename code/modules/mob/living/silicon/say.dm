@@ -99,7 +99,7 @@
 		to_chat(src, "<i><span class='game say'>Holopad action relayed, <span class='name'>[real_name]</span> <span class='message'>[message]</span></span></i>")
 
 		for(var/mob/M in viewers(T.loc))
-			M.show_message(rendered, 2)
+			M.show_message(rendered, EMOTE_VISIBLE)
 
 		log_emote("(HPAD) [message]", src)
 	else //This shouldn't occur, but better safe then sorry.
@@ -107,10 +107,10 @@
 		return
 	return 1
 
-/mob/living/silicon/ai/emote(act, type, message, force)
+/mob/living/silicon/ai/emote(act, type, message, intentional = TRUE, force_silence = FALSE)
 	var/obj/machinery/hologram/holopad/T = current
 	if(istype(T) && T.masters[src])//Is the AI using a holopad?
-		src.holopad_emote(message)
+		holopad_emote(message)
 	else //Emote normally, then.
 		..()
 

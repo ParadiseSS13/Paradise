@@ -138,7 +138,7 @@
 			step_away(src,M,15)
 		switch(M.damtype)
 			if("brute")
-				Paralyse(1)
+				Paralyse(2 SECONDS)
 				take_overall_damage(rand(M.force/2, M.force))
 				playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 			if("fire")
@@ -317,7 +317,7 @@
 /mob/living/attack_animal(mob/living/simple_animal/M)
 	M.face_atom(src)
 	if((M.a_intent == INTENT_HELP && M.ckey) || M.melee_damage_upper == 0)
-		M.custom_emote(1, "[M.friendly] [src].")
+		M.custom_emote(EMOTE_VISIBLE, "[M.friendly] [src].")
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_PACIFISM))
 		to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")

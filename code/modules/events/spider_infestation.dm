@@ -17,7 +17,7 @@ GLOBAL_VAR_INIT(sent_spiders_to_station, 0)
 		log_and_message_admins("Warning: Could not spawn any mobs for event Spider Infestation")
 
 /datum/event/spider_infestation/start()
-	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
+	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE)
 	while(spawncount && length(vents))
 		var/obj/vent = pick_n_take(vents)
 		var/obj/structure/spider/spiderling/S = new(vent.loc)
