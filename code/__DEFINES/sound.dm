@@ -7,6 +7,7 @@
 #define CHANNEL_BUZZ 1019
 #define CHANNEL_AMBIENCE 1018
 #define CHANNEL_ENGINE 1017 // Engine ambient sounds
+#define CHANNEL_FIREALARM 1016 //fire alarm alarms
 
 #define USER_VOLUME(M, C) M?.client?.prefs.get_channel_volume(C)
 
