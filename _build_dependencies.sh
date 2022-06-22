@@ -7,3 +7,5 @@ export NODE_VERSION=12
 export BYOND_MAJOR=514
 # Byond Minor
 export BYOND_MINOR=1566
+# Python version for mapmerge and other tools
+export PYTHON_VERSION=3.7.9

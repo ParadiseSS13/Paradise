@@ -85,6 +85,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		"1019" = 100, // CHANNEL_BUZZ
 		"1018" = 100, // CHANNEL_AMBIENCE
 		"1017" = 100, // CHANNEL_ENGINE
+		"1016" = 100, // CHANNEL_FIREALARM
 	)
 	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
 	var/volume_mixer_saving = null
