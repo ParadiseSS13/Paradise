@@ -769,6 +769,7 @@
 	/// Used to link back to the pinpointer
 	var/linked_pinpointer_UID
 	shaded_charge = TRUE
+	can_holster = TRUE
 	unique_reskin = TRUE
 	charge_sections = 5
 	inhand_charge_sections = 3
