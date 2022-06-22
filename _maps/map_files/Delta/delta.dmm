@@ -24334,16 +24334,6 @@
 	icon_state = "dark"
 	},
 /area/security/brig)
-"blX" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
-	},
-/area/maintenance/fsmaint)
 "blZ" = (
 /obj/structure/table,
 /obj/item/taperecorder,
@@ -146409,7 +146399,7 @@ bWr
 ahh
 bwA
 wjm
-blX
+ahh
 ahh
 qxv
 eOQ
