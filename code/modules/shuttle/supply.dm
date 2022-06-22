@@ -577,6 +577,7 @@
 						SSshuttle.points -= P.cost
 						SSshuttle.shoppinglist += O
 						investigate_log("[key_name(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", "cargo")
+						SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, P.name)
 					else
 						to_chat(usr, "<span class='warning'>There are insufficient supply points for this request.</span>")
 					break

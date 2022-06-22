@@ -255,6 +255,7 @@
 	playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 	if(harmbaton)
 		playsound(loc, 'sound/weapons/genhit1.ogg', 50, 1, -1)
+	do_attack_animation(C)
 	icon_state = "[base_icon]-c"
 	spawn(2)
 		icon_state = "[base_icon][on]"

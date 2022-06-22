@@ -83,7 +83,7 @@
 
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
-	if(!is_admin(usr))
+	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES))
 		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>")
 		return
 

@@ -929,7 +929,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons/dart_pistol
 	name = "Dart Pistol Kit"
-	desc = "A miniaturized version of a normal syringe gun. It is very quiet when fired and can fit into any space a small item can. Comes with 3 syringes, a knockout poison, a silencing agent and a deadly neurotoxin."
+	desc = "A miniaturized version of a normal syringe gun. It is very quiet when fired and can fit into any space a small item can. Comes with 3 syringes: a knockout poison, a silencing agent and a deadly neurotoxin."
 	reference = "DART"
 	item = /obj/item/storage/box/syndie_kit/dart_gun
 	cost = 4
@@ -938,11 +938,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons/RSG
 	name = "Rapid Syringe Gun"
-	desc = "A rapid syringe gun able to hold six shot and fire them rapidly. Great together with the bioterror syringe"
+	desc = "A syndicate rapid syringe gun able to fill and fire syringes automatically from an internal reagent reservoir. Comes pre-loaded with 7 empty syringes, and has a maximum capacity of 14 syringes and 300u of reagents."
 	reference = "RSG"
-	item = /obj/item/gun/syringe/rapidsyringe
-	cost = 4
-	gamemodes = list(/datum/game_mode/nuclear)
+	item = /obj/item/gun/syringe/rapidsyringe/preloaded/half
+	cost = 8
 
 /datum/uplink_item/stealthy_weapons/silencer
 	name = "Universal Suppressor"

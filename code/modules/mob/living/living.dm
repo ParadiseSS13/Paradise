@@ -572,11 +572,19 @@
 /mob/living/proc/pull_grabbed(turf/old_turf, direct, movetime)
 	if(!Adjacent(old_turf))
 		return
+	// We might not actually be grab pulled, but we are pretending that we are, so as to
+	// hackily work around issues arising from mutual grabs.
+	var/old_being_pulled = currently_grab_pulled
+	currently_grab_pulled = TRUE
 	// yes, this is four distinct `for` loops. No, they can't be merged.
 	var/list/grabbing = list()
 	for(var/mob/M in ret_grab())
-		if(src != M)
-			grabbing |= M
+		if(src == M)
+			continue
+		if(M.currently_grab_pulled)
+			// Being already pulled by something else up the call stack.
+			continue
+		grabbing |= M
 	for(var/mob/M in grabbing)
 		M.currently_grab_pulled = TRUE
 		M.animate_movement = SYNC_STEPS
@@ -612,6 +620,8 @@
 		G.adjust_position()
 	for(var/obj/item/grab/G in grabbed_by)
 		G.adjust_position()
+
+	currently_grab_pulled = old_being_pulled
 
 
 /mob/living/proc/makeTrail(turf/T)

@@ -281,6 +281,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 			verbs += /client/proc/cmd_display_del_log
 			verbs += /client/proc/cmd_display_del_log_simple
 			verbs += /client/proc/toggledebuglogs
+			verbs += /client/proc/debug_variables /*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 
