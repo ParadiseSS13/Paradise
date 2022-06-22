@@ -292,13 +292,15 @@
 	if(I.flags & NODROP)
 		to_chat(user, "<span class='notice'>[I] stays stuck to your hand when you try and hide it in the book!.</span>")
 	//Checking to make sure the item we're storing isn't larger than/equal to size of the book, prevents recursive storing aswell
-	if(I.w_class < w_class)
-		user.drop_item()
-		I.forceMove(src)
-		store = I
-		to_chat(user, "<span class='notice'>You hide [I] in [name].</span>")
-	else
+	if(I.w_class >= w_class)
 		to_chat(user, "<span class='notice'>[I] is to large to fit in [name].</span>")
+		return
+
+	user.drop_item()
+	I.forceMove(src)
+	store = I
+	to_chat(user, "<span class='notice'>You hide [I] in [name].</span>")
+		
 
 /obj/item/book/proc/remove_stored_item(mob/user, thrown = FALSE)
 	if(!store)
@@ -342,7 +344,7 @@
 /obj/item/book/codex_gigas
 	name = "\improper Codex Gigas"
 	desc = "A book documenting the nature of devils, it seems whatever magic that once possessed this codex is long gone."
-	icon_state ="demonomicon"
+	icon_state = "demonomicon"
 	throw_speed = 1
 	throw_range = 10
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
