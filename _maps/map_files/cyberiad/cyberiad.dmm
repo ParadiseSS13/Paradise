@@ -39752,9 +39752,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/item/radio/headset/headset_sci{
-	pixel_x = -3
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
