@@ -31,5 +31,5 @@ GLOBAL_DATUM_INIT(firealarm_soundloop, /datum/looping_sound/firealarm, new(list(
 /datum/looping_sound/firealarm/sound_loop(looped)
 	. = ..()
 	if(!length(output_atoms))
-		src.stop()
+		stop()
 
