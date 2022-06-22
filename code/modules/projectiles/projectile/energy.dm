@@ -168,7 +168,7 @@
 /obj/item/projectile/energy/detective/tracker_warrant_shot
 	name = "tracker shot"
 	icon_state = "purple_laser"
-	light_color = LIGHT_COLOR_PURPLE
+	light_color = LIGHT_COLOR_YELLOW
 	stamina = 0
 
 /obj/item/projectile/energy/detective/tracker_warrant_shot/on_hit(atom/target)
