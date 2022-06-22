@@ -73872,7 +73872,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "nlQ" = (
-/obj/structure/reagent_dispensers/oil,
+/obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "nmh" = (
