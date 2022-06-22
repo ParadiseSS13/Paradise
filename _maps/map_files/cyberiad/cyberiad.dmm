@@ -21050,8 +21050,6 @@
 /area/crew_quarters/sleep)
 "aYq" = (
 /obj/structure/closet/wardrobe/coroner,
-/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
-/obj/item/reagent_containers/dropper,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -51508,7 +51506,6 @@
 	dir = 1;
 	network = list("Research","SS13")
 	},
-/obj/item/clothing/glasses/welding/superior,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},

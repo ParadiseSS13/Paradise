@@ -60497,8 +60497,6 @@
 /area/toxins/xenobiology)
 "gJw" = (
 /obj/structure/closet/wardrobe/coroner,
-/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
-/obj/item/reagent_containers/dropper,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -61801,10 +61799,6 @@
 	},
 /obj/item/cartridge/signal/toxins{
 	pixel_y = 6
-	},
-/obj/item/clothing/glasses/welding/superior{
-	pixel_y = -12;
-	pixel_x = -6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
