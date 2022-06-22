@@ -24334,16 +24334,6 @@
 	icon_state = "dark"
 	},
 /area/security/brig)
-"blX" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
-	},
-/area/maintenance/fsmaint)
 "blZ" = (
 /obj/structure/table,
 /obj/item/taperecorder,
@@ -49587,7 +49577,6 @@
 /obj/machinery/door/airlock/command{
 	id_tag = "hopofficedoor";
 	name = "Head of Personnel";
-	req_access = null;
 	req_access_txt = "57"
 	},
 /obj/structure/cable{
@@ -95516,6 +95505,7 @@
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -96704,6 +96694,7 @@
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -146624,7 +146615,7 @@ bWr
 ahh
 bwA
 wjm
-blX
+ahh
 ahh
 qxv
 eOQ
