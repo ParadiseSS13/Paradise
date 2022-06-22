@@ -301,69 +301,69 @@
 // areas
 //Ruin of ancient Space Station
 
-/area/ruin/space/ancientstation
+/area/ruin/ancientstation
 	name = "Charlie Station Main Corridor"
 	icon_state = "green"
 	has_gravity = TRUE
 
-/area/ruin/space/ancientstation/powered
+/area/ruin/ancientstation/powered
 	name = "Powered Tile"
 	icon_state = "teleporter"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
-/area/ruin/space/ancientstation/space
+/area/ruin/ancientstation/space
 	name = "Exposed To Space"
 	icon_state = "teleporter"
 	has_gravity = FALSE
 
-/area/ruin/space/ancientstation/atmo
+/area/ruin/ancientstation/atmo
 	name = "Beta Station Atmospherics"
 	icon_state = "red"
 	has_gravity = FALSE
 	ambientsounds = ENGINEERING_SOUNDS
 
-/area/ruin/space/ancientstation/betanorth
+/area/ruin/ancientstation/betanorth
 	name = "Beta Station North Corridor"
 	icon_state = "purple"
 
-/area/ruin/space/ancientstation/solar
+/area/ruin/ancientstation/solar
 	name = "Station Solar Array"
 	icon_state = "panelsAP"
 
-/area/ruin/space/ancientstation/engi
+/area/ruin/ancientstation/engi
 	name = "Charlie Station Engineering"
 	icon_state = "engine"
 	ambientsounds = ENGINEERING_SOUNDS
 
-/area/ruin/space/ancientstation/comm
+/area/ruin/ancientstation/comm
 	name = "Charlie Station Command"
 	icon_state = "captain"
 
-/area/ruin/space/ancientstation/hydroponics
+/area/ruin/ancientstation/hydroponics
 	name = "Charlie Station Hydroponics"
 	icon_state = "hydro"
 
-/area/ruin/space/ancientstation/kitchen
+/area/ruin/ancientstation/kitchen
 	name = "Charlie Station Kitchen"
 	icon_state = "kitchen"
 
-/area/ruin/space/ancientstation/sec
+/area/ruin/ancientstation/sec
 	name = "Charlie Station Security"
 	icon_state = "red"
 
-/area/ruin/space/ancientstation/thetacorridor
+/area/ruin/ancientstation/thetacorridor
 	name = "Theta Station Main Corridor"
 	icon_state = "green"
 
-/area/ruin/space/ancientstation/proto
+/area/ruin/ancientstation/proto
 	name = "Theta Station Prototype Lab"
 	icon_state = "toxlab"
 
-/area/ruin/space/ancientstation/rnd
+/area/ruin/ancientstation/rnd
 	name = "Theta Station Research and Development"
 	icon_state = "toxlab"
 
-/area/ruin/space/ancientstation/hivebot
+/area/ruin/ancientstation/hivebot
 	name = "Hivebot Mothership"
 	icon_state = "teleporter"
