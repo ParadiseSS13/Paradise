@@ -40,7 +40,6 @@
 
 	var/list/alive = list()
 	var/list/antagonists = list()
-	var/list/other_antags = list()
 	var/list/dead = list()
 	var/list/ghosts = list()
 	var/list/misc = list()
@@ -65,8 +64,6 @@
 		serialized["ref"] = "\ref[M]"
 
 		if(istype(M))
-			var/datum/mind/mind = M.mind
-
 			if(isnewplayer(M))  // People in the lobby screen; only have their ckey as a name.
 				continue
 			if(isobserver(M))
@@ -78,6 +75,7 @@
 			else
 				alive += list(serialized)
 
+				var/datum/mind/mind = M.mind
 				if(user.antagHUD)
 					// If a mind is many antags at once, we'll display all of them, each
 					// under their own antag sub-section.
@@ -92,7 +90,7 @@
 
 					// Not-very-datumized antags follow
 					// Associative list of antag name => whether this mind is this antag
-					other_antags += list(
+					var/other_antags = list(
 						"Changeling" = (mind.changeling != null),
 						"Vampire" = (mind.vampire != null),
 					)
@@ -103,33 +101,21 @@
 							"Wizard's Apprentice" = (mind in SSticker.mode.apprentices),
 							"Nuclear Operative" = (mind in SSticker.mode.syndicates),
 							"Shadowling" = (mind in SSticker.mode.shadows),
-							"Shadowling Thralls" = (mind in SSticker.mode.shadowling_thralls),
+							"Shadowling Thrall" = (mind in SSticker.mode.shadowling_thralls),
 							"Abductor" = (mind in SSticker.mode.abductors),
 							"Revolutionary" = (mind in SSticker.mode.revolutionaries),
-							"Head Revolutionary" = (mind in SSticker.mode.head_revolutionaries),
-							"Abductees" = (mind in SSticker.mode.abductees),
-							"Devils" = (mind in SSticker.mode.devils),
-							"Event Roles" = (mind in SSticker.mode.eventmiscs),
-							"Vampire Thralls" = (mind in SSticker.mode.vampire_enthralled),
-							"Xenomorphs" = (mind in SSticker.mode.xenos),
 						)
 
-		else if (istype(M, /obj/structure/blob/core))
-			var/obj/structure/blob/core/core = M
-			if(core.overmind && core.overmind.mind && core.overmind.key)
-				other_antags += list("Blob Cores" = (core.overmind.mind in SSticker.mode.blob_overminds))
-			else
-				misc += list(serialized)
+					for(var/antag_name in other_antags)
+						var/is_antag = other_antags[antag_name]
+						if(!is_antag)
+							continue
+						var/antag_serialized = serialized.Copy()
+						antag_serialized["antag"] = antag_name
+						antagonists += list(antag_serialized)
+
 		else
 			misc += list(serialized)
-
-		for(var/antag_name in other_antags)
-			var/is_antag = other_antags[antag_name]
-			if(!is_antag)
-				continue
-			var/list/antag_serialized = serialized.Copy()
-			antag_serialized["antag"] = antag_name
-			antagonists += list(antag_serialized)
 
 	data["alive"] = alive
 	data["antagonists"] = antagonists
