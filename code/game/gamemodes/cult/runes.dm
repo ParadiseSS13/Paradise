@@ -161,7 +161,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 					continue
 				if(L.stat)
 					continue
-				if(isanimal(L))
+				if(isanimal(L) && !isconstruct(L)) //simple animals that arent constructs cannot help invoke
 					continue
 				invokers |= L
 
