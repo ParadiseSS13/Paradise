@@ -160,6 +160,7 @@
 	name = "overcharged shot"
 	icon_state = "spark"
 	light_color = LIGHT_COLOR_DARKRED
+	color = LIGHT_COLOR_DARKRED
 	damage = 45
 	stamina = 15
 	eyeblur = 4 SECONDS
