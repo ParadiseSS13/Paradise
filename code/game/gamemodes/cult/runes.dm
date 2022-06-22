@@ -161,6 +161,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 					continue
 				if(L.stat)
 					continue
+				if(isanimal(L))
+					continue
 				invokers |= L
 
 		if(length(invokers) >= req_cultists) // If there's enough invokers
@@ -360,11 +362,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 			H.uncuff()
 			H.Silence(6 SECONDS) //Prevent "HALP MAINT CULT" before you realise you're converted
 
-			var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
-			if(H.equip_to_slot_if_possible(D, slot_in_backpack, FALSE, TRUE))
-				to_chat(H, "<span class='cultlarge'>You have a dagger in your backpack. Use it to do [SSticker.cultdat.entity_title1]'s bidding. </span>")
-			else
-				to_chat(H, "<span class='cultlarge'>There is a dagger on the floor. Use it to do [SSticker.cultdat.entity_title1]'s bidding.</span>")
+			if(!isanimal(convertee))
+				var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
+				if(H.equip_to_slot_if_possible(D, slot_in_backpack, FALSE, TRUE))
+					to_chat(H, "<span class='cultlarge'>You have a dagger in your backpack. Use it to do [SSticker.cultdat.entity_title1]'s bidding. </span>")
+				else
+					to_chat(H, "<span class='cultlarge'>There is a dagger on the floor. Use it to do [SSticker.cultdat.entity_title1]'s bidding.</span>")
 
 /obj/effect/rune/convert/proc/do_sacrifice(mob/living/offering, list/invokers)
 	var/mob/living/user = invokers[1] //the first invoker is always the user
