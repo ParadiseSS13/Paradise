@@ -12,7 +12,7 @@
 	var/search_rating = list(
 		"min" = 0,
 		"max" = 10,
-		)
+	)
 	var/search_categories = list()
 	var/selected_rating = 0
 	var/patron_name
@@ -76,7 +76,7 @@
 	categories += GLOB.library_catalog.getBookCategoryByID(row["tertiaryCategory"])
 	ckey = row["ckey"]
 	var/list/reports_json = list()
-	if(row["reports"])
+	if(length(row["reports"]))
 		reports_json = json_decode(row["reports"])
 	for(var/r in reports_json)
 		var/datum/library_category/report_category = GLOB.library_catalog.getReportCategoryByID(r[2])

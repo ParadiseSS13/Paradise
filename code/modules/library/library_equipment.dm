@@ -170,8 +170,8 @@
 	name = "Book Binder"
 	icon = 'icons/obj/library.dmi'
 	icon_state = "binder"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 
 	var/datum/cachedbook/selected_content = new()
 	var/printing = FALSE
@@ -210,7 +210,7 @@
 	selected_content.author = null
 	selected_content.content = list()
 	for(var/obj/item/paper/I in P.contents)
-		selected_content += I.info
+		selected_content.content += I.info
 
 /obj/machinery/bookbinder/proc/select_book(obj/item/book/B)
 	if(!B || B.protected || B.carved)
@@ -264,7 +264,9 @@
 	switch(action)
 		if("print_book")
 			if(!printing)
-				print_book()
+				printing = TRUE
+				visible_message("[src] begins to hum as it warms up its printing drums.")
+				addtimer(CALLBACK(src, .proc/print_book), 5 SECONDS)
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 		if("toggle_binder_category")
@@ -313,15 +315,13 @@
 			return FALSE
 
 /obj/machinery/bookbinder/proc/print_book()
-	printing = TRUE
-	visible_message("[src] begins to hum as it warms up its printing drums.")
-	sleep(150)
 	src.visible_message("[src] whirs as it prints and binds a new book.")
 	var/obj/item/book/b = new(loc)
-	b.pages = selected_content.content
-	b.title = selected_content.title
-	b.summary = selected_content.summary
-	b.categories = selected_content.categories
+	b.pages = selected_content.content ? selected_content.content : list(" ")
+	b.title = selected_content.title ? selected_content.title : "no title" //The less of these that are null the better
+	b.author = selected_content.author ? selected_content.author : "no author"
+	b.summary = selected_content.summary ? selected_content.summary : "No Summary Provided"
+	b.categories = selected_content.categories ? selected_content.categories : list()
 	b.icon_state = "book[rand(1,16)]"
 	printing = FALSE
 

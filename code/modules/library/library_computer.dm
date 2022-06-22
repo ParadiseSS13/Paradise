@@ -1,5 +1,3 @@
-///Maximum number of books that can be uploaded by a single ckey
-#define MAX_PLAYER_UPLOADS 5
 ///Defines how many player books appear on the player book archive TGUI tab
 #define LIBRARY_BOOKS_PER_PAGE 25
 ///Login state for our computer, this state grants full access to functions
@@ -18,9 +16,9 @@
   */
 /obj/machinery/computer/library
 	name = "Library Computer"
-	anchored = 1
-	density = 1
-	icon_keyboard = ""
+	anchored = TRUE
+	density = TRUE
+	icon_keyboard = null
 	icon_screen = "computer_on"
 	icon = 'icons/obj/library.dmi'
 	icon_state = "computer"
@@ -52,7 +50,7 @@
 
 /obj/machinery/computer/library/Initialize(mapload)
 	. = ..()
-	populate_booklist()
+	populate_booklist(async = FALSE)
 	//since ui_data screws up when SQL calls are made inside it,
 	//we must populate our booklist before ui_act is called for the first time
 
@@ -308,12 +306,13 @@
 				user_data.selected_book.categories += text2num(params["category_id"])
 				populate_booklist()
 		if("uploadbook")
-			if(upload_book(params["user_ckey"], user_data.selected_book))
+			if(GLOB.library_catalog.uploadBook(params["user_ckey"], user_data.selected_book))
 				playsound(src, 'sound/machines/ping.ogg', 50, 0)
 				atom_say("Book Uploaded!")
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 				atom_say("Book Upload Failed!")
+			num_pages = getmaxpages()
 		if("reportlost")
 			inventoryRemove(params["libraryid"])
 		if("applyfine")
@@ -453,7 +452,10 @@
 	var/datum/cachedbook/CB = new()
 	CB.title = B.title
 	CB.author = B.author
-	CB.content = B.pages[1]
+	if(length(B.pages)) //just incase we run a book with no pages
+		CB.content = B.pages[1]
+	else
+		CB.content = "Blank"
 	CB.summary = B.summary
 	CB.rating = B.rating
 	CB.copyright = B.copyright
@@ -477,6 +479,8 @@
 		total_books++
 		B.libraryid = total_books
 	var/datum/cachedbook/CB = serializebook(B)
+	if(!CB)
+		return
 	inventory.Add(CB)
 	return TRUE
 
@@ -518,11 +522,11 @@
   * internal proc that will refresh our cached booklist, it needs to be called everytime we are switching parameters
   * that will affect what books will be displayed in our TGUI player book archive.
  */
-/obj/machinery/computer/library/proc/populate_booklist()
+/obj/machinery/computer/library/proc/populate_booklist(async = TRUE)
 	cached_booklist = list() //clear old list
 	var/starting_book = (archive_page_num - 1) * LIBRARY_BOOKS_PER_PAGE
 	var/range = LIBRARY_BOOKS_PER_PAGE
-	for(var/datum/cachedbook/CB in GLOB.library_catalog.getBooksByRange(starting_book, range, user_data))
+	for(var/datum/cachedbook/CB in GLOB.library_catalog.getBooksByRange(starting_book, range, user_data, async))
 		//instead of just adding the datum to the cached_booklist, we want to make it an assoc list so we can just give it to the TGUI
 
 		var/list/book_data = list(
@@ -554,10 +558,6 @@
 		page_count++
 	return page_count
 
-/obj/machinery/computer/library/proc/upload_book(ckey)
-	GLOB.library_catalog.uploadBook(ckey, user_data.selected_book)
-	num_pages = getmaxpages()
-
 /obj/machinery/computer/library/proc/make_external_book(datum/cachedbook/newbook)
 	if(!newbook || !newbook.id)
 		return
@@ -580,7 +580,6 @@
 	new newbook.path(loc)
 	visible_message("[src]'s printer hums as it produces a completely bound book. How did it do that?")
 
-#undef MAX_PLAYER_UPLOADS
 #undef LIBRARY_BOOKS_PER_PAGE
 #undef LOGIN_FULL
 #undef LOGIN_PUBLIC

@@ -14,7 +14,7 @@
 /obj/item/book
 	name = "book"
 	icon = 'icons/obj/library.dmi'
-	icon_state ="book"
+	icon_state = "book"
 	throw_speed = 1
 	throw_range = 5
 	force = 2
@@ -83,7 +83,7 @@
 	else if(I.sharp && !carved) //don't use sharp objects on your books if you don't want to carve out all of its pages kids!
 		carve_book(user, I)
 	else
-		return ..()
+		store_item(I)
 
 /**
   * Internal Checker Proc
@@ -277,7 +277,8 @@
 		return
 	to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
 	if(I.use_tool(src, user, 30, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You carve out the pages from [title]! You didn't want to read it anyway.</span>")
+		user.visible_message("<span class='warning'>[user] appears to carve out the pages inside of [title]!</span>",\
+				"<span class='danger'>You begin to carve out [title].!</span>")
 		carved = TRUE
 		return TRUE
 
@@ -300,7 +301,7 @@
 	I.forceMove(src)
 	store = I
 	to_chat(user, "<span class='notice'>You hide [I] in [name].</span>")
-		
+
 
 /obj/item/book/proc/remove_stored_item(mob/user, thrown = FALSE)
 	if(!store)

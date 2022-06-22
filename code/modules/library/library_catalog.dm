@@ -1,5 +1,7 @@
 ///library category datum constructor helper, used to make easier the process of defining new report/book categories
 #define DEFINE_CATEGORY(C, D) (new /datum/library_category(_category_id = C, _description = D))
+///Maximum number of books that can be uploaded by a single ckey
+#define MAX_PLAYER_UPLOADS 5
 
 /*
  * #Library Catalog
@@ -232,7 +234,7 @@
   * * range - Amount of books we want to grab at once
   * * datum/library_user_data/search_terms - datum with parameters for what we want to query our DB for
  */
-/datum/library_catalog/proc/getBooksByRange(initial = 1, range = 25, datum/library_user_data/search_terms)
+/datum/library_catalog/proc/getBooksByRange(initial = 1, range = 25, datum/library_user_data/search_terms, doAsync = TRUE)
 	var/list/search_query = buildSearchQuery(search_terms)
 	var/sql = "SELECT id, author, title, content, summary, ratings, raters, primaryCategory, secondaryCategory, tertiaryCategory, ckey, reports FROM library" + search_query[1] + " LIMIT :lowerlimit, :upperlimit"
 	var/list/sql_params = search_query[2]
@@ -242,7 +244,7 @@
 
 	var/datum/db_query/select_query = SSdbcore.NewQuery(sql, sql_params)
 
-	if(!select_query.warn_execute())
+	if(!select_query.warn_execute(async = doAsync))
 		qdel(select_query)
 		return
 
@@ -336,6 +338,7 @@
 	sql_params["id"] = bookid
 
 	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ratings, raters FROM library WHERE id=:id", sql_params)
+
 	if(!query.warn_execute())
 		qdel(query)
 		return
@@ -359,16 +362,16 @@
   * Arguments:
   * * amount - amount of random books to get
  */
-/datum/library_catalog/proc/getRandomBooks(amount = 1)
+/datum/library_catalog/proc/getRandomBooks(amount = 1, doAsync = TRUE)
 	if(!amount)
 		return
 	if(!SSdbcore.IsConnected())
 		return
 	var/num_books = clamp(amount, 1, 50) //you don't need more than 50 random books <3
 	var/list/sql_params = list("amount" = num_books )
-	var/sql = "SELECT id, author, title, content, summary, ratings, primaryCategory, secondaryCategory, tertiaryCategory, ckey FROM library GROUP BY title ORDER BY rand() LIMIT :amount"
+	var/sql = "SELECT id, author, title, content, summary, ratings, primaryCategory, secondaryCategory, tertiaryCategory, ckey, reports FROM library GROUP BY title ORDER BY rand() LIMIT :amount"
 	var/datum/db_query/query = SSdbcore.NewQuery(sql, sql_params)
-	if(!query.warn_execute())
+	if(!query.warn_execute(async = doAsync)) //this proc is used in initialize in some objects :)
 		qdel(query)
 		return
 
@@ -382,12 +385,11 @@
 			"content" = query.item[4],
 			"summary" = query.item[5],
 			"ratings" = query.item[6],
-			"raters"  = query.item[7],
-			"primaryCategory"   = query.item[8],
-			"secondaryCategory" = query.item[9],
-			"tertiaryCategory"  = query.item[10],
-			"ckey"    = query.item[11],
-			"reports" = query.item[12],
+			"primaryCategory"   = query.item[7],
+			"secondaryCategory" = query.item[8],
+			"tertiaryCategory"  = query.item[9],
+			"ckey"    = query.item[10],
+			"reports" = query.item[11]
 		))
 		results += CB
 	qdel(query)
@@ -518,8 +520,13 @@
 	if(!SSdbcore.IsConnected())
 		return FALSE
 
-	var/sql = {"INSERT INTO library (author, title, content, summary, primaryCategory, secondaryCategory, tertiaryCategory, ckey)
-	VALUES (:author, :title, :content, :summary, :primarycategory, :secondarycategory, :tertiarycategory, :ckey)"}
+	var/datum/library_user_data/search_terms = new()
+	search_terms.search_ckey = ckey
+	if(length(get_total_books(search_terms)) >= MAX_PLAYER_UPLOADS)
+		return FALSE
+
+	var/sql = {"INSERT INTO library (author, title, content, summary, primaryCategory, secondaryCategory, tertiaryCategory, ckey, raters, reports)
+	VALUES (:author, :title, :content, :summary, :primarycategory, :secondarycategory, :tertiarycategory, :ckey, :raters, :reports)"}
 
 	var/sql_params = list(
 			"author"  = selected_book.author,
@@ -530,6 +537,8 @@
 			"secondarycategory" = length(selected_book.categories) >= 2 ? selected_book.categories[2] : 0,
 			"tertiarycategory"  = length(selected_book.categories) >= 3 ? selected_book.categories[3] : 0,
 			"ckey"    = ckey,
+			"raters"  = " ", //Entry for both of these columns are NOT NULL
+			"reports" = " ", //so we need to provide an empty string val
 		)
 
 	var/datum/db_query/query = SSdbcore.NewQuery(sql, sql_params)
@@ -590,6 +599,8 @@
 	qdel(query)
 
 #undef DEFINE_CATEGORY
+#undef MAX_PLAYER_UPLOADS
+
 /*     here be dragons~~~
                 __        _
               _/  \    _(\(o
