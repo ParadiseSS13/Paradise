@@ -17,23 +17,36 @@
 	icon = 'icons/obj/playing_cards.dmi'
 	actions_types = list(/datum/action/item_action/draw_card, /datum/action/item_action/deal_card, /datum/action/item_action/deal_card_multi, /datum/action/item_action/shuffle)
 	var/list/cards = list()
-	var/cooldown = 0 // to prevent spam shuffle
-	var/deck_size = 1 // Decks default to a single pack, setting it higher will multiply them by that number
-	var/deck_total = 0 // The total number of cards. Set on init after the deck is fully built
-	var/card_style = null // Styling for the cards, if they have multiple sets of sprites
-	var/deck_style = null // Styling for the deck, it they has multiple sets of sprites
-	var/simple_deck = FALSE // For decks without a full set of sprites
+	/// To prevent spam shuffle
+	var/cooldown = 0
+	/// Decks default to a single pack, setting it higher will multiply them by that number
+	var/deck_size = 1
+	/// The total number of cards. Set on init after the deck is fully built
+	var/deck_total = 0
+	/// Styling for the cards, if they have multiple sets of sprites
+	var/card_style = null
+	/// Styling for the deck, it they has multiple sets of sprites
+	var/deck_style = null
+	/// For decks without a full set of sprites
+	var/simple_deck = FALSE
 	throw_speed = 3
 	throw_range = 10
 	throwforce = 0
 	force = 0
-	var/card_hitsound // Inherited card hit sound
-	var/card_force = 0 // Inherited card force
-	var/card_throwforce = 0 // Inherited card throw force
-	var/card_throw_speed = 4 // Inherited card throw speed
-	var/card_throw_range = 20 // Inherited card throw range
-	var/card_attack_verb // Inherited card verbs
-	var/card_resistance_flags = FLAMMABLE // Inherited card resistance
+	/// Inherited card hit sound
+	var/card_hitsound 
+	/// Inherited card force
+	var/card_force = 0
+	/// Inherited card throw force
+	var/card_throwforce = 0
+	/// Inherited card throw speed
+	var/card_throw_speed = 4
+	/// Inherited card throw range
+	var/card_throw_range = 20
+	/// Inherited card verbs
+	var/card_attack_verb
+	/// Inherited card resistance
+	var/card_resistance_flags = FLAMMABLE
 
 /obj/item/deck/Initialize(mapload)
 	. = ..()
@@ -134,7 +147,7 @@
 	if(H && (H.parentdeck != src))
 		to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
 		return
-	if(H && ((1 + length(H.cards)) > H.maxcardlen))
+	if(H && length(H.cards) >= H.maxcardlen)
 		to_chat(user,"<span class = 'warning'>You can't hold that many cards in one hand!</span>")
 		return
 
@@ -195,7 +208,7 @@
 	for(var/mob/living/player in viewers(3))
 		if(!player.incapacitated())
 			players += player
-	var/maxcards = max(min(length(cards),10),1)
+	var/maxcards = clamp(length(cards), 1, 10)
 	var/dcard = input("How many card(s) do you wish to deal? You may deal up to [maxcards] cards.") as num
 	if(dcard > maxcards)
 		return
@@ -298,9 +311,11 @@
 
 	var/concealed = FALSE
 	var/list/cards = list()
-	var/direction = NORTH // Tracked direction, which is used when updating the hand's appearance instead of messing with the local dir
+	/// Tracked direction, which is used when updating the hand's appearance instead of messing with the local dir
+	var/direction = NORTH 
 	var/parentdeck = null
-	var/pickedcard = null // The player's picked card they want to take out. Stored in the hand so it can be passed onto the verb
+	/// The player's picked card they want to take out. Stored in the hand so it can be passed onto the verb
+	var/pickedcard = null
 
 /obj/item/cardhand/proc/update_values()
 	if(parentdeck)
@@ -330,10 +345,10 @@
 		if((length(H.cards) + length(cards)) > maxcardlen)
 			to_chat(user,"<span class='warning'>You can't hold that many cards in one hand!</span>")
 			return
-		if(H.parentdeck == src.parentdeck)
+		if(H.parentdeck == parentdeck)
 			for(var/datum/playingcard/P in cards)
 				H.cards += P
-			H.concealed = src.concealed
+			H.concealed = concealed
 			qdel(src)
 			H.update_icon()
 			return
