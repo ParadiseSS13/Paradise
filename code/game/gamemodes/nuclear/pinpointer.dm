@@ -364,11 +364,12 @@
 	var/obj/item/gun/energy/detective/D = locateUID(gun_UID)
 	if(!D)
 		return
-	if(D.linked_pinpointer_UID != UID() || linked_gun_UID)
+	if((D.linked_pinpointer_UID && D.linked_pinpointer_UID != UID()) || linked_gun_UID)
 		visible_message("<span class='notice'>The pinpointer pings to indicate either it or the gun is already linked.</span>", "<span class='notice'>You hear a pinpointer pinging.</span>")
 		return
 	D.link_pinpointer(UID())
 	linked_gun_UID = gun_UID
+	visible_message("<span class='notice'>The pinpointer pings twice to indicate a successful link.</span>", "<span class='notice'>You hear a pinpointer pinging twice.</span>")
 
 /obj/item/pinpointer/crew/proc/start_tracking()
 	if(!linked_gun_UID)
