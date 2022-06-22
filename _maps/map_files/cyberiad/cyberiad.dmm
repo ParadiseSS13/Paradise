@@ -36388,7 +36388,6 @@
 /area/medical/chemistry)
 "bGw" = (
 /obj/machinery/r_n_d/circuit_imprinter,
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -37256,7 +37255,7 @@
 	c_tag = "Research Robotics Lab";
 	network = list("Research","SS13")
 	},
-/obj/structure/reagent_dispensers/oil,
+/obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteredcorner"
@@ -39260,7 +39259,6 @@
 	pixel_x = 3;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/toxins/lab)
@@ -42655,7 +42653,8 @@
 /turf/simulated/floor/plasteel,
 /area/medical/genetics)
 "bSI" = (
-/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/table,
+/obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "bSJ" = (
