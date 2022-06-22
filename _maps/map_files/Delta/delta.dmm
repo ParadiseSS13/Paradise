@@ -65156,15 +65156,12 @@
 	icon_state = "neutral"
 	},
 /area/medical/medbay3)
-<<<<<<< HEAD
 "cXI" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
 	},
 /area/security/prison/cell_block)
-=======
->>>>>>> master
 "cXJ" = (
 /turf/simulated/wall,
 /area/medical/surgery1)
