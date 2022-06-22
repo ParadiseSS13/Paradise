@@ -349,6 +349,8 @@
 	if(cell.charge <= 140) //at least 6 seconds of charge time
 		to_chat(user, "<span class='warning'>[src] does not have enough charge to be overloaded.</span>")
 		return
+	if(charging)
+		return
 	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
 	charging = TRUE
 	if(do_after(user, 2.5 SECONDS, target = src))
