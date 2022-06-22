@@ -6799,15 +6799,6 @@
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "azl" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/window/reinforced,
-/obj/machinery/door/window/westleft{
-	name = "Janitoral Delivery";
-	req_access_txt = "26"
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/janitor)
@@ -7384,6 +7375,9 @@
 	dir = 8;
 	location = "Janitor"
 	},
+/obj/machinery/door/window/eastright,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/access/any/service/janitor,
 /turf/simulated/floor/plating,
 /area/janitor)
 "aAB" = (
@@ -10490,6 +10484,9 @@
 	dir = 4;
 	location = "Bar"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/access/any/service/bar,
+/obj/machinery/door/window/westright,
 /turf/simulated/floor/plasteel/grimy,
 /area/crew_quarters/bar)
 "aHJ" = (
@@ -13008,8 +13005,6 @@
 	pixel_x = -10
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/arrow,
-/obj/effect/decal/warning_stripes/yellow/partial,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -17806,6 +17801,8 @@
 	opacity = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/window/westright,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "aXL" = (
@@ -19995,6 +19992,9 @@
 	location = "Kitchen"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/mapping_helpers/airlock/access/any/service/kitchen,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/machinery/door/window/westright,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bcp" = (
@@ -20929,6 +20929,9 @@
 	opacity = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/machinery/door/window/southright,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "bem" = (
@@ -26659,6 +26662,16 @@
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/maintenance/starboard)
+"bqI" = (
+/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/machinery/door/window/northleft,
+/obj/effect/decal/warning_stripes/arrow,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/sorting)
 "bqJ" = (
 /obj/structure/table,
 /obj/item/camera{
@@ -28410,18 +28423,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"buG" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/arrow{
-	dir = 1
-	},
-/obj/effect/decal/warning_stripes/yellow/partial{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/atmos)
 "buH" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -28985,17 +28986,6 @@
 	},
 /area/atmos)
 "bvR" = (
-/obj/machinery/door/window{
-	base_state = "right";
-	dir = 1;
-	icon_state = "right";
-	name = "Atmospherics Deliveries";
-	req_access_txt = "24"
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -29030,6 +29020,9 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/window/eastright,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bvT" = (
@@ -48743,13 +48736,6 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/door/window{
-	dir = 1;
-	req_access_txt = "63"
-	},
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -49315,9 +49301,13 @@
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=1";
-	location = "Security"
+	location = "Security";
+	dir = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
+/obj/machinery/door/window/southleft,
 /turf/simulated/floor/plasteel,
 /area/security/range)
 "cnT" = (
@@ -56376,15 +56366,6 @@
 /turf/simulated/floor/plasteel,
 /area/engine/engine_smes)
 "cDD" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/door/window/eastleft{
-	req_access_txt = "10"
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -56721,9 +56702,13 @@
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=1";
-	location = "Engineering"
+	location = "Engineering";
+	dir = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/window/southright,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cEC" = (
@@ -60300,6 +60285,9 @@
 	dir = 8;
 	location = "Medbay"
 	},
+/obj/machinery/door/window/eastright,
+/obj/effect/mapping_helpers/airlock/access/any/medical/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /turf/simulated/floor/plasteel,
 /area/medical/medbay2)
 "cMG" = (
@@ -65168,12 +65156,15 @@
 	icon_state = "neutral"
 	},
 /area/medical/medbay3)
+<<<<<<< HEAD
 "cXI" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
 	},
 /area/security/prison/cell_block)
+=======
+>>>>>>> master
 "cXJ" = (
 /turf/simulated/wall,
 /area/medical/surgery1)
@@ -77308,12 +77299,16 @@
 "dyP" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=1";
-	location = "Robotics"
+	location = "Robotics";
+	dir = 1
 	},
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/mapping_helpers/airlock/access/any/science/robotics,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/machinery/door/window/southright,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "dyR" = (
@@ -89837,6 +89832,9 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
+/obj/machinery/door/window/northleft,
 /turf/simulated/floor/plating,
 /area/toxins/misc_lab)
 "iiM" = (
@@ -96391,6 +96389,9 @@
 	dir = 8;
 	location = "Hydroponics"
 	},
+/obj/machinery/door/window/eastright,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/access/any/service/hydroponics,
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "wjm" = (
@@ -125572,7 +125573,7 @@ aOg
 btw
 brR
 btw
-buG
+buD
 bvR
 bxc
 byD
@@ -137883,7 +137884,7 @@ aDL
 ayA
 ayA
 aIh
-aEN
+bqI
 aNx
 aQl
 aCF
