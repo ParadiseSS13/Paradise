@@ -556,10 +556,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return target_amount
 
 /datum/objective/absorb/check_completion()
-	if(owner && owner.changeling && owner.changeling.absorbed_dna && (owner.changeling.absorbedcount >= target_amount))
-		return 1
-	else
-		return 0
+	var/datum/antagonist/changeling/cling = owner?.has_antag_datum(/datum/antagonist/changeling)
+	if(cling?.absorbed_dna && (cling.absorbed_count >= target_amount))
+		return TRUE
+	return FALSE
 
 /datum/objective/destroy
 	martyr_compatible = 1

@@ -94,9 +94,7 @@
 
 					// Not-very-datumized antags follow
 					// Associative list of antag name => whether this mind is this antag
-					var/other_antags = list(
-						"Changeling" = (mind.changeling != null)
-					)
+					var/list/other_antags = list()
 					if(SSticker && SSticker.mode)
 						other_antags += list(
 							"Blob" = (mind.special_role == SPECIAL_ROLE_BLOB),
