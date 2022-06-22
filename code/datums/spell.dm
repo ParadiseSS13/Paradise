@@ -206,7 +206,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	switch(invocation_type)
 		if("shout")
 			if(!user.IsVocal())
-				user.custom_emote(1, "makes frantic gestures!")
+				user.custom_emote(EMOTE_VISIBLE, "makes frantic gestures!")
 			else
 				if(prob(50))//Auto-mute? Fuck that noise
 					user.say(invocation)

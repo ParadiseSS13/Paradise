@@ -744,3 +744,48 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			message_admins("[src.ckey] just got booted back to lobby with no jobs enabled, but antag rolling enabled. Likely antag rolling abuse.")
 		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
 	return TRUE
+
+/**
+ * Helper proc to determine if a mob can use emotes that make sound or not.
+ */
+/mob/proc/can_use_audio_emote()
+	switch(audio_emote_cd_status)
+		if(EMOTE_INFINITE)  // Spam those emotes
+			return TRUE
+		if(EMOTE_ADMIN_BLOCKED)  // Cooldown emotes were disabled by an admin, prevent use
+			return FALSE
+		if(EMOTE_ON_COOLDOWN)	// Already on CD, prevent use
+			return FALSE
+		if(EMOTE_READY)
+			return TRUE
+
+	CRASH("Invalid emote type")
+
+/**
+ * # Start the cooldown for an emote that plays audio.
+ *
+ * * cooldown: The amount of time that should be waited before any other audio emote can fire.
+ */
+/mob/proc/start_audio_emote_cooldown(cooldown = AUDIO_EMOTE_COOLDOWN)
+	if(!can_use_audio_emote())
+		return FALSE
+
+	if(audio_emote_cd_status == EMOTE_READY)
+		audio_emote_cd_status = EMOTE_ON_COOLDOWN	// Starting cooldown
+		addtimer(CALLBACK(src, .proc/on_audio_emote_cooldown_end), cooldown)
+	return TRUE  // proceed with emote
+
+
+/mob/proc/on_audio_emote_cooldown_end()
+	if(audio_emote_cd_status == EMOTE_ON_COOLDOWN)
+		// only reset emotes that probably weren't set by an admin
+		audio_emote_cd_status = EMOTE_READY
+
+/proc/stat_to_text(stat)
+	switch(stat)
+		if(CONSCIOUS)
+			return "conscious"
+		if(UNCONSCIOUS)
+			return "unconscious"
+		if(DEAD)
+			return "dead"

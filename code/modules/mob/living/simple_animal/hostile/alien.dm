@@ -31,10 +31,15 @@
 	minbodytemp = 0
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	gold_core_spawnable = HOSTILE_SPAWN
+	gold_core_spawnable = NO_SPAWN
 	death_sound = 'sound/voice/hiss6.ogg'
 	deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	footstep_type = FOOTSTEP_MOB_CLAW
+
+/mob/living/simple_animal/hostile/alien/xenobio
+	maxHealth = 60
+	health = 60
+	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/alien/drone
 	name = "alien drone"
@@ -45,6 +50,11 @@
 	melee_damage_upper = 15
 	var/plant_cooldown = 30
 	var/plants_off = 0
+
+/mob/living/simple_animal/hostile/alien/drone/xenobio
+	maxHealth = 60
+	health = 60
+	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/alien/drone/handle_automated_action()
 	if(!..()) //AIStatus is off
@@ -71,6 +81,11 @@
 	projectilesound = 'sound/weapons/pierce.ogg'
 
 
+/mob/living/simple_animal/hostile/alien/sentinel/xenobio
+	health = 75
+	maxHealth = 75
+	gold_core_spawnable = HOSTILE_SPAWN
+
 /mob/living/simple_animal/hostile/alien/queen
 	name = "alien queen"
 	icon_state = "alienq_running"
@@ -92,6 +107,11 @@
 	var/plants_off = 0
 	var/egg_cooldown = 30
 	var/plant_cooldown = 30
+
+/mob/living/simple_animal/hostile/alien/queen/xenobio
+	health = 100
+	maxHealth = 100
+	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/alien/queen/handle_automated_action()
 	if(!..())
@@ -134,7 +154,6 @@
 	health = 400
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 10, /obj/item/stack/sheet/animalhide/xeno = 2)
 	mob_size = MOB_SIZE_LARGE
-	gold_core_spawnable = NO_SPAWN
 
 /obj/item/projectile/neurotox
 	name = "neurotoxin"

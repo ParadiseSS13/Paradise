@@ -448,11 +448,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -4484,11 +4479,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -6270,6 +6260,10 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "bridge blast";
 	name = "Bridge Blast Doors"
+	},
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -13855,9 +13849,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "aXi" = (
 /obj/effect/spawner/window/reinforced,
@@ -24818,6 +24810,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "bwE" = (
@@ -31287,8 +31280,12 @@
 	})
 "bNN" = (
 /obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "RD"
@@ -42556,21 +42553,7 @@
 	},
 /area/medical/exam_room)
 "cuf" = (
-/obj/structure/table/glass,
-/obj/item/assembly/igniter{
-	pixel_x = 3;
-	pixel_y = -7
-	},
-/obj/item/assembly/timer{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
-	name = "Chemistry Cleaner";
-	pixel_x = 8;
-	pixel_y = 5
-	},
+/obj/machinery/chem_heater,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteyellow"
@@ -44215,6 +44198,12 @@
 	dir = 4
 	},
 /obj/machinery/disposal,
+/obj/machinery/door_control{
+	pixel_x = -26;
+	name = "Broken Button";
+	id = "thisdoesntwork";
+	pixel_y = 7
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "cze" = (
@@ -47727,9 +47716,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cJW" = (
-/obj/structure/chair/office/light{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellowcorner"
 	},
@@ -54021,11 +54007,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -54840,6 +54821,16 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
@@ -58278,9 +58269,19 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/item/book/manual/sop_medical,
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/item/storage/box/iv_bags{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/item/storage/box/beakers{
+	pixel_y = 2
+	},
+/obj/item/storage/box/syringes{
+	pixel_y = -2;
+	pixel_x = -4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -63479,13 +63480,13 @@
 /turf/space,
 /area/space)
 "iiC" = (
-/obj/machinery/chem_master,
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_x = 32
 	},
+/obj/machinery/chem_dispenser,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteyellow"
@@ -64406,11 +64407,10 @@
 /area/space/nearstation)
 "iEk" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker{
-	pixel_x = 8;
-	pixel_y = 2
+/obj/item/reagent_containers/glass/beaker/large{
+	pixel_x = 7
 	},
+/obj/item/reagent_containers/glass/beaker/large,
 /obj/item/reagent_containers/dropper,
 /obj/item/stack/sheet/mineral/plasma{
 	pixel_y = 10
@@ -69185,7 +69185,6 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "laE" = (
-/obj/machinery/chem_heater,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteyellow"
@@ -72359,7 +72358,7 @@
 /area/atmos)
 "mDn" = (
 /obj/effect/spawner/window/reinforced/tinted,
-/obj/structure/barricade/wooden/crude,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "mDq" = (
@@ -74564,9 +74563,8 @@
 "nFf" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/glass/beaker{
-	pixel_x = 8;
-	pixel_y = 2
+/obj/item/reagent_containers/glass/beaker/large{
+	pixel_x = 7
 	},
 /obj/item/reagent_containers/glass/beaker/large{
 	pixel_x = -4
@@ -78118,9 +78116,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "pHY" = (
-/obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-11"
-	},
 /obj/effect/turf_decal/stripes/white/corner{
 	dir = 1
 	},
@@ -80623,6 +80618,14 @@
 	},
 /obj/structure/disaster_counter/chemistry{
 	pixel_x = -32
+	},
+/obj/item/assembly/igniter{
+	pixel_x = 3;
+	pixel_y = -7
+	},
+/obj/item/assembly/timer{
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -86157,12 +86160,11 @@
 /area/magistrateoffice)
 "tHA" = (
 /obj/structure/chair/office/light{
-	dir = 1
+	dir = 4
 	},
 /obj/effect/landmark/start/chemist,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteyellow"
+	icon_state = "white"
 	},
 /area/medical/chemistry)
 "tHP" = (
@@ -88609,7 +88611,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "uZP" = (
-/obj/machinery/chem_dispenser,
 /obj/machinery/door_control{
 	desc = "A remote control switch for the medbay foyer.";
 	id = "imnotmakingyoulubepissoff";
@@ -88618,6 +88619,7 @@
 	req_access_txt = "33";
 	pixel_x = 24
 	},
+/obj/machinery/chem_master,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteyellow"
@@ -91885,6 +91887,12 @@
 /obj/item/hand_labeler,
 /obj/item/stack/packageWrap,
 /obj/item/stack/packageWrap,
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
+	name = "Chemistry Cleaner";
+	pixel_x = 8;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteyellow"
@@ -120895,8 +120903,8 @@ elx
 vAP
 ogq
 nxB
+laE
 tHA
-lkN
 lkN
 cJW
 cdl
@@ -127589,7 +127597,7 @@ cKw
 nYH
 kFk
 uck
-bNN
+vVD
 dnN
 cwR
 dAy
@@ -128360,7 +128368,7 @@ wsN
 cAM
 hsg
 tHP
-bNN
+dUC
 awL
 cwR
 xdT

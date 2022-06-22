@@ -278,6 +278,8 @@
 				V.vomit(0, FALSE, FALSE)
 				return
 		else
+			if(!vamp.bloodtotal)
+				return ..() | update_flags
 			switch(current_cycle)
 				if(1 to 4)
 					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
