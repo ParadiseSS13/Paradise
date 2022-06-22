@@ -1,4 +1,4 @@
-/obj/item/ammo_casing/proc/fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params, distro, quiet, zone_override = "", spread, atom/firer_source_atom)
+/obj/item/ammo_casing/proc/fire(atom/target, mob/living/user, params, distro, quiet, zone_override = "", spread, atom/firer_source_atom)
 	distro += variance
 	for(var/i = max(1, pellets), i > 0, i--)
 		var/targloc = get_turf(target)
