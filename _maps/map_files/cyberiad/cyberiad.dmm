@@ -2848,7 +2848,6 @@
 "akl" = (
 /obj/machinery/door/airlock/security{
 	name = "Warden's office";
-	req_access = null;
 	req_access_txt = "3"
 	},
 /turf/simulated/floor/plasteel{
@@ -2963,7 +2962,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	req_access = null;
 	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel{
@@ -2975,19 +2973,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
-	},
-/area/security/brig)
-"akE" = (
-/obj/machinery/door/window/eastright{
-	dir = 1;
-	name = "Security Delivery";
-	req_access_txt = "1"
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
 	},
 /area/security/brig)
 "akF" = (
@@ -3508,7 +3493,6 @@
 "alL" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = null;
 	name = "Brig";
 	req_access_txt = "63"
 	},
@@ -3860,6 +3844,9 @@
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/machinery/door/window/southright,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "amy" = (
@@ -5668,14 +5655,6 @@
 /obj/item/flag/sec,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
-"aqp" = (
-/obj/structure/lattice,
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
-/turf/space,
-/area/space/nearstation)
 "aqq" = (
 /obj/item/soap,
 /turf/simulated/floor/plating,
@@ -8071,8 +8050,7 @@
 	name = "processing tint control";
 	pixel_x = -24;
 	pixel_y = -8;
-	req_access_txt = "63";
-	tag = null
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/processing)
@@ -8684,7 +8662,6 @@
 "awa" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = null;
 	name = "Brig";
 	req_access_txt = "63"
 	},
@@ -8770,7 +8747,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Prisoner Processing";
-	req_access = null;
 	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel{
@@ -9164,7 +9140,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Execution Room";
-	req_access = null;
 	req_access_txt = "1"
 	},
 /obj/structure/cable{
@@ -9364,7 +9339,6 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	req_access = null;
 	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel{
@@ -9445,7 +9419,6 @@
 "axI" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = null;
 	name = "Brig";
 	req_access_txt = "63"
 	},
@@ -9518,7 +9491,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Prisoner Processing";
-	req_access = null;
 	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel{
@@ -10196,7 +10168,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Interrogation";
-	req_access = null;
 	req_access_txt = "63"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -10663,10 +10634,7 @@
 	},
 /area/maintenance/abandonedbar)
 "aAc" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aAd" = (
@@ -11810,7 +11778,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedbar)
 "aCP" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/abandonedbar)
 "aCQ" = (
 /obj/structure/window/reinforced{
@@ -12057,9 +12026,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aDq" = (
@@ -13038,7 +13005,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Detective's Office";
-	req_access = null;
 	req_access_txt = "4"
 	},
 /obj/structure/cable{
@@ -13211,7 +13177,8 @@
 /area/maintenance/abandonedbar)
 "aGd" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/abandonedbar)
 "aGe" = (
 /obj/structure/table,
@@ -13707,9 +13674,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aHs" = (
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aHt" = (
@@ -14786,9 +14751,7 @@
 /area/maintenance/fpmaint2)
 "aKa" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aKb" = (
@@ -15220,7 +15183,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Detective";
-	req_access = null;
 	req_access_txt = "4"
 	},
 /turf/simulated/floor/plasteel{
@@ -15322,18 +15284,14 @@
 /area/maintenance/fpmaint2)
 "aLp" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aLq" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 10
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aLr" = (
@@ -15722,9 +15680,7 @@
 /area/maintenance/fsmaint)
 "aMj" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aMk" = (
@@ -15795,9 +15751,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_2)
 "aMv" = (
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aMw" = (
@@ -15825,7 +15779,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aMz" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/fsmaint)
 "aMA" = (
 /turf/simulated/wall,
@@ -16095,9 +16050,7 @@
 /area/maintenance/fsmaint)
 "aNh" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aNi" = (
@@ -16234,9 +16187,7 @@
 /area/maintenance/fpmaint2)
 "aNA" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aNB" = (
@@ -17535,9 +17486,7 @@
 /area/crew_quarters/dorms)
 "aQC" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aQD" = (
@@ -18866,7 +18815,7 @@
 /area/crew_quarters/dorms)
 "aTE" = (
 /obj/structure/chair/sofa/corner{
-	dir = 1
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -19082,9 +19031,7 @@
 /area/maintenance/fsmaint)
 "aUb" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aUc" = (
@@ -19110,7 +19057,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aUf" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/electrical)
 "aUg" = (
 /obj/structure/cable{
@@ -19967,6 +19915,7 @@
 /area/shuttle/arrival/station)
 "aVX" = (
 /obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/arrival/station)
 "aVY" = (
@@ -22182,7 +22131,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "baM" = (
-/obj/structure/window/reinforced,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -23184,7 +23132,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Security Checkpoint";
-	req_access = null;
 	req_access_txt = "1"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -23574,10 +23521,6 @@
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "bdL" = (
-/obj/machinery/door/window/southleft{
-	name = "Kitchen Delivery";
-	req_access_txt = "28"
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -23590,9 +23533,6 @@
 /obj/machinery/chem_master/condimaster{
 	name = "CondiMaster Neo";
 	pixel_x = -5
-	},
-/obj/structure/window/reinforced{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -31930,11 +31870,6 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bwe" = (
-/obj/machinery/door/window/eastright{
-	dir = 1;
-	name = "Bridge Delivery";
-	req_access_txt = "19"
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/bridge/meeting_room)
@@ -34261,6 +34196,9 @@
 	opacity = 1
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/door/window/southleft,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
 /turf/simulated/floor/plasteel,
 /area/bridge/meeting_room)
 "bBf" = (
@@ -34705,7 +34643,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Conference Room";
-	req_access = null;
 	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -34746,7 +34683,6 @@
 /obj/machinery/door/airlock/command{
 	id_tag = "captainofficedoor";
 	name = "Captain's Office";
-	req_access = null;
 	req_access_txt = "20"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -36296,7 +36232,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Paramedic";
 	req_access_txt = "66"
 	},
@@ -38681,7 +38616,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Conference Room";
-	req_access = null;
 	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -39876,7 +39810,6 @@
 	},
 /area/medical/research)
 "bNo" = (
-/obj/structure/table,
 /obj/item/clothing/accessory/stethoscope,
 /obj/item/clothing/accessory/stethoscope{
 	pixel_y = 6
@@ -39905,6 +39838,7 @@
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
 	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -40507,7 +40441,6 @@
 "bOx" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Quarters";
-	req_access = null;
 	req_access_txt = "20"
 	},
 /obj/structure/cable{
@@ -40526,9 +40459,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/command{
-	id_tag = null;
 	name = "Captain's Office";
-	req_access = null;
 	req_access_txt = "20"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -40931,21 +40862,14 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
+/obj/machinery/door/window/eastright,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
 /area/medical/research)
 "bPk" = (
-/obj/machinery/door/window/eastright{
-	base_state = "left";
-	dir = 8;
-	icon_state = "left";
-	name = "Research Division Delivery";
-	req_access_txt = "47"
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
@@ -41452,7 +41376,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
-	req_access = null;
 	req_access_txt = "57"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -41772,7 +41695,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Paramedic";
 	req_access_txt = "66"
 	},
@@ -42560,7 +42482,6 @@
 "bSt" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Medbay Reception";
 	req_access_txt = "5"
 	},
@@ -42602,7 +42523,6 @@
 "bSx" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Chemistry Lab";
 	req_access_txt = "33"
 	},
@@ -44836,16 +44756,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bWX" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/door/window/eastright{
-	base_state = "left";
-	dir = 1;
-	icon_state = "left";
-	name = "Medical Delivery";
-	req_access_txt = "5"
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -45680,10 +45590,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bYF" = (
-/obj/machinery/door/window/westleft{
-	name = "Janitoral Delivery";
-	req_access_txt = "26"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -45801,10 +45707,13 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/door/window/eastright,
+/obj/effect/mapping_helpers/airlock/access/any/service/janitor,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/maintenance/aft)
 "bYR" = (
@@ -47365,6 +47274,9 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
+/obj/machinery/door/window/westleft,
+/obj/effect/mapping_helpers/airlock/access/any/medical/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /turf/simulated/floor/plating,
 /area/medical/sleeper)
 "cbu" = (
@@ -48277,7 +48189,6 @@
 /obj/machinery/door/airlock/command{
 	id_tag = "hopofficedoor";
 	name = "Head of Personnel";
-	req_access = null;
 	req_access_txt = "57"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -48297,6 +48208,9 @@
 	id = "packageExternal"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/window/westright,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mail_sorting,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "ccZ" = (
@@ -48523,7 +48437,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Server Room";
-	req_access = null;
 	req_access_txt = "30"
 	},
 /obj/structure/cable{
@@ -48756,7 +48669,6 @@
 "cee" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Observation Room"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -48774,7 +48686,6 @@
 "cef" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Observation Room"
 	},
 /turf/simulated/floor/plasteel{
@@ -50141,13 +50052,11 @@
 /obj/machinery/door/window/brigdoor{
 	base_state = "rightsecure";
 	icon_state = "rightsecure";
-	name = "Server Exterior Door";
-	req_access = null
+	name = "Server Exterior Door"
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
-	name = "Server Interior Door";
-	req_access = null
+	name = "Server Interior Door"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -52704,8 +52613,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
+/obj/machinery/door/airlock/virology/glass{
 	name = "Virology Lobby Hallway"
 	},
 /turf/simulated/floor/plasteel{
@@ -53237,9 +53145,7 @@
 	icon_state = "pipe-c"
 	},
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cnt" = (
@@ -53262,8 +53168,7 @@
 /area/toxins/storage)
 "cnw" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
+/obj/machinery/door/airlock/virology/glass{
 	name = "Virology Lobby Hallway"
 	},
 /turf/simulated/floor/plasteel{
@@ -54436,9 +54341,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cpF" = (
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cpG" = (
@@ -54461,9 +54364,7 @@
 /obj/structure/rack{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cpI" = (
@@ -54538,7 +54439,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	autoclose = 0;
 	frequency = 1379;
 	id_tag = "viro_lab_airlock_exterior";
@@ -55000,9 +54901,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cqD" = (
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cqE" = (
@@ -56258,9 +56157,7 @@
 /obj/structure/rack{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "csV" = (
@@ -56291,8 +56188,7 @@
 /area/medical/virology)
 "csX" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
+/obj/machinery/door/airlock/virology/glass{
 	name = "Monkey Pen";
 	req_access_txt = "39"
 	},
@@ -56398,7 +56294,7 @@
 /area/medical/virology)
 "ctf" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
+/obj/machinery/door/airlock/virology{
 	autoclose = 0;
 	frequency = 1379;
 	id_tag = "viro_lab_airlock_interior";
@@ -56660,15 +56556,6 @@
 	icon_state = "white"
 	},
 /area/toxins/mixing)
-"ctF" = (
-/obj/structure/rack{
-	dir = 1
-	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "ctG" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -56809,13 +56696,13 @@
 	dir = 4;
 	location = "Engineering"
 	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/window/westright{
-	name = "Engineering Monitoring Station";
-	req_access = null;
-	req_one_access_txt = "11;24;34"
-	},
+/obj/machinery/door/window/westright,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "ctY" = (
@@ -56932,12 +56819,6 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/obj/effect/decal/warning_stripes/yellow/partial{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/arrow{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "cul" = (
@@ -57047,11 +56928,6 @@
 "cut" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/machinery/door/window/northleft{
-	dir = 4;
-	name = "Engineering Monitoring Station";
-	req_one_access_txt = "11;24"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -57472,8 +57348,7 @@
 /area/toxins/mixing)
 "cvf" = (
 /obj/machinery/atmospherics/trinary/mixer{
-	dir = 8;
-	req_access = null
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -57654,9 +57529,6 @@
 /turf/simulated/floor/plating,
 /area/engine/controlroom)
 "cvC" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/structure/dispenser{
 	pixel_x = -1
 	},
@@ -57787,8 +57659,7 @@
 /area/maintenance/asmaint2)
 "cvO" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
+/obj/machinery/door/airlock/virology/glass{
 	name = "Isolation B";
 	req_access_txt = "39"
 	},
@@ -57874,7 +57745,6 @@
 "cvX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Secondary Storage";
 	req_access_txt = "5"
 	},
@@ -57996,8 +57866,7 @@
 /area/medical/virology)
 "cwh" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
+/obj/machinery/door/airlock/virology/glass{
 	name = "Isolation A";
 	req_access_txt = "39"
 	},
@@ -58175,7 +58044,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cwA" = (
-/turf/simulated/wall/r_wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
 /area/maintenance/apmaint)
 "cwB" = (
 /obj/machinery/light/small{
@@ -58996,9 +58866,7 @@
 /obj/structure/rack{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cyq" = (
@@ -59508,9 +59376,7 @@
 /area/maintenance/aft)
 "czp" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "czq" = (
@@ -60093,9 +59959,7 @@
 	pixel_x = -3;
 	pixel_y = 7
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cAx" = (
@@ -60103,9 +59967,7 @@
 /obj/structure/window/reinforced,
 /obj/item/storage/secure/briefcase,
 /obj/item/mop,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cAy" = (
@@ -60115,9 +59977,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/item/poster/random_contraband,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cAz" = (
@@ -60348,9 +60208,7 @@
 /obj/structure/rack{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cBg" = (
@@ -62091,9 +61949,7 @@
 "cEI" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "cEJ" = (
@@ -62914,6 +62770,9 @@
 	opacity = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/window/northleft,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
 "cGV" = (
@@ -63772,7 +63631,8 @@
 	},
 /area/toxins/misc_lab)
 "cIJ" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/aft2)
 "cIK" = (
 /turf/simulated/floor/wood{
@@ -65247,9 +65107,7 @@
 /area/toxins/xenobiology)
 "cMh" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cMi" = (
@@ -67154,9 +67012,7 @@
 /area/toxins/xenobiology)
 "cQC" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "cQD" = (
@@ -68946,9 +68802,7 @@
 /area/maintenance/portsolar)
 "cUh" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "cUi" = (
@@ -69349,9 +69203,7 @@
 	name = "HIGH VOLTAGE";
 	pixel_y = -32
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "cVo" = (
@@ -69768,6 +69620,9 @@
 	opacity = 1
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/access/any/service/bar,
+/obj/machinery/door/window/eastright,
 /turf/simulated/floor/plasteel,
 /area/maintenance/fsmaint)
 "cWv" = (
@@ -69856,13 +69711,8 @@
 /turf/simulated/floor/beach/sand,
 /area/hallway/secondary/exit)
 "cWG" = (
-/obj/machinery/door/window/southleft{
-	dir = 8;
-	name = "Bar Delivery";
-	req_access_txt = "25"
-	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "cWH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -70305,6 +70155,9 @@
 	codes_txt = "delivery";
 	location = "Kitchen"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/access/any/service/kitchen,
+/obj/machinery/door/window/northleft,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -72996,8 +72849,7 @@
 	id = "engsm";
 	name = "Radiation Shutters Control";
 	pixel_y = -24;
-	req_access_txt = "10";
-	req_one_access = null
+	req_access_txt = "10"
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/engine,
@@ -73919,9 +73771,7 @@
 /obj/structure/rack,
 /obj/item/toy/minimeteor,
 /obj/item/poster/random_contraband,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dho" = (
@@ -74282,6 +74132,9 @@
 	opacity = 1
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/access/any/service/hydroponics,
+/obj/machinery/door/window/northleft,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -74800,11 +74653,6 @@
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "djt" = (
-/obj/machinery/door/window/eastright{
-	dir = 2;
-	name = "Hydroponics Delivery";
-	req_access_txt = "35"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
@@ -74829,9 +74677,6 @@
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
 "djw" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/machinery/alarm{
 	name = "north bump";
 	pixel_y = 24
@@ -74857,9 +74702,7 @@
 "djz" = (
 /obj/structure/rack,
 /obj/item/latexballon,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "djA" = (
@@ -75712,9 +75555,7 @@
 "dli" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dlj" = (
@@ -76166,9 +76007,7 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	color = null
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dms" = (
@@ -77915,7 +77754,6 @@
 /obj/machinery/door/window/southright{
 	dir = 1;
 	name = "AI Core Door";
-	req_access = null;
 	req_access_txt = "16"
 	},
 /turf/simulated/floor/bluegrid,
@@ -79321,7 +79159,8 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "iez" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/maintenance/apmaint)
 "ieI" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -115595,7 +115434,7 @@ bSu
 cbY
 ceT
 bSu
-bQV
+chf
 chf
 chf
 chf
@@ -118357,7 +118196,7 @@ aih
 aih
 aqX
 aqW
-akE
+aqW
 amw
 avq
 aCh
@@ -125806,7 +125645,7 @@ aaa
 aaa
 aaa
 aaa
-aqp
+ayi
 aab
 aqZ
 aqZ
@@ -127867,7 +127706,7 @@ amW
 amW
 amW
 amW
-aqp
+ayi
 amW
 amW
 amW
@@ -128969,7 +128808,7 @@ coj
 cpv
 crq
 cgs
-ctF
+afJ
 bPA
 bGG
 bGG

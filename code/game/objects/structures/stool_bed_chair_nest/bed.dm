@@ -14,6 +14,7 @@
 	desc = "This is used to lie in, sleep in or strap on."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "bed"
+	dir = SOUTH
 	can_buckle = TRUE
 	anchored = TRUE
 	buckle_lying = TRUE
@@ -60,7 +61,6 @@
 		if(buildstacktype)
 			new buildstacktype(loc, buildstackamount)
 	..()
-
 
 /*
  * Roller beds

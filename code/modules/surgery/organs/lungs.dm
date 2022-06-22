@@ -77,10 +77,10 @@
 
 	if(is_bruised())
 		if(prob(2) && !(NO_BLOOD in owner.dna.species.species_traits))
-			owner.custom_emote(1, "coughs up blood!")
+			owner.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
 			owner.bleed(1)
 		if(prob(4))
-			owner.custom_emote(1, "gasps for air!")
+			owner.custom_emote(EMOTE_VISIBLE, "gasps for air!")
 			owner.AdjustLoseBreath(10 SECONDS)
 
 /obj/item/organ/internal/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
