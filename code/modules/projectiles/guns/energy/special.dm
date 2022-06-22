@@ -850,7 +850,7 @@
 /obj/item/gun/energy/detective/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
 	if(!overcharged)
 		return ..()
-	if(prob(clamp((100 - ((cell.charge / cell.maxcharge) * 100)), 30, 80)))	//minimum probability of 30, maximum of 80
+	if(prob(clamp((100 - ((cell.charge / cell.maxcharge) * 100)), 10, 70)))	//minimum probability of 10, maximum of 70
 		playsound(user, fire_sound, 50, 1)
 		visible_message("<span class='userdanger'>[src]'s energy cell overloads!</span>")
 		user.apply_damage(60, BURN, pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
