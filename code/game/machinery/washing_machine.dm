@@ -130,6 +130,8 @@
 				qdel(H)
 			if(new_jumpsuit_icon_state && new_jumpsuit_item_state && new_jumpsuit_name)
 				for(var/obj/item/clothing/under/J in contents)
+					if(!J.dyeable)
+						continue
 					J.item_state = new_jumpsuit_item_state
 					J.icon_state = new_jumpsuit_icon_state
 					J.item_color = wash_color
@@ -137,6 +139,8 @@
 					J.desc = new_desc
 			if(new_glove_icon_state && new_glove_item_state && new_glove_name)
 				for(var/obj/item/clothing/gloves/color/G in contents)
+					if(!G.dyeable)
+						continue
 					G.item_state = new_glove_item_state
 					G.icon_state = new_glove_icon_state
 					G.item_color = wash_color
@@ -145,6 +149,8 @@
 						G.desc = new_desc
 			if(new_shoe_icon_state && new_shoe_name)
 				for(var/obj/item/clothing/shoes/S in contents)
+					if(!S.dyeable)
+						continue
 					if(S.chained == 1)
 						S.chained = 0
 						S.slowdown = SHOES_SLOWDOWN
@@ -155,6 +161,8 @@
 					S.desc = new_desc
 			if(new_bandana_icon_state && new_bandana_name)
 				for(var/obj/item/clothing/mask/bandana/M in contents)
+					if(!M.dyeable)
+						continue
 					M.item_state = new_bandana_item_state
 					M.icon_state = new_bandana_icon_state
 					M.item_color = wash_color
@@ -168,6 +176,8 @@
 					B.desc = new_desc
 			if(new_softcap_icon_state && new_softcap_name)
 				for(var/obj/item/clothing/head/soft/H in contents)
+					if(!H.dyeable)
+						continue
 					H.icon_state = new_softcap_icon_state
 					H.item_color = wash_color
 					H.name = new_softcap_name

@@ -3,7 +3,7 @@
 #define SYRINGE_BROKEN 2
 
 /obj/item/reagent_containers/syringe
-	name = "Syringe"
+	name = "syringe"
 	desc = "A syringe."
 	icon = 'icons/goonstation/objects/syringe.dmi'
 	item_state = "syringe_0"

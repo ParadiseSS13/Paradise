@@ -10,14 +10,15 @@
 
 	light_color = LIGHT_COLOR_PURPLE
 
-/obj/machinery/computer/aifixer/attackby(I as obj, user as mob, params)
-	if(occupant && istype(I, /obj/item/screwdriver))
+/obj/machinery/computer/aifixer/screwdriver_act(mob/user, obj/item/I)
+	if(occupant)
 		if(stat & BROKEN)
-			..()
+			return ..()
 		if(stat & NOPOWER)
 			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge.</span>")
 		else
 			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge and it emits a warning beep!.</span>")
+		return TRUE
 	else
 		return ..()
 

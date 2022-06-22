@@ -32,6 +32,7 @@
 	var/cooldown = 0
 	var/species_disguise = null
 	var/magical = FALSE
+	var/dyeable = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
