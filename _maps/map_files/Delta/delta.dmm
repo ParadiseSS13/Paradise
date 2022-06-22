@@ -37467,9 +37467,6 @@
 	dir = 8;
 	network = list("SS13","Security")
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -43701,20 +43698,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
-"caO" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/prison/cell_block)
 "caP" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -149232,7 +149215,7 @@ nky
 brk
 byo
 sqG
-caO
+mAT
 mAT
 cey
 mAT
