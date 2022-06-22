@@ -335,7 +335,7 @@
 	name = "double-barreled shotgun"
 	desc = "A true classic."
 	icon_state = "dbshotgun"
-	item_state = "dbshotgun"
+	item_state = null
 	lefthand_file = 'icons/mob/inhands/64x64_guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_guns_righthand.dmi'
 	inhand_x_dimension = 64
@@ -368,10 +368,10 @@
 		var/obj/item/melee/energy/W = A
 		if(W.active)
 			sawoff(user)
-			item_state = "ishotgun_sawn"
+			item_state = icon_state
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
 		sawoff(user)
-		item_state = "ishotgun_sawn"
+		item_state = icon_state
 	else
 		return ..()
 
@@ -413,7 +413,6 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	sawn_desc = "I'm just here for the gasoline."
 	unique_reskin = FALSE
-	var/sawn = FALSE
 	var/sling = FALSE
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
@@ -432,9 +431,6 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon()
 	..()
-	if(sawn)
-		icon_state = "ishotgun-sawn"
-		item_state = "ishotgun_sawn"
 	if(sling)
 		icon_state = "ishotgunsling"
 		item_state = "ishotgunsling"
@@ -443,7 +439,6 @@
 	. = ..()
 	if(. && sling) //sawing off the gun removes the sling
 		new /obj/item/stack/cable_coil(get_turf(src), 10)
-		sawn = TRUE
 		sling = FALSE
 		update_icon()
 

@@ -54,7 +54,7 @@
 	id = /obj/item/card/id/syndicate/researcher
 	implants = list(/obj/item/implant/weapons_auth)
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m10mm = 1,
+		/obj/item/ammo_box/magazine/m9mm = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/clothing/mask/gas/syndicate = 1,
 		/obj/item/tank/internals/emergency_oxygen/engi/syndi = 1

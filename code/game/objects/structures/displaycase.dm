@@ -269,9 +269,9 @@
 	start_showpiece_type = /obj/item/clothing/mask/facehugger/lamarr
 	req_access = list(ACCESS_RD)
 
-/obj/structure/displaycase/stechkin
+/obj/structure/displaycase/makarov
 	name = "officer's display case"
 	alert = TRUE
-	desc = "A display case containing a humble stechkin pistol. Never forget your roots."
+	desc = "A display case containing a humble makarov pistol. Never forget your roots."
 	start_showpiece_type = /obj/item/gun/projectile/automatic/pistol
 	req_access = list(ACCESS_SYNDICATE_COMMAND)

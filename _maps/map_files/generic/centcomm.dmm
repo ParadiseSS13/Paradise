@@ -2733,7 +2733,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "jR" = (
-/obj/structure/displaycase/stechkin,
+/obj/structure/displaycase/makarov,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "jS" = (
@@ -4794,12 +4794,12 @@
 /area/syndicate_mothership)
 "qL" = (
 /obj/structure/rack,
-/obj/item/ammo_box/magazine/m10mm,
-/obj/item/ammo_box/magazine/m10mm,
-/obj/item/ammo_box/magazine/m10mm,
-/obj/item/ammo_box/magazine/m10mm,
-/obj/item/ammo_box/magazine/m10mm,
-/obj/item/ammo_box/magazine/m10mm,
+/obj/item/ammo_box/magazine/m9mm,
+/obj/item/ammo_box/magazine/m9mm,
+/obj/item/ammo_box/magazine/m9mm,
+/obj/item/ammo_box/magazine/m9mm,
+/obj/item/ammo_box/magazine/m9mm,
+/obj/item/ammo_box/magazine/m9mm,
 /obj/item/gun/projectile/automatic/pistol,
 /obj/item/gun/projectile/automatic/pistol{
 	pixel_x = 3;
@@ -8568,9 +8568,9 @@
 /area/shuttle/administration)
 "HI" = (
 /obj/structure/closet/secure_closet/guncabinet,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm10mm,
+/obj/item/ammo_box/magazine/smgm10mm,
+/obj/item/ammo_box/magazine/smgm10mm,
 /obj/item/gun/projectile/automatic/proto,
 /obj/item/gun/projectile/automatic/proto,
 /obj/item/gun/projectile/automatic/proto,
@@ -12884,18 +12884,18 @@
 /area/centcom/specops)
 "Zt" = (
 /obj/structure/closet/secure_closet/guncabinet,
-/obj/item/ammo_box/magazine/smgm9mm/toxin,
-/obj/item/ammo_box/magazine/smgm9mm/toxin,
-/obj/item/ammo_box/magazine/smgm9mm/toxin,
-/obj/item/ammo_box/magazine/smgm9mm/fire,
-/obj/item/ammo_box/magazine/smgm9mm/fire,
-/obj/item/ammo_box/magazine/smgm9mm/fire,
-/obj/item/ammo_box/magazine/smgm9mm/ap,
-/obj/item/ammo_box/magazine/smgm9mm/ap,
-/obj/item/ammo_box/magazine/smgm9mm/ap,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/ammo_box/magazine/smgm10mm/toxin,
+/obj/item/ammo_box/magazine/smgm10mm/toxin,
+/obj/item/ammo_box/magazine/smgm10mm/toxin,
+/obj/item/ammo_box/magazine/smgm10mm/fire,
+/obj/item/ammo_box/magazine/smgm10mm/fire,
+/obj/item/ammo_box/magazine/smgm10mm/fire,
+/obj/item/ammo_box/magazine/smgm10mm/ap,
+/obj/item/ammo_box/magazine/smgm10mm/ap,
+/obj/item/ammo_box/magazine/smgm10mm/ap,
+/obj/item/ammo_box/magazine/smgm10mm,
+/obj/item/ammo_box/magazine/smgm10mm,
+/obj/item/ammo_box/magazine/smgm10mm,
 /obj/item/gun/projectile/automatic/proto,
 /obj/item/gun/projectile/automatic/proto{
 	pixel_x = 3;

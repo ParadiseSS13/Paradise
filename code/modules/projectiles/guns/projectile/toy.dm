@@ -31,7 +31,7 @@
 
 /obj/item/gun/projectile/automatic/toy/pistol/update_icon()
 	..()
-	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/toy/pistol/riot
 	name = "foam force riot pistol"
@@ -48,6 +48,10 @@
 	icon_state = "enforcer"
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer
 	can_flashlight = TRUE
+
+/obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_icon()
+	..()
+	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_icon()
 	..()

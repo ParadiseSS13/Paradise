@@ -658,31 +658,31 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 40
 
 /datum/uplink_item/ammo/pistol
-	name = "Stechkin - 10mm Magazine"
+	name = "Makarov - 9mm Magazine"
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds that are cheap but around half as effective as .357"
-	reference = "10MM"
-	item = /obj/item/ammo_box/magazine/m10mm
+	reference = "9MM"
+	item = /obj/item/ammo_box/magazine/m9mm
 	cost = 1
 
 /datum/uplink_item/ammo/pistolap
-	name = "Stechkin - 10mm Armour Piercing Magazine"
+	name = "Makarov - 9mm Armour Piercing Magazine"
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds that are less effective at injuring the target but penetrate protective gear."
-	reference = "10MMAP"
-	item = /obj/item/ammo_box/magazine/m10mm/ap
+	reference = "9MMAP"
+	item = /obj/item/ammo_box/magazine/m9mm/ap
 	cost = 2
 
 /datum/uplink_item/ammo/pistolfire
-	name = "Stechkin - 10mm Incendiary Magazine"
+	name = "Makarov - 9mm Incendiary Magazine"
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with incendiary rounds which ignite the target."
-	reference = "10MMFIRE"
-	item = /obj/item/ammo_box/magazine/m10mm/fire
+	reference = "9MMFIRE"
+	item = /obj/item/ammo_box/magazine/m9mm/fire
 	cost = 2
 
 /datum/uplink_item/ammo/pistolhp
-	name = "Stechkin - 10mm Hollow Point Magazine"
+	name = "Makarov - 9mm Hollow Point Magazine"
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds which are more damaging but ineffective against armour."
-	reference = "10MMHP"
-	item = /obj/item/ammo_box/magazine/m10mm/hp
+	reference = "9MMHP"
+	item = /obj/item/ammo_box/magazine/m9mm/hp
 	cost = 3
 
 /datum/uplink_item/ammo/bullslug
