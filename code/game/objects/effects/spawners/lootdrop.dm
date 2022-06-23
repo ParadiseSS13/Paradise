@@ -133,8 +133,8 @@
 				/obj/item/storage/bag/plasticbag = 20,
 				/obj/item/caution = 10,
 				////////////////CONTRABAND STUFF//////////////////
-				/obj/item/grenade/smokebomb = 7,
 				/obj/item/grenade/clown_grenade = 3,
+				/obj/item/grenade/smokebomb = 3,
 				/obj/item/seeds/ambrosia/cruciatus = 3,
 				/obj/item/gun/projectile/automatic/pistol = 1,
 				/obj/item/ammo_box/magazine/m10mm = 4,
@@ -159,7 +159,7 @@
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
-				"" = 57 // Reduce this number if you add things above. Make sure all the numbers in the list add to 100 EXACTLY
+				"" = 61 // Reduce this number if you add things above. Make sure all the numbers in the list add to 100 EXACTLY
 				)
 
 /obj/effect/spawner/lootdrop/maintenance/two
