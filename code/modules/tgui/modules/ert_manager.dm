@@ -69,7 +69,7 @@
 			if(!cyborg_slots)
 				cyborg_security = FALSE
 		if("toggle_secborg")
-			cyborg_security = cyborg_security ? FALSE : TRUE
+			cyborg_security = !cyborg_security
 		if("dispatch_ert")
 			var/datum/response_team/D
 			switch(ert_type)
