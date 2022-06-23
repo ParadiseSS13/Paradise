@@ -790,7 +790,7 @@
 
 /obj/item/gun/energy/detective/examine(mob/user)
 	. = ..()
-	. += "Ctrl-click to clear active tracked target or clear linked pinpointer."
+	. += "<span class='notice'>Ctrl-click to clear active tracked target or clear linked pinpointer.</span>"
 
 /obj/item/gun/energy/detective/CtrlClick(mob/user)
 	. = ..()
@@ -815,9 +815,9 @@
 
 /obj/item/gun/energy/detective/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
-	user.visible_message("[user] starts [overcharged ? "restoring" : "removing"] the safety limits on [src].", "You start [overcharged ? "restoring" : "removing"] the safety limits on [src]")
+	user.visible_message("<span class='notice'>[user] starts [overcharged ? "restoring" : "removing"] the safety limits on [src].</span>", "<span class='notice'>You start [overcharged ? "restoring" : "removing"] the safety limits on [src]</span>")
 	if(!I.use_tool(src, user, 10 SECONDS, volume = I.tool_volume))
-		user.visible_message("[user] stops modifying the safety limits on [src].", "You stop modifying the [src]'s safety limits")
+		user.visible_message("<span class='notice'>[user] stops modifying the safety limits on [src].", "You stop modifying the [src]'s safety limits</span>")
 		return
 	if(!overcharged)
 		overcharged = TRUE
@@ -829,7 +829,7 @@
 		ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/tracker_warrant)
 		update_ammo_types()
 		select_fire(user)
-	user.visible_message("[user] [overcharged ? "removes" : "restores"] the safety limits on [src].", "You [overcharged ? "remove" : "restore" ] the safety limits on [src]")
+	user.visible_message("<span class='notice'>[user] [overcharged ? "removes" : "restores"] the safety limits on [src].", "You [overcharged ? "remove" : "restore" ] the safety limits on [src]</span>")
 	update_icon()
 
 /obj/item/gun/energy/detective/attackby(obj/item/I, mob/user, params)
