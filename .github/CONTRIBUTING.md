@@ -505,15 +505,14 @@ in the SQL/updates folder.
 * For map edit PRs, we do not accept 'change for the sake of change' remaps, unless you have very good reasoning to do so. Maintainers reserve the right to close your PR if we disagree with your reasoning.
 
 * Map Merge
-  * The following guideline for map merging applies to people who are **NOT** using StrongDMM, please see the StrongDMM section if you are.
-    * You **MUST** run Map Merge prior to opening your PR when updating existing maps to minimize the change differences (even when using third party mapping programs such as FastDMM.)
-    * Failure to run Map Merge on a map after using third party mapping programs (such as FastDMM) greatly increases the risk of the map's key dictionary becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
+  * The following guideline for map merging applies to **ALL** mapping contributers.
+    * Before committing a map change, you **MUST** run mapmerge2 to normalise your changes. You can do this manually before every commit with `"\tools\mapmerge2\Run Before Committing.bat"` or automatically by installing the hooks at `"\tools\hooks\Install.bat"`.
+    * Failure to run Map Merge on a map after editing greatly increases the risk of the map's key dictionary becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
 
 * StrongDMM
-  * When using StrongDMM, the following options **MUST** be enabled to avoid file bloat. They can be found under `File > Preferences > Save Options` in SDMM.
-    * Map save format: This **MUST** be set to **TGM** if you do not want to run Map Merge. Enabling this setting means SDMM will automatically map merge, letting you skip manual merging.
+  * When using StrongDMM, the following options should be enabled to avoid file bloat. They can be found under `File > Preferences` in SDMM2.
     * Sanitize Variables - Removes variables that are declared on the map, but are the same as default. (For example: A standard floor turf that has `dir = 2` declared on the map will have that variable deleted as it is redundant.)
-    * Clean Unused Keys - Removes content tile keys that are no longer used on the map, usually leftover keys from deletions or edits.
+    * Save format - Either `Initial` or `TGM`, never `DM`.
 
 * Variable Editing (Var-edits)
   * While var-editing an item within the editor is perfectly fine, it is preferred that when you are changing the base behavior of an item (how it functions) that you make a new subtype of that item within the code, especially if you plan to use the item in multiple locations on the same map, or across multiple maps. This makes it easier to make corrections as needed to all instances of the item at one time as opposed to having to find each instance of it and change them all individually.
@@ -666,32 +665,45 @@ There are a few other defines that do other things. `GLOBAL_REAL` shouldn't be u
 `GLOBAL_VAR_INIT` allows you to set an initial value on the var, like `GLOBAL_VAR_INIT(number_one, 1)`.
 `GLOBAL_LIST_INIT` allows you to define a list global var with an initial value. Etc.
 
-## Maintainers
-The only current official role for GitHub staff are the `Maintainers`. They share equal power. The `Maintainers` are
-responsible for properly tagging new pull requests and issues, moderating comments in
-pull requests/issues, and merging/closing pull requests.
+### GitHub Staff
 
-### Maintainer List
+There are 3 roles on the GitHub, these are:
+
+* Headcoder
+* Commit Access
+* Review Team
+
+Each role inherits the lower role's responsibilities (IE: Headcoders also have commit access, and members of commit access are also part of the review team)
+
+`Headcoders` are the overarching "administrators" of the repository. People included in this role are:
 
 * [AffectedArc07](https://github.com/AffectedArc07)
 * [Crazylemon](https://github.com/marlyn-x86)
-* [dearmochi](https://github.com/dearmochi)
 * [Fox P McCloud](https://github.com/Fox-McCloud)
 
-### Maintainer instructions
-* Do not "self-merge"; this refers to the practice of opening a pull request, then
-  merging it yourself. A different maintainer must review and merge your pull request, no
-  matter how trivial. This is to ensure quality.
-  * A subset of this instruction: Do not push directly to the repository, always make a
-  pull request.
-* Wait for the CI build to complete. If it fails, the pull request may only be
- merged if there is a very good reason (example: fixing the CI configuration).
-* Pull requests labeled as bugfixes and refactors may be merged as soon as they are
- reviewed.
-* The shortest waiting period for -any- feature or balancing altering pull request is 24
- hours, to allow other coders and the community time to discuss the proposed changes.
-* If the discussion is active, or the change is controversial, the pull request is to be
- put on hold until a consensus is reached.
-* To keep commit history easy to navigate for future contributors (e.g. Git Blame), squash merge
-is to be preferred to normal merge where suitable. Ensure that the squashed commit name is easy
-to understand and read. Modify it if needed.
+---
+
+`Commit Access` members have write access to the repository and can merge your PRs. People included in this role are:
+
+* [Charliminator](https://github.com/hal9000PR)
+* [farie82](https://github.com/farie82)
+* [SteelSlayer](https://github.com/SteelSlayer)
+
+---
+
+`Review Team` members are people who are denoted as having reviews which can affect mergeability status. People included in this role are:
+
+* [lewcc](https://github.com/lewcc)
+
+---
+
+Full information on the GitHub contribution workflow & policy can be found at [https://www.paradisestation.org/dev/policy/](https://www.paradisestation.org/dev/policy/)
+
+### PR Status
+
+Status of your pull request will be communicated via PR labels. This includes:
+
+* `Status: Awaiting type assignment` - This will be displayed when your PR is awaiting an internal type assignment (for Fix, Balance, Tweak, etc)
+* `Status: Awaiting approval` - This will be displayed if your PR is waiting for approval from the specific party, be it Balance or Design. Fixes & Refactors should never have this label
+* `Status: Awaiting review` - This will be displayed when your PR has passed the design vote and is now waiting for someone in the review team to approve it
+* `Status: Awaiting merge` - Your PR is done and is waiting for someone with commit access to merge it. **Note: Your PR may be delayed if it is pending testmerge or in the mapping queue**
