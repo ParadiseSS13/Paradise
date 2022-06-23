@@ -16,6 +16,7 @@
 				create_debug_log("woke up, trigger reason: [reason]")
 	update_damage_hud()
 	update_health_hud()
+	med_hud_set_health()
 	med_hud_set_status()
 
 /mob/living/carbon/update_stamina()

@@ -591,6 +591,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Atmospherics Maintenance"
 	icon_state = "fpmaint"
 
+/area/maintenance/engimaint
+	name = "Engineering Maintenance"
+	icon_state = "engimaint"
+
+/area/maintenance/medmaint
+	name = "Medical Maintenance"
+	icon_state = "medmaint"
+
 /area/maintenance/fpmaint
 	name = "Fore-Port Maintenance"
 	icon_state = "fpmaint"
@@ -689,6 +697,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/abandonedbar
 	name = "Maintenance Bar"
 	icon_state = "oldbar"
+	power_equip = 0
+	power_light = 0
+	power_environ = 0
+
+/area/maintenance/spacehut
+	name = "Space Hut"
+	icon_state = "spacehut"
 	power_equip = 0
 	power_light = 0
 	power_environ = 0
@@ -1229,7 +1244,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "medbaypsych"
 
 /area/medical/medbreak
-	name = "\improper Break Room"
+	name = "\improper Medbay Break Room"
 	icon_state = "medbaybreak"
 
 /area/medical/patients_rooms
@@ -1257,6 +1272,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Isolation Access"
 	icon_state = "medbayisoaccess"
 
+/area/medical/coldroom
+	name = "Cold Room"
+	icon_state = "coldroom"
+
 /area/medical/cmo
 	name = "\improper Chief Medical Officer's office"
 	icon_state = "CMO"
@@ -1272,6 +1291,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/medical/research
 	name = "Research Division"
 	icon_state = "research"
+
+/area/medical/scibreak
+	name = "\improper Science Break Room"
+	icon_state = "scibreak"
 
 /area/medical/virology
 	name = "Virology"

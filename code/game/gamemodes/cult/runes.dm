@@ -1031,8 +1031,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 	used = TRUE
 	color = COLOR_RED
 	..()
-	SEND_SOUND(world, sound('sound/effects/dimensional_rend.ogg'))
-	to_chat(world, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
+
+	for(var/mob/M in GLOB.player_list)
+		if(!isnewplayer(M)) // exclude people in the lobby
+			SEND_SOUND(M, sound('sound/effects/dimensional_rend.ogg'))
+			to_chat(M, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
+
 	icon_state = "rune_large_distorted"
 	var/turf/T = get_turf(src)
 	sleep(40)

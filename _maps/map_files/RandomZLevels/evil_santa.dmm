@@ -242,7 +242,8 @@
 	},
 /area/awaymission/challenge/main)
 "aM" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/awaymission/challenge/main)
 "aN" = (
 /obj/structure/inflatable/door,

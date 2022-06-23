@@ -13,6 +13,57 @@
 	return 0
 
 /mob/proc/get_screen_colour()
+	SHOULD_CALL_PARENT(TRUE)
+	// OOC Colourblind setting takes priority over everything else.
+	if(client?.prefs)
+		switch(client.prefs.colourblind_mode)
+			if(COLOURBLIND_MODE_NONE)
+				. = null
+
+			/*
+				Also it goes without saying
+
+				For the love of god, do NOT mess with the matricies below.
+				The values may look arbitrary as hell, but they follow colour filtering rules
+				to accent specific colours and block out others, which helps different
+				forms of colourblindness. Its not perfect but it helps.
+
+				If you ever want to modify these matricies, test them with someone who
+				suffers that form of colourblindness, and ask if its an improvement or a hinderance.
+				I cannot stress this enough
+
+				-aa07
+			*/
+			if(COLOURBLIND_MODE_DEUTER)
+				// Red-green (green weak, deuteranopia)
+				// Below is a colour matrix to account for that
+				. = list(
+					 1.8,  0, -0.14, 0,
+					-1.05, 1,  0.1,  0,
+					 0.3,  0,  1,    0,
+					 0,    0,  0,    1
+				) // Time spent creating this matrix: 1 hour 32 minutes
+
+			if(COLOURBLIND_MODE_PROT)
+				// Red-green (red weak, protanopia)
+				// Below is a colour matrix to account for that
+				. = list(
+					1, 0.475, 0.594, 0,
+					0, 0.482, -0.68, 0,
+					0, 0.044, 1.087, 0,
+					0, 0,     0,     1
+				) // Time spent creating this matrix: 57 minutes
+
+			if(COLOURBLIND_MODE_TRIT)
+				// Blue-yellow (tritanopia)
+				// Below is a colour matrix to account for that
+				. = list(
+					 0.74,  0.07,  0, 0,
+					-0.405, 0.593, 0, 0,
+					 0.665, 0.335, 1, 0,
+					 0,     0,     0, 1
+				) // Time spent creating this matrix: 34 minutes
+
 	return
 
 /mob/proc/update_client_colour(time = 10) //Update the mob's client.color with an animation the specified time in length.
@@ -41,6 +92,8 @@
   */
 /mob/proc/flash_screen_color(flash_color, flash_time)
 	if(!client)
+		return
+	if(client?.prefs.colourblind_mode != COLOURBLIND_MODE_NONE)
 		return
 	client.color = flash_color
 	INVOKE_ASYNC(client, /client/.proc/colour_transition, get_screen_colour(), flash_time)
@@ -691,3 +744,48 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			message_admins("[src.ckey] just got booted back to lobby with no jobs enabled, but antag rolling enabled. Likely antag rolling abuse.")
 		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
 	return TRUE
+
+/**
+ * Helper proc to determine if a mob can use emotes that make sound or not.
+ */
+/mob/proc/can_use_audio_emote()
+	switch(audio_emote_cd_status)
+		if(EMOTE_INFINITE)  // Spam those emotes
+			return TRUE
+		if(EMOTE_ADMIN_BLOCKED)  // Cooldown emotes were disabled by an admin, prevent use
+			return FALSE
+		if(EMOTE_ON_COOLDOWN)	// Already on CD, prevent use
+			return FALSE
+		if(EMOTE_READY)
+			return TRUE
+
+	CRASH("Invalid emote type")
+
+/**
+ * # Start the cooldown for an emote that plays audio.
+ *
+ * * cooldown: The amount of time that should be waited before any other audio emote can fire.
+ */
+/mob/proc/start_audio_emote_cooldown(cooldown = AUDIO_EMOTE_COOLDOWN)
+	if(!can_use_audio_emote())
+		return FALSE
+
+	if(audio_emote_cd_status == EMOTE_READY)
+		audio_emote_cd_status = EMOTE_ON_COOLDOWN	// Starting cooldown
+		addtimer(CALLBACK(src, .proc/on_audio_emote_cooldown_end), cooldown)
+	return TRUE  // proceed with emote
+
+
+/mob/proc/on_audio_emote_cooldown_end()
+	if(audio_emote_cd_status == EMOTE_ON_COOLDOWN)
+		// only reset emotes that probably weren't set by an admin
+		audio_emote_cd_status = EMOTE_READY
+
+/proc/stat_to_text(stat)
+	switch(stat)
+		if(CONSCIOUS)
+			return "conscious"
+		if(UNCONSCIOUS)
+			return "unconscious"
+		if(DEAD)
+			return "dead"
