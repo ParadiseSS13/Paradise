@@ -51,28 +51,28 @@ const AirStatus = (props, context) => {
   let areaStatus;
   if (air.danger.overall === 0) {
     if (atmos_alarm === 0) {
-      areaStatus = "Оптимум";
+      areaStatus = "Optimal";
     } else {
-      areaStatus = "Внимание: Атмосферная тревога";
+      areaStatus = "Caution: Atmos alert in area";
     }
   } else if (air.danger.overall === 1) {
-    areaStatus = "Внимание";
+    areaStatus = "Caution";
   } else {
-    areaStatus = "ОПАСНОСТЬ: Непригодно для дыхания";
+    areaStatus = "DANGER: Internals Required";
   }
 
   return (
-    <Section title="Состав воздуха">
+    <Section title="Air Status">
       {air ? (
         <LabeledList>
-          <LabeledList.Item label="Давление">
+          <LabeledList.Item label="Pressure">
             <Box color={Danger2Colour(air.danger.pressure)}>
-              <AnimatedNumber value={air.pressure} /> кПа
+              <AnimatedNumber value={air.pressure} /> kPa
               {!locked && (
                 <Fragment>
                   &nbsp;
                   <Button
-                    content={mode === 3 ? "Остановить откачку" : "Экстренная откачка"}
+                    content={mode === 3 ? "Deactivate Panic Siphon" : "Activate Panic Siphon"}
                     selected={mode === 3}
                     icon="exclamation-triangle"
                     onClick={
@@ -82,44 +82,44 @@ const AirStatus = (props, context) => {
               )}
             </Box>
           </LabeledList.Item>
-          <LabeledList.Item label="Кислород">
+          <LabeledList.Item label="Oxygen">
             <ProgressBar
               value={air.contents.oxygen / 100}
               color={Danger2Colour(air.danger.oxygen)} />
           </LabeledList.Item>
-          <LabeledList.Item label="Азот">
+          <LabeledList.Item label="Nitrogen">
             <ProgressBar
               value={air.contents.nitrogen / 100}
               color={Danger2Colour(air.danger.nitrogen)} />
           </LabeledList.Item>
-          <LabeledList.Item label="Двуокись углерода">
+          <LabeledList.Item label="Carbon Dioxide">
             <ProgressBar
               value={air.contents.co2 / 100}
               color={Danger2Colour(air.danger.co2)} />
           </LabeledList.Item>
-          <LabeledList.Item label="Токсины">
+          <LabeledList.Item label="Toxins">
             <ProgressBar
               value={air.contents.plasma / 100}
               color={Danger2Colour(air.danger.plasma)} />
           </LabeledList.Item>
           {air.contents.other > 0 && (
-            <LabeledList.Item label="Прочее">
+            <LabeledList.Item label="Other">
               <ProgressBar
                 value={air.contents.other / 100}
                 color={Danger2Colour(air.danger.other)} />
             </LabeledList.Item>
           )}
-          <LabeledList.Item label="Термостат">
+          <LabeledList.Item label="Temperature">
             <Box color={Danger2Colour(air.danger.temperature)}>
-              <AnimatedNumber value={air.temperature} />&nbsp;K / <AnimatedNumber value={air.temperature_c} />&nbsp;°C&nbsp;
+              <AnimatedNumber value={air.temperature} /> K / <AnimatedNumber value={air.temperature_c} /> C&nbsp;
               <Button
                 icon="thermometer-full"
-                content={target_temp + " °C"}
+                content={target_temp + " C"}
                 onClick={
                   () => act('temperature')
                 } />
               <Button
-                content={air.thermostat_state ? "Вкл" : "Выкл"}
+                content={air.thermostat_state ? "On" : "Off"}
                 selected={air.thermostat_state}
                 icon="power-off"
                 onClick={
@@ -127,34 +127,37 @@ const AirStatus = (props, context) => {
                 } />
             </Box>
           </LabeledList.Item>
-          <LabeledList.Item label="Статус помещения">
+          <LabeledList.Item label="Local Status">
             <Box color={Danger2Colour(air.danger.overall)}>
-              {`${areaStatus} `}
+              {areaStatus}
               {!locked && (
-                <Button
-                  content={alarmActivated ? "Сбросить тревогу" : "Активировать тревогу"}
-                  selected={alarmActivated}
-                  onClick={
-                    () => act(alarmActivated ? 'atmos_reset' : 'atmos_alarm')
-                  } />
+                <Fragment>
+                  &nbsp;
+                  <Button
+                    content={alarmActivated ? "Reset Alarm" : "Activate Alarm"}
+                    selected={alarmActivated}
+                    onClick={
+                      () => act(alarmActivated ? 'atmos_reset' : 'atmos_alarm')
+                    } />
+                </Fragment>
               )}
             </Box>
           </LabeledList.Item>
-          <LabeledList.Item label="Удалённое управление">
+          <LabeledList.Item label="Remote Control Settings">
             <Button
-              content="Выкл"
+              content="Off"
               selected={rcon === 1}
               onClick={
                 () => act('set_rcon', { rcon: 1 })
               } />
             <Button
-              content="Авто"
+              content="Auto"
               selected={rcon === 2}
               onClick={
                 () => act('set_rcon', { rcon: 2 })
               } />
             <Button
-              content="Вкл"
+              content="On"
               selected={rcon === 3}
               onClick={
                 () => act('set_rcon', { rcon: 3 })
@@ -163,7 +166,7 @@ const AirStatus = (props, context) => {
         </LabeledList>
       ) : (
         <Box>
-          Невозможно получить образец воздуха!
+          Unable to acquire air sample!
         </Box>
       )}
     </Section>
@@ -178,25 +181,25 @@ const AirAlarmTabs = (props, context) => {
         key="Vents"
         selected={0 === tabIndex}
         onClick={() => setTabIndex(0)}>
-        <Icon name="sign-out-alt" /> Вентиляция
+        <Icon name="sign-out-alt" /> Vent Control
       </Tabs.Tab>
       <Tabs.Tab
         key="Scrubbers"
         selected={1 === tabIndex}
         onClick={() => setTabIndex(1)}>
-        <Icon name="sign-in-alt" /> Вытяжки
+        <Icon name="sign-in-alt" /> Scrubber Control
       </Tabs.Tab>
       <Tabs.Tab
         key="Mode"
         selected={2 === tabIndex}
         onClick={() => setTabIndex(2)}>
-        <Icon name="cog" /> Режим
+        <Icon name="cog" /> Mode
       </Tabs.Tab>
       <Tabs.Tab
         key="Thresholds"
         selected={3 === tabIndex}
         onClick={() => setTabIndex(3)}>
-        <Icon name="tachometer-alt" /> Пороги
+        <Icon name="tachometer-alt" /> Thresholds
       </Tabs.Tab>
     </Tabs>
   );
@@ -225,45 +228,45 @@ const AirAlarmVentsView = (props, context) => {
     vents.map(v => (
       <Section title={v.name} key={v.name}>
         <LabeledList>
-          <LabeledList.Item label="Статус">
+          <LabeledList.Item label="Status">
             <Button
-              content={v.power ? "Вкл" : "Выкл"}
+              content={v.power ? "On" : "Off"}
               selected={v.power}
               icon="power-off"
               onClick={
                 () => act('command', { cmd: 'power', val: (v.power === 1 ? 0 : 1), id_tag: v.id_tag })
               } />
             <Button
-              content={v.direction === "release" ? "Наполнение" : "Откачка"}
+              content={v.direction === "release" ? "Blowing" : "Siphoning"}
               icon={v.direction === "release" ? "sign-out-alt" : "sign-in-alt"}
               onClick={
                 () => act('command', { cmd: 'direction', val: (v.direction === "release" ? 0 : 1), id_tag: v.id_tag })
               } />
           </LabeledList.Item>
-          <LabeledList.Item label="Проверки давления">
+          <LabeledList.Item label="Pressure Checks">
             <Button
-              content="Внешнее"
+              content="External"
               selected={v.checks === 1}
               onClick={
                 () => act('command', { cmd: 'checks', val: 1, id_tag: v.id_tag })
               } />
             <Button
-              content="Внутреннее"
+              content="Internal"
               selected={v.checks === 2}
               onClick={
                 () => act('command', { cmd: 'checks', val: 2, id_tag: v.id_tag })
               } />
           </LabeledList.Item>
-          <LabeledList.Item label="Целевое внешнее давление">
-            <AnimatedNumber value={v.external} /> кПа&nbsp;
+          <LabeledList.Item label="External Pressure Target">
+            <AnimatedNumber value={v.external} /> kPa&nbsp;
             <Button
-              content="Задать"
+              content="Set"
               icon="cog"
               onClick={
                 () => act('command', { cmd: 'set_external_pressure', id_tag: v.id_tag })
               } />
             <Button
-              content="Сбросить"
+              content="Reset"
               icon="redo-alt"
               onClick={
                 () => act('command', { cmd: 'set_external_pressure', val: 101.325, id_tag: v.id_tag })
@@ -282,57 +285,57 @@ const AirAlarmScrubbersView = (props, context) => {
     scrubbers.map(s => (
       <Section title={s.name} key={s.name}>
         <LabeledList>
-          <LabeledList.Item label="Статус">
+          <LabeledList.Item label="Status">
             <Button
-              content={s.power ? "Вкл" : "Выкл"}
+              content={s.power ? "On" : "Off"}
               selected={s.power}
               icon="power-off"
               onClick={
                 () => act('command', { cmd: 'power', val: (s.power === 1 ? 0 : 1), id_tag: s.id_tag })
               } />
             <Button
-              content={s.scrubbing === 0 ? "Откачка" : "Вытяжка"}
+              content={s.scrubbing === 0 ? "Siphoning" : "Scrubbing"}
               icon={s.scrubbing === 0 ? "sign-in-alt" : "filter"}
               onClick={
                 () => act('command', { cmd: 'scrubbing', val: (s.scrubbing === 0 ? 1 : 0), id_tag: s.id_tag })
               } />
           </LabeledList.Item>
-          <LabeledList.Item label="Диапазон">
+          <LabeledList.Item label="Range">
             <Button
-              content={s.widenet ? "Расширенный" : "Нормальный"}
+              content={s.widenet ? "Extended" : "Normal"}
               selected={s.widenet}
               icon="expand-arrows-alt"
               onClick={
                 () => act('command', { cmd: 'widenet', val: (s.widenet === 0 ? 1 : 0), id_tag: s.id_tag })
               } />
           </LabeledList.Item>
-          <LabeledList.Item label="Фильтровать">
+          <LabeledList.Item label="Filtering">
             <Button
-              content="Двуокись углерода"
+              content="Carbon Dioxide"
               selected={s.filter_co2}
               onClick={
                 () => act('command', { cmd: 'co2_scrub', val: (s.filter_co2 === 0 ? 1 : 0), id_tag: s.id_tag })
               } />
             <Button
-              content="Плазма"
+              content="Plasma"
               selected={s.filter_toxins}
               onClick={
                 () => act('command', { cmd: 'tox_scrub', val: (s.filter_toxins === 0 ? 1 : 0), id_tag: s.id_tag })
               } />
             <Button
-              content="Закись азота"
+              content="Nitrous Oxide"
               selected={s.filter_n2o}
               onClick={
                 () => act('command', { cmd: 'n2o_scrub', val: (s.filter_n2o === 0 ? 1 : 0), id_tag: s.id_tag })
               } />
             <Button
-              content="Кислород"
+              content="Oxygen"
               selected={s.filter_o2}
               onClick={
                 () => act('command', { cmd: 'o2_scrub', val: (s.filter_o2 === 0 ? 1 : 0), id_tag: s.id_tag })
               } />
             <Button
-              content="Азот"
+              content="Nitrogen"
               selected={s.filter_n2}
               onClick={
                 () => act('command', { cmd: 'n2_scrub', val: (s.filter_n2 === 0 ? 1 : 0), id_tag: s.id_tag })
@@ -355,7 +358,7 @@ const AirAlarmModesView = (props, context) => {
   } = data;
   return (
     <Fragment>
-      <Section title="Режим системы">
+      <Section title="System Mode">
         <Table>
           {modes.map(m => (
             (!m.emagonly || m.emagonly && !!emagged) && (
@@ -373,9 +376,9 @@ const AirAlarmModesView = (props, context) => {
           ))}
         </Table>
       </Section>
-      <Section title="Предустановки системы">
+      <Section title="System Presets">
         <Box italic>
-          После смены предустановки система автоматически начнёт цикл удаления загрязнений.
+          After making a selection, the system will automatically cycle in order to remove contaminants.
         </Box>
         <Table mt={1}>
           {presets.map(p => (
@@ -403,23 +406,23 @@ const AirAlarmThresholdsView = (props, context) => {
     thresholds,
   } = data;
   return (
-    <Section title="Пороги активации тревог">
+    <Section title="Alarm Thresholds">
       <Table>
         <Table.Row header>
           <Table.Cell width="20%">
-            Значение
+            Value
           </Table.Cell>
           <Table.Cell color="red" width="20%">
-            Опасность,<br />если ниже
+            Danger Min
           </Table.Cell>
           <Table.Cell color="orange" width="20%">
-            Угроза,<br />если ниже
+            Warning Min
           </Table.Cell>
           <Table.Cell color="orange" width="20%">
-            Угроза,<br />если выше
+            Warning Max
           </Table.Cell>
           <Table.Cell color="red" width="20%">
-            Опасность,<br />если выше
+            Danger Max
           </Table.Cell>
         </Table.Row>
         {thresholds.map(t => (
@@ -429,7 +432,7 @@ const AirAlarmThresholdsView = (props, context) => {
             </Table.Cell>
             {t.settings.map(s => (
               <Table.Cell key={s.val}>
-                <Button content={s.selected === -1 ? "Выкл" : s.selected} onClick={
+                <Button content={s.selected === -1 ? "Off" : s.selected} onClick={
                   () => act('command', { cmd: 'set_threshold', env: s.env, var: s.val })
                 } />
               </Table.Cell>

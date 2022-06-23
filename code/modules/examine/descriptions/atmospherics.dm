@@ -103,7 +103,7 @@
 
 //Vents
 /obj/machinery/atmospherics/unary/vent_pump
-	description_info = "По необходимости выкачивает содержимое подключенной трубы в атмосферу. Управляется воздушной сигнализацией."
+	description_info = "This pumps the contents of the attached pipe out into the atmosphere, if needed.  It can be controlled from an Air Alarm."
 
 //Freezers
 /obj/machinery/atmospherics/unary/cold_sink/freezer
@@ -124,8 +124,8 @@
 
 //Scrubbers
 /obj/machinery/atmospherics/unary/vent_scrubber
-	description_info = "Отфильтровывает вредные газы из атмосферы. Откачанные газы поступают, как правило, в трубу вытяжки. \
-	Можно настроить для быстрой откачки всего воздуха в режиме «Экстренной откачки». Управляется воздушной сигнализацией."
+	description_info = "This filters the atmosphere of harmful gas.  Filtered gas goes to the pipes connected to it, typically a scrubber pipe. \
+	It can be controlled from an Air Alarm.  It can be configured to drain all air rapidly with a 'panic syphon' from an air alarm."
 
 //Canisters
 /obj/machinery/portable_atmospherics/canister

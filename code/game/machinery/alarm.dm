@@ -231,7 +231,7 @@
 	alarm_area = get_area(src)
 	area_uid = alarm_area.uid
 	if(name == "alarm")
-		name = "Воздушная сигнализация «[alarm_area.name]»"
+		name = "[alarm_area.name] Air Alarm"
 	apply_preset(1) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
 
@@ -559,7 +559,7 @@
 	alert_signal.source = src
 	alert_signal.transmission_method = 1
 	alert_signal.data["zone"] = get_area_name(src, TRUE)
-	alert_signal.data["type"] = "Атмосфера"
+	alert_signal.data["type"] = "Atmospheric"
 
 	if(alert_level == ATMOS_ALARM_DANGER)
 		alert_signal.data["alert"] = "severe"
@@ -690,22 +690,22 @@
 	data["atmos_alarm"] = alarm_area.atmosalm
 	data["emagged"] = emagged
 	data["modes"] = list(
-		AALARM_MODE_SCRUBBING   = list("name"="Фильтрация",         "desc"="Выфильтровать загрязнения", "id" = AALARM_MODE_SCRUBBING),\
-		AALARM_MODE_VENTING		= list("name"="Продув",             "desc"="Откачивать воздух, одновременно закачивая новый", "id" = AALARM_MODE_VENTING),\
-		AALARM_MODE_PANIC       = list("name"="Экстренная откачка", "desc"="Быстро откачать воздух из помещения", "id" = AALARM_MODE_PANIC),\
-		AALARM_MODE_REPLACEMENT = list("name"="Замена",             "desc"="Откачать весь воздух и закачать новый", "id" = AALARM_MODE_REPLACEMENT),\
-		AALARM_MODE_SIPHON	    = list("name"="Выкачка",            "desc"="Откачать воздух из помещения", "id" = AALARM_MODE_SIPHON),\
-		AALARM_MODE_CONTAMINATED= list("name"="Очистка",            "desc"="Быстро выфильтровать загрязнения", "id" = AALARM_MODE_CONTAMINATED),\
-		AALARM_MODE_REFILL      = list("name"="Наполнение",         "desc"="Утроить скорость подачи воздуха в помещение", "id" = AALARM_MODE_REFILL),\
-		AALARM_MODE_OFF         = list("name"="Выкл",               "desc"="Отключить вытяжки и вентиляции", "id" = AALARM_MODE_OFF),\
-		AALARM_MODE_FLOOD 		= list("name"="Потоп",              "desc"="Отключить вытяжки и открыть вентиляции", "emagonly" = TRUE, "id" = AALARM_MODE_FLOOD)
+		AALARM_MODE_SCRUBBING   = list("name"="Filtering",   "desc"="Scrubs out contaminants", "id" = AALARM_MODE_SCRUBBING),\
+		AALARM_MODE_VENTING		= list("name"="Draught", 	 "desc"="Siphons out air while replacing", "id" = AALARM_MODE_VENTING),\
+		AALARM_MODE_PANIC       = list("name"="Panic Siphon","desc"="Siphons air out of the room quickly", "id" = AALARM_MODE_PANIC),\
+		AALARM_MODE_REPLACEMENT = list("name"="Cycle",       "desc"="Siphons air before replacing", "id" = AALARM_MODE_REPLACEMENT),\
+		AALARM_MODE_SIPHON	    = list("name"="Siphon",		 "desc"="Siphons air out of the room", "id" = AALARM_MODE_SIPHON),\
+		AALARM_MODE_CONTAMINATED= list("name"="Contaminated","desc"="Scrubs out all contaminants quickly", "id" = AALARM_MODE_CONTAMINATED),\
+		AALARM_MODE_REFILL      = list("name"="Refill",      "desc"="Triples vent output", "id" = AALARM_MODE_REFILL),\
+		AALARM_MODE_OFF         = list("name"="Off",         "desc"="Shuts off vents and scrubbers", "id" = AALARM_MODE_OFF),\
+		AALARM_MODE_FLOOD 		= list("name"="Flood", 		 "desc"="Shuts off scrubbers and opens vents", 	"emagonly" = TRUE, "id" = AALARM_MODE_FLOOD)
 	)
 	data["mode"] = mode
 	data["presets"] = list(
-		AALARM_PRESET_HUMAN		= list("name"="Люди",     	 "desc"="Проверка содержания кислорода и азота", "id" = AALARM_PRESET_HUMAN),\
-		AALARM_PRESET_VOX 		= list("name"="Воксы",       "desc"="Проверка содержания азота", "id" = AALARM_PRESET_VOX),\
-		AALARM_PRESET_COLDROOM 	= list("name"="Холодильник", "desc"="Для холодильников", "id" = AALARM_PRESET_COLDROOM),\
-		AALARM_PRESET_SERVER 	= list("name"="Серверная",   "desc"="Для серверных", "id" = AALARM_PRESET_SERVER)
+		AALARM_PRESET_HUMAN		= list("name"="Human",     	 "desc"="Checks for oxygen and nitrogen", "id" = AALARM_PRESET_HUMAN),\
+		AALARM_PRESET_VOX 		= list("name"="Vox",       	 "desc"="Checks for nitrogen only", "id" = AALARM_PRESET_VOX),\
+		AALARM_PRESET_COLDROOM 	= list("name"="Coldroom", 	 "desc"="For freezers", "id" = AALARM_PRESET_COLDROOM),\
+		AALARM_PRESET_SERVER 	= list("name"="Server Room", "desc"="For server rooms", "id" = AALARM_PRESET_SERVER)
 	)
 	data["preset"] = preset
 
@@ -754,11 +754,11 @@
 	var/list/thresholds = list()
 
 	var/list/gas_names = list(
-		"oxygen"         = "O₂",
-		"nitrogen"       = "N₂",
-		"carbon dioxide" = "CO₂",
-		"plasma"         = "Токсины",
-		"other"          = "Прочее")
+		"oxygen"         = "O2",
+		"nitrogen"       = "N2",
+		"carbon dioxide" = "CO2",
+		"plasma"         = "Toxin",
+		"other"          = "Other")
 	for(var/g in gas_names)
 		thresholds += list(list("name" = gas_names[g], "settings" = list()))
 		selected = TLV[g]
@@ -768,14 +768,14 @@
 		thresholds[thresholds.len]["settings"] += list(list("env" = g, "val" = "max2", "selected" = selected.max2))
 
 	selected = TLV["pressure"]
-	thresholds += list(list("name" = "Давление, кПа", "settings" = list()))
+	thresholds += list(list("name" = "Pressure", "settings" = list()))
 	thresholds[thresholds.len]["settings"] += list(list("env" = "pressure", "val" = "min2", "selected" = selected.min2))
 	thresholds[thresholds.len]["settings"] += list(list("env" = "pressure", "val" = "min1", "selected" = selected.min1))
 	thresholds[thresholds.len]["settings"] += list(list("env" = "pressure", "val" = "max1", "selected" = selected.max1))
 	thresholds[thresholds.len]["settings"] += list(list("env" = "pressure", "val" = "max2", "selected" = selected.max2))
 
 	selected = TLV["temperature"]
-	thresholds += list(list("name" = "Температура, K", "settings" = list()))
+	thresholds += list(list("name" = "Temperature", "settings" = list()))
 	thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "min2", "selected" = selected.min2))
 	thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "min1", "selected" = selected.min1))
 	thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "max1", "selected" = selected.max1))
@@ -806,7 +806,7 @@
 		return STATUS_CLOSE
 
 	if(aidisabled && (isAI(user) || isrobot(user)))
-		to_chat(user, "<span class='warning'>Отключение контроля ИИ над интерфейсом [src].</span>")
+		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
 		return STATUS_CLOSE
 
 	. = shorted ? STATUS_DISABLED : STATUS_INTERACTIVE
@@ -859,7 +859,7 @@
 					if(params["val"])
 						val=text2num(params["val"])
 					else
-						var/newval = input("Введите новое значение") as num|null
+						var/newval = input("Enter new value") as num|null
 						if(isnull(newval))
 							return
 						if(params["cmd"] == "set_external_pressure")
@@ -877,7 +877,7 @@
 					var/env = params["env"]
 					var/varname = params["var"]
 					var/datum/tlv/tlv = TLV[env]
-					var/newval = input("Введите [varname] для [env]", "Триггеры тревог", tlv.vars[varname]) as num|null
+					var/newval = input("Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname]) as num|null
 
 					if(isnull(newval) || ..()) // No setting if you walked away
 						return
@@ -927,12 +927,12 @@
 			var/min_temperature = max(selected.min1, MIN_TEMPERATURE)
 			var/max_temperature_c = max_temperature - T0C
 			var/min_temperature_c = min_temperature - T0C
-			var/input_temperature = input("Какую температуру (между [min_temperature_c] °C и [max_temperature_c] °C) должна поддерживать система?", "Управление термостатом") as num|null
+			var/input_temperature = input("What temperature would you like the system to maintain? (Capped between [min_temperature_c]C and [max_temperature_c]C)", "Thermostat Controls") as num|null
 			if(isnull(input_temperature) || ..()) // No temp setting if you walked away
 				return
 			input_temperature = input_temperature + T0C
 			if(input_temperature > max_temperature || input_temperature < min_temperature)
-				to_chat(usr, "<span class='warning'>Температура должна быть между [min_temperature_c] °C и [max_temperature_c] °C</span>")
+				to_chat(usr, "<span class='warning'>Temperature must be between [min_temperature_c]C and [max_temperature_c]C</span>")
 			else
 				target_temperature = input_temperature
 
@@ -943,7 +943,7 @@
 	if(!emagged)
 		emagged = TRUE
 		if(user)
-			user.visible_message("<span class='warning'>Из [src] вылетают искры!</span>", "<span class='notice'>Вы емагаете [src], отключая ограничители безопасности.</span>")
+			user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>", "<span class='notice'>You emag the [src], disabling its safeties.</span>")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return
 
@@ -954,25 +954,25 @@
 		if(2)
 			if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))// trying to unlock the interface with an ID card
 				if(stat & (NOPOWER|BROKEN))
-					to_chat(user, "Ничего не происходит")
+					to_chat(user, "It does nothing")
 					return
 				else
 					if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
 						locked = !locked
-						to_chat(user, "<span class='notice'>Вы [ locked ? "запираете" : "отпираете"] интерфейс воздушной сигнализации.</span>")
+						to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
 						SStgui.update_uis(src)
 					else
-						to_chat(user, "<span class='warning'>Доступ запрещён.</span>")
+						to_chat(user, "<span class='warning'>Access denied.</span>")
 				return
 
 		if(1)
 			if(iscoil(I))
 				var/obj/item/stack/cable_coil/coil = I
 				if(coil.get_amount() < 5)
-					to_chat(user, "Для этого вам нужно больше кабеля!")
+					to_chat(user, "You need more cable for this!")
 					return
 
-				to_chat(user, "Вы подключаете [src]!")
+				to_chat(user, "You wire \the [src]!")
 				playsound(get_turf(src), coil.usesound, 50, 1)
 				coil.use(5)
 				if(!coil.amount)
@@ -984,7 +984,7 @@
 				return
 		if(0)
 			if(istype(I, /obj/item/airalarm_electronics))
-				to_chat(user, "Вы вставляете печатную плату!")
+				to_chat(user, "You insert the circuit!")
 				playsound(get_turf(src), I.usesound, 50, 1)
 				qdel(I)
 				buildstage = 1
@@ -998,12 +998,12 @@
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return
-	to_chat(user, "Вы начинаете выламывать печатную плату.")
+	to_chat(user, "You start prying out the circuit.")
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 		return
 	if(buildstage != AIR_ALARM_BUILDING)
 		return
-	to_chat(user, "Вы выламываете печатную плату!")
+	to_chat(user, "You pry out the circuit!")
 	new /obj/item/airalarm_electronics(user.drop_location())
 	buildstage = AIR_ALARM_FRAME
 	update_icon()
@@ -1078,9 +1078,9 @@
 /obj/machinery/alarm/examine(mob/user)
 	. = ..()
 	if(buildstage < 2)
-		. += "Устройство не подключено."
+		. += "It is not wired."
 	if(buildstage < 1)
-		. += "Печатная плата отсутствует."
+		. += "The circuit is missing."
 
 /obj/machinery/alarm/proc/unshort_callback()
 	if(shorted)
@@ -1092,8 +1092,8 @@
 		aidisabled = FALSE
 
 /obj/machinery/alarm/all_access
-	name = "публичная воздушная сигнализация" // all-access air alarm
-	desc = "Эта воздушная сигнализация, кажется, не имеет ограничений доступа."
+	name = "all-access air alarm"
+	desc = "This particular atmos control unit appears to have no access restrictions."
 	locked = FALSE
 	req_access = null
 	req_one_access = null
@@ -1103,10 +1103,10 @@ AIR ALARM CIRCUIT
 Just an object used in constructing air alarms
 */
 /obj/item/airalarm_electronics
-	name = "печатная плата воздушной сигнализации" // air alarm electronics
+	name = "air alarm electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
-	desc = "Выглядит как печатная плата. Может быть, это она и есть."
+	desc = "Looks like a circuit. Probably is."
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 	origin_tech = "engineering=2;programming=1"
