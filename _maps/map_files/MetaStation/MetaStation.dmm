@@ -61799,13 +61799,6 @@
 /obj/item/cartridge/signal/toxins{
 	pixel_y = 6
 	},
-<<<<<<< HEAD
-=======
-/obj/item/clothing/glasses/welding/superior{
-	pixel_x = -6;
-	pixel_y = -12
-	},
->>>>>>> master
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
