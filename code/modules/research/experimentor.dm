@@ -92,7 +92,7 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/r_n_d/experimentor/LateInitialize()
-	. = ..()
+	..()
 	// GLOB.mob_living_list gets populated in /mob/Initialize()
 	// so we need to delay searching for those until after the Initialize()
 	trackedIan = locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_living_list

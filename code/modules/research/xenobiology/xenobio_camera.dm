@@ -42,7 +42,11 @@
 	icon_keyboard = "rd_key"
 
 /obj/machinery/computer/camera_advanced/xenobio/Initialize(mapload)
-	. = ..()
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/camera_advanced/xenobio/LateInitialize()
+	..()
 	for(var/obj/machinery/monkey_recycler/recycler in GLOB.monkey_recyclers)
 		if(get_area(recycler.loc) == get_area(loc))
 			connected_recycler = recycler

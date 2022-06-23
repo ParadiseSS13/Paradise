@@ -33,7 +33,7 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/abductor/console/LateInitialize()
-	. = ..()
+	..()
 	// GLOB.abductor_equipment is populated in Initialize;
 	// delaying linkage until after.
 	Link_Abduction_Equipment()

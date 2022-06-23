@@ -204,10 +204,10 @@
 		filter_path() // renders rpath
 
 	if(autolink)
-		. = INITIALIZE_HINT_LATELOAD
+		return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/magnetic_controller/LateInitialize()
-	. = ..()
+	..()
 	if(autolink)
 		// GLOB.machines is populated in /machinery/Initialize
 		// so linkage gets delayed until that one finished.

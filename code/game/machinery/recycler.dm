@@ -28,7 +28,7 @@
 	update_icon()
 
 /obj/machinery/recycler/ComponentInitialize()
-	. = ..()
+	..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_PLASTIC, MAT_BLUESPACE), 0, TRUE, null, null, null, TRUE)
 
 /obj/machinery/recycler/RefreshParts()
