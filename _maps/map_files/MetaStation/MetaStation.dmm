@@ -42479,11 +42479,6 @@
 	pixel_x = 6;
 	pixel_y = -6
 	},
-/obj/item/gun/syringe,
-/obj/item/gun/syringe{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/machinery/light{
 	dir = 1
 	},
