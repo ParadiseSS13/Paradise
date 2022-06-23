@@ -115,7 +115,7 @@
 			if(ishuman(target))
 				var/mob/living/carbon/human/H = target //typecast to human
 				var/pain_mod = get_pain_modifier(H)
-				var/datum/status_effect/incapacitating/sleeping/S = H.has_status_effect(STATUS_EFFECT_SLEEPING)
+				var/datum/status_effect/incapacitating/sleeping/S = H.IsSleeping()
 				if(S?.voluntary)
 					H.SetSleeping(0) // wake up people who are napping through the surgery
 					if(pain_mod < 0.95)
