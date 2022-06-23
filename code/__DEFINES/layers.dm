@@ -129,5 +129,8 @@
 // This should always be on top.
 #define HUD_PLANE_BUILDMODE 30
 
+// Nah, this should always be top
+#define HUD_PLANE_DEBUGVIEW 40
+
 ///Plane master controller keys
 #define PLANE_MASTERS_GAME "plane_masters_game"

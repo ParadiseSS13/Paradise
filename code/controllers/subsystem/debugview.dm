@@ -1,0 +1,53 @@
+SUBSYSTEM_DEF(debugview)
+	name = "Debug View"
+	wait = 1 // SS_TICKER subsystem, so wait is in ticks
+	flags = SS_TICKER|SS_NO_INIT
+	offline_implications = "Shift+F3 will no longer show a debug view. No immediate action is needed."
+	/// List of clients currently processing
+	var/list/client/processing = list()
+
+/datum/controller/subsystem/debugview/fire(resumed)
+	// Generate debug text
+	var/list/entries = list()
+	entries += "CPU: [round(world.cpu, 1)] | MCPU: [round(world.map_cpu, 1)] | FPS/TPS: [world.fps] | Clients: [length(GLOB.clients)] | BYOND: [world.byond_version].[world.byond_build]"
+	entries += "\[Air] Cost: [round(SSair.cost, 1)]ms | AT: [length(SSair.active_turfs)]"
+	entries += "\[Debug] Cost: [round(SSdebugview.cost, 1)]ms | P: [length(SSdebugview.processing)]" // meta af (tbf we need to know how much were using)
+	entries += "\[FP] Cost: [round(SSfastprocess.cost, 1)]ms | P: [length(SSfastprocess.processing)]"
+	// Snowflakery for SSgarbage
+	var/list/counts = list()
+	for(var/list/L in SSgarbage.queues)
+		counts += length(L)
+	entries += "\[GC] Cost: [round(SSgarbage.cost, 1)]ms | Q: [counts.Join(",")] H: [SSgarbage.delslasttick] | S: [SSgarbage.gcedlasttick]"
+	entries += "\[Input] Cost: [round(SSinput.cost, 1)]ms"
+	entries += "\[Lighting] Cost: [round(SSlighting.cost, 1)]ms | SQ: [length(SSlighting.sources_queue)] | CQ: [length(SSlighting.corners_queue)] | OQ: [length(SSlighting.objects_queue)]"
+	entries += "\[Machines] Cost: [round(SSmachines.cost, 1)]ms | M: [length(SSmachines.processing)] | P: [length(SSmachines.powernets)]"
+	entries += "\[Mobs] Cost: [round(SSmobs.cost, 1)]ms | P: [length(GLOB.mob_living_list)]"
+	entries += "\[Objects] Cost: [round(SSobj.cost, 1)]ms | P: [length(SSobj.processing)]"
+	entries += "\[Processing] Cost: [round(SSprocessing.cost, 1)]ms | P: [length(SSprocessing.processing)]"
+	entries += "\[Projectiles] Cost: [round(SSprojectiles.cost, 1)]ms | P: [length(SSprojectiles.processing)]"
+	entries += "\[Runechat] Cost: [round(SSrunechat.cost, 1)]ms | AM: [SSrunechat.bucket_count] | SQ: [length(SSrunechat.second_queue)]"
+	entries += "\[TGUI] Cost: [round(SStgui.cost, 1)]ms | P: [length(SStgui.processing_uis)]"
+	entries += "\[Timer] Cost: [round(SStimer.cost, 1)]ms | B: [SStimer.bucket_count] | P: [length(SStimer.second_queue)] | RST: [SStimer.bucket_reset_count]"
+
+	// Do some parsing to format it properly
+	var/out_text = entries.Join("\n")
+	var/mty = 480 - 9 * length(entries)
+
+	// And update the clients
+	for(var/client/C as anything in processing)
+		C.debug_text_overlay.maptext_y = mty
+		C.debug_text_overlay.maptext = MAPTEXT(out_text)
+
+/datum/controller/subsystem/debugview/proc/start_processing(client/C)
+	C.debug_text_overlay = new /obj/screen/fullscreen
+	// DO NOT CHANGE THE BELOW VALUES
+	C.debug_text_overlay.plane = HUD_PLANE_DEBUGVIEW
+	C.debug_text_overlay.maptext_height = 480
+	C.debug_text_overlay.maptext_width = 480
+	C.screen |= C.debug_text_overlay
+	processing |= C
+
+/datum/controller/subsystem/debugview/proc/stop_processing(client/C)
+	C.screen -= C.debug_text_overlay
+	qdel(C.debug_text_overlay)
+	processing -= C
