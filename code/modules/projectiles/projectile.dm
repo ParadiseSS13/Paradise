@@ -349,6 +349,8 @@
 /obj/item/projectile/Destroy()
 	STOP_PROCESSING(SSprojectiles, src)
 	ammo_casing = null
+	firer_source_atom = null
+	firer = null
 	return ..()
 
 /obj/item/projectile/proc/dumbfire(dir)

@@ -60,8 +60,6 @@
 	cycle(user)
 
 /obj/item/pinpointer/proc/cycle(mob/user)
-	if(mode == MODE_DET)
-		return
 	if(cur_index > length(modes))
 		mode = MODE_OFF
 		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
@@ -420,8 +418,6 @@
 	..(target)
 
 /obj/item/pinpointer/crew/activate_mode(mode, mob/user)
-	if(mode == MODE_DET)
-		return
 	var/list/name_counts = list()
 	var/list/names = list()
 
