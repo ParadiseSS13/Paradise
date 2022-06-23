@@ -120,7 +120,7 @@
 /proc/get_pain_modifier(mob/living/carbon/human/M) //returns modfier to make surgery harder if patient is conscious and feels pain
 	if(M.stat == DEAD) // Operating on dead people is easy
 		return 1
-	var/datum/status_effect/incapacitating/sleeping/S = M.has_status_effect(STATUS_EFFECT_SLEEPING)
+	var/datum/status_effect/incapacitating/sleeping/S = M.IsSleeping()
 	if(M.stat == UNCONSCIOUS && !(S?.voluntary))
 		// Either unconscious due to something other than sleep,
 		// or "sleeping" due to being hard knocked out (N2O or similar), rather than just napping.
