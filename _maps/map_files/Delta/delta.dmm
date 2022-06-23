@@ -49284,8 +49284,8 @@
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=1";
-	location = "Security";
-	dir = 1
+	dir = 1;
+	location = "Security"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
@@ -56685,8 +56685,8 @@
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=1";
-	location = "Engineering";
-	dir = 1
+	dir = 1;
+	location = "Engineering"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/window/southright,
@@ -59564,6 +59564,10 @@
 	req_access_txt = "64"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
 /turf/simulated/floor/wood,
 /area/hallway/primary/central)
 "cLd" = (
@@ -59648,6 +59652,10 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/medbay2)
@@ -60271,6 +60279,10 @@
 /obj/machinery/door/window/eastright,
 /obj/effect/mapping_helpers/airlock/access/any/medical/general,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
 /turf/simulated/floor/plasteel,
 /area/medical/medbay2)
 "cMG" = (
@@ -60899,6 +60911,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 4
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -61728,6 +61744,10 @@
 	req_access_txt = "5"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
 "cQb" = (
@@ -61742,6 +61762,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 4
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -63497,6 +63521,10 @@
 	name = "Chemistry Desk Shutters"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/medical/medbay)
 "cTZ" = (
@@ -63510,6 +63538,10 @@
 	dir = 2;
 	name = "Chemistry Desk";
 	req_access_txt = "33"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/medbay)
@@ -63529,6 +63561,10 @@
 	name = "Chemistry Desk Shutters"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
 /turf/simulated/floor/plasteel,
 /area/medical/medbay)
 "cUb" = (
@@ -63539,6 +63575,10 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/medical/medbay)
 "cUc" = (
@@ -63551,6 +63591,10 @@
 	req_access_txt = "5"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/medbay)
 "cUd" = (
@@ -63561,6 +63605,10 @@
 	req_access_txt = "5"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/medbay)
 "cUe" = (
@@ -64228,6 +64276,10 @@
 	name = "Chemistry Desk Shutters"
 	},
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
 "cVE" = (
@@ -67055,6 +67107,10 @@
 	req_access_txt = "5; 33"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
 /turf/simulated/floor/plasteel,
 /area/medical/chemistry)
 "dcm" = (
@@ -68009,6 +68065,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
@@ -70001,6 +70061,10 @@
 /obj/machinery/door/airlock/medical{
 	name = "Paramedic Office";
 	req_access_txt = "66"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/paramedic)
@@ -72283,6 +72347,10 @@
 	name = "Paramedic Garage"
 	},
 /obj/effect/decal/warning_stripes/blue,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
 /turf/simulated/floor/plasteel,
 /area/medical/paramedic)
 "dnJ" = (
@@ -75159,6 +75227,10 @@
 	name = "Genetics Desk Shutters"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -75267,6 +75339,7 @@
 	id = "cmoofficedoor2";
 	name = "Office Door (Starboard)";
 	normaldoorcontrol = 1;
+	pixel_x = -6;
 	pixel_y = 6;
 	req_access_txt = "40"
 	},
@@ -75274,8 +75347,15 @@
 	id = "cmoofficedoor";
 	name = "Office Door (Port)";
 	normaldoorcontrol = 1;
+	pixel_x = -6;
 	pixel_y = -3;
 	req_access_txt = "40"
+	},
+/obj/machinery/door_control{
+	id = "Biohazard_medi";
+	name = "Emergency Medbay Quarantine";
+	pixel_x = 6;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -77279,8 +77359,8 @@
 "dyP" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=1";
-	location = "Robotics";
-	dir = 1
+	dir = 1;
+	location = "Robotics"
 	},
 /obj/structure/plasticflaps{
 	opacity = 1
@@ -78433,6 +78513,10 @@
 	name = "Morgue Maintenance";
 	req_access_txt = "6;5"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/medical/morgue)
 "dBo" = (
@@ -78627,6 +78711,10 @@
 /obj/machinery/door/airlock/medical{
 	name = "Morgue";
 	req_access_txt = "6"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/medical/morgue)
@@ -79317,6 +79405,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/aft)
@@ -90487,6 +90579,18 @@
 	icon_state = "cult"
 	},
 /area/magistrateoffice)
+"jER" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/medical{
+	name = "Genetics Office";
+	req_access_txt = "9"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
+/turf/simulated/floor/plasteel,
+/area/medical/genetics)
 "jFV" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -90661,6 +90765,10 @@
 	},
 /obj/item/paper_bin,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/medbay)
 "kcj" = (
@@ -90977,6 +91085,14 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/research)
+"kXM" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/medical/medbay)
 "kYe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -92948,6 +93064,19 @@
 	icon_state = "dark"
 	},
 /area/security/execution)
+"pfg" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "geneticsdesk";
+	name = "Genetics Desk Shutters"
+	},
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/medical/genetics)
 "pfp" = (
 /obj/machinery/atm{
 	pixel_x = 32
@@ -94031,6 +94160,25 @@
 	icon_state = "darkblue"
 	},
 /area/medical/surgery2)
+"rjE" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/starboard)
 "rke" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -97002,6 +97150,17 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/starboard)
+"xLC" = (
+/obj/machinery/door/firedoor,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "Psych"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/medical/psych)
 "xMm" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -137439,7 +137598,7 @@ dfv
 dnI
 dfv
 dmi
-dsU
+jER
 dmi
 dce
 drK
@@ -137699,7 +137858,7 @@ dqi
 drH
 dmi
 duh
-dsN
+pfg
 duk
 dvs
 dvs
@@ -139737,7 +139896,7 @@ oyG
 oAd
 ckJ
 cRm
-cJg
+kXM
 cVM
 cXm
 cYJ
@@ -140765,7 +140924,7 @@ cNW
 cPJ
 cRm
 cSG
-cJg
+kXM
 cVP
 cXp
 cYM
@@ -141017,10 +141176,10 @@ dxV
 lso
 cJk
 cKY
-cJg
+kXM
 cNX
 cQb
-cJg
+kXM
 cJk
 cKY
 cJg
@@ -142301,7 +142460,7 @@ cFd
 hos
 cmt
 bMD
-cPO
+xLC
 iIY
 cOa
 cPQ
@@ -142558,7 +142717,7 @@ bDD
 jsi
 cmt
 ffm
-cPO
+xLC
 sak
 cOb
 cPQ
@@ -144647,7 +144806,7 @@ dSd
 dvK
 cXJ
 cKY
-dlw
+rjE
 cKY
 cKY
 cTX
