@@ -249,7 +249,7 @@
 		to_chat(U, "[src]'s refill light blinks red.")
 
 /obj/item/lightreplacer/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	J.stored_replacer = src
+	J.myreplacer = src
 	J.put_in_cart(src, user)
 
 /obj/item/lightreplacer/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)

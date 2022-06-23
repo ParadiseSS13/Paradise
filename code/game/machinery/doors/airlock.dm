@@ -127,6 +127,8 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
 	var/prying_so_hard = FALSE
 	var/paintable = TRUE // If the airlock type can be painted with an airlock painter
+	/// State of the airlock, from being closed or open, operating, denied access and emmaged
+	var/airlock_state
 
 	var/image/old_frame_overlay //keep those in order to prevent unnecessary updating
 	var/image/old_filling_overlay
@@ -143,7 +145,6 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/boltUp = 'sound/machines/boltsup.ogg'
 	var/boltDown = 'sound/machines/boltsdown.ogg'
 	var/is_special = FALSE
-	var/state
 
 /obj/machinery/door/airlock/welded
 	welded = TRUE
@@ -189,7 +190,7 @@ About the new airlock wires panel:
 		max_integrity = normal_integrity
 	if(damage_deflection == AIRLOCK_DAMAGE_DEFLECTION_N && security_level > AIRLOCK_SECURITY_METAL)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
-	update_icon()
+	update_state()
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
@@ -225,7 +226,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/handle_atom_del(atom/A)
 	if(A == note)
 		note = null
-		update_icon()
+		update_state()
 
 /obj/machinery/door/airlock/bumpopen(mob/living/user) //Airlocks now zap you when you 'bump' them open when they're electrified. --NeoFite
 	if(!issilicon(usr))
@@ -301,7 +302,7 @@ About the new airlock wires panel:
 		// If backup power is currently active then disable, otherwise let it count down and disable itself later
 		if(!backup_power_lost_until)
 			backup_power_lost_until = -1
-		update_icon()
+		update_state()
 
 /obj/machinery/door/airlock/proc/regainBackupPower()
 	backup_power_timer = null
@@ -309,7 +310,7 @@ About the new airlock wires panel:
 	if(!wires.is_cut(WIRE_BACKUP_POWER1))
 		// Restore backup power only if main power is offline, otherwise permanently disable
 		backup_power_lost_until = main_power_lost_until == 0 ? -1 : 0
-		update_icon()
+		update_state()
 
 /obj/machinery/door/airlock/proc/electrify(duration, mob/user = usr, feedback = FALSE)
 	if(electrified_timer)
@@ -359,7 +360,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/proc/shock_user(mob/user, prob)
 	return (!issilicon(user) && isElectrified() && shock(user, prob))
 
-/obj/machinery/door/airlock/update_icon(updates=ALL, state=0, override=FALSE)
+/obj/machinery/door/airlock/proc/update_state(state = NONE, override = FALSE)
 	if(operating && !override)
 		return
 
@@ -367,7 +368,7 @@ About the new airlock wires panel:
 		state = density ? AIRLOCK_CLOSED : AIRLOCK_OPEN
 	airlock_state = state
 
-	. = ..()
+	update_icon()
 
 	if(hasPower() && unres_sides)
 		set_light(2, 1)
@@ -457,14 +458,14 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/do_animate(animation)
 	switch(animation)
 		if("opening")
-			update_icon(ALL, AIRLOCK_OPENING)
+			update_state(AIRLOCK_OPENING)
 		if("closing")
-			update_icon(ALL, AIRLOCK_CLOSING)
+			update_state(AIRLOCK_CLOSING)
 		if("deny")
 			if(!stat)
-				update_icon(ALL, AIRLOCK_DENY)
+				update_state(AIRLOCK_DENY)
 				playsound(src,doorDeni,50,FALSE,3)
-				addtimer(CALLBACK(src, /atom/proc/update_icon, ALL, AIRLOCK_CLOSED), AIRLOCK_DENY_ANIMATION_TIME)
+				addtimer(CALLBACK(src, .proc/update_state, AIRLOCK_CLOSED), AIRLOCK_DENY_ANIMATION_TIME)
 
 /obj/machinery/door/airlock/examine(mob/user)
 	. = ..()
@@ -712,14 +713,14 @@ About the new airlock wires panel:
 		if("disrupt-main")
 			if(!main_power_lost_until)
 				loseMainPower()
-				update_icon()
+				update_state()
 			else
 				to_chat(usr, "<span class='warning'>Main power is already offline.</span>")
 				. = FALSE
 		if("disrupt-backup")
 			if(!backup_power_lost_until)
 				loseBackupPower()
-				update_icon()
+				update_state()
 			else
 				to_chat(usr, "<span class='warning'>Backup power is already offline.</span>")
 		if("shock-restore")
@@ -790,7 +791,7 @@ About the new airlock wires panel:
 	else if(!lights)
 		lights = TRUE
 		to_chat(user, "<span class='notice'>The door bolt lights have been enabled.</span>")
-	update_icon()
+	update_state()
 
 /obj/machinery/door/airlock/proc/toggle_bolt(mob/user)
 	if(wires.is_cut(WIRE_DOOR_BOLTS))
@@ -812,7 +813,7 @@ About the new airlock wires panel:
 		to_chat(user, "<span class='notice'>Emergency access has been enabled.</span>")
 	else
 		to_chat(user, "<span class='notice'>Emergency access has been disabled.</span>")
-	update_icon()
+	update_state()
 
 /obj/machinery/door/airlock/proc/toggle_speed(mob/user)
 	if(wires.is_cut(WIRE_SPEED))
@@ -844,7 +845,7 @@ About the new airlock wires panel:
 						user.visible_message("<span class='notice'>[user] reinforces \the [src] with metal.</span>",
 											"<span class='notice'>You reinforce \the [src] with metal.</span>")
 						security_level = AIRLOCK_SECURITY_METAL
-						update_icon()
+						update_state()
 					return
 				else if(istype(C, /obj/item/stack/sheet/plasteel))
 					var/obj/item/stack/sheet/plasteel/S = C
@@ -860,7 +861,7 @@ About the new airlock wires panel:
 						security_level = AIRLOCK_SECURITY_PLASTEEL
 						modify_max_integrity(normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER)
 						damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
-						update_icon()
+						update_state()
 					return
 
 	if(istype(C, /obj/item/assembly/signaler))
@@ -880,7 +881,7 @@ About the new airlock wires panel:
 		C.forceMove(src)
 		user.visible_message("<span class='notice'>[user] pins [C] to [src].</span>", "<span class='notice'>You pin [C] to [src].</span>")
 		note = C
-		update_icon()
+		update_state()
 	else
 		return ..()
 
@@ -894,7 +895,7 @@ About the new airlock wires panel:
 		return
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] [src]'s maintenance panel.</span>")
-	update_icon()
+	update_state()
 
 /obj/machinery/door/airlock/crowbar_act(mob/user, obj/item/I)
 	if(!headbutt_shock_check(user))
@@ -915,7 +916,7 @@ About the new airlock wires panel:
 			modify_max_integrity(normal_integrity)
 			damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
 			spawn_atom_to_turf(/obj/item/stack/sheet/plasteel, user.loc, 1)
-			update_icon()
+			update_state()
 	else if(panel_open && security_level == AIRLOCK_SECURITY_PLASTEEL_O_S)
 		to_chat(user, "<span class='notice'>You start removing outer layer of shielding...</span>")
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
@@ -1007,7 +1008,7 @@ About the new airlock wires panel:
 				welded = !welded
 				user.visible_message("<span class='notice'>[user.name] has [welded? "welded shut":"unwelded"] [src].</span>", \
 					"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
-				update_icon()
+				update_state()
 		else if(obj_integrity < max_integrity)
 			user.visible_message("<span class='notice'>[user] is welding the airlock.</span>", \
 				"<span class='notice'>You begin repairing the airlock...</span>", \
@@ -1017,10 +1018,10 @@ About the new airlock wires panel:
 				stat &= ~BROKEN
 				user.visible_message("<span class='notice'>[user.name] has repaired [src].</span>", \
 					"<span class='notice'>You finish repairing the airlock.</span>")
-			update_icon()
+			update_state()
 		else
 			to_chat(user, "<span class='notice'>The airlock doesn't need repairing.</span>")
-	update_icon()
+	update_state()
 
 /obj/machinery/door/airlock/proc/weld_checks(obj/item/I, mob/user)
 	return !operating && density && user && I && I.tool_use_check() && user.loc
@@ -1115,7 +1116,7 @@ About the new airlock wires panel:
 		return TRUE
 	SEND_SIGNAL(src, COMSIG_AIRLOCK_OPEN)
 	operating = TRUE
-	update_icon(ALL, AIRLOCK_OPENING, TRUE)
+	update_state(AIRLOCK_OPENING, TRUE)
 	sleep(1)
 	set_opacity(0)
 	update_freelook_sight()
@@ -1124,7 +1125,7 @@ About the new airlock wires panel:
 	air_update_turf(1)
 	sleep(1)
 	layer = OPEN_DOOR_LAYER
-	update_icon(ALL, AIRLOCK_OPEN, TRUE)
+	update_state(AIRLOCK_OPEN, TRUE)
 	operating = FALSE
 	return TRUE
 
@@ -1156,7 +1157,7 @@ About the new airlock wires panel:
 
 	SEND_SIGNAL(src, COMSIG_AIRLOCK_CLOSE)
 	operating = TRUE
-	update_icon(ALL, AIRLOCK_CLOSING, 1)
+	update_state(AIRLOCK_CLOSING, TRUE)
 	layer = CLOSED_DOOR_LAYER
 	if(!override)
 		sleep(1)
@@ -1170,7 +1171,7 @@ About the new airlock wires panel:
 		set_opacity(1)
 	update_freelook_sight()
 	sleep(1)
-	update_icon(ALL, AIRLOCK_CLOSED, 1)
+	update_state(AIRLOCK_CLOSED, TRUE)
 	operating = FALSE
 	if(safe)
 		CheckForMobs()
@@ -1185,7 +1186,7 @@ About the new airlock wires panel:
 
 	locked = 1
 	playsound(src, boltDown, 30, 0, 3)
-	update_icon()
+	update_state()
 	return 1
 
 /obj/machinery/door/airlock/unlock(forced=0)
@@ -1198,7 +1199,7 @@ About the new airlock wires panel:
 
 	locked = 0
 	playsound(src,boltUp, 30, 0, 3)
-	update_icon()
+	update_state()
 	return 1
 
 /obj/machinery/door/airlock/CanAStarPass(obj/item/card/id/ID)
@@ -1208,14 +1209,14 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/emag_act(mob/user)
 	if(!operating && density && arePowerSystemsOn() && !emagged)
 		operating = TRUE
-		update_icon(ALL, AIRLOCK_EMAG, 1)
+		update_state(AIRLOCK_EMAG, TRUE)
 		sleep(6)
 		if(QDELETED(src))
 			return
 		electronics = new /obj/item/airlock_electronics/destroyed()
 		operating = FALSE
 		if(!open())
-			update_icon(ALL, AIRLOCK_CLOSED, 1)
+			update_state(AIRLOCK_CLOSED, TRUE)
 		emagged = TRUE
 		return 1
 
@@ -1268,7 +1269,7 @@ About the new airlock wires panel:
 		// If we lost power, disable electrification
 		// Keeping door lights on, runs on internal battery or something.
 		electrified_until = 0
-	update_icon()
+	update_state()
 
 /obj/machinery/door/airlock/proc/prison_open()
 	if(emagged)
@@ -1303,12 +1304,12 @@ About the new airlock wires panel:
 		if(!panel_open)
 			panel_open = TRUE
 		wires.cut_all()
-		update_icon()
+		update_state()
 
 /obj/machinery/door/airlock/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(obj_integrity < (0.75 * max_integrity))
-		update_icon()
+		update_state()
 
 /obj/machinery/door/airlock/deconstruct(disassembled = TRUE, mob/user)
 	if(!(flags & NODECONSTRUCT))
@@ -1373,7 +1374,7 @@ About the new airlock wires panel:
 	user.create_log(MISC_LOG, "removed [note] from", src)
 	user.put_in_hands(note)
 	note = null
-	update_icon()
+	update_state()
 	return TRUE
 
 /obj/machinery/door/airlock/narsie_act(weak = FALSE)

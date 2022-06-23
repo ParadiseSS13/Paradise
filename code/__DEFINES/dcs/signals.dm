@@ -70,7 +70,8 @@
 	#define EXAMINE_POSITION_BEFORE (1<<1)
 	//End positions
 	#define COMPONENT_EXNAME_CHANGED (1<<0)
-#define COMSIG_ATOM_UPDATE_APPEARANCE "atom_update_appearance"
+	///from base of [/atom/proc/update_appearance]: (updates)
+	#define COMSIG_ATOM_UPDATE_APPEARANCE "atom_update_appearance"
 	/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its name.
 	#define COMSIG_ATOM_NO_UPDATE_NAME UPDATE_NAME
 	/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its desc.

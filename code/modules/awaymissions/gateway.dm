@@ -4,39 +4,36 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	desc = "A mysterious gateway built by unknown hands, it allows for faster than light travel to far-flung locations."
 	icon = 'icons/obj/machines/gateway.dmi'
 	icon_state = "off"
-	density = TRUE
-	anchored = TRUE
+	density = 1
+	anchored = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_2 = NO_MALF_EFFECT_2
-	var/active = FALSE
-	var/away = FALSE
-	var/calibrated = TRUE
-	var/obj/machinery/gateway/centeraway/awaygate = null
-	var/obj/machinery/gateway/centeraway/stationgate = null
-	var/list/linked = list()	//a list of the connected gateway chunks
-	var/ready = FALSE
-	var/wait = 0				//this just grabs world.time at world start
+	var/active = 0
 
 /obj/machinery/gateway/Initialize()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_density_from_dir()
 
 /obj/machinery/gateway/proc/update_density_from_dir()
-	if(dir == SOUTH)
-		density = FALSE
+	if(dir == 2)
+		density = 0
 
 /obj/machinery/gateway/update_icon_state()
-	if(active)
-		icon_state = "on"
-	else
-		icon_state = "off"
+	icon_state = active ? "on" : "off"
+
 
 //this is da important part wot makes things go
 /obj/machinery/gateway/centerstation
-	density = TRUE
+	density = 1
 	icon_state = "offcenter"
 	use_power = IDLE_POWER_USE
+
+	//warping vars
+	var/list/linked = list()
+	var/ready = 0				//have we got all the parts for a gateway?
+	var/wait = 0				//this just grabs world.time at world start
+	var/obj/machinery/gateway/centeraway/awaygate = null
 
 /obj/machinery/gateway/centerstation/New()
 	..()
@@ -45,7 +42,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 /obj/machinery/gateway/centerstation/Initialize()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	wait = world.time + GLOB.configuration.gateway.away_mission_delay
 	return INITIALIZE_HINT_LATELOAD
 
@@ -55,7 +52,25 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centerstation/update_density_from_dir()
 	return
 
-/obj/machinery/gateway/proc/detect()
+/obj/machinery/gateway/centerstation/Destroy()
+	if(GLOB.the_gateway == src)
+		GLOB.the_gateway = null
+	return ..()
+
+/obj/machinery/gateway/centerstation/update_icon_state()
+	icon_state = active ? "oncenter" : "offcenter"
+
+
+/obj/machinery/gateway/centerstation/process()
+	if(stat & (NOPOWER))
+		if(active) toggleoff()
+		return
+
+	if(active)
+		use_power(5000)
+
+
+/obj/machinery/gateway/centerstation/proc/detect()
 	linked = list()	//clear the list
 	var/turf/T = loc
 
@@ -67,48 +82,46 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			continue
 
 		//this is only done if we fail to find a part
-		ready = FALSE
+		ready = 0
 		toggleoff()
 		break
 
-	if(length(linked) == 8)
-		ready = TRUE
+	if(linked.len == 8)
+		ready = 1
 
-/obj/machinery/gateway/proc/toggleon(mob/user as mob)
+
+/obj/machinery/gateway/centerstation/proc/toggleon(mob/user as mob)
 	if(!ready)
 		return
-	if(length(linked) != 8)
+	if(linked.len != 8)
 		return
-	if(!powered() && use_power != NO_POWER_USE)
+	if(!powered())
 		return
-	if(!awaygate && !away)
+	if(!awaygate)
 		awaygate = locate(/obj/machinery/gateway/centeraway) in GLOB.machines
 		if(!awaygate)
 			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
 			return
-	if(!stationgate && away)
-		stationgate = locate(/obj/machinery/gateway/centerstation) in GLOB.machines
-		if(!stationgate)
-			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
-			return
-	if(world.time < wait && !away)
+	if(world.time < wait)
 		to_chat(user, "<span class='notice'>Error: Warpspace triangulation in progress. Estimated time to completion: [round(((wait - world.time) / 10) / 60)] minutes.</span>")
 		return
 
 	for(var/obj/machinery/gateway/G in linked)
-		G.active = TRUE
-		G.update_icon()
-	active = TRUE
-	update_icon()
+		G.active = 1
+		G.update_icon(UPDATE_ICON_STATE)
+	active = 1
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/gateway/proc/toggleoff()
+
+/obj/machinery/gateway/centerstation/proc/toggleoff()
 	for(var/obj/machinery/gateway/G in linked)
-		G.active = FALSE
-		G.update_icon()
-	active = FALSE
-	update_icon()
+		G.active = 0
+		G.update_icon(UPDATE_ICON_STATE)
+	active = 0
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/gateway/attack_hand(mob/user as mob)
+
+/obj/machinery/gateway/centerstation/attack_hand(mob/user as mob)
 	if(!ready)
 		detect()
 		return
@@ -117,40 +130,16 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		return
 	toggleoff()
 
-/obj/machinery/gateway/centerstation/Destroy()
-	if(GLOB.the_gateway == src)
-		GLOB.the_gateway = null
-	return ..()
 
-/obj/machinery/gateway/centerstation/update_icon_state()
-	if(active)
-		icon_state = "oncenter"
-	else
-		icon_state = "offcenter"
-
-/obj/machinery/gateway/centerstation/process()
-	if(stat & (NOPOWER))
-		if(active) toggleoff()
-		return
-
-	if(active)
-		use_power(5000)
-
-/obj/machinery/gateway/Bumped(atom/movable/M as mob|obj)
+//okay, here's the good teleporting stuff
+/obj/machinery/gateway/centerstation/Bumped(atom/movable/M as mob|obj)
 	if(!ready)
 		return
 	if(!active)
 		return
-	if((!stationgate || QDELETED(stationgate)) && away)
+	if(!awaygate)
 		return
-	if(!awaygate && !away)
-		return
-	return TRUE
 
-//okay, here's the good teleporting stuff
-/obj/machinery/gateway/centerstation/Bumped(atom/movable/M as mob|obj)
-	if(!..())
-		return
 	if(awaygate.calibrated)
 		M.forceMove(get_step(awaygate.loc, SOUTH))
 		M.dir = SOUTH
@@ -163,6 +152,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			use_power(5000)
 		return
 
+
 /obj/machinery/gateway/centerstation/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/multitool))
 		to_chat(user, "The gate is already calibrated, there is no work for you to do here.")
@@ -173,27 +163,90 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 
 /obj/machinery/gateway/centeraway
-	density = TRUE
+	density = 1
 	icon_state = "offcenter"
 	use_power = NO_POWER_USE
-	away = TRUE
+	var/calibrated = 1
+	var/list/linked = list()	//a list of the connected gateway chunks
+	var/ready = 0
+	var/obj/machinery/gateway/centeraway/stationgate = null
+
 
 /obj/machinery/gateway/centeraway/Initialize()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	stationgate = locate(/obj/machinery/gateway/centerstation) in GLOB.machines
+
 
 /obj/machinery/gateway/centeraway/update_density_from_dir()
 	return
 
 /obj/machinery/gateway/centeraway/update_icon_state()
-	if(active)
-		icon_state = "oncenter"
-	else
-		icon_state = "offcenter"
+	icon_state = active ? "oncenter" : "offcenter"
+
+
+/obj/machinery/gateway/centeraway/proc/detect()
+	linked = list()	//clear the list
+	var/turf/T = loc
+
+	for(var/i in GLOB.alldirs)
+		T = get_step(loc, i)
+		var/obj/machinery/gateway/G = locate(/obj/machinery/gateway) in T
+		if(G)
+			linked.Add(G)
+			continue
+
+		//this is only done if we fail to find a part
+		ready = 0
+		toggleoff()
+		break
+
+	if(linked.len == 8)
+		ready = 1
+
+
+/obj/machinery/gateway/centeraway/proc/toggleon(mob/user as mob)
+	if(!ready)
+		return
+	if(linked.len != 8)
+		return
+	if(!stationgate)
+		stationgate = locate(/obj/machinery/gateway/centerstation) in GLOB.machines
+		if(!stationgate)
+			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
+			return
+
+	for(var/obj/machinery/gateway/G in linked)
+		G.active = 1
+		G.update_icon(UPDATE_ICON_STATE)
+	active = 1
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/machinery/gateway/centeraway/proc/toggleoff()
+	for(var/obj/machinery/gateway/G in linked)
+		G.active = 0
+		G.update_icon(UPDATE_ICON_STATE)
+	active = 0
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/machinery/gateway/centeraway/attack_hand(mob/user as mob)
+	if(!ready)
+		detect()
+		return
+	if(!active)
+		toggleon(user)
+		return
+	toggleoff()
+
 
 /obj/machinery/gateway/centeraway/Bumped(atom/movable/AM)
-	if(!..())
+	if(!ready)
+		return
+	if(!active)
+		return
+	if(!stationgate || QDELETED(stationgate))
 		return
 	if(isliving(AM))
 		if(exilecheck(AM))
@@ -219,8 +272,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	for(var/obj/item/implant/exile/E in M)//Checking that there is an exile implant in the contents
 		if(E.imp_in == M)//Checking that it's actually implanted vs just in their pocket
 			to_chat(M, "<span class='notice'>The station gate has detected your exile implant and is blocking your entry.</span>")
-			return TRUE
-	return FALSE
+			return 1
+	return 0
 
 /obj/machinery/gateway/centeraway/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/multitool))
@@ -229,6 +282,6 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			return
 		else
 			to_chat(user, "<span class='boldnotice'>Recalibration successful!</span><span class='notice'>: This gate's systems have been fine tuned.  Travel to this gate will now be on target.</span>")
-			calibrated = TRUE
+			calibrated = 1
 		return
 	return ..()

@@ -63,7 +63,7 @@
 /obj/item/storage/bag/trash/cyborg
 
 /obj/item/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	J.stored_bag = src
+	J.mybag = src
 	J.put_in_cart(src, user)
 
 /obj/item/storage/bag/trash/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)

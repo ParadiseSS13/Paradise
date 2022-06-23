@@ -121,13 +121,13 @@
 	usr.stop_pulling()
 
 /obj/screen/pull/update_icon(mob/mymob)
+	..(NONE)
 	if(!mymob)
 		return
 	if(mymob.pulling)
 		icon_state = "pull"
 	else
 		icon_state = "pull0"
-	..(NONE)
 
 /obj/screen/resist
 	name = "resist"

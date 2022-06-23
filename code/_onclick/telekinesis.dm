@@ -197,4 +197,4 @@
 	. = ..()
 	if(!focus)
 		return
-	. += icon(focus.icon,focus.icon_state)
+	. += icon(focus.icon, focus.icon_state)

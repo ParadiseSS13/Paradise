@@ -70,7 +70,7 @@
 		return ..()
 
 /obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	J.stored_mop = src
+	J.mymop = src
 	J.put_in_cart(src, user)
 
 /obj/item/mop/wash(mob/user, atom/source)

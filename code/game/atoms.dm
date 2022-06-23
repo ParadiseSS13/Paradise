@@ -405,14 +405,13 @@
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
-	. = NONE
 	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_APPEARANCE, updates)
 	if(updates & UPDATE_NAME)
-		. |= update_name(updates)
+		update_name(updates)
 	if(updates & UPDATE_DESC)
-		. |= update_desc(updates)
+		update_desc(updates)
 	if(updates & UPDATE_ICON)
-		. |= update_icon(updates)
+		update_icon(updates)
 
 /// Updates the name of the atom
 /atom/proc/update_name(updates=ALL)
@@ -429,12 +428,10 @@
 	SIGNAL_HANDLER
 	SHOULD_CALL_PARENT(TRUE)
 
-	. = NONE
 	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON, updates)
 	if(updates & UPDATE_ICON_STATE)
 		update_icon_state()
 		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON_STATE)
-		. |= UPDATE_ICON_STATE
 
 	if(updates & UPDATE_OVERLAYS)
 		cut_overlays()
@@ -443,16 +440,15 @@
 		new_overlays += update_overlays(updates)
 		if(length(new_overlays))
 			add_overlay(new_overlays)
-		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, .)
-		. |= UPDATE_OVERLAYS
+		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS)
 
-	. |= SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates, .)
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates)
 
 /// Updates the icon state of the atom
 /atom/proc/update_icon_state()
 	return
 
-/// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one.
+/// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
 /atom/proc/update_overlays()
 	. = list()
 
