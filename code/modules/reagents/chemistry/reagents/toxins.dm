@@ -179,9 +179,7 @@
 	taste_description = "slime"
 
 /datum/reagent/mutagen/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(!..())
-		return
-	if(!M.dna || HAS_TRAIT(M, TRAIT_BADDNA) || HAS_TRAIT(M, TRAIT_GENELESS))
+	if(!M || !M.dna || HAS_TRAIT(M, TRAIT_BADDNA) || HAS_TRAIT(M, TRAIT_GENELESS))
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==REAGENT_TOUCH && prob(33)) || method==REAGENT_INGEST)
 		randmutb(M)
@@ -1175,9 +1173,7 @@
 	taste_description = "slime"
 
 /datum/reagent/glowing_slurry/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //same as mutagen
-	if(!..())
-		return
-	if(!M.dna)
+	if(!M || !M.dna)
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==REAGENT_TOUCH && prob(50)) || method==REAGENT_INGEST)
 		randmutb(M)
