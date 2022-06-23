@@ -375,7 +375,7 @@ About the new airlock wires panel:
 	else
 		set_light(0)
 
-/obj/machinery/door/airlock/update_icon_state()
+/obj/machinery/door/airlock/update_icon_state() // Just leaving the icon_state fixed or early returning will break the animations
 	switch(airlock_state)
 		if(AIRLOCK_OPEN, AIRLOCK_CLOSED)
 			icon_state = ""
