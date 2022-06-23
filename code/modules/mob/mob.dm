@@ -1069,7 +1069,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return FALSE
 	if(restrained())
 		return FALSE
-	return 1
+	return TRUE
 
 /mob/living/canface()
 	if(!(mobility_flags & MOBILITY_MOVE))
