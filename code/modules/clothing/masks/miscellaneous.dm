@@ -423,6 +423,7 @@
 	slot_flags = SLOT_MASK
 	adjusted_flags = SLOT_HEAD
 	icon_state = "bandbotany"
+	dyeable = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -433,6 +434,7 @@
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 	actions_types = list(/datum/action/item_action/adjust)
+
 
 /obj/item/clothing/mask/bandana/attack_self(mob/user)
 	adjustmask(user)

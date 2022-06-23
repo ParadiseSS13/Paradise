@@ -371,6 +371,8 @@
 	return 0
 
 /mob/living/proc/Sleeping(amount, ignore_canstun = FALSE)
+	if(frozen) // If the mob has been admin frozen, sleeping should not be changeable
+		return
 	if(status_flags & GODMODE)
 		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
