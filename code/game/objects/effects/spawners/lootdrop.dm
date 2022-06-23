@@ -89,7 +89,7 @@
 				/obj/item/stack/rods{amount = 50} = 10,
 				/obj/item/stack/sheet/cardboard = 20,
 				/obj/item/stack/sheet/metal{amount = 20} = 10,
-				/obj/item/stack/sheet/mineral/plasma{layer = 2.9} = 10,
+				/obj/item/stack/sheet/mineral/plasma = 10,
 				/obj/item/stack/sheet/rglass = 10,
 				/obj/item/book/manual/engineering_construction = 10,
 				/obj/item/book/manual/engineering_hacking = 10,
@@ -133,6 +133,7 @@
 				/obj/item/storage/bag/plasticbag = 20,
 				/obj/item/caution = 10,
 				////////////////CONTRABAND STUFF//////////////////
+				/obj/item/grenade/smokebomb = 7,
 				/obj/item/grenade/clown_grenade = 3,
 				/obj/item/seeds/ambrosia/cruciatus = 3,
 				/obj/item/gun/projectile/automatic/pistol = 1,
@@ -158,7 +159,7 @@
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
-				"" = 64 // Reduce this number if you add things above. Make sure all the numbers in the list add to 100 EXACTLY
+				"" = 57 // Reduce this number if you add things above. Make sure all the numbers in the list add to 100 EXACTLY
 				)
 
 /obj/effect/spawner/lootdrop/maintenance/two
