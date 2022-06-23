@@ -1,10 +1,8 @@
 #define HAS_COMBOS LAZYLEN(combos)
 #define COMBO_ALIVE_TIME 5 SECONDS // How long the combo stays alive when no new attack is done
 
-//Перевод боевых искусств - Пупс PhantomRU#1289
-
 /datum/martial_art
-	var/name = "Боевые искусства"
+	var/name = "Martial Art"
 	var/streak = ""
 	var/max_streak_length = 6
 	var/temporary = FALSE
@@ -90,35 +88,33 @@
 
 	var/atk_verb = "[pick(attack.attack_verb)]"
 	if(D.lying)
-		atk_verb = "пнуть"
+		atk_verb = "kick"
 
 	switch(atk_verb)
-		if("пнуть")
+		if("kick")
 			A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-			if(damage)
-				atk_verb = "пнул"
 		else
 			A.do_attack_animation(D, attack.animation_type)
 
 	if(!damage)
 		playsound(D.loc, attack.miss_sound, 25, 1, -1)
-		D.visible_message("<span class='warning'>[A] попытал[genderize_ru(A.gender,"ся","ась","ось","ись")] [atk_verb] [D]!</span>")
+		D.visible_message("<span class='warning'>[A] has attempted to [atk_verb] [D]!</span>")
 		return FALSE
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, "melee")
 
 	playsound(D.loc, attack.attack_sound, 25, 1, -1)
-	D.visible_message("<span class='danger'>[A] [atk_verb] по [D]!</span>", \
-								"<span class='userdanger'>[A] [atk_verb] по [D]!</span>")
+	D.visible_message("<span class='danger'>[A] has [atk_verb]ed [D]!</span>", \
+								"<span class='userdanger'>[A] has [atk_verb]ed [D]!</span>")
 
 	D.apply_damage(damage, BRUTE, affecting, armor_block)
 
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", (damage > 0) ? null : ATKLOG_ALL)
 
 	if((D.stat != DEAD) && damage >= A.dna.species.punchstunthreshold)
-		D.visible_message("<span class='danger'>[A] ослабил[genderize_ru(A.gender,"","а","о","и")] [D]!</span>", \
-								"<span class='userdanger'>[A] ослабил[genderize_ru(A.gender,"","а","о","и")] [D]!</span>")
+		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \
+								"<span class='userdanger'>[A] has weakened [D]!</span>")
 		D.apply_effect(2, WEAKEN, armor_block)
 		D.forcesay(GLOB.hit_appends)
 	else if(D.lying)
@@ -151,9 +147,9 @@
 		base = null
 
 /mob/living/carbon/human/proc/martial_arts_help()
-	set name = "Показать информацию"
-	set desc = "Получить информацию о изученных тобой боевых искусствах"
-	set category = "Боевые искусства"
+	set name = "Show Info"
+	set desc = "Gives information about the martial arts you know."
+	set category = "Martial Arts"
 	var/mob/living/carbon/human/H = usr
 	if(!istype(H))
 		to_chat(usr, "<span class='warning'>You shouldn't have access to this verb. Report this as a bug to the github please.</span>")
@@ -202,7 +198,7 @@
 	return
 
 /obj/item/storage/belt/champion/wrestling
-	name = "Борцовский пояс"
+	name = "Wrestling Belt"
 	var/datum/martial_art/wrestling/style = new
 
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot)
@@ -211,7 +207,7 @@
 	if(slot == slot_belt)
 		var/mob/living/carbon/human/H = user
 		style.teach(H,1)
-		to_chat(user, "<span class='sciradio'>Вы поигрываете мускулами! Они напряжены и желают драки. Вам известны знания тысяч предшествующих вам бойцов. Подробности можно вспомнить, используя <kbd>Recall</kbd> во вкладке <kbd>Wrestling</kbd>.</span>")
+		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the Recall teaching verb in the wrestling tab.</span>")
 	return
 
 /obj/item/storage/belt/champion/wrestling/dropped(mob/user)
@@ -220,12 +216,12 @@
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(slot_belt) == src)
 		style.remove(H)
-		to_chat(user, "<span class='sciradio'>Вы потеряли желание заигрывать мускулами.</span>")
+		to_chat(user, "<span class='sciradio'>You no longer have an urge to flex your muscles.</span>")
 	return
 
 /obj/item/plasma_fist_scroll
-	name = "Потертый свиток"
-	desc = "Старый потёртый клочок бумаги, исписанный меняющимися рунами. На нём изображены рисованные иллюстрации кулачного боя."
+	name = "frayed scroll"
+	desc = "An aged and frayed scrap of paper written in shifting runes. There are hand-drawn illustrations of pugilism."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
 	var/used = 0
@@ -238,15 +234,15 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
 		F.teach(H)
-		to_chat(H, "<span class='boldannounce'>Вы изучили древнее искусство Плазменного кулака</span>")
+		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist.</span>")
 		used = 1
-		desc = "Совершенно пустой бланк."
-		name = "пустой свиток"
+		desc = "It's completely blank."
+		name = "empty scroll"
 		icon_state = "blankscroll"
 
 /obj/item/sleeping_carp_scroll
-	name = "загадочный свиток"
-	desc = "Свиток с загадочными маркировками. Похоже это рисунки забытого боевого искусства."
+	name = "mysterious scroll"
+	desc = "A scroll filled with strange markings. It seems to be drawings of some sort of martial art."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 
@@ -255,46 +251,46 @@
 		return
 	if(user.mind && (user.mind.changeling || user.mind.vampire)) //Prevents changelings and vampires from being able to learn it
 		if(user.mind && user.mind.changeling) //Changelings
-			to_chat(user, "<span class ='warning'>Вы неоднократно пытались, но так и не смогли понять содержимое свитка!</span>")
+			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
 		else //Vampires
-			to_chat(user, "<span class ='warning'>Ваша жажда крови слишком отвлекает ваши мысли от сосредоточенного чтения свитка!</span>")
+			to_chat(user, "<span class ='warning'>Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!</span>")
 			return
 
-	to_chat(user, "<span class='sciradio'>Вы изучили древнее искусство Спящего карпа! \
-					Ваши рукопашные навыки стали эффективнее, вы теперь способны отражать любые пущенные в вас снаряды. \
-					Однако, вы больше не можете использовать оружие дальнего боя. \
-					Вы можете узнать больше об этом древнем искусстве, нажав <kbd>Recall</kbd> во вкладке <kbd>Sleeping Carp</kbd>.</span>")
+	to_chat(user, "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! \
+					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you. \
+					However, you are also unable to use any ranged weaponry. \
+					You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>")
 
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
 	user.drop_item()
-	visible_message("<span class='warning'>[src.name] вспыхивает пламенем и сгорает дотла.</span>")
+	visible_message("<span class='warning'>[src] lights up in fire and quickly burns to ash.</span>")
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
 /obj/item/CQC_manual
-	name = "старый мануал"
-	desc = "Небольшой чёрный мануал. Он полон рисованных инструкций по тактике рукопашного боя."
+	name = "old manual"
+	desc = "A small, black manual. There are drawn instructions of tactical hand-to-hand combat."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "cqcmanual"
 
 /obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
-	to_chat(user, "<span class='boldannounce'>Вы выучили основы CQC.</span>")
+	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
 
 	var/datum/martial_art/cqc/CQC = new(null)
 	CQC.teach(user)
 	user.drop_item()
-	visible_message("<span class='warning'>[src.name] зловеще пищит и через мгновение вспыхивает пламенем.</span>")
+	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
 /obj/item/twohanded/bostaff
-	name = "бо"
-	desc = "Длинный высокий посох из полированного дерева. Традиционно используется в боевых искусствах старой Земли. Используется как для вывода из строя, так и убийств."
+	name = "bo staff"
+	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
@@ -302,7 +298,7 @@
 	force_wielded = 24
 	throwforce = 20
 	throw_speed = 2
-	attack_verb = list("разбил", "хлопнул", "поколотил", "наколотил", "прихлопнул", "захлопнул", "ударил", "избил")
+	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
 	icon_state = "bostaff0"
 	block_chance = 50
 
@@ -313,7 +309,7 @@
 /obj/item/twohanded/bostaff/attack(mob/target, mob/living/user)
 	add_fingerprint(user)
 	if((CLUMSY in user.mutations) && prob(50))
-		to_chat(user, "<span class ='warning'>Вы бьёте себя по голове [src.name].</span>")
+		to_chat(user, "<span class ='warning'>You club yourself over the head with [src].</span>")
 		user.Weaken(3)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -327,7 +323,7 @@
 		return ..()
 	var/mob/living/carbon/C = target
 	if(C.stat)
-		to_chat(user, "<span class='warning'>Бесчестно нападать на врага, пока он[genderize_ru(C.gender,"","а","о","и")] не мо[pluralize_ru(C.gender,"жет","гут")] ответить.</span>")
+		to_chat(user, "<span class='warning'>It would be dishonorable to attack a foe while [C.p_they()] cannot retaliate.</span>")
 		return
 	switch(user.a_intent)
 		if(INTENT_DISARM)
@@ -336,25 +332,25 @@
 			if(!ishuman(target))
 				return ..()
 			var/mob/living/carbon/human/H = target
-			var/list/fluffmessages = list("[user] бь[pluralize_ru(user.gender,"ет","ют")] [H] используя [src.name]!", \
-										  "[user] хлещ[pluralize_ru(user.gender,"ет","ут")] [H] прикладом [src.name]!", \
-										  "[user] широко хлещ[pluralize_ru(user.gender,"ет","ут")] [H] используя [src.name]!", \
-										  "[user] разбива[pluralize_ru(user.gender,"ет","ют")] [H] голову об [src.name]!", \
-										  "[user] бь[pluralize_ru(user.gender,"ет","ют")] [H] передом [src.name]!", \
-										  "[user] верт[pluralize_ru(user.gender,"ит","ят")] и хлещ[pluralize_ru(user.gender,"ет","ут")] по [H] используя [src.name]!")
+			var/list/fluffmessages = list("[user] clubs [H] with [src]!", \
+										  "[user] smacks [H] with the butt of [src]!", \
+										  "[user] broadsides [H] with [src]!", \
+										  "[user] smashes [H]'s head with [src]!", \
+										  "[user] beats [H] with front of [src]!", \
+										  "[user] twirls and slams [H] with [src]!")
 			H.visible_message("<span class='warning'>[pick(fluffmessages)]</span>", \
 								   "<span class='userdanger'>[pick(fluffmessages)]</span>")
 			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, 1, -1)
 			H.adjustStaminaLoss(rand(13,20))
 			if(prob(10))
-				H.visible_message("<span class='warning'>[H] рухнул[genderize_ru(H.gender,"","а","о","и")]!</span>", \
-									   "<span class='userdanger'>У вас отказывают ноги!</span>")
+				H.visible_message("<span class='warning'>[H] collapses!</span>", \
+									   "<span class='userdanger'>Your legs give out!</span>")
 				H.Weaken(4)
 			if(H.staminaloss && !H.sleeping)
 				var/total_health = (H.health - H.staminaloss)
 				if(total_health <= HEALTH_THRESHOLD_CRIT && !H.stat)
-					H.visible_message("<span class='warning'>[user] нанос[pluralize_ru(user.gender,"ит","ят")] сильный удар по голове [H], выбивая [H.p_them()] из строя!</span>", \
-										   "<span class='userdanger'>[user] сбива[pluralize_ru(user.gender,"ет","ют")] тебя с ног!</span>")
+					H.visible_message("<span class='warning'>[user] delivers a heavy hit to [H]'s head, knocking [H.p_them()] out cold!</span>", \
+										   "<span class='userdanger'>[user] knocks you unconscious!</span>")
 					H.SetSleeping(30)
 					H.adjustBrainLoss(25)
 			return
