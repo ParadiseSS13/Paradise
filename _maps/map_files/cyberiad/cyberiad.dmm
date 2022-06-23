@@ -41836,11 +41836,6 @@
 	pixel_y = -24
 	},
 /obj/structure/cable,
-/obj/item/gun/syringe,
-/obj/item/gun/syringe{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
