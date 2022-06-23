@@ -102,11 +102,10 @@
 				/obj/item/crowbar/red = 10,
 				/obj/item/restraints/handcuffs/toy = 5,
 				/obj/item/extinguisher = 90,
-				//obj/item/gun/projectile/revolver/russian = 1, //disabled until lootdrop is a proper world proc.
 				/obj/item/hand_labeler = 10,
 				/obj/item/paper/crumpled = 10,
 				/obj/item/pen = 10,
-				 /obj/item/cultivator = 10,
+				/obj/item/cultivator = 10,
 				/obj/item/reagent_containers/spray/pestspray = 10,
 				/obj/item/stock_parts/cell = 30,
 				/obj/item/storage/belt/utility = 20,
@@ -159,7 +158,7 @@
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
-				"" = 61 // Reduce this number if you add things above. Make sure all the numbers in the list add to 100 EXACTLY
+				"" = 60 // This should be a decently high number for chances where no loot will spawn
 				)
 
 /obj/effect/spawner/lootdrop/maintenance/two
