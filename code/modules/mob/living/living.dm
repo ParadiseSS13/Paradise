@@ -455,9 +455,6 @@
 	SetLoseBreath(0)
 	SetDizzy(0)
 	SetJitter(0)
-	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, STAT_TRAIT) // revert later when bugs stop showing up
-	REMOVE_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT) // revert later when bugs stop showing up
-	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT) // revert later when bugs stop showing up
 	SetStuttering(0)
 	SetConfused(0)
 	SetDrowsy(0)
