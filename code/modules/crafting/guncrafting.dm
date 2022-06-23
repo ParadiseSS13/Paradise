@@ -19,7 +19,7 @@
 
 // GUN PART KIT //
 
-/obj/item/weaponcrafting/gunkit/
+/obj/item/weaponcrafting/gunkit
 	name = "generic gun parts kit"
 	desc = "It's an empty gun parts container! Why do you have this?"
 	icon = 'icons/obj/improvised.dmi'
