@@ -44,9 +44,9 @@ SUBSYSTEM_DEF(debugview)
 	processing |= C
 
 /datum/controller/subsystem/debugview/proc/stop_processing(client/C)
+	processing -= C
 	C.screen -= C.debug_text_overlay
 	qdel(C.debug_text_overlay)
-	processing -= C
 
 /obj/screen/debugtextholder
 	icon = 'icons/mob/screen_full.dmi'
