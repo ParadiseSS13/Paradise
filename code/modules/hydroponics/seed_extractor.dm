@@ -57,7 +57,7 @@
 	var/vend_amount = 1
 
 /obj/machinery/seed_extractor/Initialize(mapload)
-	..()
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/seed_extractor(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -85,7 +85,7 @@
 		return
 
 
-	if(istype(O,/obj/item/storage/bag/plants))
+	if(istype(O, /obj/item/storage/bag/plants))
 		var/obj/item/storage/P = O
 		var/loaded = 0
 		for(var/obj/item/seeds/G in P.contents)
@@ -93,7 +93,11 @@
 				break
 			loaded++
 			add_seed(G)
-		to_chat(user, "<span class='notice'>You transfer [loaded] seeds from [O.name] into [src].</span>")
+
+		if (loaded)
+			to_chat(user, "<span class='notice'>You transfer [loaded] seeds from [O] into [src].</span>")
+		else
+			to_chat(user, "<span class='notice'>There are no seeds in [O].</span>")
 		return
 
 	else if(seedify(O,-1, src, user))
@@ -110,7 +114,7 @@
 		return ..()
 
 /obj/machinery/seed_extractor/attack_ai(mob/user)
-	return attack_hand(user)
+	ui_interact(user)
 
 /obj/machinery/seed_extractor/attack_hand(mob/user)
 	ui_interact(user)
@@ -144,7 +148,7 @@
 		)
 		data["stored_seeds"] += list(seed_info)
 
-	data["vend_number"] = vend_amount
+	data["vend_amount"] = vend_amount
 	return data
 
 /obj/machinery/seed_extractor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -156,10 +160,10 @@
 			vendSeed(text2num(params["seedid"]), vend_amount)
 			add_fingerprint(usr)
 			SStgui.update_uis(src)
-		if("set_vend_num")
-			if(!length(params["vend_num"]))
+		if("set_vend_amount")
+			if(!length(params["vend_amount"]))
 				return
-			vend_amount = clamp(text2num(params["vend_num"]), 1, MAX_DISPENSE_SEEDS)
+			vend_amount = clamp(text2num(params["vend_amount"]), 1, MAX_DISPENSE_SEEDS)
 			add_fingerprint(usr)
 
 /obj/machinery/seed_extractor/proc/vendSeed(seed_id, amount)
@@ -168,6 +172,7 @@
 	var/datum/seed_pile/selected_pile
 	for(var/datum/seed_pile/N in piles)
 		if(N.id == seed_id)
+			amount = clamp(amount, 0, N.amount)
 			N.amount -= amount
 			selected_pile = N
 			if(N.amount <= 0)
@@ -176,10 +181,9 @@
 	if(!selected_pile)
 		return
 	var/amount_dispensed = 0
-	for(var/obj/T in contents)
+	for(var/obj/item/seeds/O in contents)
 		if(amount_dispensed >= amount)
 			break
-		var/obj/item/seeds/O = T
 		if (O.plantname == selected_pile.name && O.lifespan == selected_pile.lifespan && O.endurance == selected_pile.endurance && O.maturation == selected_pile.maturation && O.production == selected_pile.production && O.yield == selected_pile.yield && O.potency == selected_pile.potency)
 			O.forceMove(loc)
 			amount_dispensed++
@@ -189,10 +193,11 @@
 		return
 	if(length(contents) >= max_seeds)
 		to_chat(usr, "<span class='notice'>[src] is full.</span>")
-		return FALSE
+		return
 
 	if(ismob(O.loc))
-		usr.drop_item()
+		var/mob/M = O.loc
+		M.drop_item()
 	else if(isstorage(O.loc))
 		var/obj/item/storage/S = O.loc
 		S.remove_from_storage(O,src)
@@ -200,13 +205,14 @@
 	for(var/datum/seed_pile/N in piles) //this for loop physically hurts me
 		if (O.plantname == N.name && O.variant == N.variant && O.lifespan == N.lifespan && O.endurance == N.endurance && O.maturation == N.maturation && O.production == N.production && O.yield == N.yield && O.potency == N.potency)
 			N.amount++
+			O.forceMove(src)
 			return
 
 	var/datum/seed_pile/new_pile = new (O.type, pile_count, O.plantname, O.variant, O.lifespan, O.endurance, O.maturation, O.production, O.yield, O.potency)
 	pile_count++
 	piles += new_pile
 	O.forceMove(src)
-	return TRUE
+	return
 
 /datum/seed_pile
 	var/path

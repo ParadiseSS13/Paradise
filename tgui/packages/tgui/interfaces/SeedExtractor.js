@@ -6,7 +6,7 @@ export const SeedExtractor = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     stored_seeds,
-    vend_number,
+    vend_amount,
   } = data;
 
   return (
@@ -17,14 +17,14 @@ export const SeedExtractor = (props, context) => {
             Set Amount to be Vended:&nbsp;
             <NumberInput
                 animated
-                value={vend_number}
+                value={vend_amount}
                 width="40px"
                 minValue={1}
                 maxValue={25}
                 stepPixelSize={3}
                 onDrag={(e, value) =>
-                  act('set_vend_num', {
-                    vend_num: value,
+                  act('set_vend_amount', {
+                    vend_amount: value,
                   })
                 }
               />
@@ -41,7 +41,6 @@ export const SeedExtractor = (props, context) => {
 
 const SeedsContent = (props, context) => {
   const { act, data } = useBackend(context);
-  const { product, productStock, seedImage } = props;
   const {
     stored_seeds,
   } = data;
