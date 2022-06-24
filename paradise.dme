@@ -523,6 +523,7 @@
 #include "code\game\area\areas\depot-areas.dm"
 #include "code\game\area\areas\mining.dm"
 #include "code\game\area\areas\ruins\lavaland.dm"
+#include "code\game\area\areas\ruins\space.dm"
 #include "code\game\area\areas\ruins\syndicate_space_base.dm"
 #include "code\game\dna\dna2.dm"
 #include "code\game\dna\dna2_domutcheck.dm"
