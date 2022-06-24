@@ -1,5 +1,7 @@
 ///Base Cap of the max amount of seeds you can store in a seed extractor
-#define BASE_MAX_SEEDS 1000
+#define BASE_MAX_SEEDS     1000
+///Max Cap of the amount of seed we let players dispense at once
+#define MAX_DISPENSE_SEEDS 25
 
 ///This proc could probably be scoped better, also it's logic is cursed and hard to understand
 /proc/seedify(obj/item/O, t_max, obj/machinery/seed_extractor/extractor, mob/living/user)
@@ -143,43 +145,22 @@
 		data["stored_seeds"] += list(seed_info)
 
 	data["vend_number"] = vend_amount
-	data["modal"] = ui_modal_data(src)
 	return data
 
 /obj/machinery/seed_extractor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
-	if(ui_act_modal(action, params))
-		add_fingerprint(usr)
-		return
-
-	if(action == "vend")
-		vendSeed(text2num(params["seedid"]), vend_amount)
-		SStgui.update_uis(src)
-
-/obj/machinery/seed_extractor/proc/ui_act_modal(action, list/params)
-	. = TRUE
-	var/id = params["id"] // The modal's ID
-	var/list/arguments = istext(params["arguments"]) ? json_decode(params["arguments"]) : params["arguments"]
-	switch(ui_modal_act(src, action, params))
-		if(UI_MODAL_OPEN)
-			switch(id)
-				if("vend_amount")
-					ui_modal_input(src, id, "How many seeds do you wish to extract?", null, arguments)
-				else
-					return FALSE
-		if(UI_MODAL_ANSWER)
-			var/answer = params["answer"]
-			switch(id)
-				if("vend_amount")
-					if(!length(answer))
-						return
-					vend_amount = clamp(text2num(answer), 1, 25)
-				else
-					return FALSE
-		else
-			return FALSE
+	switch(action)
+		if("vend")
+			vendSeed(text2num(params["seedid"]), vend_amount)
+			add_fingerprint(usr)
+			SStgui.update_uis(src)
+		if("set_vend_num")
+			if(!length(params["vend_num"]))
+				return
+			vend_amount = clamp(text2num(params["vend_num"]), 1, MAX_DISPENSE_SEEDS)
+			add_fingerprint(usr)
 
 /obj/machinery/seed_extractor/proc/vendSeed(seed_id, amount)
 	if(!seed_id)

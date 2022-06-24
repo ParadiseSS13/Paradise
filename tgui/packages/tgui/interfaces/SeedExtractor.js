@@ -1,6 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Section, Table, Box } from '../components';
-import { ComplexModal, modalOpen} from './common/ComplexModal';
+import { Button, Section, Table, Box, NumberInput } from '../components';
 import { Window } from '../layouts';
 
 export const SeedExtractor = (props, context) => {
@@ -12,15 +11,23 @@ export const SeedExtractor = (props, context) => {
 
   return (
     <Window resizable>
-      <ComplexModal/>
       <Window.Content scrollable className="Layout__content--flexColumn">
         <Section title="Stored Seeds">
           <div className="CameraConsole__toolbarRight">
-            Will Vend:&nbsp;
-            <Button
-              content={vend_number + " Seeds"}
-              icon="arrow-circle-down"
-              onClick={() => modalOpen(context, 'vend_amount')}/>
+            Set Amount to be Vended:&nbsp;
+            <NumberInput
+                animated
+                value={vend_number}
+                width="40px"
+                minValue={1}
+                maxValue={25}
+                stepPixelSize={3}
+                onDrag={(e, value) =>
+                  act('set_vend_num', {
+                    vend_num: value,
+                  })
+                }
+              />
           </div>
           {stored_seeds?.length
           ? <SeedsContent />
