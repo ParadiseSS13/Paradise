@@ -9,6 +9,7 @@
 	var/list/datum/autopsy_data_scanner/wdata = list()
 	var/list/chemtraces = list()
 	var/target_name = null
+	var/target_UID = null
 	var/timeofdeath = null
 
 /obj/item/autopsy_scanner/Destroy()
@@ -156,7 +157,8 @@
 	if(!can_operate(M))
 		return
 
-	if(target_name != M.name)
+	if(target_UID != M.UID())
+		target_UID = M.UID()
 		target_name = M.name
 		wdata.Cut()
 		chemtraces.Cut()
