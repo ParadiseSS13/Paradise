@@ -299,7 +299,7 @@
 /mob/Process_Spacemove(movement_dir = 0)
 	if(..())
 		return 1
-	var/atom/movable/backup = get_spacemove_backup()
+	var/atom/movable/backup = get_spacemove_backup(movement_dir)
 	if(backup)
 		if(istype(backup) && movement_dir && !backup.anchored)
 			var/opposite_dir = turn(movement_dir, 180)
@@ -308,7 +308,7 @@
 		return 1
 	return 0
 
-/mob/get_spacemove_backup()
+/mob/get_spacemove_backup(movement_dir)
 	for(var/A in orange(1, get_turf(src)))
 		if(isarea(A))
 			continue
@@ -327,6 +327,8 @@
 				if(AM.anchored)
 					return AM
 				if(pulling == AM)
+					continue
+				if(get_turf(AM) == get_step(get_turf(src), movement_dir)) // No pushing off objects in front of you, while simultaneously pushing them fowards to go faster in space.
 					continue
 				. = AM
 

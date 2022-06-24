@@ -58,6 +58,7 @@
 	wires = new /datum/wires/mulebot(src)
 	var/datum/job/cargo_tech/J = new/datum/job/cargo_tech
 	access_card.access = J.get_access()
+	LAZYADD(access_card.access, ACCESS_CARGO_BOT)
 	prev_access = access_card.access
 	cell = new /obj/item/stock_parts/cell/upgraded(src)
 

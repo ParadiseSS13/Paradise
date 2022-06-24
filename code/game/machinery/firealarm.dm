@@ -47,7 +47,6 @@ FIRE ALARM
 	if(wiresexposed)
 		icon_state = "firealarm_b[buildstage]"
 		return
-	
 	if(stat & BROKEN)
 		icon_state = "firealarm_broken"
 	else if(stat & NOPOWER)
@@ -283,6 +282,7 @@ FIRE ALARM
 	name = "fire alarm"
 
 /obj/machinery/firealarm/Destroy()
+	LAZYREMOVE(GLOB.firealarm_soundloop.output_atoms, src)
 	LAZYREMOVE(myArea.firealarms, src)
 	return ..()
 
