@@ -191,8 +191,6 @@
 	stat(title, statclick.update(msg))
 
 /datum/controller/subsystem/proc/state_letter()
-	if(!can_fire)
-		return "O"
 	switch(state)
 		if(SS_RUNNING)
 			. = "R"
