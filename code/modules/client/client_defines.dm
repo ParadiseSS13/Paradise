@@ -66,7 +66,7 @@
 	var/datum/tooltip/tooltips
 
 	// Overlay for showing debug info
-	var/obj/screen/fullscreen/debug_text_overlay
+	var/obj/screen/debugtextholder/debug_text_overlay
 
 	/// Persistent storage for the flavour text of examined atoms.
 	var/list/description_holders = list()

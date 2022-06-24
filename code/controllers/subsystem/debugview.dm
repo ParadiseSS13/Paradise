@@ -39,11 +39,7 @@ SUBSYSTEM_DEF(debugview)
 		C.debug_text_overlay.maptext = MAPTEXT(out_text)
 
 /datum/controller/subsystem/debugview/proc/start_processing(client/C)
-	C.debug_text_overlay = new /obj/screen/fullscreen
-	// DO NOT CHANGE THE BELOW VALUES
-	C.debug_text_overlay.plane = HUD_PLANE_DEBUGVIEW
-	C.debug_text_overlay.maptext_height = 480
-	C.debug_text_overlay.maptext_width = 480
+	C.debug_text_overlay = new /obj/screen/debugtextholder
 	C.screen |= C.debug_text_overlay
 	processing |= C
 
@@ -51,3 +47,11 @@ SUBSYSTEM_DEF(debugview)
 	C.screen -= C.debug_text_overlay
 	qdel(C.debug_text_overlay)
 	processing -= C
+
+/obj/screen/debugtextholder
+	icon = 'icons/mob/screen_full.dmi'
+	icon_state = "default"
+	screen_loc = "CENTER-7,CENTER-7"
+	plane = HUD_PLANE_DEBUGVIEW
+	maptext_height = 480 // If we ever change view size, increase this
+	maptext_width = 480

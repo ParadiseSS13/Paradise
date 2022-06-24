@@ -62,7 +62,7 @@
 			ooc()
 			return
 		if("F3") // Who the hell uses F3 to say
-			if(!keys_held["Shift"])
+			if(!keys_held["Shift"]) // Shift+F3 shows admin debug menu
 				mob.say_wrapper()
 				return
 		if("F4")
