@@ -1,4 +1,4 @@
-/obj/item/clothing/gloves/color/
+/obj/item/clothing/gloves/color
 	dyeable = TRUE
 
 /obj/item/clothing/gloves/color/yellow
