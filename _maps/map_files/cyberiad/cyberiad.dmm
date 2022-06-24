@@ -81729,7 +81729,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/power/apc{
 	cell_type = 25000;
-	dir = 1;
+	dir = 8;
 	name = "Engineering Engine Super APC";
 	pixel_x = -24;
 	shock_proof = 1
