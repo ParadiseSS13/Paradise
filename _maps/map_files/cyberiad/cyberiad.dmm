@@ -80006,6 +80006,22 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/door/airlock/atmos/glass{
+	autoclose = 0;
+	frequency = 1379;
+	id_tag = "atmos_airlock_exterior";
+	locked = 1;
+	name = "Atmospherics Access Chamber";
+	req_access_txt = "24"
+	},
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1379;
+	master_tag = "atmos_airlock_control";
+	name = "Atmospherics Access Button";
+	pixel_y = -24;
+	req_access_txt = "24"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -82143,28 +82159,6 @@
 	tag_interior_door = "atmos_airlock_interior"
 	},
 /turf/simulated/floor/engine,
-/area/engine/engineering)
-"xMM" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/door/airlock/atmos/glass{
-	autoclose = 0;
-	frequency = 1379;
-	id_tag = "atmos_airlock_exterior";
-	locked = 1;
-	name = "Atmospherics Access Chamber";
-	req_access_txt = "24"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
 /area/engine/engineering)
 "xOn" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
@@ -113886,7 +113880,7 @@ hKe
 vBs
 aMM
 epT
-xMM
+xJE
 ssQ
 cSU
 ePY
