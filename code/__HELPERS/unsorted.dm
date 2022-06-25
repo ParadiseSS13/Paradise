@@ -2011,6 +2011,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "Ambience"
 		if(CHANNEL_ENGINE)
 			return "Engine Ambience"
+		if(CHANNEL_FIREALARM)
+			return "Fire Alarms"
 
 /proc/slot_bitfield_to_slot(input_slot_flags) // Kill off this garbage ASAP; slot flags and clothing flags should be IDENTICAL. GOSH DARN IT. Doesn't work with ears or pockets, either.
 	switch(input_slot_flags)

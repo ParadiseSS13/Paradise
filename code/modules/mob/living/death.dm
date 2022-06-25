@@ -52,7 +52,7 @@
 		return FALSE
 
 	..()
-	stat = DEAD
+	set_stat(DEAD)
 
 	timeofdeath = world.time
 	create_log(ATTACK_LOG, "died[gibbed ? " (Gibbed)": ""]")
@@ -62,7 +62,7 @@
 	SetLoseBreath(0)
 
 	if(!gibbed && deathgasp_on_death)
-		emote("deathgasp", force = TRUE)
+		emote("deathgasp")
 
 	if(mind && suiciding)
 		mind.suicided = TRUE

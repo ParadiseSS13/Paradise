@@ -96,10 +96,18 @@
 				for(var/datum/objective/objective in all_objectives)
 					if(objective.check_completion())
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
-						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
+						if(istype(objective, /datum/objective/steal))
+							var/datum/objective/steal/S = objective
+							SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [S.steal_target]", "SUCCESS"))
+						else
+							SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
-						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
+						if(istype(objective, /datum/objective/steal))
+							var/datum/objective/steal/S = objective
+							SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [S.steal_target]", "FAIL"))
+						else
+							SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
 						traitorwin = FALSE
 					count++
 

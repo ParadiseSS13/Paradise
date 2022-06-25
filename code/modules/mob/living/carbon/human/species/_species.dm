@@ -932,6 +932,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(H.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 		H.see_invisible = SEE_INVISIBLE_OBSERVER
 
+	H.update_tint()
 	H.sync_lighting_plane_alpha()
 
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)

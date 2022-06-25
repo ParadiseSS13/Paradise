@@ -114,7 +114,16 @@
 		if(!ispath(surgery.steps[surgery.status], /datum/surgery_step/robotics))//Repairing robotic limbs doesn't hurt, and neither does cutting someone out of a rig
 			if(ishuman(target))
 				var/mob/living/carbon/human/H = target //typecast to human
-				prob_chance *= get_pain_modifier(H)//operating on conscious people is hard.
+				var/pain_mod = get_pain_modifier(H)
+				var/datum/status_effect/incapacitating/sleeping/S = H.IsSleeping()
+				if(S?.voluntary)
+					H.SetSleeping(0) // wake up people who are napping through the surgery
+					if(pain_mod < 0.95)
+						to_chat(H, "<span class='danger'>The surgery on your [target_zone] is agonizingly painful, and wrecks you out of your shallow slumber!</span>")
+					else
+						// Still wake people up, but they shouldn't be as alarmed.
+						to_chat(H, "<span class='warning'>The surgery being performed on your [target_zone] wakes you up.</span>")
+				prob_chance *= pain_mod //operating on conscious people is hard.
 
 		if(prob(prob_chance) || isrobot(user))
 			if(end_step(user, target, target_zone, tool, surgery))

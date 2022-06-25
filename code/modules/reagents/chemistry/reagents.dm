@@ -242,16 +242,12 @@
 		return
 	if(!(M.status_flags & CANPARALYSE))
 		return
-	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating) //no messing with changeling's fake death
-		return
 	M.emote("deathgasp")
 	ADD_TRAIT(M, TRAIT_FAKEDEATH, id)
 	M.updatehealth("fakedeath reagent")
 
 /datum/reagent/proc/fakerevive(mob/living/M)
-	if(!HAS_TRAIT(M, TRAIT_FAKEDEATH))
-		return
-	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating)
+	if(!HAS_TRAIT_FROM(M, TRAIT_FAKEDEATH, id))
 		return
 	if(M.resting)
 		M.StopResting()

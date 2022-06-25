@@ -6,14 +6,6 @@
 	multi_sprite_step = 1 // see: /obj/item/ammo_box/update_icon()
 	icon_state = "357"
 
-/obj/item/ammo_box/c38
-	name = "speed loader (.38)"
-	desc = "Designed to quickly reload revolvers."
-	ammo_type = /obj/item/ammo_casing/c38
-	max_ammo = 6
-	multi_sprite_step = 1
-	icon_state = "38"
-
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"
 	icon_state = "9mmbox"
