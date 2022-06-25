@@ -5,6 +5,8 @@
 	deform = 'icons/mob/human_races/r_def_lizard.dmi'
 	language = "Sinta'unathi"
 	tail = "sogtail"
+	speech_sounds = list('sound/voice/unathitalk.mp3', 'sound/voice/unathitalk2.mp3', 'sound/voice/unathitalk4.mp3', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg')
+	speech_chance = 33
 	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = /datum/species/monkey/unathi
