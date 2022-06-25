@@ -465,7 +465,7 @@
 /datum/reagent/bath_salts/on_mob_delete(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.physiology.melee_bonus += 2 // rage mode
+		H.physiology.melee_bonus -= 2 // ragen't mode
 
 /datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
