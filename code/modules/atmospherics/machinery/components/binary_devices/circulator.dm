@@ -110,7 +110,7 @@
 
 /obj/machinery/atmospherics/binary/circulator/update_icon()
 	..()
-
+	overlays.Cut()
 	if(stat & (BROKEN|NOPOWER))
 		icon_state = "circ[side]-p"
 	else if(last_pressure_delta > 0)
@@ -120,5 +120,9 @@
 			icon_state = "circ[side]-slow"
 	else
 		icon_state = "circ[side]-off"
+	if(!side_inverted)
+		overlays += icon(icon,"in_up")
+	else
+		overlays += icon(icon,"in_down")
 
 	return 1
