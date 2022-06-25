@@ -12,6 +12,7 @@
 	var/hitsound_wall = ""
 	var/def_zone = ""	//Aiming at
 	var/mob/firer = null//Who shot it
+	var/atom/firer_source_atom = null //the gun or object this came from
 	var/obj/item/ammo_casing/ammo_casing = null
 	var/suppressed = 0	//Attack message
 	var/yo = null
@@ -348,6 +349,8 @@
 /obj/item/projectile/Destroy()
 	STOP_PROCESSING(SSprojectiles, src)
 	ammo_casing = null
+	firer_source_atom = null
+	firer = null
 	return ..()
 
 /obj/item/projectile/proc/dumbfire(dir)
