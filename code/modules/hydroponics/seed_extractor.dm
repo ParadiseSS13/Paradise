@@ -140,7 +140,7 @@
 			"variant" = O.variant,
 			"lifespan" = O.lifespan,
 			"endurance" = O.endurance,
-			"maturity" = O.maturation,
+			"maturation" = O.maturation,
 			"production" = O.production,
 			"yield" = O.yield,
 			"potency" = O.potency,
