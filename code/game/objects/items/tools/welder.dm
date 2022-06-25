@@ -129,12 +129,14 @@
 	remove_fuel(amount)
 	return TRUE
 
-/obj/item/weldingtool/use_tool(target, user, delay, amount, volume, datum/callback/extra_checks)
+/obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks)
+	target.add_overlay(GLOB.welding_sparks)
 	var/did_thing = ..()
 	if(did_thing)
 		remove_fuel(1) //Consume some fuel after we do a welding action
 	if(delay)
 		progress_flash_divisor = initial(progress_flash_divisor)
+	target.cut_overlay(GLOB.welding_sparks)
 	return did_thing
 
 /obj/item/weldingtool/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)

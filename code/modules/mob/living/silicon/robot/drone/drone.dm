@@ -242,7 +242,7 @@
 /mob/living/silicon/robot/drone/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = 35
-		stat = CONSCIOUS
+		set_stat(CONSCIOUS)
 		return
 	health = 35 - (getBruteLoss() + getFireLoss() + getOxyLoss())
 	update_stat("updatehealth([reason])")

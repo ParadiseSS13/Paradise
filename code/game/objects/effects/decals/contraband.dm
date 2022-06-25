@@ -88,6 +88,9 @@
 	poster_item_icon_state = initial(selected.poster_item_icon_state)
 	ruined = initial(selected.ruined)
 
+/obj/structure/sign/poster/screwdriver_act(mob/user, obj/item/I)
+	return
+
 /obj/structure/sign/poster/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -161,7 +164,7 @@
 	flick("poster_being_set", D)
 	D.forceMove(temp_loc)
 	qdel(P)	//delete it now to cut down on sanity checks afterwards. Agouri's code supports rerolling it anyway
-	playsound(D.loc, 'sound/items/poster_being_created.ogg', 100, 1)
+	playsound(D.loc, 'sound/effects/rustle1.ogg', 100, 1)
 
 	if(do_after(user, PLACE_SPEED, target = src))
 		if(!D || QDELETED(D))
@@ -169,6 +172,7 @@
 
 		if(iswallturf(src) && user && user.loc == temp_loc)	//Let's check if everything is still there
 			to_chat(user, "<span class='notice'>You place the poster!</span>")
+			playsound(D.loc, 'sound/effects/pageturn3.ogg', 100, 1)
 			return
 
 	to_chat(user, "<span class='notice'>The poster falls down!</span>")

@@ -9,7 +9,7 @@
 	create_attack_log("<font color='red'>Fallen unconscious at [atom_loc_line(get_turf(src))]</font>")
 	add_attack_logs(src, null, "Fallen unconscious", ATKLOG_ALL)
 	log_game("[key_name(src)] fell unconscious at [atom_loc_line(get_turf(src))]")
-	stat = UNCONSCIOUS
+	set_stat(UNCONSCIOUS)
 	ADD_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, STAT_TRAIT)
 	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
@@ -28,7 +28,7 @@
 	create_attack_log("<font color='red'>Woken up at [atom_loc_line(get_turf(src))]</font>")
 	add_attack_logs(src, null, "Woken up", ATKLOG_ALL)
 	log_game("[key_name(src)] woke up at [atom_loc_line(get_turf(src))]")
-	stat = CONSCIOUS
+	set_stat(CONSCIOUS)
 	REMOVE_TRAITS_IN(src, STAT_TRAIT)
 	if(updating)
 		update_sight()
@@ -44,7 +44,7 @@
 	create_attack_log("<font color='red'>Came back to life at [atom_loc_line(get_turf(src))]</font>")
 	add_attack_logs(src, null, "Came back to life", ATKLOG_ALL)
 	log_game("[key_name(src)] came back to life at [atom_loc_line(get_turf(src))]")
-	stat = UNCONSCIOUS // this is done as `WakeUp` early returns if they are `stat = DEAD`
+	set_stat(UNCONSCIOUS) // this is done as `WakeUp` early returns if they are `stat = DEAD`
 	WakeUp()
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list |= src
