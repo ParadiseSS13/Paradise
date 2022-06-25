@@ -175,16 +175,6 @@
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_URANIUM = 2000)
 	build_path = /obj/item/ammo_box/magazine/wt550m9/wttx
 
-/datum/design/rapidsyringe
-	name = "Rapid Syringe Gun"
-	desc = "A gun that fires many syringes."
-	id = "rapidsyringe"
-	req_tech = list("combat" = 2, "biotech" = 3)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000)
-	build_path = /obj/item/gun/syringe/rapidsyringe
-	category = list("Weapons")
-
 /datum/design/stunshell
 	name = "Stun Shell"
 	desc = "A stunning shell for a shotgun."

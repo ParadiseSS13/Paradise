@@ -2,6 +2,7 @@
 # This list is alphabetized by User -> Filename KEEP IT THAT WAY
 # In the event that multiple org members are to be informed of changes to the same file or dir, add them to the end under Multiple Owners
 # This is ONLY for taking ownership of server-critical code which must be written in a very specific way for the server to operate at all.
+# You cannot take ownership of a file/feature just because "I dont want people touching my stuff"
 
 ### AffectedArc07
 # Actual Code
@@ -23,9 +24,9 @@
 # Executables that need to be security-cleared
 dreamchecker.exe @AffectedArc07
 rust_g.dll @AffectedArc07
+librust_g.so @AffectedArc07
 
-### dearmochi
-/tgui/ @dearmochi
+
 
 ### Fox-McCloud
 /code/controllers/subsystem/air.dm @Fox-McCloud
