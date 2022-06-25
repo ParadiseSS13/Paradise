@@ -691,12 +691,6 @@
 /datum/reagent/medicine/epinephrine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDrowsy(-10 SECONDS)
-	if(prob(20))
-		M.AdjustParalysis(-2 SECONDS)
-	if(prob(20))
-		M.AdjustStunned(-2 SECONDS)
-	if(prob(20))
-		M.AdjustWeakened(-2 SECONDS)
 	if(prob(5))
 		M.SetSleeping(0)
 	if(prob(5))
