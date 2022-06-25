@@ -98,7 +98,7 @@
 	brainmob.real_name = brainmob.dna.real_name
 	brainmob.name = brainmob.real_name
 	brainmob.timeofhostdeath = H.timeofdeath
-	brainmob.stat = CONSCIOUS
+	brainmob.set_stat(CONSCIOUS)
 	if(brainmob.mind)
 		brainmob.mind.assigned_role = "Positronic Brain"
 	if(H.mind)
@@ -206,7 +206,7 @@
 	brainmob.real_name = brainmob.name
 	brainmob.container = src
 	brainmob.forceMove(src)
-	brainmob.stat = CONSCIOUS
+	brainmob.set_stat(CONSCIOUS)
 	brainmob.SetSilence(0)
 	brainmob.dna = new(brainmob)
 	brainmob.dna.species = new /datum/species/machine() // Else it will default to human. And we don't want to clone IRC humans now do we?

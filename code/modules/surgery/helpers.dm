@@ -118,7 +118,13 @@
 
 
 /proc/get_pain_modifier(mob/living/carbon/human/M) //returns modfier to make surgery harder if patient is conscious and feels pain
-	if(M.stat) //stat=0 if CONSCIOUS, 1=UNCONSCIOUS and 2=DEAD. Operating on dead people is easy, too. Just sleeping won't work, though.
+	if(M.stat == DEAD) // Operating on dead people is easy
+		return 1
+	var/datum/status_effect/incapacitating/sleeping/S = M.IsSleeping()
+	if(M.stat == UNCONSCIOUS && !(S?.voluntary))
+		// Either unconscious due to something other than sleep,
+		// or "sleeping" due to being hard knocked out (N2O or similar), rather than just napping.
+		// Either way, not easily woken up.
 		return 1
 	if(HAS_TRAIT(M, TRAIT_NOPAIN))//if you don't feel pain, you can hold still
 		return 1
