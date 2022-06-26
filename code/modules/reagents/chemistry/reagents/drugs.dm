@@ -1,9 +1,9 @@
 /*
-* increases the probability of bad effects from stimulantive chems based on the duration of exposure (in cycles)
-* 0 to 5 the probability mod is negative (or 0) so no chance of bad effects
-* at 10 cycles the mod is 1
+* increases the probability of bad effects from stimulantive chems based on the duration of exposure (in volume)
+* at 10 volume the mod is 1
+* at 20 volume the mod is 2, and so on
 */
-#define DRAWBACK_CHANCE_MODIFIER(duration) 0.2 * (duration - 5)
+#define DRAWBACK_CHANCE_MODIFIER(duration) 0.1 * duration
 
 /datum/reagent/lithium
 	name = "Lithium"
@@ -163,10 +163,12 @@
 	overdose_threshold = 20
 	addiction_chance = 10
 	addiction_threshold = 5
+	addiction_decay_rate = 0.2 // half the metabolism rate
 	taste_description = "bitterness"
 
 /datum/reagent/crank/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	var/recent_consumption = holder.addiction_threshold_accumulated[type]
 	M.AdjustParalysis(-4 SECONDS)
 	M.AdjustStunned(-4 SECONDS)
 	M.AdjustWeakened(-4 SECONDS)
@@ -175,10 +177,10 @@
 		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
 	if(prob(8))
 		M.emote(pick("laugh", "giggle"))
-	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(current_cycle)))
+	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		to_chat(M, "<span class='notice'>You feel warm.</span>") // fever, gets worse with volume
-		M.bodytemperature += 30 * volume
-		M.Confused(2 SECONDS * volume)
+		M.bodytemperature += 30 * recent_consumption
+		M.Confused(2 SECONDS * recent_consumption)
 
 	if(prob(4))
 		to_chat(M, "<span class='notice'>You feel kinda awful!</span>")
@@ -355,6 +357,7 @@
 	addiction_chance = 10
 	addiction_threshold = 5
 	metabolization_rate = 0.6
+	addiction_decay_rate = 0.1 // very low, to prevent people from abusing the massive speed boost for too long. forces them to take long downtimes to not die from brain damage.
 	heart_rate_increase = 1
 	taste_description = "speed"
 
@@ -366,13 +369,14 @@
 
 /datum/reagent/methamphetamine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	var/resent_consumption = holder.addiction_threshold_accumulated[type]
 	if(prob(5))
 		M.emote(pick("twitch_s","blink_r","shiver"))
 	M.AdjustJitter(10 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-40, FALSE)
 	M.SetSleeping(0)
 	M.SetDrowsy(0)
-	if(prob(10 * DRAWBACK_CHANCE_MODIFIER(current_cycle)))
+	if(prob(10 * DRAWBACK_CHANCE_MODIFIER(resent_consumption)))
 		update_flags |= M.adjustBrainLoss(10, FALSE)
 		M.adjust_nutrition(-25)
 	return ..() | update_flags
@@ -423,6 +427,7 @@
 	addiction_chance = 15
 	addiction_threshold = 5
 	metabolization_rate = 0.6
+	addiction_decay_rate = 0.2
 	taste_description = "WAAAAGH"
 	/// timer until we can start rolling for reducing a mobs strength again.
 	var/next_remove_strength
@@ -437,12 +442,13 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
+		var/recent_consumption = holder.addiction_threshold_accumulated[type]
 		for(var/obj/item/organ/internal/I in H.internal_organs)
 			I.receive_damage(0.8, TRUE) //double the rate of mitocholide
-		if(world.time > next_remove_strength && prob(0.1 * DRAWBACK_CHANCE_MODIFIER(current_cycle))) // tiny chance to make their muscles waste away
+		if(world.time > next_remove_strength && recent_consumption > 5 && prob(0.1 * DRAWBACK_CHANCE_MODIFIER(recent_consumption))) // tiny chance to make their muscles waste away, cannot happen instantly. I don't want people to get *that* unlucky
 			H.physiology.melee_bonus--
 			to_chat(H, "<span class='biggerdanger'>You feel your muscles wasting away!</span>")
-			next_remove_strength = world.time + 50 SECONDS
+			next_remove_strength = world.time + 100 SECONDS
 	M.SetParalysis(0)
 	M.SetStunned(0)
 	M.SetWeakened(0)
@@ -471,10 +477,8 @@
 	if(method == REAGENT_INGEST)
 		to_chat(M, "<span class = 'danger'><font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>You feel FUCKED UP!!!!!!</font></span>")
 		SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
-		M.emote("faint")
-		M.apply_effect(5, IRRADIATE)
+		M.EyeBlind(2 SECONDS)
 		M.adjustToxLoss(5)
-		M.adjustBrainLoss(10)
 	else
 		to_chat(M, "<span class='notice'>You feel a bit more salty than usual.</span>")
 
@@ -550,17 +554,26 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	taste_description = "bitterness"
+	addiction_chance = 5
+	addiction_threshold = 5
+	addiction_decay_rate = 0.2
+	/// how much do we edit the stun and stamina mods? lower is more resistance
+	var/tenacity = 0.7
 
 /datum/reagent/aranesp/on_mob_add(mob/living/L)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		H.physiology.stun_mod *= 0.7
-		H.physiology.stamina_mod *= 0.7
+		H.physiology.stun_mod *= tenacity
+		H.physiology.stamina_mod *= tenacity
 
 /datum/reagent/aranesp/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustStaminaLoss(-2, FALSE) // small amount of stam regen, meaning that if you can buy time between hits you can take 6 disabler shots before going down
-	if(prob(10 * DRAWBACK_CHANCE_MODIFIER(current_cycle)))
+	var/recent_consumption = holder.addiction_threshold_accumulated[type]
+
+	// small amount of stam regen, meaning that if you can buy time between hits
+	// you can take 6 disabler shots (30 base * 0.7 stam mod = 21 stam damage each, 5 shots to 105 which is stamina crit. but you can heal 6 in 3 cycles) before going down
+	update_flags |= M.adjustStaminaLoss(-2, FALSE)
+	if(prob(10 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		update_flags |= M.adjustToxLoss(4, FALSE)
 	if(prob(5))
 		M.emote(pick("twitch", "shake", "tremble","quiver", "twitch_s"))
@@ -572,10 +585,11 @@
 /datum/reagent/aranesp/on_mob_delete(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.physiology.stun_mod /= 0.7
-		H.physiology.stamina_mod /= 0.7
-		H.vomit(-50, blood = TRUE, stun = FALSE)
-		H.Stun(2 SECONDS)
+		H.physiology.stun_mod /= tenacity
+		H.physiology.stamina_mod /= tenacity
+		H.vomit(blood = TRUE, stun = FALSE)
+		H.adjustToxLoss(10)
+		H.Confused(10 SECONDS)
 
 /datum/reagent/thc
 	name = "Tetrahydrocannabinol"
@@ -737,6 +751,7 @@
 	addiction_chance = 10
 	addiction_threshold = 5
 	metabolization_rate = 0.6
+	addiction_decay_rate = 0.1 //very low to force them to take time off of meth
 	taste_description = "wiper fluid"
 
 /datum/reagent/lube/ultra/on_mob_add(mob/living/L)
@@ -747,11 +762,12 @@
 
 /datum/reagent/lube/ultra/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	var/recent_consumption = holder.addiction_threshold_accumulated[type]
 	M.AdjustJitter(10 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-40, FALSE)
 	M.SetSleeping(0)
 	M.SetDrowsy(0)
-	if(prob(12 * DRAWBACK_CHANCE_MODIFIER(current_cycle))) // slightly higher prob than meth due to the no nutrition thing
+	if(prob(12 * DRAWBACK_CHANCE_MODIFIER(recent_consumption))) // slightly higher prob than meth due to the no nutrition thing
 		update_flags |= M.adjustBrainLoss(10, FALSE)
 
 	var/high_message = pick("You feel your servos whir!", "You feel like you need to go faster.", "You feel like you were just overclocked!")
@@ -800,11 +816,13 @@
 	overdose_threshold = 20
 	addiction_chance = 10
 	addiction_threshold = 5
+	addiction_decay_rate = 0.2
 	taste_description = "silicon"
 
 
 /datum/reagent/surge/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	var/recent_consumption = holder.addiction_threshold_accumulated[type]
 	M.Druggy(30 SECONDS)
 	M.AdjustParalysis(-4 SECONDS)
 	M.AdjustStunned(-4 SECONDS)
@@ -815,10 +833,10 @@
 		high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[high_message]</span>")
-	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(current_cycle)))
+	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		to_chat(M, "<span class='notice'>Your circuits overheat!</span>") // synth fever
-		M.bodytemperature += 30 * volume
-		M.Confused(2 SECONDS * volume)
+		M.bodytemperature += 30 * recent_consumption
+		M.Confused(2 SECONDS * recent_consumption)
 
 	return ..() | update_flags
 

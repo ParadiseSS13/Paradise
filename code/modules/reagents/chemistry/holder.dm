@@ -244,9 +244,10 @@
 		M.absorb_blood()
 
 	for(var/thing in addiction_threshold_accumulated)
-		if(has_reagent(thing))
+		var/datum/reagent/R = thing
+		if(has_reagent(initial(R.id)))
 			continue // if we have the reagent in our system, then don't deplete the addiction threshold
-		addiction_threshold_accumulated[thing] -= 0.01 // Otherwise very slowly deplete the buildup
+		addiction_threshold_accumulated[thing] -= initial(R.addiction_decay_rate) // Otherwise very slowly deplete the buildup (defaults to 0.01)
 		if(addiction_threshold_accumulated[thing] <= 0)
 			addiction_threshold_accumulated -= thing
 
