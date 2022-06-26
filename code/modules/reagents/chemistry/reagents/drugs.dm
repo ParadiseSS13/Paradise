@@ -369,14 +369,14 @@
 
 /datum/reagent/methamphetamine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	var/resent_consumption = holder.addiction_threshold_accumulated[type]
+	var/recent_consumption = holder.addiction_threshold_accumulated[type]
 	if(prob(5))
 		M.emote(pick("twitch_s","blink_r","shiver"))
 	M.AdjustJitter(10 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-40, FALSE)
 	M.SetSleeping(0)
 	M.SetDrowsy(0)
-	if(prob(10 * DRAWBACK_CHANCE_MODIFIER(resent_consumption)))
+	if(prob(10 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		update_flags |= M.adjustBrainLoss(10, FALSE)
 		M.adjust_nutrition(-25)
 	return ..() | update_flags
