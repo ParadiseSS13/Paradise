@@ -368,7 +368,7 @@
 	if(!is_teleport_allowed(z) && !admin_usage)
 		to_chat(M, "You can't use this here.")
 		return
-	if(power_station && power_station.engaged && !panel_open && !blockAI(M))
+	if(power_station && power_station.engaged && !panel_open)
 		if(!teleport(M) && isliving(M)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
 			visible_message("<span class='warning'>[src] emits a loud buzz, as its teleport portal flickers and fails!</span>")
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
@@ -438,24 +438,6 @@
 	tele_delay = max(A, 0)
 	update_icon()
 
-/**
-	Internal helper function
-
-	Prevents AI from using the teleporter, prints out failure messages for clarity
-*/
-/obj/machinery/teleport/proc/blockAI(atom/A)
-	if(istype(A, /mob/living/silicon/ai) || istype(A, /obj/structure/AIcore))
-		visible_message("<span class='warning'>The teleporter rejects the AI unit.</span>")
-		if(istype(A, /mob/living/silicon/ai))
-			var/mob/living/silicon/ai/T = A
-			var/list/TPError = list("<span class='warning'>Firmware instructions dictate you must remain on your assigned station!</span>",
-			"<span class='warning'>You cannot interface with this technology and get rejected!</span>",
-			"<span class='warning'>External firewalls prevent you from utilizing this machine!</span>",
-			"<span class='warning'>Your AI core's anti-bluespace failsafes trigger and prevent teleportation!</span>")
-			to_chat(T, "[pick(TPError)]")
-		return TRUE
-	return FALSE
-
 /obj/machinery/teleport/perma/Bumped(atom/A)
 	if(stat & (BROKEN|NOPOWER))
 		return
@@ -463,7 +445,7 @@
 		to_chat(A, "You can't use this here.")
 		return
 
-	if(target && !recalibrating && !panel_open && !blockAI(A))
+	if(target && !recalibrating && !panel_open)
 		do_teleport(A, target)
 		use_power(5000)
 		if(tele_delay)
