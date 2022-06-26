@@ -58,12 +58,6 @@
 
 	return 0
 
-/obj/item/ammo_box/magazine/internal/cylinder/rev38
-	name = "detective revolver cylinder"
-	ammo_type = /obj/item/ammo_casing/c38
-	caliber = "38"
-	max_ammo = 6
-
 /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
 	name = "finger gun cylinder"
 	desc = "Wait, what?"
@@ -496,3 +490,28 @@
 
 /obj/item/ammo_box/magazine/toy/smgm45/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
+
+/obj/item/ammo_box/magazine/detective/speedcharger //yes this doesn't really belong here but nowhere else works
+	name = "DL-88 charge pack"
+	desc = "One-use charge pack for the DL-88 energy revolver."
+	icon_state = "handgun_ammo_battery"
+	var/charge = 1000
+
+/obj/item/ammo_box/magazine/detective/speedcharger/update_icon()
+	var/charge_percent_rounded = round(charge_percent(), 20) // to the nearest 20%
+	cut_overlays()
+	if(charge_percent_rounded)
+		add_overlay("hab_charge_[charge_percent_rounded]")
+
+/obj/item/ammo_box/magazine/detective/speedcharger/proc/charge_percent()
+	return (charge / initial(charge) * 100)
+
+/obj/item/ammo_box/magazine/detective/speedcharger/examine()
+	. = ..()
+	. += "<span class='notice'>There is [charge_percent()]% charge left!</span>"
+
+/obj/item/ammo_box/magazine/detective/speedcharger/attack_self()
+	return
+
+/obj/item/ammo_box/magazine/detective/speedcharger/attackby()
+	return

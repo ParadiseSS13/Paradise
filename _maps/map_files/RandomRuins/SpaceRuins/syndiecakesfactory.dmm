@@ -9,7 +9,7 @@
 /obj/item/stack/sheet/mineral/plasma,
 /obj/item/stack/sheet/mineral/plasma,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bk" = (
 /obj/structure/grille/broken,
 /turf/template_noop,
@@ -31,25 +31,25 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "fq" = (
 /obj/machinery/autolathe,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "fU" = (
 /obj/machinery/door/airlock/mining/glass{
 	locked = 1;
 	name = "Egg processing"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "fY" = (
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
 /area/template_noop)
 "gy" = (
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "hm" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -57,7 +57,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "ho" = (
 /turf/space,
 /area/ruin/space)
@@ -78,7 +78,7 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/cigarettes/cigpack_random,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "ke" = (
 /obj/structure/lattice,
 /turf/space,
@@ -96,7 +96,7 @@
 	tag = ""
 	},
 /turf/simulated/wall,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "ls" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -119,7 +119,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "mc" = (
 /obj/structure/grille/broken,
 /turf/space,
@@ -137,7 +137,7 @@
 "ob" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "om" = (
 /obj/item/reagent_containers/food/snacks/syndicake,
 /obj/item/reagent_containers/food/snacks/syndicake,
@@ -156,7 +156,7 @@
 	name = "Nexus"
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "pb" = (
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
@@ -169,7 +169,7 @@
 	id = null
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "qS" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "EVA Storage"
@@ -181,7 +181,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "rJ" = (
 /obj/structure/lattice,
 /turf/space,
@@ -193,10 +193,10 @@
 "rU" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "sN" = (
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "ub" = (
 /obj/item/stack/rods,
 /turf/space,
@@ -205,7 +205,7 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/syndicake,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "uF" = (
 /obj/machinery/conveyor/east{
 	id = null
@@ -215,15 +215,15 @@
 	canmove = 0
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "wB" = (
 /obj/item/trash/syndi_cakes,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "xB" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "xT" = (
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -247,7 +247,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "zo" = (
 /turf/simulated/wall,
 /area/space)
@@ -258,19 +258,19 @@
 "zF" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "zP" = (
 /obj/structure/rack{
 	dir = 4
 	},
 /obj/random/tool,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "zY" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "AH" = (
 /obj/structure/lattice,
 /obj/item/stack/sheet/metal,
@@ -286,11 +286,11 @@
 	name = "Manufacturing Control Room"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "BI" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Cp" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -299,7 +299,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "CY" = (
 /obj/item/stack/rods,
 /turf/template_noop,
@@ -313,14 +313,14 @@
 	},
 /mob/living/simple_animal/pet/dog/corgi,
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Ej" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "EJ" = (
 /turf/simulated/wall,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Fw" = (
 /obj/item/stack/cable_coil/cut,
 /turf/template_noop,
@@ -333,11 +333,11 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "FO" = (
 /obj/machinery/suit_storage_unit/syndicate,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Gm" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -346,11 +346,11 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "GB" = (
 /mob/living/simple_animal/pet/dog/corgi,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Hx" = (
 /obj/machinery/conveyor/east{
 	id = null
@@ -358,35 +358,35 @@
 /mob/living/simple_animal/pet/dog/corgi,
 /mob/living/simple_animal/pet/dog/corgi,
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Hy" = (
 /turf/template_noop,
 /area/template_noop)
 "HQ" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Ic" = (
 /turf/simulated/floor/plating/burnt,
 /area/ruin)
 "Id" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "IB" = (
 /obj/structure/lattice,
 /turf/space,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "IJ" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "JI" = (
 /obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Ki" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -394,10 +394,10 @@
 "Kr" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "KD" = (
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "KS" = (
 /turf/simulated/floor/plating/airless,
 /area/ruin)
@@ -408,11 +408,11 @@
 	},
 /obj/machinery/power/port_gen/pacman,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Lq" = (
 /mob/living/simple_animal/pet/dog/corgi,
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Mi" = (
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
@@ -423,7 +423,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "NQ" = (
 /obj/structure/lattice,
 /turf/space,
@@ -431,7 +431,7 @@
 "OA" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "OK" = (
 /obj/item/reagent_containers/food/snacks/syndicake,
 /turf/space,
@@ -445,7 +445,7 @@
 	},
 /obj/item/trash/syndi_cakes,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "QF" = (
 /obj/machinery/conveyor/east{
 	dir = 2;
@@ -466,7 +466,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Rg" = (
 /obj/machinery/door/airlock/mining/glass{
 	locked = 1;
@@ -475,11 +475,11 @@
 	normal_integrity = 300000
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Ry" = (
 /obj/item/stack/cable_coil/random,
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "RB" = (
 /mob/living/simple_animal/hostile/alien/sentinel{
 	animal_species = /mob/living/simple_animal/pet/dog;
@@ -496,22 +496,22 @@
 	retreat_distance = 2
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Tj" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/syndicate,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Tt" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "TM" = (
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "TT" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -526,7 +526,7 @@
 	tag = "90Curve"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Uq" = (
 /obj/machinery/conveyor/east{
 	id = null
@@ -538,7 +538,7 @@
 	network_id = "SYNDICAKES-FACTORY"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "UR" = (
 /obj/item/trash/syndi_cakes,
 /turf/space,
@@ -548,13 +548,13 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Vt" = (
 /obj/machinery/conveyor/north/ccw{
 	id = null
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "VH" = (
 /obj/structure/lattice,
 /obj/random/tool,
@@ -566,7 +566,7 @@
 /area/space)
 "WL" = (
 /turf/space,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Xd" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -574,30 +574,30 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "XZ" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "YR" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "YU" = (
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Zs" = (
 /obj/machinery/conveyor/east{
 	id = null
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Zt" = (
 /obj/machinery/conveyor/east{
 	dir = 2;
