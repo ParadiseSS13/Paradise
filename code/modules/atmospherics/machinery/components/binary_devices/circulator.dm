@@ -125,4 +125,11 @@
 	else
 		overlays += icon(icon,"in_down")
 
+	if(node2)
+		var/image/pipe_connection = image(icon, "connected")
+		pipe_connection.color = node2.pipe_color
+		overlays += pipe_connection
+	else
+		overlays += icon(icon,"disconnected")
+
 	return 1
