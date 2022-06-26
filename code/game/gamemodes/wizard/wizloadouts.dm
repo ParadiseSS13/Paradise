@@ -50,7 +50,6 @@
 	if(user.mind)
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
 		user.mind.miming = TRUE
-	..()
 
 /datum/spellbook_entry/loadout/gunreaper
 	name = "Gunslinging Reaper"
