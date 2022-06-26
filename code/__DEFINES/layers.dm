@@ -126,10 +126,9 @@
 #define SPLASHSCREEN_LAYER 23
 #define SPLASHSCREEN_PLANE 23
 
-// This should always be on top.
 #define HUD_PLANE_BUILDMODE 30
 
-// Nah, this should always be top
+// This should always be on top. No exceptions.
 #define HUD_PLANE_DEBUGVIEW 40
 
 ///Plane master controller keys
