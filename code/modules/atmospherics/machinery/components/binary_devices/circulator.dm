@@ -16,6 +16,9 @@
 	can_unwrench = 1
 	var/side_inverted = 0
 
+	var/light_range_on = 1
+	var/light_power_on = 0.1 //just dont want it to be culled by byond.
+
 /obj/machinery/atmospherics/binary/circulator/detailed_examine()
 	return "This generates electricity, depending on the difference in temperature between each side of the machine. The meter in \
 			the center of the machine gives an indicator of how much electricity is being generated."
@@ -111,15 +114,20 @@
 /obj/machinery/atmospherics/binary/circulator/update_icon()
 	..()
 	overlays.Cut()
+	underlays.Cut()
 	if(stat & (BROKEN|NOPOWER))
 		icon_state = "circ[side]-p"
 	else if(last_pressure_delta > 0)
 		if(last_pressure_delta > ONE_ATMOSPHERE)
 			icon_state = "circ[side]-run"
+			underlays += emissive_appearance(icon,"emit[side]-run")
 		else
 			icon_state = "circ[side]-slow"
+			underlays += emissive_appearance(icon,"emit[side]-slow")
 	else
 		icon_state = "circ[side]-off"
+		underlays += emissive_appearance(icon,"emit[side]-off")
+
 	if(!side_inverted)
 		overlays += icon(icon,"in_up")
 	else
@@ -133,3 +141,11 @@
 		overlays += icon(icon,"disconnected")
 
 	return 1
+
+/obj/machinery/atmospherics/binary/circulator/power_change()
+	. = ..()
+	if((stat & (BROKEN|NOPOWER)))
+		set_light(0)
+	else
+		set_light(light_range_on, light_power_on)
+	update_icon()
