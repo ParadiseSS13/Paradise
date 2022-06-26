@@ -5,7 +5,7 @@
 ////////////
 
 /obj/machinery/sleeper
-	name = "Sleeper"
+	name = "sleeper"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper-open"
 	var/base_icon = "sleeper"
@@ -34,7 +34,7 @@
 /obj/machinery/sleeper/detailed_examine()
 	return "The sleeper allows you to clean the blood by means of dialysis, and to administer medication in a controlled environment.<br>\
 			<br>\
-			Click your target with Grab intent, then click on the sleeper to place them in it. Click the green console, with an empty hand, to open the menu. \
+			Click on your target then drag their sprite onto the sleeper to put them into it. Click the sleeper, with an empty hand, to open the menu. \
 			Click 'Start Dialysis' to begin filtering unwanted chemicals from the occupant's blood. The beaker contained will begin to fill with their \
 			contaminated blood, and will need to be emptied when full.<br>\
 			<br>\
@@ -127,6 +127,8 @@
 			if(world.timeofday > (R.last_addiction_dose + ADDICTION_SPEEDUP_TIME)) // 2.5 minutes
 				addiction_removal_chance = 10
 			if(prob(addiction_removal_chance))
+				atom_say("Patient's addiction was cured.")
+				playsound(get_turf(src), 'sound/machines/ping.ogg', 50, 0)
 				to_chat(occupant, "<span class='boldnotice'>You no longer feel reliant on [R.name]!</span>")
 				occupant.reagents.addiction_list.Remove(R)
 				qdel(R)
@@ -173,7 +175,7 @@
 		occupantData["oxyLoss"] = occupant.getOxyLoss()
 		occupantData["toxLoss"] = occupant.getToxLoss()
 		occupantData["fireLoss"] = occupant.getFireLoss()
-		occupantData["paralysis"] = occupant.paralysis
+		occupantData["paralysis"] = occupant.AmountParalyzed()
 		occupantData["hasBlood"] = 0
 		occupantData["bodyTemperature"] = occupant.bodytemperature
 		occupantData["maxTemp"] = 1000 // If you get a burning vox armalis into the sleeper, congratulations

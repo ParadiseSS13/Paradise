@@ -533,6 +533,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	overlays.Cut() // Force all overlays to regenerate
 	update_fire()
 	update_icons()
+	update_emissive_block()
+
 /* --------------------------------------- */
 //vvvvvv UPDATE_INV PROCS vvvvvv
 

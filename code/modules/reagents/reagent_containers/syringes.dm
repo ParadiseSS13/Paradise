@@ -3,11 +3,12 @@
 #define SYRINGE_BROKEN 2
 
 /obj/item/reagent_containers/syringe
-	name = "Syringe"
+	name = "syringe"
 	desc = "A syringe."
 	icon = 'icons/goonstation/objects/syringe.dmi'
 	item_state = "syringe_0"
 	icon_state = "0"
+	belt_icon = "syringe"
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list()
 	volume = 15

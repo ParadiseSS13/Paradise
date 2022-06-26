@@ -43,40 +43,6 @@
 		return
 	playsound(src, yelp_sound, 75, TRUE)
 
-/mob/living/simple_animal/pet/dog/emote(act, m_type = 1, message = null, force)
-	if(incapacitated())
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("bark")
-			on_CD = handle_emote_CD()
-		if("yelp")
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act)
-		if("bark")
-			message = "<B>[src]</B> [pick(src.speak_emote)]!"
-			m_type = 2 //audible
-			playsound(src, pick(src.bark_sound), 50, TRUE)
-		if("yelp")
-			message = "<B>[src]</B> yelps!"
-			m_type = 2 //audible
-			playsound(src, yelp_sound, 75, TRUE)
-		if("growl")
-			message = "<B>[src]</B> growls!"
-			m_type = 2 //audible
-		if("help")
-			to_chat(src, "scream, bark, growl")
-
-	..()
-
 /mob/living/simple_animal/pet/dog/attack_hand(mob/living/carbon/human/M)
 	. = ..()
 	switch(M.a_intent)
@@ -90,10 +56,10 @@
 		if(change > 0)
 			if(M && stat != DEAD) // Added check to see if this mob (the corgi) is dead to fix issue 2454
 				new /obj/effect/temp_visual/heart(loc)
-				custom_emote(1, "yaps happily!")
+				custom_emote(EMOTE_VISIBLE, "yaps happily!")
 		else
 			if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
-				custom_emote(1, "growls!")
+				emote("growl")
 
 //Corgis and pugs are now under one dog subtype
 
@@ -144,15 +110,19 @@
 		return
 	user.set_machine(src)
 
-
 	var/dat = 	"<div align='center'><b>Inventory of [name]</b></div><p>"
-	dat += "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[html_encode(inventory_head)]" : "add_inv=head'>Nothing"]</A>"
-	dat += "<br><B>Back:</B> <A href='?src=[UID()];[inventory_back ? "remove_inv=back'>[html_encode(inventory_back)]" : "add_inv=back'>Nothing"]</A>"
-	dat += "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
+	dat += get_invslot_content()
 
 	var/datum/browser/popup = new(user, "mob[UID()]", "[src]", 440, 250)
 	popup.set_content(dat)
 	popup.open()
+
+/mob/living/simple_animal/pet/dog/corgi/proc/get_invslot_content()
+	var/dat = "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[html_encode(inventory_head)]" : "add_inv=head'>Nothing"]</A>"
+	dat += "<br><B>Back:</B> <A href='?src=[UID()];[inventory_back ? "remove_inv=back'>[html_encode(inventory_back)]" : "add_inv=back'>Nothing"]</A>"
+	dat += "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
+
+	return dat
 
 /mob/living/simple_animal/pet/dog/corgi/getarmor(def_zone, type)
 	var/armorval = 0
@@ -560,7 +530,7 @@
 		if(isturf(movement_target.loc))
 			movement_target.attack_animal(src) // Eat the thing
 		else if(prob(30) && ishuman(movement_target.loc)) // mean hooman has stolen it
-			custom_emote(EMOTE_VISUAL, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face.")
+			custom_emote(EMOTE_VISIBLE, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face.")
 
 /obj/item/reagent_containers/food/snacks/meat/corgi
 	name = "Corgi meat"
@@ -615,12 +585,9 @@
 	mob_size = MOB_SIZE_SMALL
 	collar_type = "puppy"
 
-//puppies cannot wear anything.
-/mob/living/simple_animal/pet/dog/corgi/puppy/Topic(href, href_list)
-	if(href_list["remove_inv"] || href_list["add_inv"])
-		to_chat(usr, "<span class='warning'>You can't fit this on [src]!</span>")
-		return
-	..()
+/mob/living/simple_animal/pet/dog/corgi/puppy/get_invslot_content()
+	// Puppies do not have a head or back equipment slot.
+	return "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void		//Tribute to the corgis born in nullspace
 	name = "\improper void puppy"
@@ -653,22 +620,22 @@
 	response_harm   = "kicks"
 	var/turns_since_scan = 0
 
-//Lisa already has a cute bow!
-/mob/living/simple_animal/pet/dog/corgi/Lisa/Topic(href, href_list)
-	if(href_list["remove_inv"] || href_list["add_inv"])
-		to_chat(usr, "<span class='danger'>[src] already has a cute bow!</span>")
-		return
-	..()
-
 /mob/living/simple_animal/pet/dog/corgi/Lisa/Life()
 	..()
 	make_babies()
+
+/mob/living/simple_animal/pet/dog/corgi/Lisa/get_invslot_content()
+	// Lisa already has a cute bow! Only back and collar slots available.
+	var/dat = "<br><B>Back:</B> <A href='?src=[UID()];[inventory_back ? "remove_inv=back'>[html_encode(inventory_back)]" : "add_inv=back'>Nothing"]</A>"
+	dat += "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
+
+	return dat
 
 /mob/living/simple_animal/pet/dog/corgi/Lisa/handle_automated_movement()
 	. = ..()
 	if(!resting && !buckled)
 		if(prob(1))
-			custom_emote(1, pick("dances around.","chases her tail."))
+			custom_emote(EMOTE_VISIBLE, pick("dances around.","chases her tail."))
 			spin(20, 1)
 
 /mob/living/simple_animal/pet/dog/corgi/exoticcorgi
@@ -764,7 +731,7 @@
 	. = ..()
 	if(!resting && !buckled)
 		if(prob(1))
-			custom_emote(1, pick("chases its tail."))
+			custom_emote(EMOTE_VISIBLE, pick("chases its tail."))
 			spawn(0)
 				for(var/i in list(1, 2, 4, 8, 4, 2, 1, 2, 4, 8, 4, 2, 1, 2, 4, 8, 4, 2))
 					dir = i

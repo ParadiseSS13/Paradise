@@ -41,7 +41,7 @@
 		return
 	var/inject_target = pick("chest","head")
 	L.attack_animal(src)
-	if(L.stunned || L.paralysis || L.can_inject(null, FALSE, inject_target, FALSE))
+	if(L.IsStunned() || L.IsParalyzed() || L.can_inject(null, FALSE, inject_target, FALSE))
 		if(!IsTSInfected(L) && ishuman(L))
 			visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [L]!</span>")
 			new /obj/item/organ/internal/body_egg/terror_eggs(L)
@@ -50,8 +50,7 @@
 				walk_away(src,L,2,1)
 		else if(prob(25))
 			visible_message("<span class='danger'>[src] pounces on [L]!</span>")
-			L.Weaken(5)
-			L.Stun(5)
+			L.Weaken(10 SECONDS)
 
 /proc/IsTSInfected(mob/living/carbon/C) // Terror AI requires this
 	if(C.get_int_organ(/obj/item/organ/internal/body_egg))

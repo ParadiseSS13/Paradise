@@ -14,6 +14,7 @@
 	desc = "This is used to lie in, sleep in or strap on."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "bed"
+	dir = SOUTH
 	can_buckle = TRUE
 	anchored = TRUE
 	buckle_lying = TRUE
@@ -61,7 +62,6 @@
 			new buildstacktype(loc, buildstackamount)
 	..()
 
-
 /*
  * Roller beds
  */
@@ -106,12 +106,22 @@
 	desc = "A collapsed roller bed that can be carried around."
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
-	w_class = WEIGHT_CLASS_BULKY // Can't be put in backpacks.
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/roller/attack_self(mob/user)
 	var/obj/structure/bed/roller/R = new /obj/structure/bed/roller(user.loc)
 	R.add_fingerprint(user)
 	qdel(src)
+
+/obj/item/roller/afterattack(atom/target, mob/user, proximity, params)
+	if(!proximity)
+		return
+	if(isturf(target))
+		var/turf/T = target
+		if(!T.density)
+			var/obj/structure/bed/roller/R = new /obj/structure/bed/roller(T)
+			R.add_fingerprint(user)
+			qdel(src)
 
 /obj/item/roller/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/roller_holder))

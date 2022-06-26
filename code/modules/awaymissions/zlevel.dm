@@ -7,7 +7,10 @@
 		smoothTurfs = turfs
 
 	log_debug("Setting up atmos")
-	if(SSair)
+	/* setup_allturfs is superfluous during server initialization because
+	   air subsystem will call subsequently call setup_allturfs with _every_
+	   turf in the world */
+	if(SSair && SSair.initialized)
 		SSair.setup_allturfs(turfs)
 	log_debug("\tTook [stop_watch(subtimer)]s")
 

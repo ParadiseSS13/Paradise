@@ -128,11 +128,6 @@
 /mob/living/silicon/robot/drone/pick_module()
 	return
 
-/mob/living/silicon/robot/drone/can_be_revived()
-	. = ..()
-	if(emagged)
-		return FALSE
-
 /mob/living/silicon/robot/drone/detailed_examine()
 	return "Drones are player-controlled synthetics which are lawed to maintain the station and not \
 			interact with anyone else, except for other drones. They hold a wide array of tools to build, repair, maintain, and clean. \
@@ -247,7 +242,7 @@
 /mob/living/silicon/robot/drone/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = 35
-		stat = CONSCIOUS
+		set_stat(CONSCIOUS)
 		return
 	health = 35 - (getBruteLoss() + getFireLoss() + getOxyLoss())
 	update_stat("updatehealth([reason])")

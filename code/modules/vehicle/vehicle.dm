@@ -183,7 +183,7 @@
 					playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
 					for(var/m in buckled_mobs)
 						var/mob/living/buckled_mob = m
-						buckled_mob.Weaken(5)
+						buckled_mob.Weaken(10 SECONDS)
 					unbuckle_all_mobs()
 					step(src, dir)
 

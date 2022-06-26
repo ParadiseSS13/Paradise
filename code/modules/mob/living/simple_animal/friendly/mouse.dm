@@ -67,7 +67,7 @@
 		if(prob(1))
 			StopResting()
 		else if(prob(5))
-			custom_emote(2, "snuffles")
+			custom_emote(EMOTE_AUDIBLE, "snuffles")
 	else if(prob(0.5))
 		StartResting()
 
@@ -83,7 +83,7 @@
 
 /mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M as mob)
 	if(M.a_intent == INTENT_HELP)
-		get_scooped(M)
+		get_scooped(M, TRUE)
 	..()
 
 /mob/living/simple_animal/mouse/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
@@ -118,31 +118,6 @@
 	layer = MOB_LAYER
 	if(client)
 		client.time_died_as_mouse = world.time
-
-/mob/living/simple_animal/mouse/emote(act, m_type = 1, message = null, force)
-	if(stat != CONSCIOUS)
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("squeak")		//Mouse time
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act)
-		if("squeak")
-			message = "<B>\The [src]</B> [pick(emote_hear)]!"
-			m_type = 2 //audible
-			playsound(src, squeak_sound, 40, 1)
-		if("help")
-			to_chat(src, "scream, squeak")
-
-	..()
 
 /*
  * Mouse types

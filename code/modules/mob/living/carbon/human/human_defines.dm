@@ -1,8 +1,13 @@
 /mob/living/carbon/human
 
-	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD)
+	hud_possible = list(
+		HEALTH_HUD, STATUS_HUD, SPECIALROLE_HUD, // from /mob/living
+		ID_HUD, WANTED_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD, IMPTRACK_HUD, GLAND_HUD,
+		DIAG_STAT_HUD, DIAG_HUD // for IPCs
+	)
 	pressure_resistance = 25
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	//Marking colour and style
 	var/list/m_colours = DEFAULT_MARKING_COLOURS //All colours set to #000000.
 	var/list/m_styles = DEFAULT_MARKING_STYLES //All markings set to None.

@@ -9,7 +9,7 @@
 	create_attack_log("<font color='red'>Fallen unconscious at [atom_loc_line(get_turf(src))]</font>")
 	add_attack_logs(src, null, "Fallen unconscious", ATKLOG_ALL)
 	log_game("[key_name(src)] fell unconscious at [atom_loc_line(get_turf(src))]")
-	stat = UNCONSCIOUS
+	set_stat(UNCONSCIOUS)
 	if(updating)
 		update_sight()
 		update_blind_effects()
@@ -26,18 +26,12 @@
 	create_attack_log("<font color='red'>Woken up at [atom_loc_line(get_turf(src))]</font>")
 	add_attack_logs(src, null, "Woken up", ATKLOG_ALL)
 	log_game("[key_name(src)] woke up at [atom_loc_line(get_turf(src))]")
-	stat = CONSCIOUS
+	set_stat(CONSCIOUS)
 	if(updating)
 		update_sight()
 		update_blind_effects()
 		update_canmove()
 	return 1
-
-/mob/living/proc/can_be_revived()
-	. = TRUE
-	// if(health <= min_health)
-	if(health <= HEALTH_THRESHOLD_DEAD)
-		return FALSE
 
 // death() is used to make a mob die
 
@@ -45,14 +39,12 @@
 /mob/living/proc/update_revive(updating = TRUE)
 	if(stat != DEAD)
 		return 0
-	if(!can_be_revived())
-		return 0
 	create_attack_log("<font color='red'>Came back to life at [atom_loc_line(get_turf(src))]</font>")
 	add_attack_logs(src, null, "Came back to life", ATKLOG_ALL)
 	log_game("[key_name(src)] came back to life at [atom_loc_line(get_turf(src))]")
-	stat = CONSCIOUS
+	set_stat(CONSCIOUS)
 	GLOB.dead_mob_list -= src
-	GLOB.alive_mob_list += src
+	GLOB.alive_mob_list |= src
 	if(mind)
 		remove_from_respawnable_list()
 	timeofdeath = null

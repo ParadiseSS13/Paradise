@@ -115,17 +115,7 @@
 	if(shocked)
 		shock(user,50)
 
-	if(default_deconstruction_screwdriver(user, "h_lathe_maint", "h_lathe", O))
-		if(linked_console)
-			linked_console.linked_destroy = null
-			linked_console = null
-		return
-
 	if(exchange_parts(user, O))
-		return
-
-	if(panel_open && istype(O, /obj/item/crowbar))
-		default_deconstruction_crowbar(user, O)
 		return
 
 	if(!checkCircumstances(O))
@@ -157,9 +147,23 @@
 
 	return
 
-/obj/machinery/r_n_d/experimentor/default_deconstruction_crowbar(user, obj/item/O)
+/obj/machinery/r_n_d/experimentor/crowbar_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
 	ejectItem()
-	..(O)
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/r_n_d/experimentor/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	default_deconstruction_screwdriver(user, "h_lathe_maint", "h_lathe", I)
+	if(linked_console)
+		linked_console.linked_destroy = null
+		linked_console = null
 
 /obj/machinery/r_n_d/experimentor/attack_hand(mob/user)
 	user.set_machine(src)
@@ -606,6 +610,7 @@
 	name = "strange object"
 	desc = "What mysteries could this hold?"
 	icon = 'icons/obj/assemblies.dmi'
+	icon_state = "prox-radio1"  // it is immediately overriden in New, but setting it here makes it show in mapeditor
 	origin_tech = "combat=1;plasmatech=1;powerstorage=1;materials=1"
 	var/realName = "defined object"
 	var/revealed = FALSE

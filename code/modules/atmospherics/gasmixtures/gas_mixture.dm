@@ -130,12 +130,12 @@ What are the archived variables for?
 	removed.sleeping_agent = QUANTIZE((sleeping_agent / sum) * amount)
 	removed.agent_b = QUANTIZE((agent_b / sum) * amount)
 
-	oxygen -= removed.oxygen
-	nitrogen -= removed.nitrogen
-	carbon_dioxide -= removed.carbon_dioxide
-	toxins -= removed.toxins
-	sleeping_agent -= removed.sleeping_agent
-	agent_b -= removed.agent_b
+	oxygen = max(oxygen - removed.oxygen, 0)
+	nitrogen = max(nitrogen - removed.nitrogen, 0)
+	carbon_dioxide = max(carbon_dioxide - removed.carbon_dioxide, 0)
+	toxins = max(toxins - removed.toxins, 0)
+	sleeping_agent = max(sleeping_agent - removed.sleeping_agent, 0)
+	agent_b = max(agent_b - removed.agent_b, 0)
 
 	removed.temperature = temperature
 
@@ -159,12 +159,12 @@ What are the archived variables for?
 	removed.sleeping_agent = QUANTIZE(sleeping_agent * ratio)
 	removed.agent_b = QUANTIZE(agent_b * ratio)
 
-	oxygen -= removed.oxygen
-	nitrogen -= removed.nitrogen
-	carbon_dioxide -= removed.carbon_dioxide
-	toxins -= removed.toxins
-	sleeping_agent -= removed.sleeping_agent
-	agent_b -= removed.agent_b
+	oxygen = max(oxygen - removed.oxygen, 0)
+	nitrogen = max(nitrogen - removed.nitrogen, 0)
+	carbon_dioxide = max(carbon_dioxide - removed.carbon_dioxide, 0)
+	toxins = max(toxins - removed.toxins, 0)
+	sleeping_agent = max(sleeping_agent - removed.sleeping_agent, 0)
+	agent_b = max(agent_b - removed.agent_b, 0)
 
 	removed.temperature = temperature
 
@@ -204,6 +204,10 @@ What are the archived variables for?
 	///Returns: amount of gas exchanged (+ if sharer received)
 /datum/gas_mixture/proc/share(datum/gas_mixture/sharer, atmos_adjacent_turfs = 4)
 	if(!sharer)
+		return 0
+	/// Don't make calculations if there is no difference.
+	if(oxygen_archived == sharer.oxygen_archived && carbon_dioxide_archived == sharer.carbon_dioxide_archived && nitrogen_archived == sharer.nitrogen_archived &&\
+	toxins_archived == sharer.toxins_archived && sleeping_agent_archived == sharer.sleeping_agent_archived && agent_b_archived == sharer.agent_b_archived && temperature_archived == sharer.temperature_archived)
 		return 0
 	var/delta_oxygen = QUANTIZE(oxygen_archived - sharer.oxygen_archived) / (atmos_adjacent_turfs + 1)
 	var/delta_carbon_dioxide = QUANTIZE(carbon_dioxide_archived - sharer.carbon_dioxide_archived) / (atmos_adjacent_turfs + 1)

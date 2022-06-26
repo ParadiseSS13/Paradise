@@ -1,7 +1,7 @@
 //This should hold all the vampire related powers
 /mob/living/proc/affects_vampire(mob/user)
-	//Other vampires aren't affected
-	if(mind?.has_antag_datum(/datum/antagonist/vampire))
+	//Other vampires and thralls aren't affected
+	if(mind?.has_antag_datum(/datum/antagonist/vampire) || mind?.has_antag_datum(/datum/antagonist/mindslave/thrall))
 		return FALSE
 	//Vampires who have reached their full potential can affect nearly everything
 	var/datum/antagonist/vampire/V = user?.mind.has_antag_datum(/datum/antagonist/vampire)
@@ -43,6 +43,9 @@
 /datum/vampire_passive/Destroy(force, ...)
 	owner = null
 	return ..()
+
+/datum/vampire_passive/proc/on_apply(datum/antagonist/vampire/V)
+	return
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate
 	name = "Rejuvenate"
@@ -102,7 +105,7 @@
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "SpecMenu", "Specialisation Menu", 900, 600, master_ui, state)
+		ui = new(user, src, ui_key, "SpecMenu", "Specialisation Menu", 1200, 600, master_ui, state)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -134,13 +137,18 @@
 			vamp.add_subclass(SUBCLASS_GARGANTUA)
 			vamp.upgrade_tiers -= type
 			vamp.remove_ability(src)
+		if("dantalion")
+			vamp.add_subclass(SUBCLASS_DANTALION)
+			vamp.upgrade_tiers -= type
+			vamp.remove_ability(src)
 
 
-/datum/antagonist/vampire/proc/add_subclass(subclass_to_add, announce = TRUE)
+/datum/antagonist/vampire/proc/add_subclass(subclass_to_add, announce = TRUE, log_choice = TRUE)
 	var/datum/vampire_subclass/new_subclass = new subclass_to_add
 	subclass = new_subclass
 	check_vampire_upgrade(announce)
-	SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
+	if(log_choice)
+		SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
 
 /obj/effect/proc_holder/spell/vampire/glare
 	name = "Glare"
@@ -178,22 +186,22 @@
 			continue
 
 		var/deviation
-		if(user.weakened || user.resting)
+		if(user.IsWeakened() || user.resting)
 			deviation = DEVIATION_PARTIAL
 		else
 			deviation = calculate_deviation(target, user)
 
 		if(deviation == DEVIATION_FULL)
-			target.AdjustConfused(3)
+			target.AdjustConfused(6 SECONDS)
 			target.adjustStaminaLoss(40)
 		else if(deviation == DEVIATION_PARTIAL)
-			target.Weaken(1)
-			target.AdjustConfused(3)
+			target.Weaken(2 SECONDS)
+			target.AdjustConfused(6 SECONDS)
 			target.adjustStaminaLoss(40)
 		else
 			target.adjustStaminaLoss(120)
-			target.Weaken(6)
-			target.AdjustSilence(3)
+			target.Weaken(12 SECONDS)
+			target.AdjustSilence(6 SECONDS)
 			target.flash_eyes(1, TRUE, TRUE)
 		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
 		add_attack_logs(user, target, "(Vampire) Glared at")
@@ -295,7 +303,7 @@
 			H.adjustBrainLoss(60)
 		else
 			visible_message("<span class='warning'>[H] looks to be stunned by the energy!</span>")
-			H.Weaken(20)
+			H.Weaken(40 SECONDS)
 		return
 	for(var/obj/item/implant/mindshield/L in H)
 		if(L && L.implanted)
@@ -312,7 +320,7 @@
 	add_attack_logs(M, H, "Vampire-sired")
 	H.mind.make_vampire()
 	H.revive()
-	H.Weaken(20)
+	H.Weaken(40 SECONDS)
 
 /obj/effect/proc_holder/spell/turf_teleport/shadow_step
 	name = "Shadow Step (30)"
@@ -340,78 +348,3 @@
 	var/datum/spell_handler/vampire/H = new
 	H.required_blood = 30
 	return H
-
-// pure adminbus at the moment
-/proc/isvampirethrall(mob/living/M)
-	return istype(M) && M.mind && M.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)
-
-/obj/effect/proc_holder/spell/vampire/enthrall
-	name = "Enthrall (150)"
-	desc = "You use a large portion of your power to sway those loyal to none to be loyal to you only."
-	gain_desc = "You have gained the ability to thrall people to your will."
-	action_icon_state = "vampire_enthrall"
-	required_blood = 150
-	deduct_blood_on_cast = FALSE
-	panel = "Vampire"
-	school = "vampire"
-	action_background_icon_state = "bg_vampire"
-
-/obj/effect/proc_holder/spell/vampire/enthrall/create_new_targeting()
-	var/datum/spell_targeting/click/T = new
-	T.range = 1
-	T.click_radius = 0
-	return T
-
-/obj/effect/proc_holder/spell/vampire/enthrall/cast(list/targets, mob/user = usr)
-	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
-	for(var/mob/living/target in targets)
-		user.visible_message("<span class='warning'>[user] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
-		to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>")
-		if(do_mob(user, target, 50))
-			if(can_enthrall(user, target))
-				handle_enthrall(user, target)
-				var/datum/spell_handler/vampire/V = custom_handler
-				var/blood_cost = V.calculate_blood_cost(vampire)
-				vampire.bloodusable -= blood_cost //we take the blood after enthralling, not before
-			else
-				revert_cast(user)
-				to_chat(user, "<span class='warning'>You or your target either moved or you dont have enough usable blood.</span>")
-
-/obj/effect/proc_holder/spell/vampire/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
-	var/enthrall_safe = 0
-	for(var/obj/item/implant/mindshield/L in C)
-		if(L && L.implanted)
-			enthrall_safe = 1
-			break
-	for(var/obj/item/implant/traitor/T in C)
-		if(T && T.implanted)
-			enthrall_safe = 1
-			break
-	if(!C)
-		log_runtime(EXCEPTION("something bad happened on enthralling a mob, attacker is [user] [user.key] \ref[user]"), user)
-		return FALSE
-	if(!C.mind)
-		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")
-		return FALSE
-	if(enthrall_safe || (C.mind.has_antag_datum(/datum/antagonist/vampire)) || (isvampirethrall(C)))
-		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
-		return FALSE
-	if(!C.affects_vampire(user))
-		if(C.mind.isholy)
-			C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>Your faith in [SSticker.Bible_deity_name] has kept your mind clear of all evil.</span>")
-		else
-			C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You resist the attack on your mind.</span>")
-		return FALSE
-	if(!ishuman(C))
-		to_chat(user, "<span class='warning'>You can only enthrall sentient humanoids!</span>")
-		return FALSE
-	return TRUE
-
-/obj/effect/proc_holder/spell/vampire/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H)
-	if(!istype(H))
-		return FALSE
-
-	var/greet_text = "You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command."
-	H.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall(user.mind, greet_text))
-	H.Stun(2)
-	add_attack_logs(user, H, "Vampire-thralled")

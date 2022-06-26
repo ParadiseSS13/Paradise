@@ -91,6 +91,21 @@
 #define FLASH_LIGHT_POWER 3
 #define FLASH_LIGHT_RANGE 3.8
 
+#define EMISSIVE_BLOCK_GENERIC 1
+/// Uses a dedicated render_target object to copy the entire appearance in real time to the blocking layer. For things that can change in appearance a lot from the base state, like humans.
+#define EMISSIVE_BLOCK_UNIQUE 2
+
+/// The color applied to all emissive overlays.
+#define EMISSIVE_COLOR "#FFFFFF"
+/// The color applied to all emissive blockers. Is meant to be the exact opposite of the EMMISIVE_COLOR
+#define EM_BLOCK_COLOR "#000000"
+/// A set of appearance flags applied to all emissive and emissive blocker overlays.
+#define EMISSIVE_APPEARANCE_FLAGS (KEEP_APART|KEEP_TOGETHER|RESET_COLOR|RESET_TRANSFORM)
+/// The color matrix used to mask out emissive blockers on the emissive plane. Alpha should default to zero, be solely dependent on the RGB value of [EMISSIVE_COLOR], and be independant of the RGB value of [EM_BLOCK_COLOR].
+#define EM_MASK_MATRIX list(0,0,0,1/3, 0,0,0,1/3, 0,0,0,1/3, 0,0,0,0, 1,1,1,0)
+/// A globaly cached version of [EM_MASK_MATRIX] for quick access.
+GLOBAL_LIST_INIT(em_mask_matrix, EM_MASK_MATRIX)
+
 /// Returns the red part of a #RRGGBB hex sequence as number
 #define GETREDPART(hexa) hex2num(copytext(hexa, 2, 4))
 

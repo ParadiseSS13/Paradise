@@ -78,6 +78,7 @@
 	orbit_data += new_comp.orbit_data
 	new_comp.orbiter_list = list()
 	new_comp.orbit_data = list()
+	QDEL_NULL(new_comp)
 
 /datum/component/orbiter/PostTransfer()
 	if(!isatom(parent) || isarea(parent) || !get_turf(parent))
@@ -144,6 +145,7 @@
 		orbiter.loc = target_loc
 		// Setting loc directly doesn't fire COMSIG_MOVABLE_MOVED, so we need to do it ourselves
 		SEND_SIGNAL(orbiter, COMSIG_MOVABLE_MOVED, current_loc, target_loc, null)
+	orbiter.animate_movement = SYNC_STEPS
 
 /**
  * End the orbit and clean up our transformation.
@@ -157,6 +159,7 @@
 		return
 
 	if(orbiter)
+		orbiter.animate_movement = SLIDE_STEPS
 		if(!QDELETED(parent))
 			SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, orbiter)
 
@@ -448,8 +451,9 @@
 /**
  * Check every object in the hierarchy above ourselves for orbiters, and return the full list of them.
  * If an object is being held in a backpack, returns orbiters of the backpack, the person
+ * If recursive == TRUE, this will also check recursively through any ghosts seen to make sure we find *everything* upstream
  */
-/atom/proc/get_orbiters_up_hierarchy(list/processed, source = TRUE)
+/atom/proc/get_orbiters_up_hierarchy(list/processed, source = TRUE, recursive = FALSE)
 	var/list/output = list()
 	if(!processed)
 		processed = list()
@@ -459,10 +463,14 @@
 	processed += src
 	for(var/atom/movable/atom_orbiter in get_orbiters())
 		if(isobserver(atom_orbiter))
+			if(recursive)
+				output += atom_orbiter.get_orbiters_recursive()
 			output += atom_orbiter
-		if(atom_orbiter.loc != null)
-			output += atom_orbiter.loc.get_orbiters_up_hierarchy(processed, source = FALSE)
 
+	if(loc)
+		output += loc.get_orbiters_up_hierarchy(processed, source = FALSE)
+
+	return output
 
 #undef ORBIT_LOCK_IN
 #undef ORBIT_FORCE_MOVE

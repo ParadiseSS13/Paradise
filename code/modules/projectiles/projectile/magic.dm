@@ -322,22 +322,12 @@
 		var/mob/living/simple_animal/hostile/mimic/copy/C = change
 		C.ChangeOwner(firer)
 
-/obj/item/projectile/magic/spellblade
-	name = "blade energy"
-	icon_state = "lavastaff"
-	damage = 15
-	damage_type = BURN
-	flag = "magic"
-	sharp = TRUE
-	dismemberment = 50
-	nodamage = 0
-
 /obj/item/projectile/magic/slipping
 	name = "magical banana"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana"
-	var/slip_stun = 5
-	var/slip_weaken = 5
+	var/slip_stun = 10 SECONDS
+	var/slip_weaken = 10 SECONDS
 	hitsound = 'sound/items/bikehorn.ogg'
 
 /obj/item/projectile/magic/slipping/New()
@@ -347,18 +337,18 @@
 /obj/item/projectile/magic/slipping/on_hit(atom/target, blocked = 0)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.slip(src, slip_stun, slip_weaken, 0, FALSE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
+		H.slip(src, slip_weaken, 0, FALSE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
 	else if(isrobot(target)) //You think you're safe, cyborg? FOOL!
 		var/mob/living/silicon/robot/R = target
 		if(!R.incapacitated())
 			to_chat(target, "<span class='warning'>You get splatted by [src], HONKING your sensors!</span>")
 			R.Stun(slip_stun)
-	else if(ismob(target))
-		var/mob/M = target
-		if(!M.stunned)
+	else if(isliving(target))
+		var/mob/living/L = target
+		if(!L.IsStunned())
 			to_chat(target, "<span class='notice'>You get splatted by [src].</span>")
-			M.Weaken(slip_weaken)
-			M.Stun(slip_stun)
+			L.Weaken(slip_weaken)
+			L.Stun(slip_stun)
 	. = ..()
 
 /obj/item/projectile/magic/arcane_barrage

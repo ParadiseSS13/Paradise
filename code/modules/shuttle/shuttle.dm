@@ -528,6 +528,14 @@
 	loc = S1.loc
 	dir = S1.dir
 
+	//update mining and labor shuttle ash storm audio
+	if(id in list("mining", "laborcamp"))
+		var/mining_zlevel = level_name_to_num(MINING)
+		var/datum/weather/ash_storm/W = SSweather.get_weather(mining_zlevel, /area/lavaland/surface/outdoors)
+		if(W)
+			W.update_eligible_areas()
+			W.update_audio()
+
 	unlockPortDoors(S1)
 
 
@@ -595,6 +603,8 @@
 		for(var/atom/movable/AM in T1)
 			if(AM.pulledby)
 				AM.pulledby.stop_pulling()
+			if(AM.flags_2 & IMMUNE_TO_SHUTTLECRUSH_2)
+				continue
 			if(ismob(AM))
 				var/mob/M = AM
 				if(M.buckled)
@@ -611,7 +621,7 @@
 									a hyperspace ripple[L.anchored ? "":" and is thrown clear"]!</span>",
 									"<span class='userdanger'>You feel an immense \
 									crushing pressure as the space around you ripples.</span>")
-							L.Paralyse(10)
+							L.Paralyse(20 SECONDS)
 							L.ex_act(2)
 
 			// Move unanchored atoms

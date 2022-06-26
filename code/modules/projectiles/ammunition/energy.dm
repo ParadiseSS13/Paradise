@@ -245,11 +245,19 @@
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
 	projectile_type = /obj/item/projectile/energy/shock_revolver
 
-/obj/item/ammo_casing/energy/toxplasma
-	projectile_type = /obj/item/projectile/energy/toxplasma
+/obj/item/ammo_casing/energy/weak_plasma
+	projectile_type = /obj/item/projectile/energy/weak_plasma
+	e_cost = 75 // With no charging, 162.5 damage from 13 shots.
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
 	fire_sound = 'sound/weapons/taser2.ogg'
-	select_name = "plasma dart"
+	select_name = null //If the select name is null, it does not send a message of switching modes to the user, important on the pistol.
+
+/obj/item/ammo_casing/energy/charged_plasma
+	projectile_type = /obj/item/projectile/energy/charged_plasma
+	e_cost = 0 //Charge is used when you charge the gun. Prevents issues.
+	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
+	fire_sound = 'sound/weapons/marauder.ogg' //Should be different enough to get attention
+	select_name = null
 
 /obj/item/ammo_casing/energy/clown
 	projectile_type = /obj/item/projectile/clown
@@ -306,3 +314,18 @@
 
 /obj/item/ammo_casing/energy/mimic/newshot()
 	..(mimic_type)
+
+/obj/item/ammo_casing/energy/detective
+	projectile_type = /obj/item/projectile/energy/detective
+	fire_sound = 'sound/weapons/gunshots/gunshot_det_energy.ogg'
+	select_name = "disabler"
+
+/obj/item/ammo_casing/energy/detective/tracker_warrant
+	projectile_type = /obj/item/projectile/energy/detective/tracker_warrant_shot
+	e_cost = 50
+	select_name = "tracker and warrant generator"
+
+/obj/item/ammo_casing/energy/detective/overcharge
+	projectile_type = /obj/item/projectile/energy/detective/overcharged
+	e_cost = 200
+	select_name = "overcharged"

@@ -156,7 +156,7 @@
 	if(stat == DEAD)
 		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
 		return
-	if(sleeping)
+	if(IsSleeping())
 		. += "<span class='notice'>Upon closer examination, [p_they()] appear[p_s()] to be asleep.</span>"
 
 /mob/living/simple_animal/updatehealth(reason = "none given")
@@ -188,9 +188,9 @@
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 		else
-			if(sleeping && (stat == CONSCIOUS))
+			if(IsSleeping() && (stat == CONSCIOUS))
 				KnockOut()
-			if(!sleeping)
+			else
 				WakeUp()
 				create_debug_log("woke up, trigger reason: [reason]")
 	med_hud_set_status()
@@ -229,23 +229,23 @@
 					else
 						randomValue -= speak.len
 						if(emote_see && randomValue <= emote_see.len)
-							custom_emote(1, pick(emote_see))
+							custom_emote(EMOTE_VISIBLE, pick(emote_see))
 						else
-							custom_emote(2, pick(emote_hear))
+							custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 				else
 					say(pick(speak))
 			else
 				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
-					custom_emote(1, pick(emote_see))
+					custom_emote(EMOTE_VISIBLE, pick(emote_see))
 				if((emote_hear && emote_hear.len) && !(emote_see && emote_see.len))
-					custom_emote(2, pick(emote_hear))
+					custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 				if((emote_hear && emote_hear.len) && (emote_see && emote_see.len))
 					var/length = emote_hear.len + emote_see.len
 					var/pick = rand(1,length)
 					if(pick <= emote_see.len)
-						custom_emote(1, pick(emote_see))
+						custom_emote(EMOTE_VISIBLE, pick(emote_see))
 					else
-						custom_emote(2,pick(emote_hear))
+						custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
@@ -316,20 +316,6 @@
 		pcollar.forceMove(drop_location())
 		pcollar = null
 	..()
-
-/mob/living/simple_animal/emote(act, m_type = 1, message = null, force)
-	if(stat)
-		return
-	act = lowertext(act)
-	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
-		if("scream")
-			message = "<B>\The [src]</B> whimpers."
-			m_type = 2
-		if("help")
-			to_chat(src, "scream")
-
-	..()
-
 /mob/living/simple_animal/say_quote(message)
 	var/verb = "says"
 
@@ -541,7 +527,7 @@
 		. |= pcollar.GetAccess()
 
 /mob/living/simple_animal/update_canmove(delay_action_updates = 0)
-	if(paralysis || stunned || IsWeakened() || stat || resting)
+	if(IsParalyzed() || IsStunned() || IsWeakened() || stat || resting)
 		drop_r_hand()
 		drop_l_hand()
 		canmove = 0

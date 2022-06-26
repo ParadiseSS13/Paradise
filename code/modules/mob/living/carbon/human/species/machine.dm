@@ -45,6 +45,9 @@
 	female_sneeze_sound = 'sound/effects/mob_effects/f_machine_sneeze.ogg'
 	butt_sprite = "machine"
 
+	hunger_icon = 'icons/mob/screen_hunger_machine.dmi'
+	hunger_type = "machine"
+
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
@@ -80,11 +83,23 @@
 	..()
 	monitor = new()
 	monitor.Grant(H)
+	for(var/datum/atom_hud/data/human/medical/medhud in GLOB.huds)
+		medhud.remove_from_hud(H)
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+		diag_hud.add_to_hud(H)
+	H.med_hud_set_health()
+	H.med_hud_set_status()
 
 /datum/species/machine/on_species_loss(mob/living/carbon/human/H)
 	..()
 	if(monitor)
 		monitor.Remove(H)
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+		diag_hud.remove_from_hud(H)
+	for(var/datum/atom_hud/data/human/medical/medhud in GLOB.huds)
+		medhud.add_to_hud(H)
+	H.med_hud_set_health()
+	H.med_hud_set_status()
 
 /datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")

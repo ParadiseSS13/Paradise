@@ -79,12 +79,12 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	spawner_list = GLOB.xeno_spawn
 	return ..()
 
-/obj/effect/landmark/spawner/blob
-	name = "blobstart"
-	icon_state = "Blob"
+/obj/effect/landmark/spawner/blob //todo: rename this and cause mapping pain
+	name = "nukedisc_respawn"
+	icon_state = "Nuke_disk"
 
 /obj/effect/landmark/spawner/blob/Initialize(mapload)
-	spawner_list = GLOB.blobstart
+	spawner_list = GLOB.nukedisc_respawn
 	return ..()
 
 /obj/effect/landmark/spawner/late
@@ -95,28 +95,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/spawner/late/crew/Initialize(mapload)
 	spawner_list = GLOB.latejoin
-	return ..()
-
-/obj/effect/landmark/spawner/late/cryo
-	name = "Late Join Cryo"
-
-/obj/effect/landmark/spawner/late/cryo/Initialize(mapload)
-	spawner_list = GLOB.latejoin_cryo
-	return ..()
-
-/obj/effect/landmark/spawner/late/cyborg
-	name = "Late Join Cyborg"
-	icon_state = "Borg"
-
-/obj/effect/landmark/spawner/late/cyborg/Initialize(mapload)
-	spawner_list = GLOB.latejoin_cyborg
-	return ..()
-
-/obj/effect/landmark/spawner/late/gateway
-	name = "Late Join Gateway"
-
-/obj/effect/landmark/spawner/late/gateway/Initialize(mapload)
-	spawner_list = GLOB.latejoin_gateway
 	return ..()
 
 /obj/effect/landmark/spawner/carp

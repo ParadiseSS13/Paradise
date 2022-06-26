@@ -26,7 +26,7 @@
 		/obj/item/storage/belt/military/traitor,
 		/obj/item/clothing/shoes/chameleon/noslip,
 		/obj/item/storage/toolbox/syndicate,
-		/obj/item/storage/backpack/duffel/syndie/surgery,
+		/obj/item/storage/backpack/duffel/syndie/med/surgery,
 		/obj/item/multitool/ai_detect,
 		/obj/item/encryptionkey/binary,
 		/obj/item/jammer,

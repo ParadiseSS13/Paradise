@@ -1966,27 +1966,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		return TRUE
 	return FALSE
 
-/**
- * Proc which gets all adjacent turfs to `src`, including the turf that `src` is on.
- *
- * This is similar to doing `for(var/turf/T in range(1, src))`. However it is slightly more performant.
- * Additionally, the above proc becomes more costly the more atoms there are nearby. This proc does not care about that.
- */
-/atom/proc/get_all_adjacent_turfs()
-	var/turf/src_turf = get_turf(src)
-	var/list/_list = list(
-		src_turf,
-		get_step(src_turf, NORTH),
-		get_step(src_turf, NORTHEAST),
-		get_step(src_turf, NORTHWEST),
-		get_step(src_turf, SOUTH),
-		get_step(src_turf, SOUTHEAST),
-		get_step(src_turf, SOUTHWEST),
-		get_step(src_turf, EAST),
-		get_step(src_turf, WEST)
-	)
-	return _list
-
 // Check if the source atom contains another atom
 /atom/proc/contains(atom/location)
 	if(!location)
@@ -2032,6 +2011,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "Ambience"
 		if(CHANNEL_ENGINE)
 			return "Engine Ambience"
+		if(CHANNEL_FIREALARM)
+			return "Fire Alarms"
 
 /proc/slot_bitfield_to_slot(input_slot_flags) // Kill off this garbage ASAP; slot flags and clothing flags should be IDENTICAL. GOSH DARN IT. Doesn't work with ears or pockets, either.
 	switch(input_slot_flags)

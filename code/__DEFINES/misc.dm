@@ -353,10 +353,14 @@
 #define BLOOD_LOSS_IN_SPREAD		20
 #define BLOOD_AMOUNT_PER_DECAL		20
 
+//Blood smears
+#define BLOOD_SPLATTER_ALPHA_SLIME 150
+
 //Bloody shoe blood states
 #define BLOOD_STATE_HUMAN			"blood"
 #define BLOOD_STATE_XENO			"xeno"
 #define BLOOD_STATE_NOT_BLOODY		"no blood whatsoever"
+#define BLOOD_BASE_ALPHA			"blood_alpha"
 
 //for obj explosion block calculation
 #define EXPLOSION_BLOCK_PROC -1
@@ -367,7 +371,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 34
+#define SQL_VERSION 37
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -511,3 +515,5 @@
 	if(istype(I, /datum/mind))
 		var/datum/mind/B = I
 		return B.current.client
+
+#define SERVER_MESSAGES_REDIS_CHANNEL "byond.servermessages"

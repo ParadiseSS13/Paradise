@@ -162,7 +162,7 @@
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M as mob)
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
 		M.visible_message("<span class='warning'>[M] tips over [src].</span>","<span class='notice'>You tip over [src].</span>")
-		Weaken(30)
+		Weaken(60 SECONDS)
 		icon_state = icon_dead
 		spawn(rand(20,50))
 			if(!stat && M)
@@ -272,6 +272,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	var/icon_prefix = "chicken"
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
+	holder_type = /obj/item/holder/chicken
 	can_hide = 1
 	can_collar = 1
 	var/list/feedMessages = list("It clucks happily.","It clucks happily.")
@@ -311,6 +312,11 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 			to_chat(user, "<span class='warning'>[name] doesn't seem hungry!</span>")
 	else
 		..()
+
+/mob/living/simple_animal/chicken/attack_hand(mob/living/carbon/human/M)
+	if(M.a_intent == INTENT_HELP)
+		get_scooped(M, TRUE)
+	..()
 
 /mob/living/simple_animal/chicken/Life(seconds, times_fired)
 	. = ..()

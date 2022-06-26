@@ -22,8 +22,8 @@
 		/obj/screen/alert/too_much_oxy = "too_much_oxy",
 		/obj/screen/alert/too_much_co2 = "too_much_co2",
 		/obj/screen/alert/too_much_tox = "too_much_tox",
-		/obj/screen/alert/fat = "nutrition",
-		/obj/screen/alert/starving = "nutrition",
+		/obj/screen/alert/hunger/fat = "nutrition",
+		/obj/screen/alert/hunger/starving = "nutrition",
 		/obj/screen/alert/hot = "temp",
 		/obj/screen/alert/cold = "temp",
 		/obj/screen/alert/highpressure = "pressure",
@@ -103,7 +103,7 @@
 			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
 			return
 
-	user.Weaken(4 SECONDS_TO_LIFE_CYCLES)
+	user.Weaken(4 SECONDS)
 	user.visible_message("<span class='warning'>[user] does a grabbing motion towards [get_turf(src)] but [user.p_they()] stumble[user.p_s()] - nothing is there!</span>",
 						 "<span class='userdanger'>[src] vanishes as you try grabbing it, causing you to stumble!</span>")
 	qdel(src)
@@ -216,8 +216,8 @@
 	hallucination_icon_state = "smooth"
 	hallucination_override = TRUE
 	hallucination_layer = HIGH_TURF_LAYER
-	stun = 8 SECONDS_TO_LIFE_CYCLES
-	weaken = 8 SECONDS_TO_LIFE_CYCLES
+	stun = 8 SECONDS
+	weaken = 8 SECONDS
 
 /obj/effect/hallucination/tripper/chasm/on_crossed()
 	target.visible_message("<span class='warning'>[target] trips over nothing and flails on [get_turf(target)] as if they were falling!</span>",
@@ -470,6 +470,9 @@
 			I = get_image(H)
 		I.override = TRUE
 		add_icon(I)
+
+/obj/effect/hallucination/delusion/long
+	duration = 30 SECONDS
 
 /**
   * Returns the image to use as override to the target's appearance.

@@ -14,17 +14,12 @@
 	var/processing = 0
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
-	var/light_range_on = 2
-	var/light_power_on = 1
-	var/overlay_layer
+	var/light_range_on = 1
+	var/light_power_on = 0.7
 	/// Are we in the middle of a flicker event?
 	var/flickering = FALSE
 	/// Are we forcing the icon to be represented in a no-power state?
 	var/force_no_power_icon_state = FALSE
-
-/obj/machinery/computer/New()
-	overlay_layer = layer
-	..()
 
 /obj/machinery/computer/Initialize()
 	..()
@@ -38,6 +33,7 @@
 
 /obj/machinery/computer/extinguish_light()
 	set_light(0)
+	underlays.Cut()
 	visible_message("<span class='danger'>[src] grows dim, its screen barely readable.</span>")
 
 /*
@@ -73,28 +69,32 @@
 	flickering = FALSE
 
 /obj/machinery/computer/update_icon()
-	overlays.Cut()
+	cut_overlays()
+	underlays.Cut()
 	if((stat & NOPOWER) || force_no_power_icon_state)
 		if(icon_keyboard)
-			overlays += image(icon,"[icon_keyboard]_off",overlay_layer)
+			add_overlay("[icon_keyboard]_off")
 		return
 
+	// This whole block lets screens and keyboards ignore lighting and be visible even in the darkest room
+	var/overlay_state = icon_screen
 	if(stat & BROKEN)
-		overlays += image(icon,"[icon_state]_broken",overlay_layer)
-	else
-		overlays += image(icon,icon_screen,overlay_layer)
+		overlay_state = "[icon_state]_broken"
+	add_overlay("[overlay_state]")
+	if(!(stat & BROKEN) && light)
+		underlays += emissive_appearance(icon, "[icon_state]_lightmask")
 
 	if(icon_keyboard)
-		overlays += image(icon, icon_keyboard ,overlay_layer)
-
+		add_overlay("[icon_keyboard]")
+		underlays += emissive_appearance(icon, "[icon_keyboard]_lightmask")
 
 /obj/machinery/computer/power_change()
 	..()
-	update_icon()
 	if((stat & (BROKEN|NOPOWER)))
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
+	update_icon()
 
 /obj/machinery/computer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

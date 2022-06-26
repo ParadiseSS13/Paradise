@@ -231,6 +231,11 @@
 	if(slot == slot_wear_suit) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
 		return 1
 
+/obj/item/clothing/suit/space/hardsuit/on_mob_move(dir, mob)
+	if(jetpack)
+		jetpack.on_mob_move(dir, mob)
+
+
 //Engineering hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/engine
 	name = "engineering hardsuit helmet"
@@ -633,6 +638,10 @@
 		current_charges--
 		if(recharge_rate)
 			START_PROCESSING(SSobj, src)
+		if(istype(hitby, /obj/item/projectile))
+			var/obj/item/projectile/P = hitby
+			if(P.shield_buster)
+				current_charges = max(0, current_charges - 3)
 		if(current_charges <= 0)
 			owner.visible_message("<span class='warning'>[owner]'s shield overloads!</span>")
 			shield_state = "broken"

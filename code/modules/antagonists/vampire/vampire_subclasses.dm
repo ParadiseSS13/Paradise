@@ -7,6 +7,10 @@
 	var/list/fully_powered_abilities
 	/// Whether or not a vampire heals more based on damage taken.
 	var/improved_rejuv_healing = FALSE
+	/// maximun number of thralls a vampire may have at a time. incremented as they grow stronger, up to a cap at full power.
+	var/thrall_cap = 1
+	/// If true, lets the vampire have access to their full power abilities without meeting the blood requirement, or needing a certain number of drained humans.
+	var/full_power_override = FALSE
 
 /datum/vampire_subclass/proc/add_subclass_ability(datum/antagonist/vampire/vamp)
 	for(var/thing in standard_powers)
@@ -46,25 +50,45 @@
 								/obj/effect/proc_holder/spell/vampire/charge)
 	improved_rejuv_healing = TRUE
 
+/datum/vampire_subclass/dantalion
+	name = "dantalion"
+	standard_powers = list(/obj/effect/proc_holder/spell/vampire/enthrall = 150,
+							/obj/effect/proc_holder/spell/vampire/thrall_commune = 150,
+							/obj/effect/proc_holder/spell/vampire/pacify = 250,
+							/obj/effect/proc_holder/spell/vampire/self/decoy = 400,
+							/datum/vampire_passive/increment_thrall_cap = 400,
+							/obj/effect/proc_holder/spell/vampire/rally_thralls = 600,
+							/datum/vampire_passive/increment_thrall_cap/two = 600)
+	fully_powered_abilities = list(/datum/vampire_passive/full,
+								/obj/effect/proc_holder/spell/vampire/hysteria,
+								/datum/vampire_passive/increment_thrall_cap/three)
+
+
 /datum/vampire_subclass/ancient
 	name = "ancient"
 	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/vamp_claws,
 							/obj/effect/proc_holder/spell/vampire/self/blood_swell,
 							/obj/effect/proc_holder/spell/vampire/self/cloak,
+							/obj/effect/proc_holder/spell/vampire/enthrall,
+							/obj/effect/proc_holder/spell/vampire/thrall_commune,
 							/obj/effect/proc_holder/spell/vampire/blood_tendrils,
 							/obj/effect/proc_holder/spell/vampire/self/blood_rush,
 							/obj/effect/proc_holder/spell/vampire/shadow_snare,
+							/obj/effect/proc_holder/spell/vampire/pacify,
 							/obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool,
 							/datum/vampire_passive/blood_swell_upgrade,
 							/obj/effect/proc_holder/spell/vampire/dark_passage,
+							/obj/effect/proc_holder/spell/vampire/self/decoy,
 							/obj/effect/proc_holder/spell/vampire/blood_eruption,
 							/obj/effect/proc_holder/spell/vampire/self/overwhelming_force,
 							/obj/effect/proc_holder/spell/vampire/vamp_extinguish,
-							/obj/effect/proc_holder/spell/vampire/raise_vampires,
-							/obj/effect/proc_holder/spell/vampire/enthrall,
+							/obj/effect/proc_holder/spell/vampire/rally_thralls,
 							/datum/vampire_passive/full,
 							/obj/effect/proc_holder/spell/vampire/self/blood_spill,
 							/obj/effect/proc_holder/spell/vampire/charge,
 							/obj/effect/proc_holder/spell/vampire/self/eternal_darkness,
+							/obj/effect/proc_holder/spell/vampire/hysteria,
+							/obj/effect/proc_holder/spell/vampire/raise_vampires,
 							/datum/vampire_passive/xray)
 	improved_rejuv_healing = TRUE
+	thrall_cap = 150 // can thrall high pop

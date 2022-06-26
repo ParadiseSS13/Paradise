@@ -268,7 +268,8 @@
 
 ///called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"
-
+///called when the movable is removed from a disposal holder object: /obj/structure/disposalpipe/proc/expel(): (obj/structure/disposalholder/H, turf/T, direction)
+#define COMSIG_MOVABLE_EXIT_DISPOSALS "movable_exit_disposals"
 
 // /datum/mind signals
 
@@ -334,11 +335,30 @@
 ///from /mob/say_dead(): (mob/speaker, message)
 #define COMSIG_MOB_DEADSAY "mob_deadsay"
 	#define MOB_DEADSAY_SIGNAL_INTERCEPT (1<<0)
-///from /mob/living/emote(): ()
+
+/// Signal fired when an emote is used but before it's executed.
+///from /datum/emote/proc/try_run_emote(): (key, intentional)
+#define COMSIG_MOB_PREEMOTE "mob_preemote"
+	// Use these to block execution of emotes from components.
+	/// Return this to block an emote and let the user know the emote is unusable.
+	#define COMPONENT_BLOCK_EMOTE_UNUSABLE (1<<0)
+	/// Return this to block an emote silently.
+	#define COMPONENT_BLOCK_EMOTE_SILENT (1<<1)
+/// General signal fired when a mob does any old emote
+///from /datum/emote/proc/run_emote(): (key, intentional)
 #define COMSIG_MOB_EMOTE "mob_emote"
+/// Specific signal used to track when a specific emote is used.
+/// From /datum/emote/run_emote(): (P, key, m_type, message, intentional)
+#define COMSIG_MOB_EMOTED(emote_key) "mob_emoted_[emote_key]"
+/// From /datum/emote/select_param(): (target, key, intentional)
+#define COMSIG_MOB_EMOTE_AT "mob_emote_at"
+	#define COMPONENT_BLOCK_EMOTE_ACTION (1<<2)
+
 ///from base of mob/swap_hand(): (obj/item)
 #define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"
 	#define COMPONENT_BLOCK_SWAP (1<<0)
+
+
 
 // /mob/living signals
 
@@ -373,18 +393,20 @@
 #define COMSIG_LIVING_AHEAL "living_aheal"
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
-
-///from base of mob/living/Stun() (amount, update, ignore)
+// none of these are called as of right now, as there is nothing listening for them.
+///from base of mob/living/Stun() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_STUN "living_stun"
-///from base of mob/living/Knockdown() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown"
-///from base of mob/living/Paralyze() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_PARALYZE "living_paralyze"
-///from base of mob/living/Immobilize() (amount, update, ignore)
+///from base of mob/living/Stun() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_WEAKEN "living_weaken"
+///from base of mob/living/Knockdown() (amount, ignore_canstun)
+///#define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown" // one day
+///from base of mob/living/Paralyse() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_PARALYSE "living_paralyse"
+///from base of mob/living/Immobilize() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_IMMOBILIZE "living_immobilize"
-///from base of mob/living/Unconscious() (amount, update, ignore)
+///from base of mob/living/Unconscious() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"
-///from base of mob/living/Sleeping() (amount, update, ignore)
+///from base of mob/living/Sleeping() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"
 	#define COMPONENT_NO_STUN (1<<0)									//For all of them
 ///from base of /mob/living/can_track(): (mob/user)
@@ -407,6 +429,8 @@
 #define COMSIG_CARBON_EMBED_RIP "item_embed_start_rip"
 ///called when removing a given item from a mob, from mob/living/carbon/remove_embedded_object(mob/living/carbon/target, /obj/item)
 #define COMSIG_CARBON_EMBED_REMOVAL "item_embed_remove_safe"
+/// From /mob/living/carbon/swap_hand(): Called when the user swaps their active hand
+#define COMSIG_CARBON_SWAP_HANDS "carbon_swap_hands"
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"

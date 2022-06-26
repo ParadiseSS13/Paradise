@@ -32,6 +32,7 @@
 	var/cooldown = 0
 	var/species_disguise = null
 	var/magical = FALSE
+	var/dyeable = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
@@ -454,7 +455,7 @@ BLIND     // can't see anything
 	slot_flags = SLOT_FEET
 
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
-	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
+	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0, BLOOD_BASE_ALPHA = BLOODY_FOOTPRINT_BASE_ALPHA)
 
 	permeability_coefficient = 0.50
 	slowdown = SHOES_SLOWDOWN
@@ -737,6 +738,13 @@ BLIND     // can't see anything
 
 	return FALSE
 
+/obj/item/clothing/under/proc/detach_accessory(obj/item/clothing/accessory/A, mob/user)
+	accessories -= A
+	A.on_removed(user)
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_w_uniform()
+
 /obj/item/clothing/under/examine(mob/user)
 	. = ..()
 	switch(sensor_mode)
@@ -802,10 +810,8 @@ BLIND     // can't see anything
 		return
 	if(!Adjacent(user))
 		return
-	A.on_removed(user)
-	accessories -= A
+	detach_accessory(A, user)
 	to_chat(user, "<span class='notice'>You remove [A] from [src].</span>")
-	usr.update_inv_w_uniform()
 
 /obj/item/clothing/under/emp_act(severity)
 	if(accessories.len)

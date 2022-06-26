@@ -6,7 +6,8 @@
 #define MUTE_PRAY		4
 #define MUTE_ADMINHELP	8
 #define MUTE_DEADCHAT	16
-#define MUTE_ALL		31
+#define MUTE_EMOTE 		32
+#define MUTE_ALL		63
 
 //Number of identical messages required to get the spam-prevention automute thing to trigger warnings and automutes
 #define SPAM_TRIGGER_WARNING 5
@@ -40,10 +41,11 @@
 #define R_MENTOR		16384
 #define R_PROCCALL		32768
 #define R_VIEWRUNTIMES	65536
+#define R_MAINTAINER	131072
 
-#define R_MAXPERMISSION 65536 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION 131072 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
-#define R_HOST			131071 // Sum of all permissions to allow easy setting
+#define R_HOST			262143 // Sum of all permissions to allow easy setting
 
 #define ADMIN_QUE(user,display) "<a href='?_src_=holder;adminmoreinfo=[user.UID()]'>[display]</a>"
 #define ADMIN_FLW(user,display) "<a href='?_src_=holder;adminplayerobservefollow=[user.UID()]'>[display]</a>"

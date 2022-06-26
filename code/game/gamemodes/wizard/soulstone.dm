@@ -4,6 +4,7 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "soulstone"
 	item_state = "electronic"
+	belt_icon = "soulstone"
 	var/icon_state_full = "soulstone2"
 	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artifact's power."
 	w_class = WEIGHT_CLASS_TINY
@@ -66,12 +67,12 @@
 	return ..()
 
 //////////////////////////////Capturing////////////////////////////////////////////////////////
-/obj/item/soulstone/attack(mob/living/carbon/human/M, mob/user)
+/obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user)
 	if(M == user)
 		return
 
 	if(!can_use(user))
-		user.Weaken(5)
+		user.Weaken(10 SECONDS)
 		user.emote("scream")
 		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
 		return
@@ -202,12 +203,12 @@
 	else
 		..()
 
-/obj/item/soulstone/attack_self(mob/user)
+/obj/item/soulstone/attack_self(mob/living/user)
 	if(!in_range(src, user))
 		return
 
 	if(!can_use(user))
-		user.Weaken(5)
+		user.Weaken(10 SECONDS)
 		user.emote("scream")
 		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
 		return
@@ -248,12 +249,12 @@
 		. += "<span class='cultitalic'>A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.</span>"
 		. += "<span class='cultitalic'>A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>"
 
-/obj/structure/constructshell/attackby(obj/item/I, mob/user, params)
+/obj/structure/constructshell/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = I
 		if(!SS.can_use(user))
 			to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you attempt to place the soulstone into the shell.</span>")
-			user.Confused(10)
+			user.Confused(20 SECONDS)
 			return
 		SS.transfer_soul("CONSTRUCT", src, user)
 		SS.was_used()
@@ -262,7 +263,7 @@
 
 ////////////////////////////Proc for moving soul in and out off stone//////////////////////////////////////
 // this whole proc is pain
-/obj/item/soulstone/proc/transfer_soul(choice, target, mob/user)
+/obj/item/soulstone/proc/transfer_soul(choice, target, mob/living/user)
 	switch(choice)
 		if("FORCE")
 			var/mob/living/T = target
@@ -271,7 +272,7 @@
 				init_shade(T, user)
 			else // Poll ghosts
 				to_chat(user, "<span class='userdanger'>Capture failed!</span> The soul has already fled its mortal frame. You attempt to bring it back...")
-				T.Paralyse(20)
+				T.Paralyse(40 SECONDS)
 				if(!get_cult_ghost(T, user, TRUE))
 					T.dust() //If we can't get a ghost, kill the sacrifice anyway.
 
@@ -295,7 +296,7 @@
 		if("SHADE")
 			var/mob/living/simple_animal/shade/T = target
 			if(!can_use(user))
-				user.Weaken(5)
+				user.Weaken(10 SECONDS)
 				to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
 				return
 			if(T.stat == DEAD)

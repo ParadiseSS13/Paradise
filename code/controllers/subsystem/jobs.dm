@@ -48,11 +48,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/Debug(text)
-	if(!GLOB.debug2)
-		return 0
 	job_debug.Add(text)
-	return 1
-
 
 /datum/controller/subsystem/jobs/proc/GetJob(rank)
 	if(!occupations.len)
@@ -80,8 +76,6 @@ SUBSYSTEM_DEF(jobs)
 		if(job.get_exp_restrictions(player.client))
 			return FALSE
 		if(job.barred_by_disability(player.client))
-			return FALSE
-		if(!is_job_whitelisted(player, rank))
 			return FALSE
 
 		var/position_limit = job.total_positions
@@ -155,9 +149,6 @@ SUBSYSTEM_DEF(jobs)
 			continue
 
 		if(job.title in GLOB.command_positions) //If you want a command position, select it!
-			continue
-
-		if(job.title in GLOB.whitelisted_positions) // No random whitelisted job, sorry!
 			continue
 
 		if(job.admin_only) // No admin positions either.
@@ -358,10 +349,6 @@ SUBSYSTEM_DEF(jobs)
 
 				if(player.mind && (job.title in player.mind.restricted_roles))
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
-					continue
-
-				if(!is_job_whitelisted(player, job.title))
-					Debug("DO player not whitelisted, Player: [player], Job:[job.title]")
 					continue
 
 				// If the player wants that job on this level, then try give it to him.
@@ -624,8 +611,8 @@ SUBSYSTEM_DEF(jobs)
 				jobs_to_formats[job.title] = "green" // the job they already have is pre-selected
 			else if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
 				jobs_to_formats[job.title] = "grey"
-			else if(!job.would_accept_job_transfer_from_player(M))
-				jobs_to_formats[job.title] = "grey" // jobs which are karma-locked and not unlocked for this player are discouraged
+			else if(!job.transfer_allowed)
+				jobs_to_formats[job.title] = "grey" // jobs which shouldnt be transferred into for whatever reason, likely due to high hour requirements
 			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.get_exp_restrictions(M.client))
 				jobs_to_formats[job.title] = "grey" // command jobs which are playtime-locked and not unlocked for this player are discouraged
 			else if(job.total_positions && !job.current_positions && job.title != "Assistant")

@@ -7,6 +7,10 @@
 
 	if(!check_rights(R_VAREDIT))	return
 
+	// Make sure we can actually edit this var
+	if(!vv_varname_lockcheck(var_name))
+		return FALSE
+
 	if(A && A.type)
 		if(typesof(A.type))
 			switch(input("Strict object type detection?") as null|anything in list("Strictly this type","This type and subtypes", "Cancel"))
@@ -112,7 +116,8 @@
 				if(!thing)
 					continue
 				var/datum/D = thing
-				if(D.vv_edit_var(variable, initial(D.vars[variable])) != FALSE)
+				// This originally did initial(D.vars[variable]) but initial() doesn't work on a list index
+				if(D.vv_edit_var(variable, D.vars[variable]) != FALSE)
 					accepted++
 				else
 					rejected++

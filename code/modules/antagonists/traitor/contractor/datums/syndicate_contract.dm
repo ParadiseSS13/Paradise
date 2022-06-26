@@ -304,7 +304,7 @@
 	U.message_holder("Extraction signal received, agent. [SSmapping.map_datum.fluff_name]'s bluespace transport jamming systems have been sabotaged. "\
 			 	   + "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
-	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), null, 0)
+	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), F, 0, M)
 	P.contract = src
 	P.contractor_mind = M.mind
 	P.target_mind = contract.target
@@ -409,6 +409,13 @@
 		if(M.unEquip(I))
 			stuff_to_transfer += I
 
+	// Remove accessories from the suit if present
+	if(length(H.w_uniform?.accessories))
+		for(var/obj/item/clothing/accessory/A in H.w_uniform.accessories)
+			H.w_uniform.detach_accessory(A, null)
+			H.unEquip(A)
+			stuff_to_transfer += A
+
 	// Transfer it all (or drop it if not possible)
 	for(var/i in stuff_to_transfer)
 		var/obj/item/I = i
@@ -457,10 +464,10 @@
 		M.reagents.add_reagent("omnizine", 20)
 
 		to_chat(M, "<span class='warning'>You feel strange...</span>")
-		M.Paralyse(30 SECONDS_TO_LIFE_CYCLES)
-		M.EyeBlind(35 SECONDS_TO_LIFE_CYCLES)
-		M.EyeBlurry(35 SECONDS_TO_LIFE_CYCLES)
-		M.AdjustConfused(35 SECONDS_TO_LIFE_CYCLES)
+		M.Paralyse(30 SECONDS)
+		M.EyeBlind(35 SECONDS)
+		M.EyeBlurry(35 SECONDS)
+		M.AdjustConfused(35 SECONDS)
 
 		sleep(6 SECONDS)
 		to_chat(M, "<span class='warning'>That portal did something to you...</span>")
@@ -523,10 +530,10 @@
 	// Return them a bit confused.
 	M.visible_message("<span class='notice'>[M] vanishes...</span>")
 	M.forceMove(closet)
-	M.Paralyse(3 SECONDS_TO_LIFE_CYCLES)
-	M.EyeBlurry(5 SECONDS_TO_LIFE_CYCLES)
-	M.AdjustConfused(5 SECONDS_TO_LIFE_CYCLES)
-	M.Dizzy(35)
+	M.Paralyse(3 SECONDS)
+	M.EyeBlurry(5 SECONDS)
+	M.AdjustConfused(5 SECONDS)
+	M.Dizzy(70 SECONDS)
 	do_sparks(4, FALSE, destination)
 
 	// Newscaster story

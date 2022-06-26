@@ -6,6 +6,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "defib-on"
 	item_state = "defib"
+	belt_icon = "defib"
 
 	var/icon_base = "defib"
 	var/cooldown = FALSE
@@ -22,18 +23,6 @@
 		desc = "Used to restart stopped hearts."
 		if(user)
 			to_chat(user, "<span class='warning'>You restore the safeties on [src]</span>")
-
-/obj/item/handheld_defibrillator/emp_act(severity)
-	if(emagged)
-		emagged = FALSE
-		desc = "Used to restart stopped hearts."
-		visible_message("<span class='notice'>[src] beeps: Safety protocols enabled!</span>")
-		playsound(get_turf(src), 'sound/machines/defib_saftyon.ogg', 50, 0)
-	else
-		emagged = TRUE
-		desc += " The screen only shows the word KILL flashing over and over."
-		visible_message("<span class='notice'>[src] beeps: Safety protocols disabled!</span>")
-		playsound(get_turf(src), 'sound/machines/defib_saftyoff.ogg', 50, 0)
 
 /obj/item/handheld_defibrillator/attack(mob/living/carbon/human/H, mob/user)
 	if(!istype(H))
@@ -62,10 +51,9 @@
 				else
 					to_chat(user, "<span class='danger'>[H] doesn't respond!</span>")
 
-			H.AdjustParalysis(3)
-			H.AdjustStunned(5)
-			H.AdjustWeakened(5)
-			H.AdjustStuttering(10)
+			H.AdjustParalysis(6 SECONDS)
+			H.AdjustWeakened(10 SECONDS)
+			H.AdjustStuttering(20 SECONDS)
 			to_chat(H, "<span class='danger'>You feel a powerful jolt!</span>")
 			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 

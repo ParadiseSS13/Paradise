@@ -13,7 +13,7 @@
 	var/datum/effect_system/spark_spread/sparks = new
 	sparks.set_up(n, c, source)
 	sparks.autocleanup = TRUE
-	sparks.start()
+	INVOKE_ASYNC(sparks, /datum/effect_system/.proc/start)
 
 /obj/effect/particle_effect/sparks
 	name = "sparks"

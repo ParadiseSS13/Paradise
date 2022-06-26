@@ -1,10 +1,20 @@
 import { rad2deg } from 'common/math';
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Icon, Input, LabeledList, Section, Table } from '../components';
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Input,
+  LabeledList,
+  Section,
+  Table,
+} from '../components';
 import { Window } from '../layouts';
 
-const vectorText = vector => vector ? "(" + vector.join(", ") + ")" : "ERROR";
+const vectorText = (vector) =>
+  vector ? '(' + vector.join(', ') + ')' : 'ERROR';
 
 const distanceToPoint = (from, to) => {
   if (!from || !to) {
@@ -17,19 +27,15 @@ const distanceToPoint = (from, to) => {
   }
 
   const angle = Math.atan2(to[1] - from[1], to[0] - from[0]);
-  const dist = Math.sqrt(Math.pow(to[1] - from[1], 2) + Math.pow(to[0] - from[0], 2));
+  const dist = Math.sqrt(
+    Math.pow(to[1] - from[1], 2) + Math.pow(to[0] - from[0], 2)
+  );
   return { angle: rad2deg(angle), distance: dist };
 };
 
 export const GPS = (properties, context) => {
   const { data } = useBackend(context);
-  const {
-    emped,
-    active,
-    area,
-    position,
-    saved,
-  } = data;
+  const { emped, active, area, position, saved } = data;
   return (
     <Window>
       <Window.Content>
@@ -70,26 +76,15 @@ export const GPS = (properties, context) => {
 
 const TurnedOff = ({ emp }, context) => {
   return (
-    <Section
-      mt="0.5rem"
-      width="100%"
-      height="100%"
-      stretchContents>
-      <Box
-        width="100%"
-        height="100%"
-        color="label"
-        textAlign="center">
+    <Section mt="0.5rem" width="100%" height="100%" stretchContents>
+      <Box width="100%" height="100%" color="label" textAlign="center">
         <Flex height="100%">
           <Flex.Item grow="1" align="center" color="label">
-            <Icon
-              name={emp ? "ban": "power-off"}
-              mb="0.5rem"
-              size="5"
-            /><br />
+            <Icon name={emp ? 'ban' : 'power-off'} mb="0.5rem" size="5" />
+            <br />
             {emp
-              ? "ERROR: Device temporarily lost signal."
-              : "Device is disabled."}
+              ? 'ERROR: Device temporarily lost signal.'
+              : 'Device is disabled.'}
           </Flex.Item>
         </Flex>
       </Box>
@@ -99,23 +94,20 @@ const TurnedOff = ({ emp }, context) => {
 
 const Settings = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    active,
-    tag,
-    same_z,
-  } = data;
-  const [newTag, setNewTag] = useLocalState(context, "newTag", tag);
+  const { active, tag, same_z } = data;
+  const [newTag, setNewTag] = useLocalState(context, 'newTag', tag);
   return (
     <Section
       title="Settings"
       buttons={
         <Button
           selected={active}
-          icon={active ? "toggle-on" : "toggle-off"}
-          content={active ? "On" : "Off"}
+          icon={active ? 'toggle-on' : 'toggle-off'}
+          content={active ? 'On' : 'Off'}
           onClick={() => act('toggle')}
         />
-      }>
+      }
+    >
       <LabeledList>
         <LabeledList.Item label="Tag">
           <Input
@@ -129,15 +121,16 @@ const Settings = (properties, context) => {
             width="20px"
             mb="0"
             ml="0.25rem"
-            onClick={() => act('tag', { newtag: newTag })}>
+            onClick={() => act('tag', { newtag: newTag })}
+          >
             <Icon name="pen" />
           </Button>
         </LabeledList.Item>
         <LabeledList.Item label="Range">
           <Button
             selected={!same_z}
-            icon={same_z ? "compress" : "expand"}
-            content={same_z ? "Local Sector" : "Global"}
+            icon={same_z ? 'compress' : 'expand'}
+            content={same_z ? 'Local Sector' : 'Global'}
             onClick={() => act('same_z')}
           />
         </LabeledList.Item>
@@ -148,7 +141,7 @@ const Settings = (properties, context) => {
 
 const Position = ({ title, area, position }, context) => {
   return (
-    <Section title={title || "Position"}>
+    <Section title={title || 'Position'}>
       <Box fontSize="1.5rem">
         {area && (
           <Fragment>
@@ -164,55 +157,50 @@ const Position = ({ title, area, position }, context) => {
 
 const Signals = (properties, context) => {
   const { data } = useBackend(context);
-  const {
-    position,
-    signals,
-  } = data;
+  const { position, signals } = data;
   return (
-    <Section
-      title="Signals"
-      overflow="auto"
-      {...properties}>
+    <Section title="Signals" overflow="auto" {...properties}>
       <Table>
         {signals
-          .map(signal => ({
+          .map((signal) => ({
             ...signal,
             ...distanceToPoint(position, signal.position),
           }))
           .map((signal, i) => (
             <Table.Row
               key={i}
-              backgroundColor={(i % 2 === 0) && "rgba(255, 255, 255, 0.05)"}>
+              backgroundColor={i % 2 === 0 && 'rgba(255, 255, 255, 0.05)'}
+            >
               <Table.Cell
                 width="30%"
                 verticalAlign="middle"
                 color="label"
                 p="0.25rem"
-                bold>
+                bold
+              >
                 {signal.tag}
               </Table.Cell>
-              <Table.Cell
-                verticalAlign="middle"
-                color="grey">
+              <Table.Cell verticalAlign="middle" color="grey">
                 {signal.area}
               </Table.Cell>
-              <Table.Cell
-                verticalAlign="middle"
-                collapsing>
+              <Table.Cell verticalAlign="middle" collapsing>
                 {signal.distance !== undefined && (
-                  <Box opacity={Math.max(1 - Math.min(signal.distance, 100) / 100, 0.5)}>
+                  <Box
+                    opacity={Math.max(
+                      1 - Math.min(signal.distance, 100) / 100,
+                      0.5
+                    )}
+                  >
                     <Icon
-                      name={signal.distance > 0 ? "arrow-right" : "circle"}
+                      name={signal.distance > 0 ? 'arrow-right' : 'circle'}
                       rotation={-signal.angle}
-                    />&nbsp;
-                    {Math.floor(signal.distance) + "m"}
+                    />
+                    &nbsp;
+                    {Math.floor(signal.distance) + 'm'}
                   </Box>
                 )}
               </Table.Cell>
-              <Table.Cell
-                verticalAlign="middle"
-                pr="0.25rem"
-                collapsing>
+              <Table.Cell verticalAlign="middle" pr="0.25rem" collapsing>
                 {vectorText(signal.position)}
               </Table.Cell>
             </Table.Row>

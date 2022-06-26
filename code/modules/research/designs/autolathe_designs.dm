@@ -454,12 +454,12 @@
 	build_path = /obj/item/ammo_casing/shotgun/rubbershot
 	category = list("initial", "Security")
 
-/datum/design/c38
-	name = "Speed Loader (.38)"
-	id = "c38"
+/datum/design/e_charger
+	name = "E-revolver charge pack"
+	id = "e_charger"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
-	build_path = /obj/item/ammo_box/c38
+	materials = list(MAT_METAL = 30000, MAT_GLASS = 6000)
+	build_path = /obj/item/ammo_box/magazine/detective/speedcharger
 	category = list("initial", "Security")
 
 /datum/design/recorder
@@ -717,6 +717,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/ammo_casing/shotgun/incendiary
+	category = list("hacked", "Security")
+
+/datum/design/buckshot
+	name = "Buckshot Shell"
+	id = "buckshot"
+	build_type = GAMMALATHE
+	materials = list(MAT_METAL = 4000)
+	build_path = /obj/item/ammo_casing/shotgun/buckshot
 	category = list("hacked", "Security")
 
 /datum/design/riot_dart
