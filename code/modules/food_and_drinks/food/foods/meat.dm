@@ -71,8 +71,8 @@
 /obj/item/reagent_containers/food/snacks/rawcutlet/attackby(obj/item/W, mob/user, params)
 	if(istype(W,/obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
 		user.visible_message( \
-			"[user] cuts the raw cutlet with the knife!", \
-			"<span class ='notice'>You cut the raw cutlet with your knife!</span>" \
+			"<span class ='notice'>[user] cuts the raw cutlet with the [W]!</span>", \
+			"<span class ='notice'>You cut the raw cutlet with your [W]!</span>" \
 			)
 		new /obj/item/reagent_containers/food/snacks/raw_bacon(loc)
 		qdel(src)
