@@ -3,37 +3,33 @@
 /////////////////////////////////////////
 
 /datum/design/nuclear_gun
-	name = "Advanced Energy Gun"
-	desc = "An energy gun with an experimental miniaturized reactor."
+	name = "Advanced Energy Gun Parts Kit"
+	desc = "A kit for an energy gun with an experimental miniaturized reactor."
 	id = "nuclear_gun"
 	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_URANIUM = 3000, MAT_TITANIUM = 1000)
-	build_path = /obj/item/gun/energy/gun/nuclear
-	locked = 1
+	build_path = /obj/item/weaponcrafting/gunkit/nuclear
 	category = list("Weapons")
 
 /datum/design/decloner
-	name = "Decloner"
+	name = "Decloner Parts Kit"
 	desc = "Your opponent will bubble into a messy pile of goop."
 	id = "decloner"
 	req_tech = list("combat" = 5, "materials" = 5, "biotech" = 6, "plasmatech" = 7)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 5000,MAT_URANIUM = 10000)
-	reagents_list = list("mutagen" = 40)
-	build_path = /obj/item/gun/energy/decloner
-	locked = 1
+	build_path = /obj/item/weaponcrafting/gunkit/decloner
 	category = list("Weapons")
 
 /datum/design/largecrossbow
-	name = "Energy Crossbow"
-	desc = "A reverse-engineered energy crossbow favored by syndicate infiltration teams and carp hunters."
+	name = "Energy Crossbow Parts Kit"
+	desc = "A kit to reverse-engineer a proto-kinetic accelerator into an energy crossbow, favored by syndicate infiltration teams and carp hunters."
 	id = "largecrossbow"
 	req_tech = list("combat" = 5, "engineering" = 3, "magnets" = 5, "syndicate" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1500, MAT_URANIUM = 1500, MAT_SILVER = 1500)
-	build_path = /obj/item/gun/energy/kinetic_accelerator/crossbow/large
-	locked = 1
+	build_path = /obj/item/weaponcrafting/gunkit/ebow
 	category = list("Weapons")
 
 /datum/design/flora_gun
@@ -48,14 +44,13 @@
 	category = list("Weapons")
 
 /datum/design/ioncarbine
-	name = "Ion Carbine"
-	desc = "How to dismantle a cyborg : The gun."
+	name = "Ion Carbine Parts Kit"
+	desc = "How to dismantle a cyborg: The gun."
 	id = "ioncarbine"
 	req_tech = list("combat" = 5, "magnets" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_SILVER = 6000, MAT_METAL = 8000, MAT_URANIUM = 2000)
-	build_path = /obj/item/gun/energy/ionrifle/carbine
-	locked = 1
+	build_path = /obj/item/weaponcrafting/gunkit/ion
 	category = list("Weapons")
 
 /datum/design/wormhole_projector
@@ -121,25 +116,23 @@
 	category = list("Weapons")
 
 /datum/design/lasercannon
-	name = "Accelerator Laser Cannon"
-	desc = "A heavy duty laser cannon. It does more damage the farther away the target is."
+	name = "Accelerator Laser Cannon Parts Kit"
+	desc = "Parts for a heavy duty laser cannon. It does more damage the farther away the target is."
 	id = "lasercannon"
 	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 3000, MAT_DIAMOND = 3000)
-	build_path = /obj/item/gun/energy/lasercannon
-	locked = 1
+	build_path = /obj/item/weaponcrafting/gunkit/accelerator
 	category = list("Weapons")
 
 /datum/design/plasmapistol
-	name = "Plasma Pistol"
-	desc = "A specialized firearm designed to fire heated bolts of plasma. Can be charged up for a shield breaking shot."
+	name = "Plasma Pistol Parts Kit"
+	desc = "A kit for a specialized firearm designed to fire heated bolts of plasma. Can be charged up for a shield breaking shot."
 	id = "ppistol"
 	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5, "plasmatech" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000, MAT_PLASMA = 3000)
-	build_path = /obj/item/gun/energy/plasma_pistol
-	locked = 1
+	build_path = /obj/item/weaponcrafting/gunkit/plasma
 	category = list("Weapons")
 
 //WT550 Mags
@@ -186,24 +179,23 @@
 	category = list("Weapons")
 
 /datum/design/stunrevolver
-	name = "Tesla Revolver"
-	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers."
+	name = "Tesla Revolver Parts Kit"
+	desc = "A kit for a high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers."
 	id = "stunrevolver"
 	req_tech = list("combat" = 4, "materials" = 4, "powerstorage" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 10000, MAT_SILVER = 10000)
-	build_path = /obj/item/gun/energy/shock_revolver
-	locked = 1
+	build_path = /obj/item/weaponcrafting/gunkit/tesla
 	category = list("Weapons")
 
 /datum/design/temp_gun
-	name = "Temperature Gun"
+	name = "Temperature Gun Parts Kit"
 	desc = "A gun that changes the body temperature of its targets."
 	id = "temp_gun"
 	req_tech = list("combat" = 4, "materials" = 4, "powerstorage" = 3, "magnets" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 500, MAT_SILVER = 3000)
-	build_path = /obj/item/gun/energy/temperature
+	build_path = /obj/item/weaponcrafting/gunkit/temperature
 	category = list("Weapons")
 
 /datum/design/suppressor
@@ -227,25 +219,23 @@
 	category = list("Weapons")
 
 /datum/design/xray
-	name = "Xray Laser Gun"
-	desc = "Not quite as menacing as it sounds"
+	name = "Xray Laser Gun Parts Kit"
+	desc = "A full conversion kit for a laser gun allowing it to fire through walls."
 	id = "xray"
 	req_tech = list("combat" = 7, "magnets" = 5, "biotech" = 5, "powerstorage" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 5000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
-	build_path = /obj/item/gun/energy/xray
-	locked = 1
+	build_path = /obj/item/weaponcrafting/gunkit/xray
 	category = list("Weapons")
 
 /datum/design/immolator
-	name = "Immolator Laser Gun"
+	name = "Immolator Laser Gun Parts Kit"
 	desc = "Has fewer shots than a regular laser gun, but ignites the target on hit"
 	id = "immolator"
 	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000, MAT_SILVER = 3000, MAT_PLASMA = 2000)
-	build_path = /obj/item/gun/energy/immolator
-	locked = 1
+	build_path = /obj/item/weaponcrafting/gunkit/immolator
 	category = list("Weapons")
 
 /datum/design/reactive_armour
