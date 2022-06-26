@@ -46,7 +46,7 @@
 	category = "Unique"
 	destroy_spellbook = TRUE
 
-/datum/spellbook_entry/loadout/mimewiz/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+/datum/spellbook_entry/loadout/mimewiz/OnBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(user.mind)
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
 		user.mind.miming = TRUE
@@ -54,7 +54,7 @@
 
 /datum/spellbook_entry/loadout/gunreaper
 	name = "Gunslinging Reaper"
-	desc = "Cloned over and over, the souls aboard this station yearn for a deserved rest.<br> \
+	desc = "Cloned over and over, the souls aboard this station yearn for a deserved rest. <br> \
 		Bring them to the afterlife, one trigger pull at a time. <br> \
 		You will likely need to scavenge additional ammo or weapons aboard the station. <br><br>\
 		</i>Provides a .357 Revolver, 4 speedloaders of ammo, Ethereal Jaunt, Blink, Summon Item, No Clothes, and Bind Soul, with a unique outfit.<i>"
@@ -71,3 +71,40 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), slot_gloves)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(H), slot_w_uniform)
+
+/datum/spellbook_entry/loadout/greytide
+	name = "Tyde the Grey"
+	desc = "A set of legendary artifacts used by a bald, grey wizard, now passed on to you. <br> \
+		Open His Grace's latch once you are ready to kill by using It in your hand. Keep It fed or you will be Its next meal.<br> \
+		You might want to raid the Armory or loot a Security Officer to get ranged weapons like a disabler, His Grace's Hunger has little patience.<br><br> \
+		</i>Provides His Grace, an Ancient Jumpsuit, an Assistant ID, a Gas Mask and Shoes, Insulated Gloves, a full Toolbelt, Ethereal Jaunt, Teleport, Knock and No Clothes.<i>"
+	log_name = "GT"
+	items_path = list(/obj/item/his_grace, /obj/item/clothing/gloves/color/yellow, /obj/item/storage/belt/utility/full/multitool)
+	spells_path = list(/obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/area_teleport/teleport, \
+		/obj/effect/proc_holder/spell/aoe_turf/knock, /obj/effect/proc_holder/spell/noclothes)
+	category = "Unique"
+	destroy_spellbook = TRUE
+
+/datum/spellbook_entry/loadout/greytide/OnBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	if(user) //Clothing is annoying to unequip/equip. Instant greytider time.
+		to_chat(user, "<span class='notice'>Your clothes fall to the floor as a brand new outfit magically snaps on your body out of nowhere!</span>")
+		user.unEquip(user.w_uniform)
+		user.unEquip(user.wear_mask)
+		user.unEquip(user.shoes)
+		user.unEquip(user.wear_suit)
+		user.unEquip(user.head)
+		user.unEquip(user.wear_id)
+		user.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/glorf, slot_w_uniform)
+		user.equip_to_slot_or_del(new /obj/item/clothing/mask/gas, slot_wear_mask)
+		user.equip_to_slot_or_del(new /obj/item/clothing/shoes/black, slot_shoes)
+		var/obj/item/card/id/wizid = new /obj/item/card/id(src)
+		user.equip_to_slot_or_del(wizid, slot_wear_id)
+		wizid.registered_name = user.real_name
+		wizid.access = list(ACCESS_MAINT_TUNNELS)
+		wizid.assignment = "Assistant"
+		wizid.rank = "Assistant"
+		wizid.photo = get_id_photo(user, "Assistant")
+		wizid.registered_name = user.real_name
+		wizid.SetOwnerInfo(user)
+		wizid.UpdateName()
+		wizid.RebuildHTML()
