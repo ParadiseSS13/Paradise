@@ -52,7 +52,7 @@
 		return FALSE
 
 	..()
-	stat = DEAD
+	set_stat(DEAD)
 
 	timeofdeath = world.time
 	create_log(ATTACK_LOG, "died[gibbed ? " (Gibbed)": ""]")

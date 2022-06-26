@@ -371,6 +371,8 @@
 	return 0
 
 /mob/living/proc/Sleeping(amount, ignore_canstun = FALSE)
+	if(frozen) // If the mob has been admin frozen, sleeping should not be changeable
+		return
 	if(status_flags & GODMODE)
 		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
@@ -380,7 +382,7 @@
 		S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount)
 	return S
 
-/mob/living/proc/SetSleeping(amount, ignore_canstun = FALSE)
+/mob/living/proc/SetSleeping(amount, ignore_canstun = FALSE, voluntary = FALSE)
 	if(frozen) // If the mob has been admin frozen, sleeping should not be changeable
 		return
 	if(status_flags & GODMODE)
@@ -391,13 +393,19 @@
 	if(S)
 		S.duration = amount + world.time
 	else if(amount > 0)
-		S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount)
+		S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount, voluntary)
+	if(!voluntary && S)
+		// Only set it one way (true => false)
+		// Otherwise if we are hard knocked out, and then try to nap, we'd be
+		// treated as "just lightly napping" and woken up by trivial stuff.
+		S.voluntary = FALSE
 	return S
 
 /mob/living/proc/PermaSleeping() /// used for admin freezing.
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(S)
 		S.duration = -1
+		S.voluntary = FALSE
 	else
 		S = apply_status_effect(STATUS_EFFECT_SLEEPING, -1)
 	return S

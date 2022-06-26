@@ -172,6 +172,7 @@ Difficulty: Very Hard
 	var/obj/item/projectile/P = new /obj/item/projectile/colossus(startloc)
 	P.preparePixelProjectile(marker, marker, startloc)
 	P.firer = src
+	P.firer_source_atom = src
 	if(target)
 		P.original = target
 	P.fire(set_angle)

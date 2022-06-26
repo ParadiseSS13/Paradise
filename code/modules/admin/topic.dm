@@ -2868,9 +2868,12 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Traitor All ([objective])")
 
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
-					if(H.stat == 2 || !H.client || !H.mind) continue
-					if(is_special_character(H)) continue
-					//traitorize(H, objective, 0)
+					if(H.stat == DEAD || !H.client || !H.mind)
+						continue
+					if(is_special_character(H))
+						continue
+					if(jobban_isbanned(H, ROLE_TRAITOR) || jobban_isbanned(H, ROLE_SYNDICATE))
+						continue
 					H.mind.add_antag_datum(/datum/antagonist/traitor)
 
 				for(var/mob/living/silicon/A in GLOB.player_list)

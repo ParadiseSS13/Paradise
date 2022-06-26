@@ -15,7 +15,10 @@
 	add_req_access = 0
 	max_equip = 3
 	starting_voice = /obj/item/mecha_modkit/voice/honk
-	var/squeak = 0
+
+/obj/mecha/combat/honker/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20, squeak_on_move = TRUE) //die off quick please
 
 /obj/mecha/combat/honker/loaded/New()
 	..()
@@ -124,18 +127,6 @@
 		output += "<div id='\ref[MT]'>[MT.get_equip_info()]</div>"
 	output += "</div>"
 	return output
-
-
-
-/obj/mecha/combat/honker/mechstep(direction)
-	var/result = step(src,direction)
-	if(result)
-		if(!squeak)
-			playsound(src, "clownstep", 70, 1)
-			squeak = 1
-		else
-			squeak = 0
-	return result
 
 /obj/mecha/combat/honker/Topic(href, href_list)
 	..()
