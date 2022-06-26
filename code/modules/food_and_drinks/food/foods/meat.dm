@@ -17,7 +17,10 @@
 		new /obj/item/reagent_containers/food/snacks/rawcutlet(src)
 		new /obj/item/reagent_containers/food/snacks/rawcutlet(src)
 		new /obj/item/reagent_containers/food/snacks/rawcutlet(src)
-		to_chat(user, "You cut the meat in thin strips.")
+		user.visible_message( \
+			"<span class ='notice'>[user] cuts the [src] with the [W]!</span>", \
+			"<span class ='notice'>You cut the [src] with your [W]!</span>" \
+			)
 		qdel(src)
 	else
 		..()
