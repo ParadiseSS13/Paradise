@@ -12645,7 +12645,7 @@
 /area/crew_quarters/arcade)
 "cGH" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "greyblack"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/kitchen)
 "cGO" = (
@@ -13443,7 +13443,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "greyblack"
+	icon_state = "darkgreycheck"
 	},
 /area/hydroponics/abandoned_garden{
 	name = "Service Hall"
@@ -16687,7 +16687,7 @@
 /obj/item/robotanalyzer,
 /obj/item/storage/firstaid/machine,
 /obj/item/storage/firstaid/machine,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "dBl" = (
 /obj/effect/decal/cleanable/dirt,
@@ -31258,7 +31258,7 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "greyblack"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/kitchen)
 "gIy" = (
@@ -43668,7 +43668,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "greyblack"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/kitchen)
 "jqb" = (
@@ -60934,7 +60934,9 @@
 	req_access_txt = "35"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
+	dir = 4;
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
 	},
 /area/hydroponics)
 "naK" = (
@@ -83549,7 +83551,7 @@
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "greyblack"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/kitchen)
 "scZ" = (
@@ -90481,7 +90483,7 @@
 	pixel_x = 3
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "greyblack"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/kitchen)
 "tBv" = (
@@ -93264,7 +93266,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "greyblack"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/kitchen)
 "uiT" = (
@@ -100750,7 +100752,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "greyblack"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/kitchen)
 "vQj" = (
@@ -101204,7 +101206,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "greyblack"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/kitchen)
 "vUO" = (
@@ -102649,7 +102651,7 @@
 "wkc" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "greyblack"
+	icon_state = "darkgreycheck"
 	},
 /area/crew_quarters/kitchen)
 "wkd" = (
