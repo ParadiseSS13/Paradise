@@ -86,25 +86,26 @@
 	destroy_spellbook = TRUE
 
 /datum/spellbook_entry/loadout/greytide/OnBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	if(user) //Clothing is annoying to unequip/equip. Instant greytider time.
-		to_chat(user, "<span class='notice'>Your clothes fall to the floor as a brand new outfit magically snaps on your body out of nowhere!</span>")
-		user.unEquip(user.w_uniform)
-		user.unEquip(user.wear_mask)
-		user.unEquip(user.shoes)
-		user.unEquip(user.wear_suit)
-		user.unEquip(user.head)
-		user.unEquip(user.wear_id)
-		user.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/glorf, slot_w_uniform)
-		user.equip_to_slot_or_del(new /obj/item/clothing/mask/gas, slot_wear_mask)
-		user.equip_to_slot_or_del(new /obj/item/clothing/shoes/black, slot_shoes)
-		var/obj/item/card/id/wizid = new /obj/item/card/id(src)
-		user.equip_to_slot_or_del(wizid, slot_wear_id)
-		wizid.registered_name = user.real_name
-		wizid.access = list(ACCESS_MAINT_TUNNELS)
-		wizid.assignment = "Assistant"
-		wizid.rank = "Assistant"
-		wizid.photo = get_id_photo(user, "Assistant")
-		wizid.registered_name = user.real_name
-		wizid.SetOwnerInfo(user)
-		wizid.UpdateName()
-		wizid.RebuildHTML()
+	if(!user) //Clothing is annoying to unequip/equip. Instant greytider time.
+		return
+	to_chat(user, "<span class='notice'>Your clothes fall to the floor as a brand new outfit magically snaps on your body out of nowhere!</span>")
+	user.unEquip(user.w_uniform)
+	user.unEquip(user.wear_mask)
+	user.unEquip(user.shoes)
+	user.unEquip(user.wear_suit)
+	user.unEquip(user.head)
+	user.unEquip(user.wear_id)
+	user.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/glorf, slot_w_uniform)
+	user.equip_to_slot_or_del(new /obj/item/clothing/mask/gas, slot_wear_mask)
+	user.equip_to_slot_or_del(new /obj/item/clothing/shoes/black, slot_shoes)
+	var/obj/item/card/id/wizid = new /obj/item/card/id(src)
+	user.equip_to_slot_or_del(wizid, slot_wear_id)
+	wizid.registered_name = user.real_name
+	wizid.access = list(ACCESS_MAINT_TUNNELS)
+	wizid.assignment = "Assistant"
+	wizid.rank = "Assistant"
+	wizid.photo = get_id_photo(user, "Assistant")
+	wizid.registered_name = user.real_name
+	wizid.SetOwnerInfo(user)
+	wizid.UpdateName()
+	wizid.RebuildHTML()
