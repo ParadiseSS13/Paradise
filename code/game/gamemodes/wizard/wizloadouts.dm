@@ -78,25 +78,22 @@
 		You might want to raid the Armory or loot a Security Officer to get ranged weapons like a disabler, His Grace's Hunger has little patience.<br><br> \
 		</i>Provides His Grace, an Ancient Jumpsuit, an Assistant ID, a Gas Mask and Shoes, Insulated Gloves, a full Toolbelt, Ethereal Jaunt, Teleport, Knock and No Clothes.<i>"
 	log_name = "GT"
-	items_path = list(/obj/item/his_grace, /obj/item/clothing/gloves/color/yellow, /obj/item/storage/belt/utility/full/multitool)
+	items_path = list(/obj/item/his_grace, /obj/item/clothing/under/color/grey/glorf, /obj/item/clothing/mask/gas, /obj/item/clothing/shoes/black, \
+		 /obj/item/clothing/gloves/color/yellow, /obj/item/storage/belt/utility/full/multitool)
 	spells_path = list(/obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/area_teleport/teleport, \
 		/obj/effect/proc_holder/spell/aoe_turf/knock, /obj/effect/proc_holder/spell/noclothes)
 	category = "Unique"
 	destroy_spellbook = TRUE
 
 /datum/spellbook_entry/loadout/greytide/OnBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	if(!user) //Clothing is annoying to unequip/equip. Instant greytider time.
+	if(!user)
 		return
-	to_chat(user, "<span class='notice'>Your clothes fall to the floor as a brand new outfit magically snaps on your body out of nowhere!</span>")
-	user.unEquip(user.w_uniform)
-	user.unEquip(user.wear_mask)
-	user.unEquip(user.shoes)
-	user.unEquip(user.wear_suit)
-	user.unEquip(user.head)
+	if(isplasmaman(user))
+		to_chat(user, "<span class='notice'>A spectral hand appears from your spellbook and pulls a brand new plasmaman suit with helmet from the void, then drops it on the floor.</span>")
+		new /obj/item/clothing/head/helmet/space/plasmaman/assistant(get_turf(user))
+		new /obj/item/clothing/under/plasmaman/assistant(get_turf(user))
 	user.unEquip(user.wear_id)
-	user.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/glorf, slot_w_uniform)
-	user.equip_to_slot_or_del(new /obj/item/clothing/mask/gas, slot_wear_mask)
-	user.equip_to_slot_or_del(new /obj/item/clothing/shoes/black, slot_shoes)
+	user.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/glorf, slot_w_uniform) //Just in case they're naked
 	var/obj/item/card/id/wizid = new /obj/item/card/id(src)
 	user.equip_to_slot_or_del(wizid, slot_wear_id)
 	wizid.registered_name = user.real_name
