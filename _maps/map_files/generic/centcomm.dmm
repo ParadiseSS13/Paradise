@@ -3880,7 +3880,7 @@
 	},
 /area/syndicate_mothership)
 "ng" = (
-/obj/structure/mecha_wreckage/phazon,
+/obj/mecha/combat/phazon,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "ni" = (
@@ -70482,7 +70482,7 @@ aN
 wk
 mu
 lZ
-lZ
+mu
 lZ
 wk
 wk

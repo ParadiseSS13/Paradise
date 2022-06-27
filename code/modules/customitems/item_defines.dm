@@ -1209,7 +1209,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fox_jacket"
 	item_state = "fox_jacket"
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/projectile/automatic/pistol, /obj/item/gun/projectile/revolver, /obj/item/gun/projectile/revolver/detective)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/projectile/automatic/pistol, /obj/item/gun/projectile/revolver, /obj/item/gun/energy/detective)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT

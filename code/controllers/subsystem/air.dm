@@ -46,7 +46,8 @@ SUBSYSTEM_DEF(air)
 	var/list/currentrun = list()
 	var/currentpart = SSAIR_DEFERREDPIPENETS
 
-/datum/controller/subsystem/air/stat_entry(msg)
+/datum/controller/subsystem/air/get_stat_details()
+	var/list/msg = list()
 	msg += "C:{"
 	msg += "AT:[round(cost_turfs,1)]|"
 	msg += "EG:[round(cost_groups,1)]|"
@@ -64,7 +65,7 @@ SUBSYSTEM_DEF(air)
 	msg += "HP:[high_pressure_delta.len]|"
 	msg += "AS:[active_super_conductivity.len]|"
 	msg += "AT/MS:[round((cost ? active_turfs.len/cost : 0),0.1)]"
-	..(msg)
+	return msg.Join("")
 
 /datum/controller/subsystem/air/get_metrics()
 	. = ..()

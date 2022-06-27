@@ -49,8 +49,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER
 
-
-	stat = DEAD
+	set_stat(DEAD)
 
 	var/turf/T
 	if(ismob(body))
