@@ -158,7 +158,6 @@
 	buildstacktype = /obj/item/stack/sheet/wood
 	item_chair = /obj/item/chair/wood
 
-
 /obj/structure/chair/wood/narsie_act()
 	return
 
@@ -418,10 +417,10 @@
 	icon_state = "bamboo_sofamiddle"
 	color = null
 	colorable = FALSE
-	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	buildstackamount = 2
 	buildstacktype = /obj/item/stack/sheet/wood
+
 /obj/structure/chair/sofa/bamboo/left
 	icon_state = "bamboo_sofaend_left"
 
