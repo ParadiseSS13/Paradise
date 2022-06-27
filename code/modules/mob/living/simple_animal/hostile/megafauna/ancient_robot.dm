@@ -1,4 +1,4 @@
-#define BODY_SHIELD_COOLDOWN_TIME 45 SECONDS
+#define BODY_SHIELD_COOLDOWN_TIME 5 SECONDS
 #define EXTRA_PLAYER_ANGER_NORMAL_CAP 6
 #define EXTRA_PLAYER_ANGER_STATION_CAP 3
 #define BLUESPACE 1
@@ -22,7 +22,7 @@ Hybrid ranged / melee combatant, similar to bubblegum.
 
 It has several attacks at it's disposal. It can melee with it's body and legs, however a person will not be hit by both at once unless poorly positioned. Legs also have a weak turret on each leg, that can be broken via damage.
 
-Every 45 seconds, it can deploy a shield for 15 seconds that blocked ranged attacks on it's body, but not melee, and not on legs.
+Every 5 seconds it creates a shield around itself, that blocks 1 hit, or multiple non damaging hits. Crusher users will need blast tube to break the shield, OR melee the robot with shield up to de-activate it.
 
 The main feature that makes it unique, is that it has 5 modes, based on each anomaly core, that can augment it's remaning attacks.
 
@@ -81,7 +81,6 @@ Difficulty: Hard
 	var/revving_charge = FALSE
 	var/player_cooldown = 0
 	var/body_shield_enabled = FALSE
-	var/body_shield_cooldown = FALSE
 	var/extra_player_anger = 0
 	var/mode = 0 //This variable controls the special attacks of the robot, one for each anomaly core.
 	var/exploding = FALSE
@@ -106,7 +105,7 @@ Difficulty: Hard
 	if(mode == FLUX) // Main attack is shock, so flux makes it stronger
 		melee_damage_lower = 25
 		melee_damage_upper = 25
-
+	body_shield()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Destroy()
 	QDEL_NULL(TR)
@@ -131,10 +130,11 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/death(gibbed, allowed = FALSE)
 	if(allowed)
 		return ..()
-	else //but it refused
-		adjustBruteLoss(-1)
-		self_destruct()
-		exploding = TRUE
+	else if(exploding) //but it refused
+		return
+	adjustBruteLoss(-1)
+	self_destruct()
+	exploding = TRUE
 
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/drop_loot()
@@ -167,9 +167,6 @@ Difficulty: Hard
 
 	if(prob(30 + anger_modifier))
 		triple_charge()
-
-	else if(prob(50) && !body_shield_enabled && !body_shield_cooldown)
-		body_shield()
 
 	else if(prob(60 + anger_modifier))
 		do_special_move()
@@ -253,23 +250,30 @@ Difficulty: Hard
 	//add overlay of shield, give it immunity to ranged (but not melee) during duration.
 	body_shield_enabled = TRUE
 	visible_message("<span class='danger'>[src] creates some sort of energy shield!</span>")
-	addtimer(CALLBACK(src, .proc/disable_shield), 15 SECONDS)
 	add_overlay("shield")
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/disable_shield()
 	visible_message("<span class='danger'>[src]'s shield fails!</span>")
 	cut_overlay("shield")
 	body_shield_enabled = FALSE
-	body_shield_cooldown = TRUE
-	addtimer(CALLBACK(src, .proc/reset_shield_cooldown), 30 SECONDS)
+	addtimer(CALLBACK(src, .proc/body_shield), BODY_SHIELD_COOLDOWN_TIME)
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/reset_shield_cooldown()
-	body_shield_cooldown = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/bullet_act(obj/item/projectile/P)
 	if(body_shield_enabled)
+		do_sparks(2, 1, src)
 		visible_message("<span class='danger'>[src]'s shield deflects the projectile in a shower of sparks!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
-		playsound(src, pick('sound/effects/sparks1.ogg', 'sound/effects/sparks2.ogg', 'sound/effects/sparks3.ogg', 'sound/effects/sparks4.ogg'), 300, TRUE)
+		if(P.damage)
+			disable_shield()
+		return
+	..()
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/attacked_by(obj/item/I, mob/living/user)
+	if(body_shield_enabled)
+		do_sparks(2, 1, src)
+		visible_message("<span class='danger'>[src]'s shield deflects [I] in a shower of sparks!</span>", "<span class='userdanger'>You deflect the attacl!</span>")
+		if(I.force)
+			disable_shield()
 		return
 	..()
 
@@ -277,7 +281,7 @@ Difficulty: Hard
 	say(pick("JKYZXAIZOBK GTGREYKX GIZOBK", "OTZKMXGZOTM YAHPKIZ YZXKTMZNY", "JKIUSVOROTM GTJ RKGXTOTM", "LOTJOTM IXOZOIGR CKGQTKYYKY")) //what can I say, I like the trope of something talking in cypher
 	visible_message("<span class='userdanger'>[src] disintigrates [L]!</span>","<span class='userdanger'>You analyse [L], restoring your health!</span>")
 	if(!is_station_level(z) || client)
-		adjustHealth(-L.maxHealth * 0.2)
+		adjustHealth(-maxHealth * 0.1)
 	L.dust()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/do_special_move()
@@ -386,7 +390,6 @@ Difficulty: Hard
 	extra_player_anger = clamp(anger,1,cap) - 1
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/self_destruct()
-	status_flags ^= GODMODE
 	say(pick("OTZKMXOZE LGORAXK, YKRL JKYZXAIZ GIZOBK", "RUYY IKXZGOT, KTMGMKOTM XKIUBKXE JKTOGR", "VUCKX IUXKY 8-12 HXKGINKJ, UBKXRUGJOTM XKSGOTOTM IUXKY", "KXXUX KXXUX KXXUX KXXUX KXX-", "-ROQK ZKGXY OT XGOT- - -ZOSK ZU JOK"))
 	visible_message("<span class='biggerdanger'>[src] begins to overload it's core. It is going to explode!</span>")
 	walk(src, 0)
@@ -395,7 +398,6 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/kaboom()
 	explosion(get_turf(src), -1, 10, 20, 20)
-	status_flags ^= GODMODE
 	health = 0
 	death(allowed = TRUE)
 
