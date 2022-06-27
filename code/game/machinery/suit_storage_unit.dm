@@ -652,6 +652,8 @@
 			updateUsrDialog()
 			update_icon()
 		if(href_list["cook"])
+			if(!check_allowed(usr))
+				return
 			cook(usr)
 			updateUsrDialog()
 			update_icon()
