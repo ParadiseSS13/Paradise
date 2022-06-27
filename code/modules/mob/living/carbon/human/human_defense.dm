@@ -37,10 +37,10 @@ emp_act
 		return 2
 
 	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
-		if(!lying && !HAS_TRAIT(src, TRAIT_HULK) && mind.martial_art.try_deflect(src) && P.is_reflectable(desired_reflectability_level = REFLECTABILITY_PHYSICAL, qdel_on_fail = TRUE)) //But only if they're not lying down, and hulks can't do it, and only if it can be reflected
+		if(!lying && !HAS_TRAIT(src, TRAIT_HULK) && mind.martial_art.try_deflect(src)) //But only if they're not lying down, and hulks can't do it
 			add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by martial arts '[mind.martial_art]'")
 			playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
-			if(HAS_TRAIT(src, TRAIT_PACIFISM))
+			if(HAS_TRAIT(src, TRAIT_PACIFISM) || !P.is_reflectable(REFLECTABILITY_PHYSICAL)) //if it cannot be reflected, it hits the floor. This is the exception to the rule
 				// Pacifists can deflect projectiles, but not reflect them.
 				// Instead, they deflect them into the ground below them.
 				var/turf/T = get_turf(src)

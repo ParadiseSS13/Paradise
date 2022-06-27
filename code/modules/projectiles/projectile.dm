@@ -196,7 +196,7 @@
 	if(!yes) //prevents double bumps.
 		return
 
-	if(is_reflectable(REFLECTABILITY_PHYSICAL) && check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max)
+	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
 		ricochets++
 		if(A.handle_ricochet(src))
 			on_ricochet(A)
@@ -389,12 +389,9 @@
 	if(trajectory && !trajectory_ignore_forcemove && isturf(target))
 		trajectory.initialize_location(target.x, target.y, target.z, 0, 0)
 
-/obj/item/projectile/proc/is_reflectable(desired_reflectability_level, qdel_on_fail)
-	. = TRUE
+/obj/item/projectile/proc/is_reflectable(desired_reflectability_level)
 	if(reflectability == REFLECTABILITY_NEVER) //You'd trust coders not to try and override never reflectable things, but heaven help us I do not
-		. = FALSE
+		return FALSE
 	if(reflectability < desired_reflectability_level)
-		. = FALSE
-	if(qdel_on_fail && !.)
-		qdel(src)
-	return .
+		return FALSE
+	return TRUE
