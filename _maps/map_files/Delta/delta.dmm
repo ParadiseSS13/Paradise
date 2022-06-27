@@ -14725,7 +14725,7 @@
 /area/maintenance/gambling_den)
 "aRl" = (
 /obj/structure/table/wood,
-/obj/item/toy/cards/deck/syndicate,
+/obj/item/deck/cards/syndicate,
 /turf/simulated/floor/plasteel/grimy,
 /area/maintenance/gambling_den)
 "aRm" = (
@@ -93702,7 +93702,7 @@
 "qpZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "qqh" = (

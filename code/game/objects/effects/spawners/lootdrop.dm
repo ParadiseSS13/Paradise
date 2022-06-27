@@ -154,7 +154,7 @@
 				/obj/item/storage/box/syndie_kit/space = 2,
 				/obj/item/multitool/ai_detect = 2,
 				/obj/item/implanter/storage = 1,
-				/obj/item/toy/cards/deck/syndicate = 2,
+				/obj/item/deck/cards/syndicate = 2,
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
