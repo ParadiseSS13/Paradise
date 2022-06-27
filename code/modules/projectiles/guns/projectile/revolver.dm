@@ -432,8 +432,8 @@
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon()
 	..()
 	if(sling)
-		icon_state = "ishotgunsling"
-		item_state = "ishotgunsling"
+		icon_state = "ishotgun_sling"
+		item_state = "ishotgun_sling"
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()

@@ -66,7 +66,7 @@
 	desc = "An advanced energy revolver with the capacity to shoot both disablers and lasers."
 	cell_type = /obj/item/stock_parts/cell/hos_gun
 	icon_state = "bsgun"
-	item_state = "bsgun"
+	item_state = null
 	force = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
@@ -77,6 +77,7 @@
 	name = "\improper PDW-9 taser pistol"
 	desc = "A military grade sidearm, used by many militia forces throughout the local sector."
 	icon_state = "pdw9pistol"
+	item_state = "gun"
 
 /obj/item/gun/energy/gun/turret
 	name = "hybrid turret gun"

@@ -85,7 +85,11 @@
 	name = "foam force crossbow"
 	desc = "A weapon favored by many overactive children. Ages 8 and up."
 	icon_state = "crossbow"
-	item_state = "crossbow"
+	item_state = "foamcrossbow"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	inhand_x_dimension = 32
+	inhand_y_dimension = 32
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/crossbow
 	fire_sound = 'sound/items/syringeproj.ogg'
 	slot_flags = SLOT_BELT
@@ -125,6 +129,10 @@
 	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "tommygun"
 	item_state = "shotgun"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	inhand_x_dimension = 32
+	inhand_y_dimension = 32
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/tommygun
 	w_class = WEIGHT_CLASS_SMALL
 

@@ -139,7 +139,7 @@
 	name = "sawn-off riot shotgun"
 	desc = sawn_desc
 	w_class = WEIGHT_CLASS_NORMAL
-	current_skin = "riotshotgun-short"
+	current_skin = "riotshotgun_sawn"
 	item_state = "riotshotgun_sawn"			//phil235 is it different with different skin?
 	slot_flags &= ~SLOT_BACK    //you can't sling it on your back
 	slot_flags |= SLOT_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)

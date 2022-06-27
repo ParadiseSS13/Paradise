@@ -80,6 +80,7 @@
 	name = "\improper Nanotrasen Saber SMG"
 	desc = "A rejected prototype three-round burst 10mm submachine gun, designated 'SABR'. Surplus of this model are bouncing around armories of Nanotrasen Space Stations. Has a threaded barrel for suppressors."
 	icon_state = "saber"
+	item_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/smgm10mm
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
@@ -116,7 +117,7 @@
 	name = "security auto rifle"
 	desc = "An outdated personal defense weapon utilized by law enforcement. The WT-550 Automatic Rifle fires 4.6x30mm rounds."
 	icon_state = "wt550"
-	item_state = "arg"
+	item_state = "wt550"
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
 	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
