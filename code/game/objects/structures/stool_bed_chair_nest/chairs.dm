@@ -417,6 +417,7 @@
 	icon_state = "bamboo_sofamiddle"
 	color = null
 	colorable = FALSE
+	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	buildstackamount = 2
 	buildstacktype = /obj/item/stack/sheet/wood
