@@ -389,9 +389,12 @@
 	if(trajectory && !trajectory_ignore_forcemove && isturf(target))
 		trajectory.initialize_location(target.x, target.y, target.z, 0, 0)
 
-/obj/item/projectile/proc/is_reflectable(desired_reflectability_level)
+/obj/item/projectile/proc/is_reflectable(desired_reflectability_level, qdel_on_fail)
+	. = TRUE
 	if(reflectability == REFLECTABILITY_NEVER) //You'd trust coders not to try and override never reflectable things, but heaven help us I do not
-		return FALSE
+		. = FALSE
 	if(reflectability < desired_reflectability_level)
-		return FALSE
-	return TRUE
+		. = FALSE
+	if(qdel_on_fail && !.)
+		qdel(src)
+	return .
