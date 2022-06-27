@@ -98,7 +98,7 @@
 	// Check if the language used is innate
 	for(var/datum/multilingual_say_piece/SP in message_pieces)
 		if(SP.speaking && SP.speaking.flags & INNATE)
-			custom_emote(EMOTE_VISIBLE, message_clean, TRUE)
+			custom_emote(EMOTE_AUDIBLE, message_clean, TRUE)
 			return
 
 	if(!can_hear())
