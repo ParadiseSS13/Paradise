@@ -392,6 +392,6 @@
 /obj/item/projectile/proc/is_reflectable(desired_reflectability_level)
 	if(reflectability == REFLECTABILITY_NEVER) //You'd trust coders not to try and override never reflectable things, but heaven help us I do not
 		return FALSE
-	if(reflectability > desired_reflectability_level)
+	if(reflectability < desired_reflectability_level)
 		return FALSE
 	return TRUE
